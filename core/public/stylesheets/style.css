@@ -1,0 +1,130 @@
+/*
+http://www.colourlovers.com/palette/148712/Gamebookers
+
+Orange:
+#FF9900
+
+Cool blue:
+#3299BB
+
+Dark grey:
+#424242
+
+Light grey:
+#E9E9E9
+
+Middel grey:
+#BCBCBC
+
+*/
+
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica", Helvetica, Arial, sans-serif;
+	background-color: #E9F2F9;
+	
+	color: #424242;
+}
+
+/** */
+.container {
+
+}
+
+#headerWrapper {
+	width: 100%;
+	height: 40px;
+	background-color: #3299BB;
+	
+	background-image: url('/images/background-blue-gradient.png');
+	
+	border-bottom: solid 1px #3299BB;
+	-webkit-box-shadow: 0px -4px 20px #333;
+}
+
+#header {
+/*	background-color: #3299BB;*/
+}
+
+#header img {
+	margin-top: 5px;
+	padding: 5px;
+}
+
+
+#mainWrapper {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/** Search */
+#search {
+	float: left;
+	position: relative;
+}
+#search input {
+	width: 200px;
+	padding: 6px 25px 4px 6px;
+	margin-top: 7px;
+	border-radius: 5px;
+	float: left;
+	
+	border: solid 1px #26748e;
+	
+	-webkit-box-shadow:inset 0 0 3px #666;
+/*	border: solid 1px #2d89a7;*/
+}
+
+#search span.glass {
+	display: block;
+	padding: 12px 4px 5px;
+	position: absolute;
+	right: 0px;
+}
+
+#search span.glass i {
+	background-image: url(http://a2.twimg.com/a/1295982098/phoenix/img/sprite-icons.png);
+	background-position: -224px -96px;
+	display: block;
+	height: 14px;
+	width: 14px;
+}
+
+#buttons {
+	margin-top: 9px;
+	color: #424242;
+}
+
+
+#tabs {
+	padding: 10px;
+}
+
+	
+#leftColumn {
+	border-top-left-radius: 14px;
+	background-color: rgba(255, 255, 255, 1.0);
+	border-right: solid 2px #ccc;
+	margin-right: -2px;
+}
+
+.factBlock {
+	padding-left: 10px;
+}
+
+ul.horizontal li{
+	list-style: none;
+	display: inline;
+	padding: 10px 25px 0px 25px;
+}
+
+li.active {
+	border: solid 1px #ccc;
+	border-bottom: none;
+}
+
+#rightColumn {
+	padding: 5px;
+}
+#rightColumn ul {
+	padding-left: 10px;
+	list-style: none;
+}

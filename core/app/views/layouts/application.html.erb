@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FactlinkUI</title>
+
+	<!-- Blueprint CSS -->
+	<link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+	<!-- [if lt IE 8]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"><![endif] -->
+
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	
+	<div id="headerWrapper" class="append-bottom">
+	
+		<div id="header" class="container">
+		
+			<div class="span-24">
+				
+				<div class="span-3">
+					<%= link_to(image_tag("factlink-logo.png", :width => 96), "/") %>
+					<!-- <p>providing credibility</p> -->
+				</div>
+		
+				<div id="search" class="span-6">
+					<form>
+						<input id="q" name="q" type="text" placeholder="Search">
+						<span class="glass">
+							<i></i>
+						</span>
+					</form>
+				</div> <!-- search -->
+				
+				
+				<div id="buttons" class="span-15 last">
+					<ul class="horizontal">
+						<li>Home</li>
+						<li>Profile</li>
+						<li>Messages</li>
+					</ul>
+				</div>
+				<!-- <div class="prepend-8 span-8 last">
+					<img src="http://a0.twimg.com/profile_images/52771162/me1_normal.jpg" style="float: left;"/>Merijn481
+				</div> -->
+				
+			</div> <!-- span-24 -->
+		
+		</div> <!-- header -->
+	</div> <!-- headerWrapper -->
+	
+	<div id="mainWrapper" class="container">
+		
+		<%= yield %>
+
+	</div> <!-- container -->
+</body>
+</html>
