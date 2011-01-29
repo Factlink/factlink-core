@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @factlink.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @factlink.description %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @factlink.content %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_factlink_path(@factlink) %> |
+<%= link_to 'Back', factlinks_path %>

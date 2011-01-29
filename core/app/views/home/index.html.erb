@@ -16,11 +16,8 @@
 		</ul> -->
 	</div> <!-- tabs -->
 	
-	<% (1..6).each do |block| %>
-	<div class="factBlock span-12">
-		<h3>Some title</h3>
-		<p>baron baron baron baron</p>		
-	</div>
+	<% @factlinks.each do |factlink| %>
+		<%= render :partial => "factlink_block", :locals => {:factlink => factlink} %>
 	<% end %>
 	
 </div> <!-- leftColumn -->

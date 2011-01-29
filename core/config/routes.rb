@@ -1,5 +1,7 @@
 FactlinkUI::Application.routes.draw do
   
+  resources :factlinks
+
   root :to => "home#index"
 
   # The priority is based upon order of creation:
