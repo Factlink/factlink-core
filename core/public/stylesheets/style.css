@@ -6,6 +6,7 @@ Orange:
 
 Cool blue:
 #3299BB
+rgba(50, 153, 187, 1.0);
 
 Dark grey:
 #424242
@@ -120,6 +121,16 @@ body {
 	border-top: solid 6px #f3f3f3;
 }
 
+.factBlock:hover {
+	background-color: rgba(50, 153, 187, 0.1);
+	cursor: pointer;
+}
+
+.factBlock p {
+	padding: 0px;
+	margin: 0px;
+}
+
 #leftColumn h3, 
 #leftColumn p {
 	padding-left: 10px;
@@ -151,4 +162,15 @@ li.active {
 
 .italic {
 	font-style: italic;
+}
+
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+
+.user {
+	color: #ccc;
 }
