@@ -2,7 +2,10 @@
 
 	<div id="related_topics" class="span-12 prepend-top">
 		
-		<p>Did you mean '<span class="italic"><%= params[:search] %></span>'?</p>
+		<% if params[:search] %>
+			<p>Did you mean '<span class="italic"><%= params[:search] %></span>'?</p>
+		<% end %>
+		
 		<ul class="horizontal">
 			<li>#linux</li>
 			<li>#kernel</li>

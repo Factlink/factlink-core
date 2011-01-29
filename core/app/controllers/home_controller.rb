@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 
   def index
     search_query = params[:search]
+    
 
     @factlinks = []
 
