@@ -12,14 +12,7 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-	
-	<% form_tag root_path, :method => 'post' do %>
-	  <p>
-	    <%= text_field_tag :search, params[:search] %>
-	    <%= submit_tag "Search", :name => nil %>
-	  </p>
-	<% end %>
-	
+
 	<div id="headerWrapper" class="append-bottom">	
 		<div id="header" class="container">
 			<div class="span-24">
@@ -28,12 +21,12 @@
 				</div> <!-- .span-3 -->
 		
 				<div id="search" class="span-6">
-					<form >
-						<input id="q" name="q" type="text" placeholder="Search">
+					<% form_tag root_path, :method => 'post' do %>
+						<input id="search" name="search" type="text" value="<%= params[:search] %>" placeholder="Search">
 						<span class="glass">
 							<i></i>
 						</span>
-					</form>
+					<% end %>
 				</div> <!-- #search -->
 				
 				<div id="buttons" class="span-15 last">

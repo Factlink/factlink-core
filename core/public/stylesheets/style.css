@@ -106,7 +106,22 @@ body {
 	margin-right: -2px;
 }
 
+#leftColumn #factlinkContainer {
+/*	padding: 20px;*/
+}
+
+#rightColumnContainer{
+	padding-left: 20px;
+}
+
 .factBlock {
+	padding-top: 10px;
+	margin-left: 20px;
+	border-top: solid 6px #f3f3f3;
+}
+
+#leftColumn h3, 
+#leftColumn p {
 	padding-left: 10px;
 }
 
@@ -127,4 +142,13 @@ li.active {
 #rightColumn ul {
 	padding-left: 10px;
 	list-style: none;
+}
+
+/** Styling */
+.bold {
+	font-weight: bold;
+}
+
+.italic {
+	font-style: italic;
 }
