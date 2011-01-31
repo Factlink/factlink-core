@@ -21,7 +21,7 @@
 				</div> <!-- .span-3 -->
 		
 				<div id="search" class="span-6">
-					<% form_tag root_path, :method => 'post' do %>
+					<%= form_tag root_path, :method => 'post' do %>
 						<input id="search" name="search" type="text" value="<%= params[:search] %>" placeholder="Search">
 						<span class="glass">
 							<i></i>
