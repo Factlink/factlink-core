@@ -2,45 +2,18 @@ class HomeController < ApplicationController
 
   def index
     @factlinks = []
-    user_input = params[:search]
-    results_per_page = 10
 
-    search_query = "#{user_input} #fact"
-    
-    tweets = []
-    if search_query      
-      search = Twitter::Search.new
-      tweets = search.containing(search_query).result_type("recent").per_page(results_per_page)      
+    if params[:search].nil?
+      puts "This shouldn't happen. home#index if params[:search].nil?"
+      user_input = ""
+    else
+      user_input = params[:search]
     end
 
-    # Matches to use
-    re_users = /@\S+\s/
-    re_hashtags = /#\S+/
+    parser = FactlinkParser.new
+    @factlinks = parser.parse_tweets_for_query(user_input)
 
-    # TODO: Write a nice function
-    # Filter each tweet and create Factlink
-    tweets.each do |tweetobject|
-      
-      tweet = tweetobject.text
-      
-      users = tweet.scan(re_users)
-      hashtags = tweet.scan(re_hashtags)
-      
-      users.each do |user|
-        tweet.gsub!(user, "")
-        # Filter out RT tag as well
-        tweet.gsub!("RT ", "")
-      end
-      
-      hashtags.each do |hashtag|
-        tweet.gsub!(hashtag, "")
-      end
-      
-      @factlinks << Factlink.new(:from_user => tweetobject.from_user, :text => tweet)
-      
-    end
-
-    
+    @factlinks
   end
 
   # Tweet filtering

@@ -2,12 +2,20 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
+# Devise already comes with oauth2 support, so we just need to put this gems in the Gemfile:
+gem 'devise', :git => "http://github.com/plataformatec/devise.git"
+
+# Mongoid
 gem 'mongoid', '2.0.0.beta.20'
 gem 'bson_ext', '1.2.0'
 
+# Twitter
+gem 'twitter'
+
+# jQuery
 gem 'jquery-rails', '>= 0.2.6'
 
-gem 'twitter'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
