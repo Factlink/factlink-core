@@ -17,7 +17,7 @@ class HomeController < ApplicationController
     re_users = /@\S+\s/
     re_hashtags = /#\S+/
 
-    # TODO Write a nice function
+    # TODO: Write a nice function
     # Filter each tweet and create Factlink
     tweets.each do |tweetobject|
       
