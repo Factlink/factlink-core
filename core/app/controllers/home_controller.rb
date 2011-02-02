@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     end
 
     parser = FactlinkParser.new
-    @factlinks = parser.parse_tweets_for_query(user_input)
+    @factlinks = parser.get_factlinks_for_query(user_input)
 
     @factlinks
   end

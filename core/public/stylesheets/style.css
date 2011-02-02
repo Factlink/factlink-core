@@ -90,8 +90,7 @@ body {
 }
 
 #buttons {
-	margin-top: 9px;
-	color: #424242;
+/*	color: #424242;*/
 }
 
 
@@ -136,7 +135,11 @@ body {
 	padding-left: 10px;
 }
 
-ul.horizontal li{
+ul.horizontal {
+	margin-top: 9px;
+}
+
+ul.horizontal li{	
 	list-style: none;
 	display: inline;
 	padding: 10px 25px 0px 25px;

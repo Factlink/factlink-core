@@ -30,20 +30,42 @@
 					<% end %>
 				</div> <!-- #search -->
 				
-				<div id="buttons" class="span-15 last">
+				<div class="span-10 append-1 last">
 					<ul class="horizontal">
 						<li>Home</li>
 						<li>Profile</li>
-						<li>Messages</li>
+						<li>Messages</li>					
 					</ul>
 				</div> <!-- #buttons -->
-				
+
+				<div class="span-4">
+					
+					<ul class="horizontal">
+					<% if user_signed_in? %>
+						<li><%= link_to ("Sign out", destroy_user_session_path) %></li>
+					<% else %>
+						<li><%= link_to ("Sign in", new_user_session_path) %></li>
+					<% end %>
+					
+					</ul>
+					
+					
+				</div>
+
 			</div> <!-- .span-24 -->
 		
 		</div> <!-- #header -->
 	</div> <!-- #headerWrapper -->
 	
 	<div id="mainWrapper" class="container">
+		
+		<% if notice %>
+		<p class="notice"><%= notice %></p>
+		<% end %>
+
+		<% if alert %>
+		<p class="alert"><%= alert %></p>
+		<% end %>
 		
 		<%= yield %>
 
