@@ -9,7 +9,9 @@ class FactlinkParser
   def parse_tweets_for_query(user_input)
 
     tweets = []
-    @factlinks = { 'factlinks': [], 'topics': [],'users': [], 'documents': [] }
+    # @factlinks = { 'factlinks': [], 'topics': [],'users': [], 'documents': [] }
+    @factlinks = []
+    
 
     # Get FactlinksPerResultPage results with hashtag #fact    
     search_query = "#{user_input} #fact"
