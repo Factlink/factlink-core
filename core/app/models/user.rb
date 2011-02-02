@@ -13,6 +13,6 @@ class User
    # twitter, facebook...
    field :social_accounts, :type => Array
    
-   validates_format_of :url, :with => URI::regexp(%w(http https))
+   # validates_format_of :url, :with => URI::regexp(%w(http https))
 
 end
