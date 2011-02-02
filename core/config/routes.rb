@@ -1,5 +1,7 @@
 FactlinkUI::Application.routes.draw do
   
+  devise_for :users
+
   resources :factlinks
 
   root :to => "home#index"
