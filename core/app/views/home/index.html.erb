@@ -17,11 +17,11 @@
 	
 	<div id="factlinkContainer">
 
-		<% unless @factlinks.count > 0 %>
-			<p><%= @factlinks.count %> results</p>
+		<% unless @results['factlinks'].count > 0 %>
+			<p><%= @results['factlinks'].count %> results</p>
 		<% else %>		
 
-			<% @factlinks.each do |factlink| %>
+			<% @results['factlinks'].each do |factlink| %>
 				<%= render :partial => "factlink_block", :locals => {:factlink => factlink} %>
 			<% end %>
 			
@@ -34,48 +34,32 @@
 <div id="rightColumn" class="span-12 prepend-top last">
 	
 	<div id="rightColumnContainer">
-		<div id="block1" class="span-12">
+		
+		<div id="topics" class="span-12">
 			<div class="span-6">
-				<h3>Expertise</h3>
+				<h3>Related topics</h3>
+
 				<ul>
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
+				<% @results['topics'].each do |topic, count| %>
+					<li><%= topic %></li>
+				<% end %>
 				</ul>
+				
 			</div>
-	
 			<div class="span-6 last">
-				<h3>Read me!</h3>
+				<h3>Related users</h3>
+
 				<ul>
-					<li>Interesting</li>
-					<li>Nice</li>
-					<li>Oh yeah</li>
+				<% @results['users'].each do |user| %>
+					<li><%= user %></li>
+				<% end %>
 				</ul>
 			</div>
-		</div> <!-- #block1 -->
-	
-	
-		<div id="block2" class="span-12">
-			<div class="span-6">
-				<h3>Heading</h3>
-				<ul>
-					<li>1</li>
-					<li>2</li>
-					<li>3</li>
-					<li>4</li>
-				</ul>
-			</div>
-	
-			<div class="span-6 last">
-				<h3>Read me!</h3>
-				<ul>
-					<li>Interesting</li>
-					<li>Nice</li>
-					<li>Oh yeah</li>
-				</ul>
-			</div>
-		</div> <!-- #block2 -->
+
+			</div>		
+		</div> <!-- #topics -->
+		
+		
 	</div> <!-- #rightColumnContainer -->
 	
 </div> <!-- #rightColumn -->
