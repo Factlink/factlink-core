@@ -62,11 +62,13 @@ class FactlinkParser
     @results['topics'].delete_if {|topic| topic[0] == "Fact" }
     @results['topics'] = @results['topics'].map.sort_by { |k,v| v }.reverse
     
+    @results['related_topics'] = self.get_related_topics_for_searchterm(user_input)
+    
     @results 
   end # parse_tweets
   
 
-  def get_suggestions_for_searchterm(searchterm)
+  def get_related_topics_for_searchterm(searchterm)
     # Query Yahoo
     query = "select * from search.suggest where query='#{searchterm}'"
     

@@ -3,4 +3,5 @@ class ApplicationController < ActionController::Base
   
   require 'twitter'
   require 'net/http'
+  
 end
