@@ -6,6 +6,8 @@ FactlinkUI::Application.routes.draw do
 
   root :to => "home#index"
 
+  match "topic/:search" => "home#index", :as => "search_topic"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

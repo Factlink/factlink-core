@@ -1,15 +1,17 @@
-<div id="leftColumn" class="span-12 append-bottom">
+<div id="leftColumn" class="span-14 append-bottom">
 
-	<div id="related_topics" class="span-12 prepend-top">
+	<div id="related_topics" class="span-14 prepend-top">
 		
-		<% if params[:search] %>
+		<% unless params[:search] == "" %>
 			<p>Did you mean '<span class="italic"><%= params[:search] %></span>'?</p>
 		<% end %>
 		
 		<ul class="horizontal">
-			<li>#linux</li>
-			<li>#kernel</li>
-			<li>#failure</li>
+			<% if @results['topics'].count > 0 %>
+				<% @results['topics'][0..3].each do |topic, count| %>
+					<li><%= link_to(topic, search_topic_path(topic)) %></li>
+				<% end %>
+			<% end %>
 		</ul>
 
 	</div> <!-- related_topics -->
@@ -31,23 +33,17 @@
 </div> <!-- leftColumn -->
 
 
-<div id="rightColumn" class="span-12 prepend-top last">
+<div id="rightColumn" class="span-10 prepend-top last">
 	
 	<div id="rightColumnContainer">
 		
-		<div id="topics" class="span-12">
-			<div class="span-6">
-				<h3>Related topics</h3>
-
-				<ul>
-				<% @results['topics'].each do |topic, count| %>
-					<li><%= topic %></li>
-				<% end %>
-				</ul>
+		<div id="topics" class="span-10">
+			<div class="span-5">
+				&nbsp;
 				
 			</div>
-			<div class="span-6 last">
-				<h3>Related users</h3>
+			<div class="span-5 last">
+				<h3>Related users (<%= @results['users'].count %>)</h3>
 
 				<ul>
 				<% @results['users'].each do |user| %>
@@ -58,7 +54,6 @@
 
 			</div>		
 		</div> <!-- #topics -->
-		
 		
 	</div> <!-- #rightColumnContainer -->
 	
