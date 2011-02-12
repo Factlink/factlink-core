@@ -2,21 +2,34 @@ class FactlinkParser
 
   ResultsLanguage = 'en'
   FactlinksPerResultPage = 10
+  FactlinksOn = true
+  TwitterOn = true  
   
   def get_results_for_query(user_input)
-    parse_tweets_for_query(user_input)
-  end
-  
-  def parse_tweets_for_query(user_input)
+    
+    results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [] }
+    
+    twitter_results = parse_tweets_for_query(user_input)
+    
+    results['factlinks'] = twitter_results['factlinks']
+    results['topics'] = twitter_results['topics']
+    results['users'] = twitter_results['users']
+    results['related_topics'] = self.get_related_topics_for_search_term(user_input)
+    results['spell_check'] = self.get_spell_check_for_search_term(user_input)
+    
+    return results
+  end    
+    
+  def parse_tweets_for_query(user_input)  
 
-    tweets = []
-    @results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [] }    
+    twitter_results = { 'factlinks' => [], 'topics' => {}, 'users' => [] }
 
     # Get FactlinksPerResultPage results with hashtag #fact    
     # search_query = "#{user_input} #fact"
     search_query = "#{user_input}"
     
     search = Twitter::Search.new
+    tweets = []
     tweets = search.containing(search_query).result_type('recent').per_page(FactlinksPerResultPage).lang(ResultsLanguage)
     
     # Matches to use for @users and #hashtags
@@ -39,7 +52,7 @@ class FactlinkParser
         tweet.gsub!(user, "")
         user.gsub!(/[^0-9a-z]+/i, '')
         user.capitalize!
-        @results['users'].push(user)
+        twitter_results['users'] << user
 
       end
 
@@ -54,21 +67,18 @@ class FactlinkParser
       # Filter out other useless texts
       tweet.gsub!("RT ", "")
       tweet.gsub!("(via ) ", "")
-      
-      @results['factlinks'] << Factlink.new(:from_user => tweetobject.from_user, :text => tweet)
+
+      twitter_results['factlinks'] << Factlink.new(:from_user => tweetobject.from_user, :text => tweet)
 
     end
     
-    @results['users'] = @results['users'].uniq! || []
+    twitter_results['users'] = twitter_results['users'].uniq! || []
     
-    @results['topics'] = Array(hash) || []
-    @results['topics'].delete_if {|topic| topic[0] == "Fact" }
-    @results['topics'] = @results['topics'].map.sort_by { |k,v| v }.reverse
+    twitter_results['topics'] = Array(hash) || []
+    twitter_results['topics'].delete_if {|topic| topic[0] == "Fact" }
+    twitter_results['topics'] = twitter_results['topics'].map.sort_by { |k,v| v }.reverse
     
-    @results['related_topics'] = self.get_related_topics_for_search_term(user_input)
-    @results['spell_check'] = self.get_spell_check_for_search_term(user_input)
-    
-    @results 
+    twitter_results 
   end # parse_tweets
   
   

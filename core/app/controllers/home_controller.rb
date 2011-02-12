@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def index
 
-    @results = { 'factlinks' => [], 'topics' => [] }
+    # @results = { 'factlinks' => [], 'topics' => [] }
   
     if params[:search].nil?
       puts "This shouldn't happen. home#index if params[:search].nil?"
@@ -13,7 +13,6 @@ class HomeController < ApplicationController
 
     parser = FactlinkParser.new
     @results = parser.get_results_for_query(user_input)
-
   end
 
 end
