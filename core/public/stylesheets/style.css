@@ -26,6 +26,15 @@ body {
 	color: #424242;
 }
 
+a {
+	color: #888;
+	-webkit-transition: all 0.30s ease-in-out;
+}
+
+a:hover {
+	color: #000;
+}
+
 /** */
 .container {
 

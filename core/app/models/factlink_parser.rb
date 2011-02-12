@@ -37,7 +37,7 @@ class FactlinkParser
         user.gsub!(/[^0-9a-z]+/i, '')
         user.capitalize!
         @results['users'].push(user)
-        puts "\n\nPushing user: #{user}"
+
       end
 
       # Filter out the #hashtags

@@ -14,7 +14,9 @@ class HomeController < ApplicationController
     parser = FactlinkParser.new
     @results = parser.get_results_for_query(user_input)
 
-    @results
+
+    # http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20search.suggest%20where%20query%3D%22economy%22&format=json&diagnostics=true&callback=result
+
   end
 
 end
