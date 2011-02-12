@@ -64,21 +64,55 @@ class FactlinkParser
     @results['topics'].delete_if {|topic| topic[0] == "Fact" }
     @results['topics'] = @results['topics'].map.sort_by { |k,v| v }.reverse
     
-    @results['related_topics'] = self.get_related_topics_for_searchterm(user_input)
+    @results['related_topics'] = self.get_related_topics_for_search_term(user_input)
+    @results['spell_check'] = self.get_spell_check_for_search_term(user_input)
     
     @results 
   end # parse_tweets
   
+  
+  
+  def get_spell_check_for_search_term(search_term)
+    # Query Yahoo for suggestion
+    query = "select * from search.spelling where query='#{search_term}'"
+    
+    result = yql_results(query)
+    if result.nil?
+      return []
+    else
+      result['suggestion']
+    end
+  end
 
-  def get_related_topics_for_searchterm(searchterm)
-    # Query Yahoo
-    query = "select * from search.suggest where query='#{searchterm}'"
-    return yql(query)['query']['results']['Result']
-  end #get_suggestions_for_query
+  def get_related_topics_for_search_term(search_term)
+    # Query Yahoo for related topics
+    query = "select * from search.suggest where query='#{search_term}'"
+
+    result = yql_results(query)
+    
+    if result.nil?
+      return []
+    else
+      result['Result']
+    end
+
+  end #get_spell_check_for_query
+  
+  def yql_results(query)
+    # TODO: check all values for nil?
+    result = yql(query)
+
+    # Return results from Yahoo if any,
+    # else nil. Should be checked in calling function!
+    if result['query']['count'] > 0
+      return result['query']['results']
+    else
+      return nil
+    end
+  end
   
   def yql(query)
     uri = "http://query.yahooapis.com/v1/public/yql"
-
     # everything's requested via POST, which is all I needed when I wrote this
     # likewise, everything coming back is json encoded
     response = Net::HTTP.post_form( URI.parse( uri ), {
@@ -87,6 +121,7 @@ class FactlinkParser
     } )
 
     json = JSON.parse( response.body )
+    
     return json
   end #yql
   

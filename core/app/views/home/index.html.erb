@@ -10,11 +10,9 @@
 			<% end %>
 		</ul>
 		
-		<% unless params[:search] == "" %>
-			<p>Did you mean '<span class="italic"><%= params[:search] %></span>'?</p>
+		<% if @results['spell_check'].length > 0 %>
+			<p>Did you mean <span class="italic"><%= link_to(@results['spell_check'], search_topic_path(@results['spell_check']) ) %></span>?</p>
 		<% end %>
-		
-
 
 	</div> <!-- related_topics -->
 	
