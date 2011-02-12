@@ -1,11 +1,12 @@
 <div id="leftColumn" class="span-14 append-bottom">
 
-	<div id="related_topics" class="span-14 prepend-top">
+	<div id="related_topics" class="span-13 prepend-top">
 
 		<ul id="related_topics" class="horizontal">
 			<% if @results['related_topics'].count > 0 %>
 				<% @results['related_topics'].each do |topic| %>
-					<li><%= link_to(topic, search_topic_path(topic)) %></li>
+					<!-- TODO: No partial overflow for multi word topics -->
+					<li><%= link_to("##{topic}", search_topic_path(topic)) %></li>
 				<% end %>
 			<% end %>
 		</ul>

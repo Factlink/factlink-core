@@ -145,13 +145,11 @@ a:hover {
 }
 
 ul.horizontal {
-	margin-top: 9px;
 }
 
 ul.horizontal li{	
 	list-style: none;
 	display: inline;
-	padding: 10px 25px 0px 0px;
 }
 
 li.active {
@@ -159,9 +157,12 @@ li.active {
 	border-bottom: none;
 }
 
+ul#mainMenu {
+	padding-top: 10px;
+}
 
-ul#related_topics {
-	font-size: 0.9em;
+ul#mainMenu li {
+	padding: 0px 25px 0px 25px;
 }
 
 #rightColumn {
@@ -172,8 +173,23 @@ ul#related_topics {
 	list-style: none;
 }
 
-#related_topics {
-	border: solid 1px red;	
+#related_topics {	
+}
+
+ul#related_topics {
+	margin-left: 25px;
+	font-size: 0.9em;
+}
+
+ul#related_topics li {
+/*	border: solid 1px red;*/
+	margin-top: 12px;
+/*	padding: 10px 5px 0px 0px;*/
+	padding: 5px;
+}
+
+ul#related_topics li:hover {
+	background-color: #eee;
 }
 
 
