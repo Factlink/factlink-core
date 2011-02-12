@@ -12,7 +12,9 @@ class FactlinkParser
     @results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [] }    
 
     # Get FactlinksPerResultPage results with hashtag #fact    
-    search_query = "#{user_input} #fact"
+    # search_query = "#{user_input} #fact"
+    search_query = "#{user_input}"
+    
     search = Twitter::Search.new
     tweets = search.containing(search_query).result_type("recent").per_page(FactlinksPerResultPage)
     
@@ -71,8 +73,7 @@ class FactlinkParser
   def get_related_topics_for_searchterm(searchterm)
     # Query Yahoo
     query = "select * from search.suggest where query='#{searchterm}'"
-    
-    return yql(query)
+    return yql(query)['query']['results']['Result']
   end #get_suggestions_for_query
   
   def yql(query)

@@ -1,20 +1,20 @@
 <div id="leftColumn" class="span-14 append-bottom">
 
-	<pre><%= @results['related'] %></pre>
-
 	<div id="related_topics" class="span-14 prepend-top">
+
+		<ul class="horizontal">
+			<% if @results['related_topics'].count > 0 %>
+				<% @results['related_topics'].each do |topic| %>
+					<li><%= link_to(topic, search_topic_path(topic)) %></li>
+				<% end %>
+			<% end %>
+		</ul>
 		
 		<% unless params[:search] == "" %>
 			<p>Did you mean '<span class="italic"><%= params[:search] %></span>'?</p>
 		<% end %>
 		
-		<ul class="horizontal">
-			<% if @results['topics'].count > 0 %>
-				<% @results['topics'][0..3].each do |topic, count| %>
-					<li><%= link_to(topic, search_topic_path(topic)) %></li>
-				<% end %>
-			<% end %>
-		</ul>
+
 
 	</div> <!-- related_topics -->
 	
