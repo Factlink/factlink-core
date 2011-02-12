@@ -62,7 +62,29 @@ class FactlinkParser
     @results['topics'].delete_if {|topic| topic[0] == "Fact" }
     @results['topics'] = @results['topics'].map.sort_by { |k,v| v }.reverse
     
-    @results
-    
+    @results 
   end # parse_tweets
+  
+
+  def get_suggestions_for_searchterm(searchterm)
+    # Query Yahoo
+    query = "select * from search.suggest where query='#{searchterm}'"
+    
+    return yql(query)
+  end #get_suggestions_for_query
+  
+  def yql(query)
+    uri = "http://query.yahooapis.com/v1/public/yql"
+
+    # everything's requested via POST, which is all I needed when I wrote this
+    # likewise, everything coming back is json encoded
+    response = Net::HTTP.post_form( URI.parse( uri ), {
+      'q' => query,
+      'format' => 'json'
+    } )
+
+    json = JSON.parse( response.body )
+    return json
+  end #yql
+  
 end
