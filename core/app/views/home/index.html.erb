@@ -22,7 +22,7 @@
 
 		<% unless @results['factlinks'].count > 0 %>
 			<p><%= @results['factlinks'].count %> results</p>
-		<% else %>		
+		<% else %>
 
 			<% @results['factlinks'].each do |factlink| %>
 				<%= render :partial => "factlink_block", :locals => {:factlink => factlink} %>

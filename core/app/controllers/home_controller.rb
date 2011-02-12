@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   
     if params[:search].nil?
       puts "This shouldn't happen. home#index if params[:search].nil?"
-      user_input = ""
+      user_input = "#fact"
     else
       user_input = params[:search]
     end
