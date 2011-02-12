@@ -120,7 +120,7 @@ a:hover {
 }
 
 #rightColumnContainer{
-	padding-left: 20px;
+/*	padding-left: 20px;*/
 }
 
 .factBlock {
@@ -151,12 +151,17 @@ ul.horizontal {
 ul.horizontal li{	
 	list-style: none;
 	display: inline;
-	padding: 10px 25px 0px 25px;
+	padding: 10px 25px 0px 0px;
 }
 
 li.active {
 	border: solid 1px #ccc;
 	border-bottom: none;
+}
+
+
+ul#related_topics {
+	font-size: 0.9em;
 }
 
 #rightColumn {
@@ -166,6 +171,12 @@ li.active {
 	padding-left: 10px;
 	list-style: none;
 }
+
+#related_topics {
+	border: solid 1px red;	
+}
+
+
 
 /** Styling */
 .bold {

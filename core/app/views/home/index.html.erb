@@ -2,7 +2,7 @@
 
 	<div id="related_topics" class="span-14 prepend-top">
 
-		<ul class="horizontal">
+		<ul id="related_topics" class="horizontal">
 			<% if @results['related_topics'].count > 0 %>
 				<% @results['related_topics'].each do |topic| %>
 					<li><%= link_to(topic, search_topic_path(topic)) %></li>

@@ -1,5 +1,6 @@
 class FactlinkParser
 
+  ResultsLanguage = 'en'
   FactlinksPerResultPage = 10
   
   def get_results_for_query(user_input)
@@ -16,7 +17,7 @@ class FactlinkParser
     search_query = "#{user_input}"
     
     search = Twitter::Search.new
-    tweets = search.containing(search_query).result_type("recent").per_page(FactlinksPerResultPage)
+    tweets = search.containing(search_query).result_type('recent').per_page(FactlinksPerResultPage).lang(ResultsLanguage)
     
     # Matches to use for @users and #hashtags
     re_users = /@\S+\s/ # TODO: Also filter on end-of-line
