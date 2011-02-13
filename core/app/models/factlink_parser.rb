@@ -9,17 +9,31 @@ class FactlinkParser
     
     results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [] }
     
+    factlink_results = retrieve_factlinks_for_query(user_input)
     twitter_results = parse_tweets_for_query(user_input)
     
-    results['factlinks'] = twitter_results['factlinks']
+    results['factlinks'] = factlink_results['factlinks'] + twitter_results['factlinks']
     results['topics'] = twitter_results['topics']
     results['users'] = twitter_results['users']
+    
     results['related_topics'] = self.get_related_topics_for_search_term(user_input)
     results['spell_check'] = self.get_spell_check_for_search_term(user_input)
     
     return results
   end    
     
+    
+  def retrieve_factlinks_for_query(user_input)
+    
+    factlink_results = { 'factlinks' => [], 'topics' => {}, 'users' => [] }
+    
+    # Add a 'test' Factlink
+    factlink_results['factlinks'] << Factlink.new(:from_user => "Baron", :text => "Baronnen rule!")
+    
+    return factlink_results
+  end
+  
+  
   def parse_tweets_for_query(user_input)  
 
     twitter_results = { 'factlinks' => [], 'topics' => {}, 'users' => [] }
