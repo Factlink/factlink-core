@@ -7,7 +7,7 @@ class FactlinkParser
   
   def get_results_for_query(user_input)
     
-    results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [] }
+    results = { 'factlinks' => [], 'topics' => {}, 'users' => [], 'documents' => [], 'related_topics' => [], 'spell_check' => [], 'web_results' => {} }
     
     factlink_results = retrieve_factlinks_for_query(user_input)
     twitter_results = parse_tweets_for_query(user_input)
@@ -18,6 +18,7 @@ class FactlinkParser
     
     results['related_topics'] = self.get_related_topics_for_search_term(user_input)
     results['spell_check'] = self.get_spell_check_for_search_term(user_input)
+    results['web_results'] = self.get_web_search_results_for_search_term(user_input)
     
     return results
   end    
@@ -96,9 +97,8 @@ class FactlinkParser
   end # parse_tweets
   
   
-  
   def get_spell_check_for_search_term(search_term)
-    # Query Yahoo for suggestion
+    # Query Yahoo for spelling
     query = "select * from search.spelling where query='#{search_term}'"
     
     result = yql_results(query)
@@ -107,8 +107,9 @@ class FactlinkParser
     else
       result['suggestion']
     end
-  end
+  end #get_spell_check_for_search_term
 
+  
   def get_related_topics_for_search_term(search_term)
     # Query Yahoo for related topics
     query = "select * from search.suggest where query='#{search_term}'"
@@ -120,8 +121,23 @@ class FactlinkParser
     else
       result['Result']
     end
+  end #get_related_topics_for_search_term
+  
+  
+  def get_web_search_results_for_search_term(search_term)
+    # Query Yahoo for web results
+    query = "select title from search.web where query='#{search_term}'"
+    #title,clickurl,abstract,dispurl
+    
+    result = yql_results(query)
 
-  end #get_spell_check_for_query
+    if result.nil?
+      return []
+    else
+      return result['result']
+    end
+  end #get_web_search_results_for_search_term
+  
   
   def yql_results(query)
     # TODO: check all values for nil?

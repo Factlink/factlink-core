@@ -1,8 +1,6 @@
 class HomeController < ApplicationController
 
   def index
-
-    # @results = { 'factlinks' => [], 'topics' => [] }
   
     if params[:search].nil?
       puts "This shouldn't happen. home#index if params[:search].nil?"

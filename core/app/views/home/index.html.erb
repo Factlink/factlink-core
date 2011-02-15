@@ -31,6 +31,23 @@
 		<% end %>
 	</div> <!-- factlinkContainer -->
 	
+	
+	<div id="webSearchResultsContainer" class="span-13">
+
+		<% unless @results['web_results'].count > 0 %>
+			<p><%= @results['web_results'].count %> web results</p>
+		<% else %>
+
+			<% @results['web_results'].each do |web_result| %>
+				<%= web_result.each do |web_result2| %>
+					<%= render :partial => "web_search_result_block", :locals => {:web_result2 => web_result2} %>
+				<% end %>
+			<% end %>
+			
+		<% end %>
+	</div> <!-- webResultsContainer -->
+	
+	
 </div> <!-- leftColumn -->
 
 
