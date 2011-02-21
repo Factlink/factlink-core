@@ -13,6 +13,7 @@ class FactlinkParser
     twitter_results = parse_tweets_for_query(user_input)
     
     results['factlinks'] = factlink_results['factlinks'] + twitter_results['factlinks']
+
     results['topics'] = twitter_results['topics']
     results['users'] = twitter_results['users']
     
@@ -126,7 +127,7 @@ class FactlinkParser
   
   def get_web_search_results_for_search_term(search_term)
     # Query Yahoo for web results
-    query = "select title from search.web where query='#{search_term}'"
+    query = "select title, abstract from search.web where query='#{search_term}'"
     #title,clickurl,abstract,dispurl
     
     result = yql_results(query)
@@ -134,7 +135,19 @@ class FactlinkParser
     if result.nil?
       return []
     else
-      return result['result']
+      
+      cleaned_result = []
+      
+      ##########
+      # Strip HTML tags from the Yahoo results
+      result['result'].each do |res|
+        title = "#{res['title']}"
+        cleaned = title.gsub(/<\/?[^>]*>/, "")        
+        cleaned_result << cleaned        
+      end
+
+      # return result['result']
+      return cleaned_result
     end
   end #get_web_search_results_for_search_term
   

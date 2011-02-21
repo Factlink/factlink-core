@@ -8,3 +8,35 @@ class Factlink
   
   validates_presence_of :title
 end
+
+
+class FactlinkTop
+  include Mongoid::Document
+  field :displaystring
+  
+  references_many :factlink_subs
+end
+
+
+class FactlinkSub
+  include Mongoid::Document
+  field :title
+  referenced_in :factlink_top, :inverse_of => :factlink_sub
+  
+end
+
+
+# 
+# class A
+#   include Mongoid::Document
+#   field :displaystring
+#   
+#   references_many :bs
+# end
+# 
+# 
+# class B
+#   include Mongoid::Document
+#   field :title
+#   referenced_in :a, :inverse_of => :b
+# end
