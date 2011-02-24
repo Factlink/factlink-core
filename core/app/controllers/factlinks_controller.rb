@@ -1,4 +1,25 @@
 class FactlinksController < ApplicationController
+
+  def factlinks_for_url
+    @url = params[:url] || 'http://www.google.com'
+    
+    # Should only give 0 or 1 results.
+    sites = Site.where(:url => @url)
+    
+    if sites.count > 0 then site = sites[0] else return [] end
+    
+    @factlinks = site.factlink_tops.entries
+    
+    
+    respond_to do |format|
+      format.html
+      format.json { render :json => @factlinks.to_json(:only => [:_id, :displaystring]) }
+    end
+
+  end
+
+
+  ##########
   # GET /factlinks
   # GET /factlinks.xml
   def index
