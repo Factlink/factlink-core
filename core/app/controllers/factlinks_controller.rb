@@ -20,7 +20,6 @@ class FactlinksController < ApplicationController
     id = params[:factlink_top_id] #|| '4d6651f2c09808d296000001'
     
     factlink_top = FactlinkTop.find(id)
-    
     @factlink_subs = factlink_top.factlink_subs.entries
     
     respond_to do |format|
