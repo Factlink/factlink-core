@@ -1,21 +1,32 @@
 class FactlinksController < ApplicationController
 
-  def factlinks_for_url
-    @url = params[:url] || 'http://www.google.com'
+  def factlink_tops_for_url
+    @url = params[:url]# || 'http://www.google.com'
     
-    # Should only give 0 or 1 results.
+    # Should only give 0 or 1 results, since we are currently making an exact match.
     sites = Site.where(:url => @url)
     
-    if sites.count > 0 then site = sites[0] else return [] end
-    
-    @factlinks = site.factlink_tops.entries
-    
-    
+    ##########
+    # Assign the site if found, else return an empty array
+    if sites.count > 0 then @factlinks = sites[0].factlink_tops.entries else @factlinks = [] end
+
     respond_to do |format|
       format.html
       format.json { render :json => @factlinks.to_json(:only => [:_id, :displaystring]) }
     end
-
+  end
+  
+  def factlink_subs_for_factlink_id
+    id = params[:factlink_top_id] #|| '4d6651f2c09808d296000001'
+    
+    factlink_top = FactlinkTop.find(id)
+    
+    @factlink_subs = factlink_top.factlink_subs.entries
+    
+    respond_to do |format|
+      format.json { render :json => @factlink_subs }
+    end
+    
   end
 
 
