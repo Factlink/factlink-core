@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Displaystring:</b>
+  <%= @factlink_top.displaystring %>
+</p>
+
+<p>
+  <b>Sites:</b>
+  <%= @factlink_top.sites.count %>
+</p>
+
+
+<%= link_to 'Edit', edit_factlink_top_path(@factlink_top) %> |
+<%= link_to 'Back', factlink_tops_path %>
