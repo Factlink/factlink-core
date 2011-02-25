@@ -26,10 +26,11 @@ gem 'json'
 
 ##########
 # Whoo, full text search!
-# Using SunSpot, Ruby wrapper for Solr
-# Latest mainted fork as of 25 Feb 2011: https://github.com/aq1018/sunspot_mongoid
-# Might come in handy:
+# Install SunSpot:
 # https://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less
+# Using SunSpot for Mongoid, Ruby wrapper for Solr
+# Latest mainted fork as of 25 Feb 2011: https://github.com/aq1018/sunspot_mongoid
+gem 'sunspot_rails'
 gem 'sunspot_mongoid'
 
 # Bundle edge Rails instead:

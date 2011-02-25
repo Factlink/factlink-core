@@ -141,4 +141,5 @@ DEPENDENCIES
   rails (= 3.0.3)
   sqlite3-ruby
   sunspot_mongoid
+  sunspot_rails
   twitter
