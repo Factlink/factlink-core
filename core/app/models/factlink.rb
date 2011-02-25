@@ -13,8 +13,7 @@ end
 class Site
   include Mongoid::Document
   field :url
-  # field :factlink_top_ids, :type => Array, :default => []
-  
+
   references_many :factlink_tops, :stored_as => :array, :inverse_of => :sites  
 end
 

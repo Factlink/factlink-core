@@ -3,8 +3,6 @@ class FactlinksController < ApplicationController
   def factlink_tops_for_url
     @url = params[:url]# || 'http://www.google.com'
     
-    puts @url
-    
     # Should only give 0 or 1 results, since we are currently making an exact match.
     sites = Site.where(:url => @url)
     
