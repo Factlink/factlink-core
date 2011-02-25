@@ -13,8 +13,8 @@ end
 class Site
   include Mongoid::Document
   field :url
-
   references_many :factlink_tops, :stored_as => :array, :inverse_of => :sites  
+  validates_presence_of :url
 end
 
 class FactlinkTop
@@ -23,6 +23,8 @@ class FactlinkTop
 
   references_many :sites, :stored_as => :array, :inverse_of => :factlink_tops
   references_many :factlink_subs, :type => Array, :default => []
+  
+  validates_presence_of :displaystring
   
   include Sunspot::Mongoid
   searchable do
