@@ -2,7 +2,9 @@ class FactlinkTopsController < ApplicationController
   
   layout "clean"
 
-
+  ##########
+  # Search using Solr
+  # minimum_match is used to query using OR instead of AND
   def search
     @search = FactlinkTop.search() do
       keywords(params[:q]) { minimum_match 1 }
