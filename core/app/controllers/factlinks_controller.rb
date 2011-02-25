@@ -1,19 +1,28 @@
 class FactlinksController < ApplicationController
 
+  ##########
+  # Retrieve the Factlinks for this URL
+  # TODO: Will be replaced soon. URL matching is quick for development,
+  # but we want to check Factlinks in the complete text on the website.
   def factlink_tops_for_url
-    @url = params[:url] #|| 'http://www.google.com'
+    # TODO: Error handling when no url is given.
+    @url = params[:url]
     
-    # Should only give 0 or 1 results, since we are currently making an exact match.
+    # Should only give 0 or 1 result(s), 
+    # since we are currently making an exact match on the URL.
     sites = Site.where(:url => @url)
     
-    ##########
-    # Assign the site if found, else return an empty array
+    # Get the entries for the Site if found, else return an empty array
     if sites.count > 0 then @factlinks = sites[0].factlink_tops.entries else @factlinks = [] end
-
+  
     render :json => @factlinks.to_json(:only => [:_id, :displaystring]) #}
   end
   
+  
+  ##########
+  # Retrieve the FactlinkSubs for the submitted Factlink.
   def factlink_subs_for_factlink_id
+    # TODO: Error handling when no ID is given.
     id = params[:factlink_top_id] #|| '4d6651f2c09808d296000001'
     
     factlink_top = FactlinkTop.find(id)
