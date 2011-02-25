@@ -33,6 +33,7 @@ gem 'json'
 gem 'sunspot_rails'
 gem 'sunspot_mongoid'
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

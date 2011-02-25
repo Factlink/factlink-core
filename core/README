@@ -1,3 +1,17 @@
+
+##########
+# Start the local solr server:
+rake sunspot:solr:start
+
+
+
+
+
+
+
+
+
+
 == Welcome to Rails
 
 Rails is a web-application framework that includes everything needed to create
