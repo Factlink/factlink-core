@@ -23,6 +23,11 @@ class FactlinkTop
 
   references_many :sites, :stored_as => :array, :inverse_of => :factlink_tops
   references_many :factlink_subs, :type => Array, :default => []
+  
+  include Sunspot::Mongoid
+  searchable do
+    text :displaystring
+  end
 end
 
 
