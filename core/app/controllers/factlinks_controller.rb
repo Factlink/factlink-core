@@ -30,12 +30,6 @@ class FactlinksController < ApplicationController
     
     render :json => @factlink_subs
   end
-  
-  def search
-    @search = FactlinkTop.search() do
-      keywords(params[:q])
-    end
-  end
 
 # 
 #   ##########
