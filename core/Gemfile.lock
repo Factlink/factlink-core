@@ -107,10 +107,6 @@ GEM
       escape (= 0.0.4)
       pr_geohash (~> 1.0)
       rsolr (= 0.12.1)
-    sunspot_mongoid (0.4.0)
-      mongoid
-      sunspot (>= 1.1.0)
-      sunspot_rails (>= 1.1.0)
     sunspot_rails (1.2.1)
       nokogiri
       sunspot (= 1.2.1)
@@ -125,6 +121,10 @@ GEM
       multi_xml (~> 0.2.0)
       simple_oauth (~> 0.1.3)
     tzinfo (0.3.24)
+    vinova_sunspot_mongoid (0.3.5)
+      mongoid (>= 2.0.0.beta.15)
+      sunspot (>= 1.1.0)
+      sunspot_rails (>= 1.1.0)
     warden (1.0.3)
       rack (>= 1.0.0)
     will_paginate (3.0.pre2)
@@ -140,6 +140,6 @@ DEPENDENCIES
   mongoid (= 2.0.0.beta.20)
   rails (= 3.0.3)
   sqlite3-ruby
-  sunspot_mongoid
   sunspot_rails
   twitter
+  vinova_sunspot_mongoid
