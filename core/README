@@ -1,12 +1,11 @@
 
 ##########
-# Start the local solr server:
+# Start the local Solr server:
 rake sunspot:solr:start
 
-
-
-
-
+##########
+# Manually index Solr
+rake sunspot:index
 
 
 
