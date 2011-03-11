@@ -15,7 +15,8 @@ class FactlinksController < ApplicationController
     # Get the entries for the Site if found, else return an empty array
     if sites.count > 0 then @factlinks = sites[0].factlink_tops.entries else @factlinks = [] end
   
-    render :json => @factlinks.to_json(:only => [:_id, :displaystring]) #}
+    # Render the result with callback, so JSONP can be used (for Internet Explorer)
+    render :json => @factlinks.to_json(:only => [:_id, :displaystring]), :callback => params[:callback]
   end
   
   
@@ -28,7 +29,8 @@ class FactlinksController < ApplicationController
     factlink_top = FactlinkTop.find(id)
     @factlink_subs = factlink_top.factlink_subs.entries
     
-    render :json => @factlink_subs
+    # Render the result with callback, so JSONP can be used (for Internet Explorer)
+    render :json => @factlink_subs, :callback => params[:callback]
   end
 
 # 
