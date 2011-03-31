@@ -17,7 +17,7 @@ class FactlinkParser
     results['topics'] = twitter_results['topics']
     results['users'] = twitter_results['users']
     
-    results['related_topics'] = self.get_related_topics_for_search_term(user_input)
+    # results['related_topics'] = self.get_related_topics_for_search_term(user_input)
     results['spell_check'] = self.get_spell_check_for_search_term(user_input)
     results['web_results'] = self.get_web_search_results_for_search_term(user_input)
     
@@ -30,7 +30,7 @@ class FactlinkParser
     factlink_results = { 'factlinks' => [], 'topics' => {}, 'users' => [] }
     
     # Add a 'test' Factlink
-    factlink_results['factlinks'] << Factlink.new(:from_user => "Baron", :text => "Baronnen rule!")
+    # factlink_results['factlinks'] << Factlink.new(:from_user => "Baron", :text => "Baronnen rule!")
     
     return factlink_results
   end
@@ -115,7 +115,7 @@ class FactlinkParser
     # Query Yahoo for related topics
     query = "select * from search.suggest where query='#{search_term}'"
 
-    result = yql_results(query)
+    result = yql_results(query)    
     
     if result.nil?
       return []
@@ -175,7 +175,6 @@ class FactlinkParser
     } )
 
     json = JSON.parse( response.body )
-    
     return json
   end #yql
   

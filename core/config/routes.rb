@@ -1,9 +1,9 @@
 FactlinkUI::Application.routes.draw do
-  
-  resources :factlink_tops
 
   devise_for :users
-  resources :factlinks
+  resources :factlink_tops
+
+  # resources :factlinks
 
   root :to => "home#index"
 
@@ -11,6 +11,8 @@ FactlinkUI::Application.routes.draw do
 
   match "factlinks_for_url" => "factlinks#factlink_tops_for_url"
   match "factlink_subs_for_factlink_id" => "factlinks#factlink_subs_for_factlink_id"
+
+  match "factlink/new" => "factlinks#new"
   
   match "search" => "factlink_tops#search"
   

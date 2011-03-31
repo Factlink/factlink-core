@@ -26,6 +26,10 @@ class FactlinkTop
   
   validates_presence_of :displaystring
   
+  def to_s
+    displaystring
+  end
+  
   include Sunspot::Mongoid
   searchable do
     text :displaystring

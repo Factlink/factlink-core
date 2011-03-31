@@ -33,7 +33,63 @@ class FactlinksController < ApplicationController
     render :json => @factlink_subs, :callback => params[:callback]
   end
 
-# 
+
+  def new
+    required_params = %W[url fact callback]
+    error = false
+    
+    # Validate presence of all required parameters
+    # If fail, return error message.
+    required_params.each do |param|
+      if params[param].nil?
+        error = true
+        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact, callback.\"}", :callback => params[:callback]
+        # return is required to jump out of function
+        return false
+      end
+    end
+
+    
+    # Use Solr to find matching facts
+    @matched_facts = FactlinkTop.search() do
+      keywords(params[:fact]) { minimum_match 1 }
+    end
+    
+    # Check for matching results
+    if @matched_facts.results.count > 0      
+      best_match = @matched_facts.hits()[0]
+    end
+    
+    # Check if hit ratio surpasses threshold
+    if (best_match.score > 1.0)
+      added = false
+      status = true
+      match_id = best_match.result.id
+
+    else
+      # Get or create the website on which the Fact is located.
+      site = Site.find_or_create_by(:url => params[:url])
+
+      # Create the Factlink.
+      result = FactlinkTop.create!(:displaystring => params[:fact])
+      
+      # And add Factlink to the Site.
+      site.factlink_tops << result
+      
+      added = true
+      status = true
+      match_id = result.id
+    end 
+    
+    # Create the result payload
+    res_dict = {}
+    res_dict[:added] = added
+    res_dict[:status] = status
+    res_dict[:match_id] = match_id
+    
+    render :json => res_dict, :callback => params[:callback]
+  end
+
 #   ##########
 #   # GET /factlinks
 #   # GET /factlinks.xml

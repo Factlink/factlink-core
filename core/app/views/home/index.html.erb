@@ -1,15 +1,6 @@
 <div id="leftColumn" class="span-14">
 
 	<div id="related_topics" class="span-13 prepend-top">
-
-		<ul id="related_topics" class="horizontal">
-			<% if @results['related_topics'].count > 0 %>
-				<% @results['related_topics'].each do |topic| %>
-					<!-- TODO: No partial overflow for multi word topics -->
-					<li><%= link_to("##{topic}", search_topic_path(topic)) %></li>
-				<% end %>
-			<% end %>
-		</ul>
 		
 		<% if @results['spell_check'].length > 0 %>
 			<p>Did you mean <span class="italic"><%= link_to(@results['spell_check'], search_topic_path(@results['spell_check']) ) %></span>?</p>
