@@ -17,6 +17,7 @@ class FactlinkParser
     results['topics'] = twitter_results['topics']
     results['users'] = twitter_results['users']
     
+    # Related topics uses a depricated YQL service.
     # results['related_topics'] = self.get_related_topics_for_search_term(user_input)
     results['spell_check'] = self.get_spell_check_for_search_term(user_input)
     results['web_results'] = self.get_web_search_results_for_search_term(user_input)
@@ -28,10 +29,7 @@ class FactlinkParser
   def retrieve_factlinks_for_query(user_input)
     
     factlink_results = { 'factlinks' => [], 'topics' => {}, 'users' => [] }
-    
-    # Add a 'test' Factlink
-    # factlink_results['factlinks'] << Factlink.new(:from_user => "Baron", :text => "Baronnen rule!")
-    
+
     return factlink_results
   end
   

@@ -60,8 +60,14 @@ class FactlinksController < ApplicationController
       best_match = @matched_facts.hits()[0]
     end
     
-    # Check if hit ratio surpasses threshold
-    if (best_match.score > 1.0)
+    # Add it, unless we have a score, and score higher then threshold
+    should_add = true
+    if best_match
+      should_add = best_match.score < 1.0
+    end
+    
+    # Check if hit ratio surpasses threshold    
+    unless should_add
       added = false
       status = true
       match_id = best_match.result.id
@@ -71,14 +77,14 @@ class FactlinksController < ApplicationController
       site = Site.find_or_create_by(:url => params[:url])
 
       # Create the Factlink.
-      result = FactlinkTop.create!(:displaystring => params[:fact])
+      new_factlink = FactlinkTop.create!(:displaystring => params[:fact])
       
       # And add Factlink to the Site.
-      site.factlink_tops << result
+      site.factlink_tops << new_factlink
       
       added = true
       status = true
-      match_id = result.id
+      match_id = new_factlink.id
     end 
     
     # Create the result payload
