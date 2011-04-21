@@ -1,19 +1,23 @@
 (function( Factlink ) {
+    
 // Function to select the found ranges
 Factlink.prototype.selectRanges = function(ranges){
+    var i, k;
     // Loop through ranges (backwards)
-    for ( var i = ranges.length; i--; ){
+    for ( i = ranges.length; i--; ){
         // Current range
-        var range = ranges[i];
+        var range = ranges[i],
         
             // Start- and EndNodes
-        var startNode = range.startContainer,
-            endNode = range.endContainer;
+            startNode = range.startContainer,
+            endNode = range.endContainer,
 
             // Try to find out if there are other matches within this element
-        var j = i,
+            j = i,
             // Helper for posible extra matches within the current startNode
-            extraMatches = [];
+            extraMatches = [],
+            
+            obj;
                 
         while ( --j > 0 && ranges[j].startContainer === startNode ) {
             // Push the match to the extraMatches helper
@@ -37,8 +41,8 @@ Factlink.prototype.selectRanges = function(ranges){
         // If there are other matches within the startNode, 
         // process them here
         if ( extraMatches.length > 0 ) {
-            for ( var k = 0; k < extraMatches.length; k++ ) {
-                var obj = extraMatches[k];
+            for ( k = 0; k < extraMatches.length; k++ ) {
+                obj = extraMatches[k];
 
                 // Insert the "fact"-span in the same element
                 this.replaceFactNodes(obj.startOffset, 
@@ -52,7 +56,7 @@ Factlink.prototype.selectRanges = function(ranges){
     
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    for (var i = 0; i < this.results.length; i++ ) {
+    for ( i = 0; i < this.results.length; i++ ) {
         var res = this.results[i];
         
         // Insert the fact-span
@@ -130,20 +134,16 @@ Factlink.prototype.replaceFactNodes = function(startOffset,
     Factlink.util.walkTheDOM( commonAncestorContainer, function( node ) {
         // We're only interested in textNodes
         if ( node !== undefined && node.nodeType === 3 ){
+            var rStartOffset = 0;
             if (node === startNode) {
                 foundStart = true;
-                var rStartOffset = startOffset;
-            } else if (foundStart) {
-                    // If this is a node in between the start- and endNode
-                    // The startOffset is being set to 0
-                var rStartOffset = 0;
+                rStartOffset = startOffset;
             }
 
             if (foundStart) {
+                var rEndOffset = node.nodeValue.length;
                 if (node === endNode) {
-                    var rEndOffset = endOffset;
-                } else {
-                    var rEndOffset = node.nodeValue.length;
+                    rEndOffset = endOffset;
                 }
                 
                 // Push the right info to the results array, the info 

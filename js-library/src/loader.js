@@ -1,7 +1,7 @@
 (function( Factlink ) {
 
-// Store the Loader object in the prototype
-var Loader = Factlink.prototype.Loader = {
+var // Store the Loader object in the prototype
+    Loader = Factlink.prototype.Loader = {
     // jQuery object which holds the loader
     el : $( '<div class="loader">' +
                 '<h1>Factlink</h1>' +

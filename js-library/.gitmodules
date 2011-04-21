@@ -1,3 +1,6 @@
 [submodule "build/smoosh"]
 	path = build/smoosh
 	url = git://github.com/fat/smoosh.git
+[submodule "build/jshint"]
+	path = build/jshint
+	url = git://github.com/jshint/jshint.git

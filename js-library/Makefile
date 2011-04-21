@@ -19,12 +19,13 @@ MODULES = ${SRC_DIR}/intro.js\
 FL_VER = $(shell cat version.txt)
 VER = sed "s/@VERSION/${FL_VER}/"
 
+FACTLINK_TMP = ${DIST_DIR}/factlink-tmp.js
 FACTLINK = ${DIST_DIR}/factlink.js
 FACTLINK_MIN = ${DIST_DIR}/factlink.min.js
 
 DATE=$(shell git log -1 --pretty=format:%ad)
 
-all: factlink min
+all: factlink
 	@@echo "Factlink client library build complete"
 
 ${DIST_DIR}:
@@ -38,7 +39,12 @@ ${FACTLINK}: ${MODULES} | ${DIST_DIR}
 	@@cat ${MODULES} | \
 		sed 's/.function..Factlink...{//' | \
 		sed 's/}...Factlink..;//' | \
-		${VER} > ${FACTLINK};
+		sed 's/@DATE/'"${DATE}"'/' | \
+		${VER} > ${FACTLINK_TMP};
+
+	node Makefile.js
+
+	@@rm ${FACTLINK_TMP}
 
 min: factlink ${FACTLINK_MIN}
 	@@echo "Minifying core"
@@ -47,4 +53,8 @@ clean:
 	@@echo "Removing Distribution directory:" ${DIST_DIR}
 	@@rm -rf ${DIST_DIR}
 
-.PHONY: all factlink min clean
+test:
+	@@echo "Running tests using smoosh:"
+	node make/test.js
+
+.PHONY: all factlink min clean test

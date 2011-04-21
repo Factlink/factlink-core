@@ -26,7 +26,7 @@ Factlink.prototype.initProxy = function(){
                 if ( href.search(/http:\/\//) !== 0 ) { 
                     if ( href.search(/mailto:/) !== 0 && 
                          href.search(/javascript:/) !== 0 ) {
-                        console.info( "N: " + href );
+                        window.console.info( "N: " + href );
                     }
                 } else {
                     valid = true;

@@ -1,15 +1,15 @@
 var Factlink = (function() {
 // Empty Factlink object
 var Factlink = function(){
-    this.results = [];
-    
-    // Add the stylesheet to the DOM
-    Factlink.util.addStyleSheet("http://factlink:8000/src/styles/factlink.css?" + (new Date()).getTime() );
-};
+		this.results = [];
+
+		// Add the stylesheet to the DOM
+		Factlink.util.addStyleSheet("http://factlink:8000/src/styles/factlink.css?" + (new Date()).getTime() );
+	};
 
 // Function which will collect all the facts for the current page
 // and select them.
-Factlink.prototype.getTheFacts = function(){
+Factlink.prototype.getTheFacts = function() {
     var loc = window.location,
         // The URL to the Factlink backend
         src = 'http://tom:1337/factlinks_for_url.json?url=' + 
@@ -19,8 +19,9 @@ Factlink.prototype.getTheFacts = function(){
               loc.pathname,
         that = this;
     
+	//@TODO Fix the Loader
     // Update the loader
-    FL.Loader.updateStatus( "Retrieving the facts from the server" );
+    // FL.Loader.updateStatus( "Retrieving the facts from the server" );
     
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -35,15 +36,17 @@ Factlink.prototype.getTheFacts = function(){
         .success(function(data){
             // If there are multiple matches on the page, loop through them all
             for ( var i = 0; i < data.length; i++ ) {
-                // Update the loader
-                FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
+                //@TODO Fix the Loader
+				// Update the loader
+                // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
                 
                 // Select the ranges (results)
                 that.selectRanges( that.search( data[i].displaystring ) );
             }
             
+            //@TODO Fix the Loader
             // Done loading
-            FL.Loader.finish();
+            // FL.Loader.finish();
         });
 };
 
@@ -57,8 +60,7 @@ Factlink.prototype.getTheFacts = function(){
 Factlink.util = {};
 
 // IE anyone?
-Factlink.util.hasInnerText = (document.getElementsByTagName("body")[0].innerText
-     != undefined) ? true : false;
+Factlink.util.hasInnerText = (document.getElementsByTagName("body")[0].innerText !== undefined) ? true : false;
 
 // Util function to load a stylesheet
 Factlink.util.addStyleSheet = function(url) {
@@ -90,16 +92,15 @@ Factlink.util.walkTheDOM = function walk(node, func) {
 // Factlink debug
 Factlink.util.debug = function() {
     if ( window.console && window.console.info ) {
-        window.console.info.apply( console, arguments );
+        window.console.info.apply( window.console, arguments );
     }
-}
+};
 
 // Dustin Diaz - $script.js
 Factlink.util.domReady = function(fn) {
-    /in/.test( document['readyState'] ) ? setTimeout( function() { domReady(fn); }, 50) : fn();
+    /in/.test( document['readyState'] ) ? setTimeout( function() { Factlink.util.domReady(fn); }, 50) : fn();
 };
 
 // Expose the Factlink object to the global object
 return Factlink;
-
 })();

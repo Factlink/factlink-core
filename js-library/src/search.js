@@ -1,23 +1,29 @@
 (function( Factlink ) {
 // Function to search the page
 Factlink.prototype.search = function(searchString){
-        // Array which will hold all the results
-    var results = [];
+	var window = window,
+		document = window.document,
+		alert = window.alert,
+		// Array which will hold all the results
+		results = [],
     
     // Store scroll settings to reset to afterwards
-    var scrollTop = document.body.scrollTop,
-        scrollLeft = document.body.scrollLeft;
+        scrollTop = document.body.scrollTop,
+        scrollLeft = document.body.scrollLeft,
+        
+        rangy = window.rangy,
+        selection, range, ierange, scroll;
     
     if ( window.find ) { // Chrome, Firefox, Safari
         // Reset the selection
         // Maybe we later need to store the current selection before 
         // processing the document, so we can reset it afterwards
         window.getSelection().removeAllRanges();
-
+        
         // Loop through all the results of the search string
         while ( window.find(searchString, false) ) {
-            var selection = window.getSelection(),
-                range = selection.getRangeAt(0);
+            selection = window.getSelection();
+            range = selection.getRangeAt(0);
 
             // Add the range to the results
             results.push(range);
@@ -29,7 +35,7 @@ Factlink.prototype.search = function(searchString){
         window.getSelection().removeAllRanges();
     } else if (document.body.createTextRange) { // IE & Opera
             // Create an empty range object
-        var range = document.body.createTextRange();
+        range = document.body.createTextRange();
         
         if ( range.findText ) { // IE
             // IE8 Doesn't support search over multiple elements...
@@ -53,10 +59,10 @@ Factlink.prototype.search = function(searchString){
                         // Because of IE's shitty implementation of the Range and 
                         // Selection objects, we have to refresh the range (this 
                         // time the rangy module is used)
-                    var selection = rangy.getSelection();
+                    selection = rangy.getSelection();
 
                         // the rangy object
-                    var ierange = selection.getRangeAt(0);
+                    ierange = selection.getRangeAt(0);
 
                     // Push the range to the results
                     results.push(ierange);

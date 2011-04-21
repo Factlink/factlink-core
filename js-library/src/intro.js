@@ -9,4 +9,8 @@
 (function( window, undefined ) {
 
 // Use the correct document accordingly with window argument (sandbox)
-var document = window.document;
+var document = window.document,
+    setTimeout = window.setTimeout,
+    alert = window.alert,
+    $ = window.Ender || window.jQuery;
+

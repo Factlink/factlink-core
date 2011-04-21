@@ -3,10 +3,10 @@
 Factlink.prototype.submitFact = function(){
     var that = this;
     
-    if ( window.rangy === undefined ) {
-        var selection = window.getSelection();
-    } else { // IE
-        var selection = window.rangy.getSelection();
+    var selection = window.getSelection();
+    
+    if ( window.rangy !== undefined ) {
+        selection = window.rangy.getSelection();
     }
     
     try {
@@ -19,8 +19,9 @@ Factlink.prototype.submitFact = function(){
     }
     
     if (range.toString().length < 1) {
+        //@TODO: Fix the loader
         // Tell the loader we're done
-        FL.Loader.finish();
+        // FL.Loader.finish();
         
         // Return to make the function stop
         return false;
@@ -33,26 +34,29 @@ Factlink.prototype.submitFact = function(){
         jsonp: "callback",
         type: 'post',
         data: {
-            url: location.href,
+            url: window.location.href,
             fact: range.toString()
         }
     }).success(function(data) {
-        if (data.status == true) {
+        if (data.status === true) {
             // Select the selected text
             that.selectRanges([range]);
             
+            //@TODO: Fix the loader
             // The loader can hide itself
-            FL.Loader.finish();
+            // FL.Loader.finish();
         } else {
-            console.info( data );
+            window.console.info( data );
             alert("Something went wrong");
             
+            //@TODO: Fix the loader
             // The Loader can hide itself
-            FL.Loader.finish();
+            // FL.Loader.finish();
         }
     }).error(function(data) {
+        //@TODO: Fix the loader
         //TODO: Better errorhandling
-        FL.Loader.finish();
+        // FL.Loader.finish();
     });
 };
 })( Factlink );

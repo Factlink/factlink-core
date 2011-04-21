@@ -4,20 +4,24 @@
  *
  * Copyright 2011, Factlink
  * 
- * Date: @DATE
+ * Date: Tue Apr 19 16:08:26 2011 +0200
  */
 (function( window, undefined ) {
 
 // Use the correct document accordingly with window argument (sandbox)
-var document = window.document;
+var document = window.document,
+    setTimeout = window.setTimeout,
+    alert = window.alert,
+    $ = window.Ender || window.jQuery;
+
 var Factlink = (function() {
 // Empty Factlink object
 var Factlink = function(){
-    this.results = [];
-    
-    // Add the stylesheet to the DOM
-    Factlink.util.addStyleSheet("http://factlink:8000/src/styles/factlink.css?" + (new Date()).getTime() );
-};
+		this.results = [];
+
+		// Add the stylesheet to the DOM
+		Factlink.util.addStyleSheet("http://factlink:8000/src/styles/factlink.css?" + (new Date()).getTime() );
+	};
 
 // Function which will collect all the facts for the current page
 // and select them.
@@ -31,8 +35,9 @@ Factlink.prototype.getTheFacts = function(){
               loc.pathname,
         that = this;
     
+	//@TODO Fix the Loader
     // Update the loader
-    FL.Loader.updateStatus( "Retrieving the facts from the server" );
+    // FL.Loader.updateStatus( "Retrieving the facts from the server" );
     
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -47,15 +52,17 @@ Factlink.prototype.getTheFacts = function(){
         .success(function(data){
             // If there are multiple matches on the page, loop through them all
             for ( var i = 0; i < data.length; i++ ) {
-                // Update the loader
-                FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
+                //@TODO Fix the Loader
+				// Update the loader
+                // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
                 
                 // Select the ranges (results)
                 that.selectRanges( that.search( data[i].displaystring ) );
             }
             
+            //@TODO Fix the Loader
             // Done loading
-            FL.Loader.finish();
+            // FL.Loader.finish();
         });
 };
 
@@ -69,8 +76,7 @@ Factlink.prototype.getTheFacts = function(){
 Factlink.util = {};
 
 // IE anyone?
-Factlink.util.hasInnerText = (document.getElementsByTagName("body")[0].innerText
-     != undefined) ? true : false;
+Factlink.util.hasInnerText = (document.getElementsByTagName("body")[0].innerText !== undefined) ? true : false;
 
 // Util function to load a stylesheet
 Factlink.util.addStyleSheet = function(url) {
@@ -102,27 +108,26 @@ Factlink.util.walkTheDOM = function walk(node, func) {
 // Factlink debug
 Factlink.util.debug = function() {
     if ( window.console && window.console.info ) {
-        window.console.info.apply( console, arguments );
+        window.console.info.apply( window.console, arguments );
     }
-}
+};
 
 // Dustin Diaz - $script.js
 Factlink.util.domReady = function(fn) {
-    /in/.test( document['readyState'] ) ? setTimeout( function() { domReady(fn); }, 50) : fn();
+    /in/.test( document['readyState'] ) ? setTimeout( function() { Factlink.util.domReady(fn); }, 50) : fn();
 };
 
 // Expose the Factlink object to the global object
 return Factlink;
-
 })();
 // Make the user able to add a Factlink
 Factlink.prototype.submitFact = function(){
     var that = this;
     
-    if ( window.rangy === undefined ) {
-        var selection = window.getSelection();
-    } else { // IE
-        var selection = window.rangy.getSelection();
+    var selection = window.getSelection();
+    
+    if ( window.rangy !== undefined ) {
+        selection = window.rangy.getSelection();
     }
     
     try {
@@ -135,8 +140,9 @@ Factlink.prototype.submitFact = function(){
     }
     
     if (range.toString().length < 1) {
+        //@TODO: Fix the loader
         // Tell the loader we're done
-        FL.Loader.finish();
+        // FL.Loader.finish();
         
         // Return to make the function stop
         return false;
@@ -149,32 +155,35 @@ Factlink.prototype.submitFact = function(){
         jsonp: "callback",
         type: 'post',
         data: {
-            url: location.href,
+            url: window.location.href,
             fact: range.toString()
         }
     }).success(function(data) {
-        if (data.status == true) {
+        if (data.status === true) {
             // Select the selected text
             that.selectRanges([range]);
             
+            //@TODO: Fix the loader
             // The loader can hide itself
-            FL.Loader.finish();
+            // FL.Loader.finish();
         } else {
-            console.info( data );
+            window.console.info( data );
             alert("Something went wrong");
             
+            //@TODO: Fix the loader
             // The Loader can hide itself
-            FL.Loader.finish();
+            // FL.Loader.finish();
         }
     }).error(function(data) {
+        //@TODO: Fix the loader
         //TODO: Better errorhandling
-        FL.Loader.finish();
+        // FL.Loader.finish();
     });
 };
 
 
-// Store the Loader object in the prototype
-var Loader = Factlink.prototype.Loader = {
+var // Store the Loader object in the prototype
+    Loader = Factlink.prototype.Loader = {
     // jQuery object which holds the loader
     el : $( '<div class="loader">' +
                 '<h1>Factlink</h1>' +
@@ -245,7 +254,7 @@ Factlink.prototype.initProxy = function(){
                 if ( href.search(/http:\/\//) !== 0 ) { 
                     if ( href.search(/mailto:/) !== 0 && 
                          href.search(/javascript:/) !== 0 ) {
-                        console.info( "N: " + href );
+                        window.console.info( "N: " + href );
                     }
                 } else {
                     valid = true;
@@ -260,21 +269,25 @@ Factlink.prototype.initProxy = function(){
     });
 };    
 
+    
 // Function to select the found ranges
 Factlink.prototype.selectRanges = function(ranges){
+    var i, k;
     // Loop through ranges (backwards)
-    for ( var i = ranges.length; i--; ){
+    for ( i = ranges.length; i--; ){
         // Current range
-        var range = ranges[i];
+        var range = ranges[i],
         
             // Start- and EndNodes
-        var startNode = range.startContainer,
-            endNode = range.endContainer;
+            startNode = range.startContainer,
+            endNode = range.endContainer,
 
             // Try to find out if there are other matches within this element
-        var j = i,
+            j = i,
             // Helper for posible extra matches within the current startNode
-            extraMatches = [];
+            extraMatches = [],
+            
+            obj;
                 
         while ( --j > 0 && ranges[j].startContainer === startNode ) {
             // Push the match to the extraMatches helper
@@ -298,8 +311,8 @@ Factlink.prototype.selectRanges = function(ranges){
         // If there are other matches within the startNode, 
         // process them here
         if ( extraMatches.length > 0 ) {
-            for ( var k = 0; k < extraMatches.length; k++ ) {
-                var obj = extraMatches[k];
+            for ( k = 0; k < extraMatches.length; k++ ) {
+                obj = extraMatches[k];
 
                 // Insert the "fact"-span in the same element
                 this.replaceFactNodes(obj.startOffset, 
@@ -313,7 +326,7 @@ Factlink.prototype.selectRanges = function(ranges){
     
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    for (var i = 0; i < this.results.length; i++ ) {
+    for ( i = 0; i < this.results.length; i++ ) {
         var res = this.results[i];
         
         // Insert the fact-span
@@ -391,20 +404,16 @@ Factlink.prototype.replaceFactNodes = function(startOffset,
     Factlink.util.walkTheDOM( commonAncestorContainer, function( node ) {
         // We're only interested in textNodes
         if ( node !== undefined && node.nodeType === 3 ){
+            var rStartOffset = 0;
             if (node === startNode) {
                 foundStart = true;
-                var rStartOffset = startOffset;
-            } else if (foundStart) {
-                    // If this is a node in between the start- and endNode
-                    // The startOffset is being set to 0
-                var rStartOffset = 0;
+                rStartOffset = startOffset;
             }
 
             if (foundStart) {
+                var rEndOffset = node.nodeValue.length;
                 if (node === endNode) {
-                    var rEndOffset = endOffset;
-                } else {
-                    var rEndOffset = node.nodeValue.length;
+                    rEndOffset = endOffset;
                 }
                 
                 // Push the right info to the results array, the info 
@@ -427,23 +436,29 @@ Factlink.prototype.replaceFactNodes = function(startOffset,
 
 // Function to search the page
 Factlink.prototype.search = function(searchString){
-        // Array which will hold all the results
-    var results = [];
+	var window = window,
+		document = window.document,
+		alert = window.alert,
+		// Array which will hold all the results
+		results = [],
     
     // Store scroll settings to reset to afterwards
-    var scrollTop = document.body.scrollTop,
-        scrollLeft = document.body.scrollLeft;
+        scrollTop = document.body.scrollTop,
+        scrollLeft = document.body.scrollLeft,
+        
+        rangy = window.rangy,
+        selection, range, ierange, scroll;
     
     if ( window.find ) { // Chrome, Firefox, Safari
         // Reset the selection
         // Maybe we later need to store the current selection before 
         // processing the document, so we can reset it afterwards
         window.getSelection().removeAllRanges();
-
+        
         // Loop through all the results of the search string
         while ( window.find(searchString, false) ) {
-            var selection = window.getSelection(),
-                range = selection.getRangeAt(0);
+            selection = window.getSelection();
+            range = selection.getRangeAt(0);
 
             // Add the range to the results
             results.push(range);
@@ -455,7 +470,7 @@ Factlink.prototype.search = function(searchString){
         window.getSelection().removeAllRanges();
     } else if (document.body.createTextRange) { // IE & Opera
             // Create an empty range object
-        var range = document.body.createTextRange();
+        range = document.body.createTextRange();
         
         if ( range.findText ) { // IE
             // IE8 Doesn't support search over multiple elements...
@@ -479,10 +494,10 @@ Factlink.prototype.search = function(searchString){
                         // Because of IE's shitty implementation of the Range and 
                         // Selection objects, we have to refresh the range (this 
                         // time the rangy module is used)
-                    var selection = rangy.getSelection();
+                    selection = rangy.getSelection();
 
                         // the rangy object
-                    var ierange = selection.getRangeAt(0);
+                    ierange = selection.getRangeAt(0);
 
                     // Push the range to the results
                     results.push(ierange);
