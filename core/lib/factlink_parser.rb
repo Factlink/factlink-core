@@ -19,8 +19,13 @@ class FactlinkParser
     
     # Related topics uses a depricated YQL service.
     # results['related_topics'] = self.get_related_topics_for_search_term(user_input)
-    results['spell_check'] = self.get_spell_check_for_search_term(user_input)
-    results['web_results'] = self.get_web_search_results_for_search_term(user_input)
+    # results['spell_check'] = self.get_spell_check_for_search_term(user_input)
+    # results['web_results'] = self.get_web_search_results_for_search_term(user_input)
+    
+    # YQL keeps breaking Factlink. Let's work with empty results for the moment.
+    # TODO: Get a decent API for suggestions and search results
+    results['spell_check'] = []
+    results['web_results'] = []
     
     return results
   end    

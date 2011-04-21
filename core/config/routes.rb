@@ -1,5 +1,7 @@
 FactlinkUI::Application.routes.draw do
 
+  resources :factlink_subs
+
   devise_for :users
   resources :factlink_tops
 

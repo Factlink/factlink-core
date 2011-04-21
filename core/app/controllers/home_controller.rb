@@ -10,6 +10,7 @@ class HomeController < ApplicationController
     end
 
     parser = FactlinkParser.new
+
     @results = parser.get_results_for_query(user_input)
   end
 
