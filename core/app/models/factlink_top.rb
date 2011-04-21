@@ -1,6 +1,7 @@
 class FactlinkTop
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Taggable
   include Sunspot::Mongoid
 
   # Create search index on :displaystring
@@ -18,6 +19,10 @@ class FactlinkTop
   
   def to_s
     displaystring
+  end
+
+  def subs
+    self.factlink_subs
   end
 
 end

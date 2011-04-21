@@ -13,13 +13,15 @@ FactlinkUI::Application.routes.draw do
   # Javascript Client calls
   match "/site" => "factlinks#highlights_for_site"
   match "/factlink/show/:id" => "factlinks#show"
+  match "/factlink/addsub/:id" => "factlinks#add_sub"
+  match "/factlink/addtag/:id" => "factlinks#add_tag"
   match "/factlink/new" => "factlinks#create"
   
   
   # Old
   match "/factlinks_for_url" => "factlinks#factlink_tops_for_url"
   match "/factlink_subs_for_factlink_id" => "factlinks#factlink_subs_for_factlink_id"
-  match "/factlink/new" => "factlinks#new"
+  # match "/factlink/new" => "factlinks#new"
   
 
   # Web Front-end

@@ -7,8 +7,7 @@ class FactlinkSub
   # searchable do
   #   text :title
   # end
-  
-  
+
   field :title, :type => String
   field :content, :type => String
   field :url, :type => String

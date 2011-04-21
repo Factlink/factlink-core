@@ -21,13 +21,12 @@ class FactlinksController < ApplicationController
     #   format.xml  { render :xml => @factlink_top }
     # end
     
-    render :json => @factlink_top.to_json(), :callback => params[:callback]
-    
+    # Add the Tags array in the response
+    render :json => @factlink_top.to_json(:methods => [:tags_array, :subs]), :callback => params[:callback]
   end
 
 
   def create
-    
     required_params = %W[url fact callback]
     error = false
     
@@ -64,6 +63,39 @@ class FactlinksController < ApplicationController
     render :json => res_dict, :callback => params[:callback]
     
   end
+
+  def add_sub
+    @factlink_top = FactlinkTop.find(params[:id])
+    
+    title = params[:title]
+    content = params[:content]
+    url = params[:url]
+    
+    sub = FactlinkSub.new(:title => title, :content => content, :url => url)
+    sub.save
+    
+    @factlink_top.factlink_subs << sub
+    @factlink_top.save
+    
+    render :json => { :status => true }, :callback => params[:callback]
+  end
+  
+  def add_tag
+    # TODO: Check if tag already exists
+    @factlink_top = FactlinkTop.find(params[:id])
+    
+    tag = params[:tag]
+    current_tags = @factlink_top.tags
+    new_tags = current_tags << ", #{tag}"
+    
+    @factlink_top.tags = new_tags
+    @factlink_top.save
+    
+    render :json => { :status => true }, :callback => params[:callback]
+  end
+
+
+
 
 
 
