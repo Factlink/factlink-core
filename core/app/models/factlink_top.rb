@@ -1,11 +1,15 @@
 class FactlinkTop
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Sunspot::Mongoid
+
+  # Create search index on :displaystring
+  searchable do
+    text :displaystring
+  end
 
   field :displaystring
-
-  # references_many :sites, :stored_as => :array, :inverse_of => :factlink_tops
-  # references_many :factlink_subs, :type => Array, :default => []
+  field :score, :type => Hash, :default => {:denies => 0, :weakens => 10, :supports => 120, :proves => 69 }
   
   belongs_to :site
   has_many :factlink_subs
@@ -15,10 +19,5 @@ class FactlinkTop
   def to_s
     displaystring
   end
-  
-  # Create search index on :displaystring
-  include Sunspot::Mongoid
-  searchable do
-    text :displaystring
-  end
+
 end

@@ -12,7 +12,6 @@ class FactlinkTopsController < ApplicationController
   end
 
 
-  
   # GET /factlink_tops
   # GET /factlink_tops.xml
   def index
@@ -28,7 +27,7 @@ class FactlinkTopsController < ApplicationController
   # GET /factlink_tops/1.xml
   def show
     @factlink_top = FactlinkTop.find(params[:id])
-
+  
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @factlink_top }

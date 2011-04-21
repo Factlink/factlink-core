@@ -1,5 +1,76 @@
 class FactlinksController < ApplicationController
 
+  # Refactor
+  def highlights_for_site    
+    url = params[:url]
+    site = Site.first(:conditions => { :url => url })
+
+    # Get all factlink tops for this site
+    if site then @factlinks = site.factlink_tops.entries else @factlinks = [] end
+        
+    # Render the result with callback, so JSONP can be used (for Internet Explorer)
+    render :json => @factlinks.to_json(:only => [:_id, :displaystring, :score]), :callback => params[:callback]
+  end
+  
+  def show
+
+    @factlink_top = FactlinkTop.find(params[:id])
+  
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.xml  { render :xml => @factlink_top }
+    # end
+    
+    render :json => @factlink_top.to_json(), :callback => params[:callback]
+    
+  end
+
+
+  def create
+    
+    required_params = %W[url fact callback]
+    error = false
+    
+    # Validate presence of all required parameters
+    # If fail, return error message.
+    required_params.each do |param|
+      if params[param].nil?
+        error = true
+        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact, callback.\"}", :callback => params[:callback]
+        # return is required to jump out of function
+        return false
+      end
+    end
+    
+    # Get or create the website on which the Fact is located.
+    site = Site.find_or_create_by(:url => params[:url])
+
+    # Create the Factlink.
+    new_factlink = FactlinkTop.create!(:displaystring => params[:fact])
+    
+    # And add Factlink to the Site.
+    site.factlink_tops << new_factlink
+    
+    added = true
+    status = true
+    match_id = new_factlink.id
+    
+    # Create the result payload
+    res_dict = {}
+    res_dict[:added] = added
+    res_dict[:status] = status
+    res_dict[:match_id] = match_id
+    
+    render :json => res_dict, :callback => params[:callback]
+    
+  end
+
+
+
+
+
+
+
   ##########
   # Retrieve the Factlinks for this URL
   # TODO: Will be replaced soon. URL matching is quick for development,

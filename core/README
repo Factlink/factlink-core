@@ -1,4 +1,3 @@
-
 ##########
 # Start the local Solr server:
 rake sunspot:solr:start

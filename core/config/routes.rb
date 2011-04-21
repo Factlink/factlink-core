@@ -11,17 +11,23 @@ FactlinkUI::Application.routes.draw do
   resources :factlink_subs
 
   # Javascript Client calls
-  match "factlinks_for_url" => "factlinks#factlink_tops_for_url"
-  match "factlink_subs_for_factlink_id" => "factlinks#factlink_subs_for_factlink_id"
-  match "factlink/new" => "factlinks#new"
+  match "/site" => "factlinks#highlights_for_site"
+  match "/factlink/show/:id" => "factlinks#show"
+  match "/factlink/new" => "factlinks#create"
+  
+  
+  # Old
+  match "/factlinks_for_url" => "factlinks#factlink_tops_for_url"
+  match "/factlink_subs_for_factlink_id" => "factlinks#factlink_subs_for_factlink_id"
+  match "/factlink/new" => "factlinks#new"
   
 
   # Web Front-end
   root :to => "home#index"
-  match "topic/:search" => "home#index", :as => "search_topic"  
+  match "/topic/:search" => "home#index", :as => "search_topic"  
 
   # Development, testing Solr
-  match "search" => "factlink_tops#search"
+  match "/search" => "factlink_tops#search"
   
 
   ############################################################################
