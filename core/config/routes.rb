@@ -12,6 +12,8 @@ FactlinkUI::Application.routes.draw do
 
   # Javascript Client calls
   match "/site" => "factlinks#highlights_for_site"
+  match "/site/count" => "factlinks#count_for_site"
+  
   match "/factlink/show/:id" => "factlinks#show"
   match "/factlink/addsub/:id" => "factlinks#add_sub"
   match "/factlink/addtag/:id" => "factlinks#add_tag"

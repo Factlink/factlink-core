@@ -1,4 +1,16 @@
 class FactlinksController < ApplicationController
+  
+  def count_for_site
+    url = params[:url]
+    site = Site.first(:conditions => { :url => url })
+    
+    count = 0
+    if site
+      count = site.factlink_tops.count
+    end
+    
+    render :json => { :count => count }, :callback => params[:callback]
+  end
 
   # Refactor
   def highlights_for_site    
