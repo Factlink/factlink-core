@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 # Defaults
 gem 'rails', '3.0.5'
 gem 'sqlite3-ruby', :require => 'sqlite3'
-gem 'system_timer'
+gem 'SystemTimer'
 
 ##########
 # Devise already comes with oauth2 support, 
