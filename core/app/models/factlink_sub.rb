@@ -1,7 +1,11 @@
 class FactlinkSub
   include Mongoid::Document
-  field :title
-  field :content
+  include Mongoid::Timestamps
   
-  referenced_in :factlink_top, :inverse_of => :factlink_sub
+  field :title, :type => String
+  field :content, :type => String
+  field :url, :type => String
+  
+  # referenced_in :factlink_top, :inverse_of => :factlink_sub
+  belongs_to :factlink_top
 end
