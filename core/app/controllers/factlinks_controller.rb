@@ -21,12 +21,6 @@ class FactlinksController < ApplicationController
 
 
 
-
-
-
-
-
-
   ##########
   # Retrieve the Factlinks for this URL
   # TODO: Will be replaced soon. URL matching is quick for development,
