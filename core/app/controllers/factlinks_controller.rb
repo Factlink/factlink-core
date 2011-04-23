@@ -10,15 +10,9 @@ class FactlinksController < ApplicationController
   #     format.xml  { render :xml => @factlink_top }
   #     format.json { render :json => @factlink_top.to_json(:methods => [:tags_array, :subs]), :callback => params[:callback] }
   #   end
-    # 
-    # Add the Tags array in the response    
+  # 
+  #   Add the Tags array in the response    
   # end
-
-
-
-
-
-
 
 
   ##########

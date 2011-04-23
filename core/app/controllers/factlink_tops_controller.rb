@@ -14,24 +14,21 @@ class FactlinkTopsController < ApplicationController
 
 
   # GET /factlink_tops
-  # GET /factlink_tops.xml
   def index
     @factlink_tops = FactlinkTop.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @factlink_tops }
     end
   end
 
   # GET /factlink_tops/1
-  # GET /factlink_tops/1.xml
+  # GET /factlink/show/1.json
   def show
     @factlink_top = FactlinkTop.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @factlink_top }
       format.json { render :json => @factlink_top.to_json(:methods => [:tags_array, :subs]), :callback => params[:callback] }
     end
   end

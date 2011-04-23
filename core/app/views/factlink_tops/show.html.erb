@@ -10,6 +10,20 @@
   <%= @factlink_top.site.url %>
 </p>
 
+<p>
+	<ul>
+		<% unless @factlink_top.factlink_subs.count > 0 %>
+		<pre>No facts have been added yet.</pre>
+		<% else %>
+
+			<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
+				<li><%= factlink_sub.title %></li>
+			<% end %>
+
+		<% end %>
+	</ul>
+</p>
+
 
 <%= link_to 'Edit', edit_factlink_top_path(@factlink_top) %> |
 <%= link_to 'Back', factlink_tops_path %>
