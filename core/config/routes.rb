@@ -2,36 +2,49 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  ##########
   # User Authentication
   devise_for :admins
   devise_for :users
 
+  ##########
   # Factlink resources
   resources :factlink_tops
   resources :factlink_subs
 
+  ##########
   # Javascript Client calls
-  match "/site" => "factlinks#highlights_for_site"
-  match "/site/count" => "factlinks#count_for_site"
-  
-  match "/factlink/show/:id" => "factlinks#show"
-  match "/factlink/addsub/:id" => "factlinks#add_sub"
-  match "/factlink/addtag/:id" => "factlinks#add_tag"
-  match "/factlink/new" => "factlinks#create"
-  
-  
-  # Old
-  match "/factlinks_for_url" => "factlinks#factlink_tops_for_url"
-  match "/factlink_subs_for_factlink_id" => "factlinks#factlink_subs_for_factlink_id"
-  # match "/factlink/new" => "factlinks#new"
-  
+  match "/site" => "sites#highlights_for_site"
+  match "/site/count" => "sites#count_for_site"
 
+  ##########
+  # Factlink Tops
+  match "/factlink/new" => "factlink_tops#create"  
+  match "/factlink/show/:id" => "factlink_tops#show"
+
+  ##########
+  # Factlink Subs
+  match "/factlink/addsub/:id" => "factlink_subs#add_sub"
+  match "/factlink/addtag/:id" => "factlink_subs#add_tag"
+
+
+  ##########
   # Web Front-end
   root :to => "home#index"
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
+  ##########
   # Development, testing Solr
   match "/search" => "factlink_tops#search"
+
+
+
+
+  ##########
+  # Old, getting deprecated
+  match "/factlinks_for_url" => "sites#highlights_for_site"
+  match "/factlink_subs_for_factlink_id" => "sites#count_for_site"
+
   
 
   ############################################################################

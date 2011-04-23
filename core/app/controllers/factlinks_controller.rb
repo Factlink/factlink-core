@@ -1,73 +1,22 @@
 class FactlinksController < ApplicationController
 
-
-  def create
-    required_params = %W[url fact callback]
-    error = false
-    
-    # Validate presence of all required parameters
-    # If fail, return error message.
-    required_params.each do |param|
-      if params[param].nil?
-        error = true
-        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact, callback.\"}", :callback => params[:callback]
-        # return is required to jump out of function
-        return false
-      end
-    end
-    
-    # Get or create the website on which the Fact is located.
-    site = Site.find_or_create_by(:url => params[:url])
-
-    # Create the Factlink.
-    new_factlink = FactlinkTop.create!(:displaystring => params[:fact])
-    
-    # And add Factlink to the Site.
-    site.factlink_tops << new_factlink
-    
-    added = true
-    status = true
-    match_id = new_factlink.id
-    
-    # Create the result payload
-    res_dict = {}
-    res_dict[:added] = added
-    res_dict[:status] = status
-    res_dict[:match_id] = match_id
-    
-    render :json => res_dict, :callback => params[:callback]
-    
-  end
-
-  def add_sub
-    @factlink_top = FactlinkTop.find(params[:id])
-    
-    title = params[:title]
-    content = params[:content]
-    url = params[:url]
-    
-    sub = FactlinkSub.new(:title => title, :content => content, :url => url)
-    sub.save
-    
-    @factlink_top.factlink_subs << sub
-    @factlink_top.save
-    
-    render :json => { :status => true }, :callback => params[:callback]
-  end
+  layout "client"
   
-  def add_tag
-    # TODO: Check if tag already exists
-    @factlink_top = FactlinkTop.find(params[:id])
-    
-    tag = params[:tag]
-    current_tags = @factlink_top.tags
-    new_tags = current_tags << ", #{tag}"
-    
-    @factlink_top.tags = new_tags
-    @factlink_top.save
-    
-    render :json => { :status => true }, :callback => params[:callback]
-  end
+  # def show
+  #   @factlink_top = FactlinkTop.find(params[:id])
+  # 
+  #   respond_to do |format|
+  #     format.html # show.html.erb
+  #     format.xml  { render :xml => @factlink_top }
+  #     format.json { render :json => @factlink_top.to_json(:methods => [:tags_array, :subs]), :callback => params[:callback] }
+  #   end
+    # 
+    # Add the Tags array in the response    
+  # end
+
+
+
+
 
 
 

@@ -1,4 +1,40 @@
 class FactlinkSubsController < ApplicationController
+
+
+  def add_sub
+    @factlink_top = FactlinkTop.find(params[:id])
+    
+    title = params[:title]
+    content = params[:content]
+    url = params[:url]
+    
+    sub = FactlinkSub.new(:title => title, :content => content, :url => url)
+    sub.save
+    
+    @factlink_top.factlink_subs << sub
+    @factlink_top.save
+    
+    render :json => { :status => true }, :callback => params[:callback]
+  end
+  
+  def add_tag
+    # TODO: Check if tag already exists
+    @factlink_top = FactlinkTop.find(params[:id])
+    
+    tag = params[:tag]
+    current_tags = @factlink_top.tags
+    new_tags = current_tags << ", #{tag}"
+    
+    @factlink_top.tags = new_tags
+    @factlink_top.save
+    
+    render :json => { :status => true }, :callback => params[:callback]
+  end
+
+
+
+
+
   # GET /factlink_subs
   # GET /factlink_subs.xml
   def index
