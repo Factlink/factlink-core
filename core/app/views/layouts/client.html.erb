@@ -1,13 +1,16 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Factlink Client</title>
-	</head>
-
-<body>
-	<pre>Authenticated user: <%= current_user.email %></pre>
-	<pre>Factlink has a message: this is teh client!</pre>
-	<hr>
+<head>
+	<link rel="stylesheet/less" type="text/css" href="/client/css/modal.less">
+	<title>Factlink modal window</title>
+	<script type="text/javascript" src="/client/js/less-1.0.41.min.js"></script>
 	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="/client/js/jscrollpane.min.js"></script>
+</head>
+<body>
+
 	<%= yield %>
 
 </body>

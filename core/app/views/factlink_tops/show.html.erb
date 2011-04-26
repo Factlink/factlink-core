@@ -1,29 +1,56 @@
-<p id="notice"><%= notice %></p>
+<div class="fl-modal">
+	<div class="fl-close">x</div>
+	<div class="fl-container">
+		<div class="fl-stats">
+			<ul class="fl-stats-bar">
+				<li class="fl-bar-support" style="height: 50%;">100</li>
+				<li class="fl-bar-maybe" style="height: 20%;">40</li>
+				<li class="fl-bar-refute" style="height: 30%;">60</li>
+			</ul>
+			<span class="fl-stats-count">419,420</span>
+		</div>
+		
+		<div class="fl-factlink">
+			<h1>&#8220;<%= @factlink_top.displaystring %>&#8221;</h1>
+		</div>
+		
+		<div class="fl-clear"></div>
+		
+		<div class="fl-tags">
+			<ul>
+				<% @factlink_top.tags_array.each do |tag| %>
+				<li><%= tag %></li>
+				<% end %>
+				<li class="fl-tag-add">+</li>
+			</ul>
+			<a href="javascript:void();">more...</a>
+		</div>
+		
+		<div class="fl-clear"></div>
+		
+		<div class="fl-scroll-pane">
+			<ol class="fl-sources">
 
-<p>
-  <b>Displaystring:</b>
-  <%= @factlink_top.displaystring %>
-</p>
+				<% unless @factlink_top.factlink_subs.count > 0 %>
+				<pre>No facts have been added yet.</pre>
+				<% else %>
+					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
+						<li>
+							<span class="fl-source-up"></span>
+							<span class="fl-source-down"></span>
+							<h4><%= factlink_sub.title %></h4>
+							<span class="fl-source">source: <a href="javascript:void();"><%= factlink_sub.url %></a></span>
+						</li>
+					<% end %>
+				<% end %>
 
-<p>
-  <b>Sites:</b>
-  <%= @factlink_top.site.url %>
-</p>
+			</ol>
+		</div>
+	</div>
+</div>
 
-<p>
-	<ul>
-		<% unless @factlink_top.factlink_subs.count > 0 %>
-		<pre>No facts have been added yet.</pre>
-		<% else %>
-
-			<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-				<li><%= factlink_sub.title %></li>
-			<% end %>
-
-		<% end %>
-	</ul>
-</p>
-
-
-<%= link_to 'Edit', edit_factlink_top_path(@factlink_top) %> |
-<%= link_to 'Back', factlink_tops_path %>
+<script type="text/javascript">
+	(function($){
+		$('.fl-scroll-pane').jScrollPane();
+	})(jQuery);
+</script>
