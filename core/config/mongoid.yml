@@ -7,11 +7,13 @@ defaults: &defaults
   #     port: 27019
 
 development:
-  <<: *defaults
+  # <<: *defaults
+  host: localhost
   database: factlink_ui_development
 
 test:
-  <<: *defaults
+  # <<: *defaults
+  host: localhost
   database: factlink_ui_test
 
 # set these environment variables on your prod server
