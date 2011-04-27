@@ -18,9 +18,9 @@
 		
 		<div class="fl-tags">
 			<ul>
-				<% @factlink_top.tags_array.each do |tag| %>
-				<li><%= tag %></li>
-				<% end %>
+					<% (@factlink_top.tags_array || []).each do |tag| %>
+					<li><%= tag %></li>
+					<% end %>
 				<li class="fl-tag-add">+</li>
 			</ul>
 			<a href="javascript:void();">more...</a>

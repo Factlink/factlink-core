@@ -68,3 +68,21 @@ fs3 = FactlinkSub.new(:title => "Another awesome fact",
                       :factlink_top => ft1)
 fs3.save
 
+fs4 = FactlinkSub.new(:title => "This fact is true but might not be relevant",
+                      :content => "The baron is inside. Something is either in the wisdom of heart and Louie is not happy with the default keyboards that we want to use. He only want Logitec. Stop.",
+                      :url => "http://logitec.com",
+                      :factlink_top => ft1)
+fs4.save
+
+fs5 = FactlinkSub.new(:title => "This fact will make you go crazy!",
+                      :content => "Too bad he is not so awesome as the rest of us. If he was, he could use awesome mice and keyboards, like us, and like the way Steven wants it to be.",
+                      :url => "http://crazywoman.com",
+                      :factlink_top => ft1)
+fs5.save
+
+fs6 = FactlinkSub.new(:title => "My Baron is the nicest in the world.",
+                      :content => "Baron me baron, at the moment we are working with compiled code :/",
+                      :url => "http://baron.nl",
+                      :factlink_top => ft1)
+fs6.save
+
