@@ -3,7 +3,9 @@ source 'http://rubygems.org'
 # Defaults
 gem 'rails', '3.0.5'
 gem 'sqlite3-ruby', :require => 'sqlite3'
-gem 'SystemTimer'
+
+# system_timer is only needed in ruby 1.8.*
+# gem 'SystemTimer'
 
 ##########
 # Devise already comes with oauth2 support, 
@@ -35,5 +37,5 @@ gem 'json'
 # https://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less
 # Using SunSpot for Mongoid, Ruby wrapper for Solr
 # Use fork: https://github.com/vinova/sunspot_mongoid - patched for ActiveModel
-gem 'sunspot_rails'
+gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'

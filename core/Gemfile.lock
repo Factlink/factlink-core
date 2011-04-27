@@ -147,6 +147,6 @@ DEPENDENCIES
   mongoid_taggable
   rails (= 3.0.5)
   sqlite3-ruby
-  sunspot_rails
+  sunspot_rails (~> 1.2.1)
   twitter
   vinova_sunspot_mongoid
