@@ -10,7 +10,7 @@ class FactlinkTop
   end
 
   field :displaystring
-  field :score, :type => Hash, :default => {:denies => 0, :weakens => 10, :supports => 120, :proves => 69 }
+  field :score, :type => Hash, :default => { :denies => 0, :weakens => 10, :supports => 120, :proves => 69 }
   
   belongs_to :site
   has_many :factlink_subs

@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+
+# Site
+site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
+site.save
+
+# FactlinkTops
+
+
+# FactlinkSubs
+
