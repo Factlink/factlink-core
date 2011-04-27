@@ -4,7 +4,7 @@
  *
  * Copyright 2011, Factlink
  * 
- * Date: Tue Apr 19 16:08:26 2011 +0200
+ * Date: Thu Apr 21 11:36:50 2011 +0200
  */
 (function( window, undefined ) {
 
@@ -16,24 +16,23 @@ var document = window.document,
 
 var Factlink = (function() {
 // Empty Factlink object
-var Factlink = function(){
-		this.results = [];
-
-		// Add the stylesheet to the DOM
-		Factlink.util.addStyleSheet("http://factlink:8000/src/styles/factlink.css?" + (new Date()).getTime() );
-	};
+var Factlink = {
+    results: []
+};
 
 // Function which will collect all the facts for the current page
 // and select them.
-Factlink.prototype.getTheFacts = function(){
+Factlink.getTheFacts = function() {
     var loc = window.location,
         // The URL to the Factlink backend
-        src = 'http://tom:1337/factlinks_for_url.json?url=' + 
+        src = Factlink.CONF.API.loc + '/site?url=' + 
               loc.protocol + 
               '//' + 
               loc.hostname + 
               loc.pathname,
         that = this;
+    
+    console.info( src );
     
 	//@TODO Fix the Loader
     // Update the loader
@@ -41,12 +40,12 @@ Factlink.prototype.getTheFacts = function(){
     
     // We use the jQuery AJAX plugin
     $.ajax({
-            url: src,
-            dataType: "jsonp",
-            crossDomain: true,
-            type: "GET",
-            jsonp: "callback"
-        })
+        url: src,
+        dataType: "jsonp",
+        crossDomain: true,
+        type: "GET",
+        jsonp: "callback"
+    })
         // Callback which is called when the response is loaded, will contain
         // the JSON data
         .success(function(data){
@@ -120,8 +119,14 @@ Factlink.util.domReady = function(fn) {
 // Expose the Factlink object to the global object
 return Factlink;
 })();
+Factlink.CONF = {
+    API: {
+        loc: "http://tom:1337"
+    }
+};
+
 // Make the user able to add a Factlink
-Factlink.prototype.submitFact = function(){
+Factlink.submitFact = function(){
     var that = this;
     
     var selection = window.getSelection();
@@ -182,8 +187,8 @@ Factlink.prototype.submitFact = function(){
 };
 
 
-var // Store the Loader object in the prototype
-    Loader = Factlink.prototype.Loader = {
+var // Store the Loader object in the Factlink object
+    Loader = Factlink.Loader = {
     // jQuery object which holds the loader
     el : $( '<div class="loader">' +
                 '<h1>Factlink</h1>' +
@@ -229,7 +234,7 @@ Loader.finish = function() {
 
 // Function which will make sure all the links on the current page will 
 // be set so that Factlink will proxy them
-Factlink.prototype.initProxy = function(){
+Factlink.initProxy = function(){
     // We can only start manipulating when the DOM is fully loaded
     Factlink.utils.domReady(function(){
             // Get all the A tags on the current page
@@ -271,7 +276,7 @@ Factlink.prototype.initProxy = function(){
 
     
 // Function to select the found ranges
-Factlink.prototype.selectRanges = function(ranges){
+Factlink.selectRanges = function(ranges){
     var i, k;
     // Loop through ranges (backwards)
     for ( i = ranges.length; i--; ){
@@ -388,7 +393,7 @@ createFactSpan = function(text, id){
 };
 
 // Function that tracks the DOM for nodes containing the fact
-Factlink.prototype.replaceFactNodes = function(startOffset,
+Factlink.replaceFactNodes = function(startOffset,
                             endOffset,
                             startNode,
                             endNode,
@@ -435,9 +440,8 @@ Factlink.prototype.replaceFactNodes = function(startOffset,
 };
 
 // Function to search the page
-Factlink.prototype.search = function(searchString){
-	var window = window,
-		document = window.document,
+Factlink.search = function(searchString){
+	var document = window.document,
 		alert = window.alert,
 		// Array which will hold all the results
 		results = [],

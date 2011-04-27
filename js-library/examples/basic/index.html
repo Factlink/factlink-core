@@ -2,12 +2,18 @@
 <html>
 <head>
 	<title>Basic Factlink library example</title>
+	<!-- @TODO Make this nice again - We need a dummy script tag for the script loader to work -->
+	<script type="text/javascript" src="http://factlink:8000/nonexistent.js"></script>
 </head>
 <body>
 	<div>
-		
+		<h1>Factlink testing</h1>
+		<p>
+			A lot of text. <span class="factlink">And a nice Factlink.</span> And some more text
+		</p>
 	</div>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.js"></script>
-	<script type="text/javascript" src="../../dist/factlink.js"></script>
+	<div>
+		<ul class="factlink-choices"><li>I know<ul><li>something that<ul><li>supports this</li><li>weakens this</li><li>proves this</li><li>refutes this</li></ul></li><li>topics</li><li>someone who<ul><li>should participate</li></ul></li></ul></li><li>I want<ul><li>to know about</li><li>to ask/tell someone about</li></ul></li></ul>
+	</div>
 </body>
 </html>
