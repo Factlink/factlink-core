@@ -1,5 +1,7 @@
 class FactlinksController < ApplicationController
 
+  before_filter :authenticate_user!
+  
   layout "client"
   
   # def show
