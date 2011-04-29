@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Structure</title>
+		<style type="text/css">
+			/* http://meyerweb.com/eric/tools/css/reset/ 
+			   v2.0 | 20110126
+			   License: none (public domain)
+			*/
+
+			html, body, div, span, applet, object, iframe,
+			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+			a, abbr, acronym, address, big, cite, code,
+			del, dfn, em, img, ins, kbd, q, s, samp,
+			small, strike, strong, sub, sup, tt, var,
+			b, u, i, center,
+			dl, dt, dd, ol, ul, li,
+			fieldset, form, label, legend,
+			table, caption, tbody, tfoot, thead, tr, th, td,
+			article, aside, canvas, details, embed, 
+			figure, figcaption, footer, header, hgroup, 
+			menu, nav, output, ruby, section, summary,
+			time, mark, audio, video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article, aside, details, figcaption, figure, 
+			footer, header, hgroup, menu, nav, section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol, ul {
+				list-style: none;
+			}
+			blockquote, q {
+				quotes: none;
+			}
+			blockquote:before, blockquote:after,
+			q:before, q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			a {
+				text-decoration: none;
+			}
+		</style>
+		<style type="text/css">
+			.context {
+				position: relative;
+				float: left;
+			}
+			.context ul {
+				display: none;
+				position: absolute;
+				padding: 5px 0;
+				background: #ccc;
+				color: #000;
+				top: -5px;
+				left: 100%;
+			}
+			.context > ul {
+				top: 0;
+				display: block;
+			}
+			.context li {
+				position: relative;
+				white-space: nowrap;
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+			.context a {
+				color: #555;
+			}
+			.context li:hover {
+				background: #eee;
+			}
+			.context:hover > ul,
+			.context li:hover > ul {
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="context">
+			<ul>
+				<li>
+					I know
+					<ul>
+						<li>
+							something that
+							<ul>
+								<li><a href="#">supports this</a></li>
+								<li><a href="#">weakens this</a></li>
+								<li><a href="#">proves this</a></li>
+								<li><a href="#">refutes this</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">topics
+						</li>
+						<li>
+							someone who
+							<ul>
+								<li><a href="#">should participate</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					I want
+					<ul>
+						<li>
+							<a href="#" class="last">to know about</a>
+						</li>
+						<li>
+							<a href="#">ask/tell someone about</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			var loc = window.location.search.substr(1).split("///");
+			
+			var fact = loc[0];
+			var url = loc[1];
+			
+			$( 'a.last' ).bind( 'click', function() {
+				window.location = "http://tom:1337/factlink/new?url=" + url + "&fact=" + fact;
+			});
+		</script>
+	</body>
+</html>

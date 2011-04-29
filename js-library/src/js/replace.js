@@ -1,7 +1,7 @@
 (function( Factlink ) {
     
 // Function to select the found ranges
-Factlink.selectRanges = function(ranges){
+Factlink.selectRanges = function(ranges, id){
     var i, k;
     // Loop through ranges (backwards)
     for ( i = ranges.length; i--; ){
@@ -60,14 +60,14 @@ Factlink.selectRanges = function(ranges){
         var res = this.results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node);
+        insertFactSpan(res.startOffset, res.endOffset, res.node, id);
     }
 };
 
 // This is where the actual magic will take place
 // A Span will be inserted around the startOffset/endOffset 
 // in the startNode/endNode
-var insertFactSpan = function(startOffset, endOffset, node) {
+var insertFactSpan = function(startOffset, endOffset, node, id) {
         // Value of the startNode, represented in an array
     var startNodeValue = node.nodeValue.split(''),
         // The selected text
@@ -88,7 +88,7 @@ var insertFactSpan = function(startOffset, endOffset, node) {
             .insertBefore( document.createTextNode(after), node.nextSibling );
     }
         // Create a reference to the actual "fact"-span
-    var span = createFactSpan( selTextStart.join('') );
+    var span = createFactSpan( selTextStart.join(''), id );
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');

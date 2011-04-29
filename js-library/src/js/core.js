@@ -40,13 +40,23 @@ Factlink.getTheFacts = function() {
                 // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
                 
                 // Select the ranges (results)
-                Factlink.selectRanges( Factlink.search( data[i].displaystring ) );
+                Factlink.selectRanges( Factlink.search( data[i].displaystring ), data[i]._id );
             }
             
             //@TODO Fix the Loader
             // Done loading
             // FL.Loader.finish();
         });
+};
+
+Factlink.destroy = function() {
+    try {
+        Factlink.overlay.hide();
+        Factlink.iframe.remove();
+    } catch (e) {}
+    
+    // Finally destroy the object
+    window.Factlink = null;
 };
 
 

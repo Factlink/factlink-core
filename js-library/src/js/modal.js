@@ -1,92 +1,70 @@
 (function( Factlink ) {
+Factlink.showInfo = function( el ) {
+    Factlink.iframe = $('<iframe style="border: none;" />');
     
-Factlink.buildMenu = function() {
-        // List of the available choices, used to build dynamicly
-    var choices = {
-            'I know': {
-                'something that': {
-                    'supports this' : false,
-                    'weakens this': false,
-                    'proves this': false,
-                    'refutes this': false
-                },
-                'topics': false,
-                'someone who': {
-                    'should participate': false
-                }
-            },
-            'I want': {
-                'to know about': false,
-                'to ask/tell someone about': false
-            }
-        },
-        // The ul which will contain the menu
-        ul = document.createElement('ul');
-        // Method to build the menu (recursive action baby)
-        function build_els(parent, root) {
-            var obj, el, ul;
-            
-            // If the parent is not a UL, create one
-            if ( parent.tagName !== "UL" ) {
-                ul = document.createElement("ul");
-                
-                parent.appendChild(ul);
-                
-                parent = ul;
-            }
-            
-            // Loop through the choices
-            for ( var i in root ) {
-                // The array of sub-menu's
-                obj = root[i];
-                
-                // for-in fix for JavaScript
-                if ( root.hasOwnProperty(i) ) {
-                    // Create the element
-                    el = document.createElement("li");
-                    el.textContent = i;
-                    
-                    // Append the LI to the parent
-                    parent.appendChild(el);
-                    
-                    // If there are sub-menu's
-                    if ( obj !== false ) {
-                        // Recursivly build them
-                        build_els(el, obj);
-                    }
-                }
-            }
-        };
-    
-    if ( this.built !== undefined ) {
-        // Menu already built
-        return this.built;
-    }
-    
-    ul.className = "factlink-choices";
-    
-    build_els( ul, choices );
-    
-    this.built = ul;
-    
-    return ul;
-}
-    
-Factlink.showInfo = function( id ) {
-    // Build the choices menu
-    var $ul = $( this.buildMenu() );
-    
-    $ul.appendTo('body');
+    // iframe.attr('src', "http://factlink:8000/examples/basic/menu.html?2");
+	Factlink.iframe.attr('src', "http://tom:1337/factlink/show/" + $( el ).attr('data-factid') );
+	Factlink.iframe.addClass("factlink-modal-frame");
+	
+	Factlink.overlay.show();
+	
+	Factlink.iframe.appendTo("body");
 };
 
 $( 'span.factlink' ).live('click', function() {
-    var offset = $( this ).offset(),
-        pos = {
-            top: offset.top,
-            left: offset.left
-        };
-        
-    Factlink.showInfo( $( this ).attr('id') );
+    Factlink.showInfo( this );
 });
+
+var section = $( 'body' );
+
+// The ul-storage container
+var cont = $('<div class="factlink-ul-storage" />').appendTo(section);
+
+$('li', section).live('click',
+    function(){
+        var el = $(this),
+            offset = el.offset(),
+
+            // Find and clone the containing ul
+            ul = el.data('ul');
+
+        if (ul !== undefined) {
+            ul.css({
+                position: 'absolute',
+                display: 'block',
+                top: offset.top - 1,
+                left: offset.left + el.outerWidth()
+            }).show();
+        }
+
+        // Make the current LI active
+        el.addClass('active');
+
+        // Hide all the other open subs
+        var subs = el.siblings();
+
+        if ( ul !== undefined ) {
+            subs = subs.add( ul.children('li') );
+        } else { // There is no following sub
+            // alignItems( $('ul.factlink-choices', section).offset().top );
+			
+        }
+
+        subs.each(function(i, val) {
+            var ul = $( this ).data('ul');
+
+            // Remove the active class, just to be sure
+            $( this ).removeClass('active');
+
+            // Check if there is a sub
+            if ( ul !== undefined ) {
+                // Hide the sub
+                ul.hide();
+
+                // To the same on the subs of the sub (recursive)
+                ul.children( 'li' ).each(arguments.callee);
+            }
+        });
+    });
 
 })( window.Factlink );

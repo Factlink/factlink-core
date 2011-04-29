@@ -57,4 +57,35 @@ Factlink.submitFact = function(){
         // FL.Loader.finish();
     });
 };
+
+$( 'body' ).bind('mouseup', function(e) {
+    var rng = window.getSelection().getRangeAt(0);
+    
+    if ( rng.toString().length > 0 ) {
+        Factlink.timout = setTimeout(function() {
+            Factlink.startSubmitting(rng, e.pageY, e.pageX);
+        }, 500);
+    }
+});
+
+Factlink.startSubmitting = function(rng, top, left) {
+    var offset = {
+            top: top,
+            left: left
+        };
+    
+    if (Factlink.iframe) {
+        Factlink.iframe.remove();
+    }
+    
+    Factlink.iframe = $( '<iframe class="factlink-modal-frame-test" src="http://factlink:8000/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href + '" />').appendTo('body');
+    
+    Factlink.iframe.css({
+        position: "absolute",
+        top: offset.top,
+        left: offset.left
+    });
+    
+    Factlink.iframe.fadeIn();
+};
 })( window.Factlink );

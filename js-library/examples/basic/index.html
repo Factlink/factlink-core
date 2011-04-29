@@ -2,8 +2,7 @@
 <html>
 <head>
 	<title>Basic Factlink library example</title>
-	<!-- @TODO Make this nice again - We need a dummy script tag for the script loader to work -->
-	<script type="text/javascript" src="http://factlink:8000/nonexistent.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../src/css/basic.css">
 </head>
 <body>
 	<div>
@@ -15,5 +14,94 @@
 	<div>
 		<ul class="factlink-choices"><li>I know<ul><li>something that<ul><li>supports this</li><li>weakens this</li><li>proves this</li><li>refutes this</li></ul></li><li>topics</li><li>someone who<ul><li>should participate</li></ul></li></ul></li><li>I want<ul><li>to know about</li><li>to ask/tell someone about</li></ul></li></ul>
 	</div>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+	<script type="text/javascript">
+	(function(){
+	var section = $( 'body' );
+
+	// The ul-storage container
+	var cont = $('<div class="ul-storage" />').appendTo(section);
+
+	var title = $( '<div class="title" />').appendTo(cont);
+
+	$('li', section).bind('click',
+	    function(){
+	        var el = $(this);
+	        var offset = el.offset();
+
+	        // Find and clone the containing ul
+	        var ul = el.data('ul');
+
+	        if (ul !== undefined) {
+	            ul.css({
+	                position: 'absolute',
+	                display: 'block',
+	                top: offset.top - 1,
+	                left: offset.left + el.outerWidth()
+	            }).show();
+	        }
+
+	        // Make the current LI active
+	        el.addClass('active');
+
+	        // Hide all the other open subs
+	        var subs = el.siblings();
+
+	        if ( ul !== undefined ) {
+	            subs = subs.add( ul.children('li') );
+	        } else { // There is no following sub
+	            // alignItems( $('ul.factlink-choices', section).offset().top );
+				var iframe = $('<iframe />');
+				iframe.attr('src', "http://tom:1337/users/sign_in");
+				iframe.css({
+					background: "transparent",
+					position: "absolute",
+					top: 0,
+					left: 0,
+					height: "auto",
+					width: "auto"
+				});
+				
+				iframe.appendTo("body");
+	        }
+
+	        subs.each(function(i, val) {
+	            var ul = $( this ).data('ul');
+
+	            // Remove the active class, just to be sure
+	            $( this ).removeClass('active');
+
+	            // Check if there is a sub
+	            if ( ul !== undefined ) {
+	                // Hide the sub
+	                ul.hide();
+
+	                // To the same on the subs of the sub (recursive)
+	                ul.children( 'li' ).each(arguments.callee);
+	            }
+	        });
+	    });
+
+	$('ul.factlink-choices>li', section)
+	// Loop through the direct children (ul) and put them in a container
+	.children('ul').each(function(i,val) {
+	    // Parent LI
+	    var li = $( this ).parent();
+
+	    li.data('ul', $( this ));
+
+	    // Relocate the UL
+	    $( this ).appendTo( cont ).hide();
+
+	    // Keep track of the parent
+	    $( this ).data( 'li', li );
+
+	    // Recursive action biatch
+	    $( '>li', this ).children('ul').each(arguments.callee);
+	});
+
+	})();
+	</script>
 </body>
 </html>
