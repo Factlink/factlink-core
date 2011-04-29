@@ -2,12 +2,12 @@ class FactlinkTop
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
-  include Sunspot::Mongoid
+  # include Sunspot::Mongoid
 
   # Create search index on :displaystring
-  searchable do
-    text :displaystring
-  end
+  # searchable do
+    # text :displaystring
+  # end
 
   field :displaystring
   field :score, :type => Hash, :default => { :denies => 0, :weakens => 10, :supports => 120, :proves => 69 }

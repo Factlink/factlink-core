@@ -1,7 +1,7 @@
 class FactlinkSub
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Sunspot::Mongoid
+  # include Sunspot::Mongoid
 
   # Create search index on :displaystring
   # searchable do
