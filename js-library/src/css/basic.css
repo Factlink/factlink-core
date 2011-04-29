@@ -1,4 +1,4 @@
-span.factlink{background:yellow !important;cursor:pointer;}
+span.factlink{background:#a8d1ff !important;cursor:pointer;}
 ul.factlink-choices,div.ul-storage ul{list-style:none;border:1px solid #c0c0c0;padding:0;margin:0;position:absolute;}ul.factlink-choices li,div.ul-storage ul li{border:1px solid green;padding:3px 5px;cursor:pointer;background:white;white-space:nowrap;position:relative;margin:0;}ul.factlink-choices li.active,div.ul-storage ul li.active{background:#c0c0c0;}
 ul.factlink-choices ul,div.ul-storage ul ul{display:none;}
 iframe.factlink-modal-frame{background:transparent;position:fixed;top:50%;left:50%;height:296px;width:438px;margin:-148px 0 0 -219px;}
