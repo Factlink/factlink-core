@@ -26,7 +26,7 @@ Factlink.submitFact = function(){
     }
     
     $.ajax({
-        url: 'http://tom:1337/factlink/new',
+        url: 'http://development.factlink.com/factlink/new',
         dataType: 'jsonp',
         crossDomain: true,
         jsonp: "callback",
@@ -78,7 +78,7 @@ Factlink.startSubmitting = function(rng, top, left) {
         Factlink.iframe.remove();
     }
     
-    Factlink.iframe = $( '<iframe class="factlink-modal-frame-test" src="http://factlink:8000/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href + '" />').appendTo('body');
+    Factlink.iframe = $( '<iframe class="factlink-modal-frame-test" src="http://chrome-extension.factlink.com/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href + '" />').appendTo('body');
     
     Factlink.iframe.css({
         position: "absolute",

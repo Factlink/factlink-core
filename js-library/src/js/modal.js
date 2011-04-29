@@ -2,8 +2,8 @@
 Factlink.showInfo = function( el ) {
     Factlink.iframe = $('<iframe style="border: none;" />');
     
-    // iframe.attr('src', "http://factlink:8000/examples/basic/menu.html?2");
-	Factlink.iframe.attr('src', "http://tom:1337/factlink/show/" + $( el ).attr('data-factid') );
+    // iframe.attr('src', "http://chrome-extension.factlink.com/examples/basic/menu.html?2");
+	Factlink.iframe.attr('src', "http://development.factlink.com/factlink/show/" + $( el ).attr('data-factid') );
 	Factlink.iframe.addClass("factlink-modal-frame");
 	
 	Factlink.overlay.show();

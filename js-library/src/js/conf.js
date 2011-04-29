@@ -1,11 +1,11 @@
 (function( Factlink ) {
 Factlink.CONF = {
     API: {
-        loc: "http://tom:1337"
+        loc: "http://development.factlink.com"
     },
     LIBRARY: {
-        loc: "http://factlink:8000"
+        loc: "http://chrome-extension.factlink.com"
     },
-    css: "http://factlink:8000/src/css/basic.css?" + (new Date()).getTime()
+    css: "http://chrome-extension.factlink.com/src/css/basic.css?" + (new Date()).getTime()
 };
 })( window.Factlink );

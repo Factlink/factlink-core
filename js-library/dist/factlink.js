@@ -121,7 +121,7 @@ return Factlink;
 })();
 Factlink.CONF = {
     API: {
-        loc: "http://tom:1337"
+        loc: "http://development.factlink.com"
     }
 };
 
@@ -154,7 +154,7 @@ Factlink.submitFact = function(){
     }
     
     $.ajax({
-        url: 'http://tom:1337/factlink/new',
+        url: 'http://development.factlink.com/factlink/new',
         dataType: 'jsonp',
         crossDomain: true,
         jsonp: "callback",
