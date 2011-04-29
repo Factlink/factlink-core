@@ -12,7 +12,6 @@
 <% @factlink_tops.each do |factlink_top| %>
   <tr>
     <td><%= factlink_top.displaystring %></td>
-    <td><%= factlink_top.sites.count %></td>
     <td><%= link_to 'Show', factlink_top %></td>
     <td><%= link_to 'Edit', edit_factlink_top_path(factlink_top) %></td>
     <td><%= link_to 'Destroy', factlink_top, :confirm => 'Are you sure?', :method => :delete %></td>

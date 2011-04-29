@@ -1,3 +1,5 @@
+
+
 <%= form_for(@factlink_top) do |f| %>
   <% if @factlink_top.errors.any? %>
     <div id="error_explanation">
@@ -11,19 +13,38 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "Displaystring:" %>
-    <%= f.text_field :displaystring %>
+
+
+	<div class="fl-stats">
+		<ul class="fl-stats-bar">
+			<li class="fl-bar-support" style="height: 50%;">100</li>
+			<li class="fl-bar-maybe" style="height: 20%;">40</li>
+			<li class="fl-bar-refute" style="height: 30%;">60</li>
+		</ul>
+		<span class="fl-stats-count">419,420</span>
+	</div>
+
+	<div class="fl-factlink">
+		<h1>&#8220;<%= @factlink_top.displaystring %>&#8221;</h1>
+	</div>
+
+
+	<div class="fl-clear"></div>
+
+
+	<div class="fl-edit-tags">
+		<%= f.label "Tags" %>
+		<%= f.text_field :tags, :placeholder => "Example, longer example, ...", :style => "width: 340px;" %>
+	</div>
+	
+  <div class="actions" style="float: right; padding: 10px; display: block;">
+    <%= f.submit "Update this Factlink" %> or <%= link_to("go back", factlink_top_path(@factlink_top), :style => "color: inherit;") %>
   </div>
 
-  <div class="field">
-    <%= f.label "Site:" %>
-		<%= select_tag(:site_id, options_from_collection_for_select(Site.all, :id, :url)) %>
-  </div>
 
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+
+<div class="fl-clear"></div>
+
+	<pre style="text-align: center;"><span style="font-size: 0.75em;">alpha development version 0.0481</span></pre>
+	<br/>

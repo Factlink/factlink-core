@@ -68,9 +68,8 @@ class FactlinkTopsController < ApplicationController
   #   end
   # end
   
-  
   def create
-    required_params = %W[url fact callback]
+    required_params = %W[url fact]
     error = false
     
     # Validate presence of all required parameters
@@ -78,7 +77,7 @@ class FactlinkTopsController < ApplicationController
     required_params.each do |param|
       if params[param].nil?
         error = true
-        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact, callback.\"}", :callback => params[:callback]
+        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact.\"}", :callback => params[:callback]
         # return is required to jump out of function
         return false
       end
@@ -88,22 +87,26 @@ class FactlinkTopsController < ApplicationController
     site = Site.find_or_create_by(:url => params[:url])
 
     # Create the Factlink.
-    new_factlink = FactlinkTop.create!(:displaystring => params[:fact])
-    
+    @factlink_top = FactlinkTop.create!(:displaystring => params[:fact])
+
     # And add Factlink to the Site.
-    site.factlink_tops << new_factlink
+    site.factlink_tops << @factlink_top
+
+    # Redirect to edit action
+    redirect_to :action => "edit", :id => @factlink_top.id
+
     
-    added = true
-    status = true
-    match_id = new_factlink.id
+    # added = true
+    # status = true
+    # match_id = new_factlink.id
     
     # Create the result payload
-    res_dict = {}
-    res_dict[:added] = added
-    res_dict[:status] = status
-    res_dict[:match_id] = match_id
+    # res_dict = {}
+    # res_dict[:added] = added
+    # res_dict[:status] = status
+    # res_dict[:match_id] = match_id
     
-    render :json => res_dict, :callback => params[:callback]
+    # render :json => res_dict, :callback => params[:callback]
     
   end
 

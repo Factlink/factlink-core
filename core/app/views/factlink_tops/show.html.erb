@@ -1,6 +1,5 @@
-<div class="fl-modal">
-	<div class="fl-close">x</div>
-	<div class="fl-container">
+<!-- <div class="fl-modal">
+	<div class="fl-container"> -->
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
 				<li class="fl-bar-support" style="height: 50%;">100</li>
@@ -11,7 +10,7 @@
 		</div>
 		
 		<div class="fl-factlink">
-			<h1>&#8220;<%= @factlink_top.displaystring %>&#8221;</h1>
+			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_top_path(@factlink_top) %>">&#8220;<%= @factlink_top.displaystring %>&#8221;</a></h1>
 		</div>
 		
 		<div class="fl-clear"></div>
@@ -21,7 +20,11 @@
 					<% (@factlink_top.tags_array || []).each do |tag| %>
 					<li><%= tag %></li>
 					<% end %>
-				<li class="fl-tag-add">+</li>
+
+				<a href="<%= edit_factlink_top_path(@factlink_top) %>" style="text-decoration: none;">
+					<li class="fl-tag-add">+</li>
+				</a>
+
 			</ul>
 			<a href="javascript:void();">more...</a>
 		</div>
@@ -32,7 +35,7 @@
 			<ol class="fl-sources">
 
 				<% unless @factlink_top.factlink_subs.count > 0 %>
-				<pre>No facts have been added yet.</pre>
+				<p style="margin-left: 12px;">No facts have been added yet.</p>
 				<% else %>
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
 						<li>
@@ -46,8 +49,7 @@
 
 			</ol>
 		</div>
-	</div>
-</div>
+
 
 <script type="text/javascript">
 	(function($){
