@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  layout "frontend"
+
   def index
   
     if params[:search].nil?
