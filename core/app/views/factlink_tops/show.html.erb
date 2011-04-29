@@ -18,7 +18,10 @@
 		<div class="fl-tags">
 			<ul>
 					<% (@factlink_top.tags_array || []).each do |tag| %>
-					<li><%= tag %></li>
+
+					<a href="<%= edit_factlink_top_path(@factlink_top) %>" style="text-decoration: none;">						
+						<li><%= tag %></li>
+					</a>
 					<% end %>
 
 				<a href="<%= edit_factlink_top_path(@factlink_top) %>" style="text-decoration: none;">
@@ -26,7 +29,7 @@
 				</a>
 
 			</ul>
-			<a href="javascript:void();">more...</a>
+			<a href="<%= edit_factlink_top_path(@factlink_top) %>">more...</a>
 		</div>
 		
 		<div class="fl-clear"></div>
