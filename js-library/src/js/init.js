@@ -6,7 +6,7 @@
         Factlink.overlay = $( '<div id="factlink-overlay" />' ).appendTo('body');
         
         Factlink.overlay.bind('click', function() {
-            Factlink.iframe.remove();
+            Factlink.modal.frame.remove();
             $( this ).hide();
         });
     } else {

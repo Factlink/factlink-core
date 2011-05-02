@@ -78,9 +78,11 @@
 				white-space: nowrap;
 				padding: 5px 10px;
 				cursor: pointer;
+				font-family: "Helvetica", Arial, sans-serif;
+				font-size: 9pt;
 			}
 			.context a {
-				color: #555;
+				color: #000;
 			}
 			.context li:hover {
 				background: #eee;
@@ -100,10 +102,10 @@
 						<li>
 							something that
 							<ul>
-								<li><a href="#">supports this</a></li>
-								<li><a href="#">weakens this</a></li>
-								<li><a href="#">proves this</a></li>
-								<li><a href="#">refutes this</a></li>
+								<li><a href="#" class="last">supports this</a></li>
+								<li><a href="#" class="last">weakens this</a></li>
+								<li><a href="#" class="last">proves this</a></li>
+								<li><a href="#" class="last">refutes this</a></li>
 							</ul>
 						</li>
 						<li>
@@ -112,7 +114,7 @@
 						<li>
 							someone who
 							<ul>
-								<li><a href="#">should participate</a></li>
+								<li><a href="#" class="last">should participate</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -124,7 +126,7 @@
 							<a href="#" class="last">to know about</a>
 						</li>
 						<li>
-							<a href="#">ask/tell someone about</a>
+							<a href="#" class="last">ask/tell someone about</a>
 						</li>
 					</ul>
 				</li>
@@ -140,6 +142,7 @@
 			
 			$( 'a.last' ).bind( 'click', function() {
 				window.location = "http://development.factlink.com/factlink/new?url=" + url + "&fact=" + fact;
+				return false;
 			});
 		</script>
 	</body>

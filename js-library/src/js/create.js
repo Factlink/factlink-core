@@ -44,7 +44,7 @@ Factlink.submitFact = function(){
             // The loader can hide itself
             // FL.Loader.finish();
         } else {
-            window.console.info( data );
+            //@TODO: Better errorhandling
             alert("Something went wrong");
             
             //@TODO: Fix the loader
@@ -58,12 +58,34 @@ Factlink.submitFact = function(){
     });
 };
 
+// Track user selection change
+var sel = null,
+    sel_text = null,
+    min_len = 10,
+    getText = function(){
+        if (window.getSelection) {
+            var d = window.getSelection()
+        } else {
+            if (document.getSelection) {
+                var d = document.getSelection()
+            } else {
+                if (document.selection) {
+                    var d = document.selection.createRange().text
+                } else {
+                    return '';
+                }
+            }
+        }
+        return d;
+    };
+
 $( 'body' ).bind('mouseup', function(e) {
-    var rng = window.getSelection().getRangeAt(0);
+    sel = getText();
+    sel_text = sel.toString();
     
-    if ( rng.toString().length > 0 ) {
-        Factlink.timout = setTimeout(function() {
-            Factlink.startSubmitting(rng, e.pageY, e.pageX);
+    if ( sel_text !== null && sel_text.length > min_len ) {
+        Factlink.timeout = setTimeout(function() {
+            Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
         }, 500);
     }
 });
@@ -74,18 +96,30 @@ Factlink.startSubmitting = function(rng, top, left) {
             left: left
         };
     
-    if (Factlink.iframe) {
-        Factlink.iframe.remove();
+    if ( Factlink.modal.frame !== null ) {
+        // @TODO: Check if we do want to remove the whole frame, maybe the user is changing stuff?
+        Factlink.modal.frame.remove();
+        Factlink.modal.frame = null;
     }
     
-    Factlink.iframe = $( '<iframe class="factlink-modal-frame-test" src="http://chrome-extension.factlink.com/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href + '" />').appendTo('body');
-    
-    Factlink.iframe.css({
+    Factlink.modal.frame = $( '<iframe />').appendTo('body');
+    Factlink.modal.frame.addClass( "factlink-modal-frame-test" );
+    Factlink.modal.frame.attr('src', 'http://chrome-extension.factlink.com/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href);
+    Factlink.modal.frame.css({
         position: "absolute",
         top: offset.top,
         left: offset.left
     });
     
-    Factlink.iframe.fadeIn();
+    Factlink.modal.frame.fadeIn();
+    
+    // Hide the menu when there is a click outside of it
+    $( "body" ).one( 'click', function() {
+        Factlink.modal.frame.remove();
+        Factlink.modal.frame = null;
+    });
+    
+    //@TODO: This is a hard one, how are we going to check if the Factlink is actually submitted, so we can know if we need to highlight it.
+    this.selectRanges( [rng] );
 };
 })( window.Factlink );
