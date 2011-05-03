@@ -37,7 +37,7 @@ Factlink.selectRanges = function(ranges, id){
                          startNode, 
                          endNode, 
                          range.commonAncestorContainer);
-
+        
         // If there are other matches within the startNode, 
         // process them here
         if ( extraMatches.length > 0 ) {
@@ -98,6 +98,8 @@ var insertFactSpan = function(startOffset, endOffset, node, id) {
     node.parentNode.insertBefore( span, node.nextSibling );
 },
 
+ids = [],
+
 // Create a "fact"-span with the right attributes
 createFactSpan = function(text, id){
     var span = document.createElement('span');
@@ -105,6 +107,8 @@ createFactSpan = function(text, id){
     // Set the span attributes
     span.className = "factlink";
     span.setAttribute('data-factid',id);
+    
+    ids.push( id );
     
     // IE Doesn't support the standard (textContent) and Firefox doesn't 
     // support innerText
@@ -163,4 +167,6 @@ Factlink.replaceFactNodes = function(startOffset,
         }
     });
 };
+
+window.ids = ids;
 })( window.Factlink );

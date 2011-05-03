@@ -79,11 +79,23 @@ var sel = null,
         return d;
     };
 
+// Bind the actual selecting
 $( 'body' ).bind('mouseup', function(e) {
+    // Get the selection object
     sel = getText();
+    // Retrieve the text from the selection
     sel_text = sel.toString();
     
+    // Hide all the (possible) open Factlink windows
+    try {
+        Factlink.modal.frame.remove();
+        Factlink.modal.frame = null;
+        Factlink.overlay.hide();
+    } catch (e) {}
+    
+    // Check if the selected text is long enough to be added
     if ( sel_text !== null && sel_text.length > min_len ) {
+        // Store the time out
         Factlink.timeout = setTimeout(function() {
             Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
         }, 500);
@@ -102,24 +114,73 @@ Factlink.startSubmitting = function(rng, top, left) {
         Factlink.modal.frame = null;
     }
     
-    Factlink.modal.frame = $( '<iframe />').appendTo('body');
-    Factlink.modal.frame.addClass( "factlink-modal-frame-test" );
-    Factlink.modal.frame.attr('src', 'http://chrome-extension.factlink.com/examples/basic/menu.html?' + rng.toString() + '///' + window.location.href);
-    Factlink.modal.frame.css({
-        position: "absolute",
-        top: offset.top,
-        left: offset.left
-    });
+    Factlink.modal.frame = $( '<iframe />')
+        .appendTo('body')
+        .attr({
+            "class": "factlink-modal-frame-submit",
+            "name": "myiframe",
+            "src": "http://www.google.nl"
+        })
+        .css({
+            top: offset.top,
+            left: offset.left
+        });
     
+    // postToIframe(
+    //         'http://chrome-extension.factlink.com/examples/basic/menu.html', 
+    //         {
+    //             url: window.location.href,
+    //             fact: rng.toString()
+    //         },
+    //         Factlink.modal.frame.attr('name'));
+        
     Factlink.modal.frame.fadeIn();
     
-    // Hide the menu when there is a click outside of it
-    $( "body" ).one( 'click', function() {
-        Factlink.modal.frame.remove();
-        Factlink.modal.frame = null;
+    // @TODO: How are we going to check if the Factlink is actually submitted, so we can know if we need to highlight it.
+    //this.selectRanges( [rng] );
+};
+
+var postToIframe = window.postToIframe = function(url, obj, iframe) {
+        // Create an empty form
+        // @TODO: Check if this form doesn't have to be appended to the body of a document before it can be submitted
+    var form = $( '<form />' ),
+        // Check if the iframe variable is a string or an element
+        target = ( typeof iframe === "string" ? iframe : iframe.attr('name') );
+    
+    // Iframe has no name, create one
+    if ( target === undefined ) {
+        // Create a name for the iframe, try to make it as unique as possible
+        var tmp = 'factlink-iframe-' + ( new Date() ).getTime();
+        
+        iframe.attr('name', tmp);
+        target = tmp;
+    }
+    
+    // Set the attributes
+    form.attr({
+        action: url, 
+        method: "post",
+        target: target
     });
     
-    //@TODO: This is a hard one, how are we going to check if the Factlink is actually submitted, so we can know if we need to highlight it.
-    this.selectRanges( [rng] );
+    // Loop through the values that have to be sent
+    for ( var i in obj ) {
+        if ( obj.hasOwnProperty(i) ) {
+            // Create a new input field
+            $( '<input />' )
+                .attr({
+                    type: "text",
+                    value: obj[i],
+                    name: i
+                })
+                // And append it to the form
+                .appendTo(form);
+        }
+    }
+    
+    debugger;
+    
+    // Submit the form
+    form.submit();
 };
 })( window.Factlink );

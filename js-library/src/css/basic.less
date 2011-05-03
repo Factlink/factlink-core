@@ -37,18 +37,22 @@ iframe.factlink-modal-frame {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	height: 296px;
+	height: 300px;
 	width: 438px;
 	margin: -148px 0 0 -219px;
+	border: none;
+	z-index: 2147483647;
 }
 
-iframe.factlink-modal-frame-test {
+iframe.factlink-modal-frame-test,
+iframe.factlink-modal-frame-submit {
     background: transparent;
 	position: absolute;
-	height: 296px;
+	height: 300px;
 	width: 438px;
 	display: none;
 	border: none;
+	z-index: 2147483647;
 }
 
 div#factlink-overlay {
@@ -60,4 +64,5 @@ div#factlink-overlay {
     background: #000;
     opacity: .5;
     display: none;
+    z-index: 16777270;
 }

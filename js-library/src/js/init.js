@@ -4,11 +4,6 @@
         Factlink.getTheFacts();
         
         Factlink.overlay = $( '<div id="factlink-overlay" />' ).appendTo('body');
-        
-        Factlink.overlay.bind('click', function() {
-            Factlink.modal.frame.remove();
-            $( this ).hide();
-        });
     } else {
         setTimeout( function() {
             arguments.callee(Factlink);
