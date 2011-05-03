@@ -71,17 +71,41 @@ class FactlinkTopsController < ApplicationController
   def create
     required_params = %W[url fact]
     error = false
+
+    puts "\n\n#{params.to_yaml}\n\n"
     
     # Validate presence of all required parameters
     # If fail, return error message.
     required_params.each do |param|
+    
       if params[param].nil?
         error = true
-        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact.\"}", :callback => params[:callback]
-        # return is required to jump out of function
-        return false
       end
+
     end
+    
+    # TODO: Make nice, validation for this
+    if params[:fact] == ''
+      error = true
+    end
+
+    # Corrupt call from Remon
+    if params[:url] == 'undefined'
+      error = true
+    end
+    
+    # Return error if any parameter validation failed.
+    if error
+      render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact.\"}", :callback => params[:callback]
+      # return is required to jump out of function
+      return false      
+    end
+    
+    
+    ##########
+    # Validation succesful!
+    ##########
+    
     
     # Get or create the website on which the Fact is located.
     site = Site.find_or_create_by(:url => params[:url])

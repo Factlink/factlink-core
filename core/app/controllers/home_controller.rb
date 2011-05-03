@@ -5,7 +5,6 @@ class HomeController < ApplicationController
   layout "frontend"
 
   def index
-  
     if params[:search].nil?
       puts "This shouldn't happen. home#index if params[:search].nil?"
       user_input = "#fact"
