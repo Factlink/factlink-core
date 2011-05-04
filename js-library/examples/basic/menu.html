@@ -51,59 +51,68 @@
 			.context li:hover > ul {
 				display: block;
 			}
+			form input, form textarea {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
-		<div class="context">
-			<ul>
-				<li>
-					I know
-					<ul>
-						<li>
-							something that
-							<ul>
-								<li><a href="#" class="last">supports this</a></li>
-								<li><a href="#" class="last">weakens this</a></li>
-								<li><a href="#" class="last">proves this</a></li>
-								<li><a href="#" class="last">refutes this</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">topics
-						</li>
-						<li>
-							someone who
-							<ul>
-								<li><a href="#" class="last">should participate</a></li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li>
-					I want
-					<ul>
-						<li>
-							<a href="#" class="last">to know about</a>
-						</li>
-						<li>
-							<a href="#" class="last">ask/tell someone about</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+		<form method="post" action="http://development.factlink.com/factlink/new">
+			<div class="context">
+				<ul>
+					<li>
+						I know
+						<ul>
+							<li>
+								something that
+								<ul>
+									<li><a onclick="getForm(this).submit();" href="javascript:void();" class="last">supports this</a></li>
+									<li><a onclick="getForm(this).submit();" href="javascript:void();" class="last">weakens this</a></li>
+									<li><a onclick="getForm(this).submit();" href="javascript:void();" class="last">proves this</a></li>
+									<li><a onclick="getForm(this).submit();" href="javascript:void();" class="last">refutes this</a></li>
+								</ul>
+							</li>
+							<li>
+								<a onclick="getForm(this).submit();" href="javascript:void();">topics
+							</li>
+							<li>
+								someone who
+								<ul>
+									<li><a onclick="getForm(this).submit();" href="javascript:void();" class="last">should participate</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li>
+						I want
+						<ul>
+							<li>
+								<a onclick="getForm(this).submit();" href="javascript:void();" class="last">to know about</a>
+							</li>
+							<li>
+								<a onclick="getForm(this).submit();" href="javascript:void();" class="last">ask/tell someone about</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+			<input type="text" name="url" value="{{ HIER WIL IK DE URL UIT DE POST HALEN }}">
+			<textarea name="passage">
+				{{ HIER WIL IK DE PASSAGE UIT DE POST HALEN }}
+			</textarea>
+			<input type="text" name="fact" value="{{ HIER WIL IK DE FACT UIT DE POST HALEN }}">
+		</form>
+		
 		<script type="text/javascript">
-			var loc = window.location.search.substr(1).split("///");
-			
-			var fact = loc[0];
-			var url = loc[1];
-			
-			$( 'a.last' ).bind( 'click', function() {
-				window.location = "http://development.factlink.com/factlink/new?url=" + url + "&fact=" + fact;
-				return false;
-			});
+			function getForm(el) {
+				while (el) {
+					if (el.tagName.toLowerCase() === "form")
+						return el;
+					el = el.parentNode;
+				}
+				return 0;
+			}
 		</script>
 	</body>
 </html>
