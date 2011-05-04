@@ -38,7 +38,7 @@
 			<ol class="fl-sources">
 
 				<% unless @factlink_top.factlink_subs.count > 0 %>
-				<p style="margin-left: 12px;">No facts have been added yet.</p>
+					<p style="margin-left: 12px;">No facts have been added yet.</p>
 				<% else %>
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
 						<li>
@@ -52,10 +52,3 @@
 
 			</ol>
 		</div>
-
-
-<script type="text/javascript">
-	(function($){
-		$('.fl-scroll-pane').jScrollPane();
-	})(jQuery);
-</script>
