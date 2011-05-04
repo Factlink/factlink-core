@@ -140,7 +140,7 @@ Factlink.startSubmitting = function(rng, top, left) {
     //this.selectRanges( [rng] );
 };
 
-var postToIframe = window.postToIframe = function(url, obj, iframe) {
+var postToIframe = function(url, obj, iframe) {
         // Create an empty form
         // @TODO: Check if this form doesn't have to be appended to the body of a document before it can be submitted
     var form = $( '<form />' ),
@@ -159,9 +159,8 @@ var postToIframe = window.postToIframe = function(url, obj, iframe) {
     // Set the attributes
     form.attr({
         action: url, 
-        method: "post",
-        target: target ,
-        style: "visibility: hidden;"
+        method: "get",
+        target: target
     });
     
     // Loop through the values that have to be sent
