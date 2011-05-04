@@ -96,7 +96,7 @@ $( 'body' ).bind('mouseup', function(e) {
     } catch (e) {}
     
     // Check if the selected text is long enough to be added
-    if ( sel_text !== null && sel_text.length > min_len && sel_text.rangeCount > 0 ) {
+    if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
         // Store the time out
         Factlink.timeout = setTimeout(function() {
             Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
@@ -121,7 +121,7 @@ Factlink.startSubmitting = function(rng, top, left) {
         .attr({
             "class": "factlink-modal-frame-submit",
             "name": "myiframe",
-            "src": "http://www.google.nl"
+            "src": ""
         })
         .css({
             top: offset.top,
@@ -134,7 +134,8 @@ Factlink.startSubmitting = function(rng, top, left) {
             Factlink.conf.api.loc + '/factlink/prepare', 
             {
                 url: window.location.href,
-                fact: rng.toString()
+                fact: rng.toString(),
+                passage: "BAM"
             },
             Factlink.modal.frame.attr('name'));
     
@@ -164,7 +165,7 @@ var postToIframe = function(url, obj, iframe) {
     // Set the attributes
     form.attr({
         action: url, 
-        method: "get",
+        method: "post",
         target: target
     });
     
