@@ -62,6 +62,8 @@ Factlink.submitFact = function(){
 var sel = null,
     sel_text = null,
     min_len = 10,
+    // Function which will return the Selection object
+    //@TODO: Add rangy support for IE
     getText = function(){
         if (window.getSelection) {
             var d = window.getSelection()
@@ -94,7 +96,7 @@ $( 'body' ).bind('mouseup', function(e) {
     } catch (e) {}
     
     // Check if the selected text is long enough to be added
-    if ( sel_text !== null && sel_text.length > min_len ) {
+    if ( sel_text !== null && sel_text.length > min_len && sel_text.rangeCount > 0 ) {
         // Store the time out
         Factlink.timeout = setTimeout(function() {
             Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
@@ -114,6 +116,7 @@ Factlink.startSubmitting = function(rng, top, left) {
         Factlink.modal.frame = null;
     }
     
+    // Create the frame that will hold the menu/edit box
     Factlink.modal.frame = $( '<iframe />')
         .attr({
             "class": "factlink-modal-frame-submit",
@@ -126,14 +129,16 @@ Factlink.startSubmitting = function(rng, top, left) {
         })
         .appendTo('body');
     
+    // Make a POST call to the iframe with the data
     postToIframe(
-            'http://chrome-extension.factlink.com/examples/basic/menu.html', 
+            Factlink.conf.api.loc + '/factlink/prepare', 
             {
                 url: window.location.href,
                 fact: rng.toString()
             },
             Factlink.modal.frame.attr('name'));
-        
+    
+    // Fade the modal window in
     Factlink.modal.frame.fadeIn();
     
     // @TODO: How are we going to check if the Factlink is actually submitted, so we can know if we need to highlight it.

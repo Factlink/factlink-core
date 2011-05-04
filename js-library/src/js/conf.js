@@ -4,7 +4,7 @@ Factlink.conf = {
         loc: "http://development.factlink.com"
     },
     lib: {
-        loc: "http://chrome-extension.factlink.com"
+        loc: "http://static.factlink.com/lib"
     }
 };
 
