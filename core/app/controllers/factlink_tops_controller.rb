@@ -68,6 +68,17 @@ class FactlinkTopsController < ApplicationController
   #   end
   # end
   
+  # Prepare for create
+  def prepare
+    # TODO: Sanitize for XSS
+    @url = params[:url]
+    @passage = params[:passage]
+    @fact = params[:fact]
+    
+    render :template => 'factlink_tops/prepare', :layout => nil
+    
+  end
+  
   def create
     required_params = %W[url fact]
     error = false
