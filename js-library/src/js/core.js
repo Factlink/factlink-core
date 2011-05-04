@@ -9,7 +9,7 @@ var Factlink = {
 Factlink.getTheFacts = function() {
     var loc = window.location,
         // The URL to the Factlink backend
-        src = Factlink.CONF.API.loc + '/site?url=' + 
+        src = Factlink.conf.api.loc + '/site?url=' + 
               loc.protocol + 
               '//' + 
               loc.hostname + 
@@ -20,7 +20,7 @@ Factlink.getTheFacts = function() {
     // FL.Loader.updateStatus( "Retrieving the facts from the server" );
     
     // Add the stylesheet
-    Factlink.util.addStyleSheet( Factlink.CONF.css );
+    Factlink.util.addStyleSheet( Factlink.conf.css.loc );
     
     // We use the jQuery AJAX plugin
     $.ajax({

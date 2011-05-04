@@ -26,7 +26,7 @@ Factlink.submitFact = function(){
     }
     
     $.ajax({
-        url: 'http://development.factlink.com/factlink/new',
+        url: Factlink.conf.api.loc + '/factlink/new',
         dataType: 'jsonp',
         crossDomain: true,
         jsonp: "callback",

@@ -9,7 +9,7 @@ Factlink.showInfo = function( el ) {
     
     Factlink.modal.frame = $('<iframe />');
     
-	Factlink.modal.frame.attr('src', "http://development.factlink.com/factlink/show/" + $( el ).attr('data-factid') );
+	Factlink.modal.frame.attr('src', Factlink.conf.api.loc + "/factlink/show/" + $( el ).attr('data-factid') );
 	Factlink.modal.frame.addClass("factlink-modal-frame");
 	
 	Factlink.overlay.show();
