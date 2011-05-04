@@ -115,7 +115,6 @@ Factlink.startSubmitting = function(rng, top, left) {
     }
     
     Factlink.modal.frame = $( '<iframe />')
-        .appendTo('body')
         .attr({
             "class": "factlink-modal-frame-submit",
             "name": "myiframe",
@@ -124,15 +123,16 @@ Factlink.startSubmitting = function(rng, top, left) {
         .css({
             top: offset.top,
             left: offset.left
-        });
+        })
+        .appendTo('body');
     
-    // postToIframe(
-    //         'http://chrome-extension.factlink.com/examples/basic/menu.html', 
-    //         {
-    //             url: window.location.href,
-    //             fact: rng.toString()
-    //         },
-    //         Factlink.modal.frame.attr('name'));
+    postToIframe(
+            'http://chrome-extension.factlink.com/examples/basic/menu.html', 
+            {
+                url: window.location.href,
+                fact: rng.toString()
+            },
+            Factlink.modal.frame.attr('name'));
         
     Factlink.modal.frame.fadeIn();
     
@@ -160,7 +160,8 @@ var postToIframe = window.postToIframe = function(url, obj, iframe) {
     form.attr({
         action: url, 
         method: "post",
-        target: target
+        target: target ,
+        style: "visibility: hidden;"
     });
     
     // Loop through the values that have to be sent
@@ -177,8 +178,6 @@ var postToIframe = window.postToIframe = function(url, obj, iframe) {
                 .appendTo(form);
         }
     }
-    
-    debugger;
     
     // Submit the form
     form.submit();
