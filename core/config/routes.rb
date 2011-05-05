@@ -21,7 +21,8 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Factlink Tops
-  post "/factlink/prepare" => "factlink_tops#prepare"
+  # post "/factlink/prepare" => "factlink_tops#prepare"
+  post "/factlink/prepare" => "factlink_tops#prepare_intermediate"
   
   match "/factlink/new" => "factlink_tops#create"  
   match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"
