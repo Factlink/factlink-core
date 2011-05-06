@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <title>easyXDM</title>
+        <script type="text/javascript" src="../../build/easyXDM/src/easyXDM.debug.js">
+        </script>
+    </head>
+    <body>
+		<h1>Hoi</h1>
+		<a id="test" href="#">test</a>
+		<a id="test2" href="#">test2</a>
+		<a href="http://static.factlink.com/lib/examples/basic/remoteData.html">Click me</a>
+		
+		<script type="text/javascript">
+			var a = document.getElementById("test");
+			var b = document.getElementById("test2");
+			
+			a.onclick = function(e) {
+				parent.remote.alertMessage("test");
+				console.info( "Sent message: ", "test");
+			};
+			
+			b.onclick = function(e) {
+				parent.remote.realAlertMessage("test2");
+				console.info( "Sent message: ", "test2");
+			}
+        </script>
+    </body>
+</html>

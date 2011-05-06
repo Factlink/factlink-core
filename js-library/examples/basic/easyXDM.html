@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testpage easyXDM</title>
+	<script type="text/javascript" src="../../build/easyXDM/src/easyXDM.debug.js"></script>
+	<script type="text/javascript">
+		var REMOTE = "http://static.factlink.com/lib/examples/basic",
+			remote = new easyXDM.Rpc({
+				swf: REMOTE + "/../../build/easyXDM/src/easyxdm.swf",
+				remote: REMOTE + "/remoteIntermediate.html",
+				container: "embedded"
+			}, {
+				local: {
+					alertMessage: function(msg) {
+						console.info( "Received message: ", msg );
+					},
+					realAlertMessage: function(msg) {
+						alert( "Received message: " + msg );
+					}
+				},
+				remote: {}
+			});
+	</script>
+</head>
+<body>
+	<div id="embedded">
+    </div>
+</body>
+</html>
