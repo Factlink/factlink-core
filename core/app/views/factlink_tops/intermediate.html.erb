@@ -51,7 +51,7 @@
 	</script>
 </head>
 <body>
-	<form method="post" action="http://development.factlink.com/factlink/new" id="form">
+	<form method="post" action="<%= factlink_new_path %>" id="form">
 		<input type="text" name="url" value="<%= @url %>">
 		<textarea name="passage">
 			<%= @passage %>
