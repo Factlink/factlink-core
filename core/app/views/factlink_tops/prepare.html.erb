@@ -106,6 +106,7 @@
 		
 		<script type="text/javascript">
 			function getForm(el) {
+				parent.remote.realAlertMessage("testing");				
 				while (el) {
 					if (el.tagName.toLowerCase() === "form")
 						return el;

@@ -1,6 +1,6 @@
 class FactlinkTopsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:show, :prepare, :prepare_intermediate, :new, :edit, :create, :update]
+  before_filter :authenticate_user!, :except => [:show, :prepare, :intermediate, :new, :edit, :create, :update]
   layout "client"
 
   ##########
@@ -80,14 +80,22 @@ class FactlinkTopsController < ApplicationController
   end
   
   # Prepare for create
-  def prepare_intermediate
+  def intermediate
     # TODO: Sanitize for XSS
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
     
+    case params[:the_action]
+    when "prepare"
+      @path = "factlink_prepare_path"
+    when "show"
+      @path = "factlink_show_path(%d)" % :id
+    else
+      @path = "factlink_prepare_path"
+    end
+
     render :template => 'factlink_tops/intermediate', :layout => nil
-    
   end
   
   def create

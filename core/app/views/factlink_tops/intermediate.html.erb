@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="/client//easyXDM/src/easyXDM.debug.js"></script>
+	<script type="text/javascript" src="/client/easyXDM/src/easyXDM.debug.js"></script>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -18,19 +18,19 @@
 			border: 0;
 		}
 	</style>
+	<script type="text/javascript">
+		var remote = new easyXDM.Rpc({
+				swf: "/client/easyXDM/src/easyxdm.swf"
+			}, {
+				remote: {
+					alertMessage: {},
+					realAlertMessage: {}
+				},
+				local: {}
+			});
+	</script>
 </head>
 <body>
-	<iframe src="/factlink/prepare"></iframe>
-	<script type="text/javascript">
-          var remote = new easyXDM.Rpc({
-              swf: "/client//easyXDM/src/easyxdm.swf"
-          }, {
-			remote: {
-				alertMessage: {},
-				realAlertMessage: {}
-			},
-			local: {}
-		});
-      </script>
+	<iframe src="<%= eval @path %>"></iframe>
 </body>
 </html>
