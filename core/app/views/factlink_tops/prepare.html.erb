@@ -57,63 +57,43 @@
 		</style>
 	</head>
 	<body>
-		<form method="post" action="http://development.factlink.com/factlink/new">
-			<div class="context">
-				<ul>
-					<li>
-						I know
-						<ul>
-							<li>
-								something that
-								<ul>
-									<li><a onclick="getForm(this).submit();" href="javascript:void();">supports this</a></li>
-									<li><a onclick="getForm(this).submit();" href="javascript:void();">weakens this</a></li>
-									<li><a onclick="getForm(this).submit();" href="javascript:void();">proves this</a></li>
-									<li><a onclick="getForm(this).submit();" href="javascript:void();">refutes this</a></li>
-								</ul>
-							</li>
-							<li>
-								<a onclick="getForm(this).submit();" href="javascript:void();">topics
-							</li>
-							<li>
-								someone who
-								<ul>
-									<li><a onclick="getForm(this).submit();" href="javascript:void();">should participate</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						I want
-						<ul>
-							<li>
-								<a onclick="getForm(this).submit();" href="javascript:void();">to know about</a>
-							</li>
-							<li>
-								<a onclick="getForm(this).submit();" href="javascript:void();">ask/tell someone about</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		
-			<input type="text" name="url" value="<%= @url %>">
-			<textarea name="passage">
-				<%= @passage %>
-			</textarea>
-			<input type="text" name="fact" value="<%= @fact %>">
-		</form>
-		
-		<script type="text/javascript">
-			function getForm(el) {
-				parent.remote.realAlertMessage("testing");				
-				while (el) {
-					if (el.tagName.toLowerCase() === "form")
-						return el;
-					el = el.parentNode;
-				}
-				return 0;
-			}
-		</script>
+		<div class="context">
+			<ul>
+				<li>
+					I know
+					<ul>
+						<li>
+							something that
+							<ul>
+								<li><a onclick="parent.getForm().submit();" href="javascript:void();">supports this</a></li>
+								<li><a onclick="parent.getForm().submit();" href="javascript:void();">weakens this</a></li>
+								<li><a onclick="parent.getForm().submit();" href="javascript:void();">proves this</a></li>
+								<li><a onclick="parent.getForm().submit();" href="javascript:void();">refutes this</a></li>
+							</ul>
+						</li>
+						<li>
+							<a onclick="parent.getForm().submit();" href="javascript:void();">topics
+						</li>
+						<li>
+							someone who
+							<ul>
+								<li><a onclick="parent.getForm().submit();" href="javascript:void();">should participate</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					I want
+					<ul>
+						<li>
+							<a onclick="parent.getForm().submit();" href="javascript:void();">to know about</a>
+						</li>
+						<li>
+							<a onclick="parent.getForm().submit();" href="javascript:void();">ask/tell someone about</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
 	</body>
 </html>

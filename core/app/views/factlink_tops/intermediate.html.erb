@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="/client/easyXDM/src/easyXDM.debug.js"></script>
+	<script type="text/javascript" src="/client/easyXDM/work/easyXDM.min.js"></script>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -28,9 +28,21 @@
 				},
 				local: {}
 			});
+
+		function getForm() {
+			remote.realAlertMessage("testing");				
+			return document.getElementsByTagName("form")[0];
+		}
 	</script>
 </head>
 <body>
+	<form method="post" action="http://development.factlink.com/factlink/new">
+		<input type="text" name="url" value="<%= @url %>">
+		<textarea name="passage">
+			<%= @passage %>
+		</textarea>
+		<input type="text" name="fact" value="<%= @fact %>">
+	</form>
 	<iframe src="<%= eval @path %>"></iframe>
 </body>
 </html>
