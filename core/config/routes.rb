@@ -22,7 +22,7 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Factlink Tops
   match "/factlink/prepare" => "factlink_tops#prepare"
-  match "/factlink/intermediate/:the_action/(:id)" => "factlink_tops#intermediate"
+  match "/factlink/intermediate/(:the_action)/(:id)" => "factlink_tops#intermediate"
   
   match "/factlink/new" => "factlink_tops#create"  
   match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"

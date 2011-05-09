@@ -10,6 +10,7 @@
 			margin: 0;
 			padding: 0;
 			overflow: hidden;
+			background: transparent;
 		}
 		
 		iframe {
@@ -17,32 +18,46 @@
 			width: 100%;
 			border: 0;
 		}
+		
+		form {
+			display: none;
+		}
 	</style>
 	<script type="text/javascript">
-		var remote = new easyXDM.Rpc({
+			// The form
+		var form = document.getElementById("form"),
+			// The iFrame
+			iframe = document.getElementById("frame"),
+			// The global remote object
+			remote = new easyXDM.Rpc({
 				swf: "/client/easyXDM/src/easyxdm.swf"
 			}, {
 				remote: {
-					alertMessage: {},
-					realAlertMessage: {}
+					positionFrame: {},
+					setFrameBounds: {},
+					hideFrame: {}
 				},
-				local: {}
+				local: {
+					prepareNewFactlink: function() {
+						// Set the source of the iframe
+						iframe.src = "<%= factlink_prepare_path %>";
+					},
+					showFactlink: function(id) {
+						// Set the source of the iframe
+						iframe.src = "/factlink/show/" + id;
+					}
+				}
 			});
-
-		function getForm() {
-			remote.realAlertMessage("testing");				
-			return document.getElementsByTagName("form")[0];
-		}
 	</script>
 </head>
 <body>
-	<form method="post" action="http://development.factlink.com/factlink/new">
+	<form method="post" action="http://development.factlink.com/factlink/new" id="form">
 		<input type="text" name="url" value="<%= @url %>">
 		<textarea name="passage">
 			<%= @passage %>
 		</textarea>
 		<input type="text" name="fact" value="<%= @fact %>">
 	</form>
-	<iframe src="<%= eval @path %>"></iframe>
+	<iframe src="<%= eval @path if @path %>" id="frame"></iframe>
 </body>
 </html>

@@ -86,7 +86,7 @@ class FactlinkTopsController < ApplicationController
     when "show"
       @path = "factlink_show_path(%x)" % :id
     else
-      @path = "factlink_prepare_path"
+      @path = ""
     end
 
     render :template => 'factlink_tops/intermediate', :layout => nil
