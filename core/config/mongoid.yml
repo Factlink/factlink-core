@@ -20,7 +20,7 @@ test:
 production:
   host: localhost
   port: 27017
-  database: profitbird_production  
+  database: factlink_ui_production  
   # host: <%= ENV['MONGOID_HOST'] %>
   # port: <%= ENV['MONGOID_PORT'] %>
   # username: <%= ENV['MONGOID_USERNAME'] %>
