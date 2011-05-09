@@ -90,7 +90,7 @@ class FactlinkTopsController < ApplicationController
     when "prepare"
       @path = "factlink_prepare_path"
     when "show"
-      @path = "factlink_show_path(%d)" % :id
+      @path = "factlink_show_path(%x)" % :id
     else
       @path = "factlink_prepare_path"
     end
