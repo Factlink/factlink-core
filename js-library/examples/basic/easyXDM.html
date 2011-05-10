@@ -4,10 +4,10 @@
 	<title>Testpage easyXDM</title>
 	<script type="text/javascript" src="../../build/easyXDM/src/easyXDM.debug.js"></script>
 	<script type="text/javascript">
-		var REMOTE = "http://static.factlink.com/lib/examples/basic",
+		var REMOTE = "http://localhost:3000",
 			remote = new easyXDM.Rpc({
-				swf: REMOTE + "/../../build/easyXDM/src/easyxdm.swf",
-				remote: REMOTE + "/remoteIntermediate.html",
+				swf: REMOTE + "/client/easyXDM/src/easyxdm.swf",
+				remote: REMOTE + "/factlink/intermediate",
 				container: "embedded"
 			}, {
 				local: {

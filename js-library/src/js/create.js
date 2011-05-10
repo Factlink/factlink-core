@@ -105,86 +105,13 @@ $( 'body' ).bind('mouseup', function(e) {
 });
 
 Factlink.startSubmitting = function(rng, top, left) {
-    var offset = {
-            top: top,
-            left: left
-        };
-    
-    if ( Factlink.modal.frame !== null ) {
-        // @TODO: Check if we do want to remove the whole frame, maybe the user is changing stuff?
-        Factlink.modal.frame.remove();
-        Factlink.modal.frame = null;
-    }
-    
-    // Create the frame that will hold the menu/edit box
-    Factlink.modal.frame = $( '<iframe />')
-        .attr({
-            "class": "factlink-modal-frame-submit",
-            "name": "myiframe",
-            "src": ""
-        })
-        .css({
-            top: offset.top,
-            left: offset.left
-        })
-        .appendTo('body');
-    
-    // Make a POST call to the iframe with the data
-    postToIframe(
-            Factlink.conf.api.loc + '/factlink/prepare', 
-            {
-                url: window.location.href,
-                fact: rng.toString(),
-                passage: "BAM"
-            },
-            Factlink.modal.frame.attr('name'));
-    
-    // Fade the modal window in
-    Factlink.modal.frame.fadeIn();
-    
-    // @TODO: How are we going to check if the Factlink is actually submitted, so we can know if we need to highlight it.
-    //this.selectRanges( [rng] );
-};
-
-var postToIframe = function(url, obj, iframe) {
-        // Create an empty form
-        // @TODO: Check if this form doesn't have to be appended to the body of a document before it can be submitted
-    var form = $( '<form />' ),
-        // Check if the iframe variable is a string or an element
-        target = ( typeof iframe === "string" ? iframe : iframe.attr('name') );
-    
-    // Iframe has no name, create one
-    if ( target === undefined ) {
-        // Create a name for the iframe, try to make it as unique as possible
-        var tmp = 'factlink-iframe-' + ( new Date() ).getTime();
-        
-        iframe.attr('name', tmp);
-        target = tmp;
-    }
-    
-    // Set the attributes
-    form.attr({
-        action: url, 
-        method: "post",
-        target: target
-    });
-    
-    // Loop through the values that have to be sent
-    for ( var i in obj ) {
-        if ( obj.hasOwnProperty(i) ) {
-            // Create a new input field
-            $( '<input />' )
-                .attr({
-                    type: "text",
-                    value: obj[i],
-                    name: i
-                })
-                // And append it to the form
-                .appendTo(form);
-        }
-    }
-    
-    // Submit the form
-    form.submit();
+    // Prepare the Factlink on the remote
+    Factlink.remote.prepareNewFactlink( rng.toString(), 
+                                        "NotImplemented", 
+                                        window.location.href );
+                                        
+    // Position the frame
+    Factlink.modal.positionFrame.method( top, left  );
+    Factlink.modal.showFrame.method();
 };
 })( window.Factlink );

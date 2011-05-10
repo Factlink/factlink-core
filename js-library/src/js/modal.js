@@ -1,20 +1,11 @@
 (function( Factlink ) {
 
 Factlink.showInfo = function( el ) {
-    if ( Factlink.modal.frame !== null ) {
-        // @TODO: Check if we do want to remove the whole frame, maybe the user is changing stuff?
-        Factlink.modal.frame.remove();
-        Factlink.modal.frame = null;
-    }
+    Factlink.remote.showFactlink( el.getAttribute("data-factid") );
     
-    Factlink.modal.frame = $('<iframe />');
-    
-	Factlink.modal.frame.attr('src', Factlink.conf.api.loc + "/factlink/show/" + $( el ).attr('data-factid') );
-	Factlink.modal.frame.addClass("factlink-modal-frame");
-	
-	Factlink.overlay.show();
-	
-	Factlink.modal.frame.appendTo("body");
+    // Position the frame
+    Factlink.modal.showFrame.method();
+    Factlink.modal.showOverlay.method();
 };
 
 $( 'span.factlink' ).live('click', function() {
@@ -22,7 +13,61 @@ $( 'span.factlink' ).live('click', function() {
 });
 
 Factlink.modal = {
-    frame: null,
+    positionFrame: function( top, left ) {
+        Factlink.$frame.css({
+            top: top,
+            left: left
+        });
+    },
+    resetStyle: function() {
+        Factlink.$frame.attr('style','');
+    },
+    setFrameBounds: function( height, width ) {
+        var $frame = Factlink.$frame;
+        
+        $frame.css({
+            height: height,
+            width: width
+        });
+        
+        if ( $frame.hasClass("show") ) {
+            $frame.css({
+                margin: "-" + height / 2 + "px 0 0 -" + width / 2 + "px"
+            });
+        }
+    },
+    hideFrame: function() {
+        unbindClick();
+        Factlink.$frame.hide();
+    },
+    showFrame: function() {
+        bindClick();
+        Factlink.$frame.show();
+    },
+    setFrameType: function( type ) {
+        Factlink.$frame
+            .attr('class', type)
+            .show();
+    },
+    showOverlay: function() {
+        Factlink.overlay.show();
+    },
+    hideOverlay: function() {
+        Factlink.overlay.hide();
+    },
+    highlightNewFactlink: function( fact, id ) {
+        Factlink.selectRanges( Factlink.search(fact), id );
+    }
 };
 
+var bindClick = function() {
+        $( document ).bind('click', clickHandler);
+    },
+    unbindClick = function() {
+        $( document ).unbind('click', clickHandler)
+    },
+    clickHandler = function() {
+        Factlink.modal.hideOverlay.method();
+        Factlink.modal.hideFrame.method();
+    };
 })( window.Factlink );
