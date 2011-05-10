@@ -65,19 +65,19 @@
 						<li>
 							something that
 							<ul>
-								<li><a onclick="parent.getForm().submit();" href="javascript:void();">supports this</a></li>
-								<li><a onclick="parent.getForm().submit();" href="javascript:void();">weakens this</a></li>
-								<li><a onclick="parent.getForm().submit();" href="javascript:void();">proves this</a></li>
-								<li><a onclick="parent.getForm().submit();" href="javascript:void();">refutes this</a></li>
+								<li><a href="#">supports this</a></li>
+								<li><a href="#">weakens this</a></li>
+								<li><a href="#">proves this</a></li>
+								<li><a href="#">refutes this</a></li>
 							</ul>
 						</li>
 						<li>
-							<a onclick="parent.getForm().submit();" href="javascript:void();">topics
+							<a href="#">topics
 						</li>
 						<li>
 							someone who
 							<ul>
-								<li><a onclick="parent.getForm().submit();" href="javascript:void();">should participate</a></li>
+								<li><a href="#">should participate</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -86,14 +86,28 @@
 					I want
 					<ul>
 						<li>
-							<a onclick="parent.getForm().submit();" href="javascript:void();">to know about</a>
+							<a href="#">to know about</a>
 						</li>
 						<li>
-							<a onclick="parent.getForm().submit();" href="javascript:void();">ask/tell someone about</a>
+							<a href="#">ask/tell someone about</a>
 						</li>
 					</ul>
 				</li>
 			</ul>
 		</div>
+		<script>
+			var a = document.getElementsByTagName("a");
+			for ( var i = a.length; i--; ) {
+				a[i].onclick = function() {
+					// Call the parent
+					parent.createFactlink();
+					// Break the event
+					return false;
+				};
+			}
+			
+			// Set the class of the parent frame (xdm)
+			parent.remote.setFrameType("prepare");
+		</script>
 	</body>
 </html>

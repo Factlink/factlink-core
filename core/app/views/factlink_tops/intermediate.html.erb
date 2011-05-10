@@ -23,6 +23,17 @@
 			display: none;
 		}
 	</style>
+</head>
+<body>
+	<form method="post" action="<%= factlink_new_path %>" target="frame" id="form">
+		<input type="text" name="url" id="url" value="<%= @url %>">
+		<textarea name="passage" id="passage">
+			<%= @passage %>
+		</textarea>
+		<input type="text" name="fact" id="fact" value="<%= @fact %>">
+	</form>
+	<iframe src="<%= eval @path if @path %>" name="frame" id="frame"></iframe>
+	
 	<script type="text/javascript">
 			// The form
 		var form = document.getElementById("form"),
@@ -35,10 +46,21 @@
 				remote: {
 					positionFrame: {},
 					setFrameBounds: {},
-					hideFrame: {}
+					resetStyle: {},
+					hideFrame: {},
+					showFrame: {},
+					setFrameType: {},
+					showOverlay: {},
+					hideOverlay: {},
+					highlightNewFactlink: {}
 				},
 				local: {
-					prepareNewFactlink: function() {
+					prepareNewFactlink: function( factlink, passage, url ) {
+						// Set form data
+						document.getElementById("fact").value = factlink;
+						document.getElementById("passage").value = passage;
+						document.getElementById("url").value = url;
+						
 						// Set the source of the iframe
 						iframe.src = "<%= factlink_prepare_path %>";
 					},
@@ -47,17 +69,13 @@
 						iframe.src = "/factlink/show/" + id;
 					}
 				}
-			});
+			}),
+			// Create the Factlink
+			createFactlink = function( choice ) {
+				//@TODO: Submit the choice of the user
+				// Submit the form
+				form.submit();
+			};
 	</script>
-</head>
-<body>
-	<form method="post" action="<%= factlink_new_path %>" id="form">
-		<input type="text" name="url" value="<%= @url %>">
-		<textarea name="passage">
-			<%= @passage %>
-		</textarea>
-		<input type="text" name="fact" value="<%= @fact %>">
-	</form>
-	<iframe src="<%= eval @path if @path %>" id="frame"></iframe>
 </body>
 </html>

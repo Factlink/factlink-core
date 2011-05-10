@@ -14,7 +14,12 @@
   <% end %>
 
 
-
+	<script type="text/javascript">
+		parent.remote.resetStyle();
+		parent.remote.setFrameType("show");
+		parent.remote.showOverlay();
+		parent.remote.highlightNewFactlink("<%= @factlink_top.displaystring %>", "<%= @factlink_top.id %>");
+	</script>
 	<div class="fl-stats">
 		<ul class="fl-stats-bar">
 			<li class="fl-bar-support" style="height: 50%;">100</li>
