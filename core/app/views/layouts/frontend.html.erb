@@ -40,7 +40,7 @@
 
 				<div class="span-4">
 					
-					<ul class="horizontal">
+					<ul id="account-management" class="horizontal">
 					<% if user_signed_in? %>
 						<li><%= link_to("Sign out", destroy_user_session_path) %></li>
 					<% else %>

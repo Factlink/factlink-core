@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:highlights_for_site, :count_for_site]
+  before_filter :authenticate_admin!, :except => [:highlights_for_site, :count_for_site]
 
   def highlights_for_site    
     url = params[:url]

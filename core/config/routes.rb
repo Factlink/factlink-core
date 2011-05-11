@@ -7,7 +7,8 @@ FactlinkUI::Application.routes.draw do
   ##########
   # User Authentication
   devise_for :admins
-  devise_for :users
+  devise_for :users, :controllers => {  :sessions => "user_sessions", 
+                                        :registrations => "user_registrations"}
 
   ##########
   # Factlink resources
@@ -16,8 +17,8 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Javascript Client calls
-  match "/site" => "sites#highlights_for_site"
-  match "/site/count" => "sites#count_for_site"
+  get "/site" => "sites#highlights_for_site"
+  get "/site/count" => "sites#count_for_site"
 
   ##########
   # Factlink Tops
