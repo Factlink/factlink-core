@@ -1,58 +1,54 @@
 	<div class="center" style="padding: 12px 0px 0px 0px;">
 		<%= image_tag('factlink-logo.png', :height => "24px") %>
 	</div>
+	
+
 
 
 	<div class="fl-sign-in-container">
 
 		<%= form_for("user", :url => user_session_path) do |f| %>
-
 			<div class="center">
 			  <%= f.email_field :email, :placeholder => "Email", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			  <%= f.password_field :password, :placeholder => "Password", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>
 
 			<div style="padding: 6px 0px 0px 174px;">
-		  <% if devise_mapping.rememberable? -%>
+			  <% if devise_mapping.rememberable? -%>
+			    <%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-size: 0.80em; color: #888; margin-right: 10px;" %>
+			  <% end -%>
 
-		    <%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-size: 0.80em; color: #888; margin-right: 10px;" %> 		
-				<%= f.submit "Sign in", :class => "button" %>
-
-		  <% end -%>
+			<%= f.submit "Sign in", :class => "button" %>			
 			</div>
 		<% end %>
 	
-	</div> <!-- /#fl-sign-in -->
+	</div> <!-- /.fl-sign-in-container -->
 	
 
 	
-	<div class="fl-sign-in-container">
-	
-		<%= form_for("user", :url => user_registration_path) do |f| %>
+	<div class="fl-sign-in-container" style="margin-top: 12px;">
+		<div class="center">
+			<%= form_for("user", :url => user_registration_path) do |f| %>
 	
 			<p>No account? Feel free to register!</p>
-	
-		  <%= devise_error_messages! %>
 		  
 			<div>
-				<!-- <p><%= f.label :email %><br /> -->
 			  <%= f.email_field :email, :placeholder => "Email", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>
 			
 			<div>
-			  <!-- <p><%= f.label :password %><br /> -->
 			  <%= f.password_field :password, :placeholder => "Password", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>
 			
 			<div>
-			  <!-- <p><%= f.label :password_confirmation %><br /> -->
 			  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>
 			
 			<div style="padding: 6px 0px 0px 86px;">
 			  <%= f.submit "Sign up", :class => "button confirm" %>
 			</div>
-		<% end %>
+			<% end %>
+		</div> <!-- /.fl-sign-in-container -->
 		
 		<div class="clear">&nbsp;</div>
 	</div>
