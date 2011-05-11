@@ -5,13 +5,10 @@ Factlink.$frame = $("<div />")
                     })
                     .appendTo('body');
 
-    // Store the remote URL
-var REMOTE = "http://localhost:3000";
-
 // Initiate the easyXDM object
 Factlink.remote = new easyXDM.Rpc({
-		swf: REMOTE + "/client/easyXDM/src/easyxdm.swf",
-		remote: REMOTE + "/factlink/intermediate",
+		swf: Factlink.conf.api.loc + "/client/easyXDM/src/easyxdm.swf",
+		remote: Factlink.conf.api.loc + "/factlink/intermediate",
 		container: "factlink-modal-frame"
 	}, {
 	    // See modal.js #Factlink.modal
