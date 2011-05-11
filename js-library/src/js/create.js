@@ -88,13 +88,6 @@ $( 'body' ).bind('mouseup', function(e) {
     // Retrieve the text from the selection
     sel_text = sel.toString();
     
-    // Hide all the (possible) open Factlink windows
-    try {
-        Factlink.modal.frame.remove();
-        Factlink.modal.frame = null;
-        Factlink.overlay.hide();
-    } catch (e) {}
-    
     // Check if the selected text is long enough to be added
     if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
         // Store the time out
