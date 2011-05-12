@@ -1,8 +1,8 @@
 class FactlinkTopsController < ApplicationController
 
   before_filter :authenticate_admin!, :except => [:show, :prepare, :intermediate, :new, :edit, :create, :update]
-  before_filter :authenticate_user!, :only => [:prepare, :new, :edit, :create, :update]
-  # :show, :intermediate,
+  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
+  # :show, :intermediate, :prepare
   
   layout "client"
 
