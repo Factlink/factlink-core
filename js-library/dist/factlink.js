@@ -1,10 +1,10 @@
 /*!
- * Factlink client library v0.0.1
+ * Factlink client library v0.0.5
  * http://factlink.com/
  *
  * Copyright 2011, Factlink
  * 
- * Date: Thu Apr 21 11:36:50 2011 +0200
+ * Date: Wed May 11 14:27:29 2011 +0200
  */
 (function( window, undefined ) {
 
@@ -14,7 +14,7 @@ var document = window.document,
     alert = window.alert,
     $ = window.Ender || window.jQuery;
 
-var Factlink = (function() {
+var Factlink = window.Factlink = (function() {
 // Empty Factlink object
 var Factlink = {
     results: []
@@ -25,18 +25,18 @@ var Factlink = {
 Factlink.getTheFacts = function() {
     var loc = window.location,
         // The URL to the Factlink backend
-        src = Factlink.CONF.API.loc + '/site?url=' + 
+        src = Factlink.conf.api.loc + '/site?url=' + 
               loc.protocol + 
               '//' + 
               loc.hostname + 
-              loc.pathname,
-        that = this;
-    
-    console.info( src );
+              loc.pathname;
     
 	//@TODO Fix the Loader
     // Update the loader
     // FL.Loader.updateStatus( "Retrieving the facts from the server" );
+    
+    // Add the stylesheet
+    Factlink.util.addStyleSheet( Factlink.conf.css.loc );
     
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -56,13 +56,23 @@ Factlink.getTheFacts = function() {
                 // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
                 
                 // Select the ranges (results)
-                that.selectRanges( that.search( data[i].displaystring ) );
+                Factlink.selectRanges( Factlink.search( data[i].displaystring ), data[i]._id );
             }
             
             //@TODO Fix the Loader
             // Done loading
             // FL.Loader.finish();
         });
+};
+
+Factlink.destroy = function() {
+    try {
+        Factlink.overlay.hide();
+        Factlink.iframe.remove();
+    } catch (e) {}
+    
+    // Finally destroy the object
+    window.Factlink = null;
 };
 
 
@@ -79,11 +89,19 @@ Factlink.util.hasInnerText = (document.getElementsByTagName("body")[0].innerText
 
 // Util function to load a stylesheet
 Factlink.util.addStyleSheet = function(url) {
-    var style = document.createElement("link");
-    style.type = "text/css";
-    style.rel = "stylesheet";
-    style.href = url;
-    document.getElementsByTagName("head")[0].appendChild(style);
+    if ( typeof this.added_stylesheets !== "object" ) {
+        this.added_stylesheets = [];
+    }
+    
+    if ( this.added_stylesheets.indexOf(url) === -1 ) {
+        this.added_stylesheets[url] = 1;
+        
+        var style = document.createElement("link");
+        style.type = "text/css";
+        style.rel = "stylesheet";
+        style.href = url;
+        document.getElementsByTagName("head")[0].appendChild(style);
+    }
 };
 
 // Function which walks the DOM in HTML source order
@@ -119,16 +137,22 @@ Factlink.util.domReady = function(fn) {
 // Expose the Factlink object to the global object
 return Factlink;
 })();
-Factlink.CONF = {
-    API: {
+Factlink.conf = {
+    api: {
         loc: "http://development.factlink.com"
+        // loc: "http://localhost:3000"
+    },
+    lib: {
+        loc: "http://static.factlink.com/lib"
     }
+};
+
+Factlink.conf.css = {
+    loc: Factlink.conf.lib.loc + "/src/css/basic.css?" + (new Date()).getTime()
 };
 
 // Make the user able to add a Factlink
 Factlink.submitFact = function(){
-    var that = this;
-    
     var selection = window.getSelection();
     
     if ( window.rangy !== undefined ) {
@@ -154,7 +178,7 @@ Factlink.submitFact = function(){
     }
     
     $.ajax({
-        url: 'http://development.factlink.com/factlink/new',
+        url: Factlink.conf.api.loc + '/factlink/new',
         dataType: 'jsonp',
         crossDomain: true,
         jsonp: "callback",
@@ -166,13 +190,13 @@ Factlink.submitFact = function(){
     }).success(function(data) {
         if (data.status === true) {
             // Select the selected text
-            that.selectRanges([range]);
+            Factlink.selectRanges([range]);
             
             //@TODO: Fix the loader
             // The loader can hide itself
             // FL.Loader.finish();
         } else {
-            window.console.info( data );
+            //@TODO: Better errorhandling
             alert("Something went wrong");
             
             //@TODO: Fix the loader
@@ -184,6 +208,56 @@ Factlink.submitFact = function(){
         //TODO: Better errorhandling
         // FL.Loader.finish();
     });
+};
+
+// Track user selection change
+var sel = null,
+    sel_text = null,
+    min_len = 10,
+    // Function which will return the Selection object
+    //@TODO: Add rangy support for IE
+    getText = function(){
+        if (window.getSelection) {
+            var d = window.getSelection()
+        } else {
+            if (document.getSelection) {
+                var d = document.getSelection()
+            } else {
+                if (document.selection) {
+                    var d = document.selection.createRange().text
+                } else {
+                    return '';
+                }
+            }
+        }
+        return d;
+    };
+
+// Bind the actual selecting
+$( 'body' ).bind('mouseup', function(e) {
+    // Get the selection object
+    sel = getText();
+    // Retrieve the text from the selection
+    sel_text = sel.toString();
+    
+    // Check if the selected text is long enough to be added
+    if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
+        // Store the time out
+        Factlink.timeout = setTimeout(function() {
+            Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
+        }, 500);
+    }
+});
+
+Factlink.startSubmitting = function(rng, top, left) {
+    // Prepare the Factlink on the remote
+    Factlink.remote.prepareNewFactlink( rng.toString(), 
+                                        "NotImplemented", 
+                                        window.location.href );
+                                        
+    // Position the frame
+    Factlink.modal.positionFrame.method( top, left  );
+    Factlink.modal.showFrame.method();
 };
 
 
@@ -276,7 +350,7 @@ Factlink.initProxy = function(){
 
     
 // Function to select the found ranges
-Factlink.selectRanges = function(ranges){
+Factlink.selectRanges = function(ranges, id){
     var i, k;
     // Loop through ranges (backwards)
     for ( i = ranges.length; i--; ){
@@ -312,7 +386,7 @@ Factlink.selectRanges = function(ranges){
                          startNode, 
                          endNode, 
                          range.commonAncestorContainer);
-
+        
         // If there are other matches within the startNode, 
         // process them here
         if ( extraMatches.length > 0 ) {
@@ -335,14 +409,14 @@ Factlink.selectRanges = function(ranges){
         var res = this.results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node);
+        insertFactSpan(res.startOffset, res.endOffset, res.node, id);
     }
 };
 
 // This is where the actual magic will take place
 // A Span will be inserted around the startOffset/endOffset 
 // in the startNode/endNode
-var insertFactSpan = function(startOffset, endOffset, node) {
+var insertFactSpan = function(startOffset, endOffset, node, id) {
         // Value of the startNode, represented in an array
     var startNodeValue = node.nodeValue.split(''),
         // The selected text
@@ -363,7 +437,7 @@ var insertFactSpan = function(startOffset, endOffset, node) {
             .insertBefore( document.createTextNode(after), node.nextSibling );
     }
         // Create a reference to the actual "fact"-span
-    var span = createFactSpan( selTextStart.join('') );
+    var span = createFactSpan( selTextStart.join(''), id );
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');
@@ -373,6 +447,8 @@ var insertFactSpan = function(startOffset, endOffset, node) {
     node.parentNode.insertBefore( span, node.nextSibling );
 },
 
+ids = [],
+
 // Create a "fact"-span with the right attributes
 createFactSpan = function(text, id){
     var span = document.createElement('span');
@@ -380,6 +456,8 @@ createFactSpan = function(text, id){
     // Set the span attributes
     span.className = "factlink";
     span.setAttribute('data-factid',id);
+    
+    ids.push( id );
     
     // IE Doesn't support the standard (textContent) and Firefox doesn't 
     // support innerText
@@ -438,6 +516,8 @@ Factlink.replaceFactNodes = function(startOffset,
         }
     });
 };
+
+window.ids = ids;
 
 // Function to search the page
 Factlink.search = function(searchString){
@@ -523,9 +603,112 @@ Factlink.search = function(searchString){
     }
     
     // Scroll back to previous location
-    scroll(scrollLeft,scrollTop);
+    window.scroll(scrollLeft,scrollTop);
         
     return results;
 };
+
+
+Factlink.showInfo = function( el ) {
+    Factlink.remote.showFactlink( el.getAttribute("data-factid") );
+    
+    // Position the frame
+    Factlink.modal.showFrame.method();
+    Factlink.modal.showOverlay.method();
+};
+
+$( 'span.factlink' ).live('click', function() {
+    Factlink.showInfo( this );
+});
+
+Factlink.modal = {
+    positionFrame: function( top, left ) {
+        Factlink.$frame.css({
+            top: top,
+            left: left
+        });
+    },
+    resetStyle: function() {
+        Factlink.$frame.attr('style','');
+    },
+    setFrameBounds: function( width, height ) {
+        var $frame = Factlink.$frame;
+        
+        $frame.css({
+            height: height,
+            width: width
+        });
+        
+        if ( $frame.hasClass("show") ) {
+            $frame.css({
+                margin: "-" + height / 2 + "px 0 0 -" + width / 2 + "px"
+            });
+        }
+    },
+    hideFrame: function() {
+        unbindClick();
+        Factlink.$frame.hide();
+    },
+    showFrame: function() {
+        bindClick();
+        Factlink.$frame.show();
+    },
+    setFrameType: function( type ) {
+        Factlink.$frame
+            .attr('class', type)
+            .show();
+    },
+    showOverlay: function() {
+        Factlink.overlay.show();
+    },
+    hideOverlay: function() {
+        Factlink.overlay.hide();
+    },
+    highlightNewFactlink: function( fact, id ) {
+        Factlink.selectRanges( Factlink.search(fact), id );
+    }
+};
+
+var bindClick = function() {
+        $( document ).bind('click', clickHandler);
+    },
+    unbindClick = function() {
+        $( document ).unbind('click', clickHandler)
+    },
+    clickHandler = function() {
+        Factlink.modal.hideOverlay.method();
+        Factlink.modal.hideFrame.method();
+    };
+
+Factlink.$frame = $("<div />")
+                    .attr({
+                        "id": "factlink-modal-frame"
+                    })
+                    .appendTo('body');
+
+// Initiate the easyXDM object
+Factlink.remote = new easyXDM.Rpc({
+		swf: Factlink.conf.api.loc + "/client/easyXDM/src/easyxdm.swf",
+		remote: Factlink.conf.api.loc + "/factlink/intermediate",
+		container: "factlink-modal-frame"
+	}, {
+	    // See modal.js #Factlink.modal
+		local: Factlink.modal,
+		remote: {
+		    prepareNewFactlink: {},
+		    showFactlink: {}
+		}
+	});
+
+    if ( Factlink.util !== undefined ) {        
+        // Get al the facts on the current page
+        Factlink.getTheFacts();
+        
+        Factlink.overlay = $( '<div id="factlink-overlay" />' ).appendTo('body');
+    } else {
+        setTimeout( function() {
+            arguments.callee(Factlink);
+        }, 10);
+    }
 window.Factlink = Factlink;
 })(window);

@@ -22,7 +22,7 @@ Factlink.modal = {
     resetStyle: function() {
         Factlink.$frame.attr('style','');
     },
-    setFrameBounds: function( height, width ) {
+    setFrameBounds: function( width, height ) {
         var $frame = Factlink.$frame;
         
         $frame.css({

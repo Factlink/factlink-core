@@ -12,6 +12,9 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/proxy.js\
 	${SRC_DIR}/js/replace.js\
 	${SRC_DIR}/js/search.js\
+	${SRC_DIR}/js/modal.js\
+	${SRC_DIR}/js/xdm.js\
+	${SRC_DIR}/js/init.js\
 
 MODULES = ${SRC_DIR}/js/intro.js\
 	${BASE_FILES}\
