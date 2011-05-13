@@ -42,7 +42,7 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Development, testing Solr
-  match "/search" => "factlink_tops#search"
+  # match "/search" => "factlink_tops#search"
 
 
 

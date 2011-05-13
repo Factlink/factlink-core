@@ -1,6 +1,7 @@
 class FactlinkTopsController < ApplicationController
 
-  before_filter :authenticate_admin!, :except => [:show, :prepare, :intermediate, :new, :edit, :create, :update]
+  # before_filter :authenticate_admin!, :except => [:show, :prepare, :intermediate, :new, :edit, :create, :update]
+
   before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   # :show, :intermediate, :prepare
   
@@ -9,11 +10,11 @@ class FactlinkTopsController < ApplicationController
   ##########
   # Search using Solr
   # minimum_match is used to query using OR instead of AND
-  def search
-    @search = FactlinkTop.search() do
-      keywords(params[:q]) { minimum_match 1 }
-    end
-  end
+  # def search
+  #   @search = FactlinkTop.search() do
+  #     keywords(params[:q]) { minimum_match 1 }
+  #   end
+  # end
 
 
   # GET /factlink_tops
@@ -179,13 +180,13 @@ class FactlinkTopsController < ApplicationController
 
   # DELETE /factlink_tops/1
   # DELETE /factlink_tops/1.xml
-  def destroy
-    @factlink_top = FactlinkTop.find(params[:id])
-    @factlink_top.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(factlink_tops_url) }
-      format.xml  { head :ok }
-    end
-  end
+  # def destroy
+  #   @factlink_top = FactlinkTop.find(params[:id])
+  #   @factlink_top.destroy
+  # 
+  #   respond_to do |format|
+  #     format.html { redirect_to(factlink_tops_url) }
+  #     format.xml  { head :ok }
+  #   end
+  # end
 end
