@@ -6,8 +6,8 @@ class User
           :recoverable, 
           :rememberable, 
           :trackable, 
-          :validatable
-          # :registerable
+          :validatable,
+          :registerable
 
   field :name       # Display name
   field :first_name # 
