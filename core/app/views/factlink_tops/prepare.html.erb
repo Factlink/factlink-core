@@ -22,7 +22,7 @@
 				display: none;
 				position: absolute;
 				padding: 5px 0;
-				background: #ccc;
+/*				background: #ccc;*/
 				color: #000;
 				top: -5px;
 				left: 100%;
@@ -32,10 +32,24 @@
 				top: 0;
 				display: block;
 			}
+			
+			.context li.first {
+				border-radius: 3px 3px 0px 0px;
+			}
+			
+			.context li.last {
+				border-radius: 0px 0px 3px 3px;
+			}
+			
 			.context li {
+				
+				border-top: solid 1px #eee;
+				border-bottom: solid 1px #ccc;
+				
 				position: relative;
+				background-color: #ddd;		
 				white-space: nowrap;
-				padding: 5px 10px;
+				padding: 6px 12px;
 				cursor: pointer;
 				font-family: "Helvetica", Arial, sans-serif;
 				font-size: 9pt;
@@ -59,7 +73,7 @@
 	<body>
 		<div class="context">
 			<ul>
-				<li>
+				<li class="first">
 					I know
 					<ul>
 						<li>
@@ -68,13 +82,13 @@
 								<li><a href="#">supports this</a></li>
 								<li><a href="#">weakens this</a></li>
 								<li><a href="#">proves this</a></li>
-								<li><a href="#">refutes this</a></li>
+								<li class="last"><a href="#">refutes this</a></li>
 							</ul>
 						</li>
 						<li>
 							<a href="#">topics
 						</li>
-						<li>
+						<li class="last">
 							someone who
 							<ul>
 								<li><a href="#">should participate</a></li>
@@ -82,13 +96,13 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class="last">
 					I want
 					<ul>
 						<li>
 							<a href="#">to know about</a>
 						</li>
-						<li>
+						<li class="last">
 							<a href="#">ask/tell someone about</a>
 						</li>
 					</ul>
