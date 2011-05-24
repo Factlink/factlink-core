@@ -60,14 +60,17 @@ Factlink.selectRanges = function(ranges, id){
         var res = this.results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node, id);
+        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i === 0);
     }
+    
+    // Empty the results placeholder so that results don't stack
+    this.results = [];
 };
 
 // This is where the actual magic will take place
 // A Span will be inserted around the startOffset/endOffset 
 // in the startNode/endNode
-var insertFactSpan = function(startOffset, endOffset, node, id) {
+var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
         // Value of the startNode, represented in an array
     var startNodeValue = node.nodeValue.split(''),
         // The selected text
@@ -89,6 +92,12 @@ var insertFactSpan = function(startOffset, endOffset, node, id) {
     }
         // Create a reference to the actual "fact"-span
     var span = createFactSpan( selTextStart.join(''), id );
+    
+    // If this span is the first in a range of fact-spans
+    if ( isFirst ) {
+        // Add a class (used for icon adding)
+        span.className = span.className + " fl-first";
+    }
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');
