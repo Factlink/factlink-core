@@ -50,13 +50,10 @@ Factlink.getTheFacts = function() {
 };
 
 Factlink.destroy = function() {
-    try {
-        Factlink.overlay.hide();
-        Factlink.iframe.remove();
-    } catch (e) {}
+    Factlink.$frame.remove();
+    Factlink.overlay.remove();
     
-    // Finally destroy the object
-    window.Factlink = null;
+    delete Factlink;
 };
 
 

@@ -1,6 +1,18 @@
 span.factlink {
-    background: #a8d1ff !important;
     cursor: pointer;
+    
+    &.fl-first {
+        padding: 0 0 0 15px;
+        background: url('http://static.factlink.com/lib/src/images/logo-small.png') left center no-repeat;
+        
+        &.fl-active {
+            background: url('http://static.factlink.com/lib/src/images/logo-small.png') left center no-repeat #B4D5FE !important;
+        }
+    }
+    
+    &.fl-active {
+        background: #B4D5FE !important;
+    }
 }
 
 ul.factlink-choices,

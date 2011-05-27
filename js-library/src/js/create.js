@@ -97,6 +97,15 @@ $( 'body' ).bind('mouseup', function(e) {
     }
 });
 
+// Make sure the hover on an element works on all the paired span elements
+$( 'span.factlink' ).live( 'mouseenter', function() {
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).addClass('fl-active');
+})
+.live('mouseleave', function() {
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active');
+    
+});
+
 Factlink.startSubmitting = function(rng, top, left) {
     // Prepare the Factlink on the remote
     Factlink.remote.prepareNewFactlink( rng.toString(), 
