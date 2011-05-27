@@ -42,6 +42,12 @@ Factlink.getTheFacts = function() {
                 // Select the ranges (results)
                 Factlink.selectRanges( Factlink.search( data[i].displaystring ), data[i]._id );
             }
+
+            var $fls = $( 'span.factlink' ).css('backgroundColor', '#B4D5FE');
+            
+            setTimeout(function(){
+                $fls.css('backgroundColor','transparent');
+            }, 800);
             
             //@TODO Fix the Loader
             // Done loading
