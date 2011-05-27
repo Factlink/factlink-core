@@ -60,7 +60,7 @@ Factlink.selectRanges = function(ranges, id){
         var res = this.results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i === 0);
+        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i % ( this.results.length / ranges.length ) === 0);
     }
     
     // Empty the results placeholder so that results don't stack
