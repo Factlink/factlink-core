@@ -1,4 +1,4 @@
-span.factlink{cursor:pointer;}span.factlink.fl-first{padding:0 0 0 15px;background:url('http://static.factlink.com/lib/src/images/logo-small.png') left center no-repeat;}span.factlink.fl-first.fl-active{background:url('http://static.factlink.com/lib/src/images/logo-small.png') left center no-repeat #b4d5fe !important;}
+span.factlink{cursor:pointer;}span.factlink.fl-first{padding:0 3px 0 0;}
 span.factlink.fl-active{background:#B4D5FE !important;}
 ul.factlink-choices,div.ul-storage ul{list-style:none;border:1px solid #c0c0c0;padding:0;margin:0;position:absolute;}ul.factlink-choices li,div.ul-storage ul li{border:1px solid green;padding:3px 5px;cursor:pointer;background:white;white-space:nowrap;position:relative;margin:0;}ul.factlink-choices li.active,div.ul-storage ul li.active{background:#c0c0c0;}
 ul.factlink-choices ul,div.ul-storage ul ul{display:none;}

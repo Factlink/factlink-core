@@ -92,12 +92,6 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
     }
         // Create a reference to the actual "fact"-span
     var span = createFactSpan( selTextStart.join(''), id );
-    
-    // If this span is the first in a range of fact-spans
-    if ( isFirst ) {
-        // Add a class (used for icon adding)
-        span.className = span.className + " fl-first";
-    }
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');
@@ -105,6 +99,17 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
     // Insert the span right after the startNode 
     // (there is no insertAfter available)
     node.parentNode.insertBefore( span, node.nextSibling );
+    
+    // If this span is the first in a range of fact-spans
+    if ( isFirst ) {
+        var first = createFactSpan( "", id );
+        first.innerHTML = "&#10003;";
+        first.className = "fl-first factlink";
+        
+        node.parentNode.insertBefore( first, span );
+        // // Add a class (used for icon adding)
+        // span.className = span.className + " fl-first";
+    }
 },
 
 ids = [],
