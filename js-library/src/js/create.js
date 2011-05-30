@@ -1,4 +1,27 @@
 (function( Factlink ) {
+// Track user selection change
+var sel = null,
+    sel_text = null,
+    min_len = 10,
+    // Function which will return the Selection object
+    //@TODO: Add rangy support for IE
+    getText = function(){
+        if (window.getSelection) {
+            var d = window.getSelection()
+        } else {
+            if (document.getSelection) {
+                var d = document.getSelection()
+            } else {
+                if (document.selection) {
+                    var d = document.selection.createRange().text
+                } else {
+                    return '';
+                }
+            }
+        }
+        return d;
+    };
+
 // Make the user able to add a Factlink
 Factlink.submitFact = function(){
     var selection = window.getSelection();
@@ -11,7 +34,6 @@ Factlink.submitFact = function(){
         // Get the selected text
         var range = selection.getRangeAt(0);
     } catch(e) {
-        alert("bam");
         // Possibly the user didn't select anything
         return false;
     }
@@ -53,60 +75,12 @@ Factlink.submitFact = function(){
             }
         },
         error :function(data) {
-        //@TODO: Fix the loader
-        //TODO: Better errorhandling
-        // FL.Loader.finish();
+            //@TODO: Fix the loader
+            //TODO: Better errorhandling
+            // FL.Loader.finish();
         }
     });
 };
-
-// Track user selection change
-var sel = null,
-    sel_text = null,
-    min_len = 10,
-    // Function which will return the Selection object
-    //@TODO: Add rangy support for IE
-    getText = function(){
-        if (window.getSelection) {
-            var d = window.getSelection()
-        } else {
-            if (document.getSelection) {
-                var d = document.getSelection()
-            } else {
-                if (document.selection) {
-                    var d = document.selection.createRange().text
-                } else {
-                    return '';
-                }
-            }
-        }
-        return d;
-    };
-
-// Bind the actual selecting
-$( 'body' ).bind('mouseup', function(e) {
-    // Get the selection object
-    sel = getText();
-    // Retrieve the text from the selection
-    sel_text = sel.toString();
-    
-    // Check if the selected text is long enough to be added
-    if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
-        // Store the time out
-        Factlink.timeout = setTimeout(function() {
-            Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
-        }, 500);
-    }
-});
-
-// Make sure the hover on an element works on all the paired span elements
-$( 'span.factlink' ).live( 'mouseenter', function() {
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).addClass('fl-active');
-})
-.live('mouseleave', function() {
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active');
-    
-});
 
 Factlink.startSubmitting = function(rng, top, left) {
     // Prepare the Factlink on the remote
@@ -118,4 +92,42 @@ Factlink.startSubmitting = function(rng, top, left) {
     Factlink.modal.positionFrame.method( top, left  );
     Factlink.modal.showFrame.method();
 };
+
+// Bind the actual selecting
+$( 'body' ).bind('mouseup', function(e) {
+    // If there is an active timeout
+    if ( Factlink.timeout ) {
+        // Clear it!
+        window.clearTimeout( Factlink.timeout );
+    }
+    
+    // Get the selection object
+    sel = getText();
+    // Retrieve the text from the selection
+    sel_text = sel.toString();
+    
+    // Check if the selected text is long enough to be added
+    if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
+        // Store the time out
+        Factlink.timeout = setTimeout(function() {
+            // Make sure the text is still selected
+            var sel = getText();
+            
+            if ( sel.toString().length > min_len ) {
+                Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
+            }
+        }, 500);
+    }
+});
+
+// Make sure the hover on an element works on all the paired span elements
+$( 'span.factlink' ).live( 'mouseenter', function() {
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' )
+        .addClass('fl-active');
+})
+.live('mouseleave', function() {
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' )
+        .removeClass('fl-active');
+    
+});
 })( window.Factlink );

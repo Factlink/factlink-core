@@ -1,11 +1,11 @@
 (function( Factlink ) {
-    if ( Factlink.util !== undefined ) {        
+    if ( Factlink !== undefined ) {        
         // Get al the facts on the current page
         Factlink.getTheFacts();
         
         Factlink.overlay = $( '<div id="factlink-overlay" />' ).appendTo('body');
     } else {
-        setTimeout( function() {
+        setTimeout( function test() {
             arguments.callee(Factlink);
         }, 10);
     }

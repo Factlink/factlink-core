@@ -1,4 +1,22 @@
 (function( Factlink ) {
+var results = [],
+    // Function which walks the DOM in HTML source order
+    // as long as func does not return false
+    // Inspiration: Douglas Crockford, JavaScript: the good parts
+    walkTheDOM = function walk(node, func) {
+        if ( func(node) !== false ) {
+            node = node.firstChild;
+            while (node) {
+                if (walk(node, func) !== false) {
+                    node = node.nextSibling;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+    };;
     
 // Function to select the found ranges
 Factlink.selectRanges = function(ranges, id){
@@ -56,15 +74,15 @@ Factlink.selectRanges = function(ranges, id){
     
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    for ( i = 0; i < this.results.length; i++ ) {
-        var res = this.results[i];
+    for ( i = 0; i < results.length; i++ ) {
+        var res = results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i % ( this.results.length / ranges.length ) === 0);
+        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i % ( results.length / ranges.length ) === 0);
     }
     
     // Empty the results placeholder so that results don't stack
-    this.results = [];
+    results = [];
 };
 
 // This is where the actual magic will take place
@@ -126,7 +144,7 @@ createFactSpan = function(text, id){
     
     // IE Doesn't support the standard (textContent) and Firefox doesn't 
     // support innerText
-    if ( !Factlink.util.hasInnerText ) {
+    if ( document.getElementsByTagName("body")[0].innerText === undefined ) {
         span.textContent = text;
     } else {
         span.innerText = text;
@@ -149,7 +167,7 @@ Factlink.replaceFactNodes = function(startOffset,
     
     // Walk the DOM in the right order and call the function for every 
     // node it passes
-    Factlink.util.walkTheDOM( commonAncestorContainer, function( node ) {
+   walkTheDOM( commonAncestorContainer, function( node ) {
         // We're only interested in textNodes
         if ( node !== undefined && node.nodeType === 3 ){
             var rStartOffset = 0;
@@ -166,7 +184,7 @@ Factlink.replaceFactNodes = function(startOffset,
                 
                 // Push the right info to the results array, the info 
                 // is being parsed later (selectRanges -end)
-                that.results.push({
+                results.push({
                     startOffset: rStartOffset,
                     endOffset: rEndOffset,
                     node: node
