@@ -34,27 +34,29 @@ Factlink.submitFact = function(){
         data: {
             url: window.location.href,
             fact: range.toString()
-        }
-    }).success(function(data) {
-        if (data.status === true) {
-            // Select the selected text
-            Factlink.selectRanges([range]);
+        },
+        success: function(data) {
+            if (data.status === true) {
+                // Select the selected text
+                Factlink.selectRanges([range]);
             
-            //@TODO: Fix the loader
-            // The loader can hide itself
-            // FL.Loader.finish();
-        } else {
-            //@TODO: Better errorhandling
-            alert("Something went wrong");
+                //@TODO: Fix the loader
+                // The loader can hide itself
+                // FL.Loader.finish();
+            } else {
+                //@TODO: Better errorhandling
+                alert("Something went wrong");
             
-            //@TODO: Fix the loader
-            // The Loader can hide itself
-            // FL.Loader.finish();
-        }
-    }).error(function(data) {
+                //@TODO: Fix the loader
+                // The Loader can hide itself
+                // FL.Loader.finish();
+            }
+        },
+        error :function(data) {
         //@TODO: Fix the loader
         //TODO: Better errorhandling
         // FL.Loader.finish();
+        }
     });
 };
 

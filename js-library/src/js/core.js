@@ -28,11 +28,10 @@ Factlink.getTheFacts = function() {
         dataType: "jsonp",
         crossDomain: true,
         type: "GET",
-        jsonp: "callback"
-    })
+        jsonp: "callback",
         // Callback which is called when the response is loaded, will contain
         // the JSON data
-        .success(function(data){
+        success: function(data){
             // If there are multiple matches on the page, loop through them all
             for ( var i = 0; i < data.length; i++ ) {
                 //@TODO Fix the Loader
@@ -52,7 +51,8 @@ Factlink.getTheFacts = function() {
             //@TODO Fix the Loader
             // Done loading
             // FL.Loader.finish();
-        });
+        }
+    });
 };
 
 Factlink.destroy = function() {
