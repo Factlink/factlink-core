@@ -1,10 +1,9 @@
-class FactlinkTop
+class FactlinkTop < Votable
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
 
   # include Sunspot::Mongoid
-
   # Create search index on :displaystring
   # searchable do
     # text :displaystring
@@ -17,12 +16,9 @@ class FactlinkTop
   #                                             :proves => 69 }
   
   # Score fields for easy access
-  field :score_denies,  :type => Integer, :default => 0
-  field :score_maybe,   :type => Integer, :default => 0
-  field :score_proves,  :type => Integer, :default => 0
-  
-  field :up_votes,      :type => Integer, :default => 0
-  field :down_votes,    :type => Integer, :default => 0
+  field :score_denies,  :type => Integer, :default => 14
+  field :score_maybe,   :type => Integer, :default => 120
+  field :score_proves,  :type => Integer, :default => 69
   
   # Relations
   belongs_to :site            # THe site on which the factlink should be shown
@@ -31,10 +27,7 @@ class FactlinkTop
   # Validations
   validates_presence_of :displaystring
   
-  def score
-    
-  end
-  
+
   def to_s
     displaystring
   end
@@ -67,15 +60,6 @@ class FactlinkTop
     # Sum all values and return the result
     # Start with result of 1 against devised by 0 error
     [self.score_denies, self.score_maybe, self.score_proves].inject(1) { | result, value | result + value }
-  end
-
-  # Voting
-  def up_vote
-    
-  end
-  
-  def down_vote
-    
   end
 
   # Percentual scores

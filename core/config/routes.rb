@@ -42,6 +42,7 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/addsub/:id" => "factlink_subs#add_sub"
   match "/factlink/addtag/:id" => "factlink_subs#add_tag"
 
+  match "/factlink/addtag/:id" => "factlink_subs#add_tag"
 
   ##########
   # Web Front-end

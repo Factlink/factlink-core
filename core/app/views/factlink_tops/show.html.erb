@@ -62,11 +62,14 @@
 				<% else %>
 
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-					<li>
-						<span class="fl-source-up"></span>
+					<li data-score="<%= factlink_sub.score %>" id="fl-source-<%= factlink_sub.id %>">
+						<span class="fl-source-up" onclick="javascript:alert('hoi');"></span>
+						
+						
+						
 						<span class="fl-source-down"></span>
 						<h4><%= factlink_sub.title %></h4>
-						<!-- <p><%= factlink_sub.content %></p> -->
+						<p><%= factlink_sub.content %></p>
 						<span class="fl-source">found on: <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
 						
 						<%= link_to 'X', factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;"%>
