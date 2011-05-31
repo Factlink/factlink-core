@@ -2,7 +2,7 @@ class Votable
   include Mongoid::Document
   
   UpVote = +1
-  DownVote = -2
+  DownVote = -1
 
   field :up_sum,        :type => Integer, :default => 0
   field :down_sum,      :type => Integer, :default => 0
