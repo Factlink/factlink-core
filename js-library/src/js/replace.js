@@ -16,11 +16,13 @@ var results = [],
         } else {
             return false;
         }
-    };;
+    },
+    // Regex for class find
+    re = /(^|\s)factlink(\s|$)/;
     
 // Function to select the found ranges
 Factlink.selectRanges = function(ranges, id){
-    var i, k;
+    var i, k, len;
     // Loop through ranges (backwards)
     for ( i = ranges.length; i--; ){
         // Current range
@@ -36,7 +38,13 @@ Factlink.selectRanges = function(ranges, id){
             extraMatches = [],
             
             obj;
-                
+            
+        // Check if the given factlink is not already selected 
+        // (fixes multiple check marks when editing a factlink)
+        if ( /(^|\s)factlink(\s|$)/.test( startNode.parentNode.className ) ) {
+            continue;
+        }
+        
         while ( --j > 0 && ranges[j].startContainer === startNode ) {
             // Push the match to the extraMatches helper
             extraMatches.push({
@@ -74,11 +82,20 @@ Factlink.selectRanges = function(ranges, id){
     
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    for ( i = 0; i < results.length; i++ ) {
+    for ( i = 0, len = results.length; i < len; i++ ) {
         var res = results[i];
         
         // Insert the fact-span
-        insertFactSpan(res.startOffset, res.endOffset, res.node, id, i % ( results.length / ranges.length ) === 0);
+        insertFactSpan(
+            res.startOffset, 
+            res.endOffset, 
+            res.node, 
+            id, 
+            // Only select the first range of every matched string
+            // Needed for when one displayString is matched mutliple times on 
+            // one page
+            i % ( results.length / ranges.length ) === 0
+        );
     }
     
     // Empty the results placeholder so that results don't stack
@@ -120,28 +137,26 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
     
     // If this span is the first in a range of fact-spans
     if ( isFirst ) {
-        var first = createFactSpan( "", id );
+        var first = createFactSpan( "", id, true );
         first.innerHTML = "&#10003;";
-        first.className = "fl-first factlink";
         
         node.parentNode.insertBefore( first, span );
-        // // Add a class (used for icon adding)
-        // span.className = span.className + " fl-first";
     }
 },
 
-ids = [],
-
 // Create a "fact"-span with the right attributes
-createFactSpan = function(text, id){
+createFactSpan = function(text, id, first){
     var span = document.createElement('span');
 
     // Set the span attributes
     span.className = "factlink";
+    
+    if ( first === true ) {
+        span.className += " fl-first";
+    }
+    
     span.setAttribute('data-factid',id);
-    
-    ids.push( id );
-    
+        
     // IE Doesn't support the standard (textContent) and Firefox doesn't 
     // support innerText
     if ( document.getElementsByTagName("body")[0].innerText === undefined ) {
@@ -155,15 +170,13 @@ createFactSpan = function(text, id){
 
 // Function that tracks the DOM for nodes containing the fact
 Factlink.replaceFactNodes = function(startOffset,
-                            endOffset,
-                            startNode,
-                            endNode,
-                            commonAncestorContainer) {
+                                     endOffset,
+                                     startNode,
+                                     endNode,
+                                     commonAncestorContainer) {
         // Only parse the nodes if the startNode is already found, 
         // this boolean is used for tracking
-    var foundStart = false,
-        // Reference to this for use in the walkTheDOM function
-        that = this;
+    var foundStart = false;
     
     // Walk the DOM in the right order and call the function for every 
     // node it passes
@@ -199,6 +212,4 @@ Factlink.replaceFactNodes = function(startOffset,
         }
     });
 };
-
-window.ids = ids;
 })( window.Factlink );
