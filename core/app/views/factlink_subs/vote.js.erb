@@ -1,0 +1,32 @@
+(function(){
+    var sub = $( 'fl-source-<%= @factlink_sub.id %>' ),
+        score = parseInt( sub.attr('data-score') ),
+        iter = <% @voted_up ? "prev" : "next" %>,
+        replaceNode = function(el, root) {
+            var el_score = parseInt( el.attr('data-score') ),
+                root_score = parseInt( root.attr('data-score') ),
+                sibl = el[iter]('li');
+                
+            <% if @voted_up %>
+                // Vote one up
+                sub.attr( 'data-score', score++ );
+
+                if ( el_score < root_score && sibl.length !== 0 ) {
+                    arguments.callee( sibl, root );
+                } else {
+                    root.insertAfter( el );
+                }
+            <% else %>
+                // Vote one down
+                sub.attr( 'data-score', score-- );
+                
+                if ( el_score > root_score && sibl.length !== 0 ) {
+                    arguments.callee( sibl, root );
+                } else {
+                    root.insertBefore( el );
+                }
+            <% end %>
+        };
+    
+    replaceNode( sub[iter]('li'), sub );
+})();
