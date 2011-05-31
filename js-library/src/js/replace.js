@@ -41,7 +41,7 @@ Factlink.selectRanges = function(ranges, id){
             
         // Check if the given factlink is not already selected 
         // (fixes multiple check marks when editing a factlink)
-        if ( /(^|\s)factlink(\s|$)/.test( startNode.parentNode.className ) ) {
+        if ( re.test( startNode.parentNode.className ) ) {
             continue;
         }
         
