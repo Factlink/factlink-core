@@ -9,23 +9,31 @@
                 
             <% if @voted_up %>
                 // Vote one up
-                sub.attr( 'data-score', score++ );
-
-                if ( el_score < root_score && sibl.length !== 0 ) {
-                    arguments.callee( sibl, root );
+                if ( el_score < root_score ) {
+                    if ( sibl.length !== 0 ) {
+                        arguments.callee( sibl, root );
+                    } else {
+                        root.insertBefore( el );
+                    }
                 } else {
                     root.insertAfter( el );
                 }
             <% else %>
                 // Vote one down
-                sub.attr( 'data-score', score-- );
-                
-                if ( el_score > root_score && sibl.length !== 0 ) {
-                    arguments.callee( sibl, root );
+                if ( el_score > root_score ) {
+                    if ( sibl.length !== 0 ) {
+                        arguments.callee( sibl, root );
+                    } else {
+                        root.insertAfter( el );
+                    }
                 } else {
                     root.insertBefore( el );
                 }
             <% end %>
         };
- 			replaceNode( sub[iter]('li'), sub );
+    score<%= @voted_up ? "++" : "--" %>;
+        
+    sub.attr( 'data-score', score );
+    
+    replaceNode( sub[iter]('li'), sub );
 })();
