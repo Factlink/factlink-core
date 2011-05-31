@@ -42,8 +42,8 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/addsub/:id" => "factlink_subs#add_sub"
   match "/factlink/addtag/:id" => "factlink_subs#add_tag"
   # up and down voting
-  get "/factlink_subs/:id/vote/up" => "factlink_subs#vote_up"
-  get "/factlink_subs/:id/vote/down" => "factlink_subs#vote_down"
+  get "/factlink_subs/:id/vote/up" => "factlink_subs#vote_up",      :as => "factlink_sub_vote_up"
+  get "/factlink_subs/:id/vote/down" => "factlink_subs#vote_down",  :as => "factlink_sub_vote_down"
 
   ##########
   # Web Front-end

@@ -63,11 +63,10 @@
 
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
 					<li data-score="<%= factlink_sub.score %>" id="fl-source-<%= factlink_sub.id %>">
-						<span class="fl-source-up" onclick="javascript:alert('hoi');"></span>
 						
-						
-						
-						<span class="fl-source-down"></span>
+						<%= link_to '<span class="fl-source-up"></span>'.html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true %>
+						<%= link_to '<span class="fl-source-down"></span>'.html_safe, factlink_sub_vote_down_path(factlink_sub), :remote => true %>
+
 						<h4><%= factlink_sub.title %></h4>
 						<p><%= factlink_sub.content %></p>
 						<span class="fl-source">found on: <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>

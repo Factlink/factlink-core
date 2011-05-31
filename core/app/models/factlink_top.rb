@@ -11,22 +11,43 @@ class FactlinkTop < Votable
 
   # Fields
   field :displaystring
-  # field :score, :type => Hash, :default => {  :denies => 0, 
-  #                                             :maybe => 120,
-  #                                             :proves => 69 }
   
   # Score fields for easy access
-  field :score_denies,  :type => Integer, :default => 14
-  field :score_maybe,   :type => Integer, :default => 120
-  field :score_proves,  :type => Integer, :default => 69
+  field :score_denies,  :type => Integer, :default => 1
+  field :score_maybe,   :type => Integer, :default => 1
+  field :score_proves,  :type => Integer, :default => 1
   
   # Relations
-  belongs_to :site            # THe site on which the factlink should be shown
+  belongs_to :site            # The site on which the factlink should be shown
   has_many :factlink_subs     # The sub items
 
   # Validations
   validates_presence_of :displaystring
   
+  
+  def update_score
+    self.score_proves = (self.factlink_subs.map { |s| s.up_sum }.inject(0) { |result, value | result + value  } * self.up_sum)
+    self.score_denies = (self.factlink_subs.map { |s| s.down_sum }.inject(0) { |result, value | result + value  } * self.down_sum)
+    self.score_maybe = ((self.score_proves + self.score_denies) / 2)
+    self.save
+  end
+  
+  
+  def vote_up_number_of_times number_of_times
+    number_of_times.times do
+      self.vote_up
+    end
+    
+    self.update_score
+  end
+  
+  def vote_down_number_of_times number_of_times
+    number_of_times.times do
+      self.vote_down
+    end
+    
+    self.update_score
+  end
 
   def to_s
     displaystring

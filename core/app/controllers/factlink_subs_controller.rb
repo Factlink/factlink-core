@@ -33,7 +33,32 @@ class FactlinkSubsController < ApplicationController
   end
 
 
+  # Voting
+  def vote_up
+    @factlink_sub = FactlinkSub.find(params[:id])
+    @factlink_sub.vote_up
 
+    # Upvote the parent
+    @factlink_sub.factlink_top.vote_up_number_of_times 2
+    # Bool for js template
+    @voted_up = true
+
+    # Render the vote template    
+    render 'vote'
+  end
+  
+  def vote_down
+    @factlink_sub = FactlinkSub.find(params[:id])
+    @factlink_sub.vote_down
+
+    # Downvote the parent
+    @factlink_sub.factlink_top.vote_up_number_of_times 3
+    # Bool for js template
+    @voted_up = false
+    
+    # Render the vote template
+    render 'vote'
+  end
 
 
   # # GET /factlink_subs
