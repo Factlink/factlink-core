@@ -287,7 +287,7 @@ div.fl-modal {
                     background: url('../images/vote-up.png') no-repeat center center;
 										padding: 6px 8px 2px 8px;
                     left: 6px;
-                    top: 16px;
+                    top: 0px;
                 }
 								span.fl-source-up:hover {
 									background: url('../images/vote-up-hover.png') no-repeat center center;
@@ -303,6 +303,16 @@ div.fl-modal {
                     background: url('../images/vote-down-hover.png') no-repeat center center;
 								}
 
+								span.fl-source-score {
+										width: 28px;
+										font-size: 0.9em;
+										text-align: center;
+										color: #bbb;
+										left: 4px;
+										top: 18px;
+										position: absolute;
+								}
+
                 span.fl-source-up,
                 span.fl-source-down {
                     display: inline-block;
@@ -311,6 +321,11 @@ div.fl-modal {
                     cursor: pointer;
                     position: absolute;
                 }
+
+								div.fl-vote-container {
+										left: 0px; 
+									position: absolute;
+								}
 
             }
         }

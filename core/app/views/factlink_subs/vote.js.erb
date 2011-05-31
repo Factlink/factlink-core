@@ -36,6 +36,8 @@
     sub.attr( 'data-score', score );
     
     replaceNode( sub[iter]('li'), sub );
+
+		$('#fl-source-score-<%= @factlink_sub.id %>').text('<%= @factlink_sub.score %>');
 })();
 
 

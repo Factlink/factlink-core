@@ -25,12 +25,19 @@ setTimeout(
 
 		// Create the new Sub item
 		var list_item = $('<li></li>').hide();
-		var up = $("<span></span>").addClass("fl-source-up");
-		var down = $("<span></span>").addClass("fl-source-down");
+
+		var container = $("<div></div>").addClass("fl-vote-container");
+			var up = $('<a href="/factlink_subs/<%= @factlink_sub.id %>/vote/up" data-remote="true"><span class="fl-source-up"></span></a>');
+			var down = $('<a href="/factlink_subs/<%= @factlink_sub.id %>/vote/down" data-remote="true"><span class="fl-source-down"></span></a>');
+			// var up = $("<span></span>").addClass("fl-source-up");
+			// var down = $("<span></span>").addClass("fl-source-down");
+			var score = $('<span id="fl-source-score-<%= @factlink_sub.id %>" class="fl-source-score"><%= @factlink_sub.score %></span>');
+		container.append(up, down, score)
+		
 		var title = $("<h4><%= @factlink_sub.title %></h4>");
 		var content = $("<p><%= @factlink_sub.content %></p>");
-		var source = $("<span class=\"fl-source\">found on: <a href=\"javascript:window.open('<%= @factlink_sub.url %>');\"><%= @factlink_sub.url %></a></span>" );
-		list_item.append(up, down, title, content, source);
+		var source = $("<span class=\"fl-source\">found on <a href=\"javascript:window.open('<%= @factlink_sub.url %>');\"><%= @factlink_sub.url %></a></span>" );
+		list_item.append(container, title, content, source);
 
 		$('#fl-loading-indicator').hide();
 		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
