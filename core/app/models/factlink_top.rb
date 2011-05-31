@@ -26,28 +26,28 @@ class FactlinkTop < Votable
   
   
   def update_score
-    self.score_proves = (self.factlink_subs.map { |s| s.up_sum }.inject(0) { |result, value | result + value  } * self.up_sum)
-    self.score_denies = (self.factlink_subs.map { |s| s.down_sum }.inject(0) { |result, value | result + value  } * self.down_sum)
+    self.score_proves = (self.factlink_subs.map { |s| s.up_sum }.inject(0) { |result, value | result + value  })
+    self.score_denies = (self.factlink_subs.map { |s| s.down_sum }.inject(0) { |result, value | result + value  })
     self.score_maybe = ((self.score_proves + self.score_denies) / 2)
     self.save
   end
   
   
-  def vote_up_number_of_times number_of_times
-    number_of_times.times do
-      self.vote_up
-    end
-    
-    self.update_score
-  end
-  
-  def vote_down_number_of_times number_of_times
-    number_of_times.times do
-      self.vote_down
-    end
-    
-    self.update_score
-  end
+  # def vote_up_number_of_times number_of_times
+  #   number_of_times.times do
+  #     self.vote_up
+  #   end
+  #   
+  #   self.update_score
+  # end
+  # 
+  # def vote_down_number_of_times number_of_times
+  #   number_of_times.times do
+  #     self.vote_down
+  #   end
+  #   
+  #   self.update_score
+  # end
 
   def to_s
     displaystring

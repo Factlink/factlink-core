@@ -37,3 +37,23 @@
     
     replaceNode( sub[iter]('li'), sub );
 })();
+
+
+
+(function(){
+	// Update score labels	
+	$("#fl-bar-refute-score").stop().animate({
+		height: '<%= @factlink_sub.factlink_top.percentage_score_denies %>%'
+	}).text('<%= @factlink_sub.factlink_top.score_denies %>');
+	
+	$("#fl-bar-maybe-score").stop().animate({
+		height: '<%= @factlink_sub.factlink_top.percentage_score_maybe %>%'
+	}).text('<%= @factlink_sub.factlink_top.score_maybe %>');
+	
+	$("#fl-bar-support-score").stop().animate({
+		height: '<%= @factlink_sub.factlink_top.percentage_score_proves %>%'
+	}).text('<%= @factlink_sub.factlink_top.score_proves %>');
+
+	$('span#fl-stats-count').text('<%= @factlink_sub.factlink_top.stats_count %>');
+
+})();

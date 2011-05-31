@@ -14,11 +14,11 @@
 
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
-				<li class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"><%= @factlink_top.absolute_score_denies %></li>
-				<li class="fl-bar-maybe" style="height: <%= @factlink_top.percentage_score_maybe %>%;"><%= @factlink_top.absolute_score_maybe %></li>
-				<li class="fl-bar-support" style="height: <%= @factlink_top.percentage_score_proves %>%;"><%= @factlink_top.absolute_score_proves %></li>
+				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"><%= @factlink_top.absolute_score_denies %></li>
+				<li id="fl-bar-maybe-score" class="fl-bar-maybe" style="height: <%= @factlink_top.percentage_score_maybe %>%;"><%= @factlink_top.absolute_score_maybe %></li>
+				<li id="fl-bar-support-score" class="fl-bar-support" style="height: <%= @factlink_top.percentage_score_proves %>%;"><%= @factlink_top.absolute_score_proves %></li>
 			</ul>
-			<span class="fl-stats-count"><%= @factlink_top.stats_count %></span>
+			<span id="fl-stats-count" class="fl-stats-count"><%= @factlink_top.stats_count %></span>
 		</div>
 		
 		<div class="fl-factlink">
@@ -70,8 +70,6 @@
 						<h4><%= factlink_sub.title %></h4>
 						<p><%= factlink_sub.content %></p>
 						<span class="fl-source">found on: <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-						
-						<%= link_to 'X', factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;"%>
 						
 					</li>
 					<% end %>

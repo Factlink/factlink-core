@@ -30,8 +30,7 @@ setTimeout(
 		var title = $("<h4><%= @factlink_sub.title %></h4>");
 		var content = $("<p><%= @factlink_sub.content %></p>");
 		var source = $("<span class=\"fl-source\">found on: <a href=\"javascript:window.open('<%= @factlink_sub.url %>');\"><%= @factlink_sub.url %></a></span>" );
-		var delete_link = '<%= link_to "X", @factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;" %>';
-		list_item.append(up, down, title, content, source, delete_link);
+		list_item.append(up, down, title, content, source);
 
 		$('#fl-loading-indicator').hide();
 		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
@@ -41,6 +40,3 @@ setTimeout(
 
 
 		} , 1000); // The delay
-
-
-
