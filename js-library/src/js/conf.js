@@ -1,11 +1,11 @@
 (function( Factlink ) {
 Factlink.conf = {
     api: {
-        loc: "http://development.factlink.com"
+        loc: "http://demo.factlink.org"
         // loc: "http://localhost:3000"
     },
     lib: {
-        loc: "http://static.factlink.com/lib"
+        loc: "http://static.demo.factlink.org/lib"
     }
 };
 
