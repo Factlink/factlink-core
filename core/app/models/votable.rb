@@ -11,6 +11,8 @@ class Votable
   field :sum,           :type => Integer, :default => 0
   field :count,         :type => Integer, :default => 0
 
+  default_scope desc(:sum)
+
   def vote_up
     self.up_sum = self.up_sum + UpVote
     self.sum = self.sum + UpVote
