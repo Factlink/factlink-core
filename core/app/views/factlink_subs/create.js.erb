@@ -1,6 +1,9 @@
 // Hide the 'add factlink source' popup
 $('#fl-sources-popup').fadeOut('fast');
 
+// Clear the input fields
+$('input:visible:not([type=submit]),textarea', $('#fl-sources-popup')).val('');
+
 // Change loading icon to Factlink icon after 300ms
 setTimeout(
 	function() {
