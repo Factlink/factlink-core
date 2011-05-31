@@ -27,7 +27,7 @@ setTimeout(
 		}
 
 		// Create the new Sub item
-		var list_item = $('<li></li>').hide();
+		var list_item = $('<li data-score="<%= @factlink_sub.score %>" id="fl-source-<%= @factlink_sub.id %>"></li>').hide();
 
 		var container = $("<div></div>").addClass("fl-vote-container");
 			var up = $('<a href="/factlink_subs/<%= @factlink_sub.id %>/vote/up" data-remote="true"><span class="fl-source-up"></span></a>');

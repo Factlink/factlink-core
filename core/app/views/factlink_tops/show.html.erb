@@ -44,7 +44,7 @@
 
 			</ul>
 			
-			<a href="<%= edit_factlink_top_path(@factlink_top) %>">more...</a>
+			<a href="<%= edit_factlink_top_path(@factlink_top) %>">edit tags</a>
 		</div>
 		
 		<div class="fl-clear"></div>
@@ -80,15 +80,16 @@
 
 			</ol>
 		</div>
-		
-		<hr style="border-top: solid 1px #ddd; border-bottom: solid 1px #fff; border-left: 0px; border-right: 0px; margin-top: 24px; margin-bottom: 24px;">
-<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
 
+		<div class="" style="padding: 10px 0px 10px 0px; float: right;">
+			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button ">Add source</a>
+		</div>
+		
+		<div class="fl-clear"></div>
 
 		<!-- Add sources popup -->
 		<div id="fl-sources-popup" style="display: none;">
 			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
 			<%= render :partial => "remote_form" %>
-			<a onclick="javascript: $('#fl-sources-popup').fadeOut('fast'); ">Close window</a>
 		</div>
 	
