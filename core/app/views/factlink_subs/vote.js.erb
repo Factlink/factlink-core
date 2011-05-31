@@ -1,7 +1,7 @@
 (function(){
-    var sub = $( 'fl-source-<%= @factlink_sub.id %>' ),
+    var sub = $('#fl-source-<%= @factlink_sub.id %>'),
         score = parseInt( sub.attr('data-score') ),
-        iter = <% @voted_up ? "prev" : "next" %>,
+        iter = '<%= @voted_up ? "prev" : "next" %>',
         replaceNode = function(el, root) {
             var el_score = parseInt( el.attr('data-score') ),
                 root_score = parseInt( root.attr('data-score') ),
@@ -27,6 +27,5 @@
                 }
             <% end %>
         };
-    
-    replaceNode( sub[iter]('li'), sub );
+ 			replaceNode( sub[iter]('li'), sub );
 })();
