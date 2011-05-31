@@ -1,5 +1,6 @@
 class FactlinkSubsController < ApplicationController
 
+  layout "backend"
 
   def add_sub
     @factlink_top = FactlinkTop.find(params[:id])
@@ -37,25 +38,25 @@ class FactlinkSubsController < ApplicationController
 
   # # GET /factlink_subs
   # # GET /factlink_subs.xml
-  # def index
-  #   @factlink_subs = FactlinkSub.all
-  # 
-  #   respond_to do |format|
-  #     format.html # index.html.erb
-  #     format.xml  { render :xml => @factlink_subs }
-  #   end
-  # end
-  # 
+  def index
+    @factlink_subs = FactlinkSub.all
+  
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @factlink_subs }
+    end
+  end
+  
   # # GET /factlink_subs/1
   # # GET /factlink_subs/1.xml
-  # def show
-  #   @factlink_sub = FactlinkSub.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.xml  { render :xml => @factlink_sub }
-  #   end
-  # end
+  def show
+    @factlink_sub = FactlinkSub.find(params[:id])
+  
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @factlink_sub }
+    end
+  end
   # 
   # # GET /factlink_subs/new
   # # GET /factlink_subs/new.xml
@@ -73,22 +74,26 @@ class FactlinkSubsController < ApplicationController
   #   @factlink_sub = FactlinkSub.find(params[:id])
   # end
   # 
+
   # # POST /factlink_subs
   # # POST /factlink_subs.xml
-  # def create
-  #   @factlink_sub = FactlinkSub.new(params[:factlink_sub])
-  # 
-  #   respond_to do |format|
-  #     if @factlink_sub.save
-  #       format.html { redirect_to(@factlink_sub, :notice => 'Factlink sub was successfully created.') }
-  #       format.xml  { render :xml => @factlink_sub, :status => :created, :location => @factlink_sub }
-  #     else
-  #       format.html { render :action => "new" }
-  #       format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
-  # 
+  def create
+    @factlink_sub = FactlinkSub.new(params[:factlink_sub])
+  
+    respond_to do |format|
+      if @factlink_sub.save
+        format.html { redirect_to(@factlink_sub, :notice => 'Factlink sub was successfully created.') }
+        format.xml  { render :xml => @factlink_sub, :status => :created, :location => @factlink_sub }
+        format.js #{ render :json => @factlink_sub, :status => :ok }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
+        format.js   { render :json => @factlink_sub.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+
   # # PUT /factlink_subs/1
   # # PUT /factlink_subs/1.xml
   # def update
@@ -107,13 +112,16 @@ class FactlinkSubsController < ApplicationController
   # 
   # # DELETE /factlink_subs/1
   # # DELETE /factlink_subs/1.xml
-  # def destroy
-  #   @factlink_sub = FactlinkSub.find(params[:id])
-  #   @factlink_sub.destroy
-  # 
-  #   respond_to do |format|
-  #     format.html { redirect_to(factlink_subs_url) }
-  #     format.xml  { head :ok }
-  #   end
-  # end
+  def destroy
+    @factlink_sub = FactlinkSub.find(params[:id])
+    # Object for redirect
+    @factlink_top = @factlink_sub.factlink_top
+    # Delete it
+    @factlink_sub.destroy
+  
+    respond_to do |format|
+      format.html { redirect_to(@factlink_top, :notice => "Support is deleted.") }
+      format.xml  { head :ok }
+    end
+  end
 end

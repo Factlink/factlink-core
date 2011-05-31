@@ -1,8 +1,14 @@
 FactlinkUI::Application.routes.draw do
+  devise_for :barons
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  match "/baron/" => "home#test"
+  ### Development
+  get "/signed_in" => "dev#login_test"
+  get "/iframe" => "dev#iframe"
+  get "/needs_sign_in" => "dev#needs_sign_in"
+
 
   ##########
   # User Authentication
@@ -15,6 +21,8 @@ FactlinkUI::Application.routes.draw do
   resources :factlink_tops
   resources :factlink_subs
 
+  resource :sites
+  
   ##########
   # Javascript Client calls
   get "/site" => "sites#highlights_for_site"

@@ -3,19 +3,25 @@
 <head>
 	<link rel="stylesheet/less" type="text/css" href="/client/css/modal.less">
 	<title>Factlink modal window</title>
+
 	<script type="text/javascript" src="/client/js/less-1.0.41.min.js"></script>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 	<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
 	<script type="text/javascript" src="/client/js/jscrollpane.min.js"></script>
+	
+	<%= javascript_include_tag "rails" %>
 </head>
 <body>
 
 	<div class="fl-modal">
 		<div class="fl-container">
-
-
-	<%= yield %>
+			
+			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -2px; left: 410px;", :onclick => "parent.remote.hideFrame(); parent.remote.hideOverlay();" %>
+			
+			<!-- <p id="notice"></p> -->
+			
+			<%= yield %>
 
 		</div>
 	</div>

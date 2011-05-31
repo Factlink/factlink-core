@@ -4,19 +4,28 @@
 			parent.remote.resetStyle();
 			parent.remote.setFrameType("show");
 			parent.remote.showOverlay();
+
+			parent.remote.setFrameBounds(440, 370);
 		</script>		
+
+		<div id="fl-loading-indicator" style="display: none; z-index: 10; position: absolute; width: 80px; height: 30px; top: 160px; left: 174px; border: solid 4px rgba(0,0,0,0.2); border-radius: 4px; background-color: #eee; margin: 0 auto; text-align: center; padding-top: 12px;">
+			<%= image_tag "icons/loading-indicator-white.gif" %>
+		</div>
+
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
-				<li class="fl-bar-support" style="height: 50%;">100</li>
-				<li class="fl-bar-maybe" style="height: 20%;">40</li>
-				<li class="fl-bar-refute" style="height: 30%;">60</li>
+				<li class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"><%= @factlink_top.absolute_score_denies %></li>
+				<li class="fl-bar-maybe" style="height: <%= @factlink_top.percentage_score_maybe %>%;"><%= @factlink_top.absolute_score_maybe %></li>
+				<li class="fl-bar-support" style="height: <%= @factlink_top.percentage_score_proves %>%;"><%= @factlink_top.absolute_score_proves %></li>
 			</ul>
-			<span class="fl-stats-count">419,420</span>
+			<span class="fl-stats-count"><%= @factlink_top.stats_count %></span>
 		</div>
 		
 		<div class="fl-factlink">
 			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_top_path(@factlink_top) %>">&#8220;<%= @factlink_top.displaystring %>&#8221;</a></h1>
 		</div>
+		
+		
 		
 		<div class="fl-clear"></div>
 		
@@ -34,26 +43,49 @@
 				</a>
 
 			</ul>
+			
 			<a href="<%= edit_factlink_top_path(@factlink_top) %>">more...</a>
 		</div>
 		
 		<div class="fl-clear"></div>
 		
 		<div class="fl-scroll-pane">
-			<ol class="fl-sources">
+			<ol id="fl-sources-list" class="fl-sources">
 
-				<% unless @factlink_top.factlink_subs.count > 0 %>
-					<p style="margin-left: 12px;">No facts have been added yet.</p>
+				<% unless @factlink_top.factlink_subs.count > 0 %>					
+
+					<li id="no-facts-message">
+						<h4>No facts have been added yet.</h4>
+						<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
+					</li>
+
 				<% else %>
+
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-						<li>
-							<span class="fl-source-up"></span>
-							<span class="fl-source-down"></span>
-							<h4><%= factlink_sub.title %></h4>
-							<span class="fl-source">source: <a href="javascript:void();"><%= factlink_sub.url %></a></span>
-						</li>
+					<li>
+						<span class="fl-source-up"></span>
+						<span class="fl-source-down"></span>
+						<h4><%= factlink_sub.title %></h4>
+						<!-- <p><%= factlink_sub.content %></p> -->
+						<span class="fl-source">found on: <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
+						
+						<%= link_to 'X', factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;"%>
+						
+					</li>
 					<% end %>
 				<% end %>
 
 			</ol>
 		</div>
+		
+		<hr style="border-top: solid 1px #ddd; border-bottom: solid 1px #fff; border-left: 0px; border-right: 0px; margin-top: 24px; margin-bottom: 24px;">
+<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
+
+
+		<!-- Add sources popup -->
+		<div id="fl-sources-popup" style="display: none;">
+			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
+			<%= render :partial => "remote_form" %>
+			<a onclick="javascript: $('#fl-sources-popup').fadeOut('fast'); ">Close window</a>
+		</div>
+	

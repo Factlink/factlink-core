@@ -1,0 +1,8 @@
+<li>
+	<span class="fl-source-up"></span>
+	<span class="fl-source-down"></span>
+	<h4><%= @factlink_sub.title %></h4>
+	<span class="fl-source">source: <a href="javascript:window.open('<%= @factlink_sub.url %>');"><%= @factlink_sub.url %></a></span>
+	
+	<%= link_to 'X', @factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;"%>
+</li>

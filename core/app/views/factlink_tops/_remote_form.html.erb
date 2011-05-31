@@ -1,0 +1,21 @@
+<%= form_for FactlinkSub.new, :remote => true do |f| %>
+
+	<%= f.hidden_field :factlink_top_id, :value => @factlink_top.id %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content, :rows => 4, :cols => 45 %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :onclick => "javascript: $('#fl-loading-indicator').show();" %>
+  </div>
+<% end %>

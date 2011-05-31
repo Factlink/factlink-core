@@ -1,0 +1,58 @@
+// Create new Sub element
+
+$('#fl-sources-popup').fadeOut('fast');
+
+setTimeout(
+	function() {
+		// Fancy, change to Factlink check icon
+		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/factlink/16.png');
+	} , 300); // The delay
+
+setTimeout(
+	function() {
+		
+		var no_fact_message = $("#no-facts-message");
+		if (no_fact_message.length > 0) {
+			// The message is there, remove it.
+			no_fact_message.slideUp(500);
+		}
+
+		var list_item = $('<li></li>').hide();
+		var up = $("<span></span>").addClass("fl-source-up");
+		var down = $("<span></span>").addClass("fl-source-down");
+		var title = $("<h4><%= @factlink_sub.title %></h4>");
+		var source = $("<span class=\"fl-source\">source: <a href=\"javascript:void();\"><%= @factlink_sub.url %></a></span>" );
+		var delete_link = '<%= link_to "delete", @factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;" %>';
+
+		list_item.append(up, down, title, source, delete_link);
+
+		$('#fl-loading-indicator').hide();
+		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
+		
+		// Append to ordered list
+		list_item.prependTo($('ol#fl-sources-list')).slideDown(500);
+
+
+		} , 1000); // The delay
+
+// Reset the loading image
+
+
+
+// var no_fact_message = $("#no-facts-message");
+// if (no_fact_message.length > 0) {
+// 	// The message is there, remove it.
+// 	no_fact_message.slideUp(500);
+// }
+// 
+// var list_item = $('<li></li>').hide();
+// var up = $("<span></span>").addClass("fl-source-up");
+// var down = $("<span></span>").addClass("fl-source-down");
+// var title = $("<h4><%= @factlink_sub.title %></h4>");
+// var source = $("<span class=\"fl-source\">source: <a href=\"javascript:void();\"><%= @factlink_sub.url %></a></span>" );
+// var delete_link = '<%= link_to "delete", @factlink_sub, :confirm => "Are you sure?", :method => :delete, :style => "float: right;" %>';
+// 
+// list_item.append(up, down, title, source, delete_link);
+// 
+// // Append to ordered list
+// list_item.appendTo($('ol#fl-sources-list')).slideDown(500);

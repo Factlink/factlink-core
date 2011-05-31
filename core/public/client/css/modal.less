@@ -3,6 +3,13 @@ body, html {
 	margin: 0;
 	padding: 0;
 }
+a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.close-button:hover {
+	cursor: pointer;
+}
 
 div.fl-modal {
     background-color: transparent;
@@ -28,8 +35,8 @@ div.fl-modal {
         // background-image: -moz-linear-gradient(top, #ffffff, #f0efef); 
         // background-image: -ms-linear-gradient(top, #ffffff, #f0efef); 
         // background-image: -o-linear-gradient(top, #ffffff, #f0efef); 
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef)); 
-        background-image: -webkit-linear-gradient(top, #ffffff, #f0efef); 
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+        background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
         // background-image: linear-gradient(top, #ffffff, #f0efef);
         // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef'); 
 
@@ -38,6 +45,24 @@ div.fl-modal {
         padding: 6px;
         
         width: 400px;
+
+				div#fl-sources-popup {
+					position: absolute; 
+					top: 78px;
+
+					background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+		      background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+
+					border: solid 10px rgba(0,0,0,0.4);
+					border-radius: 14px;
+
+					padding: 10px; 
+					width: 360px;
+				}
+				
+				div#fl-sources-popup .close-button:hover {
+					cursor: pointer;
+				}
     }
     
     // The stats box

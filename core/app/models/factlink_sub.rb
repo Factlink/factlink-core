@@ -2,7 +2,7 @@ class FactlinkSub
   include Mongoid::Document
   include Mongoid::Timestamps
   # include Sunspot::Mongoid
-
+        
   # Create search index on :displaystring
   # searchable do
   #   text :title
@@ -13,5 +13,7 @@ class FactlinkSub
   field :url, :type => String
 
   belongs_to :factlink_top
+
+  validates_presence_of :title, :on => :create, :message => "can't be blank"
   
 end
