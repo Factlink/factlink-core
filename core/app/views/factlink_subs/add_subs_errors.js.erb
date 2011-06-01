@@ -1,0 +1,18 @@
+
+var errors = <%= @factlink_sub.errors.to_json.html_safe %>;
+
+$('span.errors').hide();
+
+// alert(errors['title']);
+
+if (errors['title']) {
+	$('span#factlink_sub_title_error').text(errors['title'][0]).slideDown('slow');
+}
+
+if (errors['content']) {
+	$('span#factlink_sub_content_error').text(errors['content'][0]).slideDown('slow');
+}
+
+if (errors['url']) {
+	$('span#factlink_sub_url_error').text(errors['url'][0]).slideDown('slow');
+}
