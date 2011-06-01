@@ -15,22 +15,9 @@
   </div>
 
   <div class="actions" style="padding: 10px; margin: 0 auto; text-align: center;">
-		<%= f.submit "Add this source", :onclick => "javascript: $('#fl-loading-indicator').show();", :class => "button confirm" %>
+		<%= f.submit "Add this source", :class => "button confirm" %>
 		<a onclick="javascript: $('#fl-sources-popup').fadeOut('fast'); ">or cancel</a>
 	</div>
-	
-	<script>
-	
-	$('#factlink_sub_title')
-	
-	$('#new_factlink_sub input').blur(function()
-	{
-	    if( !$(this).val() ) {
-					// alert(this.id);
-					$('#' + this.id + '_error').slideDown('slow');
-	    }
-	});
-	
-	</script>
+
 
 <% end %>

@@ -115,9 +115,11 @@ class FactlinkSubsController < ApplicationController
         format.xml  { render :xml => @factlink_sub, :status => :created, :location => @factlink_sub }
         format.js #{ render :json => @factlink_sub, :status => :ok }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
-        format.js   { render :json => @factlink_sub.errors, :status => :unprocessable_entity }
+        # format.html { render :action => "new" }
+        # format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
+        
+        format.js     { render :add_subs_errors }
+        # format.js   { render :json => @factlink_sub.errors, :status => :unprocessable_entity }
       end
     end
   end
