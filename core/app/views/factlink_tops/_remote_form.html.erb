@@ -4,20 +4,21 @@
 
   <div class="field">
     <%= f.text_field :title, :placeholder => "Title" %>
-		<span id="factlink_sub_title_error" style="display: none;">Please input a title</span>
+		<span id="factlink_sub_title_error" class="error" style="display: none;"></span>
   </div>
   <div class="field">
     <%= f.text_area :content, :rows => 4, :cols => 45, :placeholder => "Supporting statements" %>
+		<span id="factlink_sub_content_error" class="error" style="display: none;"></span>
   </div>
 
   <div class="field">
     <%= f.text_field :url, :placeholder => "Url where the statement can be found" %>
+		<span id="factlink_sub_url_error" class="error" style="display: none;"></span>
   </div>
 
   <div class="actions" style="padding: 10px; margin: 0 auto; text-align: center;">
 		<%= f.submit "Add this source", :class => "button confirm" %>
 		<a onclick="javascript: $('#fl-sources-popup').fadeOut('fast'); ">or cancel</a>
 	</div>
-
 
 <% end %>
