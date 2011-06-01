@@ -38,8 +38,10 @@ class FactlinkSubsController < ApplicationController
     @factlink_sub = FactlinkSub.find(params[:id])
     @factlink_sub.vote_up
 
-    # Upvote the parent
-    @factlink_sub.factlink_top.vote_up_number_of_times 2
+    # Update the parent score. There is no cool callback here, so
+    # do it manually.
+    @factlink_sub.factlink_top.update_score
+    
     # Bool for js template
     @voted_up = true
 
@@ -50,9 +52,11 @@ class FactlinkSubsController < ApplicationController
   def vote_down
     @factlink_sub = FactlinkSub.find(params[:id])
     @factlink_sub.vote_down
+    
+    # Update the parent score. There is no cool callback here, so
+    # do it manually.
+    @factlink_sub.factlink_top.update_score
 
-    # Downvote the parent
-    @factlink_sub.factlink_top.vote_up_number_of_times 3
     # Bool for js template
     @voted_up = false
     

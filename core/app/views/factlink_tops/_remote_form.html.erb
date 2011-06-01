@@ -3,19 +3,34 @@
 	<%= f.hidden_field :factlink_top_id, :value => @factlink_top.id %>
 
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :placeholder => "Title" %>
+		<span id="factlink_sub_title_error" style="display: none;">Please input a title</span>
   </div>
   <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content, :rows => 4, :cols => 45 %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br />
-    <%= f.text_field :url %>
+    <%= f.text_area :content, :rows => 4, :cols => 45, :placeholder => "Supporting statements" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit :onclick => "javascript: $('#fl-loading-indicator').show();" %>
+  <div class="field">
+    <%= f.text_field :url, :placeholder => "Url where the statement can be found" %>
   </div>
+
+  <div class="actions" style="padding: 10px; margin: 0 auto; text-align: center;">
+		<%= f.submit "Add this source", :onclick => "javascript: $('#fl-loading-indicator').show();", :class => "button confirm" %>
+		<a onclick="javascript: $('#fl-sources-popup').fadeOut('fast'); ">or cancel</a>
+	</div>
+	
+	<script>
+	
+	$('#factlink_sub_title')
+	
+	$('#new_factlink_sub input').blur(function()
+	{
+	    if( !$(this).val() ) {
+					// alert(this.id);
+					$('#' + this.id + '_error').slideDown('slow');
+	    }
+	});
+	
+	</script>
+
 <% end %>
