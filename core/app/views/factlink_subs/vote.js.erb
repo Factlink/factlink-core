@@ -1,48 +1,7 @@
 (function(){
-    var sub = $('#fl-source-<%= @factlink_sub.id %>'),
-        score = parseInt( sub.attr('data-score') ),
-        iter = '<%= @voted_up ? "prev" : "next" %>',
-        replaceNode = function(el, root) {
-            var el_score = parseInt( el.attr('data-score') ),
-                root_score = parseInt( root.attr('data-score') ),
-                sibl = el[iter]('li');
-                
-            <% if @voted_up %>
-                // Vote one up
-                if ( el_score < root_score ) {
-                    if ( sibl.length !== 0 ) {
-                        arguments.callee( sibl, root );
-                    } else {
-                        root.insertBefore( el );
-                    }
-                } else {
-                    root.insertAfter( el );
-                }
-            <% else %>
-                // Vote one down
-                if ( el_score > root_score ) {
-                    if ( sibl.length !== 0 ) {
-                        arguments.callee( sibl, root );
-                    } else {
-                        root.insertAfter( el );
-                    }
-                } else {
-                    root.insertBefore( el );
-                }
-            <% end %>
-        };
-    score<%= @voted_up ? "++" : "--" %>;
-        
-    sub.attr( 'data-score', score );
-    
-    replaceNode( sub[iter]('li'), sub );
+    // Update the score
+    $('#fl-source-score-<%= @factlink_sub.id %>').text('<%= @factlink_sub.score %>');
 
-		$('#fl-source-score-<%= @factlink_sub.id %>').text('<%= @factlink_sub.score %>');
-})();
-
-
-
-(function(){
 	// Update score labels	
 	$("#fl-bar-refute-score").stop().animate({
 		height: '<%= @factlink_sub.factlink_top.percentage_score_denies %>%'
