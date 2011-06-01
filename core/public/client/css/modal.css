@@ -10,6 +10,11 @@ a:hover {
 .close-button:hover {
   cursor: pointer;
 }
+span.error {
+	color: #8FBC8F;
+/*	margin-left: 4px;*/
+}
+
 div.fl-modal {
   background-color: transparent;
   background-color: rgba(0, 0, 0, 0.2);
