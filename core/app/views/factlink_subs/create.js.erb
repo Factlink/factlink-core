@@ -10,7 +10,7 @@ setTimeout(
 	function() {
 		// Fancy, change to Factlink check icon
 		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/factlink/16.png');
-	} , 300); // The delay
+	} , 800); // The delay
 
 
 // Create the newly added Factlink Sub as an element and add it to our list
@@ -41,11 +41,13 @@ setTimeout(
 		var source = $("<span class=\"fl-source\">found on <a href=\"javascript:window.open('<%= @factlink_sub.url %>');\"><%= @factlink_sub.url %></a></span>" );
 		list_item.append(container, title, content, source);
 
-		$('#fl-loading-indicator').hide();
-		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
+		$('#fl-loading-indicator').fadeOut('slow', function(){
+			$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
+		});
+		
 		
 		// Append to ordered list
 		list_item.prependTo($('ol#fl-sources-list')).slideDown(500);
 
 
-		} , 1000); // The delay
+		} , 1600); // The delay

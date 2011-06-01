@@ -12,7 +12,6 @@ a:hover {
 }
 span.error {
 	color: #8FBC8F;
-/*	margin-left: 4px;*/
 }
 
 div.fl-modal {
@@ -36,10 +35,10 @@ div.fl-modal div.fl-container {
 }
 div.fl-modal div.fl-container div#fl-sources-popup {
   position: absolute;
-  top: 78px;
+  top: 66px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
   background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-  border: solid 10px rgba(0, 0, 0, 0.4);
+  border: solid 10px rgba(0, 0, 0, 0.3);
   border-radius: 14px;
   padding: 10px;
   width: 360px;
