@@ -5,7 +5,7 @@
         
         Factlink.overlay = $( '<div id="factlink-overlay" />' ).appendTo('body');
     } else {
-        setTimeout( function test() {
+        setTimeout( function() {
             arguments.callee(Factlink);
         }, 10);
     }

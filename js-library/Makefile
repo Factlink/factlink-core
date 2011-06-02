@@ -8,7 +8,6 @@ DIST_DIR = ${PREFIX}/dist
 BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/conf.js\
 	${SRC_DIR}/js/create.js\
-	${SRC_DIR}/js/loader.js\
 	${SRC_DIR}/js/proxy.js\
 	${SRC_DIR}/js/replace.js\
 	${SRC_DIR}/js/search.js\
@@ -16,7 +15,8 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/xdm.js\
 	${SRC_DIR}/js/init.js\
 
-MODULES = ${SRC_DIR}/js/intro.js\
+MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
+	${SRC_DIR}/js/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
 

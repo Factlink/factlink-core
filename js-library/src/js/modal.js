@@ -2,16 +2,17 @@
 
 Factlink.showInfo = function( el ) {
     Factlink.remote.showFactlink( el.getAttribute("data-factid") );
-    
-    // Position the frame
     Factlink.modal.showFrame.method();
     Factlink.modal.showOverlay.method();
 };
 
+// Handle a user click
 $( 'span.factlink' ).live('click', function() {
     Factlink.showInfo( this );
 });
 
+// Object which holds the methods that can be called from the intermediate iframe
+// These methods are also used by the internal scripts
 Factlink.modal = {
     positionFrame: function( top, left ) {
         Factlink.$frame.css({

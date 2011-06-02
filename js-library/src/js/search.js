@@ -6,7 +6,7 @@ Factlink.search = function(searchString){
 		// Array which will hold all the results
 		results = [],
     
-    // Store scroll settings to reset to afterwards
+        // Store scroll settings to reset to afterwards
         scrollTop = document.body.scrollTop,
         scrollLeft = document.body.scrollLeft,
         
@@ -76,7 +76,7 @@ Factlink.search = function(searchString){
                 }
             }
         } else { // Opera
-            alert( "Your browser does not support the proper find functionality" );
+            alert( "Your browser is currently not supported by Factlink" );
         }
     } else { // No window.find and createTextRange
         alert( "Unimplemented" );

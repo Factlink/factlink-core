@@ -12,5 +12,5 @@
 var document = window.document,
     setTimeout = window.setTimeout,
     alert = window.alert,
-    $ = window.jQuery;
+    $ = window.jQuery.noConflict();
 
