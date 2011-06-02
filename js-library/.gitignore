@@ -1,1 +1,3 @@
 .DS_Store
+dist/factlink.js
+dist/factlink.min.js
