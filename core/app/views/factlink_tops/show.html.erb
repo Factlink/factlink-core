@@ -14,9 +14,9 @@
 
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
-				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"><%= @factlink_top.absolute_score_denies %></li>
-				<li id="fl-bar-maybe-score" class="fl-bar-maybe" style="height: <%= @factlink_top.percentage_score_maybe %>%;"><%= @factlink_top.absolute_score_maybe %></li>
-				<li id="fl-bar-support-score" class="fl-bar-support" style="height: <%= @factlink_top.percentage_score_proves %>%;"><%= @factlink_top.absolute_score_proves %></li>
+				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"></li>
+				<li id="fl-bar-maybe-score" class="fl-bar-maybe" style="height: <%= @factlink_top.percentage_score_maybe %>%;"></li>
+				<li id="fl-bar-support-score" class="fl-bar-support" style="height: <%= @factlink_top.percentage_score_proves %>%;"></li>
 			</ul>
 			<span id="fl-stats-count" class="fl-stats-count"><%= @factlink_top.stats_count %></span>
 		</div>
@@ -65,8 +65,8 @@
 					<li data-score="<%= factlink_sub.score %>" id="fl-source-<%= factlink_sub.id %>">
 						
 						<div class="fl-vote-container">
-							<%= link_to '<span class="fl-source-up"></span>'.html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true %>
-							<%= link_to '<span class="fl-source-down"></span>'.html_safe, factlink_sub_vote_down_path(factlink_sub), :remote => true %>
+							<%= link_to '<span class="fl-source-up"></span>'.html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true, :onclick => "return false; /(\\s|^)disabled(\\s|$)/.test(this.className)", :class => "up" %>
+							<%= link_to '<span class="fl-source-down"></span>'.html_safe, factlink_sub_vote_down_path(factlink_sub), :remote => true, :onclick => "return false; /(\\s|^)disabled(\\s|$)/.test(this.className)", :class => "down" %>
 							<span id="fl-source-score-<%= factlink_sub.id %>" class="fl-source-score"><%= factlink_sub.score %></span>
 						</div>
 
