@@ -48,8 +48,7 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Web Front-end
-  # root :to => "home#index"
-  root :to => "dev#login_test"
+  root :to => "home#index"
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 

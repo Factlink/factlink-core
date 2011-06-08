@@ -23,15 +23,18 @@
 			display: none;
 		}
 	</style>
+
+	<%= csrf_meta_tag %>
 </head>
 <body>
-	<form method="post" action="<%= factlink_new_path %>" target="frame" id="form">
+	<%= form_for(factlink_new_path, :url => factlink_new_path, :html => { :target => "frame", :id => "form"}) do |f| %>
 		<input type="text" name="url" id="url" value="<%= @url %>">
 		<textarea name="passage" id="passage">
 			<%= @passage %>
 		</textarea>
 		<input type="text" name="fact" id="fact" value="<%= @fact %>">
-	</form>
+	<!-- </form> -->
+	<% end %>
 	<iframe src="<%= eval @path if @path %>" name="frame" id="frame"></iframe>
 	
 	<script type="text/javascript">

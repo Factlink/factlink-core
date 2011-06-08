@@ -31,7 +31,7 @@ class FactlinkSub < Votable
 
 
   validates_format_of :url, 
-                      :with => URI::regexp(%w(http\:\/\/ https)), 
+                      :with => URI::regexp(%w(http https)), 
                       :on => :create, 
                       :message => "Please provide a valid url where the content can be found:", 
                       :allow_nil => false
