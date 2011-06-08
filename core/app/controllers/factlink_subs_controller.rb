@@ -1,25 +1,6 @@
 class FactlinkSubsController < ApplicationController
 
   layout "backend"
-
-  def add_sub
-    @factlink_top = FactlinkTop.find(params[:id])
-    
-    title = params[:title]
-    content = params[:content]
-    url = params[:url]
-
-    sub = FactlinkSub.new(:title => title, :content => content, :url => url)
-    sub.save
-
-    current_user.factlink_subs << sub
-    current_user.save
-    
-    @factlink_top.factlink_subs << sub
-    @factlink_top.save
-    
-    render :json => { :status => true }, :callback => params[:callback]
-  end
   
   def add_tag
     # TODO: Check if tag already exists
@@ -111,6 +92,7 @@ class FactlinkSubsController < ApplicationController
   # # POST /factlink_subs.xml
   def create
     @factlink_sub = FactlinkSub.new(params[:factlink_sub])
+    @factlink_sub.created_by = current_user
   
     respond_to do |format|
       if @factlink_sub.save
