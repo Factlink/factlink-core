@@ -8,9 +8,12 @@ class FactlinkSubsController < ApplicationController
     title = params[:title]
     content = params[:content]
     url = params[:url]
-    
+
     sub = FactlinkSub.new(:title => title, :content => content, :url => url)
     sub.save
+
+    current_user.factlink_subs << sub
+    current_user.save
     
     @factlink_top.factlink_subs << sub
     @factlink_top.save

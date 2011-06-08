@@ -20,5 +20,5 @@ class User
   # twitter, facebook...
   field :social_accounts, :type => Array
 
-  
+  has_many :factlink_subs
 end
