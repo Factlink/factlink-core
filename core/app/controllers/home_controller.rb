@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
 
   # before_filter :authenticate_user!
-
-  layout "frontend"
-
+  # layout "frontend"
+  layout "accounting"
+  
+  
   def index
     
     puts "\n\nUser session: \n#{user_session}\n\n"

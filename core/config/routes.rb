@@ -7,12 +7,16 @@ FactlinkUI::Application.routes.draw do
   get "/iframe" => "dev#iframe"
   get "/needs_sign_in" => "dev#needs_sign_in"
 
+  get "/iframe2" => "dev#iframe2"
+
+  get "/the_form" => "dev#the_form"
+  post "/post_form" => "dev#post_form"
 
   ##########
   # User Authentication
   devise_for :admins
-  devise_for :users, :controllers => {  :sessions => "user_sessions", 
-                                        :registrations => "user_registrations"}
+  devise_for :users, :controllers => {  :registrations => "users/registrations",
+                                        :sessions => "users/sessions" }
 
   ##########
   # Factlink resources
@@ -45,7 +49,9 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Web Front-end
-  root :to => "home#index"
+  # root :to => "home#index"
+  root :to => "dev#login_test"
+  
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
   ##########

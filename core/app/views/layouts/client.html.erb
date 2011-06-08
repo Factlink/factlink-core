@@ -2,6 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/client/css/modal.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/buttons.css">
 	<title>Factlink modal window</title>
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
@@ -15,14 +16,10 @@
 			
 			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -2px; left: 410px;", :onclick => "parent.remote.hideFrame(); parent.remote.hideOverlay();" %>
 			
-			<!-- <p id="notice"></p> -->
-			
 			<%= yield %>
 
 		</div>
 	</div>
-
-
 
 </body>
 </html>

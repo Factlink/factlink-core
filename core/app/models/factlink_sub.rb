@@ -20,9 +20,20 @@ class FactlinkSub < Votable
 
   belongs_to :factlink_top
 
-  validates_presence_of :title, :on => :create, :message => "Please provide a title:"
-  validates_presence_of :content, :on => :create, :message => "Please provide some content support this statement:"
-  validates_presence_of :url, :on => :create, :message => "Please provide a url where the content can be found:"
+  validates_presence_of :title, 
+                        :on => :create, 
+                        :message => "Please provide a title:"
+
+  validates_presence_of :content, 
+                        :on => :create, 
+                        :message => "Please provide some content support this statement:"
+
+
+  validates_format_of :url, 
+                      :with => URI::regexp(%w(http\:\/\/ https)), 
+                      :on => :create, 
+                      :message => "Please provide a valid url where the content can be found:", 
+                      :allow_nil => false
 
   def score
     self.sum

@@ -1,21 +1,18 @@
-<fieldset style="padding: 32px; margin: 16px; width: 420px; box-shadow: 4px 4px 10px #000;">
-	<legend>	<%= image_tag('factlink-logo.png') %></legend>
+<h2>Login to Factlink</h2>
+<span style="font-size: 1.2em;">on: <script>document.write(location.href);</script></span>
 
-	<pre>Usage of Factlink requires signing in. Please do so:</pre>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-	  <pre><%= f.label :email, :style => "float: left; width: 96px;" %></pre>
-	  <%= f.email_field :email, :style => "border-radius: 2px; border: 1px solid #cfcfcf; padding: 4px; width: 310px;" %>
+  <%= f.email_field :email, :placeholder => "Email" %><br/>
+  <%= f.password_field :password, :placeholder => "Password" %><br/>
 
-	  <pre><%= f.label :password, :style => "float: left; width: 96px;" %></pre>
-	  <%= f.password_field :password, :style => "border-radius: 2px; border: 1px solid #cfcfcf; padding: 4px; width: 310px;" %>
+  <% if devise_mapping.rememberable? -%>
+    <span><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
+  <% end -%>
 
-	  <% if devise_mapping.rememberable? -%>
-	    <pre><%= f.check_box :remember_me %> <%= f.label :remember_me %></pre>
-	  <% end -%>
-
-	  <pre><%= f.submit "Sign in" %></pre>
-	<% end %>
+  <pre><%= f.submit "Sign in", :class => "button" %></pre>
+<% end %>
 
 
-</fieldset>
+
+<%= render :partial => "devise/shared/links" %>

@@ -1,6 +1,6 @@
 class FactlinkSubsController < ApplicationController
 
-  layout "backend"
+  # layout "backend"
 
   def add_sub
     @factlink_top = FactlinkTop.find(params[:id])
@@ -97,12 +97,11 @@ class FactlinkSubsController < ApplicationController
   #     format.xml  { render :xml => @factlink_sub }
   #   end
   # end
-  # 
+
   # # GET /factlink_subs/1/edit
-  # def edit
-  #   @factlink_sub = FactlinkSub.find(params[:id])
-  # end
-  # 
+  def edit
+    @factlink_sub = FactlinkSub.find(params[:id])
+  end
 
   # # POST /factlink_subs
   # # POST /factlink_subs.xml
@@ -127,19 +126,19 @@ class FactlinkSubsController < ApplicationController
 
   # # PUT /factlink_subs/1
   # # PUT /factlink_subs/1.xml
-  # def update
-  #   @factlink_sub = FactlinkSub.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     if @factlink_sub.update_attributes(params[:factlink_sub])
-  #       format.html { redirect_to(@factlink_sub, :notice => 'Factlink sub was successfully updated.') }
-  #       format.xml  { head :ok }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def update
+    @factlink_sub = FactlinkSub.find(params[:id])
+  
+    respond_to do |format|
+      if @factlink_sub.update_attributes(params[:factlink_sub])
+        format.html { redirect_to(@factlink_sub, :notice => 'Factlink sub was successfully updated.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @factlink_sub.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
   # 
   # # DELETE /factlink_subs/1
   # # DELETE /factlink_subs/1.xml

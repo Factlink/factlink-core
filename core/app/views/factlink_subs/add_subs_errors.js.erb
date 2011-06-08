@@ -1,9 +1,6 @@
-
 var errors = <%= @factlink_sub.errors.to_json.html_safe %>;
 
 $('span.errors').hide();
-
-// alert(errors['title']);
 
 if (errors['title']) {
 	$('span#factlink_sub_title_error').text(errors['title'][0]).slideDown('slow');

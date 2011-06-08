@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <title>FactlinkUI</title>
+
+	<!-- Blueprint CSS -->
+	<link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/accounting.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="/stylesheets/buttons.css" media="screen" rel="stylesheet" type="text/css" />
+	
+	<!-- [if lt IE 8]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"><![endif] -->
+
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+	
+	<div class="container">
+	
+		<% if notice %>
+			<p class="notice"><%= notice %></p>
+		<% end %>
+		
+		<% if alert %>
+			<p class="alert"><%= alert %></p>
+		<% end %>
+	
+	<%= yield %>
+	
+	</div>
+</body>
+</html>
