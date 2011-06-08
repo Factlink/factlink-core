@@ -14,6 +14,8 @@ class User
   # field :first_name
   # field :last_name
 
+  has_many :factlink_subs
+
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
   # Only allow letters, digits and underscore in a username
@@ -23,5 +25,7 @@ class User
   def to_s
     username
   end
-  
+
+
+
 end

@@ -12,6 +12,9 @@
 			<%= image_tag "icons/loading-indicator-white.gif" %>
 		</div>
 
+		<%= current_user.email %>
+		
+		
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
 				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"></li>
@@ -62,19 +65,7 @@
 				<% else %>
 
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-					<li data-score="<%= factlink_sub.score %>" id="fl-source-<%= factlink_sub.id %>">
-						
-						<div class="fl-vote-container">
-							<%= link_to '<span class="fl-source-up"></span>'.html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true %>
-							<%= link_to '<span class="fl-source-down"></span>'.html_safe, factlink_sub_vote_down_path(factlink_sub), :remote => true %>
-							<span id="fl-source-score-<%= factlink_sub.id %>" class="fl-source-score"><%= factlink_sub.score %></span>
-						</div>
-
-						<h4><%= factlink_sub.title %></h4>
-						<p><%= factlink_sub.content %></p>
-						<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-						
-					</li>
+						<%= render :partial => 'factlink_subs/sub', :locals => {:factlink_sub => factlink_sub} %>
 					<% end %>
 				<% end %>
 

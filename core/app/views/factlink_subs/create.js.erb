@@ -1,53 +1,83 @@
+var loading_indicator = $( '#fl-loading-indicator' );
+
 // Hide the 'add factlink source' popup
 $('#fl-loading-indicator').fadeIn('fast');
 $('#fl-sources-popup').fadeOut('fast');
 
 // Clear the input fields
-$('input:visible:not([type=submit]),textarea', $('#fl-sources-popup')).val('');
+$(':input:visible:not([type=submit])', $('#fl-sources-popup')).val('');
 
 // Change loading icon to Factlink icon after 300ms
-setTimeout(
-	function() {
-		// Fancy, change to Factlink check icon
-		$('#fl-loading-indicator>img:first').attr('src', '/images/icons/factlink/16.png');
-	} , 800); // The delay
+setTimeout(function() {
+	// Fancy, change to Factlink check icon
+	$('>img:first', loading_indicator)
+	    .attr('src', '/images/icons/factlink/16.png');
+} , 300); // The delay
 
 
 // Create the newly added Factlink Sub as an element and add it to our list
-setTimeout(
-	function() {
-		
-		/** 
-		* Check if any Sub's are in the list already. If not, hide the current
-		* message.
-		*/
-		var no_fact_message = $("#no-facts-message");
-		if (no_fact_message.length > 0) {
-			// The message is there, remove it.
-			no_fact_message.slideUp(500);
-		}
-
-		// Create the new Sub item
-		var list_item = $('<li data-score="<%= @factlink_sub.score %>" id="fl-source-<%= @factlink_sub.id %>"></li>').hide();
-
-		var container = $("<div></div>").addClass("fl-vote-container");
-			var up = $('<a href="/factlink_subs/<%= @factlink_sub.id %>/vote/up" data-remote="true"><span class="fl-source-up"></span></a>');
-			var down = $('<a href="/factlink_subs/<%= @factlink_sub.id %>/vote/down" data-remote="true"><span class="fl-source-down"></span></a>');
-			var score = $('<span id="fl-source-score-<%= @factlink_sub.id %>" class="fl-source-score"><%= @factlink_sub.score %></span>');
-		container.append(up, down, score)
-		
-		var title = $("<h4><%= @factlink_sub.title %></h4>");
-		var content = $("<p><%= @factlink_sub.content %></p>");
-		var source = $("<span class=\"fl-source\">found on <a href=\"javascript:window.open('<%= @factlink_sub.url %>');\"><%= @factlink_sub.url %></a></span>" );
-		list_item.append(container, title, content, source);
-
-		$('#fl-loading-indicator').fadeOut('slow', function(){
-			$('#fl-loading-indicator>img:first').attr('src', '/images/icons/loading-indicator-white.gif');
-		});
-		
-		
-		// Append to ordered list
-		list_item.prependTo($('ol#fl-sources-list')).slideDown(500);
-
-
-		} , 1600); // The delay
+setTimeout(function() {
+	// Create the new Sub item
+	var list_item = $('<li/>')
+	                    .attr({
+	                        "data-score": "<%= @factlink_sub.score %>",
+	                        "id": "fl-source-<%= @factlink_sub.id %>"
+	                    })
+	                    .hide(),
+	    container = $("<div />")
+	                    .addClass("fl-vote-container"),
+	    up =        $('<a />')
+	                    .attr({
+	                        "href": "/factlink_subs/<%= @factlink_sub.id %>/vote/up",
+	                        "data-remote": "true"
+	                    })
+	                    .html( '<span class="fl-source-up"></span>' ),
+	    down =      $('<a />')
+	                    .attr({
+                            "href": "/factlink_subs/<%= @factlink_sub.id %>/vote/down",
+                            "data-remote": "true"
+                        })
+                        .html( '<span class="fl-source-down"></span>' ),
+		score =     $('<span />')
+		                .attr({
+		                    "id": "fl-source-score-<%= @factlink_sub.id %>",
+		                    "class": "fl-source-score"
+		                })
+		                .text("<%= @factlink_sub.score %>");
+	
+	// Append the elements to the container
+	container.append(up, down, score);
+	
+	var title =     $("<h4 />")
+	                    .text("<%= @factlink_sub.title %>"),
+	    content =   $("<p />")
+	                    .text("<%= @factlink_sub.content %>"),
+	    source =    $("<span />" )
+	                    .attr({
+	                        "class": "fl-source"
+	                    })
+	                    .html("found on " + 
+	                          "<a href='<%= @factlink_sub.url %>' target='blank'>" +
+	                            "<%= @factlink_sub.url %>" +
+	                          "</a>");
+	
+	// Append the elements to list-item
+	list_item.append(container, title, content, source);
+    
+	loading_indicator.hide();
+	$('>img:first', loading_indicator)
+	    .attr('src', '/images/icons/loading-indicator-white.gif');
+	
+	// Check if any Sub's are in the list already. If not, hide the current
+    // message.
+	var no_fact_message = $("#no-facts-message");
+	
+	if (no_fact_message.length > 0) {
+		// The message is there, remove it.
+		no_fact_message.slideUp(500);
+	}
+	
+	// Append to ordered list
+	list_item.prependTo($('ol#fl-sources-list')).slideDown(500);
+	
+} , 1000); // The delay

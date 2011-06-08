@@ -18,7 +18,8 @@ class FactlinkSub < Votable
   field :content, :type => String
   field :url, :type => String
 
-  belongs_to :factlink_top
+  belongs_to :factlink_top  
+  belongs_to :created_by, :class_name => "User"
 
   validates_presence_of :title, 
                         :on => :create, 

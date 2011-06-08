@@ -1,20 +1,58 @@
 (function(){
     // Update the score
-    $('#fl-source-score-<%= @factlink_sub.id %>').text('<%= @factlink_sub.score %>');
+    $('#fl-source-score-<%= @factlink_sub.id %>')
+        .text('<%= @factlink_sub.score %>');
 
 	// Update score labels	
-	$("#fl-bar-refute-score").stop().animate({
-		height: '<%= @factlink_sub.factlink_top.percentage_score_denies %>%'
-	}).text('<%= @factlink_sub.factlink_top.score_denies %>');
+	$("#fl-bar-refute-score")
+	    .stop()
+	    .animate({
+		    height: '<%= @factlink_sub.factlink_top.percentage_score_denies %>%'
+	    })
+	    .text('<%= @factlink_sub.factlink_top.score_denies %>');
 	
-	$("#fl-bar-maybe-score").stop().animate({
-		height: '<%= @factlink_sub.factlink_top.percentage_score_maybe %>%'
-	}).text('<%= @factlink_sub.factlink_top.score_maybe %>');
+	$("#fl-bar-maybe-score")
+	    .stop()
+	    .animate({
+		    height: '<%= @factlink_sub.factlink_top.percentage_score_maybe %>%'
+	    })
+	    .text('<%= @factlink_sub.factlink_top.score_maybe %>');
 	
-	$("#fl-bar-support-score").stop().animate({
-		height: '<%= @factlink_sub.factlink_top.percentage_score_proves %>%'
-	}).text('<%= @factlink_sub.factlink_top.score_proves %>');
+	$("#fl-bar-support-score")
+	    .stop()
+	    .animate({
+		    height: '<%= @factlink_sub.factlink_top.percentage_score_proves %>%'
+	    })
+	    .text('<%= @factlink_sub.factlink_top.score_proves %>');
 
-	$('span#fl-stats-count').text('<%= @factlink_sub.factlink_top.stats_count %>');
-
+	$('span#fl-stats-count')
+	    .text('<%= @factlink_sub.factlink_top.stats_count %>');
+	
+	var source = $('#fl-source-<%= @factlink_sub.id %>');
+	
+	<% if @voted_up %>
+	    // Check if the source is currently downvoted
+	    if ( $('div.fl-vote-container a.down', source).is('.disabled') ) {
+	        // If so, remove the disabled class & proceed. State is now back to neutral
+	        $('a.down', source)
+	            .removeClass('disabled');
+	    } else {
+	        // The state was already in neutral, change to up
+	        $('span.fl-source-up', source)
+        	    .closest('a')
+        	    .addClass('disabled');
+	    }
+	<% else %>
+	    // Check if the source is currently upvoted
+	    if ( $('div.fl-vote-container a.up', source).is('.disabled') ) {
+	        // If so, remove the disabled class & proceed. State is now back to neutral
+	        $('a.up', source)
+	            .removeClass('disabled');
+	    } else {
+	        // The state was already in neutral, change to up
+	        $('span.fl-source-down', source)
+        	    .closest('a')
+        	    .addClass('disabled');
+	    }
+	<% end %>
 })();
