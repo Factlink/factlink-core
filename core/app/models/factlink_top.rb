@@ -13,9 +13,9 @@ class FactlinkTop
   field :displaystring
   
   # Score fields for easy access
-  # field :score_denies,  :type => Integer, :default => 1
-  # field :score_maybe,   :type => Integer, :default => 1
-  # field :score_proves,  :type => Integer, :default => 1
+  field :score_denies,  :type => Integer, :default => 1
+  field :score_maybe,   :type => Integer, :default => 1
+  field :score_proves,  :type => Integer, :default => 1
   
   # Relations
   belongs_to :site            # The site on which the factlink should be shown
@@ -25,19 +25,15 @@ class FactlinkTop
   # Validations
   validates_presence_of :displaystring
     
-  # def update_score
-  #   self.score_proves = (self.factlink_subs.map { |s| s.up_sum }.inject(0) { |result, value | result + value  })
-  #   self.score_denies = (self.factlink_subs.map { |s| s.down_sum }.inject(0) { |result, value | result + value  })
-  #   self.score_maybe = ((self.score_proves + self.score_denies) / 2)
-  #   self.save
-  # end
+  def update_score
+    self.score_proves = (self.factlink_subs.map { |s| s.up_votes_count }.inject(0) { |result, value | result + value  })
+    self.score_denies = 10 #(self.factlink_subs.map { |s| s.down_votes_count }.inject(0) { |result, value | result + value  })
+    self.score_maybe = ((self.score_proves + self.score_denies) / 2)
+    self.save
+  end
   
   def to_s
     displaystring
-  end
-
-  def subs
-    self.factlink_subs
   end
 
   def score_dict_as_percentage
@@ -95,7 +91,7 @@ class FactlinkTop
   # Stats count
   def stats_count
     # Fancy score calculation
-    (40 * absolute_score_proves) + (20 * absolute_score_maybe) - (50 * absolute_score_denies)
+    (10 * absolute_score_proves) + (10 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
 end

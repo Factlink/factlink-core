@@ -35,7 +35,7 @@ class FactlinkSub
                       :allow_nil => false
 
   def score
-    self.sum
+    self.votes_point
   end
   
 end
