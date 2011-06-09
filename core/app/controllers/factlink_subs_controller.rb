@@ -20,11 +20,8 @@ class FactlinkSubsController < ApplicationController
   # Voting
   def vote_up
     @factlink_sub = FactlinkSub.find(params[:id])
-    @factlink_sub.vote_up
-
-    # Update the parent score. There is no cool callback here, so
-    # do it manually.
-    @factlink_sub.factlink_top.update_score
+    @factlink_sub.vote(:voter => current_user, :value => up)
+    # @factlink_sub.vote_up
     
     # Bool for js template
     @voted_up = true
