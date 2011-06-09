@@ -3,6 +3,9 @@ body, html {
   margin: 0;
   padding: 0;
 }
+a {
+	color: #999;
+}
 a:hover {
   cursor: pointer;
   text-decoration: underline;
@@ -187,6 +190,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li {
   position: relative;
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
+	display: block;
   color: #888;
   font-weight: 400;
   margin: 0;
@@ -264,6 +268,10 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
 div.fl-clear {
   clear: both;
 }
+div.fl-bottom {
+	padding-top: 10px;
+}
+
 .center {
   margin: 0 auto;
   text-align: center;

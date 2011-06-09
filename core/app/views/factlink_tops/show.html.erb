@@ -52,25 +52,24 @@
 
 				<% unless @factlink_top.factlink_subs.count > 0 %>					
 
-					<li id="no-facts-message">
-						<h4>No facts have been added yet.</h4>
+					<li id="no-facts-message">						
+						<span class="fl-statement-title">No facts have been added yet.</span>
 						<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
 					</li>
 
 				<% else %>
 
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-				
 						<%= factlink_sub_partial(factlink_sub) %>
-
 					<% end %>
 				<% end %>
 
 			</ol>
 		</div>
 
-		<div class="" style="padding: 10px 0px 10px 0px; float: right; border: solid 1px red;">
-			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button ">Add source</a>
+		<div class="fl-bottom">
+			<span style="color: #999; padding: 4px;">Added by <%= link_to_function(@factlink_top.created_by, "alert(\"Later on, this will open the user profile of #{@factlink_top.created_by}\")" ) %></span>
+			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="float: right;">Add source</a>
 		</div>
 		
 		<div class="fl-clear"></div>
