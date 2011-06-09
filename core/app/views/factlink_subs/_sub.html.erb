@@ -12,6 +12,6 @@
 	
 	<div class="fl-source-information">
 		<span class="fl-source-created-by">by <%= link_to_function("#{factlink_sub.created_by.username},", "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %></span>
-		<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
+		<span class="fl-source">found on <a href="<%= factlink_sub.url %>" target="_blank"><%= factlink_sub.url %></a></span>
 	</div>
 </li>

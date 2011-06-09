@@ -1,0 +1,11 @@
+<h1><%= @user.username %></h1>
+
+<h2>Factlinks</h2>
+<ul>
+	<%= render(:partial => "factlink_tops/factlink_top", :collection => @user.factlink_tops) || "<li>This user has added no Factlinks</li>".html_safe %>
+</ul>
+
+<h2>Sources added to Factlinks</h2>
+<ul>
+	<%= render(:partial => "factlink_subs/factlink_sub", :collection => @user.factlink_subs) || "<li>This user didn't add any sources to a Factlink</li>".html_safe %>
+</ul>
