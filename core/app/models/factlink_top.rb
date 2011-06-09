@@ -27,8 +27,9 @@ class FactlinkTop
     
   def update_score
     self.score_proves = (self.factlink_subs.map { |s| s.up_votes_count }.inject(0) { |result, value | result + value  })
-    self.score_denies = 10 #(self.factlink_subs.map { |s| s.down_votes_count }.inject(0) { |result, value | result + value  })
-    self.score_maybe = ((self.score_proves + self.score_denies) / 2)
+    self.score_maybe = ((self.factlink_subs.map { |s| s.votes_count }.inject(2) { |result, value | result + value } ) / 3) #((self.score_proves + self.score_denies) / 2)
+    self.score_denies = (self.factlink_subs.map { |s| s.down_votes_count }.inject(0) { |result, value | result + value  })
+    
     self.save
   end
   
@@ -91,7 +92,7 @@ class FactlinkTop
   # Stats count
   def stats_count
     # Fancy score calculation
-    (10 * absolute_score_proves) + (10 * absolute_score_maybe) - (10 * absolute_score_denies)
+    (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
 end
