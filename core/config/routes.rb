@@ -17,7 +17,7 @@ FactlinkUI::Application.routes.draw do
   devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
-
+  
   ##########
   # Factlink resources
   resources :factlink_tops
@@ -56,7 +56,9 @@ FactlinkUI::Application.routes.draw do
   # Development, testing Solr
   # match "/search" => "factlink_tops#search"
 
-
+  ##########
+  # User actions
+  get "/:username" => "users#show"
 
 
   ##########

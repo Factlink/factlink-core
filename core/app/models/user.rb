@@ -21,7 +21,7 @@ class User
   # Only allow letters, digits and underscore in a username
   validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
   # validates_uniqueness_of :email, :message => "must be unique"
-    
+  
   def to_s
     username
   end
