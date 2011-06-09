@@ -207,21 +207,23 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li hr {
 	border-bottom: solid 1px #fff;
 }
 
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-created-by {
-  color: #909090;
-  font-weight: 200;
-  font-size: 0.95em;
-
-  margin: 4px 0px 6px 0px;
-	display: block;
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-source-information {
+	padding: 2px 0px 6px 0px;
 }
 
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, 
-div.fl-modal .fl-scroll-pane ol.fl-sources li a {
-  color: #909090;
+div.fl-modal .fl-scroll-pane ol.fl-sources li a,
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-created-by {
+  color: #888;
   font-weight: 200;
-/*  font-size: 0.95em;*/
+	text-shadow: 0px 1px 1px #fff;
 }
+div.fl-modal .fl-scroll-pane ol.fl-sources li a:hover {
+	color: #555;
+}
+
+
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up {
   background: url('../images/vote-up.png') no-repeat center center;
   padding: 6px 8px 2px 8px;

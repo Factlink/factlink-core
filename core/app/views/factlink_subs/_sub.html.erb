@@ -10,8 +10,8 @@
 	<p><%= factlink_sub.content %></p>
 	<hr>
 	
-	<span class="fl-source-created-by">by <%= link_to_function("#{factlink_sub.created_by.username},", "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %>
-		
+	<div class="fl-source-information">
+		<span class="fl-source-created-by">by <%= link_to_function("#{factlink_sub.created_by.username},", "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %></span>
 		<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-		</span>
+	</div>
 </li>
