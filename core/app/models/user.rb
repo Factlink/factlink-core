@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  include Mongo::Voter
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, :registerable,
   devise  :database_authenticatable, 

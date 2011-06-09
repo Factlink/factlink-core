@@ -30,7 +30,18 @@
 	
 	var source = $('#fl-source-<%= @factlink_sub.id %>');
 	
+	<% if @neutral %>
+		if ( $('span.fl-source-up', source).is('.disabled') ) {
+			$('span.fl-source-up', source).removeClass('disabled');
+		}
+	
+		if ( $('span.fl-source-down', source).is('.disabled') ) {
+			$('span.fl-source-down', source).removeClass('disabled');
+		}
+	<% end %>
+	
 	<% if @voted_up %>
+
 	    // Check if the source is currently downvoted
 	    if ( $('div.fl-vote-container a.down', source).is('.disabled') ) {
 	        // If so, remove the disabled class & proceed. State is now back to neutral
@@ -42,7 +53,10 @@
         	    .closest('a')
         	    .addClass('disabled');
 	    }
-	<% else %>
+			$('span.fl-source-up', source).addClass('disabled');
+	<% end %>
+	
+	<% if @voted_down %>
 	    // Check if the source is currently upvoted
 	    if ( $('div.fl-vote-container a.up', source).is('.disabled') ) {
 	        // If so, remove the disabled class & proceed. State is now back to neutral
@@ -54,5 +68,7 @@
         	    .closest('a')
         	    .addClass('disabled');
 	    }
+			$('span.fl-source-down', source).addClass('disabled');
 	<% end %>
+	
 })();

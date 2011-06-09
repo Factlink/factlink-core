@@ -1,12 +1,10 @@
-class FactlinkSub < Votable
+class FactlinkSub
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include Mongo::Voteable
+  include Mongo::Voteable
 
   # set points for each vote
-
-  # each vote on a comment can affect votes count and point of the related post as well
-  # voteable FactlinkTop, :up => +20, :down => -10
+  voteable self, :up => +1, :down => -1
 
   # include Sunspot::Mongoid   
   # Create search index on :displaystring
@@ -37,7 +35,15 @@ class FactlinkSub < Votable
                       :allow_nil => false
 
   def score
-    self.sum
+    self.votes_point
+  end
+  
+  def voted_up_by_user?(user)
+    self.up_voter_ids.include?(user.id)
+  end
+  
+  def voted_down_by_user?(user)
+    self.down_voter_ids.include?(user.id)
   end
   
 end
