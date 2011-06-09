@@ -13,8 +13,7 @@
 		</div>
 
 		Signed in as <%= current_user.email %>
-		
-		
+
 		<div class="fl-stats">
 			<ul class="fl-stats-bar">
 				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink_top.percentage_score_denies %>%;"></li>
@@ -27,8 +26,6 @@
 		<div class="fl-factlink">
 			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_top_path(@factlink_top) %>">&#8220;<%= @factlink_top.displaystring %>&#8221;</a></h1>
 		</div>
-		
-		
 		
 		<div class="fl-clear"></div>
 		
@@ -65,7 +62,9 @@
 				<% else %>
 
 					<% @factlink_top.factlink_subs.each do |factlink_sub| %>	
-						<%= render :partial => 'factlink_subs/sub', :locals => {:factlink_sub => factlink_sub} %>
+				
+						<%= factlink_sub_partial(factlink_sub) %>
+
 					<% end %>
 				<% end %>
 

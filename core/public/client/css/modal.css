@@ -199,10 +199,18 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li h4 {
 div.fl-modal .fl-scroll-pane ol.fl-sources li p {
   color: #888;
   font-weight: 200;
-  /*										padding: 0px;*/
-
   margin: 4px 0px 6px 0px;
 }
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-created_by {
+/*  color: #888;*/
+/*  font-weight: 200;*/
+  margin: 4px 0px 6px 0px;
+	border: solid 5px green;
+	
+	display: block;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-scroll-pane ol.fl-sources li a {
   color: #909090;
   font-weight: 200;

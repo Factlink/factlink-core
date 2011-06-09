@@ -9,5 +9,5 @@
 	<h4><%= factlink_sub.title %></h4>
 	<p><%= factlink_sub.content %></p>
 	<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-	<span class="fl-source-created_by"><%= factlink_sub.created_by.username %></span>
+	<span class="fl-source-created_by"><%= factlink_sub.created_by.username if factlink_sub.created_by %></span>
 </li>
