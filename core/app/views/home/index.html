@@ -1,0 +1,8 @@
+<h1>Factlink</h1>
+<span style="font-size: 1.2em;">on: <script>document.write(location.href);</script></span>
+
+<% if user_signed_in? %>
+	<span>Signed in as <%= link_to_function(current_user, "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %>. <%= link_to("Sign out", destroy_user_session_path) %></span>
+<% else %>
+	<%= link_to("Sign in", new_user_session_path) %> <%= link_to("or register", new_user_registration_path) %>
+<% end %>
