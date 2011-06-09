@@ -181,14 +181,13 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li {
   display: block;
-  /*                height: 40px;*/
-
-  border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #ccc;
   padding: 10px 0px 6px 35px;
   position: relative;
 }
-div.fl-modal .fl-scroll-pane ol.fl-sources li h4 {
-  color: #999;
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
+  color: #888;
   font-weight: 400;
   margin: 0;
   line-height: 16px;
@@ -199,14 +198,29 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li h4 {
 div.fl-modal .fl-scroll-pane ol.fl-sources li p {
   color: #888;
   font-weight: 200;
-  /*										padding: 0px;*/
-
-  margin: 4px 0px 6px 0px;
+  margin: 2px 0px 6px 0px;
 }
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-scroll-pane ol.fl-sources li a {
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li hr {
+	border-left: 0px; border-right: 0px;
+	border-top: solid 1px #ddd;
+	border-bottom: solid 1px #fff;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-created-by {
   color: #909090;
   font-weight: 200;
   font-size: 0.95em;
+
+  margin: 4px 0px 6px 0px;
+	display: block;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, 
+div.fl-modal .fl-scroll-pane ol.fl-sources li a {
+  color: #909090;
+  font-weight: 200;
+/*  font-size: 0.95em;*/
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up {
   background: url('../images/vote-up.png') no-repeat center center;
@@ -235,7 +249,8 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-score {
   top: 18px;
   position: absolute;
 }
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up, div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up, 
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
   display: inline-block;
   width: 8px;
   height: 7px;
