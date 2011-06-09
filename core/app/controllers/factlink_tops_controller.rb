@@ -134,13 +134,12 @@ class FactlinkTopsController < ApplicationController
     # Validation succesful!
     ##########
     
-    
     # Get or create the website on which the Fact is located.
     site = Site.find_or_create_by(:url => params[:url])
 
     # Create the Factlink.
-    @factlink_top = FactlinkTop.create!(:displaystring => params[:fact])
-
+    @factlink_top = FactlinkTop.create!(:displaystring => params[:fact], :created_by => current_user)
+    
     # And add Factlink to the Site.
     site.factlink_tops << @factlink_top
 
