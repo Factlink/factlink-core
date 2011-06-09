@@ -18,9 +18,9 @@ class FactlinkTop
   field :score_proves,  :type => Integer, :default => 1
   
   # Relations
-  belongs_to :site            # The site on which the factlink should be shown
-  belongs_to :created_by, :class_name => "User"
-  has_many :factlink_subs     # The sub items
+  belongs_to  :site            # The site on which the factlink should be shown
+  belongs_to  :created_by, :class_name => "User"
+  has_many    :factlink_subs     # The sub items
 
   # Validations
   validates_presence_of :displaystring

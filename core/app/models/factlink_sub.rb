@@ -38,4 +38,12 @@ class FactlinkSub
     self.votes_point
   end
   
+  def voted_up_by_user?(user)
+    self.up_voter_ids.include?(user.id)
+  end
+  
+  def voted_down_by_user?(user)
+    self.down_voter_ids.include?(user.id)
+  end
+  
 end

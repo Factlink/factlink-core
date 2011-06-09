@@ -236,8 +236,11 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up:hover {
   background: url('../images/vote-up-hover.png') no-repeat center center;
 }
 
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up:hover {
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up.disabled {
   background: url('../images/vote-up-hover.png') no-repeat center center;
+}
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down.disabled {
+  background: url('../images/vote-down-hover.png') no-repeat center center;
 }
 
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {

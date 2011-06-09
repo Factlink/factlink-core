@@ -27,7 +27,7 @@ class FactlinkSubsController < ApplicationController
     if @factlink_sub.down_voter_ids.include?(current_user.id)
       # User down voted self earlier, restore that vote:
       @factlink_sub.vote(:voter => current_user, :value => :down, :unvote => true)
-
+      @neutral = true
     else
       # Else, up vote
       @factlink_sub.vote(:voter => current_user, :value => :up)
@@ -47,7 +47,7 @@ class FactlinkSubsController < ApplicationController
     if @factlink_sub.up_voter_ids.include?(current_user.id)
       # User up voted self earlier, restore that vote:
       @factlink_sub.vote(:voter => current_user, :value => :up, :unvote => true)
-
+      @neutral = true
     else
       # Else, down vote
       @factlink_sub.vote(:voter => current_user, :value => :down)
