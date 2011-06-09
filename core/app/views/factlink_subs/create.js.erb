@@ -17,53 +17,7 @@ setTimeout(function() {
 
 // Create the newly added Factlink Sub as an element and add it to our list
 setTimeout(function() {
-	// Create the new Sub item
-	var list_item = $('<li/>')
-	                    .attr({
-	                        "data-score": "<%= @factlink_sub.score %>",
-	                        "id": "fl-source-<%= @factlink_sub.id %>"
-	                    })
-	                    .hide(),
-	    container = $("<div />")
-	                    .addClass("fl-vote-container"),
-	    up =        $('<a />')
-	                    .attr({
-	                        "href": "/factlink_subs/<%= @factlink_sub.id %>/vote/up",
-	                        "data-remote": "true"
-	                    })
-	                    .html( '<span class="fl-source-up"></span>' ),
-	    down =      $('<a />')
-	                    .attr({
-                            "href": "/factlink_subs/<%= @factlink_sub.id %>/vote/down",
-                            "data-remote": "true"
-                        })
-                        .html( '<span class="fl-source-down"></span>' ),
-		score =     $('<span />')
-		                .attr({
-		                    "id": "fl-source-score-<%= @factlink_sub.id %>",
-		                    "class": "fl-source-score"
-		                })
-		                .text("<%= @factlink_sub.score %>");
-	
-	// Append the elements to the container
-	container.append(up, down, score);
-	
-	var title =     $("<h4 />")
-	                    .text("<%= @factlink_sub.title %>"),
-	    content =   $("<p />")
-	                    .text("<%= @factlink_sub.content %>"),
-	    source =    $("<span />" )
-	                    .attr({
-	                        "class": "fl-source"
-	                    })
-	                    .html("found on " + 
-	                          "<a href='<%= @factlink_sub.url %>' target='blank'>" +
-	                            "<%= @factlink_sub.url %>" +
-	                          "</a>");
-	
-	// Append the elements to list-item
-	list_item.append(container, title, content, source);
-    
+	// Create the new Sub item    
 	loading_indicator.hide();
 	$('>img:first', loading_indicator)
 	    .attr('src', '/images/icons/loading-indicator-white.gif');
@@ -76,8 +30,8 @@ setTimeout(function() {
 		// The message is there, remove it.
 		no_fact_message.slideUp(500);
 	}
-	
+
 	// Append to ordered list
-	list_item.prependTo($('ol#fl-sources-list')).slideDown(500);
+	$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'factlink_subs/sub', :locals => { :factlink_sub => @factlink_sub } )) %>");
 	
 } , 1000); // The delay

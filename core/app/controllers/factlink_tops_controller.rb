@@ -145,19 +145,6 @@ class FactlinkTopsController < ApplicationController
 
     # Redirect to edit action
     redirect_to :action => "edit", :id => @factlink_top.id
-
-    
-    # added = true
-    # status = true
-    # match_id = new_factlink.id
-    
-    # Create the result payload
-    # res_dict = {}
-    # res_dict[:added] = added
-    # res_dict[:status] = status
-    # res_dict[:match_id] = match_id
-    
-    # render :json => res_dict, :callback => params[:callback]
     
   end
 
