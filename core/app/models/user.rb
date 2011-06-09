@@ -14,6 +14,7 @@ class User
   # field :first_name
   # field :last_name
 
+  has_many :factlink_top
   has_many :factlink_subs
 
   validates_presence_of :username, :message => "is required", :allow_blank => true

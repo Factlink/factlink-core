@@ -20,6 +20,7 @@ class FactlinkTop < Votable
   # Relations
   belongs_to :site            # The site on which the factlink should be shown
   has_many :factlink_subs     # The sub items
+  belongs_to :created_by, :class_name => "User"
 
   # Validations
   validates_presence_of :displaystring
