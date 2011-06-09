@@ -14,8 +14,8 @@ class User
   # field :first_name
   # field :last_name
 
-  has_many :factlink_top
-  has_many :factlink_subs
+  has_many :factlink_tops, :as => :created_by
+  has_many :factlink_subs, :as => :created_by
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
@@ -26,7 +26,4 @@ class User
   def to_s
     username
   end
-
-
-
 end
