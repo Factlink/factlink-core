@@ -6,8 +6,12 @@
 		<span id="fl-source-score-<%= factlink_sub.id %>" class="fl-source-score"><%= factlink_sub.score %></span>
 	</div>
 
-	<h4><%= factlink_sub.title %></h4>
+	<span class="fl-statement-title"><%= factlink_sub.title %></span>
 	<p><%= factlink_sub.content %></p>
-	<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-	<span class="fl-source-created_by"><%= factlink_sub.created_by.username if factlink_sub.created_by %></span>
+	<hr>
+	
+	<span class="fl-source-created-by">by <%= link_to_function("#{factlink_sub.created_by.username},", "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %>
+		
+		<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
+		</span>
 </li>
