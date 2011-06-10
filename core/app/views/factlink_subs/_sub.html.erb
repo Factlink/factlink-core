@@ -2,17 +2,22 @@
 	
 	<div class="fl-vote-container">
 		 <% 
-				# Clean this some time
-				if factlink_sub.voted_up_by_user?(current_user) 
-					@up_class = "disabled"
-				else
-					@up_class = ""
-				end
+				@up_class = ""
+				@down_class = ""
+			
+				if current_user 
+					# Clean this some time
+					if factlink_sub.voted_up_by_user?(current_user) 
+						@up_class = "disabled"
+					else
+						@up_class = ""
+					end
 				
-				if factlink_sub.voted_down_by_user?(current_user) 
-							@down_class = "disabled"
-				else
-					@down_class = ""
+					if factlink_sub.voted_down_by_user?(current_user) 
+								@down_class = "disabled"
+					else
+						@down_class = ""
+					end
 				end
 			%>
 		<%= link_to "<span class='fl-source-up #{@up_class}'></span>".html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true, :onclick => "return false; /(\\s|^)disabled(\\s|$)/.test(this.className)", :class => "up" %>
@@ -25,7 +30,7 @@
 	<hr>
 	
 	<div class="fl-source-information">
-		<span class="fl-source-created-by">by <%= link_to_function("#{factlink_sub.created_by.username},", "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %></span>
+		<span class="fl-source-created-by">by <%= link_to(factlink_sub.created_by, user_profile_path(factlink_sub.created_by.username), :target => "_blank") %></span>
 		<span class="fl-source">found on <a href="<%= factlink_sub.url %>" target="_blank"><%= factlink_sub.url %></a></span>
 	</div>
 </li>

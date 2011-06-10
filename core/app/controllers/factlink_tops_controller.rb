@@ -1,6 +1,6 @@
 class FactlinkTopsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:show, :new, :edit, :create, :update]
+  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   
   layout "client"
 

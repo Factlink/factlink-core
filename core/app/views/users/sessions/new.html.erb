@@ -1,5 +1,4 @@
-<h2>Login to Factlink</h2>
-<span style="font-size: 1.2em;">on: <script>document.write(location.href);</script></span>
+<h2 style="color: #333; text-shadow: 0px 1px 1px #fff;">Sign in with your Factlink account</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
@@ -16,5 +15,3 @@
 
 
 <%= render :partial => "devise/shared/links" %>
-
-<%= link_to new_user_session_path({ :layout => "web" }) %>
