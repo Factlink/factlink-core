@@ -95,4 +95,16 @@ class FactlinkTop
     (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
+  def max_3_subs
+    
+    count = self.factlink_subs.count
+    if count > 3
+      max = 2
+    else
+      max = count
+    end
+
+    return self.factlink_subs[0..max]
+  end
+  
 end

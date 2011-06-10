@@ -28,4 +28,31 @@ class User
   def to_s
     username
   end
+  
+  # Voted objects
+  def up_voted_sources
+    FactlinkSub.up_voted_by(self)
+  end
+  
+  def down_voted_sources
+    FactlinkSub.down_voted_by(self)
+  end
+  
+  def voted_source
+    FactlinkSub.voted_by(self)
+  end
+
+  # Vote counts
+  def up_voted_sources_count
+    FactlinkSub.up_voted_by(self).count
+  end
+  
+  def down_voted_sources_count
+    FactlinkSub.down_voted_by(self).count
+  end
+  
+  def voted_source_count
+    FactlinkSub.voted_by(self).count
+  end
+
 end

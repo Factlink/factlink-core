@@ -1,9 +1,6 @@
-<li>
-	<span class="fl-statement-title"><%= factlink_sub.title %></span>
-	<p><%= factlink_sub.content %></p>
-	<hr>
+<li style="list-style: none; margin-bottom: 16px;">
+	<span style="font-weight: 600; color: #888;"><%= factlink_sub.title %></span>
+	<p style="font-size: 0.95em; padding: 0px; margin: 0px;"><%= factlink_sub.content %></p>
 	
-	<div class="fl-source-information">
-		<span class="fl-source">found on <a href="javascript:window.open('<%= factlink_sub.url %>');"><%= factlink_sub.url %></a></span>
-	</div>
+	<span class="fl-source"><%= link_to(factlink_sub.url, factlink_sub.url, :style => "color: #999;", :target => "_blank") %></span>
 </li>

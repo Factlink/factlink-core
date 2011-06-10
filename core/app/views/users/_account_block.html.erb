@@ -1,0 +1,7 @@
+<div style="padding-top: 8px; float: right; color: #ccc; text-shadow: 0px 1px 1px #666;">
+	<% if user_signed_in? %>
+		<span>Signed in as <%= link_to_function(current_user, "alert(\"Later on, this will open the user profile of #{current_user}\")", :style => "color: #eee;" ) %>. <%= link_to("Sign out", destroy_user_session_path, :style => "color: #eee;") %></span>
+	<% else %>
+		<%= link_to("Sign in", new_user_session_path, :style => "color: #eee;") %> <%= link_to("or register", new_user_registration_path, :style => "color: #eee;") %>
+	<% end %>
+</div>

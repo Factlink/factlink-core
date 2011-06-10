@@ -1,3 +1,8 @@
+a:hover {
+/*	color: rgba(206, 0, 0, 0.8);*/
+	color: #333;
+}
+
 input[type=text],
 input[type=email],
 input[type=password] {

@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   layout "accounting"
   
   def show
-    @user = User.where(:username => params[:username]).first
+    
+    begin
+      @user = User.where(:username => params[:username]).first
+
+    end
     
     respond_to do |format|
       format.html # show.html.erb

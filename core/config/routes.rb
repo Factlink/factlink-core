@@ -58,7 +58,7 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # User actions
-  get "/:username" => "users#show"
+  get "/:username" => "users#show", :as => "user_profile"
 
 
   ##########

@@ -1,8 +1,35 @@
-<h1>Factlink</h1>
-<span style="font-size: 1.2em;">on: <script>document.write(location.href);</script></span>
+<!-- left content block -->
+<div class="span-9 append-1" style="text-shadow: 0px 1px 1px #fff;">
+	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">credibility you can see</h1>
+	<p>Lorizzle ipsum dolor ghetto amet, shiznit adipiscing elizzle. Nullam sapien velizzle, aliquet break it down, hizzle quizzle, gravida vizzle, arcu. Pellentesque eget tortor. Shizznit eros. Da bomb at fo shizzle my nizzle dapibizzle my shizz tempizzle its fo rizzle. Maurizzle ghetto nibh gizzle turpizzle. Break it down izzle funky fresh. Fo shizzle eleifend rhoncizzle nisi.</p>
+	<p>In fizzle ghetto platea dictumst. Shut the shizzle up fizzle. Curabitur tellizzle that's the shizzle, pretium dang, mattizzle i saw beyonces tizzles and my pizzle went crizzle, away vitae, nunc. Shut the shizzle up suscipizzle. Integer sempizzle my shizz sizzle fo shizzle.</p>
 
-<% if user_signed_in? %>
-	<span>Signed in as <%= link_to_function(current_user, "alert(\"Later on, this will open the user profile of #{current_user}\")" ) %>. <%= link_to("Sign out", destroy_user_session_path) %></span>
-<% else %>
-	<%= link_to("Sign in", new_user_session_path) %> <%= link_to("or register", new_user_registration_path) %>
-<% end %>
+	<% unless user_signed_in? %>
+		<p>Why not join us? It is easy! <%= link_to("Register your free account here.", new_user_registration_path, :style => "") %>
+	<% end %>
+</div>
+
+<!-- middle block -->
+<div class="span-8">
+	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">factlink</h1>
+
+	<% FactlinkTop.all.each do |factlink| %>
+	<div style="margin-bottom: 20px; text-shadow: 0px 1px 1px #fff;">
+		<span>&#8220;<%= factlink.displaystring %>&#8221;</span><br/>
+		<p><%= link_to(factlink.site.url, factlink.site.url, :style => "color: #999;", :target => "_blank") %></p>
+	</div>
+	<% end %>
+</div>
+
+
+<!-- right content block -->
+<div class="prepend-1 span-5 last">
+	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">active users</h1>
+	
+	<ul>
+	<% User.all.each do |user| %>
+		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.factlink_tops.count %></span></li>
+	<% end %>
+	</ul>
+	
+</div>

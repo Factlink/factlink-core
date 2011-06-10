@@ -35,9 +35,11 @@
 			<%= form_for("user", :url => user_registration_path) do |f| %>
 	
 			<p>No account? Feel free to register!</p>
-		  
-			<pre><script>document.write(location.href);</script></pre>
-		
+
+		  <div>
+			  <%= f.text_field :username, :placeholder => "Username", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
+			</div>
+			
 			<div>
 			  <%= f.email_field :email, :placeholder => "Email", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>

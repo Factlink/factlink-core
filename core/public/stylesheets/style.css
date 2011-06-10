@@ -28,12 +28,12 @@ body {
 
 a {
 	color: #888;
-	-webkit-transition: all 0.30s ease-in-out;
+	-webkit-transition: all 0.10s ease-in-out;
 }
 
 .horizontal a {
 	color: #ddd;
-	-webkit-transition: all 0.30s ease-in-out;
+	-webkit-transition: all 0.10s ease-in-out;
 }
 
 #account-management  {

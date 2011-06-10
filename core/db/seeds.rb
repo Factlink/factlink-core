@@ -8,9 +8,12 @@
 
 
 # Clear stuff
-Site.all.delete
-FactlinkTop.all.delete
-FactlinkSub.all.delete
+
+if Rails.env.development?
+  Site.all.delete
+  FactlinkTop.all.delete
+  FactlinkSub.all.delete
+end
 
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
@@ -86,3 +89,12 @@ fs6 = FactlinkSub.new(:title => "My Baron is the nicest in the world.",
                       :factlink_top => ft1)
 fs6.save
 
+FactlinkTop.all.each do |f|
+  f.created_by = User.first
+  f.save
+end
+
+FactlinkSub.all.each do |f|
+  f.created_by = User.first
+  f.save
+end

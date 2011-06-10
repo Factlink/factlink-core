@@ -1,11 +1,42 @@
-<h1><%= @user.username %></h1>
+<div style="text-shadow: 0px 1px 1px #fff;">
+	<h1 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %></h1>
+	<span style="display:block;"><%= @user.username %> created <%= @user.factlink_tops.count %> facts and added <%= @user.factlink_subs.count %> sources to Factlink</span>
+	<span style="display:block;">
+		<%= @user.username %> <a href="#up-and-down-vote">upvoted</a> <%= @user.up_voted_sources_count %> sources 
+		and <a href="#up-and-down-vote">downvoted</a> <%= @user.down_voted_sources_count %> sources
+	</span>
 
-<h2>Factlinks</h2>
-<ul>
-	<%= render(:partial => "factlink_tops/factlink_top", :collection => @user.factlink_tops) || "<li>This user has added no Factlinks</li>".html_safe %>
-</ul>
+</div>
 
-<h2>Sources added to Factlinks</h2>
-<ul>
-	<%= render(:partial => "factlink_subs/factlink_sub", :collection => @user.factlink_subs) || "<li>This user didn't add any sources to a Factlink</li>".html_safe %>
-</ul>
+<div class="span-14 append-2" style="text-shadow: 0px 1px 1px #fff;">
+	<h2>user created facts</h2>
+	<ul>
+		<%= render(:partial => "factlink_tops/factlink_top", :collection => @user.factlink_tops) || "<li style='list-style: none;'>This user did not add any Factlinks yet</li>".html_safe %>
+	</ul>
+</div>
+
+<div class="span-8 last" style="text-shadow: 0px 1px 1px #fff;">
+	<h2>user created sources</h2>
+	<ul>
+		<%= render(:partial => "factlink_subs/factlink_sub", :collection => @user.factlink_subs) || "<li style='list-style: none;'>This user did not add any sources to Factlink yet</li>".html_safe %>
+	</ul>
+</div>
+
+
+<hr>
+
+<div id="up-and-down-vote">
+	<div class="span-12" style="text-shadow: 0px 1px 1px #fff;">
+		<h2><%= @user.up_voted_sources_count %> sources upvoted by user</h2>
+		<ul>
+			<%= render(:partial => "factlink_subs/factlink_sub", :collection => @user.up_voted_sources) || "<li style='list-style: none;'>This user did not upvote any sources</li>".html_safe %>
+		</ul>
+	</div>
+
+	<div class="span-12 last" style="text-shadow: 0px 1px 1px #fff;">
+		<h2><%= @user.down_voted_sources_count %> sources downvoted by user</h2>
+		<ul>
+			<%= render(:partial => "factlink_subs/factlink_sub", :collection => @user.down_voted_sources) || "<li style='list-style: none;'>This user did not downvote any sources</li>".html_safe %>
+		</ul>
+	</div>
+</div>
