@@ -1,22 +1,31 @@
 <h1>Listing factlink_tops</h1>
 
 <table>
-  <tr>
-    <th>Displaystring</th>
-    <th>Sites</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @factlink_tops.each do |factlink_top| %>
-  <tr>
-    <td><%= factlink_top.displaystring %></td>
-    <td><%= link_to 'Show', factlink_top %></td>
-    <td><%= link_to 'Edit', edit_factlink_top_path(factlink_top) %></td>
-    <td><%= link_to 'Destroy', factlink_top, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+	<thead>
+	  <tr>
+	    <th><%= link_to_sorted 'Displaystring', :displaystring %></th>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="4">
+				<%= will_paginate @factlink_tops %>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+	<% @factlink_tops.each do |factlink_top| %>
+	  <tr>
+	    <td><%= factlink_top.displaystring %></td>
+	    <td><%= link_to 'Show', factlink_top %></td>
+	    <td><%= link_to 'Edit', edit_factlink_top_path(factlink_top) %></td>
+	    <td><%= link_to 'Destroy', factlink_top, :confirm => 'Are you sure?', :method => :delete %></td>
+	  </tr>
+	<% end %>
+	</tbody>
 </table>
 
 <br />

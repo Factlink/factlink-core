@@ -19,10 +19,10 @@ class FactlinkTopsController < ApplicationController
 
   # GET /factlink_tops
   def index
-    @factlink_tops = FactlinkTop.all
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 2)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => "accounting"}# index.html.erb
     end
   end
 
