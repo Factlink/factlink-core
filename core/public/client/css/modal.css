@@ -235,6 +235,14 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up {
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up:hover {
   background: url('../images/vote-up-hover.png') no-repeat center center;
 }
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up.disabled {
+  background: url('../images/vote-up-hover.png') no-repeat center center;
+}
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down.disabled {
+  background: url('../images/vote-down-hover.png') no-repeat center center;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
   background: url('../images/vote-down.png') no-repeat center center;
   padding: 0px 8px 6px 8px;

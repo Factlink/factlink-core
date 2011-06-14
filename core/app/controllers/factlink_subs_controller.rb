@@ -1,6 +1,8 @@
 class FactlinkSubsController < ApplicationController
 
   layout "backend"
+
+  before_filter :authenticate_user!, :only => [:add_tag, :vote_up, :vote_down, :create, :update]
   
   def add_tag
     # TODO: Check if tag already exists
@@ -20,14 +22,19 @@ class FactlinkSubsController < ApplicationController
   # Voting
   def vote_up
     @factlink_sub = FactlinkSub.find(params[:id])
-    @factlink_sub.vote_up
-
-    # Update the parent score. There is no cool callback here, so
-    # do it manually.
-    @factlink_sub.factlink_top.update_score
     
-    # Bool for js template
-    @voted_up = true
+    # If user DOWN voted before, restore vote.
+    if @factlink_sub.down_voter_ids.include?(current_user.id)
+      # User down voted self earlier, restore that vote:
+      @factlink_sub.vote(:voter => current_user, :value => :down, :unvote => true)
+      @neutral = true
+    else
+      # Else, up vote
+      @factlink_sub.vote(:voter => current_user, :value => :up)
+      @voted_up = true
+    end
+
+    @factlink_sub.factlink_top.update_score
 
     # Render the vote template    
     render 'vote'
@@ -35,14 +42,19 @@ class FactlinkSubsController < ApplicationController
   
   def vote_down
     @factlink_sub = FactlinkSub.find(params[:id])
-    @factlink_sub.vote_down
     
-    # Update the parent score. There is no cool callback here, so
-    # do it manually.
+    # If user UP voted before, restore vote.
+    if @factlink_sub.up_voter_ids.include?(current_user.id)
+      # User up voted self earlier, restore that vote:
+      @factlink_sub.vote(:voter => current_user, :value => :up, :unvote => true)
+      @neutral = true
+    else
+      # Else, down vote
+      @factlink_sub.vote(:voter => current_user, :value => :down)
+      @voted_down = true
+    end
+    
     @factlink_sub.factlink_top.update_score
-
-    # Bool for js template
-    @voted_up = false
     
     # Render the vote template
     render 'vote'
@@ -83,9 +95,9 @@ class FactlinkSubsController < ApplicationController
   # end
 
   # # GET /factlink_subs/1/edit
-  def edit
-    @factlink_sub = FactlinkSub.find(params[:id])
-  end
+  # def edit
+  #   @factlink_sub = FactlinkSub.find(params[:id])
+  # end
 
   # # POST /factlink_subs
   # # POST /factlink_subs.xml
@@ -127,16 +139,16 @@ class FactlinkSubsController < ApplicationController
   # 
   # # DELETE /factlink_subs/1
   # # DELETE /factlink_subs/1.xml
-  def destroy
-    @factlink_sub = FactlinkSub.find(params[:id])
-    # Object for redirect
-    @factlink_top = @factlink_sub.factlink_top
-    # Delete it
-    @factlink_sub.destroy
-  
-    respond_to do |format|
-      format.html { redirect_to(@factlink_top, :notice => "Support is deleted.") }
-      format.xml  { head :ok }
-    end
-  end
+  # def destroy
+  #   @factlink_sub = FactlinkSub.find(params[:id])
+  #   # Object for redirect
+  #   @factlink_top = @factlink_sub.factlink_top
+  #   # Delete it
+  #   @factlink_sub.destroy
+  # 
+  #   respond_to do |format|
+  #     format.html { redirect_to(@factlink_top, :notice => "Support is deleted.") }
+  #     format.xml  { head :ok }
+  #   end
+  # end
 end

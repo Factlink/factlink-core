@@ -1,4 +1,4 @@
-class FactlinkTop < Votable
+class FactlinkTop
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
@@ -18,45 +18,23 @@ class FactlinkTop < Votable
   field :score_proves,  :type => Integer, :default => 1
   
   # Relations
-  belongs_to :site            # The site on which the factlink should be shown
-  belongs_to :created_by, :class_name => "User"
-  has_many :factlink_subs     # The sub items
-
+  belongs_to  :site            # The site on which the factlink should be shown
+  belongs_to  :created_by, :class_name => "User"
+  has_many    :factlink_subs     # The sub items
 
   # Validations
   validates_presence_of :displaystring
-  
-  
+    
   def update_score
-    self.score_proves = (self.factlink_subs.map { |s| s.up_sum }.inject(0) { |result, value | result + value  })
-    self.score_denies = (self.factlink_subs.map { |s| s.down_sum }.inject(0) { |result, value | result + value  })
-    self.score_maybe = ((self.score_proves + self.score_denies) / 2)
+    self.score_proves = (self.factlink_subs.map { |s| s.up_votes_count }.inject(0) { |result, value | result + value  })
+    self.score_maybe = ((self.factlink_subs.map { |s| s.votes_count }.inject(2) { |result, value | result + value } ) / 3) #((self.score_proves + self.score_denies) / 2)
+    self.score_denies = (self.factlink_subs.map { |s| s.down_votes_count }.inject(0) { |result, value | result + value  })
+    
     self.save
   end
   
-  
-  # def vote_up_number_of_times number_of_times
-  #   number_of_times.times do
-  #     self.vote_up
-  #   end
-  #   
-  #   self.update_score
-  # end
-  # 
-  # def vote_down_number_of_times number_of_times
-  #   number_of_times.times do
-  #     self.vote_down
-  #   end
-  #   
-  #   self.update_score
-  # end
-
   def to_s
     displaystring
-  end
-
-  def subs
-    self.factlink_subs
   end
 
   def score_dict_as_percentage
@@ -114,7 +92,7 @@ class FactlinkTop < Votable
   # Stats count
   def stats_count
     # Fancy score calculation
-    (40 * absolute_score_proves) + (20 * absolute_score_maybe) - (50 * absolute_score_denies)
+    (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
 end
