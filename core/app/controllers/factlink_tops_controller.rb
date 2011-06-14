@@ -1,5 +1,5 @@
 class FactlinkTopsController < ApplicationController
-
+  helper_method :sort_column, :sort_direction
   before_filter :authenticate_user!, :only => [:show, :new, :edit, :create, :update]
   
   layout "client"
@@ -16,8 +16,8 @@ class FactlinkTopsController < ApplicationController
 
   # GET /factlink_tops
   def index
-    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 2)
-
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+        
     respond_to do |format|
       format.html { render :layout => "accounting"}# index.html.erb
     end
@@ -159,6 +159,16 @@ class FactlinkTopsController < ApplicationController
         format.xml  { render :xml => @factlink_top.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  private
+  
+  def sort_column
+    FactlinkTop.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   # DELETE /factlink_tops/1

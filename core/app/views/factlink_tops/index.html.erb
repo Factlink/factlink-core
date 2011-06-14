@@ -1,10 +1,11 @@
-<h1>Listing factlink_tops</h1>
+<h1>Listing Factlinks</h1>
 
 <table>
 	<thead>
 	  <tr>
-	    <th><%= link_to_sorted 'Displaystring', :displaystring %></th>
-	    <th></th>
+	    <th style="width: 450px;"><%= sortable 'displaystring' %></th>
+	    <th style="width: 120px;"><%= sortable 'created_at' %></th>
+			<th></th>
 	    <th></th>
 	    <th></th>
 	  </tr>
@@ -12,7 +13,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="4">
-				<%= will_paginate @factlink_tops %>
+				<%= will_paginate @factlink_tops, :align => "center" %>
 			</td>
 		</tr>
 	</tfoot>
@@ -20,6 +21,7 @@
 	<% @factlink_tops.each do |factlink_top| %>
 	  <tr>
 	    <td><%= factlink_top.displaystring %></td>
+			<td><%= factlink_top.created_at.strftime("%d %b %Y") %></td>
 	    <td><%= link_to 'Show', factlink_top %></td>
 	    <td><%= link_to 'Edit', edit_factlink_top_path(factlink_top) %></td>
 	    <td><%= link_to 'Destroy', factlink_top, :confirm => 'Are you sure?', :method => :delete %></td>

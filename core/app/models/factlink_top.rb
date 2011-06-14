@@ -95,4 +95,9 @@ class FactlinkTop
     (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
+  # Used for sorting
+  def self.column_names
+    self.fields.collect { |field| field[0] }
+  end
+  
 end
