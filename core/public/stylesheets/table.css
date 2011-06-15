@@ -2,6 +2,10 @@ table {
     table-layout: fixed;
 }
 
+table td.search {
+    padding-right: 0;
+}
+
 input.search {
     background: url('/images/icons/magnifier-medium-left.png') white 4px no-repeat;
     float: right;

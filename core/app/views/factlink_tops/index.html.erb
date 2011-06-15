@@ -1,10 +1,15 @@
-<h1>Listing Factlinks</h1>
+<h1>Factlinks</h1>
 
-<form method="GET" action="">
+<form method="GET" action="<%= factlink_overview_path %>">
 <table>
+	<colgroup>
+		<col style="width: 450px;" />
+		<col style="width: 120px;" />
+		<col span="3" style="width: 50px;" />
+	</colgroup>
 	<thead>
 		<tr>
-			<td colspan="5">
+			<td colspan="5" class="search">
 				<input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %>>
 			</td>
 		</tr>
