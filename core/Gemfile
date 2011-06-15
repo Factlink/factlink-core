@@ -25,7 +25,6 @@ gem 'voteable_mongo'
 ##########
 # Pagination & sorting
 gem "will_paginate", "~> 3.0.pre"
-gem "sorted", "~> 0.3.7"
 
 #########
 # Twitter
