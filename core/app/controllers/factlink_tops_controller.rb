@@ -16,7 +16,18 @@ class FactlinkTopsController < ApplicationController
 
   # GET /factlink_tops
   def index
-    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    if params[:s] 
+      solr_result = FactlinkTop.search() do
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page], :per_page => 5
+      end
+      
+      @factlink_tops = solr_result.results
+      
+    else
+      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    end
         
     respond_to do |format|
       format.html { render :layout => "accounting"}# index.html.erb
@@ -158,6 +169,17 @@ class FactlinkTopsController < ApplicationController
         format.html { render :action => "edit" }
         format.xml  { render :xml => @factlink_top.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  # PUT /factlink/search
+  # PUT /factlink/search.json
+  def search
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    
+    respond_to do |format|
+      format.html { render :template => "factlink_tops/index", :layout => "accounting" } 
+      format.json { render :json => @factlink_tops }
     end
   end
   

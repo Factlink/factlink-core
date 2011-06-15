@@ -3,11 +3,13 @@ class FactlinkTop
   include Mongoid::Timestamps
   include Mongoid::Taggable
 
-  # include Sunspot::Mongoid
+  include Sunspot::Mongoid
   # Create search index on :displaystring
-  # searchable do
-    # text :displaystring
-  # end
+  searchable do
+    text :displaystring
+    string :displaystring
+    time :created_at
+  end
 
   # Fields
   field :displaystring

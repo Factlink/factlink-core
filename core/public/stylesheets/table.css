@@ -1,3 +1,9 @@
 table {
     table-layout: fixed;
 }
+
+input.search {
+    background: url('/images/icons/magnifier-medium-left.png') white 4px no-repeat;
+    float: right;
+    padding: 8px 8px 8px 22px;
+}
