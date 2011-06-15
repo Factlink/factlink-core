@@ -29,6 +29,63 @@ class User
     username
   end
   
+  # Authority of the user
+  def authority
+    0.481
+  end
+  
+
+  # Believe
+  def beliefs
+    $redis.smembers(self.redis_believes_key)
+  end
+  
+  def add_believe factlink
+    # Remove existing opinion by user
+    remove_doubt factlink
+    remove_disbelieve factlink
+    $redis.sadd(self.redis_believes_key, factlink.id)
+  end
+  
+  def remove_believe factlink
+    $redis.srem(self.redis_believes_key, factlink.id)
+  end
+
+  # Doubt
+  def doubts
+    $redis.smembers(self.redis_doubts_key)
+  end
+  
+  def add_doubt factlink
+    # Remove existing opinion by user
+    remove_believe factlink
+    remove_disbelieve factlink
+    $redis.sadd(self.redis_doubts_key, factlink.id)
+  end
+  
+  def remove_doubt factlink
+    $redis.srem(self.redis_doubts_key, factlink.id)
+  end
+  
+  # Disbelieve
+  def disbelieves
+    $redis.smembers(self.redis_disbelieves_key)
+  end
+  
+  def add_disbelieve factlink
+    # Remove existing opinion by user
+    remove_believe factlink
+    remove_doubt factlink
+    $redis.sadd(self.redis_disbelieves_key, factlink.id)
+  end
+  
+  def remove_disbelieve factlink
+    $redis.srem(self.redis_disbelieves_key, factlink.id)
+  end
+  
+  
+  ### Teh old Factlinkzz ###
+  
   # Voted objects
   def up_voted_sources
     FactlinkSub.up_voted_by(self)
@@ -53,6 +110,22 @@ class User
   
   def voted_source_count
     FactlinkSub.voted_by(self).count
+  end
+
+
+  # # # New # # #
+  protected
+  # Helpers for Redis keys
+  def redis_believes_key
+    "#{self._id}:beliefs"
+  end
+  
+  def redis_doubts_key
+    "#{self._id}:doubts"
+  end
+  
+  def redis_disbelieves_key
+    "#{self._id}:disbelievs"
   end
 
 end

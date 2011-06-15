@@ -99,6 +99,7 @@ GEM
     rake (0.8.7)
     rash (0.3.0)
       hashie (~> 1.0.0)
+    redis (2.2.1)
     rsolr (0.12.1)
       builder (>= 2.1.2)
     rspec (2.6.0)
@@ -160,6 +161,7 @@ DEPENDENCIES
   mongoid (~> 2.0.1)
   mongoid_taggable
   rails (= 3.0.5)
+  redis (= 2.2.1)
   rspec-rails
   sqlite3-ruby
   sunspot_rails (~> 1.2.1)
