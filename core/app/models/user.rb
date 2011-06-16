@@ -36,8 +36,12 @@ class User
   
 
   # Believe
-  def beliefs
+  def belief_ids
     $redis.smembers(self.redis_believes_key)
+  end
+  
+  def belief_count
+    $redis.scard(self.redis_believes_key)
   end
   
   def add_believe factlink
@@ -52,8 +56,12 @@ class User
   end
 
   # Doubt
-  def doubts
+  def doubt_ids
     $redis.smembers(self.redis_doubts_key)
+  end
+  
+  def doubt_count
+    $redis.scard(self.redis_doubts_key)
   end
   
   def add_doubt factlink
@@ -68,8 +76,12 @@ class User
   end
   
   # Disbelieve
-  def disbelieves
+  def disbelieve_ids
     $redis.smembers(self.redis_disbelieves_key)
+  end
+  
+  def disbelieve_count
+    $redis.scard(self.redis_disbelieves_key)
   end
   
   def add_disbelieve factlink
@@ -113,19 +125,27 @@ class User
   end
 
 
+
+
+
   # # # New # # #
   protected
-  # Helpers for Redis keys
+  # Helper method to generate redis keys
+  def redis_key(str)
+    "user:#{self.id}:#{str}"
+  end
+
+
   def redis_believes_key
-    "#{self._id}:beliefs"
+    self.redis_key(:beliefs)
   end
   
   def redis_doubts_key
-    "#{self._id}:doubts"
+    self.redis_key(:doubts)
   end
   
   def redis_disbelieves_key
-    "#{self._id}:disbelievs"
+    self.redis_key(:disbeliefs)
   end
 
 end
