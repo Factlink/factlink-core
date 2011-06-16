@@ -8,11 +8,11 @@ class Factlink
     text :displaystring
   end
   
-  field :title,           :type => String
-  field :displaystring,   :type => String
-  field :description,     :type => String
-  field :passage,         :type => String
-  field :content,         :type => String
+  field :title,           :type => String   
+  field :displaystring,   :type => String   # For matching Factlink on a page
+  field :passage,         :type => String   # Passage for matching: not implemented
+  field :content,         :type => String   # Source content
+  field :url,             :type => String   # Source url
   
   # Linking of factlinks  
   has_and_belongs_to_many :parents,
@@ -31,7 +31,7 @@ class Factlink
     self.displaystring
   end
 
-  # TODO: Refactor to regular .count methond where needed.
+  # TODO: Refactor to regular .count method where needed.
   #
   # Know bug in Mongoid, count on a habtm relation does not work.
   # https://github.com/mongoid/mongoid/issues/893
@@ -40,7 +40,7 @@ class Factlink
   def parents_count
     self.parents.to_a.count
   end
-  
+  # See comment above
   def childs_count
     self.childs.to_a.count
   end

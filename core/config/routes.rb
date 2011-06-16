@@ -27,8 +27,8 @@ FactlinkUI::Application.routes.draw do
   
   ##########
   # Javascript Client calls
-  get "/site" => "sites#highlights_for_site"
   get "/site/count" => "sites#count_for_site"
+  get "/site" => "factlinks#factlinks_for_url"  # Now defined in factlink controller
 
   ##########
   # Factlink Tops
@@ -60,13 +60,6 @@ FactlinkUI::Application.routes.draw do
   # User actions
   get "/:username" => "users#show", :as => "user_profile"
 
-
-  ##########
-  # Old, getting deprecated
-  match "/factlinks_for_url" => "sites#highlights_for_site"
-  match "/factlink_subs_for_factlink_id" => "sites#count_for_site"
-
-  
 
   ############################################################################
   # Sample of regular route:

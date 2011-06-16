@@ -20,3 +20,12 @@ Requirements:
  - Ruby on Rails 3.0.4
  - Mongodb
  - Redis
+
+
+
+# Note to self
+# If statement
+x = if boolean
+    then 3
+    else 5
+    end

@@ -34,12 +34,14 @@ class User
     0.481
   end
   
-
+  ##########
   # Believe
+  #
+  # Return all factlink_ids this user believes
   def belief_ids
     $redis.smembers(self.redis_believes_key)
   end
-  
+
   def belief_count
     $redis.scard(self.redis_believes_key)
   end
@@ -53,6 +55,10 @@ class User
   
   def remove_believe factlink
     $redis.srem(self.redis_believes_key, factlink.id)
+  end
+
+  def believes_factlink?(factlink)
+    $redis.sismember(self.redis_believes_key, factlink.id)
   end
 
   # Doubt
