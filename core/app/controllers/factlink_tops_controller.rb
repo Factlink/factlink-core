@@ -24,13 +24,21 @@ class FactlinkTopsController < ApplicationController
       end
       
       @factlink_tops = solr_result.results
-      
     else
-      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
     end
         
     respond_to do |format|
       format.html { render :layout => "accounting"}# index.html.erb
+    end
+  end
+  
+  # GET /factlink/more
+  def more_pages
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+    
+    respond_to do |format|
+      format.js
     end
   end
 

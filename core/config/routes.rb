@@ -33,8 +33,8 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/new" => "factlink_tops#create"  
   match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"
   match "/factlink/:id/edit" => "factlink_tops#edit", :as => "edit_factlink"
+  match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
   match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
-  # match "/factlink/search" => "factlink_tops#search", :as => "factlink_search"
 
   ##########
   # Factlink Subs
