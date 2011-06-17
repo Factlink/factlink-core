@@ -72,7 +72,7 @@ describe Factlink do
   # User should have a reference of all Factlink Ids he beliefs, doubts, disbeliefs
   it "should store the Factlink ID in the user object when a user believes a fact" do
     @factlink.add_believer @user1
-    @user1.belief_ids.should include(@factlink.id.to_s)
+    @user1.believe_ids.should include(@factlink.id.to_s)
   end
   
   it "should store the Factlink ID in the user object when a user doubts a fact" do
@@ -95,7 +95,47 @@ describe Factlink do
   
   it "should have the Factlink ID in the Users belief_ids when a user beliefs a fact" do
     @factlink.add_believer @user2
-    @user2.belief_ids.should include(@factlink.id.to_s)
+    @user2.believe_ids.should include(@factlink.id.to_s)
+  end
+    
+end
+
+
+describe User do
+  
+  before(:each) do
+    @parent = Factlink.new
+    @child1 = Factlink.new
+    @child2 = Factlink.new
+
+    @parent.childs << @child1
+    @parent.childs << @child2
+
+    @user1 = User.new(:username => "tomdev")
+    @user2 = User.new(:username => "zamboya") 
+  end
+  
+  it "should have one child" do
+    @parent.childs_count.should == 2
+  end
+  
+  it "should have one first child which is the first child" do
+    @parent.childs.first == @child1
+  end
+  
+  it "should have zero active factlinks on create" do
+    @user1.active_on_factlinks.count.should == 0
+  end
+  
+  it "should have one active factlink after adding believe" do
+    @child1.add_believer @user1
+    @user1.active_on_factlinks.count.should == 1
+  end
+
+  it "should have a toggle value for the factlink key it voted on" do
+    @child1.add_believer(@user1)
+    puts "Getting opinion"
+    puts @user1.get_opinion(@child1, @parent)
   end
   
   

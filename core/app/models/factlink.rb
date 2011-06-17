@@ -45,6 +45,10 @@ class Factlink
     self.childs.to_a.count
   end
 
+  def set_parent parent_id
+    parent = Factlink.find(parent_id)
+    parent.childs << self
+  end
 
   def belief_total
     self.childs.map { |child| child.believer_count }.inject(0) { |result, value | result + value }
@@ -89,6 +93,7 @@ class Factlink
   end
   
   def remove_believer user
+    user.remove_believe self
     $redis.zrem(self.redis_key(:believers), user.id)
   end
 
@@ -123,6 +128,7 @@ class Factlink
   end
   
   def remove_doubter user
+    user.remove_doubt self
     $redis.zrem(self.redis_key(:doubters), user.id)
   end
 
@@ -157,6 +163,7 @@ class Factlink
   end
   
   def remove_disbeliever user
+    user.remove_disbelieve self
     $redis.zrem(self.redis_key(:disbelievers), user.id)
   end
 
@@ -215,24 +222,24 @@ class Factlink
   end
 
   # Absolute scores
-  def absolute_score_denies
-    self.score_denies
-  end
-  
-  def absolute_score_maybe
-    self.score_maybe
-  end
-  
   def absolute_score_proves
-    self.score_proves
+    self.believer_count
   end
+
+  def absolute_score_maybe
+    self.doubter_count
+  end
+
+  def absolute_score_denies
+    self.disbeliever_count
+  end
+  
   
   # Stats count
   def stats_count
     # Fancy score calculation
     (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
-
 
 
   protected  

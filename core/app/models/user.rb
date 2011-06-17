@@ -38,15 +38,17 @@ class User
   # Believe
   #
   # Return all factlink_ids this user believes
-  def belief_ids
+  def believe_ids
     $redis.smembers(self.redis_believes_key)
   end
 
-  def belief_count
+  def believe_count
     $redis.scard(self.redis_believes_key)
   end
   
   def add_believe factlink
+    add_active_factlink factlink
+    
     # Remove existing opinion by user
     remove_doubt factlink
     remove_disbelieve factlink
@@ -54,6 +56,7 @@ class User
   end
   
   def remove_believe factlink
+    remove_active_factlink factlink
     $redis.srem(self.redis_believes_key, factlink.id)
   end
 
@@ -71,6 +74,8 @@ class User
   end
   
   def add_doubt factlink
+    add_active_factlink factlink
+    
     # Remove existing opinion by user
     remove_believe factlink
     remove_disbelieve factlink
@@ -78,6 +83,7 @@ class User
   end
   
   def remove_doubt factlink
+    remove_active_factlink factlink
     $redis.srem(self.redis_doubts_key, factlink.id)
   end
   
@@ -91,6 +97,8 @@ class User
   end
   
   def add_disbelieve factlink
+    add_active_factlink factlink
+    
     # Remove existing opinion by user
     remove_believe factlink
     remove_doubt factlink
@@ -98,9 +106,45 @@ class User
   end
   
   def remove_disbelieve factlink
+    remove_active_factlink factlink
     $redis.srem(self.redis_disbelieves_key, factlink.id)
   end
   
+  
+  # ids of the Factlinks the user interacted with
+  def active_on_factlinks    
+    $redis.sunion(self.redis_believes_key, 
+                  self.redis_doubts_key, 
+                  self.redis_disbelieves_key)
+  end
+  
+  # Add factlink_id to the users active factlinks
+  def add_active_factlink factlink
+    key = self.redis_key(:active_factlinks)
+    $redis.sadd(key, factlink.id)
+  end
+  
+  # Remove factlink_id from the users active factlinks
+  def remove_active_factlink factlink
+    key = self.redis_key(:active_factlinks)
+    $redis.srem(key, factlink.id)
+  end
+
+  
+  def add_opinion(factlink, parent)
+    key = redis_factlink_opinion_key(parent)
+    puts "adding: key: #{key}\nid: #{factlink.id}\nval: 1337"
+    $redis.hset(key, factlink.id, 1337)
+  end
+  
+  def get_opinion(factlink, parent)
+    key = redis_factlink_opinion_key(parent)
+    puts "getting: key: #{key}\nid: #{factlink.id}"
+    
+    puts "\n\nGot: #{$redis.hget(key, factlink.id)}"
+    
+    $redis.hget(key, factlink.id)
+  end
   
   ### Teh old Factlinkzz ###
   
@@ -141,6 +185,10 @@ class User
     "user:#{self.id}:#{str}"
   end
 
+
+  def redis_factlink_opinion_key factlink
+    self.redis_key("factlink:#{factlink.id}")
+  end
 
   def redis_believes_key
     self.redis_key(:beliefs)

@@ -1,31 +1,31 @@
-<li data-score="<%= factlink_sub.score %>" id="fl-source-<%= factlink_sub.id %>">
+<li data-score="<%= factlink_sub.total_score %>" id="fl-source-<%= factlink_sub.id %>">
 	
 	<div class="fl-vote-container">
 		 <% 
 				@up_class = ""
 				@down_class = ""
 			
-				if current_user 
+				# if current_user 
 					# Clean this some time
-					if factlink_sub.voted_up_by_user?(current_user) 
-						@up_class = "disabled"
-					else
-						@up_class = ""
-					end
-				
-					if factlink_sub.voted_down_by_user?(current_user) 
-								@down_class = "disabled"
-					else
-						@down_class = ""
-					end
-				end
+					# if factlink_sub.voted_up_by_user?(current_user) 
+						# @up_class = "disabled"
+					# else
+						# @up_class = ""
+					# end
+				# 
+					# if factlink_sub.voted_down_by_user?(current_user) 
+								# @down_class = "disabled"
+					# else
+						# @down_class = ""
+					# end
+				# end
 			%>
 		<%= link_to "<span class='fl-source-up #{@up_class}'></span>".html_safe, factlink_sub_vote_up_path(factlink_sub), :remote => true, :onclick => "return false; /(\\s|^)disabled(\\s|$)/.test(this.className)", :class => "up" %>
 		<%= link_to "<span class='fl-source-down #{@down_class}'></span>".html_safe, factlink_sub_vote_down_path(factlink_sub), :remote => true, :onclick => "return false; /(\\s|^)disabled(\\s|$)/.test(this.className)", :class => "down" %>
-		<span id="fl-source-score-<%= factlink_sub.id %>" class="fl-source-score"><%= factlink_sub.score %></span>
+		<span id="fl-source-score-<%= factlink_sub.id %>" class="fl-source-score"><%= factlink_sub.total_score %></span>
 	</div>
 
-	<span class="fl-statement-title"><%= factlink_sub.title %></span>
+	<span class="fl-statement-title"><%= factlink_sub.displaystring %></span>
 	<p><%= factlink_sub.content %></p>
 	<hr>
 	

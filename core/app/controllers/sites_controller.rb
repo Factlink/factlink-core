@@ -15,12 +15,16 @@ class SitesController < ApplicationController
 
 
   def count_for_site
-    url = params[:url]
-    site = Site.first(:conditions => { :url => url })
+    site = Site.first(:conditions => { :url => params[:url] })
+
+    count = if site
+        then 3
+        else 5
+        end
     
     count = 0
     if site
-      count = site.factlink_tops.count
+      count = site.factlinks.count
     end
     
     render :json => { :count => count }, :callback => params[:callback]
