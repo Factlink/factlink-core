@@ -3,11 +3,13 @@ class FactlinkTop
   include Mongoid::Timestamps
   include Mongoid::Taggable
 
-  # include Sunspot::Mongoid
+  include Sunspot::Mongoid
   # Create search index on :displaystring
-  # searchable do
-    # text :displaystring
-  # end
+  searchable do
+    text :displaystring
+    string :displaystring
+    time :created_at
+  end
 
   # Fields
   field :displaystring
@@ -95,16 +97,10 @@ class FactlinkTop
     (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
   end
   
-  def max_3_subs
-    
-    count = self.factlink_subs.count
-    if count > 3
-      max = 2
-    else
-      max = count
-    end
 
-    return self.factlink_subs[0..max]
+  # Used for sorting
+  def self.column_names
+    self.fields.collect { |field| field[0] }
   end
   
 end

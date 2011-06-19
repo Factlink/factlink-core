@@ -1,6 +1,7 @@
 class FactlinkTopsController < ApplicationController
 
-  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
+  helper_method :sort_column, :sort_direction
+  before_filter :authenticate_user!, :only => [:show, :new, :edit, :create, :update]
   
   layout "client"
 
@@ -16,10 +17,29 @@ class FactlinkTopsController < ApplicationController
 
   # GET /factlink_tops
   def index
-    @factlink_tops = FactlinkTop.all
-
+    if params[:s] 
+      solr_result = FactlinkTop.search() do
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page], :per_page => 5
+      end
+      
+      @factlink_tops = solr_result.results
+    else
+      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+    end
+        
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => "accounting"}# index.html.erb
+    end
+  end
+  
+  # GET /factlink/more
+  def more_pages
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+    
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -159,6 +179,27 @@ class FactlinkTopsController < ApplicationController
         format.xml  { render :xml => @factlink_top.errors, :status => :unprocessable_entity }
       end
     end
+  end
+  
+  # PUT /factlink/search
+  # PUT /factlink/search.json
+  def search
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    
+    respond_to do |format|
+      format.html { render :template => "factlink_tops/index", :layout => "accounting" } 
+      format.json { render :json => @factlink_tops }
+    end
+  end
+  
+  private
+  
+  def sort_column
+    FactlinkTop.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   # DELETE /factlink_tops/1

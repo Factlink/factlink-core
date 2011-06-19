@@ -1,23 +1,47 @@
-<h1>Listing factlink_tops</h1>
-
-<table>
-  <tr>
-    <th>Displaystring</th>
-    <th>Sites</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @factlink_tops.each do |factlink_top| %>
-  <tr>
-    <td><%= factlink_top.displaystring %></td>
-    <td><%= link_to 'Show', factlink_top %></td>
-    <td><%= link_to 'Edit', edit_factlink_top_path(factlink_top) %></td>
-    <td><%= link_to 'Destroy', factlink_top, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% content_for :script do %>
+	<%= javascript_include_tag("factlink_overview") %>
 <% end %>
+
+<h1>Factlinks</h1>
+
+<form method="GET" action="<%= factlink_overview_path %>">
+<table class="factlinks">
+	<colgroup>
+		<col style="width: 450px;" />
+		<col style="width: 120px;" />
+		<col span="3" style="width: 50px;" />
+	</colgroup>
+	<thead>
+		<tr>
+			<td colspan="5" class="search">
+				<input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %>>
+			</td>
+		</tr>
+	  <tr>
+	    <th style="width: 450px;"><%= sortable 'displaystring' %></th>
+	    <th style="width: 120px;"><%= sortable 'created_at' %></th>
+			<th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+	</thead>
+	<tfoot>
+		<tr id="load_more">
+			<td colspan="5">
+				<a href="#">Load more...</a>
+			</td>
+		</tr>
+		<tr id="loading" style="display:none;">
+			<td colspan="5">
+				Loading...
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+	  <%= render :partial => "factlink_top_td", :collection => @factlink_tops, :as => :factlink_top %>
+	</tbody>
 </table>
+</form>
 
 <br />
 

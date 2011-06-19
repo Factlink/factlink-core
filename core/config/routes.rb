@@ -17,11 +17,6 @@ FactlinkUI::Application.routes.draw do
   devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
-  
-  ##########
-  # Factlink resources
-  resources :factlink_tops
-  resources :factlink_subs
 
   resource :sites
   
@@ -38,6 +33,8 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/new" => "factlink_tops#create"  
   match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"
   match "/factlink/:id/edit" => "factlink_tops#edit", :as => "edit_factlink"
+  match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
+  match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
 
   ##########
   # Factlink Subs
@@ -46,6 +43,11 @@ FactlinkUI::Application.routes.draw do
   get "/factlink_subs/:id/vote/up" => "factlink_subs#vote_up",      :as => "factlink_sub_vote_up"
   get "/factlink_subs/:id/vote/down" => "factlink_subs#vote_down",  :as => "factlink_sub_vote_down"
 
+  ##########
+  # Factlink resources
+  resources :factlink_tops
+  resources :factlink_subs
+  
   ##########
   # Web Front-end
   root :to => "home#index"

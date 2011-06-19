@@ -166,3 +166,4 @@ DEPENDENCIES
   twitter
   vinova_sunspot_mongoid
   voteable_mongo
+  will_paginate (~> 3.0.pre)

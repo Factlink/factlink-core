@@ -22,6 +22,10 @@ gem 'bson_ext', '~> 1.3.0'
 gem 'mongoid_taggable'
 gem 'voteable_mongo'
 
+##########
+# Pagination & sorting
+gem "will_paginate", "~> 3.0.pre"
+
 #########
 # Twitter
 gem 'twitter'
