@@ -1,11 +1,78 @@
-<p id="notice"><%= notice %></p>
+<!-- <div class="fl-modal">
+	<div class="fl-container"> -->
+		<script type="text/javascript">
+			parent.remote.resetStyle();
+			parent.remote.setFrameType("show");
+			parent.remote.showOverlay();
 
+			parent.remote.setFrameBounds(440, 370);
+		</script>		
 
-<p>
-  <b>Title:</b>
-  <%= @factlink_top.displaystring %>
-</p>
+		<div id="fl-loading-indicator" style="display: none; z-index: 10; position: absolute; width: 80px; height: 30px; top: 160px; left: 174px; border: solid 4px rgba(0,0,0,0.2); border-radius: 4px; background-color: #eee; margin: 0 auto; text-align: center; padding-top: 12px;">
+			<%= image_tag "icons/loading-indicator-white.gif" %>
+		</div>
 
+		<div id="fl-stats" class="fl-stats">
+			
+			<%= factlink_score_partial(@factlink) %>
+			
+		</div>
+		
+		<div class="fl-factlink">
+			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_path(@factlink) %>">&#8220;<%= @factlink.displaystring %>&#8221;</a></h1>
+		</div>
+		
+		<div class="fl-clear"></div>
+		
+		<div class="fl-tags">
+			<ul>
+					<% (@factlink.tags_array || []).each do |tag| %>
 
-<%= link_to 'Edit', edit_factlink_top_path(@factlink_top) %> |
-<%= link_to 'Back', factlink_top_path %>
+					<a href="<%= edit_factlink_path(@factlink) %>" style="text-decoration: none;">						
+						<li><%= tag %></li>
+					</a>
+					<% end %>
+
+				<a href="<%= edit_factlink_path(@factlink) %>" style="text-decoration: none;">
+					<li class="fl-tag-add">+</li>
+				</a>
+
+			</ul>
+			
+			<a href="<%= edit_factlink_path(@factlink) %>">edit tags</a>
+		</div>
+		
+		<div class="fl-clear"></div>
+		
+		<div class="fl-scroll-pane">
+			<ol id="fl-sources-list" class="fl-sources">
+
+				<% unless @factlink.childs_count > 0 %>					
+
+					<li id="no-facts-message">						
+						<span class="fl-statement-title">No facts have been added yet.</span>
+						<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
+					</li>
+
+				<% else %>
+
+					<% @factlink.childs.each do |factlink| %>
+						<%= factlink_source_partial_as_li(factlink, @factlink) %>
+					<% end %>
+				<% end %>
+
+			</ol>
+		</div>
+
+		<div class="fl-bottom">
+			<span style="color: #999; padding: 4px;">Added by <%= link_to(@factlink.created_by, user_profile_path(@factlink.created_by.username), :target => "_blank") %></span>
+			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="float: right;">Add source</a>
+		</div>
+		
+		<div class="fl-clear"></div>
+
+		<!-- Add sources popup -->
+		<div id="fl-sources-popup" style="display: none;">
+			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
+			<%= render :partial => "remote_form" %>
+		</div>

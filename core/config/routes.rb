@@ -6,9 +6,7 @@ FactlinkUI::Application.routes.draw do
   get "/signed_in" => "dev#login_test"
   get "/iframe" => "dev#iframe"
   get "/needs_sign_in" => "dev#needs_sign_in"
-
   get "/iframe2" => "dev#iframe2"
-
   get "/the_form" => "dev#the_form"
   post "/post_form" => "dev#post_form"
 
@@ -17,31 +15,44 @@ FactlinkUI::Application.routes.draw do
   devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
-
-  resource :sites
+  
+  ##########
+  # Resources
+  resources :factlinks
   
   ##########
   # Javascript Client calls
-  get "/site" => "sites#highlights_for_site"
-  get "/site/count" => "sites#count_for_site"
+  get   "/site/count" => "sites#count_for_site"
+  get   "/site" => "factlinks#factlinks_for_url"  # Now defined in factlink controller
 
-  ##########
-  # Factlink Tops
-  match "/factlink/prepare" => "factlink_tops#prepare"
-  match "/factlink/intermediate/(:the_action)/(:id)" => "factlink_tops#intermediate"
+  # Prepare a new Factlink
+  match "/factlink/prepare" => "factlinks#prepare"
+  match "/factlink/intermediate/(:the_action)/(:id)" => "factlinks#intermediate"
+  
+  match "/factlink/new" => "factlinks#create"  
+  match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
+  get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
   
   match "/factlink/new" => "factlink_tops#create"  
   match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"
   match "/factlink/:id/edit" => "factlink_tops#edit", :as => "edit_factlink"
   match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
   match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
+  
+  # Add a Factlink as source
+  post  "/factlink/add_as_source" => "factlinks#create_as_source"
 
-  ##########
-  # Factlink Subs
-  match "/factlink/addtag/:id" => "factlink_subs#add_tag"
+
+  # Believe, doubt and disbelieve
+  get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"
+  get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
+  get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
+
+  get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+
   # up and down voting
-  get "/factlink_subs/:id/vote/up" => "factlink_subs#vote_up",      :as => "factlink_sub_vote_up"
-  get "/factlink_subs/:id/vote/down" => "factlink_subs#vote_down",  :as => "factlink_sub_vote_down"
+  get "/factlink_subs/:id/vote/up"    => "factlink_subs#vote_up",   :as => "factlink_sub_vote_up"
+  get "/factlink_subs/:id/vote/down"  => "factlink_subs#vote_down", :as => "factlink_sub_vote_down"
 
   ##########
   # Factlink resources
@@ -51,24 +62,16 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Web Front-end
   root :to => "home#index"
+  get "/:username" => "users#show", :as => "user_profile"
+  
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
   ##########
   # Development, testing Solr
   # match "/search" => "factlink_tops#search"
-
-  ##########
-  # User actions
-  get "/:username" => "users#show", :as => "user_profile"
-
-
-  ##########
-  # Old, getting deprecated
-  match "/factlinks_for_url" => "sites#highlights_for_site"
-  match "/factlink_subs_for_factlink_id" => "sites#count_for_site"
-
   
+
 
   ############################################################################
   # Sample of regular route:

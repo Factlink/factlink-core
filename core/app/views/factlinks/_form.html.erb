@@ -1,7 +1,7 @@
 <%= form_for(@factlink) do |f| %>
   <% if @factlink.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@factlink.errors.count, "error") %> prohibited this factlink from being saved:</h2>
+      <h2><%= pluralize(@factlink.errors.count, "error") %> prohibited this factlink_top from being saved:</h2>
 
       <ul>
       <% @factlink.errors.full_messages.each do |msg| %>
@@ -11,20 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+
+	<script type="text/javascript">
+		parent.remote.resetStyle();
+		parent.remote.setFrameType("show");
+		parent.remote.showOverlay();
+		parent.remote.highlightNewFactlink("<%= @factlink.displaystring %>", "<%= @factlink.id %>");
+	</script>
+	<div class="fl-stats">
+		<ul class="fl-stats-bar">
+			<li class="fl-bar-refute" style="height: <%= @factlink.percentage_score_denies %>%;"><%= @factlink.absolute_score_denies %></li>
+			<li class="fl-bar-maybe" style="height: <%= @factlink.percentage_score_maybe %>%;"><%= @factlink.absolute_score_maybe %></li>
+			<li class="fl-bar-support" style="height: <%= @factlink.percentage_score_proves %>%;"><%= @factlink.absolute_score_proves %></li>
+		</ul>
+		<span class="fl-stats-count"><%= @factlink.stats_count %></span>
+	</div>
+
+	<div class="fl-factlink">
+		<h1>&#8220;<%= @factlink.displaystring %>&#8221;</h1>
+	</div>
+
+
+	<div class="fl-clear"></div>
+
+
+	<div class="fl-edit-tags">
+		<%= f.label "Tags" %>
+		<%= f.text_field :tags, :placeholder => "Example, longer example, ...", :style => "width: 340px;" %>
+	</div>
+	
+  <div class="actions" style="float: right; padding: 10px; display: block;">
+    <%= f.submit "Update this Factlink" %> or <%= link_to("go back", factlink_path(@factlink), :style => "color: inherit;") %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
+
+	<div class="fl-clear"></div>
+
+	<pre style="text-align: center;"><span style="font-size: 0.75em;">alpha development version 0.0481</span></pre>
+	<br/>

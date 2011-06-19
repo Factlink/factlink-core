@@ -4,7 +4,6 @@ class FactlinkTop
   include Mongoid::Taggable
 
   include Sunspot::Mongoid
-  # Create search index on :displaystring
   searchable do
     text :displaystring
     string :displaystring

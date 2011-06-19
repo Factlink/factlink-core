@@ -1,200 +1,167 @@
 class FactlinksController < ApplicationController
 
-  before_filter :authenticate_admin!
+  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   
   layout "client"
-  
-  # def show
-  #   @factlink_top = FactlinkTop.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     format.html # show.html.erb
-  #     format.xml  { render :xml => @factlink_top }
-  #     format.json { render :json => @factlink_top.to_json(:methods => [:tags_array, :subs]), :callback => params[:callback] }
-  #   end
-  # 
-  #   Add the Tags array in the response    
-  # end
 
+  def factlinks_for_url
+    url = params[:url]
+    site = Site.first(:conditions => { :url => url })
+    
+    @factlinks = if site
+                 then site.factlinks
+                 else []
+                 end
 
-  ##########
-  # Retrieve the Factlinks for this URL
-  # TODO: Will be replaced soon. URL matching is quick for development,
-  # but we want to check Factlinks in the complete text on the website.
-  def factlink_tops_for_url
-    # TODO: Error handling when no url is given.
-    @url = params[:url]
-    
-    # Should only give 0 or 1 result(s), 
-    # since we are currently making an exact match on the URL.
-    sites = Site.where(:url => @url)
-    
-    # Get the entries for the Site if found, else return an empty array
-    if sites.count > 0 then @factlinks = sites[0].factlink_tops.entries else @factlinks = [] end
-  
-    # Render the result with callback, so JSONP can be used (for Internet Explorer)
-    render :json => @factlinks.to_json(:only => [:_id, :displaystring]), :callback => params[:callback]
-  end
-  
-  
-  ##########
-  # Retrieve the FactlinkSubs for the submitted Factlink.
-  def factlink_subs_for_factlink_id
-    # TODO: Error handling when no ID is given.
-    id = params[:factlink_top_id] #|| '4d6651f2c09808d296000001'
-    
-    factlink_top = FactlinkTop.find(id)
-    @factlink_subs = factlink_top.factlink_subs.entries
-    
-    # Render the result with callback, so JSONP can be used (for Internet Explorer)
-    render :json => @factlink_subs, :callback => params[:callback]
+    # Render the result with callback, 
+    # so JSONP can be used (for Internet Explorer)
+    render :json => @factlinks.to_json( :only => [:_id, :displaystring] ), 
+                                        :callback => params[:callback]  
   end
 
-
+  def show
+    @factlink = Factlink.find(params[:id])
+  end
+  
   def new
-    required_params = %W[url fact callback]
-    error = false
+    @factlink = Factlink.new
+  end
+  
+  def edit
+    @factlink = Factlink.find(params[:id])
+  end
+  
+  # Prepare for create
+  def prepare
+    render :template => 'factlink_tops/prepare', :layout => nil
+  end
+  
+  # Prepare for create
+  def intermediate
+    # TODO: Sanitize for XSS
+    @url = params[:url]
+    @passage = params[:passage]
+    @fact = params[:fact]
     
-    # Validate presence of all required parameters
-    # If fail, return error message.
-    required_params.each do |param|
-      if params[param].nil?
-        error = true
-        render :json => "{\"error\": #{error}, \"message\": \"The following parameters are required: url, fact, callback.\"}", :callback => params[:callback]
-        # return is required to jump out of function
-        return false
+    case params[:the_action]
+    when "prepare"
+      @path = "factlink_prepare_path"
+    when "show"
+      @path = "factlink_show_path(%x)" % :id
+    else
+      @path = ""
+    end
+
+    render :template => 'factlink_tops/intermediate', :layout => nil
+  end
+
+  def create
+    # Creating a Factlink requires a url and fact ( > displaystring )
+    # TODO: Refactor 'fact' to 'displaystring' for internal consistency
+    
+    # Get or create the website on which the Fact is located
+    site = Site.find_or_create_by(:url => params[:url])
+
+
+    # TODO: This can be changed to use only displaystring when the above
+    # refactor is done.
+    if params[:fact]
+      displaystring = params[:fact]
+    else
+      displaystring = params[:factlink][:displaystring]
+    end
+    
+    # Create the Factlink
+    @factlink = Factlink.create!(:displaystring => displaystring, 
+                                    :created_by => current_user,
+                                    :site => site)
+
+    # Redirect to edit action
+    redirect_to :action => "edit", :id => @factlink.id
+  end
+  
+  
+  def create_as_source
+    parent_id = params[:factlink][:parent_id]
+
+    
+    # Cleaner way for doing this?
+    # Cannot create! the object with paramgs[:factlink],
+    # since we have to add the current_user as well.
+    # 
+    # Adding current_user after create and saving again
+    # is one unneeded save extra.
+    displaystring = params[:factlink][:displaystring]
+    url = params[:factlink][:url]
+    content = params[:factlink][:content]
+
+    # Create the Factlink
+    @factlink = Factlink.create!(:displaystring => displaystring,
+                                    :url => url,
+                                    :content => content,
+                                    :created_by => current_user)
+
+    # Set the correct parent
+    @factlink.set_parent parent_id
+    
+    @parent = Factlink.find(parent_id)
+  end
+  
+  def update
+    @factlink = Factlink.find(params[:id])
+
+    respond_to do |format|
+      if @factlink.update_attributes(params[:factlink])
+        format.html { redirect_to(@factlink, 
+                      :notice => 'Factlink top was successfully updated.') }
+      else
+        format.html { render :action => "edit" }
       end
     end
-
-    
-    # Use Solr to find matching facts
-    @matched_facts = FactlinkTop.search() do
-      keywords(params[:fact]) { minimum_match 1 }
-    end
-    
-    # Check for matching results
-    if @matched_facts.results.count > 0      
-      best_match = @matched_facts.hits()[0]
-    end
-    
-    # Add it, unless we have a score, and score higher then threshold
-    should_add = true
-    if best_match
-      should_add = best_match.score < 1.0
-    end
-    
-    # Check if hit ratio surpasses threshold    
-    unless should_add
-      added = false
-      status = true
-      match_id = best_match.result.id
-
-    else
-      # Get or create the website on which the Fact is located.
-      site = Site.find_or_create_by(:url => params[:url])
-
-      # Create the Factlink.
-      new_factlink = FactlinkTop.create!(:displaystring => params[:fact])
-      
-      # And add Factlink to the Site.
-      site.factlink_tops << new_factlink
-      
-      added = true
-      status = true
-      match_id = new_factlink.id
-    end 
-    
-    # Create the result payload
-    res_dict = {}
-    res_dict[:added] = added
-    res_dict[:status] = status
-    res_dict[:match_id] = match_id
-    
-    render :json => res_dict, :callback => params[:callback]
   end
+  
+  def believe
+    parent = Factlink.find(params[:parent_id])
 
-#   ##########
-#   # GET /factlinks
-#   # GET /factlinks.xml
-#   def index
-#     @factlinks = Factlink.all
-# 
-#     respond_to do |format|
-#       format.html # index.html.erb
-#       format.xml  { render :xml => @factlinks }
-#     end
-#   end
-# 
-#   # GET /factlinks/1
-#   # GET /factlinks/1.xml
-#   def show
-#     @factlink = Factlink.find(params[:id])
-# 
-#     respond_to do |format|
-#       format.html # show.html.erb
-#       format.xml  { render :xml => @factlink }
-#     end
-#   end
-# 
-#   # GET /factlinks/new
-#   # GET /factlinks/new.xml
-#   def new
-#     @factlink = Factlink.new
-# 
-#     respond_to do |format|
-#       format.html # new.html.erb
-#       format.xml  { render :xml => @factlink }
-#     end
-#   end
-# 
-#   # GET /factlinks/1/edit
-#   def edit
-#     @factlink = Factlink.find(params[:id])
-#   end
-# 
-#   # POST /factlinks
-#   # POST /factlinks.xml
-#   def create
-#     @factlink = Factlink.new(params[:factlink])
-# 
-#     respond_to do |format|
-#       if @factlink.save
-#         format.html { redirect_to(@factlink, :notice => 'Factlink was successfully created.') }
-#         format.xml  { render :xml => @factlink, :status => :created, :location => @factlink }
-#       else
-#         format.html { render :action => "new" }
-#         format.xml  { render :xml => @factlink.errors, :status => :unprocessable_entity }
-#       end
-#     end
-#   end
-# 
-#   # PUT /factlinks/1
-#   # PUT /factlinks/1.xml
-#   def update
-#     @factlink = Factlink.find(params[:id])
-# 
-#     respond_to do |format|
-#       if @factlink.update_attributes(params[:factlink])
-#         format.html { redirect_to(@factlink, :notice => 'Factlink was successfully updated.') }
-#         format.xml  { head :ok }
-#       else
-#         format.html { render :action => "edit" }
-#         format.xml  { render :xml => @factlink.errors, :status => :unprocessable_entity }
-#       end
-#     end
-#   end
-# 
-#   # DELETE /factlinks/1
-#   # DELETE /factlinks/1.xml
-#   def destroy
-#     @factlink = Factlink.find(params[:id])
-#     @factlink.destroy
-# 
-#     respond_to do |format|
-#       format.html { redirect_to(factlinks_url) }
-#       format.xml  { head :ok }
-#     end
-#   end
+    @factlink = Factlink.find(params[:id])
+    @factlink.add_believer(current_user, parent)
 
+    render "update_source_li"
+  end
+  
+  def doubt
+    parent = Factlink.find(params[:parent_id])
+    
+    @factlink = Factlink.find(params[:id])
+    @factlink.add_doubter(current_user, parent)
 
+    render "update_source_li"
+  end
+  
+  def disbelieve
+    parent = Factlink.find(params[:parent_id])
+
+    @factlink = Factlink.find(params[:id])
+    @factlink.add_disbeliever(current_user, parent)
+
+    render "update_source_li"
+  end
+  
+  def set_opinion
+    allowed_types = ["beliefs", "doubts", "disbeliefs"]
+    type = params[:type]
+    
+    if allowed_types.include?(type)
+      @type = type
+      
+      @parent = Factlink.find(params[:parent_id])
+
+      @factlink = Factlink.find(params[:id])
+      @factlink.set_opinion(current_user, type, @parent)
+    else   
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
+
+  end
 end
