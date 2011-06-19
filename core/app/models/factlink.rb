@@ -5,7 +5,9 @@ class Factlink
 
   include Sunspot::Mongoid
   searchable do
-    text :displaystring
+    text    :displaystring
+    string  :displaystring
+    time    :created_at
   end
   
   field :title,           :type => String   
@@ -238,6 +240,11 @@ class Factlink
     (10 * belief_total) + (10 * doubt_total) - (10 * disbelieve_total)
   end
 
+  # Used for sorting
+  def self.column_names
+    self.fields.collect { |field| field[0] }
+  end
+
 
   protected  
   # Helper method to generate redis keys
@@ -253,4 +260,5 @@ class Factlink
     end
   end
   
+
 end

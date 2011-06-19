@@ -2,14 +2,6 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  ### Development
-  get "/signed_in" => "dev#login_test"
-  get "/iframe" => "dev#iframe"
-  get "/needs_sign_in" => "dev#needs_sign_in"
-  get "/iframe2" => "dev#iframe2"
-  get "/the_form" => "dev#the_form"
-  post "/post_form" => "dev#post_form"
-
   ##########
   # User Authentication
   devise_for :admins
@@ -32,12 +24,12 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/new" => "factlinks#create"  
   match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
+
+  # match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
+  # match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
   
-  match "/factlink/new" => "factlink_tops#create"  
-  match "/factlink/show/:id" => "factlink_tops#show", :as => "factlink"
-  match "/factlink/:id/edit" => "factlink_tops#edit", :as => "edit_factlink"
-  match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
-  match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
+  match "/factlink/more/:page(/:sort/:direction)" => "factlinks#more_pages"
+  match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
   
   # Add a Factlink as source
   post  "/factlink/add_as_source" => "factlinks#create_as_source"

@@ -10,7 +10,7 @@
 </div>
 
 <!-- middle block -->
-<div class="span-8">
+<div class="span-8">	
 	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">factlink</h1>
 
 	<% @factlinks.all.each do |factlink| %>
@@ -23,6 +23,22 @@
 
 
 <!-- right content block -->
+
+<div class="prepend-1 span-5 last">
+
+	<form method="GET" action="<%= factlink_overview_path %>">
+		<input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %>>
+	</form>
+
+	<br/>
+	<br/>
+	<br/>
+
+	<hr>
+</div>
+
+
+
 <div class="prepend-1 span-5 last">
 	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">active users</h1>
 	

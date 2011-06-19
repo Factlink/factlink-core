@@ -5,9 +5,9 @@ class FactlinkTop
 
   include Sunspot::Mongoid
   searchable do
-    text :displaystring
-    string :displaystring
-    time :created_at
+    text    :displaystring
+    string  :displaystring
+    time    :created_at
   end
 
   # Fields

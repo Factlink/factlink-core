@@ -26,7 +26,7 @@ class FactlinkTopsController < ApplicationController
       
       @factlink_tops = solr_result.results
     else
-      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+      @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
     end
         
     respond_to do |format|
@@ -36,7 +36,7 @@ class FactlinkTopsController < ApplicationController
   
   # GET /factlink/more
   def more_pages
-    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+    @factlink_tops = FactlinkTop.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
     
     respond_to do |format|
       format.js
@@ -192,8 +192,8 @@ class FactlinkTopsController < ApplicationController
     end
   end
   
-  private
   
+  private
   def sort_column
     FactlinkTop.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
@@ -202,15 +202,4 @@ class FactlinkTopsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  # DELETE /factlink_tops/1
-  # DELETE /factlink_tops/1.xml
-  # def destroy
-  #   @factlink_top = FactlinkTop.find(params[:id])
-  #   @factlink_top.destroy
-  # 
-  #   respond_to do |format|
-  #     format.html { redirect_to(factlink_tops_url) }
-  #     format.xml  { head :ok }
-  #   end
-  # end
 end

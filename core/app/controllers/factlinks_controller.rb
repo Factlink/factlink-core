@@ -1,5 +1,6 @@
 class FactlinksController < ApplicationController
 
+  helper_method :sort_column, :sort_direction
   before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   
   layout "client"
@@ -162,6 +163,46 @@ class FactlinksController < ApplicationController
       render :json => {"error" => "type not allowed"}
       return false
     end
-
   end
+  
+  
+  # Search 
+  def search
+    if params[:s] 
+      solr_result = Factlink.search() do
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page], :per_page => 5
+      end
+      
+      @factlinks = solr_result.results
+    else
+      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    end
+        
+    respond_to do |format|
+      format.html { render :layout => "accounting"}# index.html.erb
+    end
+  end
+  
+  # GET /factlink/more
+  def more_pages
+    @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  
+  private
+  def sort_column
+    Factlink.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+  
+  
 end
