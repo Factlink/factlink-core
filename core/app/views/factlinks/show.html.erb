@@ -12,13 +12,10 @@
 			<%= image_tag "icons/loading-indicator-white.gif" %>
 		</div>
 
-		<div class="fl-stats">
-			<ul class="fl-stats-bar">
-				<li id="fl-bar-refute-score" class="fl-bar-refute" style="height: <%= @factlink.percentage_score_denies %>%;"></li>
-				<li id="fl-bar-maybe-score" class="fl-bar-maybe" style="height: <%= @factlink.percentage_score_maybe %>%;"></li>
-				<li id="fl-bar-support-score" class="fl-bar-support" style="height: <%= @factlink.percentage_score_proves %>%;"></li>
-			</ul>
-			<span id="fl-stats-count" class="fl-stats-count"><%= @factlink.stats_count %></span>
+		<div id="fl-stats" class="fl-stats">
+			
+			<%= factlink_score_partial(@factlink) %>
+			
 		</div>
 		
 		<div class="fl-factlink">
@@ -60,7 +57,7 @@
 				<% else %>
 
 					<% @factlink.childs.each do |factlink| %>
-						<%= factlink_source_partial_as_li(factlink) %>
+						<%= factlink_source_partial_as_li(factlink, @factlink) %>
 					<% end %>
 				<% end %>
 

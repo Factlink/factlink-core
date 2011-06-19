@@ -1,6 +1,6 @@
 class FactlinksController < ApplicationController
 
-  # before_filter :authenticate_admin!
+  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   
   layout "client"
 
@@ -84,6 +84,7 @@ class FactlinksController < ApplicationController
   def create_as_source
     parent_id = params[:factlink][:parent_id]
 
+    
     # Cleaner way for doing this?
     # Cannot create! the object with paramgs[:factlink],
     # since we have to add the current_user as well.
@@ -102,6 +103,8 @@ class FactlinksController < ApplicationController
 
     # Set the correct parent
     @factlink.set_parent parent_id
+    
+    @parent = Factlink.find(parent_id)
   end
   
   def update
@@ -118,27 +121,47 @@ class FactlinksController < ApplicationController
   end
   
   def believe
+    parent = Factlink.find(params[:parent_id])
+
     @factlink = Factlink.find(params[:id])
-    @factlink.add_believer current_user
-    
-    @class = "believe"
+    @factlink.add_believer(current_user, parent)
+
     render "update_source_li"
   end
   
   def doubt
-    @factlink = Factlink.find(params[:id])
-    @factlink.add_doubter current_user
+    parent = Factlink.find(params[:parent_id])
     
-    @class = "doubt"
+    @factlink = Factlink.find(params[:id])
+    @factlink.add_doubter(current_user, parent)
+
     render "update_source_li"
   end
   
   def disbelieve
+    parent = Factlink.find(params[:parent_id])
+
     @factlink = Factlink.find(params[:id])
-    @factlink.add_disbeliever current_user
-    
-    @class = "disbelieve"
+    @factlink.add_disbeliever(current_user, parent)
+
     render "update_source_li"
   end
+  
+  def set_opinion
+    allowed_types = ["beliefs", "doubts", "disbeliefs"]
+    type = params[:type]
+    
+    if allowed_types.include?(type)
+      @type = type
+      
+      @parent = Factlink.find(params[:parent_id])
 
+      @factlink = Factlink.find(params[:id])
+      @factlink.set_opinion(current_user, type, @parent)
+    else   
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
+
+  end
 end

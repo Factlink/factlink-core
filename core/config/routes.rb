@@ -42,6 +42,8 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
   get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
 
+  get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+
   # up and down voting
   get "/factlink_subs/:id/vote/up"    => "factlink_subs#vote_up",   :as => "factlink_sub_vote_up"
   get "/factlink_subs/:id/vote/down"  => "factlink_subs#vote_down", :as => "factlink_sub_vote_down"

@@ -63,9 +63,43 @@ class Factlink
   end
 
 
+
+  def set_opinion(user, type, parent)
+    
+    if user.opinion_on_factlink?(type, self)
+      # User has this opinion already; remove opinion
+      remove_opinions(user, parent)
+    else
+      # User has none or other opinion, set this one!
+      add_opinion(type, user, parent)
+    end
+
+  end
+
+  def add_opinion(type, user, parent)
+    # Remove the old opinions
+    remove_opinions(user, parent)
+
+    # Add user to believers of this Factlink
+    $redis.zadd(self.redis_key(type), user.authority, user.id)
+
+    puts "Adding: #{self.redis_key(type)}"
+    
+    # Add the belief type to user
+    user.update_opinion(type, self, parent)
+  end
+  
+  def remove_opinions(user, parent)
+    user.remove_opinions(self, parent)
+    [:beliefs, :doubts, :disbeliefs].each do |type|
+      $redis.zrem(self.redis_key(type), user.id)
+    end
+  end
+
+
   ##########
   # Believers
-  # believer_ids are stored in Redis, using the self.redis_key(:believers)
+  # believer_ids are stored in Redis, using the self.redis_key(:beliefs)
   
   # Return all believers
   def believers
@@ -74,33 +108,23 @@ class Factlink
   
   # Return all believer ids
   def believer_ids
-    $redis.zrange(self.redis_key(:believers), 0, -1) # Ranges all items
+    $redis.zrange(self.redis_key(:beliefs), 0, -1) # Ranges all items
   end
 
   # Count all believers
   def believer_count
-    $redis.zcard(self.redis_key(:believers))
+    $redis.zcard(self.redis_key(:beliefs))
   end
 
-  def add_believer user
-    # Add the believe to user
-    user.add_believe self
-    
-    # Add user to believers of this Factlink
-    remove_doubter user     # Remove from other sets
-    remove_disbeliever user # Remove from other sets
-    $redis.zadd(self.redis_key(:believers), user.authority, user.id)
+  def add_believer(user, parent)
+    add_opinion(:beliefs,user, parent)
   end
-  
-  def remove_believer user
-    user.remove_believe self
-    $redis.zrem(self.redis_key(:believers), user.id)
-  end
+
 
 
   ##########
   # Doubters
-  # doubter_ids are stored in Redis, using the self.redis_key(:doubters)
+  # doubter_ids are stored in Redis, using the self.redis_key(:doubts)
   
   # Return all doubters
   def doubters
@@ -109,33 +133,22 @@ class Factlink
   
   # Return all believer ids
   def doubter_ids
-    $redis.zrange(self.redis_key(:doubters), 0, -1) # Ranges all items
+    $redis.zrange(self.redis_key(:doubts), 0, -1) # Ranges all items
   end
 
   # Count all doubters
   def doubter_count
-    $redis.zcard(self.redis_key(:doubters))
+    $redis.zcard(self.redis_key(:doubts))
   end
 
-  def add_doubter user
-    # Add the doubter to user
-    user.add_doubt self
-    
-    # Add user to doubters of this Factlink
-    remove_believer user    # Remove from other sets
-    remove_disbeliever user # Remove from other sets
-    $redis.zadd(self.redis_key(:doubters), user.authority, user.id)
-  end
-  
-  def remove_doubter user
-    user.remove_doubt self
-    $redis.zrem(self.redis_key(:doubters), user.id)
+  def add_doubter(user, parent)
+    add_opinion(:doubts, user, parent)
   end
 
 
   ##########
   # Disbelievers
-  # disbeliever_ids are stored in Redis, using the self.redis_key(:disbelievers)
+  # disbeliever_ids are stored in Redis, using the self.redis_key(:disbeliefs)
   
   # Return all believers
   def disbelievers
@@ -144,61 +157,47 @@ class Factlink
   
   # Return all disbeliever ids
   def disbeliever_ids
-    $redis.zrange(self.redis_key(:disbelievers), 0, -1) # Ranges all items
+    $redis.zrange(self.redis_key(:disbeliefs), 0, -1) # Ranges all items
   end
 
   # Count all disbelievers
   def disbeliever_count
-    $redis.zcard(self.redis_key(:disbelievers))
+    $redis.zcard(self.redis_key(:disbeliefs))
   end
 
-  def add_disbeliever user
-    # Add the disbeliever to user
-    user.add_disbelieve self
-    
-    # Add user to disbelievers of this Factlink
-    remove_believer user    # Remove from other sets
-    remove_doubter user     # Remove from other sets
-    $redis.zadd(self.redis_key(:disbelievers), user.authority, user.id)
-  end
-  
-  def remove_disbeliever user
-    user.remove_disbelieve self
-    $redis.zrem(self.redis_key(:disbelievers), user.id)
+  def add_disbeliever(user, parent)
+    add_opinion(:disbeliefs,user, parent)
   end
 
 
   # SCORE STUFF
   # TODO: Needs some refactoring and new calculations
   def score_dict_as_percentage
-    # TODO: Calculate values in stead of dummy data
-    percentage_score_dict = {}
+    total = total_score
 
-    percentage_score_dict['denies'] = 14
-    percentage_score_dict['maybe'] = 32
-    percentage_score_dict['proves'] = 54
-
+    percentage_score_dict = {
+      :proves => percentage(total, belief_total),
+      :maybe => percentage(total, doubt_total),
+      :denies => percentage(total, disbelieve_total)
+    }
     percentage_score_dict
   end
 
   def score_dict_as_absolute
     # TODO: Calculate values in stead of dummy data
-    absolute_score_dict = {}
-
-    absolute_score_dict['denies'] = 7
-    absolute_score_dict['maybe'] = 16
-    absolute_score_dict['proves'] = 27
-
+    absolute_score_dict = {
+      :proves => disbelieve_total,
+      :maybe => doubt_total,
+      :denies => belief_total
+    }
     absolute_score_dict
   end
 
   def total_score
     # TODO: Should be called total_activity ?
-
-    # [self.score_denies, self.score_maybe, self.score_proves].inject(1) { | result, value | result + value }
-    sum = self.believer_count + 
-          self.doubter_count  + 
-          self.disbeliever_count
+    sum = self.belief_total + 
+          self.doubt_total  + 
+          self.disbelieve_total
     
     # Quick hack against divide by zero
     if sum == 0
@@ -210,35 +209,22 @@ class Factlink
 
   # Percentual scores
   def percentage_score_denies
-    score_dict_as_percentage['denies']
+    score_dict_as_percentage[:denies]
   end
   
   def percentage_score_maybe
-    score_dict_as_percentage['maybe']
+    score_dict_as_percentage[:maybe]
   end
   
   def percentage_score_proves
-    score_dict_as_percentage['proves']
+    score_dict_as_percentage[:proves]
   end
 
-  # Absolute scores
-  def absolute_score_proves
-    self.believer_count
-  end
-
-  def absolute_score_maybe
-    self.doubter_count
-  end
-
-  def absolute_score_denies
-    self.disbeliever_count
-  end
-  
   
   # Stats count
   def stats_count
     # Fancy score calculation
-    (10 * absolute_score_proves) + (1 * absolute_score_maybe) - (10 * absolute_score_denies)
+    (10 * belief_total) + (10 * doubt_total) - (10 * disbelieve_total)
   end
 
 
@@ -246,6 +232,14 @@ class Factlink
   # Helper method to generate redis keys
   def redis_key(str)
     "factlink:#{self.id}:#{str}"
+  end
+  
+  def percentage(total, part)
+    if total > 0
+      (100 * part) / total
+    else
+      0
+    end
   end
   
 end

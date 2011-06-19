@@ -268,6 +268,58 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
   cursor: pointer;
   position: absolute;
 }
+
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.believe {
+	background: #bada55;
+	opacity: 0.3;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.doubt {
+	background: rgb(255, 211, 36);
+	opacity: 0.3;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.disbelieve {
+	background: rgb(206, 0, 0);
+	opacity: 0.3;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span {
+	display: block;
+	border-bottom: 0px !important;
+	
+	margin: 0px;
+	padding: 0px;
+	margin-left: 4px;
+	width: 24px;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container a {
+	text-decoration: none;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.believe:hover,
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.doubt:hover,
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.disbelieve:hover {
+	opacity: 0.6 !important;
+	-webkit-transition:all 0.1s ease-in-out; 
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li span.active {
+	opacity: 1.0 !important;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.believe {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.disbelieve {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;	
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
   left: 0px;
   position: absolute;

@@ -1,0 +1,16 @@
+<li data-score="<%= factlink.total_score %>" id="fl-source-<%= factlink.id %>">
+
+	<div id="fl-vote-container" class="fl-vote-container">
+		<%= vote_options(factlink, parent) %>
+	</div>
+
+	<span class="fl-statement-title"><%= factlink.displaystring %></span>
+	<p><%= factlink.content %></p>
+	<hr>
+	
+	<div class="fl-source-information">
+		<span class="fl-source-created-by">by <%= link_to(factlink.created_by, user_profile_path(factlink.created_by.username), :target => "_blank") %></span>
+		<span class="fl-source">found on <a href="<%= factlink.url %>" target="_blank"><%= factlink.url %></a></span>
+	</div>
+
+</li>
