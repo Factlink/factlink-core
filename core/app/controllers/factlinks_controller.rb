@@ -22,6 +22,14 @@ class FactlinksController < ApplicationController
 
   def show
     @factlink = Factlink.find(params[:id])
+    
+    # TODO: Generatge ajax request for potential sources
+    # All sources that are not part of this factlink yet
+    
+    not_allowed_ids = @factlink.child_ids
+    not_allowed_ids << @factlink.id
+    
+    @potential_sources = Factlink.not_in( :_id => not_allowed_ids )
   end
   
   def new
@@ -106,6 +114,13 @@ class FactlinksController < ApplicationController
     @factlink.set_parent parent_id
     
     @parent = Factlink.find(parent_id)
+  end
+  
+  def add_source_to_factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @source   = Factlink.find(params[:source_id])
+    
+    @source.set_parent @factlink.id
   end
   
   def update

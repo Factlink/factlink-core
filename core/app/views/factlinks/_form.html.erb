@@ -20,9 +20,9 @@
 	</script>
 	<div class="fl-stats">
 		<ul class="fl-stats-bar">
-			<li class="fl-bar-refute" style="height: <%= @factlink.percentage_score_denies %>%;"><%= @factlink.absolute_score_denies %></li>
-			<li class="fl-bar-maybe" style="height: <%= @factlink.percentage_score_maybe %>%;"><%= @factlink.absolute_score_maybe %></li>
-			<li class="fl-bar-support" style="height: <%= @factlink.percentage_score_proves %>%;"><%= @factlink.absolute_score_proves %></li>
+			<li class="fl-bar-refute" style="height: <%= @factlink.percentage_score_denies %>%;"><%= @factlink.disbelieve_total %></li>
+			<li class="fl-bar-maybe" style="height: <%= @factlink.percentage_score_maybe %>%;"><%= @factlink.doubt_total %></li>
+			<li class="fl-bar-support" style="height: <%= @factlink.percentage_score_proves %>%;"><%= @factlink.belief_total %></li>
 		</ul>
 		<span class="fl-stats-count"><%= @factlink.stats_count %></span>
 	</div>

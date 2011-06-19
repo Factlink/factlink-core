@@ -25,14 +25,13 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
 
-  # match "/factlink/more/:page(/:sort/:direction)" => "factlink_tops#more_pages"
-  # match "/factlink(/page/:page)(/:sort/:direction)" => "factlink_tops#index", :as => "factlink_overview"
-  
+  # Search and infinite scrolling
   match "/factlink/more/:page(/:sort/:direction)" => "factlinks#more_pages"
   match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
   
   # Add a Factlink as source
   post  "/factlink/add_as_source" => "factlinks#create_as_source"
+  get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
 
 
   # Believe, doubt and disbelieve
@@ -42,14 +41,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
 
-  # up and down voting
-  get "/factlink_subs/:id/vote/up"    => "factlink_subs#vote_up",   :as => "factlink_sub_vote_up"
-  get "/factlink_subs/:id/vote/down"  => "factlink_subs#vote_down", :as => "factlink_sub_vote_down"
-
-  ##########
-  # Factlink resources
-  resources :factlink_tops
-  resources :factlink_subs
   
   ##########
   # Web Front-end
@@ -59,10 +50,6 @@ FactlinkUI::Application.routes.draw do
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
-  ##########
-  # Development, testing Solr
-  # match "/search" => "factlink_tops#search"
-  
 
 
   ############################################################################

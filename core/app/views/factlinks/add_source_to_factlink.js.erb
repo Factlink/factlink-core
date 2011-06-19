@@ -1,0 +1,10 @@
+$('ol#fl-existing-sources-list > li#fl-source-<%= @source.id %>');
+
+
+$('ol#fl-existing-sources-list > li#fl-source-<%= @source.id %>').slideUp(function() {
+	$('div#fl-existing-sources-popup').fadeOut('fast', function() {
+		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'source_as_li', :locals => { :factlink => @source, :parent => @factlink } )) %>");
+	});
+});
+
+

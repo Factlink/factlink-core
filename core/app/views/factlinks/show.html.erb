@@ -65,8 +65,12 @@
 		</div>
 
 		<div class="fl-bottom">
+
 			<span style="color: #999; padding: 4px;">Added by <%= link_to(@factlink.created_by, user_profile_path(@factlink.created_by.username), :target => "_blank") %></span>
-			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="float: right;">Add source</a>
+			
+			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="float: right;">Add new</a>
+			<a onclick="javascript: $('#fl-existing-sources-popup').fadeIn('fast'); " class="button confirm" style="float: right; margin-right: 4px;">Add existing</a>
+
 		</div>
 		
 		<div class="fl-clear"></div>
@@ -75,4 +79,51 @@
 		<div id="fl-sources-popup" style="display: none;">
 			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
 			<%= render :partial => "remote_form" %>
+		</div>
+		
+		
+		
+		<div id="fl-existing-sources-popup"
+		style="position: absolute; 
+		border: solid 2px rgba(0, 0, 0, 0.2);
+		border-radius: 4px; padding: 4px;
+		width: 390px;
+		height: 248px;
+		background: #eee;
+		box-shadow: 0px 0px 8px #888;
+		top: 60px;
+		left: 18px;
+		display: none;">
+			
+			<span style="margin: 4px;">Please choose an existing source to add:</span>
+
+			<div class="fl-scroll-pane" style="margin-top: 4px;">
+				<ol id="fl-existing-sources-list" class="fl-sources" style="height: 200px;">
+					
+					<% @potential_sources.each do |source| %>
+
+					<li id="fl-source-<%= source.id %>">
+						
+						<div style="width: 320px; margin-left: -20px;">
+							<span><%= source.displaystring %></span>
+							<p><%= source.content || "<no content available>" %></p>
+							<span>found on <%= source.url %>
+						</div>
+
+						
+						<div style="position: absolute; right: 10px; top: 30px;">
+							<%= link_to('add', add_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						</div>
+						
+						
+					</li>
+					
+					<% end %>
+				</ol>
+			</div>
+			
+			<div class="center" style="padding: 8px;">
+				<a onclick="javascript: $('#fl-existing-sources-popup').fadeOut('fast'); ">or cancel</a>
+			</div>
+			
 		</div>
