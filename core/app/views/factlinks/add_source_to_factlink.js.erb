@@ -4,7 +4,7 @@ if (no_fact_message.length > 0) {
 	no_fact_message.slideUp(500);
 }
 
-$('ol#fl-existing-sources-list > li#fl-source-<%= @source.id %>').slideUp(function() {
+$('ol#fl-existing-childs-list > li#fl-source-<%= @source.id %>').slideUp(function() {
 	$('div#fl-potential-childs-popup').fadeOut('fast', function() {
 		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'source_as_li', :locals => { :factlink => @source, :parent => @factlink } )) %>");
 	});

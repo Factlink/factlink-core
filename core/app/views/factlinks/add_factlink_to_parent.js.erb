@@ -7,7 +7,7 @@ setTimeout(function() {
 	$('>img:first', loading_indicator)
 	    .attr('src', '/images/icons/factlink/16.png');
 
-			$('ol#fl-existing-sources-list > li#fl-source-<%= @parent.id %>').slideUp();
+			$('ol#fl-existing-parents-list > li#fl-source-<%= @parent.id %>').slideUp();
 	
 			// Reset loading indicator
 			setTimeout(function() {
