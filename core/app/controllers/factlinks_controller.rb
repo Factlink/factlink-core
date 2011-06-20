@@ -23,13 +23,16 @@ class FactlinksController < ApplicationController
   def show
     @factlink = Factlink.find(params[:id])
     
-    # TODO: Generatge ajax request for potential sources
+    # TODO: Generate ajax request for potential sources
     # All sources that are not part of this factlink yet
-    
-    not_allowed_ids = @factlink.child_ids
+
+    # Create copy of ids array
+    not_allowed_ids = Array.new(@factlink.child_ids)
+    # Don't allow self to be used as source
     not_allowed_ids << @factlink.id
     
     @potential_sources = Factlink.not_in( :_id => not_allowed_ids )
+
   end
   
   def new
@@ -187,12 +190,12 @@ class FactlinksController < ApplicationController
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
-        paginate :page => params[:page], :per_page => 5
+        paginate :page => params[:page], :per_page => 50
       end
       
       @factlinks = solr_result.results
     else
-      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
     end
         
     respond_to do |format|
@@ -202,7 +205,7 @@ class FactlinksController < ApplicationController
   
   # GET /factlink/more
   def more_pages
-    @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 5, :sort => [sort_column, sort_direction])
+    @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
     
     respond_to do |format|
       format.js

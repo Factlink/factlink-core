@@ -1,5 +1,10 @@
-$('ol#fl-existing-sources-list > li#fl-source-<%= @source.id %>');
 
+
+var no_fact_message = $("#no-facts-message");
+if (no_fact_message.length > 0) {
+	// The message is there, remove it.
+	no_fact_message.slideUp(500);
+}
 
 $('ol#fl-existing-sources-list > li#fl-source-<%= @source.id %>').slideUp(function() {
 	$('div#fl-existing-sources-popup').fadeOut('fast', function() {

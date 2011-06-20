@@ -59,6 +59,7 @@
 					<% @factlink.childs.each do |factlink| %>
 						<%= factlink_source_partial_as_li(factlink, @factlink) %>
 					<% end %>
+					
 				<% end %>
 
 			</ol>
@@ -107,7 +108,12 @@
 						<div style="width: 320px; margin-left: -20px;">
 							<span><%= source.displaystring %></span>
 							<p><%= source.content || "<no content available>" %></p>
-							<span>found on <%= source.url %>
+
+							<% if source.site %>
+								<span class="fl-source">found on <a href="<%= source.site.url %>" target="_blank"><%= source.site.url %></a></span>
+							<% else %>
+								<span class="fl-source">found on <a href="<%= source.url %>" target="_blank"><%= source.url %></a></span>
+							<% end %>
 						</div>
 
 						

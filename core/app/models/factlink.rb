@@ -64,15 +64,15 @@ class Factlink
   end
 
   def belief_total
-    self.childs.map { |child| child.believer_count }.inject(0) { |result, value | result + value }
+    self.childs.map { |child| child.believer_count }.inject(1) { |result, value | result + value }
   end
 
   def doubt_total
-    self.childs.map { |child| child.doubter_count }.inject(0) { |result, value | result + value }
+    self.childs.map { |child| child.doubter_count }.inject(1) { |result, value | result + value }
   end
 
   def disbelieve_total
-    self.childs.map { |child| child.disbeliever_count }.inject(0) { |result, value | result + value }
+    self.childs.map { |child| child.disbeliever_count }.inject(1) { |result, value | result + value }
   end
 
 
