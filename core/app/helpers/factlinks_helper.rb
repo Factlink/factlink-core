@@ -8,6 +8,16 @@ module FactlinksHelper
     link_to title, {:s => params[:s], :sort => column, :direction => direction}, {:class => css_class}
   end
 
+  # Popups
+  def potential_childs_popup(potential_childs)
+    render :partial => 'factlinks/client_popups/potential_childs', :locals => { :potential_childs => potential_childs }
+  end
+
+  def potential_parents_popup(potential_parents)
+    render :partial => 'factlinks/client_popups/potential_parents', :locals => { :potential_parents => potential_parents }
+  end
+
+
   # Listitem for in factlink client overview
   def factlink_source_partial_as_li(factlink, parent)
     render :partial => 'factlinks/source_as_li', :locals => { :factlink => factlink, :parent => parent }

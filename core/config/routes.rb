@@ -31,7 +31,7 @@ FactlinkUI::Application.routes.draw do
   # Add a Factlink as source
   post  "/factlink/add_as_source" => "factlinks#create_as_source"
   get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
-
+  get   "/factlink/:factlink_id/add_to_parent/:parent_id" => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
 
   # Believe, doubt and disbelieve
   get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"

@@ -27,12 +27,15 @@ class FactlinksController < ApplicationController
     # All sources that are not part of this factlink yet
 
     # Create copy of ids array
-    not_allowed_ids = Array.new(@factlink.child_ids)
+    not_allowed_child_ids = Array.new(@factlink.child_ids)
     # Don't allow self to be used as source
-    not_allowed_ids << @factlink.id
+    not_allowed_child_ids << @factlink.id
     
-    @potential_sources = Factlink.not_in( :_id => not_allowed_ids )
-
+    not_allowed_parent_ids = Array.new(@factlink.parent_ids)
+    not_allowed_parent_ids << @factlink.id
+    
+    @potential_childs   = Factlink.not_in( :_id => not_allowed_child_ids )
+    @potential_parents  = Factlink.not_in( :_id => not_allowed_parent_ids )
   end
   
   def new
@@ -125,6 +128,14 @@ class FactlinksController < ApplicationController
     
     @source.set_parent @factlink.id
   end
+  
+  def add_factlink_to_parent
+    @factlink = Factlink.find(params[:factlink_id])
+    @parent   = Factlink.find(params[:parent_id])
+    
+    @factlink.set_parent @parent.id
+  end
+  
   
   def update
     @factlink = Factlink.find(params[:id])
