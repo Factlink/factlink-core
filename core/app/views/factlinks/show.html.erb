@@ -68,9 +68,17 @@
 		<div class="fl-bottom">
 
 			<span style="color: #999; padding: 4px;">Added by <%= link_to(@factlink.created_by, user_profile_path(@factlink.created_by.username), :target => "_blank") %></span>
-			
-			<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="float: right;">Add new</a>
-			<a onclick="javascript: $('#fl-existing-sources-popup').fadeIn('fast'); " class="button confirm" style="float: right; margin-right: 4px;">Add existing</a>
+
+
+			<div class="fl-clear">&nbsp;</div>
+				
+			<div style="padding: 4px 4px 8px 4px;" class="center">
+				
+				<a onclick="javascript: $('#fl-existing-sources-popup').fadeIn('fast'); " class="button confirm" style="">Add to existing</a>
+				<a onclick="javascript: $('#fl-existing-sources-popup').fadeIn('fast'); " class="button confirm" style="">Add existing</a>
+				<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a>
+				
+			</div>
 
 		</div>
 		

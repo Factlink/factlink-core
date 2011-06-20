@@ -28,17 +28,9 @@ facts = ['Batman is a fictional character created by the artist Bob Kane and wri
 'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
 'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended']
 
-facts.each do |fact|
-  
+facts.each do |fact|  
   Factlink.create!( :displaystring => fact,
                     :site => site,
                     :created_by => user
   )  
-end
-
-500.times do |x|
-  Factlink.create!( :displaystring => facts[0],
-                    :site => site,
-                    :created_by => user
-  )
 end
