@@ -26,7 +26,6 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
 
   # Search and infinite scrolling
-  match "/factlink/more/:page(/:sort/:direction)" => "factlinks#more_pages"
   match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
   
   # Add a Factlink as source

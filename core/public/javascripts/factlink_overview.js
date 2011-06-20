@@ -43,7 +43,7 @@ var // Integer value holding current page number
     // Function that will load more items
     load_more = function() {
         $.ajax({
-            url: '/factlink/more/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js',
+            url: '/factlink/page/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js',
             dataType: 'script',
             success: function() {
                 // Done loading!

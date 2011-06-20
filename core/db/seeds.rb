@@ -37,7 +37,7 @@ facts.each do |fact|
 end
 
 500.times do |x|
-  Factlink.create!( :displaystring => facts[0],
+  Factlink.create!( :displaystring => x,
                     :site => site,
                     :created_by => user
   )
