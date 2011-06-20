@@ -28,14 +28,16 @@ class Factlink
   belongs_to  :created_by,
               :class_name => "User"
 
+    
+  scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten )
   
   # TODO: Find another way to retrieve all factlinks that have a relation to a site
   # scope :with_site, where( :site.ne => nil ) # is not working.
-  def self.with_site_as_parent
-    # Map all site, and all factlinks in this site.
-    factlink_ids = Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten
-    self.where( :_id.in => factlink_ids )
-  end
+  # def self.with_site_as_parent
+  #   # Map all site, and all factlinks in this site.
+  #   factlink_ids = Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten
+  #   self.where( :_id.in => factlink_ids )
+  # end
   
   
   def to_s
