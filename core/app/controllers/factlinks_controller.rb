@@ -191,7 +191,7 @@ class FactlinksController < ApplicationController
     if params[:s] 
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
-        # order_by sort_column, sort_direction
+        order_by sort_column, sort_direction
         paginate :page => params[:page], :per_page => per_page
       end
       
