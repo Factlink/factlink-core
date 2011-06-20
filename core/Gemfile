@@ -5,7 +5,7 @@ gem 'rails', '3.0.5'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # system_timer is only needed in ruby 1.8.*
-# gem 'SystemTimer'
+gem 'SystemTimer'
 
 ##########
 # Devise already comes with oauth2 support, 

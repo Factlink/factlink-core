@@ -6,6 +6,8 @@ var // Integer value holding current page number
     // Sorting variables
     sort_direction = "",
     sort_column = "",
+    // Is there a search going on?
+    search_string = /\?s=([a-zA-Z0-9]*)/.exec(window.location.search),
     // Are we currently loading?
     isLoading = false,
     // Loading helpers
@@ -43,7 +45,7 @@ var // Integer value holding current page number
     // Function that will load more items
     load_more = function() {
         $.ajax({
-            url: '/factlink/page/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js',
+            url: '/factlink/page/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js' + ( search_string.length === 2 ? "?s=" + search_string[1] : "" ) ,
             dataType: 'script',
             success: function() {
                 // Done loading!
