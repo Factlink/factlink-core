@@ -38,8 +38,6 @@ class Factlink
   end
   
   
-  
-  
   def to_s
     self.displaystring
   end
