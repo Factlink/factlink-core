@@ -186,32 +186,25 @@ class FactlinksController < ApplicationController
   
   # Search 
   def search
+    per_page = 50
+    
     if params[:s] 
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
-        order_by sort_column, sort_direction
-        paginate :page => params[:page], :per_page => 50
+        # order_by sort_column, sort_direction
+        paginate :page => params[:page], :per_page => per_page
       end
       
       @factlinks = solr_result.results
     else
-      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => per_page, :sort => [sort_column, sort_direction])
     end
         
     respond_to do |format|
-      format.html { render :layout => "accounting"}# index.html.erb
-    end
-  end
-  
-  # GET /factlink/more
-  def more_pages
-    @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
-    
-    respond_to do |format|
+      format.html { render :layout => "accounting" }# index.html.erb
       format.js
     end
   end
-  
   
   private
   def sort_column
