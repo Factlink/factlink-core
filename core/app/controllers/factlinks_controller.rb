@@ -27,15 +27,12 @@ class FactlinksController < ApplicationController
     # All sources that are not part of this factlink yet
 
     # Create copy of ids array
-    not_allowed_child_ids = Array.new(@factlink.child_ids)
+    not_allowed_ids = Array.new(@factlink.child_ids)
     # Don't allow self to be used as source
-    not_allowed_child_ids << @factlink.id
+    not_allowed_ids << @factlink.id
     
-    not_allowed_parent_ids = Array.new(@factlink.parent_ids)
-    not_allowed_parent_ids << @factlink.id
-    
-    @potential_childs   = Factlink.not_in( :_id => not_allowed_child_ids )
-    @potential_parents  = Factlink.not_in( :_id => not_allowed_parent_ids )
+    @potential_sources = Factlink.not_in( :_id => not_allowed_ids )
+
   end
   
   def new
@@ -129,14 +126,6 @@ class FactlinksController < ApplicationController
     @source.set_parent @factlink.id
   end
   
-  def add_factlink_to_parent
-    @factlink = Factlink.find(params[:factlink_id])
-    @parent   = Factlink.find(params[:parent_id])
-    
-    @factlink.set_parent @parent.id
-  end
-  
-  
   def update
     @factlink = Factlink.find(params[:id])
 
@@ -197,24 +186,31 @@ class FactlinksController < ApplicationController
   
   # Search 
   def search
-
+    per_page = 50
+     
     if params[:s] 
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
-        paginate :page => params[:page], :per_page => 50
+        paginate :page => params[:page], :per_page => per_page
       end
       
       @factlinks = solr_result.results
     else
-      @factlinks = Factlink.paginate(
-                              :page => params[:page], 
-                              :per_page => 50, 
-                              :sort => [sort_column, sort_direction])
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @factlinks = WillPaginate::Collection.create( params[:page] || 1, per_page ) do |pager|
+        start = (pager.current_page-1)*per_page
+        
+        # Sorting & filtering done by mongoid
+        results = Factlink.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(per_page).to_a
+        
+        # pager.replace(results[start, per_page])
+        pager.replace(results)
+      end
     end
         
     respond_to do |format|
-      format.html { render :layout => "accounting" }    # search.html.erb
+      format.html { render :layout => "accounting" }# search.html.erb
       format.js
     end
   end
