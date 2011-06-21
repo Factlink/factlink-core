@@ -34,3 +34,10 @@ facts.each do |fact|
                     :created_by => user
   )  
 end
+
+500.times do |x|  
+  Factlink.create!( :displaystring => facts[x % facts.count],
+                    :site => site,
+                    :created_by => user
+  )  
+end
