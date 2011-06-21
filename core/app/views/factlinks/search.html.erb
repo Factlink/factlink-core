@@ -1,5 +1,12 @@
 <% content_for :script do %>
 	<%= javascript_include_tag("factlink_overview") %>
+	<% if @factlinks.count < @per_page %>
+	  <script type="text/javascript">
+	    window.isFullyLoaded = true;
+	    $( '#load_more' ).hide();
+      $( '#loading' ).hide();
+	  </script>
+	<% end %>
 <% end %>
 
 
