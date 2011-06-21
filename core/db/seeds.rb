@@ -37,7 +37,6 @@ facts.each do |fact|
   )
 end
 
-<<<<<<< HEAD
 500.times do |x|
   Factlink.create!( :displaystring => facts[x % facts.count],
                     :site => site,
@@ -45,7 +44,5 @@ end
   )  
 end
 
-=======
 # Commit the indices to Solr
 Sunspot.commit
->>>>>>> 8941c79dc84b8fffeefa291e6b4256aaae5fc722

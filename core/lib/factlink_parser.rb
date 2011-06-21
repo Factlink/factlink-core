@@ -1,7 +1,6 @@
 class FactlinkSearcher
   
   def search(keyword)
-
     # result = Sunspot.search(Factlink) do
     #   keywords keyword, :fields => [:displaystring]
     # end
@@ -15,10 +14,7 @@ class FactlinkSearcher
     
     result
   end
-  
-  
 
-  
   def env
     return RAILS_ENV
   end
