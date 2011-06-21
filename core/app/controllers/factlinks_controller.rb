@@ -185,17 +185,32 @@ class FactlinksController < ApplicationController
   
   
   # Search 
-  def search    
+  def search
+    per_page = 50
+     
     if params[:s] 
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
-        paginate :page => params[:page], :per_page => 50
+        paginate :page => params[:page], :per_page => per_page
       end
       
       @factlinks = solr_result.results
     else
-      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @factlinks = WillPaginate::Collection.create( params[:page] || 1, per_page ) do |pager|
+        start = (pager.current_page-1)*per_page
+        
+        results = Factlink.with_site_as_parent.to_a.sort do |a,b|
+          if sort_direction == "asc"
+            a[sort_column] <=> b[sort_column]
+          else
+            b[sort_column] <=> a[sort_column]
+          end
+        end
+        
+        pager.replace(results[start, per_page])
+      end
     end
         
     respond_to do |format|
