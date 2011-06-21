@@ -201,15 +201,11 @@ class FactlinksController < ApplicationController
       @factlinks = WillPaginate::Collection.create( params[:page] || 1, per_page ) do |pager|
         start = (pager.current_page-1)*per_page
         
-        results = Factlink.with_site_as_parent.to_a.sort do |a,b|
-          if sort_direction == "asc"
-            a[sort_column] <=> b[sort_column]
-          else
-            b[sort_column] <=> a[sort_column]
-          end
-        end
+        # Sorting & filtering done by mongoid
+        results = Factlink.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(per_page).to_a
         
-        pager.replace(results[start, per_page])
+        # pager.replace(results[start, per_page])
+        pager.replace(results)
       end
     end
         
