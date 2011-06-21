@@ -1,3 +1,32 @@
+class FactlinkSearcher
+  
+  def search(keyword)
+
+    # result = Sunspot.search(Factlink) do
+    #   keywords keyword, :fields => [:displaystring]
+    # end
+    
+    result = Factlink.search() do
+      keywords keyword, :fields => [:displaystring]
+      
+      # order_by sort_column, sort_direction
+      # paginate :page => params[:page], :per_page => per_page
+    end
+    
+    result
+  end
+  
+  
+
+  
+  def env
+    return RAILS_ENV
+  end
+  
+end
+
+
+
 class FactlinkParser
 
   ResultsLanguage = 'en'

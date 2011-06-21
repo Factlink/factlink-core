@@ -37,7 +37,8 @@ class Factlink
   #   # Map all site, and all factlinks in this site.
   #   factlink_ids = Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten
   #   self.where( :_id.in => factlink_ids )
-  # end
+  # end  
+
   
   
   def to_s

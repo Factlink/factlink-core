@@ -12,7 +12,6 @@
 if Rails.env.development?
   Site.all.delete
   Factlink.all.delete
-
 end
 
 user = User.first
@@ -22,7 +21,8 @@ site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save
 
 
-facts = ['Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
+facts = [
+'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
 'Batman\'s secret identity is Bruce Wayne',
 'Batman operates in the fictional American Gotham City',
 'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
@@ -35,9 +35,10 @@ facts.each do |fact|
   )  
 end
 
-500.times do |x|  
+500.times do |x|
   Factlink.create!( :displaystring => facts[x % facts.count],
                     :site => site,
                     :created_by => user
   )  
 end
+
