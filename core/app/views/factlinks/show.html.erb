@@ -13,9 +13,7 @@
 		</div>
 
 		<div id="fl-stats" class="fl-stats">
-			
-			<%= factlink_score_partial(@factlink) %>
-			
+				<%= factlink_score_partial(@factlink) %>
 		</div>
 		
 		<div class="fl-factlink">
@@ -39,7 +37,9 @@
 
 			</ul>
 			
+			<% if @factlink.created_by == current_user %>
 			<a href="<%= edit_factlink_path(@factlink) %>">edit tags</a>
+			<% end %>
 		</div>
 		
 		<div class="fl-clear"></div>
@@ -74,10 +74,15 @@
 				
 			<div style="padding: 4px 4px 8px 4px;" class="center">
 				
+				<% if user_signed_in? %>
 				<a onclick="javascript: $('#fl-potential-parents-popup').fadeIn('fast'); " class="button confirm" style="">Add to existing</a>
 				<a onclick="javascript: $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add existing</a>
 				<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a>
+				<% else %>
+
+				<%= link_to("Sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %>
 				
+				<% end %>
 			</div>
 
 		</div>
@@ -91,7 +96,7 @@
 		</div>
 		
 		
-		
+		<!-- popups -->
 		<%= potential_childs_popup(@potential_childs) %>
 		
 		<%= potential_parents_popup(@potential_parents) %>

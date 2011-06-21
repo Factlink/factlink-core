@@ -20,9 +20,8 @@
 
 <table class="factlinks">
 	<colgroup>
-		<col style="width: 450px;" />
+		<col style="width: 840px;" />
 		<col style="width: 120px;" />
-		<col span="3" style="width: 50px;" />
 	</colgroup>
 	<thead>
 		<tr>
@@ -31,11 +30,8 @@
 			</td>
 		</tr>
 	  <tr>
-	    <th style="width: 450px;"><%= sortable 'displaystring' %></th>
-	    <th style="width: 120px;"><%= sortable 'created_at' %></th>
-			<th></th>
-	    <th></th>
-	    <th></th>
+	    <th><%= sortable 'displaystring' %></th>
+	    <th><%= sortable 'created_at' %></th>
 	  </tr>
 	</thead>
 	<tfoot>
@@ -51,6 +47,6 @@
 		</tr>
 	</tfoot>
 	<tbody>
-	  <%= render :partial => "factlink_as_td", :collection => @factlinks, :as => :factlink %>
+	  <%= render(:partial => "factlink_as_td", :collection => @factlinks, :as => :factlink) || "<tr><td colspan=\"2\">No results found...</td></tr>".html_safe %>
 	</tbody>
 </table>
