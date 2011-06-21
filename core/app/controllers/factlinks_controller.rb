@@ -196,7 +196,8 @@ class FactlinksController < ApplicationController
   
   
   # Search 
-  def search    
+  def search
+
     if params[:s] 
       solr_result = Factlink.search() do
         keywords params[:s], :fields => [:displaystring]
@@ -206,11 +207,14 @@ class FactlinksController < ApplicationController
       
       @factlinks = solr_result.results
     else
-      @factlinks = Factlink.with_site_as_parent.paginate(:page => params[:page], :per_page => 50, :sort => [sort_column, sort_direction])
+      @factlinks = Factlink.paginate(
+                              :page => params[:page], 
+                              :per_page => 50, 
+                              :sort => [sort_column, sort_direction])
     end
         
     respond_to do |format|
-      format.html { render :layout => "accounting" }# search.html.erb
+      format.html { render :layout => "accounting" }    # search.html.erb
       format.js
     end
   end
