@@ -12,7 +12,8 @@
 if Rails.env.development?
   Site.all.delete
   Factlink.all.delete
-
+  # Remove the indices of all Factlinks in Solr.
+  Sunspot.remove_all!(Factlink)
 end
 
 user = User.first
@@ -32,12 +33,8 @@ facts.each do |fact|
   Factlink.create!( :displaystring => fact,
                     :site => site,
                     :created_by => user
-  )  
+  )
 end
 
-500.times do |x|  
-  Factlink.create!( :displaystring => facts[x % facts.count],
-                    :site => site,
-                    :created_by => user
-  )  
-end
+# Commit the indices to Solr
+Sunspot.commit

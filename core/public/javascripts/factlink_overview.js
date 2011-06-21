@@ -1,4 +1,7 @@
 (function(window){
+// Check if all Factlinks are loaded
+window.isFullyLoaded = false;
+
 var // Integer value holding current page number
     page = 1,
     // Location string used for sort direction/name parsing
@@ -31,8 +34,6 @@ var // Integer value holding current page number
         $( '#loading' ).hide();
         $( '#load_more' ).show();
     },
-    // Check if all Factlinks are loaded
-    isFullyLoaded = window.isFullyLoaded = false,
     // Function that will check if there is a need for content
     check_scroll = function() {
         if ( $( document ).height() - ( $( window ).scrollTop() + $( window ).height() ) < 700 ) {

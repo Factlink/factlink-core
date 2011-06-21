@@ -4,7 +4,8 @@ class Factlink
   include Mongoid::Taggable
 
   include Sunspot::Mongoid
-  searchable do
+  
+  searchable :auto_index => true do
     text    :displaystring
     string  :displaystring
     time    :created_at
