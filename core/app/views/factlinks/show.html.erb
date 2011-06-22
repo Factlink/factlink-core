@@ -8,7 +8,7 @@
 			parent.remote.setFrameBounds(440, 370);
 		</script>		
 
-		<div id="fl-loading-indicator" style="display: none; z-index: 10; position: absolute; width: 80px; height: 30px; top: 160px; left: 174px; border: solid 4px rgba(0,0,0,0.2); border-radius: 4px; background-color: #eee; margin: 0 auto; text-align: center; padding-top: 12px;">
+		<div id="fl-loading-indicator" style="display: none; z-index: 100; position: absolute; width: 80px; height: 30px; top: 160px; left: 174px; border: solid 4px rgba(0,0,0,0.2); border-radius: 4px; background-color: #eee; margin: 0 auto; text-align: center; padding-top: 12px;">
 			<%= image_tag "icons/loading-indicator-white.gif" %>
 		</div>
 
@@ -74,7 +74,7 @@
 			<div style="padding: 4px 4px 8px 4px;" class="center">
 				
 				<% if user_signed_in? %>
-				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast'); " class="button confirm" style="">Add to existing fact</a>
+				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="button confirm" style="">Add to existing fact</a>
 				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add existing fact as support</a>
 				<!-- <a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a> -->
 				<% else %>

@@ -1,6 +1,5 @@
 class User
   include Mongoid::Document
-  include Mongo::Voter
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, :registerable,
@@ -16,8 +15,7 @@ class User
   # field :first_name
   # field :last_name
 
-  has_many :factlink_tops, :as => :created_by
-  has_many :factlink_subs, :as => :created_by
+  has_many :factlinks, :as => :created_by
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
@@ -101,6 +99,10 @@ class User
   def believe_count
     $redis.scard(self.redis_key(:beliefs))
   end
+  
+  def believed_facts
+    Factlink.where(:_id.in => self.believe_ids)
+  end
 
 
   # Doubt
@@ -112,6 +114,9 @@ class User
     $redis.scard(self.redis_key(:doubts))
   end  
   
+  def doubted_facts
+    Factlink.where(:_id.in => self.doubt_ids)
+  end
   
   # Disbelieve
   def disbelieve_ids
@@ -120,6 +125,10 @@ class User
   
   def disbelieve_count
     $redis.scard(self.redis_key(:disbeliefs))
+  end
+  
+  def disbelieved_facts
+    Factlink.where(:_id.in => self.disbelieve_ids)
   end
 
 
@@ -146,39 +155,12 @@ class User
   
   
   
-  
-  ### Teh old Factlinkzz ###
-  
-  # Voted objects
-  def up_voted_sources
-    FactlinkSub.up_voted_by(self)
+  def clear_redis
+    
+    
+    
   end
   
-  def down_voted_sources
-    FactlinkSub.down_voted_by(self)
-  end
-  
-  def voted_source
-    FactlinkSub.voted_by(self)
-  end
-
-  # Vote counts
-  def up_voted_sources_count
-    FactlinkSub.up_voted_by(self).count
-  end
-  
-  def down_voted_sources_count
-    FactlinkSub.down_voted_by(self).count
-  end
-  
-  def voted_source_count
-    FactlinkSub.voted_by(self).count
-  end
-
-
-
-
-
   # # # New # # #
   protected
   # Helper method to generate redis keys

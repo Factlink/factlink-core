@@ -45,7 +45,7 @@
 	
 	<ul>
 	<% @users.all.each do |user| %>
-		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.factlink_tops.count %></span></li>
+		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.factlinks.count %></span></li>
 	<% end %>
 	</ul>
 	

@@ -31,7 +31,7 @@ class Factlink
 
     
   scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten )
-  
+
   # TODO: Find another way to retrieve all factlinks that have a relation to a site
   # scope :with_site, where( :site.ne => nil ) # is not working.
   # def self.with_site_as_parent
@@ -78,7 +78,6 @@ class Factlink
   end
 
 
-
   def set_opinion(user, type, parent)
     
     if user.opinion_on_factlink?(type, self)
@@ -97,8 +96,6 @@ class Factlink
 
     # Add user to believers of this Factlink
     $redis.zadd(self.redis_key(type), user.authority, user.id)
-
-    puts "Adding: #{self.redis_key(type)}"
     
     # Add the belief type to user
     user.update_opinion(type, self, parent)
@@ -183,6 +180,7 @@ class Factlink
   def add_disbeliever(user, parent)
     add_opinion(:disbeliefs,user, parent)
   end
+  
 
 
   # SCORE STUFF
