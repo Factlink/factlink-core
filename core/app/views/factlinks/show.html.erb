@@ -75,9 +75,9 @@
 			<div style="padding: 4px 4px 8px 4px;" class="center">
 				
 				<% if user_signed_in? %>
-				<a onclick="javascript: $('#fl-potential-parents-popup').fadeIn('fast'); " class="button confirm" style="">Add to existing</a>
-				<a onclick="javascript: $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add existing</a>
-				<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a>
+				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast'); " class="button confirm" style="">Add to existing fact</a>
+				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add existing fact as support</a>
+				<!-- <a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a> -->
 				<% else %>
 
 				<%= link_to("Sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %>
@@ -100,3 +100,16 @@
 		<%= potential_childs_popup(@potential_childs) %>
 		
 		<%= potential_parents_popup(@potential_parents) %>
+
+
+<div id="dimmer" style="
+position: absolute;
+top: 0px;
+left: 0px;
+height: 100%;
+width: 100%;
+background: rgba(0, 0, 0, 0.3);
+display: none;
+z-index: 1;
+border-radius: 4px;
+"></div>
