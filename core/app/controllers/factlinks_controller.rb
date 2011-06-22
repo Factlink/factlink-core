@@ -96,14 +96,15 @@ class FactlinksController < ApplicationController
   
   
   def create_as_source
+    # Create a new Factlink as source for an existing Factlink
     parent_id = params[:factlink][:parent_id]
 
-    
-    # Cleaner way for doing this?
-    # Cannot create! the object with paramgs[:factlink],
+    # Better way for doing this?
+    #
+    # Cannot create! the object with params[:factlink],
     # since we have to add the current_user as well.
     # 
-    # Adding current_user after create and saving again
+    # Adding current_user after create and saving again \
     # is one unneeded save extra.
     displaystring = params[:factlink][:displaystring]
     url = params[:factlink][:url]
@@ -121,12 +122,24 @@ class FactlinksController < ApplicationController
     @parent = Factlink.find(parent_id)
   end
   
+
+  
   def add_source_to_factlink
+    # Add an existing source to a Factlink
     @factlink = Factlink.find(params[:factlink_id])
     @source   = Factlink.find(params[:source_id])
-    
+
     @source.set_parent @factlink.id
   end
+
+  def add_factlink_to_parent
+    # Add a Factlink as source for another Factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @parent   = Factlink.find(params[:parent_id])
+
+    @factlink.set_parent @parent.id
+  end
+  
   
   def update
     @factlink = Factlink.find(params[:id])

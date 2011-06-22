@@ -5,20 +5,15 @@ class Users::SessionsController < Devise::SessionsController
 
   def new
     
-    puts "\n\n#{params.to_yaml}"
-    
     unless params[:layout].nil?
-      puts "\nNo layout given."
-      
+      # Default login
       render "users/sessions/new", :layout => "accounting"
       return false
     else
-      puts "\nLayout given"
-      
+      # Client login
       render "user_sessions/new"
       return false
     end
-    
     
     super
   end

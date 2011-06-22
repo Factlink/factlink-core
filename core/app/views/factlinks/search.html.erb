@@ -22,37 +22,34 @@
 
 <table class="factlinks">
 	<colgroup>
-		<col style="width: 450px;" />
+		<col style="width: 840px;" />
 		<col style="width: 120px;" />
-		<col span="3" style="width: 50px;" />
 	</colgroup>
 	<thead>
 		<tr>
-			<td colspan="5" class="search">
+			<td colspan="2" class="search">
 				<!-- <input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %>> -->
 			</td>
 		</tr>
 	  <tr>
-	    <th style="width: 450px;"><%= sortable 'displaystring' %></th>
-	    <th style="width: 120px;"><%= sortable 'created_at' %></th>
-			<th></th>
-	    <th></th>
-	    <th></th>
+	    <th><%= sortable 'displaystring' %></th>
+	    <th><%= sortable 'created_at' %></th>
 	  </tr>
 	</thead>
+
 	<tfoot>
 		<tr id="load_more">
-			<td colspan="5">
+			<td colspan="2">
 				<a href="#">Load more...</a>
 			</td>
 		</tr>
 		<tr id="loading" style="display:none;">
-			<td colspan="5">
+			<td colspan="2">
 				Loading...
 			</td>
 		</tr>
 	</tfoot>
 	<tbody>
-	  <%= render :partial => "factlink_as_td", :collection => @factlinks, :as => :factlink %>
+	  <%= render(:partial => "factlink_as_td", :collection => @factlinks, :as => :factlink) || "<tr><td colspan=\"2\">No results found...</td></tr>".html_safe %>
 	</tbody>
 </table>
