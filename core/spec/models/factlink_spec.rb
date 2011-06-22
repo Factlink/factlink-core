@@ -1,5 +1,15 @@
 require 'spec_helper'
 
+describe Factlink do
+  
+  it "should show a page" do
+    
+    get :index
+    
+  end
+  
+end
+
 # describe Factlink do
 # 
 #   before(:each) do

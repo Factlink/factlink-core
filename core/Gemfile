@@ -54,4 +54,5 @@ gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'webrat'
 end
