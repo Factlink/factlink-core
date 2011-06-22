@@ -49,9 +49,8 @@
 
 				<% unless @factlink.childs_count > 0 %>					
 
-					<li id="no-facts-message">						
-						<span class="fl-statement-title">No facts have been added yet.</span>
-						<a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); ">Add source</a>
+					<li id="no-facts-message" class="">
+						<span class="fl-statement-title">No facts have been added yet. <a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); ">Add existing fact as support</a></span>
 					</li>
 
 				<% else %>

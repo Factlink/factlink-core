@@ -15,6 +15,10 @@ a:hover {
 .close-button:hover {
   cursor: pointer;
 }
+.no-background {
+	background: none;
+	background-image: none !important;
+}
 
 div.fl-modal {
   background-color: transparent;
@@ -185,6 +189,8 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
   list-style: none;
   height: 150px;
   overflow-y: auto;
+
+	background: url('/images/texture.png');
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li {
   display: block;
@@ -209,6 +215,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
   padding: 0px;
   margin: 0px;
 }
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li p {
   color: #888;
   font-weight: 200;
