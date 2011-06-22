@@ -25,7 +25,7 @@
 	</colgroup>
 	<thead>
 		<tr>
-			<td colspan="5" class="search">
+			<td colspan="2" class="search">
 				<!-- <input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %>> -->
 			</td>
 		</tr>
@@ -34,14 +34,15 @@
 	    <th><%= sortable 'created_at' %></th>
 	  </tr>
 	</thead>
+
 	<tfoot>
 		<tr id="load_more">
-			<td colspan="5">
+			<td colspan="2">
 				<a href="#">Load more...</a>
 			</td>
 		</tr>
 		<tr id="loading" style="display:none;">
-			<td colspan="5">
+			<td colspan="2">
 				Loading...
 			</td>
 		</tr>
