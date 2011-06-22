@@ -1,9 +1,20 @@
 class FactlinksController < ApplicationController
 
   helper_method :sort_column, :sort_direction
+
+  before_filter :store_fact_for_non_signed_in_user, :only => [:create]
   before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
   
   layout "client"
+  
+  # Check if the user is signed in before adding a Factlink.
+  # If this is not the case, store the params in a session variable,
+  # so the Factlink can be created after logging in.
+  def store_fact_for_non_signed_in_user
+    unless user_signed_in?
+      session[:fact_to_create] = params
+    end    
+  end
 
   def factlinks_for_url
     url = params[:url]
