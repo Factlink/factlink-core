@@ -188,23 +188,30 @@ class FactlinksController < ApplicationController
   
   # Search 
   def search
-    @per_page = 50
+    @row_count = 50
+    row_count = 50
      
     if params[:s] 
       solr_result = Factlink.search() do
+
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
-        paginate :page => params[:page], :per_page => @per_page
+        paginate :page => params[:page] , :per_page => row_count
+
+        adjust_solr_params do |sunspot_params|
+          sunspot_params[:rows] = row_count
+        end
+
       end
       
       @factlinks = solr_result.results
     else
       # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-      @factlinks = WillPaginate::Collection.create( params[:page] || 1, @per_page ) do |pager|
-        start = (pager.current_page-1)*@per_page
+      @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+        start = (pager.current_page-1)*row_count
         
         # Sorting & filtering done by mongoid
-        results = Factlink.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(per_page).to_a
+        results = Factlink.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(row_count).to_a
         
         pager.replace(results)
       end
