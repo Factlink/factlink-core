@@ -1,4 +1,4 @@
-<%= form_for(@factlink) do |f| %>
+<%= form_for(@factlink, :url => { :action => "update" }) do |f| %>
   <% if @factlink.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@factlink.errors.count, "error") %> prohibited this factlink_top from being saved:</h2>
@@ -18,6 +18,7 @@
 		parent.remote.showOverlay();
 		parent.remote.highlightNewFactlink("<%= @factlink.displaystring %>", "<%= @factlink.id %>");
 	</script>
+
 	<div class="fl-stats">
 		<ul class="fl-stats-bar">
 			<li class="fl-bar-refute" style="height: <%= @factlink.percentage_score_denies %>%;"><%= @factlink.disbelieve_total %></li>
