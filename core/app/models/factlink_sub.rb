@@ -1,16 +1,6 @@
 class FactlinkSub
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongo::Voteable
-
-  # set points for each vote
-  voteable self, :up => +1, :down => -1
-
-  # include Sunspot::Mongoid   
-  # Create search index on :displaystring
-  # searchable do
-  #   text :title
-  # end
 
   field :title, :type => String
   field :content, :type => String
