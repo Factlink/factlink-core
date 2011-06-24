@@ -1,11 +1,9 @@
 <li data-score="<%= factlink.total_score %>" id="fl-source-<%= factlink.id %>">
 
 	<div id="fl-vote-container" class="fl-vote-container">
-		
 		<% if user_signed_in? %>
 			<%= vote_options(factlink, parent) %>
 		<% end %>
-		
 	</div>
 
 	<span class="fl-statement-title"><%= factlink.displaystring %></span>
@@ -19,7 +17,6 @@
 		<% else %>
 			<span class="fl-source">found on <a href="<%= factlink.url %>" target="_blank"><%= factlink.url %></a></span>
 		<% end %>
-		
 	</div>
 
 </li>
