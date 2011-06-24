@@ -14,22 +14,20 @@ end
 # so we just need to put this gems in the Gemfile:
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
 gem 'devise', '~> 1.3.4'
-gem 'devise-login-cookie'
 
 ##########
 # Databases
 #
-# Mongoid
+# Mongo
 gem 'mongoid', '~> 2.0.1'
 gem 'bson_ext', '~> 1.3.0'
 gem 'mongoid_taggable'
-gem 'voteable_mongo'
 # Redis
 gem 'redis', '2.2.1'
 
 ##########
 # Pagination & sorting
-gem "will_paginate", "~> 3.0.pre"
+gem 'will_paginate', '~> 3.0.pre'
 
 #########
 # Twitter
@@ -43,16 +41,21 @@ gem 'jquery-rails', '>= 0.2.6'
 # Everyone loves JSON
 gem 'json'
 
+
 ##########
 # Whoo, full text search!
+#
 # Install SunSpot:
 # https://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less
+#
 # Using SunSpot for Mongoid, Ruby wrapper for Solr
 # Use fork: https://github.com/vinova/sunspot_mongoid - patched for ActiveModel
 gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
 
 group :development, :test do
+  # gem 'webrat'
   gem 'rspec-rails'
-  gem 'webrat'
+  gem 'capybara'    # Integration testing
+  gem 'launchy'     # For saving and opening page
 end

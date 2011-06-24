@@ -143,7 +143,6 @@ describe User do
 
   it "should have a toggle value for the factlink key it voted on" do
     @child1.add_opinion(:beliefs, @user1, @parent)
-    
     @user1.get_opinion(@child1, @parent)
   end
 
