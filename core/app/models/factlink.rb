@@ -64,6 +64,22 @@ class Factlink
     parent = Factlink.find(parent_id)
     parent.childs << self
   end
+  
+  # Add a child node
+  def add_child(child)
+    self.childs << child
+  end
+  
+  # Remove a child node
+  def remove_child(child)
+    self.childs.delete child
+    
+    child.remove_parent(self)
+  end
+  
+  def remove_parent(parent)
+    self.parents.delete parent
+  end
 
   def belief_total
     self.childs.map { |child| child.believer_count }.inject(1) { |result, value | result + value }

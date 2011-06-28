@@ -21,7 +21,7 @@ describe Factlink do
   end
 
   it "can add a child" do    
-    @parent.childs << @factlink
+    @parent.add_child(@factlink)
     @parent.childs_count.should == 1
   end
 
@@ -112,7 +112,8 @@ describe Factlink do
   
   # Removing a child
   it "can remove a child" do
-    
+    @parent.remove_child(@factlink)
+    @parent.childs_count.should == 0
   end
   
 end

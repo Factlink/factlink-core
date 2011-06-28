@@ -152,6 +152,19 @@ class FactlinksController < ApplicationController
   end
   
   
+  def remove_factlink_from_parent
+    
+    # TODO: Only allow if user added the source earlier on
+    
+    # Remove a Factlink from it's parent
+    @factlink = Factlink.find(params[:factlink_id])
+    parent    = Factlink.find(params[:parent_id])
+    
+    puts "Removing child"
+    parent.remove_child(@factlink)
+    parent.save
+  end
+  
   def update
     @factlink = Factlink.find(params[:id])
 
