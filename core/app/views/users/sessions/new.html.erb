@@ -1,6 +1,6 @@
 <h2 style="color: #333; text-shadow: 0px 1px 1px #fff;">Sign in with your Factlink account</h2>
 
-<%= form_for(resource, :as => resource_name, :url => (session_path(resource_name)) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
   <%= f.email_field :email, :placeholder => "Email" %><br/>
   <%= f.password_field :password, :placeholder => "Password" %><br/>

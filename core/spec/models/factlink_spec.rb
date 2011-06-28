@@ -6,9 +6,7 @@ describe Factlink do
   before(:each) do
     @parent = Factlink.new
     @factlink = Factlink.new
-    
-    @parent.childs << @factlink
-    
+
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")
   end
@@ -18,12 +16,17 @@ describe Factlink do
     $redis.should be_an_instance_of(Redis)
   end
 
-  ##########
-  # Believer tests
-  it "can be instantiated" do
-    Factlink.new.should be_an_instance_of(Factlink)
+  it "has no childs when created" do
+    @parent.childs_count.should == 0
   end
-  
+
+  it "can add a child" do    
+    @parent.childs << @factlink
+    @parent.childs_count.should == 1
+  end
+
+  ##########
+  # Believer tests  
   it "should have 0 believers on new Factlink when believer_count is called" do
     @factlink.believer_count.should == 0
   end
@@ -106,7 +109,12 @@ describe Factlink do
   it "should not crash when an opinions that doesn't exist is removed" do
     @factlink.remove_opinions @user2, @parent
   end
+  
+  # Removing a child
+  it "can remove a child" do
     
+  end
+  
 end
 
 
