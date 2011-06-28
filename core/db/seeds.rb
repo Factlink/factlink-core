@@ -4,12 +4,18 @@
 # Clear stuff
 if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
+  User.all.delete
   Site.all.delete               # Self explainatory
   Factlink.all.delete           # Self explainatory
   Sunspot.remove_all!(Factlink) # Remove the indices of all Factlinks in Solr.
 end
 
-user = User.first
+# A user
+user = User.new(:username => "robin",
+                :email => "robin@gothamcity.com",
+                :password => "hshshs",
+                :password_confirmation => "hshshs")
+user.save
 
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
