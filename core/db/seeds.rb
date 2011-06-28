@@ -2,7 +2,7 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Clear stuff
-if Rails.env.development?
+if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
   Site.all.delete               # Self explainatory
   Factlink.all.delete           # Self explainatory

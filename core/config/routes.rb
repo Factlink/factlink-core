@@ -12,6 +12,8 @@ FactlinkUI::Application.routes.draw do
   # Resources
   resources :factlinks
   
+  # get "factlink_overview"
+  
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"

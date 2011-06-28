@@ -2,9 +2,9 @@ class HomeController < ApplicationController
 
   # before_filter :authenticate_user!
   # layout "frontend"
-  layout "accounting"  
-  
-  def index    
+  layout "accounting"
+
+  def index
     # if params[:search].nil?
     #   puts "This shouldn't happen. home#index if params[:search].nil?"
     #   user_input = "#fact"
@@ -13,12 +13,9 @@ class HomeController < ApplicationController
     # end
     # parser = FactlinkParser.new
     # @results = parser.get_results_for_query(user_input)
-    
+
     @factlinks = Factlink.with_site_as_parent
     @users = User.all
-    
-    puts "Factlinks: #{@factlinks.count}"
-    puts "Users: #{@users.count}"
   end
 
 end

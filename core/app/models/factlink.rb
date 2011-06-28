@@ -4,32 +4,32 @@ class Factlink
   include Mongoid::Taggable
 
   include Sunspot::Mongoid
-  
+
   searchable :auto_index => true do
     text    :displaystring
     string  :displaystring
     time    :created_at
   end
-  
-  field :title,           :type => String   
+
+  field :title,           :type => String
   field :displaystring,   :type => String   # For matching Factlink on a page
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
   field :url,             :type => String   # Source url
-  
-  # Linking of factlinks  
+
+  # Linking of factlinks
   has_and_belongs_to_many :parents,
-                          :class_name => self.name
+    :class_name => self.name
 
   has_and_belongs_to_many :childs,
-                          :class_name => self.name
+    :class_name => self.name
 
   belongs_to  :site       # The site on which the factlink should be shown
 
   belongs_to  :created_by,
-              :class_name => "User"
+    :class_name => "User"
 
-    
+
   scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten )
 
   # TODO: Find another way to retrieve all factlinks that have a relation to a site
@@ -38,10 +38,10 @@ class Factlink
   #   # Map all site, and all factlinks in this site.
   #   factlink_ids = Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten
   #   self.where( :_id.in => factlink_ids )
-  # end  
+  # end
 
-  
-  
+
+
   def to_s
     self.displaystring
   end
@@ -79,7 +79,7 @@ class Factlink
 
 
   def set_opinion(user, type, parent)
-    
+
     if user.opinion_on_factlink?(type, self)
       # User has this opinion already; remove opinion
       remove_opinions(user, parent)
@@ -96,11 +96,11 @@ class Factlink
 
     # Add user to believers of this Factlink
     $redis.zadd(self.redis_key(type), user.authority, user.id)
-    
+
     # Add the belief type to user
     user.update_opinion(type, self, parent)
   end
-  
+
   def remove_opinions(user, parent)
     user.remove_opinions(self, parent)
     [:beliefs, :doubts, :disbeliefs].each do |type|
@@ -112,12 +112,12 @@ class Factlink
   ##########
   # Believers
   # believer_ids are stored in Redis, using the self.redis_key(:beliefs)
-  
+
   # Return all believers
   def believers
     return User.where(:_id.in => self.believer_ids)
   end
-  
+
   # Return all believer ids
   def believer_ids
     $redis.zrange(self.redis_key(:beliefs), 0, -1) # Ranges all items
@@ -137,12 +137,12 @@ class Factlink
   ##########
   # Doubters
   # doubter_ids are stored in Redis, using the self.redis_key(:doubts)
-  
+
   # Return all doubters
   def doubters
     return User.where(:_id.in => self.doubter_ids)
   end
-  
+
   # Return all believer ids
   def doubter_ids
     $redis.zrange(self.redis_key(:doubts), 0, -1) # Ranges all items
@@ -161,12 +161,12 @@ class Factlink
   ##########
   # Disbelievers
   # disbeliever_ids are stored in Redis, using the self.redis_key(:disbeliefs)
-  
+
   # Return all believers
   def disbelievers
     return User.where(:_id.in => self.disbeliever_ids)
   end
-  
+
   # Return all disbeliever ids
   def disbeliever_ids
     $redis.zrange(self.redis_key(:disbeliefs), 0, -1) # Ranges all items
@@ -180,7 +180,7 @@ class Factlink
   def add_disbeliever(user, parent)
     add_opinion(:disbeliefs,user, parent)
   end
-  
+
 
 
   # SCORE STUFF
@@ -208,15 +208,15 @@ class Factlink
 
   def total_score
     # TODO: Should be called total_activity ?
-    sum = self.belief_total + 
-          self.doubt_total  + 
-          self.disbelieve_total
-    
+    sum = self.belief_total +
+      self.doubt_total  +
+      self.disbelieve_total
+
     # Quick hack against divide by zero
     if sum == 0
       sum = 1
     end
-    
+
     sum
   end
 
@@ -224,16 +224,16 @@ class Factlink
   def percentage_score_denies
     score_dict_as_percentage[:denies]
   end
-  
+
   def percentage_score_maybe
     score_dict_as_percentage[:maybe]
   end
-  
+
   def percentage_score_proves
     score_dict_as_percentage[:proves]
   end
 
-  
+
   # Stats count
   def stats_count
     # Fancy score calculation
@@ -246,19 +246,19 @@ class Factlink
   end
 
 
-  protected  
-  # Helper method to generate redis keys
-  def redis_key(str)
-    "factlink:#{self.id}:#{str}"
-  end
-  
-  def percentage(total, part)
-    if total > 0
-      (100 * part) / total
-    else
-      0
+  protected
+    # Helper method to generate redis keys
+    def redis_key(str)
+      "factlink:#{self.id}:#{str}"
     end
-  end
-  
+
+    def percentage(total, part)
+      if total > 0
+        (100 * part) / total
+      else
+        0
+      end
+    end
+
 
 end

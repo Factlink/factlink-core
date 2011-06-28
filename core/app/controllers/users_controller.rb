@@ -5,12 +5,19 @@ class UsersController < ApplicationController
     
     begin
       @user = User.where(:username => params[:username]).first
-
     end
     
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json  { render :json => @user }
+    puts "\n\nuser: #{@user}"
+    
+    if @user
+
+      respond_to do |format|
+        format.html # show.html.erb
+      end
+    else
+      render :file => "#{Rails.root}/public/404.html", :status => :not_found
     end
+    
+    
   end
 end
