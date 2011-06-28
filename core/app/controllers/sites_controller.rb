@@ -7,7 +7,7 @@ class SitesController < ApplicationController
     
     count = 0
     if site
-      count = site.factlinks.count
+      count = site.factlink_count
     end
     
     render :json => { :count => count }, :callback => params[:callback]
