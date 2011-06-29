@@ -114,15 +114,9 @@ class Factlink
     child.delete_added_to_factlink(self)
   end
 
-  def hashie(parent)
-    puts "\nGetting: factlink:#{self.id}:added_to"
-    return $redis.hget("factlink:#{self.id}:added_to", parent.id)
-  end
   
   def added_to_parent_by_current_user(parent, user)
-    user_id = $redis.hget("factlink:#{self.id}:added_to", parent.id)
-    
-    
+    user_id = $redis.hget("factlink:#{self.id}:added_to", parent.id)    
     user_id == user.id.to_s # Don't compare BSON::ObjectId, just compare the string.
   end
 
