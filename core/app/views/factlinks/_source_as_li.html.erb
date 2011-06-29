@@ -19,6 +19,8 @@
 		<% end %>
 	</div>
 
-	<%= link_to(image_tag('trashcan.png'), remove_factlink_from_parent_path(factlink.id, parent.id), :remote => true, :confirm => "Are you sure you want to remove this supporting/weakening fact?") %>
+	<div class="fl-remove-fact">
+		<%= link_to(image_tag('trashcan.png'), remove_factlink_from_parent_path(factlink.id, parent.id), :remote => true, :confirm => "Are you sure you want to remove this supporting/weakening fact?") %>
+	</div>
 	
 </li>

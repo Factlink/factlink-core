@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 describe Factlink do
 
   before(:each) do

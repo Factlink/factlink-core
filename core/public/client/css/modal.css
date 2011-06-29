@@ -214,6 +214,21 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
   font-size: 1.0em;
   padding: 0px;
   margin: 0px;
+	width: 330px;
+}
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact {	
+	height: 16px;
+	width: 16px;
+	
+	position: absolute;
+	top: 10px;
+	right: 6px;
+	opacity: 0.2;
+	-webkit-transition:all 0.2s ease-in-out;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact:hover {
+	opacity: 1.0;
 }
 
 div.fl-modal .fl-scroll-pane ol.fl-sources li p {
