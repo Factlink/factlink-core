@@ -136,7 +136,7 @@ class FactlinksController < ApplicationController
     @source   = Factlink.find(params[:source_id])
 
     @source.set_parent @factlink.id
-    @factlink.add_child_as_supporting(@source)
+    @factlink.add_child_as_supporting(@source, current_user)
     
     render "add_source_to_factlink"
   end
@@ -147,7 +147,7 @@ class FactlinksController < ApplicationController
     @source   = Factlink.find(params[:source_id])
 
     @source.set_parent @factlink.id
-    @factlink.add_child_as_weakening(@source)
+    @factlink.add_child_as_weakening(@source, current_user)
     
     render "add_source_to_factlink"
   end
@@ -169,9 +169,13 @@ class FactlinksController < ApplicationController
     @factlink = Factlink.find(params[:factlink_id])
     parent    = Factlink.find(params[:parent_id])
     
-    puts "Removing child"
-    parent.remove_child(@factlink)
-    parent.save
+
+    if @factlink.added_to_parent_by_current_user(parent, current_user)
+      # Only remove if the user added this source
+      puts "Removing child"
+      parent.remove_child(@factlink)
+      parent.save
+    end
   end
   
   def update

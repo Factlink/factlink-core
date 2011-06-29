@@ -13,6 +13,7 @@ end
 # A user
 user = User.new(:username => "robin",
                 :email => "robin@gothamcity.com",
+                :confirmed_at => DateTime.now,
                 :password => "hshshs",
                 :password_confirmation => "hshshs")
 user.save

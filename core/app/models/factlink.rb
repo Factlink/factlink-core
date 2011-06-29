@@ -66,21 +66,35 @@ class Factlink
   end
 
   # Add a child node
-  def add_child(child)
+  def add_child(child, user)
     self.childs << child
+    
+    # Store who added this Factlink
+    child.set_added_to_factlink(self, user)
   end
 
-  def add_child_as_supporting(factlink)
+  def set_added_to_factlink(factlink, user)
+    # Redis     Key................., Field......, Value..
+    puts "Setting ADDED_TO: #{redis_key(:added_to)} -- #{user.id}"
+    $redis.hset(redis_key(:added_to), factlink.id, user.id)
+  end
+  
+  def delete_added_to_factlink(factlink)
+    # Redis     Key................., Field......, Value..
+    $redis.hdel(redis_key(:added_to), factlink.id)
+  end
+
+  def add_child_as_supporting(factlink, user)
     # Add the Mongo reference
-    self.add_child(factlink)
+    self.add_child(factlink, user)
 
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:supporting_facts), factlink.id)
   end
 
-  def add_child_as_weakening(factlink)
+  def add_child_as_weakening(factlink, user)
     # Add the Mongo reference
-    self.add_child(factlink)
+    self.add_child(factlink, user)
 
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:weakening_facts), factlink.id)
@@ -96,6 +110,20 @@ class Factlink
     # Remove the factlink_id from supporting/weakning facts set 
     $redis.srem(redis_key(:supporting_facts), child.id)
     $redis.srem(redis_key(:weakening_facts), child.id)
+    
+    child.delete_added_to_factlink(self)
+  end
+
+  def hashie(parent)
+    puts "\nGetting: factlink:#{self.id}:added_to"
+    return $redis.hget("factlink:#{self.id}:added_to", parent.id)
+  end
+  
+  def added_to_parent_by_current_user(parent, user)
+    user_id = $redis.hget("factlink:#{self.id}:added_to", parent.id)
+    
+    
+    user_id == user.id.to_s # Don't compare BSON::ObjectId, just compare the string.
   end
 
   def remove_parent(parent)

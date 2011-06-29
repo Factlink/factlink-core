@@ -5,7 +5,7 @@
 			parent.remote.setFrameType("show");
 			parent.remote.showOverlay();
 
-			parent.remote.setFrameBounds(440, 370);
+			parent.remote.setFrameBounds(440, 580);
 		</script>		
 
 		<div id="fl-loading-indicator" style="display: none; z-index: 100; position: absolute; width: 80px; height: 30px; top: 160px; left: 174px; border: solid 4px rgba(0,0,0,0.2); border-radius: 4px; background-color: #eee; margin: 0 auto; text-align: center; padding-top: 12px;">
@@ -110,28 +110,3 @@ display: none;
 z-index: 1;
 border-radius: 4px;
 "></div>
-
-
-<ul>
-	<li style="font-weight: 700;">Supporting ids</li>	
-	<% unless @factlink.supporting_fact_ids.count > 0%>
-		<li>No support...</li>
-	<% else %>
-		<% @factlink.supporting_fact_ids.each do |id| %>
-		<li><%= id %></li>
-		<% end %>
-	<% end %>
-</ul>
-
-
-<ul>
-	<li style="font-weight: 700;">Weakening ids</li>
-	
-	<% unless @factlink.weakening_fact_ids.count > 0%>
-		<li>No support...</li>
-	<% else %>
-		<% @factlink.weakening_fact_ids.each do |id| %>
-		<li><%= id %></li>
-		<% end %>
-	<% end %>
-</ul>

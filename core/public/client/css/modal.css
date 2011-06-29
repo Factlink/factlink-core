@@ -187,7 +187,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
   padding: 0;
   margin: 0;
   list-style: none;
-  height: 150px;
+  height: 250px;
   overflow-y: auto;
 
 	background: url('/images/texture.png');
@@ -195,7 +195,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
 div.fl-modal .fl-scroll-pane ol.fl-sources li {
   display: block;
 	border-bottom: 1px solid #ccc;
-  padding: 24px 0px 6px 35px;
+  padding: 28px 0px 18px 35px;
   position: relative;
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
 
@@ -210,8 +210,9 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li {
 div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
 /*	border: solid 1px red;*/
 	
-	border-bottom-right-radius: 5px;
+	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
 	
+	border-bottom-right-radius: 5px;
 	border-bottom: solid 1px #fff;
 	
 	border-right: solid 1px #fff;
@@ -220,7 +221,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	padding: 3px 8px 4px 6px;
+	padding: 3px 10px 5px 10px;
 }
 
 div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
@@ -235,7 +236,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
   margin: 0;
   line-height: 16px;
   font-size: 1.0em;
-  padding: 0px;
+  padding: 0px 0px 12px 0px;
   margin: 0px;
 	width: 330px;
 }
@@ -413,11 +414,11 @@ div.fl-sign-in-container {
 }
 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
-  background-color: #ccc;
+  background-color: #999;
   -webkit-border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:horizontal {
   width: 50px;
-  background-color: #ccc;
+  background-color: #999;
   -webkit-border-radius: 3px;
 }
