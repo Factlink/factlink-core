@@ -1,13 +1,15 @@
 class User
   include Mongoid::Document
 
+  # Several key components of the user are stored in Redis.
   #
-  #
+  # redis_key(:beliefs||:doubts||:disbeliefs) store the Factlink ID's the \
+  # user interacted with.
   #
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, :registerable,
-  devise  :database_authenticatable,
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
+  devise :database_authenticatable,
     :recoverable,   # Password retrieval
     :rememberable,  # 'Remember me' box
     :trackable,     # Log sign in count, timestamps and IP address
@@ -192,15 +194,8 @@ class User
   end
 
 
+  
 
-
-  def clear_redis
-
-
-
-  end
-
-  # # # New # # #
   protected
     # Helper method to generate redis keys
     def redis_key(str)

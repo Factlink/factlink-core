@@ -64,22 +64,60 @@ class Factlink
     parent = Factlink.find(parent_id)
     parent.childs << self
   end
-  
+
   # Add a child node
   def add_child(child)
     self.childs << child
   end
-  
+
+  def add_child_as_supporting(factlink)
+    # Add the Mongo reference
+    self.add_child(factlink)
+
+    # Store supporting factlink ID in supporting factlinks set
+    $redis.sadd(redis_key(:supporting_facts), factlink.id)
+  end
+
+  def add_child_as_weakening(factlink)
+    # Add the Mongo reference
+    self.add_child(factlink)
+
+    # Store supporting factlink ID in supporting factlinks set
+    $redis.sadd(redis_key(:weakening_facts), factlink.id)
+  end
+
+
   # Remove a child node
   def remove_child(child)
     self.childs.delete child
-    
+
     child.remove_parent(self)
+    
+    # Remove the factlink_id from supporting/weakning facts set 
+    $redis.srem(redis_key(:supporting_facts), child.id)
+    $redis.srem(redis_key(:weakening_facts), child.id)
   end
-  
+
   def remove_parent(parent)
     self.parents.delete parent
   end
+
+  def supporting_fact_ids
+    $redis.smembers(redis_key(:supporting_facts))
+  end
+
+  def weakening_fact_ids
+    $redis.smembers(redis_key(:weakening_facts))
+  end
+  
+  def supported_by?(factlink)
+    $redis.sismember(redis_key(:supporting_facts), factlink.id)
+  end
+
+  def weakened_by?(factlink)
+    $redis.sismember(redis_key(:weakening_facts), factlink.id)
+  end
+
 
   def belief_total
     self.childs.map { |child| child.believer_count }.inject(1) { |result, value | result + value }
@@ -264,17 +302,17 @@ class Factlink
 
   protected
     # Helper method to generate redis keys
-    def redis_key(str)
-      "factlink:#{self.id}:#{str}"
-    end
+  def redis_key(str)
+    "factlink:#{self.id}:#{str}"
+  end
 
-    def percentage(total, part)
-      if total > 0
-        (100 * part) / total
-      else
-        0
-      end
+  def percentage(total, part)
+    if total > 0
+      (100 * part) / total
+    else
+      0
     end
+  end
 
 
 end

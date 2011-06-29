@@ -73,7 +73,7 @@
 				
 				<% if user_signed_in? %>
 				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="button confirm" style="">Add to existing fact</a>
-				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add existing fact as support</a>
+				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="button confirm" style="">Add fact</a>
 				<!-- <a onclick="javascript: $('#fl-sources-popup').fadeIn('fast'); " class="button" style="">Add new</a> -->
 				<% else %>
 
@@ -110,3 +110,28 @@ display: none;
 z-index: 1;
 border-radius: 4px;
 "></div>
+
+
+<ul>
+	<li style="font-weight: 700;">Supporting ids</li>	
+	<% unless @factlink.supporting_fact_ids.count > 0%>
+		<li>No support...</li>
+	<% else %>
+		<% @factlink.supporting_fact_ids.each do |id| %>
+		<li><%= id %></li>
+		<% end %>
+	<% end %>
+</ul>
+
+
+<ul>
+	<li style="font-weight: 700;">Weakening ids</li>
+	
+	<% unless @factlink.weakening_fact_ids.count > 0%>
+		<li>No support...</li>
+	<% else %>
+		<% @factlink.weakening_fact_ids.each do |id| %>
+		<li><%= id %></li>
+		<% end %>
+	<% end %>
+</ul>

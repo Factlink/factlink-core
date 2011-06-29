@@ -195,7 +195,7 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
 div.fl-modal .fl-scroll-pane ol.fl-sources li {
   display: block;
 	border-bottom: 1px solid #ccc;
-  padding: 10px 0px 6px 35px;
+  padding: 24px 0px 6px 35px;
   position: relative;
 	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
 
@@ -205,6 +205,29 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li {
 	box-shadow: 0px 0px 12px #ccc;
 	border-radius: 3px;
 }
+
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
+/*	border: solid 1px red;*/
+	
+	border-bottom-right-radius: 5px;
+	
+	border-bottom: solid 1px #fff;
+	
+	border-right: solid 1px #fff;
+	background: #999;
+	
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 3px 8px 4px 6px;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
+	font-size: 0.8em;
+	color: #fff;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
 	display: block;
   color: #888;

@@ -1,5 +1,15 @@
 <li data-score="<%= factlink.total_score %>" id="fl-source-<%= factlink.id %>">
 
+	<div id="fl-link-type">
+		<span>
+			<% if parent.supporting_fact_ids.include?(factlink.id.to_s) %>
+				Supporting
+			<% else %>
+				Weakening
+			<% end %>
+		</span>
+	</div>
+
 	<div id="fl-vote-container" class="fl-vote-container">
 		<% if user_signed_in? %>
 			<%= vote_options(factlink, parent) %>

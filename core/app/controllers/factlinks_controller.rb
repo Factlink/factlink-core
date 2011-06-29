@@ -3,7 +3,20 @@ class FactlinksController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   before_filter :store_fact_for_non_signed_in_user, :only => [:create]
-  before_filter :authenticate_user!, :only => [:new, :edit, :create, :update]
+
+  # Change this to :except, in stead of :only. 
+  before_filter :authenticate_user!, :only => [:new, 
+    :edit, 
+    :create, 
+    :update,
+    :add_source_to_factlink,
+    :add_factlink_to_parent,
+    :remove_factlink_from_parent,
+    :believe,
+    :doubt,
+    :disbelieve,
+    :set_opinion
+    ]
   
   layout "client"
   
@@ -104,35 +117,6 @@ class FactlinksController < ApplicationController
     # Redirect to edit action
     redirect_to :action => "edit", :id => @factlink.id
   end
-  
-  
-  def create_as_source
-    # Create a new Factlink as source for an existing Factlink
-    parent_id = params[:factlink][:parent_id]
-
-    # Better way for doing this?
-    #
-    # Cannot create! the object with params[:factlink],
-    # since we have to add the current_user as well.
-    # 
-    # Adding current_user after create and saving again \
-    # is one unneeded save extra.
-    displaystring = params[:factlink][:displaystring]
-    url = params[:factlink][:url]
-    content = params[:factlink][:content]
-
-    # Create the Factlink
-    @factlink = Factlink.create!(:displaystring => displaystring,
-                                    :url => url,
-                                    :content => content,
-                                    :created_by => current_user)
-
-    # Set the correct parent
-    @factlink.set_parent parent_id
-    
-    @parent = Factlink.find(parent_id)
-  end
-  
 
   
   def add_source_to_factlink
@@ -141,6 +125,31 @@ class FactlinksController < ApplicationController
     @source   = Factlink.find(params[:source_id])
 
     @source.set_parent @factlink.id
+    
+    
+    @factlink.add_child_as_supporting(@source)
+  end
+  
+  def add_source_as_supporting
+    # Add an existing source to a Factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @source   = Factlink.find(params[:source_id])
+
+    @source.set_parent @factlink.id
+    @factlink.add_child_as_supporting(@source)
+    
+    render "add_source_to_factlink"
+  end
+  
+  def add_source_as_weakening
+    # Add an existing source to a Factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @source   = Factlink.find(params[:source_id])
+
+    @source.set_parent @factlink.id
+    @factlink.add_child_as_weakening(@source)
+    
+    render "add_source_to_factlink"
   end
 
   def add_factlink_to_parent
