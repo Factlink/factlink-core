@@ -133,11 +133,11 @@ class Factlink
   end
   
   def supported_by?(factlink)
-    $redis.sismember(redis_key(:supporting_facts), factlink.id)
+    $redis.sismember(redis_key(:supporting_facts), factlink.id.to_s)
   end
 
   def weakened_by?(factlink)
-    $redis.sismember(redis_key(:weakening_facts), factlink.id)
+    $redis.sismember(redis_key(:weakening_facts), factlink.id.to_s)
   end
 
 

@@ -40,7 +40,7 @@ class FactlinksController < ApplicationController
 
     # Render the result with callback, 
     # so JSONP can be used (for Internet Explorer)
-    render :json => @factlinks.to_json( :only => [:_id, :displaystring] ), 
+    render :json => @factlinks.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ), 
                                         :callback => params[:callback]  
   end
 

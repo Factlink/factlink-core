@@ -2,7 +2,7 @@
 
 	<div id="fl-link-type">
 		<span>
-			<% if parent.supporting_fact_ids.include?(factlink.id.to_s) %>
+			<% if parent.supported_by?(factlink) %>
 				Supporting
 			<% else %>
 				Weakening
@@ -34,5 +34,23 @@
 		<%= link_to(image_tag('trashcan.png'), remove_factlink_from_parent_path(factlink.id, parent.id), :remote => true, :confirm => "Are you sure you want to remove this supporting/weakening fact?") %>
 	</div>
 	<% end %>
+
+	<span style="font-weight: 700;">This fact</span><br/>
+	believe<br/>
+	doubt<br/>
+	disbelieve<br/><br/>
+	
+	<span style="font-weight: 700;">This fact 
+		<% if parent.supported_by?(factlink) %>
+			supporting
+		<% else %>
+			weakening
+		<% end %>
+		"<%= factlink.displaystring %>"
+		</span>	
+	<br/>
+	believe<br/>
+	doubt<br/>
+	disbelieve<br/><br/>
 
 </li>
