@@ -27,8 +27,7 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
 
-  # Search and infinite scrolling
-  match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
+
   
   # Add a Factlink as source
 
@@ -46,6 +45,8 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "factlinks#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
   get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "factlinks#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
 
+  get   "/factlink/:factlink_id/interacting_users" => "factlinks#interaction_users_for_factlink", :as => "interacting_users"
+
   # Believe, doubt and disbelieve
   get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"
   get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
@@ -62,6 +63,8 @@ FactlinkUI::Application.routes.draw do
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
+  # Search and infinite scrolling
+  match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
 
 
   ############################################################################

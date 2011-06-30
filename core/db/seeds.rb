@@ -25,6 +25,44 @@ user1 = User.new(:username => "tomdev",
                 :password_confirmation => "123hoi")
 user1.save
 
+
+# Opinionators
+user2 = User.new(:username => "michael_night",
+                :email => "a@a.com",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user2.save
+
+user3 = User.new(:username => "kate_upton",
+                :email => "b@b.com",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user3.save
+
+user3 = User.new(:username => "george_lucas",
+                :email => "c@c.com",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user3.save
+
+user4 = User.new(:username => "will_smith",
+                :email => "d@d.com",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user4.save
+
+user5 = User.new(:username => "snookie",
+                :email => "e@e.com",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user5.save
+
+
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save
@@ -42,6 +80,21 @@ facts.each do |fact|
                     :created_by => user
   )
 end
+
+parent  = Factlink.all[0]
+child   = Factlink.all[1]
+
+child.set_parent parent.id
+parent.add_child_as_supporting(child, user)
+
+child.add_believer(user, parent)
+child.add_believer(user1, parent)
+child.add_believer(user2, parent)
+
+child.add_doubter(user3, parent)
+
+child.add_disbeliever(user4, parent)
+child.add_disbeliever(user5, parent)
 
 # 500.times do |x|
 #   Factlink.create!( :displaystring => facts[x % facts.count],

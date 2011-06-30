@@ -253,9 +253,29 @@ class Factlink
   end
 
   def add_disbeliever(user, parent)
-    add_opinion(:disbeliefs,user, parent)
+    add_opinion(:disbeliefs, user, parent)
   end
 
+  
+  # All interacting users on this Factlink
+  def interacting_user_ids
+    tmp_key = "factlink:#{self.id}:interacting_users:tmp"
+  
+    $redis.zunionstore(tmp_key,
+                  [self.redis_key(:beliefs), 
+                  self.redis_key(:disbeliefs), 
+                  self.redis_key(:disbeliefs)])
+    
+    $redis.zrange(tmp_key, 0, -1)
+  end
+  
+  def interacting_user_count
+    self.interacting_user_ids.count
+  end
+  
+  def interacting_users
+    User.where(:_id.in => self.interacting_user_ids)
+  end
 
 
   # SCORE STUFF

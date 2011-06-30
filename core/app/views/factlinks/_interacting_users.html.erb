@@ -1,0 +1,41 @@
+<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -16px; left: 372px;", :onclick => "$('div#dimmer').fadeOut('fast'); $('div#fl-interacting-users').fadeOut('fast').html("");" %>
+
+<div id="fl-users-container">
+	<!-- <span class=""><%= factlink %></span> -->
+	
+	<div class="fl-factlink center">
+		<h1>&#8220;<%= factlink.displaystring %>&#8221;</h1>
+	</div>
+	
+	<div class="fl-clear"></div>
+
+	<div id="filters" class="center" style="display:block;">
+		<a class="all active" onclick="apply_filter('*');">all (<%= factlink.interacting_user_count %>)</a>
+		<a class="believers" onclick="apply_filter('.believers');">believers (<%= believers.count %>)</a>
+		<a class="doubters" onclick="apply_filter('.doubters');">doubters <span class="counter">(<%= doubters.count %>)</span></a>
+		<a class="disbelievers" onclick="apply_filter('.disbelievers');">disbelievers (<%= disbelievers.count %>)</a>
+	</div>
+
+
+	<div class="fl-scroll-pane">
+
+		<ol id="fl-users">
+			<% believers.each do |believer| %>
+				<li class="believers"><span class="believer tag">believes</span> <%= link_to(believer, user_profile_path(believer.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= believer.authority %>)</span></li>
+			<% end %>
+
+			<% doubters.each do |doubter| %>
+				<li class="doubters"><span class="doubter tag">doubts</span> <%= link_to(doubter, user_profile_path(doubter.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= doubter.authority %>)</span></li>
+			<% end %>
+
+			<% disbelievers.each do |disbeliever| %>
+				<li class="disbelievers"><span class="disbeliever tag">disbelieves</span> <%= link_to(disbeliever, user_profile_path(disbeliever.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= disbeliever.authority %>)</span></li>
+			<% end %>
+
+		</ol>
+	</div>
+
+
+
+
+</div>

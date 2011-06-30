@@ -46,7 +46,6 @@ class User
     add_active_factlink(factlink)
 
     key = redis_factlink_opinion_key(parent)
-
     $redis.hset(key, factlink.id, opinion_id(type))
 
     # Adds the factlink_id to the users correct set
@@ -126,13 +125,14 @@ class User
 
 
   def opinion_class(type, factlink, parent)
-    
+    # Used to show the opinion of a user on a fact.
+    # Checks if the factlink id is stored in one of the believe types of this
+    # user. 
     if $redis.sismember(self.redis_key(type), factlink.id.to_s)
       return "active"
     else
       return ""
-    end
-    
+    end  
   end
 
 

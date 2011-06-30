@@ -125,8 +125,7 @@ class FactlinksController < ApplicationController
     @source   = Factlink.find(params[:source_id])
 
     @source.set_parent @factlink.id
-    
-    
+
     @factlink.add_child_as_supporting(@source)
   end
   
@@ -248,6 +247,16 @@ class FactlinksController < ApplicationController
     end
   end
   
+  # Users that interacted with this Factlink
+  def interaction_users_for_factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    
+    @believers    = @factlink.believers
+    @doubters     = @factlink.doubters
+    @disbelievers = @factlink.disbelievers
+    
+    
+  end
   
   # Search 
   def search

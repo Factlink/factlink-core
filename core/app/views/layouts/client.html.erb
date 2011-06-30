@@ -13,6 +13,10 @@
 	<% end %>
 	
 	<%= javascript_include_tag "rails" %>
+	
+	<%= yield :javascript %>
+
+	
 	<%= csrf_meta_tag %>
 </head>
 <body>
