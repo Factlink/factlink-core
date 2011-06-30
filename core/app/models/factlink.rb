@@ -239,7 +239,7 @@ class Factlink
   # Stats count
   def stats_count
     # Fancy score calculation
-    (10 * belief_total) + (10 * doubt_total) - (10 * disbelieve_total)
+    (1 * belief_total) + (1 * doubt_total) - (1 * disbelieve_total)
   end
 
   # Used for sorting

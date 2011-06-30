@@ -236,6 +236,12 @@ class FactlinksController < ApplicationController
     end
   end
   
+  def indication
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   private
   def sort_column
     Factlink.column_names.include?(params[:sort]) ? params[:sort] : "created_at"

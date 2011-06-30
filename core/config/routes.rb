@@ -39,6 +39,9 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
 
   get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+  
+  # Template which is shown when user hovers Factlink
+  get "/factlink/indication" => "factlinks#indication"
 
   
   ##########
