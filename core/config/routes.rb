@@ -33,7 +33,13 @@ FactlinkUI::Application.routes.draw do
   # Add a Factlink as source
 
   get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
-  get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+  
+  # get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+
+
+  get   "/factlink/:factlink_id/add_to_parent_as_supporting/:parent_id" => "factlinks#add_factlink_to_parent_as_supporting",  :as => "add_factlink_to_parent_as_supporting"
+  get   "/factlink/:factlink_id/add_to_parent_as_weakening/:parent_id"  => "factlinks#add_factlink_to_parent_as_weakening",   :as => "add_factlink_to_parent_as_weakening"
+
   get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "factlinks#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
 
   # Adding sources as supporting or weakening

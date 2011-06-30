@@ -152,12 +152,26 @@ class FactlinksController < ApplicationController
     render "add_source_to_factlink"
   end
 
-  def add_factlink_to_parent
+  def add_factlink_to_parent_as_supporting
     # Add a Factlink as source for another Factlink
     @factlink = Factlink.find(params[:factlink_id])
     @parent   = Factlink.find(params[:parent_id])
 
     @factlink.set_parent @parent.id
+    @parent.add_child_as_supporting(@factlink, current_user)
+    
+    render "add_factlink_to_parent"
+  end
+  
+  def add_factlink_to_parent_as_weakening
+    # Add a Factlink as source for another Factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @parent   = Factlink.find(params[:parent_id])
+
+    @factlink.set_parent @parent.id
+    @parent.add_child_as_weakening(@factlink, current_user)
+    
+    render "add_factlink_to_parent"
   end
   
   
