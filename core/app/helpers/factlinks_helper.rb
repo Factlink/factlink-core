@@ -32,5 +32,9 @@ module FactlinksHelper
   def vote_options(factlink, parent)
     render :partial => 'factlinks/vote_options', :locals => { :factlink => factlink, :parent => parent }
   end
+  
+  def no_facts_have_been_added_as_li
+    render :partial => 'factlinks/no_facts_added_message'
+  end
 
 end

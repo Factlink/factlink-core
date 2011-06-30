@@ -1,26 +1,27 @@
 <div id="fl-potential-childs-popup"
 style="position: absolute; 
-border: solid 2px rgba(0, 0, 0, 0.2);
+border: solid 10px rgba(0, 0, 0, 0.2);
 border-radius: 4px; padding: 4px;
 width: 390px;
 height: 248px;
 background: #eee;
 box-shadow: 0px 0px 8px #888;
 top: 60px;
-left: 18px;
+left: 10px;
+z-index: 24;
 display: none;">
 	
-	<span style="margin: 4px;">Please choose an existing source to add:</span>
+	<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 386px;", :onclick => "$('#dimmer').fadeOut('fast'); $('#fl-potential-childs-popup').fadeOut('fast');" %>
+	
+	<span style="margin: 4px; font-weight: 700; text-shadow: 0px 0px 1px #fff;">Please choose an existing fact to add:</span>
 
 	<div class="fl-scroll-pane" style="margin-top: 4px;">
 		<ol id="fl-existing-childs-list" class="fl-sources" style="height: 200px;">
 			
 			
 			<% unless potential_childs.count > 0 %>
-
-				<li id="no-facts-message">						
-					<span class="fl-statement-title">No facts have been added yet.</span>
-				</li>
+				
+				<%= no_facts_have_been_added_as_li %>
 			
 			<% else %>
 
@@ -31,14 +32,15 @@ display: none;">
 						<span><%= source.displaystring %></span>
 						<p><%= source.content || "<no content available>" %></p>
 						<% if source.site %>
-							<span class="fl-source">found on <a href="<%= source.site.url %>" target="_blank"><%= source.site.url %></a></span>
+							<span class="fl-source">found on <a href="<%= source.site.url %>" target="_blank"><%= truncate(source.site.url, :length => 62) %></a></span>
 						<% else %>
-							<span class="fl-source">found on <a href="<%= source.url %>" target="_blank"><%= source.url %></a></span>
+							<span class="fl-source">found on <a href="<%= source.url %>" target="_blank"><%= truncate(source.url, :length => 62) %></a></span>
 						<% end %>
 					</div>
 
-					<div style="position: absolute; right: 10px; top: 30px;">
-						<%= link_to('add', add_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+					<div style="padding: 22px 0px 0px 0px; margin-left: -48px;" class="center">
+						<%= link_to('add as <span style="font-weight: 700;">supporting</span>'.html_safe, add_supporting_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						<%= link_to('add as <span style="font-weight: 700;">weakening</span>'.html_safe, add_weakening_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
 					</div>
 				</li>
 				<% end %>
@@ -47,7 +49,7 @@ display: none;">
 	</div>
 	
 	<div class="center" style="padding: 8px;">
-		<a onclick="javascript: $('#fl-potential-childs-popup').fadeOut('fast'); ">or cancel</a>
+		<a onclick="javascript: $('#dimmer').fadeOut('fast'); $('#fl-potential-childs-popup').fadeOut('fast'); ">or cancel</a>
 	</div>
 	
 </div>

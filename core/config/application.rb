@@ -4,15 +4,13 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 
-require File.expand_path('lib/factlink_parser')
-
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module FactlinkUI
   class Application < Rails::Application
-    
+    # Auto load files in lib directory
     config.autoload_paths << "#{config.root}/lib"
     
     # Settings in config/environments/* take precedence over those specified here.

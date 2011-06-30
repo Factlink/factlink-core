@@ -1,0 +1,9 @@
+<li id="no-facts-message" class="">
+	<span class="fl-statement-title">No facts have been added yet. 
+		<% if user_signed_in? %>
+		<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); ">Add existing fact as support</a>
+		<% else %>
+		<br/>Please <%= link_to("sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %> to use Factlink.
+		<% end %>
+	</span>
+</li>

@@ -12,6 +12,8 @@ FactlinkUI::Application.routes.draw do
   # Resources
   resources :factlinks
   
+  # get "factlink_overview"
+  
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"
@@ -29,9 +31,14 @@ FactlinkUI::Application.routes.draw do
   match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
   
   # Add a Factlink as source
-  post  "/factlink/add_as_source" => "factlinks#create_as_source"
+
   get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
-  get   "/factlink/:factlink_id/add_to_parent/:parent_id" => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+  get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+  get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "factlinks#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
+
+  # Adding sources as supporting or weakening
+  get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "factlinks#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
+  get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "factlinks#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
 
   # Believe, doubt and disbelieve
   get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"

@@ -2,20 +2,32 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Clear stuff
-
-if Rails.env.development?
-  Site.all.delete
-  Factlink.all.delete
-  # Remove the indices of all Factlinks in Solr.
-  Sunspot.remove_all!(Factlink)
+if Rails.env.development? or Rails.env.test?
+  $redis.FLUSHDB                # Clear the Redis DB
+  User.all.delete
+  Site.all.delete               # Self explainatory
+  Factlink.all.delete           # Self explainatory
+  Sunspot.remove_all!(Factlink) # Remove the indices of all Factlinks in Solr.
 end
 
-user = User.first
+# A user
+user = User.new(:username => "robin",
+                :email => "robin@gothamcity.com",
+                :confirmed_at => DateTime.now,
+                :password => "hshshs",
+                :password_confirmation => "hshshs")
+user.save
+
+user1 = User.new(:username => "tomdev",
+                :email => "tom@codigy.nl",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user1.save
 
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save
-
 
 facts = [
 'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
@@ -31,12 +43,12 @@ facts.each do |fact|
   )
 end
 
-500.times do |x|
-  Factlink.create!( :displaystring => facts[x % facts.count],
-                    :site => site,
-                    :created_by => user
-  )  
-end
+# 500.times do |x|
+#   Factlink.create!( :displaystring => facts[x % facts.count],
+#                     :site => site,
+#                     :created_by => user
+#   )  
+# end
 
 # Commit the indices to Solr
 Sunspot.commit

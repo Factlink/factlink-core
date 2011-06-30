@@ -2,6 +2,8 @@ body, html {
   background: transparent;
   margin: 0;
   padding: 0;
+
+	text-shadow: 0px 0px 1px #fff;
 }
 a {
 	color: #999;
@@ -13,6 +15,11 @@ a:hover {
 .close-button:hover {
   cursor: pointer;
 }
+.no-background {
+	background: none;
+	background-image: none !important;
+}
+
 div.fl-modal {
   background-color: transparent;
   background-color: rgba(0, 0, 0, 0.2);
@@ -170,7 +177,8 @@ div.fl-modal div.fl-edit-tags > input[type="text"] {
 div.fl-modal .fl-scroll-pane {
   border: solid 1px red;
   border-radius: 4px;
-  border: 1px solid #ddd;
+/*  border: 1px solid #ddd;*/
+  border: 1px solid #ccc;
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources {
   background: #fafafa;
@@ -179,15 +187,48 @@ div.fl-modal .fl-scroll-pane ol.fl-sources {
   padding: 0;
   margin: 0;
   list-style: none;
-  height: 150px;
+  height: 250px;
   overflow-y: auto;
+
+	background: url('/images/texture.png');
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li {
   display: block;
 	border-bottom: 1px solid #ccc;
-  padding: 10px 0px 6px 35px;
+  padding: 28px 0px 18px 35px;
   position: relative;
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+
+/*  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));*/
+/*  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);*/
+
+	box-shadow: 0px 0px 12px #ccc;
+	border-radius: 3px;
 }
+
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
+/*	border: solid 1px red;*/
+	
+	box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+	
+	border-bottom-right-radius: 5px;
+	border-bottom: solid 1px #fff;
+	
+	border-right: solid 1px #fff;
+	background: #999;
+	
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 3px 10px 5px 10px;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
+	font-size: 0.8em;
+	color: #fff;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
 	display: block;
   color: #888;
@@ -195,9 +236,25 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
   margin: 0;
   line-height: 16px;
   font-size: 1.0em;
-  padding: 0px;
+  padding: 0px 0px 12px 0px;
   margin: 0px;
+	width: 330px;
 }
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact {	
+	height: 16px;
+	width: 16px;
+	
+	position: absolute;
+	top: 10px;
+	right: 6px;
+	opacity: 0.2;
+	-webkit-transition:all 0.2s ease-in-out;
+}
+
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact:hover {
+	opacity: 1.0;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li p {
   color: #888;
   font-weight: 200;
@@ -285,13 +342,18 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.disbelieve {
 	opacity: 0.3;
 }
 
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
+	border: solid 1px #ccc;
+	border-radius: 3px;
+	margin-left: 4px;
+}
+
 div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span {
 	display: block;
 	border-bottom: 0px !important;
 	
 	margin: 0px;
 	padding: 0px;
-	margin-left: 4px;
 	width: 24px;
 }
 
@@ -352,11 +414,11 @@ div.fl-sign-in-container {
 }
 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
-  background-color: #ccc;
+  background-color: #999;
   -webkit-border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:horizontal {
   width: 50px;
-  background-color: #ccc;
+  background-color: #999;
   -webkit-border-radius: 3px;
 }

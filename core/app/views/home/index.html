@@ -27,8 +27,7 @@
 <div class="prepend-1 span-5 last">
 
 	<form method="GET" action="<%= factlink_overview_path %>">
-		<input type="text" class="search" name="s" placeholder="Search.." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
-
+		<input type="text" class="search" name="s" placeholder="Search for facts..." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
 	</form>
 
 	<br/>
@@ -45,7 +44,7 @@
 	
 	<ul>
 	<% @users.all.each do |user| %>
-		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.factlink_tops.count %></span></li>
+		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.factlinks.count %></span></li>
 	<% end %>
 	</ul>
 	

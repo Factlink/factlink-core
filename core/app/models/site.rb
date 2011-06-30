@@ -2,9 +2,11 @@ class Site
   include Mongoid::Document
   field :url
 
-  has_many :factlink_tops   # Getting deprecated
-  has_many :factlinks       # Moving to this
+  has_many :factlinks
   
   validates_uniqueness_of :url
   
+  def factlink_count
+    return self.factlinks.count
+  end
 end

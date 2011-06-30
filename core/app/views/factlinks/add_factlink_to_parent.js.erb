@@ -1,5 +1,6 @@
-var loading_indicator = $( '#fl-loading-indicator' );
 
+
+var loading_indicator = $( '#fl-loading-indicator' );
 loading_indicator.fadeIn('fast');
 
 setTimeout(function() {
@@ -7,7 +8,10 @@ setTimeout(function() {
 	$('>img:first', loading_indicator)
 	    .attr('src', '/images/icons/factlink/16.png');
 
-			$('ol#fl-existing-parents-list > li#fl-source-<%= @parent.id %>').slideUp();
+			$('ol#fl-existing-parents-list > li#fl-source-<%= @parent.id %>').slideUp(function() {
+				$('#fl-potential-parents-popup').fadeOut('fast');
+				$('#dimmer').fadeOut('fast');
+			});
 	
 			// Reset loading indicator
 			setTimeout(function() {
@@ -15,8 +19,6 @@ setTimeout(function() {
 					$('>img:first', loading_indicator)
 					    .attr('src', '/images/icons/loading-indicator-white.gif');		
 				});
-			} , 800); // The delay
+			} , 1200); // The delay
 
 } , 800); // The delay
-
-
