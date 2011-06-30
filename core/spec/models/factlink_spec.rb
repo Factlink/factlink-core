@@ -21,7 +21,7 @@ describe Factlink do
   end
 
   it "can add a child" do
-    @parent.add_child(@factlink)
+    @parent.add_child(@factlink, @user1)
     @parent.childs_count.should == 1
   end
 
@@ -118,37 +118,37 @@ describe Factlink do
 
   # Supporting / Weakening fact
   it "stores the ID's of supporting facts in the supporting facts set" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supporting_fact_ids.should include(@factlink.id.to_s)
   end
 
   it "stores the ID's of weakening facts in the weakening facts set" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakening_fact_ids.should include(@factlink2.id.to_s)
   end
 
   it "should not store the ID of weakening facts in the supporting facts set" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.supporting_fact_ids.should_not include(@factlink2.id.to_s)
   end
   
   it "should return true if the child is a supporting child when checking a supporting child" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supported_by?(@factlink).should == true
   end
 
   it "should return false if the child is a supporting child when checking a weakening child" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supported_by?(@factlink2).should == false
   end
 
   it "should return true if the child is weakening child when checking a weakning child" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakened_by?(@factlink2).should == true
   end
 
   it "should return false if the child is weakening child when checking a supporting child" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakened_by?(@factlink).should == false
   end
 

@@ -55,9 +55,9 @@ class User
 
   def opinion_id(type)
     foo = {
-      'beliefs' => 0,
-      'doubts' => 1,
-      'disbeliefs' => 2,
+      'beliefs'     => 0,
+      'doubts'      => 1,
+      'disbeliefs'  => 2,
     }
     foo[type]
   end
@@ -97,38 +97,42 @@ class User
     $redis.sismember(self.redis_key(type), factlink.id)
   end
 
+  # def opinion_class(type, factlink, parent)
+  #   # Key to the User hash of factlink opinions
+  #   key = self.redis_factlink_opinion_key(parent)
+  # 
+  #   # hash can be:
+  #   # 0   => beliefs
+  #   # 1   => doubts
+  #   # 2   => disbeliefs
+  #   # nil => no opinion
+  #   hash = $redis.hget(key, factlink.id)
+  # 
+  #   if hash
+  # 
+  #     if inverse_opinion_hash(hash) == type.to_s
+  #       puts "Returning active"
+  #       return "active"
+  #     else
+  #       puts "returning nothing"
+  #       return ""
+  #     end
+  #   else
+  #     puts "No Hash"
+  #     return ""
+  #   end
+  # 
+  # end
+
+
   def opinion_class(type, factlink, parent)
-    # Key to the User hash of factlink opinions
-    key = self.redis_factlink_opinion_key(parent)
-
-    # hash can be:
-    # 0   => beliefs
-    # 1   => doubts
-    # 2   => disbeliefs
-    # nil => no opinion
-    hash = $redis.hget(key, factlink.id)
-
-    if hash
-
-      if inverse_opinion_hash(hash) == type.to_s
-        puts "Returning active"
-        return "active"
-      else
-        puts "returning nothing"
-        return ""
-      end
+    
+    if $redis.sismember(self.redis_key(type), factlink.id.to_s)
+      return "active"
     else
-      puts "No Hash"
       return ""
     end
-
-
-    # if opinion_on_factlink?(type, factlink)
-    #   return "active"
-    # else
-    #   return ""
-    # end
-
+    
   end
 
 

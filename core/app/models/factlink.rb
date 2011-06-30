@@ -75,7 +75,6 @@ class Factlink
 
   def set_added_to_factlink(factlink, user)
     # Redis     Key................., Field......, Value..
-    puts "Setting ADDED_TO: #{redis_key(:added_to)} -- #{user.id}"
     $redis.hset(redis_key(:added_to), factlink.id, user.id)
   end
   
@@ -103,11 +102,8 @@ class Factlink
 
   # Remove a child node
   def remove_child(child)
-    puts "Removing child '#{child}' from parent '#{self}'"
-    self.childs.delete child
-    
-    puts "Removing parent '#{self}' from parent '#{child}'\n\n"
-    child.remove_parent(self)
+    self.childs.delete child  # Remove the child
+    child.remove_parent(self) # Remove child from parent
     
     # Remove the factlink_id from supporting/weakning facts set 
     $redis.srem(redis_key(:supporting_facts), child.id)
@@ -311,6 +307,20 @@ class Factlink
   def percentage_score_proves
     score_dict_as_percentage[:proves]
   end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   # Stats count
