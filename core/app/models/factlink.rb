@@ -103,8 +103,10 @@ class Factlink
 
   # Remove a child node
   def remove_child(child)
+    puts "Removing child '#{child}' from parent '#{self}'"
     self.childs.delete child
-
+    
+    puts "Removing parent '#{self}' from parent '#{child}'\n\n"
     child.remove_parent(self)
     
     # Remove the factlink_id from supporting/weakning facts set 
@@ -122,6 +124,7 @@ class Factlink
 
   def remove_parent(parent)
     self.parents.delete parent
+    self.save
   end
 
   def supporting_fact_ids
