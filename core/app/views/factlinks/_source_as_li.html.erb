@@ -35,22 +35,4 @@
 	</div>
 	<% end %>
 
-	<span style="font-weight: 700;">This fact</span><br/>
-	believe<br/>
-	doubt<br/>
-	disbelieve<br/><br/>
-	
-	<span style="font-weight: 700;">This fact 
-		<% if parent.supported_by?(factlink) %>
-			supporting
-		<% else %>
-			weakening
-		<% end %>
-		"<%= factlink.displaystring %>"
-		</span>	
-	<br/>
-	believe<br/>
-	doubt<br/>
-	disbelieve<br/><br/>
-
 </li>
