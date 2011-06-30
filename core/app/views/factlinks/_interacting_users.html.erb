@@ -20,18 +20,27 @@
 	<div class="fl-scroll-pane">
 
 		<ol id="fl-users">
-			<% believers.each do |believer| %>
-				<li class="believers"><span class="believer tag">believes</span> <%= link_to(believer, user_profile_path(believer.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= believer.authority %>)</span></li>
-			<% end %>
+			
+			<% unless factlink.interacting_user_count > 0 %>
+			
+				<div class="center" style="padding-top: 48px; color: #fff; font-weight: 400; font-size: 1.1em; text-shadow: 0px 1px 0px #444;">
+					<span>There are no users with an opinion on this fact.</span>
+				</div>
+			
+			<% else %>
+			
+				<% believers.each do |believer| %>
+					<li class="believers"><span class="believer tag">believes</span> <%= link_to(believer, user_profile_path(believer.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= believer.authority %>)</span></li>
+				<% end %>
 
-			<% doubters.each do |doubter| %>
-				<li class="doubters"><span class="doubter tag">doubts</span> <%= link_to(doubter, user_profile_path(doubter.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= doubter.authority %>)</span></li>
-			<% end %>
+				<% doubters.each do |doubter| %>
+					<li class="doubters"><span class="doubter tag">doubts</span> <%= link_to(doubter, user_profile_path(doubter.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= doubter.authority %>)</span></li>
+				<% end %>
 
-			<% disbelievers.each do |disbeliever| %>
-				<li class="disbelievers"><span class="disbeliever tag">disbelieves</span> <%= link_to(disbeliever, user_profile_path(disbeliever.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= disbeliever.authority %>)</span></li>
+				<% disbelievers.each do |disbeliever| %>
+					<li class="disbelievers"><span class="disbeliever tag">disbelieves</span> <%= link_to(disbeliever, user_profile_path(disbeliever.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= disbeliever.authority %>)</span></li>
+				<% end %>
 			<% end %>
-
 		</ol>
 	</div>
 

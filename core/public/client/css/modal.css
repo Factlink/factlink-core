@@ -216,6 +216,7 @@ div.fl-modal .fl-scroll-pane {
   border: 1px solid #ccc;
 }
 div.fl-modal .fl-scroll-pane ol#fl-users {
+  box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
   margin: 0px;
   position: relative;
   padding: 0px 0px;
@@ -398,15 +399,18 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
   width: 330px;
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact {
-  height: 16px;
+  height: 60px;
   width: 16px;
   position: absolute;
   top: 10px;
   right: 6px;
+}
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact img {
   opacity: 0.2;
   -webkit-transition: all 0.2s ease-in-out;
+  margin-bottom: 12px;
 }
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact:hover {
+div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact img:hover {
   opacity: 1.0;
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-source-information {

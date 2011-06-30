@@ -34,7 +34,7 @@
 
 
 		<div class="fl-remove-fact">
-			<%= link_to(image_tag('icons/users.png'), interacting_users_path(factlink), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
+ 			<%= link_to(image_tag('icons/users.png'), interacting_users_path(factlink), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
 
 			<% if user_signed_in? %>
 				<% if factlink.added_to_parent_by_current_user(parent, current_user) %>
