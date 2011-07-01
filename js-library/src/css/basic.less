@@ -12,48 +12,17 @@ span.factlink {
     -webkit-transition: all 0.4s ease-in-out;
 }
 
-ul.factlink-choices,
-div.ul-storage ul {
-    list-style: none;
-    border: 1px solid #c0c0c0;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    
-    // All the containing li's
-li {
-        border: 1px solid green;
-        padding: 3px 5px;
-        cursor: pointer;
-        background: white;
-        white-space: nowrap;
-        position: relative;
-        margin: 0;
-        
-        &.active {
-            background: #c0c0c0;
-        }
-    }
-    
-    // All the containing ul's
-    ul {
-        display: none;
-    }
-}
-
 div#factlink-modal-frame {
     background: transparent;
     border: none;
     z-index: 2147483647;
     display: none;
     padding: 0;
-    
     iframe {
         border: none;
         height: 100%;
         width: 100%;
     }
-    
     &.show {
         margin: -150px 0 0 -220px;
         position: fixed;
@@ -62,14 +31,12 @@ div#factlink-modal-frame {
         width: 440px;
         height: 300px;
     }
-    
     &.prepare {
         position: absolute;
         height: 100px;
         width: 246px;
     }
 }
-
 div#factlink-overlay {
     position: fixed;
     top: 0;
@@ -80,4 +47,90 @@ div#factlink-overlay {
     opacity: .5;
     display: none;
     z-index: 16777270;
+}
+
+div#factlink-indicator {
+    display: none;
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    
+    height: 49px;
+    
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    
+    background-color: #eee;
+    // Compatibility
+    // background-image: -moz-linear-gradient(top, #ffffff, #f0efef); 
+    // background-image: -ms-linear-gradient(top, #ffffff, #f0efef); 
+    // background-image: -o-linear-gradient(top, #ffffff, #f0efef); 
+    // background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+    // background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+    // background-image: linear-gradient(top, #ffffff, #f0efef);
+    // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef'); 
+    
+    padding: 5px 4px 0;
+    margin: 0;
+    
+    img {
+        vertical-align: top;
+        height: 20px;
+        width: 20px;
+        margin: 0;
+        padding: 0;
+    }
+    
+    ul {
+        vertical-align: top;
+        list-style:none;
+        display:inline-block;
+        margin: 0;
+        padding: 0;
+        width: 45px;
+        height: 45px;
+        
+        border-radius: 8px;
+
+        overflow: hidden;
+        position: relative;
+        
+        li {
+            display: inline-block;
+            min-height: 10px;
+            width: 14px;
+            float: left;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            position: absolute;
+            bottom: 0;
+            
+            background: #ccc;
+            
+            &.fl-bar-proves {
+                div {
+                    background: #bada55;
+                    height: 100%;
+                }
+                left: 0;
+            }
+            
+            &.fl-bar-maybe {
+                div {
+                    background: rgb(255, 211, 36);
+                    height: 100%;
+                }
+                left: 15px;
+            }
+            
+            &.fl-bar-denies {
+                div {
+                    background: rgb(206, 0, 0);
+                    height: 100%;
+                }
+                left: 30px;
+            }
+        }
+    }
 }

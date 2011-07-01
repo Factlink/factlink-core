@@ -54,13 +54,13 @@ Factlink.getTheFacts = function() {
                 // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
                 
                 // Select the ranges (results)
-                Factlink.selectRanges( Factlink.search( data[i].displaystring ), data[i]._id );
+                Factlink.selectRanges( Factlink.search( data[i].displaystring ), data[i]._id, data[i].score_dict_as_percentage );
             }
 
-            var $fls = $( 'span.factlink' ).css('backgroundColor', '#B4D5FE');
+            var $fls = $( 'span.factlink' ).addClass('fl-active');
             
             setTimeout(function(){
-                $fls.css('backgroundColor','transparent');
+                $fls.removeClass('fl-active');
             }, 800);
             
             //@TODO Fix the Loader

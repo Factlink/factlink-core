@@ -21,7 +21,7 @@ var results = [],
     re = /(^|\s)factlink(\s|$)/;
     
 // Function to select the found ranges
-Factlink.selectRanges = function(ranges, id){
+Factlink.selectRanges = function(ranges, id, opinions){
     var i, k, len;
     // Loop through ranges (backwards)
     for ( i = ranges.length; i--; ){
@@ -91,6 +91,7 @@ Factlink.selectRanges = function(ranges, id){
             res.endOffset, 
             res.node, 
             id, 
+            opinions,
             // Only select the first range of every matched string
             // Needed for when one displayString is matched mutliple times on 
             // one page
@@ -105,7 +106,7 @@ Factlink.selectRanges = function(ranges, id){
 // This is where the actual magic will take place
 // A Span will be inserted around the startOffset/endOffset 
 // in the startNode/endNode
-var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
+var insertFactSpan = function(startOffset, endOffset, node, id, opinions, isFirst ) {
         // Value of the startNode, represented in an array
     var startNodeValue = node.nodeValue.split(''),
         // The selected text
@@ -126,7 +127,7 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
             .insertBefore( document.createTextNode(after), node.nextSibling );
     }
         // Create a reference to the actual "fact"-span
-    var span = createFactSpan( selTextStart.join(''), id );
+    var span = createFactSpan( selTextStart.join(''), id, opinions );
 
     // Remove the last part of the nodeValue
     node.nodeValue = startNodeValue.join('');
@@ -137,7 +138,7 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
     
     // If this span is the first in a range of fact-spans
     if ( isFirst ) {
-        var first = createFactSpan( "", id, true );
+        var first = createFactSpan( "", id, opinions, true );
         first.innerHTML = "&#10003;";
         
         node.parentNode.insertBefore( first, span );
@@ -145,7 +146,7 @@ var insertFactSpan = function(startOffset, endOffset, node, id, isFirst ) {
 },
 
 // Create a "fact"-span with the right attributes
-createFactSpan = function(text, id, first){
+createFactSpan = function(text, id, opinions, first){
     var span = document.createElement('span');
 
     // Set the span attributes
@@ -156,6 +157,12 @@ createFactSpan = function(text, id, first){
     }
     
     span.setAttribute('data-factid',id);
+    span.setAttribute('data-fact-disbelieve-percentage',opinions['disbelieve']['percentage']);
+    span.setAttribute('data-fact-disbelieve-authority',opinions['disbelieve']['authority']);
+    span.setAttribute('data-fact-doubt-percentage',opinions['doubt']['percentage']);
+    span.setAttribute('data-fact-doubt-authority',opinions['doubt']['authority']);
+    span.setAttribute('data-fact-believe-percentage',opinions['believe']['percentage']);
+    span.setAttribute('data-fact-believe-authority',opinions['believe']['authority']);
         
     // IE Doesn't support the standard (textContent) and Firefox doesn't 
     // support innerText

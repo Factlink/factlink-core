@@ -119,15 +119,4 @@ $( 'body' ).bind('mouseup', function(e) {
         }, 500);
     }
 });
-
-// Make sure the hover on an element works on all the paired span elements
-$( 'span.factlink' ).live( 'mouseenter', function() {
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' )
-        .addClass('fl-active');
-})
-.live('mouseleave', function() {
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' )
-        .removeClass('fl-active');
-    
-});
 })( window.Factlink );
