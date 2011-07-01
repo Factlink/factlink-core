@@ -283,15 +283,15 @@ class Factlink
     total = total_score
 
     percentage_score_dict = {
-      :believe {
+      :believe => {
         :percentage => percentage(total, belief_total),
         :authority => 0.65
       },
-      :doubt {
+      :doubt => {
         :percentage => percentage(total, doubt_total),
         :authority => 0.20
       },
-      :disbelieve {
+      :disbelieve => {
         :percentage => percentage(total, disbelieve_total),
         :authority => 0.15
       }
