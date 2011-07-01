@@ -125,8 +125,7 @@ class FactlinksController < ApplicationController
     @source   = Factlink.find(params[:source_id])
 
     @source.set_parent @factlink.id
-    
-    
+
     @factlink.add_child_as_supporting(@source)
   end
   
@@ -152,12 +151,26 @@ class FactlinksController < ApplicationController
     render "add_source_to_factlink"
   end
 
-  def add_factlink_to_parent
+  def add_factlink_to_parent_as_supporting
     # Add a Factlink as source for another Factlink
     @factlink = Factlink.find(params[:factlink_id])
     @parent   = Factlink.find(params[:parent_id])
 
     @factlink.set_parent @parent.id
+    @parent.add_child_as_supporting(@factlink, current_user)
+    
+    render "add_factlink_to_parent"
+  end
+  
+  def add_factlink_to_parent_as_weakening
+    # Add a Factlink as source for another Factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    @parent   = Factlink.find(params[:parent_id])
+
+    @factlink.set_parent @parent.id
+    @parent.add_child_as_weakening(@factlink, current_user)
+    
+    render "add_factlink_to_parent"
   end
   
   
@@ -169,7 +182,6 @@ class FactlinksController < ApplicationController
     @factlink = Factlink.find(params[:factlink_id])
     parent    = Factlink.find(params[:parent_id])
     
-
     if @factlink.added_to_parent_by_current_user(parent, current_user)
       # Only remove if the user added this source
       puts "Removing child"
@@ -227,7 +239,7 @@ class FactlinksController < ApplicationController
       
       @parent = Factlink.find(params[:parent_id])
 
-      @factlink = Factlink.find(params[:id])
+      @factlink = Factlink.find(params[:child_id])
       @factlink.set_opinion(current_user, type, @parent)
     else   
       render :json => {"error" => "type not allowed"}
@@ -235,6 +247,27 @@ class FactlinksController < ApplicationController
     end
   end
   
+  def set_relevance
+    @parent = Factlink.find(params[:parent_id])
+    @child  = Factlink.find(params[:child_id])
+    
+    # TODO: validate the type
+    type = params[:type]
+    
+    @parent.set_relevance_for_user(@child, type, current_user)
+  end
+  
+  
+  # Users that interacted with this Factlink
+  def interaction_users_for_factlink
+    @factlink = Factlink.find(params[:factlink_id])
+    
+    @believers    = @factlink.believers
+    @doubters     = @factlink.doubters
+    @disbelievers = @factlink.disbelievers
+    
+    
+  end
   
   # Search 
   def search

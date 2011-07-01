@@ -21,7 +21,7 @@ describe Factlink do
   end
 
   it "can add a child" do
-    @parent.add_child(@factlink)
+    @parent.add_child(@factlink, @user1)
     @parent.childs_count.should == 1
   end
 
@@ -118,77 +118,85 @@ describe Factlink do
 
   # Supporting / Weakening fact
   it "stores the ID's of supporting facts in the supporting facts set" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supporting_fact_ids.should include(@factlink.id.to_s)
   end
 
   it "stores the ID's of weakening facts in the weakening facts set" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakening_fact_ids.should include(@factlink2.id.to_s)
   end
 
   it "should not store the ID of weakening facts in the supporting facts set" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.supporting_fact_ids.should_not include(@factlink2.id.to_s)
   end
   
   it "should return true if the child is a supporting child when checking a supporting child" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supported_by?(@factlink).should == true
   end
 
   it "should return false if the child is a supporting child when checking a weakening child" do
-    @parent.add_child_as_supporting(@factlink)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.supported_by?(@factlink2).should == false
   end
 
   it "should return true if the child is weakening child when checking a weakning child" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakened_by?(@factlink2).should == true
   end
 
   it "should return false if the child is weakening child when checking a supporting child" do
-    @parent.add_child_as_weakening(@factlink2)
+    @parent.add_child_as_weakening(@factlink2, @user1)
     @parent.weakened_by?(@factlink).should == false
   end
 
-end
 
 
-describe User do
-
-  before(:each) do
-    @parent = Factlink.new
-    @child1 = Factlink.new
-    @child2 = Factlink.new
-
-    @parent.childs << @child1
-    @parent.childs << @child2
-
-    @user1 = User.new(:username => "tomdev")
-    @user2 = User.new(:username => "zamboya")
+  it "can get a count of relevant users" do
+    
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
   end
 
-  it "should have one child" do
-    @parent.childs_count.should == 2
+  it "parent can set relevance for child and user" do    
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
   end
 
-  it "should have one first child which is the first child" do
-    @parent.childs.first == @child1
+  it "can remove the relevance of a child for a user" do
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.remove_relevance_for_user(@factlink, @user1)
+    
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
   end
 
-  it "should have zero active factlinks on create" do
-    @user1.active_on_factlinks.count.should == 0
+  it "remove the first relevance opinion when a user changes relevance of the child" do
+    # Set relevant
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
+    
+    # Set not_relevant
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
+  end
+  
+  it "should have a user with relevance when set" do
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.user_has_opinion_on_child?(@factlink, :relevant, @user1).should == true
+    @parent.user_has_opinion_on_child?(@factlink, :might_be_relevant, @user1).should == false
+    @parent.user_has_opinion_on_child?(@factlink, :not_relevant, @user1).should == false
   end
 
-  it "should have one active factlink after adding believe" do
-    @child1.add_opinion(:beliefs, @user1, @parent)
-    @user1.active_on_factlinks.count.should == 1
-  end
-
-  it "should have a toggle value for the factlink key it voted on" do
-    @child1.add_opinion(:beliefs, @user1, @parent)
-    @user1.get_opinion(@child1, @parent)
+  it "can toggle the relevance on a child for a user" do
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
+    
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 0
   end
 
 end

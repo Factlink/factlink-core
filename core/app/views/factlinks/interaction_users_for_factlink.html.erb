@@ -1,0 +1,62 @@
+<h1><%= @factlink %></h2>
+<style>
+	.baron {
+		font-weight: 700;
+	}
+
+</style>
+
+<div id="filters">
+	<a class="all baron" onclick="apply_filter('*');">all</a>
+
+	<a class="believers" onclick="apply_filter('.believers');">believers <%= @believers.count %></a>
+	<a class="doubters" onclick="apply_filter('.doubters');">doubters <%= @doubters.count %></a>
+	<a class="disbelievers" onclick="apply_filter('.disbelievers');">disbelievers <%= @disbelievers.count %></a>
+</div>
+
+<br/>
+-----------------<br/>
+
+
+<% content_for :javascript do %>
+<script>
+
+	function apply_filter(class) {
+		$('ul > li').hide().filter(class).show();
+		
+		$('div#filters > a').removeClass('baron');
+		
+		// override for the 'all' filter
+		if (class == "*") {
+			class = "all";
+		} 
+		
+		$('div#filters > a.' + class).addClass('baron');
+	}
+
+</script>
+<% end %>
+
+<ul>
+<% @believers.each do |b| %>
+
+	<li class="believers"><%= b.username %></li>
+
+<% end %>
+</ul>
+
+<ul>
+<% @doubters.each do |b| %>
+
+	<li class="doubters"><%= b.username %></li>
+
+<% end %>
+</ul>
+
+<ul>
+<% @disbelievers.each do |b| %>
+
+	<li class="disbelievers"><%= b.username %></li>
+
+<% end %>
+</ul>

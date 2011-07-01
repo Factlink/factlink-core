@@ -1,0 +1,20 @@
+<style>
+	div#fl-relevance-container span {
+		padding: 2px 12px;
+	}
+
+	div#fl-relevance-container span.active { 
+			border: solid 1px white;
+			background-color: #888;
+			color: white;
+			border-radius: 16px;
+			text-decoration: none;
+			text-shadow: nonefactlink;
+	}
+
+</style>
+
+<%= link_to("<span class=\"relevant #{parent.relevance_class(factlink, :relevant, current_user)}\">Relevant</span>".html_safe, relevance_path(factlink.id, :relevant, parent.id), :remote => true) %>
+<%= link_to("<span class=\"might-be-relevant #{parent.relevance_class(factlink, :might_be_relevant, current_user)}\">Might be relevant</span>".html_safe, relevance_path(factlink.id, :might_be_relevant, parent.id), :remote => true) %>
+<%= link_to("<span class=\"not-relevant #{parent.relevance_class(factlink, :not_relevant, current_user)}\">Not relevant</span>".html_safe, relevance_path(factlink.id, :not_relevant, parent.id), :remote => true) %>
+

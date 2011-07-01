@@ -75,7 +75,6 @@ class Factlink
 
   def set_added_to_factlink(factlink, user)
     # Redis     Key................., Field......, Value..
-    puts "Setting ADDED_TO: #{redis_key(:added_to)} -- #{user.id}"
     $redis.hset(redis_key(:added_to), factlink.id, user.id)
   end
   
@@ -103,9 +102,8 @@ class Factlink
 
   # Remove a child node
   def remove_child(child)
-    self.childs.delete child
-
-    child.remove_parent(self)
+    self.childs.delete child  # Remove the child
+    child.remove_parent(self) # Remove child from parent
     
     # Remove the factlink_id from supporting/weakning facts set 
     $redis.srem(redis_key(:supporting_facts), child.id)
@@ -122,6 +120,7 @@ class Factlink
 
   def remove_parent(parent)
     self.parents.delete parent
+    self.save
   end
 
   def supporting_fact_ids
@@ -163,7 +162,6 @@ class Factlink
       # User has none or other opinion, set this one!
       add_opinion(type, user, parent)
     end
-
   end
 
   def add_opinion(type, user, parent)
@@ -254,9 +252,29 @@ class Factlink
   end
 
   def add_disbeliever(user, parent)
-    add_opinion(:disbeliefs,user, parent)
+    add_opinion(:disbeliefs, user, parent)
   end
 
+  
+  # All interacting users on this Factlink
+  def interacting_user_ids
+    tmp_key = "factlink:#{self.id}:interacting_users:tmp"
+  
+    $redis.zunionstore(tmp_key,
+                  [self.redis_key(:beliefs), 
+                  self.redis_key(:disbeliefs), 
+                  self.redis_key(:disbeliefs)])
+    
+    $redis.zrange(tmp_key, 0, -1)
+  end
+  
+  def interacting_user_count
+    self.interacting_user_ids.count
+  end
+  
+  def interacting_users
+    User.where(:_id.in => self.interacting_user_ids)
+  end
 
 
   # SCORE STUFF
@@ -265,9 +283,18 @@ class Factlink
     total = total_score
 
     percentage_score_dict = {
-      :proves => percentage(total, belief_total),
-      :maybe => percentage(total, doubt_total),
-      :denies => percentage(total, disbelieve_total)
+      :believe {
+        :percentage => percentage(total, belief_total),
+        :authority => 0.65
+      },
+      :doubt {
+        :percentage => percentage(total, doubt_total),
+        :authority => 0.20
+      },
+      :disbelieve {
+        :percentage => percentage(total, disbelieve_total),
+        :authority => 0.15
+      }
     }
     percentage_score_dict
   end
@@ -310,6 +337,78 @@ class Factlink
   end
 
 
+  # Relevance of a supporting or weakening fact
+  # 
+  # [:relevant, :might_be_relevant, :not_relevant]
+  # :might_be_relevant
+  # :not_relevant
+  # 
+  # Key
+  # factlink:relevance:#{factlink_id}:#{child_id}:[:relevant||:might_be_relevant||:not_relevant]
+  #
+
+  # Gets the count of users of the relevance type of the child
+  def get_relevant_users_count_for_child_and_type(child, type)
+    key = redis_relevance_key(child, type)
+    $redis.zcard(key)
+  end
+  
+  # Gets all user ids for the relevance type on this child
+  def get_relevant_users_for_child_and_type(child, type)
+    key = redis_relevance_key(child, type)
+    $redis.zrange(key, 0, -1) # Returns all user ids
+  end
+  
+  # Sets or toggles the relevance by the user on the child with this type
+  def set_relevance_for_user(child, type, user)
+
+    if user_has_relevance_on_child?(child, type, user)
+      # User has this relevance type set already; remove relevance
+      remove_relevance_for_user(child, user)
+    else
+      # User has none or other opinion
+      # Clears the current opinion, and adds the new opinion.
+      add_relevance_for_user(child, type, user)
+    end
+
+  end
+
+  def user_has_relevance_on_child?(child, type, user)
+    key = redis_relevance_key(child, type)
+    
+    # If rank gets returned, the user has this opinion.
+    if $redis.zrank(key, user.id)
+      return true
+    else
+      return false
+    end
+  end
+
+  # Adds relevance opinion of the user on the child.
+  def add_relevance_for_user(child, type, user)
+    # Remove the old relevances set by this user
+    remove_relevance_for_user(child, user)
+    
+    key = redis_relevance_key(child, type)
+    $redis.zadd(key, user.authority, user.id)
+  end
+
+  # Remove the relevance set by this user. 
+  def remove_relevance_for_user(child, user)
+    [:relevant, :might_be_relevant, :not_relevant].each do |type|
+      $redis.zrem(redis_relevance_key(child, type), user.id)
+    end
+  end
+
+  def relevance_class(child, type, user)
+    # Used to show the relevance of a child to a parent.
+    if user_has_relevance_on_child?(child, type, user)
+      return "active"
+    else
+      return ""
+    end
+  end
+
   # Stats count
   def stats_count
     # Fancy score calculation
@@ -326,6 +425,10 @@ class Factlink
     # Helper method to generate redis keys
   def redis_key(str)
     "factlink:#{self.id}:#{str}"
+  end
+  
+  def redis_relevance_key(child, type)    
+    "factlink:relevance:#{self.id}:#{child.id}:#{type}"
   end
 
   def percentage(total, part)

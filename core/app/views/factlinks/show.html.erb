@@ -1,5 +1,20 @@
 <!-- <div class="fl-modal">
 	<div class="fl-container"> -->
+		<% content_for :javascript do %>
+		<script>
+			function apply_filter(class) {
+				$('ol#fl-users > li').fadeOut(40).filter(class).fadeIn(40);
+				$('div#filters > a').removeClass('active');
+
+				// override for the 'all' filter
+				if (class == "*") {
+					class = "all";
+				} 
+				$('div#filters > a.' + class).addClass('active');
+			}
+		</script>
+		<% end %>
+
 		<script type="text/javascript">
 			parent.remote.resetStyle();
 			parent.remote.setFrameType("show");
@@ -110,3 +125,6 @@ display: none;
 z-index: 1;
 border-radius: 4px;
 "></div>
+
+
+<div id="fl-interacting-users"></div>

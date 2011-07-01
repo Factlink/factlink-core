@@ -46,7 +46,7 @@ var // Integer value holding current page number
     // Function that will load more items
     load_more = function() {
         $.ajax({
-            url: '/factlink/page/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js' + ( search_string && search_string.length === 2 ? "?s=" + search_string[1] : "" ) ,
+            url: '/search/page/' + ++page + (sort_direction.length > 0 && sort_column.length > 0 ? '/' + sort_column + '/' + sort_direction : "" ) + '.js' + ( search_string && search_string.length === 2 ? "?s=" + search_string[1] : "" ) ,
             dataType: 'script',
             success: function() {
                 // Done loading!

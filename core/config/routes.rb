@@ -14,6 +14,11 @@ FactlinkUI::Application.routes.draw do
   
   # get "factlink_overview"
   
+  
+  # Search and infinite scrolling
+  match "/search(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
+  
+  
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"
@@ -27,29 +32,37 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
 
-  # Search and infinite scrolling
-  match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
+
   
   # Add a Factlink as source
 
   get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
-  get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+  
+  # get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+
+
+  get   "/factlink/:factlink_id/add_to_parent_as_supporting/:parent_id" => "factlinks#add_factlink_to_parent_as_supporting",  :as => "add_factlink_to_parent_as_supporting"
+  get   "/factlink/:factlink_id/add_to_parent_as_weakening/:parent_id"  => "factlinks#add_factlink_to_parent_as_weakening",   :as => "add_factlink_to_parent_as_weakening"
+
   get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "factlinks#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
 
   # Adding sources as supporting or weakening
   get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "factlinks#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
   get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "factlinks#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
 
+  get   "/factlink/:factlink_id/interacting_users" => "factlinks#interaction_users_for_factlink", :as => "interacting_users"
+
   # Believe, doubt and disbelieve
   get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"
   get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
   get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
 
-  get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+  # Set opinion and relevance
+  get "/factlink/:child_id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+  get "/factlink/:child_id/relevance/:type/:parent_id" => "factlinks#set_relevance", :as => "relevance"
   
   # Template which is shown when user hovers Factlink
   get "/factlink/indication" => "factlinks#indication"
-
   
   ##########
   # Web Front-end
@@ -58,7 +71,6 @@ FactlinkUI::Application.routes.draw do
   
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
-
 
 
   ############################################################################

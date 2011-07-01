@@ -2,6 +2,10 @@ body, html {
 	background: transparent;
 	margin: 0;
 	padding: 0;
+	text-shadow: 0px 0px 1px #fff;
+}
+a {
+	color: #999;
 }
 a:hover {
 	cursor: pointer;
@@ -27,7 +31,7 @@ div.fl-modal {
     
     font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
     font-size: 13px;
-    
+
     // The actual container with all the content
     div.fl-container {
         background-color: #ffffff;
@@ -47,7 +51,7 @@ div.fl-modal {
         width: 400px;
 
 				div#fl-sources-popup {
-					position: absolute; 
+					position: absolute;
 					top: 78px;
 
 					background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
@@ -79,7 +83,63 @@ div.fl-modal {
 					width: 344px;
 					color: #717171;
 				}
+				
+				div#fl-interacting-users {
+					position: absolute;
+					top: 24px;
+					left: 16px;
+					width: 390px;
+					height: 400px;
 
+					border: solid 10px rgba(0, 0, 0, 0.2);					
+					border-radius: 4px;
+					box-shadow: 0px 0px 10px #000;
+					z-index: 24;
+					display: none;
+					background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+		      background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+		
+					div#fl-users-container {
+						
+						div.fl-scroll-pane {
+							margin: 5px;
+							height: 270px;
+							background: url('/images/texture.png');
+						}
+						
+						div#filters {
+							padding: 16px 0px 12px 0px;
+							
+							a {
+								padding: 2px 12px;
+								
+								
+								
+							}
+							a:hover {
+								text-decoration: none;
+							}
+							a.active {
+								background: #999;
+								
+								border: solid 1px #fff;
+								border-radius: 16px;
+								
+								box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+								
+								color: #fff;
+							}
+							
+							span.counter {
+/*								border: solid 1px #ddd;*/
+/*								border-radius: 16px;*/
+/*								padding: 0px 4px;*/
+							}
+							
+						}
+						
+					}
+				}
     }
     
     // The stats box
@@ -210,36 +270,78 @@ div.fl-modal {
 	div.fl-edit-tags > input[type="text"] {
 		color: #717171;
 		box-shadow: inset 0 0 7px rgba(0,0,0,0.2);
-        border-radius: 4px;
-        border: 1px solid #cfcfcf;
+		border-radius: 4px;
+		border: 1px solid #cfcfcf;
 		padding: 6px;
 	}
 		
     
     .fl-scroll-pane {
-		border: solid 1px red;
 		border-radius: 4px;
-		border: 1px solid #ddd;
-        
+		border: 1px solid #ccc;
+
+			ol#fl-users {
+				
+				box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
+				
+				margin: 0px;
+				position: relative;
+				padding: 0px 0px;
+				
+				overflow-y: auto;
+				height: 270px;
+				
+				li {
+					list-style: none;
+/*					border: solid 1px red;*/
+					
+					padding: 12px;
+					background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+					
+					span.tag {
+						font-size: 0.85em;
+						text-shadow: 0px 1px 1px #fff;
+						width: 80px;
+						display: block;
+						float: left;
+						margin-top: 2px;
+					}
+					
+					span.believer {
+						color: #BADA55;
+					}
+					
+					span.doubter {
+						color: #FFD324;
+					}
+					
+					span.disbeliever {
+						color: #CC0000;
+					}
+				}
+				
+			}
+
         // The list of sources, this will actually be inside the .fl-container
         // But for readabillity i just put it here, nuff said.
         ol.fl-sources {
             background: #fafafa;
+
+						background: url('/images/texture.png');
             box-shadow: inset 0 0 7px rgba(0,0,0,.2);
             border-radius: 4px;
             padding: 0;
             margin: 0;
             list-style: none;
-            height: 150px;
+            height: 250px;
             overflow-y: auto;
 
             li {
                 display: block;
-/*                height: 40px;*/
-
                 border-bottom: 1px solid #ccc;
-                padding: 10px 0px 6px 35px;
+                padding: 28px 0px 18px 35px;
                 position: relative;
+								background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
 
                 h4 {
                     color: #999;
@@ -254,9 +356,13 @@ div.fl-modal {
 								p {
 										color: #888;
 										font-weight: 200;
-/*										padding: 0px;*/
-										margin: 4px 0px 6px 0px;
-										
+										margin: 2px 0px 6px 0px;										
+								}
+								
+								hr {
+									border-left: 0px; border-right: 0px;
+									border-top: solid 1px #ddd;
+									border-bottom: solid 1px #fff;
 								}
 
                 span.fl-source, a {
@@ -286,13 +392,73 @@ div.fl-modal {
 								}
 
 								span.fl-source-score {
-										width: 28px;
-										font-size: 0.9em;
-										text-align: center;
-										color: #bbb;
-										left: 4px;
-										top: 18px;
-										position: absolute;
+									  width: 28px;
+									  font-size: 0.9em;
+									  text-align: center;
+									  color: #bbb;
+									  left: 4px;
+									  top: 18px;
+									  position: absolute;
+								}
+								
+								span.believe {
+									background: #bada55;
+									opacity: 0.3;
+								}
+								
+								span.doubt {
+									background: rgb(255, 211, 36);
+									opacity: 0.3;
+								}
+								
+								span.disbelieve {
+									background: rgb(206, 0, 0);
+									opacity: 0.3;
+								}
+								
+								div.fl-vote-container {
+									border: solid 1px #ccc;
+									border-radius: 3px;
+									margin-left: 4px;
+									
+									span {
+										display: block;
+										border-bottom: 0px !important;
+
+										margin: 0px;
+										padding: 0px;
+										width: 24px;
+									}
+									
+									span.believe:hover,
+									span.doubt:hover,
+									span.disbelieve:hover {
+										opacity: 0.6 !important;
+										-webkit-transition:all 0.1s ease-in-out; 
+									}
+									
+									span.believe {
+										border-top-left-radius: 3px;
+										border-top-right-radius: 3px;
+									}
+									
+									span.disbelieve {
+										border-bottom-left-radius: 3px;
+										border-bottom-right-radius: 3px;
+									}
+									
+									a {
+										text-decoration: none;
+									}
+								}
+								
+								div.fl-vote-container {
+									left: 0px;
+								  position: absolute;
+								}
+								
+								span.active {
+									opacity: 1.0 !important;
 								}
 
                 span.fl-source-up,
@@ -307,6 +473,70 @@ div.fl-modal {
 								div.fl-vote-container {
 										left: 0px; 
 									position: absolute;
+								}
+								
+								div#fl-link-type {
+									box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+
+									border-bottom-right-radius: 5px;
+									border-bottom: solid 1px #fff;
+									border-right: solid 1px #fff;
+									background: #999;
+									position: absolute;
+									top: 0px;
+									left: 0px;
+									padding: 3px 10px 5px 10px;	
+									font-size: 0.8em;
+									color: #fff;
+								}
+								
+								span.fl-statement-title {
+									display: block;
+								  color: #888;
+								  font-weight: 400;
+								  margin: 0;
+								  line-height: 16px;
+								  font-size: 1.0em;
+								  padding: 0px 0px 12px 0px;
+								  margin: 0px;
+									width: 330px;
+								}
+								
+								div.fl-remove-fact {
+									height: 60px;
+									width: 16px;
+
+									
+									position: absolute;
+									top: 10px;
+									right: 6px;
+									
+
+									img {
+										opacity: 0.2;
+										-webkit-transition:all 0.2s ease-in-out;	
+										margin-bottom: 12px;
+									}
+									
+									img:hover {
+										opacity: 1.0;
+									}
+								}
+								
+								div.fl-source-information {
+									padding: 2px 0px 6px 0px;
+								}
+								
+								span.fl-source,
+								a,
+								span.fl-source-created-by {
+									color: #888;
+								  font-weight: 200;
+									text-shadow: 0px 1px 1px #fff;
+								}
+								
+								a:hover {
+									color: #555;
 								}
 
             }
@@ -395,12 +625,12 @@ div.fl-sign-in-container {
 
 ::-webkit-scrollbar-thumb:vertical {
     height: 50px;
-    background-color: #ccc;
+    background-color: #666;
     -webkit-border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
     width: 50px;
-    background-color: #ccc;
+    background-color: #666;
     -webkit-border-radius: 3px;
 }

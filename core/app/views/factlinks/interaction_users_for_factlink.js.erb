@@ -1,0 +1,1 @@
+$('div#fl-interacting-users').html("<%= escape_javascript(	render( :partial => 'interacting_users', :locals => { :factlink => @factlink, :believers => @believers, :doubters => @doubters, :disbelievers => @disbelievers } )) %>");
