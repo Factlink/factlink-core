@@ -289,11 +289,11 @@ class Factlink
       },
       :doubt => {
         :percentage => percentage(total, doubt_total),
-        :authority => 0.20
+        :authority => 0.50
       },
       :disbelieve => {
         :percentage => percentage(total, disbelieve_total),
-        :authority => 0.15
+        :authority => 0.50
       }
     }
     percentage_score_dict
