@@ -239,13 +239,24 @@ class FactlinksController < ApplicationController
       
       @parent = Factlink.find(params[:parent_id])
 
-      @factlink = Factlink.find(params[:id])
+      @factlink = Factlink.find(params[:child_id])
       @factlink.set_opinion(current_user, type, @parent)
     else   
       render :json => {"error" => "type not allowed"}
       return false
     end
   end
+  
+  def set_relevance
+    @parent = Factlink.find(params[:parent_id])
+    @child  = Factlink.find(params[:child_id])
+    
+    # TODO: validate the type
+    type = params[:type]
+    
+    @parent.set_relevance_for_user(@child, type, current_user)
+  end
+  
   
   # Users that interacted with this Factlink
   def interaction_users_for_factlink

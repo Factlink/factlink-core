@@ -40,4 +40,14 @@
 			<% end %>
 		</div>
 
+	<div style="border: dashed 2px rgba(206, 0, 0);">
+		<pre>Development shizzle</pre>
+		
+		<div id="fl-relevance-container">
+			<% if user_signed_in? %>
+				<%= relevance_options(factlink, parent) %>
+			<% end %>
+		</div>
+		
+	</div>
 </li>

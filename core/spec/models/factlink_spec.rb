@@ -172,11 +172,31 @@ describe Factlink do
   end
 
   it "remove the first relevance opinion when a user changes relevance of the child" do
+    # Set relevant
     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
+    
+    # Set not_relevant
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
+  end
+  
+  it "should have a user with relevance when set" do
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.user_has_opinion_on_child?(@factlink, :relevant, @user1).should == true
+    @parent.user_has_opinion_on_child?(@factlink, :might_be_relevant, @user1).should == false
+    @parent.user_has_opinion_on_child?(@factlink, :not_relevant, @user1).should == false
   end
 
-  it "can set all type of relevance" do
+  it "can toggle the relevance on a child for a user" do
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
     
+    @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 0
   end
 
 end

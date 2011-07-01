@@ -162,7 +162,6 @@ class Factlink
       # User has none or other opinion, set this one!
       add_opinion(type, user, parent)
     end
-
   end
 
   def add_opinion(type, user, parent)
@@ -284,9 +283,18 @@ class Factlink
     total = total_score
 
     percentage_score_dict = {
-      :proves => percentage(total, belief_total),
-      :maybe => percentage(total, doubt_total),
-      :denies => percentage(total, disbelieve_total)
+      :believe {
+        :percentage => percentage(total, belief_total),
+        :authority => 0.65
+      },
+      :doubt {
+        :percentage => percentage(total, doubt_total),
+        :authority => 0.20
+      },
+      :disbelieve {
+        :percentage => percentage(total, disbelieve_total),
+        :authority => 0.15
+      }
     }
     percentage_score_dict
   end
@@ -341,30 +349,65 @@ class Factlink
 
   # Gets the count of users of the relevance type of the child
   def get_relevant_users_count_for_child_and_type(child, type)
-    key = redis_relevance_key(child, :relevant)
+    key = redis_relevance_key(child, type)
     $redis.zcard(key)
   end
   
   # Gets all user ids for the relevance type on this child
   def get_relevant_users_for_child_and_type(child, type)
-    key = redis_relevance_key(child, :relevant)
+    key = redis_relevance_key(child, type)
     $redis.zrange(key, 0, -1) # Returns all user ids
   end
   
-  # Sets relevance opinion of the user on the child.
+  # Sets or toggles the relevance by the user on the child with this type
   def set_relevance_for_user(child, type, user)
-    key = redis_relevance_key(child, :relevant)    
+
+    if user_has_relevance_on_child?(child, type, user)
+      # User has this relevance type set already; remove relevance
+      remove_relevance_for_user(child, user)
+    else
+      # User has none or other opinion
+      # Clears the current opinion, and adds the new opinion.
+      add_relevance_for_user(child, type, user)
+    end
+
+  end
+
+  def user_has_relevance_on_child?(child, type, user)
+    key = redis_relevance_key(child, type)
+    
+    # If rank gets returned, the user has this opinion.
+    if $redis.zrank(key, user.id)
+      return true
+    else
+      return false
+    end
+  end
+
+  # Adds relevance opinion of the user on the child.
+  def add_relevance_for_user(child, type, user)
+    # Remove the old relevances set by this user
+    remove_relevance_for_user(child, user)
+    
+    key = redis_relevance_key(child, type)
     $redis.zadd(key, user.authority, user.id)
   end
 
   # Remove the relevance set by this user. 
   def remove_relevance_for_user(child, user)
-    
     [:relevant, :might_be_relevant, :not_relevant].each do |type|
       $redis.zrem(redis_relevance_key(child, type), user.id)
     end
   end
 
+  def relevance_class(child, type, user)
+    # Used to show the relevance of a child to a parent.
+    if user_has_relevance_on_child?(child, type, user)
+      return "active"
+    else
+      return ""
+    end
+  end
 
   # Stats count
   def stats_count

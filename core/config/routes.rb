@@ -57,8 +57,9 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
   get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
 
-  get "/factlink/:id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
-
+  # Set opinion and relevance
+  get "/factlink/:child_id/opinion/:type/:parent_id" => "factlinks#set_opinion", :as => "opinion"
+  get "/factlink/:child_id/relevance/:type/:parent_id" => "factlinks#set_relevance", :as => "relevance"
   
   ##########
   # Web Front-end
