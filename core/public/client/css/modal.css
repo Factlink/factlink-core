@@ -126,21 +126,21 @@ div.fl-modal div.fl-stats ul.fl-stats-bar li {
   text-indent: 99999px;
   cursor: pointer;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-support {
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
   background: #bada55;
   left: 44px;
   border-bottom-right-radius: 4px;
   border-top: 1px solid #fff;
   border-left: 1px solid #fff;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-maybe {
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
   background: #ffd324;
   left: 22px;
   border-top: 1px solid #fff;
   border-left: 1px solid #fff;
   border-right: 1px solid #fff;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-refute {
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
   background: #c00;
   border-bottom-left-radius: 4px;
   border-top: 1px solid #fff;

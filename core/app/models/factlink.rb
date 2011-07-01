@@ -324,16 +324,16 @@ class Factlink
   end
 
   # Percentual scores
-  def percentage_score_denies
-    score_dict_as_percentage[:denies]
+  def percentage_score_believe
+    score_dict_as_percentage[:believe][:percentage]
   end
 
-  def percentage_score_maybe
-    score_dict_as_percentage[:maybe]
+  def percentage_score_doubt
+    score_dict_as_percentage[:doubt][:percentage]
   end
 
-  def percentage_score_proves
-    score_dict_as_percentage[:proves]
+  def percentage_score_disbelieve
+    score_dict_as_percentage[:disbelieve][:percentage]
   end
 
 
