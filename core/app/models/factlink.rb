@@ -331,15 +331,39 @@ class Factlink
 
   # Relevance of a supporting or weakening fact
   # 
-  # :relevant
+  # [:relevant, :might_be_relevant, :not_relevant]
   # :might_be_relevant
   # :not_relevant
+  # 
+  # Key
+  # factlink:relevance:#{factlink_id}:#{child_id}:[:relevant||:might_be_relevant||:not_relevant]
   #
-  #
 
+  # Gets the count of users of the relevance type of the child
+  def get_relevant_users_count_for_child_and_type(child, type)
+    key = redis_relevance_key(child, :relevant)
+    $redis.zcard(key)
+  end
+  
+  # Gets all user ids for the relevance type on this child
+  def get_relevant_users_for_child_and_type(child, type)
+    key = redis_relevance_key(child, :relevant)
+    $redis.zrange(key, 0, -1) # Returns all user ids
+  end
+  
+  # Sets relevance opinion of the user on the child.
+  def set_relevance_for_user(child, type, user)
+    key = redis_relevance_key(child, :relevant)    
+    $redis.zadd(key, user.authority, user.id)
+  end
 
-
-
+  # Remove the relevance set by this user. 
+  def remove_relevance_for_user(child, user)
+    
+    [:relevant, :might_be_relevant, :not_relevant].each do |type|
+      $redis.zrem(redis_relevance_key(child, type), user.id)
+    end
+  end
 
 
   # Stats count
@@ -358,6 +382,10 @@ class Factlink
     # Helper method to generate redis keys
   def redis_key(str)
     "factlink:#{self.id}:#{str}"
+  end
+  
+  def redis_relevance_key(child, type)    
+    "factlink:relevance:#{self.id}:#{child.id}:#{type}"
   end
 
   def percentage(total, part)

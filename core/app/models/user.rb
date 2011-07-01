@@ -206,7 +206,7 @@ class User
       "user:#{self.id}:#{str}"
     end
 
-    def redis_factlink_opinion_key factlink
+    def redis_factlink_opinion_key(factlink)
       # becomes: "user:userid:factlink:factlink_id"
       self.redis_key("factlink:#{factlink.id}")
     end

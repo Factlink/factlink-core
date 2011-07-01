@@ -156,55 +156,27 @@ describe Factlink do
 
   it "can get a count of relevant users" do
     
-    @parent.get_relevant_users_count_for_child_and_type(child, type).should == []
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
+  end
+
+  it "parent can set relevance for child and user" do    
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
+  end
+
+  it "can remove the relevance of a child for a user" do
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+    @parent.remove_relevance_for_user(@factlink, @user1)
     
+    @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
   end
 
-  it "can set relevance for a parent and child" do
+  it "remove the first relevance opinion when a user changes relevance of the child" do
+    @parent.set_relevance_for_user(@factlink, :relevant, @user1)
+  end
+
+  it "can set all type of relevance" do
     
-    @parent.set_relevance_for_user(child, type, user)
-    
-    
-  end
-
-
-end
-
-
-describe User do
-
-  before(:each) do
-    @parent = Factlink.new
-    @child1 = Factlink.new
-    @child2 = Factlink.new
-
-    @parent.childs << @child1
-    @parent.childs << @child2
-
-    @user1 = User.new(:username => "tomdev")
-    @user2 = User.new(:username => "zamboya")
-  end
-
-  it "should have one child" do
-    @parent.childs_count.should == 2
-  end
-
-  it "should have one first child which is the first child" do
-    @parent.childs.first == @child1
-  end
-
-  it "should have zero active factlinks on create" do
-    @user1.active_on_factlinks.count.should == 0
-  end
-
-  it "should have one active factlink after adding believe" do
-    @child1.add_opinion(:beliefs, @user1, @parent)
-    @user1.active_on_factlinks.count.should == 1
-  end
-
-  it "should have a toggle value for the factlink key it voted on" do
-    @child1.add_opinion(:beliefs, @user1, @parent)
-    @user1.get_opinion(@child1, @parent)
   end
 
 end
