@@ -40,11 +40,9 @@
 				<% disbelievers.each do |disbeliever| %>
 					<li class="disbelievers"><span class="disbeliever tag">disbelieves</span> <%= link_to(disbeliever, user_profile_path(disbeliever.username), :target => "_blank") %> <span style="font-size: 0.8em; float: right;">(<%= disbeliever.authority %>)</span></li>
 				<% end %>
+
 			<% end %>
 		</ol>
 	</div>
-
-
-
 
 </div>

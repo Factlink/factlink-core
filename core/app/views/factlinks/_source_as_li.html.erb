@@ -17,7 +17,7 @@
 	</div>
 	
 
-	<span class="fl-statement-title"><%= factlink.displaystring %></span>
+	<span class="fl-statement-title">&#8220;<%= factlink.displaystring %>&#8221;</span>
 	<p><%= factlink.content %></p>
 	<hr>
 	
@@ -30,9 +30,6 @@
 		<% end %>
 	</div>
 
-	
-
-
 		<div class="fl-remove-fact">
  			<%= link_to(image_tag('icons/users.png'), interacting_users_path(factlink), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
 
@@ -42,6 +39,5 @@
 				<% end %>
 			<% end %>
 		</div>
-
 
 </li>

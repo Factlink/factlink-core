@@ -329,14 +329,13 @@ class Factlink
   end
 
 
-
-
-
-
-
-
-
-
+  # Relevance of a supporting or weakening fact
+  # 
+  # :relevant
+  # :might_be_relevant
+  # :not_relevant
+  #
+  #
 
 
 

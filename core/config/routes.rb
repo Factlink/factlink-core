@@ -14,6 +14,11 @@ FactlinkUI::Application.routes.draw do
   
   # get "factlink_overview"
   
+  
+  # Search and infinite scrolling
+  match "/search(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
+  
+  
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"
@@ -62,9 +67,6 @@ FactlinkUI::Application.routes.draw do
   
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
-
-  # Search and infinite scrolling
-  match "/factlink(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
 
 
   ############################################################################

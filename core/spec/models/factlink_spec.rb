@@ -152,6 +152,22 @@ describe Factlink do
     @parent.weakened_by?(@factlink).should == false
   end
 
+
+
+  it "can get a count of relevant users" do
+    
+    @parent.get_relevant_users_count_for_child_and_type(child, type).should == []
+    
+  end
+
+  it "can set relevance for a parent and child" do
+    
+    @parent.set_relevance_for_user(child, type, user)
+    
+    
+  end
+
+
 end
 
 
