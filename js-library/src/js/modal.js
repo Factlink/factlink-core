@@ -146,9 +146,17 @@ Factlink.Indicator = (function() {
             
             el  .bind('mouseenter', function() {
                     self.stop();
+                    
+                    // Keep the Factlink highlighted
+                    $( '[data-factid=' + currentId + ']' )
+                        .addClass('fl-active');
                 })
                 .bind('mouseleave', function() {
                     self.hide();
+                    
+                    // Stop hightlighting the Faclink
+                    $( '[data-factid=' + currentId + ']' )
+                        .removeClass('fl-active');
                 })
                 .bind('click', function() {
                     self.hide();
