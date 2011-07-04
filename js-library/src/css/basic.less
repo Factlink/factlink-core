@@ -61,6 +61,7 @@ div#factlink-indicator {
     border-radius: 8px;
     
     background-color: #eee;
+    cursor: pointer;
     // Compatibility
     // background-image: -moz-linear-gradient(top, #ffffff, #f0efef); 
     // background-image: -ms-linear-gradient(top, #ffffff, #f0efef); 
@@ -106,7 +107,9 @@ div#factlink-indicator {
             position: absolute;
             bottom: 0;
             
-            background: #ccc;
+            div {
+                margin: 0 auto;
+            }
             
             &.fl-bar-proves {
                 div {

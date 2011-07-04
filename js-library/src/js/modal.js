@@ -85,16 +85,21 @@ Factlink.Indicator = (function() {
         // This object will store the timeout id
         timeout,
         // Current shown Factlink
-        currentId;
+        currentId,
+        // Position of the indication
+        x, y;
     
     return {
         // Makes the indicator show for the Factlink with id ID
         showFor: function( id, mouseX, mouseY ) {
             // Get the Factlink-object
-            var fl = $( 'span.factlink[data-factid=' + id + ']'),
+            var fl = $( 'span.factlink[data-factid=' + id + ']');
+            
+            if ( id !== currentId ) {
                 x = mouseX + 10,
                 y = mouseY - el.outerHeight(true) - 10;
-            
+            }
+
             window.clearTimeout( timeout );
             
             // Store the currentId;
@@ -123,7 +128,7 @@ Factlink.Indicator = (function() {
                 // Simple hiding
                 el.hide();
                 
-                // Reset the currentId
+                // Reset currentId
                 currentId = undefined;
             }, 500);
         },
@@ -183,7 +188,7 @@ $( 'span.factlink' ).live( 'mouseenter', function( e ) {
             percentage: $( this ).attr('data-fact-disbelieve-percentage'),
             authority: $( this ).attr('data-fact-disbelieve-authority')
         });
-    Factlink.Indicator.showFor(fctID, e.pageX, e.pageY);
+    Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 );
 })
 .live('mouseleave', function() {
     $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' )
