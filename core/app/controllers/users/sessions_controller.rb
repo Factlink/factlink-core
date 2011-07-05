@@ -33,8 +33,8 @@ class Users::SessionsController < Devise::SessionsController
         displaystring = fact_hash['fact']
 
         site = Site.find_or_create_by(:url => url)
-        # Create the Factlink
-        @factlink = Factlink.create!(:displaystring => displaystring, 
+        # Create the Fact
+        @factlink = Fact.create!(:displaystring => displaystring, 
                                         :created_by => current_user,
                                         :site => site)
 

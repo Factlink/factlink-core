@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Factlink do
+describe Fact do
 
   before(:each) do
-    @parent = Factlink.new
-    @factlink = Factlink.new
-    @factlink2 = Factlink.new
+    @parent = Fact.new
+    @factlink = Fact.new
+    @factlink2 = Fact.new
     
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")
@@ -27,7 +27,7 @@ describe Factlink do
 
   ##########
   # Believer tests
-  it "should have 0 believers on new Factlink when believer_count is called" do
+  it "should have 0 believers on new Fact when believer_count is called" do
     @factlink.opiniated_count(:beliefs).should == 0
   end
 
@@ -77,18 +77,18 @@ describe Factlink do
   end
 
 
-  # User should have a reference of all Factlink Ids he beliefs, doubts, disbeliefs
-  it "should store the Factlink ID in the user object when a user believes a fact" do
+  # User should have a reference of all Fact Ids he beliefs, doubts, disbeliefs
+  it "should store the Fact ID in the user object when a user believes a fact" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @user1.believe_ids.should include(@factlink.id.to_s)
   end
 
-  it "should store the Factlink ID in the user object when a user doubts a fact" do
+  it "should store the Fact ID in the user object when a user doubts a fact" do
     @factlink.add_opinion :doubts, @user1, @parent
     @user1.doubt_ids.should include(@factlink.id.to_s)
   end
 
-  it "should store the Factlink ID in the user object when a user disbelieves a fact" do
+  it "should store the Fact ID in the user object when a user disbelieves a fact" do
     @factlink.add_opinion :disbeliefs, @user1, @parent
     @user1.disbelieve_ids.should include(@factlink.id.to_s)
   end
@@ -101,7 +101,7 @@ describe Factlink do
     @factlink.opiniated_count(:beliefs).should == (old_count + 1)
   end
 
-  it "should have the Factlink ID in the Users belief_ids when a user beliefs a fact" do
+  it "should have the Fact ID in the Users belief_ids when a user beliefs a fact" do
     @factlink.add_opinion(:beliefs, @user2, @parent)
     @user2.believe_ids.should include(@factlink.id.to_s)
   end

@@ -3,9 +3,9 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @parent = Factlink.new
-    @child1 = Factlink.new
-    @child2 = Factlink.new
+    @parent = Fact.new
+    @child1 = Fact.new
+    @child2 = Fact.new
 
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")

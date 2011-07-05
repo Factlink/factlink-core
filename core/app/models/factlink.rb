@@ -1,6 +1,6 @@
 #require "classes/opinion"
 
-class Factlink
+class Fact
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
@@ -14,7 +14,7 @@ class Factlink
   end
 
   field :title,           :type => String
-  field :displaystring,   :type => String   # For matching Factlink on a page
+  field :displaystring,   :type => String   # For matching Fact on a page
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
   field :url,             :type => String   # Source url
@@ -66,7 +66,7 @@ class Factlink
   private :childs_ids
   
   def childs
-    Factlink.where(:_id.in => childs_ids)
+    Fact.where(:_id.in => childs_ids)
   end
   
   def set_added_to_factlink(factlink, user)
@@ -156,7 +156,7 @@ class Factlink
     # Remove the old opinions
     remove_opinions(user, parent)
 
-    # Add user to believers of this Factlink
+    # Add user to believers of this Fact
     $redis.zadd(self.redis_key(type), user.authority, user.id)
 
     # Add the belief type to user
@@ -189,7 +189,7 @@ class Factlink
   end
     
   
-  # All interacting users on this Factlink
+  # All interacting users on this Fact
   def interacting_user_ids
     tmp_key = "factlink:#{self.id}:interacting_users:tmp"
   

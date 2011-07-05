@@ -24,7 +24,7 @@ FactlinkUI::Application.routes.draw do
   get   "/site/count" => "sites#count_for_site"
   get   "/site" => "factlinks#factlinks_for_url"  # Now defined in factlink controller
 
-  # Prepare a new Factlink
+  # Prepare a new Fact
   match "/factlink/prepare" => "factlinks#prepare"
   match "/factlink/intermediate/(:the_action)/(:id)" => "factlinks#intermediate"
   
@@ -34,7 +34,7 @@ FactlinkUI::Application.routes.draw do
 
 
   
-  # Add a Factlink as source
+  # Add a Fact as source
 
   get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
   
@@ -61,7 +61,7 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/:child_id/opinion/:type/:parent_id" => "factlinks#toggle_opinion", :as => "opinion"
   get "/factlink/:child_id/relevance/:type/:parent_id" => "factlinks#set_relevance", :as => "relevance"
   
-  # Template which is shown when user hovers Factlink
+  # Template which is shown when user hovers Fact
   get "/factlink/indication" => "factlinks#indication"
   
   ##########

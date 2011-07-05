@@ -6,8 +6,8 @@ if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
   User.all.delete
   Site.all.delete               # Self explainatory
-  Factlink.all.delete           # Self explainatory
-  Sunspot.remove_all!(Factlink) # Remove the indices of all Factlinks in Solr.
+  Fact.all.delete           # Self explainatory
+  Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
 end
 
 # A user
@@ -75,14 +75,14 @@ facts = [
 'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended']
 
 facts.each do |fact|  
-  Factlink.create!( :displaystring => fact,
+  Fact.create!( :displaystring => fact,
                     :site => site,
                     :created_by => user
   )
 end
 
-parent  = Factlink.all[0]
-child   = Factlink.all[1]
+parent  = Fact.all[0]
+child   = Fact.all[1]
 
 parent.add_child_as_supporting(child, user)
 
@@ -96,7 +96,7 @@ child.add_opinion(:disbeliefs, user4, parent)
 child.add_opinion(:disbeliefs, user5, parent)
 
 # 500.times do |x|
-#   Factlink.create!( :displaystring => facts[x % facts.count],
+#   Fact.create!( :displaystring => facts[x % facts.count],
 #                     :site => site,
 #                     :created_by => user
 #   )  

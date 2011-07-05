@@ -3,7 +3,7 @@ class User
 
   # Several key components of the user are stored in Redis.
   #
-  # redis_key(:beliefs||:doubts||:disbeliefs) store the Factlink ID's the \
+  # redis_key(:beliefs||:doubts||:disbeliefs) store the Fact ID's the \
   # user interacted with.
   #
 
@@ -146,7 +146,7 @@ class User
   end
 
   def believed_facts
-    Factlink.where(:_id.in => self.believe_ids)
+    Fact.where(:_id.in => self.believe_ids)
   end
 
 
@@ -160,7 +160,7 @@ class User
   end
 
   def doubted_facts
-    Factlink.where(:_id.in => self.doubt_ids)
+    Fact.where(:_id.in => self.doubt_ids)
   end
 
   # Disbelieve
@@ -173,12 +173,12 @@ class User
   end
 
   def disbelieved_facts
-    Factlink.where(:_id.in => self.disbelieve_ids)
+    Fact.where(:_id.in => self.disbelieve_ids)
   end
 
 
 
-  # Ids of the Factlinks the user interacted with
+  # Ids of the Facts the user interacted with
   def active_on_factlinks
     $redis.sunion(self.redis_key(:beliefs),
                   self.redis_key(:doubts),

@@ -1,11 +1,11 @@
 class FactlinkSearcher
   
   def search(keyword)
-    # result = Sunspot.search(Factlink) do
+    # result = Sunspot.search(Fact) do
     #   keywords keyword, :fields => [:displaystring]
     # end
     
-    result = Factlink.search() do
+    result = Fact.search() do
       keywords keyword, :fields => [:displaystring]
       
       # order_by sort_column, sort_direction
@@ -81,7 +81,7 @@ class FactlinkParser
     re_hashtags = /#\S+/
 
     # TODO: Write a nice function
-    # Filter each tweet and create Factlink
+    # Filter each tweet and create Fact
     hash = {}
     tweets.each do |tweetobject|      
       tweet = tweetobject.text
@@ -112,7 +112,7 @@ class FactlinkParser
       tweet.gsub!("RT ", "")
       tweet.gsub!("(via ) ", "")
 
-      twitter_results['factlinks'] << Factlink.new(:from_user => tweetobject.from_user, :text => tweet)
+      twitter_results['factlinks'] << Fact.new(:from_user => tweetobject.from_user, :text => tweet)
 
     end
     
