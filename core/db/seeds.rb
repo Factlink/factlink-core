@@ -84,7 +84,6 @@ end
 parent  = Factlink.all[0]
 child   = Factlink.all[1]
 
-child.set_parent parent.id
 parent.add_child_as_supporting(child, user)
 
 child.add_opinion(:beliefs, user, parent)

@@ -9,7 +9,6 @@ class FactlinksController < ApplicationController
     :edit, 
     :create, 
     :update,
-    :add_source_to_factlink,
     :add_factlink_to_parent,
     :remove_factlink_from_parent,
     :believe,
@@ -117,24 +116,12 @@ class FactlinksController < ApplicationController
     # Redirect to edit action
     redirect_to :action => "edit", :id => @factlink.id
   end
-
-  
-  def add_source_to_factlink
-    # Add an existing source to a Factlink
-    @factlink = Factlink.find(params[:factlink_id])
-    @source   = Factlink.find(params[:source_id])
-
-    @source.set_parent @factlink.id
-
-    @factlink.add_child_as_supporting(@source)
-  end
   
   def add_source_as_supporting
     # Add an existing source to a Factlink
     @factlink = Factlink.find(params[:factlink_id])
     @source   = Factlink.find(params[:source_id])
 
-    @source.set_parent @factlink.id
     @factlink.add_child_as_supporting(@source, current_user)
     
     render "add_source_to_factlink"
@@ -145,7 +132,6 @@ class FactlinksController < ApplicationController
     @factlink = Factlink.find(params[:factlink_id])
     @source   = Factlink.find(params[:source_id])
 
-    @source.set_parent @factlink.id
     @factlink.add_child_as_weakening(@source, current_user)
     
     render "add_source_to_factlink"
@@ -156,7 +142,6 @@ class FactlinksController < ApplicationController
     @factlink = Factlink.find(params[:factlink_id])
     @parent   = Factlink.find(params[:parent_id])
 
-    @factlink.set_parent @parent.id
     @parent.add_child_as_supporting(@factlink, current_user)
     
     render "add_factlink_to_parent"
@@ -167,7 +152,6 @@ class FactlinksController < ApplicationController
     @factlink = Factlink.find(params[:factlink_id])
     @parent   = Factlink.find(params[:parent_id])
 
-    @factlink.set_parent @parent.id
     @parent.add_child_as_weakening(@factlink, current_user)
     
     render "add_factlink_to_parent"

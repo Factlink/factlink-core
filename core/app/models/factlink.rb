@@ -64,11 +64,6 @@ class Factlink
     $redis.zrange(tmp_key, 0, -1)
   end
 
-  def set_parent parent_id
-    parent = Factlink.find(parent_id)
-    parent.childs << self
-  end
-
   # Add a child node
   def add_child(child, user)
     self.childs << child

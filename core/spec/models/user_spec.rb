@@ -7,14 +7,14 @@ describe User do
     @child1 = Factlink.new
     @child2 = Factlink.new
 
-    @parent.childs << @child1
-    @parent.childs << @child2
-
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")
+    
+    @parent.add_child_as_supporting @child1, @user1
+    @parent.add_child_as_supporting @child2, @user2
   end
 
-  it "should have one child" do
+  it "should have two childs" do
     @parent.childs_count.should == 2
   end
 
