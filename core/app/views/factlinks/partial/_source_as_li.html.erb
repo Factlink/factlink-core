@@ -48,6 +48,9 @@
 				<%= relevance_options(factlink, parent) %>
 			<% end %>
 		</div>
-		
 	</div>
+	
+	<br/><br/>
+	added <%= time_ago_in_words(factlink.created_at) %> ago by <%= factlink.created_by %>
+	
 </li>

@@ -1,4 +1,4 @@
-$('table.factlinks>tbody').append("<%= escape_javascript render :partial => 'factlink_as_td', :collection => @factlinks, :as => :factlink %>");
+$('table.factlinks>tbody').append("<%= escape_javascript render :partial => 'factlinks/partial/factlink_as_td', :collection => @factlinks, :as => :factlink %>");
 
 <% if @factlinks.count == 0 %>
     isFullyLoaded = true;

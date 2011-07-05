@@ -1,0 +1,12 @@
+<script>
+	function apply_filter(class) {
+		$('ol#fl-users > li').fadeOut(40).filter(class).fadeIn(40);
+		$('div#filters > a').removeClass('active');
+
+		// override for the 'all' filter
+		if (class == "*") {
+			class = "all";
+		} 
+		$('div#filters > a.' + class).addClass('active');
+	}
+</script>

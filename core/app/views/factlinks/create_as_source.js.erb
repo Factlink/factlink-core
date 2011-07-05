@@ -32,6 +32,6 @@ setTimeout(function() {
 	}
 
 	// Append to ordered list
-	$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'source_as_li', :locals => { :factlink => @factlink, :parent => @parent } )) %>");
+	$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'factlinks/partial/source_as_li', :locals => { :factlink => @factlink, :parent => @parent } )) %>");
 	
 } , 1000); // The delay

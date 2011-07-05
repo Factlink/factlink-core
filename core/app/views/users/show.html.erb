@@ -12,7 +12,7 @@
 <div class="span-14 append-2 last" style="text-shadow: 0px 1px 1px #fff;">
 	<h2>user created facts</h2>
 	<ul>
-		<%= render(:partial => "factlinks/factlink", :collection => @user.factlinks) || "<li style='list-style: none;'>This user did not add any Factlinks yet</li>".html_safe %>
+		<%= render(:partial => "factlinks/partial/factlink", :collection => @user.factlinks) || "<li style='list-style: none;'>This user did not add any Factlinks yet</li>".html_safe %>
 	</ul>
 </div>
 
@@ -24,7 +24,7 @@
 	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
 		<h2>believes <%= @user.believe_count %> facts</h2>
 		<ul>
-			<%= render(:partial => "factlinks/factlink", :collection => @user.believed_facts) || "<li style='list-style: none;'>#{@user.username} does not believe any facts</li>".html_safe %>
+			<%= render(:partial => "factlinks/partial/factlink", :collection => @user.believed_facts) || "<li style='list-style: none;'>#{@user.username} does not believe any facts</li>".html_safe %>
 		</ul>
 	</div>
 
@@ -32,14 +32,14 @@
 	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
 		<h2>doubts <%= @user.doubt_count %> facts</h2>
 		<ul>
-			<%= render(:partial => "factlinks/factlink", :collection => @user.doubted_facts) || "<li style='list-style: none;'>#{@user.username} does not doubt any facts</li>".html_safe %>
+			<%= render(:partial => "factlinks/partial/factlink", :collection => @user.doubted_facts) || "<li style='list-style: none;'>#{@user.username} does not doubt any facts</li>".html_safe %>
 		</ul>
 	</div>
 
 	<div class="span-8 last" style="text-shadow: 0px 1px 1px #fff;">
 		<h2>disbelieves <%= @user.disbelieve_count %> facts</h2>
 		<ul>
-			<%= render(:partial => "factlinks/factlink", :collection => @user.disbelieved_facts) || "<li style='list-style: none;'>#{@user.username} does not disbelieve any facts</li>".html_safe %>			
+			<%= render(:partial => "factlinks/partial/factlink", :collection => @user.disbelieved_facts) || "<li style='list-style: none;'>#{@user.username} does not disbelieve any facts</li>".html_safe %>			
 		</ul>
 	</div>
 </div>
