@@ -114,7 +114,7 @@ describe Factlink do
 
   # Removing a child
   it "can remove a child" do
-    @parent.remove_child(@factlink)
+    @parent.remove_child @factlink
     @parent.childs_count.should == 0
   end
 

@@ -20,8 +20,8 @@ class Factlink
   field :url,             :type => String   # Source url
 
   # Linking of factlinks
-  has_and_belongs_to_many :childs,
-    :class_name => self.name
+  #has_and_belongs_to_many :childs,
+  #  :class_name => self.name
 
   belongs_to  :site       # The site on which the factlink should be shown
 
@@ -52,7 +52,7 @@ class Factlink
   #
   # Temporary workaround:
   def childs_count
-    self.childs_ids.count
+    childs_ids.count
   end
 
   def childs_ids
@@ -63,16 +63,12 @@ class Factlink
                    self.redis_key(:weakening_facts)])
     $redis.zrange(tmp_key, 0, -1)
   end
-
-  # Add a child node
-  def add_child(child, user)
-    self.childs << child
-    
-    # Store who added this Factlink
-    child.set_added_to_factlink(self, user)
+  private :childs_ids
+  
+  def childs
+    Factlink.where(:_id.in => childs_ids)
   end
-  private :add_child
-
+  
   def set_added_to_factlink(factlink, user)
     # Redis     Key................., Field......, Value..
     $redis.hset(redis_key(:added_to), factlink.id, user.id)
@@ -84,16 +80,13 @@ class Factlink
   end
 
   def add_child_as_supporting(factlink, user)
-    # Add the Mongo reference
-    add_child(factlink, user)
-
+    factlink.set_added_to_factlink(self, user)
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:supporting_facts), factlink.id)
   end
 
   def add_child_as_weakening(factlink, user)
-    # Add the Mongo reference
-    add_child(factlink, user)
+    factlink.set_added_to_factlink(self, user)
 
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:weakening_facts), factlink.id)
@@ -102,8 +95,6 @@ class Factlink
 
   # Remove a child node
   def remove_child(child)
-    self.childs.delete child  # Remove the child
-    
     # Remove the factlink_id from supporting/weakning facts set 
     $redis.srem(redis_key(:supporting_facts), child.id)
     $redis.srem(redis_key(:weakening_facts), child.id)
