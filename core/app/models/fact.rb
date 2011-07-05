@@ -1,4 +1,4 @@
-#require "classes/opinion"
+#require File.expand_path('../../classes/opinion', __FILE__)
 
 class Fact
   include Mongoid::Document
@@ -6,6 +6,8 @@ class Fact
   include Mongoid::Taggable
 
   include Sunspot::Mongoid
+  
+  include Opinionable
 
   searchable :auto_index => true do
     text    :displaystring
@@ -128,18 +130,6 @@ class Fact
     self.childs.map { |child| child.opiniated_count(opinion) }.inject(1) { |result, value | result + value }
   end
 
-  def belief_total #TODO refactor remove
-    opiniated_total(:beliefs)
-  end
-
-  def doubt_total #TODO refactor remove
-    opiniated_total(:doubts)
-  end
-
-  def disbelieve_total #TODO refactor remove
-    opiniated_total(:disbeliefs)
-  end
-
 
   def toggle_opinion(user, type, parent)
 
@@ -210,64 +200,7 @@ class Fact
   end
 
 
-  # SCORE STUFF
-  # TODO: Needs some refactoring and new calculations
-  def score_dict_as_percentage
-    total = total_score
 
-    percentage_score_dict = {
-      :believe => {
-        :percentage => percentage(total, belief_total),
-        :authority => 0.65
-      },
-      :doubt => {
-        :percentage => percentage(total, doubt_total),
-        :authority => 0.50
-      },
-      :disbelieve => {
-        :percentage => percentage(total, disbelieve_total),
-        :authority => 0.50
-      }
-    }
-    percentage_score_dict
-  end
-
-  def score_dict_as_absolute
-    # TODO: Calculate values in stead of dummy data
-    absolute_score_dict = {
-      :proves => disbelieve_total,
-      :maybe => doubt_total,
-      :denies => belief_total
-    }
-    absolute_score_dict
-  end
-
-  def total_score
-    # TODO: Should be called total_activity ?
-    sum = self.belief_total +
-      self.doubt_total  +
-      self.disbelieve_total
-
-    # Quick hack against divide by zero
-    if sum == 0
-      sum = 1
-    end
-
-    sum
-  end
-
-  # Percentual scores
-  def percentage_score_believe
-    score_dict_as_percentage[:believe][:percentage]
-  end
-
-  def percentage_score_doubt
-    score_dict_as_percentage[:doubt][:percentage]
-  end
-
-  def percentage_score_disbelieve
-    score_dict_as_percentage[:disbelieve][:percentage]
-  end
 
 
   # Relevance of a supporting or weakening fact
@@ -310,11 +243,7 @@ class Fact
     key = redis_relevance_key(child, type)
     
     # If rank gets returned, the user has this opinion.
-    if $redis.zrank(key, user.id)
-      return true
-    else
-      return false
-    end
+    return $redis.zrank(key, user.id) ? true : false
   end
 
   # Adds relevance opinion of the user on the child.
@@ -342,11 +271,6 @@ class Fact
     end
   end
 
-  # Stats count
-  def stats_count
-    # Fancy score calculation
-    (1 * belief_total) + (1 * doubt_total) - (1 * disbelieve_total)
-  end
 
   # Used for sorting
   def self.column_names
@@ -361,6 +285,10 @@ class Fact
     #return a + b
   end
 
+  def get_opinion
+    Opinion.new(1,0,0,0.5)
+  end
+
   protected
     # Helper method to generate redis keys
   def redis_key(str)
@@ -370,6 +298,8 @@ class Fact
   def redis_relevance_key(child, type)    
     "factlink:relevance:#{self.id}:#{child.id}:#{type}"
   end
+
+
 
   def percentage(total, part)
     if total > 0
