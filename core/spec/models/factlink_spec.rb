@@ -21,44 +21,44 @@ describe Factlink do
   end
 
   it "can add a child" do
-    @parent.add_child(@factlink, @user1)
+    @parent.add_child_as_supporting(@factlink, @user1)
     @parent.childs_count.should == 1
   end
 
   ##########
   # Believer tests
   it "should have 0 believers on new Factlink when believer_count is called" do
-    @factlink.believer_count.should == 0
+    @factlink.opiniated_count(:beliefs).should == 0
   end
 
   it "should have 1 believer when one believer is added" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
-    @factlink.believer_count.should == 1
+    @factlink.opiniated_count(:beliefs).should == 1
   end
 
   it "should have 1 believer when the same believer is added twice" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @factlink.add_opinion(:beliefs, @user1, @parent)
-    @factlink.believer_count.should == 1
+    @factlink.opiniated_count(:beliefs).should == 1
   end
 
   it "should have 0 believers when one believer is added and deleted" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @factlink.remove_opinions @user1, @parent
-    @factlink.believer_count.should == 0
+    @factlink.opiniated_count(:beliefs).should == 0
   end
 
   it "should have 2 believer when two believers are added" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @factlink.add_opinion(:beliefs, @user2, @parent)
-    @factlink.believer_count.should == 2
+    @factlink.opiniated_count(:beliefs).should == 2
   end
 
   it "should have 1 believer when a existing believer changes its opinion to 'doubt'" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @factlink.add_opinion(:beliefs, @user2, @parent)
     @factlink.add_opinion(:doubter, @user1, @parent)
-    @factlink.believer_count.should == 1
+    @factlink.opiniated_count(:beliefs).should == 1
   end
 
   it "should have 0 believers when both existing believers change their opinion to 'doubt'" do
@@ -66,14 +66,14 @@ describe Factlink do
     @factlink.add_opinion(:beliefs, @user2, @parent)
     @factlink.add_opinion(:doubts, @user1, @parent)
     @factlink.add_opinion(:doubts, @user2, @parent)
-    @factlink.believer_count.should == 0
+    @factlink.opiniated_count(:beliefs).should == 0
   end
 
   it "should have 1 believers when a existing believer changes its opinion to 'disbelieve'" do
     @factlink.add_opinion(:beliefs, @user1, @parent)
     @factlink.add_opinion(:beliefs, @user2, @parent)
     @factlink.add_opinion(:disbeliefs, @user1, @parent)
-    @factlink.believer_count.should == 1
+    @factlink.opiniated_count(:beliefs).should == 1
   end
 
 
@@ -84,27 +84,29 @@ describe Factlink do
   end
 
   it "should store the Factlink ID in the user object when a user doubts a fact" do
-    @factlink.add_doubter @user1, @parent
+    @factlink.add_opinion :doubts, @user1, @parent
     @user1.doubt_ids.should include(@factlink.id.to_s)
   end
 
   it "should store the Factlink ID in the user object when a user disbelieves a fact" do
-    @factlink.add_disbeliever @user1, @parent
+    @factlink.add_opinion :disbeliefs, @user1, @parent
     @user1.disbelieve_ids.should include(@factlink.id.to_s)
   end
 
 
   # Voting
   it "should have an increased believe count when a users believes this fact" do
-    old_count = @factlink.believer_count
+    old_count = @factlink.opiniated_count(:beliefs)
     @factlink.add_opinion(:beliefs, @user2, @parent)
-    @factlink.believer_count.should == (old_count + 1)
+    @factlink.opiniated_count(:beliefs).should == (old_count + 1)
   end
 
   it "should have the Factlink ID in the Users belief_ids when a user beliefs a fact" do
     @factlink.add_opinion(:beliefs, @user2, @parent)
     @user2.believe_ids.should include(@factlink.id.to_s)
   end
+
+  #TODO also add tests for doubts and disbeliefs
 
   it "should not crash when an opinions that doesn't exist is removed" do
     @factlink.remove_opinions @user2, @parent
@@ -186,9 +188,9 @@ describe Factlink do
     @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
 
     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
-    @parent.user_has_opinion_on_child?(@factlink, :relevant, @user1).should == true
-    @parent.user_has_opinion_on_child?(@factlink, :might_be_relevant, @user1).should == false
-    @parent.user_has_opinion_on_child?(@factlink, :not_relevant, @user1).should == false
+    @parent.user_has_relevance_on_child?(@factlink, :relevant, @user1).should == true
+    @parent.user_has_relevance_on_child?(@factlink, :might_be_relevant, @user1).should == false
+    @parent.user_has_relevance_on_child?(@factlink, :not_relevant, @user1).should == false
   end
 
   it "can toggle the relevance on a child for a user" do

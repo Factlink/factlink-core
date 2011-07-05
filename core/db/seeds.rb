@@ -87,14 +87,14 @@ child   = Factlink.all[1]
 child.set_parent parent.id
 parent.add_child_as_supporting(child, user)
 
-child.add_believer(user, parent)
-child.add_believer(user1, parent)
-child.add_believer(user2, parent)
+child.add_opinion(:beliefs, user, parent)
+child.add_opinion(:beliefs, user1, parent)
+child.add_opinion(:beliefs, user2, parent)
 
-child.add_doubter(user3, parent)
+child.add_opinion(:doubts, user3, parent)
 
-child.add_disbeliever(user4, parent)
-child.add_disbeliever(user5, parent)
+child.add_opinion(:disbeliefs, user4, parent)
+child.add_opinion(:disbeliefs, user5, parent)
 
 # 500.times do |x|
 #   Factlink.create!( :displaystring => facts[x % facts.count],

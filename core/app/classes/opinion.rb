@@ -4,6 +4,7 @@ class Opinion
   # b = belief
   # d = disbeliefs
   # u = is uncertain
+  #
   # a = authority
   
   #attr_accessor :a

@@ -1,3 +1,5 @@
+#require "classes/opinion"
+
 class Factlink
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -18,9 +20,6 @@ class Factlink
   field :url,             :type => String   # Source url
 
   # Linking of factlinks
-  has_and_belongs_to_many :parents,
-    :class_name => self.name
-
   has_and_belongs_to_many :childs,
     :class_name => self.name
 
@@ -52,12 +51,17 @@ class Factlink
   # https://github.com/mongoid/mongoid/issues/893
   #
   # Temporary workaround:
-  def parents_count
-    self.parents.to_a.count
-  end
-  # See comment above
   def childs_count
-    self.childs.to_a.count
+    self.childs_ids.count
+  end
+
+  def childs_ids
+    tmp_key = "factlink:#{self.id}:childs:tmp"
+  
+    $redis.zunionstore(tmp_key,
+                  [self.redis_key(:supporting_facts), 
+                   self.redis_key(:weakening_facts)])
+    $redis.zrange(tmp_key, 0, -1)
   end
 
   def set_parent parent_id
@@ -72,6 +76,7 @@ class Factlink
     # Store who added this Factlink
     child.set_added_to_factlink(self, user)
   end
+  private :add_child
 
   def set_added_to_factlink(factlink, user)
     # Redis     Key................., Field......, Value..
@@ -85,7 +90,7 @@ class Factlink
 
   def add_child_as_supporting(factlink, user)
     # Add the Mongo reference
-    self.add_child(factlink, user)
+    add_child(factlink, user)
 
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:supporting_facts), factlink.id)
@@ -93,7 +98,7 @@ class Factlink
 
   def add_child_as_weakening(factlink, user)
     # Add the Mongo reference
-    self.add_child(factlink, user)
+    add_child(factlink, user)
 
     # Store supporting factlink ID in supporting factlinks set
     $redis.sadd(redis_key(:weakening_facts), factlink.id)
@@ -103,7 +108,6 @@ class Factlink
   # Remove a child node
   def remove_child(child)
     self.childs.delete child  # Remove the child
-    child.remove_parent(self) # Remove child from parent
     
     # Remove the factlink_id from supporting/weakning facts set 
     $redis.srem(redis_key(:supporting_facts), child.id)
@@ -116,11 +120,6 @@ class Factlink
   def added_to_parent_by_current_user(parent, user)
     user_id = $redis.hget("factlink:#{self.id}:added_to", parent.id)    
     user_id == user.id.to_s # Don't compare BSON::ObjectId, just compare the string.
-  end
-
-  def remove_parent(parent)
-    self.parents.delete parent
-    self.save
   end
 
   def supporting_fact_ids
@@ -139,21 +138,24 @@ class Factlink
     $redis.sismember(redis_key(:weakening_facts), factlink.id.to_s)
   end
 
-
-  def belief_total
-    self.childs.map { |child| child.believer_count }.inject(1) { |result, value | result + value }
+  def opiniated_total(opinion)
+    self.childs.map { |child| child.opiniated_count(opinion) }.inject(1) { |result, value | result + value }
   end
 
-  def doubt_total
-    self.childs.map { |child| child.doubter_count }.inject(1) { |result, value | result + value }
+  def belief_total #TODO refactor remove
+    opiniated_total(:beliefs)
   end
 
-  def disbelieve_total
-    self.childs.map { |child| child.disbeliever_count }.inject(1) { |result, value | result + value }
+  def doubt_total #TODO refactor remove
+    opiniated_total(:doubts)
+  end
+
+  def disbelieve_total #TODO refactor remove
+    opiniated_total(:disbeliefs)
   end
 
 
-  def set_opinion(user, type, parent)
+  def toggle_opinion(user, type, parent)
 
     if user.opinion_on_factlink?(type, self)
       # User has this opinion already; remove opinion
@@ -183,78 +185,23 @@ class Factlink
   end
 
 
-  ##########
-  # Believers
-  # believer_ids are stored in Redis, using the self.redis_key(:beliefs)
 
-  # Return all believers
-  def believers
-    return User.where(:_id.in => self.believer_ids)
+  ######
+  # Opiniated; opiniated people are stored in redis by id,
+  # using the self.redis_key(opinion)
+  def opiniated(opinion)
+    return User.where(:_id.in => self.opiniated_ids(opinion))
   end
 
-  # Return all believer ids
-  def believer_ids
-    $redis.zrange(self.redis_key(:beliefs), 0, -1) # Ranges all items
+  def opiniated_ids(opinion)
+    $redis.zrange(self.redis_key(opinion), 0, -1) # Ranges all items
   end
-
-  # Count all believers
-  def believer_count
-    $redis.zcard(self.redis_key(:beliefs))
+  protected :opiniated_ids
+    
+  def opiniated_count(opinion)
+    $redis.zcard(self.redis_key(opinion))
   end
-
-  def add_believer(user, parent)
-    add_opinion(:beliefs,user, parent)
-  end
-
-
-
-  ##########
-  # Doubters
-  # doubter_ids are stored in Redis, using the self.redis_key(:doubts)
-
-  # Return all doubters
-  def doubters
-    return User.where(:_id.in => self.doubter_ids)
-  end
-
-  # Return all believer ids
-  def doubter_ids
-    $redis.zrange(self.redis_key(:doubts), 0, -1) # Ranges all items
-  end
-
-  # Count all doubters
-  def doubter_count
-    $redis.zcard(self.redis_key(:doubts))
-  end
-
-  def add_doubter(user, parent)
-    add_opinion(:doubts, user, parent)
-  end
-
-
-  ##########
-  # Disbelievers
-  # disbeliever_ids are stored in Redis, using the self.redis_key(:disbeliefs)
-
-  # Return all believers
-  def disbelievers
-    return User.where(:_id.in => self.disbeliever_ids)
-  end
-
-  # Return all disbeliever ids
-  def disbeliever_ids
-    $redis.zrange(self.redis_key(:disbeliefs), 0, -1) # Ranges all items
-  end
-
-  # Count all disbelievers
-  def disbeliever_count
-    $redis.zcard(self.redis_key(:disbeliefs))
-  end
-
-  def add_disbeliever(user, parent)
-    add_opinion(:disbeliefs, user, parent)
-  end
-
+    
   
   # All interacting users on this Factlink
   def interacting_user_ids
@@ -420,6 +367,13 @@ class Factlink
     self.fields.collect { |field| field[0] }
   end
 
+
+  def total_opinion
+    #onzincode, maar doet wat ik wil
+    #a = Opinion.combine_opinions(self.opiniated.map{ |x| x.opinion_on(self)})
+    #b = Opinion.combine_opinions(self.supporting_facts.to_opinions)
+    #return a + b
+  end
 
   protected
     # Helper method to generate redis keys

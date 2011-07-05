@@ -207,7 +207,7 @@ class FactlinksController < ApplicationController
     parent = Factlink.find(params[:parent_id])
 
     @factlink = Factlink.find(params[:id])
-    @factlink.add_believer(current_user, parent)
+    @factlink.add_opinion(:beliefs, current_user, parent)
 
     render "update_source_li"
   end
@@ -216,7 +216,7 @@ class FactlinksController < ApplicationController
     parent = Factlink.find(params[:parent_id])
     
     @factlink = Factlink.find(params[:id])
-    @factlink.add_doubter(current_user, parent)
+    @factlink.add_opinion(:doubts, current_user, parent)
 
     render "update_source_li"
   end
@@ -225,12 +225,12 @@ class FactlinksController < ApplicationController
     parent = Factlink.find(params[:parent_id])
 
     @factlink = Factlink.find(params[:id])
-    @factlink.add_disbeliever(current_user, parent)
+    @factlink.add_opinion(:disbeliefs, current_user, parent)
 
     render "update_source_li"
   end
   
-  def set_opinion
+  def toggle_opinion
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
     
@@ -240,7 +240,7 @@ class FactlinksController < ApplicationController
       @parent = Factlink.find(params[:parent_id])
 
       @factlink = Factlink.find(params[:child_id])
-      @factlink.set_opinion(current_user, type, @parent)
+      @factlink.toggle_opinion(current_user, type, @parent)
     else   
       render :json => {"error" => "type not allowed"}
       return false
@@ -262,10 +262,9 @@ class FactlinksController < ApplicationController
   def interaction_users_for_factlink
     @factlink = Factlink.find(params[:factlink_id])
     
-    @believers    = @factlink.believers
-    @doubters     = @factlink.doubters
-    @disbelievers = @factlink.disbelievers
-    
+    @believers    = @factlink.opiniated(:beliefs)
+    @doubters     = @factlink.opiniated(:doubts)
+    @disbelievers = @factlink.opiniated(:disbeliefs)    
     
   end
   
