@@ -6,10 +6,6 @@ class Fact < BaseFact
     $redis.sadd(redis_key(type), factlink.id)
   end
   
-  def remove_evidence(type,factlink,user)
-  end
-  
-
   def evidence_ids(type)
     $redis.smembers(redis_key(type))
   end
@@ -25,14 +21,6 @@ class Fact < BaseFact
   # Used for sorting
   def self.column_names
     self.fields.collect { |field| field[0] }
-  end
-
-
-  def total_opinion
-    #onzincode, maar doet wat ik wil
-    #a = Opinion.combine_opinions(self.opiniated.map{ |x| x.opinion_on(self)})
-    #b = Opinion.combine_opinions(self.supporting_facts.to_opinions)
-    #return a + b
   end
 
   def evidence_opinion
