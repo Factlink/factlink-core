@@ -39,43 +39,21 @@ describe Fact do
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting,@factlink, @user1)
-     @parent.evidence_ids(:supporting).should include(@factlink.id.to_s)
+     @parent.evidence(:supporting).values.should include(@factlink.id.to_s)
    end
    
    it "stores the ID's of weakening facts in the weakening facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.evidence_ids(:weakening).should include(@factlink2.id.to_s)
+     @parent.evidence(:weakening).values.should include(@factlink2.id.to_s)
    end
    
    it "should not store the ID of weakening facts in the supporting facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.evidence_ids(:weakening).should_not include(@factlink2.id.to_s)
+     @parent.evidence(:weakening).values.should_not include(@factlink2.id.to_s)
    end
-   
-   it "should return true if the child is a supporting child when checking a supporting child" do
-     @parent.add_evidence(:supporting, @factlink, @user1)
-     @parent.supported_by?(@factlink).should == true
-   end
-   
-   it "should return false if the child is a supporting child when checking a weakening child" do
-     @parent.add_evidence(:supporting, @factlink, @user1)
-     @parent.supported_by?(@factlink2).should == false
-   end
-   
-   it "should return true if the child is weakening child when checking a weakning child" do
-     @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.weakened_by?(@factlink2).should == true
-   end
-   
-   it "should return false if the child is weakening child when checking a supporting child" do
-     @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.weakened_by?(@factlink).should == false
-   end
-   
    
    
    it "can get a count of relevant users" do
-     
      @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
    end
    
