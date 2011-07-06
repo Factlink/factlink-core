@@ -10,18 +10,34 @@
 			margin: 0;
 			padding: 0;
 			overflow: hidden;
-			background: transparent;
 		}
 		
 		iframe {
 			height: 100%;
 			width: 100%;
 			border: 0;
+			z-index: 2147483647;
+		}
+		
+		iframe.overlay {
+		  background: rgba(0, 0, 0, .4);
 		}
 		
 		form {
 			display: none;
 		}
+		
+		#overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: .5;
+        display: none;
+        z-index: 16777270;
+    }
 	</style>
 
 	<%= csrf_meta_tag %>
@@ -36,7 +52,7 @@
 	<!-- </form> -->
 	<% end %>
 	<iframe src="<%= eval @path if @path %>" name="frame" id="frame"></iframe>
-	
+		
 	<script type="text/javascript">
 			// The form
 		var form = document.getElementById("form"),
@@ -47,14 +63,8 @@
 				swf: "/client/easyXDM/src/easyxdm.swf"
 			}, {
 				remote: {
-					positionFrame: {},
-					setFrameBounds: {},
-					resetStyle: {},
-					hideFrame: {},
-					showFrame: {},
-					setFrameType: {},
-					showOverlay: {},
-					hideOverlay: {},
+					hide: {},
+					show: {},
 					highlightNewFactlink: {}
 				},
 				local: {
@@ -66,10 +76,18 @@
 						
 						// Set the source of the iframe
 						iframe.src = "<%= factlink_prepare_path %>";
+						
+						// Show the overlay
+						iframe.className = "";
 					},
 					showFactlink: function(id) {
 						// Set the source of the iframe
 						iframe.src = "/factlink/show/" + id;
+						// Show the overlay
+						iframe.className = "overlay";
+					},
+					position: function(top, left) {
+					  
 					}
 				}
 			}),
