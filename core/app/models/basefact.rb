@@ -62,7 +62,7 @@ class Basefact
     end
   end
 
-  def add_opinion(type, user, parent)
+  def add_opinion(type, user)
     # Remove the old opinions
     remove_opinions(user, parent)
 
@@ -73,7 +73,7 @@ class Basefact
     user.update_opinion(type, self, parent)
   end
 
-  def remove_opinions(user, parent)
+  def remove_opinions(user)
     user.remove_opinions(self, parent)
     [:beliefs, :doubts, :disbeliefs].each do |type|
       $redis.zrem(self.redis_key(type), user.id)
