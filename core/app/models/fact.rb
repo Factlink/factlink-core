@@ -5,11 +5,16 @@ Redis::Objects.redis = Redis.new
 class Fact < Basefact
   include Redis::Objects
 
-  list :supporting_facts
-  list :weakening_facts
+  set :supporting_facts
+  set :weakening_facts
 
   def evidence_count
     0
+  end
+  
+  def union
+    res = supporting_facts | weakening_facts
+    res
   end
   
   def evidence(type)
