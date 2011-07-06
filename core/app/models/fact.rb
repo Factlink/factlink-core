@@ -35,7 +35,7 @@ class Fact < Basefact
   def evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
-      factlinks = Factlink.where(:_id.in => evidence(type))
+      factlinks = Factlink.where(:_id.in => evidence(type).values)
       factlinks.each do |factlink|
         opinions << factlink.get_influencing_opinion
       end
