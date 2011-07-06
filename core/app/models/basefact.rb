@@ -65,22 +65,35 @@ class Basefact
 
   def add_opinion(type, user)
     # Remove the old opinions
-    remove_opinions(user, parent)
+    remove_opinions(user)
 
     # Add user to believers of this Fact
     $redis.zadd(self.redis_key(type), user.authority, user.id)
 
     # Add the belief type to user
-    user.update_opinion(type, self, parent)
+    user.update_opinion(type, self)
   end
 
   def remove_opinions(user)
-    user.remove_opinions(self, parent)
+    user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
       $redis.zrem(self.redis_key(type), user.id)
     end
   end
 
+
+  def opiniated_ids(type)
+    $redis.zrange(self.redis_key(type), 0, -1)
+  end
+  
+  def opiniated_count(type)
+    opiniated_ids(type).count
+  end
+  
+  def opiniated(type)
+    User.where(:_id.in => self.opiniated_ids(type))
+  end
+  
   # All interacting users on this Fact
   def interacting_user_ids
     tmp_key = "factlink:#{self.id}:interacting_users:tmp"
@@ -111,7 +124,7 @@ class Basefact
   def get_opinion
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|
-      opiniated = User.where(:_id.in => $redis.zrange(self.redis_key(type), 0, -1))
+      opiniated = opiniated(type)
       opiniated.each do |user|
         opinions << Opinion.for_type(type,user.authority)
       end
