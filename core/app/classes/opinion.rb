@@ -7,13 +7,13 @@ class Opinion
   #
   # a = authority
   
-  #attr_accessor :a
+  attr_accessor :b, :d, :u, :a
   
   def initialize(b,d,u,a=1)
-    @b=b
-    @d=d
-    @u=u
-    @a=a
+    self.b=b
+    self.d=d
+    self.u=u
+    self.a=a
   end
 
   def Opinion.for_type(type,authority=1)
@@ -37,7 +37,13 @@ class Opinion
   end
   
   def +(second)
+    
     a = self.a + second.a
+    
+    if a == 0
+      # No authority
+      return Opinion.new(0,0,1)
+    end
     
     b = (self.b*self.a + second.b*second.a)/a
     d = (self.d*self.a + second.d*second.a)/a
