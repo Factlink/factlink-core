@@ -7,13 +7,13 @@ class Opinion
   #
   # a = authority
   
-  #attr_accessor :a
+  attr_accessor :b, :d, :u, :a
   
   def initialize(b,d,u,a=1)
-    @b=b
-    @d=d
-    @u=u
-    @a=a
+    self.b=b
+    self.d=d
+    self.u=u
+    self.a=a
   end
 
   def Opinion.for_type(type,authority=1)
