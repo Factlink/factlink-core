@@ -16,14 +16,14 @@ class Opinion
     @a=a
   end
 
-  def Opinion.for_type(:type,user)
+  def Opinion.for_type(:type,authority=1)
     case :type
     when :beliefs
-      Opinion.new(1,0,0,user.authority)
+      Opinion.new(1,0,0,authority)
     when :doubts
-      Opinion.new(0,1,0,user.authority)
+      Opinion.new(0,0,1,authority)
     when :disbeliefs
-      Opinion.new(0,0,1,user.authority)
+      Opinion.new(0,1,0,authority)
     end
   end
   

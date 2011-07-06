@@ -112,7 +112,7 @@ class BaseFact
     [:beliefs, :doubts, :disbeliefs].each do |type|
       opiniated = User.where(:_id.in => $redis.zrange(self.redis_key(type), 0, -1))
       opiniated.each do |user|
-        opinions << Opinion.for_type(type,user)
+        opinions << Opinion.for_type(type,user.authority)
       end
     end    
     Opinion.combine(opinions)

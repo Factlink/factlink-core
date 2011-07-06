@@ -16,9 +16,9 @@ class Factlink < Fact
   def get_type_opinion
     case @type
     when :supports
-      Opinion.new(1,0,0,1)
+      Opinion.for_type(:beliefs)
     when :weakening
-      Opinion.new(0,0,1,1)
+      Opinion.for_type(:disbeliefs)
     end
   end
   
