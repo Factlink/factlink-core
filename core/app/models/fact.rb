@@ -1,5 +1,10 @@
 class Fact < Basefact
 
+  def brain_cycles
+    # Do some brain cycle calculation here?
+    1337
+  end
+
   def add_evidence(type,factlink,user)
     factlink = Factlink.get_or_create(factlink,type,self)
     factlink.set_added_to_factlink(self, user)
@@ -8,6 +13,10 @@ class Fact < Basefact
   
   def evidence_ids(type)
     $redis.smembers(redis_key(type))
+  end
+  
+  def evidence_count
+    0
   end
   
   def supported_by?(factlink)

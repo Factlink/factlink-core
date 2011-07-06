@@ -13,13 +13,17 @@ class Factlink < Fact
   def Factlink.get_or_create(evidence,type,fact)
     if $redis.exists(Factlink.redis_key(evidence,type,fact))
       id = $redis.get(Factlink.redis_key(evidence,type,fact))
-      Factlink.find(id)
+      fl = Factlink.find(id)
     else
       fl = Factlink.new
       fl.evidence.value = evidence
       fl.fact.value = fact
       fl.type.value = type
+      fl.save
+      fl
     end
+    
+    return fl
   end
   
   def set_data(evidence,type,fact)
@@ -42,6 +46,5 @@ class Factlink < Fact
   def get_influencing_opinion
     get_type_opinion.dfa(self.evidence.get_opinion,self.get_opinion)
   end
-  
 
 end
