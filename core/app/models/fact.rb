@@ -1,4 +1,4 @@
-class Fact < BaseFact
+class Fact < Basefact
 
   def add_evidence(type,factlink,user)
     factlink = Factlink.get_or_create(factlink,type,self)

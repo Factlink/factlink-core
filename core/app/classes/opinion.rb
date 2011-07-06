@@ -16,8 +16,8 @@ class Opinion
     @a=a
   end
 
-  def Opinion.for_type(:type,authority=1)
-    case :type
+  def Opinion.for_type(type,authority=1)
+    case type
     when :beliefs
       Opinion.new(1,0,0,authority)
     when :doubts

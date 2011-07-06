@@ -23,17 +23,17 @@ module Opinionable
  
 
     # Percentual scores
-    deprecated
+    deprecate
     def percentage_score_believe
       score_dict_as_percentage[:believe][:percentage]
     end
 
-    deprecated
+    deprecate
     def percentage_score_doubt
       score_dict_as_percentage[:doubt][:percentage]
     end
 
-    deprecated
+    deprecate
     def percentage_score_disbelieve
       score_dict_as_percentage[:disbelieve][:percentage]
     end
