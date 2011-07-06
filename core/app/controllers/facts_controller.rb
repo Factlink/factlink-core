@@ -50,14 +50,18 @@ class FactsController < ApplicationController
     # All sources that are not part of this factlink yet
 
     # Create copy of ids array
-    not_allowed_child_ids = Array.new(@factlink.child_ids)
-    not_allowed_child_ids << @factlink.id
+    # not_allowed_child_ids = Array.new(@factlink.child_ids)
+    # not_allowed_child_ids << @factlink.id
     
-    not_allowed_parent_ids = Array.new(@factlink.parent_ids)
-    not_allowed_parent_ids << @factlink.id
+    # not_allowed_parent_ids = Array.new(@factlink.parent_ids)
+    # not_allowed_parent_ids << @factlink.id
     
-    @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
-    @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
+    # @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
+    # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
+    
+    # TODO: Only show potential 'childs' and 'parents'
+    @potential_childs = Fact.all
+    @potential_parents = Fact.all
   end
   
   def new
