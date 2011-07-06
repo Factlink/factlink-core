@@ -45,30 +45,21 @@ class Opinion
     return Opinion.new(b,d,u,a)
   end
   
-  
-  def _filter_with(fr)
-    pu = self
-    
-    b = pu.b * fr.b
-    d = pu.d * fr.b
-    u = fr.d + fr.u + pu.u * fr.b
-    return Opinion.new(b,d,u,a)
+  #TODO : better name
+  def dfa(fr,fl)
+    result = self.discount_by(fr).discount_by(fl)
+    result.a = min(fr.a,fl.a)
+    return result
   end
-  
-  def _discount_by(fl)
+
+  private
+  def discount_by(fl)
     pu = self
         
     b = pu.b * fl.b
     d = pu.d * fl.b
     u = fl.d + fl.u + pu.u * fl.b
     return Opinion.new(b,d,u,a)
-  end
-  
-  #TODO : better name
-  def dfa(fr,fl)
-    result = self._filter_with(fr)._discount_by(fl)
-    result.a = min(fr.a,fl.a)
-    return result
   end
         
 end

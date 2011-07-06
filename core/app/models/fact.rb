@@ -35,8 +35,20 @@ class Fact < BaseFact
     #return a + b
   end
 
+  def evidence_opinion
+    opinions = []
+    [:supporting, :weakening].each do |type|
+      factlinks = Factlink.where(:_id.in => $redis.zrange(self.redis_key(type), 0, -1))
+      factlinks.each do |factlink|
+        opinions << factlink.get_influencing_opinion
+      end
+    end    
+    Opinion.combine(opinions)
+  end
+
   def get_opinion
-    Opinion.new(1,0,0,0.5)
+    user_opinion = super.get_opinion
+    user_opinion + evidence_opinion
   end
 
 end
