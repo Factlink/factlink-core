@@ -1,4 +1,3 @@
-
 module Opinionable
   # SCORE STUFF
   def score_dict_as_percentage
@@ -10,43 +9,42 @@ module Opinionable
         :percentage => percentage(total, op.b),
       },
       :doubt => {
-          :percentage => percentage(total, op.d),
+        :percentage => percentage(total, op.d),
       },
       :disbelieve => {
-          :percentage => percentage(total, op.u),
+        :percentage => percentage(total, op.u),
       },
       :authority => op.a,
     }
   end
 
-   
- 
 
-    # Percentual scores
-    deprecate
-    def percentage_score_believe
-      score_dict_as_percentage[:believe][:percentage]
+
+
+  # Percentual scores
+  deprecate
+  def percentage_score_believe
+    score_dict_as_percentage[:believe][:percentage]
+  end
+
+  deprecate
+  def percentage_score_doubt
+    score_dict_as_percentage[:doubt][:percentage]
+  end
+
+  deprecate
+  def percentage_score_disbelieve
+    score_dict_as_percentage[:disbelieve][:percentage]
+  end
+
+
+
+  def percentage(total, part)
+    if total > 0
+      (100 * part) / total
+    else
+      0
     end
-
-    deprecate
-    def percentage_score_doubt
-      score_dict_as_percentage[:doubt][:percentage]
-    end
-
-    deprecate
-    def percentage_score_disbelieve
-      score_dict_as_percentage[:disbelieve][:percentage]
-    end
-
-
-
-    def percentage(total, part)
-      if total > 0
-        (100 * part) / total
-      else
-        0
-      end
-    end
-
+  end
 
 end

@@ -16,53 +16,53 @@ FactlinkUI::Application.routes.draw do
   
   
   # Search and infinite scrolling
-  match "/search(/page/:page)(/:sort/:direction)" => "factlinks#search", :as => "factlink_overview"
+  match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
   
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"
-  get   "/site" => "factlinks#factlinks_for_url"  # Now defined in factlink controller
+  get   "/site" => "facts#factlinks_for_url"  # Now defined in factlink controller
 
   # Prepare a new Fact
-  match "/factlink/prepare" => "factlinks#prepare"
-  match "/factlink/intermediate/(:the_action)/(:id)" => "factlinks#intermediate"
+  match "/factlink/prepare" => "facts#prepare"
+  match "/factlink/intermediate/(:the_action)/(:id)" => "facts#intermediate"
   
-  match "/factlink/new" => "factlinks#create"  
-  match "/factlink/show/:id"  => "factlinks#show", :as => "factlink"
-  get   "/factlink/:id/edit"  => "factlinks#edit", :as => "edit_factlink"
+  match "/factlink/new" => "facts#create"  
+  match "/factlink/show/:id"  => "facts#show", :as => "factlink"
+  get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
 
   
   # Add a Fact as source
 
-  get   "/factlink/:factlink_id/add_existing_source/:source_id" => "factlinks#add_source_to_factlink", :as => "add_source_to_factlink"
+  get   "/factlink/:factlink_id/add_existing_source/:source_id" => "facts#add_source_to_factlink", :as => "add_source_to_factlink"
   
-  # get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "factlinks#add_factlink_to_parent", :as => "add_factlink_to_parent"
+  # get   "/factlink/:factlink_id/add_to_parent/:parent_id"       => "facts#add_factlink_to_parent", :as => "add_factlink_to_parent"
 
 
-  get   "/factlink/:factlink_id/add_to_parent_as_supporting/:parent_id" => "factlinks#add_factlink_to_parent_as_supporting",  :as => "add_factlink_to_parent_as_supporting"
-  get   "/factlink/:factlink_id/add_to_parent_as_weakening/:parent_id"  => "factlinks#add_factlink_to_parent_as_weakening",   :as => "add_factlink_to_parent_as_weakening"
+  get   "/factlink/:factlink_id/add_to_parent_as_supporting/:parent_id" => "facts#add_factlink_to_parent_as_supporting",  :as => "add_factlink_to_parent_as_supporting"
+  get   "/factlink/:factlink_id/add_to_parent_as_weakening/:parent_id"  => "facts#add_factlink_to_parent_as_weakening",   :as => "add_factlink_to_parent_as_weakening"
 
-  get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "factlinks#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
+  get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "facts#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
 
   # Adding sources as supporting or weakening
-  get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "factlinks#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
-  get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "factlinks#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
+  get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "facts#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
+  get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "facts#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
 
-  get   "/factlink/:factlink_id/interacting_users" => "factlinks#interaction_users_for_factlink", :as => "interacting_users"
+  get   "/factlink/:factlink_id/interacting_users" => "facts#interaction_users_for_factlink", :as => "interacting_users"
 
   # Believe, doubt and disbelieve
-  get "/factlink/:id/believe"     => "factlinks#believe",    :as => "believe"
-  get "/factlink/:id/doubt"       => "factlinks#doubt",      :as => "doubt"
-  get "/factlink/:id/disbelieve"  => "factlinks#disbelieve", :as => "disbelieve"
+  get "/factlink/:id/believe"     => "facts#believe",    :as => "believe"
+  get "/factlink/:id/doubt"       => "facts#doubt",      :as => "doubt"
+  get "/factlink/:id/disbelieve"  => "facts#disbelieve", :as => "disbelieve"
 
   # Set opinion and relevance
-  get "/factlink/:child_id/opinion/:type/:parent_id" => "factlinks#toggle_opinion", :as => "opinion"
-  get "/factlink/:child_id/relevance/:type/:parent_id" => "factlinks#set_relevance", :as => "relevance"
+  get "/factlink/:child_id/opinion/:type/:parent_id" => "facts#toggle_opinion", :as => "opinion"
+  get "/factlink/:child_id/relevance/:type/:parent_id" => "facts#set_relevance", :as => "relevance"
   
   # Template which is shown when user hovers Fact
-  get "/factlink/indication" => "factlinks#indication"
+  get "/factlink/indication" => "facts#indication"
   
   ##########
   # Web Front-end

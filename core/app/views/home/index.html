@@ -11,16 +11,24 @@
 
 <!-- middle block -->
 <div class="span-8">	
-	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">factlink</h1>
-
+	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">factlink</h1>	
+	
 	<% @factlinks.all.each do |factlink| %>
 	<div style="margin-bottom: 20px; text-shadow: 0px 1px 1px #fff;">
 		<span>&#8220;<%= factlink.displaystring %>&#8221;</span><br/>
 		<p><%= link_to(factlink.site.url, factlink.site.url, :style => "color: #999;", :target => "_blank") %></p>
 	</div>
 	<% end %>
-</div>
 
+	<!-- Debug  -->
+	<ul>
+	<% Fact.all.each do |f|%>
+		<li><%= f.id %></li>
+	<% end %>
+	</ul>
+
+
+</div>
 
 <!-- right content block -->
 
