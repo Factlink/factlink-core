@@ -24,6 +24,7 @@ gem 'bson_ext', '~> 1.3.0'
 gem 'mongoid_taggable'
 # Redis
 gem 'redis', '2.2.1'
+gem 'redis-objects'
 
 ##########
 # Pagination & sorting
