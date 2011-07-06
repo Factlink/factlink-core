@@ -35,4 +35,15 @@ module Opinionable
       score_dict_as_percentage[:disbelieve][:percentage]
     end
 
+
+
+    def percentage(total, part)
+      if total > 0
+        (100 * part) / total
+      else
+        0
+      end
+    end
+
+
 end

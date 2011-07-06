@@ -1,6 +1,4 @@
-#require File.expand_path('../../classes/opinion', __FILE__)
-
-class Fact
+class BaseFact
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
@@ -20,10 +18,6 @@ class Fact
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
   field :url,             :type => String   # Source url
-
-  # Linking of factlinks
-  #has_and_belongs_to_many :childs,
-  #  :class_name => self.name
 
   belongs_to  :site       # The site on which the factlink should be shown
 
@@ -47,6 +41,20 @@ class Fact
     self.displaystring
   end
 
+  def set_added_to_factlink(factlink, user)
+    # Redis     Key................., Field......, Value..
+    $redis.hset(redis_key(:added_to), factlink.id, user.id)
+  end
+  
+  def delete_added_to_factlink(factlink)
+    # Redis     Key................., Field......, Value..
+    $redis.hdel(redis_key(:added_to), factlink.id)
+  end
+  
+end
+
+class Fact < BaseFact
+
   # TODO: Refactor to regular .count method where needed.
   #
   # Know bug in Mongoid, count on a habtm relation does not work.
@@ -69,16 +77,6 @@ class Fact
   
   def childs
     Fact.where(:_id.in => childs_ids)
-  end
-  
-  def set_added_to_factlink(factlink, user)
-    # Redis     Key................., Field......, Value..
-    $redis.hset(redis_key(:added_to), factlink.id, user.id)
-  end
-  
-  def delete_added_to_factlink(factlink)
-    # Redis     Key................., Field......, Value..
-    $redis.hdel(redis_key(:added_to), factlink.id)
   end
 
   def add_child_as_supporting(factlink, user)
@@ -185,7 +183,7 @@ class Fact
   
     $redis.zunionstore(tmp_key,
                   [self.redis_key(:beliefs), 
-                  self.redis_key(:disbeliefs), 
+                  self.redis_key(:doubts), 
                   self.redis_key(:disbeliefs)])
     
     $redis.zrange(tmp_key, 0, -1)
@@ -298,16 +296,5 @@ class Fact
   def redis_relevance_key(child, type)    
     "factlink:relevance:#{self.id}:#{child.id}:#{type}"
   end
-
-
-
-  def percentage(total, part)
-    if total > 0
-      (100 * part) / total
-    else
-      0
-    end
-  end
-
 
 end
