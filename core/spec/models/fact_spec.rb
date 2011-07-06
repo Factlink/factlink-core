@@ -39,62 +39,21 @@ describe Fact do
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting,@factlink, @user1)
-     @parent.evidence(:supporting).values.should include(@factlink.id.to_s)
+     evidence_facts = @parent.evidence(:supporting).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts.should include(@factlink.id.to_s)
    end
    
    it "stores the ID's of weakening facts in the weakening facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.evidence(:weakening).values.should include(@factlink2.id.to_s)
+     evidence_facts = @parent.evidence(:weakening).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts.should include(@factlink2.id.to_s)
    end
    
    it "should not store the ID of weakening facts in the supporting facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.evidence(:weakening).values.should_not include(@factlink2.id.to_s)
+     evidence_facts = @parent.evidence(:supporting).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts.should_not include(@factlink2.id.to_s)
    end
    
    
-   it "can get a count of relevant users" do
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
-   end
-   
-   it "parent can set relevance for child and user" do    
-     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
-   end
-   
-   it "can remove the relevance of a child for a user" do
-     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
-     @parent.remove_relevance_for_user(@factlink, @user1)
-     
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
-   end
-   
-   it "remove the first relevance opinion when a user changes relevance of the child" do
-     # Set relevant
-     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 1
-     
-     # Set not_relevant
-     @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :relevant).should == 0
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
-   end
-   
-   it "should have a user with relevance when set" do
-     @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
-   
-     @parent.set_relevance_for_user(@factlink, :relevant, @user1)
-     @parent.user_has_relevance_on_child?(@factlink, :relevant, @user1).should == true
-     @parent.user_has_relevance_on_child?(@factlink, :might_be_relevant, @user1).should == false
-     @parent.user_has_relevance_on_child?(@factlink, :not_relevant, @user1).should == false
-   end
-   
-   it "can toggle the relevance on a child for a user" do
-     @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 1
-     
-     @parent.set_relevance_for_user(@factlink, :not_relevant, @user1)
-     @parent.get_relevant_users_count_for_child_and_type(@factlink, :not_relevant).should == 0
-   end
- 
 end

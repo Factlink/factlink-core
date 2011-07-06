@@ -10,6 +10,8 @@ describe User do
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")
     
+    @factlink = Fact.new
+    @factlink2 = Fact.new    
   end
 
   it "should have zero active factlinks on create" do

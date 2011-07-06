@@ -84,16 +84,17 @@ end
 parent  = Fact.all[0]
 child   = Fact.all[1]
 
-# parent.add_child_as_supporting(child, user)
-#
-# child.add_opinion(:beliefs, user, parent)
-# child.add_opinion(:beliefs, user1, parent)
-# child.add_opinion(:beliefs, user2, parent)
-#
-# child.add_opinion(:doubts, user3, parent)
-#
-# child.add_opinion(:disbeliefs, user4, parent)
-# child.add_opinion(:disbeliefs, user5, parent)
+parent.add_evidence(:supporting, child, user)
+
+fl = Factlink.find(parent.evidence(:supporting).values[0])
+fl.add_opinion(:beliefs, user)
+fl.add_opinion(:beliefs, user1)
+fl.add_opinion(:beliefs, user2)
+
+fl.add_opinion(:doubts, user3)
+
+fl.add_opinion(:disbeliefs, user4)
+fl.add_opinion(:disbeliefs, user5)
 
 # 500.times do |x|
 #   Fact.create!( :displaystring => facts[x % facts.count],

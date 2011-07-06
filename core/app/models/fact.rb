@@ -22,9 +22,8 @@ class Fact < Basefact
   end
   
   def add_evidence(type,factlink,user)
-    factlink = Factlink.get_or_create(factlink,type,self)
-    factlink.set_added_to_factlink(user)
-    evidence(type) << factlink.id
+    factlink = Factlink.get_or_create(factlink,type,self,user)
+    evidence(type) << factlink.id.to_s
   end
   
   # Used for sorting
