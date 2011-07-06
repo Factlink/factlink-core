@@ -74,7 +74,7 @@ class FactsController < ApplicationController
   
   # Prepare for create
   def prepare
-    render :template => 'factlinks/prepare', :layout => nil
+    render :template => 'facts/prepare', :layout => nil
   end
   
   # Prepare for create
@@ -93,7 +93,7 @@ class FactsController < ApplicationController
       @path = ""
     end
 
-    render :template => 'factlinks/intermediate', :layout => nil
+    render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
