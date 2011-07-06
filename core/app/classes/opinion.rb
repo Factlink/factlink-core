@@ -15,6 +15,18 @@ class Opinion
     @u=u
     @a=a
   end
+
+  def Opinion.for_type(:type,user)
+    case :type
+    when :beliefs
+      Opinion.new(1,0,0,user.authority)
+    when :doubts
+      Opinion.new(0,1,0,user.authority)
+    when :disbeliefs
+      Opinion.new(0,0,1,user.authority)
+    end
+  end
+  
   
   def Opinion.combine_opinions(list)
     if list.length > 0

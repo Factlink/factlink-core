@@ -50,84 +50,6 @@ class BaseFact
     # Redis     Key................., Field......, Value..
     $redis.hdel(redis_key(:added_to), factlink.id)
   end
-  
-end
-
-class Fact < BaseFact
-
-  # TODO: Refactor to regular .count method where needed.
-  #
-  # Know bug in Mongoid, count on a habtm relation does not work.
-  # https://github.com/mongoid/mongoid/issues/893
-  #
-  # Temporary workaround:
-  def childs_count
-    childs_ids.count
-  end
-
-  def childs_ids
-    tmp_key = "factlink:#{self.id}:childs:tmp"
-  
-    $redis.zunionstore(tmp_key,
-                  [self.redis_key(:supporting_facts), 
-                   self.redis_key(:weakening_facts)])
-    $redis.zrange(tmp_key, 0, -1)
-  end
-  private :childs_ids
-  
-  def childs
-    Fact.where(:_id.in => childs_ids)
-  end
-
-  def add_child_as_supporting(factlink, user)
-    factlink.set_added_to_factlink(self, user)
-    # Store supporting factlink ID in supporting factlinks set
-    $redis.sadd(redis_key(:supporting_facts), factlink.id)
-  end
-
-  def add_child_as_weakening(factlink, user)
-    factlink.set_added_to_factlink(self, user)
-
-    # Store supporting factlink ID in supporting factlinks set
-    $redis.sadd(redis_key(:weakening_facts), factlink.id)
-  end
-
-
-  # Remove a child node
-  def remove_child(child)
-    # Remove the factlink_id from supporting/weakning facts set 
-    $redis.srem(redis_key(:supporting_facts), child.id)
-    $redis.srem(redis_key(:weakening_facts), child.id)
-    
-    child.delete_added_to_factlink(self)
-  end
-
-  
-  def added_to_parent_by_current_user(parent, user)
-    user_id = $redis.hget("factlink:#{self.id}:added_to", parent.id)    
-    user_id == user.id.to_s # Don't compare BSON::ObjectId, just compare the string.
-  end
-
-  def supporting_fact_ids
-    $redis.smembers(redis_key(:supporting_facts))
-  end
-
-  def weakening_fact_ids
-    $redis.smembers(redis_key(:weakening_facts))
-  end
-  
-  def supported_by?(factlink)
-    $redis.sismember(redis_key(:supporting_facts), factlink.id.to_s)
-  end
-
-  def weakened_by?(factlink)
-    $redis.sismember(redis_key(:weakening_facts), factlink.id.to_s)
-  end
-
-  def opiniated_total(opinion)
-    self.childs.map { |child| child.opiniated_count(opinion) }.inject(1) { |result, value | result + value }
-  end
-
 
   def toggle_opinion(user, type, parent)
 
@@ -158,25 +80,6 @@ class Fact < BaseFact
     end
   end
 
-
-
-  ######
-  # Opiniated; opiniated people are stored in redis by id,
-  # using the self.redis_key(opinion)
-  def opiniated(opinion)
-    return User.where(:_id.in => self.opiniated_ids(opinion))
-  end
-
-  def opiniated_ids(opinion)
-    $redis.zrange(self.redis_key(opinion), 0, -1) # Ranges all items
-  end
-  protected :opiniated_ids
-    
-  def opiniated_count(opinion)
-    $redis.zcard(self.redis_key(opinion))
-  end
-    
-  
   # All interacting users on this Fact
   def interacting_user_ids
     tmp_key = "factlink:#{self.id}:interacting_users:tmp"
@@ -198,77 +101,41 @@ class Fact < BaseFact
   end
 
 
+  protected
+    # Helper method to generate redis keys
+  def redis_key(str)
+    "fact:#{self.id}:#{str}"
+  end
 
-
-
-  # Relevance of a supporting or weakening fact
-  # 
-  # [:relevant, :might_be_relevant, :not_relevant]
-  # :might_be_relevant
-  # :not_relevant
-  # 
-  # Key
-  # factlink:relevance:#{factlink_id}:#{child_id}:[:relevant||:might_be_relevant||:not_relevant]
-  #
-
-  # Gets the count of users of the relevance type of the child
-  def get_relevant_users_count_for_child_and_type(child, type)
-    key = redis_relevance_key(child, type)
-    $redis.zcard(key)
+  def get_opinion
+    Opinion.new(1,0,0,0.5)
   end
   
-  # Gets all user ids for the relevance type on this child
-  def get_relevant_users_for_child_and_type(child, type)
-    key = redis_relevance_key(child, type)
-    $redis.zrange(key, 0, -1) # Returns all user ids
+end
+
+class Fact < BaseFact
+
+  def add_evidence(type,factlink,user)
+    factlink = Factlink.get_or_create(factlink,type,self)
+    factlink.set_added_to_factlink(self, user)
+    $redis.sadd(redis_key(type), factlink.id)
   end
   
-  # Sets or toggles the relevance by the user on the child with this type
-  def set_relevance_for_user(child, type, user)
+  def remove_evidence(type,factlink,user)
+  end
+  
 
-    if user_has_relevance_on_child?(child, type, user)
-      # User has this relevance type set already; remove relevance
-      remove_relevance_for_user(child, user)
-    else
-      # User has none or other opinion
-      # Clears the current opinion, and adds the new opinion.
-      add_relevance_for_user(child, type, user)
-    end
-
+  def evidence_ids(type)
+    $redis.smembers(redis_key(type))
+  end
+  
+  def supported_by?(factlink)
+    $redis.sismember(redis_key(:supporting), factlink.id.to_s)
   end
 
-  def user_has_relevance_on_child?(child, type, user)
-    key = redis_relevance_key(child, type)
-    
-    # If rank gets returned, the user has this opinion.
-    return $redis.zrank(key, user.id) ? true : false
+  def weakened_by?(factlink)
+    $redis.sismember(redis_key(:weakening), factlink.id.to_s)
   end
-
-  # Adds relevance opinion of the user on the child.
-  def add_relevance_for_user(child, type, user)
-    # Remove the old relevances set by this user
-    remove_relevance_for_user(child, user)
-    
-    key = redis_relevance_key(child, type)
-    $redis.zadd(key, user.authority, user.id)
-  end
-
-  # Remove the relevance set by this user. 
-  def remove_relevance_for_user(child, user)
-    [:relevant, :might_be_relevant, :not_relevant].each do |type|
-      $redis.zrem(redis_relevance_key(child, type), user.id)
-    end
-  end
-
-  def relevance_class(child, type, user)
-    # Used to show the relevance of a child to a parent.
-    if user_has_relevance_on_child?(child, type, user)
-      return "active"
-    else
-      return ""
-    end
-  end
-
 
   # Used for sorting
   def self.column_names
@@ -285,16 +152,6 @@ class Fact < BaseFact
 
   def get_opinion
     Opinion.new(1,0,0,0.5)
-  end
-
-  protected
-    # Helper method to generate redis keys
-  def redis_key(str)
-    "factlink:#{self.id}:#{str}"
-  end
-  
-  def redis_relevance_key(child, type)    
-    "factlink:relevance:#{self.id}:#{child.id}:#{type}"
   end
 
 end
