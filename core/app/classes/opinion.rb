@@ -28,7 +28,7 @@ class Opinion
   end
   
   
-  def Opinion.combine_opinions(list)
+  def Opinion.combine(list)
     if list.length > 0
       Opinion.new(0,0,1)
     else

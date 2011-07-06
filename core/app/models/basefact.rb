@@ -108,7 +108,14 @@ class BaseFact
   end
 
   def get_opinion
-    Opinion.new(1,0,0,0.5)
+    opinions = []
+    [:beliefs, :doubts, :disbeliefs].each do |type|
+      opiniated = User.where(:_id.in => $redis.zrange(self.redis_key(type), 0, -1))
+      opiniated.each do |user|
+        opinions << Opinion.for_type(type,user)
+      end
+    end    
+    Opinion.combine(opinions)
   end
   
 end
