@@ -38,18 +38,18 @@ class User
   end
 
 
-  def update_opinion(type, factlink, parent)
+  def update_opinion(type, fact)
     # Remove existing opinion by user
-    remove_opinions(factlink, parent)
+    remove_opinions(fact)
 
     # Adds the factlink_id to the active factlinks of the user
-    add_active_factlink(factlink)
+    add_active_factlink(fact)
 
-    key = redis_factlink_opinion_key(parent)
-    $redis.hset(key, factlink.id, opinion_id(type))
+    key = redis_factlink_opinion_key()
+    $redis.hset(key, fact.id, opinion_id(type))
 
     # Adds the factlink_id to the users correct set
-    $redis.sadd(self.redis_key(type), factlink.id)
+    $redis.sadd(self.redis_key(type), fact.id)
   end
 
   def opinion_id(type)
@@ -70,15 +70,15 @@ class User
     foo[the_id.to_i]
   end
 
-  def get_opinion(factlink, parent)
-    key = redis_factlink_opinion_key(parent)
-    $redis.hget(key, factlink.id)
+  def get_opinion(fact)
+    key = redis_factlink_opinion_key
+    $redis.hget(key, fact.id)
   end
 
-  def remove_opinions(factlink, parent)
+  def remove_opinions(factlink)
     remove_active_factlink factlink
 
-    key = redis_factlink_opinion_key(parent)
+    key = redis_factlink_opinion_key()
     # Remove the believe||doubt||disbelieve hash
     $redis.hdel(key, factlink.id)
 
@@ -137,41 +137,50 @@ class User
 
 
   # Believe
+  deprecate
   def believe_ids
     $redis.smembers(self.redis_key(:beliefs))
   end
 
+  deprecate
   def believe_count
     $redis.scard(self.redis_key(:beliefs))
   end
 
+  deprecate
   def believed_facts
     Fact.where(:_id.in => self.believe_ids)
   end
 
 
   # Doubt
+  deprecate
   def doubt_ids
     $redis.smembers(self.redis_key(:doubts))
   end
 
+  deprecate
   def doubt_count
     $redis.scard(self.redis_key(:doubts))
   end
 
+  deprecate
   def doubted_facts
     Fact.where(:_id.in => self.doubt_ids)
   end
 
   # Disbelieve
+  deprecate
   def disbelieve_ids
     $redis.smembers(self.redis_key(:disbeliefs))
   end
 
+  deprecate
   def disbelieve_count
     $redis.scard(self.redis_key(:disbeliefs))
   end
 
+  deprecate
   def disbelieved_facts
     Fact.where(:_id.in => self.disbelieve_ids)
   end
@@ -206,9 +215,9 @@ class User
       "user:#{self.id}:#{str}"
     end
 
-    def redis_factlink_opinion_key(factlink)
+    def redis_factlink_opinion_key
       # becomes: "user:userid:factlink:factlink_id"
-      self.redis_key("factlink:#{factlink.id}")
+      self.redis_key("factlink:foobar:")
     end
 
 end
