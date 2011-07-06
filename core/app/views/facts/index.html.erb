@@ -16,7 +16,7 @@
     <td><%= factlink.description %></td>
     <td><%= factlink.content %></td>
     <td><%= link_to 'Show', factlink %></td>
-    <td><%= link_to 'Edit', edit_factlink_path(factlink) %></td>
+    <td><%= link_to 'Edit', edit_fact_path(factlink) %></td>
     <td><%= link_to 'Destroy', factlink, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -24,4 +24,4 @@
 
 <br />
 
-<%= link_to 'New Factlink', new_factlink_path %>
+<%= link_to 'New Factlink', new_fact_path %>

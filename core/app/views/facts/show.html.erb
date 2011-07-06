@@ -32,7 +32,7 @@
 		</div>
 		
 		<div class="fl-factlink">
-			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_path(@factlink) %>">&#8220;<%= @factlink.displaystring %>&#8221;</a></h1>
+			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_fact_path(@factlink) %>">&#8220;<%= @factlink.displaystring %>&#8221;</a></h1>
 		</div>
 		
 		<div class="fl-clear"></div>
@@ -41,19 +41,19 @@
 			<ul>
 					<% (@factlink.tags_array || []).each do |tag| %>
 
-					<a href="<%= edit_factlink_path(@factlink) %>" style="text-decoration: none;">						
+					<a href="<%= edit_fact_path(@factlink) %>" style="text-decoration: none;">						
 						<li><%= tag %></li>
 					</a>
 					<% end %>
 
-				<a href="<%= edit_factlink_path(@factlink) %>" style="text-decoration: none;">
+				<a href="<%= edit_fact_path(@factlink) %>" style="text-decoration: none;">
 					<li class="fl-tag-add">+</li>
 				</a>
 
 			</ul>
 			
 			<% if @factlink.created_by == current_user %>
-			<a href="<%= edit_factlink_path(@factlink) %>">edit tags</a>
+			<a href="<%= edit_fact_path(@factlink) %>">edit tags</a>
 			<% end %>
 		</div>
 		

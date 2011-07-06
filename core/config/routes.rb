@@ -10,7 +10,7 @@ FactlinkUI::Application.routes.draw do
   
   ##########
   # Resources
-  resources :factlinks
+  resources :facts
   
   # get "factlink_overview"
   
