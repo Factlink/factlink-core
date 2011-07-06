@@ -1,23 +1,28 @@
-class Fact < Basefact
+require 'redis'
+require 'redis/objects'
+Redis::Objects.redis = Redis.new
 
+class Fact < Basefact
+  include Redis::Objects
+  
+  list :supporting_facts
+  list :weakening_facts
+  
+  def evidence(type)
+    case type
+    when :supporting
+      supporting_facts
+    when :weakening
+      weakening_facts
+    end
+  end
+  
   def add_evidence(type,factlink,user)
     factlink = Factlink.get_or_create(factlink,type,self)
-    factlink.set_added_to_factlink(self, user)
-    $redis.sadd(redis_key(type), factlink.id)
+    factlink.set_added_to_factlink(user)
+    evidence(type) << factlink.id
   end
   
-  def evidence_ids(type)
-    $redis.smembers(redis_key(type))
-  end
-  
-  def supported_by?(factlink)
-    $redis.sismember(redis_key(:supporting), factlink.id.to_s)
-  end
-
-  def weakened_by?(factlink)
-    $redis.sismember(redis_key(:weakening), factlink.id.to_s)
-  end
-
   # Used for sorting
   def self.column_names
     self.fields.collect { |field| field[0] }
@@ -26,7 +31,7 @@ class Fact < Basefact
   def evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
-      factlinks = Factlink.where(:_id.in => $redis.zrange(self.redis_key(type), 0, -1))
+      factlinks = Factlink.where(:_id.in => evidence(type))
       factlinks.each do |factlink|
         opinions << factlink.get_influencing_opinion
       end

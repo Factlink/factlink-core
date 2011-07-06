@@ -3,6 +3,7 @@ require 'redis/objects'
 Redis::Objects.redis = Redis.new
 
 #TODO renamen naar FactRelation
+
 class Factlink < Fact
   include Redis::Objects
   
@@ -13,13 +14,14 @@ class Factlink < Fact
   def Factlink.get_or_create(evidence,type,fact)
     if $redis.exists(Factlink.redis_key(evidence,type,fact))
       id = $redis.get(Factlink.redis_key(evidence,type,fact))
-      Factlink.find(id)
+      fl = Factlink.find(id)
     else
       fl = Factlink.new
       fl.evidence.value = evidence
       fl.fact.value = fact
       fl.type.value = type
     end
+    fl
   end
   
   def set_data(evidence,type,fact)

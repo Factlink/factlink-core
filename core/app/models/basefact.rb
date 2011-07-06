@@ -1,9 +1,15 @@
+require 'redis'
+require 'redis/objects'
+Redis::Objects.redis = Redis.new
+
+
 class Basefact
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Taggable
 
   include Sunspot::Mongoid
+  include Redis::Objects
   
   include Opinionable
 
@@ -25,8 +31,9 @@ class Basefact
   belongs_to  :created_by,
     :class_name => "User"
 
-
   scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten )
+
+  value :added_to_factlink
 
   # TODO: Find another way to retrieve all factlinks that have a relation to a site
   # scope :with_site, where( :site.ne => nil ) # is not working.
@@ -42,14 +49,12 @@ class Basefact
     self.displaystring
   end
 
-  def set_added_to_factlink(factlink, user)
-    # Redis     Key................., Field......, Value..
-    $redis.hset(redis_key(:added_to), factlink.id, user.id)
+  def set_added_to_factlink(user)
+    self.added_to_factlink.value = user.id
   end
   
-  def delete_added_to_factlink(factlink)
-    # Redis     Key................., Field......, Value..
-    $redis.hdel(redis_key(:added_to), factlink.id)
+  def delete_added_to_factlink()
+    self.added_to_factlink.delete
   end
 
   def toggle_opinion(user, type, parent)
