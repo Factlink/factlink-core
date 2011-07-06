@@ -3,6 +3,7 @@ require 'redis/objects'
 Redis::Objects.redis = Redis.new
 
 #TODO renamen naar FactRelation
+
 class Factlink < Fact
   include Redis::Objects
   
@@ -20,10 +21,9 @@ class Factlink < Fact
       fl.fact.value = fact
       fl.type.value = type
       fl.save
-      fl
     end
-    
-    return fl
+
+    fl
   end
   
   def set_data(evidence,type,fact)

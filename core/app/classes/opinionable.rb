@@ -17,9 +17,10 @@ module Opinionable
       :authority => op.a,
     }
   end
-
-
-
+  
+  def brain_cycles
+    get_opinion.a.to_i
+  end
 
   # Percentual scores
   deprecate

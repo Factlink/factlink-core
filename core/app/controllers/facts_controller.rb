@@ -122,6 +122,10 @@ class FactsController < ApplicationController
   end
   
   def add_source_as_supporting
+    
+    
+    
+    # This is old:
     # Add an existing source to a Fact
     @factlink = Fact.find(params[:factlink_id])
     @source   = Fact.find(params[:source_id])

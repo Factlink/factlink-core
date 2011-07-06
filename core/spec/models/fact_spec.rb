@@ -39,17 +39,17 @@ describe Fact do
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting,@factlink, @user1)
-     @parent.supporting_fact_ids.should include(@factlink.id.to_s)
+     @parent.evidence_ids(:supporting).should include(@factlink.id.to_s)
    end
    
    it "stores the ID's of weakening facts in the weakening facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.weakening_fact_ids.should include(@factlink2.id.to_s)
+     @parent.evidence_ids(:weakening).should include(@factlink2.id.to_s)
    end
    
    it "should not store the ID of weakening facts in the supporting facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     @parent.supporting_fact_ids.should_not include(@factlink2.id.to_s)
+     @parent.evidence_ids(:weakening).should_not include(@factlink2.id.to_s)
    end
    
    it "should return true if the child is a supporting child when checking a supporting child" do
