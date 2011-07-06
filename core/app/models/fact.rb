@@ -35,7 +35,7 @@ class Fact < Basefact
   end
 
   def get_opinion
-    user_opinion = super.get_opinion
+    user_opinion = super
     user_opinion + evidence_opinion
   end
 
