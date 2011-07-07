@@ -83,6 +83,8 @@ facts.each do |fact|
   )
 end
 
+Factlink.get_or_create(Fact.first,:supports, Fact.last, User.first)
+
 # parent  = Fact.all[0]
 # child   = Fact.all[1]
 
