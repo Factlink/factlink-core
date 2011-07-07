@@ -16,6 +16,8 @@ class HomeController < ApplicationController
 
     @factlinks = Fact.with_site_as_parent
     @users = User.all
+    
+    @factlinks = Fact.facts
   end
 
 end

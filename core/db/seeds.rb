@@ -74,34 +74,29 @@ facts = [
 'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
 'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended']
 
-facts.each do |fact|  
+facts.each do |fact|
+  
+  puts "Creating: #{fact}"
   Fact.create!( :displaystring => fact,
                     :site => site,
                     :created_by => user
   )
 end
 
-parent  = Fact.all[0]
-child   = Fact.all[1]
+# parent  = Fact.all[0]
+# child   = Fact.all[1]
 
-parent.add_evidence(:supporting, child, user)
+# parent.add_evidence(:supporting, child, user)
 
-fl = Factlink.find(parent.evidence(:supporting).values[0])
-fl.add_opinion(:beliefs, user)
-fl.add_opinion(:beliefs, user1)
-fl.add_opinion(:beliefs, user2)
-
-fl.add_opinion(:doubts, user3)
-
-fl.add_opinion(:disbeliefs, user4)
-fl.add_opinion(:disbeliefs, user5)
-
-# 500.times do |x|
-#   Fact.create!( :displaystring => facts[x % facts.count],
-#                     :site => site,
-#                     :created_by => user
-#   )  
-# end
+# fl = Factlink.find(parent.evidence(:supporting).members[0])
+# fl.add_opinion(:beliefs, user)
+# fl.add_opinion(:beliefs, user1)
+# fl.add_opinion(:beliefs, user2)
+# 
+# fl.add_opinion(:doubts, user3)
+# 
+# fl.add_opinion(:disbeliefs, user4)
+# fl.add_opinion(:disbeliefs, user5)
 
 # Commit the indices to Solr
 Sunspot.commit

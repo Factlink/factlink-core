@@ -60,8 +60,8 @@ class FactsController < ApplicationController
     # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
     
     # TODO: Only show potential 'childs' and 'parents'
-    @potential_childs = Fact.all
-    @potential_parents = Fact.all
+    @potential_childs = Fact.facts
+    @potential_parents = Fact.facts
   end
   
   def new

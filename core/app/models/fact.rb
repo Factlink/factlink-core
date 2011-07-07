@@ -8,6 +8,8 @@ class Fact < Basefact
   set :supporting_facts
   set :weakening_facts
 
+  scope :facts, where(:_type => "Fact")
+
   def evidence_count
     0
   end
@@ -39,7 +41,7 @@ class Fact < Basefact
   def evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
-      factlinks = Factlink.where(:_id.in => evidence(type).values)
+      factlinks = Factlink.where(:_id.in => evidence(type).members)
       factlinks.each do |factlink|
         opinions << factlink.get_influencing_opinion
       end
