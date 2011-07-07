@@ -36,11 +36,11 @@ class FactRelation < Fact
     "factlink:#{evidence.id}:#{type}:#{fact}"
   end
   
-  def get_type_opinion
+  def get_type_opinion    
     case self.type.value
-    when :supporting
+    when "supporting"
       Opinion.for_type(:beliefs)
-    when :weakening
+    when "weakening"
       Opinion.for_type(:disbeliefs)
     end
   end

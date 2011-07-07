@@ -16,7 +16,7 @@ class Opinion
     self.a=a
   end
 
-  def Opinion.for_type(type,authority=0)
+  def Opinion.for_type(type, authority=0)
     case type
     when :beliefs
       Opinion.new(1,0,0,authority)
