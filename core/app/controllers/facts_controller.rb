@@ -121,24 +121,22 @@ class FactsController < ApplicationController
     redirect_to :action => "edit", :id => @factlink.id
   end
   
-  def add_source_as_supporting
+  def add_supporting_evidence
     # Add existing evidence to a Fact
-    @fact = Fact.find(params[:factlink_id])
-    @evidence   = Fact.find(params[:source_id])
-
-    # @factlink.add_child_as_supporting(@source, current_user)
+    @fact     = Fact.find(params[:fact_id])
+    @evidence = Fact.find(params[:evidence_id])
     
     @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_source_to_factlink"
   end
   
-  def add_source_as_weakening
-    # Add an existing source to a Fact
-    @factlink = Fact.find(params[:factlink_id])
-    @source   = Fact.find(params[:source_id])
+  def add_weakening_evidence
+    # Add existing evidence to a Fact
+    @fact     = Fact.find(params[:factlink_id])
+    @evidence = Fact.find(params[:eviendeve_id])
 
-    @factlink.add_child_as_weakening(@source, current_user)
+    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_source_to_factlink"
   end
