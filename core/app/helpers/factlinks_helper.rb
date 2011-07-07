@@ -32,9 +32,9 @@ module FactlinksHelper
   end
   
   # Score block of the top factlink in client
-  def factlink_score_partial(factlink)
+  def factlink_score_partial(fact)
     render :partial => 'facts/partial/score', 
-              :locals => { :factlink => factlink }
+              :locals => { :fact => fact }
   end
 
   # The vote options for a fact: believe, doubt, disbelieve

@@ -23,6 +23,14 @@ end
 
 users = FactoryGirl.create_list(:user,5)
 
+
+user = User.new(:username => "merijn",
+                :email => "merijn@gmail.com",
+                :confirmed_at => DateTime.now,
+                :password => "merijn481",
+                :password_confirmation => "merijn481")
+user.save
+
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save

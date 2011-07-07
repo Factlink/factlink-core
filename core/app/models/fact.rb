@@ -19,6 +19,10 @@ class Fact < Basefact
     res
   end
   
+  def fact_relations_as_fact
+    Fact.where(:id.in => fact_relations)
+  end
+  
   def evidence(type)
     case type
     when :supporting

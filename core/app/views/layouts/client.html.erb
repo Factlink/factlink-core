@@ -9,7 +9,7 @@
 	
 	<% if Rails.env.development? %>
 		<!-- Vogue auto reloads CSS on save - great for development! -->
-    <!-- <script src="http://localhost:8001/vogue-client.js" type="text/javascript"></script> -->
+    <script src="http://localhost:8001/vogue-client.js?base=http://localhost:8001" type="text/javascript"></script>
 	<% end %>
 	
 	<%= javascript_include_tag "rails" %>
@@ -21,14 +21,9 @@
 </head>
 <body>
 
-	<div class="fl-modal">
-		<div class="fl-container">
-			
-			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -2px; left: 410px;", :onclick => "parent.remote.hideFrame(); parent.remote.hideOverlay();" %>
-			
+	<div class="fl-modal">			
+			<span class="fl-close" onclick="parent.remote.hide();"></span>
 			<%= yield %>
-
-		</div>
 	</div>
 
 </body>
