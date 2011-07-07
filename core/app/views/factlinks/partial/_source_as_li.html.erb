@@ -40,17 +40,13 @@
 			<% end %>
 		</div>
 
-	<div style="border: dashed 2px rgba(206, 0, 0);">
-		<pre>Development shizzle</pre>
+	<div style="">
 		
-		<div id="fl-relevance-container">
+		<div id="fl-relevance-container" style="margin: 0 auto; padding-top: 16px;">
 			<% if user_signed_in? %>
 				<%= relevance_options(factlink, parent) %>
 			<% end %>
 		</div>
 	</div>
-	
-	<br/><br/>
-	added <%= time_ago_in_words(factlink.created_at) %> ago by <%= factlink.created_by %>
 	
 </li>
