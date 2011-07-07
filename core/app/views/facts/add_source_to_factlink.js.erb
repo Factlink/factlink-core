@@ -7,6 +7,6 @@ if (no_fact_message.length > 0) {
 $('ol#fl-existing-childs-list > li#fl-source-<%= @evidence.id %>').slideUp(function() {
 	$('#dimmer').fadeOut('fast');
 	$('div#fl-potential-childs-popup').fadeOut('fast', function() {
-		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :factlink => @factlink, :fact => @fact, :evidence => @evidence } )) %>");
+		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation, :fact => @fact, :evidence => @evidence } )) %>");
 	});
 });

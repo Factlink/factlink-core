@@ -14,7 +14,9 @@ class FactsController < ApplicationController
     :believe,
     :doubt,
     :disbelieve,
-    :set_opinion
+    :set_opinion,
+    :add_supporting_evidence,
+    :add_weakening_evidence
     ]
   
   layout "client"
@@ -134,7 +136,7 @@ class FactsController < ApplicationController
   def add_weakening_evidence
     # Add existing evidence to a Fact
     @fact     = Fact.find(params[:factlink_id])
-    @evidence = Fact.find(params[:eviendeve_id])
+    @evidence = Fact.find(params[:evidence_id])
 
     @factlink = @fact.add_evidence(:weakening, @evidence, current_user)
     

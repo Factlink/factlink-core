@@ -131,7 +131,7 @@ class Basefact
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
       opiniated.each do |user|
-        opinions << Opinion.for_type(type,user.authority)
+        opinions << Opinion.for_type(type, user.authority)
       end
     end    
     Opinion.combine(opinions)

@@ -14,13 +14,13 @@ class Fact < Basefact
     0
   end
   
-  def fact_relations
+  def fact_relation_ids
     res = supporting_facts | weakening_facts
     res
   end
   
-  def fact_relations_as_fact
-    Fact.where(:id.in => fact_relations)
+  def fact_relations
+    FactRelation.where(:_id.in => fact_relation_ids)
   end
   
   def evidence(type)

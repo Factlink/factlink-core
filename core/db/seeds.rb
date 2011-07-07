@@ -56,7 +56,8 @@ facts.each do |fact|
   )
 end
 
-fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, users[0])
+# fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, users[0])
+fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, user)
 fr.save()
 
 # Commit the indices to Solr

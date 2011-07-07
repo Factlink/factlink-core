@@ -24,10 +24,10 @@
 		
 		<!-- "Sources" -->
 		<ol id="fl-sources">
-			<% unless @fact.fact_relations.count > 0 %>
+			<% unless @fact.fact_relation_ids.count > 0 %>
 				<%= no_facts_have_been_added_as_li %>
 			<% else %>
-				<% @fact.fact_relations_as_fact.each do |evidence| %>
+				<% @fact.fact_relations.each do |evidence| %>
 					<%= factlink_source_partial_as_li(evidence) %>
 				<% end %>
 			<% end %>

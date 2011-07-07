@@ -1,6 +1,22 @@
 module Opinionable
   # SCORE STUFF
   def score_dict_as_percentage
+    
+    return {
+      :believe => {
+        :percentage => 37,
+      },
+      :disbelieve => {
+        :percentage => 49,
+      },
+      :doubt => {
+        :percentage => 14,
+      },
+      
+      :authority => 102,
+    }
+    
+    
     op = get_opinion
     total = op.b + op.d + op.u
 

@@ -1,32 +1,32 @@
-<li data-score="<%= evidence.brain_cycles %>" id="fl-source-<%= evidence.id %>" class="<%= evidence.type.value %>">
+<li data-score="<%= fact_relation.get_from_fact.brain_cycles %>" id="fl-source-<%= fact_relation.get_from_fact.id %>" class="<%= fact_relation.type.value %>">
 
 	<div class="fl-source-stats">
 	 	<span class="fl-source-percentage">
-	 	  12%
+			12%
 	 	</span>
-	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= evidence.brain_cycles %></sub>
+	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= fact_relation.get_from_fact.brain_cycles %></sub>
 	</div>
 	
 	<div class="fl-source-info">
 	 	<!-- <div class="fl-vote-container">
  		<% if user_signed_in? %>
-			<%= opinion_options(evidence) %>
+			<%= opinion_options(fact_relation.get_from_fact) %>
 		<% end %>
   	 </div> -->
 
-  	<h2 class="fl-source">&#8220;<%= evidence.displaystring %>&#8221;</h2>
+  	<h2 class="fl-source">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 
   	<sub>
-  		<span class="fl-source-created"><%= time_ago_in_words(evidence.created_at) %> ago by <%= link_to(evidence.created_by, user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
-  		<% if evidence.site %>
-  			<span class="fl-source-found">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.site.url, :length => 40) %></a></span>
+  		<span class="fl-source-created"><%= time_ago_in_words(fact_relation.get_from_fact.created_at) %> ago by <%= link_to(fact_relation.get_from_fact.created_by, user_profile_path(fact_relation.get_from_fact.created_by.username), :target => "_blank") %></span>
+  		<% if fact_relation.get_from_fact.site %>
+  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.site.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.site.url, :length => 40) %></a></span>
   		<% else %>
-  			<span class="fl-source-found">found on <a href="<%= evidence.url %>" target="_blank"><%= truncate(evidence.url, :length => 40) %></a></span>
+  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.url, :length => 40) %></a></span>
   		<% end %>
   	</sub>
 
     <!-- <div class="fl-remove-fact">
- 			<%= link_to(image_tag('icons/users.png'), interacting_users_path(evidence), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
+ 			<%= link_to(image_tag('icons/users.png'), interacting_users_path(fact_relation.get_from_fact), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
 		</div> -->
 	
 		<!--
