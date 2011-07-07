@@ -39,19 +39,19 @@ describe Fact do
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting,@factlink, @user1)
-     evidence_facts = @parent.evidence(:supporting).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts = @parent.evidence(:supporting).members.collect { |x| Factlink.find(x).evidence_fact.value } 
      evidence_facts.should include(@factlink.id.to_s)
    end
    
    it "stores the ID's of weakening facts in the weakening facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:weakening).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts = @parent.evidence(:weakening).members.collect { |x| Factlink.find(x).evidence_fact.value } 
      evidence_facts.should include(@factlink2.id.to_s)
    end
    
    it "should not store the ID of weakening facts in the supporting facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:supporting).values.collect { |x| Factlink.find(x).evidence.value } 
+     evidence_facts = @parent.evidence(:supporting).members.collect { |x| Factlink.find(x).evidence_fact.value } 
      evidence_facts.should_not include(@factlink2.id.to_s)
    end
    

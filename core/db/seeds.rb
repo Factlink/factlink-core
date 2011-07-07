@@ -6,7 +6,9 @@ if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
   User.all.delete
   Site.all.delete               # Self explainatory
+  Basefact.all.delete
   Fact.all.delete           # Self explainatory
+  Factlink.all.delete
   Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
 end
 
