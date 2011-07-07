@@ -2,158 +2,185 @@ body, html {
   background: transparent;
   margin: 0;
   padding: 0;
-  text-shadow: 0px 0px 1px #fff;
   width: 100%;
   height: 100%;
 }
 a {
-  color: #999;
+  color: #bbb;
 }
 a:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-.close-button:hover {
-  cursor: pointer;
-}
 div.fl-modal {
   position: relative;
+  top: 40px;
   padding: 0;
-  margin: 40px auto;
+  margin: 0 auto;
   width: 425px;
+  background: #f8f8f8;
   color: #777;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
 }
-div.fl-modal div.fl-container {
-  background: #fbfafa;
-  padding: 6px;
-  width: 400px;
-}
-div.fl-modal div.fl-container div#fl-sources-popup {
+div.fl-modal span.fl-close {
+  background: url('/images/client/close-button.png') no-repeat;
+  display: block;
+  height: 10px;
+  width: 8px;
   position: absolute;
-  top: 78px;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-  border: solid 10px rgba(0, 0, 0, 0.4);
-  border-radius: 14px;
-  padding: 10px;
-  width: 360px;
-}
-div.fl-modal div.fl-container div#fl-sources-popup .close-button:hover {
+  right: 5px;
+  top: 5px;
   cursor: pointer;
 }
-div.fl-modal div.fl-container div#fl-sources-popup input[type="text"] {
-  border-radius: 4px;
-  border: 1px solid #cfcfcf;
-  padding: 6px;
-  width: 344px;
-  color: #717171;
+div.fl-modal sub.fl-brain-count {
+  font-size: 10px;
+  display: block;
+  text-align: center;
+  color: #bbb;
+  line-height: 20px;
 }
-div.fl-modal div.fl-container div#fl-sources-popup textarea {
-  border-radius: 4px;
-  border: 1px solid #cfcfcf;
-  padding: 6px;
-  width: 344px;
-  color: #717171;
+div.fl-modal sub.fl-brain-count img {
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }
-div.fl-modal div.fl-container div#fl-interacting-users {
-  position: absolute;
-  top: 24px;
-  left: 16px;
-  width: 390px;
-  height: 400px;
-  border: solid 10px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  box-shadow: 0px 0px 10px #000;
-  z-index: 24;
-  display: none;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+div.fl-modal #fl-top-pane {
+  height: 100px;
+  padding: 15px 10px 0;
+  background: url('/images/client/top-pane-gradient.png') repeat-x;
 }
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div.fl-scroll-pane {
-  margin: 5px;
-  height: 270px;
-  background: url('/images/texture.png');
-}
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div#filters {
-  padding: 16px 0px 12px 0px;
-}
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div#filters a {
-  padding: 2px 12px;
-}
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div#filters a:hover {
-  text-decoration: none;
-}
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div#filters a.active {
-  background: #999;
-  border: solid 1px #fff;
-  border-radius: 16px;
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
-  color: #fff;
-}
-div.fl-modal div.fl-stats {
+div.fl-modal #fl-top-pane div.fl-stats {
   float: left;
   width: 77px;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar {
-  width: 69px;
-  height: 72px;
-  border: 1px solid #bbb;
-  background: #fcfcfc;
-  padding: 1px 2px;
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar {
+  width: 75px;
+  height: 75px;
+  background: url('/images/client/graph.png') no-repeat #fcfcfc;
   margin: 0;
+  padding: 0;
   list-style: none;
   position: relative;
   overflow: hidden;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li {
-  width: 19px;
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li {
+  width: 17px;
   float: left;
   position: absolute;
-  bottom: 1px;
+  bottom: 3px;
   text-indent: 99999px;
   cursor: pointer;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
-  border-left: 1px solid #dfeeaf;
-  border-right: 1px solid #dfeeaf;
-  background: #bada55;
-  left: 50px;
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
+  background: #52d623;
+  left: 51px;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
-  border-left: 1px solid #ffea98;
-  border-right: 1px solid #ffea98;
-  background: #ffd324;
-  left: 26px;
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
+  background: #ffe400;
+  left: 29px;
 }
-div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
-  border-left: 1px solid #e88787;
-  border-right: 1px solid #e88787;
-  background: #c00;
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
+  background: #ff6136;
+  left: 7px;
 }
-div.fl-modal div.fl-stats span.fl-stats-count {
-  font-size: 10px;
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-  color: #bbb;
-}
-div.fl-modal div.fl-factlink {
+div.fl-modal #fl-top-pane div.fl-factlink {
   float: left;
   width: 310px;
   margin: 0 0 0 10px;
 }
-div.fl-modal div.fl-factlink h1 {
+div.fl-modal #fl-top-pane div.fl-factlink h1 {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 18px;
   font-style: italic;
   font-weight: 200;
   color: #333;
-  margin: 5px 0 0 0;
+  margin: 0;
+}
+div.fl-modal #fl-top-pane div.fl-factlink sub {
+  color: #bbb;
+  font-size: 11px;
+}
+div.fl-modal #fl-top-pane div.fl-factlink sub a {
+  color: #bbb;
+}
+div.fl-modal #fl-sources {
+  list-style: none;
+  border-bottom: 1px solid #e4e4e4;
+  background: #fbfafa url('/images/client/scroll-pane-top-gradient.png') top repeat-x;
+  padding: 0;
+  margin: 0 2px 0 0;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+div.fl-modal #fl-sources li {
+  padding: 20px 0 15px;
+  margin: 0;
+  position: relative;
+  border-bottom: 1px solid #e4e4e4;
+}
+div.fl-modal #fl-sources li.supporting {
+  background: url('/images/client/supporting.png') no-repeat;
+}
+div.fl-modal #fl-sources li.weakening {
+  background: url('/images/client/weakening.png') no-repeat;
+}
+div.fl-modal #fl-sources li div.fl-source-stats {
+  width: 80px;
+  height: 100%;
+  float: left;
+}
+div.fl-modal #fl-sources li div.fl-source-stats span.fl-source-percentage {
+  display: block;
+  font-size: 18px;
+  color: #999;
+  font-weight: 300;
+  text-align: center;
+  margin: 7px 0 0 0;
+}
+div.fl-modal #fl-sources li div.fl-source-info {
+  float: right;
+  width: 335px;
+}
+div.fl-modal #fl-sources li div.fl-source-info h2 {
+  padding: 0;
+  margin: 0;
+  color: #484848;
+  font-size: 13px;
+  font-weight: normal;
+}
+div.fl-modal #fl-sources li div.fl-source-info sub {
+  font-size: 10px;
+  color: #bbb;
+}
+div.fl-modal #fl-sources li div.fl-source-info sub span.fl-source-created {
+  margin: 0 10px 0 0;
+}
+div.fl-modal #fl-bottom-pane {
+  height: 70px;
+  text-align: center;
+  background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+}
+div.fl-modal #fl-bottom-pane div.buttons {
+  height: 45px;
+}
+div.fl-modal #fl-bottom-pane div.buttons a {
+  line-height: 55px;
+  color: #3fa1ca;
+  font-size: 13px;
+  margin: 0 10px;
+}
+div.fl-modal #fl-bottom-pane div.buttons a:hover {
+  text-decoration: underline;
+  color: #3fa1ca;
+}
+div.fl-modal #fl-bottom-pane sub {
+  color: #aaa;
+  font-size: 10px;
 }
 div.fl-modal .fl-scroll-pane {
-  border-radius: 4px;
   border: 1px solid #ccc;
 }
 div.fl-modal .fl-scroll-pane ol#fl-users {
@@ -363,6 +390,68 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-s
 div.fl-modal .fl-scroll-pane ol.fl-sources li a:hover {
   color: #555;
 }
+div.fl-modal div#fl-sources-popup {
+  position: absolute;
+  top: 78px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+  border: solid 10px rgba(0, 0, 0, 0.4);
+  border-radius: 14px;
+  padding: 10px;
+  width: 360px;
+}
+div.fl-modal div#fl-sources-popup .close-button:hover {
+  cursor: pointer;
+}
+div.fl-modal div#fl-sources-popup input[type="text"] {
+  border-radius: 4px;
+  border: 1px solid #cfcfcf;
+  padding: 6px;
+  width: 344px;
+  color: #717171;
+}
+div.fl-modal div#fl-sources-popup textarea {
+  border-radius: 4px;
+  border: 1px solid #cfcfcf;
+  padding: 6px;
+  width: 344px;
+  color: #717171;
+}
+div.fl-modal div#fl-interacting-users {
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  width: 390px;
+  height: 400px;
+  border: solid 10px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  box-shadow: 0px 0px 10px #000;
+  z-index: 24;
+  display: none;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+}
+div.fl-modal div#fl-interacting-users div#fl-users-container div.fl-scroll-pane {
+  margin: 5px;
+  height: 270px;
+  background: url('/images/texture.png');
+}
+div.fl-modal div#fl-interacting-users div#fl-users-container div#filters {
+  padding: 16px 0px 12px 0px;
+}
+div.fl-modal div#fl-interacting-users div#fl-users-container div#filters a {
+  padding: 2px 12px;
+}
+div.fl-modal div#fl-interacting-users div#fl-users-container div#filters a:hover {
+  text-decoration: none;
+}
+div.fl-modal div#fl-interacting-users div#fl-users-container div#filters a.active {
+  background: #999;
+  color: #fff;
+  border: solid 1px #fff;
+  border-radius: 16px;
+  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+}
 div.fl-clear {
   clear: both;
 }
@@ -370,60 +459,11 @@ div.fl-clear {
   margin: 0 auto;
   text-align: center;
 }
-/*.button
-{
-	font-size: 11px;
-	font-weight: bold;
-
-	cursor: pointer;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-
-	text-align: center;
-	padding: .5em 2em .55em;
-	color: #222;
-	color: rgba(0,0,0,.80);
-	text-shadow: 0 1px 1px rgba(255,255,255,0.6);
-
-	background: #9FA0A2;
-	background: -moz-linear-gradient(center top, #B7B8BA 50%,#9FA0A2 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, #B7B8BA),color-stop(1, #9FA0A2));
-	background: gradient(linear, left top, left bottom, color-stop(0.5, #B7B8BA),color-stop(1, #9FA0A2));
-
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 2px #fff;
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 2px #fff;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.3), inset 0 0 2px #fff;
-
-	-webkit-transition:all 0.2s ease-in-out; 
-	-moz-transition:all 0.2s ease-in-out; 
-	-o-transition:all 0.2s ease-in-out; 
-	transition:all 0.2s ease-in-out;
-
-	opacity: 0.8;
-	border: 1px solid #555;	
-}
-
-.button:hover
-{
-	text-decoration: none;
-	opacity: 1;
-	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.4), inset 0 0 2px #fff;
-	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.4), inset 0 0 2px #fff;
-	box-shadow: 0 1px 4px rgba(0,0,0,.4), inset 0 0 2px #fff;
-}
-
-.confirm {
-	background: rgb(188,222,102);
-	background: -moz-linear-gradient(center top, rgb(188,222,102) 50%, rgb(148,199,6) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, rgb(188,222,102)),color-stop(1, rgb(148,199,6)));
-	background: gradient(linear, left top, left bottom, color-stop(0.5, rgb(188,222,102)),color-stop(1, rgb(148,199,6)));	
-}*/
 div.fl-sign-in-container {
   padding: 16px 16px 0px 16px;
 }
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   height: 6px;
 }
 ::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
@@ -436,11 +476,11 @@ div.fl-sign-in-container {
 }
 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
-  background-color: #666;
+  background-color: #888;
   -webkit-border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:horizontal {
   width: 50px;
-  background-color: #666;
+  background-color: #888;
   -webkit-border-radius: 3px;
 }

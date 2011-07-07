@@ -21,14 +21,9 @@
 </head>
 <body>
 
-	<div class="fl-modal">
-		<div class="fl-container">
-			
-			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -2px; left: 410px;", :onclick => "parent.remote.hide();" %>
-			
+	<div class="fl-modal">			
+			<span class="fl-close" onclick="parent.remote.hide();"></span>
 			<%= yield %>
-
-		</div>
 	</div>
 
 </body>
