@@ -26,9 +26,9 @@ module FactlinksHelper
 
 
   # Listitem for in factlink client overview
-  def factlink_source_partial_as_li(factlink, parent)
+  def factlink_source_partial_as_li(fact_relation)
     render :partial => 'facts/partial/source_as_li', 
-              :locals => { :factlink => factlink, :parent => parent }
+              :locals => { :fact_relation => fact_relation }
   end
   
   # Score block of the top factlink in client
@@ -42,10 +42,10 @@ module FactlinksHelper
     render :partial => 'facts/partial/opinion_options', 
               :locals => { :fact => fact }
   end
-  
-  def relevance_options(fact, evidence)
+
+  def relevance_options(fact_relation)
     render :partial => 'facts/partial/relevance_options', 
-              :locals => { :fact => fact, :evidence => evidence }
+              :locals => { :fact_relation => fact_relation }
   end
   
   def no_facts_have_been_added_as_li

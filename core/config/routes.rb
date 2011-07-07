@@ -58,8 +58,10 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/:id/disbelieve"  => "facts#disbelieve", :as => "disbelieve"
 
   # Set opinion and relevance
-  get "/factlink/:child_id/opinion/:type/:parent_id" => "facts#toggle_opinion", :as => "opinion"
+  # get "/factlink/:child_id/opinion/:type/:parent_id" => "facts#toggle_opinion", :as => "opinion"
   get "/factlink/:child_id/relevance/:type/:parent_id" => "facts#set_relevance", :as => "relevance"
+  
+  get   "/factlink/:fact_id/opinion/:type" => "facts#toggle_opinion", :as => "opinion"
   
   # Template which is shown when user hovers Fact
   get "/factlink/indication" => "facts#indication"

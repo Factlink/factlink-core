@@ -68,8 +68,8 @@
 
 				<% else %>
 
-					<% @fact.childs.each do |factlink| %>
-						<%= factlink_source_partial_as_li(factlink, @fact) %>
+					<% @fact.fact_relations.each do |fact_relation| %>
+						<%= factlink_source_partial_as_li(fact_relation) %>
 					<% end %>
 					
 				<% end %>

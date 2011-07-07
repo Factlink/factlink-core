@@ -125,10 +125,7 @@ class FactsController < ApplicationController
     # Add existing evidence to a Fact
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
-    
-    puts "Fact: #{@fact}"
-    puts "Evid: #{@evidence}"
-    
+
     @factlink = FactRelation.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_source_to_factlink"
