@@ -15,7 +15,7 @@
   		<%= factlink_score_partial(@fact) %>
 		
   		<div class="fl-factlink">
-  			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_factlink_path(@fact) %>">&#8220;<%= @fact.displaystring %>&#8221;</a></h1>
+  			<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
   			<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
   		</div>
 		

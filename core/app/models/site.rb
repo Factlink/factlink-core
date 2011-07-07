@@ -6,7 +6,7 @@ class Site
   
   validates_uniqueness_of :url
   
-  def factlink_count
+  def fact_count
     return self.facts.count
   end
 end

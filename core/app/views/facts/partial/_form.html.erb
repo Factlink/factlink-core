@@ -21,9 +21,9 @@
 
 	<div class="fl-stats">
 		<ul class="fl-stats-bar">
-			<li class="fl-bar-disbelieve" style="height: <%= @factlink.percentage_score_disbelieve %>%;"><%= @factlink.disbelieve_total %></li>
-			<li class="fl-bar-doubt" style="height: <%= @factlink.percentage_score_doubt %>%;"><%= @factlink.doubt_total %></li>
-			<li class="fl-bar-believe" style="height: <%= @factlink.percentage_score_believe %>%;"><%= @factlink.belief_total %></li>
+			<li class="fl-bar-disbelieve" style="height: <%= @factlink.percentage_score_disbelieve %>%;">></li>
+			<li class="fl-bar-doubt" style="height: <%= @factlink.percentage_score_uncertain %>%;"></li>
+			<li class="fl-bar-believe" style="height: <%= @factlink.percentage_score_believe %>%;"></li>
 		</ul>
 		<span class="fl-stats-count"><%= @factlink.brain_cycles %></span>
 	</div>

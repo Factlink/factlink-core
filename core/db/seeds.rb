@@ -31,6 +31,13 @@ user = User.new(:username => "merijn",
                 :password_confirmation => "merijn481")
 user.save
 
+user1 = User.new(:username => "tomdev",
+                :email => "tom@codigy.nl",
+                :confirmed_at => DateTime.now,
+                :password => "123hoi",
+                :password_confirmation => "123hoi")
+user1.save
+
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save

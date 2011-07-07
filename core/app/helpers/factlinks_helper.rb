@@ -33,7 +33,7 @@ module FactlinksHelper
   
   # Score block of the top factlink in client
   def factlink_score_partial(fact)
-    render :partial => 'facts/partial/score', 
+    render :partial => 'facts/partial/bar_chart', 
               :locals => { :fact => fact }
   end
 

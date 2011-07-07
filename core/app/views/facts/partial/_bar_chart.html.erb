@@ -1,8 +1,8 @@
 <div id="fl-stats" class="fl-stats">
 	<ul class="fl-stats-bar">
-		<li id="fl-bar-disbelieve-score" class="fl-bar-disbelieve" style="height: <%= factlink.percentage_score_disbelieve %>%;"></li>
-		<li id="fl-bar-doubt-score" class="fl-bar-doubt" style="height: <%= factlink.percentage_score_doubt %>%;"></li>
-		<li id="fl-bar-believe-score" class="fl-bar-believe" style="height: <%= factlink.percentage_score_believe %>%;"></li>
+		<li id="fl-bar-disbelieve-score" class="fl-bar-disbelieve" style="height: <%= fact.percentage_score_disbelieve %>%;"></li>
+		<li id="fl-bar-doubt-score" class="fl-bar-doubt" style="height: <%= fact.percentage_score_uncertain %>%;"></li>
+		<li id="fl-bar-believe-score" class="fl-bar-believe" style="height: <%= fact.percentage_score_believe %>%;"></li>
 	</ul>
-	<sub class="fl-brain-count"><%= image_tag("/images/client/brains.png") %> <%= factlink.stats_count %></sub>
+	<sub class="fl-brain-count"><%= image_tag("/images/client/brains.png") %> <%= fact.brain_cycles %></sub>
 </div>
