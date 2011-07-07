@@ -3,6 +3,8 @@ body, html {
 	margin: 0;
 	padding: 0;
 	text-shadow: 0px 0px 1px #fff;
+	width: 100%;
+	height: 100%;
 }
 a {
 	color: #999;
@@ -16,311 +18,224 @@ a:hover {
 }
 
 div.fl-modal {
-    background-color: transparent;
-    background-color: rgba(0, 0, 0, 0.2);  
-    // IE opacity background fix:
-    //filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000); 
-    //zoom: 1;
+    position: relative;
     
-    border-radius: 4px;
-    padding: 12px;
-
-		position: fixed;
+    padding: 0;
+    margin: 40px auto;
+    width: 425px;
     
-    color: #717171;
-    
-    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    color: #777;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
 
     // The actual container with all the content
     div.fl-container {
-        background-color: #ffffff;
-        // Compatibility
-        // background-image: -moz-linear-gradient(top, #ffffff, #f0efef); 
-        // background-image: -ms-linear-gradient(top, #ffffff, #f0efef); 
-        // background-image: -o-linear-gradient(top, #ffffff, #f0efef); 
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-        background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-        // background-image: linear-gradient(top, #ffffff, #f0efef);
-        // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef'); 
-
-        border: 1px solid #ccc;
-        border-radius: 7px;
+        
+        background: #fbfafa;
         padding: 6px;
         
         width: 400px;
 
-				div#fl-sources-popup {
-					position: absolute;
-					top: 78px;
+		div#fl-sources-popup {
+			position: absolute;
+			top: 78px;
 
-					background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-		      background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+            background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
 
-					border: solid 10px rgba(0,0,0,0.4);
-					border-radius: 14px;
+			border: solid 10px rgba(0,0,0,0.4);
+			border-radius: 14px;
 
-					padding: 10px; 
-					width: 360px;
-				}
-				
-				div#fl-sources-popup .close-button:hover {
-					cursor: pointer;
-				}
-				
-				div#fl-sources-popup input[type="text"] {
-					border-radius: 4px; 
-					border: 1px solid #cfcfcf; 
-					padding: 6px;
-					width: 344px;
-					color: #717171;
-				}
-				
-				div#fl-sources-popup textarea {
-					border-radius: 4px; 
-					border: 1px solid #cfcfcf; 
-					padding: 6px; 
-					width: 344px;
-					color: #717171;
-				}
-				
-				div#fl-interacting-users {
-					position: absolute;
-					top: 24px;
-					left: 16px;
-					width: 390px;
-					height: 400px;
-
-					border: solid 10px rgba(0, 0, 0, 0.2);					
-					border-radius: 4px;
-					box-shadow: 0px 0px 10px #000;
-					z-index: 24;
-					display: none;
-					background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-		      background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+			padding: 10px; 
+			width: 360px;
+			
+			.close-button:hover {
+			    cursor: pointer;
+		    }
 		
-					div#fl-users-container {
-						
-						div.fl-scroll-pane {
-							margin: 5px;
-							height: 270px;
-							background: url('/images/texture.png');
-						}
-						
-						div#filters {
-							padding: 16px 0px 12px 0px;
-							
-							a {
-								padding: 2px 12px;
-								
-								
-								
-							}
-							a:hover {
-								text-decoration: none;
-							}
-							a.active {
-								background: #999;
-								
-								border: solid 1px #fff;
-								border-radius: 16px;
-								
-								box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
-								
-								color: #fff;
-							}
-							
-							span.counter {
-/*								border: solid 1px #ddd;*/
-/*								border-radius: 16px;*/
-/*								padding: 0px 4px;*/
-							}
-							
-						}
-						
-					}
+		    input[type="text"] {
+			    border-radius: 4px; 
+        		border: 1px solid #cfcfcf; 
+        		padding: 6px;
+        		width: 344px;
+        		color: #717171;
+        	}
+		
+		    textarea {
+			    border-radius: 4px; 
+    			border: 1px solid #cfcfcf; 
+    			padding: 6px; 
+    			width: 344px;
+    			color: #717171;
+    		}
+		}
+		
+		div#fl-interacting-users {
+			position: absolute;
+			top: 24px;
+			left: 16px;
+			width: 390px;
+			height: 400px;
+
+			border: solid 10px rgba(0, 0, 0, 0.2);					
+			border-radius: 4px;
+			box-shadow: 0px 0px 10px #000;
+			z-index: 24;
+			display: none;
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+            background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+		
+			div#fl-users-container {
+				
+				div.fl-scroll-pane {
+					margin: 5px;
+					height: 270px;
+					background: url('/images/texture.png');
 				}
+				
+				div#filters {
+					padding: 16px 0px 12px 0px;
+					
+					a {
+						padding: 2px 12px;
+					
+					    &:hover {
+						    text-decoration: none;
+					    }
+					    
+					    &.active {
+						    background: #999;
+						
+    						border: solid 1px #fff;
+    						border-radius: 16px;
+						
+    						box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+						
+    						color: #fff;
+    					}
+    				}
+				}
+			}
+		}
     }
-    
+
     // The stats box
     div.fl-stats {
         float: left;
         
+        width: 77px;
+        
         ul.fl-stats-bar {
-            width: 64px;
-            height: 65px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 0;
-            list-style: none;
+            width: 69px;
+            height: 72px;
+            
+            border: 1px solid #bbb;
+            background: #fcfcfc;
+            
+            padding: 1px 2px;
             margin: 0;
+            
+            list-style: none;
             position: relative;
-            background: #f1f1f1;
             overflow: hidden;
             
             li {
-                width: 20px;
+                width: 19px;
                 float: left;
                 position:absolute;
-                bottom: 0;
+                bottom: 1px;
                 text-indent:99999px;
                 cursor: pointer;
                 
                 &.fl-bar-believe {
+                    border-left: 1px solid #dfeeaf;
+                    border-right: 1px solid #dfeeaf;
                     background: #bada55;
-                    left: 44px;
-                    border-bottom-right-radius: 4px;
-                    border-top: 1px solid #fff;
-                    border-left: 1px solid #fff;
+                    left: 50px;
                 }
                 
                 &.fl-bar-doubt {
+                    border-left: 1px solid #ffea98;
+                    border-right: 1px solid #ffea98;
                     background: #ffd324;
-                    left: 22px;
-                    border-top: 1px solid #fff;
-                    border-left: 1px solid #fff;
-                    border-right: 1px solid #fff;                    
+                    left: 26px;
                 }
                 
                 &.fl-bar-disbelieve {
+                    border-left: 1px solid #e88787;
+                    border-right: 1px solid #e88787;
                     background: #c00;
-                    border-bottom-left-radius: 4px;
-                    border-top: 1px solid #fff;
-                    border-right: 1px solid #fff;
                 }
             }
         }
         
         span.fl-stats-count {
             font-size: 10px;
-            width: 64px;
+            
             display: inline-block;
+            width: 100%;
             text-align: center;
-            position: relative;
-            top: -3px;
+            color: #bbb;
         }
     }
     
     // The Factlink title info
     div.fl-factlink {
         float: left;
-        width: 320px;
+        width: 310px;
         margin: 0 0 0 10px;
-        h1 {
-            font-size: 14px;
-            font-weight: 200;
-            color: #717171;
-            margin: 5px 0 0 0;
-            line-height: 20px;
-        }
-    }
-    
-    // The close button
-    div.fl-close {
-        border-radius: 10px;
-        position: absolute;
-        padding: 0 0 1px 1px;
-        width: 15px;
-        text-align: center;
-        right: 3px;
-        top: 3px;
-        background: #fff;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        color: #a2a2a2;
-    }
-    
-    // Tag list
-    div.fl-tags {
-        ul {
-            list-style: none;
-            padding: 0;
-            color: #909090;
-            margin: 0 0 0 4px;
-            width: 330px;
-            height: 24px;
-            display: inline-block;
-            overflow: hidden;
-
-            li {
-                float: left;
-
-                border: 1px solid #f5f5f5;
-                border-radius: 10px;
-                padding: 0 6px;
-                margin: 2px 9px 8px 1px;
-                cursor: pointer;
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.32);
-            }
-        }
         
-        a {
-            line-height: 18px;
-            color: #909090;
-            position: relative;
-            top: -5px;
+        h1 {
+            font-family: Georgia, "Times New Roman", Garamond, serif;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 200;
+            color: #333;
+            margin: 5px 0 0 0;
         }
-    }
-    
-	// Tag edit
-	div.fl-edit-tags {
-
-	}
-	
-	div.fl-edit-tags > input[type="text"] {
-		color: #717171;
-		box-shadow: inset 0 0 7px rgba(0,0,0,0.2);
-		border-radius: 4px;
-		border: 1px solid #cfcfcf;
-		padding: 6px;
-	}
-		
+    }	
     
     .fl-scroll-pane {
-		border-radius: 4px;
+        border-radius: 4px;
 		border: 1px solid #ccc;
 
-			ol#fl-users {
+		ol#fl-users {
+			box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
+			
+			margin: 0px;
+			position: relative;
+			padding: 0px 0px;
+			
+			overflow-y: auto;
+			height: 270px;
+			
+			li {
+				list-style: none;					
+				padding: 12px;
+				background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
 				
-				box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
-				
-				margin: 0px;
-				position: relative;
-				padding: 0px 0px;
-				
-				overflow-y: auto;
-				height: 270px;
-				
-				li {
-					list-style: none;
-/*					border: solid 1px red;*/
-					
-					padding: 12px;
-					background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
-					
-					span.tag {
-						font-size: 0.85em;
-						text-shadow: 0px 1px 1px #fff;
-						width: 80px;
-						display: block;
-						float: left;
-						margin-top: 2px;
-					}
-					
-					span.believer {
-						color: #BADA55;
-					}
-					
-					span.doubter {
-						color: #FFD324;
-					}
-					
-					span.disbeliever {
-						color: #CC0000;
-					}
+				span.tag {
+					font-size: 0.85em;
+					text-shadow: 0px 1px 1px #fff;
+					width: 80px;
+					display: block;
+					float: left;
+					margin-top: 2px;
 				}
 				
-			}
+				span.believer {
+					color: #BADA55;
+				}
+				
+				span.doubter {
+					color: #FFD324;
+				}
+				
+				span.disbeliever {
+					color: #CC0000;
+				}
+			}	
+		}
 
         // The list of sources, this will actually be inside the .fl-container
         // But for readabillity i just put it here, nuff said.
@@ -348,118 +263,120 @@ div.fl-modal {
                     font-weight: 400;
                     margin: 0;
                     line-height: 16px;
-										font-size: 1.0em;
-										padding: 0px;
-										margin: 0px;
+					font-size: 1.0em;
+					padding: 0px;
+					margin: 0px;
                 }
 
-								p {
-										color: #888;
-										font-weight: 200;
-										margin: 2px 0px 6px 0px;										
-								}
-								
-								hr {
-									border-left: 0px; border-right: 0px;
-									border-top: solid 1px #ddd;
-									border-bottom: solid 1px #fff;
-								}
+    			p {
+    					color: #888;
+    					font-weight: 200;
+    					margin: 2px 0px 6px 0px;										
+    			}
+			
+    			hr {
+    				border-left: 0px; border-right: 0px;
+    				border-top: solid 1px #ddd;
+    				border-bottom: solid 1px #fff;
+    			}
 
                 span.fl-source, a {
                     color: #909090;
-										font-weight: 200;
-										font-size: 0.95em;
+					font-weight: 200;
+					font-size: 0.95em;
                 }
 
                 span.fl-source-up {
                     background: url('../images/vote-up.png') no-repeat center center;
-										padding: 6px 8px 2px 8px;
+	    			padding: 6px 8px 2px 8px;
                     left: 6px;
                     top: 0px;
                 }
-								span.fl-source-up:hover {
-									background: url('../images/vote-up-hover.png') no-repeat center center;
-								}
+                
+				span.fl-source-up:hover {
+					background: url('../images/vote-up-hover.png') no-repeat center center;
+				}
 								
                 span.fl-source-down {
                     background: url('../images/vote-down.png') no-repeat center center;
-										padding: 0px 8px 6px 8px;
+					padding: 0px 8px 6px 8px;
                     left: 6px;
                     top: 34px;
                 }
-								span.fl-source-down:hover {
+			    
+			    span.fl-source-down:hover {
                     background: url('../images/vote-down-hover.png') no-repeat center center;
-								}
+			    }
 
-								span.fl-source-score {
-									  width: 28px;
-									  font-size: 0.9em;
-									  text-align: center;
-									  color: #bbb;
-									  left: 4px;
-									  top: 18px;
-									  position: absolute;
-								}
-								
-								span.believe {
-									background: #bada55;
-									opacity: 0.3;
-								}
-								
-								span.doubt {
-									background: rgb(255, 211, 36);
-									opacity: 0.3;
-								}
-								
-								span.disbelieve {
-									background: rgb(206, 0, 0);
-									opacity: 0.3;
-								}
-								
-								div.fl-vote-container {
-									border: solid 1px #ccc;
-									border-radius: 3px;
-									margin-left: 4px;
-									
-									span {
-										display: block;
-										border-bottom: 0px !important;
+				span.fl-source-score {
+					  width: 28px;
+					  font-size: 0.9em;
+					  text-align: center;
+					  color: #bbb;
+					  left: 4px;
+					  top: 18px;
+					  position: absolute;
+				}
+				
+				span.believe {
+					background: #bada55;
+					opacity: 0.3;
+				}
+				
+				span.doubt {
+					background: rgb(255, 211, 36);
+					opacity: 0.3;
+				}
+				
+				span.disbelieve {
+					background: rgb(206, 0, 0);
+					opacity: 0.3;
+				}
+				
+				div.fl-vote-container {
+					border: solid 1px #ccc;
+					border-radius: 3px;
+					margin-left: 4px;
+					
+					span {
+						display: block;
+						border-bottom: 0px !important;
 
-										margin: 0px;
-										padding: 0px;
-										width: 24px;
-									}
-									
-									span.believe:hover,
-									span.doubt:hover,
-									span.disbelieve:hover {
-										opacity: 0.6 !important;
-										-webkit-transition:all 0.1s ease-in-out; 
-									}
-									
-									span.believe {
-										border-top-left-radius: 3px;
-										border-top-right-radius: 3px;
-									}
-									
-									span.disbelieve {
-										border-bottom-left-radius: 3px;
-										border-bottom-right-radius: 3px;
-									}
-									
-									a {
-										text-decoration: none;
-									}
-								}
-								
-								div.fl-vote-container {
-									left: 0px;
-								  position: absolute;
-								}
-								
-								span.active {
-									opacity: 1.0 !important;
-								}
+						margin: 0px;
+						padding: 0px;
+						width: 24px;
+					}
+					
+					span.believe:hover,
+					span.doubt:hover,
+					span.disbelieve:hover {
+						opacity: 0.6 !important;
+						-webkit-transition:all 0.1s ease-in-out; 
+					}
+					
+					span.believe {
+						border-top-left-radius: 3px;
+						border-top-right-radius: 3px;
+					}
+					
+					span.disbelieve {
+						border-bottom-left-radius: 3px;
+						border-bottom-right-radius: 3px;
+					}
+					
+					a {
+						text-decoration: none;
+					}
+				}
+				
+				div.fl-vote-container {
+					left: 0px;
+				  position: absolute;
+				}
+				
+				span.active {
+					opacity: 1.0 !important;
+				}
 
                 span.fl-source-up,
                 span.fl-source-down {
@@ -470,75 +387,74 @@ div.fl-modal {
                     position: absolute;
                 }
 
-								div.fl-vote-container {
-										left: 0px; 
-									position: absolute;
-								}
-								
-								div#fl-link-type {
-									box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+    			div.fl-vote-container {
+    					left: 0px; 
+    				position: absolute;
+    			}
+			
+    			div#fl-link-type {
+    				box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
 
-									border-bottom-right-radius: 5px;
-									border-bottom: solid 1px #fff;
-									border-right: solid 1px #fff;
-									background: #999;
-									position: absolute;
-									top: 0px;
-									left: 0px;
-									padding: 3px 10px 5px 10px;	
-									font-size: 0.8em;
-									color: #fff;
-								}
+    				border-bottom-right-radius: 5px;
+    				border-bottom: solid 1px #fff;
+    				border-right: solid 1px #fff;
+    				background: #999;
+    				position: absolute;
+    				top: 0px;
+    				left: 0px;
+    				padding: 3px 10px 5px 10px;	
+    				font-size: 0.8em;
+    				color: #fff;
+    			}
+			
+    			span.fl-statement-title {
+    				display: block;
+    			  color: #888;
+    			  font-weight: 400;
+    			  margin: 0;
+    			  line-height: 16px;
+    			  font-size: 1.0em;
+    			  padding: 0px 0px 12px 0px;
+    			  margin: 0px;
+    				width: 330px;
+    			}
 								
-								span.fl-statement-title {
-									display: block;
-								  color: #888;
-								  font-weight: 400;
-								  margin: 0;
-								  line-height: 16px;
-								  font-size: 1.0em;
-								  padding: 0px 0px 12px 0px;
-								  margin: 0px;
-									width: 330px;
-								}
-								
-								div.fl-remove-fact {
-									height: 60px;
-									width: 16px;
+				div.fl-remove-fact {
+					height: 60px;
+					width: 16px;
 
-									
-									position: absolute;
-									top: 10px;
-									right: 6px;
-									
+					
+					position: absolute;
+					top: 10px;
+					right: 6px;
+					
 
-									img {
-										opacity: 0.2;
-										-webkit-transition:all 0.2s ease-in-out;	
-										margin-bottom: 12px;
-									}
-									
-									img:hover {
-										opacity: 1.0;
-									}
-								}
-								
-								div.fl-source-information {
-									padding: 2px 0px 6px 0px;
-								}
-								
-								span.fl-source,
-								a,
-								span.fl-source-created-by {
-									color: #888;
-								  font-weight: 200;
-									text-shadow: 0px 1px 1px #fff;
-								}
-								
-								a:hover {
-									color: #555;
-								}
-
+					img {
+						opacity: 0.2;
+						-webkit-transition:all 0.2s ease-in-out;	
+						margin-bottom: 12px;
+					}
+					
+					img:hover {
+						opacity: 1.0;
+					}
+				}
+				
+				div.fl-source-information {
+					padding: 2px 0px 6px 0px;
+				}
+				
+				span.fl-source,
+				a,
+				span.fl-source-created-by {
+					color: #888;
+				  font-weight: 200;
+					text-shadow: 0px 1px 1px #fff;
+				}
+				
+				a:hover {
+					color: #555;
+				}
             }
         }
     }

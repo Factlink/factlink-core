@@ -3,6 +3,8 @@ body, html {
   margin: 0;
   padding: 0;
   text-shadow: 0px 0px 1px #fff;
+  width: 100%;
+  height: 100%;
 }
 a {
   color: #999;
@@ -15,21 +17,16 @@ a:hover {
   cursor: pointer;
 }
 div.fl-modal {
-  background-color: transparent;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  padding: 12px;
-  position: fixed;
-  color: #717171;
-  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  position: relative;
+  padding: 0;
+  margin: 40px auto;
+  width: 425px;
+  color: #777;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
 }
 div.fl-modal div.fl-container {
-  background-color: #ffffff;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-  background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-  border: 1px solid #ccc;
-  border-radius: 7px;
+  background: #fbfafa;
   padding: 6px;
   width: 400px;
 }
@@ -95,121 +92,65 @@ div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container di
   box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
   color: #fff;
 }
-div.fl-modal div.fl-container div#fl-interacting-users div#fl-users-container div#filters span.counter {
-  /*								border: solid 1px #ddd;*/
-
-  /*								border-radius: 16px;*/
-
-  /*								padding: 0px 4px;*/
-
-}
 div.fl-modal div.fl-stats {
   float: left;
+  width: 77px;
 }
 div.fl-modal div.fl-stats ul.fl-stats-bar {
-  width: 64px;
-  height: 65px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 0;
-  list-style: none;
+  width: 69px;
+  height: 72px;
+  border: 1px solid #bbb;
+  background: #fcfcfc;
+  padding: 1px 2px;
   margin: 0;
+  list-style: none;
   position: relative;
-  background: #f1f1f1;
   overflow: hidden;
 }
 div.fl-modal div.fl-stats ul.fl-stats-bar li {
-  width: 20px;
+  width: 19px;
   float: left;
   position: absolute;
-  bottom: 0;
+  bottom: 1px;
   text-indent: 99999px;
   cursor: pointer;
 }
 div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
+  border-left: 1px solid #dfeeaf;
+  border-right: 1px solid #dfeeaf;
   background: #bada55;
-  left: 44px;
-  border-bottom-right-radius: 4px;
-  border-top: 1px solid #fff;
-  border-left: 1px solid #fff;
+  left: 50px;
 }
 div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
+  border-left: 1px solid #ffea98;
+  border-right: 1px solid #ffea98;
   background: #ffd324;
-  left: 22px;
-  border-top: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
+  left: 26px;
 }
 div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
+  border-left: 1px solid #e88787;
+  border-right: 1px solid #e88787;
   background: #c00;
-  border-bottom-left-radius: 4px;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
 }
 div.fl-modal div.fl-stats span.fl-stats-count {
   font-size: 10px;
-  width: 64px;
   display: inline-block;
+  width: 100%;
   text-align: center;
-  position: relative;
-  top: -3px;
+  color: #bbb;
 }
 div.fl-modal div.fl-factlink {
   float: left;
-  width: 320px;
+  width: 310px;
   margin: 0 0 0 10px;
 }
 div.fl-modal div.fl-factlink h1 {
-  font-size: 14px;
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-size: 18px;
+  font-style: italic;
   font-weight: 200;
-  color: #717171;
+  color: #333;
   margin: 5px 0 0 0;
-  line-height: 20px;
-}
-div.fl-modal div.fl-close {
-  border-radius: 10px;
-  position: absolute;
-  padding: 0 0 1px 1px;
-  width: 15px;
-  text-align: center;
-  right: 3px;
-  top: 3px;
-  background: #fff;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  color: #a2a2a2;
-}
-div.fl-modal div.fl-tags ul {
-  list-style: none;
-  padding: 0;
-  color: #909090;
-  margin: 0 0 0 4px;
-  width: 330px;
-  height: 24px;
-  display: inline-block;
-  overflow: hidden;
-}
-div.fl-modal div.fl-tags ul li {
-  float: left;
-  border: 1px solid #f5f5f5;
-  border-radius: 10px;
-  padding: 0 6px;
-  margin: 2px 9px 8px 1px;
-  cursor: pointer;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.32);
-}
-div.fl-modal div.fl-tags a {
-  line-height: 18px;
-  color: #909090;
-  position: relative;
-  top: -5px;
-}
-div.fl-modal div.fl-edit-tags > input[type="text"] {
-  color: #717171;
-  box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  border: 1px solid #cfcfcf;
-  padding: 6px;
 }
 div.fl-modal .fl-scroll-pane {
   border-radius: 4px;
@@ -225,8 +166,6 @@ div.fl-modal .fl-scroll-pane ol#fl-users {
 }
 div.fl-modal .fl-scroll-pane ol#fl-users li {
   list-style: none;
-  /*					border: solid 1px red;*/
-
   padding: 12px;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfdfd), color-stop(1, #eeeeee));
 }
