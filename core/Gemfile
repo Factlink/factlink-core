@@ -63,5 +63,7 @@ group :development, :test do
   # gem 'webrat'
   gem 'rspec-rails'
   gem 'capybara'    # Integration testing
+  gem "factory_girl_rails", "1.1.rc1" #factories for easy creation of a lot of objects
+  gem "factory_girl", "2.0.0.rc1"
   gem 'launchy'     # For saving and opening page
 end

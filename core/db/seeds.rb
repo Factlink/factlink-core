@@ -1,3 +1,6 @@
+require File.expand_path('../../spec/factories', __FILE__)
+
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
@@ -18,58 +21,7 @@ if Rails.env.development? or Rails.env.test?
   Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
 end
 
-# A user
-user = User.new(:username => "robin",
-                :email => "robin@gothamcity.com",
-                :confirmed_at => DateTime.now,
-                :password => "hshshs",
-                :password_confirmation => "hshshs")
-user.save
-
-user1 = User.new(:username => "tomdev",
-                :email => "tom@codigy.nl",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user1.save
-
-
-# Opinionators
-user2 = User.new(:username => "michael_night",
-                :email => "a@a.com",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user2.save
-
-user3 = User.new(:username => "kate_upton",
-                :email => "b@b.com",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user3.save
-
-user3 = User.new(:username => "george_lucas",
-                :email => "c@c.com",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user3.save
-
-user4 = User.new(:username => "will_smith",
-                :email => "d@d.com",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user4.save
-
-user5 = User.new(:username => "snookie",
-                :email => "e@e.com",
-                :confirmed_at => DateTime.now,
-                :password => "123hoi",
-                :password_confirmation => "123hoi")
-user5.save
-
+users = FactoryGirl.create_list(:user,5)
 
 # Site
 site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
@@ -85,11 +37,11 @@ facts = [
 facts.each do |fact|
   Fact.create!( :displaystring => fact,
                     :site => site,
-                    :created_by => user
+                    :created_by => users[0]
   )
 end
 
-fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, User.first)
+fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, users[0])
 fr.save()
 
 # Commit the indices to Solr
