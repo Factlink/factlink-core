@@ -10,6 +10,7 @@ class FactRelation < Fact
   value :type
   
   def FactRelation.get_or_create(evidenceA,type,fact,user)
+    # Type => :supporting || :weakening
     if $redis.exists(FactRelation.redis_key(evidenceA,type,fact))
       id = $redis.get(FactRelation.redis_key(evidenceA,type,fact))
       fl = FactRelation.find(id)
@@ -18,6 +19,7 @@ class FactRelation < Fact
       fl.from_fact.value = evidenceA.id.to_s
       fl.fact.value = fact.id.to_s
       fl.type.value = type
+
       fl.set_added_to_factlink(user)
       fl.save
     end

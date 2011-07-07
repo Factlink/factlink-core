@@ -29,9 +29,6 @@ describe Fact do
     $redis.should be_an_instance_of(Redis)
   end
 
-  
-
-   
    
    # Voting
    it "should have an increased believe count when a users believes this fact" do
@@ -39,9 +36,7 @@ describe Fact do
      @factlink.add_opinion(:beliefs, @user2)
      @factlink.opiniated_count(:beliefs).should == (old_count + 1)
    end
-   
-
-   
+      
    #TODO also add tests for doubts and disbeliefs
    
    it "should not crash when an opinions that doesn't exist is removed" do
@@ -51,7 +46,7 @@ describe Fact do
    
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
-     @parent.add_evidence(:supporting,@factlink, @user1)
+     @parent.add_evidence(:supporting, @factlink, @user1)
      evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
      evidence_facts.should include(@factlink.id.to_s)
    end
@@ -68,5 +63,13 @@ describe Fact do
      evidence_facts.should_not include(@factlink2.id.to_s)
    end
    
+   
+   it "should store the supporting evidence ID when a FactRelation is created" do
+     
+     @fl = FactRelation.get_or_create(@factlink, :supporting, @parent, @user1)
+     
+     @parent.evidence(:supporting).members.should include(@factlink.id.to_s)
+     
+   end
    
 end

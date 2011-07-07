@@ -14,7 +14,7 @@ class Fact < Basefact
     0
   end
   
-  def union
+  def fact_relations
     res = supporting_facts | weakening_facts
     res
   end
@@ -28,9 +28,9 @@ class Fact < Basefact
     end
   end
   
-  def add_evidence(type,factlink,user)
-    factlink = FactRelation.get_or_create(factlink,type,self,user)
-    evidence(type) << factlink.id.to_s
+  def add_evidence(type, evidence, user)
+    fact_relation = FactRelation.get_or_create(evidence, type, self, user)
+    evidence(type) << fact_relation.id.to_s
   end
   
   # Used for sorting

@@ -10,4 +10,5 @@ describe FactRelation do
     @user1 = User.new(:username => "tomdev")
     @user2 = User.new(:username => "zamboya")
   end
+
 end
