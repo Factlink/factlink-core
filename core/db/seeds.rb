@@ -4,11 +4,17 @@
 # Clear stuff
 if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
-  User.all.delete
-  Site.all.delete               # Self explainatory
-  Basefact.all.delete
-  Fact.all.delete           # Self explainatory
-  Factlink.all.delete
+
+  ['test','development'].each do |env|
+    mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[env]
+
+    puts mongoid_conf['database']
+  
+    mongo_db = Mongo::Connection.new(mongoid_conf['host'], 
+                                     mongoid_conf['port']).db(mongoid_conf['database'])
+    mongo_db.collections.each { |col| col.drop() unless col.name == 'system.indexes'}
+  end
+
   Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
 end
 
@@ -83,22 +89,8 @@ facts.each do |fact|
   )
 end
 
-Factlink.get_or_create(Fact.first,:supports, Fact.last, User.first)
-
-# parent  = Fact.all[0]
-# child   = Fact.all[1]
-
-# parent.add_evidence(:supporting, child, user)
-
-# fl = Factlink.find(parent.evidence(:supporting).members[0])
-# fl.add_opinion(:beliefs, user)
-# fl.add_opinion(:beliefs, user1)
-# fl.add_opinion(:beliefs, user2)
-# 
-# fl.add_opinion(:doubts, user3)
-# 
-# fl.add_opinion(:disbeliefs, user4)
-# fl.add_opinion(:disbeliefs, user5)
+fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, User.first)
+fr.save()
 
 # Commit the indices to Solr
 Sunspot.commit
