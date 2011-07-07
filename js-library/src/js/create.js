@@ -89,8 +89,8 @@ Factlink.startSubmitting = function(rng, top, left) {
                                         window.location.href );
                                         
     // Position the frame
-    Factlink.modal.positionFrame.method( top, left  );
-    Factlink.modal.showFrame.method();
+    Factlink.remote.position( top, left  );
+    Factlink.modal.show.method();
 };
 
 // Bind the actual selecting

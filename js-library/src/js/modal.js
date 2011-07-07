@@ -1,9 +1,14 @@
 (function( Factlink ) {
+// The iFrame which holds the intermediate
+var iFrame = $("<div />")
+                .attr({
+                    "id": "factlink-modal-frame"
+                })
+                .appendTo('body');
 
 Factlink.showInfo = function( el ) {
     Factlink.remote.showFactlink( el.getAttribute("data-factid") );
-    Factlink.modal.showFrame.method();
-    Factlink.modal.showOverlay.method();
+    Factlink.modal.show.method();
 };
 
 // Handle a user click
@@ -15,47 +20,13 @@ $( 'span.factlink' ).live('click', function() {
 // These methods are also used by the internal scripts and can be called through
 // Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
 Factlink.modal = {
-    positionFrame: function( top, left ) {
-        Factlink.$frame.css({
-            top: top,
-            left: left
-        });
-    },
-    resetStyle: function() {
-        Factlink.$frame.attr('style','');
-    },
-    setFrameBounds: function( width, height ) {
-        var $frame = Factlink.$frame;
-        
-        $frame.css({
-            height: height,
-            width: width
-        });
-        
-        if ( $frame.hasClass("show") ) {
-            $frame.css({
-                margin: "-" + height / 2 + "px 0 0 -" + width / 2 + "px"
-            });
-        }
-    },
-    hideFrame: function() {
+    hide: function() {
         unbindClick();
-        Factlink.$frame.hide();
+        iFrame.hide();
     },
-    showFrame: function() {
+    show: function() {
         bindClick();
-        Factlink.$frame.show();
-    },
-    setFrameType: function( type ) {
-        Factlink.$frame
-            .attr('class', type)
-            .show();
-    },
-    showOverlay: function() {
-        Factlink.overlay.show();
-    },
-    hideOverlay: function() {
-        Factlink.overlay.hide();
+        iFrame.show();
     },
     highlightNewFactlink: function( fact, id ) {
         Factlink.selectRanges( Factlink.search(fact), id );
@@ -69,8 +40,7 @@ var bindClick = function() {
         $( document ).unbind('click', clickHandler)
     },
     clickHandler = function() {
-        Factlink.modal.hideOverlay.method();
-        Factlink.modal.hideFrame.method();
+        Factlink.modal.hide.method();
     };
 
 // INDICATOR
