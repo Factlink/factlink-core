@@ -62,11 +62,16 @@ class Opinion
   #TODO : better name
   def dfa(fr,fl)
     result = self.discount_by(fr).discount_by(fl)
-    result.a = min(fr.a,fl.a)
+
+    # TODO: min does not exist.
+    # result.a = min(fr.a,fl.a)
+    #
+    # Need the lowest value?
+    result.a = [fr.a, fl.a].min
     return result
   end
 
-  private
+  protected
   def discount_by(fl)
     pu = self
         
