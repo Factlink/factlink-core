@@ -44,7 +44,7 @@ class FactsController < ApplicationController
   end
 
   def show
-    @factlink = Fact.find(params[:id])
+    @fact = Fact.find(params[:id])
     
     # TODO: Generate ajax request for potential sources
     # All sources that are not part of this factlink yet
@@ -126,7 +126,10 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
     
-    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
+    puts "Fact: #{@fact}"
+    puts "Evid: #{@evidence}"
+    
+    @factlink = FactRelation.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_source_to_factlink"
   end
@@ -136,31 +139,40 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:factlink_id])
     @evidence = Fact.find(params[:eviendeve_id])
 
-    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
+    @factlink = FactRelation.get_or_create(@evidence, :weakening, @fact, current_user)
     
     render "add_source_to_factlink"
   end
 
+
+
+  # Adding the current fact to another existing fact as evidence
+  # Is this still the way we want to use this in the future UI?
   def add_factlink_to_parent_as_supporting
     # Add a Fact as source for another Fact
-    @fact   = Fact.find(params[:parent_id])
-    @evidence = Fact.find(params[:factlink_id])
+    @fact     = Fact.find(params[:fact_id])
+    @evidence = Fact.find(params[:evidence_id])
     
-    # Is this correect?
-    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
+    # Is this correct?
+    @factlink = FactRelation.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_factlink_to_parent"
   end
   
+  
+  # Adding the current fact to another existing fact as evidence
+  # Is this still the way we want to use this in the future UI?
   def add_factlink_to_parent_as_weakening
     # Add a Fact as source for another Fact
     @factlink = Fact.find(params[:factlink_id])
     @parent   = Fact.find(params[:parent_id])
 
-    @parent.add_child_as_weakening(@factlink, current_user)
+    # Is this correct?
+    @factlink = FactRelation.get_or_create(@evidence, :weakening, @fact, current_user)
     
     render "add_factlink_to_parent"
   end
+  
   
   
   def remove_factlink_from_parent
@@ -179,6 +191,9 @@ class FactsController < ApplicationController
     end
   end
   
+  
+  
+
   def update
     @factlink = Fact.find(params[:id])
 
@@ -249,7 +264,7 @@ class FactsController < ApplicationController
   
   # Users that interacted with this Fact
   def interaction_users_for_factlink
-    @factlink = Fact.find(params[:factlink_id])
+    @fact         = Fact.find(params[:factlink_id])
     
     @believers    = @factlink.opiniated(:beliefs)
     @doubters     = @factlink.opiniated(:doubts)

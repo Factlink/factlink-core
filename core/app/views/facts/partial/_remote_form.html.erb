@@ -1,6 +1,6 @@
 <%= form_for Fact.new, :url => "/factlink/add_as_source", :remote => true do |f| %>
 	
-	<%= f.hidden_field :parent_id, :value => @factlink.id %>
+	<%= f.hidden_field :parent_id, :value => @fact.id %>
 
   <div class="field">
 		<span id="factlink_sub_title_error" class="error" style="display: none;"></span>

@@ -28,32 +28,32 @@
 		</div>
 
 		<div id="fl-stats" class="fl-stats">
-				<%= factlink_score_partial(@factlink) %>
+				<%= factlink_score_partial(@fact) %>
 		</div>
 		
 		<div class="fl-factlink">
-			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_fact_path(@factlink) %>">&#8220;<%= @factlink.displaystring %>&#8221;</a></h1>
+			<h1><a style="text-decoration: none; color: inherit;" href="<%= edit_fact_path(@fact) %>">&#8220;<%= @fact.displaystring %>&#8221;</a></h1>
 		</div>
 		
 		<div class="fl-clear"></div>
 		
 		<div class="fl-tags">
 			<ul>
-					<% (@factlink.tags_array || []).each do |tag| %>
+					<% (@fact.tags_array || []).each do |tag| %>
 
-					<a href="<%= edit_fact_path(@factlink) %>" style="text-decoration: none;">						
+					<a href="<%= edit_fact_path(@fact) %>" style="text-decoration: none;">						
 						<li><%= tag %></li>
 					</a>
 					<% end %>
 
-				<a href="<%= edit_fact_path(@factlink) %>" style="text-decoration: none;">
+				<a href="<%= edit_fact_path(@fact) %>" style="text-decoration: none;">
 					<li class="fl-tag-add">+</li>
 				</a>
 
 			</ul>
 			
-			<% if @factlink.created_by == current_user %>
-			<a href="<%= edit_fact_path(@factlink) %>">edit tags</a>
+			<% if @fact.created_by == current_user %>
+			<a href="<%= edit_fact_path(@fact) %>">edit tags</a>
 			<% end %>
 		</div>
 		
@@ -62,14 +62,14 @@
 		<div class="fl-scroll-pane">
 			<ol id="fl-sources-list" class="fl-sources">
 
-				<% unless @factlink.evidence_count > 0 %>					
+				<% unless @fact.evidence_count > 0 %>					
 					
 					<%= no_facts_have_been_added_as_li %>
 
 				<% else %>
 
-					<% @factlink.childs.each do |factlink| %>
-						<%= factlink_source_partial_as_li(factlink, @factlink) %>
+					<% @fact.childs.each do |factlink| %>
+						<%= factlink_source_partial_as_li(factlink, @fact) %>
 					<% end %>
 					
 				<% end %>
@@ -79,7 +79,7 @@
 
 		<div class="fl-bottom">
 
-			<span style="color: #999; padding: 4px;">Added by <%= link_to(@factlink.created_by, user_profile_path(@factlink.created_by.username), :target => "_blank") %></span>
+			<span style="color: #999; padding: 4px;">Added by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></span>
 
 
 			<div class="fl-clear">&nbsp;</div>
