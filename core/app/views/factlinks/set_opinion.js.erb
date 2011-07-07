@@ -1,9 +1,8 @@
 // Set data-score
 var listItem = $("#fl-source-<%= @factlink.id %>");
-var listItem.attr('data-score', <%= @factlink.total_score %>)
 
 // Replace fl-vote-container with new opinion
 $('li#fl-source-<%= @factlink.id %> div#fl-vote-container').empty().prepend("<%= escape_javascript(render(:partial => 'factlinks/partial/vote_options', :locals => { :factlink => @factlink, :parent => @parent } )) %>");
 
 // Update the parent score
-$('div#fl-stats').empty().prepend("<%= escape_javascript(render(:partial => 'score', :locals => { :factlink => @parent } )) %>");
+$('div#fl-stats').empty().prepend("<%= escape_javascript(render(:partial => 'factlinks/partial/bar_chart', :locals => { :factlink => @parent } )) %>");
