@@ -31,7 +31,7 @@ class Basefact
   belongs_to  :created_by,
     :class_name => "User"
 
-  scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten )
+  scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
 
   value :added_to_factlink
 
@@ -39,7 +39,7 @@ class Basefact
   # scope :with_site, where( :site.ne => nil ) # is not working.
   # def self.with_site_as_parent
   #   # Map all site, and all factlinks in this site.
-  #   factlink_ids = Site.all.map { |s| s.factlinks.map { |f| f.id } }.flatten
+  #   factlink_ids = Site.all.map { |s| s.facts.map { |f| f.id } }.flatten
   #   self.where( :_id.in => factlink_ids )
   # end
 

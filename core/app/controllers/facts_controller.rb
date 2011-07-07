@@ -33,7 +33,7 @@ class FactsController < ApplicationController
     site = Site.first(:conditions => { :url => url })
     
     @factlinks = if site
-                 then site.factlinks
+                 then site.facts
                  else []
                  end
 
