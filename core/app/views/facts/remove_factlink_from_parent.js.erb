@@ -3,7 +3,7 @@ $('li#fl-source-<%= @factlink.id %>').slideUp('slow');
 // TODO fix the following: 
 // $('ol#fl-sources-list') is always empty?
 if ( $('ol#fl-sources-list').children().length < 1 ) {
-	$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'no_facts_added_message' )) %>");	
+	$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/no_facts_added_message' )) %>");	
 }
 	
 

@@ -1,24 +1,4 @@
-
-
-var loading_indicator = $( '#fl-loading-indicator' );
-loading_indicator.fadeIn('fast');
-
-setTimeout(function() {
-	// Fancy, change to Factlink check icon
-	$('>img:first', loading_indicator)
-	    .attr('src', '/images/icons/factlink/16.png');
-
-			$('ol#fl-existing-parents-list > li#fl-source-<%= @parent.id %>').slideUp(function() {
-				$('#fl-potential-parents-popup').fadeOut('fast');
-				$('#dimmer').fadeOut('fast');
-			});
-	
-			// Reset loading indicator
-			setTimeout(function() {
-				loading_indicator.fadeOut('slow', function() {
-					$('>img:first', loading_indicator)
-					    .attr('src', '/images/icons/loading-indicator-white.gif');		
-				});
-			} , 1200); // The delay
-
-} , 800); // The delay
+$('ol#fl-existing-parents-list > li#fl-source-<%= @parent.id %>').slideUp(function() {
+	$('#fl-potential-parents-popup').fadeOut('fast');
+	$('#dimmer').fadeOut('fast');
+});

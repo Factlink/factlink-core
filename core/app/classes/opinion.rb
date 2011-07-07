@@ -20,17 +20,17 @@ class Opinion
     case type
     when :beliefs
       Opinion.new(1,0,0,authority)
-    when :doubts
-      Opinion.new(0,0,1,authority)
     when :disbeliefs
       Opinion.new(0,1,0,authority)
+    when :doubts
+      Opinion.new(0,0,1,authority)
     end
   end
   
   #inefficient, but allows for quickly changing the + def
   def Opinion.combine(list)
     if list.length > 0
-      Opinion.new(0,0,1)
+      Opinion.new(0,0,0)
     else
       a = list.inject(Opinion.new(0,0,0,0)) { |result, element |  result + element }
     end
@@ -48,7 +48,7 @@ class Opinion
     
     if a == 0
       # No authority
-      return Opinion.new(0,0,1)
+      return Opinion.new(0.1,0.1,0.1)
     end
     
     b = (self.b*self.a + second.b*second.a)/a

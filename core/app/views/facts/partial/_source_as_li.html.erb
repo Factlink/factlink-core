@@ -1,0 +1,53 @@
+<li data-score="<%= evidence.brain_cycles %>" id="fl-source-<%= evidence.id %>">
+
+	<div id="fl-link-type">
+		<span>
+			<% if factlink.type.value == 'supporting' %>
+				Supporting
+			<% else %>
+				Weakening
+			<% end %>
+		</span>
+	</div>
+
+	<div id="fl-vote-container" class="fl-vote-container">
+		<% if user_signed_in? %>
+			<%= opinion_options(evidence) %>
+		<% end %>
+	</div>
+	
+
+	<span class="fl-statement-title">&#8220;<%= evidence.displaystring %>&#8221;</span>
+	<p><%= evidence.content %></p>
+	<hr>
+	
+	<div class="fl-source-information">
+		<span class="fl-source-created-by">by <%= link_to(evidence.created_by, user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
+		<% if evidence.site %>
+			<span class="fl-source">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.site.url, :length => 40) %></a></span>
+		<% else %>
+			<span class="fl-source">found on <a href="<%= evidence.url %>" target="_blank"><%= truncate(evidence.url, :length => 40) %></a></span>
+		<% end %>
+	</div>
+
+		<div class="fl-remove-fact">
+ 			<%= link_to(image_tag('icons/users.png'), interacting_users_path(evidence), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
+
+			<!-- 	
+				Here we should check if the current user created this Factlink,
+				if so, give hum the option to remove 
+			-->
+
+		</div>
+
+	<div style="border: dashed 2px rgba(206, 0, 0);">
+		<pre>Development shizzle</pre>
+		
+		<div id="fl-relevance-container">
+			<% if user_signed_in? %>
+				<%= relevance_options(fact, evidence) %>
+			<% end %>
+		</div>
+		
+	</div>
+</li>

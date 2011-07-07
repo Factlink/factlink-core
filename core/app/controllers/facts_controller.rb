@@ -122,11 +122,13 @@ class FactsController < ApplicationController
   end
   
   def add_source_as_supporting
-    # Add an existing source to a Fact
-    @factlink = Fact.find(params[:factlink_id])
-    @source   = Fact.find(params[:source_id])
+    # Add existing evidence to a Fact
+    @fact = Fact.find(params[:factlink_id])
+    @evidence   = Fact.find(params[:source_id])
 
-    @factlink.add_child_as_supporting(@source, current_user)
+    # @factlink.add_child_as_supporting(@source, current_user)
+    
+    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_source_to_factlink"
   end
@@ -143,10 +145,11 @@ class FactsController < ApplicationController
 
   def add_factlink_to_parent_as_supporting
     # Add a Fact as source for another Fact
-    @factlink = Fact.find(params[:factlink_id])
-    @parent   = Fact.find(params[:parent_id])
-
-    @parent.add_child_as_supporting(@factlink, current_user)
+    @fact   = Fact.find(params[:parent_id])
+    @evidence = Fact.find(params[:factlink_id])
+    
+    # Is this correect?
+    @factlink = Factlink.get_or_create(@evidence, :supporting, @fact, current_user)
     
     render "add_factlink_to_parent"
   end

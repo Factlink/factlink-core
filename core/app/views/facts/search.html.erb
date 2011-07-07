@@ -50,6 +50,6 @@
 		</tr>
 	</tfoot>
 	<tbody>
-	  <%= render(:partial => "factlink_as_td", :collection => @factlinks, :as => :factlink) || "<tr><td colspan=\"2\">No results found...</td></tr>".html_safe %>
+	  <%= render(:partial => "facts/partial/factlink_as_td", :collection => @factlinks, :as => :factlink) || "<tr><td colspan=\"2\">No results found...</td></tr>".html_safe %>
 	</tbody>
 </table>

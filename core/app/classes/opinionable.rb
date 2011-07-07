@@ -8,12 +8,13 @@ module Opinionable
       :believe => {
         :percentage => percentage(total, op.b),
       },
-      :doubt => {
+      :disbelieve => {
         :percentage => percentage(total, op.d),
       },
-      :disbelieve => {
+      :doubt => {
         :percentage => percentage(total, op.u),
       },
+      
       :authority => op.a,
     }
   end
@@ -29,13 +30,13 @@ module Opinionable
   end
 
   deprecate
-  def percentage_score_doubt
-    score_dict_as_percentage[:doubt][:percentage]
-  end
-
-  deprecate
   def percentage_score_disbelieve
     score_dict_as_percentage[:disbelieve][:percentage]
+  end
+  
+  deprecate
+  def percentage_score_uncertain
+    score_dict_as_percentage[:doubt][:percentage]
   end
 
 

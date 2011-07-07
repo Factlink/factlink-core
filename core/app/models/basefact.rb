@@ -128,14 +128,9 @@ class Basefact
 
   def get_opinion
     opinions = []
-    [:beliefs, :doubts, :disbeliefs].each do |type|
-      
+    [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
-      
-      puts "count: #{opiniated.count}"
-      
       opiniated.each do |user|
-        puts "UA: user: #{user} :: #{user.authority}"
         opinions << Opinion.for_type(type,user.authority)
       end
     end    

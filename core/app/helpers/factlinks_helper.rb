@@ -27,29 +27,29 @@ module FactlinksHelper
 
   # Listitem for in factlink client overview
   def factlink_source_partial_as_li(factlink, parent)
-    render :partial => 'facts/source_as_li', 
+    render :partial => 'facts/partial/source_as_li', 
               :locals => { :factlink => factlink, :parent => parent }
   end
   
   # Score block of the top factlink in client
   def factlink_score_partial(factlink)
-    render :partial => 'facts/score', 
+    render :partial => 'facts/partial/score', 
               :locals => { :factlink => factlink }
   end
 
   # The vote options for a fact: believe, doubt, disbelieve
-  def vote_options(factlink, parent)
-    render :partial => 'facts/vote_options', 
-              :locals => { :factlink => factlink, :parent => parent }
+  def opinion_options(fact)
+    render :partial => 'facts/partial/opinion_options', 
+              :locals => { :fact => fact }
   end
   
-  def relevance_options(factlink, parent)
-    render :partial => 'facts/relevance_options', 
-              :locals => { :factlink => factlink, :parent => parent }
+  def relevance_options(fact, evidence)
+    render :partial => 'facts/partial/relevance_options', 
+              :locals => { :fact => fact, :evidence => evidence }
   end
   
   def no_facts_have_been_added_as_li
-    render :partial => 'facts/no_facts_added_message'
+    render :partial => 'facts/partial/no_facts_added_message'
   end
 
 end

@@ -23,22 +23,22 @@ display: none;">
 			
 			<% else %>
 
-				<% potential_childs.each do |source| %>
-				<li id="fl-source-<%= source.id %>">
+				<% potential_childs.each do |evidence| %>
+				<li id="fl-source-<%= evidence.id %>">
 
 					<div style="width: 320px; margin-left: -20px;">
-						<span><%= source.displaystring %></span>
-						<p><%= source.content || "<no content available>" %></p>
-						<% if source.site %>
-							<span class="fl-source">found on <a href="<%= source.site.url %>" target="_blank"><%= truncate(source.site.url, :length => 62) %></a></span>
+						<span><%= evidence.displaystring %></span>
+						<p><%= evidence.content || "<no content available>" %></p>
+						<% if evidence.site %>
+							<span class="fl-source">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.site.url, :length => 62) %></a></span>
 						<% else %>
-							<span class="fl-source">found on <a href="<%= source.url %>" target="_blank"><%= truncate(source.url, :length => 62) %></a></span>
+							<span class="fl-source">found on <a href="<%= evidence.url %>" target="_blank"><%= truncate(evidence.url, :length => 62) %></a></span>
 						<% end %>
 					</div>
 
 					<div style="padding: 22px 0px 0px 0px; margin-left: -48px;" class="center">
-						<%= link_to('add as <span style="font-weight: 700;">supporting</span>'.html_safe, add_supporting_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
-						<%= link_to('add as <span style="font-weight: 700;">weakening</span>'.html_safe, add_weakening_source_to_factlink_path(@factlink, source), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						<%= link_to('add as <span style="font-weight: 700;">supporting</span>'.html_safe, add_supporting_evidence_path(@fact, evidence), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						<%= link_to('add as <span style="font-weight: 700;">weakening</span>'.html_safe, add_weakening_evidence_path(@fact, evidence), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
 					</div>
 				</li>
 				<% end %>

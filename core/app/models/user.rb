@@ -88,41 +88,13 @@ class User
     end
   end
 
-  def believes_factlink?(factlink)
-    $redis.sismember(self.redis_key(:beliefs), factlink.id)
+  def opinion_on_fact_for_type(type, fact)
+    if $redis.sismember(self.redis_key(type), fact.id.to_s)
+      return 'active'
+    else
+      return ''
+    end
   end
-
-  def opinion_on_factlink?(type, factlink)
-    $redis.sismember(self.redis_key(type), factlink.id)
-  end
-
-  # def opinion_class(type, factlink, parent)
-  #   # Key to the User hash of factlink opinions
-  #   key = self.redis_factlink_opinion_key(parent)
-  # 
-  #   # hash can be:
-  #   # 0   => beliefs
-  #   # 1   => doubts
-  #   # 2   => disbeliefs
-  #   # nil => no opinion
-  #   hash = $redis.hget(key, factlink.id)
-  # 
-  #   if hash
-  # 
-  #     if inverse_opinion_hash(hash) == type.to_s
-  #       puts "Returning active"
-  #       return "active"
-  #     else
-  #       puts "returning nothing"
-  #       return ""
-  #     end
-  #   else
-  #     puts "No Hash"
-  #     return ""
-  #   end
-  # 
-  # end
-
 
   def opinion_class(type, factlink, parent)
     # Used to show the opinion of a user on a fact.
