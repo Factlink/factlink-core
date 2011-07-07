@@ -29,7 +29,7 @@ class Fact < Basefact
   end
   
   def add_evidence(type,factlink,user)
-    factlink = Factlink.get_or_create(factlink,type,self,user)
+    factlink = FactRelation.get_or_create(factlink,type,self,user)
     evidence(type) << factlink.id.to_s
   end
   
@@ -41,7 +41,7 @@ class Fact < Basefact
   def evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
-      factlinks = Factlink.where(:_id.in => evidence(type).members)
+      factlinks = FactRelation.where(:_id.in => evidence(type).members)
       factlinks.each do |factlink|
         opinions << factlink.get_influencing_opinion
       end

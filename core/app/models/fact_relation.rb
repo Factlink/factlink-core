@@ -2,22 +2,20 @@ require 'redis'
 require 'redis/objects'
 Redis::Objects.redis = Redis.new
 
-#TODO renamen naar FactRelation
-
-class Factlink < Fact
+class FactRelation < Fact
   include Redis::Objects
   
-  value :evidence_fact
+  value :from_fact
   value :fact
   value :type
   
-  def Factlink.get_or_create(evidenceA,type,fact,user)
-    if $redis.exists(Factlink.redis_key(evidenceA,type,fact))
-      id = $redis.get(Factlink.redis_key(evidenceA,type,fact))
-      fl = Factlink.find(id)
+  def FactRelation.get_or_create(evidenceA,type,fact,user)
+    if $redis.exists(FactRelation.redis_key(evidenceA,type,fact))
+      id = $redis.get(FactRelation.redis_key(evidenceA,type,fact))
+      fl = FactRelation.find(id)
     else
-      fl = Factlink.new
-      fl.evidence_fact.value = evidenceA.id.to_s
+      fl = FactRelation.new
+      fl.from_fact.value = evidenceA.id.to_s
       fl.fact.value = fact.id.to_s
       fl.type.value = type
       fl.set_added_to_factlink(user)
@@ -31,7 +29,7 @@ class Factlink < Fact
       
   end
   
-  def Factlink.redis_key(evidence,type,fact)
+  def FactRelation.redis_key(evidence,type,fact)
     "factlink:#{evidence.id}:#{type}:#{fact}"
   end
   
@@ -44,12 +42,12 @@ class Factlink < Fact
     end
   end
   
-  def get_evidence_fact
-    Fact.find(evidence_fact.value)
+  def get_from_fact
+    Fact.find(from_fact.value)
   end
   
   def get_influencing_opinion
-    get_type_opinion.dfa(self.get_evidence_fact.get_opinion,self.get_opinion)
+    get_type_opinion.dfa(self.get_from_fact.get_opinion,self.get_opinion)
   end
 
 end

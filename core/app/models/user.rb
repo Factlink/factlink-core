@@ -21,7 +21,7 @@ class User
   # field :first_name
   # field :last_name
 
-  has_many :factlinks, :as => :created_by
+  has_many :facts, :as => :created_by
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"

@@ -4,11 +4,24 @@ describe Fact do
 
   before(:each) do
     @parent = Fact.new
+    @parent.save
     @factlink = Fact.new
+    @factlink.save
     @factlink2 = Fact.new
+    @factlink2.save
     
     @user1 = User.new(:username => "tomdev")
+    @user1.save
     @user2 = User.new(:username => "zamboya")
+    @user2.save
+  end
+
+  after(:each) do
+    @parent.delete
+    @factlink.delete
+    @factlink2.delete
+    @user1.delete
+    @user2.delete
   end
 
   # Should go to application test
@@ -39,19 +52,19 @@ describe Fact do
    # Supporting / Weakening fact
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting,@factlink, @user1)
-     evidence_facts = @parent.evidence(:supporting).members.collect { |x| Factlink.find(x).evidence_fact.value } 
+     evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
      evidence_facts.should include(@factlink.id.to_s)
    end
    
    it "stores the ID's of weakening facts in the weakening facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:weakening).members.collect { |x| Factlink.find(x).evidence_fact.value } 
+     evidence_facts = @parent.evidence(:weakening).members.collect { |x| FactRelation.find(x).from_fact.value } 
      evidence_facts.should include(@factlink2.id.to_s)
    end
    
    it "should not store the ID of weakening facts in the supporting facts set" do
      @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:supporting).members.collect { |x| Factlink.find(x).evidence_fact.value } 
+     evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
      evidence_facts.should_not include(@factlink2.id.to_s)
    end
    

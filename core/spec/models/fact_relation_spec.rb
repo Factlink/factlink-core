@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Factlink do
+describe FactRelation do
 
   before(:each) do
     @parent = Fact.new
