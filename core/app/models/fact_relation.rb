@@ -32,6 +32,10 @@ class FactRelation < Fact
     
   end
   
+  def percentage
+    (100 * self.get_to_fact.get_opinion.weight  / (self.get_influencing_opinion.weight + 0.00001)).to_i
+  end
+  
   def FactRelation.redis_key(evidence, type, fact)
     "factlink:#{evidence.id}:#{type}:#{fact}"
   end
@@ -47,6 +51,10 @@ class FactRelation < Fact
   
   def get_from_fact
     Fact.find(from_fact.value)
+  end
+  
+  def get_to_fact
+    Fact.find(fact.value)
   end
   
   def get_influencing_opinion

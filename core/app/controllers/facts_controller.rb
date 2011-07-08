@@ -233,33 +233,29 @@ class FactsController < ApplicationController
     render "update_source_li"
   end
   
-  def toggle_opinion
+  def toggle_opinion_on_fact
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
     
     if allowed_types.include?(type)
-      @type = type
-      
-      @parent = Fact.find(params[:parent_id])
 
-      @factlink = Fact.find(params[:child_id])
-      @factlink.toggle_opinion(current_user, type, @parent)
+      puts "\n\nDoign it for FR: #{params[:fact_relation_id]}"
+
+      @fact_relation = FactRelation.find(params[:fact_relation_id])
+      @fact_relation.get_from_fact.toggle_opinion(type, current_user)
     else   
       render :json => {"error" => "type not allowed"}
       return false
     end
   end
   
-  def set_relevance
-    
-    fact_relation = FactRelation.find(params[:fact_relation_id])
+  def toggle_relevance_on_fact_relation
+    @fact_relation = FactRelation.find(params[:fact_relation_id])
     
     # TODO: validate the type
     type = params[:type]
-    
-    
-    
-    @parent.set_relevance_for_user(@child, type, current_user)
+
+    @fact_relation.toggle_opinion(type, current_user)
   end
   
   

@@ -1,18 +1,13 @@
-<li data-score="<%= fact_relation.get_from_fact.brain_cycles %>" id="fl-source-<%= fact_relation.get_from_fact.id %>" class="<%= fact_relation.type.value %>">
+<li data-score="<%= fact_relation.get_from_fact.brain_cycles %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type.value %>">
 
 	<div class="fl-source-stats">
 	 	<span class="fl-source-percentage">
-			12%
+			<%= fact_relation.percentage %>%
 	 	</span>
 	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= fact_relation.get_from_fact.brain_cycles %></sub>
 	</div>
 	
 	<div class="fl-source-info">
-	 	<!-- <div class="fl-vote-container">
- 		<% if user_signed_in? %>
-			<%= opinion_options(fact_relation.get_from_fact) %>
-		<% end %>
-  	 </div> -->
 
   	<h2 class="fl-source">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 
@@ -34,13 +29,24 @@
 					if so, give hum the option to remove 
     -->
 
-    <!-- <div style="">
+		<div class="fl-clear">&nbsp;</div>
+		
+		<div id="dev-div" style="border: dashed 2px pink; padding: 4px;">			
+			
+			<div id="fl-opinion-container">
+				<% if user_signed_in? %>
+					<%= fact_opinion_options(fact_relation) %>
+				<% end %>			
+			</div>
+
 			<div id="fl-relevance-container">
 				<% if user_signed_in? %>
 					<%= fact_relation_relevance_options(fact_relation) %>
 				<% end %>
-      </div>
-    </div> -->
+	    </div>
+
+		</div> <!-- dev div -->
 	</div>
+
 	<div class="fl-clear"></div>
 </li>
