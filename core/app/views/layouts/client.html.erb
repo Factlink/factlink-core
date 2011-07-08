@@ -25,6 +25,15 @@
 			<span class="fl-close" onclick="parent.remote.hide();"></span>
 			<%= yield %>
 	</div>
-
+  
+  <script type="text/javascript">
+    $( document ).bind('click', function() {
+      parent.remote.hide();
+    });
+    
+    $( 'div.fl-modal' ).bind('click', function(e) {
+      e.stopPropagation();
+    });
+  </script>
 </body>
 </html>

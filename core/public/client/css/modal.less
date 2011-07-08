@@ -130,14 +130,70 @@ div.fl-modal {
     }
   }
   
+  #fl-filter-bar {
+    text-align: center;
+    background: url('/images/client/filter-bar.png') repeat-x;
+    color: #999;
+    font-size: 11px;
+    
+    height: 36px;
+    line-height: 22px;
+    
+    padding: 6px 0 0 0;
+    // Make the shadow fall over the next element
+    margin: 0 0 -6px;
+    z-index: 10;
+    position: relative;
+        
+    ul {
+      list-style: none;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      vertical-align: middle;
+      
+      li {
+        float: left;
+        padding: 0;
+        margin: 0 3px;
+        
+        &.active, &:hover {
+          background: url('/images/client/filter-highlight-center.png') repeat-x;
+          
+          a {
+            display: inline-block;
+            height: 24px;
+            background: url('/images/client/filter-highlight-right.png') right no-repeat;
+            
+            span {
+              display: inline-block;
+              height: 24px;
+              background: url('/images/client/filter-highlight-left.png') left no-repeat;
+              color: #666363;
+            }
+          }
+        }
+        
+        a {
+          text-decoration: none;
+          
+          span {
+            padding: 0 10px;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+  
   #fl-sources {
     list-style: none;
-    border-bottom: 1px solid #e4e4e4;
-    background: #fbfafa url('/images/client/scroll-pane-top-gradient.png') top repeat-x;
+    background: #fbfafa;
     
     padding: 0;
     margin: 0 2px 0 0;
     
+    min-height: 100px;
     max-height: 300px;
     overflow-y: scroll;
     
@@ -191,6 +247,24 @@ div.fl-modal {
           }
         }
       }
+      
+      &#fl-no-evidence {
+        text-align: center;
+        color: #989898;
+        font-size: 11px;
+        font-style: italic;
+        border: none;
+        line-height: 70px;
+        
+        a {
+          color: #0fb8fe;
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
     }
   }
   
@@ -198,6 +272,7 @@ div.fl-modal {
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+    border-top: 1px solid #e4e4e4;
     
     div.buttons {
       height: 45px;

@@ -21,6 +21,18 @@
 		
   		<div class="fl-clear"></div>
   	</div>
+  	
+  	<!-- Filter bar -->
+  	<div id="fl-filter-bar">
+  	  Show:
+  	  <ul>
+   	   <li class="active"><a href="#"><span>all</span></a></li>
+  	   <li><a href="#"><span>supporting facts</span></a></li>
+  	   <li><a href="#"><span>weakening facts</span></a></li>
+  	  </ul>
+  	</div>
+  	
+  	<div class="fl-clear"></div>
 		
 		<!-- "Sources" -->
 		<ol id="fl-sources">
@@ -52,22 +64,3 @@
 			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
 			<%= render :partial => "facts/partial/remote_form" %>
 		</div>
-		
-		<!-- Popups -->
-		<%= potential_childs_popup(@potential_childs) %>
-		
-		<%= potential_parents_popup(@potential_parents) %>
-
-<div id="dimmer" style="
-position: absolute;
-top: 0px;
-left: 0px;
-height: 100%;
-width: 100%;
-background: rgba(0, 0, 0, 0.3);
-display: none;
-z-index: 1;
-border-radius: 4px;
-"></div>
-
-<div id="fl-interacting-users"></div>
