@@ -1,4 +1,4 @@
-module FactlinksHelper
+module FactsHelper
 
   # Sorting results on search page
   def sortable(column, title = nil)
@@ -50,6 +50,11 @@ module FactlinksHelper
   
   def no_facts_have_been_added_as_li
     render :partial => 'facts/partial/no_facts_added_message'
+  end
+
+
+  def relevance_class_on_fact_relation(fact_relation, type)
+    
   end
 
 end

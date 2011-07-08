@@ -9,10 +9,6 @@ class Fact < Basefact
   set :weakening_facts
 
   scope :facts, where(:_type => "Fact")
-
-  def evidence_count
-    0
-  end
   
   def fact_relation_ids
     res = supporting_facts | weakening_facts

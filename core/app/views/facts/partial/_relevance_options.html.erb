@@ -14,7 +14,9 @@
 
 </style>
 
-<%= link_to("<span class=\"relevant #{fact.relevance_class(evidence, :relevant, current_user)}\">Relevant</span>".html_safe, relevance_path(evidence.id, :relevant, fact.id), :remote => true) %>
-<%= link_to("<span class=\"might-be-relevant #{fact.relevance_class(evidence, :might_be_relevant, current_user)}\">Might be relevant</span>".html_safe, relevance_path(evidence.id, :might_be_relevant, fact.id), :remote => true) %>
-<%= link_to("<span class=\"not-relevant #{fact.relevance_class(evidence, :not_relevant, current_user)}\">Not relevant</span>".html_safe, relevance_path(evidence.id, :not_relevant, fact.id), :remote => true) %>
+TODO: Check what the users opinion on the FactRelation is.
+
+<%= link_to("<span class=\"relevant #{relevance_class_on_fact_relation(fact_relation, :beliefs)}\">Relevant</span>".html_safe, relevance_path(evidence.id, :relevant, fact.id), :remote => true) %>
+<%= link_to("<span class=\"might-be-relevant #{fact_relation.relevance_class(:doubts, current_user)}\">Might be relevant</span>".html_safe, relevance_path(evidence.id, :might_be_relevant, fact.id), :remote => true) %>
+<%= link_to("<span class=\"not-relevant #{fact.relevance_class(:disbeliefs, current_user)}\">Not relevant</span>".html_safe, relevance_path(evidence.id, :not_relevant, fact.id), :remote => true) %>
 

@@ -2,7 +2,6 @@ require 'redis'
 require 'redis/objects'
 Redis::Objects.redis = Redis.new
 
-
 class Basefact
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -61,10 +60,10 @@ class Basefact
 
     if user.opinion_on_factlink?(type, self)
       # User has this opinion already; remove opinion
-      remove_opinions(user, parent)
+      remove_opinions(user)
     else
       # User has none or other opinion, set this one!
-      add_opinion(type, user, parent)
+      add_opinion(type, user)
     end
   end
 
