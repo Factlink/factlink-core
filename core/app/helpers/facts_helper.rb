@@ -43,7 +43,7 @@ module FactsHelper
               :locals => { :fact => fact }
   end
 
-  def relevance_options(fact_relation)
+  def fact_relation_relevance_options(fact_relation)
     render :partial => 'facts/partial/relevance_options', 
               :locals => { :fact_relation => fact_relation }
   end
@@ -53,8 +53,8 @@ module FactsHelper
   end
 
 
-  def relevance_class_on_fact_relation(fact_relation, type)
-    
+  def relevance_class_on_fact(type, fact)
+    current_user.active_class_for_type_and_fact(type, fact)
   end
 
 end

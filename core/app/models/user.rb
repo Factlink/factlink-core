@@ -88,6 +88,16 @@ class User
     end
   end
 
+
+  def active_class_for_type_and_fact(type, fact)
+    if $redis.sismember(self.redis_key(type), fact.id.to_s)
+      return 'active'
+    else
+      return ''
+    end
+  end
+
+  deprecate
   def opinion_on_fact_for_type(type, fact)
     if $redis.sismember(self.redis_key(type), fact.id.to_s)
       return 'active'
