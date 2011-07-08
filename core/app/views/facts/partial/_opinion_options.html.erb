@@ -1,13 +1,3 @@
-<style>
-
-	li.active {
-		border: solid 2px rgb(260, 0, 0);
-	}
-
-</style>
-
-<pre>Opinion on this Fact:</pre>
-
 <ul>	
 	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation.get_to_fact) %>>
 		<%= link_to("<span>I believe this</span>".html_safe, opinion_path(fact_relation, :beliefs), :remote => true) %>

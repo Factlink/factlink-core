@@ -1,13 +1,3 @@
-<style>
-
-	li.active {
-		border: solid 2px rgb(260, 0, 0);
-	}
-
-</style>
-
-<pre>Relevance for the relation:</pre>
-
 <ul>	
 	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation) %>>
 		<%= link_to("<span>Relevant!</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
