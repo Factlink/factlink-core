@@ -239,8 +239,10 @@ class FactsController < ApplicationController
     
     if allowed_types.include?(type)
 
+      puts "\n\nDoign it for FR: #{params[:fact_relation_id]}"
+
       @fact_relation = FactRelation.find(params[:fact_relation_id])
-      @fact_relation.get_to_fact.toggle_opinion(type, current_user)
+      @fact_relation.get_from_fact.toggle_opinion(type, current_user)
     else   
       render :json => {"error" => "type not allowed"}
       return false
