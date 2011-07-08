@@ -1,13 +1,26 @@
+<!-- <ul> 
+  <li<%= active_class_for_type_and_fact(:beliefs, fact_relation) %>>
+    <%= link_to("<span>Relevant!</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
+  </li>
+
+  <li<%= active_class_for_type_and_fact(:doubts, fact_relation) %>>
+    <%= link_to("<span>Might be relevant</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
+  </li>
+  
+  <li<%= active_class_for_type_and_fact(:disbeliefs, fact_relation) %>>
+    <%= link_to("<span>Not relevant</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
+  </li>
+</ul> -->
 <ul>	
 	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation) %>>
-		<%= link_to("<span>Relevant!</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
+		<%= link_to("<span>agree</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
 	</li>
 
 	<li<%= active_class_for_type_and_fact(:doubts, fact_relation) %>>
-		<%= link_to("<span>Might be relevant</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
+		<%= link_to("<span>doubt</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
 	</li>
 	
 	<li<%= active_class_for_type_and_fact(:disbeliefs, fact_relation) %>>
-		<%= link_to("<span>Not relevant</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
+		<%= link_to("<span>disagree</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
 	</li>
 </ul>

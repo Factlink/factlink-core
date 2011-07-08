@@ -1,13 +1,31 @@
 		<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
 		<% content_for :javascript do %>
-			<% render :partial => 'facts/javascript/filter_interacting_users' %>
+			<%= render :partial => 'facts/javascript/filter_interacting_users' %>
 			<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
 			<script type="text/javascript">
-			  $("#fl-sources").mousewheel(function(e, d) {
-          if (d > 0 && $(this).scrollTop() == 0) {
-            e.preventDefault();
-          } else if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight()) {
-            e.preventDefault();
+			  // TODO: This is still buggy, check this.
+			  // $("#fl-sources").mousewheel(function(e, d) {
+			  //           if (d > 0 && $(this).scrollTop() == 0) {
+			  //             e.preventDefault();
+			  //           } else if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight()) {
+			  //             e.preventDefault();
+			  //           }
+			  //         });
+        
+        $('img.arrow').click(function() {
+          var img = $( this );
+          
+          if ( img.hasClass('active') ) {
+            img.removeClass('active')
+              .closest('li').find('.fl-choices')
+              .removeClass('active');
+          } else {
+            img.addClass('active')
+              .closest('li').find('.fl-choices')
+              .addClass('active');
+              // .slideDown(function() {
+              //   $( this ).addClass('active');
+              // });;
           }
         });
 			</script>
@@ -45,16 +63,18 @@
   	<div class="fl-clear"></div>
 		
 		<!-- "Sources" -->
-		<ol id="fl-sources">
-			<% unless @fact.fact_relation_ids.count > 0 %>
-				<%= no_facts_have_been_added_as_li %>
-			<% else %>
-				<% @fact.fact_relations.each do |evidence| %>
-					<%= factlink_source_partial_as_li(evidence) %>
-				<% end %>
-			<% end %>
-		</ol>
-		
+		<div id="fl-sources">
+  		<ol>
+  			<% unless @fact.fact_relation_ids.count > 0 %>
+  				<%= no_facts_have_been_added_as_li %>
+  			<% else %>
+  				<% @fact.fact_relations.each do |evidence| %>
+  					<%= factlink_source_partial_as_li(evidence) %>
+  				<% end %>
+  			<% end %>
+  		</ol>
+		</div>
+				
 		<div id="fl-bottom-pane">
 		  <div class="buttons">
   			<% if user_signed_in? %>

@@ -1,52 +1,62 @@
 <li data-score="<%= fact_relation.get_from_fact.brain_cycles %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type.value %>">
+  <div class="container">
+    <img class="arrow" src="/images/client/source-more-arrow.png">
 
-	<div class="fl-source-stats">
-	 	<span class="fl-source-percentage">
-			<%= fact_relation.percentage %>%
-	 	</span>
-	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= fact_relation.get_from_fact.brain_cycles %></sub>
+  	<div class="fl-source-stats">
+  	 	<span class="fl-source-percentage">
+  			<%= fact_relation.percentage %>%
+  	 	</span>
+  	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= fact_relation.get_from_fact.brain_cycles %></sub>
+  	</div>
+
+  	<div class="fl-source-info">
+
+    	<h2 class="fl-source">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
+
+    	<sub>
+    		<span class="fl-source-created"><%= time_ago_in_words(fact_relation.get_from_fact.created_at) %> ago by <%= link_to(fact_relation.get_from_fact.created_by, user_profile_path(fact_relation.get_from_fact.created_by.username), :target => "_blank") %></span>
+    		<% if fact_relation.get_from_fact.site %>
+    			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.site.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
+    		<% else %>
+    			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
+    		<% end %>
+    	</sub>
+
+      <!-- <div class="fl-remove-fact">
+   			<%= link_to(image_tag('icons/users.png'), interacting_users_path(fact_relation.get_from_fact), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
+  		</div> -->
+
+  		<!--
+  					Here we should check if the current user created this Factlink,
+  					if so, give hum the option to remove 
+      -->
+
+  		<div class="fl-clear"></div>
+  	</div>
+
+  	<div class="fl-clear"></div>
+  </div>
+  
+  <div class="fl-choices">			
+		<div class="fl-relevance-container">
+		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
+		  <% if fact_relation.type.value == "supporting" %>
+        <span class="opinion">supports:</span>
+      <% else %>
+        <span class="opinion">weakens:</span>
+		  <% end %>
+		  <h2 class="to_fact">&#8220;<%= fact_relation.get_to_fact.displaystring %>&#8221;</h2>
+		  
+			<% if user_signed_in? %>
+				<%= fact_relation_relevance_options(fact_relation) %>
+			<% end %>
+    </div>
+    
+		<div class="fl-opinion-container">
+		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
+		  <% if user_signed_in? %>
+				<%= fact_opinion_options(fact_relation) %>
+			<% end %>			
+		</div>
 	</div>
-	
-	<div class="fl-source-info">
-
-  	<h2 class="fl-source">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
-
-  	<sub>
-  		<span class="fl-source-created"><%= time_ago_in_words(fact_relation.get_from_fact.created_at) %> ago by <%= link_to(fact_relation.get_from_fact.created_by, user_profile_path(fact_relation.get_from_fact.created_by.username), :target => "_blank") %></span>
-  		<% if fact_relation.get_from_fact.site %>
-  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.site.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
-  		<% else %>
-  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
-  		<% end %>
-  	</sub>
-
-    <!-- <div class="fl-remove-fact">
- 			<%= link_to(image_tag('icons/users.png'), interacting_users_path(fact_relation.get_from_fact), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
-		</div> -->
-	
-		<!--
-					Here we should check if the current user created this Factlink,
-					if so, give hum the option to remove 
-    -->
-
-		<div class="fl-clear">&nbsp;</div>
-		
-		<div id="dev-div" style="border: dashed 2px pink; padding: 4px;">			
-			
-			<div id="fl-opinion-container">
-				<% if user_signed_in? %>
-					<%= fact_opinion_options(fact_relation) %>
-				<% end %>			
-			</div>
-
-			<div id="fl-relevance-container">
-				<% if user_signed_in? %>
-					<%= fact_relation_relevance_options(fact_relation) %>
-				<% end %>
-	    </div>
-
-		</div> <!-- dev div -->
-	</div>
-
-	<div class="fl-clear"></div>
 </li>

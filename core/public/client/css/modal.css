@@ -106,6 +106,49 @@ div.fl-modal #fl-top-pane div.fl-factlink sub {
 div.fl-modal #fl-top-pane div.fl-factlink sub a {
   color: #bbb;
 }
+div.fl-modal #fl-filter-bar ul, div.fl-modal .fl-choices ul {
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  line-height: 22px;
+}
+div.fl-modal #fl-filter-bar ul li, div.fl-modal .fl-choices ul li {
+  float: left;
+  padding: 0;
+  margin: 0 3px;
+}
+div.fl-modal #fl-filter-bar ul li.active,
+div.fl-modal .fl-choices ul li.active,
+div.fl-modal #fl-filter-bar ul li:hover,
+div.fl-modal .fl-choices ul li:hover {
+  background: url('/images/client/filter-highlight-center.png') repeat-x;
+}
+div.fl-modal #fl-filter-bar ul li.active a,
+div.fl-modal .fl-choices ul li.active a,
+div.fl-modal #fl-filter-bar ul li:hover a,
+div.fl-modal .fl-choices ul li:hover a {
+  display: inline-block;
+  height: 24px;
+  background: url('/images/client/filter-highlight-right.png') right no-repeat;
+}
+div.fl-modal #fl-filter-bar ul li.active a span,
+div.fl-modal .fl-choices ul li.active a span,
+div.fl-modal #fl-filter-bar ul li:hover a span,
+div.fl-modal .fl-choices ul li:hover a span {
+  display: inline-block;
+  height: 24px;
+  background: url('/images/client/filter-highlight-left.png') left no-repeat;
+  color: #666363;
+}
+div.fl-modal #fl-filter-bar ul li a, div.fl-modal .fl-choices ul li a {
+  text-decoration: none;
+}
+div.fl-modal #fl-filter-bar ul li a span, div.fl-modal .fl-choices ul li a span {
+  padding: 0 10px;
+  color: #999;
+}
 div.fl-modal #fl-filter-bar {
   text-align: center;
   background: url('/images/client/filter-bar.png') repeat-x;
@@ -118,40 +161,10 @@ div.fl-modal #fl-filter-bar {
   z-index: 10;
   position: relative;
 }
-div.fl-modal #fl-filter-bar ul {
-  list-style: none;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
-}
-div.fl-modal #fl-filter-bar ul li {
-  float: left;
-  padding: 0;
-  margin: 0 3px;
-}
-div.fl-modal #fl-filter-bar ul li.active, div.fl-modal #fl-filter-bar ul li:hover {
-  background: url('/images/client/filter-highlight-center.png') repeat-x;
-}
-div.fl-modal #fl-filter-bar ul li.active a, div.fl-modal #fl-filter-bar ul li:hover a {
-  display: inline-block;
-  height: 24px;
-  background: url('/images/client/filter-highlight-right.png') right no-repeat;
-}
-div.fl-modal #fl-filter-bar ul li.active a span, div.fl-modal #fl-filter-bar ul li:hover a span {
-  display: inline-block;
-  height: 24px;
-  background: url('/images/client/filter-highlight-left.png') left no-repeat;
-  color: #666363;
-}
-div.fl-modal #fl-filter-bar ul li a {
-  text-decoration: none;
-}
-div.fl-modal #fl-filter-bar ul li a span {
-  padding: 0 10px;
-  color: #999;
-}
 div.fl-modal #fl-sources {
+  position: relative;
+}
+div.fl-modal #fl-sources ol {
   list-style: none;
   background: #fbfafa;
   padding: 0;
@@ -160,24 +173,24 @@ div.fl-modal #fl-sources {
   max-height: 300px;
   overflow-y: scroll;
 }
-div.fl-modal #fl-sources li {
-  padding: 20px 0 15px;
-  margin: 0;
-  position: relative;
-  border-bottom: 1px solid #e4e4e4;
-}
-div.fl-modal #fl-sources li.supporting {
+div.fl-modal #fl-sources ol li.supporting {
   background: url('/images/client/supporting.png') no-repeat;
 }
-div.fl-modal #fl-sources li.weakening {
+div.fl-modal #fl-sources ol li.weakening {
   background: url('/images/client/weakening.png') no-repeat;
 }
-div.fl-modal #fl-sources li div.fl-source-stats {
+div.fl-modal #fl-sources ol li .container {
+  padding: 20px 0 15px;
+  margin: 0;
+  border-bottom: 1px solid #e4e4e4;
+  position: relative;
+}
+div.fl-modal #fl-sources ol li .container div.fl-source-stats {
   width: 80px;
   height: 100%;
   float: left;
 }
-div.fl-modal #fl-sources li div.fl-source-stats span.fl-source-percentage {
+div.fl-modal #fl-sources ol li .container div.fl-source-stats span.fl-source-percentage {
   display: block;
   font-size: 18px;
   color: #999;
@@ -185,25 +198,26 @@ div.fl-modal #fl-sources li div.fl-source-stats span.fl-source-percentage {
   text-align: center;
   margin: 7px 0 0 0;
 }
-div.fl-modal #fl-sources li div.fl-source-info {
+div.fl-modal #fl-sources ol li .container div.fl-source-info {
   float: right;
-  width: 335px;
+  width: 305px;
+  margin: 0 30px 0 0;
 }
-div.fl-modal #fl-sources li div.fl-source-info h2 {
+div.fl-modal #fl-sources ol li .container div.fl-source-info h2 {
   padding: 0;
   margin: 0;
   color: #484848;
   font-size: 13px;
   font-weight: normal;
 }
-div.fl-modal #fl-sources li div.fl-source-info sub {
+div.fl-modal #fl-sources ol li .container div.fl-source-info sub {
   font-size: 10px;
   color: #bbb;
 }
-div.fl-modal #fl-sources li div.fl-source-info sub span.fl-source-created {
+div.fl-modal #fl-sources ol li .container div.fl-source-info sub span.fl-source-created {
   margin: 0 10px 0 0;
 }
-div.fl-modal #fl-sources li#fl-no-evidence {
+div.fl-modal #fl-sources ol li .container#fl-no-evidence {
   text-align: center;
   color: #989898;
   font-size: 11px;
@@ -211,12 +225,75 @@ div.fl-modal #fl-sources li#fl-no-evidence {
   border: none;
   line-height: 70px;
 }
-div.fl-modal #fl-sources li#fl-no-evidence a {
+div.fl-modal #fl-sources ol li .container#fl-no-evidence a {
   color: #0fb8fe;
   text-decoration: none;
 }
-div.fl-modal #fl-sources li#fl-no-evidence a:hover {
+div.fl-modal #fl-sources ol li .container#fl-no-evidence a:hover {
   text-decoration: underline;
+}
+div.fl-modal #fl-sources ol li:hover .arrow {
+  display: block;
+  z-index: 300;
+}
+div.fl-modal #fl-sources ol li .arrow {
+  display: none;
+  position: absolute;
+  right: 10px;
+  margin: 3px 0 0 0;
+  padding: 3px;
+  cursor: pointer;
+}
+div.fl-modal #fl-sources ol li .arrow:hover {
+  border: 1px solid #999;
+  padding: 2px;
+  background: #f9f9f9;
+}
+div.fl-modal #fl-sources ol li .arrow.active {
+  border: 1px solid #999;
+  border-bottom: none;
+  background: #f9f9f9;
+  padding: 2px 2px 4px;
+}
+div.fl-modal #fl-sources ol .fl-choices {
+  display: none;
+  z-index: 200;
+  position: absolute;
+  right: -170px;
+  width: 200px;
+  margin: -45px 0 0 0;
+  padding: 5px 10px 0;
+  text-align: center;
+  background: #f9f9f9;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
+div.fl-modal #fl-sources ol .fl-choices.active {
+  display: block;
+}
+div.fl-modal #fl-sources ol .fl-choices h2 {
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 15px;
+  color: #333;
+  width: 200px;
+  margin: 0 -10px;
+  padding: 10px;
+}
+div.fl-modal #fl-sources ol .fl-choices h2.to_fact {
+  border-bottom: 1px dashed #999;
+}
+div.fl-modal #fl-sources ol .fl-choices span.opinion {
+  font-weight: bold;
+  color: #333;
+}
+div.fl-modal #fl-sources ol .fl-choices ul {
+  margin: 5px 0;
+}
+div.fl-modal #fl-sources ol .fl-choices .fl-opinion-container h2 {
+  border-bottom: 1px dashed #999;
+  border-top: 1px solid #999;
 }
 div.fl-modal #fl-bottom-pane {
   height: 70px;
