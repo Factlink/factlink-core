@@ -1,6 +1,16 @@
 		<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
 		<% content_for :javascript do %>
 			<% render :partial => 'facts/javascript/filter_interacting_users' %>
+			<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
+			<script type="text/javascript">
+			  $("#fl-sources").mousewheel(function(e, d) {
+          if (d > 0 && $(this).scrollTop() == 0) {
+            e.preventDefault();
+          } else if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight()) {
+            e.preventDefault();
+          }
+        });
+			</script>
 		<% end %>
 
 		<!-- Popup options -->

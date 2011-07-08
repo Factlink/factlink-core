@@ -11,7 +11,6 @@
  */
 
 (function($) {
-
 var types = ['DOMMouseScroll', 'mousewheel'];
 
 $.event.special.mousewheel = {
