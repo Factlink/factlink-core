@@ -65,9 +65,9 @@ class Basefact
     self.added_to_factlink.delete
   end
 
-  def toggle_opinion(user, type, parent)
+  def toggle_opinion(type, user)
 
-    if user.opinion_on_factlink?(type, self)
+    if user.opinion_on_fact?(type, self)
       # User has this opinion already; remove opinion
       remove_opinions(user)
     else

@@ -251,15 +251,12 @@ class FactsController < ApplicationController
   end
   
   def set_relevance
-    
-    fact_relation = FactRelation.find(params[:fact_relation_id])
+    @fact_relation = FactRelation.find(params[:fact_relation_id])
     
     # TODO: validate the type
     type = params[:type]
     
-    
-    
-    @parent.set_relevance_for_user(@child, type, current_user)
+    @fact_relation.toggle_opinion(type, current_user)
   end
   
   
