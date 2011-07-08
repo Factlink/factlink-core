@@ -120,6 +120,10 @@
 				};
 			}
 			
+			document.onclick = function() {
+			  parent.remote.hide();
+			};
+			
 			// Set the class of the parent frame (xdm)
       // parent.remote.setFrameType("prepare");
       // parent.remote.setFrameBounds(300, 120);

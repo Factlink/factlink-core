@@ -1,7 +1,8 @@
-<li id="no-facts-message" class="">
-	<span class="fl-statement-title">No facts have been added yet.</span>
-		<% unless user_signed_in? %>
-		<span>Please <%= link_to("sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %> to use Factlink.</span>
+<li id="fl-no-evidence">
+		<% if user_signed_in? %>
+		  Perhaps you know something that <a href="#">supports</a> or <a href="#">weakens</a> this fact?
+  	<% else %>
+		  There are no facts supporting or weakening this fact at the moment.
 		<% end %>
 	</span>
 </li>

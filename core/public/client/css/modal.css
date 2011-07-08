@@ -106,12 +106,57 @@ div.fl-modal #fl-top-pane div.fl-factlink sub {
 div.fl-modal #fl-top-pane div.fl-factlink sub a {
   color: #bbb;
 }
+div.fl-modal #fl-filter-bar {
+  text-align: center;
+  background: url('/images/client/filter-bar.png') repeat-x;
+  color: #999;
+  font-size: 11px;
+  height: 36px;
+  line-height: 22px;
+  padding: 6px 0 0 0;
+  margin: 0 0 -6px;
+  z-index: 10;
+  position: relative;
+}
+div.fl-modal #fl-filter-bar ul {
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+div.fl-modal #fl-filter-bar ul li {
+  float: left;
+  padding: 0;
+  margin: 0 3px;
+}
+div.fl-modal #fl-filter-bar ul li.active, div.fl-modal #fl-filter-bar ul li:hover {
+  background: url('/images/client/filter-highlight-center.png') repeat-x;
+}
+div.fl-modal #fl-filter-bar ul li.active a, div.fl-modal #fl-filter-bar ul li:hover a {
+  display: inline-block;
+  height: 24px;
+  background: url('/images/client/filter-highlight-right.png') right no-repeat;
+}
+div.fl-modal #fl-filter-bar ul li.active a span, div.fl-modal #fl-filter-bar ul li:hover a span {
+  display: inline-block;
+  height: 24px;
+  background: url('/images/client/filter-highlight-left.png') left no-repeat;
+  color: #666363;
+}
+div.fl-modal #fl-filter-bar ul li a {
+  text-decoration: none;
+}
+div.fl-modal #fl-filter-bar ul li a span {
+  padding: 0 10px;
+  color: #999;
+}
 div.fl-modal #fl-sources {
   list-style: none;
-  border-bottom: 1px solid #e4e4e4;
-  background: #fbfafa url('/images/client/scroll-pane-top-gradient.png') top repeat-x;
+  background: #fbfafa;
   padding: 0;
   margin: 0 2px 0 0;
+  min-height: 100px;
   max-height: 300px;
   overflow-y: scroll;
 }
@@ -158,10 +203,26 @@ div.fl-modal #fl-sources li div.fl-source-info sub {
 div.fl-modal #fl-sources li div.fl-source-info sub span.fl-source-created {
   margin: 0 10px 0 0;
 }
+div.fl-modal #fl-sources li#fl-no-evidence {
+  text-align: center;
+  color: #989898;
+  font-size: 11px;
+  font-style: italic;
+  border: none;
+  line-height: 70px;
+}
+div.fl-modal #fl-sources li#fl-no-evidence a {
+  color: #0fb8fe;
+  text-decoration: none;
+}
+div.fl-modal #fl-sources li#fl-no-evidence a:hover {
+  text-decoration: underline;
+}
 div.fl-modal #fl-bottom-pane {
   height: 70px;
   text-align: center;
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+  border-top: 1px solid #e4e4e4;
 }
 div.fl-modal #fl-bottom-pane div.buttons {
   height: 45px;
