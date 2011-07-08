@@ -1,19 +1,23 @@
 <style>
-	div#fl-relevance-container span {
-		padding: 2px 12px;
-	}
 
-	div#fl-relevance-container span.active { 
-			border: solid 1px white;
-			background-color: #888;
-			color: white;
-			border-radius: 16px;
-			text-decoration: none;
-			text-shadow: nonefactlink;
+	li.active {
+		border: solid 2px rgb(260, 0, 0);
 	}
 
 </style>
 
-<%= link_to("<span class=\"relevant #{relevance_class_on_fact(:beliefs, fact_relation)}\">Relevant</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
-<%= link_to("<span class=\"might-be-relevant #{relevance_class_on_fact(:doubts, fact_relation)}\">Might be relevant</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
-<%= link_to("<span class=\"not-relevant #{relevance_class_on_fact(:disbeliefs, fact_relation)}\">Not relevant</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
+<pre>Relevance for the relation:</pre>
+
+<ul>	
+	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation) %>>
+		<%= link_to("<span>Relevant!</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
+	</li>
+
+	<li<%= active_class_for_type_and_fact(:doubts, fact_relation) %>>
+		<%= link_to("<span>Might be relevant</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
+	</li>
+	
+	<li<%= active_class_for_type_and_fact(:disbeliefs, fact_relation) %>>
+		<%= link_to("<span>Not relevant</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
+	</li>
+</ul>

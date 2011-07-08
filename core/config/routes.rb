@@ -59,10 +59,10 @@ FactlinkUI::Application.routes.draw do
 
 
   # Set opinion on a Fact
-  get   "/factlink/:fact_id/opinion/:type" => "facts#toggle_opinion", :as => "opinion"
+  get   "/fact/:fact_relation_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
 
   # Set relevance of a FactRelation
-  get   "/fact_relation/:fact_relation_id/:type" => "facts#set_relevance", :as => "relevance"
+  get   "/fact_relation/:fact_relation_id/:type" => "facts#toggle_relevance_on_fact_relation", :as => "relevance"
 
 
   

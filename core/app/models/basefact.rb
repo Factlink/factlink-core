@@ -67,7 +67,7 @@ class Basefact
 
   def toggle_opinion(type, user)
 
-    if user.opinion_on_fact?(type, self)
+    if user.opinion_on_fact_for_type?(type, self)
       # User has this opinion already; remove opinion
       remove_opinions(user)
     else

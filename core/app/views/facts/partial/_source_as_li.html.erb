@@ -8,11 +8,6 @@
 	</div>
 	
 	<div class="fl-source-info">
-	 	<!-- <div class="fl-vote-container">
- 		<% if user_signed_in? %>
-			<%= opinion_options(fact_relation.get_from_fact) %>
-		<% end %>
-  	 </div> -->
 
   	<h2 class="fl-source">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 
@@ -40,6 +35,12 @@
 		
 		<div id="dev-div" style="border: dashed 2px pink; padding: 4px;">
 			<pre>content for popup</pre>
+
+		<div id="fl-opinion-container">
+			<% if user_signed_in? %>
+				<%= fact_opinion_options(fact_relation) %>
+			<% end %>			
+		</div>
 
 		<div id="fl-relevance-container">
 			<% if user_signed_in? %>

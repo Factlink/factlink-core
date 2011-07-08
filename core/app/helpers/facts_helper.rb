@@ -37,12 +37,24 @@ module FactsHelper
               :locals => { :fact => fact }
   end
 
+
   # The vote options for a fact: believe, doubt, disbelieve
+  deprecate
   def opinion_options(fact)
     render :partial => 'facts/partial/opinion_options', 
               :locals => { :fact => fact }
   end
 
+
+  # Shows opinion of user on this fact.
+  # Links to toggle the opinion.
+  def fact_opinion_options(fact_relation)
+    render :partial => 'facts/partial/opinion_options',
+              :locals => { :fact_relation => fact_relation }
+  end
+
+  # Shows the opinion on this FactRelation
+  # Links to toggle the believe on the relation.
   def fact_relation_relevance_options(fact_relation)
     render :partial => 'facts/partial/relevance_options', 
               :locals => { :fact_relation => fact_relation }
@@ -52,9 +64,17 @@ module FactsHelper
     render :partial => 'facts/partial/no_facts_added_message'
   end
 
-
+  deprecate
   def relevance_class_on_fact(type, fact)
     current_user.active_class_for_type_and_fact(type, fact)
+  end
+  
+  def active_class_for_type_and_fact(type, fact)
+    
+    if current_user.opinion_on_fact_for_type?(type, fact)
+      return " class='active'"
+    end
+
   end
 
 end
