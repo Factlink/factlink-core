@@ -75,7 +75,12 @@
 						iframe.className = "overlay";
 					},
 					position: function(top, left) {
-					  
+						iframe.onload = function() { 
+						  this.onload = null;
+						  try {
+  						  iframe.contentWindow.position(top, left);
+  						} catch(e) { }
+						}
 					}
 				}
 			}),

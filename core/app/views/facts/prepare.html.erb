@@ -14,11 +14,11 @@
 			body {
 				line-height: 1;
 			}
-			.context {
-				position: relative;
+			#context {
+				position: absolute;
 				float: left;
 			}
-			.context ul {
+			#context ul {
 				display: none;
 				position: absolute;
 				padding: 5px 0;
@@ -27,21 +27,21 @@
 				left: 100%;
 				list-style: none;
 			}
-			.context > ul {
+			#context > ul {
 				top: 0;
 				display: block;
 			}
 			
-			.context li.first {
+			#context li.first {
 				border-radius: 3px 3px 0px 0px;
 			}
 			
-			.context li.last {
+			#context li.last {
 				border-radius: 0px 0px 3px 3px;
 				box-shadow: 0px 1px 2px #bbb;
 			}
 			
-			.context li {
+			#context li {
 				
 				border-top: solid 1px #eee;
 				border-bottom: solid 1px #ccc;
@@ -54,15 +54,15 @@
 				font-family: "Helvetica", Arial, sans-serif;
 				font-size: 9pt;
 			}
-			.context a {
+			#context a {
 				color: #000;
 				text-decoration: none;
 			}
-			.context li:hover {
+			#context li:hover {
 				background: #eee;
 			}
-			.context:hover > ul,
-			.context li:hover > ul {
+			#context:hover > ul,
+			#context li:hover > ul {
 				display: block;
 			}
 			form input, form textarea {
@@ -71,7 +71,7 @@
 		</style>
 	</head>
 	<body>
-		<div class="context">
+		<div id="context">
 			<ul>
 				<li class="first">
 					I know
@@ -111,6 +111,8 @@
 		</div>
 		<script>
 			var a = document.getElementsByTagName("a");
+		  var el = document.getElementById("context");	
+	
 			for ( var i = a.length; i--; ) {
 				a[i].onclick = function() {
 					// Call the parent
@@ -123,6 +125,12 @@
 			document.onclick = function() {
 			  parent.remote.hide();
 			};
+			
+			function position(top, left) {
+			  console.info( "Positioning" );
+			  el.style.top = top - 13 + "px";
+			  el.style.left = left + "px";
+			}
 			
 			// Set the class of the parent frame (xdm)
       // parent.remote.setFrameType("prepare");
