@@ -38,6 +38,15 @@ class Opinion
 
   #CHANGE ALONG WITH + !!!!
   def weight
+    
+    puts "+------+"
+    puts self.b 
+    puts self.d 
+    puts self.u
+    puts self.a
+    
+    puts "Returning weight: #{(self.b + self.d + self.u)*self.a}"
+    
     return (self.b + self.d + self.u)*self.a
   end
 
