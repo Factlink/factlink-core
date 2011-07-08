@@ -257,9 +257,8 @@ class FactsController < ApplicationController
     # TODO: validate the type
     type = params[:type]
     
-    
-    
-    @parent.set_relevance_for_user(@child, type, current_user)
+    # TODO fix after merge
+    # fact_relation.
   end
   
   
