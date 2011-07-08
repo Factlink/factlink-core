@@ -37,11 +37,17 @@
 
 		<div class="fl-clear">&nbsp;</div>
 
+		
+		<div id="dev-div" style="border: dashed 2px pink; padding: 4px;">
+			<pre>content for popup</pre>
+
 		<div id="fl-relevance-container">
 			<% if user_signed_in? %>
 				<%= fact_relation_relevance_options(fact_relation) %>
 			<% end %>
-     </div>
+    </div>
+
+		</div> <!-- dev div -->
 
 	</div>
 	<div class="fl-clear"></div>
