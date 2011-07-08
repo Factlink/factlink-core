@@ -47,7 +47,12 @@ class Basefact
   def to_s
     self.displaystring
   end
-
+  
+  # Return a nice looking url, only subdomain + domain + top level domain
+  def pretty_url
+    self.url.gsub(/http(s?):\/\//,'').split('/')[0]
+  end
+  
   def set_added_to_factlink(user)
     self.added_to_factlink.value = user.id
   end
