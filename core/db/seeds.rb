@@ -56,9 +56,12 @@ facts.each do |fact|
   )
 end
 
-# fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, users[0])
-fr = FactRelation.get_or_create(Fact.first,:supports, Fact.last, user)
-fr.save()
+fact = Fact.first
+Fact.excludes(:_id => fact.id).each do |evidence|
+  fact.add_evidence(:supporting, evidence, user)
+end
+
+
 
 # Commit the indices to Solr
 Sunspot.commit

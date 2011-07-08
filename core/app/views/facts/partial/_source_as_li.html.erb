@@ -19,9 +19,9 @@
   	<sub>
   		<span class="fl-source-created"><%= time_ago_in_words(fact_relation.get_from_fact.created_at) %> ago by <%= link_to(fact_relation.get_from_fact.created_by, user_profile_path(fact_relation.get_from_fact.created_by.username), :target => "_blank") %></span>
   		<% if fact_relation.get_from_fact.site %>
-  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.site.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.site.url, :length => 40) %></a></span>
+  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.site.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
   		<% else %>
-  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.url, :length => 40) %></a></span>
+  			<span class="fl-source-found">found on <a href="<%= fact_relation.get_from_fact.url %>" target="_blank"><%= truncate(fact_relation.get_from_fact.pretty_url, :length => 25) %></a></span>
   		<% end %>
   	</sub>
 

@@ -50,7 +50,11 @@ class Basefact
   
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
-    self.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    begin
+      self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    rescue
+      self.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    end
   end
   
   def set_added_to_factlink(user)

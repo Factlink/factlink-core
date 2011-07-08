@@ -46,7 +46,7 @@ div.fl-modal sub.fl-brain-count img {
   top: -1px;
 }
 div.fl-modal #fl-top-pane {
-  height: 100px;
+  min-height: 100px;
   padding: 15px 10px 0;
   background: url('/images/client/top-pane-gradient.png') repeat-x;
 }
@@ -89,7 +89,7 @@ div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
 div.fl-modal #fl-top-pane div.fl-factlink {
   float: left;
   width: 310px;
-  margin: 0 0 0 10px;
+  margin: 0 0 10px 10px;
 }
 div.fl-modal #fl-top-pane div.fl-factlink h1 {
   font-family: Georgia, "Times New Roman", Garamond, serif;
@@ -171,6 +171,7 @@ div.fl-modal #fl-bottom-pane div.buttons a {
   color: #3fa1ca;
   font-size: 13px;
   margin: 0 10px;
+  text-decoration: none;
 }
 div.fl-modal #fl-bottom-pane div.buttons a:hover {
   text-decoration: underline;
