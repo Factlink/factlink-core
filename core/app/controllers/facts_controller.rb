@@ -128,7 +128,11 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
 
-    @factlink = @fact.add_evidence(:supporting, @evidence, current_user)
+
+    puts "Fact: #{@fact}"
+    puts "Evid: #{@evidence}\n"
+
+    # @factlink = @fact.add_evidence(:supporting, @evidence, current_user)
     
     render "add_source_to_factlink"
   end
@@ -138,7 +142,7 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:factlink_id])
     @evidence = Fact.find(params[:evidence_id])
 
-    @factlink = @fact.add_evidence(:weakening, @evidence, current_user)
+    # @factlink = @fact.add_evidence(:weakening, @evidence, current_user)
     
     render "add_source_to_factlink"
   end

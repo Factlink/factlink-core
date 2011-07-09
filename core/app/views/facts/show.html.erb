@@ -1,66 +1,66 @@
-		<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
-		<% content_for :javascript do %>
-			<% render :partial => 'facts/javascript/filter_interacting_users' %>
+<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
+<% content_for :javascript do %>
+	<% render :partial => 'facts/javascript/filter_interacting_users' %>
+<% end %>
+
+<!-- Popup options -->
+<script type="text/javascript">
+  // parent.remote.setFrameType("show");
+  // parent.remote.setFrameBounds(440, 470);
+</script>
+
+<!-- Top pane - containing the chart & main fact -->
+<div id="fl-top-pane">
+  <!-- Bar chart - showing the believe, doubt and disbelieve bars -->
+	<%= factlink_score_partial(@fact) %>
+
+	<div class="fl-factlink">
+		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
+		<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
+	</div>
+
+	<div class="fl-clear"></div>
+</div>
+
+<!-- Filter bar -->
+<div id="fl-filter-bar">
+  Show:
+  <ul>
+   <li class="active"><a href="#"><span>all</span></a></li>
+   <li><a href="#"><span>supporting facts</span></a></li>
+   <li><a href="#"><span>weakening facts</span></a></li>
+  </ul>
+</div>
+
+<div class="fl-clear"></div>
+
+<!-- "Sources" -->
+<ol id="fl-sources">
+	<% unless @fact.fact_relation_ids.count > 0 %>
+		<%= no_facts_have_been_added_as_li %>
+	<% else %>
+		<% @fact.fact_relations.each do |evidence| %>
+			<%= factlink_source_partial_as_li(evidence) %>
 		<% end %>
+	<% end %>
+</ol>
 
-		<!-- Popup options -->
-		<script type="text/javascript">
-      // parent.remote.setFrameType("show");
-      // parent.remote.setFrameBounds(440, 470);
-		</script>
-		
-		<!-- Top pane - containing the chart & main fact -->
-		<div id="fl-top-pane">
-		  <!-- Bar chart - showing the believe, doubt and disbelieve bars -->
-  		<%= factlink_score_partial(@fact) %>
-		
-  		<div class="fl-factlink">
-  			<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
-  			<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
-  		</div>
-		
-  		<div class="fl-clear"></div>
-  	</div>
-  	
-  	<!-- Filter bar -->
-  	<div id="fl-filter-bar">
-  	  Show:
-  	  <ul>
-   	   <li class="active"><a href="#"><span>all</span></a></li>
-  	   <li><a href="#"><span>supporting facts</span></a></li>
-  	   <li><a href="#"><span>weakening facts</span></a></li>
-  	  </ul>
-  	</div>
-  	
-  	<div class="fl-clear"></div>
-		
-		<!-- "Sources" -->
-		<ol id="fl-sources">
-			<% unless @fact.fact_relation_ids.count > 0 %>
-				<%= no_facts_have_been_added_as_li %>
-			<% else %>
-				<% @fact.fact_relations.each do |evidence| %>
-					<%= factlink_source_partial_as_li(evidence) %>
-				<% end %>
-			<% end %>
-		</ol>
-		
-		<div id="fl-bottom-pane">
-		  <div class="buttons">
-  			<% if user_signed_in? %>
-  				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="" style="">Add to existing fact</a>
-  				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="" style="">Add fact</a>
-  			<% else %>
-  				<%= link_to("Sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %>
-  			<% end %>
-  		</div>
-  		<sub>credibility provided by Factlink</sub>
-		</div>
-		
-		<div class="fl-clear"></div>
+<div id="fl-bottom-pane">
+  <div class="buttons">
+		<% if user_signed_in? %>
+			<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="" style="">Add to existing fact</a>
+			<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="" style="">Add fact</a>
+		<% else %>
+			<%= link_to("Sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %>
+		<% end %>
+	</div>
+	<sub>credibility provided by Factlink</sub>
+</div>
 
-		<!-- Add sources popup -->
-		<div id="fl-sources-popup" style="display: none;">
-			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
-			<%= render :partial => "facts/partial/remote_form" %>
-		</div>
+<div class="fl-clear"></div>
+
+<!-- Add sources popup -->
+<div id="fl-sources-popup" style="display: none;">
+	<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
+	<%= render :partial => "facts/partial/remote_form" %>
+</div>
