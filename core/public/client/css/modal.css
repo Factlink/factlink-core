@@ -51,7 +51,7 @@ div.fl-modal sub.fl-brain-count img {
 div.fl-modal #fl-top-pane {
   min-height: 100px;
   padding: 15px 10px 0;
-  background: url('/images/client/top-pane-gradient.png') repeat-x;
+  background: url('/images/client/top-pane-gradient.png') repeat-x #f4f4f4;
 }
 div.fl-modal #fl-top-pane div.fl-stats {
   float: left;
