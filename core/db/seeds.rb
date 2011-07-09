@@ -57,10 +57,10 @@ facts.each do |fact|
   )
 end
 
-fact = Fact.first
-Fact.excludes(:_id => fact.id).each do |evidence|
-  fact.add_evidence(:supporting, evidence, user)
-end
+# fact = Fact.first
+# Fact.excludes(:_id => fact.id).each do |evidence|
+#   fact.add_evidence(:supporting, evidence, user)
+# end
 
 
 

@@ -1,18 +1,15 @@
-// var no_fact_message = $("#no-facts-message");
-// if (no_fact_message.length > 0) {
-// 	// The message is there, remove it.
-// 	no_fact_message.slideUp(500);
-// }
-// 
-// $('ol#fl-existing-childs-list > li#fl-source-<%= @evidence.id %>').slideUp(function() {
-// 	$('#dimmer').fadeOut('fast');
-// 	$('div#fl-potential-childs-popup').fadeOut('fast', function() {
-// 		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation, :fact => @fact, :evidence => @evidence } )) %>");
-// 	});
-// });
+// Hide the empty list notification
+var no_fact_message = $("div#fl-evidence > div#fl-sources li#fl-no-evidence");
+if (no_fact_message.length > 0) {
+	no_fact_message.remove();
+}
+
 
 
 /** This is new */
 $('#fl-add-evidence').fadeOut();
 
 $('div#fl-evidence > div#fl-sources > ol').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation } )) %>");
+
+// Hide the evidence from potential evidence.
+el = $("li#fl-source-<%= @fact_relation.get_from_fact.id %>").hide();
