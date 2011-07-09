@@ -16,6 +16,8 @@ div.fl-modal {
   position: relative;
   top: 40px;
   border: solid 1px #bbb;
+  /*	min-height: 524px;*/
+
   padding: 0;
   margin: 0 auto;
   width: 425px;
@@ -275,8 +277,8 @@ div.fl-modal #fl-sources ol .fl-choices {
   display: none;
   z-index: 200;
   position: absolute;
-  right: -170px;
-  width: 200px;
+  right: -160px;
+  width: 350px;
   margin: -45px 0 0 0;
   padding: 5px 10px 0;
   text-align: center;
@@ -293,7 +295,7 @@ div.fl-modal #fl-sources ol .fl-choices h2 {
   font-style: italic;
   font-size: 15px;
   color: #333;
-  width: 200px;
+  width: 350px;
   margin: 0 -10px;
   padding: 10px;
 }
@@ -311,27 +313,27 @@ div.fl-modal #fl-sources ol .fl-choices .fl-opinion-container h2 {
   border-bottom: 1px dashed #ddd;
   border-top: 1px solid #ddd;
 }
-div.fl-modal #fl-bottom-pane {
+div.fl-modal .fl-bottom-pane {
   height: 70px;
   text-align: center;
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
   border-top: 1px solid #e4e4e4;
 }
-div.fl-modal #fl-bottom-pane div.buttons {
+div.fl-modal .fl-bottom-pane div.buttons {
   height: 45px;
 }
-div.fl-modal #fl-bottom-pane div.buttons a {
+div.fl-modal .fl-bottom-pane div.buttons a {
   line-height: 55px;
   color: #3fa1ca;
   font-size: 13px;
   margin: 0 10px;
   text-decoration: none;
 }
-div.fl-modal #fl-bottom-pane div.buttons a:hover {
+div.fl-modal .fl-bottom-pane div.buttons a:hover {
   text-decoration: underline;
   color: #3fa1ca;
 }
-div.fl-modal #fl-bottom-pane sub {
+div.fl-modal .fl-bottom-pane sub {
   color: #aaa;
   font-size: 10px;
 }
@@ -544,6 +546,46 @@ div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-s
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources li a:hover {
   color: #555;
+}
+div.fl-modal div#fl-add-evidence {
+  /*		display: none;*/
+
+  left: -1px;
+  top: 115px;
+  height: 406px;
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
+  width: 100%;
+  border: solid 1px #bbb;
+  border-top: none;
+}
+div.fl-modal div#fl-add-evidence div.fl-add-evidence-message {
+  background: url('/images/client/filter-bar.png') repeat-x;
+  height: 36px;
+  line-height: 12px;
+  padding: 0 0 6px 0;
+  margin: 0 0 -6px;
+}
+div.fl-modal div#fl-add-evidence span.message {
+  text-align: center;
+  color: #989898;
+  font-size: 11px;
+  font-style: italic;
+  border: none;
+  line-height: 36px;
+}
+div.fl-modal div#fl-add-evidence span.message a {
+  color: #0fb8fe;
+  text-decoration: none;
+}
+div.fl-modal div#fl-add-evidence span.message a:hover {
+  text-decoration: underline;
+}
+div.fl-modal div#fl-add-evidence div.fl-evidence-list {
+  /*			border: solid 1px green;*/
+
+  height: 287px;
 }
 div.fl-modal div#fl-sources-popup {
   position: absolute;

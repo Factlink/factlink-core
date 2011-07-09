@@ -20,7 +20,7 @@ div.fl-modal {
   top: 40px;
 
 	border: solid 1px #bbb;
-
+/*	min-height: 524px;*/
   padding: 0;
   margin:  0 auto;
   width: 425px;
@@ -331,9 +331,9 @@ div.fl-modal {
         z-index: 200;
         
         position: absolute;
-        right: -170px;
+        right: -160px;
         
-        width: 200px;
+        width: 350px;
         margin: -45px 0 0 0;
         padding: 5px 10px 0;
         text-align: center;
@@ -342,7 +342,7 @@ div.fl-modal {
         border: 1px solid #999;
         
         box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
-        
+
         &.active {
           display: block;
         }
@@ -355,7 +355,7 @@ div.fl-modal {
           
           color: #333;
           
-          width: 200px;
+          width: 350px;
           margin: 0 -10px;
           padding: 10px;
           
@@ -383,7 +383,7 @@ div.fl-modal {
     }
   }
   
-  #fl-bottom-pane {
+  .fl-bottom-pane {
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
@@ -673,6 +673,73 @@ div.fl-modal {
     }
   }
   
+
+	div#fl-add-evidence {
+		
+/*		display: none;*/
+		
+		left: -1px;
+		top: 115px;
+
+		height: 406px;
+		position: absolute;
+		z-index: 1000;
+
+		background: #fff;
+		width: 100%;
+		
+		border: solid 1px #bbb;
+		border-top: none;
+		
+		div.fl-add-evidence-message {
+			background: url('/images/client/filter-bar.png') repeat-x;
+			
+			height: 36px;
+	    line-height: 12px;
+
+	    padding: 0 0 6px 0;
+	    // Make the shadow fall over the next element
+	    margin: 0 0 -6px;
+			
+		}
+		
+		span.message {
+
+      text-align: center;
+      color: #989898;
+      font-size: 11px;
+      font-style: italic;
+      border: none;
+      line-height: 36px;
+
+      a {
+        color: #0fb8fe;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+		
+		
+		div.fl-evidence-list {
+/*			border: solid 1px green;*/
+			height: 287px;
+		}
+		
+		div.fl-add-bottom {
+			
+		}
+	}
+	
+	
+	
+
+
+
+
+
   div#fl-sources-popup {
 	  position: absolute;
   	top: 78px;

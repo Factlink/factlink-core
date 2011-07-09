@@ -31,6 +31,11 @@ module FactsHelper
               :locals => { :fact_relation => fact_relation }
   end
   
+  def evidence_as_li(fact)
+    render :partial => 'facts/partial/add_evidence_as_li', 
+              :locals => { :fact => fact }
+  end
+  
   # Score block of the top factlink in client
   def factlink_score_partial(fact)
     render :partial => 'facts/partial/bar_chart', 

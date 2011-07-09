@@ -79,7 +79,7 @@
   	
   	<div class="fl-clear"></div>
 		
-		<!-- "Sources" -->
+		<!-- Evidence -->
 		<div id="fl-sources">
   		<ol>
   			<% unless @fact.fact_relation_ids.count > 0 %>
@@ -91,8 +91,9 @@
   			<% end %>
   		</ol>
 		</div>
-				
-		<div id="fl-bottom-pane">
+
+		<!-- Bottom bar -->
+		<div class="fl-bottom-pane">
 		  <div class="buttons">
   			<% if user_signed_in? %>
   				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="" style="">Add to existing fact</a>
@@ -106,8 +107,33 @@
 		
 		<div class="fl-clear"></div>
 
-		<!-- Add sources popup -->
-		<div id="fl-sources-popup" style="display: none;">
-			<%= image_tag "icons/close-button.png", :class => "close-button", :style => "position: absolute; top: -18px; left: 370px;", :onclick => "$('#fl-sources-popup').fadeOut('fast');" %>
-			<%= render :partial => "facts/partial/remote_form" %>
+
+
+		<!-- Add evidence popup -->
+		<div id="fl-add-evidence">
+
+			<div class="fl-add-evidence-message center">
+				<span class="message">
+				Please select a fact to add <a>or hide this fact selection</a>.
+				</span>
+			</div>
+			
+			<div class="fl-evidence-list">
+				<ol>
+					
+					<% Fact.all.each do |evidence| %>
+					<li>Item 1</li>
+					
+					<%= evidence_as_li(evidence) %>
+					
+					<% end %>
+				</ol>
+			</div>
+			
+			<div class="fl-bottom-pane center">
+				<div class="buttons">
+				<a>Hide this fact selection</a>
+				</div>
+				<sub>credibility provided by Factlink</sub>
+			</div>
 		</div>

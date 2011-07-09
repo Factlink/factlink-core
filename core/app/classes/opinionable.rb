@@ -41,7 +41,7 @@ module Opinionable
 
 
 
-  def percentage(total, part)
+  def calc_percentage(total, part)
     if total > 0
       (100 * part) / total
     else
