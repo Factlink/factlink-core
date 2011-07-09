@@ -1,10 +1,19 @@
 class Users::SessionsController < Devise::SessionsController
-  
-  # layout "accounting"
+
   layout "client"
 
   def new
-        
+    
+    # Set return path if available
+    # params[:return_path] is used in the SessionController to
+    # create the correct return path.
+    session[:"user.return_to"] = if params[:return_path]
+      then params[:return_path]
+      else nil
+      end
+    
+    
+    # Toggle the layout
     unless params[:layout].nil?
       # Default login
       render "users/sessions/new", :layout => "accounting"

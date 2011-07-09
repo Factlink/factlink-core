@@ -98,7 +98,7 @@
   				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="" style="">Add to existing fact</a>
   				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="" style="">Add fact</a>
   			<% else %>
-  				<%= link_to("Sign in", new_user_session_path) %> or <%= link_to("register", new_user_session_path) %>
+  				<%= link_to("Sign in", new_user_session_path({ :return_path => @fact.id })) %> or <%= link_to("register", new_user_session_path) %>
   			<% end %>
   		</div>
   		<sub>credibility provided by Factlink</sub>
