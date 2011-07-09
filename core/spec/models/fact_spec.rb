@@ -45,6 +45,8 @@ describe Fact do
 
    
    # Supporting / Weakening fact
+   
+   # Manual checking this test works
    it "stores the ID's of supporting facts in the supporting facts set" do
      @parent.add_evidence(:supporting, @factlink, @user1)
      evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
@@ -65,11 +67,8 @@ describe Fact do
    
    
    it "should store the supporting evidence ID when a FactRelation is created" do
-     
      @fl = FactRelation.get_or_create(@factlink, :supporting, @parent, @user1)
-     
      @parent.evidence(:supporting).members.should include(@factlink.id.to_s)
-     
    end
    
 end

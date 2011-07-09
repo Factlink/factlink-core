@@ -57,7 +57,7 @@ class FactRelation < Fact
     Fact.find(fact.value)
   end
   
-  def get_influencing_opinion
+  def get_influencing_opinion    
     get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 

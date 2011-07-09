@@ -19,7 +19,7 @@ div.fl-modal {
   padding: 0;
   margin: 0 auto;
   width: 425px;
-  background: #f8f8f8;
+  background: #fdfdfd;
   color: #777;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -118,7 +118,7 @@ div.fl-modal #fl-filter-bar ul, div.fl-modal .fl-choices ul {
 div.fl-modal #fl-filter-bar ul li, div.fl-modal .fl-choices ul li {
   float: left;
   padding: 0;
-  margin: 0 3px;
+  margin: 0px 3px;
 }
 div.fl-modal #fl-filter-bar ul li.active,
 div.fl-modal .fl-choices ul li.active,
