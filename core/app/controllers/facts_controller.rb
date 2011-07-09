@@ -61,9 +61,10 @@ class FactsController < ApplicationController
     # @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
     # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
     
-    # TODO: Only show potential 'childs' and 'parents'
-    @potential_childs = Fact.facts
-    @potential_parents = Fact.facts
+    ids = FactRelation.where(:_id.in => @fact.fact_relation_ids).map { |fr| fr.from_fact.value }
+    ids << @fact.id
+    
+    @potential_evidence = Fact.where(:_id.nin => ids)
   end
   
   def new
@@ -128,17 +129,21 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
 
-    @factlink = @fact.add_evidence(:supporting, @evidence, current_user)
+
+    puts "Fact: #{@fact}"
+    puts "Evid: #{@evidence}\n"
+
+    @fact_relation = @fact.add_evidence(:supporting, @evidence, current_user)
     
     render "add_source_to_factlink"
   end
   
   def add_weakening_evidence
     # Add existing evidence to a Fact
-    @fact     = Fact.find(params[:factlink_id])
+    @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
 
-    @factlink = @fact.add_evidence(:weakening, @evidence, current_user)
+    @fact_relation = @fact.add_evidence(:weakening, @evidence, current_user)
     
     render "add_source_to_factlink"
   end

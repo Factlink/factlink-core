@@ -40,16 +40,12 @@ FactlinkUI::Application.routes.draw do
 
   get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "facts#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
 
-  # Adding sources as supporting or weakening
-  # get   "/factlink/:factlink_id/add_source_as_supporting/:source_id"  => "facts#add_source_as_supporting",  :as => "add_supporting_source_to_factlink"
-  # get   "/factlink/:factlink_id/add_source_as_weakening/:source_id"   => "facts#add_source_as_weakening",   :as => "add_weakening_source_to_factlink"
-
-  # NEW and DONE
+  # Add evidence as supporting or weakening
   get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
-  # /NEW
 
 
+  # Not used anymore ?
   get   "/factlink/:factlink_id/interacting_users" => "facts#interaction_users_for_factlink", :as => "interacting_users"
 
   # Believe, doubt and disbelieve

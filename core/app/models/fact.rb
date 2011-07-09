@@ -31,6 +31,8 @@ class Fact < Basefact
   def add_evidence(type, evidence, user)
     fact_relation = FactRelation.get_or_create(evidence, type, self, user)
     evidence(type) << fact_relation.id.to_s
+    
+    fact_relation
   end
   
   # Used for sorting

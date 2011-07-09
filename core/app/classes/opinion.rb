@@ -32,12 +32,21 @@ class Opinion
     if list.length > 0
       Opinion.new(0,0,0)
     else
-      a = list.inject(Opinion.new(0,0,0,0)) { |result, element |  result + element }
+      a = list.inject(Opinion.new(0,0,0,0)) { | result, element |  result + element }
     end
   end
 
   #CHANGE ALONG WITH + !!!!
   def weight
+    
+    puts "+------+"
+    puts self.b
+    puts self.d
+    puts self.u
+    puts self.a
+        
+    puts "Returning weight: #{(self.b + self.d + self.u)*self.a}"
+    
     return (self.b + self.d + self.u)*self.a
   end
 
@@ -63,10 +72,6 @@ class Opinion
   def dfa(fr,fl)
     result = self.discount_by(fr).discount_by(fl)
 
-    # TODO: min does not exist.
-    # result.a = min(fr.a,fl.a)
-    #
-    # Need the lowest value?
     result.a = [fr.a, fl.a].min
     return result
   end

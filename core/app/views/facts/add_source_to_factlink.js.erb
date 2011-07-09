@@ -1,12 +1,18 @@
-var no_fact_message = $("#no-facts-message");
-if (no_fact_message.length > 0) {
-	// The message is there, remove it.
-	no_fact_message.slideUp(500);
-}
+// var no_fact_message = $("#no-facts-message");
+// if (no_fact_message.length > 0) {
+// 	// The message is there, remove it.
+// 	no_fact_message.slideUp(500);
+// }
+// 
+// $('ol#fl-existing-childs-list > li#fl-source-<%= @evidence.id %>').slideUp(function() {
+// 	$('#dimmer').fadeOut('fast');
+// 	$('div#fl-potential-childs-popup').fadeOut('fast', function() {
+// 		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation, :fact => @fact, :evidence => @evidence } )) %>");
+// 	});
+// });
 
-$('ol#fl-existing-childs-list > li#fl-source-<%= @evidence.id %>').slideUp(function() {
-	$('#dimmer').fadeOut('fast');
-	$('div#fl-potential-childs-popup').fadeOut('fast', function() {
-		$('ol#fl-sources-list').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation, :fact => @fact, :evidence => @evidence } )) %>");
-	});
-});
+
+/** This is new */
+$('#fl-add-evidence').fadeOut();
+
+$('div#fl-evidence > div#fl-sources > ol').prepend("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation } )) %>");

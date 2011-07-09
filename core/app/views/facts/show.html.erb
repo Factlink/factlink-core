@@ -1,139 +1,144 @@
-		<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
-		<% content_for :javascript do %>
-			<%= render :partial => 'facts/javascript/filter_interacting_users' %>
-			<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
-			<script type="text/javascript">
-			  // TODO: This is still buggy, check this.
-			  // $("#fl-sources").mousewheel(function(e, d) {
-			  //           if (d > 0 && $(this).scrollTop() == 0) {
-			  //             e.preventDefault();
-			  //           } else if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight()) {
-			  //             e.preventDefault();
-			  //           }
-			  //         });
-        
-        $('img.arrow').click(function() {
-          var img = $( this );
-          
-          if ( img.hasClass('active') ) {
-            img.removeClass('active')
-              .closest('li').find('.fl-choices')
-              .removeClass('active');
-          } else {
-            img.addClass('active')
-              .closest('li').find('.fl-choices')
-              .addClass('active');
-              // .slideDown(function() {
-              //   $( this ).addClass('active');
-              // });;
-          }
-        });
 
-
-				$(function() {
-					$('#fl-filter-bar ul>li>a').bind('click', function(e){						
-						
-						$('#fl-filter-bar ul>li').removeClass('active');
-						$(this).closest('li').addClass('active');
-
-						e.stopPropagation();
-						return false;
-					});
-				});
-
-				function filter(class) {
-					$('#fl-sources > ol > li').hide().filter(class).fadeIn();
-				}
-
-			</script>
-		<% end %>
-
-		<!-- Popup options -->
+	<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
+	<% content_for :javascript do %>
+		<%= render :partial => 'facts/javascript/filter_interacting_users' %>
+		<script type="text/javascript" src="/client/js/jquery.mousewheel.js"></script>
 		<script type="text/javascript">
-      // parent.remote.setFrameType("show");
-      // parent.remote.setFrameBounds(440, 470);
+		  // TODO: This is still buggy, check this.
+		  // $("#fl-sources").mousewheel(function(e, d) {
+		  //           if (d > 0 && $(this).scrollTop() == 0) {
+		  //             e.preventDefault();
+		  //           } else if (d < 0 &&  $(this).scrollTop() == $(this).get(0).scrollHeight - $(this).innerHeight()) {
+		  //             e.preventDefault();
+		  //           }
+		  //         });
+       
+       $('img.arrow').click(function() {
+         var img = $( this );
+         
+         if ( img.hasClass('active') ) {
+           img.removeClass('active')
+             .closest('li').find('.fl-choices')
+             .removeClass('active');
+         } else {
+           img.addClass('active')
+             .closest('li').find('.fl-choices')
+             .addClass('active');
+             // .slideDown(function() {
+             //   $( this ).addClass('active');
+             // });;
+         }
+       });
+
+
+			$(function() {
+				$('#fl-filter-bar ul>li>a').bind('click', function(e){						
+					
+					$('#fl-filter-bar ul>li').removeClass('active');
+					$(this).closest('li').addClass('active');
+
+					e.stopPropagation();
+					return false;
+				});
+			});
+
+			function filter(class) {
+				$('div#fl-evidence > div#fl-sources > ol > li').hide().filter(class).fadeIn();
+			}
+
 		</script>
-		
-		<!-- Top pane - containing the chart & main fact -->
-		<div id="fl-top-pane">
-		  <!-- Bar chart - showing the believe, doubt and disbelieve bars -->
-  		<%= factlink_score_partial(@fact) %>
-		
-  		<div class="fl-factlink">
-  			<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
-  			<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
-  		</div>
-		
-  		<div class="fl-clear"></div>
-  	</div>
-  	
-  	<!-- Filter bar -->
-  	<div id="fl-filter-bar">
-  	  Show:
-  	  <ul>
-   	   <li class="active"><a href="#" onclick="filter('*');"><span>all facts</span></a></li>
-  	   <li><a href="#" onclick="filter('.supporting');"><span>supporting facts</span></a></li>
-  	   <li><a href="#" onclick="filter('.weakening');"><span>weakening facts</span></a></li>
-  	  </ul>
-  	</div>
-  	
-  	<div class="fl-clear"></div>
-		
-		<!-- Evidence -->
-		<div id="fl-sources">
-  		<ol>
-  			<% unless @fact.fact_relation_ids.count > 0 %>
-  				<%= no_facts_have_been_added_as_li %>
-  			<% else %>
-  				<% @fact.fact_relations.each do |evidence| %>
-  					<%= factlink_source_partial_as_li(evidence) %>
-  				<% end %>
-  			<% end %>
-  		</ol>
-		</div>
+	<% end %>
 
-		<!-- Bottom bar -->
-		<div class="fl-bottom-pane">
-		  <div class="buttons">
-  			<% if user_signed_in? %>
-  				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-parents-popup').fadeIn('fast');" class="" style="">Add to existing fact</a>
-  				<a onclick="javascript: $('#dimmer').fadeIn('fast'); $('#fl-potential-childs-popup').fadeIn('fast'); " class="" style="">Add fact</a>
-  			<% else %>
-  				<%= link_to("Sign in", new_user_session_path({ :return_path => @fact.id })) %> or <%= link_to("register", new_user_session_path) %>
-  			<% end %>
-  		</div>
-  		<sub>credibility provided by Factlink</sub>
-		</div>
-		
-		<div class="fl-clear"></div>
+	<!-- Popup options -->
+	<script type="text/javascript">
+	  // parent.remote.setFrameType("show");
+	  // parent.remote.setFrameBounds(440, 470);
+	</script>
+
+<!-- Top pane - containing the chart & main fact -->
+<div id="fl-top-pane">
+  <!-- Bar chart - showing the believe, doubt and disbelieve bars -->
+	<%= factlink_score_partial(@fact) %>
+
+	<div class="fl-factlink">
+		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
+		<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
+	</div>
+
+	<div class="fl-clear"></div>
+</div>
+
+<!-- Filter bar -->
+<div id="fl-filter-bar">
+  Show:
+  <ul>
+   <li class="active"><a href="#" onclick="filter('*');"><span>all facts</span></a></li>
+   <li><a href="#" onclick="filter('.supporting');"><span>supporting facts</span></a></li>
+   <li><a href="#" onclick="filter('.weakening');"><span>weakening facts</span></a></li>
+  </ul>
+</div>
+
+<div class="fl-clear"></div>
+
+<!-- Evidence -->
+<div id="fl-evidence">
+	<div id="fl-sources">
+		<ol>
+			<% unless @fact.fact_relation_ids.count > 0 %>
+				<%= no_facts_have_been_added_as_li %>
+			<% else %>
+				<% @fact.fact_relations.each do |evidence| %>
+					<%= factlink_source_partial_as_li(evidence) %>
+				<% end %>
+			<% end %>
+		</ol>
+	</div>
+</div>
+
+<!-- Bottom bar -->
+<div class="fl-bottom-pane">
+  <div class="buttons">
+		<% if user_signed_in? %>
+			<a onclick="alert('NotImplemented');" class="" style="">Add to existing fact</a>
+			<a onclick="$('div#fl-add-evidence').fadeToggle();" class="" style="">Add fact</a>
+		<% else %>
+			<%= link_to("Sign in", new_user_session_path({ :return_path => @fact.id })) %> or <%= link_to("register", new_user_session_path) %>
+		<% end %>
+	</div>
+	<sub>credibility provided by Factlink</sub>
+</div>
+
+<div class="fl-clear"></div>
 
 
+<!-- Add evidence popup -->
+<div id="fl-add-evidence">
 
-		<!-- Add evidence popup -->
-		<div id="fl-add-evidence">
-
-			<div class="fl-add-evidence-message center">
-				<span class="message">
-				Please select a fact to add <a>or hide this fact selection</a>.
-				</span>
-			</div>
+	<div class="fl-add-evidence-message center">
+		<span class="message">
+		Please select a fact to add <a onclick="$('div#fl-add-evidence').fadeToggle();">or hide this fact selection</a>.
+		</span>
+	</div>
+	
+	<div id="fl-sources" class="fl-evidence-list">
+		<ol>
 			
-			<div class="fl-evidence-list">
-				<ol>
-					
-					<% Fact.all.each do |evidence| %>
-					<li>Item 1</li>
-					
-					<%= evidence_as_li(evidence) %>
-					
-					<% end %>
-				</ol>
-			</div>
-			
-			<div class="fl-bottom-pane center">
-				<div class="buttons">
-				<a>Hide this fact selection</a>
-				</div>
-				<sub>credibility provided by Factlink</sub>
-			</div>
+			<% unless @potential_evidence.count > 0 %>				
+				<li id="fl-no-evidence" class="center">
+					Currently there are no available facts to support or weaken this fact.
+				</li>
+			<% else %>
+				<% @potential_evidence.all.each do |evidence| %>			
+					<%= evidence_as_li(@fact, evidence) %>
+				<% end %>
+			<% end %>
+		</ol>
+	</div>
+	
+	<div class="fl-bottom-pane center">
+		<div class="buttons">
+		<a onclick="$('div#fl-add-evidence').fadeToggle();">Hide this fact selection</a>
 		</div>
+		<sub>credibility provided by Factlink</sub>
+	</div>
+</div>
