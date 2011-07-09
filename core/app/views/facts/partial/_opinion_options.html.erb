@@ -1,13 +1,13 @@
 <ul>	
 	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation.get_from_fact) %>>
-		<%= link_to("<span>true</span>".html_safe, opinion_path(fact_relation, :beliefs), :remote => true) %>
+		<%= link_to("<span>agree</span>".html_safe, opinion_path(fact_relation, :beliefs), :remote => true) %>
 	</li>
 
 	<li<%= active_class_for_type_and_fact(:doubts, fact_relation.get_from_fact) %>>
-		<%= link_to("<span>not sure</span>".html_safe, opinion_path(fact_relation, :doubts), :remote => true) %>
+		<%= link_to("<span>doubt</span>".html_safe, opinion_path(fact_relation, :doubts), :remote => true) %>
 	</li>
 	
 	<li<%= active_class_for_type_and_fact(:disbeliefs, fact_relation.get_from_fact) %>>
-		<%= link_to("<span>false</span>".html_safe, opinion_path(fact_relation, :disbeliefs), :remote => true) %>
+		<%= link_to("<span>disagree</span>".html_safe, opinion_path(fact_relation, :disbeliefs), :remote => true) %>
 	</li>
 </ul>

@@ -283,7 +283,7 @@ div.fl-modal #fl-sources ol .fl-choices h2 {
   padding: 10px;
 }
 div.fl-modal #fl-sources ol .fl-choices h2.to_fact {
-  border-bottom: 1px dashed #999;
+  border-bottom: 1px dashed #ddd;
 }
 div.fl-modal #fl-sources ol .fl-choices span.opinion {
   font-weight: bold;
@@ -293,8 +293,8 @@ div.fl-modal #fl-sources ol .fl-choices ul {
   margin: 5px 0;
 }
 div.fl-modal #fl-sources ol .fl-choices .fl-opinion-container h2 {
-  border-bottom: 1px dashed #999;
-  border-top: 1px solid #999;
+  border-bottom: 1px dashed #ddd;
+  border-top: 1px solid #ddd;
 }
 div.fl-modal #fl-bottom-pane {
   height: 70px;
