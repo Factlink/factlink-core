@@ -174,6 +174,21 @@ div.fl-modal #fl-sources ol {
   max-height: 300px;
   overflow-y: scroll;
 }
+div.fl-modal #fl-sources ol li#fl-no-evidence {
+  text-align: center;
+  color: #989898;
+  font-size: 11px;
+  font-style: italic;
+  border: none;
+  line-height: 70px;
+}
+div.fl-modal #fl-sources ol li#fl-no-evidence a {
+  color: #0fb8fe;
+  text-decoration: none;
+}
+div.fl-modal #fl-sources ol li#fl-no-evidence a:hover {
+  text-decoration: underline;
+}
 div.fl-modal #fl-sources ol li.supporting {
   background: url('/images/client/supporting.png') no-repeat;
 }
