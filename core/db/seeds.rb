@@ -43,11 +43,12 @@ site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
 site.save
 
 facts = [
-'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
-'Batman\'s secret identity is Bruce Wayne',
-'Batman operates in the fictional American Gotham City',
-'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
-'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended']
+  'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
+  'Batman\'s secret identity is Bruce Wayne',
+  'Batman operates in the fictional American Gotham City',
+  'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
+  'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended'
+]
 
 facts.each do |fact|
   Fact.create!( :displaystring => fact,

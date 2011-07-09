@@ -1,6 +1,9 @@
 <li data-score="<%= fact_relation.get_from_fact.brain_cycles %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type.value %>">
   <div class="container">
+	
+		<% if user_signed_in? %>
     <img class="arrow" src="/images/client/source-more-arrow.png">
+		<% end %>
 
   	<div class="fl-source-stats">
   	 	<span class="fl-source-percentage">
@@ -28,7 +31,7 @@
 
   		<!--
   					Here we should check if the current user created this Factlink,
-  					if so, give hum the option to remove 
+  					if so, give him the option to remove 
       -->
 
   		<div class="fl-clear"></div>
@@ -48,15 +51,25 @@
 		  <h2 class="to_fact">&#8220;<%= fact_relation.get_to_fact.displaystring %>&#8221;</h2>
 		  
 			<% if user_signed_in? %>
+			<div class="fl-relevance-toggle-buttons">
 				<%= fact_relation_relevance_options(fact_relation) %>
+			</div>
 			<% end %>
     </div>
     
 		<div class="fl-opinion-container">
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 		  <% if user_signed_in? %>
+			<div class="fl-opinion-toggle-buttons">
 				<%= fact_opinion_options(fact_relation) %>
+			</div>
 			<% end %>			
 		</div>
+		
+		<% unless user_signed_in? %>
+		<div style="padding: 4px 0px 4px 0px;">
+			please sign in to add your opinion
+		</div>
+		<% end %>
 	</div>
 </li>
