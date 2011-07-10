@@ -13,9 +13,7 @@
 
 
 	<script type="text/javascript">
-		parent.remote.resetStyle();
-		parent.remote.setFrameType("show");
-		parent.remote.showOverlay();
+		parent.remote.show();
 		parent.remote.highlightNewFactlink("<%= @factlink.displaystring %>", "<%= @factlink.id %>");
 	</script>
 
