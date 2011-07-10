@@ -38,28 +38,15 @@ class Opinion
 
   #CHANGE ALONG WITH + !!!!
   def weight
-    
-    puts "+------+"
-    puts self.b
-    puts self.d
-    puts self.u
-    puts self.a
-        
-    puts "Returning weight: #{(self.b + self.d + self.u)*self.a}"
-    
     return (self.b + self.d + self.u)*self.a
   end
 
   #CHANGE weight ALONG WITH + !!!
-  def +(second)
-    
+  def +(second)    
     a = self.a + second.a
-    
-    puts "a: #{self.a}"
     
     if a == 0
       # No authority
-      puts 'No authority - return default Opinion with 0.1, 0.1, 0.1'
       return Opinion.new(0.1,0.1,0.1)
     end
     
@@ -68,8 +55,7 @@ class Opinion
     u = (self.u*self.a + second.u*second.a)/a
     return Opinion.new(b,d,u,a)
   end
-  
-  
+
   
   #TODO : better name
   def dfa(fr,fl)

@@ -1,4 +1,3 @@
-
 	<!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
 	<% content_for :javascript do %>
 		<%= render :partial => 'facts/javascript/filter_interacting_users' %>
@@ -72,7 +71,7 @@
 <div id="fl-filter-bar">
   Show:
   <ul>
-   <li class="active"><a href="#" onclick="filter('*');"><span>all facts</span></a></li>
+   <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact. %>)</span></a></li>
    <li><a href="#" onclick="filter('.supporting');"><span>supporting facts</span></a></li>
    <li><a href="#" onclick="filter('.weakening');"><span>weakening facts</span></a></li>
   </ul>

@@ -10,6 +10,18 @@ class Fact < Basefact
 
   scope :facts, where(:_type => "Fact")
   
+  
+  def supporting_evidence_count
+    evidence(:supporting).length
+  end
+
+  def weakening_evidence_count
+    evidence(:supporting).length
+  end
+
+  def evidence_count
+  end
+  
   def fact_relation_ids
     res = supporting_facts | weakening_facts
     res
