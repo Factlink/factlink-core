@@ -68,6 +68,12 @@ module FactsHelper
   def no_facts_have_been_added_as_li
     render :partial => 'facts/partial/no_facts_added_message'
   end
+  
+  # Percentage and brain cycles in <li>
+  def fl_source_stats(fact_relation)
+    render  :partial  => 'facts/partial/fl_source_stats',
+            :locals   => { :fact_relation => fact_relation }
+  end
 
   deprecate
   def relevance_class_on_fact(type, fact)
@@ -75,11 +81,9 @@ module FactsHelper
   end
   
   def active_class_for_type_and_fact(type, fact)
-    
     if current_user.opinion_on_fact_for_type?(type, fact)
       return " class='active'"
     end
-
   end
 
 end

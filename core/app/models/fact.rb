@@ -57,7 +57,7 @@ class Fact < Basefact
     opinions = []
 
     if $redis.sismember(redis_key, self.id)
-      puts "Loop detected [fact] - protect from going further..."
+      # puts "Loop detected [fact] - protect from going further..."
     
       # Clear the set for future use
       $redis.del(redis_key)

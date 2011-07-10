@@ -3,5 +3,7 @@ $('li#fl-source-<%= @fact_relation.id %> div.fl-opinion-container > div.fl-opini
 // Replace the Bar Chart of the main Fact
 $('div#fl-stats').replaceWith('<%= escape_javascript(factlink_score_partial(@fact_relation.get_to_fact)) %>');
 
-
-
+// Replace recalculated percentages
+<% @fact_relation.get_to_fact.fact_relations.each do |fact_relation| %>
+	$('li#fl-source-<%= fact_relation.id %> div.fl-source-stats').replaceWith("<%= escape_javascript(fl_source_stats(fact_relation)) %>");
+<% end %>
