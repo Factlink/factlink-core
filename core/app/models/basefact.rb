@@ -139,6 +139,7 @@ class Basefact
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
       opiniated.each do |user|
+        puts "Adding #{type} for #{user}(#{user.authority}): #{Opinion.for_type(type, user.authority)}"
         opinions << Opinion.for_type(type, user.authority)
       end
     end    

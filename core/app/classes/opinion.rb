@@ -1,9 +1,9 @@
 class Opinion
   
-  #naming conventions as in the document describing the calculations
+  # naming conventions as in the document describing the calculations
   # b = belief
   # d = disbeliefs
-  # u = is uncertain
+  # u = uncertain
   #
   # a = authority
   
@@ -27,9 +27,9 @@ class Opinion
     end
   end
   
-  #inefficient, but allows for quickly changing the + def
+  # inefficient, but allows for quickly changing the + def
   def Opinion.combine(list)
-    if list.length > 0
+    unless list.length > 0
       Opinion.new(0,0,0)
     else
       a = list.inject(Opinion.new(0,0,0,0)) { | result, element |  result + element }
@@ -55,8 +55,11 @@ class Opinion
     
     a = self.a + second.a
     
+    puts "a: #{self.a}"
+    
     if a == 0
       # No authority
+      puts 'No authority - return default Opinion with 0.1, 0.1, 0.1'
       return Opinion.new(0.1,0.1,0.1)
     end
     

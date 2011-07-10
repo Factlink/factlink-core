@@ -50,6 +50,7 @@ facts = [
   'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended'
 ]
 
+
 facts.each do |fact|
   Fact.create!( :displaystring => fact,
                     :site => site,

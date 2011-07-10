@@ -48,11 +48,6 @@ FactlinkUI::Application.routes.draw do
   # Not used anymore ?
   get   "/factlink/:factlink_id/interacting_users" => "facts#interaction_users_for_factlink", :as => "interacting_users"
 
-  # Believe, doubt and disbelieve
-  get "/factlink/:id/believe"     => "facts#believe",    :as => "believe"
-  get "/factlink/:id/doubt"       => "facts#doubt",      :as => "doubt"
-  get "/factlink/:id/disbelieve"  => "facts#disbelieve", :as => "disbelieve"
-
 
   # Set opinion on a Fact
   get   "/fact/:fact_relation_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
