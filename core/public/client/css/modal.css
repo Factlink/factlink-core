@@ -48,45 +48,57 @@ div.fl-modal sub.fl-brain-count img {
   position: relative;
   top: -1px;
 }
-div.fl-modal #fl-top-pane {
-  min-height: 100px;
-  padding: 15px 10px 0;
-  background: url('/images/client/top-pane-gradient.png') repeat-x #f4f4f4;
-}
-div.fl-modal #fl-top-pane div.fl-stats {
+div.fl-modal div.fl-stats {
   float: left;
-  width: 77px;
 }
-div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar {
-  width: 75px;
-  height: 75px;
-  background: url('/images/client/graph.png') no-repeat #fcfcfc;
+div.fl-modal div.fl-stats ul.fl-stats-bar {
   margin: 0;
   padding: 0;
   list-style: none;
   position: relative;
   overflow: hidden;
 }
-div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li {
-  width: 17px;
+div.fl-modal div.fl-stats ul.fl-stats-bar li {
   float: left;
   position: absolute;
-  bottom: 3px;
   text-indent: 99999px;
   cursor: pointer;
+}
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
+  background: #52d623;
+}
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
+  background: #ffe400;
+}
+div.fl-modal div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
+  background: #ff6136;
+}
+div.fl-modal #fl-top-pane {
+  min-height: 100px;
+  padding: 15px 10px 0;
+  background: url('/images/client/top-pane-gradient.png') repeat-x #f4f4f4;
+}
+div.fl-modal #fl-top-pane div.fl-stats {
+  width: 77px;
+}
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar {
+  width: 75px;
+  height: 75px;
+  background: url('/images/client/graph.png') no-repeat #fcfcfc;
+}
+div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li {
+  width: 17px;
+  bottom: 3px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
 div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
-  background: #52d623;
   left: 51px;
 }
 div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
-  background: #ffe400;
   left: 29px;
 }
 div.fl-modal #fl-top-pane div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
-  background: #ff6136;
   left: 7px;
 }
 div.fl-modal #fl-top-pane div.fl-factlink {
@@ -313,6 +325,30 @@ div.fl-modal #fl-sources ol .fl-choices ul {
 div.fl-modal #fl-sources ol .fl-choices .fl-opinion-container h2 {
   border-bottom: 1px dashed #ddd;
   border-top: 1px solid #ddd;
+}
+div.fl-modal #fl-sources div.fl-stats {
+  width: 52px;
+  margin: 0 0 0 17px;
+}
+div.fl-modal #fl-sources div.fl-stats ul.fl-stats-bar {
+  width: 50px;
+  height: 50px;
+  background: url('/images/client/graph-small.png') no-repeat #fcfcfc;
+}
+div.fl-modal #fl-sources div.fl-stats ul.fl-stats-bar li {
+  width: 12px;
+  bottom: 2px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+div.fl-modal #fl-sources div.fl-stats ul.fl-stats-bar li.fl-bar-believe {
+  left: 34px;
+}
+div.fl-modal #fl-sources div.fl-stats ul.fl-stats-bar li.fl-bar-doubt {
+  left: 16px;
+}
+div.fl-modal #fl-sources div.fl-stats ul.fl-stats-bar li.fl-bar-disbelieve {
+  left: 3px;
 }
 div.fl-modal div.actions {
   height: 24px;

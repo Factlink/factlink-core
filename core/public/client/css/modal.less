@@ -56,50 +56,70 @@ div.fl-modal {
     }
   }
   
+  // The stats box
+  div.fl-stats {
+    float: left;
+
+    ul.fl-stats-bar {
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+      position: relative;
+      overflow: hidden;
+
+      li {
+        float: left;
+        position:absolute;
+        text-indent:99999px;
+        cursor: pointer;
+
+
+        &.fl-bar-believe {
+          background: #52d623;
+        }
+
+        &.fl-bar-doubt {
+          background: #ffe400;
+        }
+
+        &.fl-bar-disbelieve {
+          background: #ff6136;
+        }
+      }
+    }
+  }
+  
   #fl-top-pane {
     min-height: 100px;
     padding: 15px 10px 0;
     background: url('/images/client/top-pane-gradient.png') repeat-x #f4f4f4;
-		
-    // The stats box
+    
+    // Custom stats
     div.fl-stats {
-      float: left;
       width: 77px;
-
+      
       ul.fl-stats-bar {
         width: 75px;
         height: 75px;
-
+        
         background: url('/images/client/graph.png') no-repeat #fcfcfc;
-        margin: 0;
-        padding: 0;
-
-        list-style: none;
-        position: relative;
-        overflow: hidden;
-
+        
         li {
           width: 17px;
-          float: left;
-          position:absolute;
           bottom: 3px;
-          text-indent:99999px;
-          cursor: pointer;
           border-top-left-radius: 4px;
           border-top-right-radius: 4px;
-
+          
           &.fl-bar-believe {
-            background: #52d623;
             left: 51px;
           }
 
           &.fl-bar-doubt {
-            background: #ffe400;
             left: 29px;
           }
 
           &.fl-bar-disbelieve {
-            background: #ff6136;
             left: 7px;
           }
         }
@@ -378,6 +398,38 @@ div.fl-modal {
           h2 {
             border-bottom: 1px dashed #ddd;
             border-top: 1px solid #ddd;
+          }
+        }
+      }
+    }
+    
+    // Custom stats
+    div.fl-stats {
+      width: 52px;
+      margin: 0 0 0 17px;
+      
+      ul.fl-stats-bar {
+        width: 50px;
+        height: 50px;
+        
+        background: url('/images/client/graph-small.png') no-repeat #fcfcfc;
+        
+        li {
+          width: 12px;
+          bottom: 2px;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          
+          &.fl-bar-believe {
+            left: 34px;
+          }
+
+          &.fl-bar-doubt {
+            left: 16px;
+          }
+
+          &.fl-bar-disbelieve {
+            left: 3px;
           }
         }
       }
