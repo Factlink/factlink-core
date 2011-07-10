@@ -5,8 +5,8 @@
 	<%= link_to(factlink.site.url, factlink.site.url, :style => "color: #999;", :target => "_blank") %>
 
 	<ul style="margin-left: 40px;">
-		<% factlink.childs[0..2].each do |sub| %>
-			<li><%= sub.displaystring %></li>
+		<% factlink.fact_relations[0..2].each do |evidence| %>
+			<li><%= evidence.get_from_fact.displaystring %></li>
 		<% end %>
 	</ul>
 

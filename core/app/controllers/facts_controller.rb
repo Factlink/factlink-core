@@ -276,7 +276,7 @@ class FactsController < ApplicationController
         start = (pager.current_page-1)*row_count
         
         # Sorting & filtering done by mongoid
-        results = Fact.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(row_count).to_a
+        results = Fact.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
         
         pager.replace(results)
       end

@@ -1,6 +1,8 @@
 <div style="text-shadow: 0px 1px 1px #fff;">
 	<h1 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %></h1>
-	<span style="display:block;"><%= @user.username %> created <%= @user.factlinks.with_site_as_parent.count %> facts and added <%= @user.factlinks.count - @user.factlinks.with_site_as_parent.count %> sources to Factlink</span>
+	<span style="display:block;"><%= @user.username %> created <%= @user.facts.count %> facts and added <%= @user.facts.count %> sources to Factlink</span>
+
+
 	<span style="display:block;">
 		<%= @user.username %> <a href="#opinions">believes</a> <%= @user.believe_count %> sources, <a href="#opinions">doubts</a> <%= @user.doubt_count %> sources
 		and <a href="#opinions">disbelieves</a> <%= @user.disbelieve_count %> sources.
@@ -12,7 +14,7 @@
 <div class="span-14 append-2 last" style="text-shadow: 0px 1px 1px #fff;">
 	<h2>user created facts</h2>
 	<ul>
-		<%= render(:partial => "facts/partial/factlink", :collection => @user.factlinks) || "<li style='list-style: none;'>This user did not add any Factlinks yet</li>".html_safe %>
+		<%= render(:partial => "facts/partial/factlink", :collection => @user.facts) || "<li style='list-style: none;'>This user did not add any Factlinks yet</li>".html_safe %>
 	</ul>
 </div>
 
@@ -22,7 +24,7 @@
 <div id="opinions">
 	<h2 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %>:</h2>
 	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>believes <%= @user.believe_count %> facts</h2>
+		<h2>believes <%= @user.believed_facts.count %> facts</h2>
 		<ul>
 			<%= render(:partial => "facts/partial/factlink", :collection => @user.believed_facts) || "<li style='list-style: none;'>#{@user.username} does not believe any facts</li>".html_safe %>
 		</ul>
@@ -30,14 +32,14 @@
 
 
 	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>doubts <%= @user.doubt_count %> facts</h2>
+		<h2>doubts <%= @user.doubted_facts.count %> facts</h2>
 		<ul>
 			<%= render(:partial => "facts/partial/factlink", :collection => @user.doubted_facts) || "<li style='list-style: none;'>#{@user.username} does not doubt any facts</li>".html_safe %>
 		</ul>
 	</div>
 
 	<div class="span-8 last" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>disbelieves <%= @user.disbelieve_count %> facts</h2>
+		<h2>disbelieves <%= @user.disbelieved_facts.count %> facts</h2>
 		<ul>
 			<%= render(:partial => "facts/partial/factlink", :collection => @user.disbelieved_facts) || "<li style='list-style: none;'>#{@user.username} does not disbelieve any facts</li>".html_safe %>			
 		</ul>

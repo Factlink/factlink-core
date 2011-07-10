@@ -1,0 +1,32 @@
+<li data-score="<%= evidence.brain_cycles %>" id="fl-source-<%= evidence.id %>">
+  <div class="container">
+
+  	<div class="fl-source-stats">
+  	 	<sub class="fl-brain-count"><%= image_tag('/images/client/brains.png') %> <%= evidence.brain_cycles %></sub>
+  	</div>
+
+  	<div class="fl-source-info">
+    	<h2 class="fl-source">&#8220;<%= evidence.displaystring %>&#8221;</h2>
+
+    	<sub>
+    		<span class="fl-source-created"><%= time_ago_in_words(evidence.created_at) %> ago by <%= link_to(evidence.created_by, user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
+    		<% if evidence.site %>
+    			<span class="fl-source-found">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.pretty_url, :length => 25) %></a></span>
+    		<% else %>
+    			<span class="fl-source-found">found on <a href="<%= evidence.get_from_evidence.url %>" target="_blank"><%= truncate(evidence.pretty_url, :length => 25) %></a></span>
+    		<% end %>
+    	</sub>
+			
+			<div class="actions">
+				
+				<%= link_to('add as supporting', add_supporting_evidence_path(fact, evidence), :remote => true )%>
+				<%= link_to('add as weakening',	 add_weakening_evidence_path(fact, evidence),  :remote => true )%>
+				
+			</div>
+			
+  		<div class="fl-clear"></div>
+  	</div>
+
+  	<div class="fl-clear"></div>
+  </div>
+</li>
