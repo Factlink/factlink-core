@@ -121,7 +121,7 @@ class FactsController < ApplicationController
                              :site => site)
 
     # Redirect to edit action
-    redirect_to :action => "edit", :id => @factlink.id
+    # redirect_to :action => "edit", :id => @factlink.id
   end
   
   def add_supporting_evidence
