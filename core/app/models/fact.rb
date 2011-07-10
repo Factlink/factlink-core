@@ -10,18 +10,6 @@ class Fact < Basefact
 
   scope :facts, where(:_type => "Fact")
   
-  
-  def supporting_evidence_count
-    evidence(:supporting).length
-  end
-
-  def weakening_evidence_count
-    evidence(:supporting).length
-  end
-
-  def evidence_count
-  end
-  
   def fact_relation_ids
     res = supporting_facts | weakening_facts
     res
@@ -47,20 +35,60 @@ class Fact < Basefact
     fact_relation
   end
   
+  # Count helpers
+  def supporting_evidence_count
+    evidence(:supporting).length
+  end
+  def weakening_evidence_count
+    evidence(:weakening).length
+  end
+  def evidence_count
+    fact_relation_ids.count
+  end
+  
   # Used for sorting
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
 
   def evidence_opinion
+    # Key for the set storing all ID's of items looped over already
+    redis_key = 'loop_detection_fact'
     opinions = []
-    [:supporting, :weakening].each do |type|
-      factlinks = FactRelation.where(:_id.in => evidence(type).members)
-      factlinks.each do |factlink|
-        opinions << factlink.get_influencing_opinion
+
+    if $redis.sismember(redis_key, self.id)
+      puts "Loop detected [fact] - protect from going further..."
+    
+      # Clear the set for future use
+      $redis.del(redis_key)
+      return Opinion.new(0, 0, 0,1)
+      
+    else
+      # Keep track of this
+      $redis.sadd(redis_key, self.id)
+    
+      # Digg deeper
+      opinions = []
+      [:supporting, :weakening].each do |type|
+        factlinks = FactRelation.where(:_id.in => evidence(type).members)
+        factlinks.each do |factlink|
+          opinions << factlink.get_influencing_opinion
+        end
       end
-    end    
-    Opinion.combine(opinions)
+    
+      return Opinion.combine(opinions)
+    end
+
+    
+
+    # opinions = []
+    # [:supporting, :weakening].each do |type|
+    #   factlinks = FactRelation.where(:_id.in => evidence(type).members)
+    #   factlinks.each do |factlink|
+    #     opinions << factlink.get_influencing_opinion
+    #   end
+    # end    
+    # Opinion.combine(opinions)
   end
 
   def get_opinion

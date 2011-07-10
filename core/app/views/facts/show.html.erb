@@ -71,9 +71,9 @@
 <div id="fl-filter-bar">
   Show:
   <ul>
-   <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact. %>)</span></a></li>
-   <li><a href="#" onclick="filter('.supporting');"><span>supporting facts</span></a></li>
-   <li><a href="#" onclick="filter('.weakening');"><span>weakening facts</span></a></li>
+   <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact.evidence_count %>)</span></a></li>
+   <li><a href="#" onclick="filter('.supporting');"><span>supporting facts (<%= @fact.supporting_evidence_count %>)</span></a></li>
+   <li><a href="#" onclick="filter('.weakening');"><span>weakening facts (<%= @fact.weakening_evidence_count %>)</span></a></li>
   </ul>
 </div>
 
