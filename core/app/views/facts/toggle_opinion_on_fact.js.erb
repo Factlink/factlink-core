@@ -3,6 +3,8 @@ $('li#fl-source-<%= @fact_relation.id %> div.fl-opinion-container > div.fl-opini
 // Replace the Bar Chart of the main Fact
 $('div#fl-stats').replaceWith('<%= escape_javascript(factlink_score_partial(@fact_relation.get_to_fact)) %>');
 
+parent.remote.update_opinions( '<%= @fact_relation.get_to_fact.id %>', <%= @fact_relation.get_to_fact.score_dict_as_percentage.to_json.html_safe %> );
+
 // Replace recalculated percentages
 <% @fact_relation.get_to_fact.fact_relations.each do |fact_relation| %>
 	$('li#fl-source-<%= fact_relation.id %> div.fl-source-stats').replaceWith("<%= escape_javascript(fl_source_stats(fact_relation)) %>");
