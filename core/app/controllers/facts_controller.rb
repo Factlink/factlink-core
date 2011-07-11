@@ -72,7 +72,11 @@ class FactsController < ApplicationController
   end
   
   def edit
-    @factlink = Fact.find(params[:id])
+    @fact = Fact.find(params[:id])
+    ids = FactRelation.where(:_id.in => @fact.fact_relation_ids).map { |fr| fr.from_fact.value }
+    ids << @fact.id
+    
+    @potential_evidence = Fact.where(:_id.nin => ids)
   end
   
   # Prepare for create
@@ -121,7 +125,7 @@ class FactsController < ApplicationController
                              :site => site)
 
     # Redirect to edit action
-    # redirect_to :action => "edit", :id => @factlink.id
+    redirect_to :action => "edit", :id => @factlink.id
   end
   
   def add_supporting_evidence
