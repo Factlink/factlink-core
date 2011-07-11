@@ -19,6 +19,11 @@ class Fact < Basefact
     FactRelation.where(:_id.in => fact_relation_ids)
   end
   
+  def sorted_fact_relations
+    res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
+    res.reverse
+  end
+  
   def evidence(type)
     case type
     when :supporting
@@ -52,50 +57,6 @@ class Fact < Basefact
   end
 
   def evidence_opinion
-    # # Key for the set storing all ID's of items looped over already
-    # redis_key = 'loop_detection_fact'
-    # opinions = []
-    # unless $redis.sismember(redis_key, self.id)
-    #   $redis.sadd(redis_key, self.id)
-    #   opinions = []
-    #   [:supporting, :weakening].each do |type|
-    #     factlinks = FactRelation.where(:_id.in => evidence(type).members)
-    #     factlinks.each do |factlink|
-    #       opinions << factlink.get_influencing_opinion
-    #     end
-    #   end
-    #   return Opinion.combine(opinions)
-    # else
-    #   $redis.del(redis_key)
-    #   return Opinion.new(0, 0, 0)
-    # end
-
-
-    # if $redis.sismember(redis_key, self.id)
-    #   # Loop found
-    #   # puts "Loop detected [fact] - protect from going further..."
-    # 
-    #   # Clear the set for future use
-    #   $redis.del(redis_key)
-    #   return Opinion.new(0, 0, 0,1)
-    #   
-    # else
-    #   # Keep track of this
-    #   $redis.sadd(redis_key, self.id)
-    # 
-    #   # Digg deeper
-    #   opinions = []
-    #   [:supporting, :weakening].each do |type|
-    #     factlinks = FactRelation.where(:_id.in => evidence(type).members)
-    #     factlinks.each do |factlink|
-    #       opinions << factlink.get_influencing_opinion
-    #     end
-    #   end
-    # 
-    #   return Opinion.combine(opinions)
-    # end
-
-
     opinions = []
     [:supporting, :weakening].each do |type|
       factlinks = FactRelation.where(:_id.in => evidence(type).members)
