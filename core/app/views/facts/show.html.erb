@@ -32,12 +32,12 @@
               left: img.offset().left - cont.offset().left - 175 + "px"
             });
           
-          $(document).one('click', function() {
-            cont.find('img.active, .fl-choices.active').removeClass('active');
-          });
-          
-          cont.find('.fl-choices').one('click', function(){
-            return false;
+          $(document).bind('click', function(e) {
+            if( $(e.target).closest('.fl-choices').length === 0 ) {
+              cont.find('img.active, .fl-choices.active').removeClass('active');
+              
+              $(document).unbind('click', arguments.callee);
+            }
           });
           
           return false;
