@@ -12,22 +12,27 @@
 		  //           }
 		  //         });
        
-       $('img.arrow').click(function() {
-         var img = $( this );
-         
-         if ( img.hasClass('active') ) {
-           img.removeClass('active')
-             .closest('li').find('.fl-choices')
-             .removeClass('active');
-         } else {
-           img.addClass('active')
-             .closest('li').find('.fl-choices')
-             .addClass('active');
-             // .slideDown(function() {
-             //   $( this ).addClass('active');
-             // });;
-         }
-       });
+      $('img.arrow').click(function() {
+        var img = $( this ),
+            cont = $('#fl-sources');
+
+        if ( img.hasClass('active') ) {
+          img.removeClass('active')
+            .closest('li').find('.fl-choices')
+            .removeClass('active');
+        } else {
+          cont.find('.active').removeClass('active');
+          
+          img.addClass('active')
+            .closest('li').find('.fl-choices')
+            .addClass('active')
+            .css({
+              position: "absolute",
+              top: img.offset().top - cont.offset().top + 61 + "px", 
+              left: img.offset().left - cont.offset().left - 175 + "px"
+            });
+        }
+      });
 
 
 			$(function() {
@@ -41,8 +46,8 @@
 				});
 			});
 
-			function filter(class) {
-				$('div#fl-evidence > div#fl-sources > ol > li').hide().filter(class).fadeIn();
+			function filter(className) {
+				$('div#fl-evidence > div#fl-sources > ol > li').hide().filter(className).fadeIn();
 			}
 
 		</script>
