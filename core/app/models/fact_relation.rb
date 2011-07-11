@@ -66,13 +66,11 @@ class FactRelation < Fact
       return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
 
     else
-      p "Loop detected - #{self.id}"
+      # p "Loop detected - #{self.id}"
       $redis.del(redis_key)
       return Opinion.new(0, 0, 0)
     end
     
     # get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
-
-
 end
