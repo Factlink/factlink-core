@@ -7,7 +7,7 @@
 		<%= image_tag('factlink-logo.png', :height => "24px") %>
 	</div>
 	
-	<div class="fl-sign-in-container">
+	<div class="fl-sign-in-container sign-in">
 
 		<%= form_for("user", :url => user_session_path) do |f| %>
 			<div class="center">
@@ -50,7 +50,7 @@
 			  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation", :style => "border-radius: 4px; border: 1px solid #cfcfcf; padding: 8px; width: 160px;" %>
 			</div>
 			
-			<div style="padding: 6px 0px 0px 86px;">
+			<div>
 			  <%= f.submit "Sign up", :class => "button confirm" %>
 			</div>
 			<% end %>

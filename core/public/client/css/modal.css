@@ -21,7 +21,7 @@ div.fl-modal {
   padding: 0;
   margin: 0 auto;
   width: 425px;
-  background: #fdfdfd;
+  background: #FBFAFA;
   color: #777;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -644,7 +644,14 @@ div.fl-clear {
 }
 div.fl-sign-in-container {
   padding: 16px 16px 0px 16px;
+  padding-bottom: 24px;
 }
+div.sign-in {
+  border-bottom: solid 1px #ccc;
+  /*	padding-bottom: 24px;*/
+
+}
+/*style="padding: 6px 0px 0px 46px;"*/
 ::-webkit-scrollbar {
   width: 4px;
   height: 6px;
