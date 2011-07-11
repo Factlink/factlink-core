@@ -56,7 +56,10 @@ class Fact < Basefact
     redis_key = 'loop_detection_fact'
     opinions = []
 
-    if $redis.sismember(redis_key, self.id)
+    # max_loop_count = 4
+
+    if $redis.sismember(redis_key, self.id) # or ($redis.scard(redis_key) > max_loop_count)
+      # Loop found
       # puts "Loop detected [fact] - protect from going further..."
     
       # Clear the set for future use
