@@ -21,6 +21,8 @@
             .closest('li').find('.fl-choices')
             .removeClass('active');
         } else {
+          cont.find('.active').removeClass('active');
+          
           img.addClass('active')
             .closest('li').find('.fl-choices')
             .addClass('active')
