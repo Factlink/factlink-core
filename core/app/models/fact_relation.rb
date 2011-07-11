@@ -57,8 +57,23 @@ class FactRelation < Fact
     Fact.find(fact.value)
   end
   
-  def get_influencing_opinion    
-    get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
+  def get_influencing_opinion
+    redis_key = 'loop_detection_fact_relation'
+    
+    unless $redis.sismember(redis_key, self.id)
+      
+      $redis.sadd(redis_key, self.id)
+      return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
+
+    else
+      p "Loop detected - #{self.id}"
+      $redis.del(redis_key)
+      return Opinion.new(0, 0, 0)
+    end
+    
+    # get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
+    
+    # get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 
 
