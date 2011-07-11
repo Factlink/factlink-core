@@ -10,14 +10,10 @@ describe FactRelation do
     @parent.save
     @evidence1.save
     @evidence2.save
+
+    @users = FactoryGirl.create_list(:user,2)
     
-    @user1 = User.new(:username => "tomdev")
-    @user2 = User.new(:username => "zamboya")
-    
-    @user1.save
-    @user2.save
-    
-    @fr = @parent.add_evidence(:supporting, @evidence1, @user1)
+    @fr = @parent.add_evidence(:supporting, @evidence1, @users[1])
   end
 
 
