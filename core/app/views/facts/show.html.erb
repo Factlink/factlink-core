@@ -101,7 +101,7 @@
 			<% unless @fact.fact_relation_ids.count > 0 %>
 				<%= no_facts_have_been_added_as_li %>
 			<% else %>
-				<% @fact.fact_relations.each do |evidence| %>
+				<% @fact.sorted_fact_relations.each do |evidence| %>
 					<%= factlink_source_partial_as_li(evidence) %>
 				<% end %>
 			<% end %>
