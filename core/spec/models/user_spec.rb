@@ -3,15 +3,15 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @parent = Fact.new
-    @child1 = Fact.new
-    @child2 = Fact.new
+    @parent = FactoryGirl.create(:fact)
+    @child1 = FactoryGirl.create(:fact)
+    @child2 = FactoryGirl.create(:fact)
 
-    @user1 = User.new(:username => "tomdev")
-    @user2 = User.new(:username => "zamboya")
+    @user1 = FactoryGirl.create(:user)
+    @user2 = FactoryGirl.create(:user)
     
-    @factlink = Fact.new
-    @factlink2 = Fact.new    
+    @factlink = FactoryGirl.create(:fact)
+    @factlink2 = FactoryGirl.create(:fact)
   end
 
   it "should have zero active factlinks on create" do

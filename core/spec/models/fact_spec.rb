@@ -3,25 +3,11 @@ require 'spec_helper'
 describe Fact do
 
   before(:each) do
-    @parent = Fact.new
-    @parent.save
-    @factlink = Fact.new
-    @factlink.save
-    @factlink2 = Fact.new
-    @factlink2.save
+    @parent = FactoryGirl.create(:fact)
+    @factlink = FactoryGirl.create(:fact)
     
-    @user1 = User.new(:username => "tomdev")
-    @user1.save
-    @user2 = User.new(:username => "zamboya")
-    @user2.save
-  end
-
-  after(:each) do
-    @parent.delete
-    @factlink.delete
-    @factlink2.delete
-    @user1.delete
-    @user2.delete
+    @user1 = FactoryGirl.create(:user)
+    @user2 = FactoryGirl.create(:user)
   end
 
   # Should go to application test

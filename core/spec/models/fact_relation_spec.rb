@@ -3,17 +3,11 @@ require 'spec_helper'
 describe FactRelation do
 
   before(:each) do
-    @parent = Fact.new
-    @evidence1 = Fact.new
-    @evidence2 = Fact.new
-    
-    @parent.save
-    @evidence1.save
-    @evidence2.save
-
+    @parent = FactoryGirl.create(:fact)
+    @evidence = FactoryGirl.create_list(:fact,2)
     @users = FactoryGirl.create_list(:user,2)
     
-    @fr = @parent.add_evidence(:supporting, @evidence1, @users[1])
+    @fr = @parent.add_evidence(:supporting, @evidence[1], @users[1])
   end
 
 
