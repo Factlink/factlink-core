@@ -34,7 +34,7 @@ class User
 
   # Authority of the user
   def authority
-    0.481
+    1.0
   end
 
 
