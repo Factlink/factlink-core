@@ -56,39 +56,42 @@ class Fact < Basefact
     redis_key = 'loop_detection_fact'
     opinions = []
 
-    if $redis.sismember(redis_key, self.id)
-      # puts "Loop detected [fact] - protect from going further..."
-    
-      # Clear the set for future use
-      $redis.del(redis_key)
-      return Opinion.new(0, 0, 0,1)
-      
-    else
-      # Keep track of this
-      $redis.sadd(redis_key, self.id)
-    
-      # Digg deeper
-      opinions = []
-      [:supporting, :weakening].each do |type|
-        factlinks = FactRelation.where(:_id.in => evidence(type).members)
-        factlinks.each do |factlink|
-          opinions << factlink.get_influencing_opinion
-        end
-      end
-    
-      return Opinion.combine(opinions)
-    end
+    # max_loop_count = 4
 
-    
-
-    # opinions = []
-    # [:supporting, :weakening].each do |type|
-    #   factlinks = FactRelation.where(:_id.in => evidence(type).members)
-    #   factlinks.each do |factlink|
-    #     opinions << factlink.get_influencing_opinion
+    # if $redis.sismember(redis_key, self.id) # or ($redis.scard(redis_key) > max_loop_count)
+    #   # Loop found
+    #   # puts "Loop detected [fact] - protect from going further..."
+    # 
+    #   # Clear the set for future use
+    #   $redis.del(redis_key)
+    #   return Opinion.new(0, 0, 0,1)
+    #   
+    # else
+    #   # Keep track of this
+    #   $redis.sadd(redis_key, self.id)
+    # 
+    #   # Digg deeper
+    #   opinions = []
+    #   [:supporting, :weakening].each do |type|
+    #     factlinks = FactRelation.where(:_id.in => evidence(type).members)
+    #     factlinks.each do |factlink|
+    #       opinions << factlink.get_influencing_opinion
+    #     end
     #   end
-    # end    
-    # Opinion.combine(opinions)
+    # 
+    #   return Opinion.combine(opinions)
+    # end
+
+    
+
+    opinions = []
+    [:supporting, :weakening].each do |type|
+      factlinks = FactRelation.where(:_id.in => evidence(type).members)
+      factlinks.each do |factlink|
+        opinions << factlink.get_influencing_opinion
+      end
+    end    
+    Opinion.combine(opinions)
   end
 
   def get_opinion

@@ -41,6 +41,10 @@ class Users::SessionsController < Devise::SessionsController
         url           = fact_hash['url']
         displaystring = fact_hash['fact']
 
+
+        # Clear fact_to_create
+        session[:fact_to_create] = nil
+        
         site = Site.find_or_create_by(:url => url)
         # Create the Fact
         @factlink = Fact.create!(:displaystring => displaystring, 

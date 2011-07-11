@@ -1,7 +1,7 @@
 $('li#fl-source-<%= @fact_relation.id %> div.fl-opinion-container > div.fl-opinion-toggle-buttons').html("<%= escape_javascript(fact_opinion_options(@fact_relation)) %>");
 
 // Replace the Bar Chart of the main Fact
-$('div#fl-stats').replaceWith('<%= escape_javascript(factlink_score_partial(@fact_relation.get_to_fact)) %>');
+$('div.fl-stats:first').replaceWith('<%= escape_javascript(factlink_score_partial(@fact_relation.get_to_fact)) %>');
 
 parent.remote.update_opinions( '<%= @fact_relation.get_to_fact.id %>', <%= @fact_relation.get_to_fact.score_dict_as_percentage.to_json.html_safe %> );
 

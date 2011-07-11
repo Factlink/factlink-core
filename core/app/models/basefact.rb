@@ -138,8 +138,10 @@ class Basefact
     # Key for the set storing all ID's of items looped over already
     redis_key = 'loop_detection_basefact'
     opinions = []
+    
+    # max_loop_count = 4
 
-    # if $redis.sismember(redis_key, self.id)
+    # if $redis.sismember(redis_key, self.id) # or ($redis.scard(redis_key) > max_loop_count)
     #   puts "Loop detected [basefact] - protect from going further..."
     #   
     #   # Clear the set for future use
@@ -147,32 +149,32 @@ class Basefact
     #   return Opinion.new(0, 0, 0, 1)
     # 
     # else
-      # Keep track of this fact
-      $redis.sadd(redis_key, self.id)
-
-      # Digg deeper
-      opinions = []
-      [:beliefs, :doubts, :disbeliefs].each do |type|      
-        opiniated = opiniated(type)
-        opiniated.each do |user|
-          opinions << Opinion.for_type(type, user.authority)
-        end
-      end
-
-      return Opinion.combine(opinions)
+    #   # Keep track of this fact
+    #   $redis.sadd(redis_key, self.id)
+    # 
+    #   # Digg deeper
+    #   opinions = []
+    #   [:beliefs, :doubts, :disbeliefs].each do |type|      
+    #     opiniated = opiniated(type)
+    #     opiniated.each do |user|
+    #       opinions << Opinion.for_type(type, user.authority)
+    #     end
+    #   end
+    # 
+    #   return Opinion.combine(opinions)
     # end
     
     
     # -----
     
-    # opinions = []
-    # [:beliefs, :doubts, :disbeliefs].each do |type|      
-    #   opiniated = opiniated(type)
-    #   opiniated.each do |user|
-    #     opinions << Opinion.for_type(type, user.authority)
-    #   end
-    # end    
-    # Opinion.combine(opinions)
+    opinions = []
+    [:beliefs, :doubts, :disbeliefs].each do |type|      
+      opiniated = opiniated(type)
+      opiniated.each do |user|
+        opinions << Opinion.for_type(type, user.authority)
+      end
+    end    
+    Opinion.combine(opinions)
   end
   
 end
