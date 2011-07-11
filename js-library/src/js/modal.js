@@ -29,7 +29,31 @@ Factlink.modal = {
         iFrame.show();
     },
     highlightNewFactlink: function( fact, id ) {
-        Factlink.selectRanges( Factlink.search(fact), id );
+        Factlink.selectRanges( Factlink.search(fact), id, {
+            believe: {
+                percentage: 0,
+                authority: 0
+            },
+            doubt: {
+                percentage: 0,
+                authority: 0
+            },
+            disbelieve: {
+                percentage: 0,
+                authority: 0
+            }
+        });
+    },
+    update_opinions: function(id, opinions) {
+        var fcts = $( 'span.factlink[data-factid=' + id + ']');
+        
+        for(var i=0, len = fcts.length; i < len; i++) {
+            var fct = fcts[i];
+            
+            fct.setAttribute('data-fact-disbelieve-percentage',opinions['disbelieve']['percentage']);
+            fct.setAttribute('data-fact-doubt-percentage',opinions['doubt']['percentage']);
+            fct.setAttribute('data-fact-believe-percentage',opinions['believe']['percentage']);
+        }
     }
 };
 

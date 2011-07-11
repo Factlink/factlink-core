@@ -114,7 +114,7 @@ $( 'body' ).bind('mouseup', function(e) {
             var sel = getText();
             
             if ( sel.toString().length > min_len ) {
-                Factlink.startSubmitting(sel.getRangeAt(0), e.pageY, e.pageX);
+                Factlink.startSubmitting(sel.getRangeAt(0), e.clientY, e.clientX);
             }
         }, 500);
     }
