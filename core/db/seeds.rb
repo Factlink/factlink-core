@@ -24,7 +24,6 @@ if Rails.env.development? or Rails.env.test?
 end
 
 
-if not (Rails.env.test? or Rails.env.development?)
   users = FactoryGirl.create_list(:user,5)
 
 
@@ -66,7 +65,7 @@ if not (Rails.env.test? or Rails.env.development?)
   # Fact.excludes(:_id => fact.id).each do |evidence|
   #   fact.add_evidence(:supporting, evidence, user)
   # end
-end
+
 
 
 # Commit the indices to Solr
