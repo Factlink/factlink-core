@@ -7,6 +7,10 @@ describe Opinion do
     @o2 = Opinion.new(11,13,19,23)
     @o3 = Opinion.new(29,31,37,41)
   end
+
+  after(:each) do
+    #@o1.a.should == 3
+  end
   
   it "should have Belief set to 1 the initial value" do
     Opinion.new(1.3,0,0,1).b.should == 1.3
