@@ -1,38 +1,21 @@
-require 'redis'
-require 'redis/objects'
-Redis::Objects.redis = Redis.new
-
-class Basefact
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Taggable
-
-  include Sunspot::Mongoid
-  include Redis::Objects
-  
-  include Opinionable
-
-  searchable :auto_index => true do
-    text    :displaystring
-    string  :displaystring
-    time    :created_at
+class OurOhm < Ohm::Model
+  def save!
+    create
   end
+end
 
-  field :title,           :type => String
-  field :displaystring,   :type => String   # For matching Fact on a page
-  field :passage,         :type => String   # Passage for matching: not implemented
-  field :content,         :type => String   # Source content
-  field :url,             :type => String 
-    # Source url
+class Basefact < OurOhm
+  #include Opinionable
+  reference :data, lambda { |id| FactData.find(id) }
+  
+  #belongs_to  :site       # The site on which the factlink should be shown
 
-  belongs_to  :site       # The site on which the factlink should be shown
+  #belongs_to  :created_by,
+  #  :class_name => "User"
 
-  belongs_to  :created_by,
-    :class_name => "User"
+  #scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
 
-  scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
-
-  value :added_to_factlink
+  #value :added_to_factlink
 
   # TODO: Find another way to retrieve all factlinks that have a relation to a site
   # scope :with_site, where( :site.ne => nil ) # is not working.

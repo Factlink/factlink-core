@@ -25,6 +25,7 @@ gem 'mongoid_taggable'
 # Redis
 gem 'redis', '2.2.1'
 gem 'redis-objects'
+gem 'ohm'
 
 ##########
 # Pagination & sorting
