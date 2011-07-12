@@ -13,13 +13,14 @@ class FactRelation < Fact
     # Type => :supporting || :weakening
     if $redis.exists(FactRelation.redis_key(evidenceA, type, fact))
       id = $redis.get(FactRelation.redis_key(evidenceA, type, fact))
-      fl = FactRelation.find(id)
+      fl = FactRelation[id]
     else
-      fl = FactRelation.new
+      fl = FactRelation.create(:data => FactData.new())
       fl.from_fact.value = evidenceA.id.to_s
       fl.fact.value = fact.id.to_s
       fl.type.value = type
-      fl.created_by = user
+      #TODO enable this again:
+      #fl.created_by = user
       
       fl.set_added_to_factlink(user)
       fl.save
@@ -50,11 +51,11 @@ class FactRelation < Fact
   end
   
   def get_from_fact
-    Fact.find(from_fact.value)
+    Fact[from_fact.value]
   end
   
   def get_to_fact
-    Fact.find(fact.value)
+    Fact[fact.value]
   end
   
   def get_influencing_opinion

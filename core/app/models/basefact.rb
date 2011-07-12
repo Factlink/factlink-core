@@ -28,7 +28,7 @@ class Basefact < OurOhm
 
 
   def to_s
-    self.displaystring
+    self.data.displaystring
   end
   
   # Return a nice looking url, only subdomain + domain + top level domain
@@ -41,7 +41,8 @@ class Basefact < OurOhm
   end
   
   def set_added_to_factlink(user)
-    self.added_to_factlink.value = user.id
+    #TODO enable again
+    #self.added_to_factlink.value = user.id
   end
   
   def delete_added_to_factlink()
