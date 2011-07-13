@@ -73,6 +73,10 @@ describe Opinion do
     a.should == a+zero
   end
 
+  it "should have a + which does not crash when adding opinions with 0 authority" do
+    Opinion.new(1,2,3)+Opinion.new(1,2,3)
+  end
+
   it "should have a commutative + operation" do
     (@o1+@o2).should == (@o2+@o1)
     (@o2+@o3).should == (@o3+@o2)
