@@ -4,10 +4,46 @@ class OurOhm < Ohm::Model
   end
 end
 
+module FactDataProxy
+  #assuming we have a @data
+  def title
+    data.title
+  end
+
+  def title=(value)
+    data.title=value
+  end
+
+  def displaystring
+    data.displaystring
+  end
+
+  def displaystring=(value)
+    data.displaystring=value
+  end 
+
+  def content
+    data.content
+  end
+
+  def content=(value)
+    data.content=value
+  end
+  
+  def passage
+    data.passage
+  end
+
+  def passage=(value)
+    data.passage=value
+  end
+end
+
 class Basefact < OurOhm
   #include Opinionable
-  reference :data, lambda { |id| FactData.find(id) }
-  
+  include FactDataProxy
+  reference :data, lambda { |id| (id && FactData.find(id)) || FactData.create }
+
   #belongs_to  :site       # The site on which the factlink should be shown
 
 
@@ -31,7 +67,7 @@ class Basefact < OurOhm
   def to_s
     self.data.displaystring || ""
   end
-  
+
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
     begin
@@ -40,12 +76,12 @@ class Basefact < OurOhm
       self.url.gsub(/http(s?):\/\//,'').split('/')[0]
     end
   end
-  
+
   def set_added_to_factlink(user)
     #TODO enable again
     #self.added_to_factlink.value = user.id
   end
-  
+
   def delete_added_to_factlink()
     self.added_to_factlink.delete
   end
@@ -83,38 +119,35 @@ class Basefact < OurOhm
   def opiniated_ids(type)
     $redis.zrange(self.redis_key(type), 0, -1)
   end
-  
+
   def opiniated_count(type)
     opiniated_ids(type).count
   end
-  
+
   def opiniated(type)
     User.where(:_id.in => self.opiniated_ids(type))
   end
-  
+
   # All interacting users on this Fact
   def interacting_user_ids
     tmp_key = "factlink:#{self.id}:interacting_users:tmp"
-  
-    $redis.zunionstore(tmp_key,
-                  [self.redis_key(:beliefs), 
-                  self.redis_key(:doubts), 
-                  self.redis_key(:disbeliefs)])
-    
+
+    $redis.zunionstore(tmp_key, [self.redis_key(:beliefs), self.redis_key(:doubts), self.redis_key(:disbeliefs)])
+
     $redis.zrange(tmp_key, 0, -1)
   end
-  
+
   def interacting_user_count
     self.interacting_user_ids.count
   end
-  
+
   def interacting_users
     User.where(:_id.in => self.interacting_user_ids)
   end
 
 
   protected
-    # Helper method to generate redis keys
+  # Helper method to generate redis keys
   def redis_key(str)
     "fact:#{self.id}:#{str}"
   end
@@ -129,5 +162,5 @@ class Basefact < OurOhm
     end
     Opinion.combine(opinions)
   end
-  
+
 end

@@ -3,13 +3,13 @@ class FactData
   include Mongoid::Timestamps
   include Mongoid::Taggable
 
-  include Sunspot::Mongoid
+  #include Sunspot::Mongoid
 
-  searchable :auto_index => true do
-    text    :displaystring
-    string  :displaystring
-    time    :created_at
-  end
+  # searchable :auto_index => true do
+  #     text    :displaystring
+  #     string  :displaystring
+  #     time    :created_at
+  #   end
 
   field :title,           :type => String
   field :displaystring,   :type => String   # For matching Fact on a page
@@ -18,3 +18,4 @@ class FactData
   field :url,             :type => String 
     # Source url
 end
+
