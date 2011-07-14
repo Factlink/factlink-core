@@ -65,6 +65,28 @@ describe Basefact do
 
   end  
 
+  f = Fact.new(:displaystring=>"foo")
 
-
+  describe "Mongoid properties should work" do
+    [:displaystring, :title, :passage, :content].each do |attr|
+      subject {Basefact.new()}
+      it "#{attr} should be changeable" do
+        subject.send "#{attr}=" , "quux"
+        subject.send("#{attr}").should == "quux"
+      end
+    end
+  end
+  
+  describe "#to_s" do
+    before(:each) do
+      @with_s = Basefact.new()
+    end
+    it "should work without init" do
+      @with_s.to_s.should be_a(String)
+    end
+    it "should work with initialisation" do
+      @with_s.displaystring = "hiephoipiepeloi"
+      @with_s.to_s.should == "hiephoipiepeloi"
+    end
+  end
 end
