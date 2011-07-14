@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe FactsController do
 
+  # TODO factor out, because each controller needs this
   def authenticate_user!
-    @user = FactoryGirl.create(:user)
-    request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => @user)
-  end
+     @user = FactoryGirl.create(:user)
+     request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => @user)
+   end
 
   describe :store_fact_for_non_signed_in_user do
     it "should work"
