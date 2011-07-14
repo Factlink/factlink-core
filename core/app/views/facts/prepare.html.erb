@@ -114,11 +114,11 @@
 		  var el = document.getElementById("context");	
 	
 			for ( var i = a.length; i--; ) {
-				a[i].onclick = function() {
+				a[i].onclick = function(e) {
 					// Call the parent
 					parent.createFactlink();
 					// Break the event
-					return false;
+					e.stopPropagation();
 				};
 			}
 			
