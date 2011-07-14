@@ -10,6 +10,7 @@ class Basefact < OurOhm
   
   #belongs_to  :site       # The site on which the factlink should be shown
 
+
   #belongs_to  :created_by,
   #  :class_name => "User"
 
@@ -28,7 +29,7 @@ class Basefact < OurOhm
 
 
   def to_s
-    self.data.displaystring
+    self.data.displaystring || ""
   end
   
   # Return a nice looking url, only subdomain + domain + top level domain
