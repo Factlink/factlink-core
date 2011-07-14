@@ -9,7 +9,7 @@ class Opinion
   
   attr_accessor :b, :d, :u, :a
   
-  def initialize(b,d,u,a=1)
+  def initialize(b,d,u,a=0)
     self.b=b
     self.d=d
     self.u=u

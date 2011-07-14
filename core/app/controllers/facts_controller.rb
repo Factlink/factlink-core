@@ -152,8 +152,6 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
 
-
-
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
   def add_factlink_to_parent_as_supporting

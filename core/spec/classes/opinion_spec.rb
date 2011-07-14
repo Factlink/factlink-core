@@ -11,28 +11,16 @@ describe Opinion do
   after(:each) do
     #@o1.a.should == 3
   end
-  
-  it "should have Belief set to 1 the initial value" do
-    Opinion.new(1.3,0,0,1).b.should == 1.3
-  end
 
-  it "should have Disbelief set to the initial value" do
-    Opinion.new(0,1.3,0,1).d.should == 1.3
-  end
-
-  it "should have Unknown set to the initial value" do
-    Opinion.new(0,0,1.3,1).u.should == 1.3
-  end
-
-  it "should have Authority set to 0 if unspecified" do
-    Opinion.new(0,0,1.3,0).a.should == 0
-  end
-
-  it "should have Authority set to specified value " do
-    Opinion.new(0,0,1,1.3).a  .should == 1.3
+  describe ".new" do
+    subject {Opinion.new(1.3,1.4,1.5,1.6)}
+    its(:b) {should == 1.3}
+    its(:d) {should == 1.4}
+    its(:u) {should == 1.5}
+    its(:a) {should == 1.6}
   end
   
-  describe "should have working attribute accessors" do
+  describe "attributes" do
     subject { Opinion.new(0,0,0,0) }
     
     it { should respond_to :b }
@@ -83,6 +71,10 @@ describe Opinion do
     a = Opinion.new(1,2,3,1)
     zero = Opinion.new(1000,1000,1000,0)
     a.should == a+zero
+  end
+
+  it "should have a + which does not crash when adding opinions with 0 authority" do
+    Opinion.new(1,2,3)+Opinion.new(1,2,3)
   end
 
   it "should have a commutative + operation" do

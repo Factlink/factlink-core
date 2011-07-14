@@ -5,7 +5,7 @@ describe Fact do
   before(:each) do
     @parent = FactoryGirl.create(:fact)
     @factlink = FactoryGirl.create(:fact)
-    
+
     @user1 = FactoryGirl.create(:user)
     @user2 = FactoryGirl.create(:user)
   end
@@ -15,49 +15,52 @@ describe Fact do
     $redis.should be_an_instance_of(Redis)
   end
 
-   
-   # Voting
-   it "should have an increased believe count when a users believes this fact" do
-     old_count = @factlink.opiniated_count(:beliefs)
-     @factlink.add_opinion(:beliefs, @user2)
-     @factlink.opiniated_count(:beliefs).should == (old_count + 1)
-   end
-      
-   #TODO also add tests for doubts and disbeliefs
-   
-   it "should not crash when an opinions that doesn't exist is removed" do
-     @factlink.remove_opinions @user2
-   end
 
-   
-   # Supporting / Weakening fact
-   
-   # Manual checking this test works
-   it "stores the ID's of supporting facts in the supporting facts set" do
-     pending
-     @parent.add_evidence(:supporting, @factlink, @user1)
-     evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
-     evidence_facts.should include(@factlink.id.to_s)
-   end
-     
-   it "stores the ID's of weakening facts in the weakening facts set" do
-     pending
-     @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:weakening).members.collect { |x| FactRelation.find(x).from_fact.value } 
-     evidence_facts.should include(@factlink2.id.to_s)
-   end
-     
-   it "should not store the ID of weakening facts in the supporting facts set" do
-     pending
-     @parent.add_evidence(:weakening, @factlink2, @user1)
-     evidence_facts = @parent.evidence(:supporting).members.collect { |x| FactRelation.find(x).from_fact.value } 
-     evidence_facts.should_not include(@factlink2.id.to_s)
-   end
-        
-   it "should store the supporting evidence ID when a FactRelation is created" do
-     pending
-     @fl = FactRelation.get_or_create(@factlink, :supporting, @parent, @user1)
-     @parent.evidence(:supporting).members.should include(@factlink.id.to_s)
-   end
-     
+  # Voting
+  it "should have an increased believe count when a users believes this fact" do
+    old_count = @factlink.opiniated_count(:beliefs)
+    @factlink.add_opinion(:beliefs, @user2)
+    @factlink.opiniated_count(:beliefs).should == (old_count + 1)
+  end
+
+  #TODO also add tests for doubts and disbeliefs
+
+  it "should not crash when an opinions that doesn't exist is removed" do
+    @factlink.remove_opinions @user2
+  end
+
+
+  describe "Supporting / Weakening fact" do
+
+    [:supporting, :weakening].each do |relation|
+      def other_one(this)
+        if this == :supporting
+          :weakkening
+        else
+          :supporting
+        end
+      end
+      
+      it "stores the ID's of supporting facts in the supporting facts set" do
+        pending
+        @parent.add_evidence(relation, @factlink, @user1)
+        evidence_facts = @parent.evidence(relation).members.collect { |x| FactRelation.find(x).from_fact.value } 
+        evidence_facts.should include(@factlink.id.to_s)
+      end
+
+      #TODO deze fixen dat ie ook generiek is:
+      it "should not store the ID of weakening facts in the supporting facts set" do
+        pending
+        @parent.add_evidence(other_one(this), @factlink2, @user1)
+        evidence_facts = @parent.evidence(relation).members.collect { |x| FactRelation.find(x).from_fact.value } 
+        evidence_facts.should_not include(@factlink2.id.to_s)
+      end
+
+      it "should store the supporting evidence ID when a FactRelation is created" do
+        pending
+        @fl = FactRelation.get_or_create(@factlink, relation, @parent, @user1)
+        @parent.evidence(relation).members.should include(@factlink.id.to_s)
+      end
+    end
+  end
 end
