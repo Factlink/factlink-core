@@ -3,14 +3,11 @@ require 'spec_helper'
 describe FactRelation do
 
   before(:each) do
-    @parent = Fact.new
-    @evidence1 = Fact.new
-    @evidence2 = Fact.new
-    
-    @user1 = User.new(:username => "tomdev")
-    @user2 = User.new(:username => "zamboya")
-    
-    @fr = @parent.add_evidence(:supporting, @evidence1, @user1)
+    @parent = FactoryGirl.create(:fact)
+    @evidence = FactoryGirl.create_list(:fact,2)
+    @users = FactoryGirl.create_list(:user,2)
+
+    @fr = @parent.add_evidence(:supporting, @evidence[1], @users[1])
   end
 
 
@@ -18,10 +15,11 @@ describe FactRelation do
     @fr.should be_an_instance_of(FactRelation)
   end
 
-  it "should have a percentage of 0 when new" do
-    @fr.percentage.should == 0
-  end
+  describe "percentages should work logical" do
+    it "should have a percentage of 0 when new" do
+      @fr.percentage.should == 0
+    end
 
-  
+  end
 
 end

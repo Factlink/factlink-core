@@ -9,12 +9,14 @@ class Opinion
   
   attr_accessor :b, :d, :u, :a
   
-  def initialize(b,d,u,a=1)
+  def initialize(b,d,u,a=0)
     self.b=b
     self.d=d
     self.u=u
     self.a=a
+    use_floats!
   end
+
 
   def Opinion.for_type(type, authority=0)
     case type
@@ -42,7 +44,10 @@ class Opinion
   end
 
   #CHANGE weight ALONG WITH + !!!
-  def +(second)    
+  def +(second)
+    second.use_floats!
+    use_floats!
+        
     a = self.a + second.a
     
     if a == 0
@@ -64,6 +69,13 @@ class Opinion
     result.a = [fr.a, fl.a].min
     return result
   end
+  
+  def ==(other)
+    self.a == other.a and
+      self.b == other.b and
+      self.d == other.d and
+      self.u == other.u
+  end
 
   protected
   def discount_by(fl)
@@ -73,6 +85,13 @@ class Opinion
     d = pu.d * fl.b
     u = fl.d + fl.u + pu.u * fl.b
     return Opinion.new(b,d,u,a)
+  end
+
+  def use_floats!
+    self.b = self.b.to_f
+    self.d = self.d.to_f
+    self.u = self.u.to_f
+    self.a = self.a.to_f
   end
         
 end

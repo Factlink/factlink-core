@@ -19,7 +19,7 @@ class Basefact
   end
 
   field :title,           :type => String
-  field :displaystring,   :type => String   # For matching Fact on a page
+  field :displaystring,   :type => String  # For matching Fact on a page
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
   field :url,             :type => String 
@@ -45,7 +45,7 @@ class Basefact
 
 
   def to_s
-    self.displaystring
+    displaystring || ""
   end
   
   # Return a nice looking url, only subdomain + domain + top level domain
