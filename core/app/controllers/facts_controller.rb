@@ -27,7 +27,7 @@ class FactsController < ApplicationController
   def store_fact_for_non_signed_in_user
     unless user_signed_in?
       session[:fact_to_create] = params
-    end    
+    end
   end
 
   def factlinks_for_url

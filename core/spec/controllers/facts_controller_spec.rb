@@ -21,29 +21,33 @@ describe FactsController do
   end
 
   describe :show do
-    it "should work" do
-      
-      pending 
-      get :show
-      response.should be_succes
-      
-    end
-  end
+    it "should render succesful" do
 
+      @fact = FactoryGirl.create(:fact)
+      get :show, :id => @fact.id
+      response.should be_succes
+    end
+    
+  end
+  
   describe :new do
-    it "should return a fact object" do
+    it "should return a new Fact object" do
       authenticate_user!
       get :new
       assigns[:fact].should be_a_new(Fact)
     end
   end
-
+  
   describe :edit do
     it "should work"
   end
   
   describe :prepare do
-    it "should work"
+    it "should render the correct template" do
+      
+      get :
+      response.should render_template("prepare")
+    end
   end
   
   describe :intermediate do
