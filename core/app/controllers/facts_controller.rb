@@ -34,14 +34,14 @@ class FactsController < ApplicationController
     url = params[:url]
     site = Site.first(:conditions => { :url => url })
     
-    @factlinks = if site
-                 then site.facts
-                 else []
-                 end
+    @facts = if site
+             then site.facts
+             else []
+             end
 
     # Render the result with callback, 
     # so JSONP can be used (for Internet Explorer)
-    render :json => @factlinks.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ), 
+    render :json => @facts.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ), 
                                         :callback => params[:callback]  
   end
 
@@ -68,7 +68,7 @@ class FactsController < ApplicationController
   end
   
   def new
-    @factlink = Fact.new
+    @fact = Fact.new
   end
   
   def edit

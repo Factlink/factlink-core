@@ -9,9 +9,12 @@ class Fact < Basefact
 
   set :supporting_facts
   set :weakening_facts
+<<<<<<< HEAD
 
   #scope added to retrieve only facts, not factrelations
   #scope :facts, where(:_type => "Fact")
+=======
+>>>>>>> develop
   
   def fact_relation_ids
     supporting_facts | weakening_facts

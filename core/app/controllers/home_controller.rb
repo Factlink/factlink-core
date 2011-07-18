@@ -14,10 +14,8 @@ class HomeController < ApplicationController
     # parser = FactlinkParser.new
     # @results = parser.get_results_for_query(user_input)
 
-    @factlinks = Fact.with_site_as_parent
+    @facts = Fact.all
     @users = User.all
-    
-    @factlinks = Fact.facts
   end
 
 end
