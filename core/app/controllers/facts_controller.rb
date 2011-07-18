@@ -133,10 +133,6 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
 
-
-    puts "Fact: #{@fact}"
-    puts "Evid: #{@evidence}\n"
-
     @fact_relation = @fact.add_evidence(:supporting, @evidence, current_user)
     
     render "add_source_to_factlink"

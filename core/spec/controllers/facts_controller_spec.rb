@@ -14,9 +14,9 @@ describe FactsController do
 
   describe :factlinks_for_url do
     it "should work" do
-      pending
-      get :factlinks_for_url
-      assigns[:factlinks].should == []
+      @site = FactoryGirl.create(:site, :url => "http://en.wikipedia.org/wiki/Batman")
+      get :factlinks_for_url, :url => @site.url      
+      response.body.should eq("[]")
     end
   end
 
@@ -52,11 +52,25 @@ describe FactsController do
   end
   
   describe :create do
-    it "should work"
+    it "should work" do
+      pending
+      authenticate_user!
+      post 'create'
+      response.should redirect_to(factlink_path)
+    end
   end
   
   describe :add_supporting_evidence do
-    it "should work"
+    it "should respond to XHR" do
+      
+      authenticate_user!
+      
+      xhr :get, :add_supporting_evidence, 
+                  :fact_id => FactoryGirl.create(:fact).id,
+                  :evidence_id => FactoryGirl.create(:fact).id
+      
+      response.code.should eq("200") 
+    end
   end
   
   describe :add_weakening_evidence do
