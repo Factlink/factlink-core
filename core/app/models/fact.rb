@@ -9,8 +9,7 @@ class Fact < Basefact
   set :weakening_facts
   
   def fact_relation_ids
-    res = supporting_facts | weakening_facts
-    res
+    supporting_facts | weakening_facts
   end
   
   def fact_relations
@@ -34,7 +33,6 @@ class Fact < Basefact
   def add_evidence(type, evidence, user)
     fact_relation = FactRelation.get_or_create(evidence, type, self, user)
     evidence(type) << fact_relation.id.to_s
-    
     fact_relation
   end
   
@@ -42,9 +40,11 @@ class Fact < Basefact
   def supporting_evidence_count
     evidence(:supporting).length
   end
+
   def weakening_evidence_count
     evidence(:weakening).length
   end
+
   def evidence_count
     fact_relation_ids.count
   end
