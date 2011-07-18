@@ -1,9 +1,3 @@
-class OurOhm < Ohm::Model
-  def save!
-    save
-  end
-end
-
 module FactDataProxy
   #assuming we have a @data
   def title
@@ -66,9 +60,14 @@ class Basefact < OurOhm
   set :people_beliefs, User
   set :people_doubts, User
   set :people_disbeliefs, User
-  def people_who(type)
+  def opiniated(type)
     self.send("people_#{type}")
   end
+
+  def opiniated_count(type)
+    opiniated(type).size
+  end
+
 
   def to_s
     self.data.displaystring || ""
@@ -103,14 +102,14 @@ class Basefact < OurOhm
 
   def add_opinion(type, user)
     remove_opinions(user)
-    people_who(type).add(user)
+    opiniated(type).add(user)
     user.update_opinion(type, self)
   end
 
   def remove_opinions(user)
     user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
-      people_who(type).remove(user)
+      opiniated(type).delete(user)
     end
   end
 

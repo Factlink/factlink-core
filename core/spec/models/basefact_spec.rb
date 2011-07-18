@@ -13,7 +13,7 @@ describe Basefact do
     @others.delete(opinion)
 
     it "should have 0 believers on new Fact when believer_count is called" do
-      @facts[0].opiniated_count(opinion).should == 0
+      @facts[0].opiniated(opinion).size.should == 0
     end
 
     it "should have 1 believer when one believer is added" do
