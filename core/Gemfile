@@ -61,6 +61,7 @@ gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
 gem 'canivete'
 
 group :development, :test do
+  gem 'metric_fu'
   # gem 'webrat'
   gem 'cover_me'
   gem 'rspec-rails'
