@@ -107,24 +107,8 @@ class Basefact
     User.where(:_id.in => self.opiniated_ids(type))
   end
   
-  # All interacting users on this Fact
-  def interacting_user_ids
-    tmp_key = "factlink:#{self.id}:interacting_users:tmp"
-  
-    $redis.zunionstore(tmp_key,
-                  [self.redis_key(:beliefs), 
-                  self.redis_key(:doubts), 
-                  self.redis_key(:disbeliefs)])
-    
-    $redis.zrange(tmp_key, 0, -1)
-  end
-  
-  def interacting_user_count
-    self.interacting_user_ids.count
-  end
-  
   def interacting_users
-    User.where(:_id.in => self.interacting_user_ids)
+    return opiniated(:beliefs).to_a + opiniated(:doubts).to_a + opiniated(:disbeliefs).to_a
   end
 
 

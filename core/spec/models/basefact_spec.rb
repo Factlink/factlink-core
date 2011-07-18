@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-# def others(opinion)
-#   others = [:beliefs, :doubts, :disbeliefs]
-#   others.delete(opinion)
-#   others
-# end
+def others(opinion)
+  others = [:beliefs, :doubts, :disbeliefs]
+  others.delete(opinion)
+  others
+end
 
 describe Basefact do
 
@@ -35,38 +35,46 @@ describe Basefact do
       @facts[0].opiniated_count(opinion).should == 1
     end
 
-    # describe "#toggle_opinion" do
-    #      it "should change opiniated_count to 1 after one toggle" do
-    #        subject.toggle_opinion(opinion,@users[0])
-    #        subject.opiniated_count(opinion).should==1
-    #      end
-    # 
-    #      it "should change opiniated_count to 0 after two toggles by the same user on the same fact" do
-    #        subject.toggle_opinion(opinion,@users[0])
-    #        subject.toggle_opinion(opinion,@users[0])
-    #        subject.opiniated_count(opinion).should == 0
-    #      end
-    # 
-    #      it "should change opiniated_count to 2 after two toggles by the different users on the same fact" do
-    #        subject.toggle_opinion(opinion,@users[0])
-    #        subject.toggle_opinion(opinion,@users[1])
-    #        subject.opiniated_count(opinion).should == 2
-    #      end
-    # 
-    #      it "should change opiniated_count to 1 (twice) after two toggles by the same user on different facts" do
-    #        subject.toggle_opinion(opinion,@users[0])
-    #        @facts[0].toggle_opinion(opinion,@users[0])
-    #        subject.opiniated_count(opinion).should == 1
-    #        @facts[0].opiniated_count(opinion).should == 1
-    #      end
-    # 
-    #      it "should change opiniated_count to 1 after toggling with different opinions" do
-    #        subject.toggle_opinion(opinion           ,@users[0])
-    #        #subject.toggle_opinion(others(opinion)[0],@users[0])
-    #        #subject.opiniated_count(opinion).should==0
-    #        #subject.opiniated_count(@others[0]).should==1
-    #      end
-    #    end
+    describe "#toggle_opinion" do
+      it "should change opiniated_count to 1 after one toggle" do
+        subject.toggle_opinion(opinion,@users[0])
+        subject.opiniated_count(opinion).should==1
+      end
+
+      it "should change opiniated_count to 0 after two toggles by the same user on the same fact" do
+        subject.toggle_opinion(opinion,@users[0])
+        subject.toggle_opinion(opinion,@users[0])
+        subject.opiniated_count(opinion).should == 0
+      end
+
+      it "should change opiniated_count to 2 after two toggles by the different users on the same fact" do
+        subject.toggle_opinion(opinion,@users[0])
+        subject.toggle_opinion(opinion,@users[1])
+        subject.opiniated_count(opinion).should == 2
+      end
+
+      it "should change opiniated_count to 1 (twice) after two toggles by the same user on different facts" do
+        subject.toggle_opinion(opinion,@users[0])
+        @facts[0].toggle_opinion(opinion,@users[0])
+        subject.opiniated_count(opinion).should == 1
+        @facts[0].opiniated_count(opinion).should == 1
+      end
+
+      it "should change opiniated_count to 1 after toggling with different opinions" do
+        subject.toggle_opinion(opinion           ,@users[0])
+        subject.toggle_opinion(others(opinion)[0],@users[0])
+        subject.opiniated_count(opinion).should==0
+        subject.opiniated_count(others(opinion)[0]).should==1
+      end
+    end
+
+    describe "#interacting_users" do
+      it "should initially be zero"
+      it "should be 1 after 1 interactian"
+      it "should be one after 1 belief and one change of mind"
+      it "should be two after two users have the same opinion"
+      it "should be zero after two toggles"
+    end
 
     it "should have 0 believers when one believer is added and deleted" do
       @facts[0].add_opinion(opinion, @users[0])
@@ -80,7 +88,7 @@ describe Basefact do
       @facts[0].opiniated_count(opinion).should == 2
     end
 
-    @others.each do |other_opinion|
+    others(opinion).each do |other_opinion|
       it "should have 1 believer when a existing believer changes its opinion to 'doubt'" do
         @facts[0].add_opinion(opinion, @users[0])
         @facts[0].add_opinion(opinion, @users[1])
