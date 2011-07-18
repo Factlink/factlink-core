@@ -22,12 +22,10 @@ describe FactsController do
 
   describe :show do
     it "should render succesful" do
-
       @fact = FactoryGirl.create(:fact)
       get :show, :id => @fact.id
       response.should be_succes
-    end
-    
+    end  
   end
   
   describe :new do
@@ -44,8 +42,7 @@ describe FactsController do
   
   describe :prepare do
     it "should render the correct template" do
-      
-      get :
+      get :prepare
       response.should render_template("prepare")
     end
   end
@@ -63,14 +60,6 @@ describe FactsController do
   end
   
   describe :add_weakening_evidence do
-    it "should work"
-  end
-  
-  describe :add_factlink_to_parent_as_supporting do
-    it "should work"
-  end
-  
-  describe :add_afctlink_to_parent_as_weakening do
     it "should work"
   end
   

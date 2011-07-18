@@ -154,6 +154,7 @@ class FactsController < ApplicationController
 
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
+  deprecate # move to facts#add_supporting_evidence
   def add_factlink_to_parent_as_supporting
     # Add a Fact as source for another Fact
     @fact     = Fact.find(params[:fact_id])
@@ -168,6 +169,8 @@ class FactsController < ApplicationController
   
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
+
+  deprecate # move to facts#add_weakening_evidence
   def add_factlink_to_parent_as_weakening
     # Add a Fact as source for another Fact
     @factlink = Fact.find(params[:factlink_id])
