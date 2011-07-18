@@ -73,39 +73,8 @@
 	<body>
 		<div id="context">
 			<ul>
-				<li class="first">
-					I know
-					<ul>
-						<li>
-							something that
-							<ul>
-								<li><a href="#">supports this</a></li>
-								<li><a href="#">weakens this</a></li>
-								<li><a href="#">proves this</a></li>
-								<li class="last"><a href="#">refutes this</a></li>
-							</ul>
-						</li>
-						<li>
-							<a href="#">topics
-						</li>
-						<li class="last">
-							someone who
-							<ul>
-								<li><a href="#">should participate</a></li>
-							</ul>
-						</li>
-					</ul>
-				</li>
-				<li class="last">
-					I want
-					<ul>
-						<li>
-							<a href="#">to know about</a>
-						</li>
-						<li class="last">
-							<a href="#">ask/tell someone about</a>
-						</li>
-					</ul>
+				<li class="first last">
+					<a href="#">Factlink this</a>
 				</li>
 			</ul>
 		</div>
@@ -114,11 +83,11 @@
 		  var el = document.getElementById("context");	
 	
 			for ( var i = a.length; i--; ) {
-				a[i].onclick = function() {
+				a[i].onclick = function(e) {
 					// Call the parent
 					parent.createFactlink();
 					// Break the event
-					return false;
+					e.stopPropagation();
 				};
 			}
 			
@@ -130,10 +99,6 @@
 			  el.style.top = top - 13 + "px";
 			  el.style.left = left + "px";
 			}
-			
-			// Set the class of the parent frame (xdm)
-      // parent.remote.setFrameType("prepare");
-      // parent.remote.setFrameBounds(300, 120);
 		</script>
 	</body>
 </html>
