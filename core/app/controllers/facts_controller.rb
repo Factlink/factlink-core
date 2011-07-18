@@ -152,6 +152,8 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
 
+
+
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
   deprecate # move to facts#add_supporting_evidence
