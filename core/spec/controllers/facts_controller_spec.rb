@@ -16,19 +16,25 @@ describe FactsController do
     it "should work" do
       pending
       get :factlinks_for_url
-      assigns[:json].should == []
+      assigns[:factlinks].should == []
     end
   end
 
   describe :show do
-    it "should work"
+    it "should work" do
+      
+      pending 
+      get :show
+      response.should be_succes
+      
+    end
   end
 
   describe :new do
     it "should return a fact object" do
       authenticate_user!
       get :new
-      assigns[:factlink].should be_a(Fact)
+      assigns[:fact].should be_a_new(Fact)
     end
   end
 

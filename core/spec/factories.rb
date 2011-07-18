@@ -17,6 +17,7 @@ FactoryGirl.define do
   end
   
   factory :fact do
-    
   end
+
+
 end
