@@ -16,6 +16,17 @@ describe Fact do
   end
 
 
+  it "should have blabla" do
+    @factlink.blabla = "foo"
+    @factlink.blabla.should == "foo"
+  end
+
+  it "should persist blabla" do
+    @factlink.blabla = "foo"
+    @factlink.save
+    @fl = Fact[@factlink.id].blabla.should == "foo"
+  end
+
   # Voting
   it "should have an increased believe count when a users believes this fact" do
     old_count = @factlink.opiniated_count(:beliefs)
@@ -29,6 +40,9 @@ describe Fact do
     @factlink.remove_opinions @user2
   end
 
+  it "should have working fact_relations" do
+    @parent.add_evidence(:supporting,@factlink,@user1)
+  end
 
   describe "Supporting / Weakening fact" do
 

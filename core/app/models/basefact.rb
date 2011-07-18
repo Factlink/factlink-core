@@ -1,6 +1,6 @@
 class OurOhm < Ohm::Model
   def save!
-    create
+    save
   end
 end
 

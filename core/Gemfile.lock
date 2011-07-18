@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/markijbema/ohm.git
+  revision: 78ad3f0630c3fb013b07677fe08c3e7a94b72005
+  specs:
+    ohm (0.1.3)
+      nest (~> 1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -101,8 +108,6 @@ GEM
     nest (1.1.0)
       redis (~> 2.1)
     nokogiri (1.4.4)
-    ohm (0.1.3)
-      nest (~> 1.0)
     orm_adapter (0.0.5)
     polyglot (0.3.1)
     pr_geohash (1.0.0)
@@ -203,7 +208,7 @@ DEPENDENCIES
   launchy
   mongoid (~> 2.0.1)
   mongoid_taggable
-  ohm
+  ohm!
   rails (= 3.0.5)
   redis (= 2.2.1)
   redis-objects

@@ -5,6 +5,8 @@ Redis::Objects.redis = Redis.new
 class Fact < Basefact
   include Redis::Objects
 
+  attribute :blabla
+
   set :supporting_facts
   set :weakening_facts
 

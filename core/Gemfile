@@ -25,7 +25,7 @@ gem 'mongoid_taggable'
 # Redis
 gem 'redis', '2.2.1'
 gem 'redis-objects'
-gem 'ohm'
+gem 'ohm', :git => "https://github.com/markijbema/ohm.git" # we need the tribalvibes fork (0.1.4), for polymorphism
 
 ##########
 # Pagination & sorting
