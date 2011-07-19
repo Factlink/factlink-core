@@ -14,7 +14,7 @@ describe Basefact do
   let(:fact2) {FactoryGirl.create(:fact)}
 
   context "initially" do
-    its(:interacting_users) {should be_empty }
+    its(:interacting_users) {should be_empty}
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
     end
