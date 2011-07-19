@@ -63,7 +63,7 @@ gem 'canivete'
 group :development, :test do
   # gem 'metric_fu'
   # gem 'webrat'
-  gem 'cover_me'
+  # gem 'cover_me'
   gem 'rspec-rails'
   gem 'capybara'    # Integration testing
   gem "factory_girl_rails", "1.1.rc1" #factories for easy creation of a lot of objects

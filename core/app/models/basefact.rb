@@ -57,9 +57,9 @@ class Basefact < OurOhm
   # end
 
 
-  set :people_beliefs, User
-  set :people_doubts, User
-  set :people_disbeliefs, User
+  set :people_beliefs, lambda { |id| (id && User.find(id)) || User.create }
+  set :people_doubts, lambda { |id| (id && User.find(id)) || User.create }
+  set :people_disbeliefs, lambda { |id| (id && User.find(id)) || User.create }
   def opiniated(type)
     self.send("people_#{type}")
   end
@@ -114,7 +114,7 @@ class Basefact < OurOhm
   end
 
   def interacting_users
-    opiniated(:beliefs).to_a + opiniated(:doubts).to_a + opiniated(:disbeliefs).to_a
+    opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
   end
 
   def get_opinion
