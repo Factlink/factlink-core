@@ -13,16 +13,12 @@ describe Basefact do
 
   let(:fact2) {FactoryGirl.create(:fact)}
 
-  before do
-    @facts = FactoryGirl.create_list(:fact,1)
-    @users = FactoryGirl.create_list(:user,2)
-  end
-
   context "initially" do
     its(:interacting_users) {should be_empty }
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
     end
+    its(:to_s){ should be_a(String) }
   end
 
   @opinions = [:beliefs, :doubts, :disbeliefs]
@@ -88,11 +84,11 @@ describe Basefact do
           subject.toggle_opinion(opinion,user)
           fact2.toggle_opinion(opinion,user)
         end
-        [subject.fact2].each do |fact|
+        it {fact2.opiniated_count(opinion).should == 1}
+        it {fact2.interacting_users.should =~ [user]}
 
-          it {fact.opiniated_count(opinion).should == 1}
-          it {fact.interacting_users.should =~ [user]}
-        end
+        it {subject.opiniated_count(opinion).should == 1}
+        it {subject.interacting_users.should =~ [user]}
       end
 
       context "after toggling with different opinions" do
@@ -102,85 +98,79 @@ describe Basefact do
         end
         it {subject.opiniated_count(opinion).should==0 }
         it {subject.opiniated_count(others(opinion)[0]).should==1 }
-        its(:interacting_users) {should == 1}
+        its(:interacting_users) {should == [user]}
       end
     end
 
-    context "after one interaction" do
-      before {subject.toggle_opinion(opinion,user)}
-    end
-    #context "after one belief and one change of mind"do
-
-    #its(:interacting_users) "should still contain the user once"
-    #end
-
-    describe "#interacting_users" do
-      it "should be 1 after 1 interactian"
-      it "should be one after 1 belief and one change of mind"
-      it "should be two after two users have the same opinion"
-      it "should be zero after two toggles"
+    context "after one person who #{opinion} is added and deleted" do
+      before do
+        subject.add_opinion(opinion, user)
+        subject.remove_opinions user
+      end
+      it {subject.opiniated_count(opinion).should == 0 }
+      its(:interacting_users) {should be_empty}
     end
 
-    it "should have 0 believers when one believer is added and deleted" do
-      subject.add_opinion(opinion, user)
-      subject.remove_opinions user
-      subject.opiniated_count(opinion).should == 0
-    end
-
-    it "should have 2 believer when two believers are added" do
-      subject.add_opinion(opinion, user)
-      subject.add_opinion(opinion, user2)
-      subject.opiniated_count(opinion).should == 2
+    context "after two believers are added" do
+      before do
+        subject.add_opinion(opinion, user)
+        subject.add_opinion(opinion, user2)
+      end
+      it {subject.opiniated_count(opinion).should == 2}
+      its(:interacting_users) {should =~ [user,user2]}
     end
 
     others(opinion).each do |other_opinion|
-      it "should have 1 believer when a existing believer changes its opinion to 'doubt'" do
-        subject.add_opinion(opinion, user)
-        subject.add_opinion(opinion, user2)
-        subject.add_opinion(other_opinion, user)
-        subject.opiniated_count(opinion).should == 1
-      end
+      context "when two persons start with #{opinion}" do
+        before do
+          subject.add_opinion(opinion, user)
+          subject.add_opinion(opinion, user2)
+        end
+        context "after person changes its opinion from #{opinion} to #{other_opinion}" do
+          before do
+            subject.add_opinion(other_opinion, user)
+          end
+          it {subject.opiniated_count(opinion).should == 1}
+          its(:interacting_users) {should =~ [user,user2]}
+        end
 
-      it "should have 0 believers when both existing believers change their opinion to 'doubt'" do
-        subject.add_opinion(opinion, user)
-        subject.add_opinion(opinion, user2)
-        subject.add_opinion(other_opinion, user)
-        subject.add_opinion(other_opinion, user2)
-        subject.opiniated_count(opinion).should == 0
-      end
+        context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
+          before do
+            subject.add_opinion(other_opinion, user)
+            subject.add_opinion(other_opinion, user2)
+          end
+          it {subject.opiniated_count(opinion).should == 0}
+          its(:interacting_users) {should =~ [user,user2]}
+        end
 
-      it "should have 1 believers when a existing believer changes its opinion to 'disbelieve'" do
-        subject.add_opinion(opinion, user)
-        subject.add_opinion(opinion, user2)
-        subject.add_opinion(other_opinion, user)
-        subject.opiniated_count(opinion).should == 1
+        context "after an existing believer changes its opinion to #{other_opinion}" do
+          before do
+            subject.add_opinion(other_opinion, user)
+          end
+          it { subject.opiniated_count(opinion).should == 1 }
+          its(:interacting_users) {should =~ [user,user2]}
+        end
       end
     end
 
   end  
 
-  f = Fact.new(:displaystring=>"foo")
-
   describe "Mongoid properties should work" do
     [:displaystring, :title, :passage, :content].each do |attr|
-      subject {Basefact.new()}
-      it "#{attr} should be changeable" do
-        subject.send "#{attr}=" , "quux"
-        subject.send("#{attr}").should == "quux"
+      context "#{attr} should be changeable" do
+        before do
+          subject.send "#{attr}=" , "quux"
+        end
+        it {subject.send("#{attr}").should == "quux"}
       end
     end
   end
 
-  describe "#to_s" do
-    before(:each) do
-      @with_s = Basefact.new()
+  context "after setting a displaystring to 'hiephoi'" do
+    before do
+      subject.displaystring = "hiephoi"\
     end
-    it "should work without init" do
-      @with_s.to_s.should be_a(String)
-    end
-    it "should work with initialisation" do
-      @with_s.displaystring = "hiephoipiepeloi"
-      @with_s.to_s.should == "hiephoipiepeloi"
-    end
+    its(:to_s){should == "hiephoi"}
   end
+
 end
