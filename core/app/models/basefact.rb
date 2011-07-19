@@ -113,8 +113,9 @@ class Basefact < OurOhm
     end
   end
 
-
-
+  def interacting_users
+    return opiniated(:beliefs).to_a + opiniated(:doubts).to_a + opiniated(:disbeliefs).to_a
+  end
 
   def get_opinion
     opinions = []
