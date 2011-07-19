@@ -100,10 +100,8 @@ describe FactsController do
   end
 
   describe :toggle_opinion_on_fact do
-
     it "should not respond to non-allowed types" do
       authenticate_user!
-
       create_fact_relation
 
       get "toggle_opinion_on_fact", { :fact_relation_id => @fr.id, :type => "baron_is_not_allowed" }
@@ -114,7 +112,6 @@ describe FactsController do
 
     it "should respond to allowed types" do
       authenticate_user!
-
       create_fact_relation
 
       # Check for all available types
@@ -126,9 +123,29 @@ describe FactsController do
   end
 
   describe :toggle_relevance_on_fact_relation do
-    it "should work"
+    it "should not respond to non-allowed types" do
+      authenticate_user!
+      create_fact_relation
+
+      get "toggle_relevance_on_fact_relation", { :fact_relation_id => @fr.id, :type => "baron_is_not_allowed" }
+      parsed_content = JSON.parse(response.body)
+      parsed_content.should have_key("error")
+      parsed_content['error'].should == "type not allowed"
+    end
+    
+    it "should respond to allowed types" do
+      authenticate_user!
+      create_fact_relation
+
+      # Check for all available types
+      [:beliefs, :doubts, :disbeliefs].each do |type|
+        xhr :get, "toggle_opinion_on_fact", { :fact_relation_id => @fr.id, :type => type }
+        response.code.should eq("200")
+      end
+    end
   end
 
+  # Currently not used
   describe :interaction_users_for_factlink do
     it "should work"
   end
