@@ -158,16 +158,7 @@ describe FactsController do
   end
 
   describe :search do
-
-    let(:fact) do
-        mock_model Fact, :displaystring => "mockFact",
-                           :search => ["123hoi"],
-                           :update_attributes => false
-    end
-
-
-    it "should return relevant results when a search parameter is given" do
-      
+    it "should return relevant results when a search parameter is given" do      
       result_set = [10, 12, 13]
       
       sunspot_search = mock(Sunspot::Search::StandardSearch)
@@ -176,6 +167,18 @@ describe FactsController do
       Fact.should_receive(:search).and_return(sunspot_search)
       
       post "search", :s => "1"
+      assigns(:factlinks).should == result_set
+    end
+    
+    it "should return all results when no search parameter is given" do
+      result_set = [10, 12, 13]
+      
+      # mock_fact = mock(Fact)
+      # mock_fact.stub!(:all).and_return { result_set }
+      
+      Fact.should_receive(:all).and_return(result_set)
+      
+      post "search"
       assigns(:factlinks).should == result_set
     end
   end
