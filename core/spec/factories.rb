@@ -11,7 +11,7 @@ FactoryGirl.define do
     # first_name 'John'
     # last_name  'Doe'
     username
-    email 
+    email
     password '123hoi'
     password_confirmation '123hoi'
   end
@@ -20,6 +20,9 @@ FactoryGirl.define do
   end
 
   factory :site do
+  end
+  
+  factory :fact_relation do
   end
 
 end
