@@ -65,7 +65,7 @@ describe Basefact do
         its(:interacting_users) {should =~ [user]}
       end
 
-      context "two toggles on #{opinion} by the same user" do
+      context "after two toggles on #{opinion} by the same user" do
         before do
           subject.toggle_opinion(opinion,user)
           subject.toggle_opinion(opinion,user)
@@ -74,24 +74,35 @@ describe Basefact do
         its(:interacting_users) {should be_empty}
       end
 
-      it "should change opiniated_count to 2 after two toggles by the different users on the same fact" do
-        subject.toggle_opinion(opinion,user)
-        subject.toggle_opinion(opinion,user2)
-        subject.opiniated_count(opinion).should == 2
+      context "after two toggles by the different users on the same fact" do
+        before do
+          subject.toggle_opinion(opinion,user)
+          subject.toggle_opinion(opinion,user2)
+        end
+        it {subject.opiniated_count(opinion).should == 2 }
+        its(:interacting_users) {should =~ [user,user2]}
       end
 
-      it "should change opiniated_count to 1 (twice) after two toggles by the same user on different facts" do
-        subject.toggle_opinion(opinion,user)
-        fact2.toggle_opinion(opinion,user)
-        subject.opiniated_count(opinion).should == 1
-        fact2.opiniated_count(opinion).should == 1
+      context "after two toggles by the same user on different facts" do
+        before do
+          subject.toggle_opinion(opinion,user)
+          fact2.toggle_opinion(opinion,user)
+        end
+        [subject.fact2].each do |fact|
+
+          it {fact.opiniated_count(opinion).should == 1}
+          it {fact.interacting_users.should =~ [user]}
+        end
       end
 
-      it "should change opiniated_count to 1 after toggling with different opinions" do
-        subject.toggle_opinion(opinion           ,user)
-        subject.toggle_opinion(others(opinion)[0],user)
-        subject.opiniated_count(opinion).should==0
-        subject.opiniated_count(others(opinion)[0]).should==1
+      context "after toggling with different opinions" do
+        before do 
+          subject.toggle_opinion(opinion           ,user)
+          subject.toggle_opinion(others(opinion)[0],user)
+        end
+        it {subject.opiniated_count(opinion).should==0 }
+        it {subject.opiniated_count(others(opinion)[0]).should==1 }
+        its(:interacting_users) {should == 1}
       end
     end
 
