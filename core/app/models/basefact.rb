@@ -57,6 +57,11 @@ class Basefact < OurOhm
   # end
 
 
+  deprecate
+  def self.find(id)
+    return self[id]
+  end
+
   set :people_beliefs, lambda { |id| (id && User.find(id)) || User.create }
   set :people_doubts, lambda { |id| (id && User.find(id)) || User.create }
   set :people_disbeliefs, lambda { |id| (id && User.find(id)) || User.create }

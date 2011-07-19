@@ -13,7 +13,7 @@ class Fact < Basefact
   #scope added to retrieve only facts, not factrelations
   #scope :facts, where(:_type => "Fact")
   
-  def fact_relation_ids
+  def fact_relations_ids
     supporting_facts | weakening_facts
   end
   
