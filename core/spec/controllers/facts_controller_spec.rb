@@ -62,19 +62,24 @@ describe FactsController do
   
   describe :add_supporting_evidence do
     it "should respond to XHR" do
-      
-      authenticate_user!
-      
+      authenticate_user!      
       xhr :get, :add_supporting_evidence, 
                   :fact_id => FactoryGirl.create(:fact).id,
                   :evidence_id => FactoryGirl.create(:fact).id
       
-      response.code.should eq("200") 
+      response.code.should eq("200")
     end
   end
   
   describe :add_weakening_evidence do
-    it "should work"
+    it "should respond to XHR" do
+      authenticate_user!      
+      xhr :get, :add_supporting_evidence, 
+                  :fact_id => FactoryGirl.create(:fact).id,
+                  :evidence_id => FactoryGirl.create(:fact).id
+      
+      response.code.should eq("200")
+    end
   end
   
   describe :remove_factlink_from_parent do
