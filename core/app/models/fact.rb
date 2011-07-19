@@ -8,7 +8,7 @@ class Fact < Basefact
   set :supporting_facts
   set :weakening_facts
   
-  def fact_relation_ids
+  def fact_relations_ids
     supporting_facts | weakening_facts
   end
   
