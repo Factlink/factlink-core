@@ -63,7 +63,7 @@ class FactsController < ApplicationController
     # @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
     # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
     
-    ids = FactRelation.where(:_id.in => @fact.fact_relation_ids).map { |fr| fr.from_fact.value }
+    ids = @fact.fact_relations_ids
     ids << @fact.id
     
     @potential_evidence = Fact.where(:_id.nin => ids)
@@ -259,9 +259,9 @@ class FactsController < ApplicationController
   # Search 
   def search
     @row_count = 50
-    row_count = 50
-     
-    if params[:s] 
+    row_count = @row_count
+        
+    if params[:s]
       solr_result = Fact.search() do
 
         keywords params[:s], :fields => [:displaystring]

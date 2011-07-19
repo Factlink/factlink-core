@@ -22,9 +22,16 @@ describe FactsController do
   end
 
   describe :factlinks_for_url do
-    it "should work" do
+    it "should work with an existing site" do
       @site = FactoryGirl.create(:site, :url => "http://en.wikipedia.org/wiki/Batman")
       get :factlinks_for_url, :url => @site.url
+      response.body.should eq("[]")
+    end
+    
+    
+    it "should work with an non-existing site" do
+
+      get :factlinks_for_url, :url => "http://www.thebaronisinthebuilding.com/"
       response.body.should eq("[]")
     end
   end
@@ -151,7 +158,26 @@ describe FactsController do
   end
 
   describe :search do
-    it "should work"
+
+    let(:fact) do
+        mock_model Fact, :displaystring => "mockFact",
+                           :search => ["123hoi"],
+                           :update_attributes => false
+    end
+
+
+    it "should return relevant results when a search parameter is given" do
+      
+      result_set = [10, 12, 13]
+      
+      sunspot_search = mock(Sunspot::Search::StandardSearch)
+      sunspot_search.stub!(:results).and_return { result_set }
+      
+      Fact.should_receive(:search).and_return(sunspot_search)
+      
+      post "search", :s => "1"
+      assigns(:factlinks).should == result_set
+    end
   end
 
   describe :indication do
