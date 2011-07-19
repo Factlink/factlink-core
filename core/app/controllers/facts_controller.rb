@@ -75,7 +75,7 @@ class FactsController < ApplicationController
   
   def edit
     @fact = Fact.find(params[:id])
-    ids = FactRelation.where(:_id.in => @fact.fact_relation_ids).map { |fr| fr.from_fact.value }
+    ids = FactRelation.where(:_id.in => @fact.fact_relations_ids).map { |fr| fr.from_fact.value }
     ids << @fact.id
     
     @potential_evidence = Fact.where(:_id.nin => ids)

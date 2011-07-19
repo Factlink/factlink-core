@@ -171,12 +171,18 @@ describe FactsController do
     end
     
     it "should return all results when no search parameter is given" do
-      result_set = [10, 12, 13]
+      result_set = (
+        [Fact.new(:displaystring => 10), Fact.new(:displaystring => 12), Fact.new(:displaystring => 13)]
+      )
       
-      # mock_fact = mock(Fact)
-      # mock_fact.stub!(:all).and_return { result_set }
+      mock_criteria = mock(Mongoid::Criteria)
+
+      mock_criteria.stub!(:skip).and_return { mock_criteria }
+      mock_criteria.stub!(:limit).and_return { mock_criteria }
+
+      mock_criteria.stub!(:to_a).and_return { result_set }
       
-      Fact.should_receive(:all).and_return(result_set)
+      Fact.should_receive(:all).and_return(mock_criteria)
       
       post "search"
       assigns(:factlinks).should == result_set

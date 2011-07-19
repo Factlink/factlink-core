@@ -63,6 +63,12 @@
 		</script>
 	<% end %>
 
+	<!-- Popup options -->
+	<script type="text/javascript">
+	  // parent.remote.show();
+	  // parent.remote.setFrameBounds(440, 470);
+	</script>
+
 <!-- Top pane - containing the chart & main fact -->
 <div id="fl-top-pane">
   <!-- Bar chart - showing the believe, doubt and disbelieve bars -->
@@ -92,7 +98,7 @@
 <div id="fl-evidence">
 	<div id="fl-sources">
 		<ol>
-			<% unless @fact.fact_relation_ids.count > 0 %>
+			<% unless @fact.fact_relations_ids.count > 0 %>
 				<%= no_facts_have_been_added_as_li %>
 			<% else %>
 				<% @fact.sorted_fact_relations.each do |evidence| %>

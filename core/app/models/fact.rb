@@ -13,7 +13,7 @@ class Fact < Basefact
   end
   
   def fact_relations
-    FactRelation.where(:_id.in => fact_relation_ids)
+    FactRelation.where(:_id.in => fact_relations_ids)
   end
   
   def sorted_fact_relations
@@ -46,7 +46,7 @@ class Fact < Basefact
   end
 
   def evidence_count
-    fact_relation_ids.count
+    fact_relations_ids.count
   end
   
   # Used for sorting
