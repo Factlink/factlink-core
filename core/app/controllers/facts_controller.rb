@@ -16,7 +16,9 @@ class FactsController < ApplicationController
     :disbelieve,
     :set_opinion,
     :add_supporting_evidence,
-    :add_weakening_evidence
+    :add_weakening_evidence,
+    :toggle_opinion_on_fact,
+    :toggle_relevance_on_fact_relation
     ]
   
   layout "client"
