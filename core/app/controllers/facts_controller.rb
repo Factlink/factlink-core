@@ -27,7 +27,7 @@ class FactsController < ApplicationController
   def store_fact_for_non_signed_in_user
     unless user_signed_in?
       session[:fact_to_create] = params
-    end    
+    end
   end
 
   def factlinks_for_url
@@ -133,10 +133,6 @@ class FactsController < ApplicationController
     @fact     = Fact.find(params[:fact_id])
     @evidence = Fact.find(params[:evidence_id])
 
-
-    puts "Fact: #{@fact}"
-    puts "Evid: #{@evidence}\n"
-
     @fact_relation = @fact.add_evidence(:supporting, @evidence, current_user)
     
     render "add_source_to_factlink"
@@ -152,8 +148,11 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
 
+
+
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
+  deprecate # move to facts#add_supporting_evidence
   def add_factlink_to_parent_as_supporting
     # Add a Fact as source for another Fact
     @fact     = Fact.find(params[:fact_id])
@@ -168,6 +167,8 @@ class FactsController < ApplicationController
   
   # Adding the current fact to another existing fact as evidence
   # Is this still the way we want to use this in the future UI?
+
+  deprecate # move to facts#add_weakening_evidence
   def add_factlink_to_parent_as_weakening
     # Add a Fact as source for another Fact
     @factlink = Fact.find(params[:factlink_id])
