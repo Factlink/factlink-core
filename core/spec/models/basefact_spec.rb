@@ -7,10 +7,10 @@ def others(opinion)
 end
 
 describe Basefact do
-
   let(:user) {FactoryGirl.create(:user)}
   let(:user2) {FactoryGirl.create(:user)}
 
+  subject {FactoryGirl.create(:fact)}
   let(:fact2) {FactoryGirl.create(:fact)}
 
   context "initially" do
