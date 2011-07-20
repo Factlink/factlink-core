@@ -70,23 +70,11 @@ class FactsController < ApplicationController
   end
   
   # Prepare for create
-  def intermediate
-    
+  def intermediate    
     # TODO: Sanitize for XSS
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
-    
-    case params[:the_action]
-    when "prepare"
-      @path = "factlink_prepare_path"
-
-    # TODO: This appears not to be used:
-    # when "show"      
-    #   @path = "factlink_show_path(%x)" % :id
-    else
-      @path = ""
-    end
 
     render :template => 'facts/intermediate', :layout => nil
   end
