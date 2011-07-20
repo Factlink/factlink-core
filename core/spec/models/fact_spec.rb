@@ -15,18 +15,6 @@ describe Fact do
     $redis.should be_an_instance_of(Redis)
   end
 
-
-  it "should have blabla" do
-    @factlink.blabla = "foo"
-    @factlink.blabla.should == "foo"
-  end
-
-  it "should persist blabla" do
-    @factlink.blabla = "foo"
-    @factlink.save
-    @fl = Fact[@factlink.id].blabla.should == "foo"
-  end
-
   # Voting
   it "should have an increased believe count when a users believes this fact" do
     old_count = @factlink.opiniated_count(:beliefs)
@@ -35,6 +23,7 @@ describe Fact do
   end
 
   #TODO also add tests for doubts and disbeliefs
+
 
   it "should not crash when an opinions that doesn't exist is removed" do
     @factlink.remove_opinions @user2

@@ -1,24 +1,18 @@
-require 'redis'
-require 'redis/objects'
-Redis::Objects.redis = Redis.new
-
 class Fact < Basefact
-  include Redis::Objects
 
-  attribute :blabla
-
-  set :supporting_facts
-  set :weakening_facts
+  set :supporting_facts, FactRelation
+  set :weakening_facts, FactRelation
 
   #scope added to retrieve only facts, not factrelations
   #scope :facts, where(:_type => "Fact")
   
+  deprecate
   def fact_relations_ids
-    supporting_facts | weakening_facts
+    fact_relations.map { |fr| fr.id }
   end
   
   def fact_relations
-    FactRelation.where(:_id.in => fact_relation_ids)
+    supporting_facts.all + weakening_facts.all
   end
   
   def sorted_fact_relations
@@ -35,8 +29,8 @@ class Fact < Basefact
     end
   end
   
-  def add_evidence(type, evidence, user)
-    fact_relation = FactRelation.get_or_create(evidence, type, self, user)
+  def add_evidence(type, evidence_fact, user)
+    fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
     evidence(type) << fact_relation.id.to_s
     fact_relation
   end

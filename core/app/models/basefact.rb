@@ -57,6 +57,7 @@ class Basefact < OurOhm
   # end
 
 
+  #deze snel deprecaten, want deze overschrijft de ohm-eigen dingen
   deprecate
   def self.find(id)
     return self[id]
