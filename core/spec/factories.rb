@@ -16,6 +16,9 @@ FactoryGirl.define do
     password_confirmation '123hoi'
   end
   
+  factory :basefact do
+  end
+
   factory :fact do
   end
 
