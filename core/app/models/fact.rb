@@ -45,7 +45,7 @@ class Fact < Basefact
   end
 
   def evidence_count
-    fact_relation_ids.count
+    fact_relations_ids.count
   end
   
   # Used for sorting

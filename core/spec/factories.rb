@@ -21,6 +21,9 @@ FactoryGirl.define do
   factory :fact_data do
   end
   
+  factory :basefact do
+  end
+
   factory :fact do
     association :data, :factory => :fact_data
   end

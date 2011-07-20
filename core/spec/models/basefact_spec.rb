@@ -10,8 +10,8 @@ describe Basefact do
   let(:user) {FactoryGirl.create(:user)}
   let(:user2) {FactoryGirl.create(:user)}
 
-  subject {FactoryGirl.create(:fact)}
-  let(:fact2) {FactoryGirl.create(:fact)}
+  subject {FactoryGirl.create(:basefact)}
+  let(:fact2) {FactoryGirl.create(:basefact)}
 
   context "initially" do
     its(:interacting_users) {should be_empty}
@@ -19,6 +19,12 @@ describe Basefact do
       it { subject.opiniated_count(opinion).should == 0 }
     end
     its(:to_s){ should be_a(String) }
+    context "#find" do
+      it "should be able to find it" do
+        found = Basefact.find(subject.id)
+        found.should == subject
+      end
+    end
   end
 
   @opinions = [:beliefs, :doubts, :disbeliefs]

@@ -23,4 +23,22 @@ describe FactRelation do
 
   end
 
+  describe "#get_or_create" do
+    it "should return a new factrelation when the relation does not exist" do
+      @fact1 =FactoryGirl.create(:fact)
+      @fact2 =FactoryGirl.create(:fact)
+      @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+      @fr.should be_a(FactRelation)
+    end
+
+    it "should find the relation when the relation does exist" do
+      @fact1 =FactoryGirl.create(:fact)
+      @fact2 =FactoryGirl.create(:fact)
+      @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+      @fr.should be_a(FactRelation)
+      @fr2 = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+      @fr2.should be_a(FactRelation)
+    end
+  end
+
 end
