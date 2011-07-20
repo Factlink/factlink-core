@@ -20,7 +20,6 @@ class FactRelation < Fact
       #TODO enable this again:
       fl.created_by = user
       
-      fl.set_added_to_factlink(user)
       fl.save
       $redis.set(FactRelation.redis_key(evidenceA,type,fact),fl.id)
     end

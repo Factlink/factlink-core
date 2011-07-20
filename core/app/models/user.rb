@@ -1,17 +1,7 @@
 module GraphUserProxy
+  deprecate
   def facts
-    require_guser
-    graphuser.facts
-  end
-  
-  
-  def require_guser
-    if not self.graph_user_id
-       graphuser = GraphUser.new
-     graphuser.save
-     self.graph_user_id = graphuser.id
-     save
-    end
+    graph_user.facts
   end
 end
 
@@ -40,11 +30,18 @@ class User
   # field :last_name
 
   field :graph_user_id
-  def graphuser
+  def graph_user
+    if graph_user_id
     return GraphUser[graph_user_id]
+  else
+    graphuser = GraphUser.new
+    graphuser.save
+    graph_user_id = graphuser.id
+    return graphuser
+  end
   end
   
-  def graphuser=(guser)
+  def graph_user=(guser)
     graph_user_id=guser.id
     save
   end

@@ -67,6 +67,9 @@ describe Fact do
     end
   end
   
+  describe ".evidence_opinions" do
+    it "should work"
+  end
 
   
 end

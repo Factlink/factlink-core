@@ -1,4 +1,5 @@
-#require File.expand_path("../basefact.rb", __FILE__)
+require File.expand_path("../../classes/opinionable.rb", __FILE__)
+require File.expand_path("../../classes/opinion.rb", __FILE__)
 
 module FactDataProxy
   #assuming we have a data
@@ -59,15 +60,15 @@ module FactDataProxy
 end
 
 class Basefact < OurOhm
-  #include Opinionable
   include FactDataProxy
+  include Opinionable
+
   reference :data, lambda { |id| FactData.find(id) }
 
   reference :site, Site       # The site on which the factlink should be shown
 
 
   reference  :created_by, GraphUser
-  #  :class_name => "User"
 
   #scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
 
@@ -107,15 +108,6 @@ class Basefact < OurOhm
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
     self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-  end
-
-  def set_added_to_factlink(user)
-    #TODO enable again
-    #self.added_to_factlink.value = user.id
-  end
-
-  def delete_added_to_factlink()
-    #self.added_to_factlink.delete
   end
 
   def toggle_opinion(type, user)
