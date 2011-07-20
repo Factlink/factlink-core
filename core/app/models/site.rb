@@ -1,10 +1,9 @@
-class Site
-  include Mongoid::Document
-  field :url
+class Site < OurOhm
+  attribute :url
 
-  has_many :facts
+  set :facts, Fact
   
-  validates_uniqueness_of :url
+  #validates_uniqueness_of :url
   
   def fact_count
     return self.facts.count

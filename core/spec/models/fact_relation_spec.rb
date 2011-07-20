@@ -6,14 +6,9 @@ describe FactRelation do
     @parent = FactoryGirl.create(:fact)
     @evidence = FactoryGirl.create_list(:fact,2)
     @users = FactoryGirl.create_list(:user,2)
-
-    @fr = @parent.add_evidence(:supporting, @evidence[1], @users[1])
   end
 
 
-  it "should return a FactRelation when adding evidence" do
-    @fr.should be_an_instance_of(FactRelation)
-  end
 
   describe "percentages should work logical" do
     it "should have a percentage of 0 when new" do
@@ -38,6 +33,10 @@ describe FactRelation do
       @fr.should be_a(FactRelation)
       @fr2 = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
       @fr2.should be_a(FactRelation)
+      @fr3 = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+      @fr3.should be_a(FactRelation)
+      @fr.should == @fr2
+      @fr2.should == @fr3
     end
   end
 

@@ -13,8 +13,8 @@ describe FactsController do
     @evidence = FactoryGirl.create(:fact)
     @fr       = FactoryGirl.create(:fact_relation)
     # Set the relation
-    @fr.from_fact.value = @fact.id
-    @fr.fact.value = @evidence.id
+    @fr.from_fact = @fact
+    @fr.fact = @evidence
   end
 
   describe :store_fact_for_non_signed_in_user do

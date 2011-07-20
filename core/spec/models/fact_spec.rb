@@ -38,7 +38,7 @@ describe Fact do
     [:supporting, :weakening].each do |relation|
       def other_one(this)
         if this == :supporting
-          :weakkening
+          :weakening
         else
           :supporting
         end

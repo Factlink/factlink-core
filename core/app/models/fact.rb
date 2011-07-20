@@ -31,7 +31,7 @@ class Fact < Basefact
   
   def add_evidence(type, evidence_fact, user)
     fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
-    evidence(type) << fact_relation.id.to_s
+    evidence(type) << fact_relation
     fact_relation
   end
   

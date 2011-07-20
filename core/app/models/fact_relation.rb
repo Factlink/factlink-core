@@ -1,13 +1,8 @@
-require 'redis'
-require 'redis/objects'
-Redis::Objects.redis = Redis.new
-
 class FactRelation < Fact
-  include Redis::Objects
+  reference :from_fact, Fact
+  reference :fact, Fact
   
-  value :from_fact
-  value :fact
-  value :type
+  attribute :type
   
   def FactRelation.get_or_create(evidenceA, type, fact, user)
     # Type => :supporting || :weakening
@@ -16,17 +11,18 @@ class FactRelation < Fact
       fl = FactRelation[id]
     else
       fl = FactRelation.create(:data => FactData.new())
-      fl.from_fact.value = evidenceA.id.to_s
-      fl.fact.value = fact.id.to_s
-      fl.type.value = type
+      fl.from_fact = evidenceA
+      fl.fact = fact
+      fl.type = type
       #TODO enable this again:
       #fl.created_by = user
       
       fl.set_added_to_factlink(user)
       fl.save
+      $redis.set(FactRelation.redis_key(evidenceA,type,fact),fl.id)
     end
 
-    fl
+    return fl
   end
   
   def set_data(evidence, type, fact)
