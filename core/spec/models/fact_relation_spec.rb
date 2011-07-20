@@ -8,6 +8,10 @@ describe FactRelation do
     @users = FactoryGirl.create_list(:user,2)
   end
 
+  context "initially" do
+    
+  end
+
 
 
   describe "percentages should work logical" do

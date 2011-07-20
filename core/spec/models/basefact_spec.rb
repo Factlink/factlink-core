@@ -161,13 +161,20 @@ describe Basefact do
 
   end  
 
-  describe "Mongoid properties should work" do
+  describe "Mongoid properties: " do
     [:displaystring, :title, :passage, :content].each do |attr|
       context "#{attr} should be changeable" do
         before do
           subject.send "#{attr}=" , "quux"
         end
         it {subject.send("#{attr}").should == "quux"}
+      end
+      context "#{attr} should persist" do
+        before do
+          subject.send "#{attr}=" , "xuuq"
+          subject.save
+        end
+        it {Basefact[subject.id].send("#{attr}").should == "xuuq"}
       end
     end
   end
@@ -178,5 +185,17 @@ describe Basefact do
     end
     its(:to_s){should == "hiephoi"}
   end
-
+  
+  it "should not give a give a document not found for Factdata" do
+      f = Fact.new
+      f.displaystring = "This is a fact"
+      f.created_by = user
+      f.save
+      
+      f2 = Fact[f.id]
+      
+      puts f2.data
+      
+      f2.displaystring.should == "This is a fact"
+    end
 end

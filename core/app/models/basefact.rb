@@ -1,49 +1,67 @@
-
 require File.expand_path("../fact_data.rb", __FILE__)
+
 module FactDataProxy
-  #assuming we have a @data
+  #assuming we have a data
   def title
+    require_data
     data.title
   end
 
   def title=(value)
+    require_data
     data.title=value
   end
 
   def displaystring
+    require_data
     data.displaystring
   end
 
   def displaystring=(value)
+    require_data
     data.displaystring=value
   end 
 
   def content
+    require_data
     data.content
   end
 
   def content=(value)
+    require_data
     data.content=value
   end
-  
+
   def passage
+    require_data
     data.passage
   end
 
   def passage=(value)
+    require_data
     data.passage=value
   end
+
+  def require_data
+    if not self.data_id
+       localdata = FactData.new
+     localdata.save
+     self.data = localdata
+     save
+    end
+  end
   
-  def pre_save
-    data = data || FactData.new
+  def post_save
+    require_data
     data.save
   end
+  
 end
 
 class Basefact < OurOhm
   #include Opinionable
   include FactDataProxy
-  reference :data, lambda { |id| (id && FactData.find(id)) || FactData.create }
+  reference :data, lambda { |id| FactData.find(id) }
 
   reference :site, Site       # The site on which the factlink should be shown
 
@@ -70,9 +88,9 @@ class Basefact < OurOhm
     return self[id]
   end
 
-  set :people_beliefs, lambda { |id| (id && User.find(id)) || User.create }
-  set :people_doubts, lambda { |id| (id && User.find(id)) || User.create }
-  set :people_disbeliefs, lambda { |id| (id && User.find(id)) || User.create }
+  set :people_beliefs, lambda { |id| User.find(id) }
+  set :people_doubts, lambda { |id|  User.find(id) }
+  set :people_disbeliefs, lambda { |id| User.find(id) }
   def opiniated(type)
     self.send("people_#{type}")
   end
@@ -83,7 +101,7 @@ class Basefact < OurOhm
 
 
   def to_s
-    self.data.displaystring || ""
+    self.displaystring || ""
   end
 
   # Return a nice looking url, only subdomain + domain + top level domain
@@ -111,7 +129,7 @@ class Basefact < OurOhm
     end
   end
 
-  
+
 
   def add_opinion(type, user)
     remove_opinions(user)
