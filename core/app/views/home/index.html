@@ -23,7 +23,7 @@
 	<!-- Debug  -->
 	<ul>
 	<% @facts.each do |fact|%>
-		<li><%= link_to(fact.id, fact_path(fact)) %></li>
+		<li><%= link_to(fact.id, fact_path(fact.id)) %></li>
 	<% end %>
 	</ul>
 

@@ -20,7 +20,7 @@ if Rails.env.development? or Rails.env.test?
     mongo_db.collections.each { |col| col.drop() unless col.name == 'system.indexes'}
   end
 
-  Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
+  Sunspot.remove_all!(FactData) # Remove the indices of all Facts in Solr.
 end
 
 
@@ -55,10 +55,11 @@ end
 
 
   facts.each do |fact|
-    Fact.create!( :displaystring => fact,
-                      :site => site,
-                      :created_by => users[0]
-    )
+    f = Fact.new
+    f.displaystring = fact
+    f.site = site
+    f.created_by = users[0]
+    f.save
   end
 
   # fact = Fact.first

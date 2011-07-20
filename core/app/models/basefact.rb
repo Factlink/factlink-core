@@ -1,3 +1,5 @@
+
+require File.expand_path("../fact_data.rb", __FILE__)
 module FactDataProxy
   #assuming we have a @data
   def title
@@ -31,6 +33,10 @@ module FactDataProxy
   def passage=(value)
     data.passage=value
   end
+  
+  def pre_save
+    data.save
+  end
 end
 
 class Basefact < OurOhm
@@ -38,10 +44,10 @@ class Basefact < OurOhm
   include FactDataProxy
   reference :data, lambda { |id| (id && FactData.find(id)) || FactData.create }
 
-  #belongs_to  :site       # The site on which the factlink should be shown
+  reference :site, Site       # The site on which the factlink should be shown
 
 
-  #belongs_to  :created_by,
+  reference  :created_by, lambda { |id| (id && User.find(id)) || User.create }
   #  :class_name => "User"
 
   #scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
