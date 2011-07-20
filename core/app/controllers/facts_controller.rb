@@ -62,11 +62,7 @@ class FactsController < ApplicationController
   
   def edit
     @fact = Fact.find(params[:id])
-    ids = @fact.fact_relations_ids
-    ids << @fact.id
-    
-    @potential_evidence = Fact.where(:_id.nin => ids)
-  end
+    end
   
   # Prepare for create
   def prepare
@@ -75,6 +71,7 @@ class FactsController < ApplicationController
   
   # Prepare for create
   def intermediate
+    
     # TODO: Sanitize for XSS
     @url = params[:url]
     @passage = params[:passage]
@@ -83,8 +80,10 @@ class FactsController < ApplicationController
     case params[:the_action]
     when "prepare"
       @path = "factlink_prepare_path"
-    when "show"
-      @path = "factlink_show_path(%x)" % :id
+
+    # TODO: This appears not to be used:
+    # when "show"      
+    #   @path = "factlink_show_path(%x)" % :id
     else
       @path = ""
     end
