@@ -34,7 +34,7 @@ class FactsController < ApplicationController
 
   def factlinks_for_url
     url = params[:url]
-    site = Site.first(:conditions => { :url => url })
+    site = Site.find(:url => url)[0]
     
     @facts = if site
              then site.facts
@@ -49,11 +49,8 @@ class FactsController < ApplicationController
 
   def show
     @fact = Fact.find(params[:id])
-    
-    ids = @fact.fact_relations_ids
-    ids << @fact.id
-    
-    @potential_evidence = Fact.where(:_id.nin => ids)
+    #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
+    @potential_evidence = Fact.all
   end
   
   def new

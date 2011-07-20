@@ -49,8 +49,9 @@ class Fact < Basefact
   end
   
   # Used for sorting
+  deprecate
   def self.column_names
-    self.fields.collect { |field| field[0] }
+    FactData.column_names
   end
 
   def evidence_opinion

@@ -42,6 +42,9 @@ describe FactsController do
       get :show, :id => @fact.id
       response.should be_succes
     end
+    it "should return a list of @potential_evidence"
+    it "should not include itself in @potential_evidenc"
+    it "should not include facts in potential evidence which already both support and weaken"
   end
 
   describe :new do
@@ -92,21 +95,7 @@ describe FactsController do
             
     end
 
-    it "should set the correct path for ther 'prepare' action" do
-      url     = "http://en.wikipedia.org/wiki/Batman"
-      passage = "NotImplemented"
-      fact    = "Batman is a fictional character"     # Actually the displaystring
-      
-      action  = "prepare"
-      
-      post :intermediate, :url      => url, 
-                          :passage  => passage, 
-                          :fact     => fact,
-                          :the_action => action
-
-      assigns(:path).should == "factlink_prepare_path"
-    end
-
+   
   end
 
   describe :create do

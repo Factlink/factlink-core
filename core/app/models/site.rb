@@ -1,5 +1,6 @@
 class Site < OurOhm
   attribute :url
+  index :url
 
   set :facts, Fact
   

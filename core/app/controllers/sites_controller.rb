@@ -3,7 +3,7 @@ class SitesController < ApplicationController
   before_filter :authenticate_admin!, :except => [:count_for_site]
 
   def count_for_site
-    site = Site.first(:conditions => { :url => params[:url] })
+    site = Site.find(:url => params[:url])[0]
     
     count = 0
     if site

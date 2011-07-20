@@ -4,6 +4,8 @@ class FactRelation < Fact
   
   attribute :type
   
+  #TODO add proper index for get_or_create
+  
   def FactRelation.get_or_create(evidenceA, type, fact, user)
     # Type => :supporting || :weakening
     if $redis.exists(FactRelation.redis_key(evidenceA, type, fact))
