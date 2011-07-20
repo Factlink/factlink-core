@@ -1,7 +1,23 @@
-
+module GraphUserProxy
+  def facts
+    require_guser
+    graphuser.facts
+  end
+  
+  
+  def require_guser
+    if not self.graph_user_id
+       graphuser = GraphUser.new
+     graphuser.save
+     self.graph_user_id = graphuser.id
+     save
+    end
+  end
+end
 
 class User
   include Mongoid::Document
+  include GraphUserProxy
 
   # Several key components of the user are stored in Redis.
   #
@@ -23,6 +39,15 @@ class User
   # field :first_name
   # field :last_name
 
+  field :graph_user_id
+  def graphuser
+    return GraphUser[graph_user_id]
+  end
+  
+  def graphuser=(guser)
+    graph_user_id=guser.id
+    save
+  end
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
