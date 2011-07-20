@@ -50,19 +50,6 @@ class FactsController < ApplicationController
   def show
     @fact = Fact.find(params[:id])
     
-    # TODO: Generate ajax request for potential sources
-    # All sources that are not part of this factlink yet
-
-    # Create copy of ids array
-    # not_allowed_child_ids = Array.new(@factlink.child_ids)
-    # not_allowed_child_ids << @factlink.id
-    
-    # not_allowed_parent_ids = Array.new(@factlink.parent_ids)
-    # not_allowed_parent_ids << @factlink.id
-    
-    # @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
-    # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
-    
     ids = @fact.fact_relations_ids
     ids << @fact.id
     
@@ -75,11 +62,7 @@ class FactsController < ApplicationController
   
   def edit
     @fact = Fact.find(params[:id])
-    ids = FactRelation.where(:_id.in => @fact.fact_relations_ids).map { |fr| fr.from_fact.value }
-    ids << @fact.id
-    
-    @potential_evidence = Fact.where(:_id.nin => ids)
-  end
+    end
   
   # Prepare for create
   def prepare
@@ -87,20 +70,11 @@ class FactsController < ApplicationController
   end
   
   # Prepare for create
-  def intermediate
+  def intermediate    
     # TODO: Sanitize for XSS
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
-    
-    case params[:the_action]
-    when "prepare"
-      @path = "factlink_prepare_path"
-    when "show"
-      @path = "factlink_show_path(%x)" % :id
-    else
-      @path = ""
-    end
 
     render :template => 'facts/intermediate', :layout => nil
   end

@@ -53,7 +53,14 @@ describe FactsController do
   end
 
   describe :edit do
-    it "should work"
+    it "should edit the given fact" do
+      authenticate_user!
+      
+      @fact = FactoryGirl.create(:fact)
+      get :edit, :id => @fact.id
+      
+      assigns[:fact].should == @fact
+    end  
   end
 
   describe :prepare do
@@ -64,7 +71,42 @@ describe FactsController do
   end
 
   describe :intermediate do
-    it "should work"
+    it "should have the correct assignments" do
+      
+      url     = "http://en.wikipedia.org/wiki/Batman"
+      passage = "NotImplemented"
+      fact    = "Batman is a fictional character"     # Actually the displaystring
+      
+      post :intermediate, :url      => url, 
+                          :passage  => passage, 
+                          :fact     => fact,
+                          :the_action => "prepare"
+      
+      response.code.should eq("200")
+      
+      # Url is not working, really weird?
+      # assigns[:url].should == url
+
+      assigns(:passage).should == passage
+      assigns(:fact).should == fact
+            
+    end
+
+    it "should set the correct path for ther 'prepare' action" do
+      url     = "http://en.wikipedia.org/wiki/Batman"
+      passage = "NotImplemented"
+      fact    = "Batman is a fictional character"     # Actually the displaystring
+      
+      action  = "prepare"
+      
+      post :intermediate, :url      => url, 
+                          :passage  => passage, 
+                          :fact     => fact,
+                          :the_action => action
+
+      assigns(:path).should == "factlink_prepare_path"
+    end
+
   end
 
   describe :create do

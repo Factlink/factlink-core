@@ -26,7 +26,7 @@ FactlinkUI::Application.routes.draw do
 
   # Prepare a new Fact
   match "/factlink/prepare" => "facts#prepare"
-  match "/factlink/intermediate/(:the_action)/(:id)" => "facts#intermediate"
+  match "/factlink/intermediate" => "facts#intermediate"
   
   match "/factlink/new" => "facts#create"  
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
