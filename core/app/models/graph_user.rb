@@ -1,5 +1,6 @@
+
 class GraphUser < OurOhm
-  reference :data, lambda { |id| (id && User.find(id)) || User.create }
+  reference :user, lambda { |id| User.find(id) }
 
   # Authority of the user
   def authority

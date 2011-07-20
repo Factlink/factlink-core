@@ -1,3 +1,5 @@
+
+
 class Fact < Basefact
 
   set :supporting_facts, FactRelation

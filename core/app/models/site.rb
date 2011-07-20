@@ -1,3 +1,5 @@
+
+
 class Site < OurOhm
   attribute :url
   index :url

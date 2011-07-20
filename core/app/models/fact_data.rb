@@ -1,3 +1,5 @@
+
+
 class FactData
   include Mongoid::Document
   include Mongoid::Timestamps

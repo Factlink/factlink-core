@@ -1,4 +1,4 @@
-require File.expand_path("../fact_data.rb", __FILE__)
+#require File.expand_path("../basefact.rb", __FILE__)
 
 module FactDataProxy
   #assuming we have a data

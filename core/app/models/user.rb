@@ -1,10 +1,8 @@
+
+
 class User
   include Mongoid::Document
 
-  def User.[](id)
-    return User.find(id)
-  end
-  
   # Several key components of the user are stored in Redis.
   #
   # redis_key(:beliefs||:doubts||:disbeliefs) store the Fact ID's the \

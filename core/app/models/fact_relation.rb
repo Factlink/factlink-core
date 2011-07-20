@@ -1,3 +1,4 @@
+
 class FactRelation < Fact
   reference :from_fact, Fact
   reference :fact, Fact
@@ -12,12 +13,12 @@ class FactRelation < Fact
       id = $redis.get(FactRelation.redis_key(evidenceA, type, fact))
       fl = FactRelation[id]
     else
-      fl = FactRelation.create(:data => FactData.new())
+      fl = FactRelation.create
       fl.from_fact = evidenceA
       fl.fact = fact
       fl.type = type
       #TODO enable this again:
-      #fl.created_by = user
+      fl.created_by = user
       
       fl.set_added_to_factlink(user)
       fl.save

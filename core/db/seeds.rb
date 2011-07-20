@@ -42,7 +42,8 @@ end
   user1.save
  
   # Site
-  site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
+  site = Site.new
+  site.url = "http://en.wikipedia.org/wiki/Batman"
   site.save
 
   facts = [
