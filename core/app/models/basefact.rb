@@ -35,6 +35,7 @@ module FactDataProxy
   end
   
   def pre_save
+    data = data || FactData.new
     data.save
   end
 end
@@ -47,7 +48,7 @@ class Basefact < OurOhm
   reference :site, Site       # The site on which the factlink should be shown
 
 
-  reference  :created_by, lambda { |id| (id && User.find(id)) || User.create }
+  reference  :created_by, GraphUser
   #  :class_name => "User"
 
   #scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )

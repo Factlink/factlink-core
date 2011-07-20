@@ -25,7 +25,6 @@ class User
   # field :first_name
   # field :last_name
 
-  has_many :facts, :as => :created_by
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
@@ -36,10 +35,6 @@ class User
     username
   end
 
-  # Authority of the user
-  def authority
-    1.0
-  end
 
 
   def update_opinion(type, fact)
