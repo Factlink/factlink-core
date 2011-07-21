@@ -74,7 +74,4 @@ class User
     username
   end
 
-
-
-
 end

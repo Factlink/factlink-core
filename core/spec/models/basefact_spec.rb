@@ -195,8 +195,6 @@ describe Basefact do
       
       f2 = Fact[f.id]
       
-      puts f2.data
-      
       f2.displaystring.should == "This is a fact"
     end
 end

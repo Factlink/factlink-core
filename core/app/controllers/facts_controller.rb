@@ -165,7 +165,6 @@ class FactsController < ApplicationController
     
     if @factlink.added_to_parent_by_current_user(parent, current_user)
       # Only remove if the user added this source
-      puts "Removing child"
       parent.remove_child(@factlink)
       parent.save
     end
