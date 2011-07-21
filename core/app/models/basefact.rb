@@ -75,7 +75,7 @@ class Basefact < OurOhm
 
   reference :data, lambda { |id| FactData.find(id) }
   reference :site, Site       # The site on which the factlink should be shown
-  reference  :created_by, GraphUser
+  reference :created_by, GraphUser
 
   # deze snel deprecaten, want deze overschrijft de ohm-eigen dingen
   deprecate
