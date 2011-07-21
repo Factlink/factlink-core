@@ -32,7 +32,7 @@ Factlink.search = function(searchString){
         // Maybe we later need to store the current selection before 
         // processing the document, so we can reset it afterwards
         window.getSelection().removeAllRanges();
-    } else if (document.body.createTextRange) { // IE & Opera
+    } else if (document.body.createTextRange) { // IE
             // Create an empty range object
         range = document.body.createTextRange();
         
@@ -75,11 +75,11 @@ Factlink.search = function(searchString){
                     range.collapse(false);
                 }
             }
-        } else { // Opera
-            alert( "Your browser is currently not supported by Factlink" );
+        } else { // No findText available
+            return false;
         }
     } else { // No window.find and createTextRange
-        alert( "Unimplemented" );
+        return false;
     }
     
     // Scroll back to previous location
