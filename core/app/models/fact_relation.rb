@@ -1,4 +1,3 @@
-
 class FactRelation < Fact
   reference :from_fact, Fact
   reference :fact, Fact
@@ -25,10 +24,6 @@ class FactRelation < Fact
     end
 
     return fl
-  end
-  
-  def set_data(evidence, type, fact)
-    
   end
   
   def percentage
@@ -68,8 +63,7 @@ class FactRelation < Fact
     #   # p "Loop detected - #{self.id}"
     #   $redis.del(redis_key)
     #   return Opinion.new(0, 0, 0)
-    # end
-    
+    # end 
     get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 end

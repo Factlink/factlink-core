@@ -5,7 +5,6 @@ class OurOhm < Ohm::Model
   
   deprecate
   alias :new_record? :new?
-    
   
   def save
     pre_save

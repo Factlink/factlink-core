@@ -53,7 +53,6 @@ module FactDataProxy
     data.updated_at
   end
 
-
   def require_data
     if not self.data_id
       localdata = FactData.new
@@ -75,26 +74,10 @@ class Basefact < OurOhm
   include Opinionable
 
   reference :data, lambda { |id| FactData.find(id) }
-
   reference :site, Site       # The site on which the factlink should be shown
-
-
   reference  :created_by, GraphUser
 
-  #scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
-
-  #value :added_to_factlink
-
-  # TODO: Find another way to retrieve all factlinks that have a relation to a site
-  # scope :with_site, where( :site.ne => nil ) # is not working.
-  # def self.with_site_as_parent
-  #   # Map all site, and all factlinks in this site.
-  #   factlink_ids = Site.all.map { |s| s.facts.map { |f| f.id } }.flatten
-  #   self.where( :_id.in => factlink_ids )
-  # end
-
-
-  #deze snel deprecaten, want deze overschrijft de ohm-eigen dingen
+  # deze snel deprecaten, want deze overschrijft de ohm-eigen dingen
   deprecate
   def self.find(id)
     return self[id]
@@ -111,7 +94,6 @@ class Basefact < OurOhm
     opiniated(type).size
   end
 
-
   def to_s
     self.displaystring || ""
   end
@@ -122,7 +104,6 @@ class Basefact < OurOhm
   end
 
   def toggle_opinion(type, user)
-
     if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)
@@ -131,8 +112,6 @@ class Basefact < OurOhm
       add_opinion(type, user)
     end
   end
-
-
 
   def add_opinion(type, user)
     remove_opinions(user)

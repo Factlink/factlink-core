@@ -1,12 +1,7 @@
-
-
 class Fact < Basefact
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
-
-  #scope added to retrieve only facts, not factrelations
-  #scope :facts, where(:_type => "Fact")
   
   deprecate
   def fact_relations_ids

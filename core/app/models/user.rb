@@ -24,12 +24,6 @@ class User
   include Mongoid::Document
   include GraphUserProxy
 
-  # Several key components of the user are stored in Redis.
-  #
-  # redis_key(:beliefs||:doubts||:disbeliefs) store the Fact ID's the \
-  # user interacted with.
-  #
-
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
   devise :database_authenticatable,
@@ -41,10 +35,13 @@ class User
   :registerable   # Allow registration
 
   field :username
-  # field :first_name
-  # field :last_name
-
   field :graph_user_id
+
+  # Only allow letters, digits and underscore in a username
+  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_presence_of :username, :message => "is required", :allow_blank => true
+  validates_uniqueness_of :username, :message => "must be unique"
+
   def graph_user
     if graph_user_id
       return GraphUser[graph_user_id]
@@ -64,11 +61,6 @@ class User
     self.graph_user_id = guser.id
     self.save
   end
-
-  validates_presence_of :username, :message => "is required", :allow_blank => true
-  validates_uniqueness_of :username, :message => "must be unique"
-  # Only allow letters, digits and underscore in a username
-  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
 
   def to_s
     username

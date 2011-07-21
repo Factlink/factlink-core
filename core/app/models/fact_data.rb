@@ -1,5 +1,3 @@
-
-
 class FactData
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -18,9 +16,7 @@ class FactData
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
 
-
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
 end
-

@@ -17,25 +17,28 @@ class GraphUser < OurOhm
   include UserProxy
   
   reference :user, lambda { |id| User.find(id) }
+    
+  set :beliefs_facts, Fact
+  set :doubts_facts, Fact
+  set :disbeliefs_facts, Fact
 
   # Authority of the user
   def authority
     1.0
   end
-  
-  set :beliefs_facts, Fact
-  set :doubts_facts, Fact
-  set :disbeliefs_facts, Fact
-  #user.facts_he(:beliefs)
+
+  # user.facts_he(:beliefs)
   def facts_he(type)
     self.send("#{type}_facts")
   end
 
+  def has_opinion?(type, fact)
+    facts_he(type).include?(fact)
+  end
 
   def facts
     beliefs_facts.all + doubts_facts.all + disbeliefs_facts.all
   end
-
 
   def update_opinion(type, fact)
     # Remove existing opinion by user
@@ -48,10 +51,6 @@ class GraphUser < OurOhm
     [:beliefs, :doubts, :disbeliefs].each do |type|
       facts_he(type).delete(fact)
     end
-  end
-
-  def has_opinion?(type, fact)
-    facts_he(type).include?(fact)
   end
   
 end
