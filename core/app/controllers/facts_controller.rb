@@ -83,7 +83,6 @@ class FactsController < ApplicationController
     # Get or create the website on which the Fact is located
     site = Site.find_or_create_by(:url => params[:url])
 
-
     # TODO: This can be changed to use only displaystring when the above
     # refactor is done.
     if params[:fact]
