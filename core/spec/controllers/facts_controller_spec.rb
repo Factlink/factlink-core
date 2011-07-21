@@ -202,9 +202,9 @@ describe FactsController do
       
       assigns[:fact].should == @fact
       
-      assigns[:beliefs].should == []
-      assigns[:doubts].should == []
-      assigns[:disbeliefs].should == []
+      assigns[:believers].should == []
+      assigns[:doubters].should == []
+      assigns[:disbelievers].should == []
     end
   end
 

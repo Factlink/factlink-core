@@ -43,20 +43,31 @@ module FactDataProxy
     data.passage=value
   end
 
+  def created_at
+    require_data
+    data.created_at
+  end
+
+  def updated_at
+    require_data
+    data.updated_at
+  end
+
+
   def require_data
     if not self.data_id
-       localdata = FactData.new
-     localdata.save
-     self.data = localdata
-     save
+      localdata = FactData.new
+      localdata.save
+      self.data = localdata
+      save
     end
   end
-  
+
   def post_save
     require_data
     data.save
   end
-  
+
 end
 
 class Basefact < OurOhm
@@ -89,9 +100,9 @@ class Basefact < OurOhm
     return self[id]
   end
 
-  set :people_beliefs, lambda { |id| User.find(id) }
-  set :people_doubts, lambda { |id|  User.find(id) }
-  set :people_disbeliefs, lambda { |id| User.find(id) }
+  set :people_beliefs, GraphUser
+  set :people_doubts, GraphUser
+  set :people_disbeliefs, GraphUser
   def opiniated(type)
     self.send("people_#{type}")
   end
@@ -112,7 +123,7 @@ class Basefact < OurOhm
 
   def toggle_opinion(type, user)
 
-    if user.opinion_on_fact_for_type?(type, self)
+    if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)
     else
