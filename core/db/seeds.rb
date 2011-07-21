@@ -4,13 +4,11 @@ require File.expand_path('../../spec/factories', __FILE__)
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-puts "hoi  " + Rails.env
-
 # Clear stuff
 if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
 
-  ['test','development'].each do |env|
+  ['development'].each do |env|
     mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[env]
 
     puts mongoid_conf['database']

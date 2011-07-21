@@ -39,15 +39,15 @@ class Fact < Basefact
   
   # Count helpers
   def supporting_evidence_count
-    evidence(:supporting).length
+    evidence(:supporting).size
   end
 
   def weakening_evidence_count
-    evidence(:weakening).length
+    evidence(:weakening).size
   end
 
   def evidence_count
-    fact_relations_ids.count
+    weakening_evidence_count + supporting_evidence_count
   end
   
   # Used for sorting

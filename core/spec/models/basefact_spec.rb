@@ -7,8 +7,8 @@ def others(opinion)
 end
 
 describe Basefact do
-  let(:user) {FactoryGirl.create(:user)}
-  let(:user2) {FactoryGirl.create(:user)}
+  let(:user) {FactoryGirl.create(:user).graph_user}
+  let(:user2) {FactoryGirl.create(:user).graph_user}
 
   subject {FactoryGirl.create(:basefact)}
   let(:fact2) {FactoryGirl.create(:basefact)}
@@ -17,6 +17,7 @@ describe Basefact do
     its(:interacting_users) {should be_empty}
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
+      it { subject.opiniated(opinion).should == [] }
     end
     its(:to_s){ should be_a(String) }
     context "#find" do
@@ -114,7 +115,7 @@ describe Basefact do
         subject.remove_opinions user
       end
       it {subject.opiniated_count(opinion).should == 0 }
-      its(:interacting_users) {should be_empty}
+      its(:interacting_users) {should == []}
     end
 
     context "after two believers are added" do
@@ -193,8 +194,6 @@ describe Basefact do
       f.save
       
       f2 = Fact[f.id]
-      
-      puts f2.data
       
       f2.displaystring.should == "This is a fact"
     end
