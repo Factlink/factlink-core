@@ -49,19 +49,20 @@ class User
     if graph_user_id
       return GraphUser[graph_user_id]
     else
-      graphuser = GraphUser.new
-      graphuser.save
-      graph_user_id = graphuser.id
-      save
-      graphuser.user = self
-      graphuser.save
-      return graphuser
+      guser = GraphUser.new
+      guser.save
+
+      self.graph_user = guser
+
+      guser.user = self
+      guser.save
+      return guser
     end
   end
 
   def graph_user=(guser)
-    graph_user_id=guser.id
-    save
+    self.graph_user_id = guser.id
+    self.save
   end
 
   validates_presence_of :username, :message => "is required", :allow_blank => true
