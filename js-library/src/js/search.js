@@ -10,8 +10,7 @@ Factlink.search = function(searchString){
         scrollTop = document.body.scrollTop,
         scrollLeft = document.body.scrollLeft,
         
-        rangy = window.rangy,
-        selection, range, ierange, scroll;
+        selection, range;
     
     if ( window.find ) { // Chrome, Firefox, Safari
         // Reset the selection
