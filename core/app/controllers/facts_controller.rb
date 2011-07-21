@@ -171,8 +171,6 @@ class FactsController < ApplicationController
     end
   end
   
-  
-  
 
   def update
     @factlink = Fact.find(params[:id])
@@ -221,9 +219,9 @@ class FactsController < ApplicationController
   def interaction_users_for_factlink
     @fact         = Fact.find(params[:factlink_id])
     
-    @believers    = @factlink.opiniated(:beliefs)
-    @doubters     = @factlink.opiniated(:doubts)
-    @disbelievers = @factlink.opiniated(:disbeliefs)    
+    @believers    = @fact.opiniated(:beliefs)
+    @doubters     = @fact.opiniated(:doubts)
+    @disbelievers = @fact.opiniated(:disbeliefs)    
     
   end
   

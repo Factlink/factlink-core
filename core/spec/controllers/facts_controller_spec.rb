@@ -129,7 +129,7 @@ describe FactsController do
     end
   end
 
-  describe :remove_factlink_from_parent do
+  describe :remove_factlink_from_parent do    
     it "should work"
   end
 
@@ -158,6 +158,7 @@ describe FactsController do
         response.code.should eq("200")
       end
     end
+
   end
 
   describe :toggle_relevance_on_fact_relation do
@@ -181,11 +182,30 @@ describe FactsController do
         response.code.should eq("200")
       end
     end
+    
+    it "should have the FactRelation assigned" do
+      authenticate_user!
+      create_fact_relation
+
+      xhr :get, "toggle_relevance_on_fact_relation", { :fact_relation_id => @fr.id, :type => "beliefs" }
+      assigns[:fact_relation].should == @fr
+    end
   end
 
   # Currently not used
   describe :interaction_users_for_factlink do
-    it "should work"
+    it "should have the correct assigns" do
+      
+      @fact = FactoryGirl.create(:fact)
+      
+      get :interaction_users_for_factlink, :factlink_id => @fact.id
+      
+      assigns[:fact].should == @fact
+      
+      assigns[:beliefs].should == []
+      assigns[:doubts].should == []
+      assigns[:disbeliefs].should == []
+    end
   end
 
   describe :search do
@@ -221,7 +241,10 @@ describe FactsController do
   end
 
   describe :indication do
-    it "should work"
+    it "should respond to XHR request" do
+      xhr :get, :indication
+      response.should be_succes
+    end
   end
 
 
