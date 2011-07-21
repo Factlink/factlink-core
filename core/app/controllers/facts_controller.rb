@@ -96,6 +96,9 @@ class FactsController < ApplicationController
                              :created_by => current_user,
                              :site => site)
 
+    # Required for the Ohm Model, doesn't set the relation itself?
+    site.facts << @factlink
+
     # Redirect to edit action
     redirect_to :action => "edit", :id => @factlink.id
   end
