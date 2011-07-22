@@ -131,14 +131,36 @@ class Basefact < OurOhm
   end
 
   def get_opinion
-    opinions = []
-    [:beliefs, :doubts, :disbeliefs].each do |type|      
-      opiniated = opiniated(type)
-      opiniated.each do |user|
-        opinions << Opinion.for_type(type, user.authority)
+    
+    key = "loop_detection"
+    
+    if $redis.sismember(key, self.id)
+      puts "Loop detected [Basefact][#{self.id}] - Basefact#get_opinion"
+      $redis.del(key)      
+      return Opinion.new(0, 0, 0)
+    else
+      puts "No loop [Basefact][#{self.id}] - continue..."
+      $redis.sadd(key, self.id)
+      
+      opinions = []
+      [:beliefs, :doubts, :disbeliefs].each do |type|      
+        opiniated = opiniated(type)
+        opiniated.each do |user|
+          opinions << Opinion.for_type(type, user.authority)
+        end
       end
+      return Opinion.combine(opinions)      
+      
     end
-    Opinion.combine(opinions)
+
+    # opinions = []
+    # [:beliefs, :doubts, :disbeliefs].each do |type|      
+    #   opiniated = opiniated(type)
+    #   opiniated.each do |user|
+    #     opinions << Opinion.for_type(type, user.authority)
+    #   end
+    # end
+    # Opinion.combine(opinions)
   end
 
 end

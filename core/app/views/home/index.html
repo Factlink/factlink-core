@@ -1,5 +1,5 @@
 
-<pre><%= link_to(add_supporting_evidence_path(Fact.first.id, Fact.last.id)) %></pre>
+<pre><%= link_to(add_supporting_evidence_path(Fact.all.first.id, Fact.all.to_a[Fact.all.count - 1].id)) %></pre>
 
 <!-- left content block -->
 <div class="span-9 append-1" style="text-shadow: 0px 1px 1px #fff;">
