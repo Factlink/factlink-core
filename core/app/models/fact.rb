@@ -49,8 +49,7 @@ class Fact < Basefact
   def add_evidence(type, evidence_fact, user)
     fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
     evidence(type) << fact_relation
-    
-    puts "Fact#add_evidence: returning: #{fact_relation.id} of type [#{fact_relation.class}]"
+
     fact_relation
   end
   

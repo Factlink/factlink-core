@@ -36,8 +36,6 @@ class FactsController < ApplicationController
     url = params[:url]
     site = Site.find(:url => url).first
 
-    puts "\n\nSite: #{site};"
-
     @facts = if site
     then site.facts.to_a
     else []
@@ -110,8 +108,6 @@ class FactsController < ApplicationController
     @evidence = Fact.find(params[:evidence_id])
 
     @fact_relation = @fact.add_evidence(:supporting, @evidence, current_user)
-
-    puts "\nFactsController#add_supporting_evidence @fact_relation: #{@fact_relation.id}"
 
     render "add_source_to_factlink"
   end

@@ -21,11 +21,8 @@ class FactRelation < Fact
       
       fl.save
       $redis.set(FactRelation.redis_key(evidenceA,type,fact), fl.id)
-      
-      puts "Created a new FactRelation[#{fl.id}]"
     end
 
-    puts "Returning #{fl.id} :: percentage: #{fl.percentage};"
     return fl
   end
   
@@ -61,11 +58,9 @@ class FactRelation < Fact
     key = "loop_detection_2"
     
     if $redis.sismember(key, self.id)
-      # puts "Loop detected [FactRelation][#{self.id}] - Basefact#get_opinion"
       $redis.del(key)      
       return Opinion.new(0, 0, 0)
     else
-      # puts "No loop [FactRelation][#{self.id}] - continue..."
       $redis.sadd(key, self.id)      
       return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
     end

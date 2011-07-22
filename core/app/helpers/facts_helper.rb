@@ -26,10 +26,7 @@ module FactsHelper
 
 
   # Listitem for in factlink client overview
-  def factlink_source_partial_as_li(fact_relation)
-    
-    puts "\n\nFactRelation in the helper: #{fact_relation};"
-    
+  def factlink_source_partial_as_li(fact_relation)    
     render :partial => 'facts/partial/source_as_li', 
               :locals => { :fact_relation => fact_relation }
   end

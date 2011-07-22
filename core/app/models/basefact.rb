@@ -135,11 +135,9 @@ class Basefact < OurOhm
     key = "loop_detection"
     
     if $redis.sismember(key, self.id)
-      # puts "Loop detected [Basefact][#{self.id}] - Basefact#get_opinion"
       $redis.del(key)      
       return Opinion.new(0, 0, 0)
     else
-      # puts "No loop [Basefact][#{self.id}] - continue..."
       $redis.sadd(key, self.id)
       
       opinions = []
