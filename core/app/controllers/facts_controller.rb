@@ -51,8 +51,10 @@ class FactsController < ApplicationController
     hash = @facts.to_json()
     # hash["callback"] = "this is the callback"
     
-    render :json => hash
+    # render :json => hash
       # :callback => params[:callback], :baron => "123hoi"
+
+    render :json => @facts , :callback => params[:callback]
   end
 
   def show
