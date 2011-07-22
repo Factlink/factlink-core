@@ -36,7 +36,7 @@ class FactsController < ApplicationController
     url = params[:url]
     site = Site.find(:url => url).first
 
-    puts "\n\nSite;#{site}"
+    puts "\n\nSite: #{site};"
 
     @facts = if site
     then site.facts.to_a
@@ -45,8 +45,14 @@ class FactsController < ApplicationController
 
     # Render the result with callback,
     # so JSONP can be used (for Internet Explorer)
-    render :json => @facts.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ),
-      :callback => params[:callback]
+    # render :json => @facts.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ),
+    #   :callback => params[:callback]
+    
+    hash = @facts.to_json()
+    # hash["callback"] = "this is the callback"
+    
+    render :json => hash
+      # :callback => params[:callback], :baron => "123hoi"
   end
 
   def show

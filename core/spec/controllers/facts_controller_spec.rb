@@ -23,11 +23,24 @@ describe FactsController do
 
   describe :factlinks_for_url do
     it "should work with an existing site" do
-      @site = FactoryGirl.create(:site, :url => "http://en.wikipedia.org/wiki/Batman")
+      @site = FactoryGirl.create(:site, :url => "http://batman.org")
       get :factlinks_for_url, :url => @site.url
       response.body.should eq("[]")
     end
-    
+
+    # Facts don't get set properly?
+    it "should return results for an existing site with facts" do
+
+      pending
+
+      @site = FactoryGirl.create(:site, :url => "http://batman.org")
+      
+      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact one")
+      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact two")
+      
+      get :factlinks_for_url, :url => @site.url
+      response.body.should eq("[...the facts as json...]")
+    end
     
     it "should work with an non-existing site" do
 

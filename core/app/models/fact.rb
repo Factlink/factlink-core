@@ -18,6 +18,11 @@ class Fact < Basefact
     end
   end
   
+  # OHm Model needs to have a definition of which fields to render
+  def to_hash
+    super.merge(:displaystring => displaystring)
+  end
+  
   deprecate
   def fact_relations_ids
     fact_relations.map { |fr| fr.id }
