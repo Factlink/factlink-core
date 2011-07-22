@@ -34,10 +34,12 @@ class FactsController < ApplicationController
 
   def factlinks_for_url
     url = params[:url]
-    site = Site.find(:url => url)[0]
+    site = Site.find(:url => url).first
+
+    puts "\n\nSite;#{site}"
 
     @facts = if site
-    then site.facts
+    then site.facts.to_a
     else []
     end
 

@@ -58,6 +58,8 @@ end
     f.site = site
     f.created_by = users[0].graph_user
     f.save
+    
+    site.facts << f
   end
 
   # fact = Fact.first
