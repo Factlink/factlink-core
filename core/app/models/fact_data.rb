@@ -15,8 +15,30 @@ class FactData
   field :displaystring,   :type => String   # For matching Fact on a page
   field :passage,         :type => String   # Passage for matching: not implemented
   field :content,         :type => String   # Source content
+  field :fact_id,         :type => String
 
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
+    
+  def fact
+    if fact_id
+      return Fact[fact_id]
+    else
+      new_fact = Fact.new
+      new_fact.save
+
+      self.fact = new_fact
+
+      new_fact.fact_data = self
+      new_fact.save
+      return new_fact
+    end
+  end
+
+  def fact=(the_fact)
+    self.fact_id = the_fact.id
+    self.save
+  end
+  
 end

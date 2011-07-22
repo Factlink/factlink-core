@@ -1,22 +1,9 @@
 class Fact < Basefact
 
+  reference :fact_data, lambda { |id| FactData.find(id) }
+
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
-
-  # More Rails like behaviour:
-  # def Fact.first
-  #   return Fact.all.first
-  # end
-  # def Fact.last
-  #   case Fact.all.count
-  #   when 0
-  #     return nil
-  #   when 1
-  #     return Fact.first
-  #   else
-  #     return Fact.all.to_a[Fact.all.count - 1]
-  #   end
-  # end
   
   # OHm Model needs to have a definition of which fields to render
   def to_hash

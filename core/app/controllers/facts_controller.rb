@@ -122,53 +122,21 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
 
-
-
-  # # Adding the current fact to another existing fact as evidence
-  # # Is this still the way we want to use this in the future UI?
-  # deprecate # move to facts#add_supporting_evidence
-  # def add_factlink_to_parent_as_supporting
-  #   # Add a Fact as source for another Fact
-  #   @fact     = Fact.find(params[:fact_id])
-  #   @evidence = Fact.find(params[:evidence_id])
-  # 
-  #   # Is this correct?
-  #   @factlink = FactRelation.get_or_create(@evidence, :supporting, @fact, current_user)
-  # 
-  #   render "add_factlink_to_parent"
-  # end
-  # 
-  # 
-  # # Adding the current fact to another existing fact as evidence
-  # # Is this still the way we want to use this in the future UI?
-  # 
-  # deprecate # move to facts#add_weakening_evidence
-  # def add_factlink_to_parent_as_weakening
-  #   # Add a Fact as source for another Fact
-  #   @factlink = Fact.find(params[:factlink_id])
-  #   @parent   = Fact.find(params[:parent_id])
-  # 
-  #   # Is this correct?
-  #   @factlink = FactRelation.get_or_create(@evidence, :weakening, @fact, current_user)
-  # 
-  #   render "add_factlink_to_parent"
-  # end
-
-
-
+  
   def remove_factlink_from_parent
 
     # TODO: Only allow if user added the source earlier on
 
-    # Remove a Fact from it's parent
-    @factlink = Fact.find(params[:factlink_id])
-    parent    = Fact.find(params[:parent_id])
-
-    if @factlink.added_to_parent_by_current_user(parent, current_user)
-      # Only remove if the user added this source
-      parent.remove_child(@factlink)
-      parent.save
-    end
+    # Not being used at the moment
+    # # Remove a Fact from it's parent
+    # @factlink = Fact.find(params[:factlink_id])
+    # parent    = Fact.find(params[:parent_id])
+    # 
+    # if @factlink.added_to_parent_by_current_user(parent, current_user)
+    #   # Only remove if the user added this source
+    #   parent.remove_child(@factlink)
+    #   parent.save
+    # end
   end
 
 
@@ -226,6 +194,8 @@ class FactsController < ApplicationController
   end
 
   # Search
+  # Not using the same search for the client popup, since we probably want\
+  # to use a more advanced search on the Factlink website.
   def search
     @row_count = 50
     row_count = @row_count
@@ -260,6 +230,50 @@ class FactsController < ApplicationController
       format.html { render :layout => "accounting" }# search.html.erb
       format.js
     end
+  end
+  
+  
+  
+  # Search in the client popup.
+  def client_search
+
+    # Need fact for rendering in the template
+    fact_id = params[:fact_id].to_i
+    @fact = Fact[fact_id]
+
+    @row_count = 2
+    row_count = @row_count
+
+    if params[:s]
+      solr_result = FactData.search() do
+      
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page] , :per_page => row_count
+      
+        adjust_solr_params do |sunspot_params|
+          sunspot_params[:rows] = row_count
+        end
+      
+      end
+      
+      @factlinks = solr_result.results
+    else
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+        start = (pager.current_page-1)*row_count
+      
+        # Sorting & filtering done by mongoid
+        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
+      
+        pager.replace(results)
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   def indication

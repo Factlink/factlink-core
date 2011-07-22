@@ -18,6 +18,10 @@ FactlinkUI::Application.routes.draw do
   # Search and infinite scrolling
   match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
+  match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
+  
+
+  
   
   get "/fr/(:id)" => "facts#fr"
   

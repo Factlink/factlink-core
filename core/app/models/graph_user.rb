@@ -17,7 +17,7 @@ class GraphUser < OurOhm
   include UserProxy
   
   reference :user, lambda { |id| User.find(id) }
-    
+
   set :beliefs_facts, Fact
   set :doubts_facts, Fact
   set :disbeliefs_facts, Fact
