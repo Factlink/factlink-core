@@ -37,8 +37,8 @@ display: none;">
 					</div>
 
 					<div style="padding: 22px 0px 0px 0px; margin-left: -48px;" class="center">
-						<%= link_to('add as <span style="font-weight: 700;">supporting</span>'.html_safe, add_supporting_evidence_path(@fact, evidence), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
-						<%= link_to('add as <span style="font-weight: 700;">weakening</span>'.html_safe, add_weakening_evidence_path(@fact, evidence), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						<%= link_to('add as <span style="font-weight: 700;">supporting</span>'.html_safe, add_supporting_evidence_path(@fact.id, evidence.id), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
+						<%= link_to('add as <span style="font-weight: 700;">weakening</span>'.html_safe, add_weakening_evidence_path(@fact.id, evidence.id), :remote => true, :class => "button", :style => "color: #000; padding: 4px; text-decoration: none;" )%>
 					</div>
 				</li>
 				<% end %>

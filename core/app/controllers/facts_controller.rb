@@ -45,15 +45,6 @@ class FactsController < ApplicationController
 
     # Render the result with callback,
     # so JSONP can be used (for Internet Explorer)
-    # render :json => @facts.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ),
-    #   :callback => params[:callback]
-    
-    hash = @facts.to_json()
-    # hash["callback"] = "this is the callback"
-    
-    # render :json => hash
-      # :callback => params[:callback], :baron => "123hoi"
-
     render :json => @facts , :callback => params[:callback]
   end
 

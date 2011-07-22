@@ -19,8 +19,8 @@
 			
 			<div class="actions">
 				
-				<%= link_to('add as supporting', add_supporting_evidence_path(fact, evidence), :remote => true )%>
-				<%= link_to('add as weakening',	 add_weakening_evidence_path(fact, evidence),  :remote => true )%>
+				<%= link_to('add as supporting', add_supporting_evidence_path(fact.id, evidence.id), :remote => true )%>
+				<%= link_to('add as weakening',	 add_weakening_evidence_path(fact.id, evidence.id),  :remote => true )%>
 				
 			</div>
 			

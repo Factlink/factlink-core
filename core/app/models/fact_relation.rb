@@ -35,7 +35,7 @@ class FactRelation < Fact
   end
   
   def get_type_opinion    
-    case self.type.value
+    case self.type
     when "supporting"
       Opinion.for_type(:beliefs)
     when "weakening"
@@ -44,11 +44,13 @@ class FactRelation < Fact
   end
   
   def get_from_fact
-    Fact[from_fact.value]
+    from_fact
+    # Fact[from_fact]
   end
   
   def get_to_fact
-    Fact[fact.value]
+    fact
+    # Fact[fact]
   end
   
   def get_influencing_opinion

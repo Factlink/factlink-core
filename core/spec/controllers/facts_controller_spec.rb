@@ -129,6 +129,7 @@ describe FactsController do
 
       response.code.should eq("200")
     end
+    
   end
 
   describe :add_weakening_evidence do
