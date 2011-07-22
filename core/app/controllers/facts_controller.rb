@@ -23,17 +23,6 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  # Development
-  def fr
-    
-    id = params[:id]
-    
-    @fr = FactRelation[id]
-
-  end
-  
-
-
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
