@@ -152,7 +152,7 @@
 					Currently there are no available facts to support or weaken this fact.
 				</li>
 			<% else %>
-				<% @potential_evidence.all.each do |evidence| %>			
+				<% @potential_evidence.all.each do |evidence| %>
 					<%= evidence_as_li(@fact, evidence) %>
 				<% end %>
 			<% end %>

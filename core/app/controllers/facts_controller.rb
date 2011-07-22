@@ -257,10 +257,10 @@ class FactsController < ApplicationController
       
       end
       
-      @factlinks = solr_result.results
+      @fact_data = solr_result.results
     else
       # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-      @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+      @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
         start = (pager.current_page-1)*row_count
       
         # Sorting & filtering done by mongoid
@@ -269,6 +269,10 @@ class FactsController < ApplicationController
         pager.replace(results)
       end
     end
+
+    @facts = @fact_data.map { |fd| fd.fact }
+
+    puts "\n\n\n#{@facts}"
 
     respond_to do |format|
       format.js
