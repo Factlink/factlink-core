@@ -231,7 +231,7 @@ class FactsController < ApplicationController
     row_count = @row_count
 
     if params[:s]
-      solr_result = Fact.search() do
+      solr_result = FactData.search() do
 
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction

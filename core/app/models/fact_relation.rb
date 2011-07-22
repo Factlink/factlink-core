@@ -36,10 +36,11 @@ class FactRelation < Fact
   
   def get_type_opinion
     
-    case self.type.to_s
-    when "supporting"
+    # Just to be sure: parse to Symbol
+    case self.type.to_sym
+    when :supporting
       Opinion.for_type(:beliefs)
-    when "weakening"
+    when :weakening
       Opinion.for_type(:disbeliefs)
     end
 
