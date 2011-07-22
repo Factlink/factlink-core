@@ -20,27 +20,34 @@ class FactRelation < Fact
       fl.created_by = user
       
       fl.save
-      $redis.set(FactRelation.redis_key(evidenceA,type,fact),fl.id)
+      $redis.set(FactRelation.redis_key(evidenceA,type,fact), fl.id)
+      
+      puts "Created a new FactRelation[#{fl.id}]"
     end
 
+    puts "Returning #{fl.id} :: percentage: #{fl.percentage};"
     return fl
   end
   
   def percentage
     (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight + 0.00001)).to_i
+
+    -11
   end
   
   def FactRelation.redis_key(evidence, type, fact)
     "factlink:#{evidence.id}:#{type}:#{fact}"
   end
   
-  def get_type_opinion    
-    case self.type
+  def get_type_opinion
+    
+    case self.type.to_s
     when "supporting"
       Opinion.for_type(:beliefs)
     when "weakening"
       Opinion.for_type(:disbeliefs)
     end
+
   end
   
   def get_from_fact
@@ -54,34 +61,20 @@ class FactRelation < Fact
   end
   
   def get_influencing_opinion
-    # redis_key = 'loop_detection_fact_relation'
-    # 
-    # unless $redis.sismember(redis_key, self.id)
-    #   
-    #   $redis.sadd(redis_key, self.id)
-    #   return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
-    # 
-    # else
-    #   # p "Loop detected - #{self.id}"
-    #   $redis.del(redis_key)
-    #   return Opinion.new(0, 0, 0)
-    # end 
-    
-    
+
     key = "loop_detection_2"
     
     if $redis.sismember(key, self.id)
-      puts "Loop detected [FactRelation][#{self.id}] - Basefact#get_opinion"
+      # puts "Loop detected [FactRelation][#{self.id}] - Basefact#get_opinion"
       $redis.del(key)      
       return Opinion.new(0, 0, 0)
     else
-      puts "No loop [FactRelation][#{self.id}] - continue..."
-      $redis.sadd(key, self.id)
-      
-
+      # puts "No loop [FactRelation][#{self.id}] - continue..."
+      $redis.sadd(key, self.id)      
       return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
     end
-    
+
+    # This is the only thing to return when the loop detection is not used:
     # get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 end

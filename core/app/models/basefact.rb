@@ -135,11 +135,11 @@ class Basefact < OurOhm
     key = "loop_detection"
     
     if $redis.sismember(key, self.id)
-      puts "Loop detected [Basefact][#{self.id}] - Basefact#get_opinion"
+      # puts "Loop detected [Basefact][#{self.id}] - Basefact#get_opinion"
       $redis.del(key)      
       return Opinion.new(0, 0, 0)
     else
-      puts "No loop [Basefact][#{self.id}] - continue..."
+      # puts "No loop [Basefact][#{self.id}] - continue..."
       $redis.sadd(key, self.id)
       
       opinions = []
@@ -150,9 +150,9 @@ class Basefact < OurOhm
         end
       end
       return Opinion.combine(opinions)      
-      
     end
 
+    # Return this if the loop detection is not used:
     # opinions = []
     # [:beliefs, :doubts, :disbeliefs].each do |type|      
     #   opiniated = opiniated(type)

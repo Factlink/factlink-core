@@ -23,6 +23,17 @@ class FactsController < ApplicationController
 
   layout "client"
 
+  # Development
+  def fr
+    
+    id = params[:id]
+    
+    @fr = FactRelation[id]
+
+  end
+  
+
+
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
@@ -110,6 +121,8 @@ class FactsController < ApplicationController
     @evidence = Fact.find(params[:evidence_id])
 
     @fact_relation = @fact.add_evidence(:supporting, @evidence, current_user)
+
+    puts "\nFactsController#add_supporting_evidence @fact_relation: #{@fact_relation.id}"
 
     render "add_source_to_factlink"
   end

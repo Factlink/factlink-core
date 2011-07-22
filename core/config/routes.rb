@@ -19,6 +19,8 @@ FactlinkUI::Application.routes.draw do
   match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
   
+  get "/fr/(:id)" => "facts#fr"
+  
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#count_for_site"
