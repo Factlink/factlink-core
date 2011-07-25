@@ -10,12 +10,17 @@ Factlink.search = function(searchString){
         scrollTop = document.body.scrollTop,
         scrollLeft = document.body.scrollLeft,
         
-        selection, range;
+        selection, range, selectedRange;
     
     if ( window.find ) { // Chrome, Firefox, Safari
         // Reset the selection
-        // Maybe we later need to store the current selection before 
-        // processing the document, so we can reset it afterwards
+        selection = window.getSelection();
+        
+        // If the user currently has selected some text
+        if ( selection.rangeCount > 0 )
+            // Store the selection
+            selectedRange = selection.getRangeAt(0);
+        
         window.getSelection().removeAllRanges();
         
         // Loop through all the results of the search string
@@ -28,9 +33,11 @@ Factlink.search = function(searchString){
         }
 
         // Reset the selection
-        // Maybe we later need to store the current selection before 
-        // processing the document, so we can reset it afterwards
         window.getSelection().removeAllRanges();
+        
+        if ( selectedRange !== undefined ) {
+            window.getSelection().addRange( selectedRange );
+        }
     } else { // No window.find and createTextRange
         return false;
     }

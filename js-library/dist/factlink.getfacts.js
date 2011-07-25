@@ -15,8 +15,15 @@
             }
         });
     } else {
-        setTimeout( function() {
-            arguments.callee(Factlink);
-        }, 10);
+        if (!loadingFactlink) {
+            loadingFactlink = true;
+            loadFactlink(function(){
+                arguments.callee(Factlink)
+            });
+        } else {
+            setTimeout(function(){
+                arguments.callee(Facltink);
+            }, 10);
+        }
     }
 })( window.Factlink );

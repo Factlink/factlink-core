@@ -9,7 +9,11 @@ Factlink.conf = {
     }
 };
 
-Factlink.conf.css = {
-    loc: Factlink.conf.lib.loc + "/src/css/basic.css?" + (new Date()).getTime()
-};
+// Add the stylesheet
+var style = document.createElement("link");
+style.type = "text/css";
+style.rel = "stylesheet";
+style.href = Factlink.conf.lib.loc + "/src/css/basic.css?" + (new Date()).getTime();
+document.getElementsByTagName("head")[0].appendChild(style);
+
 })( window.Factlink );

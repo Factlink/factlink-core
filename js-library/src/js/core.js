@@ -1,23 +1,7 @@
 var Factlink = window.Factlink = (function() {
 
     // Empty Factlink object
-var Factlink = {},
-    // Util function to load a stylesheet
-    addStyleSheet = function(url) {
-        if ( typeof this.added_stylesheets !== "object" ) {
-            this.added_stylesheets = [];
-        }
-
-        if ( this.added_stylesheets.indexOf(url) === -1 ) {
-            this.added_stylesheets[url] = 1;
-
-            var style = document.createElement("link");
-            style.type = "text/css";
-            style.rel = "stylesheet";
-            style.href = url;
-            document.getElementsByTagName("head")[0].appendChild(style);
-        }
-    };
+var Factlink = {};
 
 // Function which will collect all the facts for the current page
 // and select them.
@@ -29,13 +13,6 @@ Factlink.getTheFacts = function() {
               '//' + 
               loc.hostname + 
               loc.pathname;
-    
-	//@TODO Fix the Loader
-    // Update the loader
-    // FL.Loader.updateStatus( "Retrieving the facts from the server" );
-    
-    // Add the stylesheet
-    addStyleSheet( Factlink.conf.css.loc );
     
     // We use the jQuery AJAX plugin
     $.ajax({

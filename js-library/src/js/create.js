@@ -1,96 +1,44 @@
 (function( Factlink ) {
-// Track user selection change
-var sel = null,
-    sel_text = null,
-    min_len = 10,
-    // Function which will return the Selection object
-    //@TODO: Add rangy support for IE
-    getText = function(){
-        if (window.getSelection) {
-            var d = window.getSelection()
-        } else {
-            if (document.getSelection) {
-                var d = document.getSelection()
-            } else {
-                if (document.selection) {
-                    var d = document.selection.createRange().text
-                } else {
-                    return '';
-                }
-            }
+// Function which will return the Selection object
+//@TODO: Add rangy support for IE
+function getTextRange(){
+    var d = '';
+    if (window.getSelection) {
+        d = window.getSelection()
+    } else {
+        if (document.getSelection) {
+            d = document.getSelection()
+        } else if (document.selection) {
+            d = document.selection.createRange().text
         }
-        return d;
-    };
-
-// Make the user able to add a Factlink
-Factlink.submitFact = function(){
-    var selection = window.getSelection();
-    
-    if ( window.rangy !== undefined ) {
-        selection = window.rangy.getSelection();
     }
-    
-    try {
-        // Get the selected text
-        var range = selection.getRangeAt(0);
-    } catch(e) {
-        // Possibly the user didn't select anything
-        return false;
-    }
-    
-    if (range.toString().length < 1) {
-        //@TODO: Fix the loader
-        // Tell the loader we're done
-        // FL.Loader.finish();
-        
-        // Return to make the function stop
-        return false;
-    }
-    
-    $.ajax({
-        url: Factlink.conf.api.loc + '/factlink/new',
-        dataType: 'jsonp',
-        crossDomain: true,
-        jsonp: "callback",
-        type: 'post',
-        data: {
-            url: window.location.href,
-            fact: range.toString()
-        },
-        success: function(data) {
-            if (data.status === true) {
-                // Select the selected text
-                Factlink.selectRanges([range]);
-            
-                //@TODO: Fix the loader
-                // The loader can hide itself
-                // FL.Loader.finish();
-            } else {
-                //@TODO: Better errorhandling
-                alert("Something went wrong");
-            
-                //@TODO: Fix the loader
-                // The Loader can hide itself
-                // FL.Loader.finish();
-            }
-        },
-        error :function(data) {
-            //@TODO: Fix the loader
-            //TODO: Better errorhandling
-            // FL.Loader.finish();
-        }
-    });
+    return d;
 };
 
-Factlink.startSubmitting = function(rng, top, left) {
+// Prepare a new Factlink
+function prepare(rng, passage, top, left) {
     // Prepare the Factlink on the remote
     Factlink.remote.prepareNewFactlink( rng.toString(), 
-                                        "NotImplemented", 
+                                        passage, 
                                         window.location.href );
-                                        
+    
     // Position the frame
     Factlink.remote.position( top, left  );
     Factlink.modal.show.method();
+};
+
+// We make this a global function so it can be used for direct adding of facts
+// (Right click with chrome-extension)
+Factlink.getSelectionInfo = function() {
+    // Get the selection object
+    var selection = getTextRange();
+
+    // TODO Add passage detection here
+    
+    return {
+        range: selection,
+        passage: ""
+    };
 };
 
 // Bind the actual selecting
@@ -101,20 +49,27 @@ $( 'body' ).bind('mouseup', function(e) {
         window.clearTimeout( Factlink.timeout );
     }
     
+    // Retrieve all needed info of current selection
+    var selectionInfo = Factlink.getSelectionInfo();
     // Get the selection object
-    sel = getText();
+    var selection = selectionInfo.range;
     // Retrieve the text from the selection
-    sel_text = sel.toString();
+    var text = selection.toString();
     
     // Check if the selected text is long enough to be added
-    if ( sel_text !== null && sel_text.length > min_len && sel.rangeCount > 0 ) {
+    if ( text !== undefined && text.length > 1 && selection.rangeCount > 0 ) {
         // Store the time out
         Factlink.timeout = setTimeout(function() {
+            // Retrieve all needed info of current selection
+            var selectionInfo = Factlink.getSelectionInfo();
             // Make sure the text is still selected
-            var sel = getText();
+            var selection = selectionInfo.range;
             
-            if ( sel.toString().length > min_len ) {
-                Factlink.startSubmitting(sel.getRangeAt(0), e.clientY, e.clientX);
+            if (selection.rangeCount > 0) {
+                prepare(selection.getRangeAt(0), 
+                        selectionInfo.passage, 
+                        e.clientY, 
+                        e.clientX);
             }
         }, 500);
     }
