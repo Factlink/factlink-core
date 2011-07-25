@@ -1,4 +1,5 @@
 module Opinionable
+  include Canivete::Deprecate
   # SCORE STUFF
   def score_dict_as_percentage
 

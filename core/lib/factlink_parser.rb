@@ -92,7 +92,6 @@ class FactlinkParser
       
       # Filter out the @users
       users.each do |user|
-        # puts "\n\nUser: #{user}"
         tweet.gsub!(user, "")
         user.gsub!(/[^0-9a-z]+/i, '')
         user.capitalize!

@@ -1,0 +1,15 @@
+// $('table.factlinks>tbody').append("<%= escape_javascript render :partial => 'facts/partial/factlink_as_td', :collection => @factlinks, :as => :factlink %>");
+
+<% if @facts.count == 0 %>
+    isFullyLoaded = true;
+    $( '#loading, #load_more' ).hide();
+<% end %>
+
+
+$("#fl-add-evidence > #fl-sources").empty();
+
+alert("<%= @fact.displaystring %>");
+
+<% @facts.each do |evidence| %>
+	$('div#fl-evidence > div#fl-sources > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/add_evidence_as_li', :locals => { :fact => @fact, :evidence => evidence } )) %>");
+<% end %>

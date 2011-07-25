@@ -15,7 +15,6 @@ describe Fact do
     $redis.should be_an_instance_of(Redis)
   end
 
-
   # Voting
   it "should have an increased believe count when a users believes this fact" do
     old_count = @factlink.opiniated_count(:beliefs)
@@ -25,22 +24,47 @@ describe Fact do
 
   #TODO also add tests for doubts and disbeliefs
 
+
   it "should not crash when an opinions that doesn't exist is removed" do
     @factlink.remove_opinions @user2
   end
 
+  it "should have working fact_relations" do
+    @parent.add_evidence(:supporting,@factlink,@user1)
+  end
 
   describe "Supporting / Weakening fact" do
 
     [:supporting, :weakening].each do |relation|
       def other_one(this)
         if this == :supporting
-          :weakkening
+          :weakening
         else
           :supporting
         end
       end
-      
+
+      describe ".add_evidence" do
+        describe "after adding one piece of #{relation} evidence" do
+          before do
+            @parent.add_evidence(relation,@factlink,@user1) 
+          end
+          it "should have a correct opinion" do
+            @parent.get_opinion.should be_a(Opinion)
+          end
+        end
+        
+        describe "after adding cyclic relations" do
+          before do
+            @parent.add_evidence(relation,@factlink,@user1) 
+            @factlink.add_evidence(relation,@parent,@user1) 
+          end
+          it "should have a correct opinion" do
+            @parent.get_opinion.should be_a(Opinion)
+          end
+        end
+      end
+
       it "stores the ID's of supporting facts in the supporting facts set" do
         pending
         @parent.add_evidence(relation, @factlink, @user1)
@@ -63,7 +87,45 @@ describe Fact do
       end
     end
   end
-  
 
-  
+  describe ".evidence_opinions" do
+    it "should work"
+  end
+
+  describe "Mongoid properties: " do
+    [:displaystring, :title, :passage, :content].each do |attr|
+      context "#{attr} should be changeable" do
+        before do
+          subject.send "#{attr}=" , "quux"
+        end
+        it {subject.send("#{attr}").should == "quux"}
+      end
+      context "#{attr} should persist" do
+        before do
+          subject.send "#{attr}=" , "xuuq"
+          subject.save
+        end
+        it {Fact[subject.id].send("#{attr}").should == "xuuq"}
+      end
+    end
+    context "after setting a displaystring to 'hiephoi'" do
+      before do
+        subject.displaystring = "hiephoi"\
+      end
+      its(:to_s){should == "hiephoi"}
+    end
+
+    it "should not give a give a document not found for Factdata" do
+      f = Fact.new
+      f.displaystring = "This is a fact"
+      f.created_by = user
+      f.save
+
+      f2 = Fact[f.id]
+
+      f2.displaystring.should == "This is a fact"
+    end
+  end
+
+
 end

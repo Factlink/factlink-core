@@ -13,8 +13,8 @@ describe FactsController do
     @evidence = FactoryGirl.create(:fact)
     @fr       = FactoryGirl.create(:fact_relation)
     # Set the relation
-    @fr.from_fact.value = @fact.id
-    @fr.fact.value = @evidence.id
+    @fr.from_fact = @fact
+    @fr.fact = @evidence
   end
 
   describe :store_fact_for_non_signed_in_user do
@@ -23,11 +23,24 @@ describe FactsController do
 
   describe :factlinks_for_url do
     it "should work with an existing site" do
-      @site = FactoryGirl.create(:site, :url => "http://en.wikipedia.org/wiki/Batman")
+      @site = FactoryGirl.create(:site, :url => "http://batman.org")
       get :factlinks_for_url, :url => @site.url
       response.body.should eq("[]")
     end
-    
+
+    # Facts don't get set properly?
+    it "should return results for an existing site with facts" do
+
+      pending
+
+      @site = FactoryGirl.create(:site, :url => "http://batman.org")
+      
+      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact one")
+      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact two")
+      
+      get :factlinks_for_url, :url => @site.url
+      response.body.should eq("[...the facts as json...]")
+    end
     
     it "should work with an non-existing site" do
 
@@ -42,6 +55,9 @@ describe FactsController do
       get :show, :id => @fact.id
       response.should be_succes
     end
+    it "should return a list of @potential_evidence"
+    it "should not include itself in @potential_evidenc"
+    it "should not include facts in potential evidence which already both support and weaken"
   end
 
   describe :new do
@@ -92,21 +108,7 @@ describe FactsController do
             
     end
 
-    it "should set the correct path for ther 'prepare' action" do
-      url     = "http://en.wikipedia.org/wiki/Batman"
-      passage = "NotImplemented"
-      fact    = "Batman is a fictional character"     # Actually the displaystring
-      
-      action  = "prepare"
-      
-      post :intermediate, :url      => url, 
-                          :passage  => passage, 
-                          :fact     => fact,
-                          :the_action => action
-
-      assigns(:path).should == "factlink_prepare_path"
-    end
-
+   
   end
 
   describe :create do
@@ -127,6 +129,7 @@ describe FactsController do
 
       response.code.should eq("200")
     end
+    
   end
 
   describe :add_weakening_evidence do
@@ -140,7 +143,7 @@ describe FactsController do
     end
   end
 
-  describe :remove_factlink_from_parent do
+  describe :remove_factlink_from_parent do    
     it "should work"
   end
 
@@ -169,6 +172,7 @@ describe FactsController do
         response.code.should eq("200")
       end
     end
+
   end
 
   describe :toggle_relevance_on_fact_relation do
@@ -192,21 +196,42 @@ describe FactsController do
         response.code.should eq("200")
       end
     end
+    
+    it "should have the FactRelation assigned" do
+      authenticate_user!
+      create_fact_relation
+
+      xhr :get, "toggle_relevance_on_fact_relation", { :fact_relation_id => @fr.id, :type => "beliefs" }
+      assigns[:fact_relation].should == @fr
+    end
   end
 
   # Currently not used
   describe :interaction_users_for_factlink do
-    it "should work"
+    it "should have the correct assigns" do
+      
+      @fact = FactoryGirl.create(:fact)
+      
+      get :interaction_users_for_factlink, :factlink_id => @fact.id
+      
+      assigns[:fact].should == @fact
+      
+      assigns[:believers].should == []
+      assigns[:doubters].should == []
+      assigns[:disbelievers].should == []
+    end
   end
 
   describe :search do
     it "should return relevant results when a search parameter is given" do      
-      result_set = [10, 12, 13]
+      result_set = (
+        [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+      )
       
       sunspot_search = mock(Sunspot::Search::StandardSearch)
       sunspot_search.stub!(:results).and_return { result_set }
       
-      Fact.should_receive(:search).and_return(sunspot_search)
+      FactData.should_receive(:search).and_return(sunspot_search)
       
       post "search", :s => "1"
       assigns(:factlinks).should == result_set
@@ -214,7 +239,7 @@ describe FactsController do
     
     it "should return all results when no search parameter is given" do
       result_set = (
-        [Fact.new(:displaystring => 10), Fact.new(:displaystring => 12), Fact.new(:displaystring => 13)]
+        [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
       )
       
       mock_criteria = mock(Mongoid::Criteria)
@@ -224,7 +249,7 @@ describe FactsController do
 
       mock_criteria.stub!(:to_a).and_return { result_set }
       
-      Fact.should_receive(:all).and_return(mock_criteria)
+      FactData.should_receive(:all).and_return(mock_criteria)
       
       post "search"
       assigns(:factlinks).should == result_set
@@ -232,7 +257,10 @@ describe FactsController do
   end
 
   describe :indication do
-    it "should work"
+    it "should respond to XHR request" do
+      xhr :get, :indication
+      response.should be_succes
+    end
   end
 
 

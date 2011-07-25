@@ -7,6 +7,8 @@ FactoryGirl.define do
     "johndoe#{n}"
   end
   
+  
+  
   factory :user do
     # first_name 'John'
     # last_name  'Doe'
@@ -15,13 +17,17 @@ FactoryGirl.define do
     password '123hoi'
     password_confirmation '123hoi'
   end
+
+  factory :fact_data do
+  end
   
   factory :basefact do
   end
 
   factory :fact do
+    association :data, :factory => :fact_data
   end
-
+  
   factory :site do
   end
   

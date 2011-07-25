@@ -1,73 +1,38 @@
-require 'redis'
-require 'redis/objects'
-Redis::Objects.redis = Redis.new
+require File.expand_path("../../classes/opinionable.rb", __FILE__)
+require File.expand_path("../../classes/opinion.rb", __FILE__)
 
-class Basefact
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  include Mongoid::Taggable
 
-  include Sunspot::Mongoid
-  include Redis::Objects
-  
+
+class Basefact < OurOhm
   include Opinionable
 
-  searchable :auto_index => true do
-    text    :displaystring
-    string  :displaystring
-    time    :created_at
+  reference :data, lambda { |id| FactData.find(id) }
+  reference :site, Site       # The site on which the factlink should be shown
+  reference :created_by, GraphUser
+  index :created_by
+
+  set :people_beliefs, GraphUser
+  set :people_doubts, GraphUser
+  set :people_disbeliefs, GraphUser
+  def opiniated(type)
+    self.send("people_#{type}")
   end
 
-  field :title,           :type => String
-  field :displaystring,   :type => String  # For matching Fact on a page
-  field :passage,         :type => String   # Passage for matching: not implemented
-  field :content,         :type => String   # Source content
-  field :url,             :type => String 
-    # Source url
-
-  belongs_to  :site       # The site on which the factlink should be shown
-
-  belongs_to  :created_by,
-    :class_name => "User"
-
-  scope :with_site_as_parent, where( :_id.in => Site.all.map { |s| s.facts.map { |f| f.id } }.flatten )
-
-  value :added_to_factlink
-
-  # TODO: Find another way to retrieve all factlinks that have a relation to a site
-  # scope :with_site, where( :site.ne => nil ) # is not working.
-  # def self.with_site_as_parent
-  #   # Map all site, and all factlinks in this site.
-  #   factlink_ids = Site.all.map { |s| s.facts.map { |f| f.id } }.flatten
-  #   self.where( :_id.in => factlink_ids )
-  # end
-
-
+  def opiniated_count(type)
+    opiniated(type).size
+  end
 
   def to_s
-    displaystring || ""
+    self.displaystring || ""
   end
-  
+
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
-    begin
-      self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-    rescue
-      self.url.gsub(/http(s?):\/\//,'').split('/')[0]
-    end
-  end
-  
-  def set_added_to_factlink(user)
-    self.added_to_factlink.value = user.id
-  end
-  
-  def delete_added_to_factlink()
-    self.added_to_factlink.delete
+    self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
   def toggle_opinion(type, user)
-
-    if user.opinion_on_fact_for_type?(type, self)
+    if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)
     else
@@ -77,48 +42,43 @@ class Basefact
   end
 
   def add_opinion(type, user)
-    # Remove the old opinions
     remove_opinions(user)
-
-    # Add user to believers of this Fact
-    $redis.zadd(self.redis_key(type), user.authority, user.id)
-
-    # Add the belief type to user
+    opiniated(type).add(user)
     user.update_opinion(type, self)
   end
 
   def remove_opinions(user)
     user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
-      $redis.zrem(self.redis_key(type), user.id)
+      opiniated(type).delete(user)
     end
   end
 
-
-  def opiniated_ids(type)
-    $redis.zrange(self.redis_key(type), 0, -1)
-  end
-  
-  def opiniated_count(type)
-    opiniated_ids(type).count
-  end
-  
-  def opiniated(type)
-    User.where(:_id.in => self.opiniated_ids(type))
-  end
-  
   def interacting_users
-    return opiniated(:beliefs).to_a + opiniated(:doubts).to_a + opiniated(:disbeliefs).to_a
-  end
-
-
-  protected
-    # Helper method to generate redis keys
-  def redis_key(str)
-    "fact:#{self.id}:#{str}"
+    opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
   end
 
   def get_opinion
+    # Primitive loop detection; not working correct
+    # key = "loop_detection"
+    # 
+    # if $redis.sismember(key, self.id)
+    #   $redis.del(key)      
+    #   return Opinion.new(0, 0, 0)
+    # else
+    #   $redis.sadd(key, self.id)
+    #   
+    #   opinions = []
+    #   [:beliefs, :doubts, :disbeliefs].each do |type|      
+    #     opiniated = opiniated(type)
+    #     opiniated.each do |user|
+    #       opinions << Opinion.for_type(type, user.authority)
+    #     end
+    #   end
+    #   return Opinion.combine(opinions)      
+    # end
+
+    # Return this if the loop detection is not used:
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
@@ -128,5 +88,5 @@ class Basefact
     end
     Opinion.combine(opinions)
   end
-  
+
 end
