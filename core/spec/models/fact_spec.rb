@@ -92,5 +92,40 @@ describe Fact do
     it "should work"
   end
 
+  describe "Mongoid properties: " do
+    [:displaystring, :title, :passage, :content].each do |attr|
+      context "#{attr} should be changeable" do
+        before do
+          subject.send "#{attr}=" , "quux"
+        end
+        it {subject.send("#{attr}").should == "quux"}
+      end
+      context "#{attr} should persist" do
+        before do
+          subject.send "#{attr}=" , "xuuq"
+          subject.save
+        end
+        it {Basefact[subject.id].send("#{attr}").should == "xuuq"}
+      end
+    end
+    context "after setting a displaystring to 'hiephoi'" do
+      before do
+        subject.displaystring = "hiephoi"\
+      end
+      its(:to_s){should == "hiephoi"}
+    end
+
+    it "should not give a give a document not found for Factdata" do
+      f = Fact.new
+      f.displaystring = "This is a fact"
+      f.created_by = user
+      f.save
+
+      f2 = Fact[f.id]
+
+      f2.displaystring.should == "This is a fact"
+    end
+  end
+
 
 end
