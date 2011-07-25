@@ -92,6 +92,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    $redis.FLUSHDB
     DatabaseCleaner.clean
   end  
 

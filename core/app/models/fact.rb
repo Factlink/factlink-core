@@ -106,9 +106,9 @@ class Fact < Basefact
   def add_evidence(type, evidence_fact, user)
     fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
     evidence(type) << fact_relation
-
     fact_relation
   end
+
   
   # Count helpers
   def supporting_evidence_count
@@ -128,6 +128,26 @@ class Fact < Basefact
   def self.column_names
     FactData.column_names
   end
+
+  def delete_cascading
+    delete_all_evidence
+    delete_all_evidenced
+    self.delete
+  end
+  
+  def delete_all_evidence
+    fact_relations.each do |fr|
+      fr.delete
+    end
+  end
+  
+  def delete_all_evidenced
+    FactRelation.find(:from_fact_id => self.id) do |fr|
+      fr.delete
+    end
+  end
+
+  private :delete_all_evidence, :delete_all_evidenced
 
   def evidence_opinion
     opinions = []

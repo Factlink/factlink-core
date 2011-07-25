@@ -55,6 +55,10 @@ class FactRelation < Basefact
   deprecate
     fact
   end
+
+  def delete
+    super
+  end
   
   def get_influencing_opinion
     # Primitive loop detection; not working correct
