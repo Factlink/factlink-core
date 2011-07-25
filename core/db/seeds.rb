@@ -56,7 +56,7 @@ end
     f = Fact.new
     f.displaystring = fact
     f.site = site
-    f.created_by = users[0].graph_user
+    f.created_by = user1.graph_user
     f.save
     
     site.facts << f

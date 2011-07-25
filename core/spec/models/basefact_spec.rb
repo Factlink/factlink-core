@@ -17,13 +17,27 @@ describe Basefact do
     its(:interacting_users) {should be_empty}
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
-      it { subject.opiniated(opinion).should == [] }
+      it { subject.opiniated(opinion).all.should == [] }
     end
-    its(:to_s){ should be_a(String) }
-    context "#find" do
-      it "should be able to find it" do
-        found = Basefact.find(subject.id)
-        found.should == subject
+  end
+
+  describe "#created_by" do
+    context "after setting it" do
+      before do
+        subject.created_by = user
+        subject.save
+      end
+
+      it "should have the created_by set" do
+        subject.created_by.should == user
+      end
+
+      it "should have the created_by persisted" do
+        Basefact[subject.id].created_by.should == user
+      end
+
+      it "should be findable via find" do
+        Basefact.find(:created_by => user).all.should include(subject)
       end
     end
   end
@@ -38,6 +52,7 @@ describe Basefact do
         end
         it { subject.opiniated_count(opinion).should == 1 }
         its(:interacting_users) {should =~ [user]}
+        its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)}
       end
 
 
@@ -162,39 +177,6 @@ describe Basefact do
 
   end  
 
-  describe "Mongoid properties: " do
-    [:displaystring, :title, :passage, :content].each do |attr|
-      context "#{attr} should be changeable" do
-        before do
-          subject.send "#{attr}=" , "quux"
-        end
-        it {subject.send("#{attr}").should == "quux"}
-      end
-      context "#{attr} should persist" do
-        before do
-          subject.send "#{attr}=" , "xuuq"
-          subject.save
-        end
-        it {Basefact[subject.id].send("#{attr}").should == "xuuq"}
-      end
-    end
-  end
 
-  context "after setting a displaystring to 'hiephoi'" do
-    before do
-      subject.displaystring = "hiephoi"\
-    end
-    its(:to_s){should == "hiephoi"}
-  end
-  
-  it "should not give a give a document not found for Factdata" do
-      f = Fact.new
-      f.displaystring = "This is a fact"
-      f.created_by = user
-      f.save
-      
-      f2 = Fact[f.id]
-      
-      f2.displaystring.should == "This is a fact"
-    end
+
 end

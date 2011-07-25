@@ -58,6 +58,9 @@ require 'capybara/rails'
 # Code coverage
 require 'cover_me'
 
+# timeout ensures all our tests either work or timeout within a reasonable timeframe
+require 'timeout'
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -79,7 +82,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   #config.use_transactional_fixtures = true
-  
+
   require 'database_cleaner'
 
   #TODO: ook iets slims doen met Redis
@@ -91,5 +94,11 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.clean
   end  
-  
+
+  config.around(:each) do |example|
+    Timeout::timeout(2) {
+      example.run
+    }
+  end
+
 end

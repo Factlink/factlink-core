@@ -1,4 +1,5 @@
-require 'spec_helper'
+require File.expand_path("../../spec_helper.rb", __FILE__)
+#require 'spec_helper'
 
 describe FactRelation do
 

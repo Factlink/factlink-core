@@ -1,4 +1,6 @@
 class OurOhm < Ohm::Model
+  include Canivete::Deprecate
+  
   def save!
     save
   end

@@ -43,6 +43,10 @@ class GraphUser < OurOhm
   def facts
     beliefs_facts.all + doubts_facts.all + disbeliefs_facts.all
   end
+  
+  def real_facts
+    facts.find_all { |fact| fact.class != FactRelation }
+  end
 
   def update_opinion(type, fact)
     # Remove existing opinion by user

@@ -1,4 +1,4 @@
-class FactRelation < Fact
+class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact
   
@@ -46,11 +46,13 @@ class FactRelation < Fact
 
   end
   
+  deprecate
   def get_from_fact
     from_fact
   end
   
   def get_to_fact
+  deprecate
     fact
   end
   
