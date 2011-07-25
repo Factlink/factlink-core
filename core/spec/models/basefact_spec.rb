@@ -19,7 +19,6 @@ describe Basefact do
       it { subject.opiniated_count(opinion).should == 0 }
       it { subject.opiniated(opinion).all.should == [] }
     end
-    its(:to_s){ should be_a(String) }
   end
 
   describe "#created_by" do

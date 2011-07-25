@@ -105,7 +105,7 @@ describe Fact do
           subject.send "#{attr}=" , "xuuq"
           subject.save
         end
-        it {Basefact[subject.id].send("#{attr}").should == "xuuq"}
+        it {Fact[subject.id].send("#{attr}").should == "xuuq"}
       end
     end
     context "after setting a displaystring to 'hiephoi'" do
