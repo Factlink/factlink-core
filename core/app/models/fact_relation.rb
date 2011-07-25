@@ -1,4 +1,4 @@
-class FactRelation < Fact
+class FactRelation < BaseFact
   reference :from_fact, Fact
   reference :fact, Fact
   

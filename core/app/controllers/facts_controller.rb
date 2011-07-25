@@ -156,7 +156,7 @@ class FactsController < ApplicationController
     type = params[:type]
 
     if allowed_types.include?(type)
-      @fact_relation = FactRelation.find(params[:fact_relation_id])
+      @fact_relation = FactRelation[params[:fact_relation_id]]
       @fact_relation.get_from_fact.toggle_opinion(type, current_user)
     else
       render :json => {"error" => "type not allowed"}
@@ -170,7 +170,7 @@ class FactsController < ApplicationController
     type = params[:type]
 
     if allowed_types.include?(type)
-      @fact_relation = FactRelation.find(params[:fact_relation_id])
+      @fact_relation = FactRelation[params[:fact_relation_id]]
       @fact_relation.toggle_opinion(type, current_user)
     else
       render :json => {"error" => "type not allowed"}

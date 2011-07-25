@@ -20,12 +20,6 @@ describe Basefact do
       it { subject.opiniated(opinion).all.should == [] }
     end
     its(:to_s){ should be_a(String) }
-    context "#find" do
-      it "should be able to find it" do
-        found = Basefact.find(subject.id)
-        found.should == subject
-      end
-    end
   end
 
   describe "#created_by" do
