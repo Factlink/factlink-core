@@ -28,15 +28,15 @@ describe Basefact do
         subject.created_by = user
         subject.save
       end
-      
+
       it "should have the created_by set" do
         subject.created_by.should == user
       end
-      
+
       it "should have the created_by persisted" do
         Basefact[subject.id].created_by.should == user
       end
-      
+
       it "should be findable via find" do
         Basefact.find(:created_by => user).all.should include(subject)
       end
@@ -202,15 +202,15 @@ describe Basefact do
     end
     its(:to_s){should == "hiephoi"}
   end
-  
+
   it "should not give a give a document not found for Factdata" do
-      f = Fact.new
-      f.displaystring = "This is a fact"
-      f.created_by = user
-      f.save
-      
-      f2 = Fact[f.id]
-      
-      f2.displaystring.should == "This is a fact"
-    end
+    f = Fact.new
+    f.displaystring = "This is a fact"
+    f.created_by = user
+    f.save
+
+    f2 = Fact[f.id]
+
+    f2.displaystring.should == "This is a fact"
+  end
 end

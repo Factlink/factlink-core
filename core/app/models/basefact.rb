@@ -1,76 +1,9 @@
 require File.expand_path("../../classes/opinionable.rb", __FILE__)
 require File.expand_path("../../classes/opinion.rb", __FILE__)
 
-module FactDataProxy
-  #assuming we have a data
-  def title
-    require_data
-    data.title
-  end
 
-  def title=(value)
-    require_data
-    data.title=value
-  end
-
-  def displaystring
-    require_data
-    data.displaystring
-  end
-
-  def displaystring=(value)
-    require_data
-    data.displaystring=value
-  end 
-
-  def content
-    require_data
-    data.content
-  end
-
-  def content=(value)
-    require_data
-    data.content=value
-  end
-
-  def passage
-    require_data
-    data.passage
-  end
-
-  def passage=(value)
-    require_data
-    data.passage=value
-  end
-
-  def created_at
-    require_data
-    data.created_at
-  end
-
-  def updated_at
-    require_data
-    data.updated_at
-  end
-
-  def require_data
-    if not self.data_id
-      localdata = FactData.new
-      localdata.save
-      self.data = localdata
-      save
-    end
-  end
-
-  def post_save
-    require_data
-    data.save
-  end
-
-end
 
 class Basefact < OurOhm
-  include FactDataProxy
   include Opinionable
 
   reference :data, lambda { |id| FactData.find(id) }
