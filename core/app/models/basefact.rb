@@ -131,34 +131,34 @@ class Basefact < OurOhm
   end
 
   def get_opinion
-    
-    key = "loop_detection"
-    
-    if $redis.sismember(key, self.id)
-      $redis.del(key)      
-      return Opinion.new(0, 0, 0)
-    else
-      $redis.sadd(key, self.id)
-      
-      opinions = []
-      [:beliefs, :doubts, :disbeliefs].each do |type|      
-        opiniated = opiniated(type)
-        opiniated.each do |user|
-          opinions << Opinion.for_type(type, user.authority)
-        end
-      end
-      return Opinion.combine(opinions)      
-    end
+    # Primitive loop detection; not working correct
+    # key = "loop_detection"
+    # 
+    # if $redis.sismember(key, self.id)
+    #   $redis.del(key)      
+    #   return Opinion.new(0, 0, 0)
+    # else
+    #   $redis.sadd(key, self.id)
+    #   
+    #   opinions = []
+    #   [:beliefs, :doubts, :disbeliefs].each do |type|      
+    #     opiniated = opiniated(type)
+    #     opiniated.each do |user|
+    #       opinions << Opinion.for_type(type, user.authority)
+    #     end
+    #   end
+    #   return Opinion.combine(opinions)      
+    # end
 
     # Return this if the loop detection is not used:
-    # opinions = []
-    # [:beliefs, :doubts, :disbeliefs].each do |type|      
-    #   opiniated = opiniated(type)
-    #   opiniated.each do |user|
-    #     opinions << Opinion.for_type(type, user.authority)
-    #   end
-    # end
-    # Opinion.combine(opinions)
+    opinions = []
+    [:beliefs, :doubts, :disbeliefs].each do |type|      
+      opiniated = opiniated(type)
+      opiniated.each do |user|
+        opinions << Opinion.for_type(type, user.authority)
+      end
+    end
+    Opinion.combine(opinions)
   end
 
 end
