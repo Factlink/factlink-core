@@ -224,12 +224,14 @@ describe FactsController do
 
   describe :search do
     it "should return relevant results when a search parameter is given" do      
-      result_set = [10, 12, 13]
+      result_set = (
+        [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+      )
       
       sunspot_search = mock(Sunspot::Search::StandardSearch)
       sunspot_search.stub!(:results).and_return { result_set }
       
-      Fact.should_receive(:search).and_return(sunspot_search)
+      FactData.should_receive(:search).and_return(sunspot_search)
       
       post "search", :s => "1"
       assigns(:factlinks).should == result_set
@@ -237,7 +239,7 @@ describe FactsController do
     
     it "should return all results when no search parameter is given" do
       result_set = (
-        [Fact.new(:displaystring => 10), Fact.new(:displaystring => 12), Fact.new(:displaystring => 13)]
+        [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
       )
       
       mock_criteria = mock(Mongoid::Criteria)
@@ -247,7 +249,7 @@ describe FactsController do
 
       mock_criteria.stub!(:to_a).and_return { result_set }
       
-      Fact.should_receive(:all).and_return(mock_criteria)
+      FactData.should_receive(:all).and_return(mock_criteria)
       
       post "search"
       assigns(:factlinks).should == result_set
