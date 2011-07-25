@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+class Ohm::Model::Set
+
+  def ==(other)
+    self.sort.to_a == other.sort.to_a
+  end
+
+end
+
 describe HomeController do
   include Devise::TestHelpers
   render_views

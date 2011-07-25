@@ -1,35 +1,29 @@
-require 'redis'
-require 'redis/objects'
-Redis::Objects.redis = Redis.new
-
-class FactRelation < Fact
-  include Redis::Objects
+class FactRelation < Basefact
+  reference :from_fact, Fact
+  reference :fact, Fact
   
-  value :from_fact
-  value :fact
-  value :type
+  attribute :type
+  
+  #TODO add proper index for get_or_create
   
   def FactRelation.get_or_create(evidenceA, type, fact, user)
     # Type => :supporting || :weakening
     if $redis.exists(FactRelation.redis_key(evidenceA, type, fact))
       id = $redis.get(FactRelation.redis_key(evidenceA, type, fact))
-      fl = FactRelation.find(id)
+      fl = FactRelation[id]
     else
-      fl = FactRelation.new
-      fl.from_fact.value = evidenceA.id.to_s
-      fl.fact.value = fact.id.to_s
-      fl.type.value = type
+      fl = FactRelation.create
+      fl.from_fact = evidenceA
+      fl.fact = fact
+      fl.type = type
+      #TODO enable this again:
       fl.created_by = user
       
-      fl.set_added_to_factlink(user)
       fl.save
+      $redis.set(FactRelation.redis_key(evidenceA,type,fact), fl.id)
     end
 
-    fl
-  end
-  
-  def set_data(evidence, type, fact)
-    
+    return fl
   end
   
   def percentage
@@ -40,37 +34,41 @@ class FactRelation < Fact
     "factlink:#{evidence.id}:#{type}:#{fact}"
   end
   
-  def get_type_opinion    
-    case self.type.value
-    when "supporting"
+  def get_type_opinion
+    
+    # Just to be sure: parse to Symbol
+    case self.type.to_sym
+    when :supporting
       Opinion.for_type(:beliefs)
-    when "weakening"
+    when :weakening
       Opinion.for_type(:disbeliefs)
     end
+
   end
   
+  deprecate
   def get_from_fact
-    Fact.find(from_fact.value)
+    from_fact
   end
   
   def get_to_fact
-    Fact.find(fact.value)
+  deprecate
+    fact
   end
   
   def get_influencing_opinion
-    # redis_key = 'loop_detection_fact_relation'
+    # Primitive loop detection; not working correct
+    # key = "loop_detection_2"
     # 
-    # unless $redis.sismember(redis_key, self.id)
-    #   
-    #   $redis.sadd(redis_key, self.id)
-    #   return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
-    # 
-    # else
-    #   # p "Loop detected - #{self.id}"
-    #   $redis.del(redis_key)
+    # if $redis.sismember(key, self.id)
+    #   $redis.del(key)      
     #   return Opinion.new(0, 0, 0)
+    # else
+    #   $redis.sadd(key, self.id)      
+    #   return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
     # end
-    
+
+    # This is the only thing to return when the loop detection is not used:
     get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 end

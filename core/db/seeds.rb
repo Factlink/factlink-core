@@ -4,13 +4,11 @@ require File.expand_path('../../spec/factories', __FILE__)
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-puts "hoi  " + Rails.env
-
 # Clear stuff
 if Rails.env.development? or Rails.env.test?
   $redis.FLUSHDB                # Clear the Redis DB
 
-  ['test','development'].each do |env|
+  ['development'].each do |env|
     mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[env]
 
     puts mongoid_conf['database']
@@ -20,7 +18,7 @@ if Rails.env.development? or Rails.env.test?
     mongo_db.collections.each { |col| col.drop() unless col.name == 'system.indexes'}
   end
 
-  Sunspot.remove_all!(Fact) # Remove the indices of all Facts in Solr.
+  Sunspot.remove_all!(FactData) # Remove the indices of all Facts in Solr.
 end
 
 
@@ -42,7 +40,8 @@ end
   user1.save
  
   # Site
-  site = Site.new(:url => "http://en.wikipedia.org/wiki/Batman")
+  site = Site.new
+  site.url = "http://en.wikipedia.org/wiki/Batman"
   site.save
 
   facts = [
@@ -53,12 +52,14 @@ end
     'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended'
   ]
 
-
   facts.each do |fact|
-    Fact.create!( :displaystring => fact,
-                      :site => site,
-                      :created_by => users[0]
-    )
+    f = Fact.new
+    f.displaystring = fact
+    f.site = site
+    f.created_by = user1.graph_user
+    f.save
+    
+    site.facts << f
   end
 
   # fact = Fact.first

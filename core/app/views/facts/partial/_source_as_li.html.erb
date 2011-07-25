@@ -1,4 +1,4 @@
-<li data-score="<%= fact_relation.percentage %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type.value %>">
+<li data-score="<%= fact_relation.percentage %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type %>">
   <div class="container">
 	
 		<% if user_signed_in? %>
@@ -38,7 +38,7 @@
   <div class="fl-choices">			
 		<div class="fl-relevance-container">
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
-		  <% if fact_relation.type.value == "supporting" %>
+		  <% if fact_relation.type == "supporting" %>
         <span class="opinion">supports:</span>
       <% else %>
         <span class="opinion">weakens:</span>
