@@ -12,8 +12,8 @@ module FactlinkUI
   class Application < Rails::Application
     # Auto load files in lib directory
     config.autoload_paths << "#{config.root}/lib"
+    config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/classes"
-    config.autoload_paths << "#{config.root}/app/models"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

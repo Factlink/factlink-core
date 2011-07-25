@@ -1,3 +1,4 @@
+require File.expand_path('../../classes/opinion.rb', __FILE__)
 require File.expand_path('../../classes/opinionable.rb', __FILE__)
 
 class Basefact < OurOhm

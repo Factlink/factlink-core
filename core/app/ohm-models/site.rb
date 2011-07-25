@@ -1,3 +1,7 @@
+#hack to fix circular imports
+class Fact < Basefact
+end
+
 class Site < OurOhm
   attribute :url
   index :url
