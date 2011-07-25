@@ -1,7 +1,16 @@
 module GraphUserProxy
+  include Canivete::Deprecate
+
+
   deprecate
+  # this is the list of facts the user created
   def facts
-    graph_user.facts
+    fl = Fact.find(:created_by => graph_user) || []
+    fl.find_all {|fact| fact.class != FactRelation }
+  end
+  
+  def fact_relations
+    FactRelation.find(:created_by => graph_user) || []
   end
   
   deprecate
@@ -17,6 +26,34 @@ module GraphUserProxy
   deprecate
   def opinion_on_fact_for_type?(*args)
     graph_user.has_opinion?(*args)
+  end
+  
+  deprecate 
+  def believe_count
+    graph_user.facts_he(:beliefs).size
+  end
+  deprecate 
+  def doubt_count
+    graph_user.facts_he(:doubts).size
+  end
+  deprecate 
+  def disbelieve_count
+    graph_user.facts_he(:disbeliefs).size
+  end
+  
+  deprecate
+  def believed_facts
+    graph_user.facts_he(:beliefs)
+  end
+  
+  deprecate
+  def doubted_facts
+    graph_user.facts_he(:doubts)
+  end
+  
+  deprecate
+  def disbelieved_facts
+    graph_user.facts_he(:disbeliefs)
   end
 end
 

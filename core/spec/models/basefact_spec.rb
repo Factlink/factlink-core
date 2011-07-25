@@ -17,13 +17,34 @@ describe Basefact do
     its(:interacting_users) {should be_empty}
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
-      it { subject.opiniated(opinion).should == [] }
+      it { subject.opiniated(opinion).all.should == [] }
     end
     its(:to_s){ should be_a(String) }
     context "#find" do
       it "should be able to find it" do
         found = Basefact.find(subject.id)
         found.should == subject
+      end
+    end
+  end
+
+  describe "#created_by" do
+    context "after setting it" do
+      before do
+        subject.created_by = user
+        subject.save
+      end
+      
+      it "should have the created_by set" do
+        subject.created_by.should == user
+      end
+      
+      it "should have the created_by persisted" do
+        Basefact[subject.id].created_by.should == user
+      end
+      
+      it "should be findable via find" do
+        Basefact.find(:created_by => user).all.should include(subject)
       end
     end
   end

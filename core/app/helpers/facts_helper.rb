@@ -1,4 +1,5 @@
 module FactsHelper
+  include Canivete::Deprecate
 
   # Sorting results on search page
   def sortable(column, title = nil)
