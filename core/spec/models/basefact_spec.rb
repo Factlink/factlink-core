@@ -38,6 +38,7 @@ describe Basefact do
         end
         it { subject.opiniated_count(opinion).should == 1 }
         its(:interacting_users) {should =~ [user]}
+        its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)}
       end
 
 
