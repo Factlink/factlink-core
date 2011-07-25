@@ -43,7 +43,28 @@ describe Fact do
           :supporting
         end
       end
-      
+
+      describe ".add_evidence" do
+        describe "after adding one piece of #{relation} evidence" do
+          before do
+            @parent.add_evidence(relation,@factlink,@user1) 
+          end
+          it "should have a correct opinion" do
+            @parent.get_opinion.should be_a(Opinion)
+          end
+        end
+        
+        describe "after adding cyclic relations" do
+          before do
+            @parent.add_evidence(relation,@factlink,@user1) 
+            @factlink.add_evidence(relation,@parent,@user1) 
+          end
+          it "should have a correct opinion" do
+            @parent.get_opinion.should be_a(Opinion)
+          end
+        end
+      end
+
       it "stores the ID's of supporting facts in the supporting facts set" do
         pending
         @parent.add_evidence(relation, @factlink, @user1)
@@ -66,10 +87,10 @@ describe Fact do
       end
     end
   end
-  
+
   describe ".evidence_opinions" do
     it "should work"
   end
 
-  
+
 end
