@@ -70,4 +70,7 @@ group :development, :test do
   gem "factory_girl", "2.0.0.rc1"
   gem "database_cleaner"
   gem 'launchy'     # For saving and opening page
+  
+  # Forks the Rails app making testing way faster!
+  gem 'spork', '~> 0.9.0.rc'
 end
