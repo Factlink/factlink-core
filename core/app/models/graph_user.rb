@@ -1,5 +1,3 @@
-require File.expand_path("../fact.rb", __FILE__)
-
 module UserProxy
 
   deprecate

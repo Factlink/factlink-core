@@ -24,5 +24,6 @@ class OurOhm < Ohm::Model
   def self.create!(*args)
     x = self.new(*args)
     x.save
+    x
   end
 end
