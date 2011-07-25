@@ -1,3 +1,5 @@
+require File.expand_path('../../classes/opinionable.rb', __FILE__)
+
 class Basefact < OurOhm
   include Opinionable
 
