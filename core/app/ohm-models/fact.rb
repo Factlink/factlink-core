@@ -7,12 +7,14 @@ autoload :Site, 'site'
 
 autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
-puts "Factloading"
-
-#autoload :Site, 'site'
 
 
 module FactDataProxy
+  
+  def to_s
+    self.displaystring || ""
+  end
+  
   #assuming we have a data
   def title
     require_data
@@ -138,7 +140,7 @@ class Fact < Basefact
   end
   
   # Used for sorting
-  deprecate
+  #deprecate
   def self.column_names
     FactData.column_names
   end
@@ -161,7 +163,7 @@ class Fact < Basefact
   end
   
   def delete_all_evidenced
-    FactRelation.find(:from_fact_id => self.id) do |fr|
+    FactRelation.find(:from_fact_id => self.id).each do |fr|
       fr.delete
     end
   end
@@ -185,5 +187,3 @@ class Fact < Basefact
   end
 
 end
-
-puts "einde fact loading"

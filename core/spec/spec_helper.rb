@@ -14,8 +14,6 @@ require 'capybara/rails'
 # Code coverage
 require 'cover_me'
 
-# timeout ensures all our tests either work or timeout within a reasonable timeframe
-require 'timeout'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -50,12 +48,11 @@ RSpec.configure do |config|
   config.before(:each) do
     $redis.FLUSHDB
     DatabaseCleaner.clean
-  end  
+  end 
 
-  config.around(:each) do |example|
-    Timeout::timeout(2) {
-      example.run
-    }
+  config.after(:suite) do
+    $redis.FLUSHDB
+    DatabaseCleaner.clean
   end
 
 end

@@ -52,13 +52,6 @@ describe Fact do
 
     describe ".add_evidence" do
 
-      it "should not crash when adding cyclic relations" do
-        @parent.add_evidence(relation,@factlink,@user1) 
-        @factlink.add_evidence(relation,@parent,@user1) 
-        @parent.get_opinion.should be_a(Opinion)
-      end
-
-
       context "with one #{relation} fact" do
         before do
           @fr = subject.add_evidence(relation,@factlink,@user1)
@@ -66,33 +59,35 @@ describe Fact do
 
         its(:get_opinion) {should be_a(Opinion)}
 
-        describe ".delete_cascading the supported fact" do
+        describe ".delete_cascading the fact, which has a #{relation} fact" do
           before do
             @subject_id = subject.id
             @data_id = subject.data.id
             @relation_id = @fr.id
+            subject.delete_cascading
           end
           it "should remove the fact" do
             Fact[@subject_id].should be_nil
           end
           it "should remove the associated factdata" do
-            expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+            expect {FactData.find(@data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
           end
           it "should remove the #{relation} factrelation" do
             FactRelation[@relation_id].should be_nil
           end
         end
-        describe ".delete_cascading the supporting fact" do
+        describe ".delete_cascading the #{relation} fact" do
           before do
             @factlink_id = @factlink.id
             @data_id = @factlink.data.id
             @relation_id = @fr.id
+            @factlink.delete_cascading
           end
           it "should remove the fact" do
-            Fact[@subject_id].should be_nil
+            Fact[@factlink_id].should be_nil
           end
           it "should remove the associated factdata" do
-            expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+            expect {FactData.find(@data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
           end
           it "should remove the #{relation} factrelation" do
             FactRelation[@relation_id].should be_nil
@@ -100,43 +95,10 @@ describe Fact do
         end
       end
     end
-    it "stores the ID's of supporting facts in the supporting facts set" do
-      pending
-      @parent.add_evidence(relation, @factlink, @user1)
-      evidence_facts = @parent.evidence(relation).members.collect { |x| FactRelation.find(x).from_fact.value } 
-      evidence_facts.should include(@factlink.id.to_s)
-    end
-
-    #TODO deze fixen dat ie ook generiek is:
-    it "should not store the ID of weakening facts in the supporting facts set" do
-      pending
-      @parent.add_evidence(other_one(this), @factlink2, @user1)
-      evidence_facts = @parent.evidence(relation).members.collect { |x| FactRelation.find(x).from_fact.value } 
-      evidence_facts.should_not include(@factlink2.id.to_s)
-    end
-
-    it "should store the supporting evidence ID when a FactRelation is created" do
-      pending
-      @fl = FactRelation.get_or_create(@factlink, relation, @parent, @user1)
-      @parent.evidence(relation).members.should include(@factlink.id.to_s)
-    end
   end
-
-
+  
   describe ".evidence_opinions" do
     it "should work"
-  end
-
-  describe ".delete" do
-
-    it "should work on a fact which is supported by one fact"
-    it "should work on a fact which is weakened by one fact"
-    it "should work on a fact which is supported by multiple facts"
-    it "should work on a fact which is weakened by multiple facts"
-    it "should work on a fact which is both supported and weakened"
-    it "should work on a fact which supports another fact"
-    it "should work on a fact which weakens another fact"
-    it "should work on a fact which supports another fact, and weakens another fact"
   end
 
   describe "Mongoid properties: " do
@@ -165,7 +127,7 @@ describe Fact do
     it "should not give a give a document not found for Factdata" do
       f = Fact.new
       f.displaystring = "This is a fact"
-      f.created_by = user
+      f.created_by = @user1
       f.save
 
       f2 = Fact[f.id]
