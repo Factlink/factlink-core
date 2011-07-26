@@ -12,8 +12,19 @@ module FactlinkUI
   class Application < Rails::Application
     # Auto load files in lib directory
     config.autoload_paths << "#{config.root}/lib"
-    config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/classes"
+    config.autoload_paths << "#{config.root}/app/ohm-models"
+    
+    autoload :Basefact, 'basefact'
+    autoload :Fact, 'fact'
+    autoload :FactRelation, 'fact_relation'
+    autoload :GraphUser, 'graph_user'
+    autoload :OurOhm, 'our_ohm'
+    autoload :Site, 'site'
+    
+    autoload :Opinion, 'opinion'
+    autoload :Opinionable, 'opinionable'
+    
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -50,5 +61,6 @@ module FactlinkUI
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
   end
 end

@@ -1,3 +1,17 @@
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
+puts "Factloading"
+
+#autoload :Site, 'site'
+
+
 module FactDataProxy
   #assuming we have a data
   def title
@@ -70,7 +84,7 @@ class Fact < Basefact
   include FactDataProxy
 
 
-  reference :fact_data, lambda { |id| FactData.find(id) }
+  reference :data, lambda { |id| FactData.find(id) }
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
@@ -146,3 +160,5 @@ class Fact < Basefact
   end
 
 end
+
+puts "einde fact loading"

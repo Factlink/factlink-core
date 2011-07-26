@@ -1,6 +1,13 @@
-#hack to fix circular imports
-class Fact < Basefact
-end
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
+#autoload :Fact, 'fact'
 
 class Site < OurOhm
   attribute :url
