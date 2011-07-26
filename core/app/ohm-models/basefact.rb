@@ -1,10 +1,18 @@
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
+
 class Basefact < OurOhm
   include Opinionable
 
-  reference :data, lambda { |id| FactData.find(id) }
   reference :site, Site       # The site on which the factlink should be shown
   reference :created_by, GraphUser
-  index :created_by
 
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser

@@ -1,3 +1,14 @@
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
+#require File.join(File.dirname(__FILE__), *%w[basefact.rb])
+
 module UserProxy
 
   deprecate
@@ -16,9 +27,9 @@ class GraphUser < OurOhm
   
   reference :user, lambda { |id| User.find(id) }
 
-  set :beliefs_facts, Fact
-  set :doubts_facts, Fact
-  set :disbeliefs_facts, Fact
+  set :beliefs_facts, Basefact
+  set :doubts_facts, Basefact
+  set :disbeliefs_facts, Basefact
 
   def to_s
     user.username
