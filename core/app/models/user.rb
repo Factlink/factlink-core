@@ -55,6 +55,11 @@ module GraphUserProxy
   def disbelieved_facts
     graph_user.facts_he(:disbeliefs)
   end
+  
+  deprecate
+  def created_by
+    graph_user.created_by
+  end
 end
 
 class User
