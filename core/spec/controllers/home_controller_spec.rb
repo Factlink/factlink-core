@@ -1,13 +1,5 @@
 require 'spec_helper'
 
-class Ohm::Model::Set
-
-  def ==(other)
-    self.sort.to_a == other.sort.to_a
-  end
-
-end
-
 describe HomeController do
   include Devise::TestHelpers
   render_views
@@ -34,12 +26,12 @@ describe HomeController do
 
     it "assigns @facts" do
       get :index
-      assigns(:facts).should eq(Fact.all)
+      assigns(:facts).all.should =~ Fact.all.all
     end
 
     it "assigns @users" do
       get :index
-      assigns(:users).should eq(User.all)
+      assigns(:users).to_a.should =~ User.all.to_a
     end
 
     it "renders the index template" do

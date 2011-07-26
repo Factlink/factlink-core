@@ -7,7 +7,7 @@ autoload :Site, 'site'
 
 autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
-puts "hoi"
+
 class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact
@@ -65,6 +65,10 @@ class FactRelation < Basefact
   deprecate
     fact
   end
+
+  def delete
+    super
+  end
   
   def get_influencing_opinion
     # Primitive loop detection; not working correct
@@ -79,7 +83,6 @@ class FactRelation < Basefact
     # end
 
     # This is the only thing to return when the loop detection is not used:
-    get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
+    get_type_opinion.dfa(self.from_fact.get_opinion, self.get_opinion)
   end
 end
-puts "hoi2"

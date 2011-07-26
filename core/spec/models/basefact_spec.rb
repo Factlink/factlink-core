@@ -37,7 +37,7 @@ describe Basefact do
       end
 
       it "should be findable via find" do
-        Basefact.find(:created_by => user).all.should include(subject)
+        Basefact.find(:created_by_id => user.id).all.should include(subject)
       end
     end
   end

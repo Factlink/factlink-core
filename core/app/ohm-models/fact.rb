@@ -7,12 +7,14 @@ autoload :Site, 'site'
 
 autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
-puts "Factloading"
-
-#autoload :Site, 'site'
 
 
 module FactDataProxy
+  
+  def to_s
+    self.displaystring || ""
+  end
+  
   #assuming we have a data
   def title
     require_data
@@ -128,9 +130,9 @@ class Fact < Basefact
   def add_evidence(type, evidence_fact, user)
     fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
     evidence(type) << fact_relation
-
     fact_relation
   end
+
   
   # Count helpers
   def supporting_evidence_count
@@ -146,10 +148,35 @@ class Fact < Basefact
   end
   
   # Used for sorting
-  deprecate
+  #deprecate
   def self.column_names
     FactData.column_names
   end
+
+  def delete_cascading
+    delete_data
+    delete_all_evidence
+    delete_all_evidenced
+    self.delete
+  end
+  
+  def delete_data
+    data.delete
+  end
+  
+  def delete_all_evidence
+    fact_relations.each do |fr|
+      fr.delete
+    end
+  end
+  
+  def delete_all_evidenced
+    FactRelation.find(:from_fact_id => self.id).each do |fr|
+      fr.delete
+    end
+  end
+
+  private :delete_all_evidence, :delete_all_evidenced
 
   def evidence_opinion
     opinions = []
@@ -168,5 +195,3 @@ class Fact < Basefact
   end
 
 end
-
-puts "einde fact loading"
