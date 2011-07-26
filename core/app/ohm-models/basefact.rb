@@ -8,11 +8,16 @@ autoload :Site, 'site'
 autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
 
+#dirty hack, sorry:
+module Opinionable
+end
+
 class Basefact < OurOhm
   include Opinionable
 
   reference :site, Site       # The site on which the factlink should be shown
   reference :created_by, GraphUser
+  index :created_by
 
   index :created_by
 
