@@ -16,8 +16,3 @@ $('div#fl-evidence > div#fl-sources > ol').append("<%= escape_javascript(render(
 
 // Hide the evidence from potential evidence.
 el = $("li#fl-source-<%= @fact_relation.get_from_fact.id %>").hide();
-
-
-// Workaround: opinion popup is not working when adding the element
-// So reload the page.
-window.location.reload( false );
