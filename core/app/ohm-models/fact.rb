@@ -144,9 +144,14 @@ class Fact < Basefact
   end
 
   def delete_cascading
+    delete_data
     delete_all_evidence
     delete_all_evidenced
     self.delete
+  end
+  
+  def delete_data
+    data.delete
   end
   
   def delete_all_evidence

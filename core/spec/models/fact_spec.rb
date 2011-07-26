@@ -21,11 +21,16 @@ describe Fact do
     it "should be findable" do
       subject.should be_a(Fact)
     end
+    it "should be persisted" do
+      Fact[subject.id].should == subject
+    end
     describe ".delete_cascading" do
       it " should work" do
         old_id = subject.id
+        data_id = subject.data.id
         subject.delete_cascading
         Fact[old_id].should be_nil
+        expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
       end
     end
   end
@@ -61,13 +66,33 @@ describe Fact do
 
         its(:get_opinion) {should be_a(Opinion)}
 
-        describe ".delete_cascading" do
+        describe ".delete_cascading the supported fact" do
           before do
             @subject_id = subject.id
+            @data_id = subject.data.id
             @relation_id = @fr.id
           end
-          it "should remove both the fact" do
+          it "should remove the fact" do
             Fact[@subject_id].should be_nil
+          end
+          it "should remove the associated factdata" do
+            expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+          end
+          it "should remove the #{relation} factrelation" do
+            FactRelation[@relation_id].should be_nil
+          end
+        end
+        describe ".delete_cascading the supporting fact" do
+          before do
+            @factlink_id = @factlink.id
+            @data_id = @factlink.data.id
+            @relation_id = @fr.id
+          end
+          it "should remove the fact" do
+            Fact[@subject_id].should be_nil
+          end
+          it "should remove the associated factdata" do
+            expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
           end
           it "should remove the #{relation} factrelation" do
             FactRelation[@relation_id].should be_nil
