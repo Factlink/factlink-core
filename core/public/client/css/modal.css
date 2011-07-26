@@ -619,6 +619,20 @@ div.fl-modal div#fl-add-evidence div.fl-add-evidence-message {
   padding: 0 0 6px 0;
   margin: 0 0 -6px;
 }
+div.fl-modal div#fl-add-evidence #fl-fact-search {
+  border-bottom: solid 1px #eee;
+  padding: 3px 12px;
+  background: #fbfafa;
+}
+div.fl-modal div#fl-add-evidence #fl-fact-search input[type="text"] {
+  border-radius: 3px;
+  border: solid 1px #ccc;
+  padding: 4px;
+  width: 320px;
+}
+div.fl-modal div#fl-add-evidence #fl-fact-search input[type="submit"] {
+  width: 64px;
+}
 div.fl-modal div#fl-add-evidence span.message {
   text-align: center;
   color: #989898;
