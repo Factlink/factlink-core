@@ -91,7 +91,7 @@ class FactsController < ApplicationController
     end
 
     # Create the Fact
-    @factlink = Fact.create!(:displaystring => displaystring,
+    @factlink = Fact.create(:displaystring => displaystring,
                              :created_by => current_user,
                              :site => site)
 
