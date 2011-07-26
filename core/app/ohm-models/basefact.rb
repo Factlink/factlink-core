@@ -32,9 +32,9 @@ class Basefact < OurOhm
     opiniated(type).size
   end
 
-  def to_s
-    self.displaystring || ""
-  end
+  # def to_s
+  #   self.displaystring || ""
+  # end
 
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url

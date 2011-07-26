@@ -20,6 +20,12 @@ class FactData
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
+
+  def to_s
+    self.displaystring || ""
+  end
+  
+  
     
   def fact
     if fact_id
@@ -33,7 +39,7 @@ class FactData
   
       self.fact = new_fact
   
-      new_fact.fact_data = self
+      new_fact.data = self
       new_fact.save
       return new_fact
     end

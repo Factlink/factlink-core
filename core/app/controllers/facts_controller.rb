@@ -116,6 +116,8 @@ class FactsController < ApplicationController
     @fact     = Fact[params[:fact_id]]
     @evidence = Fact[params[:evidence_id]]
 
+    puts "\n\nI am the fact: #{@fact.id}"
+
     @fact_relation = @fact.add_evidence(type, @evidence, current_user)
 
     render "add_source_to_factlink"

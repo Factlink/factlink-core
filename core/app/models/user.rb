@@ -1,7 +1,6 @@
 module GraphUserProxy
   include Canivete::Deprecate
 
-
   deprecate
   # this is the list of facts the user created
   def facts
