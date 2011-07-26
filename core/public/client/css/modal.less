@@ -457,6 +457,7 @@ div.fl-modal {
 
   
   .fl-bottom-pane {
+	z-index: 1000;
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
@@ -777,7 +778,7 @@ div.fl-modal {
 		}
 		
 		#fl-fact-search {
-			border-bottom: solid 1px #eee;
+			border-bottom: solid 1px #ddd;
 			padding: 3px 12px;
 			background: rgb(251, 250, 250);
 			
@@ -792,6 +793,13 @@ div.fl-modal {
 				width: 64px;
 			}
 			
+		}
+
+		/** Override the height to show  */
+		.fl-evidence-list {
+			ol {
+				height: 265px;
+			}
 		}
 		
 		span.message {
@@ -813,7 +821,8 @@ div.fl-modal {
     }
 		
 		div.fl-evidence-list {
-			height: 300px;
+			height: 265px;
+/*			height: 300px;*/
 		}
 	}
 }

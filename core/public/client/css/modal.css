@@ -367,6 +367,7 @@ div.fl-modal div.actions a:hover {
   color: #3fa1ca;
 }
 div.fl-modal .fl-bottom-pane {
+  z-index: 1000;
   height: 70px;
   text-align: center;
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
@@ -611,6 +612,8 @@ div.fl-modal div#fl-add-evidence {
   width: 100%;
   border: solid 1px #bbb;
   border-top: none;
+  /** Override the height to show  */
+
 }
 div.fl-modal div#fl-add-evidence div.fl-add-evidence-message {
   background: url('/images/client/filter-bar.png') repeat-x;
@@ -620,7 +623,7 @@ div.fl-modal div#fl-add-evidence div.fl-add-evidence-message {
   margin: 0 0 -6px;
 }
 div.fl-modal div#fl-add-evidence #fl-fact-search {
-  border-bottom: solid 1px #eee;
+  border-bottom: solid 1px #ddd;
   padding: 3px 12px;
   background: #fbfafa;
 }
@@ -632,6 +635,9 @@ div.fl-modal div#fl-add-evidence #fl-fact-search input[type="text"] {
 }
 div.fl-modal div#fl-add-evidence #fl-fact-search input[type="submit"] {
   width: 64px;
+}
+div.fl-modal div#fl-add-evidence .fl-evidence-list ol {
+  height: 265px;
 }
 div.fl-modal div#fl-add-evidence span.message {
   text-align: center;
@@ -649,7 +655,9 @@ div.fl-modal div#fl-add-evidence span.message a:hover {
   text-decoration: underline;
 }
 div.fl-modal div#fl-add-evidence div.fl-evidence-list {
-  height: 300px;
+  height: 265px;
+  /*			height: 300px;*/
+
 }
 div.fl-clear {
   clear: both;
