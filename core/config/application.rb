@@ -15,6 +15,7 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     
+    
     autoload :Basefact, 'basefact'
     autoload :Fact, 'fact'
     autoload :FactRelation, 'fact_relation'

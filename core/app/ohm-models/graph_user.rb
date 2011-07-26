@@ -54,7 +54,7 @@ class GraphUser < OurOhm
   end
   
   def real_facts
-    facts.find_all { |fact| fact.class != FactRelation }
+    facts.find_all { |fact| fact.class == Fact }
   end
 
   def update_opinion(type, fact)
