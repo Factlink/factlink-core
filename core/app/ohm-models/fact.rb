@@ -83,7 +83,6 @@ end
 class Fact < Basefact
   include FactDataProxy
 
-
   reference :data, lambda { |id| FactData.find(id) }
 
   set :supporting_facts, FactRelation

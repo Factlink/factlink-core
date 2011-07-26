@@ -46,14 +46,11 @@ class FactsController < ApplicationController
     render :json => @facts , :callback => params[:callback]
   end
 
-  def potential_evidence
-    #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
-    @potential_evidence = Fact.all
-  end    
+
 
   def show
     @fact = Fact[params[:id]]
-    potential_evidence
+    potential_evidence_for_fact(@fact)
   end
 
   def new
@@ -62,7 +59,7 @@ class FactsController < ApplicationController
 
   def edit
     @fact = Fact[params[:id]]
-    potential_evidence
+    potential_evidence_for_fact(@fact)
   end
 
   # Prepare for create
@@ -294,6 +291,17 @@ class FactsController < ApplicationController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+    
+    def potential_evidence_for_fact(fact)
+      #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
+
+      # Don't show self in potential evidence
+
+      # Ohm Model workaround. Can't except a model on its ID\
+      # so use the data_id to filter it out...
+
+      @potential_evidence = Fact.all.except(:data_id => fact.data_id)
     end
 
 
