@@ -24,30 +24,9 @@ class FactData
   def to_s
     self.displaystring || ""
   end
-  
-  
-    
+
   def fact
-    if fact_id
-      puts "\n\nReturning Fact with id #{fact_id}"
-      return Fact[fact_id]
-    else
-      
-      puts "\n\nCreating new Fact"
-      new_fact = Fact.new
-      new_fact.save
-  
-      self.fact = new_fact
-  
-      new_fact.data = self
-      new_fact.save
-      return new_fact
-    end
-  end
-  
-  def fact=(the_fact)
-    self.fact_id = the_fact.id
-    self.save
+    Fact[fact_id]
   end
   
 end

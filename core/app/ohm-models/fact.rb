@@ -67,9 +67,18 @@ module FactDataProxy
   def require_data
     if not self.data_id
       localdata = FactData.new
-      localdata.save
-      self.data = localdata
+      localdata.save    # FactData now has an ID
+      self.data = localdata      
       save
+      
+      if self.id
+        puts "I have id #{self.id} :: #{localdata.id}"
+      else
+        puts "No id"
+      end
+      
+      localdata.fact_id = self.id
+      localdata.save
     end
   end
 
