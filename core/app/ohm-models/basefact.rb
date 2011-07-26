@@ -1,12 +1,16 @@
-require File.expand_path("../../classes/opinionable.rb", __FILE__)
-require File.expand_path("../../classes/opinion.rb", __FILE__)
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
 
-
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
 
 class Basefact < OurOhm
   include Opinionable
 
-  reference :data, lambda { |id| FactData.find(id) }
   reference :site, Site       # The site on which the factlink should be shown
   reference :created_by, GraphUser
 

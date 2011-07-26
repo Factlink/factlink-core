@@ -37,7 +37,6 @@
 			<%= @passage %>
 		</textarea>
 		<input type="text" name="fact" id="fact" value="<%= @fact %>">
-	<!-- </form> -->
 	<% end %>
 	<iframe src="" name="frame" id="frame"></iframe>
 		
@@ -69,6 +68,14 @@
 						// Show the overlay
 						iframe.className = "";
 					},
+					createFactlink: function( factlink, passage, url ) {
+					  // Set form data
+					  document.getElementById("fact").value = factlink;
+						document.getElementById("passage").value = passage;
+						document.getElementById("url").value = url;
+						
+						createFactlink();
+					},
 					showFactlink: function(id) {
 						// Set the source of the iframe
 						iframe.src = "/factlink/show/" + id;
@@ -86,8 +93,7 @@
 				}
 			}),
 			// Create the Factlink
-			createFactlink = function( choice ) {
-				//@TODO: Submit the choice of the user
+			createFactlink = function(  ) {
 				// Submit the form
 				form.submit();
 			};

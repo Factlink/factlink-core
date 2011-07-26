@@ -1,4 +1,14 @@
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
 class OurOhm < Ohm::Model
+
   include Canivete::Deprecate
   
   def save!
@@ -24,5 +34,7 @@ class OurOhm < Ohm::Model
   def self.create!(*args)
     x = self.new(*args)
     x.save
+    x
   end
+  
 end

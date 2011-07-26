@@ -46,10 +46,14 @@ class FactsController < ApplicationController
     render :json => @facts , :callback => params[:callback]
   end
 
-  def show
-    @fact = Fact[params[:id]]
+  def potential_evidence
     #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
     @potential_evidence = Fact.all
+  end    
+
+  def show
+    @fact = Fact[params[:id]]
+    potential_evidence
   end
 
   def new
@@ -58,6 +62,7 @@ class FactsController < ApplicationController
 
   def edit
     @fact = Fact[params[:id]]
+    potential_evidence
   end
 
   # Prepare for create
@@ -91,8 +96,8 @@ class FactsController < ApplicationController
     end
 
     # Create the Fact
-    @factlink = Fact.create!(:displaystring => displaystring,
-                             :created_by => current_user,
+    @factlink = Fact.create(:displaystring => displaystring,
+                             :created_by => current_user.graph_user,
                              :site => site)
 
     # Required for the Ohm Model, doesn't set the relation itself?

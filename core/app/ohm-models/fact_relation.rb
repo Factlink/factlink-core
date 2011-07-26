@@ -1,3 +1,13 @@
+autoload :Basefact, 'basefact'
+autoload :Fact, 'fact'
+autoload :FactRelation, 'fact_relation'
+autoload :GraphUser, 'graph_user'
+autoload :OurOhm, 'our_ohm'
+autoload :Site, 'site'
+
+autoload :Opinion, 'opinion'
+autoload :Opinionable, 'opinionable'
+puts "hoi"
 class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact
@@ -76,3 +86,4 @@ class FactRelation < Basefact
     get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
   end
 end
+puts "hoi2"
