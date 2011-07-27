@@ -73,12 +73,6 @@ module FactDataProxy
       self.data = localdata      
       save
       
-      if self.id
-        puts "I have id #{self.id} :: #{localdata.id}"
-      else
-        puts "No id"
-      end
-      
       localdata.fact_id = self.id
       localdata.save
     end
@@ -121,16 +115,10 @@ class Fact < Basefact
   def evidence(type)
     case type
     when :supporting
-      supporting_facts
+      return self.supporting_facts
     when :weakening
-      weakening_facts
+      return self.weakening_facts
     end
-  end
-  
-  def add_evidence(type, evidence_fact, user)
-    fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
-    evidence(type) << fact_relation
-    fact_relation
   end
 
   

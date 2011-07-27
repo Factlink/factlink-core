@@ -58,6 +58,7 @@ class FactsController < ApplicationController
   end
 
 
+
   def show
   end
 
@@ -122,22 +123,38 @@ class FactsController < ApplicationController
     @fact     = Fact[params[:fact_id]]
     @evidence = Fact[params[:evidence_id]]
 
-    puts "\n\nI am the fact: #{@fact.id}"
-
     @fact_relation = @fact.add_evidence(type, @evidence, current_user)
 
     render "add_source_to_factlink"
   end
-  
+
   def destroy
     if current_user.graph_user == @fact.created_by
       @fact.delete_cascading
     end
     redirect_to :controller => 'home', :action => "index"    
   end
-  
+
+  def remove_factlink_from_parent
+
+    # TODO: Only allow if user added the source earlier on
+
+    # Not being used at the moment
+    # # Remove a Fact from it's parent
+    # @factlink = Fact[params[:factlink_id]]
+    # parent    = Fact[params[:parent_id]]
+    # 
+    # if @factlink.added_to_parent_by_current_user(parent, current_user)
+    #   # Only remove if the user added this source
+    #   parent.remove_child(@factlink)
+    #   parent.save
+    # end
+  end
+
 
   def update
+    @factlink = Fact[params[:id]]
+
     respond_to do |format|
       if @factlink.update_attributes(params[:factlink])
         format.html { redirect_to(@factlink,
@@ -236,7 +253,7 @@ class FactsController < ApplicationController
       fact_id = params[:fact_id].to_i
       @fact = Fact[fact_id]
 
-      @row_count = 2
+      @row_count = 20
       row_count = @row_count
 
       if params[:s]
@@ -267,7 +284,9 @@ class FactsController < ApplicationController
 
       @facts = @fact_data.map { |fd| fd.fact }
 
-      puts "\n\n\n#{@facts}"
+      
+
+      puts "\n\n\n#{@facts}\n\n"
 
       respond_to do |format|
         format.js
@@ -302,7 +321,8 @@ class FactsController < ApplicationController
     end
 
     def potential_evidence
-      potential_evidence_for_fact(@fact)
+      # potential_evidence_for_fact(@fact)
+      @potential_evidence = Fact.all.except(:data_id => @fact.data_id)
     end    
 
     def load_fact

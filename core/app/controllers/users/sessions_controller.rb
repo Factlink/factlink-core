@@ -47,6 +47,7 @@ class Users::SessionsController < Devise::SessionsController
         
         site = Site.find_or_create_by(:url => url)
         # Create the Fact
+
         @fact = Fact.create!()
         @fact.displaystring = displaystring
         @fact.created_by = current_user.graph_user
