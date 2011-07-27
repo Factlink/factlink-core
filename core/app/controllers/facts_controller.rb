@@ -133,6 +133,12 @@ class FactsController < ApplicationController
 
     @fact_relation = @fact.add_evidence(type, @evidence, current_user)
 
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+      return false
+    end
+
     render "add_source_to_factlink"
   end
 

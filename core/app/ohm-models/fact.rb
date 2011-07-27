@@ -123,7 +123,15 @@ class Fact < Basefact
   end
 
   def add_evidence(type, evidence, user)
-    FactRelation.get_or_create(evidence,type,self,user)
+    
+    # Some extra loop protection
+    if evidence.id == self.id
+      puts "\n\nERROR! Failed creating a FactRelation because that would cause a loop!"
+      
+      return nil
+    else
+      FactRelation.get_or_create(evidence,type,self,user)
+    end
   end
   
   # Count helpers
