@@ -49,6 +49,11 @@ describe Fact do
     @gu.facts.count.should == 1
   end
 
+  it "should be in the created_facts set of the creator" do
+    @gu = subject.created_by
+    @gu.created_facts.to_a.should =~ [subject]
+  end
+
 
   [:supporting, :weakening].each do |relation|
     def other_one(this)

@@ -290,11 +290,8 @@ class FactsController < ApplicationController
         end
       end
 
+      # Return the actual Facts in stead of FactData
       @facts = @fact_data.map { |fd| fd.fact }
-
-      
-
-      puts "\n\n\n#{@facts}\n\n"
 
       respond_to do |format|
         format.js

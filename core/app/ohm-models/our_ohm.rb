@@ -41,6 +41,14 @@ end
 
 class Ohm::Model::Set < Ohm::Model::Collection
   alias :count :size
+  
+  def &(other)
+    apply(:sinterstore,key,other.key,key+"*INTERSECT*"+other.key)
+  end
+
+  def |(other)
+    apply(:sunionstore,key,other.key,key+"*UNION*"+other.key)
+  end
 end
 
 class Ohm::Model::List < Ohm::Model::Collection
