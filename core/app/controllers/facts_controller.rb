@@ -316,22 +316,9 @@ class FactsController < ApplicationController
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
-    
-    def potential_evidence_for_fact(fact)
-      #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
 
-      # Don't show self in potential evidence
-
-      # Ohm Model workaround. Can't except a model on its ID\
-      # so use the data_id to filter it out...
-
-      @potential_evidence = Fact.all.except(:data_id => fact.data_id)
-    end
 
     def potential_evidence
-      # potential_evidence_for_fact(@fact)
-      
-      
       # TODO Fix this very quick please. Nasty way OhmModels handles querying\
       # and filtering. Can't use the object ID, so using a workaround with :data_id's
       # Very nasty :/
