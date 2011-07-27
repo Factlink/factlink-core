@@ -40,6 +40,8 @@ class FactRelation < Basefact
     #TODO enable this again:
     fl.created_by = user
 
+    to.evidence(type) << fl
+
     fl.save
     $redis.set(FactRelation.redis_key(from,type,to), fl.id)
     fl

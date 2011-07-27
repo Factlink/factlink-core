@@ -121,6 +121,9 @@ class Fact < Basefact
     end
   end
 
+  def add_evidence(type, evidence, user)
+    FactRelation.get_or_create(evidence,type,self,user)
+  end
   
   # Count helpers
   def supporting_evidence_count
