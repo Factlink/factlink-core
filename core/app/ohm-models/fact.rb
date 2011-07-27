@@ -73,12 +73,6 @@ module FactDataProxy
       self.data = localdata      
       save
       
-      if self.id
-        puts "I have id #{self.id} :: #{localdata.id}"
-      else
-        puts "No id"
-      end
-      
       localdata.fact_id = self.id
       localdata.save
     end

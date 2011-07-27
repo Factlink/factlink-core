@@ -76,7 +76,7 @@
 
 	<div class="fl-factlink">
 		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
-		<sub>by <%= link_to(@fact.created_by, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
+		<sub>by <%= link_to(@fact.created_by.username, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
 	</div>
 
 	<div class="fl-clear"></div>

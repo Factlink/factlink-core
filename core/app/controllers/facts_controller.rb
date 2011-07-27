@@ -241,7 +241,7 @@ class FactsController < ApplicationController
       fact_id = params[:fact_id].to_i
       @fact = Fact[fact_id]
 
-      @row_count = 2
+      @row_count = 20
       row_count = @row_count
 
       if params[:s]
@@ -272,7 +272,9 @@ class FactsController < ApplicationController
 
       @facts = @fact_data.map { |fd| fd.fact }
 
-      puts "\n\n\n#{@facts}"
+      
+
+      puts "\n\n\n#{@facts}\n\n"
 
       respond_to do |format|
         format.js
