@@ -112,19 +112,6 @@ class Fact < Basefact
     res.reverse
   end
   
-  def evidence(type)
-    case type
-    when :supporting
-      supporting_facts
-    when :weakening
-      weakening_facts
-    end
-  end
-  
-  def add_evidence(type, evidence_fact, user)
-    fact_relation = FactRelation.get_or_create(evidence_fact, type, self, user)
-    evidence(type) << fact_relation
-    fact_relation
   end
 
   

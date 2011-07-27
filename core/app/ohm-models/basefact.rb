@@ -19,8 +19,6 @@ class Basefact < OurOhm
   reference :created_by, GraphUser
   index :created_by
 
-  index :created_by
-
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
