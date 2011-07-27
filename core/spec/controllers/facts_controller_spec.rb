@@ -56,7 +56,7 @@ describe FactsController do
       response.should be_succes
     end
     it "should return a list of @potential_evidence"
-    it "should not include itself in @potential_evidenc"
+    it "should not include itself in @potential_evidence"
     it "should not include facts in potential evidence which already both support and weaken"
   end
 

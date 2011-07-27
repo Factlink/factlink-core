@@ -20,28 +20,13 @@ class FactData
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
-    
-  def fact
-    if fact_id
-      puts "\n\nReturning Fact with id #{fact_id}"
-      return Fact[fact_id]
-    else
-      
-      puts "\n\nCreating new Fact"
-      new_fact = Fact.new
-      new_fact.save
-  
-      self.fact = new_fact
-  
-      new_fact.fact_data = self
-      new_fact.save
-      return new_fact
-    end
+
+  def to_s
+    self.displaystring || ""
   end
-  
-  def fact=(the_fact)
-    self.fact_id = the_fact.id
-    self.save
+
+  def fact
+    Fact[fact_id]
   end
   
 end
