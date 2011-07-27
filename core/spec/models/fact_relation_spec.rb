@@ -47,6 +47,19 @@ describe FactRelation do
     it "should return a new object after the object was deleted"
   end
 
-  it "should delete itself from lists referring to it"
+  it "should add itself to the list of evidence" do
+    @fact1 =FactoryGirl.create(:fact)
+    @fact2 =FactoryGirl.create(:fact)
+    @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+    @fact2.evidence(:supporting).to_a.collect{ |x| x.from_fact }.should =~ [@fact1]
+  end
+
+  it "should delete itself from lists referring to it" do
+    @fact1 =FactoryGirl.create(:fact)
+    @fact2 =FactoryGirl.create(:fact)
+    @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+    @fact1.delete_cascading
+    @fact2.evidence(:supporting).size.should == 0
+  end
   
 end

@@ -80,7 +80,8 @@ class FactRelation < Basefact
   end
 
   def delete
-    $redis.del(FactRelation.redis_key(from_fact, type, fact))
+    $redis.del(FactRelation.redis_key(from_fact, self.type, fact))
+    fact.evidence(self.type.to_sym).delete(self)
     super
   end
 
