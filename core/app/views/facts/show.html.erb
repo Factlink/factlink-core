@@ -76,7 +76,10 @@
 
 	<div class="fl-factlink">
 		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
-		<sub>by <%= link_to(@fact.created_by.username, user_profile_path(@fact.created_by.username), :target => "_blank") %></sub>
+		<sub>by <%= link_to(@fact.created_by.user, user_profile_path(@fact.created_by.user.username), :target => "_blank") %></sub>
+		<% if current_user && @fact.created_by == current_user.graph_user %>
+		  <%= link_to("DELETE",fact_path(@fact.id), :confirm => "Are you sure?", :method => :delete ) %>
+		<% end %>
 	</div>
 
 	<div class="fl-clear"></div>
@@ -98,7 +101,7 @@
 <div id="fl-evidence">
 	<div id="fl-sources">
 		<ol>
-			<% unless @fact.fact_relations_ids.count > 0 %>
+			<% unless @fact.fact_relations.count > 0 %>
 				<%= no_facts_have_been_added_as_li %>
 			<% else %>
 				<% @fact.sorted_fact_relations.each do |evidence| %>

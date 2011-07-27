@@ -43,6 +43,10 @@ describe FactRelation do
       @fr.should == @fr2
       @fr2.should == @fr3
     end
+    
+    it "should return a new object after the object was deleted"
   end
 
+  it "should delete itself from lists referring to it"
+  
 end
