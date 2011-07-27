@@ -21,7 +21,7 @@ FactlinkUI::Application.routes.draw do
   match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
   
 
-  
+  resources :factlinks, :controller => 'facts'
   
   get "/fr/(:id)" => "facts#fr"
   

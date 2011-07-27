@@ -4,11 +4,12 @@ class FactsController < ApplicationController
 
   before_filter :store_fact_for_non_signed_in_user, :only => [:create]
 
-  # Change this to :except, in stead of :only.
+  # TODO Change this to :except, in stead of :only.
   before_filter :authenticate_user!, :only => [:new,
                                                :edit,
                                                :create,
                                                :update,
+                                               :destroy,
                                                :add_factlink_to_parent,
                                                :remove_factlink_from_parent,
                                                :believe,
@@ -20,6 +21,15 @@ class FactsController < ApplicationController
                                                :toggle_opinion_on_fact,
                                                :toggle_relevance_on_fact_relation
                                                ]
+                                               
+  before_filter { @fact = Fact[params[:id]]}, :only => [:show,
+                                                        :edit,
+                                                        :destroy,
+                                                        :update
+                                                        ]
+  after_filter :potential_evidence, :only => [:show,
+                                              :edit
+                                              ]
 
   layout "client"
 
@@ -32,6 +42,7 @@ class FactsController < ApplicationController
     end
   end
 
+  #TODO shouldn't this be in the site controller?
   def factlinks_for_url
     url = params[:url]
     site = Site.find(:url => url).first
@@ -46,14 +57,8 @@ class FactsController < ApplicationController
     render :json => @facts , :callback => params[:callback]
   end
 
-  def potential_evidence
-    #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
-    @potential_evidence = Fact.all
-  end    
 
   def show
-    @fact = Fact[params[:id]]
-    potential_evidence
   end
 
   def new
@@ -61,8 +66,6 @@ class FactsController < ApplicationController
   end
 
   def edit
-    @fact = Fact[params[:id]]
-    potential_evidence
   end
 
   # Prepare for create
@@ -124,10 +127,14 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
   
+  def destroy
+    if current_user.graph_user == @fact.created_by
+      @fact.delete_cascading
+    end
+  end
+  
 
   def update
-    @factlink = Fact[params[:id]]
-
     respond_to do |format|
       if @factlink.update_attributes(params[:factlink])
         format.html { redirect_to(@factlink,
@@ -279,6 +286,11 @@ class FactsController < ApplicationController
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
+
+    def potential_evidence
+      #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
+      @potential_evidence = Fact.all
+    end    
 
 
 end
