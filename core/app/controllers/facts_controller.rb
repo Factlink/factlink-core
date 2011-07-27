@@ -146,7 +146,8 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact.delete_cascading
     end
-    redirect_to :controller => 'home', :action => "index"    
+    # Create JS action to close the popup window
+    # redirect_to :controller => 'home', :action => "index"    
   end
 
   def remove_factlink_from_parent
