@@ -22,12 +22,12 @@ class FactsController < ApplicationController
                                                :toggle_relevance_on_fact_relation
                                                ]
                                                
-  before_filter { @fact = Fact[params[:id]]}, :only => [:show,
+  before_filter :load_fact, :only => [:show,
                                                         :edit,
                                                         :destroy,
                                                         :update
                                                         ]
-  after_filter :potential_evidence, :only => [:show,
+  before_filter :potential_evidence, :only => [:show,
                                               :edit
                                               ]
 
@@ -308,7 +308,7 @@ class FactsController < ApplicationController
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
     
-    def potential_evidence
+    def potential_evidence_for_fact(fact)
       #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
 
       # Don't show self in potential evidence
@@ -316,8 +316,15 @@ class FactsController < ApplicationController
       # Ohm Model workaround. Can't except a model on its ID\
       # so use the data_id to filter it out...
 
-      @potential_evidence = Fact.all.except(:data_id => @fact.data_id)
+      @potential_evidence = Fact.all.except(:data_id => fact.data_id)
     end
 
+    def potential_evidence
+      # potential_evidence_for_fact(@fact)
+      @potential_evidence = Fact.all.except(:data_id => @fact.data_id)
+    end    
 
+    def load_fact
+      @fact = Fact[params[:id]]
+    end
   end
