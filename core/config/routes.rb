@@ -39,14 +39,6 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
 
-  
-  # Add a Fact as source
-  # deprecate
-  # get   "/factlink/:factlink_id/add_to_parent_as_supporting/:parent_id" => "facts#add_factlink_to_parent_as_supporting",  :as => "add_factlink_to_parent_as_supporting"
-  # get   "/factlink/:factlink_id/add_to_parent_as_weakening/:parent_id"  => "facts#add_factlink_to_parent_as_weakening",   :as => "add_factlink_to_parent_as_weakening"
-
-  get   "/factlink/:factlink_id/remove_from_parent/:parent_id"  => "facts#remove_factlink_from_parent", :as => "remove_factlink_from_parent"
-
   # Add evidence as supporting or weakening
   get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"

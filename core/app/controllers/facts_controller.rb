@@ -124,22 +124,6 @@ class FactsController < ApplicationController
     render "add_source_to_factlink"
   end
   
-  def remove_factlink_from_parent
-
-    # TODO: Only allow if user added the source earlier on
-
-    # Not being used at the moment
-    # # Remove a Fact from it's parent
-    # @factlink = Fact[params[:factlink_id]]
-    # parent    = Fact[params[:parent_id]]
-    # 
-    # if @factlink.added_to_parent_by_current_user(parent, current_user)
-    #   # Only remove if the user added this source
-    #   parent.remove_child(@factlink)
-    #   parent.save
-    # end
-  end
-
 
   def update
     @factlink = Fact[params[:id]]
