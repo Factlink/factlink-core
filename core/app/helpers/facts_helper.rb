@@ -70,6 +70,10 @@ module FactsHelper
     render :partial => 'facts/partial/no_facts_added_message'
   end
   
+  def no_evidence_found_message_as_li
+    render :partial => 'facts/partial/no_evidence_found_message'
+  end
+  
   # Percentage and brain cycles in <li>
   def fl_source_stats(fact_relation)
     render  :partial  => 'facts/partial/fl_source_stats',
