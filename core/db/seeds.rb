@@ -38,6 +38,13 @@ end
                 :password => "123hoi",
                 :password_confirmation => "123hoi")
   user1.save
+
+  jordin = User.new(:username => "jordin",
+                :email => "jordin@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "Jordin87",
+                :password_confirmation => "Jordin87")
+  jordin.save
  
   # Site
   site = Site.new
