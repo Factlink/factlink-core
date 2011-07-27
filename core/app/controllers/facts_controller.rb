@@ -22,12 +22,12 @@ class FactsController < ApplicationController
                                                :toggle_relevance_on_fact_relation
                                                ]
                                                
-  before_filter { @fact = Fact[params[:id]]}, :only => [:show,
+  before_filter :load_fact, :only => [:show,
                                                         :edit,
                                                         :destroy,
                                                         :update
                                                         ]
-  after_filter :potential_evidence, :only => [:show,
+  before_filter :potential_evidence, :only => [:show,
                                               :edit
                                               ]
 
@@ -301,9 +301,10 @@ class FactsController < ApplicationController
     end
 
     def potential_evidence
-      #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
-      @potential_evidence = Fact.all
+      potential_evidence_for_fact(@fact)
     end    
 
-
+    def load_fact
+      @fact = Fact[params[:id]]
+    end
   end
