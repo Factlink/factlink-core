@@ -136,10 +136,9 @@ class FactsController < ApplicationController
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
       render "adding_evidence_not_possible"
-      return false
+    else
+      render "add_source_to_factlink"
     end
-
-    render "add_source_to_factlink"
   end
 
   def destroy
@@ -148,22 +147,6 @@ class FactsController < ApplicationController
     end
     # Create JS action to close the popup window
     # redirect_to :controller => 'home', :action => "index"    
-  end
-
-  def remove_factlink_from_parent
-
-    # TODO: Only allow if user added the source earlier on
-
-    # Not being used at the moment
-    # # Remove a Fact from it's parent
-    # @factlink = Fact[params[:factlink_id]]
-    # parent    = Fact[params[:parent_id]]
-    # 
-    # if @factlink.added_to_parent_by_current_user(parent, current_user)
-    #   # Only remove if the user added this source
-    #   parent.remove_child(@factlink)
-    #   parent.save
-    # end
   end
 
 
@@ -299,6 +282,9 @@ class FactsController < ApplicationController
 
       # Return the actual Facts in stead of FactData
       @facts = @fact_data.map { |fd| fd.fact }
+      potential_evidence
+      @facts = @facts & @potential_evidence
+
 
       respond_to do |format|
         format.js
