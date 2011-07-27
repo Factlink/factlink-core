@@ -111,8 +111,6 @@ class Fact < Basefact
     res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
     res.reverse
   end
-  
-  end
 
   
   # Count helpers
