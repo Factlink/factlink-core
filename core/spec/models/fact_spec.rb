@@ -37,7 +37,16 @@ describe Fact do
 
 
   it "should have working fact_relations" do
-    @parent.add_evidence(:supporting,@factlink,@user1)
+    @parent.add_evidence(:supporting, @factlink, @user1)
+  end
+
+  it "should have a creator" do
+    subject.created_by.class.should == GraphUser
+  end
+  
+  it "should be in the facts set of the creator" do
+    @gu = subject.created_by
+    @gu.facts.count.should == 1
   end
 
 

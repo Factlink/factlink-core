@@ -31,10 +31,6 @@ class GraphUser < OurOhm
   set :doubts_facts, Basefact
   set :disbeliefs_facts, Basefact
 
-  def to_s
-    username
-  end
-
   # Authority of the user
   def authority
     1.0

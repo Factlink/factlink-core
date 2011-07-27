@@ -48,7 +48,7 @@ class Users::SessionsController < Devise::SessionsController
         site = Site.find_or_create_by(:url => url)
         # Create the Fact
         @factlink = Fact.create!(:displaystring => displaystring, 
-                                        :created_by => current_user,
+                                        :created_by => current_user.graph_user,
                                         :site => site)
 
         redirect_to(@factlink)

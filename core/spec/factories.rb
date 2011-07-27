@@ -26,6 +26,10 @@ FactoryGirl.define do
 
   factory :fact do
     association :data, :factory => :fact_data
+    association :created_by, :factory => :graph_user
+  end
+  
+  factory :graph_user do
   end
   
   factory :site do
