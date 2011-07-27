@@ -8,6 +8,13 @@
 
 $("#fl-add-evidence > #fl-sources > ol").empty();
 
-<% @facts.each do |evidence| %>
-	$('#fl-add-evidence > div#fl-sources.fl-evidence-list > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/add_evidence_as_li', :locals => { :fact => @fact, :evidence => evidence } )) %>");
+<% unless @facts.count > 0 %>
+	// No results found
+	$('#fl-add-evidence > div#fl-sources.fl-evidence-list > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %>");
+	
+<% else %>
+	// Show results
+	<% @facts.each do |evidence| %>
+		$('#fl-add-evidence > div#fl-sources.fl-evidence-list > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/add_evidence_as_li', :locals => { :fact => @fact, :evidence => evidence } )) %>");
+	<% end %>
 <% end %>

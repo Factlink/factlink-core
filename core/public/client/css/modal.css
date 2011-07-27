@@ -121,6 +121,15 @@ div.fl-modal #fl-top-pane div.fl-factlink sub {
 div.fl-modal #fl-top-pane div.fl-factlink sub a {
   color: #bbb;
 }
+div.fl-modal #fl-top-pane div.fl-factlink .trashcan {
+  float: right;
+  vertical-align: middle;
+  opacity: 0.2;
+  -webkit-transition: 0.1s ease-in-out;
+}
+div.fl-modal #fl-top-pane div.fl-factlink .trashcan:hover {
+  opacity: 0.8;
+}
 div.fl-modal #fl-filter-bar ul, div.fl-modal .fl-choices ul {
   list-style: none;
   display: inline-block;
@@ -192,10 +201,11 @@ div.fl-modal #fl-sources ol {
 div.fl-modal #fl-sources ol li#fl-no-evidence {
   text-align: center;
   color: #989898;
-  font-size: 11px;
+  font-size: 12px;
   font-style: italic;
   border: none;
-  line-height: 70px;
+  line-height: 21px;
+  padding-top: 70px;
 }
 div.fl-modal #fl-sources ol li#fl-no-evidence a {
   color: #0fb8fe;

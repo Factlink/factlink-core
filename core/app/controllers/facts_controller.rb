@@ -91,6 +91,9 @@ class FactsController < ApplicationController
     # Get or create the website on which the Fact is located
     site = Site.find_or_create_by(:url => params[:url])
 
+
+    puts "\n\n\n#{params.to_json}"
+
     # TODO: This can be changed to use only displaystring when the above
     # refactor is done.
     if params[:fact]
@@ -98,6 +101,11 @@ class FactsController < ApplicationController
     else
       displaystring = params[:factlink][:displaystring]
     end
+
+
+    puts "\n\nCreating fact:"
+    puts "url: #{params[:url]}"
+    puts "fact: #{params[:fact]}"
 
     # Create the Fact
     @factlink = Fact.create(:displaystring => displaystring,
@@ -124,6 +132,12 @@ class FactsController < ApplicationController
     @evidence = Fact[params[:evidence_id]]
 
     @fact_relation = @fact.add_evidence(type, @evidence, current_user)
+
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+      return false
+    end
 
     render "add_source_to_factlink"
   end
@@ -282,11 +296,8 @@ class FactsController < ApplicationController
         end
       end
 
+      # Return the actual Facts in stead of FactData
       @facts = @fact_data.map { |fd| fd.fact }
-
-      
-
-      puts "\n\n\n#{@facts}\n\n"
 
       respond_to do |format|
         format.js
@@ -308,21 +319,19 @@ class FactsController < ApplicationController
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
-    
-    def potential_evidence_for_fact(fact)
-      #TODO potential evidence should be a list of facts which can be added as supporting or weakening evidence
 
-      # Don't show self in potential evidence
-
-      # Ohm Model workaround. Can't except a model on its ID\
-      # so use the data_id to filter it out...
-
-      @potential_evidence = Fact.all.except(:data_id => fact.data_id)
-    end
 
     def potential_evidence
-      # potential_evidence_for_fact(@fact)
-      @potential_evidence = Fact.all.except(:data_id => @fact.data_id)
+      # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+      # and filtering. Can't use the object ID, so using a workaround with :data_id's
+      # Very nasty :/
+      supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
+      weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+      
+      intersecting_ids = supporting_fact_ids & weakening_fact_ids
+      intersecting_ids << @fact.data_id
+      
+      @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
     end    
 
     def load_fact
