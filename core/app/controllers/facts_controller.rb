@@ -91,6 +91,9 @@ class FactsController < ApplicationController
     # Get or create the website on which the Fact is located
     site = Site.find_or_create_by(:url => params[:url])
 
+
+    puts "\n\n\n#{params.to_json}"
+
     # TODO: This can be changed to use only displaystring when the above
     # refactor is done.
     if params[:fact]
@@ -98,6 +101,11 @@ class FactsController < ApplicationController
     else
       displaystring = params[:factlink][:displaystring]
     end
+
+
+    puts "\n\nCreating fact:"
+    puts "url: #{params[:url]}"
+    puts "fact: #{params[:fact]}"
 
     # Create the Fact
     @factlink = Fact.create(:displaystring => displaystring,
