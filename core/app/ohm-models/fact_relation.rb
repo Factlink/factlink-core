@@ -8,6 +8,8 @@ autoload :Site, 'site'
 autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
 
+
+
 class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact

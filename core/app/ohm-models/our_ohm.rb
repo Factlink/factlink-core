@@ -9,6 +9,8 @@ autoload :Opinion, 'opinion'
 autoload :Opinionable, 'opinionable'
 class OurOhm < Ohm::Model
 
+   self.base = self
+
   include Canivete::Deprecate
 
   def save!

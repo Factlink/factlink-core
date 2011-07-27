@@ -12,6 +12,7 @@ autoload :Opinionable, 'opinionable'
 module Opinionable
 end
 
+
 class Basefact < OurOhm
   include Opinionable
 

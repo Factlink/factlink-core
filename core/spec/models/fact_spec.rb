@@ -43,11 +43,6 @@ describe Fact do
   it "should have a creator" do
     subject.created_by.class.should == GraphUser
   end
-  
-  it "should be in the facts set of the creator" do
-    @gu = subject.created_by
-    @gu.facts.count.should == 1
-  end
 
   it "should be in the created_facts set of the creator" do
     @gu = subject.created_by
