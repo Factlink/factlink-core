@@ -133,6 +133,7 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact.delete_cascading
     end
+    redirect_to :controller => 'home', :action => "index"    
   end
   
 
