@@ -33,6 +33,13 @@ class FactsController < ApplicationController
 
   layout "client"
 
+
+  before_filter :debug_params
+
+  def debug_params
+    puts params.to_json
+  end
+
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
@@ -60,6 +67,8 @@ class FactsController < ApplicationController
 
 
   def show
+    
+    puts "\nJust showing...\n\n"
   end
 
   def new
@@ -142,11 +151,17 @@ class FactsController < ApplicationController
   end
 
   def destroy
+    
+    
+    puts "#{params.to_json}"
+    
+    puts "Skobrenden"
+    puts "GU: #{current_user.graph_user}"
+    puts "CB: #{@fact.created_by}"
+    
     if current_user.graph_user == @fact.created_by
       @fact.delete_cascading
     end
-    # Create JS action to close the popup window
-    # redirect_to :controller => 'home', :action => "index"    
   end
 
 
