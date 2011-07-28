@@ -283,7 +283,11 @@ class FactsController < ApplicationController
       # Return the actual Facts in stead of FactData
       @facts = @fact_data.map { |fd| fd.fact }
       potential_evidence
-      @facts = @facts & @potential_evidence
+      
+      puts "@facts: #{@facts.class}"
+      puts "potential_evidence: #{potential_evidence}"
+      
+      @facts = @facts & potential_evidence.to_a
 
 
       respond_to do |format|
