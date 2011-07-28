@@ -27,18 +27,12 @@ class FactsController < ApplicationController
                                                         :destroy,
                                                         :update
                                                         ]
+                                                        
   before_filter :potential_evidence, :only => [:show,
                                               :edit
                                               ]
 
   layout "client"
-
-
-  before_filter :debug_params
-
-  def debug_params
-    puts params.to_json
-  end
 
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
@@ -100,9 +94,6 @@ class FactsController < ApplicationController
     # Get or create the website on which the Fact is located
     site = Site.find_or_create_by(:url => params[:url])
 
-
-    puts "\n\n\n#{params.to_json}"
-
     # TODO: This can be changed to use only displaystring when the above
     # refactor is done.
     if params[:fact]
@@ -111,21 +102,17 @@ class FactsController < ApplicationController
       displaystring = params[:factlink][:displaystring]
     end
 
-
-    puts "\n\nCreating fact:"
-    puts "url: #{params[:url]}"
-    puts "fact: #{params[:fact]}"
-
-    # Create the Fact
-    @factlink = Fact.create(:displaystring => displaystring,
-                              :created_by => current_user.graph_user,
-                              :site => site)
+    @fact = Fact.new
+    @fact.displaystring = displaystring
+    @fact.created_by = current_user.graph_user
+    @fact.site = site
+    @fact.save
 
     # Required for the Ohm Model, doesn't set the relation itself?
-    site.facts << @factlink
+    site.facts << @fact
 
     # Redirect to edit action
-    redirect_to :action => "edit", :id => @factlink.id
+    redirect_to :action => "edit", :id => @fact.id
   end
 
   def add_supporting_evidence
