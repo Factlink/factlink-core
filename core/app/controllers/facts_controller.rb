@@ -1,40 +1,31 @@
 class FactsController < ApplicationController
 
+  layout "client"
+  
   helper_method :sort_column, :sort_direction
 
-  before_filter :store_fact_for_non_signed_in_user, :only => [:create]
+  before_filter :store_fact_for_non_signed_in_user, 
+    :only => [:create]
 
-
-
-  # TODO Change this to :except, in stead of :only.
-  before_filter :authenticate_user!, :only => [:new,
-                                               :edit,
-                                               :create,
-                                               :update,
-                                               :destroy,
-                                               :add_factlink_to_parent,
-                                               :remove_factlink_from_parent,
-                                               :believe,
-                                               :doubt,
-                                               :disbelieve,
-                                               :set_opinion,
-                                               :add_supporting_evidence,
-                                               :add_weakening_evidence,
-                                               :toggle_opinion_on_fact,
-                                               :toggle_relevance_on_fact_relation
-                                               ]
+  before_filter :authenticate_user!, 
+    :except => [
+      :show, 
+      :prepare, 
+      :intermediate, 
+      :search, 
+      :indication]
                                                
-  before_filter :load_fact, :only => [:show,
-                                                        :edit,
-                                                        :destroy,
-                                                        :update
-                                                        ]
+  before_filter :load_fact, 
+    :only => [
+      :show,
+      :edit,
+      :destroy,
+      :update]
                                                         
-  before_filter :potential_evidence, :only => [:show,
-                                              :edit
-                                              ]
-
-  layout "client"
+  before_filter :potential_evidence, 
+    :only => [
+      :show,
+      :edit]
 
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
@@ -44,7 +35,6 @@ class FactsController < ApplicationController
       session[:fact_to_create] = params
     end
   end
-
 
   def show
   end
@@ -92,7 +82,7 @@ class FactsController < ApplicationController
     @fact.site = site
     @fact.save
 
-    # Required for the Ohm Model, doesn't set the relation itself?
+    # Required for the Ohm Model
     site.facts << @fact
 
     # Redirect to edit action
@@ -107,12 +97,12 @@ class FactsController < ApplicationController
     add_evidence(:weakening)
   end
 
-  def destroy    
+  def destroy
     if current_user.graph_user == @fact.created_by
+      @fact_id = @fact.id
       @fact.delete_cascading
     end
   end
-
 
   def update
     @factlink = Fact[params[:id]]
@@ -127,8 +117,7 @@ class FactsController < ApplicationController
     end
   end
 
-
-  # Set or unset the opinion on a Factrelation
+  # Set or unset the opinion on a FactRelation
   def toggle_opinion_on_fact
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
@@ -142,7 +131,7 @@ class FactsController < ApplicationController
     end
   end
 
-  # Set or unset the relevance on a Factrelation
+  # Set or unset the relevance on a FactRelation
   def toggle_relevance_on_fact_relation
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
@@ -156,7 +145,6 @@ class FactsController < ApplicationController
     end
   end
 
-
   # Users that interacted with this Fact
   def interaction_users_for_factlink
     @fact         = Fact[params[:factlink_id]]
@@ -164,7 +152,6 @@ class FactsController < ApplicationController
     @believers    = @fact.opiniated(:beliefs)
     @doubters     = @fact.opiniated(:doubts)
     @disbelievers = @fact.opiniated(:disbeliefs)
-
   end
 
   # Search
@@ -184,7 +171,6 @@ class FactsController < ApplicationController
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
         end
-
       end
 
       @factlinks = solr_result.results
@@ -195,7 +181,6 @@ class FactsController < ApplicationController
 
         # Sorting & filtering done by mongoid
         results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-
         pager.replace(results)
       end
     end
@@ -206,14 +191,10 @@ class FactsController < ApplicationController
     end
   end
 
-
-
   # Search in the client popup.
   def client_search
-
     # Need fact for rendering in the template
-    fact_id = params[:fact_id].to_i
-    @fact = Fact[fact_id]
+    @fact = Fact[params[:fact_id].to_i]
 
     @row_count = 20
     row_count = @row_count
@@ -228,7 +209,6 @@ class FactsController < ApplicationController
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
         end
-
       end
 
       @fact_data = solr_result.results
@@ -239,7 +219,6 @@ class FactsController < ApplicationController
 
         # Sorting & filtering done by mongoid
         results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-
         pager.replace(results)
       end
     end
@@ -247,17 +226,13 @@ class FactsController < ApplicationController
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
     potential_evidence
-    
-    puts "@facts: #{@facts.class}"
-    puts "potential_evidence: #{potential_evidence}"
-    
-    @facts = @facts & potential_evidence.to_a
 
+    # Exclude the Facts that are already supporting AND weakening
+    @facts = @facts & potential_evidence.to_a
 
     respond_to do |format|
       format.js
     end
-
   end
 
   def indication
@@ -267,16 +242,15 @@ class FactsController < ApplicationController
   end
 
   private
-  def sort_column
+  def sort_column # private
     Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
 
-  def sort_direction
+  def sort_direction # private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-
-  def potential_evidence
+  def potential_evidence # private
     # TODO Fix this very quick please. Nasty way OhmModels handles querying\
     # and filtering. Can't use the object ID, so using a workaround with :data_id's
     # Very nasty :/
@@ -289,11 +263,11 @@ class FactsController < ApplicationController
     @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
   end    
 
-  def load_fact
+  def load_fact # private
     @fact = Fact[params[:id]]
   end
   
-  def add_evidence(type)
+  def add_evidence(type) # private
     @fact     = Fact[params[:fact_id]]
     @evidence = Fact[params[:evidence_id]]
 
