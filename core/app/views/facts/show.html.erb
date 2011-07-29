@@ -71,11 +71,9 @@
 	<div class="fl-factlink">
 		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
 		<sub>by <%= link_to(@fact.created_by.user, user_profile_path(@fact.created_by.user.username), :target => "_blank") %></sub>
-		
 		<% if current_user && @fact.created_by == current_user.graph_user %>
-		  <%= link_to(image_tag('trashcan.png'),fact_path(@fact.id), :confirm => "Are you sure?", :method => :delete, :class => "trashcan" ) %>
+			<%= link_to(image_tag('trashcan.png'), fact_path(@fact.id), :confirm => "Are you sure?", :method => :delete, :remote => true, :class => "trashcan" ) %>
 		<% end %>
-
 	</div>
 
 	<div class="fl-clear"></div>
@@ -147,7 +145,7 @@
 		<ol>
 			
 			<% unless @potential_evidence.count > 0 %>				
-				<li id="fl-no-evidence" class="center">
+				<li id="fl-no-evidence" class="center messageyour">
 					Currently there are no available facts to support or weaken this fact.
 				</li>
 			<% else %>

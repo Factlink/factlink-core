@@ -198,14 +198,17 @@ div.fl-modal #fl-sources ol {
   max-height: 300px;
   overflow-y: scroll;
 }
-div.fl-modal #fl-sources ol li#fl-no-evidence {
+div.fl-modal #fl-sources ol li.message {
   text-align: center;
   color: #989898;
   font-size: 12px;
   font-style: italic;
   border: none;
-  line-height: 21px;
-  padding-top: 70px;
+  margin-top: 24px;
+  line-height: 18px;
+}
+div.fl-modal #fl-sources ol li#fl-no-evidence {
+  line-height: 48px;
 }
 div.fl-modal #fl-sources ol li#fl-no-evidence a {
   color: #0fb8fe;

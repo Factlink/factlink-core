@@ -13,7 +13,7 @@ class Site < OurOhm
   attribute :url
   index :url
 
-  collection :facts, Fact
+  set :facts, Fact
   
   # More Rails like behaviour:
   def Site.first
