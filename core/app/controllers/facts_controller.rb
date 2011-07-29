@@ -4,6 +4,8 @@ class FactsController < ApplicationController
 
   before_filter :store_fact_for_non_signed_in_user, :only => [:create]
 
+
+
   # TODO Change this to :except, in stead of :only.
   before_filter :authenticate_user!, :only => [:new,
                                                :edit,
@@ -103,20 +105,6 @@ class FactsController < ApplicationController
 
   def add_weakening_evidence
     add_evidence(:weakening)
-  end
-
-  def add_evidence(type)
-    @fact     = Fact[params[:fact_id]]
-    @evidence = Fact[params[:evidence_id]]
-
-    @fact_relation = @fact.add_evidence(type, @evidence, current_user)
-
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_source_to_factlink"
-    end
   end
 
   def destroy    
@@ -303,5 +291,19 @@ class FactsController < ApplicationController
 
   def load_fact
     @fact = Fact[params[:id]]
+  end
+  
+  def add_evidence(type)
+    @fact     = Fact[params[:fact_id]]
+    @evidence = Fact[params[:evidence_id]]
+
+    @fact_relation = @fact.add_evidence(type, @evidence, current_user)
+
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_source_to_factlink"
+    end
   end
 end
