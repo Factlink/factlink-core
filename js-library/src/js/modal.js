@@ -44,6 +44,15 @@ Factlink.modal = {
             }
         });
     },
+    stopHighlightingFactlink: function( id ) {
+        $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
+            if ( $(val).is('.fl-first') ) {
+                $(val).remove();
+            } else {
+                $(val).before( $(val).text() ).remove();
+            }
+        });
+    },
     update_opinions: function(id, opinions) {
         var fcts = $( 'span.factlink[data-factid=' + id + ']');
         
