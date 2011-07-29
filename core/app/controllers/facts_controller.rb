@@ -43,26 +43,8 @@ class FactsController < ApplicationController
     end
   end
 
-  #TODO shouldn't this be in the site controller?
-  def factlinks_for_url
-    url = params[:url]
-    site = Site.find(:url => url).first
-
-    @facts = if site
-    then site.facts.to_a
-    else []
-    end
-
-    # Render the result with callback,
-    # so JSONP can be used (for Internet Explorer)
-    render :json => @facts , :callback => params[:callback]
-  end
-
-
 
   def show
-    
-    puts "\nJust showing...\n\n"
   end
 
   def new
@@ -137,15 +119,7 @@ class FactsController < ApplicationController
     end
   end
 
-  def destroy
-    
-    
-    puts "#{params.to_json}"
-    
-    puts "Skobrenden"
-    puts "GU: #{current_user.graph_user}"
-    puts "CB: #{@fact.created_by}"
-    
+  def destroy    
     if current_user.graph_user == @fact.created_by
       @fact.delete_cascading
     end
@@ -159,175 +133,175 @@ class FactsController < ApplicationController
       if @factlink.update_attributes(params[:factlink])
         format.html { redirect_to(@factlink,
           :notice => 'Factlink top was successfully updated.') }
-        else
-          format.html { render :action => "edit" }
-        end
-      end
-    end
-
-
-    # Set or unset the opinion on a Factrelation
-    def toggle_opinion_on_fact
-      allowed_types = ["beliefs", "doubts", "disbeliefs"]
-      type = params[:type]
-
-      if allowed_types.include?(type)
-        @fact_relation = FactRelation[params[:fact_relation_id]]
-        @fact_relation.get_from_fact.toggle_opinion(type, current_user)
       else
-        render :json => {"error" => "type not allowed"}
-        return false
+        format.html { render :action => "edit" }
       end
-    end
-
-    # Set or unset the relevance on a Factrelation
-    def toggle_relevance_on_fact_relation
-      allowed_types = ["beliefs", "doubts", "disbeliefs"]
-      type = params[:type]
-
-      if allowed_types.include?(type)
-        @fact_relation = FactRelation[params[:fact_relation_id]]
-        @fact_relation.toggle_opinion(type, current_user)
-      else
-        render :json => {"error" => "type not allowed"}
-        return false
-      end
-    end
-
-
-    # Users that interacted with this Fact
-    def interaction_users_for_factlink
-      @fact         = Fact[params[:factlink_id]]
-
-      @believers    = @fact.opiniated(:beliefs)
-      @doubters     = @fact.opiniated(:doubts)
-      @disbelievers = @fact.opiniated(:disbeliefs)
-
-    end
-
-    # Search
-    # Not using the same search for the client popup, since we probably want\
-    # to use a more advanced search on the Factlink website.
-    def search
-      @row_count = 50
-      row_count = @row_count
-
-      if params[:s]
-        solr_result = FactData.search() do
-
-          keywords params[:s], :fields => [:displaystring]
-          order_by sort_column, sort_direction
-          paginate :page => params[:page] , :per_page => row_count
-
-          adjust_solr_params do |sunspot_params|
-            sunspot_params[:rows] = row_count
-          end
-
-        end
-
-        @factlinks = solr_result.results
-      else
-        # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-        @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
-          start = (pager.current_page-1)*row_count
-
-          # Sorting & filtering done by mongoid
-          results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-
-          pager.replace(results)
-        end
-      end
-
-      respond_to do |format|
-        format.html { render :layout => "accounting" }# search.html.erb
-        format.js
-      end
-    end
-
-
-
-    # Search in the client popup.
-    def client_search
-
-      # Need fact for rendering in the template
-      fact_id = params[:fact_id].to_i
-      @fact = Fact[fact_id]
-
-      @row_count = 20
-      row_count = @row_count
-
-      if params[:s]
-        solr_result = FactData.search() do
-
-          keywords params[:s], :fields => [:displaystring]
-          order_by sort_column, sort_direction
-          paginate :page => params[:page] , :per_page => row_count
-
-          adjust_solr_params do |sunspot_params|
-            sunspot_params[:rows] = row_count
-          end
-
-        end
-
-        @fact_data = solr_result.results
-      else
-        # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-        @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
-          start = (pager.current_page-1)*row_count
-
-          # Sorting & filtering done by mongoid
-          results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-
-          pager.replace(results)
-        end
-      end
-
-      # Return the actual Facts in stead of FactData
-      @facts = @fact_data.map { |fd| fd.fact }
-      potential_evidence
-      
-      puts "@facts: #{@facts.class}"
-      puts "potential_evidence: #{potential_evidence}"
-      
-      @facts = @facts & potential_evidence.to_a
-
-
-      respond_to do |format|
-        format.js
-      end
-
-    end
-
-    def indication
-      respond_to do |format|
-        format.js
-      end
-    end
-
-    private
-    def sort_column
-      Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
-    end
-
-
-    def potential_evidence
-      # TODO Fix this very quick please. Nasty way OhmModels handles querying\
-      # and filtering. Can't use the object ID, so using a workaround with :data_id's
-      # Very nasty :/
-      supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
-      weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
-      
-      intersecting_ids = supporting_fact_ids & weakening_fact_ids
-      intersecting_ids << @fact.data_id
-      
-      @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
-    end    
-
-    def load_fact
-      @fact = Fact[params[:id]]
     end
   end
+
+
+  # Set or unset the opinion on a Factrelation
+  def toggle_opinion_on_fact
+    allowed_types = ["beliefs", "doubts", "disbeliefs"]
+    type = params[:type]
+
+    if allowed_types.include?(type)
+      @fact_relation = FactRelation[params[:fact_relation_id]]
+      @fact_relation.get_from_fact.toggle_opinion(type, current_user)
+    else
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
+  end
+
+  # Set or unset the relevance on a Factrelation
+  def toggle_relevance_on_fact_relation
+    allowed_types = ["beliefs", "doubts", "disbeliefs"]
+    type = params[:type]
+
+    if allowed_types.include?(type)
+      @fact_relation = FactRelation[params[:fact_relation_id]]
+      @fact_relation.toggle_opinion(type, current_user)
+    else
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
+  end
+
+
+  # Users that interacted with this Fact
+  def interaction_users_for_factlink
+    @fact         = Fact[params[:factlink_id]]
+
+    @believers    = @fact.opiniated(:beliefs)
+    @doubters     = @fact.opiniated(:doubts)
+    @disbelievers = @fact.opiniated(:disbeliefs)
+
+  end
+
+  # Search
+  # Not using the same search for the client popup, since we probably want\
+  # to use a more advanced search on the Factlink website.
+  def search
+    @row_count = 50
+    row_count = @row_count
+
+    if params[:s]
+      solr_result = FactData.search() do
+
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page] , :per_page => row_count
+
+        adjust_solr_params do |sunspot_params|
+          sunspot_params[:rows] = row_count
+        end
+
+      end
+
+      @factlinks = solr_result.results
+    else
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+        start = (pager.current_page-1)*row_count
+
+        # Sorting & filtering done by mongoid
+        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
+
+        pager.replace(results)
+      end
+    end
+
+    respond_to do |format|
+      format.html { render :layout => "accounting" }# search.html.erb
+      format.js
+    end
+  end
+
+
+
+  # Search in the client popup.
+  def client_search
+
+    # Need fact for rendering in the template
+    fact_id = params[:fact_id].to_i
+    @fact = Fact[fact_id]
+
+    @row_count = 20
+    row_count = @row_count
+
+    if params[:s]
+      solr_result = FactData.search() do
+
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page] , :per_page => row_count
+
+        adjust_solr_params do |sunspot_params|
+          sunspot_params[:rows] = row_count
+        end
+
+      end
+
+      @fact_data = solr_result.results
+    else
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+        start = (pager.current_page-1)*row_count
+
+        # Sorting & filtering done by mongoid
+        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
+
+        pager.replace(results)
+      end
+    end
+
+    # Return the actual Facts in stead of FactData
+    @facts = @fact_data.map { |fd| fd.fact }
+    potential_evidence
+    
+    puts "@facts: #{@facts.class}"
+    puts "potential_evidence: #{potential_evidence}"
+    
+    @facts = @facts & potential_evidence.to_a
+
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def indication
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private
+  def sort_column
+    Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+
+  def potential_evidence
+    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+    # and filtering. Can't use the object ID, so using a workaround with :data_id's
+    # Very nasty :/
+    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
+    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+    
+    intersecting_ids = supporting_fact_ids & weakening_fact_ids
+    intersecting_ids << @fact.data_id
+    
+    @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
+  end    
+
+  def load_fact
+    @fact = Fact[params[:id]]
+  end
+end

@@ -2,7 +2,7 @@ class SitesController < ApplicationController
 
   before_filter :authenticate_admin!, :except => [:count_for_site]
 
-  def count_for_site
+  def facts_count_for_url
     site = Site.find(:url => params[:url]).first
     
     count = 0
@@ -13,4 +13,17 @@ class SitesController < ApplicationController
     render :json => { :count => count }, :callback => params[:callback]
   end
 
+  def facts_for_url
+    url = params[:url]
+    site = Site.find(:url => url).first
+
+    @facts = if site
+    then site.facts.to_a
+    else []
+    end
+
+    # Render the result with callback,
+    # so JSONP can be used (for Internet Explorer)
+    render :json => @facts , :callback => params[:callback]
+  end
 end
