@@ -1,7 +1,5 @@
 class SitesController < ApplicationController
 
-  before_filter :authenticate_admin!, :except => [:count_for_site]
-
   def facts_count_for_url
     site = Site.find(:url => params[:url]).first
     

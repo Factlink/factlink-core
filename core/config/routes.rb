@@ -42,7 +42,7 @@ FactlinkUI::Application.routes.draw do
   # Set relevance of a FactRelation
   get   "/fact_relation/:fact_relation_id/:type" => "facts#toggle_relevance_on_fact_relation", :as => "relevance"
   
-  # Template which is shown when user hovers Fact
+  # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   
   ##########
