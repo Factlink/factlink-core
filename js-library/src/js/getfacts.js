@@ -9,7 +9,7 @@
             method: 'get',
             dataType: 'jsonp',
             crossDomain: true,
-            url: Factlink.conf.api.loc + '/factlink/indication.js',
+            url: window.location.protocol + '//' + FactlinkConfig.api + 'factlink/indication.js',
             success: function( data ) {
                 Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') );
             }

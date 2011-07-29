@@ -1,10 +1,8 @@
 (function( Factlink ) {
 // Initiate the easyXDM object
 Factlink.remote = new easyXDM.Rpc({
-        //@TODO: This ain't being used right now (in Chrome)
-		swf: Factlink.conf.api.loc + "/client/easyXDM/src/easyxdm.swf",
-		// The URL to load
-		remote: Factlink.conf.api.loc + "/factlink/intermediate",
+        // The URL to load
+		remote: window.location.protocol + FactlinkConfig.api + "factlink/intermediate",
 		// The iFrame where the intermediate should be loaded in
 		container: "factlink-modal-frame"
 	}, {

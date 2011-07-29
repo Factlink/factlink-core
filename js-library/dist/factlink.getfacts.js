@@ -1,4 +1,4 @@
-(function( Factlink ) {
+(function( Factlink, waitingCount ) {
     if ( Factlink !== undefined ) {
         // Get al the facts on the current page
         Factlink.getTheFacts();
@@ -9,21 +9,23 @@
             method: 'get',
             dataType: 'jsonp',
             crossDomain: true,
-            url: Factlink.conf.api.loc + '/factlink/indication.js',
+            url: FactlinkConfig.api + 'factlink/indication.js',
             success: function( data ) {
                 Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') );
             }
         });
     } else {
-        if (!loadingFactlink) {
-            loadingFactlink = true;
-            loadFactlink(function(){
-                arguments.callee(Factlink)
-            });
-        } else {
-            setTimeout(function(){
-                arguments.callee(Facltink);
-            }, 10);
+        // Store arguments object so we can use from the setTimeout and loadFactlink
+        var arg = arguments;
+        
+        // If it takes longer then 5 seconds we just stop
+        // TODO maybe some error message here?
+        if ( waitingCount >= 50 ) {
+            return;
         }
+        
+        setTimeout(function(){
+            arg.callee(Factlink, ++waitingCount);
+        }, 100);
     }
-})( window.Factlink );
+})( window.Factlink, 0 );

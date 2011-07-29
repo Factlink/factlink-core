@@ -6,13 +6,14 @@ var Factlink = {};
 // Function which will collect all the facts for the current page
 // and select them.
 Factlink.getTheFacts = function() {
-    var loc = window.location,
-        // The URL to the Factlink backend
-        src = Factlink.conf.api.loc + '/site?url=' + 
-              loc.protocol + 
+    var loc = window.location.protocol + 
               '//' + 
-              loc.hostname + 
-              loc.pathname;
+              window.location.hostname + 
+              window.location.pathname;
+    
+    // The URL to the Factlink backend
+    var src = window.location.protocol + '//' + FactlinkConfig.api + 'site?url=' + 
+              (FactlinkConfig.url !== undefined ? FactlinkConfig.url : loc);
     
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -46,6 +47,13 @@ Factlink.getTheFacts = function() {
         }
     });
 };
+
+// Add the stylesheet
+var style = document.createElement("link");
+style.type = "text/css";
+style.rel = "stylesheet";
+style.href = "//" + FactlinkConfig.lib + "src/css/basic.css?" + (new Date()).getTime();
+document.getElementsByTagName("head")[0].appendChild(style);
 
 // Expose the Factlink object to the global object
 return Factlink;

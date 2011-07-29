@@ -6,7 +6,6 @@ PREFIX = .
 DIST_DIR = ${PREFIX}/dist
 
 BASE_FILES = ${SRC_DIR}/js/core.js\
-	${SRC_DIR}/js/conf.js\
 	${SRC_DIR}/js/create.js\
 	${SRC_DIR}/js/proxy.js\
 	${SRC_DIR}/js/replace.js\
