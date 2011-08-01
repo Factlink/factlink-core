@@ -80,5 +80,3 @@ namespace :db do
   end
 
 end
-
-# rake db:init:baronie
