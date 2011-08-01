@@ -1,15 +1,3 @@
-autoload :Basefact, 'basefact'
-autoload :Fact, 'fact'
-autoload :FactRelation, 'fact_relation'
-autoload :GraphUser, 'graph_user'
-autoload :OurOhm, 'our_ohm'
-autoload :Site, 'site'
-
-autoload :Opinion, 'opinion'
-autoload :Opinionable, 'opinionable'
-
-
-
 class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact
