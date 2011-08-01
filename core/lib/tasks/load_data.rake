@@ -1,5 +1,7 @@
 namespace :db do
   namespace :init do
+    puts "\n\nStarting :init"
+
     Dir.entries(File.expand_path('../../../db/init/', __FILE__)).each do |file|
       if file =~ /\.rb$/
         file.gsub! /\.rb/, ''
@@ -10,4 +12,16 @@ namespace :db do
       end
     end
   end
+  
+  task :export => :environment do
+    puts "\n\nStarting :export"
+    require File.expand_path('../../../lib/seeder.rb', __FILE__)
+    
+    filename = ENV['file']
+    
+    puts "Starting export for filename: #{filename}"
+    s = Seeder.new
+    s.export_to_file(filename)
+  end
+  
 end
