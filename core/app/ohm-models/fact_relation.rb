@@ -76,6 +76,6 @@ class FactRelation < Basefact
   end
   
   def export
-    "fact_relation \"#{self.get_from_fact.displaystring}\", :#{self.type.to_sym}, \"#{self.get_to_fact.displaystring}\""
+    "fact_relation \"#{self.get_from_fact.displaystring}\", :#{self.type.to_sym}, \"#{self.get_to_fact.displaystring}\"\n"
   end
 end

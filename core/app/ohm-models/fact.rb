@@ -184,7 +184,7 @@ class Fact < Basefact
   end
 
   def export
-    "fact \"#{self.displaystring}\", \"#{self.site.url}\""
+    "fact \"#{self.displaystring}\", \"#{self.site.url}\"\n"
   end
 
 end
