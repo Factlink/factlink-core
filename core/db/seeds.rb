@@ -45,6 +45,38 @@ end
                 :password => "Jordin87",
                 :password_confirmation => "Jordin87")
   jordin.save
+    
+  remon = User.new(:username => "remon",
+                 :email => "remon@factlink.com",
+                 :confirmed_at => DateTime.now,
+                 :password => "remon123",
+                 :password_confirmation => "remon123")
+  remon.save  
+    
+    
+  salvador = User.new(:username => "salvador",
+                :email => "salvador@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "salvador123",
+                :password_confirmation => "salvador123")
+  salvador.save
+  
+  mark = User.new(:username => "mark",
+                :email => "mark@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "mark123",
+                :password_confirmation => "mark123")
+  mark.save
+  
+  joel = User.new(:username => "joel",
+                :email => "joel@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "joel123",
+                :password_confirmation => "joel123")
+  joel.save
+  
+ 
+ 
  
   # Site
   site = Site.new
