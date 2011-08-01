@@ -6,6 +6,8 @@ class Opinion < OurOhm
   # u = uncertain
   #
   # a = authority
+  #
+  # _r in redis
   
   attribute :b_r
   attribute :d_r
