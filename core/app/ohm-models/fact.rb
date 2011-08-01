@@ -192,8 +192,4 @@ class Fact < Basefact
     user_opinion + evidence_opinion
   end
 
-  def export
-    "fact \"#{self.displaystring}\", \"#{self.site.url}\"\n"
-  end
-
 end

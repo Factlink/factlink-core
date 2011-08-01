@@ -74,8 +74,5 @@ class FactRelation < Basefact
   def get_influencing_opinion
     get_type_opinion.dfa(self.from_fact.get_opinion, self.get_opinion)
   end
-  
-  def export
-    "fact_relation \"#{self.get_from_fact.displaystring}\", :#{self.type.to_sym}, \"#{self.get_to_fact.displaystring}\"\n"
-  end
+
 end
