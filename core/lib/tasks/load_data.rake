@@ -40,8 +40,6 @@ namespace :db do
     
     filename = ENV['file']
     
-    puts "\n\n#{ENV['file']}\n\n"
-    
     if filename.nil? or filename.blank?
       puts "A file name is required. Usage: rake db:export file=filename"
       next
@@ -55,13 +53,15 @@ namespace :db do
     else
 
       # Dump the exports to the file
-      File.open(file, 'w') do |f|      
+      File.open(file, 'w') do |f|
         Fact.all.each do |fact|
           f.write(export_fact(fact))
+          puts "."
         end
 
         FactRelation.all.each do |fact_relation|
           f.write(export_fact_relation(fact_relation))
+          puts "."
         end
       end
     end

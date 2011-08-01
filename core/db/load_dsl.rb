@@ -1,11 +1,16 @@
 def fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
+    
+    site = Site.find_or_create_by(url)
+    
     f = Fact.new
     f.displaystring = fact_string
-    f.url = url
+    f.site = site
     f.created_by = User.all.first.graph_user
     f.save
+    
+    site.facts << f
   end
   f
 end
