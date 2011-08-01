@@ -74,17 +74,6 @@ end
                 :password => "joel123",
                 :password_confirmation => "joel123")
   joel.save
-  
- 
- 
- 
-
-  # fact = Fact.first
-  # Fact.excludes(:_id => fact.id).each do |evidence|
-  #   fact.add_evidence(:supporting, evidence, user)
-  # end
-
-
 
 # Commit the indices to Solr
 Sunspot.commit
