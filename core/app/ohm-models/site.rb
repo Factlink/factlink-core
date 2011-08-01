@@ -4,6 +4,10 @@ class Site < OurOhm
 
   set :facts, Fact
   
+  def validate
+    assert_url :url
+  end
+  
   # More Rails like behaviour:
   def Site.first
     return Site.all.first
