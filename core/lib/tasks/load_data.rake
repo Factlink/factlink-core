@@ -9,5 +9,16 @@ namespace :db do
         end
       end
     end
+
+    task :list do
+      puts "You can load the following initial datasets (with db:init:<dataset>):"
+      Dir.entries(File.expand_path('../../../db/init/', __FILE__)).each do |file|
+        if file =~ /\.rb$/
+          file.gsub! /\.rb/, ''
+          puts file
+        end
+      end
+    end
   end
+
 end
