@@ -82,6 +82,15 @@ class Fact < Basefact
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
   
+  def self.by_display_string(displaystring)
+    fd = FactData.where(:displaystring => displaystring)
+    if fd.count > 0
+      fd.first.fact
+    else
+      nil
+    end
+  end
+  
   # OHm Model needs to have a definition of which fields to render
   def to_hash
     super.merge(:_id => id, :displaystring => displaystring, :score_dict_as_percentage => score_dict_as_percentage)
