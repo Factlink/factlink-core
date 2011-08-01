@@ -15,6 +15,10 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     
+
+    autoload :FactData, "#{config.root}/app/models/fact_data.rb"
+    autoload :User, "#{config.root}/app/models/user.rb"
+
     
     autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
     autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
@@ -26,7 +30,7 @@ module FactlinkUI
     autoload :Opinion, "#{config.root}/app/classes/opinion.rb"
     autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
-    [Opinion, Opinionable, OurOhm, Basefact, Fact, FactRelation, GraphUser, Site ].each do |x|
+    [Opinion, Opinionable, OurOhm, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
        puts "loaded " + x.to_s
     end
     

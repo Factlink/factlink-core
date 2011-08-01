@@ -144,6 +144,7 @@ describe Fact do
       f2.displaystring.should == "This is a fact"
     end
   end
-
+  
+  it "should have a working by_display_string"
 
 end
