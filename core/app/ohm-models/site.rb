@@ -1,19 +1,8 @@
-autoload :Basefact, 'basefact'
-autoload :Fact, 'fact'
-autoload :FactRelation, 'fact_relation'
-autoload :GraphUser, 'graph_user'
-autoload :OurOhm, 'our_ohm'
-autoload :Site, 'site'
-
-autoload :Opinion, 'opinion'
-autoload :Opinionable, 'opinionable'
-#autoload :Fact, 'fact'
-
 class Site < OurOhm
   attribute :url
   index :url
 
-  collection :facts, Fact
+  set :facts, Fact
   
   # More Rails like behaviour:
   def Site.first

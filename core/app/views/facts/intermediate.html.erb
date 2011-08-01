@@ -53,6 +53,7 @@
 					hide: {},
 					show: {},
 					highlightNewFactlink: {},
+					stopHighlightingFactlink: {},
 					update_opinions: {}
 				},
 				local: {
@@ -97,6 +98,15 @@
 				// Submit the form
 				form.submit();
 			};
+			
+			function addNewFact() {
+			  // Create new iframe
+			  var proxyFrame = document.createElement("iframe");
+			  
+			  proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
+			  
+			  frame.appendChild(proxyFrame);
+			}
 	</script>
 </body>
 </html>

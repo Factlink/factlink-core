@@ -78,28 +78,6 @@ end
  
  
  
-  # Site
-  site = Site.new
-  site.url = "http://en.wikipedia.org/wiki/Batman"
-  site.save
-
-  facts = [
-    'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
-    'Batman\'s secret identity is Bruce Wayne',
-    'Batman operates in the fictional American Gotham City',
-    'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
-    'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended'
-  ]
-
-  facts.each do |fact|
-    f = Fact.new
-    f.displaystring = fact
-    f.site = site
-    f.created_by = user1.graph_user
-    f.save
-    
-    site.facts << f
-  end
 
   # fact = Fact.first
   # Fact.excludes(:_id => fact.id).each do |evidence|
