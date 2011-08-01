@@ -13,55 +13,53 @@ class Opinion < OurOhm
   attribute :a_r
   
   def b
-    b_r.to_f
+    self.b_r.to_f
   end
   def d
-    d_r.to_f
+    self.d_r.to_f
   end
   def u
-    u_r.to_f
+    self.u_r.to_f
   end
   def a
-    a_r.to_f
+    self.a_r.to_f
   end
   def b=(val)
-    b_r=val
+    self.b_r=val
   end
   def d=(val)
-    d_r=val
+    self.d_r=val
   end
   def u=(val)
-    u_r=val
+    self.u_r=val
   end
   def a=(val)
-    a_r=val
+    self.a_r=val
   end
   
-  def initialize(b,d,u,a=0)
-    self.b=b
-    self.d=d
-    self.u=u
-    self.a=a
+  def self.neew(b,d,u,a=0)
+    self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end
+
 
 
   def Opinion.for_type(type, authority=0)
     case type
     when :beliefs
-      Opinion.new(1,0,0,authority)
+      Opinion.neew(1,0,0,authority)
     when :disbeliefs
-      Opinion.new(0,1,0,authority)
+      Opinion.neew(0,1,0,authority)
     when :doubts
-      Opinion.new(0,0,1,authority)
+      Opinion.neew(0,0,1,authority)
     end
   end
   
   # inefficient, but allows for quickly changing the + def
   def Opinion.combine(list)
     unless list.length > 0
-      Opinion.new(0,0,0)
+      Opinion.neew(0,0,0)
     else
-      a = list.inject(Opinion.new(0,0,0,0)) { | result, element |  result + element }
+      a = list.inject(Opinion.neew(0,0,0,0)) { | result, element |  result + element }
     end
   end
 
@@ -72,20 +70,17 @@ class Opinion < OurOhm
 
   #CHANGE weight ALONG WITH + !!!
   def +(second)
-    second.use_floats!
-    use_floats!
-        
     a = self.a + second.a
     
     if a == 0
       # No authority
-      return Opinion.new(0.1,0.1,0.1)
+      return Opinion.neew(0.1,0.1,0.1)
     end
     
     b = (self.b*self.a + second.b*second.a)/a
     d = (self.d*self.a + second.d*second.a)/a
     u = (self.u*self.a + second.u*second.a)/a
-    return Opinion.new(b,d,u,a)
+    return Opinion.neew(b,d,u,a)
   end
 
   
@@ -111,7 +106,7 @@ class Opinion < OurOhm
     b = pu.b * fl.b
     d = pu.d * fl.b
     u = fl.d + fl.u + pu.u * fl.b
-    return Opinion.new(b,d,u,a)
+    return Opinion.neew(b,d,u,a)
   end
         
 end
