@@ -1,4 +1,4 @@
-dump_dir = File.expand_path("#{Rails.root}/" + "db/init")
+require File.expand_path('../../../db/load_dsl.rb', __FILE__)
 
 def get_file(file)
   # file is frozen string, can't be modified: so duplicate
@@ -7,7 +7,8 @@ def get_file(file)
   unless File.extname(file_name) == ".rb"
     file_name << ".rb"
   end
-  
+
+  dump_dir = File.expand_path("#{Rails.root}/" + "db/init")  
   return File.join(dump_dir, file_name)
 end
 
@@ -19,7 +20,6 @@ namespace :db do
       if file =~ /\.rb$/
         file.gsub! /\.rb/, ''
         task file.to_sym => :environment do
-          require File.expand_path('../../../db/load_dsl.rb', __FILE__)
           require File.expand_path('../../../db/init/'+file+'.rb', __FILE__)
         end
       end
@@ -37,15 +37,21 @@ namespace :db do
   end
   
   task :export => :environment do
-    require File.expand_path('../../../lib/seeder.rb', __FILE__)
     
     filename = ENV['file']
+    
+    puts "\n\n#{ENV['file']}\n\n"
+    
+    if filename.nil? or filename.blank?
+      puts "A file name is required. Usage: rake db:export file=filename"
+      next
+    end
 
-    file = get_file(file_name)
+    file = get_file(filename)
 
     if File.exists?(file)
-      puts "File #{file_name} already exists. Please choose another file name."
-      return nil
+      puts "File '#{filename}' already exists. Please choose another file name."
+      next
     else
 
       # Dump the exports to the file
@@ -62,13 +68,14 @@ namespace :db do
   end
 
   task :help do
+    puts "\n############################"
     puts "# Factlink Database Seeder #\n\n"
     puts "The following commands are available:\n\n"
-    puts "rake db:seed\t\t\t# Seeds the regular database"
+    puts "rake db:seed\t\t\t# Truncate database and seed with default users"
     puts "rake db:export file=filename\t# Exports the current database"
-    puts "rake db:init:list\t\tLists all available seeds"
-    puts "rake db:init:filename\t# Import the dump to the database"
-    puts "rake db:clean\t\t\t# Truncates the database"
+    puts "rake db:init:list\t\t# Lists all available seeds"
+    puts "rake db:init:filename\t\t# Import the dump to the database"
+    # puts "rake db:clean\t\t\t# Truncates the database"
     puts "rake db:help\t\t\t# Show this help file\n\n"
   end
 
