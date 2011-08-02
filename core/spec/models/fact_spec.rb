@@ -147,4 +147,6 @@ describe Fact do
   
   it "should have a working by_display_string"
 
+
+
 end

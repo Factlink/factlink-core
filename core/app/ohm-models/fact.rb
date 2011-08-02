@@ -176,6 +176,9 @@ class Fact < Basefact
 
   private :delete_all_evidence, :delete_all_evidenced
 
+  # reference :evidence_opinion
+  # reference :opinion
+
   def evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|

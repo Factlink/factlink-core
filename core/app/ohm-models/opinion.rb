@@ -9,6 +9,7 @@ class Opinion < OurOhm
   #
   # _r in redis
   
+  #TODO: refactor
   attribute :b_r
   attribute :d_r
   attribute :u_r
@@ -39,32 +40,36 @@ class Opinion < OurOhm
     self.a_r=val
   end
   
+  def self.tuple(b,d,u,a=0)
+    self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
+  end
+
   def self.neew(b,d,u,a=0)
     self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end
 
   def self.identity
-    self.new(:b_r=>0,:d_r=>0,:u_r=>0,:a_r=>0)
+    self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
   end
 
 
   def Opinion.for_type(type, authority=0)
     case type
     when :beliefs
-      Opinion.neew(1,0,0,authority)
+      Opinion.new(:b=>1,:d=>0,:u=>0,:a=>authority)
     when :disbeliefs
-      Opinion.neew(0,1,0,authority)
+      Opinion.new(:b=>0,:d=>1,:u=>0,:a=>authority)
     when :doubts
-      Opinion.neew(0,0,1,authority)
+      Opinion.new(:b=>0,:d=>0,:u=>1,:a=>authority)
     end
   end
   
   # inefficient, but allows for quickly changing the + def
   def Opinion.combine(list)
     unless list.length > 0
-      Opinion.neew(0,0,0)
+      Opinion.identity
     else
-      a = list.inject(Opinion.neew(0,0,0,0)) { | result, element |  result + element }
+      a = list.inject(Opinion.identity) { | result, element |  result + element }
     end
   end
 
@@ -79,7 +84,7 @@ class Opinion < OurOhm
     
     if a == 0
       # No authority
-      return Opinion.neew(0.1,0.1,0.1)
+      return Opinion.identity
     end
     
     b = (self.b*self.a + second.b*second.a)/a

@@ -56,7 +56,7 @@ class Basefact < OurOhm
     opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
   end
 
-  def calculate_opinion
+  def calculate_user_opinion
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
@@ -71,7 +71,7 @@ class Basefact < OurOhm
   end
   
   def get_opinion
-    calculate_opinion
+    calculate_user_opinion
     self.user_opinion
   end
 
