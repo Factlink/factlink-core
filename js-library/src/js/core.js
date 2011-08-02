@@ -6,14 +6,9 @@ var Factlink = {};
 // Function which will collect all the facts for the current page
 // and select them.
 Factlink.getTheFacts = function() {
-    var loc = window.location.protocol + 
-              '//' + 
-              window.location.hostname + 
-              window.location.pathname;
-    
     // The URL to the Factlink backend
     var src = window.location.protocol + '//' + FactlinkConfig.api + 'site?url=' + 
-              (FactlinkConfig.url !== undefined ? FactlinkConfig.url : loc);
+              (FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href);
     
     // We use the jQuery AJAX plugin
     $.ajax({
