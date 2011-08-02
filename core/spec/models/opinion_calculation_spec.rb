@@ -70,7 +70,7 @@ describe "beliefs should work as described in the google doc" do
     b(u1,f1)
     b(u2,f1)
     b(u2,f23)
-    opinion?(f23) == _(0.0,1.0,0.0,1.0)
+    opinion?(f23) == _(1.0,0.0,0.0,1.0)
     opinion?(f2) == _(0.0,1.0,0.0,1.0)
   end
   
