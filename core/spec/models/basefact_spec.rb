@@ -18,6 +18,7 @@ describe Basefact do
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
       it { subject.opiniated(opinion).all.should == [] }
+      its(:get_opinion) {should == Opinion.identity}
     end
   end
 
@@ -39,6 +40,7 @@ describe Basefact do
       it "should be findable via find" do
         Basefact.find(:created_by_id => user.id).all.should include(subject)
       end
+      its(:get_opinion) {should == Opinion.identity}
     end
   end
 
@@ -55,15 +57,6 @@ describe Basefact do
         its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)}
       end
 
-
-      context "after 1 person has stated its #{opinion}" do
-        before do
-          subject.add_opinion(opinion, user)
-        end
-        it { subject.opiniated_count(opinion).should == 1 }
-        its(:interacting_users) {should =~ [user]}
-      end
-
       context "after 1 person has stated its #{opinion} twice" do
         before do
           subject.add_opinion(opinion, user)
@@ -71,6 +64,7 @@ describe Basefact do
         end
         it {subject.opiniated_count(opinion).should == 1}
         its(:interacting_users) {should =~ [user]}
+        its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)}
       end
     end
 
@@ -81,6 +75,7 @@ describe Basefact do
         end
         it { subject.opiniated_count(opinion).should==1 }
         its(:interacting_users) {should =~ [user]}
+        its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)}
       end
 
       context "after two toggles on #{opinion} by the same user" do
@@ -99,6 +94,7 @@ describe Basefact do
         end
         it {subject.opiniated_count(opinion).should == 2 }
         its(:interacting_users) {should =~ [user,user2]}
+        its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority)}
       end
 
       context "after two toggles by the same user on different facts" do
@@ -108,9 +104,11 @@ describe Basefact do
         end
         it {fact2.opiniated_count(opinion).should == 1}
         it {fact2.interacting_users.should =~ [user]}
+        it {fact2.get_opinion.should == Opinion.for_type(opinion,user.authority)}
 
         it {subject.opiniated_count(opinion).should == 1}
         it {subject.interacting_users.should =~ [user]}
+        it {subject.get_opinion.should == Opinion.for_type(opinion,user.authority)}
       end
 
       context "after toggling with different opinions" do
@@ -121,6 +119,7 @@ describe Basefact do
         it {subject.opiniated_count(opinion).should==0 }
         it {subject.opiniated_count(others(opinion)[0]).should==1 }
         its(:interacting_users) {should == [user]}
+        its(:get_opinion) {should == Opinion.for_type(others(opinion)[0],user.authority)}
       end
     end
 
@@ -131,6 +130,7 @@ describe Basefact do
       end
       it {subject.opiniated_count(opinion).should == 0 }
       its(:interacting_users) {should == []}
+      its(:get_opinion) {should == Opinion.identity}
     end
 
     context "after two believers are added" do
@@ -140,6 +140,7 @@ describe Basefact do
       end
       it {subject.opiniated_count(opinion).should == 2}
       its(:interacting_users) {should =~ [user,user2]}
+      its(:get_opinion) {should == Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority)}
     end
 
     others(opinion).each do |other_opinion|
@@ -154,6 +155,7 @@ describe Basefact do
           end
           it {subject.opiniated_count(opinion).should == 1}
           its(:interacting_users) {should =~ [user,user2]}
+          its(:get_opinion) {should == Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(opinion,user2.authority)}
         end
 
         context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
@@ -163,25 +165,13 @@ describe Basefact do
           end
           it {subject.opiniated_count(opinion).should == 0}
           its(:interacting_users) {should =~ [user,user2]}
+          its(:get_opinion) {should == Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(other_opinion,user2.authority)}
         end
 
-        context "after an existing believer changes its opinion to #{other_opinion}" do
-          before do
-            subject.add_opinion(other_opinion, user)
-          end
-          it { subject.opiniated_count(opinion).should == 1 }
-          its(:interacting_users) {should =~ [user,user2]}
-        end
       end
     end
 
   end  
 
-  describe "opinions should give certain values" do
-    it "should initially be zero" do
-      @basefact = Basefact.new
-      @basefact.get_opinion.should == Opinion.neew(0,0,0,0)
-    end
-  end
 
 end

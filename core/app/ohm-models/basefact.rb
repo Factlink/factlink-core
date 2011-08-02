@@ -1,5 +1,6 @@
 class Basefact < OurOhm
   include Opinionable
+  reference :user_opinion, Opinion
 
   reference :site, Site       # The site on which the factlink should be shown
   def url=(url)
@@ -10,6 +11,7 @@ class Basefact < OurOhm
   end
 
   reference :created_by, GraphUser
+  reference :opinion, Opinion
 
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser
@@ -54,7 +56,7 @@ class Basefact < OurOhm
     opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
   end
 
-  def get_opinion
+  def calculate_opinion
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
@@ -62,7 +64,15 @@ class Basefact < OurOhm
         opinions << Opinion.for_type(type, user.authority)
       end
     end
-    Opinion.combine(opinions)
+    calc_opinion = Opinion.combine(opinions)
+    calc_opinion.save
+    self.user_opinion = calc_opinion
+    save
+  end
+  
+  def get_opinion
+    calculate_opinion
+    self.user_opinion
   end
 
 end

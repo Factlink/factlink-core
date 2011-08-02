@@ -43,6 +43,9 @@ class Opinion < OurOhm
     self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end
 
+  def self.identity
+    self.new(:b_r=>0,:d_r=>0,:u_r=>0,:a_r=>0)
+  end
 
 
   def Opinion.for_type(type, authority=0)
