@@ -55,7 +55,7 @@ describe "beliefs should work as described in the google doc" do
   it "scenario 3" do
     b(u1,f1)
     u(u2,f1)
-    opinion? f1 == _(0.5,0.0,0.5,2.0)
+    opinion?(f1) == _(0.5,0.0,0.5,2.0)
   end
 
   it "scenario 4" do
