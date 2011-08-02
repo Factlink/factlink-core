@@ -29,7 +29,7 @@
   <div class="fl-choices">			
 		<div class="fl-relevance-container">
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
-		  <% if fact_relation.type == :supporting %>
+		  <% if fact_relation.type.to_sym == :supporting %>
         <span class="opinion">supports:</span>
       <% else %>
         <span class="opinion">weakens:</span>
