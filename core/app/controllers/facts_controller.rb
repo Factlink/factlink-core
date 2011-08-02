@@ -13,7 +13,8 @@ class FactsController < ApplicationController
       :prepare, 
       :intermediate, 
       :search, 
-      :indication]
+      :indication,
+      :interaction_users_for_factlink]
                                                
   before_filter :load_fact, 
     :only => [
@@ -66,7 +67,11 @@ class FactsController < ApplicationController
     # TODO: Refactor 'fact' to 'displaystring' for internal consistency
 
     # Get or create the website on which the Fact is located
-    site = Site.find_or_create_by(:url => params[:url])
+    
+    puts "\nGetting or creating Site with params: #{params[:url]}\n"
+    
+    
+    site = Site.find_or_create_by(params[:url])
 
     # TODO: This can be changed to use only displaystring when the above
     # refactor is done.
