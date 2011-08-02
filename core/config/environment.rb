@@ -6,10 +6,10 @@ FactlinkUI::Application.initialize!
 
 #goddamn fucking nasty, this:
 #hardcore require those files because they can't figure it out on their own
-%W(opinionable opinion).each do |file|
+%W(opinionable).each do |file|
   require File.expand_path("../../app/classes/#{file}",__FILE__)
 end
 
-['basefact','fact','fact_relation','graph_user','our_ohm','site'].each do |file|
+['basefact','opinion','fact','fact_relation','graph_user','our_ohm','site'].each do |file|
   require File.expand_path("../../app/ohm-models/#{file}",__FILE__)
 end

@@ -177,6 +177,11 @@ describe Basefact do
 
   end  
 
-
+  describe "opinions should give certain values" do
+    it "should initially be zero" do
+      @basefact = Basefact.new
+      @basefact.get_opinion.should == Opinion.neew(0,0,0,0)
+    end
+  end
 
 end
