@@ -1,4 +1,5 @@
 require 'spec_helper'
+
 def b(user,fact)
   fact.add_opinion(:beliefs,user)
 end

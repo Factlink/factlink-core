@@ -176,10 +176,10 @@ class Fact < Basefact
 
   private :delete_all_evidence, :delete_all_evidenced
 
-  # reference :evidence_opinion
-  # reference :opinion
+  reference :evidence_opinion, Opinion
+  reference :opinion, Opinion
 
-  def evidence_opinion
+  def calculate_evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
       factlinks = evidence(type)
@@ -187,12 +187,25 @@ class Fact < Basefact
         opinions << factlink.get_influencing_opinion
       end
     end
-    Opinion.combine(opinions)
+    comb_opinion = Opinion.combine(opinions)
+    comb_opinion.save
+    self.evidence_opinion = comb_opinion
+    save
   end
 
+  alias :super_get_opinion :get_opinion
+  def calculate_opinion
+    super_opinion = self.super_get_opinion
+    calculate_evidence_opinion
+    total_opinion = super_opinion + self.evidence_opinion
+    total_opinion.save
+    self.opinion = total_opinion
+    save
+  end
+  
   def get_opinion
-    user_opinion = super
-    user_opinion + evidence_opinion
+    calculate_opinion
+    self.opinion
   end
-
+  
 end
