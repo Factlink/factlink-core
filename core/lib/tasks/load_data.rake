@@ -21,6 +21,7 @@ namespace :db do
         file.gsub! /\.rb/, ''
         task file.to_sym => :environment do
           require File.expand_path('../../../db/init/'+file+'.rb', __FILE__)
+          puts "Imported #{file} succesfully"
         end
       end
     end
@@ -47,7 +48,7 @@ namespace :db do
 
     file = get_file(filename)
 
-    if File.exists?(file)
+    if File.exists?(file) or filename == 'list'
       puts "File '#{filename}' already exists. Please choose another file name."
       next
     else
@@ -65,6 +66,9 @@ namespace :db do
         end
       end
     end
+    
+    puts "Exported succesfully"
+    puts "Your export was saved to #{file}"
   end
 
   task :help do
