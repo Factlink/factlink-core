@@ -31,7 +31,7 @@ class OurOhm < Ohm::Model
   end
 
   def assert_url(att, error = [ att , :not_url ] )
-    assert send(att).to_s =~ /^http/, error
+   assert send(att).to_s =~ /^http/, error
   end
   
 end

@@ -2,10 +2,10 @@ class Site < OurOhm
   attribute :url
   index :url
 
-  set :facts, Fact
+  collection :facts, Fact
   
   def validate
-    assert_url :url
+    #assert_url :url
   end
   
   # More Rails like behaviour:
