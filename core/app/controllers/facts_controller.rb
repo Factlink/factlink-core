@@ -150,15 +150,6 @@ class FactsController < ApplicationController
     end
   end
 
-  # Users that interacted with this Fact
-  def interaction_users_for_factlink
-    @fact         = Fact[params[:factlink_id]]
-
-    @believers    = @fact.opiniated(:beliefs)
-    @doubters     = @fact.opiniated(:doubts)
-    @disbelievers = @fact.opiniated(:disbeliefs)
-  end
-
   # Search
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.

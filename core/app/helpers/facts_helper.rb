@@ -79,6 +79,11 @@ module FactsHelper
     render  :partial  => 'facts/partial/fl_source_stats',
             :locals   => { :fact_relation => fact_relation }
   end
+  
+  def fact_relation_interacting_users()
+    render  :partial  => 'facts/partial/interacting_users',
+            :locals   => {  }
+  end
 
   deprecate
   def relevance_class_on_fact(type, fact)

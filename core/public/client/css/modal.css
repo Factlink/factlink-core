@@ -301,6 +301,22 @@ div.fl-modal #fl-sources ol li .arrow.active {
   display: block;
   z-index: 300;
 }
+div.fl-modal #fl-sources ol .fl-popup {
+  background: #f9f9f9;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
+div.fl-modal #fl-sources ol .box {
+  border: solid 2px red;
+}
+div.fl-modal #fl-sources ol .fl-users {
+  display: none;
+  padding: 20px;
+}
+div.fl-modal #fl-sources ol .fl-users.active {
+  display: block;
+}
 div.fl-modal #fl-sources ol .fl-choices {
   display: none;
   z-index: 200;
@@ -310,9 +326,6 @@ div.fl-modal #fl-sources ol .fl-choices {
   margin: -45px 0 0 0;
   padding: 5px 10px 0;
   text-align: center;
-  background: #f9f9f9;
-  border: 1px solid #999;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
 }
 div.fl-modal #fl-sources ol .fl-choices.active {
   display: block;
