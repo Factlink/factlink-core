@@ -74,9 +74,9 @@
 			});
 
 			$(function() {
-				$('#fl-filter-bar ul>li>a').bind('click', function(e){						
+				$('.fl-modal > .fl-filter-bar ul>li>a').bind('click', function(e){						
 					
-					$('#fl-filter-bar ul>li').removeClass('active');
+					$('.fl-modal > .fl-filter-bar ul>li').removeClass('active');
 					$(this).closest('li').addClass('active');
 
 					e.stopPropagation();
@@ -85,7 +85,7 @@
 			});
 
 			function filter(className) {
-				$('div#fl-evidence > div#fl-sources > ol > li').hide().filter(className).fadeIn();
+				$('#fl-evidence > #fl-sources > ol > li').hide().filter(className).fadeIn();
 			}
 
 		</script>
@@ -134,7 +134,7 @@
 </div>
 
 <!-- Filter bar -->
-<div id="fl-filter-bar">
+<div class="fl-filter-bar">
   Show:
   <ul>
    <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact.evidence_count %>)</span></a></li>

@@ -7,25 +7,22 @@
 	doubters 			= fact_relation.opiniated(:doubts)
 	disbelievers 	= fact_relation.opiniated(:disbeliefs)
 
-	total_count = believers.size + doubters.size + disbelievers.size
+	total_size = believers.size + doubters.size + disbelievers.size
 %>
-
-	<div class="fl-clear"></div>
-
-
-	<!-- Make a filter bar of this, so it's styled nice: -->
-	<div id="filters" class="center" style="display:block;">
-		<a class="all active" onclick="apply_filter('*');">all (<%= believers.size + doubters.size + disbelievers.size %>)</a>
-		<a class="believers" onclick="apply_filter('.believers');">believers (<%= believers.size %>)</a>
-		<a class="doubters" onclick="apply_filter('.doubters');">doubters <span class="counter">(<%= doubters.size %>)</span></a>
-		<a class="disbelievers" onclick="apply_filter('.disbelievers');">disbelievers (<%= disbelievers.size %>)</a>
+	<div class="fl-filter-bar">
+		<ul>
+			<li class="active"><a onclick="apply_filter('*', $(this));"><span>all (<%= total_size %>)</span></a></li>
+			<li><a id="<%= fact_relation.id %>" onclick="apply_filter('.believers', $(this));"><span>believers (<%= believers.size %>)</span></a></li>
+			<li><a onclick="apply_filter('.doubters', $(this));"><span>doubters (<%= doubters.size %>)</span></a></li>
+			<li><a onclick="apply_filter('.disbelievers', $(this));"><span>disbelievers (<%= disbelievers.size %>)</span></a></li>
+		</ul>
 	</div>
 
 	<div class="fl-scroll-pane">
 
 		<ol id="fl-users">
 			
-			<% unless total_count > 0 %>
+			<% unless total_size > 0 %>
 
 				<div class="center" style="padding-top: 48px; color: #fff; font-weight: 400; font-size: 1.1em; text-shadow: 0px 1px 0px #444;">
 					<span>There are no users with an opinion on this fact.</span>

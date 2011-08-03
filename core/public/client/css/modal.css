@@ -130,7 +130,7 @@ div.fl-modal #fl-top-pane div.fl-factlink .trashcan {
 div.fl-modal #fl-top-pane div.fl-factlink .trashcan:hover {
   opacity: 0.8;
 }
-div.fl-modal #fl-filter-bar ul, div.fl-modal .fl-choices ul {
+div.fl-modal .fl-filter-bar ul, div.fl-modal .fl-choices ul {
   list-style: none;
   display: inline-block;
   margin: 0;
@@ -138,42 +138,42 @@ div.fl-modal #fl-filter-bar ul, div.fl-modal .fl-choices ul {
   vertical-align: middle;
   line-height: 22px;
 }
-div.fl-modal #fl-filter-bar ul li, div.fl-modal .fl-choices ul li {
+div.fl-modal .fl-filter-bar ul li, div.fl-modal .fl-choices ul li {
   float: left;
   padding: 0;
   margin: 0px 3px;
 }
-div.fl-modal #fl-filter-bar ul li.active,
+div.fl-modal .fl-filter-bar ul li.active,
 div.fl-modal .fl-choices ul li.active,
-div.fl-modal #fl-filter-bar ul li:hover,
+div.fl-modal .fl-filter-bar ul li:hover,
 div.fl-modal .fl-choices ul li:hover {
   background: url('/images/client/filter-highlight-center.png') repeat-x;
 }
-div.fl-modal #fl-filter-bar ul li.active a,
+div.fl-modal .fl-filter-bar ul li.active a,
 div.fl-modal .fl-choices ul li.active a,
-div.fl-modal #fl-filter-bar ul li:hover a,
+div.fl-modal .fl-filter-bar ul li:hover a,
 div.fl-modal .fl-choices ul li:hover a {
   display: inline-block;
   height: 24px;
   background: url('/images/client/filter-highlight-right.png') right no-repeat;
 }
-div.fl-modal #fl-filter-bar ul li.active a span,
+div.fl-modal .fl-filter-bar ul li.active a span,
 div.fl-modal .fl-choices ul li.active a span,
-div.fl-modal #fl-filter-bar ul li:hover a span,
+div.fl-modal .fl-filter-bar ul li:hover a span,
 div.fl-modal .fl-choices ul li:hover a span {
   display: inline-block;
   height: 24px;
   background: url('/images/client/filter-highlight-left.png') left no-repeat;
   color: #666363;
 }
-div.fl-modal #fl-filter-bar ul li a, div.fl-modal .fl-choices ul li a {
+div.fl-modal .fl-filter-bar ul li a, div.fl-modal .fl-choices ul li a {
   text-decoration: none;
 }
-div.fl-modal #fl-filter-bar ul li a span, div.fl-modal .fl-choices ul li a span {
+div.fl-modal .fl-filter-bar ul li a span, div.fl-modal .fl-choices ul li a span {
   padding: 0 10px;
   color: #999;
 }
-div.fl-modal #fl-filter-bar {
+div.fl-modal .fl-filter-bar {
   text-align: center;
   background: url('/images/client/filter-bar.png') repeat-x;
   color: #999;
@@ -312,7 +312,6 @@ div.fl-modal #fl-sources ol .box {
 }
 div.fl-modal #fl-sources ol .fl-users {
   display: none;
-  padding: 20px;
 }
 div.fl-modal #fl-sources ol .fl-users.active {
   display: block;
