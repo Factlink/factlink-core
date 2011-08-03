@@ -165,7 +165,7 @@
   <div class="buttons">
 		<% if user_signed_in? %>
 			<a onclick="$('div#fl-add-evidence').fadeToggle();">Add fact</a>
-			<a onclick="parent.addNewFact();">Add <strong>new</strong> fact</a>
+			<!-- <a onclick="parent.addNewFact();">Add <strong>new</strong> fact</a> -->
 		<% else %>
 			<%= link_to("Sign in", new_user_session_path({ :return_path => @fact.id })) %> or <%= link_to("register", new_user_session_path) %>
 		<% end %>
