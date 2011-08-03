@@ -42,11 +42,11 @@ class Basefact < OurOhm
   def add_opinion(type, user)
     remove_opinions(user)
     opiniated(type).add(user)
-    user.graph_user.update_opinion(type, self)
+    user.update_opinion(type, self)
   end
 
   def remove_opinions(user)
-    user.graph_user.remove_opinions(self)
+    user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
       opiniated(type).delete(user)
     end
@@ -64,9 +64,7 @@ class Basefact < OurOhm
         opinions << Opinion.for_type(type, user.authority)
       end
     end
-    calc_opinion = Opinion.combine(opinions)
-    calc_opinion.save
-    self.user_opinion = calc_opinion
+    self.user_opinion = Opinion.combine(opinions).save
     save
   end
   

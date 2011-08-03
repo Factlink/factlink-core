@@ -15,6 +15,7 @@ class OurOhm < Ohm::Model
     pre_save
     super
     post_save
+    return self
   end
 
   def pre_save

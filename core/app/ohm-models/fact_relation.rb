@@ -76,18 +76,6 @@ class FactRelation < Basefact
   end
 
   def get_influencing_opinion
-    # Primitive loop detection; not working correct
-    # key = "loop_detection_2"
-    # 
-    # if $redis.sismember(key, self.id)
-    #   $redis.del(key)      
-    #   return Opinion.new(0, 0, 0)
-    # else
-    #   $redis.sadd(key, self.id)      
-    #   return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
-    # end
-
-    # This is the only thing to return when the loop detection is not used:
     get_type_opinion.dfa(self.from_fact.get_opinion, self.get_opinion)
   end
 end

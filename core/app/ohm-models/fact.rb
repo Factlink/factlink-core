@@ -198,8 +198,7 @@ class Fact < Basefact
     super_opinion = self.super_get_opinion
     calculate_evidence_opinion
     total_opinion = super_opinion + self.evidence_opinion
-    total_opinion.save
-    self.opinion = total_opinion
+    self.opinion = total_opinion.save
     save
   end
   
