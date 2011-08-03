@@ -51,6 +51,17 @@ div.fl-modal sub.fl-brain-count img {
 div.fl-modal sub.fl-brain-count:hover {
   cursor: pointer;
 }
+div.fl-modal div.fl-arrow {
+  border-top: solid 1px #999;
+  border-right: solid 1px #999;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: -6px;
+  left: 56px;
+  -webkit-transform: rotate(-58deg) skew(-20deg);
+  background: #fbfafa;
+}
 div.fl-modal div.fl-stats {
   float: left;
 }
