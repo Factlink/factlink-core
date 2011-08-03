@@ -65,6 +65,9 @@ div.fl-modal div.fl-arrow {
 div.fl-modal div.fl-stats {
   float: left;
 }
+div.fl-modal div.fl-stats h2 {
+  border-bottom: 1px dashed #ddd;
+}
 div.fl-modal div.fl-stats ul.fl-stats-bar {
   margin: 0;
   padding: 0;
@@ -198,6 +201,10 @@ div.fl-modal .fl-users {
 }
 div.fl-modal .fl-users.active {
   display: block;
+  padding: 5px 0px 0;
+}
+div.fl-modal .fl-users h2.from_fact {
+  border-bottom: none;
 }
 div.fl-modal .fl-filter-bar {
   text-align: center;
@@ -210,12 +217,6 @@ div.fl-modal .fl-filter-bar {
   margin: 0 0 -6px;
   z-index: 10;
   position: relative;
-}
-div.fl-modal .fl-users {
-  display: none;
-}
-div.fl-modal .fl-users.active {
-  display: block;
 }
 div.fl-modal .fl-fact-dialog {
   text-align: center;

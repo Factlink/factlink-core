@@ -79,6 +79,10 @@ div.fl-modal {
   div.fl-stats {
     float: left;
 
+    h2 {
+        border-bottom: 1px dashed #ddd;
+			}
+		
     ul.fl-stats-bar {
       margin: 0;
       padding: 0;
@@ -238,7 +242,12 @@ div.fl-modal {
 		
 		&.active {
 			display: block;
+			padding: 5px 0px 0;
 		}	
+		
+		h2.from_fact {
+			border-bottom: none;
+		}
 	}
 	
   .fl-filter-bar {
@@ -256,16 +265,6 @@ div.fl-modal {
     z-index: 10;
     position: relative;
   }
-  
-
-	// Popup that will show the interacting users
-	.fl-users {
-		display: none;
-		
-		&.active {
-			display: block;
-		}	
-	}
 
 	.fl-fact-dialog {
 		text-align: center;
