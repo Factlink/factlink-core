@@ -23,7 +23,7 @@
 	<div class="fl-filter-bar">
 		<ul>
 			<li class="active"><a onclick="apply_filter('*', $(this));"><span>all (<%= total_size %>)</span></a></li>
-			<li><a id="<%= fact_relation.id %>" onclick="apply_filter('.believers', $(this));"><span>believers (<%= believers.size %>)</span></a></li>
+			<li><a onclick="apply_filter('.believers', $(this));"><span>believers (<%= believers.size %>)</span></a></li>
 			<li><a onclick="apply_filter('.doubters', $(this));"><span>doubters (<%= doubters.size %>)</span></a></li>
 			<li><a onclick="apply_filter('.disbelievers', $(this));"><span>disbelievers (<%= disbelievers.size %>)</span></a></li>
 		</ul>

@@ -52,22 +52,48 @@
 				var el = $( this ),
             cont = $('#fl-sources');
 				
-				el.closest('li')
-					.find('.fl-users')
-					.addClass('active')
-					.css({
-						position: "absolute",
-						top: el.offset().top - cont.offset().top + 16 + "px", 
-						left: el.offset().left - cont.offset().left - 25 + "px"
-					});
+				if (el.closest('li').length === 0) {
+					// No li found, this is the main fact brain cycles clicked on
+					
+					el.closest('.fl-stats')
+						.find('.fl-users')
+						.addClass('active')
+						.css({
+							position: "absolute",
+							top: 100 + "px", 
+							left: 40 + "px"
+						});
+
+				    $(document).bind('click', function(e) {
+		           if( $(e.target).closest('.fl-users').length === 0 ) {
+		             el.closest('.fl-stats').find('.fl-users.active').removeClass('active');
+
+		             $(document).unbind('click', arguments.callee);
+		           }
+		        });
+					
+				} else {
+
+					el.closest('li')
+						.find('.fl-users')
+						.addClass('active')
+						.css({
+							position: "absolute",
+							top: el.offset().top - cont.offset().top + 16 + "px", 
+							left: el.offset().left - cont.offset().left - 25 + "px"
+						});
+
+			    $(document).bind('click', function(e) {
+	           if( $(e.target).closest('.fl-users').length === 0 ) {
+	             cont.find('.fl-users.active').removeClass('active');
+
+	             $(document).unbind('click', arguments.callee);
+	           }
+	        });
+					
+					
+				}
 			
-		    $(document).bind('click', function(e) {
-           if( $(e.target).closest('.fl-users').length === 0 ) {
-             cont.find('.fl-users.active').removeClass('active');
-             
-             $(document).unbind('click', arguments.callee);
-           }
-        });
   
         return false;
 				
@@ -105,31 +131,6 @@
 	</div>
 
 	<div class="fl-clear"></div>
-
-	<!-- development -->
-	<!-- <div style="border: solid 2px red;">
-		:beliefs<br/>
-		<ul>
-			<% @fact.opiniated(:beliefs).each do |u| %>
-			<li><%= u.username %></li>
-			<% end %>
-		</ul>
-		
-		:doubts<br/>
-		<ul>
-			<% @fact.opiniated(:doubts).each do |u| %>
-			<li><%= u.username %></li>
-			<% end %>
-		</ul>
-		
-		:disbeliefs<br/>
-		<ul>
-			<% @fact.opiniated(:disbeliefs).each do |u| %>
-			<li><%= u.username %></li>
-			<% end %>
-		</ul>
-	</div> -->
-	<!-- END development -->
 	
 </div>
 

@@ -130,6 +130,12 @@ div.fl-modal #fl-top-pane div.fl-factlink .trashcan {
 div.fl-modal #fl-top-pane div.fl-factlink .trashcan:hover {
   opacity: 0.8;
 }
+div.fl-modal .fl-popup {
+  background: #f9f9f9;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
 div.fl-modal .fl-filter-bar ul, div.fl-modal .fl-choices ul {
   list-style: none;
   display: inline-block;
@@ -173,6 +179,12 @@ div.fl-modal .fl-filter-bar ul li a span, div.fl-modal .fl-choices ul li a span 
   padding: 0 10px;
   color: #999;
 }
+div.fl-modal .fl-users {
+  display: none;
+}
+div.fl-modal .fl-users.active {
+  display: block;
+}
 div.fl-modal .fl-filter-bar {
   text-align: center;
   background: url('/images/client/filter-bar.png') repeat-x;
@@ -184,6 +196,37 @@ div.fl-modal .fl-filter-bar {
   margin: 0 0 -6px;
   z-index: 10;
   position: relative;
+}
+div.fl-modal .fl-users {
+  display: none;
+}
+div.fl-modal .fl-users.active {
+  display: block;
+}
+div.fl-modal .fl-fact-dialog {
+  text-align: center;
+}
+div.fl-modal .fl-fact-dialog h2 {
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 15px;
+  color: #333;
+  width: 350px;
+  margin: 0 -10px;
+  padding: 10px;
+}
+div.fl-modal .fl-fact-dialog h2.to_fact {
+  border-bottom: 1px dashed #ddd;
+}
+div.fl-modal li.message {
+  text-align: center;
+  color: #989898;
+  font-size: 12px;
+  font-style: italic;
+  border: none;
+  margin-top: 24px;
+  line-height: 18px;
 }
 div.fl-modal #fl-sources {
   position: relative;
@@ -197,15 +240,6 @@ div.fl-modal #fl-sources ol {
   min-height: 100px;
   max-height: 300px;
   overflow-y: scroll;
-}
-div.fl-modal #fl-sources ol li.message {
-  text-align: center;
-  color: #989898;
-  font-size: 12px;
-  font-style: italic;
-  border: none;
-  margin-top: 24px;
-  line-height: 18px;
 }
 div.fl-modal #fl-sources ol li#fl-no-evidence {
   line-height: 48px;
@@ -300,37 +334,6 @@ div.fl-modal #fl-sources ol li .arrow.active {
   padding: 2px 2px 4px;
   display: block;
   z-index: 300;
-}
-div.fl-modal #fl-sources ol .fl-popup {
-  background: #f9f9f9;
-  border: 1px solid #999;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
-  z-index: 1001;
-}
-div.fl-modal #fl-sources ol .box {
-  border: solid 2px red;
-}
-div.fl-modal #fl-sources ol .fl-users {
-  display: none;
-}
-div.fl-modal #fl-sources ol .fl-users.active {
-  display: block;
-}
-div.fl-modal #fl-sources ol .fl-fact-dialog {
-  text-align: center;
-}
-div.fl-modal #fl-sources ol .fl-fact-dialog h2 {
-  font-family: Georgia, "Times New Roman", Garamond, serif;
-  font-weight: normal;
-  font-style: italic;
-  font-size: 15px;
-  color: #333;
-  width: 350px;
-  margin: 0 -10px;
-  padding: 10px;
-}
-div.fl-modal #fl-sources ol .fl-fact-dialog h2.to_fact {
-  border-bottom: 1px dashed #ddd;
 }
 div.fl-modal #fl-sources ol .fl-choices {
   display: none;

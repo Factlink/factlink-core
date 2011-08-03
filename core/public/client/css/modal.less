@@ -162,6 +162,14 @@ div.fl-modal {
     }
   }
   
+	// Default popup settings
+	.fl-popup {
+		background: #f9f9f9;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
+		z-index: 1001;
+	}
+
   .fl-filter-bar ul,
   .fl-choices ul {
     list-style: none;
@@ -203,7 +211,17 @@ div.fl-modal {
       }
     }
   }
-  
+
+	// Duped for popup in header of show
+  // Popup that will show the interacting users
+	.fl-users {
+		display: none;
+		
+		&.active {
+			display: block;
+		}	
+	}
+	
   .fl-filter-bar {
     text-align: center;
     background: url('/images/client/filter-bar.png') repeat-x;
@@ -220,6 +238,47 @@ div.fl-modal {
     position: relative;
   }
   
+
+	// Popup that will show the interacting users
+	.fl-users {
+		display: none;
+		
+		&.active {
+			display: block;
+		}	
+	}
+
+	.fl-fact-dialog {
+		text-align: center;
+    h2 {
+      font-family: Georgia, "Times New Roman", Garamond, serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 15px;
+    
+      color: #333;
+    
+      width: 350px;
+      margin: 0 -10px;
+      padding: 10px;
+    
+      &.to_fact {
+        border-bottom: 1px dashed #ddd;
+      }
+    }
+	}
+	
+	li.message {
+		text-align: center;
+    color: #989898;
+    font-size: 12px;
+    font-style: italic;
+    border: none;
+		margin-top: 24px;
+		line-height: 18px;
+	}
+
+
   #fl-sources {
     position: relative;
 		background: #fbfafa;
@@ -234,16 +293,6 @@ div.fl-modal {
       min-height: 100px;
       max-height: 300px;
       overflow-y: scroll;
-
-			li.message {
-				text-align: center;
-        color: #989898;
-        font-size: 12px;
-        font-style: italic;
-        border: none;
-				margin-top: 24px;
-				line-height: 18px;
-			}
 
 			li#fl-no-evidence {
         line-height: 48px;
@@ -362,47 +411,6 @@ div.fl-modal {
           }
         }
       }
-
-			// Default popup settings
-			.fl-popup {
-				background: #f9f9f9;
-        border: 1px solid #999;
-        box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
-				z-index: 1001;
-			}
-			
-			.box {
-				border: solid 2px red;
-			}
-      
-			// Popup that will show the interacting users
-			.fl-users {
-				display: none;
-				
-				&.active {
-					display: block;
-				}	
-			}
-
-			.fl-fact-dialog {
-				text-align: center;
-	      h2 {
-	        font-family: Georgia, "Times New Roman", Garamond, serif;
-	        font-weight: normal;
-	        font-style: italic;
-	        font-size: 15px;
-        
-	        color: #333;
-        
-	        width: 350px;
-	        margin: 0 -10px;
-	        padding: 10px;
-        
-	        &.to_fact {
-	          border-bottom: 1px dashed #ddd;
-	        }
-	      }
-			}
 			
       // Popup that will let the user make a choice
       .fl-choices {
