@@ -80,9 +80,9 @@ module FactsHelper
             :locals   => { :fact_relation => fact_relation }
   end
   
-  def fact_relation_interacting_users()
+  def fact_relation_interacting_users(fact_relation)
     render  :partial  => 'facts/partial/interacting_users',
-            :locals   => {  }
+            :locals   => { :fact_relation => fact_relation }
   end
 
   deprecate
