@@ -34,11 +34,7 @@
 		<ol class="fl-user-listing">
 			
 			<% unless total_size > 0 %>
-
-				<div class="center" style="padding-top: 48px; color: #fff; font-weight: 400; font-size: 1.1em; text-shadow: 0px 1px 0px #444;">
-					<span>There are no users with an opinion on this fact.</span>
-				</div>
-
+					<li class='message'>There are no users with an opinion on this fact.</li>
 			<% else %>
 			
 				<% believers.each do |believer| %>

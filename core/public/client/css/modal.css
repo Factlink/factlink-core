@@ -48,6 +48,9 @@ div.fl-modal sub.fl-brain-count img {
   position: relative;
   top: -1px;
 }
+div.fl-modal sub.fl-brain-count:hover {
+  cursor: pointer;
+}
 div.fl-modal div.fl-stats {
   float: left;
 }
