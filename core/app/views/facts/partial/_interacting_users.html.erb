@@ -1,5 +1,16 @@
 <div class="fl-users fl-popup">
 
+	<div class="fl-relevance-container fl-fact-dialog">
+	  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
+	  <% if fact_relation.type.to_sym == :supporting %>
+      <span class="opinion">supports:</span>
+    <% else %>
+      <span class="opinion">weakens:</span>
+	  <% end %>
+	  <h2 class="to_fact">&#8220;<%= fact_relation.get_to_fact.displaystring %>&#8221;</h2>
+	  
+  </div>
+
 <%
 	# Wohoo, this is not nice :D Logic in template, oh yeah.
 	# But works for now.
@@ -20,7 +31,7 @@
 
 	<div class="fl-scroll-pane">
 
-		<ol id="fl-users">
+		<ol class="fl-user-listing">
 			
 			<% unless total_size > 0 %>
 

@@ -383,6 +383,26 @@ div.fl-modal {
 					display: block;
 				}	
 			}
+
+			.fl-fact-dialog {
+				text-align: center;
+	      h2 {
+	        font-family: Georgia, "Times New Roman", Garamond, serif;
+	        font-weight: normal;
+	        font-style: italic;
+	        font-size: 15px;
+        
+	        color: #333;
+        
+	        width: 350px;
+	        margin: 0 -10px;
+	        padding: 10px;
+        
+	        &.to_fact {
+	          border-bottom: 1px dashed #ddd;
+	        }
+	      }
+			}
 			
       // Popup that will let the user make a choice
       .fl-choices {
@@ -401,7 +421,7 @@ div.fl-modal {
           display: block;
         }
         
-        h2 {
+/*        h2 {
           font-family: Georgia, "Times New Roman", Garamond, serif;
           font-weight: normal;
           font-style: italic;
@@ -416,7 +436,7 @@ div.fl-modal {
           &.to_fact {
             border-bottom: 1px dashed #ddd;
           }
-        }
+        }*/
         
         span.opinion {
           font-weight: bold;
@@ -488,7 +508,7 @@ div.fl-modal {
 
   
   .fl-bottom-pane {
-	z-index: 1000;
+		z-index: 1000;
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
@@ -520,8 +540,7 @@ div.fl-modal {
   .fl-scroll-pane {
 	  border: 1px solid #ccc;
 
-  	ol#fl-users {
-  		box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
+  	.fl-user-listing {
 		
   		margin: 0px;
   		position: relative;
@@ -531,9 +550,9 @@ div.fl-modal {
   		height: 270px;
 		  
   		li {
-  			list-style: none;					
+  			list-style: none;
   			padding: 12px;
-  			background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+				border-bottom: 1px solid #e4e4e4;
 			
   			span.tag {
   				font-size: 0.85em;

@@ -316,20 +316,10 @@ div.fl-modal #fl-sources ol .fl-users {
 div.fl-modal #fl-sources ol .fl-users.active {
   display: block;
 }
-div.fl-modal #fl-sources ol .fl-choices {
-  display: none;
-  z-index: 200;
-  position: absolute;
-  right: -160px;
-  width: 350px;
-  margin: -45px 0 0 0;
-  padding: 5px 10px 0;
+div.fl-modal #fl-sources ol .fl-fact-dialog {
   text-align: center;
 }
-div.fl-modal #fl-sources ol .fl-choices.active {
-  display: block;
-}
-div.fl-modal #fl-sources ol .fl-choices h2 {
+div.fl-modal #fl-sources ol .fl-fact-dialog h2 {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-weight: normal;
   font-style: italic;
@@ -339,8 +329,38 @@ div.fl-modal #fl-sources ol .fl-choices h2 {
   margin: 0 -10px;
   padding: 10px;
 }
-div.fl-modal #fl-sources ol .fl-choices h2.to_fact {
+div.fl-modal #fl-sources ol .fl-fact-dialog h2.to_fact {
   border-bottom: 1px dashed #ddd;
+}
+div.fl-modal #fl-sources ol .fl-choices {
+  display: none;
+  z-index: 200;
+  position: absolute;
+  right: -160px;
+  width: 350px;
+  margin: -45px 0 0 0;
+  padding: 5px 10px 0;
+  text-align: center;
+  /*        h2 {
+          font-family: Georgia, "Times New Roman", Garamond, serif;
+          font-weight: normal;
+          font-style: italic;
+          font-size: 15px;
+          
+          color: #333;
+          
+          width: 350px;
+          margin: 0 -10px;
+          padding: 10px;
+          
+          &.to_fact {
+            border-bottom: 1px dashed #ddd;
+          }
+        }*/
+
+}
+div.fl-modal #fl-sources ol .fl-choices.active {
+  display: block;
 }
 div.fl-modal #fl-sources ol .fl-choices span.opinion {
   font-weight: bold;
@@ -419,20 +439,19 @@ div.fl-modal .fl-bottom-pane sub {
 div.fl-modal .fl-scroll-pane {
   border: 1px solid #ccc;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users {
-  box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
+div.fl-modal .fl-scroll-pane .fl-user-listing {
   margin: 0px;
   position: relative;
   padding: 0px 0px;
   overflow-y: auto;
   height: 270px;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users li {
+div.fl-modal .fl-scroll-pane .fl-user-listing li {
   list-style: none;
   padding: 12px;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfdfd), color-stop(1, #eeeeee));
+  border-bottom: 1px solid #e4e4e4;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users li span.tag {
+div.fl-modal .fl-scroll-pane .fl-user-listing li span.tag {
   font-size: 0.85em;
   text-shadow: 0px 1px 1px #fff;
   width: 80px;
@@ -440,13 +459,13 @@ div.fl-modal .fl-scroll-pane ol#fl-users li span.tag {
   float: left;
   margin-top: 2px;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users li span.believer {
+div.fl-modal .fl-scroll-pane .fl-user-listing li span.believer {
   color: #BADA55;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users li span.doubter {
+div.fl-modal .fl-scroll-pane .fl-user-listing li span.doubter {
   color: #FFD324;
 }
-div.fl-modal .fl-scroll-pane ol#fl-users li span.disbeliever {
+div.fl-modal .fl-scroll-pane .fl-user-listing li span.disbeliever {
   color: #CC0000;
 }
 div.fl-modal .fl-scroll-pane ol.fl-sources {
