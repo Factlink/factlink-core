@@ -1,5 +1,4 @@
 class Basefact < OurOhm
-  include Opinionable
   reference :user_opinion, Opinion
 
   reference :site, Site       # The site on which the factlink should be shown
@@ -68,9 +67,8 @@ class Basefact < OurOhm
     save
   end
   
-  def get_opinion
-    calculate_user_opinion
-    self.user_opinion
+  def get_user_opinion
+    self.user_opinion || Opinion.identity
   end
-
+  
 end

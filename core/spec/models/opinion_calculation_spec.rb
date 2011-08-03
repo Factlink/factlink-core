@@ -17,6 +17,10 @@ def _(b,d,u,a)
 end
 
 def opinion?(fact)
+  FactGraph.recalculate
+  fact = fact.class[fact.id]
+  puts "result?  Fact opinion for fact #{fact.id}is : #{fact.get_opinion.inspect.to_s}"
+  puts "result2? Fact opinion for fact #{fact.id}is : #{fact.opinion.inspect.to_s}"
   fact.get_opinion.should
 end
 

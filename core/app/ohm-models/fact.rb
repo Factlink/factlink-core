@@ -75,6 +75,7 @@ module FactDataProxy
 end
 
 class Fact < Basefact
+  include Opinionable
   include FactDataProxy
 
   reference :data, lambda { |id| FactData.find(id) }
@@ -182,29 +183,28 @@ class Fact < Basefact
   def calculate_evidence_opinion
     opinions = []
     [:supporting, :weakening].each do |type|
-      factlinks = evidence(type)
-      factlinks.each do |factlink|
-        opinions << factlink.get_influencing_opinion
+      factrelations = evidence(type)
+      factrelations.each do |factrelation|
+        opinions << factrelation.get_influencing_opinion
       end
     end
-    comb_opinion = Opinion.combine(opinions)
-    comb_opinion.save
-    self.evidence_opinion = comb_opinion
+    self.evidence_opinion = Opinion.combine(opinions).save
     save
   end
 
-  alias :super_get_opinion :get_opinion
+  def get_evidence_opinion
+    self.evidence_opinion || Opinion.identity
+  end
+
   def calculate_opinion
-    super_opinion = self.super_get_opinion
     calculate_evidence_opinion
-    total_opinion = super_opinion + self.evidence_opinion
+    total_opinion = self.get_user_opinion + self.get_evidence_opinion
     self.opinion = total_opinion.save
     save
   end
   
   def get_opinion
-    calculate_opinion
-    self.opinion
+    self.opinion || Opinion.identity
   end
   
 end

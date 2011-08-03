@@ -1,4 +1,6 @@
 class FactRelation < Basefact
+  include Opinionable
+  
   reference :from_fact, Fact
   reference :fact, Fact
 
@@ -75,7 +77,19 @@ class FactRelation < Basefact
     super
   end
 
-  def get_influencing_opinion
-    get_type_opinion.dfa(self.from_fact.get_opinion, self.get_opinion)
+
+  reference :influencing_opinion, Opinion
+  def calculate_influencing_opinion
+    self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion, self.user_opinion).save
+    save
   end
+  
+  def get_influencing_opinion
+    self.influencing_opinion || Opinion.identity
+  end
+  
+  def get_opinion
+    self.user_opinion || Opinion.identity
+  end
+  
 end
