@@ -19,7 +19,22 @@ server.set('view engine', 'jade');
 
 server.get('/parse', function(req, res) {
     var site = req.query.url;
-    
+
+		// Quick fixes for visiting sites without http(s) or www
+		http_regex = new RegExp("^http(s?)");    
+		if (http_regex.test(site) === false) {
+
+			// Check if start with www
+			www_regex = new RegExp("^www.");
+			if (www_regex.test(site) === false) {
+				site = "www." + site
+			}
+
+			// Not starting with http(s), so add:
+			site = "http://" + site
+		}
+
+
     console.info( "Serving: " + site );
 
     // The actual request using restler so we can follow redirects
