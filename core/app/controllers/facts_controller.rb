@@ -62,7 +62,6 @@ class FactsController < ApplicationController
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
-    @fact_id = params[:fact_id]
 
     render :template => 'facts/intermediate', :layout => nil
   end
@@ -74,18 +73,17 @@ class FactsController < ApplicationController
     redirect_to :action => "edit", :id => @fact.id
   end
 
-  def create_fact_as_supporting_evidence
+  def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact])
     fact_id = params[:fact_id]
-    
-    @fact_relation = add_evidence(evidence.id, :supporting, fact_id)
-  end
 
-  def create_fact_as_weakening_evidence
-    evidence = create_fact(params[:url], params[:fact])
-    fact_id = params[:fact_id]
+    type = params[:type].to_sym
     
-    @fact_relation = add_evidence(evidence.id, :weakening, fact_id)
+    puts "Ev: #{evidence}"
+    puts "Fid: #{fact_id}"
+    puts "Type: #{type}"
+    
+    @fact_relation = add_evidence(evidence.id, type, fact_id)
   end
 
   def add_supporting_evidence

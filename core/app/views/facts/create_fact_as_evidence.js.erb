@@ -1,0 +1,13 @@
+// This will get executed / javascript
+
+
+// Close Proxy
+parent.hideProxy();
+
+// Render Evidence
+var no_fact_message = $("#fl-no-evidence");
+if (no_fact_message.length > 0) {
+	no_fact_message.remove();
+}
+
+$('div#fl-evidence > div#fl-sources > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation } )) %>");

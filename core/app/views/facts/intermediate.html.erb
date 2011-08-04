@@ -32,7 +32,7 @@
 </head>
 <body>
 	<%= form_for(factlink_new_path, :url => factlink_new_path, :html => { :target => "frame", :id => "form"}) do |f| %>
-  	<input type="hidden" name="fact_id" id="fact_id" value="<%= @fact_id %>">
+  	<input type="hidden" name="fact_id" id="fact_id">
   	<input type="text" name="url" id="url" value="<%= @url %>">
 		<textarea name="passage" id="passage">
 			<%= @passage %>
@@ -55,12 +55,13 @@
 					show: {},
 					highlightNewFactlink: {},
 					stopHighlightingFactlink: {},
-					update_opinions: {}
+					update_opinions: {},
+					addEvidence: {}
 				},
 				local: {
-					prepareNewFactlink: function( factlink, passage, url ) {
+					prepareNewFactlink: function( fact, passage, url ) {
 						// Set form data
-						document.getElementById("fact").value = factlink;
+						document.getElementById("fact").value = fact;
 						document.getElementById("passage").value = passage;
 						document.getElementById("url").value = url;
 						
@@ -70,41 +71,27 @@
 						// Show the overlay
 						iframe.className = "";
 					},
-					prepareNewEvidence: function( fact, passage, url, fact_id ) {
-					  // Set form data
-						document.getElementById("fact").value = fact;
+					prepareNewEvidence: function( fact, passage, url ) {
+					  document.getElementById("fact").value = fact;
 						document.getElementById("passage").value = passage;
 						document.getElementById("url").value = url;
-						document.getElementById("fact_id").value = url;
-						
+											  
 						// Set the source of the iframe
-						iframe.src = "<%= factlink_prepare_new_add_to_path %>";
+						iframe.src = "<%= factlink_prepare_evidence_path %>";
 						
 						// Show the overlay
 						iframe.className = "";
 					},
-					prepareExistingAddToFact: function( from_fact_id, evidence, to_fact_id ) {
+					createFactlink: function( fact, passage, url ) {
 					  // Set form data
-						document.getElementById("fact").value = factlink;
-						document.getElementById("passage").value = passage;
-						document.getElementById("url").value = url;
-						
-						// Set the source of the iframe
-						iframe.src = "<%= factlink_prepare_new_add_to_path %>";
-						
-						// Show the overlay
-						iframe.className = "";
-					},
-					createFactlink: function( factlink, passage, url ) {
-					  // Set form data
-					  document.getElementById("fact").value = factlink;
+					  document.getElementById("fact").value = fact;
 						document.getElementById("passage").value = passage;
 						document.getElementById("url").value = url;
 						
 						createFactlink();
 					},
 					showFactlink: function(id) {
-						// Set the source of the iframe
+					  // Set the source of the iframe
 						iframe.src = "/factlink/show/" + id;
 						// Show the overlay
 						iframe.className = "overlay";
@@ -126,20 +113,40 @@
 				form.submit();
 			},
 			// Add to an existing Factlink
-			addToFactlink = function(type) {
-			  
+			addEvidence = function(type) {
+			  var fact = document.getElementById("fact").value;
+				var passage = document.getElementById("passage").value;
+				var url = document.getElementById("url").value;
+			  parent.parent.parent.parent.submitEvidence(type, fact, passage, url);
 			};
 			
       function addNewFact() {
         // Document reference of the iframe
         var doc = iframe.contentWindow.document;
         // Create new iframe
-        var proxyFrame = document.createElement("iframe");
+        window.proxyFrame = document.createElement("iframe");
         
-        proxyFrame.className = "proxyFrame";
-        proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
+        window.proxyFrame.className = "proxyFrame";
+        window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
         
-        doc.getElementsByTagName("body")[0].appendChild(proxyFrame);
+        doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
+      }
+      
+      function hideProxy() {
+        window.proxyFrame.style.display = "none";
+        window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
+      }
+      
+      function submitEvidence(type, fact, passage, url) {
+        var fact_id = iframe.contentWindow.fact_id;
+        
+        var script = document.createElement("script");
+        
+        script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id;
+        script.type="text/javascript";
+        
+        iframe.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
+        console.info( "Script built" );
       }
 	</script>
 </body>
