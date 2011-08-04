@@ -10,6 +10,7 @@ Factlink.remote = new easyXDM.Rpc({
 		local: Factlink.modal,
 		remote: {
 		    prepareNewFactlink: {},
+		    prepareNewEvidence: {},
 		    createFactlink: {},
 		    showFactlink: {},
 		    position: {},

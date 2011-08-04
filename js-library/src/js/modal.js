@@ -12,8 +12,27 @@ Factlink.showInfo = function( el ) {
 };
 
 // Handle a user click
-$( 'span.factlink' ).live('click', function() {
-    Factlink.showInfo( this );
+$( 'span.factlink' ).live('click', function(e) {
+    var self = this;
+    
+    // A custom switch-like module
+    var modusHandler = (function(){
+        return {
+            default: function() {
+                Factlink.showInfo( self );
+            },
+            addToFact: function() {
+                Factlink.remote.prepareNewEvidence( "",
+                                                         "",
+                                                         window.location.href );
+                // Position the frame
+                Factlink.remote.position( e.clientY, e.clientX );
+                Factlink.modal.show.method();
+            }
+        };
+    })();
+    
+    modusHandler[FactlinkConfig.modus]();
 });
 
 // Object which holds the methods that can be called from the intermediate iframe
