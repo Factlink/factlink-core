@@ -62,7 +62,7 @@
             if (FactlinkConfig.modus === "default") {
                 Factlink.remote.prepareNewFactlink(text, selectionInfo.passage, window.location.href);
             } else if (FactlinkConfig.modus === "addToFact") {
-                Factlink.remote.prepareNewEvidence(text, selectionInfo.passage, window.location.href);
+                Factlink.remote.prepareNewEvidence(text, selectionInfo.passage, FactlinkConfig.url || window.location.href);
             }
 
             // Store the time out
