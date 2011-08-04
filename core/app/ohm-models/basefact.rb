@@ -1,22 +1,14 @@
-autoload :Basefact, 'basefact'
-autoload :Fact, 'fact'
-autoload :FactRelation, 'fact_relation'
-autoload :GraphUser, 'graph_user'
-autoload :OurOhm, 'our_ohm'
-autoload :Site, 'site'
-
-autoload :Opinion, 'opinion'
-autoload :Opinionable, 'opinionable'
-
-#dirty hack, sorry:
-module Opinionable
-end
-
-
 class Basefact < OurOhm
   include Opinionable
 
   reference :site, Site       # The site on which the factlink should be shown
+  def url=(url)
+    self.site = Site.find_or_create_by(url)
+  end
+  def url
+    self.site.url
+  end
+
   reference :created_by, GraphUser
 
   set :people_beliefs, GraphUser
@@ -32,10 +24,10 @@ class Basefact < OurOhm
 
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
-    self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
-  def toggle_opinion(type, user)
+  def toggle_opinion(type, user)    
     if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)
@@ -63,26 +55,6 @@ class Basefact < OurOhm
   end
 
   def get_opinion
-    # Primitive loop detection; not working correct
-    # key = "loop_detection"
-    # 
-    # if $redis.sismember(key, self.id)
-    #   $redis.del(key)      
-    #   return Opinion.new(0, 0, 0)
-    # else
-    #   $redis.sadd(key, self.id)
-    #   
-    #   opinions = []
-    #   [:beliefs, :doubts, :disbeliefs].each do |type|      
-    #     opiniated = opiniated(type)
-    #     opiniated.each do |user|
-    #       opinions << Opinion.for_type(type, user.authority)
-    #     end
-    #   end
-    #   return Opinion.combine(opinions)      
-    # end
-
-    # Return this if the loop detection is not used:
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)

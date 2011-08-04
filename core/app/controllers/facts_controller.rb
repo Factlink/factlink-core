@@ -13,7 +13,8 @@ class FactsController < ApplicationController
       :prepare, 
       :intermediate, 
       :search, 
-      :indication]
+      :indication,
+      :interaction_users_for_factlink]
                                                
   before_filter :load_fact, 
     :only => [
@@ -142,7 +143,7 @@ class FactsController < ApplicationController
 
     if allowed_types.include?(type)
       @fact_relation = FactRelation[params[:fact_relation_id]]
-      @fact_relation.get_from_fact.toggle_opinion(type, current_user)
+      @fact_relation.get_from_fact.toggle_opinion(type, current_user.graph_user)
     else
       render :json => {"error" => "type not allowed"}
       return false
@@ -156,20 +157,11 @@ class FactsController < ApplicationController
 
     if allowed_types.include?(type)
       @fact_relation = FactRelation[params[:fact_relation_id]]
-      @fact_relation.toggle_opinion(type, current_user)
+      @fact_relation.toggle_opinion(type, current_user.graph_user)
     else
       render :json => {"error" => "type not allowed"}
       return false
     end
-  end
-
-  # Users that interacted with this Fact
-  def interaction_users_for_factlink
-    @fact         = Fact[params[:factlink_id]]
-
-    @believers    = @fact.opiniated(:beliefs)
-    @doubters     = @fact.opiniated(:doubts)
-    @disbelievers = @fact.opiniated(:disbeliefs)
   end
 
   # Search

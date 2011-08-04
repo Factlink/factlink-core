@@ -1,12 +1,8 @@
 <script>
-	function apply_filter(klass) {
-		$('ol#fl-users > li').fadeOut(40).filter(klass).fadeIn(40);
+	function apply_filter(klass, clickedItem) {
+		$('.fl-user-listing > li').fadeOut(40).filter(klass).fadeIn(40);
 
-		// override for the 'all' filter
-		if (klass == "*") {
-			klass = "all";
-		}
-		
-		$('div#filters > a').removeClass('active').filter('.' + klass).addClass('active');
+		clickedItem.closest('ul').find('li').removeClass('active');
+		clickedItem.closest('li').addClass('active');		
 	}
 </script>

@@ -1,15 +1,3 @@
-autoload :Basefact, 'basefact'
-autoload :Fact, 'fact'
-autoload :FactRelation, 'fact_relation'
-autoload :GraphUser, 'graph_user'
-autoload :OurOhm, 'our_ohm'
-autoload :Site, 'site'
-
-autoload :Opinion, 'opinion'
-autoload :Opinionable, 'opinionable'
-
-
-
 class FactRelation < Basefact
   reference :from_fact, Fact
   reference :fact, Fact
@@ -53,14 +41,11 @@ class FactRelation < Basefact
     "factlink:#{evidence.id}:#{type}:#{fact.id}"
   end
 
-
   def percentage
     (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight + 0.00001)).to_i
   end
 
-
   def get_type_opinion
-
     # Just to be sure: parse to Symbol
     case self.type.to_sym
     when :supporting
@@ -68,7 +53,6 @@ class FactRelation < Basefact
     when :weakening
       Opinion.for_type(:disbeliefs)
     end
-
   end
 
   deprecate
@@ -76,8 +60,8 @@ class FactRelation < Basefact
     from_fact
   end
 
+  deprecate
   def get_to_fact
-    deprecate
     fact
   end
 
@@ -88,18 +72,7 @@ class FactRelation < Basefact
   end
 
   def get_influencing_opinion
-    # Primitive loop detection; not working correct
-    # key = "loop_detection_2"
-    # 
-    # if $redis.sismember(key, self.id)
-    #   $redis.del(key)      
-    #   return Opinion.new(0, 0, 0)
-    # else
-    #   $redis.sadd(key, self.id)      
-    #   return get_type_opinion.dfa(self.get_from_fact.get_opinion, self.get_opinion)
-    # end
-
-    # This is the only thing to return when the loop detection is not used:
     get_type_opinion.dfa(self.from_fact.get_opinion, self.get_opinion)
   end
+
 end

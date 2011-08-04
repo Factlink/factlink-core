@@ -45,36 +45,35 @@ end
                 :password => "Jordin87",
                 :password_confirmation => "Jordin87")
   jordin.save
- 
-  # Site
-  site = Site.new
-  site.url = "http://en.wikipedia.org/wiki/Batman"
-  site.save
-
-  facts = [
-    'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',
-    'Batman\'s secret identity is Bruce Wayne',
-    'Batman operates in the fictional American Gotham City',
-    'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman',
-    'The late 1960s Batman television series used a camp aesthetic which continued to be associated with the character for years after the show ended'
-  ]
-
-  facts.each do |fact|
-    f = Fact.new
-    f.displaystring = fact
-    f.site = site
-    f.created_by = user1.graph_user
-    f.save
     
-    site.facts << f
-  end
-
-  # fact = Fact.first
-  # Fact.excludes(:_id => fact.id).each do |evidence|
-  #   fact.add_evidence(:supporting, evidence, user)
-  # end
-
-
+  remon = User.new(:username => "remon",
+                 :email => "remon@factlink.com",
+                 :confirmed_at => DateTime.now,
+                 :password => "remon123",
+                 :password_confirmation => "remon123")
+  remon.save  
+    
+    
+  salvador = User.new(:username => "salvador",
+                :email => "salvador@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "salvador123",
+                :password_confirmation => "salvador123")
+  salvador.save
+  
+  mark = User.new(:username => "mark",
+                :email => "mark@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "mark123",
+                :password_confirmation => "mark123")
+  mark.save
+  
+  joel = User.new(:username => "joel",
+                :email => "joel@factlink.com",
+                :confirmed_at => DateTime.now,
+                :password => "joel123",
+                :password_confirmation => "joel123")
+  joel.save
 
 # Commit the indices to Solr
 Sunspot.commit

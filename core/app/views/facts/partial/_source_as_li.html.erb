@@ -1,4 +1,4 @@
-<li data-score="<%= fact_relation.percentage %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type %>">
+	<li data-score="<%= fact_relation.percentage %>" id="fl-source-<%= fact_relation.id %>" class="<%= fact_relation.type %>">
   <div class="container">
 	
 		<% if user_signed_in? %>
@@ -20,25 +20,20 @@
     		<% end %>
     	</sub>
 
-      <!-- <div class="fl-remove-fact">
-   			<%= link_to(image_tag('icons/users.png'), interacting_users_path(fact_relation.get_from_fact), :remote => true, :onclick => "$('div#dimmer').fadeIn(); $('div#fl-interacting-users').fadeIn();") %>
-  		</div> -->
-
-  		<!--
-  					Here we should check if the current user created this Factlink,
-  					if so, give him the option to remove 
-      -->
-
   		<div class="fl-clear"></div>
   	</div>
 
   	<div class="fl-clear"></div>
   </div>
   
-  <div class="fl-choices">			
-		<div class="fl-relevance-container">
+		
+	<%= fact_relation_interacting_users(fact_relation) %>
+
+
+  <div class="fl-choices fl-popup">			
+		<div class="fl-relevance-container fl-fact-dialog">
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
-		  <% if fact_relation.type == :supporting %>
+		  <% if fact_relation.type.to_sym == :supporting %>
         <span class="opinion">supports:</span>
       <% else %>
         <span class="opinion">weakens:</span>
@@ -52,7 +47,7 @@
 			<% end %>
     </div>
     
-		<div class="fl-opinion-container">
+		<div class="fl-opinion-container fl-fact-dialog">
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 		  <% if user_signed_in? %>
 			<div class="fl-opinion-toggle-buttons">
@@ -65,6 +60,6 @@
 		<div style="padding: 4px 0px 4px 0px;">
 			please sign in to add your opinion
 		</div>
-		<% end %>
+		<% end %>		
 	</div>
 </li>

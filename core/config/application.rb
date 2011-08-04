@@ -15,17 +15,24 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     
+
+    autoload :FactData, "#{config.root}/app/models/fact_data.rb"
+    autoload :User, "#{config.root}/app/models/user.rb"
+
     
-    autoload :Basefact, 'basefact'
-    autoload :Fact, 'fact'
-    autoload :FactRelation, 'fact_relation'
-    autoload :GraphUser, 'graph_user'
-    autoload :OurOhm, 'our_ohm'
-    autoload :Site, 'site'
+    autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
+    autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
+    autoload :Fact, "#{config.root}/app/ohm-models/fact.rb"
+    autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
+    autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
+    autoload :Site, "#{config.root}/app/ohm-models/site.rb"
     
-    autoload :Opinion, 'opinion'
-    autoload :Opinionable, 'opinionable'
+    autoload :Opinion, "#{config.root}/app/classes/opinion.rb"
+    autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
+    [Opinion, Opinionable, OurOhm, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+       puts "loaded " + x.to_s
+    end
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -45,7 +45,7 @@ class Users::SessionsController < Devise::SessionsController
         # Clear fact_to_create
         session[:fact_to_create] = nil
         
-        site = Site.find_or_create_by(:url => url)
+        site = Site.find_or_create_by(url)
         # Create the Fact
 
         @fact = Fact.create!()

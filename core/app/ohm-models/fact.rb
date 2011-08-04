@@ -1,14 +1,3 @@
-autoload :Basefact, 'basefact'
-autoload :Fact, 'fact'
-autoload :FactRelation, 'fact_relation'
-autoload :GraphUser, 'graph_user'
-autoload :OurOhm, 'our_ohm'
-autoload :Site, 'site'
-
-autoload :Opinion, 'opinion'
-autoload :Opinionable, 'opinionable'
-
-
 module FactDataProxy
   
   def to_s
@@ -92,6 +81,15 @@ class Fact < Basefact
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
+  
+  def self.by_display_string(displaystring)
+    fd = FactData.where(:displaystring => displaystring)
+    if fd.count > 0
+      fd.first.fact
+    else
+      nil
+    end
+  end
   
   # OHm Model needs to have a definition of which fields to render
   def to_hash

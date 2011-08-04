@@ -34,7 +34,11 @@ describe Fact do
       end
     end
   end
-
+  
+  it "should have the GraphUser set when a opinion is added" do
+    @parent.add_opinion(:beliefs, @user1.graph_user)
+    @parent.opiniated(:beliefs).to_a.should =~ [@user1.graph_user]
+  end
 
   it "should have working fact_relations" do
     @parent.add_evidence(:supporting, @factlink, @user1)
@@ -144,6 +148,7 @@ describe Fact do
       f2.displaystring.should == "This is a fact"
     end
   end
-
+  
+  it "should have a working by_display_string"
 
 end
