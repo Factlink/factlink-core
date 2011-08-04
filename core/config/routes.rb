@@ -25,7 +25,7 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/prepare" => "facts#prepare"
   match "/factlink/intermediate" => "facts#intermediate"
   
-  match "/factlink/new" => "facts#create"  
+  post "/factlink/create" => "facts#create"  
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 

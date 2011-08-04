@@ -31,7 +31,7 @@
 	<%= csrf_meta_tag %>
 </head>
 <body>
-	<%= form_for(factlink_new_path, :url => factlink_new_path, :html => { :target => "frame", :id => "form"}) do |f| %>
+	<%= form_for(factlink_create_path, :url => factlink_create_path, :html => { :target => "frame", :id => "form"}) do |f| %>
 		<input type="text" name="url" id="url" value="<%= @url %>">
 		<textarea name="passage" id="passage">
 			<%= @passage %>
