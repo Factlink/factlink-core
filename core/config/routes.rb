@@ -22,7 +22,8 @@ FactlinkUI::Application.routes.draw do
   get   "/site" => "sites#facts_for_url"  # Now defined in factlink controller
 
   # Prepare a new Fact
-  match "/factlink/prepare" => "facts#prepare"
+  match "/factlink/prepare/new" => "facts#prepare_new"
+  match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
   match "/factlink/new" => "facts#create"  
@@ -33,6 +34,10 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
 
+  # Create new facts as evidence (supporting or weakening)
+  get   "/factlink/:fact_id/add_supporting_evidence/"  => "facts#create_fact_as_supporting_evidence",  :as => "create_fact_as_supporting_evidence"
+  get   "/factlink/:fact_id/add_weakening_evidence/"   => "facts#create_fact_as_weakening_evidence",   :as => "create_fact_as_weakening_evidence"  
+  
   # Not used anymore ?
   get   "/factlink/:factlink_id/interacting_users" => "facts#interaction_users_for_factlink", :as => "interacting_users"
 

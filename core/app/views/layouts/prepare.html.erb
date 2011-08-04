@@ -90,29 +90,15 @@
 	</head>
 	<body>
 		<div id="context">
-			<ul>
-				<li class="first last">
-					<span><a href="#"><%= image_tag('icons/factlink/16.png') %> Factlink this</a></span>
-				</li>
-			</ul>
+		  <%= yield %>
 		</div>
 		<script>
-			var a = document.getElementsByTagName("a");
-		  var el = document.getElementById("context");	
-	
-			for ( var i = a.length; i--; ) {
-				a[i].onclick = function(e) {
-					// Call the parent
-					parent.createFactlink();
-					// Break the event
-					e.stopPropagation();
-				};
-			}
-			
 			document.onclick = function() {
 			  parent.remote.hide();
 			};
 			
+			var el = document.getElementById("context");	
+		  
 			function position(top, left) {
 			  el.style.top = top - 13 + "px";
 			  el.style.left = left + "px";

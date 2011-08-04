@@ -47,8 +47,12 @@ class FactsController < ApplicationController
   end
 
   # Prepare for create
-  def prepare
-    render :template => 'facts/prepare', :layout => nil
+  def prepare_new
+    render :template => 'facts/prepare_new', :layout => "prepare"
+  end
+  
+  def prepare_evidence
+    render :template => 'facts/prepare_evidence', :layout => "prepare"
   end
 
   # Prepare for create
@@ -57,44 +61,58 @@ class FactsController < ApplicationController
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
+    @fact_id = params[:fact_id]
 
     render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
-    # Creating a Fact requires a url and fact ( > displaystring )
-    # TODO: Refactor 'fact' to 'displaystring' for internal consistency
-
-    # Get or create the website on which the Fact is located
-    site = Site.find_or_create_by(:url => params[:url])
-
-    # TODO: This can be changed to use only displaystring when the above
-    # refactor is done.
-    if params[:fact]
-      displaystring = params[:fact]
-    else
-      displaystring = params[:factlink][:displaystring]
-    end
-
-    @fact = Fact.new
-    @fact.displaystring = displaystring
-    @fact.created_by = current_user.graph_user
-    @fact.site = site
-    @fact.save
-
-    # Required for the Ohm Model
-    site.facts << @fact
+    @fact = create_fact(params[:url], params[:fact])
 
     # Redirect to edit action
     redirect_to :action => "edit", :id => @fact.id
   end
 
+  def create_fact_as_supporting_evidence
+    evidence = create_fact(params[:url], params[:fact])
+    fact_id = params[:fact_id]
+    
+    @fact_relation = add_evidence(evidence.id, :supporting, fact_id)
+  end
+
+  def create_fact_as_weakening_evidence
+    evidence = create_fact(params[:url], params[:fact])
+    fact_id = params[:fact_id]
+    
+    @fact_relation = add_evidence(evidence.id, :weakening, fact_id)
+  end
+
   def add_supporting_evidence
-    add_evidence(:supporting)
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
+    
+    @fact_relation = add_evidence(evidence_id, :supporting, fact_id)
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_source_to_factlink"
+    end
   end
 
   def add_weakening_evidence
-    add_evidence(:weakening)
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
+        
+    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_source_to_factlink"
+    end
   end
 
   def destroy
@@ -267,17 +285,28 @@ class FactsController < ApplicationController
     @fact = Fact[params[:id]]
   end
   
-  def add_evidence(type) # private
-    @fact     = Fact[params[:fact_id]]
-    @evidence = Fact[params[:evidence_id]]
+  def add_evidence(evidence_id, type, fact_id) # private    
+    fact     = Fact[fact_id]
+    evidence = Fact[evidence_id]
 
-    @fact_relation = @fact.add_evidence(type, @evidence, current_user)
+    fact_relation = fact.add_evidence(type, evidence, current_user)
 
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_source_to_factlink"
-    end
+    fact_relation
   end
+  
+  def create_fact(url, displaystring) # private
+    site = Site.find_or_create_by(url)
+
+    fact = Fact.new
+    fact.displaystring = displaystring
+    fact.created_by = current_user.graph_user
+    fact.site = site
+    fact.save
+
+    # Required for the Ohm Model
+    site.facts << fact
+    
+    fact
+  end
+  
 end
