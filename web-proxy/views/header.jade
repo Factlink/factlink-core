@@ -2,12 +2,12 @@
 html
   head
     title Factlink Short URL Service
-    link(rel="stylesheet", type="text/css", href= static_url + "styles/header.css")
+    link(rel="stylesheet", type="text/css", href= static_url + "proxy/styles/header.css")
   body
     header
       form(action=".", method="GET", target="_parent")
-        a(href="#") &laquo;
+        a(href="javascript:parent.history.go(-1);") &laquo;
       
-        a(href="#") &raquo;
+        a(href="javascript:parent.history.go(1);") &raquo;
       
         input(type="text", value=url, name="url")

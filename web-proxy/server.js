@@ -8,7 +8,7 @@
 */
 
 const PROXY_URL = "http://localhost:8080/";
-const STATIC_URL = "http://localhost/proxy/";
+const STATIC_URL = "http://localhost/";
 
 // The actual server
 var server = require('express').createServer();
@@ -29,6 +29,7 @@ server.get('/parse', function(req, res) {
     req.on('complete', function(data) {
         // Replace the closing head tag with a base tag
         var html = data.replace('<head>', '<head><base href="' + site + '" />');
+        html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
 
         // Write the replaced HTML to 
         res.write( html );

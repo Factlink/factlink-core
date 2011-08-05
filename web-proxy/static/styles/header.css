@@ -67,10 +67,10 @@ form {
 }
 
 input {
-  line-height: 25px;
+  height: 26px;
   vertical-align: middle;
   font-size: 15px;
-  width: 800px;
+  padding: 0 8px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
