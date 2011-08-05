@@ -46,13 +46,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
-
-
-
-
-
+/** End reset. Thanks Eric. */
 
 
 
@@ -71,6 +65,7 @@ input {
   vertical-align: middle;
   font-size: 15px;
   padding: 0 8px;
+  width: 700px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
