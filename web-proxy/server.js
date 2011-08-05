@@ -23,13 +23,6 @@ server.get('/parse', function(req, res) {
 		// Quick fixes for visiting sites without http(s) or www
 		http_regex = new RegExp("^http(s?)");    
 		if (http_regex.test(site) === false) {
-
-			// Check if start with www
-			www_regex = new RegExp("^www.");
-			if (www_regex.test(site) === false) {
-				site = "www." + site
-			}
-
 			// Not starting with http(s), so add:
 			site = "http://" + site
 		}
