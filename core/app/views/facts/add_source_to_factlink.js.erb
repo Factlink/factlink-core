@@ -1,18 +1,13 @@
-// Hide the empty list notification
-var no_fact_message = $("div#fl-evidence > div#fl-sources li#fl-no-evidence");
-if (no_fact_message.length > 0) {
-	no_fact_message.remove();
-}
-
-
-
 /** This is new */
+
+// Close Proxy
+parent.hideProxy();
 
 // Hide the popup
 $('#fl-add-evidence').fadeOut();
 
 // Add the element
-$('div#fl-evidence > div#fl-sources > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/source_as_li', :locals => { :fact_relation => @fact_relation } )) %>");
+<%= render :partial => "facts/javascript/add_evidence_as_li.js.erb", :locals => { :fact_relation => @fact_relation } %>
 
 // Hide the evidence from potential evidence.
 el = $("li#fl-source-<%= @fact_relation.get_from_fact.id %>").hide();
