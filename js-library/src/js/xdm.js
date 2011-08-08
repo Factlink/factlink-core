@@ -11,6 +11,7 @@ Factlink.remote = new easyXDM.Rpc({
 		remote: {
 		    prepareNewFactlink: {},
 		    prepareNewEvidence: {},
+		    prepareNewFactAsEvidence: {},
 		    createFactlink: {},
 		    showFactlink: {},
 		    position: {},

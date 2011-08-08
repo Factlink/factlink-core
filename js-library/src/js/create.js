@@ -49,10 +49,8 @@
 
         // Retrieve all needed info of current selection
         var selectionInfo = Factlink.getSelectionInfo();
-        // Get the selection object
-        var selection     = selectionInfo.selection;
         // Retrieve the text from the selection
-        var text          = selection.getRangeAt(0).toString();
+        var text          = selectionInfo.selection.getRangeAt(0).toString();
 
         // Check if the selected text is long enough to be added
         if (text !== undefined && text.length > 1) {
@@ -62,7 +60,7 @@
             if (FactlinkConfig.modus === "default") {
                 Factlink.remote.prepareNewFactlink(text, selectionInfo.passage, window.location.href);
             } else if (FactlinkConfig.modus === "addToFact") {
-                Factlink.remote.prepareNewEvidence(text, selectionInfo.passage, FactlinkConfig.url || window.location.href);
+                Factlink.remote.prepareNewFactAsEvidence(text, selectionInfo.passage, FactlinkConfig.url || window.location.href);
             }
 
             // Store the time out
