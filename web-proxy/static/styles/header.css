@@ -51,8 +51,10 @@ table {
 
 
 body {
-  background: #eee;
+  background: #FBFAFA;
   border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 form {
@@ -65,12 +67,13 @@ input {
   vertical-align: middle;
   font-size: 15px;
   padding: 0 8px;
-  width: 700px;
+  margin: 0 5px 0 0;
+  width: 685px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-a {
+a.button {
   color: #777;
   padding: 4px 7px;
   margin: 0 5px 0 0;
@@ -78,6 +81,19 @@ a {
   border-radius: 5px;
   border: 1px solid #ccc;
   background: #fff;
+}
+
+a.close {
+  display: block;
+  height: 10px;
+  width: 8px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #bbb;
+  line-height: 10px;
 }
 
 a:hover {
