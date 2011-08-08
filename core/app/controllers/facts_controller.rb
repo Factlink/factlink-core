@@ -13,8 +13,7 @@ class FactsController < ApplicationController
       :prepare, 
       :intermediate, 
       :search, 
-      :indication,
-      :interaction_users_for_factlink]
+      :indication]
                                                
   before_filter :load_fact, 
     :only => [
