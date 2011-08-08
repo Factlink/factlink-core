@@ -49,10 +49,10 @@
 
 <div class="prepend-1 span-5 last">
 	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">active users</h1>
-	
+
 	<ul>
 	<% @users.all.each do |user| %>
-		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
+		<li style="list-style: none;"><%= link_to "#{user} (#{user.authority})", user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
 	<% end %>
 	</ul>
 	

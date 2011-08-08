@@ -4,6 +4,6 @@ class HomeController < ApplicationController
 
   def index
     @facts = Fact.all
-    @users = User.all
+    @users = User.all    
   end
 end

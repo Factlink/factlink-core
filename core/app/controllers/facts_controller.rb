@@ -289,6 +289,9 @@ class FactsController < ApplicationController
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
+
+
+    puts "FactsController#add_evidence.current_user: #{current_user}"
     fact_relation = fact.add_evidence(type, evidence, current_user)
 
     fact_relation

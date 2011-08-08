@@ -31,8 +31,10 @@ module FactlinkUI
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
-    [Opinionable, OurOhm,Opinion, Basefact, FactData, Fact, FactRelation, GraphUser, Site , FactGraph].each do |x|
-       puts "loaded " + x.to_s
+    autoload :Authority, "#{config.root}/app/classes/authority.rb"
+    
+    [Authority, Opinion, Opinionable, OurOhm, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+       # puts "loaded " + x.to_s
     end
     
     # Settings in config/environments/* take precedence over those specified here.
