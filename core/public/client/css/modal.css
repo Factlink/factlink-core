@@ -266,6 +266,9 @@ div.fl-modal #fl-sources ol li#fl-no-evidence a {
 div.fl-modal #fl-sources ol li#fl-no-evidence a:hover {
   text-decoration: underline;
 }
+div.fl-modal #fl-sources ol li {
+  -webkit-transition: all 0.4s ease-in-out;
+}
 div.fl-modal #fl-sources ol li.supporting {
   background: url('/images/client/supporting.png') no-repeat;
 }
@@ -454,215 +457,6 @@ div.fl-modal .fl-bottom-pane sub {
   color: #aaa;
   font-size: 10px;
 }
-div.fl-modal .fl-scroll-pane {
-  border: 1px solid #ccc;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing {
-  margin: 0px;
-  position: relative;
-  padding: 0px 0px;
-  overflow-y: auto;
-  height: 270px;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing li {
-  list-style: none;
-  padding: 12px;
-  border-bottom: 1px solid #e4e4e4;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing li span.tag {
-  font-size: 0.85em;
-  text-shadow: 0px 1px 1px #fff;
-  width: 80px;
-  display: block;
-  float: left;
-  margin-top: 2px;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing li span.believer {
-  color: #698146;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing li span.doubter {
-  color: #d8c358;
-}
-div.fl-modal .fl-scroll-pane .fl-user-listing li span.disbeliever {
-  color: #CC0000;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources {
-  background: #fafafa;
-  background: url('/images/texture.png');
-  box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  height: 250px;
-  overflow-y: auto;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li {
-  display: block;
-  border-bottom: 1px solid #ccc;
-  padding: 28px 0px 18px 35px;
-  position: relative;
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fdfdfd), color-stop(1, #eeeeee));
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li h4 {
-  color: #999;
-  font-weight: 400;
-  margin: 0;
-  line-height: 16px;
-  font-size: 1.0em;
-  padding: 0px;
-  margin: 0px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li p {
-  color: #888;
-  font-weight: 200;
-  margin: 2px 0px 6px 0px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li hr {
-  border-left: 0px;
-  border-right: 0px;
-  border-top: solid 1px #ddd;
-  border-bottom: solid 1px #fff;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-scroll-pane ol.fl-sources li a {
-  color: #909090;
-  font-weight: 200;
-  font-size: 0.95em;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up {
-  background: url('../images/vote-up.png') no-repeat center center;
-  padding: 6px 8px 2px 8px;
-  left: 6px;
-  top: 0px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up:hover {
-  background: url('../images/vote-up-hover.png') no-repeat center center;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
-  background: url('../images/vote-down.png') no-repeat center center;
-  padding: 0px 8px 6px 8px;
-  left: 6px;
-  top: 34px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down:hover {
-  background: url('../images/vote-down-hover.png') no-repeat center center;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-score {
-  width: 28px;
-  font-size: 0.9em;
-  text-align: center;
-  color: #bbb;
-  left: 4px;
-  top: 18px;
-  position: absolute;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.believe {
-  background: #bada55;
-  opacity: 0.3;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.doubt {
-  background: #ffd324;
-  opacity: 0.3;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.disbelieve {
-  background: #ce0000;
-  opacity: 0.3;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
-  border: solid 1px #ccc;
-  border-radius: 3px;
-  margin-left: 4px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span {
-  display: block;
-  border-bottom: 0px !important;
-  margin: 0px;
-  padding: 0px;
-  width: 24px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.believe:hover, div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.doubt:hover, div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.disbelieve:hover {
-  opacity: 0.6 !important;
-  -webkit-transition: all 0.1s ease-in-out;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.believe {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container span.disbelieve {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container a {
-  text-decoration: none;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
-  left: 0px;
-  position: absolute;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.active {
-  opacity: 1.0 !important;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-up, div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-down {
-  display: inline-block;
-  width: 8px;
-  height: 7px;
-  cursor: pointer;
-  position: absolute;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-vote-container {
-  left: 0px;
-  position: absolute;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div#fl-link-type {
-  box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
-  border-bottom-right-radius: 5px;
-  border-bottom: solid 1px #fff;
-  border-right: solid 1px #fff;
-  background: #999;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 3px 10px 5px 10px;
-  font-size: 0.8em;
-  color: #fff;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-statement-title {
-  display: block;
-  color: #888;
-  font-weight: 400;
-  margin: 0;
-  line-height: 16px;
-  font-size: 1.0em;
-  padding: 0px 0px 12px 0px;
-  margin: 0px;
-  width: 330px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact {
-  height: 60px;
-  width: 16px;
-  position: absolute;
-  top: 10px;
-  right: 6px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact img {
-  opacity: 0.2;
-  -webkit-transition: all 0.2s ease-in-out;
-  margin-bottom: 12px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-remove-fact img:hover {
-  opacity: 1.0;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li div.fl-source-information {
-  padding: 2px 0px 6px 0px;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source, div.fl-modal .fl-scroll-pane ol.fl-sources li a, div.fl-modal .fl-scroll-pane ol.fl-sources li span.fl-source-created-by {
-  color: #888;
-  font-weight: 200;
-  text-shadow: 0px 1px 1px #fff;
-}
-div.fl-modal .fl-scroll-pane ol.fl-sources li a:hover {
-  color: #555;
-}
 div.fl-modal div#fl-add-evidence {
   display: none;
   left: -1px;
@@ -718,8 +512,6 @@ div.fl-modal div#fl-add-evidence span.message a:hover {
 }
 div.fl-modal div#fl-add-evidence div.fl-evidence-list {
   height: 265px;
-  /*			height: 300px;*/
-
 }
 div.fl-clear {
   clear: both;
@@ -734,20 +526,18 @@ div.fl-sign-in-container {
 }
 div.sign-in {
   border-bottom: solid 1px #ccc;
-  /*	padding-bottom: 24px;*/
-
 }
 iframe.proxyFrame {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 50%;
+  margin-left: -400px;
   width: 800px;
-  height: 400px;
+  height: 500px;
   border: solid 1px #777;
   z-index: 900;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
 }
-/*style="padding: 6px 0px 0px 46px;"*/
 ::-webkit-scrollbar {
   width: 4px;
   height: 6px;

@@ -113,6 +113,16 @@ class FactsController < ApplicationController
       render "add_source_to_factlink"
     end
   end
+  
+  def add_new_evidence
+    type = params[:type].to_sym
+    
+    if type == :weakening
+      self.add_weakening_evidence
+    elsif type == :supporting
+      self.add_supporting_evidence
+    end
+  end
 
   def destroy
     if current_user.graph_user == @fact.created_by
