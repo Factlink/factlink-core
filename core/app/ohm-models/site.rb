@@ -2,7 +2,11 @@ class Site < OurOhm
   attribute :url
   index :url
 
-  set :facts, Fact
+  collection :facts, Fact
+  
+  def validate
+    #assert_url :url
+  end
   
   # More Rails like behaviour:
   def Site.first
@@ -25,8 +29,8 @@ class Site < OurOhm
   end
   
   def Site.find_or_create_by(url)
-    # This feels not so nice, but is the quickest way to get the site
-    site = Site.find(:url => url).to_a[0]
+
+    site = Site.find(:url => url).first
 
     unless site
       site = Site.new(:url => url)

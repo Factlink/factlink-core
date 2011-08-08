@@ -28,7 +28,7 @@ class Basefact < OurOhm
     url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
-  def toggle_opinion(type, user)
+  def toggle_opinion(type, user)    
     if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)

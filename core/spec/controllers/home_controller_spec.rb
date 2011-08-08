@@ -19,6 +19,7 @@ describe HomeController do
     end
 
     it "should have the right title" do
+      pending
       get :index      
       response.should have_selector('h1', :content => "credibility you can see")
     end

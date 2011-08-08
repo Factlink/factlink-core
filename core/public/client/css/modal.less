@@ -54,12 +54,35 @@ div.fl-modal {
       position: relative;
       top: -1px;
     }
+		&:hover {
+			cursor: pointer;
+		}
   }
   
+	div.fl-arrow {
+		border-top: solid 1px #999;
+		border-right: solid 1px #999;
+
+		height: 10px;
+		width: 10px;
+		
+		position: absolute;
+		top: -6px;
+		left: 56px;
+		
+		-webkit-transform: rotate(-58deg) skew(-20deg);
+		
+		background: rgb(251, 250, 250);
+	}
+
   // The stats box
   div.fl-stats {
     float: left;
 
+    h2 {
+        border-bottom: 1px dashed #ddd;
+			}
+		
     ul.fl-stats-bar {
       margin: 0;
       padding: 0;
@@ -162,7 +185,15 @@ div.fl-modal {
     }
   }
   
-  #fl-filter-bar ul,
+	// Default popup settings
+	.fl-popup {
+		background: #f9f9f9;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
+		z-index: 1001;
+	}
+
+  .fl-filter-bar ul,
   .fl-choices ul {
     list-style: none;
     display: inline-block;
@@ -203,8 +234,23 @@ div.fl-modal {
       }
     }
   }
-  
-  #fl-filter-bar {
+
+	// Duped for popup in header of show
+  // Popup that will show the interacting users
+	.fl-users {
+		display: none;
+		
+		&.active {
+			display: block;
+			padding: 5px 0px 0;
+		}	
+		
+		h2.from_fact {
+			border-bottom: none;
+		}
+	}
+	
+  .fl-filter-bar {
     text-align: center;
     background: url('/images/client/filter-bar.png') repeat-x;
     color: #999;
@@ -219,7 +265,38 @@ div.fl-modal {
     z-index: 10;
     position: relative;
   }
-  
+
+	.fl-fact-dialog {
+		text-align: center;
+    h2 {
+      font-family: Georgia, "Times New Roman", Garamond, serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 15px;
+    
+      color: #333;
+    
+      width: 350px;
+      margin: 0 -10px;
+      padding: 10px;
+    
+      &.to_fact {
+        border-bottom: 1px dashed #ddd;
+      }
+    }
+	}
+	
+	li.message {
+		text-align: center;
+    color: #989898;
+    font-size: 12px;
+    font-style: italic;
+    border: none;
+		margin-top: 24px;
+		line-height: 18px;
+	}
+
+
   #fl-sources {
     position: relative;
 		background: #fbfafa;
@@ -234,16 +311,6 @@ div.fl-modal {
       min-height: 100px;
       max-height: 300px;
       overflow-y: scroll;
-
-			li.message {
-				text-align: center;
-        color: #989898;
-        font-size: 12px;
-        font-style: italic;
-        border: none;
-				margin-top: 24px;
-				line-height: 18px;
-			}
 
 			li#fl-no-evidence {
         line-height: 48px;
@@ -362,7 +429,7 @@ div.fl-modal {
           }
         }
       }
-      
+			
       // Popup that will let the user make a choice
       .fl-choices {
         display: none;
@@ -375,17 +442,12 @@ div.fl-modal {
         margin: -45px 0 0 0;
         padding: 5px 10px 0;
         text-align: center;
-        
-        background: #f9f9f9;
-        border: 1px solid #999;
-        
-        box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 
         &.active {
           display: block;
         }
         
-        h2 {
+/*        h2 {
           font-family: Georgia, "Times New Roman", Garamond, serif;
           font-weight: normal;
           font-style: italic;
@@ -400,7 +462,7 @@ div.fl-modal {
           &.to_fact {
             border-bottom: 1px dashed #ddd;
           }
-        }
+        }*/
         
         span.opinion {
           font-weight: bold;
@@ -472,7 +534,7 @@ div.fl-modal {
 
   
   .fl-bottom-pane {
-	z-index: 1000;
+		z-index: 1000;
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
@@ -504,8 +566,7 @@ div.fl-modal {
   .fl-scroll-pane {
 	  border: 1px solid #ccc;
 
-  	ol#fl-users {
-  		box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
+  	.fl-user-listing {
 		
   		margin: 0px;
   		position: relative;
@@ -515,9 +576,9 @@ div.fl-modal {
   		height: 270px;
 		  
   		li {
-  			list-style: none;					
+  			list-style: none;
   			padding: 12px;
-  			background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+				border-bottom: 1px solid #e4e4e4;
 			
   			span.tag {
   				font-size: 0.85em;
@@ -529,11 +590,11 @@ div.fl-modal {
   			}
 			
   			span.believer {
-  				color: #BADA55;
+  				color: rgb(105, 129, 70);
   			}
 			
   			span.doubter {
-  				color: #FFD324;
+  				color: rgb(216, 195, 88);
   			}
 			
   			span.disbeliever {

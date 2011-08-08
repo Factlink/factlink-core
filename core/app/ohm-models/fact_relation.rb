@@ -43,14 +43,11 @@ class FactRelation < Basefact
     "factlink:#{evidence.id}:#{type}:#{fact.id}"
   end
 
-
   def percentage
     (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight + 0.00001)).to_i
   end
 
-
   def get_type_opinion
-
     # Just to be sure: parse to Symbol
     case self.type.to_sym
     when :supporting
@@ -58,7 +55,6 @@ class FactRelation < Basefact
     when :weakening
       Opinion.for_type(:disbeliefs)
     end
-
   end
 
   deprecate
@@ -66,8 +62,8 @@ class FactRelation < Basefact
     from_fact
   end
 
+  deprecate
   def get_to_fact
-    deprecate
     fact
   end
 
@@ -102,11 +98,8 @@ class FactRelation < Basefact
   def get_influencing_opinion
     self.influencing_opinion || Opinion.identity
   end
-
-
   
   def get_opinion
     self.user_opinion || Opinion.identity
   end
-  
 end

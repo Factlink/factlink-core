@@ -31,6 +31,10 @@ class OurOhm < Ohm::Model
     x
   end
 
+  def assert_url(att, error = [ att , :not_url ] )
+   assert send(att).to_s =~ /^http/, error
+  end
+  
 end
 
 class Ohm::Model::Set < Ohm::Model::Collection
