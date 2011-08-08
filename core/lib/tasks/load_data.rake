@@ -12,7 +12,6 @@ def get_file(file)
   return File.join(dump_dir, file_name)
 end
 
-
 namespace :db do
   namespace :init do
 
@@ -24,6 +23,9 @@ namespace :db do
           puts "Imported #{file} succesfully"
         end
       end
+      
+      doMagic
+      
     end
 
     task :list do
