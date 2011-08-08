@@ -77,8 +77,23 @@ class FactRelation < Basefact
     super
   end
 
+  def self.opinion_reference(name)
+    opinion_id = :"#{name}_id"
+    attribute opinion_id
+        
+    define_method("#{name}=") do |opinion|
+      self.influencing_opinion_id = opinion.id
+    end
+    
+  end
 
-  reference :influencing_opinion, Opinion
+  opinion_reference :influencing_opinion
+
+  
+  def influencing_opinion
+    Opinion[self.influencing_opinion_id]  
+  end  
+  
   def calculate_influencing_opinion
     self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion, self.user_opinion).save
     save
@@ -87,6 +102,8 @@ class FactRelation < Basefact
   def get_influencing_opinion
     self.influencing_opinion || Opinion.identity
   end
+
+
   
   def get_opinion
     self.user_opinion || Opinion.identity

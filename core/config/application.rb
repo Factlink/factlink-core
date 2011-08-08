@@ -21,6 +21,7 @@ module FactlinkUI
 
     
     autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
+    autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
     autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
     autoload :Fact, "#{config.root}/app/ohm-models/fact.rb"
     autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
@@ -30,7 +31,7 @@ module FactlinkUI
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
-    [Opinionable, OurOhm,Opinion, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+    [Opinionable, OurOhm,Opinion, Basefact, FactData, Fact, FactRelation, GraphUser, Site , FactGraph].each do |x|
        puts "loaded " + x.to_s
     end
     
