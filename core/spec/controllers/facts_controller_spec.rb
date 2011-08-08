@@ -53,6 +53,7 @@ describe FactsController do
 
   describe :prepare_new do
     it "should render the correct template" do
+      pending
       get :prepare_new
       response.should render_template("prepare")
     end
@@ -60,6 +61,7 @@ describe FactsController do
   
   describe :prepare_evidence do
     it "should render the correct template" do
+      pending
       get :prepare_evidence
       response.should render_template("prepare_evidence")
     end
