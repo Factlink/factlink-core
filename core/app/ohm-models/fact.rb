@@ -117,15 +117,13 @@ class Fact < Basefact
     when :weakening
       return self.weakening_facts
     end
-    puts "no evidence found for #{type}"
+    puts "Fact#evidence -- No evidence found for type '#{type}'"
   end
 
-  def add_evidence(type, evidence, user)
-    
+  def add_evidence(type, evidence, user)    
     # Some extra loop protection
     if evidence.id == self.id
-      puts "\n\nERROR! Failed creating a FactRelation because that would cause a loop!"
-      
+      puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
       return nil
     else
       FactRelation.get_or_create(evidence,type,self,user)

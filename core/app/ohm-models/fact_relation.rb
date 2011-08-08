@@ -28,7 +28,7 @@ class FactRelation < Basefact
     fl.fact = to
     fl.type = type
     #TODO enable this again:
-    fl.created_by = user
+    fl.created_by = user.graph_user
 
     to.evidence(type) << fl
 

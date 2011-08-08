@@ -13,8 +13,6 @@ describe FactRelation do
     
   end
 
-
-
   describe "percentages should work logical" do
     it "should have a percentage of 0 when new" do
       pending
@@ -27,8 +25,13 @@ describe FactRelation do
     it "should return a new factrelation when the relation does not exist" do
       @fact1 =FactoryGirl.create(:fact)
       @fact2 =FactoryGirl.create(:fact)
-      @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
+      @fr = FactRelation.get_or_create(@fact1, :supporting, @fact2, @users[0])
       @fr.should be_a(FactRelation)
+    end
+    
+    it "should have a created_by GraphUser when created" do
+      @fr = FactRelation.get_or_create(@evidence[0], :supporting, @parent, @users[0])
+      @fr.created_by.should be_a(GraphUser)
     end
 
     it "should find the relation when the relation does exist" do

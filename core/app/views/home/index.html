@@ -52,7 +52,7 @@
 
 	<ul>
 	<% @users.all.each do |user| %>
-		<li style="list-style: none;"><%= link_to user, user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
+		<li style="list-style: none;"><%= link_to "#{user} (#{user.authority})", user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
 	<% end %>
 	</ul>
 	
