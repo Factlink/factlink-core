@@ -3,6 +3,11 @@ module GraphUserProxy
 
 
   deprecate
+  def authority
+    graph_user.authority
+  end
+
+  deprecate
   # this is the list of facts the user created
   def facts
     graph_user.created_facts.find_all {|fact| fact.class == Fact }

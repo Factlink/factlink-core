@@ -19,7 +19,7 @@ class Authority
     
     auth = derived_facts_count.inject(1.0) { |sum, fact_relation_count | sum + Math.log(fact_relation_count) }
     
-    return auth
+    return ("%.1f" % auth).to_f
   end
 
 end
