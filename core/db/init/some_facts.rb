@@ -15,3 +15,4 @@ fact 'example is example'
 fact 'ex'
 
 fact_relation 'je moeder',:supporting,'example is examples'
+fact_relation 'He fights an assortment of villains such as the Joker, the Penguin, Two-Face, Poison Ivy and Catwoman', :supporting, 'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger'
