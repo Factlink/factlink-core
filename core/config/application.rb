@@ -33,7 +33,7 @@ module FactlinkUI
     
     autoload :Authority, "#{config.root}/app/classes/authority.rb"
     
-    [OurOhm, Authority, Opinion, Opinionable, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+    [OurOhm, Authority, FactGraph, Opinion, Opinionable, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
        puts "loaded " + x.to_s
     end
     
