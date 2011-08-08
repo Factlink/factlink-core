@@ -1,284 +1,186 @@
 class FactsController < ApplicationController
 
-  helper_method :sort_column, :sort_direction
-
-  before_filter :store_fact_for_non_signed_in_user, :only => [:create]
-
-  # Change this to :except, in stead of :only. 
-  before_filter :authenticate_user!, :only => [:new, 
-    :edit, 
-    :create, 
-    :update,
-    :add_factlink_to_parent,
-    :remove_factlink_from_parent,
-    :believe,
-    :doubt,
-    :disbelieve,
-    :set_opinion,
-    :add_supporting_evidence,
-    :add_weakening_evidence
-    ]
-  
   layout "client"
   
+  helper_method :sort_column, :sort_direction
+
+  before_filter :store_fact_for_non_signed_in_user, 
+    :only => [:create]
+
+  before_filter :authenticate_user!, 
+    :except => [
+      :show, 
+      # :prepare_new,
+      # :prepare_evidence, 
+      :intermediate, 
+      :search, 
+      :indication]
+                                               
+  before_filter :load_fact, 
+    :only => [
+      :show,
+      :edit,
+      :destroy,
+      :update]
+                                                        
+  before_filter :potential_evidence, 
+    :only => [
+      :show,
+      :edit]
+
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
   def store_fact_for_non_signed_in_user
     unless user_signed_in?
       session[:fact_to_create] = params
-    end    
-  end
-
-  def factlinks_for_url
-    url = params[:url]
-    site = Site.first(:conditions => { :url => url })
-    
-    @factlinks = if site
-                 then site.facts
-                 else []
-                 end
-
-    # Render the result with callback, 
-    # so JSONP can be used (for Internet Explorer)
-    render :json => @factlinks.to_json( :only => [:_id, :displaystring], :methods => :score_dict_as_percentage  ), 
-                                        :callback => params[:callback]  
+    end
   end
 
   def show
-    @fact = Fact.find(params[:id])
-    
-    # TODO: Generate ajax request for potential sources
-    # All sources that are not part of this factlink yet
+  end
 
-    # Create copy of ids array
-    # not_allowed_child_ids = Array.new(@factlink.child_ids)
-    # not_allowed_child_ids << @factlink.id
-    
-    # not_allowed_parent_ids = Array.new(@factlink.parent_ids)
-    # not_allowed_parent_ids << @factlink.id
-    
-    # @potential_childs = Fact.not_in( :_id => not_allowed_child_ids )
-    # @potential_parents = Fact.not_in( :_id => not_allowed_parent_ids )
-    
-    # TODO: Only show potential 'childs' and 'parents'
-    @potential_childs = Fact.facts
-    @potential_parents = Fact.facts
-  end
-  
   def new
-    @factlink = Fact.new
+    @fact = Fact.new
   end
-  
+
   def edit
-    @factlink = Fact.find(params[:id])
   end
-  
+
   # Prepare for create
-  def prepare
-    render :template => 'facts/prepare', :layout => nil
+  def prepare_new
+    render :template => 'facts/prepare_new', :layout => "prepare"
   end
   
+  def prepare_evidence
+    render :template => 'facts/prepare_evidence', :layout => "prepare"
+  end
+
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
-    
-    case params[:the_action]
-    when "prepare"
-      @path = "factlink_prepare_path"
-    when "show"
-      @path = "factlink_show_path(%x)" % :id
-    else
-      @path = ""
-    end
 
     render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
-    # Creating a Fact requires a url and fact ( > displaystring )
-    # TODO: Refactor 'fact' to 'displaystring' for internal consistency
-    
-    # Get or create the website on which the Fact is located
-    site = Site.find_or_create_by(:url => params[:url])
-
-
-    # TODO: This can be changed to use only displaystring when the above
-    # refactor is done.
-    if params[:fact]
-      displaystring = params[:fact]
-    else
-      displaystring = params[:factlink][:displaystring]
-    end
-    
-    # Create the Fact
-    @factlink = Fact.create!(:displaystring => displaystring, 
-                             :created_by => current_user,
-                             :site => site)
+    @fact = create_fact(params[:url], params[:fact])
 
     # Redirect to edit action
-    redirect_to :action => "edit", :id => @factlink.id
+    redirect_to :action => "edit", :id => @fact.id
   end
-  
+
+  def create_fact_as_evidence
+    evidence = create_fact(params[:url], params[:fact])
+    fact_id = params[:fact_id]
+
+    type = params[:type].to_sym
+    
+    puts "Ev: #{evidence}"
+    puts "Fid: #{fact_id}"
+    puts "Type: #{type}"
+    
+    @fact_relation = add_evidence(evidence.id, type, fact_id)
+  end
+
   def add_supporting_evidence
-    # Add existing evidence to a Fact
-    @fact     = Fact.find(params[:fact_id])
-    @evidence = Fact.find(params[:evidence_id])
-
-    @factlink = @fact.add_evidence(:supporting, @evidence, current_user)
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
     
-    render "add_source_to_factlink"
+    @fact_relation = add_evidence(evidence_id, :supporting, fact_id)
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_source_to_factlink"
+    end
   end
-  
+
   def add_weakening_evidence
-    # Add existing evidence to a Fact
-    @fact     = Fact.find(params[:factlink_id])
-    @evidence = Fact.find(params[:evidence_id])
-
-    @factlink = @fact.add_evidence(:weakening, @evidence, current_user)
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
+        
+    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
     
-    render "add_source_to_factlink"
-  end
-
-
-
-  # Adding the current fact to another existing fact as evidence
-  # Is this still the way we want to use this in the future UI?
-  def add_factlink_to_parent_as_supporting
-    # Add a Fact as source for another Fact
-    @fact     = Fact.find(params[:fact_id])
-    @evidence = Fact.find(params[:evidence_id])
-    
-    # Is this correct?
-    @factlink = FactRelation.get_or_create(@evidence, :supporting, @fact, current_user)
-    
-    render "add_factlink_to_parent"
-  end
-  
-  
-  # Adding the current fact to another existing fact as evidence
-  # Is this still the way we want to use this in the future UI?
-  def add_factlink_to_parent_as_weakening
-    # Add a Fact as source for another Fact
-    @factlink = Fact.find(params[:factlink_id])
-    @parent   = Fact.find(params[:parent_id])
-
-    # Is this correct?
-    @factlink = FactRelation.get_or_create(@evidence, :weakening, @fact, current_user)
-    
-    render "add_factlink_to_parent"
-  end
-  
-  
-  
-  def remove_factlink_from_parent
-    
-    # TODO: Only allow if user added the source earlier on
-    
-    # Remove a Fact from it's parent
-    @factlink = Fact.find(params[:factlink_id])
-    parent    = Fact.find(params[:parent_id])
-    
-    if @factlink.added_to_parent_by_current_user(parent, current_user)
-      # Only remove if the user added this source
-      puts "Removing child"
-      parent.remove_child(@factlink)
-      parent.save
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_source_to_factlink"
     end
   end
   
-  
-  
+  def add_new_evidence
+    type = params[:type].to_sym
+    
+    if type == :weakening
+      self.add_weakening_evidence
+    elsif type == :supporting
+      self.add_supporting_evidence
+    end
+  end
+
+  def destroy
+    if current_user.graph_user == @fact.created_by
+      @fact_id = @fact.id
+      @fact.delete_cascading
+    end
+  end
 
   def update
-    @factlink = Fact.find(params[:id])
+    @factlink = Fact[params[:id]]
 
     respond_to do |format|
       if @factlink.update_attributes(params[:factlink])
-        format.html { redirect_to(@factlink, 
-                      :notice => 'Factlink top was successfully updated.') }
+        format.html { redirect_to(@factlink,
+          :notice => 'Factlink top was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end
     end
   end
-  
-  def believe
-    parent = Fact.find(params[:parent_id])
 
-    @factlink = Fact.find(params[:id])
-    @factlink.add_opinion(:beliefs, current_user, parent)
-
-    render "update_source_li"
-  end
-  
-  def doubt
-    parent = Fact.find(params[:parent_id])
-    
-    @factlink = Fact.find(params[:id])
-    @factlink.add_opinion(:doubts, current_user, parent)
-
-    render "update_source_li"
-  end
-  
-  def disbelieve
-    parent = Fact.find(params[:parent_id])
-
-    @factlink = Fact.find(params[:id])
-    @factlink.add_opinion(:disbeliefs, current_user, parent)
-
-    render "update_source_li"
-  end
-  
-  def toggle_opinion
+  # Set or unset the opinion on a FactRelation
+  def toggle_opinion_on_fact
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
-    
-    if allowed_types.include?(type)
-      @type = type
-      
-      @parent = Fact.find(params[:parent_id])
 
-      @factlink = Fact.find(params[:child_id])
-      @factlink.toggle_opinion(current_user, type, @parent)
-    else   
+    if allowed_types.include?(type)
+      @fact_relation = FactRelation[params[:fact_relation_id]]
+      @fact_relation.get_from_fact.toggle_opinion(type, current_user.graph_user)
+    else
       render :json => {"error" => "type not allowed"}
       return false
     end
   end
-  
-  def set_relevance
-    
-    fact_relation = FactRelation.find(params[:fact_relation_id])
-    
-    # TODO: validate the type
+
+  # Set or unset the relevance on a FactRelation
+  def toggle_relevance_on_fact_relation
+    allowed_types = ["beliefs", "doubts", "disbeliefs"]
     type = params[:type]
-    
-    # TODO fix after merge
-    # fact_relation.
+
+    if allowed_types.include?(type)
+      @fact_relation = FactRelation[params[:fact_relation_id]]
+      @fact_relation.toggle_opinion(type, current_user.graph_user)
+    else
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
   end
-  
-  
-  # Users that interacted with this Fact
-  def interaction_users_for_factlink
-    @fact         = Fact.find(params[:factlink_id])
-    
-    @believers    = @factlink.opiniated(:beliefs)
-    @doubters     = @factlink.opiniated(:doubts)
-    @disbelievers = @factlink.opiniated(:disbeliefs)    
-    
-  end
-  
-  # Search 
+
+  # Search
+  # Not using the same search for the client popup, since we probably want\
+  # to use a more advanced search on the Factlink website.
   def search
     @row_count = 50
-    row_count = 50
-     
-    if params[:s] 
-      solr_result = Fact.search() do
+    row_count = @row_count
+
+    if params[:s]
+      solr_result = FactData.search() do
 
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
@@ -287,42 +189,127 @@ class FactsController < ApplicationController
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
         end
-
       end
-      
+
       @factlinks = solr_result.results
     else
       # will_paginate sorting doesn't work very well on arrays.. Fixed it..
       @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
         start = (pager.current_page-1)*row_count
-        
+
         # Sorting & filtering done by mongoid
-        results = Fact.all(:sort => [[sort_column, sort_direction]]).with_site_as_parent.skip(start).limit(row_count).to_a
-        
+        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
         pager.replace(results)
       end
     end
-        
+
     respond_to do |format|
       format.html { render :layout => "accounting" }# search.html.erb
       format.js
     end
   end
-  
+
+  # Search in the client popup.
+  def client_search
+    # Need fact for rendering in the template
+    @fact = Fact[params[:fact_id].to_i]
+
+    @row_count = 20
+    row_count = @row_count
+
+    if params[:s]
+      solr_result = FactData.search() do
+
+        keywords params[:s], :fields => [:displaystring]
+        order_by sort_column, sort_direction
+        paginate :page => params[:page] , :per_page => row_count
+
+        adjust_solr_params do |sunspot_params|
+          sunspot_params[:rows] = row_count
+        end
+      end
+
+      @fact_data = solr_result.results
+    else
+      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
+      @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
+        start = (pager.current_page-1)*row_count
+
+        # Sorting & filtering done by mongoid
+        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
+        pager.replace(results)
+      end
+    end
+
+    # Return the actual Facts in stead of FactData
+    @facts = @fact_data.map { |fd| fd.fact }
+    potential_evidence
+
+    # Exclude the Facts that are already supporting AND weakening
+    @facts = @facts & potential_evidence.to_a
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def indication
     respond_to do |format|
       format.js
     end
   end
-  
+
   private
-  def sort_column
+  def sort_column # private
     Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
-  
-  def sort_direction
+
+  def sort_direction # private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
+
+  def potential_evidence # private
+    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+    # and filtering. Can't use the object ID, so using a workaround with :data_id's
+    # Very nasty :/
+    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
+    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+    
+    intersecting_ids = supporting_fact_ids & weakening_fact_ids
+    intersecting_ids << @fact.data_id
+    
+    @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
+  end    
+
+  def load_fact # private
+    @fact = Fact[params[:id]]
+  end
   
+  def add_evidence(evidence_id, type, fact_id) # private    
+    fact     = Fact[fact_id]
+    evidence = Fact[evidence_id]
+
+
+
+    puts "FactsController#add_evidence.current_user: #{current_user}"
+    fact_relation = fact.add_evidence(type, evidence, current_user)
+
+    fact_relation
+  end
+  
+  def create_fact(url, displaystring) # private
+    site = Site.find_or_create_by(url)
+
+    fact = Fact.new
+    fact.displaystring = displaystring
+    fact.created_by = current_user.graph_user
+    fact.site = site
+    fact.save
+
+    # Required for the Ohm Model
+    site.facts << fact
+    
+    fact
+  end
   
 end

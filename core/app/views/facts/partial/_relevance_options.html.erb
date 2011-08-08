@@ -1,19 +1,13 @@
-<style>
-	div#fl-relevance-container span {
-		padding: 2px 12px;
-	}
+<ul>	
+	<li<%= active_class_for_type_and_fact(:beliefs, fact_relation) %>>
+		<%= link_to("<span>agree</span>".html_safe, relevance_path(fact_relation.id, :beliefs), :remote => true) %>
+	</li>
 
-	div#fl-relevance-container span.active { 
-			border: solid 1px white;
-			background-color: #888;
-			color: white;
-			border-radius: 16px;
-			text-decoration: none;
-			text-shadow: nonefactlink;
-	}
-
-</style>
-
-<%= link_to("<span class=\"relevant #{relevance_class_on_fact(:beliefs, fact_relation)}\">Relevant</span>".html_safe, relevance_path(fact_relation, :beliefs), :remote => true) %>
-<%= link_to("<span class=\"might-be-relevant #{relevance_class_on_fact(:doubts, fact_relation)}\">Might be relevant</span>".html_safe, relevance_path(fact_relation, :doubts), :remote => true) %>
-<%= link_to("<span class=\"not-relevant #{relevance_class_on_fact(:disbeliefs, fact_relation)}\">Not relevant</span>".html_safe, relevance_path(fact_relation, :disbeliefs), :remote => true) %>
+	<li<%= active_class_for_type_and_fact(:doubts, fact_relation) %>>
+		<%= link_to("<span>doubt</span>".html_safe, relevance_path(fact_relation.id, :doubts), :remote => true) %>
+	</li>
+	
+	<li<%= active_class_for_type_and_fact(:disbeliefs, fact_relation) %>>
+		<%= link_to("<span>disagree</span>".html_safe, relevance_path(fact_relation.id, :disbeliefs), :remote => true) %>
+	</li>
+</ul>

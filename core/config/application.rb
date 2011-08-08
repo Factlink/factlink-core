@@ -13,6 +13,29 @@ module FactlinkUI
     # Auto load files in lib directory
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
+    config.autoload_paths << "#{config.root}/app/ohm-models"
+    
+
+    autoload :FactData, "#{config.root}/app/models/fact_data.rb"
+    autoload :User, "#{config.root}/app/models/user.rb"
+
+    
+    autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
+    autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
+    autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
+    autoload :Fact, "#{config.root}/app/ohm-models/fact.rb"
+    autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
+    autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
+    autoload :Site, "#{config.root}/app/ohm-models/site.rb"
+    
+    autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
+    autoload :Opinionable, "#{config.root}/app/classes/opinionable"
+    
+    autoload :Authority, "#{config.root}/app/classes/authority.rb"
+    
+    [OurOhm, Authority, FactGraph, Opinion, Opinionable, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+       puts "loaded " + x.to_s
+    end
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -49,5 +72,6 @@ module FactlinkUI
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
   end
 end

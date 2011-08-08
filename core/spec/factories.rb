@@ -7,13 +7,35 @@ FactoryGirl.define do
     "johndoe#{n}"
   end
   
+  
+  
   factory :user do
     # first_name 'John'
     # last_name  'Doe'
     username
-    email 
+    email
     password '123hoi'
     password_confirmation '123hoi'
+  end
+
+  factory :fact_data do
+  end
+  
+  factory :basefact do
+  end
+
+  factory :fact do
+    association :data, :factory => :fact_data
+    association :created_by, :factory => :graph_user
+  end
+  
+  factory :graph_user do
+  end
+  
+  factory :site do
+  end
+  
+  factory :fact_relation do
   end
 
 end

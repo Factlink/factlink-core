@@ -18,12 +18,14 @@ a:hover {
 div.fl-modal {
   position: relative;
   top: 40px;
-    
+
+	border: solid 1px #bbb;
+/*	min-height: 524px;*/
   padding: 0;
   margin:  0 auto;
   width: 425px;
   
-  background: #f8f8f8;
+  background: #FBFAFA;
   color: #777;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -52,52 +54,95 @@ div.fl-modal {
       position: relative;
       top: -1px;
     }
+		&:hover {
+			cursor: pointer;
+		}
+  }
+  
+	div.fl-arrow {
+		border-top: solid 1px #999;
+		border-right: solid 1px #999;
+
+		height: 10px;
+		width: 10px;
+		
+		position: absolute;
+		top: -6px;
+		left: 56px;
+		
+		-webkit-transform: rotate(-58deg) skew(-20deg);
+		
+		background: rgb(251, 250, 250);
+	}
+
+  // The stats box
+  div.fl-stats {
+    float: left;
+
+    h2 {
+        border-bottom: 1px dashed #ddd;
+			}
+		
+    ul.fl-stats-bar {
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+      position: relative;
+      overflow: hidden;
+
+      li {
+        float: left;
+        position:absolute;
+        text-indent:99999px;
+        cursor: pointer;
+
+
+        &.fl-bar-believe {
+          background: #52d623;
+        }
+
+        &.fl-bar-doubt {
+          background: #ffe400;
+        }
+
+        &.fl-bar-disbelieve {
+          background: #ff6136;
+        }
+      }
+    }
   }
   
   #fl-top-pane {
     min-height: 100px;
     padding: 15px 10px 0;
-    background: url('/images/client/top-pane-gradient.png') repeat-x;
+    background: url('/images/client/top-pane-gradient.png') repeat-x #f4f4f4;
     
-    // The stats box
+    // Custom stats
     div.fl-stats {
-      float: left;
       width: 77px;
-
+      
       ul.fl-stats-bar {
         width: 75px;
         height: 75px;
-
+        
         background: url('/images/client/graph.png') no-repeat #fcfcfc;
-        margin: 0;
-        padding: 0;
-
-        list-style: none;
-        position: relative;
-        overflow: hidden;
-
+        
         li {
           width: 17px;
-          float: left;
-          position:absolute;
           bottom: 3px;
-          text-indent:99999px;
-          cursor: pointer;
           border-top-left-radius: 4px;
           border-top-right-radius: 4px;
-
+          
           &.fl-bar-believe {
-            background: #52d623;
             left: 51px;
           }
 
           &.fl-bar-doubt {
-            background: #ffe400;
             left: 29px;
           }
 
           &.fl-bar-disbelieve {
-            background: #ff6136;
             left: 7px;
           }
         }
@@ -127,81 +172,379 @@ div.fl-modal {
           color: #bbb;
         }
       }
+
+			.trashcan {
+				float: right;
+				vertical-align: middle;
+				opacity: 0.2;
+				-webkit-transition: 0.1s ease-in-out;
+			}
+			.trashcan:hover {
+				opacity: 0.8;
+			}
     }
   }
   
-  #fl-sources {
+	// Default popup settings
+	.fl-popup {
+		background: #f9f9f9;
+    border: 1px solid #999;
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
+		z-index: 1001;
+	}
+
+  .fl-filter-bar ul,
+  .fl-choices ul {
     list-style: none;
-    border-bottom: 1px solid #e4e4e4;
-    background: #fbfafa url('/images/client/scroll-pane-top-gradient.png') top repeat-x;
-    
+    display: inline-block;
+    margin: 0;
     padding: 0;
-    margin: 0 2px 0 0;
-    
-    max-height: 300px;
-    overflow-y: scroll;
-    
+    vertical-align: middle;
+    line-height: 22px;
+
     li {
-      padding: 20px 0 15px;
-      margin: 0;
-      position: relative;
-      border-bottom: 1px solid #e4e4e4;
+      float: left;
+      padding: 0;
+      margin: 0px 3px;
       
-      &.supporting {
-        background: url('/images/client/supporting.png') no-repeat;
+      &.active, &:hover {
+        background: url('/images/client/filter-highlight-center.png') repeat-x;
+
+        a {
+          display: inline-block;
+          height: 24px;
+          background: url('/images/client/filter-highlight-right.png') right no-repeat;
+          
+          span {
+            display: inline-block;
+            height: 24px;
+            background: url('/images/client/filter-highlight-left.png') left no-repeat;
+            color: #666363;
+          }
+        }
+      }
+      
+      a {
+        text-decoration: none;
+        
+        span {
+          padding: 0 10px;
+          color: #999;
+        }
+      }
+    }
+  }
+
+	// Duped for popup in header of show
+  // Popup that will show the interacting users
+	.fl-users {
+		display: none;
+		
+		&.active {
+			display: block;
+			padding: 5px 0px 0;
+		}	
+		
+		h2.from_fact {
+			border-bottom: none;
+		}
+	}
+	
+  .fl-filter-bar {
+    text-align: center;
+    background: url('/images/client/filter-bar.png') repeat-x;
+    color: #999;
+    font-size: 11px;
+    
+    height: 36px;
+    line-height: 22px;
+    
+    padding: 6px 0 0 0;
+    // Make the shadow fall over the next element
+    margin: 0 0 -6px;
+    z-index: 10;
+    position: relative;
+  }
+
+	.fl-fact-dialog {
+		text-align: center;
+    h2 {
+      font-family: Georgia, "Times New Roman", Garamond, serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 15px;
+    
+      color: #333;
+    
+      width: 350px;
+      margin: 0 -10px;
+      padding: 10px;
+    
+      &.to_fact {
+        border-bottom: 1px dashed #ddd;
+      }
+    }
+	}
+	
+	li.message {
+		text-align: center;
+    color: #989898;
+    font-size: 12px;
+    font-style: italic;
+    border: none;
+		margin-top: 24px;
+		line-height: 18px;
+	}
+
+
+  #fl-sources {
+    position: relative;
+		background: #fbfafa;
+
+    ol {
+      list-style: none;
+      background: #fbfafa;
+
+      padding: 0;
+      margin: 0 2px 0 0;
+
+      min-height: 100px;
+      max-height: 300px;
+      overflow-y: scroll;
+
+			li#fl-no-evidence {
+        line-height: 48px;
+
+        a {
+          color: #0fb8fe;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
 
-      &.weakening {
-        background: url('/images/client/weakening.png') no-repeat;
-      }
-      
-      div.fl-source-stats {
-        width: 80px;
-        height: 100%;
-        float: left;
-        
-        span.fl-source-percentage {
-          display: block;
-          font-size: 18px;
-          color: #999;
-          font-weight: 300;
-          text-align: center;
-          margin: 7px 0 0 0;
+      li {
+        &.supporting {
+          background: url('/images/client/supporting.png') no-repeat;
         }
-      }
-      
-      div.fl-source-info {
-        float: right;
-        width: 335px;
+
+        &.weakening {
+          background: url('/images/client/weakening.png') no-repeat;
+        }
         
-        h2 {
-          padding: 0;
+        -webkit-transition: all 0.4s ease-in-out;
+        
+        .container {
+          padding: 20px 0 15px;
           margin: 0;
-          color: #484848;
-          font-size: 13px;
-          font-weight: normal;
+          border-bottom: 1px solid #e4e4e4;
+          position: relative;
+          
+          div.fl-source-stats {
+            width: 80px;
+            height: 100%;
+            float: left;
+
+            span.fl-source-percentage {
+              display: block;
+              font-size: 18px;
+              color: #999;
+              font-weight: 300;
+              text-align: center;
+              margin: 7px 0 0 0;
+            }
+          }
+
+          div.fl-source-info {
+            float: right;
+            width: 305px;
+            margin: 0 30px 0 0;
+
+            h2 {
+              padding: 0;
+              margin: 0;
+              color: #484848;
+              font-size: 13px;
+              font-weight: normal;
+            }
+
+            sub {
+              font-size: 10px;
+              color: #bbb;
+
+              span.fl-source-created {
+                margin: 0 10px 0 0;
+              }
+            }
+          }
+
+          &#fl-no-evidence {
+            text-align: center;
+            color: #989898;
+            font-size: 11px;
+            font-style: italic;
+            border: none;
+            line-height: 70px;
+
+            a {
+              color: #0fb8fe;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
         }
         
-        sub {
-          font-size: 10px;
-          color: #bbb;
+        // Hover state over li for believing/disbelieving
+        &:hover {
+          .arrow {
+            display:block;
+            z-index: 300;
+          }
+        }
+
+        .arrow {
+          display:none;
+          position: absolute;
+          right: 10px;
+          margin: 3px 0 0 0;
+          padding: 3px;
+          cursor: pointer;
           
-          span.fl-source-created {
-            margin: 0 10px 0 0;
+          &:hover {
+            border: 1px solid #999;
+            padding: 2px;
+            background: #f9f9f9;
+          }
+          
+          &.active {
+            border: 1px solid #999;
+            border-bottom: none;
+            background: #f9f9f9;
+            padding: 2px 2px 4px;
+            display: block;
+            z-index: 300;
+          }
+        }
+      }
+			
+      // Popup that will let the user make a choice
+      .fl-choices {
+        display: none;
+        z-index: 200;
+        
+        position: absolute;
+        right: -160px;
+        
+        width: 350px;
+        margin: -45px 0 0 0;
+        padding: 5px 10px 0;
+        text-align: center;
+
+        &.active {
+          display: block;
+        }
+        
+/*        h2 {
+          font-family: Georgia, "Times New Roman", Garamond, serif;
+          font-weight: normal;
+          font-style: italic;
+          font-size: 15px;
+          
+          color: #333;
+          
+          width: 350px;
+          margin: 0 -10px;
+          padding: 10px;
+          
+          &.to_fact {
+            border-bottom: 1px dashed #ddd;
+          }
+        }*/
+        
+        span.opinion {
+          font-weight: bold;
+          color: #333;
+        }
+        
+        ul {
+          margin: 5px 0;
+        }
+        
+        .fl-opinion-container {
+          h2 {
+            border-bottom: 1px dashed #ddd;
+            border-top: 1px solid #ddd;
+          }
+        }
+      }
+    }
+    
+    // Custom stats
+    div.fl-stats {
+      width: 52px;
+      margin: 0 0 0 17px;
+      
+      ul.fl-stats-bar {
+        width: 50px;
+        height: 50px;
+        
+        background: url('/images/client/graph-small.png') no-repeat #fcfcfc;
+        
+        li {
+          width: 12px;
+          bottom: 2px;
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          
+          &.fl-bar-believe {
+            left: 34px;
+          }
+
+          &.fl-bar-doubt {
+            left: 16px;
+          }
+
+          &.fl-bar-disbelieve {
+            left: 3px;
           }
         }
       }
     }
   }
+
+	div.actions {
+    height: 24px;
+
+    a {
+			line-height: 35px;
+			color: #3fa1ca;
+			font-size: 13px;
+			margin: 0 10px;
+			text-decoration: none;
+
+      &:hover {
+				text-decoration: underline;
+				color: #3fa1ca;
+      }
+    }
+	}
+
   
-  #fl-bottom-pane {
+  .fl-bottom-pane {
+		z-index: 1000;
     height: 70px;
     text-align: center;
     background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+    border-top: 1px solid #e4e4e4;
     
     div.buttons {
       height: 45px;
-      
+ 
       a {
         line-height: 55px;
         color: #3fa1ca;
@@ -221,347 +564,345 @@ div.fl-modal {
       font-size: 10px;
     }
   }
-  
-  .fl-scroll-pane {
-	  border: 1px solid #ccc;
 
-  	ol#fl-users {
-  		box-shadow: inset 0 0 7px rgba(0,0,0,0.3);		
+	div#fl-add-evidence {
 		
-  		margin: 0px;
-  		position: relative;
-  		padding: 0px 0px;
+		display: none;
 		
-  		overflow-y: auto;
-  		height: 270px;
-		  
-  		li {
-  			list-style: none;					
-  			padding: 12px;
-  			background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
-			
-  			span.tag {
-  				font-size: 0.85em;
-  				text-shadow: 0px 1px 1px #fff;
-  				width: 80px;
-  				display: block;
-  				float: left;
-  				margin-top: 2px;
-  			}
-			
-  			span.believer {
-  				color: #BADA55;
-  			}
-			
-  			span.doubter {
-  				color: #FFD324;
-  			}
-			
-  			span.disbeliever {
-  				color: #CC0000;
-  			}
-  		}	
-  	}
+		left: -1px;
+		top: 115px;
 
-    // The list of sources, this will actually be inside the .fl-container
-    // But for readabillity i just put it here, nuff said.
-    ol.fl-sources {
-      background: #fafafa;
+		height: 406px;
+		position: absolute;
+		z-index: 1000;
 
-			background: url('/images/texture.png');
-      box-shadow: inset 0 0 7px rgba(0,0,0,.2);
-      border-radius: 4px;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      height: 250px;
-      overflow-y: auto;
+		background: #fff;
+		width: 100%;
+		
+		border: solid 1px #bbb;
+		border-top: none;
+		
+		div.fl-add-evidence-message {
+			background: url('/images/client/filter-bar.png') repeat-x;
+			
+			height: 36px;
+	    line-height: 12px;
 
-      li {
-        display: block;
-        border-bottom: 1px solid #ccc;
-        padding: 28px 0px 18px 35px;
-        position: relative;
-				background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+	    padding: 0 0 6px 0;
+	    // Make the shadow fall over the next element
+	    margin: 0 0 -6px;
+			
+		}
+		
+		#fl-fact-search {
+			border-bottom: solid 1px #ddd;
+			padding: 3px 12px;
+			background: rgb(251, 250, 250);
+			
+			input[type="text"] {
+				border-radius: 3px;
+				border: solid 1px #ccc;
+				padding: 4px;
+				width: 320px;
+			}
+			
+			input[type="submit"] {
+				width: 64px;
+			}			
+		}
 
-        h4 {
-          color: #999;
-          font-weight: 400;
-          margin: 0;
-          line-height: 16px;
-        	font-size: 1.0em;
-        	padding: 0px;
-        	margin: 0px;
+		/** Override the height to show  */
+		.fl-evidence-list {
+			ol {
+				height: 265px;
+			}
+		}
+		
+		span.message {
+      text-align: center;
+      color: #989898;
+      font-size: 11px;
+      font-style: italic;
+      border: none;
+      line-height: 36px;
+
+      a {
+				color: #3fa1ca;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
         }
-
-  			p {
-					color: #888;
-					font-weight: 200;
-					margin: 2px 0px 6px 0px;										
-  			}
-			
-  			hr {
-  				border-left: 0px; border-right: 0px;
-  				border-top: solid 1px #ddd;
-  				border-bottom: solid 1px #fff;
-  			}
-
-        span.fl-source, a {
-          color: #909090;
-					font-weight: 200;
-					font-size: 0.95em;
-        }
-
-        span.fl-source-up {
-          background: url('../images/vote-up.png') no-repeat center center;
-      		padding: 6px 8px 2px 8px;
-          left: 6px;
-          top: 0px;
-        }
-                
-				span.fl-source-up:hover {
-					background: url('../images/vote-up-hover.png') no-repeat center center;
-				}
-								
-        span.fl-source-down {
-          background: url('../images/vote-down.png') no-repeat center center;
-					padding: 0px 8px 6px 8px;
-          left: 6px;
-          top: 34px;
-        }
-			    
-  	    span.fl-source-down:hover {
-          background: url('../images/vote-down-hover.png') no-repeat center center;
-  	    }
-
-				span.fl-source-score {
-				  width: 28px;
-				  font-size: 0.9em;
-				  text-align: center;
-				  color: #bbb;
-				  left: 4px;
-				  top: 18px;
-				  position: absolute;
-				}
-				
-				span.believe {
-					background: #bada55;
-					opacity: 0.3;
-				}
-				
-				span.doubt {
-					background: rgb(255, 211, 36);
-					opacity: 0.3;
-				}
-				
-				span.disbelieve {
-					background: rgb(206, 0, 0);
-					opacity: 0.3;
-				}
-				
-				div.fl-vote-container {
-					border: solid 1px #ccc;
-					border-radius: 3px;
-					margin-left: 4px;
-					
-					span {
-						display: block;
-						border-bottom: 0px !important;
-
-						margin: 0px;
-						padding: 0px;
-						width: 24px;
-					}
-					
-					span.believe:hover,
-					span.doubt:hover,
-					span.disbelieve:hover {
-						opacity: 0.6 !important;
-						-webkit-transition:all 0.1s ease-in-out; 
-					}
-					
-					span.believe {
-						border-top-left-radius: 3px;
-						border-top-right-radius: 3px;
-					}
-					
-					span.disbelieve {
-						border-bottom-left-radius: 3px;
-						border-bottom-right-radius: 3px;
-					}
-					
-					a {
-						text-decoration: none;
-					}
-				}
-				
-				div.fl-vote-container {
-					left: 0px;
-				  position: absolute;
-				}
-				
-				span.active {
-					opacity: 1.0 !important;
-				}
-
-        span.fl-source-up,
-        span.fl-source-down {
-          display: inline-block;
-          width: 8px;
-          height: 7px;
-          cursor: pointer;
-          position: absolute;
-        }
-
-  			div.fl-vote-container {
-					left: 0px; 
-  				position: absolute;
-  			}
-			
-  			div#fl-link-type {
-  				box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
-
-  				border-bottom-right-radius: 5px;
-  				border-bottom: solid 1px #fff;
-  				border-right: solid 1px #fff;
-  				background: #999;
-  				position: absolute;
-  				top: 0px;
-  				left: 0px;
-  				padding: 3px 10px 5px 10px;	
-  				font-size: 0.8em;
-  				color: #fff;
-  			}
-			
-  			span.fl-statement-title {
-  				display: block;
-  			  color: #888;
-  			  font-weight: 400;
-  			  margin: 0;
-  			  line-height: 16px;
-  			  font-size: 1.0em;
-  			  padding: 0px 0px 12px 0px;
-  			  margin: 0px;
-  				width: 330px;
-  			}
-								
-				div.fl-remove-fact {
-					height: 60px;
-					width: 16px;
-					
-					position: absolute;
-					top: 10px;
-					right: 6px;
-
-					img {
-						opacity: 0.2;
-						-webkit-transition:all 0.2s ease-in-out;	
-						margin-bottom: 12px;
-					}
-					
-					img:hover {
-						opacity: 1.0;
-					}
-				}
-				
-				div.fl-source-information {
-					padding: 2px 0px 6px 0px;
-				}
-				
-				span.fl-source,
-				a,
-				span.fl-source-created-by {
-					color: #888;
-				  font-weight: 200;
-					text-shadow: 0px 1px 1px #fff;
-				}
-				
-				a:hover {
-					color: #555;
-				}
       }
     }
-  }
-  
-  div#fl-sources-popup {
-	  position: absolute;
-  	top: 78px;
-
-  	background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-  	background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-
-  	border: solid 10px rgba(0,0,0,0.4);
-  	border-radius: 14px;
-
-  	padding: 10px; 
-  	width: 360px;
-	
-	  .close-button:hover {
-	    cursor: pointer;
-    }
-
-    input[type="text"] {
-	    border-radius: 4px; 
-  		border: 1px solid #cfcfcf; 
-  		padding: 6px;
-  		width: 344px;
-  		color: #717171;
-  	}
-
-    textarea {
-	    border-radius: 4px; 
-		  border: 1px solid #cfcfcf; 
-			padding: 6px; 
-			width: 344px;
-			color: #717171;
-	  }
-  }
-	
-	div#fl-interacting-users {
-		position: absolute;
-		top: 24px;
-		left: 16px;
-		width: 390px;
-		height: 400px;
-
-		border: solid 10px rgba(0, 0, 0, 0.2);					
-		border-radius: 4px;
-		box-shadow: 0px 0px 10px #000;
-		z-index: 24;
-		display: none;
-		background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-    background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-        
-		div#fl-users-container {
-			div.fl-scroll-pane {
-				margin: 5px;
-				height: 270px;
-				background: url('/images/texture.png');
-			}
-			
-			div#filters {
-				padding: 16px 0px 12px 0px;
-				
-				a {
-					padding: 2px 12px;
-				
-				    &:hover {
-					    text-decoration: none;
-				    }
-				    
-				    &.active {
-					    background: #999;
-						color: #fff;					
-						border: solid 1px #fff;
-						border-radius: 16px;
-					
-						box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
-					}
-				}
-			}
+		
+		div.fl-evidence-list {
+			height: 265px;
 		}
 	}
 }
+
+
+.fl-scroll-pane {
+ border: 1px solid #ccc;
+
+	.fl-user-listing {
+ 
+		margin: 0px;
+		position: relative;
+		padding: 0px 0px;
+ 
+		overflow-y: auto;
+		height: 270px;
+   
+		li {
+			list-style: none;
+			padding: 12px;
+ 		border-bottom: 1px solid #e4e4e4;
+ 	
+			span.tag {
+				font-size: 0.85em;
+				text-shadow: 0px 1px 1px #fff;
+				width: 80px;
+				display: block;
+				float: left;
+				margin-top: 2px;
+			}
+ 	
+			span.believer {
+				color: rgb(105, 129, 70);
+			}
+ 	
+			span.doubter {
+				color: rgb(216, 195, 88);
+			}
+ 	
+			span.disbeliever {
+				color: #CC0000;
+			}
+		}	
+	}
+
+  // The list of sources, this will actually be inside the .fl-container
+  // But for readabillity i just put it here, nuff said.
+  ol.fl-sources {
+    background: #fafafa;
+
+ 	background: url('/images/texture.png');
+    box-shadow: inset 0 0 7px rgba(0,0,0,.2);
+    border-radius: 4px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 250px;
+    overflow-y: auto;
+
+    li {
+      display: block;
+      border-bottom: 1px solid #ccc;
+      padding: 28px 0px 18px 35px;
+      position: relative;
+ 		background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#FDFDFD),color-stop(1,#EEE));
+
+      h4 {
+        color: #999;
+        font-weight: 400;
+        margin: 0;
+        line-height: 16px;
+      	font-size: 1.0em;
+      	padding: 0px;
+      	margin: 0px;
+      }
+
+			p {
+ 			color: #888;
+ 			font-weight: 200;
+ 			margin: 2px 0px 6px 0px;										
+			}
+ 	
+			hr {
+				border-left: 0px; border-right: 0px;
+				border-top: solid 1px #ddd;
+				border-bottom: solid 1px #fff;
+			}
+
+      span.fl-source, a {
+        color: #909090;
+ 			font-weight: 200;
+ 			font-size: 0.95em;
+      }
+
+      span.fl-source-up {
+        background: url('../images/vote-up.png') no-repeat center center;
+    		padding: 6px 8px 2px 8px;
+        left: 6px;
+        top: 0px;
+      }
+              
+ 		span.fl-source-up:hover {
+ 			background: url('../images/vote-up-hover.png') no-repeat center center;
+ 		}
+ 						
+      span.fl-source-down {
+        background: url('../images/vote-down.png') no-repeat center center;
+ 			padding: 0px 8px 6px 8px;
+        left: 6px;
+        top: 34px;
+      }
+ 	    
+	    span.fl-source-down:hover {
+        background: url('../images/vote-down-hover.png') no-repeat center center;
+	    }
+
+ 		span.fl-source-score {
+ 		  width: 28px;
+ 		  font-size: 0.9em;
+ 		  text-align: center;
+ 		  color: #bbb;
+ 		  left: 4px;
+ 		  top: 18px;
+ 		  position: absolute;
+ 		}
+ 		
+ 		span.believe {
+ 			background: #bada55;
+ 			opacity: 0.3;
+ 		}
+ 		
+ 		span.doubt {
+ 			background: rgb(255, 211, 36);
+ 			opacity: 0.3;
+ 		}
+ 		
+ 		span.disbelieve {
+ 			background: rgb(206, 0, 0);
+ 			opacity: 0.3;
+ 		}
+ 		
+ 		div.fl-vote-container {
+ 			border: solid 1px #ccc;
+ 			border-radius: 3px;
+ 			margin-left: 4px;
+ 			
+ 			span {
+ 				display: block;
+ 				border-bottom: 0px !important;
+
+ 				margin: 0px;
+ 				padding: 0px;
+ 				width: 24px;
+ 			}
+ 			
+ 			span.believe:hover,
+ 			span.doubt:hover,
+ 			span.disbelieve:hover {
+ 				opacity: 0.6 !important;
+ 				-webkit-transition:all 0.1s ease-in-out; 
+ 			}
+ 			
+ 			span.believe {
+ 				border-top-left-radius: 3px;
+ 				border-top-right-radius: 3px;
+ 			}
+ 			
+ 			span.disbelieve {
+ 				border-bottom-left-radius: 3px;
+ 				border-bottom-right-radius: 3px;
+ 			}
+ 			
+ 			a {
+ 				text-decoration: none;
+ 			}
+ 		}
+ 		
+ 		div.fl-vote-container {
+ 			left: 0px;
+ 		  position: absolute;
+ 		}
+ 		
+ 		span.active {
+ 			opacity: 1.0 !important;
+ 		}
+
+      span.fl-source-up,
+      span.fl-source-down {
+        display: inline-block;
+        width: 8px;
+        height: 7px;
+        cursor: pointer;
+        position: absolute;
+      }
+
+			div.fl-vote-container {
+ 			left: 0px; 
+				position: absolute;
+			}
+ 	
+			div#fl-link-type {
+				box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.45);
+
+				border-bottom-right-radius: 5px;
+				border-bottom: solid 1px #fff;
+				border-right: solid 1px #fff;
+				background: #999;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				padding: 3px 10px 5px 10px;	
+				font-size: 0.8em;
+				color: #fff;
+			}
+ 	
+			span.fl-statement-title {
+				display: block;
+			  color: #888;
+			  font-weight: 400;
+			  margin: 0;
+			  line-height: 16px;
+			  font-size: 1.0em;
+			  padding: 0px 0px 12px 0px;
+			  margin: 0px;
+				width: 330px;
+			}
+ 						
+ 		div.fl-remove-fact {
+ 			height: 60px;
+ 			width: 16px;
+ 			
+ 			position: absolute;
+ 			top: 10px;
+ 			right: 6px;
+
+ 			img {
+ 				opacity: 0.2;
+ 				-webkit-transition:all 0.2s ease-in-out;	
+ 				margin-bottom: 12px;
+ 			}
+ 			
+ 			img:hover {
+ 				opacity: 1.0;
+ 			}
+ 		}
+ 		
+ 		div.fl-source-information {
+ 			padding: 2px 0px 6px 0px;
+ 		}
+ 		
+ 		span.fl-source,
+ 		a,
+ 		span.fl-source-created-by {
+ 			color: #888;
+ 		  font-weight: 200;
+ 			text-shadow: 0px 1px 1px #fff;
+ 		}
+ 		
+ 		a:hover {
+ 			color: #555;
+ 		}
+    }
+  }
+}
+
 
 div.fl-clear {
   clear: both;
@@ -573,7 +914,23 @@ div.fl-clear {
 }
 
 div.fl-sign-in-container {
-	padding: 16px 16px 0px 16px;
+	padding: 16px 16px 0px 16px;	padding-bottom: 24px;
+}
+
+div.sign-in {
+	border-bottom: solid 1px #ccc;
+}
+
+iframe.proxyFrame {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -400px;
+  width: 800px;
+  height: 500px;
+  border: solid 1px #777;
+  z-index: 900;
+  box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 }
 
 ::-webkit-scrollbar {

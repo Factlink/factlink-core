@@ -1,10 +1,19 @@
 class Users::SessionsController < Devise::SessionsController
-  
-  # layout "accounting"
+
   layout "client"
 
   def new
-        
+    
+    # Set return path if available
+    # params[:return_path] is used in the SessionController to
+    # create the correct return path.
+    session[:"user.return_to"] = if params[:return_path]
+      then params[:return_path]
+      else nil
+      end
+    
+    
+    # Toggle the layout
     unless params[:layout].nil?
       # Default login
       render "users/sessions/new", :layout => "accounting"
@@ -32,13 +41,20 @@ class Users::SessionsController < Devise::SessionsController
         url           = fact_hash['url']
         displaystring = fact_hash['fact']
 
-        site = Site.find_or_create_by(:url => url)
-        # Create the Fact
-        @factlink = Fact.create!(:displaystring => displaystring, 
-                                        :created_by => current_user,
-                                        :site => site)
 
-        redirect_to(@factlink)
+        # Clear fact_to_create
+        session[:fact_to_create] = nil
+        
+        site = Site.find_or_create_by(url)
+        # Create the Fact
+
+        @fact = Fact.create!()
+        @fact.displaystring = displaystring
+        @fact.created_by = current_user.graph_user
+        @fact.site = site
+        @fact.save
+
+        redirect_to :controller => "/facts", :action => "show", :id => @fact.id
         return false
       end
     end

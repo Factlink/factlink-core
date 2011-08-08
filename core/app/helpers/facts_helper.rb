@@ -1,4 +1,5 @@
 module FactsHelper
+  include Canivete::Deprecate
 
   # Sorting results on search page
   def sortable(column, title = nil)
@@ -26,9 +27,14 @@ module FactsHelper
 
 
   # Listitem for in factlink client overview
-  def factlink_source_partial_as_li(fact_relation)
+  def factlink_source_partial_as_li(fact_relation)    
     render :partial => 'facts/partial/source_as_li', 
               :locals => { :fact_relation => fact_relation }
+  end
+  
+  def evidence_as_li(fact, evidence)
+    render :partial => 'facts/partial/add_evidence_as_li', 
+              :locals => { :fact => fact, :evidence => evidence }
   end
   
   # Score block of the top factlink in client
@@ -37,12 +43,24 @@ module FactsHelper
               :locals => { :fact => fact }
   end
 
+
   # The vote options for a fact: believe, doubt, disbelieve
+  deprecate
   def opinion_options(fact)
     render :partial => 'facts/partial/opinion_options', 
               :locals => { :fact => fact }
   end
 
+
+  # Shows opinion of user on this fact.
+  # Links to toggle the opinion.
+  def fact_opinion_options(fact_relation)
+    render :partial => 'facts/partial/opinion_options',
+              :locals => { :fact_relation => fact_relation }
+  end
+
+  # Shows the opinion on this FactRelation
+  # Links to toggle the believe on the relation.
   def fact_relation_relevance_options(fact_relation)
     render :partial => 'facts/partial/relevance_options', 
               :locals => { :fact_relation => fact_relation }
@@ -51,10 +69,31 @@ module FactsHelper
   def no_facts_have_been_added_as_li
     render :partial => 'facts/partial/no_facts_added_message'
   end
+  
+  def no_evidence_found_message_as_li
+    render :partial => 'facts/partial/no_evidence_found_message'
+  end
+  
+  # Percentage and brain cycles in <li>
+  def fl_source_stats(fact_relation)
+    render  :partial  => 'facts/partial/fl_source_stats',
+            :locals   => { :fact_relation => fact_relation }
+  end
+  
+  def fact_relation_interacting_users(fact_relation)
+    render  :partial  => 'facts/partial/interacting_users',
+            :locals   => { :fact_relation => fact_relation }
+  end
 
-
+  deprecate
   def relevance_class_on_fact(type, fact)
     current_user.active_class_for_type_and_fact(type, fact)
+  end
+  
+  def active_class_for_type_and_fact(type, fact)
+    if current_user.opinion_on_fact_for_type?(type, fact)
+      return " class='active'"
+    end
   end
 
 end

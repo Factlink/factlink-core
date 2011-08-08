@@ -1,10 +1,10 @@
-<%= form_for(@factlink, :url => { :action => "update" }) do |f| %>
-  <% if @factlink.errors.any? %>
+<%= form_for(@fact, :url => { :action => "update" }) do |f| %>
+  <% if @fact.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@factlink.errors.count, "error") %> prohibited this factlink_top from being saved:</h2>
+      <h2><%= pluralize(@fact.errors.count, "error") %> prohibited this factlink_top from being saved:</h2>
 
       <ul>
-      <% @factlink.errors.full_messages.each do |msg| %>
+      <% @fact.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -13,23 +13,21 @@
 
 
 	<script type="text/javascript">
-		parent.remote.resetStyle();
-		parent.remote.setFrameType("show");
-		parent.remote.showOverlay();
-		parent.remote.highlightNewFactlink("<%= @factlink.displaystring %>", "<%= @factlink.id %>");
+		parent.remote.show();
+		parent.remote.highlightNewFactlink("<%= @fact.displaystring %>", "<%= @fact.id %>");
 	</script>
 
 	<div class="fl-stats">
 		<ul class="fl-stats-bar">
-			<li class="fl-bar-disbelieve" style="height: <%= @factlink.percentage_score_disbelieve %>%;">></li>
-			<li class="fl-bar-doubt" style="height: <%= @factlink.percentage_score_uncertain %>%;"></li>
-			<li class="fl-bar-believe" style="height: <%= @factlink.percentage_score_believe %>%;"></li>
+			<li class="fl-bar-disbelieve" style="height: <%= @fact.percentage_score_disbelieve %>%;">></li>
+			<li class="fl-bar-doubt" style="height: <%= @fact.percentage_score_uncertain %>%;"></li>
+			<li class="fl-bar-believe" style="height: <%= @fact.percentage_score_believe %>%;"></li>
 		</ul>
-		<span class="fl-stats-count"><%= @factlink.brain_cycles %></span>
+		<span class="fl-stats-count"><%= @fact.brain_cycles %></span>
 	</div>
 
 	<div class="fl-factlink">
-		<h1>&#8220;<%= @factlink.displaystring %>&#8221;</h1>
+		<h1>&#8220;<%= @fact.displaystring %>&#8221;</h1>
 	</div>
 
 
@@ -42,7 +40,7 @@
 	</div>
 	
   <div class="actions" style="float: right; padding: 10px; display: block;">
-    <%= f.submit "Update this Factlink" %> or <%= link_to("go back", fact_path(@factlink), :style => "color: inherit;") %>
+    <%= f.submit "Update this Factlink" %> or <%= link_to("go back", fact_path(@fact), :style => "color: inherit;") %>
   </div>
 
 

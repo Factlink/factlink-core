@@ -8,16 +8,11 @@
 	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script> -->
 	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	
-	
-	<% if Rails.env.development? %>
-		<!-- Vogue auto reloads CSS on save - great for development! -->
-    <!-- <script src="http://localhost:8001/vogue-client.js?base=http://localhost:8001" type="text/javascript"></script> -->
-	<% end %>
-	
-	<%= javascript_include_tag "rails" %>
-	
-	<%= yield :javascript %>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/client/js/jquery.scrollTo-1.4.2-min.js"></script>
 
+	<%= javascript_include_tag "rails" %>
+	<% end %>
 	
 	<%= csrf_meta_tag %>
 </head>
@@ -27,6 +22,13 @@
 			<span class="fl-close" onclick="parent.remote.hide();"></span>
 			<%= yield %>
 	</div>
-
+  
+  <script type="text/javascript">
+    $( document ).bind('click', function(e) {
+      if( $(e.target).is('body') )
+        parent.remote.hide();
+    });
+  </script>
+	<%= yield :javascript %>
 </body>
 </html>

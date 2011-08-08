@@ -1,36 +1,21 @@
 module Opinionable
+  include Canivete::Deprecate
   # SCORE STUFF
   def score_dict_as_percentage
-    
-    return {
-      :believe => {
-        :percentage => 37,
-      },
-      :disbelieve => {
-        :percentage => 49,
-      },
-      :doubt => {
-        :percentage => 14,
-      },
-      
-      :authority => 102,
-    }
-    
-    
+
     op = get_opinion
     total = op.b + op.d + op.u
 
     return {
       :believe => {
-        :percentage => percentage(total, op.b),
+        :percentage => calc_percentage(total, op.b),
       },
       :disbelieve => {
-        :percentage => percentage(total, op.d),
+        :percentage => calc_percentage(total, op.d),
       },
       :doubt => {
-        :percentage => percentage(total, op.u),
+        :percentage => calc_percentage(total, op.u),
       },
-      
       :authority => op.a,
     }
   end
@@ -55,9 +40,7 @@ module Opinionable
     score_dict_as_percentage[:doubt][:percentage]
   end
 
-
-
-  def percentage(total, part)
+  def calc_percentage(total, part)
     if total > 0
       (100 * part) / total
     else

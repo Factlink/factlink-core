@@ -1,0 +1,8 @@
+fact "Oil is still detrimental to the environment,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
+fact "the molecules that are not accessible to microbes persist and could have toxic effects", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
+fact "the oil that is consumed by microbes \"is being converted to carbon dioxide that still gets into the atmosphere.\"", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
+fact "the dynamic microbial community of the Gulf of Mexico supported remarkable rates of oil respiration, despite a dearth of dissolved nutrients,", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
+fact "that microbes had the metabolic potential to break down a large portion of hydrocarbons and keep up with the flow rate from the wellhead", "http://www.sciencedaily.com/releases/2011/08/110801111752.htm"
+fact_relation "the molecules that are not accessible to microbes persist and could have toxic effects", :supporting, "Oil is still detrimental to the environment,"
+fact_relation "the oil that is consumed by microbes \"is being converted to carbon dioxide that still gets into the atmosphere.\"", :supporting, "Oil is still detrimental to the environment,"
+fact_relation "that microbes had the metabolic potential to break down a large portion of hydrocarbons and keep up with the flow rate from the wellhead", :weakening, "Oil is still detrimental to the environment,"

@@ -1,1 +1,11 @@
-<%= render 'facts/partial/form' %>
+<%#= render 'facts/partial/form' %>
+
+<% content_for :javascript do %>
+	<script type="text/javascript">
+		parent.remote.show();
+		parent.iframe.className="overlay";
+		parent.remote.highlightNewFactlink("<%= @fact.displaystring %>", "<%= @fact.id %>");
+	</script>
+<% end %>
+
+<%= render :template => "facts/show" %>
