@@ -23,9 +23,6 @@ namespace :db do
           puts "Imported #{file} succesfully"
         end
       end
-      
-      doMagic
-      
     end
 
     task :list do
