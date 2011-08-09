@@ -1,4 +1,7 @@
 class LoadDslState
+  @@user = nil
+  @@fact = nil
+
   def self.graph_user
     @@user.graph_user || User.all.first.graph_user
   end
@@ -6,9 +9,17 @@ class LoadDslState
   def self.user=(value)
     @@user = value
   end
+  
+  def self.fact=(value)
+    @@fact = value
+  end
+  
+  def self.fact
+    @@fact
+  end
 end
 
-def fact(fact_string,url="http://example.org/")
+def load_fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
     f = Fact.new
@@ -18,6 +29,11 @@ def fact(fact_string,url="http://example.org/")
     f.save
   end
   f
+end
+
+def fact(fact_string,url="http://example.org/")
+  f = load_fact(fact_string,url)
+  LoadDslState.fact = f
 end
 
 def export_fact(fact)
@@ -36,7 +52,7 @@ def export_fact_relation(fact_relation)
 end
 
 
-def user(username,email=nil, password=nil)
+def load_user(username,email=nil, password=nil)
   u = User.where(:username => username).first
   if not u
     mail ||= "#{username}@example.org"
@@ -48,25 +64,48 @@ def user(username,email=nil, password=nil)
     :password_confirmation => password)
     u.save
   end
-  LoadDslState.user = u
+  u
 end
 
-def beliefs(fact_string)
-  set_opinion(:beliefs,fact_string)
+def user(username,email=nil, password=nil)
+  LoadDslState.user = load_user(username,email,password)
 end
 
-def disbeliefs(fact_string)
-  set_opinion(:disbeliefs,fact_string)
+def export_user(graph_user)
+  "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\"\n"
 end
 
-def doubts(fact_string)
-  set_opinion(:doubts,fact_string)
+
+def believers(*l)
+  set_opinion(:beliefs,*l)
+end
+def disbelievers(*l)
+  set_opinion(:disbeliefs,*l)
+end
+def doubters(*l)
+  set_opinion(:doubts,*l)
 end
 
-def set_opinion(opinion_type,fact_string)
-  gu = LoadDslState.graph_user
-  f = fact(fact_string)
-  f.add_opinion(opinion_type,gu)
+
+def export_userlist(l)
+  l.map {|graph_user| "\"#{quote_string(graph_user.user.username)}\""}.join(',')
+end
+def export_believers(l)
+  rv = "believers " + export_userlist(l) + "\n"
+end
+def export_disbelievers(l)
+  rv = "disbelievers " + export_userlist(l) + "\n"
+end
+def export_doubters(l)
+  rv = "doubters " + export_userlist(l) + "\n"
+end
+
+def set_opinion(opinion_type,*users)
+  f = LoadDslState.fact
+  users.each do |username|
+    u = load_user(username)
+    f.add_opinion(opinion_type,u)
+  end
 end
 
 
