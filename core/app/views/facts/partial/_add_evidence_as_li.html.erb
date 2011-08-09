@@ -9,7 +9,7 @@
     	<h2 class="fl-source">&#8220;<%= evidence.displaystring %>&#8221;</h2>
 
     	<sub>
-    		<span class="fl-source-created"><%= time_ago_in_words(evidence.created_at) %> ago by <%= link_to(evidence.created_by.username, user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
+    		<span class="fl-source-created"><%= time_ago_in_words(evidence.created_at) %> ago by <%= link_to("#{evidence.created_by.username} (#{evidence.created_by.authority})", user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
     		<% if evidence.site %>
     			<span class="fl-source-found">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.pretty_url, :length => 25) %></a></span>
     		<% else %>

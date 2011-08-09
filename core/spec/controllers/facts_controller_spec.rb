@@ -51,10 +51,19 @@ describe FactsController do
     end  
   end
 
-  describe :prepare do
+  describe :prepare_new do
     it "should render the correct template" do
-      get :prepare
+      pending
+      get :prepare_new
       response.should render_template("prepare")
+    end
+  end
+  
+  describe :prepare_evidence do
+    it "should render the correct template" do
+      pending
+      get :prepare_evidence
+      response.should render_template("prepare_evidence")
     end
   end
 
@@ -178,21 +187,6 @@ describe FactsController do
     end
   end
 
-  # Currently not used
-  describe :interaction_users_for_factlink do
-    it "should have the correct assigns" do
-      pending 
-      @fact = FactoryGirl.create(:fact)
-      
-      get :interaction_users_for_factlink, :factlink_id => @fact.id
-      
-      assigns[:fact].should == @fact
-      
-      assigns[:believers].all.should =~ []
-      assigns[:doubters].all.should =~ []
-      assigns[:disbelievers].all.should =~ []
-    end
-  end
 
   describe :search do
     it "should return relevant results when a search parameter is given" do      

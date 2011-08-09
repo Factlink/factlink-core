@@ -1,7 +1,21 @@
 <div style="text-shadow: 0px 1px 1px #fff;">
-	<h1 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %></h1>
-	<span style="display:block;"><%= @user.username %> created <%= @user.facts.count %> facts and added <%= @user.fact_relations.count %> sources to Factlink</span>
+	<div style="float: right; width: 180px; border: solid 1px #fff; border-radius: 2px; padding: 6px; background: rgba(255, 255, 255, 0.6);">
 
+		<div style="">
+			<%= image_tag('icons/factlink/16.png') %> Factlink authority: <%= @user.authority %>
+			<br/>
+			
+			<p id="authorityExplanation" style="display: none; border-top: solid 2px #fff; margin-top: 10px;">
+				Explain your Factlink authority here. Lorizzle funky fresh dolizzle sit amizzle, mofo adipiscing elit. Nullam sapizzle velit, check out this i'm in the shizzle, fo shizzle my nizzle yo mamma, pizzle vizzle, arcu. Pellentesque egizzle stuff. Sizzle eros. Shiz at shut the shizzle up dapibus turpis yo black.
+			</p>
+			
+			<span id="authExpLink" style="font-size: 0.85em; float: right; opacity: 0.8; line-height: 2.0;"><a onclick="$('#authorityExplanation').slideDown('slow'); $('#authExpLink').hide();">what is this?</a></span>
+		</div>
+	</div>
+	
+	<h1 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %></h1>
+	
+	<span style="display:block;"><%= @user.username %> created <%= @user.facts.count %> facts and added <%= @user.fact_relations.count %> sources to Factlink</span>
 
 	<span style="display:block;">
 		<%= @user.username %> <a href="#opinions">believes</a> <%= @user.believe_count %> sources, <a href="#opinions">doubts</a> <%= @user.doubt_count %> sources

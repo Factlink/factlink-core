@@ -9,6 +9,11 @@ module UserProxy
   def username=(value)
     user.username=value
   end
+  
+  deprecate
+  def graph_user
+    return self
+  end
 end
 
 class GraphUser < OurOhm
@@ -24,7 +29,8 @@ class GraphUser < OurOhm
 
   # Authority of the user
   def authority
-    1.0
+    # 1.0
+    Authority.for_graph_user(self)
   end
 
   # user.facts_he(:beliefs)
@@ -42,6 +48,10 @@ class GraphUser < OurOhm
   
   def real_facts
     facts.find_all { |fact| fact.class == Fact }
+  end
+
+  def real_created_facts
+    created_facts.find_all { |fact| fact.class == Fact }
   end
 
   def update_opinion(type, fact)

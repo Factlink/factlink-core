@@ -25,6 +25,10 @@ describe User do
     @user1.facts.size == 1
   end
 
+  it "should have a GraphUser" do
+    # @user1.graph_user.should be_a(GraphUser)
+        @user1.graph_user.should be_a(GraphUser)
+  end
 
   [:beliefs,:doubts,:disbeliefs].each do |type|
     # User should have a reference of all Fact Ids he beliefs, doubts, disbeliefs

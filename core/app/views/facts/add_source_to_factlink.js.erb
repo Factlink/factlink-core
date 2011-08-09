@@ -1,7 +1,11 @@
-/** This is new */
 
-// Close Proxy
-parent.hideProxy();
+try {
+	// Close Proxy
+	parent.hideProxy();	
+} catch(e) {
+	console.log("Error" + e)
+}
+
 
 // Hide the popup
 $('#fl-add-evidence').fadeOut();

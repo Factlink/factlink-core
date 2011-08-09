@@ -1,13 +1,7 @@
 class Basefact < OurOhm
   reference :user_opinion, Opinion
 
-  reference :site, Site       # The site on which the factlink should be shown
-  def url=(url)
-    self.site = Site.find_or_create_by(url)
-  end
-  def url
-    self.site.url
-  end
+
 
   reference :created_by, GraphUser
   reference :opinion, Opinion

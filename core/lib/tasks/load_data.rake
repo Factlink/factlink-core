@@ -12,7 +12,6 @@ def get_file(file)
   return File.join(dump_dir, file_name)
 end
 
-
 namespace :db do
   namespace :init do
 
@@ -55,15 +54,7 @@ namespace :db do
 
       # Dump the exports to the file
       File.open(file, 'w') do |f|
-        Fact.all.each do |fact|
-          f.write(export_fact(fact))
-          puts "."
-        end
-
-        FactRelation.all.each do |fact_relation|
-          f.write(export_fact_relation(fact_relation))
-          puts "."
-        end
+        FactGraph.export(f)
       end
     end
     

@@ -10,11 +10,11 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show, 
-      :prepare, 
+      # :prepare_new,
+      # :prepare_evidence, 
       :intermediate, 
       :search, 
-      :indication,
-      :interaction_users_for_factlink]
+      :indication]
                                                
   before_filter :load_fact, 
     :only => [
@@ -289,6 +289,9 @@ class FactsController < ApplicationController
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
+
+
+    puts "FactsController#add_evidence.current_user: #{current_user}"
     fact_relation = fact.add_evidence(type, evidence, current_user)
 
     fact_relation
