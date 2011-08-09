@@ -14,7 +14,7 @@
 	</div>
 	
 	<h1 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %></h1>
-	
+	<h3><%= link_to("Toms Channels", channels_path(@user.username)) %></h3>
 	<span style="display:block;"><%= @user.username %> created <%= @user.facts.count %> facts and added <%= @user.fact_relations.count %> sources to Factlink</span>
 
 	<span style="display:block;">
