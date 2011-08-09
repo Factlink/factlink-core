@@ -37,9 +37,6 @@ FactlinkUI::Application.routes.draw do
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
-  
-  # Not used anymore ?
-  get   "/factlink/:factlink_id/interacting_users" => "facts#interaction_users_for_factlink", :as => "interacting_users"
 
   # Set opinion on a Fact
   get   "/fact/:fact_relation_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
