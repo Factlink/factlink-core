@@ -3,7 +3,8 @@ class LoadDslState
   @@fact = nil
 
   def self.graph_user
-    @@user.graph_user || User.all.first.graph_user
+    u = @@user || User.all.first || load_user("JudgeDredd")
+    u.graph_user
   end
 
   def self.user=(value)
