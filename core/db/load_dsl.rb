@@ -44,7 +44,6 @@ end
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
-
   f2.add_evidence(relation,f1,LoadDslState.graph_user)
 end
 
@@ -56,13 +55,13 @@ end
 def load_user(username,email=nil, password=nil)
   u = User.where(:username => username).first
   if not u
-    mail ||= "#{username}@example.org"
+    email ||= "#{username}@example.org"
     password ||= "123hoi"
     u = User.new(:username => username,
-    :email => email,
-    :confirmed_at => DateTime.now,
-    :password => password,
-    :password_confirmation => password)
+                :email => email,
+                :confirmed_at => DateTime.now,
+                :password => password,
+                :password_confirmation => password)
     u.save
   end
   u
