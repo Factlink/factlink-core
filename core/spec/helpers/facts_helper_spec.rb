@@ -15,6 +15,10 @@ module BeliefExpressions
     Opinion.new(:b=>b,:d=>d,:u=>u,:a=>a)
   end
 
+  def a(user)
+    user.authority.should
+  end
+
   def opinion?(fact)
     FactGraph.reset_values
     FactGraph.recalculate

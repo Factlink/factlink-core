@@ -9,6 +9,11 @@ module UserProxy
   def username=(value)
     user.username=value
   end
+  
+  deprecate
+  def graph_user
+    return self
+  end
 end
 
 class GraphUser < OurOhm
