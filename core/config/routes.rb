@@ -50,7 +50,13 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Web Front-end
   root :to => "home#index"
-  get "/:username" => "users#show", :as => "user_profile"
+
+  # get "/:username" => "users#show", :as => "user_profile"
+  
+  scope "/:username" do
+    get "/" => "users#show", :as => "user_profile"
+    resources :channels
+  end
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
