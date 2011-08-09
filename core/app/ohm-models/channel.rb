@@ -19,4 +19,8 @@ class Channel < OurOhm
   def remove_fact(fact)
     self.facts.delete(fact)
   end
+  
+  def to_s
+    self.title
+  end
 end
