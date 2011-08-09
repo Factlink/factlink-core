@@ -17,7 +17,7 @@ def fact(fact_string,url="http://example.org/")
     f = Fact.new
     f.displaystring = fact_string
     f.site = site
-    f.created_by = User.all.first.graph_user
+    f.created_by = LoadDslState.graph_user
     f.save
     
     site.facts << f
@@ -32,7 +32,7 @@ end
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
-  user = User.all.first
+  user = LoadDslState.graph_user
   f2.add_evidence(relation,f1,user)
 end
 
