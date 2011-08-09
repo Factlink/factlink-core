@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Authority do
+  include BeliefExpressions
   
   before do
     @u1 = FactoryGirl.create(:user)
