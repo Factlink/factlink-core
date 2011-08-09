@@ -181,7 +181,7 @@ describe FactsController do
   # Currently not used
   describe :interaction_users_for_factlink do
     it "should have the correct assigns" do
-      
+      pending 
       @fact = FactoryGirl.create(:fact)
       
       get :interaction_users_for_factlink, :factlink_id => @fact.id
