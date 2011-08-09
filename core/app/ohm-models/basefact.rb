@@ -1,7 +1,14 @@
 class Basefact < OurOhm
+  
   reference :user_opinion, Opinion
+  reference :site, Site
+  reference :created_by, GraphUser
+  reference :opinion, Opinion
 
-  reference :site, Site       # The site on which the factlink should be shown
+  set :people_beliefs, GraphUser
+  set :people_doubts, GraphUser
+  set :people_disbeliefs, GraphUser
+
   def url=(url)
     self.site = Site.find_or_create_by(url)
   end
@@ -9,12 +16,6 @@ class Basefact < OurOhm
     self.site.url
   end
 
-  reference :created_by, GraphUser
-  reference :opinion, Opinion
-
-  set :people_beliefs, GraphUser
-  set :people_doubts, GraphUser
-  set :people_disbeliefs, GraphUser
   def opiniated(type)
     self.send("people_#{type}")
   end
