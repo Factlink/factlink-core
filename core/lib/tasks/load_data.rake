@@ -12,7 +12,6 @@ def get_file(file)
   return File.join(dump_dir, file_name)
 end
 
-
 namespace :db do
   namespace :init do
 
