@@ -12,4 +12,11 @@ class Channel < OurOhm
     # assert_present :user # User always needed?
   end
   
+  def add_fact(fact)
+    self.facts.add(fact)
+  end
+  
+  def remove_fact(fact)
+    self.facts.delete(fact)
+  end
 end
