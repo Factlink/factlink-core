@@ -1,3 +1,13 @@
+class LoadDslState
+  def graph_user
+    @user.graph_user || User.all.first.graph_user
+  end
+  
+  def user=(value)
+    @user = value
+  end
+end
+
 def fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
