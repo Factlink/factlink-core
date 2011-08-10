@@ -1,5 +1,5 @@
 (function( Factlink ) {
-var results = [],
+var 
     // Function which walks the DOM in HTML source order
     // as long as func does not return false
     // Inspiration: Douglas Crockford, JavaScript: the good parts
@@ -18,71 +18,46 @@ var results = [],
         }
     },
     // Regex for class find
-    re = /(^|\s)factlink(\s|$)/;
+    re = /(^|\s)factlink(\s|$)/,
     
+   	findRangesStartingInContainer = function (ranges, start, container) {
+        var matches = [],
+			j = start - 1;
+	    while ( ++j < ranges.length && ranges[j].startContainer === container ) {
+            // Push the match to the extraMatches helper
+            matches.push(ranges[j]);
+        }
+
+		return matches;
+    };
+
 // Function to select the found ranges
 Factlink.selectRanges = function(ranges, id, opinions){
-    var i, k, len;
     // Loop through ranges (backwards)
-    for ( i = ranges.length; i--; ){
-        // Current range
-        var range = ranges[i],
-        
-            // Start- and EndNodes
-            startNode = range.startContainer,
-            endNode = range.endContainer,
-
-            // Try to find out if there are other matches within this element
-            j = i,
-            // Helper for posible extra matches within the current startNode
-            extraMatches = [],
-            
-            obj;
-            
+    var matches = [];
+    var results = [];
+	for ( var i = 0 ; i < ranges.length ; i += matches.length){
         // Check if the given factlink is not already selected 
         // (fixes multiple check marks when editing a factlink)
-        if ( re.test( startNode.parentNode.className ) ) {
+        if ( re.test( ranges[i].startContainer.parentNode.className ) ) {
+			matches.push({}) // Dirty hack: we should still skip one
             continue;
         }
-        
-        while ( --j > 0 && ranges[j].startContainer === startNode ) {
-            // Push the match to the extraMatches helper
-            extraMatches.push({
-                'startOffset' : ranges[j].startOffset,
-                'endOffset' : ranges[j].endOffset
-            });
 
-            // decrease the increment so this element 
-            // won't be matched in the next loop
-            --i;
-        }
+
+        // Helper for posible extra matches within the current startNode
+        matches = findRangesStartingInContainer(ranges,i,ranges[i].startContainer);
                 
-        // Insert the actual span
-        this.replaceFactNodes(range.startOffset, 
-                         range.endOffset, 
-                         startNode, 
-                         endNode, 
-                         range.commonAncestorContainer);
-        
-        // If there are other matches within the startNode, 
-        // process them here
-        if ( extraMatches.length > 0 ) {
-            for ( k = 0; k < extraMatches.length; k++ ) {
-                obj = extraMatches[k];
-
-                // Insert the "fact"-span in the same element
-                this.replaceFactNodes(obj.startOffset, 
-                                      obj.endOffset, 
-                                      startNode, 
-                                      endNode, 
-                                      range.commonAncestorContainer );
-            }
+		//process all matches starting in ranges[i].startContainer
+        for ( var k = 0; k < matches.length; k++ ) {
+            this.replaceFactNodes(matches[k],results);
         }
     }
     
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    for ( i = 0, len = results.length; i < len; i++ ) {
+    var len;
+    for ( var i = 0, len = results.length; i < len; i++ ) {
         var res = results[i];
         
         // Insert the fact-span
@@ -98,9 +73,6 @@ Factlink.selectRanges = function(ranges, id, opinions){
             i % ( results.length / ranges.length ) === 0
         );
     }
-    
-    // Empty the results placeholder so that results don't stack
-    results = [];
 };
 
 // This is where the actual magic will take place
@@ -176,30 +148,27 @@ createFactSpan = function(text, id, opinions, first){
 };
 
 // Function that tracks the DOM for nodes containing the fact
-Factlink.replaceFactNodes = function(startOffset,
-                                     endOffset,
-                                     startNode,
-                                     endNode,
-                                     commonAncestorContainer) {
+Factlink.replaceFactNodes = function(range,results) {
+	
         // Only parse the nodes if the startNode is already found, 
         // this boolean is used for tracking
     var foundStart = false;
     
     // Walk the DOM in the right order and call the function for every 
     // node it passes
-   walkTheDOM( commonAncestorContainer, function( node ) {
+   walkTheDOM( range.commonAncestorContainer, function( node ) {
         // We're only interested in textNodes
-        if ( node !== undefined && node.nodeType === 3 ){
+        if ( node !== undefined && node.nodeType === 3 ){ //3 == text (so therefore leaf)
             var rStartOffset = 0;
-            if (node === startNode) {
+            if (node === range.startContainer) {
                 foundStart = true;
-                rStartOffset = startOffset;
+                rStartOffset = range.startOffset;
             }
 
             if (foundStart) {
                 var rEndOffset = node.nodeValue.length;
-                if (node === endNode) {
-                    rEndOffset = endOffset;
+                if (node === range.endContainer) {
+                    rEndOffset = range.endOffset;
                 }
                 
                 // Push the right info to the results array, the info 
@@ -211,7 +180,7 @@ Factlink.replaceFactNodes = function(startOffset,
                 });
             }
 
-            if (foundStart && node === endNode) {
+            if (foundStart && node === range.endContainer) {
                 // If we encountered the last node we don't 
                 // need to walk the DOM anymore
                 return false;
