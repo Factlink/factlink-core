@@ -64,17 +64,25 @@ class ChannelsController < ApplicationController
   end
 
   def add_fact
-    @channel = Channel[params[:channel_id]]
-    @fact = Fact[params[:fact]]
     
-    @channel.add_fact(@fact)
+    @channel = Channel[params[:channel_id].to_i]
+    @fact = Fact[params[:fact_id]]
+    
+    # Quick check
+    if @channel.created_by == current_user
+      @channel.add_fact(@fact)
+    end
   end
   
-  def remove_fact
+  def remove_fact 
     @channel = Channel[params[:channel_id]]
-    @fact = Fact[params[:fact]]
+    @fact = Fact[params[:fact_id]]
     
-    @channel.remove_fact(@fact)
+    # Quick check
+    if @channel.created_by == current_user
+      @channel.remove_fact(@fact)
+    end
+    
   end
 
   # DELETE /channels/1
