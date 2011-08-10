@@ -1,4 +1,6 @@
 class ChannelsController < ApplicationController
+
+  layout "accounting"
   
   before_filter :get_user
 
@@ -46,7 +48,7 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.created_by = current_user.graph_user
       @channel.save
-      redirect_to(channel_path(@user.username, @channel.id), :notice => '*Channel was successfully created*')
+      redirect_to(user_profile_path(@user.username), :notice => '*Channel was successfully created*')
     else
       render :action => "new"
     end
@@ -59,7 +61,7 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.update_attributes(params[:channel])
       @channel.save
-      redirect_to(channel_path(@user.username, @channel.id), :notice => '*Channel was successfully updated*')
+      redirect_to(user_profile_path(@user.username), :notice => '*Channel was successfully updated*')
     else
       render :action => "edit"
     end
