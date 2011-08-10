@@ -38,7 +38,9 @@ def fact(fact_string,url="http://example.org/")
 end
 
 def export_fact(fact)
-  "fact \"#{quote_string(fact.displaystring)}\", \"#{fact.site.url}\"\n"
+  rv = "fact \"#{quote_string(fact.displaystring)}\""
+  rv += ", \"#{fact.site.url}\"\n" if fact.site
+  rv
 end
 
 def fact_relation(fact1,relation,fact2)
@@ -73,6 +75,10 @@ end
 
 def export_user(graph_user)
   "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\"\n"
+end
+
+def export_activate_user(graph_user)
+  "user \"#{quote_string(graph_user.username)}\"\n"
 end
 
 
