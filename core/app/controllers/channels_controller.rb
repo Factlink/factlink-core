@@ -12,13 +12,11 @@ class ChannelsController < ApplicationController
       :update]
   
   before_filter :authenticate_user!,
-    :only => [
-      :edit,
-      :create,
-      :destroy,
-      :update
+    :except => [
+      :index,
+      :show
       ]
-  
+
   # GET /:username/channel
   def index
     @channels = @user.channels
@@ -40,15 +38,13 @@ class ChannelsController < ApplicationController
   # POST /channels
   def create
     
-    puts "\n*\n*\n*#{params[:channel]}"
-    
     @channel = Channel.new(params[:channel])
 
     # Check if object valid, then execute:
     if @channel.valid?
       @channel.created_by = current_user.graph_user
       @channel.save
-      redirect_to(user_profile_path(@user.username), :notice => '*Channel was successfully created*')
+      redirect_to(user_profile_path(@user.username), :notice => 'Channel was successfully created')
     else
       render :action => "new"
     end
@@ -61,10 +57,24 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.update_attributes(params[:channel])
       @channel.save
-      redirect_to(user_profile_path(@user.username), :notice => '*Channel was successfully updated*')
+      redirect_to(user_profile_path(@user.username), :notice => 'Channel was successfully updated')
     else
       render :action => "edit"
     end
+  end
+
+  def add_fact
+    @channel = Channel[params[:channel_id]]
+    @fact = Fact[params[:fact]]
+    
+    @channel.add_fact(@fact)
+  end
+  
+  def remove_fact
+    @channel = Channel[params[:channel_id]]
+    @fact = Fact[params[:fact]]
+    
+    @channel.remove_fact(@fact)
   end
 
   # DELETE /channels/1

@@ -55,8 +55,12 @@ FactlinkUI::Application.routes.draw do
   
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
-    resources :channels
+    resources :channels    
     post "/channels/:id" => "channels#update"
+    
+    get "/channels/:channel_id/add/:fact_id"    => "channels#add_fact",     :as => "channel_add_fact"
+    get "/channels/:channel_id/remove/:fact_id" => "channels#remove_fact",  :as => "channel_remove_fact"
+    
   end
   
   match "/topic/:search" => "home#index", :as => "search_topic"  

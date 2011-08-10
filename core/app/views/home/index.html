@@ -53,6 +53,11 @@
 			<li style="list-style: none;"><%= link_to "#{user} (#{user.authority})", user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
 		<% end %>
 		</ul>	
+		
+		<% if user_signed_in? %>
+			<%= user_channel_block(current_user) %>
+		<% end %>
+		
 	</div>
 
 

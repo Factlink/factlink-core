@@ -1,3 +1,24 @@
-<h1>Editing channel</h1>
+<!-- header -->
+<% content_for :header do %>
+	<div class="span-6">
+		<%= user_info_block(@user) %>
+	</div>
+<% end %>
 
-<%= render 'form' %>
+
+<!-- left column -->
+<% content_for :left_column do %>
+	
+	<%= user_channel_block(@user) %>
+	<%= user_fact_block(@user) %>
+
+<% end %>
+
+
+<!-- main column -->
+<% content_for :main_column do %>
+
+	<h3>Edit this channel</h3>
+	<%= render 'form' %>
+	
+<% end %>

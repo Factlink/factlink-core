@@ -19,22 +19,24 @@
 <!-- main column -->
 <% content_for :main_column do %>
 	<div id="#main-column-content">
-		
+			
 		<p id="notice"><%= notice %></p>
 
-		<h3><%= @channel.title %></h3>
-		
-		<% if current_user %>
-			<% if @channel.created_by == current_user.graph_user %>
-				<%= link_to 'edit this channel', edit_channel_path(@user.username, @channel.id) %>
-			<% end %>
-		<% end %>
-		
-		
-		<pre><%= @channel.description %></pre>
+		<div style="span-16">
+			<h3>
+				<%= @channel.title %>
+				<span style="font-size: 0.6em;">
+					<% if current_user %>
+						<% if @channel.created_by == current_user.graph_user %>
+							<%= link_to 'edit this channel', edit_channel_path(@user.username, @channel.id) %>				
+						<% end %>
+					<% end %>
+				</span>
+			</h3>
+			<p><%= @channel.description %></p>
+		</div>
 
 		<ul>
-			
 			<% unless @channel.facts.count > 0 %>
 				<li>No facts for this channel...</li>
 			<% else %>
@@ -42,12 +44,7 @@
 					<li><%= fact.displaystring %></li>
 				<% end %>			
 			<% end %>
-			
-
 		</ul>
 
-
-
-		
 	</div>
 <% end %>
