@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @channel.title %></h1>
+<pre><%= @channel.description %></pre>
+
+<ul>
+<% @channel.facts.to_a.each do |fact| %>
+	<li><%= fact.displaystring %></li>
+<% end %>
+</ul>
+
+<%= link_to 'Edit', edit_channel_path(@user.username, @channel.id) %> |
+<%= link_to 'Back', channels_path(@user.username) %>

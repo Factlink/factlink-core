@@ -1,0 +1,35 @@
+
+
+<pre><%= debug params %></pre>
+
+<% if params[:action] == "edit" %>
+	<% @action = "update" %> 
+<% else %>
+	<% @action = "create" %>
+<% end %>
+
+<%= form_for(:channel, :url => { :action => @action }) do |f| %>
+	<% if @channel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+
+      <ul>
+      <% @channel.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+	<%= f.label "Title" %>
+	<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
+	<br/>
+
+	<%= f.label "Description" %>
+	<%= f.text_field :description, :placeholder => "optional description" %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -5,7 +5,7 @@ class Channel < OurOhm
   
   set :facts, Fact
   
-  reference :user, GraphUser
+  reference :created_by, GraphUser
   
   def validate
     assert_present :title
@@ -21,6 +21,6 @@ class Channel < OurOhm
   end
   
   def to_s
-    self.title
+    self.id
   end
 end

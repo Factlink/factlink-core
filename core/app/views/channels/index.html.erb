@@ -1,0 +1,15 @@
+<h1>Channels for <%= @user.username %></h1>
+
+<ul>
+<% @user.channels.each do |channel| %>
+	<li><%= link_to(channel.title, channel_path(@user.username, channel.id)) %></li>
+	<ul>
+		<% channel.facts.to_a.each do |fact| %>
+			<li><%= fact %></li>
+		<% end %>
+	</ul>
+<% end %>
+</ul>
+
+
+<%= link_to("new channel", new_channel_path(@user.username)) %>

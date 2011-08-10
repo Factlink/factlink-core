@@ -29,12 +29,16 @@ class ChannelsController < ApplicationController
 
   # POST /channels
   def create
-    @channel = Channel.new(params[:baron])
     
+    puts "\n*\n*\n*#{params[:channel]}"
+    
+    @channel = Channel.new(params[:channel])
+
     # Check if object valid, then execute:
     if @channel.valid?
+      @channel.created_by = current_user.graph_user
       @channel.save
-      redirect_to(@channel, :notice => 'Baron was successfully created.')
+      redirect_to(channel_path(@user.username, @channel), :notice => '*Channel was successfully created*')
     else
       render :action => "new"
     end
