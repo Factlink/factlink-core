@@ -9,6 +9,14 @@ class ChannelsController < ApplicationController
       :destroy,
       :update]
   
+  before_filter :authenticate_user!,
+    :only => [
+      :edit,
+      :create,
+      :destroy,
+      :update
+      ]
+  
   # GET /:username/channel
   def index
     @channels = @user.channels
@@ -38,7 +46,7 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.created_by = current_user.graph_user
       @channel.save
-      redirect_to(channel_path(@user.username, @channel), :notice => '*Channel was successfully created*')
+      redirect_to(channel_path(@user.username, @channel.id), :notice => '*Channel was successfully created*')
     else
       render :action => "new"
     end
@@ -50,11 +58,10 @@ class ChannelsController < ApplicationController
     # Check if object valid, then execute:
     if @channel.valid?
       @channel.update_attributes(params[:channel])
-      format.html { redirect_to(@channel, :notice => 'Baron was successfully updated.') }
-      format.xml  { head :ok }
+      @channel.save
+      redirect_to(channel_path(@user.username, @channel.id), :notice => '*Channel was successfully updated*')
     else
-      format.html { render :action => "edit" }
-      format.xml  { render :xml => @channel.errors, :status => :unprocessable_entity }
+      render :action => "edit"
     end
   end
 
