@@ -134,6 +134,20 @@
 
 	<div class="fl-clear"></div>
 	
+	add to channel:
+	
+	
+	<%= form_for("test", :remote => true, :url => channel_add_fact_path(current_user.username)) do |f| %>
+	
+		<%= hidden_field_tag(:fact_id, @fact.id) %>
+
+		<%= select_tag(:channel_id, options_for_select(current_user.channels.map { |channel| [channel.title, channel.id] })) %>
+
+		<%= f.submit %>
+	<% end %>
+		
+	</form>
+	
 </div>
 
 <!-- Filter bar -->

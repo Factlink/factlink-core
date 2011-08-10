@@ -3,7 +3,7 @@
 	
 	<% if user_signed_in? %>
 		<% if current_user == user %>
-			<span style="margin: 10px;"><%= link_to("+ add", new_channel_path(current_user.username)) %></span>
+			<span style="margin: 10px;"><%= link_to("(add)", new_channel_path(current_user.username)) %></span>
 		<% end %>
 	<% end %>
 </div>
