@@ -49,11 +49,11 @@ class FactsController < ApplicationController
 
   # Prepare for create
   def prepare_new
-    render :template => 'facts/prepare_new', :layout => "prepare"
+    render :template => 'facts/javascript/prepare_new.js.erb', :content_type => "application/javascript"
   end
   
   def prepare_evidence
-    render :template => 'facts/prepare_evidence', :layout => "prepare"
+    render :template => 'facts/javascript/prepare_evidence.js.erb', :content_type => "application/javascript"
   end
 
   # Prepare for create
