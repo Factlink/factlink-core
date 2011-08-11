@@ -38,7 +38,13 @@ function getTextRange() {
     return d;
 }
 
+// This method will position a frame at the coordinates, either the left-top or 
+// the right-top will be placed at x,y (preferably left-top)
 function positionFrameToCoord($frame, x, y) {
+    if ( document.body.clientWidth < ( x + $frame.outerWidth(true) ) ) {
+        x -= $frame.outerWidth(true);
+    }
+    
     $frame.css({
         position: 'absolute',
         top: y + 'px',
@@ -64,18 +70,31 @@ $('body').bind( 'mouseup', function( e ) {
     // Retrieve all needed info of current selection
     var selectionInfo = Factlink.getSelectionInfo();
     // Retrieve the text from the selection
-    var text          = selectionInfo.selection.getRangeAt(0).toString();
+    var text = selectionInfo.selection.getRangeAt(0).toString();
+    
+    if ($prepare.is(':visible')) {
+        $prepare.hide();
+    }
 
     // Check if the selected text is long enough to be added
     if (text !== undefined && text.length > 1) {
-        if (FactlinkConfig.modus === "default") {
-            
-        } else if (FactlinkConfig.modus === "addToFact") {
-            
-        }
+        positionFrameToCoord($prepare, e.pageX, e.pageY);
         
-        positionFrameToCoord($prepare, e.clientX, e.clientY);
-        
+        // We execute the showing of the prepare menu inside of a setTimeout 
+        // because of selection change only activating after mouseup event call.
+        // Without this hack there are moments when the prepare menu will show 
+        // without any text being selected
+        setTimeout(function(){
+            // Retrieve all needed info of current selection
+            selectionInfo = Factlink.getSelectionInfo();
+            // Retrieve the text from the selection
+            text = selectionInfo.selection.getRangeAt(0).toString();
+
+            // Check if the selected text is long enough to be added
+            if (text !== undefined && text.length > 1) {
+                $prepare.show();
+            }
+        }, 50);
     }
 });
 })(window.Factlink);
