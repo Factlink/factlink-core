@@ -6,3 +6,8 @@ div#factlink-indicator ul{vertical-align:top;list-style:none;display:inline-bloc
 div#factlink-indicator ul li.fl-bar-proves{left:30px;}div#factlink-indicator ul li.fl-bar-proves div{background:#52d623;height:100%;}
 div#factlink-indicator ul li.fl-bar-maybe{left:15px;}div#factlink-indicator ul li.fl-bar-maybe div{background:#ffe400;height:100%;}
 div#factlink-indicator ul li.fl-bar-denies{left:0;}div#factlink-indicator ul li.fl-bar-denies div{background:#ff6136;height:100%;}
+div#fl-prepare{display:none;padding:0;margin:0;}div#fl-prepare ul{color:#000;list-style:none;margin:0;padding:0;}div#fl-prepare ul li{border:solid 1px #C8C8C8;border-top:none;box-shadow:2px 4px 6px rgba(123, 123, 123, 0.5);position:relative;background-color:#fff;white-space:nowrap;padding:2px 0px;cursor:pointer;font-family:"Helvetica",Arial,sans-serif;font-size:9pt;}div#fl-prepare ul li.first{border-top-left-radius:5px;border-top-right-radius:5px;border-top:1px solid #C8C8C8;}
+div#fl-prepare ul li.last{border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
+div#fl-prepare ul li>span>a{padding:2px 18px;line-height:20px;border-radius:1px;}div#fl-prepare ul li>span>a:hover{border-top:solid 1px #5853EA;background-image:-webkit-gradient(linear, left bottom, left top, color-stop(1, #605df5), color-stop(0, #3600e6));color:#fff;}
+div#fl-prepare ul li a{color:#000;text-decoration:none;}
+div#fl-prepare ul li img{position:relative;top:3px;margin-right:2px;}

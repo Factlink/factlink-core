@@ -2,6 +2,28 @@
 // Function which will return the Selection object
 //@TODO: Add rangy support for IE
 
+// Load the needed prepare menu & put it in a container
+var urlToLoad,
+    $prepare = $('<div />')
+                    .attr('id', 'fl-prepare')
+                    .appendTo("body");
+
+if (FactlinkConfig.modus === "default") {
+    urlToLoad = '//' + FactlinkConfig.api + 'factlink/prepare/new';
+} else if (FactlinkConfig.modus === "addToFact") {
+    urlToLoad = '//' + FactlinkConfig.api + 'factlink/prepare/evidence';
+}
+
+$.ajax({
+    url: urlToLoad,
+    dataType: "jsonp",
+    crossDomain: true,
+    cache: false,
+    success: function(data) {
+        $prepare.html( data );
+    }
+});
+
 function getTextRange() {
     var d = '';
     if (window.getSelection) {
@@ -14,6 +36,14 @@ function getTextRange() {
         }
     }
     return d;
+}
+
+function positionFrameToCoord($frame, x, y) {
+    $frame.css({
+        position: 'absolute',
+        top: y + 'px',
+        left: x + 'px'
+    });
 }
 
 // We make this a global function so it can be used for direct adding of facts
@@ -29,15 +59,8 @@ Factlink.getSelectionInfo = function() {
     };
 };
 
-// Prepare a new Factlink
-function prepareFact(rng, passage, top, left) {
-    // Position the frame
-    Factlink.remote.position(top, left);
-    Factlink.modal.show.method();
-}
-
 // Bind the actual selecting
-$('body').bind('mouseup', function(e) {
+$('body').bind( 'mouseup', function( e ) {
     // Retrieve all needed info of current selection
     var selectionInfo = Factlink.getSelectionInfo();
     // Retrieve the text from the selection
@@ -46,12 +69,13 @@ $('body').bind('mouseup', function(e) {
     // Check if the selected text is long enough to be added
     if (text !== undefined && text.length > 1) {
         if (FactlinkConfig.modus === "default") {
-            Factlink.remote.prepareNewFactlink(text, selectionInfo.passage, window.location.href);
+            
         } else if (FactlinkConfig.modus === "addToFact") {
-            Factlink.remote.prepareNewFactAsEvidence(text, selectionInfo.passage, FactlinkConfig.url || window.location.href);
+            
         }
         
-        prepareFact(selectionInfo.selection.getRangeAt(0), selectionInfo.passage, e.clientY, e.clientX);
+        positionFrameToCoord($prepare, e.clientX, e.clientY);
+        
     }
 });
 })(window.Factlink);
