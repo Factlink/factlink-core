@@ -18,31 +18,41 @@ var fs = require('fs');
 server.set('view engine', 'jade');
 
 server.get('/parse', function(req, res) {
-    var site = req.query.url;
+  var site = req.query.url;
 
-	// Quick fixes for visiting sites without http(s) or www
-	http_regex = new RegExp("^http(s?)");    
+	// Quick fixes for visiting sites without http
+	http_regex = new RegExp("^http(s?)");
 	if (http_regex.test(site) === false) {
-		// Not starting with http(s), so add:
+		// Not starting with http, so add:
 		site = "http://" + site
 	}
 
-    console.info( "Serving: " + site );
+  console.info( "Serving: " + site );
 
-    // The actual request using restler so we can follow redirects
-    var req = require('restler').get( site );
+  // The actual request using restler so we can follow redirects
+  var req = require('restler').get( site );
 
-    // When the request is finished, handle the response data
-    req.on('complete', function(data) {
-        // Replace the closing head tag with a base tag
-        var html = data.replace('<head>', '<head><base href="' + site + '" />');
-        html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+  // When the request is finished, handle the response data
 
-        // Write the replaced HTML to 
-        res.write( html );
-        
-        res.end();
-    });
+	req.on("error", function(data) {
+		var html = "<html><body><pre>An error occured when trying to visit " + site + ".\n\nAre you sure this is the site you wanted to visit?</pre></body></html>";
+		console.log("[ERROR] Faild on " + site);
+		
+		res.write( html );
+		res.end(); 
+	});
+	
+  req.on('complete', function(data) {
+	
+    // Replace the closing head tag with a base tag
+    var html = data.replace('<head>', '<head><base href="' + site + '" />');
+    html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+
+    // Write the replaced HTML to 
+    res.write( html );
+    res.end();
+  });
+
 });
 
 server.get('/header', function(req, res) {
