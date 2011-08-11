@@ -24,8 +24,6 @@ namespace :db do
         end
       end
       
-      doMagic
-      
     end
 
     task :list do
