@@ -35,7 +35,7 @@ server.get('/parse', function(req, res) {
   // When the request is finished, handle the response data
 
 	req.on("error", function(data) {
-		var html = "<html><body><pre>An error occured when trying to visit " + site + ".\n\nAre you sure this is the site you wanted to visit?</pre></body></html>";
+		var html = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.</span></body></html>";
 		console.log("[ERROR] Faild on " + site);
 		
 		res.write( html );
