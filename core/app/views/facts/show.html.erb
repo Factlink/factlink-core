@@ -137,7 +137,7 @@
 	add to channel:
 	
 	
-	<%= form_for("test", :remote => true, :url => channel_add_fact_path(current_user.username)) do |f| %>
+	<%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
 	
 		<%= hidden_field_tag(:fact_id, @fact.id) %>
 

@@ -1,0 +1,21 @@
+<li data-article-id="<%= channel.id %>">
+
+	<article class="channel-block" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
+		
+		<div class="label-fixer">
+			<div class="label">
+				<span><%= channel.facts.count %></span>
+			</div>
+			<div class="label-back">
+				&nbsp;
+			</div>
+		</div>
+		
+		<div class="wrapper">
+			<h1><%= channel.title %></h1>			
+			<sub><%= channel.description || "&nbsp;".html_safe %></sub>			
+		</div>
+
+	</article>
+	
+</li>

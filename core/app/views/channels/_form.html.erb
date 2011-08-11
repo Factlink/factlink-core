@@ -19,19 +19,18 @@
 
 	<p>Use channels to sort your facts. Channels can be interesting for other users to follow, or keep your facts categorised.</p>
 
-	<span style="width: 100px; display: block; float: left; padding-top: 8px;">
-	<%= f.label "Title", :style => "font-weight: 100;" %>
-	</span>
-	<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
+	<div class="row">
+		<%= f.label "Title", :style => "font-weight: 100;" %>
+		<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
+	</div>
+	
 
-	<br/>
-
-	<span style="width: 100px; display: block; float: left; padding-top: 8px;">
-	<%= f.label "Description", :style => "font-weight: 100;" %>
-	</span>
-	<%= f.text_field :description, :placeholder => "optional description" %>
+	<div class="row">
+		<%= f.label "Description", :style => "font-weight: 100;" %>
+		<%= f.text_field :description, :placeholder => "optional description" %>
+	</div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Save" %>
   </div>
 <% end %>

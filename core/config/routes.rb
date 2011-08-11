@@ -59,8 +59,8 @@ FactlinkUI::Application.routes.draw do
   
   scope "/:username" do
 
-    post "/channels/add_fact"    => "channels#add_fact",     :as => "channel_add_fact"
-    get "/channels/:channel_id/remove_fact/:fact_id" => "channels#remove_fact",  :as => "channel_remove_fact"
+    post "/channels/add_fact"    => "channels#add_fact",     :as => "add_fact_to_channel"
+    get "/channels/:channel_id/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from_channel"
 
     get "/" => "users#show", :as => "user_profile"
     resources :channels    

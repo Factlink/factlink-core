@@ -1,0 +1,11 @@
+<header class="append-bottom">
+	<h1>recent interesting facts</h1>
+	<sub style="display: inline-block;">See what's goin on around the globe. You can create <a href="#">channels</a> with your own interest as well.</sub>
+</header>
+
+<!-- fact listing -->
+<ul>
+	<% facts.each do |fact| %>
+		<%=	fact_snippet(fact) %>
+	<% end %>
+</ul>

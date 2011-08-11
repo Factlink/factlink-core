@@ -1,0 +1,18 @@
+<header>
+	<h1>Channels <%= add_channel(user) %></h1>
+</header>
+
+<!-- article listing -->
+
+<% unless channels.count > 0 %>
+	<p><%= user.username %> has no channels.</p>
+
+<% else %>
+	<ul class="bubble">
+		<% channels.each do |channel| %>
+	
+			<%= channel_snippet(channel, user) %>
+
+		<% end %>
+	</ul>
+<% end %>

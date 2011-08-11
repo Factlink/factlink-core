@@ -1,16 +1,17 @@
 <!-- header -->
 <% content_for :header do %>
-	<div class="span-6">
-		<%= user_info_block(@user) %>
-	</div>
+
 <% end %>
 
 
 <!-- left column -->
 <% content_for :left_column do %>
 	
-	<%= user_channel_block(@user) %>
-	<%= user_fact_block(@user) %>
+	<ul>
+		<%= user_block(@user) %>
+	</ul>
+
+	<%= channel_listing_for_user(@user.channels, @user) %>
 
 <% end %>
 
@@ -18,7 +19,9 @@
 <!-- main column -->
 <% content_for :main_column do %>
 
-	<h3>Create a new channel</h3>
-	<%= render 'form' %>
+	<h1>Create a new channel</h1>
+	<section class="bubble">
+		<%= render 'form' %>
+	</section>
 	
 <% end %>

@@ -1,58 +1,26 @@
 <!-- header -->
 <% content_for :header do %>
-	<div class="span-6">
-		<%= user_info_block(@user) %>
-	</div>
-	
-	<div class="span-18 last" style="margin-top: 20px;">
-		<span style="display:block;"><%= @user.username %> created <%= @user.facts.count %> facts and added <%= @user.fact_relations.count %> sources to Factlink</span>
-		<span style="display:block;">
-			<%= @user.username %> believes <%= @user.believe_count %> facts, doubts <%= @user.doubt_count %> facts
-			and disbelieves <%= @user.disbelieve_count %> facts.
-		</span>
-	</div>	
+
 <% end %>
 
 
 <!-- left column -->
 <% content_for :left_column do %>
 	
-	<%= user_channel_block(@user) %>
-	<%= user_fact_block(@user) %>
+	<ul>
+		<%= user_block(@user) %>
+	</ul>
+	
+	<%= channel_listing_for_user(@user.channels, @user) %>
 
 <% end %>
 
 
 <!-- main column -->
 <% content_for :main_column do %>
-	<div id="#main-column-content">
-		
-	</div>
+
+	<% if @user.channels.count > 0 %>
+		<%= fact_listing_for_channel(@user.channels.first) %>
+	<% end %>
+
 <% end %>
-
-
-
-<!-- <div id="opinions">
-	<h2 style="text-shadow: 0px 1px 1px #fff;"><%= @user.username %>:</h2>
-	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>believes <%= @user.believed_facts.count %> facts</h2>
-		<ul>
-			<%= render(:partial => "facts/partial/factlink", :collection => @user.believed_facts) || "<li style='list-style: none;'>#{@user.username} does not believe any facts</li>".html_safe %>
-		</ul>
-	</div>
-
-
-	<div class="span-8" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>doubts <%= @user.doubted_facts.count %> facts</h2>
-		<ul>
-			<%= render(:partial => "facts/partial/factlink", :collection => @user.doubted_facts) || "<li style='list-style: none;'>#{@user.username} does not doubt any facts</li>".html_safe %>
-		</ul>
-	</div>
-
-	<div class="span-8 last" style="text-shadow: 0px 1px 1px #fff;">
-		<h2>disbelieves <%= @user.disbelieved_facts.count %> facts</h2>
-		<ul>
-			<%= render(:partial => "facts/partial/factlink", :collection => @user.disbelieved_facts) || "<li style='list-style: none;'>#{@user.username} does not disbelieve any facts</li>".html_safe %>			
-		</ul>
-	</div> 
-</div> -->
