@@ -2,6 +2,10 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  # development
+  get "new" => "home#new"
+
+
   ##########
   # User Authentication
   devise_for :admins
