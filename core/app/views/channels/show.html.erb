@@ -36,14 +36,13 @@
 			<p><%= @channel.description %></p>
 		</div>
 
-		<ul>
+		<ul id="facts-in-channel">
 			<% unless @channel.facts.count > 0 %>
 				<li>No facts for this channel...</li>
 			<% else %>
 				<% @channel.facts.to_a.each do |fact| %>
-					<li><%= fact.displaystring %>
-						
-							<%= link_to(image_tag("trashcan.png"), channel_remove_fact_path(current_user.username, @channel.id, fact.id)) %>
+					<li id="fact-<%= fact.id %>"><%= fact.displaystring %>					
+							<%= link_to(image_tag("trashcan.png"), channel_remove_fact_path(current_user.username, @channel.id, fact.id), :remote => :true, :confirm => "Are you sure you want to remove this fact from your channel?") %>
 						</li>
 				<% end %>			
 			<% end %>
