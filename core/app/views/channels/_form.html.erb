@@ -23,14 +23,20 @@
 		<%= f.label "Title" %>
 		<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
 	</div>
-	
 
 	<div class="row">
-		<%= f.label "Description", :style => "font-weight: 100;" %>
+		<%= f.label "Description" %>
 		<%= f.text_field :description, :placeholder => "optional description" %>
 	</div>
 
-  <div class="actions">
-    <%= f.submit "Save" %>
-  </div>
+	<div class="action-wrapper">
+		<div class="actions">
+			<%= f.submit "Save" %> 
+			
+			<% if @action == "update" %> 
+			or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete ) %>
+			<% end %>
+		</div>
+	</div>
 <% end %>
+

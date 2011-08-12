@@ -91,7 +91,7 @@ class ChannelsController < ApplicationController
 
   # DELETE /channels/1
   def destroy
-    
+   puts "\n*\n*\n*DESTORYING CHANNEL. Should be ;)" 
   end
   
   private
