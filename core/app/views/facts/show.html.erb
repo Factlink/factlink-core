@@ -125,6 +125,7 @@
 				});
 			});
 
+			<% if user_signed_in? %>
 			function toggleFactForChannel(channel_id, fact_id) {
 				$.ajax({
 				  url: "<%= toggle_fact_url(current_user.username) %>",
@@ -136,6 +137,7 @@
 					}
 				});
 			}
+			<% end %>
 
 			// Filter bar
 			function filter(className) {
