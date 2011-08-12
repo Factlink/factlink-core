@@ -187,6 +187,7 @@ describe FactsController do
     end
   end
 
+
   describe :search do
     it "should return relevant results when a search parameter is given" do      
       result_set = (
