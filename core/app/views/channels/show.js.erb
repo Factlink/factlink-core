@@ -1,1 +1,5 @@
 $('#main-column').hide().html('<%= escape_javascript(fact_listing_for_channel(@channel)) %>').fadeIn(150);
+
+$('#channel-listing > li').removeClass('active');
+
+$('#channel-<%= @channel.id %>').addClass('active');

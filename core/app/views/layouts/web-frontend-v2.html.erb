@@ -41,7 +41,8 @@
 			  url: url,
 				dataType: "script",
 			  success: function(){
-			    $(this).addClass("active");
+				console.log($(this));
+			    $(this).closest('li').addClass("active");
 			  }
 			});
 		}
