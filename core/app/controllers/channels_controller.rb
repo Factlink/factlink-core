@@ -85,6 +85,19 @@ class ChannelsController < ApplicationController
     
   end
 
+  def toggle_fact
+    @channel  = Channel[params[:channel_id]]
+    @fact     = Fact[params[:fact_id]]
+    
+    if @channel.facts.include?(@fact)
+      @channel.remove_fact(@fact)
+    else
+      @channel.add_fact(@fact)
+    end
+
+    render :nothing => true    
+  end
+
   # DELETE /channels/1
   def destroy
     

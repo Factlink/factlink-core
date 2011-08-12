@@ -110,12 +110,25 @@
 				});
 			});
 
+			function toggleFactForChannel(channel_id, fact_id) {
+				$.ajax({
+				  url: "<%= toggle_fact_url(current_user.username) %>",
+					dataType: "script",
+					type: "POST",
+					data: {
+						channel_id: channel_id,
+						fact_id: fact_id
+					}
+				});
+			}
+
+			// Filter bar
 			function filter(className) {
 				$('#fl-evidence > #fl-sources > ol > li').hide().filter(className).fadeIn();
 			}
 			
 			window.fact_id = "<%= @fact.id %>";
-
+			
 		</script>
 	<% end %>
 
@@ -138,17 +151,17 @@
 	<div id="fl-channels" class="fl-popup">
 		add to channel:
 
-		<%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
+		<!-- <%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
 			<%= hidden_field_tag(:fact_id, @fact.id) %>
 			<%= select_tag(:channel_id, options_for_select(current_user.channels.map { |channel| [channel.title, channel.id] })) %>
 			<%= f.submit "add to channel" %>
-		<% end %>
+		<% end %> -->
 		
 		
 		<ul>
 		<% current_user.channels.each do |channel| %>
-			
-			<li><%= check_box_tag(channel.title) %> <%= label_tag(channel.title) %></li>
+		
+			<li><%= check_box_tag(channel.title, nil, nil, :onclick => "toggleFactForChannel(#{channel.id}, #{@fact.id});") %> <%= label_tag(channel.title) %></li>
 		<% end %>
 		</ul>
 		
