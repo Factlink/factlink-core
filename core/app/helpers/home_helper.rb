@@ -79,5 +79,9 @@ module HomeHelper
       end
     end
   end
+
+  def users_and_factlink_information
+    render :partial => "home/v2/snippets/user_and_factlink_information"
+  end
   
 end

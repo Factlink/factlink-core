@@ -1,17 +1,42 @@
-<h2 style="color: #333; text-shadow: 0px 1px 1px #fff;">Sign in with your Factlink account</h2>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<% content_for :left_column do %>
 
-  <%= f.email_field :email, :placeholder => "Email" %><br/>
-  <%= f.password_field :password, :placeholder => "Password" %><br/>
+	<%= users_and_factlink_information %>
 
-  <% if devise_mapping.rememberable? -%>
-    <span><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
-  <% end -%>
-
-  <pre><%= f.submit "Sign in", :class => "button" %></pre>
 <% end %>
 
+<% content_for :main_column do %>
 
 
-<%= render :partial => "devise/shared/links" %>
+	<h1>Sign in with your Factlink account</h1>
+
+	<section class="bubble">
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+	<div class="row">
+		<%= f.label "Email" %>
+	  <%= f.email_field :email, :placeholder => "Email" %><br/>
+	</div>
+	<div class="row">
+		<%= f.label "Password" %>
+	  <%= f.password_field :password, :placeholder => "Password" %><br/>
+	</div>
+	
+  <% if devise_mapping.rememberable? -%>
+    <span style="margin-left: 260px;"><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
+  <% end -%>
+
+	<div>
+	<%= render :partial => "devise/shared/links" %>
+	</div>
+
+	<div class="actions">
+	  <pre><%= f.submit "Sign in", :class => "button" %></pre>
+	</div>
+	<% end %>
+
+
+	
+
+	</section>
+<% end %>
