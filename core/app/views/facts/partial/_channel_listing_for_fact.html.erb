@@ -5,7 +5,7 @@
 		<li>You have no channels yet.<br/><%= link_to("Add one?", new_channel_path(current_user.username), :target => "blank") %></li>
 	<% else %>		
 		<% current_user.channels.each do |channel| %>
-			<li><%= check_box_tag(channel.title, 1, channel.facts.include?(fact), :onclick => "toggleFactForChannel(#{channel.id}, #{fact.id});") %> <%= label_tag(channel.title) %></li>
+			<li><%= check_box_tag(channel.id, 1, channel.facts.include?(fact), :onclick => "toggleFactForChannel(#{channel.id}, #{fact.id});") %> <%= label_tag(channel.id, channel.title) %></li>
 		<% end %>
 			<li><%= link_to("Add another channel...", new_channel_path(current_user.username), :target => "blank") %></li>
 	<% end %>
