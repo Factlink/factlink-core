@@ -17,9 +17,10 @@ Factlink.search = function(searchString){
         selection = window.getSelection();
         
         // If the user currently has selected some text
-        if ( selection.rangeCount > 0 )
+        if ( selection.rangeCount > 0 ) {
             // Store the selection
             selectedRange = selection.getRangeAt(0);
+        }
         
         window.getSelection().removeAllRanges();
         
@@ -38,7 +39,7 @@ Factlink.search = function(searchString){
         if ( selectedRange !== undefined ) {
             window.getSelection().addRange( selectedRange );
         }
-    } else { // No window.find and createTextRange
+    } else { // No window.find
         return false;
     }
     

@@ -3,9 +3,7 @@
         var selectionInfo = Factlink.getSelectionInfo();
         
         // Get al the facts on the current page
-        Factlink.remote.createFactlink(selectionInfo.range.toString(), selectionInfo.passage, window.location.href);
-        
-        Factlink.modal.show.method();
+        Factlink.remote.createFactlink(selectionInfo.text, selectionInfo.passage, window.location.href);
     } else {
         // Store arguments object so we can use from the setTimeout and loadFactlink
         var arg = arguments;

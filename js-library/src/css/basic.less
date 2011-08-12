@@ -1,122 +1,209 @@
 span.factlink {
-    cursor: pointer;
-    
-    &.fl-first {
-        padding: 0 3px 0 0;
-    }
-    
-    &.fl-active {
-        background: #B4D5FE !important;
-    }
-    
-    -webkit-transition: all 0.4s ease-in-out;
+  cursor: pointer;
+
+  &.fl-first {
+    padding: 0 3px 0 0;
+  }
+
+  &.fl-active {
+    background: #B4D5FE !important;
+  }
+
+  -webkit-transition: all 0.4s ease-in-out;
 }
 
 div#factlink-modal-frame {
-    background: transparent;
+  background: transparent;
+  border: none;
+  z-index: 2147483647;
+  display: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  iframe {
     border: none;
-    z-index: 2147483647;
-    display: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
     height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    
-    iframe {
-        border: none;
-        height: 100%;
-        width: 100%;
-    }
+    width: 100%;
+  }
+
 }
 
 div#factlink-indicator {
-    display: none;
-    position: absolute;
-    top: 200px;
-    left: 200px;
-    
-    height: 49px;
-    
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    
-    background-color: #eee;
-    cursor: pointer;
-    // Compatibility
-    // background-image: -moz-linear-gradient(top, #ffffff, #f0efef); 
-    // background-image: -ms-linear-gradient(top, #ffffff, #f0efef); 
-    // background-image: -o-linear-gradient(top, #ffffff, #f0efef); 
-    // background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-    // background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-    // background-image: linear-gradient(top, #ffffff, #f0efef);
-    // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef'); 
-    
-    padding: 5px 4px 0;
-    margin: 0;
-    
-    img {
-        vertical-align: top;
-        height: 20px;
-        width: 20px;
-        margin: 0;
-        padding: 0;
-    }
-    
-    ul {
-        vertical-align: top;
-        list-style:none;
-        display:inline-block;
-        margin: 0;
-        padding: 0;
-        width: 45px;
-        height: 45px;
-        
-        border-radius: 8px;
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  height: 49px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #eee;
+  cursor: pointer;
+  // Compatibility
+  // background-image: -moz-linear-gradient(top, #ffffff, #f0efef);
+  // background-image: -ms-linear-gradient(top, #ffffff, #f0efef);
+  // background-image: -o-linear-gradient(top, #ffffff, #f0efef);
+  // background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
+  // background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
+  // background-image: linear-gradient(top, #ffffff, #f0efef);
+  // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef');
+  padding: 5px 4px 0;
+  margin: 0;
 
-        overflow: hidden;
-        position: relative;
-        
-        li {
-            display: inline-block;
-            min-height: 10px;
-            width: 14px;
-            float: left;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            position: absolute;
-            bottom: 0;
-            
-            div {
-                margin: 0 auto;
-            }
-            
-            &.fl-bar-proves {
-                div {
-                    background: rgb(82, 214, 35);
-                    height: 100%;
-                }
-								left: 30px;
-            }
-            
-            &.fl-bar-maybe {
-                div {
-                    background: rgb(255, 228, 0);
-                    height: 100%;
-                }
-                left: 15px;
-            }
-            
-            &.fl-bar-denies {
-                div {
-                    background: rgb(255, 97, 54);
-                    height: 100%;
-                }
-                left: 0;
-            }
+  img {
+    vertical-align: top;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    vertical-align: top;
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+
+    li {
+      display: inline-block;
+      min-height: 10px;
+      width: 14px;
+      float: left;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+
+      div {
+        margin: 0 auto;
+      }
+
+      &.fl-bar-proves {
+        div {
+          background: rgb(82, 214, 35);
+          height: 100%;
         }
+        left: 30px;
+      }
+
+      &.fl-bar-maybe {
+        div {
+          background: rgb(255, 228, 0);
+          height: 100%;
+        }
+        left: 15px;
+      }
+
+      &.fl-bar-denies {
+        div {
+          background: rgb(255, 97, 54);
+          height: 100%;
+        }
+        left: 0;
+      }
+
     }
+
+  }
+
 }
+
+div#fl-prepare {
+  display: none;
+  
+  margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+  
+  ul {
+    color: #000;
+    list-style: none;
+    margin: 0;
+  	padding: 0;
+  	border: 0;
+  	font-size: 100%;
+  	font: inherit;
+  	vertical-align: baseline;
+  	font-family: "Helvetica", Arial, sans-serif;
+    
+    li {
+      border: solid 1px #C8C8C8;
+      border-top: none;
+      box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+      position: relative;
+      background-color: #fff;
+      white-space: nowrap;
+      margin: 0;
+    	border: 0;
+    	font-size: 100%;
+    	font: inherit;
+    	vertical-align: baseline;
+      padding: 2px 0px;
+      cursor: pointer;
+      font-family: "Helvetica", Arial, sans-serif;
+      font-size: 9pt;
+      
+      &.first {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top: 1px solid #C8C8C8;
+      }
+      
+      &.last {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      
+      &>span>a {
+        margin: 0;
+      	border: 0;
+      	font-size: 100%;
+      	font: inherit;
+      	vertical-align: baseline;
+        padding: 2px 18px;
+        line-height: 20px;
+        border-radius: 1px;
+        font-family: "Helvetica", Arial, sans-serif;
+        
+        &:hover {
+          border-top: solid 1px #5853EA;
+          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(96,93,245)), color-stop(0, rgb(54,0,230)) );
+          color: #fff;
+        }
+      }
+      
+      a {
+        color: #000;
+        text-decoration: none;
+        font-family: "Helvetica", Arial, sans-serif;
+      }
+      
+      img {
+        margin: 0 2px 0 0;
+      	padding: 0;
+      	border: 0;
+      	font-size: 100%;
+      	font: inherit;
+      	vertical-align: baseline;
+        position: relative;
+        top: 3px;
+        display: inline;
+      }
+    }
+  }
+}
+
