@@ -22,11 +22,9 @@ $( 'span.factlink' ).live('click', function(e) {
                 Factlink.showInfo( self );
             },
             addToFact: function() {
-                Factlink.remote.prepareNewEvidence( self.getAttribute('data-factid'),
-                                                    window.location.href );
-                // Position the frame
-                Factlink.remote.position( e.clientY, e.clientX );
-                Factlink.modal.show.method();
+                Factlink.prepare.show( e.pageX, e.pageY );
+                
+                Factlink.prepare.setFactId( self.getAttribute("data-factid") );
             }
         };
     })();

@@ -9,12 +9,11 @@ Factlink.remote = new easyXDM.Rpc({
 	    // See modal.js #Factlink.modal
 		local: Factlink.modal,
 		remote: {
-		    prepareNewFactlink: {},
-		    prepareNewEvidence: {},
-		    prepareNewFactAsEvidence: {},
+		    createEvidence: {},
+		    createNewEvidence: {},
 		    createFactlink: {},
 		    showFactlink: {},
-		    position: {},
+		    position: {}
 		}
 	});
 })( window.Factlink );

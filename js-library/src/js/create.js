@@ -1,4 +1,5 @@
 (function(Factlink) {
+var timeout;
 // Function which will return the Selection object
 //@TODO: Add rangy support for IE
 
@@ -21,8 +22,34 @@ $.ajax({
     cache: false,
     success: function(data) {
         $prepare.html( data );
+        
+        bindPrepareClick( $prepare );
     }
 });
+
+function bindPrepareClick( $element ) {
+    $element.find('a')
+        .bind('mouseup', function( e ) {
+            e.stopPropagation();
+        })
+        .bind('click', function( e ) {
+            e.preventDefault();
+            
+            var selInfo = Factlink.getSelectionInfo();
+            
+            if (FactlinkConfig.modus === "default") {
+                Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href);
+            } else {
+                if ( Factlink.prepare.factId ) {
+                    Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, this.id);
+                } else {
+                    Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, this.id);
+                }
+            }
+            
+            $element.hide();
+        });
+}
 
 function getTextRange() {
     var d = '';
@@ -46,14 +73,14 @@ Factlink.getSelectionInfo = function() {
 
     //TODO: Add passage detection here
     return {
-        selection: selection,
+        text: selection.toString(),
         passage: ""
     };
 };
 
 // This method will position a frame at the coordinates, either the left-top or 
 // the right-top will be placed at x,y (preferably left-top)
-function positionFrameToCoord($frame, x, y) {
+Factlink.positionFrameToCoord = function($frame, x, y) {
     if ( document.body.clientWidth < ( x + $frame.outerWidth(true) - document.body.scrollLeft ) ) {
         x -= $frame.outerWidth(true);
     }
@@ -67,33 +94,50 @@ function positionFrameToCoord($frame, x, y) {
         top: y + 'px',
         left: x + 'px'
     });
-}
+};
+
+Factlink.prepare = {
+    factId: null,
+    show: function(x, y) {
+        if ($prepare.is(':visible')) {
+            $prepare.hide();
+            Factlink.prepare.resetFactId();
+        }
+
+        Factlink.positionFrameToCoord($prepare, x, y);
+
+        $prepare.show();
+    },
+    setFactId: function(factId) {
+        this.factId = factId;
+    },
+    resetFactId: function() {
+        delete this.factId;
+    }
+};
 
 // Bind the actual selecting
 $('body').bind( 'mouseup', function( e ) {
+    window.clearTimeout( timeout );
+    
     if ($prepare.is(':visible')) {
         $prepare.hide();
+        Factlink.prepare.resetFactId();
     }
-
-    positionFrameToCoord($prepare, e.pageX, e.pageY);
+    
+    Factlink.positionFrameToCoord($prepare, e.pageX, e.pageY);
     
     // We execute the showing of the prepare menu inside of a setTimeout 
     // because of selection change only activating after mouseup event call.
     // Without this hack there are moments when the prepare menu will show 
     // without any text being selected
-    setTimeout(function(){
+    timeout = setTimeout(function(){
         // Retrieve all needed info of current selection
         var selectionInfo = Factlink.getSelectionInfo();
-
-        if ( selectionInfo.selection.rangeCount === 1 ) {
-            // Retrieve the text from the selection
-            var text = selectionInfo.selection.getRangeAt(0).toString();
-            
-            // Check if the selected text is long enough to be added
-            if (text !== undefined && text.length > 1) {
-                $prepare.show();
-            }
+                
+        // Check if the selected text is long enough to be added
+        if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
+            $prepare.show();
         }
-    }, 50);
-});
+    }, 100);});
 })(window.Factlink);
