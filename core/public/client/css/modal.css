@@ -147,6 +147,12 @@ div.fl-modal #fl-top-pane div.fl-factlink .trashcan {
 div.fl-modal #fl-top-pane div.fl-factlink .trashcan:hover {
   opacity: 0.8;
 }
+div.fl-modal #fl-channels {
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  padding: 8px;
+}
 div.fl-modal .fl-popup {
   background: #f9f9f9;
   border: 1px solid #999;

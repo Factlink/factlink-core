@@ -134,19 +134,25 @@
 
 	<div class="fl-clear"></div>
 	
-	add to channel:
 	
-	
-	<%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
-	
-		<%= hidden_field_tag(:fact_id, @fact.id) %>
+	<div id="fl-channels" class="fl-popup">
+		add to channel:
 
-		<%= select_tag(:channel_id, options_for_select(current_user.channels.map { |channel| [channel.title, channel.id] })) %>
-
-		<%= f.submit "add to channel" %>
-	<% end %>
+		<%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
+			<%= hidden_field_tag(:fact_id, @fact.id) %>
+			<%= select_tag(:channel_id, options_for_select(current_user.channels.map { |channel| [channel.title, channel.id] })) %>
+			<%= f.submit "add to channel" %>
+		<% end %>
 		
-	</form>
+		
+		<ul>
+		<% current_user.channels.each do |channel| %>
+			
+			<li><%= check_box_tag(channel.title) %> <%= label_tag(channel.title) %></li>
+		<% end %>
+		</ul>
+		
+	</div>
 	
 </div>
 
