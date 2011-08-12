@@ -4,7 +4,7 @@
 </header>
 
 <!-- fact listing -->
-<ul>
+<ul id="fact-listing">
 	<% channel.facts.each do |fact| %>
 		<%=	fact_snippet(fact, channel) %>
 	<% end %>

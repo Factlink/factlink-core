@@ -64,15 +64,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def add_fact    
-    @channel = Channel[params[:channel_id].to_i]
-    @fact = Fact[params[:fact_id]]
-    
-    # Quick check
-    if @channel.created_by == current_user.graph_user
-      @channel.add_fact(@fact)
-    end
-  end
   
   def remove_fact 
     @channel = Channel[params[:channel_id]]

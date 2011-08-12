@@ -1,0 +1,13 @@
+<div id="fl-channels" class="fl-popup">
+		
+	<ul>
+	<% unless current_user.channels.count > 0 %>
+		<li>You have no channels yet.<br/><%= link_to("Add one?", new_channel_path(current_user.username), :target => "blank") %></li>
+	<% else %>		
+		<% current_user.channels.each do |channel| %>
+			<li><%= check_box_tag(channel.title, 1, channel.facts.include?(fact), :onclick => "toggleFactForChannel(#{channel.id}, #{fact.id});") %> <%= label_tag(channel.title) %></li>
+		<% end %>
+	<% end %>
+	</ul>
+	
+</div>

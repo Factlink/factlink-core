@@ -45,6 +45,21 @@
         }
       });
 
+			// Show the channels popup
+      $('#fl-channel-button').bind('click', function() {
+					
+          $('#fl-channels').toggle();
+
+          $(document).bind('click', function(e) {
+            if( $(e.target).closest('#fl-channels').length === 0 ) {
+							$('#fl-channels').hide();
+              $(document).unbind('click', arguments.callee);
+            } 
+          });
+          
+          return false;
+      });
+
 
 			// sub.fl-brain-count
 			$('sub.fl-brain-count').live('click', function() {
@@ -146,32 +161,25 @@
 	</div>
 
 	<div class="fl-clear"></div>
-	
-	
-	<div id="fl-channels" class="fl-popup">
-		add to channel:
+		
 
-		<!-- <%= form_for("test", :remote => true, :url => add_fact_to_channel_path(current_user.username)) do |f| %>
-			<%= hidden_field_tag(:fact_id, @fact.id) %>
-			<%= select_tag(:channel_id, options_for_select(current_user.channels.map { |channel| [channel.title, channel.id] })) %>
-			<%= f.submit "add to channel" %>
-		<% end %> -->
-		
-		
-		<ul>
-		<% current_user.channels.each do |channel| %>
-		
-			<li><%= check_box_tag(channel.title, nil, nil, :onclick => "toggleFactForChannel(#{channel.id}, #{@fact.id});") %> <%= label_tag(channel.title) %></li>
-		<% end %>
-		</ul>
-		
-	</div>
 	
 </div>
 
+<% if user_signed_in? %>
+	<%= channel_listing_for_fact(@fact) %>
+<% end %>
+
 <!-- Filter bar -->
 <div class="fl-filter-bar">
-  Show:
+	
+	<div id="fl-channel-button">
+		
+		<% if user_signed_in? %>
+			<%= image_tag('list_unordered.gif') %>
+		<% end %>
+	</div>
+	
   <ul>
    <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact.evidence_count %>)</span></a></li>
    <li><a href="#" onclick="filter('.supporting');"><span>supporting facts (<%= @fact.supporting_evidence_count %>)</span></a></li>

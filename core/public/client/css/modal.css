@@ -148,16 +148,44 @@ div.fl-modal #fl-top-pane div.fl-factlink .trashcan:hover {
   opacity: 0.8;
 }
 div.fl-modal #fl-channels {
+  display: none;
   position: absolute;
-  top: 100px;
-  left: 200px;
+  top: 140px;
+  left: -80px;
+  width: 200px;
   padding: 8px;
+}
+div.fl-modal #fl-channels ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+div.fl-modal #fl-channels ul li {
+  padding: 6px;
+}
+div.fl-modal #fl-channels ul li:hover {
+  background: #f1f1f1;
+}
+div.fl-modal #fl-channels ul li label {
+  padding: 6px;
+}
+div.fl-modal #fl-channels ul li label:hover {
+  cursor: pointer;
 }
 div.fl-modal .fl-popup {
   background: #f9f9f9;
   border: 1px solid #999;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
   z-index: 1001;
+}
+div.fl-modal #fl-channel-button {
+  float: left;
+  padding: 3px 14px 0px 18px;
+  opacity: 0.5;
+}
+div.fl-modal #fl-channel-button:hover {
+  cursor: pointer;
+  opacity: 1.0;
 }
 div.fl-modal .fl-filter-bar ul, div.fl-modal .fl-choices ul {
   list-style: none;
