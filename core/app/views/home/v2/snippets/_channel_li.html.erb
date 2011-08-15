@@ -1,0 +1,28 @@
+<li data-channel-id="<%= channel.id %>">
+
+	<article class="channel-block" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
+	<!-- <article class="channel-block"> -->
+		<div class="label-fixer">
+			<div class="label">
+				<span><%= channel.facts.count %></span>
+			</div>
+			<div class="label-back">
+				&nbsp;
+			</div>
+		</div>
+		
+		<div class="wrapper">
+			<h1><%= channel.title %></h1>			
+			<sub><%= channel.description || "&nbsp;".html_safe %></sub>			
+		</div>
+
+
+		<% if user_signed_in? %>
+		<div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>">
+			<a href="#">follow</a>
+		</div>
+		<% end %>
+
+	</article>
+	
+</li>

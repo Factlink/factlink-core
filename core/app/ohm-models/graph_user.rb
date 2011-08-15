@@ -9,6 +9,11 @@ module UserProxy
   def username=(value)
     user.username=value
   end
+  
+  deprecate
+  def graph_user
+    return self
+  end
 end
 
 class GraphUser < OurOhm
@@ -21,7 +26,8 @@ class GraphUser < OurOhm
   set :disbeliefs_facts, Basefact
 
   collection :created_facts, Basefact, :created_by
-
+  collection :channels, Channel, :created_by
+  
   # Authority of the user
   def authority
     # 1.0

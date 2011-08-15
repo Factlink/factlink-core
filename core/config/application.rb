@@ -14,12 +14,10 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
-    
 
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
 
-    
     autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
     autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
     autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
@@ -27,13 +25,27 @@ module FactlinkUI
     autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
     autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
     autoload :Site, "#{config.root}/app/ohm-models/site.rb"
-    
+    autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
+
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
     autoload :Authority, "#{config.root}/app/classes/authority.rb"
     
-    [OurOhm, Authority, FactGraph, Opinion, Opinionable, Basefact, FactData, Fact, FactRelation, GraphUser, Site ].each do |x|
+    [
+      OurOhm, 
+      Authority, 
+      FactGraph, 
+      Opinion, 
+      Opinionable, 
+      Basefact, 
+      FactData, 
+      Fact, 
+      FactRelation, 
+      GraphUser, 
+      Site,
+      Channel 
+    ].each do |x|
        puts "loaded " + x.to_s
     end
     

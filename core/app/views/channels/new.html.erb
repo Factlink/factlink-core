@@ -1,0 +1,27 @@
+<!-- header -->
+<% content_for :header do %>
+
+<% end %>
+
+
+<!-- left column -->
+<% content_for :left_column do %>
+	
+	<ul>
+		<%= user_block(@user) %>
+	</ul>
+
+	<%= channel_listing_for_user(@user.channels, @user) %>
+
+<% end %>
+
+
+<!-- main column -->
+<% content_for :main_column do %>
+
+	<h1>Create a new channel</h1>
+	<section class="bubble">
+		<%= render 'form' %>
+	</section>
+	
+<% end %>

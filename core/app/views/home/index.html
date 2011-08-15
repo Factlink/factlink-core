@@ -1,59 +1,27 @@
-<!-- left content block -->
-<div class="span-9 append-1" style="text-shadow: 0px 1px 1px #fff;">
-	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">credibility you can see</h1>
-	<p>Lorizzle ipsum dolor ghetto amet, shiznit adipiscing elizzle. Nullam sapien velizzle, aliquet break it down, hizzle quizzle, gravida vizzle, arcu. Pellentesque eget tortor. Shizznit eros. Da bomb at fo shizzle my nizzle dapibizzle my shizz tempizzle its fo rizzle. Maurizzle ghetto nibh gizzle turpizzle. Break it down izzle funky fresh. Fo shizzle eleifend rhoncizzle nisi.</p>
-	<p>In fizzle ghetto platea dictumst. Shut the shizzle up fizzle. Curabitur tellizzle that's the shizzle, pretium dang, mattizzle i saw beyonces tizzles and my pizzle went crizzle, away vitae, nunc. Shut the shizzle up suscipizzle. Integer sempizzle my shizz sizzle fo shizzle.</p>
-
-	<% unless user_signed_in? %>
-		<p>Why not join us? It is easy! <%= link_to("Register your free account here.", new_user_registration_path, :style => "") %>
-	<% end %>
-</div>
-
-<!-- middle block -->
-<div class="span-8">	
-	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">Fact</h1>	
+<!-- header -->
+<% content_for :header do %>
 	
-	<% @facts.all.each do |fact| %>
-	<div style="margin-bottom: 20px; text-shadow: 0px 1px 1px #fff;">
-		<span>&#8220;<%= fact.displaystring %>&#8221;</span><br/>
-		<p><%= link_to(fact.site.url, fact.site.url, :style => "color: #999;", :target => "_blank") %></p>
-	</div>
+	<% if user_signed_in? %>
+
+		<% unless current_user.channels.count > 0 %>
+		<p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
+		<% end %>	
 	<% end %>
 
-	<!-- Debug  -->
-	<ul>
-	<% @facts.each do |fact|%>
-		<li><%= link_to(fact.id, fact_path(fact.id)) %></li>
-	<% end %>
-	</ul>
+<% end %>
 
+<!-- left column -->
+<% content_for :left_column do %>
 
-</div>
-
-<!-- right content block -->
-
-<div class="prepend-1 span-5 last">
-
-	<form method="GET" action="<%= factlink_overview_path %>">
-		<input type="text" class="search" name="s" placeholder="Search for facts..." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
-	</form>
-
-	<br/>
-	<br/>
-	<br/>
-
-	<hr>
-</div>
-
-
-
-<div class="prepend-1 span-5 last">
-	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">active users</h1>
-
-	<ul>
-	<% @users.all.each do |user| %>
-		<li style="list-style: none;"><%= link_to "#{user} (#{user.authority})", user_profile_path(user.username) %> <span style="color: #bbb;"><%= user.facts.count %></span></li>
-	<% end %>
-	</ul>
+	<%= users_and_factlink_information %>
 	
-</div>
+<% end %>
+
+
+<!-- main coloumn -->
+<% content_for :main_column do %>
+
+	<%= fact_listing(@facts) %>
+
+<% end %>
+

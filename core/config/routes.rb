@@ -2,6 +2,10 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  # development
+  get "new" => "home#new"
+
+
   ##########
   # User Authentication
   devise_for :admins
@@ -26,7 +30,7 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
-  post "/factlink/create" => "facts#create"  
+  post "/factlink/create" => "facts#create", :as => "create_factlink"
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
@@ -50,7 +54,20 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Web Front-end
   root :to => "home#index"
-  get "/:username" => "users#show", :as => "user_profile"
+
+  # get "/:username" => "users#show", :as => "user_profile"
+  
+  scope "/:username" do
+
+    post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+    get "/channels/:channel_id/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from_channel"
+    get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
+
+    get "/" => "users#show", :as => "user_profile"
+    resources :channels    
+    post "/channels/:id" => "channels#update"
+
+  end
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 

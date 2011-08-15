@@ -1,0 +1,21 @@
+<!-- header -->
+<% content_for :header do %>
+
+<% end %>
+
+
+<!-- left column -->
+<% content_for :left_column do %>
+
+	<%= channel_listing_for_user(@user.channels, @user) %>
+
+<% end %>
+
+
+
+<!-- main column -->
+<% content_for :main_column do %>
+	
+	<%= fact_listing_for_channel(@channel) %>
+	
+<% end %>

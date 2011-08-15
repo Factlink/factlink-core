@@ -1,4 +1,4 @@
-<div style="padding-top: 8px; float: right; color: #ccc; text-shadow: 0px 1px 1px #666;">
+<div style="padding-top: 12px; float: right; color: #ccc; text-shadow: 0px 1px 1px #666;">
 	<% if user_signed_in? %>
 		<span>Signed in as <%= link_to(current_user, user_profile_path(current_user.username), :style => "color: #eee;") %> <%= link_to("(sign out)", destroy_user_session_path, :style => "color: #ddd;") %></span>
 	<% else %>

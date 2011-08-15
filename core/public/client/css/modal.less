@@ -185,6 +185,39 @@ div.fl-modal {
     }
   }
   
+	#fl-channels {
+		display: none;
+		position: absolute;
+		top: 140px;
+		left: -80px;
+		
+		width: 200px;
+		
+		padding: 8px;
+		
+		ul {
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+			
+			li {
+				padding: 6px;
+				
+				&:hover {
+					background: #f1f1f1;
+				}
+
+				label {
+					padding: 6px;
+					
+					&:hover {
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+
 	// Default popup settings
 	.fl-popup {
 		background: #f9f9f9;
@@ -192,7 +225,18 @@ div.fl-modal {
     box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 		z-index: 1001;
 	}
-
+	
+	#fl-channel-button {
+		float: left;
+		padding: 3px 14px 0px 18px;
+		
+		opacity: 0.5;
+		
+		&:hover {
+			cursor: pointer;
+			opacity: 1.0;
+		}
+	}
   .fl-filter-bar ul,
   .fl-choices ul {
     list-style: none;

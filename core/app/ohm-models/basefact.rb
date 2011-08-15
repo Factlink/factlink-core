@@ -1,31 +1,32 @@
 class Basefact < OurOhm
+  
   reference :user_opinion, Opinion
-
-  reference :site, Site       # The site on which the factlink should be shown
-  def url=(url)
-    self.site = Site.find_or_create_by(url)
-  end
-  def url
-    self.site.url
-  end
-
+  # reference :site, Site
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
+
+  # def url=(url)
+  #   self.site = Site.find_or_create_by(url)
+  # end
+  # def url
+  #   self.site.url
+  # end
+
+  # Return a nice looking url, only subdomain + domain + top level domain
+  def pretty_url
+    url.gsub(/http(s?):\/\//,'').split('/')[0]
+  end
+
   def opiniated(type)
     self.send("people_#{type}")
   end
 
   def opiniated_count(type)
     opiniated(type).size
-  end
-
-  # Return a nice looking url, only subdomain + domain + top level domain
-  def pretty_url
-    url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
   def toggle_opinion(type, user)    

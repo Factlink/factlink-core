@@ -8,6 +8,11 @@ module GraphUserProxy
   end
 
   deprecate
+  def channels
+    graph_user.channels
+  end
+
+  deprecate
   # this is the list of facts the user created
   def facts
     graph_user.created_facts.find_all {|fact| fact.class == Fact }
@@ -76,32 +81,36 @@ class User
   :registerable   # Allow registration
 
   field :username
+
   field :graph_user_id
+  def graph_user
+    return GraphUser[graph_user_id]
+  end
+
+  def graph_user=(guser)
+    self.graph_user_id = guser.id
+  end
+
+  def create_graph_user
+      guser = GraphUser.new
+      guser.save
+      self.graph_user = guser
+      
+      yield
+      
+      guser.user = self
+      guser.save
+  end
+
 
   # Only allow letters, digits and underscore in a username
   validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
-  def graph_user
-    if graph_user_id
-      return GraphUser[graph_user_id]
-    else
-      guser = GraphUser.new
-      guser.save
+  private :create_graph_user
+  around_create :create_graph_user
 
-      self.graph_user = guser
-
-      guser.user = self
-      guser.save
-      return guser
-    end
-  end
-
-  def graph_user=(guser)
-    self.graph_user_id = guser.id
-    self.save
-  end
 
   def to_s
     username

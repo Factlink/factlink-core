@@ -47,6 +47,10 @@ class Ohm::Model::Set < Ohm::Model::Collection
   def |(other)
     apply(:sunionstore,key,other.key,key+"*UNION*"+other.key)
   end
+
+  def -(other)
+    apply(:sdiffstore,key,other.key,key+"*DIFF*"+other.key)
+  end
 end
 
 class Ohm::Model::List < Ohm::Model::Collection

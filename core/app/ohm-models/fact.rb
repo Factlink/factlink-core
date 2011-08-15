@@ -78,6 +78,14 @@ class Fact < Basefact
   include Opinionable
   include FactDataProxy
 
+  reference :site, Site       # The site on which the factlink should be shown
+  def url=(url)
+    self.site = Site.find_or_create_by(url)
+  end
+  def url
+    self.site.url
+  end
+
   reference :data, lambda { |id| FactData.find(id) }
 
   set :supporting_facts, FactRelation
