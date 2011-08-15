@@ -1,6 +1,0 @@
-<h3 onclick="$('#user-facts').slideToggle('slow');">Facts</h3>
-<div id="user-facts">
-	<ul>
-		<%= render(:partial => "facts/partial/factlink", :collection => user.facts) || "<li style='list-style: none; margin: 0px 0px 4px 10px;'>#{@user.username} did not add any facts</li>".html_safe %>
-	</ul>
-</div>
