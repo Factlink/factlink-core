@@ -1,6 +1,3 @@
-
-
-
 fact 'Batman is a fictional character created by the artist Bob Kane and writer Bill Finger',"http://en.wikipedia.org/wiki/Batman"
 fact 'Batman\'s secret identity is Bruce Wayne',"http://en.wikipedia.org/wiki/Batman"
 fact 'Batman operates in the fictional American Gotham City',"http://en.wikipedia.org/wiki/Batman"
