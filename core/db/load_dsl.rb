@@ -5,8 +5,6 @@ class LoadDslState
   def self.graph_user
     u = @@user || User.all.first || load_user("GenericUser")
     
-    puts "\n\nReturning U: #{u.graph_user}\n\n"
-    
     u.graph_user
   end
 
