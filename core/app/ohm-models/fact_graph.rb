@@ -11,6 +11,12 @@ class FactGraph
     end
   end
 
+  def self.reset_values
+  end
+
+  def self.calculate_authority
+  end
+  
   def self.export_opiniated(writer,fact,prefix="")
     writer.write(prefix + export_believers(fact.opiniated(:beliefs))) if fact.opiniated(:beliefs).size > 0
     writer.write(prefix + export_disbelievers(fact.opiniated(:disbeliefs))) if fact.opiniated(:disbeliefs).size > 0
