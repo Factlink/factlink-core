@@ -26,7 +26,8 @@ class GraphUser < OurOhm
   set :disbeliefs_facts, Basefact
 
   collection :created_facts, Basefact, :created_by
-
+  collection :channels, Channel, :created_by
+  
   # Authority of the user
   def authority
     # 1.0

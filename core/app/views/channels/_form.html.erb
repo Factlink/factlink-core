@@ -1,0 +1,42 @@
+<% if params[:action] == "edit" %>
+	<% @action = "update" %> 
+<% else %>
+	<% @action = "create" %>
+<% end %>
+
+<%= form_for(:channel, :url => { :action => @action }) do |f| %>
+	<% if @channel.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+
+      <ul>
+      <% @channel.errors.each do |key, value| %>
+        <li><%= key.to_s %> <%= value.to_s %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<p>Use channels to sort your facts. Channels can be interesting for other users to follow, or keep your facts categorised.</p>
+
+	<div class="row">
+		<%= f.label "Title" %>
+		<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
+	</div>
+
+	<div class="row">
+		<%= f.label "Description" %>
+		<%= f.text_field :description, :placeholder => "optional description" %>
+	</div>
+
+	<div class="action-wrapper">
+		<div class="actions">
+			<%= f.submit "Save" %> 
+			
+			<% if @action == "update" %> 
+			or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete ) %>
+			<% end %>
+		</div>
+	</div>
+<% end %>
+

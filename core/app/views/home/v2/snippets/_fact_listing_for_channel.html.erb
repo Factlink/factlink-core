@@ -1,0 +1,11 @@
+<header class="append-bottom">
+	<h1><%= channel.title %> <%= edit_channel(@user, channel) %></h1>
+	<sub><%= channel.description %></sub>	
+</header>
+
+<!-- fact listing -->
+<ul id="fact-listing">
+	<% channel.facts.each do |fact| %>
+		<%=	fact_snippet(fact, channel) %>
+	<% end %>
+</ul>

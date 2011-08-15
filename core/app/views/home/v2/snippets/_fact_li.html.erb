@@ -1,0 +1,23 @@
+<li data-fact-id="<%= fact.id %>">
+
+	<article class="fact-block bubble">
+		
+		<div class="bar-chart-container">
+		</div>
+
+		<div class="options">
+			&nbsp;
+			<% if channel %>
+				<%= fact_channel_options_for_user(channel, fact) %>
+			<% end %>
+		</div>
+		
+		<header>
+			<h1><%= fact.displaystring %></h1>			
+			<sub><%= time_ago_in_words(fact.created_at) %> ago by <%= link_to("#{fact.created_by.username}", user_profile_path(fact.created_by.username)) %>
+				found on <a href="<%= fact.url %>" target="_blank"><%= truncate(fact.url, :length => 62) %></a>
+				</sub>
+		</header>
+
+	</article>
+</li>

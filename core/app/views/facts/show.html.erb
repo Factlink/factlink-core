@@ -45,6 +45,21 @@
         }
       });
 
+			// Show the channels popup
+      $('#fl-channel-button').bind('click', function() {
+					
+          $('#fl-channels').toggle();
+
+          $(document).bind('click', function(e) {
+            if( $(e.target).closest('#fl-channels').length === 0 ) {
+							$('#fl-channels').hide();
+              $(document).unbind('click', arguments.callee);
+            } 
+          });
+          
+          return false;
+      });
+
 
 			// sub.fl-brain-count
 			$('sub.fl-brain-count').live('click', function() {
@@ -110,12 +125,27 @@
 				});
 			});
 
+			<% if user_signed_in? %>
+			function toggleFactForChannel(channel_id, fact_id) {
+				$.ajax({
+				  url: "<%= toggle_fact_url(current_user.username) %>",
+					dataType: "script",
+					type: "POST",
+					data: {
+						channel_id: channel_id,
+						fact_id: fact_id
+					}
+				});
+			}
+			<% end %>
+
+			// Filter bar
 			function filter(className) {
 				$('#fl-evidence > #fl-sources > ol > li').hide().filter(className).fadeIn();
 			}
 			
 			window.fact_id = "<%= @fact.id %>";
-
+			
 		</script>
 	<% end %>
 
@@ -133,12 +163,25 @@
 	</div>
 
 	<div class="fl-clear"></div>
+		
+
 	
 </div>
 
+<% if user_signed_in? %>
+	<%= channel_listing_for_fact(@fact) %>
+<% end %>
+
 <!-- Filter bar -->
 <div class="fl-filter-bar">
-  Show:
+	
+	<div id="fl-channel-button">
+		
+		<% if user_signed_in? %>
+			<%= image_tag('list_unordered.gif') %>
+		<% end %>
+	</div>
+	
   <ul>
    <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact.evidence_count %>)</span></a></li>
    <li><a href="#" onclick="filter('.supporting');"><span>supporting facts (<%= @fact.supporting_evidence_count %>)</span></a></li>

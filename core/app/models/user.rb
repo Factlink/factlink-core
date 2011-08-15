@@ -8,6 +8,11 @@ module GraphUserProxy
   end
 
   deprecate
+  def channels
+    graph_user.channels
+  end
+
+  deprecate
   # this is the list of facts the user created
   def facts
     graph_user.created_facts.find_all {|fact| fact.class == Fact }

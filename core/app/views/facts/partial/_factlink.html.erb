@@ -1,12 +1,4 @@
-<li style="list-style: none; margin: 0px 0px 16px 0px;">
-	<hr>
-	<span>&quot;<%= factlink.displaystring %>&quot;</span><br/>
-	<%= link_to(factlink.site.url, factlink.site.url, :style => "color: #999;", :target => "_blank") %>
-
-	<ul style="margin-left: 40px;">
-		<% factlink.fact_relations[0..2].each do |evidence| %>
-			<li><%= evidence.get_from_fact.displaystring %></li>
-		<% end %>
-	</ul>
-
+<li style="list-style: none; margin: 0px 0px 16px 10px;">
+	<span style="font-size: 0.9em;">&quot;<%= factlink.displaystring %>&quot;</span><br/>
+	<span style="font-size: 0.8em;"><%= link_to(factlink.site.url, factlink.site.url, :style => "color: #999;", :target => "_blank") %></span>
 </li>

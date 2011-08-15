@@ -96,4 +96,9 @@ module FactsHelper
     end
   end
 
+  def channel_listing_for_fact(fact)
+    render :partial => "facts/partial/channel_listing_for_fact",
+              :locals => { :fact => fact }
+  end
+
 end

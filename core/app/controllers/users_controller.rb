@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  layout "accounting"
+  # layout "accounting"
+  layout "web-frontend-v2"
 
   def show
     @user = User.where(:username => params[:username]).first

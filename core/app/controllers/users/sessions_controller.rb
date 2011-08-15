@@ -16,7 +16,10 @@ class Users::SessionsController < Devise::SessionsController
     # Toggle the layout
     unless params[:layout].nil?
       # Default login
-      render "users/sessions/new", :layout => "accounting"
+      
+      @users = User.all
+      
+      render "users/sessions/new", :layout => "web-frontend-v2"
       return false
     else
       # Client login

@@ -10,7 +10,7 @@
 	<ul>
 		<%= user_block(@user) %>
 	</ul>
-	
+
 	<%= channel_listing_for_user(@user.channels, @user) %>
 
 <% end %>
@@ -19,8 +19,9 @@
 <!-- main column -->
 <% content_for :main_column do %>
 
-	<% if @user.channels.count > 0 %>
-		<%= fact_listing_for_channel(@user.channels.first) %>
-	<% end %>
-
+	<h1>Edit your channel</h1>
+	<section class="bubble">
+		<%= render 'form' %>
+	</section>
+	
 <% end %>

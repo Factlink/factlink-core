@@ -38,4 +38,6 @@ FactoryGirl.define do
   factory :fact_relation do
   end
 
+  factory :channel do
+  end
 end
