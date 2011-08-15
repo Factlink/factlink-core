@@ -19,7 +19,7 @@
 
 		<% if user_signed_in? %>
 		<div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>">
-			<a href="#">follow channel</a>
+			<a href="#">follow</a>
 		</div>
 		<% end %>
 
