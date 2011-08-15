@@ -40,10 +40,10 @@ class ChannelsController < ApplicationController
   def create
     
     @channel = Channel.new(params[:channel])
-
+    @channel.created_by = current_user.graph_user
+    
     # Check if object valid, then execute:
     if @channel.valid?
-      @channel.created_by = current_user.graph_user
       @channel.save
       redirect_to(channel_path(@user.username, @channel.id), :notice => 'Channel successfully created')
     else
