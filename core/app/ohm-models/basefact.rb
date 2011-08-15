@@ -1,7 +1,7 @@
 class Basefact < OurOhm
   
   reference :user_opinion, Opinion
-  reference :site, Site
+  # reference :site, Site
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
@@ -9,12 +9,12 @@ class Basefact < OurOhm
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
 
-  def url=(url)
-    self.site = Site.find_or_create_by(url)
-  end
-  def url
-    self.site.url
-  end
+  # def url=(url)
+  #   self.site = Site.find_or_create_by(url)
+  # end
+  # def url
+  #   self.site.url
+  # end
 
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
