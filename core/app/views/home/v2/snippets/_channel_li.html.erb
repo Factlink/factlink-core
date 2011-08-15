@@ -1,7 +1,8 @@
 <li data-channel-id="<%= channel.id %>">
 
-	<article class="channel-block" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
-		
+	<!-- <article class="channel-block" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');"> -->
+	<article class="channel-block" onclick="alert('ARTICLE');">
+
 		<div class="label-fixer">
 			<div class="label">
 				<span><%= channel.facts.count %></span>
