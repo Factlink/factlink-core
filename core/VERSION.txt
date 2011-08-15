@@ -1,0 +1,26 @@
+Version history
+===============
+
+v0.0.2
+------
+August 15, 2011
+* Save and load opinions to a database file
+* Refactor of the little popup menu, now showing at the position of the cursor and not falling of the screen
+* Create and view channels
+* Add a facts to a channel from the client popup
+* Delete facts from a channel from the web interface
+* Follow a channel created by someone else
+
+v0.0.1
+------
+August 8, 2011
+Started logging development and versions
+* Add new supporting/weakening facts using the proxy
+* Save and load facts into a database file
+* Be able to create a Factlink structure with circulair dependencies
+* See the calculated authority of a user
+* See who believed/disbelieved a fact / supporting/weakening fact
+
+v0.0.0
+------
+Lot of sprints, not logged in this file
