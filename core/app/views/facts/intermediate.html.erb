@@ -31,7 +31,7 @@
 	<%= csrf_meta_tag %>
 </head>
 <body>
-	<%= form_for(factlink_create_path, :url => factlink_create_path, :html => { :target => "frame", :id => "form"}) do |f| %>
+	<%= form_for(create_factlink_path, :url => create_factlink_path, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
   	<input type="text" name="url" id="url" value="<%= @url %>">
 		<textarea name="passage" id="passage">
@@ -45,7 +45,7 @@
 			// The form
 		var form = document.getElementById("form"),
 			// The iFrame
-			iframe = document.getElementById("frame"),
+			showFrame = document.getElementById("frame"),
 			// The global remote object
 			remote = new easyXDM.Rpc({
 				swf: "/client/easyXDM/src/easyxdm.swf"
@@ -59,133 +59,110 @@
 					addEvidence: {}
 				},
 				local: {
-					prepareNewFactlink: function( fact, passage, url ) {
-						// Set form data
-						document.getElementById("fact").value = fact;
-						document.getElementById("passage").value = passage;
-						document.getElementById("url").value = url;
-						
-						// Set the source of the iframe
-						iframe.src = "<%= factlink_prepare_new_path %>";
-						
-						// Show the overlay
-						iframe.className = "";
-					},
-					prepareNewEvidence: function( evidence_id, url ) {
+					createEvidence: function( evidence_id, url, type ) {
 					  document.getElementById("evidence_id").value = evidence_id;
 						document.getElementById("url").value = url;
-											  
-						// Set the source of the iframe
-						iframe.src = "<%= factlink_prepare_evidence_path %>";
 						
-						// Show the overlay
-						iframe.className = "";
+						addEvidence(type);
 					},
-					prepareNewFactAsEvidence: function( fact, passage, url ) {
-					  // Set form data
-						document.getElementById("fact").value = fact;
-						document.getElementById("passage").value = passage;
-						document.getElementById("url").value = url;
-						
-						// Set the source of the iframe
-						iframe.src = "<%= factlink_prepare_evidence_path %>";
-						
-						// Show the overlay
-						iframe.className = "";
+					createNewEvidence: function( fact, passage, url, type) {
+					  prepareFactlink(fact, passage, url);
+				    
+				    addEvidence(type);
 					},
 					createFactlink: function( fact, passage, url ) {
-					  // Set form data
-					  document.getElementById("fact").value = fact;
-						document.getElementById("passage").value = passage;
-						document.getElementById("url").value = url;
-						
+				    prepareFactlink(fact, passage, url);
+				  
 						createFactlink();
 					},
 					showFactlink: function(id) {
 					  // Set the source of the iframe
-						iframe.src = "/factlink/show/" + id;
+						showFrame.src = "/factlink/show/" + id;
 						// Show the overlay
-						iframe.className = "overlay";
+						showFrame.className = "overlay";
 					},
 					position: function(top, left) {
   					try {
-  					  iframe.contentWindow.position(top, left);
-  					} catch (e) {
-              iframe.onload = function() {
-    					  iframe.contentWindow.position(top, left);
+  					  showFrame.contentWindow.position(top, left);
+  					} catch (e) { // Window not yet loaded
+              showFrame.onload = function() {
+    					  showFrame.contentWindow.position(top, left);
     					};
   					}
 					}
 				}
-			}),
-			// Create the Factlink
-			createFactlink = function() {
-				// Submit the form
-				form.submit();
-			},
-			// Add to an existing Factlink
-			addEvidence = function(type) {
-			  var evidence_id = document.getElementById("evidence_id").value;
-			  
-			  if ( evidence_id.length > 0 ) {
-  				// THE FUCK?!
-  				// parent == Proxied page
-  				// parent.parent == Proxy container
-  				// parent.parent.parent == Show Factlink container
-  				// parent.parent.parent.parent == Top Intermediate page (same source as current page)
-  				parent.parent.parent.parent.submitEvidence(type, evidence_id);
-			  } else {
-			    var fact = document.getElementById("fact").value;
-  				var passage = document.getElementById("passage").value;
-  				var url = document.getElementById("url").value;
-
-  				// THE FUCK?!
-  				// parent == Proxied page
-  				// parent.parent == Proxy container
-  				// parent.parent.parent == Show Factlink container
-  				// parent.parent.parent.parent == Top Intermediate page (same source as current page)
-  			  parent.parent.parent.parent.submitNewEvidence(type, fact, passage, url);
-			  }
-			};
+			});
 			
-      function addNewFact() {
-        // Document reference of the iframe
-        var doc = iframe.contentWindow.document;
-        // Create new iframe
-        window.proxyFrame = document.createElement("iframe");
-        
-        window.proxyFrame.className = "proxyFrame";
-        window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
-        
-        doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
-      }
+		// Create the Factlink
+		function createFactlink() {
+		  // Submit the form
+			form.submit();
+		}
+		
+		function prepareFactlink(fact, passage, url) {
+			document.getElementById("fact").value = fact;
+			document.getElementById("passage").value = passage;
+			document.getElementById("url").value = url;			  
+		}
+		
+		// Add to an existing Factlink
+		// THE FUCK?!
+		// parent == Proxied page
+		// parent.parent == Proxy container
+		// parent.parent.parent == Show Factlink container
+		// parent.parent.parent.parent == Top Intermediate page (same source as current page)
+		function addEvidence(type) {
+		  var evidence_id = document.getElementById("evidence_id").value;
+		  
+		  if ( evidence_id.length > 0 ) {
+				parent.parent.parent.parent.submitEvidenceToShowFrame(type, evidence_id);
+		  } else {
+		    var fact = document.getElementById("fact").value;
+				var passage = document.getElementById("passage").value;
+				var url = document.getElementById("url").value;
+				
+			  parent.parent.parent.parent.submitNewEvidenceToShowFrame(type, fact, passage, url);
+		  }
+		}
+		
+    function submitEvidenceToShowFrame(type, evidence_id) {
+      var fact_id = showFrame.contentWindow.fact_id;
       
-      function hideProxy() {
-        window.proxyFrame.style.display = "none";
-        window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
-      }
+      var script = document.createElement("script");
       
-      function submitEvidence(type, evidence_id) {
-        var fact_id = iframe.contentWindow.fact_id;
-        
-        var script = document.createElement("script");
-        
-        script.src="<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
-        script.type="text/javascript";
-        
-        iframe.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
-      }
+      script.src="<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
+      script.type="text/javascript";
       
-      function submitNewEvidence(type, fact, passage, url) {
-        var fact_id = iframe.contentWindow.fact_id;
-        
-        var script = document.createElement("script");
-        
-        script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id;
-        script.type="text/javascript";
-        
-        iframe.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
-      }
+      showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
+    }
+    
+    function submitNewEvidenceToShowFrame(type, fact, passage, url) {
+      var fact_id = showFrame.contentWindow.fact_id;
+      
+      var script = document.createElement("script");
+      
+      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id;
+      script.type="text/javascript";
+      
+      showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+    function openNewProxyWindow() {
+      // Document reference of the iframe
+      var doc = showFrame.contentWindow.document;
+      // Create new iframe
+      window.proxyFrame = document.createElement("iframe");
+      
+      window.proxyFrame.className = "proxyFrame";
+      window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
+      
+      doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
+    }
+    
+    function hideProxyWindow() {
+      window.proxyFrame.style.display = "none";
+      window.proxyFrame.src = "http://localhost:8080?url=http://factlink.org";
+    }
 	</script>
 </body>
 </html>
