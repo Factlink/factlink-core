@@ -40,11 +40,7 @@ class Channel < OurOhm
   end
   
   def fork(user)
-    newtitle = title
-    if user == created_by
-      newtitle += "'"
-    end
-    c = Channel.create(:created_by => user, :title => newtitle, :description => description)
+    c = Channel.create(:created_by => user, :title => title, :description => description)
     c.add_channel(self)
     c
   end
