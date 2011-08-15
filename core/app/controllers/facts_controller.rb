@@ -291,8 +291,7 @@ class FactsController < ApplicationController
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
     
-    # fact.add_opinion(:beliefs, current_user.graph_user)
-
+    evidence.add_opinion(:beliefs, current_user.graph_user)
     fact_relation.add_opinion(:beliefs, current_user.graph_user)
     
     fact_relation
