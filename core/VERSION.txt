@@ -5,11 +5,13 @@ v0.0.2
 ------
 August 15, 2011
 * Save and load opinions to a database file
+* Save and load channels with the database export
 * Refactor of the little popup menu, now showing at the position of the cursor and not falling of the screen
 * Create and view channels
 * Add a facts to a channel from the client popup
 * Delete facts from a channel from the web interface
 * Follow a channel created by someone else
+
 
 v0.0.1
 ------
