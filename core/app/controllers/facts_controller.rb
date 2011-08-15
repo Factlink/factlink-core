@@ -160,8 +160,8 @@ class FactsController < ApplicationController
 
   # Set or unset the relevance on a FactRelation
   def toggle_relevance_on_fact_relation
-    allowed_types = ["beliefs", "doubts", "disbeliefs"]
-    type = params[:type]
+    allowed_types = [:beliefs, :doubts, :disbeliefs]
+    type = params[:type].to_sym
 
     if allowed_types.include?(type)
       @fact_relation = FactRelation[params[:fact_relation_id]]
@@ -285,16 +285,15 @@ class FactsController < ApplicationController
     @fact = Fact[params[:id]]
   end
   
-  def add_evidence(evidence_id, type, fact_id) # private    
+  def add_evidence(evidence_id, type, fact_id) # private
+
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
-
-
-    puts "FactsController#add_evidence.current_user: #{current_user}"
+    # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
 
-    fact_relation
+    
   end
   
   def create_fact(url, displaystring) # private
