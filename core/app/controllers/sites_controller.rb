@@ -8,7 +8,7 @@ class SitesController < ApplicationController
       count = site.fact_count
     end
     
-    render :json => { :count => count }, :callback => params[:callback]
+    render :json => { :count => count }, :callback => params[:callback], :content_type => "application/javascript"
   end
 
   def facts_for_url
@@ -22,6 +22,6 @@ class SitesController < ApplicationController
 
     # Render the result with callback,
     # so JSONP can be used (for Internet Explorer)
-    render :json => @facts , :callback => params[:callback]
+    render :json => @facts , :callback => params[:callback], :content_type => "application/javascript"
   end
 end
