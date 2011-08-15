@@ -38,13 +38,16 @@ def fact(fact_string,url="http://example.org/")
 end
 
 def export_fact(fact)
-  "fact \"#{quote_string(fact.displaystring)}\", \"#{fact.site.url}\"\n"
+  rv = "fact \"#{quote_string(fact.displaystring)}\""
+  rv += ", \"#{fact.site.url}\"\n" if fact.site
+  rv
 end
 
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
-  f2.add_evidence(relation,f1,LoadDslState.graph_user)
+  fr = f2.add_evidence(relation,f1,LoadDslState.graph_user)
+  LoadDslState.fact = fr
 end
 
 def export_fact_relation(fact_relation)
@@ -75,6 +78,10 @@ def export_user(graph_user)
   "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\"\n"
 end
 
+def export_activate_user(graph_user)
+  "user \"#{quote_string(graph_user.username)}\"\n"
+end
+
 
 def believers(*l)
   set_opinion(:beliefs,*l)
@@ -103,8 +110,8 @@ end
 def set_opinion(opinion_type,*users)
   f = LoadDslState.fact
   users.each do |username|
-    u = load_user(username)
-    f.add_opinion(opinion_type,u)
+    gu = load_user(username).graph_user
+    f.add_opinion(opinion_type,gu)
   end
 end
 
