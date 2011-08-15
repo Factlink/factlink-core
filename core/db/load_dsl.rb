@@ -123,16 +123,17 @@ def set_opinion(opinion_type,*users)
   end
 end
 
-def load_channel(graph_user, title)
-  ch = graph_user.channels.find(:title => title).first
-  if not ch
+def create_channel(graph_user,title)
     ch = Channel.create(:created_by => graph_user, :title => title)
-  end
-  ch
+end
+
+
+def load_channel(graph_user, title)
+  graph_user.channels.find(:title => title).first || create_channel(graph_user,title)
 end
 
 def channel(title)
-  ch = load_channel(LoadDslState.graph_user, title)
+  ch = create_channel(LoadDslState.graph_user, title)
   LoadDslState.channel = ch
 end
 
