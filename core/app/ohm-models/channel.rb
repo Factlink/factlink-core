@@ -8,6 +8,8 @@ class Channel < OurOhm
   set :internal_facts, Fact
   set :delete_facts, Fact
   
+  index :title
+  
   def facts
     fs = internal_facts
     contained_channels.each do |ch|
@@ -20,7 +22,7 @@ class Channel < OurOhm
   
   def validate
     assert_present :title
-    # assert_present :user # User always needed?
+    assert_present :created_by
   end
   
   def add_fact(fact)
