@@ -3,7 +3,8 @@ class LoadDslState
   @@fact = nil
 
   def self.graph_user
-    @@user.graph_user || User.all.first.graph_user
+    u = @@user || User.all.first || load_user("JudgeDredd")
+    u.graph_user
   end
 
   def self.user=(value)
@@ -37,13 +38,14 @@ def fact(fact_string,url="http://example.org/")
 end
 
 def export_fact(fact)
-  "fact \"#{quote_string(fact.displaystring)}\", \"#{fact.site.url}\"\n"
+  rv = "fact \"#{quote_string(fact.displaystring)}\""
+  rv += ", \"#{fact.site.url}\"\n" if fact.site
+  rv
 end
 
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
-
   f2.add_evidence(relation,f1,LoadDslState.graph_user)
 end
 
@@ -55,13 +57,13 @@ end
 def load_user(username,email=nil, password=nil)
   u = User.where(:username => username).first
   if not u
-    mail ||= "#{username}@example.org"
+    email ||= "#{username}@example.org"
     password ||= "123hoi"
     u = User.new(:username => username,
-    :email => email,
-    :confirmed_at => DateTime.now,
-    :password => password,
-    :password_confirmation => password)
+                :email => email,
+                :confirmed_at => DateTime.now,
+                :password => password,
+                :password_confirmation => password)
     u.save
   end
   u
@@ -73,6 +75,10 @@ end
 
 def export_user(graph_user)
   "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\"\n"
+end
+
+def export_activate_user(graph_user)
+  "user \"#{quote_string(graph_user.username)}\"\n"
 end
 
 

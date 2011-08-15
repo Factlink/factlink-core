@@ -83,24 +83,25 @@ class User
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
-  def graph_user
-    if graph_user_id
-      return GraphUser[graph_user_id]
-    else
+  def create_graph_user
       guser = GraphUser.new
       guser.save
-
       self.graph_user = guser
-
+      
+      yield
+      
       guser.user = self
       guser.save
-      return guser
-    end
+  end
+  private :create_graph_user
+  around_create :create_graph_user
+
+  def graph_user
+    return GraphUser[graph_user_id]
   end
 
   def graph_user=(guser)
     self.graph_user_id = guser.id
-    self.save
   end
 
   def to_s
