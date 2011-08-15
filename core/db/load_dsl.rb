@@ -4,6 +4,9 @@ class LoadDslState
 
   def self.graph_user
     u = @@user || User.all.first || load_user("GenericUser")
+    
+    puts "\n\nReturning U: #{u.graph_user}\n\n"
+    
     u.graph_user
   end
 
@@ -54,6 +57,8 @@ end
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
+  
+  puts "LDS: #{LoadDslState.graph_user}"
   fr = f2.add_evidence(relation,f1,LoadDslState.graph_user)
   LoadDslState.fact = fr
 end
@@ -74,6 +79,8 @@ def load_user(username,email=nil, password=nil)
     :password => password,
     :password_confirmation => password)
     u.save
+    
+    u.graph_user
   end
   u
 end

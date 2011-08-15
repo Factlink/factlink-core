@@ -79,10 +79,6 @@ class FactsController < ApplicationController
 
     type = params[:type].to_sym
     
-    puts "Ev: #{evidence}"
-    puts "Fid: #{fact_id}"
-    puts "Type: #{type}"
-    
     @fact_relation = add_evidence(evidence.id, type, fact_id)
   end
 
@@ -292,7 +288,8 @@ class FactsController < ApplicationController
 
     # Create FactRelation
     fact_relation = fact.add_evidence(type, evidence, current_user)
-
+    
+    fact.add_opinion(:beliefs, current_user.graph_user)
     
   end
   
