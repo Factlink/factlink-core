@@ -1,13 +1,174 @@
-span.factlink{cursor:pointer;-webkit-transition:all 0.4s ease-in-out;}span.factlink.fl-first{padding:0 3px 0 0;}
-span.factlink.fl-active{background:#B4D5FE !important;}
-div#factlink-modal-frame{background:transparent;border:none;z-index:2147483647;display:none;padding:0;margin:0;width:100%;height:100%;position:fixed;top:0;left:0;}div#factlink-modal-frame iframe{border:none;height:100%;width:100%;}
-div#factlink-indicator{display:none;position:absolute;top:200px;left:200px;height:49px;border:1px solid #ccc;border-radius:8px;background-color:#eee;cursor:pointer;padding:5px 4px 0;margin:0;}div#factlink-indicator img{vertical-align:top;height:20px;width:20px;margin:0;padding:0;}
-div#factlink-indicator ul{vertical-align:top;list-style:none;display:inline-block;margin:0;padding:0;width:45px;height:45px;border-radius:8px;overflow:hidden;position:relative;}div#factlink-indicator ul li{display:inline-block;min-height:10px;width:14px;float:left;margin:0;padding:0;cursor:pointer;position:absolute;bottom:0;}div#factlink-indicator ul li div{margin:0 auto;}
-div#factlink-indicator ul li.fl-bar-proves{left:30px;}div#factlink-indicator ul li.fl-bar-proves div{background:#52d623;height:100%;}
-div#factlink-indicator ul li.fl-bar-maybe{left:15px;}div#factlink-indicator ul li.fl-bar-maybe div{background:#ffe400;height:100%;}
-div#factlink-indicator ul li.fl-bar-denies{left:0;}div#factlink-indicator ul li.fl-bar-denies div{background:#ff6136;height:100%;}
-div#fl-prepare{display:none;margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}div#fl-prepare ul{color:#000;list-style:none;margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;font-family:"Helvetica",Arial,sans-serif;}div#fl-prepare ul li{border:solid 1px #C8C8C8;border-top:none;box-shadow:2px 4px 6px rgba(123, 123, 123, 0.5);position:relative;background-color:#fff;white-space:nowrap;margin:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;padding:2px 0px;cursor:pointer;font-family:"Helvetica",Arial,sans-serif;font-size:9pt;}div#fl-prepare ul li.first{border-top-left-radius:5px;border-top-right-radius:5px;border-top:1px solid #C8C8C8;}
-div#fl-prepare ul li.last{border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
-div#fl-prepare ul li>span>a{margin:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;padding:2px 18px;line-height:20px;border-radius:1px;font-family:"Helvetica",Arial,sans-serif;}div#fl-prepare ul li>span>a:hover{border-top:solid 1px #5853EA;background-image:-webkit-gradient(linear, left bottom, left top, color-stop(1, #605df5), color-stop(0, #3600e6));color:#fff;}
-div#fl-prepare ul li a{color:#000;text-decoration:none;font-family:"Helvetica",Arial,sans-serif;}
-div#fl-prepare ul li img{margin:0 2px 0 0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;position:relative;top:3px;display:inline;}
+span.factlink {
+  cursor: pointer;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+span.factlink.fl-first {
+  padding: 0 3px 0 0;
+}
+span.factlink.fl-active {
+  background: #B4D5FE !important;
+}
+div#factlink-modal-frame {
+  background: transparent;
+  border: none;
+  z-index: 2147483647;
+  display: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+div#factlink-modal-frame iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+}
+div#factlink-indicator {
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 200px;
+  height: 49px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #eee;
+  cursor: pointer;
+  padding: 5px 4px 0;
+  margin: 0;
+}
+div#factlink-indicator img {
+  vertical-align: top;
+  height: 20px;
+  width: 20px;
+  margin: 0;
+  padding: 0;
+}
+div#factlink-indicator ul {
+  vertical-align: top;
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+div#factlink-indicator ul li {
+  display: inline-block;
+  min-height: 10px;
+  width: 14px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+}
+div#factlink-indicator ul li div {
+  margin: 0 auto;
+}
+div#factlink-indicator ul li.fl-bar-proves {
+  left: 30px;
+}
+div#factlink-indicator ul li.fl-bar-proves div {
+  background: #52d623;
+  height: 100%;
+}
+div#factlink-indicator ul li.fl-bar-maybe {
+  left: 15px;
+}
+div#factlink-indicator ul li.fl-bar-maybe div {
+  background: #ffe400;
+  height: 100%;
+}
+div#factlink-indicator ul li.fl-bar-denies {
+  left: 0;
+}
+div#factlink-indicator ul li.fl-bar-denies div {
+  background: #ff6136;
+  height: 100%;
+}
+div#fl-prepare {
+  display: none;
+  z-index: 13371337;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+div#fl-prepare ul {
+  color: #000;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  font-family: "Helvetica", Arial, sans-serif;
+}
+div#fl-prepare ul li {
+  border: solid 1px #C8C8C8;
+  border-top: none;
+  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+  position: relative;
+  background-color: #fff;
+  white-space: nowrap;
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  padding: 2px 0px;
+  cursor: pointer;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 9pt;
+}
+div#fl-prepare ul li.first {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 1px solid #C8C8C8;
+}
+div#fl-prepare ul li.last {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+div#fl-prepare ul li > span > a {
+  margin: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  padding: 2px 18px;
+  line-height: 20px;
+  border-radius: 1px;
+  font-family: "Helvetica", Arial, sans-serif;
+}
+div#fl-prepare ul li > span > a:hover {
+  border-top: solid 1px #5853EA;
+  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #605df5), color-stop(0, #3600e6));
+  color: #fff;
+}
+div#fl-prepare ul li a {
+  color: #000;
+  text-decoration: none;
+  font-family: "Helvetica", Arial, sans-serif;
+}
+div#fl-prepare ul li img {
+  margin: 0 2px 0 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  position: relative;
+  top: 3px;
+  display: inline;
+}

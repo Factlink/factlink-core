@@ -81,11 +81,11 @@ Factlink.getSelectionInfo = function() {
 // This method will position a frame at the coordinates, either the left-top or 
 // the right-top will be placed at x,y (preferably left-top)
 Factlink.positionFrameToCoord = function($frame, x, y) {
-    if ( document.body.clientWidth < ( x + $frame.outerWidth(true) - document.body.scrollLeft ) ) {
+    if ( $(window).width() < ( x + $frame.outerWidth(true) - $(window).scrollLeft() ) ) {
         x -= $frame.outerWidth(true);
     }
     
-    if ( document.body.clientHeight < ( y + $frame.outerHeight(true) - document.body.scrollTop ) ) { 
+    if ( $(window).height() < ( y + $frame.outerHeight(true) - $(window).scrollTop() ) ) { 
         y -= $frame.outerHeight(true);
     }
     

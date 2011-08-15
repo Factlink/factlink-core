@@ -1,9 +1,8 @@
 (function( Factlink ) {
-var 
     // Function which walks the DOM in HTML source order
     // as long as func does not return false
     // Inspiration: Douglas Crockford, JavaScript: the good parts
-    walkTheDOM = function walk(node, func) {
+var walkTheDOM = function walk(node, func) {
         if ( func(node) !== false ) {
             node = node.firstChild;
             while (node) {
