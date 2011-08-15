@@ -94,6 +94,11 @@ class ChannelsController < ApplicationController
    puts "\n*\n*\n*DESTORYING CHANNEL. Should be ;)" 
   end
   
+  def follow
+    @channel = Channel[params[:channel_id]]
+    @channel.fork(current_user.graph_user)
+  end
+  
   private
   def get_user
     @user = User.first(:conditions => { :username => params[:username]})

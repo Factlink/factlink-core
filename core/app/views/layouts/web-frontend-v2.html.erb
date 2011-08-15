@@ -35,19 +35,6 @@
   <script src="/v2/js/libs/modernizr-2.0.6.min.js"></script>
   <%= csrf_meta_tag %>
 
-	<script>
-		function getFacts(url) {
-			$.ajax({
-			  url: url,
-				dataType: "script",
-			  success: function(){
-				console.log($(this));
-			    $(this).closest('li').addClass("active");
-			  }
-			});
-		}
-
-	</script>
 </head>
 
 <body>
@@ -147,9 +134,20 @@
       load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
     });
   </script>
-
 	
 	<script>
+		// get the facts
+		function getFacts(url) {
+			$.ajax({
+			  url: url,
+				dataType: "script",
+			  success: function(){
+				console.log($(this));
+			    $(this).closest('li').addClass("active");
+			  }
+			});
+		}
+
 		// Hide the notifications
 		$(function() {
 			if ($('#application-notification')) {
@@ -159,6 +157,18 @@
 					}, 
 					3000);
 			}
+		});
+				
+		$('.follow-channel').bind('click', function() {
+			$.ajax({
+			  url: $(this).data('follow-url'),
+				dataType: "script",
+			  success: function(){
+					console.log("Succes");
+			  }
+			});
+
+			return false;
 		});
 	</script>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.

@@ -61,6 +61,7 @@ FactlinkUI::Application.routes.draw do
 
     post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
     get "/channels/:channel_id/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from_channel"
+    get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
 
     get "/" => "users#show", :as => "user_profile"
     resources :channels    
