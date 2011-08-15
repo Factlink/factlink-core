@@ -46,7 +46,8 @@ end
 def fact_relation(fact1,relation,fact2)
   f1 = fact(fact1)
   f2 = fact(fact2)
-  f2.add_evidence(relation,f1,LoadDslState.graph_user)
+  fr = f2.add_evidence(relation,f1,LoadDslState.graph_user)
+  LoadDslState.fact = fr
 end
 
 def export_fact_relation(fact_relation)
