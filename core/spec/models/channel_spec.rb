@@ -55,9 +55,6 @@ describe Channel do
     end
     describe "forking the channel yourself" do
       before {@fork = subject.fork(u1) }
-      it "should have a different title" do
-        subject.title.should_not == @fork.title
-      end
     end
   end
 

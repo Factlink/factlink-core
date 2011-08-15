@@ -81,12 +81,15 @@ class User
   :registerable   # Allow registration
 
   field :username
-  field :graph_user_id
 
-  # Only allow letters, digits and underscore in a username
-  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
-  validates_presence_of :username, :message => "is required", :allow_blank => true
-  validates_uniqueness_of :username, :message => "must be unique"
+  field :graph_user_id
+  def graph_user
+    return GraphUser[graph_user_id]
+  end
+
+  def graph_user=(guser)
+    self.graph_user_id = guser.id
+  end
 
   def create_graph_user
       guser = GraphUser.new
@@ -98,16 +101,16 @@ class User
       guser.user = self
       guser.save
   end
+
+
+  # Only allow letters, digits and underscore in a username
+  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_presence_of :username, :message => "is required", :allow_blank => true
+  validates_uniqueness_of :username, :message => "must be unique"
+
   private :create_graph_user
   around_create :create_graph_user
 
-  def graph_user
-    return GraphUser[graph_user_id]
-  end
-
-  def graph_user=(guser)
-    self.graph_user_id = guser.id
-  end
 
   def to_s
     username

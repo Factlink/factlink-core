@@ -56,5 +56,25 @@ class FactGraph
       end
       puts
     end
+
+    GraphUser.all.each do |gu|
+      if gu.channels.size > 0
+          writer.write("\n")
+          writer.write(export_activate_user(gu))
+      end
+        
+      gu.channels.each do |channel|
+        writer.write("  "+export_channel(channel))
+        channel.internal_facts.each do |f|
+          writer.write("    "+export_add_fact(f))
+        end
+        channel.delete_facts.each do |f|
+          writer.write("    "+export_del_fact(f))
+        end
+        channel.contained_channels.each do |ch|
+          writer.write("    "+export_sub_channel(ch))
+        end
+      end
+    end
   end
 end

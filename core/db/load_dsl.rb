@@ -3,20 +3,28 @@ class LoadDslState
   @@fact = nil
 
   def self.graph_user
-    u = @@user || User.all.first || load_user("JudgeDredd")
+    u = @@user || User.all.first || load_user("GenericUser")
     u.graph_user
   end
 
   def self.user=(value)
     @@user = value
   end
-  
+
   def self.fact=(value)
     @@fact = value
   end
-  
+
   def self.fact
     @@fact
+  end
+
+  def self.channel
+    @@channel || Channel.all.first || load_channel(self.graph_user,"Main channel")
+  end
+
+  def self.channel=(value)
+    @@channel = value
   end
 end
 
@@ -61,10 +69,10 @@ def load_user(username,email=nil, password=nil)
     email ||= "#{username}@example.org"
     password ||= "123hoi"
     u = User.new(:username => username,
-                :email => email,
-                :confirmed_at => DateTime.now,
-                :password => password,
-                :password_confirmation => password)
+    :email => email,
+    :confirmed_at => DateTime.now,
+    :password => password,
+    :password_confirmation => password)
     u.save
   end
   u
@@ -113,6 +121,50 @@ def set_opinion(opinion_type,*users)
     gu = load_user(username).graph_user
     f.add_opinion(opinion_type,gu)
   end
+end
+
+def load_channel(graph_user, title)
+  ch = graph_user.channels.find(:title => title).first
+  if not ch
+    ch = Channel.create(:created_by => graph_user, :title => title)
+  end
+  ch
+end
+
+def channel(title)
+  ch = load_channel(LoadDslState.graph_user, title)
+  LoadDslState.channel = ch
+end
+
+def export_channel(channel)
+  "channel \"#{quote_string(channel.title)}\"\n"
+end
+
+def sub_channel(username,title)
+  ch = load_channel(load_user(username).graph_user, title)
+  LoadDslState.channel.add_channel(ch)
+end
+
+def export_sub_channel(channel)
+  "sub_channel \"#{quote_string(channel.created_by.username)}\", \"#{quote_string(channel.title)}\"\n"
+end
+
+def add_fact(fact_string)
+  f = load_fact(fact_string)
+  LoadDslState.channel.add_fact(f)
+end
+
+def export_add_fact(fact)
+  "add_fact \"#{quote_string(fact.displaystring)}\"\n"
+end
+
+def del_fact(fact_string)
+  f = load_fact(fact_string)
+  LoadDslState.channel.remove_fact(f)
+end
+
+def export_del_fact(fact)
+  "del_fact \"#{quote_string(fact.displaystring)}\"\n"
 end
 
 
