@@ -29,7 +29,7 @@ class Basefact < OurOhm
     opiniated(type).size
   end
 
-  def toggle_opinion(type, user)    
+  def toggle_opinion(type, user)
     if opiniated(type).include?(user)
       # User has this opinion already; remove opinion
       remove_opinions(user)
@@ -39,8 +39,9 @@ class Basefact < OurOhm
     end
   end
 
-  def add_opinion(type, user)
+  def add_opinion(type, user)    
     remove_opinions(user)
+
     opiniated(type).add(user)
     user.update_opinion(type, self)
   end

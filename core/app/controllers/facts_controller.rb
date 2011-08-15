@@ -282,7 +282,9 @@ class FactsController < ApplicationController
   end
   
   def add_evidence(evidence_id, type, fact_id) # private
-
+    
+    type = params[:type].to_sym
+    
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
@@ -291,6 +293,10 @@ class FactsController < ApplicationController
     
     fact.add_opinion(:beliefs, current_user.graph_user)
     
+    # Not working. It should:
+    # fact_relation.add_opinion(:beliefs, current_user.graph_user)
+    
+    fact_relation
   end
   
   def create_fact(url, displaystring) # private
