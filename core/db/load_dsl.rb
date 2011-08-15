@@ -109,8 +109,8 @@ end
 def set_opinion(opinion_type,*users)
   f = LoadDslState.fact
   users.each do |username|
-    u = load_user(username)
-    f.add_opinion(opinion_type,u)
+    gu = load_user(username).graph_user
+    f.add_opinion(opinion_type,gu)
   end
 end
 
