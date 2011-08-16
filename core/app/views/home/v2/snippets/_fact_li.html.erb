@@ -13,7 +13,7 @@
 		</div>
 		
 		<header>
-			<h1><%= fact.displaystring %></h1>			
+			<h1><%= link_to(fact.displaystring,fact_path(fact.id)) %></h1>			
 			<sub><%= time_ago_in_words(fact.created_at) %> ago by <%= link_to("#{fact.created_by.username}", user_profile_path(fact.created_by.username)) %>
 				found on <a href="<%= fact.url %>" target="_blank"><%= truncate(fact.url, :length => 62) %></a>
 				</sub>
