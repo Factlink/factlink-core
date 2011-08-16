@@ -44,7 +44,11 @@ class FactRelation < Basefact
   end
 
   def percentage
-    (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight + 0.00001)).to_i
+    if self.get_to_fact.get_opinion.weight == 0
+      return 0
+    else
+      return (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight)).round.to_i
+    end
   end
 
   def get_type_opinion
