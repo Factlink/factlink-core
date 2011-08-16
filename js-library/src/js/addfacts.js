@@ -3,7 +3,7 @@
         var selectionInfo = Factlink.getSelectionInfo();
         
         // Get al the facts on the current page
-        Factlink.remote.createFactlink(selectionInfo.selection.toString(), 
+        Factlink.remote.createFactlink(selectionInfo.text, 
                                        selectionInfo.passage, 
                                        window.location.href,
                                        FactlinkConfig.modus);
