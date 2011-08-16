@@ -16,6 +16,9 @@ var domReady = function(fn) {
 domReady(function(){
   var a = document.getElementsByTagName("a");
 
+	/**
+	 * Replace all <a> elements with a proxied URL
+	 */
   for ( var i = 0, j = a.length; i < j; i++ ) {
     // Store the current a-tag
     var b = a[i];
@@ -34,10 +37,45 @@ domReady(function(){
         
     if ( valid ) {
       b.href = href.replace(/^http(s|):\/\//, 'http://localhost:8080/?url=' + href.match(/http(s|):\/\//)[0]);
-      
+
       b.target = "_parent";
     }
   }
+
+	/** 
+	 * Replace all <form> actions with a proxied URL
+	 * Send the action URL in a hidden field.
+	 */
+	var forms = document.getElementsByTagName("form");
+
+  for ( var i = 0, j = forms.length; i < j; i++ ) {
+    // Store the current a-tag
+    var form = forms[i];
+    var action = form.action;
+    var valid = false;
+
+    if ( action.length > 0 ) {
+      if ( action.search(/http(s|):\/\//) !== 0 ) { 
+         console.info( "No matching for href: " + href );
+      } else {
+        valid = true;
+      }
+    }
+        
+    if ( valid ) {
+	
+			// Add the action url to form
+			var input = document.createElement('input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('name', 'factlinkPostUrl');
+			input.setAttribute('value', action);
+			form.appendChild(input);
+			
+			// Set the proxied URL
+      form.action = action.replace(/^http(s|):\/\//, 'http://localhost:8080/submit?url=' + action.match(/http(s|):\/\//)[0]);
+    }
+  }
+
 });
 
 window.FactlinkConfig = {
