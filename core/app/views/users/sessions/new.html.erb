@@ -1,12 +1,11 @@
-
 <% content_for :left_column do %>
 
 	<%= users_and_factlink_information %>
 
 <% end %>
 
-<% content_for :main_column do %>
 
+<% content_for :main_column do %>
 
 	<h1>Sign in with your Factlink account</h1>
 
@@ -30,13 +29,10 @@
 	<%= render :partial => "devise/shared/links" %>
 	</div>
 
-	<div class="actions">
-	  <pre><%= f.submit "Sign in", :class => "button" %></pre>
+	<div class="action-wrapper">
+		<%= f.submit "Sign in", :class => "button" %>
 	</div>
 	<% end %>
-
-
-	
 
 	</section>
 <% end %>

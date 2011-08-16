@@ -67,4 +67,7 @@ module HomeHelper
     render :partial => "home/v2/snippets/user_and_factlink_information"
   end
   
+  def close_notifications_button
+    render :partial => "home/v2/snippets/close_notification_button"
+  end
 end
