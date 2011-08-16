@@ -8,13 +8,13 @@ module Opinionable
 
     return {
       :believe => {
-        :percentage => calc_percentage(total, op.b),
+        :percentage => calc_percentage(total, op.b).round,
       },
       :disbelieve => {
-        :percentage => calc_percentage(total, op.d),
+        :percentage => calc_percentage(total, op.d).round,
       },
       :doubt => {
-        :percentage => calc_percentage(total, op.u),
+        :percentage => calc_percentage(total, op.u).round,
       },
       :authority => op.a,
     }
@@ -40,6 +40,7 @@ module Opinionable
     score_dict_as_percentage[:doubt][:percentage]
   end
 
+  private
   def calc_percentage(total, part)
     if total > 0
       (100 * part) / total
