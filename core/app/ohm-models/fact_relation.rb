@@ -25,16 +25,16 @@ class FactRelation < Basefact
   end
 
   def FactRelation.create_new(from,type,to,user)
-    fl = FactRelation.create
-    fl.from_fact = from
-    fl.fact = to
-    fl.type = type
-    #TODO enable this again:
-    fl.created_by = user.graph_user
+    fl = FactRelation.create(
+      :created_by => user.graph_user,
+      :from_fact => from,
+      :fact => to,
+      :type => type
+    )
 
+    #TODO this should use a collection
     to.evidence(type) << fl
 
-    fl.save
     $redis.set(FactRelation.redis_key(from,type,to), fl.id)
     fl
   end

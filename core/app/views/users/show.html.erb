@@ -23,4 +23,7 @@
 		<%= fact_listing_for_channel(@user.channels.first) %>
 	<% end %>
 
+    <% if @user.graph_user.activities.count > 0 %>
+        <%= activity_list_for_user(@user.graph_user,20)%>
+    <% end%>
 <% end %>

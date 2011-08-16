@@ -24,22 +24,6 @@ module Opinionable
     get_opinion.a.to_i
   end
 
-  # Percentual scores
-  deprecate
-  def percentage_score_believe
-    score_dict_as_percentage[:believe][:percentage]
-  end
-
-  deprecate
-  def percentage_score_disbelieve
-    score_dict_as_percentage[:disbelieve][:percentage]
-  end
-  
-  deprecate
-  def percentage_score_uncertain
-    score_dict_as_percentage[:doubt][:percentage]
-  end
-
   private
   def calc_percentage(total, part)
     if total > 0

@@ -32,6 +32,8 @@ module FactlinkUI
     
     autoload :Authority, "#{config.root}/app/classes/authority.rb"
     
+    autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
+    
     [
       OurOhm, 
       Authority, 
@@ -44,7 +46,8 @@ module FactlinkUI
       FactRelation, 
       GraphUser, 
       Site,
-      Channel 
+      Channel ,
+      Activity
     ].each do |x|
        puts "loaded " + x.to_s
     end

@@ -31,11 +31,12 @@ end
 def load_fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
-    f = Fact.new
-    f.displaystring = fact_string
-    f.site = Site.find_or_create_by(url)
-    f.created_by = LoadDslState.graph_user
-    f.save
+    f = Fact.create(
+     :site => Site.find_or_create_by(url),
+     :created_by => LoadDslState.graph_user
+    )
+    f.data.displaystring = fact_string
+    f.data.save
   end
   f
 end
@@ -68,14 +69,11 @@ def load_user(username,email=nil, password=nil)
   if not u
     email ||= "#{username}@example.org"
     password ||= "123hoi"
-    u = User.new(:username => username,
-    :email => email,
-    :confirmed_at => DateTime.now,
-    :password => password,
-    :password_confirmation => password)
-    u.save
-    
-    u.graph_user
+    u = User.create(:username => username,
+                    :email => email,
+                    :confirmed_at => DateTime.now,
+                    :password => password,
+                    :password_confirmation => password)
   end
   u
 end

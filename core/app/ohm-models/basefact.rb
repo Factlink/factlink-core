@@ -9,6 +9,10 @@ class Basefact < OurOhm
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
 
+  def validate
+    assert_present :created_by
+  end
+
   # def url=(url)
   #   self.site = Site.find_or_create_by(url)
   # end

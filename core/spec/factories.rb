@@ -22,6 +22,7 @@ FactoryGirl.define do
   end
   
   factory :basefact do
+    association :created_by, :factory => :graph_user
   end
 
   factory :fact do
@@ -36,8 +37,10 @@ FactoryGirl.define do
   end
   
   factory :fact_relation do
+    association :created_by, :factory => :graph_user
   end
 
   factory :channel do
+    association :created_by, :factory => :graph_user
   end
 end

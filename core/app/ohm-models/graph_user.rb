@@ -27,6 +27,7 @@ class GraphUser < OurOhm
 
   collection :created_facts, Basefact, :created_by
   collection :channels, Channel, :created_by
+  collection :activities, Activity, :user
   
   # Authority of the user
   def authority

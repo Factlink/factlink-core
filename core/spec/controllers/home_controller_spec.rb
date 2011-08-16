@@ -27,7 +27,7 @@ describe HomeController do
 
     it "assigns @facts" do
       get :index
-      assigns(:facts).all.should =~ Fact.all.all
+      assigns(:facts).should =~ Fact.all.to_a
     end
 
     it "assigns @users" do

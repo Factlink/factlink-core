@@ -1,4 +1,10 @@
 GIT
+  remote: http://github.com/sinefunc/ohm-contrib.git
+  revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
+  specs:
+    ohm-contrib (0.0.31)
+
+GIT
   remote: https://github.com/markijbema/ohm.git
   revision: 78ad3f0630c3fb013b07677fe08c3e7a94b72005
   specs:
@@ -265,6 +271,7 @@ DEPENDENCIES
   mongoid (~> 2.0.1)
   mongoid_taggable
   ohm!
+  ohm-contrib!
   rails (= 3.0.5)
   redis (= 2.2.1)
   redis-objects

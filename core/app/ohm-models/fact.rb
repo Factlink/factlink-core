@@ -55,15 +55,17 @@ module FactDataProxy
     data.updated_at
   end
 
-  def require_data
+  def require_data # dit ook doen met zo'n aftercreategebeuren
     if not self.data_id
       localdata = FactData.new
       localdata.save    # FactData now has an ID
       self.data = localdata      
-      save
-      
-      localdata.fact_id = self.id
-      localdata.save
+      if self.save
+        localdata.fact_id = self.id
+        localdata.save
+      else
+        raise StandardException, "the object could not be saved, but this is required before a require_data can be executed"
+      end
     end
   end
 

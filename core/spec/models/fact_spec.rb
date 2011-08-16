@@ -138,9 +138,10 @@ describe Fact do
     end
 
     it "should not give a give a document not found for Factdata" do
-      f = Fact.new
+      f = Fact.create(
+        :created_by => @user1.graph_user
+      )
       f.displaystring = "This is a fact"
-      f.created_by = @user1
       f.save
 
       f2 = Fact[f.id]

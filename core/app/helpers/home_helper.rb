@@ -67,4 +67,8 @@ module HomeHelper
     render :partial => "home/v2/snippets/user_and_factlink_information"
   end
   
+  def activity_list_for_user(user, nr=19)
+    render :partial => "users/partials/activity_list",
+           :locals => { :user => user, :nr => nr }
+  end
 end

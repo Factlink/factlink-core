@@ -1,5 +1,10 @@
-class OurOhm < Ohm::Model
+require 'ohm/contrib'
 
+class OurOhm < Ohm::Model
+   include Ohm::Contrib
+   include Ohm::Callbacks
+   
+   # needed for Ohm polymorphism:
    self.base = self
 
   include Canivete::Deprecate
@@ -13,9 +18,9 @@ class OurOhm < Ohm::Model
 
   def save
     pre_save
-    super
+    x = super
     post_save
-    return self
+    return x
   end
 
   def pre_save

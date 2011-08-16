@@ -51,11 +51,11 @@ class Users::SessionsController < Devise::SessionsController
         site = Site.find_or_create_by(url)
         # Create the Fact
 
-        @fact = Fact.create!()
-        @fact.displaystring = displaystring
-        @fact.created_by = current_user.graph_user
-        @fact.site = site
-        @fact.save
+        @fact = Fact.create(
+            :displaystring => displaystring,
+            :created_by => current_user.graph_user,
+            :site => site
+        )
 
         redirect_to :controller => "/facts", :action => "show", :id => @fact.id
         return false
