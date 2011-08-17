@@ -1,0 +1,42 @@
+<% content_for :script do %>
+	<%= javascript_include_tag("factlink_overview") %>
+	<% if @facts.count < @row_count %>
+	  <script type="text/javascript">
+	    var a = <%= @facts.count %>;
+	    var b = <%= @row_count %>;
+	    window.isFullyLoaded = true;
+	    $( '#load_more' ).hide();
+      $( '#loading' ).hide();
+	  </script>
+	<% end %>
+<% end %>
+
+
+<% content_for :main_column do %>
+
+	<div class="span-16">
+		<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">Factlink search - providing credibility you can see</h1>
+	</div>
+
+	<%= fact_search %>
+
+
+	<% unless @facts.count > 0 %>
+
+		<div class="append-bottom">
+			<ul>
+				<%= render :partial => "facts/partial/no_evidence_found_message" %>
+			</ul>
+		</div>
+
+		<div class="append-bottom">
+			Here are some random facts that might be interesting:
+		</div>
+	
+		<%= random_facts(5) %>
+	
+	<% else %>
+		<%= fact_listing(@facts) %>
+	<% end %>
+	
+<% end %>

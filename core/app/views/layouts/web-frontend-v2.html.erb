@@ -42,17 +42,17 @@
 	<div id="top-bar">
 		<div class="container">
 
-			<div id="factlink-logo" class="span-3">
+			<div id="factlink-logo" class="span-4">
 
 				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
 				
 			</div>
 
-			<div class="span-13">
-				&nbsp;
+			<div class="span-14">
+				<%= fact_search %>
 			</div>
 			
-			<div class="span-8 last">
+			<div class="span-6 last">
 					<%= render :partial => "users/account_block" %>
 			</div>
 
@@ -102,7 +102,7 @@
 
 		<!-- left column -->
 		<section id="right-column-container" class="span-6">
-				<div id="right-column" style="background: #ccc; height: 1000px;">
+				<div id="right-column" style="background: #ddd; height: 1000px;">
 					&nbsp;
 					<%= yield :right_column %>
 
@@ -113,7 +113,6 @@
     <!-- <footer>
     </footer> -->
   </div> <!--! end of #container -->
-
 
 
 
@@ -174,6 +173,7 @@
 		
 
 	</script>
+
 
 	<%= yield :script %>	
 	
