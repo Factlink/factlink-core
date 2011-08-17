@@ -24,6 +24,8 @@ class FactGraph
   end
 
   def self.export(writer)
+    writer.write("# coding: utf-8\n\n")
+
     GraphUser.all.each do |gu|
       writer.write(export_user(gu))
       print "exporting #{gu.user.username}\n"

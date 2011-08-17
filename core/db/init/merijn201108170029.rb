@@ -1,3 +1,5 @@
+#coding : utf-8
+
 user "johndoe1", "johndoe1@example.com"
 user "johndoe2", "johndoe2@example.com"
 user "johndoe3", "johndoe3@example.com"
