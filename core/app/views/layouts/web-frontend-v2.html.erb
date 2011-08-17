@@ -79,23 +79,35 @@
 			</header>
     </section>
 
-			
+
+
 
 		<!-- left column -->
-    <section id="left-column-container" class="span-7">		
-			<div id="left-column">
+		<section id="left-column-container" class="span-4">
+				<div id="left-column">
 
-				<%= yield :left_column %>
+					<%= yield :left_column %>
 
-			</div>
-    </section>
+				</div>
+		</section>
 
 		<!-- main content -->
-    <section id="main-column" class="span-16 prepend-1 last" role="main">
-			
-			<%= yield :main_column %>
-			
-    </section>
+		<section id="main-column" class="span-14 last" role="main">
+
+			<!-- <%= image_tag("new_fact.jpg") %> -->
+
+				<%= yield :main_column %>
+		</section>
+
+
+		<!-- left column -->
+		<section id="right-column-container" class="span-6">
+				<div id="right-column" style="background: #ccc; height: 1000px;">
+					&nbsp;
+					<%= yield :right_column %>
+
+				</div>
+		</section>
 
 
     <!-- <footer>
@@ -159,7 +171,12 @@
 
 			return false;
 		});
+		
+
 	</script>
+
+	<%= yield :script %>	
+	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7 ]>
