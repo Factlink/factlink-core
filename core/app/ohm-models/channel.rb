@@ -1,4 +1,5 @@
 class Channel < OurOhm
+  include ActivitySubject
   
   attribute :title
   attribute :description

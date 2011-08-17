@@ -16,6 +16,7 @@ class OurOhm < Ohm::Model
   deprecate
   alias :new_record? :new?
 
+  #TODO : use callbacks instead
   def save
     pre_save
     x = super

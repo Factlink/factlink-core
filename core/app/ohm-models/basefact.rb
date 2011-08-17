@@ -1,4 +1,5 @@
 class Basefact < OurOhm
+  include ActivitySubject
   
   reference :user_opinion, Opinion
   # reference :site, Site
@@ -8,6 +9,8 @@ class Basefact < OurOhm
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
+
+
 
   def validate
     assert_present :created_by

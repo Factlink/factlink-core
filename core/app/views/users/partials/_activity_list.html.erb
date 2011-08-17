@@ -1,0 +1,5 @@
+<ul>
+<% user.activities.to_a[0..nr].each do |activity| %>
+	<li><%= activity.action %> <% activity.subject.to_s %></li>
+<% end %>
+</ul>
