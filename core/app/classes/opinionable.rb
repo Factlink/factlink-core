@@ -8,15 +8,15 @@ module Opinionable
 
     return {
       :believe => {
-        :percentage => calc_percentage(total, op.b).round,
+        :percentage => calc_percentage(total, op.b).round.to_i,
       },
       :disbelieve => {
-        :percentage => calc_percentage(total, op.d).round,
+        :percentage => calc_percentage(total, op.d).round.to_i,
       },
       :doubt => {
-        :percentage => calc_percentage(total, op.u).round,
+        :percentage => calc_percentage(total, op.u).round.to_i,
       },
-      :authority => op.a,
+      :authority => op.a.round.to_i,
     }
   end
   

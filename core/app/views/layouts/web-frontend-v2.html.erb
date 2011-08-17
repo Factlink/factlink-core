@@ -44,7 +44,7 @@
 
 			<div id="factlink-logo" class="span-3">
 
-				<a href="/"><%= image_tag('factlink-logo.png', :height => 20) %></a>
+				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
 				
 			</div>
 
@@ -65,10 +65,10 @@
 		<!-- notification snippet -->
 		<div id="application-notification">
 			<% if notice %>
-				<p class="notice"><%= notice %></p>
+				<p class="notice"><%= notice %> <%= close_notifications_button %></p>
 			<% end %>
 			<% if alert %>
-				<p class="alert"><%= alert %></p>
+				<p class="alert"><%= alert %> <%= close_notifications_button %></p>
 		<% end %>
 		</div>
 	
@@ -147,17 +147,6 @@
 			  }
 			});
 		}
-
-		// Hide the notifications
-		$(function() {
-			if ($('#application-notification')) {
-				setTimeout(function() {
-					$('#application-notification').slideUp('slow');
-					// hideElement('application-notification') 
-					}, 
-					3000);
-			}
-		});
 				
 		$('.follow-channel').bind('click', function() {
 			$.ajax({

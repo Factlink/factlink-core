@@ -1,18 +1,48 @@
-<h2 style="color: #333; text-shadow: 0px 1px 1px #fff;">New to Factlink?</h2>
-<h3 style="color: #777; text-shadow: 0px 1px 1px #fff;">Sign up here, it's easy!</h3>
-
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <%= f.text_field :username, :placeholder => "Username" %>
-	<span style="padding-left: 8px; color: #666; font-size: 0.9em; text-shadow: 0px 1px 1px #fff;">You can use letters, numbers and the underscore character.</span><br/>
+<% content_for :left_column do %>
 	
+	<%= users_and_factlink_information %>
 
-  <%= f.email_field :email, :placeholder => "Email" %><br/>
-  <%= f.password_field :password, :placeholder => "Password" %><br/>
-  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation" %><br/>
-
-  <div style="margin-left: 86px;"><%= f.submit "Sign up", :class => "button confirm" %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+
+<% content_for :main_column do %>
+	<h1>New to Factlink? <span style="color: #aaa;">Sign up here, it's easy!</span></h1>
+
+	<section class="bubble">
+
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+	  <%= devise_error_messages! %>
+
+		<div class="row">
+		  <%= f.text_field :username, :placeholder => "Username", :required => true %>
+			<span style="display: block; margin-left: 12px;"><sub>You can use letters, numbers and the underscore character.</sub>
+		</div>
+
+		<div class="row">
+		  <%= f.email_field :email, :placeholder => "Email", :required => true %>
+		</div>
+		
+		<div class="row">
+		  <%= f.password_field :password, :placeholder => "Password", :required => true %><br/>
+		</div>
+		
+		<div class="row">
+		  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation", :required => true %><br/>
+		</div>
+
+		<div>
+			<%= render :partial => "devise/shared/links" %>
+		</div>
+
+		<div class="action-wrapper">
+			<%= f.submit "Sign up", :class => "button confirm" %>
+		</div>
+
+	<% end %>
+
+
+
+	</section>
+	
+<% end %>

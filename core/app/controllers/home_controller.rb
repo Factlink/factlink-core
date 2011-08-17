@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
 
-  # layout "accounting"
   layout "web-frontend-v2"
   
   def index
