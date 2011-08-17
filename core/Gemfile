@@ -56,7 +56,6 @@ gem 'json'
 gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
 
-
 ##########
 # Canivete -- gem which provides 'deprecate' command
 gem 'canivete'

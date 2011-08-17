@@ -12,14 +12,15 @@
 <% end %>
 
 
+<% content_for :left_column do %>
+	
+	Hot searches
+
+<% end %>
+
 <% content_for :main_column do %>
 
-	<div class="span-16">
-		<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">Factlink search - providing credibility you can see</h1>
-	</div>
-
-	<%= fact_search %>
-
+	<h1>Factlink search - providing credibility you can see</h1>
 
 	<% unless @facts.count > 0 %>
 
