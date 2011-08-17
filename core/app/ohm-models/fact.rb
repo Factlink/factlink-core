@@ -6,55 +6,74 @@ module FactDataProxy
   
   #assuming we have a data
   def title
-    require_data
-    data.title
+    self.require_data
+    self.data.title
   end
 
   def title=(value)
-    require_data
-    data.title=value
+    self.require_data
+    self.data.title=value
   end
 
   def displaystring
-    require_data
-    data.displaystring
+    self.require_data
+    self.data.displaystring
   end
 
   def displaystring=(value)
-    require_data
-    data.displaystring=value
+    self.require_data
+    self.data.displaystring=value
   end 
 
   def content
-    require_data
-    data.content
+    self.require_data
+    self.data.content
   end
 
   def content=(value)
-    require_data
-    data.content=value
+    self.require_data
+    self.data.content=value
   end
 
   def passage
-    require_data
-    data.passage
+    self.require_data
+    self.data.passage
   end
 
   def passage=(value)
-    require_data
-    data.passage=value
+    self.require_data
+    self.data.passage=value
   end
 
   def created_at
-    require_data
-    data.created_at
+    self.require_data
+    self.data.created_at
   end
 
   def updated_at
-    require_data
-    data.updated_at
+    self.require_data
+    self.data.updated_at
   end
 
+end
+
+class Fact < Basefact
+  include Opinionable
+  include FactDataProxy
+
+  reference :site, Site       # The site on which the factlink should be shown
+  def url=(url)
+    self.site = Site.find_or_create_by(:url => url)
+  end
+  def url
+    self.site.url
+  end
+  # Return a nice looking url, only subdomain + domain + top level domain
+  def pretty_url
+    url.gsub(/http(s?):\/\//,'').split('/')[0]
+  end
+
+  reference :data, lambda { |id| FactData.find(id) }
   def require_data # dit ook doen met zo'n aftercreategebeuren
     if not self.data_id
       localdata = FactData.new
@@ -68,27 +87,14 @@ module FactDataProxy
       end
     end
   end
-
-  def post_save
-    require_data
-    data.save
+  
+  def save_data
+    self.data.save
   end
 
-end
+  after :save, :require_data
+  after :save, :save_data
 
-class Fact < Basefact
-  include Opinionable
-  include FactDataProxy
-
-  reference :site, Site       # The site on which the factlink should be shown
-  def url=(url)
-    self.site = Site.find_or_create_by(url)
-  end
-  def url
-    self.site.url
-  end
-
-  reference :data, lambda { |id| FactData.find(id) }
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
@@ -113,7 +119,7 @@ class Fact < Basefact
   end
   
   def fact_relations
-    supporting_facts.all + weakening_facts.all
+    supporting_facts | weakening_facts
   end
   
   def sorted_fact_relations
@@ -137,7 +143,9 @@ class Fact < Basefact
       puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
       return nil
     else
-      FactRelation.get_or_create(evidence,type,self,user)
+      fr = FactRelation.get_or_create(evidence,type,self,user)
+      activity(user,:created,fr)
+      fr
     end
   end
   

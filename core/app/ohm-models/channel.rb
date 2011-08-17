@@ -28,7 +28,7 @@ class Channel < OurOhm
   
   def add_fact(fact)
     self.internal_facts.add(fact)
-    
+    activity(self.created_by,:added,fact,:to,self)
   end
   
   def remove_fact(fact)
@@ -37,6 +37,7 @@ class Channel < OurOhm
     else
       self.delete_facts.add(fact)
     end
+    activity(self.created_by,:removed,fact,:from,self)
   end
   
   def to_s
@@ -45,15 +46,19 @@ class Channel < OurOhm
   
   def fork(user)
     c = Channel.create(:created_by => user, :title => title, :description => description)
-    c.add_channel(self)
+    c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
   end
   
   
-  private
   def add_channel(channel)
-    contained_channels << channel
+    _add_channel(channel)
+    activity(self.created_by,:added,channel,:to,self)
   end
   
+  protected
+  def _add_channel(channel)
+    contained_channels << channel
+  end
 end

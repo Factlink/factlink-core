@@ -42,17 +42,17 @@
 	<div id="top-bar">
 		<div class="container">
 
-			<div id="factlink-logo" class="span-3">
+			<div id="factlink-logo" class="span-4">
 
 				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
 				
 			</div>
 
-			<div class="span-13">
-				&nbsp;
+			<div class="span-14">
+				<%= fact_search %>
 			</div>
 			
-			<div class="span-8 last">
+			<div class="span-6 last">
 					<%= render :partial => "users/account_block" %>
 			</div>
 
@@ -79,29 +79,40 @@
 			</header>
     </section>
 
-			
+
+
 
 		<!-- left column -->
-    <section id="left-column-container" class="span-7">		
-			<div id="left-column">
+		<section id="left-column-container" class="span-4">
+				<div id="left-column">
 
-				<%= yield :left_column %>
+					<%= yield :left_column %>
 
-			</div>
-    </section>
+				</div>
+		</section>
 
 		<!-- main content -->
-    <section id="main-column" class="span-16 prepend-1 last" role="main">
-			
-			<%= yield :main_column %>
-			
-    </section>
+		<section id="main-column" class="span-14 last" role="main">
+
+			<!-- <%= image_tag("new_fact.jpg") %> -->
+
+				<%= yield :main_column %>
+		</section>
+
+
+		<!-- left column -->
+		<section id="right-column-container" class="span-6">
+				<div id="right-column" style="background: #ddd; height: 1000px;">
+					&nbsp;
+					<%= yield :right_column %>
+
+				</div>
+		</section>
 
 
     <!-- <footer>
     </footer> -->
   </div> <!--! end of #container -->
-
 
 
 
@@ -159,7 +170,13 @@
 
 			return false;
 		});
+		
+
 	</script>
+
+
+	<%= yield :script %>	
+	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7 ]>

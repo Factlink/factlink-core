@@ -13,7 +13,9 @@
 <!-- left column -->
 <% content_for :left_column do %>
 
-	<%= users_and_factlink_information %>
+	<!-- <%= users_and_factlink_information %> -->
+
+	<%= channel_listing_for_user(User.all.first.channels, User.all.first) %>
 	
 <% end %>
 
@@ -21,7 +23,15 @@
 <!-- main coloumn -->
 <% content_for :main_column do %>
 
+	<header class="append-bottom">
+		<h1>recent interesting facts</h1>
+		<sub style="display: inline-block;">See what's goin on around the globe. 
+			<% if user_signed_in? %>
+			You can create <%= link_to('channels', new_channel_path(current_user.username))%> with your own interest as well.
+			<% end %>
+			</sub>
+	</header>
+
 	<%= fact_listing(@facts) %>
 
 <% end %>
-

@@ -21,7 +21,7 @@ class Activity < OurOhm
 
   def subject
     klass = Kernel.const_get(self.subject_class)
-    if klass == nil
+    if klass == NilClass
       return nil
     else
       return klass[self.subject_id]
@@ -36,7 +36,7 @@ class Activity < OurOhm
   end
   def object
     klass = Kernel.const_get(self.object_class)
-    if klass == nil
+    if klass == NilClass
       return nil
     else
       return klass[self.object_id]
@@ -46,6 +46,7 @@ class Activity < OurOhm
 end
 
 module ActivitySubject
+  
   def activity(user, action, subject, sub_action = :to ,object = nil)
     Activity.create(
       :user => user,
@@ -55,7 +56,4 @@ module ActivitySubject
     )
   end
 
-  def after_create
-    activity(self.created_by, :created, self)
-  end
 end

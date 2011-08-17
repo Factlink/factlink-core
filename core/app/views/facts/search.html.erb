@@ -11,6 +11,7 @@
 	<% end %>
 <% end %>
 
+<% content_for :main_column do %>
 
 <div class="span-16">
 	<h1 style="font-size: 1.6em; font-weight: 100; text-shadow: 0px 1px 1px #fff;">Factlink search - providing credibility you can see</h1>
@@ -53,3 +54,5 @@
 	  <%= render(:partial => "facts/partial/factlink_as_td", :collection => @factlinks, :as => :factlink) || "<tr><td colspan=\"2\">No results found...</td></tr>".html_safe %>
 	</tbody>
 </table>
+
+<% end %>

@@ -75,9 +75,15 @@ module HomeHelper
   def close_notifications_button
     render :partial => "home/v2/snippets/close_notification_button"
   end
-  
+
   def show_activity(activity)
     render :partial => "home/v2/snippets/show_activity",
            :locals => {:activity => activity }
+  end
+  
+  def random_facts(nr=5)
+        
+    random_facts = Fact.all.sort_by(rand).slice(0..nr)
+    fact_listing(random_facts)
   end
 end

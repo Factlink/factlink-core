@@ -2,7 +2,6 @@ class Basefact < OurOhm
   include ActivitySubject
   
   reference :user_opinion, Opinion
-  # reference :site, Site
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
@@ -10,23 +9,10 @@ class Basefact < OurOhm
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
 
-
-
   def validate
     assert_present :created_by
   end
 
-  # def url=(url)
-  #   self.site = Site.find_or_create_by(url)
-  # end
-  # def url
-  #   self.site.url
-  # end
-
-  # Return a nice looking url, only subdomain + domain + top level domain
-  def pretty_url
-    url.gsub(/http(s?):\/\//,'').split('/')[0]
-  end
 
   def opiniated(type)
     self.send("people_#{type}")
@@ -47,21 +33,23 @@ class Basefact < OurOhm
   end
 
   def add_opinion(type, user)    
-    remove_opinions(user)
+    _remove_opinions(user)
 
     opiniated(type).add(user)
     user.update_opinion(type, self)
+    activity(user,type,self)
   end
 
   def remove_opinions(user)
+    _remove_opinions(user)
+    activity(user,:removed_opinions,self)
+  end
+  
+  def _remove_opinions(user)
     user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
       opiniated(type).delete(user)
     end
-  end
-
-  def interacting_users
-    opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
   end
 
   def calculate_user_opinion
