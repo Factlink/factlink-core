@@ -2,15 +2,12 @@ class Basefact < OurOhm
   include ActivitySubject
   
   reference :user_opinion, Opinion
-  # reference :site, Site
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
   set :people_beliefs, GraphUser
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
-
-
 
   def validate
     assert_present :created_by
@@ -36,7 +33,7 @@ class Basefact < OurOhm
   end
 
   def add_opinion(type, user)    
-    remove_opinions(user)
+    _remove_opinions(user)
 
     opiniated(type).add(user)
     user.update_opinion(type, self)
@@ -44,6 +41,11 @@ class Basefact < OurOhm
   end
 
   def remove_opinions(user)
+    _remove_opinions(user)
+    activity(user,:removed_opinions,self)
+  end
+  
+  def _remove_opinions(user)
     user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
       opiniated(type).delete(user)

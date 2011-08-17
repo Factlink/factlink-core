@@ -28,7 +28,7 @@ class Channel < OurOhm
   
   def add_fact(fact)
     self.internal_facts.add(fact)
-    
+    activity(self.created_by,:added,fact,:to,self)
   end
   
   def remove_fact(fact)
@@ -37,6 +37,7 @@ class Channel < OurOhm
     else
       self.delete_facts.add(fact)
     end
+    activity(self.created_by,:removed,fact,:from,self)
   end
   
   def to_s
