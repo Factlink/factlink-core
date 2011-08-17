@@ -20,7 +20,6 @@ describe Basefact do
   let(:fact2) {FactoryGirl.create(:basefact)}
 
   context "initially" do
-    its(:interacting_users) {should be_empty}
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
       it { subject.opiniated(opinion).all.should == [] }
@@ -60,7 +59,6 @@ describe Basefact do
           FactGraph.recalculate
         end
         it { subject.opiniated_count(opinion).should == 1 }
-        its(:interacting_users) {should =~ [user]}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
 
@@ -71,7 +69,6 @@ describe Basefact do
           FactGraph.recalculate
         end
         it {subject.opiniated_count(opinion).should == 1}
-        its(:interacting_users) {should =~ [user]}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
     end
@@ -83,7 +80,6 @@ describe Basefact do
           FactGraph.recalculate
         end
         it { subject.opiniated_count(opinion).should==1 }
-        its(:interacting_users) {should =~ [user]}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
 
@@ -94,7 +90,6 @@ describe Basefact do
           FactGraph.recalculate
         end
         it { subject.opiniated_count(opinion).should == 0 }
-        its(:interacting_users) {should be_empty}
         it { expect_opinion(subject,Opinion.identity)}
       end
 
@@ -105,7 +100,6 @@ describe Basefact do
           FactGraph.recalculate
         end
         it {subject.opiniated_count(opinion).should == 2 }
-        its(:interacting_users) {should =~ [user,user2]}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
       end
 
@@ -116,11 +110,9 @@ describe Basefact do
           FactGraph.recalculate
         end
         it {fact2.opiniated_count(opinion).should == 1}
-        it {fact2.interacting_users.should =~ [user]}
         it { expect_opinion(fact2,Opinion.for_type(opinion,user.authority))}
 
         it {subject.opiniated_count(opinion).should == 1}
-        it {subject.interacting_users.should =~ [user]}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
 
@@ -132,7 +124,6 @@ describe Basefact do
         end
         it {subject.opiniated_count(opinion).should==0 }
         it {subject.opiniated_count(others(opinion)[0]).should==1 }
-        its(:interacting_users) {should == [user]}
         it { expect_opinion(subject,Opinion.for_type(others(opinion)[0],user.authority))}
       end
     end
@@ -144,7 +135,6 @@ describe Basefact do
         FactGraph.recalculate
       end
       it {subject.opiniated_count(opinion).should == 0 }
-      its(:interacting_users) {should == []}
       it { expect_opinion(subject,Opinion.identity)}
     end
 
@@ -155,7 +145,6 @@ describe Basefact do
         FactGraph.recalculate
       end
       it {subject.opiniated_count(opinion).should == 2}
-      its(:interacting_users) {should =~ [user,user2]}
       it { expect_opinion(subject,Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
     end
 
@@ -172,7 +161,6 @@ describe Basefact do
             FactGraph.recalculate
           end
           it {subject.opiniated_count(opinion).should == 1}
-          its(:interacting_users) {should =~ [user,user2]}
           it { expect_opinion(subject,Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
         end
 
@@ -183,7 +171,6 @@ describe Basefact do
             FactGraph.recalculate
           end
           it {subject.opiniated_count(opinion).should == 0}
-          its(:interacting_users) {should =~ [user,user2]}
           it { Basefact[subject.id].get_user_opinion.should == Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(other_opinion,user2.authority)}
         end
 

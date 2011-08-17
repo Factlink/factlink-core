@@ -52,10 +52,6 @@ class Basefact < OurOhm
     end
   end
 
-  def interacting_users
-    opiniated(:beliefs).all + opiniated(:doubts).all + opiniated(:disbeliefs).all
-  end
-
   def calculate_user_opinion
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
