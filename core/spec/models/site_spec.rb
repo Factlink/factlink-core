@@ -33,7 +33,12 @@ describe Site do
     end
   end
   
-  it "should have a working find_or_create_by"
+  it "should have a working find_or_create_by" do
+    site = Site.find_or_create_by(:url => 'http://example.org')
+    site.should_not == nil
+    site2 = Site.find_or_create_by(:url => 'http://example.org')
+    site2.id.should == site.id
+  end
 
 
 end

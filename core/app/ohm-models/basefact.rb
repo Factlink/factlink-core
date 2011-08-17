@@ -16,17 +16,6 @@ class Basefact < OurOhm
     assert_present :created_by
   end
 
-  # def url=(url)
-  #   self.site = Site.find_or_create_by(url)
-  # end
-  # def url
-  #   self.site.url
-  # end
-
-  # Return a nice looking url, only subdomain + domain + top level domain
-  def pretty_url
-    url.gsub(/http(s?):\/\//,'').split('/')[0]
-  end
 
   def opiniated(type)
     self.send("people_#{type}")
@@ -51,6 +40,7 @@ class Basefact < OurOhm
 
     opiniated(type).add(user)
     user.update_opinion(type, self)
+    activity(user,type,self)
   end
 
   def remove_opinions(user)

@@ -298,7 +298,7 @@ class FactsController < ApplicationController
   end
   
   def create_fact(url, displaystring) # private
-    site = Site.find_or_create_by(url)
+    site = Site.find_or_create_by(:url => url)
 
     fact = Fact.new
     fact.displaystring = displaystring

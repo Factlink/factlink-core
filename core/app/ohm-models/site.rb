@@ -1,12 +1,7 @@
 class Site < OurOhm
   attribute :url
   index :url
-
   collection :facts, Fact
-  
-  def validate
-    #assert_url :url
-  end
   
   # More Rails like behaviour:
   def Site.first
@@ -28,14 +23,4 @@ class Site < OurOhm
     return self.facts.count
   end
   
-  def Site.find_or_create_by(url)
-
-    site = Site.find(:url => url).first
-
-    unless site
-      site = Site.new(:url => url)
-      site.save
-    end
-    site
-  end
 end

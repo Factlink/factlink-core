@@ -32,7 +32,7 @@ def load_fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
     f = Fact.create(
-     :site => Site.find_or_create_by(url),
+     :site => Site.find_or_create_by(:url => url),
      :created_by => LoadDslState.graph_user
     )
     f.data.displaystring = fact_string

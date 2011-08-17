@@ -63,10 +63,14 @@ class Fact < Basefact
 
   reference :site, Site       # The site on which the factlink should be shown
   def url=(url)
-    self.site = Site.find_or_create_by(url)
+    self.site = Site.find_or_create_by(:url => url)
   end
   def url
     self.site.url
+  end
+  # Return a nice looking url, only subdomain + domain + top level domain
+  def pretty_url
+    url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
   reference :data, lambda { |id| FactData.find(id) }
@@ -115,7 +119,7 @@ class Fact < Basefact
   end
   
   def fact_relations
-    supporting_facts.all + weakening_facts.all
+    supporting_facts | weakening_facts
   end
   
   def sorted_fact_relations
@@ -139,7 +143,9 @@ class Fact < Basefact
       puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
       return nil
     else
-      FactRelation.get_or_create(evidence,type,self,user)
+      fr = FactRelation.get_or_create(evidence,type,self,user)
+      activity(user,:created,fr)
+      fr
     end
   end
   

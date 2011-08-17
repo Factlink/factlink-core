@@ -4,45 +4,25 @@ class OurOhm < Ohm::Model
    include Ohm::Contrib
    include Ohm::Callbacks
    extend ActiveModel::Naming
+   include Canivete::Deprecate
    
    # needed for Ohm polymorphism:
    self.base = self
+   
+   class << self
+     alias :create! :create
+   end
 
-  include Canivete::Deprecate
 
-  def save!
-    save
-  end
+  alias save! save
 
   deprecate
   alias :new_record? :new?
 
-  #TODO : use callbacks instead
-  def save
-    pre_save
-    x = super
-    post_save
-    return x
+  def self.find_or_create_by(opts)
+    self.find(opts).first || self.create(opts)
   end
 
-  def pre_save
-  end
-
-  def post_save
-  end
-
-  deprecate
-  def self.create!(*args)
-    x = self.new(*args)
-    x.save
-    x
-  end
-
-  def assert_url(att, error = [ att , :not_url ] )
-   assert send(att).to_s =~ /^http/, error
-  end
-
-  
 end
 
 class Ohm::Model::Set < Ohm::Model::Collection
