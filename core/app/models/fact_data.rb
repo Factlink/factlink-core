@@ -6,6 +6,9 @@ class FactData
   include Sunspot::Mongoid
 
   searchable :auto_index => true do
+
+    autocomplete :fact_data_displaystring, :using => :displaystring
+    
     text    :displaystring
     string  :displaystring
     time    :created_at
