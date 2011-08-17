@@ -1,0 +1,14 @@
+production:
+    hostname: localhost
+    port: 6379
+    database: 0
+
+development:
+    hostname: localhost
+    port: 6379
+    database: 0
+
+test:
+    hostname: localhost
+    port: 6379
+    database: 1

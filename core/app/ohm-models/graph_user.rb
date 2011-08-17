@@ -69,4 +69,5 @@ class GraphUser < OurOhm
     end
   end
   
+  
 end
