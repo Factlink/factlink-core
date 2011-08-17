@@ -51,7 +51,6 @@ class Channel < OurOhm
   end
   
   
-  private
   def add_channel(channel)
     contained_channels << channel
   end
