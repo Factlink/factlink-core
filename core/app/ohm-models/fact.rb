@@ -6,72 +6,53 @@ module FactDataProxy
   
   #assuming we have a data
   def title
-    require_data
-    data.title
+    self.require_data
+    self.data.title
   end
 
   def title=(value)
-    require_data
-    data.title=value
+    self.require_data
+    self.data.title=value
   end
 
   def displaystring
-    require_data
-    data.displaystring
+    self.require_data
+    self.data.displaystring
   end
 
   def displaystring=(value)
-    require_data
-    data.displaystring=value
+    self.require_data
+    self.data.displaystring=value
   end 
 
   def content
-    require_data
-    data.content
+    self.require_data
+    self.data.content
   end
 
   def content=(value)
-    require_data
-    data.content=value
+    self.require_data
+    self.data.content=value
   end
 
   def passage
-    require_data
-    data.passage
+    self.require_data
+    self.data.passage
   end
 
   def passage=(value)
-    require_data
-    data.passage=value
+    self.require_data
+    self.data.passage=value
   end
 
   def created_at
-    require_data
-    data.created_at
+    self.require_data
+    self.data.created_at
   end
 
   def updated_at
-    require_data
-    data.updated_at
-  end
-
-  def require_data # dit ook doen met zo'n aftercreategebeuren
-    if not self.data_id
-      localdata = FactData.new
-      localdata.save    # FactData now has an ID
-      self.data = localdata      
-      if self.save
-        localdata.fact_id = self.id
-        localdata.save
-      else
-        raise StandardException, "the object could not be saved, but this is required before a require_data can be executed"
-      end
-    end
-  end
-
-  def post_save
-    require_data
-    data.save
+    self.require_data
+    self.data.updated_at
   end
 
 end
@@ -89,6 +70,27 @@ class Fact < Basefact
   end
 
   reference :data, lambda { |id| FactData.find(id) }
+  def require_data # dit ook doen met zo'n aftercreategebeuren
+    if not self.data_id
+      localdata = FactData.new
+      localdata.save    # FactData now has an ID
+      self.data = localdata      
+      if self.save
+        localdata.fact_id = self.id
+        localdata.save
+      else
+        raise StandardException, "the object could not be saved, but this is required before a require_data can be executed"
+      end
+    end
+  end
+  
+  def save_data
+    self.data.save
+  end
+
+  after :save, :require_data
+  after :save, :save_data
+
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
