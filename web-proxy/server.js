@@ -149,4 +149,4 @@ server.get('/', function(req, res) {
 });
 
 server.listen(PORT);
-console.info('\nStarted Factlink proxy op port ' + PORT);
+console.info('\nStarted Factlink proxy on port ' + PORT);
