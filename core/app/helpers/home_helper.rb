@@ -75,4 +75,9 @@ module HomeHelper
   def close_notifications_button
     render :partial => "home/v2/snippets/close_notification_button"
   end
+  
+  def show_activity(activity)
+    render :partial => "home/v2/snippets/show_activity",
+           :locals => {:activity => activity }
+  end
 end

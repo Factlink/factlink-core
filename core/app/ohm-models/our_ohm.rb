@@ -3,6 +3,7 @@ require 'ohm/contrib'
 class OurOhm < Ohm::Model
    include Ohm::Contrib
    include Ohm::Callbacks
+   extend ActiveModel::Naming
    
    # needed for Ohm polymorphism:
    self.base = self
@@ -40,6 +41,7 @@ class OurOhm < Ohm::Model
   def assert_url(att, error = [ att , :not_url ] )
    assert send(att).to_s =~ /^http/, error
   end
+
   
 end
 
@@ -57,6 +59,7 @@ class Ohm::Model::Set < Ohm::Model::Collection
   def -(other)
     apply(:sdiffstore,key,other.key,key+"*DIFF*"+other.key)
   end
+  
 end
 
 class Ohm::Model::List < Ohm::Model::Collection

@@ -69,4 +69,8 @@ class GraphUser < OurOhm
     end
   end
   
+  def to_s
+    user.username
+  end
+  
 end
