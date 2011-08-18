@@ -1,7 +1,6 @@
-<article class="user-block bubble" onclick="document.location = '<%= user_profile_path(user.username) %>';">
-	
+<article class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
 	<div class="user-avatar">
-
+		<%= image_tag(user.avatar, :width => 32) %>
 	</div>
 	
 	<div class="wrapper">
