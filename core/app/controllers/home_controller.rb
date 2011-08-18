@@ -7,6 +7,8 @@ class HomeController < ApplicationController
   def index
     @facts = Fact.all.sort(:order => "DESC")
     @users = User.all[0..10]
+    
+    @activities = Activity.all.sort(:order => "DESC")[0..10]
   end
   
   # Search

@@ -1,21 +1,17 @@
-<section id="main-wrapper">
+<header class="append-bottom">
+	<h1><%= channel.title %> <%= edit_channel(@user, channel) %></h1>
+	<sub><%= channel.description %></sub>	
 
-	<header class="append-bottom">
-		<h1><%= channel.title %> <%= edit_channel(@user, channel) %></h1>
-		<sub><%= channel.description %></sub>	
-	
-		<% if user_signed_in? %>
-		<!-- <div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>"> -->
-			<!-- <a href="#"><%= fork_label(channel) %></a> -->
-		<!-- </div> -->
-		<% end %>
-	</header>
+	<% if user_signed_in? %>
+	<!-- <div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>"> -->
+		<!-- <a href="#"><%= fork_label(channel) %></a> -->
+	<!-- </div> -->
+	<% end %>
+</header>
 
-	<!-- fact listing -->
-	<ul id="fact-listing">
-		<% channel.facts.each do |fact| %>
-			<%=	fact_snippet(fact, channel) %>
-		<% end %>
-	</ul>
-
-</section>
+<!-- fact listing -->
+<ul id="fact-listing">
+	<% channel.facts.each do |fact| %>
+		<%=	fact_snippet(fact, channel) %>
+	<% end %>
+</ul>
