@@ -134,8 +134,8 @@
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script>
 
 	<!-- Autocompleten on the search field -->
-	<script>$('#factlink_search').autocomplete('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script>
-
+	<!-- <script>$('#factlink_search').autocomplete('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script> -->
+	<script>$('#factlink_search').autosuggest('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script>
 
 	<%= javascript_include_tag "rails" %>
 
