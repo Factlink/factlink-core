@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="/v2/css/grid.css">
   <!-- end CSS-->
 
+	<!-- Sunspot autocomplete stylesheets -->
+	<link type="text/css" rel="stylesheet" href="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.css" />
+
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
@@ -43,9 +46,7 @@
 		<div class="container">
 
 			<div id="factlink-logo" class="span-4">
-
 				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
-				
 			</div>
 
 			<div class="span-14">
@@ -80,21 +81,16 @@
     </section>
 
 
-
-
 		<!-- left column -->
 		<section id="left-column-container" class="span-4">
 				<div id="left-column">
 
 					<%= yield :left_column %>
-
 				</div>
 		</section>
 
 		<!-- main content -->
 		<section id="main-column" class="span-14 last" role="main">
-
-			<!-- <%= image_tag("new_fact.jpg") %> -->
 
 				<%= yield :main_column %>
 		</section>
@@ -102,10 +98,9 @@
 
 		<!-- left column -->
 		<section id="right-column-container" class="span-6">
-				<div id="right-column" style="background: #ddd; height: 1000px;">
-					&nbsp;
+				<div id="right-column" style="background: #eee; height: 1000px;">
+					This is the right column. I'm not being used at the moment!
 					<%= yield :right_column %>
-
 				</div>
 		</section>
 
@@ -123,11 +118,23 @@
 
 
 
+
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/v2/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+
+	<!-- Sunspot autocomplete -->
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Core.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/AbstractManager.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/managers/Manager.jquery.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Parameter.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/ParameterStore.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script>
+
+	<!-- Autocompleten on the search field -->
+	<!-- // <script>$('#factlink_search').autosuggest('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script> -->
 
 	<%= javascript_include_tag "rails" %>
 

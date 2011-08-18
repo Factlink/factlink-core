@@ -15,6 +15,9 @@ end
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
 gem 'devise', '~> 1.3.4'
 
+
+# gem "sunspot_autocomplete", :path => "~/Desktop/sunspot_autocomplete"
+
 ##########
 # Databases
 #
@@ -55,7 +58,6 @@ gem 'json'
 # Use fork: https://github.com/vinova/sunspot_mongoid - patched for ActiveModel
 gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
-
 
 ##########
 # Canivete -- gem which provides 'deprecate' command
