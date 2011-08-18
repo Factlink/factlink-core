@@ -74,11 +74,11 @@ class Fact < Basefact
   end
 
   reference :data, lambda { |id| FactData.find(id) }
-  def require_data # dit ook doen met zo'n aftercreategebeuren
+  def require_data # dit ook doen met zo'n aftercreategebeuren    
     if not self.data_id
       localdata = FactData.new
       localdata.save    # FactData now has an ID
-      self.data = localdata      
+      self.data = localdata
       if self.save
         localdata.fact_id = self.id
         localdata.save

@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
   
   def index
-    @facts = Fact.all.to_a.reverse
+    @facts = Fact.all.sort(:order => "DESC")
     @users = User.all[0..10]
   end
   

@@ -1,5 +1,6 @@
 <ul>
-<% user.activities.to_a[0..nr].each do |activity| %>
+<% user.activities.sort(:order => "DESC")[0..(nr - 1)].each do |activity| %>
 	<li><%=  show_activity(activity) %></li>
+	<li>--------</li>
 <% end %>
 </ul>

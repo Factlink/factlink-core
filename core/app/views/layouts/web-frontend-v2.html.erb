@@ -100,6 +100,7 @@
 		<section id="right-column-container" class="span-6">
 				<div id="right-column" style="background: #eee; height: 1000px;">
 					This is the right column. I'm not being used at the moment!
+					<hr>
 					<%= yield :right_column %>
 				</div>
 		</section>
@@ -126,14 +127,14 @@
   <script>window.jQuery || document.write('<script src="/v2/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
 	<!-- Sunspot autocomplete -->
-	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Core.js"></script>
+	<!-- <script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Core.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/AbstractManager.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/managers/Manager.jquery.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Parameter.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/ParameterStore.js"></script>
-	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script> -->
 
-	<!-- Autocompleten on the search field -->
+	<!-- Autocomplete on the search field -->
 	<!-- // <script>$('#factlink_search').autosuggest('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script> -->
 
 	<%= javascript_include_tag "rails" %>

@@ -301,8 +301,10 @@ class FactsController < ApplicationController
     site = Site.find_or_create_by(:url => url)
 
     fact = Fact.new
-    fact.displaystring = displaystring
+    # Set created_by (required attribute) before proxied FactData fields
     fact.created_by = current_user.graph_user
+
+    fact.displaystring = displaystring    
     fact.site = site
     fact.save
 
