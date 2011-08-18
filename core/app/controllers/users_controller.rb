@@ -4,6 +4,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.where(:username => params[:username]).first
+    
+    @highlight_first_channel = true
+    
     if @user
       respond_to do |format|
         format.html # show.html.erb

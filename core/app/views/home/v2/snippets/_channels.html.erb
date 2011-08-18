@@ -21,7 +21,11 @@
 <% end %>
 
 <% content_for :script do %>
-<script>
-	$('#channel-listing > li:first').addClass('active');
-</script>
+	
+	<% if @highlight_first_channel %>
+		<script>
+			$('#channel-listing > li:first').addClass('active');
+		</script>
+	<% end %>
+	
 <% end %>

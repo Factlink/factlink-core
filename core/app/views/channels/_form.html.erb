@@ -31,11 +31,13 @@
 
 	<div class="action-wrapper">
 		<div class="actions">
-			<%= f.submit "Save" %> 
+
 			
 			<% if @action == "update" %> 
-			or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete ) %>
+			<span>or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete ) %></span>
 			<% end %>
+			
+			<%= f.submit "Save" %> 
 		</div>
 	</div>
 <% end %>
