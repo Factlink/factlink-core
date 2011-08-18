@@ -15,9 +15,6 @@ end
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
 gem 'devise', '~> 1.3.4'
 
-
-gem "sunspot_autocomplete", :path => "~/Desktop/sunspot_autocomplete"
-
 ##########
 # Databases
 #
