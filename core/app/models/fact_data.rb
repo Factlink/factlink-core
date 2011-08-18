@@ -7,8 +7,8 @@ class FactData
 
   searchable :auto_index => true do
 
-    autocomplete  :fact_data_displaystring, :using => :displaystring
-    autosuggest   :fact_data_displaystring, :using => :displaystring
+    # autocomplete  :fact_data_displaystring, :using => :displaystring
+    # autosuggest   :fact_data_displaystring, :using => :displaystring
     
     text    :displaystring
     string  :displaystring
