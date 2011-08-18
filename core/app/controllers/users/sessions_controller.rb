@@ -47,20 +47,26 @@ class Users::SessionsController < Devise::SessionsController
 
         # Clear fact_to_create
         session[:fact_to_create] = nil
-        
+
         site = Site.find_or_create_by(:url => url)
 
-        @fact = Fact.create(
-            :displaystring => displaystring,
-            :created_by => current_user.graph_user,
-            :site => site
-        )
+        @fact = Fact.new
+        # Set created_by (required attribute) before proxied FactData fields
+        @fact.created_by = current_user.graph_user
+        @fact.displaystring = displaystring
+        @fact.site = site
+        @fact.save
+
+        # Required for the Ohm Model
+        site.facts << @fact
+        
 
         redirect_to :controller => "/facts", :action => "show", :id => @fact.id
         return false
       end
     end
-
+    
+    # Create the session
     super
   end
   

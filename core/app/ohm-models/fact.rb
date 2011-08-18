@@ -60,6 +60,12 @@ end
 class Fact < Basefact
   include Opinionable
   include FactDataProxy
+  
+  after :create, :set_activity!
+
+  def set_activity!
+    activity(self.created_by, "created", self)
+  end
 
   reference :site, Site       # The site on which the factlink should be shown
   def url=(url)

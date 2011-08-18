@@ -12,8 +12,6 @@
     		<span class="fl-source-created"><%= time_ago_in_words(evidence.created_at) %> ago by <%= link_to("#{evidence.created_by.username} (#{evidence.created_by.authority})", user_profile_path(evidence.created_by.username), :target => "_blank") %></span>
     		<% if evidence.site %>
     			<span class="fl-source-found">found on <a href="<%= evidence.site.url %>" target="_blank"><%= truncate(evidence.pretty_url, :length => 25) %></a></span>
-    		<% else %>
-    			<span class="fl-source-found">found on <a href="<%= evidence.get_from_evidence.url %>" target="_blank"><%= truncate(evidence.pretty_url, :length => 25) %></a></span>
     		<% end %>
     	</sub>
 			
