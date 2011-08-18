@@ -19,3 +19,11 @@
 	<%= fact_listing_for_channel(@channel) %>
 	
 <% end %>
+
+<% content_for :right_column do %>
+	
+	<% if @user.graph_user.activities.count > 0 %>
+	    <%= activity_list_for_user(@user.graph_user, 20)%>
+	<% end%>
+	
+<% end %>

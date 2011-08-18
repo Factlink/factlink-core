@@ -2,8 +2,6 @@
 	<h1>Channels <%= add_channel(user) %></h1>
 </header>
 
-<!-- article listing -->
-
 <% unless channels.count > 0 %>
 	<p><%= user.username %> has no channels.</p>
 	
@@ -14,9 +12,16 @@
 	<% end %>
 
 <% else %>
-	<ul id="channel-listing" class="bubble">
+	<ul id="channel-listing">
 		<% channels.each do |channel| %>
 			<%= channel_snippet(channel, user) %>
 		<% end %>
 	</ul>
+	
+<% end %>
+
+<% content_for :script do %>
+<script>
+	$('#channel-listing > li:first').addClass('active');
+</script>
 <% end %>

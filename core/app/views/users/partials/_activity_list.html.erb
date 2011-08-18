@@ -1,6 +1,11 @@
-<ul>
-<% user.activities.sort(:order => "DESC")[0..(nr - 1)].each do |activity| %>
-	<li><%=  show_activity(activity) %></li>
-	<li>--------</li>
-<% end %>
-</ul>
+<div id="activity-listing">
+
+	<h1><%= user.username %></h1>
+
+	<ul id="activity-list">
+	<% user.activities.sort(:order => "DESC")[0..(nr - 1)].each do |activity| %>
+		<%= show_activity(activity) %>
+	<% end %>
+	</ul>
+
+</div>

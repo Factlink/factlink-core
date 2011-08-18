@@ -74,35 +74,27 @@
 		</div>
 	
 		<!-- header snippet -->
-    <section id="header" class="span-24">
-			<header>
-				<%= yield :header %>
-			</header>
+    <section id="header" class="span-24 append-bottom">
+			<%= yield :header %>
     </section>
 
 
 		<!-- left column -->
-		<section id="left-column-container" class="span-4">
-				<div id="left-column">
-
-					<%= yield :left_column %>
-				</div>
+		<section id="left-column" class="span-4">
+			&nbsp;
+			<%= yield :left_column %>
 		</section>
 
 		<!-- main content -->
-		<section id="main-column" class="span-14 last" role="main">
-
-				<%= yield :main_column %>
+		<section id="main-column" class="span-14" role="main">
+			&nbsp;
+			<%= yield :main_column %>
 		</section>
 
-
 		<!-- left column -->
-		<section id="right-column-container" class="span-6">
-				<div id="right-column" style="background: #eee; height: 1000px;">
-					This is the right column. I'm not being used at the moment!
-					<hr>
-					<%= yield :right_column %>
-				</div>
+		<section id="right-column" class="span-6 last">
+
+			<%= yield :right_column %>
 		</section>
 
 
@@ -161,7 +153,6 @@
 			  url: url,
 				dataType: "script",
 			  success: function(){
-				console.log($(this));
 			    $(this).closest('li').addClass("active");
 			  }
 			});
@@ -178,7 +169,6 @@
 
 			return false;
 		});
-		
 
 	</script>
 
