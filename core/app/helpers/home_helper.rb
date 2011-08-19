@@ -141,7 +141,7 @@ module HomeHelper
   
   def follow_channel(user, channel)
     if user_signed_in?
-      link_to(fork_label(channel), follow_channel_path(user.username, channel.id), :class => "transparent")
+      link_to(fork_label(channel), follow_channel_path(user.username, channel.id), :class => "transparent", :remote => true)
     end
     
   end
