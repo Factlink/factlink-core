@@ -17,8 +17,19 @@
 			<%= channel_snippet(channel, user) %>
 		<% end %>
 	</ul>
-	
+
+	<% if user_signed_in? %>
+		<% if current_user == user %>
+			<sub class="new-channel"><%= link_to("new channel", new_channel_path(current_user.username)) %></sub>
+		<% end %>
+	<% end %>
+
 <% end %>
+
+<% content_for :main_column do %>
+
+<% end %>
+
 
 <% content_for :script do %>
 	

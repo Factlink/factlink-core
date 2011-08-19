@@ -67,9 +67,9 @@ module HomeHelper
     render :partial => "home/v2/snippets/user_and_factlink_information"
   end
   
-  def activity_list_for_user(user, nr=19)
+  def activity_list_for_user(activities, nr=19)
     render :partial => "users/partials/activity_list_for_user",
-           :locals => { :user => user, :nr => nr }
+           :locals => { :activities => activities, :nr => nr }
   end
 
   def activity_list(activities, nr=19)
@@ -101,4 +101,61 @@ module HomeHelper
             :locals => { :activity => activity }
   end
 
+  def image_for_activity(activity)
+        
+    case activity.action
+    when "added"
+      return image_tag('plus.gif')
+      
+    when "created"
+      if activity.subject.class == Fact
+        return image_tag('plus.gif')
+      end
+      
+      if activity.subject.class == Channel
+        return image_tag('list_unordered.gif')
+      end
+    else
+      return image_tag('quote.gif')
+    end
+  end
+
+  def activity_for_type(activity)
+  
+
+    puts "\n\n#{activity.subject.class == Fact}\n\n"
+    
+
+    if activity.object.class == Channel
+      return render :partial => "home/v2/snippets/activity/channel",
+              :locals => { :activity => activity }      
+      
+    end
+    
+    if activity.subject.class == Fact
+      return render :partial => "home/v2/snippets/activity/fact",
+              :locals => { :activity => activity }      
+      
+    end
+
+    if activity.subject.class == FactRelation
+      return render :partial => "home/v2/snippets/activity/fact_relation",
+              :locals => { :activity => activity }
+    end
+    
+    # if activity.subject_class == "Fact"
+
+    # end
+    # 
+    # if activity.subject_class == FactRelation.to_s
+    #   render :partial => "home/v2/snippets/activity/fact_relation",
+    #           :locals => { :activity => activity }
+    # end
+    # 
+    # if activity.subject == Channel.to_s
+    #   render :partial => "home/v2/snippets/activity/channel",
+    #           :locals => { :activity => activity }
+    # end
+    #     
+  end
 end

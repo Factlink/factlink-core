@@ -1,37 +1,31 @@
 <!-- header -->
 <% content_for :header do %>
-
 	<%= user_block(@user) %>
-
 <% end %>
 
 
 <!-- left column -->
 <% content_for :left_column do %>
-		
 	<%= channel_listing_for_user(@user.channels, @user) %>
-
 <% end %>
 
 
 <!-- main column -->
 <% content_for :main_column do %>
 
-	<% if @user.channels.count > 0 %>
 
-		<%= fact_listing_for_channel(@user.channels.first) %>
-		
-	<% else %>
-		<h1>Facts added by <%= @user.username %></h1>
-		<%= fact_listing(@user.facts) %>
-	<% end %>
+	<h1>Facts added by <%= @user.username %></h1>
+	<%= fact_listing(@user.facts.reverse) %>
+
 
 <% end %>
 
 <% content_for :right_column do %>
 
-	<% if @user.graph_user.activities.count > 0 %>
-	    <%= activity_list_for_user(@user.graph_user, 20)%>
+	<% if @activities.count > 0 %>
+	    <%= activity_list_for_user(@activities, 20)%>
 	<% end%>
 
 <% end %>
+
+

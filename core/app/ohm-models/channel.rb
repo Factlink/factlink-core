@@ -3,6 +3,8 @@ class Channel < OurOhm
   
   attribute :title
   attribute :description
+
+  reference :created_by, GraphUser
   
   set :contained_channels, Channel
   
@@ -18,8 +20,6 @@ class Channel < OurOhm
     end
     fs - delete_facts
   end
-  
-  reference :created_by, GraphUser
   
   def validate
     assert_present :title

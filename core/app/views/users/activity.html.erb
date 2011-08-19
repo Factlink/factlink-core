@@ -1,0 +1,21 @@
+<!-- header -->
+<% content_for :header do %>
+	<%= user_block(@user) %>
+<% end %>
+
+
+<!-- left column -->
+<% content_for :left_column do %>		
+	<%= channel_listing_for_user(@user.channels, @user) %>
+<% end %>
+
+
+<!-- main column -->
+<% content_for :main_column do %>
+<h1><%= link_to(@user.username, user_profile_path(@user.username)) %></h1>
+
+<ul id="wide-activity-list">
+	<%= wide_activity_list(@activities) %>
+</ul>
+	
+<% end %>

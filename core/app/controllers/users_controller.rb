@@ -9,9 +9,10 @@ class UsersController < ApplicationController
       ]
 
   def show
-    @highlight_first_channel = true
 
-    if @user
+    if @user      
+      @activities = @user.graph_user.activities.sort(:order => "DESC")
+      
       respond_to do |format|
         format.html # show.html.erb
       end
