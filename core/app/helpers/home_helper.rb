@@ -121,11 +121,6 @@ module HomeHelper
   end
 
   def activity_for_type(activity)
-  
-
-    puts "\n\n#{activity.subject.class == Fact}\n\n"
-    
-
     if activity.object.class == Channel
       return render :partial => "home/v2/snippets/activity/channel",
               :locals => { :activity => activity }      

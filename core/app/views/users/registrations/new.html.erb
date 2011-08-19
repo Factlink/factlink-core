@@ -8,41 +8,39 @@
 <% content_for :main_column do %>
 	<h1>New to Factlink? <span style="color: #aaa;">Sign up here, it's easy!</span></h1>
 
-	<section class="bubble">
-
 	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
 	  <%= devise_error_messages! %>
 
 		<div class="row">
+			<%= f.label "username" %>
 		  <%= f.text_field :username, :placeholder => "Username", :required => true %>
-			<span style="display: block; margin-left: 12px;"><sub>You can use letters, numbers and the underscore character.</sub>
+			<span style="display: block; margin-left: 120px;"><sub>You can use letters, numbers and the underscore character.</sub>
 		</div>
 
 		<div class="row">
+			<%= f.label "Email" %>
 		  <%= f.email_field :email, :placeholder => "Email", :required => true %>
 		</div>
 		
 		<div class="row">
+			<%= f.label "Password" %>
 		  <%= f.password_field :password, :placeholder => "Password", :required => true %><br/>
 		</div>
 		
 		<div class="row">
+			<%= f.label "confirm password" %>
 		  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation", :required => true %><br/>
 		</div>
 
-		<div>
+		<!-- <div>
 			<%= render :partial => "devise/shared/links" %>
-		</div>
+		</div> -->
 
 		<div class="action-wrapper">
 			<%= f.submit "Sign up", :class => "button confirm" %>
 		</div>
 
 	<% end %>
-
-
-
-	</section>
 	
 <% end %>
