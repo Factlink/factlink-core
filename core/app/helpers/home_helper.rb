@@ -142,20 +142,12 @@ module HomeHelper
       return render :partial => "home/v2/snippets/activity/fact_relation",
               :locals => { :activity => activity }
     end
+  end
+  
+  def follow_channel(user, channel)
+    if user_signed_in?
+      link_to(fork_label(channel), follow_channel_path(user.username, channel.id), :class => "transparent")
+    end
     
-    # if activity.subject_class == "Fact"
-
-    # end
-    # 
-    # if activity.subject_class == FactRelation.to_s
-    #   render :partial => "home/v2/snippets/activity/fact_relation",
-    #           :locals => { :activity => activity }
-    # end
-    # 
-    # if activity.subject == Channel.to_s
-    #   render :partial => "home/v2/snippets/activity/channel",
-    #           :locals => { :activity => activity }
-    # end
-    #     
   end
 end

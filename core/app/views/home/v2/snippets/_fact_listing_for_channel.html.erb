@@ -1,5 +1,5 @@
 <header class="append-bottom">
-	<h1><%= channel.title %> <%= edit_channel(@user, channel) %></h1>
+	<h1><%= channel.title %> <%= edit_channel(@user, channel) %> <%= follow_channel(@user, channel) %></h1>
 	<p><%= channel.description %></p>
 
 	<% if user_signed_in? %>
