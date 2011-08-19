@@ -19,3 +19,22 @@
 	<%= fact_listing_for_channel(@channel) %>
 	
 <% end %>
+
+<% content_for :right_column do %>
+	
+	<% if @user.graph_user.activities.count > 0 %>
+	    <%= activity_list_for_user(@user.graph_user.activities, 20)%>
+	<% end%>
+	
+<% end %>
+
+
+
+<% content_for :script do %>
+
+	<script>
+	<!-- set active state to the current channel -->
+		$('li[data-channel-id=<%= @channel.id %>]').addClass('active');
+	</script>
+
+<% end %>

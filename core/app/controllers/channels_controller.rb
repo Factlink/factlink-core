@@ -18,9 +18,16 @@ class ChannelsController < ApplicationController
       :show
       ]
 
+  before_filter :set_highlight_first_channel,
+    "only" => [
+      # :index
+      ]
+
   # GET /:username/channel
   def index
     @channels = @user.channels
+    
+    @channel = @channels.first
   end
 
   # GET /:username/channel/1
@@ -29,7 +36,7 @@ class ChannelsController < ApplicationController
 
   # GET /channels/new
   def new
-    @channel = Channel.new
+    @channel = Channel.new    
   end
 
   # GET /channels/1/edit
@@ -108,4 +115,7 @@ class ChannelsController < ApplicationController
     @channel = Channel[params[:id]]
   end
   
+  def set_highlight_first_channel
+    # @highlight_first_channel = true
+  end
 end

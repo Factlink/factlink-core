@@ -116,4 +116,8 @@ class User
     username
   end
 
+  def avatar
+    "avatar.jpeg"
+  end
+
 end

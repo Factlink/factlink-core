@@ -5,6 +5,10 @@ class Activity < OurOhm
   reference :user, GraphUser
   attribute :subject_id
   attribute :subject_class
+  
+  index :subject_id
+  index :subject_class
+  
   def subject=(value)
     self.subject_id=value.id
     self.subject_class=value.class

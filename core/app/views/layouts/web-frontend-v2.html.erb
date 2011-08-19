@@ -74,34 +74,27 @@
 		</div>
 	
 		<!-- header snippet -->
-    <section id="header" class="span-24">
-			<header>
-				<%= yield :header %>
-			</header>
+    <section id="header" class="span-24 append-bottom">
+			<%= yield :header %>
     </section>
 
 
 		<!-- left column -->
-		<section id="left-column-container" class="span-4">
-				<div id="left-column">
-
-					<%= yield :left_column %>
-				</div>
+		<section id="left-column" class="span-4">
+			<%= yield :left_column %>
 		</section>
 
 		<!-- main content -->
-		<section id="main-column" class="span-14 last" role="main">
-
-				<%= yield :main_column %>
+		<section id="main-column" class="span-14" role="main">
+			<section id="main-wrapper">
+			<%= yield :main_column %>
+			</section>
 		</section>
 
-
 		<!-- left column -->
-		<section id="right-column-container" class="span-6">
-				<div id="right-column" style="background: #eee; height: 1000px;">
-					This is the right column. I'm not being used at the moment!
-					<%= yield :right_column %>
-				</div>
+		<section id="right-column" class="span-6 last">
+
+			<%= yield :right_column %>
 		</section>
 
 
@@ -126,14 +119,14 @@
   <script>window.jQuery || document.write('<script src="/v2/js/libs/jquery-1.6.2.min.js"><\/script>')</script>
 
 	<!-- Sunspot autocomplete -->
-	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Core.js"></script>
+	<!-- <script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Core.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/AbstractManager.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/managers/Manager.jquery.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/Parameter.js"></script>
 	<script type="text/javascript" src="/javascripts/solr-autocomplete/ajax-solr/core/ParameterStore.js"></script>
-	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="/javascripts/solr-autocomplete/jquery-autocomplete/jquery.autocomplete.js"></script> -->
 
-	<!-- Autocompleten on the search field -->
+	<!-- Autocomplete on the search field -->
 	<!-- // <script>$('#factlink_search').autosuggest('http://127.0.0.1:8982/solr/', 'fact_data_displaystring', {});</script> -->
 
 	<%= javascript_include_tag "rails" %>
@@ -160,7 +153,6 @@
 			  url: url,
 				dataType: "script",
 			  success: function(){
-				console.log($(this));
 			    $(this).closest('li').addClass("active");
 			  }
 			});
@@ -177,7 +169,6 @@
 
 			return false;
 		});
-		
 
 	</script>
 

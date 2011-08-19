@@ -60,6 +60,12 @@ end
 class Fact < Basefact
   include Opinionable
   include FactDataProxy
+  
+  after :create, :set_activity!
+
+  def set_activity!
+    activity(self.created_by, "created", self)
+  end
 
   reference :site, Site       # The site on which the factlink should be shown
   def url=(url)
@@ -74,11 +80,11 @@ class Fact < Basefact
   end
 
   reference :data, lambda { |id| FactData.find(id) }
-  def require_data # dit ook doen met zo'n aftercreategebeuren
+  def require_data # dit ook doen met zo'n aftercreategebeuren    
     if not self.data_id
       localdata = FactData.new
       localdata.save    # FactData now has an ID
-      self.data = localdata      
+      self.data = localdata
       if self.save
         localdata.fact_id = self.id
         localdata.save
@@ -190,7 +196,7 @@ class Fact < Basefact
       fr.delete
     end
   end
-
+  
   private :delete_all_evidence, :delete_all_evidenced
 
   reference :evidence_opinion, Opinion

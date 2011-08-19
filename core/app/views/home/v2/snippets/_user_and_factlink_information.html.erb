@@ -3,10 +3,10 @@
 	<p>Why not join us? It is easy! <%= link_to("Register your free account here.", new_user_registration_path, :style => "") %>
 <% end %>
 
-<div class="append-bottom">
+<header class="append-bottom">
 	<h1>interesting users</h1>
 	<sub>Check out these Factlink users.</sub>
-</div>
+</header>
 
 <ul>
 <% @users.each do |user| %>

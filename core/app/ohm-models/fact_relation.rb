@@ -43,6 +43,7 @@ class FactRelation < Basefact
     "factlink:#{evidence.id}:#{type}:#{fact.id}"
   end
 
+
   def percentage
     if self.get_to_fact.get_opinion.weight == 0
       return 0
@@ -106,4 +107,5 @@ class FactRelation < Basefact
   def get_opinion
     self.user_opinion || Opinion.identity
   end
+  
 end

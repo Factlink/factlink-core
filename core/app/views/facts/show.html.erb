@@ -182,11 +182,13 @@
 		<% end %>
 	</div>
 	
+	<% if @fact.evidence_count > 0 %>
   <ul>
    <li class="active"><a href="#" onclick="filter('*');"><span>all facts (<%= @fact.evidence_count %>)</span></a></li>
    <li><a href="#" onclick="filter('.supporting');"><span>supporting facts (<%= @fact.supporting_evidence_count %>)</span></a></li>
    <li><a href="#" onclick="filter('.weakening');"><span>weakening facts (<%= @fact.weakening_evidence_count %>)</span></a></li>
   </ul>
+	<% end %>
 </div>
 
 <div class="fl-clear"></div>

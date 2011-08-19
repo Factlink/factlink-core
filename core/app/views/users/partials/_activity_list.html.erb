@@ -1,5 +1,7 @@
-<ul>
-<% user.activities.to_a[0..nr].each do |activity| %>
-	<li><%=  show_activity(activity) %></li>
-<% end %>
+<ul id="activity-list">
+	<% activities.each do |activity| %>
+
+			<%= activity_li(activity) %>				
+				
+	<% end %>
 </ul>

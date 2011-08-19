@@ -2,7 +2,6 @@
 <% content_for :header do %>
 	
 	<% if user_signed_in? %>
-
 		<% unless current_user.channels.count > 0 %>
 		<p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
 		<% end %>	
@@ -13,9 +12,7 @@
 <!-- left column -->
 <% content_for :left_column do %>
 
-	<!-- <%= users_and_factlink_information %> -->
-
-	<%= channel_listing_for_user(User.all.first.channels, User.all.first) %>
+	<%= users_and_factlink_information %>
 	
 <% end %>
 
@@ -34,4 +31,14 @@
 
 	<%= fact_listing(@facts) %>
 
+<% end %>
+
+
+<!-- right column -->
+<% content_for :right_column do %>
+
+	<div id="activity-listing">
+		<%= activity_list(@activities, 20)%>
+	</div>
+	
 <% end %>

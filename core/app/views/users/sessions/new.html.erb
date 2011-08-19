@@ -9,21 +9,26 @@
 
 	<h1>Sign in with your Factlink account</h1>
 
-	<section class="bubble">
-	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name, :layout => "web")) do |f| %>
 
-	<div class="row">
-		<%= f.label "Email" %>
-	  <%= f.email_field :email, :placeholder => "Email" %><br/>
-	</div>
-	<div class="row">
-		<%= f.label "Password" %>
-	  <%= f.password_field :password, :placeholder => "Password" %><br/>
-	</div>
+	<section class="append-bottom">
+		
+		<p class="alert"><%= alert %></p>
+		
+		<div class="row">
+			<%= f.label "Email" %>
+		  <%= f.email_field :email, :placeholder => "Email" %><br/>
+		</div>
+		<div class="row">
+			<%= f.label "Password" %>
+		  <%= f.password_field :password, :placeholder => "Password" %><br/>
+		</div>
 	
-  <% if devise_mapping.rememberable? -%>
-    <span style="margin-left: 260px;"><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
-  <% end -%>
+	  <% if devise_mapping.rememberable? -%>
+	    <span style="margin-left: 350px;"><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
+	  <% end -%>
+
+	</section>
 
 	<div>
 	<%= render :partial => "devise/shared/links" %>
@@ -34,5 +39,11 @@
 	</div>
 	<% end %>
 
-	</section>
+<% end %>
+
+<% content_for :script do %>
+	<!-- Quick workaround for not showing the devise error in the header -->
+	<script>
+		$('#application-notification > p ').hide();
+	</script>
 <% end %>

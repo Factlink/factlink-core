@@ -5,8 +5,15 @@ class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
   
   def index
-    @facts = Fact.all.to_a.reverse
+    @facts = Fact.all.sort(:order => "DESC")
     @users = User.all[0..10]
+    
+    # Activity.all.sort(:order => "DESC")[0..10]
+    
+    @activities = []
+    Activity.all.map { |activity| @activities << activity unless activity.user.nil? }
+    
+    @activities = @activities[0..49].reverse
   end
   
   # Search

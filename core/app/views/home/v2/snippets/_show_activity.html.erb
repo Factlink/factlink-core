@@ -1,4 +1,9 @@
-<%=activity.action%> <%=activity.subject %>
-<% if activity.object%>
-	to <%= activity.object %>
-<% end %>	
+<li data-activity-id="<%= activity.id %>">
+
+	<span class="action"><%= activity.action %></span> <%= activity.subject %>
+
+	<% if activity.object %>
+		to <%= activity.object %>
+	<% end %>
+	
+</li>
