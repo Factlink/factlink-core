@@ -9,9 +9,14 @@
 	<% end %>
 </header>
 
+
+<% unless channel.facts.count > 0 %>
+	<p>There are no facts in this channel...</p>
+<% else %>
 <!-- fact listing -->
 <ul id="fact-listing">
 	<% channel.facts.sort(:order => "DESC").each do |fact| %>
 		<%=	fact_snippet(fact, channel) %>
 	<% end %>
 </ul>
+<% end %>
