@@ -196,7 +196,7 @@ class Fact < Basefact
       fr.delete
     end
   end
-
+  
   private :delete_all_evidence, :delete_all_evidenced
 
   reference :evidence_opinion, Opinion

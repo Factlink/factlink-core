@@ -1,6 +1,6 @@
 <header class="append-bottom">
 	<h1><%= channel.title %> <%= edit_channel(@user, channel) %></h1>
-	<sub><%= channel.description %></sub>	
+	<p><%= channel.description %></p>
 
 	<% if user_signed_in? %>
 	<!-- <div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>"> -->
@@ -11,7 +11,7 @@
 
 <!-- fact listing -->
 <ul id="fact-listing">
-	<% channel.facts.each do |fact| %>
+	<% channel.facts.sort(:order => "DESC").each do |fact| %>
 		<%=	fact_snippet(fact, channel) %>
 	<% end %>
 </ul>

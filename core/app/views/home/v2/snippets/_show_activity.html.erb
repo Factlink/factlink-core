@@ -1,8 +1,9 @@
 <li data-activity-id="<%= activity.id %>">
 
-	<%= activity.action %> <%= activity.subject %>
+	<span class="action"><%= activity.action %></span> <%= activity.subject %>
+
 	<% if activity.object %>
 		to <%= activity.object %>
-	<% end %>	
+	<% end %>
 	
 </li>
