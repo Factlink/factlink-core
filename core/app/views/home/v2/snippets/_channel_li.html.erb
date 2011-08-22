@@ -4,6 +4,11 @@
 
 		<div class="wrapper">
 			<span><%= channel.title %> (<%= channel.facts.count %>)</span>
+			
+			<% channel.contained_channels.each do |channel| %>
+				<span><%= channel.created_by.graph_user.username %></span>
+			<% end %>
+			
 		</div>
 
 	</article>
