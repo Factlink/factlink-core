@@ -19,52 +19,64 @@ describe Channel do
   describe "after adding one fact" do
     before do
       subject.add_fact(f1)
+      Channel.recalculate_all
     end
     it { subject.facts.to_a.should =~ [f1]}
     describe "and removing an fact" do
       before do
         subject.remove_fact(f1)
+        Channel.recalculate_all
       end
       it { subject.facts.to_a.should =~ []}
     end
     describe "after forking" do
-      before { @fork = subject.fork(u2) }
+      before do
+         @fork = subject.fork(u2)
+         Channel.recalculate_all
+        end  
+      
       it {subject.facts.to_a.should =~ [f1]}
       it {@fork.facts.to_a.should =~ [f1]}
       
       describe "and removing the fact from the original" do
-        before { subject.remove_fact(f1)}
+        before do
+          subject.remove_fact(f1)
+          Channel.recalculate_all
+        end
         it {subject.facts.to_a.should =~ []}
         it {@fork.facts.to_a.should =~ []}
       end
       describe "and removing the fact from the fork" do
-        before { @fork.remove_fact(f1)}
+        before do
+           @fork.remove_fact(f1)
+           Channel.recalculate_all
+         end
         it {subject.facts.to_a.should =~ [f1]}
         it {@fork.facts.to_a.should =~ []}
       end
       describe "after adding another fact to the original" do
-        before { subject.add_fact(f2)}
+        before do
+           subject.add_fact(f2)
+           Channel.recalculate_all
+         end
         it {subject.facts.to_a.should =~ [f1,f2]}
         it {@fork.facts.to_a.should =~ [f1,f2]}
       end
       describe "after adding another fact to the fork" do
-        before { @fork.add_fact(f2)}
+        before do
+           @fork.add_fact(f2)
+           Channel.recalculate_all
+         end
         it {subject.facts.to_a.should =~ [f1]}
         it {@fork.facts.to_a.should =~ [f1,f2]}
       end
     end
     describe "forking the channel yourself" do
-      before {@fork = subject.fork(u1) }
+      before do
+        @fork = subject.fork(u1) 
+        Channel.recalculate_all
+      end
     end
-  end
-
-  
-  
-  it do
-    @c1 = Channel.create(:created_by => u1, :title => 'channel 1')
-    @c1.add_fact(f1)
-    @c2 = @c1.fork(u2)
-    @c2.facts.to_a.should =~ [f1]
   end
   
 end

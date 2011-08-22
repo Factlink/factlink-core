@@ -1,4 +1,3 @@
-require File.expand_path('../../../db/load_dsl.rb', __FILE__)
 
 def get_file(file)
   # file is frozen string, can't be modified: so duplicate
@@ -19,6 +18,7 @@ namespace :db do
       if file =~ /\.rb$/
         file.gsub! /\.rb/, ''
         task file.to_sym => :environment do
+          require File.expand_path('../../../db/load_dsl.rb', __FILE__)
           require File.expand_path('../../../db/init/'+file+'.rb', __FILE__)
           puts "Imported #{file} succesfully"
         end
@@ -37,6 +37,7 @@ namespace :db do
   end
   
   task :export => :environment do
+    require File.expand_path('../../../db/load_dsl.rb', __FILE__)
     
     filename = ENV['file']
     
