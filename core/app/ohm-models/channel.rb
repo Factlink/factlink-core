@@ -11,14 +11,21 @@ class Channel < OurOhm
   set :internal_facts, Fact
   set :delete_facts, Fact
   
+  set :cached_facts, Fact
+  
   index :title
   
-  def facts
+  def calculate_facts
     fs = internal_facts
     contained_channels.each do |ch|
       fs |= ch.facts
     end
     fs - delete_facts
+    cached_facts = fs
+  end
+  
+  def facts
+    return cached_facts
   end
   
   def validate
@@ -61,4 +68,11 @@ class Channel < OurOhm
   def _add_channel(channel)
     contained_channels << channel
   end
+  
+  def self.recalculate_all
+    all.each do |ch|
+      ch.calculate_facts
+    end
+  end
+  
 end

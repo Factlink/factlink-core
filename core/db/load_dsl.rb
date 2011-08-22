@@ -3,7 +3,7 @@ class LoadDslState
   @@fact = nil
 
   def self.graph_user
-    u = @@user || User.all.first || load_user("GenericUser")
+    u = @@user || User.all.first || (raise UndefinedUserError, "A user was needed but wasn't found", caller)
     u.graph_user
   end
 
@@ -32,8 +32,8 @@ def load_fact(fact_string,url="http://example.org/")
   f = Fact.by_display_string(fact_string)
   if not f
     f = Fact.create(
-     :site => Site.find_or_create_by(:url => url),
-     :created_by => LoadDslState.graph_user
+    :site => Site.find_or_create_by(:url => url),
+    :created_by => LoadDslState.graph_user
     )
     f.data.displaystring = fact_string
     f.data.save
@@ -63,17 +63,21 @@ def export_fact_relation(fact_relation)
   "fact_relation \"#{quote_string(fact_relation.get_from_fact.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.get_to_fact.displaystring)}\"\n"
 end
 
+class UndefinedUserError < StandardError
+end
 
 def load_user(username,email=nil, password=nil)
   u = User.where(:username => username).first
   if not u
-    email ||= "#{username}@example.org"
-    password ||= "123hoi"
-    u = User.create(:username => username,
-                    :email => email,
-                    :confirmed_at => DateTime.now,
-                    :password => password,
-                    :password_confirmation => password)
+    if email and password
+      u = User.create(:username => username,
+      :email => email,
+      :confirmed_at => DateTime.now,
+      :password => password,
+      :password_confirmation => password)
+    else
+      raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
+    end
   end
   u
 end
@@ -83,7 +87,7 @@ def user(username,email=nil, password=nil)
 end
 
 def export_user(graph_user)
-  "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\"\n"
+  "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\", \"123hoi\"\n"
 end
 
 def export_activate_user(graph_user)
@@ -123,17 +127,12 @@ def set_opinion(opinion_type,*users)
   end
 end
 
-def create_channel(graph_user,title)
-    ch = Channel.create(:created_by => graph_user, :title => title)
-end
-
-
 def load_channel(graph_user, title)
-  graph_user.channels.find(:title => title).first || create_channel(graph_user,title)
+  graph_user.channels.find(:title => title).first || Channel.create(:created_by => graph_user, :title => title)
 end
 
 def channel(title)
-  ch = create_channel(LoadDslState.graph_user, title)
+  ch = load_channel(LoadDslState.graph_user, title)
   LoadDslState.channel = ch
 end
 
