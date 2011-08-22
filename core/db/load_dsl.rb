@@ -174,13 +174,8 @@ class LoadDsl
     v.to_s.gsub(/\\/, '\&\&').gsub(/"/, "\\\"")
   end
 
-
-  def initialize(file)
-    @file = file
-  end
-
-  def run
-    eval(File.read(@file))
+  def run(file)
+    eval(File.read(file))
   end
 
 end

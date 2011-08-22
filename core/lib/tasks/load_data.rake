@@ -19,8 +19,7 @@ namespace :db do
         file.gsub! /\.rb/, ''
         task file.to_sym => :environment do
           require File.expand_path('../../../db/load_dsl.rb', __FILE__)
-          ld = LoadDsl.new(File.expand_path('../../../db/init/'+file+'.rb', __FILE__))
-          ld.run
+          LoadDsl.new().run(File.expand_path('../../../db/init/'+file+'.rb', __FILE__))
           puts "Imported #{file} succesfully"
         end
       end
