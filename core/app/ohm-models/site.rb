@@ -2,19 +2,17 @@ class Site < OurOhm
   attribute :url
   index :url
   collection :facts, Fact
-  #attribute :title
-  
-  def title
-    return "IK BEN EEN TITEL"
-  end
-  
+  attribute :title
+    
   def self.find(opts)
     opts = normalize_url(opts)
     super
   end
   
   def self.create(opts)
+    #puts opts
     opts = normalize_url(opts)
+    #puts opts
     super
   end
   

@@ -62,29 +62,23 @@ class FactsController < ApplicationController
     @url = params[:url]
     @passage = params[:passage]
     @fact = params[:fact]
+    @title = params[:title]
 
     render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
-    @fact = create_fact(params[:url], params[:fact])
+    @fact = create_fact(params[:url], params[:fact], params[:title])
     redirect_to :action => "edit", :id => @fact.id
   end
 
   def create_fact_as_evidence
-    evidence = create_fact(params[:url], params[:fact])
-    fact_id = params[:fact_id]
-
-    type = params[:type].to_sym
-    
-    @fact_relation = add_evidence(evidence.id, type, fact_id)
+    evidence = create_fact(params[:url], params[:fact], params[:title])
+    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
 
   def add_supporting_evidence
-    fact_id     = params[:fact_id]
-    evidence_id = params[:evidence_id]
-    
-    @fact_relation = add_evidence(evidence_id, :supporting, fact_id)
+    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
@@ -295,21 +289,17 @@ class FactsController < ApplicationController
     fact_relation
   end
   
-  def create_fact(url, displaystring) # private
-    site = Site.find(:url => url) || Site.create(:url => url, :title => 'Controller_title')
+  def create_fact(url, displaystring, title) # private
+    @site = Site.find(:url => url).first || Site.create(:url => url, :title => title)
 
-    fact = Fact.new
-    # Set created_by (required attribute) before proxied FactData fields
-    fact.created_by = current_user.graph_user
+    @fact = Fact.create(
+      :created_by => current_user.graph_user,
+      :site => @site
+    )
 
-    fact.displaystring = displaystring    
-    fact.site = site
-    fact.save
-
-    # Required for the Ohm Model
-    site.facts << fact
-    
-    fact
+    @fact.data.displaystring = displaystring    
+    @fact.data.save
+    @fact
   end
   
 end
