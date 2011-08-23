@@ -5,7 +5,7 @@
         // Get al the facts on the current page
         Factlink.remote.createFactlink(selectionInfo.text, 
                                        selectionInfo.passage, 
-                                       window.location.href,
+                                       (FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href),
                                        FactlinkConfig.modus);
         
         Factlink.modal.show.method();

@@ -8,7 +8,7 @@ var Factlink = {};
 Factlink.getTheFacts = function() {
     // The URL to the Factlink backend
     var src = window.location.protocol + '//' + FactlinkConfig.api + 'site?url=' + 
-              (FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href);
+            escape(FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href);
     
     // We use the jQuery AJAX plugin
     $.ajax({
