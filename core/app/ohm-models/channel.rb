@@ -11,6 +11,9 @@ class Channel < OurOhm
   end
 
   set :contained_channels, Channel
+  def sub_channels
+    return contained_channels
+  end
 
   set :internal_facts, Fact
   set :delete_facts, Fact
