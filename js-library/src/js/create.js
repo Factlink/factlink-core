@@ -38,7 +38,7 @@ function bindPrepareClick( $element ) {
             var selInfo = Factlink.getSelectionInfo();
             
             if (FactlinkConfig.modus === "default") {
-                Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href);
+                Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href,selInfo.title);
             } else {
                 if ( Factlink.prepare.factId ) {
                     Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, this.id);
@@ -52,17 +52,21 @@ function bindPrepareClick( $element ) {
 }
 
 function getTextRange() {
-    var d = '';
     if (window.getSelection) {
-        d = window.getSelection();
+      d = window.getSelection();
+    } else if (document.getSelection) {
+      d = document.getSelection();
+    } else if (document.selection) {
+      d = document.selection.createRange().text;
     } else {
-        if (document.getSelection) {
-            d = document.getSelection();
-        } else if (document.selection) {
-            d = document.selection.createRange().text;
-        }
+	  d = ''
     }
     return d;
+}
+
+function getTitle() {
+	alert(document.title);
+    return document.title;	
 }
 
 // We make this a global function so it can be used for direct adding of facts
@@ -71,10 +75,13 @@ Factlink.getSelectionInfo = function() {
     // Get the selection object
     var selection = getTextRange();
 
+    var title = getTitle();
+
     //TODO: Add passage detection here
     return {
         text: selection.toString(),
-        passage: ""
+        passage: "",
+        title : title.toString(),
     };
 };
 
