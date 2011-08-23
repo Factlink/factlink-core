@@ -34,7 +34,7 @@
 	<%= form_for(create_factlink_path, :url => create_factlink_path, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
   	<input type="text" name="url" id="url" value="<%= @url %>">
-  	<input type="text" name="title" id="title" value="TITEL">
+  	<input type="text" name="title" id="title" value="<%= @title %>">
     <textarea name="passage" id="passage">
       <%= @passage %>
     </textarea>
@@ -66,11 +66,11 @@
 						addEvidence(type);
 					},
 					createNewEvidence: function( fact, passage, url, type) {
-					  prepareFactlink(fact, passage, url);
+					  prepareFactlink(fact, passage, url,'');
 				      addEvidence(type);
 					},
-					createFactlink: function( fact, passage, url ) {
-				        prepareFactlink(fact, passage, url);
+					createFactlink: function( fact, passage, url, title) {
+				        prepareFactlink(fact, passage, url,title);
 						createFactlink();
 					},
 					showFactlink: function(id) {
@@ -101,6 +101,7 @@
 			document.getElementById("fact").value = fact;
 			document.getElementById("passage").value = passage;
 			document.getElementById("url").value = url;			  
+			document.getElementById("title").value = title;
 		}
 		
 		// Add to an existing Factlink
@@ -113,13 +114,14 @@
 		  var top_intermediate_page = parent.parent.parent.parent  //(same source as current page)
 		  
 		  if ( evidence_id.length > 0 ) {
-				top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
+            top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
 		  } else {
-		    var fact = document.getElementById("fact").value;
-				var passage = document.getElementById("passage").value;
-				var url = document.getElementById("url").value;
-				
-			  top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url);
+		     var fact = document.getElementById("fact").value;
+			 var passage = document.getElementById("passage").value;
+			 var url = document.getElementById("url").value;
+			 var title = document.getElementById("title").value;
+
+			 top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url,title);
 		  }
 		}
 		
@@ -134,12 +136,12 @@
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
     }
     
-    function submitNewEvidenceToShowFrame(type, fact, passage, url) {
+    function submitNewEvidenceToShowFrame(type, fact, passage, url, title) {
       var fact_id = showFrame.contentWindow.fact_id;
       
       var script = document.createElement("script");
       
-      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id;
+      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
       script.type="text/javascript";
       
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);

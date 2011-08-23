@@ -17,11 +17,6 @@ class SitesController < ApplicationController
   def retrieve_facts_for_url(url)
     url = params[:url]
     site = Site.find(:url => url).first
-
-    if site
-      site.facts.to_a
-    else
-      []
-    end
+    return site ? site.facts.to_a : []
   end
 end
