@@ -145,6 +145,9 @@
       load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
     });
   </script>
+  <script src="/v2/js/libs/jquery.factlink.js"></script>
+  <script src="/v2/js/libs/jquery.hoverIntent.minified.js"></script>
+
 	
 	<script>
 		// get the facts
@@ -169,6 +172,8 @@
 
 			return false;
 		});
+
+		$("li.fact-block").factlink();
 
 	</script>
 
