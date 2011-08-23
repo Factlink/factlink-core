@@ -6,6 +6,10 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
+  def channel_maintainer
+    return created_by
+  end
+
   set :contained_channels, Channel
 
   set :internal_facts, Fact
