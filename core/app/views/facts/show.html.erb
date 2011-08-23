@@ -105,13 +105,8 @@
 							$(document).unbind('click', arguments.callee);
 						}
 					});
-
-
 				}
-
-
 				return false;
-
 			});
 
 			$(function() {
@@ -248,9 +243,9 @@
 				Currently there are no available facts to support or weaken this fact.
 			</li>
 			<% else %>
-			<% @potential_evidence.all.each do |evidence| %>
-			<%= evidence_as_li(@fact, evidence) %>
-			<% end %>
+  			<% @potential_evidence.all.each do |evidence| %>
+  			  <%= evidence_as_li(@fact, evidence) %>
+  			<% end %>
 			<% end %>
 		</ol>
 	</div>

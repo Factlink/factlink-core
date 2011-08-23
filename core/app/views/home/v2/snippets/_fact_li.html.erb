@@ -23,7 +23,7 @@
 			</span>
 			<br>
 			<sub><%= time_ago_in_words(fact.created_at) %> ago by <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.user.authority})", user_profile_path(fact.created_by.user.username)) %>
-				found on <a href="<%= fact.url %>" target="_blank"><%= truncate(fact.url, :length => 62) %></a>
+				found on <a href="<%= fact.url %>" target="_blank"><%= fact.pretty_url %></a>
 			</sub>
 			<ul class="actions">
 				<% if user_signed_in? %>				

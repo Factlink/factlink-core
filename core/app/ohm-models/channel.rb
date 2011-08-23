@@ -12,7 +12,7 @@ class Channel < OurOhm
 
   set :contained_channels, Channel
   def sub_channels
-    return contained_channels
+    return contained_channel
   end
 
   set :internal_facts, Fact

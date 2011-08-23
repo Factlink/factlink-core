@@ -1,16 +1,17 @@
 <li data-channel-id="<%= channel.id %>" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
-
 	<article class="channel-block">
-
 		<div class="wrapper">
-			<span><%= channel.title %> (<%= channel.facts.count %>)</span>
-			
-			<% channel.contained_channels.each do |channel| %>
-				<span><%= channel.created_by.graph_user.username %></span>
-			<% end %>
-			
+			<span><%= channel.channel_maintainer.graph_user.username %></span>/<span><%= channel.title %> (<%= channel.facts.count %>)</span>
 		</div>
-
-	</article>
-		
+	</article>		
 </li>
+
+<% channel.sub_channels.each do |channel| %>
+<li class="sub-channel" data-channel-id="<%= channel.id %>" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
+	<article class="channel-block">
+		<div class="wrapper" style="width: 100px">
+          <span><%= channel.channel_maintainer.graph_user.username %></span>/<span><%= channel.title %> (<%= channel.facts.count %>)</span>
+		</div>
+	</article>
+</li>
+<% end %>
