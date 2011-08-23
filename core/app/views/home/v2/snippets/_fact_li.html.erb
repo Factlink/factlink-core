@@ -16,7 +16,7 @@
 		<div class="authority"><img src="images/brains.png" alt="Brain Cycles"> <%= fact.brain_cycles %> </div>		
 	
 		<header>
-			
+			<span class="head"><%= fact.site.title %></span><br>
 			<span class="body">
 			<%= link_to(fact.displaystring,fact_path(fact.id)) %>
 			</span><br>
