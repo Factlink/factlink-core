@@ -60,13 +60,15 @@
 					addEvidence: {}
 				},
 				local: {
-					createEvidence: function( evidence_id, url, type ) {
+					createEvidence: function( evidence_id, url, type, title) {
                         document.getElementById("evidence_id").value = evidence_id;
 						document.getElementById("url").value = url;
+						document.getElementById("title").value = title;
 						addEvidence(type);
 					},
-					createNewEvidence: function( fact, passage, url, type) {
-					  prepareFactlink(fact, passage, url,'');
+					createNewEvidence: function( fact, passage, url, type, title) {
+				      alert(" 2 ==> " + title);
+					  prepareFactlink(fact, passage, url,title);
 				      addEvidence(type);
 					},
 					createFactlink: function( fact, passage, url, title) {
@@ -97,7 +99,7 @@
 			form.submit();
 		}
 		
-		function prepareFactlink(fact, passage, url) {
+		function prepareFactlink(fact, passage, url, title) {
 			document.getElementById("fact").value = fact;
 			document.getElementById("passage").value = passage;
 			document.getElementById("url").value = url;			  
