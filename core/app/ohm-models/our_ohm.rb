@@ -3,6 +3,7 @@ require 'ohm/contrib'
 class OurOhm < Ohm::Model
    include Ohm::Contrib
    include Ohm::Callbacks
+   include Ohm::Boundaries
    extend ActiveModel::Naming
    include Canivete::Deprecate
    

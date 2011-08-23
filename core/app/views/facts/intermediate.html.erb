@@ -34,10 +34,11 @@
 	<%= form_for(create_factlink_path, :url => create_factlink_path, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
   	<input type="text" name="url" id="url" value="<%= @url %>">
-		<textarea name="passage" id="passage">
-			<%= @passage %>
-		</textarea>
-		<input type="text" name="fact" id="fact" value="<%= @fact %>">
+  	<input type="text" name="title" id="title" value="TITEL">
+    <textarea name="passage" id="passage">
+      <%= @passage %>
+    </textarea>
+    <input type="text" name="fact" id="fact" value="<%= @fact %>">
 	<% end %>
 	<iframe src="" name="frame" id="frame"></iframe>
 		
@@ -60,23 +61,20 @@
 				},
 				local: {
 					createEvidence: function( evidence_id, url, type ) {
-					  document.getElementById("evidence_id").value = evidence_id;
+                        document.getElementById("evidence_id").value = evidence_id;
 						document.getElementById("url").value = url;
-						
 						addEvidence(type);
 					},
 					createNewEvidence: function( fact, passage, url, type) {
 					  prepareFactlink(fact, passage, url);
-				    
-				    addEvidence(type);
+				      addEvidence(type);
 					},
 					createFactlink: function( fact, passage, url ) {
-				    prepareFactlink(fact, passage, url);
-				  
+				        prepareFactlink(fact, passage, url);
 						createFactlink();
 					},
 					showFactlink: function(id) {
-					  // Set the source of the iframe
+					    // Set the source of the iframe
 						showFrame.src = "/factlink/show/" + id;
 						// Show the overlay
 						showFrame.className = "overlay";
@@ -85,7 +83,7 @@
   					try {
   					  showFrame.contentWindow.position(top, left);
   					} catch (e) { // Window not yet loaded
-              showFrame.onload = function() {
+                          showFrame.onload = function() {
     					  showFrame.contentWindow.position(top, left);
     					};
   					}
@@ -106,22 +104,22 @@
 		}
 		
 		// Add to an existing Factlink
-		// THE FUCK?!
-		// parent == Proxied page
-		// parent.parent == Proxy container
-		// parent.parent.parent == Show Factlink container
-		// parent.parent.parent.parent == Top Intermediate page (same source as current page)
 		function addEvidence(type) {
 		  var evidence_id = document.getElementById("evidence_id").value;
 		  
+		  var proxied_page = parent
+		  var proxy_container = parent.parent
+		  var show_factlink_container = parent.parent.parent
+		  var top_intermediate_page = parent.parent.parent.parent  //(same source as current page)
+		  
 		  if ( evidence_id.length > 0 ) {
-				parent.parent.parent.parent.submitEvidenceToShowFrame(type, evidence_id);
+				top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
 		  } else {
 		    var fact = document.getElementById("fact").value;
 				var passage = document.getElementById("passage").value;
 				var url = document.getElementById("url").value;
 				
-			  parent.parent.parent.parent.submitNewEvidenceToShowFrame(type, fact, passage, url);
+			  top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url);
 		  }
 		}
 		

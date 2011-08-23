@@ -68,8 +68,6 @@ class FactsController < ApplicationController
 
   def create
     @fact = create_fact(params[:url], params[:fact])
-
-    # Redirect to edit action
     redirect_to :action => "edit", :id => @fact.id
   end
 
@@ -298,7 +296,7 @@ class FactsController < ApplicationController
   end
   
   def create_fact(url, displaystring) # private
-    site = Site.find_or_create_by(:url => url)
+    site = Site.find(:url => url) || Site.create(:url => url, :title => 'Controller_title')
 
     fact = Fact.new
     # Set created_by (required attribute) before proxied FactData fields
