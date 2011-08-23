@@ -1,14 +1,7 @@
+// this is a script called from the extension
 (function( Factlink, waitingCount ) {
     if ( Factlink !== undefined ) {
-        var selectionInfo = Factlink.getSelectionInfo();
-        
-        // Get al the facts on the current page
-        Factlink.remote.createFactlink(selectionInfo.text, 
-                                       selectionInfo.passage, 
-                                       (FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href),
-                                       FactlinkConfig.modus);
-        
-        Factlink.modal.show.method();
+		Factlink.addSelection()
     } else {
         // Store arguments object so we can use from the setTimeout and loadFactlink
         var arg = arguments;
