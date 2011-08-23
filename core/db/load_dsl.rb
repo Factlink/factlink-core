@@ -7,11 +7,9 @@ def load_fact_data(&block)
 end
 
 class LoadDsl
-  @user = nil
-  @fact = nil
 
   def state_graph_user
-    u = @user || User.all.first
+    u = @user
     unless u
       raise UndefinedUserError, "A user was needed but wasn't found", caller
     end
@@ -19,7 +17,9 @@ class LoadDsl
   end
 
   def state_user=(value)
+    puts "setting @user to #{value}"
     @user = value
+    puts "@user is set to #{@user}"
   end
 
   def state_fact=(value)
@@ -31,7 +31,7 @@ class LoadDsl
   end
 
   def state_channel
-    @channel || Channel.all.first || load_channel(self.graph_user,"Main channel")
+    @channel || self.load_channel(self.state_graph_user,"Main channel")
   end
 
   def state_channel=(value)
@@ -52,7 +52,7 @@ class LoadDsl
   end
 
   def fact(fact_string,url="http://example.org/")
-    f = load_fact(fact_string,url)
+    f = self.load_fact(fact_string,url)
     self.state_fact = f
   end
 
@@ -63,10 +63,10 @@ class LoadDsl
   end
 
   def fact_relation(fact1,relation,fact2)
-    f1 = fact(fact1)
-    f2 = fact(fact2)
+    f1 = self.fact(fact1)
+    f2 = self.fact(fact2)
     fr = f2.add_evidence(relation,f1,state_graph_user)
-    state_fact = fr
+    self.state_fact = fr
   end
 
   def self.export_fact_relation(fact_relation)
@@ -75,7 +75,9 @@ class LoadDsl
 
 
   def load_user(username,email=nil, password=nil)
+    puts "looking for #{username}"
     u = User.where(:username => username).first
+    puts "found #{u}"
     if not u
       if email and password
         u = User.create(:username => username,
@@ -83,6 +85,7 @@ class LoadDsl
         :confirmed_at => DateTime.now,
         :password => password,
         :password_confirmation => password)
+        puts "created #{u}"
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end
@@ -91,7 +94,7 @@ class LoadDsl
   end
 
   def user(username,email=nil, password=nil)
-    state_user = load_user(username,email,password)
+    self.state_user = self.load_user(username,email,password)
   end
 
   def self.export_user(graph_user)
@@ -104,13 +107,13 @@ class LoadDsl
 
 
   def believers(*l)
-    set_opinion(:beliefs,*l)
+    self.set_opinion(:beliefs,*l)
   end
   def disbelievers(*l)
-    set_opinion(:disbeliefs,*l)
+    self.set_opinion(:disbeliefs,*l)
   end
   def doubters(*l)
-    set_opinion(:doubts,*l)
+    self.set_opinion(:doubts,*l)
   end
 
 
@@ -130,7 +133,7 @@ class LoadDsl
   def set_opinion(opinion_type,*users)
     f = state_fact
     users.each do |username|
-      gu = load_user(username).graph_user
+      gu = self.load_user(username).graph_user
       f.add_opinion(opinion_type,gu)
     end
   end
@@ -140,8 +143,8 @@ class LoadDsl
   end
 
   def channel(title)
-    ch = load_channel(state_graph_user, title)
-    state_channel = ch
+    ch = self.load_channel(state_graph_user, title)
+    self.state_channel = ch
   end
 
   def self.export_channel(channel)
@@ -149,8 +152,8 @@ class LoadDsl
   end
 
   def sub_channel(username,title)
-    ch = load_channel(load_user(username).graph_user, title)
-    state_channel.add_channel(ch)
+    ch = self.load_channel(load_user(username).graph_user, title)
+    self.state_channel.add_channel(ch)
   end
 
   def self.export_sub_channel(channel)
@@ -158,8 +161,8 @@ class LoadDsl
   end
 
   def add_fact(fact_string)
-    f = load_fact(fact_string)
-    state_channel.add_fact(f)
+    f = self.load_fact(fact_string)
+    self.state_channel.add_fact(f)
   end
 
   def self.export_add_fact(fact)
@@ -167,8 +170,8 @@ class LoadDsl
   end
 
   def del_fact(fact_string)
-    f = load_fact(fact_string)
-    state_channel.remove_fact(f)
+    f = self.load_fact(fact_string)
+    self.state_channel.remove_fact(f)
   end
 
   def self.export_del_fact(fact)

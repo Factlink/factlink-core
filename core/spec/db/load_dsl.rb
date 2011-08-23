@@ -16,5 +16,20 @@ describe LoadDsl do
   it "should error when a user is made without passoword" do
       expect { subject.fact "hoi" }.to raise_error(UndefinedUserError)
   end
+  
+  it "creating one channel with another channel as subchannel, and redefining the second channel should only create two channels" do
+    subject.run do
+      user "merijn", "merijn@example.com", "123hoi"
+      user "mark", "mark@example.com", "123hoi"
+    
+      user "merijn"
+        channel "foo"
+          sub_channel "mark", "bar"
+    
+      user "mark"
+        channel "bar"
+    end
+    Channel.all.size.should == 2
+  end
 
 end
