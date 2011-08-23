@@ -6,32 +6,38 @@
 	<article class="fact" data-fact-id="<%= fact.id %>" id="fact-<%= fact.id %>">
 		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="39" height="39" class="opinion">
 			<circle fill="#9B9B9A" class="dot"cx="19.5" cy="19.5" r="2"/>
-			<path class="option" data-option="agree" style="fill:#95C11F; opacity: 0.3" d="M21.3,9.3c4.7,0.9,8.3,5,8.3,10.1c0,2.1-0.7,4.1-1.8,5.8l6.6,6.6c2.8-3.4,4.4-7.7,4.4-12.4
+			<path class="option" data-option="beliefs" style="fill:#95C11F; opacity: 0.3" d="M21.3,9.3c4.7,0.9,8.3,5,8.3,10.1c0,2.1-0.7,4.1-1.8,5.8l6.6,6.6c2.8-3.4,4.4-7.7,4.4-12.4
 				C38.9,9.2,31.2,1,21.3,0V9.3z"/>
-			<path class="option" data-option="disagree" style="fill:#E94E1B; opacity: 0.3" d="M11,25.1c-1.1-1.6-1.8-3.6-1.8-5.8c0-5,3.6-9.2,8.3-10.1V0C7.7,1,0,9.2,0,19.4c0,4.7,1.7,9,4.4,12.4
+			<path class="option" data-option="disbeliefs" style="fill:#E94E1B; opacity: 0.3" d="M11,25.1c-1.1-1.6-1.8-3.6-1.8-5.8c0-5,3.6-9.2,8.3-10.1V0C7.7,1,0,9.2,0,19.4c0,4.7,1.7,9,4.4,12.4
 					L11,25.1z"/>
-			<path class="option" data-option="doubt" style="fill:#36A9E1; opacity: 0.3" d="M25.2,27.8c-1.6,1.1-3.6,1.8-5.8,1.8c-2.1,0-4.1-0.7-5.8-1.8l-6.6,6.6c3.4,2.8,7.7,4.4,12.4,4.4
+			<path class="option" data-option="doubts" style="fill:#36A9E1; opacity: 0.3" d="M25.2,27.8c-1.6,1.1-3.6,1.8-5.8,1.8c-2.1,0-4.1-0.7-5.8-1.8l-6.6,6.6c3.4,2.8,7.7,4.4,12.4,4.4
 					s9-1.7,12.4-4.4L25.2,27.8z"/>
 		</svg>
 		<div class="authority"><img src="images/brains.png" alt="Brain Cycles"> <%= fact.brain_cycles %> </div>		
 	
 		<header>
+			
 			<span class="body">
 			<%= link_to(fact.displaystring,fact_path(fact.id)) %>
 			</span><br>
-			<sub><%= time_ago_in_words(fact.created_at) %> ago by <%= link_to("#{fact.created_by.username}", user_profile_path(fact.created_by.username)) %>
+			<sub><%= time_ago_in_words(fact.created_at) %> ago by <%= link_to("#{fact.created_by.username} (#{fact.created_by.user.authority})", user_profile_path(fact.created_by.username)) %>
 				found on <a href="<%= fact.url %>" target="_blank"><%= truncate(fact.url, :length => 62) %></a>
 			</sub>
 			<ul class="actions">
+				<% if user_signed_in? %>				
 				<li><%= image_tag("bookmark.gif") %>Channels</li>
 				<li><%= image_tag("star.gif") %> Favorite</li>
-				<li><%= image_tag("trash.gif") %> Delete</li>
-			</ul>							
+				<% if current_user && fact.created_by == current_user.graph_user %>
+				<li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %>
+				</li>
+				<% end %>			
+				<% end %>				
+			</ul>	
 		</header>
 		<div class="evidence-facts">
 			<div class="evidence-open">	
 			  <ul>
-			   <li><a href="#"><span><%= image_tag("arrow2_s.png") %>Evidence</span></a></li>
+			   <li><a href="#"><span><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</span></a></li>
 			  </ul>
 			</div>
 			<div class="evidence-container" style="display: none">
