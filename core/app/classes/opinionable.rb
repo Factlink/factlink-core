@@ -6,15 +6,19 @@ module Opinionable
     op = get_opinion
     total = op.b + op.d + op.u
 
+    believe_percentage = calc_percentage(total, op.b).round.to_i,
+    disbelieve_percentage = calc_percentage(total, op.d).round.to_i
+    doubt_percentage = 100 - believe_percentage - disbelieve_percentage
+
     return {
       :believe => {
-        :percentage => calc_percentage(total, op.b).round.to_i,
+        :percentage => believe_percentage,
       },
       :disbelieve => {
-        :percentage => calc_percentage(total, op.d).round.to_i,
+        :percentage => disbelieve_percentage,
       },
       :doubt => {
-        :percentage => calc_percentage(total, op.u).round.to_i,
+        :percentage => doubt_percentage,
       },
       :authority => op.a.round.to_i,
     }

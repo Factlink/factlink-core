@@ -30,7 +30,6 @@ module FactlinkUI
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
-    autoload :Authority, "#{config.root}/app/classes/authority.rb"
     
     autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
     autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
@@ -39,7 +38,6 @@ module FactlinkUI
       OurOhm, 
       Activity,
       ActivitySubject,
-      Authority, 
       FactGraph, 
       Opinion, 
       Opinionable, 
