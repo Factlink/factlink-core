@@ -17,9 +17,7 @@ class LoadDsl
   end
 
   def state_user=(value)
-    puts "setting @user to #{value}"
     @user = value
-    puts "@user is set to #{@user}"
   end
 
   def state_fact=(value)
@@ -75,9 +73,7 @@ class LoadDsl
 
 
   def load_user(username,email=nil, password=nil)
-    puts "looking for #{username}"
     u = User.where(:username => username).first
-    puts "found #{u}"
     if not u
       if email and password
         u = User.create(:username => username,
@@ -85,7 +81,6 @@ class LoadDsl
         :confirmed_at => DateTime.now,
         :password => password,
         :password_confirmation => password)
-        puts "created #{u}"
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end

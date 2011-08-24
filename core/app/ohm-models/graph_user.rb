@@ -29,10 +29,9 @@ class GraphUser < OurOhm
   collection :channels, Channel, :created_by
   collection :activities, Activity, :user
   
-  # Authority of the user
   def authority
-    # 1.0
-    Authority.for_graph_user(self)
+    auth = Math.log(gu.real_created_facts.inject(1) { |result, element| result * element})
+    return ("%.1f" % auth).to_f
   end
 
   # user.facts_he(:beliefs)

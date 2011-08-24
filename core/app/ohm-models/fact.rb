@@ -76,7 +76,7 @@ class Fact < Basefact
   end
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url
-    url.gsub(/http(s?):\/\//,'').split('/')[0]
+    self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
   reference :data, lambda { |id| FactData.find(id) }
@@ -227,6 +227,13 @@ class Fact < Basefact
   
   def get_opinion
     self.opinion || Opinion.identity
+  end
+  
+  def influencing_authority
+    [FactRelation.find(:from_fact_id => self.id)
+                .except(:created_by_id => gu.id)
+                .count
+     ,1].max
   end
   
 end

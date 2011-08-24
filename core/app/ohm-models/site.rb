@@ -10,9 +10,7 @@ class Site < OurOhm
   end
   
   def self.create(opts)
-    #puts opts
     opts = normalize_url(opts)
-    #puts opts
     super
   end
   

@@ -6,13 +6,27 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
+
+  def is_modified_channel
+    self.contained_channels.size == 0 or (self.contained_channels.size > 1) || (self.internal_facts.size > 0) || (self.delete_facts.size > 0)
+  end
+  
+
   def channel_maintainer
-    return created_by
+    if is_modified_channel
+      return created_by
+    else  
+      return contained_channels.first.created_by
+    end
   end
 
   set :contained_channels, Channel
   def sub_channels
-    return contained_channel
+    if is_modified_channel
+      return self.contained_channels
+    else
+      return []
+    end
   end
 
   set :internal_facts, Fact
