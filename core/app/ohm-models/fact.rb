@@ -228,6 +228,7 @@ class Fact < Basefact
     self.opinion || Opinion.identity
   end
 
+  attribute :cached_incluencing_authority
   def calculate_influencing_authority
     self.cached_incluencing_authority = 
       [1, FactRelation.find(:from_fact_id => self.id)
