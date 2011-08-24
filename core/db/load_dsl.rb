@@ -72,7 +72,7 @@ class LoadDsl
   end
 
 
-  def load_user(username,email=nil, password=nil)
+  def load_user(username,email=nil, password=nil, twitter=nil)
     u = User.where(:username => username).first
     if not u
       if email and password
@@ -80,7 +80,8 @@ class LoadDsl
         :email => email,
         :confirmed_at => DateTime.now,
         :password => password,
-        :password_confirmation => password)
+        :password_confirmation => password,
+        :twitter => twitter)
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end
@@ -88,12 +89,14 @@ class LoadDsl
     u
   end
 
-  def user(username,email=nil, password=nil)
-    self.state_user = self.load_user(username,email,password)
+  def user(username,email=nil, password=nil, twitter=nil)
+    self.state_user = self.load_user(username,email,password,twitter)
   end
 
   def self.export_user(graph_user)
-    "user \"#{quote_string(graph_user.username)}\", \"#{quote_string(graph_user.user.email)}\", \"123hoi\"\n"
+    rv = "user \"#{quote_string(graph_user.user.username)}\", \"#{quote_string(graph_user.user.email)}\", \"123hoi\""
+    rv += ", \"#{graph_user.user.twitter}\"" if graph_user.user.twitter and graph_user.user.twitter != ''
+    rv += "\n"
   end
 
   def self.export_activate_user(graph_user)

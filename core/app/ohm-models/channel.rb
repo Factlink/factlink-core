@@ -13,20 +13,12 @@ class Channel < OurOhm
   
 
   def channel_maintainer
-    if is_modified_channel
-      return created_by
-    else  
-      return contained_channels.first.created_by
-    end
+    is_modified_channel ? created_by : contained_channels.first.created_by
   end
 
   set :contained_channels, Channel
   def sub_channels
-    if is_modified_channel
-      return self.contained_channels
-    else
-      return []
-    end
+    is_modified_channel ? self.contained_channels : []
   end
 
   set :internal_facts, Fact
@@ -37,7 +29,7 @@ class Channel < OurOhm
   index :title
 
   def calculate_facts
-    #very dirty, refactor ohm so this works with the commented-out line, and efficiently does the def the | and the -
+    # TODO very dirty, refactor ohm so this works with the commented-out line, and efficiently does the def the | and the -
     fs = internal_facts
     contained_channels.each do |ch|
       fs |= ch.facts

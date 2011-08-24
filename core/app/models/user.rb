@@ -81,7 +81,7 @@ class User
   :registerable   # Allow registration
 
   field :username
-
+  field :twitter
   field :graph_user_id
   def graph_user
     return GraphUser[graph_user_id]
@@ -117,7 +117,11 @@ class User
   end
 
   def avatar
-    "avatar.jpeg"
+    if twitter
+      "http://purl.org/net/spiurl/#{twitter}"
+    else
+      "avatar.jpeg"
+    end
   end
 
 end
