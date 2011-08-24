@@ -40,6 +40,8 @@ class Opinion < OurOhm
     self.a_r=val
   end
   
+  alias :authority :a
+  
   def self.tuple(b,d,u,a=0)
     self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end
