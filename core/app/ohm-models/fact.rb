@@ -230,7 +230,7 @@ class Fact < Basefact
   end
   
   def influencing_authority
-    [1, FactRelation.find(:from_fact => self)
+    [1, FactRelation.find(:from_fact_id => self.id)
                 .except(:created_by_id => self.created_by_id)
                 .count].max
   end

@@ -15,7 +15,7 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Resources
   resources :facts
-    
+
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
@@ -46,7 +46,10 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
   # Set opinion on a Fact
-  get   "/fact/:fact_relation_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
+  get   "/fact/:fact_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
+  
+  post   ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
+  delete  ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
 
   # Set relevance of a FactRelation
   get   "/fact_relation/:fact_relation_id/:type" => "facts#toggle_relevance_on_fact_relation", :as => "relevance"
