@@ -86,8 +86,6 @@ describe "beliefs should work as described in the google doc" do
   
   
   
-  let(:u1) {FactoryGirl.create(:user).graph_user}
-  let(:u2) {FactoryGirl.create(:user).graph_user}
   
   before do
     

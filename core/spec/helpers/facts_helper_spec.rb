@@ -16,7 +16,14 @@ module BeliefExpressions
   end
 
   def a(user)
-    user.authority.should
+    puts "#{user.id} #{user.graph_user.id}"
+    puts "reset"
+    FactGraph.reset_values
+    puts "recalculate"
+    FactGraph.recalculate
+    puts "gu : #{GraphUser[(user.graph_user.id)]}"
+    puts "gu : #{GraphUser[(user.graph_user.id)].user.username}"
+    GraphUser[user.graph_user.id].authority.should
   end
 
   def opinion?(fact)
