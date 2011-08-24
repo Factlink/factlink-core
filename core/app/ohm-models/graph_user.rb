@@ -45,6 +45,13 @@ class GraphUser < OurOhm
   def has_opinion?(type, fact)
     facts_he(type).include?(fact)
   end
+  
+  def opinion_on(fact)
+    [:beliefs, :doubts, :disbeliefs].each do |opinion|
+      return opinion if self.has_opinion?(opinion,fact)  
+    end
+    return nil
+  end
 
   def facts
     beliefs_facts.all + doubts_facts.all + disbeliefs_facts.all
