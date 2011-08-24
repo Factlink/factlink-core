@@ -108,7 +108,7 @@ class User
   validates_presence_of :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
-  private :create_graph_user
+  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 
 

@@ -12,6 +12,16 @@ def get_file(file)
 end
 
 namespace :db do
+  task :truncate => :environment do
+    require File.expand_path('../../../db/truncate.rb', __FILE__)
+    truncate(:users => :truncate)
+  end
+  
+  task :truncate_keep_users => :environment do
+    require File.expand_path('../../../db/truncate.rb', __FILE__)
+    truncate(:users => :keep)
+  end
+  
   namespace :init do
 
     Dir.entries(File.expand_path('../../../db/init/', __FILE__)).each do |file|
