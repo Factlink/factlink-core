@@ -14,7 +14,6 @@ Factlink.showInfo = function( el ) {
 // Handle a user click
 $( 'span.factlink' ).live('click', function(e) {
     var self = this;
-    
     // A custom switch-like module
     var modusHandler = (function(){
         return {
@@ -28,7 +27,6 @@ $( 'span.factlink' ).live('click', function(e) {
             }
         };
     })();
-    
     modusHandler[FactlinkConfig.modus]();
 });
 
@@ -179,7 +177,8 @@ Factlink.Indicator = (function() {
                 })
                 .bind('click', function() {
                     self.hide();
-                    $( 'span.factlink[data-factid=' + currentId + ']').click();
+                    $( 'span.factlink[data-factid=' + currentId + ']:first').click();
+				    return false;
                 });
         },
         // Set the opinions
