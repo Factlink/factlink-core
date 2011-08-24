@@ -29,10 +29,12 @@ class GraphUser < OurOhm
   collection :channels, Channel, :created_by
   collection :activities, Activity, :user
   
-  # Authority of the user
   def authority
-    # 1.0
-    Authority.for_graph_user(self)
+    auth = 1 + Math.log(self.real_created_facts.inject(1) { |result, element| result * element.influencing_authority},2)
+  end
+
+  def rounded_authority
+    sprintf('%.1f',self.authority)
   end
 
   # user.facts_he(:beliefs)
@@ -59,7 +61,6 @@ class GraphUser < OurOhm
   def update_opinion(type, fact)
     # Remove existing opinion by user
     remove_opinions(fact)
-
     facts_he(type) << fact
   end
 
