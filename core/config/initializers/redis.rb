@@ -1,7 +1,5 @@
 redis_conf = YAML::load_file(Rails.root.join('config/redis.yml'))[Rails.env]
 
-print redis_conf
-
 # Connect to Redis
 $redis = Redis.new(
   :host => redis_conf['host'],

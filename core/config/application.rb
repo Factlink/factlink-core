@@ -28,7 +28,6 @@ module FactlinkUI
     autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
 
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
-    autoload :Opinionable, "#{config.root}/app/classes/opinionable"
     
     
     autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
@@ -40,7 +39,6 @@ module FactlinkUI
       ActivitySubject,
       FactGraph, 
       Opinion, 
-      Opinionable, 
       Basefact, 
       FactData, 
       Fact, 

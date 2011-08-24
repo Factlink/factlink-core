@@ -58,7 +58,6 @@ module FactDataProxy
 end
 
 class Fact < Basefact
-  include Opinionable
   include FactDataProxy
   
   after :create, :set_activity!
@@ -228,11 +227,17 @@ class Fact < Basefact
   def get_opinion
     self.opinion || Opinion.identity
   end
-  
-  def influencing_authority
-    [1, FactRelation.find(:from_fact_id => self.id)
+
+  def calculate_influencing_authority
+    self.cached_incluencing_authority = 
+      [1, FactRelation.find(:from_fact_id => self.id)
                 .except(:created_by_id => self.created_by_id)
                 .count].max
+    self.save
+  end
+  
+  def influencing_authority
+    return self.cached_incluencing_authority.to_i || 1
   end
   
 end

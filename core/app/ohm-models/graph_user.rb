@@ -29,8 +29,16 @@ class GraphUser < OurOhm
   collection :channels, Channel, :created_by
   collection :activities, Activity, :user
   
+  
+  attribute :cached_authority
+  
+  def calculate_authority
+    self.cached_authority = 1.0 + Math.log(self.real_created_facts.inject(1) { |result, element| result * element.influencing_authority},2)
+    self.save
+  end
+  
   def authority
-    auth = 1 + Math.log(self.real_created_facts.inject(1) { |result, element| result * element.influencing_authority},2)
+    self.cached_authority || 1.0
   end
 
   def rounded_authority

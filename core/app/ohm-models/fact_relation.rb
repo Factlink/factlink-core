@@ -1,10 +1,15 @@
 class FactRelation < Basefact
-  include Opinionable
   
   reference :from_fact, Fact
   reference :fact, Fact
 
   attribute :type # => :supporting || :weakening
+
+  def validate
+    assert_present :from_fact_id
+    assert_present :fact_id
+    assert_present :type # TODO check if it's one of the permitted values
+  end
 
   #TODO add proper index for get_or_create
   def FactRelation.get_or_create(from, type, to, user)
@@ -31,6 +36,9 @@ class FactRelation < Basefact
       :fact => to,
       :type => type
     )
+    unless fl.valid?
+      puts fl.errors
+    end
 
     #TODO this should use a collection
     to.evidence(type) << fl
