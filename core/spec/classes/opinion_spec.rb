@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Opinion do
 
   before(:each) do
-    @o1 = Opinion.neew(2,3,5,7)
-    @o2 = Opinion.neew(11,13,19,23)
-    @o3 = Opinion.neew(29,31,37,41)
+    @o1 = Opinion.tuple(2,3,5,7)
+    @o2 = Opinion.tuple(11,13,19,23)
+    @o3 = Opinion.tuple(29,31,37,41)
   end
 
   after(:each) do
@@ -13,7 +13,7 @@ describe Opinion do
   end
 
   describe ".new" do
-    subject {Opinion.neew(1.3,1.4,1.5,1.6)}
+    subject {Opinion.tuple(1.3,1.4,1.5,1.6)}
     its(:b) {should == 1.3}
     its(:d) {should == 1.4}
     its(:u) {should == 1.5}
@@ -21,7 +21,7 @@ describe Opinion do
   end
   
   describe "attributes" do
-    subject { Opinion.neew(0,0,0,0) }
+    subject { Opinion.tuple(0,0,0,0) }
     
     it { should respond_to :b }
     it { should respond_to :d }
@@ -34,8 +34,8 @@ describe Opinion do
     it { expect {subject.a = 1.3}.to change{subject.a}.to(1.3) }
   end
   it "should not change if you sum it with another one" do
-    a = Opinion.neew(1,0,0,1)
-    b = Opinion.neew(0,1,0,1)
+    a = Opinion.tuple(1,0,0,1)
+    b = Opinion.tuple(0,1,0,1)
     c = a + b
     a.b.should == 1
     b.d.should == 1
@@ -43,38 +43,38 @@ describe Opinion do
 
 
   it "should be equal to an opinion with the same numbers" do
-    Opinion.neew(1,2,3,4).should == Opinion.neew(1,2,3,4)
+    Opinion.tuple(1,2,3,4).should == Opinion.tuple(1,2,3,4)
   end
   
   it "should be unequal to an opinion with different numbers" do
-    a = Opinion.neew(1,1,1,1)
+    a = Opinion.tuple(1,1,1,1)
 
-    a.should_not == Opinion.neew(2,1,1,1)
-    a.should_not == Opinion.neew(1,2,1,1)
-    a.should_not == Opinion.neew(1,2,1,1)
-    a.should_not == Opinion.neew(1,2,1,1)
+    a.should_not == Opinion.tuple(2,1,1,1)
+    a.should_not == Opinion.tuple(1,2,1,1)
+    a.should_not == Opinion.tuple(1,2,1,1)
+    a.should_not == Opinion.tuple(1,2,1,1)
   end
   
   it "should have the proper values when retrieved with for_type without explicit authority" do
-    Opinion.for_type(:beliefs).should    == Opinion.neew(1,0,0,0)
-    Opinion.for_type(:disbeliefs).should == Opinion.neew(0,1,0,0)
-    Opinion.for_type(:doubts).should     == Opinion.neew(0,0,1,0)
+    Opinion.for_type(:beliefs).should    == Opinion.tuple(1,0,0,0)
+    Opinion.for_type(:disbeliefs).should == Opinion.tuple(0,1,0,0)
+    Opinion.for_type(:doubts).should     == Opinion.tuple(0,0,1,0)
   end
   
   it "should have the proper values when retrieved with for_type with explicit authority" do
-    Opinion.for_type(:beliefs,1.3).should    == Opinion.neew(1,0,0,1.3)
-    Opinion.for_type(:disbeliefs,1.3).should == Opinion.neew(0,1,0,1.3)
-    Opinion.for_type(:doubts,1.3).should     == Opinion.neew(0,0,1,1.3)
+    Opinion.for_type(:beliefs,1.3).should    == Opinion.tuple(1,0,0,1.3)
+    Opinion.for_type(:disbeliefs,1.3).should == Opinion.tuple(0,1,0,1.3)
+    Opinion.for_type(:doubts,1.3).should     == Opinion.tuple(0,0,1,1.3)
   end
 
   it "should result in the same opinion when you sum it with an opinion with 0 authority" do
-    a = Opinion.neew(1,2,3,1)
-    zero = Opinion.neew(1000,1000,1000,0)
+    a = Opinion.tuple(1,2,3,1)
+    zero = Opinion.tuple(1000,1000,1000,0)
     a.should == a+zero
   end
 
   it "should have a + which does not crash when adding opinions with 0 authority" do
-    Opinion.neew(1,2,3)+Opinion.neew(1,2,3)
+    Opinion.tuple(1,2,3)+Opinion.tuple(1,2,3)
   end
 
   it "should have a commutative + operation" do
@@ -94,7 +94,7 @@ describe Opinion do
   end
   
   it "should have zero weight when authority is zero" do
-    Opinion.neew(100,100,100,0).weight.should == 0
+    Opinion.tuple(100,100,100,0).weight.should == 0
   end
   
   it "should have weights which add up" do

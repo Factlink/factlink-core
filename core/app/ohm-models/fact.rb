@@ -116,7 +116,7 @@ class Fact < Basefact
   
   # OHm Model needs to have a definition of which fields to render
   def to_hash
-    super.merge(:_id => id, :displaystring => displaystring, :score_dict_as_percentage => score_dict_as_percentage)
+    super.merge(:_id => id, :displaystring => displaystring, :score_dict_as_percentage => get_opinion.as_percentages)
   end
   
   deprecate
@@ -230,7 +230,7 @@ class Fact < Basefact
   end
   
   def influencing_authority
-    [1, FactRelation.find(:from_fact => self)
+    [1, FactRelation.find(:from_fact_id => self.id)
                 .except(:created_by_id => self.created_by_id)
                 .count].max
   end

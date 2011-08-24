@@ -44,14 +44,9 @@ class Opinion < OurOhm
     self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end
 
-  def self.neew(b,d,u,a=0)
-    self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
-  end
-
   def self.identity
     self.new(:b_r=>0,:d_r=>0,:u_r=>1,:a_r=>0)
   end
-
 
   def Opinion.for_type(type, authority=0)
     case type
@@ -90,7 +85,7 @@ class Opinion < OurOhm
     b = (self.b*self.a + second.b*second.a)/a
     d = (self.d*self.a + second.d*second.a)/a
     u = (self.u*self.a + second.u*second.a)/a
-    return Opinion.neew(b,d,u,a)
+    return Opinion.tuple(b,d,u,a)
   end
 
   
@@ -109,6 +104,31 @@ class Opinion < OurOhm
       self.u == other.u
   end
 
+  
+  def as_percentages
+
+    op = self
+    total = op.b + op.d + op.u
+
+    l_believe_percentage = calc_percentage(total, op.b).round.to_i
+    l_disbelieve_percentage = calc_percentage(total, op.d).round.to_i
+    l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
+
+    return {
+      :believe => {
+        :percentage => l_believe_percentage
+      },
+      :disbelieve => {
+        :percentage => l_disbelieve_percentage
+      },
+      :doubt => {
+        :percentage => l_doubt_percentage
+      },
+      :authority => op.a.round.to_i
+    }
+  end
+
+
   protected
   def discount_by(fl)
     pu = self
@@ -116,7 +136,17 @@ class Opinion < OurOhm
     b = pu.b * fl.b
     d = pu.d * fl.b
     u = fl.d + fl.u + pu.u * fl.b
-    return Opinion.neew(b,d,u,a)
+    return Opinion.tuple(b,d,u,a)
   end
-        
+
+  private
+  def calc_percentage(total, part)
+    if total > 0
+      (100 * part) / total
+    else
+      0
+    end
+  end
+  
+     
 end
