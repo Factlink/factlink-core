@@ -85,7 +85,7 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true"/>
 
-    <!-- Added for Sunspot Autocomplete
+    <!-- Added for Sunspot Autocomplete -->
     <fieldType name="autocomplete" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -108,7 +108,7 @@
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
-     end Sunspot Autocomplete -->
+    <!-- end Sunspot Autocomplete -->
 
   </types>
   <fields>
@@ -250,10 +250,10 @@
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name="*_etms" stored="true" termVectors="true" type="tdouble" multiValued="true" indexed="true"/>
 
-		<!-- Added for Sunspot autocomplete
+		<!-- Added for Sunspot autocomplete -->
     <dynamicField name="*_ac" type="autocomplete" indexed="true"  stored="true"/>
     <dynamicField name="*_as" type="autosuggest" indexed="true"  stored="true"/>
-		 End added for Sunspot autocomplete -->
+		<!-- End added for Sunspot autocomplete -->
   </fields>
   <!-- Field to use to determine and enforce document uniqueness. 
       Unless this field is marked with required="false", it will be a required field

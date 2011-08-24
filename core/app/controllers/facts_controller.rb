@@ -132,6 +132,33 @@ class FactsController < ApplicationController
     end
   end
 
+  def set_opinion    
+    allowed_types = [:beliefs, :doubts, :disbeliefs]
+    type = params[:type].to_sym
+    
+    if allowed_types.include?(type)
+      if params[:fact_type] == "fact"
+          @fact = Fact[params[:fact_id]]
+          @fact.add_opinion(type, current_user.graph_user)
+          render :nothing => true
+      elsif params[:fact_type] == "fact_relation"
+          @fact_relation = FactRelation[params[:fact_id]]
+          @fact_relation.add_opinion(type, current_user.graph_user)
+          render :nothing => true
+      else
+        render :json => {"error" => "fact type not allowed"}
+      end
+    else 
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
+  end
+
+  def remove_opinion   
+    @fact_relation = FactRelation[params[:fact_id]]
+    @fact_relation.from_fact.remove_opinions(current_user.graph_user)
+  end
+
   # Set or unset the opinion on a FactRelation
   def toggle_opinion_on_fact
     allowed_types = ["beliefs", "doubts", "disbeliefs"]
@@ -147,18 +174,18 @@ class FactsController < ApplicationController
   end
 
   # Set or unset the relevance on a FactRelation
-  def toggle_relevance_on_fact_relation
-    allowed_types = [:beliefs, :doubts, :disbeliefs]
-    type = params[:type].to_sym
+   def toggle_relevance_on_fact_relation
+     allowed_types = [:beliefs, :doubts, :disbeliefs]
+     type = params[:type].to_sym
 
-    if allowed_types.include?(type)
-      @fact_relation = FactRelation[params[:fact_relation_id]]
-      @fact_relation.toggle_opinion(type, current_user.graph_user)
-    else
-      render :json => {"error" => "type not allowed"}
-      return false
-    end
-  end
+     if allowed_types.include?(type)
+       @fact_relation = FactRelation[params[:fact_relation_id]]
+       @fact_relation.toggle_opinion(type, current_user.graph_user)
+     else
+       render :json => {"error" => "type not allowed"}
+       return false
+     end
+   end
 
   # Search
   # Not using the same search for the client popup, since we probably want\
@@ -273,30 +300,24 @@ class FactsController < ApplicationController
     @fact = Fact[params[:id]]
   end
   
-  def add_evidence(evidence_id, type, fact_id) # private
-    
-    type = type.to_sym
-    
+  def add_evidence(evidence_id, type, fact_id) # private  
+    type = type.to_sym  
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
     # Create FactRelation
-    fact_relation = fact.add_evidence(type, evidence, current_user)
-    
+    fact_relation = fact.add_evidence(type, evidence, current_user)   
     evidence.add_opinion(:beliefs, current_user.graph_user)
-    fact_relation.add_opinion(:beliefs, current_user.graph_user)
-    
+    fact_relation.add_opinion(:beliefs, current_user.graph_user)    
     fact_relation
   end
   
   def create_fact(url, displaystring, title) # private
     @site = Site.find(:url => url).first || Site.create(:url => url, :title => title)
-
     @fact = Fact.create(
       :created_by => current_user.graph_user,
       :site => @site
     )
-
     @fact.data.displaystring = displaystring    
     @fact.data.save
     @fact
