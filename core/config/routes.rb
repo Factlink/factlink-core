@@ -14,8 +14,8 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Resources
-  resources :facts
-
+  resources :facts, :channels    
+  
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
@@ -45,11 +45,11 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
-  # Set opinion on a Fact
+  # Set opinion on a Fact or FactRelation
   get   "/fact/:fact_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
   
   post   ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
-  delete  ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
+  delete  ":fact_type/:fact_id/opinion/" => "facts#remove_opinions", :as => "opinion"
 
   # Set relevance of a FactRelation
   get   "/fact_relation/:fact_relation_id/:type" => "facts#toggle_relevance_on_fact_relation", :as => "relevance"
@@ -71,7 +71,6 @@ FactlinkUI::Application.routes.draw do
     get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
 
     get "/" => "users#show", :as => "user_profile"
-    resources :channels    
     post "/channels/:id" => "channels#update"
 
   end

@@ -138,7 +138,7 @@ class FactsController < ApplicationController
     
     if allowed_types.include?(type)
       if params[:fact_type] == "fact"
-          @fact = Fact[params[:fact_id]]
+          @fact = Fact[params[:fact_id]] # This fails with a nasy error for an invalid error
           @fact.add_opinion(type, current_user.graph_user)
           render :nothing => true
       elsif params[:fact_type] == "fact_relation"
@@ -154,9 +154,18 @@ class FactsController < ApplicationController
     end
   end
 
-  def remove_opinion   
-    @fact_relation = FactRelation[params[:fact_id]]
-    @fact_relation.from_fact.remove_opinions(current_user.graph_user)
+  def remove_opinions   
+      if params[:fact_type] == "fact"
+          @fact = Fact[params[:fact_id]]
+          @fact.remove_opinions(current_user.graph_user)
+          render :nothing => true
+      elsif params[:fact_type] == "fact_relation"
+          @fact_relation = FactRelation[params[:fact_id]]
+          @fact.remove_opinions(current_user.graph_user)
+          render :nothing => true
+      else
+        render :json => {"error" => "fact type not allowed"} # TODO should be sending HTTP error codes as well
+      end
   end
 
   # Set or unset the opinion on a FactRelation
