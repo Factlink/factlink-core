@@ -146,7 +146,7 @@ class FactsController < ApplicationController
           @fact_relation.add_opinion(type, current_user.graph_user)
           render :nothing => true
       else
-        render :json => {"error" => "fact type not allowed"}
+        render :json => {"error" => "fact type not allowed"} # TODO should be sending HTTP error codes as well
       end
     else 
       render :json => {"error" => "type not allowed"}
