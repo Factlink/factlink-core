@@ -6,25 +6,26 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
-
-  def is_modified_channel
-    self.contained_channels.size == 0 or (self.contained_channels.size > 1) || (self.internal_facts.size > 0) || (self.delete_facts.size > 0)
-  end
+  attribute :is_fork
+  #def is_fork
+  #  not (self.contained_channels.size == 0 or (self.contained_channels.size > 1) || (self.internal_facts.size > 0) || (self.delete_facts.size > 0))
+  #end
   
 
   def channel_maintainer
-    is_modified_channel ? created_by : contained_channels.first.channel_maintainer
+    (not is_fork) ? created_by : contained_channels.first.channel_maintainer
   end
 
+  private
   set :contained_channels, Channel
-  def sub_channels
-    is_modified_channel ? self.contained_channels : []
-  end
-
   set :internal_facts, Fact
   set :delete_facts, Fact
-
   set :cached_facts, Fact
+
+  public
+  def sub_channels
+    (not is_fork) ? self.contained_channels : []
+  end
 
   index :title
 
@@ -78,7 +79,7 @@ class Channel < OurOhm
   end
 
   def fork(user)
-    c = Channel.create(:created_by => user, :title => title, :description => description)
+    c = Channel.create(:created_by => user, :title => title, :description => description, :is_fork => true)
     c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
@@ -100,6 +101,15 @@ class Channel < OurOhm
       all.each do |ch|
         ch.calculate_facts
       end
+    end
+  end
+
+  #if one of the following methods is executed and the channel was a fork, it isn't anymore
+  [:add_channel, :remove_fact, :add_fact].each do |m|
+    orig = instance_method m
+    send :define_method, m do |*args|
+      self.is_fork = false
+      orig.bind(self).call *args
     end
   end
 

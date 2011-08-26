@@ -93,12 +93,7 @@ class Fact < Basefact
     end
   end
   
-  def save_data
-    self.data.save
-  end
-
   after :save, :require_data
-  after :save, :save_data
 
 
   set :supporting_facts, FactRelation
@@ -173,6 +168,7 @@ class Fact < Basefact
     FactData.column_names
   end
 
+  #TODO testen of dit ook werkt met channels
   def delete_cascading
     delete_data
     delete_all_evidence

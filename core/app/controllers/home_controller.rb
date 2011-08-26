@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   
   def index
     @facts = Fact.all.sort(:order => "DESC")
-    @users = User.all[0..10]
+    @users = GraphUser.top(10).map { |gu| gu.user }
     
     # Activity.all.sort(:order => "DESC")[0..10]
     
