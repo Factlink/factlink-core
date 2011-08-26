@@ -2,19 +2,21 @@ class Channel < OurOhm
   include ActivitySubject
 
   attribute :title
+  index :title
   attribute :description
 
   reference :created_by, GraphUser
 
-  attribute :is_fork
-  #def is_fork
-  #  not (self.contained_channels.size == 0 or (self.contained_channels.size > 1) || (self.internal_facts.size > 0) || (self.delete_facts.size > 0))
-  #end
+  attribute :backend_is_fork
   
-
-  def channel_maintainer
-    (not is_fork) ? created_by : contained_channels.first.channel_maintainer
+  def is_fork=(value)
+    self.backend_is_fork = value.to_s
   end
+  def is_fork(*params)
+    self.backend_is_fork== 'true'
+  end
+  
+  alias :channel_maintainer :created_by
 
   private
   set :contained_channels, Channel
@@ -23,11 +25,7 @@ class Channel < OurOhm
   set :cached_facts, Fact
 
   public
-  def sub_channels
-    (not is_fork) ? self.contained_channels : []
-  end
-
-  index :title
+  alias :sub_channels :contained_channels
 
   def calculate_facts
     # TODO very dirty, refactor ohm so this works with the commented-out line, and efficiently does the def the | and the -
@@ -46,9 +44,12 @@ class Channel < OurOhm
     save
   end
 
+
   attribute :discontinued
+  index :discontinued
   def delete
     self.discontinued = true
+    save
   end
 
   def facts
@@ -105,7 +106,7 @@ class Channel < OurOhm
   end
 
   #if one of the following methods is executed and the channel was a fork, it isn't anymore
-  [:add_channel, :remove_fact, :add_fact].each do |m|
+  [:add_channel, :remove_fact, :add_fact, :title=, :description=].each do |m|
     orig = instance_method m
     send :define_method, m do |*args|
       self.is_fork = false

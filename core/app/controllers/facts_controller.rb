@@ -302,7 +302,7 @@ class FactsController < ApplicationController
     intersecting_ids = supporting_fact_ids & weakening_fact_ids
     intersecting_ids << @fact.data_id
     
-    @potential_evidence = Fact.all.except(:data_id => intersecting_ids)
+    @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
   end    
 
   def load_fact # private

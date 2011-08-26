@@ -1,16 +1,5 @@
 module HomeHelper
   
-  def channel_listing_for_user(channels, user)
-    render :partial => "home/v2/snippets/channels", 
-	            :locals => {  :channels => channels,
-	                          :user => user }
-  end
-  
-  def channel_snippet(channel, user)
-    render :partial => "home/v2/snippets/channel_li", 
-	            :locals => {  :channel => channel,
-	                          :user => user }
-  end
 
   def fact_listing(facts)
     render :partial => "home/v2/snippets/fact_listing", 

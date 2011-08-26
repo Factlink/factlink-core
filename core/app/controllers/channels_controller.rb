@@ -95,6 +95,7 @@ class ChannelsController < ApplicationController
   def destroy
     if @channel.created_by == current_user.graph_user
       @channel.delete
+      redirect_to(channels_path(@user.username), :notice => 'Channel successfully deleted')
     end
   end
   

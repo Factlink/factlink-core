@@ -36,9 +36,6 @@ class FactRelation < Basefact
       :fact => to,
       :type => type
     )
-    unless fl.valid?
-      puts fl.errors
-    end
 
     #TODO this should use a collection
     to.evidence(type) << fl

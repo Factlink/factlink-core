@@ -22,7 +22,7 @@ class HomeController < ApplicationController
   def search
     @row_count = 5
     row_count = @row_count
-
+    solr_result2 = nil
     if params[:s]
       solr_result = FactData.search() do
 
@@ -33,12 +33,25 @@ class HomeController < ApplicationController
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
         end
+        solr_result2 = User.search() do
+
+          keywords params[:s], :fields => [:username]
+          #order_by sort_column, sort_direction
+          paginate :page => params[:page] , :per_page => row_count
+
+          adjust_solr_params do |sunspot_params|
+            sunspot_params[:rows] = row_count
+          end
+        end
       end
 
       @facts = solr_result.results
+      @users = solr_result2.results
       
       puts "\n\nFacts:"
       puts @facts
+      puts "\n\nUsers:"
+      puts @users
       
     else
       # will_paginate sorting doesn't work very well on arrays.. Fixed it..

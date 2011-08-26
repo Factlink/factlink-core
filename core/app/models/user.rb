@@ -69,6 +69,12 @@ end
 class User
   include Mongoid::Document
   include GraphUserProxy
+  include Sunspot::Mongoid
+
+  searchable :auto_index => true do
+    text    :username
+    string  :username
+  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 

@@ -26,7 +26,10 @@ class GraphUser < OurOhm
   set :disbeliefs_facts, Basefact
 
   collection :created_facts, Basefact, :created_by
-  collection :channels, Channel, :created_by
+  def channels
+    Channel.find(:created_by_id => self.id).except(:discontinued => 'true')
+  end
+  
   collection :activities, Activity, :user
   
   
