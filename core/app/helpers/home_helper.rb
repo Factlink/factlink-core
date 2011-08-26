@@ -67,12 +67,12 @@ module HomeHelper
     render :partial => "home/v2/snippets/user_and_factlink_information"
   end
   
-  def activity_list_for_user(activities, nr=0)
+  def activity_list_for_user(activities, nr=19)
     render :partial => "users/partials/activity_list_for_user",
            :locals => { :activities => activities, :nr => nr }
   end
 
-  def activity_list(activities, nr=0)
+  def activity_list(activities, nr=19)
     render :partial => "users/partials/activity_list",
            :locals => { :activities => activities, :nr => nr }
   end
