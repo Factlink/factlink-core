@@ -13,7 +13,7 @@ class Channel < OurOhm
   
 
   def channel_maintainer
-    is_modified_channel ? created_by : contained_channels.first.created_by
+    is_modified_channel ? created_by : contained_channels.first.channel_maintainer
   end
 
   set :contained_channels, Channel
@@ -43,6 +43,11 @@ class Channel < OurOhm
       cached_facts << f
     end
     save
+  end
+
+  attribute :discontinued
+  def delete
+    self.discontinued = true
   end
 
   def facts

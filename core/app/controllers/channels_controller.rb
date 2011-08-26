@@ -18,15 +18,10 @@ class ChannelsController < ApplicationController
       :show
       ]
 
-  before_filter :set_highlight_first_channel,
-    "only" => [
-      # :index
-      ]
 
   # GET /:username/channel
   def index
     @channels = @user.channels
-    
     @channel = @channels.first
   end
 
@@ -98,7 +93,9 @@ class ChannelsController < ApplicationController
 
   # DELETE /channels/1
   def destroy
-   puts "\n*\n*\n*DESTORYING CHANNEL. Should be ;)" 
+    if @channel.created_by == current_user.graph_user
+      @channel.delete
+    end
   end
   
   def follow
@@ -108,14 +105,15 @@ class ChannelsController < ApplicationController
   
   private
   def get_user
-    @user = User.first(:conditions => { :username => params[:username]})
+    if params[:username]
+      @user = User.first(:conditions => { :username => params[:username]})
+    end
   end
   
   def load_channel
     @channel = Channel[params[:id]]
-  end
-  
-  def set_highlight_first_channel
-    # @highlight_first_channel = true
+    unless @user
+      @user = @channel.created_by.user if @channel
+    end
   end
 end

@@ -14,7 +14,7 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Resources
-  resources :facts, :channels    
+  resources :facts
   
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
@@ -64,6 +64,7 @@ FactlinkUI::Application.routes.draw do
   # get "/:username" => "users#show", :as => "user_profile"
   
   scope "/:username" do
+    resources :channels
     get "/activity" => "users#activity", :as => "user_activity"
     
     post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
