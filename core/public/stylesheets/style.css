@@ -665,6 +665,24 @@ form .action-wrapper span {
   visibility: hidden;
   height: 18px;
 }
+#container .fact-block .actions .channel-listing {
+  padding: 0 ;
+  border: 1px solid #9d9d9c;
+  border-radius: 2px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
+  z-index: 1000;
+  display: none;
+  box-shadow: 2px 2px 2px #ccc;
+  position: absolute;
+  width: 160px;
+}
+#container .fact-block .actions .channel-listing:hover {
+  border: 1px solid #306d90;
+}
+#container .fact-block .actions .channel-listing li {
+  display: block;
+  padding: 0.7em;
+}
 #container .fact-block .actions li {
   display: inline-block;
   list-style-type: none;
@@ -766,23 +784,6 @@ form .action-wrapper span {
   border-bottom: 1px solid #9d9d9c;
   width: 440px;
   margin-bottom: 5px;
-}
-#container .fact-block .channel-listing {
-  padding: 0 ;
-  border: 1px solid #9d9d9c;
-  border-radius: 2px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
-  z-index: 1000;
-  display: none;
-  box-shadow: 2px 2px 2px #ccc;
-  position: absolute;
-  width: 160px;
-}
-#container .fact-block .channel-listing:hover {
-  border: 1px solid #306d90;
-}
-#container .fact-block .channel-listing li {
-  padding: 0.7em;
 }
 #container .fact-block .beliefs-box {
   left: 90px;

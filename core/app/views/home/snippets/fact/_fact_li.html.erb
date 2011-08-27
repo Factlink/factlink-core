@@ -8,7 +8,7 @@
   	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
   	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
     	<div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:doubt][:percentage] %>" data-opinion="doubts" data-color="#36A9E1"></div>
-    	<div class="authority"><img src="images/brains.png" alt="Brain Cycles"> <%= fact.get_opinion.authority %> </div>		
+    	<div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <%= fact.get_opinion.authority %> </div>		
     </div>
     <div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
       <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 

@@ -1,11 +1,11 @@
 <!-- header -->
 <% content_for :header do %>
-	<%= user_block(@user) %>
 <% end %>
 
 
 <!-- left column -->
 <% content_for :left_column do %>		
+  <%= user_block(@user) %>
 	<%= channel_listing_for_user(@user.channels, @user) %>
 <% end %>
 
