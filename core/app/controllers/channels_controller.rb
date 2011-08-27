@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   # layout "accounting"
-  layout "web-frontend-v2"
+  layout "frontend"
   
   before_filter :get_user
 

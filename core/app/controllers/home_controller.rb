@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  layout "web-frontend-v2"
+  layout "frontend"
 
   helper_method :sort_column, :sort_direction
   
