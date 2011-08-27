@@ -54,8 +54,6 @@ class GraphUser < OurOhm
     self.cached_authority || 1.0
   end
 
-
-
   def rounded_authority
     sprintf('%.1f',self.authority)
   end

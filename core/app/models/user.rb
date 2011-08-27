@@ -18,6 +18,7 @@ module GraphUserProxy
     graph_user.created_facts.find_all {|fact| fact.class == Fact }
   end
   
+  deprecate
   def fact_relations
     graph_user.created_facts.find_all {|fact| fact.class == FactRelation }
   end

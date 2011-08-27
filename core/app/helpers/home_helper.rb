@@ -12,8 +12,18 @@ module HomeHelper
   end
 
   def fact_snippet(fact, channel=nil)
-    render :partial => "home/v2/snippets/fact_li", 
+    render :partial => "home/v2/snippets/fact/fact_li", 
 	            :locals => {  :fact => fact, :channel => channel }
+  end
+  
+  def fact_interacting_users(opinion)
+    render :partial => "home/v2/snippets/fact/users_popup",
+              :locals => { :opinion => opinion.to_a }
+  end
+  
+  def fact_channel_listing(fact)
+    render :partial => "home/v2/snippets/fact/channel_listing",
+              :locals => { :fact => fact }
   end
   
   def fact_search
