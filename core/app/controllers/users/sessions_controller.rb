@@ -19,7 +19,7 @@ class Users::SessionsController < Devise::SessionsController
       
       @users = User.all
       
-      render "users/sessions/new", :layout => "web-frontend-v2"
+      render "users/sessions/new", :layout => "frontend"
       return false
     else
       # Client login

@@ -1,0 +1,11 @@
+<!-- fact listing -->
+
+<% unless facts.count > 0 %>
+	<p>No facts added yet.</p>
+<% else %>
+<ul id="fact-listing">
+	<% facts.each do |fact| %>
+		<%=	fact_snippet(fact) %>
+	<% end %>
+</ul>
+<% end %>

@@ -1,0 +1,10 @@
+<article class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
+	<div class="user-avatar">
+		<%= image_tag(user.avatar, :width => 32) %>
+	</div>
+	
+	<div class="wrapper">
+		<h1><%= user.username %></h1>
+		<sub>authority: <%= user.authority %></sub>			
+	</div>
+</article>

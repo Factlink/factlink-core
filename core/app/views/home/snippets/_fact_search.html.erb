@@ -1,0 +1,5 @@
+<div class="fact_search append-bottom">
+	<form method="GET" action="<%= factlink_overview_path %>">
+		<input id="factlink_search" type="text" class="search" name="s" placeholder="Search Factlink..." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
+	</form>
+</div>
