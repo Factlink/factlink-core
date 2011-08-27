@@ -11,14 +11,19 @@ module HomeHelper
                 :locals => {  :channel => channel }
   end
 
-  def fact_snippet(fact, channel=nil)
-    render :partial => "home/snippets/fact/fact_li", 
+  def fact_snippet(fact,channel=nil)
+    render :partial => "home/snippets/fact/fact_container", 
 	            :locals => {  :fact => fact, :channel => channel }
   end
   
-  def fact_interacting_users(opinion)
+  def fact_bubble(fact, channel=nil) 
+    render :partial => "home/snippets/fact/fact_bubble", 
+	            :locals => {  :fact => fact, :channel => channel }
+  end
+  
+  def fact_interacting_users(opinions)
     render :partial => "home/snippets/fact/users_popup",
-              :locals => { :opinion => opinion.to_a }
+              :locals => {:opinion => opinions.to_a }
   end
   
   def fact_channel_listing(fact)

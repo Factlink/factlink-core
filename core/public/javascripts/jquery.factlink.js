@@ -16,30 +16,39 @@
     this.init = function() {
       this.each(function() {
         var $t = $(this);
-  	  
-    	  $t.opinions = create_opinions($t);
-    	  create_wheel($t, $t.opinions);  
-    	  
-    	  $t.find("a.add-to-channel").hoverIntent(
-    	    function() {
-  					channelList = $t.find(".channel-listing");
-  					$(channelList).css({"top" : $(this).position().top})
-  					$(channelList).fadeIn("500");
-  				},	
-  				function() {
-  				  $(fact).find(".channel-listing").delay(600).fadeOut("500");				
+        $t.find(".evidence-facts a").click(function() { 
+  				if ($t.find(".evidence-container").is(":hidden")) {
+  					$t.find(".evidence-container").slideDown();
+  				} else {
+  					$t.find(".evidence-container").slideUp();
   				}
-    	  );
-    	  	
-    	  $t.find(".opinion-box").find("img").tipsy({gravity: 's'});  
-    	  $t.find(".float-box").mouseenter(
-  				function() { 	    
-  					$(this).clearQueue().stop().css({"opacity" : "1"}); 
-  					}).mouseleave(
-  				function() { 
-  					$(this).delay(600).fadeOut("500"); 
   			});
-			});  
+  	  	
+  	    $(this).find("article.fact").each(function() { 
+  	      var $t = $(this);
+      	  $t.opinions = create_opinions($t);
+      	  create_wheel($t, $t.opinions);  
+      	  $t.find("a.add-to-channel").hoverIntent(
+      	    function() {
+    					channelList = $t.find(".channel-listing");
+    					$(channelList).css({"top" : $(this).position().top})
+    					$(channelList).fadeIn("500");
+    				},	
+    				function() {
+    				  $t.find(".channel-listing").delay(600).fadeOut("500");				
+    				}
+      	  );
+    	  	
+      	  $t.find(".opinion-box").find("img").tipsy({gravity: 's'});  
+      	  $t.find(".float-box").mouseenter(
+    				function() { 	    
+    					$(this).clearQueue().stop().css({"opacity" : "1"}); 
+    					}).mouseleave(
+    				function() { 
+    					$(this).delay(600).fadeOut("500"); 
+    			});
+  			});  
+			});
     }
     return this;   
   };
@@ -52,9 +61,9 @@
         $(fact).data("user-opinion", opinion);
         $(fact.opinions).each(function() { 
           if(!is_user_opinion(fact, this.opinion)) {
-            this.raphael.animate({opacity: 0.2},100);
+            this.raphael.animate({opacity: 0.2},200);
           } else {
-            this.raphael.animate({opacity: 1},100);
+            this.raphael.animate({opacity: 1},200);
           }});
       });
     } else {
@@ -64,7 +73,7 @@
         success: function(msg){
           $(fact).data("user-opinion", " ");
             $(fact.opinions).each(function() { 
-              this.raphael.animate({opacity: 0.2},100);
+              this.raphael.animate({opacity: 0.2},200);
             });
           }
       });
@@ -92,7 +101,7 @@
 	}
 	
 	function create_wheel(fact, opinions) {
-    var wheel_id = "wheel-"+$(fact).data("fact-id"),
+    var wheel_id = $(fact).find(".wheel").get(0),
         r = Raphael(wheel_id, 40, 40);
     r.customAttributes.arc = function (value, total, start, R) {
         alpha = 360 / total * value,
@@ -130,9 +139,8 @@
           } else {
               this.animate({ 'stroke-width': 9 }, 1000, 'elastic');    
           }
-      });      
+      }).click(function() { set_opinion(fact, opinion); });      
       $(z.node)
-        .bind("click", function() { set_opinion(fact, opinion); })
         .hoverIntent(
   				function() {
   					optionBox = $(fact).find("." + opinion + "-box");
