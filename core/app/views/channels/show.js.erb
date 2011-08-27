@@ -2,3 +2,5 @@ $('#main-wrapper').hide().html('<%= escape_javascript(fact_listing_for_channel(@
 
 $('#channel-listing > li').removeClass('active');
 $('#channel-listing > li[data-channel-id=<%= @channel.id %>]').addClass('active');
+
+$("li.fact-block .fact").factlink().init();
