@@ -1,5 +1,5 @@
 <li class="fact-block" data-fact-id="<%= fact.id %>">
-	<% if channel %>
+	<% if channel and user_signed_in? %>
 		<%= link_to(image_tag("x_7x7.png", :class => "close", "style" => "float: right"), remove_fact_from_channel_path(current_user, channel.id, fact.id), :confirm => "Are you sure you want to remove this fact from your channel?", :remote => true )%>
 	<% end %>
 		
