@@ -41,8 +41,8 @@
 			<li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
 			<% end %>			
 		</ul>	
-		<%= fact_channel_listing(fact) %>
-		<% end %>				
 		</div>
+		<%= fact_channel_listing(fact) %>
+	  <% end %>				
 	</header>
 </article>

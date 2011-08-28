@@ -264,17 +264,6 @@ a:hover {
     padding: 0px;
   }
 
-  .bubble {
-    background: #f7f7f7;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.06);
-    border-radius: 3px;
-
-    form {
-      padding: 12px 24px;
-    }
-
-  }
-
   #application-notification {
     p {
       a {
@@ -353,7 +342,6 @@ a:hover {
       }
     }
   }
-
 
   .fact_search {
 
@@ -651,9 +639,9 @@ a:hover {
     /** Fact block */
 
     .boxed { 
-      padding: 0 ;
+      padding: 0;
       border: 1px solid #9d9d9c;
-      border-radius: 2px;
+      border-radius: 3px;
       background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#fff));
       &:hover {
         border: 1px solid #306d90;
@@ -665,16 +653,23 @@ a:hover {
       box-shadow: 2px 2px 2px #ccc;
       position: absolute;
     }
+    .authority, .authors, .channel-listing li, .actions li a, .actions {
+      font-size: x-small;
+      color: #aaa;
+    }
     .fact-block { 
       .boxed;
       font-size: 9pt;
-      width: 480px;
+      width: 510px;
       margin-bottom: 15px;
+      img.close { 
+        margin: 5px;
+      }
       article.fact {
         padding: 10px 0 5px 10px;
         min-height: 63px;
         border: 1px solid transparent;
-        width: 480px;
+        width: 490px;
         display: block;
         header { 
           padding-right: 20px;
@@ -696,18 +691,18 @@ a:hover {
             }
           }
         }
+        .channel-listing { 
+          .boxed;
+          .float;
+          width: 160px;
+          li { 
+            display: block;
+            padding: 0.7em;
+          }
+        }
         .actions { 
           visibility: hidden;
           height: 18px;
-          .channel-listing { 
-            .boxed;
-            .float;
-            width: 160px;
-            li { 
-              display: block;
-              padding: 0.7em;
-            }
-          }
           li { 
             display: inline-block;
             list-style-type: none;
@@ -729,7 +724,6 @@ a:hover {
         float: left;
         svg { 
           margin: 0 0 0 10px;
-          width: 45px; height: 45px;
           float: left;
           path:hover { 
             cursor: pointer;
@@ -740,10 +734,6 @@ a:hover {
         text-align: center;
         margin: 0 0 0 5px;
         width:45px; height: 20px;
-      }
-      .authority, .authors, .actions li a, .actions {
-        font-size: x-small;
-        color: #aaa;
       }
       .choices ul {
         list-style: none;
@@ -760,7 +750,6 @@ a:hover {
             a {
               display: inline-block;
               span {
-                display: inline-block;
                 color: #666363;
               }
             }
@@ -768,12 +757,12 @@ a:hover {
         }
       }
       .evidence-facts { 
-        padding: 5px 0 5px 0;
+        padding: 5px 0 0 0;
         border-top: 1px solid @grey;
         text-align: center;
         background: -webkit-gradient(linear, left top, left 25%, from(#f2f2f2), to(#fff));
         .evidence-container { 
-          width: 480px;
+          width: 510px;
           margin-top: 5px;
         }
         .add-action {
@@ -785,8 +774,9 @@ a:hover {
           height: 90px;
           overflow: auto;
           article.fact { 
-            border-bottom: 1px solid @grey;
-            width: 420px;
+            &:hover { 
+            }
+            width: 460px;
             margin-left: 20px;
             text-align: left;
             margin-bottom: 5px;			

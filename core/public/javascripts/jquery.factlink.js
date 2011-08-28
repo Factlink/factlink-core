@@ -1,5 +1,5 @@
 (function($) {
-	$.fn.factlink = function(el, params) {
+	$.fn.factlink = function(params) {
 	  // Public functions
     this.to_channel = function(user, channel, fact) {
 			$.ajax({
@@ -13,7 +13,8 @@
 			});
 		}
     
-    this.init = function() {
+    this.init = function(params) {
+      var $t = $(this);
       this.each(function() {
         var $t = $(this);
         $t.find(".evidence-facts a").click(function() { 
@@ -25,26 +26,28 @@
   				return false;
   			});
   	  	
-  	    $(this).find("article.fact").each(function() { 
+  	    $t.find("article.fact").each(function() { 
   	      var $t = $(this);
       	  $t.opinions = create_opinions($t);
       	  create_wheel($t, $t.opinions);  
       	  $t.find("a.add-to-channel").hoverIntent(
       	    function() {
     					channelList = $t.find(".channel-listing");
-    					$(channelList).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 20 + "px"}).fadeIn("500");
+    					$(channelList).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 20 + "px"}).fadeIn("fast");
     				},	
     				function() {
-    				  $t.find(".channel-listing").delay(600).fadeOut("500");				
+    				  $t.find(".channel-listing").delay(600).fadeOut("fast");				
     				}
       	  );
       	  $t.find(".opinion-box").find("img").tipsy({gravity: 's'});  
-      	  $t.find(".float-box").mouseenter(
+      	  
+      	  // Prevents boxes from dissapearing when mouse over
+      	  $t.find(".float-box").mouseover(
     				function() { 	    
-    					$(this).clearQueue().stop().css({"opacity" : "1"}); 
-    					}).mouseleave(
+    					$(this).stop(true).css({"opacity" : "1"}); 
+    					}).mouseout(
     				function() { 
-    					$(this).delay(600).fadeOut("500"); 
+    					$(this).delay(500).fadeOut("fast"); 
     			});
   			});  
 			});
@@ -60,7 +63,7 @@
         $(fact).data("user-opinion", opinion);
         $(fact.opinions).each(function() { 
           if(!is_user_opinion(fact, this.opinion)) {
-            this.raphael.animate({opacity: 0.2},200);
+            this.raphael.animate({opacity: 0.2},"200");
           } else {
             this.raphael.animate({opacity: 1},200);
           }});
@@ -101,7 +104,7 @@
 	
 	function create_wheel(fact, opinions) {
     var wheel_id = $(fact).find(".wheel").get(0),
-        r = Raphael(wheel_id, 40, 40);
+        r = Raphael(wheel_id, 45, 45);
     r.customAttributes.arc = function (value, total, start, R) {
         alpha = 360 / total * value,
         a = (start - alpha) * Math.PI / 180,
@@ -127,9 +130,9 @@
       // bind events
       z.mouseover(function(){ 
         if(!is_user_opinion(fact, opinion)) {
-          this.animate({ 'stroke-width': 12, opacity: .6 }, 1000, 'elastic');
+          this.animate({ 'stroke-width': 11, opacity: .6 }, 1000, 'elastic');
         } else {
-          this.animate({ 'stroke-width': 12 }, 1000, 'elastic');    
+          this.animate({ 'stroke-width': 11 }, 1000, 'elastic');    
         }
       }).
         mouseout(function(){ 
@@ -140,15 +143,15 @@
           }
       }).click(function() { set_opinion(fact, opinion); });      
       $(z.node)
-        .hoverIntent(
-  				function() {
+        .hoverIntent({
+  				over: function() {
   					optionBox = $(fact).find("." + opinion + "-box");
-  					$(optionBox).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 25 + "px"}).fadeIn("500");
-  				},	
-  				function() {
-  				  $(fact).find("." + opinion + "-box").delay(600).fadeOut("500");				
+  					$(optionBox).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 25 + "px"}).fadeIn("fast");
+  				},
+  				out: function() {
+  				  $(fact).find("." + opinion + "-box").delay(600).fadeOut("fast");				
   				}	
-      );        			
+      });        			
     });
     r.set();
   };
