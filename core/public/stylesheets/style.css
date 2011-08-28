@@ -652,21 +652,22 @@ form .action-wrapper span {
   border: 1px solid #9d9d9c;
   border-radius: 2px;
   background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
-  margin: 0px 0px 20px;
   font-size: 9pt;
-  padding: 10px 10px 5px 10px;
   width: 480px;
+  margin-bottom: 15px;
 }
 #container .fact-block:hover {
   border: 1px solid #306d90;
 }
 #container .fact-block article.fact {
+  padding: 10px 0 5px 10px;
   min-height: 63px;
   border: 1px solid transparent;
   width: 480px;
   display: block;
 }
 #container .fact-block article.fact header {
+  padding-right: 20px;
   margin-left: 60px;
 }
 #container .fact-block article.fact header sub {
@@ -715,10 +716,8 @@ form .action-wrapper span {
 #container .fact-block article.fact:hover .actions {
   visibility: visible;
 }
-#container .fact-block article.fact:hover .actions li:hover {
-  text-decoration: underline;
-}
 #container .fact-block article.fact:hover .actions li:hover a {
+  text-decoration: underline;
   color: #306d90;
 }
 #container .fact-block .wheel {
@@ -734,8 +733,9 @@ form .action-wrapper span {
   cursor: pointer;
 }
 #container .fact-block .authority {
-  margin: 0 0 0 15px;
-  width: 35px;
+  text-align: center;
+  margin: 0 0 0 5px;
+  width: 45px;
   height: 20px;
 }
 #container .fact-block .authority,
@@ -766,28 +766,30 @@ form .action-wrapper span {
   color: #666363;
 }
 #container .fact-block .evidence-facts {
+  padding: 5px 0 5px 0;
   border-top: 1px solid #9d9d9c;
   text-align: center;
+  background: -webkit-gradient(linear, left top, left 25%, from(#f2f2f2), to(#ffffff));
+}
+#container .fact-block .evidence-facts .evidence-container {
+  width: 480px;
+  margin-top: 5px;
+}
+#container .fact-block .evidence-facts .add-action {
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid #9d9d9c;
 }
 #container .fact-block .evidence-facts .evidence {
-  margin-top: 5px;
-  max-height: 80px;
+  height: 90px;
   overflow: auto;
 }
 #container .fact-block .evidence-facts .evidence article.fact {
   border-bottom: 1px solid #9d9d9c;
+  width: 420px;
+  margin-left: 20px;
   text-align: left;
-  width: 440px;
   margin-bottom: 5px;
-}
-#container .fact-block .beliefs-box {
-  left: 85px;
-}
-#container .fact-block .doubts-box {
-  left: 85px;
-}
-#container .fact-block .disbeliefs-box {
-  left: 85px;
 }
 #container .fact-block .opinion-box {
   padding: 0 ;
@@ -805,7 +807,6 @@ form .action-wrapper span {
   border: 1px solid #306d90;
 }
 #container .fact-block .opinion-box .percentage {
-  border: 1px solid transparent;
   margin-top: 10px;
   margin-right: 5px;
   display: block;
@@ -815,7 +816,6 @@ form .action-wrapper span {
   font-size: 18pt;
 }
 #container .fact-block .opinion-box table {
-  border: 1px solid transparent;
   float: left;
   width: 80px;
   height: 60px;
@@ -825,7 +825,6 @@ form .action-wrapper span {
   height: 24px;
 }
 #container .fact-block .opinion-box .opinion-type {
-  border: 1px solid transparent;
   display: block;
   color: white;
   float: left;

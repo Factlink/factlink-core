@@ -367,7 +367,6 @@ a:hover {
         border-radius: 3px;
         border: solid 1px #222;
         font-weight: 100;
-
         box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
 
         width: 138px;
@@ -668,16 +667,17 @@ a:hover {
     }
     .fact-block { 
       .boxed;
-      margin: 0px 0px 20px;
       font-size: 9pt;
-      padding: 10px 10px 5px 10px;
       width: 480px;
+      margin-bottom: 15px;
       article.fact {
+        padding: 10px 0 5px 10px;
         min-height: 63px;
         border: 1px solid transparent;
         width: 480px;
         display: block;
         header { 
+          padding-right: 20px;
           margin-left: 60px;
           sub {
             margin:0; padding: 0;
@@ -718,8 +718,8 @@ a:hover {
             visibility: visible;
           }
           .actions li:hover { 
-            text-decoration: underline;
             a { 
+              text-decoration: underline;
               color: @dark-blue;
             }
           }
@@ -737,8 +737,9 @@ a:hover {
         }
       }
       .authority { 
-        margin: 0 0 0 15px;
-        width:35px; height: 20px;
+        text-align: center;
+        margin: 0 0 0 5px;
+        width:45px; height: 20px;
       }
       .authority, .authors, .actions li a, .actions {
         font-size: x-small;
@@ -767,28 +768,30 @@ a:hover {
         }
       }
       .evidence-facts { 
+        padding: 5px 0 5px 0;
         border-top: 1px solid @grey;
         text-align: center;
-        .evidence { 
+        background: -webkit-gradient(linear, left top, left 25%, from(#f2f2f2), to(#fff));
+        .evidence-container { 
+          width: 480px;
           margin-top: 5px;
-          max-height: 80px;
+        }
+        .add-action {
+          text-align: center;
+          padding: 5px;
+          border-top: 1px solid @grey;
+        }
+        .evidence { 
+          height: 90px;
           overflow: auto;
           article.fact { 
             border-bottom: 1px solid @grey;
+            width: 420px;
+            margin-left: 20px;
             text-align: left;
-            width: 440px;
             margin-bottom: 5px;			
           }
         }
-      }
-      .beliefs-box { 
-        left: 85px;	
-      }
-      .doubts-box { 
-        left: 85px;
-      }
-      .disbeliefs-box {
-        left: 85px;
       }
       .opinion-box {
         .boxed;
@@ -796,7 +799,6 @@ a:hover {
         width: 150px;
         height: 85px;
         .percentage { 
-          border: 1px solid transparent;
           margin-top: 10px;
           margin-right: 5px;
           display: block;
@@ -806,7 +808,6 @@ a:hover {
           font-size: 18pt;
         }
         table { 
-          border: 1px solid transparent;
           float: left;
           width: 80px;
           height: 60px;
@@ -816,7 +817,6 @@ a:hover {
           }
         }
         .opinion-type {
-          border: 1px solid transparent;
           display: block;
           color: white;
           float: left;
