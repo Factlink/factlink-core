@@ -9,19 +9,19 @@ module ChannelsHelper
   end
 
   def channel_listing_for_user(channels, user)
-    render :partial => "home/v2/snippets/channels", 
+    render :partial => "home/snippets/channels", 
 	            :locals => {  :channels => channels,
 	                          :user => user }
   end
   
   def channel_snippet(channel, user)
-    render :partial => "home/v2/snippets/channel_menu_item", 
+    render :partial => "home/snippets/channel_li", 
 	            :locals => {  :channel => channel,
 	                          :user => user }
   end
 
   def single_channel_snippet(channel, user)
-    render :partial => "home/v2/snippets/channel_li", 
+    render :partial => "home/snippets/channel_li", 
 	            :locals => {  :channel => channel,
 	                          :user => user }
   end

@@ -219,7 +219,7 @@ class Fact < Basefact
     self.opinion = total_opinion.save
     save
   end
-  
+    
   def get_opinion
     self.opinion || Opinion.identity
   end

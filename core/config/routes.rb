@@ -72,7 +72,6 @@ FactlinkUI::Application.routes.draw do
     get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
 
     get "/" => "users#show", :as => "user_profile"
-    resources :channels
     post "/channels/:id" => "channels#update"
 
   end

@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   
-  layout "web-frontend-v2"
+  layout "frontend"
 
   def new    
     @users = User.all[0..10]

@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   # layout "accounting"
-  layout "web-frontend-v2"
+  layout "frontend"
   
   before_filter :get_user
 
@@ -87,7 +87,6 @@ class ChannelsController < ApplicationController
     else
       @channel.add_fact(@fact)
     end
-
     render :nothing => true    
   end
 
