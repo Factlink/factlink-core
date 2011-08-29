@@ -503,9 +503,10 @@ form .action-wrapper span {
   background-color: #fff;
   cursor: pointer;
 }
-#container #channel-listing li.sub-channel {
-  width: 100px;
-  margin-left: 43px!important;
+#container #channel-listing li > ul > li {
+  padding: 0 ;
+  margin: 0 0 0 15px;
+  background-color: transparent;
 }
 #container #channel-listing .active {
   background: #fff;

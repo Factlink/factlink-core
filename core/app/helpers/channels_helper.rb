@@ -15,7 +15,7 @@ module ChannelsHelper
   end
   
   def channel_snippet(channel, user)
-    render :partial => "home/snippets/channel_li", 
+    render :partial => "home/snippets/channel_menu_item", 
 	            :locals => {  :channel => channel,
 	                          :user => user }
   end
