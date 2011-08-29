@@ -1,0 +1,8 @@
+<%= single_channel_snippet(channel, user) %>
+<% if channel.sub_channels.size > 0 %>
+  <li><ul>
+    <% channel.sub_channels.each do |channel| %>
+      <%= single_channel_snippet(channel, user) %>
+    <% end %>
+  </ul></li>
+<% end %>
