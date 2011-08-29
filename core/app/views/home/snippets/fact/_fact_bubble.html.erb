@@ -24,7 +24,7 @@
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
 		<span class="body">
-		<%= link_to(fact.displaystring,fact_path(fact.id)) %>
+		<%= fact.displaystring %>
 		</span>
 		<br>
 		<sub>
@@ -36,8 +36,7 @@
 		<% if user_signed_in? %>				
 		<ul>
 			<li><a href="#" class="add-to-channel"><%= image_tag("bookmark.gif") %>Channels</a></li>
-			<li><%= image_tag("star.gif") %> Favorite</li>
-			<% if current_user && fact.created_by == current_user.graph_user %>
+			<% if user_signed_in? && fact.created_by == current_user.graph_user %>
 			<li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
 			<% end %>			
 		</ul>	

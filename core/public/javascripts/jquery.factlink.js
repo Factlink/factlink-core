@@ -44,7 +44,7 @@
       	  // Prevents boxes from dissapearing when mouse over
       	  $t.find(".float-box").mouseover(
     				function() { 	    
-    					$(this).stop(true).css({"opacity" : "1"}); 
+    					$(this).stop(true, true).css({"opacity" : "1"}); 
     					}).mouseout(
     				function() { 
     					$(this).delay(500).fadeOut("fast"); 
@@ -86,8 +86,8 @@
 	}
 	
 	function create_opinions(fact) { 
-	  var opinions = [];
-    var remainder = 100;
+	  var opinions = [],
+        remainder = 100;
     $(fact).find(".opinion").each(function(i) {
       var display_value = $(this).data("value");
       display_value = (display_value < 15 ? 15 : display_value);
@@ -122,7 +122,7 @@
       var value = this.display_value;
       offset = offset + value;
       var opinion = this.opinion,
-          opacity = is_user_opinion(fact, opinion) ? 1.0 : 0.3,
+          opacity = is_user_opinion(fact, opinion) ? 1.0 : 0.2,
           z = r.path().attr({arc: [value - 2, total, (360 / total * offset), 14]})
                       .attr({stroke : $(this.element).data("color"), "stroke-width": 9, opacity: opacity});
       this.raphael = z;

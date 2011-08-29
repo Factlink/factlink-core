@@ -459,12 +459,13 @@ a:hover {
           cursor: pointer;
         }
       }
-      li { 
+      li {
         .channel
       }
-      li.sub-channel {
-        width: 100px;
-        margin-left: 43px!important;
+      li > ul > li {
+        padding: 0 ;
+        margin: 0 0 0 15px;
+        background-color: transparent;
       }
       .active {			
         background: #fff;
@@ -597,7 +598,6 @@ a:hover {
     .user-block {
       margin: 12px 0px 0px 0px;
       width: 140px;
-
       &:hover {
         cursor: pointer;
 
@@ -642,7 +642,7 @@ a:hover {
       padding: 0;
       border: 1px solid #9d9d9c;
       border-radius: 3px;
-      background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#fff));
+      background-color: #f7f7f7;
       &:hover {
         border: 1px solid #306d90;
       }
@@ -653,42 +653,36 @@ a:hover {
       box-shadow: 2px 2px 2px #ccc;
       position: absolute;
     }
-    .authority, .authors, .channel-listing li, .actions li a, .actions {
-      font-size: x-small;
-      color: #aaa;
-    }
     .fact-block { 
       .boxed;
-      font-size: 9pt;
+      font-size: x-small;
+      color: #aaa;
       width: 510px;
       margin-bottom: 15px;
       img.close { 
         margin: 5px;
       }
       article.fact {
-        padding: 10px 0 5px 10px;
+        margin: 10px 0 5px 10px;
         min-height: 63px;
         border: 1px solid transparent;
+        border-left: 1px dotted #f7f7f7;
         width: 490px;
         display: block;
         header { 
           padding-right: 20px;
+          color: #333;
           margin-left: 60px;
           sub {
             margin:0; padding: 0;
           }
           .head { 
+            font-size: 8pt;
             font-weight: bold;
           }
           .body { 
             font-size:9pt;
             font-family: Georgia, "Times New Roman", Garamond, serif;
-            a { 
-              color: #333;
-              &:hover {
-                text-decoration: none;
-              }
-            }
           }
         }
         .channel-listing { 
@@ -702,6 +696,7 @@ a:hover {
         }
         .actions { 
           visibility: hidden;
+          margin-top: 2px;
           height: 18px;
           li { 
             display: inline-block;
@@ -749,9 +744,6 @@ a:hover {
           &.active, &:hover {
             a {
               display: inline-block;
-              span {
-                color: #666363;
-              }
             }
           }
         }
@@ -760,7 +752,6 @@ a:hover {
         padding: 5px 0 0 0;
         border-top: 1px solid @grey;
         text-align: center;
-        background: -webkit-gradient(linear, left top, left 25%, from(#f2f2f2), to(#fff));
         .evidence-container { 
           width: 510px;
           margin-top: 5px;
@@ -770,8 +761,9 @@ a:hover {
           padding: 5px;
           border-top: 1px solid @grey;
         }
-        .evidence { 
-          height: 90px;
+        .evidence {
+          min-height: 40px; 
+          max-height: 110px;
           overflow: auto;
           article.fact { 
             &:hover { 

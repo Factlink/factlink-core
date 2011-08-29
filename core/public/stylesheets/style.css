@@ -505,9 +505,10 @@ form .action-wrapper span {
   background-color: #fff;
   cursor: pointer;
 }
-#container #channel-listing li.sub-channel {
-  width: 100px;
-  margin-left: 43px!important;
+#container #channel-listing li > ul > li {
+  padding: 0 ;
+  margin: 0 0 0 15px;
+  background-color: transparent;
 }
 #container #channel-listing .active {
   background: #fff;
@@ -628,7 +629,7 @@ form .action-wrapper span {
   padding: 0;
   border: 1px solid #9d9d9c;
   border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
+  background-color: #f7f7f7;
 }
 #container .boxed:hover {
   border: 1px solid #306d90;
@@ -639,20 +640,13 @@ form .action-wrapper span {
   box-shadow: 2px 2px 2px #ccc;
   position: absolute;
 }
-#container .authority,
-#container .authors,
-#container .channel-listing li,
-#container .actions li a,
-#container .actions {
-  font-size: x-small;
-  color: #aaa;
-}
 #container .fact-block {
   padding: 0;
   border: 1px solid #9d9d9c;
   border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
-  font-size: 9pt;
+  background-color: #f7f7f7;
+  font-size: x-small;
+  color: #aaa;
   width: 510px;
   margin-bottom: 15px;
 }
@@ -663,14 +657,16 @@ form .action-wrapper span {
   margin: 5px;
 }
 #container .fact-block article.fact {
-  padding: 10px 0 5px 10px;
+  margin: 10px 0 5px 10px;
   min-height: 63px;
   border: 1px solid transparent;
+  border-left: 1px dotted #f7f7f7;
   width: 490px;
   display: block;
 }
 #container .fact-block article.fact header {
   padding-right: 20px;
+  color: #333;
   margin-left: 60px;
 }
 #container .fact-block article.fact header sub {
@@ -678,23 +674,18 @@ form .action-wrapper span {
   padding: 0;
 }
 #container .fact-block article.fact header .head {
+  font-size: 8pt;
   font-weight: bold;
 }
 #container .fact-block article.fact header .body {
   font-size: 9pt;
   font-family: Georgia, "Times New Roman", Garamond, serif;
 }
-#container .fact-block article.fact header .body a {
-  color: #333;
-}
-#container .fact-block article.fact header .body a:hover {
-  text-decoration: none;
-}
 #container .fact-block article.fact .channel-listing {
   padding: 0;
   border: 1px solid #9d9d9c;
   border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
+  background-color: #f7f7f7;
   z-index: 1000;
   display: none;
   box-shadow: 2px 2px 2px #ccc;
@@ -710,6 +701,7 @@ form .action-wrapper span {
 }
 #container .fact-block article.fact .actions {
   visibility: hidden;
+  margin-top: 2px;
   height: 18px;
 }
 #container .fact-block article.fact .actions li {
@@ -755,14 +747,10 @@ form .action-wrapper span {
 #container .fact-block .choices ul li.active a, #container .fact-block .choices ul li:hover a {
   display: inline-block;
 }
-#container .fact-block .choices ul li.active a span, #container .fact-block .choices ul li:hover a span {
-  color: #666363;
-}
 #container .fact-block .evidence-facts {
   padding: 5px 0 0 0;
   border-top: 1px solid #9d9d9c;
   text-align: center;
-  background: -webkit-gradient(linear, left top, left 25%, from(#f2f2f2), to(#ffffff));
 }
 #container .fact-block .evidence-facts .evidence-container {
   width: 510px;
@@ -774,7 +762,8 @@ form .action-wrapper span {
   border-top: 1px solid #9d9d9c;
 }
 #container .fact-block .evidence-facts .evidence {
-  height: 90px;
+  min-height: 40px;
+  max-height: 110px;
   overflow: auto;
 }
 #container .fact-block .evidence-facts .evidence article.fact {
@@ -787,7 +776,7 @@ form .action-wrapper span {
   padding: 0;
   border: 1px solid #9d9d9c;
   border-radius: 3px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#ffffff));
+  background-color: #f7f7f7;
   z-index: 1000;
   display: none;
   box-shadow: 2px 2px 2px #ccc;
