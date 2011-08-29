@@ -2,9 +2,9 @@ namespace :fact_graph do
   task :recalculate => :environment do
     STDOUT.flush
     while true
-      print "(#{Time.now.asctime}) recalculating FactGraph\n"
+      #print "(#{Time.now.asctime}) recalculating FactGraph\n"
       FactGraph.recalculate
-      print "(#{Time.now.asctime}) sleeping\n"
+      #print "(#{Time.now.asctime}) sleeping\n"
       sleep 0.5
     end
   end

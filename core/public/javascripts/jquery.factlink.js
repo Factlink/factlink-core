@@ -17,7 +17,7 @@
       var $t = $(this);
       this.each(function() {
         var $t = $(this);
-        $t.find(".evidence-facts a").click(function() { 
+        $t.find(".evidence-facts a.show-evidence").click(function() { 
   				if ($t.find(".evidence-container").is(":hidden")) {
   					$t.find(".evidence-container").slideDown();
   				} else {
