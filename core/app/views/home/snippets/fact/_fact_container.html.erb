@@ -1,24 +1,27 @@
-<li class="fact-block" data-fact-id="<%= fact.id %>">
+<div class="fact-block" data-fact-id="<%= fact.id %>">
 	<% if channel and user_signed_in? %>
 		<%= link_to(image_tag("client/close-button.png", :class => "close", "style" => "float: right"), remove_fact_from_channel_path(current_user, channel.id, fact.id), :confirm => "Are you sure you want to remove this fact from your channel?", :remote => true )%>
 	<% end %>
-		<%= fact_bubble(fact) %>
-		<div class="evidence-facts">
-			   <a href="#"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a>
-			<div class="evidence-container" style="display: none">
-  			<div class="evidence">
-  			  <% unless fact.fact_relations.count > 0 %>
-    			  <% if user_signed_in? %>
-        		  Perhaps you know something that supports or weakens this fact?
-          	<% else %>
-        		  There are no facts supporting or weakening this fact at the moment.
-        		<% end %>
-  			  <% else %>
-    			  <% fact.sorted_fact_relations.each do |evidence| %>
-      			  <%= fact_bubble(evidence.from_fact) %>
-      			<% end %>
-    			<%end %>
-  			</div>
-			<div class="add-action"><input type="button" value="Add Evidence"></div>
-		</div>
-</li>
+	<%= fact_bubble(fact) %>
+	<div class="evidence-facts">
+	  <a href="#"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a>
+		<div class="evidence-container" style="display: none">
+			<div class="evidence">
+			  <% unless fact.fact_relations.count > 0 %>
+  			  <% if user_signed_in? %>
+      		  Perhaps you know something that supports or weakens this fact?
+        	<% else %>
+      		  There are no facts supporting or weakening this fact at the moment.
+      		<% end %>
+			  <% else %>
+  			  <% fact.sorted_fact_relations.each do |evidence| %>
+    			  <%= fact_bubble(evidence.from_fact) %>
+    			<% end %>
+  			<% end %>
+			</div>
+  		<div class="add-action">
+  		  <input type="button" value="Add Evidence">
+  		</div>
+  	</div>
+	</div>
+</div>

@@ -16,7 +16,7 @@
 <!-- fact listing -->
 <ul id="fact-listing">
 	<% channel.facts.sort(:order => "DESC").each do |fact| %>
-		<%=	fact_snippet(fact, channel) %>
+		<li><%=	fact_snippet(fact, channel) %></li>
 	<% end %>
 </ul>
 <% end %>
