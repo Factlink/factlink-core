@@ -3,6 +3,28 @@
   padding: 0;
   border: solid 1px #bbb;
 }
+::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 2px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
+}
 .float {
   background-color: #f7f7f7;
   z-index: 1000;
@@ -19,6 +41,9 @@
   width: 510px;
   margin-bottom: 15px;
   font-size: 8pt;
+}
+.fact-block a {
+  color: #666363;
 }
 .fact-block img.close {
   margin: 5px;
@@ -94,6 +119,7 @@
 .fact-block .evidence-facts .add-action {
   height: 30px;
   padding: 5px;
+  line-height: 36px;
   border-top: 1px solid #E4E4E4;
   position: relative;
   z-index: 20;
@@ -108,8 +134,6 @@
   height: 36px;
 }
 .fact-block .evidence-facts .evidence-actions a {
-  font-size: 8pt;
-  color: #666363;
   line-height: 22px;
 }
 .fact-block .evidence-facts .evidence {
@@ -124,7 +148,7 @@
 .fact-block .evidence-facts .evidence article.fact {
   border-bottom: 1px solid #E4E4E4;
   padding: 10px 0 10px 15px;
-  width: 475px;
+  width: 490px;
   text-align: left;
 }
 .fact-block .evidence-facts .evidence article.fact:nth-child(even) {

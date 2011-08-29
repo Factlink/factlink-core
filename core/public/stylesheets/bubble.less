@@ -6,7 +6,28 @@
   padding: 0;
   border: solid 1px #bbb;
 }
-
+::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 2px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
+}
 .float { 
   background-color: @bg;
   z-index: 1000;
@@ -16,6 +37,9 @@
 }
 
 .fact-block { 
+  a { 
+    color: #666363;
+  }
   .boxed;
   background: url('/images/client/top-pane-gradient.png') top left repeat-x #F4F4F4;
   color: #BBB;
@@ -94,6 +118,7 @@
     .add-action {
       height: 30px;
       padding: 5px;
+      line-height: 36px;
       border-top: 1px solid #E4E4E4;
       position: relative;
       z-index: 20;
@@ -106,9 +131,7 @@
       padding: 6px 0 0;
       background: url('/images/client/filter-bar.png') repeat-x transparent;
       height: 36px;
-      a { 
-        font-size: 8pt;
-        color: #666363;
+      a {
         line-height: 22px;
       }
     }
@@ -126,7 +149,7 @@
         }
         border-bottom: 1px solid #E4E4E4;
         padding: 10px 0 10px 15px;    
-        width: 490 - 15px;  
+        width: 490px;  
         text-align: left;
       }
     }

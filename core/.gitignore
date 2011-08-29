@@ -5,3 +5,4 @@ log/*.log
 tmp/**/*
 solr/data/
 webrat.log
+.nide
