@@ -30,11 +30,34 @@
 .fact-block img.close {
   margin: 5px;
 }
+.fact-block .evidence-facts {
+  padding: 5px 0 0 0;
+  border-top: 1px solid #9d9d9c;
+  text-align: center;
+}
+.fact-block .evidence-facts .add-action {
+  text-align: center;
+  padding: 5px;
+  border-top: 1px solid #9d9d9c;
+}
+.fact-block .evidence-facts .evidence {
+  min-height: 40px;
+  max-height: 200px;
+  overflow: auto;
+}
+.fact-block .evidence-facts .evidence article.fact:nth-child(odd) {
+  background-color: #ffffff;
+}
+.fact-block .evidence-facts .evidence article.fact {
+  border-bottom: 1px solid #E4E4E4;
+  padding: 10px 0 10px 15px;
+  width: 475px;
+  text-align: left;
+}
 .fact-block article.fact {
-  margin: 10px 0 5px 10px;
+  padding: 10px 0 10px 5px;
   min-height: 63px;
   border: 1px solid transparent;
-  border-left: 1px dotted #f7f7f7;
   width: 490px;
   display: block;
 }
@@ -120,31 +143,6 @@
 }
 .fact-block .choices ul li.active a, .fact-block .choices ul li:hover a {
   display: inline-block;
-}
-.fact-block .evidence-facts {
-  padding: 5px 0 0 0;
-  border-top: 1px solid #9d9d9c;
-  text-align: center;
-}
-.fact-block .evidence-facts .evidence-container {
-  width: 510px;
-  margin-top: 5px;
-}
-.fact-block .evidence-facts .add-action {
-  text-align: center;
-  padding: 5px;
-  border-top: 1px solid #9d9d9c;
-}
-.fact-block .evidence-facts .evidence {
-  min-height: 40px;
-  max-height: 110px;
-  overflow: auto;
-}
-.fact-block .evidence-facts .evidence article.fact {
-  width: 460px;
-  margin-left: 20px;
-  text-align: left;
-  margin-bottom: 5px;
 }
 .fact-block .opinion-box {
   padding: 0;
