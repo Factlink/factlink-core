@@ -86,7 +86,7 @@ class User
   :confirmable,   # Require e-mail verification
   :registerable   # Allow registration
 
-  field :username
+  field :username,           :type => String
   field :twitter
   field :graph_user_id
   def graph_user
