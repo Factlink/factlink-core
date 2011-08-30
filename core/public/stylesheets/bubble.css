@@ -95,9 +95,9 @@
   text-align: center;
 }
 .fact-block .evidence-facts .add-action {
-  height: 30px;
+  height: 25px;
   padding: 5px;
-  line-height: 36px;
+  line-height: 30px;
   border-top: 1px solid #E4E4E4;
   position: relative;
   z-index: 20;
@@ -121,7 +121,7 @@
   overflow: auto;
 }
 .fact-block .evidence-facts .evidence .no-evidence, .fact-block .evidence-facts .potential-evidence .no-evidence {
-  height: 100px;
+  height: 150px;
   line-height: 78px;
 }
 .fact-block .evidence-facts .evidence article.fact, .fact-block .evidence-facts .potential-evidence article.fact {
@@ -134,7 +134,7 @@
   background-color: #f6f4f4;
 }
 .fact-block .evidence-facts .potential-evidence {
-  min-height: 100px;
+  min-height: 150px;
 }
 .fact-block .evidence-facts .potential-evidence .search {
   border-bottom: solid 1px #ddd;

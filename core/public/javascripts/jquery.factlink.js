@@ -16,10 +16,8 @@
     			});
     			
     			$t.find(".add-action a").bind("click", function() {
-    			  var evidence = $t.find(".evidence");
-    			  var potential = $t.find(".potential-evidence");
-    			  potential.toggle();
-    			  evidence.toggle();
+    			  $t.find(".evidence").toggle();
+    			  $t.find(".potential-evidence").toggle();
             if(evidence.is(":hidden")) { 
               $(this).text("Show evidence")
             } else { 
@@ -28,7 +26,7 @@
     			});
     			$t.data("initialized", true);
 			  }
-  			// Prevents boxes from dissapearing when mouse over
+  			// Prevents boxes from dissapearing on mouse over
     	  $t.find(".float-box").mouseover(
   				function() { 	    
   					$(this).stop(true, true).css({"opacity" : "1"}); 
@@ -56,7 +54,7 @@
         }
       })
     },
-    // Toggles channel
+    // Toggles channel TODO (should send object instead of 3 vars)
     to_channel : function ( user, channel, fact ) { 
     	$.ajax({
 				url: "/" + user + "/channels/toggle/fact",
