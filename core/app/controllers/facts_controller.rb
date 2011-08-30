@@ -21,7 +21,8 @@ class FactsController < ApplicationController
       :show,
       :edit,
       :destroy,
-      :update]
+      :update,
+      :bubble]
                                                         
   before_filter :potential_evidence, 
     :only => [
@@ -46,6 +47,11 @@ class FactsController < ApplicationController
   end
 
   def edit
+  end
+
+  def bubble
+    render :partial => "home/snippets/fact/fact_bubble", 
+	            :locals => {  :fact => @fact }
   end
 
   # Prepare for create

@@ -6,7 +6,7 @@
 	<div class="evidence-facts">
 	  <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
 		<div class="evidence-container" style="display: none">
-			<div class="evidence" style="display: none">
+			<div class="evidence">
 			  <% unless fact.fact_relations.count > 0 %>
 			    <div class="no-evidence">
   			  <% if user_signed_in? %>
@@ -21,7 +21,7 @@
     			<% end %>
   			<% end %>
 			</div>
-			<div class="potential-evidence">
+			<div class="potential-evidence" style="display: none">
 			    <%= fact_add_evidence(fact) %>
 			</div>
   		<div class="add-action">

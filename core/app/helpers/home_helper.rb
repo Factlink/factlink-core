@@ -16,9 +16,9 @@ module HomeHelper
 	            :locals => {  :fact => fact, :channel => channel }
   end
   
-  def fact_bubble(fact, channel=nil) 
+  def fact_bubble(fact) 
     render :partial => "home/snippets/fact/fact_bubble", 
-	            :locals => {  :fact => fact, :channel => channel }
+	            :locals => {  :fact => fact }
   end
   
   def fact_interacting_users(opinions)

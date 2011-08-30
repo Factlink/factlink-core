@@ -57,6 +57,9 @@ FactlinkUI::Application.routes.draw do
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   
+  # Get a fact bubble
+  get "/fact/:id" => "facts#bubble", :as => "fact"
+  
   ##########
   # Web Front-end
   root :to => "home#index"

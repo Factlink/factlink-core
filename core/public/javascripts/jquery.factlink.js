@@ -29,6 +29,19 @@
 			});
     },
     fact : function( fact ) { init_fact(fact) },
+    get : function( id ) {
+      $.ajax({
+        url: "/fact/" + parseInt(id),
+        dataType: "html",
+        type: "GET",
+        success: function(data) { 
+          
+        },
+        error: function(error) { 
+          console.log(error); // Not very secure, but better than just failing
+        }
+      })
+    },
     // TODO
     hide : function( ) { },
     update : function( content ) { },
