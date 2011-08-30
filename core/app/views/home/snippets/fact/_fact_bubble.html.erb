@@ -30,7 +30,7 @@
 		<sub>
 		   <%= time_ago_in_words(fact.created_at) %> ago by
 		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.user.authority})", user_profile_path(fact.created_by.user.username)) %>
-		   found on <a href="<%= fact.site.url %>" target="_blank"><%= fact.pretty_url %></a>
+		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
 		</sub>
 		<div class="actions">
 		<% if user_signed_in? %>				

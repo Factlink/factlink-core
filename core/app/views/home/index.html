@@ -22,11 +22,11 @@
 
 	<header class="append-bottom">
 		<h1>recent interesting facts</h1>
-		<sub style="display: inline-block;">See what's goin on around the globe. 
+		<!-- <sub style="display: inline-block;">See what's goin on around the globe. 
 			<% if user_signed_in? %>
 			You can create <%= link_to('channels', new_channel_path(current_user.username))%> with your own interest as well.
 			<% end %>
-			</sub>
+			</sub> -->
 	</header>
 
 	<%= fact_listing(@facts) %>

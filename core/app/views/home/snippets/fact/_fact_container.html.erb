@@ -6,7 +6,7 @@
 	<div class="evidence-facts">
 	  <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
 		<div class="evidence-container" style="display: none">
-			<div class="evidence">
+			<div class="evidence" style="display: none">
 			  <% unless fact.fact_relations.count > 0 %>
 			    <div class="no-evidence">
   			  <% if user_signed_in? %>
@@ -20,6 +20,9 @@
     			  <%= fact_bubble(evidence.from_fact) %>
     			<% end %>
   			<% end %>
+			</div>
+			<div class="potential-evidence">
+			    <%= fact_add_evidence(fact) %>
 			</div>
   		<div class="add-action">
         <a href"#">Add evidence</a>

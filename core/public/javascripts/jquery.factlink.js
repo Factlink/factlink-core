@@ -1,21 +1,9 @@
 (function($) {
-	$.fn.factlink = function(params) {
-	  // Public functions
-    this.to_channel = function(user, channel, fact) {
-			$.ajax({
-				url: "/" + user + "/channels/toggle/fact",
-				dataType: "script",
-				type: "POST",
-				data: {
-					channel_id: channel,
-					fact_id: fact
-				}
-			});
-		}
-    
-    this.init = function(params) {
-      var $t = $(this);
-      this.each(function() {
+  
+  var methods = {
+    // Initialize factbubble
+    init : function(options) {
+      return this.each(function() {
         var $t = $(this);
         $t.find(".evidence-facts a.show-evidence").click(function() { 
   				if ($t.find(".evidence-container").is(":hidden")) {
@@ -25,37 +13,72 @@
   				}
   				return false;
   			});
-  	  	
+  			
+  			// Prevents boxes from dissapearing when mouse over
+    	  $t.find(".float-box").mouseover(
+  				function() { 	    
+  					$(this).stop(true, true).css({"opacity" : "1"}); 
+  					}).mouseout(
+  				function() { 
+  					$(this).delay(500).fadeOut("fast"); 
+  			});
+        // For each fact bubble
   	    $t.find("article.fact").each(function() { 
-  	      var $t = $(this);
-      	  $t.opinions = create_opinions($t);
-      	  create_wheel($t, $t.opinions);  
-      	  $t.find("a.add-to-channel").hoverIntent(
-      	    function() {
-    					channelList = $t.find(".channel-listing");
-    					$(channelList).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 20 + "px"}).fadeIn("fast");
-    				},	
-    				function() {
-    				  $t.find(".channel-listing").delay(600).fadeOut("fast");				
-    				}
-      	  );
-      	  $t.find(".opinion-box").find("img").tipsy({gravity: 's'});  
-      	  
-      	  // Prevents boxes from dissapearing when mouse over
-      	  $t.find(".float-box").mouseover(
-    				function() { 	    
-    					$(this).stop(true, true).css({"opacity" : "1"}); 
-    					}).mouseout(
-    				function() { 
-    					$(this).delay(500).fadeOut("fast"); 
-    			});
+            init_fact(this);
   			});  
 			});
-    }
-    return this;   
+    },
+    fact : function( fact ) { init_fact(fact) },
+    // TODO
+    hide : function( ) { },
+    update : function( content ) { },
+    // Toggles channel
+    to_channel : function ( user, channel, fact ) { 
+    	$.ajax({
+				url: "/" + user + "/channels/toggle/fact",
+				dataType: "script",
+				type: "POST",
+				data: {
+				  user: user,
+					channel_id: channel,
+					fact_id: fact
+				}
+			});  
+    },
+    add_evidence : function ( evidence ) { },
+    set_opinion : function ( opinion ) { },
   };
-
+  
+	$.fn.factlink = function(method) {
+	   // Method calling logic
+      if ( methods[method] ) {
+        return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+      } else if ( typeof method === 'object' || ! method ) {
+        return methods.init.apply( this, arguments );
+      } else {
+        $.error( 'Method ' +  method + ' does not exist on jQuery.factlink' );
+      }    
+	}
   // Private functions
+  function init_fact(fact) {
+    var $t = $(fact);
+    if(!$t.data("initialized")) {
+  	  $t.opinions = create_opinions($t);
+  	  create_wheel($t, $t.opinions);  
+  	  $t.find("a.add-to-channel").hoverIntent(
+  	    function() {
+  				channelList = $t.find(".channel-listing");
+  				$(channelList).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 20 + "px"}).fadeIn("fast");
+  			},	
+  			function() {
+  			  $t.find(".channel-listing").delay(600).fadeOut("fast");				
+  			}
+  	  );
+  	  $t.find(".opinion-box").find("img").tipsy({gravity: 's'});
+  	  $t.data("initialized", true);
+    }
+  }
+  
   function set_opinion(fact, opinion) { 
     if(!is_user_opinion(fact, opinion)) {
       $.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + opinion,

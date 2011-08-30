@@ -11,9 +11,9 @@ class HomeController < ApplicationController
     # Activity.all.sort(:order => "DESC")[0..10]
     
     @activities = []
-    Activity.all.map { |activity| @activities << activity unless activity.user.nil? }
+    #Activity.all.map { |activity| @activities << activity unless activity.user.nil? }
     
-    @activities = @activities[0..0].reverse
+    #@activities = @activities[0..0].reverse
   end
   
   # Search

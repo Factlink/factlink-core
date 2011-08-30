@@ -31,6 +31,11 @@ module HomeHelper
               :locals => { :fact => fact }
   end
   
+  def fact_add_evidence(fact)
+    render :partial => "home/snippets/fact/add_evidence",
+            :locals => { :fact => fact }
+  end
+  
   def fact_search
     render :partial => "home/snippets/fact_search"
   end

@@ -1,7 +1,11 @@
 module ChannelsHelper
   
   def fork_label(channel)
+    if channel.created_by == current_user.graph_user
+      return ""
+    else
       return "add to my channels"
+    end
   end
 
   def channel_listing_for_user(channels, user)

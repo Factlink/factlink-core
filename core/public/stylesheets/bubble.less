@@ -6,28 +6,6 @@
   padding: 0;
   border: solid 1px #bbb;
 }
-::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 2px;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:vertical {
-  height: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  width: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
 .float { 
   background-color: @bg;
   z-index: 1000;
@@ -135,7 +113,7 @@
         line-height: 22px;
       }
     }
-    .evidence {
+    .evidence, .potential-evidence {
       min-height: 80px; 
       max-height: 200px;
       background-color: #FBFAFA;
@@ -152,6 +130,29 @@
         width: 490px;  
         text-align: left;
       }
+    }
+    .potential-evidence { 
+      min-height: 150px;
+      .search {
+    		border-bottom: solid 1px #ddd;
+    		padding: 3px 12px;
+    		background: rgb(251, 250, 250);
+
+    		input[type="text"] {
+    		  padding: 0 !important;
+    		  font-size: 8pt;
+    			border-radius: 3px;
+    			border: solid 1px #ccc;
+    			width: 360px; height: 18px;
+    			&:active, &:focus {
+    			  outline: solid 1px @dark-blue;
+    			}
+    		}
+    		input[type="submit"] {
+    		  vertical-align: middle;
+    			width: 64px;
+    		}			
+    	}
     }
   }
   .authority { 
@@ -197,4 +198,26 @@
       background: @grey;
     }
   }
+}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
+}
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 2px;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  width: 50px;
+  background-color: #888;
+  -webkit-border-radius: 3px;
 }
