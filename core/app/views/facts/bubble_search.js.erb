@@ -1,0 +1,13 @@
+$("div.fact-block[data-fact-id=<%=@fact.id%>] .search-list").empty();
+
+<% unless @facts.count > 0 %>
+	// No results found
+	$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %>");
+	
+<% else %>
+	// Show results
+	<% @facts.each do |evidence| %>
+		$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'home/snippets/fact/fact_bubble', :locals => { :fact => evidence } )) %>");
+	<% end %>
+	$('div.fact-block[data-fact-id=<%=@fact.id%>]').factlink();
+<% end %>

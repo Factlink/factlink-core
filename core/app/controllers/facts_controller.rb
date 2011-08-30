@@ -238,8 +238,8 @@ class FactsController < ApplicationController
       format.js
     end
   end
-
-  # Search in the client popup.
+    
+  # Search in the client popup.  
   def client_search
     # Need fact for rendering in the template
     @fact = Fact[params[:fact_id].to_i]
@@ -282,6 +282,8 @@ class FactsController < ApplicationController
       format.js
     end
   end
+  
+  alias_method :bubble_search, :client_search
 
   def indication
     respond_to do |format|

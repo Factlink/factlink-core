@@ -5,15 +5,29 @@
     init : function(options) {
       return this.each(function() {
         var $t = $(this);
-        $t.find(".evidence-facts a.show-evidence").click(function() { 
-  				if ($t.find(".evidence-container").is(":hidden")) {
-  					$t.find(".evidence-container").slideDown();
-  				} else {
-  					$t.find(".evidence-container").slideUp();
-  				}
-  				return false;
-  			});
-  			
+        if(!$t.data("initialized")) {
+          $t.find(".evidence-facts a.show-evidence").live("click", function() { 
+    				if ($t.find(".evidence-container").is(":hidden")) {
+    					$t.find(".evidence-container").slideDown();
+    				} else {
+    					$t.find(".evidence-container").slideUp();
+    				}
+    				return false;
+    			});
+    			
+    			$t.find(".add-action a").bind("click", function() {
+    			  var evidence = $t.find(".evidence");
+    			  var potential = $t.find(".potential-evidence");
+    			  potential.toggle();
+    			  evidence.toggle();
+            if(evidence.is(":hidden")) { 
+              $(this).text("Show evidence")
+            } else { 
+              $(this).text("Add evidence");
+            }
+    			});
+    			$t.data("initialized", true);
+			  }
   			// Prevents boxes from dissapearing when mouse over
     	  $t.find(".float-box").mouseover(
   				function() { 	    
@@ -42,9 +56,6 @@
         }
       })
     },
-    // TODO
-    hide : function( ) { },
-    update : function( content ) { },
     // Toggles channel
     to_channel : function ( user, channel, fact ) { 
     	$.ajax({
@@ -58,6 +69,9 @@
 				}
 			});  
     },
+    // TODO
+    destroy : function( ) { },
+    update : function( content ) { },
     add_evidence : function ( evidence ) { },
     set_opinion : function ( opinion ) { },
   };
@@ -166,16 +180,16 @@
       // bind events
       z.mouseover(function(){ 
         if(!is_user_opinion(fact, opinion)) {
-          this.animate({ 'stroke-width': 11, opacity: .6 }, 1000, 'elastic');
+          this.animate({ 'stroke-width': 11, opacity: .6 }, 200, '<>');
         } else {
-          this.animate({ 'stroke-width': 11 }, 1000, 'elastic');    
+          this.animate({ 'stroke-width': 11 }, 200, '<>');    
         }
       }).
         mouseout(function(){ 
           if(!is_user_opinion(fact, opinion)) { 
-            this.stop().animate({ 'stroke-width': 9, opacity: 0.2 }, 1000, 'elastic') 
+            this.stop().animate({ 'stroke-width': 9, opacity: 0.2 }, 200, '<>') 
           } else {
-              this.animate({ 'stroke-width': 9 }, 1000, 'elastic');    
+              this.animate({ 'stroke-width': 9 }, 200, '<>');    
           }
       }).click(function() { set_opinion(fact, opinion); });      
       $(z.node)

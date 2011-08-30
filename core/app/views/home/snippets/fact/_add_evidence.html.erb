@@ -1,8 +1,11 @@
 <div class="search">
-  <%= form_for("search", :url => client_search_path, :remote => "true" ) do |f| %>
+  <%= form_for("search", :url => bubble_search_path, :remote => "true" ) do |f| %>
     <input type="text" class="client_search" name="s" placeholder="Search for facts.." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
     <input type="hidden" name="fact_id" value="<%= fact.id %>">
     <input type="submit" value="Search">
     or <a href="">browse for evidence</a>
   <% end %>  
+</div>
+<div class="search-list">
+
 </div>

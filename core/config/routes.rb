@@ -22,6 +22,8 @@ FactlinkUI::Application.routes.draw do
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
   
   match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
+  match "/bubble_search(/page/:page)(/:sort/:direction)" => "facts#bubble_search", :as => "bubble_search"
+  
   
   ##########
   # Javascript Client calls
@@ -57,8 +59,11 @@ FactlinkUI::Application.routes.draw do
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   
-  # Get a fact bubble
+  # Fact bubble
+  get "/fact/:id/potential_evidence" => "facts#potential_evidence", :as => "fact"
   get "/fact/:id" => "facts#bubble", :as => "fact"
+  delete "/fact/:id" => "facts#destroy", :as => "fact"
+  
   
   ##########
   # Web Front-end

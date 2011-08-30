@@ -16,9 +16,13 @@
       		<% end %>
       		</div>
 			  <% else %>
-  			  <% fact.sorted_fact_relations.each do |evidence| %>
-    			  <%= fact_bubble(evidence.from_fact) %>
-    			<% end %>
+			  <table class="evidence-list">
+			    <tbody>
+    			  <% fact.sorted_fact_relations.each do |evidence| %>
+      			  <tr><td><%= fact_bubble(evidence.from_fact) %></tr></td>
+      			<% end %>
+          </tbody>
+    		</table>
   			<% end %>
 			</div>
 			<div class="potential-evidence" style="display: none">
