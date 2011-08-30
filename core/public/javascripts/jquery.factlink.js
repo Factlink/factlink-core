@@ -18,7 +18,7 @@
     			$t.find(".add-action a").bind("click", function() {
     			  $t.find(".evidence").toggle();
     			  $t.find(".potential-evidence").toggle();
-            if(evidence.is(":hidden")) { 
+            if($t.find(".evidence").is(":hidden")) { 
               $(this).text("Show evidence")
             } else { 
               $(this).text("Add evidence");
