@@ -33,6 +33,7 @@ class HomeController < ApplicationController
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
         end
+        
         solr_result2 = User.search() do
 
           keywords params[:s], :fields => [:username]

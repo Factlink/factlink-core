@@ -1,36 +1,40 @@
 <div class="fact-block" data-fact-id="<%= fact.id %>">
-	<% if channel and user_signed_in? %>
-		<%= link_to(image_tag("client/close-button.png", :class => "close", "style" => "float: right"), remove_fact_from_channel_path(current_user, channel.id, fact.id), :confirm => "Are you sure you want to remove this fact from your channel?", :remote => true )%>
-	<% end %>
-	<%= fact_bubble(fact) %>
-	<div class="evidence-facts">
-	  <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
-		<div class="evidence-container" style="display: none">
-			<div class="evidence">
-			  <% unless fact.fact_relations.count > 0 %>
-			    <div class="no-evidence">
-  			  <% if user_signed_in? %>
-      		  Perhaps you know something that supports or weakens this fact?
-        	<% else %>
-      		  There are no facts supporting or weakening this fact at the moment.
-      		<% end %>
-      		</div>
-			  <% else %>
-			  <table class="evidence-list">
-			    <tbody>
-    			  <% fact.sorted_fact_relations.each do |evidence| %>
-      			  <tr><td><%= fact_bubble(evidence.from_fact) %></tr></td>
-      			<% end %>
-          </tbody>
-    		</table>
-  			<% end %>
-			</div>
-			<div class="potential-evidence" style="display: none">
-			    <%= fact_add_evidence(fact) %>
-			</div>
-  		<div class="add-action">
-        <a href"#">Add evidence</a>
-  		</div>
-  	</div>
-	</div>
+    <% if channel and user_signed_in? %>
+    <%= link_to(
+                image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
+                remove_fact_from_channel_path(current_user, channel.id, fact.id),
+                :confirm => "Are you sure you want to remove this fact from your channel?", :remote => true
+    )%>
+    <% end %>
+    <%= fact_bubble(fact) %>
+    <div class="evidence-facts">
+        <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
+        <div class="evidence-container" style="display: none">
+            <div class="evidence">
+                <% unless fact.fact_relations.count > 0 %>
+                  <div class="no-evidence">
+                      <% if user_signed_in? %>
+                          Perhaps you know something that supports or weakens this fact?
+                      <% else %>
+                          There are no facts supporting or weakening this fact at the moment.
+                      <% end %>
+                  </div>
+                <% else %>
+                    <table class="evidence-list">
+                        <tbody>
+                            <% fact.sorted_fact_relations.each do |evidence| %>
+                                <tr><td><%= evidence_fact_bubble(evidence) %></tr></td>
+                            <% end %>
+                        </tbody>
+                    </table>
+                <% end %>
+            </div>
+            <div class="potential-evidence" style="display: none">
+                <%= fact_add_evidence(fact) %>
+            </div>
+            <div class="add-action">
+                <a href"#">Add evidence</a>
+            </div>
+        </div>
+    </div>
 </div>

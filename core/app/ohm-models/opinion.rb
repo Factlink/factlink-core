@@ -108,7 +108,7 @@ class Opinion < OurOhm
 
   
   def as_percentages
-
+    return @percentage_hash if @percentage_hash
     op = self
     total = op.b + op.d + op.u
 
@@ -116,7 +116,7 @@ class Opinion < OurOhm
     l_disbelieve_percentage = calc_percentage(total, op.d).round.to_i
     l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
 
-    return {
+    @percentage_hash = {
       :believe => {
         :percentage => l_believe_percentage
       },

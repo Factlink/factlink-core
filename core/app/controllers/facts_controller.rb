@@ -1,5 +1,6 @@
 class FactsController < ApplicationController
 
+
   layout "client"
   
   helper_method :sort_column, :sort_direction
@@ -28,6 +29,11 @@ class FactsController < ApplicationController
     :only => [
       :show,
       :edit]
+
+  before_filter :choose_fact_bubble
+  def choose_fact_bubble
+    @use_new_fact_bubble = false
+  end
 
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,

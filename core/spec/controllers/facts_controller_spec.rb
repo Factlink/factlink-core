@@ -11,10 +11,7 @@ describe FactsController do
   def create_fact_relation
     @fact     = FactoryGirl.create(:fact)
     @evidence = FactoryGirl.create(:fact)
-    @fr       = FactoryGirl.create(:fact_relation)
-    # Set the relation
-    @fr.from_fact = @fact
-    @fr.fact = @evidence
+    @fr       = @fact.add_evidence(:supporting, @evidence,@user)
   end
 
   describe :store_fact_for_non_signed_in_user do
@@ -132,95 +129,39 @@ describe FactsController do
     it "should work"
   end
 
-  describe :toggle_opinion_on_fact do
-    it "should not respond to non-allowed types" do
-      authenticate_user!
-      create_fact_relation
-
-      get "toggle_opinion_on_fact", { :fact_relation_id => @fr.id, :type => "baron_is_not_allowed" }
-      parsed_content = JSON.parse(response.body)
-      parsed_content.should have_key("error")
-      parsed_content['error'].should == "type not allowed"
-    end
-
-    it "should respond to allowed types" do
-      authenticate_user!
-      create_fact_relation
-
-      # Check for all available types
-      [:beliefs, :doubts, :disbeliefs].each do |type|
-        xhr :get, "toggle_opinion_on_fact", { :fact_relation_id => @fr.id, :type => type }
-        response.code.should eq("200")
-      end
-    end
-
+  describe :search do
+   pending "should return relevant results when a search parameter is given" do      
+     result_set = (
+       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+     )
+     
+     sunspot_search = mock(Sunspot::Search::StandardSearch)
+     sunspot_search.stub!(:results).and_return { result_set }
+     
+     FactData.should_receive(:search).and_return(sunspot_search)
+     
+     post "search", :s => "1"
+     assigns(:factlinks).should == result_set
+   end
+   
+   pending "should return all results when no search parameter is given" do
+     result_set = (
+       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+     )
+     
+     mock_criteria = mock(Mongoid::Criteria)
+  
+     mock_criteria.stub!(:skip).and_return { mock_criteria }
+     mock_criteria.stub!(:limit).and_return { mock_criteria }
+  
+     mock_criteria.stub!(:to_a).and_return { result_set }
+     
+     FactData.should_receive(:all).and_return(mock_criteria)
+     
+     post "search"
+     assigns(:factlinks).should == result_set
+   end
   end
-
-  describe :toggle_relevance_on_fact_relation do
-    it "should not respond to non-allowed types" do
-      authenticate_user!
-      create_fact_relation
-
-      get "toggle_relevance_on_fact_relation", { :fact_relation_id => @fr.id, :type => "baron_is_not_allowed" }
-      parsed_content = JSON.parse(response.body)
-      parsed_content.should have_key("error")
-      parsed_content['error'].should == "type not allowed"
-    end
-    
-    it "should respond to allowed types" do
-      authenticate_user!
-      create_fact_relation
-
-      # Check for all available types
-      [:beliefs, :doubts, :disbeliefs].each do |type|
-        xhr :get, "toggle_opinion_on_fact", { :fact_relation_id => @fr.id, :type => type }
-        response.code.should eq("200")
-      end
-    end
-    
-    it "should have the FactRelation assigned" do
-      authenticate_user!
-      create_fact_relation
-
-      xhr :get, "toggle_relevance_on_fact_relation", { :fact_relation_id => @fr.id, :type => "beliefs" }
-      assigns[:fact_relation].should == @fr
-    end
-  end
-
-
-  # describe :search do
-  #   it "should return relevant results when a search parameter is given" do      
-  #     result_set = (
-  #       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
-  #     )
-  #     
-  #     sunspot_search = mock(Sunspot::Search::StandardSearch)
-  #     sunspot_search.stub!(:results).and_return { result_set }
-  #     
-  #     FactData.should_receive(:search).and_return(sunspot_search)
-  #     
-  #     post "search", :s => "1"
-  #     assigns(:factlinks).should == result_set
-  #   end
-  #   
-  #   it "should return all results when no search parameter is given" do
-  #     result_set = (
-  #       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
-  #     )
-  #     
-  #     mock_criteria = mock(Mongoid::Criteria)
-  # 
-  #     mock_criteria.stub!(:skip).and_return { mock_criteria }
-  #     mock_criteria.stub!(:limit).and_return { mock_criteria }
-  # 
-  #     mock_criteria.stub!(:to_a).and_return { result_set }
-  #     
-  #     FactData.should_receive(:all).and_return(mock_criteria)
-  #     
-  #     post "search"
-  #     assigns(:factlinks).should == result_set
-  #   end
-  # end
 
   describe :indication do
     it "should respond to XHR request" do

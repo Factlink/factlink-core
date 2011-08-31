@@ -74,11 +74,12 @@ class Fact < Basefact
     self.site.url
   end
   # Return a nice looking url, only subdomain + domain + top level domain
-  def pretty_url
+  def pretty_url #TODO move to helper function, has no place in the model
     self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
   reference :data, lambda { |id| FactData.find(id) }
+  
   def require_data # dit ook doen met zo'n aftercreategebeuren    
     if not self.data_id
       localdata = FactData.new
@@ -93,7 +94,12 @@ class Fact < Basefact
     end
   end
   
-  after :save, :require_data
+  def require_saved_data
+    self.require_data
+    data.save
+    return data
+  end
+  after :save, :require_saved_data
 
 
   set :supporting_facts, FactRelation

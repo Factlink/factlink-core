@@ -29,7 +29,7 @@ class FactData
   end
 
   def fact
-    Fact[fact_id]
+    @fact ||= Fact[fact_id]
   end
   
 end

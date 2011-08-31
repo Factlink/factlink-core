@@ -7,7 +7,7 @@ $("div.fact-block[data-fact-id=<%=@fact.id%>] .search-list").empty();
 <% else %>
 	// Show results (TODO use detach and reattach to prevent access DOM manipulations)
 	<% @facts.each do |evidence| %>
-		$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'home/snippets/fact/fact_bubble', :locals => { :fact => evidence } )) %>");
+		$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'home/snippets/fact/fact_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %>");
 	<% end %>
 	$('div.fact-block[data-fact-id=<%=@fact.id%>]').factlink();
 <% end %>

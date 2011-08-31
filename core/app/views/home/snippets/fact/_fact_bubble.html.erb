@@ -1,4 +1,8 @@
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
+	<% if defined?(fact_relation) and fact_relation %>
+    <%= fact_relation.type.to_s %>
+  <% end %>
+
   <div class="wheel">
 	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
 	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
@@ -32,16 +36,25 @@
 		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.user.authority})", user_profile_path(fact.created_by.user.username)) %>
 		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
 		</sub>
-		<div class="actions">
+		
 		<% if user_signed_in? %>				
-		<ul>
-			<li><a href="#" class="add-to-channel"><%= image_tag("bookmark.gif") %>Channels</a></li>
-			<% if user_signed_in? && fact.created_by == current_user.graph_user %>
-			<li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
-			<% end %>			
-		</ul>	
-		</div>
-		<%= fact_channel_listing(fact) %>
+		  <div class="actions">
+		    <ul>
+			    <li><a href="#" class="add-to-channel"><%= image_tag("bookmark.gif") %>Channels</a></li>
+			    <% if fact.created_by == current_user.graph_user %>
+			      <li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
+			    <% end %>			
+		    </ul>	
+		  </div>
+		  <%= fact_channel_listing(fact) %>
+
+		  <% if defined?(add_to_fact) and add_to_fact %>
+		    <div style="float:right; display:block;">
+			    <%= link_to('add as supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%>
+			    <%= link_to('add as weakening',	 add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true )%>
+		    </div>
+      <% end %>
 	  <% end %>				
+
 	</header>
 </article>

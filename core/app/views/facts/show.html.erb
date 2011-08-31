@@ -1,3 +1,17 @@
+<% if @use_new_fact_bubble %>
+
+  <%= fact_snippet(@fact) %> 
+  <% content_for(:javascript) do %> 
+    <script src="/javascripts/jquery.hoverIntent.minified.js"></script> 
+    <script src="/javascripts/raphael-min.js"></script> 
+    <script src="/javascripts/jquery.tipsy.js"></script> 
+    <script src="/javascripts/jquery.factlink.js"></script> 
+    <script> 
+      $('.fact-block').factlink().init(); 
+    </script> 
+  <% end %>
+
+<% else %>
 <!-- Extra javascript for the filtering of believers/doubter/disbelievers on a certain fact. -->
 <% content_for :javascript do %>
 <%= render :partial => 'facts/javascript/filter_interacting_users' %>
@@ -257,3 +271,5 @@
 		<sub>credibility provided by Factlink</sub>
 	</div>
 </div>
+
+<%end%>

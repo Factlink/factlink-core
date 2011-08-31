@@ -91,10 +91,11 @@ class User
   field :twitter
   field :graph_user_id
   def graph_user
-    return GraphUser[graph_user_id]
+    @graph_user ||= GraphUser[graph_user_id]
   end
 
   def graph_user=(guser)
+    @graph_user = nil
     self.graph_user_id = guser.id
   end
 

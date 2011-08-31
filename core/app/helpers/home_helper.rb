@@ -1,44 +1,12 @@
 module HomeHelper
   
 
-  def fact_listing(facts)
-    render :partial => "home/snippets/fact_listing", 
-                :locals => {  :facts => facts }
-  end
   
   def fact_listing_for_channel(channel)
     render :partial => "home/snippets/fact_listing_for_channel", 
                 :locals => {  :channel => channel }
   end
 
-  def fact_snippet(fact,channel=nil)
-    render :partial => "home/snippets/fact/fact_container", 
-	            :locals => {  :fact => fact, :channel => channel }
-  end
-  
-  def fact_bubble(fact) 
-    render :partial => "home/snippets/fact/fact_bubble", 
-	            :locals => {  :fact => fact }
-  end
-  
-  def fact_interacting_users(opinions)
-    render :partial => "home/snippets/fact/users_popup",
-              :locals => {:opinion => opinions.to_a }
-  end
-  
-  def fact_channel_listing(fact)
-    render :partial => "home/snippets/fact/channel_listing",
-              :locals => { :fact => fact }
-  end
-  
-  def fact_add_evidence(fact)
-    render :partial => "home/snippets/fact/add_evidence",
-            :locals => { :fact => fact }
-  end
-  
-  def fact_search
-    render :partial => "home/snippets/fact_search"
-  end
   
   def user_block(user)
     render :partial => "home/snippets/user_li",
