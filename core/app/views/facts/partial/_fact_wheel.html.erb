@@ -1,0 +1,41 @@
+<div class="wheel">
+  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
+  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
+	<div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:doubt][:percentage] %>" data-opinion="doubts" data-color="#36A9E1"></div>
+
+  <% if fact_relation %>
+    <div class="relevance_opinion" data-value="<%= fact_relation.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="relevant" data-color="#95C11F"></div>
+	  <div class="relevance_opinion" data-value="<%= fact_relation.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="irrelevant" data-color="#E94E1B"></div>
+  <% end %>
+
+	<div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <%= fact.get_opinion.authority %> </div>		
+</div>
+
+<div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
+  <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
+  <%= fact_interacting_users(fact.people_beliefs) %>
+</div>
+<div class="doubts-box opinion-box float-box">
+  <span class="opinion-type">doubt</span>
+  <span class="percentage"><%= fact.get_opinion.as_percentages[:doubt][:percentage] %>%</span> 
+  <%= fact_interacting_users(fact.people_doubts) %>
+</div>
+
+<div class="disbeliefs-box opinion-box float-box"> 
+	<span class="opinion-type">disbelieve</span><br> 
+	<span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
+	<%= fact_interacting_users(fact.people_disbeliefs) %>
+</div>
+
+<% if fact_relation %>
+  <div class="relevant-box opinion-box float-box"> 
+	  <span class="opinion-type">relevant</span><br> 
+	  <span class="percentage"><%= fact_relation.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
+	  <%= fact_interacting_users(fact_relation.people_beliefs) %>
+  </div>
+  <div class="irrelevant-box opinion-box float-box"> 
+	  <span class="opinion-type">irrelevant</span><br> 
+	  <span class="percentage"><%= fact_relation.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
+	  <%= fact_interacting_users(fact_relation.people_disbeliefs) %>
+  </div>
+<% end %>

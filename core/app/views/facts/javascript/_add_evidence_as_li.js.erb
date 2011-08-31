@@ -1,25 +1,33 @@
-var no_fact_message = $("#fl-no-evidence");
+var no_fact_message = $(".no-evidence");
 if (no_fact_message.length > 0) {
 	no_fact_message.remove();
+	$('div.evidence').append("<table class='evidence-list'><tbody></tbody></table>");
 }
 
 <% if @use_new_fact_bubble %>
-
-$('table#evidence-list > tbody')
+debugger;
+$('table.evidence-list > tbody')
     .append("<%= escape_javascript(render(:partial => 'facts/partial/source_bubble_tr', :locals => { :fact_relation => fact_relation } )) %>")
     .scrollTo('max', {
         axis: "y",
         duration: 500,
         onAfter: function() {
-            //var $li = $( this ).find('>li:last');
+            var $li = $( this ).find('>tr:last');
             
-            //$li.css('backgroundColor','#FEF8DE');
+            $li.css('backgroundColor','#FEF8DE');
             
-            //setTimeout(function() {
-            //    $li.css('backgroundColor', '');
-            //}, 1000);
+            setTimeout(function() {
+                $li.css('backgroundColor', '');
+            }, 1000);
         }
     });
+
+		$(".evidence").toggle();
+		$(".potential-evidence").toggle();
+
+		$(".add-action.do-add").toggle();
+		$(".add-action.do-show").toggle();
+
 
 <% else %>
 $('div#fl-evidence > div#fl-sources > ol')

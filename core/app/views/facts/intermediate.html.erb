@@ -140,7 +140,7 @@
       debugger;
       var script = document.createElement("script");
       
-      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
+      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
       script.type="text/javascript";
       
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);

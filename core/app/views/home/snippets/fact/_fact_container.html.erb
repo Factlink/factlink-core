@@ -32,9 +32,12 @@
             <div class="potential-evidence" style="display: none">
                 <%= fact_add_evidence(fact) %>
             </div>
-            <div class="add-action">
-                <a href"#">Add evidence</a>
+            <div class="add-action do-adds">
+                <a href"#" id="toggle-show-add">Add evidence</a>
                 <a onclick="parent.openNewProxyWindow();">Add <strong>new</strong> fact</a>
+            </div>
+            <div class="add-action do-show" style="display:none;">
+                <a href"#" id="toggle-show-add">Show evidence</a>
             </div>
         </div>
     </div>
