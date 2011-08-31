@@ -5,7 +5,6 @@ if (no_fact_message.length > 0) {
 }
 
 <% if @use_new_fact_bubble %>
-debugger;
 $('table.evidence-list > tbody')
     .append("<%= escape_javascript(render(:partial => 'facts/partial/source_bubble_tr', :locals => { :fact_relation => fact_relation } )) %>")
     .scrollTo('max', {

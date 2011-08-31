@@ -67,7 +67,6 @@
 						addEvidence(type);
 					},
 					createNewEvidence: function( fact, passage, url, type, title) {
-					    debugger;
   					  prepareFactlink(fact, passage, url,title);
 				      addEvidence(type);
 					},
@@ -137,7 +136,6 @@
     
     function submitNewEvidenceToShowFrame(type, fact, passage, url, title) {
       var fact_id = showFrame.contentWindow.fact_id;
-      debugger;
       var script = document.createElement("script");
       
       script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;

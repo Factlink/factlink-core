@@ -10,6 +10,9 @@
   box-shadow: 2px 2px 2px #ccc;
   position: absolute;
 }
+body.factlink-site .fact-block {
+  margin-bottom: 15px;
+}
 .fact-block {
   padding: 0;
   border: solid 1px #bbb;
