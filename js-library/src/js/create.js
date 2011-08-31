@@ -27,15 +27,16 @@
 		}
 	});
 
-	Factlink.addSelection = function(){
+	Factlink.addSelection = function(elem){
 		var selInfo = Factlink.getSelectionInfo();
+		debugger;
 		if (FactlinkConfig.modus === "default") {
 			Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href,selInfo.title);
 		} else {
 			if ( Factlink.prepare.factId ) {
-				Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, this.id, selInfo.title);
+				Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, elem.currentTarget.id, selInfo.title);
 			} else {
-				Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, this.id, selInfo.title);
+				Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, elem.currentTarget.id, selInfo.title);
 			}
 		}
 	}
@@ -48,7 +49,7 @@
 		})
 		.bind('click', function( e ) {
 			e.preventDefault();
-			Factlink.addSelection()
+			Factlink.addSelection(e)
 			$element.hide();
 		});
 	}
