@@ -101,6 +101,12 @@ module FactsHelper
               :locals => { :fact => fact }
   end
 
+  def fact_wheel(fact, fact_relation = nil)
+    render :partial => "facts/partial/fact_wheel",
+              :locals => { :fact => fact ,
+                           :fact_relation => fact_relation }
+  end
+
 
   def fact_listing(facts)
     render :partial => "home/snippets/fact_listing", 
@@ -115,13 +121,15 @@ module FactsHelper
   def fact_bubble(fact,add_to_fact=nil) 
     render :partial => "home/snippets/fact/fact_bubble", 
 	            :locals => {  :fact => fact,
-	                          :add_to_fact => add_to_fact }
+	                          :add_to_fact => add_to_fact,
+	                          :fact_relation => nil }
   end
 
   def evidence_fact_bubble(evidence) 
     render :partial => "home/snippets/fact/fact_bubble", 
 	            :locals => {  :fact => evidence.from_fact,
-	                          :fact_relation => evidence }
+	                          :fact_relation => evidence,
+	                          :add_to_fact => nil }
   end
   
   def fact_interacting_users(opinions)

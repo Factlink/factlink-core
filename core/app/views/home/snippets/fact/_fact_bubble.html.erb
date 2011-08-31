@@ -1,28 +1,14 @@
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <%= fact_relation.type.to_s %>
+    <%= fact_wheel(fact, fact_relation)%>
+  <% else %>
+    <%= fact_wheel(fact)%>
   <% end %>
 
-  <div class="wheel">
-	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
-	  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
-  	<div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:doubt][:percentage] %>" data-opinion="doubts" data-color="#36A9E1"></div>
-  	<div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <%= fact.get_opinion.authority %> </div>		
-  </div>
-  <div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
-    <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
-    <%= fact_interacting_users(fact.people_beliefs) %>
-	</div> 
-	<div class="doubts-box opinion-box float-box">
-	  <span class="opinion-type">doubt</span>
-	  <span class="percentage"><%= fact.get_opinion.as_percentages[:doubt][:percentage] %>%</span> 
-    <%= fact_interacting_users(fact.people_doubts) %>
-	</div>		
-	<div class="disbeliefs-box opinion-box float-box"> 
-		<span class="opinion-type">disbelieve</span><br> 
-		<span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
-		<%= fact_interacting_users(fact.people_disbeliefs) %>
-	</div>
+
+  
+	
 	<header>
 	  <% if fact.site.title %>
 		  <span class="head"><%= fact.site.title %></span><br>

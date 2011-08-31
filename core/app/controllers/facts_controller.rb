@@ -32,7 +32,7 @@ class FactsController < ApplicationController
 
   before_filter :choose_fact_bubble
   def choose_fact_bubble
-    @use_new_fact_bubble = false
+    @use_new_fact_bubble = true
   end
 
   # Check if the user is signed in before adding a Fact.

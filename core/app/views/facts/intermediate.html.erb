@@ -67,13 +67,13 @@
 						addEvidence(type);
 					},
 					createNewEvidence: function( fact, passage, url, type, title) {
-				      alert(" 2 ==> " + title);
-					  prepareFactlink(fact, passage, url,title);
+					    debugger;
+  					  prepareFactlink(fact, passage, url,title);
 				      addEvidence(type);
 					},
 					createFactlink: function( fact, passage, url, title) {
 				        prepareFactlink(fact, passage, url,title);
-						createFactlink();
+						    createFactlink();
 					},
 					showFactlink: function(id) {
 					    // Set the source of the iframe
@@ -93,9 +93,7 @@
 				}
 			});
 			
-		// Create the Factlink
 		function createFactlink() {
-		  // Submit the form
 			form.submit();
 		}
 		
@@ -119,17 +117,16 @@
             top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
 		  } else {
 		     var fact = document.getElementById("fact").value;
-			 var passage = document.getElementById("passage").value;
-			 var url = document.getElementById("url").value;
-			 var title = document.getElementById("title").value;
+			   var passage = document.getElementById("passage").value;
+			   var url = document.getElementById("url").value;
+			   var title = document.getElementById("title").value;
 
-			 top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url,title);
+  			 top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url,title);
 		  }
 		}
 		
     function submitEvidenceToShowFrame(type, evidence_id) {
       var fact_id = showFrame.contentWindow.fact_id;
-      
       var script = document.createElement("script");
       
       script.src="<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
@@ -140,7 +137,7 @@
     
     function submitNewEvidenceToShowFrame(type, fact, passage, url, title) {
       var fact_id = showFrame.contentWindow.fact_id;
-      
+      debugger;
       var script = document.createElement("script");
       
       script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + url + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
@@ -150,14 +147,11 @@
     }
 
     function openNewProxyWindow() {
-      // Document reference of the iframe
       var doc = showFrame.contentWindow.document;
-      // Create new iframe
       window.proxyFrame = document.createElement("iframe");
       
       window.proxyFrame.className = "proxyFrame";
       window.proxyFrame.src = "http://localhost:8080?url=http://www.google.com";
-      
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
     
