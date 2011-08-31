@@ -16,12 +16,10 @@ div.fl-modal {
   position: relative;
   top: 40px;
   border: solid 1px #bbb;
-  /*	min-height: 524px;*/
-
   padding: 0;
   margin: 0 auto;
-  width: 425px;
-  background: #FBFAFA;
+  width: 510px;
+  background: transparent;
   color: #777;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;

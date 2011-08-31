@@ -3,7 +3,7 @@
     <input type="text" class="client_search" name="s" placeholder="Search for facts.." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
     <input type="hidden" name="fact_id" value="<%= fact.id %>">
     <input type="submit" value="Search">
-    or <a href="">browse for evidence</a>
+    or <a onclick="parent.openNewProxyWindow();">browse for evidence</a>
   <% end %>  
 </div>
 <div class="search-list">
