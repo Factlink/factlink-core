@@ -29,7 +29,6 @@
 
 	Factlink.addSelection = function(elem){
 		var selInfo = Factlink.getSelectionInfo();
-		debugger;
 		if (FactlinkConfig.modus === "default") {
 			Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href,selInfo.title);
 		} else {
