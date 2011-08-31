@@ -109,6 +109,7 @@ Factlink.Indicator = (function() {
     return {
         // Makes the indicator show for the Factlink with id ID
         showFor: function( id, mouseX, mouseY ) {
+						return false; // TODO use new fact circle for indicator; temporarily disabled for demo purposes
             // Get the Factlink-object
             var fl = $( 'span.factlink[data-factid=' + id + ']');
             
