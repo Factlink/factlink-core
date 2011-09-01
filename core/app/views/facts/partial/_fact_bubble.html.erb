@@ -3,7 +3,7 @@
     <%= fact_relation.type.to_s %>
     <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact , :fact_relation => fact_relation }%>
   <% else %>
-    <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact , :fact_relation => fact_relation }%>
+    <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
   <% end %>
 	
 	<header>
