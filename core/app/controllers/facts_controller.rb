@@ -71,7 +71,6 @@ class FactsController < ApplicationController
     @passage = params[:passage]
     @fact = params[:fact]
     @title = params[:title]
-
     render :template => 'facts/intermediate', :layout => nil
   end
 
@@ -112,7 +111,6 @@ class FactsController < ApplicationController
   
   def add_new_evidence
     type = params[:type].to_sym
-    
     if type == :weakening
       self.add_weakening_evidence
     elsif type == :supporting
@@ -175,71 +173,6 @@ class FactsController < ApplicationController
       end
   end
 
-  # Set or unset the opinion on a FactRelation
-  def toggle_opinion_on_fact
-    allowed_types = ["beliefs", "doubts", "disbeliefs"]
-    type = params[:type]
-
-    if allowed_types.include?(type)
-      @fact_relation = FactRelation[params[:fact_relation_id]]
-      @fact_relation.get_from_fact.toggle_opinion(type, current_user.graph_user)
-    else
-      render :json => {"error" => "type not allowed"}
-      return false
-    end
-  end
-
-  # Set or unset the relevance on a FactRelation
-   def toggle_relevance_on_fact_relation
-     allowed_types = [:beliefs, :doubts, :disbeliefs]
-     type = params[:type].to_sym
-
-     if allowed_types.include?(type)
-       @fact_relation = FactRelation[params[:fact_relation_id]]
-       @fact_relation.toggle_opinion(type, current_user.graph_user)
-     else
-       render :json => {"error" => "type not allowed"}
-       return false
-     end
-   end
-
-  # Search
-  # Not using the same search for the client popup, since we probably want\
-  # to use a more advanced search on the Factlink website.
-  def search
-    @row_count = 50
-    row_count = @row_count
-
-    if params[:s]
-      solr_result = FactData.search() do
-
-        keywords params[:s], :fields => [:displaystring]
-        order_by sort_column, sort_direction
-        paginate :page => params[:page] , :per_page => row_count
-
-        adjust_solr_params do |sunspot_params|
-          sunspot_params[:rows] = row_count
-        end
-      end
-
-      @factlinks = solr_result.results
-    else
-      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-      @factlinks = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
-        start = (pager.current_page-1)*row_count
-
-        # Sorting & filtering done by mongoid
-        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-        pager.replace(results)
-      end
-    end
-
-    respond_to do |format|
-      format.html { render :layout => "accounting" }# search.html.erb
-      format.js
-    end
-  end
-    
   # Search in the client popup.  
   def client_search
     # Need fact for rendering in the template
@@ -284,8 +217,6 @@ class FactsController < ApplicationController
     end
   end
   
-  alias_method :bubble_search, :client_search
-
   def indication
     respond_to do |format|
       format.js
@@ -307,7 +238,6 @@ class FactsController < ApplicationController
     # Very nasty :/
     supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
     weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
-    
     intersecting_ids = supporting_fact_ids & weakening_fact_ids
     intersecting_ids << @fact.data_id
     

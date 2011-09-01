@@ -1,6 +1,0 @@
-$('table.factlinks>tbody').append("<%= escape_javascript render :partial => 'facts/partial/factlink_as_td', :collection => @factlinks, :as => :factlink %>");
-
-<% if @factlinks.count == 0 %>
-    isFullyLoaded = true;
-    $( '#loading, #load_more' ).hide();
-<% end %>

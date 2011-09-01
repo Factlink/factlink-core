@@ -1,20 +1,13 @@
-// $('table.factlinks>tbody').append("<%= escape_javascript render :partial => 'facts/partial/factlink_as_td', :collection => @factlinks, :as => :factlink %>");
-
-<% if @facts.count == 0 %>
-    isFullyLoaded = true;
-    $( '#loading, #load_more' ).hide();
-<% end %>
-
-
-$("#fl-add-evidence > #fl-sources > ol").empty();
+$("div.fact-block[data-fact-id=<%=@fact.id%>] .search-list").empty();
 
 <% unless @facts.count > 0 %>
 	// No results found
-	$('#fl-add-evidence > div#fl-sources.fl-evidence-list > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %>");
+	$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %>");
 	
 <% else %>
-	// Show results
+	// Show results (TODO use detach and reattach to prevent access DOM manipulations)
 	<% @facts.each do |evidence| %>
-		$('#fl-add-evidence > div#fl-sources.fl-evidence-list > ol').append("<%= escape_javascript(render(:partial => 'facts/partial/add_evidence_as_li', :locals => { :fact => @fact, :evidence => evidence } )) %>");
+		$('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<%= escape_javascript(render(:partial => 'fact/parial/fact_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %>");
 	<% end %>
+	$('div.fact-block[data-fact-id=<%=@fact.id%>]').factlink();
 <% end %>

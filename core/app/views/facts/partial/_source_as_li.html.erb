@@ -51,7 +51,7 @@
 		  <h2 class="from_fact">&#8220;<%= fact_relation.get_from_fact.displaystring %>&#8221;</h2>
 		  <% if user_signed_in? %>
 			<div class="fl-opinion-toggle-buttons">
-				<%= fact_opinion_options(fact_relation) %>
+				<%= render :partial => 'facts/partial/opinion_options', :locals => { :fact_relation => fact_relation } %>
 			</div>
 			<% end %>			
 		</div>

@@ -7,11 +7,7 @@
 				var $t = $(this);
 				if(!$t.data("initialized")) {
 					$t.find(".evidence-facts a.show-evidence").live("click", function() { 
-						if ($t.find(".evidence-container").is(":hidden")) {
-							$t.find(".evidence-container").slideDown();
-						} else {
-							$t.find(".evidence-container").slideUp();
-						}
+						$t.find(".evidence-container").slideToggle();
 						return false;
 					});
 
@@ -21,12 +17,6 @@
 
 						$t.find(".add-action.do-add").toggle();
 						$t.find(".add-action.do-show").toggle();
-
-						// if($t.find(".evidence").is(":hidden")) { 
-						// 	$(this).text("Show evidence")
-						// } else { 
-						// 	$(this).text("Add evidence");
-						// }
 					});
 					$t.data("initialized", true);
 				}
@@ -92,8 +82,8 @@
 				function init_fact(fact) {
 					var $t = $(fact);
 					if(!$t.data("initialized")) {
-						$t.opinions = create_opinions($t);
-						$t.relevance_opinions = create_relevance_opinions($t);
+						$t.opinions = create_generic_opinions($t,'opinion');
+						$t.relevance_opinions = create_generic_opinions(fact,'relevance_opinion');
 						wheel = create_wheel($t, $t.opinions,24);  
 						add_opinions_to_wheel(wheel, $t, $t.opinions, 14, 360,0);  
 						add_opinions_to_wheel(wheel, $t, $t.relevance_opinions, 26, 180,50);  
@@ -143,12 +133,6 @@
 					return $(fact).data("user-opinion") == opinion;
 				}
 
-				function create_opinions(fact) { 
-					return create_generic_opinions(fact,'opinion')
-				}
-				function create_relevance_opinions(fact) { 
-					return create_generic_opinions(fact,'relevance_opinion')
-				}
 
 				function create_generic_opinions(fact,class) { 
 					var opinions = [],
@@ -210,25 +194,24 @@
 							} else {
 								this.animate({ 'stroke-width': 11 }, 200, '<>');    
 							}
-							}).
-							mouseout(function(){ 
-								if(!is_user_opinion(fact, opinion)) { 
-									this.stop().animate({ 'stroke-width': 9, opacity: 0.2 }, 200, '<>') 
-								} else {
-									this.animate({ 'stroke-width': 9 }, 200, '<>');    
-								}
-								}).click(function() { set_opinion(fact, opinion); });      
-								$(z.node)
-								.hoverIntent({
-									over: function() {
-										optionBox = $(fact).find("." + opinion + "-box");
-										$(optionBox).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 25 + "px"}).fadeIn("fast");
-									},
-									out: function() {
-										$(fact).find("." + opinion + "-box").delay(600).fadeOut("fast");				
-									}	
-								});        			
-							});
-							r.set();
-						};
-						})(jQuery);
+						})
+						z.mouseout(function(){ 
+							if(!is_user_opinion(fact, opinion)) { 
+								this.stop().animate({ 'stroke-width': 9, opacity: 0.2 }, 200, '<>') 
+							} else {
+								this.animate({ 'stroke-width': 9 }, 200, '<>');    
+							}
+							}).click(function() { set_opinion(fact, opinion); });      
+							$(z.node).hoverIntent({
+								over: function() {
+									optionBox = $(fact).find("." + opinion + "-box");
+									$(optionBox).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 25 + "px"}).fadeIn("fast");
+								},
+								out: function() {
+									$(fact).find("." + opinion + "-box").delay(600).fadeOut("fast");				
+								}	
+							});        			
+						});
+						r.set();
+					};
+					})(jQuery);

@@ -1,4 +1,77 @@
+/** Reset css */
+body {
+  padding: 0;
+  margin: 0;
+  font: 13px Arial, Helvetica, Garuda, sans-serif;
+  *font-size: small;
+  *font: x-small;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+em,
+strong,
+pre,
+code {
+  padding: 0;
+  margin: 0;
+  line-height: 1em;
+  font-size: 100%;
+  font-weight: normal;
+  font-style: normal;
+}
+table {
+  font-size: inherit;
+  font: 100%;
+}
+ul {
+  list-style: none;
+}
+img {
+  border: 0;
+}
+p {
+  margin: 1em 0;
+}
+a {
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+td {
+  vertical-align: top;
+}
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 /** Fact block */
+div.modal {
+  position: relative;
+  top: 40px;
+  box-shadow: 2px 2px 2px #ccc;
+  padding: 0;
+  margin: 0 auto;
+  width: 510px;
+  color: #777;
+}
+div.modal span.close {
+  background: url('/images/client/close-button.png') no-repeat;
+  display: block;
+  height: 10px;
+  width: 8px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
 .boxed {
   padding: 0;
   border: solid 1px #bbb;
@@ -16,7 +89,7 @@ body.factlink-site .fact-block {
 .fact-block {
   padding: 0;
   border: solid 1px #bbb;
-  background: url('/images/client/top-pane-gradient.png') top left repeat-x #f4f4f4;
+  background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
   color: #BBB;
   text-shadow: 0px 1px 0px white;
   width: 510px;
@@ -41,11 +114,13 @@ body.factlink-site .fact-block {
         border-right: 1px dotted @dark-blue;
       }*/
 
+  display: block;
   padding-right: 20px;
   color: #333;
   margin-left: 60px;
 }
 .fact-block article.fact header sub {
+  color: #AAA;
   font-size: x-small;
 }
 .fact-block article.fact header .head {
@@ -69,6 +144,7 @@ body.factlink-site .fact-block {
   padding: 0.7em;
 }
 .fact-block article.fact .actions {
+  margin-right: 60px;
   visibility: hidden;
   height: 18px;
 }
@@ -162,7 +238,7 @@ body.factlink-site .fact-block {
 }
 .fact-block .authority {
   text-align: center;
-  margin: 0 0 0 5px;
+  margin: 0 0 0 15px;
   width: 45px;
   height: 20px;
 }
@@ -206,6 +282,17 @@ body.factlink-site .fact-block {
   width: 85px;
   background: #9d9d9c;
 }
+iframe.proxyFrame {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: -400px;
+  width: 800px;
+  height: 500px;
+  border: solid 1px #777;
+  z-index: 900;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
 ::-webkit-scrollbar {
   width: 4px;
   height: 6px;
@@ -227,4 +314,35 @@ body.factlink-site .fact-block {
   width: 50px;
   background-color: #888;
   -webkit-border-radius: 3px;
+}
+/* ====== from tipsy plugin ==== */.tipsy {
+  padding: 5px;
+  font-size: 10px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  background-repeat: no-repeat;
+  background-image: url("/images/tipsy.gif");
+}
+.tipsy-inner {
+  padding: 5px 8px 4px 8px;
+  background-color: black;
+  color: white;
+  max-width: 200px;
+  text-align: center;
+}
+.tipsy-inner {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+.tipsy-north {
+  background-position: top center;
+}
+.tipsy-south {
+  background-position: bottom center;
+}
+.tipsy-east {
+  background-position: right center;
+}
+.tipsy-west {
+  background-position: left center;
 }

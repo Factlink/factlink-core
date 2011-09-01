@@ -22,9 +22,7 @@ FactlinkUI::Application.routes.draw do
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
   
   match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
-  match "/bubble_search(/page/:page)(/:sort/:direction)" => "facts#bubble_search", :as => "bubble_search"
-  
-  
+    
   ##########
   # Javascript Client calls
   get   "/site/count" => "sites#facts_count_for_url"  
@@ -47,15 +45,10 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
-  # Set opinion on a Fact or FactRelation
-  get   "/fact/:fact_id/opinion/:type" => "facts#toggle_opinion_on_fact", :as => "opinion"
-  
+  # Set opinion on a Fact or FactRelation  
   post   ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
   delete  ":fact_type/:fact_id/opinion/" => "facts#remove_opinions", :as => "opinion"
 
-  # Set relevance of a FactRelation
-  get   "/fact_relation/:fact_relation_id/:type" => "facts#toggle_relevance_on_fact_relation", :as => "relevance"
-  
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   

@@ -52,9 +52,7 @@ class Channel < OurOhm
     save
   end
 
-  def facts
-    return self.cached_facts
-  end
+  alias :facts :cached_facts
 
   def validate
     assert_present :title
@@ -69,9 +67,8 @@ class Channel < OurOhm
   def remove_fact(fact)
     if self.internal_facts.include?(fact)
       self.internal_facts.delete(fact)
-    else
-      self.delete_facts.add(fact)
     end
+    self.delete_facts.add(fact)
     activity(self.created_by,:removed,fact,:from,self)
   end
 

@@ -1,8 +1,0 @@
-// Set data-score
-var listItem = $("#fl-source-<%= @factlink.id %>");
-
-// Replace fl-vote-container with new opinion
-$('li#fl-source-<%= @factlink.id %> div#fl-vote-container').empty().prepend("<%= escape_javascript(render(:partial => 'facts/partial/vote_options', :locals => { :factlink => @factlink, :parent => @parent } )) %>");
-
-// Update the parent score
-$('div#fl-stats').empty().prepend("<%= escape_javascript(render(:partial => 'facts/partial/score', :locals => { :factlink => @parent } )) %>");

@@ -1,3 +1,0 @@
-<%= link_to("<span class=\"believe #{current_user.opinion_class(:beliefs, factlink, parent)}\">&nbsp;</span>".html_safe, opinion_path(factlink, :beliefs, parent.id), :remote => true) %>		
-<%= link_to("<span class=\"doubt #{current_user.opinion_class(:doubts, factlink, parent)}\">&nbsp;</span>".html_safe, opinion_path(factlink, :doubts, parent.id), :remote => true) %>
-<%= link_to("<span class=\"disbelieve #{current_user.opinion_class(:disbeliefs, factlink, parent)}\">&nbsp;</span>".html_safe, opinion_path(factlink, :disbeliefs, parent.id), :remote => true) %>

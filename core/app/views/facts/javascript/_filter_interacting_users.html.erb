@@ -1,8 +1,0 @@
-<script>
-	function apply_filter(klass, clickedItem) {
-		$('.fl-user-listing > li').fadeOut(40).filter(klass).fadeIn(40);
-
-		clickedItem.closest('ul').find('li').removeClass('active');
-		clickedItem.closest('li').addClass('active');		
-	}
-</script>
