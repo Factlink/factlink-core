@@ -51,7 +51,7 @@ class FactsController < ApplicationController
   end
 
   def bubble
-    render :partial => "home/snippets/fact/fact_bubble", 
+    render :partial => "facts/partial/fact_bubble", 
 	            :locals => {  :fact => @fact }
   end
 
