@@ -1,0 +1,15 @@
+<table> 
+  <% index = 0
+    (0..1).each do  %>
+  <tr>
+    <% (0..2).each do  %>
+      <td>
+        <%  if opinion[index] %>
+          <%= link_to(image_tag(opinion[index].user.avatar, :size => "24x24", :title => "#{opinion[index].username} (#{opinion[index].authority})"), user_profile_path(opinion[index].username)) %></td>
+        <% end %>
+        <% index += 1%>
+      </td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
