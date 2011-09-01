@@ -8,10 +8,6 @@ module HomeHelper
   end
 
   
-  def user_block(user)
-    render :partial => "home/snippets/user_li",
-	            :locals => {  :user => user }
-  end
   
   def add_channel(user)
     if user_signed_in?
