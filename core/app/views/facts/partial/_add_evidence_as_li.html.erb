@@ -2,7 +2,7 @@
   <div class="container">
 
   	<div class="fl-source-stats">
-      <%= factlink_score_partial(evidence) %>
+      <%= render :partial => 'facts/partial/bar_chart', :locals => { :fact => evidence } %>
   	</div>
 
   	<div class="fl-source-info">

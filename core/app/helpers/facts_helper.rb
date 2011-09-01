@@ -14,50 +14,7 @@ module FactsHelper
                     { :class => css_class }
   end
 
-  # Popups
-  def potential_childs_popup(potential_childs)
-    render :partial => 'facts/client_popups/potential_childs', 
-              :locals => { :potential_childs => potential_childs }
-  end
 
-  def potential_parents_popup(potential_parents)
-    render :partial => 'facts/client_popups/potential_parents', 
-              :locals => { :potential_parents => potential_parents }
-  end
-
-
-  # Listitem for in factlink client overview
-  def factlink_source_partial_as_li(fact_relation)    
-    render :partial => 'facts/partial/source_as_li', 
-              :locals => { :fact_relation => fact_relation }
-  end
-  
-  def evidence_as_li(fact, evidence)
-    render :partial => 'facts/partial/add_evidence_as_li', 
-              :locals => { :fact => fact, :evidence => evidence }
-  end
-  
-  # Score block of the top factlink in client
-  def factlink_score_partial(fact)
-    render :partial => 'facts/partial/bar_chart', 
-              :locals => { :fact => fact }
-  end
-
-
-  # The vote options for a fact: believe, doubt, disbelieve
-  deprecate
-  def opinion_options(fact)
-    render :partial => 'facts/partial/opinion_options', 
-              :locals => { :fact => fact }
-  end
-
-
-  # Shows opinion of user on this fact.
-  # Links to toggle the opinion.
-  def fact_opinion_options(fact_relation)
-    render :partial => 'facts/partial/opinion_options',
-              :locals => { :fact_relation => fact_relation }
-  end
 
   # Shows the opinion on this FactRelation
   # Links to toggle the believe on the relation.
