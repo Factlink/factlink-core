@@ -1,19 +1,15 @@
-<!-- header -->
 <% content_for :header do %>
 
 <% end %>
 
 
-<!-- left column -->
 <% content_for :left_column do %>
   <%= user_block(@user) %>
-	<%= channel_listing_for_user(@user.channels, @user) %>
-
+  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
 <% end %>
 
 
 
-<!-- main column -->
 <% content_for :main_column do %>
 	
 	<%= fact_listing_for_channel(@channel) %>

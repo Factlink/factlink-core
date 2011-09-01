@@ -10,8 +10,7 @@
 	<ul>
 		<%= user_block(@user) %>
 	</ul>
-
-	<%= channel_listing_for_user(@user.channels, @user) %>
+  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
 
 <% end %>
 

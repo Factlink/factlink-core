@@ -1,8 +1,9 @@
-<%= single_channel_snippet(channel, user) %>
+<%= render :partial => "home/snippets/channel_li", :locals => {  :channel => channel, :user => user } %>
+
 <% if channel.sub_channels.size > 0 %>
   <li><ul>
     <% channel.sub_channels.each do |channel| %>
-      <%= single_channel_snippet(channel, user) %>
+      <%= render :partial => "home/snippets/channel_li", :locals => {  :channel => channel, :user => user } %>
     <% end %>
   </ul></li>
 <% end %>

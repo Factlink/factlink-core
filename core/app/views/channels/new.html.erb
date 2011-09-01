@@ -6,7 +6,7 @@
 <!-- left column -->
 <% content_for :left_column do %>
   <%= user_block(@user) %>
-	<%= channel_listing_for_user(@user.channels, @user) %>
+  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
 
 <% end %>
 
