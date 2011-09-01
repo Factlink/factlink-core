@@ -23,14 +23,17 @@
                     <table class="evidence-list">
                         <tbody>
                             <% fact.sorted_fact_relations.each do |evidence| %>
-                                <tr><td><%= evidence_fact_bubble(evidence) %></tr></td>
+                                <tr><td><%= render :partial => "/facts/partial/fact_bubble", 
+                            	                    :locals => {  :fact => evidence.from_fact,
+                            	                                  :fact_relation => evidence}
+                                 %></tr></td>
                             <% end %>
                         </tbody>
                     </table>
                 <% end %>
             </div>
             <div class="potential-evidence" style="display: none">
-                <%= fact_add_evidence(fact) %>
+                <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
             </div>
             <div class="add-action do-add">
                 <a href"#" id="toggle-show-add">Add evidence</a>

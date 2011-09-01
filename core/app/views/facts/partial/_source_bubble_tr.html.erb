@@ -1,1 +1,4 @@
-<tr><td><%= evidence_fact_bubble(fact_relation) %></tr></td>
+<tr><td><%= render :partial => "/facts/partial/fact_bubble", 
+                  :locals => {  :fact => fact_relation.from_fact,
+                                :fact_relation => fact_relation}
+ %></tr></td>
