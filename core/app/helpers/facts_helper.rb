@@ -71,36 +71,36 @@ module FactsHelper
   end
 
   def fact_snippet(fact,channel=nil)
-    render :partial => "home/snippets/fact/fact_container", 
+    render :partial => "/facts/partial/fact_container", 
 	            :locals => {  :fact => fact, :channel => channel }
   end
   
   def fact_bubble(fact,add_to_fact=nil) 
-    render :partial => "home/snippets/fact/fact_bubble", 
+    render :partial => "/facts/partial/fact_bubble", 
 	            :locals => {  :fact => fact,
 	                          :add_to_fact => add_to_fact,
 	                          :fact_relation => nil }
   end
 
   def evidence_fact_bubble(evidence) 
-    render :partial => "home/snippets/fact/fact_bubble", 
+    render :partial => "/facts/partial/fact_bubble", 
 	            :locals => {  :fact => evidence.from_fact,
 	                          :fact_relation => evidence,
 	                          :add_to_fact => nil }
   end
   
   def fact_interacting_users(opinions)
-    render :partial => "home/snippets/fact/users_popup",
+    render :partial => "/facts/partial/users_popup",
               :locals => {:opinion => opinions.to_a }
   end
   
   def fact_channel_listing(fact)
-    render :partial => "home/snippets/fact/channel_listing",
+    render :partial => "/facts/partial/channel_listing",
               :locals => { :fact => fact }
   end
   
   def fact_add_evidence(fact)
-    render :partial => "home/snippets/fact/add_evidence",
+    render :partial => "/facts/partial/add_evidence",
             :locals => { :fact => fact }
   end
   
