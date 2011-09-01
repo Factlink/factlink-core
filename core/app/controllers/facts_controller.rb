@@ -30,11 +30,6 @@ class FactsController < ApplicationController
       :show,
       :edit]
 
-  before_filter :choose_fact_bubble
-  def choose_fact_bubble
-    @use_new_fact_bubble = true
-  end
-
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
