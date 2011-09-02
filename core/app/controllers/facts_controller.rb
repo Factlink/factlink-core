@@ -23,7 +23,8 @@ class FactsController < ApplicationController
       :edit,
       :destroy,
       :update,
-      :bubble]
+      :bubble,
+      :opinion]
                                                         
   before_filter :potential_evidence, 
     :only => [
@@ -135,6 +136,10 @@ class FactsController < ApplicationController
         format.html { render :action => "edit" }
       end
     end
+  end
+
+  def opinion
+    render :json => {"opinions" => @fact.get_opinion.as_percentages}
   end
 
   def set_opinion    

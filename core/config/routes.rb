@@ -19,8 +19,7 @@ FactlinkUI::Application.routes.draw do
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
-  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
-  
+  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
   match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
     
   ##########
@@ -45,15 +44,15 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
-  # Set opinion on a Fact or FactRelation  
-  post   ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
+  # Opinion on a Fact or FactRelation  
+  get     ":fact_type/:id/opinion" => "facts#opinion"
+  post    ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
   delete  ":fact_type/:fact_id/opinion/" => "facts#remove_opinions", :as => "opinion"
 
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   
   # Fact bubble
-  get "/fact/:id/potential_evidence" => "facts#potential_evidence", :as => "fact"
   get "/fact/:id" => "facts#bubble", :as => "fact"
   delete "/fact/:id" => "facts#destroy", :as => "fact"
   

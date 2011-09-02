@@ -14,6 +14,7 @@ a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
 div.modal {
   position: relative;
+  background: #FBFAFA;
   top: 40px;
   box-shadow: 2px 2px 2px #ccc;
   padding: 0;
@@ -154,9 +155,10 @@ body.factlink-site .fact-block {
       max-height: 200px;
       background-color: #FBFAFA;
       overflow: auto;
-      .no-evidence { 
-        height: 150px;
-        line-height: 78px;
+      .no-evidence td{ 
+        text-align: center;
+        height: 150px; width: 480px;  
+        vertical-align: middle;
       }
       article.fact { 
         &:nth-child(even) {
@@ -164,7 +166,7 @@ body.factlink-site .fact-block {
         }
         border-bottom: 1px solid #E4E4E4;
         padding: 10px 0 10px 15px;    
-        width: 485px;  
+        width: 480px;  
         text-align: left;
       }
     }
@@ -247,6 +249,22 @@ iframe.proxyFrame {
   box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 }
 
+div.fl-clear {
+  clear: both;
+}
+
+.center {
+	margin: 0 auto;
+	text-align: center;
+}
+
+div.fl-sign-in-container {
+	padding: 16px 16px 0px 16px;	padding-bottom: 24px;
+}
+
+div.sign-in {
+	border-bottom: solid 1px #ccc;
+}
 ::-webkit-scrollbar {
   width: 4px;
   height: 6px;

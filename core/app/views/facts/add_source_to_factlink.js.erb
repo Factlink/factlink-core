@@ -3,12 +3,5 @@ try {
 	parent.hideProxyWindow();	
 } catch(e) {}
 
-
-// Hide the popup
-$('#fl-add-evidence').fadeOut();
-
 // Add the element
 <%= render :partial => "facts/javascript/add_evidence_as_li.js.erb", :locals => { :fact_relation => @fact_relation } %>
-
-// Hide the evidence from potential evidence.
-el = $("article[data-fact-id=<%= @fact_relation.get_from_fact.id %>]").hide();

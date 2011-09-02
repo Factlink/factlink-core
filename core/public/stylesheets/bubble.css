@@ -55,6 +55,7 @@ a:hover {
 /** Fact block */
 div.modal {
   position: relative;
+  background: #FBFAFA;
   top: 40px;
   box-shadow: 2px 2px 2px #ccc;
   padding: 0;
@@ -199,14 +200,16 @@ body.factlink-site .fact-block {
   background-color: #FBFAFA;
   overflow: auto;
 }
-.fact-block .evidence-facts .evidence .no-evidence, .fact-block .evidence-facts .potential-evidence .no-evidence {
+.fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
+  text-align: center;
   height: 150px;
-  line-height: 78px;
+  width: 480px;
+  vertical-align: middle;
 }
 .fact-block .evidence-facts .evidence article.fact, .fact-block .evidence-facts .potential-evidence article.fact {
   border-bottom: 1px solid #E4E4E4;
   padding: 10px 0 10px 15px;
-  width: 485px;
+  width: 480px;
   text-align: left;
 }
 .fact-block .evidence-facts .evidence article.fact:nth-child(even), .fact-block .evidence-facts .potential-evidence article.fact:nth-child(even) {
@@ -292,6 +295,20 @@ iframe.proxyFrame {
   border: solid 1px #777;
   z-index: 900;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
+}
+div.fl-clear {
+  clear: both;
+}
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+div.fl-sign-in-container {
+  padding: 16px 16px 0px 16px;
+  padding-bottom: 24px;
+}
+div.sign-in {
+  border-bottom: solid 1px #ccc;
 }
 ::-webkit-scrollbar {
   width: 4px;

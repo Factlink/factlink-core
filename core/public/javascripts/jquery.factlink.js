@@ -134,10 +134,10 @@
 				}
 
 
-				function create_generic_opinions(fact,class) { 
+				function create_generic_opinions(fact,klass) { 
 					var opinions = [],
 					remainder = 100;
-					$(fact).find("."+class).each(function(i) {
+					$(fact).find("."+klass).each(function(i) {
 						var display_value = $(this).data("value");
 						//NOTE: this way the total is *not* always 100! (consider 70, 20, 10)
 						// TODO fix this!

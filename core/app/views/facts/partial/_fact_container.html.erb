@@ -11,26 +11,26 @@
         <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
         <div class="evidence-container" style="display: none">
             <div class="evidence">
+              <table class="evidence-list">
+                  <tbody>
                 <% unless fact.fact_relations.count > 0 %>
-                  <div class="no-evidence">
+                  <tr class="no-evidence"><td>
                       <% if user_signed_in? %>
                           Perhaps you know something that supports or weakens this fact?
                       <% else %>
                           There are no facts supporting or weakening this fact at the moment.
                       <% end %>
-                  </div>
+                  </td></tr>
                 <% else %>
-                    <table class="evidence-list">
-                        <tbody>
-                            <% fact.sorted_fact_relations.each do |evidence| %>
-                                <tr><td><%= render :partial => "/facts/partial/fact_bubble", 
-                            	                    :locals => {  :fact => evidence.from_fact,
-                            	                                  :fact_relation => evidence}
-                                 %></tr></td>
-                            <% end %>
-                        </tbody>
-                    </table>
+                  <% fact.sorted_fact_relations.each do |evidence| %>
+                      <tr><td><%= render :partial => "/facts/partial/fact_bubble", 
+                  	                    :locals => {  :fact => evidence.from_fact,
+                  	                                  :fact_relation => evidence}
+                       %></tr></td>
+                  <% end %>
                 <% end %>
+                    </tbody>
+                </table>
             </div>
             <div class="potential-evidence" style="display: none">
                 <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
