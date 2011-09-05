@@ -15,16 +15,19 @@ end
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
 		<span class="body">
-		<a href="<%= fact.site.url %>"><%= fact.displaystring %></a>
+		<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.displaystring %></a>
 		</span>
 		<br>
-		<% if true%>
 		<sub>
 		   <%= time_ago_in_words(fact.created_at) %> ago by
-		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username)) %>
-		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
+		   <% if defined?(modal) and modal %> 
+  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_blank") %>
+  		   found on <a href="<%= fact.site.url %>" <% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.pretty_url %></a>
+		   <% else %>
+  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username)) %>
+  		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
+		   <% end %>
 		</sub>
-		<% end %>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>
@@ -34,9 +37,7 @@ end
 			    <% end %>			
 		    </ul>	
 		  </div>
-		  <% if true %>
 		  <%= render :partial => "/facts/partial/channel_listing", :locals => { :fact => fact } %>
-      <% end %>
 		  <% if defined?(add_to_fact) and add_to_fact %>
 		    <div style="float:right; display:block;">
 			    <%= link_to('add as supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%>

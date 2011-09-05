@@ -19,16 +19,17 @@ module FactsHelper
                 :locals => {  :facts => facts }
   end
 
-  def fact_snippet(fact,channel=nil)
+  def fact_snippet(fact,channel=nil,modal=nil)
     render :partial => "/facts/partial/fact_container", 
-	            :locals => {  :fact => fact, :channel => channel }
+	            :locals => {  :fact => fact, :channel => channel, :modal => modal }
   end
   
-  def fact_bubble(fact,add_to_fact=nil) 
+  def fact_bubble(fact,add_to_fact=nil,modal=nil) 
     render :partial => "/facts/partial/fact_bubble", 
 	            :locals => {  :fact => fact,
 	                          :add_to_fact => add_to_fact,
-	                          :fact_relation => nil }
+	                          :fact_relation => nil,
+	                          :modal => modal}
   end
 
 end
