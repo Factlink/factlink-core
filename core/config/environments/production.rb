@@ -49,3 +49,12 @@ FactlinkUI::Application.configure do
   config.active_support.deprecation = :notify
   
 end
+
+ActionMailer::Base.smtp_settings = {
+  :address => 'mail.factlink.com',
+  :port => 993,
+  :domain => 'factlink.com',
+  :authentication => :plain,
+  :user_name => 'noreply@factlink.com',
+  :password => '@H-cw8w)6l8.nP'
+}
