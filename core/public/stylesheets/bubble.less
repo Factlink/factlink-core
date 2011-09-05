@@ -12,6 +12,9 @@ table {border-collapse: collapse; border-spacing: 0;}
 td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
+a.proxyWindow { 
+  display: none;
+} 
 div.modal {
   position: relative;
   background: #FBFAFA;
@@ -29,6 +32,9 @@ div.modal {
     position: absolute;
     right: 5px; top: 5px;
     cursor: pointer;
+  }
+  form.search a.proxyWindow { 
+    display: inline !important;
   }
 }
 .boxed { 
@@ -96,7 +102,6 @@ body.factlink-site .fact-block {
       }
     }
     .actions { 
-
       margin-right: 60px;
       visibility: hidden;
       height: 18px;      
@@ -224,7 +229,6 @@ body.factlink-site .fact-block {
         height: 24px;
       }
     }
-    
     .opinion-type {
       text-shadow: none;
       display: block;

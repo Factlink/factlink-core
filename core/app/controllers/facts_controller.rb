@@ -147,17 +147,9 @@ class FactsController < ApplicationController
     type = params[:type].to_sym
     
     if allowed_types.include?(type)
-      if params[:fact_type] == "fact"
-          @fact = Fact[params[:fact_id]] # This fails with a nasy error for an invalid error
-          @fact.add_opinion(type, current_user.graph_user)
-          render :nothing => true
-      elsif params[:fact_type] == "fact_relation"
-          @fact_relation = FactRelation[params[:fact_id]]
-          @fact_relation.add_opinion(type, current_user.graph_user)
-          render :nothing => true
-      else
-        render :json => {"error" => "fact type not allowed"}
-      end
+      @fact = Basefact[params[:fact_id]] 
+      @fact.add_opinion(type, current_user.graph_user)
+      render :nothing => true
     else 
       render :json => {"error" => "type not allowed"}
       return false
@@ -165,17 +157,9 @@ class FactsController < ApplicationController
   end
 
   def remove_opinions   
-      if params[:fact_type] == "fact"
-          @fact = Fact[params[:fact_id]]
-          @fact.remove_opinions(current_user.graph_user)
-          render :nothing => true
-      elsif params[:fact_type] == "fact_relation"
-          @fact_relation = FactRelation[params[:fact_id]]
-          @fact.remove_opinions(current_user.graph_user)
-          render :nothing => true
-      else
-        render :json => {"error" => "fact type not allowed"}
-      end
+      @fact = Basefact[params[:fact_id]]
+      @fact.remove_opinions(current_user.graph_user)
+      render :nothing => true
   end
 
   # Search in the client popup.  
