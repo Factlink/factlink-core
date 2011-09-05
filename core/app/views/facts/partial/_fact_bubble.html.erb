@@ -3,8 +3,6 @@ if defined?(fact_relation) and fact_relation and not defined?(fact)
   fact = fact_relation.from_fact
 end
 %>
-
-
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <%= fact_relation.type.to_s %>
@@ -17,7 +15,7 @@ end
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
 		<span class="body">
-		  <%= fact.data.displaystring %>
+		<a href="<%= fact.site.url %>"><%= fact.displaystring %></a>
 		</span>
 		<br>
 		<% if true%>

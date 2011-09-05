@@ -10,14 +10,25 @@
 						$t.find(".evidence-container").slideToggle();
 						return false;
 					});
-
-					$t.find(".add-action a#toggle-show-add").bind("click", function() {
-						$t.find(".evidence").toggle();
+          $t.find(".shaw-add").live("click", function() { 
+            $t.find(".evidence-container").slideToggle();
+            $t.find(".potential-evidence").show();
+						$t.find(".evidence").hide();
+						toggleEvidenceLabel();
+						return false;
+          });
+					$t.find(".add-action a#toggle-show-add").live("click", function() {
+					  $t.find(".evidence").toggle();
 						$t.find(".potential-evidence").toggle();
-
+            toggleEvidence();
+						return false;
+					});
+					
+					function toggleEvidenceLabel() { 
 						$t.find(".add-action.do-add").toggle();
 						$t.find(".add-action.do-show").toggle();
-					});
+					}
+					
 					$t.data("initialized", true);
 				}
 				// Prevents boxes from dissapearing on mouse over
@@ -139,7 +150,7 @@
 					remainder = 100;
 					$(fact).find("."+klass).each(function(i) {
 						var display_value = $(this).data("value");
-						//NOTE: this way the total is *not* always 100! (consider 70, 20, 10)
+						// NOTE: this way the total is *not* always 100! (consider 70, 20, 10)
 						// TODO fix this!
 						display_value = (display_value < 15 ? 15 : display_value);
 						display_value = (display_value > 70 ? 70 : display_value);
@@ -175,10 +186,10 @@
 					var wheel_id = $(fact).find(".wheel").get(0);
 					var r = wheel.raphael;
 					var total = 0;
-					$(opinions).each(function(i) {  // HACK, see above NOTE/TODO
+					$(opinions).each(function() {  // HACK, see above NOTE/TODO
 						total = total + this.display_value
 					})
-					$(opinions).each(function(i) { 
+					$(opinions).each(function() { 
 						var value = this.display_value;
 						offset = offset + value;
 						var opinion = this.opinion,
