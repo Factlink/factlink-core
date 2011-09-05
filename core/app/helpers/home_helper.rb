@@ -1,13 +1,9 @@
 module HomeHelper
   
-
-  
   def fact_listing_for_channel(channel)
     render :partial => "home/snippets/fact_listing_for_channel", 
                 :locals => {  :channel => channel }
   end
-
-  
   
   def add_channel(user)
     if user_signed_in?
