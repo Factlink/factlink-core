@@ -149,7 +149,7 @@ class FactsController < ApplicationController
     if allowed_types.include?(type)
       @fact = Basefact[params[:fact_id]] 
       @fact.add_opinion(type, current_user.graph_user)
-      render :nothing => true
+      render :json => [@fact]
     else 
       render :json => {"error" => "type not allowed"}
       return false

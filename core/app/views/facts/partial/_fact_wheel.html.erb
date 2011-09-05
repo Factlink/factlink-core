@@ -1,5 +1,3 @@
-<% if true %>
-
 <div class="wheel">
   <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
   <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
@@ -13,40 +11,32 @@
 	<div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <%= fact.get_opinion.as_percentages[:authority] %> </div>		
 </div>
 
-<% end %>
-<% show_users = true %>
-<% get_set = true %>
-<% if true %>
 <div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
   <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
-  <%= show_users and render :partial => "/facts/partial/users_popup", :locals => {:opinion => get_set ? fact.people_beliefs : []} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_beliefs} %>
 </div>
 <div class="doubts-box opinion-box float-box">
   <span class="opinion-type">doubt</span>
   <span class="percentage"><%= fact.get_opinion.as_percentages[:doubt][:percentage] %>%</span> 
-  <%= show_users and render :partial => "/facts/partial/users_popup", :locals => {:opinion => get_set ? fact.people_doubts : []} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_doubts} %>
 </div>
 
 <div class="disbeliefs-box opinion-box float-box"> 
 	<span class="opinion-type">disbelieve</span><br> 
 	<span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
-  <%= show_users and render :partial => "/facts/partial/users_popup", :locals => {:opinion => get_set ? fact.people_disbeliefs : []} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_disbeliefs} %>
 </div>
-<% end %>
-
-<% if true %>
 <% if defined?(fact_relation) and fact_relation %>
   <div class="relevant-box opinion-box float-box"> 
 	  <span class="opinion-type">relevant</span><br> 
 	  <span class="percentage"><%= fact_relation.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
-	  <%= show_users and render :partial => "/facts/partial/users_popup", :locals => {:opinion => get_set ? fact_relation.people_beliefs : []} %>
+	  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact_relation.people_beliefs} %>
   </div>
   <div class="irrelevant-box opinion-box float-box"> 
 	  <span class="opinion-type">irrelevant</span><br> 
 	  <span class="percentage"><%= fact_relation.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
-	  <%= show_users and render :partial => "/facts/partial/users_popup", :locals => {:opinion => get_set ? fact_relation.people_disbeliefs : []} %>
+	  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact_relation.people_disbeliefs} %>
     
   </div>
-<% end %>
 
 <% end %>

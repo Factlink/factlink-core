@@ -20,7 +20,7 @@
 					$t.find(".add-action a#toggle-show-add").live("click", function() {
 					  $t.find(".evidence").toggle();
 						$t.find(".potential-evidence").toggle();
-            toggleEvidence();
+						toggleEvidenceLabel();
 						return false;
 					});
 					
