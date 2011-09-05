@@ -1,0 +1,11 @@
+production:
+    hostname: proxy.factlink.com
+    port: 8080
+
+development:
+    hostname: localhost
+    port: 8080
+
+test:
+    hostname: localhost
+    port: 8080
