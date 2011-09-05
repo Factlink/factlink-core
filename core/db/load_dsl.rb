@@ -36,11 +36,25 @@ class LoadDsl
     @channel = value
   end
 
+  def load_site(url,title=nil)
+    Site.find(:url => url) || Site.create(url => url, title=> title)
+  end
+
+  def site(url,title=nil)
+    load_site(url,title)
+  end
+
+  def self.export_site(site)
+    rv = "site \"#{quote_string(site.url)}\""
+    rv += ", \"#{quote_string(site.title)}\"\n" if site.title
+    rv
+  end
+
   def load_fact(fact_string,url="http://example.org/")
     f = Fact.by_display_string(fact_string)
     if not f
       f = Fact.create(
-      :site => Site.find_or_create_by(:url => url),
+      :site => load_site(url),
       :created_by => state_graph_user
       )
       f.data.displaystring = fact_string
@@ -56,7 +70,7 @@ class LoadDsl
 
   def self.export_fact(fact)
     rv = "fact \"#{quote_string(fact.displaystring)}\""
-    rv += ", \"#{fact.site.url}\"\n" if fact.site
+    rv += ", \"#{quote_string(site.url)}\"\n" if fact.site
     rv
   end
 
