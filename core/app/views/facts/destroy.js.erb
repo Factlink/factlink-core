@@ -1,11 +1,9 @@
 // Removes  from stream (should refactor to destroy method)
-$('div[data-fact-id=<%= @fact.id %>]').fadeOut('fast', function() {
+$('[data-fact-id=<%= @fact.id %>]').fadeOut('fast', function() {
 	$(this).remove();
 });
 
-
 // Hides the popup
 parent.remote.hide();
-
 parent.remote.stopHighlightingFactlink(<%= @fact_id %>);
 
