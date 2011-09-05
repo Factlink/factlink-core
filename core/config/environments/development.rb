@@ -4,7 +4,7 @@ FactlinkUI::Application.configure do
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the webserver when you make code changes.
-  config.cache_classes = false
+  config.cache_classes = true
 
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
@@ -28,8 +28,15 @@ FactlinkUI::Application.configure do
   
   
   
-  #config.action_controller.perform_caching = true
   
 end
 
 Rails.logger = Logger.new(STDOUT)
+
+# cache_classes on, but don't cache views (over requests)
+# http://madebynathan.com/2011/02/10/rails3-is-caching-views-in-development-mode-but-i-told-it-not-to/
+ActiveSupport.on_load(:after_initialize) do
+  ActionController::Base.before_filter do
+    ActionController::Base.view_paths.each(&:clear_cache)
+  end
+end
