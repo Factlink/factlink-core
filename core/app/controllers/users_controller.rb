@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  # layout "accounting"
+
   layout "frontend"
 
   before_filter :load_user, 
