@@ -2,9 +2,6 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  # development
-  get "new" => "home#new"
-
 
   ##########
   # User Authentication
@@ -32,7 +29,7 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
-  post "/factlink/create" => "facts#create", :as => "create_factlink"
+  post  "/factlink/create" => "facts#create", :as => "create_factlink"
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 

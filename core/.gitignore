@@ -6,3 +6,4 @@ tmp/**/*
 solr/data/
 webrat.log
 .nide
+coverage.data
