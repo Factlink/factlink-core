@@ -6,9 +6,19 @@
                 :confirm => "Are you sure you want to remove this fact from your channel?", :remote => true
     )%>
     <% end %>
-    <%= fact_bubble(fact) %>
+    <% if defined?(modal) %>
+      <%= fact_bubble(fact, nil, modal) %>
+    <% else %>
+      <%= fact_bubble(fact) %>
+    <% end %>
     <div class="evidence-facts">
-        <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
+        <div class="evidence-actions">
+          <% unless fact.fact_relations.count > 0 %>
+            <a href="#" class="shaw-add"><%= image_tag("arrow2_s.png") %>Add evidence</a>
+          <% else %>
+            <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a>
+          <% end %>
+          </div>
         <div class="evidence-container" style="display: none">
             <div class="evidence">
               <table class="evidence-list">

@@ -53,6 +53,9 @@ a:hover {
   cursor: pointer;
 }
 /** Fact block */
+span.proxyWindow {
+  display: none;
+}
 div.modal {
   position: relative;
   background: #FBFAFA;
@@ -72,6 +75,9 @@ div.modal span.close {
   right: 5px;
   top: 5px;
   cursor: pointer;
+}
+div.modal span.proxyWindow {
+  display: inline !important;
 }
 .boxed {
   padding: 0;
