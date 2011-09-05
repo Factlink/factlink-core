@@ -149,13 +149,14 @@
       window.proxyFrame = document.createElement("iframe");
       
       window.proxyFrame.className = "proxyFrame";
-      window.proxyFrame.src = "#{Factlink.proxy_url}?url=http://www.google.com";
+      window.proxyFrame.src = "<%= Factlink.proxy_url %>?url=http://www.google.com";
+
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
     
     function hideProxyWindow() {
       window.proxyFrame.style.display = "none";
-      window.proxyFrame.src = "#{Factlink.proxy_url}?url=http://www.google.com";
+      window.proxyFrame.src = "<%= Factlink.proxy_url %>?url=http://www.google.com";
     }
 	</script>
 </body>
