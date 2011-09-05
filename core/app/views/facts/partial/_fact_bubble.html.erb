@@ -3,7 +3,6 @@ if defined?(fact_relation) and fact_relation and not defined?(fact)
   fact = fact_relation.from_fact
 end
 %>
-<% if defined?(modal) and modal %>
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <%= fact_relation.type.to_s %>
@@ -48,4 +47,3 @@ end
 
 	</header>
 </article>
-<% end %>
