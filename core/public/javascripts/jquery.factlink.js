@@ -10,14 +10,24 @@
 						$t.find(".evidence-container").slideToggle();
 						return false;
 					});
-
-					$t.find(".add-action a#toggle-show-add").bind("click", function() {
-						$t.find(".evidence").toggle();
+          $t.find(".shaw-add").live("click", function() { 
+            $t.find(".evidence-container").slideToggle();
+						toggleEvidence();
+						return false;
+          });
+					$t.find(".add-action a#toggle-show-add").live("click", function() {
+            toggleEvidence();
+						return false;
+					});
+					
+					function toggleEvidence() { 
+					  $t.find(".evidence").toggle();
 						$t.find(".potential-evidence").toggle();
 
 						$t.find(".add-action.do-add").toggle();
 						$t.find(".add-action.do-show").toggle();
-					});
+					}
+					
 					$t.data("initialized", true);
 				}
 				// Prevents boxes from dissapearing on mouse over

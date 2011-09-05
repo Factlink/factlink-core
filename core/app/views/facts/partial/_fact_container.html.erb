@@ -8,7 +8,13 @@
     <% end %>
     <%= fact_bubble(fact) %>
     <div class="evidence-facts">
-        <div class="evidence-actions"><a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a></div>
+        <div class="evidence-actions">
+          <% unless fact.fact_relations.count > 0 %>
+            <a href="#" class="shaw-add">Add evidence</a>
+          <% else %>
+            <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a>
+          <% end %>
+          </div>
         <div class="evidence-container" style="display: none">
             <div class="evidence">
               <table class="evidence-list">

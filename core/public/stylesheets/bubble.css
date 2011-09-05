@@ -53,7 +53,7 @@ a:hover {
   cursor: pointer;
 }
 /** Fact block */
-a.proxyWindow {
+span.proxyWindow {
   display: none;
 }
 div.modal {
@@ -76,7 +76,7 @@ div.modal span.close {
   top: 5px;
   cursor: pointer;
 }
-div.modal form.search a.proxyWindow {
+div.modal span.proxyWindow {
   display: inline !important;
 }
 .boxed {
