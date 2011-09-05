@@ -37,7 +37,7 @@ class LoadDsl
   end
 
   def load_site(url,title=nil)
-    Site.find(:url => url) || Site.create(url => url, title=> title)
+    Site.find(:url => url).first || Site.create(:url => url, :title=> title)
   end
 
   def site(url,title=nil)
@@ -54,8 +54,8 @@ class LoadDsl
     f = Fact.by_display_string(fact_string)
     if not f
       f = Fact.create(
-      :site => load_site(url),
-      :created_by => state_graph_user
+        :site => load_site(url),
+        :created_by => state_graph_user
       )
       f.data.displaystring = fact_string
       f.data.save

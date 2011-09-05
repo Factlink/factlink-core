@@ -22,12 +22,11 @@
                       <% end %>
                   </td></tr>
                 <% else %>
-                  <% fact.sorted_fact_relations.each do |evidence| %>
-                      <tr><td><%= render :partial => "/facts/partial/fact_bubble", 
-                  	                    :locals => {  :fact => evidence.from_fact,
-                  	                                  :fact_relation => evidence}
-                       %></tr></td>
-                  <% end %>
+                  <tr><td>
+                    <%= render :partial => "/facts/partial/fact_bubble", 
+                	              :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+                	   %>
+                 </td></tr>
                 <% end %>
                     </tbody>
                 </table>
