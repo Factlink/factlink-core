@@ -12,18 +12,19 @@
 					});
           $t.find(".shaw-add").live("click", function() { 
             $t.find(".evidence-container").slideToggle();
-						toggleEvidence();
+            $t.find(".potential-evidence").show();
+						$t.find(".evidence").hide();
+						toggleEvidenceLabel();
 						return false;
           });
 					$t.find(".add-action a#toggle-show-add").live("click", function() {
+					  $t.find(".evidence").toggle();
+						$t.find(".potential-evidence").toggle();
             toggleEvidence();
 						return false;
 					});
 					
-					function toggleEvidence() { 
-					  $t.find(".evidence").toggle();
-						$t.find(".potential-evidence").toggle();
-
+					function toggleEvidenceLabel() { 
 						$t.find(".add-action.do-add").toggle();
 						$t.find(".add-action.do-show").toggle();
 					}
