@@ -26,13 +26,12 @@ class GraphUser < OurOhm
   set :disbeliefs_facts, Basefact
 
   collection :created_facts, Basefact, :created_by
-  def channels
+  
+  define_memoized_method :channels, do
     Channel.find(:created_by_id => self.id).except(:discontinued => 'true')
   end
-  
+   
   collection :activities, Activity, :user
-  
-  
   attribute :cached_authority
   
   def calculate_authority

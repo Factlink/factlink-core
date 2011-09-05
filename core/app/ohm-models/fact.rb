@@ -186,17 +186,15 @@ class Fact < Basefact
     FactData.column_names
   end
 
-  #TODO testen of dit ook werkt met channels
-  def delete_cascading
-    delete_data
+  
+  def delete
+    delete_from_channels
     delete_all_evidence
     delete_all_evidenced
-    self.delete
-  end
-  
-  def delete_data
     data.delete
+    super
   end
+  alias :delete_cascading :delete
   
   def delete_all_evidence
     fact_relations.each do |fr|
@@ -209,6 +207,15 @@ class Fact < Basefact
       fr.delete
     end
   end
+
+  def delete_from_channels
+    #TODO actually do this properly
+    Channel.all.each do |ch|
+      ch.remove_fact(self)
+    end
+  end
+  
+  
   
   private :delete_all_evidence, :delete_all_evidenced
 

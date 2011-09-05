@@ -1,3 +1,10 @@
+<%
+if defined?(fact_relation) and fact_relation and not defined?(fact)
+  fact = fact_relation.from_fact
+end
+%>
+
+
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <%= fact_relation.type.to_s %>
@@ -5,21 +12,21 @@
   <% else %>
     <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
   <% end %>
-	
 	<header>
 	  <% if fact.site.title and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
 		<span class="body">
-		<%= fact.displaystring %>
+		  <%= fact.data.displaystring %>
 		</span>
 		<br>
+		<% if true%>
 		<sub>
 		   <%= time_ago_in_words(fact.created_at) %> ago by
-		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.user.authority})", user_profile_path(fact.created_by.user.username)) %>
+		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username)) %>
 		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
 		</sub>
-		
+		<% end %>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>
@@ -29,8 +36,9 @@
 			    <% end %>			
 		    </ul>	
 		  </div>
+		  <% if true %>
 		  <%= render :partial => "/facts/partial/channel_listing", :locals => { :fact => fact } %>
-
+      <% end %>
 		  <% if defined?(add_to_fact) and add_to_fact %>
 		    <div style="float:right; display:block;">
 			    <%= link_to('add as supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%>
