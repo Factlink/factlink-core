@@ -1,8 +1,7 @@
 module FactDataProxy
-  
-  def to_s
-    self.displaystring || ""
-  end
+  include Canivete::Deprecate
+
+  deprecate  
   
   #assuming we have a data
   def title
@@ -66,6 +65,10 @@ class Fact < Basefact
     activity(self.created_by, "created", self)
   end
 
+  def to_s
+    self.data.displaystring || ""
+  end
+
   reference :site, Site       # The site on which the factlink should be shown
   def url=(url)
     self.site = Site.find_or_create_by(:url => url)
@@ -95,11 +98,20 @@ class Fact < Basefact
   end
   
   def require_saved_data
-    self.require_data
-    data.save
-    return data
+    if not self.data_id
+      localdata = FactData.new
+      localdata.save    # FactData now has an ID
+      self.data = localdata
+    end
   end
-  after :save, :require_saved_data
+
+  def set_own_id_on_saved_data
+    self.data.fact_id = self.id
+    self.data.save
+  end
+  
+  before :save, :require_saved_data
+  after :save, :set_own_id_on_saved_data
 
 
   set :supporting_facts, FactRelation
@@ -174,17 +186,15 @@ class Fact < Basefact
     FactData.column_names
   end
 
-  #TODO testen of dit ook werkt met channels
-  def delete_cascading
-    delete_data
+  
+  def delete
+    delete_from_channels
     delete_all_evidence
     delete_all_evidenced
-    self.delete
-  end
-  
-  def delete_data
     data.delete
+    super
   end
+  alias :delete_cascading :delete
   
   def delete_all_evidence
     fact_relations.each do |fr|
@@ -197,6 +207,15 @@ class Fact < Basefact
       fr.delete
     end
   end
+
+  def delete_from_channels
+    #TODO actually do this properly
+    Channel.all.each do |ch|
+      ch.remove_fact(self)
+    end
+  end
+  
+  
   
   private :delete_all_evidence, :delete_all_evidenced
 

@@ -4,8 +4,11 @@
 	<p>No facts added yet.</p>
 <% else %>
 <ul id="fact-listing">
-	<% facts.each do |fact| %>
-		<li><%=	fact_snippet(fact) %></li>
-	<% end %>
+    <li>
+    <%= render :partial => "/facts/partial/fact_container", 
+	            :locals => { :channel => nil },
+	            :collection => facts, :as => :fact, :spacer_template => '/home/snippets/list_item_seperator'
+	  %>
+	  </li>
 </ul>
 <% end %>

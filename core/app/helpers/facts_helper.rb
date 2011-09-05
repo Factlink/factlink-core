@@ -30,10 +30,5 @@ module FactsHelper
 	                          :add_to_fact => add_to_fact,
 	                          :fact_relation => nil }
   end
-  
-  def fact_interacting_users(opinions)
-    render :partial => "/facts/partial/users_popup",
-              :locals => {:opinion => opinions.to_a }
-  end
 
 end

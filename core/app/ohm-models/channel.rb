@@ -24,6 +24,8 @@ class Channel < OurOhm
   set :delete_facts, Fact
   set :cached_facts, Fact
 
+
+
   public
   alias :sub_channels :contained_channels
 
@@ -39,7 +41,9 @@ class Channel < OurOhm
     # a 'bit' less efficient:
     cached_facts.clear
     fs.each do |f|
-      cached_facts << f
+      if f != nil
+        cached_facts << f
+      end
     end
     save
   end

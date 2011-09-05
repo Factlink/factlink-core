@@ -36,7 +36,8 @@ FactlinkUI::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-
+  config.action_mailer.default_url_options = { :host => "factlink.com" }
+  
   # Enable threaded mode
   # config.threadsafe!
 
@@ -48,3 +49,13 @@ FactlinkUI::Application.configure do
   config.active_support.deprecation = :notify
   
 end
+
+ActionMailer::Base.smtp_settings = {
+  :address => 'mail.factlink.com',
+  :port => 993,
+  :domain => 'factlink.com',
+  :authentication => :plain,
+  :user_name => 'noreply@factlink.com',
+  :password => '@H-cw8w)6l8.nP',
+  :openssl_verify_mode => 'none'
+}

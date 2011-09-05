@@ -106,14 +106,11 @@ class Opinion < OurOhm
       self.u == other.u
   end
 
-  
-  def as_percentages
-    return @percentage_hash if @percentage_hash
-    op = self
-    total = op.b + op.d + op.u
+  define_memoized_method :as_percentages, do
+    total = b + d + u
 
-    l_believe_percentage = calc_percentage(total, op.b).round.to_i
-    l_disbelieve_percentage = calc_percentage(total, op.d).round.to_i
+    l_believe_percentage = calc_percentage(total, b).round.to_i
+    l_disbelieve_percentage = calc_percentage(total, d).round.to_i
     l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
 
     @percentage_hash = {
@@ -126,7 +123,7 @@ class Opinion < OurOhm
       :doubt => {
         :percentage => l_doubt_percentage
       },
-      :authority => op.a.round.to_i
+      :authority => a.round.to_i
     }
   end
 
