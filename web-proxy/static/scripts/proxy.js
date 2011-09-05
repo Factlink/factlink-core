@@ -81,8 +81,8 @@ domReady(function(){
 window.FactlinkConfig = {
     modus: "addToFact",
     api: "localhost:3000/",
-    lib: "localhost/lib/",
-    url: location.search.split("?url=")[1].split("&")[0]
+    lib: "localhost:8000/lib/",
+    url: location.search.split("?url=")[1].split("&")[0] //TODO dit netjes doen met een urlparsemechanisme ed.
 };
 
 var
