@@ -39,7 +39,8 @@ div.modal {
 }
 .boxed { 
   padding: 0;
-  border: solid 1px #bbb;
+  border: solid 1px #ddd;
+	border-radius: 3px;
 }
 .float { 
   background-color: @bg;
@@ -73,6 +74,9 @@ body.factlink-site .fact-block {
     width: 490px;
     display: block;   
     header { 
+	
+			margin-top: 6px;
+	
       /*border-right: 1px dotted #f0f0f0;
       &:hover { 
         border-right: 1px dotted @dark-blue;
@@ -90,6 +94,8 @@ body.factlink-site .fact-block {
       }     
       .body { 
         font-family: Georgia, "Times New Roman", Garamond, serif;
+				font-size: 1.2em;
+				line-height: 19px;
       }
     }
     .channel-listing { 
@@ -138,11 +144,18 @@ body.factlink-site .fact-block {
     .add-action {
       height: 25px;
       padding: 5px;
-      line-height: 30px;
+      line-height: 24px;
       border-top: 1px solid #E4E4E4;
       position: relative;
       z-index: 20;
       background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+
+			a {
+				opacity: 0.8;
+				&:hover {
+					opacity: 1.0;
+				}
+			}
     }
     .evidence-actions {
       position: relative;
@@ -153,6 +166,10 @@ body.factlink-site .fact-block {
       height: 36px;
       a {
         line-height: 22px;
+				opacity: 0.8;
+				&:hover {
+					opacity: 1.0;
+				}
       }
     }
     .evidence, .potential-evidence {
@@ -179,20 +196,21 @@ body.factlink-site .fact-block {
       min-height: 150px;
       .search {
     		border-bottom: solid 1px #ddd;
-    		padding: 3px 12px;
+    		padding: 2px 12px 5px;
     		line-height: 28px;
     		background: rgb(251, 250, 250);
     		input[type="text"] {
-    		  padding: 0 !important;
+    		  padding: 2px 4px !important;
     		  font-size: 8pt;
     			border-radius: 3px;
     			border: solid 1px #ccc;
-    			width: 220px; height: 18px;
+    			width: 400px; height: 18px;
     			&:active, &:focus {
     			  outline: solid 1px @dark-blue;
     			}
     		}
     		input[type="submit"] {
+					margin: 4px;
     		  vertical-align: middle;
     			width: 64px;
     		}			
