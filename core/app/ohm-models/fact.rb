@@ -106,8 +106,8 @@ class Fact < Basefact
   end
 
   def set_own_id_on_saved_data
-    localdata.fact_id = self.id
-    localdata.save
+    self.data.fact_id = self.id
+    self.data.save
   end
   
   before :save, :require_saved_data
