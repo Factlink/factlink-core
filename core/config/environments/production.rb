@@ -56,5 +56,6 @@ ActionMailer::Base.smtp_settings = {
   :domain => 'factlink.com',
   :authentication => :plain,
   :user_name => 'noreply@factlink.com',
-  :password => '@H-cw8w)6l8.nP'
+  :password => '@H-cw8w)6l8.nP',
+  :openssl_verify_mode => 'none'
 }
