@@ -7,14 +7,6 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
-  attribute :backend_is_fork
-  
-  def is_fork=(value)
-    self.backend_is_fork = value.to_s
-  end
-  def is_fork(*params)
-    self.backend_is_fork== 'true'
-  end
   
   alias :channel_maintainer :created_by
 
@@ -23,8 +15,6 @@ class Channel < OurOhm
   set :internal_facts, Fact
   set :delete_facts, Fact
   set :cached_facts, Fact
-
-
 
   public
   alias :sub_channels :contained_channels
@@ -81,7 +71,7 @@ class Channel < OurOhm
   end
 
   def fork(user)
-    c = Channel.create(:created_by => user, :title => title, :description => description, :is_fork => true)
+    c = Channel.create(:created_by => user, :title => title, :description => description)
     c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
@@ -103,15 +93,6 @@ class Channel < OurOhm
       all.each do |ch|
         ch.calculate_facts
       end
-    end
-  end
-
-  #if one of the following methods is executed and the channel was a fork, it isn't anymore
-  [:add_channel, :remove_fact, :add_fact, :title=, :description=].each do |m|
-    orig = instance_method m
-    send :define_method, m do |*args|
-      self.is_fork = false
-      orig.bind(self).call *args
     end
   end
 
