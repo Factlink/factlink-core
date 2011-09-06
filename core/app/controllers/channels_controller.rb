@@ -40,7 +40,6 @@ class ChannelsController < ApplicationController
 
   # POST /channels
   def create
-    
     @channel = Channel.new(params[:channel])
     @channel.created_by = current_user.graph_user
     
