@@ -42,5 +42,6 @@ FactoryGirl.define do
 
   factory :channel do
     association :created_by, :factory => :graph_user
+    title "Titel"
   end
 end
