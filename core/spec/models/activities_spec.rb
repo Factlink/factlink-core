@@ -20,6 +20,7 @@ describe Activity do
     @a.subject.should == @f1
     @a.object.should == @f2
   end
+  
   it do
     @a = Activity.create(
            :user => @gu,
