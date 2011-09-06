@@ -81,7 +81,8 @@ div.modal span.proxyWindow {
 }
 .boxed {
   padding: 0;
-  border: solid 1px #bbb;
+  border: solid 1px #ddd;
+  border-radius: 3px;
 }
 .float {
   background-color: #f7f7f7;
@@ -95,7 +96,8 @@ body.factlink-site .fact-block {
 }
 .fact-block {
   padding: 0;
-  border: solid 1px #bbb;
+  border: solid 1px #ddd;
+  border-radius: 3px;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
   color: #BBB;
   text-shadow: 0px 1px 0px white;
@@ -116,6 +118,7 @@ body.factlink-site .fact-block {
   display: block;
 }
 .fact-block article.fact header {
+  margin-top: 6px;
   /*border-right: 1px dotted #f0f0f0;
       &:hover { 
         border-right: 1px dotted @dark-blue;
@@ -135,10 +138,13 @@ body.factlink-site .fact-block {
 }
 .fact-block article.fact header .body {
   font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-size: 1.2em;
+  line-height: 19px;
 }
 .fact-block article.fact .channel-listing {
   padding: 0;
-  border: solid 1px #bbb;
+  border: solid 1px #ddd;
+  border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
@@ -183,11 +189,17 @@ body.factlink-site .fact-block {
 .fact-block .evidence-facts .add-action {
   height: 25px;
   padding: 5px;
-  line-height: 30px;
+  line-height: 24px;
   border-top: 1px solid #E4E4E4;
   position: relative;
   z-index: 20;
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+}
+.fact-block .evidence-facts .add-action a {
+  opacity: 0.8;
+}
+.fact-block .evidence-facts .add-action a:hover {
+  opacity: 1.0;
 }
 .fact-block .evidence-facts .evidence-actions {
   position: relative;
@@ -199,6 +211,10 @@ body.factlink-site .fact-block {
 }
 .fact-block .evidence-facts .evidence-actions a {
   line-height: 22px;
+  opacity: 0.8;
+}
+.fact-block .evidence-facts .evidence-actions a:hover {
+  opacity: 1.0;
 }
 .fact-block .evidence-facts .evidence, .fact-block .evidence-facts .potential-evidence {
   min-height: 80px;
@@ -226,22 +242,23 @@ body.factlink-site .fact-block {
 }
 .fact-block .evidence-facts .potential-evidence .search {
   border-bottom: solid 1px #ddd;
-  padding: 3px 12px;
+  padding: 2px 12px 5px;
   line-height: 28px;
   background: #fbfafa;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="text"] {
-  padding: 0 !important;
+  padding: 2px 4px !important;
   font-size: 8pt;
   border-radius: 3px;
   border: solid 1px #ccc;
-  width: 220px;
+  width: 400px;
   height: 18px;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="text"]:active, .fact-block .evidence-facts .potential-evidence .search input[type="text"]:focus {
   outline: solid 1px #306d90;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="submit"] {
+  margin: 4px;
   vertical-align: middle;
   width: 64px;
 }
@@ -253,7 +270,8 @@ body.factlink-site .fact-block {
 }
 .fact-block .opinion-box {
   padding: 0;
-  border: solid 1px #bbb;
+  border: solid 1px #ddd;
+  border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;

@@ -22,16 +22,6 @@ class Basefact < OurOhm
     opiniated(type).size
   end
 
-  def toggle_opinion(type, user)
-    if opiniated(type).include?(user)
-      # User has this opinion already; remove opinion
-      remove_opinions(user)
-    else
-      # User has none or other opinion, set this one!
-      add_opinion(type, user)
-    end
-  end
-
   def add_opinion(type, user)    
     _remove_opinions(user)
 
