@@ -116,3 +116,13 @@ class Channel < OurOhm
   end
 
 end
+
+class UserStream
+  def initialize(graph_user)
+    @graph_user = graph_user
+  end
+  
+  def facts
+    @graph_user.channels.map{|ch| ch.facts}.reduce(:|).all || []
+  end
+end

@@ -11,8 +11,8 @@
 <% content_for :main_column do %>
 
 
-	<h1>Facts added by <%= @user.username %></h1>
-	<%= fact_listing(@user.facts.reverse) %>
+	<h1>User stream <%= @user.username %></h1>
+	<%= fact_listing(@user.graph_user.stream.facts) %>
 
 
 <% end %>

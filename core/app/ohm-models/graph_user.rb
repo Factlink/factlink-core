@@ -31,6 +31,10 @@ class GraphUser < OurOhm
     Channel.find(:created_by_id => self.id).except(:discontinued => 'true')
   end
 
+  def stream
+    UserStream.new(self)
+  end
+
   collection :activities, Activity, :user
   attribute :cached_authority
 
