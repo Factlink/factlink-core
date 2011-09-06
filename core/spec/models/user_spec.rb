@@ -21,7 +21,7 @@ describe User do
   end
 
   it "should have one active factlink after adding believe" do
-    @child1.toggle_opinion(:beliefs, @user1)
+    @child1.add_opinion(:beliefs, @user1)
     @user1.facts.size == 1
   end
 
@@ -33,7 +33,7 @@ describe User do
   [:beliefs,:doubts,:disbeliefs].each do |type|
     # User should have a reference of all Fact Ids he beliefs, doubts, disbeliefs
     it "should store the Fact ID in the user object when a user #{type} a fact" do
-      @factlink.toggle_opinion(type, @user1.graph_user )
+      @factlink.add_opinion(type, @user1.graph_user )
       @user1.opinion_on_fact_for_type?(type,@factlink).should == true
     end
   end

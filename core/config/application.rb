@@ -17,7 +17,7 @@ module FactlinkUI
 
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
-
+    
     autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
     autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
     autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
@@ -26,7 +26,7 @@ module FactlinkUI
     autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
     autoload :Site, "#{config.root}/app/ohm-models/site.rb"
     autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
-
+    
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     
     
