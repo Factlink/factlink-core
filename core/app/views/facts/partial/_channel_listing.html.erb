@@ -6,20 +6,14 @@
 
 		<% current_user.graph_user.channels.each do |channel| %>
 			<li><%= check_box_tag(channel.id, 1, channel.facts.include?(fact), :onclick => "$(\"article#fact-\" + $(this).closest('div.fact-block').data('fact-id')).factlink(\"to_channel\", \"#{current_user.username}\", #{channel.id}, #{fact.id});") %> <%= label_tag(channel.id, channel.title) %></li>
-			
-			<li><a onclick="alert($(this).closest('div.fact-block').data('fact-id'));">aaaa</a></li>
-			
-			
-			
-			
 		<% end %>
 
-	<% end %>
-	
-	<hr/>
-	add a new channel:
-	<%= render :partial => "channels/remote_form" %>
-		
+	<% end %>	
 	</ul>
 	
+	<!-- <hr/> -->
+	<div class="add-channel">
+		add a new channel:
+		<%= render :partial => "channels/remote_form", :locals => { :fact => fact } %>
+	</div>
 </div>

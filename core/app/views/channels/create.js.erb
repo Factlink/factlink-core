@@ -1,0 +1,5 @@
+<% if current_user.channels.count == 1 %>
+	$('div.fact-block[data-fact-id=<%=@fact.id%>] .channel-listing > ul').empty().append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
+<% else %>
+	$('div.fact-block[data-fact-id=<%=@fact.id%>] .channel-listing > ul').append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
+<% end %>

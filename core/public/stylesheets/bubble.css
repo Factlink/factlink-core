@@ -156,6 +156,16 @@ body.factlink-site .fact-block {
   display: block;
   padding: 0.7em;
 }
+.fact-block article.fact .channel-listing .add-channel {
+  border-top: solid 1px #ddd;
+  padding: 8px;
+}
+.fact-block article.fact .channel-listing .add-channel input[type="text"] {
+  width: 84px;
+  padding: 2px;
+  border-radius: 3px;
+  border: solid 1px #ccc;
+}
 .fact-block article.fact .actions {
   margin-right: 60px;
   visibility: hidden;

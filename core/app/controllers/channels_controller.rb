@@ -46,7 +46,17 @@ class ChannelsController < ApplicationController
     # Check if object valid, then execute:
     if @channel.valid?
       @channel.save
-      redirect_to(channel_path(@user.username, @channel.id), :notice => 'Channel successfully created')
+
+      unless params[:for_fact].nil?
+        @fact = Fact[params[:for_fact]]
+        @channel.add_fact(@fact)
+      end
+      
+      respond_to do |format|
+        format.html { redirect_to(channel_path(@user.username, @channel.id), :notice => 'Channel successfully created') }
+        format.js 
+      end
+      
     else
       render :action => "new"
     end
