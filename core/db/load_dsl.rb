@@ -46,7 +46,8 @@ class LoadDsl
 
   def self.export_site(site)
     rv = "site \"#{quote_string(site.url)}\""
-    rv += ", \"#{quote_string(site.title)}\"\n" if site.title
+    rv += ", \"#{quote_string(site.title)}\"" if site.title
+    rv += "\n"
     rv
   end
 
@@ -69,8 +70,9 @@ class LoadDsl
   end
 
   def self.export_fact(fact)
-    rv = "fact \"#{quote_string(fact.displaystring)}\""
-    rv += ", \"#{quote_string(site.url)}\"\n" if fact.site
+    rv = "fact \"#{quote_string(fact.data.displaystring)}\""
+    rv += ", \"#{quote_string(fact.site.url)}\"" if fact.site
+    rv += "\n"
     rv
   end
 
@@ -187,7 +189,7 @@ class LoadDsl
   end
 
   def self.export_del_fact(fact)
-    "del_fact \"#{quote_string(fact.displaystring)}\"\n"
+    "del_fact \"#{quote_string(fact.data.displaystring)}\"\n"
   end
 
 
