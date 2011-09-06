@@ -3,3 +3,5 @@
 <% else %>
 	$('div.fact-block[data-fact-id=<%=@fact.id%>] .channel-listing > ul').append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
 <% end %>
+
+$('div.fact-block[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
