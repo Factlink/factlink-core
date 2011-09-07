@@ -1,0 +1,9 @@
+<%= form_for(:channel, :url => channels_path(current_user.username), :remote => true) do |f| %>
+
+	<%= f.text_field :title, :placeholder => "Channel title" %>
+	
+	<input type="hidden" id="for_fact" name="for_fact" value="<%= fact.id %>" />
+	<%= f.submit "Add" %> 
+	
+<% end %>
+

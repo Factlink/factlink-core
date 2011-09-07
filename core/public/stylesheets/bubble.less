@@ -19,7 +19,7 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 2px 2px 2px #ccc;
+  box-shadow: 15px 15px 15px #666;
   padding: 0;
   margin:  0 auto;
   width: 510px;
@@ -50,7 +50,49 @@ div.modal {
   position: absolute;
 }
 
-body.factlink-site .fact-block {
+ul#results-listing div.user-block {
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
+  color: #BBB;
+  text-shadow: 0px 1px 0px white;
+  width: 510px;
+  
+  .side {
+    margin: 10px;
+    float: left;
+    
+    .authority {
+      display: block;
+      text-align: center;
+      margin: 5px 0 0 0;
+      font-size: 12px;
+      
+      img {
+        vertical-align: middle;
+      }
+    }
+    
+    .username {
+      color: #666363;
+      float: left;
+      font-size: 16px;
+      vertical-align: top;
+
+      a {
+        color: #666363;
+      }
+    }
+
+    .type {
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+}
+
+body.factlink-site .fact-block,
+body.factlink-site div.user-block {
   margin-bottom:15px
 }
 
@@ -84,7 +126,7 @@ body.factlink-site .fact-block {
       display: block;
       padding-right: 20px;
       color: #333;
-      margin-left: 60px;
+      margin-left: 75px;
       sub {
         color: #AAA;
         font-size: x-small;
@@ -97,6 +139,15 @@ body.factlink-site .fact-block {
 				font-size: 1.2em;
 				line-height: 19px;
       }
+      .actions { 
+        visibility: hidden;
+        height: 18px;      
+        li { 
+          margin: 5px 5px 0 0;
+          display: inline-block;
+          list-style-type: none;
+        }
+      }
     }
     .channel-listing { 
       .boxed;
@@ -106,17 +157,20 @@ body.factlink-site .fact-block {
         display: block;
         padding: 0.7em;
       }
+			.add-channel {
+				border-top: solid 1px #ddd;
+				padding: 8px;
+				
+				input[type="text"] {
+					width: 84px;
+					padding: 2px;
+					border-radius: 3px;
+					border: solid 1px #ccc;
+				}
+
+			}
     }
-    .actions { 
-      margin-right: 60px;
-      visibility: hidden;
-      height: 18px;      
-      li { 
-        margin: 5px 5px 0 0;
-        display: inline-block;
-        list-style-type: none;
-      }
-    }
+
     &:hover {
       .actions { 
         visibility: visible;

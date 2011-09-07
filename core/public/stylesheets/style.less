@@ -237,6 +237,7 @@ a:hover {
 #top-bar {
   width: 100%;
   height: 40px;
+	background: #333;
   background-image: -webkit-gradient(
     linear,
     left bottom,
@@ -413,6 +414,48 @@ a:hover {
       header {
         margin-top: 16px;
       }
+      
+      /** From web-v2.1 */
+      /** User block */
+      .user-block {
+        margin: 12px 0px 0px 0px;
+        width: 140px;
+        &:hover {
+          cursor: pointer;
+
+          h1 {
+            color: rgb(206, 0, 0);
+          }
+        }
+
+        .wrapper {
+          margin-left: 48px;
+
+        }
+        .user-avatar {
+          background: #f7f7f7;
+          float: left;
+          position: relative;
+          top: 0px;
+          left: 0px;
+
+          display: block;
+
+          height: 32px;
+          width: 32px;
+
+          border: solid 1px #ddd;
+          border-radius: 3px;
+        }
+
+        h1 {
+          font-family: Georgia, "Times New Roman", Garamond, serif;
+          font-size: 16px;
+          font-weight: 200;
+          color: #333;
+          margin: 0;
+        }
+      }
     }
 
     #main-column {
@@ -435,13 +478,6 @@ a:hover {
 
     #channel-listing {
       .channel {
-/*        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-
-        border-top: solid 1px rgba(0, 0, 0, 0.0);
-        border-left: solid 1px rgba(0, 0, 0, 0.0);
-        border-bottom: solid 1px rgba(0, 0, 0, 0.0);
-*/
 
         background: #ccc;
         padding: 8px 8px;
@@ -579,53 +615,6 @@ a:hover {
             }
           }
         }
-      }
-    }
-
-
-    #fact-listing {
-    }
-
-
-    /** From web-v2.1 */
-    /** User block */
-    .user-block {
-      margin: 12px 0px 0px 0px;
-      width: 140px;
-      &:hover {
-        cursor: pointer;
-
-        h1 {
-          color: rgb(206, 0, 0);
-        }
-      }
-
-      .wrapper {
-        margin-left: 48px;
-
-      }
-      .user-avatar {
-        background: #f7f7f7;
-        float: left;
-        position: relative;
-        top: 0px;
-        left: 0px;
-
-        display: block;
-
-        height: 32px;
-        width: 32px;
-
-        border: solid 1px #ddd;
-        border-radius: 3px;
-      }
-
-      h1 {
-        font-family: Georgia, "Times New Roman", Garamond, serif;
-        font-size: 16px;
-        font-weight: 200;
-        color: #333;
-        margin: 0;
       }
     }
   }

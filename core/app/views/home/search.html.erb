@@ -1,8 +1,8 @@
 <% content_for :script do %>
 	<%= javascript_include_tag("factlink_overview") %>
-	<% if @facts.count < @row_count %>
+	<% if @results.count < @row_count %>
 	  <script type="text/javascript">
-	    var a = <%= @facts.count %>;
+	    var a = <%= @results.count %>;
 	    var b = <%= @row_count %>;
 	    window.isFullyLoaded = true;
 	    $( '#load_more' ).hide();
@@ -13,17 +13,13 @@
 
 
 <% content_for :left_column do %>
-	
 	&nbsp;
-
 <% end %>
 
 <% content_for :main_column do %>
-
 	<h1>Factlink search - providing credibility you can see</h1>
 
-	<% unless @facts.count > 0 %>
-
+	<% unless @results.count > 0 %>
 		<div class="append-bottom">
 			<ul>
 				<li>Your search didn't return any matching results...</li>
@@ -34,10 +30,18 @@
 			Here are some random facts that might be interesting:
 		</div>
 	
-		<%= random_facts(5) %>
-	
+		<%= fact_listing( Fact.all.sort_by(rand).slice(0..5) ) %>
 	<% else %>
-		<%= fact_listing(@facts) %>
+	  <% unless @results.count > 0 %>
+	    <p>No facts added yet.</p>
+	  <% else %>
+	    <ul id="results-listing">
+	      <% @results.each do |result| %>
+	        <li>
+	         <%= render result %>
+	        </li>
+	      <% end %>
+      </ul>
+	  <% end %>
 	<% end %>
-	
 <% end %>

@@ -1,0 +1,14 @@
+<div class="user-block">
+  <div class="side">
+    <%= image_tag(user.avatar, :width => 64, :class => "avatar") %>
+    <span class="authority">
+      <%= image_tag("http://localhost:3000/images/brains.png") %>
+      <%= user.authority %>
+    </span>
+  </div>
+  <div class="side">
+    <div class="username"><%= link_to user.username, user_profile_path(user.username) %></div>
+    <div class="type">User</div>
+  </div>
+  <div class="clear"></div>
+</div>
