@@ -10,7 +10,7 @@ class FactsController < ApplicationController
 
   before_filter :authenticate_user!, 
     :except => [
-      :show, 
+      :show,
       :prepare_new,
       :prepare_evidence, 
       :intermediate, 
