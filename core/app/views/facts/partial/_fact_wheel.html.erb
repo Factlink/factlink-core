@@ -1,7 +1,7 @@
 <div class="wheel">
-  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-color="#95C11F"></div>
-  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-color="#E94E1B"></div>
-	<div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:doubt][:percentage] %>" data-opinion="doubts" data-color="#36A9E1"></div>
+  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="beliefs" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact).to_s == "beliefs" %><% end %>" data-color="#95C11F"></div>
+  <div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="disbeliefs" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact).to_s == "disbeliefs" %><% end %>" data-color="#E94E1B"></div>
+	<div class="opinion" data-value="<%= fact.get_opinion.as_percentages[:doubt][:percentage] %>" data-opinion="doubts" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact).to_s == "doubts" %><% end %>" data-color="#36A9E1"></div>
 
 	<% if defined?(fact_relation) and fact_relation %>
     <div class="relevance_opinion" data-value="<%= fact_relation.get_opinion.as_percentages[:believe][:percentage] %>" data-opinion="relevant" data-color="#95C11F"></div>
