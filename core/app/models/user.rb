@@ -73,8 +73,8 @@ class User
   include Sunspot::Mongoid
 
   searchable :auto_index => true do
-    text    :username
-    string  :username
+    text    :username, :twitter
+    string  :username, :twitter
   end
 
   # Include default devise modules. Others available are:

@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     row_count = @row_count
     
     solr_result = Sunspot.search FactData, User do
-      keywords params[:s], :fields => [:displaystring, :username]
+      keywords params[:s]
       paginate :page => params[:page], :per_page => row_count
       
       adjust_solr_params do |sunspot_params|
@@ -32,20 +32,13 @@ class HomeController < ApplicationController
       end
     end
 
-    @results = solr_result.results
-
-    puts "\n\n Results:"
-    puts @results
-
-    @results = @results.map do |result|
+    @results = solr_result.results.map do |result|
       begin
         result.fact
       rescue
         result
       end
     end
-    
-    print @results
 
     respond_to do |format|
       format.html # search.html.erb
