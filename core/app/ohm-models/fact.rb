@@ -221,7 +221,6 @@ class Fact < Basefact
 
   reference :evidence_opinion, Opinion
   def calculate_evidence_opinion(depth=0)
-    puts "#{id} calculate evidence opinion #{depth}"
     opinions = []
     [:supporting, :weakening].each do |type|
       factrelations = evidence(type)
@@ -245,7 +244,6 @@ class Fact < Basefact
 
   reference :opinion, Opinion
   def calculate_opinion(depth=0)
-    puts "#{id} calculate opinion #{depth}"
     calculate_evidence_opinion
     total_opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth)
     self.opinion = total_opinion.save

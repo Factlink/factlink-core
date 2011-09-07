@@ -87,7 +87,6 @@ class FactRelation < Basefact
   reference :influencing_opinion, Opinion
   
   def calculate_influencing_opinion(depth=0)
-    puts "#{id} calculate influencing opinion #{depth}"
     self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth)).save
     save
   end

@@ -45,7 +45,6 @@ class Basefact < OurOhm
   reference :user_opinion, Opinion
   def calculate_user_opinion(depth=0)
     #depth has no meaning here unless we want the depth to also recalculate authorities
-    puts "#{id} calculate user opinion #{depth}"
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
