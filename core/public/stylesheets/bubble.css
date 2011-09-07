@@ -60,7 +60,7 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 2px 2px 2px #ccc;
+  box-shadow: 15px 15px 15px #666;
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -161,7 +161,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   display: block;
   padding-right: 20px;
   color: #333;
-  margin-left: 60px;
+  margin-left: 75px;
 }
 .fact-block article.fact header sub {
   color: #AAA;
@@ -174,6 +174,15 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 1.2em;
   line-height: 19px;
+}
+.fact-block article.fact header .actions {
+  visibility: hidden;
+  height: 18px;
+}
+.fact-block article.fact header .actions li {
+  margin: 5px 5px 0 0;
+  display: inline-block;
+  list-style-type: none;
 }
 .fact-block article.fact .channel-listing {
   padding: 0;
@@ -190,15 +199,15 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   display: block;
   padding: 0.7em;
 }
-.fact-block article.fact .actions {
-  margin-right: 60px;
-  visibility: hidden;
-  height: 18px;
+.fact-block article.fact .channel-listing .add-channel {
+  border-top: solid 1px #ddd;
+  padding: 8px;
 }
-.fact-block article.fact .actions li {
-  margin: 5px 5px 0 0;
-  display: inline-block;
-  list-style-type: none;
+.fact-block article.fact .channel-listing .add-channel input[type="text"] {
+  width: 84px;
+  padding: 2px;
+  border-radius: 3px;
+  border: solid 1px #ccc;
 }
 .fact-block article.fact:hover .actions {
   visibility: visible;

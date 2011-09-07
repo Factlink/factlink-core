@@ -332,6 +332,7 @@ a:hover {
 #top-bar {
   width: 100%;
   height: 40px;
+  background: #333;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #212121), color-stop(1, #424242));
   border-bottom: solid 1px rgba(255, 255, 255, 0.8);
   -webkit-box-shadow: 0px -4px 20px #333333;
@@ -504,14 +505,6 @@ form .action-wrapper span {
   z-index: 100;
 }
 #container #channel-listing .channel {
-  /*        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-
-        border-top: solid 1px rgba(0, 0, 0, 0.0);
-        border-left: solid 1px rgba(0, 0, 0, 0.0);
-        border-bottom: solid 1px rgba(0, 0, 0, 0.0);
-*/
-
   background: #ccc;
   padding: 8px 8px;
   margin: 0 0 8px 0;
@@ -522,14 +515,6 @@ form .action-wrapper span {
   cursor: pointer;
 }
 #container #channel-listing li {
-  /*        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-
-        border-top: solid 1px rgba(0, 0, 0, 0.0);
-        border-left: solid 1px rgba(0, 0, 0, 0.0);
-        border-bottom: solid 1px rgba(0, 0, 0, 0.0);
-*/
-
   background: #ccc;
   padding: 8px 8px;
   margin: 0 0 8px 0;

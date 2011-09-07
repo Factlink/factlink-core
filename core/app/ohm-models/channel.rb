@@ -64,6 +64,8 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
+
+    self.delete_facts.delete(fact)
     self.internal_facts.add(fact)
     activity(self.created_by,:added,fact,:to,self)
   end

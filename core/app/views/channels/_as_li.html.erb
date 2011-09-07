@@ -1,0 +1,1 @@
+<li><%= check_box_tag(channel.id, 1, true, :onclick => "$(\"article#fact-\" + $(this).closest('div.fact-block').data('fact-id')).factlink(\"to_channel\", \"#{current_user.username}\", #{channel.id}});") %> <%= label_tag(channel.id, channel.title) %></li>
