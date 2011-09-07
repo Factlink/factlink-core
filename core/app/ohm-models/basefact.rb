@@ -1,7 +1,6 @@
 class Basefact < OurOhm
   include ActivitySubject
   
-  reference :user_opinion, Opinion
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
@@ -42,7 +41,11 @@ class Basefact < OurOhm
     end
   end
 
-  def calculate_user_opinion
+
+  reference :user_opinion, Opinion
+  def calculate_user_opinion(depth=0)
+    #depth has no meaning here unless we want the depth to also recalculate authorities
+    puts "#{id} calculate user opinion #{depth}"
     opinions = []
     [:beliefs, :doubts, :disbeliefs].each do |type|      
       opiniated = opiniated(type)
@@ -53,8 +56,11 @@ class Basefact < OurOhm
     self.user_opinion = Opinion.combine(opinions).save
     save
   end
-  
-  def get_user_opinion
+
+  def get_user_opinion(depth=0)
+    if depth > 0
+      self.calculate_user_opinion(depth)
+    end
     self.user_opinion || Opinion.identity
   end
   

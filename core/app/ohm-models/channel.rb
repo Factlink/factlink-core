@@ -20,22 +20,12 @@ class Channel < OurOhm
   alias :sub_channels :contained_channels
 
   def calculate_facts
-    # TODO very dirty, refactor ohm so this works with the commented-out line, and efficiently does the def the | and the -
     fs = internal_facts
     contained_channels.each do |ch|
       fs |= ch.facts
     end
     fs -= delete_facts
-
-    #self.cached_facts = fs
-    # a 'bit' less efficient:
-    cached_facts.clear
-    fs.each do |f|
-      if f != nil
-        cached_facts << f
-      end
-    end
-    save
+    self.cached_facts = fs
   end
 
 
@@ -104,6 +94,11 @@ class UserStream
   end
   
   def facts
-    @graph_user.channels.map{|ch| ch.facts}.reduce(:|).all || []
+    facts = @graph_user.channels.map{|ch| ch.facts}.reduce(:|)
+    if facts
+      facts.all
+    else
+      []
+    end
   end
 end

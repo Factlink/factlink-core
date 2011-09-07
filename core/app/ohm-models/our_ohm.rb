@@ -64,6 +64,14 @@ class OurOhm < Ohm::Model
   class << self
     alias :create! :create
   end
+  def self.set(name,model)
+    self.superclass.set(name, model)
+    define_method(:"#{name}=") do |value|
+      @_memo.delete(name)
+      send(name).assign(value)
+      value.key.sunionstore(key[name]) #copy
+    end
+  end
 
 
   alias save! save
@@ -78,8 +86,13 @@ class OurOhm < Ohm::Model
 
 end
 
+# TODO refactor ohm so this works  lazy  and efficiently does the def the | and the -
 class Ohm::Model::Set < Ohm::Model::Collection
   alias :count :size
+
+  def assign(set)
+    apply(:sunionstore,set.key,set.key,key) #copy; dirty stupid code, sorry
+  end
 
   def &(other)
     apply(:sinterstore,key,other.key,key+"*INTERSECT*"+other.key)
