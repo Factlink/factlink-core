@@ -27,12 +27,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    $redis.FLUSHDB
+    Ohm.flush
     DatabaseCleaner.clean
   end 
 
   config.after(:suite) do
-    $redis.FLUSHDB
+    Ohm.flush
     DatabaseCleaner.clean
   end
 

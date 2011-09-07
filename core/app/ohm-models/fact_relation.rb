@@ -21,11 +21,11 @@ class FactRelation < Basefact
   end
 
   def FactRelation.exists_already?(from,type,to)
-    $redis.exists(FactRelation.redis_key(from, type, to))
+    key['gcby'][from.id][type][to.id].exists
   end
 
   def FactRelation.get_relation(from,type,to)
-    id = $redis.get(FactRelation.redis_key(from, type, to))
+    id = key['gcby'][from.id][type][to.id].get()
     FactRelation[id]
   end
 
@@ -39,8 +39,8 @@ class FactRelation < Basefact
 
     #TODO this should use a collection
     to.evidence(type) << fl
+    key['gcby'][from.id][type][to.id].set(fl.id)
 
-    $redis.set(FactRelation.redis_key(from,type,to), fl.id)
     fl
   end
 
@@ -78,7 +78,8 @@ class FactRelation < Basefact
   end
 
   def delete
-    $redis.del(FactRelation.redis_key(from_fact, self.type, fact))
+    self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
+    
     fact.evidence(self.type.to_sym).delete(self)
     super
   end
