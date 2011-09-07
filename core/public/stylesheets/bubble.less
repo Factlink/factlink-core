@@ -19,7 +19,7 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 2px 2px 2px #ccc;
+  box-shadow: 15px 15px 15px #666;
   padding: 0;
   margin:  0 auto;
   width: 510px;
@@ -84,7 +84,7 @@ body.factlink-site .fact-block {
       display: block;
       padding-right: 20px;
       color: #333;
-      margin-left: 60px;
+      margin-left: 75px;
       sub {
         color: #AAA;
         font-size: x-small;
@@ -96,6 +96,15 @@ body.factlink-site .fact-block {
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
+      }
+      .actions { 
+        visibility: hidden;
+        height: 18px;      
+        li { 
+          margin: 5px 5px 0 0;
+          display: inline-block;
+          list-style-type: none;
+        }
       }
     }
     .channel-listing { 
@@ -119,16 +128,7 @@ body.factlink-site .fact-block {
 
 			}
     }
-    .actions { 
-      margin-right: 60px;
-      visibility: hidden;
-      height: 18px;      
-      li { 
-        margin: 5px 5px 0 0;
-        display: inline-block;
-        list-style-type: none;
-      }
-    }
+
     &:hover {
       .actions { 
         visibility: visible;
