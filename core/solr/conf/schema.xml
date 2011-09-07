@@ -62,8 +62,13 @@
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer>
         <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StandardFilterFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
+				<tokenizer class="solr.WhitespaceTokenizerFactory"/>
+
+				<filter class="solr.StandardFilterFactory"/>
+			  <filter class="solr.LowerCaseFilterFactory"/>
+			  <filter class="solr.PorterStemFilterFactory"/>
+				<filter class="solr.EdgeNGramFilterFactory"/>
+			  <filter class="solr.PhoneticFilterFactory" encoder="DoubleMetaphone" inject="true"/>
       </analyzer>
     </fieldType>
     <!-- *** This fieldType is used by Sunspot! *** -->

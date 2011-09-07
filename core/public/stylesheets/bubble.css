@@ -111,6 +111,7 @@ ul#results-listing div.user-block .side .authority {
 }
 ul#results-listing div.user-block .side .authority img {
   vertical-align: middle;
+  border-radius: 3px;
 }
 ul#results-listing div.user-block .side .username {
   color: #666363;
