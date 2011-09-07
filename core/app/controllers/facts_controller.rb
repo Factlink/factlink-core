@@ -41,7 +41,6 @@ class FactsController < ApplicationController
   end
 
   def show
-    # render :partial => 'home/snippets/fact/fact_container'
   end
 
   def new

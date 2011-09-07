@@ -413,6 +413,48 @@ a:hover {
       header {
         margin-top: 16px;
       }
+      
+      /** From web-v2.1 */
+      /** User block */
+      .user-block {
+        margin: 12px 0px 0px 0px;
+        width: 140px;
+        &:hover {
+          cursor: pointer;
+
+          h1 {
+            color: rgb(206, 0, 0);
+          }
+        }
+
+        .wrapper {
+          margin-left: 48px;
+
+        }
+        .user-avatar {
+          background: #f7f7f7;
+          float: left;
+          position: relative;
+          top: 0px;
+          left: 0px;
+
+          display: block;
+
+          height: 32px;
+          width: 32px;
+
+          border: solid 1px #ddd;
+          border-radius: 3px;
+        }
+
+        h1 {
+          font-family: Georgia, "Times New Roman", Garamond, serif;
+          font-size: 16px;
+          font-weight: 200;
+          color: #333;
+          margin: 0;
+        }
+      }
     }
 
     #main-column {
@@ -579,53 +621,6 @@ a:hover {
             }
           }
         }
-      }
-    }
-
-
-    #fact-listing {
-    }
-
-
-    /** From web-v2.1 */
-    /** User block */
-    .user-block {
-      margin: 12px 0px 0px 0px;
-      width: 140px;
-      &:hover {
-        cursor: pointer;
-
-        h1 {
-          color: rgb(206, 0, 0);
-        }
-      }
-
-      .wrapper {
-        margin-left: 48px;
-
-      }
-      .user-avatar {
-        background: #f7f7f7;
-        float: left;
-        position: relative;
-        top: 0px;
-        left: 0px;
-
-        display: block;
-
-        height: 32px;
-        width: 32px;
-
-        border: solid 1px #ddd;
-        border-radius: 3px;
-      }
-
-      h1 {
-        font-family: Georgia, "Times New Roman", Garamond, serif;
-        font-size: 16px;
-        font-weight: 200;
-        color: #333;
-        margin: 0;
       }
     }
   }

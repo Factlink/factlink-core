@@ -434,10 +434,6 @@ form .action-wrapper span {
   padding-top: 60px;
   /* content blocks */
 
-  /** From web-v2.1 */
-
-  /** User block */
-
 }
 #container h1 {
   font-family: Arial, Helvetica, Garuda, sans-serif;
@@ -457,8 +453,46 @@ form .action-wrapper span {
   border: solid 1px #ddd;
   font-weight: 100;
 }
+#container #left-column {
+  /** From web-v2.1 */
+
+  /** User block */
+
+}
 #container #left-column header {
   margin-top: 16px;
+}
+#container #left-column .user-block {
+  margin: 12px 0px 0px 0px;
+  width: 140px;
+}
+#container #left-column .user-block:hover {
+  cursor: pointer;
+}
+#container #left-column .user-block:hover h1 {
+  color: #ce0000;
+}
+#container #left-column .user-block .wrapper {
+  margin-left: 48px;
+}
+#container #left-column .user-block .user-avatar {
+  background: #f7f7f7;
+  float: left;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  display: block;
+  height: 32px;
+  width: 32px;
+  border: solid 1px #ddd;
+  border-radius: 3px;
+}
+#container #left-column .user-block h1 {
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-size: 16px;
+  font-weight: 200;
+  color: #333;
+  margin: 0;
 }
 #container #main-wrapper {
   background: white;
@@ -590,38 +624,6 @@ form .action-wrapper span {
 #container #activity-listing #activity-list li article .activity-container {
   margin-left: 16px;
   line-height: 18px;
-}
-#container .user-block {
-  margin: 12px 0px 0px 0px;
-  width: 140px;
-}
-#container .user-block:hover {
-  cursor: pointer;
-}
-#container .user-block:hover h1 {
-  color: #ce0000;
-}
-#container .user-block .wrapper {
-  margin-left: 48px;
-}
-#container .user-block .user-avatar {
-  background: #f7f7f7;
-  float: left;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  display: block;
-  height: 32px;
-  width: 32px;
-  border: solid 1px #ddd;
-  border-radius: 3px;
-}
-#container .user-block h1 {
-  font-family: Georgia, "Times New Roman", Garamond, serif;
-  font-size: 16px;
-  font-weight: 200;
-  color: #333;
-  margin: 0;
 }
 /* ==|== non-semantic helper classes ========================================
 Please define your styles before this section.

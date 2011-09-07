@@ -1,8 +1,8 @@
-<% @facts.each do |fact| %>
-	$('#fact-listing').append("<%= escape_javascript(fact_snippet(fact)) %>")
+<% @results.each do |result| %>
+	$('#results-listing').append("<%= escape_javascript( render result ) %>");
 <% end %>
 
-<% if @facts.count == 0 %>
+<% if @results.count == 0 %>
     isFullyLoaded = true;
     $( '#loading, #load_more' ).hide();
 <% end %>
