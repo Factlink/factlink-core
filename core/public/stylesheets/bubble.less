@@ -19,7 +19,7 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 15px 15px 15px #666;
+  box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
   padding: 0;
   margin:  0 auto;
   width: 510px;
@@ -56,7 +56,7 @@ body.factlink-site .fact-block {
 
 .fact-block { 
   a { 
-    color: #666363;
+    color: @dark-blue;
   }
   .boxed;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
@@ -74,7 +74,6 @@ body.factlink-site .fact-block {
     width: 490px;
     display: block;   
     header { 
-	
 			margin-top: 6px;
 	
       /*border-right: 1px dotted #f0f0f0;
@@ -96,6 +95,9 @@ body.factlink-site .fact-block {
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
+				a { 
+          color: #666363;
+        }
       }
       .actions { 
         visibility: hidden;
@@ -190,8 +192,9 @@ body.factlink-site .fact-block {
       background-color: #FBFAFA;
       overflow: auto;
       .no-evidence td{ 
+        width: 480px;  
         text-align: center;
-        height: 150px; width: 480px;  
+        height: 150px;
         vertical-align: middle;
       }
       article.fact { 
@@ -200,7 +203,7 @@ body.factlink-site .fact-block {
         }
         border-bottom: 1px solid #E4E4E4;
         padding: 10px 0 10px 15px;    
-        width: 480px;  
+        width: 475px;  
         text-align: left;
       }
     }
@@ -298,28 +301,6 @@ div.fl-sign-in-container {
 
 div.sign-in {
 	border-bottom: solid 1px #ccc;
-}
-::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 2px;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:vertical {
-  height: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  width: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
 }
 /* ====== from tipsy plugin ==== */ 
 .tipsy { padding: 5px; font-size: 10px; opacity: 0.8; filter: alpha(opacity=80); background-repeat: no-repeat;  background-image: url("/images/tipsy.gif"); }
