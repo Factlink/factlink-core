@@ -151,14 +151,13 @@
 						});
 					},
 					switch_opinion : function ( opinion ) { 
-					  var op = opinion;
 					  var fact = this; 
 					  var opinions = fact.data("wheel").opinions;
 					  opinions.each(function() { 
 					    var current_op = this;
-					    if($(current_op).data("opinion") == op.data("opinion")) { // The clicked op is the current op in the list
+					    if($(current_op).data("opinion") == opinion.data("opinion")) { // The clicked op is the current op in the list
       					if(!$(current_op).data("user-opinion")) {
-      						$.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + op.data("opinion"),
+      						$.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"),
       						function(data) { 
                     data_attr(current_op, "user-opinion", true);   
                     opinions.each(function() {
