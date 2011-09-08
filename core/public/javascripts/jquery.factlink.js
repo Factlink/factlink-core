@@ -6,7 +6,23 @@
       this.relevance = $(fact).find(".relevance_opinion");
       this.params = $.extend(params,{"dim": 24, "default_stroke": {"opacity": 0.2, "stroke": 9}, "hover_stroke": {"opacity": 0.6, "stroke": 11}}); 
     }
-    Wheel.prototype.calc_display = function (opinions) { 
+    
+    function arc(w, op, p) { 
+      if(!op.raphael) { // set new path
+        var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
+        z = w.r.path().attr({ arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees], 
+                   stroke : $(op).data("color"), 
+                   "stroke-width": w.params.default_stroke.stroke, 
+                   opacity: opacity});
+        op.raphael = z;  
+        return z;
+      } else {
+        var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
+        return op.raphael.animate({ arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],  opacity: opacity}, 200, '<>');
+      } 
+    }
+    
+    Wheel.prototype.calc_display = function ( opinions ) { 
       var remainder = 100;
 			$(opinions).each(function() {
 				var display_value = $(this).data("value");
@@ -22,7 +38,7 @@
 				this.display_value = this.display_value + (remainder / leng) ;
 			});
     }  
-    Wheel.prototype.set_opinions = function (opinions, offset, size, total_degrees) {
+    Wheel.prototype.set_opinions = function (opinions, offset, r, total_degrees) {
         var w = this;
         var total = 0;
         w.calc_display(opinions);
@@ -30,21 +46,22 @@
   				total = total + this.display_value;
   			});    
         $(opinions).each(function() { 
-          var value = this.display_value;
-  				offset = offset + value;
-  				var opacity = $(this).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity,
-  				z = w.r.path().attr({arc: [value - 2, total, (total_degrees / total * offset), size, total_degrees]})
-          .attr({stroke : $(this).data("color"), "stroke-width": w.params.default_stroke.stroke, opacity: opacity}); 
-          this.raphael = z;
-        })
-        w.r.set;
+  				offset = offset + this.display_value;
+  				z = arc(w, this, {offset: offset, val: this.display_value, total: total, total_degrees: total_degrees, r: r});
+        });
     }
-    Wheel.prototype.bind_events = function( el ) { 
+    
+    Wheel.prototype.update = function () {
       var w = this;
-      $(el).each(function() {
+      w.set_opinions(this.opinions, 0, 14, 360);
+      w.set_opinions(this.relevance, 50, 25, 180);
+    }
+    
+    Wheel.prototype.bind_events = function( op ) { 
+      var w = this;
+      $(op).each(function() {
         // bind events
         var $t = $(this);
-        var op = $t.data("user-opinion");
   			this.raphael.mouseover(function(){
   				if(!$t.data("user-opinion")) {
   					this.animate({ 'stroke-width': w.params.hover_stroke.stroke, opacity: w.params.hover_stroke.opacity }, 200, '<>');
@@ -140,31 +157,32 @@
 					switch_opinion : function ( opinion ) { 
 					  var op = opinion;
 					  var fact = this; 
-					  this.data("wheel").opinions.each(function() { 
+					  fact.data("wheel").opinions.each(function() { 
 					    var current_op = this;
 					    if($(current_op).data("opinion") == op.data("opinion")) { // The clicked op is the current op in the list
       					if(!$(current_op).data("user-opinion")) {
       						$.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + op.data("opinion"),
       						function() { 
-                    $(current_op).data("user-opinion", true);
-                    current_op.raphael.animate({opacity: 1},200);
+                    $(current_op).attr("data-user-opinion", true); // sets data on DOM node
+                    $(current_op).data("user-opinion", true); // internal jquery reference
+                    fact.data("wheel").update();
       						});
       					} else {
       						$.ajax({
       							type: "DELETE",
       							url: "/fact/" + $(fact).data("fact-id") + "/opinion/",
       							success: function(msg){
-                      $(current_op).data("user-opinion", false);
-                      current_op.raphael.animate({opacity: 0.2},200); 
+                      $(current_op).attr("data-user-opinion", false); // dom attr 
+                      $(current_op).data("user-opinion", false); // internal jquery reference
+                      fact.data("wheel").update();
       							}
       						});
       					}
-					    } else { // The clicked op is not the current op
-					      this.raphael.animate({opacity: 0.2},200);
-					      $(this).data("user-opinion", false);
+					    } else {
+					      $(current_op).attr("data-user-opinion", false); // dom attr 
+                $(current_op).data("user-opinion", false); // internal jquery reference
 					    }
 					  });
-					  this.data("wheel").bind_events();
 					},
 					
 					// Channels
