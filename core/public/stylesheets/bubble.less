@@ -50,7 +50,50 @@ div.modal {
   position: absolute;
 }
 
-body.factlink-site .fact-block {
+ul#results-listing div.user-block {
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
+  color: #BBB;
+  text-shadow: 0px 1px 0px white;
+  width: 510px;
+  
+  .side {
+    margin: 10px;
+    float: left;
+    
+    .authority {
+      display: block;
+      text-align: center;
+      margin: 5px 0 0 0;
+      font-size: 12px;
+      
+      img {
+        vertical-align: middle;
+				border-radius: 3px;
+      }
+    }
+    
+    .username {
+      color: #666363;
+      float: left;
+      font-size: 16px;
+      vertical-align: top;
+
+      a {
+        color: #666363;
+      }
+    }
+
+    .type {
+      font-size: 14px;
+      line-height: 26px;
+    }
+  }
+}
+
+body.factlink-site .fact-block,
+body.factlink-site div.user-block {
   margin-bottom:15px
 }
 

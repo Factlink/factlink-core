@@ -12,10 +12,6 @@ describe Fact do
     @user2 = FactoryGirl.create(:user)
   end
 
-  # Should go to application test
-  it "should have a redis connection" do
-    $redis.should be_an_instance_of(Redis)
-  end
 
   context "initially" do
     it "should be findable" do

@@ -55,11 +55,6 @@ module HomeHelper
            :locals => { :activity => activity }
   end
   
-  def random_facts(nr=5)        
-    random_facts = Fact.all.sort_by(rand).slice(0..nr)
-    fact_listing(random_facts)
-  end
-  
   def wide_activity_list(activities)
     render :partial => "home/snippets/wide_activity_list",
             :locals => { :activities => activities }

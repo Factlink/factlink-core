@@ -14,7 +14,7 @@
 	<p>There are no facts in this channel...</p>
 <% else %>
 <!-- fact listing -->
-<ul id="fact-listing">
+<ul id="results-listing">
 	<% channel.facts.sort(:order => "DESC").each do |fact| %>
 		<li><%=	fact_snippet(fact, channel) %></li>
 	<% end %>

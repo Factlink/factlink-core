@@ -21,11 +21,11 @@ class FactRelation < Basefact
   end
 
   def FactRelation.exists_already?(from,type,to)
-    $redis.exists(FactRelation.redis_key(from, type, to))
+    key['gcby'][from.id][type][to.id].exists
   end
 
   def FactRelation.get_relation(from,type,to)
-    id = $redis.get(FactRelation.redis_key(from, type, to))
+    id = key['gcby'][from.id][type][to.id].get()
     FactRelation[id]
   end
 
@@ -39,8 +39,8 @@ class FactRelation < Basefact
 
     #TODO this should use a collection
     to.evidence(type) << fl
+    key['gcby'][from.id][type][to.id].set(fl.id)
 
-    $redis.set(FactRelation.redis_key(from,type,to), fl.id)
     fl
   end
 
@@ -78,39 +78,29 @@ class FactRelation < Basefact
   end
 
   def delete
-    $redis.del(FactRelation.redis_key(from_fact, self.type, fact))
+    self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
+    
     fact.evidence(self.type.to_sym).delete(self)
     super
   end
 
-  def self.opinion_reference(name)
-    opinion_id = :"#{name}_id"
-    attribute opinion_id
-        
-    define_method("#{name}=") do |opinion|
-      self.influencing_opinion_id = opinion.id
-    end
-    
-  end
 
-  opinion_reference :influencing_opinion
-
+  reference :influencing_opinion, Opinion
   
-  def influencing_opinion
-    Opinion[self.influencing_opinion_id]  
-  end  
-  
-  def calculate_influencing_opinion
-    self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion, self.user_opinion).save
+  def calculate_influencing_opinion(depth=0)
+    self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth)).save
     save
   end
   
-  def get_influencing_opinion
+  def get_influencing_opinion(depth=0)
+    if depth > 0
+      calculate_influencing_opinion(depth)
+    end
     self.influencing_opinion || Opinion.identity
   end
   
-  def get_opinion
-    self.user_opinion || Opinion.identity
+  def get_opinion(depth=0)
+    self.get_user_opinion(depth) || Opinion.identity
   end
   
 end

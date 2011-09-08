@@ -28,7 +28,13 @@ class FactGraph
 
     GraphUser.all.each do |gu|
       writer.write(LoadDsl.export_user(gu))
-      print "exporting #{gu.user.username}\n"
+      print "."
+    end
+    writer.write("\n")
+
+    Site.all.each do |s|
+      writer.write(LoadDsl.export_site(s))
+      print "."
     end
     writer.write("\n")
 
@@ -68,10 +74,14 @@ class FactGraph
       gu.channels.each do |channel|
         writer.write("  "+LoadDsl.export_channel(channel))
         channel.internal_facts.each do |f|
-          writer.write("    "+LoadDsl.export_add_fact(f))
+          if f and f.data_id
+            writer.write("    "+LoadDsl.export_add_fact(f))
+          end
         end
         channel.delete_facts.each do |f|
-          writer.write("    "+LoadDsl.export_del_fact(f))
+          if f and f.data_id
+            writer.write("    "+LoadDsl.export_del_fact(f))
+          end
         end
         channel.contained_channels.each do |ch|
           writer.write("    "+LoadDsl.export_sub_channel(ch))

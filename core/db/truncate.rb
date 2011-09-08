@@ -1,7 +1,8 @@
 def self.truncate(opts)
   # Clear stuff
   if Rails.env.development?
-    $redis.FLUSHDB                # Clear the Redis DB
+    Ohm.flush
+    
     env = 'development'
     mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[env]
 

@@ -7,14 +7,6 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
-  attribute :backend_is_fork
-  
-  def is_fork=(value)
-    self.backend_is_fork = value.to_s
-  end
-  def is_fork(*params)
-    self.backend_is_fork== 'true'
-  end
   
   alias :channel_maintainer :created_by
 
@@ -24,28 +16,16 @@ class Channel < OurOhm
   set :delete_facts, Fact
   set :cached_facts, Fact
 
-
-
   public
   alias :sub_channels :contained_channels
 
   def calculate_facts
-    # TODO very dirty, refactor ohm so this works with the commented-out line, and efficiently does the def the | and the -
     fs = internal_facts
     contained_channels.each do |ch|
       fs |= ch.facts
     end
     fs -= delete_facts
-
-    #self.cached_facts = fs
-    # a 'bit' less efficient:
-    cached_facts.clear
-    fs.each do |f|
-      if f != nil
-        cached_facts << f
-      end
-    end
-    save
+    self.cached_facts = fs
   end
 
 
@@ -83,7 +63,7 @@ class Channel < OurOhm
   end
 
   def fork(user)
-    c = Channel.create(:created_by => user, :title => title, :description => description, :is_fork => true)
+    c = Channel.create(:created_by => user, :title => title, :description => description)
     c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
@@ -108,13 +88,19 @@ class Channel < OurOhm
     end
   end
 
-  #if one of the following methods is executed and the channel was a fork, it isn't anymore
-  [:add_channel, :remove_fact, :add_fact, :title=, :description=].each do |m|
-    orig = instance_method m
-    send :define_method, m do |*args|
-      self.is_fork = false
-      orig.bind(self).call *args
+end
+
+class UserStream
+  def initialize(graph_user)
+    @graph_user = graph_user
+  end
+  
+  def facts
+    facts = @graph_user.channels.map{|ch| ch.facts}.reduce(:|)
+    if facts
+      facts.all
+    else
+      []
     end
   end
-
 end

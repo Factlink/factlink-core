@@ -73,60 +73,6 @@ describe Basefact do
       end
     end
 
-    describe "#toggle_opinion" do
-      context "after one toggle on #{opinion}" do
-        before do
-          subject.toggle_opinion(opinion,user)
-          FactGraph.recalculate
-        end
-        it { subject.opiniated_count(opinion).should==1 }
-        it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
-      end
-
-      context "after two toggles on #{opinion} by the same user" do
-        before do
-          subject.toggle_opinion(opinion,user)
-          subject.toggle_opinion(opinion,user)
-          FactGraph.recalculate
-        end
-        it { subject.opiniated_count(opinion).should == 0 }
-        it { expect_opinion(subject,Opinion.identity)}
-      end
-
-      context "after two toggles by the different users on the same fact" do
-        before do
-          subject.toggle_opinion(opinion,user)
-          subject.toggle_opinion(opinion,user2)
-          FactGraph.recalculate
-        end
-        it {subject.opiniated_count(opinion).should == 2 }
-        it { expect_opinion(subject,Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
-      end
-
-      context "after two toggles by the same user on different facts" do
-        before do
-          subject.toggle_opinion(opinion,user)
-          fact2.toggle_opinion(opinion,user)
-          FactGraph.recalculate
-        end
-        it {fact2.opiniated_count(opinion).should == 1}
-        it { expect_opinion(fact2,Opinion.for_type(opinion,user.authority))}
-
-        it {subject.opiniated_count(opinion).should == 1}
-        it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
-      end
-
-      context "after toggling with different opinions" do
-        before do 
-          subject.toggle_opinion(opinion           ,user)
-          subject.toggle_opinion(others(opinion)[0],user)
-          FactGraph.recalculate
-        end
-        it {subject.opiniated_count(opinion).should==0 }
-        it {subject.opiniated_count(others(opinion)[0]).should==1 }
-        it { expect_opinion(subject,Opinion.for_type(others(opinion)[0],user.authority))}
-      end
-    end
 
     context "after one person who #{opinion} is added and deleted" do
       before do

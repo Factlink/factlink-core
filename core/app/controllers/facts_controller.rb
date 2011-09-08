@@ -10,7 +10,7 @@ class FactsController < ApplicationController
 
   before_filter :authenticate_user!, 
     :except => [
-      :show, 
+      :show,
       :prepare_new,
       :prepare_evidence, 
       :intermediate, 
@@ -41,7 +41,6 @@ class FactsController < ApplicationController
   end
 
   def show
-    # render :partial => 'home/snippets/fact/fact_container'
   end
 
   def new

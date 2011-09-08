@@ -74,15 +74,23 @@ namespace :db do
   end
 
   task :help do
-    puts "\n############################"
-    puts "# Factlink Database Seeder #\n\n"
-    puts "The following commands are available:\n\n"
-    puts "rake db:seed\t\t\t# Truncate database and seed with default users"
-    puts "rake db:export file=filename\t# Exports the current database"
-    puts "rake db:init:list\t\t# Lists all available seeds"
-    puts "rake db:init:filename\t\t# Import the dump to the database"
-    # puts "rake db:clean\t\t\t# Truncates the database"
-    puts "rake db:help\t\t\t# Show this help file\n\n"
+    message = <<-eos
+      
+      ############################
+      # Factlink Database Seeder #
+      ############################
+      
+      The following commands are available:
+      
+      rake db:truncate              # Truncate database
+      rake db:truncate_keep_users   # Truncate database, but keep the users
+      rake db:export file=filename  # Exports the current database
+      rake db:init:list             # Lists all available seeds
+      rake db:init:filename         # Import the dump to the database
+      rake db:help                  # Show this help file
+      
+    eos
+    puts message.gsub(/^ */,'')
   end
 
 end

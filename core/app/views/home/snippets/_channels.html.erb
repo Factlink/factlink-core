@@ -29,14 +29,3 @@
 <% content_for :main_column do %>
 
 <% end %>
-
-
-<% content_for :script do %>
-	
-	<% if @highlight_first_channel %>
-		<script>
-			$('#channel-listing > li:first').addClass('active');
-		</script>
-	<% end %>
-	
-<% end %>

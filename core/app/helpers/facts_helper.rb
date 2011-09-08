@@ -20,7 +20,7 @@ module FactsHelper
   end
 
   def fact_snippet(fact,channel=nil,modal=nil)
-    render :partial => "/facts/partial/fact_container", 
+    render :partial => "/facts/fact", 
 	            :locals => {  :fact => fact, :channel => channel, :modal => modal }
   end
   
