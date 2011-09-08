@@ -67,6 +67,7 @@ div.modal {
   color: #777;
 }
 div.modal span.close {
+  z-index: 100;
   background: url('/images/client/close-button.png') no-repeat;
   display: block;
   height: 10px;
@@ -91,45 +92,11 @@ div.modal span.proxyWindow {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
 }
-ul#results-listing div.user-block {
-  border: 1px solid #DDD;
-  border-radius: 3px;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
-  color: #BBB;
-  text-shadow: 0px 1px 0px white;
-  width: 510px;
-}
-ul#results-listing div.user-block .side {
-  margin: 10px;
-  float: left;
-}
-ul#results-listing div.user-block .side .authority {
-  display: block;
-  text-align: center;
-  margin: 5px 0 0 0;
-  font-size: 12px;
-}
-ul#results-listing div.user-block .side .authority img {
-  vertical-align: middle;
-  border-radius: 3px;
-}
-ul#results-listing div.user-block .side .username {
-  color: #666363;
-  float: left;
-  font-size: 16px;
-  vertical-align: top;
-}
-ul#results-listing div.user-block .side .username a {
-  color: #666363;
-}
-ul#results-listing div.user-block .side .type {
-  font-size: 14px;
-  line-height: 26px;
-}
 body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 15px;
 }
 .fact-block {
+  position: relative;
   padding: 0;
   border: solid 1px #ddd;
   border-radius: 3px;
@@ -222,10 +189,12 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .wheel {
   float: left;
-  width: 65px!important;
-  height: 65px!important;
+  width: 65px;
+  height: 65px;
 }
 .fact-block .wheel svg {
+  width: 65px;
+  height: 65px;
   margin: 0 0 0 10px;
   float: left;
 }
