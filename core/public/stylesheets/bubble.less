@@ -26,6 +26,7 @@ div.modal {
   
   color: #777;
   span.close {
+    z-index: 100;
     background: url('/images/client/close-button.png') no-repeat;
     display: block;
     height: 10px; width: 8px;
@@ -50,47 +51,6 @@ div.modal {
   position: absolute;
 }
 
-ul#results-listing div.user-block {
-  border: 1px solid #DDD;
-  border-radius: 3px;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
-  color: #BBB;
-  text-shadow: 0px 1px 0px white;
-  width: 510px;
-  
-  .side {
-    margin: 10px;
-    float: left;
-    
-    .authority {
-      display: block;
-      text-align: center;
-      margin: 5px 0 0 0;
-      font-size: 12px;
-      
-      img {
-        vertical-align: middle;
-				border-radius: 3px;
-      }
-    }
-    
-    .username {
-      color: #666363;
-      float: left;
-      font-size: 16px;
-      vertical-align: top;
-
-      a {
-        color: #666363;
-      }
-    }
-
-    .type {
-      font-size: 14px;
-      line-height: 26px;
-    }
-  }
-}
 
 body.factlink-site .fact-block,
 body.factlink-site div.user-block {
@@ -98,6 +58,7 @@ body.factlink-site div.user-block {
 }
 
 .fact-block { 
+  position: relative;
   a { 
     color: @dark-blue;
   }
@@ -188,9 +149,11 @@ body.factlink-site div.user-block {
   }
   .wheel { 
     float: left;  
-    width: 65px!important;
-    height: 65px!important;
+    width: 65px;
+    height: 65px;
     svg { 
+      width: 65px;
+      height: 65px;
       margin: 0 0 0 10px;
       float: left;    
       path:hover { 

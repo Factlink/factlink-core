@@ -86,9 +86,9 @@
             $(w.fact).factlink("switch_opinion", $t);
           });
           $(this.raphael.node).hoverIntent({
-            over: function() {
+            over: function(e) {
               optionBox = $(w.fact).find("." +  $t.data("opinion") + "-box");
-              $(optionBox).css({"top" : $(this).position().top, "left" : parseInt($(this).position().left) + 25 + "px"}).fadeIn("fast");
+              $(optionBox).css({"top" : (e.clientY - $(this).offset().top + 25) + "px", "left" : "70px"}).fadeIn("fast");
             },
             out: function() {
               $(w.fact).find("." + $t.data("opinion") + "-box").delay(600).fadeOut("fast");				
