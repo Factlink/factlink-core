@@ -68,6 +68,9 @@ class FactsController < ApplicationController
   def intermediate
     # TODO: Sanitize for XSS
     @url = params[:url]
+    
+    print params[:url]
+    
     @passage = params[:passage]
     @fact = params[:fact]
     @title = params[:title]
