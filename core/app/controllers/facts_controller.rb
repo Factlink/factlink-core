@@ -161,7 +161,7 @@ class FactsController < ApplicationController
   def remove_opinions   
       @fact = Basefact[params[:fact_id]]
       @fact.remove_opinions(current_user.graph_user)
-      render :nothing => true
+      render :json => [@fact]
   end
 
   # Search in the client popup.  
