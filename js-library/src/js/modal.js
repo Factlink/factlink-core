@@ -67,7 +67,20 @@
       });
     }
   };
-
+	// Make sure the hover on an element works on all the paired span elements 
+	$( 'span.factlink' ).live( 'mouseenter', function( e ) { 
+    var fctID = $( this ).attr( 'data-factid' ); 
+     
+    $( '[data-factid=' + fctID + ']' ) 
+        .addClass('fl-active'); 
+	}) 
+	.live('mouseleave', function() { 
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ) 
+        .removeClass('fl-active'); 
+	     
+	    // Hide the indication element 
+	   // Factlink.Indicator.hide(); 
+	});
   var bindClick = function() {
         $(document).bind('click', clickHandler);
       },
