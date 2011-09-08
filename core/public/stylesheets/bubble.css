@@ -60,7 +60,7 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 15px 15px 15px #666;
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -141,7 +141,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 9pt;
 }
 .fact-block a {
-  color: #666363;
+  color: #306d90;
 }
 .fact-block img.close {
   margin: 5px;
@@ -175,6 +175,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 1.2em;
   line-height: 19px;
+}
+.fact-block article.fact header .body a {
+  color: #666363;
 }
 .fact-block article.fact header .actions {
   visibility: hidden;
@@ -267,15 +270,15 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   overflow: auto;
 }
 .fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
+  width: 480px;
   text-align: center;
   height: 150px;
-  width: 480px;
   vertical-align: middle;
 }
 .fact-block .evidence-facts .evidence article.fact, .fact-block .evidence-facts .potential-evidence article.fact {
   border-bottom: 1px solid #E4E4E4;
   padding: 10px 0 10px 15px;
-  width: 480px;
+  width: 475px;
   text-align: left;
 }
 .fact-block .evidence-facts .evidence article.fact:nth-child(even), .fact-block .evidence-facts .potential-evidence article.fact:nth-child(even) {
@@ -377,28 +380,6 @@ div.fl-sign-in-container {
 }
 div.sign-in {
   border-bottom: solid 1px #ccc;
-}
-::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 2px;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:vertical {
-  height: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  width: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
 }
 /* ====== from tipsy plugin ==== */.tipsy {
   padding: 5px;
