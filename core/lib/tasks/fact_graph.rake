@@ -1,7 +1,7 @@
 namespace :fact_graph do
   task :recalculate => :environment do
     STDOUT.flush
-    sleep_time = 0.5
+    sleep_time = 2
     puts "now recalculating with interval of #{sleep_time} seconds"  
     while true
       #print "(#{Time.now.asctime}) recalculating FactGraph\n"
@@ -14,7 +14,7 @@ end
 
 namespace :channels do
   task :recalculate => :environment do
-    sleep_time = 0.5
+    sleep_time = 2
     puts "now recalculating with interval of #{sleep_time} seconds"  
     while true
       #print "(#{Time.now.asctime}) recalculating channels\n"

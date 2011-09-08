@@ -222,6 +222,8 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .wheel {
   float: left;
+  width: 65px!important;
+  height: 65px!important;
 }
 .fact-block .wheel svg {
   margin: 0 0 0 10px;
