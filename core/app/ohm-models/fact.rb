@@ -219,7 +219,7 @@ class Fact < Basefact
   
   private :delete_all_evidence, :delete_all_evidenced
 
-  reference :evidence_opinion, Opinion
+  value_reference :evidence_opinion, Opinion
   def calculate_evidence_opinion(depth=0)
     opinions = []
     [:supporting, :weakening].each do |type|
@@ -242,7 +242,7 @@ class Fact < Basefact
 
 
 
-  reference :opinion, Opinion
+  value_reference :opinion, Opinion
   def calculate_opinion(depth=0)
     calculate_evidence_opinion
     total_opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth)

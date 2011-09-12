@@ -108,7 +108,7 @@
 		  var evidence_id = document.getElementById("evidence_id").value;
 		  
 		  var proxied_page = parent
-		  var proxy_container = parent.parent
+		  var _container = parent.parent
 		  var show_factlink_container = parent.parent.parent
 		  var top_intermediate_page = parent.parent.parent.parent  //(same source as current page)
 		  
@@ -149,14 +149,14 @@
       window.proxyFrame = document.createElement("iframe");
       
       window.proxyFrame.className = "proxyFrame";
-      window.proxyFrame.src = "<%= Factlink.proxy_url %>?url=http://www.google.com";
+      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com";
 
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
     
     function hideProxyWindow() {
       window.proxyFrame.style.display = "none";
-      window.proxyFrame.src = "<%= Factlink.proxy_url %>?url=http://www.google.com";
+      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com";
     }
 	</script>
 </body>

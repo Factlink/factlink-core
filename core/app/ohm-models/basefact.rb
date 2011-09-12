@@ -42,7 +42,7 @@ class Basefact < OurOhm
   end
 
 
-  reference :user_opinion, Opinion
+  value_reference :user_opinion, Opinion
   def calculate_user_opinion(depth=0)
     #depth has no meaning here unless we want the depth to also recalculate authorities
     opinions = []

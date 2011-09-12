@@ -42,6 +42,14 @@ class Opinion < OurOhm
   
   alias :authority :a
   
+  def take_values(other)
+    self.a = other.a
+    self.b = other.b
+    self.d = other.d
+    self.u = other.u
+    save
+  end
+  
   def self.tuple(b,d,u,a=0)
     self.new(:b_r=>b,:d_r=>d,:u_r=>u,:a_r=>a)
   end

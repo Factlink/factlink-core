@@ -1,4 +1,4 @@
-redis_conf = YAML::load_file(Rails.root.join('config/redis.yml'))[Rails.env]
+redis_conf = YAML::load_file(Rails.root.join('config/redis.yml'))[Rails.env]['redis']
 
 Ohm.connect(
   :host => redis_conf['host'],
