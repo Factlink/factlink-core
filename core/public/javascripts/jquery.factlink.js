@@ -262,7 +262,6 @@
   };
 
   // Private functions		
-
   function data_attr(el, attr, data) {
     $(el).attr("data-" + attr, data);
     $(el).data(attr, data);

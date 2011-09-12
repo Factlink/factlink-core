@@ -1,3 +1,14 @@
+/*---------------------------------------------------
+		LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
 /** Reset css */
 body {
   padding: 0;
@@ -60,6 +71,8 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
+  -webkit-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
   box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
   padding: 0;
   margin: 0 auto;
@@ -83,12 +96,16 @@ div.modal span.proxyWindow {
 .boxed {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 }
 .float {
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
 }
@@ -99,6 +116,8 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   position: relative;
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
   color: #BBB;
@@ -158,10 +177,14 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block article.fact .channel-listing {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
   width: 160px;
@@ -269,7 +292,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 8pt;
   border-radius: 3px;
   border: solid 1px #ccc;
-  width: 400px;
+  width: 360px;
   height: 18px;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="text"]:active, .fact-block .evidence-facts .potential-evidence .search input[type="text"]:focus {
@@ -289,10 +312,14 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block .opinion-box {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
   position: fixed;
@@ -327,6 +354,13 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   height: 18px;
   width: 85px;
   background: #9d9d9c;
+}
+.fact-block .relevance-options {
+  float: right;
+  padding: 5px;
+}
+.fact-block .relevance-options ul li {
+  padding-bottom: 8px;
 }
 iframe.proxyFrame {
   position: absolute;
