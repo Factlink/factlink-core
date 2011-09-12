@@ -24,20 +24,20 @@
     }
   });
 
-  Factlink.submitSelection = function(e, callback) {
+  Factlink.submitSelection = function(opinion, callback) {
     var selInfo = Factlink.getSelectionInfo();
 
     if (FactlinkConfig.modus === "default") {
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, e.currentTarget.id, function(factId) {
+      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, opinion, function(factId) {
         if ($.isFunction(callback)) {
           callback(factId);
         }
       });
     } else {
       if (Factlink.prepare.factId) {
-        Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, e.currentTarget.id, selInfo.title);
+        Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, opinion, selInfo.title);
       } else {
-        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, e.currentTarget.id, selInfo.title);
+        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, opinion, selInfo.title);
       }
     }
   };
@@ -48,7 +48,7 @@
     }).bind('click', function(e) {
       e.preventDefault();
 
-      Factlink.submitSelection(e);
+      Factlink.submitSelection(e.currentTarget.id);
 
       $element.hide();
     });
