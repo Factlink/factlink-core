@@ -113,7 +113,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 15px;
 }
 .fact-block {
-  position: relative;
   padding: 0;
   border: solid 1px #ddd;
   -webkit-border-radius: 3px;

@@ -1,3 +1,4 @@
+@import "css3buttons.css";
 /* 
 * HTML5 ✰ Boilerplate
 *
@@ -330,7 +331,6 @@ td {
 Author: 
 ========================================================================== */
 a, a:active, a:visited {
-  color: #306D90;
   text-decoration: none;
 }
 a:hover, a:active:hover, a:visited:hover {
@@ -412,11 +412,11 @@ form .action-wrapper {
   margin-top: 10px;
   height: 20px;
 }
-form .action-wrapper input, form .action-wrapper span {
+form .action-wrapper input, form .action-wrapper span, form .action-wrapper button {
   float: right;
 }
 form .action-wrapper span {
-  padding: 2px 4px;
+  padding: 0;
 }
 .fact_search form {
   margin-top: 7px;
