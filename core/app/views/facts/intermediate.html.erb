@@ -45,86 +45,107 @@
 	<iframe src="" name="frame" id="frame"></iframe>
 	
 	<script type="text/javascript">
-			// The form
-		var form = document.getElementById("form"),
-			// The iFrame
-			showFrame = document.getElementById("frame"),
-			// The global remote object
-			remote = new easyXDM.Rpc({
-				swf: "/client/easyXDM/src/easyxdm.swf"
-			}, {
-				remote: {
-					hide: {},
-					show: {},
-					highlightNewFactlink: {},
-					stopHighlightingFactlink: {},
-					update_opinions: {},
-					addEvidence: {}
-				},
-				local: {
-					createEvidence: function( evidence_id, url, type, title) {
-            document.getElementById("evidence_id").value = evidence_id;
-						document.getElementById("url").value = url;
-						document.getElementById("title").value = title;
-						addEvidence(type);
-					},
-					createNewEvidence: function( fact, passage, url, type, title) {
-  					  prepareFactlink(fact, passage, url,title);
-				      addEvidence(type);
-					},
-					createFactlink: function( fact, passage, url, title) {
-				        prepareFactlink(fact, passage, url,title);
-						    createFactlink();
-					},
-					showFactlink: function(id) {
-					    // Set the source of the iframe
-						showFrame.src = "/factlink/show/" + id;
-						// Show the overlay
-						showFrame.className = "overlay";
-					},
-					position: function(top, left) {
-  					try {
-  					  showFrame.contentWindow.position(top, left);
-  					} catch (e) { // Window not yet loaded
-                          showFrame.onload = function() {
-    					  showFrame.contentWindow.position(top, left);
-    					};
-  					}
-					}
-				}
-			});
-			
-		function createFactlink() {
-			form.submit();
-		}
-		
-		function prepareFactlink(fact, passage, url, title) {
-			document.getElementById("fact").value = fact;
-			document.getElementById("passage").value = passage;
-			document.getElementById("url").value = url;			  
-			document.getElementById("title").value = title;
-		}
-		
-		// Add to an existing Factlink
-		function addEvidence(type) {
-		  var evidence_id = document.getElementById("evidence_id").value;
-		  
-		  var proxied_page = parent
-		  var _container = parent.parent
-		  var show_factlink_container = parent.parent.parent
-		  var top_intermediate_page = parent.parent.parent.parent  //(same source as current page)
-		  
-		  if ( evidence_id.length > 0 ) {
-            top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
-		  } else {
-		     var fact = document.getElementById("fact").value;
-			   var passage = document.getElementById("passage").value;
-			   var url = document.getElementById("url").value;
-			   var title = document.getElementById("title").value;
+    // The form
+    // The form 
+    var form = document.getElementById("form"),
+        // The iFrame 
+        showFrame = document.getElementById("frame"),
+        // The global remote object 
+        remote = new easyXDM.Rpc({
+          swf: "/client/easyXDM/src/easyxdm.swf"
+        }, {
+          remote: {
+            hide: {},
+            show: {},
+            highlightNewFactlink: {},
+            stopHighlightingFactlink: {},
+            addEvidence: {},
+            createFactlink: {}
+          },
+          local: {
+            createEvidence: function(evidence_id, url, type, title) {
+              document.getElementById("evidence_id").value = evidence_id;
+              document.getElementById("url").value = url;
+              document.getElementById("title").value = title;
+              addEvidence(type);
+            },
+            createNewEvidence: function(fact, passage, url, type, title) {
+              prepareFactlink(fact, passage, url, title);
+              addEvidence(type);
+            },
+            createFactlink: function(fact, passage, url, title, opinion, successFn, errorFn) {
+              prepareFactlink(fact, passage, url, title, opinion);
 
-  			 top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url,title);
-		  }
-		}
+              showFrame.onload = function() {
+                if (showFrame.contentWindow.fact_id !== undefined) {
+                  successFn(showFrame.contentWindow.fact_id);
+
+                  showFrame.onload = undefined;
+                } else {
+                  console.info("Need to login first");
+                }
+              };
+
+              createFactlink();
+            },
+            showFactlink: function(id, successFn) {
+              showFrame.onload = function() {
+                showFrame.onload = undefined;
+
+                successFn();
+              }
+
+              // Set the source of the iframe 
+              showFrame.src = "/factlink/show/" + id;
+              // Show the overlay 
+              showFrame.className = "overlay";
+            },
+            position: function(top, left) {
+              try {
+                showFrame.contentWindow.position(top, left);
+              } catch (e) { // Window not yet loaded 
+                showFrame.onload = function() {
+                  showFrame.contentWindow.position(top, left);
+                };
+              }
+            }
+          }
+        });
+
+    function createFactlink() {
+      form.submit();
+    }
+
+    function prepareFactlink(fact, passage, url, title, opinion) {
+      document.getElementById("fact").value = fact;
+      document.getElementById("passage").value = passage;
+      document.getElementById("url").value = url;
+      document.getElementById("title").value = title;
+
+      if (opinion !== undefined) {
+        document.getElementById("opinion").value = opinion;
+      }
+    }
+
+    // Add to an existing Factlink 
+    function addEvidence(type) {
+      var evidence_id = document.getElementById("evidence_id").value;
+
+      var proxied_page = parent;
+      var proxy_container = proxied_page.parent;
+      var show_factlink_container = proxy_container.parent;
+      var top_intermediate_page = show_factlink_container.parent; //(same source as current page) 
+      if (evidence_id.length > 0) {
+        top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
+      } else {
+        var fact = document.getElementById("fact").value;
+        var passage = document.getElementById("passage").value;
+        var url = document.getElementById("url").value;
+        var title = document.getElementById("title").value;
+
+        top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url, title);
+      }
+    }
 
     function submitEvidenceToShowFrame(type, evidence_id) {
       var fact_id = showFrame.contentWindow.fact_id;
@@ -160,6 +181,7 @@
       window.proxyFrame.style.display = "none";
       window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com";
     }
+
 	</script>
 </body>
 </html>
