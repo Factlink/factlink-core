@@ -5,12 +5,31 @@ end
 %>
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
-    <%= fact_relation.type.to_s %>
+    <!-- <%= fact_relation.type.to_s %> -->
     <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact , :fact_relation => fact_relation }%>
   <% else %>
     <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
   <% end %>
 	<header>
+	  
+	  <% 
+	  # options for relevance
+	  if defined?(add_to_fact) and add_to_fact %>
+      <div class="relevance-options">
+        <ul>
+  	    <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%></li>
+  	    <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true )%><li>
+  	    </ul>
+      </div>
+    <% elsif defined?(fact_relation) and fact_relation %>
+    <div class="relevance-options">
+      <ul>
+	      <li>Supporting</li>
+	      <li>Weakening</li>
+	    </ul>
+    </div>
+    <% end %>
+	  
 	  <% if fact.site.title and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
@@ -38,12 +57,6 @@ end
 		    </ul>	
 		  </div>
 		  <%= render :partial => "/facts/partial/channel_listing", :locals => { :fact => fact } %>
-		  <% if defined?(add_to_fact) and add_to_fact %>
-		    <div style="float:right; display:block;">
-			    <%= link_to('add as supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%>
-			    <%= link_to('add as weakening',	 add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true )%>
-		    </div>
-      <% end %>
 	  <% end %>				
 
 	</header>

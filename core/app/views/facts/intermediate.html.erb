@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="http://static.factlink.com/lib/dist/easyXDM/easyXDM.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8000/lib/dist/easyXDM/easyXDM.min.js"></script>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -20,7 +20,8 @@
 		}
 		
 		iframe.overlay {
-		  background: rgba(0, 0, 0, .4);
+		  /* background: rgba(0, 0, 0, .4); */
+		  background: transparent;
 		}
 		
 		form {
@@ -35,13 +36,14 @@
   	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
   	<input type="text" name="url" id="url" value="<%= @url %>">
   	<input type="text" name="title" id="title" value="<%= @title %>">
+  	<input type="text" name="opinion" id="opinion" value="<%= @opinion %>">
     <textarea name="passage" id="passage">
       <%= @passage %>
     </textarea>
     <input type="text" name="fact" id="fact" value="<%= @fact %>">
 	<% end %>
 	<iframe src="" name="frame" id="frame"></iframe>
-		
+	
 	<script type="text/javascript">
 			// The form
 		var form = document.getElementById("form"),
@@ -123,37 +125,37 @@
   			 top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url,title);
 		  }
 		}
-		
+
     function submitEvidenceToShowFrame(type, evidence_id) {
       var fact_id = showFrame.contentWindow.fact_id;
       var script = document.createElement("script");
-      
-      script.src="<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
-      script.type="text/javascript";
-      
+
+      script.src = "<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
+      script.type = "text/javascript";
+
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
     }
-    
+
     function submitNewEvidenceToShowFrame(type, fact, passage, url, title) {
       var fact_id = showFrame.contentWindow.fact_id;
       var script = document.createElement("script");
-      
-      script.src="<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
-      script.type="text/javascript";
-      
+
+      script.src = "<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
+      script.type = "text/javascript";
+
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
     }
 
     function openNewProxyWindow() {
       var doc = showFrame.contentWindow.document;
       window.proxyFrame = document.createElement("iframe");
-      
+
       window.proxyFrame.className = "proxyFrame";
       window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com";
 
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
-    
+
     function hideProxyWindow() {
       window.proxyFrame.style.display = "none";
       window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com";

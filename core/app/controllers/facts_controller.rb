@@ -10,7 +10,7 @@ class FactsController < ApplicationController
 
   before_filter :authenticate_user!, 
     :except => [
-      :show, 
+      :show,
       :prepare_new,
       :prepare_evidence, 
       :intermediate, 
@@ -71,11 +71,18 @@ class FactsController < ApplicationController
     @passage = params[:passage]
     @fact = params[:fact]
     @title = params[:title]
+    @opinion = params[:opinion]
+    
     render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
+    
+    if params[:opinion]
+      @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+    end
+    
     redirect_to :action => "edit", :id => @fact.id
   end
 
@@ -138,7 +145,7 @@ class FactsController < ApplicationController
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion.as_percentages}
+    render :json => {"opinions" => @fact.get_opinion(2).as_percentages}
   end
 
   def set_opinion    
@@ -148,7 +155,7 @@ class FactsController < ApplicationController
     if allowed_types.include?(type)
       @fact = Basefact[params[:fact_id]] 
       @fact.add_opinion(type, current_user.graph_user)
-      render :json => [@fact]
+      render :json => [@fact.get_opinion(2).as_percentages]
     else 
       render :json => {"error" => "type not allowed"}
       return false
@@ -158,7 +165,7 @@ class FactsController < ApplicationController
   def remove_opinions   
       @fact = Basefact[params[:fact_id]]
       @fact.remove_opinions(current_user.graph_user)
-      render :nothing => true
+      render :json => [@fact.get_opinion(2).as_percentages]
   end
 
   # Search in the client popup.  

@@ -20,7 +20,7 @@
       <% unless fact.fact_relations.count > 0 %>
         <a href="#" class="shaw-add"><%= image_tag("arrow2_s.png") %>Add evidence</a>
       <% else %>
-        <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Evidence (<%= fact.evidence_count %>)</a>
+        <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Show Evidence (<%= fact.evidence_count %>)</a>
       <% end %>
     </div>
     <div class="evidence-container" style="display: none">

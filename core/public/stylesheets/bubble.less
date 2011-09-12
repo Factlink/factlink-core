@@ -1,4 +1,5 @@
 @import "color_declarations.less";
+@import "elements.less";
 
 /** Reset css */
 body{padding:0;margin:0;font:13px Arial,Helvetica,Garuda,sans-serif;*font-size:small;*font:x-small;}
@@ -19,13 +20,14 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 15px 15px 15px #666;
+  .drop-shadow(15px, 15px, 15px, 0.2);
   padding: 0;
   margin:  0 auto;
   width: 510px;
   
   color: #777;
   span.close {
+    z-index: 100;
     background: url('/images/client/close-button.png') no-repeat;
     display: block;
     height: 10px; width: 8px;
@@ -40,56 +42,16 @@ div.modal {
 .boxed { 
   padding: 0;
   border: solid 1px #ddd;
-	border-radius: 3px;
+	.rounded(3px);
 }
 .float { 
   background-color: @bg;
   z-index: 1000;
   display: none;
-  box-shadow: 2px 2px 2px #ccc;
+  .drop-shadow(5px, 5px, 5px, 0.1);
   position: absolute;
 }
 
-ul#results-listing div.user-block {
-  border: 1px solid #DDD;
-  border-radius: 3px;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
-  color: #BBB;
-  text-shadow: 0px 1px 0px white;
-  width: 510px;
-  
-  .side {
-    margin: 10px;
-    float: left;
-    
-    .authority {
-      display: block;
-      text-align: center;
-      margin: 5px 0 0 0;
-      font-size: 12px;
-      
-      img {
-        vertical-align: middle;
-      }
-    }
-    
-    .username {
-      color: #666363;
-      float: left;
-      font-size: 16px;
-      vertical-align: top;
-
-      a {
-        color: #666363;
-      }
-    }
-
-    .type {
-      font-size: 14px;
-      line-height: 26px;
-    }
-  }
-}
 
 body.factlink-site .fact-block,
 body.factlink-site div.user-block {
@@ -97,8 +59,9 @@ body.factlink-site div.user-block {
 }
 
 .fact-block { 
+  position: relative;
   a { 
-    color: #666363;
+    color: @dark-blue;
   }
   .boxed;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
@@ -116,7 +79,6 @@ body.factlink-site div.user-block {
     width: 490px;
     display: block;   
     header { 
-	
 			margin-top: 6px;
 	
       /*border-right: 1px dotted #f0f0f0;
@@ -138,6 +100,9 @@ body.factlink-site div.user-block {
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
+				a { 
+          color: #666363;
+        }
       }
       .actions { 
         visibility: hidden;
@@ -185,7 +150,11 @@ body.factlink-site div.user-block {
   }
   .wheel { 
     float: left;  
+    width: 65px;
+    height: 65px;
     svg { 
+      width: 65px;
+      height: 65px;
       margin: 0 0 0 10px;
       float: left;    
       path:hover { 
@@ -205,9 +174,9 @@ body.factlink-site div.user-block {
       background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;
 
 			a {
-				opacity: 0.8;
+				.opacity(0.8);
 				&:hover {
-					opacity: 1.0;
+  				.opacity(1);
 				}
 			}
     }
@@ -220,10 +189,6 @@ body.factlink-site div.user-block {
       height: 36px;
       a {
         line-height: 22px;
-				opacity: 0.8;
-				&:hover {
-					opacity: 1.0;
-				}
       }
     }
     .evidence, .potential-evidence {
@@ -231,19 +196,24 @@ body.factlink-site div.user-block {
       max-height: 200px;
       background-color: #FBFAFA;
       overflow: auto;
-      .no-evidence td{ 
+      .no-evidence td { 
+        width: 480px;  
         text-align: center;
-        height: 150px; width: 480px;  
+        height: 150px;
         vertical-align: middle;
       }
       article.fact { 
         &:nth-child(even) {
           background-color: darken(#FBFAFA, 2%);
         }
+        .opacity(0.65);
         border-bottom: 1px solid #E4E4E4;
-        padding: 10px 0 10px 15px;    
-        width: 480px;  
+        padding: 10px 0 10px 20px;    
+        width: 465px;  
         text-align: left;
+        &:hover { 
+          .opacity(1);
+        }
       }
     }
     .potential-evidence { 
@@ -258,7 +228,7 @@ body.factlink-site div.user-block {
     		  font-size: 8pt;
     			border-radius: 3px;
     			border: solid 1px #ccc;
-    			width: 400px; height: 18px;
+    			width: 360px; height: 18px;
     			&:active, &:focus {
     			  outline: solid 1px @dark-blue;
     			}
@@ -280,6 +250,7 @@ body.factlink-site div.user-block {
   .opinion-box {
     .boxed;
     .float;
+    position: fixed;
     width: 150px;
     height: 85px;
     
@@ -312,6 +283,13 @@ body.factlink-site div.user-block {
       background: @grey;
     }
   }
+  .relevance-options {
+    float: right;
+    padding: 5px;
+    ul li { 
+      padding-bottom: 8px;
+    }
+  }
 }
 iframe.proxyFrame {
   position: absolute;
@@ -340,28 +318,6 @@ div.fl-sign-in-container {
 
 div.sign-in {
 	border-bottom: solid 1px #ccc;
-}
-::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 2px;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:vertical {
-  height: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  width: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
 }
 /* ====== from tipsy plugin ==== */ 
 .tipsy { padding: 5px; font-size: 10px; opacity: 0.8; filter: alpha(opacity=80); background-repeat: no-repeat;  background-image: url("/images/tipsy.gif"); }

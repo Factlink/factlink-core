@@ -1,3 +1,14 @@
+/*---------------------------------------------------
+		LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
 /** Reset css */
 body {
   padding: 0;
@@ -60,13 +71,16 @@ div.modal {
   position: relative;
   background: #FBFAFA;
   top: 40px;
-  box-shadow: 15px 15px 15px #666;
+  -webkit-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
   padding: 0;
   margin: 0 auto;
   width: 510px;
   color: #777;
 }
 div.modal span.close {
+  z-index: 100;
   background: url('/images/client/close-button.png') no-repeat;
   display: block;
   height: 10px;
@@ -82,55 +96,28 @@ div.modal span.proxyWindow {
 .boxed {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 }
 .float {
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
-  box-shadow: 2px 2px 2px #ccc;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: absolute;
-}
-ul#results-listing div.user-block {
-  border: 1px solid #DDD;
-  border-radius: 3px;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
-  color: #BBB;
-  text-shadow: 0px 1px 0px white;
-  width: 510px;
-}
-ul#results-listing div.user-block .side {
-  margin: 10px;
-  float: left;
-}
-ul#results-listing div.user-block .side .authority {
-  display: block;
-  text-align: center;
-  margin: 5px 0 0 0;
-  font-size: 12px;
-}
-ul#results-listing div.user-block .side .authority img {
-  vertical-align: middle;
-}
-ul#results-listing div.user-block .side .username {
-  color: #666363;
-  float: left;
-  font-size: 16px;
-  vertical-align: top;
-}
-ul#results-listing div.user-block .side .username a {
-  color: #666363;
-}
-ul#results-listing div.user-block .side .type {
-  font-size: 14px;
-  line-height: 26px;
 }
 body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 15px;
 }
 .fact-block {
+  position: relative;
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
   color: #BBB;
@@ -140,7 +127,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 9pt;
 }
 .fact-block a {
-  color: #666363;
+  color: #306d90;
 }
 .fact-block img.close {
   margin: 5px;
@@ -175,6 +162,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 1.2em;
   line-height: 19px;
 }
+.fact-block article.fact header .body a {
+  color: #666363;
+}
 .fact-block article.fact header .actions {
   visibility: hidden;
   height: 18px;
@@ -187,11 +177,15 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block article.fact .channel-listing {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
-  box-shadow: 2px 2px 2px #ccc;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: absolute;
   width: 160px;
 }
@@ -218,8 +212,12 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .wheel {
   float: left;
+  width: 65px;
+  height: 65px;
 }
 .fact-block .wheel svg {
+  width: 65px;
+  height: 65px;
   margin: 0 0 0 10px;
   float: left;
 }
@@ -239,10 +237,16 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
 }
 .fact-block .evidence-facts .add-action a {
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+  -webkit-opacity: 0.8;
   opacity: 0.8;
 }
 .fact-block .evidence-facts .add-action a:hover {
-  opacity: 1.0;
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  -webkit-opacity: 1;
+  opacity: 1;
 }
 .fact-block .evidence-facts .evidence-actions {
   position: relative;
@@ -254,10 +258,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .evidence-facts .evidence-actions a {
   line-height: 22px;
-  opacity: 0.8;
-}
-.fact-block .evidence-facts .evidence-actions a:hover {
-  opacity: 1.0;
 }
 .fact-block .evidence-facts .evidence, .fact-block .evidence-facts .potential-evidence {
   min-height: 80px;
@@ -266,19 +266,29 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   overflow: auto;
 }
 .fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
+  width: 480px;
   text-align: center;
   height: 150px;
-  width: 480px;
   vertical-align: middle;
 }
 .fact-block .evidence-facts .evidence article.fact, .fact-block .evidence-facts .potential-evidence article.fact {
+  -moz-opacity: 0.65;
+  -khtml-opacity: 0.65;
+  -webkit-opacity: 0.65;
+  opacity: 0.65;
   border-bottom: 1px solid #E4E4E4;
-  padding: 10px 0 10px 15px;
-  width: 480px;
+  padding: 10px 0 10px 20px;
+  width: 465px;
   text-align: left;
 }
 .fact-block .evidence-facts .evidence article.fact:nth-child(even), .fact-block .evidence-facts .potential-evidence article.fact:nth-child(even) {
   background-color: #f6f4f4;
+}
+.fact-block .evidence-facts .evidence article.fact:hover, .fact-block .evidence-facts .potential-evidence article.fact:hover {
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  -webkit-opacity: 1;
+  opacity: 1;
 }
 .fact-block .evidence-facts .potential-evidence {
   min-height: 150px;
@@ -294,7 +304,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 8pt;
   border-radius: 3px;
   border: solid 1px #ccc;
-  width: 400px;
+  width: 360px;
   height: 18px;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="text"]:active, .fact-block .evidence-facts .potential-evidence .search input[type="text"]:focus {
@@ -314,12 +324,17 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block .opinion-box {
   padding: 0;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
   z-index: 1000;
   display: none;
-  box-shadow: 2px 2px 2px #ccc;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: absolute;
+  position: fixed;
   width: 150px;
   height: 85px;
 }
@@ -352,6 +367,13 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   width: 85px;
   background: #9d9d9c;
 }
+.fact-block .relevance-options {
+  float: right;
+  padding: 5px;
+}
+.fact-block .relevance-options ul li {
+  padding-bottom: 8px;
+}
 iframe.proxyFrame {
   position: absolute;
   top: 10px;
@@ -376,28 +398,6 @@ div.fl-sign-in-container {
 }
 div.sign-in {
   border-bottom: solid 1px #ccc;
-}
-::-webkit-scrollbar {
-  width: 4px;
-  height: 6px;
-}
-::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
-  display: block;
-  height: 2px;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: transparent;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:vertical {
-  height: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:horizontal {
-  width: 50px;
-  background-color: #888;
-  -webkit-border-radius: 3px;
 }
 /* ====== from tipsy plugin ==== */.tipsy {
   padding: 5px;
