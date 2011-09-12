@@ -6,7 +6,7 @@
  */
 
 const PROXY_URL 	= "http://localhost:8080/";
-const STATIC_URL 	= "http://localhost/";
+const STATIC_URL 	= "http://localhost:8000/";
 const PORT 				= 8080
 
 // The actual server
