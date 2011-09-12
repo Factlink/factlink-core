@@ -5,12 +5,18 @@
  *	Used for implementing Factlink JavaScript on client-sites.
  */
 
+
+// The actual server
+var server = require('express').createServer();
+
+currentEnv = process.env.NODE_ENV || 'development';
+
+
+
 const PROXY_URL 	= "http://localhost:8080/";
 const STATIC_URL 	= "http://localhost:8000/";
 const PORT 				= 8080
 
-// The actual server
-var server = require('express').createServer();
 var fs = require('fs');
 
 // Use Jade as templating engine
