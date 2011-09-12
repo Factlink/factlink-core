@@ -3,7 +3,6 @@
     function Wheel(fact, params) {
       this.fact = fact;
       this.opinions = $(fact).find(".opinion");
-      this.relevance = $(fact).find(".relevance_opinion");
       this.params = $.extend(params, {
         "dim": 24,
         "default_stroke": {
@@ -16,6 +15,27 @@
         }
       });
     }
+
+    function arc(w, op, p) {
+      var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
+      if (!op.raphael) {
+        // set new path
+        z = w.r.path().attr({
+          arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
+          stroke: $(op).data("color"),
+          "stroke-width": w.params.default_stroke.stroke,
+          opacity: opacity
+        });
+        op.raphael = z;
+        return z;
+      } else {
+        return op.raphael.animate({
+          arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
+          opacity: opacity
+        }, 200, '<>');
+      }
+    }
+
     Wheel.prototype.calc_display = function(opinions) {
       var remainder = 100;
       $(opinions).each(function() {
@@ -28,38 +48,41 @@
         this.display_value = display_value;
       });
       var leng = opinions.length;
-      $(opinions).each(function() { // Add remainder
+      $(opinions).each(function() {
+        // Add remainder
         this.display_value = this.display_value + (remainder / leng);
       });
-    }
-    Wheel.prototype.set_opinions = function(opinions, offset, size, total_degrees) {
+    };
+    Wheel.prototype.set_opinions = function(opinions, offset, r, total_degrees) {
       var w = this;
       var total = 0;
       w.calc_display(opinions);
-      $(opinions).each(function() { // HACK, see above NOTE/TODO
+      $(opinions).each(function() {
+        // HACK, see above NOTE/TODO
         total = total + this.display_value;
       });
       $(opinions).each(function() {
-        var value = this.display_value;
-        offset = offset + value;
-        var opacity = $(this).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity,
-            z = w.r.path().attr({
-            arc: [value - 2, total, (total_degrees / total * offset), size, total_degrees]
-          }).attr({
-            stroke: $(this).data("color"),
-            "stroke-width": w.params.default_stroke.stroke,
-            opacity: opacity
-          });
-        this.raphael = z;
-      })
-      w.r.set;
-    }
-    Wheel.prototype.bind_events = function(el) {
+        offset = offset + this.display_value;
+        z = arc(w, this, {
+          offset: offset,
+          val: this.display_value,
+          total: total,
+          total_degrees: total_degrees,
+          r: r
+        });
+      });
+    };
+
+    Wheel.prototype.update = function() {
       var w = this;
-      $(el).each(function() {
+      w.set_opinions(w.opinions, 0, 14, 360);
+    };
+
+    Wheel.prototype.bind_events = function(op) {
+      var w = this;
+      $(op).each(function() {
         // bind events
         var $t = $(this);
-        var op = $t.data("user-opinion");
         this.raphael.mouseover(function() {
           if (!$t.data("user-opinion")) {
             this.animate({
@@ -77,7 +100,7 @@
             this.stop().animate({
               'stroke-width': w.params.default_stroke.stroke,
               opacity: w.params.default_stroke.opacity
-            }, 200, '<>')
+            }, 200, '<>');
           } else {
             this.animate({
               'stroke-width': w.params.default_stroke.stroke
@@ -88,11 +111,11 @@
           $(w.fact).factlink("switch_opinion", $t);
         });
         $(this.raphael.node).hoverIntent({
-          over: function() {
+          over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).css({
-              "top": $(this).position().top,
-              "left": parseInt($(this).position().left) + 25 + "px"
+              "top": e.screenY - 120 + "px",
+              "left": e.screenX + 25 + "px"
             }).fadeIn("fast");
           },
           out: function() {
@@ -100,27 +123,32 @@
           }
         });
       });
-    }
+    };
 
     Wheel.prototype.init = function(canvas) {
       var w = this;
-      w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17); // was 45,45
+      w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17);
+      // was 45,45
       w.r.customAttributes.arc = function(value, total, start, R, total_degrees, size) {
-        alpha = total_degrees / total * value, a = (start - alpha) * Math.PI / 180, b = start * Math.PI / 180, dim = w.params.dim + 6, sx = dim + R * Math.cos(b), sy = dim - R * Math.sin(b), x = dim + R * Math.cos(a), y = dim - R * Math.sin(a), path = [
-          ['M', sx, sy],
-          ['A', R, R, 0, +(alpha > 180), 1, x, y]
-        ];
+        var alpha = total_degrees / total * value,
+            a = (start - alpha) * Math.PI / 180,
+            b = start * Math.PI / 180,
+            dim = w.params.dim + 6,
+            sx = dim + R * Math.cos(b),
+            sy = dim - R * Math.sin(b),
+            x = dim + R * Math.cos(a),
+            y = dim - R * Math.sin(a),
+            path = [
+            ['M', sx, sy],
+            ['A', R, R, 0, +(alpha > 180), 1, x, y]
+            ];
         return {
           path: path
         };
-      }
-
+      };
       w.set_opinions(this.opinions, 0, 14, 360);
-      w.set_opinions(this.relevance, 50, 25, 180);
-
-      w.bind_events($.merge(this.opinions, this.relevance));
-
-    }
+      w.bind_events(this.opinions);
+    };
     return Wheel;
   })();
 
@@ -129,6 +157,13 @@
     init: function(options) {
       return this.each(function() {
         var $t = $(this);
+
+        function toggleEvidenceLabel() {
+          $t.find(".evidence").toggle();
+          $t.find(".potential-evidence").toggle();
+          $t.find(".add-action.do-add").toggle();
+          $t.find(".add-action.do-show").toggle();
+        }
         if (!$t.data("initialized")) {
           $t.find(".evidence-facts a.show-evidence").live("click", function() {
             $t.find(".evidence-container").slideToggle();
@@ -143,23 +178,15 @@
             toggleEvidenceLabel();
             return false;
           });
-
-          function toggleEvidenceLabel() {
-            $t.find(".evidence").toggle();
-            $t.find(".potential-evidence").toggle();
-            $t.find(".add-action.do-add").toggle();
-            $t.find(".add-action.do-show").toggle();
-          }
           $t.data("initialized", true);
         }
         // Prevents boxes from dissapearing on mouse over
-        $t.find(".float-box").mouseover(
-
-        function() {
+        $t.find(".float-box").mouseover(function() {
           $(this).stop(true, true).css({
             "opacity": "1"
           });
-        }).mouseout(
+        });
+        $t.find(".float-box").mouseout(
 
         function() {
           $(this).delay(500).fadeOut("fast");
@@ -171,38 +198,39 @@
       });
     },
     switch_opinion: function(opinion) {
-      var op = opinion;
       var fact = this;
-      this.data("wheel").opinions.each(function() {
+      var opinions = fact.data("wheel").opinions;
+      opinions.each(function() {
         var current_op = this;
-        if ($(current_op).data("opinion") == op.data("opinion")) { // The clicked op is the current op in the list
+        if ($(current_op).data("opinion") == opinion.data("opinion")) {
+          // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
-            $.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + op.data("opinion"), function() {
-              $(current_op).data("user-opinion", true);
-              current_op.raphael.animate({
-                opacity: 1
-              }, 200);
+            $.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+              data_attr(current_op, "user-opinion", true);
+              opinions.each(function() {
+                data_attr(this, "value", data[0].score_dict_as_percentage[$(this).data("opinions")].percentage);
+              });
+              fact.data("wheel").update();
             });
-          } else {
+          }
+          else {
             $.ajax({
               type: "DELETE",
               url: "/fact/" + $(fact).data("fact-id") + "/opinion/",
-              success: function(msg) {
-                $(current_op).data("user-opinion", false);
-                current_op.raphael.animate({
-                  opacity: 0.2
-                }, 200);
+              success: function(data) {
+                opinions.each(function() {
+                  data_attr(this, "value", data[0].score_dict_as_percentage[$(this).data("opinions")].percentage);
+                });
+                data_attr(current_op, "user-opinion", false);
+                fact.data("wheel").update();
               }
             });
           }
-        } else { // The clicked op is not the current op
-          this.raphael.animate({
-            opacity: 0.2
-          }, 200);
-          $(this).data("user-opinion", false);
+        }
+        else {
+          data_attr(current_op, "user-opinion", false);
         }
       });
-      this.data("wheel").bind_events();
     },
 
     // Channels
@@ -217,21 +245,28 @@
           fact_id: fact
         }
       });
-    },
+    }
   };
 
   $.fn.factlink = function(method) {
     // Method calling logic
     if (methods[method]) {
       return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    } else if (typeof method === 'object' || !method) {
+    }
+    else if (typeof method === 'object' || !method) {
       return methods.init.apply(this, arguments);
-    } else {
+    }
+    else {
       $.error('Method ' + method + ' does not exist on jQuery.factlink');
     }
-  }
-  // Private functions
+  };
 
+  // Private functions		
+
+  function data_attr(el, attr, data) {
+    $(el).attr("data-" + attr, data);
+    $(el).data(attr, data);
+  }
 
   function init_fact(fact) {
     var $t = $(fact);
@@ -240,13 +275,11 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-      $t.find("a.add-to-channel").hoverIntent(
-
-      function() {
+      $t.find("a.add-to-channel").hoverIntent(function() {
         channelList = $t.find(".channel-listing");
         $(channelList).css({
-          "top": parseInt($(this).position().top) + 20 + "px",
-          "left": parseInt($(this).position().left) + 10 + "px"
+          "top": parseInt($(this).position().top, 10) + 20 + "px",
+          "left": parseInt($(this).position().left, 10) + 10 + "px"
         }).fadeIn("fast");
       }, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");

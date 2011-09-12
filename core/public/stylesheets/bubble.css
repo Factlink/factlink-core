@@ -295,6 +295,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   display: none;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   position: absolute;
+  position: fixed;
   width: 150px;
   height: 85px;
 }
