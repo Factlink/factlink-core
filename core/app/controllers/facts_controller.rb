@@ -68,17 +68,21 @@ class FactsController < ApplicationController
   def intermediate
     # TODO: Sanitize for XSS
     @url = params[:url]
-    
-    print params[:url]
-    
     @passage = params[:passage]
     @fact = params[:fact]
     @title = params[:title]
+    @opinion = params[:opinion]
+    
     render :template => 'facts/intermediate', :layout => nil
   end
 
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
+    
+    if params[:opinion]
+      @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+    end
+    
     redirect_to :action => "edit", :id => @fact.id
   end
 
