@@ -7,3 +7,5 @@ solr/data/
 webrat.log
 .nide
 coverage.data
+coverage/
+log/
