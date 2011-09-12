@@ -141,7 +141,7 @@ class FactsController < ApplicationController
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion.as_percentages}
+    render :json => {"opinions" => @fact.get_opinion(2).as_percentages}
   end
 
   def set_opinion    
@@ -151,7 +151,7 @@ class FactsController < ApplicationController
     if allowed_types.include?(type)
       @fact = Basefact[params[:fact_id]] 
       @fact.add_opinion(type, current_user.graph_user)
-      render :json => [@fact]
+      render :json => [@fact.get_opinion(2).as_percentages]
     else 
       render :json => {"error" => "type not allowed"}
       return false
@@ -161,7 +161,7 @@ class FactsController < ApplicationController
   def remove_opinions   
       @fact = Basefact[params[:fact_id]]
       @fact.remove_opinions(current_user.graph_user)
-      render :json => [@fact]
+      render :json => [@fact.get_opinion(2).as_percentages]
   end
 
   # Search in the client popup.  

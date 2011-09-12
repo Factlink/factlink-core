@@ -208,7 +208,7 @@
             $.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
               opinions.each(function() {
-                data_attr(this, "value", data[0].score_dict_as_percentage[$(this).data("opinions")].percentage);
+                data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
               });
               fact.data("wheel").update();
             });
@@ -219,7 +219,7 @@
               url: "/fact/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
                 opinions.each(function() {
-                  data_attr(this, "value", data[0].score_dict_as_percentage[$(this).data("opinions")].percentage);
+                  data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
                 });
                 data_attr(current_op, "user-opinion", false);
                 fact.data("wheel").update();
