@@ -6,7 +6,7 @@
       this.params = $.extend(params, {
         "dim": 24,
         "default_stroke": {
-          "opacity": 0.2,
+          "opacity": 0.3,
           "stroke": 9
         },
         "hover_stroke": {

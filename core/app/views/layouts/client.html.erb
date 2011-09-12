@@ -7,6 +7,7 @@
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
+  <script src="/javascripts/jquery-ui-1.8.16.custom.min.js"></script> 
 
 	<script type="text/javascript" src="/client/js/jquery.scrollTo-1.4.2-min.js"></script>
 
@@ -22,6 +23,7 @@
 	</div>
   
   <script type="text/javascript">
+    $(".modal").draggable();
     $( document ).bind('click', function(e) {
       if( $(e.target).is('body') )
         parent.remote.hide();

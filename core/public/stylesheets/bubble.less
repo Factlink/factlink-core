@@ -48,7 +48,7 @@ div.modal {
   background-color: @bg;
   z-index: 1000;
   display: none;
-  .drop-shadow(2px, 2px, 2px ,0.2);
+  .drop-shadow(5px, 5px, 5px, 0.1);
   position: absolute;
 }
 
@@ -174,9 +174,9 @@ body.factlink-site div.user-block {
       background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;
 
 			a {
-				opacity: 0.8;
+				.opacity(0.8);
 				&:hover {
-					opacity: 1.0;
+  				.opacity(1);
 				}
 			}
     }
@@ -189,10 +189,6 @@ body.factlink-site div.user-block {
       height: 36px;
       a {
         line-height: 22px;
-				opacity: 0.8;
-				&:hover {
-					opacity: 1.0;
-				}
       }
     }
     .evidence, .potential-evidence {
@@ -200,7 +196,7 @@ body.factlink-site div.user-block {
       max-height: 200px;
       background-color: #FBFAFA;
       overflow: auto;
-      .no-evidence td{ 
+      .no-evidence td { 
         width: 480px;  
         text-align: center;
         height: 150px;
@@ -210,10 +206,14 @@ body.factlink-site div.user-block {
         &:nth-child(even) {
           background-color: darken(#FBFAFA, 2%);
         }
+        .opacity(0.65);
         border-bottom: 1px solid #E4E4E4;
-        padding: 10px 0 10px 15px;    
-        width: 475px;  
+        padding: 10px 0 10px 20px;    
+        width: 465px;  
         text-align: left;
+        &:hover { 
+          .opacity(1);
+        }
       }
     }
     .potential-evidence { 
