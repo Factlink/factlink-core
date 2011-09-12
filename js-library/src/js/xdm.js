@@ -13,7 +13,8 @@
       createNewEvidence: {},
       createFactlink: {},
       showFactlink: {},
-      position: {}
+      position: {},
+      opinionateFactlink: {}
     }
   });
 })(window.Factlink);

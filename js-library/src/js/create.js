@@ -28,7 +28,7 @@
     var selInfo = Factlink.getSelectionInfo();
 
     if (FactlinkConfig.modus === "default") {
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, function(factId) {
+      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, e.currentTarget.id, function(factId) {
         if ($.isFunction(callback)) {
           callback(factId);
         }
@@ -42,25 +42,21 @@
     }
   };
 
-  Factlink.opinionateFact = function(factId, opinion) {
-    debugger;
-  };
-
   function bindPrepareClick($element) {
     $element.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
 
-      Factlink.submitSelection(e, function(factId) {
-        Factlink.opinionateFact(factId, e.currentTarget.id);
-      });
+      Factlink.submitSelection(e);
 
       $element.hide();
     });
   }
 
   function getTextRange() {
+    var d;
+    
     if (window.getSelection) {
       d = window.getSelection();
     } else if (document.getSelection) {
