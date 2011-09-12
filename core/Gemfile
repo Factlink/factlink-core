@@ -63,6 +63,11 @@ gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
 # Canivete -- gem which provides 'deprecate' command
 gem 'canivete'
 
+#needed for migrations to be compatible when no sql backend is available
+gem "mongoid_rails_migrations", '0.0.13'
+
+
+
 group :development, :test do
   gem 'metric_fu'
   # gem 'webrat'
