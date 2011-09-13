@@ -208,7 +208,7 @@
         if ($(current_op).data("opinion") == opinion.data("opinion")) {
           // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
-            $.post("/fact/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+            $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
               opinions.each(function() {
                 data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
@@ -219,7 +219,7 @@
           else {
             $.ajax({
               type: "DELETE",
-              url: "/fact/" + $(fact).data("fact-id") + "/opinion/",
+              url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
                 opinions.each(function() {
                   data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
