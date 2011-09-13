@@ -1,6 +1,7 @@
 <li data-channel-id="<%= channel.id %>" onclick="getFacts('<%= channel_url(user.username, channel.id) %>');">
 	<article class="channel-block">
 		<div class="wrapper">
+      <%= image_tag(user.avatar, :width => 12, :class => "avatar") %>
 			<span><%= channel.title %>
     			<% if channel.discontinued == 'true' %>
     			  (discontinued)

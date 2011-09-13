@@ -35,8 +35,7 @@
 			<% if @action == "update" %> 
 			<span>or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete, "class" => "negative button" ) %></span>&nbsp;
 			<% end %>
-			
-       <%= button_for("Save", :button_type => "submit", :class => "positive button") %>&nbsp;
+			 <%= button_tag("Save", :disable_with => "Saving...", :class => "positive button") %>&nbsp;
 		</div>
 	</div>
 <% end %>

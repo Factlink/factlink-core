@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
+  helper :all
+  
   after_filter :set_access_control
   
   require 'twitter'
