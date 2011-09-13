@@ -7,13 +7,7 @@ class HomeController < ApplicationController
   def index
     @facts = Fact.all.sort(:order => "DESC",:limit => 10)
     @users = GraphUser.top(20).map { |gu| gu.user }
-
-    # Activity.all.sort(:order => "DESC")[0..10]
-
     @activities = []
-    #Activity.all.map { |activity| @activities << activity unless activity.user.nil? }
-
-    #@activities = @activities[0..0].reverse
   end
 
   # Search
