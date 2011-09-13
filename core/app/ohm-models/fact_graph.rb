@@ -71,7 +71,8 @@ class FactGraph
         writer.write(LoadDsl.export_activate_user(gu))
       end
 
-      gu.channels.each do |channel|
+      #use Channel.find because we also want deleted channels
+      Channel.find(:created_by_id => gu.id ).each do |channel|
         writer.write("  "+LoadDsl.export_channel(channel))
         channel.internal_facts.each do |f|
           if f and f.data_id

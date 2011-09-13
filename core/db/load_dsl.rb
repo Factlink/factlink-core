@@ -156,13 +156,16 @@ class LoadDsl
     graph_user.channels.find(:title => title).first || Channel.create(:created_by => graph_user, :title => title)
   end
 
-  def channel(title)
+  def channel(title, opts={})
     ch = self.load_channel(state_graph_user, title)
+    ch.delete if opts[:discontinued]
     self.state_channel = ch
   end
 
   def self.export_channel(channel)
-    "channel \"#{quote_string(channel.title)}\"\n"
+    rv = "channel \"#{quote_string(channel.title)}\""
+    rv += ", :discontinued => true" if channel.discontinued
+    rv += "\n"
   end
 
   def sub_channel(username,title)
