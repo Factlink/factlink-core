@@ -1,3 +1,4 @@
+@import "css3buttons.css";
 /*---------------------------------------------------
 		LESS Elements 0.5
 	---------------------------------------------------
@@ -258,6 +259,25 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block .evidence-facts .evidence-actions a {
   line-height: 22px;
 }
+.fact-block .evidence-facts article.fact {
+  -moz-opacity: 0.65;
+  -khtml-opacity: 0.65;
+  -webkit-opacity: 0.65;
+  opacity: 0.65;
+  border-bottom: 1px solid #E4E4E4;
+  padding: 10px 0 10px 15px;
+  width: 480px;
+  text-align: left;
+}
+.fact-block .evidence-facts article.fact:nth-child(even) {
+  background-color: #f6f4f4;
+}
+.fact-block .evidence-facts article.fact:hover {
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  -webkit-opacity: 1;
+  opacity: 1;
+}
 .fact-block .evidence-facts .evidence, .fact-block .evidence-facts .potential-evidence {
   min-height: 80px;
   max-height: 200px;
@@ -265,29 +285,10 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   overflow: auto;
 }
 .fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
-  width: 480px;
+  width: 490px;
   text-align: center;
   height: 150px;
   vertical-align: middle;
-}
-.fact-block .evidence-facts .evidence article.fact, .fact-block .evidence-facts .potential-evidence article.fact {
-  -moz-opacity: 0.65;
-  -khtml-opacity: 0.65;
-  -webkit-opacity: 0.65;
-  opacity: 0.65;
-  border-bottom: 1px solid #E4E4E4;
-  padding: 10px 0 10px 20px;
-  width: 465px;
-  text-align: left;
-}
-.fact-block .evidence-facts .evidence article.fact:nth-child(even), .fact-block .evidence-facts .potential-evidence article.fact:nth-child(even) {
-  background-color: #f6f4f4;
-}
-.fact-block .evidence-facts .evidence article.fact:hover, .fact-block .evidence-facts .potential-evidence article.fact:hover {
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  -webkit-opacity: 1;
-  opacity: 1;
 }
 .fact-block .evidence-facts .potential-evidence {
   min-height: 150px;
@@ -303,7 +304,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-size: 8pt;
   border-radius: 3px;
   border: solid 1px #ccc;
-  width: 360px;
+  width: 380px;
   height: 18px;
 }
 .fact-block .evidence-facts .potential-evidence .search input[type="text"]:active, .fact-block .evidence-facts .potential-evidence .search input[type="text"]:focus {
@@ -368,7 +369,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .relevance-options {
   float: right;
-  padding: 5px;
 }
 .fact-block .relevance-options ul li {
   padding-bottom: 8px;
