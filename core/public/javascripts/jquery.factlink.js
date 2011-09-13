@@ -180,17 +180,20 @@
           });
           $t.data("initialized", true);
         }
-        // Prevents boxes from dissapearing on mouse over
-        $t.find(".float-box").mouseover(function() {
-          $(this).stop(true, true).css({
+        function stop_fade(t) {
+          t.stop(true, true).css({
             "opacity": "1"
           });
-        });
-        $t.find(".float-box").mouseout(
+        }
 
-        function() {
-          $(this).delay(500).fadeOut("fast");
+        // Prevents boxes from dissapearing on mouse over
+        $t.find(".float-box").mouseover(function() { stop_fade($(this)); });
+        $t.find(".float-box").mouseout(function() {
+          if(!$(this).find("input#channel_title").is(":focus")) {
+            $(this).delay(500).fadeOut("fast");
+          }
         });
+
         // For each fact bubble
         $t.find("article.fact").each(function() {
           init_fact(this);
