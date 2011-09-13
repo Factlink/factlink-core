@@ -5,6 +5,11 @@ development:
 test:
     host: localhost
     database: factlink_ui_test
+
+testserver:
+    host: localhost
+    port: 27017
+    database: factlink_ui_production
       
 production:
     host: localhost
