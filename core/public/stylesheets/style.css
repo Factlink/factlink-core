@@ -553,6 +553,9 @@ form .action-wrapper span {
   margin: 0 0 0 15px;
   background-color: transparent;
 }
+#container #channel-listing li > ul > li + li {
+  margin-top: 8px;
+}
 #container #channel-listing .active {
   background: #fff;
   color: #666;

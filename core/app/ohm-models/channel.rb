@@ -7,9 +7,6 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
 
-  
-  alias :channel_maintainer :created_by
-
   private
   set :contained_channels, Channel
   set :internal_facts, Fact
@@ -44,7 +41,6 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
-
     self.delete_facts.delete(fact)
     self.internal_facts.add(fact)
     activity(self.created_by,:added,fact,:to,self)
