@@ -103,10 +103,4 @@ module HomeHelper
     end
   end
   
-  def follow_channel(user, channel)
-    if user_signed_in?
-      link_to(fork_label(channel), follow_channel_path(user.username, channel.id), :class => "transperant button", :remote => true)
-    end
-    
-  end
 end

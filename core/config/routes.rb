@@ -41,9 +41,9 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
   # Opinion on a Fact or FactRelation  
-  get     ":fact_type/:id/opinion" => "facts#opinion"
-  post    ":fact_type/:fact_id/opinion/:type" => "facts#set_opinion", :as => "opinion"
-  delete  ":fact_type/:fact_id/opinion/" => "facts#remove_opinions", :as => "opinion"
+  get     "/fact_item/:id/opinion" => "facts#opinion"
+  post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
+  delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
 
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"

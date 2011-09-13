@@ -31,6 +31,9 @@ class FactsController < ApplicationController
       :show,
       :edit]
 
+  around_filter :allowed_type,
+    :only => [:set_opinion, :create ]
+
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,
   # so the Fact can be created after logging in.
@@ -148,18 +151,12 @@ class FactsController < ApplicationController
     render :json => {"opinions" => @fact.get_opinion(2).as_percentages}
   end
 
+
   def set_opinion    
-    allowed_types = [:beliefs, :doubts, :disbeliefs]
     type = params[:type].to_sym
-    
-    if allowed_types.include?(type)
-      @fact = Basefact[params[:fact_id]] 
-      @fact.add_opinion(type, current_user.graph_user)
-      render :json => [@fact.get_opinion(2).as_percentages]
-    else 
-      render :json => {"error" => "type not allowed"}
-      return false
-    end
+    @fact = Basefact[params[:fact_id]] 
+    @fact.add_opinion(type, current_user.graph_user)
+    render :json => [@fact.get_opinion(2).as_percentages]
   end
 
   def remove_opinions   
@@ -264,6 +261,18 @@ class FactsController < ApplicationController
     @fact.data.displaystring = displaystring    
     @fact.data.save
     @fact
+  end
+
+  private
+  def allowed_type
+    allowed_types = [:beliefs, :doubts, :disbeliefs]
+    type = params[:type].to_sym
+    if allowed_types.include?(type)
+      yield
+    else 
+      render :json => {"error" => "type not allowed"}
+      return false
+    end
   end
   
 end

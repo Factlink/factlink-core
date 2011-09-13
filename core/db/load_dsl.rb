@@ -91,6 +91,7 @@ class LoadDsl
   def load_user(username,email=nil, password=nil, twitter=nil)
     u = User.where(:username => username).first
     if not u
+      
       if email and password
         u = User.create(:username => username,
         :email => email,
@@ -152,13 +153,17 @@ class LoadDsl
     end
   end
 
-  def load_channel(graph_user, title)
-    graph_user.channels.find(:title => title).first || Channel.create(:created_by => graph_user, :title => title)
+  def load_channel(graph_user, title, opts={})
+    ch = graph_user.channels.find(:title => title).first
+    unless ch
+      ch = Channel.create(:created_by => graph_user, :title => title)
+      ch.delete if opts[:discontinued]
+    end
+    ch
   end
 
   def channel(title, opts={})
-    ch = self.load_channel(state_graph_user, title)
-    ch.delete if opts[:discontinued]
+    ch = self.load_channel(state_graph_user, title, opts)
     self.state_channel = ch
   end
 
@@ -168,13 +173,15 @@ class LoadDsl
     rv += "\n"
   end
 
-  def sub_channel(username,title)
-    ch = self.load_channel(load_user(username).graph_user, title)
+  def sub_channel(username,title, opts={})
+    ch = self.load_channel(load_user(username).graph_user, title, opts)
     self.state_channel.add_channel(ch)
   end
 
   def self.export_sub_channel(channel)
-    "sub_channel \"#{quote_string(channel.created_by.username)}\", \"#{quote_string(channel.title)}\"\n"
+    rv = "sub_channel \"#{quote_string(channel.created_by.username)}\", \"#{quote_string(channel.title)}\""
+    rv += ", :discontinued => true" if channel.discontinued
+    rv += "\n"
   end
 
   def add_fact(fact_string)

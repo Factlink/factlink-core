@@ -24,12 +24,11 @@ end
     <% elsif defined?(fact_relation) and fact_relation %>
     <div class="relevance-options">
       <ul>
-          <li><%= link_to('Relevant', '', :remote => true, :class => "button pill" )%></li>
-          <li><%= link_to('Irrelevant',	'',  :remote => true, :class => "button pill" )%><li>
+          <li><%= button_to('Relevant', set_opinion_path(fact_relation.id,:belieaeouaeouveaeu), :remote => true, :class => "button pill" )%></li>
+          <li><%= button_to('Irrelevant',	set_opinion_path(fact_relation.id,:disbelieve),  :remote => true, :class => "button pill" )%><li>
 	    </ul>
     </div>
     <% end %>
-	  
 	  <% if fact.site.title and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
