@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @facts = Fact.all.sort(:order => "DESC")
+    @facts = Fact.all.sort(:order => "DESC",:limit => 15)
     @users = GraphUser.top(20).map { |gu| gu.user }
 
     # Activity.all.sort(:order => "DESC")[0..10]
