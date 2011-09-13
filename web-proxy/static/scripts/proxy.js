@@ -36,7 +36,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-      b.href = href.replace(/^http(s|):\/\//, 'http://localhost:8080/?url=' + href.match(/http(s|):\/\//)[0]);
+      b.href = href.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + href.match(/http(s|):\/\//)[0]);
 
       b.target = "_parent";
     }

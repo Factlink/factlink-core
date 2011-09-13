@@ -134,7 +134,7 @@ server.get('/submit', function(req, res) {
 		
 		// Replace the closing head tag with a base tag
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
 
 		res.write( html );
 		res.end();
