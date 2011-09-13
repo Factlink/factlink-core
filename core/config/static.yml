@@ -11,9 +11,9 @@ test:
 testserver:
     static:
         hostname: static.testserver.factlink.com
-        port: 8000
+        port: 80
 
 production:
     static:
         hostname: static.factlink.com
-        port: 8000
+        port: 80
