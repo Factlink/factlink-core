@@ -33,10 +33,10 @@
 		<div class="actions">
 
 			<% if @action == "update" %> 
-			<span>or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete ) %></span>
+			<span>or <%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete, "class" => "negative button" ) %></span>&nbsp;
 			<% end %>
 			
-			<%= f.submit "Save" %> 
+       <%= button_for("Save", :button_type => "submit", :class => "positive button") %>&nbsp;
 		</div>
 	</div>
 <% end %>
