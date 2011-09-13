@@ -8,7 +8,12 @@ test:
         hostname: localhost
         port: 8000
 
+testserver:
+    static:
+        hostname: static.testserver.factlink.com
+        port: 80
+
 production:
     static:
         hostname: static.factlink.com
-        port: 8000
+        port: 80
