@@ -17,15 +17,15 @@ end
 	  if defined?(add_to_fact) and add_to_fact %>
       <div class="relevance-options">
         <ul>
-  	    <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true )%></li>
-  	    <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true )%><li>
+          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button pill" )%></li>
+          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button pill" )%><li>
   	    </ul>
       </div>
     <% elsif defined?(fact_relation) and fact_relation %>
     <div class="relevance-options">
       <ul>
-	      <li>Supporting</li>
-	      <li>Weakening</li>
+          <li><%= link_to('Supporting', '', :remote => true, :class => "button pill" )%></li>
+          <li><%= link_to('Weakening',	'',  :remote => true, :class => "button pill" )%><li>
 	    </ul>
     </div>
     <% end %>
