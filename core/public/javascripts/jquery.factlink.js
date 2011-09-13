@@ -114,8 +114,8 @@
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).css({
-              "top": e.screenY - 125 + "px",
-              "left": e.screenX + 25 + "px"
+              "top": e.clientY - 25 + "px",
+              "left": e.clientX + 25 + "px"
             }).fadeIn("fast");
           },
           out: function() {

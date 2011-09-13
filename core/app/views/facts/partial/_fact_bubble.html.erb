@@ -24,12 +24,13 @@ end
     <% elsif defined?(fact_relation) and fact_relation %>
     <div class="relevance-options">
       <ul>
-          <li><%= link_to('Supporting', '', :remote => true, :class => "button pill" )%></li>
+          <% if fact_relation.type == :supporting  %>
+            <li><%= link_to('Supporting', '', :remote => true, :class => "button pill active" )%></li>
+          <% end %>
           <li><%= link_to('Weakening',	'',  :remote => true, :class => "button pill" )%><li>
 	    </ul>
     </div>
     <% end %>
-	  
 	  <% if fact.site.title and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
