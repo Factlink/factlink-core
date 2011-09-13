@@ -26,10 +26,6 @@ FactlinkUI::Application.configure do
   
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
-  config.after_initialize do
-    Factlink.proxy_url = 'http://localhost:8080'
-  end
-  
 end
 
 Rails.logger = Logger.new(STDOUT)
