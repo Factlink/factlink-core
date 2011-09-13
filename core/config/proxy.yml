@@ -1,14 +1,14 @@
 development:
-  proxy:
-    hostname: localhost
-    port: 8080
+    proxy:
+        hostname: localhost
+        port: 8080
 
 test:
-  proxy:
-    hostname: localhost
-    port: 8080
-      
+    proxy:
+        hostname: localhost
+        port: 8080
+
 production:
-  proxy:
-    hostname: proxy.factlink.com
-    port: 8080
+    proxy:
+        hostname: proxy.factlink.com
+        port: 8080

@@ -1,0 +1,14 @@
+development:
+    static:
+        hostname: localhost
+        port: 8000
+
+test:
+    static:
+        hostname: localhost
+        port: 8000
+
+production:
+    static:
+        hostname: static.factlink.com
+        port: 8000
