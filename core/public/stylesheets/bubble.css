@@ -69,7 +69,6 @@ span.proxyWindow {
   display: none;
 }
 div.modal {
-  position: relative;
   background: #FBFAFA;
   top: 40px;
   -webkit-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
@@ -114,6 +113,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 15px;
 }
 .fact-block {
+  position: relative;
   padding: 0;
   border: solid 1px #ddd;
   -webkit-border-radius: 3px;
@@ -266,7 +266,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   opacity: 0.65;
   border-bottom: 1px solid #E4E4E4;
   padding: 10px 0 10px 15px;
-  width: 480px;
+  width: 478px;
   text-align: left;
 }
 .fact-block .evidence-facts article.fact:nth-child(even) {
