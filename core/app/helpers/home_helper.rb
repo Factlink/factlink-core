@@ -5,32 +5,6 @@ module HomeHelper
                 :locals => {  :channel => channel }
   end
   
-  def add_channel(user)
-    if user_signed_in?
-      if current_user == user
-        render :partial => "home/snippets/add_channel"
-      end
-    end
-  end
-  
-  def edit_channel(user, channel)
-    if user_signed_in?
-      if current_user == user
-        render :partial => "home/snippets/edit_channel",
-                :locals => {  :channel => channel,
-                              :user => user }
-      end
-    end
-  end
-  
-  def fact_channel_options_for_user(channel, fact)
-    if user_signed_in?
-      if current_user == channel.created_by.user
-        render :partial => "home/snippets/fact_options_for_channel",
-                :locals => {  :channel => channel, :fact => fact }
-      end
-    end
-  end
 
   def users_and_factlink_information
     render :partial => "home/snippets/user_and_factlink_information"

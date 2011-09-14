@@ -32,7 +32,7 @@ class FactsController < ApplicationController
       :edit]
 
   around_filter :allowed_type,
-    :only => [:set_opinion, :create ]
+    :only => [:set_opinion ]
 
   # Check if the user is signed in before adding a Fact.
   # If this is not the case, store the params in a session variable,

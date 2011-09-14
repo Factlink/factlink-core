@@ -1,18 +1,20 @@
 module ChannelsHelper
   
-  def fork_label(channel)
-    if channel.created_by == current_user.graph_user
-      return "duplicate"
-    else
-      return "add to my channels"
+  def add_channel(user)
+    if user_signed_in?
+      if current_user == user
+        render :partial => "home/snippets/add_channel"
+      end
     end
   end
-
-  def follow_channel(user, channel)
+  
+  def fact_channel_options_for_user(channel, fact)
     if user_signed_in?
-      link_to(fork_label(channel), follow_channel_path(user.username, channel.id), :class => "transperant button", :remote => true)
+      if current_user == channel.created_by.user
+        render :partial => "home/snippets/fact_options_for_channel",
+                :locals => {  :channel => channel, :fact => fact }
+      end
     end
-    
   end
 
 end
