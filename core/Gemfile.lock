@@ -76,6 +76,7 @@ GEM
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
     colored (1.2)
+    daemons (1.1.4)
     database_cleaner (0.6.7)
     devise (1.3.4)
       bcrypt-ruby (~> 2.1.2)
@@ -85,6 +86,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     escape (0.0.4)
+    eventmachine (0.12.10)
     factory_girl (2.0.0.rc1)
     factory_girl_rails (1.1.rc1)
       factory_girl (~> 2.0.0.rc)
@@ -239,6 +241,10 @@ GEM
       sunspot (= 1.2.1)
     syntax (1.0.0)
     text (0.2.0)
+    thin (1.2.11)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -283,12 +289,14 @@ DEPENDENCIES
   mongoid_taggable
   ohm!
   ohm-contrib!
+  rack
   rails (= 3.0.5)
   redis (= 2.2.1)
   redis-objects
   rspec-rails
   sqlite3-ruby
   sunspot_rails (~> 1.2.1)
+  thin
   twitter
   vinova_sunspot_mongoid
   will_paginate (~> 3.0.pre)

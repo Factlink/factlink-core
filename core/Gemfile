@@ -85,4 +85,8 @@ group :development, :test do
   # Forks the Rails app making testing way faster!
   # disabled for now, seems to make failing tests succeed -- mark/tom
   #gem 'spork', '~> 0.9.0.rc'
+  
+  #for static files serving
+  gem 'rack'
+  gem 'thin'
 end
