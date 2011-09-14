@@ -1,3 +1,5 @@
+# Teh baron
+
 #############
 # Application
 set :application, "factlink-core"
@@ -31,11 +33,12 @@ set :use_sudo,    false
 # Repository
 set :scm, :git
 set :repository,  "git@codebasehq.com:factlink/factlink/factlink-core.git"
+set :branch, "develop"  # Can be moved to deploy/production.rb and deploy.testserver.rb
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
 
-set :branch, "develop"  # Can be moved to deploy/production.rb and deploy.testserver.rb
+
 
 
 ssh_options[:forward_agent] = true
