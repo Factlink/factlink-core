@@ -36,7 +36,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-      b.href = href.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + href.match(/http(s|):\/\//)[0]);
+      b.href = href.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '?url=' + href.match(/http(s|):\/\//)[0]);
 
       b.target = "_parent";
     }
@@ -72,7 +72,7 @@ domReady(function(){
 			form.appendChild(input);
 			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + action.match(/http(s|):\/\//)[0]);
+      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + 'submit?url=' + action.match(/http(s|):\/\//)[0]);
     }
   }
 
