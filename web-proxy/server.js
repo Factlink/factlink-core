@@ -136,6 +136,8 @@ server.get('/submit', function(req, res) {
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
 		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
 
+		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
+
 		res.write( html );
 		res.end();
 	});
