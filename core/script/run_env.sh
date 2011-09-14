@@ -5,4 +5,4 @@ cd ../factlink-core
 bundle install
 rails db:migrate
 rake sunspot:solr:start
-screen -c scripts/screen.env
+screen -c script/screen.env

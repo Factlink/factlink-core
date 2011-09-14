@@ -8,5 +8,5 @@ gem install bundle
 cd factlink-core
 bundle install
 rails db:migrate
-cd web-proxy
+cd ../web-proxy
 npm install
