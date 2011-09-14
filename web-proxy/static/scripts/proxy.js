@@ -72,7 +72,7 @@ domReady(function(){
 			form.appendChild(input);
 			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\//, 'http://localhost:8080/submit?url=' + action.match(/http(s|):\/\//)[0]);
+      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + action.match(/http(s|):\/\//)[0]);
     }
   }
 
