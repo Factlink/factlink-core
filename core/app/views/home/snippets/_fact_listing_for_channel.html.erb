@@ -3,7 +3,7 @@
 	  <%= channel.title %>
   	<% if user_signed_in? %>
   	  <% if current_user.graph_user == channel.created_by %>
-        <%= link_to("edit", edit_channel_path(current_user.username, channel.id), :class => "button") %>
+        <%= link_to("edit", edit_channel_path(channel.created_by.user.username, channel.id), :class => "button") %>
   	  <% else %>
         <%= link_to("add to my channels", follow_channel_path(user.username, channel.id), :class => "transperant button", :remote => true) %>
 	    <% end %>
