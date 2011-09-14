@@ -78,7 +78,10 @@ server.get('/parse', function(req, res) {
 	req.on('complete', function(data) {
 		// Add base url and inject proxy.js, and return the proxied site
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+		// html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+
+		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
 
 		res.write( html );
 		res.end();
