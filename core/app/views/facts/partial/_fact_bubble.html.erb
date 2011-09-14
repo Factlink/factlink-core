@@ -17,15 +17,15 @@ end
 	  if defined?(add_to_fact) and add_to_fact %>
       <div class="relevance-options">
         <ul>
-          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button pill" )%></li>
-          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button pill" )%><li>
+          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button" )%></li>
+          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button" )%><li>
   	    </ul>
       </div>
     <% elsif defined?(fact_relation) and fact_relation %>
     <div class="relevance-options">
       <ul>
-          <li><%= button_to('Relevant', set_opinion_path(fact_relation.id,:belieaeouaeouveaeu), :remote => true, :class => "button pill" )%></li>
-          <li><%= button_to('Irrelevant',	set_opinion_path(fact_relation.id,:disbelieve),  :remote => true, :class => "button pill" )%><li>
+        <li><%= link_to('Relevant', set_opinion_path(fact_relation.id,:belieaeouaeouveaeu), :remote => true, :class => "button", :method => "post" )%></li>
+        <li><%= link_to('Irrelevant',	set_opinion_path(fact_relation.id,:disbelieve),  :remote => true, :class => "button", :method => "post" )%><li>
 	    </ul>
     </div>
     <% end %>
