@@ -11,12 +11,10 @@ class UsersController < ApplicationController
   def show
 
     if @user      
-      @activities = @user.graph_user.activities.sort(:order => "DESC")
-      
-      puts "\n\nGOT USER\n\n"
-      
+      @activities = @user.graph_user.activities.sort(:order => "DESC")      
       respond_to do |format|
         format.html # show.html.erb
+        format.js   # show.js.erb
       end
     else
       render :file => "#{Rails.root}/public/404.html", :status => :not_found, :layout => false

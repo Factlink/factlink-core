@@ -1,0 +1,8 @@
+$('#main-wrapper').hide().html('<%= escape_javascript(fact_listing(@user.graph_user.stream.facts)) %>').fadeIn(150);
+
+$('#main-wrapper').prepend("<h1>User stream <%= @user.username %></h1>");
+
+$('#channel-listing > li').removeClass('active');
+$('#channel-listing > li[data-channel-id=user-stream]').addClass('active');
+
+$(".fact-block").factlink();

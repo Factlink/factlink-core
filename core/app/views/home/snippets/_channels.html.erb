@@ -13,6 +13,20 @@
 
 <% else %>
 	<ul id="channel-listing">
+		
+		<li data-channel-id="user-stream" class="active" onclick="getFacts('<%= user_profile_path(user.username) %>');">
+			<article class="channel-block">
+				<div class="wrapper">
+
+		      <%= link_to image_tag(user.avatar, :width => 16, :class => "avatar"), user_profile_path(user.username) %>
+
+					<span style="vertical-align:middle;">All
+					    (<%= user.graph_user.stream.facts.count %>)</span>
+				</div>
+			</article>		
+		</li>
+		
+
 		<% user.channels.each do |channel| %>
 			<%= render :partial => "home/snippets/channel_menu_item", 
   	            :locals => {  :channel => channel, :user => user } %>
