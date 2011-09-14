@@ -1,12 +1,15 @@
 <header class="append-bottom">
-	<h1><%= channel.title %> <%= edit_channel(@user, channel) %> <%= follow_channel(@user, channel) %></h1>
+	<h1>
+	  <%= channel.title %>
+  	<% if user_signed_in? %>
+  	  <% if current_user.graph_user == channel.created_by %>
+        <%= link_to("edit", edit_channel_path(current_user.username, channel.id), :class => "button") %>
+  	  <% else %>
+        <%= link_to("add to my channels", follow_channel_path(user.username, channel.id), :class => "transperant button", :remote => true) %>
+	    <% end %>
+  	<% end %>
+  </h1>
 	<p><%= channel.description %></p>
-
-	<% if user_signed_in? %>
-	<!-- <div class="follow-channel" data-channel-id="<%= channel.id %>" data-follow-url="<%= follow_channel_url(channel.created_by.username, channel.id) %>"> -->
-		<!-- <a href="#"><%= fork_label(channel) %></a> -->
-	<!-- </div> -->
-	<% end %>
 </header>
 
 
