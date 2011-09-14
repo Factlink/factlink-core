@@ -17,15 +17,15 @@ end
 	  if defined?(add_to_fact) and add_to_fact %>
       <div class="relevance-options">
         <ul>
-          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button pill" )%></li>
-          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button pill" )%><li>
+          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button" )%></li>
+          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button" )%><li>
   	    </ul>
       </div>
     <% elsif defined?(fact_relation) and fact_relation %>
     <div class="relevance-options">
       <ul>
-          <li><%= button_to('Relevant', set_opinion_path(fact_relation.id,:belieaeouaeouveaeu), :remote => true, :class => "button pill" )%></li>
-          <li><%= button_to('Irrelevant',	set_opinion_path(fact_relation.id,:disbelieve),  :remote => true, :class => "button pill" )%><li>
+        <li><%= link_to('Relevant', set_opinion_path(fact_relation.id,:belieaeouaeouveaeu), :remote => true, :class => "button", :method => "post" )%></li>
+        <li><%= link_to('Irrelevant',	set_opinion_path(fact_relation.id,:disbelieve),  :remote => true, :class => "button", :method => "post" )%><li>
 	    </ul>
     </div>
     <% end %>
@@ -38,13 +38,8 @@ end
 		<br>
 		<sub>
 		   <%= time_ago_in_words(fact.created_at) %> ago by
-		   <% if defined?(modal) and modal %> 
-  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_blank") %>
-  		   found on <a href="<%= fact.site.url %>" <% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.pretty_url %></a>
-		   <% else %>
-  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username)) %>
-  		   found on <a href="<%= fact.site.url %>"><%= fact.pretty_url %></a>
-		   <% end %>
+  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_top") %>
+         found on <%= link_to("#{fact.pretty_url}", fact.site.url, :target => "_top") %>
 		</sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">

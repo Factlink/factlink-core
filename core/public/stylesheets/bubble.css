@@ -187,7 +187,11 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: absolute;
-  width: 160px;
+  width: 170px;
+}
+.fact-block article.fact .channel-listing ul {
+  max-height: 160px;
+  overflow-y: auto;
 }
 .fact-block article.fact .channel-listing li {
   display: block;
@@ -269,9 +273,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   width: 478px;
   text-align: left;
 }
-.fact-block .evidence-facts article.fact:nth-child(even) {
-  background-color: #f6f4f4;
-}
 .fact-block .evidence-facts article.fact:hover {
   -moz-opacity: 1;
   -khtml-opacity: 1;
@@ -283,6 +284,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   max-height: 200px;
   background-color: #FBFAFA;
   overflow: auto;
+}
+.fact-block .evidence-facts .evidence tr:nth-child(even) article.fact, .fact-block .evidence-facts .potential-evidence tr:nth-child(even) article.fact {
+  background-color: #f6f4f4;
 }
 .fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
   width: 490px;
