@@ -270,7 +270,7 @@ class FactsController < ApplicationController
     if allowed_types.include?(type)
       yield
     else 
-      render :json => {"error" => "type not allowed"}
+      render :json => {"error" => "type not allowed"}, :status => 500
       return false
     end
   end
