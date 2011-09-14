@@ -1,0 +1,19 @@
+development:
+    core:
+        hostname: localhost
+        port: 3000
+
+test:
+    core:
+        hostname: localhost
+        port: 3000
+
+testserver:
+    core:
+        hostname: testserver.factlink.com
+        port: 80
+
+production:
+    core:
+        hostname: factlink.com
+        port: 80
