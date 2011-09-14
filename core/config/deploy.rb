@@ -1,5 +1,3 @@
-# Teh baron
-
 #############
 # Application
 set :application, "factlink-core"
