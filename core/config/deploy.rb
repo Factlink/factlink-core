@@ -41,20 +41,25 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
-task :uname do
-  run "uname -a"
-end
-
-task :bundle_version do
-  run "bundle -v"
-end
-
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
+  
+  task :all do
+    # Update the static files
+    run 'cd /applications/factlink-js-library/ ; git checkout develop ; git pull'
+
+    # Update the Proxy
+    run "cd /applications/web-proxy ; git checkout develop ; git pull ; killall forever ; killall node ; NODE_ENV=testserver CONFIG_PATH=#{deploy_to}/current/config/ forever start server.js "
+    
+  end
+  
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+after 'deploy:all', 'deploy'
+after 'deploy', 'deploy:restart'
