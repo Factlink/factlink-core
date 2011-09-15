@@ -10,3 +10,6 @@ bundle install
 rake db:migrate
 cd ../web-proxy
 npm install
+
+cd ../factlink-chrome-extension
+./build_manifest.sh
