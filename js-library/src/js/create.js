@@ -7,9 +7,9 @@
       $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
   if (FactlinkConfig.modus === "default") {
-    urlToLoad = '//' + FactlinkConfig.api + 'factlink/prepare/new';
+    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/new';
   } else if (FactlinkConfig.modus === "addToFact") {
-    urlToLoad = '//' + FactlinkConfig.api + 'factlink/prepare/evidence';
+    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/evidence';
   }
 
   $.ajax({
