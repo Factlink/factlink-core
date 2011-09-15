@@ -12,6 +12,7 @@ end
   <% end %>
 	<header>
 	  
+		<% if user_signed_in? %>
 	  <% 
 	  # options for relevance
 	  if defined?(add_to_fact) and add_to_fact %>
@@ -26,29 +27,32 @@ end
       <ul>
       <% if fact_relation.type.to_sym == :supporting %> 
         <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('<span class="icon uparrow"></span>Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
+          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
+          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
         <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('<span class="icon uparrow"></span>Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
+          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
+          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
         <% else %>
-          <li><%= link_to('<span class="icon uparrow"></span>Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
+          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
+          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
         <% end %>
       <% elsif fact_relation.type.to_sym == :weakening %>
         <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('<span class="icon uparrow"></span>Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
+          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
+          <li><%= link_to('Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
         <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('<span class="icon uparrow"></span>Wakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
+          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
+          <li><%= link_to('Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
         <% else %>
-          <li><%= link_to('<span class="icon uparrow"></span>Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
-          <li><%= link_to('<span class="icon downarrow"></span>Not Weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
+          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
+          <li><%= link_to('Not Weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
         <% end %>
     <% end %> 
 	    </ul>
     </div>
+		<% end %>
+
+
     <% end %>
 	  <% if defined?(fact.site.title) and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>

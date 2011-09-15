@@ -17,7 +17,7 @@
   <% end %>
   <div class="evidence-facts">
     <div class="evidence-actions">
-      <% unless fact.fact_relations.count > 0 %>
+      <% if fact.fact_relations.count < 1 and user_signed_in? %>
         <a href="#" class="shaw-add"><%= image_tag("arrow2_s.png") %>Add evidence</a>
       <% else %>
         <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Show Evidence (<%= fact.evidence_count %>)</a>
@@ -48,9 +48,13 @@
       <div class="potential-evidence" style="display: none">
         <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
       </div>
+
+			<% if user_signed_in? %>
       <div class="add-action do-add">
         <a href"#" id="toggle-show-add">Add evidence</a>
       </div>
+			<% end %>
+
       <div class="add-action do-show" style="display:none;">
         <a href"#" id="toggle-show-add">Show evidence</a>
       </div>
