@@ -7,6 +7,6 @@ ln -s factlink-core/config config
 gem install bundle
 cd factlink-core
 bundle install
-rails db:migrate
+rake db:migrate
 cd ../web-proxy
 npm install
