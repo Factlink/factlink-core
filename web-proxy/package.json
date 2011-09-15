@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git@codebasehq.com:factlink/factlink/web-proxy.git"
   },
-  "engines": {
-    "node": "~v0.4.9"
-  },
   "dependencies": {
     "express":"2.1.0",
     "jade":"0.13.0",
