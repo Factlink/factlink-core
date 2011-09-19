@@ -1,8 +1,13 @@
 <%
-if defined?(fact_relation) and fact_relation and not defined?(fact)
+  if defined?(fact_relation) and fact_relation and not defined?(fact)
   fact = fact_relation.from_fact
-end
+  end
+  if defined?(fact_relation) and fact_relation
 %>
+  <%= render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :fact_relation => fact_relation } %>
+<% elsif defined?(add_to_fact) and add_to_fact %>
+  <%=  render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :add_to_fact => add_to_fact } %>
+<% end %>
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <!-- <%= fact_relation.type.to_s %> -->
@@ -11,49 +16,7 @@ end
     <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
   <% end %>
 	<header>
-	  
-		<% if user_signed_in? %>
-	  <% 
-	  # options for relevance
-	  if defined?(add_to_fact) and add_to_fact %>
-      <div class="relevance-options">
-        <ul>
-          <li><%= link_to('Supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "button" )%></li>
-          <li><%= link_to('Weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "button" )%><li>
-  	    </ul>
-      </div>
-    <% elsif defined?(fact_relation) and fact_relation %>
-    <div class="relevance-options">
-      <ul>
-      <% if fact_relation.type.to_sym == :supporting %> 
-        <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
-          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
-        <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
-          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
-        <% else %>
-          <li><%= link_to('Supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
-          <li><%= link_to('Not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
-        <% end %>
-      <% elsif fact_relation.type.to_sym == :weakening %>
-        <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button active", :method => "post" )%></li>
-          <li><%= link_to('Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
-        <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button", :method => "post" )%></li>
-          <li><%= link_to('Not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button active", :method => "post" )%><li>
-        <% else %>
-          <li><%= link_to('Weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "button ", :method => "post" )%></li>
-          <li><%= link_to('Not Weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "button", :method => "post" )%><li>
-        <% end %>
-    <% end %> 
-	    </ul>
-    </div>
-		<% end %>
 
-
-    <% end %>
 	  <% if defined?(fact.site.title) and false # tempororily disabled title because the import does not support it yet %>
 		  <span class="head"><%= fact.site.title %></span><br>
 		<% end %>
@@ -63,7 +26,7 @@ end
 		<br>
 		<sub>
 		   <%= time_ago_in_words(fact.created_at) %> ago by
-  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_top") %>
+  	  	<%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_top") %>
          found on <%= link_to("#{fact.pretty_url}", fact.site.url, :target => "_top") %>
 		</sub>
 		<% if user_signed_in? %>				

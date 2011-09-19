@@ -49,13 +49,7 @@ div.modal {
   z-index: 1000;
   display: none;
   .drop-shadow(5px, 5px, 5px, 0.1);
-  position: absolute;
-}
-
-
-body.factlink-site .fact-block,
-body.factlink-site div.user-block {
-  margin-bottom:15px
+  position: fixed;
 }
 
 .fact-block { 
@@ -154,10 +148,10 @@ body.factlink-site div.user-block {
   .wheel { 
     float: left;  
     width: 65px;
-    height: 65px;
+    height: 60px;
     svg { 
       width: 65px;
-      height: 65px;
+      height: 60px;
       margin: 0 0 0 10px;
       float: left;    
       path:hover { 
@@ -165,6 +159,32 @@ body.factlink-site div.user-block {
       }
     }
   }
+  .evidence-options { 
+    background: url("/images/shadowLeft2.png") no-repeat right center transparent;
+    border-right: 1px solid #E4E4E4;
+    vertical-align: middle;
+      .relevance-options {
+        width: 42px;
+        white-space: nowrap;
+        text-shadow: none;
+        ul li {
+         padding-bottom: 8px;
+         padding-left: 2px;
+         a.active { 
+          color: @dark-blue;
+         } 
+          a {
+            color: #666363;
+            &:hover { 
+              color: @red; 
+            }
+          }
+        }
+      }
+      &:hover { 
+        z-index: 400;
+      }
+    }
   .evidence-facts { 
     text-align: center; 
     .add-action {
@@ -176,12 +196,6 @@ body.factlink-site div.user-block {
       z-index: 20;
       background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;
 
-			a {
-				.opacity(0.8);
-				&:hover {
-  				.opacity(1);
-				}
-			}
     }
     .evidence-actions {
       position: relative;
@@ -195,20 +209,23 @@ body.factlink-site div.user-block {
       }
     }
     article.fact { 
-      .opacity(0.65);
       border-bottom: 1px solid #E4E4E4;
-      padding: 10px 0 10px 15px;
-      width: 478px;
+      width: 445px;
       text-align: left;
-      &:hover { 
-        .opacity(1);
-      }
     }
     .evidence, .potential-evidence {
       tr:nth-child(even) {
         article.fact {
           background-color: darken(#FBFAFA, 2%);
         }
+      }
+      tr:nth-child(odd) {
+        article.fact {
+          background-color: lighten(#FBFAFA, 0%);
+        }
+      }
+      td { 
+        position: relative;
       }
       min-height: 80px; 
       max-height: 200px;
@@ -285,13 +302,6 @@ body.factlink-site div.user-block {
       margin-bottom: 3px;
       height: 18px; width: 85px;
       background: @grey;
-    }
-  }
-  .relevance-options {
-    float: right;
-
-    ul li { 
-      padding-bottom: 8px;
     }
   }
 }

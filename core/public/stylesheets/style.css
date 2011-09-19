@@ -340,6 +340,9 @@ a:hover {
   color: #306D90;
   text-decoration: underline;
 }
+body.factlink-site .fact-block, body.factlink-site div.user-block {
+  margin-bottom: 15px;
+}
 #top-bar {
   width: 100%;
   height: 40px;

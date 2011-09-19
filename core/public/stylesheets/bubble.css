@@ -107,10 +107,7 @@ div.modal span.proxyWindow {
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  position: absolute;
-}
-body.factlink-site .fact-block, body.factlink-site div.user-block {
-  margin-bottom: 15px;
+  position: fixed;
 }
 .fact-block {
   position: relative;
@@ -186,7 +183,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  position: absolute;
+  position: fixed;
   width: 200px;
 }
 .fact-block article.fact .channel-listing ul {
@@ -217,16 +214,42 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .fact-block .wheel {
   float: left;
   width: 65px;
-  height: 65px;
+  height: 60px;
 }
 .fact-block .wheel svg {
   width: 65px;
-  height: 65px;
+  height: 60px;
   margin: 0 0 0 10px;
   float: left;
 }
 .fact-block .wheel svg path:hover {
   cursor: pointer;
+}
+.fact-block .evidence-options {
+  background: url("/images/shadowLeft2.png") no-repeat right center transparent;
+  border-right: 1px solid #E4E4E4;
+  vertical-align: middle;
+}
+.fact-block .evidence-options .relevance-options {
+  width: 42px;
+  white-space: nowrap;
+  text-shadow: none;
+}
+.fact-block .evidence-options .relevance-options ul li {
+  padding-bottom: 8px;
+  padding-left: 2px;
+}
+.fact-block .evidence-options .relevance-options ul li a.active {
+  color: #306d90;
+}
+.fact-block .evidence-options .relevance-options ul li a {
+  color: #666363;
+}
+.fact-block .evidence-options .relevance-options ul li a:hover {
+  color: #ce0000;
+}
+.fact-block .evidence-options:hover {
+  z-index: 400;
 }
 .fact-block .evidence-facts {
   text-align: center;
@@ -240,18 +263,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   z-index: 20;
   background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
 }
-.fact-block .evidence-facts .add-action a {
-  -moz-opacity: 0.8;
-  -khtml-opacity: 0.8;
-  -webkit-opacity: 0.8;
-  opacity: 0.8;
-}
-.fact-block .evidence-facts .add-action a:hover {
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  -webkit-opacity: 1;
-  opacity: 1;
-}
 .fact-block .evidence-facts .evidence-actions {
   position: relative;
   z-index: 10;
@@ -264,20 +275,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   line-height: 22px;
 }
 .fact-block .evidence-facts article.fact {
-  -moz-opacity: 0.65;
-  -khtml-opacity: 0.65;
-  -webkit-opacity: 0.65;
-  opacity: 0.65;
   border-bottom: 1px solid #E4E4E4;
-  padding: 10px 0 10px 15px;
-  width: 478px;
+  width: 445px;
   text-align: left;
-}
-.fact-block .evidence-facts article.fact:hover {
-  -moz-opacity: 1;
-  -khtml-opacity: 1;
-  -webkit-opacity: 1;
-  opacity: 1;
 }
 .fact-block .evidence-facts .evidence, .fact-block .evidence-facts .potential-evidence {
   min-height: 80px;
@@ -287,6 +287,12 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 }
 .fact-block .evidence-facts .evidence tr:nth-child(even) article.fact, .fact-block .evidence-facts .potential-evidence tr:nth-child(even) article.fact {
   background-color: #f6f4f4;
+}
+.fact-block .evidence-facts .evidence tr:nth-child(odd) article.fact, .fact-block .evidence-facts .potential-evidence tr:nth-child(odd) article.fact {
+  background-color: #fbfafa;
+}
+.fact-block .evidence-facts .evidence td, .fact-block .evidence-facts .potential-evidence td {
+  position: relative;
 }
 .fact-block .evidence-facts .evidence .no-evidence td, .fact-block .evidence-facts .potential-evidence .no-evidence td {
   width: 490px;
@@ -337,7 +343,7 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  position: absolute;
+  position: fixed;
   position: fixed;
   width: 150px;
   height: 85px;
@@ -370,12 +376,6 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   height: 18px;
   width: 85px;
   background: #9d9d9c;
-}
-.fact-block .relevance-options {
-  float: right;
-}
-.fact-block .relevance-options ul li {
-  padding-bottom: 8px;
 }
 iframe.proxyFrame {
   position: absolute;

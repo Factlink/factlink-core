@@ -277,11 +277,11 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-      $t.find("a.add-to-channel").hoverIntent(function() {
+      $t.find("a.add-to-channel").hoverIntent(function(e) {
         channelList = $t.find(".channel-listing");
         $(channelList).css({
-          "top": parseInt($(this).position().top, 10) + 20 + "px",
-          "left": parseInt($(this).position().left, 10) + 10 + "px"
+          "top": e.clientY  + 10 + "px",
+          "left": e.clientX - 30 + "px"
         }).fadeIn("fast");
       }, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");
