@@ -144,6 +144,10 @@ class Ohm::Model::Set < Ohm::Model::Collection
     apply(:sdiffstore,key,other.key,key+"*DIFF*"+other.key)
   end
 
+  def random_member()
+    model.to_proc[key.srandmember]
+  end
+
 end
 
 class Ohm::Model::List < Ohm::Model::Collection
