@@ -36,8 +36,8 @@ class LoadDsl
     @channel = value
   end
 
-  def load_site(url,title=nil)
-    Site.find(:url => url).first || Site.create(:url => url, :title=> title)
+  def load_site(url)
+    Site.find(:url => url).first || Site.create(:url => url)
   end
 
   def site(url,title=nil)
