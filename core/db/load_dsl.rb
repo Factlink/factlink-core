@@ -65,7 +65,7 @@ class LoadDsl
   end
 
   def fact(fact_string,url="http://example.org/", opts={})
-    f = self.load_fact(fact_string,url, opts={})
+    f = self.load_fact(fact_string,url, opts)
     self.state_fact = f
   end
 
