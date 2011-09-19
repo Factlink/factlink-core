@@ -159,12 +159,10 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 0.9em;
   color: #aaa;
-  /*				border: solid 1px red;*/
-
   padding: 6px 0;
   display: block;
 }
-.fact-block article.fact header .head:hover {
+.fact-block article.fact header .edit:hover {
   background-color: rgba(255, 255, 0, 0.12);
   color: #888;
 }

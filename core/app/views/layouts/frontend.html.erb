@@ -120,6 +120,7 @@
   <script src="/javascripts/raphael-min.js"></script>
   <script src="/javascripts/jquery.tipsy.js"></script>
   <script src="/javascripts/jquery.factlink.js"></script>
+	<script src="/javascripts/jquery.jeditable.mini.js"></script>
 
 	
 	<script>
@@ -149,8 +150,9 @@
 		$(".fact-block").factlink();
 
 	</script>
-
-	<%= yield :script %>	
+	
+	<%= yield :javascript %>
+	<%= yield :extra_javascript %>
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
@@ -158,6 +160,5 @@
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
-
 </body>
 </html>
