@@ -33,11 +33,6 @@
 		<% end %>
 
 	</ul>
-	<% if user_signed_in? %>
-		<% if current_user == user %>
-			<span class="new-channel"><%= link_to("new channel", new_channel_path(current_user.username)) %></span>
-		<% end %>
-	<% end %>
 <% end %>
 
 <% content_for :main_column do %>
