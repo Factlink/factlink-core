@@ -11,13 +11,13 @@ module UserProxy
   end
 
   deprecate
-  def graph_user
-    return self
-  end
 end
 
 class GraphUser < OurOhm
-  include UserProxy
+  def graph_user
+    return self
+  end
+  #include UserProxy
 
   reference :user, lambda { |id| User.find(id) }
 

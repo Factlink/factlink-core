@@ -17,11 +17,11 @@
   <% end %>
 	<header>
 
-	  <span class="head"><%= fact.title %></span>
+	  <span class="head"><%= fact.data.title %></span>
 		<!-- <br> -->
 
 		<span class="body">
-			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.displaystring %></a>
+			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
 		</span>
 		<br>
 		<sub>

@@ -11,11 +11,6 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
 
-# Code coverage
-require 'cover_me'
-
-
-
 RSpec.configure do |config|
   # == Mock Framework
   config.mock_with :rspec

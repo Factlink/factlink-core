@@ -69,7 +69,7 @@ end
 
 class User
   include Mongoid::Document
-  include GraphUserProxy
+  #include GraphUserProxy
   include Sunspot::Mongoid
 
   searchable :auto_index => true do

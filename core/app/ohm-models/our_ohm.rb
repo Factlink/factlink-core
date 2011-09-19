@@ -115,7 +115,7 @@ class OurOhm < Ohm::Model
 
   alias save! save
 
-  deprecate
+  #needed for some rails compatibility
   alias :new_record? :new?
 
   def self.find_or_create_by(opts)

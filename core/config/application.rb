@@ -33,7 +33,7 @@ module FactlinkUI
     autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
     autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
     
-    [
+    [ 
       OurOhm, 
       Activity,
       ActivitySubject,
@@ -46,9 +46,10 @@ module FactlinkUI
       GraphUser, 
       Site,
       Channel
-    ].each do |x|
-       puts "loaded " + x.to_s
-    end
+    ]
+    #.each do |x|
+    #   puts "loaded " + x.to_s
+    #end
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

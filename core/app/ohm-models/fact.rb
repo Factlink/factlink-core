@@ -57,7 +57,7 @@ module FactDataProxy
 end
 
 class Fact < Basefact
-  include FactDataProxy
+  #include FactDataProxy
   
   after :create, :set_activity!
 

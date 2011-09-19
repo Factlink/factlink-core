@@ -44,7 +44,7 @@ class FactsController < ApplicationController
   end
 
   def show
-    @title = @fact.displaystring # The html <title>
+    @title = @fact.data.displaystring # The html <title>
   end
 
   def new
