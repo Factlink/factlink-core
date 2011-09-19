@@ -62,9 +62,7 @@ end
 		</span>
 		<br>
 		<sub>
-		   <%= time_ago_in_words(fact.created_at) %> ago by
-  		   <%= link_to("#{fact.created_by.user.username} (#{fact.created_by.authority})", user_profile_path(fact.created_by.user.username), :target => "_top") %>
-         found on <%= link_to("#{fact.pretty_url}", fact.site.url, :target => "_top") %>
+         <%= link_to("#{fact.pretty_url}", fact.site.url, :target => "_top") %>
 		</sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
