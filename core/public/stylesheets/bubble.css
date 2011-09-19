@@ -137,7 +137,7 @@ div.modal span.proxyWindow {
 }
 .fact-block article.fact header {
   margin-top: 6px;
-  /*border-right: 1px dotted #f0f0f0;
+  /*      border-right: 1px dotted #f0f0f0;
       &:hover { 
         border-right: 1px dotted @dark-blue;
       }*/
@@ -152,12 +152,25 @@ div.modal span.proxyWindow {
   font-size: x-small;
 }
 .fact-block article.fact header .head {
-  font-weight: bold;
+  font-weight: 100;
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-size: 0.9em;
+  color: #aaa;
+  /*				border: solid 1px red;*/
+
+  padding: 6px 0;
+  display: block;
+}
+.fact-block article.fact header .head:hover {
+  background-color: rgba(255, 255, 0, 0.12);
+  color: #888;
 }
 .fact-block article.fact header .body {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 1.2em;
   line-height: 19px;
+  /*				border: solid 1px green;*/
+
 }
 .fact-block article.fact header .body a {
   color: #666363;

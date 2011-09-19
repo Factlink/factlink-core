@@ -17,11 +17,11 @@
   <% end %>
 	<header>
 
-	  <% if defined?(fact.site.title) and false # tempororily disabled title because the import does not support it yet %>
-		  <span class="head"><%= fact.site.title %></span><br>
-		<% end %>
+	  <span class="head"><%= fact.title %></span>
+		<!-- <br> -->
+
 		<span class="body">
-		<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.displaystring %></a>
+			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.displaystring %></a>
 		</span>
 		<br>
 		<sub>
