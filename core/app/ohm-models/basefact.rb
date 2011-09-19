@@ -52,7 +52,7 @@ class Basefact < OurOhm
         opinions << Opinion.for_type(type, user.authority)
       end
     end
-    self.user_opinion = Opinion.combine(opinions).save
+    self.user_opinion = Opinion.combine(opinions)
     save
   end
 

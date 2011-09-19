@@ -50,7 +50,7 @@ module OhmGenericReference
   end
 end 
 
-module OhmOpinionReference
+module OhmValueReference
   def value_reference(name, model)
     model = Ohm::Model::Wrapper.wrap(model)
     reader = :"#{name}_id"
@@ -70,6 +70,7 @@ module OhmOpinionReference
         end
       else
         @_memo.delete(name)
+        value.save
         send(writer, value ? value.id : nil)
       end
     end
@@ -93,7 +94,7 @@ class OurOhm < Ohm::Model
   include Ohm::Boundaries
   extend ActiveModel::Naming
   extend OhmGenericReference
-  extend OhmOpinionReference
+  extend OhmValueReference
   include Canivete::Deprecate
 
   # needed for Ohm polymorphism:

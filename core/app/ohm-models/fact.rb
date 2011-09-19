@@ -228,7 +228,7 @@ class Fact < Basefact
         opinions << factrelation.get_influencing_opinion(depth-1)
       end
     end
-    self.evidence_opinion = Opinion.combine(opinions).save
+    self.evidence_opinion = Opinion.combine(opinions)
     save
   end
   def get_evidence_opinion(depth=0)
@@ -246,7 +246,7 @@ class Fact < Basefact
   def calculate_opinion(depth=0)
     calculate_evidence_opinion
     total_opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth)
-    self.opinion = total_opinion.save
+    self.opinion = total_opinion
     save
   end
   def get_opinion(depth=0)
