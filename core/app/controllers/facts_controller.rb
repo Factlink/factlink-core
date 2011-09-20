@@ -85,6 +85,7 @@ class FactsController < ApplicationController
     
     if params[:opinion]
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+      @fact.calculate_opinion(1)
     end
     
     redirect_to :action => "edit", :id => @fact.id
@@ -137,15 +138,29 @@ class FactsController < ApplicationController
   end
 
   def update
-    @factlink = Fact[params[:id]]
+    @fact = Fact[params[:id]]
     respond_to do |format|
-      if @factlink.update_attributes(params[:factlink])
-        format.html { redirect_to(@factlink,
-          :notice => 'Factlink top was successfully updated.') }
+      if @fact.update_attributes(params[:factlink])
+        format.html { redirect_to(@fact,
+          :notice => 'Fact was successfully updated.') }
       else
         format.html { render :action => "edit" }
       end
     end
+  end
+  
+  def update_title
+    # Gets 'title-[id]' 'cuz it must be unique and Jeditable is using the elements 'id'
+    # Strip first six characters to find the ID
+    id = params[:id].slice(6..(params[:id].length - 1))
+    @fact = Fact[id]
+
+    if current_user.graph_user == @fact.created_by
+      @fact.data.title = params[:value]
+      @fact.save
+    end
+    
+    render :text => @fact.data.title
   end
 
   def opinion
@@ -153,7 +168,7 @@ class FactsController < ApplicationController
   end
 
 
-  def set_opinion    
+  def set_opinion
     type = params[:type].to_sym
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
@@ -254,12 +269,13 @@ class FactsController < ApplicationController
   end
   
   def create_fact(url, displaystring, title) # private
-    @site = Site.find(:url => url).first || Site.create(:url => url, :title => title)
+    @site = Site.find(:url => url).first || Site.create(:url => url)
     @fact = Fact.create(
       :created_by => current_user.graph_user,
       :site => @site
     )
     @fact.data.displaystring = displaystring    
+    @fact.data.title = title
     @fact.data.save
     @fact
   end

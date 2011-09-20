@@ -70,7 +70,7 @@ class Fact < Basefact
   
   # OHm Model needs to have a definition of which fields to render
   def to_hash
-    super.merge(:_id => id, :displaystring => displaystring, :score_dict_as_percentage => get_opinion.as_percentages)
+    super.merge(:_id => id, :displaystring => self.data.displaystring, :score_dict_as_percentage => get_opinion.as_percentages)
   end
   
   deprecate

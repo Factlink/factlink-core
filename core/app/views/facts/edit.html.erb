@@ -2,7 +2,7 @@
 	<script type="text/javascript">
 		parent.remote.show();
 		parent.showFrame.className = "overlay";
-		parent.remote.highlightNewFactlink("<%= @fact.displaystring %>", "<%= @fact.id %>");
+		parent.remote.highlightNewFactlink("<%= @fact.data.displaystring %>", "<%= @fact.id %>");
 	</script>
 <% end %>
 
