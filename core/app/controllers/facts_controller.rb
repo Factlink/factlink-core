@@ -194,7 +194,7 @@ class FactsController < ApplicationController
 
         keywords params[:s], :fields => [:displaystring]
         order_by sort_column, sort_direction
-        paginate :page => params[:page] , :per_page => row_count, boost_fields :displaystring => 4.0
+        paginate :page => params[:page] , :per_page => row_count
 
         adjust_solr_params do |sunspot_params|
           sunspot_params[:rows] = row_count
