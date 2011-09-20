@@ -92,12 +92,8 @@ class UserStream
   end
   
   def facts
-    facts = @graph_user.channels.map{|ch| ch.facts}.reduce(:|)
-    facts |= (@graph_user.created_facts & Fact.all)
-    if facts
-      facts.all
-    else
-      []
-    end
+    facts = (@graph_user.created_facts & Fact.all)
+    facts = @graph_user.channels.map{|ch| ch.facts}.reduce(facts,:|)
+    facts.all
   end
 end
