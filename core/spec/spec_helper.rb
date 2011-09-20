@@ -12,6 +12,9 @@ require 'capybara/rspec'
 require 'capybara/rails'
 
 RSpec.configure do |config|
+  #mix in factoryirl methods
+  config.include Factory::Syntax::Methods
+  
   # == Mock Framework
   config.mock_with :rspec
   require 'database_cleaner'
