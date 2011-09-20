@@ -35,7 +35,7 @@ set :branch, "develop"  # Can be moved to deploy/production.rb and deploy.testse
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
-
+after "deploy", "deploy:migrate"
 
 
 
