@@ -169,7 +169,7 @@
             $t.find(".evidence-container").slideToggle();
             return false;
           });
-          $t.find(".shaw-add").live("click", function() {
+          $t.find(".show-add").live("click", function() {
             $t.find(".evidence-container").slideToggle();
             toggleEvidenceLabel();
             return false;
