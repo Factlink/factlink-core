@@ -65,6 +65,9 @@ a:hover {
   cursor: pointer;
 }
 /** Fact block */
+a {
+  color: #306d90;
+}
 span.proxyWindow {
   display: none;
 }
@@ -109,8 +112,10 @@ div.modal span.proxyWindow {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
 }
+.fact-block:hover > article.fact:nth-child(1) .actions {
+  visibility: visible;
+}
 .fact-block {
-  position: relative;
   padding: 0;
   border: solid 1px #ddd;
   -webkit-border-radius: 3px;
@@ -122,9 +127,6 @@ div.modal span.proxyWindow {
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
-}
-.fact-block a {
-  color: #306d90;
 }
 .fact-block img.close {
   margin: 5px;
