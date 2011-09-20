@@ -4,6 +4,10 @@
   end
   if defined?(fact_relation) and fact_relation
 %>
+  <%= render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :fact_relation => fact_relation } %>
+<% elsif defined?(add_to_fact) and add_to_fact %>
+  <%=  render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :add_to_fact => add_to_fact } %>
+<% end %>
 
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
@@ -14,14 +18,10 @@
   <% end %>
 	<header>
 
-
-    <% end %>
-
-	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.title %></span>
-		<!-- <br> -->
+	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
 
 		<span class="body">
-			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= h(fact.displaystring) %></a>
+			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
 		</span>
 		<br>
 		<sub>

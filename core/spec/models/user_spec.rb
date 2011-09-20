@@ -16,25 +16,23 @@ describe User do
     @factlink2 = FactoryGirl.create(:fact)
   end
   context "Initially" do
-    its(:facts) {should == []}
+    it {subject.graph_user.facts.should == []}
     it {subject.graph_user.should == subject.graph_user }
   end
 
   it "should have one active factlink after adding believe" do
-    @child1.add_opinion(:beliefs, @user1)
-    @user1.facts.size == 1
+    @child1.add_opinion(:beliefs, @user1.graph_user)
+    @user1.graph_user.facts.size == 1
   end
 
   it "should have a GraphUser" do
-    # @user1.graph_user.should be_a(GraphUser)
-        @user1.graph_user.should be_a(GraphUser)
+    @user1.graph_user.should be_a(GraphUser)
   end
 
   [:beliefs,:doubts,:disbeliefs].each do |type|
-    # User should have a reference of all Fact Ids he beliefs, doubts, disbeliefs
-    it "should store the Fact ID in the user object when a user #{type} a fact" do
+    it "should store the Fact ID in the graph_user object when a user #{type} a fact" do
       @factlink.add_opinion(type, @user1.graph_user )
-      @user1.opinion_on_fact_for_type?(type,@factlink).should == true
+      @user1.graph_user.has_opinion?(type,@factlink).should == true
     end
   end
 end

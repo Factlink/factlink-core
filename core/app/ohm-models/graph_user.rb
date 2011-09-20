@@ -1,23 +1,7 @@
-module UserProxy
-
-  deprecate
-  def username
-    user.username
-  end
-
-  deprecate
-  def username= (value)
-    user.username = value
-  end
-
-  deprecate
+class GraphUser < OurOhm
   def graph_user
     return self
   end
-end
-
-class GraphUser < OurOhm
-  include UserProxy
 
   reference :user, lambda { |id| User.find(id) }
 

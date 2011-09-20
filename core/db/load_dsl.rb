@@ -40,17 +40,25 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
+<<<<<<< HEAD
   def site(url)
+=======
+  def site(url, title=nil)
+>>>>>>> 58d01913e5a9006f157cb98e4e0ff6e20ba74394
     load_site(url)
   end
 
   def self.export_site(site)
+<<<<<<< HEAD
     rv = "site \"#{quote_string(site.url)}\""
+=======
+>>>>>>> 58d01913e5a9006f157cb98e4e0ff6e20ba74394
     rv += "\n"
+    rv = "site \"#{quote_string(site.url)}\""
     rv
   end
 
-  def load_fact(fact_string,url="http://example.org/")
+  def load_fact(fact_string,url="http://example.org/", opts={})
     f = Fact.by_display_string(fact_string)
     if not f
       f = Fact.create(
@@ -58,19 +66,21 @@ class LoadDsl
         :created_by => state_graph_user
       )
       f.data.displaystring = fact_string
+      f.data.title = opts[:title] if opts[:title]
       f.data.save
     end
     f
   end
 
-  def fact(fact_string,url="http://example.org/")
-    f = self.load_fact(fact_string,url)
+  def fact(fact_string,url="http://example.org/", opts={})
+    f = self.load_fact(fact_string,url, opts)
     self.state_fact = f
   end
 
   def self.export_fact(fact)
     rv = "fact \"#{quote_string(fact.data.displaystring)}\""
     rv += ", \"#{quote_string(fact.site.url)}\"" if fact.site
+    rv += ", :title => \"#{quote_string(fact.data.title)}\"" if fact.data.title
     rv += "\n"
     rv
   end

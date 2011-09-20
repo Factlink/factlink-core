@@ -2,7 +2,7 @@
 	<h1>Channels <%= add_channel(user) %></h1>
 </header>
 
-<% unless user.channels.count > 0 %>
+<% unless user.graph_user.channels.count > 0 %>
 	<p><%= user.username %> has no channels.</p>
 	
 	<% if user_signed_in? %>
@@ -27,7 +27,7 @@
 		</li>
 		
 
-		<% user.channels.each do |channel| %>
+		<% user.graph_user.channels.each do |channel| %>
 			<%= render :partial => "home/snippets/channel_menu_item", 
   	            :locals => {  :channel => channel, :user => user } %>
 		<% end %>

@@ -114,21 +114,21 @@ describe Fact do
     [:displaystring, :title, :passage, :content].each do |attr|
       context "#{attr} should be changeable" do
         before do
-          subject.send "#{attr}=" , "quux"
+          subject.data.send "#{attr}=" , "quux"
         end
-        it {subject.send("#{attr}").should == "quux"}
+        it {subject.data.send("#{attr}").should == "quux"}
       end
       context "#{attr} should persist" do
         before do
-          subject.send "#{attr}=" , "xuuq"
-          subject.save
+          subject.data.send "#{attr}=" , "xuuq"
+          subject.data.save
         end
-        it {Fact[subject.id].send("#{attr}").should == "xuuq"}
+        it {Fact[subject.id].data.send("#{attr}").should == "xuuq"}
       end
     end
     context "after setting a displaystring to 'hiephoi'" do
       before do
-        subject.displaystring = "hiephoi"\
+        subject.data.displaystring = "hiephoi"\
       end
       its(:to_s){should == "hiephoi"}
     end
@@ -137,12 +137,12 @@ describe Fact do
       f = Fact.create(
         :created_by => @user1.graph_user
       )
-      f.displaystring = "This is a fact"
+      f.data.displaystring = "This is a fact"
       f.save
 
       f2 = Fact[f.id]
 
-      f2.displaystring.should == "This is a fact"
+      f2.data.displaystring.should == "This is a fact"
     end
   end
   

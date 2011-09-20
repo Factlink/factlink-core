@@ -75,7 +75,7 @@
 
     Wheel.prototype.update = function() {
       var w = this;
-      w.set_opinions(w.opinions, 0, 14, 360);
+      w.set_opinions(w.opinions, 0, 16, 360);
     };
 
     Wheel.prototype.bind_events = function(op) {
@@ -146,7 +146,7 @@
           path: path
         };
       };
-      w.set_opinions(this.opinions, 0, 14, 360);
+      w.set_opinions(this.opinions, 0, 16, 360);
       w.bind_events(this.opinions);
     };
     return Wheel;
@@ -205,7 +205,7 @@
       var opinions = fact.data("wheel").opinions;
       opinions.each(function() {
         var current_op = this;
-        if ($(current_op).data("opinion") == opinion.data("opinion")) {
+        if ($(current_op).data("opinion") === opinion.data("opinion")) {
           // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
             $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {

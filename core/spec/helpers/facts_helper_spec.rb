@@ -1,14 +1,14 @@
 module BeliefExpressions
   def b(user,fact)
-    fact.add_opinion(:beliefs,user)
+    fact.add_opinion(:beliefs,user.graph_user)
   end
 
   def d(user,fact)
-    fact.add_opinion(:disbeliefs,user)
+    fact.add_opinion(:disbeliefs,user.graph_user)
   end
 
   def u(user,fact)
-    fact.add_opinion(:doubts,user)
+    fact.add_opinion(:doubts,user.graph_user)
   end
 
   def _(b,d,u,a)

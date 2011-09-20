@@ -3,7 +3,7 @@
     <%= image_tag(user.avatar, :width => 64, :class => "avatar") %>
     <span class="authority">
       <%= image_tag("http://localhost:3000/images/brains.png") %>
-      <%= user.authority %>
+      <%= user.graph_user.authority %>
     </span>
   </div>
   <div class="side">

@@ -14,6 +14,10 @@ table {border-collapse: collapse; border-spacing: 0;}
 td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
+a { 
+  color: @dark-blue;
+}
+
 span.proxyWindow { 
   display: none;
 } 
@@ -52,11 +56,11 @@ div.modal {
   position: fixed;
 }
 
+.fact-block:hover > article.fact:nth-child(1) .actions { 
+  visibility: visible;
+}
+
 .fact-block { 
-  position: relative;
-  a { 
-    color: @dark-blue;
-  }
   .boxed;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
   color: #BBB;

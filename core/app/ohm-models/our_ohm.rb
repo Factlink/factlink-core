@@ -115,7 +115,7 @@ class OurOhm < Ohm::Model
 
   alias save! save
 
-  deprecate
+  #needed for some rails compatibility
   alias :new_record? :new?
 
   def self.find_or_create_by(opts)
@@ -143,6 +143,10 @@ class Ohm::Model::Set < Ohm::Model::Collection
 
   def -(other)
     apply(:sdiffstore,key,other.key,key+"*DIFF*"+other.key)
+  end
+
+  def random_member()
+    model.to_proc[key.srandmember]
   end
 
 end
