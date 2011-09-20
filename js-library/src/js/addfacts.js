@@ -3,13 +3,13 @@
   if (Factlink !== undefined) {
     var el = document.getElementById("factlink-opinion-holder");
     var opinion;
-    
-    if ( el !== undefined ) {
+
+    if (el !== undefined) {
       opinion = el.getAttribute("data-opinion");
-      
+
       el.parentNode.removeChild(el);
     }
-    
+
     Factlink.submitSelection(opinion);
   } else {
     // Store arguments object so we can use from the setTimeout and loadFactlink

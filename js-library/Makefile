@@ -9,6 +9,7 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/create.js\
 	${SRC_DIR}/js/proxy.js\
 	${SRC_DIR}/js/replace.js\
+	${SRC_DIR}/js/scrollto.js\
 	${SRC_DIR}/js/search.js\
 	${SRC_DIR}/js/modal.js\
 	${SRC_DIR}/js/xdm.js\

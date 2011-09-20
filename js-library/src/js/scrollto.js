@@ -1,0 +1,4 @@
+(function(Factlink) {
+
+
+})(window.Factlink);
