@@ -46,11 +46,17 @@ ssh_options[:forward_agent] = true
 namespace :deploy do
   
   task :all do
+    set_conf_path='export CONFIG_PATH=#{deploy_to}/current/config/;'
     # Update the static files
-    run 'cd /applications/factlink-js-library/ ; git checkout develop ; git pull'
+    run set_conf_path + 'cd /applications/factlink-js-library/ && git checkout develop && git pull'
 
+    # Update the static files
+    run set_conf_path + 'cd /applications/factlink-chrome-extension/ && git checkout develop && git pull && ./release_repo.sh'
+    
     # Update the Proxy
-    run "cd /applications/web-proxy ; git checkout develop ; git pull ; killall forever ; killall node ; NODE_ENV=testserver CONFIG_PATH=#{deploy_to}/current/config/ forever start server.js "
+    # don't use && chained with killall
+    # TODO we should add a proper workaround
+    run set_conf_path + "cd /applications/web-proxy && git checkout develop && git pull && killall forever ; killall node ; NODE_ENV=testserver forever start server.js "
     
   end
   
