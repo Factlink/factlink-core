@@ -43,18 +43,19 @@ class Users::SessionsController < Devise::SessionsController
 
         url           = fact_hash['url']
         displaystring = fact_hash['fact']
-
+        title         = fact_hash['title']
 
         # Clear fact_to_create
         session[:fact_to_create] = nil
 
         site = Site.find_or_create_by(:url => url)
 
-        @fact = Fact.new
-        # Set created_by (required attribute) before proxied FactData fields
-        @fact.created_by = current_user.graph_user
-        @fact.displaystring = displaystring
-        @fact.site = site
+        @fact = Fact.new(
+          :created_by => current_user.graph_user,
+          :title => title,
+          :displaystring => displaystring,
+          :site => site
+        )
         @fact.save
 
         # Required for the Ohm Model
