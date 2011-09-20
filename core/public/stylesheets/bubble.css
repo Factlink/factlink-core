@@ -112,7 +112,7 @@ div.modal span.proxyWindow {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   position: fixed;
 }
-.fact-block:hover > article.fact:nth-child(1) .actions {
+.fact-block:hover > article.fact .actions {
   visibility: visible;
 }
 .fact-block {
