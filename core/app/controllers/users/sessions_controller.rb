@@ -55,6 +55,7 @@ class Users::SessionsController < Devise::SessionsController
           :site => site
         )
         @fact.save
+        
         @fact.data.displaystring = displaystring
         @fact.data.title = title
         @fact.data.save
