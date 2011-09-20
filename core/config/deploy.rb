@@ -34,6 +34,7 @@ set :repository,  "git@codebasehq.com:factlink/factlink/factlink-core.git"
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
+
 after "deploy", "deploy:migrate"
 
 ssh_options[:forward_agent] = true
@@ -43,12 +44,12 @@ ssh_options[:forward_agent] = true
 namespace :deploy do
   
   task :all do
-    set_conf_path='export CONFIG_PATH=#{deploy_to}/current/config/; export NODE_ENV=#{deploy_env};'
+    set_conf_path="export CONFIG_PATH=#{deploy_to}/current/config/; export NODE_ENV=#{deploy_env};"
     # Update the static files
-    run set_conf_path + 'cd /applications/factlink-js-library/ && git checkout #{branch} && git pull origin #{branch}'
+    run set_conf_path + "cd /applications/factlink-js-library/ && git checkout #{branch} && git pull origin #{branch}"
 
     # Update the static files
-    run set_conf_path + 'cd /applications/factlink-chrome-extension/ && git checkout #{branch} && git pull origin #{branch} && ./release_repo.sh'
+    run set_conf_path + "cd /applications/factlink-chrome-extension/ && git checkout #{branch} && git pull origin #{branch} && ./release_repo.sh"
     
     # Update the Proxy
     # don't use && chained with killall
@@ -64,5 +65,5 @@ namespace :deploy do
   end
 end
 
-after 'deploy:all', 'deploy'
-after 'deploy', 'deploy:restart'
+before 'deploy:all', 'deploy'
+after 'deploy:all', 'deploy:restart'
