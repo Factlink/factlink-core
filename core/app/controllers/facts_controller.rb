@@ -155,15 +155,11 @@ class FactsController < ApplicationController
     @fact = Fact[id]
 
     if current_user.graph_user == @fact.created_by
-      @fact.title = params[:value]
-      if @fact.save
-        @saved = true
-      else
-        @saved = false
-      end
+      @fact.data.title = params[:value]
+      @fact.save
     end
     
-    render :text => @fact.title
+    render :text => @fact.data.title
   end
 
   def opinion
