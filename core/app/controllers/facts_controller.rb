@@ -156,11 +156,7 @@ class FactsController < ApplicationController
 
     if current_user.graph_user == @fact.created_by
       @fact.data.title = params[:value]
-      if @fact.save
-        @saved = true
-      else
-        @saved = false
-      end
+      @fact.save
     end
     
     render :text => @fact.data.title
