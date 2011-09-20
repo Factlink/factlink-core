@@ -272,9 +272,10 @@ class FactsController < ApplicationController
   end
   
   def create_fact(url, displaystring, title) # private
-    @site = Site.find(:url => url).first || Site.create(:url => url, :title => title)
+    @site = Site.find(:url => url).first || Site.create(:url => url)
     @fact = Fact.create(
       :created_by => current_user.graph_user,
+      :title => title,
       :site => @site
     )
     @fact.data.displaystring = displaystring    

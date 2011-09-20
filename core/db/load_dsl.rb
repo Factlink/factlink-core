@@ -36,17 +36,16 @@ class LoadDsl
     @channel = value
   end
 
-  def load_site(url,title=nil)
-    Site.find(:url => url).first || Site.create(:url => url, :title=> title)
+  def load_site(url)
+    Site.find(:url => url).first || Site.create(:url => url)
   end
 
-  def site(url,title=nil)
-    load_site(url,title)
+  def site(url)
+    load_site(url)
   end
 
   def self.export_site(site)
     rv = "site \"#{quote_string(site.url)}\""
-    rv += ", \"#{quote_string(site.title)}\"" if site.title
     rv += "\n"
     rv
   end
