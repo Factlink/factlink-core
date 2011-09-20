@@ -205,7 +205,7 @@
       var opinions = fact.data("wheel").opinions;
       opinions.each(function() {
         var current_op = this;
-        if ($(current_op).data("opinion") == opinion.data("opinion")) {
+        if ($(current_op).data("opinion") === opinion.data("opinion")) {
           // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
             $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
