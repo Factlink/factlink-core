@@ -75,7 +75,7 @@
 
     Wheel.prototype.update = function() {
       var w = this;
-      w.set_opinions(w.opinions, 0, 14, 360);
+      w.set_opinions(w.opinions, 0, 16, 360);
     };
 
     Wheel.prototype.bind_events = function(op) {
@@ -146,7 +146,7 @@
           path: path
         };
       };
-      w.set_opinions(this.opinions, 0, 14, 360);
+      w.set_opinions(this.opinions, 0, 16, 360);
       w.bind_events(this.opinions);
     };
     return Wheel;

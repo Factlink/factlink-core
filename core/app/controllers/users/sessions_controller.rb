@@ -53,9 +53,10 @@ class Users::SessionsController < Devise::SessionsController
         @fact = Fact.new
         # Set created_by (required attribute) before proxied FactData fields
         @fact.created_by = current_user.graph_user
-        @fact.displaystring = displaystring
         @fact.site = site
         @fact.save
+        @fact.data.displaystring = displaystring
+        @fact.data.save
 
         # Required for the Ohm Model
         site.facts << @fact
