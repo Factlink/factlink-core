@@ -94,21 +94,31 @@ div.modal {
 				font-size: 0.9em;
 				color: #aaa;
 
-/*				border: solid 1px red;*/
 				padding: 6px 0;
-				
 				display: block;
+      }
+			.edit {
 				&:hover {
-					background-color: rgba(255, 255, 0, 0.12);
+					background-color: #ffffe1;
 					color: #888;
 				}
-      }     
+
+				form {
+					input, input:focus {
+						padding: 4px 0;
+						background-color: #ffffe1;
+						border-radius: 3px;
+						
+						outline:none;
+						margin: -6px 0px -6px 0px;
+					}
+				}
+			}
+
       .body { 
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
-				
-/*				border: solid 1px green;*/
 				
 				a { 
           color: #666363;

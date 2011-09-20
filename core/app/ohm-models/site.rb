@@ -2,7 +2,6 @@ class Site < OurOhm
   attribute :url
   index :url
   collection :facts, Fact
-  attribute :title
     
   def self.find(opts)
     opts = normalize_url(opts)

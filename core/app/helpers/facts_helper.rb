@@ -32,4 +32,15 @@ module FactsHelper
 	                          :modal => modal}
   end
 
+  def editable_title(fact)
+    
+    if user_signed_in? and (fact.created_by == current_user.graph_user)
+      return " edit"
+    else
+      return ""
+    end
+    
+    
+  end
+
 end
