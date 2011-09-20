@@ -85,6 +85,7 @@ class FactsController < ApplicationController
     
     if params[:opinion]
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+      @fact.calculate_opinion(1)
     end
     
     redirect_to :action => "edit", :id => @fact.id
@@ -167,7 +168,7 @@ class FactsController < ApplicationController
   end
 
 
-  def set_opinion    
+  def set_opinion
     type = params[:type].to_sym
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
