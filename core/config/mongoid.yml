@@ -1,5 +1,6 @@
 development:
     host: localhost
+    # logger: false
     database: factlink_ui_development
 
 test:

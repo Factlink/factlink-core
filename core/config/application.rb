@@ -15,6 +15,8 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
 
+    config.mongoid.logger = nil
+
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
     

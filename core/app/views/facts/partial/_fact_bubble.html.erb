@@ -8,6 +8,7 @@
 <% elsif defined?(add_to_fact) and add_to_fact %>
   <%=  render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :add_to_fact => add_to_fact } %>
 <% end %>
+
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
 	<% if defined?(fact_relation) and fact_relation %>
     <!-- <%= fact_relation.type.to_s %> -->
@@ -17,15 +18,14 @@
   <% end %>
 	<header>
 
-	  <span class="head"><%= fact.data.title %></span>
-		<!-- <br> -->
+	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
 
 		<span class="body">
 			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
 		</span>
 		<br>
 		<sub>
-       <%= link_to("#{fact.pretty_url}", fact.site.url, :target => "_top") %>
+         <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_top") %>
 		</sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
@@ -41,3 +41,14 @@
 
 	</header>
 </article>
+
+<%= content_for :extra_javascript do %>
+
+	<script>
+	$('.edit').editable('<%= update_title_path %>', {
+		indicator : 'Saving...',
+		tooltip		: 'You can edit this title to place the fact in the correct context.'
+	});
+	</script>
+	
+<% end %>
