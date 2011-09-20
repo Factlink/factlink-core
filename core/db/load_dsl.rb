@@ -40,20 +40,11 @@ class LoadDsl
     Site.find(:url => url).first || Site.create(:url => url)
   end
 
-<<<<<<< HEAD
   def site(url)
-=======
-  def site(url, title=nil)
->>>>>>> 58d01913e5a9006f157cb98e4e0ff6e20ba74394
     load_site(url)
   end
 
   def self.export_site(site)
-<<<<<<< HEAD
-    rv = "site \"#{quote_string(site.url)}\""
-=======
->>>>>>> 58d01913e5a9006f157cb98e4e0ff6e20ba74394
-    rv += "\n"
     rv = "site \"#{quote_string(site.url)}\""
     rv
   end
