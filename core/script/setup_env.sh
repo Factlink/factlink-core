@@ -21,4 +21,5 @@ cd ..
 cd factlink-js-library
 git submodule init
 git submodule update
+make all
 cd ..
