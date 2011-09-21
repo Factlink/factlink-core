@@ -78,6 +78,7 @@ ${DISTDIR}/easyXDM: ${DIST_DIR}
 	cd "${BUILD_DIR}/easyXDM/" ; ./build.sh
 	mkdir -p "${DIST_DIR}/easyXDM"
 	cp -r ${BUILD_DIR}/easyXDM/work/* "${DIST_DIR}/easyXDM/"
+	cp -r ${BUILD_DIR}/jquery.scrollTo-1.4.2.js "${DIST_DIR}/jquery.scrollTo.js"
 
 node_modules:
 	npm install

@@ -1,4 +1,5 @@
 (function(Factlink) {
-  alert('hoi');
-  $('body').scrollTo("#Creation");
+  Factlink.scrollTo = function(fact_id){
+    $(window)._scrollable().scrollTo("#Creation");
+  }
 })(window.Factlink);
