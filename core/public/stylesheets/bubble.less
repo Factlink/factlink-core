@@ -17,6 +17,11 @@ a:hover {text-decoration:underline; cursor:pointer;}
 a { 
   color: @dark-blue;
 }
+.icon { 
+    display: inline-block;
+    margin-right: 5px;
+    height: 10px; width: 15px;
+}
 
 span.proxyWindow { 
   display: none;
@@ -41,6 +46,15 @@ div.modal {
   span.proxyWindow { 
     display: inline !important;
   }
+}
+span.triangle-up { 
+  .icon;
+  background: url('/images/arrow2_n.png') no-repeat;
+  
+}
+span.triangle-down { 
+  .icon;
+  background: url('/images/arrow2_s.png') no-repeat !important;
 }
 .boxed { 
   padding: 0;
