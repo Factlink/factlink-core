@@ -12,6 +12,13 @@ server.configure(function(){
         server.set('views', __dirname + '/views');
 });
 
+
+/**
+ *	We execute our requests using Restler
+ *  because it follows redirects if needed
+ */
+var restler = require('restler');
+
 var fs = require('fs');
 config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path,fs,server.settings.env);
@@ -53,8 +60,7 @@ server.get('/parse', function(req, res) {
 		});
 	};
 
-
-	// Quick fixes for visiting sites without http
+  // add protocol http:// if no protocol is defined:
 	protocol_regex = new RegExp("^(?=.*://)");
 	http_regex = new RegExp("^(?=http(s?)://)");
 	if (http_regex.test(site) === false) {
@@ -68,40 +74,33 @@ server.get('/parse', function(req, res) {
 
  	console.info("Serving: " + site);
 
-  /**
-	 *	Do the request
-	 *	Restler follows redirects if needed
-	 */
-	var request = require('restler').get( site );
+	var request = restler.get( site );
 
-	/**
-	 *	Handle response on succes
-	 */
 	request.on('complete', function(data) {
-		// Add base url and inject proxy.js, and return the proxied site
-		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		// html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
-    set_urls = '<script>'+
-               'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
-               'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
-               'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
-               'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
-               '</script>';
-    load_proxy_js = '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-		html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
-
-
-		res.write( html );
+		res.write( injectFactlinkJs(data,site) );
 		res.end();
 	});
 
 	
-	/**
-	 *	Handle failed requests
-	 */
 	request.on("error", errorhandler);
 
 });
+
+/**
+ * Add base url and inject proxy.js, and return the proxied site
+ */
+function injectFactlinkJs(html_in,site){
+	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
+  set_urls = '<script>'+
+             'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
+             'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
+             'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
+             'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             '</script>';
+  load_proxy_js = '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
+	return html;
+}
 
 
 /** 
@@ -122,31 +121,13 @@ server.get('/submit', function(req, res) {
 	var form_hash = req.query;
 	delete form_hash['factlinkPostUrl'];
 
-  /**
-	 *	Do the request and submit the form.
-	 *	Restler should follow redirects if needed.
-	 */
-	var request = require('restler').get( site, { "query": form_hash } );
+	var request = restler.post( site, { "query": form_hash } );
 
-	/**
-	 *	Handle response on succes
-	 */
 	request.on('complete', function(data) {
-		
-		// Replace the closing head tag with a base tag
-		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
-
-		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
-
-		res.write( html );
+		res.write( injectFactlinkJs(data,site) );
 		res.end();
 	});
 	
-	
-	/**
-	 *	Handle failed requests
-	 */
 	request.on('error', function(data) {
 		var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.<pre>form submit error</pre></span></body></html>";
 		res.write( error_page );
@@ -154,30 +135,24 @@ server.get('/submit', function(req, res) {
 	});	
 });
 
+function render_page(pagename) {
+  return function(req, res) {
+	  res.render(pagename, {
+		  layout: false,
+		  locals: {
+			  static_url: STATIC_URL,
+			  proxy_url: PROXY_URL,
+			  url: req.query.url
+		  }
+	  });
+  };
+}
 
 /**
  *	Render the header with the url bar
  */
-server.get('/header', function(req, res) {
-	res.render('header', {
-		layout: false,
-		locals: {
-			static_url: STATIC_URL,
-			url: req.query.url
-		}
-	});
-});
-
-
-server.get('/', function(req, res) {
-	res.render('index', {
-		layout: false,
-		locals: {
-			proxy_url: PROXY_URL,
-			url: req.query.url
-		}
-	});
-});
+server.get('/header', render_page('header'));
+server.get('/', render_page('index'));
 
 server.listen(PORT);
 console.info('\nStarted Factlink proxy on port ' + PORT);
