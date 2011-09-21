@@ -3,4 +3,5 @@ window.FactlinkConfig = {
     modus: 'default', // or 'addToFact'
     api: '',
     lib: ''
+  //url can be set by the proxy
 };

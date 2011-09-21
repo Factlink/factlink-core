@@ -176,12 +176,15 @@ div#fl-prepare {
       	font: inherit;
       	vertical-align: baseline;
         padding: 2px 18px;
-        line-height: 20px;
+        line-height: 14px;
+        display: block;
         border-radius: 1px;
         font-family: "Helvetica", Arial, sans-serif;
         
-        &:hover {
+        &:hover,
+        &.test {
           border-top: solid 1px #5853EA;
+          padding: 1px 18px 2px;
           background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(96,93,245)), color-stop(0, rgb(54,0,230)) );
           color: #fff;
         }
