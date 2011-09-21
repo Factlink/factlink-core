@@ -44,7 +44,9 @@ namespace :deploy do
     deploy.stop
     
     puts "\n\nstarting node proxy using forever"
-    run set_conf_path + "NODE_ENV=testserver forever start #{current_path}/server.js"
+    
+    # TODO: Fix npm location, is now gone after pull
+    run "cd #{current_path}; #{set_conf_path} npm install ; NODE_ENV=testserver forever start server.js"
   end
   
   task :stop do
