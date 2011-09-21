@@ -46,6 +46,7 @@ class LoadDsl
 
   def self.export_site(site)
     rv = "site \"#{quote_string(site.url)}\""
+    rv += "\n"
     rv
   end
 
