@@ -184,6 +184,11 @@
             toggleEvidence();
             return false;
           });
+          // For each fact bubble
+          $t.find("article.fact").each(function() {
+            $t.data("facts").push(init_fact(this, $t));
+          });
+
           $t.data("initialized", true);
         }
         function stop_fade(t) {
@@ -199,16 +204,22 @@
             $(this).delay(500).fadeOut("fast");
           }
         });
-        // For each fact bubble
-        $t.find("article.fact").each(function() {
-          $t.data("facts").push(init_fact(this));
-        });
       });
+    },
+    update: function(data) {
+      $t = $(this).data("container") || $(this);
+      if($t.data("initialized")) { 
+        //var facts = $t.data("facts") || $t.data("container").data("facts"); 
+       $(data).each(function() { 
+          $d = this;
+          $t.find("article[data-fact-id=" + this.id + "]").each(function() {
+            $(this).data("update")($d.score_dict_as_percentage); // Update all the facts 
+          });
+        });
+      }
     },
     switch_opinion: function(opinion) {
       var fact = this,
-          fact_update = fact.data("update"),
-          return_data,
           opinions = fact.data("wheel").opinions;
       opinions.each(function() {
         var current_op = this;
@@ -217,7 +228,7 @@
           if (!$(current_op).data("user-opinion")) {
             $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
-              fact_update(data);
+              fact.factlink("update", data);
             });
           }
           else {
@@ -226,7 +237,7 @@
               url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
-                fact_update(data);
+                fact.factlink("update", data);
               }
             });
           }
@@ -271,10 +282,10 @@
     $(el).data(attr, data);
   }
 
-  function init_fact(fact) {
+  function init_fact(fact, container) {
     var $t = $(fact);
     if (!$t.data("initialized")) {
-
+      $t.data("container", container);
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
@@ -294,9 +305,9 @@
       $t.data("update", function(data) {
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {
-          data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
+          data_attr(this, "value", data[$(this).data("opinions")].percentage);
         });
-        fact.find(".authority span").text(data[0].authority);
+        fact.find(".authority span").text(data.authority);
         fact.data("wheel").update();
       });
 
