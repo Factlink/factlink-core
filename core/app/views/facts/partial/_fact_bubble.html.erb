@@ -22,7 +22,7 @@
 
 		<span class="body">
 			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
-    		<sub>
+      <br><sub>
           <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_top") %>
 		    </sub>
     </span>

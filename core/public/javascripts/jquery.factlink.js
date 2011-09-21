@@ -158,6 +158,7 @@
       return this.each(function() {
         var $t = $(this);
         $t.data("facts",  []);
+        // TODO this needs major cleanup 
         function toggleEvidence() {
           $t.find(".potential-evidence").toggle(); // Shows the add panel
           $t.find(".evidence").toggle(); // Hides the current evidence
