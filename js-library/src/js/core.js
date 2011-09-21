@@ -45,7 +45,7 @@ var Factlink = window.Factlink = (function() {
   var style = document.createElement("link");
   style.type = "text/css";
   style.rel = "stylesheet";
-  style.href = "//" + FactlinkConfig.lib + "src/css/basic.css?" + (new Date()).getTime();
+  style.href = "//" + FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
   document.getElementsByTagName("head")[0].appendChild(style);
 
   // Expose the Factlink object to the global object
