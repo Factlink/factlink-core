@@ -7,13 +7,14 @@ DIST_DIR = ${PREFIX}/dist
 
 BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/create.js\
-	${SRC_DIR}/js/proxy.js\
 	${SRC_DIR}/js/replace.js\
+	${SRC_DIR}/js/scrollto.js\
 	${SRC_DIR}/js/search.js\
 	${SRC_DIR}/js/modal.js\
 	${SRC_DIR}/js/xdm.js\
 
 MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
+  ${BUILD_DIR}/jquery.scrollTo-1.4.2.js \
 	${SRC_DIR}/js/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
@@ -40,9 +41,9 @@ all: factlink
 ${DIST_DIR}:
 	@@mkdir -p ${DIST_DIR}
 
-factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS}
+factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS} modules
 
-${FACTLINK}: ${MODULES} | ${DIST_DIR}
+${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules jslint
 	@@echo "Building" ${Factlink}
 
 	@@cat ${MODULES} | \
@@ -55,7 +56,7 @@ ${FACTLINK}: ${MODULES} | ${DIST_DIR}
 
 	@@rm ${FACTLINK_TMP}
 
-${FACTLINK_GETFACTS}: ${GETFACTS}
+${FACTLINK_GETFACTS}: ${GETFACTS} node_modules
 	@@echo "Building" ${FACTLINK_GETFACTS}
 
 	@@cat ${GETFACTS} > ${GETFACTS_TMP}
@@ -64,7 +65,7 @@ ${FACTLINK_GETFACTS}: ${GETFACTS}
 
 	@@rm ${GETFACTS_TMP}
 
-${FACTLINK_ADDFACTS}: ${ADDFACTS}
+${FACTLINK_ADDFACTS}: ${ADDFACTS} node_modules
 	@@echo "Building" ${FACTLINK_ADDFACTS}
 
 	@@cat ${ADDFACTS} > ${ADDFACTS_TMP}
@@ -73,12 +74,27 @@ ${FACTLINK_ADDFACTS}: ${ADDFACTS}
 
 	@@rm ${ADDFACTS_TMP}
 
+${DISTDIR}/easyXDM: ${DIST_DIR}
+	cd "${BUILD_DIR}/easyXDM/" ; ./build.sh
+	mkdir -p "${DIST_DIR}/easyXDM"
+	cp -r ${BUILD_DIR}/easyXDM/work/* "${DIST_DIR}/easyXDM/"
+
+node_modules:
+	npm install
+
+modules : ${DISTDIR}/easyXDM
+	@@echo building modules
+
 min: factlink ${FACTLINK_MIN}
 	@@echo "Minifying core"
 
 clean:
 	@@echo "Removing Distribution directory:" ${DIST_DIR}
 	@@rm -rf ${DIST_DIR}
+
+jslint:
+	#TODO do this for all files
+	jsl --process src/js/scrollto.js
 
 test:
 	@@echo "Running tests using smoosh:"

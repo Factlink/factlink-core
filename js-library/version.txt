@@ -1,10 +1,1 @@
-v0.0.2
-------
-
-* Updated context menu for adding fact: now always showing within the viewport
-
-
-v0.0.1
-------
-
-* Initial version
+0.0.2
