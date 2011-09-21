@@ -6,10 +6,7 @@ html
   body
     header
       form(action=".", method="GET", target="_parent")
-        //a.button(href="javascript:parent.history.go(-1);") &laquo;
-      
-        //a.button(href="javascript:parent.history.go(1);") &raquo;
       
         input(type="text", value=url, name="url")
         
-        a.close(href="javascript:parent.location.href='http://demo.factlink.com/client/close_proxy.html'") x
+        a.close(href="javascript:parent.location.href='#{static_url}/client/close_proxy.html'") x

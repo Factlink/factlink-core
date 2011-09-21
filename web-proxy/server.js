@@ -5,13 +5,46 @@
  *	Used for implementing Factlink JavaScript on client-sites.
  */
 
-const PROXY_URL 	= "http://localhost:8080/";
-const STATIC_URL 	= "http://localhost/";
-const PORT 				= 8080
 
 // The actual server
 var server = require('express').createServer();
 var fs = require('fs');
+
+
+config_path = process.env.CONFIG_PATH || '../config/';
+
+/**
+ * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+ * @param obj1
+ * @param obj2
+ * @returns obj3 a new object based on obj1 and obj2
+ */
+function merge_options(obj1,obj2){
+    var obj3 = {};
+    for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+    for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+    return obj3;
+}
+proxy_config = require('yaml').eval(
+    fs.readFileSync(config_path+'proxy.yml').toString('utf-8')
+    + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
+)[server.settings.env];
+static_config = require('yaml').eval(
+    fs.readFileSync(config_path+'static.yml').toString('utf-8')
+    + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
+)[server.settings.env];
+global.config = merge_options(proxy_config,static_config);
+
+
+
+
+const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'] + "/";
+const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'] + "/";
+const PORT 				= parseInt(global.config['proxy']['port']);
+
+console.info(PROXY_URL);
+console.info(STATIC_URL)
+
 
 // Use Jade as templating engine
 server.set('view engine', 'jade');
@@ -45,7 +78,10 @@ server.get('/parse', function(req, res) {
 	req.on('complete', function(data) {
 		// Add base url and inject proxy.js, and return the proxied site
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+		// html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
+		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+
+		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
 
 		res.write( html );
 		res.end();
@@ -65,11 +101,6 @@ server.get('/parse', function(req, res) {
 				site: site
 			}
 		});
-		
-		// // Display the error page when something went wrong
-		// var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.</span></body></html>";
-		// res.write( error_page );
-		// res.end();
 	});
 
 });
@@ -106,7 +137,9 @@ server.get('/submit', function(req, res) {
 		
 		// Replace the closing head tag with a base tag
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+
+		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
 
 		res.write( html );
 		res.end();
