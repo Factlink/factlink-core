@@ -22,7 +22,7 @@ for(var i = 0; i < confs.length; i++){
   parsed_conf = merge_options(parsed_conf,file_conf);
 
 }
-return parsed_conf
+return parsed_conf;
 }
 
 exports.read_conf = read_conf;

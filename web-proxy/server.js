@@ -26,8 +26,6 @@ const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['stat
 
 const PORT 				= parseInt(global.config['proxy']['port'],10);
 
-console.info(PROXY_URL);
-console.info(STATIC_URL);
 
 
 // Use Jade as templating engine
@@ -42,10 +40,30 @@ server.get('/parse', function(req, res) {
 
 	var site = req.query.url;
 
+  errorhandler = function(data) {
+		console.error("Failed on: " + site);
+		
+		res.render('something_went_wrong', {
+			layout: false,
+			locals: {
+				static_url: STATIC_URL,
+				proxy_url: PROXY_URL,
+				site: site
+			}
+		});
+	};
+
+
 	// Quick fixes for visiting sites without http
-	http_regex = new RegExp("^http(s?)");
+	protocol_regex = new RegExp("^(?=.*://)");
+	http_regex = new RegExp("^(?=http(s?)://)");
 	if (http_regex.test(site) === false) {
-		site = "http://" + site;
+	  if (protocol_regex.test(site) === false) {
+	    site = "http://" + site;
+	  }else {
+	    errorhandler({});
+	    return;
+    }
 	}
 
  	console.info("Serving: " + site);
@@ -76,22 +94,12 @@ server.get('/parse', function(req, res) {
 		res.write( html );
 		res.end();
 	});
+
 	
 	/**
 	 *	Handle failed requests
 	 */
-	request.on("error", function(data) {
-		console.error("Failed on: " + site);
-		
-		res.render('something_went_wrong', {
-			layout: false,
-			locals: {
-				static_url: STATIC_URL,
-				proxy_url: PROXY_URL,
-				site: site
-			}
-		});
-	});
+	request.on("error", errorhandler);
 
 });
 
