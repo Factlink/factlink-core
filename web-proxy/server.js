@@ -13,34 +13,8 @@ server.configure(function(){
 });
 
 var fs = require('fs');
-
-
 config_path = process.env.CONFIG_PATH || '../config/';
-
-/**
- * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
- * @param obj1
- * @param obj2
- * @returns obj3 a new object based on obj1 and obj2
- */
-function merge_options(obj1,obj2){
-    var obj3 = {};
-    for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
-    for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
-    return obj3;
-}
-confs = ['static', 'proxy', 'core']
-parsed_conf = {}
-for(var i = 0; i < confs.length; i++){
-  file_conf = require('yaml').eval(
-      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8')
-      + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
-  )[server.settings.env];
-  parsed_conf = merge_options(parsed_conf,file_conf);
-}
-
-global.config = parsed_conf
-
+global.config = require('./read_config').read_conf(config_path,fs,server.settings.env);
 
 
 const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'] + "/";
@@ -50,10 +24,10 @@ const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']
 const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib/";
 
 
-const PORT 				= parseInt(global.config['proxy']['port']);
+const PORT 				= parseInt(global.config['proxy']['port'],10);
 
 console.info(PROXY_URL);
-console.info(STATIC_URL)
+console.info(STATIC_URL);
 
 
 // Use Jade as templating engine
@@ -64,14 +38,14 @@ server.set('view engine', 'jade');
  */
 server.get('/parse', function(req, res) {
 
-	console.info("\nGET /parse")
+	console.info("\nGET /parse");
 
 	var site = req.query.url;
 
 	// Quick fixes for visiting sites without http
 	http_regex = new RegExp("^http(s?)");
 	if (http_regex.test(site) === false) {
-		site = "http://" + site
+		site = "http://" + site;
 	}
 
  	console.info("Serving: " + site);
@@ -80,12 +54,12 @@ server.get('/parse', function(req, res) {
 	 *	Do the request
 	 *	Restler follows redirects if needed
 	 */
-	var req = require('restler').get( site );
+	var request = require('restler').get( site );
 
 	/**
 	 *	Handle response on succes
 	 */
-	req.on('complete', function(data) {
+	request.on('complete', function(data) {
 		// Add base url and inject proxy.js, and return the proxied site
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
 		// html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
@@ -106,7 +80,7 @@ server.get('/parse', function(req, res) {
 	/**
 	 *	Handle failed requests
 	 */
-	req.on("error", function(data) {
+	request.on("error", function(data) {
 		console.error("Failed on: " + site);
 		
 		res.render('something_went_wrong', {
@@ -144,12 +118,12 @@ server.get('/submit', function(req, res) {
 	 *	Do the request and submit the form.
 	 *	Restler should follow redirects if needed.
 	 */
-	var req = require('restler').get( site, { "query": form_hash } );
+	var request = require('restler').get( site, { "query": form_hash } );
 
 	/**
 	 *	Handle response on succes
 	 */
-	req.on('complete', function(data) {
+	request.on('complete', function(data) {
 		
 		// Replace the closing head tag with a base tag
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
@@ -165,7 +139,7 @@ server.get('/submit', function(req, res) {
 	/**
 	 *	Handle failed requests
 	 */
-	req.on('error', function(data) {
+	request.on('error', function(data) {
 		var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.<pre>form submit error</pre></span></body></html>";
 		res.write( error_page );
 		res.end(); 
