@@ -158,24 +158,29 @@
       return this.each(function() {
         var $t = $(this);
 
-        function toggleEvidenceLabel() {
-          $t.find(".evidence").toggle();
-          $t.find(".potential-evidence").toggle();
+        function toggleEvidence() {
+          $t.find(".potential-evidence").toggle(); // Shows the add panel
+          $t.find(".evidence").toggle(); // Hides the current evidence
           $t.find(".add-action.do-add").toggle();
           $t.find(".add-action.do-show").toggle();
         }
         if (!$t.data("initialized")) {
           $t.find(".evidence-facts a.show-evidence").live("click", function() {
             $t.find(".evidence-container").slideToggle();
+            $t.find(".triangle-up").toggleClass("triangle-down");
             return false;
           });
           $t.find(".show-add").live("click", function() {
+            if($t.find(".potential-evidence").is(":hidden")) { 
+              $t.find(".potential-evidence").show();
+              $t.find(".evidence").hide();
+            }
             $t.find(".evidence-container").slideToggle();
-            toggleEvidenceLabel();
+            $t.find(".triangle-up").toggleClass("triangle-down");
             return false;
           });
           $t.find(".add-action a#toggle-show-add").live("click", function() {
-            toggleEvidenceLabel();
+            toggleEvidence();
             return false;
           });
           $t.data("initialized", true);

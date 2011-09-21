@@ -68,6 +68,12 @@ a:hover {
 a {
   color: #306d90;
 }
+.icon {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+}
 span.proxyWindow {
   display: none;
 }
@@ -95,6 +101,20 @@ div.modal span.close {
 }
 div.modal span.proxyWindow {
   display: inline !important;
+}
+span.triangle-up {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+  background: url('/images/arrow2_n.png') no-repeat;
+}
+span.triangle-down {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+  background: url('/images/arrow2_s.png') no-repeat !important;
 }
 .boxed {
   padding: 0;
