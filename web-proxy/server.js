@@ -8,6 +8,10 @@
 
 // The actual server
 var server = require('express').createServer();
+server.configure(function(){
+        server.set('views', __dirname + '/views');
+});
+
 var fs = require('fs');
 
 
@@ -25,21 +29,27 @@ function merge_options(obj1,obj2){
     for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
     return obj3;
 }
-proxy_config = require('yaml').eval(
-    fs.readFileSync(config_path+'proxy.yml').toString('utf-8')
-    + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
-)[server.settings.env];
-static_config = require('yaml').eval(
-    fs.readFileSync(config_path+'static.yml').toString('utf-8')
-    + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
-)[server.settings.env];
-global.config = merge_options(proxy_config,static_config);
+confs = ['static', 'proxy', 'core']
+parsed_conf = {}
+for(var i = 0; i < confs.length; i++){
+  file_conf = require('yaml').eval(
+      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8')
+      + "\n\n" // https://github.com/visionmedia/js-yaml/issues/13
+  )[server.settings.env];
+  parsed_conf = merge_options(parsed_conf,file_conf);
+}
 
+global.config = parsed_conf
 
 
 
 const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'] + "/";
 const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'] + "/";
+
+const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']['port'] + "/";
+const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib/";
+
+
 const PORT 				= parseInt(global.config['proxy']['port']);
 
 console.info(PROXY_URL);
@@ -79,9 +89,15 @@ server.get('/parse', function(req, res) {
 		// Add base url and inject proxy.js, and return the proxied site
 		var html = data.replace('<head>', '<head><base href="' + site + '" />');
 		// html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
-		html = html.replace('</head>', '<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
+    set_urls = '<script>'+
+               'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
+               'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
+               'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
+               'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+               '</script>';
+    load_proxy_js = '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+		html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
 
-		console.log('<script>window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";</script><script src="');
 
 		res.write( html );
 		res.end();

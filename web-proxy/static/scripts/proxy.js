@@ -80,8 +80,8 @@ domReady(function(){
 
 window.FactlinkConfig = {
     modus: "addToFact",
-    api: "localhost:3000/",
-    lib: "localhost:8000/lib/",
+    api: window.FACTLINK_API_LOCATION,
+    lib: window.FACTLINK_LIB_LOCATION,
     url: location.search.split("?url=")[1].split("&")[0] //TODO dit netjes doen met een urlparsemechanisme ed.
 };
 
@@ -95,6 +95,7 @@ var
         ],
         [
             '//' + window.FactlinkConfig.lib + 'src/js/replace.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + 'src/js/scrollto.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + 'src/js/search.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + 'src/js/create.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + 'src/js/modal.js?' + (new Date()).getTime()
