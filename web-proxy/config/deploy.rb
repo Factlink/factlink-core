@@ -29,42 +29,31 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 ssh_options[:forward_agent] = true
 
 
+def set_conf_path
+  "export CONFIG_PATH=/applications/factlink-core/current/config/; export NODE_ENV=#{deploy_env};"
+end
 
-###
-
-# ADD BUILD ON PRODUCTION
-
-###
-
-
+# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   
   task :build do
   end
   
-end
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
   task :start do
+    
     deploy.stop
-    run set_conf_path + "NODE_ENV=testserver forever start server.js"
+    
+    puts "\n\nstarting node proxy using forever"
+    run set_conf_path + "NODE_ENV=testserver forever start #{current_path}/server.js"
   end
   
   task :stop do
-    run "killall forever ; killall node"
+    puts "\n\nstopping `forever`; stopping `node`"
+    run "killall forever ; killall node; true" # return true to continue running, even if exit code != 0
   end
   
   task :restart, :roles => :app, :except => { :no_release => true } do
     deploy.stop
     deploy.start
   end
-end
-
-
-def set_conf_path
-  "export CONFIG_PATH=#{deploy_to}/current/config/; export NODE_ENV=#{deploy_env};"
 end
