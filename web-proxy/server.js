@@ -24,11 +24,11 @@ config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path,fs,server.settings.env);
 
 
-const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'] + "/";
-const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'] + "/";
+const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'];
+const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'];
 
-const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']['port'] + "/";
-const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib/";
+const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']['port'];
+const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib";
 
 
 const PORT 				= parseInt(global.config['proxy']['port'],10);
@@ -96,8 +96,9 @@ function injectFactlinkJs(html_in,site){
              'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
              'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
              'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             'window.FACTLINK_REAL_URL = "' + site + '";'+
              '</script>';
-  load_proxy_js = '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+  load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
 	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
 	return html;
 }
