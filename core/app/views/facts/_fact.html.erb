@@ -20,7 +20,7 @@
       <% if fact.fact_relations.count < 1 and user_signed_in? %>
         <a href="#" class="show-add"><span class="triangle-up"></span>Add evidence</a>
       <% else %>
-        <a href="#" class="show-evidence"><span class="triangle-up"></span>Show Evidence (<%= fact.evidence_count %>)</a>
+        <a href="#" class="show-evidence"><span class="triangle-up"></span>Evidence (<%= fact.evidence_count %>)</a>
       <% end %>
     </div>
     <div class="evidence-container" style="display: none">
