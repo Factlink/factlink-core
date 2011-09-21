@@ -157,7 +157,7 @@
     init: function(options) {
       return this.each(function() {
         var $t = $(this);
-
+        $t.data("facts",  []);
         function toggleEvidence() {
           $t.find(".potential-evidence").toggle(); // Shows the add panel
           $t.find(".evidence").toggle(); // Hides the current evidence
@@ -198,17 +198,17 @@
             $(this).delay(500).fadeOut("fast");
           }
         });
-
         // For each fact bubble
         $t.find("article.fact").each(function() {
-          init_fact(this);
+          $t.data("facts").push(init_fact(this));
         });
       });
     },
     switch_opinion: function(opinion) {
-      var fact = this;
-      var return_data; 
-      var opinions = fact.data("wheel").opinions;
+      var fact = this,
+          fact_update = fact.data("update"),
+          return_data,
+          opinions = fact.data("wheel").opinions;
       opinions.each(function() {
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
@@ -216,7 +216,7 @@
           if (!$(current_op).data("user-opinion")) {
             $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
-              callback(data);
+              fact_update(data);
             });
           }
           else {
@@ -225,7 +225,7 @@
               url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
-                callback(data);
+                fact_update(data);
               }
             });
           }
@@ -234,13 +234,6 @@
           data_attr(current_op, "user-opinion", false);
         }
       });
-      var callback = function(return_data) { 
-        opinions.each(function() {
-          data_attr(this, "value", return_data[0][$(this).data("opinions")].percentage);
-        });
-        fact.find(".authority span").text(return_data[0].authority);
-        fact.data("wheel").update();
-      };
     },
 
     // Channels
@@ -296,7 +289,18 @@
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
+
+      $t.data("update", function(data) {
+        var fact = $t; 
+        fact.data("wheel").opinions.each(function() {
+          data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
+        });
+        fact.find(".authority span").text(data[0].authority);
+        fact.data("wheel").update();
+      });
+
       $t.data("initialized", true);
     }
+    return $t;
   }
 })(jQuery);
