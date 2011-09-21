@@ -43,7 +43,7 @@ ${DIST_DIR}:
 
 factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS} modules
 
-${FACTLINK}: ${MODULES} | ${DIST_DIR} node_modules
+${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules jslint
 	@@echo "Building" ${Factlink}
 
 	@@cat ${MODULES} | \
@@ -91,6 +91,10 @@ min: factlink ${FACTLINK_MIN}
 clean:
 	@@echo "Removing Distribution directory:" ${DIST_DIR}
 	@@rm -rf ${DIST_DIR}
+
+jslint:
+	#TODO do this for all files
+	jsl --process src/js/scrollto.js
 
 test:
 	@@echo "Running tests using smoosh:"
