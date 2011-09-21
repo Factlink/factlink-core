@@ -185,10 +185,6 @@
             return false;
           });
           // For each fact bubble
-          $t.find("article.fact").each(function() {
-            $t.data("facts").push(init_fact(this, $t));
-          });
-
           $t.data("initialized", true);
         }
         function stop_fade(t) {
@@ -196,6 +192,9 @@
             "opacity": "1"
           });
         }
+        $t.find("article.fact").each(function() {
+          $t.data("facts").push(init_fact(this, $t));
+        });
 
         // Prevents boxes from dissapearing on mouse over
         $t.find(".float-box").mouseover(function() { stop_fade($(this)); });

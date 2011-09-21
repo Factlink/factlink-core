@@ -264,7 +264,8 @@ span.triangle-down {
   cursor: pointer;
 }
 .fact-block .evidence-options {
-  background: url("/images/shadowLeft2.png") no-repeat right center transparent;
+  /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
+
   border-right: 1px solid #E4E4E4;
   vertical-align: middle;
 }
@@ -313,6 +314,9 @@ span.triangle-down {
   line-height: 22px;
 }
 .fact-block .evidence-facts article.fact {
+  -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #E4E4E4;
   width: 445px;
   text-align: left;
