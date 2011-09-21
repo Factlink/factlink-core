@@ -89,8 +89,9 @@ var
     // List of scripts which should be loaded,
     dev = [
         [
-            '//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js',
+            '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js',
             '//' + window.FactlinkConfig.lib + 'dist/easyXDM/easyXDM.min.js',
+            '//' + window.FactlinkConfig.lib + 'dist/jquery.scrollTo.js',
             '//' + window.FactlinkConfig.lib + 'src/js/core.js?' + (new Date()).getTime()
         ],
         [
