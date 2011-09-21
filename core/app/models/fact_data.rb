@@ -8,6 +8,10 @@ class FactData
   searchable :auto_index => true do
     text    :displaystring
     string  :displaystring
+    
+    text    :title
+    string  :title
+    
     time    :created_at
   end
 

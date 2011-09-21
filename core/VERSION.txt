@@ -1,5 +1,9 @@
 Version history
 ===============
+v0.0.2
+------
+September 21, 2011 - by Remon
+* Lots of fixes here, this is the first release in a long time. From this point we will have two-week releases.
 
 v0.0.3
 ------

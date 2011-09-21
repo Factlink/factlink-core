@@ -31,13 +31,11 @@ set :use_sudo,    false
 # Repository
 set :scm, :git
 set :repository,  "git@codebasehq.com:factlink/factlink/factlink-core.git"
-set :branch, "develop"  # Can be moved to deploy/production.rb and deploy.testserver.rb
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
+
 after "deploy", "deploy:migrate"
-
-
 
 ssh_options[:forward_agent] = true
 
@@ -46,11 +44,17 @@ ssh_options[:forward_agent] = true
 namespace :deploy do
   
   task :all do
+    set_conf_path="export CONFIG_PATH=#{deploy_to}/current/config/; export NODE_ENV=#{deploy_env};"
     # Update the static files
-    run 'cd /applications/factlink-js-library/ ; git checkout develop ; git pull'
+    run set_conf_path + "cd /applications/factlink-js-library/ && git checkout #{branch} && git pull origin #{branch}"
 
+    # Update the static files
+    run set_conf_path + "cd /applications/factlink-chrome-extension/ && git checkout #{branch} && git pull origin #{branch} && ./release_repo.sh"
+    
     # Update the Proxy
-    run "cd /applications/web-proxy ; git checkout develop ; git pull ; killall forever ; killall node ; NODE_ENV=testserver CONFIG_PATH=#{deploy_to}/current/config/ forever start server.js "
+    # don't use && chained with killall
+    # TODO we should add a proper workaround
+    run set_conf_path + "cd /applications/web-proxy && git checkout #{branch} && git pull origin #{branch} && killall forever ; killall node ; NODE_ENV=testserver forever start server.js "
     
   end
   
@@ -61,5 +65,5 @@ namespace :deploy do
   end
 end
 
-after 'deploy:all', 'deploy'
-after 'deploy', 'deploy:restart'
+before 'deploy:all', 'deploy'
+after 'deploy:all', 'deploy:restart'
