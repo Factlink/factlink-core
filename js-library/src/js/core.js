@@ -3,6 +3,18 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
+  var facts_loaded_array = [];
+
+  Factlink.factsLoaded = function(fn){
+    facts_loaded_array.push(fn);
+  }
+
+  Factlink.triggerFactsLoaded = function(){
+    for(var i=0; i<facts_loaded_array.length; i++) {
+      facts_loaded_array[i]();
+    }
+  }
+
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
@@ -20,23 +32,17 @@ var Factlink = window.Factlink = (function() {
       // the JSON data
       success: function(data) {
         // If there are multiple matches on the page, loop through them all
+        //TODO : dit mag pas on document ready
         for (var i = 0; i < data.length; i++) {
-          //@TODO Fix the Loader
-          // Update the loader
-          // FL.Loader.updateStatus( "Finding matches for fact: \"" + data[i].displaystring + "\"" );
           // Select the ranges (results)
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
-
+        Factlink.triggerFactsLoaded();
         var $fls = $('span.factlink').addClass('fl-active');
 
         setTimeout(function() {
           $fls.removeClass('fl-active');
         }, 800);
-
-        //@TODO Fix the Loader
-        // Done loading
-        // FL.Loader.finish();
       }
     });
   };
@@ -45,7 +51,7 @@ var Factlink = window.Factlink = (function() {
   var style = document.createElement("link");
   style.type = "text/css";
   style.rel = "stylesheet";
-  style.href = "//" + FactlinkConfig.lib + "src/css/basic.css?" + (new Date()).getTime();
+  style.href = "//" + FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
   document.getElementsByTagName("head")[0].appendChild(style);
 
   // Expose the Factlink object to the global object
