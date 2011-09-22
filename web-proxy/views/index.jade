@@ -3,7 +3,7 @@ html(lang="en")
     head
         title Factlink Short URL Service
     frameset(rows="45,*", frameborder="0", framespacing="0", cols="*")
-        frame(src=proxy_url + "header?url=" + url)
-        frame(src=proxy_url + "parse?url=" + url)
+        frame(src=proxy_url + "/header?url=" + url)
+        frame(src=proxy_url + "/parse?url=" + url)
         noframes
             h1 Your browser does not support frames

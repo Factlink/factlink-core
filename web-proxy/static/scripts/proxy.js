@@ -36,7 +36,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-      b.href = href.replace(/^http(s|):\/\//, 'http://proxy.factlink.com:8080/?url=' + href.match(/http(s|):\/\//)[0]);
+      b.href = href.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + href.match(/http(s|):\/\//)[0]);
 
       b.target = "_parent";
     }
@@ -72,38 +72,44 @@ domReady(function(){
 			form.appendChild(input);
 			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\//, 'http://proxy.factlink.com:8080/submit?url=' + action.match(/http(s|):\/\//)[0]);
+      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/submit?url=' + action.match(/http(s|):\/\//)[0]);
     }
   }
 
 });
 
 window.FactlinkConfig = {
-    modus: "addToFact",
-    api: "demo.factlink.com/",
-    lib: "static.factlink.com/lib/",
-    url: location.search.split("?url=")[1].split("&")[0] //TODO dit netjes doen met een urlparsemechanisme ed.
+    modus: 'default',
+    api: window.FACTLINK_API_LOCATION,
+    lib: window.FACTLINK_LIB_LOCATION,
+    url: window.FACTLINK_REAL_URL,
+    scrollto : 7
 };
 
 var
     // List of scripts which should be loaded,
     dev = [
         [
-            '//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js',
-            '//' + window.FactlinkConfig.lib + 'dist/easyXDM/easyXDM.min.js',
-            '//' + window.FactlinkConfig.lib + 'src/js/core.js?' + (new Date()).getTime()
+            '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js',
+            '//' + window.FactlinkConfig.lib + '/dist/easyXDM/easyXDM.min.js',
+            '//' + window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + 'src/js/replace.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + 'src/js/search.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + 'src/js/create.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + 'src/js/modal.js?' + (new Date()).getTime()
+            '//' + window.FactlinkConfig.lib + '/dist/jquery.scrollTo.js'
         ],
         [
-            '//' + window.FactlinkConfig.lib + 'src/js/xdm.js?' + (new Date()).getTime()
+            '//' + window.FactlinkConfig.lib + '/src/js/replace.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + 'src/js/getfacts.js?' + (new Date()).getTime()
+            '//' + window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
+        ],
+        [
+            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime()
         ]
     ],
     // Method which is called when all scripts are loaded
@@ -115,23 +121,15 @@ var
 // needed.
 (function(i){
     // Load the script
-    $script(dev[i], i);
-
-    // If there is more to load
-    if ( dev[i+1] !== undefined ) {
-        // Store the current function object (so we can call it from the
-        // ready method of $script)
-        var toCall = arguments.callee;
-
-        // When $script is done loading the first batch, start loading 
-        // the next one
-        $script.ready( i, function() {
-            // Make a recursive call to make sure all scripts get loaded
-            toCall(i+1);
-        });
+    if ( dev[i] !== undefined ) {
+      console.info('loading' + dev[i]);
+      $script(dev[i], i);
+      var toCall = arguments.callee;
+      $script.ready( i, function() {
+        toCall(i+1);
+      });
     } else {
-        // Nothing to load anymore, call the ready method.
-        onReady();
+      onReady();
     }
 })(0);
 })(window, document);

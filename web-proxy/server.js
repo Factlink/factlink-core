@@ -5,13 +5,35 @@
  *	Used for implementing Factlink JavaScript on client-sites.
  */
 
-const PROXY_URL 	= "http://localhost:8080/";
-const STATIC_URL 	= "http://localhost/";
-const PORT 				= 8080
 
 // The actual server
 var server = require('express').createServer();
+server.configure(function(){
+        server.set('views', __dirname + '/views');
+});
+
+
+/**
+ *	We execute our requests using Restler
+ *  because it follows redirects if needed
+ */
+var restler = require('restler');
+
 var fs = require('fs');
+config_path = process.env.CONFIG_PATH || '../config/';
+global.config = require('./read_config').read_conf(config_path,fs,server.settings.env);
+
+
+const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'];
+const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'];
+
+const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']['port'];
+const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib";
+
+
+const PORT 				= parseInt(global.config['proxy']['port'],10);
+
+
 
 // Use Jade as templating engine
 server.set('view engine', 'jade');
@@ -21,40 +43,11 @@ server.set('view engine', 'jade');
  */
 server.get('/parse', function(req, res) {
 
-	console.info("\nGET /parse")
+	console.info("\nGET /parse");
 
 	var site = req.query.url;
 
-	// Quick fixes for visiting sites without http
-	http_regex = new RegExp("^http(s?)");
-	if (http_regex.test(site) === false) {
-		site = "http://" + site
-	}
-
- 	console.info("Serving: " + site);
-
-  /**
-	 *	Do the request
-	 *	Restler follows redirects if needed
-	 */
-	var req = require('restler').get( site );
-
-	/**
-	 *	Handle response on succes
-	 */
-	req.on('complete', function(data) {
-		// Add base url and inject proxy.js, and return the proxied site
-		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js"></script></head>');
-
-		res.write( html );
-		res.end();
-	});
-	
-	/**
-	 *	Handle failed requests
-	 */
-	req.on("error", function(data) {
+  errorhandler = function(data) {
 		console.error("Failed on: " + site);
 		
 		res.render('something_went_wrong', {
@@ -65,14 +58,50 @@ server.get('/parse', function(req, res) {
 				site: site
 			}
 		});
-		
-		// // Display the error page when something went wrong
-		// var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.</span></body></html>";
-		// res.write( error_page );
-		// res.end();
+	};
+
+  // add protocol http:// if no protocol is defined:
+	protocol_regex = new RegExp("^(?=.*://)");
+	http_regex = new RegExp("^(?=http(s?)://)");
+	if (http_regex.test(site) === false) {
+	  if (protocol_regex.test(site) === false) {
+	    site = "http://" + site;
+	  }else {
+	    errorhandler({});
+	    return;
+    }
+	}
+
+ 	console.info("Serving: " + site);
+
+	var request = restler.get( site );
+
+	request.on('complete', function(data) {
+		res.write( injectFactlinkJs(data,site) );
+		res.end();
 	});
 
+	
+	request.on("error", errorhandler);
+
 });
+
+/**
+ * Add base url and inject proxy.js, and return the proxied site
+ */
+function injectFactlinkJs(html_in,site){
+	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
+  set_urls = '<script>'+
+             'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
+             'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
+             'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
+             'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             'window.FACTLINK_REAL_URL = "' + site + '";'+
+             '</script>';
+  load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
+	return html;
+}
 
 
 /** 
@@ -93,60 +122,39 @@ server.get('/submit', function(req, res) {
 	var form_hash = req.query;
 	delete form_hash['factlinkPostUrl'];
 
-  /**
-	 *	Do the request and submit the form.
-	 *	Restler should follow redirects if needed.
-	 */
-	var req = require('restler').get( site, { "query": form_hash } );
+	var request = restler.post( site, { "query": form_hash } );
 
-	/**
-	 *	Handle response on succes
-	 */
-	req.on('complete', function(data) {
-		
-		// Replace the closing head tag with a base tag
-		var html = data.replace('<head>', '<head><base href="' + site + '" />');
-		html = html.replace('</head>', '<script src="' + STATIC_URL + 'proxy/scripts/proxy.js?' + Number(new Date()) + '"></script></head>');
-
-		res.write( html );
+	request.on('complete', function(data) {
+		res.write( injectFactlinkJs(data,site) );
 		res.end();
 	});
 	
-	
-	/**
-	 *	Handle failed requests
-	 */
-	req.on('error', function(data) {
+	request.on('error', function(data) {
 		var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.<pre>form submit error</pre></span></body></html>";
 		res.write( error_page );
 		res.end(); 
 	});	
 });
 
+function render_page(pagename) {
+  return function(req, res) {
+	  res.render(pagename, {
+		  layout: false,
+		  locals: {
+			  static_url: STATIC_URL,
+			  proxy_url: PROXY_URL,
+				core_url: API_LOCATION,
+			  url: req.query.url
+		  }
+	  });
+  };
+}
 
 /**
  *	Render the header with the url bar
  */
-server.get('/header', function(req, res) {
-	res.render('header', {
-		layout: false,
-		locals: {
-			static_url: STATIC_URL,
-			url: req.query.url
-		}
-	});
-});
-
-
-server.get('/', function(req, res) {
-	res.render('index', {
-		layout: false,
-		locals: {
-			proxy_url: PROXY_URL,
-			url: req.query.url
-		}
-	});
-});
+server.get('/header', render_page('header'));
+server.get('/', render_page('index'));
 
 server.listen(PORT);
 console.info('\nStarted Factlink proxy on port ' + PORT);
