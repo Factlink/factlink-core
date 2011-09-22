@@ -41,10 +41,15 @@ ssh_options[:forward_agent] = true
 # these http://github.com/rails/irs_process_scripts
 
 # If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
+namespace :deploy do
+  
+  task :build do
+    run "cd #{current_dir}; make"
+  end
+  
 #   task :start do ; end
 #   task :stop do ; end
 #   task :restart, :roles => :app, :except => { :no_release => true } do
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
-# end
+end
