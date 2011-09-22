@@ -71,8 +71,10 @@ a {
 .icon {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
+  position: relative;
+  top: 3px;
 }
 span.proxyWindow {
   display: none;
@@ -105,15 +107,19 @@ div.modal span.proxyWindow {
 span.triangle-up {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
-  background: url('/images/arrow2_n.png') no-repeat;
+  position: relative;
+  top: 3px;
+  background: url('/images/arrow2_e.png') no-repeat;
 }
 span.triangle-down {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
+  position: relative;
+  top: 3px;
   background: url('/images/arrow2_s.png') no-repeat !important;
 }
 .boxed {
@@ -134,6 +140,7 @@ span.triangle-down {
 }
 .fact-block:hover > article.fact .actions {
   visibility: visible;
+  overflow: visible;
 }
 .fact-block {
   padding: 0;
@@ -274,18 +281,43 @@ span.triangle-down {
   white-space: nowrap;
   text-shadow: none;
 }
+.fact-block .evidence-options .relevance-options ul {
+  -webkit-transition: all 0.35s ease-out;
+  margin-top: 12px;
+}
+.fact-block .evidence-options .relevance-options ul span {
+  color: #666;
+}
+.fact-block .evidence-options .relevance-options ul:hover {
+  /*						margin-left: -72px;*/
+
+}
 .fact-block .evidence-options .relevance-options ul li {
+  color: #888;
+  text-align: center;
+  text-shadow: 0px 0px 1px #fff;
+  line-height: 24px;
+  height: 16px;
+  width: 100px;
+  border: solid 1px #d8d8d8;
+  border-radius: 3px;
   padding-bottom: 8px;
   padding-left: 2px;
+  margin-bottom: 10px;
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #eeeeee 0%, #ffffff 100%);
 }
-.fact-block .evidence-options .relevance-options ul li a.active {
-  color: #306d90;
+.fact-block .evidence-options .relevance-options ul li:hover {
+  cursor: pointer;
 }
-.fact-block .evidence-options .relevance-options ul li a {
-  color: #666363;
-}
-.fact-block .evidence-options .relevance-options ul li a:hover {
-  color: #ce0000;
+.fact-block .evidence-options .relevance-options ul li.active {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e8e8e8), color-stop(1, #cccccc));
+  background: -moz-linear-gradient(center bottom, #e8e8e8 0%, #cccccc 100%);
+  border: solid 1px #ccc;
+  color: #555;
+  box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
 }
 .fact-block .evidence-options:hover {
   z-index: 400;
@@ -311,7 +343,7 @@ span.triangle-down {
   height: 36px;
 }
 .fact-block .evidence-facts .evidence-actions a {
-  line-height: 22px;
+  line-height: 26px;
 }
 .fact-block .evidence-facts article.fact {
   -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
@@ -325,7 +357,10 @@ span.triangle-down {
   min-height: 80px;
   max-height: 200px;
   background-color: #FBFAFA;
-  overflow: auto;
+  overflow: scroll;
+}
+.fact-block .evidence-facts .evidence .evidence-list, .fact-block .evidence-facts .potential-evidence .evidence-list {
+  overflow: visible;
 }
 .fact-block .evidence-facts .evidence tr:nth-child(even) article.fact, .fact-block .evidence-facts .potential-evidence tr:nth-child(even) article.fact {
   background-color: #f6f4f4;

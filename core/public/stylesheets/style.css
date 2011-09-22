@@ -404,7 +404,7 @@ form .row label {
   margin-top: 6px;
   font-weight: 100;
 }
-form .row input[type="text"] {
+form .row input {
   padding: 8px;
   width: 320px;
   border-radius: 3px;
@@ -454,6 +454,13 @@ form .action-wrapper span {
 }
 #container {
   padding-top: 60px;
+  /*    input[type="text"] {
+      padding: 2px;
+      border-radius: 3px;
+      border: solid 1px #ddd;
+      font-weight: 100;
+    }*/
+
   /* content blocks */
 
 }
@@ -468,12 +475,6 @@ form .action-wrapper span {
 #container sub {
   color: #aaa;
   text-shadow: 0px 1px 0px #fff;
-}
-#container input[type="text"] {
-  padding: 2px;
-  border-radius: 3px;
-  border: solid 1px #ddd;
-  font-weight: 100;
 }
 #container #left-column {
   /** From web-v2.1 */
