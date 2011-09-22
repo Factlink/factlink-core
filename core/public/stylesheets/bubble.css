@@ -68,6 +68,12 @@ a:hover {
 a {
   color: #306d90;
 }
+.icon {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+}
 span.proxyWindow {
   display: none;
 }
@@ -95,6 +101,20 @@ div.modal span.close {
 }
 div.modal span.proxyWindow {
   display: inline !important;
+}
+span.triangle-up {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+  background: url('/images/arrow2_n.png') no-repeat;
+}
+span.triangle-down {
+  display: inline-block;
+  margin-right: 5px;
+  height: 10px;
+  width: 15px;
+  background: url('/images/arrow2_s.png') no-repeat !important;
 }
 .boxed {
   padding: 0;
@@ -244,7 +264,8 @@ div.modal span.proxyWindow {
   cursor: pointer;
 }
 .fact-block .evidence-options {
-  background: url("/images/shadowLeft2.png") no-repeat right center transparent;
+  /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
+
   border-right: 1px solid #E4E4E4;
   vertical-align: middle;
 }
@@ -293,6 +314,9 @@ div.modal span.proxyWindow {
   line-height: 22px;
 }
 .fact-block .evidence-facts article.fact {
+  -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid #E4E4E4;
   width: 445px;
   text-align: left;

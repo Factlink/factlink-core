@@ -18,9 +18,9 @@
   <div class="evidence-facts">
     <div class="evidence-actions">
       <% if fact.fact_relations.count < 1 and user_signed_in? %>
-        <a href="#" class="shaw-add"><%= image_tag("arrow2_s.png") %>Add evidence</a>
+        <a href="#" class="show-add"><span class="triangle-up"></span>Add evidence</a>
       <% else %>
-        <a href="#" class="show-evidence"><%= image_tag("arrow2_s.png") %>Show Evidence (<%= fact.evidence_count %>)</a>
+        <a href="#" class="show-evidence"><span class="triangle-up"></span>Evidence (<%= fact.evidence_count %>)</a>
       <% end %>
     </div>
     <div class="evidence-container" style="display: none">

@@ -8,7 +8,7 @@
 	  <div class="relevance_opinion" data-value="<%= fact_relation.get_opinion.as_percentages[:disbelieve][:percentage] %>" data-opinion="irrelevant" data-color="#E94E1B"></div>
   <% end %>
 
-	<div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <%= fact.get_opinion.as_percentages[:authority] %> </div>		
+  <div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <span><%= fact.get_opinion.as_percentages[:authority] %></span></div>		
 </div>
 
 <div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 

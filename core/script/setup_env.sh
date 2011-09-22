@@ -10,9 +10,18 @@ gem install bundle
 cd factlink-core
 bundle install
 rake db:migrate
+cd ..
 
-cd ../web-proxy
+cd web-proxy
 npm install
+cd ..
 
-cd ../factlink-chrome-extension
+cd factlink-chrome-extension
 ./build_manifest.sh
+cd ..
+
+cd factlink-js-library
+git submodule init
+git submodule update
+make all
+cd ..
