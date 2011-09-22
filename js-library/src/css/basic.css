@@ -147,12 +147,14 @@ div#fl-prepare ul li > span > a {
   font: inherit;
   vertical-align: baseline;
   padding: 2px 18px;
-  line-height: 20px;
+  line-height: 14px;
+  display: block;
   border-radius: 1px;
   font-family: "Helvetica", Arial, sans-serif;
 }
-div#fl-prepare ul li > span > a:hover {
+div#fl-prepare ul li > span > a:hover, div#fl-prepare ul li > span > a.test {
   border-top: solid 1px #5853EA;
+  padding: 1px 18px 2px;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #605df5), color-stop(0, #3600e6));
   color: #fff;
 }

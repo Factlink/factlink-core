@@ -1,3 +1,1 @@
-build/smoosh = [git]git://github.com/fat/smoosh.git
-build/jshint = [git]git://github.com/jshint/jshint.git
 build/easyXDM = [git]https://github.com/oyvindkinsey/easyXDM.git
