@@ -97,7 +97,7 @@ class Fact < Basefact
     puts "Fact#evidence -- No evidence found for type '#{type}'"
   end
 
-  def add_evidence(type, evidence, user)    
+  def add_evidence(type, evidence, user)
     # Some extra loop protection
     if evidence.id == self.id
       puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
@@ -176,13 +176,9 @@ class Fact < Basefact
   def get_evidence_opinion(depth=0)
     if depth > 0
       self.calculate_evidence_opinion(depth)
-    end    
+    end
     self.evidence_opinion || Opinion.identity
   end
-
-
-
-
 
   value_reference :opinion, Opinion
   def calculate_opinion(depth=0)

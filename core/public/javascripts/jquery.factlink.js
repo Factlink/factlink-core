@@ -157,7 +157,7 @@
     init: function(options) {
       return this.each(function() {
         var $t = $(this);
-        $t.data("facts",  []);
+        $t.data("facts",  {});
         // TODO this needs major cleanup 
         function toggleEvidence() {
           $t.find(".potential-evidence").toggle(); // Shows the add panel
@@ -193,7 +193,9 @@
           });
         }
         $t.find("article.fact").each(function() {
-          $t.data("facts").push(init_fact(this, $t));
+          var fact = init_fact(this, $t);
+          $t.data("facts")[fact.attr("data-fact-id")] = fact;
+
         });
 
         // Prevents boxes from dissapearing on mouse over
@@ -211,9 +213,7 @@
         //var facts = $t.data("facts") || $t.data("container").data("facts"); 
        $(data).each(function() { 
           $d = this;
-          $t.find("article[data-fact-id=" + this.id + "]").each(function() {
-            $(this).data("update")($d.score_dict_as_percentage); // Update all the facts 
-          });
+          $t.data("facts")[$d.id].data("update")($d.score_dict_as_percentage); // Update the facts
         });
       }
     },
@@ -300,7 +300,6 @@
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
-
       $t.data("update", function(data) {
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {
