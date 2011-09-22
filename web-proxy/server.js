@@ -143,6 +143,7 @@ function render_page(pagename) {
 		  locals: {
 			  static_url: STATIC_URL,
 			  proxy_url: PROXY_URL,
+				core_url: API_LOCATION,
 			  url: req.query.url
 		  }
 	  });
