@@ -71,8 +71,10 @@ a {
 .icon {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
+  position: relative;
+  top: 3px;
 }
 span.proxyWindow {
   display: none;
@@ -105,15 +107,19 @@ div.modal span.proxyWindow {
 span.triangle-up {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
-  background: url('/images/arrow2_n.png') no-repeat;
+  position: relative;
+  top: 3px;
+  background: url('/images/arrow2_e.png') no-repeat;
 }
 span.triangle-down {
   display: inline-block;
   margin-right: 5px;
-  height: 10px;
+  height: 15px;
   width: 15px;
+  position: relative;
+  top: 3px;
   background: url('/images/arrow2_s.png') no-repeat !important;
 }
 .boxed {
@@ -311,7 +317,7 @@ span.triangle-down {
   height: 36px;
 }
 .fact-block .evidence-facts .evidence-actions a {
-  line-height: 22px;
+  line-height: 26px;
 }
 .fact-block .evidence-facts article.fact {
   -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
