@@ -22,6 +22,7 @@ set :use_sudo,    false
 # Repository
 set :scm, :git
 set :repository,  "git@codebasehq.com:factlink/factlink/factlink-js-library.git"
+set :git_enable_submodules, 1
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
@@ -40,11 +41,13 @@ ssh_options[:forward_agent] = true
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
 
+after "deploy", "deploy:build"
+
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
   
   task :build do
-    run "cd #{current_dir}; make"
+    run "cd #{current_path}; make"
   end
   
 #   task :start do ; end

@@ -43,7 +43,7 @@ ${DIST_DIR}:
 
 factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS} modules
 
-${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules jslint
+${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	@@echo "Building" ${Factlink}
 
 	@@cat ${MODULES} | \
