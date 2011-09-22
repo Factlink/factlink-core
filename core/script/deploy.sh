@@ -8,7 +8,9 @@ else
   stage="$1"
 fi
 
-
+echo "Usage: sh deploy.sh [stage]"
+echo "Default stage: testserver"
+echo "Available stages: testserver, production"
 
 
 echo "\n"
@@ -17,18 +19,18 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "\nDeploying"
 
-		# cd factlink-core
+		cd factlink-core
 		cap $stage deploy
-
+		
 		cd ../factlink-js-library
 		cap $stage deploy
-
+		
 		cd ../factlink-chrome-extension
 		cap $stage deploy
-
+		
 		cd ../web-proxy
 		cap $stage deploy
-
+		
 		echo "\nDeployed to $stage environment."
 		exit 0
 else
