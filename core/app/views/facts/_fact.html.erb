@@ -15,17 +15,17 @@
   <% else %>
     <%= fact_bubble(fact) %>
   <% end %>
-  <div class="evidence-facts">
-    <div class="evidence-actions">
-      <% if fact.fact_relations.count < 1 and user_signed_in? %>
-        <a href="#" class="show-add"><span class="triangle-up"></span>Add evidence</a>
-      <% else %>
-        <a href="#" class="show-evidence"><span class="triangle-up"></span>Evidence (<%= fact.evidence_count %>)</a>
-      <% end %>
-    </div>
-    <div class="evidence-container" style="display: none">
-      <div class="evidence">
-        <table class="evidence-list">
+  
+  <div class="evidence-actions">
+    <ul class="evidence">
+      <li><a class="evidence-for">Evidence for this</a></li>
+      <li><a class="for-evidence">This is evidence for</a></li>
+    </ul>
+  </div>
+  <div class="evidence-container" style="display: none">
+    <div class="evidence-list">
+    <div class="tab_content" rel="evidence-for">
+      <table>
           <tbody>
             <% unless fact.fact_relations.count > 0 %>
               <tr class="no-evidence"><td>
@@ -45,19 +45,14 @@
           </tbody>
         </table>
       </div>
-      <div class="potential-evidence" style="display: none">
-        <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
-      </div>
-
-			<% if user_signed_in? %>
-      <div class="add-action do-add">
-        <a href"#" id="toggle-show-add">Add evidence</a>
-      </div>
-			<% end %>
-
-      <div class="add-action do-show" style="display:none;">
-        <a href"#" id="toggle-show-add">Show evidence</a>
+      <div class="tab_content" rel="for-evidence">
+      Integer vitae orci eget sem varius egestas sit amet nec erat. Proin ante ligula, rhoncus non congue id, pulvinar varius libero. Sed consectetur fringilla tristique. Pellentesque at augue a nunc placerat sollicitudin. Maecenas ornare volutpat elit, at fringilla arcu hendrerit auctor
       </div>
     </div>
+    <% if user_signed_in? %>
+      <div class="add-action do-add">
+        <a href"#" id="toggle-show-add">Add Fact</a>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -158,33 +158,30 @@
       return this.each(function() {
         var $t = $(this);
         $t.data("facts",  {});
-        // TODO this needs major cleanup 
-        function toggleEvidence() {
-          $t.find(".potential-evidence").toggle(); // Shows the add panel
-          $t.find(".evidence").toggle(); // Hides the current evidence
-          $t.find(".add-action.do-add").toggle();
-          $t.find(".add-action.do-show").toggle();
-        }
         if (!$t.data("initialized")) {
-          $t.find(".evidence-facts a.show-evidence").live("click", function() {
-            $t.find(".evidence-container").slideToggle();
-            $t.find(".triangle-up").toggleClass("triangle-down");
-            return false;
-          });
-          $t.find(".show-add").live("click", function() {
-            if($t.find(".potential-evidence").is(":hidden")) { 
-              $t.find(".potential-evidence").show();
-              $t.find(".evidence").hide();
+          /* from http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
+          $t.find(".tab_content").hide(); //Hide all content
+          
+          //On Click Event
+          $t.find("ul.evidence li").click(function() {
+            $t.find(".tab_content").hide(); //Hide all tab content
+            var activeTab = $(this).find("a").attr("class"); 
+            $t.find("div[rel='" + activeTab + "']").show();
+            if($t.find(".evidence-container").is(":hidden")) { 
+              $t.find(".evidence-container").slideDown();
+              $(this).addClass("active"); //Add "active" class to selected tab
+            } else { 
+              if($(this).hasClass("active")) { 
+                $t.find(".evidence-container").slideUp(function() {
+                  $t.find("ul.evidence li").removeClass("active");
+                }); 
+              } else { 
+                $t.find("ul.evidence li").removeClass("active"); 
+                $(this).addClass("active"); //Add "active" class to selected tab
+              }
             }
-            $t.find(".evidence-container").slideToggle();
-            $t.find(".triangle-up").toggleClass("triangle-down");
-            return false;
+              return false;
           });
-          $t.find(".add-action a#toggle-show-add").live("click", function() {
-            toggleEvidence();
-            return false;
-          });
-          // For each fact bubble
           $t.data("initialized", true);
         }
         function stop_fade(t) {
@@ -209,6 +206,7 @@
     },
     update: function(data) {
       $t = $(this).data("container") || $(this);
+      console.log($t.data("initialized"));
       if($t.data("initialized")) { 
         //var facts = $t.data("facts") || $t.data("container").data("facts"); 
        $(data).each(function() { 
@@ -301,6 +299,7 @@
         gravity: 's'
       });
       $t.data("update", function(data) {
+        console.log("ik kom hier");
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);
