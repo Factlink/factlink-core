@@ -172,13 +172,15 @@ class FactsController < ApplicationController
     type = params[:type].to_sym
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
-    render :json => [@fact.get_opinion(2).as_percentages]
+    @fact.calculate_opinion(2)
+    render :json => [@fact]
   end
 
-  def remove_opinions   
-      @fact = Basefact[params[:fact_id]]
-      @fact.remove_opinions(current_user.graph_user)
-      render :json => [@fact.get_opinion(2).as_percentages]
+  def remove_opinions
+    @fact = Basefact[params[:fact_id]]
+    @fact.remove_opinions(current_user.graph_user)
+    @fact.calculate_opinion(2)
+    render :json => [@fact]
   end
 
   # Search in the client popup.  

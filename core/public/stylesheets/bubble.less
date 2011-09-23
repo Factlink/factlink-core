@@ -17,6 +17,13 @@ a:hover {text-decoration:underline; cursor:pointer;}
 a { 
   color: @dark-blue;
 }
+.icon { 
+    display: inline-block;
+    margin-right: 5px;
+    height: 15px; width: 15px;
+		position: relative;
+		top: 3px;
+}
 
 span.proxyWindow { 
   display: none;
@@ -42,6 +49,14 @@ div.modal {
     display: inline !important;
   }
 }
+span.triangle-up { 
+  .icon;
+  background: url('/images/arrow2_e.png') no-repeat;
+}
+span.triangle-down { 
+  .icon;
+  background: url('/images/arrow2_s.png') no-repeat !important;
+}
 .boxed { 
   padding: 0;
   border: solid 1px #ddd;
@@ -57,9 +72,10 @@ div.modal {
 
 .fact-block:hover > article.fact .actions { 
   visibility: visible;
+	overflow: visible;
 }
 
-.fact-block { 
+.fact-block {	
   .boxed;
   background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
   color: #BBB;
@@ -74,7 +90,8 @@ div.modal {
     padding: 10px 0 10px 5px;
     min-height: 83px;
     width: 490px;
-    display: block;   
+    display: block;
+
     header {
 			margin-top: 6px;
 	
@@ -189,32 +206,63 @@ div.modal {
     }
   }
   .evidence-options { 
-    background: url("/images/shadowLeft2.png") no-repeat right center transparent;
+    /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
       .relevance-options {
         width: 42px;
         white-space: nowrap;
         text-shadow: none;
-        ul li {
-         padding-bottom: 8px;
-         padding-left: 2px;
-         a.active { 
-          color: @dark-blue;
-         } 
-          a {
-            color: #666363;
-            &:hover { 
-              color: @red; 
-            }
-          }
-        }
+        ul { 
+					-webkit-transition: all 0.35s ease-out;
+					margin-top: 12px;
+					
+					span {
+						color: #666;
+					}
+					
+					&:hover {
+/*						margin-left: -72px;*/
+					}
+					
+					li {						
+						color: #888;
+						text-align: center;
+						text-shadow: 0px 0px 1px #fff;
+						line-height: 24px;
+						
+						height: 16px;
+						width: 100px;
+
+						border: solid 1px #d8d8d8;
+						border-radius: 3px;
+	
+        		padding-bottom: 8px;
+        		padding-left: 2px;
+
+						margin-bottom: 10px;
+						
+						.gradient(#F5F5F5, #EEE, #FFF);
+						
+						&:hover {
+							cursor: pointer;
+						}
+						
+						&.active {
+							.gradient(#F5F5F5, #e8e8e8, #ccc);
+							border: solid 1px #ccc;
+							color: #555;
+							
+							box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
+						}
+        	}
+				}
       }
       &:hover { 
         z-index: 400;
       }
     }
-  .evidence-facts { 
+  .evidence-facts { 	
     text-align: center; 
     .add-action {
       height: 25px;
@@ -234,15 +282,21 @@ div.modal {
       background: url('/images/client/filter-bar.png') repeat-x transparent;
       height: 36px;
       a {
-        line-height: 22px;
+        line-height: 26px;
       }
     }
+
     article.fact { 
+      .drop-shadow(-10px, 0px, 10px, 0.15);
       border-bottom: 1px solid #E4E4E4;
       width: 445px;
       text-align: left;
     }
     .evidence, .potential-evidence {
+			.evidence-list {
+				overflow: visible;
+			}
+	
       tr:nth-child(even) {
         article.fact {
           background-color: darken(#FBFAFA, 2%);
@@ -259,7 +313,8 @@ div.modal {
       min-height: 80px; 
       max-height: 200px;
       background-color: #FBFAFA;
-      overflow: auto;
+      overflow: scroll;
+			
       .no-evidence td { 
         width: 490px;  
         text-align: center;

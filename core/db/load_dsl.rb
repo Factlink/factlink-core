@@ -46,6 +46,7 @@ class LoadDsl
 
   def self.export_site(site)
     rv = "site \"#{quote_string(site.url)}\""
+    rv += "\n"
     rv
   end
 
@@ -84,7 +85,7 @@ class LoadDsl
   end
 
   def self.export_fact_relation(fact_relation)
-    "fact_relation \"#{quote_string(fact_relation.get_from_fact.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.get_to_fact.displaystring)}\"\n"
+    "fact_relation \"#{quote_string(fact_relation.get_from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.get_to_fact.data.displaystring)}\"\n"
   end
 
 
@@ -117,7 +118,7 @@ class LoadDsl
   end
 
   def self.export_activate_user(graph_user)
-    "user \"#{quote_string(graph_user.username)}\"\n"
+    "user \"#{quote_string(graph_user.user.username)}\"\n"
   end
 
 
@@ -179,7 +180,7 @@ class LoadDsl
   end
 
   def self.export_sub_channel(channel)
-    rv = "sub_channel \"#{quote_string(channel.created_by.username)}\", \"#{quote_string(channel.title)}\""
+    rv = "sub_channel \"#{quote_string(channel.created_by.user.username)}\", \"#{quote_string(channel.title)}\""
     rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
@@ -190,7 +191,7 @@ class LoadDsl
   end
 
   def self.export_add_fact(fact)
-    "add_fact \"#{quote_string(fact.displaystring)}\"\n"
+    "add_fact \"#{quote_string(fact.data.displaystring)}\"\n"
   end
 
   def del_fact(fact_string)

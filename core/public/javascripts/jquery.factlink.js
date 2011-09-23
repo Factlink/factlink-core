@@ -157,27 +157,34 @@
     init: function(options) {
       return this.each(function() {
         var $t = $(this);
-
-        function toggleEvidenceLabel() {
-          $t.find(".evidence").toggle();
-          $t.find(".potential-evidence").toggle();
+        $t.data("facts",  []);
+        // TODO this needs major cleanup 
+        function toggleEvidence() {
+          $t.find(".potential-evidence").toggle(); // Shows the add panel
+          $t.find(".evidence").toggle(); // Hides the current evidence
           $t.find(".add-action.do-add").toggle();
           $t.find(".add-action.do-show").toggle();
         }
         if (!$t.data("initialized")) {
           $t.find(".evidence-facts a.show-evidence").live("click", function() {
             $t.find(".evidence-container").slideToggle();
+            $t.find(".triangle-up").toggleClass("triangle-down");
             return false;
           });
-          $t.find(".shaw-add").live("click", function() {
+          $t.find(".show-add").live("click", function() {
+            if($t.find(".potential-evidence").is(":hidden")) { 
+              $t.find(".potential-evidence").show();
+              $t.find(".evidence").hide();
+            }
             $t.find(".evidence-container").slideToggle();
-            toggleEvidenceLabel();
+            $t.find(".triangle-up").toggleClass("triangle-down");
             return false;
           });
           $t.find(".add-action a#toggle-show-add").live("click", function() {
-            toggleEvidenceLabel();
+            toggleEvidence();
             return false;
           });
+          // For each fact bubble
           $t.data("initialized", true);
         }
         function stop_fade(t) {
@@ -185,6 +192,9 @@
             "opacity": "1"
           });
         }
+        $t.find("article.fact").each(function() {
+          $t.data("facts").push(init_fact(this, $t));
+        });
 
         // Prevents boxes from dissapearing on mouse over
         $t.find(".float-box").mouseover(function() { stop_fade($(this)); });
@@ -193,16 +203,23 @@
             $(this).delay(500).fadeOut("fast");
           }
         });
-
-        // For each fact bubble
-        $t.find("article.fact").each(function() {
-          init_fact(this);
-        });
       });
     },
+    update: function(data) {
+      $t = $(this).data("container") || $(this);
+      if($t.data("initialized")) { 
+        //var facts = $t.data("facts") || $t.data("container").data("facts"); 
+       $(data).each(function() { 
+          $d = this;
+          $t.find("article[data-fact-id=" + this.id + "]").each(function() {
+            $(this).data("update")($d.score_dict_as_percentage); // Update all the facts 
+          });
+        });
+      }
+    },
     switch_opinion: function(opinion) {
-      var fact = this;
-      var opinions = fact.data("wheel").opinions;
+      var fact = this,
+          opinions = fact.data("wheel").opinions;
       opinions.each(function() {
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
@@ -210,10 +227,7 @@
           if (!$(current_op).data("user-opinion")) {
             $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
-              opinions.each(function() {
-                data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
-              });
-              fact.data("wheel").update();
+              fact.factlink("update", data);
             });
           }
           else {
@@ -221,11 +235,8 @@
               type: "DELETE",
               url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
-                opinions.each(function() {
-                  data_attr(this, "value", data[0][$(this).data("opinions")].percentage);
-                });
                 data_attr(current_op, "user-opinion", false);
-                fact.data("wheel").update();
+                fact.factlink("update", data);
               }
             });
           }
@@ -270,10 +281,10 @@
     $(el).data(attr, data);
   }
 
-  function init_fact(fact) {
+  function init_fact(fact, container) {
     var $t = $(fact);
     if (!$t.data("initialized")) {
-
+      $t.data("container", container);
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
@@ -289,7 +300,18 @@
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
+
+      $t.data("update", function(data) {
+        var fact = $t; 
+        fact.data("wheel").opinions.each(function() {
+          data_attr(this, "value", data[$(this).data("opinions")].percentage);
+        });
+        fact.find(".authority span").text(data.authority);
+        fact.data("wheel").update();
+      });
+
       $t.data("initialized", true);
     }
+    return $t;
   }
 })(jQuery);
