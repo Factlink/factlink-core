@@ -40,14 +40,3 @@
 
 	</header>
 </article>
-
-<%= content_for :extra_javascript do %>
-
-	<script>
-	$('.edit').editable('<%= update_title_path %>', {
-		indicator : 'Saving...',
-		tooltip		: 'You can edit this title to place the fact in the correct context.'
-	});
-	</script>
-	
-<% end %>
