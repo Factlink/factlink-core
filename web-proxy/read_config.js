@@ -25,7 +25,6 @@ function read_conf(config_path, fs, env) {
 
     parsed_conf = merge_options(parsed_conf,file_conf);
   }
-  parsed_conf.static_server = parsed_conf['static'];
   return parsed_conf;
 }
 

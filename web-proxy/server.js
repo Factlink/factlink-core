@@ -26,11 +26,13 @@ global.config = require('./read_config').read_conf(config_path,fs,server.setting
 
 
 var PROXY_URL   = "http://"+global.config.proxy.hostname+':'+global.config.proxy.port;
-var STATIC_URL  = "http://"+global.config.static_server.hostname+':'+global.config.static_server.port;
+var STATIC_URL  = "http://"+global.config['static'].hostname+':'+global.config['static'].port;
 
 var API_LOCATION = global.config.core.hostname + ':'+global.config.core.port;
-var LIB_LOCATION = global.config.static_server.hostname +':'+global.config.static_server.port + "/lib";
+var LIB_LOCATION = global.config['static'].hostname +':'+global.config['static'].port + "/lib";
 
+console.info(LIB_LOCATION);
+console.info(STATIC_URL);
 
 var PORT         = parseInt(global.config.proxy.port,10);
 
@@ -151,9 +153,9 @@ function create_url(base,query){
         if (query.hasOwnProperty(key)){
             if (is_first === true) {
                 url += '?';
+                is_first = false;
             } else {
                 url += '&';
-                is_first = false;
             }
             url += encodeURIComponent(key);
             url += '=';
