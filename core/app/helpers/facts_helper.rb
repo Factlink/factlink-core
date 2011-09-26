@@ -32,6 +32,10 @@ module FactsHelper
 	                          :modal => modal}
   end
 
+  def proxy_scroll_url(fact)
+    return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
+  end
+
   def editable_title(fact)
     
     if user_signed_in? and (fact.created_by == current_user.graph_user)

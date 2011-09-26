@@ -21,10 +21,11 @@
 	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
 
 		<span class="body">
-			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
-      <br><sub>
-          <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_blank") %>
-		    </sub>
+			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= h fact.data.displaystring %></a>
+      <br>
+			<sub>
+      	<%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
+		  </sub>
     </span>
 		<% if user_signed_in? %>				
 		  <div class="actions">
