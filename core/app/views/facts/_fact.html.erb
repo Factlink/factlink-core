@@ -14,13 +14,14 @@
   <% else %>
     <%= fact_bubble(fact) %>
   <% end %>
-  
-  <div class="evidence-actions">
-    <ul class="evidence">
-      <li><a class="evidence-for">Evidence for this</a></li>
-      <li><a class="for-evidence">This is evidence for</a></li>
-    </ul>
-  </div>
+  <div style="height: 25px"> 
+    <div class="evidence-actions">
+      <ul class="evidence">
+        <li><a class="evidence-for">Evidence for this</a></li>
+        <li><a class="for-evidence">This is evidence for</a></li>
+      </ul>
+    </div>
+  </div> 
   <div class="evidence-container" style="display: none">
     <div class="evidence-list">
       <div class="evidence tab_content" rel="evidence-for">
@@ -48,9 +49,13 @@
           <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
         </div>
         <div class="evidence tab_content" rel="for-evidence">
+          <table>
+            <tbody>
           <%= render :partial => "/facts/partial/evidenced_bubble", 
                     :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-          %>
+                  %>
+            </tbody>
+          </table>
         </div>
         <div class="add-evidence tab_content" rel="for-evidence">
           <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>

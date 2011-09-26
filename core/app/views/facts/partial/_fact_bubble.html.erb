@@ -6,10 +6,11 @@
 
 		<span class="body">
 			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= fact.data.displaystring %></a>
-      <br><sub>
-          <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_top") %>
-		    </sub>
+      <br>
     </span>
+    <sub>
+      <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_top") %>
+		</sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>

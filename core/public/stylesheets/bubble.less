@@ -58,7 +58,7 @@ div.sign-in {
 div.modal {
   background: #FBFAFA;
   top: 40px;
-  .drop-shadow(15px, 15px, 15px, 0.2);
+  .drop-shadow(0px, 0px, 15px, 0.3);
   padding: 0;
   margin:  0 auto;
   width: 510px;
@@ -76,17 +76,8 @@ div.modal {
     display: inline !important;
   }
 }
-span.triangle-up { 
-  .icon;
-  background: url('/images/arrow2_n.png') no-repeat;
-}
-span.triangle-down { 
-  .icon;
-  background: url('/images/arrow2_s.png') no-repeat !important;
-}
 .boxed { 
   padding: 0;
-  border: solid 1px #ddd;
 	.rounded(3px);
 }
 .float { 
@@ -103,13 +94,14 @@ span.triangle-down {
 
 .fact-block { 
   .boxed;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;
+  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
   color: #BBB;
+  border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
- img.close { 
+  img.close { 
     margin: 5px;
   }
   article.fact {    
@@ -119,8 +111,7 @@ span.triangle-down {
     display: block;
     vertical-align: middle;
     header {
-			margin-top: 6px;
-	
+			margin: 6px 0 10px 75px;
 /*      border-right: 1px dotted #f0f0f0;
       &:hover { 
         border-right: 1px dotted @dark-blue;
@@ -128,9 +119,10 @@ span.triangle-down {
 
       padding-right: 20px;
       color: #333;
-      margin-left: 75px;
       sub {
         color: #AAA;
+        bottom: 0;
+        line-height: inherit;
         font-size: x-small;
       }
       .head { 
@@ -272,12 +264,7 @@ span.triangle-down {
     }
   }
   .evidence-actions {
-    position: relative;
-    z-index: 10;
-    margin: 0 0 -10px;
-    padding: 10px 0 0;
-    background: url('/images/client/filter-bar.png') repeat-x transparent;
-    height: 36px;
+    /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
     a {
       line-height: 32px;
     }
@@ -285,8 +272,11 @@ span.triangle-down {
   @border-color: #bbb;
   ul.evidence {
     float: left;
+    background-color: #FBFAFA;
     border-bottom: 1px solid @border-color;
+    margin-left: -1px;
     border-left: 1px solid @border-color;
+    border-right: 1px solid #ddd;
     margin-top: -10px;
     width: 100%;
   }
@@ -303,9 +293,9 @@ span.triangle-down {
     display: block;
     height: 32px;
     padding: 0 20px; 
+    color: #666363;
     border: 1px solid transparent;
-    outline: none;
-  }
+ }
   ul.evidence li a:hover {
     background: #eee;
   }	
@@ -315,7 +305,7 @@ span.triangle-down {
   }
   .evidence-container {
     background-color: #fff;
-    border: 1px solid @border-color;
+    /* border: 1px solid @border-color;*/
     border-top: none;
     clear: both;
     width: 100%;
@@ -327,7 +317,7 @@ span.triangle-down {
       border-top: 1px solid #E4E4E4;
       position: relative;
       z-index: 20;
-      background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+      /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
     }
   }
   .evidence-options { 

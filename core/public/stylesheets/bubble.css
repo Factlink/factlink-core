@@ -107,9 +107,9 @@ div.sign-in {
 div.modal {
   background: #FBFAFA;
   top: 40px;
-  -webkit-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
-  box-shadow: 15px 15px 15px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -129,23 +129,8 @@ div.modal span.close {
 div.modal span.proxyWindow {
   display: inline !important;
 }
-span.triangle-up {
-  display: inline-block;
-  margin-right: 5px;
-  height: 10px;
-  width: 15px;
-  background: url('/images/arrow2_n.png') no-repeat;
-}
-span.triangle-down {
-  display: inline-block;
-  margin-right: 5px;
-  height: 10px;
-  width: 15px;
-  background: url('/images/arrow2_s.png') no-repeat !important;
-}
 .boxed {
   padding: 0;
-  border: solid 1px #ddd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -164,12 +149,13 @@ span.triangle-down {
 }
 .fact-block {
   padding: 0;
-  border: solid 1px #ddd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background: url("/images/client/top-pane-gradient.png") top left repeat-x #f4f4f4;
+  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
+
   color: #BBB;
+  border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
@@ -186,7 +172,7 @@ span.triangle-down {
   vertical-align: middle;
 }
 .fact-block article.fact header {
-  margin-top: 6px;
+  margin: 6px 0 10px 75px;
   /*      border-right: 1px dotted #f0f0f0;
       &:hover { 
         border-right: 1px dotted @dark-blue;
@@ -194,10 +180,11 @@ span.triangle-down {
 
   padding-right: 20px;
   color: #333;
-  margin-left: 75px;
 }
 .fact-block article.fact header sub {
   color: #AAA;
+  bottom: 0;
+  line-height: inherit;
   font-size: x-small;
 }
 .fact-block article.fact header .head {
@@ -240,7 +227,6 @@ span.triangle-down {
 }
 .fact-block article.fact .channel-listing {
   padding: 0;
-  border: solid 1px #ddd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -299,7 +285,6 @@ span.triangle-down {
 }
 .fact-block .opinion-box {
   padding: 0;
-  border: solid 1px #ddd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -344,20 +329,19 @@ span.triangle-down {
   background: #9d9d9c;
 }
 .fact-block .evidence-actions {
-  position: relative;
-  z-index: 10;
-  margin: 0 0 -10px;
-  padding: 10px 0 0;
-  background: url('/images/client/filter-bar.png') repeat-x transparent;
-  height: 36px;
+  /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
+
 }
 .fact-block .evidence-actions a {
   line-height: 32px;
 }
 .fact-block ul.evidence {
   float: left;
+  background-color: #FBFAFA;
   border-bottom: 1px solid #bbbbbb;
+  margin-left: -1px;
   border-left: 1px solid #bbbbbb;
+  border-right: 1px solid #ddd;
   margin-top: -10px;
   width: 100%;
 }
@@ -375,8 +359,8 @@ span.triangle-down {
   display: block;
   height: 32px;
   padding: 0 20px;
+  color: #666363;
   border: 1px solid transparent;
-  outline: none;
 }
 .fact-block ul.evidence li a:hover {
   background: #eee;
@@ -387,7 +371,8 @@ span.triangle-down {
 }
 .fact-block .evidence-container {
   background-color: #fff;
-  border: 1px solid #bbbbbb;
+  /* border: 1px solid @border-color;*/
+
   border-top: none;
   clear: both;
   width: 100%;
@@ -400,7 +385,8 @@ span.triangle-down {
   border-top: 1px solid #E4E4E4;
   position: relative;
   z-index: 20;
-  background: #f0f0f0 url('/images/client/bottom-pane-gradient.png') repeat-x;
+  /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
+
 }
 .fact-block .evidence-options {
   position: relative;
