@@ -218,10 +218,11 @@
       });
     },
     update: function(data) {
-      $t = $(this).data("container") || $(this);
+      var $t = $(this).data("container") || $(this);
+      var $d = data;
       if($t.data("initialized")) { 
         //var facts = $t.data("facts") || $t.data("container").data("facts"); 
-       $(data).each(function() { 
+       $($d).each(function() { 
           $t.data("facts")[this.id].data("update")(this.score_dict_as_percentage); // Update the facts
         });
       }
