@@ -156,20 +156,24 @@
     // Initialize factbubble
     init: function(options) {
       return this.each(function() {
+        function stop_fade(t) {
+          t.stop(true, true).css({
+            "opacity": "1"
+          });
+        }
         var $t = $(this);
         $t.data("facts",  {});
         if (!$t.data("initialized")) {
-          /* from http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
-          $t.find(".tab_content").hide(); //Hide all content
-          
+          /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
+          $t.find(".tab_content").hide();
           //On Click Event
           $t.find("ul.evidence li").click(function() {
-            $t.find(".tab_content").hide(); //Hide all tab content
+            $t.find(".tab_content").hide(); 
             var activeTab = $(this).find("a").attr("class"); 
-            $t.find("div[rel='" + activeTab + "']").show();
+            $t.find("div.evidence[rel='" + activeTab + "']").show();
             if($t.find(".evidence-container").is(":hidden")) { 
               $t.find(".evidence-container").slideDown();
-              $(this).addClass("active"); //Add "active" class to selected tab
+              $(this).addClass("active"); 
             } else { 
               if($(this).hasClass("active")) { 
                 $t.find(".evidence-container").slideUp(function() {
@@ -177,17 +181,21 @@
                 }); 
               } else { 
                 $t.find("ul.evidence li").removeClass("active"); 
-                $(this).addClass("active"); //Add "active" class to selected tab
+                $(this).addClass("active");
               }
             }
               return false;
           });
+
+          $t.find("a.do-add").bind("click", function() { 
+            var active = $t.find(".tab_content:visible").attr("rel");
+            $t.find(".add-evidence[rel=" + active + "]").toggle();
+            $t.find(".evidence[rel=" + active + "]").toggle();
+            $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
+            
+          });  
+
           $t.data("initialized", true);
-        }
-        function stop_fade(t) {
-          t.stop(true, true).css({
-            "opacity": "1"
-          });
         }
         $t.find("article.fact").each(function() {
           var fact = init_fact(this, $t);
@@ -206,12 +214,10 @@
     },
     update: function(data) {
       $t = $(this).data("container") || $(this);
-      console.log($t.data("initialized"));
       if($t.data("initialized")) { 
         //var facts = $t.data("facts") || $t.data("container").data("facts"); 
        $(data).each(function() { 
-          $d = this;
-          $t.data("facts")[$d.id].data("update")($d.score_dict_as_percentage); // Update the facts
+          $t.data("facts")[this.id].data("update")(this.score_dict_as_percentage); // Update the facts
         });
       }
     },
@@ -299,7 +305,6 @@
         gravity: 's'
       });
       $t.data("update", function(data) {
-        console.log("ik kom hier");
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);

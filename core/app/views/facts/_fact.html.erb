@@ -24,34 +24,40 @@
   </div>
   <div class="evidence-container" style="display: none">
     <div class="evidence-list">
-    <div class="tab_content" rel="evidence-for">
-      <table>
-          <tbody>
-            <% unless fact.fact_relations.count > 0 %>
-              <tr class="no-evidence"><td>
-                <% if user_signed_in? %>
-                  Perhaps you know something that supports or weakens this fact?
-                <% else %>
-                  There are no facts supporting or weakening this fact at the moment.
-                <% end %>
-              </td></tr>
-            <% else %>
-              <tr><td>
-                <%= render :partial => "/facts/partial/fact_bubble", 
-                  :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-                %>
-              </td></tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-      <div class="tab_content" rel="for-evidence">
-      Integer vitae orci eget sem varius egestas sit amet nec erat. Proin ante ligula, rhoncus non congue id, pulvinar varius libero. Sed consectetur fringilla tristique. Pellentesque at augue a nunc placerat sollicitudin. Maecenas ornare volutpat elit, at fringilla arcu hendrerit auctor
-      </div>
+      <div class="evidence tab_content" rel="evidence-for">
+        <table>
+            <tbody>
+              <% unless fact.fact_relations.count > 0 %>
+                <tr class="no-evidence"><td>
+                  <% if user_signed_in? %>
+                    Perhaps you know something that supports or weakens this fact?
+                  <% else %>
+                    There are no facts supporting or weakening this fact at the moment.
+                  <% end %>
+                </td></tr>
+              <% else %>
+                <tr><td>
+                  <%= render :partial => "/facts/partial/fact_bubble", 
+                    :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+                  %>
+                </td></tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="add-evidence tab_content" rel="evidence-for">
+          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+        </div>
+        <div class="evidence tab_content" rel="for-evidence">
+        Integer vitae orci eget sem varius egestas sit amet nec erat. Proin ante ligula, rhoncus non congue id, pulvinar varius libero. Sed consectetur fringilla tristique. Pellentesque at augue a nunc placerat sollicitudin. Maecenas ornare volutpat elit, at fringilla arcu hendrerit auctor
+        </div>
+        <div class="add-evidence tab_content" rel="for-evidence">
+          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+        </div>
     </div>
     <% if user_signed_in? %>
-      <div class="add-action do-add">
-        <a href"#" id="toggle-show-add">Add Fact</a>
+      <div class="add-action">
+        <a href"#" class="do-add">Add Fact</a>
       </div>
     <% end %>
   </div>

@@ -117,7 +117,8 @@ span.triangle-down {
     padding: 10px 0 10px 5px;
     min-height: 83px;
     width: 490px;
-    display: block;   
+    display: block;
+    vertical-align: middle;
     header {
 			margin-top: 6px;
 	
@@ -125,7 +126,7 @@ span.triangle-down {
       &:hover { 
         border-right: 1px dotted @dark-blue;
       }*/
-      display: block;
+
       padding-right: 20px;
       color: #333;
       margin-left: 75px;
@@ -136,9 +137,9 @@ span.triangle-down {
       .head { 
         font-weight: 100;
 
-        font-family: Georgia, "Times New Roman", Garamond, serif;
-				font-size: 0.9em;
-				color: #aaa;
+        /* font-family: Georgia, "Times New Roman", Garamond, serif;*/
+				/* font-size: 0.9em;*/
+				color: #444;
 
 				padding: 6px 0;
 				display: block;
@@ -220,7 +221,6 @@ span.triangle-down {
   .wheel { 
     float: left;  
     width: 65px;
-    height: 60px;
     svg { 
       width: 65px;
       height: 60px;
@@ -360,6 +360,30 @@ span.triangle-down {
       text-align: center;
       height: 150px;
       vertical-align: middle;
+    }
+      .add-evidence { 
+      min-height: 150px;
+      .search {
+    		border-bottom: solid 1px #ddd;
+    		padding: 2px 12px 5px;
+    		line-height: 28px;
+    		background: rgb(251, 250, 250);
+    		input[type="text"] {
+    		  padding: 2px 4px !important;
+    		  font-size: 8pt;
+    			border-radius: 3px;
+    			border: solid 1px #ccc;
+    			width: 380px; height: 18px;
+    			&:active, &:focus {
+    			  outline: solid 1px @dark-blue;
+    			}
+    		}
+    		input[type="submit"] {
+					margin: 4px;
+    		  vertical-align: middle;
+    			width: 64px;
+    		}			
+    	}
     }
   }
 }
