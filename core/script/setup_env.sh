@@ -5,13 +5,15 @@ git clone -b develop git@codebasehq.com:factlink/factlink/factlink-js-library.gi
 git clone -b develop git@codebasehq.com:factlink/factlink/web-proxy.git
 
 ln -s factlink-core/config config
-gem install bundle
+gem install bundler
 
 cd factlink-core
 bundle install
 rake db:migrate
 cd ..
 
+
+npm install jslint -g
 cd web-proxy
 npm install
 cd ..
