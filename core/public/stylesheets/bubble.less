@@ -317,6 +317,7 @@ span.triangle-down {
   }
   .evidence-container {
     background-color: #fff;
+    position: relative;
     border: 1px solid @border-color;
     border-top: none;
     clear: both;
@@ -333,6 +334,7 @@ span.triangle-down {
     }
   }
   .evidence-options { 
+    position: relative;
     /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
@@ -340,6 +342,8 @@ span.triangle-down {
         width: 42px;
         white-space: nowrap;
         text-shadow: none;
+        z-index: 10
+        position: relative;
         ul { 
 					-webkit-transition: all 0.35s ease-out;
 					margin-top: 12px;
@@ -357,7 +361,7 @@ span.triangle-down {
 						text-align: center;
 						text-shadow: 0px 0px 1px #fff;
 						line-height: 24px;
-						
+					  position: relative;	
 						height: 16px;
 						width: 100px;
 
@@ -365,7 +369,7 @@ span.triangle-down {
 						border-radius: 3px;
         		padding-bottom: 8px;
         		padding-left: 2px;
-						margin-bottom: 10px;
+				    margin-bottom: 10px;
 						.gradient(#F5F5F5, #EEE, #FFF);
 						
 						&:hover {
@@ -388,8 +392,10 @@ span.triangle-down {
   
   .evidence-list {
     min-height: 80px;
+    position: relative;
     max-height: 200px;
-    overflow: auto;    
+    overflow-y: scroll;
+    overflow-x: hidden;
     tr:nth-child(even) {
       article.fact {
         background-color: darken(#FBFAFA, 2%);
@@ -402,6 +408,8 @@ span.triangle-down {
     }
     td { 
       article.fact { 
+        .drop-shadow(-10px, 0px, 10px, 0.15);      
+        position:relative;
         border-bottom: 1px solid #E4E4E4;
         width: 445px;
         text-align: left;

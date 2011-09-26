@@ -193,9 +193,15 @@
             $t.find(".evidence[rel=" + active + "]").toggle();
             $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
             
-          });  
-
-          $t.data("initialized", true);
+          }); 
+          // Evidence buttons
+          $t.find('.evidence_button').bind('click', function() {
+            var el = $(this);
+            var url = el.data('action-url');
+            // Push opinion to server
+            $t.factlink("set_evidence", el, url);
+         });
+         $t.data("initialized", true);
         }
         $t.find("article.fact").each(function() {
           var fact = init_fact(this, $t);
@@ -263,7 +269,25 @@
           fact_id: fact
         }
       });
-    }
+    },
+    // Evidence 
+    set_evidence: function(el, url) { 
+      // TODO refactor to get this functionality out of the rails link_to helper
+      // link_to now generates a link for either setting the opinion on a relation or creating new evidence (seperate funct) 
+      $.ajax({
+        url: url,
+        dataType: "script",
+        type: "POST",
+        success: function(){			
+          el.closest('ul').children().removeClass("active");
+          el.addClass('active');
+        },
+        error: function(data) {
+          console.log('There was a problem setting the user opinion:' + data );
+        }
+      });
+    },
+
   };
 
   $.fn.factlink = function(method) {
@@ -304,6 +328,7 @@
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
+      // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $t.data("update", function(data) {
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {

@@ -1,6 +1,5 @@
-<% channel ||= nil %>
 <% modal ||= nil %>
-
+<% channel ||= nil %>
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if channel and user_signed_in? %>
     <%= link_to(
@@ -57,7 +56,7 @@
     </div>
     <% if user_signed_in? %>
       <div class="add-action">
-        <a href"#" class="do-add">Add Fact</a>
+        <a href"#" class="do-add">Add facts</a>
       </div>
     <% end %>
   </div>

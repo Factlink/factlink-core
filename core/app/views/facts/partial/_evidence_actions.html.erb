@@ -38,32 +38,6 @@
 		<% end %>
   <% end %>
   </ul>
-
-<%= content_for :javascript do %>
-<script>
-	$('.evidence_button').live('click', function() {
-		var el = $(this);
-		var url = el.data('action-url');
-
-		// Push opinion to server
-		$.ajax({
-		  url: url,
-			dataType: "script",
-			type: "POST",
-		  success: function(){			
-				console.log('Jupz, we did it!');
-				el.closest('ul').children().removeClass("active");
-				el.addClass('active');
-		  },
-			error: function() {
-				console.log('There was a problem setting the user opinion');
-			}
-		});
-
-	});
-</script>
-<% end %>
-
 <div>
 </td><td>
 
