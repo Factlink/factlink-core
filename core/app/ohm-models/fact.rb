@@ -63,6 +63,10 @@ class Fact < Basefact
     FactRelation.find(:from_fact_id => self.id).all
   end
   
+  def evidenced_facts
+    evidenced_factrelations.map{|f| f.fact }
+  end
+  
   def self.by_display_string(displaystring)
     fd = FactData.where(:displaystring => displaystring)
     if fd.count > 0
