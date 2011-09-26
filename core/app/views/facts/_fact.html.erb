@@ -36,7 +36,7 @@
                 </td></tr>
               <% else %>
                 <tr><td>
-                  <%= render :partial => "/facts/partial/fact_bubble", 
+                  <%= render :partial => "/facts/partial/evidence_bubble", 
                     :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                   %>
                 </td></tr>
@@ -48,7 +48,9 @@
           <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
         </div>
         <div class="evidence tab_content" rel="for-evidence">
-        Integer vitae orci eget sem varius egestas sit amet nec erat. Proin ante ligula, rhoncus non congue id, pulvinar varius libero. Sed consectetur fringilla tristique. Pellentesque at augue a nunc placerat sollicitudin. Maecenas ornare volutpat elit, at fringilla arcu hendrerit auctor
+          <%= render :partial => "/facts/partial/evidenced_bubble", 
+                    :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+          %>
         </div>
         <div class="add-evidence tab_content" rel="for-evidence">
           <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>

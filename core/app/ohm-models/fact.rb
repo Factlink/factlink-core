@@ -58,6 +58,10 @@ class Fact < Basefact
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
+
+  def evidenced_factrelations
+    FactRelation.find(:from_fact_id => self.id).all
+  end
   
   def self.by_display_string(displaystring)
     fd = FactData.where(:displaystring => displaystring)
