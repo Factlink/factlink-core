@@ -118,8 +118,9 @@
               "left": e.clientX + 25 + "px"
             }).fadeIn("fast");
           },
+          timeout: 500,
           out: function() {
-            $(w.fact).find("." + $t.data("opinion") + "-box").delay(600).fadeOut("fast");
+            $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
           }
         });
       });
@@ -195,7 +196,7 @@
             
           }); 
           // Evidence buttons
-          $t.find('.evidence_button').bind('click', function() {
+          $t.find('.evidence_button').live('click', function() {
             // Push opinion to server
             $t.factlink("set_evidence", $(this));
          });
@@ -327,9 +328,10 @@
           "top": e.clientY  + 10 + "px",
           "left": e.clientX - 30 + "px"
         }).fadeIn("fast");
-      }, function() {
+      }, 500, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");
       });
+
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
