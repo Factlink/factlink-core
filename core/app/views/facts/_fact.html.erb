@@ -48,6 +48,10 @@
           <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
         </div>
         <div class="evidence tab_content" rel="for-evidence">
+          <%= render :partial => "/facts/partial/fact_bubble", 
+            :collection => fact.evidenced_facts, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+          %>
+
         Integer vitae orci eget sem varius egestas sit amet nec erat. Proin ante ligula, rhoncus non congue id, pulvinar varius libero. Sed consectetur fringilla tristique. Pellentesque at augue a nunc placerat sollicitudin. Maecenas ornare volutpat elit, at fringilla arcu hendrerit auctor
         </div>
         <div class="add-evidence tab_content" rel="for-evidence">
