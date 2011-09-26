@@ -31,7 +31,7 @@ cd ..
 cd factlink-chrome-extension
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\nv\n" | git flow init
-	./build_manifest.sh
+	./release_repo.sh
 cd ..
 
 cd factlink-js-library
