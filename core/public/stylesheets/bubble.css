@@ -152,7 +152,7 @@ span.triangle-down {
 }
 .float {
   background-color: #f7f7f7;
-  z-index: 1000;
+  z-index: 2000;
   display: none;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
@@ -245,7 +245,7 @@ span.triangle-down {
   -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
-  z-index: 1000;
+  z-index: 2000;
   display: none;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
@@ -304,7 +304,7 @@ span.triangle-down {
   -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #f7f7f7;
-  z-index: 1000;
+  z-index: 2000;
   display: none;
   -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
@@ -369,7 +369,6 @@ span.triangle-down {
   /* background: #e0e0e0;*/
 
   overflow: hidden;
-  position: relative;
 }
 .fact-block ul.evidence li a {
   text-decoration: none;
@@ -388,7 +387,6 @@ span.triangle-down {
 }
 .fact-block .evidence-container {
   background-color: #fff;
-  position: relative;
   border: 1px solid #bbbbbb;
   border-top: none;
   clear: both;
@@ -434,7 +432,6 @@ span.triangle-down {
   text-align: center;
   text-shadow: 0px 0px 1px #fff;
   line-height: 24px;
-  position: relative;
   height: 16px;
   width: 100px;
   border: solid 1px #d8d8d8;
@@ -462,7 +459,6 @@ span.triangle-down {
 }
 .fact-block .evidence-list {
   min-height: 80px;
-  position: relative;
   max-height: 200px;
   overflow-y: scroll;
   overflow-x: hidden;

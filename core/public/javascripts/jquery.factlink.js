@@ -114,11 +114,10 @@
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).css({
-              "top": e.clientY - 25 + "px",
-              "left": e.clientX + 25 + "px"
+              "top": e.pageY - 25 + "px",
+              "left": e.pageX + 25 + "px"
             }).fadeIn("fast");
           },
-          timeout: 500,
           out: function() {
             $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
           }
@@ -325,10 +324,10 @@
       $t.find("a.add-to-channel").hoverIntent(function(e) {
         channelList = $t.find(".channel-listing");
         $(channelList).css({
-          "top": e.clientY  + 10 + "px",
-          "left": e.clientX - 30 + "px"
+          "top": e.pageY  + 10 + "px",
+          "left": e.pageX - 30 + "px"
         }).fadeIn("fast");
-      }, 500, function() {
+      }, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");
       });
 
