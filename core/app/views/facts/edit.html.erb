@@ -6,4 +6,28 @@
 	</script>
 <% end %>
 
-<%= render :template => "facts/show" %>
+<%#= render :template => "facts/show" %>
+
+<div style="padding: 4px; background: #fff; border-radius: 5px;">
+
+	<div style="padding: 4px;">
+		<h1>Fact added</h1>
+	</div>
+
+	<div id="brr" style="background: #bada55; padding: 4px; border-radius: 5px;">		
+		<a href="#">Add evidence</a>
+	</div>
+</div>
+
+
+<%= content_for :javascript do %>
+
+	<script>
+		// Override defaults for positioning
+		$(".modal").css({
+			'top': 400,
+			'width': 100
+		});
+	</script>
+	
+<% end %>

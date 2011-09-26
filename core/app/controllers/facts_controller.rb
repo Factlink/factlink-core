@@ -1,6 +1,5 @@
 class FactsController < ApplicationController
 
-
   layout "client"
   
   helper_method :sort_column, :sort_direction
