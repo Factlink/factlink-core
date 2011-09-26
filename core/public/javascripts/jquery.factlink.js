@@ -5,6 +5,7 @@
       this.opinions = $(fact).find(".opinion");
       this.params = $.extend(params, {
         "dim": 24,
+        "radius" : 17,
         "default_stroke": {
           "opacity": 0.3,
           "stroke": 9
@@ -75,7 +76,7 @@
 
     Wheel.prototype.update = function() {
       var w = this;
-      w.set_opinions(w.opinions, 0, 16, 360);
+      w.set_opinions(w.opinions, 0, w.params.radius, 360);
     };
 
     Wheel.prototype.bind_events = function(op) {
@@ -146,7 +147,7 @@
           path: path
         };
       };
-      w.set_opinions(this.opinions, 0, 16, 360);
+      w.set_opinions(this.opinions, 0, w.params.radius, 360);
       w.bind_events(this.opinions);
     };
     return Wheel;
@@ -273,6 +274,7 @@
       // TODO refactor to get this functionality out of the rails link_to helper
       // link_to now generates a link for either setting the opinion on a relation or creating new evidence (seperate funct) 
       var url = el.data('action-url');
+      console.log(el);
       $.ajax({
         url: url,
         dataType: "script",

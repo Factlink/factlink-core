@@ -154,9 +154,9 @@ span.triangle-down {
   background-color: #f7f7f7;
   z-index: 2000;
   display: none;
-  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
 }
 .fact-block:hover > article.fact .actions {
@@ -247,9 +247,9 @@ span.triangle-down {
   background-color: #f7f7f7;
   z-index: 2000;
   display: none;
-  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
   width: 200px;
 }
@@ -306,9 +306,9 @@ span.triangle-down {
   background-color: #f7f7f7;
   z-index: 2000;
   display: none;
-  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
   position: fixed;
   width: 150px;
