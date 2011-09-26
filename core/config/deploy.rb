@@ -42,12 +42,12 @@ namespace :deploy do
     # run set_conf_path + "cd /applications/factlink-js-library/ && git checkout #{branch} && git pull origin #{branch}"
 
     # Update the static files
-    run set_conf_path + "cd /applications/factlink-chrome-extension/ && git checkout #{branch} && git pull origin #{branch} && ./release_repo.sh"
+    # run set_conf_path + "cd /applications/factlink-chrome-extension/ && git checkout #{branch} && git pull origin #{branch} && ./release_repo.sh"
     
     # Update the Proxy
     # don't use && chained with killall
     # TODO we should add a proper workaround
-    run set_conf_path + "cd /applications/web-proxy && git checkout #{branch} && git pull origin #{branch} && killall forever ; killall node ; NODE_ENV=testserver forever start server.js "
+    # run set_conf_path + "cd /applications/web-proxy && git checkout #{branch} && git pull origin #{branch} && killall forever ; killall node ; NODE_ENV=testserver forever start server.js "
     
   end
   
@@ -62,7 +62,4 @@ before 'deploy:all', 'deploy'
 after 'deploy:all', 'deploy:restart'
 
 after "deploy", "deploy:migrate"
-
-
-
 

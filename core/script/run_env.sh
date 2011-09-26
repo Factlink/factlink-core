@@ -1,8 +1,8 @@
 #!/bin/bash
 cd web-proxy
 npm install
-cd ../factlink-core
 
+cd ../factlink-core
 mkdir -p log
 cd log
 touch development.log
