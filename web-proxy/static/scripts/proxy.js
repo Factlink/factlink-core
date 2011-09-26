@@ -84,7 +84,7 @@ window.FactlinkConfig = {
     api: window.FACTLINK_API_LOCATION,
     lib: window.FACTLINK_LIB_LOCATION,
     url: window.FACTLINK_REAL_URL,
-    scrollto : 7
+    scrollto :  window.FACTLINK_SCROLL_TO
 };
 
 var
@@ -109,7 +109,9 @@ var
             '//' + window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime()
+        ],
+        [
             '//' + window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime()
         ]
     ],
