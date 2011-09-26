@@ -1,35 +1,69 @@
 </td><td class="evidence-options">
+
   <div class="relevance-options">
     <ul>
   <% if user_signed_in? %>
 	  <%  if defined?(add_to_fact) and add_to_fact %>
-          <li><%= link_to('supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true, :class => "" )%></li>
-          <li><%= link_to('weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true, :class => "" )%><li>
+					<span>Add as:</span>
+          <li class="evidence_button"><%= link_to('supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true)%></li>
+          <li class="evidence_button"><%= link_to('weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true)%></li>
     <% elsif defined?(fact_relation) and fact_relation %>
       <% if fact_relation.type.to_sym == :supporting %> 
+
         <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => " active", :method => "post" )%></li>
-          <li><%= link_to('not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "", :method => "post" )%><li>
+          <li class="evidence_button active" data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Supporting</li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not supporting</li>
         <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "", :method => "post" )%></li>
-          <li><%= link_to('not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => " active", :method => "post" )%><li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Supporting</li>
+          <li class="evidence_button active" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not supporting</li>
         <% else %>
-          <li><%= link_to('supporting'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => " ", :method => "post" )%></li>
-          <li><%= link_to('not supporting'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "", :method => "post" )%><li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Supporting</li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not supporting</li>
         <% end %>
+
       <% elsif fact_relation.type.to_sym == :weakening %>
+
         <% if current_user.graph_user.opinion_on(fact_relation) == :beliefs %> 
-          <li><%= link_to('weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => " active", :method => "post" )%></li>
-          <li><%= link_to('not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "", :method => "post" )%><li>
+          <li class="evidence_button active" data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Weakening</li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not weakening</li>
         <% elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs %>
-          <li><%= link_to('weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => "", :method => "post" )%></li>
-          <li><%= link_to('not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => " active", :method => "post" )%><li>
+          <li class="evidence_button"  data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Weakening</li>
+          <li class="evidence_button active" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not weakening</li>
         <% else %>
-          <li><%= link_to('weakening'.html_safe, set_opinion_path(fact_relation.id,:beliefs), :remote => true, :class => " ", :method => "post" )%></li>
-          <li><%= link_to('not weakening'.html_safe,	set_opinion_path(fact_relation.id,:disbeliefs),  :remote => true, :class => "", :method => "post" )%><li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:beliefs) %>">Weakening</li>
+          <li class="evidence_button" data-action-url="<%= set_opinion_path(fact_relation.id,:disbeliefs) %>">Not weakening</li>
         <% end %>
+
     <% end %> 
 		<% end %>
   <% end %>
-  </ul><div>
-  </td><td>
+  </ul>
+
+<%= content_for :javascript do %>
+<script>
+	$('.evidence_button').live('click', function() {
+		var el = $(this);
+		var url = el.data('action-url');
+
+		// Push opinion to server
+		$.ajax({
+		  url: url,
+			dataType: "script",
+			type: "POST",
+		  success: function(){			
+				console.log('Jupz, we did it!');
+				el.closest('ul').children().removeClass("active");
+				el.addClass('active');
+		  },
+			error: function() {
+				console.log('There was a problem setting the user opinion');
+			}
+		});
+
+	});
+</script>
+<% end %>
+
+<div>
+</td><td>
+
