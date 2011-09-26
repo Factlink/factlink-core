@@ -59,8 +59,8 @@ class Fact < Basefact
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
 
-  def evidenced_facts
-    FactRelation.find(:from_fact_id => self.id).all.map {|x| x.fact }
+  def evidenced_factrelations
+    FactRelation.find(:from_fact_id => self.id).all
   end
   
   def self.by_display_string(displaystring)
