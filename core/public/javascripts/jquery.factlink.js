@@ -196,10 +196,8 @@
           }); 
           // Evidence buttons
           $t.find('.evidence_button').bind('click', function() {
-            var el = $(this);
-            var url = el.data('action-url');
             // Push opinion to server
-            $t.factlink("set_evidence", el, url);
+            $t.factlink("set_evidence", $(this));
          });
          $t.data("initialized", true);
         }
@@ -271,9 +269,10 @@
       });
     },
     // Evidence 
-    set_evidence: function(el, url) { 
+    set_evidence: function(el) { 
       // TODO refactor to get this functionality out of the rails link_to helper
       // link_to now generates a link for either setting the opinion on a relation or creating new evidence (seperate funct) 
+      var url = el.data('action-url');
       $.ajax({
         url: url,
         dataType: "script",
