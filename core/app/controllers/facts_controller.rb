@@ -183,7 +183,7 @@ class FactsController < ApplicationController
   end
 
   # Search in the client popup.  
-  def client_search
+  def evidence_search
     # Need fact for rendering in the template
     @fact = Fact[params[:fact_id].to_i]
 

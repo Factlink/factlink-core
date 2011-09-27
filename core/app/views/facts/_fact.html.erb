@@ -56,13 +56,13 @@
           </table>
         </div>
         <div class="add-evidence tab_content" rel="for-evidence">
-          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+          <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
         </div>
+        <% if user_signed_in? %>
+          <div class="add-action">
+            <a href"#" class="do-add">Add facts</a>
+          </div>
+        <% end %>
     </div>
-    <% if user_signed_in? %>
-      <div class="add-action">
-        <a href"#" class="do-add">Add facts</a>
-      </div>
-    <% end %>
   </div>
 </div>
