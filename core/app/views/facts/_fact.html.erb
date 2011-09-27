@@ -9,11 +9,7 @@
     )
     %>
   <% end %>
-  <% if modal %>
-    <%= fact_bubble(fact, nil, modal) %>
-  <% else %>
-    <%= fact_bubble(fact) %>
-  <% end %>
+  <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact, :modal => modal,}  %>
   <div style="height: 25px"> 
     <div class="evidence-actions">
       <ul class="evidence">
@@ -52,9 +48,9 @@
           <table>
             <tbody>
               <tr><td>
-              <%= render :partial => "/facts/partial/evidenced_bubble", 
+                <%= render :partial => "/facts/partial/evidenced_bubble", 
                     :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-                  %>
+                %>
               </td></tr>
             </tbody>
           </table>

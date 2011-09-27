@@ -24,14 +24,6 @@ module FactsHelper
 	            :locals => {  :fact => fact, :channel => channel, :modal => modal }
   end
   
-  def fact_bubble(fact,add_to_fact=nil,modal=nil) 
-    render :partial => "/facts/partial/fact_bubble", 
-	            :locals => {  :fact => fact,
-	                          :add_to_fact => add_to_fact,
-	                          :fact_relation => nil,
-	                          :modal => modal}
-  end
-
   def proxy_scroll_url(fact)
     return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
   end

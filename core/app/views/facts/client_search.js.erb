@@ -6,7 +6,7 @@ $('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<tr><td><%=
 	
 <% else %>
 	<% @facts.each do |evidence| %>
-  $('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/fact_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %></td></tr>");
+  $('div.fact-block[data-fact-id=<%=@fact.id%>] .search-list').append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/new_evidence_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %></td></tr>");
 	<% end %>
 	$('div.fact-block[data-fact-id=<%=@fact.id%>]').factlink();
 <% end %>
