@@ -193,7 +193,6 @@
             $t.find(".add-evidence[rel=" + active + "]").toggle();
             $t.find(".evidence[rel=" + active + "]").toggle();
             $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
-            
           }); 
           // Evidence buttons
           $t.find('.evidence_button').live('click', function() {

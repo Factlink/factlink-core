@@ -7,13 +7,10 @@
 		<span class="body">
 			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= h fact.data.displaystring %></a>
       <br>
-			<sub>
-      	<%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
-		  </sub>
-    </span>
+   </span>
     <sub>
-      <%= link_to("#{h fact.pretty_url}", fact.site.url, :target => "_top") %>
-		</sub>
+      <%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
+    </sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>

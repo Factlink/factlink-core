@@ -51,9 +51,11 @@
         <div class="evidence tab_content" rel="for-evidence">
           <table>
             <tbody>
-          <%= render :partial => "/facts/partial/evidenced_bubble", 
+              <tr><td>
+              <%= render :partial => "/facts/partial/evidenced_bubble", 
                     :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                   %>
+              </td></tr>
             </tbody>
           </table>
         </div>
