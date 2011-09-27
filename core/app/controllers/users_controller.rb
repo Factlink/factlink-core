@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
 
     if @user      
-      @activities = @user.graph_user.activities.sort(:order => "DESC")      
+      @activities = @user.graph_user.activities.sort(:order => "DESC")
       respond_to do |format|
         format.html # show.html.erb
         format.js   # show.js.erb

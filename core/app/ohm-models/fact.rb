@@ -25,20 +25,6 @@ class Fact < Basefact
 
   reference :data, lambda { |id| FactData.find(id) }
   
-  def require_data # dit ook doen met zo'n aftercreategebeuren    
-    if not self.data_id
-      localdata = FactData.new
-      localdata.save    # FactData now has an ID
-      self.data = localdata
-      if self.save
-        localdata.fact_id = self.id
-        localdata.save
-      else
-        raise StandardException, "the object could not be saved, but this is required before a require_data can be executed"
-      end
-    end
-  end
-  
   def require_saved_data
     if not self.data_id
       localdata = FactData.new
@@ -52,8 +38,8 @@ class Fact < Basefact
     self.data.save
   end
   
-  before :save, :require_saved_data
-  after :save, :set_own_id_on_saved_data
+  before :create, :require_saved_data
+  after :create, :set_own_id_on_saved_data
 
 
   set :supporting_facts, FactRelation
@@ -80,12 +66,7 @@ class Fact < Basefact
   def to_hash
     super.merge(:_id => id, :displaystring => self.data.displaystring, :score_dict_as_percentage => get_opinion.as_percentages)
   end
-  
-  deprecate
-  def fact_relations_ids
-    fact_relations.map { |fr| fr.id }
-  end
-  
+
   def fact_relations
     supporting_facts | weakening_facts
   end

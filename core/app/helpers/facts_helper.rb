@@ -34,9 +34,13 @@ module FactsHelper
       return " edit"
     else
       return ""
+    end 
+  end
+  
+  def show_evidence(bool)
+    unless bool
+      return 'style="display: none"'.html_safe
     end
-    
-    
   end
 
   def evidence_buttons_locals(fact_relation, user)
