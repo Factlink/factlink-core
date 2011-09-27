@@ -1,21 +1,5 @@
-<%
-  if defined?(fact_relation) and fact_relation and not defined?(fact)
-  fact = fact_relation.from_fact
-  end
-  if defined?(fact_relation) and fact_relation
-%>
-  <%= render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :fact_relation => fact_relation } %>
-<% elsif defined?(add_to_fact) and add_to_fact %>
-  <%=  render :partial => "facts/partial/evidence_actions", :locals => { :fact => fact , :add_to_fact => add_to_fact } %>
-<% end %>
-
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
-	<% if defined?(fact_relation) and fact_relation %>
-    <!-- <%= fact_relation.type.to_s %> -->
-    <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact , :fact_relation => fact_relation }%>
-  <% else %>
-    <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
-  <% end %>
+  <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
 	<header>
 
 	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
@@ -23,10 +7,10 @@
 		<span class="body">
 			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= h fact.data.displaystring %></a>
       <br>
-			<sub>
-      	<%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
-		  </sub>
-    </span>
+   </span>
+    <sub>
+      <%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
+    </sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>
@@ -41,14 +25,3 @@
 
 	</header>
 </article>
-
-<%= content_for :javascript do %>
-
-	<script>
-	$('.edit').editable('<%= update_title_path %>', {
-		indicator : 'Saving...',
-		tooltip		: 'You can edit this title to place the fact in the correct context.'
-	});
-	</script>
-	
-<% end %>

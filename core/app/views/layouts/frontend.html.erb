@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/bubble.css">
 	<link rel="stylesheet" href="/stylesheets/grid.css">
+
+	<link rel="stylesheet" href="/stylesheets/jquery-ui-1.8.16.custom.css">
   <!-- end CSS-->
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -32,7 +34,7 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="/javascripts/modernizr-2.0.6.min.js"></script>
+  <%= javascript_include_tag "modernizr-2.0.6.min" %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -102,27 +104,27 @@
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
-
 	
   <!-- Change UA-XXXXX-X to be your site's ID -->
-  <script>
+  <!-- <script>
     window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
     Modernizr.load({
       load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
     });
-  </script>
-  <script src="/javascripts/jquery.hoverIntent.minified.js"></script>
-  <script src="/javascripts/jquery-ui-1.8.16.custom.min.js"></script>
-  <script src="/javascripts/disablewith.js"></script>
-  <script src="/javascripts/raphael-min.js"></script>
-  <script src="/javascripts/jquery.tipsy.js"></script>
-  <script src="/javascripts/jquery.factlink.js"></script>
-	<script src="/javascripts/jquery.jeditable.mini.js"></script>
-
+  </script> -->
+  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
+  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
+  <%= javascript_include_tag "disablewith" %>
+  <%= javascript_include_tag "raphael-min" %>
+  <%= javascript_include_tag "jquery.tipsy" %>
+  <%= javascript_include_tag "jquery.factlink" %>
+  <%= javascript_include_tag "jquery.jeditable.mini" %>
+  <%= javascript_include_tag "underscore.js" %>
+  <%= javascript_include_tag "backbone.js" %>
 	
 	<script>
 		// get the facts

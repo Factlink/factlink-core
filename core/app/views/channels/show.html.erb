@@ -1,30 +1,8 @@
-<% content_for :header do %>
-
-<% end %>
-
-
-<% content_for :left_column do %>
-  <%= user_block(@user) %>
-  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
-<% end %>
-
-
-
 <% content_for :main_column do %>
 	
 	<%= fact_listing_for_channel(@channel) %>
 	
 <% end %>
-
-<% content_for :right_column do %>
-	
-	<% if @user.graph_user.activities.count > 0 %>
-	    <%= activity_list_for_user(@user.graph_user.activities, 20)%>
-	<% end%>
-	
-<% end %>
-
-
 
 <% content_for :javascript do %>
 

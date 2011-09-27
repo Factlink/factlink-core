@@ -111,6 +111,15 @@ class OurOhm < Ohm::Model
       value.key.sunionstore(key[name]) #copy
     end
   end
+  
+  def update_attributes!(attrs)
+    self.update_attributes(attrs)
+    valid = valid?
+    
+    save if valid
+    
+    valid
+  end
 
 
   alias save! save

@@ -9,17 +9,19 @@
 	    <% end %>
   	<% end %>
   </h1>
-	<p><%= channel.description %></p>
+	<p>
+	  <%= channel.description %>
+	</p>
 </header>
 
 
 <% unless channel.facts.count > 0 %>
 	<p>There are no facts in this channel...</p>
 <% else %>
-<!-- fact listing -->
-<ul id="results-listing">
-	<% channel.facts.sort(:order => "DESC").each do |fact| %>
-		<li><%=	fact_snippet(fact, channel) %></li>
-	<% end %>
-</ul>
+  <!-- fact listing -->
+  <ul id="results-listing">
+  	<% channel.facts.sort(:order => "DESC").each do |fact| %>
+  		<li><%=	fact_snippet(fact, channel) %></li>
+  	<% end %>
+  </ul>
 <% end %>

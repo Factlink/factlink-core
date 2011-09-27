@@ -1,20 +1,3 @@
-<!-- header -->
-<% content_for :header do %>
-
-<% end %>
-
-
-<!-- left column -->
-<% content_for :left_column do %>
-	
-	<ul>
-		<%= user_block(@user) %>
-	</ul>
-  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
-
-<% end %>
-
-
 <!-- main column -->
 <% content_for :main_column do %>
 
