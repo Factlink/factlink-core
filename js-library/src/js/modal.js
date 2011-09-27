@@ -32,7 +32,7 @@
   // Object which holds the methods that can be called from the intermediate iframe
   // These methods are also used by the internal scripts and can be called through
   // Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
-  Factlink.modal = {
+  Factlink.modal = {	
     hide: function() {
       unbindClick();
       iFrame.hide();
