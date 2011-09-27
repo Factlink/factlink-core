@@ -4,8 +4,8 @@
     "id": "factlink-modal-frame"
   }).appendTo('body');
 
-  Factlink.showInfo = function(el) {
-    Factlink.remote.showFactlink(el.getAttribute("data-factid"), function ready() {
+  Factlink.showInfo = function(el, showEvidence) {
+    Factlink.remote.showFactlink(el.getAttribute("data-factid"), showEvidence, function ready() {
       Factlink.modal.show.method();
     });
   };
@@ -17,7 +17,7 @@
     var modusHandler = (function() {
       return {
         default: function() {
-          Factlink.showInfo(self);
+          Factlink.showInfo(el=self, showEvidence=false);
         }, 
         addToFact: function() {
           Factlink.prepare.show(e.pageX, e.pageY);

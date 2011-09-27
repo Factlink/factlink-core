@@ -1,3 +1,15 @@
+/*---------------------------------------------------
+		Some LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
+/*-----------------------------------------------------*/
 span.factlink {
   cursor: pointer;
   -webkit-transition: all 0.4s ease-in-out;
@@ -93,15 +105,69 @@ div#factlink-indicator ul li.fl-bar-denies div {
   background: #ff6136;
   height: 100%;
 }
-div#fl-prepare {
-  display: none;
+.popup-style {
   z-index: 13371337;
+  background: #fff;
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
+  border-radius: 5px;
+  border-top: 1px solid #c8c8c8;
+  font-size: 9pt;
+  font-family: "Helvetica", Arial, sans-serif;
   vertical-align: baseline;
+  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+}
+div.fl-popup {
+  z-index: 13371337;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  border-top: 1px solid #c8c8c8;
+  font-size: 9pt;
+  font-family: "Helvetica", Arial, sans-serif;
+  vertical-align: baseline;
+  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+  text-align: center;
+  padding: 4px;
+}
+div.fl-popup .button {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #45bf55), color-stop(1, #93ec87));
+  background: -moz-linear-gradient(center bottom, #45bf55 0%, #93ec87 100%);
+  display: block;
+  padding: 0px 6px;
+  border: solid 1px #45bf55;
+  border-radius: 2px;
+  text-shadow: 0px 1px 1px #fff;
+  height: 24px;
+}
+div.fl-popup .button:hover {
+  cursor: pointer;
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #93ec87), color-stop(1, #45bf55));
+  background: -moz-linear-gradient(center bottom, #93ec87 0%, #45bf55 100%);
+}
+div.fl-popup .button:active {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #72cc64), color-stop(1, #3ca648));
+  background: -moz-linear-gradient(center bottom, #72cc64 0%, #3ca648 100%);
+}
+div#fl-prepare {
+  z-index: 13371337;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  border-top: 1px solid #c8c8c8;
+  font-size: 9pt;
+  font-family: "Helvetica", Arial, sans-serif;
+  vertical-align: baseline;
+  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+  display: none;
 }
 div#fl-prepare ul {
   color: #000;
@@ -115,16 +181,10 @@ div#fl-prepare ul {
   font-family: "Helvetica", Arial, sans-serif;
 }
 div#fl-prepare ul li {
-  border: solid 1px #C8C8C8;
-  border-top: none;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
   position: relative;
-  background-color: #fff;
   white-space: nowrap;
   margin: 0;
   border: 0;
-  font-size: 100%;
-  font: inherit;
   vertical-align: baseline;
   padding: 2px 0px;
   cursor: pointer;
@@ -134,7 +194,6 @@ div#fl-prepare ul li {
 div#fl-prepare ul li.first {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  border-top: 1px solid #C8C8C8;
 }
 div#fl-prepare ul li.last {
   border-bottom-left-radius: 5px;

@@ -1,5 +1,6 @@
 (function(Factlink) {
     var timeout;
+    var popupTimeout;
     // Function which will return the Selection object
     //@TODO: Add rangy support for IE
     // Load the needed prepare menu & put it in a container
@@ -50,16 +51,49 @@
           e.preventDefault();
 
           Factlink.submitSelection(e.currentTarget.id, function(factId) {
-            // Factlink.remote.position(e.pageY, e.pageX, $(window).scrollTop());
-            
-            var el = $('<div/>').html("factId: " + factId).appendTo("body");
-            el.css({ 'border': "solid 2px red", 'background': '#e6007e', "z-index": "10000", 'width': "140", 'height': '40' })
-            Factlink.positionFrameToCoord(el, e.pageX, e.pageY);
-            
+            showFactAddedPopup(factId, e.pageX, e.pageY);
           });
           
-          $element.hide();
+          // Hide the fl-prepare context menu
+          $element.fadeOut('fast');
         });
+    }
+
+    function showFactAddedPopup(factId, x, y) { 
+      // Create `add evidence` popup after succesful addition of the fact.            
+      var popup = $('<div/>')
+                  .addClass('fl-popup')
+                  .html("Fact added. <span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(\"fast\");' >Add evidence?</span>")
+                  .appendTo("body");
+                  
+      // Position popup on mouse position
+      Factlink.positionFrameToCoord(popup, x, y, true);
+
+      // Close the popup when clicked outside the area
+      $( document ).bind('click', function(e) {
+        if( $(e.target).is('body') )
+          popup.fadeOut('fast');
+      });
+      
+      // Start the timout to hide the popup after a while
+      $('.fl-popup').hover(
+        function(){ 
+          // handlerIn
+          console.log('Clearing timeout');
+          clearTimeout(popupTimeout);
+        },
+        function(){
+          // handlerOut
+          console.log('Setting timeout');
+          startTimer();
+        }
+      );
+
+      function startTimer() {
+        popupTimeout = setTimeout("$('.fl-popup').fadeOut('slow');", 3600);
+      }
+
+      startTimer()
     }
 
     function getTextRange() {
@@ -98,25 +132,37 @@
 
     // This method will position a frame at the coordinates, either the left-top or
     // the right-top will be placed at x,y (preferably left-top)
-    Factlink.positionFrameToCoord = function($frame, x, y) {
-        if ($(window).width() < (x + $frame.outerWidth(true) - $(window).scrollLeft())) {
-            x -= $frame.outerWidth(true);
-            
-            console.log("outerWIdth: " + $frame.outerWidth(true));
-        }
+    Factlink.positionFrameToCoord = function($frame, x, y, centered) {      
+      
+      // First, set `absolute` so width can be determined
+      $frame.css({
+        position: 'absolute'
+      });
 
-        if ($(window).height() < (y + $frame.outerHeight(true) - $(window).scrollTop())) {
-            y -= $frame.outerHeight(true);
-            
-            console.log("outerHEight: " + $frame.outerHeight(true));
-        }
-        console.log("-------");
-        console.log(x + ", " + y);
-        $frame.css({
-            position: 'absolute',
-            top: y + 'px',
-            left: x + 'px'
-        });
+      if ($(window).width() < (x + $frame.outerWidth(true) - $(window).scrollLeft())) {
+          x -= $frame.outerWidth(true);
+          
+          // console.log("outerWIdth: " + $frame.outerWidth(true));
+      }
+
+      if ($(window).height() < (y + $frame.outerHeight(true) - $(window).scrollTop())) {
+          y -= $frame.outerHeight(true);
+          
+          // console.log("outerHEight: " + $frame.outerHeight(true));
+      }
+      
+      // Position the middle of the frame at the mouse pointer\
+      // in stead of the top left corner
+      if ( centered === true ) {
+        x = x - ( $frame.outerWidth(true) / 2 );
+        y = y - ( $frame.outerHeight(true) / 2 );
+      }
+      
+      // Position the frame
+      $frame.css({
+          top: y + 'px',
+          left: x + 'px'
+      });
     };
 
     Factlink.prepare = {
@@ -129,7 +175,7 @@
 
             Factlink.positionFrameToCoord($prepare, x, y);
 
-            $prepare.show();
+            $prepare.fadeIn('fast');
         },
         setFactId: function(factId) {
             this.factId = factId;
@@ -140,30 +186,29 @@
     };
 
     // Bind the actual selecting
-    $('body').bind('mouseup',
-    function(e) {
-        window.clearTimeout(timeout);
+    $('body').bind('mouseup', function(e) {
+      window.clearTimeout(timeout);
 
-        if ($prepare.is(':visible')) {
-            $prepare.hide();
-            Factlink.prepare.resetFactId();
-        }
+      if ($prepare.is(':visible')) {
+          $prepare.hide();
+          Factlink.prepare.resetFactId();
+      }
 
-        Factlink.positionFrameToCoord($prepare, e.pageX, e.pageY);
+      Factlink.positionFrameToCoord($prepare, e.pageX, e.pageY);
 
-        // We execute the showing of the prepare menu inside of a setTimeout
-        // because of selection change only activating after mouseup event call.
-        // Without this hack there are moments when the prepare menu will show
-        // without any text being selected
-        timeout = setTimeout(function() {
-            // Retrieve all needed info of current selection
-            var selectionInfo = Factlink.getSelectionInfo();
+      // We execute the showing of the prepare menu inside of a setTimeout
+      // because of selection change only activating after mouseup event call.
+      // Without this hack there are moments when the prepare menu will show
+      // without any text being selected
+      timeout = setTimeout(function() {
+          // Retrieve all needed info of current selection
+          var selectionInfo = Factlink.getSelectionInfo();
 
-            // Check if the selected text is long enough to be added
-            if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
-                $prepare.show();
-            }
-        },
-        100);
+          // Check if the selected text is long enough to be added
+          if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
+              $prepare.fadeIn('fast');
+          }
+      },
+      100);
     });
 })(window.Factlink);
