@@ -5,6 +5,9 @@ class HomeController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
+    if user_signed_in?
+        redirect_to user_profile_path(@current_user.username)
+    end
     @facts = Fact.all.sort(:order => "DESC",:limit => 10)
     @users = GraphUser.top(20).map { |gu| gu.user }
     @activities = []

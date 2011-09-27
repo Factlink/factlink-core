@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
 
     if session[:"user.return_to"].nil?
-      return "/"
+      return user_profile_path(@current_user.username)
     else
       return view_context.url_for(fact_path(session[:"user.return_to"].to_s))
     end

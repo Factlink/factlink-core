@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/bubble.css">
 	<link rel="stylesheet" href="/stylesheets/grid.css">
+
+	<link rel="stylesheet" href="/stylesheets/jquery-ui-1.8.16.custom.css">
   <!-- end CSS-->
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -59,7 +61,7 @@
 
 
   <div id="container" class="container">
-	
+
 		<!-- notification snippet -->
 		<div id="application-notification">
 			<% if notice %>
@@ -153,7 +155,6 @@
 	</script>
 	
 	<%= yield :javascript %>
-	<%= yield :extra_javascript %>
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->

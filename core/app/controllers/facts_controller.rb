@@ -1,6 +1,5 @@
 class FactsController < ApplicationController
 
-
   layout "client"
   
   helper_method :sort_column, :sort_direction
@@ -173,14 +172,14 @@ class FactsController < ApplicationController
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
 
   def remove_opinions
     @fact = Basefact[params[:fact_id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
 
   # Search in the client popup.  
