@@ -109,9 +109,9 @@ div.sign-in {
 div.modal {
   background: #FBFAFA;
   top: 40px;
-  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -172,7 +172,6 @@ div.modal span.proxyWindow {
   min-height: 83px;
   width: 490px;
   display: block;
-  vertical-align: middle;
 }
 .fact-block article.fact header {
   margin: 6px 0 10px 75px;
