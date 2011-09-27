@@ -44,6 +44,11 @@ class FactsController < ApplicationController
 
   def show
     @title = @fact.data.displaystring # The html <title>
+    if params[:showevidence] == "true"
+      @showEvidence = true
+    else
+      @showEvidence = false
+    end
   end
 
   def new

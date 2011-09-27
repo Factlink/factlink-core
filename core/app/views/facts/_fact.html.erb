@@ -23,7 +23,8 @@
         <a href="#" class="show-evidence"><span class="triangle-up"></span>Evidence (<%= fact.evidence_count %>)</a>
       <% end %>
     </div>
-    <div class="evidence-container" style="display: none">
+    
+    <div class="evidence-container" <%= show_evidence(@showEvidence) %>>
       <div class="evidence">
         <table class="evidence-list">
           <tbody>
@@ -45,7 +46,7 @@
           </tbody>
         </table>
       </div>
-      <div class="potential-evidence" style="display: none">
+      <div class="potential-evidence" style="display: none;">
         <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
       </div>
 
