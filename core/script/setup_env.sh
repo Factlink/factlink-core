@@ -7,6 +7,7 @@ git clone git@codebasehq.com:factlink/factlink/web-proxy.git
 ln -s factlink-core/config config
 gem install bundler
 npm install jslint -g
+npm install supervisor -g
 
 cd factlink-core
 	git checkout develop
