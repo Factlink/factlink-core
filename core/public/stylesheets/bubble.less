@@ -17,17 +17,9 @@ a:hover {text-decoration:underline; cursor:pointer;}
 a { 
   color: @dark-blue;
 }
-.icon { 
-    display: inline-block;
-    margin-right: 5px;
-    height: 15px; width: 15px;
-		position: relative;
-		top: 3px;
-}
-
 span.proxyWindow { 
   display: none;
-} 
+}
 iframe.proxyFrame {
   position: absolute;
   top: 10px;
@@ -60,7 +52,7 @@ div.sign-in {
 div.modal {
   background: #FBFAFA;
   top: 40px;
-  .drop-shadow(0px, 0px, 20px, 0.5);
+  .drop-shadow(0px, 0px, 25px, 0.7);
   padding: 0;
   margin:  0 auto;
   width: 510px;
@@ -92,7 +84,6 @@ div.modal {
 
 .fact-block:hover > article.fact .actions { 
   visibility: visible;
-	overflow: visible;
 }
 
 .fact-block {	
@@ -110,15 +101,11 @@ div.modal {
   article.fact {    
     padding: 10px 0 10px 5px;
     min-height: 83px;
-    width: 490px;
     display: block;
+    border-right: 1px solid #FBFAFA;
 
     header {
-			margin: 6px 0 10px 75px;
-/*      border-right: 1px dotted #f0f0f0;
-      &:hover { 
-        border-right: 1px dotted @dark-blue;
-      }*/
+			margin: 0 0 20px 75px;
 
       padding-right: 20px;
       color: #333;
@@ -312,38 +299,35 @@ div.modal {
     border-top: none;
     clear: both;
     width: 100%;
-    text-align: center;
     .add-action {
       height: 25px;
       padding: 5px;
+      text-align: center;
       line-height: 24px;
       border-top: 1px solid #E4E4E4;
-      position: relative;
-      z-index: 20;
+      /* position: relative;*/
+      /* z-index: 20;*/
       /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
     }
   }
   .evidence-options { 
-    position: relative;
     /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
+    position: relative;
       .relevance-options {
         width: 42px;
         white-space: nowrap;
         text-shadow: none;
-        z-index: 10
-        position: relative;
-        ul { 
+       ul { 
 					-webkit-transition: all 0.35s ease-out;
 					margin-top: 12px;
-					
 					span {
 						color: #666;
 					}
 					
 					&:hover {
-/*						margin-left: -72px;*/
+						/* margin-left: -72px;*/
 					}
 					
 					li {						
