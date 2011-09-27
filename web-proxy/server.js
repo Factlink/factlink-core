@@ -57,7 +57,6 @@ function injectFactlinkJs(html_in,site, scrollto){
     }
     set_urls+='</script>';
     load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-    console.info(set_urls + load_proxy_js);
 	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
 	return html;
 }
