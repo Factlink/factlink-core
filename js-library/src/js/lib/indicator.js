@@ -92,12 +92,8 @@ Factlink.Indicator = (function() {
         }, 
         // Set the opinions 
         setOpinions: function(believe, doubt, disbelieve) { 
-            el.find('li.fl-bar-proves').height( ( believe.percentage / 100 ) * 45); 
-            el.find('li.fl-bar-proves>div').width( believe.authority * 15); 
-            el.find('li.fl-bar-maybe').height( ( doubt.percentage / 100 ) * 45); 
-            el.find('li.fl-bar-maybe>div').width( doubt.authority * 15); 
-            el.find('li.fl-bar-denies').height( ( disbelieve.percentage / 100 ) * 45); 
-            el.find('li.fl-bar-denies>div').width( disbelieve.authority * 15); 
+            el.find('div').hide()
+            el.find('div.believe').show()
         } 
     }; 
 })();

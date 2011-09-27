@@ -85,11 +85,12 @@
     		            percentage: $( this ).attr('data-fact-disbelieve-percentage'), 
     		            authority: $( this ).attr('data-fact-disbelieve-authority') 
     		        });
+                    Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
   }
   var stop_highlighting_factlink = function(e) { 
       var fctID = $( this ).attr( 'data-factid' ); 
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
-     Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
+      $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
+      Factlink.Indicator.hide()
   }
   
   $( 'span.factlink' ).live( 'mouseenter', highlight_factlink)
