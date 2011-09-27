@@ -39,15 +39,8 @@ module FactsHelper
     
   end
 
-  def evidence_buttons(fact_relation, user)
+  def evidence_buttons_locals(fact_relation, user)
     locals = {  :fact_relation => fact_relation,}
-    if fact_relation.type.to_sym == :supporting 
-      locals[:positive_action] = "Supporting"
-      locals[:negative_action] = "Not supporting"
-    elsif fact_relation.type.to_sym == :weakening
-      locals[:positive_action] = "Weakening"
-      locals[:negative_action] = "Not weakening"
-    end
     if current_user.graph_user.opinion_on(fact_relation) == :beliefs
       locals[:positive_active] = ' active'
       locals[:negative_active] = ''
@@ -55,10 +48,32 @@ module FactsHelper
       locals[:positive_active] = ''
       locals[:negative_active] = ' active'
     end
+    locals
+  end
+
+  def evidenced_buttons(fact_relation, user)
+    locals = evidence_buttons_locals(fact_relation,user)
+    if fact_relation.type.to_sym == :supporting 
+      locals[:positive_action] = "Supports"
+      locals[:negative_action] = "Does not support"
+    elsif fact_relation.type.to_sym == :weakening
+      locals[:positive_action] = "Weakens"
+      locals[:negative_action] = "Does not weaken"
+    end
     render :partial => "/facts/partial/evidence_buttons", 
 	            :locals => locals
+  end
 
-    
-    
+  def evidence_buttons(fact_relation, user)
+    locals = evidence_buttons_locals(fact_relation,user)
+    if fact_relation.type.to_sym == :supporting 
+      locals[:positive_action] = "Supporting"
+      locals[:negative_action] = "Not supporting"
+    elsif fact_relation.type.to_sym == :weakening
+      locals[:positive_action] = "Weakening"
+      locals[:negative_action] = "Not weakening"
+    end
+    render :partial => "/facts/partial/evidence_buttons", 
+	            :locals => locals
   end
 end
