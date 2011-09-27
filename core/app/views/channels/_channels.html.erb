@@ -1,0 +1,40 @@
+<header>
+	<h1>Channels <%= add_channel(user) %></h1>
+</header>
+
+<% unless user.graph_user.channels.count > 0 %>
+	<p><%= user.username %> has no channels.</p>
+	
+	<% if user_signed_in? %>
+		<% if current_user == user %>
+			<p><%= link_to("create a new channel", new_channel_path(current_user.username)) %></p>
+		<% end %>
+	<% end %>
+
+<% else %>
+	<ul id="channel-listing">
+		
+		<li data-channel-id="user-stream" class="active" onclick="getFacts('<%= user_profile_path(user.username) %>');">
+			<article class="channel-block">
+				<div class="wrapper">
+
+		      <%= link_to image_tag(user.avatar, :width => 16, :class => "avatar"), user_profile_path(user.username) %>
+
+					<span style="vertical-align:middle;">All
+					    (<%= user.graph_user.stream.facts.count %>)</span>
+				</div>
+			</article>		
+		</li>
+		
+
+		<% user.graph_user.channels.each do |channel| %>
+			<%= render :partial => "home/snippets/channel_menu_item", 
+  	            :locals => {  :channel => channel, :user => user } %>
+		<% end %>
+
+	</ul>
+<% end %>
+
+<% content_for :main_column do %>
+
+<% end %>

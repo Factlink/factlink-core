@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   # layout "accounting"
-  layout "frontend"
+  layout "channels"
   
   before_filter :get_user
 
@@ -21,7 +21,7 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channel
   def index
-    @channels = @user.channels
+    @channels = @user.graph_user.channels
     @channel = @channels.first
   end
 
@@ -31,7 +31,7 @@ class ChannelsController < ApplicationController
 
   # GET /channels/new
   def new
-    @channel = Channel.new    
+    @channel = Channel.new
   end
 
   # GET /channels/1/edit
@@ -53,7 +53,7 @@ class ChannelsController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to(channel_path(@user.username, @channel.id), :notice => 'Channel successfully created') }
+        format.html { redirect_to(@channel, :notice => 'Channel successfully created') }
         format.js 
       end
       
@@ -64,17 +64,30 @@ class ChannelsController < ApplicationController
 
   # PUT /channels/1
   def update
-    
-    # Check if object valid, then execute:
-    if @channel.valid?
-      @channel.update_attributes(params[:channel])
-      @channel.save
-      redirect_to(channel_path(@user.username, @channel.id), :notice => 'Channel successfully updated')
-    else
-      render :action => "edit"
+    respond_to do |format|
+      if @channel.update_attributes!(params[:channel])
+        format.html  { redirect_to(@channel,
+                      :notice => 'Channel was successfully updated.') }
+        format.json  { render :json => {}, :status => :ok }
+      else
+        format.html  { render :action => "edit" }
+        format.json  { render :json => @channel.errors,
+                      :status => :unprocessable_entity }
+      end
     end
   end
-
+  
+  # DELETE /channels/1
+  def destroy
+    if @channel.created_by == current_user.graph_user
+      @channel.delete
+      
+      respond_to do |format|
+        format.html  { redirect_to(channels_path(@user.username), :notice => 'Channel successfully deleted') }
+        format.json  { render :json => {}, :status => :ok }
+      end
+    end
+  end
   
   def remove_fact 
     @channel = Channel[params[:channel_id]]
@@ -98,14 +111,6 @@ class ChannelsController < ApplicationController
     end
     render :nothing => true    
   end
-
-  # DELETE /channels/1
-  def destroy
-    if @channel.created_by == current_user.graph_user
-      @channel.delete
-      redirect_to(channels_path(@user.username), :notice => 'Channel successfully deleted')
-    end
-  end
   
   def follow
     @channel = Channel[params[:channel_id]]
@@ -120,6 +125,9 @@ class ChannelsController < ApplicationController
   end
   
   def load_channel
+    puts "\n\n\n\n\n\n"
+    puts params[:id]
+    puts "\n\n\n\n\n\n"
     @channel = Channel[params[:id]]
     unless @user
       @user = @channel.created_by.user if @channel

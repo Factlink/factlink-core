@@ -1,6 +1,6 @@
 <% content_for :left_column do %>
   <%= user_block(@user) %>
-  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
+  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
 <% end %>
 
 
