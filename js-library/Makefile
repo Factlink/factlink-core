@@ -9,6 +9,7 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/create.js\
 	${SRC_DIR}/js/replace.js\
 	${SRC_DIR}/js/scrollto.js\
+	${SRC_DIR}/js/lib/indicator.js\
 	${SRC_DIR}/js/search.js\
 	${SRC_DIR}/js/modal.js\
 	${SRC_DIR}/js/xdm.js\
@@ -95,7 +96,7 @@ clean:
 
 jslint:
 	#TODO do this for all files
-	jsl --process src/js/scrollto.js
+	jslint --node=false src/js/scrollto.js src/js/lib/indicator.js
 
 test:
 	@@echo "Running tests using smoosh:"

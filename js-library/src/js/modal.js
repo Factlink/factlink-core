@@ -67,20 +67,34 @@
       });
     }
   };
-	// Make sure the hover on an element works on all the paired span elements 
-	$( 'span.factlink' ).live( 'mouseenter', function( e ) { 
+  
+  var highlight_factlink = function( e ) { 
     var fctID = $( this ).attr( 'data-factid' ); 
-     
-    $( '[data-factid=' + fctID + ']' ) 
-        .addClass('fl-active'); 
-	}) 
-	.live('mouseleave', function() { 
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ) 
-        .removeClass('fl-active'); 
-	     
-	    // Hide the indication element 
-	   // Factlink.Indicator.hide(); 
-	});
+    // Make sure the hover on an element works on all the paired span elements 
+    $( '[data-factid=' + fctID + ']' ).addClass('fl-active');
+    Factlink.Indicator.setOpinions( 
+    		        { 
+    		            percentage: $( this ).attr('data-fact-believe-percentage'), 
+    		            authority: $( this ).attr('data-fact-believe-authority') 
+    		        },  
+    		        { 
+    		            percentage: $( this ).attr('data-fact-doubt-percentage'), 
+    		            authority: $( this ).attr('data-fact-doubt-authority') 
+    		        }, 
+    		        { 
+    		            percentage: $( this ).attr('data-fact-disbelieve-percentage'), 
+    		            authority: $( this ).attr('data-fact-disbelieve-authority') 
+    		        });
+  }
+  var stop_highlighting_factlink = function(e) { 
+      var fctID = $( this ).attr( 'data-factid' ); 
+    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
+     Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
+  }
+  
+  $( 'span.factlink' ).live( 'mouseenter', highlight_factlink)
+                      .live('mouseleave', stop_highlighting_factlink );
+                      
   var bindClick = function() {
         $(document).bind('click', clickHandler);
       },
