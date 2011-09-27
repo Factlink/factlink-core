@@ -1,12 +1,12 @@
 <%= fact_snippet(@fact, nil, true) %> 
 <% content_for :javascript do %> 
-  <script src="/javascripts/jquery.hoverIntent.minified.js"></script> 
-  <script src="/javascripts/raphael-min.js"></script> 
-  <script src="/javascripts/jquery.tipsy.js"></script> 
-  <script src="/javascripts/jquery.factlink.js"></script> 
+  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
+  <%= javascript_include_tag "raphael-min" %>
+  <%= javascript_include_tag "jquery.tipsy" %>
+  <%= javascript_include_tag "jquery.factlink" %>
   
-  <script> 
+  <script>
     $('.fact-block').factlink();
 		window.fact_id = "<%= @fact.id %>";
-  </script> 
+  </script>
 <% end %>
