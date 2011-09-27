@@ -68,14 +68,6 @@ a:hover {
 a {
   color: #306d90;
 }
-.icon {
-  display: inline-block;
-  margin-right: 5px;
-  height: 15px;
-  width: 15px;
-  position: relative;
-  top: 3px;
-}
 span.proxyWindow {
   display: none;
 }
@@ -109,9 +101,9 @@ div.sign-in {
 div.modal {
   background: #FBFAFA;
   top: 40px;
-  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -148,7 +140,6 @@ div.modal span.proxyWindow {
 }
 .fact-block:hover > article.fact .actions {
   visibility: visible;
-  overflow: visible;
 }
 .fact-block {
   padding: 0;
@@ -170,17 +161,11 @@ div.modal span.proxyWindow {
 .fact-block article.fact {
   padding: 10px 0 10px 5px;
   min-height: 83px;
-  width: 490px;
   display: block;
-  vertical-align: middle;
+  border-right: 1px solid #FBFAFA;
 }
 .fact-block article.fact header {
-  margin: 6px 0 10px 75px;
-  /*      border-right: 1px dotted #f0f0f0;
-      &:hover { 
-        border-right: 1px dotted @dark-blue;
-      }*/
-
+  margin: 0 0 20px 75px;
   padding-right: 20px;
   color: #333;
 }
@@ -379,31 +364,31 @@ div.modal span.proxyWindow {
   border-top: none;
   clear: both;
   width: 100%;
-  text-align: center;
 }
 .fact-block .evidence-container .add-action {
   height: 25px;
   padding: 5px;
+  text-align: center;
   line-height: 24px;
   border-top: 1px solid #E4E4E4;
-  position: relative;
-  z-index: 20;
+  /* position: relative;*/
+
+  /* z-index: 20;*/
+
   /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
 
 }
 .fact-block .evidence-options {
-  position: relative;
   /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
 
   border-right: 1px solid #E4E4E4;
   vertical-align: middle;
+  position: relative;
 }
 .fact-block .evidence-options .relevance-options {
   width: 42px;
   white-space: nowrap;
   text-shadow: none;
-  z-index: 10
-        position: relative;
 }
 .fact-block .evidence-options .relevance-options ul {
   -webkit-transition: all 0.35s ease-out;
@@ -413,7 +398,7 @@ div.modal span.proxyWindow {
   color: #666;
 }
 .fact-block .evidence-options .relevance-options ul:hover {
-  /*						margin-left: -72px;*/
+  /* margin-left: -72px;*/
 
 }
 .fact-block .evidence-options .relevance-options ul li {
