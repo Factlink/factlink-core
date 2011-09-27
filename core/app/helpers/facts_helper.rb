@@ -41,11 +41,11 @@ module FactsHelper
 
   def evidence_buttons_locals(fact_relation, user)
     locals = {  :fact_relation => fact_relation,}
+    locals[:negative_active] = ''
+    locals[:positive_active] = ''
     if current_user.graph_user.opinion_on(fact_relation) == :beliefs
       locals[:positive_active] = ' active'
-      locals[:negative_active] = ''
     elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs
-      locals[:positive_active] = ''
       locals[:negative_active] = ' active'
     end
     locals
