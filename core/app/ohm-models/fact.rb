@@ -38,8 +38,8 @@ class Fact < Basefact
     self.data.save
   end
   
-  before :save, :require_saved_data
-  after :save, :set_own_id_on_saved_data
+  before :create, :require_saved_data
+  after :create, :set_own_id_on_saved_data
 
 
   set :supporting_facts, FactRelation
