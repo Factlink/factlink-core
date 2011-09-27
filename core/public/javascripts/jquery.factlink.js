@@ -115,8 +115,8 @@
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).css({
-              "top": e.pageY - 25 + "px",
-              "left": e.pageX + 25 + "px"
+              "top": e.clientY - 25 + "px",
+              "left": e.clientX + 25 + "px"
             }).fadeIn("fast");
           },
           out: function() {
@@ -216,14 +216,16 @@
         });
       });
     },
+    // Update
     update: function(data) {
       var $t = $(this).data("container") || $(this);
-      var $d = data;
       if($t.data("initialized")) { 
-        //var facts = $t.data("facts") || $t.data("container").data("facts"); 
-       $($d).each(function() { 
-          $t.data("facts")[this.id].data("update")(this.score_dict_as_percentage); // Update the facts
-        });
+       $(data).each(function() { 
+          var fact =  $t.data("facts")[this.id];
+          if(fact && $(fact).data("initialized")) { 
+            $(fact).data("update")(this.score_dict_as_percentage); // Update the facts
+          }
+       });
       }
     },
     switch_opinion: function(opinion) {
@@ -326,8 +328,8 @@
       $t.find("a.add-to-channel").hoverIntent(function(e) {
         channelList = $t.find(".channel-listing");
         $(channelList).css({
-          "top": e.pageY  + 10 + "px",
-          "left": e.pageX - 30 + "px"
+          "top": e.clientY  + 10 + "px",
+          "left": e.clientX - 30 + "px"
         }).fadeIn("fast");
       }, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");
