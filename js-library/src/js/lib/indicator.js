@@ -55,7 +55,7 @@ Factlink.Indicator = (function() {
                 } else {
                   el.find('div.believe, div.disbelieve, div.doubt').hide();
                   el.find('div.'+prevalent).show();
-                  el.find('div.authority').html(authority);
+                  el.find('span.authority').html(authority);
                   el.css({ top: y, left: x }).show();
                }
             }, 10); 
