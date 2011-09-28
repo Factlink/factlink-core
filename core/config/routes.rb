@@ -17,6 +17,7 @@ FactlinkUI::Application.routes.draw do
   
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
   match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
+  match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     
   ##########
   # Javascript Client calls

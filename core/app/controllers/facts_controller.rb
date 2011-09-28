@@ -23,7 +23,9 @@ class FactsController < ApplicationController
       :destroy,
       :update,
       :bubble,
-      :opinion]
+      :opinion,
+      :evidence_search,
+      :evidenced_search]
                                                         
   before_filter :potential_evidence, 
     :only => [
@@ -194,11 +196,8 @@ class FactsController < ApplicationController
 
 
 
-  #tODO : maak evidenced search
-
-
   def evidenced_search
-    potential_evidence2
+    potential_evidenced
     internal_search
     respond_to do |format|
       format.js
@@ -215,9 +214,7 @@ class FactsController < ApplicationController
   end
 
   # Search in the client popup.  
-  def internal_search(potential_evidence)
-    # Need fact for rendering in the template
-    @fact = Fact[params[:fact_id].to_i]
+  def internal_search
 
     @row_count = 20
     row_count = @row_count
@@ -250,7 +247,7 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
 
     # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts - @potential_evidence.to_a
+    @facts = @facts & @potential_evidence.to_a
 
   end
   
@@ -285,8 +282,9 @@ class FactsController < ApplicationController
     # TODO Fix this very quick please. Nasty way OhmModels handles querying\
     # and filtering. Can't use the object ID, so using a workaround with :data_id's
     # Very nasty :/
-    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
-    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+    supporting_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :supporting).all.map {|fr| fr.fact.data_id}
+    weakening_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :weakening).all.map {|fr| fr.fact.data_id}
+    
     intersecting_ids = supporting_fact_ids & weakening_fact_ids
     intersecting_ids << @fact.data_id
     
