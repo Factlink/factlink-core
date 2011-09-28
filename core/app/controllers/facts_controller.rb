@@ -198,7 +198,7 @@ class FactsController < ApplicationController
 
   def evidenced_search
     potential_evidenced
-    internal_search
+    internal_search(@potential_evidenced.to_a)
     respond_to do |format|
       format.js
     end
@@ -207,14 +207,14 @@ class FactsController < ApplicationController
 
   def evidence_search
     potential_evidence
-    internal_search
+    internal_search(@potential_evidence.to_a)
     respond_to do |format|
       format.js
     end
   end
 
   # Search in the client popup.  
-  def internal_search
+  def internal_search(eligible_facts)
 
     @row_count = 20
     row_count = @row_count
@@ -247,7 +247,7 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
 
     # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts & @potential_evidence.to_a
+    @facts = @facts & eligible_facts
 
   end
   
@@ -288,7 +288,7 @@ class FactsController < ApplicationController
     intersecting_ids = supporting_fact_ids & weakening_fact_ids
     intersecting_ids << @fact.data_id
     
-    @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
+    @potential_evidenced = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
   end    
 
 
