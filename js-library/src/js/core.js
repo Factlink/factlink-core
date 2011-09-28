@@ -3,18 +3,6 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
-  var facts_loaded_array = [];
-
-  Factlink.factsLoaded = function(fn){
-    facts_loaded_array.push(fn);
-  }
-
-  Factlink.triggerFactsLoaded = function(){
-    for(var i=0; i<facts_loaded_array.length; i++) {
-      facts_loaded_array[i]();
-    }
-  }
-
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
@@ -37,7 +25,7 @@ var Factlink = window.Factlink = (function() {
           // Select the ranges (results)
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
-        Factlink.triggerFactsLoaded();
+        $(window).trigger('factlink:factsLoaded');
         var $fls = $('span.factlink').addClass('fl-active');
 
         setTimeout(function() {
