@@ -126,6 +126,33 @@ class FactsController < ApplicationController
       render "add_source_to_factlink"
     end
   end
+
+
+  def add_supporting_evidenced
+    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_evidenced_to_factlink"
+    end
+  end
+
+  def add_weakening_evidenced
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
+        
+    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_evidenced_to_factlink"
+    end
+  end
+
   
   def add_new_evidence
     type = params[:type].to_sym

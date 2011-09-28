@@ -162,16 +162,20 @@
             "opacity": "1"
           });
         }
-        var $t = $(this);
-        $t.data("facts",  {});
-        if (!$t.data("initialized")) {
-          /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
-          $t.find(".tab_content").hide();
-          //On Click Event
+        function addEventHandlersDoAdd($t){
+            $t.find("a.do-add").bind("click", function() { 
+              var active = $t.find(".tab_content:visible").attr("rel");
+              $t.find(".add-evidence[rel=" + active + "]").toggle();
+              $t.find(".evidence[rel=" + active + "]").toggle();
+              $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
+            }); 
+        }
+        function addEventHandlersTabs($t){
           $t.find("ul.evidence li").click(function() {
-            $t.find(".tab_content").hide(); 
+            $t.find(".tab_content, div.add-action").hide(); 
             var activeTab = $(this).find("a").attr("class"); 
             $t.find("div.evidence[rel='" + activeTab + "']").show();
+            $t.find("div.add-action[rel='" + activeTab + "']").show();
             if($t.find(".evidence-container").is(":hidden")) { 
               $t.find(".evidence-container").slideDown();
               $(this).addClass("active"); 
@@ -186,20 +190,29 @@
               }
             }
               return false;
-          });
-
-          $t.find("a.do-add").bind("click", function() { 
-            var active = $t.find(".tab_content:visible").attr("rel");
-            $t.find(".add-evidence[rel=" + active + "]").toggle();
-            $t.find(".evidence[rel=" + active + "]").toggle();
-            $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
-          }); 
+           });
+         }
+        function initialize($t) {
+          /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
+          $t.find(".tab_content").hide();
+          //On Click Event
+          addEventHandlersTabs($t);
+          addEventHandlersDoAdd($t);
           // Evidence buttons
-          $t.find('.evidence_button').live('click', function() {
-            // Push opinion to server
-            $t.factlink("set_evidence", $(this));
-         });
-         $t.data("initialized", true);
+          $t.find(".evidence_button a").live("ajax:complete", function(et, e){
+            $(this).closest('ul').children().removeClass("active");
+            $(this).parent().addClass('active');
+           });
+          
+           $t.data("initialized", true);
+        }
+        
+        
+        /*start of method*/
+        var $t = $(this);
+        $t.data("facts",  {});
+        if (!$t.data("initialized")) {
+            initialize($t);
         }
         $t.find("article.fact").each(function() {
           var fact = init_fact(this, $t);
@@ -270,26 +283,7 @@
           fact_id: fact
         }
       });
-    },
-    // Evidence 
-    set_evidence: function(el) { 
-      // TODO refactor to get this functionality out of the rails link_to helper
-      // link_to now generates a link for either setting the opinion on a relation or creating new evidence (seperate funct) 
-      var url = el.data('action-url');
-      console.log(el);
-      $.ajax({
-        url: url,
-        dataType: "script",
-        type: "POST",
-        success: function(){			
-          el.closest('ul').children().removeClass("active");
-          el.addClass('active');
-        },
-        error: function(data) {
-          console.log('There was a problem setting the user opinion:' + data );
-        }
-      });
-    },
+    }
 
   };
 
