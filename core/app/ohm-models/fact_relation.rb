@@ -4,6 +4,7 @@ class FactRelation < Basefact
   reference :fact, Fact
 
   attribute :type # => :supporting || :weakening
+  index :type
 
   def validate
     assert_present :from_fact_id

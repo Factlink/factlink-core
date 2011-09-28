@@ -100,18 +100,6 @@ class Fact < Basefact
     end
   end
   
-  # Count helpers
-  def supporting_evidence_count
-    evidence(:supporting).size
-  end
-
-  def weakening_evidence_count
-    evidence(:weakening).size
-  end
-
-  def evidence_count
-    weakening_evidence_count + supporting_evidence_count
-  end
   
   # Used for sorting
   #deprecate
