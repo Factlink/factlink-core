@@ -3,35 +3,6 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
-  var highlightFactlink = function( e ) { 
-  var fctID = $( this ).attr( 'data-factid' ); 
-  // Make sure the hover on an element works on all the paired span elements 
-  $( '[data-factid=' + fctID + ']' ).addClass('fl-active');
-
-  Factlink.Indicator.setOpinion ( 
-              { 
-                  percentage: $( this ).attr('data-fact-believe-percentage'), 
-                  authority: $( this ).attr('data-fact-believe-authority') 
-              },  
-              { 
-                  percentage: $( this ).attr('data-fact-doubt-percentage'), 
-                  authority: $( this ).attr('data-fact-doubt-authority') 
-              }, 
-              { 
-                  percentage: $( this ).attr('data-fact-disbelieve-percentage'), 
-                  authority: $( this ).attr('data-fact-disbelieve-authority') 
-              });
-              Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
-  }
-  var stopHighlightingFactlink = function(e) { 
-      var fctID = $( this ).attr( 'data-factid' ); 
-      $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
-      Factlink.Indicator.hide()
-  }
-  
-  $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
-                      .live('mouseleave', stopHighlightingFactlink );
-
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {

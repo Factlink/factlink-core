@@ -67,30 +67,18 @@
       });
     }
   };
+
   
   var highlightFactlink = function( e ) { 
-    var fctID = $( this ).attr( 'data-factid' ); 
+    var factId = $( e.target ).attr( 'data-factid' ); 
     // Make sure the hover on an element works on all the paired span elements 
-    $( '[data-factid=' + fctID + ']' ).addClass('fl-active');
-    Factlink.Indicator.setOpinion ( 
-    		        { 
-    		            percentage: $( this ).attr('data-fact-believe-percentage'), 
-    		            authority: $( this ).attr('data-fact-believe-authority') 
-    		        },  
-    		        { 
-    		            percentage: $( this ).attr('data-fact-doubt-percentage'), 
-    		            authority: $( this ).attr('data-fact-doubt-authority') 
-    		        }, 
-    		        { 
-    		            percentage: $( this ).attr('data-fact-disbelieve-percentage'), 
-    		            authority: $( this ).attr('data-fact-disbelieve-authority') 
-    		        });
-                Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
+    $( '[data-factid=' + factId + ']' ).addClass('fl-active');
+    $(window).trigger("factlink:factHighlighted", [factId, e]);
   }
   var stopHighlightingFactlink = function(e) { 
-      var fctID = $( this ).attr( 'data-factid' ); 
-      $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
-      Factlink.Indicator.hide()
+      var factId = $( this ).attr( 'data-factid' ); 
+      $( '[data-factid=' + factId + ']' ).removeClass('fl-active'); 
+      $(window).trigger("factlink:factUnhighlighted", [factId, e]);
   }
   
   $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
