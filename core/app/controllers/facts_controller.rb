@@ -182,8 +182,35 @@ class FactsController < ApplicationController
     render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
 
-  # Search in the client popup.  
+
+
+
+
+
+
+
+  #tODO : maak evidenced search
+
+
+  def evidenced_search
+    potential_evidence2
+    internal_search
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   def evidence_search
+    potential_evidence
+    internal_search
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # Search in the client popup.  
+  def internal_search(potential_evidence)
     # Need fact for rendering in the template
     @fact = Fact[params[:fact_id].to_i]
 
@@ -216,14 +243,10 @@ class FactsController < ApplicationController
 
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
-    potential_evidence
 
     # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts & potential_evidence.to_a
+    @facts = @facts - @potential_evidence.to_a
 
-    respond_to do |format|
-      format.js
-    end
   end
   
   def indication
@@ -252,6 +275,19 @@ class FactsController < ApplicationController
     
     @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
   end    
+
+  def potential_evidenced # private
+    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+    # and filtering. Can't use the object ID, so using a workaround with :data_id's
+    # Very nasty :/
+    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
+    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+    intersecting_ids = supporting_fact_ids & weakening_fact_ids
+    intersecting_ids << @fact.data_id
+    
+    @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
+  end    
+
 
   def load_fact # private
     @fact = Fact[params[:id]]
