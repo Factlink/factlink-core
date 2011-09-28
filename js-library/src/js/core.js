@@ -7,6 +7,7 @@ var Factlink = window.Factlink = (function() {
   var fctID = $( this ).attr( 'data-factid' ); 
   // Make sure the hover on an element works on all the paired span elements 
   $( '[data-factid=' + fctID + ']' ).addClass('fl-active');
+
   Factlink.Indicator.setOpinion ( 
               { 
                   percentage: $( this ).attr('data-fact-believe-percentage'), 
