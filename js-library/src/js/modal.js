@@ -68,11 +68,11 @@
     }
   };
   
-  var highlight_factlink = function( e ) { 
+  var highlightFactlink = function( e ) { 
     var fctID = $( this ).attr( 'data-factid' ); 
     // Make sure the hover on an element works on all the paired span elements 
     $( '[data-factid=' + fctID + ']' ).addClass('fl-active');
-    Factlink.Indicator.setOpinions( 
+    Factlink.Indicator.setOpinion ( 
     		        { 
     		            percentage: $( this ).attr('data-fact-believe-percentage'), 
     		            authority: $( this ).attr('data-fact-believe-authority') 
@@ -85,16 +85,16 @@
     		            percentage: $( this ).attr('data-fact-disbelieve-percentage'), 
     		            authority: $( this ).attr('data-fact-disbelieve-authority') 
     		        });
-                    Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
+                Factlink.Indicator.showFor(fctID, e.pageX - 10, $(e.target).offset().top + 10 ); 
   }
-  var stop_highlighting_factlink = function(e) { 
+  var stopHighlightingFactlink = function(e) { 
       var fctID = $( this ).attr( 'data-factid' ); 
       $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ).removeClass('fl-active'); 
       Factlink.Indicator.hide()
   }
   
-  $( 'span.factlink' ).live( 'mouseenter', highlight_factlink)
-                      .live('mouseleave', stop_highlighting_factlink );
+  $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
+                      .live('mouseleave', stopHighlightingFactlink );
                       
   var bindClick = function() {
         $(document).bind('click', clickHandler);

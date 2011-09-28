@@ -115,6 +115,11 @@
 
         // Set the span attributes
         span.className = "factlink";
+        span.setAttribute('data-factid',id); 
+		    span.setAttribute('data-fact-disbelieve-percentage',opinions['disbelieve']['percentage']); 
+		    span.setAttribute('data-fact-doubt-percentage',opinions['doubt']['percentage']); 
+		    span.setAttribute('data-fact-believe-percentage',opinions['believe']['percentage']); 
+		    span.setAttribute('data-fact-authority',opinions['authority']); 
 
         if (first === true) {
           span.className += " fl-first";

@@ -92,6 +92,7 @@ Factlink.Indicator = (function() {
         }, 
         // Set the opinions 
         setOpinions: function(believe, doubt, disbelieve) { 
+            console.log([believe, doubt, disbelieve]);
             el.find('div').hide()
             el.find('div.believe').show()
         } 
