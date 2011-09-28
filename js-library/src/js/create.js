@@ -55,7 +55,7 @@
           });
           
           // Hide the fl-prepare context menu
-          $element.fadeOut('fast');
+          $element.fadeOut(100);
         });
     }
 
@@ -63,7 +63,7 @@
       // Create `add evidence` popup after succesful addition of the fact.            
       var popup = $('<div/>')
                   .addClass('fl-popup')
-                  .html("Fact added. <span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(\"fast\");' >Add evidence?</span>")
+                  .html("Fact added. <span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(100);' >Add evidence?</span>")
                   .appendTo("body");
                   
       // Position popup on mouse position
@@ -72,7 +72,7 @@
       // Close the popup when clicked outside the area
       $( document ).bind('click', function(e) {
         if( $(e.target).is('body') )
-          popup.fadeOut('fast');
+          popup.fadeOut(100);
       });
       
       // Start the timout to hide the popup after a while
@@ -90,7 +90,7 @@
       );
 
       function startTimer() {
-        popupTimeout = setTimeout("$('.fl-popup').fadeOut('slow');", 3600);
+        popupTimeout = setTimeout("$('.fl-popup').fadeOut(100);", 3600);
       }
 
       startTimer()
@@ -175,7 +175,7 @@
 
             Factlink.positionFrameToCoord($prepare, x, y);
 
-            $prepare.fadeIn('fast');
+            $prepare.fadeIn(100);
         },
         setFactId: function(factId) {
             this.factId = factId;
@@ -206,7 +206,7 @@
 
           // Check if the selected text is long enough to be added
           if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
-              $prepare.fadeIn('fast');
+              $prepare.fadeIn(100);
           }
       },
       100);

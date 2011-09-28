@@ -56,7 +56,7 @@ Factlink.Indicator = (function() {
                   el.find('div.believe, div.disbelieve, div.doubt').hide();
                   el.find('div.'+prevalent).show();
                   el.find('span.authority').html(authority);
-                  el.css({ top: y, left: x }).show();
+                  el.css({ top: y, left: x }).fadeIn(100);
                }
             }, 10); 
         }, 
@@ -68,7 +68,7 @@ Factlink.Indicator = (function() {
             // Put the hiding in a timeout, so it can be stopped when a user 
             // hovers the indication 
             timeout = window.setTimeout(function(){ 
-                el.hide(); 
+                el.fadeOut(100); 
                 currentId = undefined; 
             }, 500); 
         }, 
