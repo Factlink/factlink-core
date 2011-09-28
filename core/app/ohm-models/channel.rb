@@ -57,6 +57,14 @@ class Channel < OurOhm
   def to_s
     self.id
   end
+  
+  # Ohm Model needs to have a definition of which fields to render
+  def to_hash
+    super.merge(:_id => id, 
+                :title => title, 
+                :description => description,
+                :created_by => created_by)
+  end
 
   def fork(user)
     c = Channel.create(:created_by => user, :title => title, :description => description)

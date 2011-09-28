@@ -121,6 +121,9 @@ class OurOhm < Ohm::Model
     valid
   end
 
+  def encode_json
+    return self.to_json
+  end
 
   alias save! save
 

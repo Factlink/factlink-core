@@ -170,7 +170,7 @@ class FactsController < ApplicationController
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion(2).as_percentages}
+    render :json => {"opinions" => @fact.get_opinion(2).as_percentages }
   end
 
 
