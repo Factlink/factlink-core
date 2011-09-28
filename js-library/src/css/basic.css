@@ -141,6 +141,7 @@ div.fl-popup .button {
   padding: 0px 6px;
   border: solid 1px #45bf55;
   border-radius: 2px;
+  line-height: 24px;
   text-shadow: 0px 1px 1px #fff;
   height: 24px;
 }
