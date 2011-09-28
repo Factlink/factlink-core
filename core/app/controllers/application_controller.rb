@@ -22,7 +22,6 @@ class ApplicationController < ActionController::Base
     else
       return view_context.url_for(fact_path(session[:"user.return_to"].to_s))
     end
-
   end
 
 end

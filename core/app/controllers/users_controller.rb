@@ -9,7 +9,6 @@ class UsersController < ApplicationController
       ]
 
   def show
-
     if @user      
       @activities = @user.graph_user.activities.sort(:order => "DESC")
       respond_to do |format|
