@@ -17,32 +17,30 @@ Factlink.Indicator = (function() {
      
     return { 
         // Makes the indicator show for the Factlink with id ID 
-        showFor: function( id, x, y) { 
+        showFor: function( id, x_in, y_in) { 
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
              
             believe_percentage = fl.first().data('fact-believe-percentage');
             disbelieve_percentage = fl.first().data('fact-disbelieve-percentage');
             doubt_percentage = fl.first().data('fact-doubt-percentage');
-            authority = fl.first().data('fact-authority')
+            authority = fl.first().data('fact-authority');
             
-            prevalent = 'believe';
-            prevalent_percentage = believe_percentage;
+            prevalent = 'doubt';
+            prevalent_percentage = doubt_percentage;
             
             if (disbelieve_percentage > prevalent_percentage){
                 prevalent = 'disbelieve';
                 prevalent_percentage = disbelieve_percentage;
             }
-            if (doubt_percentage > prevalent_percentage){
-                prevalent = 'doubt';
-                prevalent_percentage = doubt_percentage;
+            if (believe_percentage > prevalent_percentage){
+                prevalent = 'believe';
+                prevalent_percentage = believe_percentage;
             }
             
-            
-             
             if ( id !== currentId ) { 
-                x = x + 10;
-                y = y - el.outerHeight(true) - 10; 
+                x = x_in + 10;
+                y = y_in - el.outerHeight(true) - 10; 
             } 
  
             window.clearTimeout( timeout ); 
@@ -55,9 +53,10 @@ Factlink.Indicator = (function() {
                 if ( el === undefined ) {
                     return; 
                 } else {
-                  el.css({ top: y, left: x }).show();
-                  el.find('div').hide();
+                  el.find('div.believe, div.disbelieve, div.doubt').hide();
                   el.find('div.'+prevalent).show();
+                  el.find('div.authority').html(authority);
+                  el.css({ top: y, left: x }).show();
                }
             }, 10); 
         }, 
@@ -98,6 +97,7 @@ Factlink.Indicator = (function() {
                 }) 
                 .bind('click', function() { 
                     self.hide(); 
+                    console.info("currentid = "+currentId);
                     $( 'span.factlink[data-factid=' + currentId + ']:first').click(); 
                     return false; 
                 }); 
@@ -117,11 +117,11 @@ $.ajax({
 
 var showIndicator = function(e,factId,orig_e) {
             Factlink.Indicator.showFor(factId, orig_e.pageX - 10, $(orig_e.target).offset().top + 10); 
-}
+};
 
 var stopShowingIndicator = function(e,factId,orig_e) {
     Factlink.Indicator.hide();
-}
+};
 
 $(window).bind("factlink:factHighlighted", showIndicator);
 $(window).bind("factlink:factUnhighlighted",stopShowingIndicator);

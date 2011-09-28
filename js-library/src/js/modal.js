@@ -21,13 +21,23 @@
         }, 
         addToFact: function() {
           Factlink.prepare.show(e.pageX, e.pageY);
-
           Factlink.prepare.setFactId(self.getAttribute("data-factid"));
         }
       };
     })();
     modusHandler[FactlinkConfig.modus]();
   });
+
+  var clickHandler = function() {
+        Factlink.modal.hide.method();
+      };
+  var bindClick = function() {
+        $(document).bind('click', clickHandler);
+      };
+  var  unbindClick = function() {
+        $(document).unbind('click', clickHandler);
+      };
+
 
   // Object which holds the methods that can be called from the intermediate iframe
   // These methods are also used by the internal scripts and can be called through
@@ -84,13 +94,4 @@
   $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
                       .live('mouseleave', stopHighlightingFactlink );
                       
-  var bindClick = function() {
-        $(document).bind('click', clickHandler);
-      },
-      unbindClick = function() {
-        $(document).unbind('click', clickHandler);
-      },
-      clickHandler = function() {
-        Factlink.modal.hide.method();
-      };
 })(window.Factlink);

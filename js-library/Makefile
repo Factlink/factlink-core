@@ -96,7 +96,7 @@ clean:
 
 jslint:
 	#TODO do this for all files
-	jslint --node=false src/js/scrollto.js src/js/lib/indicator.js
+	jslint --node=false src/js/scrollto.js src/js/lib/indicator.js src/js/core.js
 
 test:
 	@@echo "Running tests using smoosh:"
