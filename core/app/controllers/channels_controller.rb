@@ -18,7 +18,6 @@ class ChannelsController < ApplicationController
       :show
       ]
 
-
   # GET /:username/channel
   def index
     @channels = @user.graph_user.channels
