@@ -199,7 +199,7 @@
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
           // Evidence buttons
-          $t.find(".evidence_button a").live("ajax:complete", function(et, e){
+          $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
             $(this).closest('ul').children().removeClass("active");
             $(this).parent().addClass('active');
            });
