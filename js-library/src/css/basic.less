@@ -1,3 +1,27 @@
+/*---------------------------------------------------
+		Some LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+	background: @color;
+	background: -webkit-gradient(linear,
+	    												 left bottom,
+	    												 left top,
+	    												 color-stop(0, @start),
+	    												 color-stop(1 ,@stop));
+	background: -moz-linear-gradient(center bottom,
+	    														 @start 0%,
+	    														 @stop 100%);
+}
+/*-----------------------------------------------------*/
+
 span.factlink {
   cursor: pointer;
 
@@ -34,101 +58,90 @@ div#factlink-modal-frame {
 }
 
 div#factlink-indicator {
+  
+  .popup-style;
+  
   display: none;
   position: absolute;
-  top: 200px;
-  left: 200px;
-  height: 49px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #eee;
+/*  top: 200px;*/
+/*  left: 200px;*/
+
   cursor: pointer;
-  // Compatibility
-  // background-image: -moz-linear-gradient(top, #ffffff, #f0efef);
-  // background-image: -ms-linear-gradient(top, #ffffff, #f0efef);
-  // background-image: -o-linear-gradient(top, #ffffff, #f0efef);
-  // background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f0efef));
-  // background-image: -webkit-linear-gradient(top, #ffffff, #f0efef);
-  // background-image: linear-gradient(top, #ffffff, #f0efef);
-  // filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#f0efef');
-  padding: 5px 4px 0;
-  margin: 0;
 
-  img {
-    vertical-align: top;
-    height: 20px;
-    width: 20px;
-    margin: 0;
-    padding: 0;
+  height: 40px;
+  width: 40px;
+
+  padding: 4px 4px 12px;
+/*  padding: 5px 4px;*/
+/*  margin: 10px;*/
+
+  div.icon {
+    margin: 0 0 0 4px;
   }
-
-  ul {
-    vertical-align: top;
-    list-style: none;
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    width: 45px;
-    height: 45px;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-
-    li {
-      display: inline-block;
-      min-height: 10px;
-      width: 14px;
-      float: left;
-      margin: 0;
-      padding: 0;
-      cursor: pointer;
-      position: absolute;
-      bottom: 0;
-
-      div {
-        margin: 0 auto;
+  
+  div.authority-wrapper {
+    padding: 2px 0 0 6px;
+    span.centered {
+      margin: 0 auto;
+      span.authority {
+        color: #888;
       }
-
-      &.fl-bar-proves {
-        div {
-          background: rgb(82, 214, 35);
-          height: 100%;
-        }
-        left: 30px;
+      img {
+        height: 10px;
       }
-
-      &.fl-bar-maybe {
-        div {
-          background: rgb(255, 228, 0);
-          height: 100%;
-        }
-        left: 15px;
-      }
-
-      &.fl-bar-denies {
-        div {
-          background: rgb(255, 97, 54);
-          height: 100%;
-        }
-        left: 0;
-      }
-
     }
-
   }
-
 }
 
-div#fl-prepare {
-  display: none;
-  z-index : 13371337;
-  
+.popup-style {
+  z-index : 2147483647;
+  background: #fff;
   margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+	border-radius: 5px;
+	border-top: 1px solid #d8d8d8;
+	font-size: 9pt;
+	font-family: "Helvetica", Arial, sans-serif;
 	vertical-align: baseline;
+	box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);  
+}
+
+div.fl-popup {
+  .popup-style;
+  
+  text-align: center;
+  padding: 4px;
+  line-height: 24px;
+  
+  .button {
+    .gradient(#F5F5F5, #45bf55, #93ec87); 
+    display: block;
+    padding: 0px 6px;
+    border: solid 1px #45bf55;
+    border-radius: 2px;
+    
+    line-height: 24px;
+    
+    text-shadow: 0px 1px 1px #fff;
+    
+    height: 24px;
+    
+    &:hover {
+      cursor: pointer;
+      .gradient(#F5F5F5, #93ec87, #45bf55);
+    }
+    
+    &:active {
+      .gradient(#F5F5F5, #72cc64, #3ca648);
+    }
+  }
+}
+
+div#fl-prepare {
+  .popup-style;
+
+  display: none;
   
   ul {
     color: #000;
@@ -141,17 +154,11 @@ div#fl-prepare {
   	vertical-align: baseline;
   	font-family: "Helvetica", Arial, sans-serif;
     
-    li {
-      border: solid 1px #C8C8C8;
-      border-top: none;
-      box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+    li {      
       position: relative;
-      background-color: #fff;
       white-space: nowrap;
       margin: 0;
     	border: 0;
-    	font-size: 100%;
-    	font: inherit;
     	vertical-align: baseline;
       padding: 2px 0px;
       cursor: pointer;
@@ -161,7 +168,6 @@ div#fl-prepare {
       &.first {
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
-        border-top: 1px solid #C8C8C8;
       }
       
       &.last {

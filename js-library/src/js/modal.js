@@ -4,8 +4,8 @@
     "id": "factlink-modal-frame"
   }).appendTo('body');
 
-  Factlink.showInfo = function(el) {
-    Factlink.remote.showFactlink(el.getAttribute("data-factid"), function ready() {
+  Factlink.showInfo = function(el, showEvidence) {
+    Factlink.remote.showFactlink(el.getAttribute("data-factid"), showEvidence, function ready() {
       Factlink.modal.show.method();
     });
   };
@@ -17,11 +17,10 @@
     var modusHandler = (function() {
       return {
         default: function() {
-          Factlink.showInfo(self);
+          Factlink.showInfo(el=self, showEvidence=false);
         }, 
         addToFact: function() {
           Factlink.prepare.show(e.pageX, e.pageY);
-
           Factlink.prepare.setFactId(self.getAttribute("data-factid"));
         }
       };
@@ -29,10 +28,21 @@
     modusHandler[FactlinkConfig.modus]();
   });
 
+  var clickHandler = function() {
+        Factlink.modal.hide.method();
+      };
+  var bindClick = function() {
+        $(document).bind('click', clickHandler);
+      };
+  var  unbindClick = function() {
+        $(document).unbind('click', clickHandler);
+      };
+
+
   // Object which holds the methods that can be called from the intermediate iframe
   // These methods are also used by the internal scripts and can be called through
   // Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
-  Factlink.modal = {
+  Factlink.modal = {	
     hide: function() {
       unbindClick();
       iFrame.hide();
@@ -67,27 +77,21 @@
       });
     }
   };
-	// Make sure the hover on an element works on all the paired span elements 
-	$( 'span.factlink' ).live( 'mouseenter', function( e ) { 
-    var fctID = $( this ).attr( 'data-factid' ); 
-     
-    $( '[data-factid=' + fctID + ']' ) 
-        .addClass('fl-active'); 
-	}) 
-	.live('mouseleave', function() { 
-    $( '[data-factid=' + $( this ).attr( 'data-factid' ) + ']' ) 
-        .removeClass('fl-active'); 
-	     
-	    // Hide the indication element 
-	   // Factlink.Indicator.hide(); 
-	});
-  var bindClick = function() {
-        $(document).bind('click', clickHandler);
-      },
-      unbindClick = function() {
-        $(document).unbind('click', clickHandler);
-      },
-      clickHandler = function() {
-        Factlink.modal.hide.method();
-      };
+
+  
+  var highlightFactlink = function( e ) { 
+    var factId = $( e.target ).attr( 'data-factid' ); 
+    // Make sure the hover on an element works on all the paired span elements 
+    $( '[data-factid=' + factId + ']' ).addClass('fl-active');
+    $(window).trigger("factlink:factHighlighted", [factId, e]);
+  }
+  var stopHighlightingFactlink = function(e) { 
+      var factId = $( this ).attr( 'data-factid' ); 
+      $( '[data-factid=' + factId + ']' ).removeClass('fl-active'); 
+      $(window).trigger("factlink:factUnhighlighted", [factId, e]);
+  }
+  
+  $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
+                      .live('mouseleave', stopHighlightingFactlink );
+                      
 })(window.Factlink);

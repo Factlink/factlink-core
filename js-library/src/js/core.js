@@ -3,18 +3,6 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
-  var facts_loaded_array = [];
-
-  Factlink.factsLoaded = function(fn){
-    facts_loaded_array.push(fn);
-  }
-
-  Factlink.triggerFactsLoaded = function(){
-    for(var i=0; i<facts_loaded_array.length; i++) {
-      facts_loaded_array[i]();
-    }
-  }
-
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
@@ -31,13 +19,14 @@ var Factlink = window.Factlink = (function() {
       // Callback which is called when the response is loaded, will contain
       // the JSON data
       success: function(data) {
+        var i;
         // If there are multiple matches on the page, loop through them all
         //TODO : dit mag pas on document ready
-        for (var i = 0; i < data.length; i++) {
+        for (i = 0; i < data.length; i++) {
           // Select the ranges (results)
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
-        Factlink.triggerFactsLoaded();
+        $(window).trigger('factlink:factsLoaded');
         var $fls = $('span.factlink').addClass('fl-active');
 
         setTimeout(function() {
