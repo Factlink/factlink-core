@@ -79,11 +79,11 @@ domReady(function(){
 });
 
 window.FactlinkConfig = {
-    modus: 'default',
+    modus: 'addToFact',
     api: window.FACTLINK_API_LOCATION,
     lib: window.FACTLINK_LIB_LOCATION,
     url: window.FACTLINK_REAL_URL,
-    scrollto : 7
+    scrollto :  window.FACTLINK_SCROLL_TO
 };
 
 var
@@ -102,13 +102,16 @@ var
             '//' + window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime()
+            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
             '//' + window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime(),
+            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime()
+        ],
+        [
             '//' + window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime()
         ]
     ],

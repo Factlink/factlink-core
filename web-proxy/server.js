@@ -5,10 +5,11 @@
  *	Used for implementing Factlink JavaScript on client-sites.
  */
 
+/* jslint node: true */
 
 // The actual server
 var server = require('express').createServer();
-server.configure(function(){
+server.configure(function (){
         server.set('views', __dirname + '/views');
 });
 
@@ -24,19 +25,42 @@ config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path,fs,server.settings.env);
 
 
-const PROXY_URL 	= "http://"+global.config['proxy']['hostname']+':'+global.config['proxy']['port'];
-const STATIC_URL 	= "http://"+global.config['static']['hostname']+':'+global.config['static']['port'];
+var PROXY_URL   = "http://"+global.config.proxy.hostname+':'+global.config.proxy.port;
+var STATIC_URL  = "http://"+global.config['static'].hostname+':'+global.config['static'].port;
 
-const API_LOCATION = global.config['core']['hostname']+':'+global.config['core']['port'];
-const LIB_LOCATION = global.config['static']['hostname']+':'+global.config['static']['port'] + "/lib";
+var API_LOCATION = global.config.core.hostname + ':'+global.config.core.port;
+var LIB_LOCATION = global.config['static'].hostname +':'+global.config['static'].port + "/lib";
 
+console.info(LIB_LOCATION);
+console.info(STATIC_URL);
 
-const PORT 				= parseInt(global.config['proxy']['port'],10);
-
+var PORT         = parseInt(global.config.proxy.port,10);
 
 
 // Use Jade as templating engine
 server.set('view engine', 'jade');
+
+
+/**
+ * Add base url and inject proxy.js, and return the proxied site
+ */
+function injectFactlinkJs(html_in,site, scrollto){
+	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
+    var set_urls = '<script>'+
+             'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
+             'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
+             'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
+             'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             'window.FACTLINK_REAL_URL = "' + site + '";';
+    if (scrollto !== undefined && !isNaN(parseInt(scrollto,10))){
+        set_urls+='window.FACTLINK_SCROLL_TO = ' + parseInt(scrollto,10) + ';';
+    }
+    set_urls+='</script>';
+    load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
+	return html;
+}
+
 
 /** 
  *	Regular get requests
@@ -46,7 +70,7 @@ server.get('/parse', function(req, res) {
 	console.info("\nGET /parse");
 
 	var site = req.query.url;
-
+  var scrollto = req.query.scrollto;
   errorhandler = function(data) {
 		console.error("Failed on: " + site);
 		
@@ -72,12 +96,12 @@ server.get('/parse', function(req, res) {
     }
 	}
 
- 	console.info("Serving: " + site);
+  console.info("Serving: " + site);
 
 	var request = restler.get( site );
 
 	request.on('complete', function(data) {
-		res.write( injectFactlinkJs(data,site) );
+		res.write( injectFactlinkJs(data,site, scrollto) );
 		res.end();
 	});
 
@@ -86,22 +110,6 @@ server.get('/parse', function(req, res) {
 
 });
 
-/**
- * Add base url and inject proxy.js, and return the proxied site
- */
-function injectFactlinkJs(html_in,site){
-	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
-  set_urls = '<script>'+
-             'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
-             'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
-             'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
-             'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
-             'window.FACTLINK_REAL_URL = "' + site + '";'+
-             '</script>';
-  load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
-	return html;
-}
 
 
 /** 
@@ -120,7 +128,7 @@ server.get('/submit', function(req, res) {
 
 	// Set form hash and remove our temporary stored URL so we only post the original hash
 	var form_hash = req.query;
-	delete form_hash['factlinkPostUrl'];
+	delete form_hash.factlinkPostUrl;
 
 	var request = restler.post( site, { "query": form_hash } );
 
@@ -136,15 +144,40 @@ server.get('/submit', function(req, res) {
 	});	
 });
 
+function create_url(base,query){
+    var url;
+    var key;
+    url = base;
+    var is_first = true;
+    for( key in query ){
+        if (query.hasOwnProperty(key)){
+            if (is_first === true) {
+                url += '?';
+                is_first = false;
+            } else {
+                url += '&';
+            }
+            url += encodeURIComponent(key);
+            url += '=';
+            url += encodeURIComponent(query[key]);
+        }
+    }
+    return url;
+}
+
 function render_page(pagename) {
   return function(req, res) {
+      var header_url = create_url(PROXY_URL + "/header",req.query);
+      var parse_url = create_url(PROXY_URL + "/parse",req.query);
 	  res.render(pagename, {
 		  layout: false,
 		  locals: {
 			  static_url: STATIC_URL,
 			  proxy_url: PROXY_URL,
-				core_url: API_LOCATION,
-			  url: req.query.url
+			  core_url: API_LOCATION,
+			  page_url: req.query.url,
+			  header_url: header_url,
+			  parse_url: parse_url
 		  }
 	  });
   };

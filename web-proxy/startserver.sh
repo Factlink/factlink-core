@@ -1,4 +1,8 @@
 #!/bin/bash
 cd "$( dirname "$0" )"
 npm install
-jsl -process server.js -process read_config.js && node ./server.js
+#read_config.js isn't checked because of eval is evil
+jslint server.js
+
+
+supervisor ./server.js
