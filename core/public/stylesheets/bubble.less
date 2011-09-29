@@ -315,10 +315,20 @@ div.modal {
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
     position: relative;
+
+    width: 42px;
+
+    background: pink;
+    
+/*    display: block;*/
+    
+    -webkit-transition: all 0.2s ease-in-out;
+
       .relevance-options {
         width: 42px;
         white-space: nowrap;
         text-shadow: none;
+
        ul { 
 					-webkit-transition: all 0.35s ease-out;
 					margin-top: 12px;
@@ -336,10 +346,12 @@ div.modal {
 						text-shadow: 0px 0px 1px #fff;
 						line-height: 24px;
 						height: 16px;
-						width: 100px;
+						width: 90px;
+						
+						font-size: 0.9em;
 
 						border: solid 1px #d8d8d8;
-						border-radius: 3px;
+						border-radius: 2px;
         		padding-bottom: 8px;
         		padding-left: 2px;
 				    margin-bottom: 10px;
@@ -360,6 +372,7 @@ div.modal {
       }
       &:hover { 
         z-index: 400;
+/*        width: 96px;*/
       }
     }
   
