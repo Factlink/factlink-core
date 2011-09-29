@@ -63,7 +63,7 @@
       // Create `add evidence` popup after succesful addition of the fact.            
       var popup = $('<div/>')
                   .addClass('fl-popup')
-                  .html("Fact added. <span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(100);' >Add evidence?</span>")
+                  .html("✓ Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(100);' >Add evidence?</span>")
                   .appendTo("body");
                   
       // Position popup on mouse position
