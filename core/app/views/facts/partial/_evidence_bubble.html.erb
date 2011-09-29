@@ -1,5 +1,10 @@
 </td><td class="evidence-options">
 
+  <div class="relevance-indicator">
+    <div class="relevance-type"><%= fact_relation.type %></div>
+    <div class="back <%= fact_relation.type %>"></div>
+  </div>
+
   <div class="relevance-options">
     <ul>
       <% if user_signed_in? %>
