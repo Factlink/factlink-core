@@ -162,12 +162,17 @@
             "opacity": "1"
           });
         }
+        function switchTabAction(fact, active) { 
+          fact.find(".add-evidence[rel=" + active + "]").toggle();
+          fact.find(".evidence[rel=" + active + "]").toggle();
+          var action = fact.find(".add-action[rel=" + active + "] > a"); 
+          console.log(action);
+          action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
+        }
         function addEventHandlersDoAdd($t){
             $t.find("a.do-add").bind("click", function() { 
               var active = $t.find(".tab_content:visible").attr("rel");
-              $t.find(".add-evidence[rel=" + active + "]").toggle();
-              $t.find(".evidence[rel=" + active + "]").toggle();
-              $(this).text($(this).text() === 'Add facts' ? 'Show facts' : 'Add facts');
+              switchTabAction($t, active);
             }); 
         }
         function addEventHandlersTabs($t){
@@ -198,6 +203,9 @@
           //On Click Event
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
+          $t.bind("factlink:switchTabAction", function(fact, active)  {
+            switchTabAction($t, active); 
+          });
           // Evidence buttons
           $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
             $(this).closest('ul').children().removeClass("active");

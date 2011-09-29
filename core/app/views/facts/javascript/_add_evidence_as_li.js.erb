@@ -8,6 +8,5 @@ if (no_fact_message.length > 0) {
 
 
 fact.find(".evidence[rel=" + active + "] table > tbody").append("<tr><td><%= escape_javascript(render(:partial => "/facts/partial/evidence_bubble", :locals => {  :fact => fact_relation.from_fact, :fact_relation => fact_relation})) %></td></tr>").factlink();
+fact.trigger("factlink:switchTabAction", [active]);
 
-fact.find(".add-evidence[rel=" + active + "]").toggle();
-fact.find(".evidence[rel=" + active + "]").toggle();
