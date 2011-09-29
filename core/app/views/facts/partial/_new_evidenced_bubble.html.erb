@@ -2,8 +2,8 @@
   <div class="relevance-options">
     <ul>
       <% if user_signed_in? %>
-          <li class="evidence_button"><%= link_to('add supported', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true)%></li>
-          <li class="evidence_button"><%= link_to('add weakened',	 add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true)%></li>
+          <li class="evidence_button"><%= link_to('add supported', add_supporting_evidenced_path(fact.id, add_to_fact.id), :remote => true)%></li>
+          <li class="evidence_button"><%= link_to('add weakened',	 add_weakening_evidenced_path(fact.id, add_to_fact.id),  :remote => true)%></li>
       <% end %>
     </ul>
   <div>

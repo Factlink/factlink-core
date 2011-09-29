@@ -47,22 +47,35 @@
         <div class="evidence tab_content" rel="for-evidence">
           <table>
             <tbody>
+              <% unless fact.evidenced_factrelations.count > 0 %>
+                <tr class="no-evidence"><td>
+                  <% if user_signed_in? %>
+                    Perhaps you know something that is supported or weakened by this fact?
+                  <% else %>
+                    There are no facts that are supported or weakened by this fact at the moment.
+                  <% end %>
+                </td></tr>
+              <% else %>
               <tr><td>
                 <%= render :partial => "/facts/partial/evidenced_bubble", 
                     :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                 %>
               </td></tr>
+            <% end %>
             </tbody>
           </table>
         </div>
         <div class="add-evidence tab_content" rel="for-evidence">
           <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
         </div>
-        <% if user_signed_in? %>
-          <div class="add-action">
-            <a href"#" class="do-add">Add facts</a>
-          </div>
-        <% end %>
-    </div>
+      </div>
+      <% if user_signed_in? %>
+        <div class="add-action" rel="for-evidence">
+          <a href"#" class="do-add">Add facts</a>
+        </div>
+        <div class="add-action" rel="evidence-for">
+          <a href"#" class="do-add">Add facts</a>
+        </div>
+      <% end %>
   </div>
 </div>
