@@ -8,5 +8,5 @@ if (no_fact_message.length > 0) {
 
 
 active.find(" table > tbody").append("<tr><td><%= escape_javascript(render(:partial => "/facts/partial/evidence_bubble", :locals => {  :fact => fact_relation.fact, :fact_relation => fact_relation})) %></td></tr>").factlink();
-fact.trigger("factlink:switchTabAction", [active]);
+fact.trigger("factlink:switchTabAction", [active.attr("rel")]);
 
