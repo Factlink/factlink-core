@@ -20,7 +20,8 @@
   </div> 
   <div class="evidence-container" <%= show_evidence(@showEvidence) %>>
     <div class="evidence-list">
-      <div class="evidence tab_content" rel="evidence-for">
+      <div class="tab_content" rel="evidence-for">
+      <div class="evidence">
         <table>
             <tbody>
               <% unless fact.fact_relations.count > 0 %>
@@ -41,10 +42,12 @@
             </tbody>
           </table>
         </div>
-        <div class="add-evidence tab_content" rel="evidence-for">
-          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+          <div class="add-evidence" style="display: none">
+            <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+          </div>
         </div>
-        <div class="evidence tab_content" rel="for-evidence">
+      <div class="tab_content" rel="for-evidence">
+        <div class="evidence">
           <table>
             <tbody>
               <% unless fact.evidenced_factrelations.count > 0 %>
@@ -65,10 +68,11 @@
             </tbody>
           </table>
         </div>
-        <div class="add-evidence tab_content" rel="for-evidence">
-          <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
+          <div class="add-evidence" style="display: none">
+            <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
+          </div>
         </div>
-      </div>
+    </div>
       <% if user_signed_in? %>
         <div class="add-action" rel="for-evidence">
           <a href"#" class="do-add">Add facts</a>
