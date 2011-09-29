@@ -31,5 +31,20 @@
 
 <!-- right column -->
 <% content_for :right_column do %>
-	
+
+  <% unless user_signed_in? %>
+	<div class="get-chrome-extension">
+    <span class="button-information">Use Factlink? Get the extension:</span>
+    
+    <div class="get-extension-wrapper" onclick="location.href='<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx';">
+      <div class="get-extension-button">
+        <span>
+          <%= image_tag('arrow_down_16x16.png') %>
+          Chrome Extension
+        </span>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  
 <% end %>
