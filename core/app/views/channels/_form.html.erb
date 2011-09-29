@@ -4,7 +4,7 @@
 	<% @action = "create" %>
 <% end %>
 
-<%= form_for(:channel, :url => { :action => @action }) do |f| %>
+<%= form_for(:channel, :html=>{:method=> params[:action] == "edit" ? :put : :post}, :url => { :action => @action }) do |f| %>
 	<% if @channel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<%= f.label "Title" %>
-		<%= f.text_field :title, :placeholder => "Javascript, Cooking, Sports, ..." %>
+		<%= f.text_field :title, :placeholder => "JavaScript, Cooking, Sports, ..." %>
 	</div>
 
 	<div class="row">

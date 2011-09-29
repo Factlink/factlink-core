@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="http://localhost:8000/lib/dist/easyXDM/easyXDM.min.js"></script>
+	<script type="text/javascript" src="<%= FactlinkUI::Application.config.static_url %>lib/dist/easyXDM/easyXDM.min.js"></script>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -88,15 +88,20 @@
 
               createFactlink();
             },
-            showFactlink: function(id, successFn) {
+            showFactlink: function(id, showEvidence, successFn) {
               showFrame.onload = function() {
                 showFrame.onload = undefined;
-
                 successFn();
+              };
+              
+              if ( ( showEvidence === undefined ) || ( showEvidence === false ) ) {
+                showEvidence = false
+              } else {
+                showEvidence = true;
               }
 
               // Set the source of the iframe 
-              showFrame.src = "/factlink/show/" + id;
+              showFrame.src = "/factlink/show/" + id + "?showevidence=" + showEvidence;
               // Show the overlay 
               showFrame.className = "overlay";
             },

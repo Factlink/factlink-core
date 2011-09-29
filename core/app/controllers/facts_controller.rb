@@ -1,6 +1,5 @@
 class FactsController < ApplicationController
 
-
   layout "client"
   
   helper_method :sort_column, :sort_direction
@@ -24,7 +23,9 @@ class FactsController < ApplicationController
       :destroy,
       :update,
       :bubble,
-      :opinion]
+      :opinion,
+      :evidence_search,
+      :evidenced_search]
                                                         
   before_filter :potential_evidence, 
     :only => [
@@ -45,6 +46,11 @@ class FactsController < ApplicationController
 
   def show
     @title = @fact.data.displaystring # The html <title>
+    if params[:showevidence] == "true"
+      @showEvidence = true
+    else
+      @showEvidence = false
+    end
   end
 
   def new
@@ -120,6 +126,33 @@ class FactsController < ApplicationController
       render "add_source_to_factlink"
     end
   end
+
+
+  def add_supporting_evidenced
+    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_evidenced_to_factlink"
+    end
+  end
+
+  def add_weakening_evidenced
+    fact_id     = params[:fact_id]
+    evidence_id = params[:evidence_id]
+        
+    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
+    
+    # A FactRelation will not get created if it will cause a loop
+    if @fact_relation.nil?
+      render "adding_evidence_not_possible"
+    else
+      render "add_evidenced_to_factlink"
+    end
+  end
+
   
   def add_new_evidence
     type = params[:type].to_sym
@@ -154,17 +187,23 @@ class FactsController < ApplicationController
     # Strip first six characters to find the ID
     id = params[:id].slice(6..(params[:id].length - 1))
     @fact = Fact[id]
+    
+    puts "\n\n1st title: #{@fact.data.title}"
 
     if current_user.graph_user == @fact.created_by
+      
+      puts "\n\nYES\n"
+      
       @fact.data.title = params[:value]
-      @fact.save
+      @fact.data.save
     end
+    puts "\n\n2nd title: #{@fact.data.title}"
     
     render :text => @fact.data.title
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion(2).as_percentages}
+    render :json => {"opinions" => @fact.get_opinion(2).as_percentages }
   end
 
 
@@ -173,20 +212,42 @@ class FactsController < ApplicationController
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
 
   def remove_opinions
     @fact = Basefact[params[:fact_id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
+  end
+
+
+
+
+
+
+
+
+  def evidenced_search
+    potential_evidenced
+    internal_search(@potential_evidenced.to_a)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def evidence_search
+    potential_evidence
+    internal_search(@potential_evidence.to_a)
+    respond_to do |format|
+      format.js
+    end
   end
 
   # Search in the client popup.  
-  def client_search
-    # Need fact for rendering in the template
-    @fact = Fact[params[:fact_id].to_i]
+  def internal_search(eligible_facts)
 
     @row_count = 20
     row_count = @row_count
@@ -217,14 +278,10 @@ class FactsController < ApplicationController
 
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
-    potential_evidence
 
     # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts & potential_evidence.to_a
+    @facts = @facts & eligible_facts
 
-    respond_to do |format|
-      format.js
-    end
   end
   
   def indication
@@ -253,6 +310,20 @@ class FactsController < ApplicationController
     
     @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
   end    
+
+  def potential_evidenced # private
+    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+    # and filtering. Can't use the object ID, so using a workaround with :data_id's
+    # Very nasty :/
+    supporting_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :supporting).all.map {|fr| fr.fact.data_id}
+    weakening_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :weakening).all.map {|fr| fr.fact.data_id}
+    
+    intersecting_ids = supporting_fact_ids & weakening_fact_ids
+    intersecting_ids << @fact.data_id
+    
+    @potential_evidenced = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
+  end    
+
 
   def load_fact # private
     @fact = Fact[params[:id]]

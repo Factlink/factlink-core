@@ -1,7 +1,14 @@
-<% if current_user.channels.count == 1 %>
+<% if current_user.graph_user.channels.count == 1 %>
 	$('article.fact[data-fact-id=<%=@fact.id%>] .channel-listing > ul').empty().append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
 <% else %>
 	$('article.fact[data-fact-id=<%=@fact.id%>] .channel-listing > ul').append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
 <% end %>
 
 $('article.fact[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
+
+if (Channels !== undefined ) {
+  // TODO: How can we update a collection to have the just added channel?
+  $('#channel-listing li:not(:first)').remove();
+  // Channels.reset(<%= @user.graph_user.channels.to_json.html_safe %>);
+  Channels.fetch();
+}

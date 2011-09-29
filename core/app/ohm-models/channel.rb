@@ -57,6 +57,16 @@ class Channel < OurOhm
   def to_s
     self.id
   end
+  
+  # Ohm Model needs to have a definition of which fields to render
+  def to_hash
+    super.merge(:_id => id, 
+                :title => title, 
+                :description => description,
+                :created_by => created_by,
+                :facts => facts,
+                :discontinued => discontinued)
+  end
 
   def fork(user)
     c = Channel.create(:created_by => user, :title => title, :description => description)
@@ -94,6 +104,6 @@ class UserStream
   def facts
     facts = (@graph_user.created_facts & Fact.all)
     facts = @graph_user.channels.map{|ch| ch.facts}.reduce(facts,:|)
-    facts.all
+    facts.all.reverse
   end
 end

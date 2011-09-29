@@ -1,0 +1,14 @@
+<li id="channel-<%= channel.id %>">
+  <%= render :partial => "channels/single_menu_item", :locals => {  :channel => channel, :user => user } %>
+</li>
+<% if channel.sub_channels.size > 0 %>
+  <li>
+    <ul class="subchannels">
+      <% channel.sub_channels.each do |channel| %>
+        <li id="channel-<%= channel.id %>">
+          <%= render :partial => "channels/single_menu_item", :locals => {  :channel => channel, :user => user } %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>

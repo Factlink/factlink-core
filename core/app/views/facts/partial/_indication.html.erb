@@ -1,13 +1,12 @@
-<div>
-  <ul>
-    <li class="fl-bar-denies">
-      <div></div>
-    </li>
-    <li class="fl-bar-maybe">
-      <div></div>
-    </li>
-    <li class="fl-bar-proves">
-      <div></div>
-    </li>
-  </ul>
+<div class="indicator">
+  <div class="icon believe"    style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;"></div>
+  <div class="icon disbelieve" style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;background-position: -32px 0;"></div>
+  <div class="icon doubt"      style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;background-position: -64px 0;"></div>
+
+  <div class="authority-wrapper">
+    <span class="centered">
+      <span class="authority"></span>
+      <img src="<%= root_url + 'images/brains.png'%>">
+    </span>
+  </div>
 </div>

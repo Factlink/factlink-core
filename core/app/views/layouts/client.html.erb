@@ -19,17 +19,17 @@
 			<span class="close" onclick="parent.remote.hide();"></span>
 			<%= yield %>
 	</div>
-  
+
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
 
-  <script src="/javascripts/jquery-ui-1.8.16.custom.min.js"></script> 
+  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
 
-	<script src="/client/js/jquery.scrollTo-1.4.2-min.js"></script>
-	<script src="/javascripts/jquery.jeditable.mini.js"></script>
+	<%= javascript_include_tag "/client/js/jquery.scrollTo-1.4.2-min.js" %>
+	<%= javascript_include_tag "jquery.jeditable.mini" %>
 
   <script type="text/javascript">
     $(".modal").draggable();
@@ -40,7 +40,6 @@
   </script>
 
 	<%= yield :javascript %>
-	<%= yield :extra_javascript %>
 	
 </body>
 </html>

@@ -4,6 +4,7 @@ class FactRelation < Basefact
   reference :fact, Fact
 
   attribute :type # => :supporting || :weakening
+  index :type
 
   def validate
     assert_present :from_fact_id
@@ -46,6 +47,10 @@ class FactRelation < Basefact
 
   def FactRelation.redis_key(evidence, type, fact)
     "factlink:#{evidence.id}:#{type}:#{fact.id}"
+  end
+
+  def evidenced_facts
+    [fact]
   end
 
 

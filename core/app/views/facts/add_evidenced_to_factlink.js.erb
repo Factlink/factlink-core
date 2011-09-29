@@ -1,0 +1,7 @@
+try {
+	// Close Proxy
+	parent.hideProxyWindow();	
+} catch(e) {}
+
+// Add the element
+<%= render :partial => "facts/javascript/add_evidenced_as_li.js.erb", :locals => { :fact_relation => @fact_relation } %>

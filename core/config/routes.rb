@@ -16,7 +16,8 @@ FactlinkUI::Application.routes.draw do
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-  match "/client_search(/page/:page)(/:sort/:direction)" => "facts#client_search", :as => "client_search"
+  match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
+  match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     
   ##########
   # Javascript Client calls
@@ -36,6 +37,9 @@ FactlinkUI::Application.routes.draw do
   # Add evidence as supporting or weakening
   get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
+
+  get   "/factlink/:fact_id/add_supporting_evidenced/:evidence_id"  => "facts#add_supporting_evidenced",  :as => "add_supporting_evidenced"
+  get   "/factlink/:fact_id/add_weakening_evidenced/:evidence_id"   => "facts#add_weakening_evidenced",   :as => "add_weakening_evidenced"
   
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
@@ -61,16 +65,20 @@ FactlinkUI::Application.routes.draw do
   # get "/:username" => "users#show", :as => "user_profile"
   
   scope "/:username" do
-    resources :channels
+    resources :channels do
+      member do 
+        get "/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from"
+        # get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
+        get "follow", :as => "follow"
+        get "facts" => "channels#get_facts_for_channel", :as => "get_facts_for_channel"
+      end
+    end
+
+    post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+    
     get "/activity" => "users#activity", :as => "user_activity"
     
-    post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
-    get "/channels/:channel_id/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from_channel"
-    get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
-
     get "/" => "users#show", :as => "user_profile"
-    post "/channels/:id" => "channels#update"
-
   end
   
   match "/topic/:search" => "home#index", :as => "search_topic"  

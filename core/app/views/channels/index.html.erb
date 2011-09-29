@@ -1,42 +1,4 @@
-<!-- header -->
-<% content_for :header do %>
-<% end %>
-
-<!-- left column -->
-<% content_for :left_column do %>
-  <%= user_block(@user) %>
-  <%= render :partial => "home/snippets/channels", :locals => {:user => @user } %>
-<% end %>
-
-
 <!-- main column -->
 <% content_for :main_column do %>
 	
-	<% if @channel %>
-		<%= fact_listing_for_channel(@channel) %>	
-	<% else %>
-		<%= fact_listing(@user.facts) %>
-	<% end %>
-	
-<% end %>
-
-
-<!-- right-column -->
-<% content_for :right_column do %>
-
-	<% if @user.graph_user.activities.count > 0 %>
-	    <%= activity_list_for_user(@user.graph_user.activities, 20)%>
-	<% end%>
-
-<% end %>
-
-
-<% content_for :javascript do %>
-	<% if @channel %>
-	<script>
-	<!-- set active state to the current channel -->
-		$('li[data-channel-id=<%= @channel.id %>]').addClass('active');
-	</script>
-	<% end %>
-
 <% end %>

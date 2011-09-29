@@ -1,0 +1,61 @@
+<!-- header -->
+<%= content_for :header do %>
+<% end %>
+
+<!-- left column -->
+<%= content_for :left_column do %>
+  <%= user_block(@user) %>
+  
+  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
+<% end %>
+
+<!-- right-column -->
+<%= content_for :right_column do %>
+
+<% end %>
+
+<%= content_for :javascript do %>
+  <script>
+    var channel_dump = <%= @user.graph_user.channels.to_json.html_safe %>;
+  </script>
+  
+  <%= javascript_include_tag "models/channel.js" %>
+  <%= javascript_include_tag "collections/channels.js" %>
+  <%= javascript_include_tag "collections/facts.js" %>
+  <%= javascript_include_tag "views/channel_menu_view.js" %>
+  <%= javascript_include_tag "views/channel_app_view.js" %>
+  <%= javascript_include_tag "router.js" %>
+  
+  <script>
+    // get the facts
+  	function getFacts(el, url) {
+  		$.ajax({
+  		  url: url,
+  			dataType: "script",
+  		  success: function(){
+  		    $(el).closest('li').addClass("active");
+  		  }
+  		});
+  	}
+			
+  	$('.follow-channel').bind('click', function() {
+  		$.ajax({
+  		  url: $(this).data('follow-url'),
+  			dataType: "script",
+  		  success: function(){
+  				console.log("Succes");
+  		  }
+  		});
+
+  		return false;
+  	});
+  </script>
+<% end %>
+
+<%= content_for :template do %>
+  <script type="text/html" id="channel_li">
+    <%= render :partial => "channels/single_menu_item", :locals => { :jsmode => true } %>
+  </script>
+<% end %>
+
+<%= render :template => 'layouts/frontend' %>

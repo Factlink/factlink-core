@@ -1,0 +1,11 @@
+var fact = $("div[data-fact-id=<%= @fact_relation.from_fact.id %>]");
+var active =  fact.find(".tab_content:visible");
+
+var no_fact_message = active.find(".no-evidence");
+if (no_fact_message.length > 0) {
+	no_fact_message.remove();
+}
+
+
+active.find(" table > tbody").append("<tr><td><%= escape_javascript(render(:partial => "/facts/partial/evidenced_bubble", :locals => {  :fact => fact_relation.fact, :fact_relation => fact_relation})) %></td></tr>").factlink();
+fact.trigger("factlink:switchTabAction", [active.attr("rel")]);

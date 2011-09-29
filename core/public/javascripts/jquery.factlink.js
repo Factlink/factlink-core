@@ -5,6 +5,7 @@
       this.opinions = $(fact).find(".opinion");
       this.params = $.extend(params, {
         "dim": 24,
+        "radius" : 17,
         "default_stroke": {
           "opacity": 0.3,
           "stroke": 9
@@ -75,7 +76,7 @@
 
     Wheel.prototype.update = function() {
       var w = this;
-      w.set_opinions(w.opinions, 0, 16, 360);
+      w.set_opinions(w.opinions, 0, w.params.radius, 360);
     };
 
     Wheel.prototype.bind_events = function(op) {
@@ -119,7 +120,7 @@
             }).fadeIn("fast");
           },
           out: function() {
-            $(w.fact).find("." + $t.data("opinion") + "-box").delay(600).fadeOut("fast");
+            $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
           }
         });
       });
@@ -146,7 +147,7 @@
           path: path
         };
       };
-      w.set_opinions(this.opinions, 0, 16, 360);
+      w.set_opinions(this.opinions, 0, w.params.radius, 360);
       w.bind_events(this.opinions);
     };
     return Wheel;
@@ -156,44 +157,73 @@
     // Initialize factbubble
     init: function(options) {
       return this.each(function() {
-        var $t = $(this);
-        $t.data("facts",  []);
-        // TODO this needs major cleanup 
-        function toggleEvidence() {
-          $t.find(".potential-evidence").toggle(); // Shows the add panel
-          $t.find(".evidence").toggle(); // Hides the current evidence
-          $t.find(".add-action.do-add").toggle();
-          $t.find(".add-action.do-show").toggle();
-        }
-        if (!$t.data("initialized")) {
-          $t.find(".evidence-facts a.show-evidence").live("click", function() {
-            $t.find(".evidence-container").slideToggle();
-            $t.find(".triangle-up").toggleClass("triangle-down");
-            return false;
-          });
-          $t.find(".show-add").live("click", function() {
-            if($t.find(".potential-evidence").is(":hidden")) { 
-              $t.find(".potential-evidence").show();
-              $t.find(".evidence").hide();
-            }
-            $t.find(".evidence-container").slideToggle();
-            $t.find(".triangle-up").toggleClass("triangle-down");
-            return false;
-          });
-          $t.find(".add-action a#toggle-show-add").live("click", function() {
-            toggleEvidence();
-            return false;
-          });
-          // For each fact bubble
-          $t.data("initialized", true);
-        }
         function stop_fade(t) {
           t.stop(true, true).css({
             "opacity": "1"
           });
         }
+        function switchTabAction(active) { 
+          $t.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
+          $t.find(".tab_content[rel=" + active + "] .evidence").toggle();
+          var action = $t.find(".add-action[rel=" + active + "] > a"); 
+          action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
+        }
+        function addEventHandlersDoAdd($t){
+          $t.find("a.do-add").bind("click", function() { 
+            var active = $t.find(".tab_content:visible").attr("rel");
+            $t.trigger("factlink:switchTabAction", [active]);
+          }); 
+        }
+        function addEventHandlersTabs($t){
+          $t.find("ul.evidence li").click(function() {
+            $t.find(".tab_content, div.add-action").hide(); 
+            var activeTab = $(this).find("a").attr("class"); 
+            $t.find(".tab_content[rel='" + activeTab + "']").show();
+            $t.find("div.add-action[rel='" + activeTab + "']").show();
+            if($t.find(".evidence-container").is(":hidden")) { 
+              $t.find(".evidence-container").slideDown();
+              $(this).addClass("active"); 
+            } else { 
+              if($(this).hasClass("active")) { 
+                $t.find(".evidence-container").slideUp(function() {
+                  $t.find("ul.evidence li").removeClass("active");
+                }); 
+              } else { 
+                $t.find("ul.evidence li").removeClass("active"); 
+                $(this).addClass("active");
+              }
+            }
+              return false;
+           });
+         }
+        function initialize($t) {
+          /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
+          //On Click Event
+          addEventHandlersTabs($t);
+          addEventHandlersDoAdd($t);
+          $t.bind("factlink:switchTabAction", function(e, active)  {
+            switchTabAction(active); 
+          });
+          // Evidence buttons
+          $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
+            $(this).closest('ul').children().removeClass("active");
+            $(this).parent().addClass('active');
+           });
+          
+           $t.data("initialized", true);
+        }
+        
+        
+        /*start of method*/
+        var $t = $(this);
+        $t.data("facts",  {});
+        if (!$t.data("initialized")) {
+            initialize($t);
+        }
         $t.find("article.fact").each(function() {
-          $t.data("facts").push(init_fact(this, $t));
+          var fact = init_fact(this, $t);
+          $t.data("facts")[fact.attr("data-fact-id")] = fact;
+
         });
 
         // Prevents boxes from dissapearing on mouse over
@@ -205,16 +235,16 @@
         });
       });
     },
+    // Update
     update: function(data) {
-      $t = $(this).data("container") || $(this);
+      var $t = $(this).data("container") || $(this);
       if($t.data("initialized")) { 
-        //var facts = $t.data("facts") || $t.data("container").data("facts"); 
        $(data).each(function() { 
-          $d = this;
-          $t.find("article[data-fact-id=" + this.id + "]").each(function() {
-            $(this).data("update")($d.score_dict_as_percentage); // Update all the facts 
-          });
-        });
+          var fact =  $t.data("facts")[this.id];
+          if(fact && $(fact).data("initialized")) { 
+            $(fact).data("update")(this.score_dict_as_percentage); // Update the facts
+          }
+       });
       }
     },
     switch_opinion: function(opinion) {
@@ -260,6 +290,7 @@
         }
       });
     }
+
   };
 
   $.fn.factlink = function(method) {
@@ -284,6 +315,11 @@
   function init_fact(fact, container) {
     var $t = $(fact);
     if (!$t.data("initialized")) {
+      $t.find('.edit').editable('/factlink/update_title', {
+        indicator : 'Saving...',
+        tooltip		: 'You can edit this title to place the fact in the correct context.'
+      });
+
       $t.data("container", container);
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
@@ -297,10 +333,11 @@
       }, function() {
         $t.find(".channel-listing").delay(600).fadeOut("fast");
       });
+
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
-
+      // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $t.data("update", function(data) {
         var fact = $t; 
         fact.data("wheel").opinions.each(function() {

@@ -25,20 +25,6 @@ class Fact < Basefact
 
   reference :data, lambda { |id| FactData.find(id) }
   
-  def require_data # dit ook doen met zo'n aftercreategebeuren    
-    if not self.data_id
-      localdata = FactData.new
-      localdata.save    # FactData now has an ID
-      self.data = localdata
-      if self.save
-        localdata.fact_id = self.id
-        localdata.save
-      else
-        raise StandardException, "the object could not be saved, but this is required before a require_data can be executed"
-      end
-    end
-  end
-  
   def require_saved_data
     if not self.data_id
       localdata = FactData.new
@@ -52,12 +38,20 @@ class Fact < Basefact
     self.data.save
   end
   
-  before :save, :require_saved_data
-  after :save, :set_own_id_on_saved_data
+  before :create, :require_saved_data
+  after :create, :set_own_id_on_saved_data
 
 
   set :supporting_facts, FactRelation
   set :weakening_facts, FactRelation
+
+  def evidenced_factrelations
+    FactRelation.find(:from_fact_id => self.id).all
+  end
+  
+  def evidenced_facts
+    evidenced_factrelations.map{|f| f.fact }
+  end
   
   def self.by_display_string(displaystring)
     fd = FactData.where(:displaystring => displaystring)
@@ -68,16 +62,13 @@ class Fact < Basefact
     end
   end
   
-  # OHm Model needs to have a definition of which fields to render
+  # Ohm Model needs to have a definition of which fields to render
   def to_hash
-    super.merge(:_id => id, :displaystring => self.data.displaystring, :score_dict_as_percentage => get_opinion.as_percentages)
+    super.merge(:_id => id, 
+                :displaystring => self.data.displaystring, 
+                :score_dict_as_percentage => get_opinion.as_percentages)
   end
-  
-  deprecate
-  def fact_relations_ids
-    fact_relations.map { |fr| fr.id }
-  end
-  
+
   def fact_relations
     supporting_facts | weakening_facts
   end
@@ -97,7 +88,7 @@ class Fact < Basefact
     puts "Fact#evidence -- No evidence found for type '#{type}'"
   end
 
-  def add_evidence(type, evidence, user)    
+  def add_evidence(type, evidence, user)
     # Some extra loop protection
     if evidence.id == self.id
       puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
@@ -109,18 +100,6 @@ class Fact < Basefact
     end
   end
   
-  # Count helpers
-  def supporting_evidence_count
-    evidence(:supporting).size
-  end
-
-  def weakening_evidence_count
-    evidence(:weakening).size
-  end
-
-  def evidence_count
-    weakening_evidence_count + supporting_evidence_count
-  end
   
   # Used for sorting
   #deprecate
@@ -176,13 +155,9 @@ class Fact < Basefact
   def get_evidence_opinion(depth=0)
     if depth > 0
       self.calculate_evidence_opinion(depth)
-    end    
+    end
     self.evidence_opinion || Opinion.identity
   end
-
-
-
-
 
   value_reference :opinion, Opinion
   def calculate_opinion(depth=0)
