@@ -253,6 +253,7 @@ div.modal span.proxyWindow {
 .fact-block .wheel {
   float: left;
   width: 65px;
+  height: 65px;
 }
 .fact-block .wheel svg {
   width: 65px;
