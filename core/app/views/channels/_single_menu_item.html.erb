@@ -1,0 +1,18 @@
+<% jsmode ||= nil %>
+<article class="channel-block">
+  <div class="wrapper">
+		<span style="vertical-align:middle;">
+		  <%= jsmode ? "\<%= channel.title %\>".html_safe : channel.title %>
+			
+			<% if jsmode %>
+			  <%= "\<% if (channel.discontinued === true) { %\>(discontinued)\<% } %\>".html_safe %>
+			<% else %>
+			  <% if channel.discontinued == 'true' %>
+  			  (discontinued)
+  			<% end %>
+  		<% end %>
+	    
+	    (<%= jsmode ? "\<%= channel.facts.length %\>".html_safe : channel.facts.count %>)
+	  </span>
+  </div>
+</article>
