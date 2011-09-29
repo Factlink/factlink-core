@@ -15,5 +15,5 @@ testserver:
 
 production:
     core:
-        hostname: factlink.com
+        hostname: demo.factlink.com
         port: 80

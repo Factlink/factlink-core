@@ -63,7 +63,8 @@ class Users::SessionsController < Devise::SessionsController
         # Required for the Ohm Model
         site.facts << @fact
 
-        redirect_to :controller => "/facts", :action => "show", :id => @fact.id
+        # redirect_to :controller => "/facts", :action => "show", :id => @fact.id
+        render :nothing => true
         return false
       end
     end
