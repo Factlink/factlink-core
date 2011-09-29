@@ -1,7 +1,7 @@
 var fact = $("div[data-fact-id=<%= @fact_relation.from_fact.id %>]");
 var active =  fact.find(".tab_content:visible").attr("rel");
 
-var no_fact_message = fact.find(".no-evidence");
+var no_fact_message = fact.find(".tab_content[rel=" + active + "] .no-evidence");
 if (no_fact_message.length > 0) {
 	no_fact_message.remove();
 }

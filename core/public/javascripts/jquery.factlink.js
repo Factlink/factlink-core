@@ -162,18 +162,18 @@
             "opacity": "1"
           });
         }
-        function switchTabAction(fact, active) { 
-          fact.find(".add-evidence[rel=" + active + "]").toggle();
-          fact.find(".evidence[rel=" + active + "]").toggle();
-          var action = fact.find(".add-action[rel=" + active + "] > a"); 
-          console.log(action);
+        function switchTabAction(active) { 
+          console.log(active);
+          $t.find(".add-evidence[rel=" + active + "]").toggle();
+          $t.find(".evidence[rel=" + active + "]").toggle();
+          var action = $t.find(".add-action[rel=" + active + "] > a"); 
           action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
         }
         function addEventHandlersDoAdd($t){
-            $t.find("a.do-add").bind("click", function() { 
-              var active = $t.find(".tab_content:visible").attr("rel");
-              switchTabAction($t, active);
-            }); 
+          $t.find("a.do-add").bind("click", function() { 
+            var active = $t.find(".tab_content:visible").attr("rel");
+            $t.trigger("factlink:switchTabAction", [active]);
+          }); 
         }
         function addEventHandlersTabs($t){
           $t.find("ul.evidence li").click(function() {
@@ -199,12 +199,11 @@
          }
         function initialize($t) {
           /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
-          $t.find(".tab_content").hide();
           //On Click Event
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
-          $t.bind("factlink:switchTabAction", function(fact, active)  {
-            switchTabAction($t, active); 
+          $t.bind("factlink:switchTabAction", function(e, active)  {
+            switchTabAction(active); 
           });
           // Evidence buttons
           $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
