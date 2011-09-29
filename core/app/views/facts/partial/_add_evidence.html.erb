@@ -3,7 +3,9 @@
     <input type="text" class="evidence_search" name="s" placeholder="Search for facts.." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
     <input type="hidden" name="id" value="<%= fact.id %>">
     <input type="submit" value="Search">
-  <% end %>  
+  
+    <span class="proxyWindow"> or <a onclick="parent.openNewProxyWindow();">browse for evidence</a></span>
+  <% end %>   
 </div>
 <table class="search-list">
   <tr></tr>

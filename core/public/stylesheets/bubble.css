@@ -384,8 +384,8 @@ div.modal span.proxyWindow {
   position: relative;
 }
 .fact-block .evidence-options .relevance-indicator {
-  border-top: solid 1px #ddd;
-  width: 196px;
+  border-top: solid 1px #ccc;
+  width: 100px;
   position: absolute;
   top: 1px;
   left: 0px;
@@ -423,7 +423,7 @@ div.modal span.proxyWindow {
   -webkit-transition: all 0.2s ease-in-out;
 }
 .fact-block .evidence-options .relevance-options ul {
-  margin-top: 12px;
+  margin-top: 24px;
 }
 .fact-block .evidence-options .relevance-options ul span {
   color: #666;
