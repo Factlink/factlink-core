@@ -309,11 +309,10 @@
   function init_fact(fact, container) {
     var $t = $(fact);
     if (!$t.data("initialized")) {
-
       $t.find('.edit').editable('/factlink/update_title', {
-		    indicator : 'Saving...',
-	    	tooltip		: 'You can edit this title to place the fact in the correct context.'
-	    });
+        indicator : 'Saving...',
+        tooltip		: 'You can edit this title to place the fact in the correct context.'
+      });
 
       $t.data("container", container);
       $t.data("wheel", new Wheel(fact));
