@@ -63,7 +63,9 @@ class Channel < OurOhm
     super.merge(:_id => id, 
                 :title => title, 
                 :description => description,
-                :created_by => created_by)
+                :created_by => created_by,
+                :facts => facts,
+                :discontinued => discontinued)
   end
 
   def fork(user)

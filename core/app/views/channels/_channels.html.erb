@@ -14,7 +14,7 @@
 <% else %>
 	<ul id="channel-listing">
 		
-		<li data-channel-id="user-stream" class="active" onclick="getFacts('<%= user_profile_path(user.username) %>');">
+		<li onclick="getFacts('<%= user_profile_path(user.username) %>');">
 			<article class="channel-block">
 				<div class="wrapper">
 
@@ -27,10 +27,10 @@
 		</li>
 		
 
-		<% user.graph_user.channels.each do |channel| %>
-			<%= render :partial => "home/snippets/channel_menu_item", 
-  	            :locals => {  :channel => channel, :user => user } %>
-		<% end %>
+		<%# user.graph_user.channels.each do |channel| %>
+	      <%#= render :partial => "channels/as_menu_item", 
+  	               #:locals => {  :channel => channel, :user => user } %>
+    <%# end %>
 
 	</ul>
 <% end %>

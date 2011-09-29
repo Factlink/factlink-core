@@ -28,7 +28,7 @@
 		
 
 		<% user.graph_user.channels.each do |channel| %>
-			<%= render :partial => "home/snippets/channel_menu_item", 
+			<%= render :partial => "channels/as_menu_item", 
   	            :locals => {  :channel => channel, :user => user } %>
 		<% end %>
 

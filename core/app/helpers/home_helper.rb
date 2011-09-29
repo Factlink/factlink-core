@@ -1,5 +1,4 @@
 module HomeHelper
-  
   def fact_listing_for_channel(channel)
     render :partial => "home/snippets/fact_listing_for_channel", 
                 :locals => {  :channel => channel }
