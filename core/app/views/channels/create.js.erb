@@ -8,7 +8,7 @@ $('article.fact[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
 
 if (Channels !== undefined ) {
   // TODO: How can we update a collection to have the just added channel?
-  $('#channel-listing').empty();
+  $('#channel-listing li:not(:first)').remove();
   // Channels.reset(<%= @user.graph_user.channels.to_json.html_safe %>);
   Channels.fetch();
 }
