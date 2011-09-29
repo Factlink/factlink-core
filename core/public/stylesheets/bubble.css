@@ -409,10 +409,10 @@ div.modal span.proxyWindow {
   border-bottom: 100px solid transparent;
 }
 .fact-block .evidence-options .relevance-indicator .supporting {
-  border-top: 40px solid #cee7f4;
+  border-top: 40px solid rgba(2, 119, 158, 0.25);
 }
 .fact-block .evidence-options .relevance-indicator .weakening {
-  border-top: 40px solid #f6c6b7;
+  border-top: 40px solid rgba(235, 84, 10, 0.25);
 }
 .fact-block .evidence-options .relevance-options {
   width: 42px;
