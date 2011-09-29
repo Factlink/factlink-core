@@ -93,6 +93,20 @@
     <!-- right column  -->
     <section id="right-column" class="span-6 last side-column">
       
+      
+      <div class="get-chrome-extension">
+        <span class="button-information">Use Factlink? Get the extension:</span>
+        
+        <div class="get-extension-wrapper" onclick="location.href='<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx';">
+          <div class="get-extension-button">
+            <span>
+              <%= image_tag('arrow_down_16x16.png') %>
+              Chrome Extension
+            </span>
+          </div>
+        </div>
+      </div>
+      
     </section>
    
 
