@@ -1,7 +1,7 @@
 <% modal ||= nil %>
 <% channel ||= nil %>
 <div class="fact-block" data-fact-id="<%= fact.id %>">
-  <% if user_signed_in? and channel.created_by == current_user.graph_user %>
+  <% if user_signed_in? and channel and channel.created_by == current_user.graph_user %>
     <%= link_to(
       image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
       remove_fact_from_channel_path(current_user.username, channel.id, fact.id),
