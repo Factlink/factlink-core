@@ -324,7 +324,7 @@ div.modal span.proxyWindow {
 }
 .fact-block ul.evidence {
   float: left;
-  background-color: #FBFAFA;
+  background-color: #fff;
   border-bottom: 1px solid #bbbbbb;
   margin-left: -1px;
   border-left: 1px solid #bbbbbb;
@@ -334,6 +334,7 @@ div.modal span.proxyWindow {
 }
 .fact-block ul.evidence li {
   float: left;
+  background: #f6f6f6;
   border: 1px solid #bbbbbb;
   border-left: none;
   margin-bottom: -1px;
