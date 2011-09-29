@@ -32,11 +32,10 @@ window.AppView = Backbone.View.extend({
         $('.fact-block').factlink();
         
         // TODO: This must be easier. Can't we access the view from the model?
+        $('#channel-listing li').removeClass('active');
         for (var i=0; i<views.length; i++) {
           if (views[i].model === channel) {
             views[i].setActive();
-          } else {
-            views[i].setNotActive();
           }
         }
       }

@@ -25,6 +25,31 @@
   <%= javascript_include_tag "views/channel_menu_view.js" %>
   <%= javascript_include_tag "views/channel_app_view.js" %>
   <%= javascript_include_tag "router.js" %>
+  
+  <script>
+    // get the facts
+  	function getFacts(el, url) {
+  		$.ajax({
+  		  url: url,
+  			dataType: "script",
+  		  success: function(){
+  		    $(el).closest('li').addClass("active");
+  		  }
+  		});
+  	}
+			
+  	$('.follow-channel').bind('click', function() {
+  		$.ajax({
+  		  url: $(this).data('follow-url'),
+  			dataType: "script",
+  		  success: function(){
+  				console.log("Succes");
+  		  }
+  		});
+
+  		return false;
+  	});
+  </script>
 <% end %>
 
 <%= content_for :template do %>

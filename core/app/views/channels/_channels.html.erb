@@ -14,7 +14,7 @@
 <% else %>
 	<ul id="channel-listing">
 		
-		<li onclick="getFacts('<%= user_profile_path(user.username) %>');">
+		<li onclick="getFacts(this, '<%= user_profile_path(user.username) %>'); location.hash = '';">
 			<article class="channel-block">
 				<div class="wrapper">
 
