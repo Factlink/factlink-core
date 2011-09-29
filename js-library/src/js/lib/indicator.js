@@ -25,6 +25,10 @@ Factlink.Indicator = (function() {
             disbelieve_percentage = fl.first().data('fact-disbelieve-percentage');
             doubt_percentage = fl.first().data('fact-doubt-percentage');
             authority = fl.first().data('fact-authority');
+            // On creation of a new Fact, authority is undefined. Fall to default
+            if ( authority === 'undefined' ) {
+              authority = 0;
+            }
             
             prevalent = 'doubt';
             prevalent_percentage = doubt_percentage;
