@@ -1,18 +1,10 @@
 <!-- main column -->
 <% content_for :main_column do %>
 	
-	<% if @channel %>
-		<%= fact_listing_for_channel(@channel) %>	
-	<% else %>
-		<%= fact_listing(@user.facts) %>
-	<% end %>
+	<%# if @channel %>
+		<%#= fact_listing_for_channel(@channel) %>	
+	<%# else %>
+		<%#= fact_listing(@user.facts) %>
+	<%# end %>
 	
-<% end %>
-
-<% content_for :javascript do %>
-	<% if @channel %>
-  	<script>
-    	$('li[data-channel-id=<%= @channel.id %>]').addClass('active');
-  	</script>
-	<% end %>
 <% end %>

@@ -121,7 +121,7 @@ class OurOhm < Ohm::Model
     valid
   end
 
-  def encode_json
+  def encode_json(encoder)
     return self.to_json
   end
 

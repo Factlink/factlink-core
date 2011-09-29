@@ -1,4 +1,10 @@
 </td><td class="evidence-options">
+
+  <div class="relevance-indicator">
+    <div class="relevance-type"><%= fact_relation.type %></div>
+    <div class="back <%= fact_relation.type %>"></div>
+  </div>
+
   <div class="relevance-options">
     <ul>
       <% if user_signed_in? %>
@@ -6,6 +12,8 @@
       <% end %>
     </ul>
   <div>
+    
 </td><td>
+
 
 <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact_relation.from_fact} %>
