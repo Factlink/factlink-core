@@ -152,7 +152,7 @@ class ChannelsController < ApplicationController
   end
   
   def follow
-    @channel = Channel[params[:channel_id]]
+    @channel = Channel[params[:id]]
     @channel.fork(current_user.graph_user)
   end
   

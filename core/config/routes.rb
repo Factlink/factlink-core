@@ -69,7 +69,7 @@ FactlinkUI::Application.routes.draw do
       member do 
         get "/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from"
         # get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
-        get "follow", :as => "follow_channel"
+        get "follow", :as => "follow"
         get "facts" => "channels#get_facts_for_channel", :as => "get_facts_for_channel"
       end
     end

@@ -31,6 +31,8 @@ window.ChannelMenuView = Backbone.View.extend({
   },
   
   showFacts: function() {
-    window.location.hash = 'tomdev/channels/' + this.model.id + '/facts';
+    var username = location.pathname.split("/")[1];
+    
+    window.location.hash = username + '/channels/' + this.model.id + '/facts';
   }
 });
