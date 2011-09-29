@@ -103,7 +103,7 @@ var
             '//' + window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime()
+            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime(),
             '//' + window.FactlinkConfig.lib + '/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
