@@ -1,19 +1,13 @@
-<% content_for :left_column do %>
-  <%= user_block(@user) %>
-  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
-<% end %>
-
-
 <% content_for :main_column do %>
-
-	<h1>User stream <%= @user.username %></h1>
-	<%= fact_listing(@user.graph_user.stream.facts) %>
-
+	
+	<%#= fact_listing_for_channel(@channel) %>
+	
 <% end %>
 
-
-<% content_for :right_column do %>
-
+<% content_for :javascript do %>
+  <script>
+    $(function(){
+      $('#channel-listing>li:first').click();
+    });
+  </script>
 <% end %>
-
-

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  layout "frontend"
+  layout "channels"
 
   before_filter :load_user, 
     :only => [
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       ]
 
   def show
-    if @user      
+    if @user
       @activities = @user.graph_user.activities.sort(:order => "DESC")
       respond_to do |format|
         format.html # show.html.erb
