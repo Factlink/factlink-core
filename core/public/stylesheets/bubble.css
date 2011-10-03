@@ -138,9 +138,6 @@ div.modal span.proxyWindow {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
 }
-.fact-block:hover > article.fact .actions {
-  visibility: visible;
-}
 .fact-block {
   padding: 0;
   -webkit-border-radius: 3px;
@@ -157,6 +154,10 @@ div.modal span.proxyWindow {
 }
 .fact-block img.close {
   margin: 5px;
+}
+.fact-block:hover > article.fact .actions {
+  visibility: default;
+  opacity: 1;
 }
 .fact-block article.fact {
   padding: 10px 0 10px 5px;
@@ -205,6 +206,10 @@ div.modal span.proxyWindow {
 .fact-block article.fact header .actions {
   visibility: hidden;
   height: 18px;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 }
 .fact-block article.fact header .actions li {
   margin: 5px 10px 0 0;
