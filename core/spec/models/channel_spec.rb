@@ -14,7 +14,7 @@ describe Channel do
   
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
-  end  
+  end
   
   describe "after adding one fact" do
     before do
@@ -29,6 +29,17 @@ describe Channel do
       end
       it { subject.facts.to_a.should =~ []}
     end
+    
+    describe "and removing an fact without recalculate" do
+      before do
+        f1.delete
+        # subject.remove_fact(f1)
+        # Channel.recalculate_all
+      end
+      it { subject.facts.to_a.should =~ []}
+    end
+    
+    
     describe "after forking" do
       before do
          @fork = subject.fork(u2)

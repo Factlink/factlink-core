@@ -3,6 +3,14 @@ class Fact < Basefact
   
   after :create, :set_activity!
 
+  before :delete, :remove_from_channels
+  
+  def remove_from_channels    
+    self.created_by.channels.each do |ch|
+      ch.calculate_facts
+    end
+  end
+
   def set_activity!
     activity(self.created_by, "created", self)
   end
