@@ -207,9 +207,12 @@ div.modal span.proxyWindow {
   height: 18px;
 }
 .fact-block article.fact header .actions li {
-  margin: 5px 5px 0 0;
+  margin: 5px 10px 0 0;
   display: inline-block;
   list-style-type: none;
+}
+.fact-block article.fact header .actions li img {
+  margin: 0 3px 0 0;
 }
 .fact-block article.fact .channel-listing {
   padding: 0;
