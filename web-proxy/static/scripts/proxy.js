@@ -67,12 +67,12 @@ domReady(function(){
 			// Add the action url to form
 			var input = document.createElement('input');
 			input.setAttribute('type', 'hidden');
-			input.setAttribute('name', 'factlinkPostUrl');
+			input.setAttribute('name', 'factlinkFormUrl');
 			input.setAttribute('value', action);
 			form.appendChild(input);
 			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/submit?url=' + action.match(/http(s|):\/\//)[0]);
+      form.action = action.replace(/^http(s|):\/\/.*/, window.FACTLINK_PROXY_URL + '/submit/');
     }
   }
 

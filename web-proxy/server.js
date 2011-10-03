@@ -62,15 +62,7 @@ function injectFactlinkJs(html_in,site, scrollto){
 }
 
 
-/** 
- *	Regular get requests
- */
-server.get('/parse', function(req, res) {
-
-	console.info("\nGET /parse");
-
-	var site = req.query.url;
-  var scrollto = req.query.scrollto;
+function handleProxyRequest(res, site, scrollto, form_hash){
   errorhandler = function(data) {
 		console.error("Failed on: " + site);
 		
@@ -98,7 +90,7 @@ server.get('/parse', function(req, res) {
 
   console.info("Serving: " + site);
 
-	var request = restler.get( site );
+	var request = restler.get( site , form_hash);
 
 	request.on('complete', function(data) {
 		res.write( injectFactlinkJs(data,site, scrollto) );
@@ -107,7 +99,16 @@ server.get('/parse', function(req, res) {
 
 	
 	request.on("error", errorhandler);
+}
 
+/** 
+ *	Regular get requests
+ */
+server.get('/parse', function(req, res) {
+	console.info("\nGET /parse");
+	var site = req.query.url;
+  var scrollto = req.query.scrollto;
+  handleProxyRequest(res,site,scrollto, {});
 });
 
 
@@ -116,32 +117,15 @@ server.get('/parse', function(req, res) {
  * Handling forms
  * --------------
  * Forms get posted with a hidden 'factlinkPostUrl' field,
- * which is added by the proxy. This is the 'action' URL which
- * the form normally posts to.
+ * which is added by the proxy (in proxy.js). This is the 'action' URL which
+ * the form normally submits its form to.
  *
  */
 server.get('/submit', function(req, res) {
-	
-	// factlinkPostUrl is injected in the posted form by proxy.js
-	var site = req.query.factlinkPostUrl;
-	console.info('Serving (as form): ' + site);
-
-	// Set form hash and remove our temporary stored URL so we only post the original hash
+	var site = req.query.factlinkFormUrl;
 	var form_hash = req.query;
 	delete form_hash.factlinkPostUrl;
-
-	var request = restler.post( site, { "query": form_hash } );
-
-	request.on('complete', function(data) {
-		res.write( injectFactlinkJs(data,site) );
-		res.end();
-	});
-	
-	request.on('error', function(data) {
-		var error_page = "<html><body><span>An error occured when trying to visit " + site + ".<br/><br/>Please check the URL or <a href='http://www.google.com/'>do a web-search</a>.<pre>form submit error</pre></span></body></html>";
-		res.write( error_page );
-		res.end(); 
-	});	
+  handleProxyRequest(res,site,undefined, {'query':form_hash});
 });
 
 function create_url(base,query){
