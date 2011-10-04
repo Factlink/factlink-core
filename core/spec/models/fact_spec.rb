@@ -138,6 +138,7 @@ describe Fact do
         :created_by => @user1.graph_user
       )
       f.data.displaystring = "This is a fact"
+      f.data.save
       f.save
 
       f2 = Fact[f.id]
