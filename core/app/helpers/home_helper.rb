@@ -1,9 +1,4 @@
-module HomeHelper
-  def fact_listing_for_channel(channel)
-    render :partial => "home/snippets/fact_listing_for_channel", 
-                :locals => {  :channel => channel }
-  end
-  
+module HomeHelper  
 
   def users_and_factlink_information
     render :partial => "home/snippets/user_and_factlink_information"
