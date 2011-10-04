@@ -3,8 +3,7 @@ class Fact < Basefact
   
   after :create, :set_activity!
 
-  before :delete, :remove_from_channels
-  
+  # before :delete, :remove_from_channels  
   def remove_from_channels    
     self.created_by.channels.each do |ch|
       ch.calculate_facts
@@ -31,7 +30,7 @@ class Fact < Basefact
     self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
   end
 
-  reference :data, lambda { |id| FactData.find(id) }
+  reference :data, lambda { |id| id && FactData.find(id) }
   
   def require_saved_data
     if not self.data_id
@@ -72,6 +71,7 @@ class Fact < Basefact
   
   # Ohm Model needs to have a definition of which fields to render
   def to_hash
+    return {} unless self.data
     super.merge(:_id => id, 
                 :displaystring => self.data.displaystring, 
                 :score_dict_as_percentage => get_opinion.as_percentages)
@@ -115,6 +115,11 @@ class Fact < Basefact
     FactData.column_names
   end
 
+  #returns whether a given fact should be considered
+  #unsuitable for usage/viewing
+  def self.invalid(f)
+    !f || !f.data_id
+  end
   
   def delete
     delete_from_channels

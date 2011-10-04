@@ -20,7 +20,7 @@ class ChannelsController < ApplicationController
       :get_facts_for_channel
       ]
 
-  # GET /:username/channel
+  # GET /:username/channels
   def index
     @channels = @user.graph_user.channels
     @channel = @channels.first

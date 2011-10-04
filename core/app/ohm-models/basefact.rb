@@ -70,4 +70,6 @@ class Basefact < OurOhm
     })
   end
   
+  private :delete
+  
 end
