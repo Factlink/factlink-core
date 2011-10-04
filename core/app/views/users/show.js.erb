@@ -1,7 +1,5 @@
 $('#main-wrapper').hide().html('<%= escape_javascript(render :partial => "home/snippets/fact_listing", :locals => {  :facts => @user.graph_user.stream.facts }) %>').fadeIn(150);
 
-
-
 $('#main-wrapper').prepend("<h1>User stream <%= @user.username %></h1>");
 
 $('#channel-listing > li').removeClass('active');
