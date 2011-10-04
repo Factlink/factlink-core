@@ -33,8 +33,6 @@ describe Channel do
     describe "and removing a fact (not from the Channel but the fact itself) without recalculate" do
       before do
         f1.delete
-        # subject.remove_fact(f1)
-        # Channel.recalculate_all
       end
       it { subject.facts.to_a.should =~ []}
     end

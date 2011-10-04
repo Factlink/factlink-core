@@ -31,7 +31,7 @@ class Channel < OurOhm
     prune_invalid_facts
     fs = internal_facts
     contained_channels.each do |ch|
-      fs |= ch.facts
+      fs |= ch.cached_facts
     end
     fs -= delete_facts
     self.cached_facts = fs
