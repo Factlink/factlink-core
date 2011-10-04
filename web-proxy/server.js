@@ -116,7 +116,7 @@ server.get('/parse', function(req, res) {
 /** 
  * Handling forms
  * --------------
- * Forms get posted with a hidden 'factlinkPostUrl' field,
+ * Forms get posted with a hidden 'factlinkFormUrl' field,
  * which is added by the proxy (in proxy.js). This is the 'action' URL which
  * the form normally submits its form to.
  *
@@ -127,6 +127,7 @@ server.get('/submit', function(req, res) {
 	delete form_hash.factlinkPostUrl;
   handleProxyRequest(res,site,undefined, {'query':form_hash});
 });
+
 
 function create_url(base,query){
     var url;

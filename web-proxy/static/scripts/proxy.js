@@ -60,6 +60,11 @@ domReady(function(){
       } else {
         valid = true;
       }
+      
+    }
+
+    if (form.method !== undefined && form.method.match(/post/i)){
+      valid = false;
     }
         
     if ( valid ) {
@@ -71,8 +76,11 @@ domReady(function(){
 			input.setAttribute('value', action);
 			form.appendChild(input);
 			
+			
 			// Set the proxied URL
       form.action = action.replace(/^http(s|):\/\/.*/, window.FACTLINK_PROXY_URL + '/submit/');
+    } else {
+      form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
     }
   }
 
