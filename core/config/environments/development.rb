@@ -37,3 +37,8 @@ ActiveSupport.on_load(:after_initialize) do
     ActionController::Base.view_paths.each(&:clear_cache)
   end
 end
+
+# this allows WEBrick to handle pipe symbols in query parameters
+puts "Overriding default URI parser to add pipe"
+URI::DEFAULT_PARSER = 
+  URI::Parser.new(:UNRESERVED => URI::REGEXP::PATTERN::UNRESERVED + '|')
