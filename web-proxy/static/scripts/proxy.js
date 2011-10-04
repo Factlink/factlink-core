@@ -68,8 +68,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-	
-			// Add the action url to form
+				// Add the action url to form
 			var input = document.createElement('input');
 			input.setAttribute('type', 'hidden');
 			input.setAttribute('name', 'factlinkFormUrl');
