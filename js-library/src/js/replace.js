@@ -76,10 +76,8 @@
   var insertFactSpan = function(startOffset, endOffset, node, id, opinions, isFirst) {
         // Value of the startNode, represented in an array
         var startNodeValue = node.nodeValue.split(''),
-        
-        
-            // The selected text
-            selTextStart = startNodeValue.splice(startOffset, startNodeValue.length);
+        // The selected text
+        selTextStart = startNodeValue.splice(startOffset, startNodeValue.length);
 
         if (endOffset < node.nodeValue.length && endOffset !== 0) {
           var after = selTextStart.splice(endOffset - startOffset, selTextStart.length).join('');

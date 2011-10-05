@@ -13,4 +13,4 @@ var document = window.document,
     setTimeout = window.setTimeout,
     alert = window.alert,
     $ = window.jQuery.noConflict();
-
+    _ = window.underscore.noConflict();
