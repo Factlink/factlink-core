@@ -111,13 +111,20 @@ class Channel < OurOhm
 end
 
 class UserStream
+  attr_accessor :id, :graph_user, :facts, :title, :description
+  
   def initialize(graph_user)
     @graph_user = graph_user
+    @facts = self.get_facts
+    @title = "All"
+    @id = "all"
+    @description = "All facts"
+    @created_by = @graph_user
   end
   
-  def facts
+  def get_facts
     facts = (Fact.all & @graph_user.created_facts)
-    facts = @graph_user.channels.map{|ch| ch.cached_facts}.reduce(facts,:|)
+    facts = @graph_user.internal_channels.map{|ch| ch.cached_facts}.reduce(facts,:|)
     
     facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
   end

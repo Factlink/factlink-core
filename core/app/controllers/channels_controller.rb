@@ -11,19 +11,18 @@ class ChannelsController < ApplicationController
       :edit,
       :destroy,
       :update,
-      :get_facts_for_channel]
+      :get_facts]
   
   before_filter :authenticate_user!,
     :except => [
       :index,
       :show,
-      :get_facts_for_channel
+      :get_facts
       ]
 
   # GET /:username/channels
   def index
     @channels = @user.graph_user.channels
-    @channel = @channels.first
     
     respond_to do |format|
       format.html
@@ -52,7 +51,6 @@ class ChannelsController < ApplicationController
 
   # POST /channels
   def create
-    p params[:channel][:title]
     @channel = Channel.new(params[:channel] || params.slice(:title))
     @channel.created_by = current_user.graph_user
     
@@ -113,7 +111,7 @@ class ChannelsController < ApplicationController
     end
   end
   
-  def get_facts_for_channel
+  def get_facts
     respond_to do |format|
       format.html { render :partial => "home/snippets/fact_listing_for_channel", 
                            :locals => {  :channel => @channel } }

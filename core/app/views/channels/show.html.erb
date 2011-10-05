@@ -1,14 +1,1 @@
-<% content_for :main_column do %>
-	
-	<%= render :partial => "home/snippets/fact_listing_for_channel", :locals => {  :channel => @channel } %>
-	
-<% end %>
 
-<% content_for :javascript do %>
-
-	<script>
-	<!-- set active state to the current channel -->
-		$('li[data-channel-id=<%= @channel.id %>]').addClass('active');
-	</script>
-
-<% end %>

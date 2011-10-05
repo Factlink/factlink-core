@@ -11,8 +11,14 @@ class GraphUser < OurOhm
 
   collection :created_facts, Basefact, :created_by
 
-  define_memoized_method :channels, do
+  define_memoized_method :internal_channels do
     Channel.find(:created_by_id => self.id).except(:discontinued => 'true')
+  end
+  
+  define_memoized_method :channels, do
+    channels = self.internal_channels.to_a
+    
+    channels.unshift( self.stream )
   end
 
   def stream
