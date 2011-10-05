@@ -1,4 +1,6 @@
-<%= fact_snippet(@fact, nil, true) %> 
+<%= render :partial => "/facts/fact", 
+          :locals => {  :fact => @fact, :channel => nil, :modal => true } %>
+
 <% content_for :javascript do %> 
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
   <%= javascript_include_tag "raphael-min" %>

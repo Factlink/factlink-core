@@ -22,7 +22,9 @@
     <!-- fact listing -->
     <ul id="results-listing">
     	<% @channel.facts.each do |fact| %>
-    		<li><%=	fact_snippet(fact, @channel) %></li>
+    		<li>
+    		   <%= render :partial => "/facts/fact", :locals => {  :fact => fact, :channel => @channel, :modal => nil } %>
+    		</li>
     	<% end %>
     </ul>
   <% end %>
