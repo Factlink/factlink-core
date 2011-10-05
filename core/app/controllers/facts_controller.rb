@@ -286,7 +286,7 @@ class FactsController < ApplicationController
 
   private
   def sort_column # private
-    Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
 
   def sort_direction # private

@@ -14,17 +14,11 @@ module FactsHelper
                     { :class => css_class }
   end
 
-  def fact_snippet(fact,channel=nil,modal=nil)
-    render :partial => "/facts/fact", 
-	            :locals => {  :fact => fact, :channel => channel, :modal => modal }
-  end
-  
   def proxy_scroll_url(fact)
     return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
   end
 
   def editable_title(fact)
-    
     if user_signed_in? and (fact.created_by == current_user.graph_user)
       return " edit"
     else

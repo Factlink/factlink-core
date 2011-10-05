@@ -1,33 +1,41 @@
 module HomeHelper  
+  include Canivete::Deprecate
 
+  deprecate
   def users_and_factlink_information
     render :partial => "home/snippets/user_and_factlink_information"
   end
   
+  deprecate
   def activity_list_for_user(activities, nr=19)
     render :partial => "users/partials/activity_list_for_user",
            :locals => { :activities => activities, :nr => nr }
   end
 
+  deprecate
   def activity_list(activities, nr=19)
     #render :partial => "users/partials/activity_list",
     #       :locals => { :activities => activities, :nr => nr }
   end
 
+  deprecate
   def close_notifications_button
     render :partial => "home/snippets/close_notification_button"
   end
 
+  deprecate
   def show_activity(activity)
     render :partial => "home/snippets/show_activity",
            :locals => { :activity => activity }
   end
   
+  deprecate
   def wide_activity_list(activities)
     render :partial => "home/snippets/wide_activity_list",
             :locals => { :activities => activities }
   end
   
+  deprecate
   def activity_li(activity)
     render :partial => "home/snippets/activity_li",
             :locals => { :activity => activity }
