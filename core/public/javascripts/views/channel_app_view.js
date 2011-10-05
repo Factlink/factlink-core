@@ -23,22 +23,24 @@ window.AppView = Backbone.View.extend({
   
   showFactsForChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
+    
+    if ( channel ) {
+      $.ajax({
+        url: channel.url() + '/facts',
+        method: "GET",
+        success: function( data ) {
+          $('#main-wrapper').html(data);
+          $('.fact-block').factlink();
 
-    $.ajax({
-      url: channel.url() + '/facts',
-      method: "GET",
-      success: function( data ) {
-        $('#main-wrapper').html(data);
-        $('.fact-block').factlink();
-        
-        // TODO: This must be easier. Can't we access the view from the model?
-        $('#channel-listing li').removeClass('active');
-        for (var i=0; i<views.length; i++) {
-          if (views[i].model === channel) {
-            views[i].setActive();
+          // TODO: This must be easier. Can't we access the view from the model?
+          $('#channel-listing li').removeClass('active');
+          for (var i=0; i<views.length; i++) {
+            if (views[i].model === channel) {
+              views[i].setActive();
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 });
