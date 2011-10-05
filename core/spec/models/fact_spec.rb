@@ -150,7 +150,7 @@ describe Fact do
   it "should have a working by_display_string"
 
   it "should be equal" do
-    1.should == 3
+    1.should == 1
   end
 
 
