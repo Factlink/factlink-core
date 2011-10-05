@@ -21,17 +21,13 @@
 	<h1>Factlink search - providing credibility you can see</h1>
 
 	<% unless @results.count > 0 %>
-		<div class="append-bottom">
-			<ul>
-				<li>Your search didn't return any matching results...</li>
-			</ul>
-		</div>
 
 		<div class="append-bottom">
-			Here are some random facts that might be interesting:
+      <!-- <ul> -->
+				<p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
+      <!-- </ul> -->
 		</div>
-	
-		<%= render :partial => "home/snippets/fact_listing", :locals => {  :facts => Fact.all.sort_by(rand).slice(0..5) } %>
+		
 	<% else %>
 	  <% unless @results.count > 0 %>
 	    <p>No facts added yet.</p>
