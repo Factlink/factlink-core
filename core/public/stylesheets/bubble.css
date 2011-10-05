@@ -156,8 +156,12 @@ div.modal span.proxyWindow {
   margin: 5px;
 }
 .fact-block:hover > article.fact .actions {
-  visibility: default;
+  visibility: visible;
   opacity: 1;
+}
+.fact-block:hover > article.fact .actions li:hover a {
+  text-decoration: underline;
+  color: #306d90;
 }
 .fact-block article.fact {
   padding: 10px 0 10px 5px;
@@ -250,13 +254,6 @@ div.modal span.proxyWindow {
   padding: 2px;
   border-radius: 3px;
   border: solid 1px #ccc;
-}
-.fact-block article.fact:hover .actions {
-  visibility: visible;
-}
-.fact-block article.fact:hover .actions li:hover a {
-  text-decoration: underline;
-  color: #306d90;
 }
 .fact-block .wheel {
   float: left;

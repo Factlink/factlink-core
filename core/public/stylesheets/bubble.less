@@ -97,8 +97,13 @@ div.modal {
   }
   
   &:hover > article.fact .actions {
-    visibility: default;
+    visibility: visible;
     opacity: 1;
+    
+    li:hover a { 
+      text-decoration: underline;
+      color: @dark-blue;
+    }
   }
   
   article.fact {    
@@ -119,7 +124,6 @@ div.modal {
         font-size: x-small;
       }
       .head {
-
         font-weight: 100;
         font-family: Georgia, "Times New Roman", Garamond, serif;
         font-size: 0.9em;
@@ -197,17 +201,6 @@ div.modal {
 				}
 
 			}
-    }
-    &:hover {
-      .actions { 
-        visibility: visible;
-      }
-      .actions li:hover { 
-        a { 
-          text-decoration: underline;
-          color: @dark-blue;
-        }
-      }
     }
   }
   .wheel { 
