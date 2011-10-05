@@ -1,6 +1,0 @@
-$('#main-wrapper').hide().html('<%= escape_javascript(render :partial => "home/snippets/fact_listing_for_channel", :locals => {  :channel => @channel }) %>').fadeIn(150);
-
-$('#channel-listing > li').removeClass('active');
-$('#channel-listing > li[data-channel-id=<%= @channel.id %>]').addClass('active');
-
-$(".fact-block").factlink();

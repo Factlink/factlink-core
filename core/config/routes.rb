@@ -68,7 +68,7 @@ FactlinkUI::Application.routes.draw do
 
     resources :channels do
       collection do
-        get "all/facts" => "users#facts"
+        get "all/facts" => "channels#facts"
         
         post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
       end
@@ -77,7 +77,7 @@ FactlinkUI::Application.routes.draw do
         get "follow", :as => "follow"
 
         scope "/facts" do
-          get "/" => "channels#get_facts", :as => "get_facts_for"
+          get "/" => "channels#facts", :as => "get_facts_for"
           delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
         end
       end

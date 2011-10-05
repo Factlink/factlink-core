@@ -81,6 +81,14 @@ class Channel < OurOhm
                 :facts => facts,
                 :discontinued => discontinued)
   end
+  
+  def editable?
+    true
+  end
+  
+  def followable?
+    true
+  end
 
   def fork(user)
     c = Channel.create(:created_by => user, :title => title, :description => description)
@@ -127,5 +135,14 @@ class UserStream
     facts = @graph_user.internal_channels.map{|ch| ch.cached_facts}.reduce(facts,:|)
     
     facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
+  end
+  
+  public
+  def editable?
+    false
+  end
+  
+  def followable?
+    false
   end
 end
