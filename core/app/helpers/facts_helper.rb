@@ -14,11 +14,6 @@ module FactsHelper
                     { :class => css_class }
   end
 
-  def fact_listing(facts)
-    render :partial => "home/snippets/fact_listing", 
-                :locals => {  :facts => facts }
-  end
-
   def fact_snippet(fact,channel=nil,modal=nil)
     render :partial => "/facts/fact", 
 	            :locals => {  :fact => fact, :channel => channel, :modal => modal }

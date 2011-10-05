@@ -11,19 +11,18 @@ class ChannelsController < ApplicationController
       :edit,
       :destroy,
       :update,
-      :get_facts_for_channel]
+      :facts]
   
   before_filter :authenticate_user!,
     :except => [
       :index,
       :show,
-      :get_facts_for_channel
+      :facts
       ]
 
-  # GET /:username/channel
+  # GET /:username/channels
   def index
     @channels = @user.graph_user.channels
-    @channel = @channels.first
     
     respond_to do |format|
       format.html
@@ -32,7 +31,7 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # GET /:username/channel/1
+  # GET /:username/channels/1
   def show
     respond_to do |format|
       format.json { render :json => @channel}
@@ -41,18 +40,17 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # GET /channels/new
+  # GET /:username/channels/new
   def new
     @channel = Channel.new
   end
 
-  # GET /channels/1/edit
+  # GET /:username/channels/1/edit
   def edit
   end
 
-  # POST /channels
+  # POST /:username/channels
   def create
-    p params[:channel][:title]
     @channel = Channel.new(params[:channel] || params.slice(:title))
     @channel.created_by = current_user.graph_user
     
@@ -84,14 +82,14 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # PUT /channels/1
+  # PUT /:username/channels/1
   def update
     channel_params = params[:channel] || params
     
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title, :description))
-        format.html  { redirect_to(@channel,
-                      :notice => 'Channel was successfully updated.') }
+        format.html  { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel),
+                      :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
         format.html  { render :action => "edit" }
@@ -101,7 +99,7 @@ class ChannelsController < ApplicationController
     end
   end
   
-  # DELETE /channels/1
+  # DELETE /:username/channels/1
   def destroy
     if @channel.created_by == current_user.graph_user
       @channel.delete
@@ -113,10 +111,17 @@ class ChannelsController < ApplicationController
     end
   end
   
-  def get_facts_for_channel
+  # GET /:username/channels/1/facts
+  def facts
+    if @channel == nil && @user != nil
+      @channel = @user.graph_user.channels.first
+    end
     respond_to do |format|
-      format.html { render :partial => "home/snippets/fact_listing_for_channel", 
-                           :locals => {  :channel => @channel } }
+      if request.xhr?
+        format.html { render :layout => "ajax" }
+      else
+        format.html
+      end
     end
   end
   

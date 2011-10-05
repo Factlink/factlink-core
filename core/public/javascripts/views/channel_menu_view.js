@@ -30,9 +30,9 @@ window.ChannelMenuView = Backbone.View.extend({
     $( this.el ).remove();
   },
   
-  showFacts: function() {
+  showFacts: function( e ) {
     var username = location.pathname.split("/")[1];
-    
-    window.location.hash = username + '/channels/' + this.model.id + '/facts';
+
+    Router.navigate(username + "/channels/" + this.model.id + "/facts", true);
   }
 });

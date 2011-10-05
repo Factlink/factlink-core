@@ -54,8 +54,7 @@ FactlinkUI::Application.routes.draw do
   get "/factlink/indication" => "facts#indication"
   
   # Fact bubble
-  get "/fact/:id" => "facts#bubble", :as => "fact"
-  delete "/fact/:id" => "facts#destroy", :as => "fact"
+  # delete "/fact/:id" => "facts#destroy", :as => "fact"
   
   
   ##########
@@ -65,20 +64,26 @@ FactlinkUI::Application.routes.draw do
   # get "/:username" => "users#show", :as => "user_profile"
   
   scope "/:username" do
+    get "/" => "users#show", :as => "user_profile"
+
     resources :channels do
+      collection do
+        get "all/facts" => "channels#facts"
+        
+        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+      end
+
       member do 
-        get "/remove_fact/:fact_id" => "channels#remove_fact",  :as => "remove_fact_from"
-        # get "/channels/:channel_id/follow" => "channels#follow", :as => "follow_channel"
         get "follow", :as => "follow"
-        get "facts" => "channels#get_facts_for_channel", :as => "get_facts_for_channel"
+
+        scope "/facts" do
+          get "/" => "channels#facts", :as => "get_facts_for"
+          delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
+        end
       end
     end
-
-    post "/channels/toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
     
-    get "/activity" => "users#activity", :as => "user_activity"
-    
-    get "/" => "users#show", :as => "user_profile"
+    get "/activities" => "users#activities", :as => "user_activities"
   end
   
   match "/topic/:search" => "home#index", :as => "search_topic"  

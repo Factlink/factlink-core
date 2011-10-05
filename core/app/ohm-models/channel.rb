@@ -16,10 +16,22 @@ class Channel < OurOhm
   public
   alias :sub_channels :contained_channels
 
+  def prune_invalid_facts
+    [internal_facts, delete_facts].each do |facts|
+      facts.key.smembers.each do |id|
+        fact = Fact[id]
+        if Fact.invalid(fact)
+          facts.key.srem(id)
+        end
+      end
+    end
+  end
+
   def calculate_facts
+    prune_invalid_facts
     fs = internal_facts
     contained_channels.each do |ch|
-      fs |= ch.facts
+      fs |= ch.cached_facts
     end
     fs -= delete_facts
     self.cached_facts = fs
@@ -33,8 +45,10 @@ class Channel < OurOhm
     save
   end
 
-  alias :facts :cached_facts
-
+  def facts
+    cached_facts.all.delete_if{ |f| Fact.invalid(f) }
+  end
+  
   def validate
     assert_present :title
     assert_present :created_by
@@ -67,6 +81,14 @@ class Channel < OurOhm
                 :facts => facts,
                 :discontinued => discontinued)
   end
+  
+  def editable?
+    true
+  end
+  
+  def followable?
+    true
+  end
 
   def fork(user)
     c = Channel.create(:created_by => user, :title => title, :description => description)
@@ -97,13 +119,30 @@ class Channel < OurOhm
 end
 
 class UserStream
+  attr_accessor :id, :graph_user, :facts, :title, :description
+  
   def initialize(graph_user)
     @graph_user = graph_user
+    @facts = self.get_facts
+    @title = "All"
+    @id = "all"
+    @description = "All facts"
+    @created_by = @graph_user
   end
   
-  def facts
-    facts = (@graph_user.created_facts & Fact.all)
-    facts = @graph_user.channels.map{|ch| ch.facts}.reduce(facts,:|)
-    facts.all.reverse
+  def get_facts
+    facts = (Fact.all & @graph_user.created_facts)
+    facts = @graph_user.internal_channels.map{|ch| ch.cached_facts}.reduce(facts,:|)
+    
+    facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
+  end
+  
+  public
+  def editable?
+    false
+  end
+  
+  def followable?
+    false
   end
 end

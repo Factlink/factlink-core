@@ -1,5 +1,10 @@
 namespace :fact_graph do
   task :recalculate => :environment do
+    
+    `echo "#{Process.pid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.pid`
+    `echo "#{Process.ppid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.ppid`
+    
+    
     STDOUT.flush
     sleep_time = 0.5
     puts "now recalculating with interval of #{sleep_time} seconds"  
@@ -14,6 +19,10 @@ end
 
 namespace :channels do
   task :recalculate => :environment do
+    
+    `echo "#{Process.pid}" > #{Rails.root}/log/channels_recalculate.pid`
+    `echo "#{Process.ppid}" > #{Rails.root}/log/channels_recalculate.ppid`
+    
     sleep_time = 2
     puts "now recalculating with interval of #{sleep_time} seconds"  
     while true

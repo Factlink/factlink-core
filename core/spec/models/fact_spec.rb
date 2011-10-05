@@ -138,6 +138,7 @@ describe Fact do
         :created_by => @user1.graph_user
       )
       f.data.displaystring = "This is a fact"
+      f.data.save
       f.save
 
       f2 = Fact[f.id]
@@ -148,6 +149,9 @@ describe Fact do
   
   it "should have a working by_display_string"
 
+  it "should be equal" do
+    1.should == 1
+  end
 
 
 end

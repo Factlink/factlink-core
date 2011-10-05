@@ -187,17 +187,11 @@ class FactsController < ApplicationController
     # Strip first six characters to find the ID
     id = params[:id].slice(6..(params[:id].length - 1))
     @fact = Fact[id]
-    
-    puts "\n\n1st title: #{@fact.data.title}"
 
-    if current_user.graph_user == @fact.created_by
-      
-      puts "\n\nYES\n"
-      
+    if current_user.graph_user == @fact.created_by      
       @fact.data.title = params[:value]
       @fact.data.save
     end
-    puts "\n\n2nd title: #{@fact.data.title}"
     
     render :text => @fact.data.title
   end

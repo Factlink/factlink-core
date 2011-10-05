@@ -1,6 +1,6 @@
 <div id="activity-listing">
 	
-	<h1><%= link_to("#{activities.first.user.user.username}'s activity", user_activity_path(activities.first.user.user.username)) %></h1>
+	<h1><%= link_to("#{activities.first.user.user.username}'s activity", user_activities_path(activities.first.user.user.username)) %></h1>
 	
 	<%= activity_list(activities, nr=0) %>
 

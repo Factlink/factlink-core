@@ -24,8 +24,8 @@
 		<h1>Recent facts</h1>
 	</header>
 
-	<%= fact_listing(@facts) %>
-
+	<%= render :partial => "home/snippets/fact_listing", :locals => {  :facts => @facts } %>
+	
 <% end %>
 
 

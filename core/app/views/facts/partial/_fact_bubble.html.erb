@@ -5,7 +5,7 @@
 	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
 
 		<span class="body">
-			<a href="<%= fact.site.url %>"<% if defined?(modal) and modal %> target="_blank"<% end %>><%= h fact.data.displaystring %></a>
+			<%= link_to("#{h fact.data.displaystring}", proxy_scroll_url(fact), :target => "_blank") %>
       <br>
    </span>
     <sub>
@@ -18,7 +18,7 @@
 			    <% if fact.created_by == current_user.graph_user %>
 			      <li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
 			    <% end %>			
-		    </ul>	
+		    </ul>
 		  </div>
 		  <%= render :partial => "/facts/partial/channel_listing", :locals => { :fact => fact } %>
 	  <% end %>				
