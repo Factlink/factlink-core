@@ -60,19 +60,26 @@ domReady(function(){
       } else {
         valid = true;
       }
+      
+    }
+
+    if (form.method !== undefined && form.method.match(/post/i)){
+      valid = false;
     }
         
     if ( valid ) {
-	
-			// Add the action url to form
+				// Add the action url to form
 			var input = document.createElement('input');
 			input.setAttribute('type', 'hidden');
-			input.setAttribute('name', 'factlinkPostUrl');
+			input.setAttribute('name', 'factlinkFormUrl');
 			input.setAttribute('value', action);
 			form.appendChild(input);
 			
+			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/submit?url=' + action.match(/http(s|):\/\//)[0]);
+      form.action = action.replace(/^http(s|):\/\/.*/, window.FACTLINK_PROXY_URL + '/submit/');
+    } else {
+      form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
     }
   }
 
@@ -92,6 +99,7 @@ var
         [
             '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js',
             '//' + window.FactlinkConfig.lib + '/dist/easyXDM/easyXDM.min.js',
+            '//' + window.FactlinkConfig.lib + '/dist/underscore.js',
             '//' + window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
         ],
         [
