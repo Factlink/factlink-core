@@ -16,6 +16,7 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 
 MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
   ${BUILD_DIR}/jquery.scrollTo-1.4.2.js \
+  ${BUILD_DIR}/underscore.js \	
 	${SRC_DIR}/js/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
