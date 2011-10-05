@@ -14,6 +14,7 @@ module FactsHelper
                     { :class => css_class }
   end
 
+  deprecate
   def fact_snippet(fact,channel=nil,modal=nil)
     render :partial => "/facts/fact", 
 	            :locals => {  :fact => fact, :channel => channel, :modal => modal }
@@ -24,7 +25,6 @@ module FactsHelper
   end
 
   def editable_title(fact)
-    
     if user_signed_in? and (fact.created_by == current_user.graph_user)
       return " edit"
     else
