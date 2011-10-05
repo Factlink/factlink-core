@@ -222,6 +222,7 @@ div.modal span.proxyWindow {
 }
 .fact-block article.fact header .actions li img {
   margin: 0 3px 0 0;
+  vertical-align: baseline;
 }
 .fact-block article.fact .channel-listing {
   padding: 0;

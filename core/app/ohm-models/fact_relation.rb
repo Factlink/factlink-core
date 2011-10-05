@@ -84,7 +84,6 @@ class FactRelation < Basefact
 
   def delete
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
-    
     fact.evidence(self.type.to_sym).delete(self)
     super
   end

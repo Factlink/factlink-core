@@ -30,7 +30,7 @@
 			Here are some random facts that might be interesting:
 		</div>
 	
-		<%= fact_listing( Fact.all.sort_by(rand).slice(0..5) ) %>
+		<%= render :partial => "home/snippets/fact_listing", :locals => {  :facts => Fact.all.sort_by(rand).slice(0..5) } %>
 	<% else %>
 	  <% unless @results.count > 0 %>
 	    <p>No facts added yet.</p>

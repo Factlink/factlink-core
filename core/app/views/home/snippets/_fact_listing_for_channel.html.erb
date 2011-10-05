@@ -20,7 +20,7 @@
 <% else %>
   <!-- fact listing -->
   <ul id="results-listing">
-  	<% channel.facts.sort(:order => "DESC").each do |fact| %>
+  	<% channel.facts.each do |fact| %>
   		<li><%=	fact_snippet(fact, channel) %></li>
   	<% end %>
   </ul>

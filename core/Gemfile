@@ -57,7 +57,6 @@ gem 'json'
 # Using SunSpot for Mongoid, Ruby wrapper for Solr
 # Use fork: https://github.com/vinova/sunspot_mongoid - patched for ActiveModel
 
-
 gem 'sunspot_rails', '~> 1.2.1'
 # gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'

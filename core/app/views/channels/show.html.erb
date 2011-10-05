@@ -1,6 +1,6 @@
 <% content_for :main_column do %>
 	
-	<%= fact_listing_for_channel(@channel) %>
+	<%= render :partial => "home/snippets/fact_listing_for_channel", :locals => {  :channel => @channel } %>
 	
 <% end %>
 
