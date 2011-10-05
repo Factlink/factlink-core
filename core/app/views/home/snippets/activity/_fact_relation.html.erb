@@ -3,7 +3,7 @@
 
 	<!-- <span class="img <%= activity.subject.class.to_s.downcase %>"><a><%= activity.subject %></a></span> -->
 
-	<span class="img fact"><a><%= truncate(activity.subject.get_from_fact.displaystring, :length => 60) %></a></span>
+	<span class="img fact"><a><%= truncate(activity.subject.from_fact.displaystring, :length => 60) %></a></span>
 
 
 	<br/>
@@ -16,6 +16,6 @@
 	%>
 	<span class="action <%= activity.subject.type %>"><%= @message %></span>
 	
-	<span class="img fact"><a><%= truncate(activity.subject.get_to_fact.displaystring, :length => 50) %></a></span>
+	<span class="img fact"><a><%= truncate(activity.subject.fact.displaystring, :length => 50) %></a></span>
 
 </div>
