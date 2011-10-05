@@ -100,6 +100,7 @@ var
         [
             '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js',
             '//' + window.FactlinkConfig.lib + '/dist/easyXDM/easyXDM.min.js',
+            '//' + window.FactlinkConfig.lib + '/dist/underscore.js',
             '//' + window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
         ],
         [
