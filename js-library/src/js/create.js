@@ -65,16 +65,22 @@
                   .addClass('fl-popup')
                   .html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>")
                   .appendTo("body");
+
+      
+
+      // Close the popup when clicked outside the area
+      $( document ).bind('click', function(e) {
+        popup.fadeOut(100);
+      });
+
+      // Don't clost the popup when clicked on the popup itself
+      popup.bind('click', function(e) {
+        e.stopPropagation();
+      });
                   
       // Position popup on mouse position
       Factlink.positionFrameToCoord(popup, x, y, true);
 
-      // Close the popup when clicked outside the area
-      $( document ).bind('click', function(e) {
-        if( $(e.target).is('body') )
-          popup.fadeOut(100);
-      });
-      
       // Start the timout to hide the popup after a while
       $('div.fl-popup').hover(
         function(){ 
@@ -88,7 +94,7 @@
       );
 
       function startTimer() {
-        popupTimeout = setTimeout("$('div.fl-popup').fadeOut(100);", 3600);
+        popupTimeout = setTimeout("$('div.fl-popup').fadeOut(100);", 3000);
       }
 
       startTimer()
