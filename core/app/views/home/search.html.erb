@@ -13,7 +13,8 @@
 
 
 <% content_for :left_column do %>
-	&nbsp;
+	<%= user_signed_in? ? user_block(current_user) : "&nbsp;".html_safe %>
+
 <% end %>
 
 <% content_for :main_column do %>
