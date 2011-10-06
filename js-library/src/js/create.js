@@ -27,11 +27,9 @@
 
     Factlink.submitSelection = function(opinion, callback) {
         var selInfo = Factlink.getSelectionInfo();
-        
-        console.info('FactlinkConfig.modus: ' + FactlinkConfig.modus);
 
         if (FactlinkConfig.modus === "default") {
-            Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, opinion,
+            Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
             function(factId) {
                 if ($.isFunction(callback)) {
                     callback(factId);
@@ -39,9 +37,9 @@
             });
         } else {
             if (Factlink.prepare.factId) {
-                Factlink.remote.createEvidence(Factlink.prepare.factId, FactlinkConfig.url, opinion, selInfo.title);
+                Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
             } else {
-                Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, FactlinkConfig.url, opinion, selInfo.title);
+                Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
             }
         }
     };

@@ -3,11 +3,15 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
+  Factlink.siteUrl = function() {
+    return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
+  }
+
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
     // The URL to the Factlink backend
-    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href);
+    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
 
     // We use the jQuery AJAX plugin
     $.ajax({
