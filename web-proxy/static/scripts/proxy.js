@@ -90,29 +90,34 @@ var
     // List of scripts which should be loaded,
     dev = [
         [
-            '//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js',
-            '//' + window.FactlinkConfig.lib + '/dist/easyXDM/easyXDM.min.js',
-            '//' + window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
+            '//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js',
+            '//' + localStorage['static_url'] + '/lib/dist/easyXDM/easyXDM.js',
+            '//' + localStorage['static_url'] + '/lib/dist/underscore.js'
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/dist/jquery.scrollTo.js'
+            '//' + localStorage['static_url'] + '/lib/src/js/core.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/replace.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime(),
-            '//' + window.FactlinkConfig.lib + '/src/js/lib/indicator.js?' + (new Date()).getTime()
+            '//' + localStorage['static_url'] + '/lib/dist/jquery.scrollTo.js'
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
+            '//' + localStorage['static_url'] + '/lib/src/js/replace.js?' + (new Date()).getTime(),
+            '//' + localStorage['static_url'] + '/lib/src/js/scrollto.js?' + (new Date()).getTime(),
+            '//' + localStorage['static_url'] + '/lib/src/js/search.js?' + (new Date()).getTime(),
+            '//' + localStorage['static_url'] + '/lib/src/js/create.js?' + (new Date()).getTime(),
+            '//' + localStorage['static_url'] + '/lib/src/js/modal.js?' + (new Date()).getTime(),
+            '//' + localStorage['static_url'] + '/lib/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime()
+            '//' + localStorage['static_url'] + '/lib/src/js/xdm.js?' + (new Date()).getTime(),
+        ]
+    ],
+    demo = [
+        [
+            '//' + localStorage['static_url'] + '/lib/dist/easyXDM/easyXDM.min.js'
         ],
         [
-            '//' + window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime()
+            '//' + localStorage['static_url'] + '/lib/dist/factlink.js?'
         ]
     ],
     // Method which is called when all scripts are loaded
