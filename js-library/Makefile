@@ -15,9 +15,10 @@ BASE_FILES = ${SRC_DIR}/js/core.js\
 	${SRC_DIR}/js/xdm.js\
 
 MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
-  ${BUILD_DIR}/jquery.scrollTo-1.4.2.js \
-  ${BUILD_DIR}/underscore.js \	
-	${SRC_DIR}/js/intro.js\
+  ${BUILD_DIR}/jquery.scrollTo-1.4.2.js\
+  ${BUILD_DIR}/easyXDM/easyXDM.js\
+  ${BUILD_DIR}/underscore.js\
+  ${SRC_DIR}/js/intro.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
 
@@ -49,8 +50,8 @@ ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	@@echo "Building" ${Factlink}
 
 	@@cat ${MODULES} | \
-		sed 's/.function..Factlink...{//' | \
-		sed 's/}...window\.Factlink..;//' | \
+		sed 's/.function.Factlink..\$..\_..easyXDM...//' | \
+		sed sed 's/...window\.Factlink..Factlink\.\$..Factlink\.\_..Factlink\.easyXDM..//' | \
 		sed 's/@DATE/'"${DATE}"'/' | \
 		${VER} > ${FACTLINK_TMP};
 
@@ -77,10 +78,10 @@ ${FACTLINK_ADDFACTS}: ${ADDFACTS} node_modules
 	@@rm ${ADDFACTS_TMP}
 
 ${DISTDIR}/easyXDM: ${DIST_DIR}
-	cd "${BUILD_DIR}/easyXDM/" ; ./build.sh
 	mkdir -p "${DIST_DIR}/easyXDM"
-	cp -r ${BUILD_DIR}/easyXDM/work/* "${DIST_DIR}/easyXDM/"
+	cp -r ${BUILD_DIR}/easyXDM/* "${DIST_DIR}/easyXDM/"
 	cp -r ${BUILD_DIR}/jquery.scrollTo-1.4.2.js "${DIST_DIR}/jquery.scrollTo.js"
+	cp -r ${BUILD_DIR}/underscore.js "${DIST_DIR}/underscore.js"
 
 node_modules:
 	npm install

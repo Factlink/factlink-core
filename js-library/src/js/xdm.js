@@ -1,4 +1,4 @@
-(function(Factlink) {
+(function(Factlink, $, _, easyXDM) {
   // Initiate the easyXDM object
   Factlink.remote = new easyXDM.Rpc({
     // The URL to load
@@ -17,4 +17,4 @@
       opinionateFactlink: {}
     }
   });
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

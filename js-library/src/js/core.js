@@ -1,13 +1,34 @@
 var Factlink = window.Factlink = (function() {
-
   // Empty Factlink object
   var Factlink = {};
+  
+  // noConflicts!
+  Factlink.$ = window.jQuery.noConflict();
+  Factlink._ = window._.noConflict();
+  Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
+  
+  try {
+    if ( typeof global === "undefined" && global !== window.global ) {
+      global.$ = Factlink.$;
+      global._ = Factlink._;
+      global.easyXDM = Factlink.easyXDM;
+    }
+  } catch(e) { }
+
+  // Expose the Factlink object to the global object
+  return Factlink;
+})();
+
+(function(Factlink, $, _, easyXDM) {
+  Factlink.siteUrl = function() {
+    return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
+  };
 
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
     // The URL to the Factlink backend
-    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href);
+    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
 
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -35,14 +56,11 @@ var Factlink = window.Factlink = (function() {
       }
     });
   };
-
+  
   // Add the stylesheet
   var style = document.createElement("link");
   style.type = "text/css";
   style.rel = "stylesheet";
   style.href = "//" + FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
   document.getElementsByTagName("head")[0].appendChild(style);
-
-  // Expose the Factlink object to the global object
-  return Factlink;
-})();
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

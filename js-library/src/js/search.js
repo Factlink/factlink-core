@@ -1,4 +1,4 @@
-(function(Factlink) {
+(function(Factlink, $, _, easyXDM) {
   // Function to search the page
   Factlink.search = function(searchString) {
     var document = window.document,
@@ -47,4 +47,4 @@
 
     return results;
   };
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

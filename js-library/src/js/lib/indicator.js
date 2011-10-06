@@ -1,5 +1,4 @@
-
-(function(Factlink) {
+(function(Factlink, $, _, easyXDM) {
     
     // Indicator object which will manage the indicator which shows some basic info  
 // of each Factlink 
@@ -105,7 +104,7 @@ Factlink.Indicator = (function() {
                     $( 'span.factlink[data-factid=' + currentId + ']:first').click(); 
                     return false; 
                 }); 
-        }, 
+        }
     }; 
 })();
 $.ajax({ 
@@ -130,5 +129,4 @@ var stopShowingIndicator = function(e,factId,orig_e) {
 $(window).bind("factlink:factHighlighted", showIndicator);
 $(window).bind("factlink:factUnhighlighted",stopShowingIndicator);
 
-
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
