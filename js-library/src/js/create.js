@@ -30,19 +30,19 @@
   Factlink.submitSelection = function(opinion, callback) {
     var selInfo = Factlink.getSelectionInfo();
 
-
     if (FactlinkConfig.modus === "addToFact") {
       if (Factlink.prepare.factId) {
-        Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
       } else {
-        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
       }
     } else {
       // modus === "default"
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion, function(factId) {
-        if ($.isFunction(callback)) {
-          callback(factId);
-        }
+      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+      function(factId) {
+          if ($.isFunction(callback)) {
+              callback(factId);
+          }
       });
     }
   };
