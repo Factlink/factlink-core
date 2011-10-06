@@ -62,7 +62,7 @@ Factlink.Indicator = (function() {
                   el.find('span.authority').html(authority);
                   el.css({ top: y, left: x }).fadeIn(100);
                }
-            }, 10); 
+            }, 500); 
         }, 
 
         hide: function() { 

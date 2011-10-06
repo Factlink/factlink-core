@@ -27,6 +27,8 @@
 
     Factlink.submitSelection = function(opinion, callback) {
         var selInfo = Factlink.getSelectionInfo();
+        
+        console.info('FactlinkConfig.modus: ' + FactlinkConfig.modus);
 
         if (FactlinkConfig.modus === "default") {
             Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, opinion,
@@ -63,34 +65,36 @@
       // Create `add evidence` popup after succesful addition of the fact.            
       var popup = $('<div/>')
                   .addClass('fl-popup')
-                  .html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\".fl-popup\").fadeOut(100);' >Add evidence?</span>")
+                  .html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>")
                   .appendTo("body");
-                  
-      // Position popup on mouse position
-      Factlink.positionFrameToCoord(popup, x, y, true);
 
       // Close the popup when clicked outside the area
       $( document ).bind('click', function(e) {
-        if( $(e.target).is('body') )
-          popup.fadeOut(100);
+        popup.fadeOut(100);
       });
-      
+
+      // Don't clost the popup when clicked on the popup itself
+      popup.bind('click', function(e) {
+        e.stopPropagation();
+      });
+
+      // Position popup on mouse position
+      Factlink.positionFrameToCoord(popup, x, y, true);
+
       // Start the timout to hide the popup after a while
-      $('.fl-popup').hover(
+      $('div.fl-popup').hover(
         function(){ 
           // handlerIn
-          console.log('Clearing timeout');
           clearTimeout(popupTimeout);
         },
         function(){
           // handlerOut
-          console.log('Setting timeout');
           startTimer();
         }
       );
 
       function startTimer() {
-        popupTimeout = setTimeout("$('.fl-popup').fadeOut(100);", 3600);
+        popupTimeout = setTimeout("$('div.fl-popup').fadeOut(100);", 3000);
       }
 
       startTimer()
