@@ -44,25 +44,28 @@ server.set('view engine', 'jade');
 /**
  * Add base url and inject proxy.js, and return the proxied site
  */
-function injectFactlinkJs(html_in,site, scrollto){
-	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
+function injectFactlinkJs(html_in,site, scrollto, modus){
+
+	var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
     var set_urls = '<script>'+
              'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
              'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
              'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
              'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             'window.FACTLINK_MODUS = "' + modus + '";'+
              'window.FACTLINK_REAL_URL = "' + site + '";';
     if (scrollto !== undefined && !isNaN(parseInt(scrollto,10))){
         set_urls+='window.FACTLINK_SCROLL_TO = ' + parseInt(scrollto,10) + ';';
     }
     set_urls+='</script>';
     load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-	html = html.replace('</head>', set_urls + load_proxy_js + '</head>');
+	html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
 	return html;
 }
 
 
-function handleProxyRequest(res, site, scrollto, form_hash){
+function handleProxyRequest(res, site, scrollto, modus, form_hash){
+  
   errorhandler = function(data) {
 		console.error("Failed on: " + site);
 		
@@ -76,9 +79,13 @@ function handleProxyRequest(res, site, scrollto, form_hash){
 		});
 	};
 
+  if (modus != "addToFact") {
+    modus = "default";
+  }
+
   // add protocol http:// if no protocol is defined:
 	protocol_regex = new RegExp("^(?=.*://)");
-	http_regex = new RegExp("^(?=http(s?)://)");
+	http_regex = new RegExp("^(?=http(s?)://)","i");
 	if (http_regex.test(site) === false) {
 	  if (protocol_regex.test(site) === false) {
 	    site = "http://" + site;
@@ -90,10 +97,10 @@ function handleProxyRequest(res, site, scrollto, form_hash){
 
   console.info("Serving: " + site);
 
-	var request = restler.get( site , form_hash);
+	var request = restler.get(site , form_hash);
 
 	request.on('complete', function(data) {
-		res.write( injectFactlinkJs(data,site, scrollto) );
+		res.write( injectFactlinkJs(data, site, scrollto, modus) );
 		res.end();
 	});
 
@@ -108,9 +115,10 @@ server.get('/parse', function(req, res) {
 	console.info("\nGET /parse");
 	var site = req.query.url;
   var scrollto = req.query.scrollto;
-  handleProxyRequest(res,site,scrollto, {});
+  var modus = req.query.factlinkModus;
+  
+  handleProxyRequest(res, site, scrollto, modus, {});
 });
-
 
 
 /** 
@@ -122,10 +130,15 @@ server.get('/parse', function(req, res) {
  *
  */
 server.get('/submit', function(req, res) {
-	var site = req.query.factlinkFormUrl;
 	var form_hash = req.query;
-	delete form_hash.factlinkPostUrl;
-  handleProxyRequest(res,site,undefined, {'query':form_hash});
+
+  var modus = form_hash.factlinkModus;
+	delete form_hash.factlinkModus;
+	
+	var site = form_hash.factlinkFormUrl;
+  delete form_hash.factlinkFormUrl;
+
+  handleProxyRequest(res, site, undefined, modus, {'query':form_hash});
 });
 
 

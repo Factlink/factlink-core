@@ -36,8 +36,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-      b.href = href.replace(/^http(s|):\/\//, window.FACTLINK_PROXY_URL + '/?url=' + href.match(/http(s|):\/\//)[0]);
-
+      b.href = window.FACTLINK_PROXY_URL + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
       b.target = "_parent";
     }
   }
@@ -75,6 +74,12 @@ domReady(function(){
 			input.setAttribute('value', action);
 			form.appendChild(input);
 			
+			var input = document.createElement('input');
+			input.setAttribute('type', 'hidden');
+			input.setAttribute('name', 'factlinkModus');
+			input.setAttribute('value', FactlinkConfig.modus);
+			form.appendChild(input);
+
 			
 			// Set the proxied URL
       form.action = action.replace(/^http(s|):\/\/.*/, window.FACTLINK_PROXY_URL + '/submit/');
@@ -86,7 +91,8 @@ domReady(function(){
 });
 
 window.FactlinkConfig = {
-    modus: 'addToFact',
+
+    modus: window.FACTLINK_MODUS,
     api: window.FACTLINK_API_LOCATION,
     lib: window.FACTLINK_LIB_LOCATION,
     url: window.FACTLINK_REAL_URL,
