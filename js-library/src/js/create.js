@@ -27,6 +27,8 @@
 
     Factlink.submitSelection = function(opinion, callback) {
         var selInfo = Factlink.getSelectionInfo();
+        
+        console.info('FactlinkConfig.modus: ' + FactlinkConfig.modus);
 
         if (FactlinkConfig.modus === "default") {
             Factlink.remote.createFactlink(selInfo.text, selInfo.passage, location.href, selInfo.title, opinion,
