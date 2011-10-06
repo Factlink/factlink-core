@@ -5,8 +5,10 @@ class Basefact < OurOhm
   reference :opinion, Opinion
 
   set :people_beliefs, GraphUser
+  set :people_believes, GraphUser
   set :people_doubts, GraphUser
   set :people_disbeliefs, GraphUser
+  set :people_disbelieves, GraphUser
 
   def validate
     assert_present :created_by
@@ -14,7 +16,24 @@ class Basefact < OurOhm
 
 
   def opiniated(type)
-    self.send("people_#{type}")
+    type = type.to_sym
+    if [:beliefs,:believes].include?(type)
+      ( people_beliefs | people_believes )
+    elsif [:doubts].include?(type)
+      people_doubts
+    elsif [:disbeliefs,:disbelieves].include?(type)
+      ( people_disbeliefs | people_disbelieves )
+    else
+      raise "invalid opinion"
+    end
+  end
+
+  def add_opiniated(type, user)
+    send("people_#{type}").add(user)
+  end
+  
+  def delete_opiniated(type, user)
+    send("people_#{type}").delete(user)
   end
 
   def opiniated_count(type)
@@ -24,7 +43,7 @@ class Basefact < OurOhm
   def add_opinion(type, user)    
     _remove_opinions(user)
 
-    opiniated(type).add(user)
+    add_opiniated(type,user)
     user.update_opinion(type, self)
     activity(user,type,self)
   end
@@ -37,7 +56,7 @@ class Basefact < OurOhm
   def _remove_opinions(user)
     user.remove_opinions(self)
     [:beliefs, :doubts, :disbeliefs].each do |type|
-      opiniated(type).delete(user)
+      delete_opiniated(type,user)
     end
   end
 
