@@ -137,6 +137,13 @@ class OurOhm < Ohm::Model
   end
 
 
+  def belief_check(type)
+    type = type.to_sym
+    if [:beliefs,:disbeliefs].include?(type)
+      #warn "please fix the spelling of your #{type}"
+    end
+  end
+
 end
 
 # TODO refactor ohm so this works  lazy  and efficiently does the def the | and the -

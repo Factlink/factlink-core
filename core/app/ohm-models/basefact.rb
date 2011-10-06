@@ -4,12 +4,10 @@ class Basefact < OurOhm
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
-  set :people_beliefs, GraphUser
   set :people_believes, GraphUser
   set :people_doubts, GraphUser
-  set :people_disbeliefs, GraphUser
   set :people_disbelieves, GraphUser
-  private :people_beliefs, :people_believes, :people_doubts, :people_disbeliefs, :people_disbelieves
+ private :people_believes, :people_doubts, :people_disbelieves
 
 
   def validate
@@ -19,23 +17,24 @@ class Basefact < OurOhm
 
   def opiniated(type)
     type = type.to_sym
+    belief_check(type)
     if [:beliefs,:believes].include?(type)
-      ( people_beliefs | people_believes )
+      people_believes
     elsif [:doubts].include?(type)
       people_doubts
     elsif [:disbeliefs,:disbelieves].include?(type)
-      ( people_disbeliefs | people_disbelieves )
+      people_disbelieves
     else
       raise "invalid opinion"
     end
   end
 
   def add_opiniated(type, user)
-    send("people_#{type}").add(user)
+    opiniated(type).add(user)
   end
   
   def delete_opiniated(type, user)
-    send("people_#{type}").delete(user)
+    opiniated(type).delete(user)
   end
 
   def opiniated_count(type)
