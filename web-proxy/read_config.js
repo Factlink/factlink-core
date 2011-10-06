@@ -20,8 +20,7 @@ function read_conf(config_path, fs, env) {
   parsed_conf = {};
   for(i = 0; i < confs.length; i++) {
     file_conf = require('yaml').eval(
-      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') +
-      "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */ 
+      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */ 
 
     parsed_conf = merge_options(parsed_conf,file_conf);
   }
