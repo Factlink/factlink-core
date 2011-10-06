@@ -1,4 +1,5 @@
-views = [];
+var views = {};
+var active_channel_id;
 
 window.AppView = Backbone.View.extend({
   el: $('#container'),
@@ -7,22 +8,54 @@ window.AppView = Backbone.View.extend({
     Channels.bind('add',   this.addOneChannel, this);
     Channels.bind('reset', this.addAllChannels, this);
     Channels.bind('all',   this.render, this);
+    
+    var current_channel_id = $('#channel').data('channel-id');
+    
+    if ( current_channel_id ) {
+      // Calling toString on the channel-id because backbone 
+      // stores id as string (=== comparison)
+      this.setActiveChannel(current_channel_id.toString());
+    }
   },
   
   addOneChannel: function(channel) {
     var view = new ChannelMenuView({model: channel});
     
-    views.push( view );
+    views[channel.id] = view;
+    
+    if ( this.isActiveChannel(channel.id) ) {
+      view.setActive();
+    }
     
     this.$('#channel-listing').append(view.render().el);
   },
   
   addAllChannels: function() {
-    Channels.each(this.addOneChannel);
+    var self = this;
+    Channels.each(function(channel) {
+      self.addOneChannel.call(self, channel);
+    });
+  },
+  
+  isActiveChannel: function(channel_id) {
+    return active_channel_id === channel_id;
+  },
+  
+  setActiveChannel: function(channel_id) {
+    if ( active_channel_id ) {
+      views[active_channel_id].setNotActive();
+    }
+        
+    active_channel_id = channel_id;
+    
+    if ( views[active_channel_id] ) {
+      views[active_channel_id].setActive();
+    }
   },
   
   showFactsForChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
+    var self = this;
     
     if ( channel ) {
       $.ajax({
@@ -31,14 +64,10 @@ window.AppView = Backbone.View.extend({
         success: function( data ) {
           $('#main-wrapper').html(data);
           $('.fact-block').factlink();
-
-          // TODO: This must be easier. Can't we access the view from the model?
-          $('#channel-listing li').removeClass('active');
-          for (var i=0; i<views.length; i++) {
-            if (views[i].model === channel) {
-              views[i].setActive();
-            }
-          }
+          
+          self.setActiveChannel(channel.id);
+          
+          views[channel_id].stopLoading();
         }
       });
     }

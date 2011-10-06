@@ -1,9 +1,7 @@
 window.ChannelList = Backbone.Collection.extend({
   model: Channel,
   url: function() {
-    var username = location.pathname.split("/")[1];
-    
-    return '/' + username + '/channels/';
+    return '/' + Router.getUsername() + '/channels/';
   }
 });
 

@@ -363,9 +363,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9cc221), color-stop(1, #bada55));
   background: -moz-linear-gradient(center bottom, #9cc221 0%, #bada55 100%);
   border-radius: 3px;
-  border: solid 1px #739117;
+  border: solid 1px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  box-shadow: 0px 0px 4px #777;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
 }
 .get-chrome-extension .get-extension-wrapper:active {
   background: #f5f5f5;
@@ -377,6 +377,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   text-align: center;
   line-height: 30px;
   font-size: 1.1em;
+  border-radius: 2px;
+  border-top: solid 1px rgba(255, 255, 255, 0.55);
+  border-bottom: solid 2px rgba(0, 0, 0, 0.1);
 }
 .get-chrome-extension .get-extension-wrapper .get-extension-button img {
   margin: -2px 2px 0 -6px;
@@ -567,31 +570,32 @@ form .action-wrapper span {
   position: relative;
   z-index: 100;
 }
-#container #channel-listing .channel {
+#container #channel-listing li a {
+  display: block;
   border-radius: 2px;
-  /*        background: rgba(0, 0, 0, 0.07);*/
-
   padding: 8px 8px;
   margin: 0 0 8px 0;
+  color: #222;
   position: relative;
 }
-#container #channel-listing .channel:hover {
+#container #channel-listing li a:hover {
   background-color: #fff;
   cursor: pointer;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
 }
-#container #channel-listing li {
-  border-radius: 2px;
-  /*        background: rgba(0, 0, 0, 0.07);*/
-
-  padding: 8px 8px;
-  margin: 0 0 8px 0;
-  position: relative;
+#container #channel-listing li a img {
+  float: right;
+  visibility: hidden;
 }
-#container #channel-listing li:hover {
-  background-color: #fff;
-  cursor: pointer;
+#container #channel-listing li.active > a, #container #channel-listing li.loading > a {
+  background: #fff;
+  color: #666;
+  z-index: 101;
+  border-right: none;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+}
+#container #channel-listing li.loading > a img {
+  visibility: visible;
 }
 #container #channel-listing li > ul > li {
   padding: 0 ;
@@ -600,13 +604,6 @@ form .action-wrapper span {
 }
 #container #channel-listing li > ul > li + li {
   margin-top: 8px;
-}
-#container #channel-listing .active {
-  background: #fff;
-  color: #666;
-  z-index: 101;
-  border-right: none;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
 }
 #container sub.new-channel {
   margin: 8px 0 0 0;
