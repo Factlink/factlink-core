@@ -45,12 +45,16 @@ server.set('view engine', 'jade');
  * Add base url and inject proxy.js, and return the proxied site
  */
 function injectFactlinkJs(html_in,site, scrollto){
+  
+  MODUS = 'default';
+  
 	var html = html_in.replace('<head>', '<head><base href="' + site + '" />');
     var set_urls = '<script>'+
              'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
              'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
              'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
              'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
+             'window.FACTLINK_MODUS = "' + MODUS + '";'+
              'window.FACTLINK_REAL_URL = "' + site + '";';
     if (scrollto !== undefined && !isNaN(parseInt(scrollto,10))){
         set_urls+='window.FACTLINK_SCROLL_TO = ' + parseInt(scrollto,10) + ';';
