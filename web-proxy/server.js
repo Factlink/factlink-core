@@ -45,8 +45,6 @@ server.set('view engine', 'jade');
  * Add base url and inject proxy.js, and return the proxied site
  */
 function injectFactlinkJs(html_in,site, scrollto, modus){
-  
-  console.info('injectFactlinkJs: modus: ' + modus);
 
 	var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
     var set_urls = '<script>'+
@@ -67,8 +65,6 @@ function injectFactlinkJs(html_in,site, scrollto, modus){
 
 
 function handleProxyRequest(res, site, scrollto, modus, form_hash){
-
-  console.info('handleProxyRequest: modus: ' + modus);
   
   errorhandler = function(data) {
 		console.error("Failed on: " + site);
@@ -120,8 +116,6 @@ server.get('/parse', function(req, res) {
 	var site = req.query.url;
   var scrollto = req.query.scrollto;
   var modus = req.query.factlinkModus;
-  
-  console.info('pre handleProxyRequest: modus: ' + modus);
   
   handleProxyRequest(res, site, scrollto, modus, {});
 });
