@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def show
     if @user
       # @activities = @user.graph_user.activities.sort(:order => "DESC")
-      redirect_to(channels_path)
+      redirect_to(get_facts_for_channel_path(params[:username], "all"))
     else
       raise ActionController::RoutingError.new('Not Found')
     end
@@ -21,16 +21,6 @@ class UsersController < ApplicationController
   def activity
     @activities = @user.graph_user.activities.sort(:order => "DESC")
   end
-  
-  def facts
-    facts = @user.graph_user.stream.facts
-    
-    respond_to do |format|
-      format.html { render :partial => "home/snippets/fact_listing", 
-                           :locals => { :facts => facts} }
-    end
-  end
-  
   
   private
   def load_user
