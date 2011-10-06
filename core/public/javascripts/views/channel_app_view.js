@@ -9,11 +9,12 @@ window.AppView = Backbone.View.extend({
     Channels.bind('reset', this.addAllChannels, this);
     Channels.bind('all',   this.render, this);
     
-    // Calling toString on the channel-id because backbone stores id as string (=== comparison)
-    var current_channel_id = $('#channel').data('channel-id').toString();
+    var current_channel_id = $('#channel').data('channel-id');
     
     if ( current_channel_id ) {
-      this.setActiveChannel(current_channel_id);
+      // Calling toString on the channel-id because backbone 
+      // stores id as string (=== comparison)
+      this.setActiveChannel(current_channel_id.toString());
     }
   },
   
@@ -65,6 +66,8 @@ window.AppView = Backbone.View.extend({
           $('.fact-block').factlink();
           
           self.setActiveChannel(channel.id);
+          
+          views[channel_id].stopLoading();
         }
       });
     }

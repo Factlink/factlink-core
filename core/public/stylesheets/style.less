@@ -530,47 +530,56 @@ body.factlink-site div.user-block {
     }
 
     #channel-listing {
-      .channel {
-				border-radius: 2px;
-				
-/*        background: rgba(0, 0, 0, 0.07);*/
-        padding: 8px 8px;
-        margin: 0 0 8px 0;
+      li {
+        a {
+          display: block;
+          border-radius: 2px;
 
-        position: relative;
+          padding: 8px 8px;
+          margin: 0 0 8px 0;
+          color: #222;
 
-        &:hover {
-          background-color: #fff;
-          cursor: pointer;
+          position: relative;
 
-					box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+          &:hover {
+            background-color: #fff;
+            cursor: pointer;
+
+  					box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+          }
+          
+          img {
+            float: right;
+            visibility: hidden;
+          }
+        }
+        
+        &.active > a,
+        &.loading > a {
+          background: #fff;
+          color: #666;
+          z-index: 101;
+
+          border-right: none;
+
+  				box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+        }
+        
+        &.loading > a {
+          img {
+  				  visibility: visible;
+  				}
         }
       }
-      li {
-        .channel
-      }
+      
       li > ul > li {
         padding: 0 ;
         margin: 0 0 0 15px;
         background-color: transparent;
       }
-      li > ul > li + li{
+      
+      li > ul > li + li {
 				margin-top:8px;
-
-      }
-      .active {			
-        background: #fff;
-        color: #666;
-        z-index: 101;
-
-        border-right: none;
-
-				box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
-      }
-
-      .channel-block {
-        .wrapper {
-        }
       }
     }
 

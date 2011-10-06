@@ -2,8 +2,6 @@ var Workspace = Backbone.Router.extend({
   initialize: function(channel_dump) {
     this.route(/([^\/]+)\/channels\/?$/, "channelOverview", this.getChannelOverview);
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/facts\/?$/, "getChannelFacts", this.getChannelFacts);
-        
-    // Channels.reset(channel_dump);
     
     this.view = new AppView();
   },
@@ -14,6 +12,10 @@ var Workspace = Backbone.Router.extend({
   
   getChannelFacts: function(username, channel_id) {
     this.view.showFactsForChannel(username, channel_id);
+  },
+  
+  getUsername: function() {
+    return location.pathname.split("/")[1];
   }
 
 });

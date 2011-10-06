@@ -10,5 +10,5 @@ if (Channels !== undefined ) {
   // TODO: How can we update a collection to have the just added channel?
   $('#channel-listing li').remove();
   // Channels.reset(<%= @user.graph_user.channels.to_json.html_safe %>);
-  Channels.fetch();
+  Channels.fetch({add:true});
 }

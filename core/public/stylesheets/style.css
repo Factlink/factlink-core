@@ -570,31 +570,32 @@ form .action-wrapper span {
   position: relative;
   z-index: 100;
 }
-#container #channel-listing .channel {
+#container #channel-listing li a {
+  display: block;
   border-radius: 2px;
-  /*        background: rgba(0, 0, 0, 0.07);*/
-
   padding: 8px 8px;
   margin: 0 0 8px 0;
+  color: #222;
   position: relative;
 }
-#container #channel-listing .channel:hover {
+#container #channel-listing li a:hover {
   background-color: #fff;
   cursor: pointer;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
 }
-#container #channel-listing li {
-  border-radius: 2px;
-  /*        background: rgba(0, 0, 0, 0.07);*/
-
-  padding: 8px 8px;
-  margin: 0 0 8px 0;
-  position: relative;
+#container #channel-listing li a img {
+  float: right;
+  visibility: hidden;
 }
-#container #channel-listing li:hover {
-  background-color: #fff;
-  cursor: pointer;
+#container #channel-listing li.active > a, #container #channel-listing li.loading > a {
+  background: #fff;
+  color: #666;
+  z-index: 101;
+  border-right: none;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+}
+#container #channel-listing li.loading > a img {
+  visibility: visible;
 }
 #container #channel-listing li > ul > li {
   padding: 0 ;
@@ -603,13 +604,6 @@ form .action-wrapper span {
 }
 #container #channel-listing li > ul > li + li {
   margin-top: 8px;
-}
-#container #channel-listing .active {
-  background: #fff;
-  color: #666;
-  z-index: 101;
-  border-right: none;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
 }
 #container sub.new-channel {
   margin: 8px 0 0 0;
