@@ -15,16 +15,20 @@
 <% end %>
 
 <%= content_for :javascript do %>
-  <script>
-    var channel_dump = <%= @user.graph_user.channels.to_json.html_safe %>;
-  </script>
-  
   <%= javascript_include_tag "models/channel.js" %>
   <%= javascript_include_tag "collections/channels.js" %>
   <%= javascript_include_tag "collections/facts.js" %>
   <%= javascript_include_tag "views/channel_menu_view.js" %>
   <%= javascript_include_tag "views/channel_app_view.js" %>
   <%= javascript_include_tag "router.js" %>
+  
+  <script>    
+    var Router = new Workspace();
+    
+    Backbone.history.start({pushState:true, silent:true});
+    
+    Channels.reset(<%= @user.graph_user.channels.to_json.html_safe %>);
+  </script>
   
   <script>
   	$('.follow-channel').bind('click', function() {

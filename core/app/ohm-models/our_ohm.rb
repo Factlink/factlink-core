@@ -102,9 +102,11 @@ class OurOhm < Ohm::Model
 
   class << self
     alias :create! :create
+    alias :ohm_set :set
   end
+  
   def self.set(name,model)
-    self.superclass.set(name, model)
+    ohm_set(name, model)
     define_method(:"#{name}=") do |value|
       @_memo.delete(name)
       send(name).assign(value)
@@ -134,6 +136,13 @@ class OurOhm < Ohm::Model
     self.find(opts).first || self.create(opts)
   end
 
+
+  def belief_check(type)
+    type = type.to_sym
+    if [:beliefs,:disbeliefs].include?(type)
+      #warn "please fix the spelling of your #{type}"
+    end
+  end
 
 end
 

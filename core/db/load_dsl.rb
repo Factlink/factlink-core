@@ -85,7 +85,7 @@ class LoadDsl
   end
 
   def self.export_fact_relation(fact_relation)
-    "fact_relation \"#{quote_string(fact_relation.get_from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.get_to_fact.data.displaystring)}\"\n"
+    "fact_relation \"#{quote_string(fact_relation.from_fact.data.displaystring)}\", :#{fact_relation.type.to_sym}, \"#{quote_string(fact_relation.fact.data.displaystring)}\"\n"
   end
 
 

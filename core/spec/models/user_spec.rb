@@ -16,7 +16,7 @@ describe User do
     @factlink2 = FactoryGirl.create(:fact)
   end
   context "Initially" do
-    it {subject.graph_user.facts.should == []}
+    it {subject.graph_user.facts.to_a.should == []}
     it {subject.graph_user.should == subject.graph_user }
   end
 

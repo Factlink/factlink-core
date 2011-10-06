@@ -55,10 +55,10 @@ class FactRelation < Basefact
 
 
   def percentage
-    if self.get_to_fact.get_opinion.weight == 0
+    if self.fact.get_opinion.weight == 0
       return 0
     else
-      return (100 * self.get_influencing_opinion.weight / (self.get_to_fact.get_opinion.weight)).round.to_i
+      return (100 * self.get_influencing_opinion.weight / (self.fact.get_opinion.weight)).round.to_i
     end
   end
 
@@ -70,16 +70,6 @@ class FactRelation < Basefact
     when :weakening
       Opinion.for_type(:disbeliefs)
     end
-  end
-
-  deprecate
-  def get_from_fact
-    from_fact
-  end
-
-  deprecate
-  def get_to_fact
-    fact
   end
 
   def delete

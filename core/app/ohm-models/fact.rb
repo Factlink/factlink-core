@@ -1,14 +1,5 @@
 class Fact < Basefact
-  #include FactDataProxy
-  
   after :create, :set_activity!
-
-  # before :delete, :remove_from_channels  
-  def remove_from_channels    
-    self.created_by.channels.each do |ch|
-      ch.calculate_facts
-    end
-  end
 
   def set_activity!
     activity(self.created_by, "created", self)
@@ -19,12 +10,18 @@ class Fact < Basefact
   end
 
   reference :site, Site       # The site on which the factlink should be shown
+
+  #deprecate (= functions don't work with deprecate)
   def url=(url)
     self.site = Site.find_or_create_by(:url => url)
   end
+  
+  deprecate
   def url
     self.site.url
   end
+  
+  deprecate
   # Return a nice looking url, only subdomain + domain + top level domain
   def pretty_url #TODO move to helper function, has no place in the model
     self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
@@ -108,13 +105,6 @@ class Fact < Basefact
     end
   end
   
-  
-  # Used for sorting
-  #deprecate
-  def self.column_names
-    FactData.column_names
-  end
-
   #returns whether a given fact should be considered
   #unsuitable for usage/viewing
   def self.invalid(f)
@@ -122,7 +112,6 @@ class Fact < Basefact
   end
   
   def delete
-    delete_from_channels
     delete_all_evidence
     delete_all_evidenced
     data.delete
@@ -142,14 +131,6 @@ class Fact < Basefact
     end
   end
 
-  def delete_from_channels
-    #TODO actually do this properly
-    Channel.all.each do |ch|
-      ch.remove_fact(self)
-    end
-  end
-  
-  
   
   private :delete_all_evidence, :delete_all_evidenced
 
@@ -166,9 +147,7 @@ class Fact < Basefact
     save
   end
   def get_evidence_opinion(depth=0)
-    if depth > 0
-      self.calculate_evidence_opinion(depth)
-    end
+    self.calculate_evidence_opinion(depth) if depth > 0
     self.evidence_opinion || Opinion.identity
   end
 
@@ -180,9 +159,7 @@ class Fact < Basefact
     save
   end
   def get_opinion(depth=0)
-    if depth > 0
-      self.calculate_opinion(depth)
-    end    
+    self.calculate_opinion(depth) if depth > 0
     self.opinion || Opinion.identity
   end
 

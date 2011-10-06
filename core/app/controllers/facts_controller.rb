@@ -286,7 +286,7 @@ class FactsController < ApplicationController
 
   private
   def sort_column # private
-    Fact.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
 
   def sort_direction # private
@@ -297,8 +297,8 @@ class FactsController < ApplicationController
     # TODO Fix this very quick please. Nasty way OhmModels handles querying\
     # and filtering. Can't use the object ID, so using a workaround with :data_id's
     # Very nasty :/
-    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.get_from_fact.data_id }
-    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.get_from_fact.data_id }
+    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.from_fact.data_id }
+    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.from_fact.data_id }
     intersecting_ids = supporting_fact_ids & weakening_fact_ids
     intersecting_ids << @fact.data_id
     

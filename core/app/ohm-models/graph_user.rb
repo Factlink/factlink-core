@@ -5,9 +5,10 @@ class GraphUser < OurOhm
 
   reference :user, lambda { |id| User.find(id) }
 
-  set :beliefs_facts, Basefact
+  set :believes_facts, Basefact
   set :doubts_facts, Basefact
-  set :disbeliefs_facts, Basefact
+  set :disbelieves_facts, Basefact
+  private :believes_facts, :doubts_facts, :disbelieves_facts
 
   collection :created_facts, Basefact, :created_by
 
@@ -53,7 +54,17 @@ class GraphUser < OurOhm
 
   # user.facts_he(:beliefs)
   def facts_he(type)
-    self.send("#{type}_facts")
+    type = type.to_sym
+    belief_check(type)
+    if [:beliefs,:believes].include?(type)
+      believes_facts
+    elsif [:doubts].include?(type)
+      doubts_facts
+    elsif [:disbeliefs,:disbelieves].include?(type)
+      disbelieves_facts
+    else
+      raise "invalid opinion"
+    end
   end
 
   def has_opinion?(type, fact)
@@ -68,7 +79,7 @@ class GraphUser < OurOhm
   end
 
   def facts
-    beliefs_facts.all + doubts_facts.all + disbeliefs_facts.all
+    facts_he(:believes) | facts_he(:doubts) | facts_he(:disbelieves)
   end
 
   def real_facts
@@ -86,7 +97,7 @@ class GraphUser < OurOhm
   end
 
   def remove_opinions(fact)
-    [:beliefs, :doubts, :disbeliefs].each do |type|
+    [:believes, :doubts, :disbelieves].each do |type|
       facts_he(type).delete(fact)
     end
   end
