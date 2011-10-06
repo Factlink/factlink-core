@@ -41,7 +41,6 @@ describe Channel do
     describe "after forking" do
       before do
          @fork = subject.fork(u2)
-         Channel.recalculate_all
         end  
       
       it {subject.facts.to_a.should =~ [f1]}
@@ -58,7 +57,6 @@ describe Channel do
       describe "and removing the fact from the fork" do
         before do
            @fork.remove_fact(f1)
-           Channel.recalculate_all
          end
         it {subject.facts.to_a.should =~ [f1]}
         it {@fork.facts.to_a.should =~ []}
@@ -74,7 +72,6 @@ describe Channel do
       describe "after adding another fact to the fork" do
         before do
            @fork.add_fact(f2)
-           Channel.recalculate_all
          end
         it {subject.facts.to_a.should =~ [f1]}
         it {@fork.facts.to_a.should =~ [f1,f2]}
@@ -83,7 +80,6 @@ describe Channel do
     describe "forking the channel yourself" do
       before do
         @fork = subject.fork(u1) 
-        Channel.recalculate_all
       end
     end
   end

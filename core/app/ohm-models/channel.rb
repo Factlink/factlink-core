@@ -57,13 +57,13 @@ class Channel < OurOhm
   def add_fact(fact)
     self.delete_facts.delete(fact)
     self.internal_facts.add(fact)
+    self.cached_facts.add(fact)
     activity(self.created_by,:added,fact,:to,self)
   end
 
   def remove_fact(fact)
-    if self.internal_facts.include?(fact)
-      self.internal_facts.delete(fact)
-    end
+    self.internal_facts.delete(fact) if self.internal_facts.include?(fact)
+    self.cached_facts.delete(fact)   if self.cached_facts.include?(fact)
     self.delete_facts.add(fact)
     activity(self.created_by,:removed,fact,:from,self)
   end
@@ -106,6 +106,7 @@ class Channel < OurOhm
   protected
   def _add_channel(channel)
     contained_channels << channel
+    calculate_facts
   end
 
   def self.recalculate_all

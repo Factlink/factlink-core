@@ -40,5 +40,4 @@ end
 
 # this allows WEBrick to handle pipe symbols in query parameters
 puts "Overriding default URI parser to add pipe"
-URI::DEFAULT_PARSER = 
-  URI::Parser.new(:UNRESERVED => URI::REGEXP::PATTERN::UNRESERVED + '|')
+URI::DEFAULT_PARSER = URI::Parser.new(:UNRESERVED => URI::REGEXP::PATTERN::UNRESERVED + '|')

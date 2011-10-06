@@ -63,9 +63,6 @@ class ChannelsController < ApplicationController
         @channel.add_fact(@fact)
       end
       
-      #TODO Work around this call. Backbone needs to have the changes directly
-      @channel.calculate_facts
-      
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
         format.json { render :json => @channel,
@@ -130,9 +127,6 @@ class ChannelsController < ApplicationController
     if @channel.created_by == current_user.graph_user
       @channel.remove_fact(@fact)
     end
-    
-    #TODO Work around this call. Backbone needs to have the changes directly
-    @channel.calculate_facts
   end
 
   def toggle_fact
@@ -144,9 +138,6 @@ class ChannelsController < ApplicationController
     else
       @channel.add_fact(@fact)
     end
-    
-    #TODO Work around this call. Backbone needs to have the changes directly
-    @channel.calculate_facts
     
     respond_to do |format|
       format.js
