@@ -6,7 +6,7 @@ describe GraphUser do
   let(:fact) {FactoryGirl.create(:fact)}
 
   context "Initially" do
-    its(:facts) { should == [] }
+    it { subject.facts.to_a.should == [] }
     it { subject.facts_he(:beliefs).should be_empty }
     it { subject.facts_he(:doubts).should be_empty }
     it { subject.facts_he(:disbeliefs).should be_empty }
