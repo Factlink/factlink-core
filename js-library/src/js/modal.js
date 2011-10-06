@@ -1,4 +1,4 @@
-(function(Factlink) {
+(function(Factlink, $, _, easyXDM) {
   // The iFrame which holds the intermediate
   var iFrame = $("<div />").attr({
     "id": "factlink-modal-frame"
@@ -93,5 +93,4 @@
   
   $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
                       .live('mouseleave', stopHighlightingFactlink );
-                      
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

@@ -11,6 +11,5 @@
 // Use the correct document accordingly with window argument (sandbox)
 var document = window.document,
     setTimeout = window.setTimeout,
-    alert = window.alert,
-    $ = window.jQuery.noConflict();
-    _ = window.underscore.noConflict();
+    // global is used to set the noConflicted states of jQuery etc.
+    global = this;
