@@ -8,16 +8,16 @@
 
 <div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
   <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
-  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_beliefs} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:beliefs)} %>
 </div>
 <div class="doubts-box opinion-box float-box">
   <span class="opinion-type">doubt</span>
   <span class="percentage"><%= fact.get_opinion.as_percentages[:doubt][:percentage] %>%</span> 
-  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_doubts} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:doubts)} %>
 </div>
 
 <div class="disbeliefs-box opinion-box float-box"> 
 	<span class="opinion-type">disbelieve</span><br> 
 	<span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
-  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.people_disbeliefs} %>
+  <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:disbeliefs)} %>
 </div>
