@@ -94,7 +94,7 @@ window.FactlinkConfig = {
 
     modus: window.FACTLINK_MODUS,
     api: window.FACTLINK_API_LOCATION,
-    lib: window.FACTLINK_LIB_LOCATION,
+    lib: window.FACTLINK_STATIC_LOCATION,
     url: window.FACTLINK_REAL_URL,
     scrollto :  window.FACTLINK_SCROLL_TO
 };
