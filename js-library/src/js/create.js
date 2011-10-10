@@ -1,7 +1,4 @@
-(function(Factlink) {
-  var $ = Factlink.$;
-  var _ = Factlink._;
-  var easyXDM = Factlink.easyXDM;
+(function(Factlink, $, _, easyXDM) {
   var timeout;
   var popupTimeout;
   // Function which will return the Selection object
@@ -211,4 +208,4 @@
       }
     }, 100);
   });
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
