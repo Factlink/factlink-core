@@ -588,6 +588,7 @@ form .action-wrapper span {
   visibility: hidden;
 }
 #container #channel-listing li.active > a, #container #channel-listing li.loading > a {
+  
   background: #fff;
   color: #666;
   z-index: 101;
