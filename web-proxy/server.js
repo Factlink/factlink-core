@@ -28,6 +28,7 @@ global.config = require('./read_config').read_conf(config_path,fs,server.setting
 var PROXY_URL   = "http://"+global.config.proxy.hostname+':'+global.config.proxy.port;
 var STATIC_URL  = "http://"+global.config['static'].hostname+':'+global.config['static'].port;
 
+var STATIC_LOCATION = global.config['static'].hostname+':'+global.config['static'].port;
 var API_LOCATION = global.config.core.hostname + ':'+global.config.core.port;
 var LIB_LOCATION = global.config['static'].hostname +':'+global.config['static'].port + "/lib";
 
@@ -50,6 +51,7 @@ function injectFactlinkJs(html_in,site, scrollto, modus){
     var set_urls = '<script>'+
              'window.FACTLINK_PROXY_URL = "' + PROXY_URL + '";'+
              'window.FACTLINK_STATIC_URL = "' + STATIC_URL + '";'+
+             'window.FACTLINK_STATIC_LOCATION = "' + STATIC_LOCATION + '";'+
              'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
              'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
              'window.FACTLINK_MODUS = "' + modus + '";'+

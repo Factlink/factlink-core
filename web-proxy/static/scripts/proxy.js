@@ -94,45 +94,46 @@ window.FactlinkConfig = {
 
     modus: window.FACTLINK_MODUS,
     api: window.FACTLINK_API_LOCATION,
-    lib: window.FACTLINK_STATIC_URL,
+    lib: window.FACTLINK_LIB_LOCATION,
+    static_location: window.FACTLINK_STATIC_LOCATION,
     url: window.FACTLINK_REAL_URL,
     scrollto :  window.FACTLINK_SCROLL_TO
 };
 
-var static_url = window.FactlinkConfig.lib;
+var static_location = window.FactlinkConfig.static_location;
 
 var
 // List of scripts which should be loaded,
     dev = [
         [
-            '//' + static_url + '/lib/build/jquery-1.6.1.js',
-            '//' + static_url + '/lib/build/easyXDM/easyXDM.js',
-            '//' + static_url + '/lib/build/underscore.js'
+            '//' + static_location + '/lib/build/jquery-1.6.1.js',
+            '//' + static_location + '/lib/build/easyXDM/easyXDM.js',
+            '//' + static_location + '/lib/build/underscore.js'
         ],
         [
-            '//' + static_url + '/lib/src/js/core.js?' + (new Date()).getTime()
+            '//' + static_location + '/lib/src/js/core.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_url + '/lib/build/jquery.scrollTo-1.4.2.js'
+            '//' + static_location + '/lib/build/jquery.scrollTo-1.4.2.js'
         ],
         [
-            '//' + static_url + '/lib/src/js/replace.js?' + (new Date()).getTime(),
-            '//' + static_url + '/lib/src/js/scrollto.js?' + (new Date()).getTime(),
-            '//' + static_url + '/lib/src/js/search.js?' + (new Date()).getTime(),
-            '//' + static_url + '/lib/src/js/create.js?' + (new Date()).getTime(),
-            '//' + static_url + '/lib/src/js/modal.js?' + (new Date()).getTime(),
-            '//' + static_url + '/lib/src/js/lib/indicator.js?' + (new Date()).getTime()
+            '//' + static_location + '/lib/src/js/replace.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/scrollto.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/search.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/create.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/modal.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_url + '/lib/src/js/xdm.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/xdm.js?' + (new Date()).getTime(),
         ]
     ],
     demo = [
         [
-            '//' + static_url + '/lib/dist/easyXDM/easyXDM.min.js'
+            '//' + static_location + '/lib/dist/easyXDM/easyXDM.min.js'
         ],
         [
-            '//' + static_url + '/lib/dist/factlink.js?'
+            '//' + static_location + '/lib/dist/factlink.js?'
         ]
     ],
     // Method which is called when all scripts are loaded
