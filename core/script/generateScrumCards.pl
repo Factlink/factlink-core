@@ -17,7 +17,7 @@ print "\\documentclass{article}
 foreach $story (@{$data->{story}}){
 	print "\\begin{tabular}{||p{12cm}||} \n";
 	print "\\hline\n\\hline\n";
-	print ("\\begin{flushleft}\\begin{tabular}{p{7cm}r} \\textbf{\\Huge{ID:$story->{story_id}}} & \\textbf{\\Huge{SP: $story->{points}}} \\end{tabular} \\end{flushleft} \\\\ \n");
+	print ("\\begin{flushleft}\\begin{tabular}{p{3cm}p{4cm}r} \\textbf{\\Huge{ID:$story->{story_id}}} & $story->{category} & \\textbf{\\Huge{SP: $story->{points}}} \\end{tabular} \\end{flushleft} \\\\ \n");
 	print "\\hline\n";
 	$summary = escapeText($story->{summary});
 	print ("\\begin{flushleft}\\Large{$summary}\\end{flushleft} \\\\ \n");
