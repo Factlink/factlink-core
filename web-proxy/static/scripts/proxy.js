@@ -125,15 +125,18 @@ var
             '//' + static_location + '/lib/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/src/js/xdm.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/xdm.js?' + (new Date()).getTime()
+        ],
+        [
+            '//' + static_location + '/lib/src/js/getfacts.js?' + (new Date()).getTime()
         ]
     ],
     demo = [
         [
-            '//' + static_location + '/lib/dist/easyXDM/easyXDM.min.js'
+            '//' + static_location + '/lib/dist/factlink.js'
         ],
         [
-            '//' + static_location + '/lib/dist/factlink.js?'
+            '//' + static_location + '/lib/dist/factlink.getfacts.js'
         ]
     ],
     // Method which is called when all scripts are loaded
