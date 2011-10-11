@@ -113,10 +113,16 @@
         });
         $(this.raphael.node).hoverIntent({
           over: function(e) {
+
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
+            
+            // console.log(optionBox);
+            
+            console.log(optionBox);
+            
             $(optionBox).css({
-              "top": e.clientY - 25 + "px",
-              "left": e.clientX + 25 + "px"
+              // "top": e.clientY - 25 + "px",
+              // "left": e.clientX + 25 + "px"
             }).fadeIn("fast");
           },
           out: function() {
