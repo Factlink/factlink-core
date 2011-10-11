@@ -66,6 +66,10 @@ a:hover {
 }
 /** Fact block */
 a {
+  color: #666363;
+}
+a:hover {
+  text-decoration: underline;
   color: #306d90;
 }
 span.proxyWindow {
@@ -130,53 +134,45 @@ div.modal span.proxyWindow {
   border-radius: 3px;
 }
 .float {
-  background-color: #f7f7f7;
+  position: absolute;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  position: fixed;
 }
 .fact-block {
   padding: 0;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
-
-  color: #BBB;
+  color: #333;
   border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
+  position: relative;
 }
 .fact-block img.close {
   margin: 5px;
 }
-.fact-block:hover > article.fact .actions {
+.fact-block:hover > article.fact .actions, .fact-block .evidence article.fact:hover .actions {
   visibility: visible;
   opacity: 1;
-}
-.fact-block:hover > article.fact .actions li:hover a {
-  text-decoration: underline;
-  color: #306d90;
 }
 .fact-block article.fact {
   padding: 10px 0 10px 5px;
   min-height: 83px;
-  display: block;
   border-right: 1px solid #FBFAFA;
 }
 .fact-block article.fact header {
   margin: 0 0 20px 75px;
   padding-right: 20px;
-  color: #333;
 }
 .fact-block article.fact header sub {
   color: #AAA;
-  bottom: 0;
   line-height: inherit;
   font-size: x-small;
 }
@@ -204,9 +200,6 @@ div.modal span.proxyWindow {
   font-size: 1.2em;
   line-height: 19px;
 }
-.fact-block article.fact header .body a {
-  color: #666363;
-}
 .fact-block article.fact header .actions {
   visibility: hidden;
   height: 18px;
@@ -229,22 +222,22 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background-color: #f7f7f7;
+  position: absolute;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  position: fixed;
   width: 200px;
 }
 .fact-block article.fact .channel-listing ul {
   max-height: 160px;
   overflow-y: auto;
 }
-.fact-block article.fact .channel-listing li {
+.fact-block article.fact .channel-listing ul li {
   display: block;
-  padding: 0.7em;
+  padding: 0.3em 0.7em;
 }
 .fact-block article.fact .channel-listing .add-channel {
   border-top: solid 1px #ddd;
@@ -281,13 +274,18 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background-color: #f7f7f7;
+  position: absolute;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+<<<<<<< Updated upstream
   position: fixed;
+=======
+  width: 150px;
+>>>>>>> Stashed changes
   height: 85px;
   width: 150px;
   position: absolute;
@@ -324,10 +322,6 @@ div.modal span.proxyWindow {
   width: 85px;
   background: #9d9d9c;
 }
-.fact-block .evidence-actions {
-  /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
-
-}
 .fact-block .evidence-actions a {
   line-height: 32px;
 }
@@ -347,8 +341,6 @@ div.modal span.proxyWindow {
   border: 1px solid #bbbbbb;
   border-left: none;
   margin-bottom: -1px;
-  /* background: #e0e0e0;*/
-
   overflow: hidden;
 }
 .fact-block ul.evidence li a {
@@ -368,8 +360,6 @@ div.modal span.proxyWindow {
 }
 .fact-block .evidence-container {
   background-color: #fff;
-  /* border: 1px solid @border-color;*/
-
   border-top: none;
   clear: both;
   width: 100%;
@@ -380,110 +370,6 @@ div.modal span.proxyWindow {
   text-align: center;
   line-height: 24px;
   border-top: 1px solid #E4E4E4;
-  /* position: relative;*/
-
-  /* z-index: 20;*/
-
-  /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
-
-}
-.fact-block .evidence-options {
-  /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
-
-  border-right: 1px solid #E4E4E4;
-  vertical-align: middle;
-  position: relative;
-}
-.fact-block .evidence-options .relevance-indicator {
-  border-top: solid 1px #ccc;
-  width: 100px;
-  position: absolute;
-  top: 1px;
-  left: 0px;
-}
-.fact-block .evidence-options .relevance-indicator .relevance-type {
-  -webkit-transform: rotate(-21deg);
-  color: #fff;
-  text-shadow: 0px 0px 1px transparent;
-  position: absolute;
-  z-index: 1;
-  top: 10px;
-  left: 2px;
-}
-.fact-block .evidence-options .relevance-indicator .back {
-  position: absolute;
-  height: 0px;
-  width: 0px;
-  left: -2px;
-  z-index: 0;
-  border-right: 100px solid transparent;
-  border-bottom: 100px solid transparent;
-}
-.fact-block .evidence-options .relevance-indicator .supporting {
-  border-top: 40px solid rgba(2, 119, 158, 0.25);
-}
-.fact-block .evidence-options .relevance-indicator .weakening {
-  border-top: 40px solid rgba(235, 84, 10, 0.25);
-}
-.fact-block .evidence-options .relevance-options {
-  width: 42px;
-  white-space: nowrap;
-  text-shadow: none;
-  position: relative;
-  z-index: 0;
-  -webkit-transition: all 0.2s ease-in-out;
-}
-.fact-block .evidence-options .relevance-options ul {
-  margin-top: 24px;
-}
-.fact-block .evidence-options .relevance-options ul span {
-  color: #666;
-}
-.fact-block .evidence-options .relevance-options ul:hover {
-  /* margin-left: -72px;*/
-
-}
-.fact-block .evidence-options .relevance-options ul li {
-  color: #888;
-  font-size: 0.9em;
-  text-align: center;
-  text-shadow: 0px 0px 1px #fff;
-  line-height: 22px;
-  height: 14px;
-  width: 88px;
-  border: solid 1px #d8d8d8;
-  border-radius: 3px;
-  padding-bottom: 8px;
-  padding-left: 2px;
-  margin-bottom: 10px;
-  background: #f5f5f5;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #eeeeee 0%, #ffffff 100%);
-  z-index: 10;
-}
-.fact-block .evidence-options .relevance-options ul li:hover {
-  cursor: pointer;
-}
-.fact-block .evidence-options .relevance-options ul li a {
-  text-decoration: none;
-  color: #444;
-}
-.fact-block .evidence-options .relevance-options ul li.active {
-  background: #f5f5f5;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e8e8e8), color-stop(1, #cccccc));
-  background: -moz-linear-gradient(center bottom, #e8e8e8 0%, #cccccc 100%);
-  border: solid 1px #ccc;
-  color: #555;
-  box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
-}
-.fact-block .evidence-options .relevance-options ul li.active a {
-  color: #306d90;
-}
-.fact-block .evidence-options:hover {
-  z-index: 400;
-}
-.fact-block .evidence-options:hover .relevance-options {
-  width: 96px;
 }
 .fact-block .evidence-list {
   min-height: 80px;
@@ -501,7 +387,6 @@ div.modal span.proxyWindow {
   -webkit-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
   box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.15);
-  position: relative;
   border-bottom: 1px solid #E4E4E4;
   width: 445px;
   text-align: left;
@@ -511,6 +396,84 @@ div.modal span.proxyWindow {
   text-align: center;
   height: 150px;
   vertical-align: middle;
+}
+.fact-block .evidence-list td.evidence-options {
+  border-right: 1px solid #E4E4E4;
+  vertical-align: middle;
+  position: relative;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+.fact-block .evidence-list td.evidence-options .relevance-indicator {
+  border-top: solid 1px #ccc;
+  position: absolute;
+  display: none;
+  z-index: 1;
+}
+.fact-block .evidence-list td.evidence-options .relevance-indicator .relevance-type {
+  -webkit-transform: rotate(-21deg);
+  color: #fff;
+  text-shadow: 0px 0px 1px transparent;
+}
+.fact-block .evidence-list td.evidence-options .relevance-indicator .back {
+  height: 0px;
+  width: 0px;
+  border-right: 100px solid transparent;
+  border-bottom: 100px solid transparent;
+}
+.fact-block .evidence-list td.evidence-options .relevance-indicator .supporting {
+  border-top: 40px solid rgba(2, 119, 158, 0.25);
+}
+.fact-block .evidence-list td.evidence-options .relevance-indicator .weakening {
+  border-top: 40px solid rgba(235, 84, 10, 0.25);
+}
+.fact-block .evidence-list td.evidence-options .relevance-options {
+  white-space: nowrap;
+  text-shadow: none;
+  position: inherit;
+  z-index: 2;
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul {
+  margin-top: 24px;
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul span {
+  color: #666;
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul li {
+  color: #888;
+  font-size: 0.9em;
+  text-align: center;
+  text-shadow: 0px 0px 1px #fff;
+  line-height: 22px;
+  height: 14px;
+  width: 88px;
+  border: solid 1px #d8d8d8;
+  border-radius: 3px;
+  padding-bottom: 8px;
+  padding-left: 2px;
+  margin-bottom: 10px;
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #eeeeee 0%, #ffffff 100%);
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul li:hover {
+  cursor: pointer;
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul li a {
+  text-decoration: none;
+  color: #444;
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul li.active {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e8e8e8), color-stop(1, #cccccc));
+  background: -moz-linear-gradient(center bottom, #e8e8e8 0%, #cccccc 100%);
+  border: solid 1px #ccc;
+  color: #555;
+  box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
+}
+.fact-block .evidence-list td.evidence-options .relevance-options ul li.active a {
+  color: #306d90;
 }
 .fact-block .evidence-list .add-evidence {
   min-height: 150px;
