@@ -66,6 +66,9 @@ a:hover {
 }
 /** Fact block */
 a {
+  color: #666363;
+}
+a:hover {
   color: #306d90;
 }
 span.proxyWindow {
@@ -130,7 +133,7 @@ div.modal span.proxyWindow {
   border-radius: 3px;
 }
 .float {
-  background-color: #f7f7f7;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -143,8 +146,6 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
-
   color: #BBB;
   border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
@@ -159,10 +160,6 @@ div.modal span.proxyWindow {
   visibility: visible;
   opacity: 1;
 }
-.fact-block:hover > article.fact .actions li:hover a {
-  text-decoration: underline;
-  color: #306d90;
-}
 .fact-block article.fact {
   padding: 10px 0 10px 5px;
   min-height: 83px;
@@ -176,7 +173,6 @@ div.modal span.proxyWindow {
 }
 .fact-block article.fact header sub {
   color: #AAA;
-  bottom: 0;
   line-height: inherit;
   font-size: x-small;
 }
@@ -204,9 +200,6 @@ div.modal span.proxyWindow {
   font-size: 1.2em;
   line-height: 19px;
 }
-.fact-block article.fact header .body a {
-  color: #666363;
-}
 .fact-block article.fact header .actions {
   visibility: hidden;
   height: 18px;
@@ -229,7 +222,7 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background-color: #f7f7f7;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -281,16 +274,19 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background-color: #f7f7f7;
+  background-color: #fbfafa;
   z-index: 2000;
   display: none;
   -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
-  position: fixed;
-  width: 150px;
   height: 85px;
+  width: 150px;
+  position: absolute;
+  left: 92px;
+  display: none;
+  border: solid 1px #ccc;
 }
 .fact-block .opinion-box .percentage {
   margin-top: 10px;
@@ -315,18 +311,17 @@ div.modal span.proxyWindow {
   display: block;
   color: white;
   float: left;
-  padding-left: 3px;
+  padding: 2px 0px 0px 4px;
   margin-bottom: 3px;
   height: 18px;
   width: 85px;
   background: #9d9d9c;
 }
-.fact-block .evidence-actions {
-  /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
-
-}
 .fact-block .evidence-actions a {
   line-height: 32px;
+}
+.fact-block div.evidence .opinion-box {
+  left: 78px;
 }
 .fact-block ul.evidence {
   float: left;
@@ -344,8 +339,6 @@ div.modal span.proxyWindow {
   border: 1px solid #bbbbbb;
   border-left: none;
   margin-bottom: -1px;
-  /* background: #e0e0e0;*/
-
   overflow: hidden;
 }
 .fact-block ul.evidence li a {
@@ -365,8 +358,6 @@ div.modal span.proxyWindow {
 }
 .fact-block .evidence-container {
   background-color: #fff;
-  /* border: 1px solid @border-color;*/
-
   border-top: none;
   clear: both;
   width: 100%;
@@ -377,16 +368,8 @@ div.modal span.proxyWindow {
   text-align: center;
   line-height: 24px;
   border-top: 1px solid #E4E4E4;
-  /* position: relative;*/
-
-  /* z-index: 20;*/
-
-  /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
-
 }
 .fact-block .evidence-options {
-  /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
-
   border-right: 1px solid #E4E4E4;
   vertical-align: middle;
   position: relative;

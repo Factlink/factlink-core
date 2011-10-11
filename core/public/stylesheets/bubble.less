@@ -15,8 +15,12 @@ td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
 a { 
+  color: #666363;
+}
+a:hover { 
   color: @dark-blue;
 }
+
 span.proxyWindow { 
   display: none;
 }
@@ -84,28 +88,22 @@ div.modal {
 
 .fact-block {	
   .boxed;
-  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
   color: #BBB;
   border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
-  
+
   img.close { 
     margin: 5px;
   }
-  
+
   &:hover > article.fact .actions {
     visibility: visible;
     opacity: 1;
-    
-    li:hover a { 
-      text-decoration: underline;
-      color: @dark-blue;
-    }
   }
-  
+
   article.fact {    
     padding: 10px 0 10px 5px;
     min-height: 83px;
@@ -119,7 +117,6 @@ div.modal {
       color: #333;
       sub {
         color: #AAA;
-        bottom: 0;
         line-height: inherit;
         font-size: x-small;
       }
@@ -154,23 +151,18 @@ div.modal {
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
-				
-				a { 
-          color: #666363;
-        }
-      }
-      
+			}
+
       .actions { 
         visibility: hidden;
         height: 18px;
         opacity:0;
         .transition(0.2s,ease-in);
-        
+
         li { 
           margin: 5px 10px 0 0;
           display: inline-block;
           list-style-type: none;
-          
           img {
             margin: 0 3px 0 0;
             vertical-align: baseline;
@@ -212,7 +204,7 @@ div.modal {
       width: 65px;
       height: 60px;
       margin: 0 0 0 10px;
-      float: left;    
+      float: left;
       path:hover { 
         cursor: pointer;
       }
@@ -227,9 +219,13 @@ div.modal {
   .opinion-box {
     .boxed;
     .float;
-    position: fixed;
-    width: 150px;
-    height: 85px;
+      height: 85px;
+      width: 150px;
+      position: absolute;
+      left: 92px;
+      display: none;
+      border: solid 1px #ccc;
+
     .percentage { 
       margin-top: 10px;
       margin-right: 5px;
@@ -253,18 +249,24 @@ div.modal {
       display: block;
       color: white;
       float: left;
-      padding-left: 3px;
+      padding: 2px 0px 0px 4px;
       margin-bottom: 3px;
       height: 18px; width: 85px;
       background: @grey;
     }
   }
   .evidence-actions {
-    /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
     a {
       line-height: 32px;
     }
   }
+  
+  div.evidence {
+    .opinion-box {
+      left: 78px;
+    }
+  }
+  
   @border-color: #bbb;
   ul.evidence {
     float: left;
@@ -282,7 +284,6 @@ div.modal {
     border: 1px solid @border-color;
     border-left: none;
     margin-bottom: -1px;
-    /* background: #e0e0e0;*/
     overflow: hidden;
   }
   ul.evidence li a {
@@ -302,7 +303,6 @@ div.modal {
   }
   .evidence-container {
     background-color: #fff;
-    /* border: 1px solid @border-color;*/
     border-top: none;
     clear: both;
     width: 100%;
@@ -312,43 +312,39 @@ div.modal {
       text-align: center;
       line-height: 24px;
       border-top: 1px solid #E4E4E4;
-      /* position: relative;*/
-      /* z-index: 20;*/
-      /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
     }
   }
   .evidence-options { 
-    /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
     position: relative;
 
     .relevance-indicator {
       border-top: solid 1px #ccc;
-      
+
       width: 100px;
       position: absolute;
       top: 1px;
       left: 0px;
-      
+
       .relevance-type {
         -webkit-transform: rotate(-21deg);
         color: #fff;
         text-shadow: 0px 0px 1px transparent;
-        
+
         position: absolute;
         z-index: 1;
         top: 10px;
         left: 2px;
       }
-      
+
       .back {
         position: absolute;
         height: 0px; 
         width: 0px;
 
         left: -2px;
-        
+
         z-index: 0;
 
         border-right: 100px solid transparent;
@@ -357,7 +353,7 @@ div.modal {
       }
       .supporting { border-top: 40px solid rgba(2,119,158, 0.25); }
       .weakening  { border-top: 40px solid rgba(235,84,10, 0.25); }
-      
+
     }
 
     .relevance-options {
@@ -493,3 +489,4 @@ div.modal {
 .tipsy-south { background-position: bottom center; }
 .tipsy-east { background-position: right center; }
 .tipsy-west { background-position: left center; }
+

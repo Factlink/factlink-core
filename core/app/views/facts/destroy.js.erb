@@ -4,6 +4,14 @@ $('[data-fact-id=<%= @fact.id %>]').fadeOut('fast', function() {
 });
 
 // Hides the popup
-parent.remote.hide();
-parent.remote.stopHighlightingFactlink(<%= @fact_id %>);
+if ( parent.remote ) {
+  parent.remote.hide();
+  parent.remote.stopHighlightingFactlink(<%= @fact_id %>);
+}
+
+if ( Channels !== undefined ) {
+  Channels.each(function(channel) {
+    channel.fetch();
+  });
+}
 

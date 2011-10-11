@@ -57,6 +57,8 @@ window.AppView = Backbone.View.extend({
     var channel = Channels.get(channel_id);
     var self = this;
     
+    views[channel_id].setLoading();
+    
     if ( channel ) {
       $.ajax({
         url: channel.url() + '/facts',
