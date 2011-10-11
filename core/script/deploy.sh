@@ -34,5 +34,4 @@ then
 else
 	echo "\nExit without deploy. Have a nice day =)\n"
 	exit 0
-
 fi
