@@ -42,7 +42,6 @@ window.ChannelMenuView = Backbone.View.extend({
     this.$( this.el ).remove();
   },
   
-  // @TODO: Backbone router should catch these url changes, but no URL seems to match. Look in to this later please.
   showFacts: function( e ) {
     Router.navigate(Router.getUsername() + "/channels/" + this.model.id + "/facts", true);
     
