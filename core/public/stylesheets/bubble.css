@@ -331,6 +331,9 @@ div.modal span.proxyWindow {
 .fact-block .evidence-actions a {
   line-height: 32px;
 }
+.fact-block div.evidence .opinion-box {
+  left: 78px;
+}
 .fact-block ul.evidence {
   float: left;
   background-color: #fff;
