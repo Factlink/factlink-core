@@ -6,18 +6,23 @@
   <div class="authority"><%= image_tag("brains.png", "alt" => "Brain Cycles") %> <span><%= fact.get_opinion.as_percentages[:authority] %></span></div>		
 </div>
 
-<div class="beliefs-box opinion-box float-box"><span class="opinion-type">believe</span><br> 
+<div class="beliefs-box opinion-box float-box">
+  <span class="opinion-type">believers</span>
+  <br>
   <span class="percentage"><%= fact.get_opinion.as_percentages[:believe][:percentage] %>%</span> 
   <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:beliefs)} %>
 </div>
+
 <div class="doubts-box opinion-box float-box">
-  <span class="opinion-type">doubt</span>
+  <span class="opinion-type">doubters</span>
+  <br>
   <span class="percentage"><%= fact.get_opinion.as_percentages[:doubt][:percentage] %>%</span> 
   <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:doubts)} %>
 </div>
 
-<div class="disbeliefs-box opinion-box float-box"> 
-	<span class="opinion-type">disbelieve</span><br> 
-	<span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
+<div class="disbeliefs-box opinion-box float-box">
+  <span class="opinion-type">disbelievers</span>
+  <br> 
+  <span class="percentage"><%= fact.get_opinion.as_percentages[:disbelieve][:percentage] %>%</span> 
   <%= render :partial => "/facts/partial/users_popup", :locals => {:opinion => fact.opiniated(:disbeliefs)} %>
 </div>

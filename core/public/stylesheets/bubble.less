@@ -212,7 +212,7 @@ div.modal {
       width: 65px;
       height: 60px;
       margin: 0 0 0 10px;
-      float: left;    
+      float: left;
       path:hover { 
         cursor: pointer;
       }
@@ -227,9 +227,13 @@ div.modal {
   .opinion-box {
     .boxed;
     .float;
-    position: fixed;
-    width: 150px;
-    height: 85px;
+      height: 85px;
+      width: 150px;
+      position: absolute;
+      left: 92px;
+      display: none;
+      border: solid 1px #ccc;
+      
     .percentage { 
       margin-top: 10px;
       margin-right: 5px;
@@ -253,7 +257,7 @@ div.modal {
       display: block;
       color: white;
       float: left;
-      padding-left: 3px;
+      padding: 2px 0px 0px 4px;
       margin-bottom: 3px;
       height: 18px; width: 85px;
       background: @grey;
