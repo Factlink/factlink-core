@@ -36,7 +36,7 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @channel}
       format.js
-      format.html
+      format.html { render :action => "facts" }
     end
   end
 
@@ -64,7 +64,7 @@ class ChannelsController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
+        format.html { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
         format.json { render :json => @channel,
                       :status => :created, :location => channel_path(@channel.created_by, @channel)}
         format.js
@@ -102,7 +102,7 @@ class ChannelsController < ApplicationController
       @channel.delete
       
       respond_to do |format|
-        format.html  { redirect_to(channels_path(@user.username), :notice => 'Channel successfully deleted') }
+        format.html  { redirect_to(get_facts_for_channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
         format.json  { render :json => {}, :status => :ok }
       end
     end
