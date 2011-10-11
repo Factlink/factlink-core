@@ -104,17 +104,18 @@ Factlink.Indicator = (function() {
                     $( 'span.factlink[data-factid=' + currentId + ']:first').click(); 
                     return false; 
                 }); 
+        },
+        insertCallback: function(data){
+            Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') ); 
         }
     }; 
 })();
 $.ajax({ 
   method: 'get', 
   dataType: 'jsonp', 
+  jsonp: 'Factlink.Indicator.insertCallback',
   crossDomain: true, 
-  url: window.location.protocol + '//' + FactlinkConfig.api + '/factlink/indication.js', 
-  success: function( data ) { 
-    Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') ); 
-  } 
+  url: window.location.protocol + '//' + FactlinkConfig.api + '/factlink/indication.js?callback=Factlink.Indicator.insertCallback', 
 });
 
 
