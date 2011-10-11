@@ -13,16 +13,13 @@ a {text-decoration:none;}
 table {border-collapse: collapse; border-spacing: 0;}
 td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
-
 /** Fact block */
 a { 
   color: #666363;
-  &:hover { 
-    text-decoration: underline;
-    color: @dark-blue;
-  }
 }
-
+a:hover { 
+  color: @dark-blue;
+}
 
 span.proxyWindow { 
   display: none;
@@ -38,7 +35,6 @@ iframe.proxyFrame {
   z-index: 900;
   box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 }
-
 /* Legacy */
 div.fl-clear {
   clear: both;
@@ -56,7 +52,6 @@ div.fl-sign-in-container {
 div.sign-in {
 	border-bottom: solid 1px #ccc;
 }
-
 /* /Legacy */
 div.modal {
   background: #FBFAFA;
@@ -84,40 +79,42 @@ div.modal {
 	.rounded(3px);
 }
 .float { 
-  position: absolute;
   background-color: @bg;
   z-index: 2000;
   display: none;
   .drop-shadow(0, 0, 10px, 0.3);
+  position: fixed;
 }
 
 .fact-block {	
   .boxed;
-  color: #333;
+  color: #BBB;
   border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
-  position: relative;
+
   img.close { 
     margin: 5px;
   }
-  
-  &:hover > article.fact .actions,
-  .evidence article.fact:hover .actions {
+
+  &:hover > article.fact .actions {
     visibility: visible;
     opacity: 1;
   }
-  
+
   article.fact {    
     padding: 10px 0 10px 5px;
     min-height: 83px;
+    display: block;
     border-right: 1px solid #FBFAFA;
 
     header {
 			margin: 0 0 20px 75px;
+
       padding-right: 20px;
+      color: #333;
       sub {
         color: #AAA;
         line-height: inherit;
@@ -155,11 +152,13 @@ div.modal {
 				font-size: 1.2em;
 				line-height: 19px;
 			}
+
       .actions { 
         visibility: hidden;
         height: 18px;
         opacity:0;
         .transition(0.2s,ease-in);
+
         li { 
           margin: 5px 10px 0 0;
           display: inline-block;
@@ -178,11 +177,10 @@ div.modal {
       ul { 
         max-height: 160px;
         overflow-y: auto;
-        li { 
-          display: block;
-          padding: 0.3em 0.7em;
-        }
-
+      }
+      li { 
+        display: block;
+        padding: 0.7em;
       }
 			.add-channel {
 				border-top: solid 1px #ddd;
@@ -221,18 +219,13 @@ div.modal {
   .opinion-box {
     .boxed;
     .float;
-<<<<<<< Updated upstream
       height: 85px;
       width: 150px;
       position: absolute;
       left: 92px;
       display: none;
       border: solid 1px #ccc;
-      
-=======
-    width: 150px;
-    height: 85px;
->>>>>>> Stashed changes
+
     .percentage { 
       margin-top: 10px;
       margin-right: 5px;
@@ -312,9 +305,119 @@ div.modal {
       text-align: center;
       line-height: 24px;
       border-top: 1px solid #E4E4E4;
-
     }
   }
+  .evidence-options { 
+    border-right: 1px solid #E4E4E4;
+    vertical-align: middle;
+    position: relative;
+
+    .relevance-indicator {
+      border-top: solid 1px #ccc;
+
+      width: 100px;
+      position: absolute;
+      top: 1px;
+      left: 0px;
+
+      .relevance-type {
+        -webkit-transform: rotate(-21deg);
+        color: #fff;
+        text-shadow: 0px 0px 1px transparent;
+
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+        left: 2px;
+      }
+
+      .back {
+        position: absolute;
+        height: 0px; 
+        width: 0px;
+
+        left: -2px;
+
+        z-index: 0;
+
+        border-right: 100px solid transparent;
+        border-bottom: 100px solid transparent;
+
+      }
+      .supporting { border-top: 40px solid rgba(2,119,158, 0.25); }
+      .weakening  { border-top: 40px solid rgba(235,84,10, 0.25); }
+
+    }
+
+    .relevance-options {
+      width: 42px;
+      white-space: nowrap;
+      text-shadow: none;
+      position: relative;
+      z-index: 0;
+
+      -webkit-transition: all 0.2s ease-in-out;
+
+      ul { 
+				margin-top: 24px;
+				
+				span {
+					color: #666;
+				}
+				
+				&:hover {
+					/* margin-left: -72px;*/
+				}
+				
+				li {						
+					color: #888;
+					font-size: 0.9em;
+					text-align: center;
+					text-shadow: 0px 0px 1px #fff;
+					line-height: 22px;
+					height: 14px;
+					width: 88px;
+
+					border: solid 1px #d8d8d8;
+					border-radius: 3px;
+      		padding-bottom: 8px;
+      		padding-left: 2px;
+			    margin-bottom: 10px;
+					.gradient(#F5F5F5, #EEE, #FFF);
+					
+          z-index: 10;
+					
+					&:hover {
+						cursor: pointer;
+						
+					}
+					a {
+					  text-decoration: none;
+					  color: #444;
+					}
+					
+					&.active {
+						.gradient(#F5F5F5, #e8e8e8, #ccc);
+						border: solid 1px #ccc;
+						color: #555;	
+						box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
+						
+						a {
+						  color: @dark-blue;
+						}
+					}
+      	} // li
+			} // ul
+    } //.relevance-options 
+    &:hover { 
+      z-index: 400;
+
+      .relevance-options {
+        width: 96px;
+      }
+    }
+  }
+
   .evidence-list {
     min-height: 80px;
     max-height: 200px;
@@ -333,6 +436,7 @@ div.modal {
     td { 
       article.fact { 
         .drop-shadow(-10px, 0px, 10px, 0.15);      
+        position:relative;
         border-bottom: 1px solid #E4E4E4;
         width: 445px;
         text-align: left;
@@ -344,84 +448,7 @@ div.modal {
       height: 150px;
       vertical-align: middle;
     }
-    td.evidence-options { 
-      border-right: 1px solid #E4E4E4;
-      vertical-align: middle;
-      position: relative;
-      .transition(0.2s,ease-in);
-
-      .relevance-indicator {
-        border-top: solid 1px #ccc;
-        position: absolute;
-        display: none;
-        z-index: 1;
-       .relevance-type {
-          -webkit-transform: rotate(-21deg);
-          color: #fff;
-          text-shadow: 0px 0px 1px transparent;
-        }
-        .back {
-          height: 0px; 
-          width: 0px;
-          border-right: 100px solid transparent;
-          border-bottom: 100px solid transparent;
-
-        }
-        .supporting { border-top: 40px solid rgba(2,119,158, 0.25); }
-        .weakening  { border-top: 40px solid rgba(235,84,10, 0.25); }
-      }
-
-      .relevance-options {
-        white-space: nowrap;
-        text-shadow: none;
-        position: inherit;
-        z-index: 2;
-        ul { 
-          margin-top: 24px;
-          span {
-            color: #666;
-          }
-          li {						
-            color: #888;
-            font-size: 0.9em;
-            text-align: center;
-            text-shadow: 0px 0px 1px #fff;
-            line-height: 22px;
-            height: 14px;
-            width: 88px;
-
-            border: solid 1px #d8d8d8;
-            border-radius: 3px;
-            padding-bottom: 8px;
-            padding-left: 2px;
-            margin-bottom: 10px;
-            .gradient(#F5F5F5, #EEE, #FFF);
-            
-            &:hover {
-              cursor: pointer;
-            }
-            a {
-              text-decoration: none;
-              color: #444;
-            }
-            
-            &.active {
-              .gradient(#F5F5F5, #e8e8e8, #ccc);
-              border: solid 1px #ccc;
-              color: #555;	
-              box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
-              
-              a {
-                color: @dark-blue;
-              }
-            }
-          } // li
-        } // ul
-      } //.relevance-options 
-   }
-
-
-    .add-evidence { 
+      .add-evidence { 
       min-height: 150px;
       .search {
     		border-bottom: solid 1px #ddd;
@@ -455,3 +482,4 @@ div.modal {
 .tipsy-south { background-position: bottom center; }
 .tipsy-east { background-position: right center; }
 .tipsy-west { background-position: left center; }
+

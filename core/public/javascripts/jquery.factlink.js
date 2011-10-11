@@ -130,14 +130,8 @@
         $(this.raphael.node).hoverIntent({
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
-<<<<<<< Updated upstream
             $(optionBox).fadeIn("fast");
-=======
-            $(optionBox).css({
-              "top": e.pageY - 25 + "px",
-              "left": e.pageX + 25 + "px"
-            }).fadeIn("fast");
->>>>>>> Stashed changes
+
           },
           out: function() {
             $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
