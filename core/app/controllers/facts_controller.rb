@@ -242,35 +242,25 @@ class FactsController < ApplicationController
 
   # Search in the client popup.  
   def internal_search(eligible_facts)
-
-    @row_count = 20
+    @page = params[:page]
+    page = @page
+    @row_count = 4
     row_count = @row_count
-    
-    puts "\n\n\n\n\n\n\n"
-    p sort_column
-    p sort_direction
-    puts "\n\n\n\n\n\n\n"
 
     solr_result = FactData.search() do
-
       keywords params[:s] || ""
       
       order_by sort_column, sort_direction
-      paginate :page => params[:page] , :per_page => row_count
-
-      adjust_solr_params do |sunspot_params|
-        sunspot_params[:rows] = row_count
-      end
+      paginate :page => page , :per_page => row_count
+      
+      # Exclude the Facts that are already supporting AND weakening
+      with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
 
     @fact_data = solr_result.results
 
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
-
-    # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts & eligible_facts
-
   end
   
   def indication
