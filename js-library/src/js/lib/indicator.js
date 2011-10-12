@@ -113,7 +113,7 @@ $.ajax({
   crossDomain: true, 
   url: window.location.protocol + '//' + FactlinkConfig.api + '/factlink/indication.js', 
   success: function( data ) { 
-    Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') ); 
+    Factlink.Indicator.setElement( $( data ).attr('id','fl-indicator').appendTo('body') ); 
   } 
 });
 

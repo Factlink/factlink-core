@@ -1,0 +1,23 @@
+#fl .resetStyles {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  list-style: none;
+  list-style-type: none;
+}

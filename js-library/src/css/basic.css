@@ -1,3 +1,26 @@
+#fl .resetStyles {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  list-style: none;
+  list-style-type: none;
+}
 /*---------------------------------------------------
 		Some LESS Elements 0.5
 	---------------------------------------------------
@@ -38,8 +61,8 @@ div#factlink-modal-frame iframe {
   height: 100%;
   width: 100%;
 }
-div#factlink-indicator {
-  z-index: 2147483647;
+.popup-style {
+  z-index: 2147483645;
   background: #fff;
   margin: 0;
   padding: 0;
@@ -50,61 +73,93 @@ div#factlink-indicator {
   font-family: "Helvetica", Arial, sans-serif;
   vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+}
+div#fl-indicator, div.fl-popup, div#fl-prepare {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  list-style: none;
+  list-style-type: none;
+  z-index: 2147483645;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  border-top: 1px solid #d8d8d8;
+  font-size: 9pt;
+  font-family: "Helvetica", Arial, sans-serif;
+  vertical-align: baseline;
+  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+}
+div#fl-indicator *,
+div.fl-popup *,
+div#fl-prepare *,
+div#fl-indicator * *,
+div.fl-popup * *,
+div#fl-prepare * * {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  list-style: none;
+  list-style-type: none;
+}
+div#fl-indicator {
   display: none;
   position: absolute;
-  /*  top: 200px;*/
-
-  /*  left: 200px;*/
-
   cursor: pointer;
   height: 40px;
   width: 40px;
   padding: 4px 4px 12px;
-  /*  padding: 5px 4px;*/
-
-  /*  margin: 10px;*/
-
 }
-div#factlink-indicator div.icon {
+div#fl-indicator div.icon {
   margin: 0 0 0 4px;
 }
-div#factlink-indicator div.authority-wrapper {
+div#fl-indicator div.authority-wrapper {
   padding: 2px 0 0 6px;
 }
-div#factlink-indicator div.authority-wrapper span.centered {
+div#fl-indicator div.authority-wrapper span.centered {
   margin: 0 auto;
 }
-div#factlink-indicator div.authority-wrapper span.centered span.authority {
+div#fl-indicator div.authority-wrapper span.centered span.authority {
   color: #888;
 }
-div#factlink-indicator div.authority-wrapper span.centered img {
+div#fl-indicator div.authority-wrapper span.centered img {
   height: 10px;
 }
-.popup-style {
-  z-index: 2147483647;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
-  font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
-}
 div.fl-popup {
-  z-index: 2147483647;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
-  font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
   text-align: center;
   padding: 4px;
   line-height: 24px;
@@ -133,17 +188,6 @@ div.fl-popup .button:active {
   background: -moz-linear-gradient(center bottom, #72cc64 0%, #3ca648 100%);
 }
 div#fl-prepare {
-  z-index: 2147483647;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
-  font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
   display: none;
 }
 div#fl-prepare ul {
