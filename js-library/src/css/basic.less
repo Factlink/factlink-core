@@ -1,3 +1,6 @@
+@import "reset.less";
+
+
 /*---------------------------------------------------
 		Some LESS Elements 0.5
 	---------------------------------------------------
@@ -21,6 +24,8 @@
 	    														 @stop 100%);
 }
 /*-----------------------------------------------------*/
+
+
 
 span.factlink {
   cursor: pointer;
@@ -57,23 +62,39 @@ div#factlink-modal-frame {
 
 }
 
+.popup-style {
+  z-index : 2147483647;
+  background: #fff;
+  margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 5px;
+	border-top: 1px solid #d8d8d8;
+	font-size: 9pt;
+	font-family: "Helvetica", Arial, sans-serif;
+	vertical-align: baseline;
+	box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);  
+}
+
+div#factlink-indicator,
+div.fl-popup,
+div#fl-prepare { 
+  .reset;
+  .popup-style;
+}
+
+
 div#factlink-indicator {
   
-  .popup-style;
   
   display: none;
   position: absolute;
-/*  top: 200px;*/
-/*  left: 200px;*/
-
   cursor: pointer;
 
   height: 40px;
   width: 40px;
 
   padding: 4px 4px 12px;
-/*  padding: 5px 4px;*/
-/*  margin: 10px;*/
 
   div.icon {
     margin: 0 0 0 4px;
@@ -93,22 +114,9 @@ div#factlink-indicator {
   }
 }
 
-.popup-style {
-  z-index : 2147483647;
-  background: #fff;
-  margin: 0;
-	padding: 0;
-	border: 0;
-	border-radius: 5px;
-	border-top: 1px solid #d8d8d8;
-	font-size: 9pt;
-	font-family: "Helvetica", Arial, sans-serif;
-	vertical-align: baseline;
-	box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);  
-}
+
 
 div.fl-popup {
-  .popup-style;
   
   text-align: center;
   padding: 4px;
@@ -139,7 +147,6 @@ div.fl-popup {
 }
 
 div#fl-prepare {
-  .popup-style;
 
   display: none;
   

@@ -1,0 +1,87 @@
+.resetStyles {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+}
+.resetStyles ul, .resetStyles ol {
+  list-style: none;
+}
+.resetStyles ul li, .resetStyles ol li {
+  list-style-type: none;
+}
+.reset {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+}
+.reset ul, .reset ol {
+  list-style: none;
+}
+.reset ul li, .reset ol li {
+  list-style-type: none;
+}
+.reset *, .reset * * {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+}
+.reset * ul,
+.reset * * ul,
+.reset * ol,
+.reset * * ol {
+  list-style: none;
+}
+.reset * ul li,
+.reset * * ul li,
+.reset * ol li,
+.reset * * ol li {
+  list-style-type: none;
+}
