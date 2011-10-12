@@ -1,4 +1,6 @@
+#fl { 
 .resetStyles { 
+
   margin:0;
   padding:0;
   /* background-color: #fff;*/
@@ -18,18 +20,15 @@
   box-shadow: none;
   white-space: normal;
 
-	ul, ol { 
-    list-style: none;
-    li { 
-      list-style-type:none;
-    }
-  }
+  list-style: none;
+  list-style-type:none;
+  
 }
 
-.reset {
+.reset () {
   .resetStyles;
   & *, & * * {
     .resetStyles;
   }
 }
-
+}

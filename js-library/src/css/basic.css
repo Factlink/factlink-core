@@ -1,4 +1,4 @@
-.resetStyles {
+#fl .resetStyles {
   margin: 0;
   padding: 0;
   /* background-color: #fff;*/
@@ -18,71 +18,7 @@
   font-size: 100%;
   box-shadow: none;
   white-space: normal;
-}
-.resetStyles ul, .resetStyles ol {
   list-style: none;
-}
-.resetStyles ul li, .resetStyles ol li {
-  list-style-type: none;
-}
-.reset {
-  margin: 0;
-  padding: 0;
-  /* background-color: #fff;*/
-
-  background-image: none ;
-  opacity: 1;
-  -webkit-transition: none;
-  border-collapse: collapse;
-  border: 0;
-  text-decoration: none  !important;
-  text-align: left;
-  border-spacing: 0;
-  float: none;
-  font-style: normal;
-  font-weight: normal;
-  text-align: left;
-  font-size: 100%;
-  box-shadow: none;
-  white-space: normal;
-}
-.reset ul, .reset ol {
-  list-style: none;
-}
-.reset ul li, .reset ol li {
-  list-style-type: none;
-}
-.reset *, .reset * * {
-  margin: 0;
-  padding: 0;
-  /* background-color: #fff;*/
-
-  background-image: none ;
-  opacity: 1;
-  -webkit-transition: none;
-  border-collapse: collapse;
-  border: 0;
-  text-decoration: none  !important;
-  text-align: left;
-  border-spacing: 0;
-  float: none;
-  font-style: normal;
-  font-weight: normal;
-  text-align: left;
-  font-size: 100%;
-  box-shadow: none;
-  white-space: normal;
-}
-.reset * ul,
-.reset * * ul,
-.reset * ol,
-.reset * * ol {
-  list-style: none;
-}
-.reset * ul li,
-.reset * * ul li,
-.reset * ol li,
-.reset * * ol li {
   list-style-type: none;
 }
 /*---------------------------------------------------
@@ -158,6 +94,8 @@ div#factlink-indicator, div.fl-popup, div#fl-prepare {
   font-size: 100%;
   box-shadow: none;
   white-space: normal;
+  list-style: none;
+  list-style-type: none;
   z-index: 2147483647;
   background: #fff;
   margin: 0;
@@ -169,22 +107,6 @@ div#factlink-indicator, div.fl-popup, div#fl-prepare {
   font-family: "Helvetica", Arial, sans-serif;
   vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
-}
-div#factlink-indicator ul,
-div.fl-popup ul,
-div#fl-prepare ul,
-div#factlink-indicator ol,
-div.fl-popup ol,
-div#fl-prepare ol {
-  list-style: none;
-}
-div#factlink-indicator ul li,
-div.fl-popup ul li,
-div#fl-prepare ul li,
-div#factlink-indicator ol li,
-div.fl-popup ol li,
-div#fl-prepare ol li {
-  list-style-type: none;
 }
 div#factlink-indicator *,
 div.fl-popup *,
@@ -211,33 +133,7 @@ div#fl-prepare * * {
   font-size: 100%;
   box-shadow: none;
   white-space: normal;
-}
-div#factlink-indicator * ul,
-div.fl-popup * ul,
-div#fl-prepare * ul,
-div#factlink-indicator * * ul,
-div.fl-popup * * ul,
-div#fl-prepare * * ul,
-div#factlink-indicator * ol,
-div.fl-popup * ol,
-div#fl-prepare * ol,
-div#factlink-indicator * * ol,
-div.fl-popup * * ol,
-div#fl-prepare * * ol {
   list-style: none;
-}
-div#factlink-indicator * ul li,
-div.fl-popup * ul li,
-div#fl-prepare * ul li,
-div#factlink-indicator * * ul li,
-div.fl-popup * * ul li,
-div#fl-prepare * * ul li,
-div#factlink-indicator * ol li,
-div.fl-popup * ol li,
-div#fl-prepare * ol li,
-div#factlink-indicator * * ol li,
-div.fl-popup * * ol li,
-div#fl-prepare * * ol li {
   list-style-type: none;
 }
 div#factlink-indicator {
