@@ -11,11 +11,11 @@
     %>
   <% end %>
   <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact, :modal => modal,}  %>
-  <div style="height: 25px"> 
+  <div style="height: 38px"> 
     <div class="evidence-actions">
-      <ul class="evidence">
-        <li><a class="evidence-for">Evidence for this (<%= fact.fact_relations.count %>)</a></li>
-        <li><a class="for-evidence">This is evidence for (<%= fact.evidenced_factrelations.count %>)</a></li>
+      <ul class="evidence tabs">
+        <li><a class="evidence-for">Evidence for this fact (<%= fact.fact_relations.count %>)</a></li>
+        <li><a class="for-evidence">This fact is used as evidence for (<%= fact.evidenced_factrelations.count %>)</a></li>
       </ul>
     </div>
   </div> 
