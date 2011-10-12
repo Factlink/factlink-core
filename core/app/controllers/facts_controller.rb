@@ -245,30 +245,25 @@ class FactsController < ApplicationController
 
     @row_count = 20
     row_count = @row_count
+    
+    puts "\n\n\n\n\n\n\n"
+    p sort_column
+    p sort_direction
+    puts "\n\n\n\n\n\n\n"
 
-    if params[:s]
-      solr_result = FactData.search() do
+    solr_result = FactData.search() do
 
-        keywords params[:s], :fields => [:displaystring]
-        order_by sort_column, sort_direction
-        paginate :page => params[:page] , :per_page => row_count
+      keywords params[:s] || ""
+      
+      order_by sort_column, sort_direction
+      paginate :page => params[:page] , :per_page => row_count
 
-        adjust_solr_params do |sunspot_params|
-          sunspot_params[:rows] = row_count
-        end
-      end
-
-      @fact_data = solr_result.results
-    else
-      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-      @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
-        start = (pager.current_page-1)*row_count
-
-        # Sorting & filtering done by mongoid
-        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-        pager.replace(results)
+      adjust_solr_params do |sunspot_params|
+        sunspot_params[:rows] = row_count
       end
     end
+
+    @fact_data = solr_result.results
 
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
@@ -290,7 +285,7 @@ class FactsController < ApplicationController
   end
 
   def sort_direction # private
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
   def potential_evidence # private

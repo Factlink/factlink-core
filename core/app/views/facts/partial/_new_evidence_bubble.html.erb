@@ -1,0 +1,11 @@
+</td><td class="evidence-options">
+  <div class="relevance-options">
+    <ul>
+      <% if user_signed_in? %>
+          <li class="evidence_button"><%= link_to('add supporting', add_supporting_evidence_path(add_to_fact.id, fact.id), :remote => true)%></li>
+          <li class="evidence_button"><%= link_to('add weakening',	add_weakening_evidence_path(add_to_fact.id, fact.id),  :remote => true)%></li>
+      <% end %>
+    </ul>
+  <div>
+</td><td>
+<%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact} %>
