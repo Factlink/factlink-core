@@ -264,6 +264,7 @@ ul#results-listing div.user-block .side .type {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
   width: 200px;
+  position: absolute;
 }
 .fact-block article.fact .channel-listing ul {
   max-height: 160px;
@@ -271,7 +272,10 @@ ul#results-listing div.user-block .side .type {
 }
 .fact-block article.fact .channel-listing li {
   display: block;
-  padding: 0.7em;
+  padding: 8px 8px 4px 12px;
+}
+.fact-block article.fact .channel-listing li label {
+  padding: 0 0 0 4px;
 }
 .fact-block article.fact .channel-listing .add-channel {
   border-top: solid 1px #ddd;
@@ -357,6 +361,10 @@ ul#results-listing div.user-block .side .type {
 }
 .fact-block div.evidence .opinion-box {
   left: 78px;
+}
+.fact-block div.evidence td:hover > article.fact .actions {
+  visibility: visible;
+  opacity: 1;
 }
 .fact-block ul.evidence {
   float: left;
@@ -453,10 +461,6 @@ ul#results-listing div.user-block .side .type {
 }
 .fact-block .evidence-options .relevance-options ul span {
   color: #666;
-}
-.fact-block .evidence-options .relevance-options ul:hover {
-  /*           margin-left: -72px;*/
-
 }
 .fact-block .evidence-options .relevance-options ul li {
   padding: 0 0 6px 0;

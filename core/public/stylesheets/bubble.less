@@ -150,7 +150,6 @@ ul#results-listing div.user-block {
     min-height: 83px;
     display: block;
     border-right: 1px solid #FBFAFA;
-
     header {
 			margin: 0 0 20px 75px;
 
@@ -215,13 +214,20 @@ ul#results-listing div.user-block {
       .boxed;
       .float;
       width: 200px;
+      
+      position: absolute;
+      
       ul { 
         max-height: 160px;
         overflow-y: auto;
       }
       li { 
         display: block;
-        padding: 0.7em;
+        padding: 8px 8px 4px 12px;
+        
+        label {
+          padding: 0 0 0 4px;
+        }
       }
 			.add-channel {
 				border-top: solid 1px #ddd;
@@ -306,6 +312,13 @@ ul#results-listing div.user-block {
   div.evidence {
     .opinion-box {
       left: 78px;
+    }
+    
+    td {
+      &:hover > article.fact .actions {
+        visibility: visible;
+        opacity: 1;
+      }
     }
   }
   
@@ -412,10 +425,6 @@ ul#results-listing div.user-block {
 				
 				span {
           color: #666;
-				}
-				
-				&:hover {
-/*           margin-left: -72px;*/
 				}
 				
 				li {

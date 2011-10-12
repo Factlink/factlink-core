@@ -338,10 +338,14 @@
       $t.find("a.add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
-          $(channelList).css({
-            "top": e.clientY  + 10 + "px",
-            "left": e.clientX - 30 + "px"
-            }).fadeIn("fast");
+
+          // $(channelList).css({
+            // "top": e.clientY  + 10 + "px",
+            // "left": e.clientX - 30 + "px"
+            // }).fadeIn("fast");
+            
+          $(channelList).fadeIn("fast");
+            
           }, function() {
             $t.find(".channel-listing").delay(600).fadeOut("fast");
           })
