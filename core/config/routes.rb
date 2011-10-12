@@ -35,8 +35,8 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
   # Add evidence as supporting or weakening
-  get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
-  get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
+  post   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
+  post   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
 
   get   "/factlink/:fact_id/add_supporting_evidenced/:evidence_id"  => "facts#add_supporting_evidenced",  :as => "add_supporting_evidenced"
   get   "/factlink/:fact_id/add_weakening_evidenced/:evidence_id"   => "facts#add_weakening_evidenced",   :as => "add_weakening_evidenced"

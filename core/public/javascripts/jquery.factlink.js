@@ -219,8 +219,8 @@
           });
           // Evidence buttons
           $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
-            $(this).closest('ul').children().removeClass("active");
-            $(this).parent().addClass('active');
+            $(this).closest('ul').children().find('a').removeClass("active");
+            $(this).addClass('active');
            });
            $t.data("initialized", true);
         }
