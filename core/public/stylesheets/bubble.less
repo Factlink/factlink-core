@@ -221,7 +221,10 @@ ul#results-listing div.user-block {
         max-height: 160px;
         overflow-y: auto;
       }
-      li { 
+      li {
+        &:first-child {
+          display: none;
+        }
         display: block;
         padding: 8px 8px 4px 12px;
         
@@ -239,7 +242,6 @@ ul#results-listing div.user-block {
 					border-radius: 3px;
 					border: solid 1px #ccc;
 				}
-
 			}
     }
   }

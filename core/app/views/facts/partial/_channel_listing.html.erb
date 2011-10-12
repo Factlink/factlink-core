@@ -1,19 +1,14 @@
 <div class="float-box channel-listing">
 	<ul>
-	<% unless current_user.graph_user.channels.count > 0 %>
-		<li>You have no channels yet.</li>
-	<% else %>		
-
+		<% if current_user.graph_user.channels.count > 0 %>
 		<% current_user.graph_user.channels.each do |channel| %>
 			<li><%= check_box_tag("channel-checkbox-#{channel.id}-#{fact.id}", 1, channel.facts.include?(fact), :onclick => "$(\"article#fact-\" + $(this).closest('div.fact-block').data('fact-id')).factlink(\"to_channel\", \"#{current_user.username}\", #{channel.id}, #{fact.id});") %> <%= label_tag("channel-checkbox-#{channel.id}-#{fact.id}", channel.title) %></li>
 		<% end %>
-
-	<% end %>	
+  <% end %>
 	</ul>
-	
-	<!-- <hr/> -->
+
 	<div class="add-channel">
-		add a new channel:
+		Add a new channel:
 		<%= render :partial => "channels/remote_form", :locals => { :fact => fact } %>
 	</div>
 </div>

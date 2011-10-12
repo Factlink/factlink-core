@@ -274,6 +274,9 @@ ul#results-listing div.user-block .side .type {
   display: block;
   padding: 8px 8px 4px 12px;
 }
+.fact-block article.fact .channel-listing li:first-child {
+  display: none;
+}
 .fact-block article.fact .channel-listing li label {
   padding: 0 0 0 4px;
 }
