@@ -131,7 +131,6 @@
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).fadeIn("fast");
-
           },
           out: function() {
             $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
