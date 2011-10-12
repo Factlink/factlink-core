@@ -141,6 +141,40 @@ div.modal span.proxyWindow {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   position: fixed;
 }
+ul#results-listing div.user-block {
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  color: #BBB;
+  text-shadow: 0px 1px 0px white;
+  width: 510px;
+}
+ul#results-listing div.user-block .side {
+  margin: 10px;
+  float: left;
+}
+ul#results-listing div.user-block .side .authority {
+  display: block;
+  text-align: center;
+  margin: 5px 0 0 0;
+  font-size: 12px;
+}
+ul#results-listing div.user-block .side .authority img {
+  vertical-align: middle;
+  border-radius: 3px;
+}
+ul#results-listing div.user-block .side .username {
+  color: #666363;
+  float: left;
+  font-size: 16px;
+  vertical-align: top;
+}
+ul#results-listing div.user-block .side .username a {
+  color: #666363;
+}
+ul#results-listing div.user-block .side .type {
+  font-size: 14px;
+  line-height: 26px;
+}
 .fact-block {
   padding: 0;
   -webkit-border-radius: 3px;
@@ -253,6 +287,7 @@ div.modal span.proxyWindow {
   float: left;
   width: 65px;
   height: 65px;
+  overflow: hidden;
 }
 .fact-block .wheel svg {
   width: 65px;
@@ -495,6 +530,26 @@ div.modal span.proxyWindow {
 }
 .fact-block .evidence-list .add-evidence {
   min-height: 150px;
+}
+.fact-block .evidence-list .add-evidence.loading .loading {
+  display: block;
+}
+.fact-block .evidence-list .add-evidence.loading .search-list {
+  display: none;
+}
+.fact-block .evidence-list .add-evidence .loading {
+  display: none;
+  text-align: center;
+  position: relative;
+  top: 15px;
+  line-height: 25px;
+}
+.fact-block .evidence-list .add-evidence .loading img {
+  margin: 0 5px;
+  vertical-align: middle;
+}
+.fact-block .evidence-list .add-evidence .loading span {
+  vertical-align: middle;
 }
 .fact-block .evidence-list .add-evidence .search {
   border-bottom: solid 1px #ddd;

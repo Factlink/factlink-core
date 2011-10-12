@@ -86,6 +86,47 @@ div.modal {
   position: fixed;
 }
 
+ul#results-listing div.user-block { 
+  border: 1px solid #DDD; 
+  border-radius: 3px; 
+  color: #BBB; 
+  text-shadow: 0px 1px 0px white; 
+  width: 510px; 
+   
+  .side { 
+    margin: 10px; 
+    float: left; 
+     
+    .authority { 
+      display: block; 
+      text-align: center; 
+      margin: 5px 0 0 0; 
+      font-size: 12px; 
+       
+      img { 
+        vertical-align: middle; 
+                border-radius: 3px; 
+      } 
+    } 
+     
+    .username { 
+      color: #666363; 
+      float: left; 
+      font-size: 16px; 
+      vertical-align: top; 
+ 
+      a { 
+        color: #666363; 
+      } 
+    } 
+ 
+    .type { 
+      font-size: 14px; 
+      line-height: 26px; 
+    } 
+  } 
+}
+
 .fact-block {	
   .boxed;
   color: #BBB;
@@ -200,6 +241,7 @@ div.modal {
     float: left;  
     width: 65px;
     height: 65px;
+    overflow: hidden;
     svg { 
       width: 65px;
       height: 60px;
@@ -451,29 +493,63 @@ div.modal {
         text-align: left;
       }
     }
+    
     .no-evidence td { 
       width: 490px;  
       text-align: center;
       height: 150px;
       vertical-align: middle;
     }
-      .add-evidence { 
+    
+    .add-evidence { 
       min-height: 150px;
+      
+      
+      &.loading {
+        .loading {
+          display:block;
+        }
+        
+        .search-list {
+          display: none;
+        }
+      }
+      
+      .loading {
+        display: none;
+        text-align: center;
+        position: relative;
+        top: 15px;
+        line-height: 25px;
+        
+        img {
+          margin: 0 5px;
+          vertical-align: middle;
+        }
+        
+        span {
+          vertical-align: middle;
+        }
+      }
+      
       .search {
     		border-bottom: solid 1px #ddd;
     		padding: 2px 12px 5px;
     		line-height: 28px;
     		background: rgb(251, 250, 250);
+    		
     		input[type="text"] {
     		  padding: 2px 4px !important;
     		  font-size: 8pt;
     			border-radius: 3px;
     			border: solid 1px #ccc;
     			width: 260px; height: 18px;
+    			
     			&:active, &:focus {
     			  outline: solid 1px @dark-blue;
     			}
     		}
+    		
     		input[type="submit"] {
 					margin: 4px;
     		  vertical-align: middle;
