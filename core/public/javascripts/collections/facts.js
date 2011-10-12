@@ -6,8 +6,7 @@ window.FactList = Backbone.Collection.extend({
     } else {
       return '/tomdev/channels/';
     }
-  },
-  forChannel: undefined
+  }
 });
 
 window.Facts = new FactList();

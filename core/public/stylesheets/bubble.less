@@ -15,8 +15,12 @@ td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
 a { 
+  color: #666363;
+}
+a:hover { 
   color: @dark-blue;
 }
+
 span.proxyWindow { 
   display: none;
 }
@@ -82,36 +86,72 @@ div.modal {
   position: fixed;
 }
 
+
+
+ul#results-listing div.user-block { 
+  border: 1px solid #DDD; 
+  border-radius: 3px; 
+  color: #BBB; 
+  text-shadow: 0px 1px 0px white; 
+  width: 510px; 
+
+  .side { 
+    margin: 10px; 
+    float: left; 
+
+    .authority { 
+      display: block; 
+      text-align: center; 
+      margin: 5px 0 0 0; 
+      font-size: 12px; 
+
+      img { 
+        vertical-align: middle; 
+                border-radius: 3px; 
+      } 
+    } 
+
+    .username { 
+      color: #666363; 
+      float: left; 
+      font-size: 16px; 
+      vertical-align: top; 
+
+      a { 
+        color: #666363; 
+      } 
+    } 
+
+    .type { 
+      font-size: 14px; 
+      line-height: 26px; 
+    } 
+  } 
+}
+
 .fact-block {	
   .boxed;
-  /* background: url("/images/client/top-pane-gradient.png") top left repeat-x #F4F4F4;*/
   color: #BBB;
   border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
   font-size: 9pt;
-  
+
   img.close { 
     margin: 5px;
   }
-  
+
   &:hover > article.fact .actions {
     visibility: visible;
     opacity: 1;
-    
-    li:hover a { 
-      text-decoration: underline;
-      color: @dark-blue;
-    }
   }
-  
+
   article.fact {    
     padding: 10px 0 10px 5px;
     min-height: 83px;
     display: block;
     border-right: 1px solid #FBFAFA;
-
     header {
 			margin: 0 0 20px 75px;
 
@@ -119,7 +159,6 @@ div.modal {
       color: #333;
       sub {
         color: #AAA;
-        bottom: 0;
         line-height: inherit;
         font-size: x-small;
       }
@@ -154,23 +193,18 @@ div.modal {
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
 				line-height: 19px;
-				
-				a { 
-          color: #666363;
-        }
-      }
-      
+			}
+
       .actions { 
         visibility: hidden;
         height: 18px;
         opacity:0;
         .transition(0.2s,ease-in);
-        
+
         li { 
           margin: 5px 10px 0 0;
           display: inline-block;
           list-style-type: none;
-          
           img {
             margin: 0 3px 0 0;
             vertical-align: baseline;
@@ -182,13 +216,23 @@ div.modal {
       .boxed;
       .float;
       width: 200px;
+
+      position: absolute;
+
       ul { 
         max-height: 160px;
         overflow-y: auto;
       }
-      li { 
+      li {
+        &:first-child {
+          display: none;
+        }
         display: block;
-        padding: 0.7em;
+        padding: 8px 8px 4px 12px;
+
+        label {
+          padding: 0 0 0 4px;
+        }
       }
 			.add-channel {
 				border-top: solid 1px #ddd;
@@ -200,7 +244,6 @@ div.modal {
 					border-radius: 3px;
 					border: solid 1px #ccc;
 				}
-
 			}
     }
   }
@@ -208,11 +251,12 @@ div.modal {
     float: left;  
     width: 65px;
     height: 65px;
+    overflow: hidden;
     svg { 
       width: 65px;
       height: 60px;
       margin: 0 0 0 10px;
-      float: left;    
+      float: left;
       path:hover { 
         cursor: pointer;
       }
@@ -227,9 +271,13 @@ div.modal {
   .opinion-box {
     .boxed;
     .float;
-    position: fixed;
-    width: 150px;
-    height: 85px;
+      height: 85px;
+      width: 150px;
+      position: absolute;
+      left: 92px;
+      display: none;
+      border: solid 1px #ccc;
+
     .percentage { 
       margin-top: 10px;
       margin-right: 5px;
@@ -253,19 +301,34 @@ div.modal {
       display: block;
       color: white;
       float: left;
-      padding-left: 3px;
+      padding: 2px 0px 0px 4px;
       margin-bottom: 3px;
       height: 18px; width: 85px;
       background: @grey;
     }
   }
   .evidence-actions {
-    /* background: url('/images/client/filter-bar.png') repeat-x transparent;*/
     a {
       line-height: 32px;
     }
   }
+
+  div.evidence {
+    .opinion-box {
+      left: 78px;
+    }
+
+    td {
+      &:hover > article.fact .actions {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
   @border-color: #bbb;
+
+
   ul.evidence {
     float: left;
     background-color: #fff;
@@ -282,7 +345,6 @@ div.modal {
     border: 1px solid @border-color;
     border-left: none;
     margin-bottom: -1px;
-    /* background: #e0e0e0;*/
     overflow: hidden;
   }
   ul.evidence li a {
@@ -302,7 +364,6 @@ div.modal {
   }
   .evidence-container {
     background-color: #fff;
-    /* border: 1px solid @border-color;*/
     border-top: none;
     clear: both;
     width: 100%;
@@ -312,43 +373,39 @@ div.modal {
       text-align: center;
       line-height: 24px;
       border-top: 1px solid #E4E4E4;
-      /* position: relative;*/
-      /* z-index: 20;*/
-      /* background: #F0F0F0 url('/images/client/bottom-pane-gradient.png') repeat-x;*/
     }
   }
   .evidence-options { 
-    /* background: url("/images/shadowLeft.png") no-repeat right center transparent;*/
     border-right: 1px solid #E4E4E4;
     vertical-align: middle;
     position: relative;
 
     .relevance-indicator {
       border-top: solid 1px #ccc;
-      
+
       width: 100px;
       position: absolute;
       top: 1px;
       left: 0px;
-      
+
       .relevance-type {
         -webkit-transform: rotate(-21deg);
         color: #fff;
         text-shadow: 0px 0px 1px transparent;
-        
+
         position: absolute;
         z-index: 1;
         top: 10px;
         left: 2px;
       }
-      
+
       .back {
         position: absolute;
         height: 0px; 
         width: 0px;
 
         left: -2px;
-        
+
         z-index: 0;
 
         border-right: 100px solid transparent;
@@ -357,7 +414,7 @@ div.modal {
       }
       .supporting { border-top: 40px solid rgba(2,119,158, 0.25); }
       .weakening  { border-top: 40px solid rgba(235,84,10, 0.25); }
-      
+
     }
 
     .relevance-options {
@@ -373,49 +430,47 @@ div.modal {
 				margin-top: 24px;
 				
 				span {
-					color: #666;
+          color: #666;
 				}
 				
-				&:hover {
-					/* margin-left: -72px;*/
-				}
-				
-				li {						
-					color: #888;
-					font-size: 0.9em;
-					text-align: center;
-					text-shadow: 0px 0px 1px #fff;
-					line-height: 22px;
-					height: 14px;
-					width: 88px;
-
-					border: solid 1px #d8d8d8;
-					border-radius: 3px;
-      		padding-bottom: 8px;
-      		padding-left: 2px;
-			    margin-bottom: 10px;
-					.gradient(#F5F5F5, #EEE, #FFF);
-					
+				li {
+					padding: 0 0 6px 0;
           z-index: 10;
+
 					
 					&:hover {
 						cursor: pointer;
 						
 					}
 					a {
+					  display: block;
+					  color: #888;
+            font-size: 0.9em;
+            text-align: center;
+            text-shadow: 0px 0px 1px #fff;
+            line-height: 22px;
+            height: 14px;
+            width: 88px;
+
+            border: solid 1px #d8d8d8;
+            border-radius: 3px;
+            padding-bottom: 8px;
+            padding-left: 2px;
+
+            .gradient(#F5F5F5, #EEE, #FFF);
+					  
 					  text-decoration: none;
+					  text-shadow: none;
 					  color: #444;
-					}
-					
-					&.active {
-						.gradient(#F5F5F5, #e8e8e8, #ccc);
-						border: solid 1px #ccc;
-						color: #555;	
-						box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
-						
-						a {
+					  
+					  &.active {
+  						.gradient(#F5F5F5, #e8e8e8, #ccc);
+  						border: solid 1px #ccc;
+  						color: #555;
+  						box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.15);
+  						text-shadow: none;
 						  color: @dark-blue;
-						}
+  					}
 					}
       	} // li
 			} // ul
@@ -424,7 +479,7 @@ div.modal {
       z-index: 400;
 
       .relevance-options {
-        width: 96px;
+        width: 104px;
       }
     }
   }
@@ -453,29 +508,63 @@ div.modal {
         text-align: left;
       }
     }
+
     .no-evidence td { 
       width: 490px;  
       text-align: center;
       height: 150px;
       vertical-align: middle;
     }
-      .add-evidence { 
+
+    .add-evidence { 
       min-height: 150px;
+
+
+      &.loading {
+        .loading {
+          display:block;
+        }
+
+        .search-list {
+          display: none;
+        }
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        position: relative;
+        top: 15px;
+        line-height: 25px;
+
+        img {
+          margin: 0 5px;
+          vertical-align: middle;
+        }
+
+        span {
+          vertical-align: middle;
+        }
+      }
+
       .search {
     		border-bottom: solid 1px #ddd;
     		padding: 2px 12px 5px;
     		line-height: 28px;
     		background: rgb(251, 250, 250);
+    		
     		input[type="text"] {
     		  padding: 2px 4px !important;
     		  font-size: 8pt;
     			border-radius: 3px;
     			border: solid 1px #ccc;
     			width: 260px; height: 18px;
+    			
     			&:active, &:focus {
     			  outline: solid 1px @dark-blue;
     			}
     		}
+    		
     		input[type="submit"] {
 					margin: 4px;
     		  vertical-align: middle;

@@ -17,16 +17,18 @@ class HomeController < ApplicationController
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
   def search
-    @row_count = 5
+    @row_count = 20
     row_count = @row_count
     
     solr_result = Sunspot.search FactData, User do
-      keywords params[:s]
-      paginate :page => params[:page], :per_page => row_count
+      keywords params[:s] || ""
       
-      adjust_solr_params do |sunspot_params|
-        sunspot_params[:rows] = row_count
-      end
+      paginate :page => params[:page] || 1, :per_page => row_count
+    end
+    
+    # TODO: This message gets lost easily in history, what are the options?
+    if solr_result.hits.count > solr_result.results.count || true
+      logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
     end
 
     @results = solr_result.results.map do |result|

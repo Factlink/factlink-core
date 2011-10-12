@@ -3,15 +3,16 @@
     function Wheel(fact, params) {
       this.fact = fact;
       this.opinions = $(fact).find(".opinion");
+      this.authority = $(fact).find(".authority").first();
       this.params = $.extend(params, {
         "dim": 24,
-        "radius" : 17,
+        "radius" : 18,
         "default_stroke": {
-          "opacity": 0.3,
+          "opacity": 0.2,
           "stroke": 9
         },
         "hover_stroke": {
-          "opacity": 0.6,
+          "opacity": 0.5,
           "stroke": 11
         }
       });
@@ -21,7 +22,7 @@
       var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
       if (!op.raphael) {
         // set new path
-        z = w.r.path().attr({
+       var z = w.r.path().attr({
           arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
           stroke: $(op).data("color"),
           "stroke-width": w.params.default_stroke.stroke,
@@ -34,6 +35,18 @@
           arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
           opacity: opacity
         }, 200, '<>');
+      }
+    }
+    
+    function authority(w, authority) { 
+      var auth = authority.data("authority");
+      var pos = w.params.dim + (w.params.dim * 0.25);
+      if (!authority.raphael) {
+        var z = w.r.text(pos, pos, auth).attr({"font-size" : "13px", "fill" : "#ccc"});
+        authority.raphael = z;
+        return z;
+      } else { 
+        return authority.raphael.attr({"text": auth});
       }
     }
 
@@ -54,17 +67,20 @@
         this.display_value = this.display_value + (remainder / leng);
       });
     };
+
     Wheel.prototype.set_opinions = function(opinions, offset, r, total_degrees) {
       var w = this;
       var total = 0;
+      var a = authority(w, w.authority);
       w.calc_display(opinions);
+      
       $(opinions).each(function() {
         // HACK, see above NOTE/TODO
         total = total + this.display_value;
       });
       $(opinions).each(function() {
         offset = offset + this.display_value;
-        z = arc(w, this, {
+        var z = arc(w, this, {
           offset: offset,
           val: this.display_value,
           total: total,
@@ -114,10 +130,7 @@
         $(this.raphael.node).hoverIntent({
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
-            $(optionBox).css({
-              "top": e.clientY - 25 + "px",
-              "left": e.clientX + 25 + "px"
-            }).fadeIn("fast");
+            $(optionBox).fadeIn("fast");
           },
           out: function() {
             $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
@@ -206,14 +219,11 @@
           });
           // Evidence buttons
           $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
-            $(this).closest('ul').children().removeClass("active");
-            $(this).parent().addClass('active');
+            $(this).closest('ul').children().find('a').removeClass("active");
+            $(this).addClass('active');
            });
-          
            $t.data("initialized", true);
         }
-        
-        
         /*start of method*/
         var $t = $(this);
         $t.data("facts",  {});
@@ -324,15 +334,24 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-      $t.find("a.add-to-channel").hoverIntent(function(e) {
-        channelList = $t.find(".channel-listing");
-        $(channelList).css({
-          "top": e.clientY  + 10 + "px",
-          "left": e.clientX - 30 + "px"
-        }).fadeIn("fast");
-      }, function() {
-        $t.find(".channel-listing").delay(600).fadeOut("fast");
-      });
+
+      $t.find("a.add-to-channel")
+        .hoverIntent(function(e) {
+          var channelList = $t.find(".channel-listing");
+
+          // $(channelList).css({
+            // "top": e.clientY  + 10 + "px",
+            // "left": e.clientX - 30 + "px"
+            // }).fadeIn("fast");
+            
+          $(channelList).fadeIn("fast");
+            
+          }, function() {
+            $t.find(".channel-listing").delay(600).fadeOut("fast");
+          })
+        .bind('click', function(e) {
+          e.preventDefault();
+        });
 
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'

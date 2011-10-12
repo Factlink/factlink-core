@@ -1,12 +1,11 @@
 var fact =  $("div.fact-block[data-fact-id=<%=@fact.id%>]");
-var active =  fact.find(".tab_content:visible").attr("rel");
-var searchList =  fact.find(".tab_content[rel=" + active + "] .search-list");
+var searchList =  fact.find(".tab_content:visible .search-list");
 
 searchList.empty();
 
 <% unless @facts.count > 0 %>
 	// No results found
-searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %></td></tr>");
+  searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %></td></tr>");
 <% else %>
 	<% @facts.each do |evidence| %>
   searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/new_evidence_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %></td></tr>");
