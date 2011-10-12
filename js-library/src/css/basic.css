@@ -74,7 +74,7 @@ div#factlink-modal-frame iframe {
   vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
 }
-div#factlink-indicator, div.fl-popup, div#fl-prepare {
+div#fl-indicator, div.fl-popup, div#fl-prepare {
   margin: 0;
   padding: 0;
   /* background-color: #fff;*/
@@ -108,10 +108,10 @@ div#factlink-indicator, div.fl-popup, div#fl-prepare {
   vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
 }
-div#factlink-indicator *,
+div#fl-indicator *,
 div.fl-popup *,
 div#fl-prepare *,
-div#factlink-indicator * *,
+div#fl-indicator * *,
 div.fl-popup * *,
 div#fl-prepare * * {
   margin: 0;
@@ -136,7 +136,7 @@ div#fl-prepare * * {
   list-style: none;
   list-style-type: none;
 }
-div#factlink-indicator {
+div#fl-indicator {
   display: none;
   position: absolute;
   cursor: pointer;
@@ -144,19 +144,19 @@ div#factlink-indicator {
   width: 40px;
   padding: 4px 4px 12px;
 }
-div#factlink-indicator div.icon {
+div#fl-indicator div.icon {
   margin: 0 0 0 4px;
 }
-div#factlink-indicator div.authority-wrapper {
+div#fl-indicator div.authority-wrapper {
   padding: 2px 0 0 6px;
 }
-div#factlink-indicator div.authority-wrapper span.centered {
+div#fl-indicator div.authority-wrapper span.centered {
   margin: 0 auto;
 }
-div#factlink-indicator div.authority-wrapper span.centered span.authority {
+div#fl-indicator div.authority-wrapper span.centered span.authority {
   color: #888;
 }
-div#factlink-indicator div.authority-wrapper span.centered img {
+div#fl-indicator div.authority-wrapper span.centered img {
   height: 10px;
 }
 div.fl-popup {
