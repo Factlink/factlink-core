@@ -28,6 +28,8 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
+# don't touch all static files:
+set :normalize_asset_timestamps, false
 
 def set_conf_path
   "export CONFIG_PATH=/applications/factlink-core/current/config/; export NODE_ENV=#{deploy_env};"
@@ -50,8 +52,8 @@ namespace :deploy do
   end
   
   task :stop do
-    puts "\n\nstopping `forever`; stopping `node`"
-    run "killall forever ; killall node; true" # return true to continue running, even if exit code != 0
+    puts "\n\nstopping `node`"
+    run "killall node; true" # return true to continue running, even if exit code != 0
   end
   
   task :restart, :roles => :app, :except => { :no_release => true } do
