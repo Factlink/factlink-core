@@ -45,26 +45,12 @@ class Users::SessionsController < Devise::SessionsController
         displaystring = fact_hash['fact']
         title         = fact_hash['title']
 
+        @fact = create_fact(url, displaystring, title)
+
         # Clear fact_to_create
         session[:fact_to_create] = nil
 
-        site = Site.find_or_create_by(:url => url)
-
-        @fact = Fact.new(
-          :created_by => current_user.graph_user,
-          :site => site
-        )
-        @fact.save
-        
-        @fact.data.displaystring = displaystring
-        @fact.data.title = title
-        @fact.data.save
-
-        # Required for the Ohm Model
-        site.facts << @fact
-
-        # redirect_to :controller => "/facts", :action => "show", :id => @fact.id
-        render :nothing => true
+        redirect_to :controller => "/facts", :action => "edit", :id => @fact.id
         return false
       end
     end
@@ -76,5 +62,17 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     super
   end
-  
+
+  private
+  def create_fact(url, displaystring, title) # private
+    @site = Site.find(:url => url).first || Site.create(:url => url)
+    @fact = Fact.create(
+      :created_by => current_user.graph_user,
+      :site => @site
+    )
+    @fact.data.displaystring = displaystring    
+    @fact.data.title = title
+    @fact.data.save
+    @fact
+  end  
 end
