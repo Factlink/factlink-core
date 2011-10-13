@@ -29,6 +29,8 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
+# don't tuch all static files:
+set :normalize_asset_timestamps, false
 
 
 ###
