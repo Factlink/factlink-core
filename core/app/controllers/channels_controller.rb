@@ -33,6 +33,7 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
+
     respond_to do |format|
       format.json { render :json => @channel}
       format.js
@@ -109,7 +110,7 @@ class ChannelsController < ApplicationController
   end
   
   # GET /:username/channels/1/facts
-  def facts
+  def facts    
     respond_to do |format|
       if request.xhr?
         format.html { render :layout => "ajax" }

@@ -85,3 +85,30 @@ a.button span.icon.uparrow, button span.icon.uparrow { background-position: 0 -8
 a.button:hover span.icon.uparrow, button:hover span.icon.uparrow { background-position: 0 -839px }
 a.button span.icon.user, button span.icon.user { background-position: 0 -854px }
 a.button:hover span.icon.user, button:hover span.icon.user { background-position: 0 -869px }
+
+
+
+input.button, button { display: inline-block; padding: 5px; font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; font-size: 12px; color: #3C3C3D; text-shadow: 1px 1px 0 #FFFFFF; background: #ECECEC url('../images/css3buttons_backgrounds.png') 0 0 no-repeat; white-space: nowrap; overflow: visible; cursor: pointer; text-decoration: none; border: 1px solid #CACACA; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; outline: none; position: relative; zoom: 1; line-height: 1.11; *display: inline; *vertical-align: middle; }
+button { margin-left: 0; margin-right: 0; *padding: 5px 5px 3px 5px; }
+input.button { -moz-user-select: none; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; -webkit-touch-callout: none;}
+button::-moz-focus-inner { border: 0; padding:0px; }
+input.button.primary, button.primary { font-weight: bold }
+button:focus,input.button:hover, 
+button:hover { color: #FFFFFF; border-color: #388AD4; text-decoration: none; text-shadow: -1px -1px 0 rgba(0,0,0,0.3); background-position: 0 -40px; background-color: #2D7DC5; }
+input.button:active, button:active,
+input.button.active, button.active { background-position: 0 -81px; border-color: #347BBA; background-color: #0F5EA2; color: #FFFFFF; text-shadow: none; }
+input.button:active, button:active { top: 1px }
+input.button.negative:hover, button.negative:hover { color: #FFFFFF; background-position: 0 -121px; background-color: #D84743; border-color: #911D1B; }
+input.button.negative:active, button.negative:active,
+input.button.negative.active, button.negative.active { background-position: 0 -161px; background-color: #A5211E; border-color: #911D1B; }
+input.button.positive:hover, button.positive:hover { background-position: 0 -280px; background-color: #96ED89; border-color: #45BF55; }
+input.button.positive:active, button.positive:active,
+input.button.positive.active, button.positive.active { background-position: 0 -320px; background-color: #45BF55; }
+input.button.pill, button.pill { -webkit-border-radius: 19px; -moz-border-radius: 19px; border-radius: 19px; padding: 5px 10px 4px 10px; *padding: 4px 10px; }
+input.button.left, button.left { -webkit-border-bottom-right-radius: 0px; -webkit-border-top-right-radius: 0px; -moz-border-radius-bottomright: 0px; -moz-border-radius-topright: 0px; border-bottom-right-radius: 0px; border-top-right-radius: 0px; margin-right: 0px; border-right: none; }
+input.button.middle, button.middle { margin-right: 0px; margin-left: 0px; -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 0px; border-right: none; }
+input.button.right, button.right { -webkit-border-bottom-left-radius: 0px; -webkit-border-top-left-radius: 0px; -moz-border-radius-bottomleft: 0px; -moz-border-radius-topleft: 0px; border-top-left-radius: 0px; border-bottom-left-radius: 0px; margin-left: 0px; }
+input.button.left:active, button.left:active,
+input.button.middle:active, button.middle:active,
+input.button.right:active, button.right:active { top: 0px }
+input.button.big, button.big { font-size: 16px; padding-left: 14px; padding-right: 17px; }

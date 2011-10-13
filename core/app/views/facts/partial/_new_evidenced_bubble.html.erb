@@ -1,9 +1,9 @@
 </td><td class="evidence-options">
   <div class="relevance-options">
     <ul>
-      <% if user_signed_in? %>
-          <li class="evidence_button"><%= link_to('add supported', add_supporting_evidenced_path(fact.id, add_to_fact.id), :remote => true)%></li>
-          <li class="evidence_button"><%= link_to('add weakened',	 add_weakening_evidenced_path(fact.id, add_to_fact.id),  :remote => true)%></li>
+      <% if user_signed_in? %>          
+          <li><%= button_to('add supported', add_supporting_evidenced_path(fact.id, add_to_fact.id),  :class => "button positive", :remote => true, :disable_with => "adding...")%></li>
+          <li><%= button_to('add weakened',	add_weakening_evidenced_path(fact.id, add_to_fact.id),    :class => "button positive", :remote => true, :disable_with => "adding...")%></li>
       <% end %>
     </ul>
   <div>

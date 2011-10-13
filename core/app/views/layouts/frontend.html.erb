@@ -27,6 +27,8 @@
 	<link rel="stylesheet" href="/stylesheets/grid.css">
 
 	<link rel="stylesheet" href="/stylesheets/jquery-ui-1.8.16.custom.css">
+	
+	<link rel="stylesheet" href="/stylesheets/bootstrap-alerts.css">
   <!-- end CSS-->
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
@@ -62,15 +64,18 @@
 
   <div id="container" class="container">
     
-		<!-- notification snippet -->
-		<div id="application-notification">
-			<% if notice %>
-				<p class="notice"><%= notice %> <%= close_notifications_button %></p>
-			<% end %>
-			<% if alert %>
-				<p class="alert"><%= alert %> <%= close_notifications_button %></p>
-		<% end %>
-		</div>
+		<!-- notifications -->
+		<% if alert || notice %>
+		<div class="alert-message <%= alert ? "error" : "warning" %> push-4 span-13">
+      <a class="close" href="#">x</a>
+      	<% if notice %>
+  				<%= notice %>
+  			<% end %>
+  			<% if alert %>
+  				<%= alert %>
+  		<% end %>
+    </div>
+    <% end %>
 	
 		<!-- header snippet -->
     <section id="header" class="span-24 append-bottom">
@@ -118,6 +123,7 @@
   </script> -->
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
+  <%= javascript_include_tag "bootstrap-alert" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "jquery.tipsy" %>
@@ -130,6 +136,8 @@
   
 	<script>
 		$(".fact-block").factlink();
+		
+		$(".alert-message").alert();
 	</script>
 	
 	<%= yield :template %>

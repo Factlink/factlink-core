@@ -1,12 +1,27 @@
-<div class="indicator">
-  <div class="icon believe"    style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;"></div>
-  <div class="icon disbelieve" style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;background-position: -32px 0;"></div>
-  <div class="icon doubt"      style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:32px; height:32px;background-position: -64px 0;"></div>
+ <div id="fl-balloon-container"> 
+   <div id="fl-balloon" class="bottom">
 
-  <div class="authority-wrapper">
-    <span class="centered">
-      <span class="authority"></span>
-      <img src="<%= root_url + 'images/brains.png'%>">
-    </span>
+    <div class="fl-labels">
+ 
+      <div class="fl-label" data-label="show">
+      <span class="fl-label-text"><span class="authority"></span>Show</span>
+        <div class="icon believe"    style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:17px; height:21px; background-position: 1px 0;"></div>
+        <div class="icon disbelieve" style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:17px; height:21px;background-position: 41px 0;"></div>
+        <div class="icon doubt"      style="background-image: url(<%= root_url + 'images/simple_indicators.png'%>);width:17px; height:21px;background-position: 21px 0;"></div>
+    </div>
+
+      <div id="fl-balloon-popup">
+        <ul>
+          <li class="first"><span><a href="#">Agree</a></span></li>
+          <li><span><a href="#">Not sure</a></span></li>
+          <li><span><a href="#">Disagree</a></span></li>
+        </ul>
+      </div>
+   </div>
+
+     <div id="fl-balloon-arrow-border"></div>
+     <div id="fl-balloon-arrow"></div>
   </div>
 </div>
+
+
