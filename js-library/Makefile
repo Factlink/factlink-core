@@ -51,7 +51,7 @@ ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 
 	@@cat ${MODULES} | \
 		sed 's/.function.Factlink..\$..\_..easyXDM...//' | \
-		sed sed 's/...window\.Factlink..Factlink\.\$..Factlink\.\_..Factlink\.easyXDM..//' | \
+		sed 's/...window\.Factlink..Factlink\.\$..Factlink\.\_..Factlink\.easyXDM..//' | \
 		sed 's/@DATE/'"${DATE}"'/' | \
 		${VER} > ${FACTLINK_TMP};
 
