@@ -57,7 +57,6 @@ namespace :deploy do
   end
   
   task :restart, :roles => :app, :except => { :no_release => true } do
-    deploy.stop
     deploy.start
   end
 end
