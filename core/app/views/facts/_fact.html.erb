@@ -7,66 +7,75 @@
       remove_fact_from_channel_path(current_user.username, channel.id, fact.id),
       :method => :delete,
       :confirm => "Are you sure you want to remove this fact from your channel?", 
-      :remote => true
-    )
+      :remote => true)
     %>
   <% end %>
   <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact, :modal => modal,}  %>
-  <div style="height: 25px"> 
+  <div style="height: 38px"> 
     <div class="evidence-actions">
-      <ul class="evidence">
-        <li><a class="evidence-for">Evidence for this (<%= fact.fact_relations.count %>)</a></li>
-        <li><a class="for-evidence">This is evidence for (<%= fact.evidenced_factrelations.count %>)</a></li>
+      <ul class="evidence tabs">
+        <li><a class="evidence-for">Evidence for this fact (<%= fact.fact_relations.count %>)</a></li>
+        <li><a class="for-evidence">This fact is used as evidence for (<%= fact.evidenced_factrelations.count %>)</a></li>
       </ul>
     </div>
   </div> 
+
   <div class="evidence-container" <%= show_evidence(@showEvidence) %>>
     <div class="evidence-list">
       <div class="tab_content" rel="evidence-for">
-      <div class="evidence">
-        <table>
+        <div class="evidence">
+          <table class="evidence-for-list">
             <tbody>
               <% unless fact.fact_relations.count > 0 %>
-                <tr class="no-evidence"><td>
+              <tr class="no-evidence">
+                <td>
                   <% if user_signed_in? %>
-                    Perhaps you know something that supports or weakens this fact?
+                  Perhaps you know something that supports or weakens this fact?
                   <% else %>
-                    There are no facts supporting or weakening this fact at the moment.
+                  There are no facts supporting or weakening this fact at the moment.
                   <% end %>
-                </td></tr>
+                </td>
+              </tr>
               <% else %>
-                <tr><td>
+              <tr>
+                <td>
                   <%= render :partial => "/facts/partial/evidence_bubble", 
                     :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-                  %>
-                </td></tr>
+                    %>
+                </td>
+              </tr>
               <% end %>
             </tbody>
           </table>
         </div>
-          <div class="add-evidence" style="display: none">
-            <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
-          </div>
+        <div class="add-evidence" style="display: none">
+          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
         </div>
+      </div>
+
       <div class="tab_content" rel="for-evidence" style="display: none"> 
         <div class="evidence">
-          <table>
+          <table class="for-evidence-list">
             <tbody>
               <% unless fact.evidenced_factrelations.count > 0 %>
-                <tr class="no-evidence"><td>
+              <tr class="no-evidence">
+                <td>
                   <% if user_signed_in? %>
-                    Perhaps you know something that is supported or weakened by this fact?
+                  Perhaps you know something that is supported or weakened by this fact?
                   <% else %>
-                    There are no facts that are supported or weakened by this fact at the moment.
+                  There are no facts that are supported or weakened by this fact at the moment.
                   <% end %>
-                </td></tr>
+                </td>
+              </tr>
               <% else %>
-              <tr><td>
-                <%= render :partial => "/facts/partial/evidenced_bubble", 
+              <tr>
+                <td>
+                  <%= render :partial => "/facts/partial/evidenced_bubble", 
                     :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-                %>
-              </td></tr>
-            <% end %>
+                  %>
+                </td>
+              </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -74,7 +83,7 @@
             <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
           </div>
         </div>
-    </div>
+      </div>
       <% if user_signed_in? %>
         <div class="add-action" rel="for-evidence" style="display: none">
           <a href"#" class="do-add">Add facts</a>

@@ -6,7 +6,7 @@ searchList.empty();
 
 <% unless @facts.count > 0 %>
 	// No results found
-searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %></td></tr>");
+  searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %></td></tr>");
 <% else %>
 	<% @facts.each do |evidence| %>
   searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/new_evidenced_bubble', :locals => { :fact => evidence, :add_to_fact => @fact } )) %></td></tr>");

@@ -131,7 +131,6 @@
           over: function(e) {
             optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
             $(optionBox).fadeIn("fast");
-
           },
           out: function() {
             $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
@@ -220,8 +219,8 @@
           });
           // Evidence buttons
           $t.find(".existing_evidence a").live("ajax:complete", function(et, e){
-            $(this).closest('ul').children().removeClass("active");
-            $(this).parent().addClass('active');
+            $(this).closest('ul').children().find('a').removeClass("active");
+            $(this).addClass('active');
            });
            $t.data("initialized", true);
         }
@@ -339,10 +338,14 @@
       $t.find("a.add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
-          $(channelList).css({
-            "top": e.clientY  + 10 + "px",
-            "left": e.clientX - 30 + "px"
-            }).fadeIn("fast");
+
+          // $(channelList).css({
+            // "top": e.clientY  + 10 + "px",
+            // "left": e.clientX - 30 + "px"
+            // }).fadeIn("fast");
+            
+          $(channelList).fadeIn("fast");
+            
           }, function() {
             $t.find(".channel-listing").delay(600).fadeOut("fast");
           })

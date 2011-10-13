@@ -47,11 +47,11 @@ module FactsHelper
   def evidenced_buttons(fact_relation, user)
     locals = evidence_buttons_locals(fact_relation,user)
     if fact_relation.type.to_sym == :supporting 
-      locals[:positive_action] = "Supported by"
-      locals[:negative_action] = "Not supported by"
+      locals[:positive_action] = "supported by"
+      locals[:negative_action] = "not supported by"
     elsif fact_relation.type.to_sym == :weakening
-      locals[:positive_action] = "Weakened by"
-      locals[:negative_action] = "Not weakened by"
+      locals[:positive_action] = "weakened by"
+      locals[:negative_action] = "not weakened by"
     end
     render :partial => "/facts/partial/evidence_buttons", 
 	            :locals => locals
@@ -60,11 +60,11 @@ module FactsHelper
   def evidence_buttons(fact_relation, user)
     locals = evidence_buttons_locals(fact_relation,user)
     if fact_relation.type.to_sym == :supporting 
-      locals[:positive_action] = "Supporting"
-      locals[:negative_action] = "Not supporting"
+      locals[:positive_action] = "supporting"
+      locals[:negative_action] = "not supporting"
     elsif fact_relation.type.to_sym == :weakening
-      locals[:positive_action] = "Weakening"
-      locals[:negative_action] = "Not weakening"
+      locals[:positive_action] = "weakening"
+      locals[:negative_action] = "not weakening"
     end
     render :partial => "/facts/partial/evidence_buttons", 
 	            :locals => locals
