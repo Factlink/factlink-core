@@ -9,6 +9,8 @@ class FactData
     text    :displaystring
     string  :displaystring
     
+    integer :fact_id
+    
     text    :title
     string  :title
     
