@@ -522,20 +522,18 @@ ul#results-listing div.user-block .side .type {
 }
 .fact-block .evidence-list .add-evidence .search {
   border-bottom: solid 1px #ddd;
-  padding: 2px 12px 5px;
+  padding: 4px 8px 5px;
   line-height: 28px;
   background: #fbfafa;
 }
 .fact-block .evidence-list .add-evidence .search input[type="text"] {
-  padding: 2px 4px !important;
+  padding: 4px 6px 2px 6px !important;
   font-size: 8pt;
   border-radius: 3px;
-  border: solid 1px #ccc;
+  border: solid 1px #ddd;
   width: 260px;
   height: 18px;
-}
-.fact-block .evidence-list .add-evidence .search input[type="text"]:active, .fact-block .evidence-list .add-evidence .search input[type="text"]:focus {
-  outline: solid 1px #306d90;
+  box-shadow: 0px 1px 0px #fff;
 }
 .fact-block .evidence-list .add-evidence .search input[type="submit"] {
   margin: 4px;
@@ -631,6 +629,8 @@ ul#results-listing div.user-block .side .type {
   text-decoration: none;
   background-color: #fff;
   border-color: #eee #eee #ddd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .tabs > li.active > a {
   color: #808080;
