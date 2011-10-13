@@ -25,7 +25,7 @@ span.factlink {
   -webkit-transition: all 0.4s ease-in-out;
 }
 
-div#factlink-modal-frame {
+#factlink-modal-frame {
   background: transparent;
   border: none;
   z-index: @z-index + 2;
@@ -45,20 +45,20 @@ div#factlink-modal-frame {
   }
 
 }
-div#fl-prepare { 
+#fl-prepare { 
   display: none;
 }
-div#fl-indicator,
+#fl-indicator,
 div.fl-popup,
-div#fl-prepare,
-div#fl-balloon-container,
-div#fl-balloon-popup {
+#fl-prepare,
+#fl-balloon-container,
+#fl-balloon-popup {
   #fl > .reset;
   .popup-style;
 }
 
 
-div#fl-indicator {
+#fl-indicator {
   display: none;
   position: absolute;
   cursor: pointer;
@@ -110,7 +110,7 @@ div.fl-popup {
   
 }
 
-div#fl-balloon-container { 
+#fl-balloon-container { 
   position: relative;
   width: @popup-width;
   height: @popup-height;
@@ -119,7 +119,7 @@ div#fl-balloon-container {
     margin-top: -5px;  
   }
 } 
-div#fl-balloon {
+#fl-balloon {
   z-index: @z-index;
   border: 2px solid @border-color;
   .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
@@ -180,8 +180,8 @@ div#fl-balloon {
   }
 
 
-  div#fl-balloon-arrow-border,
-  div#fl-balloon-arrow {
+  #fl-balloon-arrow-border,
+  #fl-balloon-arrow {
     border-style: solid;
     border-width: 11px;
     height:0;
@@ -192,12 +192,12 @@ div#fl-balloon {
 
   &.bottom { 
     @arrow-top: -19px;
-    div#fl-balloon-arrow-border {
+    #fl-balloon-arrow-border {
       border-color: @border-color transparent transparent transparent;
       bottom: @arrow-top - 3px;
       left: @arrow-left;
     }
-    div#fl-balloon-arrow {
+    #fl-balloon-arrow {
       border-color: @bg-color transparent transparent transparent;
       bottom: @arrow-top;
       left: @arrow-left;
@@ -214,12 +214,12 @@ div#fl-balloon {
 
   &.top { 
     @arrow-top: @popup-height ;
-    div#fl-balloon-arrow-border {
+    #fl-balloon-arrow-border {
       border-color: transparent transparent  @border-color transparent;
       bottom: @arrow-top ;
       left: @arrow-left;
     }
-    div#fl-balloon-arrow {
+    #fl-balloon-arrow {
       border-color: transparent transparent @bg-color-stop  transparent ;
       bottom: @arrow-top - 3;
       left: @arrow-left;
@@ -239,7 +239,63 @@ div#fl-balloon {
   }
 }
 
-div#fl-balloon-popup {
+
+.fl-menu() { 
+  color: #000;
+  list-style: none;
+
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  li {      
+    position: relative;
+    white-space: nowrap;
+    vertical-align: baseline;
+    padding: 2px 0px;
+    cursor: pointer;
+    font-size: 9pt;
+    
+    &.first {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+    
+    &.last {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    &>span>a {
+
+      padding: 2px 18px;
+      line-height: 14px;
+      display: block;
+      border-radius: 1px;
+     
+      &:hover {
+        border-top: solid 1px #5853EA;
+        padding: 1px 18px 2px;
+        .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
+        color: #fff;
+      }
+    }
+  }
+}
+
+#fl-prepare #addToFact { 
+    & { .fl-menu(); }
+}
+
+#fl-balloon-popup {
+
+  * { 
+    font-family: inherit !important; 
+  }
+
   display: none;
   width: 86px;
   position: absolute;
@@ -250,52 +306,7 @@ div#fl-balloon-popup {
   border: 2px solid @border-color;	  
   padding: 0px;
   line-height: 24px;
-  * { 
-    font-family: inherit !important; 
-  }
-  ul {
-    color: #000;
-    list-style: none;
-
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    li {      
-      position: relative;
-      white-space: nowrap;
-      vertical-align: baseline;
-      padding: 2px 0px;
-      cursor: pointer;
-      font-size: 9pt;
-      
-      &.first {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-      }
-      
-      &.last {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-      }
-      a {
-        color: #000;
-        text-decoration: none;
-      }
- 
-      &>span>a {
-
-        padding: 2px 18px;
-        line-height: 14px;
-        display: block;
-        border-radius: 1px;
-       
-        &:hover {
-          border-top: solid 1px #5853EA;
-          padding: 1px 18px 2px;
-          .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
-          color: #fff;
-        }
-      }
-    }
+  ul { 
+    .fl-menu();
   }
 }

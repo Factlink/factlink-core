@@ -48,7 +48,7 @@ span.factlink.fl-first {
 span.factlink.fl-active {
   background: #B4D5FE !important;
 }
-div#factlink-modal-frame {
+#factlink-modal-frame {
   background: transparent;
   border: none;
   z-index: 2147483646;
@@ -61,19 +61,19 @@ div#factlink-modal-frame {
   top: 0;
   left: 0;
 }
-div#factlink-modal-frame iframe {
+#factlink-modal-frame iframe {
   border: none;
   height: 100%;
   width: 100%;
 }
-div#fl-prepare {
+#fl-prepare {
   display: none;
 }
-div#fl-indicator,
+#fl-indicator,
 div.fl-popup,
-div#fl-prepare,
-div#fl-balloon-container,
-div#fl-balloon-popup {
+#fl-prepare,
+#fl-balloon-container,
+#fl-balloon-popup {
   margin: 0;
   padding: 0;
   /* background-color: #fff;*/
@@ -115,21 +115,21 @@ div#fl-balloon-popup {
   font-family: "Helvetica", Arial, sans-serif;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
 }
-div#fl-indicator *,
+#fl-indicator *,
 div.fl-popup *,
-div#fl-prepare *,
-div#fl-balloon-container *,
-div#fl-balloon-popup *,
-div#fl-indicator * *,
+#fl-prepare *,
+#fl-balloon-container *,
+#fl-balloon-popup *,
+#fl-indicator * *,
 div.fl-popup * *,
-div#fl-prepare * *,
-div#fl-balloon-container * *,
-div#fl-balloon-popup * *,
-div#fl-indicator * *,
+#fl-prepare * *,
+#fl-balloon-container * *,
+#fl-balloon-popup * *,
+#fl-indicator * *,
 div.fl-popup * *,
-div#fl-prepare * *,
-div#fl-balloon-container * *,
-div#fl-balloon-popup * * {
+#fl-prepare * *,
+#fl-balloon-container * *,
+#fl-balloon-popup * * {
   margin: 0;
   padding: 0;
   /* background-color: #fff;*/
@@ -157,7 +157,7 @@ div#fl-balloon-popup * * {
   list-style-type: none;
   color: #000;
 }
-div#fl-indicator {
+#fl-indicator {
   display: none;
   position: absolute;
   cursor: pointer;
@@ -212,18 +212,18 @@ div.fl-popup .button:active {
   font-family: "Helvetica", Arial, sans-serif;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
 }
-div#fl-balloon-container {
+#fl-balloon-container {
   position: relative;
   width: 100px;
   height: 24px;
 }
-div#fl-balloon-container.active {
+#fl-balloon-container.active {
   -webkit-transition: all ease-out 0.1s;
   -moz-transition: all ease-out 0.1s;
   transition: all ease-out 0.1s;
   margin-top: -5px;
 }
-div#fl-balloon {
+#fl-balloon {
   z-index: 2147483644;
   border: 2px solid #a8a8a8;
   background: #e2e2e2;
@@ -271,7 +271,7 @@ div#fl-balloon {
   /* }*/
 
 }
-div#fl-balloon .fl-labels .fl-label {
+#fl-balloon .fl-labels .fl-label {
   padding: 0px 2px 2px 2px;
   height: 24px;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
@@ -280,70 +280,112 @@ div#fl-balloon .fl-labels .fl-label {
   background: transparent;
   font-size: 12px;
 }
-div#fl-balloon .fl-labels .fl-label .fl-label-text {
+#fl-balloon .fl-labels .fl-label .fl-label-text {
   background: transparent;
   padding: 6px;
 }
-div#fl-balloon .fl-labels .fl-label .icon {
+#fl-balloon .fl-labels .fl-label .icon {
   float: right;
   margin-top: 2px;
   padding-right: 4px;
 }
-div#fl-balloon .fl-labels .fl-label  > span {
+#fl-balloon .fl-labels .fl-label  > span {
   background: transparent;
   display: inline-block;
 }
-div#fl-balloon .fl-labels .fl-label  > span .authority {
+#fl-balloon .fl-labels .fl-label  > span .authority {
   float: right;
   color: #a0a0a0;
   margin-right: -20px;
   font-size: 8pt;
   margin-top: 1px;
 }
-div#fl-balloon div#fl-balloon-arrow-border, div#fl-balloon div#fl-balloon-arrow {
+#fl-balloon #fl-balloon-arrow-border, #fl-balloon #fl-balloon-arrow {
   border-style: solid;
   border-width: 11px;
   height: 0;
   width: 0;
   position: absolute;
 }
-div#fl-balloon.bottom div#fl-balloon-arrow-border {
+#fl-balloon.bottom #fl-balloon-arrow-border {
   border-color: #a8a8a8 transparent transparent transparent;
   bottom: -22px;
   left: 14px;
 }
-div#fl-balloon.bottom div#fl-balloon-arrow {
+#fl-balloon.bottom #fl-balloon-arrow {
   border-color: #e2e2e2 transparent transparent transparent;
   bottom: -19px;
   left: 14px;
 }
-div#fl-balloon.bottom:hover #fl-balloon-arrow {
+#fl-balloon.bottom:hover #fl-balloon-arrow {
   border-color: #e2e2e2 transparent transparent transparent;
 }
-div#fl-balloon.bottom:hover #fl-balloon-arrow-border {
+#fl-balloon.bottom:hover #fl-balloon-arrow-border {
   border-color: #1d8cc8 transparent transparent transparent;
 }
-div#fl-balloon.top div#fl-balloon-arrow-border {
+#fl-balloon.top #fl-balloon-arrow-border {
   border-color: transparent transparent #a8a8a8 transparent;
   bottom: 24px;
   left: 14px;
 }
-div#fl-balloon.top div#fl-balloon-arrow {
+#fl-balloon.top #fl-balloon-arrow {
   border-color: transparent transparent #fbfbfb transparent;
   bottom: 21px;
   left: 14px;
 }
-div#fl-balloon.top:hover #fl-balloon-arrow {
+#fl-balloon.top:hover #fl-balloon-arrow {
   border-color: transparent transparent #fbfbfb transparent;
 }
-div#fl-balloon.top:hover #fl-balloon-arrow-border {
+#fl-balloon.top:hover #fl-balloon-arrow-border {
   border-color: transparent transparent #1d8cc8 transparent;
 }
-div#fl-balloon:hover {
+#fl-balloon:hover {
   border-color: #1d8cc8;
   cursor: pointer;
 }
-div#fl-balloon-popup {
+#fl-prepare #addToFact {
+  color: #000;
+  list-style: none;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+#fl-prepare #addToFact  li {
+  position: relative;
+  white-space: nowrap;
+  vertical-align: baseline;
+  padding: 2px 0px;
+  cursor: pointer;
+  font-size: 9pt;
+}
+#fl-prepare #addToFact  li.first {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#fl-prepare #addToFact  li.last {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#fl-prepare #addToFact  li a {
+  color: #000;
+  text-decoration: none;
+}
+#fl-prepare #addToFact  li > span > a {
+  padding: 2px 18px;
+  line-height: 14px;
+  display: block;
+  border-radius: 1px;
+}
+#fl-prepare #addToFact  li > span > a:hover {
+  border-top: solid 1px #5853EA;
+  padding: 1px 18px 2px;
+  background: #605df5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
+  background: -ms-linear-gradient(bottom, #3600e6, #605df5);
+  background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
+  color: #fff;
+}
+#fl-balloon-popup {
   display: none;
   width: 86px;
   position: absolute;
@@ -355,17 +397,17 @@ div#fl-balloon-popup {
   padding: 0px;
   line-height: 24px;
 }
-div#fl-balloon-popup * {
+#fl-balloon-popup * {
   font-family: inherit !important;
 }
-div#fl-balloon-popup ul {
+#fl-balloon-popup ul {
   color: #000;
   list-style: none;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
 }
-div#fl-balloon-popup ul li {
+#fl-balloon-popup ul li {
   position: relative;
   white-space: nowrap;
   vertical-align: baseline;
@@ -373,25 +415,25 @@ div#fl-balloon-popup ul li {
   cursor: pointer;
   font-size: 9pt;
 }
-div#fl-balloon-popup ul li.first {
+#fl-balloon-popup ul li.first {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-div#fl-balloon-popup ul li.last {
+#fl-balloon-popup ul li.last {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-div#fl-balloon-popup ul li a {
+#fl-balloon-popup ul li a {
   color: #000;
   text-decoration: none;
 }
-div#fl-balloon-popup ul li > span > a {
+#fl-balloon-popup ul li > span > a {
   padding: 2px 18px;
   line-height: 14px;
   display: block;
   border-radius: 1px;
 }
-div#fl-balloon-popup ul li > span > a:hover {
+#fl-balloon-popup ul li > span > a:hover {
   border-top: solid 1px #5853EA;
   padding: 1px 18px 2px;
   background: #605df5;
