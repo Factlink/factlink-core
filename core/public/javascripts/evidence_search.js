@@ -11,24 +11,25 @@
     $form.closest('div.add-evidence').removeClass('loading');
   }
   
-  $('div.search>form').bind('ajax:beforeSend', function() {
-    setLoadingEvidence($(this));
+  $('div.search>form').live('ajax:beforeSend', function() {
+      setLoadingEvidence($(this));
     
-    searchString = $(this, 'input.evidence_search').val();
-  }).bind('ajax:success', function() {
-    stopLoadingEvidence($(this));
-  });
+      searchString = $(this, 'input.evidence_search').val();
+    }).live('ajax:success', function() {
+      window.isFullyLoaded = false;
+      stopLoadingEvidence($(this));
+    });
   
   // Check if all Factlinks are loaded
-  window.isFullyLoaded = false;
+  $('div.tab_content').data('isFullyLoaded', false);
 
   $('div.evidence-list').infiniScroll({
     isFullyLoaded: function() {
-      return window.isFullyLoaded;
+      return $('div.tab_content:visible', this).data('isFullyLoaded');
     },
     
     check_scroll: function() {
-      if ($('div.tab_content', this).height() - (this.scrollTop() + this.height()) < 250) {
+      if ($('div.tab_content:visible', this).height() - (this.scrollTop() + this.height()) < 250) {
         return true;
       }
     },
@@ -36,7 +37,9 @@
     url: function(page) {
       var fact = $( 'div.fact-block' );
       
-      return '/facts/' + fact.data('fact-id') + '/evidence_search/page/' + page + '.js' + (searchString ? "?s=" + searchString : "");
+      var search = ($('div.tab_content:visible', this).is('[rel=evidence-for]') ? "evidence_search" : "evidenced_search");
+      
+      return '/facts/' + fact.data('fact-id') + '/' + search + '/page/' + page + '.js' + (searchString ? "?s=" + searchString : "");
     }
   });
 

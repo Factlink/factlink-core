@@ -10,7 +10,8 @@ var searchList =  fact.find(".tab_content:visible .search-list");
     // No results found
     searchList.append("<tr><td><%= escape_javascript(render(:partial => 'facts/partial/no_evidence_found_message')) %></td></tr>");
   <% else %>
-    window.isFullyLoaded = true;
+    debugger;
+    searchList.closest('.tab_content:visible').data('isFullyLoaded', true);
   <% end %>
 <% else %>
 	<% @facts.each do |evidence| %>

@@ -1,7 +1,9 @@
 (function($){
   $.fn.infiniScroll = function(options) {
     var settings = {
-      isFullyLoaded: false,
+      isFullyLoaded: function(){
+        return false;
+      },
       check_scroll: function() {
         if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
           return true;
@@ -16,7 +18,6 @@
       // Are we currently loading?
       isLoading: false
     },
-    // Integer value holding current page number
     page = 1,
     $this = $(this);
 
@@ -28,11 +29,29 @@
     // Load more items
     function load_more() {
       settings.start_loading.call(settings);
+      var bool = false;
+      try {
+        bool = $this.is('div.evidence-list');
+      } catch (e) {}
+      
+      if ( bool ) {
+        var $current = $('div.tab_content:visible', this);
+        
+        page = parseInt( $current.data('page'), 10 );
 
-      page++;
+        if ( !isNaN(page) ) {
+          $current.data('page', page + 1);
+          page += 1;
+        } else {
+          $current.data('page', 2);
+          page = 2;
+        }
+      } else {
+        page += 1;
+      }
 
       $.ajax({
-        url: settings.url(page),
+        url: settings.url.call($this, page),
         dataType: 'script',
         success: function() {
           // Done loading!
@@ -42,10 +61,10 @@
     }
 
     $this.scroll(function() {
-      if (!settings.isLoading && !settings.isFullyLoaded()) {
+      if (!settings.isLoading && !settings.isFullyLoaded.call($this)) {
         // Check the scroll
         if ( settings.check_scroll.call($this) ) {
-          load_more();
+          load_more.call($this);
         }
       }
     });
