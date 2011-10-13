@@ -49,7 +49,6 @@ factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS} modules
 
 ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	@@echo "Building" ${Factlink}
-	@@echo '3'
 
 	@@cat ${MODULES} | \
 		sed 's/.function.Factlink..\$..\_..easyXDM...//' | \
