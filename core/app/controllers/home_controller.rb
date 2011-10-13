@@ -23,6 +23,8 @@ class HomeController < ApplicationController
     solr_result = Sunspot.search FactData, User do
       keywords params[:s] || ""
       
+      order_by sort_column, sort_direction
+      
       paginate :page => params[:page] || 1, :per_page => row_count
     end
     
@@ -52,7 +54,7 @@ class HomeController < ApplicationController
   end
 
   def sort_direction # private
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
 end

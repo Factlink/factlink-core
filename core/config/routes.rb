@@ -10,14 +10,17 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Resources
-  resources :facts    
+  resources :facts do
+    member do 
+      match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
+      match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
+    end
+  end 
   
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-  match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
-  match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     
   ##########
   # Javascript Client calls
