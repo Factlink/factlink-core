@@ -128,7 +128,8 @@ var
             '//' + static_location + '/lib/src/js/xdm.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/src/js/getfacts.js?' + (new Date()).getTime()
+            '//' + static_location + '/lib/src/js/getfacts.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/scripts/doscrolling.js?' + (new Date()).getTime() 
         ]
     ],
     demo = [
