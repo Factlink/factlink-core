@@ -609,24 +609,24 @@ ul#results-listing div.user-block {
   > li {
     position: relative; // For the dropdowns mostly
     top: 1px;
-    
+        
     &:first-child {
       padding-left: 64px;
     }
     
     > a {
+      background: transparent;
       padding: 0 15px;
       margin-right: 2px;
       line-height: @baseline * 2;
-      border: 1px solid transparent;
-      .border-radius(4px 4px 0 0);
+      border: 1px solid #ddd;      
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+
       &:hover {
         text-decoration: none;
         background-color: #fff;
         border-color: #eee #eee #ddd;
-
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
       }
     }
     &.active > a {
@@ -634,9 +634,6 @@ ul#results-listing div.user-block {
       background-color: @white;
       border: 1px solid #ddd;
       border-bottom-color: transparent;
-      
-      border-top-left-radius: 4px;
-      border-top-right-radius: 4px;
     }
   }
   // first one for backwards compatibility

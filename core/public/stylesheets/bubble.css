@@ -608,37 +608,24 @@ ul#results-listing div.user-block .side .type {
   padding-left: 64px;
 }
 .tabs > li > a {
+  background: transparent;
   padding: 0 15px;
   margin-right: 2px;
   line-height: 36px;
-  border: 1px solid transparent;
-  -webkit-border-top-right-radius: 4px 4px 0 0;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 4px 4px 0 0;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 4px 4px 0 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  border: 1px solid #ddd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 .tabs > li > a:hover {
   text-decoration: none;
   background-color: #fff;
   border-color: #eee #eee #ddd;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
 }
 .tabs > li.active > a {
   color: #808080;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
 }
 .tabs .menu-dropdown, .tabs .dropdown-menu {
   top: 35px;
