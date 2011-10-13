@@ -19,8 +19,10 @@
     cache: false,
     success: function(data) {
       $prepare.html(data);
-
+      bindPrepareHover($prepare);
       bindPrepareClick($prepare);
+      $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
+      
     }
   });
 
@@ -44,6 +46,25 @@
     }
   };
 
+  function switchLabel(from, to) { 
+    $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
+    $prepare.find(".fl-label[data-label=" + to +"]").fadeIn('fast');
+  }
+
+  function bindPrepareHover($element) { 
+    var balloon = $element.find("#fl-balloon-popup");
+    function hoverIn() { 
+       balloon.stop().fadeTo('fast', 1).show();
+    }
+    function hoverOut() {
+       balloon.stop().fadeTo('fast', 0, function() {
+        $(this).hide(); 
+      });
+    }
+    $element.bind("fl-labels").hover(hoverIn, hoverOut); 
+  }
+
+
   function bindPrepareClick($element) {
     $element.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
@@ -58,6 +79,37 @@
       $element.fadeOut(100);
     });
   }
+
+
+
+  // function bindPrepareClick($element) {
+  //   $element.find('.fl-action').bind('mouseup', function(e) {
+  //     e.stopPropagation();
+  //   }).bind('click', function(e) {
+  //     e.preventDefault();
+
+  //     var active = $element.find(".fl-label:visible").data("label");
+  //     switch(active) {
+  //       case 'create': // Create a new factlink
+  //         Factlink.submitSelection(e.currentTarget.id, function(factId) {
+  //           $element.trigger("factlink:switchLabel", ["create", "created"]);
+  //           $(this).data("factid", factId);
+  //           // setTimeout(function() { 
+  //           //   $element.trigger("factlink:switchLabel", ["created", "show"]);
+  //           // }, 2000);
+  //         });
+  //        break;
+  //       case 'created': // Add evidence to just created fact
+  //         Factlink.showInfo(el=this, showEvidence=true);
+  //         break;
+  //       case 'show': // Show existing fact
+  //         break;
+  //       default:
+  //         // code
+  //     }
+  //   });
+  // }
+
 
   function showFactAddedPopup(factId, x, y) {
     // Create `add evidence` popup after succesful addition of the fact.            
@@ -80,8 +132,8 @@
     $('div.fl-popup').hover(function() {
       // handlerIn
       clearTimeout(popupTimeout);
-    }, function() {
       // handlerOut
+    }, function() {
       startTimer();
     });
 
@@ -209,3 +261,4 @@
     }, 100);
   });
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+

@@ -10,14 +10,19 @@
   border: 0;
   text-decoration: none  !important;
   text-align: left;
+  text-transform: none;
   border-spacing: 0;
   float: none;
   font-style: normal;
   font-weight: normal;
   text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
   font-size: 100%;
   box-shadow: none;
   white-space: normal;
+  text-shadow: none;
   list-style: none;
   list-style-type: none;
+  color: #000;
 }
