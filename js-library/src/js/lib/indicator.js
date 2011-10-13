@@ -42,7 +42,7 @@ Factlink.Indicator = (function() {
             }
             
             if ( id !== currentId ) { 
-                x = x_in + 10;
+                x = x_in - 20;
                 y = y_in - el.outerHeight(true) - 10; 
             } 
  
@@ -130,3 +130,4 @@ $(window).bind("factlink:factHighlighted", showIndicator);
 $(window).bind("factlink:factUnhighlighted",stopShowingIndicator);
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+
