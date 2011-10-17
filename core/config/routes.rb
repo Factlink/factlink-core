@@ -4,7 +4,6 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # User Authentication
-  devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
@@ -18,8 +17,6 @@ FactlinkUI::Application.routes.draw do
   end 
   
   # Search and infinite scrolling
-  # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
-  
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
     
   ##########
@@ -56,10 +53,6 @@ FactlinkUI::Application.routes.draw do
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
   
-  # Fact bubble
-  # delete "/fact/:id" => "facts#destroy", :as => "fact"
-  
-  
   ##########
   # Web Front-end
   root :to => "home#index"
@@ -76,6 +69,7 @@ FactlinkUI::Application.routes.draw do
 
       member do 
         get "follow", :as => "follow"
+        get "related_users", :as => "channel_related_users"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"

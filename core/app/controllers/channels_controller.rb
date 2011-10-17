@@ -11,7 +11,8 @@ class ChannelsController < ApplicationController
       :edit,
       :destroy,
       :update,
-      :facts]
+      :facts,
+      :related_users]
   
   before_filter :authenticate_user!,
     :except => [
@@ -148,6 +149,21 @@ class ChannelsController < ApplicationController
   def follow
     @channel = Channel[params[:id]]
     @channel.fork(current_user.graph_user)
+  end
+  
+  def related_users
+    # @channel is fetched in load_channel
+    # @related_users = @channel.related_users
+    
+    @related_users = GraphUser.top(10).map { |gu| gu.user }
+    
+    respond_to do |format|
+      if request.xhr?
+        format.html { render :layout => nil }
+      else
+        format.html
+      end
+    end
   end
   
   private
