@@ -10,7 +10,7 @@
 
 <!-- right-column -->
 <%= content_for :right_column do %>
-  <%= render :partial => "channels/related_users", :locals => { :related_users => @channel.related_users } %>
+  <%= render :partial => "channels/related_users", :locals => { :related_users => @channel.related_users.andand.map{|x| x.user } } %>
 <% end %>
 
 <%= content_for :javascript do %>
