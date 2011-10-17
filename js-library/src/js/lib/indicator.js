@@ -16,7 +16,7 @@ Factlink.Indicator = (function() {
      
     return { 
         // Makes the indicator show for the Factlink with id ID 
-        showFor: function( id, x_in, y_in) { 
+        showFor: function( id, x_in, y_in ) { 
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
              
@@ -111,9 +111,10 @@ $.ajax({
   method: 'get', 
   dataType: 'jsonp', 
   crossDomain: true, 
-  url: window.location.protocol + '//' + FactlinkConfig.api + '/factlink/indication.js', 
+  url: '//' + FactlinkConfig.api + '/template/indicator.html', 
   success: function( data ) { 
-    Factlink.Indicator.setElement( $( data ).attr('id','fl-indicator').appendTo('body') ); 
+    var template = _.template(data);
+    Factlink.Indicator.setElement( $(template()).attr('id','fl-indicator').appendTo('body') ); 
   } 
 });
 

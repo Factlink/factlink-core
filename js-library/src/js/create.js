@@ -4,47 +4,45 @@
   // Function which will return the Selection object
   //@TODO: Add rangy support for IE
   // Load the needed prepare menu & put it in a container
-  var urlToLoad, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
+  var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
-  if (FactlinkConfig.modus === "default") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/new';
-  } else if (FactlinkConfig.modus === "addToFact") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/evidence';
+  switch(FactlinkConfig.modus) {
+    case 'addToFact':
+        templateUrl = '//' + FactlinkConfig.api + "/template/addToFact.html";
+        loadTemplate(templateUrl);
+      break;
+    
+    default:
+      templateUrl = '//' + FactlinkConfig.api + "/template/create.html";
+      loadTemplate(templateUrl);
   }
 
-  $.ajax({
-    url: urlToLoad,
-    dataType: "jsonp",
-    crossDomain: true,
-    cache: false,
-    success: function(data) {
-      $prepare.html(data);
-      bindPrepareHover($prepare);
-      bindPrepareClick($prepare);
-      $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
-      
-    }
-  });
 
-  Factlink.submitSelection = function(opinion, callback) {
-    var selInfo = Factlink.getSelectionInfo();
+  function loadTemplate(url) { 
+    var template; 
+    $.ajax({
+      url: url,
+      crossDomain: true,
+      dataType: "jsonp",
+      cache: false,
+      jsonp: "callback",
+      success: function(data) {
+        template = _.template(data);
+        
+        $prepare.html(template);
 
-    if (FactlinkConfig.modus === "addToFact") {
-      if (Factlink.prepare.factId) {
-          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
-      } else {
-          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+
+        bindPrepareHover($prepare);
+        bindPrepareClick($prepare);
+        $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
+      }, 
+      error: function(data) { 
+        console.log(data);
       }
-    } else {
-      // modus === "default"
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-      function(factId) {
-          if ($.isFunction(callback)) {
-              callback(factId);
-          }
-      });
-    }
-  };
+   });
+   return template;
+  }
+
 
   function switchLabel(from, to) { 
     $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
@@ -164,6 +162,27 @@
   function getTitle() {
     return document.title;
   }
+
+  Factlink.submitSelection = function(opinion, callback) {
+    var selInfo = Factlink.getSelectionInfo();
+    switch(FactlinkConfig.modus) {
+      case 'addToFact':
+        if (Factlink.prepare.factId) {
+            Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+        } else {
+            Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+        }
+        break;
+      default:
+      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+      function(factId) {
+          if ($.isFunction(callback)) {
+              callback(factId);
+          }
+      });
+    }
+  }
+
 
   // We make this a global function so it can be used for direct adding of facts
   // (Right click with chrome-extension)
