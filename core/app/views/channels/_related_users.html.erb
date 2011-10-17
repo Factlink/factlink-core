@@ -3,7 +3,7 @@
   <sub>Here are some of the users who interacted with facts in this channel:</sub>
 
   <ul>
-  <% related_users.each do |related_user| %>
+  <% related_users.andand.each do |related_user| %>
   	<%= render :partial => "home/snippets/user_li", :locals => {  :user => related_user } %>
   <% end %>
   </ul>
