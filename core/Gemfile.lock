@@ -269,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord (= 3.0.5)
   bson_ext (~> 1.4.0)
   canivete
   capistrano

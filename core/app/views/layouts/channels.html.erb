@@ -10,7 +10,7 @@
 
 <!-- right-column -->
 <%= content_for :right_column do %>
-  <%= render :partial => "channels/related_users", :locals => { :related_users => GraphUser.top(10).map { |gu| gu.user } } %>
+  <%= render :partial => "channels/related_users", :locals => { :related_users => @channel.related_users } %>
 <% end %>
 
 <%= content_for :javascript do %>
