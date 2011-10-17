@@ -10,12 +10,10 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show,
-      :prepare_new,
-      :prepare_evidence, 
       :intermediate, 
-      :search, 
-      :indication]
-                                               
+      :search,
+      :indicator]
+
   before_filter :load_fact, 
     :only => [
       :show,
@@ -26,7 +24,6 @@ class FactsController < ApplicationController
       :opinion,
       :evidence_search,
       :evidenced_search]
-                                                        
   before_filter :potential_evidence, 
     :only => [
       :show,
@@ -64,16 +61,6 @@ class FactsController < ApplicationController
     render :partial => "facts/partial/fact_bubble", 
 	            :locals => {  :fact => @fact }
   end
-
-  # Prepare for create
-  def prepare_new
-    render :template => 'facts/javascript/prepare_new.js.erb', :content_type => "application/javascript"
-  end
-  
-  def prepare_evidence
-    render :template => 'facts/javascript/prepare_evidence.js.erb', :content_type => "application/javascript"
-  end
-
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
@@ -216,13 +203,6 @@ class FactsController < ApplicationController
     render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
 
-
-
-
-
-
-
-
   def evidenced_search
     potential_evidenced
     internal_search(@potential_evidenced.to_a)
@@ -263,13 +243,7 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
   end
   
-  def indication
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  private
+ private
   def sort_column # private
     FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end

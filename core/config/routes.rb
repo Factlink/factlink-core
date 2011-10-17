@@ -52,10 +52,7 @@ FactlinkUI::Application.routes.draw do
   post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
   delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
 
-  # Template shown when user hovers a Fact
-  get "/factlink/indication" => "facts#indication"
-  
-  ##########
+ ##########
   # Web Front-end
   root :to => "home#index"
 

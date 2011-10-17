@@ -163,12 +163,12 @@ describe FactsController do
    end
   end
 
-  describe :indication do
-    it "should respond to XHR request" do
-      xhr :get, :indication
-      response.should be_succes
-    end
-  end
+  #describe :opinion do
+  #  it "should respond to XHR request" do
+  #    xhr :get, :opinion, :id => FactoryGirl.create(:fact).id
+  #    response.should be_succes
+  #  end
+  #end
 
 
 end
