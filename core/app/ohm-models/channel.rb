@@ -1,6 +1,12 @@
-module FactsToUsers
-  def related_users
+class RelatedUsersCalculator
+  def related_users(facts)
     GraphUser.all
+  end
+end
+
+module FactsToUsers
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
   end
 end
 
