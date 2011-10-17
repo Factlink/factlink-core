@@ -1,15 +1,3 @@
-class RelatedUsersCalculator
-  def related_users(facts)
-    GraphUser.all
-  end
-end
-
-module FactsToUsers
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
-end
-
 class Channel < OurOhm
   include ActivitySubject
   include FactsToUsers
@@ -130,6 +118,11 @@ class Channel < OurOhm
     end
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
+  end
+
+
 end
 
 class UserStream
@@ -161,5 +154,8 @@ class UserStream
     false
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
+  end
   
 end
