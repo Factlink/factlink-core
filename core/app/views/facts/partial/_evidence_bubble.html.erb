@@ -1,8 +1,9 @@
 </td><td class="evidence-options">
 
+  <% @labelClass = fact_relation.type == "supporting" ? "notice" : "warning" %>
+  
   <div class="relevance-indicator">
-    <div class="relevance-type"><%= fact_relation.type %></div>
-    <div class="back <%= fact_relation.type %>"></div>
+    <span class="label <%= @labelClass %>"><%= fact_relation.type %></span>
   </div>
 
   <div class="relevance-options">

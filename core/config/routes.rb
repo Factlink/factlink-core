@@ -4,20 +4,20 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # User Authentication
-  devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
   ##########
   # Resources
-  resources :facts    
+  resources :facts do
+    member do 
+      match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
+      match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
+    end
+  end 
   
   # Search and infinite scrolling
-  # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
-  
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-  match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
-  match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     
   ##########
   # Javascript Client calls
@@ -35,11 +35,11 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
   # Add evidence as supporting or weakening
-  get   "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
-  get   "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
+  post  "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
+  post  "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
 
-  get   "/factlink/:fact_id/add_supporting_evidenced/:evidence_id"  => "facts#add_supporting_evidenced",  :as => "add_supporting_evidenced"
-  get   "/factlink/:fact_id/add_weakening_evidenced/:evidence_id"   => "facts#add_weakening_evidenced",   :as => "add_weakening_evidenced"
+  post  "/factlink/:fact_id/add_supporting_evidenced/:evidence_id"  => "facts#add_supporting_evidenced",  :as => "add_supporting_evidenced"
+  post  "/factlink/:fact_id/add_weakening_evidenced/:evidence_id"   => "facts#add_weakening_evidenced",   :as => "add_weakening_evidenced"
   
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
@@ -52,10 +52,6 @@ FactlinkUI::Application.routes.draw do
 
   # Template shown when user hovers a Fact
   get "/factlink/indication" => "facts#indication"
-  
-  # Fact bubble
-  # delete "/fact/:id" => "facts#destroy", :as => "fact"
-  
   
   ##########
   # Web Front-end
@@ -73,6 +69,7 @@ FactlinkUI::Application.routes.draw do
 
       member do 
         get "follow", :as => "follow"
+        get "related_users", :as => "channel_related_users"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"

@@ -242,40 +242,25 @@ class FactsController < ApplicationController
 
   # Search in the client popup.  
   def internal_search(eligible_facts)
-
-    @row_count = 20
+    @page = params[:page]
+    page = @page
+    @row_count = 4
     row_count = @row_count
 
-    if params[:s]
-      solr_result = FactData.search() do
-
-        keywords params[:s], :fields => [:displaystring]
-        order_by sort_column, sort_direction
-        paginate :page => params[:page] , :per_page => row_count
-
-        adjust_solr_params do |sunspot_params|
-          sunspot_params[:rows] = row_count
-        end
-      end
-
-      @fact_data = solr_result.results
-    else
-      # will_paginate sorting doesn't work very well on arrays.. Fixed it..
-      @fact_data = WillPaginate::Collection.create( params[:page] || 1, row_count ) do |pager|
-        start = (pager.current_page-1)*row_count
-
-        # Sorting & filtering done by mongoid
-        results = FactData.all(:sort => [[sort_column, sort_direction]]).skip(start).limit(row_count).to_a
-        pager.replace(results)
-      end
+    solr_result = FactData.search() do
+      keywords params[:s] || ""
+      
+      order_by sort_column, sort_direction
+      paginate :page => page , :per_page => row_count
+      
+      # Exclude the Facts that are already supporting AND weakening
+      with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
+
+    @fact_data = solr_result.results
 
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
-
-    # Exclude the Facts that are already supporting AND weakening
-    @facts = @facts & eligible_facts
-
   end
   
   def indication
@@ -290,7 +275,7 @@ class FactsController < ApplicationController
   end
 
   def sort_direction # private
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
   def potential_evidence # private

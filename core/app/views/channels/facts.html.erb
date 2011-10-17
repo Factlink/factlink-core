@@ -7,7 +7,7 @@
       	  <% if @channel.editable? && current_user.graph_user == @channel.created_by %>
             <%= link_to("edit", edit_channel_path(@channel.created_by.user.username, @channel.id), :class => "button") %>
       	  <% elsif @channel.followable? %>
-            <%= link_to("add to my channels", follow_channel_path(current_user.username, @channel.id), :class => "button", :remote => true, :disable_with => ['adding', 'added']) %>
+            <%= link_to("add to my channels", follow_channel_path(current_user.username, @channel.id), :class => "button", :remote => true, :disable_with => ['adding', 'added to your channels']) %>
     	    <% end %>
       	<% end %>
       </h1>

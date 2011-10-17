@@ -1,5 +1,5 @@
 <div class="search">
-  <%= form_for("search", :url => evidence_search_path, :remote => "true" ) do |f| %>
+  <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
     <input type="text" class="evidence_search" name="s" placeholder="Search for facts.." <%= params[:s] ? "value='#{params[:s]}'" : "" %> x-webkit-speech >
     <input type="hidden" name="id" value="<%= fact.id %>">
     <input type="submit" value="Search">
@@ -10,3 +10,6 @@
 <table class="search-list">
   <tr></tr>
 </table>
+<div class="loading">
+  <%= image_tag "ajax-loader.gif" %><span>Searching...</span>
+</div>
