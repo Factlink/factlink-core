@@ -70,9 +70,16 @@ gem 'canivete'
 #needed for migrations to be compatible when no sql backend is available
 gem "mongoid_rails_migrations", '0.0.13'
 
+
+# Andand is a library to handle nil more easily
+# http://andand.rubyforge.org/
+gem 'andand'
+
 # Deployment
 gem 'capistrano'
 gem 'capistrano-ext'
+
+
 
 
 group :development, :test do
