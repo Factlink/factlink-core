@@ -16,7 +16,11 @@ FactlinkUI::Application.routes.draw do
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     end
   end 
-  
+
+
+  # Static js micro templates
+  get "/template/:name" => "templates#get"
+
   # Search and infinite scrolling
   # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
   
@@ -28,8 +32,6 @@ FactlinkUI::Application.routes.draw do
   get   "/site" => "sites#facts_for_url" 
   
   # Prepare a new Fact
-  match "/factlink/prepare/new" => "facts#prepare_new"
-  match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
   post  "/factlink/create" => "facts#create", :as => "create_factlink"
