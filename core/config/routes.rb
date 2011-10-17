@@ -69,6 +69,7 @@ FactlinkUI::Application.routes.draw do
 
       member do 
         get "follow", :as => "follow"
+        get "related_users", :as => "channel_related_users"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"

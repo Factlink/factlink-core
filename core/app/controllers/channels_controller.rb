@@ -150,6 +150,10 @@ class ChannelsController < ApplicationController
     @channel.fork(current_user.graph_user)
   end
   
+  def related_users
+    @related_users = GraphUser.top(4).map { |gu| gu.user }
+  end
+  
   private
   def get_user
     if params[:username]
