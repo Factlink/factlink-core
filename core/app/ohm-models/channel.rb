@@ -1,6 +1,5 @@
 class Channel < OurOhm
   include ActivitySubject
-  include FactsToUsers
 
   attribute :title
   index :title
@@ -127,7 +126,6 @@ end
 
 class UserStream
   attr_accessor :id, :created_by, :title, :description, :facts
-  include FactsToUsers
   
   def initialize(graph_user)
     @title = "All"

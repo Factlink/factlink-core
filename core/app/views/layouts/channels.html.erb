@@ -4,14 +4,13 @@
 
 <!-- left column -->
 <%= content_for :left_column do %>
-  <%= user_block(@user) %>
-  
+  <%= render :partial => "home/snippets/user_li", :locals => { :user => @user } %>
   <%= render :partial => "channels/channels", :locals => {:user => @user } %>
 <% end %>
 
 <!-- right-column -->
 <%= content_for :right_column do %>
-
+  <%= render :partial => "channels/related_users", :locals => { :related_users => @channel.related_users } %>
 <% end %>
 
 <%= content_for :javascript do %>

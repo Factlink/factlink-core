@@ -1,0 +1,10 @@
+<% content_for :right_column do %>
+  <h1>Related users</h1>
+  <sub>Here are some of the users who interacted with facts in this channel:</sub>
+
+  <ul>
+  <% related_users.each do |related_user| %>
+  	<%= render :partial => "home/snippets/user_li", :locals => {  :user => related_user } %>
+  <% end %>
+  </ul>
+<% end %>

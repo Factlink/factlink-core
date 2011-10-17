@@ -60,6 +60,20 @@ window.AppView = Backbone.View.extend({
     views[channel_id].setLoading();
     
     if ( channel ) {
+      // Might seem a bit ugly but this method makes sure that after the two ajax
+      // calls are done, the loader is set to loaded as well.
+      var ready = (function() {
+        var count = 0;
+        
+        return function() {
+          if (++count === 2) {
+            self.setActiveChannel(channel.id);
+
+            views[channel_id].stopLoading();
+          }
+        };
+      })();
+      
       $.ajax({
         url: channel.url() + '/facts',
         method: "GET",
@@ -67,9 +81,17 @@ window.AppView = Backbone.View.extend({
           $('#main-wrapper').html(data);
           $('.fact-block').factlink();
           
-          self.setActiveChannel(channel.id);
+          ready();
+        }
+      });
+      
+      $.ajax({
+        url: channel.url() + '/related_users',
+        method: "GET",
+        success: function( data ) {
+          $('#right-column').html(data);
           
-          views[channel_id].stopLoading();
+          ready();
         }
       });
     }
