@@ -18,7 +18,8 @@ class ChannelsController < ApplicationController
     :except => [
       :index,
       :show,
-      :facts
+      :facts,
+      :related_users
       ]
 
   # GET /:username/channels
