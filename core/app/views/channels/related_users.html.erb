@@ -1,0 +1,11 @@
+<%= content_for :right_column do%>
+  <h1>Related Users Argh!</h1>
+  <p>for thou shall be related</p>
+  
+  <ul>
+  <% @related_users.each do |related_user| %>
+  	<%= user_block(related_user) %>
+  <% end %>
+  </ul>
+  
+<% end %>
