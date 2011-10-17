@@ -157,11 +157,7 @@ class ChannelsController < ApplicationController
     
     @locals = { :related_users => @channel.related_users}
     respond_to do |format|
-      if request.xhr?
-        format.html { render :template => "home/partial_renderer", :layout => "ajax" }
-      else
-        format.html
-      end
+      format.html { render :template => "home/partial_renderer", :layout => "ajax" }
     end
   end
   

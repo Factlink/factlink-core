@@ -4,8 +4,6 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 
-#require 'rubygems'
-#require 'active_record'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,6 +17,9 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/ohm-models"
 
     config.mongoid.logger = nil
+
+    autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
+
 
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
@@ -39,6 +40,7 @@ module FactlinkUI
     autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
     
     [ 
+      RelatedUsersCalculator,
       OurOhm, 
       Activity,
       ActivitySubject,
