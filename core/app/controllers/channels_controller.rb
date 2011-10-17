@@ -155,11 +155,14 @@ class ChannelsController < ApplicationController
     # @channel is fetched in load_channel
     # @related_users = @channel.related_users
     
-    @related_users = GraphUser.top(10).map { |gu| gu.user }
+    related_users = GraphUser.top(10).map { |gu| gu.user }
     
+    @partial = "channels/related_users"
+    
+    @locals = { :related_users => related_users}
     respond_to do |format|
       if request.xhr?
-        format.html { render :layout => nil }
+        format.html { render :template => "home/partial_renderer", :layout => "ajax" }
       else
         format.html
       end

@@ -120,7 +120,7 @@ class Channel < OurOhm
 end
 
 class UserStream
-  attr_accessor :id, :graph_user, :facts, :title, :description
+  attr_accessor :id, :graph_user, :facts, :title, :description, :related_users
   
   def initialize(graph_user)
     @graph_user = graph_user
@@ -129,6 +129,7 @@ class UserStream
     @id = "all"
     @description = "All facts"
     @created_by = @graph_user
+    @related_users = []
   end
   
   def get_facts
