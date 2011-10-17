@@ -153,9 +153,7 @@ class ChannelsController < ApplicationController
   
   def related_users
     # @channel is fetched in load_channel
-    # @related_users = @channel.related_users
-    
-    @related_users = GraphUser.top(10).map { |gu| gu.user }
+    @related_users = @channel.related_users
     
     respond_to do |format|
       if request.xhr?
@@ -172,6 +170,7 @@ class ChannelsController < ApplicationController
       @user = User.first(:conditions => { :username => params[:username]})
     end
   end
+  
   
   def load_channel
     if params[:id] == "all"
