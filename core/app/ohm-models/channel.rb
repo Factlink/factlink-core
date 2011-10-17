@@ -1,5 +1,12 @@
+module FactsToUsers
+  def related_users
+    GraphUser.all
+  end
+end
+
 class Channel < OurOhm
   include ActivitySubject
+  include FactsToUsers
 
   attribute :title
   index :title
@@ -120,23 +127,24 @@ class Channel < OurOhm
 end
 
 class UserStream
-  attr_accessor :id, :graph_user, :facts, :title, :description
+  attr_accessor :id, :created_by, :title, :description, :facts
+  include FactsToUsers
   
   def initialize(graph_user)
-    @graph_user = graph_user
-    @facts = self.get_facts
     @title = "All"
     @id = "all"
     @description = "All facts"
-    @created_by = @graph_user
+    @created_by = graph_user
+    @facts = self.get_facts #TODO define good as_json, but a bit to much work to do neatly before demo 18/10
   end
   
   def get_facts
-    facts = (Fact.all & @graph_user.created_facts)
-    facts = @graph_user.internal_channels.map{|ch| ch.cached_facts}.reduce(facts,:|)
-    
-    facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
+    int_facts = (Fact.all & @created_by.created_facts)
+    int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts}.reduce(int_facts,:|)
+    int_facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
   end
+  
+  alias :graph_user :created_by
   
   public
   def editable?
@@ -146,4 +154,6 @@ class UserStream
   def followable?
     false
   end
+
+  
 end
