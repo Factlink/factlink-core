@@ -7,8 +7,10 @@ class Basefact < OurOhm
   set :people_believes, GraphUser
   set :people_doubts, GraphUser
   set :people_disbelieves, GraphUser
- private :people_believes, :people_doubts, :people_disbelieves
-
+  private :people_believes, :people_doubts, :people_disbelieves
+  def interacting_users
+    return people_believes | people_doubts | people_disbelieves
+  end
 
   def validate
     assert_present :created_by

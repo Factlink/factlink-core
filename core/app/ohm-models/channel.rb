@@ -1,12 +1,5 @@
-module FactsToUsers
-  def related_users
-    GraphUser.all.map { |gu| gu.user }
-  end
-end
-
 class Channel < OurOhm
   include ActivitySubject
-  include FactsToUsers
 
   attribute :title
   index :title
@@ -110,6 +103,10 @@ class Channel < OurOhm
     activity(self.created_by,:added,channel,:to,self)
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
+  end
+
   protected
   def _add_channel(channel)
     contained_channels << channel
@@ -124,11 +121,12 @@ class Channel < OurOhm
     end
   end
 
+
+
 end
 
 class UserStream
   attr_accessor :id, :created_by, :title, :description, :facts
-  include FactsToUsers
   
   def initialize(graph_user)
     @title = "All"
@@ -155,5 +153,8 @@ class UserStream
     false
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
+  end
   
 end
