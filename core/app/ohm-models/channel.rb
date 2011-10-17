@@ -103,6 +103,10 @@ class Channel < OurOhm
     activity(self.created_by,:added,channel,:to,self)
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new)
+    calculator.related_users(facts)
+  end
+
   protected
   def _add_channel(channel)
     contained_channels << channel
@@ -117,9 +121,6 @@ class Channel < OurOhm
     end
   end
 
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
 
 
 end
