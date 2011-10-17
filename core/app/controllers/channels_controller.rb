@@ -151,7 +151,7 @@ class ChannelsController < ApplicationController
   end
   
   def related_users
-    @related_users = GraphUser.top(4).map { |gu| gu.user }
+    @related_users = GraphUser.top(10).map { |gu| gu.user }
   end
   
   private
