@@ -28,6 +28,7 @@ class GraphUser < OurOhm
 
   collection :activities, Activity, :user
   attribute :cached_authority
+  index :cached_authority
 
   def calculate_authority
     self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, element| result * element.influencing_authority})

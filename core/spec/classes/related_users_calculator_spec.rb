@@ -34,4 +34,8 @@ describe RelatedUsersCalculator do
   it "should work with a list of facts without interacting users" do
     subject.related_users([f4,f5]).to_a.should =~ []
   end
+  it "should work with a list of facts without interacting users and with " do
+    subject.related_users([f1,f5]).to_a.should =~ [u1]
+    subject.related_users([f5,f1]).to_a.should =~ [u1]
+  end
 end
