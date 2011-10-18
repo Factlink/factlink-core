@@ -140,9 +140,7 @@
     } else {
       Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
         function(factId) {
-          console.info( "Ready to call successFn callback" );
           if ($.isFunction(callback)) {
-            console.info( "calling" );
             callback(factId);
           }
         });
