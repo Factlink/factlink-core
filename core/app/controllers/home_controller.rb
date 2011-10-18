@@ -2,6 +2,15 @@ class HomeController < ApplicationController
 
   layout "frontend"
 
+  def db1 
+    render "templates/create", :layout => nil
+  end
+
+  def db2
+    render "templates/indicator", :layout => nil
+  end
+  
+  
   helper_method :sort_column, :sort_direction
 
   def index

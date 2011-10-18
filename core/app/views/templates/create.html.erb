@@ -1,7 +1,14 @@
-<div id="fl-balloon-container"> 
-  <div id="fl-balloon" class="top">
+<!-- <html> -->
+<!-- <head> -->
+<%#= stylesheet_link_tag("#{FactlinkUI::Application.config.static_url}lib/src/css/basic.css") %>
+<!-- </head> -->
+
+<!-- <body> -->
+<div id="fl-prepare">
+<div class="fl-balloon-container"> 
+  <div class="fl-balloon top">
     <!-- <div class="fl-share">
-      <img class="fl-share-icon" src="bookmark.gif" alt="Share">
+      <img class="fl-share-icon" src="images/bookmark.gif" alt="Share">
     </div> -->
 
     <div class="fl-labels">
@@ -13,7 +20,7 @@
      </div>
 
       <div id="fl-balloon-popup">
-        <ul id="default">
+        <ul class="default">
           <li class="first"><span><a href="#" id="beliefs">Agree</a></span></li>
           <li><span><a href="#" id="doubts">Not sure</a></span></li>
           <li><span><a href="#" id="disbeliefs">Disagree</a></span></li>
@@ -21,7 +28,10 @@
       </div>
    </div>
 
-     <div id="fl-balloon-arrow-border"></div>
-     <div id="fl-balloon-arrow"></div>
+     <div class="fl-balloon-arrow-border"></div>
+     <div class="fl-balloon-arrow"></div>
   </div>
 </div>
+</div>
+<!-- </body> -->
+<!-- </html> -->
