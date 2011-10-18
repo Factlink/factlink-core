@@ -8,7 +8,7 @@
       <td>
         <% if opinion_a[index] %>
           <%= link_to(
-            image_tag(opinion_a[index].user.avatar, :size => "24x24", :title => "#{opinion_a[index].user.username} (#{opinion_a[index].authority})"),
+            image_tag(opinion_a[index].user.avatar, :size => "24x24", :title => "#{opinion_a[index].user.username} (#{opinion_a[index].rounded_authority})"),
             user_profile_path(opinion_a[index].user.username), :target => "_top"
           )%>
         <% end %>

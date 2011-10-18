@@ -11,13 +11,15 @@ class ChannelsController < ApplicationController
       :edit,
       :destroy,
       :update,
-      :facts]
+      :facts,
+      :related_users]
   
   before_filter :authenticate_user!,
     :except => [
       :index,
       :show,
-      :facts
+      :facts,
+      :related_users
       ]
 
   # GET /:username/channels
@@ -150,12 +152,23 @@ class ChannelsController < ApplicationController
     @channel.fork(current_user.graph_user)
   end
   
+  def related_users
+    # @channel is fetched in load_channel    
+    @partial = "channels/related_users"
+    
+    @locals = { :related_users => @channel.related_users.andand.map{|x| x.user }}
+    respond_to do |format|
+      format.html { render :template => "home/partial_renderer", :layout => "ajax" }
+    end
+  end
+  
   private
   def get_user
     if params[:username]
       @user = User.first(:conditions => { :username => params[:username]})
     end
   end
+  
   
   def load_channel
     if params[:id] == "all"

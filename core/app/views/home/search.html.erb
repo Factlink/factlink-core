@@ -1,5 +1,4 @@
 <% content_for :javascript do %>
-  <%= javascript_include_tag("jquery.infiniScroll") %>
   <%= javascript_include_tag("factlink_overview") %>
 	<% if @results.count < @row_count %>
 	  <script type="text/javascript">
@@ -14,7 +13,7 @@
 
 
 <% content_for :left_column do %>
-	<%= user_signed_in? ? user_block(current_user) : "&nbsp;".html_safe %>
+	<%= user_signed_in? ? render :partial => "home/snippets/user_li", :locals => { :user => current_user } : "&nbsp;".html_safe %>
 
 <% end %>
 

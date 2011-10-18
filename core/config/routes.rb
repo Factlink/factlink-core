@@ -4,22 +4,25 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # User Authentication
-  devise_for :admins
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
   ##########
   # Resources
   resources :facts do
-    member do 
+    member do
+      # TODO Refactor to use this opinion route
+      # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     end
   end 
-  
+
+
+  # Static js micro templates
+  get "/templates/:name" => "templates#get"
+
   # Search and infinite scrolling
-  # match "/search(/page/:page)(/:sort/:direction)" => "facts#search", :as => "factlink_overview"
-  
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
     
   ##########
@@ -28,8 +31,6 @@ FactlinkUI::Application.routes.draw do
   get   "/site" => "sites#facts_for_url" 
   
   # Prepare a new Fact
-  match "/factlink/prepare/new" => "facts#prepare_new"
-  match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
   post  "/factlink/create" => "facts#create", :as => "create_factlink"
@@ -53,14 +54,7 @@ FactlinkUI::Application.routes.draw do
   post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
   delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
 
-  # Template shown when user hovers a Fact
-  get "/factlink/indication" => "facts#indication"
-  
-  # Fact bubble
-  # delete "/fact/:id" => "facts#destroy", :as => "fact"
-  
-  
-  ##########
+ ##########
   # Web Front-end
   root :to => "home#index"
 
@@ -76,6 +70,7 @@ FactlinkUI::Application.routes.draw do
 
       member do 
         get "follow", :as => "follow"
+        get "related_users", :as => "channel_related_users"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"

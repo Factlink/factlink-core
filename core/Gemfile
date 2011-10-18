@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 # Defaults
 gem 'rails', '3.0.5'
+gem 'activerecord', '3.0.5'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # system_timer is only needed in ruby 1.8.*
@@ -69,9 +70,16 @@ gem 'canivete'
 #needed for migrations to be compatible when no sql backend is available
 gem "mongoid_rails_migrations", '0.0.13'
 
+
+# Andand is a library to handle nil more easily
+# http://andand.rubyforge.org/
+gem 'andand'
+
 # Deployment
 gem 'capistrano'
 gem 'capistrano-ext'
+
+
 
 
 group :development, :test do

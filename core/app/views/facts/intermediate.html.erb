@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="<%= FactlinkUI::Application.config.static_url %>lib/dist/easyXDM/easyXDM.min.js"></script>
+	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
+	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}lib/dist/easyXDM/easyXDM.min.js" %>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -45,48 +46,28 @@
 	<iframe src="" name="frame" id="frame"></iframe>
 	
 	<script type="text/javascript">
-    // The form
-    // The form 
-    var form = document.getElementById("form"),
-        // The iFrame 
+    var // The iFrame 
         showFrame = document.getElementById("frame"),
         // The global remote object 
-        remote = new easyXDM.Rpc({
-          swf: "/client/easyXDM/src/easyxdm.swf"
-        }, {
+        remote = new easyXDM.Rpc({}, {
           remote: {
             hide: {},
             show: {},
             highlightNewFactlink: {},
-            stopHighlightingFactlink: {},
-            addEvidence: {},
-            createFactlink: {}
+            stopHighlightingFactlink: {}
           },
           local: {
+            // DEPRECATED
             createEvidence: function(evidence_id, url, type, title) {
               document.getElementById("evidence_id").value = evidence_id;
               document.getElementById("url").value = url;
               document.getElementById("title").value = title;
               addEvidence(type);
             },
+            // DEPRECATED
             createNewEvidence: function(fact, passage, url, type, title) {
               prepareFactlink(fact, passage, url, title);
               addEvidence(type);
-            },
-            createFactlink: function(fact, passage, url, title, opinion, successFn, errorFn) {
-              prepareFactlink(fact, passage, url, title, opinion);
-
-              showFrame.onload = function() {
-                if (showFrame.contentWindow.fact_id !== undefined) {
-                  successFn(showFrame.contentWindow.fact_id);
-
-                  showFrame.onload = undefined;
-                } else {
-                  console.info("Need to login first");
-                }
-              };
-
-              createFactlink();
             },
             showFactlink: function(id, showEvidence, successFn) {
               showFrame.onload = function() {
@@ -95,7 +76,7 @@
               };
               
               if ( ( showEvidence === undefined ) || ( showEvidence === false ) ) {
-                showEvidence = false
+                showEvidence = false;
               } else {
                 showEvidence = true;
               }
@@ -113,12 +94,47 @@
                   showFrame.contentWindow.position(top, left);
                 };
               }
+            },
+            //easyXDM does not support passing functions wrapped in objects (such as options in this case)
+            // so therefore we need this workaround
+            ajax: function(path, options, successFn, errorFn) {
+              ajax(path, $.extend({
+                success: function eminem(data){
+                  console.info('SUCCESS : ' + path );
+                  successFn(data);
+                },
+                error: function vanillaIce(data) {
+                  console.info('SUCCESS : ' + path );
+                  errorFn(data);
+                }
+              }, options))
             }
           }
         });
-
-    function createFactlink() {
-      form.submit();
+    
+    function ajax(path, options) {
+      $.ajax(path, $.extend({
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+      }, options));
+    }
+    
+    $(document).ajaxError(function(e, xhr, status, err) {
+      if (xhr.status === 401) {
+        openLoginWindow();
+      }
+    });
+    
+    function openLoginWindow() {
+      alert("Please login to Factlink.");
+    }
+    
+    function getTopIntermediatePage() {
+      var proxiedPage = parent;
+      var proxyContainer = proxiedPage.parent;
+      var showFactlinkContainer = proxyContainer.parent;
+      return showFactlinkContainer.parent; //(same source as current page)
     }
 
     function prepareFactlink(fact, passage, url, title, opinion) {
@@ -135,20 +151,16 @@
     // Add to an existing Factlink 
     function addEvidence(type) {
       var evidence_id = document.getElementById("evidence_id").value;
-
-      var proxied_page = parent;
-      var proxy_container = proxied_page.parent;
-      var show_factlink_container = proxy_container.parent;
-      var top_intermediate_page = show_factlink_container.parent; //(same source as current page) 
+      
       if (evidence_id.length > 0) {
-        top_intermediate_page.submitEvidenceToShowFrame(type, evidence_id);
+        getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
       } else {
         var fact = document.getElementById("fact").value;
         var passage = document.getElementById("passage").value;
         var url = document.getElementById("url").value;
         var title = document.getElementById("title").value;
 
-        top_intermediate_page.submitNewEvidenceToShowFrame(type, fact, passage, url, title);
+        getTopIntermediatePage().submitNewEvidenceToShowFrame(type, fact, passage, url, title);
       }
     }
 

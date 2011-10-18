@@ -10,12 +10,10 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show,
-      :prepare_new,
-      :prepare_evidence, 
       :intermediate, 
-      :search, 
-      :indication]
-                                               
+      :search,
+      :indicator]
+
   before_filter :load_fact, 
     :only => [
       :show,
@@ -26,7 +24,6 @@ class FactsController < ApplicationController
       :opinion,
       :evidence_search,
       :evidenced_search]
-                                                        
   before_filter :potential_evidence, 
     :only => [
       :show,
@@ -44,12 +41,23 @@ class FactsController < ApplicationController
     end
   end
 
+
+  def index
+    respond_to do |format|
+      format.json { render :json => Fact.all }
+     end
+  end
+
   def show
     @title = @fact.data.displaystring # The html <title>
     if params[:showevidence] == "true"
       @showEvidence = true
     else
       @showEvidence = false
+    end
+    respond_to do |format|
+      format.json { render :json => @fact }
+      format.html
     end
   end
 
@@ -64,16 +72,6 @@ class FactsController < ApplicationController
     render :partial => "facts/partial/fact_bubble", 
 	            :locals => {  :fact => @fact }
   end
-
-  # Prepare for create
-  def prepare_new
-    render :template => 'facts/javascript/prepare_new.js.erb', :content_type => "application/javascript"
-  end
-  
-  def prepare_evidence
-    render :template => 'facts/javascript/prepare_evidence.js.erb', :content_type => "application/javascript"
-  end
-
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
@@ -89,12 +87,15 @@ class FactsController < ApplicationController
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
     
-    if params[:opinion]
+    if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
       @fact.calculate_opinion(1)
     end
     
-    redirect_to :action => "edit", :id => @fact.id
+    respond_to do |format|
+      format.json { render :json => @fact }
+      format.html { redirect_to :action => "edit", :id => @fact.id }
+    end
   end
 
   def create_fact_as_evidence
@@ -197,7 +198,7 @@ class FactsController < ApplicationController
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion(2).as_percentages }
+    render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript" 
   end
 
 
@@ -215,13 +216,6 @@ class FactsController < ApplicationController
     @fact.calculate_opinion(2)
     render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
   end
-
-
-
-
-
-
-
 
   def evidenced_search
     potential_evidenced
@@ -263,13 +257,7 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
   end
   
-  def indication
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  private
+ private
   def sort_column # private
     FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
