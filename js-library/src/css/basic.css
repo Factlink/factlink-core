@@ -285,15 +285,19 @@ div.fl-popup .button:active {
   float: right;
   margin-top: 2px;
   padding-right: 4px;
+  width: 17px;
+  height: 21px;
+  background-repeat: none;
+  background-color: transparent;
 }
 #fl-balloon .fl-labels .fl-label .icon.believe {
-  background-position: 1px 0px;
+  background-position: 1px 0px !important;
 }
 #fl-balloon .fl-labels .fl-label .icon.disbelieve {
-  background-position: 41px 0px;
+  background-position: 41px 0px !important;
 }
 #fl-balloon .fl-labels .fl-label .icon.doubt {
-  background-position: 21px 0px;
+  background-position: 21px 0px !important;
 }
 #fl-balloon .fl-labels .fl-label  > span {
   background: transparent;
