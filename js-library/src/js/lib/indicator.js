@@ -127,8 +127,8 @@ var stopShowingIndicator = function(e,factId,orig_e) {
     Factlink.Indicator.hide();
 };
 
-$(window).bind("factlink:factHighlighted", showIndicator);gi
-$(window).bind("factlink:factUnhighlighted",stopShowingIndicator);
+$(window).bind("factlink:factHighlighted", showIndicator)
+         .bind("factlink:factUnhighlighted",stopShowingIndicator);
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
 
