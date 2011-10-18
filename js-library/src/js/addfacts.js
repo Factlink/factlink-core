@@ -10,7 +10,7 @@
       el.parentNode.removeChild(el);
     }
 
-    Factlink.submitSelection(opinion);
+    Factlink.createFactFromSelection(opinion);
   } else {
     // Store arguments object so we can use from the setTimeout and loadFactlink
     var arg = arguments;

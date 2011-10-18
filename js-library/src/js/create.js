@@ -6,17 +6,13 @@
   // Load the needed prepare menu & put it in a container
   var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
-  switch(FactlinkConfig.modus) {
-    case 'addToFact':
-        templateUrl = '//' + FactlinkConfig.api + "/template/addToFact.html";
-        loadTemplate(templateUrl);
-      break;
-    
-    default:
-      templateUrl = '//' + FactlinkConfig.api + "/template/create.html";
-      loadTemplate(templateUrl);
+  if (FactlinkConfig.modus === 'addToFact') {
+    templateUrl = '//' + FactlinkConfig.api + "/template/addToFact.html";
+    loadTemplate(templateUrl);
+  } else {
+    templateUrl = '//' + FactlinkConfig.api + "/template/create.html";
+    loadTemplate(templateUrl);
   }
-
 
   function loadTemplate(url) { 
     var template; 
@@ -77,36 +73,6 @@
   }
 
 
-
-  // function bindPrepareClick($element) {
-  //   $element.find('.fl-action').bind('mouseup', function(e) {
-  //     e.stopPropagation();
-  //   }).bind('click', function(e) {
-  //     e.preventDefault();
-
-  //     var active = $element.find(".fl-label:visible").data("label");
-  //     switch(active) {
-  //       case 'create': // Create a new factlink
-  //         Factlink.submitSelection(e.currentTarget.id, function(factId) {
-  //           $element.trigger("factlink:switchLabel", ["create", "created"]);
-  //           $(this).data("factid", factId);
-  //           // setTimeout(function() { 
-  //           //   $element.trigger("factlink:switchLabel", ["created", "show"]);
-  //           // }, 2000);
-  //         });
-  //        break;
-  //       case 'created': // Add evidence to just created fact
-  //         Factlink.showInfo(el=this, showEvidence=true);
-  //         break;
-  //       case 'show': // Show existing fact
-  //         break;
-  //       default:
-  //         // code
-  //     }
-  //   });
-  // }
-
-
   function showFactAddedPopup(factId, x, y) {
     // Create `add evidence` popup after succesful addition of the fact.            
     var popup = $('<div/>').addClass('fl-popup').html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>").appendTo("body");
@@ -162,24 +128,48 @@
   }
 
   Factlink.submitSelection = function(opinion, callback) {
-    var selInfo = Factlink.getSelectionInfo();
-    switch(FactlinkConfig.modus) {
-      case 'addToFact':
-        if (Factlink.prepare.factId) {
-            Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
-        } else {
-            Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
-        }
-        break;
-      default:
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-      function(factId) {
-          if ($.isFunction(callback)) {
-              callback(factId);
-          }
-      });
+    if (FactlinkConfig.modus === "addToFact") {
+      Factlink.createEvidenceFromSelection(opinion,callback);
+    } else {
+      Factlink.createFactFromSelection(opinion,callback);
     }
-  }
+  };
+  
+  Factlink.createEvidenceFromSelection = function(opinion, callback){
+    var selInfo = Factlink.getSelectionInfo();
+    if (Factlink.prepare.factId) {
+        Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+    } else {
+        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+    }
+  };
+  
+  Factlink.createFactFromSelection = function(opinion, callback){
+    var selInfo = Factlink.getSelectionInfo();
+    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+      function(factId) {
+        if ($.isFunction(callback)) {
+          callback(factId);
+        }
+      });
+  };
+  
+  Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
+    Factlink.post("/facts.json", {
+      data: {
+        fact: fact,
+        passage: passage,
+        opinion: opinion,
+        title: title,
+        url: url
+      },
+      success: function(data) {
+        Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        successFn(data.id);
+      },
+      error: errorFn
+    });
+  };
 
 
   // We make this a global function so it can be used for direct adding of facts
