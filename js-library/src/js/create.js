@@ -130,21 +130,30 @@
   }
 
   Factlink.submitSelection = function(opinion, callback) {
-    var selInfo = Factlink.getSelectionInfo();
     if (FactlinkConfig.modus === "addToFact") {
-      if (Factlink.prepare.factId) {
-          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
-      } else {
-          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
-      }
+      Factlink.createEvidenceFromSelection(opinion,callback);
     } else {
-      Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-        function(factId) {
-          if ($.isFunction(callback)) {
-            callback(factId);
-          }
-        });
+      Factlink.createFactFromSelection(opinion,callback);
     }
+  };
+  
+  Factlink.createEvidenceFromSelection = function(opinion, callback){
+    var selInfo = Factlink.getSelectionInfo();
+    if (Factlink.prepare.factId) {
+        Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+    } else {
+        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+    }
+  };
+  
+  Factlink.createFactFromSelection = function(opinion, callback){
+    var selInfo = Factlink.getSelectionInfo();
+    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+      function(factId) {
+        if ($.isFunction(callback)) {
+          callback(factId);
+        }
+      });
   };
   
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
