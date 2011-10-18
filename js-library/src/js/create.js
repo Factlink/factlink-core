@@ -58,12 +58,18 @@
 
 
   function bindPrepareClick($element) {
+    if (FactlinkConfig.modus === "addToFact") {
+      var createFact = Factlink.createEvidenceFromSelection
+    } else {
+      var createFact = Factlink.createFactFromSelection
+    }
+    
     $element.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
 
-      Factlink.submitSelection(e.currentTarget.id, function(factId) {
+      createFact(e.currentTarget.id, function(factId) {
         showFactAddedPopup(factId, e.pageX, e.pageY);
       });
 
@@ -123,18 +129,6 @@
     return d;
   }
 
-  function getTitle() {
-    return document.title;
-  }
-
-  Factlink.submitSelection = function(opinion, callback) {
-    if (FactlinkConfig.modus === "addToFact") {
-      Factlink.createEvidenceFromSelection(opinion,callback);
-    } else {
-      Factlink.createFactFromSelection(opinion,callback);
-    }
-  };
-  
   Factlink.createEvidenceFromSelection = function(opinion, callback){
     var selInfo = Factlink.getSelectionInfo();
     if (Factlink.prepare.factId) {
@@ -178,12 +172,11 @@
     // Get the selection object
     var selection = getTextRange();
 
-    var title = getTitle();
     //TODO: Add passage detection here
     return {
       text: selection.toString(),
       passage: "",
-      title: title
+      title: document.title
     };
   };
 
