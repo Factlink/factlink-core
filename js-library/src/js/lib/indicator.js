@@ -2,8 +2,9 @@
     
 // Indicator object which will manage the indicator which shows some basic info  
 // of each Factlink 
-var template;
-  
+var template,
+    $indicator = $('<div />').attr('id', 'fl-indicator').appendTo("body"); 
+
 Factlink.Indicator = (function() { 
     // By default the element object is undefined 
     var el, 
@@ -14,9 +15,7 @@ Factlink.Indicator = (function() {
         // Current shown Factlink 
         currentId, 
         // Position of the indication 
-        x, y,
-        $indicator = $('<div />').attr('id', 'fl-indicator').appendTo("body"); 
-     
+        x, y; 
     return { 
         // Makes the indicator show for the Factlink with id ID 
         showFor: function( id, x_in, y_in ) { 
@@ -36,7 +35,6 @@ Factlink.Indicator = (function() {
                                         {'percentage': data.opinions.disbelieve.percentage, 'name' : 'disbelieve'} ]};
               ops.highestOpinion =  _.max(ops.opinions, function(op) { return op.percentage } );
               $indicator.html(template(ops));
-              Factlink.Indicator.bindEvents($indicator);
             }
             });
 
@@ -109,6 +107,7 @@ $.ajax({
   success: function( data ) { 
     // Sets the global underscore template, gets updated on hover
     template = _.template(data); 
+    Factlink.Indicator.bindEvents($indicator);
   } 
 });
 
