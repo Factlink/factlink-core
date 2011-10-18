@@ -26,6 +26,7 @@ GETFACTS = ${SRC_DIR}/js/getfacts.js
 ADDFACTS = ${SRC_DIR}/js/addfacts.js
 
 FL_VER = $(shell cat version.txt)
+
 VER = sed "s/@VERSION/${FL_VER}/"
 
 FACTLINK_TMP = ${DIST_DIR}/factlink-tmp.js
@@ -51,7 +52,7 @@ ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 
 	@@cat ${MODULES} | \
 		sed 's/.function.Factlink..\$..\_..easyXDM...//' | \
-		sed sed 's/...window\.Factlink..Factlink\.\$..Factlink\.\_..Factlink\.easyXDM..//' | \
+		sed 's/...window\.Factlink..Factlink\.\$..Factlink\.\_..Factlink\.easyXDM..//' | \
 		sed 's/@DATE/'"${DATE}"'/' | \
 		${VER} > ${FACTLINK_TMP};
 

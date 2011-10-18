@@ -16,7 +16,7 @@ Factlink.Indicator = (function() {
      
     return { 
         // Makes the indicator show for the Factlink with id ID 
-        showFor: function( id, x_in, y_in) { 
+        showFor: function( id, x_in, y_in ) { 
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
              
@@ -42,7 +42,7 @@ Factlink.Indicator = (function() {
             }
             
             if ( id !== currentId ) { 
-                x = x_in + 10;
+                x = x_in - 20;
                 y = y_in - el.outerHeight(true) - 10; 
             } 
  
@@ -115,7 +115,11 @@ $.ajax({
   dataType: 'jsonp', 
   jsonp: 'Factlink.Indicator.insertCallback',
   crossDomain: true, 
-  url: window.location.protocol + '//' + FactlinkConfig.api + '/factlink/indication.js?callback=Factlink.Indicator.insertCallback', 
+  url: '//' + FactlinkConfig.api + '/template/indicator.html', 
+  success: function( data ) { 
+    var template = _.template(data);
+    Factlink.Indicator.setElement( $(template()).attr('id','fl-indicator').appendTo('body') ); 
+  } 
 });
 
 
@@ -131,3 +135,4 @@ $(window).bind("factlink:factHighlighted", showIndicator);
 $(window).bind("factlink:factUnhighlighted",stopShowingIndicator);
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+

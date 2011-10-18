@@ -1,26 +1,15 @@
-/*---------------------------------------------------
-		Some LESS Elements 0.5
-	---------------------------------------------------
-		A set of useful LESS mixins by Dmitry Fadeyev
-		Special thanks for mixin suggestions to:
-			Kris Van Herzeele,
-			Benoit Adam,
-			Portenart Emile-Victor
-			
-		More info at: http://lesselements.com
------------------------------------------------------*/
-.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
-	background: @color;
-	background: -webkit-gradient(linear,
-	    												 left bottom,
-	    												 left top,
-	    												 color-stop(0, @start),
-	    												 color-stop(1 ,@stop));
-	background: -moz-linear-gradient(center bottom,
-	    														 @start 0%,
-	    														 @stop 100%);
-}
-/*-----------------------------------------------------*/
+@import "reset.less";
+@import "elements.less";
+
+/* Actual styles start */ 
+@z-index : 2147483644; 
+@hover-color: darken(rgb(240,240,240), 10);
+@bg-color-stop: #FbFbFb;
+@bg-color: #e2e2e2;
+@popup-width: 100px;
+@popup-height: 24px;
+@border-color: #a8a8a8;
+@border-hover-color: #1d8cc8;
 
 span.factlink {
   cursor: pointer;
@@ -36,10 +25,10 @@ span.factlink {
   -webkit-transition: all 0.4s ease-in-out;
 }
 
-div#factlink-modal-frame {
+#factlink-modal-frame {
   background: transparent;
   border: none;
-  z-index: 2147483647;
+  z-index: @z-index + 2;
   display: none;
   padding: 0;
   margin: 0;
@@ -56,71 +45,41 @@ div#factlink-modal-frame {
   }
 
 }
-
-div#factlink-indicator {
-  
+#fl-prepare { 
+  display: none;
+}
+#fl-indicator,
+div.fl-popup,
+#fl-prepare,
+#fl-balloon-container,
+#fl-balloon-popup {
+  #fl > .reset;
   .popup-style;
-  
+}
+
+
+#fl-indicator {
   display: none;
   position: absolute;
-/*  top: 200px;*/
-/*  left: 200px;*/
-
   cursor: pointer;
-
-  height: 40px;
-  width: 40px;
-
-  padding: 4px 4px 12px;
-/*  padding: 5px 4px;*/
-/*  margin: 10px;*/
-
-  div.icon {
-    margin: 0 0 0 4px;
-  }
-  
-  div.authority-wrapper {
-    padding: 2px 0 0 6px;
-    span.centered {
-      margin: 0 auto;
-      span.authority {
-        color: #888;
-      }
-      img {
-        height: 10px;
-      }
-    }
-  }
 }
 
-.popup-style {
-  z-index : 2147483647;
-  background: #fff;
-  margin: 0;
-	padding: 0;
-	border: 0;
-	border-radius: 5px;
-	border-top: 1px solid #d8d8d8;
-	font-size: 9pt;
-	font-family: "Helvetica", Arial, sans-serif;
-	vertical-align: baseline;
-	box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);  
-}
+
 
 div.fl-popup {
-  .popup-style;
   
   text-align: center;
   padding: 4px;
   line-height: 24px;
-  
+  width: 96px;
   .button {
     .gradient(#F5F5F5, #45bf55, #93ec87); 
     display: block;
     padding: 0px 6px;
     border: solid 1px #45bf55;
     border-radius: 2px;
-    
+    width: 82px;
+    color: #000;
     line-height: 24px;
     
     text-shadow: 0px 1px 1px #fff;
@@ -138,82 +97,216 @@ div.fl-popup {
   }
 }
 
-div#fl-prepare {
-  .popup-style;
-
-  display: none;
+.popup-style {
+  z-index : @z-index;
+  background: #fff;
+  margin: 0;
+	padding: 0;
+  .rounded(5px);
+	border-top: 1px solid #d8d8d8;
+	font-size: 12px;
+	font-family: "Helvetica", Arial, sans-serif;
+	box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);  
   
-  ul {
-    color: #000;
-    list-style: none;
-    margin: 0;
-  	padding: 0;
-  	border: 0;
-  	font-size: 100%;
-  	font: inherit;
-  	vertical-align: baseline;
-  	font-family: "Helvetica", Arial, sans-serif;
-    
-    li {      
-      position: relative;
-      white-space: nowrap;
-      margin: 0;
-    	border: 0;
-    	vertical-align: baseline;
-      padding: 2px 0px;
-      cursor: pointer;
-      font-family: "Helvetica", Arial, sans-serif;
-      font-size: 9pt;
-      
-      &.first {
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+}
+
+#fl-balloon-container { 
+  position: relative;
+  width: @popup-width;
+  height: @popup-height;
+  &.active { 
+    .transition(ease-out, 0.10s);
+    margin-top: -5px;  
+  }
+} 
+#fl-balloon {
+  z-index: @z-index;
+  border: 2px solid @border-color;
+  .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
+  margin-top: -2px;
+  position:relative;
+  width: @popup-width;
+  height: @popup-height;
+ .rounded(3px);
+
+  /* div.fl-share { */
+  /*   float: left;*/
+  /*   width: 15px;*/
+  /*   height: 100%;*/
+  /*   padding: 4px 3px 3px 3px;*/
+  /*   border-color: @border-color;*/
+  /*   border-right: 1px solid;*/
+  /*   img.fl-share-icon { */
+  /*     padding: 2px 3px 2px 3px;*/
+  /*   }*/
+  /*   &:hover { */
+  /*     border-color: @border-hover-color; */
+  /*     background-color: fadeout(darken(@bg-color, 10),10);*/
+  /*   }*/
+  /* }*/
+
+  .fl-labels { 
+    .fl-label { 
+      padding:0px 2px 2px 2px;
+      height: @popup-height;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+      color: #111;
+      text-align: center;
+      background: transparent;
+      font-size: 12px;
+
+      .fl-label-text { 
+        background: transparent;
+        padding: 6px;
       }
-      
-      &.last {
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+      .icon { 
+        float: right;
+        margin-top: 2px;
+        padding-right: 4px;
       }
-      
-      &>span>a {
-        margin: 0;
-      	border: 0;
-      	font-size: 100%;
-      	font: inherit;
-      	vertical-align: baseline;
-        padding: 2px 18px;
-        line-height: 14px;
-        display: block;
-        border-radius: 1px;
-        font-family: "Helvetica", Arial, sans-serif;
-        
-        &:hover,
-        &.test {
-          border-top: solid 1px #5853EA;
-          padding: 1px 18px 2px;
-          background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, rgb(96,93,245)), color-stop(0, rgb(54,0,230)) );
-          color: #fff;
+
+      & > span {
+        background: transparent;
+        display: inline-block;
+        .authority { 
+          float: right;
+          color: rgb(160,160,160);
+          margin-right: -20px;
+          font-size: 8pt;
+          margin-top: 1px;
         }
       }
-      
-      a {
-        color: #000;
-        text-decoration: none;
-        font-family: "Helvetica", Arial, sans-serif;
+    } 
+  }
+
+
+  #fl-balloon-arrow-border,
+  #fl-balloon-arrow {
+    border-style: solid;
+    border-width: 11px;
+    height:0;
+    width:0;
+    position:absolute;
+  }
+  @arrow-left: 14px;
+
+  &.bottom { 
+    @arrow-top: -19px;
+    #fl-balloon-arrow-border {
+      border-color: @border-color transparent transparent transparent;
+      bottom: @arrow-top - 3px;
+      left: @arrow-left;
+    }
+    #fl-balloon-arrow {
+      border-color: @bg-color transparent transparent transparent;
+      bottom: @arrow-top;
+      left: @arrow-left;
+    }
+    &:hover { 
+      #fl-balloon-arrow {
+        border-color: @bg-color transparent transparent transparent;
       }
-      
-      img {
-        margin: 0 2px 0 0;
-      	padding: 0;
-      	border: 0;
-      	font-size: 100%;
-      	font: inherit;
-      	vertical-align: baseline;
-        position: relative;
-        top: 3px;
-        display: inline;
+      #fl-balloon-arrow-border { 
+        border-color:  @border-hover-color transparent transparent transparent;
+      }
+    } 
+  }
+
+  &.top { 
+    @arrow-top: @popup-height ;
+    #fl-balloon-arrow-border {
+      border-color: transparent transparent  @border-color transparent;
+      bottom: @arrow-top ;
+      left: @arrow-left;
+    }
+    #fl-balloon-arrow {
+      border-color: transparent transparent @bg-color-stop  transparent ;
+      bottom: @arrow-top - 3;
+      left: @arrow-left;
+    }
+    &:hover { 
+      #fl-balloon-arrow {
+        border-color: transparent transparent @bg-color-stop  transparent ;
+      }
+      #fl-balloon-arrow-border { 
+        border-color: transparent transparent  @border-hover-color transparent;
+      } 
+    }
+  }
+  &:hover { 
+    border-color:  @border-hover-color;
+    cursor: pointer;
+  }
+}
+
+
+.fl-menu() { 
+  color: #000;
+  list-style: none;
+
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  li {      
+    position: relative;
+    white-space: nowrap;
+    vertical-align: baseline;
+    padding: 2px 0px;
+    cursor: pointer;
+    font-size: 9pt;
+    
+    &.first {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+    
+    &.last {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    &>span>a {
+
+      padding: 2px 18px;
+      line-height: 14px;
+      display: block;
+      border-radius: 1px;
+     
+      &:hover {
+        border-top: solid 1px #5853EA;
+        padding: 1px 18px 2px;
+        .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
+        color: #fff;
       }
     }
   }
 }
 
+#fl-prepare #addToFact { 
+    & { .fl-menu(); }
+}
+
+#fl-balloon-popup {
+
+  * { 
+    font-family: inherit !important; 
+  }
+
+  display: none;
+  width: 86px;
+  position: absolute;
+  left: @popup-width  - 5px;
+  top: 5px;
+  z-index: @z-index + 1;
+  text-align: left;
+  border: 2px solid @border-color;	  
+  padding: 0px;
+  line-height: 24px;
+  ul { 
+    .fl-menu();
+  }
+}

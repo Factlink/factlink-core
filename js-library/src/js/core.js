@@ -7,6 +7,11 @@ var Factlink = window.Factlink = (function() {
   Factlink._ = window._.noConflict();
   Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
   
+  Factlink._.templateSettings = {
+    interpolate : /\{%\=(.+?)%\}/g,
+    evaluate : /\{%(.+?)%\}/g
+  };
+
   try {
     if ( typeof global === "undefined" && global !== window.global ) {
       global.$ = Factlink.$;

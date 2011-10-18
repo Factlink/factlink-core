@@ -1,16 +1,44 @@
+#fl .resetStyles {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+}
 /*---------------------------------------------------
-		Some LESS Elements 0.5
-	---------------------------------------------------
-		A set of useful LESS mixins by Dmitry Fadeyev
-		Special thanks for mixin suggestions to:
-			Kris Van Herzeele,
-			Benoit Adam,
-			Portenart Emile-Victor
-			
-		More info at: http://lesselements.com
+    LESS Elements 0.6
+  ---------------------------------------------------
+    A set of useful LESS mixins by Dmitry Fadeyev
+    Special thanks for mixin suggestions to:
+      Kris Van Herzeele,
+      Benoit Adam,
+      Portenart Emile-Victor,
+      Ryan Faerman
+
+    More info at: http://lesselements.com
 -----------------------------------------------------*/
-/*-----------------------------------------------------*/
-span.factlink {
+/* Actual styles start */span.factlink {
   cursor: pointer;
   -webkit-transition: all 0.4s ease-in-out;
 }
@@ -20,10 +48,10 @@ span.factlink.fl-first {
 span.factlink.fl-active {
   background: #B4D5FE !important;
 }
-div#factlink-modal-frame {
+#factlink-modal-frame {
   background: transparent;
   border: none;
-  z-index: 2147483647;
+  z-index: 2147483646;
   display: none;
   padding: 0;
   margin: 0;
@@ -33,90 +61,124 @@ div#factlink-modal-frame {
   top: 0;
   left: 0;
 }
-div#factlink-modal-frame iframe {
+#factlink-modal-frame iframe {
   border: none;
   height: 100%;
   width: 100%;
 }
-div#factlink-indicator {
-  z-index: 2147483647;
+#fl-prepare {
+  display: none;
+}
+#fl-indicator,
+div.fl-popup,
+#fl-prepare,
+#fl-balloon-container,
+#fl-balloon-popup {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  z-index: 2147483644;
   background: #fff;
   margin: 0;
   padding: 0;
-  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
+  font-size: 12px;
   font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
+}
+#fl-indicator *,
+div.fl-popup *,
+#fl-prepare *,
+#fl-balloon-container *,
+#fl-balloon-popup *,
+#fl-indicator * *,
+div.fl-popup * *,
+#fl-prepare * *,
+#fl-balloon-container * *,
+#fl-balloon-popup * *,
+#fl-indicator * *,
+div.fl-popup * *,
+#fl-prepare * *,
+#fl-balloon-container * *,
+#fl-balloon-popup * * {
+  margin: 0;
+  padding: 0;
+  /* background-color: #fff;*/
+
+  background-image: none ;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+}
+#fl-indicator {
   display: none;
   position: absolute;
-  /*  top: 200px;*/
-
-  /*  left: 200px;*/
-
   cursor: pointer;
-  height: 40px;
-  width: 40px;
-  padding: 4px 4px 12px;
-  /*  padding: 5px 4px;*/
-
-  /*  margin: 10px;*/
-
-}
-div#factlink-indicator div.icon {
-  margin: 0 0 0 4px;
-}
-div#factlink-indicator div.authority-wrapper {
-  padding: 2px 0 0 6px;
-}
-div#factlink-indicator div.authority-wrapper span.centered {
-  margin: 0 auto;
-}
-div#factlink-indicator div.authority-wrapper span.centered span.authority {
-  color: #888;
-}
-div#factlink-indicator div.authority-wrapper span.centered img {
-  height: 10px;
-}
-.popup-style {
-  z-index: 2147483647;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
-  font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
 }
 div.fl-popup {
-  z-index: 2147483647;
-  background: #fff;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 5px;
-  border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
-  font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
-  box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
   text-align: center;
   padding: 4px;
   line-height: 24px;
+  width: 96px;
 }
 div.fl-popup .button {
   background: #f5f5f5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #45bf55), color-stop(1, #93ec87));
+  background: -ms-linear-gradient(bottom, #45bf55, #93ec87);
   background: -moz-linear-gradient(center bottom, #45bf55 0%, #93ec87 100%);
   display: block;
   padding: 0px 6px;
   border: solid 1px #45bf55;
   border-radius: 2px;
+  width: 82px;
+  color: #000;
   line-height: 24px;
   text-shadow: 0px 1px 1px #fff;
   height: 24px;
@@ -125,88 +187,258 @@ div.fl-popup .button:hover {
   cursor: pointer;
   background: #f5f5f5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #93ec87), color-stop(1, #45bf55));
+  background: -ms-linear-gradient(bottom, #93ec87, #45bf55);
   background: -moz-linear-gradient(center bottom, #93ec87 0%, #45bf55 100%);
 }
 div.fl-popup .button:active {
   background: #f5f5f5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #72cc64), color-stop(1, #3ca648));
+  background: -ms-linear-gradient(bottom, #72cc64, #3ca648);
   background: -moz-linear-gradient(center bottom, #72cc64 0%, #3ca648 100%);
 }
-div#fl-prepare {
-  z-index: 2147483647;
+.popup-style {
+  z-index: 2147483644;
   background: #fff;
   margin: 0;
   padding: 0;
-  border: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
   border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   border-top: 1px solid #d8d8d8;
-  font-size: 9pt;
+  font-size: 12px;
   font-family: "Helvetica", Arial, sans-serif;
-  vertical-align: baseline;
   box-shadow: 2px 4px 6px rgba(123, 123, 123, 0.5);
-  display: none;
 }
-div#fl-prepare ul {
+#fl-balloon-container {
+  position: relative;
+  width: 100px;
+  height: 24px;
+}
+#fl-balloon-container.active {
+  -webkit-transition: all ease-out 0.1s;
+  -moz-transition: all ease-out 0.1s;
+  transition: all ease-out 0.1s;
+  margin-top: -5px;
+}
+#fl-balloon {
+  z-index: 2147483644;
+  border: 2px solid #a8a8a8;
+  background: #e2e2e2;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e2e2e2), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #e2e2e2, #ffffff);
+  background: -moz-linear-gradient(center bottom, #e2e2e2 0%, #ffffff 100%);
+  margin-top: -2px;
+  position: relative;
+  width: 100px;
+  height: 24px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  /* div.fl-share { */
+
+  /*   float: left;*/
+
+  /*   width: 15px;*/
+
+  /*   height: 100%;*/
+
+  /*   padding: 4px 3px 3px 3px;*/
+
+  /*   border-color: @border-color;*/
+
+  /*   border-right: 1px solid;*/
+
+  /*   img.fl-share-icon { */
+
+  /*     padding: 2px 3px 2px 3px;*/
+
+  /*   }*/
+
+  /*   &:hover { */
+
+  /*     border-color: @border-hover-color; */
+
+  /*     background-color: fadeout(darken(@bg-color, 10),10);*/
+
+  /*   }*/
+
+  /* }*/
+
+}
+#fl-balloon .fl-labels .fl-label {
+  padding: 0px 2px 2px 2px;
+  height: 24px;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
+  color: #111;
+  text-align: center;
+  background: transparent;
+  font-size: 12px;
+}
+#fl-balloon .fl-labels .fl-label .fl-label-text {
+  background: transparent;
+  padding: 6px;
+}
+#fl-balloon .fl-labels .fl-label .icon {
+  float: right;
+  margin-top: 2px;
+  padding-right: 4px;
+}
+#fl-balloon .fl-labels .fl-label  > span {
+  background: transparent;
+  display: inline-block;
+}
+#fl-balloon .fl-labels .fl-label  > span .authority {
+  float: right;
+  color: #a0a0a0;
+  margin-right: -20px;
+  font-size: 8pt;
+  margin-top: 1px;
+}
+#fl-balloon #fl-balloon-arrow-border, #fl-balloon #fl-balloon-arrow {
+  border-style: solid;
+  border-width: 11px;
+  height: 0;
+  width: 0;
+  position: absolute;
+}
+#fl-balloon.bottom #fl-balloon-arrow-border {
+  border-color: #a8a8a8 transparent transparent transparent;
+  bottom: -22px;
+  left: 14px;
+}
+#fl-balloon.bottom #fl-balloon-arrow {
+  border-color: #e2e2e2 transparent transparent transparent;
+  bottom: -19px;
+  left: 14px;
+}
+#fl-balloon.bottom:hover #fl-balloon-arrow {
+  border-color: #e2e2e2 transparent transparent transparent;
+}
+#fl-balloon.bottom:hover #fl-balloon-arrow-border {
+  border-color: #1d8cc8 transparent transparent transparent;
+}
+#fl-balloon.top #fl-balloon-arrow-border {
+  border-color: transparent transparent #a8a8a8 transparent;
+  bottom: 24px;
+  left: 14px;
+}
+#fl-balloon.top #fl-balloon-arrow {
+  border-color: transparent transparent #fbfbfb transparent;
+  bottom: 21px;
+  left: 14px;
+}
+#fl-balloon.top:hover #fl-balloon-arrow {
+  border-color: transparent transparent #fbfbfb transparent;
+}
+#fl-balloon.top:hover #fl-balloon-arrow-border {
+  border-color: transparent transparent #1d8cc8 transparent;
+}
+#fl-balloon:hover {
+  border-color: #1d8cc8;
+  cursor: pointer;
+}
+#fl-prepare #addToFact {
   color: #000;
   list-style: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: "Helvetica", Arial, sans-serif;
 }
-div#fl-prepare ul li {
+#fl-prepare #addToFact  li {
   position: relative;
   white-space: nowrap;
-  margin: 0;
-  border: 0;
   vertical-align: baseline;
   padding: 2px 0px;
   cursor: pointer;
-  font-family: "Helvetica", Arial, sans-serif;
   font-size: 9pt;
 }
-div#fl-prepare ul li.first {
+#fl-prepare #addToFact  li.first {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-div#fl-prepare ul li.last {
+#fl-prepare #addToFact  li.last {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-div#fl-prepare ul li > span > a {
-  margin: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+#fl-prepare #addToFact  li a {
+  color: #000;
+  text-decoration: none;
+}
+#fl-prepare #addToFact  li > span > a {
   padding: 2px 18px;
   line-height: 14px;
   display: block;
   border-radius: 1px;
-  font-family: "Helvetica", Arial, sans-serif;
 }
-div#fl-prepare ul li > span > a:hover, div#fl-prepare ul li > span > a.test {
+#fl-prepare #addToFact  li > span > a:hover {
   border-top: solid 1px #5853EA;
   padding: 1px 18px 2px;
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(1, #605df5), color-stop(0, #3600e6));
+  background: #605df5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
+  background: -ms-linear-gradient(bottom, #3600e6, #605df5);
+  background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
   color: #fff;
 }
-div#fl-prepare ul li a {
-  color: #000;
-  text-decoration: none;
-  font-family: "Helvetica", Arial, sans-serif;
+#fl-balloon-popup {
+  display: none;
+  width: 86px;
+  position: absolute;
+  left: 95px;
+  top: 5px;
+  z-index: 2147483645;
+  text-align: left;
+  border: 2px solid #a8a8a8;
+  padding: 0px;
+  line-height: 24px;
 }
-div#fl-prepare ul li img {
-  margin: 0 2px 0 0;
-  padding: 0;
-  border: 0;
+#fl-balloon-popup * {
+  font-family: inherit !important;
+}
+#fl-balloon-popup ul {
+  color: #000;
+  list-style: none;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+#fl-balloon-popup ul li {
   position: relative;
-  top: 3px;
-  display: inline;
+  white-space: nowrap;
+  vertical-align: baseline;
+  padding: 2px 0px;
+  cursor: pointer;
+  font-size: 9pt;
+}
+#fl-balloon-popup ul li.first {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#fl-balloon-popup ul li.last {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#fl-balloon-popup ul li a {
+  color: #000;
+  text-decoration: none;
+}
+#fl-balloon-popup ul li > span > a {
+  padding: 2px 18px;
+  line-height: 14px;
+  display: block;
+  border-radius: 1px;
+}
+#fl-balloon-popup ul li > span > a:hover {
+  border-top: solid 1px #5853EA;
+  padding: 1px 18px 2px;
+  background: #605df5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
+  background: -ms-linear-gradient(bottom, #3600e6, #605df5);
+  background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
+  color: #fff;
 }

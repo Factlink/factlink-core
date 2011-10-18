@@ -8,8 +8,6 @@
     "url": "git@codebasehq.com:factlink/factlink/factlink-js-library.git"
   },
   "dependencies": {
-    "jshint":"0.3.1",
-    "smoosh":"0.3.1"
   },
   "devDependencies": {}
 }

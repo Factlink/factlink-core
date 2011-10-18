@@ -1,51 +1,63 @@
-(function(Factlink) {
-  var $ = Factlink.$;
-  var _ = Factlink._;
-  var easyXDM = Factlink.easyXDM;
+(function(Factlink, $, _, easyXDM) {
   var timeout;
   var popupTimeout;
   // Function which will return the Selection object
   //@TODO: Add rangy support for IE
   // Load the needed prepare menu & put it in a container
-  var urlToLoad, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
+  var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
-  if (FactlinkConfig.modus === "default") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/new';
-  } else if (FactlinkConfig.modus === "addToFact") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/evidence';
+  if (FactlinkConfig.modus === 'addToFact') {
+    templateUrl = '//' + FactlinkConfig.api + "/template/addToFact.html";
+    loadTemplate(templateUrl);
+  } else {
+    templateUrl = '//' + FactlinkConfig.api + "/template/create.html";
+    loadTemplate(templateUrl);
   }
 
-  $.ajax({
-    url: urlToLoad,
-    dataType: "jsonp",
-    crossDomain: true,
-    cache: false,
-    success: function(data) {
-      $prepare.html(data);
+  function loadTemplate(url) { 
+    var template; 
+    $.ajax({
+      url: url,
+      crossDomain: true,
+      dataType: "jsonp",
+      cache: false,
+      jsonp: "callback",
+      success: function(data) {
+        template = _.template(data);
+        
+        $prepare.html(template);
 
-      bindPrepareClick($prepare);
-    }
-  });
 
-  Factlink.submitSelection = function(opinion, callback) {
-    var selInfo = Factlink.getSelectionInfo();
-
-    if (FactlinkConfig.modus === "addToFact") {
-      if (Factlink.prepare.factId) {
-          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
-      } else {
-          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+        bindPrepareHover($prepare);
+        bindPrepareClick($prepare);
+        $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
+      }, 
+      error: function(data) { 
+        console.log(data);
       }
-    } else {
-      // modus === "default"
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-      function(factId) {
-          if ($.isFunction(callback)) {
-              callback(factId);
-          }
+   });
+   return template;
+  }
+
+
+  function switchLabel(from, to) { 
+    $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
+    $prepare.find(".fl-label[data-label=" + to +"]").fadeIn('fast');
+  }
+
+  function bindPrepareHover($element) { 
+    var balloon = $element.find("#fl-balloon-popup");
+    function hoverIn() { 
+       balloon.stop().fadeTo('fast', 1).show();
+    }
+    function hoverOut() {
+       balloon.stop().fadeTo('fast', 0, function() {
+        $(this).hide(); 
       });
     }
-  };
+    $element.bind("fl-labels").hover(hoverIn, hoverOut); 
+  }
+
 
   function bindPrepareClick($element) {
     $element.find('a').bind('mouseup', function(e) {
@@ -61,6 +73,7 @@
       $element.fadeOut(100);
     });
   }
+
 
   function showFactAddedPopup(factId, x, y) {
     // Create `add evidence` popup after succesful addition of the fact.            
@@ -83,8 +96,8 @@
     $('div.fl-popup').hover(function() {
       // handlerIn
       clearTimeout(popupTimeout);
-    }, function() {
       // handlerOut
+    }, function() {
       startTimer();
     });
 
@@ -115,6 +128,42 @@
   function getTitle() {
     return document.title;
   }
+
+  Factlink.submitSelection = function(opinion, callback) {
+    var selInfo = Factlink.getSelectionInfo();
+    if (FactlinkConfig.modus === "addToFact") {
+      if (Factlink.prepare.factId) {
+          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+      } else {
+          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+      }
+    } else {
+      Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+        function(factId) {
+          if ($.isFunction(callback)) {
+            callback(factId);
+          }
+        });
+    }
+  };
+  
+  Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
+    Factlink.post("/facts.json", {
+      data: {
+        fact: fact,
+        passage: passage,
+        opinion: opinion,
+        title: title,
+        url: url
+      },
+      success: function(data) {
+        Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        successFn(data.id);
+      },
+      error: errorFn
+    });
+  };
+
 
   // We make this a global function so it can be used for direct adding of facts
   // (Right click with chrome-extension)
@@ -211,4 +260,5 @@
       }
     }, 100);
   });
-})(window.Factlink);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+
