@@ -104,16 +104,12 @@ Factlink.Indicator = (function() {
                     $( 'span.factlink[data-factid=' + currentId + ']:first').click(); 
                     return false; 
                 }); 
-        },
-        insertCallback: function(data){
-            Factlink.Indicator.setElement( $( data ).attr('id','factlink-indicator').appendTo('body') ); 
         }
     }; 
 })();
 $.ajax({ 
   method: 'get', 
   dataType: 'jsonp', 
-  jsonp: 'Factlink.Indicator.insertCallback',
   crossDomain: true, 
   url: '//' + FactlinkConfig.api + '/template/indicator.html', 
   success: function( data ) { 
@@ -131,7 +127,7 @@ var stopShowingIndicator = function(e,factId,orig_e) {
     Factlink.Indicator.hide();
 };
 
-$(window).bind("factlink:factHighlighted", showIndicator);
+$(window).bind("factlink:factHighlighted", showIndicator);gi
 $(window).bind("factlink:factUnhighlighted",stopShowingIndicator);
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
