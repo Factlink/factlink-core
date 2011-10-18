@@ -138,14 +138,32 @@
           Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
       }
     } else {
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
+      Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
         function(factId) {
+          console.info( "Ready to call successFn callback" );
           if ($.isFunction(callback)) {
+            console.info( "calling" );
             callback(factId);
           }
-        }
-      );      
+        });
     }
+  };
+  
+  Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
+    Factlink.post("/facts.json", {
+      data: {
+        fact: fact,
+        passage: passage,
+        opinion: opinion,
+        title: title,
+        url: url
+      },
+      success: function(data) {
+        Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        successFn(data.id);
+      },
+      error: errorFn
+    });
   };
 
 
