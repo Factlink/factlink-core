@@ -29,13 +29,16 @@ Factlink.Indicator = (function() {
               dataType: "jsonp",
               url: "//" + FactlinkConfig.api + "/fact_item/" + id + "/opinion/",
               success : function(data)  {
-              var ops = { 'authority': data.opinions.authority, 
-                          'opinions': [ {'percentage': data.opinions.believe.percentage, 'name' : 'believe'}, 
+                var ops = { 'authority': data.opinions.authority, 
+                            'opinions': [ {'percentage': data.opinions.believe.percentage, 'name' : 'believe'}, 
                                         {'percentage': data.opinions.doubt.percentage, 'name': 'doubt'}, 
                                         {'percentage': data.opinions.disbelieve.percentage, 'name' : 'disbelieve'} ]};
-              ops.highestOpinion =  _.max(ops.opinions, function(op) { return op.percentage } );
-              $indicator.html(template(ops));
-            }
+                ops.highestOpinion =  _.max(ops.opinions, function(op) { return op.percentage } );
+                $indicator.html(template(ops));
+              },
+              error: function() {
+                console.log('something went wrong');
+              }
             });
 
             if ( id !== currentId ) { 
