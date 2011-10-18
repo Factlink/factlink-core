@@ -99,8 +99,14 @@
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
               ajax(path, $.extend({
-                success: successFn,
-                error: errorFn
+                success: function eminem(data){
+                  console.info('SUCCESS : ' + path );
+                  successFn(data);
+                },
+                error: function vanillaIce(data) {
+                  console.info('SUCCESS : ' + path );
+                  errorFn(data);
+                }
               }, options))
             }
           }
