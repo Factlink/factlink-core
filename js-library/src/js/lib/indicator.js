@@ -38,6 +38,7 @@ Factlink.Indicator = (function() {
         showFor: function( id, x_in, y_in ) { 
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
+            window.clearTimeout( timeout ); 
             var opinions = Factlink.Indicator.getOpinions(id,  function(opinions){
                
               if ( id !== currentId ) { 
@@ -46,12 +47,12 @@ Factlink.Indicator = (function() {
                   y = y_in - el.outerHeight(true) - 10; 
               } 
             
-              window.clearTimeout( timeout ); 
                
               // Store the currentId; 
               currentId = id; 
                
               // only show indicator if the user at least has the patience to hover for 10 milliseconds
+              window.clearTimeout( timeout );
               timeout = window.setTimeout(function() { 
                   if ( el === undefined ) {
                       return; 
