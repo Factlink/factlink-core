@@ -9,3 +9,5 @@ webrat.log
 coverage.data
 coverage/
 log/
+*.un~
+*.log

@@ -15,7 +15,11 @@ FactlinkUI::Application.routes.draw do
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     end
   end 
-  
+
+
+  # Static js micro templates
+  get "/template/:name" => "templates#get"
+
   # Search and infinite scrolling
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
     
@@ -25,8 +29,6 @@ FactlinkUI::Application.routes.draw do
   get   "/site" => "sites#facts_for_url" 
   
   # Prepare a new Fact
-  match "/factlink/prepare/new" => "facts#prepare_new"
-  match "/factlink/prepare/evidence" => "facts#prepare_evidence"
   match "/factlink/intermediate" => "facts#intermediate"
   
   post  "/factlink/create" => "facts#create", :as => "create_factlink"
@@ -50,10 +52,7 @@ FactlinkUI::Application.routes.draw do
   post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
   delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
 
-  # Template shown when user hovers a Fact
-  get "/factlink/indication" => "facts#indication"
-  
-  ##########
+ ##########
   # Web Front-end
   root :to => "home#index"
 

@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<script type="text/javascript" src="<%= FactlinkUI::Application.config.static_url %>lib/dist/easyXDM/easyXDM.min.js"></script>
+	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
+	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}lib/dist/easyXDM/easyXDM.min.js" %>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -74,19 +75,23 @@
               addEvidence(type);
             },
             createFactlink: function(fact, passage, url, title, opinion, successFn, errorFn) {
-              prepareFactlink(fact, passage, url, title, opinion);
-
-              showFrame.onload = function() {
-                if (showFrame.contentWindow.fact_id !== undefined) {
-                  successFn(showFrame.contentWindow.fact_id);
-
-                  showFrame.onload = undefined;
-                } else {
-                  console.info("Need to login first");
+              post("<%= facts_path %>.json", {
+                success: function(data) {
+                  remote.highlightNewFactlink(data.displaystring, data.id);
+                  successFn(data.id);
+                },
+                headers: {
+                  'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                error: errorFn,
+                data: {
+                  fact: fact,
+                  passage: passage,
+                  opinion: opinion,
+                  title: title,
+                  url: url
                 }
-              };
-
-              createFactlink();
+              });
             },
             showFactlink: function(id, showEvidence, successFn) {
               showFrame.onload = function() {
@@ -113,9 +118,31 @@
                   showFrame.contentWindow.position(top, left);
                 };
               }
-            }
+            },
+            post: post,
+            ajax: ajax
           }
         });
+        
+    function post(path, options) {
+      ajax(path, $.extend({
+        type: "POST"
+      }, options));
+    }
+    
+    function ajax(path, options) {
+      $.ajax(path, options);
+    }
+    
+    $(document).ajaxError(function(e, xhr, status, err) {
+      if (xhr.status === 401) {
+        openLoginWindow();
+      }
+    });
+    
+    function openLoginWindow() {
+      alert("Please login to Factlink.");
+    }
 
     function createFactlink() {
       form.submit();
