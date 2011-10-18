@@ -39,27 +39,29 @@ Factlink.Indicator = (function() {
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
             window.clearTimeout( timeout ); 
+            if ( id !== currentId ) { 
+
+                x = x_in - 20;
+                y = y_in - el.outerHeight(true) - 10; 
+            } 
+          
+             
+            // Store the currentId; 
+            currentId = id; 
+
             var opinions = Factlink.Indicator.getOpinions(id,  function(opinions){
                
-              if ( id !== currentId ) { 
-
-                  x = x_in - 20;
-                  y = y_in - el.outerHeight(true) - 10; 
-              } 
-            
-               
-              // Store the currentId; 
-              currentId = id; 
                
               // only show indicator if the user at least has the patience to hover for 10 milliseconds
               window.clearTimeout( timeout );
               timeout = window.setTimeout(function() { 
+                if (id == currentId){
                   if ( el === undefined ) {
                       return; 
                   } else {
                     el.css({ top: y, left: x }).html(template(opinions)).fadeIn(100);
-                 }
-              }, 500);  
+                 }}
+              }, 250);  
             
           });
         }, 
@@ -73,7 +75,7 @@ Factlink.Indicator = (function() {
             timeout = window.setTimeout(function() { 
                 el.fadeOut(100); 
                 currentId = undefined; 
-            }, 500); 
+            }, 250); 
         }, 
 
         // Set the element object when it's set. 
