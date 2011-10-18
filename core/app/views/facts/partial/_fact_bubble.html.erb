@@ -5,7 +5,7 @@
 	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
 
 		<span class="body">
-			<%= link_to("#{h fact.data.displaystring}", proxy_scroll_url(fact), :target => "_blank") %>
+			<%= link_to("#{h fact.data.displaystring}", fact.site.url, :target => "_blank") %>
       <br>
    </span>
     <sub>
