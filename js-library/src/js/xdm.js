@@ -33,11 +33,11 @@
   Factlink.ajax = function(path, options) {
     var success = ( $.isFunction(options.success) ? options.success : function(){} );
     var error = ( $.isFunction(options.error) ? options.error : function(){} );
-    
     delete options.success;
     delete options.error;
     
     Factlink.remote.ajax(path, options, success, error);
   };
   
+  $(window).trigger("factlink.loaded");
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
