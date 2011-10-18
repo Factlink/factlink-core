@@ -1,7 +1,9 @@
 (function(Factlink, $, _, easyXDM) {
     
-    // Indicator object which will manage the indicator which shows some basic info  
+// Indicator object which will manage the indicator which shows some basic info  
 // of each Factlink 
+var template;
+  
 Factlink.Indicator = (function() { 
     // By default the element object is undefined 
     var el, 
@@ -12,40 +14,37 @@ Factlink.Indicator = (function() {
         // Current shown Factlink 
         currentId, 
         // Position of the indication 
-        x, y; 
+        x, y,
+        $indicator = $('<div />').attr('id', 'fl-indicator').appendTo("body"); 
      
     return { 
         // Makes the indicator show for the Factlink with id ID 
         showFor: function( id, x_in, y_in ) { 
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
+            el = $indicator;
              
-            believe_percentage = fl.first().data('fact-believe-percentage');
-            disbelieve_percentage = fl.first().data('fact-disbelieve-percentage');
-            doubt_percentage = fl.first().data('fact-doubt-percentage');
-            authority = fl.first().data('fact-authority');
-            // On creation of a new Fact, authority is undefined. Fall to default
-            if ( authority === 'undefined' ) {
-              authority = 0;
+            $.ajax({
+              method: "get", 
+              crossDomain: true,
+              dataType: "jsonp",
+              url: "//" + FactlinkConfig.api + "/fact_item/" + id + "/opinion/",
+              success : function(data)  {
+              var ops = { 'authority': data.opinions.authority, 
+                          'opinions': [ {'percentage': data.opinions.believe.percentage, 'name' : 'believe'}, 
+                                        {'percentage': data.opinions.doubt.percentage, 'name': 'doubt'}, 
+                                        {'percentage': data.opinions.disbelieve.percentage, 'name' : 'disbelieve'} ]};
+              ops.highestOpinion =  _.max(ops.opinions, function(op) { return op.percentage } );
+              $indicator.html(template(ops));
+              Factlink.Indicator.bindEvents($indicator);
             }
-            
-            prevalent = 'doubt';
-            prevalent_percentage = doubt_percentage;
-            
-            if (disbelieve_percentage > prevalent_percentage){
-                prevalent = 'disbelieve';
-                prevalent_percentage = disbelieve_percentage;
-            }
-            if (believe_percentage > prevalent_percentage){
-                prevalent = 'believe';
-                prevalent_percentage = believe_percentage;
-            }
-            
+            });
+
             if ( id !== currentId ) { 
                 x = x_in - 20;
                 y = y_in - el.outerHeight(true) - 10; 
             } 
- 
+          
             window.clearTimeout( timeout ); 
              
             // Store the currentId; 
@@ -56,9 +55,6 @@ Factlink.Indicator = (function() {
                 if ( el === undefined ) {
                     return; 
                 } else {
-                  el.find('div.believe, div.disbelieve, div.doubt').hide();
-                  el.find('div.'+prevalent).show();
-                  el.find('span.authority').html(authority);
                   el.css({ top: y, left: x }).fadeIn(100);
                }
             }, 500); 
@@ -79,10 +75,8 @@ Factlink.Indicator = (function() {
         // Set the element object when it's set. 
         // Typically this will only be called from the initial ajax-call made  
         // in init.js 
-        setElement: function( newEl ) { 
+        bindEvents: function( el ) { 
             var self = this; 
-             
-            el = newEl; 
              
             el  .bind('mouseenter', function() { 
                     window.clearTimeout(timeout); 
@@ -94,7 +88,7 @@ Factlink.Indicator = (function() {
                 .bind('mouseleave', function() { 
                     self.hide(); 
                      
-                    // Stop hightlighting the Faclink 
+                    // Stop hightlighting the Factlink 
                     $( '[data-factid=' + currentId + ']' ) 
                         .removeClass('fl-active');
                 }) 
@@ -113,8 +107,8 @@ $.ajax({
   crossDomain: true, 
   url: '//' + FactlinkConfig.api + '/template/indicator.html', 
   success: function( data ) { 
-    var template = _.template(data);
-    Factlink.Indicator.setElement( $(template()).attr('id','fl-indicator').appendTo('body') ); 
+    // Sets the global underscore template, gets updated on hover
+    template = _.template(data); 
   } 
 });
 

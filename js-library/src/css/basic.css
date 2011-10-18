@@ -1,9 +1,8 @@
 #fl .resetStyles {
   margin: 0;
   padding: 0;
-  /* background-color: #fff;*/
-
-  background-image: none ;
+  background-image: none;
+  background-color: transparent;
   opacity: 1;
   -webkit-transition: none;
   border-collapse: collapse;
@@ -76,9 +75,8 @@ div.fl-popup,
 #fl-balloon-popup {
   margin: 0;
   padding: 0;
-  /* background-color: #fff;*/
-
-  background-image: none ;
+  background-image: none;
+  background-color: transparent;
   opacity: 1;
   -webkit-transition: none;
   border-collapse: collapse;
@@ -124,17 +122,11 @@ div.fl-popup *,
 div.fl-popup * *,
 #fl-prepare * *,
 #fl-balloon-container * *,
-#fl-balloon-popup * *,
-#fl-indicator * *,
-div.fl-popup * *,
-#fl-prepare * *,
-#fl-balloon-container * *,
 #fl-balloon-popup * * {
   margin: 0;
   padding: 0;
-  /* background-color: #fff;*/
-
-  background-image: none ;
+  background-image: none;
+  background-color: transparent;
   opacity: 1;
   -webkit-transition: none;
   border-collapse: collapse;
@@ -176,7 +168,12 @@ div.fl-popup .button {
   display: block;
   padding: 0px 6px;
   border: solid 1px #45bf55;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
   border-radius: 2px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   width: 82px;
   color: #000;
   line-height: 24px;
@@ -289,6 +286,15 @@ div.fl-popup .button:active {
   margin-top: 2px;
   padding-right: 4px;
 }
+#fl-balloon .fl-labels .fl-label .icon.believe {
+  background-position: 1px 0px;
+}
+#fl-balloon .fl-labels .fl-label .icon.disbelieve {
+  background-position: 41px 0px;
+}
+#fl-balloon .fl-labels .fl-label .icon.doubt {
+  background-position: 21px 0px;
+}
 #fl-balloon .fl-labels .fl-label  > span {
   background: transparent;
   display: inline-block;
@@ -344,8 +350,8 @@ div.fl-popup .button:active {
   cursor: pointer;
 }
 #fl-prepare #addToFact {
-  color: #000;
   list-style: none;
+  background-color: #fff;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
@@ -356,6 +362,8 @@ div.fl-popup .button:active {
   vertical-align: baseline;
   padding: 2px 0px;
   cursor: pointer;
+  width: 86px;
+  background: none;
   font-size: 9pt;
 }
 #fl-prepare #addToFact  li.first {
@@ -371,10 +379,16 @@ div.fl-popup .button:active {
   text-decoration: none;
 }
 #fl-prepare #addToFact  li > span > a {
+  color: #000 !important;
   padding: 2px 18px;
   line-height: 14px;
   display: block;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
   border-radius: 1px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 #fl-prepare #addToFact  li > span > a:hover {
   border-top: solid 1px #5853EA;
@@ -383,7 +397,7 @@ div.fl-popup .button:active {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
   background: -ms-linear-gradient(bottom, #3600e6, #605df5);
   background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
-  color: #fff;
+  color: #fff !important;
 }
 #fl-balloon-popup {
   display: none;
@@ -401,8 +415,8 @@ div.fl-popup .button:active {
   font-family: inherit !important;
 }
 #fl-balloon-popup ul {
-  color: #000;
   list-style: none;
+  background-color: #fff;
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
@@ -413,6 +427,8 @@ div.fl-popup .button:active {
   vertical-align: baseline;
   padding: 2px 0px;
   cursor: pointer;
+  width: 86px;
+  background: none;
   font-size: 9pt;
 }
 #fl-balloon-popup ul li.first {
@@ -428,10 +444,16 @@ div.fl-popup .button:active {
   text-decoration: none;
 }
 #fl-balloon-popup ul li > span > a {
+  color: #000 !important;
   padding: 2px 18px;
   line-height: 14px;
   display: block;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
   border-radius: 1px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
 }
 #fl-balloon-popup ul li > span > a:hover {
   border-top: solid 1px #5853EA;
@@ -440,5 +462,5 @@ div.fl-popup .button:active {
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
   background: -ms-linear-gradient(bottom, #3600e6, #605df5);
   background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
-  color: #fff;
+  color: #fff !important;
 }
