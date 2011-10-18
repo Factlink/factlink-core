@@ -87,7 +87,7 @@ class FactsController < ApplicationController
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
     
-    if params[:opinion]
+    if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
       @fact.calculate_opinion(1)
     end
