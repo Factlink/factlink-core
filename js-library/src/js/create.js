@@ -58,10 +58,11 @@
 
 
   function bindPrepareClick($element) {
+    var createFact;
     if (FactlinkConfig.modus === "addToFact") {
-      var createFact = Factlink.createEvidenceFromSelection
+      createFact = Factlink.createEvidenceFromSelection;
     } else {
-      var createFact = Factlink.createFactFromSelection
+      createFact = Factlink.createFactFromSelection;
     }
     
     $element.find('a').bind('mouseup', function(e) {
@@ -138,14 +139,9 @@
     }
   };
   
-  Factlink.createFactFromSelection = function(opinion, callback){
+  Factlink.createFactFromSelection = function(opinion,callback){
     var selInfo = Factlink.getSelectionInfo();
-    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-      function(factId) {
-        if ($.isFunction(callback)) {
-          callback(factId);
-        }
-      });
+    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback);
   };
   
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
@@ -159,12 +155,13 @@
       },
       success: function(data) {
         Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
-        successFn(data.id);
+        if ($.isFunction(successFn)) {
+          successFn(data.id);
+        }
       },
       error: errorFn
     });
   };
-
 
   // We make this a global function so it can be used for direct adding of facts
   // (Right click with chrome-extension)
