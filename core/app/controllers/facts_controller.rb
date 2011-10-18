@@ -81,7 +81,10 @@ class FactsController < ApplicationController
       @fact.calculate_opinion(1)
     end
     
-    redirect_to :action => "edit", :id => @fact.id
+    respond_to do |format|
+      format.json { render :json => @fact }
+      format.html { redirect_to :action => "edit", :id => @fact.id }
+    end
   end
 
   def create_fact_as_evidence
