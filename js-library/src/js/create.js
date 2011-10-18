@@ -4,47 +4,39 @@
   // Function which will return the Selection object
   //@TODO: Add rangy support for IE
   // Load the needed prepare menu & put it in a container
-  var urlToLoad, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
+  var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
-  if (FactlinkConfig.modus === "default") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/new';
-  } else if (FactlinkConfig.modus === "addToFact") {
-    urlToLoad = '//' + FactlinkConfig.api + '/factlink/prepare/evidence';
+  if (FactlinkConfig.modus === 'addToFact') {
+    templateUrl = '//' + FactlinkConfig.api + "/templates/addToFact.htm";
+    loadTemplate(templateUrl);
+  } else {
+    templateUrl = '//' + FactlinkConfig.api + "/templates/create.html";
+    loadTemplate(templateUrl);
   }
 
-  $.ajax({
-    url: urlToLoad,
-    dataType: "jsonp",
-    crossDomain: true,
-    cache: false,
-    success: function(data) {
-      $prepare.html(data);
-      bindPrepareHover($prepare);
-      bindPrepareClick($prepare);
-      $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
-      
-    }
-  });
-
-  Factlink.submitSelection = function(opinion, callback) {
-    var selInfo = Factlink.getSelectionInfo();
-
-    if (FactlinkConfig.modus === "addToFact") {
-      if (Factlink.prepare.factId) {
-          Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
-      } else {
-          Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+  function loadTemplate(url) { 
+    var template; 
+    $.ajax({
+      url: url,
+      crossDomain: true,
+      dataType: "jsonp",
+      cache: false,
+      jsonp: "callback",
+      success: function(data) {
+        template = _.template(data);
+        
+        $prepare.html(template);
+        bindPrepareHover($prepare);
+        bindPrepareClick($prepare);
+        $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
+      }, 
+      error: function(data) { 
+        console.log(data);
       }
-    } else {
-      // modus === "default"
-      Factlink.remote.createFactlink(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,
-      function(factId) {
-          if ($.isFunction(callback)) {
-              callback(factId);
-          }
-      });
-    }
-  };
+   });
+   return template;
+  }
+
 
   function switchLabel(from, to) { 
     $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
@@ -66,12 +58,19 @@
 
 
   function bindPrepareClick($element) {
+    var createFact;
+    if (FactlinkConfig.modus === "addToFact") {
+      createFact = Factlink.createEvidenceFromSelection;
+    } else {
+      createFact = Factlink.createFactFromSelection;
+    }
+    
     $element.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
 
-      Factlink.submitSelection(e.currentTarget.id, function(factId) {
+      createFact(e.currentTarget.id, function(factId) {
         showFactAddedPopup(factId, e.pageX, e.pageY);
       });
 
@@ -79,36 +78,6 @@
       $element.fadeOut(100);
     });
   }
-
-
-
-  // function bindPrepareClick($element) {
-  //   $element.find('.fl-action').bind('mouseup', function(e) {
-  //     e.stopPropagation();
-  //   }).bind('click', function(e) {
-  //     e.preventDefault();
-
-  //     var active = $element.find(".fl-label:visible").data("label");
-  //     switch(active) {
-  //       case 'create': // Create a new factlink
-  //         Factlink.submitSelection(e.currentTarget.id, function(factId) {
-  //           $element.trigger("factlink:switchLabel", ["create", "created"]);
-  //           $(this).data("factid", factId);
-  //           // setTimeout(function() { 
-  //           //   $element.trigger("factlink:switchLabel", ["created", "show"]);
-  //           // }, 2000);
-  //         });
-  //        break;
-  //       case 'created': // Add evidence to just created fact
-  //         Factlink.showInfo(el=this, showEvidence=true);
-  //         break;
-  //       case 'show': // Show existing fact
-  //         break;
-  //       default:
-  //         // code
-  //     }
-  //   });
-  // }
 
 
   function showFactAddedPopup(factId, x, y) {
@@ -161,9 +130,38 @@
     return d;
   }
 
-  function getTitle() {
-    return document.title;
-  }
+  Factlink.createEvidenceFromSelection = function(opinion, callback){
+    var selInfo = Factlink.getSelectionInfo();
+    if (Factlink.prepare.factId) {
+        Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+    } else {
+        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
+    }
+  };
+  
+  Factlink.createFactFromSelection = function(opinion,callback){
+    var selInfo = Factlink.getSelectionInfo();
+    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback);
+  };
+  
+  Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
+    Factlink.post("/facts.json", {
+      data: {
+        fact: fact,
+        passage: passage,
+        opinion: opinion,
+        title: title,
+        url: url
+      },
+      success: function(data) {
+        Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        if ($.isFunction(successFn)) {
+          successFn(data.id);
+        }
+      },
+      error: errorFn
+    });
+  };
 
   // We make this a global function so it can be used for direct adding of facts
   // (Right click with chrome-extension)
@@ -171,12 +169,11 @@
     // Get the selection object
     var selection = getTextRange();
 
-    var title = getTitle();
     //TODO: Add passage detection here
     return {
       text: selection.toString(),
       passage: "",
-      title: title
+      title: document.title
     };
   };
 
