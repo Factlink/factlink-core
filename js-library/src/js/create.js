@@ -7,10 +7,10 @@
   var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
   if (FactlinkConfig.modus === 'addToFact') {
-    templateUrl = '//' + FactlinkConfig.api + "/template/addToFact.html";
+    templateUrl = '//' + FactlinkConfig.api + "/templates/addToFact.htm";
     loadTemplate(templateUrl);
   } else {
-    templateUrl = '//' + FactlinkConfig.api + "/template/create.html";
+    templateUrl = '//' + FactlinkConfig.api + "/templates/create.html";
     loadTemplate(templateUrl);
   }
 
