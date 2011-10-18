@@ -20,7 +20,7 @@ FactlinkUI::Application.routes.draw do
 
 
   # Static js micro templates
-  get "/template/:name" => "templates#get"
+  get "/templates/:name" => "templates#get"
 
   # Search and infinite scrolling
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
