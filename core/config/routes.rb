@@ -10,7 +10,9 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Resources
   resources :facts do
-    member do 
+    member do
+      # TODO Refactor to use this opinion route
+      # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     end

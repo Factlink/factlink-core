@@ -194,7 +194,7 @@ class FactsController < ApplicationController
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion(2).as_percentages }
+    render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript" 
   end
 
 
