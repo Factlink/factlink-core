@@ -41,6 +41,13 @@ class FactsController < ApplicationController
     end
   end
 
+
+  def index
+    respond_to do |format|
+      format.json { render :json => Fact.all }
+     end
+  end
+
   def show
     @title = @fact.data.displaystring # The html <title>
     if params[:showevidence] == "true"
