@@ -55,6 +55,10 @@ class FactsController < ApplicationController
     else
       @showEvidence = false
     end
+    respond_to do |format|
+      format.json { render :json => @fact }
+      format.html
+    end
   end
 
   def new
