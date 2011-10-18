@@ -28,14 +28,15 @@ Factlink.Indicator = (function() {
                           'opinions': [ {'percentage': dataOpinions.believe.percentage, 'name' : 'believe'}, 
                                       {'percentage': dataOpinions.doubt.percentage, 'name': 'doubt'}, 
                                       {'percentage': dataOpinions.disbelieve.percentage, 'name' : 'disbelieve'} ]};
-              opinions.highestOpinion =  _.max(opinions.opinions, function(op) { return op.percentage } );
+              opinions.highestOpinion =  _.max(opinions.opinions, function(op) { return op.percentage; } );
               processOpinion(opinions);
-           },
+           }
           });
         },
 
         // Makes the indicator show for the Factlink with id ID 
         showFor: function( id, x_in, y_in ) { 
+          if(id !== currentId || visible === false){
             // Get the Factlink-object 
             var fl = $( 'span.factlink[data-factid=' + id + ']'); 
             window.clearTimeout( timeout ); 
@@ -46,7 +47,6 @@ Factlink.Indicator = (function() {
             } 
           
              
-            // Store the currentId; 
             currentId = id; 
 
             var opinions = Factlink.Indicator.getOpinions(id,  function(opinions){
@@ -59,11 +59,12 @@ Factlink.Indicator = (function() {
                   if ( el === undefined ) {
                       return; 
                   } else {
+                    visible = true;
                     el.css({ top: y, left: x }).html(template(opinions)).fadeIn(100);
                  }}
               }, 250);  
             
-          });
+          });}
         }, 
 
         hide: function() { 
@@ -73,9 +74,11 @@ Factlink.Indicator = (function() {
             // Put the hiding in a timeout, so it can be stopped when a user 
             // hovers the indication 
             timeout = window.setTimeout(function() { 
+                visible = false;
                 el.fadeOut(100); 
                 currentId = undefined; 
             }, 250); 
+            
         }, 
 
         // Set the element object when it's set. 
@@ -100,7 +103,6 @@ Factlink.Indicator = (function() {
                 }) 
                 .bind('click', function() { 
                     self.hide(); 
-                    console.info("currentid = "+currentId);
                     $( 'span.factlink[data-factid=' + currentId + ']:first').click(); 
                     return false; 
                 }); 
