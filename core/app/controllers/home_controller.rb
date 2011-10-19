@@ -2,11 +2,11 @@ class HomeController < ApplicationController
 
   layout "frontend"
 
-  def db1 
+  def create
     render "templates/create", :layout => nil
   end
 
-  def db2
+  def indicator
     render "templates/indicator", :layout => nil
   end
   

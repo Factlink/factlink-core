@@ -7,7 +7,29 @@
 <div id="fl">
 
   <div class="fl-popup">
-    hij is nu al zo
+    
+    <div class="fl-share">
+      <img class="fl-share-icon" src=<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/bookmark.gif" %> alt="Share">
+    </div>
+
+    <div class="fl-label">
+      <span>
+        <span class="fl-authority">12</span>
+        Show
+      </span>
+      
+      <div class="fl-icon doubt" style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/simple_indicators.png" %>')">
+      </div>
+    </div>
+
+    <ul class="fl-channels "> <!-- none / top-left / top-right -->
+      <li><input type="checkbox" id="fact-id-1-channel-id-1"><label for="fact-id-1-channel-id-1">Nutrition</label></li>
+      <li><input type="checkbox" id="fact-id-2-channel-id-1"><label for="fact-id-2-channel-id-1">iPhone 4s</label></li>
+      <li><input type="checkbox" id="fact-id-3-channel-id-1"><label for="fact-id-3-channel-id-1">Financieel rijbewijs</label></li>
+    </ul>
+
+    <!-- <div class="fl-arrow fl-arrow-top"    style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/arrows-up.png" %>')"></div> -->
+    <div class="fl-arrow fl-arrow-bottom" style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/arrows-down.png" %>')"></div>
   </div>
 
 </div>

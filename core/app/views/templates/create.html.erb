@@ -1,37 +1,24 @@
-<!-- <html> -->
-<!-- <head> -->
-<%#= stylesheet_link_tag("#{FactlinkUI::Application.config.static_url}lib/src/css/basic.css") %>
-<!-- </head> -->
+<html>
+<head>
+  <%= stylesheet_link_tag("#{FactlinkUI::Application.config.static_url}lib/src/css/basic.css") %>  
+</head>
+<body>
+<div id="fl">
 
-<!-- <body> -->
-<div id="fl-prepare">
-<div class="fl-balloon-container"> 
-  <div class="fl-balloon top">
-    <!-- <div class="fl-share">
-      <img class="fl-share-icon" src="images/bookmark.gif" alt="Share">
-    </div> -->
+  <div class="fl-popup">
 
-    <div class="fl-labels">
-     <div class="fl-label" data-label="create">
-       <span class="fl-label-text">Factlink!</span>
-     </div> 
-     <div class="fl-label" data-label="created" style="display: none">
-       <span class="fl-label-text">Add Evidence?</span>
-     </div>
+    <div class="fl-label">
+      <span>Factlink</span>
+    </div>
+    
+    <ul class="fl-add-options right">
+      <li class="first"><span><a href="#" id="beliefs">Agree</a></span></li>
+      <li><span><a href="#" id="doubts">Not sure</a></span></li>
+      <li><span><a href="#" id="disbeliefs">Disagree</a></span></li>
+    </ul>
 
-      <div id="fl-balloon-popup">
-        <ul class="default">
-          <li class="first"><span><a href="#" id="beliefs">Agree</a></span></li>
-          <li><span><a href="#" id="doubts">Not sure</a></span></li>
-          <li><span><a href="#" id="disbeliefs">Disagree</a></span></li>
-        </ul>
-      </div>
-   </div>
-
-     <div class="fl-balloon-arrow-border"></div>
-     <div class="fl-balloon-arrow"></div>
+    <div class="fl-arrow fl-arrow-bottom" style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/arrows-down.png" %>')"></div>
   </div>
 </div>
-</div>
-<!-- </body> -->
-<!-- </html> -->
+</body>
+</html>
