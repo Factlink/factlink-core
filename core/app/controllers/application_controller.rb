@@ -23,5 +23,9 @@ class ApplicationController < ActionController::Base
       return view_context.url_for(fact_path(session[:"user.return_to"].to_s))
     end
   end
+  
+  def current_graph_user
+    current_user.andand.graph_user
+  end
 
 end
