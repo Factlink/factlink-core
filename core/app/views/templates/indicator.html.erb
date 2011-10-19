@@ -14,11 +14,11 @@
 
     <div class="fl-label">
       <span>
-        <span class="fl-authority">12</span>
+        <span class="fl-authority">{%= authority %}</span>
         Show
       </span>
       
-      <div class="fl-icon doubt" style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/simple_indicators.png" %>')">
+      <div class="fl-icon {%= highestOpinion.name %}" style="background-image: url('<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/simple_indicators.png" %>')">
       </div>
     </div>
 
