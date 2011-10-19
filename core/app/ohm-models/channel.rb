@@ -1,6 +1,17 @@
+module RelatedUsers
+  
+  def related_users(calculator=RelatedUsersCalculator.new,options)
+    options[:without] ||= []
+    options[:without] << created_by
+    calculator.related_users(facts,options)
+  end
+  
+end
+
 class Channel < OurOhm
   include ActivitySubject
-
+  include RelatedUsers
+  
   attribute :title
   index :title
   attribute :description
@@ -103,10 +114,6 @@ class Channel < OurOhm
     activity(self.created_by,:added,channel,:to,self)
   end
 
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
-
   protected
   def _add_channel(channel)
     contained_channels << channel
@@ -126,6 +133,8 @@ class Channel < OurOhm
 end
 
 class UserStream
+  include RelatedUsers
+  
   attr_accessor :id, :created_by, :title, :description, :facts
   
   def initialize(graph_user)
@@ -153,8 +162,4 @@ class UserStream
     false
   end
 
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
-  
 end

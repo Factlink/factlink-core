@@ -156,7 +156,7 @@ class ChannelsController < ApplicationController
     # @channel is fetched in load_channel    
     @partial = "channels/related_users"
     
-    @locals = { :related_users => @channel.related_users.andand.map{|x| x.user }}
+    @locals = { :related_users => @channel.related_users(:without=>[current_user.graph_user]).andand.map{|x| x.user }, :excluded_users => [@channel.created_by]}
     respond_to do |format|
       format.html { render :template => "home/partial_renderer", :layout => "ajax" }
     end
