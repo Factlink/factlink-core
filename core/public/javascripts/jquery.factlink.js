@@ -20,84 +20,78 @@
 
     function arc(w, op, p) {
       var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
+      var the_arc = [op.display_value, p.offset, p.r];
+      
       if (!op.raphael) {
         // set new path
-       var z = w.r.path().attr({
-          arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
+        return (op.raphael = w.r.path().attr({
+          arc: the_arc,
           stroke: $(op).data("color"),
           "stroke-width": w.params.default_stroke.stroke,
           opacity: opacity
-        });
-        op.raphael = z;
-        return z;
+        }));
       } else {
         return op.raphael.animate({
-          arc: [op.display_value - 2, p.total, (p.total_degrees / p.total * p.offset), p.r, p.total_degrees],
+          arc: the_arc,
           opacity: opacity
         }, 200, '<>');
       }
     }
     
-    function authority(w, authority) { 
-      var auth = authority.data("authority");
+    function authority(w, authority_element) { 
+      var auth = authority_element.data("authority");
       var pos = w.params.dim + (w.params.dim * 0.25);
-      if (!authority.raphael) {
-        var z = w.r.text(pos, pos, auth).attr({"font-size" : "13px", "fill" : "#ccc"});
-        authority.raphael = z;
-        return z;
+      if (!authority_element.raphael) {
+        return (authority_element.raphael = w.r.text(pos, pos, auth).attr({"font-size" : "13px", "fill" : "#ccc"}));
       } else { 
-        return authority.raphael.attr({"text": auth});
+        return authority_element.raphael.attr({"text": auth});
       }
     }
 
     Wheel.prototype.calc_display = function(opinions) {
-      var remainder = 100;
+      var too_much = 0;
+      var large_ones = 0;
       $(opinions).each(function() {
-        var display_value = $(this).data("value");
-        // NOTE: this way the total is *not* always 100! (consider 70, 20, 10)
-        // TODO fix this!
-        display_value = (display_value < 15 ? 15 : display_value);
-        display_value = (display_value > 70 ? 70 : display_value);
-        remainder = remainder - display_value;
-        this.display_value = display_value;
+        var percentage = $(this).data("value");
+        if (percentage < 15) {
+          too_much += 15 - percentage;
+        } else if (percentage > 40) {
+          large_ones += percentage;
+        }
+      })
+      .each(function() {
+        var percentage = $(this).data("value");
+        if (percentage < 15) {
+          percentage = 15 ;
+        } else if (percentage > 40) {
+          percentage = percentage - percentage/large_ones*too_much;
+        }
+        this.display_value = percentage;
       });
-      var leng = opinions.length;
-      $(opinions).each(function() {
-        // Add remainder
-        this.display_value = this.display_value + (remainder / leng);
-      });
+
     };
 
-    Wheel.prototype.set_opinions = function(opinions, offset, r, total_degrees) {
-      var w = this;
-      var total = 0;
-      var a = authority(w, w.authority);
-      w.calc_display(opinions);
+    Wheel.prototype.update = function() {
+      var opinions = this.opinions;
+      var r = this.params.radius;
       
-      $(opinions).each(function() {
-        // HACK, see above NOTE/TODO
-        total = total + this.display_value;
-      });
+      var wheel = this;
+      var a = authority(wheel, wheel.authority);
+      wheel.calc_display(opinions);
+      var offset = 0;
       $(opinions).each(function() {
         offset = offset + this.display_value;
-        var z = arc(w, this, {
+        var z = arc(wheel, this, {
           offset: offset,
           val: this.display_value,
-          total: total,
-          total_degrees: total_degrees,
           r: r
         });
       });
     };
 
-    Wheel.prototype.update = function() {
+    Wheel.prototype.bind_events = function() {
       var w = this;
-      w.set_opinions(w.opinions, 0, w.params.radius, 360);
-    };
-
-    Wheel.prototype.bind_events = function(op) {
-      var w = this;
-      $(op).each(function() {
+      $(this.opinions).each(function() {
         // bind events
         var $t = $(this);
         this.raphael.mouseover(function() {
@@ -142,26 +136,25 @@
     Wheel.prototype.init = function(canvas) {
       var w = this;
       w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17);
-      // was 45,45
-      w.r.customAttributes.arc = function(value, total, start, R, total_degrees, size) {
-        var alpha = total_degrees / total * value,
+      w.r.customAttributes.arc = function(percentage, percentage_offset, R) {
+        value = value - 2; // add padding after arc
+        var alpha = 360 / 100 * percentage,
+            start = 360 / 100 * percentage_offset,
             a = (start - alpha) * Math.PI / 180,
             b = start * Math.PI / 180,
-            dim = w.params.dim + 6,
-            sx = dim + R * Math.cos(b),
-            sy = dim - R * Math.sin(b),
-            x = dim + R * Math.cos(a),
-            y = dim - R * Math.sin(a),
-            path = [
+            box_dim = w.params.dim + 6,
+            sx = box_dim + R * Math.cos(b),
+            sy = box_dim - R * Math.sin(b),
+            x = box_dim + R * Math.cos(a),
+            y = box_dim - R * Math.sin(a);
+        return {
+          path: [
             ['M', sx, sy],
             ['A', R, R, 0, +(alpha > 180), 1, x, y]
-            ];
-        return {
-          path: path
-        };
+          ]};
       };
-      w.set_opinions(this.opinions, 0, w.params.radius, 360);
-      w.bind_events(this.opinions);
+      this.update();
+      this.bind_events();
     };
     return Wheel;
   })();
