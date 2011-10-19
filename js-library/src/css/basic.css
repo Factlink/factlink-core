@@ -37,7 +37,18 @@
 
     More info at: http://lesselements.com
 -----------------------------------------------------*/
-/* Actual styles start */#fl {
+/* Actual styles start */.fl-float-box {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: solid 1px #a8a8a8;
+  padding: 6px;
+  position: relative;
+}
+#fl {
   margin: 0;
   padding: 0;
   background-image: none;
@@ -94,9 +105,6 @@
   color: #000;
 }
 #fl .fl-popup {
-  line-height: 24px;
-  text-align: center;
-  text-shadow: 0px 0px 1px white;
   background: #e2e2e2;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e2e2e2), color-stop(1, #ffffff));
   background: -ms-linear-gradient(bottom, #e2e2e2, #ffffff);
@@ -107,8 +115,128 @@
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
   width: 108px;
   height: 24px;
   z-index: 2147483644;
   border: solid 1px #a8a8a8;
+}
+#fl .fl-popup:hover {
+  border: solid 1px #555;
+}
+#fl .fl-popup:hover .fl-arrow {
+  background-position: 12px 0px !important;
+}
+#fl .fl-popup .fl-label {
+  text-align: center;
+}
+#fl .fl-popup .fl-label span {
+  line-height: 26px;
+  text-shadow: 0px 1px 0px white;
+  display: inline-block;
+}
+#fl .fl-popup .fl-label span .fl-authority {
+  float: right;
+  margin-right: -16px;
+  margin-top: 0px;
+  color: #a0a0a0;
+  font-size: 0.8em;
+}
+#fl .fl-popup .fl-label .fl-icon {
+  float: right;
+  margin-top: 2px;
+  padding-right: 4px;
+  width: 17px;
+  height: 20px;
+  background-repeat: none;
+  background-color: transparent;
+}
+#fl .fl-popup .fl-label .fl-icon.believe {
+  background-position: 1px 0px !important;
+}
+#fl .fl-popup .fl-label .fl-icon.disbelieve {
+  background-position: 41px 0px !important;
+}
+#fl .fl-popup .fl-label .fl-icon.doubt {
+  background-position: 21px 0px !important;
+}
+#fl .fl-popup .fl-add-options {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: solid 1px #a8a8a8;
+  padding: 6px;
+  position: relative;
+}
+#fl .fl-popup .fl-add-options.right {
+  left: 108px;
+  top: -27px;
+}
+#fl .fl-popup .fl-add-options.left {
+  left: -108px;
+  top: -27px;
+}
+#fl .fl-popup .fl-share {
+  float: left;
+  padding: 6px 4px;
+  border-top: solid 1px transparent;
+  border-left: solid 1px transparent;
+  border-right: solid 1px #d1d1d1;
+  border-bottom: solid 1px transparent;
+}
+#fl .fl-popup .fl-share:hover {
+  background: #b9b9b9;
+}
+#fl .fl-popup .fl-channels {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: solid 1px #a8a8a8;
+  padding: 6px;
+  position: relative;
+  display: none;
+  font-size: 0.9em;
+  width: 96px;
+  margin-left: -1px;
+  top: -2px;
+  z-index: 2147483644;
+  background: #f6f6f6;
+}
+#fl .fl-popup .fl-channels li {
+  padding: 4px 0px;
+}
+#fl .fl-popup .fl-channels li label {
+  padding-left: 5px;
+}
+#fl .fl-popup .fl-channels.bottom {
+  top: -2px;
+}
+#fl .fl-popup .fl-channels.top-left {
+  top: -27px;
+  left: -109px;
+}
+#fl .fl-popup .fl-channels.top-right {
+  top: -27px;
+  left: 109px;
+}
+#fl .fl-popup .fl-arrow {
+  width: 12px;
+  height: 16px;
+  position: absolute;
+  left: 24px;
+}
+#fl .fl-popup .fl-arrow.fl-arrow-bottom {
+  top: 100%;
+}
+#fl .fl-popup .fl-arrow.fl-arrow-top {
+  top: -15px;
 }

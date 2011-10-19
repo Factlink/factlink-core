@@ -2,34 +2,160 @@
 @import "elements.less";
 
 /* Actual styles start */ 
-@z-index : 2147483644; 
-@hover-color: darken(rgb(240,240,240), 10);
+@z-index      : 2147483644; 
+@hover-color  : darken(rgb(240,240,240), 10);
 @bg-color-stop: #fbfbfb;
-@bg-color: #e2e2e2;
-@popup-width: 108px;
-@popup-height: 24px;
-@border-color: #a8a8a8;
+@bg-color     : #e2e2e2;
+@popup-width  : 108px;
+@popup-height : 24px;
+@border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
 
 @pink: #e6007e;
 
+// Offset for the floating boxes
+@positioning-y-offset: 3;
+
+.fl-float-box {
+  .rounded(3px);
+  border: solid 1px @border-color;
+  padding: 6px;
+  position: relative;
+}
+        
 #fl {
   #fl > .reset;
-
   font-size: 0.8em;
   font-family: "Helvetica", Arial, sans-serif;
   
   .fl-popup {
-    line-height: 24px;
-    text-align: center;
-    text-shadow: 0px 0px 1px white;
-    
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
-    
+    .drop-shadow(1px, 2px, 3px, 0.20);
+
+    position: relative;
     width:    @popup-width;
     height:   @popup-height;
     z-index:  @z-index;
     border:   solid 1px @border-color;
+    
+    &:hover {
+      border: solid 1px #555;
+      
+      .fl-arrow {
+        background-position: 12px 0px !important;
+      }
+    }
+        
+    .fl-label {
+      text-align: center;
+      
+      span {
+        line-height: 26px;        
+        text-shadow: 0px 1px 0px white;
+        display: inline-block;
+
+        .fl-authority {
+          float: right;
+          margin-right: -16px;
+          margin-top: 0px;
+          color: #a0a0a0;
+          font-size: 0.8em;
+        }
+      }
+
+      .fl-icon {
+        float: right;
+        margin-top: 2px;
+        padding-right: 4px;
+        width: 17px;
+        height: 20px;
+        background-repeat: none;
+        background-color: transparent;
+
+        &.believe {
+          background-position: 1px 0px !important;
+        }
+        &.disbelieve {
+          background-position: 41px 0px !important;
+        }
+        &.doubt { 
+          background-position: 21px 0px !important;
+        }
+      }
+    }
+
+    // Create
+    .fl-add-options {
+      .fl-float-box;
+      
+      &.right {
+        left: @popup-width;
+        top: -@popup-height - @positioning-y-offset;
+      }
+      &.left {
+        left: -@popup-width;
+        top: -@popup-height - @positioning-y-offset;
+      }
+    }
+
+    // Indicator
+    .fl-share {
+      float: left;
+      padding: 6px 4px;
+      .bordered(transparent, lighten(@border-color, 16), transparent, transparent);
+
+      &:hover {
+        background: darken(@bg-color, 16);
+      }
+    }
+    .fl-channels {
+      .fl-float-box;
+      
+      display: none;
+      font-size: 0.9em;
+      width: @popup-width - 12; // Popup-width minus the padding
+      margin-left: -1px;        // Position underneath popup
+      top: -2px;
+      z-index: @z-index;
+      background: lighten(@bg-color, 8);
+      
+      li {
+        padding: 4px 0px;
+        
+        label {
+          padding-left: 5px;
+        }
+      }
+      
+      // Positioning
+      &.bottom {
+        // Default behaviour
+        top: -2px;
+      }
+      &.top-left {
+        top:  -@popup-height - @positioning-y-offset;
+        left: -@popup-width - 1;
+      }
+      &.top-right {
+        top:  -@popup-height -  @positioning-y-offset;
+        left: @popup-width + 1;
+      }
+    }
+
+    .fl-arrow {
+      width: 12px;
+      height: 16px;
+      position: absolute;
+      left: 24px;      
+
+      &.fl-arrow-bottom {
+        top: 100%;
+      }
+      
+      &.fl-arrow-top {
+        top: -15px;
+      }
+    }
   }
 }
