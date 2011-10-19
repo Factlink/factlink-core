@@ -52,7 +52,7 @@ var Factlink = window.Factlink = (function() {
           // Select the ranges (results)
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
-        $(window).trigger('factlink:factsLoaded');
+        $(window).trigger('factlink.factsLoaded');
         var $fls = $('span.factlink').addClass('fl-active');
 
         setTimeout(function() {

@@ -83,12 +83,12 @@
     var factId = $( e.target ).attr( 'data-factid' ); 
     // Make sure the hover on an element works on all the paired span elements 
     $( '[data-factid=' + factId + ']' ).addClass('fl-active');
-    $(window).trigger("factlink:factHighlighted", [factId, e]);
+    $(window).trigger("factlink.factHighlighted", [factId, e]);
   }
   var stopHighlightingFactlink = function(e) { 
       var factId = $( this ).attr( 'data-factid' ); 
       $( '[data-factid=' + factId + ']' ).removeClass('fl-active'); 
-      $(window).trigger("factlink:factUnhighlighted", [factId, e]);
+      $(window).trigger("factlink.factUnhighlighted", [factId, e]);
   }
   
   $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)

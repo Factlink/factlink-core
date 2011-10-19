@@ -118,8 +118,8 @@ var stopShowingIndicator = function(e,factId,orig_e) {
   Factlink.Indicator.hide();
 };
 
-$(window).bind("factlink:factHighlighted", showIndicator)
-         .bind("factlink:factUnhighlighted",stopShowingIndicator)
+$(window).bind("factlink.factHighlighted", showIndicator)
+         .bind("factlink.factUnhighlighted",stopShowingIndicator)
          .bind("factlink.loaded", function() { 
           $.ajax({ 
             method: 'get', 

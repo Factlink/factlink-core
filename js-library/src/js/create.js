@@ -28,7 +28,7 @@
         $prepare.html(template);
         bindPrepareHover($prepare);
         bindPrepareClick($prepare);
-        $prepare.bind("factlink:switchLabel", function(e, from, to) { switchLabel(from, to); } );
+        $prepare.bind("factlink.switchLabel", function(e, from, to) { switchLabel(from, to); } );
       }, 
       error: function(data) { 
         console.log(data);
