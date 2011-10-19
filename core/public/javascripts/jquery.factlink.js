@@ -72,19 +72,16 @@
     };
 
     Wheel.prototype.update = function() {
-      var opinions = this.opinions;
-      var r = this.params.radius;
-      
       var wheel = this;
       var a = authority(wheel, wheel.authority);
-      wheel.calc_display(opinions);
+      wheel.calc_display(this.opinions);
       var offset = 0;
-      $(opinions).each(function() {
+      $(this.opinions).each(function() {
         offset = offset + this.display_value;
         var z = arc(wheel, this, {
           offset: offset,
           val: this.display_value,
-          r: r
+          r: wheel.params.radius
         });
       });
     };
@@ -137,7 +134,7 @@
       var w = this;
       w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17);
       w.r.customAttributes.arc = function(percentage, percentage_offset, R) {
-        value = value - 2; // add padding after arc
+        percentage = percentage - 2; // add padding after arc
         var alpha = 360 / 100 * percentage,
             start = 360 / 100 * percentage_offset,
             a = (start - alpha) * Math.PI / 180,
