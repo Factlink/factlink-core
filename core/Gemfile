@@ -83,7 +83,6 @@ gem 'capistrano-ext'
 
 
 group :development, :test do
-  gem 'churn', :git => "http://github.com/danmayer/churn.git"
   gem 'metric_fu'
   # depedencies of metric_fu:
     gem "fattr"

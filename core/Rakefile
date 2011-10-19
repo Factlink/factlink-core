@@ -4,7 +4,12 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 require 'metric_fu'
-
+MetricFu::Configuration.run do |config|  
+  config.metrics -= [:rcov]  
+  #config.metrics -= [:reek]  
+  #config.metrics -= [:flay]  
+  config.metrics -= [:flog]
+end
 # Again deprecation warning
 include Rake::DSL
 
