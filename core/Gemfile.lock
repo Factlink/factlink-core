@@ -1,4 +1,10 @@
 GIT
+  remote: http://github.com/raganwald/andand.git
+  revision: f048eb5543404414d97de4228640c22278cd8a29
+  specs:
+    andand (1.3.2)
+
+GIT
   remote: http://github.com/sinefunc/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -43,7 +49,6 @@ GEM
       activesupport (= 3.0.5)
     activesupport (3.0.5)
     addressable (2.2.6)
-    andand (1.3.1)
     arel (2.0.10)
     arrayfields (4.7.4)
     bcrypt-ruby (2.1.4)
@@ -96,7 +101,7 @@ GEM
     faraday (0.7.5)
       addressable (~> 2.2.6)
       multipart-post (~> 1.1.3)
-      rack (>= 1.1.0, < 2)
+      rack (< 2, >= 1.1.0)
     faraday_middleware (0.7.0)
       faraday (~> 0.7.3)
     fattr (2.2.0)
@@ -124,7 +129,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     main (4.7.1)
-    map (4.2.0)
+    map (4.7.0)
     metric_fu (2.1.1)
       Saikuro (>= 1.1.0)
       activesupport (>= 2.0.0)
@@ -274,7 +279,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 3.0.5)
-  andand
+  andand!
   arrayfields
   bson_ext (~> 1.4.0)
   canivete
