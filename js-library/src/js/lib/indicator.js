@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
     
 // Indicator object which will manage the indicator which shows some basic info  
 // of each Factlink 

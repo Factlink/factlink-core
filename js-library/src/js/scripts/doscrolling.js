@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   $(window).bind('factlink.factsLoaded', function(){
     if (Factlink !== undefined && FactlinkConfig !== undefined && FactlinkConfig.scrollto) {
       // Get al the facts on the current page

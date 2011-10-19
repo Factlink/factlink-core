@@ -24,7 +24,7 @@ var Factlink = window.Factlink = (function() {
   return Factlink;
 })();
 
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   Factlink.siteUrl = function() {
     return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
   };

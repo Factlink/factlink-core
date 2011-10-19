@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   // Function which walks the DOM in HTML source order
   // as long as func does not return false
   // Inspiration: Douglas Crockford, JavaScript: the good parts

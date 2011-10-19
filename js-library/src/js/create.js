@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   var timeout;
   var popupTimeout;
   // Function which will return the Selection object
