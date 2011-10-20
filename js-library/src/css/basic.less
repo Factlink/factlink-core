@@ -61,9 +61,7 @@ span.factlink {
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
     .drop-shadow(1px, 2px, 3px, 0.20);
-    
 
-    
     position: absolute;
     display: inline-block;
     height:   @popup-height;
@@ -154,12 +152,16 @@ span.factlink {
           line-height: @popup-height;
           
         }
-        .fl-icon {
+        .fl-indicator-icon {
           float: right;
           margin-top: 2px;
           padding-right: 4px;
           width: 17px;
           height: 20px;
+          
+          background-image: url(../images/simple_indicators.png);
+          
+          
           background-repeat: none;
           background-color: transparent;
 
@@ -254,16 +256,18 @@ span.factlink {
 
     .fl-arrow {
       width: 12px;
-      height: 16px;
+      height: 8px;
       position: absolute;
       left: 24px;      
 
-      &.fl-arrow-bottom {
-        top: 100%;
-      }
-      
       &.fl-arrow-top {
-        top: -15px;
+        background-image: url(../images/arrows-top.png);
+        top: -8px;
+      }
+
+      &.fl-arrow-bottom {
+        background-image: url(../images/arrows-bottom.png);
+        top: 100%;
       }
     }
   }
