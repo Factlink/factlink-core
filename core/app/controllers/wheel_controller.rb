@@ -31,13 +31,14 @@ class WheelController < ApplicationController
 
         canvas.rect(249,249).styles(:stroke=>'blue', :fill=>'none')
     end
-    filename = "/images/wheel/#{params[:percentages]}.png"
+    local_path = "images/wheel/#{params[:percentages]}.png"
+    filename = Rails.root.join('public', local_path)
     puts filename
-    rvg.draw.write('public'+filename)    
+    rvg.draw.write(filename)    
 
     respond_to do |format|
                 format.png do
-                  redirect_to filename
+                  redirect_to '/' + local_path
                 end
     end
   end
