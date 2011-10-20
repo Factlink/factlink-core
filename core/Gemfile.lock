@@ -206,6 +206,7 @@ GEM
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    rmagick (2.13.1)
     roodi (2.1.0)
       ruby_parser
     rsolr (0.12.1)
@@ -310,6 +311,7 @@ DEPENDENCIES
   rails (= 3.0.5)
   redis (= 2.2.1)
   redis-objects
+  rmagick
   rspec-rails
   simplecov
   simplecov-rcov-text

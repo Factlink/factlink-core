@@ -12,7 +12,8 @@
 <h1><%= link_to(@user.username, user_profile_path(@user.username)) %></h1>
 
 <ul id="wide-activity-list">
-	<%= wide_activity_list(@activities) %>
+  <%= render :partial => "home/snippets/wide_activity_list",
+          :locals => { :activities => activities } %>
 </ul>
 	
 <% end %>
