@@ -45,7 +45,14 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+  
+  task :aptget do
+    run 'apt-get -y update'
+    run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
+  end
 end
+
+before "bundle:install", "deploy:aptget"
 
 before 'deploy:all', 'deploy'
 after 'deploy:all', 'deploy:restart'

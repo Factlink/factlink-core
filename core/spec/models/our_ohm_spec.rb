@@ -22,8 +22,6 @@ describe Ohm::Model::Set do
     c1.items.all.should =~ [a]
     c2.items.all.should =~ [b]
     union.all.should =~ [a,b]
-    puts c1
-    puts c2
   end
   
 end

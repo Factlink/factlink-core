@@ -31,8 +31,6 @@
     Backbone.history.start({pushState:true, silent:true});
     
     Channels.reset(<%= @user.graph_user.channels.to_json.html_safe %>);
-    
-    var sorry = <%= @user.graph_user.channels.to_json.html_safe %>;
   </script>
   
   <script>
