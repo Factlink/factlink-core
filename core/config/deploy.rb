@@ -47,6 +47,7 @@ namespace :deploy do
   end
   
   task :aptget do
+    run 'apt-get -y update'
     run "xargs apt-get -y install < #{File.join(release_path,'config','apt-requirements.txt')}"
   end
 end
