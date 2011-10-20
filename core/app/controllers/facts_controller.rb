@@ -326,7 +326,7 @@ class FactsController < ApplicationController
       yield
     else 
       render :json => {"error" => "type not allowed"}, :status => 500
-      return false
+      false
     end
   end
   
