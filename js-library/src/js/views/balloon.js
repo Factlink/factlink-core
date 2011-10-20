@@ -25,7 +25,7 @@ Factlink.Balloon = function() {
   
   this.show = function(top, left) {
     el.css({
-      top: top - el.outerHeight() - 12 + 'px',
+      top: top - el.outerHeight() - 6 + 'px',
       left: left - 30 + 'px'
     }).show();
   };

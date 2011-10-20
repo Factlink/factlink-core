@@ -14,6 +14,8 @@ Factlink.Fact = function() {
     elements = elems;
     id = id;
     
+    highlight();
+    
     balloon = new Factlink.Balloon(id, self);
     
     // Bind the own events
@@ -23,7 +25,6 @@ Factlink.Fact = function() {
     
     bindHover();
     
-    highlight();
     stopHighlighting(1500);
   }
     
@@ -79,7 +80,7 @@ Factlink.Fact = function() {
     }
   }
   
-  function bindHover () {
+  function bindHover() {
     self.focus(function(e) {
       clearTimeout(timeout);
       
@@ -101,7 +102,7 @@ Factlink.Fact = function() {
       
       timeout = setTimeout(function(){
         balloon.hide();
-      }, 150);
+      }, 300);
     });
   }
   
