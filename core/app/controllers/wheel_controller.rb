@@ -9,7 +9,7 @@ class WheelController < ApplicationController
   def show
     RVG::dpi = 72
     
-    percentages = [25,25,50]
+    percentages = params[:percentages].split('-').map {|x| x.to_i}
     
     rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
         canvas.background_fill = 'white'
