@@ -81,7 +81,8 @@ gem 'andand', :git => 'http://github.com/raganwald/andand.git'
 gem 'capistrano'
 gem 'capistrano-ext'
 
-
+# imagemagick
+gem 'rmagick'
 
 
 group :development, :test do

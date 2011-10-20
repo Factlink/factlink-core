@@ -84,4 +84,8 @@ FactlinkUI::Application.routes.draw do
   
   match "/topic/:search" => "home#index", :as => "search_topic"  
 
+
+  # generate the images for the indicator used in the js-lib
+  get "/images/wheel/:percentages" => "wheel#show"
+
 end
