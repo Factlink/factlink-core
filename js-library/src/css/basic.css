@@ -319,13 +319,15 @@
 }
 #fl .fl-popup .fl-arrow {
   width: 12px;
-  height: 16px;
+  height: 8px;
   position: absolute;
   left: 24px;
 }
-#fl .fl-popup .fl-arrow.fl-arrow-bottom {
-  top: 100%;
-}
 #fl .fl-popup .fl-arrow.fl-arrow-top {
-  top: -15px;
+  background-image: url(../images/arrows-top.png);
+  top: -8px;
+}
+#fl .fl-popup .fl-arrow.fl-arrow-bottom {
+  background-image: url(../images/arrows-bottom.png);
+  top: 100%;
 }

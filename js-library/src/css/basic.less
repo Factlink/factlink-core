@@ -45,9 +45,7 @@
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
     .drop-shadow(1px, 2px, 3px, 0.20);
-    
 
-    
     position: relative;
     display: inline-block;
     height:   @popup-height;
@@ -238,16 +236,18 @@
 
     .fl-arrow {
       width: 12px;
-      height: 16px;
+      height: 8px;
       position: absolute;
       left: 24px;      
 
-      &.fl-arrow-bottom {
-        top: 100%;
-      }
-      
       &.fl-arrow-top {
-        top: -15px;
+        background-image: url(../images/arrows-top.png);
+        top: -8px;
+      }
+
+      &.fl-arrow-bottom {
+        background-image: url(../images/arrows-bottom.png);
+        top: 100%;
       }
     }
   }
