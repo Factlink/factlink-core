@@ -129,8 +129,6 @@
   -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
-  /*    width:    @popup-width;*/
-
   display: inline-block;
   height: 24px;
   z-index: 2147483644;
@@ -141,6 +139,40 @@
 }
 #fl .fl-popup:hover .fl-arrow {
   background-position: 12px 0px !important;
+}
+#fl .fl-popup:hover > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
+  border: solid 1px #555;
+}
+#fl .fl-popup.fl-popup-create {
+  width: 72px;
+}
+#fl .fl-popup.fl-popup-create > div.fl-label > span {
+  width: 72px;
+  margin: 0;
+}
+#fl .fl-popup.channel-active.bottom {
+  border-bottom-left-radius: 0;
+}
+#fl .fl-popup.channel-active.bottom > div.fl-share {
+  border-bottom-left-radius: 0;
+}
+#fl .fl-popup.channel-active.bottom > ul.fl-channels {
+  border-top-left-radius: 0;
+}
+#fl .fl-popup.channel-active.top {
+  border-top-left-radius: 0;
+}
+#fl .fl-popup.channel-active.top > div.fl-share {
+  border-top-left-radius: 0;
+}
+#fl .fl-popup.channel-active.top > ul.fl-channels {
+  border-bottom-left-radius: 0;
+}
+#fl .fl-popup.channel-active > div.fl-share {
+  background: #e2e2e2;
+}
+#fl .fl-popup.channel-active > ul.fl-channels {
+  display: block;
 }
 #fl .fl-popup .fl-label {
   text-align: center;
@@ -200,10 +232,13 @@
   -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  display: none;
+  /*      display: none;*/
+
   position: absolute;
-  margin: 0px;
+  top: 0;
+  margin: -1px 0 0 0;
   padding: 0px;
+  z-index: 2147483644;
 }
 #fl .fl-popup .fl-add-options:hover {
   border: solid 1px #555;
@@ -231,12 +266,11 @@
   text-shadow: 0px 1px 0px #fff;
 }
 #fl .fl-popup .fl-add-options.right {
-  left: 108px;
-  top: -27px;
+  top: 0;
+  left: 72px;
 }
 #fl .fl-popup .fl-add-options.left {
-  left: -108px;
-  top: -27px;
+  top: 0;
 }
 #fl .fl-popup .fl-share {
   float: left;
@@ -245,9 +279,11 @@
   border-left: solid 1px transparent;
   border-right: solid 1px #d1d1d1;
   border-bottom: solid 1px transparent;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 }
 #fl .fl-popup .fl-share:hover {
-  background: #b9b9b9;
+  background: #e2e2e2;
 }
 #fl .fl-popup .fl-channels {
   -webkit-border-radius: 3px;
@@ -265,31 +301,21 @@
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   display: none;
   font-size: 0.9em;
-  width: 96px;
   margin-left: -1px;
-  top: -2px;
   z-index: 2147483644;
+  position: absolute;
 }
 #fl .fl-popup .fl-channels:hover {
   border: solid 1px #555;
 }
 #fl .fl-popup .fl-channels li {
   padding: 4px 0px;
-  border: solid 2px #e6007e;
 }
 #fl .fl-popup .fl-channels li label {
-  padding-left: 5px;
+  white-space: nowrap;
 }
-#fl .fl-popup .fl-channels.bottom {
-  top: -2px;
-}
-#fl .fl-popup .fl-channels.top-left {
-  top: -27px;
-  left: -109px;
-}
-#fl .fl-popup .fl-channels.top-right {
-  top: -27px;
-  left: 109px;
+#fl .fl-popup .fl-channels li label > input {
+  margin-right: 5px;
 }
 #fl .fl-popup .fl-arrow {
   width: 12px;

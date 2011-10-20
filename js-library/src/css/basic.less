@@ -7,6 +7,7 @@
 @bg-color-stop: #fbfbfb;
 @bg-color     : #e2e2e2;
 @popup-width  : 108px;
+@popup-create-width: 72px;
 @popup-height : 24px;
 @border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
@@ -48,17 +49,64 @@
 
     
     position: relative;
-/*    width:    @popup-width;*/
     display: inline-block;
     height:   @popup-height;
     z-index:  @z-index;
     border:   solid 1px @border-color;
-
+    
     &:hover {
       border: solid 1px #555;
       
       .fl-arrow {
         background-position: 12px 0px !important;
+      }
+      
+      >ul.fl-channels,
+      >ul.fl-add-options {
+        border: solid 1px #555;
+      }
+    }
+    
+    &.fl-popup-create {
+      width: @popup-create-width;
+
+      >div.fl-label > span {
+        width: @popup-create-width;
+        margin: 0;
+      }
+    }
+    
+    &.channel-active {
+      &.bottom {
+        border-bottom-left-radius: 0;
+        
+        >div.fl-share {
+          border-bottom-left-radius: 0;
+        }
+        
+        >ul.fl-channels {
+          border-top-left-radius: 0;
+        }
+      }
+      
+      &.top {
+        border-top-left-radius: 0;
+        
+        >div.fl-share {
+          border-top-left-radius: 0;
+        }
+        
+        >ul.fl-channels {
+          border-bottom-left-radius: 0;
+        }
+      }
+      
+      >div.fl-share {
+        background: @bg-color;
+      }
+      
+      >ul.fl-channels {
+        display: block;
       }
     }
         
@@ -115,9 +163,13 @@
     // Create
     .fl-add-options {
       .fl-float-box;
-      display: none;
+/*      display: none;*/
       position: absolute;
-      margin: 0px; padding: 0px;
+      top: 0;
+      
+      margin: -1px 0 0 0;
+      padding: 0px;
+      z-index: @z-index;
       
       li {        
         padding: 2px 12px;
@@ -143,12 +195,11 @@
       }
       
       &.right {
-        left: @popup-width;
-        top: -@popup-height - @positioning-y-offset;
+        top: 0;
+        left: @popup-create-width;
       }
       &.left {
-        left: -@popup-width;
-        top: -@popup-height - @positioning-y-offset;
+        top: 0;
       }
     }
 
@@ -157,9 +208,11 @@
       float: left;
       padding: 6px 4px;
       .bordered(transparent, lighten(@border-color, 16), transparent, transparent);
-
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+      
       &:hover {
-        background: darken(@bg-color, 16);
+        background: @bg-color;
       }
     }
     .fl-channels {
@@ -167,33 +220,19 @@
       
       display: none;
       font-size: 0.9em;
-      width: @popup-width - 12; // Popup-width minus the padding
       margin-left: -1px;        // Position underneath popup
-      top: -2px;
       z-index: @z-index;
+      position: absolute;
       
       li {
         padding: 4px 0px;
-        
-        border: solid 2px @pink;
-        
+                
         label {
-          padding-left: 5px;
+          white-space: nowrap;
+          > input {
+            margin-right: 5px;
+          }
         }
-      }
-      
-      // Positioning
-      &.bottom {
-        // Default behaviour
-        top: -2px;
-      }
-      &.top-left {
-        top:  -@popup-height - @positioning-y-offset;
-        left: -@popup-width - 1;
-      }
-      &.top-right {
-        top:  -@popup-height -  @positioning-y-offset;
-        left: @popup-width + 1;
       }
     }
 
