@@ -11,3 +11,4 @@ coverage/
 log/
 *.un~
 *.log
+.idea
