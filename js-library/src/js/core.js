@@ -53,14 +53,14 @@ var Factlink = window.Factlink = (function() {
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
         $(window).trigger('factlink.factsLoaded');
-        var $fls = $('span.factlink').addClass('fl-active');
-
-        setTimeout(function() {
-          $fls.removeClass('fl-active');
-        }, 800);
       }
     });
   };
+  
+  // Create the Factlink container
+  Factlink.el = $('<div id="fl" />').appendTo('body');
+  // Create template wrapper
+  Factlink.tmpl = {};
   
   // Add the stylesheet
   var style = document.createElement("link");

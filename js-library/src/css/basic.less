@@ -18,6 +18,20 @@
 // Offset for the floating boxes
 @positioning-y-offset: 3;
 
+span.factlink {
+  cursor: pointer;
+
+  &.fl-first {
+    padding: 0 3px 0 0;
+  }
+
+  &.fl-active {
+    background: #B4D5FE !important;
+  }
+
+  -webkit-transition: all 0.4s ease-in-out;
+}
+
 .fl-float-box {
   .rounded(3px);
   border: solid 1px @border-color;
@@ -40,6 +54,8 @@
   #fl > .reset;
   font-size: 0.8em;
   font-family: "Helvetica", Arial, sans-serif;
+  height: 0;
+  width: 0;
   
   .fl-popup {
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
@@ -48,7 +64,7 @@
     
 
     
-    position: relative;
+    position: absolute;
     display: inline-block;
     height:   @popup-height;
     z-index:  @z-index;

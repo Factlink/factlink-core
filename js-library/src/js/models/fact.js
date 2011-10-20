@@ -5,27 +5,107 @@ Factlink.Fact = function() {
   var id;
   // This is to scare Mark:
   var timeout;
+  var highlight_timeout;
   var balloon;
-  
-  initialize.apply(this, arguments);
-  
+  var eventObj = {'blur': [], 'focus': []};
+  var self = this;
+    
   function initialize (id, elems) {
     elements = elems;
     id = id;
     
-    balloon = new Factlink.Balloon(id);
+    balloon = new Factlink.Balloon(id, self);
+    
+    // Bind the own events
+    $(elements)
+      .bind('mouseenter', self.focus)
+      .bind('mouseleave', self.blur);
     
     bindHover();
+    
+    highlight();
+    stopHighlighting(1500);
+  }
+    
+  this.blur = function() {
+    var args = ["blur"].concat(Array.prototype.slice.call(arguments));
+    
+    if ( $.isFunction( args[1] ) ) {
+      bind.apply(this, args);
+    } else {
+      trigger.apply(this, args);
+    }
+  };
+  
+  this.focus = function() {
+    var args = ["focus"].concat(Array.prototype.slice.call(arguments));
+    
+    if ( $.isFunction( args[1] ) ) {
+      bind.apply(this, args);
+    } else {
+      trigger.apply(this, args);
+    }
+  };
+  
+  function bind(type, fn) {
+    eventObj[type].push(fn);
+  }
+  
+  function trigger(type, fn) {
+    var args = Array.prototype.slice.call(arguments);
+    
+    args.shift();
+    
+    for (var i = 0; i < eventObj[type].length; i++) {
+      eventObj[type][i].apply(this, args);
+    }
+  }
+  
+  function highlight() {
+    clearTimeout(highlight_timeout);
+    
+    $( elements ).addClass('fl-active');
+  }
+  
+  function stopHighlighting(timer) {
+    clearTimeout(highlight_timeout);
+
+    if ( timer ) {
+      highlight_timeout = setTimeout(function() {
+        $( elements ).removeClass('fl-active');
+      }, timer);
+    } else {
+      $( elements ).removeClass('fl-active');
+    }
   }
   
   function bindHover () {
-    $(elements).bind('mouseenter', function(e) {
-      balloon.show();
-    }).bind('mouseleave', function(e) {
-      balloon.hide();
+    self.focus(function(e) {
+      clearTimeout(timeout);
+      
+      highlight();
+      
+      if ( ! balloon.isVisible() ) {
+        // Need to call a direct .hide() here to make sure not two popups are 
+        // open at a time
+        Factlink.el.find('div.fl-popup').hide();
+        
+        balloon.show($(e.target).offset().top, e.pageX);
+      }
+    });
+    
+    self.blur(function(e) {
+      clearTimeout(timeout);
+      
+      stopHighlighting();
+      
+      timeout = setTimeout(function(){
+        balloon.hide();
+      }, 150);
     });
   }
   
+  initialize.apply(this, arguments);
 };
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

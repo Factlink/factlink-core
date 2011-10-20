@@ -37,7 +37,17 @@
 
     More info at: http://lesselements.com
 -----------------------------------------------------*/
-/* Actual styles start */.fl-float-box {
+/* Actual styles start */span.factlink {
+  cursor: pointer;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+span.factlink.fl-first {
+  padding: 0 3px 0 0;
+}
+span.factlink.fl-active {
+  background: #B4D5FE !important;
+}
+.fl-float-box {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -86,6 +96,8 @@
   color: #000;
   font-size: 0.8em;
   font-family: "Helvetica", Arial, sans-serif;
+  height: 0;
+  width: 0;
 }
 #fl *, #fl * * {
   margin: 0;
@@ -128,7 +140,7 @@
   -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  position: relative;
+  position: absolute;
   display: inline-block;
   height: 24px;
   z-index: 2147483644;

@@ -3,23 +3,39 @@
 Factlink.Balloon = function() {
   var id;
   var el;
+  var hasFocus = false;
+  var factObj;
   
   initialize.apply(this, arguments);
   
-  function initialize(factId) {
+  function initialize(factId, factObj) {
     id = factId;
+    factObj = factObj;
     
-    el = $();
+    Factlink.getTemplate("indicator", function(tmpl) {
+      el = $(tmpl()).appendTo(Factlink.el);
+      
+      el.bind('mouseenter', function() {
+        factObj.focus();
+      }).bind('mouseleave', function() {
+        factObj.blur();
+      });
+    });
   }
   
-  this.show = function() {
-    console.info( "Showing balloon" );
-    el.show();
+  this.show = function(top, left) {
+    el.css({
+      top: top - el.outerHeight() - 12 + 'px',
+      left: left - 30 + 'px'
+    }).show();
   };
   
   this.hide = function() {
-    console.info( "Hiding balloon" );
     el.hide();
+  };
+  
+  this.isVisible = function() {
+    return el.is(':visible');
   };
   
 };
