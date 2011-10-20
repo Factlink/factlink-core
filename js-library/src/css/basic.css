@@ -200,22 +200,23 @@
   font-size: 0.8em;
   line-height: 24px;
 }
-#fl .fl-popup .fl-label .fl-indication .fl-icon {
+#fl .fl-popup .fl-label .fl-indication .fl-indicator-icon {
   float: right;
   margin-top: 2px;
   padding-right: 4px;
   width: 17px;
   height: 20px;
+  background-image: url(../images/simple_indicators.png);
   background-repeat: none;
   background-color: transparent;
 }
-#fl .fl-popup .fl-label .fl-indication .fl-icon.believe {
+#fl .fl-popup .fl-label .fl-indication .fl-indicator-icon.believe {
   background-position: 1px 0px !important;
 }
-#fl .fl-popup .fl-label .fl-indication .fl-icon.disbelieve {
+#fl .fl-popup .fl-label .fl-indication .fl-indicator-icon.disbelieve {
   background-position: 41px 0px !important;
 }
-#fl .fl-popup .fl-label .fl-indication .fl-icon.doubt {
+#fl .fl-popup .fl-label .fl-indication .fl-indicator-icon.doubt {
   background-position: 21px 0px !important;
 }
 #fl .fl-popup .fl-add-options {
