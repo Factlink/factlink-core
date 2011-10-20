@@ -27,6 +27,17 @@ module ApplicationHelper
 
     content_tag :button, content_or_options || 'Button', options, &block
   end
+  
+  def template_as_string(filename)
+    data = ''
+    Rails.root
+    f = File.open(filename, "r") 
+    f.each_line do |line|
+      data += line
+    end
+    return data
+  end
+  
 end
 
 # http://stackoverflow.com/questions/4814631/how-to-disable-link-to-remote-funcation-after-click-made/7415741#7415741

@@ -1,6 +1,4 @@
 require 'rvg/rvg'
-Mime::Type.register "image/png", :png
-Mime::Type.register "image/gif", :gif
 
 include Magick
 
@@ -33,12 +31,12 @@ class WheelController < ApplicationController
 
         canvas.rect(249,249).styles(:stroke=>'blue', :fill=>'none')
     end
-    filename = "/images/wheel/#{params[:percentages]}.gif"
+    filename = "/images/wheel/#{params[:percentages]}.png"
     puts filename
     rvg.draw.write('public'+filename)    
 
     respond_to do |format|
-                format.gif do
+                format.png do
                   redirect_to filename
                 end
     end
