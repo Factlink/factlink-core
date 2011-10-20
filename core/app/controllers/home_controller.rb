@@ -1,15 +1,6 @@
 class HomeController < ApplicationController
 
   layout "frontend"
-
-  def create
-    render "templates/create", :layout => nil
-  end
-
-  def indicator
-    render "templates/indicator", :layout => nil
-  end
-  
   
   helper_method :sort_column, :sort_direction
 

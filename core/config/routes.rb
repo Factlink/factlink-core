@@ -7,9 +7,6 @@ FactlinkUI::Application.routes.draw do
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
-  get "indicator" => "home#indicator"
-  get "create" => "home#create"
-
   ##########
   # Resources
   resources :facts do
