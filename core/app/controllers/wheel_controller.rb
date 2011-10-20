@@ -1,45 +1,78 @@
 require 'rvg/rvg'
 
 include Magick
+include Math
 
 
 class WheelController < ApplicationController
+
   def show
-    RVG::dpi = 300
+    RVG::dpi = 72
+    
+    percentages = [25,25,50]
+    
     rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
         canvas.background_fill = 'white'
-
-        canvas.g.translate(100, 150).rotate(-30) do |body|
-            body.styles(:fill=>'yellow', :stroke=>'black', :stroke_width=>2)
-            body.ellipse(50, 30)
-            body.rect(45, 20, -20, -10).skewX(-35)
-        end
-
-        canvas.g.translate(130, 83) do |head|
-            head.styles(:stroke=>'black', :stroke_width=>2)
-            head.circle(30).styles(:fill=>'yellow')
-            head.circle(5, 10, -5).styles(:fill=>'black')
-            head.polygon(30,0, 70,5, 30,10, 62,25, 23,20).styles(:fill=>'orange')
-        end
-
-        foot = RVG::Group.new do |_foot|
-            _foot.path('m0,0 v30 l30,10 l5,-10, l-5,-10 l-30,10z').
-                  styles(:stroke_width=>2, :fill=>'orange', :stroke=>'black')
-        end
-        canvas.use(foot).translate(75, 188).rotate(15)
-        canvas.use(foot).translate(100, 185).rotate(-15)
-
-        canvas.rect(249,249).styles(:stroke=>'blue', :fill=>'none')
+        canvas.use(svg_wheel(percentages)).translate(75, 100)
     end
+    puts rvg
     local_path = "images/wheel/#{params[:percentages]}.png"
     filename = Rails.root.join('public', local_path)
     puts filename
     rvg.draw.write(filename)    
 
     respond_to do |format|
-                format.png do
-                  redirect_to '/' + local_path
-                end
+      format.png do
+        redirect_to '/' + local_path
+      end
     end
   end
+
+  def svg_wheel(percentages, percentages_colors=['green','blue','red'])
+    RVG::Group.new do |canvas|
+      had = 0;
+      percentages.each_with_index do |percentage, index|
+        canvas.path(arc_path(percentage,had,30)).styles(:fill => 'none', :stroke => percentages_colors[index], :stroke_width => 4)
+        had += percentage
+      end
+    end
+  end 
+
+  def string_for_float(f)
+    s = "%0.5f"%f
+    s.sub!(/^-(0.0+)$/, '\1')
+    s
+  end
+
+  def arc_path(percentage, percentage_offset, radius)
+    percentage = percentage - 2 ; # add padding after arc
+    radius = radius.to_f
+    alpha = 360.0 / 100.0 * percentage.to_f
+    start = 360.0 / 100.0 * percentage_offset.to_f
+    
+    start_angle = start         * Math::PI / 180
+    end_angle = (start + alpha) * Math::PI / 180
+  
+    start_x = radius * Math.cos(start_angle)
+    start_y = - radius * Math.sin(start_angle)
+    
+    
+    end_x   = radius * Math.cos(end_angle)
+    end_y   = - radius * Math.sin(end_angle)
+    
+    path_string(start_x,start_y, end_x, end_y, alpha, radius)
+  end
+  
+  def path_string(start_x, start_y, end_x, end_y, alpha, radius)
+    start_x = string_for_float(start_x)
+    start_y = string_for_float(start_y)
+    end_x   = string_for_float(end_x)
+    end_y   = string_for_float(end_y)
+    
+    path = "M#{start_x},#{start_y}" +
+           "A#{radius},#{radius},0,#{alpha > 180 ? 1 : 0 },0,#{end_x},#{end_y}"
+    puts path
+    return path
+  end
+  
 end
