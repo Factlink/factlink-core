@@ -10,7 +10,11 @@
 
 <!-- right-column -->
 <%= content_for :right_column do %>
-  <%= render :partial => "channels/related_users", :locals => { :related_users => @channel.related_users.andand.map{|x| x.user } } %>
+  <%= render :partial => "channels/related_users",
+             :locals => {
+               :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+               :excluded_users => [@channel.created_by.user]
+              } %>
 <% end %>
 
 <%= content_for :javascript do %>

@@ -48,4 +48,16 @@ describe RelatedUsersCalculator do
       subject.related_users([f4,f1]).to_a.should == [u3,u1]
     end
   end
+    
+  describe "without parameter" do
+    before do 
+      f1.add_opiniated(:believes, u1)
+      f2.add_opiniated(:believes, u2)
+      f3.add_opiniated(:believes, u1)
+    end
+
+    it "should work" do
+      subject.related_users([f1,f2,f3],:without=>[u1]).should =~ [u2]
+    end
+  end
 end

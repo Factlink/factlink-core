@@ -10,7 +10,7 @@
       :remote => true)
     %>
   <% end %>
-  <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact, :modal => modal,}  %>
+  <%= render "/facts/partial/fact_bubble", :fact => fact, :modal => modal, %>
   <div style="height: 38px"> 
     <div class="evidence-actions">
       <ul class="evidence tabs">
@@ -49,7 +49,7 @@
           </table>
         </div>
         <div class="add-evidence" style="display: none">
-          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+          <%= render "/facts/partial/add_evidence", :fact => fact %>
         </div>
       </div>
 

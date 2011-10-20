@@ -2,11 +2,6 @@ module HomeHelper
   include Canivete::Deprecate
 
   deprecate
-  def users_and_factlink_information
-    render :partial => "home/snippets/user_and_factlink_information"
-  end
-  
-  deprecate
   def activity_list_for_user(activities, nr=19)
     render :partial => "users/partials/activity_list_for_user",
            :locals => { :activities => activities, :nr => nr }

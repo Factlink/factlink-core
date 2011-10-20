@@ -7,7 +7,7 @@
   <% else %>
     <h1>Interesting users</h1>
     <sub>Here are some of the users who might be of interest:</sub>
-    <% related_users = GraphUser.top(5).map{|x| x.user} %>
+    <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
   <% end %>
 
   <ul>
