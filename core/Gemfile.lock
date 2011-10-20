@@ -130,7 +130,7 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (4.7.0)
-    metric_fu (2.1.1)
+    metric_fu (2.1.0)
       Saikuro (>= 1.1.0)
       activesupport (>= 2.0.0)
       chronic (~> 0.3.0)

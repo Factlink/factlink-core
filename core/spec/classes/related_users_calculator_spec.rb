@@ -1,5 +1,20 @@
 require 'spec_helper'
 
+class TestUser
+end
+
+class TestFact
+  def initiate
+    @list = []
+  end
+  def add_opiniated(type, user)
+    @list << user
+  end
+  def interacting_users
+    return @list
+  end
+end
+
 describe RelatedUsersCalculator do
   let(:u1) { FactoryGirl.create(:user).graph_user }
   let(:u2) { FactoryGirl.create(:user).graph_user }
