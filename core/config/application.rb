@@ -9,13 +9,36 @@ require "active_resource/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+
+
 if ['test', 'development'].include? Rails.env
   require 'metric_fu'
+  
+  require 'simplecov'
+  require 'simplecov-rcov-text'
+  SimpleCov.formatter = SimpleCov::Formatter::RcovTextFormatter
+	
   MetricFu::Configuration.run do |config|  
-    config.metrics -= [:rcov]  
-    #config.metrics -= [:reek]  
-    #config.metrics -= [:flay]  
+    #config.metrics -= [:churn]  
+    #config.metrics -= [:flay] 
+    config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
+                  :minimum_score => 10,
+                  :filetypes => ['rb'] }
+    #config.metrics -= [:stats]
+    config.metrics -= [:rails_best_practices]
+    # config.metrics -= [:rcov] 
+    config.rcov[:external] = 'coverage/rcov/rcov.txt'
+    
+    # Flog does not work with metric_fu, don't use it:
     config.metrics -= [:flog]
+  
+    # reek does not work (only the first three):
+    config.metrics -= [:reek] 
+    # config.reek = {:dirs_to_reek => ['app'] } 
+  
+    # roodi does not work:
+    config.metrics -= [:roodi] 
+    # config.roodi = { :dirs_to_roodi => ['app/**/*.rb'] } 
   end
 end
 
