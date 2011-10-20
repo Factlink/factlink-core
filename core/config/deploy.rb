@@ -45,7 +45,13 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+  
+  task :aptget do
+    run "xargs apt-get install < #{File.join(current_path,'config','apt-requirement.txt')}"
+  end
 end
+
+before "bundle:install", "deploy:aptget"
 
 before 'deploy:all', 'deploy'
 after 'deploy:all', 'deploy:restart'

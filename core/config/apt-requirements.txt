@@ -1,1 +1,3 @@
 imagemagick
+libmagickcore-dev
+libmagickwand-dev
