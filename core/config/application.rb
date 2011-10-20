@@ -4,10 +4,23 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 
+Mime::Type.register "image/png", :png
+Mime::Type.register "image/gif", :gif
+
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
+
+if ['test', 'development'].include? Rails.env
+  require 'metric_fu'
+  MetricFu::Configuration.run do |config|  
+    config.metrics -= [:rcov]  
+    #config.metrics -= [:reek]  
+    #config.metrics -= [:flay]  
+    config.metrics -= [:flog]
+  end
+end
 
 module FactlinkUI
   class Application < Rails::Application

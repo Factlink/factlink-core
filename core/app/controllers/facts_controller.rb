@@ -10,9 +10,7 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show,
-      :intermediate, 
-      :search,
-      :indicator]
+      :intermediate]
 
   before_filter :load_fact, 
     :only => [
@@ -41,12 +39,23 @@ class FactsController < ApplicationController
     end
   end
 
+
+  def index
+    respond_to do |format|
+      format.json { render :json => Fact.all }
+     end
+  end
+
   def show
     @title = @fact.data.displaystring # The html <title>
     if params[:showevidence] == "true"
-      @showEvidence = true
+      @show_evidence = true
     else
-      @showEvidence = false
+      @show_evidence = false
+    end
+    respond_to do |format|
+      format.json { render :json => @fact }
+      format.html
     end
   end
 
@@ -76,7 +85,7 @@ class FactsController < ApplicationController
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
     
-    if params[:opinion]
+    if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
       @fact.calculate_opinion(1)
     end
@@ -317,7 +326,7 @@ class FactsController < ApplicationController
       yield
     else 
       render :json => {"error" => "type not allowed"}, :status => 500
-      return false
+      false
     end
   end
   

@@ -61,7 +61,7 @@ gem 'json'
 gem 'sunspot_rails', '~> 1.2.1'
 # gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
-# gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git'
+# gem 'sunspot_mongoid', :git => 'http://github.com/jugyo/sunspot_mongoid.git'
 
 ##########
 # Canivete -- gem which provides 'deprecate' command
@@ -73,17 +73,26 @@ gem "mongoid_rails_migrations", '0.0.13'
 
 # Andand is a library to handle nil more easily
 # http://andand.rubyforge.org/
-gem 'andand'
+#gem 'andand'
+# newer version does not give creepy warning:
+gem 'andand', :git => 'http://github.com/raganwald/andand.git'
 
 # Deployment
 gem 'capistrano'
 gem 'capistrano-ext'
 
-
+# imagemagick
+gem 'rmagick'
 
 
 group :development, :test do
   gem 'metric_fu'
+  # depedencies of metric_fu:
+    gem "fattr"
+    gem "arrayfields"
+    gem "map"
+  
+
   # gem 'webrat'
    #gem 'cover_me'
   gem 'rspec-rails'

@@ -3,7 +3,6 @@ class Users::SessionsController < Devise::SessionsController
   layout "client"
 
   def new
-    
     # Set return path if available
     # params[:return_path] is used in the SessionController to
     # create the correct return path.
@@ -62,6 +61,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   private
+  #TODO this is exact duplicate code, duplicated from facts_controller. FIX THIS!!!
   def create_fact(url, displaystring, title) # private
     @site = Site.find(:url => url).first || Site.create(:url => url)
     @fact = Fact.create(

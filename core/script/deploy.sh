@@ -17,17 +17,21 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo "\nDeploying"
 
+		echo "\n\n\n=== factlink-core ==="
 		cd factlink-core
-		cap $stage deploy
+		cap -v $stage deploy
 		
+		echo "\n\n\n=== factlink-js-library ==="
 		cd ../factlink-js-library
-		cap $stage deploy
+		cap -v $stage deploy
 		
+		echo "\n\n\n=== factlink-chrome-extension ==="
 		cd ../factlink-chrome-extension
-		cap $stage deploy
+		cap -v $stage deploy
 		
+		echo "\n\n\n=== web-proxy ==="
 		cd ../web-proxy
-		cap $stage deploy
+		cap -v $stage deploy
 		
 		echo "\nDeployed to $stage environment."
 		exit 0

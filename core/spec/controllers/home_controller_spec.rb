@@ -42,5 +42,11 @@ describe HomeController do
 
   end
 
-
+  describe :search do
+    it "should render succesful" do
+      get :search
+      response.should be_succes
+    end
+  end
+  
 end
