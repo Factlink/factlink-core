@@ -47,7 +47,7 @@ namespace :deploy do
   end
   
   task :aptget do
-    run "xargs apt-get install < #{File.join(current_path,'config','apt-requirements.txt')}"
+    run "xargs apt-get install < #{File.join(release_path,'config','apt-requirements.txt')}"
   end
 end
 
