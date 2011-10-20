@@ -48,7 +48,7 @@ namespace :deploy do
   
   task :aptget do
     run 'apt-get -y update'
-    run "xargs apt-get -y install < #{File.join(release_path,'config','apt-requirements.txt')}"
+    run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
 end
 

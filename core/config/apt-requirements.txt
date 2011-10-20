@@ -1,3 +1,4 @@
+dialog
 imagemagick
 libmagickcore-dev
 libmagickwand-dev
