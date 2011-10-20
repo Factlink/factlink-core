@@ -10,9 +10,7 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show,
-      :intermediate, 
-      :search,
-      :indicator]
+      :intermediate]
 
   before_filter :load_fact, 
     :only => [
@@ -51,9 +49,9 @@ class FactsController < ApplicationController
   def show
     @title = @fact.data.displaystring # The html <title>
     if params[:showevidence] == "true"
-      @showEvidence = true
+      @show_evidence = true
     else
-      @showEvidence = false
+      @show_evidence = false
     end
     respond_to do |format|
       format.json { render :json => @fact }
