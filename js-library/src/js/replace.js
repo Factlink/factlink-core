@@ -50,19 +50,22 @@
 
       //process all matches starting in ranges[i].startContainer
       for (var k = 0; k < matches.length; k++) {
-        this.parseFactNodes(matches[k], results);
+        this.parseFactNodes(matches[k], results, i);
       }
     }
 
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    var len;
+    var len,
+        elements = [];
     
     for (i = 0, len = results.length; i < len; i++) {
       var res = results[i];
       
+      elements[res.matchId] = elements[res.matchId] || [];
+      
       // Insert the fact-span
-      insertFactSpan(
+      elements[res.matchId] = elements[res.matchId].concat(insertFactSpan(
         res.startOffset, 
         res.endOffset,
         res.node, 
@@ -71,7 +74,13 @@
         // Only select the first range of every matched string
         // Needed for when one displayString is matched mutliple times on 
         // one page
-        i % (results.length / ranges.length) === 0);
+        i % (results.length / ranges.length) === 0));
+    }
+    
+    for ( var el in elements ) {
+      if ( elements.hasOwnProperty(el) ) {
+        new Factlink.Fact(id, elements[el]);
+      }
     }
   };
 
@@ -151,7 +160,7 @@
       };
 
   // Function that tracks the DOM for nodes containing the fact
-  Factlink.parseFactNodes = function(range, results) {
+  Factlink.parseFactNodes = function(range, results, matchId) {
     // Only parse the nodes if the startNode is already found, 
     // this boolean is used for tracking
     var foundStart = false;
@@ -178,7 +187,8 @@
           results.push({
             startOffset: rStartOffset,
             endOffset: rEndOffset,
-            node: node
+            node: node,
+            matchId: matchId
           });
         }
 
