@@ -45,8 +45,18 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: solid 1px #a8a8a8;
+  background: #f6f6f6;
   padding: 6px;
   position: relative;
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+}
+.fl-float-box:hover {
+  border: solid 1px #555;
+}
+.text-shadow {
+  text-shadow: 0px 1px 0px #fff;
 }
 #fl {
   margin: 0;
@@ -119,7 +129,9 @@
   -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   position: relative;
-  width: 108px;
+  /*    width:    @popup-width;*/
+
+  display: inline-block;
   height: 24px;
   z-index: 2147483644;
   border: solid 1px #a8a8a8;
@@ -132,20 +144,31 @@
 }
 #fl .fl-popup .fl-label {
   text-align: center;
+  overflow: auto;
 }
-#fl .fl-popup .fl-label span {
-  line-height: 26px;
-  text-shadow: 0px 1px 0px white;
+#fl .fl-popup .fl-label > span {
+  float: left;
+  line-height: 24px;
+  margin: 0 8px;
+  /*        margin-left: 8px;*/
+
   display: inline-block;
+  min-width: 40px;
+  text-align: center;
+  text-shadow: 0px 1px 0px #fff;
 }
-#fl .fl-popup .fl-label span .fl-authority {
+#fl .fl-popup .fl-label .fl-indication {
   float: right;
-  margin-right: -16px;
-  margin-top: 0px;
+  overflow: auto;
+}
+#fl .fl-popup .fl-label .fl-indication .fl-authority {
+  float: left;
+  margin: 0 3px 0 0;
   color: #a0a0a0;
   font-size: 0.8em;
+  line-height: 24px;
 }
-#fl .fl-popup .fl-label .fl-icon {
+#fl .fl-popup .fl-label .fl-indication .fl-icon {
   float: right;
   margin-top: 2px;
   padding-right: 4px;
@@ -154,13 +177,13 @@
   background-repeat: none;
   background-color: transparent;
 }
-#fl .fl-popup .fl-label .fl-icon.believe {
+#fl .fl-popup .fl-label .fl-indication .fl-icon.believe {
   background-position: 1px 0px !important;
 }
-#fl .fl-popup .fl-label .fl-icon.disbelieve {
+#fl .fl-popup .fl-label .fl-indication .fl-icon.disbelieve {
   background-position: 41px 0px !important;
 }
-#fl .fl-popup .fl-label .fl-icon.doubt {
+#fl .fl-popup .fl-label .fl-indication .fl-icon.doubt {
   background-position: 21px 0px !important;
 }
 #fl .fl-popup .fl-add-options {
@@ -171,8 +194,41 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: solid 1px #a8a8a8;
+  background: #f6f6f6;
   padding: 6px;
   position: relative;
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  display: none;
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+}
+#fl .fl-popup .fl-add-options:hover {
+  border: solid 1px #555;
+}
+#fl .fl-popup .fl-add-options li {
+  padding: 2px 12px;
+  margin: 3px 0px;
+}
+#fl .fl-popup .fl-add-options li:hover {
+  background: #4e9cb5;
+  background: #605df5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3600e6), color-stop(1, #605df5));
+  background: -ms-linear-gradient(bottom, #3600e6, #605df5);
+  background: -moz-linear-gradient(center bottom, #3600e6 0%, #605df5 100%);
+  cursor: pointer;
+}
+#fl .fl-popup .fl-add-options li:hover a {
+  color: #fff;
+  text-shadow: 0px 0px 0px transparent;
+  font-weight: 100;
+}
+#fl .fl-popup .fl-add-options li a {
+  display: block;
+  padding: 2px 0px;
+  text-shadow: 0px 1px 0px #fff;
 }
 #fl .fl-popup .fl-add-options.right {
   left: 108px;
@@ -201,18 +257,25 @@
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: solid 1px #a8a8a8;
+  background: #f6f6f6;
   padding: 6px;
   position: relative;
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   display: none;
   font-size: 0.9em;
   width: 96px;
   margin-left: -1px;
   top: -2px;
   z-index: 2147483644;
-  background: #f6f6f6;
+}
+#fl .fl-popup .fl-channels:hover {
+  border: solid 1px #555;
 }
 #fl .fl-popup .fl-channels li {
   padding: 4px 0px;
+  border: solid 2px #e6007e;
 }
 #fl .fl-popup .fl-channels li label {
   padding-left: 5px;

@@ -10,6 +10,7 @@
 @popup-height : 24px;
 @border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
+@context-menu-highlight-color: #4E9CB5;
 
 @pink: #e6007e;
 
@@ -19,8 +20,19 @@
 .fl-float-box {
   .rounded(3px);
   border: solid 1px @border-color;
+  background: lighten(@bg-color, 8);
   padding: 6px;
   position: relative;
+  
+  .drop-shadow(1px, 2px, 3px, 0.20);
+  
+  &:hover {
+    border: solid 1px #555;
+  }
+}
+
+.text-shadow {
+  text-shadow: 0px 1px 0px #fff;
 }
         
 #fl {
@@ -32,13 +44,16 @@
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
     .drop-shadow(1px, 2px, 3px, 0.20);
+    
 
+    
     position: relative;
-    width:    @popup-width;
+/*    width:    @popup-width;*/
+    display: inline-block;
     height:   @popup-height;
     z-index:  @z-index;
     border:   solid 1px @border-color;
-    
+
     &:hover {
       border: solid 1px #555;
       
@@ -49,45 +64,83 @@
         
     .fl-label {
       text-align: center;
+      overflow: auto;
       
-      span {
-        line-height: 26px;        
-        text-shadow: 0px 1px 0px white;
+      > span {
+        float: left;  
+        line-height: @popup-height;
+        margin: 0 8px;
+/*        margin-left: 8px;*/
         display: inline-block;
-
+        min-width: 40px;
+        text-align: center;
+        .text-shadow;
+      }
+      
+      .fl-indication {
+        float: right;
+        
+        overflow: auto;
+       
         .fl-authority {
-          float: right;
-          margin-right: -16px;
-          margin-top: 0px;
+          float: left;
+          margin: 0 3px 0 0;
           color: #a0a0a0;
           font-size: 0.8em;
+          line-height: @popup-height;
+          
         }
-      }
+        .fl-icon {
+          float: right;
+          margin-top: 2px;
+          padding-right: 4px;
+          width: 17px;
+          height: 20px;
+          background-repeat: none;
+          background-color: transparent;
 
-      .fl-icon {
-        float: right;
-        margin-top: 2px;
-        padding-right: 4px;
-        width: 17px;
-        height: 20px;
-        background-repeat: none;
-        background-color: transparent;
-
-        &.believe {
-          background-position: 1px 0px !important;
-        }
-        &.disbelieve {
-          background-position: 41px 0px !important;
-        }
-        &.doubt { 
-          background-position: 21px 0px !important;
-        }
+          &.believe {
+            background-position: 1px 0px !important;
+          }
+          &.disbelieve {
+            background-position: 41px 0px !important;
+          }
+          &.doubt { 
+            background-position: 21px 0px !important;
+          }
+        } 
       }
     }
 
     // Create
     .fl-add-options {
       .fl-float-box;
+      display: none;
+      position: absolute;
+      margin: 0px; padding: 0px;
+      
+      li {        
+        padding: 2px 12px;
+        margin: 3px 0px;
+        
+        &:hover {
+          background: @context-menu-highlight-color;
+          .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
+          cursor: pointer;
+          
+          a { 
+            color: #fff;
+            text-shadow: 0px 0px 0px transparent;
+            font-weight: 100;
+          }
+        }
+        
+        a {
+          display: block;
+          padding: 2px 0px;
+          .text-shadow;
+        }
+      }
       
       &.right {
         left: @popup-width;
@@ -118,10 +171,11 @@
       margin-left: -1px;        // Position underneath popup
       top: -2px;
       z-index: @z-index;
-      background: lighten(@bg-color, 8);
       
       li {
         padding: 4px 0px;
+        
+        border: solid 2px @pink;
         
         label {
           padding-left: 5px;
