@@ -103,13 +103,10 @@ class FactsController < ApplicationController
     @channels.reject! { |channel| ! channel.editable? }
     
     @channels.map! do |channel|
-      # @TODO: This should be changed to channel.to_hash.merge when the feature branch is merged back in
-      {
-        :title => channel.title,
+      channel.to_hash.merge({
         :created_by => channel.created_by.user.username,
-        :id => channel.id,
         :checked => channel.include?(@fact)
-      }
+      })
     end
     
     respond_to do |format|
