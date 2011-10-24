@@ -69,4 +69,45 @@ module FactsHelper
     render :partial => "/facts/partial/evidence_buttons", 
 	            :locals => locals
   end
+  
+  class FactBubbleView
+    def initialize(fact,user,channel)
+      @fact = fact
+      @current_user = user
+      @channel = channel
+    end
+    
+    def user_signed_in?
+      return @current_user
+    end
+    
+    def no_evidence_message
+      if user_signed_in?
+        "Perhaps you know something that supports or weakens this fact?"
+      else
+        "There are no facts supporting or weakening this fact at the moment."
+      end
+    end
+
+    def no_evidenced_message
+      if user_signed_in?
+        "Perhaps you know something that is supported or weakened by this fact?"
+      else
+        "There are no facts that are supported or weakened by this fact at the moment."
+      end
+    end
+    
+    def delete_from_channel_link
+      if user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
+        link_to(
+          image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
+          remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id),
+          :method => :delete,
+          :confirm => "Are you sure you want to remove this fact from your channel?", 
+          :remote => true)
+        
+      end
+    end
+  end
+  
 end

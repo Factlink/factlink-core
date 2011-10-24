@@ -1,12 +1,11 @@
+require 'net/http'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
   helper :all
   
   after_filter :set_access_control
-  
-  require 'twitter'
-  require 'net/http'
   
   ##########
   # Set the Access Control, so XHR request from other domains are allowed.

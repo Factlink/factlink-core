@@ -1,15 +1,9 @@
 <% modal ||= nil %>
 <% channel ||= nil %>
+<% view = FactsHelper::FactBubbleView.new(fact,current_user,channel) %>
+
 <div class="fact-block" data-fact-id="<%= fact.id %>">
-  <% if user_signed_in? and channel and channel.editable? and channel.created_by == current_user.graph_user %>
-    <%= link_to(
-      image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
-      remove_fact_from_channel_path(current_user.username, channel.id, fact.id),
-      :method => :delete,
-      :confirm => "Are you sure you want to remove this fact from your channel?", 
-      :remote => true)
-    %>
-  <% end %>
+  <%= view.delete_from_channel_link %>
   <%= render "/facts/partial/fact_bubble", :fact => fact, :modal => modal, %>
   <div style="height: 38px"> 
     <div class="evidence-actions">
@@ -28,13 +22,7 @@
             <tbody>
               <% unless fact.fact_relations.count > 0 %>
               <tr class="no-evidence">
-                <td>
-                  <% if user_signed_in? %>
-                  Perhaps you know something that supports or weakens this fact?
-                  <% else %>
-                  There are no facts supporting or weakening this fact at the moment.
-                  <% end %>
-                </td>
+                <td><%= view.no_evidence_message%></td>
               </tr>
               <% else %>
               <tr>
@@ -59,13 +47,7 @@
             <tbody>
               <% unless fact.evidenced_factrelations.count > 0 %>
               <tr class="no-evidence">
-                <td>
-                  <% if user_signed_in? %>
-                  Perhaps you know something that is supported or weakened by this fact?
-                  <% else %>
-                  There are no facts that are supported or weakened by this fact at the moment.
-                  <% end %>
-                </td>
+                <td><%= view.no_evidenced_message %></td>
               </tr>
               <% else %>
               <tr>
