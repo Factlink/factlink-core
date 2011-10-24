@@ -17,7 +17,7 @@
     var modusHandler = (function() {
       return {
         default: function() {
-          Factlink.showInfo(el=self, showEvidence=false);
+          Factlink.showInfo(self, false);
         }, 
         addToFact: function() {
           Factlink.prepare.show(e.pageX, e.pageY);
