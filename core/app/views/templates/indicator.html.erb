@@ -1,13 +1,22 @@
-<div id="fl-balloon-container"> 
-  <div id="fl-balloon" class="bottom">
-    <div class="fl-labels">
+<div class="fl-popup" style="display:none">
+  <div class="fl-share">
+    <img class="fl-share-icon" src=<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/bookmark.gif" %> alt="Share">
+    
+    <ul class="fl-channels">
+      <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
+    </ul>
+  </div>
 
-      <div class="fl-label" data-label="show">
-        <span class="fl-label-text"><span class="authority">{%= authority %}</span>Show</span>
-        <div class="icon {%= highestOpinion.name %}" style="background-image: url('<%= FactlinkUI::Application.config.static_url %>lib/src/images/simple_indicators.png')" ></div>
+  <div class="fl-label">
+    <span>Show</span>
+    
+    <div class="fl-indication">
+      <span class="fl-authority">123k</span>
+      <div class="fl-indicator-icon">
       </div>
     </div>
-     <div id="fl-balloon-arrow-border"></div>
-     <div id="fl-balloon-arrow"></div>
   </div>
+
+  <!-- <div class="fl-arrow fl-arrow-top" ></div> -->
+  <div class="fl-arrow fl-arrow-bottom"></div>
 </div>

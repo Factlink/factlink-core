@@ -17,6 +17,7 @@ class FactsController < ApplicationController
       :show,
       :edit,
       :destroy,
+      :get_channel_listing,
       :update,
       :bubble,
       :opinion,
@@ -93,6 +94,26 @@ class FactsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @fact }
       format.html { redirect_to :action => "edit", :id => @fact.id }
+    end
+  end
+  
+  def get_channel_listing
+    @channels = current_user.graph_user.channels.to_a
+    
+    @channels.reject! { |channel| ! channel.editable? }
+    
+    @channels.map! do |channel|
+      # @TODO: This should be changed to channel.to_hash.merge when the feature branch is merged back in
+      {
+        :title => channel.title,
+        :created_by => channel.created_by.user.username,
+        :id => channel.id,
+        :checked => channel.include?(@fact)
+      }
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
     end
   end
 

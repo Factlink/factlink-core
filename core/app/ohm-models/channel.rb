@@ -93,6 +93,10 @@ class Channel < OurOhm
                 :discontinued => discontinued)
   end
   
+  def include?(obj)
+    self.cached_facts.include?(obj)
+  end
+  
   def editable?
     true
   end
