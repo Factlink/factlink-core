@@ -33,7 +33,7 @@
 	<%= csrf_meta_tag %>
 </head>
 <body>
-	<%= form_for(create_factlink_path, :url => create_factlink_path, :html => { :target => "frame", :id => "form"}) do |f| %>
+	<%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
   	<input type="text" name="url" id="url" value="<%= @url %>">
   	<input type="text" name="title" id="title" value="<%= @title %>">

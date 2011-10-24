@@ -23,6 +23,8 @@ FactlinkUI::Application.routes.draw do
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
     end
   end 
+  
+  #DEPRECATED
   post  "/factlink/create" => "facts#create", :as => "create_factlink"
   post  "/factlink/update_title" => "facts#update_title", :as => "update_title"
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
@@ -79,8 +81,6 @@ FactlinkUI::Application.routes.draw do
 
   # generate the images for the indicator used in the js-lib
   get "/images/wheel/:percentages" => "wheel#show"
-
-
 
  ##########
   # Web Front-end
