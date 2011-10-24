@@ -1,91 +1,91 @@
 (function(Factlink, $, _, easyXDM, undefined) {
-  var timeout;
+  // var timeout;
   var popupTimeout;
   // Function which will return the Selection object
   //@TODO: Add rangy support for IE
   // Load the needed prepare menu & put it in a container
-  var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
+  // var templateUrl, $prepare = $('<div />').attr('id', 'fl-prepare').appendTo("body");
 
-  if (FactlinkConfig.modus === 'addToFact') {
-    templateUrl = '//' + FactlinkConfig.api + "/templates/addToFact.htm";
-    loadTemplate(templateUrl);
-  } else {
-    templateUrl = '//' + FactlinkConfig.api + "/templates/create.html";
-    loadTemplate(templateUrl);
-  }
-
-  function loadTemplate(url) { 
-    var template; 
-    $.ajax({
-      url: url,
-      crossDomain: true,
-      dataType: "jsonp",
-      cache: false,
-      jsonp: "callback",
-      success: function(data) {
-        template = _.template(data);
-        
-        $prepare.html(template);
-        bindPrepareHover($prepare);
-        bindPrepareClick($prepare);
-        $prepare.bind("factlink.switchLabel", function(e, from, to) { switchLabel(from, to); } );
-      }, 
-      error: function(data) { 
-        console.log(data);
-      }
-   });
-   return template;
-  }
-
-
-  function switchLabel(from, to) { 
-    $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
-    $prepare.find(".fl-label[data-label=" + to +"]").fadeIn('fast');
-  }
-
-  function bindPrepareHover($element) { 
-    var balloon = $element.find("#fl-balloon-popup");
-    function hoverIn() { 
-       balloon.stop().fadeTo('fast', 1).show();
-    }
-    function hoverOut() {
-       balloon.stop().fadeTo('fast', 0, function() {
-        $(this).hide(); 
-      });
-    }
-    $element.bind("fl-labels").hover(hoverIn, hoverOut); 
-  }
+  // if (FactlinkConfig.modus === 'addToFact') {
+  //   templateUrl = '//' + FactlinkConfig.api + "/templates/addToFact.htm";
+  //   loadTemplate(templateUrl);
+  // } else {
+  //   templateUrl = '//' + FactlinkConfig.api + "/templates/create.html";
+  //   loadTemplate(templateUrl);
+  // }
+  // 
+  // function loadTemplate(url) { 
+  //   var template; 
+  //   $.ajax({
+  //     url: url,
+  //     crossDomain: true,
+  //     dataType: "jsonp",
+  //     cache: false,
+  //     jsonp: "callback",
+  //     success: function(data) {
+  //       template = _.template(data);
+  //       
+  //       $prepare.html(template);
+  //       bindPrepareHover($prepare);
+  //       bindPrepareClick($prepare);
+  //       $prepare.bind("factlink.switchLabel", function(e, from, to) { switchLabel(from, to); } );
+  //     }, 
+  //     error: function(data) { 
+  //       console.log(data);
+  //     }
+  //  });
+  //  return template;
+  // }
 
 
-  function bindPrepareClick($element) {
-    var createFact;
-    if (FactlinkConfig.modus === "addToFact") {
-      createFact = Factlink.createEvidenceFromSelection;
-    } else {
-      createFact = Factlink.createFactFromSelection;
-    }
-    
-    $element.find('a').bind('mouseup', function(e) {
-      e.stopPropagation();
-    }).bind('click', function(e) {
-      e.preventDefault();
+  // function switchLabel(from, to) { 
+  //   $prepare.find(".fl-label[data-label=" + from +"]").hide(); 
+  //   $prepare.find(".fl-label[data-label=" + to +"]").fadeIn('fast');
+  // }
+  // 
+  // function bindPrepareHover($element) { 
+  //   var balloon = $element.find("#fl-balloon-popup");
+  //   function hoverIn() { 
+  //      balloon.stop().fadeTo('fast', 1).show();
+  //   }
+  //   function hoverOut() {
+  //      balloon.stop().fadeTo('fast', 0, function() {
+  //       $(this).hide(); 
+  //     });
+  //   }
+  //   $element.bind("fl-labels").hover(hoverIn, hoverOut); 
+  // }
+  // 
+  // 
+  // function bindPrepareClick($element) {
+  //   var createFact;
+  //   if (FactlinkConfig.modus === "addToFact") {
+  //     createFact = Factlink.createEvidenceFromSelection;
+  //   } else {
+  //     createFact = Factlink.createFactFromSelection;
+  //   }
+  //   
+  //   $element.find('a').bind('mouseup', function(e) {
+  //     e.stopPropagation();
+  //   }).bind('click', function(e) {
+  //     e.preventDefault();
+  // 
+  //     createFact(e.currentTarget.id, function(factId) {
+  //       showFactAddedPopup(factId, e.pageX, e.pageY);
+  //     });
+  // 
+  //     // Hide the fl-prepare context menu
+  //     $element.fadeOut(100);
+  //   });
+  // }
 
-      createFact(e.currentTarget.id, function(factId) {
-        showFactAddedPopup(factId, e.pageX, e.pageY);
-      });
 
-      // Hide the fl-prepare context menu
-      $element.fadeOut(100);
-    });
-  }
-
-
-  function showFactAddedPopup(factId, x, y) {
+  Factlink.showFactAddedPopup = function(factId, x, y) {
     // Create `add evidence` popup after succesful addition of the fact.            
     var popup = $('<div/>').addClass('fl-popup').html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>").appendTo("body");
 
     // Close the popup when clicked outside the area
-    $(document).bind('click', function(e) {
+    $(document).one('click', function(e) {
       popup.fadeOut(100);
     });
 
@@ -132,8 +132,8 @@
 
   Factlink.createEvidenceFromSelection = function(opinion, callback){
     var selInfo = Factlink.getSelectionInfo();
-    if (Factlink.prepare.factId) {
-        Factlink.remote.createEvidence(Factlink.prepare.factId, Factlink.siteUrl(), opinion, selInfo.title);
+    if (Factlink.prepare.getFactId()) {
+        Factlink.remote.createEvidence(Factlink.prepare.getFactId(), Factlink.siteUrl(), opinion, selInfo.title);
     } else {
         Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
     }
@@ -212,50 +212,26 @@
     });
   };
 
-  Factlink.prepare = {
-    factId: null,
-    show: function(x, y) {
-      if ($prepare.is(':visible')) {
-        $prepare.hide();
-        Factlink.prepare.resetFactId();
-      }
+  // Factlink.prepare = {
+  //   factId: null,
+  //   show: function(x, y) {
+  //     if ($prepare.is(':visible')) {
+  //       $prepare.hide();
+  //       Factlink.prepare.resetFactId();
+  //     }
+  // 
+  //     Factlink.positionFrameToCoord($prepare, x, y);
+  // 
+  //     $prepare.fadeIn(100);
+  //   },
+  //   setFactId: function(factId) {
+  //     this.factId = factId;
+  //   },
+  //   resetFactId: function() {
+  //     delete this.factId;
+  //   }
+  // };
 
-      Factlink.positionFrameToCoord($prepare, x, y);
 
-      $prepare.fadeIn(100);
-    },
-    setFactId: function(factId) {
-      this.factId = factId;
-    },
-    resetFactId: function() {
-      delete this.factId;
-    }
-  };
-
-  // Bind the actual selecting
-  $('body').bind('mouseup', function(e) {
-    window.clearTimeout(timeout);
-
-    if ($prepare.is(':visible')) {
-      $prepare.hide();
-      Factlink.prepare.resetFactId();
-    }
-
-    Factlink.positionFrameToCoord($prepare, e.pageX, e.pageY);
-
-    // We execute the showing of the prepare menu inside of a setTimeout
-    // because of selection change only activating after mouseup event call.
-    // Without this hack there are moments when the prepare menu will show
-    // without any text being selected
-    timeout = setTimeout(function() {
-      // Retrieve all needed info of current selection
-      var selectionInfo = Factlink.getSelectionInfo();
-
-      // Check if the selected text is long enough to be added
-      if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
-        $prepare.fadeIn(100);
-      }
-    }, 100);
-  });
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
 

@@ -32,6 +32,26 @@ span.factlink {
   -webkit-transition: all 0.4s ease-in-out;
 }
 
+#factlink-modal-frame {
+  background: transparent;
+  border: none;
+  z-index: @z-index + 2;
+  display: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  iframe {
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
+}
+
 .fl-float-box {
   .rounded(3px);
   border: solid 1px @border-color;
@@ -63,10 +83,11 @@ span.factlink {
     .drop-shadow(1px, 2px, 3px, 0.20);
 
     position: absolute;
-    display: inline-block;
+    display:  inline-block;
     height:   @popup-height;
     z-index:  @z-index;
     border:   solid 1px @border-color;
+    cursor:   pointer;
     
     &:hover {
       border: solid 1px #555;
@@ -75,8 +96,8 @@ span.factlink {
         background-position: 12px 0px !important;
       }
       
-      >ul.fl-channels,
-      >ul.fl-add-options {
+      > div.fl-share > ul.fl-channels,
+      > ul.fl-add-options {
         border: solid 1px #555;
       }
     }
@@ -90,37 +111,66 @@ span.factlink {
       }
     }
     
+    &.add-active {
+      &.right {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        
+        > ul.fl-add-options {
+          border-top-left-radius: 0;
+          display: block;
+          top: 0;
+          left: @popup-create-width;
+        }
+      }
+      
+      &.left {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        
+        > ul.fl-add-options {
+          border-top-right-radius: 0;
+          display: block;
+          left: -100%;
+          top: 0;
+          margin: -1px 0 0 -5px;
+        }
+      }
+    }
+    
     &.channel-active {
       &.bottom {
         border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
         
         >div.fl-share {
           border-bottom-left-radius: 0;
-        }
-        
-        >ul.fl-channels {
-          border-top-left-radius: 0;
+          
+          >ul.fl-channels {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
         }
       }
       
       &.top {
         border-top-left-radius: 0;
         
-        >div.fl-share {
+        > div.fl-share {
           border-top-left-radius: 0;
-        }
-        
-        >ul.fl-channels {
-          border-bottom-left-radius: 0;
+          
+          > ul.fl-channels {
+            border-bottom-left-radius: 0;
+          }
         }
       }
       
-      >div.fl-share {
+      > div.fl-share {
         background: @bg-color;
-      }
-      
-      >ul.fl-channels {
-        display: block;
+        
+        > ul.fl-channels {
+          display: block;
+        }
       }
     }
         
@@ -132,7 +182,6 @@ span.factlink {
         float: left;  
         line-height: @popup-height;
         margin: 0 8px;
-/*        margin-left: 8px;*/
         display: inline-block;
         min-width: 40px;
         text-align: center;
@@ -181,7 +230,7 @@ span.factlink {
     // Create
     .fl-add-options {
       .fl-float-box;
-/*      display: none;*/
+      display: none;
       position: absolute;
       top: 0;
       
@@ -211,14 +260,6 @@ span.factlink {
           .text-shadow;
         }
       }
-      
-      &.right {
-        top: 0;
-        left: @popup-create-width;
-      }
-      &.left {
-        top: 0;
-      }
     }
 
     // Indicator
@@ -229,26 +270,44 @@ span.factlink {
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
       
+      
+      position: relative;
+      
       &:hover {
         background: @bg-color;
       }
-    }
-    .fl-channels {
-      .fl-float-box;
       
-      display: none;
-      font-size: 0.9em;
-      margin-left: -1px;        // Position underneath popup
-      z-index: @z-index;
-      position: absolute;
-      
-      li {
-        padding: 4px 0px;
-                
-        label {
+      > .fl-channels {
+        .fl-float-box;
+
+        cursor: default;
+        display: none;
+        font-size: 0.9em;
+        margin: 1px 0 0 -2px;        // Position underneath popup
+        z-index: @z-index;
+        position: absolute;
+        top: 100%;
+        min-width: 111px;
+        left: 0;
+
+        li {
+          padding: 4px 0px;
           white-space: nowrap;
-          > input {
-            margin-right: 5px;
+          
+          &.fl-loading {
+            text-align: center;
+            
+            img {
+              vertical-align: bottom;
+              margin: 0 4px 0 0;
+            }
+          }
+
+          label {
+/*            white-space: nowrap;*/
+            > input {
+              margin-right: 5px;
+            }
           }
         }
       }

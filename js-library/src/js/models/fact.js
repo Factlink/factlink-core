@@ -7,7 +7,7 @@ Factlink.Fact = function() {
   var timeout;
   var highlight_timeout;
   var balloon;
-  var eventObj = {'blur': [], 'focus': []};
+  var eventObj = {'blur': [], 'focus': [], 'click': []};
   var self = this;
     
   function initialize (id, elems) {
@@ -21,9 +21,12 @@ Factlink.Fact = function() {
     // Bind the own events
     $(elements)
       .bind('mouseenter', self.focus)
-      .bind('mouseleave', self.blur);
+      .bind('mouseleave', self.blur)
+      .bind('click', self.click);
     
     bindHover();
+    
+    bindClick(id);
     
     stopHighlighting(1500);
   }
@@ -40,6 +43,16 @@ Factlink.Fact = function() {
   
   this.focus = function() {
     var args = ["focus"].concat(Array.prototype.slice.call(arguments));
+    
+    if ( $.isFunction( args[1] ) ) {
+      bind.apply(this, args);
+    } else {
+      trigger.apply(this, args);
+    }
+  };
+  
+  this.click = function() {
+    var args = ["click"].concat(Array.prototype.slice.call(arguments));
     
     if ( $.isFunction( args[1] ) ) {
       bind.apply(this, args);
@@ -103,6 +116,25 @@ Factlink.Fact = function() {
       timeout = setTimeout(function(){
         balloon.hide();
       }, 300);
+    });
+  }
+  
+  function bindClick(id) {
+    self.click(function(e) {
+      var self = this;
+      // A custom switch-like module
+      var modusHandler = (function() {
+        return {
+          "default": function() {
+            Factlink.showInfo(id, false);
+          }, 
+          addToFact: function() {
+            Factlink.prepare.show(e.pageX, e.pageY);
+            Factlink.prepare.setFactId(id);
+          }
+        };
+      })();
+      modusHandler[FactlinkConfig.modus]();
     });
   }
   
