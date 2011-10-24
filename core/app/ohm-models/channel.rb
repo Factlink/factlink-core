@@ -92,6 +92,10 @@ class Channel < OurOhm
   end
   
   
+  def include?(obj)
+    self.cached_facts.include?(obj)
+  end
+  
   def editable?
     true
   end

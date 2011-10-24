@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   layout "frontend"
-
+  
   helper_method :sort_column, :sort_direction
 
   def index
