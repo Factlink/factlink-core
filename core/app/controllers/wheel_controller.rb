@@ -34,7 +34,7 @@ class WheelController < ApplicationController
   def scale_percentages(percentages,round_to=5)
     scale_to=100/round_to
     total = percentages.reduce(0,:+)
-    percentages.map {|x| (x * scale_to/total).round.to_i * 100/scale_to })
+    percentages.map {|x| (x * scale_to/total).round.to_i * 100/scale_to }
   end
 
   def cap_percentages(percentages,minimum=15, round_to=5)
