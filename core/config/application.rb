@@ -29,15 +29,15 @@ if ['test', 'development'].include? Rails.env
   SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
 	
   MetricFu::Configuration.run do |config|  
-    #config.metrics -= [:churn]  
-    #config.metrics -= [:flay] 
+    # config.metrics -= [:churn]  
+    # config.metrics -= [:flay] 
     config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
                   :minimum_score => 10,
                   :filetypes => ['rb'] }
-    #config.metrics -= [:stats]
-    config.metrics -= [:rails_best_practices]
-    # config.metrics -= [:rcov] 
-    config.rcov[:external] = 'coverage/rcov/rcov.txt'
+    # config.metrics -= [:stats]
+    # config.metrics -= [:rails_best_practices]
+    config.metrics -= [:rcov] 
+    # config.rcov[:external] = 'coverage/rcov/rcov.txt'
     
     # Flog does not work with metric_fu, don't use it:
     config.metrics -= [:flog]
