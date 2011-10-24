@@ -1,6 +1,10 @@
 <div class="fl-popup" style="display:none">
   <div class="fl-share">
     <img class="fl-share-icon" src=<%= "#{FactlinkUI::Application.config.static_url}lib/src/images/bookmark.gif" %> alt="Share">
+    
+    <ul class="fl-channels">
+      <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
+    </ul>
   </div>
 
   <div class="fl-label">
@@ -11,14 +15,8 @@
       <div class="fl-indicator-icon">
       </div>
     </div>
-
-    <ul class="fl-channels">
-      <li><label><input type="checkbox">Nutrition</label></li>
-      <li><label><input type="checkbox">iPhone 4s</label></li>
-      <li><label><input type="checkbox">Financieel rijbewijs</label></li>
-    </ul>
-
-    <!-- <div class="fl-arrow fl-arrow-top" ></div> -->
-    <div class="fl-arrow fl-arrow-bottom"></div>
   </div>
+
+  <!-- <div class="fl-arrow fl-arrow-top" ></div> -->
+  <div class="fl-arrow fl-arrow-bottom"></div>
 </div>

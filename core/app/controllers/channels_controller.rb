@@ -133,7 +133,7 @@ class ChannelsController < ApplicationController
   end
 
   def toggle_fact
-    @channel  = Channel[params[:channel_id]]
+    @channel  = Channel[params[:channel_id] || params[:id]]
     @fact     = Fact[params[:fact_id]]
     
     if @channel.facts.include?(@fact)

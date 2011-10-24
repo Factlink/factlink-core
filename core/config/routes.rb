@@ -15,6 +15,7 @@ FactlinkUI::Application.routes.draw do
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
+      get "/channels" => "facts#get_channel_listing"
     end
   end 
 
@@ -71,6 +72,7 @@ FactlinkUI::Application.routes.draw do
       member do 
         get "follow", :as => "follow"
         get "related_users", :as => "channel_related_users"
+        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"
