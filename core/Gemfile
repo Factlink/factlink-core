@@ -37,8 +37,8 @@ gem 'ohm-contrib', :git => 'http://github.com/sinefunc/ohm-contrib.git'
 gem 'will_paginate', '~> 3.0.pre'
 
 #########
-# Twitter
-gem 'twitter'
+# Mustache
+gem 'mustache'
 
 ###########
 # jQuery
