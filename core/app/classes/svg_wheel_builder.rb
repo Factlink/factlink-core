@@ -14,9 +14,7 @@ class SvgWheelBuilder
   end 
 
   def string_for_float(f)
-    s = "%0.5f"%f
-    s.sub!(/^-(0.0+)$/, '\1')
-    s
+    ("%0.5f"%f).sub(/^-(0.0+)$/, '\1')
   end
 
   def arc_path(percentage, percentage_offset, radius)
@@ -41,8 +39,8 @@ class SvgWheelBuilder
     end_x   = string_for_float(end_x)
     end_y   = string_for_float(end_y)
     
-    return "M#{start_x},#{start_y}" +
-           "A#{radius},#{radius},0,#{large_angle ? 1 : 0 },0,#{end_x},#{end_y}"
+    return [['M',start_x,start_y],
+            ["A", radius, radius, 0, large_angle ? 1 : 0,  0, end_x, end_y]].flatten.join(' ')
   end
   
 end
