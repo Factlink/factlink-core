@@ -11,8 +11,7 @@ class WheelController < ApplicationController
     
     percentages = params[:percentages].split('-').map {|x| x.to_i}
     
-    percentages = round_percentages(percentages)
-    percentages = cap_percentages(percentages)
+    percentages = PercentageFormatter.new(5,15).cap_percentages(percentages)
     
     rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
         canvas.background_fill = 'white'
@@ -31,31 +30,6 @@ class WheelController < ApplicationController
     end
   end
 
-  def scale_percentages(percentages,round_to=5)
-    scale_to=100/round_to
-    total = percentages.reduce(0,:+)
-    percentages.map {|x| (x * scale_to/total).round.to_i * 100/scale_to }
-  end
-
-  def cap_percentages(percentages,minimum=15, round_to=5)
-    total = percentages.reduce(0,:+)
-    after_total, large_ones = 0, 0
-    percentages.each do |percentage|
-      after_total += [percentage, minimum].max
-      if percentage > (100 - minimum)/2
-        large_ones += percentage 
-      end
-    end
-    too_much = after_total - 100
-    return percentages.map do |percentage|
-      if percentage < minimum
-        percentage = minimum
-      elsif percentage > (100-minimum)/2
-        percentage = percentage - percentage.div(large_ones*round_to)*too_much*round_to
-      end
-      percentage
-    end
-  end
 
   def svg_wheel(percentages, percentages_colors=['green','blue','#e6007e'])
     RVG::Group.new do |canvas|

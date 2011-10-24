@@ -17,7 +17,4 @@ describe WheelController do
     response.should be_redirect
   end
 
-  describe "cap_percentages" do
-    it {subject.cap_percentages([15,15,70],15,5).should == [15,15,70]}
-  end
 end
