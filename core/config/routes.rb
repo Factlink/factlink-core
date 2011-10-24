@@ -26,8 +26,15 @@ FactlinkUI::Application.routes.draw do
   
   #DEPRECATED
   post  "/factlink/create" => "facts#create", :as => "create_factlink"
+
+  #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
+  #       the function should be able to use the json response of the put
   post  "/factlink/update_title" => "facts#update_title", :as => "update_title"
+  
+  #DEPRECATED
   match "/factlink/show/:id"  => "facts#show", :as => "factlink"
+  
+  #DEPRECATED
   get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
 
   # Prepare a new Fact

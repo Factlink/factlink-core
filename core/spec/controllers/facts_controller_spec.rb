@@ -94,7 +94,7 @@ describe FactsController do
       pending
       authenticate_user!
       post 'create'
-      response.should redirect_to(factlink_path)
+      response.should redirect_to(fact_path)
     end
   end
 
