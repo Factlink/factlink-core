@@ -71,6 +71,8 @@ module FactsHelper
   end
   
   class FactBubbleView
+    include Rails.application.routes.url_helpers    
+
     def initialize(fact,user,channel)
       @fact = fact
       @current_user = user
@@ -97,16 +99,12 @@ module FactsHelper
       end
     end
     
-    def delete_from_channel_link
-      if user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
-        link_to(
-          image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
-          remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id),
-          :method => :delete,
-          :confirm => "Are you sure you want to remove this fact from your channel?", 
-          :remote => true)
-        
-      end
+    def deletable_from_channel?
+      user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
+    end
+    
+    def remove_from_channel_path
+      remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id)
     end
   end
   

@@ -50,6 +50,7 @@
 
 <%= content_for :template do %>
   <script type="text/html" id="channel_li">
+    <%# template_as_string "channels/single_menu_item.mustache" %>
     <%= render :partial => "channels/single_menu_item", :locals => { :jsmode => true } %>
   </script>
 <% end %>
