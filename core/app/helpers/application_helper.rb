@@ -30,10 +30,11 @@ module ApplicationHelper
   
   def template_as_string(filename)
     data = ''
-    Rails.root
-    f = File.open(filename, "r") 
-    f.each_line do |line|
-      data += line
+    Rails.root.join('app',filename)
+    File.open(filename, "r") do |f|
+      f.each_line do |line|
+        data += line
+      end
     end
     return data
   end
