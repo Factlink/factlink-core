@@ -13,6 +13,10 @@ class SitesController < ApplicationController
     render :json => facts , :callback => params[:callback], :content_type => "application/javascript"
   end
   
+  def show
+    @site = Site[params[:id]]
+  end
+  
   private
   def retrieve_facts_for_url(url)
     url = params[:url]

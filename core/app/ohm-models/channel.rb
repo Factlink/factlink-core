@@ -1,4 +1,4 @@
-module RelatedUsers
+module ChannelFunctionality
   
   def related_users(calculator=RelatedUsersCalculator.new,options)
     options[:without] ||= []
@@ -6,11 +6,19 @@ module RelatedUsers
     calculator.related_users(facts,options)
   end
   
+  def to_hash
+    return {:_id => id, 
+            :title => title, 
+            :description => description,
+            :created_by => created_by,
+            :discontinued => discontinued}
+  end
+  
 end
 
 class Channel < OurOhm
   include ActivitySubject
-  include RelatedUsers
+  include ChannelFunctionality
   
   attribute :title
   index :title
@@ -83,15 +91,6 @@ class Channel < OurOhm
     self.id
   end
   
-  # Ohm Model needs to have a definition of which fields to render
-  def to_hash
-    super.merge(:_id => id, 
-                :title => title, 
-                :description => description,
-                :created_by => created_by,
-                :facts => facts,
-                :discontinued => discontinued)
-  end
   
   def editable?
     true
@@ -133,7 +132,7 @@ class Channel < OurOhm
 end
 
 class UserStream
-  include RelatedUsers
+  include ChannelFunctionality
   
   attr_accessor :id, :created_by, :title, :description, :facts
   
@@ -150,10 +149,14 @@ class UserStream
     int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts}.reduce(int_facts,:|)
     int_facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
   end
+
   
   alias :graph_user :created_by
+
+  def discontinued
+    false
+  end
   
-  public
   def editable?
     false
   end

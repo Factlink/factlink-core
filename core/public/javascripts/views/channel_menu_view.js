@@ -1,6 +1,5 @@
 window.ChannelMenuView = Backbone.View.extend({
   tagName: "li",
-  template: _.template($('#channel_li').html()),
   
   events: {
     // @TODO: Backbone router should catch these url changes, but no URL seems to match. Look in to this later please.
@@ -14,10 +13,7 @@ window.ChannelMenuView = Backbone.View.extend({
   
   render: function() {
     this.$( this.el )
-      .html( this.template( {
-        channel: this.model.toJSON(),
-        username: Router.getUsername()
-      } ) )
+      .html( $.mustache($('#channel_li').html(), this.model.toJSON() ))
       .attr('id', 'channel-' + this.model.id);
     return this;
   },

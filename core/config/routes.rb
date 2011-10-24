@@ -69,7 +69,7 @@ FactlinkUI::Application.routes.draw do
   # TODO: probably better as sites/facts (with subresources)
   get   "/site/count" => "sites#facts_count_for_url"  
   get   "/site" => "sites#facts_for_url" 
-
+  get   "/site/:id" => "sites#show"
 
   ################
   # OTHER

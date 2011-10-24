@@ -97,6 +97,9 @@ module FactlinkUI
       Site,
       Channel
     ]
+    require "#{config.root}/lib/mustache_rails.rb"
+    require "#{config.root}/app/views/sites/show.rb"
+    
     #.each do |x|
     #   puts "loaded " + x.to_s
     #end

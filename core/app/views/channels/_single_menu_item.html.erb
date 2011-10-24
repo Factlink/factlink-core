@@ -1,10 +1,10 @@
 <% jsmode ||= nil %>
 <% channel ||= nil %>
-<% view = ChannelsHelper::MenuItemView.new(channel,jsmode) %>
+<% view = ChannelsHelper::ChannelModelView.new(channel,jsmode) %>
 
-<a href="<%= view.channel_link %>">
+<a href="<%= view.link %>">
 	<span style="vertical-align:middle;">
 	  <%= view.title %> (<%= view.nr_of_facts %>)
   </span>
-  <%= image_tag("ajax-loader.gif") %>
+  <img src='/images/ajax-loader.gif'>
 </a>

@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render :json => @channels }
+      format.json { render :json => @channels.map {|ch| ChannelsHelper::ChannelModelView(ch)} }
       format.js
     end
   end
@@ -37,7 +37,7 @@ class ChannelsController < ApplicationController
   def show
 
     respond_to do |format|
-      format.json { render :json => @channel}
+      format.json { render :json => ChannelModelView(@channel)}
       format.js
       format.html { render :action => "facts" }
     end
