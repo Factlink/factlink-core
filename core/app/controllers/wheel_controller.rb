@@ -11,27 +11,38 @@ class WheelController < ApplicationController
     
     percentages = params[:percentages].split('-').map {|x| x.to_i}
     
-    percentages = PercentageFormatter.new(5,15).cap_percentages(percentages)
-    
-    rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
-        canvas.background_fill = 'white'
-        canvas.use(svg_wheel(percentages)).translate(75, 100)
-    end
-    puts rvg
-    local_path = "images/wheel/#{percentages.join('-')}.png"
-    filename = Rails.root.join('public', local_path)
-    puts filename
-    rvg.draw.write(filename)    
+    after_percentages = PercentageFormatter.new(5,15).process_percentages(percentages)
+
+    local_path = "images/wheel/#{after_percentages.join('-')}.png"
 
     respond_to do |format|
       format.png do
+        if after_percentages != percentages
+          this_url_path = "images/wheel/#{percentages.join('-')}.png"
+          redir_to_file = "#{after_percentages.join('-')}.png"
+          redir_to_path = "images/wheel/#{redir_to_file}"
+
+          # only make a symlink if the file already exists to prevent concurrent requests on the same url from failing
+          if File.exists?(Rails.root.join('public',redir_to_path))
+            File.symlink(redir_to_file, Rails.root.join('public',this_url_path))
+          end
+          
+          # maybe this image already exists, redirect first
+        else
+          #since this controller was called, the image does not exist yet
+          rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
+              canvas.use(svg_wheel(after_percentages)).translate(75, 100)
+          end
+          filename = Rails.root.join('public', local_path)
+          rvg.draw.write(filename)    
+        end
         redirect_to '/' + local_path
       end
     end
   end
 
 
-  def svg_wheel(percentages, percentages_colors=['green','blue','#e6007e'])
+  def svg_wheel(percentages, percentages_colors=['green','blue','red'])
     RVG::Group.new do |canvas|
       had = 0;
       percentages.each_with_index do |percentage, index|

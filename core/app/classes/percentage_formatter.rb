@@ -5,18 +5,19 @@ class PercentageFormatter
     @minimum = minimum
   end
 
-  def round_percentages(percentages)
-    total = percentages.reduce(0,:+)
-    percentages.map {|x| ((x.to_f / @round_to )).round.to_i * @round_to }
+  DOUBT_INDEX = 1
+
+  #percentages = [believe,doubt,disbelieve]
+
+  def floor_percentages(percentages)
+    percentages.map {|x| ((x.to_f / @round_to )).floor.to_i * @round_to }
   end
 
   def cap_percentages(percentages)
     round_to = @round_to
     minimum = @minimum
     
-    percentages = round_percentages(percentages)
-    total = percentages.reduce(0,:+)
-    after_total, large_ones = 0, 0
+    after_total, large_ones = 0.0, 0.0
     percentages.each do |percentage|
       after_total += [percentage, minimum].max
       if percentage > (100 - minimum)/2
@@ -24,14 +25,21 @@ class PercentageFormatter
       end
     end
     too_much = after_total - 100
-    return percentages.map do |percentage|
+    percentages = percentages.map do |percentage|
       if percentage < minimum
         percentage = minimum
       elsif percentage > (100-minimum)/2
         percentage = percentage - percentage/large_ones*too_much
       end
-      percentage
+      percentage.round
     end
+  end
+
+  def process_percentages(percentages)
+    percentages = cap_percentages(percentages)
+    percentages = floor_percentages(percentages)
+    percentages[DOUBT_INDEX] += 100 - percentages.reduce(0,:+)
+    percentages
   end
   
 end
