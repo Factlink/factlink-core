@@ -87,7 +87,7 @@ FactlinkUI::Application.routes.draw do
 
 
   # generate the images for the indicator used in the js-lib
-  get "/images/wheel/:percentages" => "wheel#show"
+  get "/images/wheel/:percentages" => "wheel#show", :constraints => {:percentages => /[0-9]+-[0-9]+-[0-9]+/}
 
  ##########
   # Web Front-end

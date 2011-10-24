@@ -11,12 +11,15 @@ class WheelController < ApplicationController
     
     percentages = params[:percentages].split('-').map {|x| x.to_i}
     
+    percentages = round_percentages(percentages)
+    percentages = cap_percentages(percentages)
+    
     rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
         canvas.background_fill = 'white'
         canvas.use(svg_wheel(percentages)).translate(75, 100)
     end
     puts rvg
-    local_path = "images/wheel/#{params[:percentages]}.png"
+    local_path = "images/wheel/#{percentages.join('-')}.png"
     filename = Rails.root.join('public', local_path)
     puts filename
     rvg.draw.write(filename)    
@@ -28,7 +31,33 @@ class WheelController < ApplicationController
     end
   end
 
-  def svg_wheel(percentages, percentages_colors=['green','blue','red'])
+  def scale_percentages(percentages,round_to=5)
+    scale_to=100/round_to
+    total = percentages.reduce(0,:+)
+    percentages.map {|x| (x * scale_to/total).round.to_i * 100/scale_to })
+  end
+
+  def cap_percentages(percentages,minimum=15, round_to=5)
+    total = percentages.reduce(0,:+)
+    after_total, large_ones = 0, 0
+    percentages.each do |percentage|
+      after_total += [percentage, minimum].max
+      if percentage > (100 - minimum)/2
+        large_ones += percentage 
+      end
+    end
+    too_much = after_total - 100
+    return percentages.map do |percentage|
+      if percentage < minimum
+        percentage = minimum
+      elsif percentage > (100-minimum)/2
+        percentage = percentage - percentage.div(large_ones*round_to)*too_much*round_to
+      end
+      percentage
+    end
+  end
+
+  def svg_wheel(percentages, percentages_colors=['green','blue','#e6007e'])
     RVG::Group.new do |canvas|
       had = 0;
       percentages.each_with_index do |percentage, index|
@@ -46,31 +75,28 @@ class WheelController < ApplicationController
 
   def arc_path(percentage, percentage_offset, radius)
     percentage = percentage - 2 ; # add padding after arc
-    radius = radius.to_f
-    alpha = 360.0 / 100.0 * percentage.to_f
-    start = 360.0 / 100.0 * percentage_offset.to_f
-    
-    start_angle = start         * Math::PI / 180
-    end_angle = (start + alpha) * Math::PI / 180
+
+    large_angle = percentage > 50
+
+    start_angle = percentage_offset         * 2*Math::PI / 100
+    end_angle = (percentage_offset + percentage) * 2*Math::PI / 100
   
     start_x = radius * Math.cos(start_angle)
     start_y = - radius * Math.sin(start_angle)
-    
-    
     end_x   = radius * Math.cos(end_angle)
     end_y   = - radius * Math.sin(end_angle)
     
-    path_string(start_x,start_y, end_x, end_y, alpha, radius)
+    path_string(start_x,start_y, end_x, end_y, large_angle, radius)
   end
   
-  def path_string(start_x, start_y, end_x, end_y, alpha, radius)
+  def path_string(start_x, start_y, end_x, end_y, large_angle, radius)
     start_x = string_for_float(start_x)
     start_y = string_for_float(start_y)
     end_x   = string_for_float(end_x)
     end_y   = string_for_float(end_y)
     
     path = "M#{start_x},#{start_y}" +
-           "A#{radius},#{radius},0,#{alpha > 180 ? 1 : 0 },0,#{end_x},#{end_y}"
+           "A#{radius},#{radius},0,#{large_angle ? 1 : 0 },0,#{end_x},#{end_y}"
     puts path
     return path
   end
