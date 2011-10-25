@@ -80,40 +80,40 @@
   // }
 
 
-  Factlink.showFactAddedPopup = function(factId, x, y) {
-    // Create `add evidence` popup after succesful addition of the fact.            
-    var popup = $('<div/>').addClass('fl-popup').html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>").appendTo("body");
-
-    // Close the popup when clicked outside the area
-    $(document).one('click', function(e) {
-      popup.fadeOut(100);
-    });
-
-    // Don't clost the popup when clicked on the popup itself
-    popup.bind('click', function(e) {
-      e.stopPropagation();
-    });
-
-    // Position popup on mouse position
-    Factlink.positionFrameToCoord(popup, x, y, true);
-
-    // Start the timout to hide the popup after a while
-    $('div.fl-popup').hover(function() {
-      // handlerIn
-      clearTimeout(popupTimeout);
-      // handlerOut
-    }, function() {
-      startTimer();
-    });
-
-    function startTimer() {
-      popupTimeout = setTimeout(function(){
-        $('div.fl-popup').fadeOut(100);
-      }, 3000);
-    }
-
-    startTimer();
-  }
+  // Factlink.showFactAddedPopup = function(factId, x, y) {
+  //   // Create `add evidence` popup after succesful addition of the fact.            
+  //   var popup = $('<div/>').addClass('fl-popup').html("Fact added<span class='button' data-factid='" + factId + "' onclick='Factlink.showInfo(el=this, showEvidence=true); $(\"div.fl-popup\").fadeOut(100);' >Add evidence?</span>").appendTo(Factlink.el);
+  // 
+  //   // Close the popup when clicked outside the area
+  //   $(document).one('click', function(e) {
+  //     popup.fadeOut(100);
+  //   });
+  // 
+  //   // Don't clost the popup when clicked on the popup itself
+  //   popup.bind('click', function(e) {
+  //     e.stopPropagation();
+  //   });
+  // 
+  //   // Position popup on mouse position
+  //   Factlink.positionFrameToCoord(popup, x, y, true);
+  // 
+  //   // Start the timout to hide the popup after a while
+  //   $('div.fl-popup').hover(function() {
+  //     // handlerIn
+  //     clearTimeout(popupTimeout);
+  //     // handlerOut
+  //   }, function() {
+  //     startTimer();
+  //   });
+  // 
+  //   function startTimer() {
+  //     popupTimeout = setTimeout(function(){
+  //       $('div.fl-popup').fadeOut(100);
+  //     }, 3000);
+  //   }
+  // 
+  //   startTimer();
+  // };
 
   function getTextRange() {
     var d;
@@ -154,9 +154,10 @@
         url: url
       },
       success: function(data) {
-        Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        var factObjs = Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id);
+        
         if ($.isFunction(successFn)) {
-          successFn(data.id);
+          successFn(data.id, factObjs);
         }
       },
       error: errorFn

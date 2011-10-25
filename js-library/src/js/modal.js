@@ -54,20 +54,8 @@
       iFrame.show();
     },
     highlightNewFactlink: function(fact, id) {
-      Factlink.selectRanges(Factlink.search(fact), id, {
-        believe: {
-          percentage: 0,
-          authority: 0
-        },
-        doubt: {
-          percentage: 0,
-          authority: 0
-        },
-        disbelieve: {
-          percentage: 0,
-          authority: 0
-        }
-      });
+      //@TODO: Authority & opinions need to be added back in
+      return Factlink.selectRanges(Factlink.search(fact), id);
     },
     stopHighlightingFactlink: function(id) {
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {

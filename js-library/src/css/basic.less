@@ -7,7 +7,7 @@
 @bg-color-stop: #fbfbfb;
 @bg-color     : #e2e2e2;
 @popup-width  : 108px;
-@popup-create-width: 72px;
+@popup-create-width: 55px;
 @popup-height : 24px;
 @border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
@@ -83,7 +83,7 @@ span.factlink {
     .drop-shadow(1px, 2px, 3px, 0.20);
 
     position: absolute;
-    display:  inline-block;
+    display:  none;
     height:   @popup-height;
     z-index:  @z-index;
     border:   solid 1px @border-color;
@@ -102,12 +102,40 @@ span.factlink {
       }
     }
     
-    &.fl-popup-create {
+    &.fl-create {
       width: @popup-create-width;
 
-      >div.fl-label > span {
-        width: @popup-create-width;
-        margin: 0;
+      >div.fl-label {
+        > span.fl-create {
+          display: block;
+
+        }
+        
+        > span.fl-add-evidence {
+          display: none;
+        }
+      } 
+    }
+    
+    > div.fl-label > span {
+      width: @popup-create-width;
+      margin: 0;
+    }
+    
+    &.fl-add-evidence {
+      > div.fl-label {
+        > span.fl-create {
+          display: none;
+        }
+        
+        > span.fl-add-evidence {
+          display: block;
+          width: 105px;
+        }
+      }
+      
+      ul.fl-add-options {
+        display: none !important;
       }
     }
     
@@ -138,7 +166,7 @@ span.factlink {
       }
     }
     
-    &.channel-active {
+    &.fl-channel-active {
       &.bottom {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -188,6 +216,10 @@ span.factlink {
         .text-shadow;
       }
       
+      > span.add-evidence {
+        display: none;
+      }
+      
       .fl-indication {
         float: right;
         
@@ -206,10 +238,7 @@ span.factlink {
           margin-top: 2px;
           padding-right: 4px;
           width: 17px;
-          height: 20px;
-          
-          background-image: url(../images/simple_indicators.png);
-          
+          height: 20px;          
           
           background-repeat: none;
           background-color: transparent;

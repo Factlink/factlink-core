@@ -117,7 +117,7 @@ span.factlink.fl-active {
   height: 0;
   width: 0;
 }
-#fl *, #fl * * {
+#fl *, #fl * *, #fl * * * {
   margin: 0;
   padding: 0;
   background-image: none;
@@ -159,7 +159,7 @@ span.factlink.fl-active {
   -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   position: absolute;
-  display: inline-block;
+  display: none;
   height: 24px;
   z-index: 2147483644;
   border: solid 1px #a8a8a8;
@@ -174,12 +174,28 @@ span.factlink.fl-active {
 #fl .fl-popup:hover > div.fl-share > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
   border: solid 1px #555;
 }
-#fl .fl-popup.fl-popup-create {
-  width: 72px;
+#fl .fl-popup.fl-create {
+  width: 55px;
 }
-#fl .fl-popup.fl-popup-create > div.fl-label > span {
-  width: 72px;
+#fl .fl-popup.fl-create > div.fl-label > span.fl-create {
+  display: block;
+}
+#fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
+  display: none;
+}
+#fl .fl-popup > div.fl-label > span {
+  width: 55px;
   margin: 0;
+}
+#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create {
+  display: none;
+}
+#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-add-evidence {
+  display: block;
+  width: 105px;
+}
+#fl .fl-popup.fl-add-evidence ul.fl-add-options {
+  display: none !important;
 }
 #fl .fl-popup.add-active.right {
   border-top-right-radius: 0;
@@ -189,7 +205,7 @@ span.factlink.fl-active {
   border-top-left-radius: 0;
   display: block;
   top: 0;
-  left: 72px;
+  left: 55px;
 }
 #fl .fl-popup.add-active.left {
   border-top-left-radius: 0;
@@ -202,30 +218,30 @@ span.factlink.fl-active {
   top: 0;
   margin: -1px 0 0 -5px;
 }
-#fl .fl-popup.channel-active.bottom {
+#fl .fl-popup.fl-channel-active.bottom {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-#fl .fl-popup.channel-active.bottom > div.fl-share {
+#fl .fl-popup.fl-channel-active.bottom > div.fl-share {
   border-bottom-left-radius: 0;
 }
-#fl .fl-popup.channel-active.bottom > div.fl-share > ul.fl-channels {
+#fl .fl-popup.fl-channel-active.bottom > div.fl-share > ul.fl-channels {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-#fl .fl-popup.channel-active.top {
+#fl .fl-popup.fl-channel-active.top {
   border-top-left-radius: 0;
 }
-#fl .fl-popup.channel-active.top > div.fl-share {
+#fl .fl-popup.fl-channel-active.top > div.fl-share {
   border-top-left-radius: 0;
 }
-#fl .fl-popup.channel-active.top > div.fl-share > ul.fl-channels {
+#fl .fl-popup.fl-channel-active.top > div.fl-share > ul.fl-channels {
   border-bottom-left-radius: 0;
 }
-#fl .fl-popup.channel-active > div.fl-share {
+#fl .fl-popup.fl-channel-active > div.fl-share {
   background: #e2e2e2;
 }
-#fl .fl-popup.channel-active > div.fl-share > ul.fl-channels {
+#fl .fl-popup.fl-channel-active > div.fl-share > ul.fl-channels {
   display: block;
 }
 #fl .fl-popup .fl-label {
@@ -240,6 +256,9 @@ span.factlink.fl-active {
   min-width: 40px;
   text-align: center;
   text-shadow: 0px 1px 0px #fff;
+}
+#fl .fl-popup .fl-label > span.add-evidence {
+  display: none;
 }
 #fl .fl-popup .fl-label .fl-indication {
   float: right;
@@ -258,7 +277,6 @@ span.factlink.fl-active {
   padding-right: 4px;
   width: 17px;
   height: 20px;
-  background-image: url(../images/simple_indicators.png);
   background-repeat: none;
   background-color: transparent;
 }

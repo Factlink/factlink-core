@@ -2,17 +2,30 @@
     
 Factlink.Fact = function() {
   var elements;
-  var id;
   // This is to scare Mark:
   var timeout;
   var highlight_timeout;
+  
+  // The balloon which corresponds to this Fact
   var balloon;
-  var eventObj = {'blur': [], 'focus': [], 'click': []};
+  
+  var _obj;
+  // For use inside other function scopes
   var self = this;
+  // Internal object which will hold all bound event handlers
+  var _bound_events = {};
+  // If you want to support more events add them to this variable:
+  var _events = ["focus", "blur", "click", "update"];
     
-  function initialize (id, elems) {
+  function initialize(id, elems, opinions) {
     elements = elems;
-    id = id;
+    
+    _obj = {
+      "id": id,
+      "opinions": opinions
+    };
+    
+    createEventHandlers(_events);
     
     highlight();
     
@@ -30,39 +43,31 @@ Factlink.Fact = function() {
     
     stopHighlighting(1500);
   }
-    
-  this.blur = function() {
-    var args = ["blur"].concat(Array.prototype.slice.call(arguments));
-    
-    if ( $.isFunction( args[1] ) ) {
-      bind.apply(this, args);
-    } else {
-      trigger.apply(this, args);
-    }
-  };
   
-  this.focus = function() {
-    var args = ["focus"].concat(Array.prototype.slice.call(arguments));
-    
-    if ( $.isFunction( args[1] ) ) {
-      bind.apply(this, args);
-    } else {
-      trigger.apply(this, args);
+  // This may look like some magic, but here we expose the Fact.blur/focus/click
+  // methods
+  function createEventHandlers(events) {
+    for ( var i = 0; i < events.length; i++ ) {
+      _bound_events[events[i]] = [];
+      
+      self[events[i]] = (function(i) {
+        var e = events[i];
+        
+        return function() {
+          var args = [e].concat(Array.prototype.slice.call(arguments));
+        
+          if ( $.isFunction( args[1] ) ) {
+            bind.apply(this, args);
+          } else {
+            trigger.apply(this, args);
+          }
+        };
+      })(i);
     }
-  };
-  
-  this.click = function() {
-    var args = ["click"].concat(Array.prototype.slice.call(arguments));
-    
-    if ( $.isFunction( args[1] ) ) {
-      bind.apply(this, args);
-    } else {
-      trigger.apply(this, args);
-    }
-  };
+  }
   
   function bind(type, fn) {
-    eventObj[type].push(fn);
+    _bound_events[type].push(fn);
   }
   
   function trigger(type, fn) {
@@ -70,8 +75,8 @@ Factlink.Fact = function() {
     
     args.shift();
     
-    for (var i = 0; i < eventObj[type].length; i++) {
-      eventObj[type][i].apply(this, args);
+    for (var i = 0; i < _bound_events[type].length; i++) {
+      _bound_events[type][i].apply(this, args);
     }
   }
   
@@ -137,6 +142,10 @@ Factlink.Fact = function() {
       modusHandler[FactlinkConfig.modus]();
     });
   }
+  
+  this.getObject = function() {
+    return _obj;
+  };
   
   initialize.apply(this, arguments);
 };

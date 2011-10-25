@@ -4,11 +4,13 @@ Factlink.Prepare = function() {
   var hasFocus = false;
   var el;
   var factId;
-  var createFact;
+  var facts;
   var self = this;
   var timeout;
   
   function initialize(tmpl) {
+    var createFact;
+    
     el = $(tmpl()).appendTo(Factlink.el);
     
     el.hoverIntent({
@@ -32,15 +34,17 @@ Factlink.Prepare = function() {
     }).bind('click', function(e) {
       e.preventDefault();
   
-      createFact(e.currentTarget.id, function(factId) {
-        Factlink.showFactAddedPopup(factId, e.pageX, e.pageY);
+      createFact(e.currentTarget.id, function(factId, factObjs) {
+        // Factlink.showFactAddedPopup(factId, e.pageX, e.pageY);
+        self.setFactId(factId);
+        facts = factObjs;
+        self.setType("fl-add-evidence");
       });
-  
-      // Hide the fl-prepare context menu
-      self.hide(100);
     });
     
     bindBodyClick();
+    
+    bindAddEvidenceClick();
   }
   
   function bindBodyClick() {
@@ -69,18 +73,30 @@ Factlink.Prepare = function() {
     });
   }
   
+  function bindAddEvidenceClick() {
+    el.delegate(".fl-add-evidence","click", function(e) {
+      if ( facts.length > 0 ) {
+        facts[0].click();
+        
+        self.hide(100);
+      }
+    });
+  }
+  
   function setRight() {
-    el.addClass('right');
-    el.removeClass('left');
+    el.addClass('right')
+      .removeClass('left');
   }
   
   function setLeft() {
-    el.addClass('left');
-    el.removeClass('right');
+    el.addClass('left')
+      .removeClass('right');
   }
   
   this.show = function(top, left) {
     var x = left,y = top;
+    
+    self.resetType();
     
     el.show();
     
@@ -128,6 +144,20 @@ Factlink.Prepare = function() {
   this.getFactId = function() {
     return factId;
   };
+  
+  
+  var types = ["fl-create", "fl-add-evidence"];
+  
+  this.setType = function(str) {
+    el.removeClass(types.join(" ")).addClass(str);
+  };
+  
+  this.resetType = function() {
+    el.removeClass(types.join(" ")).addClass(types[0]);
+    facts = [];
+    self.resetFactId();
+  };
+  
   
   initialize.apply(this, arguments);
 };

@@ -67,9 +67,7 @@ Factlink.Balloon = function() {
       left: x + 'px'
     });
     
-    if ( el.has('li.fl-loading') ) {
-      getChannels();
-    }
+    getChannels();
   };
   
   this.hide = function() {
@@ -82,11 +80,11 @@ Factlink.Balloon = function() {
   };
   
   function resetState() {
-    el.removeClass("channel-active");
+    el.removeClass("fl-channel-active");
   }
   
   function initializeTemplate(tmpl) {
-    el = $(tmpl()).appendTo(Factlink.el);
+    el = $(tmpl(factObj.getObject())).appendTo(Factlink.el);
     
     el.bind('mouseenter', function() {
       factObj.focus();
@@ -96,10 +94,10 @@ Factlink.Balloon = function() {
     
     el.find('div.fl-share').hoverIntent({
       over: function(e) {
-        el.addClass('channel-active');
+        el.addClass('fl-channel-active');
       },
       out: function(e) {
-        el.removeClass('channel-active');
+        el.removeClass('fl-channel-active');
       },
       timeout: 500
     });
@@ -112,6 +110,8 @@ Factlink.Balloon = function() {
   function getChannels() {
     var ul = el.find('ul.fl-channels');
     
+    ul.find('li.fl-loading').show().siblings().remove();
+    
     $.ajax({
       url: '//' + FactlinkConfig.api + '/facts/' + id + '/channels.json',
       dataType: "jsonp",
@@ -119,7 +119,7 @@ Factlink.Balloon = function() {
       type: "GET",
       jsonp: "callback",
       success: function(data) {
-        ul.empty();
+        ul.find('li.fl-loading').hide();
 
         _.each(data, function(channel) {
           Factlink.getTemplate('channel_li', function(tmpl) {

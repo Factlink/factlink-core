@@ -57,7 +57,8 @@
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
     var len,
-        elements = [];
+        elements = [],
+        ret = [];
     
     for (i = 0, len = results.length; i < len; i++) {
       var res = results[i];
@@ -69,8 +70,7 @@
         res.startOffset, 
         res.endOffset,
         res.node, 
-        id, 
-        opinions,
+        id,
         // Only select the first range of every matched string
         // Needed for when one displayString is matched mutliple times on 
         // one page
@@ -79,15 +79,17 @@
     
     for ( var el in elements ) {
       if ( elements.hasOwnProperty(el) ) {
-        new Factlink.Fact(id, elements[el]);
+        ret.push( new Factlink.Fact(id, elements[el], opinions) );
       }
     }
+    
+    return ret;
   };
 
   // This is where the actual magic will take place
   // A Span will be inserted around the startOffset/endOffset 
   // in the startNode/endNode
-  var insertFactSpan = function(startOffset, endOffset, node, id, opinions, isFirst) {
+  var insertFactSpan = function(startOffset, endOffset, node, id, isFirst) {
         // Value of the startNode, represented in an array
         var startNodeValue = node.nodeValue.split(''),
             // The selected text
@@ -105,7 +107,7 @@
           node.parentNode.insertBefore(document.createTextNode(after), node.nextSibling);
         }
         // Create a reference to the actual "fact"-span
-        var span = createFactSpan(selTextStart.join(''), id, opinions);
+        var span = createFactSpan(selTextStart.join(''), id);
 
         // Remove the last part of the nodeValue
         node.nodeValue = startNodeValue.join('');
@@ -119,7 +121,7 @@
 
         // If this span is the first in a range of fact-spans
         if (isFirst) {
-          var first = createFactSpan("", id, opinions, true);
+          var first = createFactSpan("", id, true);
           first.innerHTML = "&#10003;";
 
           node.parentNode.insertBefore(first, span);
@@ -131,16 +133,12 @@
         return spans;
       },
       // Create a "fact"-span with the right attributes
-      createFactSpan = function(text, id, opinions, first) {
+      createFactSpan = function(text, id, first) {
         var span = document.createElement('span');
 
         // Set the span attributes
         span.className = "factlink";
-        span.setAttribute('data-factid',id); 
-		    span.setAttribute('data-fact-disbelieve-percentage',opinions.disbelieve.percentage); 
-		    span.setAttribute('data-fact-doubt-percentage',opinions.doubt.percentage); 
-		    span.setAttribute('data-fact-believe-percentage',opinions.believe.percentage); 
-		    span.setAttribute('data-fact-authority',opinions.authority); 
+        span.setAttribute('data-factid',id);
 
         if (first === true) {
           span.className += " fl-first";
