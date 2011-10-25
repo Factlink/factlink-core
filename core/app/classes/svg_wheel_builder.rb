@@ -14,7 +14,8 @@ class SvgWheelBuilder
         if percentage == percentages.max
           stroke = @percentages_max_colors[index]
         else 
-          stroke = @percentages_colors[index]
+          # stroke = @percentages_colors[index]
+            stroke = '#dadada'
         end
         canvas.path(arc_path(percentage,had,6)).styles(:fill => 'none', :stroke => stroke, :stroke_width => 4)
         had += percentage
