@@ -100,10 +100,6 @@ module FactlinkUI
     require "#{config.root}/lib/mustache_rails.rb"
     require "#{config.root}/app/views/sites/show.rb"
     
-    #.each do |x|
-    #   puts "loaded " + x.to_s
-    #end
-    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
