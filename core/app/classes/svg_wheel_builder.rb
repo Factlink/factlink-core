@@ -1,13 +1,22 @@
 class SvgWheelBuilder
-  def initialize(percentages_colors=['green','blue','red'])
+  def initialize(
+        percentages_colors=['#dbeab3', '#36A9E1', '#E94E1B'],
+        percentages_max_colors=['#98d100','#c5eaf8','#f8caba'] #  green blue red
+      )
       @percentages_colors = percentages_colors
+      @percentages_max_colors = percentages_max_colors
   end
   
   def wheel(percentages)
     RVG::Group.new do |canvas|
       had = 0;
       percentages.each_with_index do |percentage, index|
-        canvas.path(arc_path(percentage,had,30)).styles(:fill => 'none', :stroke =>@percentages_colors[index], :stroke_width => 4)
+        if percentage == percentages.max
+          stroke = @percentages_max_colors[index]
+        else 
+          stroke = @percentages_colors[index]
+        end
+        canvas.path(arc_path(percentage,had,16)).styles(:fill => 'none', :stroke => stroke, :stroke_width => 10)
         had += percentage
       end
     end
@@ -18,8 +27,6 @@ class SvgWheelBuilder
   end
 
   def arc_path(percentage, percentage_offset, radius)
-    percentage = percentage - 2 ; # add padding after arc
-
     large_angle = percentage > 50
 
     start_angle = percentage_offset                * 2*Math::PI / 100
