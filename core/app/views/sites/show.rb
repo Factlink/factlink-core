@@ -1,7 +1,8 @@
 module Sites
   class Show < Mustache::Rails
     
-    def as_json(options={})
+    
+    def to_hash
       { :site => site, }
     end
   end
