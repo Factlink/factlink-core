@@ -39,7 +39,6 @@ gem 'will_paginate', '~> 3.0.pre'
 #########
 # Mustache
 gem 'mustache'
-gem 'mustache_json'
 
 ###########
 # jQuery
