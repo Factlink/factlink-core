@@ -21,11 +21,6 @@ class Fact < Basefact
     self.site.url
   end
   
-  deprecate
-  # Return a nice looking url, only subdomain + domain + top level domain
-  def pretty_url #TODO move to helper function, has no place in the model
-    self.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-  end
 
   reference :data, lambda { |id| id && FactData.find(id) }
   

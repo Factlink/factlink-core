@@ -1,6 +1,6 @@
 <% modal ||= nil %>
 <% channel ||= nil %>
-<% view = FactsHelper::FactBubbleView.new(fact,current_user,channel) %>
+<% view = FactsHelper::FactView.new(fact,current_user,channel) %>
 
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if view.deletable_from_channel? %>
@@ -11,7 +11,9 @@
             :confirm => "Are you sure you want to remove this fact from your channel?", 
             :remote => true)%>
   <% end %>
+  
   <%= render "/facts/partial/fact_bubble", :fact => fact, :modal => modal, %>
+  
   <div style="height: 38px"> 
     <div class="evidence-actions">
       <ul class="evidence tabs">

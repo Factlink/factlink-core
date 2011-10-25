@@ -58,7 +58,10 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
-
+    
+    config.load_paths += %W{ #{RAILS_ROOT}/app/views }
+    
+    
     config.mongoid.logger = nil
 
     autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
@@ -98,7 +101,6 @@ module FactlinkUI
       Channel
     ]
     require "#{config.root}/lib/mustache_rails.rb"
-    require "#{config.root}/app/views/sites/show.rb"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

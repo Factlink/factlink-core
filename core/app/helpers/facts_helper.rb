@@ -14,9 +14,6 @@ module FactsHelper
                     { :class => css_class }
   end
 
-  def proxy_scroll_url(fact)
-    return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
-  end
 
   def editable_title(fact)
     if user_signed_in? and (fact.created_by == current_user.graph_user)
@@ -70,8 +67,21 @@ module FactsHelper
 	            :locals => locals
   end
   
-  class FactBubbleView
+  class SemiMustacheView
     include Rails.application.routes.url_helpers    
+    include ActionView::Helpers::UrlHelper
+    def controller
+      return nil.andand #dit is mijn ranzigste truc ooit -- mark
+    end
+    def user_signed_in?
+      return @current_user
+    end
+    def image_tag(path)
+      return "<img src='#{path}'>".html_safe
+    end
+  end
+  
+  class FactView < SemiMustacheView
 
     def initialize(fact,user,channel)
       @fact = fact
@@ -79,9 +89,6 @@ module FactsHelper
       @channel = channel
     end
     
-    def user_signed_in?
-      return @current_user
-    end
     
     def no_evidence_message
       if user_signed_in?
@@ -108,4 +115,65 @@ module FactsHelper
     end
   end
   
+  class FactBubbleView < SemiMustacheView
+
+    def initialize(fact,user)
+      @fact = fact
+      @current_user = user
+    end
+
+    def i_am_fact_owner
+      (@fact.created_by == @current_user.graph_user)
+    end
+
+    def editable_title_class
+      if user_signed_in? and i_am_fact_owner
+        return " edit"
+      else
+        return ""
+      end 
+    end
+    
+    def pretty_url #TODO move to helper function, has no place in the model
+      @fact.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    end
+
+    def delete_link
+      link_to(image_tag('/images/trash.gif') + "Delete", fact_path(@fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true )
+    end
+
+    def proxy_scroll_url
+      return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+    end
+    
+    def scroll_to_link
+      link_to(self.pretty_url, proxy_scroll_url, :target => "_blank")
+    end
+    
+    def link
+      link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
+    end
+  end  
+  class FactWheelView < SemiMustacheView
+
+    def initialize(fact,user)
+      @fact = fact
+      @current_user = user
+    end
+    
+    def authority
+      @fact.get_opinion.as_percentages[:authority]
+    end
+    
+    def believe_percentage
+      @fact.get_opinion.as_percentages[:believe][:percentage]
+    end
+    def disbelieve_percentage
+      @fact.get_opinion.as_percentages[:disbelieve][:percentage]
+    end
+    def doubt_percentage
+      @fact.get_opinion.as_percentages[:doubt][:percentage]
+    end
+    
+  end
 end

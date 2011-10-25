@@ -1,0 +1,12 @@
+<% @graph_users = opinion.to_a.take(6) %>
+
+<ul> 
+  <% @graph_users.each do |gu| %>
+      <li>
+          <%= link_to(
+            image_tag(gu.user.avatar, :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
+            user_profile_path(gu.user.username), :target => "_top"
+          )%>
+      </li>
+  <% end %>
+</ul>
