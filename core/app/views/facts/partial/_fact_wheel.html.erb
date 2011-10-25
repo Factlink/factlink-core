@@ -12,9 +12,9 @@
        <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("disbelieves",fact) %>"<% end %>
        data-color="#E94E1B"></div>
 
-  <% view.opinions.each do %>
-    <div class="opinion" data-value="<% view.doubt_percentage %>">
-  <% end %>
+  <%# view.opinions.each do %>
+    <!--<div class="opinion" data-value="<% view.doubt_percentage %>">-->
+  <%# end %>
 </div>
 
 <div class="believes-box opinion-box float-box">
