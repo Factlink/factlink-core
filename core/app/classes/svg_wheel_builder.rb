@@ -1,8 +1,10 @@
 class SvgWheelBuilder
   def initialize(
         percentages_max_colors=['98d100', '#36A9E1', '#E94E1B'],
-        percentages_colors=['#dbeab3','#c5eaf8','#f8caba'] #  green blue red
+        percentages_colors=['#dbeab3','#c5eaf8','#f8caba'], #  green blue red
+        disabled_color = '#dadada'
       )
+      @disabled_color = disabled_color
       @percentages_colors = percentages_colors
       @percentages_max_colors = percentages_max_colors
   end
@@ -15,7 +17,7 @@ class SvgWheelBuilder
           stroke = @percentages_max_colors[index]
         else 
           # stroke = @percentages_colors[index]
-            stroke = '#dadada'
+            stroke = @disabled_color
         end
         canvas.path(arc_path(percentage,had,6)).styles(:fill => 'none', :stroke => stroke, :stroke_width => 4)
         had += percentage
