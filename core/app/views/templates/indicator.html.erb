@@ -11,8 +11,9 @@
     <span>Show</span>
     
     <div class="fl-indication">
-      <span class="fl-authority">123k</span>
+      <span class="fl-authority">{%= opinions.authority %}</span>
       <div class="fl-indicator-icon">
+        <%= image_tag(image_url("/images/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe)) %>
       </div>
     </div>
   </div>
