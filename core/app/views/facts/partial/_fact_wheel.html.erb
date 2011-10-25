@@ -2,19 +2,12 @@
 
 <div class="wheel">
   <div class="authority" data-authority="<%= view.authority %>"></div>
-  <div class="opinion" data-value="<%= view.believe_percentage %>" data-opinion="believes"  data-opinions="believe"
-       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("believes",fact) %>"<% end %>
-       data-color="#95C11F"></div>
-	<div class="opinion" data-value="<%= view.doubt_percentage %>" data-opinion="doubts"  data-opinions="doubt"
-	     <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("doubts",fact) %>"<% end %>
-	     data-color="#36A9E1"></div>
-  <div class="opinion" data-value="<%= view.disbelieve_percentage %>" data-opinion="disbelieves"  data-opinions="disbelieve"
-       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("disbelieves",fact) %>"<% end %>
-       data-color="#E94E1B"></div>
+  <% view.opinions.each do |op| %>
+    <div class="opinion" data-value="<%= op[:percentage] %>" data-opinion="<%= op[:type] %>s"  data-opinions="<%= op[:type] %>"
+      <% if user_signed_in? %>data-user-opinion="<%= op[:is_current_opinion] %>"<% end %>
+      data-color="<%= op[:color] %>"></div>
+  <% end %>
 
-  <%# view.opinions.each do %>
-    <!--<div class="opinion" data-value="<% view.doubt_percentage %>">-->
-  <%# end %>
 </div>
 
 <div class="believes-box opinion-box float-box">

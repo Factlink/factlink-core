@@ -175,5 +175,32 @@ module FactsHelper
       @fact.get_opinion.as_percentages[:doubt][:percentage]
     end
     
+    
+    def opinions
+      [
+        {
+          :type => 'believe',
+          :percentage => @fact.get_opinion.as_percentages[:believe][:percentage],
+          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:believes, @fact),
+          :color => "#95c11f",
+        },
+        {
+          :type => 'doubt',
+          :percentage => @fact.get_opinion.as_percentages[:doubt][:percentage],
+          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:doubts, @fact),
+          :color => "#36a9e1",
+        },
+        {
+          :type => 'disbelieve',
+          :percentage => @fact.get_opinion.as_percentages[:disbelieve][:percentage],
+          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:disbelieves, @fact),
+          :color => "#e94e1b",
+          
+        }
+      ]
+    end
+    
+    
+    
   end
 end
