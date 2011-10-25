@@ -18,19 +18,19 @@
   <span class="opinion-type">believers</span>
   <br>
   <span class="percentage"><%= view.believe_percentage %>%</span> 
-  <%= render "/facts/partial/users_popup", :opinion => fact.opiniated(:believes) %>
+  <%= render "/facts/users_popup", :opinion => fact.opiniated(:believes) %>
 </div>
 
 <div class="doubts-box opinion-box float-box">
   <span class="opinion-type">doubters</span>
   <br>
   <span class="percentage"><%= view.doubt_percentage %>%</span> 
-  <%= render "/facts/partial/users_popup", :opinion => fact.opiniated(:doubts) %>
+  <%= render "/facts/users_popup", :opinion => fact.opiniated(:doubts) %>
 </div>
 
 <div class="disbeliefs-box opinion-box float-box">
   <span class="opinion-type">disbelievers</span>
   <br> 
   <span class="percentage"><%= view.disbelieve_percentage %>%</span> 
-  <%= render "/facts/partial/users_popup", :opinion => fact.opiniated(:disbelieves) %>
+  <%= render "/facts/users_popup", :opinion => fact.opiniated(:disbelieves) %>
 </div>
