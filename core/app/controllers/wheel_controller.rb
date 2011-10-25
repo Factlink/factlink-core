@@ -34,6 +34,7 @@ class WheelController < ApplicationController
               
           end
           filename = Rails.root.join('public', local_path)
+          puts "FILENAME: #{filename}"
           rvg.draw.write(filename)    
         end
         redirect_to '/' + local_path

@@ -2,35 +2,38 @@
 
 <div class="wheel">
   <div class="authority" data-authority="<%= view.authority %>"></div>
-  <div class="opinion" data-value="<%= view.believe_percentage %>" data-opinion="beliefs"  data-opinions="believe"
-       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("beliefs",fact) %>"<% end %>
+  <div class="opinion" data-value="<%= view.believe_percentage %>" data-opinion="believes"  data-opinions="believe"
+       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("believes",fact) %>"<% end %>
        data-color="#95C11F"></div>
-  <div class="opinion" data-value="<%= view.disbelieve_percentage %>" data-opinion="disbeliefs"  data-opinions="disbelieve"
-       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("disbeliefs",fact) %>"<% end %>
-       data-color="#E94E1B"></div>
 	<div class="opinion" data-value="<%= view.doubt_percentage %>" data-opinion="doubts"  data-opinions="doubt"
 	     <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("doubts",fact) %>"<% end %>
 	     data-color="#36A9E1"></div>
+  <div class="opinion" data-value="<%= view.disbelieve_percentage %>" data-opinion="disbelieves"  data-opinions="disbelieve"
+       <% if user_signed_in? %>data-user-opinion="<%= current_user.graph_user.has_opinion?("disbelieves",fact) %>"<% end %>
+       data-color="#E94E1B"></div>
 
+  <% view.opinions.each do %>
+    <div class="opinion" data-value="<% view.doubt_percentage %>">
+  <% end %>
 </div>
 
-<div class="beliefs-box opinion-box float-box">
+<div class="believes-box opinion-box float-box">
   <span class="opinion-type">believers</span>
   <br>
   <span class="percentage"><%= view.believe_percentage %>%</span> 
-  <%= render "/facts/users_popup", :opinion => fact.opiniated(:believes) %>
+  <%= (render "/facts/users_popup", :graph_users => fact.opiniated(:believes).to_a.take(6)).html_safe %>
 </div>
 
 <div class="doubts-box opinion-box float-box">
   <span class="opinion-type">doubters</span>
   <br>
   <span class="percentage"><%= view.doubt_percentage %>%</span> 
-  <%= render "/facts/users_popup", :opinion => fact.opiniated(:doubts) %>
+  <%= (render "/facts/users_popup", :graph_users => fact.opiniated(:doubts).to_a.take(6)).html_safe %>
 </div>
 
-<div class="disbeliefs-box opinion-box float-box">
+<div class="disbelieves-box opinion-box float-box">
   <span class="opinion-type">disbelievers</span>
   <br> 
   <span class="percentage"><%= view.disbelieve_percentage %>%</span> 
-  <%= render "/facts/users_popup", :opinion => fact.opiniated(:disbelieves) %>
+  <%= (render "/facts/users_popup", :graph_users => fact.opiniated(:disbelieves).to_a.take(6)).html_safe %>
 </div>

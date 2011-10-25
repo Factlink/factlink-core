@@ -1,9 +1,17 @@
 class SvgWheelBuilder
   def initialize(
-        percentages_max_colors=['98d100', '#36A9E1', '#E94E1B'],
+        percentages_max_colors=['#98d100', '#36A9E1', '#E94E1B'],
         percentages_colors=['#dbeab3','#c5eaf8','#f8caba'], #  green blue red
         disabled_color = '#dadada'
       )
+      #sanity check, if the color is in the wrong format imagemagick crashes in mysterious ways
+      [percentages_max_colors, percentages_colors, [disabled_color]].each do |colors|
+        colors.each do |color|
+          unless color =~ /^#[a-fA-F0-9]{6}$/
+            raise "Color should be in #xxxxxx format"
+          end
+        end
+      end
       @disabled_color = disabled_color
       @percentages_colors = percentages_colors
       @percentages_max_colors = percentages_max_colors
