@@ -1,22 +1,10 @@
-<% if true %>
-<% opinion_a = opinion.to_a #TODO optimize; it should take the 'first' 6, probably we need some sorted set somewhere (for insntance on time or authority) %>
-<table> 
-  <% index = 0
-    2.times do  %>
-  <tr>
-    <% 3.times do  %>
-      <td>
-        <% if opinion_a[index] %>
+<ul> 
+  <% opinion.to_a.take(6).each do |op| %>
+      <li>
           <%= link_to(
-            image_tag(opinion_a[index].user.avatar, :size => "24x24", :title => "#{opinion_a[index].user.username} (#{opinion_a[index].rounded_authority})"),
-            user_profile_path(opinion_a[index].user.username), :target => "_top"
+            image_tag(op.user.avatar, :size => "24x24", :title => "#{op.user.username} (#{op.rounded_authority})"),
+            user_profile_path(op.user.username), :target => "_top"
           )%>
-        <% end %>
-        <% index += 1%>
-      </td>
-    <% end %>
-  </tr>
+      </li>
   <% end %>
-</table>
-
-<% end %>
+</ul>
