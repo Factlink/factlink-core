@@ -7,7 +7,7 @@ module ChannelFunctionality
   end
   
   def to_hash
-    return {:_id => id, 
+    return {:id => id, 
             :title => title, 
             :description => description,
             :created_by => created_by,
