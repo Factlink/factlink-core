@@ -23,7 +23,7 @@ class SvgWheelBuilder
   end 
 
   def string_for_float(f)
-    ("%0.10f"%f).sub(/^-(0.0+)$/, '\1')
+    ("%0.5f"%f).sub(/^-(0.0+)$/, '\1')
   end
 
   def arc_path(percentage, percentage_offset, radius)
