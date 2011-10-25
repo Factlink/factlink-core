@@ -150,10 +150,12 @@ Factlink.Prepare = function() {
   
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);
+    el.removeClass("right left");
   };
   
   this.resetType = function() {
     el.removeClass(types.join(" ")).addClass(types[0]);
+    el.removeClass("right left");
     facts = [];
     self.resetFactId();
   };
