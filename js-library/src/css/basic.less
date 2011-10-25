@@ -7,7 +7,7 @@
 @bg-color-stop: #fbfbfb;
 @bg-color     : #e2e2e2;
 @popup-width  : 108px;
-@popup-create-width: 55px;
+@popup-create-width: 70px;
 @popup-height : 24px;
 @border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
@@ -71,13 +71,16 @@ span.factlink {
 }
         
 #fl {
-  #fl > .reset;
+  #fl > .resetStyles;
+  
   font-size: 0.8em;
   font-family: "Helvetica", Arial, sans-serif;
   height: 0;
   width: 0;
   
   .fl-popup {
+    #fl > .resetStyles;
+    
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
     .drop-shadow(1px, 2px, 3px, 0.20);
@@ -108,18 +111,14 @@ span.factlink {
       >div.fl-label {
         > span.fl-create {
           display: block;
-
+          width: 100%;
+          margin: 0;
         }
         
         > span.fl-add-evidence {
           display: none;
         }
       } 
-    }
-    
-    > div.fl-label > span {
-      width: @popup-create-width;
-      margin: 0;
     }
     
     &.fl-add-evidence {
@@ -203,15 +202,18 @@ span.factlink {
     }
         
     .fl-label {
+      #fl > .resetStyles;
+      
       text-align: center;
       overflow: auto;
       
       > span {
+        #fl > .resetStyles;
+        
         float: left;  
         line-height: @popup-height;
-        margin: 0 8px;
         display: inline-block;
-        min-width: 40px;
+        min-width: 55px;
         text-align: center;
         .text-shadow;
       }
@@ -221,11 +223,15 @@ span.factlink {
       }
       
       .fl-indication {
-        float: right;
+        #fl > .resetStyles;
         
+        float: right;
+        height: 30px;
         overflow: auto;
        
         .fl-authority {
+          #fl > .resetStyles;
+          
           float: left;
           margin: 0 3px 0 0;
           color: #a0a0a0;
@@ -234,6 +240,8 @@ span.factlink {
           
         }
         .fl-indicator-icon {
+          #fl > .resetStyles;
+          
           float: right;
           margin-top: 2px;
           padding-right: 4px;
@@ -258,6 +266,8 @@ span.factlink {
 
     // Create
     .fl-add-options {
+      #fl > .resetStyles;
+      
       .fl-float-box;
       display: none;
       position: absolute;
@@ -267,7 +277,9 @@ span.factlink {
       padding: 0px;
       z-index: @z-index;
       
-      li {        
+      li {
+        #fl > .resetStyles;
+              
         padding: 2px 12px;
         margin: 3px 0px;
         
@@ -284,6 +296,8 @@ span.factlink {
         }
         
         a {
+          #fl > .resetStyles;
+          
           display: block;
           padding: 2px 0px;
           .text-shadow;
@@ -293,8 +307,10 @@ span.factlink {
 
     // Indicator
     .fl-share {
+      #fl > .resetStyles;
+      
       float: left;
-      padding: 6px 4px;
+      padding: 6px 4px 4px;
       .bordered(transparent, lighten(@border-color, 16), transparent, transparent);
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
@@ -307,6 +323,8 @@ span.factlink {
       }
       
       > .fl-channels {
+        #fl > .resetStyles;
+        
         .fl-float-box;
 
         cursor: default;
@@ -320,6 +338,8 @@ span.factlink {
         left: 0;
 
         li {
+          #fl > .resetStyles;
+          
           padding: 4px 0px;
           white-space: nowrap;
           
@@ -327,14 +347,18 @@ span.factlink {
             text-align: center;
             
             img {
+              #fl > .resetStyles;
+              
               vertical-align: bottom;
               margin: 0 4px 0 0;
             }
           }
 
           label {
-/*            white-space: nowrap;*/
+            #fl > .resetStyles;
             > input {
+              #fl > .resetStyles;
+              
               margin-right: 5px;
             }
           }
@@ -343,6 +367,8 @@ span.factlink {
     }
 
     .fl-arrow {
+      #fl > .resetStyles;
+      
       width: 12px;
       height: 8px;
       position: absolute;

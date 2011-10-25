@@ -1,30 +1,3 @@
-#fl .resetStyles {
-  margin: 0;
-  padding: 0;
-  background-image: none;
-  background-color: transparent;
-  opacity: 1;
-  -webkit-transition: none;
-  border-collapse: collapse;
-  border: 0;
-  text-decoration: none  !important;
-  text-align: left;
-  text-transform: none;
-  border-spacing: 0;
-  float: none;
-  font-style: normal;
-  font-weight: normal;
-  text-align: left;
-  line-height: 1;
-  vertical-align: baseline;
-  font-size: 100%;
-  box-shadow: none;
-  white-space: normal;
-  text-shadow: none;
-  list-style: none;
-  list-style-type: none;
-  color: #000;
-}
 /*---------------------------------------------------
     LESS Elements 0.6
   ---------------------------------------------------
@@ -112,12 +85,14 @@ span.factlink.fl-active {
   list-style: none;
   list-style-type: none;
   color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   font-size: 0.8em;
   font-family: "Helvetica", Arial, sans-serif;
   height: 0;
   width: 0;
 }
-#fl *, #fl * *, #fl * * * {
+#fl .fl-popup {
   margin: 0;
   padding: 0;
   background-image: none;
@@ -143,8 +118,8 @@ span.factlink.fl-active {
   list-style: none;
   list-style-type: none;
   color: #000;
-}
-#fl .fl-popup {
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   background: #e2e2e2;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e2e2e2), color-stop(1, #ffffff));
   background: -ms-linear-gradient(bottom, #e2e2e2, #ffffff);
@@ -175,17 +150,15 @@ span.factlink.fl-active {
   border: solid 1px #555;
 }
 #fl .fl-popup.fl-create {
-  width: 55px;
+  width: 70px;
 }
 #fl .fl-popup.fl-create > div.fl-label > span.fl-create {
   display: block;
+  width: 100%;
+  margin: 0;
 }
 #fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
   display: none;
-}
-#fl .fl-popup > div.fl-label > span {
-  width: 55px;
-  margin: 0;
 }
 #fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create {
   display: none;
@@ -205,7 +178,7 @@ span.factlink.fl-active {
   border-top-left-radius: 0;
   display: block;
   top: 0;
-  left: 55px;
+  left: 70px;
 }
 #fl .fl-popup.add-active.left {
   border-top-left-radius: 0;
@@ -245,15 +218,68 @@ span.factlink.fl-active {
   display: block;
 }
 #fl .fl-popup .fl-label {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   text-align: center;
   overflow: auto;
 }
 #fl .fl-popup .fl-label > span {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   float: left;
   line-height: 24px;
-  margin: 0 8px;
   display: inline-block;
-  min-width: 40px;
+  min-width: 55px;
   text-align: center;
   text-shadow: 0px 1px 0px #fff;
 }
@@ -261,10 +287,65 @@ span.factlink.fl-active {
   display: none;
 }
 #fl .fl-popup .fl-label .fl-indication {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   float: right;
+  height: 30px;
   overflow: auto;
 }
 #fl .fl-popup .fl-label .fl-indication .fl-authority {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   float: left;
   margin: 0 3px 0 0;
   color: #a0a0a0;
@@ -272,6 +353,33 @@ span.factlink.fl-active {
   line-height: 24px;
 }
 #fl .fl-popup .fl-label .fl-indication .fl-indicator-icon {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   float: right;
   margin-top: 2px;
   padding-right: 4px;
@@ -290,6 +398,33 @@ span.factlink.fl-active {
   background-position: 21px 0px !important;
 }
 #fl .fl-popup .fl-add-options {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -314,6 +449,33 @@ span.factlink.fl-active {
   border: solid 1px #555;
 }
 #fl .fl-popup .fl-add-options li {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   padding: 2px 12px;
   margin: 3px 0px;
 }
@@ -331,13 +493,67 @@ span.factlink.fl-active {
   font-weight: 100;
 }
 #fl .fl-popup .fl-add-options li a {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   display: block;
   padding: 2px 0px;
   text-shadow: 0px 1px 0px #fff;
 }
 #fl .fl-popup .fl-share {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   float: left;
-  padding: 6px 4px;
+  padding: 6px 4px 4px;
   border-top: solid 1px transparent;
   border-left: solid 1px transparent;
   border-right: solid 1px #d1d1d1;
@@ -350,6 +566,33 @@ span.factlink.fl-active {
   background: #e2e2e2;
 }
 #fl .fl-popup .fl-share > .fl-channels {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -377,6 +620,33 @@ span.factlink.fl-active {
   border: solid 1px #555;
 }
 #fl .fl-popup .fl-share > .fl-channels li {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   padding: 4px 0px;
   white-space: nowrap;
 }
@@ -384,17 +654,123 @@ span.factlink.fl-active {
   text-align: center;
 }
 #fl .fl-popup .fl-share > .fl-channels li.fl-loading img {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   vertical-align: bottom;
   margin: 0 4px 0 0;
 }
 #fl .fl-popup .fl-share > .fl-channels li label {
-  /*            white-space: nowrap;*/
-
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
 }
 #fl .fl-popup .fl-share > .fl-channels li label > input {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   margin-right: 5px;
 }
 #fl .fl-popup .fl-arrow {
+  margin: 0;
+  padding: 0;
+  background-image: none;
+  background-color: transparent;
+  opacity: 1;
+  -webkit-transition: none;
+  border-collapse: collapse;
+  border: 0;
+  text-decoration: none  !important;
+  text-align: left;
+  text-transform: none;
+  border-spacing: 0;
+  float: none;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 1;
+  vertical-align: baseline;
+  font-size: 100%;
+  box-shadow: none;
+  white-space: normal;
+  text-shadow: none;
+  list-style: none;
+  list-style-type: none;
+  color: #000;
+  font-family: Helvetica, Arial, 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  font-size: 12px;
   width: 12px;
   height: 8px;
   position: absolute;

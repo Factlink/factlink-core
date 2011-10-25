@@ -10,24 +10,6 @@
     });
   };
 
-  // Handle a user click
-  // $('span.factlink').live('click', function(e) {
-  //   var self = this;
-  //   // A custom switch-like module
-  //   var modusHandler = (function() {
-  //     return {
-  //       default: function() {
-  //         Factlink.showInfo(self, false);
-  //       }, 
-  //       addToFact: function() {
-  //         Factlink.prepare.show(e.pageX, e.pageY);
-  //         Factlink.prepare.setFactId(self.getAttribute("data-factid"));
-  //       }
-  //     };
-  //   })();
-  //   modusHandler[FactlinkConfig.modus]();
-  // });
-
   var clickHandler = function() {
     Factlink.modal.hide.method();
   };
@@ -53,9 +35,9 @@
       bindClick();
       iFrame.show();
     },
-    highlightNewFactlink: function(fact, id) {
+    highlightNewFactlink: function(fact, id, opinions) {
       //@TODO: Authority & opinions need to be added back in
-      return Factlink.selectRanges(Factlink.search(fact), id);
+      return Factlink.selectRanges(Factlink.search(fact), id, opinions);
     },
     stopHighlightingFactlink: function(id) {
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
