@@ -116,7 +116,7 @@ describe "beliefs should work as described in the google doc" do
   # Should have no impact in demo version
   it "for a user that believes one fact the authority should be 1.0" do
     @f1 = FactoryGirl.create(:fact)
-    @f1.toggle_opinion(:beliefs, u1)
+    b(u1, @f1)
     a(u1) == 1.0
   end
   
@@ -133,8 +133,8 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # b(U2, F1)
   # a(U1) = 1
-  it "should be 1.0 when another user believes a fact created by the user" do    
-    @f1.toggle_opinion(:beliefs, u2)
+  it "should be 1.0 when another user believes a fact created by the user" do
+    b(u2, @f1)
     a(u1) == 1.0
   end
   
