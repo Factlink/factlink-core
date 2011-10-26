@@ -42,6 +42,14 @@ Factlink.Prepare = function() {
       });
     });
     
+    el.find('div.fl-label').bind('click', function(e) {
+      createFact(undefined, function(factId, factObjs) {
+        self.setFactId(factId);
+        facts = factObjs;
+        self.setType("fl-add-evidence");
+      });
+    });
+    
     bindBodyClick();
     
     bindAddEvidenceClick();
@@ -150,7 +158,6 @@ Factlink.Prepare = function() {
   
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);
-    // el.removeClass("right left");
   };
   
   this.resetType = function() {
