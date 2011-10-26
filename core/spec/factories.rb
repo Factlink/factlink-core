@@ -28,12 +28,18 @@ FactoryGirl.define do
   factory :fact do
     association :data, :factory => :fact_data
     association :created_by, :factory => :graph_user
+    association :site
   end
   
   factory :graph_user do
   end
   
+  sequence :url do |n|
+    "http://example.org/#{n}.html"
+  end
+  
   factory :site do
+    url 
   end
   
   factory :fact_relation do

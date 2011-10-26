@@ -5,14 +5,14 @@
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if view.deletable_from_channel? %>
     <%= link_to(
-            image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
+            image_tag("close-button.png", :class => "close", "style" => "float: right"),
             view.remove_from_channel_path,
             :method => :delete,
             :confirm => "Are you sure you want to remove this fact from your channel?", 
             :remote => true)%>
   <% end %>
   
-  <%= render "/facts/partial/fact_bubble", :fact => fact, :modal => modal, %>
+  <%= render "/facts/fact_bubble", :fact => fact, :modal => modal, %>
   
   <div style="height: 38px"> 
     <div class="evidence-actions">
@@ -37,7 +37,7 @@
               <tr>
                 <td>
                   <%= render :partial => "/facts/partial/evidence_bubble", 
-                    :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+                      :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                     %>
                 </td>
               </tr>
@@ -71,7 +71,7 @@
           </table>
         </div>
           <div class="add-evidence" style="display: none">
-            <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
+            <%= render "/facts/partial/add_evidenced", :fact => fact %>
           </div>
         </div>
       </div>

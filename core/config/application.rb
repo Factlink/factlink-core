@@ -104,6 +104,7 @@ module FactlinkUI
 
     require "#{config.root}/app/views/facts/_users_popup.rb"
     require "#{config.root}/app/views/facts/_fact_wheel.rb"
+    require "#{config.root}/app/views/facts/_remote_form.rb"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

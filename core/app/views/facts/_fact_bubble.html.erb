@@ -1,7 +1,7 @@
 <% view = FactsHelper::FactBubbleView.new(fact,current_user) %>
 
 <article class="fact" data-fact-id="<%= fact.id %>" >
-  <%= (render "facts/fact_wheel", :fact => fact).html_safe %>
+  <%= (render "/facts/fact_wheel", :fact => fact).html_safe %>
 	<header>
 
 	  <span id="title-<%= fact.id %>" class="head<%= view.editable_title_class %>"><%= fact.data.title %></span>
@@ -21,7 +21,7 @@
 			    <% end %>			
 		    </ul>
 		  </div>
-		  <%= render "/facts/partial/channel_listing", { :fact => fact } %>
+		  <%= render "/facts/channel_listing", :fact => fact %>
 	  <% end %>				
 
 	</header>

@@ -77,12 +77,12 @@
       wheel.calc_display(this.opinions);
       var offset = 0;
       $(this.opinions).each(function() {
-        offset = offset + this.display_value;
         var z = arc(wheel, this, {
           offset: offset,
           val: this.display_value,
           r: wheel.params.radius
         });
+        offset = offset + this.display_value;
       });
     };
 
@@ -133,21 +133,20 @@
     Wheel.prototype.init = function(canvas) {
       var w = this;
       w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17);
-      w.r.customAttributes.arc = function(percentage, percentage_offset, R) {
-        percentage = percentage - 2; // add padding after arc
-        var alpha = 360 / 100 * percentage,
-            start = 360 / 100 * percentage_offset,
-            a = (start - alpha) * Math.PI / 180,
-            b = start * Math.PI / 180,
+      w.r.customAttributes.arc = function(percentage, percentage_offset, radius) {
+      percentage = percentage - 2; // add padding after arc
+       var  large_angle = percentage > 50, 
             box_dim = w.params.dim + 6,
-            sx = box_dim + R * Math.cos(b),
-            sy = box_dim - R * Math.sin(b),
-            x = box_dim + R * Math.cos(a),
-            y = box_dim - R * Math.sin(a);
+            start_angle = percentage_offset * 2 * Math.PI /100,
+            end_angle   = (percentage_offset + percentage) * 2 * Math.PI / 100,
+            start_x = box_dim +  radius * Math.cos(start_angle),
+            start_y = box_dim - radius * Math.sin(start_angle),
+            end_x   = box_dim + radius * Math.cos(end_angle),
+            end_y   = box_dim - radius * Math.sin(end_angle);
         return {
           path: [
-            ['M', sx, sy],
-            ['A', R, R, 0, +(alpha > 180), 1, x, y]
+            ['M', start_x, start_y],
+            ['A', radius, radius, 0, (large_angle ? 1 : 0), 0, end_x, end_y]
           ]};
       };
       this.update();
