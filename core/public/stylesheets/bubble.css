@@ -574,12 +574,15 @@ ul#results-listing div.user-block .side .type {
   float: right;
   font-size: 18pt;
 }
-.fact-block .opinion-box table {
+.fact-block .opinion-box ul {
   float: left;
   width: 80px;
   height: 60px;
 }
-.fact-block .opinion-box table td {
+.fact-block .opinion-box ul li {
+  display: inline-block;
+}
+.fact-block .opinion-box ul li img {
   width: 24px;
   height: 24px;
 }
