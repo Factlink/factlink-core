@@ -1,7 +1,7 @@
 <% view = FactsHelper::FactBubbleView.new(fact,current_user) %>
 
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
-  <%= render "facts/partial/fact_wheel", :fact => fact %>
+  <%= (render "facts/fact_wheel", :fact => fact).html_safe %>
 	<header>
 
 	  <span id="title-<%= fact.id %>" class="head<%= view.editable_title_class %>"><%= fact.data.title %></span>
