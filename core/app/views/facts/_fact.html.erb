@@ -37,7 +37,7 @@
               <tr>
                 <td>
                   <%= render :partial => "/facts/partial/evidence_bubble", 
-                    :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+                      :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                     %>
                 </td>
               </tr>
@@ -71,7 +71,7 @@
           </table>
         </div>
           <div class="add-evidence" style="display: none">
-            <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
+            <%= render "/facts/partial/add_evidenced", :fact => fact %>
           </div>
         </div>
       </div>
