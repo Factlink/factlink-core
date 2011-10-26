@@ -328,11 +328,6 @@
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
 
-          // $(channelList).css({
-            // "top": e.clientY  + 10 + "px",
-            // "left": e.clientX - 30 + "px"
-            // }).fadeIn("fast");
-            
           $(channelList).fadeIn("fast");
             
           }, function() {

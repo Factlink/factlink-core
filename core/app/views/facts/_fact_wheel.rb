@@ -21,7 +21,7 @@ module Facts
           :groupname => 'believers',
           :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:believes, fact),
-          :color => "#95c11f",
+          :color => "#98d100",
           :graph_users => graph_users_with_link(fact.opiniated(:believes).to_a.take(6)),
         },
         {
