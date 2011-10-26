@@ -159,8 +159,12 @@ module FactsHelper
   end
     
   class RemoteFormView < SemiMustacheView
-    def text_field
-      f.text_field :title, :placeholder => "Channel title"
+    def initialize(fact,user)
+      @fact = fact
+      @current_user = user
+    end
+    def channel_path
+      channels_path(@current_user.username) 
     end
   end
 end
