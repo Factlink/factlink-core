@@ -153,60 +153,8 @@ module FactsHelper
     def link
       link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
     end
+    def user_opinion
+      @current_user.graph_user.opinion_on(@fact)
+    end
   end  
-  class FactWheelView < SemiMustacheView
-
-    def initialize(fact,user)
-      @fact = fact
-      @current_user = user
-    end
-    
-    def authority
-      @fact.get_opinion.as_percentages[:authority]
-    end
-    
-    def believe_percentage
-      @fact.get_opinion.as_percentages[:believe][:percentage]
-    end
-    def disbelieve_percentage
-      @fact.get_opinion.as_percentages[:disbelieve][:percentage]
-    end
-    def doubt_percentage
-      @fact.get_opinion.as_percentages[:doubt][:percentage]
-    end
-    
-    
-    def opinions
-      [
-        {
-          :symbol => :believes,
-          :type => 'believe',
-          :groupname => 'believers',
-          :percentage => @fact.get_opinion.as_percentages[:believe][:percentage],
-          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:believes, @fact),
-          :color => "#95c11f",
-        },
-        {
-          :symbol => :doubts,
-          :type => 'doubt',
-          :groupname => 'doubters',
-          :percentage => @fact.get_opinion.as_percentages[:doubt][:percentage],
-          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:doubts, @fact),
-          :color => "#36a9e1",
-        },
-        {
-          :symbol => :disbelieves,
-          :type => 'disbelieve',
-          :groupname => 'disbelievers',
-          :percentage => @fact.get_opinion.as_percentages[:disbelieve][:percentage],
-          :is_current_opinion => user_signed_in? && @current_user.graph_user.has_opinion?(:disbelieves, @fact),
-          :color => "#e94e1b",
-          
-        }
-      ]
-    end
-    
-    
-    
-  end
 end
