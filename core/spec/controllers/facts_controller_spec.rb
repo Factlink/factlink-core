@@ -14,9 +14,6 @@ describe FactsController do
     @fr       = @fact.add_evidence(:supporting, @evidence,@user)
   end
 
-  describe :store_fact_for_non_signed_in_user do
-    it "should work"
-  end
 
   describe :show do
     it "should render succesful" do
@@ -24,9 +21,6 @@ describe FactsController do
       get :show, :id => @fact.id
       response.should be_succes
     end
-    it "should return a list of @potential_evidence"
-    it "should not include itself in @potential_evidence"
-    it "should not include facts in potential evidence which already both support and weaken"
   end
 
   describe :new do
@@ -48,21 +42,7 @@ describe FactsController do
     end  
   end
 
-  describe :prepare_new do
-    it "should render the correct template" do
-      pending
-      get :prepare_new
-      response.should render_template("prepare")
-    end
-  end
   
-  describe :prepare_evidence do
-    it "should render the correct template" do
-      pending
-      get :prepare_evidence
-      response.should render_template("prepare_evidence")
-    end
-  end
 
   describe :intermediate do
     it "should have the correct assignments" do
@@ -91,9 +71,8 @@ describe FactsController do
 
   describe :create do
     it "should work" do
-      pending
       authenticate_user!
-      post 'create'
+      post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact",:title => "Title"
       response.should redirect_to(fact_path)
     end
   end
@@ -121,54 +100,7 @@ describe FactsController do
     end
   end
 
-  describe :remove_factlink_from_parent do    
-    it "should work"
-  end
 
-  describe :update do
-    it "should work"
-  end
-
-  describe :search do
-   pending "should return relevant results when a search parameter is given" do      
-     result_set = (
-       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
-     )
-     
-     sunspot_search = mock(Sunspot::Search::StandardSearch)
-     sunspot_search.stub!(:results).and_return { result_set }
-     
-     FactData.should_receive(:search).and_return(sunspot_search)
-     
-     post "search", :s => "1"
-     assigns(:factlinks).should == result_set
-   end
-   
-   pending "should return all results when no search parameter is given" do
-     result_set = (
-       [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
-     )
-     
-     mock_criteria = mock(Mongoid::Criteria)
-  
-     mock_criteria.stub!(:skip).and_return { mock_criteria }
-     mock_criteria.stub!(:limit).and_return { mock_criteria }
-  
-     mock_criteria.stub!(:to_a).and_return { result_set }
-     
-     FactData.should_receive(:all).and_return(mock_criteria)
-     
-     post "search"
-     assigns(:factlinks).should == result_set
-   end
-  end
-
-  #describe :opinion do
-  #  it "should respond to XHR request" do
-  #    xhr :get, :opinion, :id => FactoryGirl.create(:fact).id
-  #    response.should be_succes
-  #  end
-  #end
 
 
 end

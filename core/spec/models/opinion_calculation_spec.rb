@@ -106,7 +106,7 @@ describe "beliefs should work as described in the google doc" do
   
   # Scenario A (a user without any history in Factlink):
   # a(U1) = 1
-  pending "for a user without history in Factlink the authority should be 1.0" do
+  it "for a user without history in Factlink the authority should be 1.0" do
     a(u1) == 1.0
   end
   
@@ -114,7 +114,7 @@ describe "beliefs should work as described in the google doc" do
   # b(U1, F1)
   # a(U1) = 1
   # Should have no impact in demo version
-  pending "for a user that believes one fact the authority should be 1.0" do
+  it "for a user that believes one fact the authority should be 1.0" do
     @f1 = FactoryGirl.create(:fact)
     @f1.toggle_opinion(:beliefs, u1)
     a(u1) == 1.0
@@ -125,7 +125,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # a(U1) = 1
   # Should have no impact
-  pending "should be 1.0 when a user has create one fact" do    
+  it "should be 1.0 when a user has create one fact" do    
     a(u1) == 1.0
   end
   
@@ -133,7 +133,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # b(U2, F1)
   # a(U1) = 1
-  pending "should be 1.0 when another user believes a fact created by the user" do    
+  it "should be 1.0 when another user believes a fact created by the user" do    
     @f1.toggle_opinion(:beliefs, u2)
     a(u1) == 1.0
   end
@@ -142,7 +142,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # F22 = (F1 -> F2)
   # a(U1) = 1
-  pending "should have ana authority of 1.0 when user created one fact" do
+  it "should have ana authority of 1.0 when user created one fact" do
     @f2.add_evidence(:supporting, @f1, u1)
     a(u1) == 1.0
   end
@@ -154,7 +154,7 @@ describe "beliefs should work as described in the google doc" do
   # F23 = (F1 -> F3)
   # c(U2, F23)
   # a(U1) = 2
-  pending "should have a higher authority when a fact is used multiple times" do
+  it "should have a higher authority when a fact is used multiple times" do
     # @f1 is created bu @gu1
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
@@ -176,7 +176,7 @@ describe "beliefs should work as described in the google doc" do
   # a(U1) = 3
   # 
   # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  pending "should have an auhority of 2.4 when 2 facts are used twice" do
+  it "should have an auhority of 2.4 when 2 facts are used twice" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
@@ -200,7 +200,7 @@ describe "beliefs should work as described in the google doc" do
   # a(U1) = 1
   # 
   # a(U1) = 1 + log(1) + log(1) = 1
-  pending "should count self generated links" do
+  it "should count self generated links" do
     # By the user himself
     @f2.add_evidence(:supporting, @f1, u1)
 
@@ -230,7 +230,7 @@ describe "beliefs should work as described in the google doc" do
   # a(U1) = 3
   # 
   # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  pending "should have an auhority of 2.4 when 2 facts are used for support and two for weakening" do
+  it "should have an auhority of 2.4 when 2 facts are used for support and two for weakening" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     

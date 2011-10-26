@@ -18,7 +18,7 @@ module BeliefExpressions
   def a(user)
     FactGraph.reset_values
     FactGraph.recalculate
-    GraphUser[user.graph_user.id].authority.should
+    GraphUser[user.graph_user.id].authority.to_f.should
   end
 
   def opinion?(fact)
