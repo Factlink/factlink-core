@@ -306,7 +306,7 @@ div.modal {
 }
 div.modal span.close {
   z-index: 100;
-  background: url('/images/x_7x7.png') no-repeat;
+  background: url('/images/close-button.png') no-repeat;
   display: block;
   height: 10px;
   width: 8px;
