@@ -1,7 +1,7 @@
 (function(Factlink, $, _, easyXDM, undefined) {
     
 $.ajax({
-  url: '//' + FactlinkConfig.api + '/templates/indicator',
+  url: FactlinkConfig.api + '/templates/indicator',
   dataType: 'jsonp',
   crossDomain: true,
   type: 'GET',
@@ -14,7 +14,7 @@ $.ajax({
 });
 
 $.ajax({
-  url: '//' + FactlinkConfig.api + '/templates/_channel_li',
+  url: FactlinkConfig.api + '/templates/_channel_li',
   dataType: 'jsonp',
   crossDomain: true,
   type: 'GET',
@@ -37,7 +37,7 @@ Factlink.getTemplate = function(str, callback) {
 };
 
 $.ajax({
-  url: '//' + FactlinkConfig.api + '/templates/' + ( FactlinkConfig.modus === "default" ? "create" : "addToFact" ) + ".html",
+  url: FactlinkConfig.api + '/templates/' + ( FactlinkConfig.modus === "default" ? "create" : "addToFact" ) + ".html",
   dataType: 'jsonp',
   crossDomain: true,
   type: 'GET',

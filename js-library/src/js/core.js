@@ -33,7 +33,7 @@ var Factlink = window.Factlink = (function() {
   // and select them.
   Factlink.getTheFacts = function() {
     // The URL to the Factlink backend
-    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
+    var src = FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
 
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -66,6 +66,6 @@ var Factlink = window.Factlink = (function() {
   var style = document.createElement("link");
   style.type = "text/css";
   style.rel = "stylesheet";
-  style.href = "//" + FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
+  style.href = FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
   document.getElementsByTagName("head")[0].appendChild(style);
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
