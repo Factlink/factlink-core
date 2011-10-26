@@ -158,13 +158,4 @@ module FactsHelper
     end
   end
     
-  class RemoteFormView < SemiMustacheView
-    def initialize(fact,user)
-      @fact = fact
-      @current_user = user
-    end
-    def channel_path
-      channels_path(@current_user.username) 
-    end
-  end
 end
