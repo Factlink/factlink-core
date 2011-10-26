@@ -156,5 +156,11 @@ module FactsHelper
     def user_opinion
       @current_user.graph_user.opinion_on(@fact)
     end
-  end  
+  end
+    
+  class RemoteFormView < SemiMustacheView
+    def text_field
+      f.text_field :title, :placeholder => "Channel title"
+    end
+  end
 end
