@@ -120,7 +120,7 @@ module FactlinkUI
     # Error reporting
     config.middleware.use ExceptionNotifier,
       :email_prefix => "[FL##{Rails.env}] ",
-      :sender_address => %{"FL: Bug notifier" <bugs@factlink.com>},
+      :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
       :exception_recipients => %w{bugs@factlink.com}
 
     # Only load the plugins named here, in the order given (default is alphabetical).
