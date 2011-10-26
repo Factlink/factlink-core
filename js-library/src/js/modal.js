@@ -1,42 +1,26 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   // The iFrame which holds the intermediate
   var iFrame = $("<div />").attr({
     "id": "factlink-modal-frame"
   }).appendTo('body');
 
-  Factlink.showInfo = function(el, showEvidence) {
-    Factlink.remote.showFactlink(el.getAttribute("data-factid"), showEvidence, function ready() {
+  Factlink.showInfo = function(factId, showEvidence) {
+    Factlink.remote.showFactlink(factId, showEvidence, function ready() {
       Factlink.modal.show.method();
     });
   };
 
-  // Handle a user click
-  $('span.factlink').live('click', function(e) {
-    var self = this;
-    // A custom switch-like module
-    var modusHandler = (function() {
-      return {
-        default: function() {
-          Factlink.showInfo(el=self, showEvidence=false);
-        }, 
-        addToFact: function() {
-          Factlink.prepare.show(e.pageX, e.pageY);
-          Factlink.prepare.setFactId(self.getAttribute("data-factid"));
-        }
-      };
-    })();
-    modusHandler[FactlinkConfig.modus]();
-  });
-
   var clickHandler = function() {
-        Factlink.modal.hide.method();
-      };
+    Factlink.modal.hide.method();
+  };
+  
   var bindClick = function() {
-        $(document).bind('click', clickHandler);
-      };
-  var  unbindClick = function() {
-        $(document).unbind('click', clickHandler);
-      };
+    $(document).bind('click', clickHandler);
+  };
+  
+  var unbindClick = function() {
+    $(document).unbind('click', clickHandler);
+  };
 
 
   // Object which holds the methods that can be called from the intermediate iframe
@@ -51,21 +35,9 @@
       bindClick();
       iFrame.show();
     },
-    highlightNewFactlink: function(fact, id) {
-      Factlink.selectRanges(Factlink.search(fact), id, {
-        believe: {
-          percentage: 0,
-          authority: 0
-        },
-        doubt: {
-          percentage: 0,
-          authority: 0
-        },
-        disbelieve: {
-          percentage: 0,
-          authority: 0
-        }
-      });
+    highlightNewFactlink: function(fact, id, opinions) {
+      //@TODO: Authority & opinions need to be added back in
+      return Factlink.selectRanges(Factlink.search(fact), id, opinions);
     },
     stopHighlightingFactlink: function(id) {
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
@@ -77,20 +49,4 @@
       });
     }
   };
-
-  
-  var highlightFactlink = function( e ) { 
-    var factId = $( e.target ).attr( 'data-factid' ); 
-    // Make sure the hover on an element works on all the paired span elements 
-    $( '[data-factid=' + factId + ']' ).addClass('fl-active');
-    $(window).trigger("factlink:factHighlighted", [factId, e]);
-  }
-  var stopHighlightingFactlink = function(e) { 
-      var factId = $( this ).attr( 'data-factid' ); 
-      $( '[data-factid=' + factId + ']' ).removeClass('fl-active'); 
-      $(window).trigger("factlink:factUnhighlighted", [factId, e]);
-  }
-  
-  $( 'span.factlink' ).live( 'mouseenter', highlightFactlink)
-                      .live('mouseleave', stopHighlightingFactlink );
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

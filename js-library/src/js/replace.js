@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   // Function which walks the DOM in HTML source order
   // as long as func does not return false
   // Inspiration: Douglas Crockford, JavaScript: the good parts
@@ -35,8 +35,9 @@
     // Loop through ranges (backwards)
     var matches = [];
     var results = [];
+    var i;
     
-    for (var i = 0; i < ranges.length; i += matches.length) {
+    for (i = 0; i < ranges.length; i += matches.length) {
       // Check if the given factlink is not already selected 
       // (fixes multiple check marks when editing a factlink)
       if (re.test(ranges[i].startContainer.parentNode.className)) {
@@ -49,35 +50,51 @@
 
       //process all matches starting in ranges[i].startContainer
       for (var k = 0; k < matches.length; k++) {
-        this.replaceFactNodes(matches[k], results);
+        this.parseFactNodes(matches[k], results, i);
       }
     }
 
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
-    var len;
+    var len,
+        elements = [],
+        ret = [];
     
-    for (var i = 0, len = results.length; i < len; i++) {
+    for (i = 0, len = results.length; i < len; i++) {
       var res = results[i];
-
+      
+      elements[res.matchId] = elements[res.matchId] || [];
+      
       // Insert the fact-span
-      insertFactSpan(
-      res.startOffset, res.endOffset, res.node, id, opinions,
-      // Only select the first range of every matched string
-      // Needed for when one displayString is matched mutliple times on 
-      // one page
-      i % (results.length / ranges.length) === 0);
+      elements[res.matchId] = elements[res.matchId].concat(insertFactSpan(
+        res.startOffset, 
+        res.endOffset,
+        res.node, 
+        id,
+        // Only select the first range of every matched string
+        // Needed for when one displayString is matched mutliple times on 
+        // one page
+        i % (results.length / ranges.length) === 0));
     }
+    
+    for ( var el in elements ) {
+      if ( elements.hasOwnProperty(el) ) {
+        ret.push( new Factlink.Fact(id, elements[el], opinions) );
+      }
+    }
+    
+    return ret;
   };
 
   // This is where the actual magic will take place
   // A Span will be inserted around the startOffset/endOffset 
   // in the startNode/endNode
-  var insertFactSpan = function(startOffset, endOffset, node, id, opinions, isFirst) {
+  var insertFactSpan = function(startOffset, endOffset, node, id, isFirst) {
         // Value of the startNode, represented in an array
         var startNodeValue = node.nodeValue.split(''),
-        // The selected text
-        selTextStart = startNodeValue.splice(startOffset, startNodeValue.length);
+            // The selected text
+            selTextStart = startNodeValue.splice(startOffset, startNodeValue.length),
+            spans = [];
 
         if (endOffset < node.nodeValue.length && endOffset !== 0) {
           var after = selTextStart.splice(endOffset - startOffset, selTextStart.length).join('');
@@ -90,7 +107,7 @@
           node.parentNode.insertBefore(document.createTextNode(after), node.nextSibling);
         }
         // Create a reference to the actual "fact"-span
-        var span = createFactSpan(selTextStart.join(''), id, opinions);
+        var span = createFactSpan(selTextStart.join(''), id);
 
         // Remove the last part of the nodeValue
         node.nodeValue = startNodeValue.join('');
@@ -98,26 +115,30 @@
         // Insert the span right after the startNode 
         // (there is no insertAfter available)
         node.parentNode.insertBefore(span, node.nextSibling);
+        
+        // Add span to stash
+        spans.push(span);
 
         // If this span is the first in a range of fact-spans
         if (isFirst) {
-          var first = createFactSpan("", id, opinions, true);
+          var first = createFactSpan("", id, true);
           first.innerHTML = "&#10003;";
 
           node.parentNode.insertBefore(first, span);
+          
+          // Add "first-span" to stash
+          spans.push(first);
         }
+        
+        return spans;
       },
       // Create a "fact"-span with the right attributes
-      createFactSpan = function(text, id, opinions, first) {
+      createFactSpan = function(text, id, first) {
         var span = document.createElement('span');
 
         // Set the span attributes
         span.className = "factlink";
-        span.setAttribute('data-factid',id); 
-		    span.setAttribute('data-fact-disbelieve-percentage',opinions['disbelieve']['percentage']); 
-		    span.setAttribute('data-fact-doubt-percentage',opinions['doubt']['percentage']); 
-		    span.setAttribute('data-fact-believe-percentage',opinions['believe']['percentage']); 
-		    span.setAttribute('data-fact-authority',opinions['authority']); 
+        span.setAttribute('data-factid',id);
 
         if (first === true) {
           span.className += " fl-first";
@@ -137,7 +158,7 @@
       };
 
   // Function that tracks the DOM for nodes containing the fact
-  Factlink.replaceFactNodes = function(range, results) {
+  Factlink.parseFactNodes = function(range, results, matchId) {
     // Only parse the nodes if the startNode is already found, 
     // this boolean is used for tracking
     var foundStart = false;
@@ -164,7 +185,8 @@
           results.push({
             startOffset: rStartOffset,
             endOffset: rEndOffset,
-            node: node
+            node: node,
+            matchId: matchId
           });
         }
 

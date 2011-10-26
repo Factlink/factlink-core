@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   // Function to search the page
   Factlink.search = function(searchString) {
     var document = window.document,

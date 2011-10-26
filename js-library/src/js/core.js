@@ -24,7 +24,7 @@ var Factlink = window.Factlink = (function() {
   return Factlink;
 })();
 
-(function(Factlink, $, _, easyXDM) {
+(function(Factlink, $, _, easyXDM, undefined) {
   Factlink.siteUrl = function() {
     return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
   };
@@ -33,7 +33,7 @@ var Factlink = window.Factlink = (function() {
   // and select them.
   Factlink.getTheFacts = function() {
     // The URL to the Factlink backend
-    var src = window.location.protocol + '//' + FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
+    var src = FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
 
     // We use the jQuery AJAX plugin
     $.ajax({
@@ -52,20 +52,20 @@ var Factlink = window.Factlink = (function() {
           // Select the ranges (results)
           Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
         }
-        $(window).trigger('factlink:factsLoaded');
-        var $fls = $('span.factlink').addClass('fl-active');
-
-        setTimeout(function() {
-          $fls.removeClass('fl-active');
-        }, 800);
+        $(window).trigger('factlink.factsLoaded');
       }
     });
   };
+  
+  // Create the Factlink container
+  Factlink.el = $('<div id="fl" />').appendTo('body');
+  // Create template wrapper
+  Factlink.tmpl = {};
   
   // Add the stylesheet
   var style = document.createElement("link");
   style.type = "text/css";
   style.rel = "stylesheet";
-  style.href = "//" + FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
+  style.href = FactlinkConfig.lib + "/src/css/basic.css?" + (new Date()).getTime();
   document.getElementsByTagName("head")[0].appendChild(style);
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
