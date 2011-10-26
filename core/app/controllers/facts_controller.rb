@@ -338,7 +338,7 @@ class FactsController < ApplicationController
 
   private
   def allowed_type
-    allowed_types = [:beliefs, :doubts, :disbeliefs]
+    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym
     if allowed_types.include?(type)
       yield

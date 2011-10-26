@@ -153,27 +153,8 @@ module FactsHelper
     def link
       link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
     end
+    def user_opinion
+      @current_user.graph_user.opinion_on(@fact)
+    end
   end  
-  class FactWheelView < SemiMustacheView
-
-    def initialize(fact,user)
-      @fact = fact
-      @current_user = user
-    end
-    
-    def authority
-      @fact.get_opinion.as_percentages[:authority]
-    end
-    
-    def believe_percentage
-      @fact.get_opinion.as_percentages[:believe][:percentage]
-    end
-    def disbelieve_percentage
-      @fact.get_opinion.as_percentages[:disbelieve][:percentage]
-    end
-    def doubt_percentage
-      @fact.get_opinion.as_percentages[:doubt][:percentage]
-    end
-    
-  end
 end

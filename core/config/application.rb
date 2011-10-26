@@ -103,6 +103,7 @@ module FactlinkUI
     require "#{config.root}/lib/mustache_rails.rb"
 
     require "#{config.root}/app/views/facts/_users_popup.rb"
+    require "#{config.root}/app/views/facts/_fact_wheel.rb"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -119,7 +120,7 @@ module FactlinkUI
     # Error reporting
     config.middleware.use ExceptionNotifier,
       :email_prefix => "[FL##{Rails.env}] ",
-      :sender_address => %{"FL: Bug notifier" <bugs@factlink.com>},
+      :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
       :exception_recipients => %w{bugs@factlink.com}
 
     # Only load the plugins named here, in the order given (default is alphabetical).
