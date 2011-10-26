@@ -22,9 +22,6 @@ describe SitesController do
 
     # Facts don't get set properly?
     it "should return results for an existing site with facts" do
-
-      pending
-
       @site = FactoryGirl.create(:site, :url => "http://batman.org")
       
       @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact one")
