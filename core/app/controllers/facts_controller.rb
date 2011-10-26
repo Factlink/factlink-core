@@ -49,11 +49,7 @@ class FactsController < ApplicationController
 
   def show
     @title = @fact.data.displaystring # The html <title>
-    if params[:showevidence] == "true"
-      @show_evidence = true
-    else
-      @show_evidence = false
-    end
+    @show_evidence = params[:showevidence] == "true"
     respond_to do |format|
       format.json { render :json => @fact }
       format.html
@@ -115,30 +111,14 @@ class FactsController < ApplicationController
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
 
-  def add_supporting_evidence
-    add_evidence_internal(:supporting)
-  end
-
-  def add_weakening_evidence
-    add_evidence_internal(:weakening)
-  end
-
-  
-  def add_supporting_evidenced
-    add_evidenced_internal(:supporting)
-  end
-
-  def add_weakening_evidenced
-    add_evidenced_internal(:weakening)
-  end
-
-
+  def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
+  def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
+  def add_supporting_evidenced(); add_evidenced_internal(:supporting) end
+  def add_weakening_evidenced() ; add_evidenced_internal(:weakening)  end
 
   def add_evidence_internal(type)
     add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
   end
-
-
   def add_evidenced_internal(type)
     add_evidence_internal_internal(type,"add_evidenced_to_factlink", "adding_evidence_not_possible")
   end
