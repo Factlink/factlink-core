@@ -90,14 +90,14 @@ describe "beliefs should work as described in the google doc" do
   before do
     
     @f1 = FactoryGirl.create(:fact)
-    @f1.created_by = u1
+    @f1.created_by = u1.graph_user
     @f1.save
     
-    @f2 = FactoryGirl.create(:fact)
-    @f3 = FactoryGirl.create(:fact)
+    @f2 = FactoryGirl.create(:fact, :created_by => u2.graph_user)
+    @f3 = FactoryGirl.create(:fact, :created_by => u3.graph_user)
 
     @f4 = FactoryGirl.create(:fact)
-    @f4.created_by = u1
+    @f4.created_by = u1.graph_user
     @f4.save
 
     @f5 = FactoryGirl.create(:fact)
@@ -159,7 +159,10 @@ describe "beliefs should work as described in the google doc" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
-    a(u1) == 1.7
+    @f2.supporting_facts =~ [@f1]
+    @f3.supporting_facts =~ [@f1]
+    
+    a(u1) == 2
   end
   
   # Scenario G (a user has created multiple facts that are used multiple times):
@@ -175,15 +178,15 @@ describe "beliefs should work as described in the google doc" do
   # c(U2, F43)
   # a(U1) = 3
   # 
-  # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  it "should have an auhority of 2.4 when 2 facts are used twice" do
+  # a(U1) = 1 + log(2) + log(2) = 3
+  it "should have an auhority of3 when 2 facts are used twice" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
     @f5.add_evidence(:supporting, @f4, u2)
     @f6.add_evidence(:supporting, @f4, u2)
     
-    a(u1) == 2.4
+    a(u1) == 3
   end
   
   # Scenario H (a user has created multiple facts that are used multiple times, self generated links don’t count):
@@ -229,15 +232,15 @@ describe "beliefs should work as described in the google doc" do
   # c(U2, F43)
   # a(U1) = 3
   # 
-  # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  it "should have an auhority of 2.4 when 2 facts are used for support and two for weakening" do
+  # a(U1) = 1 + log(2) + log(2) = 3
+  it "should have an auhority of 3 when 2 facts are used for support and two for weakening" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
     @f5.add_evidence(:weakening, @f4, u2)
     @f6.add_evidence(:weakening, @f4, u2)
-    
-    a(u1) == 2.4
+
+    a(u1) == 3
   end
   
 end
