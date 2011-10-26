@@ -98,7 +98,7 @@ Factlink.Prepare = function() {
     
     self.resetType();
     
-    el.show();
+    el.fadeIn('fast');
     
     x -= 30;
     if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
@@ -126,7 +126,7 @@ Factlink.Prepare = function() {
   };
   
   this.hide = function() {
-    el.hide();
+    el.fadeOut('fast');
   };
   
   this.isVisible = function() {
@@ -150,7 +150,7 @@ Factlink.Prepare = function() {
   
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);
-    el.removeClass("right left");
+    // el.removeClass("right left");
   };
   
   this.resetType = function() {

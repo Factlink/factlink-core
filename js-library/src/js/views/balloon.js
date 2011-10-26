@@ -38,7 +38,7 @@ Factlink.Balloon = function() {
   this.show = function(top, left) {
     var x = left, y = top;
     
-    el.show();
+    el.fadeIn('fast');
     
     x -= 30;
     if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
@@ -71,7 +71,7 @@ Factlink.Balloon = function() {
   };
   
   this.hide = function() {
-    el.hide();
+    el.fadeOut('fast');
     resetState();
   };
   
@@ -120,14 +120,18 @@ Factlink.Balloon = function() {
       jsonp: "callback",
       success: function(data) {
         ul.find('li.fl-loading').hide();
-
-        _.each(data, function(channel) {
-          Factlink.getTemplate('channel_li', function(tmpl) {
-            var $li = $(tmpl(channel));
-            
-            ul.append($li);
+        if(_.isEmpty(data)) {
+          ul.append("<li>You have no channels yet</li>");
+        } 
+        else {
+          _.each(data, function(channel) {
+            Factlink.getTemplate('channel_li', function(tmpl) {
+              var $li = $(tmpl(channel));
+              
+              ul.append($li);
+            });
           });
-        });
+        }
       }
     });
   }
