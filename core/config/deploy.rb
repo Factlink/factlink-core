@@ -52,7 +52,7 @@ namespace :deploy do
   end
   
   task :set_wheel_permissions do
-    run "chmod 777 #{release_path}/public/images/wheel"
+    run "chmod 777 #{current_path}/public/images/wheel"
     run "cat /root/pirate.ascii"
   end
 end
@@ -63,4 +63,4 @@ before 'deploy:all', 'deploy'
 after 'deploy:all', 'deploy:restart'
 
 after "deploy", "deploy:migrate"
-after "deploy:migrate", "deploy:set_wheel_permissions" 
+before "deploy:restart", "deploy:set_wheel_permissions" 
