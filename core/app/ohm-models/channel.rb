@@ -65,6 +65,8 @@ class Channel < OurOhm
   end
 
   def facts
+    return [] if new?
+    
     cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
