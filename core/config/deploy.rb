@@ -50,6 +50,11 @@ namespace :deploy do
     run 'apt-get -y update'
     run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
+  
+  task :set_wheel_permissions do
+    run "chmod 777 #{current_path}/public/images/wheel"
+    run "cat /root/pirate.ascii"
+  end
 end
 
 before "bundle:install", "deploy:aptget"
@@ -58,4 +63,4 @@ before 'deploy:all', 'deploy'
 after 'deploy:all', 'deploy:restart'
 
 after "deploy", "deploy:migrate"
-
+after "deploy:migrate", "deploy:set_wheel_permissions" 
