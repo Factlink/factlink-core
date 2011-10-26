@@ -31,6 +31,7 @@ var STATIC_URL  = "http://"+global.config['static'].hostname+':'+global.config['
 var STATIC_LOCATION = global.config['static'].hostname+':'+global.config['static'].port;
 var API_LOCATION = global.config.core.hostname + ':'+global.config.core.port;
 var LIB_LOCATION = global.config['static'].hostname +':'+global.config['static'].port + "/lib";
+var PROTOCOL = server.settings.env === "development" ? "http://" : "https://";
 
 console.info(LIB_LOCATION);
 console.info(STATIC_URL);
@@ -55,6 +56,7 @@ function injectFactlinkJs(html_in,site, scrollto, modus){
              'window.FACTLINK_API_LOCATION = "' + API_LOCATION + '";'+
              'window.FACTLINK_LIB_LOCATION = "' + LIB_LOCATION + '";'+
              'window.FACTLINK_MODUS = "' + modus + '";'+
+             'window.FACTLINK_PROTOCOL = "' + PROTOCOL + '";' +
              'window.FACTLINK_REAL_URL = "' + site + '";';
     if (scrollto !== undefined && !isNaN(parseInt(scrollto,10))){
         set_urls+='window.FACTLINK_SCROLL_TO = ' + parseInt(scrollto,10) + ';';

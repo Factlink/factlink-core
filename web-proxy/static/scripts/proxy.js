@@ -97,7 +97,8 @@ window.FactlinkConfig = {
     lib: window.FACTLINK_LIB_LOCATION,
     static_location: window.FACTLINK_STATIC_LOCATION,
     url: window.FACTLINK_REAL_URL,
-    scrollto :  window.FACTLINK_SCROLL_TO
+    scrollto :  window.FACTLINK_SCROLL_TO,
+    protocol: window.FACTLINK_PROTOCOL
 };
 
 var static_location = window.FactlinkConfig.static_location;
