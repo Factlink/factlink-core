@@ -114,7 +114,11 @@ var
             '//' + static_location + '/lib/src/js/core.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/build/jquery.scrollTo-1.4.2.js'
+            '//' + static_location + '/lib/build/jquery.scrollTo-1.4.2.js',
+            '//' + static_location + '/lib/build/jquery.hoverintent.js',
+            '//' + static_location + '/lib/src/js/models/fact.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/views/balloon.js?' + (new Date()).getTime(),
+            '//' + static_location + '/lib/src/js/views/prepare.js?' + (new Date()).getTime()
         ],
         [
             '//' + static_location + '/lib/src/js/replace.js?' + (new Date()).getTime(),
