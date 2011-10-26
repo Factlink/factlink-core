@@ -1,26 +1,27 @@
+<% view = FactsHelper::FactBubbleView.new(fact,current_user) %>
+
 <article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
-  <%= render :partial => "facts/partial/fact_wheel", :locals => { :fact => fact }%>
+  <%= render "facts/partial/fact_wheel", :fact => fact %>
 	<header>
 
-	  <span id="title-<%= fact.id %>" class="head<%= editable_title(fact) %>"><%= fact.data.title %></span>
+	  <span id="title-<%= fact.id %>" class="head<%= view.editable_title_class %>"><%= fact.data.title %></span>
 
 		<span class="body">
-			<%= link_to("#{h fact.data.displaystring}", fact.site.url, :target => "_blank") %>
-      <br>
-   </span>
+			<%= view.link %><br>
+    </span>
     <sub>
-      <%= link_to("#{h fact.pretty_url}", proxy_scroll_url(fact), :target => "_blank") %>
+      <%= view.scroll_to_link %>
     </sub>
 		<% if user_signed_in? %>				
 		  <div class="actions">
 		    <ul>
-			    <li><a href="#" class="add-to-channel"><%= image_tag("bookmark.gif") %>Channels</a></li>
-			    <% if fact.created_by == current_user.graph_user %>
-			      <li><%= link_to(image_tag('trash.gif') + "Delete", fact_path(fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true ) %></li>
+			    <li><a href="#" class="add-to-channel"><img src="/images/bookmark.gif">Channels</a></li>
+			    <% if view.i_am_fact_owner %>
+			      <li><%= view.delete_link %></li>
 			    <% end %>			
 		    </ul>
 		  </div>
-		  <%= render :partial => "/facts/partial/channel_listing", :locals => { :fact => fact } %>
+		  <%= render "/facts/partial/channel_listing", { :fact => fact } %>
 	  <% end %>				
 
 	</header>

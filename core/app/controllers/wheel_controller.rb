@@ -7,7 +7,6 @@ include Math
 class WheelController < ApplicationController
 
   def show
-    RVG::dpi = 72
     
     percentages = params[:percentages].split('-').map {|x| x.to_i}
     
@@ -30,10 +29,12 @@ class WheelController < ApplicationController
           # maybe this image already exists, redirect first
         else
           #since this controller was called, the image does not exist yet
-          rvg = RVG.new(2.5.in, 2.5.in).viewbox(0,0,250,250) do |canvas|
-              canvas.use(SvgWheelBuilder.new().wheel(after_percentages)).translate(75, 100)
+          rvg = RVG.new(20,20).viewbox(0,0,20,20) do |canvas|
+              canvas.use(SvgWheelBuilder.new().wheel(after_percentages)).translate(10,10)
+              
           end
           filename = Rails.root.join('public', local_path)
+          puts "FILENAME: #{filename}"
           rvg.draw.write(filename)    
         end
         redirect_to '/' + local_path

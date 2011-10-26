@@ -12,9 +12,15 @@ class SitesController < ApplicationController
     # so JSONP can be used (for Internet Explorer)
     render :json => facts , :callback => params[:callback], :content_type => "application/javascript"
   end
+
   
   def show
     @site = Site[params[:id]]
+ 
+    respond_to do |format|
+      format.html
+      format.json { render :json => mustache_json(Sites::Show) }
+    end
   end
   
   private

@@ -152,8 +152,6 @@ GEM
     mongoid_taggable (0.1.7)
     multi_json (1.0.3)
     mustache (0.99.4)
-    mustache_json (0.0.4)
-      mustache
     nest (1.1.0)
       redis (~> 2.1)
     net-scp (1.0.4)
@@ -295,7 +293,6 @@ DEPENDENCIES
   mongoid_rails_migrations (= 0.0.13)
   mongoid_taggable
   mustache
-  mustache_json
   ohm!
   ohm-contrib!
   rack
