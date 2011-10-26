@@ -36,7 +36,7 @@ domReady(function(){
     }
         
     if ( valid ) {
-      b.href = window.FACTLINK_PROXY_URL + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
+      b.href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
       b.target = "_parent";
     }
   }
@@ -82,7 +82,7 @@ domReady(function(){
 
 			
 			// Set the proxied URL
-      form.action = action.replace(/^http(s|):\/\/.*/, window.FACTLINK_PROXY_URL + '/submit/');
+      form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkConfig.proxy + '/submit/');
     } else {
       form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
     }
@@ -90,59 +90,46 @@ domReady(function(){
 
 });
 
-window.FactlinkConfig = {
-
-    modus: window.FACTLINK_MODUS,
-    api: window.FACTLINK_API_LOCATION,
-    lib: window.FACTLINK_LIB_LOCATION,
-    static_location: window.FACTLINK_STATIC_LOCATION,
-    url: window.FACTLINK_REAL_URL,
-    scrollto :  window.FACTLINK_SCROLL_TO,
-    protocol: window.FACTLINK_PROTOCOL
-};
-
-var static_location = window.FactlinkConfig.static_location;
-
 var
 // List of scripts which should be loaded,
     dev = [
         [
-            '//' + static_location + '/lib/build/jquery-1.6.1.js',
-            '//' + static_location + '/lib/build/easyXDM/easyXDM.js',
-            '//' + static_location + '/lib/build/underscore.js'
+            window.FactlinkConfig.lib + '/build/jquery-1.6.1.js',
+            window.FactlinkConfig.lib + '/build/easyXDM/easyXDM.js',
+            window.FactlinkConfig.lib + '/build/underscore.js'
         ],
         [
-            '//' + static_location + '/lib/src/js/core.js?' + (new Date()).getTime()
+            window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/build/jquery.scrollTo-1.4.2.js',
-            '//' + static_location + '/lib/build/jquery.hoverintent.js',
-            '//' + static_location + '/lib/src/js/models/fact.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/views/balloon.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/views/prepare.js?' + (new Date()).getTime()
+            window.FactlinkConfig.lib + '/build/jquery.scrollTo-1.4.2.js',
+            window.FactlinkConfig.lib + '/build/jquery.hoverintent.js',
+            window.FactlinkConfig.lib + '/src/js/models/fact.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/views/balloon.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/views/prepare.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/src/js/replace.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/scrollto.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/search.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/create.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/modal.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/lib/indicator.js?' + (new Date()).getTime()
+            window.FactlinkConfig.lib + '/src/js/replace.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/lib/indicator.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/src/js/xdm.js?' + (new Date()).getTime()
+            window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
         ],
         [
-            '//' + static_location + '/lib/src/js/getfacts.js?' + (new Date()).getTime(),
-            '//' + static_location + '/lib/src/js/scripts/doscrolling.js?' + (new Date()).getTime() 
+            window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime() 
         ]
     ],
     demo = [
         [
-            '//' + static_location + '/lib/dist/factlink.js'
+            window.FactlinkConfig.lib + '/dist/factlink.js'
         ],
         [
-            '//' + static_location + '/lib/dist/factlink.getfacts.js'
+            window.FactlinkConfig.lib + '/dist/factlink.getfacts.js'
         ]
     ],
     // Method which is called when all scripts are loaded
