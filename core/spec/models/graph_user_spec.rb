@@ -10,6 +10,7 @@ describe GraphUser do
     it { subject.facts_he(:beliefs).should be_empty }
     it { subject.facts_he(:doubts).should be_empty }
     it { subject.facts_he(:disbeliefs).should be_empty }
+    it { GraphUser.top(10).to_a =~ []}
   end
 
 

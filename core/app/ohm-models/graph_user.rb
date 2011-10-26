@@ -3,7 +3,7 @@ class GraphUser < OurOhm
     return self
   end
 
-  reference :user, lambda { |id| User.find(id) }
+  reference :user, lambda { |id| id && User.find(id) }
 
   set :believes_facts, Basefact
   set :doubts_facts, Basefact
