@@ -67,10 +67,6 @@ class FactsController < ApplicationController
   def edit
   end
 
-  def bubble
-    render :partial => "facts/fact_bubble", 
-	            :locals => {  :fact => @fact }
-  end
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
@@ -120,53 +116,41 @@ class FactsController < ApplicationController
   end
 
   def add_supporting_evidence
-    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_source_to_factlink"
-    end
+    add_evidence_internal(:supporting)
   end
 
   def add_weakening_evidence
-    fact_id     = params[:fact_id]
-    evidence_id = params[:evidence_id]
-        
-    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_source_to_factlink"
-    end
+    add_evidence_internal(:weakening)
   end
 
-
+  
   def add_supporting_evidenced
-    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_evidenced_to_factlink"
-    end
+    add_evidenced_internal(:supporting)
   end
 
   def add_weakening_evidenced
-    fact_id     = params[:fact_id]
-    evidence_id = params[:evidence_id]
-        
-    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
+    add_evidenced_internal(:weakening)
+  end
+
+
+
+  def add_evidence_internal(type)
+    add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
+  end
+
+
+  def add_evidenced_internal(type)
+    add_evidence_internal_internal(type,"add_evidenced_to_factlink", "adding_evidence_not_possible")
+  end
+
+  def add_evidence_internal_internal(type,succes,fail)
+    @fact_relation = add_evidence(params[:evidence_id], type, params[:fact_id])
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
-      render "adding_evidence_not_possible"
+      render fail
     else
-      render "add_evidenced_to_factlink"
+      render succes
     end
   end
 
