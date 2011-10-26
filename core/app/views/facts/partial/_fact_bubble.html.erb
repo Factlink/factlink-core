@@ -1,6 +1,6 @@
 <% view = FactsHelper::FactBubbleView.new(fact,current_user) %>
 
-<article class="fact" data-fact-id="<%= fact.id %>" data-user-opinion="<% if user_signed_in? %><%= current_user.graph_user.opinion_on(fact) %><% end %>">
+<article class="fact" data-fact-id="<%= fact.id %>" >
   <%= (render "facts/fact_wheel", :fact => fact).html_safe %>
 	<header>
 
@@ -12,7 +12,7 @@
     <sub>
       <%= view.scroll_to_link %>
     </sub>
-		<% if user_signed_in? %>				
+		<% if view.user_signed_in? %>				
 		  <div class="actions">
 		    <ul>
 			    <li><a href="#" class="add-to-channel"><img src="/images/bookmark.gif">Channels</a></li>

@@ -153,5 +153,8 @@ module FactsHelper
     def link
       link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
     end
+    def user_opinion
+      @current_user.graph_user.opinion_on(@fact)
+    end
   end  
 end
