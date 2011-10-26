@@ -5,7 +5,7 @@
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if view.deletable_from_channel? %>
     <%= link_to(
-            image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
+            image_tag("close-button.png", :class => "close", "style" => "float: right"),
             view.remove_from_channel_path,
             :method => :delete,
             :confirm => "Are you sure you want to remove this fact from your channel?", 
