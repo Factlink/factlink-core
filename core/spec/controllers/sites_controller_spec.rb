@@ -20,17 +20,6 @@ describe SitesController do
       response.body.should eq("[]")
     end
 
-    # Facts don't get set properly?
-    it "should return results for an existing site with facts" do
-      @site = FactoryGirl.create(:site, :url => "http://batman.org")
-      
-      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact one")
-      @site.facts << FactoryGirl.create(:fact, :displaystring => "This is Fact two")
-      
-      get :facts_for_url, :url => @site.url
-      response.body.should eq("[...the facts as json...]")
-    end
-    
     it "should work with an non-existing site" do
 
       get :facts_for_url, :url => "http://www.thebaronisinthebuilding.com/"
