@@ -58,14 +58,11 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
-    
-    config.load_paths += %W{ #{RAILS_ROOT}/app/views }
-    
+    config.autoload_paths << "#{config.root}/app/views"
     
     config.mongoid.logger = nil
 
     autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
-
 
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
@@ -80,7 +77,6 @@ module FactlinkUI
     autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
     
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
-    
     
     autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
     autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
