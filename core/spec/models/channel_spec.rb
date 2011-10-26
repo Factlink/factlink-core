@@ -84,11 +84,5 @@ describe Channel do
     end
   end
   
-  describe "#related_users" do
-    
-    describe "should not contain the owner of the channel" do
-      # test this by mocking a calculator and checking whether created by is in excleded users
-    end
-  end
   
 end

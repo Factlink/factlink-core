@@ -45,7 +45,8 @@ describe HomeController do
 
      it "should return relevant results when a search parameter is given" do      
        result_set = (
-         [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+         [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)].
+            map {|fd| fd.fact }
        )
 
        sunspot_search = mock(Sunspot::Search::StandardSearch)
@@ -54,12 +55,13 @@ describe HomeController do
        FactData.should_receive(:search).and_return(sunspot_search)
 
        post "search", :s => "1"
-       assigns(:factlinks).should == result_set
+       assigns(:results).should == result_set
      end
 
      it "should return all results when no search parameter is given" do
        result_set = (
-         [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)]
+         [FactData.new(:displaystring => 10), FactData.new(:displaystring => 12), FactData.new(:displaystring => 13)].
+           map {|fd| fd.fact }
        )
 
        mock_criteria = mock(Mongoid::Criteria)
@@ -72,7 +74,7 @@ describe HomeController do
        FactData.should_receive(:all).and_return(mock_criteria)
 
        post "search"
-       assigns(:factlinks).should == result_set
+       assigns(:results).should == result_set
      end
 
   end

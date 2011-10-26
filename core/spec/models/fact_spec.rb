@@ -106,9 +106,6 @@ describe Fact do
     end
   end
   
-  describe ".evidence_opinions" do
-    it "should work"
-  end
 
   describe "Mongoid properties: " do
     [:displaystring, :title, :passage, :content].each do |attr|
@@ -147,11 +144,6 @@ describe Fact do
     end
   end
   
-  it "should have a working by_display_string"
-
-  it "should be equal" do
-    1.should == 1
-  end
 
 
 end
