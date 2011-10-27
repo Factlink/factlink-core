@@ -1,28 +1,26 @@
-<% view = FactsHelper::FactBubbleView.new(fact,current_user) %>
-
-<article class="fact" data-fact-id="<%= fact.id %>" >
-  <%= (render "/facts/fact_wheel", :fact => fact).html_safe %>
+<article class="fact" data-fact-id="{{fact.id}}" >
+  {{>fact_wheel}}
 	<header>
 
-	  <span id="title-<%= fact.id %>" class="head<%= view.editable_title_class %>"><%= fact.data.title %></span>
+	  <span id="title-{{fact.id}}" class="head {{editable_title_class}}">{{fact.data.title}}</span>
 
 		<span class="body">
-			<%= view.link %><br>
+			{{{link}}}<br>
     </span>
     <sub>
-      <%= view.scroll_to_link %>
+      {{{scroll_to_link}}}
     </sub>
-		<% if view.user_signed_in? %>				
+		{{#user_signed_in?}}
 		  <div class="actions">
 		    <ul>
 			    <li><a href="#" class="add-to-channel"><img src="/images/bookmark.gif">Channels</a></li>
-			    <% if view.i_am_fact_owner %>
-			      <li><%= view.delete_link %></li>
-			    <% end %>			
+			    {{#i_am_fact_owner}}
+			      <li>{{{delete_link}}}</li>
+			    {{/i_am_fact_owner}}
 		    </ul>
 		  </div>
-		  <%= (render "/facts/channel_listing", :fact => fact, :form_authenticity_token => form_authenticity_token ).html_safe %>
-	  <% end %>				
+		  {{>channel_listing}}
+	  {{/user_signed_in?}}
 
 	</header>
 </article>

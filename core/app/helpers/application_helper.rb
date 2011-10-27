@@ -39,6 +39,9 @@ module ApplicationHelper
     return data.html_safe
   end
   
+  def render_mustache(*args)
+    render(*args).html_safe
+  end
 end
 
 # http://stackoverflow.com/questions/4814631/how-to-disable-link-to-remote-funcation-after-click-made/7415741#7415741
