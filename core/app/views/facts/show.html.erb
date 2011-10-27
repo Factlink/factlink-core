@@ -9,7 +9,8 @@
   <%= javascript_include_tag "evidence_search" %>
   
   <script>
-    $('.fact-block').factlink();
-		window.fact_id = "<%= @fact.id %>";
+    var fact = $('.fact-block');
+    fact.factlink()
+    window.fact_id = "<%= @fact.id %>"
   </script>
-<% end %>
+  <% end %>

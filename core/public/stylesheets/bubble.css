@@ -524,10 +524,11 @@ ul#results-listing div.user-block .side .type {
   overflow: hidden;
 }
 .fact-block .wheel svg {
-  width: 65px;
-  height: 60px;
+  width: 65px !important;
+  height: 60px !important;
   margin: 0 0 0 10px;
-  float: left;
+  display: block;
+  overflow: hidden;
 }
 .fact-block .wheel svg path:hover {
   cursor: pointer;
