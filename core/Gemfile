@@ -87,6 +87,8 @@ gem 'capistrano-ext'
 # imagemagick
 gem 'rmagick'
 
+# Avatars
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
 
 group :development, :test do
   gem 'metric_fu'

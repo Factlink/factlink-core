@@ -4,6 +4,7 @@
 
 <!-- left column -->
 <%= content_for :left_column do %>
+
   <%= render "home/snippets/user_li", :user => @user %>
   <%= render "channels/channels", :user => @user %>
 <% end %>
@@ -23,27 +24,27 @@
   <%= javascript_include_tag "views/channel_menu_view.js" %>
   <%= javascript_include_tag "views/channel_app_view.js" %>
   <%= javascript_include_tag "router.js" %>
-  
+
   <script>
     var Router = new Workspace();
-    
-    Backbone.history.start({pushState:true, silent:true});
-    
-    Channels.reset(<%= @user.graph_user.channels.map{|ch| ChannelsHelper::ChannelModelView.new(ch) }.to_json.html_safe%>);
-  </script>
-  
-  <script>
-  	$('.follow-channel').bind('click', function() {
-  		$.ajax({
-  		  url: $(this).data('follow-url'),
-  			dataType: "script",
-  		  success: function(){
-  				console.log("Succes");
-  		  }
-  		});
 
-  		return false;
-  	});
+    Backbone.history.start({pushState:true, silent:true});
+
+    Channels.reset(<%= @user.graph_user.channels.map{|ch| ChannelsHelper::ChannelModelView.new(ch) }.to_json.html_safe %>);
+  </script>
+
+  <script>
+    $('.follow-channel').bind('click', function() {
+      $.ajax({
+        url: $(this).data('follow-url'),
+        dataType: "script",
+        success: function() {
+          console.log("Succes");
+        }
+      });
+
+      return false;
+    });
   </script>
 <% end %>
 

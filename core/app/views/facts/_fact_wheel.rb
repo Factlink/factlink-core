@@ -18,7 +18,7 @@ module Facts
       [
         {
           :type => 'believe',
-          :groupname => 'Top believers',
+          :groupname => 'Top agree',
           :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:believes, fact),
           :color => "#98d100",
@@ -34,7 +34,7 @@ module Facts
         },
         {
           :type => 'disbelieve',
-          :groupname => 'Top disbelievers',
+          :groupname => 'Top disagree',
           :percentage => fact.get_opinion.as_percentages[:disbelieve][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:disbelieves, fact),
           :color => "#e94e1b",
@@ -55,7 +55,7 @@ module Facts
   
     def link_for(gu)
       link_to(
-        image_tag(gu.user.avatar, :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
+        image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
         user_profile_path(gu.user.username), :target => "_top" )
     end
 
