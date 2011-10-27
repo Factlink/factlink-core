@@ -15,3 +15,5 @@ log/
 public/images/wheel/*.png
 *.rej
 *.orig
+public/system/
+*~
