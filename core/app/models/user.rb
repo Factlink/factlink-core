@@ -68,17 +68,6 @@ class User
   end
 
 
-  private
-  def update_avatar    
-    unless self.avatar_updated_at
-      set_avatar_filename
-    end
-  end
-  
-  def set_avatar_filename
-    self.avatar.instance_write(:file_name, self.twitter)
-  end
-  
   def set_avatar_from_twitter    
     if self.twitter
       url = twitter_image_url
@@ -91,6 +80,30 @@ class User
       end
     end
   end
+
+  private
+  def update_avatar    
+    unless self.avatar_updated_at
+      set_avatar_filename
+    end
+  end
+  
+  def set_avatar_filename
+    self.avatar.instance_write(:file_name, self.twitter)
+  end
+  
+  # def set_avatar_from_twitter    
+  #   if self.twitter
+  #     url = twitter_image_url
+  # 
+  #     begin
+  #       self.avatar = open(url)
+  #       self.save
+  #     rescue
+  #       puts "[Error] Failed twitter_image_url - User#set_avatar_from_twitter"
+  #     end
+  #   end
+  # end
   
   def twitter_image_url
     "http://purl.org/net/spiurl/#{twitter}"
