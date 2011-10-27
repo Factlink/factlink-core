@@ -1,6 +1,6 @@
 <div class="user-block">
   <div class="side">
-    <%= image_tag(user.avatar, :width => 64, :class => "avatar") %>
+    <%= image_tag(user.avatar.url, :width => 64, :class => "avatar") %>
     <span class="authority">
       <%= image_tag("brains.png") %>
       <%= user.graph_user.rounded_authority %>
