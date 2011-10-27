@@ -98,7 +98,6 @@ module FactlinkUI
     ]
     require "#{config.root}/lib/mustache_rails.rb"
 
-    require "#{config.root}/app/views/facts/_users_popup.rb"
     require "#{config.root}/app/views/facts/_fact_wheel.rb"
     require "#{config.root}/app/views/facts/_channel_listing.rb"
     
