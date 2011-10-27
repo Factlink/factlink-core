@@ -72,8 +72,8 @@ describe FactsController do
   describe :create do
     it "should work" do
       authenticate_user!
-      post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact",:title => "Title"
-      response.should redirect_to(fact_path)
+      post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      response.should redirect_to(edit_fact_path(Fact.all.to_a.last.id))
     end
   end
 

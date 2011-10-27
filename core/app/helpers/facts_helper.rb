@@ -157,5 +157,6 @@ module FactsHelper
       @current_user.graph_user.opinion_on(@fact)
     end
   end
-    
+  
+      
 end
