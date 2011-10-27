@@ -10,6 +10,12 @@
 
     More info at: http://lesselements.com
 -----------------------------------------------------*/
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 /* Actual styles start */span.factlink {
   cursor: pointer;
   -webkit-transition: all 0.4s ease-out;
@@ -101,6 +107,10 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   height: 0;
   width: 0;
 }
@@ -280,10 +290,10 @@ span.factlink.fl-active {
   width: 100%;
   margin: 0;
 }
-#fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
+#fl .fl-popup.fl-create > div.fl-label > span.fl-created, #fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
   display: none;
 }
-#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create {
+#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create, #fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-created {
   display: none;
 }
 #fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-add-evidence {
@@ -291,6 +301,16 @@ span.factlink.fl-active {
   width: 105px;
 }
 #fl .fl-popup.fl-add-evidence ul.fl-add-options {
+  display: none !important;
+}
+#fl .fl-popup.fl-created > div.fl-label > span.fl-create, #fl .fl-popup.fl-created > div.fl-label > span.fl-add-evidence {
+  display: none;
+}
+#fl .fl-popup.fl-created > div.fl-label > span.created {
+  display: block;
+  width: 105px;
+}
+#fl .fl-popup.fl-created ul.fl-add-options {
   display: none !important;
 }
 #fl .fl-popup.add-active.right {
@@ -341,6 +361,9 @@ span.factlink.fl-active {
   display: block;
 }
 #fl .fl-popup .fl-label {
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
   margin: 0;
   padding: 0;
   background: initial;

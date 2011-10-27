@@ -146,7 +146,7 @@ Factlink.Prepare = function() {
   };
   
   
-  var types = ["fl-create", "fl-add-evidence"];
+  var types = ["fl-create","fl-created","fl-add-evidence"];
   
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);

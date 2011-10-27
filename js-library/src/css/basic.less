@@ -71,7 +71,7 @@ span.factlink {
         
 #fl {
   #fl > .resetStyles;
-  
+  .unselectable;
   height: 0;
   width: 0;
   
@@ -141,7 +141,7 @@ span.factlink {
           width: 100%;
           margin: 0;
         }
-        
+        > span.fl-created,
         > span.fl-add-evidence {
           display: none;
         }
@@ -150,7 +150,8 @@ span.factlink {
     
     &.fl-add-evidence {
       > div.fl-label {
-        > span.fl-create {
+        > span.fl-create,
+        > span.fl-created {
           display: none;
         }
         
@@ -164,7 +165,24 @@ span.factlink {
         display: none !important;
       }
     }
-    
+    &.fl-created {
+      > div.fl-label {
+        > span.fl-create,
+        > span.fl-add-evidence {
+          display: none;
+        }
+        
+        > span.created {
+          display: block;
+          width: 105px;
+        }
+      }
+      
+      ul.fl-add-options {
+        display: none !important;
+      }
+    }
+        
     &.add-active {
       &.right {
         border-top-right-radius: 0;
@@ -229,6 +247,7 @@ span.factlink {
     }
         
     .fl-label {
+      .transition(0.4s);
       #fl > .resetStyles;
       
       text-align: center;
