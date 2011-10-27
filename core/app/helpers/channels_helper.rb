@@ -20,7 +20,7 @@ module ChannelsHelper
     end
 
     def link
-      return get_facts_for_channel_path(@channel.created_by.user.username, @channel)
+      return get_facts_for_channel_path(@channel.created_by.user.username, @channel.id)
     end
     
     def title

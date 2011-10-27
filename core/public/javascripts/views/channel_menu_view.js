@@ -2,7 +2,6 @@ window.ChannelMenuView = Backbone.View.extend({
   tagName: "li",
   
   events: {
-    // @TODO: Backbone router should catch these url changes, but no URL seems to match. Look in to this later please.
     "click" : "showFacts"
   },
   
