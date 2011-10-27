@@ -33,6 +33,15 @@ var PORT = parseInt(global.config.proxy.port, 10);
 // Use Jade as templating engine
 server.set('view engine', 'jade');
 
+function get_modus(modus){
+  if (modus === undefined){
+    return 'default';
+  } else {
+    return modus;
+  }
+  
+}
+
 /**
  * Add base url and inject proxy.js, and return the proxied site
  */
@@ -60,6 +69,17 @@ function injectFactlinkJs(html_in, site, scrollto, modus) {
 
 
 function handleProxyRequest(res, site, scrollto, modus, form_hash) {
+  if (site === undefined){
+    res.render('welcome.jade',{
+      layout:false,
+      locals: {
+        static_url: STATIC_URL,
+        proxy_url: PROXY_URL,
+        factlinkModus : modus
+      }
+    });
+    return;
+  }
 
   errorhandler = function(data) {
     console.error("Failed on: " + site);
@@ -69,7 +89,8 @@ function handleProxyRequest(res, site, scrollto, modus, form_hash) {
       locals: {
         static_url: STATIC_URL,
         proxy_url: PROXY_URL,
-        site: site
+        site: site,
+        factlinkModus : modus
       }
     });
   };
@@ -110,7 +131,7 @@ server.get('/parse', function(req, res) {
   console.info("\nGET /parse");
   var site = req.query.url;
   var scrollto = req.query.scrollto;
-  var modus = req.query.factlinkModus;
+  var modus = get_modus(req.query.factlinkModus);
 
   handleProxyRequest(res, site, scrollto, modus, {});
 });
@@ -127,7 +148,7 @@ server.get('/parse', function(req, res) {
 server.get('/submit', function(req, res) {
   var form_hash = req.query;
 
-  var modus = form_hash.factlinkModus;
+  var modus = get_modus(form_hash.factlinkModus);
   delete form_hash.factlinkModus;
 
   var site = form_hash.factlinkFormUrl;
@@ -171,7 +192,7 @@ function render_page(pagename) {
         proxy_url: PROXY_URL,
         core_url: API_URL,
         page_url: req.query.url,
-        factlinkModus: req.query.factlinkModus,
+        factlinkModus: get_modus(req.query.factlinkModus),
         header_url: header_url,
         parse_url: parse_url
       }
