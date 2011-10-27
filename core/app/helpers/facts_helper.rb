@@ -115,48 +115,6 @@ module FactsHelper
     end
   end
   
-  class FactBubbleView < SemiMustacheView
 
-    def initialize(fact,user)
-      @fact = fact
-      @current_user = user
-    end
-
-    def i_am_fact_owner
-      (@fact.created_by == @current_user.graph_user)
-    end
-
-    def editable_title_class
-      if user_signed_in? and i_am_fact_owner
-        return " edit"
-      else
-        return ""
-      end 
-    end
-    
-    def pretty_url #TODO move to helper function, has no place in the model
-      @fact.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-    end
-
-    def delete_link
-      link_to(image_tag('/images/trash.gif') + "Delete", fact_path(@fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true )
-    end
-
-    def proxy_scroll_url
-      return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
-    end
-    
-    def scroll_to_link
-      link_to(self.pretty_url, proxy_scroll_url, :target => "_blank")
-    end
-    
-    def link
-      link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
-    end
-    def user_opinion
-      @current_user.graph_user.opinion_on(@fact)
-    end
-  end
-  
       
 end

@@ -120,5 +120,22 @@ class Mustache
   end
 end
 
+
+
+
+
 #ActiveSupport::Dependencies.load_paths << Rails.root.join("app", "views")
 ActionView::Template.register_template_handler(:rb, Mustache::Rails::TemplateHandler)
+
+
+
+
+#hotfixes to support to_json when something isn't a view
+class Mustache::Rails
+  def controller
+    return nil.andand #dit is mijn ranzigste truc ooit -- mark
+  end
+  
+end
+Mustache::Rails.send(:include, Rails.application.routes.url_helpers)
+Mustache::Rails.send(:include, ActionView::Helpers::UrlHelper)

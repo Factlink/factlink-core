@@ -15,4 +15,4 @@
   <div>
 </td><td>
 
-<%= render :partial => "/facts/fact_bubble", :locals => {:fact => fact_relation.fact} %>
+<%= render_mustache "/facts/fact_bubble", :fact => fact_relation.fact, :form_authenticity_token => form_authenticity_token %>
