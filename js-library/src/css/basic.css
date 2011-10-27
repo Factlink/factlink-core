@@ -227,7 +227,26 @@ span.factlink.fl-active {
   background-image: url(../images/arrows-bottom.png);
   top: 100%;
 }
-#fl .fl-popup a {
+#fl .fl-popup:hover {
+  border: solid 1px #555;
+}
+#fl .fl-popup:hover .fl-arrow {
+  background-position: 12px 0px !important;
+}
+#fl .fl-popup:hover > div.fl-share > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
+  border: solid 1px #555;
+}
+#fl .fl-popup.fl-create, #fl .fl-popup.fl-created, #fl .fl-popup.fl-add-evidence {
+  width: 105px;
+  height: 24px;
+  text-align: center;
+}
+#fl .fl-popup.fl-create a,
+#fl .fl-popup.fl-created a,
+#fl .fl-popup.fl-add-evidence a,
+#fl .fl-popup.fl-create span,
+#fl .fl-popup.fl-created span,
+#fl .fl-popup.fl-add-evidence span {
   margin: 0;
   padding: 0;
   background: initial;
@@ -267,23 +286,13 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  line-height: 24px;
+  text-align: inherit;
   color: #000;
   text-decoration: none;
   display: inline-block;
   width: 100%;
   height: 100%;
-}
-#fl .fl-popup:hover {
-  border: solid 1px #555;
-}
-#fl .fl-popup:hover .fl-arrow {
-  background-position: 12px 0px !important;
-}
-#fl .fl-popup:hover > div.fl-share > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
-  border: solid 1px #555;
-}
-#fl .fl-popup.fl-create {
-  width: 100px;
 }
 #fl .fl-popup.fl-create > div.fl-label > span.fl-create {
   display: block;
@@ -321,7 +330,7 @@ span.factlink.fl-active {
   border-top-left-radius: 0;
   display: block;
   top: 0;
-  left: 100px;
+  left: 105px;
 }
 #fl .fl-popup.add-active.left {
   border-top-left-radius: 0;
@@ -361,9 +370,6 @@ span.factlink.fl-active {
   display: block;
 }
 #fl .fl-popup .fl-label {
-  -webkit-transition: all 0.4s ease-out;
-  -moz-transition: all 0.4s ease-out;
-  transition: all 0.4s ease-out;
   margin: 0;
   padding: 0;
   background: initial;
@@ -403,6 +409,7 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  height: 24px;
   text-align: center;
   overflow: auto;
 }
@@ -880,6 +887,7 @@ span.factlink.fl-active {
   position: absolute;
   top: 100%;
   min-width: 111px;
+  max-width: 160px;
   left: 0;
 }
 #fl .fl-popup .fl-share > .fl-channels:hover {
@@ -925,6 +933,8 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 4px 0px;
   white-space: nowrap;
 }

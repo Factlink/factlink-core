@@ -6,8 +6,8 @@
 @hover-color  : darken(rgb(240,240,240), 10);
 @bg-color-stop: #fbfbfb;
 @bg-color     : #e2e2e2;
-@popup-width  : 100px;
-@popup-create-width: 100px;
+@popup-width  : 105px;
+@popup-create-width: 105px;
 @popup-height : 24px;
 @border-color : #a8a8a8;
 @border-hover-color: #1d8cc8;
@@ -109,16 +109,6 @@ span.factlink {
         top: 100%;
       }
     }
-    a {
-      #fl > .resetStyles;
-      
-      color: #000;
-      text-decoration: none;
-      display: inline-block;
-      width: 100%; 
-      height: 100%
-    }
-
     &:hover {
       border: solid 1px #555;
       
@@ -132,8 +122,26 @@ span.factlink {
       }
     }
     
-    &.fl-create {
+    &.fl-create,
+    &.fl-created,
+    &.fl-add-evidence  {
       width: @popup-create-width;
+      height: @popup-height;
+      text-align: center;
+     a, span {
+        #fl > .resetStyles;
+        line-height: 24px;
+        text-align: inherit;
+        color: #000;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%; 
+        height: 100%;
+      }
+    }
+
+
+    &.fl-create {
 
       >div.fl-label {
         > span.fl-create {
@@ -247,9 +255,8 @@ span.factlink {
     }
         
     .fl-label {
-      .transition(0.4s);
       #fl > .resetStyles;
-      
+      height: @popup-height; 
       text-align: center;
       overflow: auto;
       
@@ -381,11 +388,14 @@ span.factlink {
         position: absolute;
         top: 100%;
         min-width: 111px;
+        max-width: 160px;
         left: 0;
 
         li {
           #fl > .resetStyles;
-          
+          overflow: hidden;
+          text-overflow: ellipsis;
+
           padding: 4px 0px;
           white-space: nowrap;
           
@@ -401,6 +411,7 @@ span.factlink {
           }
 
           label {
+
             #fl > .resetStyles;
             > input {
               #fl > .resetStyles;
