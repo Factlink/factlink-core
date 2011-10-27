@@ -71,7 +71,7 @@ module Facts
 
     def link_for(gu)
       link_to(
-        image_tag(gu.user.avatar, :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
+        image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
         user_profile_path(gu.user.username), :target => "_top" )
     end
 
@@ -102,13 +102,19 @@ module Facts
       return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
     end
 
+    def show_links
+      show_links = ! (self[:hide_links])
+    end
+
     def scroll_to_link
-      link_to(self.pretty_url, proxy_scroll_url, :target => "_blank")
+      show_links ? link_to(self.pretty_url, proxy_scroll_url, :target => "_blank") : self.pretty_url
     end
 
     def link
-      link_to(self[:fact].data.displaystring, self[:fact].site.url, :target => "_blank")
+      displaystring = self[:fact].data.displaystring
+      show_links ? link_to(displaystring, self[:fact].site.url, :target => "_blank") : displaystring
     end
+    
     def user_opinion
       self[:current_user].graph_user.opinion_on(self[:fact])
     end
