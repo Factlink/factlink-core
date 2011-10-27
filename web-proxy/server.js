@@ -171,6 +171,7 @@ function render_page(pagename) {
         proxy_url: PROXY_URL,
         core_url: API_URL,
         page_url: req.query.url,
+        factlinkModus: req.query.factlinkModus,
         header_url: header_url,
         parse_url: parse_url
       }
