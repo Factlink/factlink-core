@@ -1,6 +1,54 @@
+require 'open-uri'
+
 class User
   include Mongoid::Document
+  include Mongoid::Paperclip
   include Sunspot::Mongoid
+
+  has_mongoid_attached_file :avatar,
+    :default_url   => "/images/avatar.jpeg",
+    :styles => {
+      :small  => "32x32#",
+      :medium => "48x48#",
+      :large  => "64x64#"
+    }
+  before_post_process :set_image_filename
+  
+  before_save :update_avatar
+  
+  def update_avatar
+    latest_update = self.avatar_updated_at
+    
+    unless latest_update
+      set_avatar_filename
+    else
+      # Update the avatar each day
+      if latest_update < (DateTime.now - 1.day)
+        set_avatar_filename  
+      end
+    end
+  end
+  
+  def set_image_filename
+    self.avatar.instance_write(:file_name, self.twitter)
+  end
+  
+  def set_avatar_from_twitter    
+    if self.twitter
+      url = twitter_image_url
+
+      begin
+        self.avatar = open(url)
+        self.save
+      rescue
+        puts "[Error] Failed twitter_image_url - User#set_avatar_from_twitter"
+      end
+    end
+  end
+  
+  def twitter_image_url
+    "http://purl.org/net/spiurl/#{twitter}"
+  end
 
   searchable :auto_index => true do
     text    :username, :twitter
@@ -54,12 +102,14 @@ class User
     username
   end
 
-  def avatar
-    if twitter
-      "http://purl.org/net/spiurl/#{twitter}"
-    else
-      "avatar.jpeg"
-    end
-  end
+
+
+  # def avatar
+  #   if twitter
+  #     "http://purl.org/net/spiurl/#{twitter}"
+  #   else
+  #     "avatar.jpeg"
+  #   end
+  # end
 
 end
