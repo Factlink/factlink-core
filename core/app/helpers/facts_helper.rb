@@ -157,5 +157,22 @@ module FactsHelper
       @current_user.graph_user.opinion_on(@fact)
     end
   end
+  class ChannelListingView < SemiMustacheView
+
+    def initialize(fact,user)
+      @fact = fact
+      @current_user = user
+    end
     
+    def channels
+      @current_user.graph_user.channels.map do |ch|
+        if ch.include?(@fact)
+          def ch.checked; true end
+        else
+          def ch.checked; false end
+        end
+        ch
+      end
+    end
+  end    
 end

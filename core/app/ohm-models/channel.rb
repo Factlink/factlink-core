@@ -159,6 +159,10 @@ class UserStream
   
   alias :graph_user :created_by
 
+  def include?(obj)
+    facts.include?(obj)
+  end
+
   def discontinued
     false
   end
