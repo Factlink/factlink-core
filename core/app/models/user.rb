@@ -69,16 +69,9 @@ class User
 
 
   private
-  def update_avatar
-    latest_update = self.avatar_updated_at
-    
+  def update_avatar    
     unless latest_update
       set_avatar_filename
-    else
-      # Update the avatar each day
-      if latest_update < (DateTime.now - 1.day)
-        set_avatar_filename  
-      end
     end
   end
   
