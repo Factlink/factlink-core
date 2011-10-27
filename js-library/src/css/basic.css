@@ -10,6 +10,12 @@
 
     More info at: http://lesselements.com
 -----------------------------------------------------*/
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 /* Actual styles start */span.factlink {
   cursor: pointer;
   -webkit-transition: all 0.4s ease-out;
@@ -101,6 +107,10 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
   height: 0;
   width: 0;
 }
@@ -217,7 +227,26 @@ span.factlink.fl-active {
   background-image: url(../images/arrows-bottom.png);
   top: 100%;
 }
-#fl .fl-popup a {
+#fl .fl-popup:hover {
+  border: solid 1px #555;
+}
+#fl .fl-popup:hover .fl-arrow {
+  background-position: 12px 0px !important;
+}
+#fl .fl-popup:hover > div.fl-share > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
+  border: solid 1px #555;
+}
+#fl .fl-popup.fl-create, #fl .fl-popup.fl-created, #fl .fl-popup.fl-add-evidence {
+  width: 105px;
+  height: 24px;
+  text-align: center;
+}
+#fl .fl-popup.fl-create a,
+#fl .fl-popup.fl-created a,
+#fl .fl-popup.fl-add-evidence a,
+#fl .fl-popup.fl-create span,
+#fl .fl-popup.fl-created span,
+#fl .fl-popup.fl-add-evidence span {
   margin: 0;
   padding: 0;
   background: initial;
@@ -257,33 +286,23 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  line-height: 24px;
+  text-align: inherit;
   color: #000;
   text-decoration: none;
   display: inline-block;
   width: 100%;
   height: 100%;
 }
-#fl .fl-popup:hover {
-  border: solid 1px #555;
-}
-#fl .fl-popup:hover .fl-arrow {
-  background-position: 12px 0px !important;
-}
-#fl .fl-popup:hover > div.fl-share > ul.fl-channels, #fl .fl-popup:hover > ul.fl-add-options {
-  border: solid 1px #555;
-}
-#fl .fl-popup.fl-create {
-  width: 100px;
-}
 #fl .fl-popup.fl-create > div.fl-label > span.fl-create {
   display: block;
   width: 100%;
   margin: 0;
 }
-#fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
+#fl .fl-popup.fl-create > div.fl-label > span.fl-created, #fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
   display: none;
 }
-#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create {
+#fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-create, #fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-created {
   display: none;
 }
 #fl .fl-popup.fl-add-evidence > div.fl-label > span.fl-add-evidence {
@@ -291,6 +310,16 @@ span.factlink.fl-active {
   width: 105px;
 }
 #fl .fl-popup.fl-add-evidence ul.fl-add-options {
+  display: none !important;
+}
+#fl .fl-popup.fl-created > div.fl-label > span.fl-create, #fl .fl-popup.fl-created > div.fl-label > span.fl-add-evidence {
+  display: none;
+}
+#fl .fl-popup.fl-created > div.fl-label > span.created {
+  display: block;
+  width: 105px;
+}
+#fl .fl-popup.fl-created ul.fl-add-options {
   display: none !important;
 }
 #fl .fl-popup.add-active.right {
@@ -301,7 +330,7 @@ span.factlink.fl-active {
   border-top-left-radius: 0;
   display: block;
   top: 0;
-  left: 100px;
+  left: 105px;
 }
 #fl .fl-popup.add-active.left {
   border-top-left-radius: 0;
@@ -380,6 +409,7 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  height: 24px;
   text-align: center;
   overflow: auto;
 }
@@ -857,6 +887,7 @@ span.factlink.fl-active {
   position: absolute;
   top: 100%;
   min-width: 111px;
+  max-width: 160px;
   left: 0;
 }
 #fl .fl-popup .fl-share > .fl-channels:hover {
@@ -902,6 +933,8 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding: 4px 0px;
   white-space: nowrap;
 }
