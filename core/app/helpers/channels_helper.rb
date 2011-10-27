@@ -11,8 +11,7 @@ module ChannelsHelper
   end
 
   class ChannelModelView
-      include Rails.application.routes.url_helpers    
-    #default_url_options[:host] = 'localhost:3000'
+    include Rails.application.routes.url_helpers    
     
     def initialize(channel,jsmode=false)
       @channel = channel
