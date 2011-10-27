@@ -21,12 +21,9 @@ class User
       :medium => "48x48#",
       :large  => "64x64#"
     }
-  before_post_process :set_image_filename
+  before_post_process :set_avatar_filename
   
   before_save :update_avatar
-
-  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
-  around_create :create_graph_user
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
@@ -63,6 +60,9 @@ class User
     guser.save
   end
 
+  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
+  around_create :create_graph_user
+
   def to_s
     username
   end
@@ -70,12 +70,12 @@ class User
 
   private
   def update_avatar    
-    unless latest_update
+    unless self.avatar_updated_at
       set_avatar_filename
     end
   end
   
-  def set_image_filename
+  def set_avatar_filename
     self.avatar.instance_write(:file_name, self.twitter)
   end
   
