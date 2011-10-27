@@ -5,6 +5,15 @@ class User
   include Mongoid::Paperclip
   include Sunspot::Mongoid
 
+  field :username
+  field :twitter
+  field :graph_user_id
+
+  # Only allow letters, digits and underscore in a username
+  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_presence_of :username, :message => "is required", :allow_blank => true
+  validates_uniqueness_of :username, :message => "must be unique"
+
   has_mongoid_attached_file :avatar,
     :default_url   => "/images/avatar.jpeg",
     :styles => {
@@ -15,7 +24,51 @@ class User
   before_post_process :set_image_filename
   
   before_save :update_avatar
+
+  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
+  around_create :create_graph_user
   
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
+  devise :database_authenticatable,
+  :recoverable,   # Password retrieval
+  :rememberable,  # 'Remember me' box
+  :trackable,     # Log sign in count, timestamps and IP address
+  :validatable,   # Validation of email and password
+  :confirmable,   # Require e-mail verification
+  :registerable   # Allow registration
+
+  searchable :auto_index => true do
+    text    :username, :twitter
+    string  :username, :twitter
+  end
+
+  def graph_user
+    @graph_user ||= GraphUser[graph_user_id]
+  end
+
+  def graph_user=(guser)
+    @graph_user = nil
+    self.graph_user_id = guser.id
+  end
+
+  def create_graph_user
+    guser = GraphUser.new
+    guser.save
+    self.graph_user = guser
+      
+    yield
+      
+    guser.user = self
+    guser.save
+  end
+
+  def to_s
+    username
+  end
+
+
+  private
   def update_avatar
     latest_update = self.avatar_updated_at
     
@@ -49,67 +102,5 @@ class User
   def twitter_image_url
     "http://purl.org/net/spiurl/#{twitter}"
   end
-
-  searchable :auto_index => true do
-    text    :username, :twitter
-    string  :username, :twitter
-  end
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
-  devise :database_authenticatable,
-  :recoverable,   # Password retrieval
-  :rememberable,  # 'Remember me' box
-  :trackable,     # Log sign in count, timestamps and IP address
-  :validatable,   # Validation of email and password
-  :confirmable,   # Require e-mail verification
-  :registerable   # Allow registration
-
-  field :username,           :type => String
-  field :twitter
-  field :graph_user_id
-  def graph_user
-    @graph_user ||= GraphUser[graph_user_id]
-  end
-
-  def graph_user=(guser)
-    @graph_user = nil
-    self.graph_user_id = guser.id
-  end
-
-  def create_graph_user
-      guser = GraphUser.new
-      guser.save
-      self.graph_user = guser
-      
-      yield
-      
-      guser.user = self
-      guser.save
-  end
-
-
-  # Only allow letters, digits and underscore in a username
-  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
-  validates_presence_of :username, :message => "is required", :allow_blank => true
-  validates_uniqueness_of :username, :message => "must be unique"
-
-  private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
-  around_create :create_graph_user
-
-
-  def to_s
-    username
-  end
-
-
-
-  # def avatar
-  #   if twitter
-  #     "http://purl.org/net/spiurl/#{twitter}"
-  #   else
-  #     "avatar.jpeg"
-  #   end
-  # end
 
 end
