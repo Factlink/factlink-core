@@ -101,6 +101,7 @@ module FactlinkUI
     require "#{config.root}/app/views/facts/_fact_wheel.rb"
     require "#{config.root}/app/views/facts/_fact_bubble.rb"
     require "#{config.root}/app/views/facts/_channel_listing.rb"
+    require "#{config.root}/app/views/channels/_single_menu_item.rb"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
