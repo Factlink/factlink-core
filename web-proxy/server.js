@@ -18,9 +18,10 @@ server.configure(function() {
  *	We execute our requests using Restler
  *  because it follows redirects if needed
  */
-var restler = require('restler');
+var restler   = require('restler');
+var validator = require('validator');
+var fs        = require('fs');
 
-var fs = require('fs');
 config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path, fs, server.settings.env);
 
@@ -106,12 +107,21 @@ function handleProxyRequest(res, site, scrollto, modus, form_hash) {
     if (protocol_regex.test(site) === false) {
       site = "http://" + site;
     } else {
+      console.log( new Date().toString() + ' protocol mismatch');
       errorhandler({});
       return;
     }
   }
 
-  console.info("Serving: " + site);
+  // Check if we have a valid url
+  try {
+    validator.check(site, site + ' is not a valid url').isUrl();
+  } catch (e) {
+    console.log( new Date().toString() + ' ' + e);
+    // Show error message
+    errorhandler({});
+    return;
+  }
 
   var request = restler.get(site, form_hash);
 
