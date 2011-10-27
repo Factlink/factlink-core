@@ -7,5 +7,5 @@
 $('article.fact[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
 
 if (Channels !== undefined ) {
-  Channels.add(<%= @channel.to_json.html_safe %>);
+  Channels.add(<%= ChannelsHelper::ChannelModelView.new(@channel).to_json.html_safe %>);
 }
