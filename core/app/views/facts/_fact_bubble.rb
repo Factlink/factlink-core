@@ -103,7 +103,7 @@ module Facts
     end
 
     def show_links
-      show_links = ! (self[:hide_links])
+      not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site])
     end
 
     def scroll_to_link

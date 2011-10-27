@@ -1,4 +1,4 @@
-<%= render "/facts/fact", :fact => @fact, :channel => nil, :modal => true %>
+<%= render "/facts/fact", :fact => @fact, :channel => nil, :modal => @modal, :hide_links_for_site => @hide_links_for_site %>
 
 <% content_for :javascript do %> 
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
