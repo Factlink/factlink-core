@@ -13,11 +13,11 @@ test:
 testserver:
     proxy:
         hostname: proxy.testserver.factlink.com
-        port: 8080
-        protocol: http://
+        port: 443
+        protocol: https://
 
 production:
     proxy:
         hostname: proxy.factlink.com
-        port: 8080
-        protocol: http://
+        port: 443
+        protocol: https://
