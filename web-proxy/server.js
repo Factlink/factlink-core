@@ -24,11 +24,11 @@ var fs = require('fs');
 config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path, fs, server.settings.env);
 
-var STATIC_URL = global.config['static'].protocol + global.config['static'].hostname + ':' + global.config['static'].port;
-var API_URL = global.config.core.protocol + global.config.core.hostname + ':' + global.config.core.port;
-var LIB_URL = STATIC_URL + "/lib";
-var PROXY_URL = global.config.proxy.protocol + global.config.proxy.hostname + ':' + global.config.proxy.port;
-var PORT = parseInt(global.config.proxy.port, 10);
+var STATIC_URL  = global.config['static'].protocol + global.config['static'].hostname + ':' + global.config['static'].port;
+var API_URL     = global.config.core.protocol + global.config.core.hostname + ':' + global.config.core.port;
+var PROXY_URL   = global.config.proxy.protocol + global.config.proxy.hostname + ':' + global.config.proxy.port;
+var LIB_URL     = STATIC_URL + "/lib";
+var INTERNAL_PROXY_PORT = parseInt(global.config.proxy.port, 10);
 
 // Use Jade as templating engine
 server.set('view engine', 'jade');
@@ -185,5 +185,5 @@ function render_page(pagename) {
 server.get('/header', render_page('header'));
 server.get('/', render_page('index'));
 
-server.listen(PORT);
-console.info('\nStarted Factlink proxy on port ' + PORT);
+server.listen(INTERNAL_PROXY_PORT);
+console.info('\nStarted Factlink proxy on internal port ' + INTERNAL_PROXY_PORT);
