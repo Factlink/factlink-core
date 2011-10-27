@@ -4,17 +4,16 @@
 
 <!-- left column -->
 <%= content_for :left_column do %>
-  <%= render :partial => "home/snippets/user_li", :locals => { :user => @user } %>
-  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
+  <%= render "home/snippets/user_li", :user => @user %>
+  <%= render "channels/channels", :user => @user %>
 <% end %>
 
 <!-- right-column -->
 <%= content_for :right_column do %>
-  <%= render :partial => "channels/related_users",
-             :locals => {
+  <%= render "channels/related_users",
                :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
                :excluded_users => [@channel.andand.created_by.andand.user]
-              } %>
+  %>
 <% end %>
 
 <%= content_for :javascript do %>
@@ -51,7 +50,6 @@
 <%= content_for :template do %>
   <script type="text/html" id="channel_li">
     <%= template_as_string "channels/_single_menu_item.html.mustache" %>
-    <%# render :partial => "channels/single_menu_item", :locals => { :jsmode => true } %>
   </script>
 <% end %>
 
