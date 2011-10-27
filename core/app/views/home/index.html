@@ -12,7 +12,7 @@
 <!-- left column -->
 <% content_for :left_column do %>
 
-	<%= users_and_factlink_information %>
+	<%= render :partial => "home/snippets/user_and_factlink_information" %>
 	
 <% end %>
 
@@ -36,12 +36,12 @@
 	<div class="get-chrome-extension">
     <span class="button-information">Use Factlink? Get the extension:</span>
     
-    <div class="get-extension-wrapper" onclick="location.href='<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx';">
+    <div class="get-extension-wrapper">
       <div class="get-extension-button">
-        <span>
+        <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">
           <%= image_tag('arrow_down_16x16.png') %>
           Chrome Extension
-        </span>
+        </a>
       </div>
     </div>
   </div>

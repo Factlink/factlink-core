@@ -1,6 +1,25 @@
+module ChannelFunctionality
+  
+  def related_users(calculator=RelatedUsersCalculator.new,options)
+    options[:without] ||= []
+    options[:without] << created_by
+    calculator.related_users(facts,options)
+  end
+  
+  def to_hash
+    return {:id => id, 
+            :title => title, 
+            :description => description,
+            :created_by => created_by,
+            :discontinued => discontinued}
+  end
+  
+end
+
 class Channel < OurOhm
   include ActivitySubject
-
+  include ChannelFunctionality
+  
   attribute :title
   index :title
   attribute :description
@@ -46,6 +65,8 @@ class Channel < OurOhm
   end
 
   def facts
+    return [] if new?
+    
     cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
@@ -72,14 +93,9 @@ class Channel < OurOhm
     self.id
   end
   
-  # Ohm Model needs to have a definition of which fields to render
-  def to_hash
-    super.merge(:_id => id, 
-                :title => title, 
-                :description => description,
-                :created_by => created_by,
-                :facts => facts,
-                :discontinued => discontinued)
+  
+  def include?(obj)
+    self.cached_facts.include?(obj)
   end
   
   def editable?
@@ -103,10 +119,6 @@ class Channel < OurOhm
     activity(self.created_by,:added,channel,:to,self)
   end
 
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
-
   protected
   def _add_channel(channel)
     contained_channels << channel
@@ -126,6 +138,8 @@ class Channel < OurOhm
 end
 
 class UserStream
+  include ChannelFunctionality
+  
   attr_accessor :id, :created_by, :title, :description, :facts
   
   def initialize(graph_user)
@@ -141,10 +155,14 @@ class UserStream
     int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts}.reduce(int_facts,:|)
     int_facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
   end
+
   
   alias :graph_user :created_by
+
+  def discontinued
+    false
+  end
   
-  public
   def editable?
     false
   end
@@ -153,8 +171,4 @@ class UserStream
     false
   end
 
-  def related_users(calculator=RelatedUsersCalculator.new)
-    calculator.related_users(facts)
-  end
-  
 end

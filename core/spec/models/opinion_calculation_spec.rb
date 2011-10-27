@@ -90,14 +90,14 @@ describe "beliefs should work as described in the google doc" do
   before do
     
     @f1 = FactoryGirl.create(:fact)
-    @f1.created_by = u1
+    @f1.created_by = u1.graph_user
     @f1.save
     
-    @f2 = FactoryGirl.create(:fact)
-    @f3 = FactoryGirl.create(:fact)
+    @f2 = FactoryGirl.create(:fact, :created_by => u2.graph_user)
+    @f3 = FactoryGirl.create(:fact, :created_by => u3.graph_user)
 
     @f4 = FactoryGirl.create(:fact)
-    @f4.created_by = u1
+    @f4.created_by = u1.graph_user
     @f4.save
 
     @f5 = FactoryGirl.create(:fact)
@@ -106,7 +106,7 @@ describe "beliefs should work as described in the google doc" do
   
   # Scenario A (a user without any history in Factlink):
   # a(U1) = 1
-  pending "for a user without history in Factlink the authority should be 1.0" do
+  it "for a user without history in Factlink the authority should be 1.0" do
     a(u1) == 1.0
   end
   
@@ -114,9 +114,9 @@ describe "beliefs should work as described in the google doc" do
   # b(U1, F1)
   # a(U1) = 1
   # Should have no impact in demo version
-  pending "for a user that believes one fact the authority should be 1.0" do
+  it "for a user that believes one fact the authority should be 1.0" do
     @f1 = FactoryGirl.create(:fact)
-    @f1.toggle_opinion(:beliefs, u1)
+    b(u1, @f1)
     a(u1) == 1.0
   end
   
@@ -125,7 +125,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # a(U1) = 1
   # Should have no impact
-  pending "should be 1.0 when a user has create one fact" do    
+  it "should be 1.0 when a user has create one fact" do    
     a(u1) == 1.0
   end
   
@@ -133,8 +133,8 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # b(U2, F1)
   # a(U1) = 1
-  pending "should be 1.0 when another user believes a fact created by the user" do    
-    @f1.toggle_opinion(:beliefs, u2)
+  it "should be 1.0 when another user believes a fact created by the user" do
+    b(u2, @f1)
     a(u1) == 1.0
   end
   
@@ -142,7 +142,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # F22 = (F1 -> F2)
   # a(U1) = 1
-  pending "should have ana authority of 1.0 when user created one fact" do
+  it "should have ana authority of 1.0 when user created one fact" do
     @f2.add_evidence(:supporting, @f1, u1)
     a(u1) == 1.0
   end
@@ -154,12 +154,15 @@ describe "beliefs should work as described in the google doc" do
   # F23 = (F1 -> F3)
   # c(U2, F23)
   # a(U1) = 2
-  pending "should have a higher authority when a fact is used multiple times" do
+  it "should have a higher authority when a fact is used multiple times" do
     # @f1 is created bu @gu1
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
-    a(u1) == 1.7
+    @f2.supporting_facts =~ [@f1]
+    @f3.supporting_facts =~ [@f1]
+    
+    a(u1) == 2
   end
   
   # Scenario G (a user has created multiple facts that are used multiple times):
@@ -175,15 +178,15 @@ describe "beliefs should work as described in the google doc" do
   # c(U2, F43)
   # a(U1) = 3
   # 
-  # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  pending "should have an auhority of 2.4 when 2 facts are used twice" do
+  # a(U1) = 1 + log(2) + log(2) = 3
+  it "should have an auhority of3 when 2 facts are used twice" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
     @f5.add_evidence(:supporting, @f4, u2)
     @f6.add_evidence(:supporting, @f4, u2)
     
-    a(u1) == 2.4
+    a(u1) == 3
   end
   
   # Scenario H (a user has created multiple facts that are used multiple times, self generated links don’t count):
@@ -200,7 +203,7 @@ describe "beliefs should work as described in the google doc" do
   # a(U1) = 1
   # 
   # a(U1) = 1 + log(1) + log(1) = 1
-  pending "should count self generated links" do
+  it "should count self generated links" do
     # By the user himself
     @f2.add_evidence(:supporting, @f1, u1)
 
@@ -229,15 +232,15 @@ describe "beliefs should work as described in the google doc" do
   # c(U2, F43)
   # a(U1) = 3
   # 
-  # a(U1) = 1 + log(2) + log(2) = 3 >> 2.4
-  pending "should have an auhority of 2.4 when 2 facts are used for support and two for weakening" do
+  # a(U1) = 1 + log(2) + log(2) = 3
+  it "should have an auhority of 3 when 2 facts are used for support and two for weakening" do
     @f2.add_evidence(:supporting, @f1, u2)
     @f3.add_evidence(:supporting, @f1, u2)
     
     @f5.add_evidence(:weakening, @f4, u2)
     @f6.add_evidence(:weakening, @f4, u2)
-    
-    a(u1) == 2.4
+
+    a(u1) == 3
   end
   
 end

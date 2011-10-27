@@ -2,18 +2,22 @@ development:
     core:
         hostname: localhost
         port: 3000
+        protocol: http://
 
 test:
     core:
         hostname: localhost
         port: 3000
+        protocol: http://
 
 testserver:
     core:
         hostname: testserver.factlink.com
-        port: 80
+        port: 443
+        protocol: https://
 
 production:
     core:
         hostname: demo.factlink.com
-        port: 80
+        port: 443
+        protocol: https://

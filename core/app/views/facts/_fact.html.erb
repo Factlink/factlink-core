@@ -1,16 +1,19 @@
 <% modal ||= nil %>
 <% channel ||= nil %>
+<% view = FactsHelper::FactView.new(fact,current_user,channel) %>
+
 <div class="fact-block" data-fact-id="<%= fact.id %>">
-  <% if user_signed_in? and channel and channel.editable? and channel.created_by == current_user.graph_user %>
+  <% if view.deletable_from_channel? %>
     <%= link_to(
-      image_tag("client/close-button.png", :class => "close", "style" => "float: right"),
-      remove_fact_from_channel_path(current_user.username, channel.id, fact.id),
-      :method => :delete,
-      :confirm => "Are you sure you want to remove this fact from your channel?", 
-      :remote => true)
-    %>
+            image_tag("close-button.png", :class => "close", "style" => "float: right"),
+            view.remove_from_channel_path,
+            :method => :delete,
+            :confirm => "Are you sure you want to remove this fact from your channel?", 
+            :remote => true)%>
   <% end %>
-  <%= render :partial => "/facts/partial/fact_bubble", :locals => {:fact => fact, :modal => modal,}  %>
+  
+  <%= render "/facts/fact_bubble", :fact => fact, :modal => modal, %>
+  
   <div style="height: 38px"> 
     <div class="evidence-actions">
       <ul class="evidence tabs">
@@ -20,7 +23,7 @@
     </div>
   </div> 
 
-  <div class="evidence-container" <%= show_evidence(@showEvidence) %>>
+  <div class="evidence-container" <%= show_evidence(@show_evidence) %>>
     <div class="evidence-list">
       <div class="tab_content" rel="evidence-for">
         <div class="evidence">
@@ -28,19 +31,13 @@
             <tbody>
               <% unless fact.fact_relations.count > 0 %>
               <tr class="no-evidence">
-                <td>
-                  <% if user_signed_in? %>
-                  Perhaps you know something that supports or weakens this fact?
-                  <% else %>
-                  There are no facts supporting or weakening this fact at the moment.
-                  <% end %>
-                </td>
+                <td><%= view.no_evidence_message%></td>
               </tr>
               <% else %>
               <tr>
                 <td>
                   <%= render :partial => "/facts/partial/evidence_bubble", 
-                    :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
+                      :collection => fact.sorted_fact_relations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
                     %>
                 </td>
               </tr>
@@ -49,7 +46,7 @@
           </table>
         </div>
         <div class="add-evidence" style="display: none">
-          <%= render :partial => "/facts/partial/add_evidence", :locals => { :fact => fact } %>
+          <%= render "/facts/partial/add_evidence", :fact => fact %>
         </div>
       </div>
 
@@ -59,13 +56,7 @@
             <tbody>
               <% unless fact.evidenced_factrelations.count > 0 %>
               <tr class="no-evidence">
-                <td>
-                  <% if user_signed_in? %>
-                  Perhaps you know something that is supported or weakened by this fact?
-                  <% else %>
-                  There are no facts that are supported or weakened by this fact at the moment.
-                  <% end %>
-                </td>
+                <td><%= view.no_evidenced_message %></td>
               </tr>
               <% else %>
               <tr>
@@ -80,7 +71,7 @@
           </table>
         </div>
           <div class="add-evidence" style="display: none">
-            <%= render :partial => "/facts/partial/add_evidenced", :locals => { :fact => fact } %>
+            <%= render "/facts/partial/add_evidenced", :fact => fact %>
           </div>
         </div>
       </div>

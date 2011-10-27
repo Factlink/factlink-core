@@ -21,6 +21,198 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
+/* Variables.less
+ * Variables to customize the look and feel of Bootstrap
+ * ----------------------------------------------------- */
+/*---------------------------------------------------
+		LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
+.tabs, .pills {
+  margin: 0 0 2px;
+  padding: 0;
+  list-style: none;
+  zoom: 1;
+  content: "";
+  display: table;
+  zoom: 1;
+}
+.tabs:before,
+.pills:before,
+.tabs:after,
+.pills:after {
+  display: table;
+  content: "";
+  zoom: 1;
+  *display: inline;
+}
+.tabs:after, .pills:after {
+  clear: both;
+}
+.tabs > li, .pills > li {
+  float: left;
+}
+.tabs > li > a, .pills > li > a {
+  display: block;
+}
+.tabs {
+  float: left;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.tabs > li {
+  position: relative;
+  top: 1px;
+}
+.tabs > li:first-child {
+  padding-left: 64px;
+}
+.tabs > li > a {
+  background: transparent;
+  padding: 0 15px;
+  margin-right: 2px;
+  line-height: 36px;
+  border: 1px solid #ddd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.tabs > li > a:hover {
+  text-decoration: none;
+  background-color: #fff;
+  border-color: #eee #eee #ddd;
+}
+.tabs > li.active > a {
+  color: #808080;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
+}
+.tabs .menu-dropdown, .tabs .dropdown-menu {
+  top: 35px;
+  border-width: 1px;
+  -webkit-border-top-right-radius: 0 6px 6px 6px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0 6px 6px 6px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0 6px 6px 6px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0 6px 6px 6px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0 6px 6px 6px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0 6px 6px 6px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.tabs a.menu:after, .tabs .dropdown-toggle:after {
+  border-top-color: #999;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+.tabs li.open.menu .menu, .tabs .open.dropdown .dropdown-toggle {
+  border-color: #999;
+}
+.tabs li.open a.menu:after, .tabs .dropdown.open .dropdown-toggle:after {
+  border-top-color: #555;
+}
+.tab-content {
+  clear: both;
+}
+.pills a {
+  margin: 5px 3px 5px 0;
+  padding: 0 15px;
+  text-shadow: 0 1px 1px #ffffff;
+  line-height: 30px;
+  -webkit-border-top-right-radius: 15px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 15px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 15px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 15px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+.pills a:hover {
+  background: #00438a;
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.pills .active a {
+  background: #0069d6;
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+.tab-content > *, .pill-content > * {
+  display: none;
+}
+.tab-content > .active, .pill-content > .active {
+  display: block;
+}
+.label {
+  padding: 2px 6px 3px;
+  background-color: #bfbfbf;
+  font-size: 13px;
+  font-weight: normal;
+  color: #ffffff;
+  /*  border-top: solid 1px rgba(0, 0, 0, 0.28);*/
+
+  /*  border-right: solid 1px rgba(0, 0, 0, 0.10);*/
+
+  /*  border-left: solid 1px rgba(0, 0, 0, 0.10);*/
+
+  border-bottom: solid 1px #ffffff;
+  -webkit-box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  text-shadow: none;
+  border-radius: 3px;
+}
+.label.important {
+  background-color: #c43c35;
+}
+.label.warning {
+  background-color: #f89406;
+}
+.label.success {
+  background-color: #46a546;
+}
+.label.notice {
+  background-color: #62cffc;
+}
 /* =============================================================================
 HTML5 display definitions
 ========================================================================== */
@@ -362,12 +554,18 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   background: #f5f5f5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9cc221), color-stop(1, #bada55));
   background: -moz-linear-gradient(center bottom, #9cc221 0%, #bada55 100%);
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9cc221), color-stop(1, #bada55));
+  background: -moz-linear-gradient(center bottom, #9cc221 0%, #bada55 100%);
   border-radius: 3px;
   border: solid 1px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
 }
 .get-chrome-extension .get-extension-wrapper:active {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9cc221), color-stop(1, #9cc221));
+  background: -moz-linear-gradient(center bottom, #9cc221 0%, #9cc221 100%);
   background: #f5f5f5;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9cc221), color-stop(1, #9cc221));
   background: -moz-linear-gradient(center bottom, #9cc221 0%, #9cc221 100%);
@@ -384,7 +582,11 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 .get-chrome-extension .get-extension-wrapper .get-extension-button img {
   margin: -2px 2px 0 -6px;
 }
-.get-chrome-extension .get-extension-wrapper .get-extension-button span {
+.get-chrome-extension .get-extension-wrapper .get-extension-button a {
+  display: block;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
   color: #fff;
   text-shadow: 0px -1px 1px #777777;
 }
@@ -395,6 +597,9 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
   /*    .gradient(#333, #333, #666);*/
 
   border-bottom: solid 1px rgba(255, 255, 255, 0.65);
+  -webkit-box-shadow: 0px -4px 20px #222222;
+  -moz-box-shadow: 0px -4px 20px #222222;
+  box-shadow: 0px -4px 20px #222222;
   -webkit-box-shadow: 0px -4px 20px #222222;
   -moz-box-shadow: 0px -4px 20px #222222;
   box-shadow: 0px -4px 20px #222222;
@@ -481,6 +686,9 @@ form .action-wrapper span {
   -webkit-transition: all ease-out 0.3s;
   -moz-transition: all ease-out 0.3s;
   transition: all ease-out 0.3s;
+  -webkit-transition: all ease-out 0.3s;
+  -moz-transition: all ease-out 0.3s;
+  transition: all ease-out 0.3s;
 }
 .fact_search form input::-webkit-input-placeholder {
   color: #aaa;
@@ -492,6 +700,9 @@ form .action-wrapper span {
   color: #333;
   background: #fff;
   outline: none;
+  -webkit-transition: all ease-in-out 0.6s;
+  -moz-transition: all ease-in-out 0.6s;
+  transition: all ease-in-out 0.6s;
   -webkit-transition: all ease-in-out 0.6s;
   -moz-transition: all ease-in-out 0.6s;
   transition: all ease-in-out 0.6s;

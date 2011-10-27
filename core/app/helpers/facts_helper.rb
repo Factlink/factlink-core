@@ -14,9 +14,6 @@ module FactsHelper
                     { :class => css_class }
   end
 
-  def proxy_scroll_url(fact)
-    return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(fact.site.url) + "&scrollto=" + URI.escape(fact.id)
-  end
 
   def editable_title(fact)
     if user_signed_in? and (fact.created_by == current_user.graph_user)
@@ -69,4 +66,96 @@ module FactsHelper
     render :partial => "/facts/partial/evidence_buttons", 
 	            :locals => locals
   end
+  
+  class SemiMustacheView
+    include Rails.application.routes.url_helpers    
+    include ActionView::Helpers::UrlHelper
+    def controller
+      return nil.andand #dit is mijn ranzigste truc ooit -- mark
+    end
+    def user_signed_in?
+      return @current_user
+    end
+    def image_tag(path)
+      return "<img src='#{path}'>".html_safe
+    end
+  end
+  
+  class FactView < SemiMustacheView
+
+    def initialize(fact,user,channel)
+      @fact = fact
+      @current_user = user
+      @channel = channel
+    end
+    
+    
+    def no_evidence_message
+      if user_signed_in?
+        "Perhaps you know something that supports or weakens this fact?"
+      else
+        "There are no facts supporting or weakening this fact at the moment."
+      end
+    end
+
+    def no_evidenced_message
+      if user_signed_in?
+        "Perhaps you know something that is supported or weakened by this fact?"
+      else
+        "There are no facts that are supported or weakened by this fact at the moment."
+      end
+    end
+    
+    def deletable_from_channel?
+      user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
+    end
+    
+    def remove_from_channel_path
+      remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id)
+    end
+  end
+  
+  class FactBubbleView < SemiMustacheView
+
+    def initialize(fact,user)
+      @fact = fact
+      @current_user = user
+    end
+
+    def i_am_fact_owner
+      (@fact.created_by == @current_user.graph_user)
+    end
+
+    def editable_title_class
+      if user_signed_in? and i_am_fact_owner
+        return " edit"
+      else
+        return ""
+      end 
+    end
+    
+    def pretty_url #TODO move to helper function, has no place in the model
+      @fact.site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+    end
+
+    def delete_link
+      link_to(image_tag('/images/trash.gif') + "Delete", fact_path(@fact.id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true )
+    end
+
+    def proxy_scroll_url
+      return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+    end
+    
+    def scroll_to_link
+      link_to(self.pretty_url, proxy_scroll_url, :target => "_blank")
+    end
+    
+    def link
+      link_to(@fact.data.displaystring, @fact.site.url, :target => "_blank")
+    end
+    def user_opinion
+      @current_user.graph_user.opinion_on(@fact)
+    end
+  end
+    
 end

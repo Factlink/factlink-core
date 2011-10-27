@@ -1,0 +1,21 @@
+<div class="wheel">
+  <div class="authority" data-authority="{{authority}}"></div>
+  {{#opinions}}
+    <div class="opinion" data-value="{{percentage}}" data-opinion="{{type}}s" data-opinions="{{type}}"
+      {{#user_signed_in?}}
+        data-user-opinion="{{is_current_opinion}}"
+      {{/user_signed_in?}}
+      data-color="{{color}}"></div>
+  {{/opinions}}
+
+</div>
+
+{{#opinions}}
+  <div class="{{type}}s-box opinion-box float-box">
+    <span class="opinion-type">{{groupname}}</span>
+    <br>
+    <span class="percentage">{{percentage}}%</span>
+    {{>users_popup}}
+  </div>
+{{/opinions}}
+

@@ -9,17 +9,6 @@ describe FactRelation do
     @users = FactoryGirl.create_list(:user,2)
   end
 
-  context "initially" do
-    
-  end
-
-  describe "percentages should work logical" do
-    it "should have a percentage of 0 when new" do
-      pending
-      @fr.percentage.should == 0
-    end
-
-  end
 
   describe "#get_or_create" do
     it "should return a new factrelation when the relation does not exist" do
@@ -46,8 +35,6 @@ describe FactRelation do
       @fr.should == @fr2
       @fr2.should == @fr3
     end
-    
-    it "should return a new object after the object was deleted"
   end
 
   it "should add itself to the list of evidence" do

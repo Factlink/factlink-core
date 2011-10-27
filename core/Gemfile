@@ -37,8 +37,8 @@ gem 'ohm-contrib', :git => 'http://github.com/sinefunc/ohm-contrib.git'
 gem 'will_paginate', '~> 3.0.pre'
 
 #########
-# Twitter
-gem 'twitter'
+# Mustache
+gem 'mustache'
 
 ###########
 # jQuery
@@ -48,6 +48,9 @@ gem 'jquery-rails', '>= 0.2.6'
 # Everyone loves JSON
 gem 'json'
 
+##########
+# Email on errors
+gem 'exception_notification', :require => 'exception_notifier'
 
 ##########
 # Whoo, full text search!
@@ -61,7 +64,7 @@ gem 'json'
 gem 'sunspot_rails', '~> 1.2.1'
 # gem 'sunspot_rails', '~> 1.2.1'
 gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
-# gem 'sunspot_mongoid', :git => 'git://github.com/jugyo/sunspot_mongoid.git'
+# gem 'sunspot_mongoid', :git => 'http://github.com/jugyo/sunspot_mongoid.git'
 
 ##########
 # Canivete -- gem which provides 'deprecate' command
@@ -73,19 +76,30 @@ gem "mongoid_rails_migrations", '0.0.13'
 
 # Andand is a library to handle nil more easily
 # http://andand.rubyforge.org/
-gem 'andand'
+#gem 'andand'
+# newer version does not give creepy warning:
+gem 'andand', :git => 'http://github.com/raganwald/andand.git'
 
 # Deployment
 gem 'capistrano'
 gem 'capistrano-ext'
 
-
+# imagemagick
+gem 'rmagick'
 
 
 group :development, :test do
   gem 'metric_fu'
+  # dependencies of metric_fu:
+    gem "fattr"
+    gem "arrayfields"
+    gem "map"
+  #use simplecov:
+	gem 'simplecov', :require => false
+	gem 'simplecov-rcov-text', :require => false
+	
   # gem 'webrat'
-   #gem 'cover_me'
+  # gem 'cover_me'
   gem 'rspec-rails'
   gem 'capybara'    # Integration testing
   gem "factory_girl_rails", "1.1.rc1" #factories for easy creation of a lot of objects

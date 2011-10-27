@@ -12,6 +12,7 @@
 @import "color_declarations.less";
 @import "elements.less";
 @import "css3buttons.css";
+@import "bootstrap-default.less";
 
 /* =============================================================================
 HTML5 display definitions
@@ -285,7 +286,11 @@ body.factlink-site div.user-block {
       img {
         margin: -2px 2px 0 -6px;
       }
-      span {
+      a {
+        display: block;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
         color: #fff;
         text-shadow: 0px -1px 1px #777;
       }
@@ -754,3 +759,5 @@ Inlined to avoid required HTTP connection: h5bp.com/r
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
 }
+
+

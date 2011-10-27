@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render :json => @channels }
+      format.json { render :json => @channels.map {|ch| ChannelsHelper::ChannelModelView.new(ch)} }
       format.js
     end
   end
@@ -37,7 +37,7 @@ class ChannelsController < ApplicationController
   def show
 
     respond_to do |format|
-      format.json { render :json => @channel}
+      format.json { render :json => ChannelsHelper::ChannelModelView.new(@channel)}
       format.js
       format.html { render :action => "facts" }
     end
@@ -133,7 +133,7 @@ class ChannelsController < ApplicationController
   end
 
   def toggle_fact
-    @channel  = Channel[params[:channel_id]]
+    @channel  = Channel[params[:channel_id] || params[:id]]
     @fact     = Fact[params[:fact_id]]
     
     if @channel.facts.include?(@fact)
@@ -156,7 +156,8 @@ class ChannelsController < ApplicationController
     # @channel is fetched in load_channel    
     @partial = "channels/related_users"
     
-    @locals = { :related_users => @channel.related_users.andand.map{|x| x.user }}
+    
+    @locals = { :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user }, :excluded_users => [@channel.created_by]}
     respond_to do |format|
       format.html { render :template => "home/partial_renderer", :layout => "ajax" }
     end

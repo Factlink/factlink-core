@@ -9,34 +9,47 @@ FactlinkUI::Application.routes.draw do
 
   ##########
   # Resources
+
+
+  ################
+  # Facts Controller
+  ################
+
   resources :facts do
     member do
-      # TODO Refactor to use this opinion route
+      # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
+      get "/channels" => "facts#get_channel_listing"
     end
   end 
-
-
-  # Static js micro templates
-  get "/templates/:name" => "templates#get"
-
-  # Search and infinite scrolling
-  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-    
-  ##########
-  # Javascript Client calls
-  get   "/site/count" => "sites#facts_count_for_url"  
-  get   "/site" => "sites#facts_for_url" 
   
+  #DEPRECATED, throw away monday 31 october
+  post  "/factlink/create" => "facts#create", :as => "create_factlink"
+
+  #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
+  #       the function should be able to use the json response of the put
+  post  "/factlink/update_title" => "facts#update_title", :as => "update_title"
+  
+  #DEPRECATED, throw away monday 31 october
+  match "/factlink/show/:id"  => "facts#show", :as => "factlink"
+  
+  #DEPRECATED, throw away monday 31 october
+  get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
+
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
-  
-  post  "/factlink/create" => "facts#create", :as => "create_factlink"
-  post  "/factlink/update_title" => "facts#update_title", :as => "update_title"
-  match "/factlink/show/:id"  => "facts#show", :as => "factlink"
-  get   "/factlink/:id/edit"  => "facts#edit", :as => "edit_factlink"
+
+  # Opinion on a Fact or FactRelation  
+  get     "/fact_item/:id/opinion" => "facts#opinion"
+  post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
+  delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
+
+
+  ################
+  # FactRelation Controller
+  ################
 
   # Add evidence as supporting or weakening
   post  "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
@@ -49,10 +62,33 @@ FactlinkUI::Application.routes.draw do
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
-  # Opinion on a Fact or FactRelation  
-  get     "/fact_item/:id/opinion" => "facts#opinion"
-  post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
-  delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
+
+  ###############
+  # Sites Controller
+  ##########
+  # Javascript Client calls
+  # TODO: probably better as sites/facts (with subresources)
+  get   "/site/count" => "sites#facts_count_for_url"  
+  get   "/site" => "sites#facts_for_url" 
+  get   "/site/:id" => "sites#show"
+
+  ################
+  # OTHER
+  ###############
+
+  # Static js micro templates
+  get "/templates/:name" => "templates#get"
+
+  # Search and infinite scrolling
+  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
+    
+  
+  
+  match "/topic/:search" => "home#index", :as => "search_topic"  
+
+
+  # generate the images for the indicator used in the js-lib
+  get "/images/wheel/:percentages" => "wheel#show", :constraints => {:percentages => /[0-9]+-[0-9]+-[0-9]+/}
 
  ##########
   # Web Front-end
@@ -71,6 +107,7 @@ FactlinkUI::Application.routes.draw do
       member do 
         get "follow", :as => "follow"
         get "related_users", :as => "channel_related_users"
+        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"
@@ -82,6 +119,5 @@ FactlinkUI::Application.routes.draw do
     get "/activities" => "users#activities", :as => "user_activities"
   end
   
-  match "/topic/:search" => "home#index", :as => "search_topic"  
 
 end

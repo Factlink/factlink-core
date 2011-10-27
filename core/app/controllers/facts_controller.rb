@@ -10,15 +10,14 @@ class FactsController < ApplicationController
   before_filter :authenticate_user!, 
     :except => [
       :show,
-      :intermediate, 
-      :search,
-      :indicator]
+      :intermediate]
 
   before_filter :load_fact, 
     :only => [
       :show,
       :edit,
       :destroy,
+      :get_channel_listing,
       :update,
       :bubble,
       :opinion,
@@ -50,11 +49,7 @@ class FactsController < ApplicationController
 
   def show
     @title = @fact.data.displaystring # The html <title>
-    if params[:showevidence] == "true"
-      @showEvidence = true
-    else
-      @showEvidence = false
-    end
+    @show_evidence = params[:showevidence] == "true"
     respond_to do |format|
       format.json { render :json => @fact }
       format.html
@@ -68,10 +63,6 @@ class FactsController < ApplicationController
   def edit
   end
 
-  def bubble
-    render :partial => "facts/partial/fact_bubble", 
-	            :locals => {  :fact => @fact }
-  end
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
@@ -97,60 +88,49 @@ class FactsController < ApplicationController
       format.html { redirect_to :action => "edit", :id => @fact.id }
     end
   end
+  
+  def get_channel_listing
+    @channels = current_user.graph_user.channels.to_a
+    
+    @channels.reject! { |channel| ! channel.editable? }
+    
+    @channels.map! do |channel|
+      channel.to_hash.merge({
+        :created_by => channel.created_by.user.username,
+        :checked => channel.include?(@fact)
+      })
+    end
+    
+    respond_to do |format|
+      format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
+    end
+  end
 
   def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
 
-  def add_supporting_evidence
-    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_source_to_factlink"
-    end
+  def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
+  def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
+  def add_supporting_evidenced(); add_evidenced_internal(:supporting) end
+  def add_weakening_evidenced() ; add_evidenced_internal(:weakening)  end
+
+  def add_evidence_internal(type)
+    add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
+  end
+  def add_evidenced_internal(type)
+    add_evidence_internal_internal(type,"add_evidenced_to_factlink", "adding_evidence_not_possible")
   end
 
-  def add_weakening_evidence
-    fact_id     = params[:fact_id]
-    evidence_id = params[:evidence_id]
-        
-    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
+  def add_evidence_internal_internal(type,succes,fail)
+    @fact_relation = add_evidence(params[:evidence_id], type, params[:fact_id])
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
-      render "adding_evidence_not_possible"
+      render fail
     else
-      render "add_source_to_factlink"
-    end
-  end
-
-
-  def add_supporting_evidenced
-    @fact_relation = add_evidence(params[:evidence_id], :supporting, params[:fact_id])
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_evidenced_to_factlink"
-    end
-  end
-
-  def add_weakening_evidenced
-    fact_id     = params[:fact_id]
-    evidence_id = params[:evidence_id]
-        
-    @fact_relation = add_evidence(evidence_id, :weakening, fact_id)
-    
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render "adding_evidence_not_possible"
-    else
-      render "add_evidenced_to_factlink"
+      render succes
     end
   end
 
@@ -322,13 +302,13 @@ class FactsController < ApplicationController
 
   private
   def allowed_type
-    allowed_types = [:beliefs, :doubts, :disbeliefs]
+    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym
     if allowed_types.include?(type)
       yield
     else 
       render :json => {"error" => "type not allowed"}, :status => 500
-      return false
+      false
     end
   end
   

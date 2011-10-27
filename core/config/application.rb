@@ -4,10 +4,53 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 
+Mime::Type.register "image/png", :png
+Mime::Type.register "image/gif", :gif
+
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
+
+
+
+if ['test', 'development'].include? Rails.env
+  require 'metric_fu'
+  
+  require 'simplecov'
+  require 'simplecov-rcov-text'
+  
+  class SimpleCov::Formatter::MergedFormatter
+      def format(result)
+         SimpleCov::Formatter::HTMLFormatter.new.format(result)
+         SimpleCov::Formatter::RcovTextFormatter.new.format(result)
+      end
+  end
+  SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
+	
+  MetricFu::Configuration.run do |config|  
+    # config.metrics -= [:churn]  
+    # config.metrics -= [:flay] 
+    config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
+                  :minimum_score => 10,
+                  :filetypes => ['rb'] }
+    # config.metrics -= [:stats]
+    # config.metrics -= [:rails_best_practices]
+    # config.metrics -= [:rcov] 
+    # config.rcov[:external] = 'coverage/rcov/rcov.txt'
+    
+    # Flog does not work with metric_fu, don't use it:
+    config.metrics -= [:flog]
+  
+    # reek does not work (only the first three):
+    config.metrics -= [:reek] 
+    # config.reek = {:dirs_to_reek => ['app'] } 
+  
+    # roodi does not work:
+    config.metrics -= [:roodi] 
+    # config.roodi = { :dirs_to_roodi => ['app/**/*.rb'] } 
+  end
+end
 
 module FactlinkUI
   class Application < Rails::Application
@@ -15,11 +58,11 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
-
+    config.autoload_paths << "#{config.root}/app/views"
+    
     config.mongoid.logger = nil
 
     autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
-
 
     autoload :FactData, "#{config.root}/app/models/fact_data.rb"
     autoload :User, "#{config.root}/app/models/user.rb"
@@ -34,7 +77,6 @@ module FactlinkUI
     autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
     
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
-    
     
     autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
     autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
@@ -54,9 +96,11 @@ module FactlinkUI
       Site,
       Channel
     ]
-    #.each do |x|
-    #   puts "loaded " + x.to_s
-    #end
+    require "#{config.root}/lib/mustache_rails.rb"
+
+    require "#{config.root}/app/views/facts/_users_popup.rb"
+    require "#{config.root}/app/views/facts/_fact_wheel.rb"
+    require "#{config.root}/app/views/facts/_remote_form.rb"
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -69,6 +113,12 @@ module FactlinkUI
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+
+    # Error reporting
+    config.middleware.use ExceptionNotifier,
+      :email_prefix => "[FL##{Rails.env}] ",
+      :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
+      :exception_recipients => %w{bugs@factlink.com}
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

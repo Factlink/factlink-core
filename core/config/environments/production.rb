@@ -52,10 +52,10 @@ end
 
 ActionMailer::Base.smtp_settings = {
   :address => 'mail.factlink.com',
-  :port => 993,
+  :port => 25,
   :domain => 'factlink.com',
   :authentication => :plain,
-  :user_name => 'noreply@factlink.com',
+  :user_name => 'noreply',
   :password => '@H-cw8w)6l8.nP',
   :openssl_verify_mode => 'none'
 }

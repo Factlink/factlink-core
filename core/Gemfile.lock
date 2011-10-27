@@ -1,4 +1,10 @@
 GIT
+  remote: http://github.com/raganwald/andand.git
+  revision: f048eb5543404414d97de4228640c22278cd8a29
+  specs:
+    andand (1.3.2)
+
+GIT
   remote: http://github.com/sinefunc/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -43,11 +49,11 @@ GEM
       activesupport (= 3.0.5)
     activesupport (3.0.5)
     addressable (2.2.6)
-    andand (1.3.1)
     arel (2.0.10)
+    arrayfields (4.7.4)
     bcrypt-ruby (2.1.4)
-    bson (1.4.0)
-    bson_ext (1.4.0)
+    bson (1.4.1)
+    bson_ext (1.4.1)
     builder (2.1.2)
     canivete (0.0.5)
       text (= 0.2.0)
@@ -88,16 +94,13 @@ GEM
       abstract (>= 1.0.0)
     escape (0.0.4)
     eventmachine (0.12.10)
+    exception_notification (2.5.2)
+      actionmailer (>= 3.0.4)
     factory_girl (2.0.0.rc1)
     factory_girl_rails (1.1.rc1)
       factory_girl (~> 2.0.0.rc)
       railties (>= 3.0.0)
-    faraday (0.7.5)
-      addressable (~> 2.2.6)
-      multipart-post (~> 1.1.3)
-      rack (>= 1.1.0, < 2)
-    faraday_middleware (0.7.0)
-      faraday (~> 0.7.3)
+    fattr (2.2.0)
     ffi (1.0.9)
     flay (1.4.3)
       ruby_parser (~> 2.0)
@@ -105,11 +108,10 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    hashie (1.1.0)
     highline (1.6.2)
     hirb (0.5.0)
     i18n (0.6.0)
-    jquery-rails (1.0.14)
+    jquery-rails (1.0.16)
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
@@ -122,7 +124,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     main (4.7.1)
-    metric_fu (2.1.1)
+    map (4.7.0)
+    metric_fu (2.1.0)
       Saikuro (>= 1.1.0)
       activesupport (>= 2.0.0)
       chronic (~> 0.3.0)
@@ -135,8 +138,8 @@ GEM
       roodi (>= 2.1.0)
       syntax
     mime-types (1.16)
-    mongo (1.4.0)
-      bson (= 1.4.0)
+    mongo (1.4.1)
+      bson (= 1.4.1)
     mongoid (2.0.2)
       activemodel (~> 3.0)
       mongo (~> 1.3)
@@ -148,8 +151,7 @@ GEM
       railties (>= 3.0.0)
     mongoid_taggable (0.1.7)
     multi_json (1.0.3)
-    multi_xml (0.4.1)
-    multipart-post (1.1.3)
+    mustache (0.99.4)
     nest (1.1.0)
       redis (~> 2.1)
     net-scp (1.0.4)
@@ -177,7 +179,7 @@ GEM
       activesupport (= 3.0.5)
       bundler (~> 1.0)
       railties (= 3.0.5)
-    rails_best_practices (1.1.0)
+    rails_best_practices (1.2.0)
       activesupport
       colored
       erubis
@@ -198,23 +200,24 @@ GEM
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    rmagick (2.13.1)
     roodi (2.1.0)
       ruby_parser
     rsolr (0.12.1)
       builder (>= 2.1.2)
-    rspec (2.6.0)
-      rspec-core (~> 2.6.0)
-      rspec-expectations (~> 2.6.0)
-      rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.4)
-    rspec-expectations (2.6.0)
+    rspec (2.7.0)
+      rspec-core (~> 2.7.0)
+      rspec-expectations (~> 2.7.0)
+      rspec-mocks (~> 2.7.0)
+    rspec-core (2.7.0)
+    rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.6.0)
-    rspec-rails (2.6.1)
+    rspec-mocks (2.7.0)
+    rspec-rails (2.7.0)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
-      rspec (~> 2.6.0)
+      rspec (~> 2.7.0)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
@@ -227,7 +230,11 @@ GEM
       json_pure
       rubyzip
     sexp_processor (3.0.7)
-    simple_oauth (0.1.5)
+    simplecov (0.5.4)
+      multi_json (~> 1.0.3)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
+    simplecov-rcov-text (0.0.2)
     sqlite3 (1.3.4)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
@@ -248,13 +255,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    twitter (1.7.2)
-      faraday (~> 0.7.4)
-      faraday_middleware (~> 0.7.0)
-      hashie (~> 1.1.0)
-      multi_json (~> 1.0.0)
-      multi_xml (~> 0.4.0)
-      simple_oauth (~> 0.1.5)
     tzinfo (0.3.30)
     vinova_sunspot_mongoid (0.3.5)
       mongoid (>= 2.0.0.beta.15)
@@ -271,7 +271,8 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 3.0.5)
-  andand
+  andand!
+  arrayfields
   bson_ext (~> 1.4.0)
   canivete
   capistrano
@@ -279,25 +280,31 @@ DEPENDENCIES
   capybara
   database_cleaner
   devise (~> 1.3.4)
+  exception_notification
   factory_girl (= 2.0.0.rc1)
   factory_girl_rails (= 1.1.rc1)
+  fattr
   jquery-rails (>= 0.2.6)
   json
   launchy
+  map
   metric_fu
   mongoid (~> 2.0.1)
   mongoid_rails_migrations (= 0.0.13)
   mongoid_taggable
+  mustache
   ohm!
   ohm-contrib!
   rack
   rails (= 3.0.5)
   redis (= 2.2.1)
   redis-objects
+  rmagick
   rspec-rails
+  simplecov
+  simplecov-rcov-text
   sqlite3-ruby
   sunspot_rails (~> 1.2.1)
   thin
-  twitter
   vinova_sunspot_mongoid
   will_paginate (~> 3.0.pre)

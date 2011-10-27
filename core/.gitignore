@@ -11,3 +11,5 @@ coverage/
 log/
 *.un~
 *.log
+.idea
+public/images/wheel/*.png
