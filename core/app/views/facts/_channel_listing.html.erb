@@ -4,7 +4,7 @@
 	<ul>
 		<% view.channels.each do |channel| %>
 		  <li><label>
-		    <input type="checkbox" <%= channel.checked ? 'checked="checked"' : '' %> data-channel-id="<%= channel.id %>" data-username="<%= channel.created_by %>"
+		    <input type="checkbox" <%= channel.checked_attribute %> data-channel-id="<%= channel.id %>" data-username="<%= channel.created_by %>"
 		            onclick='$("article#fact-" + $(this).closest("div.fact-block").data("fact-id")).factlink("to_channel", "<%= current_user.username %>", <%= channel.id %>, <%= fact.id%>);'>
 		    <%= channel.title %>
  		  </label></li>
