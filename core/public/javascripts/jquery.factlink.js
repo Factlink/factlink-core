@@ -323,7 +323,6 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-
       $t.find("a.add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
