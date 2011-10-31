@@ -19,8 +19,8 @@ server.configure(function() {
  *  because it follows redirects if needed
  */
 var restler   = require('restler');
-var validator = require('validator');
 var fs        = require('fs');
+var urlvalidation = require('./urlvalidation');
 
 config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path, fs, server.settings.env);
@@ -69,8 +69,10 @@ function injectFactlinkJs(html_in, site, scrollto, modus) {
 }
 
 
-function handleProxyRequest(res, site, scrollto, modus, form_hash) {
-  if (site === undefined){
+
+
+function handleProxyRequest(res, url, scrollto, modus, form_hash) {
+  if (url === undefined){
     res.render('welcome.jade',{
       layout:false,
       locals: {
@@ -83,42 +85,26 @@ function handleProxyRequest(res, site, scrollto, modus, form_hash) {
   }
 
   errorhandler = function(data) {
-    console.error("Failed on: " + site);
+    console.error(new Date().toString() + " : Failed on: " + url);
 
     res.render('something_went_wrong', {
       layout: false,
       locals: {
         static_url: STATIC_URL,
         proxy_url: PROXY_URL,
-        site: site,
+        site: url,
         factlinkModus : modus
       }
     });
   };
 
-  if (modus != "addToFact") {
+  if (modus !== "addToFact") {
     modus = "default";
   }
 
-  // add protocol http:// if no protocol is defined:
-  protocol_regex = new RegExp("^(?=.*://)");
-  http_regex = new RegExp("^(?=http(s?)://)", "i");
-  if (http_regex.test(site) === false) {
-    if (protocol_regex.test(site) === false) {
-      site = "http://" + site;
-    } else {
-      console.log( new Date().toString() + ' protocol mismatch');
-      errorhandler({});
-      return;
-    }
-  }
 
-  // Check if we have a valid url
-  try {
-    validator.check(site, site + ' is not a valid url').isUrl();
-  } catch (e) {
-    console.log( new Date().toString() + ' ' + e);
-    // Show error message
+  site = urlvalidation.clean_url(url);
+  if (site === undefined) {
     errorhandler({});
     return;
   }

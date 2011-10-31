@@ -35,6 +35,6 @@ exports['test urlvalidation should work with uri encode with uppercase character
     assert.equal(urlvalidation.add_protocol(url), url);
 
     assert.isDefined(urlvalidation.clean_url(url));
-    assert.equal(urlvalidation.clean_url(url), url);
+    assert.equal(urlvalidation.clean_url(url).toLowerCase(), url.toLowerCase());
   });
 };
