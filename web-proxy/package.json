@@ -12,7 +12,8 @@
     "jade":"0.13.0",
     "restler":"0.2.1",
     "yaml":"0.2.2",
-    "validator": ""
+    "validator": "",
+    "expresso": ""
   },
   "devDependencies": {}
 }
