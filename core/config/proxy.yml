@@ -21,7 +21,7 @@ testserver:
 
 production:
     proxy:
-        hostname: proxy.factlink.com
+        hostname: proxy.demo.factlink.com
         port: 443
         internal_port: 8080
         protocol: https://
