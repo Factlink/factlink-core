@@ -18,6 +18,6 @@ testserver:
 
 production:
     static:
-        hostname: static.demo.factlink.com
+        hostname: static.factlink.com
         port: 443
         protocol: https://
