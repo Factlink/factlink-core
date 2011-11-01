@@ -53,7 +53,7 @@ class GraphUser < OurOhm
   end
 
   def rounded_authority
-    auth = [self.authority, 1.0].max
+    auth = [self.authority.to_f, 1.0].max
     sprintf('%.1f', auth)
   end
 
