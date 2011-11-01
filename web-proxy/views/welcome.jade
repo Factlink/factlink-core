@@ -5,13 +5,12 @@ html(lang="en")
     link(rel="stylesheet", type="text/css", href= static_url + "/proxy/styles/error.css")
   body
     div#error
-      h1 Factlink Browser: Something went wrong
+      h1 Factlink Browser
 
       div.bubble
-        p An error has occured which could not be automatically corrected.
-        p You tried to visit: #{site}
+        p Welcome on the Factlink Proxy site.
         p 
-          |Please check the URL or do a
+          |You can do a
           a(href="javascript:parent.location.href='#{proxy_url}/?url=http://www.google.com&factlinkModus=#{factlinkModus}'") web search 
           |to continue.
 

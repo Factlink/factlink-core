@@ -18,20 +18,30 @@ server.configure(function() {
  *	We execute our requests using Restler
  *  because it follows redirects if needed
  */
-var restler = require('restler');
+var restler   = require('restler');
+var fs        = require('fs');
+var urlvalidation = require('./urlvalidation');
 
-var fs = require('fs');
 config_path = process.env.CONFIG_PATH || '../config/';
 global.config = require('./read_config').read_conf(config_path, fs, server.settings.env);
 
-var STATIC_URL = global.config['static'].protocol + global.config['static'].hostname + ':' + global.config['static'].port;
-var API_URL = global.config.core.protocol + global.config.core.hostname + ':' + global.config.core.port;
-var LIB_URL = STATIC_URL + "/lib";
-var PROXY_URL = global.config.proxy.protocol + global.config.proxy.hostname + ':' + global.config.proxy.port;
-var PORT = parseInt(global.config.proxy.port, 10);
+var STATIC_URL  = global.config['static'].protocol + global.config['static'].hostname + ':' + global.config['static'].port;
+var API_URL     = global.config.core.protocol + global.config.core.hostname + ':' + global.config.core.port;
+var PROXY_URL   = global.config.proxy.protocol + global.config.proxy.hostname + ':' + global.config.proxy.port;
+var LIB_URL     = STATIC_URL + "/lib";
+var INTERNAL_PROXY_PORT = parseInt(global.config.proxy.internal_port, 10);
 
 // Use Jade as templating engine
 server.set('view engine', 'jade');
+
+function get_modus(modus){
+  if (modus === undefined){
+    return 'default';
+  } else {
+    return modus;
+  }
+  
+}
 
 /**
  * Add base url and inject proxy.js, and return the proxied site
@@ -59,38 +69,45 @@ function injectFactlinkJs(html_in, site, scrollto, modus) {
 }
 
 
-function handleProxyRequest(res, site, scrollto, modus, form_hash) {
+
+
+function handleProxyRequest(res, url, scrollto, modus, form_hash) {
+  if (url === undefined){
+    res.render('welcome.jade',{
+      layout:false,
+      locals: {
+        static_url: STATIC_URL,
+        proxy_url: PROXY_URL,
+        factlinkModus : modus
+      }
+    });
+    return;
+  }
 
   errorhandler = function(data) {
-    console.error("Failed on: " + site);
+    console.error(new Date().toString() + " : Failed on: " + url);
 
     res.render('something_went_wrong', {
       layout: false,
       locals: {
         static_url: STATIC_URL,
         proxy_url: PROXY_URL,
-        site: site
+        site: url,
+        factlinkModus : modus
       }
     });
   };
 
-  if (modus != "addToFact") {
+  if (modus !== "addToFact") {
     modus = "default";
   }
 
-  // add protocol http:// if no protocol is defined:
-  protocol_regex = new RegExp("^(?=.*://)");
-  http_regex = new RegExp("^(?=http(s?)://)", "i");
-  if (http_regex.test(site) === false) {
-    if (protocol_regex.test(site) === false) {
-      site = "http://" + site;
-    } else {
-      errorhandler({});
-      return;
-    }
-  }
 
-  console.info("Serving: " + site);
+  site = urlvalidation.clean_url(url);
+  if (site === undefined) {
+    errorhandler({});
+    return;
+  }
 
   var request = restler.get(site, form_hash);
 
@@ -110,7 +127,7 @@ server.get('/parse', function(req, res) {
   console.info("\nGET /parse");
   var site = req.query.url;
   var scrollto = req.query.scrollto;
-  var modus = req.query.factlinkModus;
+  var modus = get_modus(req.query.factlinkModus);
 
   handleProxyRequest(res, site, scrollto, modus, {});
 });
@@ -127,7 +144,7 @@ server.get('/parse', function(req, res) {
 server.get('/submit', function(req, res) {
   var form_hash = req.query;
 
-  var modus = form_hash.factlinkModus;
+  var modus = get_modus(form_hash.factlinkModus);
   delete form_hash.factlinkModus;
 
   var site = form_hash.factlinkFormUrl;
@@ -171,6 +188,7 @@ function render_page(pagename) {
         proxy_url: PROXY_URL,
         core_url: API_URL,
         page_url: req.query.url,
+        factlinkModus: get_modus(req.query.factlinkModus),
         header_url: header_url,
         parse_url: parse_url
       }
@@ -184,5 +202,5 @@ function render_page(pagename) {
 server.get('/header', render_page('header'));
 server.get('/', render_page('index'));
 
-server.listen(PORT);
-console.info('\nStarted Factlink proxy on port ' + PORT);
+server.listen(INTERNAL_PROXY_PORT);
+console.info('\nStarted Factlink proxy on internal port ' + INTERNAL_PROXY_PORT);

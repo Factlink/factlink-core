@@ -8,5 +8,6 @@ html
       form(action=".", method="GET", target="_parent")
       
         input(type="text", value=page_url, name="url")
+        input(type="hidden", value=factlinkModus, name="factlinkModus")
         
         a.close(href="javascript:parent.location.href='#{core_url}/client/close_proxy.html'") x
