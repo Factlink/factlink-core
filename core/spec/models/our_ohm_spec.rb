@@ -1,4 +1,9 @@
-require 'spec_helper'
+require "rubygems"
+require "bundler/setup"
+require 'ohm'
+require 'active_model'
+require 'canivete'
+require File.expand_path('../../../app/ohm-models/our_ohm.rb', __FILE__)
 
 class Item < Ohm::Model
 end

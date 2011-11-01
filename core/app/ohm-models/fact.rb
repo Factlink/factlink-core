@@ -164,7 +164,7 @@ class Fact < Basefact
     self.save
   end
   def influencing_authority
-    self.cached_incluencing_authority.to_i || 1.0
+    [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
   end
   
 end
