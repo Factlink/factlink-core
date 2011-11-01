@@ -4,9 +4,6 @@ class FactsController < ApplicationController
   
   helper_method :sort_column, :sort_direction
 
-  before_filter :store_fact_for_non_signed_in_user, 
-    :only => [:create]
-
   before_filter :authenticate_user!, 
     :except => [
       :show,
@@ -30,15 +27,6 @@ class FactsController < ApplicationController
 
   around_filter :allowed_type,
     :only => [:set_opinion ]
-
-  # Check if the user is signed in before adding a Fact.
-  # If this is not the case, store the params in a session variable,
-  # so the Fact can be created after logging in.
-  def store_fact_for_non_signed_in_user
-    unless user_signed_in?
-      session[:fact_to_create] = params
-    end
-  end
 
 
   def index

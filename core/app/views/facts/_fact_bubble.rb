@@ -1,3 +1,9 @@
+class Helper
+  include Singleton
+  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::UrlHelper
+end
+
 module Facts
   class FactBubble < Mustache::Rails
     def channels
@@ -70,9 +76,11 @@ module Facts
     end
 
     def link_for(gu)
-      link_to(
-        image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})"),
-        user_profile_path(gu.user.username), :target => "_top" )
+      imgtag = image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})")
+      path = user_profile_path(gu.user.username)
+      p imgtag
+      p path
+      link_to( imgtag, path, :target => "_top" )
     end
 
 

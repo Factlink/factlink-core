@@ -11,6 +11,3 @@ include Rake::DSL
 
 
 FactlinkUI::Application.load_tasks
-
-
-
