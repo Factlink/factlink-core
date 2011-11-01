@@ -9,8 +9,6 @@ class HomeController < ApplicationController
         redirect_to user_profile_path(@current_user.username)
     end
     @facts = Fact.all.sort(:order => "DESC",:limit => 10)
-    @users = GraphUser.top(20).map { |gu| gu.user }
-    @activities = []
   end
 
   # Search
