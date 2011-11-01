@@ -13,10 +13,6 @@ class ApplicationController < ActionController::Base
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Origin'] = '*'
   end
-
-  def after_sign_in_path_for(resource)
-    user_profile_path(resource.username)
-  end
   
   def current_graph_user
     current_user.andand.graph_user
