@@ -15,13 +15,13 @@ test:
 testserver:
     proxy:
         hostname: proxy.testserver.factlink.com
-        port: 443
+        port: 80
         internal_port: 8080
-        protocol: https://
+        protocol: http://
 
 production:
     proxy:
         hostname: proxy.factlink.com
-        port: 443
+        port: 80
         internal_port: 8080
-        protocol: https://
+        protocol: http://
