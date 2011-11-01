@@ -16,7 +16,7 @@ class GraphUser < OurOhm
     Channel.find(:created_by_id => self.id).except(:discontinued => 'true').sort
   end
   
-  define_memoized_method :channels, do
+  define_memoized_method :channels do
     channels = self.internal_channels.to_a
     
     channels.unshift( self.stream )
@@ -78,7 +78,8 @@ class GraphUser < OurOhm
 
   def opinion_on(fact)
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
-      return opinion if self.has_opinion?(opinion,fact)  
+      #return opinion if self.has_opinion?(opinion,fact)  
+      puts "hoi"
     end
     return nil
   end

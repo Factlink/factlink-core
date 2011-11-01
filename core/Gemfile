@@ -1,8 +1,10 @@
 source 'http://rubygems.org'
 
 # Defaults
-gem 'rails', '3.0.5'
-gem 'activerecord', '3.0.5'
+gem 'rails', '3.1.0'
+gem 'activerecord', '3.1.0'
+gem "bcrypt-ruby", "~> 3.0.1"
+
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # system_timer is only needed in ruby 1.8.*
@@ -14,7 +16,7 @@ end
 # Devise already comes with oauth2 support, 
 # so we just need to put this gems in the Gemfile:
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
-gem 'devise', '~> 1.3.4'
+gem 'devise', '~> 1.4.9'
 
 
 # gem "sunspot_autocomplete", :path => "~/Desktop/sunspot_autocomplete"
@@ -23,9 +25,12 @@ gem 'devise', '~> 1.3.4'
 # Databases
 #
 # Mongo
-gem 'mongoid', '~> 2.0.1'
-gem 'bson_ext', '~> 1.4.0'
+gem "mongoid", "2.3.3" 
+gem 'mongo', '= 1.3.1' 
+gem 'bson', '= 1.3.1' 
+gem 'bson_ext', '= 1.3.1'
 gem 'mongoid_taggable'
+
 # Redis
 gem 'redis', '2.2.1'
 gem 'redis-objects'

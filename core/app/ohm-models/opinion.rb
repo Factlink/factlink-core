@@ -114,7 +114,7 @@ class Opinion < OurOhm
       self.u == other.u
   end
 
-  define_memoized_method :as_percentages, do
+  define_memoized_method :as_percentages do
     total = b + d + u
 
     l_believe_percentage = calc_percentage(total, b).round.to_i
