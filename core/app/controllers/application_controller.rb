@@ -40,5 +40,9 @@ class ApplicationController < ActionController::Base
 
     mustache.to_json
   end
-
+  
+  def raise_404
+    raise ActionController::RoutingError.new('Not Found')
+  end
+  
 end

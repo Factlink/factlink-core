@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       # @activities = @user.graph_user.activities.sort(:order => "DESC")
       redirect_to(get_facts_for_channel_path(params[:username], "all"))
     else
-      raise ActionController::RoutingError.new('Not Found')
+      raise_404
     end
   end
   

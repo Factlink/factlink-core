@@ -265,6 +265,9 @@ class FactsController < ApplicationController
 
   def load_fact # private
     @fact = Fact[params[:id]]
+    unless @fact
+      raise_404
+    end
   end
   
   def add_evidence(evidence_id, type, fact_id) # private  
