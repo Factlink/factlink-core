@@ -18,9 +18,9 @@ GIT
 
 GIT
   remote: https://github.com/markijbema/ohm.git
-  revision: 91eeb18640e3bd3233c56a56752f8e76d74a3cd7
+  revision: 020f8c63a80837cd44cb128a00d9a582bed9dddb
   specs:
-    ohm (0.1.3)
+    ohm (0.2.0)
       nest (~> 1.0)
 
 GEM
@@ -261,7 +261,7 @@ GEM
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (!= 1.3.0, ~> 1.1)
+      tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.4)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
