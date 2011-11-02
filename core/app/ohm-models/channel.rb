@@ -28,19 +28,32 @@ class Channel < OurOhm
 
   private
   set :contained_channels, Channel
+
   set :internal_facts, Fact
   set :delete_facts, Fact
   set :cached_facts, Fact
+
+  # def self.current_time
+  #   (DateTime.now.to_f*1000).to_i
+  # end
+  # sorted_set :sorted_internal_facts, Fact do |f|
+  #   Channel.current_time
+  # end
+  # sorted_set :sorted_delete_facts, Fact do |f|
+  #   Channel.current_time
+  # end
+  # sorted_set :sorted_cached_facts, Fact do |f|
+  #   Channel.current_time
+  # end
 
   public
   alias :sub_channels :contained_channels
 
   def prune_invalid_facts
     [internal_facts, delete_facts].each do |facts|
-      facts.key.smembers.each do |id|
-        fact = Fact[id]
+      facts.each do |fact|
         if Fact.invalid(fact)
-          facts.key.srem(id)
+          facts.delete(fact)
         end
       end
     end
@@ -151,9 +164,9 @@ class UserStream
   end
   
   def get_facts
-    int_facts = (Fact.all & @created_by.created_facts)
-    int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts}.reduce(int_facts,:|)
-    int_facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
+    int_facts = @created_by.created_facts.all
+    int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts.all}.reduce(int_facts,:|)
+    int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
   end
 
   
