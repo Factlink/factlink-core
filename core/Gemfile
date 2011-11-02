@@ -46,8 +46,7 @@ gem 'will_paginate', '~> 3.0.pre'
 #########
 # Mustache
 gem 'mustache'
-gem 'mustache_rails3', :path => "../../mustache_rails3"
-#, :git => "https://github.com/markijbema/mustache_rails3.git"
+gem 'mustache_rails3', :git => "https://github.com/markijbema/mustache_rails3.git"
 
 ###########
 # jQuery
