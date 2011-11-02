@@ -96,7 +96,11 @@ module FactlinkUI
       Site,
       Channel
     ]
-    require "#{config.root}/lib/mustache_rails.rb"
+    #require "#{config.root}/lib/mustache_rails.rb"
+
+    require 'mustache_railstache'
+    Rails.application.config.generators.template_engine :mustache
+
 
     require "#{config.root}/app/views/facts/_fact_wheel.rb"
     require "#{config.root}/app/views/facts/_fact_bubble.rb"

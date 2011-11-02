@@ -1,5 +1,5 @@
 module Channels
-  class SingleMenuItem < Mustache::Rails
+  class SingleMenuItem < Mustache::Railstache
 
     def link
       get_facts_for_channel_path(self[:channel].created_by.user.username, self[:channel].id)

@@ -105,6 +105,10 @@ class Mustache
         MUSTACHE
       end
 
+      def self.call(template)
+        new.compile(template)
+      end
+
     private
 
       def mustache_class_from_template(template)

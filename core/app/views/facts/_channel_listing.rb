@@ -1,5 +1,5 @@
 module Facts
-  class ChannelListing < Mustache::Rails
+  class ChannelListing < Mustache::Railstache
     def channels
       self[:current_user].graph_user.channels.map do |ch|
         if ch.include?(self[:fact])

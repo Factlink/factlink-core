@@ -1,5 +1,5 @@
 module Facts
-  class FactWheel < Mustache::Rails
+    class FactWheel < Mustache::Railstache
     
     def user_signed_in?(user=self[:current_user])
       user
