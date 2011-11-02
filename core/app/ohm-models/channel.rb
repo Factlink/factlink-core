@@ -29,28 +29,25 @@ class Channel < OurOhm
   private
   set :contained_channels, Channel
 
-  set :internal_facts, Fact
-  set :delete_facts, Fact
-  set :cached_facts, Fact
 
-  # def self.current_time
-  #   (DateTime.now.to_f*1000).to_i
-  # end
-  # sorted_set :sorted_internal_facts, Fact do |f|
-  #   Channel.current_time
-  # end
-  # sorted_set :sorted_delete_facts, Fact do |f|
-  #   Channel.current_time
-  # end
-  # sorted_set :sorted_cached_facts, Fact do |f|
-  #   Channel.current_time
-  # end
+  def self.current_time
+   (DateTime.now.to_f*1000).to_i
+  end
+  sorted_set :sorted_internal_facts, Fact do |f|
+   Channel.current_time
+  end
+  sorted_set :sorted_delete_facts, Fact do |f|
+   Channel.current_time
+  end
+  sorted_set :sorted_cached_facts, Fact do |f|
+   Channel.current_time
+  end
 
   public
   alias :sub_channels :contained_channels
 
   def prune_invalid_facts
-    [internal_facts, delete_facts].each do |facts|
+    [sorted_internal_facts, sorted_delete_facts].each do |facts|
       facts.each do |fact|
         if Fact.invalid(fact)
           facts.delete(fact)
@@ -61,12 +58,12 @@ class Channel < OurOhm
 
   def calculate_facts
     prune_invalid_facts
-    fs = internal_facts
+    fs = sorted_internal_facts
     contained_channels.each do |ch|
-      fs |= ch.cached_facts
+      fs |= ch.sorted_cached_facts
     end
-    fs -= delete_facts
-    self.cached_facts = fs
+    fs -= sorted_delete_facts
+    self.sorted_cached_facts = fs
   end
 
 
@@ -80,7 +77,7 @@ class Channel < OurOhm
   def facts
     return [] if new?
     
-    cached_facts.all.delete_if{ |f| Fact.invalid(f) }
+    sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
   def validate
@@ -89,16 +86,16 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
-    self.delete_facts.delete(fact)
-    self.internal_facts.add(fact)
-    self.cached_facts.add(fact)
+    self.sorted_delete_facts.delete(fact)
+    self.sorted_internal_facts.add(fact)
+    self.sorted_cached_facts.add(fact)
     activity(self.created_by,:added,fact,:to,self)
   end
 
   def remove_fact(fact)
-    self.internal_facts.delete(fact) if self.internal_facts.include?(fact)
-    self.cached_facts.delete(fact)   if self.cached_facts.include?(fact)
-    self.delete_facts.add(fact)
+    self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
+    self.sorted_cached_facts.delete(fact)   if self.sorted_cached_facts.include?(fact)
+    self.sorted_delete_facts.add(fact)
     activity(self.created_by,:removed,fact,:from,self)
   end
 
@@ -108,7 +105,7 @@ class Channel < OurOhm
   
   
   def include?(obj)
-    self.cached_facts.include?(obj)
+    self.sorted_cached_facts.include?(obj)
   end
   
   def editable?

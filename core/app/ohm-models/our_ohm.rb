@@ -103,6 +103,7 @@ class OurOhm < Ohm::Model
   class << self
     alias :create! :create
     alias :ohm_set :set
+    alias :ohm_sorted_set :sorted_set
   end
   
   def self.set(name,model)
@@ -110,7 +111,16 @@ class OurOhm < Ohm::Model
     define_method(:"#{name}=") do |value|
       @_memo.delete(name)
       send(name).assign(value)
-      value.key.sunionstore(key[name]) #copy
+      #value.key.sunionstore(key[name]) #copy
+    end
+  end
+
+  def self.sorted_set(name,model, &block)
+    ohm_sorted_set(name, model, &block)
+    define_method(:"#{name}=") do |value|
+      @_memo.delete(name)
+      send(name).assign(value)
+      #value.key.sunionstore(key[name]) #copy
     end
   end
   
@@ -171,6 +181,41 @@ class Ohm::Model::Set < Ohm::Model::Collection
   end
 
 end
+
+
+class Ohm::Model::SortedSet < Ohm::Model::Collection
+  alias :count :size
+
+  def assign(set)
+    apply(key,:zunionstore,[key,set],{:aggregate => :max})
+  end
+
+  def &(other)
+    apply(key+"*INTERSECT*"+other.key,:zinterstore,[key,other.key],{:aggregate => :max})
+  end
+
+  def |(other)
+    apply(key+"*UNION*"+other.key,:zunionstore,[key,other.key],{:aggregate => :max})
+  end
+
+  def -(other)
+    result_key = key + "*DIFF*" + other.key
+    result = apply(result_key,:zunionstore,[key, result],{:aggregate => :max})
+    other.each do |item| # do this efficienter later
+      result.delete(item)
+    end
+    result
+  end
+
+  protected
+    # @private
+    def apply(target,operation,*args)
+      target.send(operation,*args)
+      self.class.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
+    end   
+
+end
+
 
 class Ohm::Model::List < Ohm::Model::Collection
   alias :count :size
