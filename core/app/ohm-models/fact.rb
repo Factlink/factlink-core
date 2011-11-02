@@ -9,7 +9,7 @@ class Fact < Basefact
     self.data.displaystring || ""
   end
 
-  reference :site, Site       # The site on which the factlink should be shown
+  reference :site, Site # The site on which the factlink should be shown
 
   #deprecate (= functions don't work with deprecate)
   def url=(url)
