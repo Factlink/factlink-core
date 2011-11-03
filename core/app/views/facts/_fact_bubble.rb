@@ -34,7 +34,7 @@ module Facts
       opinions_for_user_and_fact(self[:fact])
     end
   
-    def opinions_for_user_and_fact(fact,user)
+    def opinions_for_user_and_fact(fact)
       [
         {
           :type => 'believe',
