@@ -110,7 +110,6 @@ class OurOhm < Ohm::Model
       define_method(:"#{name}=") do |value|
         @_memo.delete(name)
         send(name).assign(value)
-        #value.key.sunionstore(key[name]) #copy
       end
     end
 
@@ -119,8 +118,15 @@ class OurOhm < Ohm::Model
       define_method(:"#{name}=") do |value|
         @_memo.delete(name)
         send(name).assign(value)
-        #value.key.sunionstore(key[name]) #copy
       end
+    end
+    def timestamped_set(name, model, &block)
+      define_memoized_method(name) { Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) { |x| Ohm::Model::TimestampedSet.current_time } }
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+      end
+      collections(self) << name unless collections.include?(name)
     end
   end
   
@@ -214,6 +220,29 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
       Ohm::Model::SortedSet.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
     end   
 
+end
+
+class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
+  def self.current_time
+   (DateTime.now.to_time.to_f*1000).to_i
+  end
+  def initialize(*args)
+    super(*args) do |f|
+      self.class.current_time
+    end
+  end
+
+  def unread_count
+    last_read = key['last_read'].get()
+    if(last_read)
+      key.zcount(last_read,'+inf')
+    else
+      key.zcard
+    end
+  end
+  def mark_as_read
+    key['last_read'].set(self.class.current_time)
+  end
 end
 
 

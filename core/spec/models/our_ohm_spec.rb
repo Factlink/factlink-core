@@ -15,6 +15,9 @@ class Container < OurOhm
   end
 end
 
+class TimeContainer < OurOhm
+  timestamped_set :items, Item
+end
 
     
 
@@ -78,6 +81,20 @@ describe Ohm::Model::SortedSet do
     c1.sorted_items.all.should =~ [a]
     c2.sorted_items.all.should =~ [a]
     diff.all.should =~ []
+  end
+end
+
+describe Ohm::Model::TimestampedSet do
+  it do
+    c1 = TimeContainer.create()
+    c1.items.unread_count.should == 0
+    c1.items << Item.create
+    c1.items.unread_count.should == 1
+    c1.items.mark_as_read
+    c1.items.unread_count.should == 0
+    c1.items << Item.create
+    c1.items << Item.create
+    c1.items.unread_count.should == 2
   end
 end
 

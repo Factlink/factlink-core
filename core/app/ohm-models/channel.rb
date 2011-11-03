@@ -20,6 +20,10 @@ class Channel < OurOhm
   include ActivitySubject
   include ChannelFunctionality
   
+
+
+
+  
   attribute :title
   index :title
   attribute :description
@@ -33,15 +37,11 @@ class Channel < OurOhm
   def self.current_time
    (DateTime.now.to_f*1000).to_i
   end
-  sorted_set :sorted_internal_facts, Fact do |f|
-   Channel.current_time
-  end
-  sorted_set :sorted_delete_facts, Fact do |f|
-   Channel.current_time
-  end
-  sorted_set :sorted_cached_facts, Fact do |f|
-   Channel.current_time
-  end
+  timestamped_set :sorted_internal_facts, Fact
+  timestamped_set :sorted_delete_facts, Fact
+  timestamped_set :sorted_cached_facts, Fact
+
+  delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
   public
   alias :sub_channels :contained_channels
@@ -75,9 +75,9 @@ class Channel < OurOhm
     save
   end
 
-  def facts
+  def facts(opts={})
     return [] if new?
-    
+    mark_as_read if opts[:mark_as_read]
     sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
