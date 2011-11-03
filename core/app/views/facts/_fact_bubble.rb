@@ -1,7 +1,11 @@
 module Facts
   class FactBubble < Mustache::Railstache
+    def current_graph_user
+      @current_graph_user ||= self[:current_user].graph_user
+    end
+    
     def channels
-      self[:current_user].graph_user.channels.map do |ch|
+      current_graph_user.channels.map do |ch|
         if ch.include?(self[:fact])
           def ch.checked_attribute; 'checked="checked"' end
         else
@@ -27,7 +31,7 @@ module Facts
 
 
     def opinions
-      opinions_for_user_and_fact(self[:fact],self[:current_user])
+      opinions_for_user_and_fact(self[:fact])
     end
   
     def opinions_for_user_and_fact(fact,user)
@@ -36,7 +40,7 @@ module Facts
           :type => 'believe',
           :groupname => 'Top believers',
           :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
-          :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:believes, fact),
+          :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:believes, fact),
           :color => "#98d100",
           :graph_users => graph_users_with_link(fact.opiniated(:believes).to_a.take(6)),
         },
@@ -44,7 +48,7 @@ module Facts
           :type => 'doubt',
           :groupname => 'Top not sure',
           :percentage => fact.get_opinion.as_percentages[:doubt][:percentage],
-          :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:doubts, fact),
+          :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:doubts, fact),
           :color => "#36a9e1",
           :graph_users => graph_users_with_link(fact.opiniated(:doubts).to_a.take(6)),
         },
@@ -52,7 +56,7 @@ module Facts
           :type => 'disbelieve',
           :groupname => 'Top disbelievers',
           :percentage => fact.get_opinion.as_percentages[:disbelieve][:percentage],
-          :is_current_opinion => user_signed_in?(current_user) && user.graph_user.has_opinion?(:disbelieves, fact),
+          :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:disbelieves, fact),
           :color => "#e94e1b",
           :graph_users => graph_users_with_link(fact.opiniated(:disbelieves).to_a.take(6)),
         }
@@ -72,8 +76,6 @@ module Facts
     def link_for(gu)
       imgtag = image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})")
       path = view.user_profile_path(gu.user.username)
-      p imgtag
-      p path
       link_to( imgtag, path, :target => "_top" )
     end
 
@@ -81,7 +83,7 @@ module Facts
 
 
     def i_am_fact_owner
-      (self[:fact].created_by == self[:current_user].graph_user)
+      (self[:fact].created_by == current_graph_user)
     end
 
     def editable_title_class
@@ -118,7 +120,7 @@ module Facts
     end
     
     def user_opinion
-      self[:current_user].graph_user.opinion_on(self[:fact])
+      current_graph_user.opinion_on(self[:fact])
     end
 
 
