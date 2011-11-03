@@ -35,7 +35,7 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
-
+    @channel.mark_as_read
     respond_to do |format|
       format.json { render :json => ChannelsHelper::ChannelModelView.new(@channel,self)}
       format.js
@@ -113,6 +113,7 @@ class ChannelsController < ApplicationController
   
   # GET /:username/channels/1/facts
   def facts    
+    @channel.mark_as_read
     respond_to do |format|
       if request.xhr?
         format.html { render :layout => "ajax" }

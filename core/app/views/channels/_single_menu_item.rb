@@ -10,7 +10,7 @@ module Channels
     end
   
     def nr_of_facts
-      self[:channel].facts.count
+      self[:channel].unread_count
     end
   
     def id

@@ -151,7 +151,7 @@ end
 class UserStream
   include ChannelFunctionality
   
-  attr_accessor :id, :created_by, :title, :description, :facts
+  attr_accessor :id, :created_by, :title, :description
   
   def initialize(graph_user)
     @title = "All"
@@ -172,6 +172,14 @@ class UserStream
 
   def include?(obj)
     facts.include?(obj)
+  end
+
+  def facts(opts={})
+    return @facts
+  end
+  
+  def unread_count
+    @facts.count
   end
 
   def discontinued
