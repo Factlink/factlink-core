@@ -49,6 +49,12 @@ describe UserStream do
       end
       it { subject.facts.to_a.should =~ [@f1,@f2,@f3]}
     end
+    describe "after creating a factrelation" do
+      before do
+        @fr = FactRelation.get_or_create(@f1,:supporting,@f2,u1)
+      end
+      it { subject.facts.to_a.should =~ [@f1,@f2]}
+    end
     
   end
 
