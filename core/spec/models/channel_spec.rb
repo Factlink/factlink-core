@@ -41,6 +41,8 @@ describe Channel do
     describe "after forking" do
       before do
          @fork = subject.fork(u2)
+         @fork.title = "Fork"
+         @fork.save
         end  
       
       it {subject.facts.to_a.should =~ [f1]}
@@ -52,6 +54,10 @@ describe Channel do
           Channel.recalculate_all
         end
         it {subject.facts.to_a.should =~ []}
+        it {subject.sorted_internal_facts.to_a.should =~ []}
+        it {subject.sorted_cached_facts.all.to_a.should =~ []}
+        it {@fork.sorted_internal_facts.to_a.should =~ []}
+        it {@fork.sorted_cached_facts.to_a.should =~ []}
         it {@fork.facts.to_a.should =~ []}
       end
       describe "and removing the fact from the fork" do

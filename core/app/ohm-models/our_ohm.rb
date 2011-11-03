@@ -104,23 +104,23 @@ class OurOhm < Ohm::Model
     alias :create! :create
     alias :ohm_set :set
     alias :ohm_sorted_set :sorted_set
-  end
   
-  def self.set(name,model)
-    ohm_set(name, model)
-    define_method(:"#{name}=") do |value|
-      @_memo.delete(name)
-      send(name).assign(value)
-      #value.key.sunionstore(key[name]) #copy
+    def set(name,model)
+      ohm_set(name, model)
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+        #value.key.sunionstore(key[name]) #copy
+      end
     end
-  end
 
-  def self.sorted_set(name,model, &block)
-    ohm_sorted_set(name, model, &block)
-    define_method(:"#{name}=") do |value|
-      @_memo.delete(name)
-      send(name).assign(value)
-      #value.key.sunionstore(key[name]) #copy
+    def sorted_set(name,model, &block)
+      ohm_sorted_set(name, model, &block)
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+        #value.key.sunionstore(key[name]) #copy
+      end
     end
   end
   
@@ -187,7 +187,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
   alias :count :size
 
   def assign(set)
-    apply(key,:zunionstore,[key,set],{:aggregate => :max})
+    apply(key,:zunionstore,[set.key],{:aggregate => :max})
   end
 
   def &(other)
@@ -200,7 +200,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
 
   def -(other)
     result_key = key + "*DIFF*" + other.key
-    result = apply(result_key,:zunionstore,[key, result],{:aggregate => :max})
+    result = apply(result_key,:zunionstore,[key],{:aggregate => :max})
     other.each do |item| # do this efficienter later
       result.delete(item)
     end
@@ -211,7 +211,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     # @private
     def apply(target,operation,*args)
       target.send(operation,*args)
-      self.class.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
+      Ohm::Model::SortedSet.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
     end   
 
 end

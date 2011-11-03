@@ -64,6 +64,7 @@ class Channel < OurOhm
     end
     fs -= sorted_delete_facts
     self.sorted_cached_facts = fs
+    return self.sorted_cached_facts
   end
 
 
@@ -162,7 +163,7 @@ class UserStream
   
   def get_facts
     int_facts = @created_by.created_facts.all
-    int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts.all}.reduce(int_facts,:|)
+    int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
     int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
   end
 
