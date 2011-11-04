@@ -13,10 +13,6 @@ module Channels
       self[:channel].unread_count
     end
   
-    def new_facts
-      (self[:channel].unread_count != 0) 
-    end
-
     def id
       self[:channel].id
     end
@@ -26,7 +22,6 @@ module Channels
                  :id => id,
                :link => link,
               :title => title,
-            :new_facts => new_facts,
         :nr_of_facts => nr_of_facts,
       }
     end
