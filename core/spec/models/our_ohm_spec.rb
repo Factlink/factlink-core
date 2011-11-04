@@ -85,7 +85,7 @@ describe Ohm::Model::SortedSet do
 end
 
 describe Ohm::Model::TimestampedSet do
-  it do
+  it "should have an unread count of 0 when marked as unread" do
     c1 = TimeContainer.create()
     c1.items.unread_count.should == 0
     c1.items << Item.create
