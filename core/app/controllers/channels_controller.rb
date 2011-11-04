@@ -35,7 +35,9 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
-    @channel.mark_as_read
+    if @channel.class == Channel
+      @channel.mark_as_read
+    end
     respond_to do |format|
       format.json { render :json => ChannelsHelper::ChannelModelView.new(@channel,self)}
       format.js
