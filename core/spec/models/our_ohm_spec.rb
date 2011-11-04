@@ -88,8 +88,12 @@ describe Ohm::Model::TimestampedSet do
   it "should have an unread count of 0 when marked as unread" do
     c1 = TimeContainer.create()
     c1.items.unread_count.should == 0
+    
     c1.items << Item.create
     c1.items.unread_count.should == 1
+    
+    # Prevent race condition
+    sleep(4)
     c1.items.mark_as_read
     c1.items.unread_count.should == 0
     c1.items << Item.create

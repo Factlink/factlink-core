@@ -35,6 +35,9 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
+    
+    puts "\n\nClass: #{@channel.class}\n"
+    
     if @channel.class == Channel
       @channel.mark_as_read
     end
@@ -114,8 +117,10 @@ class ChannelsController < ApplicationController
   end
   
   # GET /:username/channels/1/facts
-  def facts    
-    @channel.mark_as_read
+  def facts
+    if @channel.class == Channel
+      @channel.mark_as_read
+    end
     respond_to do |format|
       if request.xhr?
         format.html { render :layout => "ajax" }
