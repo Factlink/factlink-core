@@ -411,7 +411,7 @@ span.factlink.fl-active {
   font-size: 12px;
   height: 24px;
   text-align: center;
-  overflow: auto;
+  overflow: hidden;
 }
 #fl .fl-popup .fl-label > span {
   margin: 0;
