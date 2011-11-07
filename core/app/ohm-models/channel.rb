@@ -20,10 +20,6 @@ class Channel < OurOhm
   include ActivitySubject
   include ChannelFunctionality
   
-
-
-
-  
   attribute :title
   index :title
   attribute :description
@@ -33,10 +29,6 @@ class Channel < OurOhm
   private
   set :contained_channels, Channel
 
-
-  def self.current_time
-   (DateTime.now.to_f*1000).to_i
-  end
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
@@ -179,7 +171,7 @@ class UserStream
   end
   
   def unread_count
-    @facts.count
+    0
   end
 
   def discontinued
