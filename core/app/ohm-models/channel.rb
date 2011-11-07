@@ -20,6 +20,10 @@ class Channel < OurOhm
   include ActivitySubject
   include ChannelFunctionality
   
+
+
+
+  
   attribute :title
   index :title
   attribute :description
@@ -28,19 +32,25 @@ class Channel < OurOhm
 
   private
   set :contained_channels, Channel
-  set :internal_facts, Fact
-  set :delete_facts, Fact
-  set :cached_facts, Fact
+
+
+  def self.current_time
+   (DateTime.now.to_f*1000).to_i
+  end
+  timestamped_set :sorted_internal_facts, Fact
+  timestamped_set :sorted_delete_facts, Fact
+  timestamped_set :sorted_cached_facts, Fact
+
+  delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
   public
   alias :sub_channels :contained_channels
 
   def prune_invalid_facts
-    [internal_facts, delete_facts].each do |facts|
-      facts.key.smembers.each do |id|
-        fact = Fact[id]
+    [sorted_internal_facts, sorted_delete_facts].each do |facts|
+      facts.each do |fact|
         if Fact.invalid(fact)
-          facts.key.srem(id)
+          facts.delete(fact)
         end
       end
     end
@@ -48,12 +58,13 @@ class Channel < OurOhm
 
   def calculate_facts
     prune_invalid_facts
-    fs = internal_facts
+    fs = sorted_internal_facts
     contained_channels.each do |ch|
-      fs |= ch.cached_facts
+      fs |= ch.sorted_cached_facts
     end
-    fs -= delete_facts
-    self.cached_facts = fs
+    fs -= sorted_delete_facts
+    self.sorted_cached_facts = fs
+    return self.sorted_cached_facts
   end
 
 
@@ -64,10 +75,10 @@ class Channel < OurOhm
     save
   end
 
-  def facts
+  def facts(opts={})
     return [] if new?
-    
-    cached_facts.all.delete_if{ |f| Fact.invalid(f) }
+    mark_as_read if opts[:mark_as_read]
+    sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
   def validate
@@ -76,16 +87,16 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
-    self.delete_facts.delete(fact)
-    self.internal_facts.add(fact)
-    self.cached_facts.add(fact)
+    self.sorted_delete_facts.delete(fact)
+    self.sorted_internal_facts.add(fact)
+    self.sorted_cached_facts.add(fact)
     activity(self.created_by,:added,fact,:to,self)
   end
 
   def remove_fact(fact)
-    self.internal_facts.delete(fact) if self.internal_facts.include?(fact)
-    self.cached_facts.delete(fact)   if self.cached_facts.include?(fact)
-    self.delete_facts.add(fact)
+    self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
+    self.sorted_cached_facts.delete(fact)   if self.sorted_cached_facts.include?(fact)
+    self.sorted_delete_facts.add(fact)
     activity(self.created_by,:removed,fact,:from,self)
   end
 
@@ -95,7 +106,7 @@ class Channel < OurOhm
   
   
   def include?(obj)
-    self.cached_facts.include?(obj)
+    self.sorted_cached_facts.include?(obj)
   end
   
   def editable?
@@ -140,7 +151,7 @@ end
 class UserStream
   include ChannelFunctionality
   
-  attr_accessor :id, :created_by, :title, :description, :facts
+  attr_accessor :id, :created_by, :title, :description
   
   def initialize(graph_user)
     @title = "All"
@@ -151,9 +162,9 @@ class UserStream
   end
   
   def get_facts
-    int_facts = (Fact.all & @created_by.created_facts)
-    int_facts = @created_by.internal_channels.map{|ch| ch.cached_facts}.reduce(int_facts,:|)
-    int_facts.all.delete_if{ |f| Fact.invalid(f) }.reverse
+    int_facts = @created_by.real_created_facts
+    int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
+    int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
   end
 
   
@@ -161,6 +172,14 @@ class UserStream
 
   def include?(obj)
     facts.include?(obj)
+  end
+
+  def facts(opts={})
+    return @facts
+  end
+  
+  def unread_count
+    @facts.count
   end
 
   def discontinued

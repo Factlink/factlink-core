@@ -103,14 +103,30 @@ class OurOhm < Ohm::Model
   class << self
     alias :create! :create
     alias :ohm_set :set
-  end
+    alias :ohm_sorted_set :sorted_set
   
-  def self.set(name,model)
-    ohm_set(name, model)
-    define_method(:"#{name}=") do |value|
-      @_memo.delete(name)
-      send(name).assign(value)
-      value.key.sunionstore(key[name]) #copy
+    def set(name,model)
+      ohm_set(name, model)
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+      end
+    end
+
+    def sorted_set(name,model, &block)
+      ohm_sorted_set(name, model, &block)
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+      end
+    end
+    def timestamped_set(name, model, &block)
+      define_memoized_method(name) { Ohm::Model::TimestampedSet.new(key[name], Ohm::Model::Wrapper.wrap(model)) { |x| Ohm::Model::TimestampedSet.current_time } }
+      define_method(:"#{name}=") do |value|
+        @_memo.delete(name)
+        send(name).assign(value)
+      end
+      collections(self) << name unless collections.include?(name)
     end
   end
   
@@ -171,6 +187,64 @@ class Ohm::Model::Set < Ohm::Model::Collection
   end
 
 end
+
+
+class Ohm::Model::SortedSet < Ohm::Model::Collection
+  alias :count :size
+
+  def assign(set)
+    apply(key,:zunionstore,[set.key],{:aggregate => :max})
+  end
+
+  def &(other)
+    apply(key+"*INTERSECT*"+other.key,:zinterstore,[key,other.key],{:aggregate => :max})
+  end
+
+  def |(other)
+    apply(key+"*UNION*"+other.key,:zunionstore,[key,other.key],{:aggregate => :max})
+  end
+
+  def -(other)
+    result_key = key + "*DIFF*" + other.key
+    result = apply(result_key,:zunionstore,[key],{:aggregate => :max})
+    other.each do |item| # do this efficienter later
+      result.delete(item)
+    end
+    result
+  end
+
+  protected
+    # @private
+    def apply(target,operation,*args)
+      target.send(operation,*args)
+      Ohm::Model::SortedSet.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
+    end   
+
+end
+
+class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
+  def self.current_time
+   (DateTime.now.to_time.to_f*1000).to_i
+  end
+  def initialize(*args)
+    super(*args) do |f|
+      self.class.current_time
+    end
+  end
+
+  def unread_count
+    last_read = key['last_read'].get()
+    if(last_read)
+      key.zcount(last_read,'+inf')
+    else
+      key.zcard
+    end
+  end
+  def mark_as_read
+    key['last_read'].set(self.class.current_time)
+  end
+end
+
 
 class Ohm::Model::List < Ohm::Model::Collection
   alias :count :size
