@@ -100,6 +100,15 @@ describe Ohm::Model::TimestampedSet do
     c1.items << Item.create
     c1.items.unread_count.should == 2
   end
+  
+  it "should have a working assignment" do
+    c1 = TimeContainer.create()
+    c2 = TimeContainer.create()
+    c1.items << Item.create << Item.create
+    c2.items = c1.items
+    c2.items.count.should == 2
+    TimeContainer[c2.id].items.count.should == 2
+  end
 end
 
 describe OurOhm do
