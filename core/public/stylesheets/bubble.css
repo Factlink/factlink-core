@@ -613,6 +613,7 @@ ul#results-listing div.user-block .side .type {
   background: #f8f8f8;
 }
 .fact-block .evidence-container {
+  display: none;
   background-color: #fff;
   border-top: none;
   clear: both;

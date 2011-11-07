@@ -35,9 +35,6 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
-    
-    puts "\n\nClass: #{@channel.class}\n"
-    
     if @channel.class == Channel
       @channel.mark_as_read
     end
