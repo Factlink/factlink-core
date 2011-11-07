@@ -3,9 +3,9 @@ require File.expand_path('../../../app/classes/blacklist.rb', __FILE__)
 describe Blacklist do
   subject { 
     Blacklist.new([
-      /^http(s)?:\/\/(www\.)?facebook\.com/,
-      /^http(s)?:\/\/(www\.)?factlink\.com/,
-      /^http(s)?:\/\/(www\.)?twitter\.com/,
+      /^http(s)?:\/\/([^\/]+\.)?facebook\.com/,
+      /^http(s)?:\/\/([^\/]+\.)?factlink\.com/,
+      /^http(s)?:\/\/([^\/]+\.)?twitter\.com/,
     ]) 
   }
   
@@ -20,6 +20,11 @@ describe Blacklist do
   describe "#should_also_match_non-first_blacklist_item" do
     it {subject.matches?('http://twitter.com').should == true}
     it {subject.matches?('http://factlink.com').should == true}
+  end
+  
+  describe "#should_also_match_subdomains" do
+    it {subject.matches?('http://static.demo.factlink.com').should == true}
+    it {subject.matches?('http://demo.factlink.com').should == true}
   end
   
 end
