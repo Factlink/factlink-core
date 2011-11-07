@@ -39,6 +39,9 @@ describe UserStream do
     end
     it { subject.facts.to_a.should =~ [@f1]}
     its(:unread_count) {should == 0 }
+    describe "after retrieving the user_stream from the database" do
+      it {GraphUser[subject.id].stream.facts.to_a.should =~[@f1]}
+    end
   end
   describe "after adding two channels with one fact" do
     before do
