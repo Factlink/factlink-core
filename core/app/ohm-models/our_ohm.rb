@@ -193,7 +193,6 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
   alias :count :size
 
   def assign(set)
-    puts "I AM ASSIGNING"
     apply(key,:zunionstore,[set.key],{:aggregate => :max})
   end
 

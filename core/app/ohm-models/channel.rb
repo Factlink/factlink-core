@@ -50,20 +50,12 @@ class Channel < OurOhm
 
   def calculate_facts
     prune_invalid_facts
-    puts "Calculating for #{self.inspect}"
-
     fs = sorted_internal_facts
     contained_channels.each do |ch|
-      puts " Checking facts in channel #{ch.id}"
       fs |= ch.sorted_cached_facts
     end
     fs -= sorted_delete_facts
-    puts "Got the following facts (1): #{fs.all.to_a.map{|f| f.id }}"
-    puts "Got the following facts (1a): #{fs.class}"
     self.sorted_cached_facts = fs
-    puts "Calculated the following set: #{self.sorted_cached_facts.key}"
-    puts "Got the following facts (2): #{self.sorted_cached_facts.all.to_a.map{|f| f.id }}\n\n"
-    puts "Got the following facts (2a): #{self.sorted_cached_facts.class}"
     return self.sorted_cached_facts
   end
 
