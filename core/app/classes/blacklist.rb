@@ -2,9 +2,9 @@ class Blacklist
   def self.default
     @@default ||= self.new [
       #@TODO: These regexes are just temporary, please fix a nice regex which will match all possible URLS on the given site (also subdomains & https)
-      /^http(s)?:\/\/(www\.)?facebook\.com/, 
-      /^http(s)?:\/\/(www\.)?twitter\.com/,
-      /^http(s)?:\/\/(www\.)?factlink\.com/,
+      /^http(s)?:\/\/([^\/]\.)?facebook\.com/, 
+      /^http(s)?:\/\/([^\/]\.)?twitter\.com/,
+      /^http(s)?:\/\/([^\/]\.)?factlink\.com/,
     ]
   end
   
