@@ -14,7 +14,7 @@ module Channels
     end
   
     def new_facts
-      (self[:channel].unread_count != 0) 
+      (self[:channel].id != 'all') && (self[:channel].unread_count != 0) 
     end
 
     def id
