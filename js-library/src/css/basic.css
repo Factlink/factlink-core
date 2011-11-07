@@ -315,7 +315,7 @@ span.factlink.fl-active {
 #fl .fl-popup.fl-created > div.fl-label > span.fl-create, #fl .fl-popup.fl-created > div.fl-label > span.fl-add-evidence {
   display: none;
 }
-#fl .fl-popup.fl-created > div.fl-label > span.created {
+#fl .fl-popup.fl-created > div.fl-label > span.fl-created {
   display: block;
   width: 105px;
 }
