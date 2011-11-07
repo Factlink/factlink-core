@@ -4,8 +4,8 @@
     "id": "factlink-modal-frame"
   }).appendTo('body');
 
-  Factlink.showInfo = function(factId, showEvidence) {
-    Factlink.remote.showFactlink(factId, showEvidence, function ready() {
+  Factlink.showInfo = function(factId) {
+    Factlink.remote.showFactlink(factId, function ready() {
       Factlink.modal.show.method();
     });
   };

@@ -61,7 +61,7 @@ var Factlink = window.Factlink = (function() {
   Factlink.el = $('<div id="fl" />').appendTo('body');
   // Create template wrapper
   Factlink.tmpl = {};
-  
+
   // Add the stylesheet
   var style = document.createElement("link");
   style.type = "text/css";

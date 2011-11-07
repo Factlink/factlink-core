@@ -131,7 +131,7 @@ Factlink.Fact = function() {
       var modusHandler = (function() {
         return {
           "default": function() {
-            Factlink.showInfo(id, false);
+            Factlink.showInfo(id);
           }, 
           addToFact: function() {
             Factlink.prepare.show(e.pageX, e.pageY);
