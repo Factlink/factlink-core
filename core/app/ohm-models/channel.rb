@@ -140,34 +140,30 @@ class Channel < OurOhm
 
 end
 
-class UserStream
+class UserStream < Channel
   include ChannelFunctionality
   
-  attr_accessor :id, :created_by, :title, :description
   
-  def initialize(graph_user)
-    @title = "All"
-    @id = "all"
-    @description = "All facts"
-    @created_by = graph_user
-    @facts = self.get_facts #TODO define good as_json, but a bit to much work to do neatly before demo 18/10
+  def initialize(attrs={})
+    attrs.merge!({
+      :title => "All",
+      :description => "All facts",
+    })
+    super
   end
   
-  def get_facts
-    int_facts = @created_by.real_created_facts
-    int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
-    int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
-  end
-
+  # def get_facts
+  #     int_facts = @created_by.real_created_facts
+  #     int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
+  #     int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
+  #   end
+  
   
   alias :graph_user :created_by
 
-  def include?(obj)
-    facts.include?(obj)
-  end
 
-  def facts(opts={})
-    return @facts
+  def contained_channels
+    created_by.internal_channels
   end
   
   def unread_count
