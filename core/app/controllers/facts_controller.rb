@@ -37,7 +37,6 @@ class FactsController < ApplicationController
 
   def show
     @title = @fact.data.displaystring # The html <title>
-    @show_evidence = params[:showevidence] == "true"
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     
