@@ -1,12 +1,10 @@
 class UserStream < Channel
-  
-  def initialize(attrs={})
-    attrs.merge!({
-      :title => "All",
-      :description => "All facts",
-    })
-    super
+
+  def add_fields
+    self.title = "All"
+    self.description = "All facts"
   end
+  before :validate, :add_fields
   
   alias :graph_user :created_by
 

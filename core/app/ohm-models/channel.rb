@@ -74,8 +74,11 @@ class Channel < OurOhm
   end
   
   def validate
+    execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
+    super
     assert_present :title
     assert_present :created_by
+    execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
   def add_fact(fact)
