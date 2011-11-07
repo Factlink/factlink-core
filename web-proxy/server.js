@@ -47,7 +47,7 @@ function get_modus(modus){
  * Add base url and inject proxy.js, and return the proxied site
  */
 
-function injectFactlinkJs(html_in, site, scrollto, modus) {
+function injectFactlinkJs(html_in, site, scrollto, modus, successFn, errorFn) {
   var FactlinkConfig = {
     modus: modus,
     api: API_URL,
@@ -56,16 +56,22 @@ function injectFactlinkJs(html_in, site, scrollto, modus) {
     url: site
   };
   
-  var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
-  
-  if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
-    FactlinkConfig.scrollto = parseInt(scrollto, 10);
-  }
-  var set_urls = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
-  
-  var load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
-  html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
-  return html;
+  restler.get(API_URL + '/sites/' + encodeURIComponent(site) + '/info', {parser:restler.parsers.json}).on('complete', function(data) {
+    if (data.blacklisted !== true) {
+      var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
+
+      if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
+        FactlinkConfig.scrollto = parseInt(scrollto, 10);
+      }
+      var set_urls = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
+
+      var load_proxy_js = '<script src="' + STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+      html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
+      successFn(html);
+    } else {
+      errorFn(html_in);
+    }
+  });
 }
 
 
@@ -112,8 +118,16 @@ function handleProxyRequest(res, url, scrollto, modus, form_hash) {
   var request = restler.get(site, form_hash);
 
   request.on('complete', function(data) {
-    res.write(injectFactlinkJs(data, site, scrollto, modus));
-    res.end();
+    injectFactlinkJs(data, site, scrollto, modus, function(html) {
+      res.write(html);
+      
+      res.end();
+    }, function(html) {
+      console.info( html );
+      res.write(html);
+      
+      res.end();
+    });
   });
 
 
