@@ -18,7 +18,7 @@ class GraphUser < OurOhm
   
   define_memoized_method :channels do
     channels = self.internal_channels.to_a
-    
+    channels.delete(self.stream)
     channels.unshift( self.stream )
   end
 
