@@ -74,8 +74,11 @@ class Channel < OurOhm
   end
   
   def validate
+    execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
+    super
     assert_present :title
     assert_present :created_by
+    execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
   def add_fact(fact)
@@ -137,53 +140,5 @@ class Channel < OurOhm
   end
 
 
-
-end
-
-class UserStream
-  include ChannelFunctionality
-  
-  attr_accessor :id, :created_by, :title, :description
-  
-  def initialize(graph_user)
-    @title = "All"
-    @id = "all"
-    @description = "All facts"
-    @created_by = graph_user
-    @facts = self.get_facts #TODO define good as_json, but a bit to much work to do neatly before demo 18/10
-  end
-  
-  def get_facts
-    int_facts = @created_by.real_created_facts
-    int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
-    int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
-  end
-
-  
-  alias :graph_user :created_by
-
-  def include?(obj)
-    facts.include?(obj)
-  end
-
-  def facts(opts={})
-    return @facts
-  end
-  
-  def unread_count
-    0
-  end
-
-  def discontinued
-    false
-  end
-  
-  def editable?
-    false
-  end
-  
-  def followable?
-    false
-  end
 
 end

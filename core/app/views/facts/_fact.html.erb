@@ -18,7 +18,6 @@
     <div class="evidence-actions">
       <ul class="evidence tabs">
         <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
-        <!-- <li><a class="for-evidence">This fact is used as evidence for (<%= fact.evidenced_factrelations.count %>)</a></li> -->
       </ul>
     </div>
   </div>
@@ -50,36 +49,9 @@
         </div>
       </div>
 
-      <div class="tab_content" rel="for-evidence" style="display: none"> 
-        <div class="evidence">
-          <table class="for-evidence-list">
-            <tbody>
-              <% unless fact.evidenced_factrelations.count > 0 %>
-              <tr class="no-evidence">
-                <td><%= view.no_evidenced_message %></td>
-              </tr>
-              <% else %>
-              <tr>
-                <td>
-                  <%= render :partial => "/facts/partial/evidenced_bubble", 
-                    :collection => fact.evidenced_factrelations, :as => :fact_relation, :spacer_template => '/home/snippets/table_row_seperator'
-                  %>
-                </td>
-              </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-          <div class="add-evidence" style="display: none">
-            <%= render "/facts/partial/add_evidenced", :fact => fact %>
-          </div>
-        </div>
-      </div>
+     </div>
       <% if user_signed_in? %>
-        <div class="add-action" rel="for-evidence" style="display: none">
-          <a href"#" class="do-add">Add facts</a>
-        </div>
-        <div class="add-action" rel="evidence-for">
+       <div class="add-action" rel="evidence-for">
           <a href"#" class="do-add">Add facts</a>
         </div>
       <% end %>

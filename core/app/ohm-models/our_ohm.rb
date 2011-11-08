@@ -217,7 +217,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     # @private
     def apply(target,operation,*args)
       target.send(operation,*args)
-      Ohm::Model::SortedSet.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
+      self.class.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
     end   
 
 end
@@ -243,6 +243,10 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
   def mark_as_read
     key['last_read'].set(self.class.current_time)
   end
+  def inspect
+    "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"
+  end
+  
 end
 
 

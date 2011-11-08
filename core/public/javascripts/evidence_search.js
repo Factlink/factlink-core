@@ -37,9 +37,8 @@
     url: function(page) {
       var fact = $( 'div.fact-block' );
       
-      var search = ($('div.tab_content:visible', this).is('[rel=evidence-for]') ? "evidence_search" : "evidenced_search");
       
-      return '/facts/' + fact.data('fact-id') + '/' + search + '/page/' + page + '.js' + (searchString ? "?s=" + searchString : "");
+      return '/facts/' + fact.data('fact-id') + '/evidence_search/page/' + page + '.js' + (searchString ? "?s=" + searchString : "");
     }
   });
 

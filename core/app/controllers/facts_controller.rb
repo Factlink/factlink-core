@@ -220,9 +220,9 @@ class FactsController < ApplicationController
       # Exclude the Facts that are already supporting AND weakening
       with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
-
+    
     @fact_data = solr_result.results
-
+    
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
   end
