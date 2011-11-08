@@ -132,10 +132,8 @@ class Channel < OurOhm
   end
 
   def self.recalculate_all
-    if all
-      all.each do |ch|
-        ch.calculate_facts
-      end
+    all.andand.each do |ch|
+      ch.calculate_facts
     end
   end
 
