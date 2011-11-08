@@ -55,6 +55,13 @@ namespace :deploy do
     run "chmod 777 #{current_path}/public/images/wheel"
     run "cat /root/pirate.ascii"
   end
+
+  task :start_recalculate do
+    run "sh #{current_path}/bin/scripts/stop_recalculate.sh"
+  end
+  task :stop_recalculate do
+    run "sh #{current_path}/bin/scripts/stop_recalculate.sh"
+  end
 end
 
 before "bundle:install", "deploy:aptget"
