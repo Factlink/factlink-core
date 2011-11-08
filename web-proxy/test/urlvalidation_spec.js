@@ -10,7 +10,8 @@ exports['test urlvalidation valid urls'] = function(beforeExit, assert){
     "https://www.google.com",
     "https://www.google.com/",
     "https://google.com",
-    "https://google.com/"
+    "https://google.com/",
+    "http://www.google.com/url?q=http"
   ];
   urls.forEach(function(url){
     assert.equal(urlvalidation.clean_url(url), url);
@@ -29,7 +30,7 @@ exports['test urlvalidation should add missing protocol'] = function(beforeExit,
 
 exports['test urlvalidation should work with uri encode with uppercase characters'] = function(beforeExit, assert){
   var urls = [
-  "http://duckduckgo.com/?q=%2F",
+  "http://duckduckgo.com/?q=%2F"
   ];
   urls.forEach(function(url){
     assert.equal(urlvalidation.add_protocol(url), url);
