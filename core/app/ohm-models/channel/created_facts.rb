@@ -11,7 +11,7 @@ class Channel < OurOhm
    
   
      def contained_channels
-       created_by.internal_channels
+       []
      end
    
 

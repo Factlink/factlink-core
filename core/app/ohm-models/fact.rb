@@ -1,8 +1,14 @@
 class Fact < Basefact
   after :create, :set_activity!
+  after :create, :add_to_created_facts
 
   def set_activity!
     activity(self.created_by, "created", self)
+  end
+
+  # TODO dirty, please decouple
+  def add_to_created_facts
+    self.created_by.created_facts_channel.add_fact(self)
   end
 
   def to_s
