@@ -99,10 +99,9 @@ module FactlinkUI
       Site,
       Channel,
       GeneratedChannel,
-      CreatedFacts
+      CreatedFacts,
       UserStream
     ]
-    #require "#{config.root}/lib/mustache_rails.rb"
 
     require 'mustache_railstache'
     Rails.application.config.generators.template_engine :mustache
