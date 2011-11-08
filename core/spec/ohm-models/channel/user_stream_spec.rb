@@ -6,6 +6,8 @@ describe Channel::UserStream do
   let(:u1) { FactoryGirl.create(:user).graph_user }
 
   describe "initially" do
+    it {1.should == 2}
+    
     it { subject.facts.to_a.should =~ []}
     its(:discontinued) {should == false}
     its(:editable?) {should == false}
