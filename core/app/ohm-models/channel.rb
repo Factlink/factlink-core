@@ -67,9 +67,9 @@ class Channel < OurOhm
     save
   end
 
-  def facts(opts={})
+  def facts
     return [] if new?
-    mark_as_read if opts[:mark_as_read]
+
     sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
