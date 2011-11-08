@@ -1,7 +1,4 @@
-require File.join(File.dirname(__FILE__), "graph_user", "channel_owner")
-
 class GraphUser < OurOhm
-  include ChannelOwner
   def graph_user
     return self
   end
@@ -31,6 +28,13 @@ class GraphUser < OurOhm
     save
   end
   after :create, :create_stream
+
+  reference :created_facts_channel, Channel::CreatedFacts
+  def create_created_facts_channel
+    self.created_facts_channel = Channel::CreatedFacts.create(:created_by => self)
+    save
+  end
+  after :create, :create_created_facts_channel
 
 
   collection :activities, Activity, :user
