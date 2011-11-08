@@ -66,8 +66,11 @@ end
 
 before "bundle:install", "deploy:aptget"
 
-before 'deploy:all', 'deploy'
-after 'deploy:all', 'deploy:restart'
+before 'deploy',        'deploy:stop_recalculate'
+before 'deploy:all',    'deploy'
 
-after "deploy", "deploy:migrate"
-before "deploy:restart", "deploy:set_wheel_permissions" 
+after 'deploy:all',     'deploy:restart'
+before 'deploy:restart', 'deploy:set_wheel_permissions'
+
+after 'deploy',         'deploy:migrate'
+after 'deploy:migrate', 'deploy:start_recalculate'
