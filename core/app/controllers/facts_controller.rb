@@ -211,7 +211,7 @@ class FactsController < ApplicationController
     @row_count = 4
     row_count = @row_count
 
-    solr_result = FactData.search() do
+    solr_result = Sunspot.search FactData do
       keywords params[:s] || ""
       
       order_by sort_column, sort_direction
