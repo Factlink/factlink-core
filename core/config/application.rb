@@ -119,11 +119,6 @@ module FactlinkUI
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    # Error reporting
-    config.middleware.use ExceptionNotifier,
-      :email_prefix => "[FL##{Rails.env}] ",
-      :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
-      :exception_recipients => %w{bugs@factlink.com}
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
