@@ -258,9 +258,13 @@ a:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+body {
+  font-family: "Lucida Grande", verdana, tahoma, arial, sans-serif;
+  font-size: 10px;
+}
 /** Fact block */
 a {
-  color: #306d90;
+  color: #313131;
 }
 a:hover {
   color: #306d90;
@@ -296,14 +300,13 @@ div.sign-in {
 }
 /* /Legacy */
 div.modal {
-  background: #fff;
   top: 40px;
-  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
-  -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
-  -webkit-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
-  -moz-box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
   padding: 0;
   margin: 0 auto;
   width: 510px;
@@ -322,15 +325,6 @@ div.modal span.close {
 }
 div.modal span.proxyWindow {
   display: inline !important;
-}
-.boxed {
-  padding: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 .float {
   background-color: #fbfafa;
@@ -389,16 +383,78 @@ ul#results-listing div.user-block .side .type {
   font-size: 14px;
   line-height: 26px;
 }
+/** Imported from color_elements.less */
+/*
+@popup-bg:      #ffffff;
+@popup-font:    #313131;
+@underbar-bg:   #f5f5f5;
+@underbar-font: #999999;
+@divider:       #eeeeee;
+@link-blue:     #306d90;
+*/
+/** Default styles for new modal */
+.default-modal {
+  background: #ffffff;
+  -webkit-border-top-right-radius: 4;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 4;
+  -moz-border-radius-topright: 4;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 4;
+  border-top-right-radius: 4;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 4;
+  -webkit-border-top-right-radius: 4;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 4;
+  -moz-border-radius-topright: 4;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 4;
+  border-top-right-radius: 4;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 4;
+}
+.underbar {
+  background: #f5f5f5;
+  border-top: solid 1px #eeeeee;
+  min-height: 32px;
+  line-height: 32px;
+}
 .fact-block {
-  padding: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  background: #ffffff;
+  -webkit-border-top-right-radius: 4;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 4;
+  -moz-border-radius-topright: 4;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 4;
+  border-top-right-radius: 4;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 4;
+  -webkit-border-top-right-radius: 4;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 4;
+  -moz-border-radius-topright: 4;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 4;
+  border-top-right-radius: 4;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 4;
+  border: solid 1px #e8e8e8;
+  border-radius: 4px;
   color: #BBB;
-  border: 1px solid #ddd;
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
@@ -411,18 +467,36 @@ ul#results-listing div.user-block .side .type {
   visibility: visible;
   opacity: 1;
 }
+.fact-block .controls {
+  background: #f5f5f5;
+  border-top: solid 1px #eeeeee;
+  min-height: 32px;
+  line-height: 32px;
+}
+.fact-block .controls a {
+  color: #5e8ba6;
+  text-shadow: 0px 1px 0px #fff;
+  font-weight: 100;
+  font-size: 11px;
+}
+.fact-block .controls ul.evidence {
+  list-style: none;
+}
+.fact-block .controls ul.evidence li {
+  line-height: 32px;
+  padding: 0 15px;
+  float: right;
+}
+.fact-block .controls ul.evidence li:nth-child(1) {
+  float: left;
+}
 .fact-block article.fact {
   -webkit-box-shadow: inset 0px 2px 1px #fff;
   padding: 10px 0 10px 5px;
   min-height: 83px;
   display: block;
   border-right: 1px solid #FBFAFA;
-  background: #fbfbfb;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f8f8f8), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f8f8f8 0%, #ffffff 100%);
-  background: #fbfbfb;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f8f8f8), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f8f8f8 0%, #ffffff 100%);
+  border-radius: 4px;
 }
 .fact-block article.fact header {
   margin: 0 0 0px 75px;
@@ -433,6 +507,10 @@ ul#results-listing div.user-block .side .type {
   color: #aaa;
   line-height: inherit;
   font-size: x-small;
+}
+.fact-block article.fact header sub a {
+  color: #5e8ba6;
+  font-family: "Georgia";
 }
 .fact-block article.fact header .head {
   font-weight: 100;
@@ -456,6 +534,7 @@ ul#results-listing div.user-block .side .type {
 .fact-block article.fact header .body {
   font-family: Georgia, "Times New Roman", Garamond, serif;
   font-size: 1.2em;
+  font-size: 14px;
   line-height: 19px;
 }
 .fact-block article.fact header .actions {
@@ -480,13 +559,6 @@ ul#results-listing div.user-block .side .type {
   vertical-align: baseline;
 }
 .fact-block article.fact .channel-listing {
-  padding: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
   background-color: #fbfafa;
   z-index: 2000;
   display: none;
@@ -524,14 +596,12 @@ ul#results-listing div.user-block .side .type {
 }
 .fact-block .wheel {
   float: left;
-  width: 65px;
-  height: 65px;
-  overflow: hidden;
+  width: 72px;
 }
 .fact-block .wheel svg {
-  width: 65px !important;
+  width: 52px !important;
   height: 60px !important;
-  margin: 0 0 0 10px;
+  margin: 0 0 0 4px;
   display: block;
   overflow: hidden;
 }
@@ -539,19 +609,9 @@ ul#results-listing div.user-block .side .type {
   cursor: pointer;
 }
 .fact-block .authority {
-  text-align: center;
-  margin: 0 0 0 15px;
-  width: 45px;
-  height: 20px;
+  display: none;
 }
 .fact-block .opinion-box {
-  padding: 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
   background-color: #fbfafa;
   z-index: 2000;
   display: none;
@@ -608,37 +668,23 @@ ul#results-listing div.user-block .side .type {
   visibility: visible;
   opacity: 1;
 }
-.fact-block div.evidence-actions {
-  margin: 0 auto;
-  text-align: center;
-}
-.fact-block ul.evidence {
-  background: #f5f5f5;
-  border-top: solid 1px #eeeeee;
-}
-.fact-block ul.evidence li a {
-  border: none;
-  border-radius: 0px;
-}
 .fact-block .evidence-container {
   display: none;
   background-color: #fff;
   border-top: none;
   clear: both;
   width: 100%;
+  height: 300px;
 }
 .fact-block .evidence-container .add-action {
-  height: 25px;
-  padding: 5px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
   text-align: center;
-  line-height: 24px;
-  border-top: 1px solid #E4E4E4;
-  background: #f8f8f8;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f8f8f8));
-  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f8f8f8 100%);
-  background: #f8f8f8;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f8f8f8));
-  background: -moz-linear-gradient(center bottom, #ffffff 0%, #f8f8f8 100%);
+  background: #f5f5f5;
+  border-top: solid 1px #eeeeee;
+  min-height: 32px;
+  line-height: 32px;
 }
 .fact-block .evidence-options {
   vertical-align: middle;

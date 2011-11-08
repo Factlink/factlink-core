@@ -13,13 +13,15 @@
   <% end %>
   
   <%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => modal, :form_authenticity_token => form_authenticity_token %>
+
   
-  <div style="height: 38px;"> 
-    <div class="evidence-actions">
-      <ul class="evidence tabs">
-        <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
-      </ul>
-    </div>
+  <div class="controls">
+    <ul class="evidence">
+      <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
+
+      <li><a class="evidence-for add-to-channel">Link to Factlink</a></li>
+      <li><a class="evidence-for add-to-channel">Channels</a></li>
+    </ul>
   </div>
 
   <div class="evidence-container">

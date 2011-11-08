@@ -14,9 +14,14 @@ a {text-decoration:none;}
 table {border-collapse: collapse; border-spacing: 0;}
 td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
+
+body {  
+  font-family: "Lucida Grande", verdana, tahoma, arial, sans-serif;
+  font-size: 10px;
+}
 /** Fact block */
-a { 
-  color: @link-blue;
+a {
+  color: #313131;
 }
 a:hover { 
   color: @dark-blue;
@@ -55,15 +60,16 @@ div.sign-in {
 }
 /* /Legacy */
 div.modal {
-  
-  background: #fff;
-  
+
   top: 40px;
-  .drop-shadow(0px, 0px, 25px, 0.7);
+
+  .drop-shadow(0px, 3px, 10px, 0.25);
+  
   padding: 0;
   margin:  0 auto;
   width: 510px;
   color: #777;
+
   span.close {
     z-index: 100;
     background: url('/images/close-button.png') no-repeat;
@@ -77,10 +83,7 @@ div.modal {
     display: inline !important;
   }
 }
-.boxed { 
-  padding: 0;
-	.rounded(3px);
-}
+
 .float { 
   background-color: @bg;
   z-index: 2000;
@@ -137,13 +140,36 @@ ul#results-listing div.user-block {
   } 
 }
 
-@dialogColor: #f8f8f8;
+/** Imported from color_elements.less */
+/*
+@popup-bg:      #ffffff;
+@popup-font:    #313131;
+@underbar-bg:   #f5f5f5;
+@underbar-font: #999999;
+@divider:       #eeeeee;
+@link-blue:     #306d90;
+*/
+
+/** Default styles for new modal */
+.default-modal {
+  background: @popup-bg;
+  .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
+}
+.underbar {
+  background: @underbar-bg;
+  border-top: solid 1px @divider;
+  min-height: 32px;
+  line-height: 32px;
+}
 
 .fact-block {
+  .default-modal;
 
-  .boxed;
+  border: solid 1px #e8e8e8;
+  border-radius: 4px;
+
   color: #BBB;
-  border: 1px solid #ddd;
+
   text-shadow: 0px 1px 0px white;
   width: 510px;
   margin-bottom: 0;
@@ -158,6 +184,27 @@ ul#results-listing div.user-block {
     opacity: 1;
   }
 
+  .controls {
+    .underbar;
+    a {
+      color: @link-blue;
+      text-shadow: 0px 1px 0px #fff;
+      font-weight: 100;
+      font-size: 11px;
+    }
+    ul.evidence {
+      list-style: none;
+      li {
+        line-height: 32px;
+        padding: 0 15px;
+        float: right;   
+        &:nth-child(1) { 
+          float: left;
+        }
+      }
+    }
+  }
+
   article.fact {
     
     -webkit-box-shadow: inset 0px 2px 1px #fff;
@@ -167,7 +214,7 @@ ul#results-listing div.user-block {
     display: block;
     border-right: 1px solid #FBFAFA;
 
-    .gradient(#fbfbfb, #f8f8f8, #ffffff);
+    border-radius: 4px;
     
     header {
 			margin: 0 0 0px 75px;
@@ -178,6 +225,10 @@ ul#results-listing div.user-block {
         color: #aaa;
         line-height: inherit;
         font-size: x-small;
+        a {
+          color: @link-blue;
+          font-family: "Georgia";
+        }
       }
       .head {
         font-weight: 100;
@@ -209,6 +260,7 @@ ul#results-listing div.user-block {
       .body { 
         font-family: Georgia, "Times New Roman", Garamond, serif;
 				font-size: 1.2em;
+				font-size: 14px;
 				line-height: 19px;
 			}
 
@@ -231,7 +283,6 @@ ul#results-listing div.user-block {
       }
     }
     .channel-listing { 
-      .boxed;
       .float;
       width: 200px;
 
@@ -263,14 +314,12 @@ ul#results-listing div.user-block {
     }
   }
   .wheel { 
-    float: left;  
-    width: 65px;
-    height: 65px;
-    overflow: hidden;
-    svg { 
-      width: 65px !important;
+    float: left;
+    width: 72px;
+    svg {
+      width: 52px !important;
       height: 60px !important;
-      margin: 0 0 0 10px;
+      margin: 0 0 0 4px;
       display: block;
       overflow: hidden;
       path:hover { 
@@ -279,13 +328,9 @@ ul#results-listing div.user-block {
     }
   }
   .authority { 
-    text-align: center;
-    margin: 0 0 0 15px;
-    width:45px; 
-    height: 20px;
+    display: none;
   }
   .opinion-box {
-    .boxed;
     .float;
       height: 85px;
       width: 150px;
@@ -339,25 +384,6 @@ ul#results-listing div.user-block {
       }
     }
   }
-
-  @border-color: #bbb;
-
-  div.evidence-actions {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  ul.evidence {    
-    background: @underbar-bg;
-    border-top: solid 1px @divider;
-    
-    li {
-      a {
-        border: none;
-        border-radius: 0px;
-      }
-    }
-  }
   
   .evidence-container {
     display: none;
@@ -365,14 +391,16 @@ ul#results-listing div.user-block {
     border-top: none;
     clear: both;
     width: 100%;
-    .add-action {
-      height: 25px;
-      padding: 5px;
-      text-align: center;
-      line-height: 24px;
-      border-top: 1px solid #E4E4E4;
+    
+    height: 300px;
 
-      .gradient(#f8f8f8, #fff, #f8f8f8);
+    .add-action {
+      position: absolute;
+      bottom: 0px;
+      
+      width: 100%;
+      text-align: center;
+      .underbar;
     }
   }
   .evidence-options { 
