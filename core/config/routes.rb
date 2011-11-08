@@ -20,7 +20,6 @@ FactlinkUI::Application.routes.draw do
       # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
-      match "/evidenced_search(/page/:page)(/:sort/:direction)" => "facts#evidenced_search", :as => "evidenced_search"
       get "/channels" => "facts#get_channel_listing"
     end
   end 
@@ -47,8 +46,6 @@ FactlinkUI::Application.routes.draw do
   post  "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   post  "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
 
-  post  "/factlink/:fact_id/add_supporting_evidenced/:evidence_id"  => "facts#add_supporting_evidenced",  :as => "add_supporting_evidenced"
-  post  "/factlink/:fact_id/add_weakening_evidenced/:evidence_id"   => "facts#add_weakening_evidenced",   :as => "add_weakening_evidenced"
   
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
