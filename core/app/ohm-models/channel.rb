@@ -25,6 +25,7 @@ class Channel < OurOhm
   attribute :description
 
   reference :created_by, GraphUser
+  alias :graph_user :created_by
 
   private
   set :contained_channels, Channel
