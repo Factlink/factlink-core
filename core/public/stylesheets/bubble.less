@@ -16,7 +16,7 @@ td {vertical-align: top;}
 a:hover {text-decoration:underline; cursor:pointer;}
 /** Fact block */
 a { 
-  color: #666363;
+  color: @link-blue;
 }
 a:hover { 
   color: @dark-blue;
@@ -347,9 +347,16 @@ ul#results-listing div.user-block {
     text-align: center;
   }
 
-  ul.evidence {
-/*    .gradient(#fbfbfb, #e2e2e2, #fbfbfb);*/
-    background: @dialogColor;
+  ul.evidence {    
+    background: @underbar-bg;
+    border-top: solid 1px @divider;
+    
+    li {
+      a {
+        border: none;
+        border-radius: 0px;
+      }
+    }
   }
   
   .evidence-container {
@@ -364,8 +371,6 @@ ul#results-listing div.user-block {
       text-align: center;
       line-height: 24px;
       border-top: 1px solid #E4E4E4;
-      
-      .gradient(#f8f8f8, #f8f8f8, #ffffff);
 
       .gradient(#f8f8f8, #fff, #f8f8f8);
     }
@@ -534,6 +539,7 @@ ul#results-listing div.user-block {
     }
   }
 }
+
 /* ====== from tipsy plugin ==== */ 
 .tipsy { padding: 5px; font-size: 10px; opacity: 0.8; filter: alpha(opacity=80); background-repeat: no-repeat;  background-image: url("/images/tipsy.gif"); }
 .tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 200px; text-align: center; }
@@ -542,5 +548,3 @@ ul#results-listing div.user-block {
 .tipsy-south { background-position: bottom center; }
 .tipsy-east { background-position: right center; }
 .tipsy-west { background-position: left center; }
-
-

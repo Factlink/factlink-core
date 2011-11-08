@@ -1,4 +1,5 @@
 @import "css3buttons.css";
+/** Popup redesign */
 /*---------------------------------------------------
 		LESS Elements 0.5
 	---------------------------------------------------
@@ -57,9 +58,6 @@
   position: relative;
   top: 1px;
 }
-.tabs > li:first-child {
-  padding-left: 64px;
-}
 .tabs > li > a {
   background: transparent;
   padding: 0 15px;
@@ -70,15 +68,22 @@
   border-top-right-radius: 4px;
 }
 .tabs > li > a:hover {
-  text-decoration: none;
-  background-color: #fff;
-  border-color: #eee #eee #ddd;
+  /*        text-decoration: none;*/
+
+  /*        background-color: #fff;*/
+
+  /*        border-color: #eee #eee #ddd;*/
+
 }
 .tabs > li.active > a {
-  color: #808080;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-bottom-color: transparent;
+  /*      color: @gray;*/
+
+  /*      background-color: @white;*/
+
+  /*      border: 1px solid #ddd;*/
+
+  /*      border-bottom-color: transparent;*/
+
 }
 .tabs .menu-dropdown, .tabs .dropdown-menu {
   top: 35px;
@@ -255,7 +260,7 @@ a:hover {
 }
 /** Fact block */
 a {
-  color: #666363;
+  color: #306d90;
 }
 a:hover {
   color: #306d90;
@@ -608,9 +613,12 @@ ul#results-listing div.user-block .side .type {
   text-align: center;
 }
 .fact-block ul.evidence {
-  /*    .gradient(#fbfbfb, #e2e2e2, #fbfbfb);*/
-
-  background: #f8f8f8;
+  background: #f5f5f5;
+  border-top: solid 1px #eeeeee;
+}
+.fact-block ul.evidence li a {
+  border: none;
+  border-radius: 0px;
 }
 .fact-block .evidence-container {
   display: none;
@@ -625,12 +633,6 @@ ul#results-listing div.user-block .side .type {
   text-align: center;
   line-height: 24px;
   border-top: 1px solid #E4E4E4;
-  background: #f8f8f8;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f8f8f8), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f8f8f8 0%, #ffffff 100%);
-  background: #f8f8f8;
-  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f8f8f8), color-stop(1, #ffffff));
-  background: -moz-linear-gradient(center bottom, #f8f8f8 0%, #ffffff 100%);
   background: #f8f8f8;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ffffff), color-stop(1, #f8f8f8));
   background: -moz-linear-gradient(center bottom, #ffffff 0%, #f8f8f8 100%);

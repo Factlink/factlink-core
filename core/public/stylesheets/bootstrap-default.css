@@ -45,9 +45,6 @@
   position: relative;
   top: 1px;
 }
-.tabs > li:first-child {
-  padding-left: 64px;
-}
 .tabs > li > a {
   background: transparent;
   padding: 0 15px;
@@ -58,15 +55,22 @@
   border-top-right-radius: 4px;
 }
 .tabs > li > a:hover {
-  text-decoration: none;
-  background-color: #fff;
-  border-color: #eee #eee #ddd;
+  /*        text-decoration: none;*/
+
+  /*        background-color: #fff;*/
+
+  /*        border-color: #eee #eee #ddd;*/
+
 }
 .tabs > li.active > a {
-  color: #808080;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-bottom-color: transparent;
+  /*      color: @gray;*/
+
+  /*      background-color: @white;*/
+
+  /*      border: 1px solid #ddd;*/
+
+  /*      border-bottom-color: transparent;*/
+
 }
 .tabs .menu-dropdown, .tabs .dropdown-menu {
   top: 35px;
