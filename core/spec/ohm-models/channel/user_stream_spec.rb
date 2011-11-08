@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe UserStream do
+describe Channel::UserStream do
   subject { u1.stream }
 
   let(:u1) { FactoryGirl.create(:user).graph_user }

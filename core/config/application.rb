@@ -75,7 +75,6 @@ module FactlinkUI
     autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
     autoload :Site, "#{config.root}/app/ohm-models/site.rb"
     autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
-    autoload :UserStream, "#{config.root}/app/ohm-models/user_stream.rb"
     
     autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
     
@@ -93,12 +92,10 @@ module FactlinkUI
       FactData, 
       Fact, 
       FactRelation, 
-      GraphUser, 
       Site,
       Channel,
-      UserStream
+      GraphUser, 
     ]
-    #require "#{config.root}/lib/mustache_rails.rb"
 
     require 'mustache_railstache'
     Rails.application.config.generators.template_engine :mustache

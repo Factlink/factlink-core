@@ -22,9 +22,9 @@ class GraphUser < OurOhm
     channels.unshift( self.stream )
   end
 
-  reference :stream, UserStream
+  reference :stream, Channel::UserStream
   def create_stream
-    self.stream = UserStream.create(:created_by => self)
+    self.stream = Channel::UserStream.create(:created_by => self)
     save
   end
   after :create, :create_stream

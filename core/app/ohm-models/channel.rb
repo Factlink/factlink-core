@@ -1,22 +1,9 @@
-module ChannelFunctionality
-  
-  def related_users(calculator=RelatedUsersCalculator.new,options)
-    options[:without] ||= []
-    options[:without] << created_by
-    calculator.related_users(facts,options)
-  end
-  
-  def to_hash
-    return {:id => id, 
-            :title => title, 
-            :description => description,
-            :created_by => created_by,
-            :discontinued => discontinued}
-  end
-  
-end
+require File.join(File.dirname(__FILE__), "channel", "generated_channel")
+require File.join(File.dirname(__FILE__), "channel", "created_facts")
+require File.join(File.dirname(__FILE__), "channel", "user_stream")
 
 class Channel < OurOhm
+  
   include ActivitySubject
   include ChannelFunctionality
   
@@ -25,6 +12,7 @@ class Channel < OurOhm
   attribute :description
 
   reference :created_by, GraphUser
+  alias :graph_user :created_by
 
   private
   set :contained_channels, Channel
@@ -67,9 +55,9 @@ class Channel < OurOhm
     save
   end
 
-  def facts(opts={})
+  def facts
     return [] if new?
-    mark_as_read if opts[:mark_as_read]
+
     sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
@@ -119,6 +107,19 @@ class Channel < OurOhm
     c
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new,options)
+    options[:without] ||= []
+    options[:without] << created_by
+    calculator.related_users(facts,options)
+  end
+  
+  def to_hash
+    return {:id => id, 
+            :title => title, 
+            :description => description,
+            :created_by => created_by,
+            :discontinued => discontinued}
+  end
 
   def add_channel(channel)
     _add_channel(channel)
@@ -132,10 +133,8 @@ class Channel < OurOhm
   end
 
   def self.recalculate_all
-    if all
-      all.each do |ch|
-        ch.calculate_facts
-      end
+    all.andand.each do |ch|
+      ch.calculate_facts
     end
   end
 
