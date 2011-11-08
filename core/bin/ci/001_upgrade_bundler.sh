@@ -5,5 +5,4 @@ rvm use --default 1.9.2-p290 || exit 1
 gem install bundler || exit 1
 gem install soundcheck
 bundle install || exit 1
-gem install || exit 1
 exit
