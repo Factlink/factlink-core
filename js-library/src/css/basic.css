@@ -299,6 +299,10 @@ span.factlink.fl-active {
   width: 100%;
   margin: 0;
 }
+#fl .fl-popup.fl-create > div.fl-label > span.fl-create img {
+  float: right;
+  margin-top: 4px;
+}
 #fl .fl-popup.fl-create > div.fl-label > span.fl-created, #fl .fl-popup.fl-create > div.fl-label > span.fl-add-evidence {
   display: none;
 }
@@ -315,7 +319,7 @@ span.factlink.fl-active {
 #fl .fl-popup.fl-created > div.fl-label > span.fl-create, #fl .fl-popup.fl-created > div.fl-label > span.fl-add-evidence {
   display: none;
 }
-#fl .fl-popup.fl-created > div.fl-label > span.created {
+#fl .fl-popup.fl-created > div.fl-label > span.fl-created {
   display: block;
   width: 105px;
 }

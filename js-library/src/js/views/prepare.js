@@ -38,7 +38,10 @@ Factlink.Prepare = function() {
         // Factlink.showFactAddedPopup(factId, e.pageX, e.pageY);
         self.setFactId(factId);
         facts = factObjs;
-        self.setType("fl-add-evidence");
+        self.setType("fl-created");
+        setTimeout(function() {
+          self.setType("fl-add-evidence");
+        }, 1500);
       });
     });
     
@@ -74,7 +77,7 @@ Factlink.Prepare = function() {
   }
   
   function bindAddEvidenceClick() {
-    el.delegate(".fl-add-evidence","click", function(e) {
+    el.delegate(".fl-add-evidence, .fl-created","click", function(e) {
       if ( facts.length > 0 ) {
         facts[0].click();
         
