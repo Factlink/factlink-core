@@ -1,30 +1,17 @@
-module ChannelFunctionality
-  
-  def related_users(calculator=RelatedUsersCalculator.new,options)
-    options[:without] ||= []
-    options[:without] << created_by
-    calculator.related_users(facts,options)
-  end
-  
-  def to_hash
-    return {:id => id, 
-            :title => title, 
-            :description => description,
-            :created_by => created_by,
-            :discontinued => discontinued}
-  end
-  
-end
+require File.join(File.dirname(__FILE__), "channel", "generated_channel")
+require File.join(File.dirname(__FILE__), "channel", "created_facts")
+require File.join(File.dirname(__FILE__), "channel", "user_stream")
 
 class Channel < OurOhm
+  
   include ActivitySubject
-  include ChannelFunctionality
   
   attribute :title
   index :title
   attribute :description
 
   reference :created_by, GraphUser
+  alias :graph_user :created_by
 
   private
   set :contained_channels, Channel
@@ -67,15 +54,18 @@ class Channel < OurOhm
     save
   end
 
-  def facts(opts={})
+  def facts
     return [] if new?
-    mark_as_read if opts[:mark_as_read]
+
     sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
   end
   
   def validate
+    execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
+    super
     assert_present :title
     assert_present :created_by
+    execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
   def add_fact(fact)
@@ -116,6 +106,19 @@ class Channel < OurOhm
     c
   end
 
+  def related_users(calculator=RelatedUsersCalculator.new,options)
+    options[:without] ||= []
+    options[:without] << created_by
+    calculator.related_users(facts,options)
+  end
+  
+  def to_hash
+    return {:id => id, 
+            :title => title, 
+            :description => description,
+            :created_by => created_by,
+            :discontinued => discontinued}
+  end
 
   def add_channel(channel)
     _add_channel(channel)
@@ -129,61 +132,11 @@ class Channel < OurOhm
   end
 
   def self.recalculate_all
-    if all
-      all.each do |ch|
-        ch.calculate_facts
-      end
+    all.andand.each do |ch|
+      ch.calculate_facts
     end
   end
 
 
-
-end
-
-class UserStream
-  include ChannelFunctionality
-  
-  attr_accessor :id, :created_by, :title, :description
-  
-  def initialize(graph_user)
-    @title = "All"
-    @id = "all"
-    @description = "All facts"
-    @created_by = graph_user
-    @facts = self.get_facts #TODO define good as_json, but a bit to much work to do neatly before demo 18/10
-  end
-  
-  def get_facts
-    int_facts = @created_by.real_created_facts
-    int_facts = @created_by.internal_channels.map{|ch| ch.facts}.reduce(int_facts,:|)
-    int_facts.delete_if{ |f| Fact.invalid(f) }.reverse
-  end
-
-  
-  alias :graph_user :created_by
-
-  def include?(obj)
-    facts.include?(obj)
-  end
-
-  def facts(opts={})
-    return @facts
-  end
-  
-  def unread_count
-    0
-  end
-
-  def discontinued
-    false
-  end
-  
-  def editable?
-    false
-  end
-  
-  def followable?
-    false
-  end
 
 end

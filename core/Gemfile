@@ -94,7 +94,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 # imagemagick
-gem 'rmagick'
+gem 'rmagick', :require => 'RMagick'
 
 # Avatars
 gem "mongoid-paperclip", :require => "mongoid_paperclip"

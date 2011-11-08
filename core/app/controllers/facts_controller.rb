@@ -19,7 +19,7 @@ class FactsController < ApplicationController
       :bubble,
       :opinion,
       :evidence_search,
-      :evidenced_search]
+      ]
   before_filter :potential_evidence, 
     :only => [
       :show,
@@ -103,14 +103,9 @@ class FactsController < ApplicationController
 
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
-  def add_supporting_evidenced(); add_evidenced_internal(:supporting) end
-  def add_weakening_evidenced() ; add_evidenced_internal(:weakening)  end
 
   def add_evidence_internal(type)
     add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
-  end
-  def add_evidenced_internal(type)
-    add_evidence_internal_internal(type,"add_evidenced_to_factlink", "adding_evidence_not_possible")
   end
 
   def add_evidence_internal_internal(type,succes,fail)
@@ -177,24 +172,15 @@ class FactsController < ApplicationController
     @fact = Basefact[params[:fact_id]] 
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
+    render :json => [@fact]
   end
 
   def remove_opinions
     @fact = Basefact[params[:fact_id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [[@fact],@fact.evidenced_facts].flat_map {|x| x }
+    render :json => [@fact]
   end
-
-  def evidenced_search
-    potential_evidenced
-    internal_search(@potential_evidenced.to_a)
-    respond_to do |format|
-      format.js
-    end
-  end
-
 
   def evidence_search
     potential_evidence
@@ -211,7 +197,7 @@ class FactsController < ApplicationController
     @row_count = 4
     row_count = @row_count
 
-    solr_result = FactData.search() do
+    solr_result = Sunspot.search FactData do
       keywords params[:s] || ""
       
       order_by sort_column, sort_direction
@@ -220,9 +206,9 @@ class FactsController < ApplicationController
       # Exclude the Facts that are already supporting AND weakening
       with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
-
+    
     @fact_data = solr_result.results
-
+    
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
   end
@@ -246,19 +232,6 @@ class FactsController < ApplicationController
     intersecting_ids << @fact.data_id
     
     @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
-  end    
-
-  def potential_evidenced # private
-    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
-    # and filtering. Can't use the object ID, so using a workaround with :data_id's
-    # Very nasty :/
-    supporting_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :supporting).all.map {|fr| fr.fact.data_id}
-    weakening_fact_ids = FactRelation.find(:from_fact_id => @fact.id, :type => :weakening).all.map {|fr| fr.fact.data_id}
-    
-    intersecting_ids = supporting_fact_ids & weakening_fact_ids
-    intersecting_ids << @fact.data_id
-    
-    @potential_evidenced = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
   end    
 
 

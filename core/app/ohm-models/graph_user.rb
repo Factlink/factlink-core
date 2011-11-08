@@ -18,13 +18,24 @@ class GraphUser < OurOhm
   
   define_memoized_method :channels do
     channels = self.internal_channels.to_a
-    
+    channels.delete(self.stream)
     channels.unshift( self.stream )
   end
 
-  def stream
-    UserStream.new(self)
+  reference :stream, Channel::UserStream
+  def create_stream
+    self.stream = Channel::UserStream.create(:created_by => self)
+    save
   end
+  after :create, :create_stream
+
+  reference :created_facts_channel, Channel::CreatedFacts
+  def create_created_facts_channel
+    self.created_facts_channel = Channel::CreatedFacts.create(:created_by => self)
+    save
+  end
+  after :create, :create_created_facts_channel
+
 
   collection :activities, Activity, :user
   

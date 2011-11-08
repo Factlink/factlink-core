@@ -55,12 +55,22 @@ namespace :deploy do
     run "chmod 777 #{current_path}/public/images/wheel"
     run "cat /root/pirate.ascii"
   end
+
+  task :start_recalculate do
+    run "sh #{current_path}/bin/server/start_recalculate.sh"
+  end
+  task :stop_recalculate do
+    run "sh #{current_path}/bin/server/stop_recalculate.sh"
+  end
 end
 
 before "bundle:install", "deploy:aptget"
 
-before 'deploy:all', 'deploy'
-after 'deploy:all', 'deploy:restart'
+before 'deploy',        'deploy:stop_recalculate'
+before 'deploy:all',    'deploy'
 
-after "deploy", "deploy:migrate"
-before "deploy:restart", "deploy:set_wheel_permissions" 
+after 'deploy:all',     'deploy:restart'
+before 'deploy:restart', 'deploy:set_wheel_permissions'
+
+after 'deploy',         'deploy:migrate'
+after 'deploy:migrate', 'deploy:start_recalculate'
