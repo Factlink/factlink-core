@@ -1,4 +1,7 @@
+require File.join(File.dirname(__FILE__), "graph_user", "channel_owner")
+
 class GraphUser < OurOhm
+  include ChannelOwner
   def graph_user
     return self
   end
