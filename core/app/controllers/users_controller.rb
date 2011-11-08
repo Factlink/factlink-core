@@ -26,5 +26,4 @@ class UsersController < ApplicationController
   def load_user
     @user = User.first(:conditions => { :username => params[:username] })
   end
-  
 end
