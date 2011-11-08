@@ -16,7 +16,12 @@ module ChannelFunctionality
   
 end
 
+require File.join(File.dirname(__FILE__), "channel", "generated_channel")
+require File.join(File.dirname(__FILE__), "channel", "created_facts")
+require File.join(File.dirname(__FILE__), "channel", "user_stream")
+
 class Channel < OurOhm
+  
   include ActivitySubject
   include ChannelFunctionality
   
