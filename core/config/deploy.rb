@@ -57,7 +57,7 @@ namespace :deploy do
   end
 
   task :start_recalculate do
-    run "sh #{current_path}/bin/scripts/stop_recalculate.sh"
+    run "sh #{current_path}/bin/scripts/start_recalculate.sh"
   end
   task :stop_recalculate do
     run "sh #{current_path}/bin/scripts/stop_recalculate.sh"
