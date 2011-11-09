@@ -23,11 +23,10 @@ window.AppView = Backbone.View.extend({
   setupChannelReloading: function(){
     var args = arguments;
     setTimeout(function(){
-      console.log("I am updating.");
       Channels.fetch({
         success: args.callee
       });
-    }, 500);
+    }, 7000);
   },
   
   addOneChannel: function(channel) {
