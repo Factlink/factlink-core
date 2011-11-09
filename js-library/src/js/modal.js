@@ -36,8 +36,11 @@
       iFrame.show();
     },
     highlightNewFactlink: function(fact, id, opinions) {
+      var fct = Factlink.selectRanges(Factlink.search(fact), id, opinions);
+      
+      $.merge(Factlink.Facts, fct);
       //@TODO: Authority & opinions need to be added back in
-      return Factlink.selectRanges(Factlink.search(fact), id, opinions);
+      return fct;
     },
     stopHighlightingFactlink: function(id) {
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
