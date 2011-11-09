@@ -11,7 +11,7 @@ var Workspace = Backbone.Router.extend({
   },
   
   getChannelFacts: function(username, channel_id) {
-    this.view.showFactsForChannel(username, channel_id);
+    this.view.openChannel(username, channel_id);
   },
   
   getUsername: function() {

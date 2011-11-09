@@ -67,7 +67,7 @@ window.AppView = Backbone.View.extend({
     }
   },
   
-  showFactsForChannel: function(username, channel_id) {
+  openChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
     var self = this;
     
