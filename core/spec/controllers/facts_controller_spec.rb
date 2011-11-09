@@ -38,8 +38,6 @@ describe FactsController do
       
       get :show, :id => @fact.id
       
-      puts response.body
-      
       response.body.should_not match(/<xss>/)
     end
   end
