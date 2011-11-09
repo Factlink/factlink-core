@@ -14,7 +14,7 @@ module Channels
     end
   
     def new_facts
-      (self[:channel].unread_count != 0) 
+      (self[:channel].unread_count != 0) #&& self[:channel].created_by.user == current_user
     end
 
     def id
