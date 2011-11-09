@@ -26,8 +26,9 @@ describe Channel::UserStream do
   describe "after creating a fact" do
     before do
       @f1 = create(:fact, :created_by => u1)
+      Channel.recalculate_all
     end
-    pending { subject.facts.to_a.should =~ [@f1]}
+    it { subject.facts.to_a.should =~ [@f1]}
   end
 
   describe "after adding channel with one fact" do
@@ -58,8 +59,9 @@ describe Channel::UserStream do
     describe "after creating a fact" do
       before do
         @f3 = create(:fact, :created_by => u1)
+        Channel.recalculate_all
       end
-      pending { subject.facts.to_a.should == [@f3,@f2,@f1]}
+      it { subject.facts.to_a.should == [@f3,@f2,@f1]}
     end
     describe "after creating a factrelation" do
       before do
