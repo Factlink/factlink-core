@@ -53,19 +53,19 @@ describe Channel::UserStream do
       @ch2.add_fact(@f2)
       Channel.recalculate_all
     end
-    it { subject.facts.to_a.should =~ [@f1,@f2]}
+    it { subject.facts.to_a.should == [@f2,@f1]}
     its(:unread_count) {should == 0 }
     describe "after creating a fact" do
       before do
         @f3 = create(:fact, :created_by => u1)
       end
-      pending { subject.facts.to_a.should =~ [@f1,@f2,@f3]}
+      pending { subject.facts.to_a.should == [@f3,@f2,@f1]}
     end
     describe "after creating a factrelation" do
       before do
         @fr = FactRelation.get_or_create(@f1,:supporting,@f2,u1)
       end
-      it { subject.facts.to_a.should =~ [@f1,@f2]}
+      it { subject.facts.to_a.should == [@f2,@f1]}
       its(:unread_count) {should == 0 }
     end
     

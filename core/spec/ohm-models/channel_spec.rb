@@ -72,15 +72,15 @@ describe Channel do
            subject.add_fact(f2)
            Channel.recalculate_all
          end
-        it {subject.facts.to_a.should =~ [f1,f2]}
-        it {@fork.facts.to_a.should =~ [f1,f2]}
+        it {subject.facts.to_a.should == [f2,f1]}
+        it {@fork.facts.to_a.should == [f2,f1]}
       end
       describe "after adding another fact to the fork" do
         before do
            @fork.add_fact(f2)
          end
-        it {subject.facts.to_a.should =~ [f1]}
-        it {@fork.facts.to_a.should =~ [f1,f2]}
+        it {subject.facts.to_a.should == [f1]}
+        it {@fork.facts.to_a.should == [f2,f1]}
       end
     end
     describe "forking the channel yourself" do
