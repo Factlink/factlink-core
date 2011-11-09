@@ -6,7 +6,7 @@ window.AppView = Backbone.View.extend({
   
   initialize: function() {
     Channels.bind('add',   this.addOneChannel, this);
-    Channels.bind('reset', this.addAllChannels, this);
+    Channels.bind('reset', this.resetChannels, this);
     Channels.bind('all',   this.render, this);
     
     var current_channel_id = $('#channel').data('channel-id');
@@ -16,6 +16,18 @@ window.AppView = Backbone.View.extend({
       // stores id as string (=== comparison)
       this.setActiveChannel(current_channel_id.toString());
     }
+    
+    this.setupChannelReloading();
+  },
+
+  setupChannelReloading: function(){
+    var args = arguments;
+    setTimeout(function(){
+      console.log("I am updating.");
+      Channels.fetch({
+        success: args.callee
+      });
+    }, 500);
   },
   
   addOneChannel: function(channel) {
@@ -30,8 +42,11 @@ window.AppView = Backbone.View.extend({
     this.$('#channel-listing').append(view.render().el);
   },
   
-  addAllChannels: function() {
+  resetChannels: function() {
     var self = this;
+    _.each(views,function(view) {
+      view.remove();
+    });
     Channels.each(function(channel) {
       self.addOneChannel.call(self, channel);
     });
