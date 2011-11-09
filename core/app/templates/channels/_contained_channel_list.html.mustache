@@ -1,5 +1,5 @@
 <ul class="contained-channel-list">
-  {{#channels}}
-    <li>{{title}}</li>
-  {{/channels}}
+  {{#channels_with_link}}
+    <li><a href="{{link}}">{{title}}</a> {{username}} {{user_avatar}} {{user_link}}</li>
+  {{/channels_with_link}}
 </ul>
