@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe FactsController do
-
+  include Devise::TestHelpers
+  render_views
+  
   # TODO factor out, because each controller needs this
   def authenticate_user!
     @user = FactoryGirl.create(:user)
@@ -20,6 +22,25 @@ describe FactsController do
       @fact = FactoryGirl.create(:fact)
       get :show, :id => @fact.id
       response.should be_succes
+    end
+    
+    it "should escape html in fields" do
+      @site = FactoryGirl.create(:site)
+      @user = FactoryGirl.create(:user)
+      
+      @fact = Fact.create(
+        :created_by => @user.graph_user,
+        :site => @site
+      )
+      @fact.data.displaystring = "baas<xss> of niet"
+      @fact.data.title = "baas<xss> of niet"
+      @fact.data.save
+      
+      get :show, :id => @fact.id
+      
+      puts response.body
+      
+      response.body.should_not match(/<xss>/)
     end
   end
 
