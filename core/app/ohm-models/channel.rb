@@ -57,7 +57,7 @@ class Channel < OurOhm
   def facts
     return [] if new?
 
-    sorted_cached_facts.all.delete_if{ |f| Fact.invalid(f) }
+    sorted_cached_facts.all.reverse.delete_if{ |f| Fact.invalid(f) } # TODO the reverse is inefficient, fix me somewhere in redis
   end
   
   def validate

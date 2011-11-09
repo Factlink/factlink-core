@@ -4,7 +4,8 @@ class Blacklist
       #@TODO: These regexes are just temporary, please fix a nice regex which will match all possible URLS on the given site (also subdomains & https)
       /^http(s)?:\/\/([^\/]+\.)?facebook\.com/,
       /^http(s)?:\/\/([^\/]+\.)?factlink\.com/,
-      /^http(s)?:\/\/([^\/]+\.)?twitter\.com/,
+      /^http(s)?:\/\/([^\/]+\.)?google\.com/,
+      /^http(s)?:\/\/([^\/]+\.)?gmail\.com/,
     ]
   end
   
