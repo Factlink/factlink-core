@@ -44,14 +44,6 @@ describe FactsController do
     end
   end
 
-  describe :new do
-    it "should return a new Fact object" do
-      authenticate_user!
-      get :new
-      assigns[:fact].should be_a_new(Fact)
-    end
-  end
-
   describe :edit do
     it "should edit the given fact" do
       authenticate_user!

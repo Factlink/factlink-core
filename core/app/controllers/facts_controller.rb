@@ -46,10 +46,6 @@ class FactsController < ApplicationController
     end
   end
 
-  def new
-    @fact = Fact.new
-  end
-
   def edit
   end
 
