@@ -21,13 +21,18 @@ module Channels
       self[:channel].id
     end
   
+    def created_by_id
+      self[:channel].created_by_id
+    end
+  
     def to_hash
       return {
                  :id => id,
                :link => link,
               :title => title,
-            :new_facts => new_facts,
+          :new_facts => new_facts,
         :nr_of_facts => nr_of_facts,
+         :created_by_id => created_by_id,
       }
     end
   end
