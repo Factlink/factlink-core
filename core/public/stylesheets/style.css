@@ -772,12 +772,16 @@ form .action-wrapper span {
 #container #channel-listing li a {
   display: block;
   border-radius: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding: 6px;
   margin: 4px 0;
   color: #222;
   position: relative;
+}
+#container #channel-listing li a span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 116px;
+  display: inline-block;
 }
 #container #channel-listing li a:hover {
   background-color: #fff;

@@ -182,6 +182,7 @@
             var activeTab = $(this).find("a").attr("class"); 
             $t.find(".tab_content[rel='" + activeTab + "']").show();
             $t.find("div.add-action[rel='" + activeTab + "']").show();
+
             if($t.find(".evidence-container").is(":hidden")) { 
               $t.find(".evidence-container").slideDown();
               $(this).addClass("active"); 
@@ -195,7 +196,7 @@
                 $(this).addClass("active");
               }
             }
-              return false;
+            return false;
            });
          }
         function initialize($t) {
@@ -222,7 +223,6 @@
         $t.find("article.fact").each(function() {
           var fact = init_fact(this, $t);
           $t.data("facts")[fact.attr("data-fact-id")] = fact;
-
         });
 
         // Prevents boxes from dissapearing on mouse over
