@@ -15,6 +15,12 @@ class GraphUser < OurOhm
   define_memoized_method :internal_channels do
     Channel.find(:created_by_id => self.id).except(:discontinued => 'true').sort
   end
+
+  def channel_manager
+    @channel_manager || ChannelManager.new(self)
+  end
+  delegate :editable_channel_hash_for, :to => :channel_manager
+
   
   define_memoized_method :channels do
     channels = self.internal_channels.to_a
@@ -35,6 +41,9 @@ class GraphUser < OurOhm
     save
   end
   after :create, :create_stream
+
+
+
 
   reference :created_facts_channel, Channel::CreatedFacts
   def create_created_facts_channel
