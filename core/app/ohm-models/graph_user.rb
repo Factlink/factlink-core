@@ -19,7 +19,8 @@ class GraphUser < OurOhm
   def channel_manager
     @channel_manager || ChannelManager.new(self)
   end
-  delegate :editable_channels_for, :to => :channel_manager
+  delegate :editable_channels_for, 
+         :to => :channel_manager
 
   
   define_memoized_method :channels do
