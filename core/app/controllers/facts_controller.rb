@@ -46,10 +46,6 @@ class FactsController < ApplicationController
     end
   end
 
-  def new
-    @fact = Fact.new
-  end
-
   def edit
   end
 
@@ -80,17 +76,7 @@ class FactsController < ApplicationController
   end
   
   def get_channel_listing
-    @channels = current_user.graph_user.channels.to_a
-    
-    @channels.reject! { |channel| ! channel.editable? }
-    
-    @channels.map! do |channel|
-      channel.to_hash.merge({
-        :created_by => channel.created_by.user.username,
-        :checked => channel.include?(@fact)
-      })
-    end
-    
+    @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
     end
@@ -194,7 +180,7 @@ class FactsController < ApplicationController
   def internal_search(eligible_facts)
     @page = params[:page]
     page = @page
-    @row_count = 4
+    @row_count = 20
     row_count = @row_count
 
     solr_result = Sunspot.search FactData do

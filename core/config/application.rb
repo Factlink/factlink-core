@@ -16,7 +16,6 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 if ['test', 'development'].include? Rails.env
   require 'metric_fu'
-  
   require 'simplecov'
   require 'simplecov-rcov-text'
   
@@ -37,7 +36,7 @@ if ['test', 'development'].include? Rails.env
     # config.metrics -= [:stats]
     # config.metrics -= [:rails_best_practices]
     # config.metrics -= [:rcov] 
-    # config.rcov[:external] = 'coverage/rcov/rcov.txt'
+    config.rcov[:external] = 'coverage/rcov/rcov.txt'
     
     # Flog does not work with metric_fu, don't use it:
     config.metrics -= [:flog]
@@ -101,9 +100,7 @@ module FactlinkUI
     Rails.application.config.generators.template_engine :mustache
 
 
-    require "#{config.root}/app/views/facts/_fact_wheel.rb"
     require "#{config.root}/app/views/facts/_fact_bubble.rb"
-    require "#{config.root}/app/views/facts/_channel_listing.rb"
     require "#{config.root}/app/views/channels/_single_menu_item.rb"
     require "#{config.root}/app/views/channels/_contained_channel_list.rb"
     

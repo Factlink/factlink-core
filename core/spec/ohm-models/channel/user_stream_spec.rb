@@ -13,6 +13,7 @@ describe Channel::UserStream do
     its(:title) {should == "All" }
     its(:description) {should == "All facts" }
     its(:unread_count) {should == 0 }
+    its(:contained_channels) {should == [u1.created_facts_channel]}
   end  
 
   describe "after adding one empty channel" do

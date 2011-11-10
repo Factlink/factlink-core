@@ -7,21 +7,18 @@ FactlinkUI::Application.routes.draw do
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
-  ##########
-  # Resources
-
-
   ################
   # Facts Controller
   ################
-
-  resources :facts do
+  resources :facts, :except => :new do
     member do
       # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       get "/channels" => "facts#get_channel_listing"
     end
+    
+    resources :fact_relations
   end 
   
 
