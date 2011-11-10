@@ -8,13 +8,6 @@ module HomeHelper
            :locals => { :activity => activity }
   end
   
-  
-  deprecate
-  def activity_li(activity)
-    render :partial => "home/snippets/activity_li",
-            :locals => { :activity => activity }
-  end
-
   def image_for_activity(activity)
         
     case activity.action
