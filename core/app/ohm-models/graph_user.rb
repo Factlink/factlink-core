@@ -111,10 +111,6 @@ class GraphUser < OurOhm
     facts_he(:believes) | facts_he(:doubts) | facts_he(:disbelieves)
   end
 
-  def real_facts
-    facts.find_all { |fact| fact.class == Fact }
-  end
-
   def real_created_facts
     created_facts.find_all { |fact| fact.class == Fact }
   end
