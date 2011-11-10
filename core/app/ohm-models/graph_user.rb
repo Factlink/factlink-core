@@ -31,7 +31,6 @@ class GraphUser < OurOhm
     channels.delete(self.stream)
     channels.unshift(self.stream )
 
-
     channels
   end
 
