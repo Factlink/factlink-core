@@ -118,7 +118,7 @@ class FactsController < ApplicationController
   def destroy
     if current_user.graph_user == @fact.created_by
       @fact_id = @fact.id
-      @fact.delete_cascading
+      @fact.delete
     end
   end
 

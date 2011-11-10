@@ -48,7 +48,7 @@ describe FactRelation do
     @fact1 =FactoryGirl.create(:fact)
     @fact2 =FactoryGirl.create(:fact)
     @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,@users[0])
-    @fact1.delete_cascading
+    @fact1.delete
     @fact2.evidence(:supporting).size.should == 0
   end
   

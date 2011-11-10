@@ -133,6 +133,4 @@ class Channel < OurOhm
     end
   end
 
-
-
 end
