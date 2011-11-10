@@ -125,11 +125,8 @@ Factlink.Balloon = function() {
     
     ul.find('li.fl-loading').show().siblings().remove();
     
-    $.ajax({
-      url: FactlinkConfig.api + '/facts/' + id + '/channels.json',
+    Factlink.get('/facts/' + id + '/channels.json',{
       dataType: "jsonp",
-      crossDomain: true,
-      type: "GET",
       jsonp: "callback",
       success: function(data) {
         ul.find('li.fl-loading').hide();
