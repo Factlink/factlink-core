@@ -42,12 +42,6 @@ describe ChannelsController do
   
 
   describe "#show" do
-    it "all should be succesful" do
-      authenticate_user!(user)
-      get :show, :username => user.username, :id => 'all'
-      response.should be_succes
-    end
-
     it "a channel should be succesful" do
       authenticate_user!(user)
       get :show, :username => user.username, :id => ch1.id

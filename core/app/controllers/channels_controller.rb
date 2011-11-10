@@ -175,16 +175,8 @@ class ChannelsController < ApplicationController
   
   
   def load_channel
-    if params[:id] == "all"
-      @channel = @user.graph_user.stream
-    else
-      @channel = Channel[params[:id]]
-    end
-    
-    @channel || raise(ActionController::RoutingError.new("Channel not found"))
-    
-    unless @user
-      @user = @channel.created_by.user if @channel
-    end
+    @channel = Channel[params[:id]]
+    @channel || raise_404("Channel not found")
+    @user ||= @channel.created_by.user
   end
 end

@@ -1,28 +1,6 @@
 module FactsHelper
   include Canivete::Deprecate
 
-  # Sorting results on search page
-  def sortable(column, title = nil)
-    title ||= column.titleize
-    css_class = column == sort_column ? "current #{sort_direction}" : nil
-    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-
-    link_to title, {  :s => params[:s], 
-                      :sort => column, 
-                      :direction => direction
-                    }, 
-                    { :class => css_class }
-  end
-
-
-  def editable_title(fact)
-    if user_signed_in? and (fact.created_by == current_user.graph_user)
-      return " edit"
-    else
-      return ""
-    end 
-  end
-
   def evidence_buttons_locals(fact_relation, user)
     locals = {  :fact_relation => fact_relation,}
     locals[:negative_active] = ''
