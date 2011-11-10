@@ -36,7 +36,7 @@ if ['test', 'development'].include? Rails.env
     # config.metrics -= [:stats]
     # config.metrics -= [:rails_best_practices]
     # config.metrics -= [:rcov] 
-    # config.rcov[:external] = 'coverage/rcov/rcov.txt'
+    config.rcov[:external] = 'coverage/rcov/rcov.txt'
     
     # Flog does not work with metric_fu, don't use it:
     config.metrics -= [:flog]
