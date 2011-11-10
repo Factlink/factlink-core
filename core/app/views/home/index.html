@@ -3,7 +3,7 @@
 	
 	<% if user_signed_in? %>
 		<% unless current_user.graph_user.channels.count > 0 %>
-		<p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
+		  <p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
 		<% end %>	
 	<% end %>
 
