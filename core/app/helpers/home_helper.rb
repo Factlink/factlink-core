@@ -2,10 +2,6 @@ module HomeHelper
   include Canivete::Deprecate
 
   deprecate
-  def close_notifications_button
-    render :partial => "home/snippets/close_notification_button"
-  end
-
   deprecate
   def show_activity(activity)
     render :partial => "home/snippets/show_activity",
