@@ -172,70 +172,70 @@
 
         function switchTabAction(active) {
           console.log('switchTabAction')
-          $t.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
-          $t.find(".tab_content[rel=" + active + "] .evidence").toggle();
-          var action = $t.find(".add-action[rel=" + active + "] > a");
+          $fact.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
+          $fact.find(".tab_content[rel=" + active + "] .evidence").toggle();
+          var action = $fact.find(".add-action[rel=" + active + "] > a");
           action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
         }
 
-        function addEventHandlersDoAdd($t) {
-          $t.find("a.do-add").live("click", function() {
-            $t.find('.evidence-list').hide();
-            $t.find('.evidence-search-results').show();
+        function addEventHandlersDoAdd($fact) {
+          $fact.find("a.do-add").live("click", function() {
+            $fact.find('.evidence-list').hide();
+            $fact.find('.evidence-search-results').show();
             return false;
           });
         }
 
-        function addEventHandlersReturnFromAdd($t) {
-          $t.find("a.return-from-add").bind("click", function() {
-            $t.find('.evidence-list').show();
-            $t.find('.evidence-search-results').hide();
+        function addEventHandlersReturnFromAdd($fact) {
+          $fact.find("a.return-from-add").bind("click", function() {
+            $fact.find('.evidence-list').show();
+            $fact.find('.evidence-search-results').hide();
             return false;
           });
         }
 
-        function addEventHandlersReturnFromEvidenceAdd($t) {
-          $t.find("a.close-evidence-add").bind("click", function() {
-            $t.find('.page').hide();
-            $t.find('.evidence-search-results').show();
+        function addEventHandlersReturnFromEvidenceAdd($fact) {
+          $fact.find("a.close-evidence-add").bind("click", function() {
+            $fact.find('.page').hide();
+            $fact.find('.evidence-search-results').show();
             return false;
           });
 
         }
 
 
-        function addEventHandlersSubmitButton($t) {
+        function addEventHandlersSubmitButton($fact) {
 
-          $t.find('button.supporting').bind('click', function() {
-            submitEvidence($t, "supporting");
+          $fact.find('button.supporting').bind('click', function() {
+            submitEvidence($fact, "supporting");
           });
 
-          $t.find('button.weakening').bind('click', function() {
-            submitEvidence($t, "weakening");
+          $fact.find('button.weakening').bind('click', function() {
+            submitEvidence($fact, "weakening");
           });
         }
 
-        function addEventHandlersTabs($t) {
-          $t.find("ul.evidence li").click(function() {
+        function addEventHandlersTabs($fact) {
+          $fact.find("ul.evidence li").click(function() {
 
-            if ($t.find(".dropdown-container").is(":hidden")) {
-              $t.find(".dropdown-container").slideDown();
+            if ($fact.find(".dropdown-container").is(":hidden")) {
+              $fact.find(".dropdown-container").slideDown();
 
               // AJAX call to load the FactRelations
-              if (!$t.data('loaded-evidence')) {
-                getEvidence($t);
-                $t.data('loaded-evidence', true);
+              if (!$fact.data('loaded-evidence')) {
+                getEvidence($fact);
+                $fact.data('loaded-evidence', true);
               }
 
               $(this).addClass("active");
 
             } else {
               if ($(this).hasClass("active")) {
-                $t.find(".dropdown-container").slideUp(function() {
-                  $t.find("ul.evidence li").removeClass("active");
+                $fact.find(".dropdown-container").slideUp(function() {
+                  $fact.find("ul.evidence li").removeClass("active");
                 });
               } else {
-                $t.find("ul.evidence li").removeClass("active");
+                $fact.find("ul.evidence li").removeClass("active");
                 $(this).addClass("active");
               }
             }
@@ -243,42 +243,42 @@
           });
         }
 
-        function initialize($t) { /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
+        function initialize($fact) { /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
           //On Click Event
-          addEventHandlersTabs($t);
-          addEventHandlersDoAdd($t);
-          addEventHandlersReturnFromAdd($t);
-          addEventHandlersReturnFromEvidenceAdd($t);
+          addEventHandlersTabs($fact);
+          addEventHandlersDoAdd($fact);
+          addEventHandlersReturnFromAdd($fact);
+          addEventHandlersReturnFromEvidenceAdd($fact);
 
-          addEventHandlersSubmitButton($t);
+          addEventHandlersSubmitButton($fact);
 
-          $t.data('loaded-evidence', false);
+          $fact.data('loaded-evidence', false);
 
-          $t.bind("factlink:switchTabAction", function(e, active) {
+          $fact.bind("factlink:switchTabAction", function(e, active) {
             switchTabAction(active);
           });
           // Evidence buttons
-          $t.find(".existing_evidence a").live("ajax:complete", function(et, e) {
+          $fact.find(".existing_evidence a").live("ajax:complete", function(et, e) {
             $(this).closest('ul').children().find('a').removeClass("active");
             $(this).addClass('active');
           });
-          $t.data("initialized", true);
+          $fact.data("initialized", true);
         } /*start of method*/
-        var $t = $(this);
-        $t.data("facts", {});
-        if (!$t.data("initialized")) {
-          initialize($t);
+        var $fact = $(this);
+        $fact.data("facts", {});
+        if (!$fact.data("initialized")) {
+          initialize($fact);
         }
-        $t.find("article.fact").each(function() {
-          var fact = init_fact(this, $t);
-          $t.data("facts")[fact.attr("data-fact-id")] = fact;
+        $fact.find("article.fact").each(function() {
+          var fact = init_fact(this, $fact);
+          $fact.data("facts")[fact.attr("data-fact-id")] = fact;
         });
 
         // Prevents boxes from dissapearing on mouse over
-        $t.find(".float-box").mouseover(function() {
+        $fact.find(".float-box").mouseover(function() {
           stop_fade($(this));
         });
-        $t.find(".float-box").mouseout(function() {
+        $fact.find(".float-box").mouseout(function() {
           if (!$(this).find("input#channel_title").is(":focus")) {
             $(this).delay(500).fadeOut("fast");
           }
@@ -287,10 +287,10 @@
     },
     // Update
     update: function(data) {
-      var $t = $(this).data("container") || $(this);
-      if ($t.data("initialized")) {
+      var $fact = $(this).data("container") || $(this);
+      if ($fact.data("initialized")) {
         $(data).each(function() {
-          var fact = $t.data("facts")[this.id];
+          var fact = $fact.data("facts")[this.id];
           if (fact && $(fact).data("initialized")) {
             $(fact).data("update")(this.score_dict_as_percentage); // Update the facts
           }
@@ -364,8 +364,8 @@
     $(el).data(attr, data);
   }
 
-  function getEvidence($t) {
-    var id = $t.attr("data-fact-id");
+  function getEvidence($fact) {
+    var id = $fact.attr("data-fact-id");
 
     $.ajax({
       url: '/facts/' + id + '/fact_relations',
@@ -449,48 +449,48 @@
 
 
   function init_fact(fact, container) {
-    var $t = $(fact);
+    var $fact = $(fact);
     var $c = $(container);
-    if (!$t.data("initialized")) {
-      $t.find('.edit').editable('/factlink/update_title', {
+    if (!$fact.data("initialized")) {
+      $fact.find('.edit').editable('/factlink/update_title', {
         indicator: 'Saving...',
         tooltip: 'You can edit this title to place the fact in the correct context.'
       });
 
-      $t.data("container", container);
-      $t.data("wheel", new Wheel(fact));
-      $t.data("wheel").init($t.find(".wheel").get(0));
+      $fact.data("container", container);
+      $fact.data("wheel", new Wheel(fact));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
 
       bindEvidencePrepare($c);
       bindInstantSearch($c);
 
       // Channels are in the container
-      $t.find(".add-to-channel").hoverIntent(function(e) {
-        var channelList = $t.find(".channel-listing");
+      $fact.find(".add-to-channel").hoverIntent(function(e) {
+        var channelList = $fact.find(".channel-listing");
 
         $(channelList).fadeIn("fast");
 
       }, function() {
-        $t.find(".channel-listing").delay(600).fadeOut("fast");
+        $fact.find(".channel-listing").delay(600).fadeOut("fast");
       }).bind('click', function(e) {
         e.preventDefault();
       });
 
-      $t.find(".opinion-box").find("img").tipsy({
+      $fact.find(".opinion-box").find("img").tipsy({
         gravity: 's'
       });
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
-      $t.data("update", function(data) {
-        var fact = $t;
-        fact.data("wheel").opinions.each(function() {
+      $fact.data("update", function(data) {
+        // var fact = $fact;
+        $fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);
         });
-        fact.find(".authority span").text(data.authority);
-        fact.data("wheel").update();
+        $fact.find(".authority span").text(data.authority);
+        $fact.data("wheel").update();
       });
 
-      $t.data("initialized", true);
+      $fact.data("initialized", true);
     }
-    return $t;
+    return $fact;
   }
 })(jQuery);
