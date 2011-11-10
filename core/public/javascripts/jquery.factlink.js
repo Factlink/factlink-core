@@ -206,7 +206,7 @@
           });
         }
         
-        function addEventHandlersTabs($t){          
+        function addEventHandlersTabs($t){
           $t.find("ul.evidence li").click(function() {
             $t.find(".tab_content, div.add-action").hide(); 
             var activeTab = $(this).find("a").attr("class"); 
