@@ -765,6 +765,46 @@ form .action-wrapper span {
   position: relative;
   z-index: 100;
 }
+#container #main-wrapper header {
+  padding-bottom: 6px;
+  border-bottom: 1px solid #d8d8d8;
+}
+#container #main-wrapper header h1 {
+  margin-bottom: 6px;
+}
+#container #main-wrapper header p {
+  margin: 0 0 6px 0;
+}
+#container #main-wrapper header ul.contained-channel-list li.contained-channel {
+  width: 150px;
+  display: inline-block;
+  margin: 3px;
+  border: 1px solid transparent;
+  box-shadow: 0px 0px 3px #a8a8a8;
+  padding: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+#container #main-wrapper header ul.contained-channel-list li.contained-channel a {
+  font-size: 13px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+#container #main-wrapper header ul.contained-channel-list li.contained-channel a:hover {
+  text-decoration: none;
+  color: #333;
+}
+#container #main-wrapper header ul.contained-channel-list li.contained-channel:hover {
+  box-shadow: 0px 0px 3px #1d8cc8;
+  border: 1px solid #1d8cc8;
+  background-color: #fbfbfb;
+}
 #container #channel-listing li a {
   display: block;
   border-radius: 2px;

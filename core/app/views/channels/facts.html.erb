@@ -14,7 +14,7 @@
     	<p>
     	  <%= @channel.description %>
     	</p>
-    	<%#  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
+    	<%=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
     </header>
 
     <% unless @channel.facts.count > 0 %>

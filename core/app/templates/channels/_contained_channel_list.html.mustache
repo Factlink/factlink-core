@@ -1,8 +1,7 @@
 <ul class="contained-channel-list">
   {{#channels_with_link}}
-  <li>
-    <a href="{{link}}">{{title}}</a>
-    {{username}} {{user_avatar}} {{user_link}}
+  <li class="contained-channel">
+    <a href="{{link}}"><img src="{{user_avatar}}" alt="{{username}}" title="{{username}}" height="24" width="24"> {{title}} </a>
   </li>
   {{/channels_with_link}}
 </ul>
