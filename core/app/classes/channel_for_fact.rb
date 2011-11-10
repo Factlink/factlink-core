@@ -7,13 +7,19 @@ class ChannelForFact
   
   def to_hash
     @channel.to_hash.merge({
-      :created_by => @channel.created_by.user.username,
+      :created_by => created_by,
       :checked => @channel.include?(@fact)
     })
   end
 
-  private
-     def method_missing(method, *args, &block)
-       @channel.send(method, *args, &block)
-     end  
+  delegate :id, :title, :to => :@channel
+
+  def created_by
+    @channel.created_by.user.username
+  end
+
+  def checked_attribute
+    include?(@fact) ? 'checked="checked"' : ''
+  end
+
 end

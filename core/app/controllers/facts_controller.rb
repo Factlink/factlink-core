@@ -76,7 +76,7 @@ class FactsController < ApplicationController
   end
   
   def get_channel_listing
-    @channels = current_user.graph_user.editable_channel_hash_for(@fact)
+    @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
     end
