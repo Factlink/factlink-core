@@ -576,9 +576,6 @@ ul#results-listing div.user-block .side .type {
   display: block;
   padding: 4px 0px;
 }
-.fact-block article.fact .channel-listing li:first-child {
-  display: none;
-}
 .fact-block article.fact .channel-listing .add-channel {
   border-top: solid 1px #ddd;
   padding: 8px;

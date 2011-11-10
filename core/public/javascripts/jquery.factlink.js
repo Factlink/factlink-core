@@ -455,7 +455,7 @@
       bindInstantSearch($c);
 
       // Channels are in the container
-      $c.find("li.add-to-channel")
+      $t.find(".add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
 
