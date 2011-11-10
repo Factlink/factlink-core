@@ -307,7 +307,7 @@ ul#results-listing div.user-block {
   .wheel { 
     float: left;
     width: 72px;
-    height: 60px;
+    height: 90px;
     svg {
       width: 52px !important;
       height: 60px !important;
@@ -461,7 +461,11 @@ ul#results-listing div.user-block {
     }
     
     .evidence-add {
-
+      .message {
+        color: lighten(#313131, 25);
+        margin-left: 15px;
+        font-size: 14px;
+      }
       a {
         margin: 13px 15px;
         color: @link-blue;
@@ -475,7 +479,7 @@ ul#results-listing div.user-block {
         line-height: 20px;
         font-weight: 100;
         padding: 15px;
-        margin: 15px;
+        margin: 0 15px 15px;
 
         border: solid 1px #ddd;
         border-radius: 6px;
@@ -545,10 +549,53 @@ ul#results-listing div.user-block {
 
       li {
         background: @underbar-bg;
+
         .relation {
-           width: 60px;
-           overflow: hidden;
-           float: left;
+          width: 60px;
+          overflow: hidden;
+          float: left;
+          margin: 10px 0 0 14px;
+           
+          .relation-arrow {
+            height: 24px;
+            width: 24px;
+            display: block;
+            background: url('../images/relation-sprite.png') no-repeat 0 -2px;
+          }
+           
+          .supporting {
+            .relation-arrow;
+            background-position: 0 -2px;
+            &.active {
+              background-position: -30px -2px;
+            }
+          }
+           
+          .relation-indicator {
+            .relation-arrow;
+            height: 24px;
+            width: 24px;
+            display: block;
+            background: url('../images/relation-sprite.png') no-repeat 0 -28px;
+          }
+          .supporting-indicator {
+            .relation-indicator;
+          }
+          .weakening-indicator {
+            .relation-indicator;
+              background-position: -30px -28px;
+          }
+
+          .weakening {
+            height: 24px;
+            width: 24px;
+            display: block;
+            background: url('../images/relation-sprite.png') no-repeat -30px -58px;
+            background-position: -30px -58px;
+            &.active {
+              background-position: 0px -58px;               
+            }
+          }
         }
         article.fact {
           margin-left: 55px;
