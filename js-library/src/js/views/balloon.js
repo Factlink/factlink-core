@@ -113,8 +113,8 @@ Factlink.Balloon = function() {
     ul.find('li.fl-loading').show().siblings().remove();
     
     Factlink.get('/facts/' + id + '/channels.json',{
-      //dataType: "jsonp",
-      //jsonp: "callback",
+      dataType: "jsonp",
+      jsonp: "callback",
       success: function(data) {
         ul.find('li.fl-loading').hide();
         if(_.isEmpty(data)) {
