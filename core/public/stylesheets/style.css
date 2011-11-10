@@ -279,15 +279,6 @@ textarea {
   font-family: sans-serif;
   color: #222;
 }
-/* 
-* Remove text-shadow in selection highlight: h5bp.com/i
-* These selection declarations have to be separate
-* Also: hot pink! (or customize the background color to match your design)
-
-
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
-*/
 /* =============================================================================
 Links
 ========================================================================== */
@@ -777,12 +768,16 @@ form .action-wrapper span {
 #container #channel-listing li a {
   display: block;
   border-radius: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding: 6px;
   margin: 4px 0;
   color: #222;
   position: relative;
+}
+#container #channel-listing li a span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 116px;
+  display: inline-block;
 }
 #container #channel-listing li a:hover {
   background-color: #fff;

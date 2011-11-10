@@ -19,7 +19,7 @@ class ChannelForFact
   end
 
   def checked_attribute
-    include?(@fact) ? 'checked="checked"' : ''
+    @channel.include?(@fact) ? 'checked="checked"' : ''
   end
 
 end

@@ -164,30 +164,67 @@
             "opacity": "1"
           });
         }
-        function switchTabAction(active) { 
+        function switchTabAction(active) {
+          console.log('switchTabAction')
           $t.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
           $t.find(".tab_content[rel=" + active + "] .evidence").toggle();
           var action = $t.find(".add-action[rel=" + active + "] > a"); 
           action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
         }
         function addEventHandlersDoAdd($t){
-          $t.find("a.do-add").bind("click", function() { 
-            var active = $t.find(".tab_content:visible").attr("rel");
-            $t.trigger("factlink:switchTabAction", [active]);
-          }); 
+          $t.find("a.do-add").live("click", function() {
+            $t.find('.evidence-list').hide();
+            $t.find('.evidence-search-results').show();
+            return false;
+          });
         }
-        function addEventHandlersTabs($t){
+        function addEventHandlersReturnFromAdd($t) {
+          $t.find("a.return-from-add").bind("click", function() {
+            $t.find('.evidence-list').show();
+            $t.find('.evidence-search-results').hide();
+            return false;
+          });
+        }
+        function addEventHandlersReturnFromEvidenceAdd($t) {
+          $t.find("a.close-evidence-add").bind("click", function() {
+            $t.find('.page').hide();
+            $t.find('.evidence-search-results').show();
+            return false;
+          });
+          
+        }
+        
+        
+        function addEventHandlersSubmitButton($t) {
+          
+          $t.find('button.supporting').bind('click', function() {
+            submitEvidence($t, "supporting");
+          });
+          
+          $t.find('button.weakening').bind('click', function() {
+            submitEvidence($t, "weakening");
+          });
+        }
+        
+        function addEventHandlersTabs($t){          
           $t.find("ul.evidence li").click(function() {
             $t.find(".tab_content, div.add-action").hide(); 
             var activeTab = $(this).find("a").attr("class"); 
             $t.find(".tab_content[rel='" + activeTab + "']").show();
             $t.find("div.add-action[rel='" + activeTab + "']").show();
-            if($t.find(".evidence-container").is(":hidden")) { 
-              $t.find(".evidence-container").slideDown();
-              $(this).addClass("active"); 
+
+            if($t.find(".dropdown-container").is(":hidden")) { 
+              $t.find(".dropdown-container").slideDown();
+
+              if (!$t.data('loaded-evidence')) {
+                getEvidence($t);
+                $t.data('loaded-evidence', true);
+              }
+
+              $(this).addClass("active");
             } else { 
-              if($(this).hasClass("active")) { 
-                $t.find(".evidence-container").slideUp(function() {
+              if($(this).hasClass("active")) {
+                $t.find(".dropdown-container").slideUp(function() {
                   $t.find("ul.evidence li").removeClass("active");
                 }); 
               } else { 
@@ -195,7 +232,7 @@
                 $(this).addClass("active");
               }
             }
-              return false;
+            return false;
            });
          }
         function initialize($t) {
@@ -203,6 +240,13 @@
           //On Click Event
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
+          addEventHandlersReturnFromAdd($t);
+          addEventHandlersReturnFromEvidenceAdd($t);
+          
+          addEventHandlersSubmitButton($t);
+          
+          $t.data('loaded-evidence', false);
+          
           $t.bind("factlink:switchTabAction", function(e, active)  {
             switchTabAction(active); 
           });
@@ -222,7 +266,6 @@
         $t.find("article.fact").each(function() {
           var fact = init_fact(this, $t);
           $t.data("facts")[fact.attr("data-fact-id")] = fact;
-
         });
 
         // Prevents boxes from dissapearing on mouse over
@@ -311,8 +354,93 @@
     $(el).data(attr, data);
   }
 
+  function getEvidence($t) {
+    var id = $t.attr("data-fact-id");
+
+    $.ajax({
+      url: '/facts/' + id + '/fact_relations',
+      type: "GET",
+      dataType: "script",
+      success: function(data) {
+      },
+      error: function(data) {
+      }
+    });
+  }
+
+
+  function bindEvidencePrepare($c) {
+    $c.find('.results ul li.evidence').live('click', function() {
+      showEvidenceAdd($c);
+
+      var elem = $(this);
+      var evidenceId = elem.data('evidence-id');
+      var evidenceDisplayString = elem.html();
+      
+      // Set the evidence ID used for posting
+      console.log('setting: ' + evidenceId);
+      $c.data('evidenceId', evidenceId);
+
+      // Set the displaystring to the evidence bubble
+      $c.find('.evidence-add .evidence').html(evidenceDisplayString);
+    });
+  }
+  
+  function submitEvidence($c, type) {
+    var factId      = $c.attr("data-fact-id");
+    var evidenceId  = $c.data("evidence-id");
+    
+    console.log('evId: ' + evidenceId);
+    
+    if (type === "supporting") {
+      var url_part = "/add_supporting_evidence/";
+    } else if (type === "weakening") {
+      var url_part = "/add_weakening_evidence/";
+    } else {
+      alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
+    }
+
+    // TODO: This should changed to use the FactRelationController
+    $.post("/factlink/" + factId + url_part + evidenceId, function(data) {
+    });
+  }
+  
+  function bindInstantSearch($c) {
+    // Bind the instant search
+    var is_timeout;
+    $c.find('.search-area .evidence_search').keyup( function() {
+      var elem = $(this);
+      $('.user-search-input').html(elem.val());
+
+      if (elem.val().length >= 2) {
+          clearTimeout(is_timeout);
+          is_timeout = setTimeout(function() {
+            elem.closest('form').submit();
+          }, 200); // <-- choose some sensible value here                                      
+      }
+    });
+  }
+  
+  function showEvidenceList($c) {
+    hidePages($c);
+    $c.find('.evidence-list').show();
+  }
+  function showEvidenceSearchResults($c) {
+    hidePages($c);
+    $c.find('.evidence-search-results').show();
+  }
+  function showEvidenceAdd($c) {
+    hidePages($c);
+    $c.find('.evidence-add').show();
+  }
+  function hidePages($c) {
+    $c.find('.page').hide();
+  }
+  
+
   function init_fact(fact, container) {
     var $t = $(fact);
+    var $c = $(container);
     if (!$t.data("initialized")) {
       $t.find('.edit').editable('/factlink/update_title', {
         indicator : 'Saving...',
@@ -323,7 +451,11 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-      $t.find("a.add-to-channel")
+      bindEvidencePrepare($c);
+      bindInstantSearch($c);
+
+      // Channels are in the container
+      $c.find("li.add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
 

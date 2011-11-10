@@ -62,9 +62,19 @@
     <fieldType name="text" class="solr.TextField" omitNorms="false">
       <analyzer type="query">
         <tokenizer class="solr.StandardTokenizerFactory"/>
+
+        <!-- general purpose tokenizer that strips many extraneous character -->
         <filter class="solr.StandardFilterFactory"/>
+
+        <!-- Example: "I.B.M.", "Solr" ==> "i.b.m.", "solr". -->
         <filter class="solr.LowerCaseFilterFactory"/>
+        
+        <!-- Normalize words: Example: "riding", "rides", "horses" ==> "ride", "ride", "hors" -->
         <filter class="solr.PorterStemFilterFactory"/>
+        
+        <!-- Discards common words: "a", "an", "the"... -->
+        <filter class="solr.StopFilterFactory"/>
+        
       </analyzer>
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -93,7 +103,6 @@
     <fieldType name="tfloat" class="solr.TrieFloatField" omitNorms="true"/>
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name="tdate" class="solr.TrieDateField" omitNorms="true"/>
-
   </types>
   <fields>
     <!-- Valid attributes for fields:

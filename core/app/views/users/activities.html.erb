@@ -1,0 +1,19 @@
+<% content_for :header do %>
+<% end %>
+
+
+<% content_for :left_column do %>		
+  <%= render :partial => "home/snippets/user_li", :locals => { :user => @user } %>
+  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
+<% end %>
+
+
+<% content_for :main_column do %>
+<h1><%= link_to(@user.username, user_profile_path(@user.username)) %></h1>
+
+<ul id="wide-activity-list">
+  <%= render :partial => "home/snippets/wide_activity_list",
+          :locals => { :activities => @activities } %>
+</ul>
+	
+<% end %>
