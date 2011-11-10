@@ -800,6 +800,14 @@ ul#results-listing div.user-block .side .type {
 .fact-block .evidence-list .evidence-list-wrapper .no-evidence-message a {
   color: #5e8ba6;
 }
+.fact-block .evidence-list .evidence-list-wrapper .loading-evidence {
+  line-height: 165px;
+  text-align: center;
+}
+.fact-block .evidence-list .evidence-list-wrapper .loading-evidence img {
+  vertical-align: text-bottom;
+  margin: 0 3px;
+}
 .fact-block .evidence-list .evidence-list-wrapper li {
   background: #f5f5f5;
 }

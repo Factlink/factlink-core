@@ -171,7 +171,6 @@
         }
 
         function switchTabAction(active) {
-          console.log('switchTabAction')
           $fact.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
           $fact.find(".tab_content[rel=" + active + "] .evidence").toggle();
           var action = $fact.find(".add-action[rel=" + active + "] > a");
@@ -366,14 +365,16 @@
 
   function getEvidence($fact) {
     var id = $fact.attr("data-fact-id");
-
-    $.ajax({
-      url: '/facts/' + id + '/fact_relations',
-      type: "GET",
-      dataType: "script",
-      success: function(data) {},
-      error: function(data) {}
-    });
+    var loader = $fact.find('.loading-evidence');
+    // $.ajax({
+    //       url: '/facts/' + id + '/fact_relations',
+    //       type: "GET",
+    //       dataType: "script",
+    //       success: function(data) {
+    //         loader.hide();
+    //       },
+    //       error: function(data) {}
+    //     });
   }
 
 
@@ -386,7 +387,6 @@
       var evidenceDisplayString = elem.html();
 
       // Set the evidence ID used for posting
-      console.log('setting: ' + evidenceId);
       $c.data('evidenceId', evidenceId);
 
       // Set the displaystring to the evidence bubble
@@ -397,13 +397,12 @@
   function submitEvidence($c, type) {
     var factId = $c.attr("data-fact-id");
     var evidenceId = $c.data("evidence-id");
-
-    console.log('evId: ' + evidenceId);
+    var url_part;
 
     if (type === "supporting") {
-      var url_part = "/add_supporting_evidence/";
+      url_part = "/add_supporting_evidence/";
     } else if (type === "weakening") {
-      var url_part = "/add_weakening_evidence/";
+      url_part = "/add_weakening_evidence/";
     } else {
       alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
     }
