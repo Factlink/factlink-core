@@ -72,7 +72,7 @@ Factlink.Prepare = function() {
         if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
           self.show(e.pageY, e.pageX);
         }
-      }, 100);
+      }, 200);
     });
   }
   

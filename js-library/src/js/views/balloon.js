@@ -5,6 +5,7 @@ Factlink.Balloon = function() {
   var el;
   var hasFocus = false;
   var factObj;
+  var timeout;
     
   function initialize(factId, fact) {
     id = factId;
@@ -36,9 +37,15 @@ Factlink.Balloon = function() {
   }
   
   this.show = function(top, left) {
+    window.clearTimeout(timeout);
+    
     var x = left, y = top;
     
-    el.fadeIn('fast');
+    timeout = window.setTimeout(function() {
+      hideOthers();
+      
+      el.fadeIn('fast');
+    }, 200);
     
     x -= 30;
     if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
@@ -71,6 +78,8 @@ Factlink.Balloon = function() {
   };
   
   this.hide = function() {
+    window.clearTimeout(timeout);
+    
     el.fadeOut('fast');
     resetState();
   };
@@ -138,6 +147,10 @@ Factlink.Balloon = function() {
         }
       }
     });
+  }
+  
+  function hideOthers() {
+    el.closest('#fl').find('.fl-popup').hide();
   }
   
   function bindCheck() {
