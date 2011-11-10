@@ -208,25 +208,23 @@
         
         function addEventHandlersTabs($t){
           $t.find("ul.evidence li").click(function() {
-            $t.find(".tab_content, div.add-action").hide(); 
-            var activeTab = $(this).find("a").attr("class"); 
-            $t.find(".tab_content[rel='" + activeTab + "']").show();
-            $t.find("div.add-action[rel='" + activeTab + "']").show();
 
-            if($t.find(".dropdown-container").is(":hidden")) { 
+            if($t.find(".dropdown-container").is(":hidden")) {
               $t.find(".dropdown-container").slideDown();
 
+              // AJAX call to load the FactRelations
               if (!$t.data('loaded-evidence')) {
                 getEvidence($t);
                 $t.data('loaded-evidence', true);
               }
 
               $(this).addClass("active");
-            } else { 
-              if($(this).hasClass("active")) {
+
+            } else {
+              if($(this).hasClass("active")) {                
                 $t.find(".dropdown-container").slideUp(function() {
                   $t.find("ul.evidence li").removeClass("active");
-                }); 
+                });
               } else { 
                 $t.find("ul.evidence li").removeClass("active"); 
                 $(this).addClass("active");
