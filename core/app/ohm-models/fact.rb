@@ -91,7 +91,6 @@ class Fact < Basefact
     when :weakening
       return self.weakening_facts
     end
-    puts "Fact#evidence -- No evidence found for type '#{type}'"
   end
 
   def add_evidence(type, evidence, user)
