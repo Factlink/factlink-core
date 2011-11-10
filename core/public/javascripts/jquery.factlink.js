@@ -172,19 +172,37 @@
           action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
         }
         function addEventHandlersDoAdd($t){
-          $t.find("a.do-add").live("click", function() { 
-            // var active = $t.find(".tab_content:visible").attr("rel");
-            // $t.trigger("factlink:switchTabAction", [active]);
+          $t.find("a.do-add").live("click", function() {
             $t.find('.evidence-list').hide();
-            $t.find('.evidence-results').show();
+            $t.find('.evidence-search-results').show();
             return false;
           });
         }
         function addEventHandlersReturnFromAdd($t) {
           $t.find("a.return-from-add").bind("click", function() {
             $t.find('.evidence-list').show();
-            $t.find('.evidence-results').hide();
+            $t.find('.evidence-search-results').hide();
             return false;
+          });
+        }
+        function addEventHandlersReturnFromEvidenceAdd($t) {
+          $t.find("a.close-evidence-add").bind("click", function() {
+            $t.find('.page').hide();
+            $t.find('.evidence-search-results').show();
+            return false;
+          });
+          
+        }
+        
+        
+        function addEventHandlersSubmitButton($t) {
+          
+          $t.find('button.supporting').bind('click', function() {
+            submitEvidence($t, "supporting");
+          });
+          
+          $t.find('button.weakening').bind('click', function() {
+            submitEvidence($t, "weakening");
           });
         }
         
@@ -223,6 +241,9 @@
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
           addEventHandlersReturnFromAdd($t);
+          addEventHandlersReturnFromEvidenceAdd($t);
+          
+          addEventHandlersSubmitButton($t);
           
           $t.data('loaded-evidence', false);
           
@@ -334,20 +355,88 @@
   }
 
   function getEvidence($t) {
-    var id = $t.attr("data-fact-id");    
+    var id = $t.attr("data-fact-id");
 
     $.ajax({
       url: '/facts/' + id + '/fact_relations',
       type: "GET",
       dataType: "script",
       success: function(data) {
-        console.log("it workeszzz");
       },
       error: function(data) {
-        console.log('our mother haz fail0rzed');
       }
     });
   }
+
+
+  function bindEvidencePrepare($c) {
+    $c.find('.results ul li.evidence').live('click', function() {
+      showEvidenceAdd($c);
+
+      var elem = $(this);
+      var evidenceId = elem.data('evidence-id');
+      var evidenceDisplayString = elem.html();
+      
+      // Set the evidence ID used for posting
+      console.log('setting: ' + evidenceId);
+      $c.data('evidenceId', evidenceId);
+
+      // Set the displaystring to the evidence bubble
+      $c.find('.evidence-add .evidence').html(evidenceDisplayString);
+    });
+  }
+  
+  function submitEvidence($c, type) {
+    var factId      = $c.attr("data-fact-id");
+    var evidenceId  = $c.data("evidence-id");
+    
+    console.log('evId: ' + evidenceId);
+    
+    if (type === "supporting") {
+      var url_part = "/add_supporting_evidence/";
+    } else if (type === "weakening") {
+      var url_part = "/add_weakening_evidence/";
+    } else {
+      alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
+    }
+
+    // TODO: This should changed to use the FactRelationController
+    $.post("/factlink/" + factId + url_part + evidenceId, function(data) {
+    });
+  }
+  
+  function bindInstantSearch($c) {
+    // Bind the instant search
+    var is_timeout;
+    $c.find('.search-area .evidence_search').keyup( function() {
+      var elem = $(this);
+      $('.user-search-input').html(elem.val());
+
+      if (elem.val().length >= 2) {
+          clearTimeout(is_timeout);
+          is_timeout = setTimeout(function() {
+            elem.closest('form').submit();
+          }, 200); // <-- choose some sensible value here                                      
+      }
+    });
+  }
+  
+  function showEvidenceList($c) {
+    hidePages($c);
+    $c.find('.evidence-list').show();
+  }
+  function showEvidenceSearchResults($c) {
+    hidePages($c);
+    $c.find('.evidence-search-results').show();
+  }
+  function showEvidenceAdd($c) {
+    hidePages($c);
+    $c.find('.evidence-add').show();
+  }
+  function hidePages($c) {
+    $c.find('.page').hide();
+  }
+  
 
   function init_fact(fact, container) {
     var $t = $(fact);
@@ -362,6 +451,9 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
+      bindEvidencePrepare($c);
+      bindInstantSearch($c);
+
       // Channels are in the container
       $c.find("li.add-to-channel")
         .hoverIntent(function(e) {
@@ -375,20 +467,6 @@
         .bind('click', function(e) {
           e.preventDefault();
         });
-      // Bind the instant search
-      var is_timeout;
-      $c.find('.search-area .evidence_search').keyup( function() {
-        var elem = $(this);
-        $('.user-search-input').html(elem.val());
-
-        if (elem.val().length >= 2) {
-            clearTimeout(is_timeout);
-            is_timeout = setTimeout(function() {
-              elem.closest('form').submit();
-            }, 200); // <-- choose some sensible value here                                      
-        } else if (string.length <= 1) { /*show original content*/ }
-      });
-
 
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'

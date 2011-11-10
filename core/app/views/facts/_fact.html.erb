@@ -19,7 +19,7 @@
     <ul class="evidence">
       <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
 
-      <li><a class="link-to-factlink">Link to Factlink</a></li>
+      <!-- <li><a class="link-to-factlink">Link to Factlink</a></li> -->
       <li class="add-to-channel">Channels</li>
     </ul>
   </div>
@@ -28,29 +28,26 @@
   <div class="dropdown-container">
 
     <!-- default view - show the evidence for this fact -->
-    <div class="evidence-list" style="display: block;">
-
-      <!-- <div class="indicator"><%= image_tag('ajax-loader.gif') %></div> -->
-      
+    <div class="page evidence-list" style="display: block;">
       <div class="evidence-list-wrapper">
         <% if user_signed_in? %>
         <div class="notification">
           <span>Factlink is build on evidence. <a href"#" class="do-add">Add evidence to this Factlink</a></span>
         </div>
         <% end %>
-
         <ul>
         </ul>
       </div>
     </div>
         
     <!-- show the evidence search results -->
-    <div class="evidence-results" style="display: none;">
+    <div class="page evidence-search-results" style="display: none;">
       <div class="search-area">
+        <%= link_to('#evidence', '#', :class => "return-from-add") %>
         <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
           <input type="text" class="evidence_search" name="s" placeholder="Search or add evidence" <%= params[:s] ? "value='#{params[:s]}'" : "" %> >
           <input type="hidden" name="id" value="<%= fact.id %>">
-          <input type="submit" value="Search"> or <%= link_to('return', '#', :class => "return-from-add") %>
+          <input type="submit" value="Search">
         <% end %>
       </div>
       
@@ -67,16 +64,32 @@
           <li>
             Search the internet for "<span class="user-search-input"></span>"
           </li>
-          <li>
+          <!-- <li>
             Add "<span class="user-search-input"></span>"
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
 
     <!-- the actual adding - including supporting / weakening buttons -->
-    <div class="evidence-add" style="display:none;">
-      <pre>evidence add</pre>      
+    <div class="page evidence-add" style="display: none;">
+
+      <%= link_to('#search', '#', :class => 'close-evidence-add') %>
+
+      Add
+      <div class="evidence evidence-bubble">
+        Pellentesque shiz tortor. Mammasay mammasa mamma oo sa eros. Cool fo shizzle dolizzle dang its fo rizzle.
+      </div>
+      To
+      <div class="fact evidence-bubble">
+        <%= fact.data.displaystring %>
+      </div>
+
+      <div class="dropdown-underbar">
+        <div class="add-actions">
+          <button class="supporting">Add as supporting</button><button class="weakening">Add as weakening</button>
+        </div>
+      </div>
     </div>
 
   </div>
