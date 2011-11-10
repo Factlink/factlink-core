@@ -1,22 +1,11 @@
-// var fact = $("div[data-fact-id=<%= @fact_relation.fact.id %>]");
-// var active =  fact.find(".tab_content:visible");
-// 
-// var no_fact_message = active.find(".no-evidence");
-// if (no_fact_message.length > 0) {
-//  no_fact_message.remove();
-// }
-// 
-// active.find('table.evidence-for-list > tbody').append("<tr><td><%= escape_javascript(render(:partial => "/facts/partial/evidence_bubble", :locals => {  :fact => fact_relation.fact, :fact_relation => fact_relation})) %></td></tr>").factlink();
-// fact.trigger("factlink:switchTabAction", [active.attr("rel")]);
-
-// Reset window
-
-// Add the evidence
-
 var fact =  $("div.fact-block[data-fact-id=<%=@fact_relation.fact.id%>]");
 var evidenceList = fact.find('.evidence-list ul');
 
-$('.page').hide();
-$('.evidence-list').show();
+// Reset window
+fact.find('.no-evidence-message').hide();
 
+fact.find('.page').hide();
+fact.find('.evidence-list').show();
+
+// Add the evidence
 evidenceList.prepend("<%= escape_javascript(render(:partial => '/facts/partial/evidence_bubble', :locals => { :fact_relation => @fact_relation } )) %>").factlink();
