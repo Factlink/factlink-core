@@ -723,6 +723,13 @@ ul#results-listing div.user-block .side .type {
   padding: 15px;
   border-bottom: solid 1px #eeeeee;
 }
+.fact-block .dropdown-container .evidence-search-results .results ul li.evidence span {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  color: #979797;
+  line-height: 20px;
+}
 .fact-block .dropdown-container .evidence-search-results .results ul li.evidence:hover {
   color: #313131;
   background: #f5f5f5;
