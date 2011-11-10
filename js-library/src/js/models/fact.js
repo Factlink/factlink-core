@@ -147,6 +147,22 @@ Factlink.Fact = function() {
     return _obj;
   };
   
+  this.destroy = function() {
+    for ( var i = 0; i < elements.length; i++ ) {
+      var $el = $(elements[i]);
+      
+      var html = $el.html();
+      
+      if ( ! $el.is('.fl-first') ) {
+        $el.before(html);
+      }
+      
+      $el.remove();
+    }
+    
+    balloon.destroy();
+  };
+  
   initialize.apply(this, arguments);
 };
 

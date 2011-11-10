@@ -79,6 +79,10 @@ Factlink.Balloon = function() {
     return el.is(':visible');
   };
   
+  this.destroy = function() {
+    el.remove();
+  };
+  
   function resetState() {
     el.removeClass("fl-channel-active");
   }

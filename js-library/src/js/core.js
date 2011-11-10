@@ -48,13 +48,22 @@ var Factlink = window.Factlink = (function() {
         var i;
         // If there are multiple matches on the page, loop through them all
         //TODO : dit mag pas on document ready
+        
+        Factlink.Facts = [];
+        
         for (i = 0; i < data.length; i++) {
           // Select the ranges (results)
-          Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage);
+          $.merge( Factlink.Facts, Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage) );
         }
         $(window).trigger('factlink.factsLoaded');
       }
     });
+  };
+  
+  Factlink.destroy = function() {
+    for( var i = 0; i < Factlink.Facts.length; i++ ) {
+      Factlink.Facts[i].destroy();
+    }
   };
   
   // Create the Factlink container
