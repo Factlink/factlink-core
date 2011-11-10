@@ -13,7 +13,6 @@ class Channel < OurOhm
   reference :created_by, GraphUser
   alias :graph_user :created_by
 
-  private
   set :contained_channels, Channel
 
   timestamped_set :sorted_internal_facts, Fact
@@ -21,9 +20,6 @@ class Channel < OurOhm
   timestamped_set :sorted_cached_facts, Fact
 
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
-
-  public
-  alias :sub_channels :contained_channels
 
   def prune_invalid_facts
     [sorted_internal_facts, sorted_delete_facts].each do |facts|

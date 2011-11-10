@@ -6,14 +6,6 @@ module Facts
     
     def channels
       current_graph_user.editable_channels_for(self[:fact])
-      # channels.map do |ch|
-      #   if ch.include?(self[:fact])
-      #     def ch.checked_attribute; 'checked="checked"' end
-      #   else
-      #     def ch.checked_attribute; '' end
-      #   end
-      #   ch
-      # end
     end
   
     def channel_path

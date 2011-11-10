@@ -3,11 +3,12 @@ var evidenceList = fact.find('.evidence-list ul');
 
 evidenceList.empty();
 
+
 <% unless @evidence.count > 0 %>
   fact.find('.no-evidence-message').fadeIn();
 <% else %>
   fact.find('.no-evidence-message').hide();
   <% @evidence.each do |evidence| %>
-    evidenceList.append("<%= escape_javascript(render(:partial => '/facts/partial/evidence_bubble', :locals => { :fact_relation => evidence } )) %>").factlink();
+    evidenceList.append("<%= escape_javascript(render('/facts/partial/evidence_bubble', fact_relation: evidence )) %>").factlink();
   <% end %>
 <% end %>

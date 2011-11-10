@@ -1,20 +1,20 @@
 <% content_for :main_column do %>
   <div id="channel" data-channel-id="<%= @channel.id %>">
-    <header class="append-bottom">
+    <header class="append-bottom title">
     	<h1>
     	  <%= @channel.title %>
       	<% if user_signed_in? %>
       	  <% if @channel.editable? && current_user.graph_user == @channel.created_by %>
             <%= link_to("edit", edit_channel_path(@channel.created_by.user.username, @channel.id), :class => "button") %>
       	  <% elsif @channel.followable? %>
-            <%= link_to("add to my channels", follow_channel_path(current_user.username, @channel.id), :class => "button", :remote => true, :disable_with => ['adding', 'added to your channels']) %>
+            <%= link_to("Subscribe", follow_channel_path(current_user.username, @channel.id), :class => "button", :remote => true, :disable_with => ['Subscribing', 'Subscribed']) %>
     	    <% end %>
       	<% end %>
       </h1>
     	<p>
     	  <%= @channel.description %>
-    	</p>
-    	<%#  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
+      </p>
+    	<%=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
     </header>
 
     <% unless @channel.facts.count > 0 %>

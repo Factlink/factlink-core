@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/markijbema/mustache_rails3.git
-  revision: 582baaf71aa0f3939c1598d306a84d37e723f257
+  revision: c8a919e65541e35ab7d44a762b0ea8637ab25860
   specs:
     mustache_rails3 (0.1.2.2)
 
@@ -120,7 +120,7 @@ GEM
     hike (1.2.1)
     hirb (0.5.0)
     i18n (0.6.0)
-    jquery-rails (1.0.16)
+    jquery-rails (1.0.17)
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
