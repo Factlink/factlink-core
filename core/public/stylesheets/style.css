@@ -42,8 +42,6 @@
   padding: 0;
   list-style: none;
   zoom: 1;
-  content: "";
-  display: table;
   zoom: 1;
 }
 .tabs:before,

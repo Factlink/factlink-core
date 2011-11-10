@@ -1,5 +1,3 @@
 <%= link_to("<span class='supporting #{positive_active}'></span>".html_safe, set_opinion_path(fact_relation.id,   :beliefs), :remote => true, :method => "post", :onclick => "var el = $(this); el.parent().find('span.weakening, span.supporting').removeClass('active'); el.find('span').addClass('active');") %>
 <span class="<%= fact_relation.type %>-indicator">&nbsp;</span>
 <%= link_to("<span class='weakening #{negative_active}'></span>".html_safe, set_opinion_path(fact_relation.id,:disbeliefs), :remote => true, :method => "post", :onclick => "var el = $(this); el.parent().find('span.weakening, span.supporting').removeClass('active'); el.find('span').addClass('active');") %>
-
-
