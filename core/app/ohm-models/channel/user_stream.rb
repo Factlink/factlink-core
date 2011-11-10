@@ -9,7 +9,9 @@ class Channel < OurOhm
      before :validate, :add_fields
    
      def contained_channels
-       created_by.internal_channels
+       channels = created_by.internal_channels.to_a
+       channels.delete(self)
+       return channels
      end
    
      def inspect
