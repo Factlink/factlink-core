@@ -4,5 +4,5 @@ var evidenceList = fact.find('.evidence-list ul');
 evidenceList.empty();
 
 <% @evidence.each do |evidence| %>
-  evidenceList.append("<%= escape_javascript(render(:partial => '/facts/partial/evidence_bubble', :locals => { :fact_relation => evidence } )) %>").factlink();
+  evidenceList.append("<%= escape_javascript(render('/facts/partial/evidence_bubble', fact_relation: evidence )) %>").factlink();
 <% end %>
