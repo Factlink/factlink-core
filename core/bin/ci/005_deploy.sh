@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Starting deploy..."
+banner "Starting deploy..."
 source "$HOME/.rvm/scripts/rvm"
 rvm use --default 1.9.2-p290 || exit 1
 cap -q testserver deploy || exit 1
