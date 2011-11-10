@@ -101,9 +101,7 @@ module FactlinkUI
     Rails.application.config.generators.template_engine :mustache
 
 
-    require "#{config.root}/app/views/facts/_fact_wheel.rb"
     require "#{config.root}/app/views/facts/_fact_bubble.rb"
-    require "#{config.root}/app/views/facts/_channel_listing.rb"
     require "#{config.root}/app/views/channels/_single_menu_item.rb"
     require "#{config.root}/app/views/channels/_contained_channel_list.rb"
     
