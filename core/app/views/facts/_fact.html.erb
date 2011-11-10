@@ -19,12 +19,69 @@
     <ul class="evidence">
       <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
 
-      <li><a class="add-to-channel">Link to Factlink</a></li>
-      <li>Channels</li>
+      <li><a class="link-to-factlink">Link to Factlink</a></li>
+      <li class="add-to-channel">Channels</li>
     </ul>
   </div>
 
-  <div class="evidence-container">
+
+  <div class="dropdown-container">
+
+    <!-- default view - show the evidence for this fact -->
+    <div class="evidence-list" style="display: block;">
+
+      <!-- <div class="indicator"><%= image_tag('ajax-loader.gif') %></div> -->
+      
+      <div class="evidence-list-wrapper">
+        <% if user_signed_in? %>
+        <div class="notification">
+          <span>Factlink is build on evidence. <a href"#" class="do-add">Add evidence to this Factlink</a></span>
+        </div>
+        <% end %>
+
+        <ul>
+        </ul>
+      </div>
+    </div>
+        
+    <!-- show the evidence search results -->
+    <div class="evidence-results" style="display: none;">
+      <div class="search-area">
+        <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
+          <input type="text" class="evidence_search" name="s" placeholder="Search or add evidence" <%= params[:s] ? "value='#{params[:s]}'" : "" %> >
+          <input type="hidden" name="id" value="<%= fact.id %>">
+          <input type="submit" value="Search"> or <%= link_to('return', '#', :class => "return-from-add") %>
+        <% end %>
+      </div>
+      
+      <div class="results">
+        <ul>
+          <li>
+            Please search for evidence
+          </li>
+        </ul>
+      </div>
+      
+      <div class="dropdown-underbar">
+        <ul>
+          <li>
+            Search the internet for "<span class="user-search-input"></span>"
+          </li>
+          <li>
+            Add "<span class="user-search-input"></span>"
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- the actual adding - including supporting / weakening buttons -->
+    <div class="evidence-add" style="display:none;">
+      <pre>evidence add</pre>      
+    </div>
+
+  </div>
+
+  <!-- <div class="evidence-container" style="display:none;">
     <div class="evidence-list">
       <div class="tab_content" rel="evidence-for">
         <div class="evidence">
@@ -50,12 +107,27 @@
           <%= render "/facts/partial/add_evidence", :fact => fact %>
         </div>
       </div>
-
      </div>
-      <% if user_signed_in? %>
-       <div class="add-action" rel="evidence-for">
-          <a href"#" class="do-add">Add facts</a>
-        </div>
-      <% end %>
-  </div>
+  </div> -->
 </div>
+
+<% content_for :javascript do %>
+<script>  
+  // Throttle function. Only place this is used, no need to require underscore.js for that.
+  // (function() {
+  //     var timeout;
+  //     $('.search-area .evidence_search').keyup( function() {
+  //       var elem = $(this);
+  //       $('.user-search-input').html(elem.val());
+  //         
+  //       if (elem.val().length >= 2) {
+  //           clearTimeout(timeout);
+  //           timeout = setTimeout(function() {
+  //             elem.closest('form').submit();
+  //           }, 200); // <-- choose some sensible value here                                      
+  //       } else if (string.length <= 1) { /*show original content*/ }
+  //     });
+  // }());
+  
+</script>
+<% end %>
