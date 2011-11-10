@@ -1,13 +1,6 @@
 module HomeHelper  
   include Canivete::Deprecate
 
-  deprecate
-  deprecate
-  def show_activity(activity)
-    render :partial => "home/snippets/show_activity",
-           :locals => { :activity => activity }
-  end
-  
   def image_for_activity(activity)
         
     case activity.action
