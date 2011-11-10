@@ -7,8 +7,6 @@ class PercentageFormatter
 
   DOUBT_INDEX = 1
 
-  #percentages = [believe,doubt,disbelieve]
-
   def floor_percentages(percentages)
     percentages.map {|x| ((x.to_f / @round_to )).floor.to_i * @round_to }
   end
