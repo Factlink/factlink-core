@@ -16,7 +16,6 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 if ['test', 'development'].include? Rails.env
   require 'metric_fu'
-  
   require 'simplecov'
   require 'simplecov-rcov-text'
   
