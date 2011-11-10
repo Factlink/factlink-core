@@ -1,6 +1,13 @@
 module Channels
   class SingleMenuItem < Mustache::Railstache
 
+    def self.for_channel_and_view(channel,view)
+      smi = new()
+      smi.view = view
+      smi[:channel] = channel
+      return smi
+    end
+
     def link
       get_facts_for_channel_path(self[:channel].created_by.user.username, self[:channel].id)
     end
