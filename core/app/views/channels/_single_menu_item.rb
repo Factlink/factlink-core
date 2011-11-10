@@ -32,7 +32,7 @@ module Channels
               :title => title,
           :new_facts => new_facts,
         :nr_of_facts => nr_of_facts,
-         :created_by_id => created_by_id,
+      :created_by_id => created_by_id,
       }
     end
   end
