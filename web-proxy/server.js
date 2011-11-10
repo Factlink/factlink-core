@@ -216,5 +216,21 @@ function render_page(pagename) {
 server.get('/header', render_page('header'));
 server.get('/', render_page('index'));
 
+
+/** 
+ *	Search with google (top frame)
+ */
+server.get('/search', function(req, res) {
+  console.info("\nGET /search");
+  var query = req.query.query;
+  var google_url = "http://google.com/search?as_q=" + encodeURIComponent(query);
+  var redir_url = PROXY_URL + "/?url=" + google_url + "&factlinkModus=" + get_modus(req.query.factlinkModus);
+  console.info("\n to "+redir_url);
+  res.redirect(redir_url);
+});
+
+
+
+
 server.listen(INTERNAL_PROXY_PORT);
 console.info('\nStarted Factlink proxy on internal port ' + INTERNAL_PROXY_PORT);
