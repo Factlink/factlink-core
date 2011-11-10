@@ -120,7 +120,6 @@ class GraphUser < OurOhm
   end
 
   def update_opinion(type, fact)
-    # Remove existing opinion by user
     remove_opinions(fact)
     facts_he(type) << fact
   end
