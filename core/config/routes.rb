@@ -14,7 +14,6 @@ FactlinkUI::Application.routes.draw do
   ################
   # Facts Controller
   ################
-
   resources :facts do
     member do
       # TODO Refactor to use this opinion routes
@@ -22,6 +21,8 @@ FactlinkUI::Application.routes.draw do
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       get "/channels" => "facts#get_channel_listing"
     end
+    
+    resources :fact_relations
   end 
   
 
