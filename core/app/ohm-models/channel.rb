@@ -23,7 +23,6 @@ class Channel < OurOhm
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
   public
-  alias :sub_channels :contained_channels
 
   def prune_invalid_facts
     [sorted_internal_facts, sorted_delete_facts].each do |facts|
