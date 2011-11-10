@@ -164,18 +164,30 @@
             "opacity": "1"
           });
         }
-        function switchTabAction(active) { 
+        function switchTabAction(active) {
+          console.log('switchTabAction')
           $t.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
           $t.find(".tab_content[rel=" + active + "] .evidence").toggle();
           var action = $t.find(".add-action[rel=" + active + "] > a"); 
           action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
         }
         function addEventHandlersDoAdd($t){
-          $t.find("a.do-add").bind("click", function() { 
-            var active = $t.find(".tab_content:visible").attr("rel");
-            $t.trigger("factlink:switchTabAction", [active]);
-          }); 
+          $t.find("a.do-add").live("click", function() { 
+            // var active = $t.find(".tab_content:visible").attr("rel");
+            // $t.trigger("factlink:switchTabAction", [active]);
+            $t.find('.evidence-list').hide();
+            $t.find('.evidence-results').show();
+            return false;
+          });
         }
+        function addEventHandlersReturnFromAdd($t) {
+          $t.find("a.return-from-add").bind("click", function() {
+            $t.find('.evidence-list').show();
+            $t.find('.evidence-results').hide();
+            return false;
+          });
+        }
+        
         function addEventHandlersTabs($t){          
           $t.find("ul.evidence li").click(function() {
             $t.find(".tab_content, div.add-action").hide(); 
@@ -183,12 +195,18 @@
             $t.find(".tab_content[rel='" + activeTab + "']").show();
             $t.find("div.add-action[rel='" + activeTab + "']").show();
 
-            if($t.find(".evidence-container").is(":hidden")) { 
-              $t.find(".evidence-container").slideDown();
-              $(this).addClass("active"); 
+            if($t.find(".dropdown-container").is(":hidden")) { 
+              $t.find(".dropdown-container").slideDown();
+
+              if (!$t.data('loaded-evidence')) {
+                getEvidence($t);
+                $t.data('loaded-evidence', true);
+              }
+
+              $(this).addClass("active");
             } else { 
-              if($(this).hasClass("active")) { 
-                $t.find(".evidence-container").slideUp(function() {
+              if($(this).hasClass("active")) {
+                $t.find(".dropdown-container").slideUp(function() {
                   $t.find("ul.evidence li").removeClass("active");
                 }); 
               } else { 
@@ -204,6 +222,10 @@
           //On Click Event
           addEventHandlersTabs($t);
           addEventHandlersDoAdd($t);
+          addEventHandlersReturnFromAdd($t);
+          
+          $t.data('loaded-evidence', false);
+          
           $t.bind("factlink:switchTabAction", function(e, active)  {
             switchTabAction(active); 
           });
@@ -311,8 +333,25 @@
     $(el).data(attr, data);
   }
 
+  function getEvidence($t) {
+    var id = $t.attr("data-fact-id");    
+
+    $.ajax({
+      url: '/facts/' + id + '/fact_relations',
+      type: "GET",
+      dataType: "script",
+      success: function(data) {
+        console.log("it workeszzz");
+      },
+      error: function(data) {
+        console.log('our mother haz fail0rzed');
+      }
+    });
+  }
+
   function init_fact(fact, container) {
     var $t = $(fact);
+    var $c = $(container);
     if (!$t.data("initialized")) {
       $t.find('.edit').editable('/factlink/update_title', {
         indicator : 'Saving...',
@@ -323,7 +362,8 @@
       $t.data("wheel", new Wheel(fact));
       $t.data("wheel").init($t.find(".wheel").get(0));
 
-      $t.find("a.add-to-channel")
+      // Channels are in the container
+      $c.find("li.add-to-channel")
         .hoverIntent(function(e) {
           var channelList = $t.find(".channel-listing");
 
@@ -335,6 +375,20 @@
         .bind('click', function(e) {
           e.preventDefault();
         });
+      // Bind the instant search
+      var is_timeout;
+      $c.find('.search-area .evidence_search').keyup( function() {
+        var elem = $(this);
+        $('.user-search-input').html(elem.val());
+
+        if (elem.val().length >= 2) {
+            clearTimeout(is_timeout);
+            is_timeout = setTimeout(function() {
+              elem.closest('form').submit();
+            }, 200); // <-- choose some sensible value here                                      
+        } else if (string.length <= 1) { /*show original content*/ }
+      });
+
 
       $t.find(".opinion-box").find("img").tipsy({
         gravity: 's'
