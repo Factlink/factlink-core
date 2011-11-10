@@ -437,9 +437,6 @@ body.factlink-site div.user-block {
       color: #666;
       margin: 0px 0px 12px 0px;
       text-shadow: 0px 1px 0px #fff;
-      > a { 
-        float: right;
-      }
     }
 
     sub {
@@ -516,8 +513,16 @@ body.factlink-site div.user-block {
       header.title { 
         padding-bottom: 6px;
         border-bottom: 1px solid #d8d8d8;
+        a {
+          float: right;
+        }
         h1 { 
           margin-bottom: 6px;
+          display: block;
+          overflow: hidden;
+          width: 70%;
+          padding-top: 3px;
+          text-overflow: ellipsis;
         }
         p { 
           margin: 0 0 6px 0;
