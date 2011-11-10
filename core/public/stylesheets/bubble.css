@@ -576,9 +576,6 @@ ul#results-listing div.user-block .side .type {
   display: block;
   padding: 4px 0px;
 }
-.fact-block article.fact .channel-listing li:first-child {
-  display: none;
-}
 .fact-block article.fact .channel-listing .add-channel {
   border-top: solid 1px #ddd;
   padding: 8px;
@@ -709,7 +706,7 @@ ul#results-listing div.user-block .side .type {
   color: #5e8ba6;
 }
 .fact-block .dropdown-container .evidence-search-results .results {
-  height: 200px;
+  height: 250px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -764,15 +761,14 @@ ul#results-listing div.user-block .side .type {
 .fact-block .notification {
   box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
   width: 100%;
-  /*    background: #d1eed1 !important;*/
-
   background: #e4f5e4 !important;
   height: 28px;
   line-height: 28px;
   display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 .fact-block .notification span {
-  float: right;
   padding: 0 16px;
   color: #313131;
 }

@@ -7,5 +7,5 @@
 $('article.fact[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
 
 if (Channels !== undefined && "<%=current_user.graph_user.id%>" === Channels.models[0].get('created_by_id') ) {
-  Channels.add(<%= ChannelsHelper::ChannelModelView.new(@channel,self).to_json.html_safe %>);
+  Channels.add(<%= Channels::SingleMenuItem.for_channel_and_view(@channel,self).to_json.html_safe %>);
 }

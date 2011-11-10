@@ -10,13 +10,4 @@ module ChannelsHelper
     end
   end
   
-  class ChannelModelView
-    def self.new(channel,view)
-      smi = Channels::SingleMenuItem.new()
-      smi.view = view
-      smi[:channel] = channel
-      return smi
-    end
-  end
-  
 end
