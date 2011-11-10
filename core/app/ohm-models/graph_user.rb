@@ -41,9 +41,6 @@ class GraphUser < OurOhm
   end
   after :create, :create_stream
 
-
-
-
   reference :created_facts_channel, Channel::CreatedFacts
   def create_created_facts_channel
     self.created_facts_channel = Channel::CreatedFacts.create(:created_by => self)
