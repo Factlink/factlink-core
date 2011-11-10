@@ -194,7 +194,7 @@ class FactsController < ApplicationController
   def internal_search(eligible_facts)
     @page = params[:page]
     page = @page
-    @row_count = 4
+    @row_count = 20
     row_count = @row_count
 
     solr_result = Sunspot.search FactData do
