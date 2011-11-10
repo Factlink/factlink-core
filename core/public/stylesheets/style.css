@@ -41,6 +41,8 @@
   padding: 0;
   list-style: none;
   zoom: 1;
+  content: "";
+  display: table;
   zoom: 1;
 }
 .tabs:before,
@@ -281,17 +283,11 @@ textarea {
 * Remove text-shadow in selection highlight: h5bp.com/i
 * These selection declarations have to be separate
 * Also: hot pink! (or customize the background color to match your design)
+
+
+::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
+::selection { background: #fe57a1; color: #fff; text-shadow: none; }
 */
-::-moz-selection {
-  background: #fe57a1;
-  color: #fff;
-  text-shadow: none;
-}
-::selection {
-  background: #fe57a1;
-  color: #fff;
-  text-shadow: none;
-}
 /* =============================================================================
 Links
 ========================================================================== */
@@ -713,15 +709,6 @@ form .action-wrapper span {
 }
 #container {
   padding-top: 60px;
-  /*    input[type="text"] {
-      padding: 2px;
-      border-radius: 3px;
-      border: solid 1px #ddd;
-      font-weight: 100;
-    }*/
-
-  /* content blocks */
-
 }
 #container h1 {
   font-family: Arial, Helvetica, Garuda, sans-serif;
@@ -730,6 +717,9 @@ form .action-wrapper span {
   color: #666;
   margin: 0px 0px 12px 0px;
   text-shadow: 0px 1px 0px #fff;
+}
+#container h1 > a {
+  float: right;
 }
 #container sub {
   color: #aaa;

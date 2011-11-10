@@ -15,7 +15,7 @@ module Channels
           end
           
           def user_avatar
-            '#{escape_single_quotes(user.avatar.url)}'
+            '#{escape_single_quotes(user.avatar.url(:thumb))}'
           end
           
           def username
