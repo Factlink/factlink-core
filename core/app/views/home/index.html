@@ -12,7 +12,7 @@
 <!-- left column -->
 <% content_for :left_column do %>
 
-	<%= render :partial => "home/snippets/user_and_factlink_information" %>
+	<%= render "home/snippets/user_and_factlink_information" %>
 	
 <% end %>
 
@@ -24,7 +24,7 @@
 		<h1>Recent facts</h1>
 	</header>
 
-	<%= render :partial => "home/snippets/fact_listing", :locals => {  :facts => @facts } %>
+	<%= render "home/snippets/fact_listing", facts: @facts %>
 	
 <% end %>
 
