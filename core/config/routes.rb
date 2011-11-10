@@ -7,15 +7,9 @@ FactlinkUI::Application.routes.draw do
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
-  ##########
-  # Resources
-
-
   ################
   # Facts Controller
   ################
-  resources :facts do
-
   resources :facts, :except => :new do
     member do
       # TODO Refactor to use this opinion routes
