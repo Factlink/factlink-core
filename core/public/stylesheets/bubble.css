@@ -482,9 +482,6 @@ ul#results-listing div.user-block .side .type {
 .fact-block .controls ul.evidence li {
   line-height: 32px;
   padding: 0 15px;
-  float: right;
-}
-.fact-block .controls ul.evidence li:nth-child(1) {
   float: left;
 }
 .fact-block article.fact {
@@ -697,26 +694,26 @@ ul#results-listing div.user-block .side .type {
   background: #f0f0f0;
   cursor: pointer;
 }
-.fact-block .dropdown-container .evidence-results .search-area {
+.fact-block .dropdown-container .evidence-search-results .search-area {
   border-top: solid 1px #eeeeee;
   border-bottom: solid 1px #e9e9e9;
 }
-.fact-block .dropdown-container .evidence-results .search-area .evidence_search {
+.fact-block .dropdown-container .evidence-search-results .search-area .evidence_search {
   width: 360px;
   padding: 3px;
   border-radius: 4px;
   border: solid 1px #bbbbbb;
   margin: 8px 4px 8px 15px;
 }
-.fact-block .dropdown-container .evidence-results .search-area a {
+.fact-block .dropdown-container .evidence-search-results .search-area a {
   color: #5e8ba6;
 }
-.fact-block .dropdown-container .evidence-results .results {
+.fact-block .dropdown-container .evidence-search-results .results {
   height: 200px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.fact-block .dropdown-container .evidence-results .results ul li {
+.fact-block .dropdown-container .evidence-search-results .results ul li {
   color: #717171;
   font-family: "Georgia";
   font-size: 14px;
@@ -724,10 +721,35 @@ ul#results-listing div.user-block .side .type {
   padding: 15px;
   border-bottom: solid 1px #eeeeee;
 }
-.fact-block .dropdown-container .evidence-results .results ul li:hover {
+.fact-block .dropdown-container .evidence-search-results .results ul li.evidence:hover {
   color: #313131;
   background: #f5f5f5;
   cursor: pointer;
+}
+.fact-block .dropdown-container .evidence-add .evidence-bubble {
+  color: #717171;
+  font-family: "Georgia";
+  font-size: 13px;
+  font-weight: 100;
+  padding: 15px;
+  margin: 14px;
+  border: solid 1px #ddd;
+  border-radius: 6px;
+  box-shadow: 2px 2px 1px #eeeeee;
+  /*        &.evidence {*/
+
+  /*          margin: 0 14px 0 64px;*/
+
+  /*        }*/
+
+}
+.fact-block .dropdown-container .evidence-add .add-actions {
+  margin: 0 auto;
+  text-align: center;
+  padding: 8px;
+}
+.fact-block .dropdown-container .evidence-add .add-actions button {
+  margin: 2px;
 }
 .fact-block .dropdown-container .add-action {
   position: absolute;
