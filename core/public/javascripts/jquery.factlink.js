@@ -366,15 +366,15 @@
   function getEvidence($fact) {
     var id = $fact.attr("data-fact-id");
     var loader = $fact.find('.loading-evidence');
-    // $.ajax({
-    //       url: '/facts/' + id + '/fact_relations',
-    //       type: "GET",
-    //       dataType: "script",
-    //       success: function(data) {
-    //         loader.hide();
-    //       },
-    //       error: function(data) {}
-    //     });
+    $.ajax({
+      url: '/facts/' + id + '/fact_relations',
+      type: "GET",
+      dataType: "script",
+      success: function(data) {
+        loader.hide();
+      },
+      error: function(data) {}
+    });
   }
 
 
