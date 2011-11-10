@@ -589,6 +589,7 @@ ul#results-listing div.user-block .side .type {
 .fact-block .wheel {
   float: left;
   width: 72px;
+  height: 60px;
 }
 .fact-block .wheel svg {
   width: 52px !important;
