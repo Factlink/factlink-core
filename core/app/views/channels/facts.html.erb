@@ -14,8 +14,8 @@
     	<p>
     	  <%= @channel.description %>
     	</p>
+    	<%= render_mustache "contained_channel_list", channels: @channel.contained_channels %>
     </header>
-
 
     <% unless @channel.facts.count > 0 %>
     	<p>There are no facts in this channel...</p>
@@ -24,7 +24,7 @@
       <ul id="results-listing">
       	<% @channel.facts.each do |fact| %>
       		<li>
-      		   <%= render :partial => "/facts/fact", :locals => {  :fact => fact, :channel => @channel, :modal => nil } %>
+      		   <%= render "/facts/fact",  fact: fact, channel: @channel, modal: nil %>
       		</li>
       	<% end %>
       </ul>

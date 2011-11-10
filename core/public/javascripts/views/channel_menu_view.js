@@ -2,12 +2,13 @@ window.ChannelMenuView = Backbone.View.extend({
   tagName: "li",
   
   events: {
-    "click" : "showFacts"
+    "click" : "clickHandler"
   },
   
   initialize: function() {
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
+    this.model.bind('remove', this.remove, this);
   },
   
   render: function() {
@@ -37,8 +38,10 @@ window.ChannelMenuView = Backbone.View.extend({
     this.$( this.el ).remove();
   },
   
-  showFacts: function( e ) {
+  clickHandler: function( e ) {
     Router.navigate(Router.getUsername() + "/channels/" + this.model.id + "/facts", true);
+
+    this.model.set({new_facts: false});
     
     e.preventDefault();
   }

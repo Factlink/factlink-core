@@ -213,6 +213,11 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     result
   end
 
+  def all_reversed
+    key.zrevrange(0,-1).map(&model)
+  end
+
+
   protected
     # @private
     def apply(target,operation,*args)

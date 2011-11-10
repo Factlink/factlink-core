@@ -115,7 +115,7 @@ module Facts
     end
 
     def link
-      displaystring = self[:fact].data.displaystring
+      displaystring = h self[:fact].data.displaystring
       show_links ? link_to(displaystring, self[:fact].site.url, :target => "_blank") : displaystring
     end
     

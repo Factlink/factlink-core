@@ -15,6 +15,8 @@ FactlinkUI::Application.routes.draw do
   # Facts Controller
   ################
   resources :facts do
+
+  resources :facts, :except => :new do
     member do
       # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
