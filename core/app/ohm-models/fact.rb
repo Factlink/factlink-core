@@ -118,7 +118,6 @@ class Fact < Basefact
     data.delete
     super
   end
-  alias :delete_cascading :delete
   
   def delete_all_evidence
     fact_relations.each do |fr|

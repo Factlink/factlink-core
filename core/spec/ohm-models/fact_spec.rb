@@ -71,12 +71,12 @@ describe Fact do
 
         its(:get_opinion) {should be_a(Opinion)}
 
-        describe ".delete_cascading the fact, which has a #{relation} fact" do
+        describe ".delete the fact, which has a #{relation} fact" do
           before do
             @subject_id = subject.id
             @data_id = subject.data.id
             @relation_id = @fr.id
-            subject.delete_cascading
+            subject.delete
           end
           it "should remove the fact" do
             Fact[@subject_id].should be_nil
