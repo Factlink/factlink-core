@@ -3,8 +3,8 @@
 
 
 <% content_for :left_column do %>		
-  <%= render :partial => "home/snippets/user_li", :locals => { :user => @user } %>
-  <%= render :partial => "channels/channels", :locals => {:user => @user } %>
+  <%= render "home/snippets/user_li", user: @user } %>
+  <%= render "channels/channels", user: @user } %>
 <% end %>
 
 
@@ -12,8 +12,7 @@
 <h1><%= link_to(@user.username, user_profile_path(@user.username)) %></h1>
 
 <ul id="wide-activity-list">
-  <%= render :partial => "home/snippets/wide_activity_list",
-          :locals => { :activities => activities } %>
+  <%= render "home/snippets/wide_activity_list", activities: activities %>
 </ul>
 	
 <% end %>

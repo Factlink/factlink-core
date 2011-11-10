@@ -102,7 +102,7 @@ class GraphUser < OurOhm
 
   def opinion_on(fact)
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
-      return opinion if self.has_opinion?(opinion,fact)  
+      return opinion if has_opinion?(opinion,fact)  
     end
     return nil
   end
@@ -111,16 +111,11 @@ class GraphUser < OurOhm
     facts_he(:believes) | facts_he(:doubts) | facts_he(:disbelieves)
   end
 
-  def real_facts
-    facts.find_all { |fact| fact.class == Fact }
-  end
-
   def real_created_facts
     created_facts.find_all { |fact| fact.class == Fact }
   end
 
   def update_opinion(type, fact)
-    # Remove existing opinion by user
     remove_opinions(fact)
     facts_he(type) << fact
   end

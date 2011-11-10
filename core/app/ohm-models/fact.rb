@@ -91,19 +91,15 @@ class Fact < Basefact
     when :weakening
       return self.weakening_facts
     end
-    puts "Fact#evidence -- No evidence found for type '#{type}'"
   end
 
   def add_evidence(type, evidence, user)
     # Some extra loop protection
-    if evidence.id == self.id
-      puts "[ERROR] Fact#add_evidence -- Failed creating a FactRelation because that would cause a loop!"
-      return nil
-    else
-      fr = FactRelation.get_or_create(evidence,type,self,user)
-      activity(user,:created,fr)
-      fr
-    end
+    return nil if evidence.id == self.id
+      
+    fr = FactRelation.get_or_create(evidence,type,self,user)
+    activity(user,:created,fr)
+    fr
   end
   
   #returns whether a given fact should be considered
@@ -118,7 +114,6 @@ class Fact < Basefact
     data.delete
     super
   end
-  alias :delete_cascading :delete
   
   def delete_all_evidence
     fact_relations.each do |fr|

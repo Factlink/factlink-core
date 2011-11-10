@@ -23,11 +23,11 @@ describe Fact do
     it "should be persisted" do
       Fact[subject.id].should == subject
     end
-    describe ".delete_cascading" do
+    describe ".delete" do
       it " should work" do
         old_id = subject.id
         data_id = subject.data.id
-        subject.delete_cascading
+        subject.delete
         Fact[old_id].should be_nil
         expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
       end
@@ -71,12 +71,12 @@ describe Fact do
 
         its(:get_opinion) {should be_a(Opinion)}
 
-        describe ".delete_cascading the fact, which has a #{relation} fact" do
+        describe ".delete the fact, which has a #{relation} fact" do
           before do
             @subject_id = subject.id
             @data_id = subject.data.id
             @relation_id = @fr.id
-            subject.delete_cascading
+            subject.delete
           end
           it "should remove the fact" do
             Fact[@subject_id].should be_nil
@@ -88,12 +88,12 @@ describe Fact do
             FactRelation[@relation_id].should be_nil
           end
         end
-        describe ".delete_cascading the #{relation} fact" do
+        describe ".delete the #{relation} fact" do
           before do
             @factlink_id = @factlink.id
             @data_id = @factlink.data.id
             @relation_id = @fr.id
-            @factlink.delete_cascading
+            @factlink.delete
           end
           it "should remove the fact" do
             Fact[@factlink_id].should be_nil
