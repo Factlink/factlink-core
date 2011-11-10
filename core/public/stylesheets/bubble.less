@@ -385,12 +385,13 @@ ul#results-listing div.user-block {
 
     height: 300px;
 
+    position: relative;
     .dropdown-underbar {
       .underbar;
       position: absolute;
       bottom: 0px;
       width: 100%;
-      
+
       .user-search-input {
         font-style: italic;
       }
@@ -416,10 +417,13 @@ ul#results-listing div.user-block {
     .evidence-search-results {
 
       .search-area {
+        a {
+          margin-left: 15px;
+        }
         border-top: solid 1px @divider;
         border-bottom: solid 1px darken(@divider, 2);
         .evidence_search {
-          width: 360px;
+          width: 300px;
           padding: 3px;
           border-radius: 4px;
           border: solid 1px darken(@divider, 20);
@@ -430,7 +434,7 @@ ul#results-listing div.user-block {
         }
       }
       .results {
-        height: 250px;
+        height: 247px;
         overflow-y: scroll;
         overflow-x: hidden;
         
@@ -456,22 +460,25 @@ ul#results-listing div.user-block {
     }
     
     .evidence-add {
+
+      a {
+        margin: 13px 15px;
+        color: @link-blue;
+        display: block;
+      }
       
       .evidence-bubble {
         color: lighten(#313131, 25);
         font-family: "Georgia";
         font-size: 13px;
+        line-height: 20px;
         font-weight: 100;
         padding: 15px;
-        margin: 14px;
+        margin: 15px;
 
         border: solid 1px #ddd;
         border-radius: 6px;
         box-shadow: 2px 2px 1px @divider;
-        
-/*        &.evidence {*/
-/*          margin: 0 14px 0 64px;*/
-/*        }*/
       }
       
       .add-actions {
@@ -488,7 +495,6 @@ ul#results-listing div.user-block {
     .add-action {
       position: absolute;
       bottom: 0px;
-      
       width: 100%;
       text-align: center;
       .underbar;
@@ -521,6 +527,20 @@ ul#results-listing div.user-block {
       height: 300px;
       overflow-y: scroll;
       overflow-x: hidden;
+
+      .no-evidence-message {
+        display: none;
+        font-size: 14px;
+        line-height: 24px;
+        color: lighten(#313131, 25);
+        font-weight: 100;
+        text-shadow: 0px 1px 0px #fff;
+        margin-top: 100px;
+        text-align: center;
+        a {
+          color: @link-blue;
+        }
+      }
 
       li {
         background: @underbar-bg;

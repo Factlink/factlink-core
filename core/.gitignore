@@ -17,3 +17,4 @@ public/images/wheel/*.png
 *.orig
 public/system/
 *~
+solr/pids
