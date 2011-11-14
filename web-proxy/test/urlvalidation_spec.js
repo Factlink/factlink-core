@@ -1,6 +1,5 @@
 var urlvalidation = require('../lib/urlvalidation');
 
-
 exports['test urlvalidation valid urls'] = function(beforeExit, assert){
   var urls = [
     "http://www.google.com",
