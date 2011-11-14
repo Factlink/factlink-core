@@ -31,7 +31,7 @@ module Facts
       [
         {
           :type => 'believe',
-          :groupname => 'Believers',
+          :groupname => 'Agree',
           :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:believes, fact),
           :color => "#98d100",
@@ -47,7 +47,7 @@ module Facts
         },
         {
           :type => 'disbelieve',
-          :groupname => 'Disbelievers',
+          :groupname => 'Disagree',
           :percentage => fact.get_opinion.as_percentages[:disbelieve][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:disbelieves, fact),
           :color => "#e94e1b",

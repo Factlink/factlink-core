@@ -775,6 +775,7 @@ form .action-wrapper span {
   width: 70%;
   padding-top: 3px;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
@@ -813,6 +814,7 @@ form .action-wrapper span {
   width: 110px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #container #main-wrapper header.title ul.contained-channel-list li.contained-channel a:hover {
   text-decoration: none;
@@ -834,6 +836,7 @@ form .action-wrapper span {
 #container #channel-listing li a span {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   max-width: 116px;
   display: inline-block;
 }
