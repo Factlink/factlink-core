@@ -717,8 +717,11 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
-  padding: 2px 12px;
   margin: 3px 0px;
+  padding: 2px 0px;
+  height: 18px;
+  width: 100%;
+  display: block;
 }
 #fl .fl-popup .fl-add-options li:hover {
   background: #4e9cb5;
@@ -774,7 +777,10 @@ span.factlink.fl-active {
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
   display: block;
-  padding: 2px 0px;
+  padding: 0 12px;
+  margin: 2px 0;
+  height: 100%;
+  width: 100%;
   text-shadow: 0px 1px 0px #fff;
 }
 #fl .fl-popup .fl-share {
