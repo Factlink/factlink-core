@@ -8,8 +8,7 @@ class Channel < OurOhm
   
   attribute :title
   index :title
-  attribute :description
-
+  
   reference :created_by, GraphUser
   alias :graph_user :created_by
 
@@ -96,7 +95,7 @@ class Channel < OurOhm
   end
 
   def fork(user)
-    c = Channel.create(:created_by => user, :title => title, :description => description)
+    c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
@@ -111,7 +110,6 @@ class Channel < OurOhm
   def to_hash
     return {:id => id, 
             :title => title, 
-            :description => description,
             :created_by => created_by,
             :discontinued => discontinued}
   end

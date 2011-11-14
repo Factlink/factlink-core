@@ -1,8 +1,11 @@
-<% if params[:action] == "edit" %>
-	<% @action = "update" %> 
-<% else %>
-	<% @action = "create" %>
-<% end %>
+<%
+#TODO: move to controller/calling view
+if params[:action] == "edit"
+  @action = "update"
+ else
+	@action = "create"
+end
+%>
 
 <%= form_for(:channel, :html=>{:method=> params[:action] == "edit" ? :put : :post}, :url => { :action => @action }) do |f| %>
 	<% if @channel.errors.any? %>
@@ -22,11 +25,6 @@
 	<div class="row">
 		<%= f.label "Title" %>
 		<%= f.text_field :title, :placeholder => "JavaScript, Cooking, Sports, ..." %>
-	</div>
-
-	<div class="row">
-		<%= f.label "Description" %>
-		<%= f.text_field :description, :placeholder => "optional description" %>
 	</div>
 
 	<div class="action-wrapper">
