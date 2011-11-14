@@ -1,13 +1,4 @@
-<%
-#TODO: move to controller/calling view
-if params[:action] == "edit"
-  @action = "update"
- else
-	@action = "create"
-end
-%>
-
-<%= form_for(:channel, :html=>{:method=> params[:action] == "edit" ? :put : :post}, :url => { :action => @action }) do |f| %>
+<%= form_for(:channel, :html=>{:method=> (action == "update") ? :put : :post}, :url => { :action => action }) do |f| %>
 	<% if @channel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
@@ -30,8 +21,8 @@ end
 	<div class="action-wrapper">
 		<div class="actions">
 			<%= button_tag("Save", :disable_with => "Saving...", :class => "positive button primary") %>&nbsp;
-      <% if @action == "update" %> 
-			  <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete, "class" => "negative button" ) %></span>&nbsp;
+      <% if action == "update" %> 
+			  <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete, :class => "negative button" ) %></span>&nbsp;
 			<% end %>
 		</div>
 	</div>
