@@ -4,7 +4,6 @@ class Channel < OurOhm
 
     def add_fields
        self.title = "All"
-       self.description = "All facts"
      end
      before :validate, :add_fields
    
