@@ -1,8 +1,11 @@
-<% if params[:action] == "edit" %>
-	<% @action = "update" %> 
-<% else %>
-	<% @action = "create" %>
-<% end %>
+<%
+#TODO: move to controller/calling view
+if params[:action] == "edit"
+  @action = "update"
+ else
+	@action = "create"
+end
+%>
 
 <%= form_for(:channel, :html=>{:method=> params[:action] == "edit" ? :put : :post}, :url => { :action => @action }) do |f| %>
 	<% if @channel.errors.any? %>
