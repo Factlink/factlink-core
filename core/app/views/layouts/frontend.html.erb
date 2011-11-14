@@ -51,11 +51,11 @@
 			</div>
 
 			<div class="span-14">
-				<%= render :partial => "home/snippets/fact_search" %>
+				<%= render "home/snippets/fact_search" %>
 			</div>
 			
 			<div class="span-6 last">
-					<%= render :partial => "users/account_block" %>
+					<%= render "users/account_block" %>
 			</div>
 
 		</div>
@@ -88,7 +88,7 @@
 
 		<section id="main-column" class="span-14" role="main">  
 			<section id="main-wrapper">
-			<%= yield :main_column %>
+			  <%= yield :main_column %>
 			</section>
 		</section>
 

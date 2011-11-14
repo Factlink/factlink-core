@@ -10,9 +10,9 @@
   <% end %>
 
   <ul>
-  <% related_users.andand.each do |related_user| %>
-  	<%= render :partial => "home/snippets/user_li", :locals => {  :user => related_user } %>
-  <% end %>
+    <% related_users.andand.each do |related_user| %>
+    	<%= render "home/snippets/user_li", user: related_user %>
+    <% end %>
   </ul>
 
 <% end %>
