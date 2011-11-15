@@ -8,6 +8,10 @@ class Activity < OurOhm
   generic_reference :object
 
   attribute :action
+  
+  def self.for(search_for)
+    find(:user_id => search_for.id)
+  end
 end
 
 module ActivitySubject
