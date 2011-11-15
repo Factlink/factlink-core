@@ -1,8 +1,4 @@
-<!-- main column -->
 <% content_for :main_column do %>
-
 	<h1>Edit your channel</h1>
-
-	<%= render 'form' %>
-	
+	<%= render 'form', action: 'update' %>
 <% end %>

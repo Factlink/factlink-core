@@ -1,4 +1,4 @@
-window.ChannelMenuView = Backbone.View.extend({
+window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
   
   events: {

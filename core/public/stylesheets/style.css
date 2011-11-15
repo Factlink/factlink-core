@@ -508,6 +508,9 @@ table {
 td {
   vertical-align: top;
 }
+/* =============================================================================
+Mixins
+========================================================================= */
 /* ==|== primary styles =====================================================
 Author: 
 ========================================================================== */
@@ -769,12 +772,13 @@ form .action-wrapper span {
   float: right;
 }
 #container #main-wrapper header.title h1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin-bottom: 6px;
   display: block;
-  overflow: hidden;
   width: 70%;
   padding-top: 3px;
-  text-overflow: ellipsis;
 }
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
@@ -785,7 +789,7 @@ form .action-wrapper span {
 #container #main-wrapper header.title ul.contained-channel-list li.contained-channel {
   width: 150px;
   display: inline-block;
-  margin: 3px;
+  margin: 4px;
   border: 1px solid transparent;
   box-shadow: 0px 0px 3px #a8a8a8;
   padding: 2px;
@@ -797,7 +801,7 @@ form .action-wrapper span {
   border-radius: 3px;
 }
 #container #main-wrapper header.title ul.contained-channel-list li.contained-channel a {
-  display: inline-block;
+  display: block;
   font-size: 13px;
   height: 100%;
   width: 100%;
@@ -809,10 +813,11 @@ form .action-wrapper span {
   margin-right: 6px;
 }
 #container #main-wrapper header.title ul.contained-channel-list li.contained-channel a span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   display: inline-block;
   width: 110px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 #container #main-wrapper header.title ul.contained-channel-list li.contained-channel a:hover {
   text-decoration: none;
@@ -832,10 +837,17 @@ form .action-wrapper span {
   position: relative;
 }
 #container #channel-listing li a span {
+  vertical-align: middle;
+}
+#container #channel-listing li a .title {
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 116px;
   display: inline-block;
+}
+#container #channel-listing li a .new {
+  font-weight: bold;
 }
 #container #channel-listing li a:hover {
   background-color: #fff;

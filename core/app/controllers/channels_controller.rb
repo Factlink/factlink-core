@@ -89,7 +89,7 @@ class ChannelsController < ApplicationController
     channel_params = params[:channel] || params
     
     respond_to do |format|
-      if @channel.update_attributes!(channel_params.slice(:title, :description))
+      if @channel.update_attributes!(channel_params.slice(:title))
         format.html  { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }

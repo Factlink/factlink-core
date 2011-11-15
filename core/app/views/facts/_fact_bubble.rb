@@ -31,7 +31,7 @@ module Facts
       [
         {
           :type => 'believe',
-          :groupname => 'Top believers',
+          :groupname => 'Agree',
           :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:believes, fact),
           :color => "#98d100",
@@ -39,7 +39,7 @@ module Facts
         },
         {
           :type => 'doubt',
-          :groupname => 'Top not sure',
+          :groupname => 'Neutral',
           :percentage => fact.get_opinion.as_percentages[:doubt][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:doubts, fact),
           :color => "#36a9e1",
@@ -47,7 +47,7 @@ module Facts
         },
         {
           :type => 'disbelieve',
-          :groupname => 'Top disbelievers',
+          :groupname => 'Disagree',
           :percentage => fact.get_opinion.as_percentages[:disbelieve][:percentage],
           :is_current_opinion => user_signed_in?(current_user) && current_graph_user.has_opinion?(:disbelieves, fact),
           :color => "#e94e1b",
@@ -71,9 +71,6 @@ module Facts
       path = view.user_profile_path(gu.user.username)
       link_to( imgtag, path, :target => "_top" )
     end
-
-
-
 
     def i_am_fact_owner
       (self[:fact].created_by == current_graph_user)
@@ -119,9 +116,6 @@ module Facts
     def user_opinion
       current_graph_user.opinion_on(self[:fact])
     end
-
-
-
   
   end
 end

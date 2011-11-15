@@ -51,11 +51,11 @@
 			</div>
 
 			<div class="span-14">
-				<%= render :partial => "home/snippets/fact_search" %>
+				<%= render "home/snippets/fact_search" %>
 			</div>
 			
 			<div class="span-6 last">
-					<%= render :partial => "users/account_block" %>
+					<%= render "users/account_block" %>
 			</div>
 
 		</div>
@@ -77,33 +77,27 @@
     </div>
     <% end %>
 	
-		<!-- header snippet -->
     <section id="header" class="span-24 append-bottom">
 			<%= yield :header %>
     </section>
 
 
-		<!-- left column -->
 		<section id="left-column" class="span-4 side-column">
 			<%= yield :left_column %>
 		</section>
 
-		<!-- main content -->
 		<section id="main-column" class="span-14" role="main">  
 			<section id="main-wrapper">
-			<%= yield :main_column %>
+			  <%= yield :main_column %>
 			</section>
 		</section>
 
-    <!-- right column  -->
     <section id="right-column" class="span-6 last side-column">
       <%= yield :right_column %>      
     </section>
    
 
-    <!-- <footer>
-    </footer> -->
-  </div> <!--! end of #container -->
+  </div>
 
 
   <!-- JavaScript at the bottom for fast page loading -->

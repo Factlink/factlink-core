@@ -2,10 +2,5 @@
 	
 	<h1><%= link_to("#{activities.first.user.user.username}'s activity", user_activities_path(activities.first.user.user.username)) %></h1>
 
-  <%= ''
-  #render :partial => "users/partials/activity_list",
-  #       :locals => { :activities => activities, :nr => 0 }
-  %>
-	
-
+  <%= render "activities/list", activities: activities, nr: 0  %>
 </div>

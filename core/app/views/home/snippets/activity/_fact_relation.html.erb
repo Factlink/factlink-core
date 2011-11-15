@@ -1,10 +1,7 @@
 <div>
 	<span class="action"><%= activity.action %></span> 
 
-	<!-- <span class="img <%= activity.subject.class.to_s.downcase %>"><a><%= activity.subject %></a></span> -->
-
 	<span class="img fact"><a><%= truncate(activity.subject.from_fact.displaystring, :length => 60) %></a></span>
-
 
 	<br/>
 	<% 	

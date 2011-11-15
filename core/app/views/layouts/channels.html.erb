@@ -1,27 +1,32 @@
-<!-- header -->
 <%= content_for :header do %>
 <% end %>
 
-<!-- left column -->
 <%= content_for :left_column do %>
-
-  <%= render "home/snippets/user_li", :user => @user %>
-  <%= render "channels/channels", :user => @user %>
+  <%= render "home/snippets/user_li", user: @user %>
+  <%= render "channels/channels", user: @user %>
 <% end %>
 
-<!-- right-column -->
 <%= content_for :right_column do %>
   <%= render "channels/related_users",
                :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
                :excluded_users => [@channel.andand.created_by.andand.user]
-  %>
+             %>
+
+  <% if @channel and not @channel.new? %>
+    <%= render "activities/list_with_title", activities: @channel.activities %>
+  <% end %>
+
+  &nbsp;
 <% end %>
 
 <%= content_for :javascript do %>
   <%= javascript_include_tag "models/channel.js" %>
   <%= javascript_include_tag "collections/channels.js" %>
   <%= javascript_include_tag "collections/facts.js" %>
-  <%= javascript_include_tag "views/channel_menu_view.js" %>
+  <%= javascript_include_tag "views/channel_item_view.js" %>
+  <%= javascript_include_tag "views/related_users_view.js" %>
+  <%= javascript_include_tag "views/channel_collection_view.js" %>
+  <%= javascript_include_tag "views/channel_view.js" %>
   <%= javascript_include_tag "views/channel_app_view.js" %>
   <%= javascript_include_tag "router.js" %>
 

@@ -12,10 +12,9 @@
     	<h1>
     	  <%= @channel.title %>
       </h1>
-      <p>
-    	  <%= @channel.description %>
-      </p>
-    	<%=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
+      <% if @channel.followable? %>
+        <%=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
+      <% end %>
     </header>
 
     <% unless @channel.facts.count > 0 %>
