@@ -1,0 +1,20 @@
+<%= form_tag(facts_path) do %>
+  <div>
+    <%= label_tag :site %>:
+    <%= text_field_tag :site %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :displaystring %>:
+    <%= text_field_tag :displaystring %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :title %>:
+    <%= text_field_tag :title %>
+  </div>
+   
+  <div class="actions">
+    <%= submit_tag %>
+  </div>
+<% end %>
