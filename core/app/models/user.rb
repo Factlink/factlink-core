@@ -23,7 +23,7 @@ class User
     }
   before_post_process :set_avatar_filename
   
-  before_save :update_avatar
+  after_create :set_avatar_from_twitter
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
@@ -68,7 +68,7 @@ class User
   end
 
 
-  def set_avatar_from_twitter    
+  def set_avatar_from_twitter
     if self.twitter
       url = twitter_image_url
 
@@ -82,7 +82,7 @@ class User
   end
 
   private
-  def update_avatar    
+  def update_avatar
     unless self.avatar_updated_at
       set_avatar_filename
     end
