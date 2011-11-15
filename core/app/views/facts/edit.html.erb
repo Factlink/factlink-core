@@ -1,6 +1,9 @@
 <% content_for :javascript do %>
 	<script type="text/javascript">
     window.fact_id = "<%= @fact.id %>";
-		parent.remote.highlightNewFactlink("<%= @fact.data.displaystring %>", "<%= @fact.id %>");
+    
+    if( parent.remote ) {
+      parent.remote.highlightNewFactlink("<%= @fact.data.displaystring %>", "<%= @fact.id %>");
+    }
 	</script>
 <% end %>
