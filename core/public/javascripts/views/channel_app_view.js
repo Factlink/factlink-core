@@ -17,7 +17,7 @@ window.AppView = Backbone.View.extend({
       this.setActiveChannel(current_channel_id.toString());
     }
     
-    this.setupChannelReloading();
+    // this.setupChannelReloading();
   },
 
   setupChannelReloading: function(){
