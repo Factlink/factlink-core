@@ -10,7 +10,11 @@ class Activity < OurOhm
   attribute :action
   
   def self.for(search_for)
-    find(:user_id => search_for.id)
+    if search_for.class == GraphUser
+      find(:user_id => search_for.id)
+    else
+      find(:subject_id => search_for.id, :subject_class => search_for.class)
+    end
   end
 end
 
