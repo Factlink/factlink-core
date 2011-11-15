@@ -60,6 +60,14 @@ class FactsController < ApplicationController
     
     render :template => 'facts/intermediate', :layout => nil
   end
+  
+  # GET /facts/new
+  # GET /facts/new.json
+  def new
+    respond_to do |format|
+      format.html { render :layout => 'popup' } # new.html.erb
+    end
+  end
 
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
