@@ -12,7 +12,7 @@
                :excluded_users => [@channel.andand.created_by.andand.user]
   %>
   <% if @channel and not @channel.new? %>
-    <%= render "activities/list_with_title", activities: Activity.for(@channel).sort_by(:created_at) %>
+    <%= render "activities/list_with_title", activities: @channel.activities %>
   <% end %>
 <% end %>
 

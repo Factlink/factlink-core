@@ -24,4 +24,8 @@ module ActivitySubject
     Activity.create(user: user,action: action, subject: subject, object: object)
   end
 
+  def activities
+    Activity.for(self).sort_by(:created_at)
+  end
+
 end
