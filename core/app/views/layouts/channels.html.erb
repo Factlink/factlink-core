@@ -12,6 +12,7 @@
                :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
                :excluded_users => [@channel.andand.created_by.andand.user]
   %>
+  <%= render "activities/list_with_title", activities: Activity.for(@channel) %>
 <% end %>
 
 <%= content_for :javascript do %>
