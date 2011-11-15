@@ -1,6 +1,12 @@
 require 'net/http'
 
 class ApplicationController < ActionController::Base
+
+  #require mustache partial views (the autoloader does not find them)
+  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
+    require_dependency path 
+  end
+
   protect_from_forgery
   
   helper :all
