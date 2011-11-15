@@ -13,7 +13,7 @@ class Activity < OurOhm
     if search_for.class == GraphUser
       find(user_id: search_for.id)
     else
-      find(subject_id: search_for.id, subject_class: search_for.class)
+      find(subject_id: search_for.id, subject_class: search_for.class) | find(object_id: search_for.id, object_class: search_for.class)
     end
   end
 end

@@ -41,7 +41,7 @@ describe Activity do
         Activity.for(Foo.create).to_a.should =~ []
       end
       it {Activity.for(@b1).to_a.should =~ [@activity] }
-      #it {Activity.for(@b2).to_a.should =~ [@activity] }
+      it {Activity.for(@b2).to_a.should =~ [@activity] }
     end
   end
   
