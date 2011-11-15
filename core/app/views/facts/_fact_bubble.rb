@@ -88,7 +88,11 @@ module Facts
     end
 
     def pretty_url
-      self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+      if self[:fact].site
+        self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+      else
+        ""
+      end
     end
 
     def delete_link
@@ -100,7 +104,7 @@ module Facts
     end
 
     def show_links
-      not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site])
+      not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and self[:fact].site
     end
 
     def scroll_to_link
