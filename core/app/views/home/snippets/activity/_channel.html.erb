@@ -7,7 +7,7 @@
 	<span class="to">to</span>
 	<span class="img <%= activity.object.class.to_s.downcase %>">
 
-		<%= link_to(activity.object.title, channel_path(activity.user.username, activity.object.id)) %>
+		<%= link_to(activity.object.title, channel_path(activity.user.user.username, activity.object.id)) %>
 	</span>
 
 	<% end %>

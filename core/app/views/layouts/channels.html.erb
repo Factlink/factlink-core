@@ -2,9 +2,8 @@
 <% end %>
 
 <%= content_for :left_column do %>
-
-  <%= render "home/snippets/user_li", :user => @user %>
-  <%= render "channels/channels", :user => @user %>
+  <%= render "home/snippets/user_li", user: @user %>
+  <%= render "channels/channels", user: @user %>
 <% end %>
 
 <%= content_for :right_column do %>
@@ -12,6 +11,9 @@
                :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
                :excluded_users => [@channel.andand.created_by.andand.user]
   %>
+  <% if @channel and not @channel.new? %>
+    <%= render "activities/list_with_title", activities: Activity.for(@channel).sort_by(:created_at) %>
+  <% end %>
 <% end %>
 
 <%= content_for :javascript do %>
