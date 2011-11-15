@@ -6,8 +6,9 @@
  */
 
 /* jslint node: true */
-config_path = process.env.CONFIG_PATH || '../config/';
-server = require('./lib/server').getServer(config_path);
 
-server.listen(server.INTERNAL_PROXY_PORT);
-console.info('\nStarted Factlink proxy on internal port ' + server.INTERNAL_PROXY_PORT);
+config = require('./lib/config').get(process.env)
+server = require('./lib/server').getServer(config);
+
+server.listen(config.INTERNAL_PROXY_PORT);
+console.info('\nStarted Factlink proxy on internal port ' + config.INTERNAL_PROXY_PORT);
