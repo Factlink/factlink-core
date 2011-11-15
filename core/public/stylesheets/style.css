@@ -836,6 +836,9 @@ form .action-wrapper span {
   color: #222;
   position: relative;
 }
+#container #channel-listing li a span {
+  vertical-align: middle;
+}
 #container #channel-listing li a .title {
   overflow: hidden;
   white-space: nowrap;
