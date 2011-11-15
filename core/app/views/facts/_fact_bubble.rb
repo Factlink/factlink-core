@@ -115,9 +115,6 @@ module Facts
     def user_opinion
       current_graph_user.opinion_on(self[:fact])
     end
-
-
-
   
   end
 end
