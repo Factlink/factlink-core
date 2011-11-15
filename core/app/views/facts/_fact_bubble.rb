@@ -72,9 +72,6 @@ module Facts
       link_to( imgtag, path, :target => "_top" )
     end
 
-
-
-
     def i_am_fact_owner
       (self[:fact].created_by == current_graph_user)
     end
