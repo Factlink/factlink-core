@@ -34,6 +34,8 @@ module Channels
   
     def to_hash
       return {
+#                    /\
+#                    |
                  :id => id,
                :link => link,
               :title => title,
