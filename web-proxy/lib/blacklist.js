@@ -12,10 +12,6 @@ function set_API_OPTIONS(api_options) {
 function if_allowed(url, successFn, errorFn) {
   var factlink_blacklist_url = API_URL + '/site/?url=' + encodeURIComponent(url);
 
-  console.log(API_OPTIONS.username);
-  console.log(API_OPTIONS.password);
-  console.log('url: ' + factlink_blacklist_url);
-
   restler.get(factlink_blacklist_url, 
     { parser:   restler.parsers.json,
       username: API_OPTIONS.username,
@@ -29,8 +25,8 @@ function if_allowed(url, successFn, errorFn) {
     }
   })
   .on('error', function(data) {
-    console.log("BARON CHERE DE LA PROBLEMOS!");
-    // TODO: What should happen when a call to the blacklist API fails?
+    // In case something went wrong with the call to the blacklist API,
+    // allow the site.
     succesFn();
   });
 }
