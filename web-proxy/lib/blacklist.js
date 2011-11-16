@@ -12,11 +12,14 @@ function set_API_OPTIONS(api_options) {
 function if_allowed(url, successFn, errorFn) {
   var factlink_blacklist_url = API_URL + '/site/?url=' + encodeURIComponent(url);
 
-  restler.get(factlink_blacklist_url, 
-    { parser:   restler.parsers.json,
-      username: API_OPTIONS.username,
-      password: API_OPTIONS.password
-  })
+  var options = { parser: restler.parsers.json }
+
+  if (API_OPTIONS !== undefined) {
+    options.username = API_OPTIONS.username,
+    options.password = API_OPTIONS.password
+  }
+  
+  restler.get(factlink_blacklist_url, options)
   .on('complete', function(data) {
     if (data.blacklisted !== true) {
       successFn();
