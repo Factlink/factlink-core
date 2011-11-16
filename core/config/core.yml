@@ -3,9 +3,6 @@ development:
         hostname: localhost
         port: 3000
         protocol: http://
-        htpasswd:
-          username: ''
-          password: ''
 
 test:
     core:
