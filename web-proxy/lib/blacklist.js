@@ -27,7 +27,7 @@ function if_allowed(url, successFn, errorFn) {
   .on('error', function(data) {
     // In case something went wrong with the call to the blacklist API,
     // allow the site.
-    succesFn();
+    successFn();
   });
 }
 
