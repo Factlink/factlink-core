@@ -21,16 +21,9 @@ module ActivityHelper
   end
 
   def activity_for_type(activity)
-    
-    case activity.object.class
-      when Channel
-        render "activity/snippets/channel", activity: activity
-      when Fact
-        render "activity/snippets/fact", activity: activity
-      when FactRelation
-        render "activity/snippets/fact_relation", activity: activity
-      else "Unknown activity"
-    end
+    render "activities/snippets/" + activity.object.class.name.underscore, activity: activity
+  rescue
+    "Unknown activity"
   end
   
 end
