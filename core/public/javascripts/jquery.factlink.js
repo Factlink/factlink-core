@@ -38,16 +38,16 @@
       }
     }
 
-    function authority(w, authority_element) {
+    function update_authority(w, authority_element) {
       var auth = authority_element.data("authority");
       var pos = w.params.dim + (w.params.dim * 0.25);
       if (!authority_element.raphael) {
-        return (authority_element.raphael = w.r.text(pos, pos, auth).attr({
+        authority_element.raphael = w.r.text(pos, pos, auth).attr({
           "font-size": "13px",
           "fill": "#ccc"
         }));
       } else {
-        return authority_element.raphael.attr({
+        authority_element.raphael.attr({
           "text": auth
         });
       }
@@ -77,7 +77,7 @@
 
     Wheel.prototype.update = function() {
       var wheel = this;
-      var a = authority(wheel, wheel.authority);
+      update_authority(wheel, wheel.authority);
       wheel.calc_display(this.opinions);
       var offset = 0;
       $(this.opinions).each(function() {
