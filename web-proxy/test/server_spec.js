@@ -22,10 +22,10 @@ var production_config   = require('../lib/config').get(production_env);
 
 /** Config */
 exports['htpasswd should NOT be set on development env'] = function(beforeExit, assert){
-  assert.eql(development_config.core.htpasswd.username, "");
+  assert.isUndefined(development_config.core.htpasswd);
 };
 exports['htpasswd should be set on testserver env'] = function(beforeExit, assert){
-  assert.isDefined(testserver_config.core.htpasswd.username, "proxyuser");
+  assert.eql(testserver_config.core.htpasswd.username, "proxyuser");
 };
 exports['htpasswd should be set on production env'] = function(beforeExit, assert){
   assert.eql(production_config.core.htpasswd.username, "proxyuser");
