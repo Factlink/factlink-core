@@ -95,7 +95,6 @@ class OurOhm < Ohm::Model
   extend ActiveModel::Naming
   extend OhmGenericReference
   extend OhmValueReference
-  include Canivete::Deprecate
 
   # needed for Ohm polymorphism:
   self.base = self

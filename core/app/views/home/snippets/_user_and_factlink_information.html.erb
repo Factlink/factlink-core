@@ -9,7 +9,7 @@
 </header>
 
 <ul>
-<% interesting_users_without.each do |user| %>
-	<%= render :partial => "home/snippets/user_li", :locals => {  :user => user } %>
-<% end %>
+  <% interesting_users_without.each do |user| %>
+  	<%= render "home/snippets/user_li", user: user %>
+  <% end %>
 </ul>
