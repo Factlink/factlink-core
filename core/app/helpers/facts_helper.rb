@@ -1,5 +1,4 @@
 module FactsHelper
-  include Canivete::Deprecate
 
   def evidence_buttons_locals(fact_relation, user)
     locals = {  :fact_relation => fact_relation,}
