@@ -20,24 +20,21 @@ domReady(function(){
 	 * Replace all <a> elements with a proxied URL
 	 */
   for ( var i = 0, j = a.length; i < j; i++ ) {
-    // Store the current a-tag
-    var b = a[i];
-    var href = b.href;
-    var valid = false;
+    var href = a[i].href;
 
-    if ( href.length > 0 ) {
-      if ( href.search(/http(s|):\/\//) !== 0 ) { 
-        if ( href.search(/mailto:/) !== 0 && href.search(/javascript:/) !== 0 ) {
-          console.info( "No matching for href: " + href );
-        }
-      } else {
-        valid = true;
-      }
-    }
-        
-    if ( valid ) {
-      b.href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
-      b.target = "_parent";
+    if ( href.search(/https?:\/\//) === 0 ) { 
+      a[i].href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
+      console.info('replacing ' + href + ' by ' + a[i].href );
+      a[i].target = "_parent";
+      
+      //prevent quietly changing the url afterwards
+      //at least needed for the google search results
+      a[i].onmousedown="";
+      a[i].onclick="";
+      a[i].onmouseup="";
+      
+    } else if ( href.search(/mailto:/) !== 0 && href.search(/javascript:/) !== 0 ) {
+        console.info( "No matching for href: " + href );
     }
   }
 
