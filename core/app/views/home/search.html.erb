@@ -23,22 +23,16 @@
 	<% unless @results.count > 0 %>
 
 		<div class="append-bottom">
-      <!-- <ul> -->
 				<p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
-      <!-- </ul> -->
 		</div>
 		
 	<% else %>
-	  <% unless @results.count > 0 %>
-	    <p>No facts added yet.</p>
-	  <% else %>
-	    <ul id="results-listing">
-	      <% @results.each do |result| %>
-	        <li>
-	         <%= render result %>
-	        </li>
-	      <% end %>
-      </ul>
-	  <% end %>
+    <ul id="results-listing">
+      <% @results.each do |result| %>
+        <li>
+         <%= render result %>
+        </li>
+      <% end %>
+    </ul>
 	<% end %>
 <% end %>
