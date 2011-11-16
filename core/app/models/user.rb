@@ -93,7 +93,7 @@ class User
   end
   
   def twitter_image_url
-    "http://purl.org/net/spiurl/#{twitter}"
+    "http://api.twitter.com/1/users/profile_image?screen_name=#{twitter}&size=bigger"
   end
 
 end
