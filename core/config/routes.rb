@@ -113,5 +113,5 @@ FactlinkUI::Application.routes.draw do
     get "/activities" => "users#activities", :as => "user_activities"
   end
   
-
+  mount JasmineRails::Engine => "/specs" unless Rails.env.production?
 end
