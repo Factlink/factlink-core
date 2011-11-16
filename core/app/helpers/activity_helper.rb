@@ -1,5 +1,4 @@
 module ActivityHelper  
-  include Canivete::Deprecate
 
   def image_for_activity(activity)
         
