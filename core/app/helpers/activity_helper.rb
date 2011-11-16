@@ -29,6 +29,7 @@ module ActivityHelper
         render "activity/snippets/fact", activity: activity
       when FactRelation
         render "activity/snippets/fact_relation", activity: activity
+      else "Unknown activity"
     end
   end
   
