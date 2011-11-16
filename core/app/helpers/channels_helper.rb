@@ -3,10 +3,8 @@ require 'active_support/configurable'
 module ChannelsHelper
   
   def add_channel(user)
-    if user_signed_in?
-      if current_user == user
-        render :partial => "channels/add_channel"
-      end
+    if user_signed_in? and current_user == user
+        render "channels/add_channel"
     end
   end
   
