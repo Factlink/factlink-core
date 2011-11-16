@@ -62,7 +62,6 @@ class FactsController < ApplicationController
   end
   
   # GET /facts/new
-  # GET /facts/new.json
   def new
     respond_to do |format|
       format.html { render :layout => 'popup' } # new.html.erb
