@@ -1,5 +1,3 @@
-require 'active_support/configurable'
-
 module ChannelsHelper
   
   def add_channel(user)
