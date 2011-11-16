@@ -22,8 +22,7 @@ module FactsHelper
       locals[:positive_action] = "weakening"
       locals[:negative_action] = "not weakening"
     end
-    render :partial => "/facts/partial/evidence_buttons", 
-	            :locals => locals
+    render "/facts/partial/evidence_buttons", locals: locals
   end
   
   class SemiMustacheView
