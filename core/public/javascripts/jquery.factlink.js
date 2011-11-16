@@ -479,7 +479,7 @@
         $fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);
         });
-        $fact.find(".authority span").text(data.authority);
+        data_attr($fact.data("wheel").authority,"authority",data.authority);
         $fact.data("wheel").update();
       });
 
