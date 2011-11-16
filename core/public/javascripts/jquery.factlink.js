@@ -199,12 +199,9 @@
             $fact.find('.evidence-search-results').show();
             return false;
           });
-
         }
 
-
         function addEventHandlersSubmitButton($fact) {
-
           $fact.find('button.supporting').bind('click', function() {
             submitEvidence($fact, "supporting");
           });
@@ -445,7 +442,6 @@
   function hidePages($c) {
     $c.find('.page').hide();
   }
-
 
   function init_fact(fact, container) {
     var $fact = $(fact);
