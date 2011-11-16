@@ -206,6 +206,8 @@ class FactsController < ApplicationController
       with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
     
+    @first_page = @page.nil? || @page.to_i < 2
+    
     @fact_data = solr_result.results
     
     # Return the actual Facts in stead of FactData
