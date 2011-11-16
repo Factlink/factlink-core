@@ -3,6 +3,9 @@ development:
         hostname: localhost
         port: 3000
         protocol: http://
+        htpasswd:
+          username: ''
+          password: ''
 
 test:
     core:
@@ -15,9 +18,15 @@ testserver:
         hostname: testserver.factlink.com
         port: 443
         protocol: https://
+        htpasswd:
+          username: proxyuser
+          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
 production:
     core:
         hostname: demo.factlink.com
         port: 443
         protocol: https://
+        htpasswd:
+          username: proxyuser
+          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
