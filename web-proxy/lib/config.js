@@ -36,7 +36,7 @@ function get(process_env){
   config = read_conf(config_path, fs, env);
 
   config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port; 
-  config.API_OPTIONS          = {username: config.core.htpasswd.username, password: config.core.htpasswd.password};
+  config.API_OPTIONS          = config.core.htpasswd;
   config.PROXY_URL            = config.proxy.protocol + config.proxy.hostname + ':' + config.proxy.port;
   config.STATIC_URL           = config['static'].protocol + config['static'].hostname + ':' + config['static'].port;  
   config.LIB_URL              = config.STATIC_URL + "/lib";
