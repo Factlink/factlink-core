@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_graph_user
-    current_user.andand.graph_user
+    @current_graph_user ||= current_user.andand.graph_user
   end
 
   def mustache_json(klass)

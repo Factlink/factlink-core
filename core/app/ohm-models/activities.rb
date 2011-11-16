@@ -25,7 +25,7 @@ module ActivitySubject
   end
 
   def activities
-    Activity.for(self).sort_by(:created_at)
+    Activity.for(self).sort_by(:created_at, :order => "DESC ALPHA")
   end
 
 end

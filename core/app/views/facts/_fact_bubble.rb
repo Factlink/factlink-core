@@ -11,9 +11,11 @@ module Facts
     def channel_path
       channels_path(@current_user.username)
     end
+    
     def id
       self[:fact].id
     end
+    
     def user_signed_in?(user=self[:current_user])
       user
     end
@@ -21,7 +23,6 @@ module Facts
     def authority
       self[:fact].get_opinion.as_percentages[:authority]
     end
-
 
     def opinions
       opinions_for_user_and_fact(self[:fact])
@@ -56,7 +57,6 @@ module Facts
       ]
     end
 
-
     def graph_users_with_link(graph_users)
       graph_users.map do |gu|
         {
@@ -77,11 +77,7 @@ module Facts
     end
 
     def editable_title_class
-      if user_signed_in? and i_am_fact_owner
-        return " edit "
-      else
-        return ""
-      end 
+      (user_signed_in? and i_am_fact_owner) ? " edit " : ""
     end
 
     def pretty_url

@@ -1,5 +1,4 @@
 module ActivityHelper  
-  include Canivete::Deprecate
 
   def image_for_activity(activity)
         
@@ -21,15 +20,9 @@ module ActivityHelper
   end
 
   def activity_for_type(activity)
-    
-    case activity.object.class
-      when Channel
-        render "home/snippets/activity/channel", activity: activity
-      when Fact
-        render "home/snippets/activity/fact", activity: activity
-      when FactRelation
-        render "home/snippets/activity/fact_relation", activity: activity
-    end
+    render "activities/snippets/" + activity.object.class.name.underscore, activity: activity
+  rescue
+    "Unknown activity"
   end
   
 end

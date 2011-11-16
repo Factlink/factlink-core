@@ -45,10 +45,6 @@ class FactRelation < Basefact
     fl
   end
 
-  def FactRelation.redis_key(evidence, type, fact)
-    "factlink:#{evidence.id}:#{type}:#{fact.id}"
-  end
-
   def evidenced_facts
     [fact]
   end

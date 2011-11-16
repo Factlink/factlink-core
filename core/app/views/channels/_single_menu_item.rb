@@ -17,11 +17,11 @@ module Channels
     end
   
     def nr_of_facts
-      self[:channel].unread_count
+      unread_count
     end
   
     def new_facts
-      (self[:channel].unread_count != 0) && self[:channel].created_by.user == current_user
+      (unread_count != 0) && self[:channel].created_by == current_graph_user
     end
 
     def id
@@ -44,6 +44,10 @@ module Channels
       :created_by_id => created_by_id,
       }
     end
+
+    def unread_count
+      @unread ||= self[:channel].unread_count
+    end
+
   end
-  
 end
