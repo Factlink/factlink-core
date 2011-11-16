@@ -24,11 +24,11 @@ module ActivityHelper
     
     case activity.object.class
       when Channel
-        render "home/snippets/activity/channel", activity: activity
+        render "activity/snippets/channel", activity: activity
       when Fact
-        render "home/snippets/activity/fact", activity: activity
+        render "activity/snippets/fact", activity: activity
       when FactRelation
-        render "home/snippets/activity/fact_relation", activity: activity
+        render "activity/snippets/fact_relation", activity: activity
     end
   end
   
