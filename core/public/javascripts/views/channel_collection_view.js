@@ -27,6 +27,11 @@ window.ChannelCollectionView = Backbone.View.extend({
       // stores id as string (=== comparison)
       this.setActiveChannel(current_channel_id.toString());
     }
+    
+    // Hacky way to make sure Backbone will refollow the current route
+    $(this.el).find('li.active').live('click', function(e) {
+      Backbone.history.loadUrl( Backbone.history.fragment );
+    });
   },
   
   addOneChannel: function(channel) {
