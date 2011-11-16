@@ -18,15 +18,11 @@
   <div class="controls">
     <ul class="evidence">
       <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
-
-      <!-- <li><a class="link-to-factlink">Link to Factlink</a></li> -->
-      <!--<li class="add-to-channel">Channels</li>-->
     </ul>
   </div>
 
 
   <div class="dropdown-container">
-
     <!-- default view - show the evidence for this fact -->
     <div class="page evidence-list" style="display: block;">
       <div class="evidence-list-wrapper">
@@ -65,10 +61,13 @@
       </div>
       
       <div class="results">
-        <ul>
+        <ul class="default-results">
           <li>
             Please search for evidence
           </li>
+        </ul>
+        
+        <ul class="search-term-results">
         </ul>
       </div>
       

@@ -21,21 +21,14 @@ module ActivityHelper
   end
 
   def activity_for_type(activity)
-    if activity.object.class == Channel
-      return render :partial => "home/snippets/activity/channel",
-              :locals => { :activity => activity }      
-      
-    end
     
-    if activity.subject.class == Fact
-      return render :partial => "home/snippets/activity/fact",
-              :locals => { :activity => activity }      
-      
-    end
-
-    if activity.subject.class == FactRelation
-      return render :partial => "home/snippets/activity/fact_relation",
-              :locals => { :activity => activity }
+    case activity.object.class
+      when Channel
+        render "home/snippets/activity/channel", activity: activity
+      when Fact
+        render "home/snippets/activity/fact", activity: activity
+      when FactRelation
+        render "home/snippets/activity/fact_relation", activity: activity
     end
   end
   

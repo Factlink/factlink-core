@@ -15,7 +15,7 @@ module OhmGenericReference
     index reader_c
 
     define_memoized_method(name) do
-      klass = Kernel.const_get(send(reader_c))
+      klass = constantize(send(reader_c))
       id = send(reader)
       if klass == NilClass
         nil
