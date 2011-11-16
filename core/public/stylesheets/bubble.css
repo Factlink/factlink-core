@@ -853,7 +853,7 @@ ul#results-listing div.user-block .side .type {
   height: 24px;
   width: 24px;
   display: block;
-  background: url('../images/relation-sprite.png') no-repeat 0 -28px;
+  background: url('../images/relation-sprite.png') no-repeat -30px -28px;
 }
 .fact-block .evidence-list .evidence-list-wrapper li .relation .supporting-indicator {
   height: 24px;
@@ -863,7 +863,7 @@ ul#results-listing div.user-block .side .type {
   height: 24px;
   width: 24px;
   display: block;
-  background: url('../images/relation-sprite.png') no-repeat 0 -28px;
+  background: url('../images/relation-sprite.png') no-repeat -30px -28px;
 }
 .fact-block .evidence-list .evidence-list-wrapper li .relation .weakening-indicator {
   height: 24px;
@@ -873,8 +873,8 @@ ul#results-listing div.user-block .side .type {
   height: 24px;
   width: 24px;
   display: block;
-  background: url('../images/relation-sprite.png') no-repeat 0 -28px;
-  background-position: -30px -28px;
+  background: url('../images/relation-sprite.png') no-repeat -30px -28px;
+  background-position: 0 -28px;
 }
 .fact-block .evidence-list .evidence-list-wrapper li .relation .weakening {
   height: 24px;
