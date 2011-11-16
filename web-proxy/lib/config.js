@@ -31,7 +31,7 @@ function read_conf(config_path, fs, env) {
 
 function get(process_env){
   config_path = process_env.CONFIG_PATH || '../config/';
-  env         = process_env.NODE_ENV || 'testserver';
+  env         = process_env.NODE_ENV || 'development';
 
   config = read_conf(config_path, fs, env);
 
