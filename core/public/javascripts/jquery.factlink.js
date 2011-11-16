@@ -449,7 +449,7 @@
     if (!$fact.data("initialized")) {
       $fact.find('.edit').editable('/factlink/update_title', {
         indicator: 'Saving...',
-        tooltip: 'You can edit this title to place the fact in the correct context.'
+        tooltip: 'You can edit this title to place the Factlink in the correct context.'
       });
 
       $fact.data("container", container);
