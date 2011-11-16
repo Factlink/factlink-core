@@ -38,16 +38,16 @@
       }
     }
 
-    function authority(w, authority_element) {
+    function update_authority(w, authority_element) {
       var auth = authority_element.data("authority");
       var pos = w.params.dim + (w.params.dim * 0.25);
       if (!authority_element.raphael) {
-        return (authority_element.raphael = w.r.text(pos, pos, auth).attr({
+        authority_element.raphael = w.r.text(pos, pos, auth).attr({
           "font-size": "13px",
           "fill": "#ccc"
-        }));
+        });
       } else {
-        return authority_element.raphael.attr({
+        authority_element.raphael.attr({
           "text": auth
         });
       }
@@ -77,7 +77,7 @@
 
     Wheel.prototype.update = function() {
       var wheel = this;
-      var a = authority(wheel, wheel.authority);
+      update_authority(wheel, wheel.authority);
       wheel.calc_display(this.opinions);
       var offset = 0;
       $(this.opinions).each(function() {
@@ -281,7 +281,7 @@
         });
       });
     },
-    // Update
+    
     update: function(data) {
       var $fact = $(this).data("container") || $(this);
       if ($fact.data("initialized")) {
@@ -299,9 +299,8 @@
       opinions.each(function() {
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
-          // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
-            $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
               data_attr(current_op, "user-opinion", true);
               fact.factlink("update", data);
             });
@@ -309,7 +308,7 @@
           else {
             $.ajax({
               type: "DELETE",
-              url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
+              url: "/facts/" + $(fact).data("fact-id") + "/opinion/",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
                 fact.factlink("update", data);
@@ -323,7 +322,7 @@
       });
     },
 
-    // Channels
+    
     to_channel: function(user, channel, fact) {
       $.ajax({
         url: "/" + user + "/channels/toggle/fact",
@@ -424,6 +423,7 @@
     });
   }
 
+
   function showEvidenceList($c) {
     hidePages($c);
     $c.find('.evidence-list').show();
@@ -476,11 +476,10 @@
       });
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {
-        // var fact = $fact;
         $fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);
         });
-        $fact.find(".authority span").text(data.authority);
+        data_attr($fact.data("wheel").authority,"authority",data.authority);
         $fact.data("wheel").update();
       });
 

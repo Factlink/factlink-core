@@ -1,6 +1,5 @@
 class ChannelsController < ApplicationController
 
-  # layout "accounting"
   layout "channels"
   
   before_filter :get_user

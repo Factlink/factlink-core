@@ -92,7 +92,7 @@ describe FactsController do
     it "should respond to XHR" do
       authenticate_user!
       xhr :get, :add_supporting_evidence,
-        :fact_id => FactoryGirl.create(:fact).id,
+        :id => FactoryGirl.create(:fact).id,
         :evidence_id => FactoryGirl.create(:fact).id
 
       response.code.should eq("200")
@@ -104,7 +104,7 @@ describe FactsController do
     it "should respond to XHR" do
       authenticate_user!
       xhr :get, :add_supporting_evidence,
-        :fact_id => FactoryGirl.create(:fact).id,
+        :id => FactoryGirl.create(:fact).id,
         :evidence_id => FactoryGirl.create(:fact).id
 
       response.code.should eq("200")
