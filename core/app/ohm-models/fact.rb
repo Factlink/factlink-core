@@ -17,17 +17,6 @@ class Fact < Basefact
 
   reference :site, Site # The site on which the factlink should be shown
 
-  #deprecate (= functions don't work with deprecate)
-  def url=(url)
-    self.site = Site.find_or_create_by(:url => url)
-  end
-  
-  deprecate
-  def url
-    self.site.url
-  end
-  
-
   reference :data, lambda { |id| id && FactData.find(id) }
   
   def require_saved_data
