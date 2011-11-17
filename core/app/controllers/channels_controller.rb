@@ -162,6 +162,11 @@ class ChannelsController < ApplicationController
       }
   end
   
+  def activities
+    render_partial_as_view partial: "activities/list",
+      locals: { activities: @channel.activities}
+  end
+  
   private
   def get_user
     if params[:username]
