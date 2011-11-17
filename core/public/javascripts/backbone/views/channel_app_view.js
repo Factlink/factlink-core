@@ -26,6 +26,8 @@ window.AppView = Backbone.View.extend({
     
     if ( channel ) {
       this.channelView.setChannel(channel).render();
+      
+      this.relatedUsersView.setChannel(channel).render();
     }
   }
 });
