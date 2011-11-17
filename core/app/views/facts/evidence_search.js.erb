@@ -1,5 +1,5 @@
 var fact =  $("div.fact-block[data-fact-id=<%=@fact.id%>]");
-var searchList = fact.find('.results ul');
+var searchList = fact.find('.evidence-search-results ul.search-term-results');
 
 <% if @first_page %>
   searchList.empty();
