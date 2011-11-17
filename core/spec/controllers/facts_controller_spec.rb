@@ -42,19 +42,6 @@ describe FactsController do
     end
   end
 
-  describe :edit do
-    it "should edit the given fact" do
-      authenticate_user!
-      
-      @fact = FactoryGirl.create(:fact)
-      get :edit, :id => @fact.id
-      
-      assigns[:fact].should == @fact
-    end  
-  end
-
-  
-
   describe :intermediate do
     it "should have the correct assignments" do
       
@@ -84,7 +71,7 @@ describe FactsController do
     it "should work" do
       authenticate_user!
       post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
-      response.should redirect_to(edit_fact_path(Fact.all.to_a.last.id))
+      response.should redirect_to(fact_path(Fact.all.to_a.last.id))
     end
   end
 
