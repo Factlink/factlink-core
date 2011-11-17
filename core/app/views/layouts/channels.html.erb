@@ -13,7 +13,9 @@
              %>
 
   <% if @channel and not @channel.new? %>
-    <%= render "activities/list_with_title", activities: @channel.activities %>
+    <div id="activity-listing">
+      <%= render "activities/list_with_title", activities: @channel.activities %>
+    </div>
   <% end %>
 
   &nbsp;
