@@ -52,11 +52,11 @@ class FactsController < ApplicationController
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
-    @url = params[:url]
-    @passage = params[:passage]
-    @fact = params[:fact]
-    @title = params[:title]
-    @opinion = params[:opinion]
+    @url      = params[:url]
+    @passage  = params[:passage]
+    @fact     = params[:fact]
+    @title    = params[:title]
+    @opinion  = params[:opinion]
     
     render :template => 'facts/intermediate', :layout => nil
   end
