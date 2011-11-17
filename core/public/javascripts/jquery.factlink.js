@@ -189,6 +189,8 @@
           $fact.find("a.return-from-add").bind("click", function() {
             $fact.find('.evidence-list').show();
             $fact.find('.evidence-search-results').hide();
+            
+            resetSearch($fact);
             return false;
           });
         }
@@ -335,7 +337,6 @@
         }
       });
     }
-
   };
 
   $.fn.factlink = function(method) {
@@ -351,9 +352,7 @@
     }
   };
 
-  // Private functions		
-
-
+  // Private functions
   function data_attr(el, attr, data) {
     $(el).attr("data-" + attr, data);
     $(el).data(attr, data);
@@ -404,13 +403,25 @@
     }
 
     // TODO: This should changed to use the FactRelationController
-    $.post("/factlink/" + factId + url_part + evidenceId, function(data) {});
+    $.ajax({
+      url: "/factlink/" + factId + url_part + evidenceId,
+      type: "post",
+      dataType: "script",
+      success: function() {
+        resetSearch($c);
+      },
+      error: function() {
+        console.log('Adding evidence failed: ' + "/factlink/" + factId + url_part + evidenceId);
+      }
+    });
   }
 
   function bindInstantSearch($c) {
     // Bind the instant search
     var is_timeout;
     $c.find('.search-area .evidence_search').keyup(function() {
+      showSearchResults($c);
+      
       var elem = $(this);
       $('.user-search-input').html(elem.val());
 
@@ -418,7 +429,9 @@
         clearTimeout(is_timeout);
         is_timeout = setTimeout(function() {
           elem.closest('form').submit();
-        }, 200); // <-- choose some sensible value here                                      
+        }, 200); // <-- choose some sensible value here        
+      } else {
+        hideSearchResults($c);
       }
     });
   }
@@ -441,6 +454,20 @@
 
   function hidePages($c) {
     $c.find('.page').hide();
+  }
+  
+  function resetSearch($c) {
+    hideSearchResults($c);
+    $c.find('.search-area .evidence_search').val('');
+    
+  }
+  function showSearchResults($c) {
+    $c.find('.evidence-search-results .search-term-results').show();
+    $c.find('.evidence-search-results .default-results').hide();
+  }
+  function hideSearchResults($c) {
+    $c.find('.evidence-search-results .search-term-results').hide();
+    $c.find('.evidence-search-results .default-results').show();
   }
 
   function init_fact(fact, container) {
