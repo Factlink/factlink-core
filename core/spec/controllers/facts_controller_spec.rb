@@ -73,6 +73,12 @@ describe FactsController do
       post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
       response.should redirect_to(fact_path(Fact.all.to_a.last.id))
     end
+    
+    it "should work with json" do
+      authenticate_user!
+      post 'create', :format => :json, :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      response.code.should eq("201")
+    end
   end
 
   describe :add_supporting_evidence do
