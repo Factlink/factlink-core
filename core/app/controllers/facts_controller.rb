@@ -94,6 +94,11 @@ class FactsController < ApplicationController
     end
   end
 
+  def create_fact_as_evidence
+    evidence = create_fact(params[:url], params[:fact], params[:title])
+    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:id])
+  end
+   
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
