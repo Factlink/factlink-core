@@ -61,7 +61,8 @@ class Fact < Basefact
     return {} unless self.data
     super.merge(:_id => id, 
                 :displaystring => self.data.displaystring, 
-                :score_dict_as_percentage => get_opinion.as_percentages)
+                :score_dict_as_percentage => get_opinion.as_percentages,
+                :title => self.data.title)
   end
 
   def fact_relations
