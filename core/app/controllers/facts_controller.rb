@@ -213,7 +213,8 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
   end
   
- private
+
+  private
   def sort_column # private
     FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
@@ -270,7 +271,6 @@ class FactsController < ApplicationController
     @fact
   end
 
-  private
   def allowed_type
     allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym
