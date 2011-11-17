@@ -336,7 +336,6 @@
         }
       });
     }
-
   };
 
   $.fn.factlink = function(method) {
@@ -352,9 +351,7 @@
     }
   };
 
-  // Private functions		
-
-
+  // Private functions
   function data_attr(el, attr, data) {
     $(el).attr("data-" + attr, data);
     $(el).data(attr, data);
@@ -419,7 +416,7 @@
         clearTimeout(is_timeout);
         is_timeout = setTimeout(function() {
           elem.closest('form').submit();
-        }, 200); // <-- choose some sensible value here                                      
+        }, 200); // <-- choose some sensible value here        
       }
     });
   }
