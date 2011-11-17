@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISPLAY=:0
+export DISPLAY=:0
 
 for file in ./tests/*.html
 do
