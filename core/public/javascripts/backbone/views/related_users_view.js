@@ -1,6 +1,6 @@
 window.RelatedUsersView = Backbone.View.extend({
 
-  el: $("#right-column"),
+  el: $("#right-column .related-users"),
   
   initialize: function() { 
   },
