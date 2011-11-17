@@ -44,7 +44,6 @@ FactlinkUI::Application.routes.draw do
 
   
   # Create new facts as evidence (supporting or weakening)
-  get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
 
 
