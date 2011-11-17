@@ -60,6 +60,13 @@ class FactsController < ApplicationController
     
     render :template => 'facts/intermediate', :layout => nil
   end
+  
+  # GET /facts/new
+  def new
+    respond_to do |format|
+      format.html { render :layout => 'popup' } # new.html.erb
+    end
+  end
 
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
@@ -70,8 +77,13 @@ class FactsController < ApplicationController
     end
     
     respond_to do |format|
-      format.json { render :json => @fact }
-      format.html { redirect_to :action => "edit", :id => @fact.id }
+      if @fact.save
+        format.html { redirect_to fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.json { render json: @fact, status: :created, location: @fact }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @fact.errors, status: :unprocessable_entity }
+      end
     end
   end
   
@@ -84,7 +96,7 @@ class FactsController < ApplicationController
 
   def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact], params[:title])
-    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
+    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:id])
   end
 
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
@@ -95,7 +107,7 @@ class FactsController < ApplicationController
   end
 
   def add_evidence_internal_internal(type,succes,fail)
-    @fact_relation = add_evidence(params[:evidence_id], type, params[:fact_id])
+    @fact_relation = add_evidence(params[:evidence_id], type, params[:id])
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
@@ -155,14 +167,14 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    @fact = Basefact[params[:fact_id]] 
+    @fact = Basefact[params[:id]]
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
     render :json => [@fact]
   end
 
   def remove_opinions
-    @fact = Basefact[params[:fact_id]]
+    @fact = Basefact[params[:id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
     render :json => [@fact]

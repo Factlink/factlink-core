@@ -10,12 +10,17 @@ FactlinkUI::Application.routes.draw do
   ################
   # Facts Controller
   ################
-  resources :facts, :except => :new do
+  resources :facts, :except => [:edit] do
     member do
       # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"
       match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
       get "/channels" => "facts#get_channel_listing"
+      
+      get     "opinion" => "facts#opinion"
+      post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
+      delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
+      
     end
     
     resources :fact_relations
@@ -29,19 +34,13 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
 
-  # Opinion on a Fact or FactRelation  
-  get     "/fact_item/:id/opinion" => "facts#opinion"
-  post    "/fact_item/:fact_id/opinion/:type" => "facts#set_opinion", :as => "set_opinion"
-  delete  "/fact_item/:fact_id/opinion/" => "facts#remove_opinions", :as => "delete_opinion"
-
-
   ################
   # FactRelation Controller
   ################
 
   # Add evidence as supporting or weakening
-  post  "/factlink/:fact_id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
-  post  "/factlink/:fact_id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
+  post  "/factlink/:id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
+  post  "/factlink/:id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
 
   
   # Create new facts as evidence (supporting or weakening)

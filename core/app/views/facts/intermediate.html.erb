@@ -98,10 +98,10 @@
                   successFn(data);
                 },
                 error: function vanillaIce(data) {
-                  console.info('SUCCESS : ' + path );
+                  console.info('ERROR : ' + path );
                   errorFn(data);
                 }
-              }, options))
+              }, options));
             }
           }
         });

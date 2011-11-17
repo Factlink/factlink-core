@@ -52,7 +52,7 @@ module FactsHelper
       if user_signed_in?
         "Perhaps you know something that supports or weakens this fact?"
       else
-        "There are no facts supporting or weakening this fact at the moment."
+        "There are no Factlinks supporting or weakening this Factlink at the moment."
       end
     end
 

@@ -81,7 +81,11 @@ module Facts
     end
 
     def pretty_url
-      self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+      if self[:fact].site
+        self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+      else
+        ""
+      end
     end
 
     def delete_link
@@ -89,11 +93,11 @@ module Facts
     end
 
     def proxy_scroll_url
-      return FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
+      FactlinkUI::Application.config.proxy_url + "?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
     end
 
     def show_links
-      not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site])
+      not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and self[:fact].site
     end
 
     def scroll_to_link
