@@ -6,12 +6,14 @@
   <%= render "channels/channels", user: @user %>
 <% end %>
 
-<%= content_for :right_column do %>
-  <%= render "channels/related_users",
-               :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-               :excluded_users => [@channel.andand.created_by.andand.user]
-             %>
-
+<% content_for :right_column do %>
+  <div class="related_users">
+    <%= render("channels/related_users",
+                 :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+                 :excluded_users => [@channel.andand.created_by.andand.user])
+               %>
+  </div>
+  
   <% if @channel and not @channel.new? %>
     <div id="activity-listing">
       <%= render "activities/list_with_title", activities: @channel.activities %>
