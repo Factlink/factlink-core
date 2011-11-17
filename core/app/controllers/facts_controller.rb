@@ -239,7 +239,7 @@ class FactsController < ApplicationController
   end
   
   def add_evidence(evidence_id, type, fact_id) # private  
-    type = type.to_sym  
+    type     = type.to_sym  
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
