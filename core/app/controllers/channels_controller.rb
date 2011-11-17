@@ -11,7 +11,8 @@ class ChannelsController < ApplicationController
       :destroy,
       :update,
       :facts,
-      :related_users]
+      :related_users,
+      :activities]
   
   before_filter :authenticate_user!,
     :except => [
