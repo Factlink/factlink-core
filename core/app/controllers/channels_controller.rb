@@ -164,7 +164,7 @@ class ChannelsController < ApplicationController
   end
   
   def activities
-    render_partial_as_view partial: "activities/list",
+    render_partial_as_view partial: "activities/list_with_title",
       locals: { activities: @channel.activities}
   end
   
