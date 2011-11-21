@@ -469,7 +469,6 @@
     $c.find('.evidence-search-results .default-results').show();
   }
   function getChannelChecklist(fact) {
-    alert('hoi');
     var id = fact.attr("data-fact-id");
     $.ajax({
       url: '/facts/' + id + '/channels',
