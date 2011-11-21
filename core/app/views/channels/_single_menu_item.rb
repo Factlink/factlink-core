@@ -1,15 +1,25 @@
 module Channels
   class SingleMenuItem < Mustache::Railstache
 
-    def self.for_channel_and_view(channel,view)
-      smi = new()
+    def self.for_channel_and_view(channel,view,channel_user=nil)
+      smi = new(false)
       smi.view = view
       smi[:channel] = channel
+      smi[:user] = channel_user
+      smi.init
       return smi
     end
 
+    def initialize(run=true)
+      init if run
+    end
+
+    def init
+      self[:user]||= self[:channel].created_by.user
+    end
+
     def link
-      get_facts_for_channel_path(self[:channel].created_by.user.username, self[:channel].id)
+      get_facts_for_channel_path(self[:user].username, self[:channel].id)
     end
   
     def title
@@ -21,7 +31,7 @@ module Channels
     end
   
     def new_facts
-      (unread_count != 0) && self[:channel].created_by == current_graph_user
+      (unread_count != 0) && self[:user] == current_user
     end
 
     def id

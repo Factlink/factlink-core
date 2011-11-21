@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       format.html
-      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self)} }
+      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user)} }
       format.js
     end
   end
@@ -36,7 +36,7 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1
   def show
     respond_to do |format|
-      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self)}
+      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self,@user)}
       format.js
       format.html do
         @channel.mark_as_read
@@ -164,7 +164,7 @@ class ChannelsController < ApplicationController
   end
   
   def activities
-    render_partial_as_view partial: "activities/list",
+    render_partial_as_view partial: "activities/list_with_title",
       locals: { activities: @channel.activities}
   end
   
