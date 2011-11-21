@@ -12,7 +12,8 @@
 @import "color_declarations.less";
 @import "elements.less";
 @import "css3buttons.css";
-@import "bootstrap-default.less";
+@import "bootstrap/bootstrap.less";
+@import "bootstrap/reset.less";
 
 /* =============================================================================
 HTML5 display definitions
@@ -219,18 +220,12 @@ Mixins
 /* ==|== primary styles =====================================================
 Author: 
 ========================================================================== */
-
-a, a:active, a:visited {
-  text-decoration: none;
-
-  &:hover {
-    cursor: pointer;
+a {
+  color: #333;
+  text-decoration: none; 
+  &:hover { 
+    text-decoration: underline;
   }
-}
-
-a:hover {
-  color:#306D90;
-  text-decoration: underline;
 }
 body.factlink-site .fact-block,
 body.factlink-site div.user-block {
@@ -434,6 +429,47 @@ body.factlink-site div.user-block {
     }
   }
 
+  #results-listing div.user-block { 
+    border: 1px solid #DDD; 
+    border-radius: 3px; 
+    color: #BBB; 
+    text-shadow: 0px 1px 0px white; 
+    width: 510px; 
+
+    .side { 
+      margin: 10px; 
+      float: left; 
+
+      .authority { 
+        display: block; 
+        text-align: center; 
+        margin: 5px 0 0 0; 
+        font-size: 12px; 
+
+        img { 
+          vertical-align: middle; 
+          border-radius: 3px; 
+        } 
+      } 
+
+      .username { 
+        color: #666363; 
+        float: left; 
+        font-size: 16px; 
+        vertical-align: top; 
+
+        a { 
+          color: #666363; 
+        } 
+      } 
+
+      .type { 
+        font-size: 14px; 
+        line-height: 26px; 
+      } 
+    } 
+  }
+
 
   #container {
     padding-top: 60px;
@@ -495,15 +531,6 @@ body.factlink-site div.user-block {
           margin: 0;
         }
       }
-    }
-
-    #left-column {
-    }
-
-    #main-column {
-    }
-
-    #right-column {
     }
 
     #main-wrapper {

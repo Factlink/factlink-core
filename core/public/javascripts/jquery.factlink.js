@@ -122,15 +122,6 @@
         $(this.raphael.node).bind("click", function() {
           $(w.fact).factlink("switch_opinion", $t);
         });
-        // $(this.raphael.node).hoverIntent({
-        //   over: function(e) {
-        //     optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
-        //     $(optionBox).fadeIn("fast");
-        //   },
-        //   out: function() {
-        //     $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
-        //   }
-        // });
       });
     };
 
@@ -345,7 +336,7 @@
       $.ajax({
         url: '/facts/' + id + '/channels',
         type: "GET",
-        dataType: "HTML",
+        dataType: "html",
         success: function(data) {fact.find(".channel-listing").html(data);},
         error: function(data) {}
       });
@@ -511,8 +502,8 @@
         e.preventDefault();
       });
 
-      $fact.find(".opinion-box").find("img").tipsy({
-        gravity: 's'
+      $fact.find(".opinion-box").find("img").twipsy({
+        placement: 'above'
       });
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {
