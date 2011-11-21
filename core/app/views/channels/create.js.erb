@@ -1,11 +1,3 @@
-<% if current_user.graph_user.channels.count == 1 %>
-	$('article.fact[data-fact-id=<%=@fact.id%>] .channel-listing > ul').empty().append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
-<% else %>
-	$('article.fact[data-fact-id=<%=@fact.id%>] .channel-listing > ul').append("<%= escape_javascript(render(:partial => 'channels/as_li', :locals => { :channel => @channel, :fact => @fact })) %>");
-<% end %>
-
-$('article.fact[data-fact-id=<%=@fact.id%>] #channel_title')[0].value = "";
-
 if (Channels !== undefined && "<%=current_user.graph_user.id%>" === Channels.models[0].get('created_by_id') ) {
   Channels.add(<%= Channels::SingleMenuItem.for_channel_and_view(@channel,self).to_json.html_safe %>);
 }

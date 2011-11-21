@@ -22,14 +22,17 @@ FactlinkUI::Application.routes.draw do
       delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
       
     end
+    collection do
+      #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
+      #       the function should be able to use the json response of the put
+      post  "/update_title" => "facts#update_title", :as => "update_title"
+    end
     
     resources :fact_relations
   end 
   
 
-  #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
-  #       the function should be able to use the json response of the put
-  post  "/factlink/update_title" => "facts#update_title", :as => "update_title"
+
   
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
