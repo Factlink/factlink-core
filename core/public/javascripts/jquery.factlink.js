@@ -469,12 +469,15 @@
     $c.find('.evidence-search-results .default-results').show();
   }
   function getChannelChecklist(fact) {
-    var id = fact.attr("data-fact-id");
+    var id = fact.attr("data-fact-id"),
+        channel_listing = fact.find(".channel-listing");
+    channel_listing.off('hover.load_channel_list');
+    
     $.ajax({
       url: '/facts/' + id + '/channels',
       type: "GET",
       dataType: "HTML",
-      success: function(data) {fact.find(".channel-listing").html(data);},
+      success: function(data) {channel_listing.html(data);},
       error: function(data) {}
     });    
   }
