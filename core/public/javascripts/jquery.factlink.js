@@ -417,7 +417,6 @@
   }
 
   function bindInstantSearch($c) {
-    // Bind the instant search
     var is_timeout;
     $c.find('.search-area .evidence_search').keyup(function() {
       showSearchResults($c);
