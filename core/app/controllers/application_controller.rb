@@ -1,12 +1,11 @@
 require 'net/http'
-require 'ruby-prof'
 
 class ApplicationController < ActionController::Base
 
   around_filter :profile
   
   def profile
-    return yield if (params[:profile].nil?) || (Rails.env != 'develop')
+    return yield if ((params[:profile].nil?) || (Rails.env != 'development'))
     result = RubyProf.profile { yield }
     printer = RubyProf::GraphPrinter.new(result)
     out = StringIO.new
