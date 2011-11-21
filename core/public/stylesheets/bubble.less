@@ -57,7 +57,6 @@ div.modal {
   margin: 4px 4px 0 0;
 }
 
-
 /** Default styles for new modal */
 .default-modal {
   background: @popup-bg;
@@ -302,6 +301,16 @@ div.modal {
         font-style: italic;
       }
       
+      .add-actions {
+        margin: 0 auto;
+        text-align: center;
+        padding: 8px;
+        
+        button {
+          margin: 2px;
+        }
+      }
+      
       ul {
         li {
           font-family: Lucida grande;
@@ -373,7 +382,8 @@ div.modal {
       }      
     }
     
-    .evidence-add {
+    .evidence-add,
+    .new-evidence-add {
       .message {
         color: lighten(#313131, 25);
         margin-left: 15px;
@@ -399,14 +409,20 @@ div.modal {
         box-shadow: 2px 2px 1px @divider;
       }
       
-      .add-actions {
-        margin: 0 auto;
-        text-align: center;
-        padding: 8px;
+      input {
+        display: block;
+        width: 450px;
+        color: lighten(#313131, 25);
+        font-family: "Georgia";
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: 100;
+        padding: 15px;
+        margin: 0 15px 15px;
         
-        button {
-          margin: 2px;
-        }
+        border: solid 1px #ddd;
+        border-radius: 6px;
+        box-shadow: 2px 2px 1px @divider;
       }
     }
     

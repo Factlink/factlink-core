@@ -2019,6 +2019,14 @@ div.modal span.proxyWindow {
 .fact-block .dropdown-container .dropdown-underbar .user-search-input {
   font-style: italic;
 }
+.fact-block .dropdown-container .dropdown-underbar .add-actions {
+  margin: 0 auto;
+  text-align: center;
+  padding: 8px;
+}
+.fact-block .dropdown-container .dropdown-underbar .add-actions button {
+  margin: 2px;
+}
 .fact-block .dropdown-container .dropdown-underbar ul li {
   font-family: Lucida grande;
   font-size: 12px;
@@ -2074,17 +2082,17 @@ div.modal span.proxyWindow {
   background: #f5f5f5;
   cursor: pointer;
 }
-.fact-block .dropdown-container .evidence-add .message {
+.fact-block .dropdown-container .evidence-add .message, .fact-block .dropdown-container .new-evidence-add .message {
   color: #717171;
   margin-left: 15px;
   font-size: 14px;
 }
-.fact-block .dropdown-container .evidence-add a {
+.fact-block .dropdown-container .evidence-add a, .fact-block .dropdown-container .new-evidence-add a {
   margin: 13px 15px;
   color: #5e8ba6;
   display: block;
 }
-.fact-block .dropdown-container .evidence-add .evidence-bubble {
+.fact-block .dropdown-container .evidence-add .evidence-bubble, .fact-block .dropdown-container .new-evidence-add .evidence-bubble {
   color: #717171;
   font-family: "Georgia";
   font-size: 13px;
@@ -2096,13 +2104,19 @@ div.modal span.proxyWindow {
   border-radius: 6px;
   box-shadow: 2px 2px 1px #eeeeee;
 }
-.fact-block .dropdown-container .evidence-add .add-actions {
-  margin: 0 auto;
-  text-align: center;
-  padding: 8px;
-}
-.fact-block .dropdown-container .evidence-add .add-actions button {
-  margin: 2px;
+.fact-block .dropdown-container .evidence-add input, .fact-block .dropdown-container .new-evidence-add input {
+  display: block;
+  width: 450px;
+  color: #717171;
+  font-family: "Georgia";
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 100;
+  padding: 15px;
+  margin: 0 15px 15px;
+  border: solid 1px #ddd;
+  border-radius: 6px;
+  box-shadow: 2px 2px 1px #eeeeee;
 }
 .fact-block .dropdown-container .add-action {
   position: absolute;

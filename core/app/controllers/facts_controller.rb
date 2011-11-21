@@ -52,11 +52,11 @@ class FactsController < ApplicationController
   # Prepare for create
   def intermediate
     # TODO: Sanitize for XSS
-    @url = params[:url]
-    @passage = params[:passage]
-    @fact = params[:fact]
-    @title = params[:title]
-    @opinion = params[:opinion]
+    @url      = params[:url]
+    @passage  = params[:passage]
+    @fact     = params[:fact]
+    @title    = params[:title]
+    @opinion  = params[:opinion]
     
     render :template => 'facts/intermediate', :layout => nil
   end
@@ -99,7 +99,7 @@ class FactsController < ApplicationController
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:id])
   end
-
+   
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
@@ -219,7 +219,8 @@ class FactsController < ApplicationController
     @facts = @fact_data.map { |fd| fd.fact }
   end
   
- private
+
+  private
   def sort_column # private
     FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
@@ -249,7 +250,7 @@ class FactsController < ApplicationController
   end
   
   def add_evidence(evidence_id, type, fact_id) # private  
-    type = type.to_sym  
+    type     = type.to_sym  
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
@@ -276,7 +277,6 @@ class FactsController < ApplicationController
     @fact
   end
 
-  private
   def allowed_type
     allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym
