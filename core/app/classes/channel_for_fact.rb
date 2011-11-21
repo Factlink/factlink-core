@@ -1,8 +1,9 @@
 class ChannelForFact
 
-  def initialize(channel,fact)
+  def initialize(channel,fact,created_by_username=nil)
     @channel = channel
     @fact = fact
+    @created_by_username=created_by_username
   end
   
   def to_hash
@@ -15,7 +16,7 @@ class ChannelForFact
   delegate :id, :title, :to => :@channel
 
   def created_by
-    @channel.created_by.user.username
+    @created_by_username ||@channel.created_by.user.username
   end
 
   def checked_attribute
