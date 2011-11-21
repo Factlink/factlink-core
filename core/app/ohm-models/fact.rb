@@ -73,13 +73,15 @@ class Fact < Basefact
     res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
     res.reverse
   end
-  
+    
   def evidence(type)
     case type
     when :supporting
       return self.supporting_facts
     when :weakening
       return self.weakening_facts
+    when :both
+      return self.fact_relations
     end
   end
 
