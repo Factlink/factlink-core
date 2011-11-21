@@ -187,9 +187,7 @@
 
         function addEventHandlersReturnFromAdd($fact) {
           $fact.find("a.return-from-add").bind("click", function() {
-            $fact.find('.evidence-list').show();
-            $fact.find('.evidence-search-results').hide();
-            
+            showEvidenceList($fact);
             resetSearch($fact);
             return false;
           });
@@ -204,12 +202,22 @@
         }
 
         function addEventHandlersSubmitButton($fact) {
-          $fact.find('button.supporting').bind('click', function() {
+          $fact.find('.evidence-add button.supporting').bind('click', function() {
             submitEvidence($fact, "supporting");
           });
 
-          $fact.find('button.weakening').bind('click', function() {
+          $fact.find('.evidence-add button.weakening').bind('click', function() {
             submitEvidence($fact, "weakening");
+          });
+        }
+        
+        function addEventHandlersSubmitButton($fact) {
+          $fact.find('.new-evidence-add button.supporting').bind('click', function() {
+            submitNewEvidence($fact, "supporting");
+          });
+
+          $fact.find('.new-evidence-add button.weakening').bind('click', function() {
+            submitNewEvidence($fact, "weakening");
           });
         }
 
@@ -372,7 +380,14 @@
     });
   }
 
-
+  function bindNewEvidenceAddAction($c) {
+    $c.find('.new-evidence-add-action').bind('click', function() {
+      showNewEvidenceAdd($c);
+      // Populate the input field
+      var currentInput = $c.find('input.evidence_search').val();
+      $c.find("#fact_data_displaystring").val(currentInput);
+    });
+  }
   function bindEvidencePrepare($c) {
     $c.find('.results ul li.evidence').live('click', function() {
       showEvidenceAdd($c);
@@ -416,6 +431,43 @@
     });
   }
 
+  function submitNewEvidence($c, type) {
+    
+    var factId = $c.attr("data-fact-id");
+    var displayString = $($c.find("#fact_data_displaystring")).val();
+    var url_part;
+
+    if (type === "supporting") {
+      console.info('add as supporting');
+      url_part = "/supporting_evidence/";
+    } else if (type === "weakening") {
+      console.info('add as weakening');
+      url_part = "/weakening_evidence/";
+    } else {
+      alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
+    }
+    
+    $.ajax({
+      url:      "/facts/" + factId + url_part,
+      type:     "post",
+      dataType: "script",
+      data:   { 
+                displaystring: displayString,
+                type: type 
+              },
+      beforeSend: function(data) {
+        console.info("sending...");
+      },
+      success: function(data) {
+        console.info("It is a SUCCESS");
+        resetSearch($c);
+      },
+      error: function(data) {  
+        console.info("it has FAILED");
+      }
+    });
+  }
+
   function bindInstantSearch($c) {
     // Bind the instant search
     var is_timeout;
@@ -426,12 +478,16 @@
       $('.user-search-input').html(elem.val());
 
       if (elem.val().length >= 2) {
+        
+        showAddOptions($c);
+        
         clearTimeout(is_timeout);
         is_timeout = setTimeout(function() {
           elem.closest('form').submit();
         }, 200); // <-- choose some sensible value here        
       } else {
         hideSearchResults($c);
+        hideAddOptions($c);
       }
     });
   }
@@ -451,6 +507,11 @@
     hidePages($c);
     $c.find('.evidence-add').show();
   }
+  
+  function showNewEvidenceAdd($c) {
+    hidePages($c);
+    $c.find('.new-evidence-add').show();
+  }
 
   function hidePages($c) {
     $c.find('.page').hide();
@@ -458,6 +519,7 @@
   
   function resetSearch($c) {
     hideSearchResults($c);
+    hideAddOptions($c);
     $c.find('.search-area .evidence_search').val('');
     
   }
@@ -468,6 +530,13 @@
   function hideSearchResults($c) {
     $c.find('.evidence-search-results .search-term-results').hide();
     $c.find('.evidence-search-results .default-results').show();
+  }
+  
+  function showAddOptions($c) {
+    $c.find('.search-and-add-actions:hidden').fadeIn(100);
+  }
+  function hideAddOptions($c) {
+    $c.find('.search-and-add-actions').fadeOut(100);
   }
 
   function init_fact(fact, container) {
@@ -484,6 +553,7 @@
       $fact.data("wheel").init($fact.find(".wheel").get(0));
 
       bindEvidencePrepare($c);
+      bindNewEvidenceAddAction($c);
       bindInstantSearch($c);
 
       // Channels are in the container
