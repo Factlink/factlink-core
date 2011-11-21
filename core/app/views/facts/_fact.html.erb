@@ -48,7 +48,7 @@
         
     <!-- show the evidence search results -->
     <div class="page evidence-search-results" style="display: none;">
-      <div class="search-area">        
+      <div class="search-area">
         <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
 
           <%= link_to('Back to evidence', '#', :class => "return-from-add") %>
@@ -70,16 +70,16 @@
       </div>
       
       <!-- not implemented yet -->
-      <!-- <div class="dropdown-underbar">
+      <div class="dropdown-underbar search-and-add-actions" style="display: none;">
         <ul>
-          <li>
+          <!-- <li>
             Search the internet for "<span class="user-search-input"></span>"
-          </li>
+          </li> -->
           <li>
             Add "<span class="user-search-input"></span>"
           </li>
         </ul>
-      </div> -->
+      </div>
     </div>
 
     <!-- the actual adding - including supporting / weakening buttons -->
