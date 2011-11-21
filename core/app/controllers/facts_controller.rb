@@ -78,7 +78,7 @@ class FactsController < ApplicationController
     
     respond_to do |format|
       if @fact.save
-        format.html { redirect_to fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.html { redirect_to created_fact_url(@fact.id), notice: 'Fact was successfully created.' }
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
         format.html { render action: "new" }
@@ -116,6 +116,11 @@ class FactsController < ApplicationController
     else
       render succes
     end
+  end
+  
+  # GET /facts/:fact_id/created
+  def created
+    render :layout => "popup"
   end
 
   

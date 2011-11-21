@@ -1,20 +1,20 @@
 <%= form_tag(facts_path) do %>
-  <div>
-    <%= label_tag :site %>:
-    <%= text_field_tag :site %>
-  </div>
-
-  <div class="field">
-    <%= label_tag :fact %>:
-    <%= text_field_tag :fact %>
-  </div>
-
   <div class="field">
     <%= label_tag :title %>:
-    <%= text_field_tag :title %>
+    <%= text_field_tag :title, params[:title] %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :site %>:
+    <%= text_field_tag :site, params[:site_url] %>
+  </div>
+    
+  <div class="field">
+    <%= label_tag :fact %>:
+    <%= text_area_tag :fact, params[:fact] %>
   </div>
    
   <div class="actions">
-    <%= submit_tag %>
+    <%= submit_tag "Create Factlink" %>
   </div>
 <% end %>

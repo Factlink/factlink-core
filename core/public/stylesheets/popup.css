@@ -1,0 +1,29 @@
+#top-bar {
+  padding: 0 10px;
+}
+#container {
+  padding: 50px 10px;
+}
+#container form {
+  width: 393px;
+}
+#container form div.field {
+  margin: 0 0 5px;
+}
+#container form div.field label {
+  line-height: 20px;
+}
+#container form div.field input, #container form div.field textarea {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  width: 380px;
+  height: 20px;
+}
+#container form div.field textarea {
+  height: 60px;
+}
+#container input[type=submit] {
+  margin: 5px 0 0 0;
+  float: right;
+}
