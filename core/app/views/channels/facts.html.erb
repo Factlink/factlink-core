@@ -21,11 +21,10 @@
     	<p>There are no facts in this channel...</p>
     <% else %>
       <ul id="results-listing">
-      	<% @channel.facts.each do |fact| %>
-      		<li>
-      		   <%= render "/facts/fact",  fact: fact, channel: @channel, modal: nil %>
-      		</li>
-      	<% end %>
+        <%= render :partial => "/facts/fact", 
+    	            :locals => { :channel => @channel },
+    	            :collection => @channel.facts, :as => :fact, :spacer_template => '/home/snippets/list_item_seperator'
+    	  %>
       </ul>
     <% end %>
   </div>
