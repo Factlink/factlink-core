@@ -11,7 +11,8 @@ class ChannelsController < ApplicationController
       :destroy,
       :update,
       :facts,
-      :related_users]
+      :related_users,
+      :activities]
   
   before_filter :authenticate_user!,
     :except => [
@@ -155,14 +156,16 @@ class ChannelsController < ApplicationController
   end
   
   def related_users
-    # @channel is fetched in load_channel    
-    @partial = "channels/related_users"
-    
-    
-    @locals = { :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user }, :excluded_users => [@channel.created_by]}
-    respond_to do |format|
-      format.html { render :template => "home/partial_renderer", :layout => "ajax" }
-    end
+    render_partial_as_view partial: "channels/related_users",
+      locals: {
+        related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+        excluded_users: [@channel.created_by]            
+      }
+  end
+  
+  def activities
+    render_partial_as_view partial: "activities/list",
+      locals: { activities: @channel.activities}
   end
   
   private

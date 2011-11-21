@@ -578,6 +578,11 @@ body.factlink-site div.user-block {
 
     #channel-listing {
       li {
+        // display: none;
+        &.visible  {
+          // display: block;
+          color: red;
+        }
         a {
           display: block;
           border-radius: 2px;
@@ -608,8 +613,7 @@ body.factlink-site div.user-block {
             float: right;
             visibility: hidden;
           }
-        }
-        
+        } 
         &.active > a,
         &.loading > a {
           background: #fff;

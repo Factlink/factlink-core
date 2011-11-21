@@ -828,6 +828,9 @@ form .action-wrapper span {
   border: 1px solid #1d8cc8;
   background-color: #fbfbfb;
 }
+#container #channel-listing li.visible {
+  color: red;
+}
 #container #channel-listing li a {
   display: block;
   border-radius: 2px;

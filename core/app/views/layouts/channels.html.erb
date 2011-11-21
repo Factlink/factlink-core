@@ -1,34 +1,38 @@
-<%= content_for :header do %>
+<% content_for :header do %>
 <% end %>
 
-<%= content_for :left_column do %>
+<% content_for :left_column do %>
   <%= render "home/snippets/user_li", user: @user %>
   <%= render "channels/channels", user: @user %>
 <% end %>
 
-<%= content_for :right_column do %>
-  <%= render "channels/related_users",
-               :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-               :excluded_users => [@channel.andand.created_by.andand.user]
-             %>
-
+<% content_for :right_column do %>
+  <div class="related-users">
+    <%= render("channels/related_users",
+                 :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+                 :excluded_users => [@channel.andand.created_by.andand.user])
+               %>
+  </div>
+  
   <% if @channel and not @channel.new? %>
-    <%= render "activities/list_with_title", activities: @channel.activities %>
+    <div id="activity-listing">
+      <%= render "activities/list_with_title", activities: @channel.activities %>
+    </div>
   <% end %>
-
-  &nbsp;
 <% end %>
 
-<%= content_for :javascript do %>
-  <%= javascript_include_tag "models/channel.js" %>
-  <%= javascript_include_tag "collections/channels.js" %>
-  <%= javascript_include_tag "collections/facts.js" %>
-  <%= javascript_include_tag "views/channel_item_view.js" %>
-  <%= javascript_include_tag "views/related_users_view.js" %>
-  <%= javascript_include_tag "views/channel_collection_view.js" %>
-  <%= javascript_include_tag "views/channel_view.js" %>
-  <%= javascript_include_tag "views/channel_app_view.js" %>
-  <%= javascript_include_tag "router.js" %>
+<% content_for :javascript do %>
+
+  <%= javascript_include_tag "backbone/models/channel.js" %>
+  <%= javascript_include_tag "backbone/collections/channels.js" %>
+  <%= javascript_include_tag "backbone/collections/facts.js" %>
+  <%= javascript_include_tag "backbone/views/channel_item_view.js" %>
+  <%= javascript_include_tag "backbone/views/related_users_view.js" %>
+  <%= javascript_include_tag "backbone/views/activities_view.js" %>
+  <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
+  <%= javascript_include_tag "backbone/views/channel_view.js" %>
+  <%= javascript_include_tag "backbone/views/channel_app_view.js" %>
+  <%= javascript_include_tag "backbone/router.js" %>
 
   <script>
     var Router = new Workspace();
@@ -53,7 +57,7 @@
   </script>
 <% end %>
 
-<%= content_for :template do %>
+<% content_for :template do %>
   <script type="text/html" id="channel_li">
     <%= template_as_string "channels/_single_menu_item.html.mustache" %>
   </script>

@@ -78,8 +78,8 @@ class FactsController < ApplicationController
     
     respond_to do |format|
       if @fact.save
-        format.html { redirect_to fact_url(@fact.id), notice: 'Fact was successfully created.' }
-        format.json { render json: @fact, status: :created, location: @fact }
+        format.html { redirect_to created_fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.json { render json: @fact, status: :created, location: @fact.id }
       else
         format.html { render action: "new" }
         format.json { render json: @fact.errors, status: :unprocessable_entity }
@@ -91,6 +91,7 @@ class FactsController < ApplicationController
     @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
+      format.html { render 'channel_listing', layout: nil }
     end
   end
 
@@ -115,6 +116,11 @@ class FactsController < ApplicationController
     else
       render succes
     end
+  end
+  
+  # GET /facts/:fact_id/created
+  def created
+    render :layout => "popup"
   end
 
   

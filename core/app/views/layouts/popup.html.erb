@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>Factlink</title>
+    <%= stylesheet_link_tag "style" %>
+    <%= stylesheet_link_tag "bubble" %>
+    
+    <%= stylesheet_link_tag "grid" %>
+    <%= stylesheet_link_tag "popup" %>
+    
+    <%= javascript_include_tag "modernizr-2.0.6.min" %>
   </head>
   <body>
-    <%= yield %>
+    <div id="top-bar">
+			<div id="factlink-logo" class="span-4">
+				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
+			</div>
+
+			<div class="span-6 last">
+					<%= render "users/account_block" %>
+			</div>
+  	</div>
+  	<div id="container">
+  	  <%= yield %>
+  	</div>
   </body>
 </html>

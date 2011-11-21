@@ -2,6 +2,18 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
+  around_filter :profile
+  
+  def profile
+    return yield if ((params[:profile].nil?) || (Rails.env != 'development'))
+    result = RubyProf.profile { yield }
+    printer = RubyProf::GraphPrinter.new(result)
+    out = StringIO.new
+    printer.print(out,{})
+    response.body = out.string
+    response.content_type = "text/plain"
+  end
+
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
     require_dependency path 
@@ -46,6 +58,15 @@ class ApplicationController < ActionController::Base
 
     mustache.to_json
   end
+
+  def render_partial_as_view(options = {})
+    @partial = options[:partial]
+    @locals = options[:locals]
+    respond_to do |format|
+      format.html { render :template => "home/partial_renderer", :layout => "ajax" }
+    end
+  end
+
   
   def raise_404(message="Not Found")
     raise ActionController::RoutingError.new(message)
