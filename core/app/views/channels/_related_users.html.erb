@@ -7,8 +7,8 @@
   <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
 <% end %>
 
-<ul>
-  <% related_users.andand.each do |related_user| %>
-  	<%= render "home/snippets/user_li", user: related_user %>
-  <% end %>
-</ul>
+<% if related_users %>
+  <ul>
+    <%= render :partial => "home/snippets/user_li", :collection => related_users, :as => :user %>
+  </ul>
+<% end %>
