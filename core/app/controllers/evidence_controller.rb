@@ -1,10 +1,12 @@
 class EvidenceController < FactsController
-  
+
+  respond_to :json
+
   def index
     @fact = Fact[params[:fact_id]]
     @evidence = @fact.evidence(relation).map{|fr| fr.fact }
 
-    render :json => @evidence
+    respond_with(@evidence)
   end
 
   private
