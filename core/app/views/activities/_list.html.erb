@@ -1,5 +1,3 @@
 <ul id="activity-list">
-	<% activities.each do |activity| %>
-			<%= render "activities/list_item", activity: activity %>
-	<% end %>
+	<%= render :partial => "activities/list_item", :collection => activities, :as => :activity %>
 </ul>
