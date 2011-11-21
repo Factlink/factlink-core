@@ -41,7 +41,7 @@
           <%= image_tag("ajax-loader.gif") %> <span>Loading...</span>
         </div>
         
-        <ul>
+        <ul class="evidence-listing">
         </ul>
       </div>
     </div>
@@ -75,10 +75,35 @@
           <!-- <li>
             Search the internet for "<span class="user-search-input"></span>"
           </li> -->
-          <li>
+          <li class="new-evidence-add-action">
             Add "<span class="user-search-input"></span>"
           </li>
         </ul>
+      </div>
+    </div>
+    
+    <!-- adding new evidence - including supporting / weakening buttons -->
+    <div class="page new-evidence-add" style="display: none;">
+      <%= form_for("fact_data", :url => fact_evidence_index_path(fact.id), :remote => "true" ) do |f| %>
+
+        <%= link_to('Back to search', '#', :class => "return-from-add") %>
+         
+         <span class="message">Add</span>
+         <!-- <div class="evidence evidence-bubble"> -->
+         <%= f.text_field :displaystring %>
+         <input type="hidden" name="type" value="">
+         <!-- </div> -->
+         <span class="message">To</span>
+         <div class="fact evidence-bubble">
+           <%= fact.data.displaystring %>
+         </div>
+      <% end %>
+      
+      
+      <div class="dropdown-underbar">
+        <div class="add-actions">
+          <button class="supporting">Add as supporting</button><button class="weakening">Add as weakening</button>
+        </div>
       </div>
     </div>
 
@@ -89,7 +114,6 @@
 
       <span class="message">Add</span>
       <div class="evidence evidence-bubble">
-        Pellentesque shiz tortor. Mammasay mammasa mamma oo sa eros. Cool fo shizzle dolizzle dang its fo rizzle.
       </div>
       <span class="message">To</span>
       <div class="fact evidence-bubble">
