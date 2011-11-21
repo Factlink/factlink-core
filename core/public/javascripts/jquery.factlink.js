@@ -474,7 +474,7 @@
     var $fact = $(fact);
     var $c = $(container);
     if (!$fact.data("initialized")) {
-      $fact.find('.edit').editable('/factlink/update_title', {
+      $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
         tooltip: 'You can edit this title to place the Factlink in the correct context.'
       });
