@@ -498,7 +498,7 @@
 
       // Channels are in the container
       $fact.find(".add-to-channel")
-        .hover(function(){getChannelChecklist($fact)})
+        .hover(function(){getChannelChecklist($fact);})
         .hoverIntent(function(e) {
           var channelList = $fact.find(".channel-listing");
           $(channelList).fadeIn("fast");
