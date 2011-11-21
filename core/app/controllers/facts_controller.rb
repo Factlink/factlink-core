@@ -79,7 +79,7 @@ class FactsController < ApplicationController
     respond_to do |format|
       if @fact.save
         format.html { redirect_to fact_url(@fact.id), notice: 'Fact was successfully created.' }
-        format.json { render json: @fact, status: :created, location: @fact }
+        format.json { render json: @fact, status: :created, location: @fact.id }
       else
         format.html { render action: "new" }
         format.json { render json: @fact.errors, status: :unprocessable_entity }

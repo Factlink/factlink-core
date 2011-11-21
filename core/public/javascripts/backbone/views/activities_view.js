@@ -1,6 +1,6 @@
-window.RelatedUsersView = Backbone.View.extend({
+window.ActivitiesView = Backbone.View.extend({
 
-  el: $("#right-column"),
+  el: $("#right-column #activity-listing"),
   
   initialize: function() { 
   },
@@ -16,7 +16,7 @@ window.RelatedUsersView = Backbone.View.extend({
 
     if ( this.channel ) {
       $.ajax({
-        url: this.channel.url() + '/related_users',
+        url: this.channel.url() + '/activities',
         method: "GET",
         success: function( data ) {
           self.el.html(data);
