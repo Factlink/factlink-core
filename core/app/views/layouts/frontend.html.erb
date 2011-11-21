@@ -26,8 +26,6 @@
   <link rel="stylesheet" href="/stylesheets/bubble.css">
 	<link rel="stylesheet" href="/stylesheets/grid.css">
 
-	<link rel="stylesheet" href="/stylesheets/jquery-ui-1.8.16.custom.css">
-	
 	<link rel="stylesheet" href="/stylesheets/bootstrap-alerts.css">
   <!-- end CSS-->
 
@@ -103,12 +101,11 @@
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-7.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
-  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
   <%= javascript_include_tag "bootstrap-alert" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>

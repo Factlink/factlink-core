@@ -91,6 +91,7 @@ class FactsController < ApplicationController
     @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
+      format.html { render 'channel_listing', layout: nil }
     end
   end
 

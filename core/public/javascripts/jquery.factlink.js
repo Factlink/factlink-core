@@ -336,6 +336,19 @@
           fact_id: fact
         }
       });
+    },
+    getChannelChecklist: function(fact) {
+      var id = fact.attr("data-fact-id");
+      console.info(fact);
+      fact.find(".add-to-channel").off('hover.load_channel_list');
+
+      $.ajax({
+        url: '/facts/' + id + '/channels',
+        type: "GET",
+        dataType: "HTML",
+        success: function(data) {fact.find(".channel-listing").html(data);},
+        error: function(data) {}
+      });
     }
   };
 
@@ -417,7 +430,6 @@
   }
 
   function bindInstantSearch($c) {
-    // Bind the instant search
     var is_timeout;
     $c.find('.search-area .evidence_search').keyup(function() {
       showSearchResults($c);
@@ -470,11 +482,12 @@
     $c.find('.evidence-search-results .default-results').show();
   }
 
+
   function init_fact(fact, container) {
     var $fact = $(fact);
     var $c = $(container);
     if (!$fact.data("initialized")) {
-      $fact.find('.edit').editable('/factlink/update_title', {
+      $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
         tooltip: 'You can edit this title to place the Factlink in the correct context.'
       });
@@ -487,11 +500,11 @@
       bindInstantSearch($c);
 
       // Channels are in the container
-      $fact.find(".add-to-channel").hoverIntent(function(e) {
-        var channelList = $fact.find(".channel-listing");
-
-        $(channelList).fadeIn("fast");
-
+      $fact.find(".add-to-channel")
+        .on('hover.load_channel_list',function(){$().factlink('getChannelChecklist',$fact);})
+        .hoverIntent(function(e) {
+          var channelList = $fact.find(".channel-listing");
+          $(channelList).fadeIn("fast");
       }, function() {
         $fact.find(".channel-listing").delay(600).fadeOut("fast");
       }).bind('click', function(e) {
