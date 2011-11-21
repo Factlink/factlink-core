@@ -2025,6 +2025,7 @@ a {
   text-decoration: none;
 }
 a:hover {
+  cursor: pointer;
   text-decoration: underline;
 }
 body.factlink-site .fact-block, body.factlink-site div.user-block {
