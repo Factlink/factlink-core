@@ -1,6 +1,19 @@
 require 'net/http'
+require 'ruby-prof'
 
 class ApplicationController < ActionController::Base
+
+  around_filter :profile
+  
+  def profile
+    return yield if (params[:profile].nil?) || (Rails.env != 'develop')
+    result = RubyProf.profile { yield }
+    printer = RubyProf::GraphPrinter.new(result)
+    out = StringIO.new
+    printer.print(out,{})
+    response.body = out.string
+    response.content_type = "text/plain"
+  end
 
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
