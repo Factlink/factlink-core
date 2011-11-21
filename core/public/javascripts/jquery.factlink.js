@@ -468,6 +468,17 @@
   function hideSearchResults($c) {
     $c.find('.evidence-search-results .search-term-results').hide();
     $c.find('.evidence-search-results .default-results').show();
+
+  function getChannelChecklist(fact) {
+    alert('hoi');
+    var id = fact.attr("data-fact-id");
+    $.ajax({
+      url: '/facts/' + id + '/channels',
+      type: "GET",
+      dataType: "HTML",
+      success: function(data) {fact.find(".channel-listing").html(data);},
+      error: function(data) {}
+    });    
   }
 
   function init_fact(fact, container) {
@@ -487,11 +498,11 @@
       bindInstantSearch($c);
 
       // Channels are in the container
-      $fact.find(".add-to-channel").hoverIntent(function(e) {
-        var channelList = $fact.find(".channel-listing");
-
-        $(channelList).fadeIn("fast");
-
+      $fact.find(".add-to-channel")
+        .hover(function(){getChannelChecklist($fact)})
+        .hoverIntent(function(e) {
+          var channelList = $fact.find(".channel-listing");
+          $(channelList).fadeIn("fast");
       }, function() {
         $fact.find(".channel-listing").delay(600).fadeOut("fast");
       }).bind('click', function(e) {
