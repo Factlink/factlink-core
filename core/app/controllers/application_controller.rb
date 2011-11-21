@@ -1,5 +1,4 @@
 require 'net/http'
-require 'ruby-prof'
 
 class ApplicationController < ActionController::Base
 
