@@ -2,6 +2,8 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  
+
   ##########
   # User Authentication
   devise_for :users, :controllers => {  :registrations => "users/registrations",
@@ -11,6 +13,11 @@ FactlinkUI::Application.routes.draw do
   # Facts Controller
   ################
   resources :facts, :except => [:edit] do
+    
+    resources :evidence
+    resources :supporting_evidence
+    resources :weakening_evidence
+    
     member do
       # TODO Refactor to use this opinion routes
       # get   "/opinions" => "facts#opinions", :as => "fact_opinions"

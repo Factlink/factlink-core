@@ -61,7 +61,8 @@ class Fact < Basefact
     return {} unless self.data
     super.merge(:_id => id, 
                 :displaystring => self.data.displaystring, 
-                :score_dict_as_percentage => get_opinion.as_percentages)
+                :score_dict_as_percentage => get_opinion.as_percentages,
+                :title => self.data.title)
   end
 
   def fact_relations
@@ -72,13 +73,15 @@ class Fact < Basefact
     res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
     res.reverse
   end
-  
+    
   def evidence(type)
     case type
     when :supporting
       return self.supporting_facts
     when :weakening
       return self.weakening_facts
+    when :both
+      return self.fact_relations
     end
   end
 
