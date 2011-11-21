@@ -24,10 +24,11 @@
   <!-- CSS concatenated and minified via ant build script-->
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/bubble.css">
-	<link rel="stylesheet" href="/stylesheets/grid.css">
+  <link rel="stylesheet" href="/stylesheets/grid.css">
 
-	<link rel="stylesheet" href="/stylesheets/bootstrap-alerts.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
   <!-- end CSS-->
+
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -102,14 +103,16 @@
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-7.js"><\/script>')</script>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
+  <%= javascript_include_tag "bootstrap-twipsy" %>
   <%= javascript_include_tag "bootstrap-alert" %>
+  <%= javascript_include_tag "bootstrap-popover" %>
+  <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "jquery.tipsy" %>
   <%= javascript_include_tag "jquery.factlink" %>
   <%= javascript_include_tag("jquery.infiniScroll") %>
   <%= javascript_include_tag "jquery.jeditable.mini" %>
