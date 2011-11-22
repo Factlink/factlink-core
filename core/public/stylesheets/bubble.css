@@ -1,3 +1,5 @@
+/** Popup redesign */
+/*@link-blue:     #306d90;*/
 /*---------------------------------------------------
 		LESS Elements 0.5
 	---------------------------------------------------
@@ -70,7 +72,6 @@ td {
   font-weight: normal;
   font-style: normal;
   font-size: 100%;
-  line-height: 1;
   font-family: inherit;
 }
 table {
@@ -937,14 +938,14 @@ footer {
   color: #ffffff;
   background-color: #0064cd;
   background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#306d90), to(#0064cd));
-  background-image: -moz-linear-gradient(top, #306d90, #0064cd);
-  background-image: -ms-linear-gradient(top, #306d90, #0064cd);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #306d90), color-stop(100%, #0064cd));
-  background-image: -webkit-linear-gradient(top, #306d90, #0064cd);
-  background-image: -o-linear-gradient(top, #306d90, #0064cd);
-  background-image: linear-gradient(top, #306d90, #0064cd);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#306d90', endColorstr='#0064cd', GradientType=0);
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-color: #0064cd #0064cd #003f81;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
@@ -1224,7 +1225,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   text-decoration: none;
 }
 .pagination a:hover, .pagination .active a {
-  background-color: #bdd9e9;
+  background-color: #c7eefe;
 }
 .pagination .disabled a, .pagination .disabled a:hover {
   background-color: transparent;
@@ -1649,7 +1650,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-color: #46a546;
 }
 .label.notice {
-  background-color: #70adcf;
+  background-color: #62cffc;
 }
 .media-grid {
   margin-left: -20px;
@@ -1706,8 +1707,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
-/** Popup redesign */
-/*@link-blue:     #306d90;*/
 /** Fact block */
 span.proxyWindow {
   display: none;

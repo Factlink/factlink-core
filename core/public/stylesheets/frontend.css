@@ -10,6 +10,8 @@
 * 
 * ==|== normalize ==========================================================
 */
+/** Popup redesign */
+/*@link-blue:     #306d90;*/
 /*---------------------------------------------------
 		LESS Elements 0.5
 	---------------------------------------------------
@@ -1620,7 +1622,6 @@ td {
   font-weight: normal;
   font-style: normal;
   font-size: 100%;
-  line-height: 1;
   font-family: inherit;
 }
 table {
@@ -1764,11 +1765,17 @@ html {
 body {
   margin: 0;
   font-size: 13px;
-  line-height: 1.231;
-  background: #eeeeee;
+  line-height: 1;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 p {
-  line-height: 20px;
   color: #888;
   text-shadow: 0px 1px 0px #fff;
   font-weight: 100;
@@ -2018,13 +2025,8 @@ Mixins
 /* ==|== primary styles =====================================================
 Author: 
 ========================================================================== */
-a {
-  color: #333;
-  text-decoration: none;
-}
-a:hover {
-  cursor: pointer;
-  text-decoration: underline;
+body {
+  background: #eeeeee;
 }
 body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 15px;
