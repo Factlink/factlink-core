@@ -155,14 +155,14 @@ class FactsController < ApplicationController
     @fact = Basefact[params[:id]]
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    respond_with([@fact])
   end
 
   def remove_opinions
     @fact = Basefact[params[:id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    respond_with([@fact])
   end
 
   def evidence_search
