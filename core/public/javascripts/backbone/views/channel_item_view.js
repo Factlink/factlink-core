@@ -1,5 +1,6 @@
 window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
+  tmpl: $('#channel_li').html(),
   
   events: {
     "click" : "clickHandler"
@@ -17,7 +18,7 @@ window.ChannelItemView = Backbone.View.extend({
   
   render: function() {
     this.$( this.el )
-      .html( $.mustache($('#channel_li').html(), this.model.toJSON() ))
+      .html( $.mustache(this.tmpl, this.model.toJSON() ))
       .attr('id', 'channel-' + this.model.id);
     return this;
   },
