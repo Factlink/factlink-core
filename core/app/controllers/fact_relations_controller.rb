@@ -1,15 +1,14 @@
 class FactRelationsController < ApplicationController
 
+  respond_to :json, :js
+
   # fact_evidence_index
   # /facts/:fact_id/evidence(.:format)
   def index    
     @fact = Fact[params[:fact_id]]
     @evidence = @fact.sorted_fact_relations
 
-    respond_to do |format|
-      format.js
-      format.json { render :json => @fact.sorted_fact_relations }
-    end
+    respond_with(@fact.sorted_fact_relations)
   end
   
 end

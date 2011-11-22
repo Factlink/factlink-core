@@ -1,6 +1,9 @@
 class FactsController < ApplicationController
 
   layout "client"
+
+  respond_to :json, :html
+
   
   before_filter :authenticate_user!, 
     :except => [
@@ -32,10 +35,7 @@ class FactsController < ApplicationController
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     
-    respond_to do |format|
-      format.json { render :json => @fact }
-      format.html
-    end
+    respond_with(@fact)
   end
 
   def intermediate
