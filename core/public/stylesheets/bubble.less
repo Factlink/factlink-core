@@ -22,13 +22,11 @@ iframe.proxyFrame {
 div.modal {
 
   top: 40px;
-  left: 30%;
   .drop-shadow(0px, 3px, 10px, 0.25);
-  
+  margin-top: 0;
   padding: 0;
-  margin:  0;
   color: #777;
-
+  width: 510px;
   span.proxyWindow { 
     display: inline !important;
   }
@@ -156,9 +154,12 @@ div.modal {
 
       .body { 
         font-family: Georgia, "Times New Roman", Garamond, serif;
-				font-size: 1.2em;
-				font-size: 14px;
+				font-size: 1.1em;
 				line-height: 19px;
+        span a { 
+          color: @link-blue;
+        }
+
 			}
 
       .actions { 
