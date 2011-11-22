@@ -15,7 +15,7 @@ function getServer(config) {
   var restler       = require('restler');
   var urlvalidation = require('./urlvalidation');
   var blacklist     = require('./blacklist');
-  var queryencoder  = require('./queryencoder')
+  var urlbuilder    = require('./urlbuilder');
   blacklist.set_API_URL(config.API_URL);
   blacklist.set_API_OPTIONS(config.API_OPTIONS);
   
@@ -115,34 +115,14 @@ function getServer(config) {
     request.on('error',     errorhandler);
   }
 
-  function create_url(base, query) {
-    var url;
-    var key;
-    url = base;
-    var is_first = true;
-    for (key in query) {
-      if (query.hasOwnProperty(key)) {
-        if (is_first === true) {
-          url += '?';
-          is_first = false;
-        } else {
-          url += '&';
-        }
-        url += encodeURIComponent(key);
-        url += '=';
-        url += encodeURIComponent(query[key]);
-      }
-    }
-    return url;
-  }
 
   /**
    *  Render a jade template
    */
   function render_page(pagename) {
     return function(req, res) {
-      var header_url = create_url(config.PROXY_URL + "/header", req.query);
-      var parse_url = create_url(config.PROXY_URL + "/parse", req.query);
+      var header_url  = urlbuilder.create_url(config.PROXY_URL + "/header", req.query);
+      var parse_url   = urlbuilder.create_url(config.PROXY_URL + "/parse", req.query);
       res.render(pagename, {
         layout: false,
         locals: {
@@ -175,12 +155,12 @@ function getServer(config) {
    */
   function get_search(req, res) {
     console.info("\nGET /search");
-    var query       = req.query.query;
-    var google_url  = "http://google.com/search?as_q=" + encodeURIComponent(query);
-    var redir_url   = config.PROXY_URL + "/?url=" + queryencoder.encoded_search_url(google_url) + "&factlinkModus=" + get_modus(req.query.factlinkModus);
 
-    console.info("\nGET /search to: " + redir_url);
-    res.redirect(redir_url);
+    var query             = req.query.query;
+    var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, get_modus(req.query.factlinkModus));
+
+    console.info("\nGET /search to: " + search_redir_url);
+    res.redirect(search_redir_url);
   }
 
   /**
