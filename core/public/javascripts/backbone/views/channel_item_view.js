@@ -59,5 +59,7 @@ window.ChannelItemView = Backbone.View.extend({
     this.model.set({new_facts: false});
     
     e.preventDefault();
+    
+    return false;
   }
 });
