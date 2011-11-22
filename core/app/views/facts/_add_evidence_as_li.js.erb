@@ -8,4 +8,4 @@ fact.find('.page').hide();
 fact.find('.evidence-list').show();
 
 // Add the evidence
-evidenceList.prepend("<%= escape_javascript(render(:partial => '/facts/partial/evidence_bubble', :locals => { :fact_relation => @fact_relation } )) %>").factlink();
+evidenceList.prepend("<%= escape_javascript(render(:partial => '/facts/evidence_bubble', :locals => { :fact_relation => @fact_relation } )) %>").factlink();
