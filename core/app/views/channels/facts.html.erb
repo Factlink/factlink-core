@@ -24,7 +24,7 @@
       <ul id="results-listing">
         <%= render :partial => "/facts/fact", 
     	            :locals => { :channel => @channel },
-    	            :collection => @channel.facts, :as => :fact, :spacer_template => '/home/snippets/list_item_seperator'
+    	            :collection => @channel.facts, :as => :fact, :spacer_template => 'snippets/list_item_seperator'
     	  %>
       </ul>
     <% end %>
