@@ -8,7 +8,7 @@ class FactRelationsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.json { render :json => [@fact.sorted_fact_relations] }
+      format.json { render :json => @fact.sorted_fact_relations }
     end
   end
   
