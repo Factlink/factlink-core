@@ -17,8 +17,7 @@ window.ChannelView = Backbone.View.extend({
     var self = this;
 
     if ( self.channel ) {
-      self.appView.trigger('channels:loading', self.channel.id);
-
+      self.channel.trigger('loading');
       
       this.$( this.el )
         .html( $.mustache(this.tmpl, this.channel.toJSON() ));
