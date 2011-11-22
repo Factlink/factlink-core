@@ -170,6 +170,7 @@
 
         function addEventHandlersDoAdd($fact) {
           $fact.find("a.do-add").live("click", function() {
+            resetSearch($fact);
             $fact.find('.evidence-list').hide();
             $fact.find('.evidence-search-results').show();
             return false;
@@ -461,15 +462,10 @@
                 displaystring: displayString,
                 type: type 
               },
-      beforeSend: function(data) {
-        console.info("sending...");
-      },
       success: function(data) {
-        console.info("It is a SUCCESS");
         resetSearch($c);
       },
       error: function(data) {  
-        console.info("it has FAILED");
       }
     });
   }
@@ -523,10 +519,9 @@
   }
   
   function resetSearch($c) {
-    console.log('resetSearch');
     hideSearchResults($c);
     hideAddOptions($c);
-
+    $c.find('.search-and-add-actions').hide();
     $c.find('.search-area .evidence_search').val('');
   }
   function showSearchResults($c) {
