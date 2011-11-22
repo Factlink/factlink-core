@@ -27,12 +27,6 @@ class FactsController < ApplicationController
     :only => [:set_opinion ]
 
 
-  def index
-    respond_to do |format|
-      format.json { render :json => Fact.all }
-     end
-  end
-
   def show
     @title = @fact.data.displaystring # The html <title>
     @modal = true
