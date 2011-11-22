@@ -75,9 +75,11 @@
       <!-- not implemented yet -->
       <div class="dropdown-underbar search-and-add-actions" style="display: none;">
         <ul>
-          <!-- <li>
+          <% if modal %>
+          <li onclick="parent.openNewProxyWindow($('input.evidence_search').val());">
             Search the internet for "<span class="user-search-input"></span>"
-          </li> -->
+          </li>
+          <% end %>
           <li class="new-evidence-add-action">
             Add "<span class="user-search-input"></span>"
           </li>
