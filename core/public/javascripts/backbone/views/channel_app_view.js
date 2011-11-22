@@ -5,8 +5,7 @@ window.AppView = Backbone.View.extend({
     this.channelCollectionView = new ChannelCollectionView({appView: this});
     this.relatedUsersView = new RelatedUsersView({appView: this});
     this.activitiesView = new ActivitiesView({appView: this});
-    this.channelView = new ChannelView({appView: this});
-    
+    this.channelView = new ChannelView();
     
     this.setupChannelReloading();
   },
