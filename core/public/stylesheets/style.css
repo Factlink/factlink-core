@@ -1234,7 +1234,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   margin-left: 5px;
 }
 .modal .popover, .modal .twipsy {
-  z-index: 12000;
+  z-index: 60000;
 }
 .twipsy {
   display: block;
