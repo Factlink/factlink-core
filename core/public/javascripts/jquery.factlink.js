@@ -308,7 +308,7 @@
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
           if (!$(current_op).data("user-opinion")) {
-            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
               data_attr(current_op, "user-opinion", true);
               fact.factlink("update", data);
             });
@@ -316,7 +316,7 @@
           else {
             $.ajax({
               type: "DELETE",
-              url: "/facts/" + $(fact).data("fact-id") + "/opinion/",
+              url: "/facts/" + $(fact).data("fact-id") + "/opinion.json",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
                 fact.factlink("update", data);
