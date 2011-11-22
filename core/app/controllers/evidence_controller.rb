@@ -27,8 +27,8 @@ class EvidenceController < FactsController
     @fact_relation = add_evidence(evidence_id, type, fact_id)
 
     respond_to do |format|
-      format.json { render :json => @fact_relation }
-      format.js   { render :layout => false, :partial => "facts/javascript/add_evidence_as_li" }
+      format.json { render json: @fact_relation }
+      format.js   { render layout: false, partial: "facts/javascript/add_evidence_as_li" }
     end
   end
 

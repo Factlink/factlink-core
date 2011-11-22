@@ -192,7 +192,7 @@
           });
         }
 
-        function addEventHandlersSubmitButton($fact) {
+        function bindEvidenceAddButtons($fact) {
           $fact.find('.evidence-add button.supporting').bind('click', function() {
             submitEvidence($fact, "supporting");
           });
@@ -202,7 +202,7 @@
           });
         }
         
-        function addEventHandlersSubmitButton($fact) {
+        function bindNewEvidenceAddButtons($fact) {
           $fact.find('.new-evidence-add button.supporting').bind('click', function() {
             submitNewEvidence($fact, "supporting");
           });
@@ -247,7 +247,8 @@
           addEventHandlersReturnFromAdd($fact);
           addEventHandlersReturnFromEvidenceAdd($fact);
 
-          addEventHandlersSubmitButton($fact);
+          bindEvidenceAddButtons($fact);
+          bindNewEvidenceAddButtons($fact);
 
           $fact.data('loaded-evidence', false);
 
@@ -409,6 +410,8 @@
   }
 
   function submitEvidence($c, type) {
+    
+    console.info("submitting evidence");
     var factId = $c.attr("data-fact-id");
     var evidenceId = $c.data("evidence-id");
     var url_part;
@@ -436,7 +439,6 @@
   }
 
   function submitNewEvidence($c, type) {
-    
     var factId = $c.attr("data-fact-id");
     var displayString = $($c.find("#fact_data_displaystring")).val();
     var url_part;
