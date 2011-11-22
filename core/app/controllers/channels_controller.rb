@@ -156,16 +156,14 @@ class ChannelsController < ApplicationController
   end
   
   def related_users
-    render_partial_as_view partial: "channels/related_users",
-      locals: {
-        related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-        excluded_users: [@channel.created_by]            
-      }
+    render layout: false, partial: "channels/related_users",
+           related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+           excluded_users: [@channel.created_by]            
   end
   
   def activities
-    render_partial_as_view partial: "activities/list_with_title",
-      locals: { activities: @channel.activities}
+    render layout:false, partial: "activities/list_with_title",
+           activities: @channel.activities
   end
   
   private
