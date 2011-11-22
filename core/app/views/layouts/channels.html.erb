@@ -61,6 +61,10 @@
   <script type="text/html" id="channel_li">
     <%= template_as_string "channels/_single_menu_item.html.mustache" %>
   </script>
+  
+  <script type="text/html" id="channel_overview">
+    <%= template_as_string "channels/_channel.html.mustache" %>
+  </script>
 <% end %>
 
 <%= render :template => 'layouts/frontend' %>
