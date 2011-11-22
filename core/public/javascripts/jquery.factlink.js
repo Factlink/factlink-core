@@ -176,16 +176,16 @@
           });
         }
 
-        function addEventHandlersReturnFromAdd($fact) {
-          $fact.find("a.return-from-add").bind("click", function() {
+        function addEventHandlersBackToEvidenceListing($fact) {
+          $fact.find("a.back-to-evidence-listing").bind("click", function() {
             showEvidenceList($fact);
             resetSearch($fact);
             return false;
           });
         }
 
-        function addEventHandlersReturnFromEvidenceAdd($fact) {
-          $fact.find("a.close-evidence-add").bind("click", function() {
+        function addEventHandlersBackToSearch($fact) {
+          $fact.find("a.back-to-search").bind("click", function() {
             $fact.find('.page').hide();
             $fact.find('.evidence-search-results').show();
             return false;
@@ -244,8 +244,8 @@
           //On Click Event
           addEventHandlersTabs($fact);
           addEventHandlersDoAdd($fact);
-          addEventHandlersReturnFromAdd($fact);
-          addEventHandlersReturnFromEvidenceAdd($fact);
+          addEventHandlersBackToEvidenceListing($fact);
+          addEventHandlersBackToSearch($fact);
 
           bindEvidenceAddButtons($fact);
           bindNewEvidenceAddButtons($fact);
@@ -523,10 +523,11 @@
   }
   
   function resetSearch($c) {
+    console.log('resetSearch');
     hideSearchResults($c);
     hideAddOptions($c);
+
     $c.find('.search-area .evidence_search').val('');
-    
   }
   function showSearchResults($c) {
     $c.find('.evidence-search-results .search-term-results').show();
@@ -540,8 +541,10 @@
   function showAddOptions($c) {
     $c.find('.search-and-add-actions:hidden').fadeIn(100);
   }
-  function hideAddOptions($c) {
-    $c.find('.search-and-add-actions').fadeOut(100);
+  function hideAddOptions($c) {  
+    $c.find('.search-and-add-actions').fadeOut(100, function() {
+      $('.user-search-input').html('');
+    });
   }
 
 
