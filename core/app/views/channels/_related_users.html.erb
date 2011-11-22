@@ -9,6 +9,6 @@
 
 <% if related_users %>
   <ul>
-    <%= render :partial => "home/snippets/user_li", :collection => related_users, :as => :user %>
+    <%= render :partial => "users/user_li", :collection => related_users, :as => :user %>
   </ul>
 <% end %>
