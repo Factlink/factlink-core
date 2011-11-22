@@ -44,9 +44,6 @@ class FactsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def intermediate
     render layout: nil
   end
