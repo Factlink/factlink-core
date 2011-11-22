@@ -15,6 +15,7 @@ function getServer(config) {
   var restler       = require('restler');
   var urlvalidation = require('./urlvalidation');
   var blacklist     = require('./blacklist');
+  var queryencoder  = require('./queryencoder')
   blacklist.set_API_URL(config.API_URL);
   blacklist.set_API_OPTIONS(config.API_OPTIONS);
   
@@ -176,7 +177,7 @@ function getServer(config) {
     console.info("\nGET /search");
     var query       = req.query.query;
     var google_url  = "http://google.com/search?as_q=" + encodeURIComponent(query);
-    var redir_url   = config.PROXY_URL + "/?url=" + google_url + "&factlinkModus=" + get_modus(req.query.factlinkModus);
+    var redir_url   = config.PROXY_URL + "/?url=" + queryencoder.encoded_search_url(google_url) + "&factlinkModus=" + get_modus(req.query.factlinkModus);
 
     console.info("\nGET /search to: " + redir_url);
     res.redirect(redir_url);
