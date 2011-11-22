@@ -476,7 +476,7 @@
       showSearchResults($c);
       
       var elem = $(this);
-      $('.user-search-input').html(elem.val());
+      $('.user-search-input').text(elem.val());
 
       if (elem.val().length >= 2) {
         
