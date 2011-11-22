@@ -20,8 +20,11 @@ window.ChannelView = Backbone.View.extend({
       
       this.$( this.el )
         .html( $.mustache(this.tmpl, this.channel.toJSON() ));
+      if ( this.jqXHR ) {
+        this.jqXHR.abort();
+      }
     
-      $.ajax({
+      this.jqXHR = $.ajax({
         url: self.channel.url() + '/facts',
         method: "GET",
         success: function( data ) {
