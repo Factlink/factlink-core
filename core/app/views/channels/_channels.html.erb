@@ -1,5 +1,5 @@
 <header>
-	<h1>Channels <%= add_channel(user) %></h1>
+<h1>Channels</h1>
 </header>
 
 <% unless user.graph_user.channels.count > 0 %>
@@ -14,3 +14,4 @@
 	  <% end %>
 	</ul>
 <% end %>
+<%= add_channel(user) %>
