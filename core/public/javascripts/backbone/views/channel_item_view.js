@@ -9,6 +9,10 @@ window.ChannelItemView = Backbone.View.extend({
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);
+    this.model.bind('loading', this.setLoading, this);
+    this.model.bind('loaded', this.stopLoading, this);
+    this.model.bind('activate', this.setActive, this);
+    this.model.bind('deactivate', this.setNotActive, this);
   },
   
   render: function() {
