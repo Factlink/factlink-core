@@ -21,6 +21,10 @@ module Channels
     def link
       channel_path(self[:user].username, self[:channel].id)
     end
+    
+    def edit_link
+      edit_channel_path(self[:channel].created_by.user.username, id)
+    end
   
     def title
       self[:channel].title
@@ -41,17 +45,29 @@ module Channels
     def created_by_id
       self[:channel].created_by_id
     end
+    
+    def editable?
+      current_user.graph_user == self[:channel].created_by && self[:channel].editable?
+    end
+    
+    def followable?
+      current_user.graph_user != self[:channel].created_by && self[:channel].followable?
+    end
   
     def to_hash
       return {
-#                    /\
-#                    |
-                 :id => id,
-               :link => link,
-              :title => title,
-          :new_facts => new_facts,
-        :nr_of_facts => nr_of_facts,
-      :created_by_id => created_by_id,
+#                       |
+#                      ()
+#                      |
+                   :id => id,
+                 :link => link,
+                :title => title,
+            :edit_link => edit_link,
+            :new_facts => new_facts,
+          :followable? => followable?,
+            :editable? => editable?,
+          :nr_of_facts => nr_of_facts,
+        :created_by_id => created_by_id,
       }
     end
 
