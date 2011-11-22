@@ -27,7 +27,7 @@ describe ChannelsController do
   describe "#new" do
     it "should be succesful" do
       authenticate_user!(user)
-      get :new, :username => user.username
+      get :new, username: user.username
       response.should be_succes
     end
   end
@@ -35,7 +35,7 @@ describe ChannelsController do
   describe "#index" do
     it "as json should be successful" do
       authenticate_user!(user)
-      get :index, :username => user.username, :format => 'json'
+      get :index, username: user.username, format: 'json'
       response.should be_succes
     end
   end
@@ -60,13 +60,13 @@ describe ChannelsController do
   describe "#show" do
     it "a channel should be succesful" do
       authenticate_user!(user)
-      get :show, :username => user.username, :id => ch1.id
+      get :show, username: user.username, id: ch1.id
       response.should be_succes
     end
 
     it "a channel as json should be succesful" do
       authenticate_user!(user)
-      get :show, :username => user.username, :id => ch1.id, :format => 'json'
+      get :show, username: user.username, id: ch1.id, format: 'json'
       response.should be_succes
     end
   end
