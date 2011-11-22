@@ -24,8 +24,8 @@ module ActivitySubject
     Activity.create(user: user,action: action, subject: subject, object: object)
   end
 
-  def activities
-    Activity.for(self).sort_by(:created_at, :order => "DESC ALPHA")
+  def activities(nr=nil)
+    Activity.for(self).sort_by(:created_at, order: "DESC ALPHA", limit: nr)
   end
 
 end

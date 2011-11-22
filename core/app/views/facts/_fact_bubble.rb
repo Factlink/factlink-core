@@ -111,8 +111,8 @@ module Facts
     end
   
     def last_activity
-      activity = self[:fact].activities.to_a.last
-      link_to(activity.user.user.username, user_profile_path(activity.user.user.username)) + " " + activity.action + " " + time_ago_in_words(activity.created_at) + " ago"
+      activity = self[:fact].activities(1)[0]
+      activity && link_to(activity.user.user.username, user_profile_path(activity.user.user.username)) + " " + activity.action + " " + time_ago_in_words(activity.created_at) + " ago"
     end
   end
 end

@@ -1,6 +1,11 @@
 require 'net/http'
 
 class ApplicationController < ActionController::Base
+  #require mustache partial views (the autoloader does not find them)
+  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
+    require_dependency path 
+  end
+
 
   around_filter :profile
   
@@ -12,11 +17,6 @@ class ApplicationController < ActionController::Base
     printer.print(out,{})
     response.body = out.string
     response.content_type = "text/plain"
-  end
-
-  #require mustache partial views (the autoloader does not find them)
-  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
-    require_dependency path 
   end
 
   protect_from_forgery
