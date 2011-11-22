@@ -20,7 +20,7 @@
 			height: 100%;
 			width: 100%;
 			border: 0;
-			z-index: 2147483647;
+			z-index: 2147483646;
 		}
 		
 		iframe.overlay {
@@ -37,14 +37,13 @@
 </head>
 <body>
 	<%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
-  	<input type="hidden" name="evidence_id" id="evidence_id" value="<%= @evidence_url %>">
-  	<input type="text" name="url" id="url" value="<%= @url %>">
-  	<input type="text" name="title" id="title" value="<%= @title %>">
-  	<input type="text" name="opinion" id="opinion" value="<%= @opinion %>">
+  	<input type="hidden" name="evidence_id" id="evidence_id" value="">
+  	<input type="text" name="url" id="url" value="">
+  	<input type="text" name="title" id="title" value="">
+  	<input type="text" name="opinion" id="opinion" value="">
     <textarea name="passage" id="passage">
-      <%= @passage %>
     </textarea>
-    <input type="text" name="fact" id="fact" value="<%= @fact %>">
+    <input type="text" name="fact" id="fact" value="">
 	<% end %>
 	<iframe src="" name="frame" id="frame"></iframe>
 	

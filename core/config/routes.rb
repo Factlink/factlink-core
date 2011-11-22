@@ -12,7 +12,7 @@ FactlinkUI::Application.routes.draw do
   ################
   # Facts Controller
   ################
-  resources :facts, :except => [:edit] do
+  resources :facts, :except => [:edit, :index] do
     
     resources :evidence
     resources :supporting_evidence
@@ -120,8 +120,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-    
-    get "/activities" => "users#activities", :as => "user_activities"
   end
 
 end
