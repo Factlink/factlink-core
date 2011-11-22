@@ -4,7 +4,6 @@ window.ChannelView = Backbone.View.extend({
   tmpl: $('#channel_overview').html(),
   
   initialize: function(opts) {
-    this.appView = opts.appView;
   },
 
   setChannel: function(channel) {
