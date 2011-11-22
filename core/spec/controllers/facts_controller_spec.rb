@@ -44,15 +44,9 @@ describe FactsController do
 
   describe :intermediate do
     it "should have the correct assignments" do
-      post :intermediate, :url      => url, 
-                          :passage  => passage, 
-                          :fact     => fact,
-                          :the_action => "prepare"
-      
+      post :intermediate, :the_action => "prepare"
       response.code.should eq("200")
     end
-
-   
   end
 
   describe :create do
