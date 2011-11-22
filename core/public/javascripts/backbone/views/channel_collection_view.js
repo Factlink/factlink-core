@@ -20,20 +20,7 @@ window.ChannelCollectionView = Backbone.View.extend({
     
     this.appView = opts.appView;
 
-    this.appView.bind('channels:loading', function(channel_id) {
-      self.setLoading(channel_id);
-    }).bind('channels:loaded', function(channel_id) {
-      self.stopLoading(channel_id);
-      self.setActiveChannel(channel_id);
-    });
-
-    var current_channel_id = $('#channel').data('channel-id');
-    
-    if ( current_channel_id ) {
-      // Calling toString on the channel-id because backbone 
-      // stores id as string (=== comparison)
-      this.setActiveChannel(current_channel_id.toString());
-    }
+    this.initialChannelId = $('#channel').data('channel-id');
     
     // Hacky way to make sure Backbone will refollow the current route
     this.el.find('li.active').live('click', function(e) {
