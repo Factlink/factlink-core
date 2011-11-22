@@ -20,6 +20,10 @@ window.ChannelView = Backbone.View.extend({
       
       this.$( this.el )
         .html( $.mustache(this.tmpl, this.channel.toJSON() ));
+        
+      self.channel.trigger('loaded')
+                  .trigger('activate', self.channel);
+                  
       if ( this.jqXHR ) {
         this.jqXHR.abort();
       }
@@ -30,9 +34,6 @@ window.ChannelView = Backbone.View.extend({
         success: function( data ) {
           self.el.find('#facts_for_channel > div.loading').hide().parent().append(data);
           self.el.find('.fact-block').factlink();
-          
-          self.channel.trigger('loaded')
-                      .trigger('activate', self.channel);
         }
       });
     }
