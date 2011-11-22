@@ -11,7 +11,7 @@ window.AppView = Backbone.View.extend({
     this.setupChannelReloading();
   },
   
-  // TODO: This function needs to wait for loading
+  // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
     var args = arguments;
     setTimeout(function(){
