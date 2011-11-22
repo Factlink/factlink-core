@@ -33,6 +33,8 @@ window.ChannelView = Backbone.View.extend({
         }
       });
     }
+    
+    return this;
   }
 });
 
