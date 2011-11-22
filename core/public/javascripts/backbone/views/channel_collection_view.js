@@ -10,17 +10,8 @@ window.ChannelCollectionView = Backbone.View.extend({
     Channels.bind('add',   this.addOneChannel, this);
     Channels.bind('reset', this.resetChannels, this);
     Channels.bind('all',   this.render, this);
-    Channels.bind('activate', function(channel) {
-      if ( activeChannel ) {
-        activeChannel.trigger('deactivate');
-      }
-      
-      activeChannel = channel;
-    });
     
     this.appView = opts.appView;
-
-    this.initialChannelId = $('#channel').data('channel-id');
     
     // Hacky way to make sure Backbone will refollow the current route
     this.el.find('li.active').live('click', function(e) {
@@ -32,10 +23,6 @@ window.ChannelCollectionView = Backbone.View.extend({
     var view = new ChannelItemView({model: channel});
     
     views[channel.id] = view;
-    
-    if ( this.isActiveChannel(channel) ) {
-      channel.trigger('activate', channel);
-    }
     
     this.$('#channel-listing').append(view.render().el);
   },
@@ -56,21 +43,5 @@ window.ChannelCollectionView = Backbone.View.extend({
     Channels.each(function(channel) {
       self.addOneChannel.call(self, channel);
     });
-  },
-  
-  isActiveChannel: function(channel) {
-    if (activeChannel) {
-      return activeChannel.id === channel.id;
-    } else {
-      return this.initialChannelId === parseInt(channel.id, 10);
-    }
-  },
-  
-  setActiveChannel: function(channel_id) {
-    var channel = Channels[channel_id];
-    
-    if (channel ) {
-      channel.trigger('activate', channel);
-    }
   }
 });
