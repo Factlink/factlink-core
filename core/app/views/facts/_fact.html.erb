@@ -5,13 +5,16 @@
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if view.deletable_from_channel? %>
     <%= link_to(
-            image_tag("close-button.png", :class => "close", "style" => "float: right"),
+            "x",
             view.remove_from_channel_path,
+            :class => "close",
             :method => :delete,
             :confirm => "Are you sure you want to remove this Factlink from your channel?", 
             :remote => true)%>
   <% end %>
-  
+  <% if modal %>
+    <span class="close" onclick="parent.remote.hide();">x</span>
+  <% end %>
   <%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => modal, :form_authenticity_token => form_authenticity_token %>
 
   

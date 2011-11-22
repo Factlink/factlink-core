@@ -2,7 +2,10 @@
 <html>
 <head>
 	<title>Intermediate action</title>
-	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
+
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
+
 	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}lib/dist/easyXDM/easyXDM.min.js" %>
 	<style type="text/css">
 		html, body {

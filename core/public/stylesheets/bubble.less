@@ -1,28 +1,9 @@
-@import "color_declarations.less";
 @import "elements.less";
-@import "css3buttons.css";
-@import "bootstrap-default.less";
-
-/** Reset css */
-body{padding:0;margin:0;font:13px Arial,Helvetica,Garuda,sans-serif;*font-size:small;*font:x-small;}
-h1,h2,h3,h4,h5,h6,ul,li,em,strong,pre,code{padding:0;margin:0;line-height:1em;font-size:100%;font-weight:normal;font-style: normal;}
-table{font-size:inherit;font:100%;}
-ul{list-style:none;}
-img{border:0;}
-p{margin:1em 0;}
-a {text-decoration:none;}
-table {border-collapse: collapse; border-spacing: 0;}
-td {vertical-align: top;}
-a:hover {text-decoration:underline; cursor:pointer;}
+@import "bootstrap/reset.less";
+@import "bootstrap/bootstrap.less";
+@import "style.less";
 
 /** Fact block */
-a {
-  color: #313131;
-}
-a:hover { 
-  color: @dark-blue;
-}
-
 span.proxyWindow { 
   display: none;
 }
@@ -37,25 +18,7 @@ iframe.proxyFrame {
   z-index: 900;
   box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
 }
-/* Legacy */
-div.fl-clear {
-  clear: both;
-}
 
-.center {
-	margin: 0 auto;
-	text-align: center;
-}
-
-div.fl-sign-in-container {
-	padding: 16px 16px 0px 16px;	
-  padding-bottom: 24px;
-}
-
-div.sign-in {
-	border-bottom: solid 1px #ccc;
-}
-/* /Legacy */
 div.modal {
 
   top: 40px;
@@ -67,15 +30,6 @@ div.modal {
   width: 510px;
   color: #777;
 
-  span.close {
-    z-index: 100;
-    background: url('/images/close-button.png') no-repeat;
-    display: block;
-    height: 10px; width: 8px;
-    position: absolute;
-    right: 5px; top: 5px;
-    cursor: pointer;
-  }
   span.proxyWindow { 
     display: inline !important;
   }
@@ -96,45 +50,11 @@ div.modal {
   border-radius: 3px;
 }
 
-ul#results-listing div.user-block { 
-  border: 1px solid #DDD; 
-  border-radius: 3px; 
-  color: #BBB; 
-  text-shadow: 0px 1px 0px white; 
-  width: 510px; 
-
-  .side { 
-    margin: 10px; 
-    float: left; 
-
-    .authority { 
-      display: block; 
-      text-align: center; 
-      margin: 5px 0 0 0; 
-      font-size: 12px; 
-
-      img { 
-        vertical-align: middle; 
-        border-radius: 3px; 
-      } 
-    } 
-
-    .username { 
-      color: #666363; 
-      float: left; 
-      font-size: 16px; 
-      vertical-align: top; 
-
-      a { 
-        color: #666363; 
-      } 
-    } 
-
-    .type { 
-      font-size: 14px; 
-      line-height: 26px; 
-    } 
-  } 
+.close { 
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 12pt!important;
+  margin: 4px 4px 0 0;
 }
 
 /** Default styles for new modal */
@@ -161,10 +81,6 @@ ul#results-listing div.user-block {
   margin-bottom: 0;
   font-size: 9pt;
 
-  img.close { 
-    margin: 5px;
-  }
-
   &:hover > article.fact .actions {
     visibility: visible;
     opacity: 1;
@@ -190,7 +106,6 @@ ul#results-listing div.user-block {
   }
 
   article.fact {
-    
     -webkit-box-shadow: inset 0px 2px 1px #fff;
     
     padding: 10px 0 10px 5px;
@@ -204,6 +119,7 @@ ul#results-listing div.user-block {
 			margin: 0 0 0px 75px;
 
       padding-right: 20px;
+      font-family:  Helvetica, Arial, sans-serif;      
       color: #333;
       sub {
         color: #aaa;
@@ -211,12 +127,10 @@ ul#results-listing div.user-block {
         font-size: x-small;
         a {
           color: @link-blue;
-          font-family: "Georgia";
         }
       }
       .head {
         font-weight: 100;
-        font-family: Georgia, "Times New Roman", Garamond, serif;
         font-size: 0.9em;
 				color: #888;
 
@@ -638,12 +552,3 @@ ul#results-listing div.user-block {
     }
   }
 }
-
-/* ====== from tipsy plugin ==== */ 
-.tipsy { padding: 5px; font-size: 10px; opacity: 0.8; filter: alpha(opacity=80); background-repeat: no-repeat;  background-image: url("/images/tipsy.gif"); }
-.tipsy-inner { padding: 5px 8px 4px 8px; background-color: black; color: white; max-width: 200px; text-align: center; }
-.tipsy-inner { -moz-border-radius:3px; -webkit-border-radius:3px; }
-.tipsy-north { background-position: top center; }
-.tipsy-south { background-position: bottom center; }
-.tipsy-east { background-position: right center; }
-.tipsy-west { background-position: left center; }
