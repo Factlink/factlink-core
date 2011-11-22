@@ -27,7 +27,6 @@ class ChannelsController < ApplicationController
     @channels = @user.graph_user.channels
     
     respond_to do |format|
-      format.html
       format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user)} }
       format.js
     end
