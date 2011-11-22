@@ -20,7 +20,8 @@ module OhmGenericReference
 
       next nil unless classname && id
 
-      klass = constantize(classname) # Hack, does not work outside Rails
+              #constantize:
+      klass = classname.split('::').fold(Kernel) {|x,y|x.const_get(y)}
       if klass == NilClass
         nil
       else
