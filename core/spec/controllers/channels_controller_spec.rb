@@ -40,6 +40,22 @@ describe ChannelsController do
     end
   end
   
+  describe "#related_users" do
+    it "should render" do
+      authenticate_user!(user)
+      get :related_users, username: user.username, id: ch1.id
+      response.should be_succes
+    end
+  end
+
+  describe "#activities" do
+    it "should render" do
+      authenticate_user!(user)
+      get :activities, username: user.username, id: ch1.id
+      response.should be_succes
+    end
+  end
+  
 
   describe "#show" do
     it "a channel should be succesful" do
