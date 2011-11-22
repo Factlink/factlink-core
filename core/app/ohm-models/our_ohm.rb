@@ -20,7 +20,7 @@ module OhmGenericReference
 
       next nil unless classname && id
 
-      klass = Kernel.const_get(classname.to_sym)
+      klass = constantize(classname) # Hack, does not work outside Rails
       if klass == NilClass
         nil
       else
