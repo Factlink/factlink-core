@@ -2178,6 +2178,13 @@ form .action-wrapper span {
   border: 1px solid #1d8cc8;
   background-color: #fbfbfb;
 }
+#container #facts_for_channel div.loading {
+  text-align: center;
+  line-height: 100px;
+}
+#container #facts_for_channel div.loading img, #container #facts_for_channel div.loading span {
+  vertical-align: middle;
+}
 #container #channel-listing li.visible {
   color: red;
 }
