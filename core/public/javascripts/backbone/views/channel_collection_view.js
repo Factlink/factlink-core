@@ -36,7 +36,7 @@ window.ChannelCollectionView = Backbone.View.extend({
     }
     
     // Hacky way to make sure Backbone will refollow the current route
-    $(this.el).find('li.active').live('click', function(e) {
+    this.el.find('li.active').live('click', function(e) {
       Backbone.history.loadUrl( Backbone.history.fragment );
     });
   },
