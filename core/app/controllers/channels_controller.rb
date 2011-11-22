@@ -39,7 +39,6 @@ class ChannelsController < ApplicationController
       format.js
       format.html do
         @channel.mark_as_read
-        render :action => "facts" 
       end
     end
   end
