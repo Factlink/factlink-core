@@ -46,8 +46,8 @@ window.ChannelCollectionView = Backbone.View.extend({
     
     views[channel.id] = view;
     
-    if ( this.isActiveChannel(channel.id) ) {
-      view.setActive();
+    if ( this.isActiveChannel(channel) ) {
+      channel.trigger('activate', channel);
     }
     
     this.$('#channel-listing').append(view.render().el);
