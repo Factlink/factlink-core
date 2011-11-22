@@ -26,10 +26,17 @@ window.AppView = Backbone.View.extend({
     var self = this;
     
     if ( channel ) {
-      this.channelView.setChannel(channel).render();
+      this.channelView
+            .setChannel(channel)
+            .render();
       
-      this.relatedUsersView.setChannel(channel).render();
-      this.activitiesView.setChannel(channel).render();
+      this.relatedUsersView
+            .setChannel(channel)
+            .render();
+      
+      this.activitiesView
+            .setChannel(channel)
+            .render();
     }
   }
 });
