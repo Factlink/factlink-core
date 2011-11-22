@@ -28,8 +28,9 @@ window.ChannelView = Backbone.View.extend({
         success: function( data ) {
           self.el.html(data);
           self.el.find('.fact-block').factlink();
-
-          self.appView.trigger('channels:loaded', self.channel.id);
+          
+          self.channel.trigger('loaded')
+                      .trigger('activate', self.channel);
         }
       });
     }
