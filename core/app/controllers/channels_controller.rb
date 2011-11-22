@@ -115,11 +115,7 @@ class ChannelsController < ApplicationController
   def facts
     @channel.mark_as_read
     respond_to do |format|
-      if request.xhr?
-        format.html { render layout: "ajax" }
-      else
-        format.html
-      end
+      format.html { render layout: "ajax" }
     end
   end
   
