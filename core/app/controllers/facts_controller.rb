@@ -44,9 +44,7 @@ class FactsController < ApplicationController
   
   # GET /facts/new
   def new
-    respond_to do |format|
-      format.html { render :layout => 'popup' } # new.html.erb
-    end
+    render layout: 'popup'
   end
 
   def create
