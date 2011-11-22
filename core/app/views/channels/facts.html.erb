@@ -22,10 +22,12 @@
     	<p>There are no facts in this channel...</p>
     <% else %>
       <ul id="results-listing">
-        <%= render :partial => "/facts/fact", 
-    	            :locals => { :channel => @channel },
-    	            :collection => @channel.facts, :as => :fact, :spacer_template => 'snippets/list_item_seperator'
-    	  %>
+        <li>
+          <%= render :partial => "/facts/fact", 
+      	            :locals => { :channel => @channel },
+      	            :collection => @channel.facts, :as => :fact, :spacer_template => 'snippets/list_item_seperator'
+      	  %>
+    	  </li>
       </ul>
     <% end %>
   </div>
