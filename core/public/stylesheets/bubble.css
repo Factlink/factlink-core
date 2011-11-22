@@ -1724,13 +1724,13 @@ iframe.proxyFrame {
 }
 div.modal {
   top: 40px;
-  left: 30%;
   -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  margin-top: 0;
   padding: 0;
-  margin: 0;
   color: #777;
+  width: 510px;
 }
 div.modal span.proxyWindow {
   display: inline !important;
@@ -1874,9 +1874,11 @@ div.modal span.proxyWindow {
 }
 .fact-block article.fact header .body {
   font-family: Georgia, "Times New Roman", Garamond, serif;
-  font-size: 1.2em;
-  font-size: 14px;
+  font-size: 1.1em;
   line-height: 19px;
+}
+.fact-block article.fact header .body span a {
+  color: #5e8ba6;
 }
 .fact-block article.fact header .actions {
   margin-top: 4px;
