@@ -3,9 +3,9 @@
     <header class="append-bottom title">
       <% if user_signed_in? %>
         <% if @channel.editable? && current_user.graph_user == @channel.created_by %>
-          <%= link_to("edit", edit_channel_path(@channel.created_by.user.username, @channel.id), :class => "button") %>
+          <%= link_to("edit", edit_channel_path(@channel.created_by.user.username, @channel.id), :class => "btn") %>
         <% elsif @channel.followable? %>
-          <a href='' class='button'>Add to channels</a>
+          <a href='' class='btn'>Add to channels</a>
           <div class="float-box channel-listing"></div>
         <% end %>
       <% end %>
