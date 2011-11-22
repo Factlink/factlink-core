@@ -88,7 +88,7 @@ describe Ohm::Model::TimestampedSet do
     c1.items.unread_count.should == 1
     
     # Prevent race condition
-    sleep(4)
+    sleep(0.01)
     c1.items.mark_as_read
     c1.items.unread_count.should == 0
     c1.items << Item.create
