@@ -27,7 +27,6 @@ class ChannelsController < ApplicationController
     @channels = @user.graph_user.channels
     
     respond_to do |format|
-      format.html
       format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user)} }
       format.js
     end
@@ -157,13 +156,17 @@ class ChannelsController < ApplicationController
   
   def related_users
     render layout: false, partial: "channels/related_users",
+      locals: {
            related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-           excluded_users: [@channel.created_by]            
+           excluded_users: [@channel.created_by]
+      }
   end
   
   def activities
     render layout:false, partial: "activities/list_with_title",
+      locals: {
            activities: @channel.activities
+      }
   end
   
   private

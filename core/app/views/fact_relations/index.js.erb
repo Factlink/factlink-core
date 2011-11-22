@@ -9,6 +9,6 @@ evidenceList.empty();
 <% else %>
   fact.find('.no-evidence-message').hide();
   <% @evidence.each do |evidence| %>
-    evidenceList.append("<%= escape_javascript(render('/facts/partial/evidence_bubble', fact_relation: evidence )) %>").factlink();
+    evidenceList.append("<%= escape_javascript(render('/facts/evidence_bubble', fact_relation: evidence )) %>").factlink();
   <% end %>
 <% end %>

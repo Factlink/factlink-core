@@ -1,3 +1,26 @@
-<h1>Create a new Factlink</h1>
+<h1>Adding new Factlink:</h1>
 
-<%= render 'form' %>
+<%= form_tag(facts_path) do %>
+  <% if params[:title] %>
+    <div class="field">
+      <%= label_tag :title %>:
+      <%= text_field_tag :title, params[:title] %>
+    </div>
+  <% end %>
+
+  <% if params[:site_url] %>
+    <div class="field">
+      <%= label_tag :site %>:
+      <%= text_field_tag :site, params[:site_url] %>
+    </div>
+  <% end %>
+    
+  <div class="field">
+    <%= label_tag :fact %>:
+    <%= text_area_tag :fact, params[:fact] %>
+  </div>
+   
+  <div class="actions">
+    <%= submit_tag "Create Factlink", :class => "btn" %>
+  </div>
+<% end %>

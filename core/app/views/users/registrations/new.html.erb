@@ -1,6 +1,6 @@
 <% content_for :left_column do %>
 	
-	<%= render :partial => "home/snippets/user_and_factlink_information" %>
+	<%= render "home/user_and_factlink_information" %>
 
 <% end %>
 
@@ -33,12 +33,8 @@
 		  <%= f.password_field :password_confirmation, :placeholder => "Password confirmation", :required => true %><br/>
 		</div>
 
-		<!-- <div>
-			<%= render :partial => "devise/shared/links" %>
-		</div> -->
-
 		<div class="action-wrapper">
-			<%= f.submit "Sign up", :class => "button confirm" %>
+			<%= f.submit "Sign up", :class => "btn confirm" %>
 		</div>
 
 	<% end %>

@@ -1,4 +1,6 @@
 class GraphUser < OurOhm
+  include ActivitySubject
+  
   def graph_user
     return self
   end
@@ -48,10 +50,6 @@ class GraphUser < OurOhm
     save
   end
   after :create, :create_created_facts_channel
-
-
-  collection :activities, Activity, :user
-  
   
   after :create, :calculate_authority
   

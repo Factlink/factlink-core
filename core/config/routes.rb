@@ -120,8 +120,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-    
-    get "/activities" => "users#activities", :as => "user_activities"
   end
 
 end
