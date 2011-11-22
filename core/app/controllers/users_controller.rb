@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def show
     if @user
       # @activities = @user.graph_user.activities.sort(:order => "DESC")
-      redirect_to(get_facts_for_channel_path(params[:username], @user.graph_user.stream.id))
+      redirect_to(channel_path(params[:username], @user.graph_user.stream.id))
     else
       raise_404
     end
