@@ -24,7 +24,6 @@ domReady(function(){
 
     if ( href.search(/https?:\/\//) === 0 ) { 
       a[i].href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
-      console.info('replacing ' + href + ' by ' + a[i].href );
       a[i].target = "_parent";
       
       //prevent quietly changing the url afterwards
