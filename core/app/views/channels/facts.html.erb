@@ -1,34 +1,14 @@
 <% content_for :main_column do %>
-  <div id="channel" data-channel-id="<%= @channel.id %>">
-    <header class="append-bottom title">
-      <% if user_signed_in? %>
-        <% if @channel.editable? && current_user.graph_user == @channel.created_by %>
-          <%= link_to("edit", edit_channel_path(@channel.created_by.user.username, @channel.id), :class => "btn") %>
-        <% elsif @channel.followable? %>
-          <a href='' class='btn'>Add to channels</a>
-          <div class="float-box channel-listing"></div>
-        <% end %>
-      <% end %>
-
-    	<h1>
-    	  <%= @channel.title %>
-      </h1>
-      <% if @channel.followable? %>
-        <%=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
-      <% end %>
-    </header>
-
-    <% unless @channel.facts.count > 0 %>
-    	<p>There are no facts in this channel...</p>
-    <% else %>
-      <ul id="results-listing">
-        <li>
-          <%= render :partial => "/facts/fact", 
-      	            :locals => { :channel => @channel },
-      	            :collection => @channel.facts, :as => :fact, :spacer_template => 'snippets/list_item_seperator'
-      	  %>
-    	  </li>
-      </ul>
-    <% end %>
-  </div>
+  <% unless @channel.facts.count > 0 %>
+  	<p>There are no facts in this channel...</p>
+  <% else %>
+    <ul id="results-listing">
+      <li>
+        <%= render :partial => "/facts/fact", 
+    	            :locals => { :channel => @channel },
+    	            :collection => @channel.facts, :as => :fact, :spacer_template => 'snippets/list_item_seperator'
+    	  %>
+    	</li>
+    </ul>
+  <% end %>
 <% end %>
