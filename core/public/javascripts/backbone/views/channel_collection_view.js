@@ -71,8 +71,12 @@ window.ChannelCollectionView = Backbone.View.extend({
     });
   },
   
-  isActiveChannel: function(channel_id) {
-    return active_channel_id === channel_id;
+  isActiveChannel: function(channel) {
+    if (activeChannel) {
+      return activeChannel.id === channel.id;
+    } else {
+      return this.initialChannelId === parseInt(channel.id, 10);
+    }
   },
   
   setActiveChannel: function(channel_id) {
