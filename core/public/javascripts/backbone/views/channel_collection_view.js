@@ -76,14 +76,10 @@ window.ChannelCollectionView = Backbone.View.extend({
   },
   
   setActiveChannel: function(channel_id) {
-    if ( active_channel_id ) {
-      views[active_channel_id].setNotActive();
-    }
-        
-    active_channel_id = channel_id;
+    var channel = Channels[channel_id];
     
-    if ( views[active_channel_id] ) {
-      views[active_channel_id].setActive();
+    if (channel ) {
+      channel.trigger('activate', channel);
     }
   }
 });
