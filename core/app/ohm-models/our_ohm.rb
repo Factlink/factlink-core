@@ -15,8 +15,12 @@ module OhmGenericReference
     index reader_c
 
     define_memoized_method(name) do
-      klass = constantize(send(reader_c))
+      classname = send(reader_c)
       id = send(reader)
+
+      next nil unless classname && id
+
+      klass = Kernel.const_get(classname.to_sym)
       if klass == NilClass
         nil
       else
@@ -27,7 +31,7 @@ module OhmGenericReference
     define_method(:"#{name}=") do |value|
       @_memo.delete(name)
       send(writer, value ? value.id : nil)
-      send(writer_c, value ? value.class : nil)
+      send(writer_c, value ? value.class.to_s : nil)
     end
 
     define_method(reader) do
