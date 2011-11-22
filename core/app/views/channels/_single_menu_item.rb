@@ -19,7 +19,7 @@ module Channels
     end
 
     def link
-      get_facts_for_channel_path(self[:user].username, self[:channel].id)
+      channel_path(self[:user].username, self[:channel].id)
     end
   
     def title
