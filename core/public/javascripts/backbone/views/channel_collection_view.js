@@ -1,5 +1,5 @@
 var views = {};
-var active_channel_id;
+var activeChannel;
 
 window.ChannelCollectionView = Backbone.View.extend({
   el: $('#left-column'),
@@ -10,6 +10,13 @@ window.ChannelCollectionView = Backbone.View.extend({
     Channels.bind('add',   this.addOneChannel, this);
     Channels.bind('reset', this.resetChannels, this);
     Channels.bind('all',   this.render, this);
+    Channels.bind('activate', function(channel) {
+      if ( activeChannel ) {
+        activeChannel.trigger('deactivate');
+      }
+      
+      activeChannel = channel;
+    });
     
     this.appView = opts.appView;
 
