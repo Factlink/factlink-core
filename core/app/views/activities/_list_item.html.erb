@@ -10,6 +10,7 @@
 			
 			<%= activity_for_type(activity) %>
 			<sub><%= time_ago_in_words(activity.created_at) %> by <%= link_to(activity.user.user.username, user_profile_path(activity.user.user.username)) %></sub>
+
 			
 		</div>
 	
