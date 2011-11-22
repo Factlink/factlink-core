@@ -1,6 +1,7 @@
 window.ChannelView = Backbone.View.extend({
 
   el: $("#main-wrapper"),
+  tmpl: $('#channel_overview').html(),
   
   initialize: function(opts) {
     this.appView = opts.appView;
@@ -18,6 +19,10 @@ window.ChannelView = Backbone.View.extend({
     if ( self.channel ) {
       self.appView.trigger('channels:loading', self.channel.id);
 
+      
+      this.$( this.el )
+        .html( $.mustache(this.tmpl, this.channel.toJSON() ));
+    
       $.ajax({
         url: self.channel.url() + '/facts',
         method: "GET",
