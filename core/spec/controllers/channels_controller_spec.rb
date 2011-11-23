@@ -13,7 +13,7 @@ describe ChannelsController do
 
   # TODO factor out, because each controller needs this
   def authenticate_user!(user)
-    request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => user)
+    request.env['warden'] = mock(Warden, :authenticate => user, :authenticate! => user)
   end
   
   before do
