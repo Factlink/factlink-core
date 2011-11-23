@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ChannelsController do
-  include Devise::TestHelpers
   include ControllerMethods
   
   render_views
