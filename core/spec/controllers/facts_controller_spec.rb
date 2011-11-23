@@ -2,13 +2,8 @@ require 'spec_helper'
 
 describe FactsController do
   include Devise::TestHelpers
+  include ControllerMethods
   render_views
-  
-  # TODO factor out, because each controller needs this
-  def authenticate_user!
-    @user = FactoryGirl.create(:user)
-    request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => @user)
-  end
 
   def create_fact_relation
     @fact     = FactoryGirl.create(:fact)
