@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe ChannelsController do
   include Devise::TestHelpers
+  include ControllerMethods
+  
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
@@ -11,11 +13,6 @@ describe ChannelsController do
   let (:f2) {FactoryGirl.create(:fact)}
   let (:f3) {FactoryGirl.create(:fact)}
 
-  # TODO factor out, because each controller needs this
-  def authenticate_user!(user)
-    request.env['warden'] = mock(Warden, :authenticate => user, :authenticate! => user)
-  end
-  
   before do
     ch1.created_by = user.graph_user
     ch1.add_fact f1
