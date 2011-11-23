@@ -24,11 +24,7 @@ window.ChannelView = Backbone.View.extend({
       self.channel.trigger('loaded')
                   .trigger('activate', self.channel);
                   
-      if ( this.jqXHR ) {
-        this.jqXHR.abort();
-      }
-    
-      this.jqXHR = $.ajax({
+      $.ajax({
         url: self.channel.url() + '/facts',
         method: "GET",
         success: function( data ) {

@@ -15,11 +15,7 @@ window.RelatedUsersView = Backbone.View.extend({
     var self = this;
 
     if ( this.channel ) {
-      if ( this.jqXHR ) {
-        this.jqXHR.abort();
-      }
-    
-      this.jqXHR = $.ajax({
+      $.ajax({
         url: this.channel.url() + '/related_users',
         method: "GET",
         success: function( data ) {
