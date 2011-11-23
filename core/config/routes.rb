@@ -119,6 +119,8 @@ FactlinkUI::Application.routes.draw do
           delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
         end
       end
+      
+      resources :subchannels
     end
   end
 
