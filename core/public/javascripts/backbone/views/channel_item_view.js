@@ -14,6 +14,11 @@ window.ChannelItemView = Backbone.View.extend({
     this.model.bind('loaded', this.stopLoading, this);
     this.model.bind('activate', this.setActive, this);
     this.model.bind('deactivate', this.setNotActive, this);
+    
+    // The model can already be set active before the view has rendered
+    if ( this.model.isActive ) {
+      this.setActive();
+    }
   },
   
   render: function() {
@@ -36,14 +41,6 @@ window.ChannelItemView = Backbone.View.extend({
   
   stopLoading: function() {
     this.$( this.el ).removeClass('loading');
-  },
-  
-  setVisible: function() { 
-    this.$( this.el ).addClass("visible");
-  },
-
-  setHidden: function() {  
-    this.$( this.el ).removeClass("visible");
   },
 
   remove: function() {
