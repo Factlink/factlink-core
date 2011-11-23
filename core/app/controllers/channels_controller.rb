@@ -160,7 +160,7 @@ class ChannelsController < ApplicationController
   def activities
     render layout:false, partial: "activities/list_with_title",
       locals: {
-           activities: @channel.activities
+           activities: @channel.activities(10)
       }
   end
   
