@@ -3,6 +3,7 @@ window.ChannelList = Backbone.Collection.extend({
   
   initialize: function() {
     this.bind('activate', this.setActiveChannel);
+    this.bind('reset', this.checkActiveChannel);
   },
   
   url: function() {
@@ -10,11 +11,19 @@ window.ChannelList = Backbone.Collection.extend({
   },
   
   setActiveChannel: function(channel) {
-    if ( this.activeChannel && this.activeChannel.id !== channel.id ) {
-      this.activeChannel.trigger('deactivate');
+    if ( this.activeChannelId && this.activeChannelId !== channel.id ) {
+      this.get(this.activeChannelId).trigger('deactivate');
     }
     
-    this.activeChannel = channel;
+    this.activeChannelId = channel.id;
+  },
+  
+  checkActiveChannel: function() {
+    if ( this.activeChannelId ) {
+      var activeChannel = this.get(this.activeChannelId);
+      
+      activeChannel.trigger('activate', activeChannel);
+    }
   }
 });
 
