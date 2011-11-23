@@ -42,19 +42,12 @@ namespace :deploy do
   end
   
   task :start do
-    
-    deploy.stop
-    
-    puts "\n\nstarting node proxy using forever"
-    
-    # TODO: Fix npm location, is now gone after pull
-    run "cd #{current_path}; #{set_conf_path} npm install ; forever start server.js"
+    deploy.stop    
+    run "sh #{current_path}/bin/server/start_proxy.sh"
   end
   
   task :stop do
-    # TODO: This is not a very safe way to stop the proxy now is it?
-    puts "\n\nstopping `node`"
-    run "killall node; true" # return true to continue running, even if exit code != 0
+    run "sh #{current_path}/bin/server/stop_proxy.sh"
   end
   
   task :restart, :roles => :app, :except => { :no_release => true } do
