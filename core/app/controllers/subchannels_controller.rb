@@ -7,7 +7,7 @@ class SubchannelsController < ChannelsController
     @contained_channels = @channel.contained_channels
     
     respond_to do |format|
-      format.json { render :json => @contained_channels.map {|ch| Channels::SubchannelItem.for_channel_and_view(ch,self)} }
+      format.json { render :json => @contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)} }
     end
   end
   
