@@ -1725,7 +1725,7 @@ iframe.proxyFrame {
   width: 800px;
   height: 500px;
   border: solid 1px #777;
-  z-index: 900;
+  z-index: 2147483645;
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
 }
 div.modal {
