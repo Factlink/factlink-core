@@ -5,12 +5,6 @@ describe FactsController do
   include ControllerMethods
   render_views
 
-  def create_fact_relation
-    @fact     = FactoryGirl.create(:fact)
-    @evidence = FactoryGirl.create(:fact)
-    @fr       = @fact.add_evidence(:supporting, @evidence,user)
-  end
-
   let(:user) { FactoryGirl.create(:user) }
 
   describe :show do
