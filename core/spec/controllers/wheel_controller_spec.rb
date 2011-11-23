@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe WheelController do
   include Devise::TestHelpers
+  include ControllerMethods
   render_views
 
   # TODO factor out, because each controller needs this

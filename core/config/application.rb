@@ -46,40 +46,18 @@ module FactlinkUI
     
     config.mongoid.logger = nil
 
-    autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
-
-    autoload :FactData, "#{config.root}/app/models/fact_data.rb"
-    autoload :User, "#{config.root}/app/models/user.rb"
-    
-    autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
-    autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
-    autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
-    autoload :Fact, "#{config.root}/app/ohm-models/fact.rb"
-    autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
-    autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
-    autoload :Site, "#{config.root}/app/ohm-models/site.rb"
-    autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
-    
-    autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
-    
-    autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
-    autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
-    
-    [ 
-      RelatedUsersCalculator,
-      OurOhm, 
-      Activity,
-      ActivitySubject,
-      FactGraph, 
-      Opinion, 
-      Basefact, 
-      FactData, 
-      Fact, 
-      FactRelation, 
-      Site,
-      Channel,
-      GraphUser, 
-    ]
+    require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
+    require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
+    require_dependency "#{config.root}/app/ohm-models/activities.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
+    require_dependency "#{config.root}/app/ohm-models/opinion.rb"
+    require_dependency "#{config.root}/app/ohm-models/basefact.rb"
+    require_dependency "#{config.root}/app/models/fact_data.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"
+    require_dependency "#{config.root}/app/ohm-models/site.rb"
+    require_dependency "#{config.root}/app/ohm-models/channel.rb"
+    require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
     require 'mustache_railstache'
     Rails.application.config.generators.template_engine :mustache

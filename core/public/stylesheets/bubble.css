@@ -1395,7 +1395,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   margin-left: 5px;
 }
 .modal .popover, .modal .twipsy {
-  z-index: 12000;
+  z-index: 60000;
 }
 .twipsy {
   display: block;
@@ -1403,7 +1403,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   visibility: visible;
   padding: 5px;
   font-size: 11px;
-  z-index: 1000;
+  z-index: 60000;
   -moz-opacity: 80;
   -khtml-opacity: 80;
   -webkit-opacity: 80;
@@ -1727,10 +1727,10 @@ div.modal {
   -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
   -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+  margin-top: 0;
   padding: 0;
-  margin: 0 auto;
-  width: 510px;
   color: #777;
+  width: 510px;
 }
 div.modal span.proxyWindow {
   display: inline !important;
@@ -1874,9 +1874,11 @@ div.modal span.proxyWindow {
 }
 .fact-block article.fact header .body {
   font-family: Georgia, "Times New Roman", Garamond, serif;
-  font-size: 1.2em;
-  font-size: 14px;
+  font-size: 1.1em;
   line-height: 19px;
+}
+.fact-block article.fact header .body span a {
+  color: #5e8ba6;
 }
 .fact-block article.fact header .actions {
   margin-top: 4px;

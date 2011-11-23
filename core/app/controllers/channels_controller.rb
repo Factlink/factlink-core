@@ -39,7 +39,6 @@ class ChannelsController < ApplicationController
       format.js
       format.html do
         @channel.mark_as_read
-        render :action => "facts" 
       end
     end
   end
@@ -68,7 +67,7 @@ class ChannelsController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
+        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
         format.json { render :json => @channel,
                       :status => :created, :location => channel_path(@channel.created_by, @channel)}
         format.js
@@ -89,7 +88,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel),
+        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
@@ -106,7 +105,7 @@ class ChannelsController < ApplicationController
       @channel.delete
       
       respond_to do |format|
-        format.html  { redirect_to(get_facts_for_channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
+        format.html  { redirect_to(channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
         format.json  { render :json => {}, :status => :ok }
       end
     end
@@ -116,11 +115,7 @@ class ChannelsController < ApplicationController
   def facts
     @channel.mark_as_read
     respond_to do |format|
-      if request.xhr?
-        format.html { render layout: "ajax" }
-      else
-        format.html
-      end
+      format.html { render layout: "ajax" }
     end
   end
   
@@ -163,9 +158,9 @@ class ChannelsController < ApplicationController
   end
   
   def activities
-    render layout:false, partial: "activities/list_with_title",
+    render layout:false, partial: "channels/activity_list",
       locals: {
-           activities: @channel.activities
+             channel: @channel
       }
   end
   

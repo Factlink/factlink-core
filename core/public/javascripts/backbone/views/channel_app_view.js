@@ -5,13 +5,12 @@ window.AppView = Backbone.View.extend({
     this.channelCollectionView = new ChannelCollectionView({appView: this});
     this.relatedUsersView = new RelatedUsersView({appView: this});
     this.activitiesView = new ActivitiesView({appView: this});
-    this.channelView = new ChannelView({appView: this});
-    
+    this.channelView = new ChannelView();
     
     this.setupChannelReloading();
   },
   
-  // TODO: This function needs to wait for loading
+  // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
     var args = arguments;
     setTimeout(function(){
@@ -26,10 +25,17 @@ window.AppView = Backbone.View.extend({
     var self = this;
     
     if ( channel ) {
-      this.channelView.setChannel(channel).render();
+      this.channelView
+            .setChannel(channel)
+            .render();
       
-      this.relatedUsersView.setChannel(channel).render();
-      this.activitiesView.setChannel(channel).render();
+      this.relatedUsersView
+            .setChannel(channel)
+            .render();
+      
+      this.activitiesView
+            .setChannel(channel)
+            .render();
     }
   }
 });

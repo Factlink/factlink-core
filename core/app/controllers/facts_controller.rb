@@ -1,9 +1,10 @@
 class FactsController < ApplicationController
 
   layout "client"
-  
-  helper_method :sort_column, :sort_direction
 
+  respond_to :json, :html
+
+  
   before_filter :authenticate_user!, 
     :except => [
       :show,
@@ -29,43 +30,21 @@ class FactsController < ApplicationController
     :only => [:set_opinion ]
 
 
-  def index
-    respond_to do |format|
-      format.json { render :json => Fact.all }
-     end
-  end
-
   def show
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     
-    respond_to do |format|
-      format.json { render :json => @fact }
-      format.html
-    end
+    respond_with(@fact)
   end
 
-  def edit
-  end
-
-  # Prepare for create
   def intermediate
-    # TODO: Sanitize for XSS
-    @url      = params[:url]
-    @passage  = params[:passage]
-    @fact     = params[:fact]
-    @title    = params[:title]
-    @opinion  = params[:opinion]
-    
-    render :template => 'facts/intermediate', :layout => nil
+    render layout: nil
   end
   
   # GET /facts/new
   def new
-    respond_to do |format|
-      format.html { render :layout => 'popup' } # new.html.erb
-    end
+    render layout: 'popup'
   end
 
   def create
@@ -176,14 +155,14 @@ class FactsController < ApplicationController
     @fact = Basefact[params[:id]]
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render json: [@fact]
   end
 
   def remove_opinions
     @fact = Basefact[params[:id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render json: [@fact]
   end
 
   def evidence_search
@@ -243,10 +222,7 @@ class FactsController < ApplicationController
 
 
   def load_fact # private
-    @fact = Fact[params[:id]]
-    unless @fact
-      raise_404
-    end
+    @fact = Fact[params[:id]] || raise_404
   end
   
   def add_evidence(evidence_id, type, fact_id) # private  

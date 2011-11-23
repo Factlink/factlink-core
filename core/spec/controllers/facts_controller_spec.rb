@@ -2,13 +2,8 @@ require 'spec_helper'
 
 describe FactsController do
   include Devise::TestHelpers
+  include ControllerMethods
   render_views
-  
-  # TODO factor out, because each controller needs this
-  def authenticate_user!
-    @user = FactoryGirl.create(:user)
-    request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => @user)
-  end
 
   def create_fact_relation
     @fact     = FactoryGirl.create(:fact)
@@ -44,27 +39,9 @@ describe FactsController do
 
   describe :intermediate do
     it "should have the correct assignments" do
-      
-      url     = "http://en.wikipedia.org/wiki/Batman"
-      passage = "NotImplemented"
-      fact    = "Batman is a fictional character"     # Actually the displaystring
-      
-      post :intermediate, :url      => url, 
-                          :passage  => passage, 
-                          :fact     => fact,
-                          :the_action => "prepare"
-      
+      post :intermediate, :the_action => "prepare"
       response.code.should eq("200")
-      
-      # Url is not working, really weird?
-      # assigns[:url].should == url
-
-      assigns(:passage).should == passage
-      assigns(:fact).should == fact
-            
     end
-
-   
   end
 
   describe :create do

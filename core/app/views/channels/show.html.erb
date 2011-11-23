@@ -1,0 +1,11 @@
+<% content_for :javascript do %>
+  <script>
+    $(function(){
+      var channel = Channels.get(<%= @channel.id %>);
+      
+     channel.trigger('activate', channel);
+     
+     Router.view.channelView.setChannel(channel).render();
+    });
+  </script>
+<% end %>

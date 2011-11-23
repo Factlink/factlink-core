@@ -85,13 +85,6 @@ class Basefact < OurOhm
     self.user_opinion || Opinion.identity
   end
   
-  def activities
-    Activity.find({
-      :subject_id => self.id,
-      :subject_class => self.class
-    })
-  end
-  
   private :delete
   
 end

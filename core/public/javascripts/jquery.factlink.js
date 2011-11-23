@@ -43,8 +43,8 @@
       var pos = w.params.dim + (w.params.dim * 0.25);
       if (!authority_element.raphael) {
         authority_element.raphael = w.r.text(pos, pos, auth).attr({
-          "font-size": "13px",
-          "fill": "#ccc"
+          "font-size": "13pt",
+          "fill": "#999"
         });
       } else {
         authority_element.raphael.attr({
@@ -121,6 +121,12 @@
         });
         $(this.raphael.node).bind("click", function() {
           $(w.fact).factlink("switch_opinion", $t);
+        });
+        // Bootstap popver
+        $(this.raphael.node).attr("rel", "twipsy").twipsy({
+          title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; }, 
+          offset: 0,
+          placement:"left" 
         });
       });
     };
@@ -303,7 +309,7 @@
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
           if (!$(current_op).data("user-opinion")) {
-            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
               data_attr(current_op, "user-opinion", true);
               fact.factlink("update", data);
             });
@@ -311,7 +317,7 @@
           else {
             $.ajax({
               type: "DELETE",
-              url: "/facts/" + $(fact).data("fact-id") + "/opinion/",
+              url: "/facts/" + $(fact).data("fact-id") + "/opinion.json",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
                 fact.factlink("update", data);
@@ -340,7 +346,6 @@
     },
     getChannelChecklist: function(fact) {
       var id = fact.attr("data-fact-id");
-      console.info(fact);
       fact.find(".add-to-channel").off('hover.load_channel_list');
 
       $.ajax({

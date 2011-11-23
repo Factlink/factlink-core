@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_filter :load_user
 
   def show
-    redirect_to(get_facts_for_channel_path(params[:username], @user.graph_user.stream.id))
+    redirect_to(channel_path(params[:username], @user.graph_user.stream.id))
   end
 
   private

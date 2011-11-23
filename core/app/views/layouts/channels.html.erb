@@ -16,7 +16,7 @@
   
   <% if @channel and not @channel.new? %>
     <div id="activity-listing">
-      <%= render "activities/list_with_title", activities: @channel.activities %>
+      <%= render "channels/activity_list", channel: @channel %>
     </div>
   <% end %>
 <% end %>
@@ -60,6 +60,10 @@
 <% content_for :template do %>
   <script type="text/html" id="channel_li">
     <%= template_as_string "channels/_single_menu_item.html.mustache" %>
+  </script>
+  
+  <script type="text/html" id="channel_overview">
+    <%= template_as_string "channels/_channel.html.mustache" %>
   </script>
 <% end %>
 

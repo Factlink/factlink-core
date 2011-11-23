@@ -1245,7 +1245,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   margin-left: 5px;
 }
 .modal .popover, .modal .twipsy {
-  z-index: 12000;
+  z-index: 60000;
 }
 .twipsy {
   display: block;
@@ -1253,7 +1253,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   visibility: visible;
   padding: 5px;
   font-size: 11px;
-  z-index: 1000;
+  z-index: 60000;
   -moz-opacity: 80;
   -khtml-opacity: 80;
   -webkit-opacity: 80;
@@ -2177,6 +2177,13 @@ form .action-wrapper span {
   box-shadow: 0px 0px 3px #1d8cc8;
   border: 1px solid #1d8cc8;
   background-color: #fbfbfb;
+}
+#container #facts_for_channel div.loading {
+  text-align: center;
+  line-height: 100px;
+}
+#container #facts_for_channel div.loading img, #container #facts_for_channel div.loading span {
+  vertical-align: middle;
 }
 #container #channel-listing li.visible {
   color: red;

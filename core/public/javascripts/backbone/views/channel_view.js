@@ -1,9 +1,9 @@
 window.ChannelView = Backbone.View.extend({
 
   el: $("#main-wrapper"),
+  tmpl: $('#channel_overview').html(),
   
   initialize: function(opts) {
-    this.appView = opts.appView;
   },
 
   setChannel: function(channel) {
@@ -16,19 +16,25 @@ window.ChannelView = Backbone.View.extend({
     var self = this;
 
     if ( self.channel ) {
-      self.appView.trigger('channels:loading', self.channel.id);
-
+      self.channel.trigger('loading');
+      
+      this.$( this.el )
+        .html( $.mustache(this.tmpl, this.channel.toJSON() ));
+        
+      self.channel.trigger('loaded')
+                  .trigger('activate', self.channel);
+                  
       $.ajax({
         url: self.channel.url() + '/facts',
         method: "GET",
         success: function( data ) {
-          self.el.html(data);
+          self.el.find('#facts_for_channel > div.loading').hide().parent().append(data);
           self.el.find('.fact-block').factlink();
-
-          self.appView.trigger('channels:loaded', self.channel.id);
         }
       });
     }
+    
+    return this;
   }
 });
 
