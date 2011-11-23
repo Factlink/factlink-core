@@ -36,11 +36,75 @@ FactlinkUI::Application.routes.draw do
       post  "/update_title" => "facts#update_title", :as => "update_title"
     end
     
+    #TODO: is this still needed?
     resources :fact_relations
   end 
   
+  ###############
+  # Sites Controller
+  ##########
+  # Javascript Client calls
+  # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
+  get   "/site/count" => "sites#facts_count_for_url"  
+  get   "/site" => "sites#facts_for_url" 
+  get   "/site/:id" => "sites#show"
+  
+  scope "/sites" do
+    scope "/:url" do
+      resources "facts"
+    end
+  end
+
+  ################
+  # OTHER
+  ###############
+
+  # Static js micro templates
+  get "/templates/:name" => "templates#get", constraints: { name: /[-a-zA-Z_]+/ }
+
+  # Search and infinite scrolling
+  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
+    
+  
+  
+  match "/topic/:search" => "home#index", :as => "search_topic"  
 
 
+  # generate the images for the indicator used in the js-lib
+  get "/images/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
+
+ ##########
+  # Web Front-end
+  root :to => "home#index"
+
+  scope "/:username" do
+    get "/" => "users#show", :as => "user_profile"
+
+    resources :channels do
+      collection do
+        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+      end
+
+      member do 
+        # TODO replace with collection do add:
+        get "follow", :as => "follow"
+        
+        get "related_users", :as => "channel_related_users"
+        get "activities", :as => "activities"
+        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
+
+        scope "/facts" do
+          get "/" => "channels#facts", :as => "get_facts_for"
+          delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
+        end
+      end
+    end
+  end
+
+
+  ##################
+  # SOON TO DEPRECATE ROUTES (move to restful resources):
+  ##################
   
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
@@ -57,69 +121,7 @@ FactlinkUI::Application.routes.draw do
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
   get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
-
-
-  ###############
-  # Sites Controller
-  ##########
-  # Javascript Client calls
-  # TODO: probably better as sites/facts (with subresources)
-  get   "/site/count" => "sites#facts_count_for_url"  
-  get   "/site" => "sites#facts_for_url" 
-  get   "/site/:id" => "sites#show"
   
-  scope "/sites" do
-    scope "/:url", :constraints => { :url => /.*/ } do
-      # get "/info" => "sites#facts_count_for_url"
-      
-      resources "facts"
-    end
-  end
 
-  ################
-  # OTHER
-  ###############
-
-  # Static js micro templates
-  get "/templates/:name" => "templates#get"
-
-  # Search and infinite scrolling
-  match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-    
-  
-  
-  match "/topic/:search" => "home#index", :as => "search_topic"  
-
-
-  # generate the images for the indicator used in the js-lib
-  get "/images/wheel/:percentages" => "wheel#show", :constraints => {:percentages => /[0-9]+-[0-9]+-[0-9]+/}
-
- ##########
-  # Web Front-end
-  root :to => "home#index"
-
-  # get "/:username" => "users#show", :as => "user_profile"
-  
-  scope "/:username" do
-    get "/" => "users#show", :as => "user_profile"
-
-    resources :channels do
-      collection do
-        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
-      end
-
-      member do 
-        get "follow", :as => "follow"
-        get "related_users", :as => "channel_related_users"
-        get "activities", :as => "activities"
-        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
-
-        scope "/facts" do
-          get "/" => "channels#facts", :as => "get_facts_for"
-          delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
-        end
-      end
-    end
-  end
 
 end
