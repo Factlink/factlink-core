@@ -69,7 +69,7 @@ FactlinkUI::Application.routes.draw do
   get   "/site/:id" => "sites#show"
   
   scope "/sites" do
-    scope "/:url", :constraints => { :url => /.*/ } do
+    scope "/:url" do
       resources "facts"
     end
   end
