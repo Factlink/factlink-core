@@ -7,6 +7,8 @@ Factlink.Prepare = function() {
   var facts;
   var self = this;
   var timeout;
+  var pageX;
+  var pageY;
   
   function initialize(tmpl) {
     var createFact;
@@ -40,7 +42,10 @@ Factlink.Prepare = function() {
         facts = factObjs;
         self.setType("fl-created");
         setTimeout(function() {
-          self.setType("fl-add-evidence");
+          el.hide();
+          //fake mouseover over the first fact
+          //TODO: actually do this on the selected fact
+          factObjs[0].focus({target: factObjs[0].getElements()[0], pageX: pageX, pageY: pageY});
         }, 1500);
       });
     });
@@ -68,9 +73,12 @@ Factlink.Prepare = function() {
         // Retrieve all needed info of current selection
         var selectionInfo = Factlink.getSelectionInfo();
 
+        pageX = e.pageX;
+        pageY = e.pageY;
+
         // Check if the selected text is long enough to be added
         if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
-          self.show(e.pageY, e.pageX);
+          self.show(pageY, pageX);
         }
       }, 200);
     });
@@ -86,46 +94,10 @@ Factlink.Prepare = function() {
     });
   }
   
-  function setRight() {
-    el.addClass('right')
-      .removeClass('left');
-  }
-  
-  function setLeft() {
-    el.addClass('left')
-      .removeClass('right');
-  }
-  
   this.show = function(top, left) {
-    var x = left,y = top;
-    
     self.resetType();
-    
+    Factlink.set_position(top,left,window,el);
     el.fadeIn('fast');
-    
-    x -= 30;
-    if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
-      x = $(window).width() - el.outerWidth(true);
-      
-      setLeft();
-    } else {      
-      if ( x < $(window).scrollLeft() ) {
-        x = $(window).scrollLeft();
-      }
-      
-      setRight();
-    }
-    
-    y -= 14 + el.outerHeight(true);
-    
-    if (y < $(window).scrollTop()) {
-      y = $(window).scrollTop() + el.outerHeight(true) + 14;
-    }
-    
-    el.css({
-      top: y + 'px',
-      left: x + 'px'
-    });
   };
   
   this.hide = function() {
