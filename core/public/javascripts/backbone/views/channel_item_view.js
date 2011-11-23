@@ -31,6 +31,7 @@ window.ChannelItemView = Backbone.View.extend({
   setActive: function() {
     this.$( this.el ).addClass('active');
   },
+  
   setNotActive: function() {
     this.$( this.el ).removeClass('active');
   },
