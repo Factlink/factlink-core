@@ -2148,10 +2148,10 @@ form .action-wrapper span {
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
 }
-#container #main-wrapper header.title ul.contained-channel-list {
+#container #main-wrapper header.title #contained-channel-list {
   display: block;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel {
+#container #main-wrapper header.title #contained-channel-list li {
   width: 150px;
   display: inline-block;
   margin: 4px;
@@ -2162,20 +2162,20 @@ form .action-wrapper span {
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel a {
+#container #main-wrapper header.title #contained-channel-list li a {
   display: block;
   font-size: 13px;
   height: 100%;
   width: 100%;
   text-decoration: none;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel a img {
+#container #main-wrapper header.title #contained-channel-list li a img {
   width: 24px;
   vertical-align: -30%;
   height: 24px;
   margin-right: 6px;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel a span {
+#container #main-wrapper header.title #contained-channel-list li a span {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -2184,11 +2184,11 @@ form .action-wrapper span {
   display: inline-block;
   width: 110px;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel a:hover {
+#container #main-wrapper header.title #contained-channel-list li a:hover {
   text-decoration: none;
   color: #333;
 }
-#container #main-wrapper header.title ul.contained-channel-list li.contained-channel:hover {
+#container #main-wrapper header.title #contained-channel-list li:hover {
   box-shadow: 0px 0px 3px #1d8cc8;
   border: 1px solid #1d8cc8;
   background-color: #fbfbfb;

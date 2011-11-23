@@ -9,7 +9,6 @@ window.ChannelCollectionView = Backbone.View.extend({
 
     Channels.bind('add',   this.addOneChannel, this);
     Channels.bind('reset', this.resetChannels, this);
-    Channels.bind('all',   this.render, this);
     
     this.appView = opts.appView;
     
