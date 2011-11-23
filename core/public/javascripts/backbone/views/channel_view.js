@@ -4,28 +4,32 @@ window.ChannelView = Backbone.View.extend({
   tmpl: $('#channel_overview').html(),
   
   initialize: function(opts) {
-  },
-
-  setChannel: function(channel) {
-    this.channel = channel;
-
-    return this;
+    var self = this;
+    
+    this.subchannels = new SubchannelList({channel: this.model});
+    
+    this.subchannels.fetch();
   },
   
   render: function() { 
     var self = this;
 
-    if ( self.channel ) {
-      self.channel.trigger('loading');
+    if ( self.model ) {
+      self.model.trigger('loading');
       
-      this.$( this.el )
-        .html( $.mustache(this.tmpl, this.channel.toJSON() ));
+      this.el
+        .html( $.mustache(this.tmpl, this.model.toJSON() ));
+      
+      this.subchannelView = new SubchannelsView({
+        collection: this.subchannels,
+        el: this.el.find('#contained-channel-list')
+      });
         
-      self.channel.trigger('loaded')
-                  .trigger('activate', self.channel);
+      self.model.trigger('loaded')
+                  .trigger('activate', self.model);
                   
       $.ajax({
-        url: self.channel.url() + '/facts',
+        url: self.model.url() + '/facts',
         method: "GET",
         success: function( data ) {
           self.el.find('#facts_for_channel > div.loading').hide().parent().append(data);
