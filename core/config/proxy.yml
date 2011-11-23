@@ -1,27 +1,34 @@
 development:
-    proxy:
-        hostname: localhost
-        port: 8080
-        internal_port: 8080
-        protocol: http://
+  proxy:
+    hostname: localhost
+    port: 8080
+    internal_port: 8080
+    protocol: http://
 
 test:
-    proxy:
-        hostname: localhost
-        port: 8080
-        internal_port: 8080
-        protocol: http://
+  proxy:
+    hostname: localhost
+    port: 8080
+    internal_port: 8080
+    protocol: http://
 
 testserver:
-    proxy:
-        hostname: proxy.testserver.factlink.com
-        port: 80
-        internal_port: 8080
-        protocol: http://
+  proxy:
+    hostname: proxy.testserver.factlink.com
+    port: 80
+    internal_port: 8080
+    protocol: http://
+
+staging:
+  proxy:
+    hostname: proxy.factlink.com
+    port: 80
+    internal_port: 8080
+    protocol: http://
 
 production:
-    proxy:
-        hostname: proxy.factlink.com
-        port: 80
-        internal_port: 8080
-        protocol: http://
+  proxy:
+    hostname: proxy.beta.factlink.com
+    port: 80
+    internal_port: 8080
+    protocol: http://
