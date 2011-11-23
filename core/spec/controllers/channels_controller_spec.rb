@@ -56,6 +56,14 @@ describe ChannelsController do
     end
   end
   
+  describe "#get_facts_for" do
+    it "should render" do
+      authenticate_user!(user)
+      get :facts, username: user.username, id: ch1.id
+      response.should be_succes
+    end
+  end
+  
 
   describe "#show" do
     it "a channel should be succesful" do
