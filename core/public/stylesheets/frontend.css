@@ -22,6 +22,12 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 /*!
  * Bootstrap @VERSION
  *
@@ -1730,7 +1736,7 @@ button,
 input,
 select,
 textarea {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   color: #222;
 }
 a {
@@ -1845,9 +1851,6 @@ table {
 td {
   vertical-align: top;
 }
-/* =============================================================================
-Mixins
-========================================================================= */
 /* ==|== primary styles =====================================================
 Author: 
 ========================================================================== */
@@ -2127,6 +2130,8 @@ form .action-wrapper span {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
   margin-bottom: 6px;
   display: block;
   width: 70%;
@@ -2166,6 +2171,8 @@ form .action-wrapper span {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
   display: inline-block;
   width: 110px;
 }
@@ -2185,29 +2192,38 @@ form .action-wrapper span {
 #container #facts_for_channel div.loading img, #container #facts_for_channel div.loading span {
   vertical-align: middle;
 }
-#container #channel-listing li.visible {
-  color: red;
+#container #channel-listing {
+  margin: 1.5em 0 1em 0;
 }
 #container #channel-listing li a {
   display: block;
   border-radius: 2px;
-  padding: 6px;
-  margin: 4px 0;
+  padding: 5px;
+  margin: 2px 0;
   color: #222;
   position: relative;
 }
 #container #channel-listing li a span {
   vertical-align: middle;
 }
+#container #channel-listing li a.channel, #container #channel-listing li a.created {
+  margin-left: 0.4em;
+}
 #container #channel-listing li a .title {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
   max-width: 116px;
   display: inline-block;
 }
+#container #channel-listing li a .title:first-letter {
+  text-transform: uppercase;
+}
 #container #channel-listing li a .new {
   font-weight: bold;
+  font-size: 0.8em;
 }
 #container #channel-listing li a:hover {
   background-color: #fff;
@@ -2220,11 +2236,11 @@ form .action-wrapper span {
   visibility: hidden;
 }
 #container #channel-listing li.active > a, #container #channel-listing li.loading > a {
-  background: #fff;
   color: #666;
   z-index: 101;
+  color: #ce0000;
+  font-weight: bold;
   border-right: none;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
 }
 #container #channel-listing li.loading > a img {
   visibility: visible;

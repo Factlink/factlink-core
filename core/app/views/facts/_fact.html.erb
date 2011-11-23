@@ -54,7 +54,7 @@
       <div class="search-area">
         <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
 
-          <%= link_to('Back to evidence', '#', :class => "return-from-add") %>
+          <%= link_to('Back to evidence', '#', :class => "back-to-evidence-listing") %>
           <input type="text" class="evidence_search" name="s" placeholder="Search or add evidence" <%= params[:s] ? "value='#{params[:s]}'" : "" %> >
           <input type="hidden" name="id" value="<%= fact.id %>">
           <input type="submit" value="Search">
@@ -64,7 +64,7 @@
       <div class="results">
         <ul class="default-results">
           <li>
-            Please search for evidence
+            Search or add evidence using the input above
           </li>
         </ul>
         
@@ -75,9 +75,11 @@
       <!-- not implemented yet -->
       <div class="dropdown-underbar search-and-add-actions" style="display: none;">
         <ul>
-          <!-- <li>
+          <% if modal %>
+          <li onclick="parent.openNewProxyWindow($('input.evidence_search').val());">
             Search the internet for "<span class="user-search-input"></span>"
-          </li> -->
+          </li>
+          <% end %>
           <li class="new-evidence-add-action">
             Add "<span class="user-search-input"></span>"
           </li>
@@ -89,7 +91,7 @@
     <div class="page new-evidence-add" style="display: none;">
       <%= form_for("fact_data", :url => fact_evidence_index_path(fact.id), :remote => "true" ) do |f| %>
 
-        <%= link_to('Back to search', '#', :class => "return-from-add") %>
+        <%= link_to('Back to search', '#', :class => "back-to-search") %>
          
          <span class="message">Add</span>
          <!-- <div class="evidence evidence-bubble"> -->
@@ -113,7 +115,7 @@
     <!-- the actual adding - including supporting / weakening buttons -->
     <div class="page evidence-add" style="display: none;">
 
-      <%= link_to('Back to search', '#', :class => 'close-evidence-add') %>
+      <%= link_to('Back to search', '#', :class => 'back-to-search') %>
 
       <span class="message">Add</span>
       <div class="evidence evidence-bubble">

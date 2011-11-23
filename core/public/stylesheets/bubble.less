@@ -20,9 +20,9 @@ iframe.proxyFrame {
 }
 
 div.modal {
-
+  border: none;
   top: 40px;
-  .drop-shadow(0px, 3px, 10px, 0.25);
+  .drop-shadow(0px, 5px, 10px, 0.4);
   margin-top: 0;
   padding: 0;
   color: #777;
@@ -44,7 +44,7 @@ div.modal {
   .gradient(#fbfbfb, #e2e2e2, #fbfbfb);
   border: solid 1px #a8a8a8;
   padding: 4px;
-  border-radius: 3px;
+  .rounded(3px);
 }
 
 .close { 
@@ -70,8 +70,6 @@ div.modal {
   .default-modal;
 
   border: solid 1px #e8e8e8;
-  border-radius: 4px;
-
   color: #BBB;
 
   text-shadow: 0px 1px 0px white;
@@ -109,8 +107,6 @@ div.modal {
     min-height: 83px;
     display: block;
     border-right: 1px solid #FBFAFA;
-
-    border-radius: 4px;
     
     header {
 			margin: 0 0 0px 75px;
@@ -144,7 +140,7 @@ div.modal {
 					input, input:focus {
 						padding: 4px 0;
 						background-color: #ffffe1;
-						border-radius: 3px;
+						.rounded(3px);
 						
 						outline:none;
 						margin: -6px 0px -6px 0px;
@@ -166,7 +162,6 @@ div.modal {
         margin-top: 4px;
         visibility: hidden;
         height: 18px;
-        opacity:0;
         .transition(0.2s,ease-in);
 
         li { 
@@ -189,10 +184,11 @@ div.modal {
       ul { 
         max-height: 160px;
         overflow-y: auto;
+        .visible-scroll();
         padding: 8px 8px 4px 12px;
       }
       li {
-        display: block;
+        .ellipsis();
         padding: 4px 0px;
       }
 			.add-channel {
@@ -200,9 +196,9 @@ div.modal {
 				padding: 8px;
 				
 				input[type="text"] {
-					width: 120px;
+					width: 130px;
 					padding: 2px;
-					border-radius: 3px;
+					.rounded(3px);
 					border: solid 1px #ccc;
 				}
 			}
@@ -349,10 +345,13 @@ div.modal {
         }
       }
       .results {
-        height: 247px;
+        height: 260px;
         overflow-y: scroll;
         overflow-x: hidden;
         
+        .search-term-results{
+          margin-bottom: 106px;
+        }
         ul {
           li {
             color: lighten(#313131, 25);

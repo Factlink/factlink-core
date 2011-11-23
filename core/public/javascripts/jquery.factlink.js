@@ -6,7 +6,7 @@
       this.authority = $(fact).find(".authority").first();
       this.params = $.extend(params, {
         "dim": 24,
-        "radius": 18,
+        "radius": 16,
         "default_stroke": {
           "opacity": 0.2,
           "stroke": 9
@@ -176,22 +176,23 @@
 
         function addEventHandlersDoAdd($fact) {
           $fact.find("a.do-add").live("click", function() {
+            resetSearch($fact);
             $fact.find('.evidence-list').hide();
             $fact.find('.evidence-search-results').show();
             return false;
           });
         }
 
-        function addEventHandlersReturnFromAdd($fact) {
-          $fact.find("a.return-from-add").bind("click", function() {
+        function addEventHandlersBackToEvidenceListing($fact) {
+          $fact.find("a.back-to-evidence-listing").bind("click", function() {
             showEvidenceList($fact);
             resetSearch($fact);
             return false;
           });
         }
 
-        function addEventHandlersReturnFromEvidenceAdd($fact) {
-          $fact.find("a.close-evidence-add").bind("click", function() {
+        function addEventHandlersBackToSearch($fact) {
+          $fact.find("a.back-to-search").bind("click", function() {
             $fact.find('.page').hide();
             $fact.find('.evidence-search-results').show();
             return false;
@@ -250,8 +251,8 @@
           //On Click Event
           addEventHandlersTabs($fact);
           addEventHandlersDoAdd($fact);
-          addEventHandlersReturnFromAdd($fact);
-          addEventHandlersReturnFromEvidenceAdd($fact);
+          addEventHandlersBackToEvidenceListing($fact);
+          addEventHandlersBackToSearch($fact);
 
           bindEvidenceAddButtons($fact);
           bindNewEvidenceAddButtons($fact);
@@ -466,15 +467,10 @@
                 displaystring: displayString,
                 type: type 
               },
-      beforeSend: function(data) {
-        console.info("sending...");
-      },
       success: function(data) {
-        console.info("It is a SUCCESS");
         resetSearch($c);
       },
       error: function(data) {  
-        console.info("it has FAILED");
       }
     });
   }
@@ -485,7 +481,7 @@
       showSearchResults($c);
       
       var elem = $(this);
-      $('.user-search-input').html(elem.val());
+      $('.user-search-input').text(elem.val());
 
       if (elem.val().length >= 2) {
         
@@ -530,8 +526,8 @@
   function resetSearch($c) {
     hideSearchResults($c);
     hideAddOptions($c);
+    $c.find('.search-and-add-actions').hide();
     $c.find('.search-area .evidence_search').val('');
-    
   }
   function showSearchResults($c) {
     $c.find('.evidence-search-results .search-term-results').show();
@@ -545,8 +541,10 @@
   function showAddOptions($c) {
     $c.find('.search-and-add-actions:hidden').fadeIn(100);
   }
-  function hideAddOptions($c) {
-    $c.find('.search-and-add-actions').fadeOut(100);
+  function hideAddOptions($c) {  
+    $c.find('.search-and-add-actions').fadeOut(100, function() {
+      $('.user-search-input').html('');
+    });
   }
 
 

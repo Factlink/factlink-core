@@ -9,3 +9,9 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

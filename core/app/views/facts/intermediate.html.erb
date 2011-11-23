@@ -180,12 +180,12 @@
       showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
     }
 
-    function openNewProxyWindow() {
+    function openNewProxyWindow(search_params) {
       var doc = showFrame.contentWindow.document;
       window.proxyFrame = document.createElement("iframe");
 
       window.proxyFrame.className = "proxyFrame";
-      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com&factlinkModus=addToFact";
+      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>search?query=" + search_params + "&factlinkModus=addToFact";
 
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
