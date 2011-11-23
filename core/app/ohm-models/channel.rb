@@ -5,7 +5,9 @@ require File.join(File.dirname(__FILE__), "channel", "user_stream")
 class Channel < OurOhm
   
   include ActivitySubject
-  
+
+  def type; "channel" end
+
   attribute :title
   index :title
   
