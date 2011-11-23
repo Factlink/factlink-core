@@ -60,7 +60,7 @@ FactlinkUI::Application.routes.draw do
   ###############
 
   # Static js micro templates
-  get "/templates/:name" => "templates#get", constraints: { name: /[-a-zA-Z_]+/ }
+  get "/templates/:name" => "templates#show", constraints: { name: /[-a-zA-Z_]+/ }
 
   # Search and infinite scrolling
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
