@@ -5,7 +5,7 @@
       
      channel.trigger('activate', channel);
      
-     Router.view.channelView.setChannel(channel).render();
+     Router.view.channelView = new ChannelView({ model: channel }).render();
     });
   </script>
 <% end %>

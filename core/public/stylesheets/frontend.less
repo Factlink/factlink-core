@@ -350,9 +350,9 @@ body.factlink-site div.user-block {
         p { 
           margin: 0 0 6px 0;
         }
-        ul.contained-channel-list { 
+        #contained-channel-list { 
           display: block;
-          li.contained-channel { 
+          li { 
             width: 150px;
             display: inline-block;
             margin: 4px;
@@ -416,16 +416,26 @@ body.factlink-site div.user-block {
           color: #222;
 
           position: relative;
-          span { 
-            vertical-align: middle;
-          }
-          &.all { 
-          }
+          &.stream,
           &.channel,
           &.created { 
-            margin-left: 0.4em;
-
+	          font-family: "IconicStroke";
           }
+          &.stream { 
+            &:before { 
+              content: "!"; 
+            }
+          }
+          &.created  { 
+            margin-left: 0.4em;
+            &:before { 
+              content: "u"; 
+            }
+          }
+          &.channel  { 
+            margin-left: 1.25em;
+          }
+
           .title {
             .ellipsis();
             max-width: 116px;
@@ -443,6 +453,10 @@ body.factlink-site div.user-block {
             cursor: pointer;
             text-decoration: none;
   					box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+          }
+          span { 
+            font-family: Arial, sans-serif;
+            vertical-align: middle;
           }
           img {
             float: right;

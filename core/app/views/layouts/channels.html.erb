@@ -24,9 +24,13 @@
 <% content_for :javascript do %>
 
   <%= javascript_include_tag "backbone/models/channel.js" %>
+  <%= javascript_include_tag "backbone/models/subchannel.js" %>
   <%= javascript_include_tag "backbone/collections/channels.js" %>
+  <%= javascript_include_tag "backbone/collections/subchannels.js" %>
   <%= javascript_include_tag "backbone/collections/facts.js" %>
+  <%= javascript_include_tag "backbone/views/subchannels_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_item_view.js" %>
+  <%= javascript_include_tag "backbone/views/subchannel_item_view.js" %>
   <%= javascript_include_tag "backbone/views/related_users_view.js" %>
   <%= javascript_include_tag "backbone/views/activities_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
@@ -64,6 +68,10 @@
   
   <script type="text/html" id="channel_overview">
     <%= template_as_string "channels/_channel.html.mustache" %>
+  </script>
+  
+  <script type="text/html" id="subchannel_li">
+    <%= template_as_string "subchannels/_subchannel_item.html.mustache" %>
   </script>
 <% end %>
 
