@@ -15,12 +15,7 @@ describe FactsController do
     end
     
     it "should escape html in fields" do
-      @site = FactoryGirl.create(:site)
-      
-      @fact = Fact.create(
-        :created_by => user.graph_user,
-        :site => @site
-      )
+      @fact = FactoryGirl.create(:fact)
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
