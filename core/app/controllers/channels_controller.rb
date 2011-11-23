@@ -158,9 +158,9 @@ class ChannelsController < ApplicationController
   end
   
   def activities
-    render layout:false, partial: "activities/list_with_title",
+    render layout:false, partial: "channels/activity_list",
       locals: {
-           activities: @channel.activities(10)
+             channel: @channel
       }
   end
   
