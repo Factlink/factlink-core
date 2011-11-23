@@ -29,6 +29,10 @@ module Channels
     def title
       self[:channel].title
     end
+
+    def type
+      self[:channel].type
+    end
   
     def nr_of_facts
       unread_count
@@ -61,6 +65,7 @@ module Channels
 #                      |
                    :id => id,
                  :link => link,
+                 :type => type,
                 :title => title,
             :edit_link => edit_link,
             :new_facts => new_facts,
