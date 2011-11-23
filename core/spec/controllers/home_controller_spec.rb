@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe HomeController do
+  include Devise::TestHelpers
   include ControllerMethods
+  
   render_views
 
   describe "GET index" do

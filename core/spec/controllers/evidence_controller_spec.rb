@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe EvidenceController do
+  include Devise::TestHelpers
   include ControllerMethods
   render_views
   

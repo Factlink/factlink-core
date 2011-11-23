@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe SitesController do
+  include Devise::TestHelpers
   include ControllerMethods
 
   describe "gets count for page" do
