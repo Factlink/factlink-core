@@ -101,6 +101,7 @@ var
             window.FactlinkConfig.lib + '/build/jquery.scrollTo-1.4.2.js',
             window.FactlinkConfig.lib + '/build/jquery.hoverintent.js',
             window.FactlinkConfig.lib + '/src/js/models/fact.js?' + (new Date()).getTime(),
+            window.FactlinkConfig.lib + '/src/js/views/ballooney_thingy.js?' + (new Date()).getTime(),
             window.FactlinkConfig.lib + '/src/js/views/balloon.js?' + (new Date()).getTime(),
             window.FactlinkConfig.lib + '/src/js/views/prepare.js?' + (new Date()).getTime()
         ],
