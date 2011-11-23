@@ -36,34 +36,15 @@ FactlinkUI::Application.routes.draw do
       post  "/update_title" => "facts#update_title", :as => "update_title"
     end
     
+    #TODO: is this still needed?
     resources :fact_relations
   end 
   
-
-
-  
-  # Prepare a new Fact
-  match "/factlink/intermediate" => "facts#intermediate"
-
-  ################
-  # FactRelation Controller
-  ################
-
-  # Add evidence as supporting or weakening
-  post  "/factlink/:id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
-  post  "/factlink/:id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
-
-  
-  # Create new facts as evidence (supporting or weakening)
-  get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
-  get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
-
-
   ###############
   # Sites Controller
   ##########
   # Javascript Client calls
-  # TODO: probably better as sites/facts (with subresources)
+  # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
   get   "/site/count" => "sites#facts_count_for_url"  
   get   "/site" => "sites#facts_for_url" 
   get   "/site/:id" => "sites#show"
@@ -105,7 +86,9 @@ FactlinkUI::Application.routes.draw do
       end
 
       member do 
+        # TODO replace with collection do add:
         get "follow", :as => "follow"
+        
         get "related_users", :as => "channel_related_users"
         get "activities", :as => "activities"
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
@@ -117,5 +100,28 @@ FactlinkUI::Application.routes.draw do
       end
     end
   end
+
+
+  ##################
+  # SOON TO DEPRECATE ROUTES (move to restful resources):
+  ##################
+  
+  # Prepare a new Fact
+  match "/factlink/intermediate" => "facts#intermediate"
+
+  ################
+  # FactRelation Controller
+  ################
+
+  # Add evidence as supporting or weakening
+  post  "/factlink/:id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
+  post  "/factlink/:id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
+
+  
+  # Create new facts as evidence (supporting or weakening)
+  get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
+  get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
+  
+
 
 end
