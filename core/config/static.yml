@@ -2,7 +2,7 @@ development:
   static:
     hostname: localhost
     port: 8000
-      protocol: http://
+    protocol: http://
 
 test:
   static:
