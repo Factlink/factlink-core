@@ -1,0 +1,2 @@
+class SubchannelsController < ApplicationController
+end
