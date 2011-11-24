@@ -39,7 +39,37 @@ div.modal {
   .drop-shadow(0, 0, 10px, 0.3);
   position: fixed;
 }
+.channel-listing {
+  .float;
+  width: 200px;
+  position: absolute;
 
+  ul { 
+    max-height: 160px;
+    overflow-y: auto;
+    .visible-scroll();
+    padding: 8px 8px 4px 12px;
+  }
+  li {
+    .ellipsis();
+    padding: 4px 0px;
+  }
+  label { 
+    margin: 0;
+    padding: 0;
+  }
+  .add-channel {
+    border-top: solid 1px #ddd;
+    padding: 8px;
+    
+    input[type="text"] {
+      width: 130px;
+      padding: 2px;
+      .rounded(3px);
+      border: solid 1px #ccc;
+    }
+  }
+}
 .new-style {
   .gradient(#fbfbfb, #e2e2e2, #fbfbfb);
   border: solid 1px #a8a8a8;
@@ -174,34 +204,6 @@ div.modal {
           }
         }
       }
-    }
-    .channel-listing {
-      display: block;
-      .float;
-      width: 200px;
-      position: absolute;
-
-      ul { 
-        max-height: 160px;
-        overflow-y: auto;
-        .visible-scroll();
-        padding: 8px 8px 4px 12px;
-      }
-      li {
-        .ellipsis();
-        padding: 4px 0px;
-      }
-			.add-channel {
-				border-top: solid 1px #ddd;
-				padding: 8px;
-				
-				input[type="text"] {
-					width: 130px;
-					padding: 2px;
-					.rounded(3px);
-					border: solid 1px #ccc;
-				}
-			}
     }
   }
   .wheel { 
