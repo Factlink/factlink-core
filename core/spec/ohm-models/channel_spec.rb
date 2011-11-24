@@ -20,6 +20,11 @@ describe Channel do
   let(:ch1) {Channel.create(:created_by => u2, :title => "Something")}
   let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
+  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
+  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Diddly")}
+  let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
+  let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
+
 
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }
@@ -171,7 +176,20 @@ describe Channel do
   
   describe "#containing_channels_for" do
     describe "initially" do
-      it {subject.containing_channels_for(u1).should =~ []}
+      it {subject.containing_channels_for(u1).to_a.should =~ []}
+    end
+    describe "after adding to a own channel" do
+      before do
+        u1_ch1.add_channel subject
+      end
+      it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+      describe "after adding to someone else's channel" do
+        before do
+          u1_ch1.add_channel subject
+          u2_ch1.add_channel subject
+        end
+        it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+      end
     end
   end
 end

@@ -135,7 +135,7 @@ class Channel < OurOhm
   end
 
   def containing_channels_for(user)
-    return []
+    containing_channels.find(:created_by_id => user.id)
   end
 
   protected
