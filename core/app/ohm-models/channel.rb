@@ -15,6 +15,7 @@ class Channel < OurOhm
   alias :graph_user :created_by
 
   set :contained_channels, Channel
+  set :containing_channels, Channel
 
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
