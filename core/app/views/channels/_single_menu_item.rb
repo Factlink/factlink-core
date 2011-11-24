@@ -33,6 +33,10 @@ module Channels
     def type
       self[:channel].type
     end
+    
+    def show_subchannels?
+      editable? || followable?
+    end
   
     def nr_of_facts
       unread_count
@@ -73,6 +77,7 @@ module Channels
             :editable? => editable?,
           :nr_of_facts => nr_of_facts,
         :created_by_id => created_by_id,
+    :show_subchannels? => show_subchannels?,
       }
     end
 
