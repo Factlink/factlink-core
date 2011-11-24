@@ -48,12 +48,6 @@ FactlinkUI::Application.routes.draw do
   get   "/site/count" => "sites#facts_count_for_url"  
   get   "/site" => "sites#facts_for_url" 
   get   "/site/:id" => "sites#show"
-  
-  scope "/sites" do
-    scope "/:url" do
-      resources "facts"
-    end
-  end
 
   ################
   # OTHER
