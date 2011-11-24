@@ -74,12 +74,12 @@ class FactGraph
       #use Channel.find because we also want deleted channels
       Channel.find(:created_by_id => gu.id ).each do |channel|
         writer.write("  "+LoadDsl.export_channel(channel))
-        channel.internal_facts.each do |f|
+        channel.sorted_internal_facts.each do |f|
           if f and f.data_id
             writer.write("    "+LoadDsl.export_add_fact(f))
           end
         end
-        channel.delete_facts.each do |f|
+        channel.sorted_delete_facts.each do |f|
           if f and f.data_id
             writer.write("    "+LoadDsl.export_del_fact(f))
           end
