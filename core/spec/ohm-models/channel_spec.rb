@@ -14,6 +14,7 @@ describe Channel do
   
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
+    it { subject.containing_channels.to_a.should =~ [] }
   end
   
   describe "after adding one fact" do
@@ -40,13 +41,15 @@ describe Channel do
     
     describe "after forking" do
       before do
-         @fork = subject.fork(u2)
-         @fork.title = "Fork"
-         @fork.save
-        end  
+        @fork = subject.fork(u2)
+        @fork.title = "Fork"
+        @fork.save
+      end  
       
       it {subject.facts.to_a.should =~ [f1]}
       it {@fork.facts.to_a.should =~ [f1]}
+
+      it {subject.containing_channels.to_a.should =~ [@fork]}
       
       describe "and removing the fact from the original" do
         before do
@@ -89,6 +92,4 @@ describe Channel do
       end
     end
   end
-  
-  
 end
