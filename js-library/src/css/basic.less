@@ -393,16 +393,17 @@ span.factlink {
         position: absolute;
         top: 100%;
         min-width: 111px;
-        max-width: 160px;
+        max-width: 140px;
+        max-height: 160px;
+        overflow-y: auto;
         left: 0;
+        .visible-scroll();
 
         li {
           #fl > .resetStyles;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
           padding: 4px 0px;
-          white-space: nowrap;
+          width: 100%;
+          .ellipsis();
           
           &.fl-loading {
             text-align: center;

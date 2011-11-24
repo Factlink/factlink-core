@@ -4,7 +4,7 @@ set :application, "factlink-js-library"
 
 ########
 # Stages
-set :stages, %w(testserver production)
+set :stages, %w(testserver staging production)
 set :default_stage, "testserver"
 require 'capistrano/ext/multistage'
 
