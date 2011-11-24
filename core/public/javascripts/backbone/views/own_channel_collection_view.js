@@ -4,9 +4,56 @@ window.OwnChannelCollectionView = Backbone.View.extend({
   
   _views: [],
   
+  events: {
+    'submit form': 'addChannel'
+  },
+  
   initialize: function() {
-    OwnChannelList.bind('add',   this.addOneChannel, this);
-    OwnChannelList.bind('reset', this.render, this);
+    this.collection.bind('add',   this.render, this);
+    this.collection.bind('reset', this.render, this);
+  },
+  
+  addChannel: function(e) {
+    var self = this;
+    
+    self.disableAdd();
+    
+    var val = self.$input.val();
+        
+    if ( val.length > 0 ) {
+      $.ajax({
+        url: currentUser.url() + '/channels',
+        data: {
+          title: val,
+          for_channel: currentChannel.id
+        },
+        type: "post",
+        success: function(data) {
+          currentUser.channels.add(data);
+          
+          self.resetAdd();
+          self.enableAdd();
+        }
+      });
+    } else {
+      self.enableAdd();
+    }
+    
+    return false;
+  },
+  
+  resetAdd: function() {
+    this.$input.val('');
+  },
+  
+  disableAdd: function() {
+    this.$input.prop('disabled',true);
+    this.$submit.prop('disabled',true);
+  },
+  
+  enableAdd: function() {
+    this.$input.prop('disabled',false);
+    this.$submit.prop('disabled',false);
   },
   
   render: function() {
@@ -22,5 +69,10 @@ window.OwnChannelCollectionView = Backbone.View.extend({
       
       $channelListing.append(view.el);
     });
+    
+    var el = $( this.el );
+    
+    this.$input = el.find('input[name="channel_title"]');
+    this.$submit = el.find('input[type="submit"]');
   }
 });
