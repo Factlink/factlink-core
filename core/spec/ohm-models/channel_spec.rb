@@ -11,6 +11,12 @@ end
 class GraphUser < OurOhm
 end
 
+def create_fact
+  FactoryGirl.create :fact
+rescue
+  Fact.create
+end
+
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
@@ -18,10 +24,10 @@ describe Channel do
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
   
-  let (:f1) { Fact.create }
-  let (:f2) { Fact.create }
-  let (:f3) { Fact.create }
-  let (:f4) { Fact.create }
+  let (:f1) { create_fact }
+  let (:f2) { create_fact }
+  let (:f3) { create_fact }
+  let (:f4) { create_fact }
 
   
   describe "initially" do
