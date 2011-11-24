@@ -44,6 +44,10 @@
     Backbone.history.start({pushState:true, silent:true});
 
     Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user) }.to_json.html_safe %>);
+    
+    window.currentUser = new User(<%= current_user.to_json.html_safe %>);
+    
+    window.currentUser.setChannels(new OwnChannelList(<%= current_user.graph_user.channels.to_json.html_safe %>));
   </script>
 
   <script>
