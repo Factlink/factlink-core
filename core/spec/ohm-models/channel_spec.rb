@@ -192,4 +192,34 @@ describe Channel do
       end
     end
   end
+  
+  describe "#active_channels_for" do
+    describe "initially" do
+      it {Channel.active_channels_for(u1).to_a.should =~ []}
+    end
+    describe "after creating a channel" do
+      before do
+        @ch1 = Channel.create created_by: u1, title: 'foo'
+      end
+      it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]}
+      describe "after creating another channel" do
+        before do
+          @ch2 = Channel.create created_by: u1, title: 'foo2'
+        end
+        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1,@ch2]}
+        describe "after deleting a channel" do
+          before do
+            @ch1.delete
+          end
+          it {Channel.active_channels_for(u1).to_a.should =~ [@ch2]}
+        end
+      end
+      describe "after someone else creating another channel" do
+        before do
+          @ch2 = Channel.create created_by: u2, title: 'foo2'
+        end
+        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]}
+      end
+    end
+  end
 end

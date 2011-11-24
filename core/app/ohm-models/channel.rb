@@ -138,7 +138,7 @@ class Channel < OurOhm
     containing_channels.find(:created_by_id => user.id)
   end
 
-  def active_channels_for(user)
+  def self.active_channels_for(user)
     Channel.find(:created_by_id => user.id).except(:discontinued => 'true').sort
   end
 
