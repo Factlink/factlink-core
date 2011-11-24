@@ -15,6 +15,7 @@ class Channel < OurOhm
   alias :graph_user :created_by
 
   set :contained_channels, Channel
+  set :containing_channels, Channel
 
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
@@ -126,15 +127,25 @@ class Channel < OurOhm
   def remove_channel(channel)
     if (contained_channels.include?(channel))
       contained_channels.delete(channel)
+      channel.containing_channels.delete(self)
       calculate_facts
       
       activity(self.created_by, :removed, channel, :to, self)
     end
   end
 
+  def containing_channels_for(user)
+    containing_channels & self.class.active_channels_for(user)
+  end
+
+  def self.active_channels_for(user)
+    Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
+  end
+
   protected
   def _add_channel(channel)
     contained_channels << channel
+    channel.containing_channels << self
     calculate_facts
   end
 

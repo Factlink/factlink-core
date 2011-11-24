@@ -59,8 +59,7 @@ module Channels
     end
     
     def followable?
-      # current_user.graph_user != self[:channel].created_by && self[:channel].followable?
-      false
+      current_user.graph_user != self[:channel].created_by && self[:channel].followable?
     end
   
     def to_hash

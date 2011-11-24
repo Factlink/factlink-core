@@ -170,6 +170,10 @@ end
 class Ohm::Model::Set < Ohm::Model::Collection
   alias :count :size
 
+  def ids
+    key.smembers
+  end
+
   def assign(set)
     apply(:sunionstore,set.key,set.key,key) #copy; dirty stupid code, sorry
   end
