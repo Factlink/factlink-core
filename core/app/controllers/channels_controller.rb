@@ -81,6 +81,10 @@ class ChannelsController < ApplicationController
       unless params[:for_channel].nil?
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
+        
+        render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self)
+        
+        return
       end
       
       respond_to do |format|
