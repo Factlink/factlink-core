@@ -12,8 +12,6 @@ Mime::Type.register "image/gif", :gif
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-
-
 if ['test', 'development'].include? Rails.env
   require 'metric_fu'
   require 'simplecov'
@@ -28,26 +26,13 @@ if ['test', 'development'].include? Rails.env
   SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
 	
   MetricFu::Configuration.run do |config|  
-    # config.metrics -= [:churn]  
-    # config.metrics -= [:flay] 
     config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
                   :minimum_score => 10,
                   :filetypes => ['rb'] }
-    # config.metrics -= [:stats]
-    # config.metrics -= [:rails_best_practices]
-    # config.metrics -= [:rcov] 
     config.rcov[:external] = 'coverage/rcov/rcov.txt'
     
-    # Flog does not work with metric_fu, don't use it:
-    config.metrics -= [:flog]
-  
-    # reek does not work (only the first three):
-    config.metrics -= [:reek] 
-    # config.reek = {:dirs_to_reek => ['app'] } 
-  
-    # roodi does not work:
-    config.metrics -= [:roodi] 
-    # config.roodi = { :dirs_to_roodi => ['app/**/*.rb'] } 
+    #remove non-working metrics
+    config.metrics -= [:flog, :reek, :roodi]
   end
 end
 
@@ -61,49 +46,22 @@ module FactlinkUI
     
     config.mongoid.logger = nil
 
-    autoload :RelatedUsersCalculator, "#{config.root}/app/classes/related_users_calculator.rb"
-
-    autoload :FactData, "#{config.root}/app/models/fact_data.rb"
-    autoload :User, "#{config.root}/app/models/user.rb"
-    
-    autoload :OurOhm, "#{config.root}/app/ohm-models/our_ohm.rb"
-    autoload :FactGraph, "#{config.root}/app/ohm-models/fact_graph.rb"
-    autoload :Basefact, "#{config.root}/app/ohm-models/basefact.rb"
-    autoload :Fact, "#{config.root}/app/ohm-models/fact.rb"
-    autoload :FactRelation, "#{config.root}/app/ohm-models/fact_relation.rb"
-    autoload :GraphUser, "#{config.root}/app/ohm-models/graph_user.rb"
-    autoload :Site, "#{config.root}/app/ohm-models/site.rb"
-    autoload :Channel, "#{config.root}/app/ohm-models/channel.rb"
-    
-    autoload :Opinion, "#{config.root}/app/ohm-models/opinion.rb"
-    
-    autoload :Activity, "#{config.root}/app/ohm-models/activities.rb"
-    autoload :ActivitySubject, "#{config.root}/app/ohm-models/activities.rb"
-    
-    [ 
-      RelatedUsersCalculator,
-      OurOhm, 
-      Activity,
-      ActivitySubject,
-      FactGraph, 
-      Opinion, 
-      Basefact, 
-      FactData, 
-      Fact, 
-      FactRelation, 
-      Site,
-      Channel,
-      GraphUser, 
-    ]
+    require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
+    require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
+    require_dependency "#{config.root}/app/ohm-models/activities.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
+    require_dependency "#{config.root}/app/ohm-models/opinion.rb"
+    require_dependency "#{config.root}/app/ohm-models/basefact.rb"
+    require_dependency "#{config.root}/app/models/fact_data.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact.rb"
+    require_dependency "#{config.root}/app/ohm-models/fact_relation.rb"
+    require_dependency "#{config.root}/app/ohm-models/site.rb"
+    require_dependency "#{config.root}/app/ohm-models/channel.rb"
+    require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
     require 'mustache_railstache'
     Rails.application.config.generators.template_engine :mustache
 
-
-    require "#{config.root}/app/views/facts/_fact_bubble.rb"
-    require "#{config.root}/app/views/channels/_single_menu_item.rb"
-    require "#{config.root}/app/views/channels/_contained_channel_list.rb"
-    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -1,23 +1,29 @@
 development:
-    static:
-        hostname: localhost
-        port: 8000
-        protocol: http://
+  static:
+    hostname: localhost
+    port: 8000
+    protocol: http://
 
 test:
-    static:
-        hostname: localhost
-        port: 8000
-        protocol: http://
+  static:
+    hostname: localhost
+    port: 8000
+    protocol: http://
 
 testserver:
-    static:
-        hostname: static.testserver.factlink.com
-        port: 443
-        protocol: https://
+  static:
+    hostname: static.testserver.factlink.com
+    port: 443
+    protocol: https://
+
+staging:
+  static:
+    hostname: static.factlink.com
+    port: 443
+    protocol: https://
 
 production:
-    static:
-        hostname: static.factlink.com
-        port: 443
-        protocol: https://
+  static:
+    hostname: static.beta.factlink.com
+    port: 80
+    protocol: http://

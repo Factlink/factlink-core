@@ -1,0 +1,14 @@
+<div>
+	<span class="action"><%= activity.action %></span> 
+	<span class="img <%= activity.subject.class.to_s.downcase %>"><a><%= activity.subject %></a></span>
+
+	<% if activity.object %>
+
+	<span class="to">to</span>
+	<span class="img <%= activity.object.class.to_s.downcase %>">
+
+		<%= link_to(activity.object.title, channel_path(activity.user.user.username, activity.object.id)) %>
+	</span>
+
+	<% end %>
+</div>

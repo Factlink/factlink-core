@@ -6,7 +6,7 @@
       this.authority = $(fact).find(".authority").first();
       this.params = $.extend(params, {
         "dim": 24,
-        "radius": 18,
+        "radius": 16,
         "default_stroke": {
           "opacity": 0.2,
           "stroke": 9
@@ -38,16 +38,16 @@
       }
     }
 
-    function authority(w, authority_element) {
+    function update_authority(w, authority_element) {
       var auth = authority_element.data("authority");
       var pos = w.params.dim + (w.params.dim * 0.25);
       if (!authority_element.raphael) {
-        return (authority_element.raphael = w.r.text(pos, pos, auth).attr({
-          "font-size": "13px",
-          "fill": "#ccc"
-        }));
+        authority_element.raphael = w.r.text(pos, pos, auth).attr({
+          "font-size": "13pt",
+          "fill": "#999"
+        });
       } else {
-        return authority_element.raphael.attr({
+        authority_element.raphael.attr({
           "text": auth
         });
       }
@@ -77,7 +77,7 @@
 
     Wheel.prototype.update = function() {
       var wheel = this;
-      var a = authority(wheel, wheel.authority);
+      update_authority(wheel, wheel.authority);
       wheel.calc_display(this.opinions);
       var offset = 0;
       $(this.opinions).each(function() {
@@ -122,14 +122,11 @@
         $(this.raphael.node).bind("click", function() {
           $(w.fact).factlink("switch_opinion", $t);
         });
-        $(this.raphael.node).hoverIntent({
-          over: function(e) {
-            optionBox = $(w.fact).find("." + $t.data("opinion") + "-box");
-            $(optionBox).fadeIn("fast");
-          },
-          out: function() {
-            $(w.fact).find("." + $t.data("opinion") + "-box").delay(500).fadeOut("fast");
-          }
+        // Bootstap popver
+        $(this.raphael.node).attr("rel", "twipsy").twipsy({
+          title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; }, 
+          offset: 0,
+          placement:"left" 
         });
       });
     };
@@ -179,38 +176,46 @@
 
         function addEventHandlersDoAdd($fact) {
           $fact.find("a.do-add").live("click", function() {
+            resetSearch($fact);
             $fact.find('.evidence-list').hide();
             $fact.find('.evidence-search-results').show();
             return false;
           });
         }
 
-        function addEventHandlersReturnFromAdd($fact) {
-          $fact.find("a.return-from-add").bind("click", function() {
-            $fact.find('.evidence-list').show();
-            $fact.find('.evidence-search-results').hide();
+        function addEventHandlersBackToEvidenceListing($fact) {
+          $fact.find("a.back-to-evidence-listing").bind("click", function() {
+            showEvidenceList($fact);
+            resetSearch($fact);
             return false;
           });
         }
 
-        function addEventHandlersReturnFromEvidenceAdd($fact) {
-          $fact.find("a.close-evidence-add").bind("click", function() {
+        function addEventHandlersBackToSearch($fact) {
+          $fact.find("a.back-to-search").bind("click", function() {
             $fact.find('.page').hide();
             $fact.find('.evidence-search-results').show();
             return false;
           });
-
         }
 
-
-        function addEventHandlersSubmitButton($fact) {
-
-          $fact.find('button.supporting').bind('click', function() {
+        function bindEvidenceAddButtons($fact) {
+          $fact.find('.evidence-add button.supporting').bind('click', function() {
             submitEvidence($fact, "supporting");
           });
 
-          $fact.find('button.weakening').bind('click', function() {
+          $fact.find('.evidence-add button.weakening').bind('click', function() {
             submitEvidence($fact, "weakening");
+          });
+        }
+        
+        function bindNewEvidenceAddButtons($fact) {
+          $fact.find('.new-evidence-add button.supporting').bind('click', function() {
+            submitNewEvidence($fact, "supporting");
+          });
+
+          $fact.find('.new-evidence-add button.weakening').bind('click', function() {
+            submitNewEvidence($fact, "weakening");
           });
         }
 
@@ -246,10 +251,11 @@
           //On Click Event
           addEventHandlersTabs($fact);
           addEventHandlersDoAdd($fact);
-          addEventHandlersReturnFromAdd($fact);
-          addEventHandlersReturnFromEvidenceAdd($fact);
+          addEventHandlersBackToEvidenceListing($fact);
+          addEventHandlersBackToSearch($fact);
 
-          addEventHandlersSubmitButton($fact);
+          bindEvidenceAddButtons($fact);
+          bindNewEvidenceAddButtons($fact);
 
           $fact.data('loaded-evidence', false);
 
@@ -284,7 +290,7 @@
         });
       });
     },
-    // Update
+    
     update: function(data) {
       var $fact = $(this).data("container") || $(this);
       if ($fact.data("initialized")) {
@@ -302,9 +308,8 @@
       opinions.each(function() {
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
-          // The clicked op is the current op in the list
           if (!$(current_op).data("user-opinion")) {
-            $.post("/fact_item/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion"), function(data) {
+            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
               data_attr(current_op, "user-opinion", true);
               fact.factlink("update", data);
             });
@@ -312,7 +317,7 @@
           else {
             $.ajax({
               type: "DELETE",
-              url: "/fact_item/" + $(fact).data("fact-id") + "/opinion/",
+              url: "/facts/" + $(fact).data("fact-id") + "/opinion.json",
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
                 fact.factlink("update", data);
@@ -326,7 +331,7 @@
       });
     },
 
-    // Channels
+    
     to_channel: function(user, channel, fact) {
       $.ajax({
         url: "/" + user + "/channels/toggle/fact",
@@ -338,8 +343,19 @@
           fact_id: fact
         }
       });
-    }
+    },
+    getChannelChecklist: function(fact) {
+      var id = fact.attr("data-fact-id");
+      fact.find(".add-to-channel").off('hover.load_channel_list');
 
+      $.ajax({
+        url: '/facts/' + id + '/channels',
+        type: "GET",
+        dataType: "html",
+        success: function(data) {fact.find(".channel-listing").html(data);},
+        error: function(data) {}
+      });
+    }
   };
 
   $.fn.factlink = function(method) {
@@ -355,9 +371,7 @@
     }
   };
 
-  // Private functions		
-
-
+  // Private functions
   function data_attr(el, attr, data) {
     $(el).attr("data-" + attr, data);
     $(el).data(attr, data);
@@ -377,7 +391,14 @@
     });
   }
 
-
+  function bindNewEvidenceAddAction($c) {
+    $c.find('.new-evidence-add-action').bind('click', function() {
+      showNewEvidenceAdd($c);
+      // Populate the input field
+      var currentInput = $c.find('input.evidence_search').val();
+      $c.find("#fact_data_displaystring").val(currentInput);
+    });
+  }
   function bindEvidencePrepare($c) {
     $c.find('.results ul li.evidence').live('click', function() {
       showEvidenceAdd($c);
@@ -395,6 +416,8 @@
   }
 
   function submitEvidence($c, type) {
+    
+    console.info("submitting evidence");
     var factId = $c.attr("data-fact-id");
     var evidenceId = $c.data("evidence-id");
     var url_part;
@@ -408,24 +431,73 @@
     }
 
     // TODO: This should changed to use the FactRelationController
-    $.post("/factlink/" + factId + url_part + evidenceId, function(data) {});
-  }
-
-  function bindInstantSearch($c) {
-    // Bind the instant search
-    var is_timeout;
-    $c.find('.search-area .evidence_search').keyup(function() {
-      var elem = $(this);
-      $('.user-search-input').html(elem.val());
-
-      if (elem.val().length >= 2) {
-        clearTimeout(is_timeout);
-        is_timeout = setTimeout(function() {
-          elem.closest('form').submit();
-        }, 200); // <-- choose some sensible value here                                      
+    $.ajax({
+      url: "/factlink/" + factId + url_part + evidenceId,
+      type: "post",
+      dataType: "script",
+      success: function() {
+        resetSearch($c);
+      },
+      error: function() {
+        console.log('Adding evidence failed: ' + "/factlink/" + factId + url_part + evidenceId);
       }
     });
   }
+
+  function submitNewEvidence($c, type) {
+    var factId = $c.attr("data-fact-id");
+    var displayString = $($c.find("#fact_data_displaystring")).val();
+    var url_part;
+
+    if (type === "supporting") {
+      console.info('add as supporting');
+      url_part = "/supporting_evidence/";
+    } else if (type === "weakening") {
+      console.info('add as weakening');
+      url_part = "/weakening_evidence/";
+    } else {
+      alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
+    }
+    
+    $.ajax({
+      url:      "/facts/" + factId + url_part,
+      type:     "post",
+      dataType: "script",
+      data:   { 
+                displaystring: displayString,
+                type: type 
+              },
+      success: function(data) {
+        resetSearch($c);
+      },
+      error: function(data) {  
+      }
+    });
+  }
+
+  function bindInstantSearch($c) {
+    var is_timeout;
+    $c.find('.search-area .evidence_search').keyup(function() {
+      showSearchResults($c);
+      
+      var elem = $(this);
+      $('.user-search-input').text(elem.val());
+
+      if (elem.val().length >= 2) {
+        
+        showAddOptions($c);
+        
+        clearTimeout(is_timeout);
+        is_timeout = setTimeout(function() {
+          elem.closest('form').submit();
+        }, 200); // <-- choose some sensible value here        
+      } else {
+        hideSearchResults($c);
+        hideAddOptions($c);
+      }
+    });
+  }
+
 
   function showEvidenceList($c) {
     hidePages($c);
@@ -441,9 +513,38 @@
     hidePages($c);
     $c.find('.evidence-add').show();
   }
+  
+  function showNewEvidenceAdd($c) {
+    hidePages($c);
+    $c.find('.new-evidence-add').show();
+  }
 
   function hidePages($c) {
     $c.find('.page').hide();
+  }
+  
+  function resetSearch($c) {
+    hideSearchResults($c);
+    hideAddOptions($c);
+    $c.find('.search-and-add-actions').hide();
+    $c.find('.search-area .evidence_search').val('');
+  }
+  function showSearchResults($c) {
+    $c.find('.evidence-search-results .search-term-results').show();
+    $c.find('.evidence-search-results .default-results').hide();
+  }
+  function hideSearchResults($c) {
+    $c.find('.evidence-search-results .search-term-results').hide();
+    $c.find('.evidence-search-results .default-results').show();
+  }
+  
+  function showAddOptions($c) {
+    $c.find('.search-and-add-actions:hidden').fadeIn(100);
+  }
+  function hideAddOptions($c) {  
+    $c.find('.search-and-add-actions').fadeOut(100, function() {
+      $('.user-search-input').html('');
+    });
   }
 
 
@@ -451,9 +552,9 @@
     var $fact = $(fact);
     var $c = $(container);
     if (!$fact.data("initialized")) {
-      $fact.find('.edit').editable('/factlink/update_title', {
+      $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
-        tooltip: 'You can edit this title to place the fact in the correct context.'
+        tooltip: 'You can edit this title to place the Factlink in the correct context.'
       });
 
       $fact.data("container", container);
@@ -461,30 +562,30 @@
       $fact.data("wheel").init($fact.find(".wheel").get(0));
 
       bindEvidencePrepare($c);
+      bindNewEvidenceAddAction($c);
       bindInstantSearch($c);
 
       // Channels are in the container
-      $fact.find(".add-to-channel").hoverIntent(function(e) {
-        var channelList = $fact.find(".channel-listing");
-
-        $(channelList).fadeIn("fast");
-
+      $fact.find(".add-to-channel")
+        .on('hover.load_channel_list',function(){$().factlink('getChannelChecklist',$fact);})
+        .hoverIntent(function(e) {
+          var channelList = $fact.find(".channel-listing");
+          $(channelList).fadeIn("fast");
       }, function() {
         $fact.find(".channel-listing").delay(600).fadeOut("fast");
       }).bind('click', function(e) {
         e.preventDefault();
       });
 
-      $fact.find(".opinion-box").find("img").tipsy({
-        gravity: 's'
+      $fact.find(".opinion-box").find("img").twipsy({
+        placement: 'above'
       });
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {
-        // var fact = $fact;
         $fact.data("wheel").opinions.each(function() {
           data_attr(this, "value", data[$(this).data("opinions")].percentage);
         });
-        $fact.find(".authority span").text(data.authority);
+        data_attr($fact.data("wheel").authority,"authority",data.authority);
         $fact.data("wheel").update();
       });
 

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/bubble.css">
 	<title><%= "Factlink: \"#{@title}\"" || "Factlink modal window" %></title>
 	
 	<style type="text/css">
-	  html, body{ 
+    html, body{ 
 	    width: 100%;
 	    height: 100%;
-	  }
+    }
 	</style>
 	
 	<%= csrf_meta_tag %>
@@ -16,16 +17,20 @@
 <body>
 
 	<div class="modal">			
-			<span class="close" onclick="parent.remote.hide();"></span>
-			<%= yield %>
+		<%= yield %>
 	</div>
 
 	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
+	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.min.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
-
+  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
+  <%= javascript_include_tag "raphael-min" %>
+  <%= javascript_include_tag "bootstrap-twipsy" %>
+  <%= javascript_include_tag "jquery.factlink" %>
+  <%= javascript_include_tag "jquery.infiniScroll"%>
+  <%= javascript_include_tag "evidence_search" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
 
 	<%= javascript_include_tag "/client/js/jquery.scrollTo-1.4.2-min.js" %>

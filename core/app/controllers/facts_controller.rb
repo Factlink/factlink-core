@@ -1,9 +1,10 @@
 class FactsController < ApplicationController
 
   layout "client"
-  
-  helper_method :sort_column, :sort_direction
 
+  respond_to :json, :html
+
+  
   before_filter :authenticate_user!, 
     :except => [
       :show,
@@ -29,36 +30,21 @@ class FactsController < ApplicationController
     :only => [:set_opinion ]
 
 
-  def index
-    respond_to do |format|
-      format.json { render :json => Fact.all }
-     end
-  end
-
   def show
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     
-    respond_to do |format|
-      format.json { render :json => @fact }
-      format.html
-    end
+    respond_with(@fact)
   end
 
-  def edit
-  end
-
-  # Prepare for create
   def intermediate
-    # TODO: Sanitize for XSS
-    @url = params[:url]
-    @passage = params[:passage]
-    @fact = params[:fact]
-    @title = params[:title]
-    @opinion = params[:opinion]
-    
-    render :template => 'facts/intermediate', :layout => nil
+    render layout: nil
+  end
+  
+  # GET /facts/new
+  def new
+    render layout: 'popup'
   end
 
   def create
@@ -70,8 +56,13 @@ class FactsController < ApplicationController
     end
     
     respond_to do |format|
-      format.json { render :json => @fact }
-      format.html { redirect_to :action => "edit", :id => @fact.id }
+      if @fact.save
+        format.html { redirect_to created_fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.json { render json: @fact, status: :created, location: @fact.id }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @fact.errors, status: :unprocessable_entity }
+      end
     end
   end
   
@@ -79,6 +70,7 @@ class FactsController < ApplicationController
     @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
+      format.html { render 'channel_listing', layout: nil }
     end
   end
 
@@ -86,7 +78,7 @@ class FactsController < ApplicationController
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
-
+   
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
@@ -95,7 +87,7 @@ class FactsController < ApplicationController
   end
 
   def add_evidence_internal_internal(type,succes,fail)
-    @fact_relation = add_evidence(params[:evidence_id], type, params[:fact_id])
+    @fact_relation = add_evidence(params[:evidence_id], type, params[:id])
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
@@ -103,6 +95,11 @@ class FactsController < ApplicationController
     else
       render succes
     end
+  end
+  
+  # GET /facts/:fact_id/created
+  def created
+    render :layout => "popup"
   end
 
   
@@ -155,17 +152,17 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    @fact = Basefact[params[:fact_id]] 
+    @fact = Basefact[params[:id]]
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render json: [@fact]
   end
 
   def remove_opinions
-    @fact = Basefact[params[:fact_id]]
+    @fact = Basefact[params[:id]]
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
-    render :json => [@fact]
+    render json: [@fact]
   end
 
   def evidence_search
@@ -193,13 +190,16 @@ class FactsController < ApplicationController
       with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
     
+    @first_page = @page.nil? || @page.to_i < 2
+    
     @fact_data = solr_result.results
     
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
   end
   
- private
+
+  private
   def sort_column # private
     FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
@@ -222,14 +222,11 @@ class FactsController < ApplicationController
 
 
   def load_fact # private
-    @fact = Fact[params[:id]]
-    unless @fact
-      raise_404
-    end
+    @fact = Fact[params[:id]] || raise_404
   end
   
-  def add_evidence(evidence_id, type, fact_id) # private  
-    type = type.to_sym  
+  def add_evidence(evidence_id, type, fact_id) # private
+    type     = type.to_sym  
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]
 
@@ -256,7 +253,6 @@ class FactsController < ApplicationController
     @fact
   end
 
-  private
   def allowed_type
     allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
     type = params[:type].to_sym

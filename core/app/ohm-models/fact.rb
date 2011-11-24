@@ -17,17 +17,6 @@ class Fact < Basefact
 
   reference :site, Site # The site on which the factlink should be shown
 
-  #deprecate (= functions don't work with deprecate)
-  def url=(url)
-    self.site = Site.find_or_create_by(:url => url)
-  end
-  
-  deprecate
-  def url
-    self.site.url
-  end
-  
-
   reference :data, lambda { |id| id && FactData.find(id) }
   
   def require_saved_data
@@ -72,7 +61,8 @@ class Fact < Basefact
     return {} unless self.data
     super.merge(:_id => id, 
                 :displaystring => self.data.displaystring, 
-                :score_dict_as_percentage => get_opinion.as_percentages)
+                :score_dict_as_percentage => get_opinion.as_percentages,
+                :title => self.data.title)
   end
 
   def fact_relations
@@ -83,13 +73,15 @@ class Fact < Basefact
     res = self.fact_relations.sort { |a, b| a.percentage <=> b.percentage }
     res.reverse
   end
-  
+    
   def evidence(type)
     case type
     when :supporting
       return self.supporting_facts
     when :weakening
       return self.weakening_facts
+    when :both
+      return self.fact_relations
     end
   end
 

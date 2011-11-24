@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe ChannelsController do
   include Devise::TestHelpers
+  include ControllerMethods
+  
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
@@ -11,11 +13,6 @@ describe ChannelsController do
   let (:f2) {FactoryGirl.create(:fact)}
   let (:f3) {FactoryGirl.create(:fact)}
 
-  # TODO factor out, because each controller needs this
-  def authenticate_user!(user)
-    request.env['warden'] = mock(Warden, :authenticate => @user, :authenticate! => user)
-  end
-  
   before do
     ch1.created_by = user.graph_user
     ch1.add_fact f1
@@ -27,7 +24,7 @@ describe ChannelsController do
   describe "#new" do
     it "should be succesful" do
       authenticate_user!(user)
-      get :new, :username => user.username
+      get :new, username: user.username
       response.should be_succes
     end
   end
@@ -35,7 +32,31 @@ describe ChannelsController do
   describe "#index" do
     it "as json should be successful" do
       authenticate_user!(user)
-      get :index, :username => user.username, :format => 'json'
+      get :index, username: user.username, format: 'json'
+      response.should be_succes
+    end
+  end
+  
+  describe "#related_users" do
+    it "should render" do
+      authenticate_user!(user)
+      get :related_users, username: user.username, id: ch1.id
+      response.should be_succes
+    end
+  end
+
+  describe "#activities" do
+    it "should render" do
+      authenticate_user!(user)
+      get :activities, username: user.username, id: ch1.id
+      response.should be_succes
+    end
+  end
+  
+  describe "#get_facts_for" do
+    it "should render" do
+      authenticate_user!(user)
+      get :facts, username: user.username, id: ch1.id
       response.should be_succes
     end
   end
@@ -44,13 +65,13 @@ describe ChannelsController do
   describe "#show" do
     it "a channel should be succesful" do
       authenticate_user!(user)
-      get :show, :username => user.username, :id => ch1.id
+      get :show, username: user.username, id: ch1.id
       response.should be_succes
     end
 
     it "a channel as json should be succesful" do
       authenticate_user!(user)
-      get :show, :username => user.username, :id => ch1.id, :format => 'json'
+      get :show, username: user.username, id: ch1.id, format: 'json'
       response.should be_succes
     end
   end

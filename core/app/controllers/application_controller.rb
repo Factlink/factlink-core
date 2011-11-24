@@ -1,6 +1,24 @@
 require 'net/http'
 
 class ApplicationController < ActionController::Base
+  #require mustache partial views (the autoloader does not find them)
+  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
+    require_dependency path 
+  end
+
+
+  around_filter :profile
+  
+  def profile
+    return yield if ((params[:profile].nil?) || (Rails.env != 'development'))
+    result = RubyProf.profile { yield }
+    printer = RubyProf::GraphPrinter.new(result)
+    out = StringIO.new
+    printer.print(out,{})
+    response.body = out.string
+    response.content_type = "text/plain"
+  end
+
   protect_from_forgery
   
   helper :all
@@ -15,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
   
   def current_graph_user
-    current_user.andand.graph_user
+    @current_graph_user ||= current_user.andand.graph_user
   end
 
   def mustache_json(klass)

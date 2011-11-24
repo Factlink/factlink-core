@@ -1,5 +1,4 @@
 module FactsHelper
-  include Canivete::Deprecate
 
   def evidence_buttons_locals(fact_relation, user)
     locals = {  :fact_relation => fact_relation,}
@@ -23,8 +22,7 @@ module FactsHelper
       locals[:positive_action] = "weakening"
       locals[:negative_action] = "not weakening"
     end
-    render :partial => "/facts/partial/evidence_buttons", 
-	            :locals => locals
+    render "/facts/evidence_buttons",  locals
   end
   
   class SemiMustacheView
@@ -54,7 +52,7 @@ module FactsHelper
       if user_signed_in?
         "Perhaps you know something that supports or weakens this fact?"
       else
-        "There are no facts supporting or weakening this fact at the moment."
+        "There are no Factlinks supporting or weakening this Factlink at the moment."
       end
     end
 

@@ -1,9 +1,8 @@
-<a href="{{link}}">
-	<span style="vertical-align:middle;">
+<a href="{{link}}" class="{{type}}">
+  <span class="title">
     {{title}} 
-    {{#new_facts}}
-      <span style="font-weight: bold"> ({{nr_of_facts}}) </span> 
-    {{/new_facts}}
   </span>
-  <img src='/images/ajax-loader.gif'>
+  {{#new_facts}}
+    <span class="new"> ({{nr_of_facts}}) </span> 
+  {{/new_facts}}
 </a>

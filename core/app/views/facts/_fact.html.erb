@@ -5,28 +5,27 @@
 <div class="fact-block" data-fact-id="<%= fact.id %>">
   <% if view.deletable_from_channel? %>
     <%= link_to(
-            image_tag("close-button.png", :class => "close", "style" => "float: right"),
+            "x",
             view.remove_from_channel_path,
+            :class => "close",
             :method => :delete,
-            :confirm => "Are you sure you want to remove this fact from your channel?", 
+            :confirm => "Are you sure you want to remove this Factlink from your channel?", 
             :remote => true)%>
   <% end %>
-  
+  <% if modal %>
+    <span class="close" onclick="parent.remote.hide();">x</span>
+  <% end %>
   <%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => modal, :form_authenticity_token => form_authenticity_token %>
 
   
   <div class="controls">
     <ul class="evidence">
       <li><a class="evidence-for">Evidence (<%= fact.fact_relations.count %>)</a></li>
-
-      <!-- <li><a class="link-to-factlink">Link to Factlink</a></li> -->
-      <!--<li class="add-to-channel">Channels</li>-->
     </ul>
   </div>
 
 
   <div class="dropdown-container">
-
     <!-- default view - show the evidence for this fact -->
     <div class="page evidence-list" style="display: block;">
       <div class="evidence-list-wrapper">
@@ -45,7 +44,7 @@
           <%= image_tag("ajax-loader.gif") %> <span>Loading...</span>
         </div>
         
-        <ul>
+        <ul class="evidence-listing">
         </ul>
       </div>
     </div>
@@ -53,46 +52,73 @@
     <!-- show the evidence search results -->
     <div class="page evidence-search-results" style="display: none;">
       <div class="search-area">
-
-        
         <%= form_for("search", :url => evidence_search_fact_path(fact.id), :remote => "true" ) do |f| %>
-        
-          <%= link_to('Back to evidence', '#', :class => "return-from-add") %>
+
+          <%= link_to('Back to evidence', '#', :class => "back-to-evidence-listing") %>
           <input type="text" class="evidence_search" name="s" placeholder="Search or add evidence" <%= params[:s] ? "value='#{params[:s]}'" : "" %> >
           <input type="hidden" name="id" value="<%= fact.id %>">
           <input type="submit" value="Search">
         <% end %>
       </div>
-      
+
       <div class="results">
-        <ul>
+        <ul class="default-results">
           <li>
-            Please search for evidence
+            Search or add evidence using the input above
           </li>
+        </ul>
+        
+        <ul class="search-term-results" style="display:none;">
         </ul>
       </div>
       
       <!-- not implemented yet -->
-      <!-- <div class="dropdown-underbar">
+      <div class="dropdown-underbar search-and-add-actions" style="display: none;">
         <ul>
-          <li>
+          <% if modal %>
+          <li onclick="parent.openNewProxyWindow($('input.evidence_search').val());">
             Search the internet for "<span class="user-search-input"></span>"
           </li>
-          <li>
+          <% end %>
+          <li class="new-evidence-add-action">
             Add "<span class="user-search-input"></span>"
           </li>
         </ul>
-      </div> -->
+      </div>
+    </div>
+    
+    <!-- adding new evidence - including supporting / weakening buttons -->
+    <div class="page new-evidence-add" style="display: none;">
+      <%= form_for("fact_data", :url => fact_evidence_index_path(fact.id), :remote => "true" ) do |f| %>
+
+        <%= link_to('Back to search', '#', :class => "back-to-search") %>
+         
+         <span class="message">Add</span>
+         <!-- <div class="evidence evidence-bubble"> -->
+         <%= f.text_field :displaystring %>
+         <input type="hidden" name="type" value="">
+         <!-- </div> -->
+         <span class="message">To</span>
+         <div class="fact evidence-bubble">
+           <%= fact.data.displaystring %>
+         </div>
+      <% end %>
+      
+      
+      <div class="dropdown-underbar">
+        <div class="add-actions">
+          <button class="supporting btn">Add as supporting</button><button class="weakening btn">Add as weakening</button>
+        </div>
+      </div>
     </div>
 
     <!-- the actual adding - including supporting / weakening buttons -->
     <div class="page evidence-add" style="display: none;">
 
-      <%= link_to('Back to search', '#', :class => 'close-evidence-add') %>
+      <%= link_to('Back to search', '#', :class => 'back-to-search') %>
 
       <span class="message">Add</span>
       <div class="evidence evidence-bubble">
-        Pellentesque shiz tortor. Mammasay mammasa mamma oo sa eros. Cool fo shizzle dolizzle dang its fo rizzle.
       </div>
       <span class="message">To</span>
       <div class="fact evidence-bubble">
@@ -101,7 +127,7 @@
 
       <div class="dropdown-underbar">
         <div class="add-actions">
-          <button class="supporting">Add as supporting</button><button class="weakening">Add as weakening</button>
+          <button class="supporting btn">Add as supporting</button><button class="weakening btn">Add as weakening</button>
         </div>
       </div>
     </div>

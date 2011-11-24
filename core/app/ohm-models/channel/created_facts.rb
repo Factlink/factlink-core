@@ -2,9 +2,10 @@ class Channel < OurOhm
   class CreatedFacts < Channel
     include Channel::GeneratedChannel
 
+    def type; "created" end
+
     def add_fields
       self.title = "Created"
-      self.description = "Created Facts"
     end
     before :validate, :add_fields
   

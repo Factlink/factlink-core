@@ -1,0 +1,31 @@
+<div id="channel" data-channel-id="{{ id }}">
+  <header class="append-bottom title">
+    {{#editable?}}
+      <a href="{{ edit_link }}" class="btn">edit</a>
+    {{/editable?}}
+    
+    {{#followable?}}
+      <a class='btn' id="add_to_channel">Add to channels</a>
+      <div class="float-box channel-listing" id="follow-channel"></div>
+    {{/followable?}}
+
+  	<h1>
+  	  {{ title }}
+    </h1>
+    {{#show_subchannels?}}
+    <div id="contained-channels">
+      <span class="contained-channel-description">Other people in this channel</span>
+        <ul id="contained-channel-list">
+        </ul>
+      </div>
+      <a class="more-button"><span class="label">more</span></a>
+    {{/show_subchannels?}}
+  </header>
+  <div id="facts_for_channel">
+    <div class="loading">
+      <img src="/images/ajax-loader.gif"> <span>Loading...</span>
+    </div>
+    <div class="facts">
+    </div>
+  </div>
+</div>

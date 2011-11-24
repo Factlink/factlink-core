@@ -5,11 +5,9 @@
 	  <span id="title-{{fact.id}}" class="head {{editable_title_class}}">{{fact.data.title}}</span>
 
 		<span class="body">
-			{{{link}}}<br>
+      {{{link}}} &mdash; <span>{{{scroll_to_link}}}</span><br>
     </span>
-    <sub>
-      {{{scroll_to_link}}}
-    </sub>
+    <sub>{{{last_activity}}}</sub>
 		{{#user_signed_in?}}
 		  <div class="actions">
 		    <ul>
@@ -19,7 +17,8 @@
 			    {{/i_am_fact_owner}}
 		    </ul>
 		  </div>
-		  {{>channel_listing}}
+      <div class="float-box channel-listing">
+		  </div>
 	  {{/user_signed_in?}}
 
 	</header>

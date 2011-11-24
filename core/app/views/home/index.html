@@ -1,35 +1,24 @@
-<!-- header -->
 <% content_for :header do %>
-	
 	<% if user_signed_in? %>
 		<% unless current_user.graph_user.channels.count > 0 %>
 		  <p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
 		<% end %>	
 	<% end %>
-
 <% end %>
 
-<!-- left column -->
 <% content_for :left_column do %>
-
-	<%= render "home/snippets/user_and_factlink_information" %>
-	
+	<%= render "user_and_factlink_information" %>
 <% end %>
 
 
-<!-- main coloumn -->
 <% content_for :main_column do %>
-
 	<header class="append-bottom">
 		<h1>Recent facts</h1>
 	</header>
 
-	<%= render "home/snippets/fact_listing", facts: @facts %>
-	
+	<%= render "facts/fact_listing", facts: @facts %>
 <% end %>
 
-
-<!-- right column -->
 <% content_for :right_column do %>
 
   <% unless user_signed_in? %>

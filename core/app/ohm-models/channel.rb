@@ -5,15 +5,17 @@ require File.join(File.dirname(__FILE__), "channel", "user_stream")
 class Channel < OurOhm
   
   include ActivitySubject
-  
+
+  def type; "channel" end
+
   attribute :title
   index :title
-  attribute :description
-
+  
   reference :created_by, GraphUser
   alias :graph_user :created_by
 
   set :contained_channels, Channel
+  set :containing_channels, Channel
 
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
@@ -96,7 +98,7 @@ class Channel < OurOhm
   end
 
   def fork(user)
-    c = Channel.create(:created_by => user, :title => title, :description => description)
+    c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
     activity(user,:forked,self,:to,c)
     c
@@ -111,19 +113,39 @@ class Channel < OurOhm
   def to_hash
     return {:id => id, 
             :title => title, 
-            :description => description,
             :created_by => created_by,
             :discontinued => discontinued}
   end
 
   def add_channel(channel)
-    _add_channel(channel)
-    activity(self.created_by,:added,channel,:to,self)
+    if (! contained_channels.include?(channel))
+      _add_channel(channel)
+      activity(self.created_by,:added,channel,:to,self)
+    end
+  end
+  
+  def remove_channel(channel)
+    if (contained_channels.include?(channel))
+      contained_channels.delete(channel)
+      channel.containing_channels.delete(self)
+      calculate_facts
+      
+      activity(self.created_by, :removed, channel, :to, self)
+    end
+  end
+
+  def containing_channels_for(user)
+    containing_channels & self.class.active_channels_for(user)
+  end
+
+  def self.active_channels_for(user)
+    Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
   end
 
   protected
   def _add_channel(channel)
     contained_channels << channel
+    channel.containing_channels << self
     calculate_facts
   end
 

@@ -1,10 +1,11 @@
 class Channel < OurOhm
   class UserStream < Channel
     include Channel::GeneratedChannel
+    
+    def type; "stream" end
 
     def add_fields
        self.title = "All"
-       self.description = "All facts"
      end
      before :validate, :add_fields
    

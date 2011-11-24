@@ -1,15 +1,9 @@
 <%= render "/facts/fact", :fact => @fact, :channel => nil, :modal => @modal, :hide_links_for_site => @hide_links_for_site %>
 
 <% content_for :javascript do %> 
-  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
-  <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "jquery.tipsy" %>
-  <%= javascript_include_tag "jquery.factlink" %>
-  <%= javascript_include_tag "jquery.infiniScroll"%>
-  <%= javascript_include_tag "evidence_search" %>
-  
+
   <script>
     $('.fact-block').factlink();
     window.fact_id = "<%= @fact.id %>";
   </script>
-  <% end %>
+<% end %>

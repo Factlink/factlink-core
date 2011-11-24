@@ -3,21 +3,16 @@ SimpleCov.start
 
 require 'rubygems'
 
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
-
-# Add this to load Capybara integration:
-require 'capybara/rspec'
-require 'capybara/rails'
-
 RSpec.configure do |config|
-  #mix in factoryirl methods
+  #mix in FactoryGirl methods
   config.include Factory::Syntax::Methods
   
-  # == Mock Framework
   config.mock_with :rspec
   require 'database_cleaner'
 

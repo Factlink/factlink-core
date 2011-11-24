@@ -22,14 +22,13 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/frontend.css">
   <link rel="stylesheet" href="/stylesheets/bubble.css">
-	<link rel="stylesheet" href="/stylesheets/grid.css">
+  <link rel="stylesheet" href="/stylesheets/grid.css">
 
-	<link rel="stylesheet" href="/stylesheets/jquery-ui-1.8.16.custom.css">
-	
-	<link rel="stylesheet" href="/stylesheets/bootstrap-alerts.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
   <!-- end CSS-->
+
 
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
@@ -51,11 +50,11 @@
 			</div>
 
 			<div class="span-14">
-				<%= render :partial => "home/snippets/fact_search" %>
+        <%= render "facts/fact_search" %>
 			</div>
 			
 			<div class="span-6 last">
-					<%= render :partial => "users/account_block" %>
+					<%= render "users/account_block" %>
 			</div>
 
 		</div>
@@ -77,56 +76,43 @@
     </div>
     <% end %>
 	
-		<!-- header snippet -->
     <section id="header" class="span-24 append-bottom">
 			<%= yield :header %>
     </section>
 
 
-		<!-- left column -->
 		<section id="left-column" class="span-4 side-column">
 			<%= yield :left_column %>
 		</section>
 
-		<!-- main content -->
 		<section id="main-column" class="span-14" role="main">  
 			<section id="main-wrapper">
-			<%= yield :main_column %>
+			  <%= yield :main_column %>
 			</section>
 		</section>
 
-    <!-- right column  -->
     <section id="right-column" class="span-6 last side-column">
       <%= yield :right_column %>      
     </section>
    
 
-    <!-- <footer>
-    </footer> -->
-  </div> <!--! end of #container -->
+  </div>
 
 
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.6.2.min.js"><\/script>')</script>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
-	
-  <!-- Change UA-XXXXX-X to be your site's ID -->
-  <!-- <script>
-    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
-  </script> -->
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
-  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
+  <%= javascript_include_tag "bootstrap-twipsy" %>
   <%= javascript_include_tag "bootstrap-alert" %>
+  <%= javascript_include_tag "bootstrap-popover" %>
+  <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "jquery.tipsy" %>
   <%= javascript_include_tag "jquery.factlink" %>
   <%= javascript_include_tag("jquery.infiniScroll") %>
   <%= javascript_include_tag "jquery.jeditable.mini" %>
@@ -137,7 +123,7 @@
   
 	<script>
 		$(".fact-block").factlink();
-		
+
 		$(".alert-message").alert();
 	</script>
 	

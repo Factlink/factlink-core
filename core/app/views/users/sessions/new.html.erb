@@ -1,6 +1,6 @@
 <% content_for :left_column do %>
 
-	<%= render :partial => "home/snippets/user_and_factlink_information" %>
+	<%= render "home/user_and_factlink_information" %>
 
 <% end %>
 
@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="action-wrapper">
-		<%= f.submit "Sign in", :class => "button" %>
+		<%= f.submit "Sign in", :class => "btn" %>
 	</div>
 	<% end %>
 

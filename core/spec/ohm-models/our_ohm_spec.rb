@@ -1,9 +1,4 @@
-require "rubygems"
-require "bundler/setup"
-require 'ohm'
-require 'active_model'
-require 'canivete'
-require File.expand_path('../../../app/ohm-models/our_ohm.rb', __FILE__)
+require_relative '../ohm_helper.rb'
 
 class Item < OurOhm
 end
@@ -22,17 +17,24 @@ end
     
 
 describe Ohm::Model::Set do
+  before do
+    @c1 = Container.create()
+    @c2 = Container.create()
+    @a = Item.create()
+    @b = Item.create()
+    @c1.items << @a
+    @c2.items << @b
+  end
   it "should have a working union" do
-    c1 = Container.create()
-    c2 = Container.create()
-    a = Item.create()
-    b = Item.create()
-    c1.items << a
-    c2.items << b
-    union = c1.items | c2.items
-    c1.items.all.should =~ [a]
-    c2.items.all.should =~ [b]
-    union.all.should =~ [a,b]
+    union = @c1.items | @c2.items
+    @c1.items.all.should =~ [@a]
+    @c2.items.all.should =~ [@b]
+    union.all.should =~ [@a,@b]
+  end
+  
+  it "should be able to return the list of ids" do
+    @c1.items << @b
+    @c1.items.ids.should =~ [@a.id,@b.id]
   end
   
 end
@@ -93,7 +95,7 @@ describe Ohm::Model::TimestampedSet do
     c1.items.unread_count.should == 1
     
     # Prevent race condition
-    sleep(4)
+    sleep(0.01)
     c1.items.mark_as_read
     c1.items.unread_count.should == 0
     c1.items << Item.create
@@ -125,5 +127,28 @@ describe OurOhm do
     Root.collections.should =~ [:rootitems]
     A.collections.should =~ [:rootitems, :aitems]
     B.collections.should =~ [:rootitems, :bitems]
+  end
+end
+
+
+class GenTest < Ohm::Model
+  extend OhmGenericReference
+  generic_reference :foo
+end
+
+describe OhmGenericReference do
+  context "initially" do
+    it {GenTest.new.foo.should == nil}
+    it {GenTest.create.foo.should == nil}
+  end
+  context "after adding an item" do
+    before do
+      @i = Item.create
+      @g = GenTest.create
+      @g.foo = @i
+      @g.save
+    end
+    it {@g.foo.should == @i}
+    it {GenTest[@g.id].foo.should == @i}
   end
 end

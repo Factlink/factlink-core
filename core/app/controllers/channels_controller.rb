@@ -1,6 +1,5 @@
 class ChannelsController < ApplicationController
 
-  # layout "accounting"
   layout "channels"
   
   before_filter :get_user
@@ -12,7 +11,8 @@ class ChannelsController < ApplicationController
       :destroy,
       :update,
       :facts,
-      :related_users]
+      :related_users,
+      :activities]
   
   before_filter :authenticate_user!,
     :except => [
@@ -21,14 +21,25 @@ class ChannelsController < ApplicationController
       :facts,
       :related_users
       ]
+    
+  before_filter :is_authorized?,
+    :except => [
+      :index,
+      :show,
+      :new,
+      :create,
+      :facts,
+      :follow,
+      :related_users,
+      :activities,
+    ]
 
   # GET /:username/channels
   def index
     @channels = @user.graph_user.channels
     
     respond_to do |format|
-      format.html
-      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self)} }
+      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user)} }
       format.js
     end
   end
@@ -36,11 +47,10 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1
   def show
     respond_to do |format|
-      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self)}
+      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self,@user)}
       format.js
       format.html do
         @channel.mark_as_read
-        render :action => "facts" 
       end
     end
   end
@@ -68,8 +78,17 @@ class ChannelsController < ApplicationController
         @channel.add_fact(@fact)
       end
       
+      unless params[:for_channel].nil?
+        @subchannel = Channel[params[:for_channel]]
+        @channel.add_channel(@subchannel)
+        
+        render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self)
+        
+        return
+      end
+      
       respond_to do |format|
-        format.html { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
+        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
         format.json { render :json => @channel,
                       :status => :created, :location => channel_path(@channel.created_by, @channel)}
         format.js
@@ -89,8 +108,8 @@ class ChannelsController < ApplicationController
     channel_params = params[:channel] || params
     
     respond_to do |format|
-      if @channel.update_attributes!(channel_params.slice(:title, :description))
-        format.html  { redirect_to(get_facts_for_channel_path(@channel.created_by.user.username, @channel),
+      if @channel.update_attributes!(channel_params.slice(:title))
+        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
@@ -107,7 +126,7 @@ class ChannelsController < ApplicationController
       @channel.delete
       
       respond_to do |format|
-        format.html  { redirect_to(get_facts_for_channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
+        format.html  { redirect_to(channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
         format.json  { render :json => {}, :status => :ok }
       end
     end
@@ -117,11 +136,7 @@ class ChannelsController < ApplicationController
   def facts
     @channel.mark_as_read
     respond_to do |format|
-      if request.xhr?
-        format.html { render :layout => "ajax" }
-      else
-        format.html
-      end
+      format.html { render layout: "ajax" }
     end
   end
   
@@ -156,23 +171,30 @@ class ChannelsController < ApplicationController
   end
   
   def related_users
-    # @channel is fetched in load_channel    
-    @partial = "channels/related_users"
-    
-    
-    @locals = { :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user }, :excluded_users => [@channel.created_by]}
-    respond_to do |format|
-      format.html { render :template => "home/partial_renderer", :layout => "ajax" }
-    end
+    render layout: false, partial: "channels/related_users",
+      locals: {
+           related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+           excluded_users: [@channel.created_by]
+      }
+  end
+  
+  def activities
+    render layout:false, partial: "channels/activity_list",
+      locals: {
+             channel: @channel
+      }
   end
   
   private
+  def is_authorized?
+    @user == current_user || raise_403("Unauthorized")
+  end
+  
   def get_user
     if params[:username]
       @user = User.first(:conditions => { :username => params[:username]})
     end
   end
-  
   
   def load_channel
     @channel = Channel[params[:id]]
