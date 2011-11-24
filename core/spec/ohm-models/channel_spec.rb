@@ -109,10 +109,5 @@ describe Channel do
         it {@fork.facts.to_a.should == [f2,f1]}
       end
     end
-    describe "forking the channel yourself" do
-      before do
-        @fork = subject.fork(u1) 
-      end
-    end
   end
 end
