@@ -1822,6 +1822,9 @@ Iconic font for icons
   src: url("/fonts/iconic_stroke.eot");
   src: local('IconicStroke'), url("/fonts/iconic_stroke.svg#iconic") format('svg'), url("/fonts/iconic_stroke.otf") format('opentype');
 }
+.iconic {
+  font-family: "IconicStroke";
+}
 /* =============================================================================
 Lists
 ========================================================================== */
