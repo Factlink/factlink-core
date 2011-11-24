@@ -100,6 +100,7 @@ class Channel < OurOhm
   def fork(user)
     c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
+    self.containing_channels << c
     activity(user,:forked,self,:to,c)
     c
   end
