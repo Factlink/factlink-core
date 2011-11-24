@@ -12,9 +12,12 @@ class SubchannelsController < ChannelsController
   end
   
   private
-  def load_channel
-    @channel = Channel[params[:channel_id]]
-    @channel || raise_404("Channel not found")
-    @user ||= @channel.created_by.user
+  def is_authorized?
+    @user == current_user || raise_403("Unauthorized")
+  end
+  
+  def load_subchannel
+    @subchannel = Channel[params[:subchannel_id]]
+    @subchannel || raise_404("Subchannel not found")
   end
 end
