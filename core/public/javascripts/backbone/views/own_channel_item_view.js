@@ -16,9 +16,7 @@ window.OwnChannelItemView = Backbone.View.extend({
     $( this.el )
       .html( $.mustache(this.tmpl, this.model.toJSON() ));
     
-    if ( this.model.checked ) {
-      $( this.el ).find('input').prop('checked', true);
-    }
+    $( this.el ).find('input').prop('checked', this.model.checked === true ? true : false);
     
     return this;
   },
