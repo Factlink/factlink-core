@@ -15,7 +15,7 @@ class GraphUser < OurOhm
   collection :created_facts, Basefact, :created_by
 
   define_memoized_method :internal_channels do
-    Channel.find(:created_by_id => self.id).except(:discontinued => 'true').sort
+    Channel.active_channels_for(self)
   end
 
   def channel_manager

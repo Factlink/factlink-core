@@ -17,17 +17,24 @@ end
     
 
 describe Ohm::Model::Set do
+  before do
+    @c1 = Container.create()
+    @c2 = Container.create()
+    @a = Item.create()
+    @b = Item.create()
+    @c1.items << @a
+    @c2.items << @b
+  end
   it "should have a working union" do
-    c1 = Container.create()
-    c2 = Container.create()
-    a = Item.create()
-    b = Item.create()
-    c1.items << a
-    c2.items << b
-    union = c1.items | c2.items
-    c1.items.all.should =~ [a]
-    c2.items.all.should =~ [b]
-    union.all.should =~ [a,b]
+    union = @c1.items | @c2.items
+    @c1.items.all.should =~ [@a]
+    @c2.items.all.should =~ [@b]
+    union.all.should =~ [@a,@b]
+  end
+  
+  it "should be able to return the list of ids" do
+    @c1.items << @b
+    @c1.items.ids.should =~ [@a.id,@b.id]
   end
   
 end

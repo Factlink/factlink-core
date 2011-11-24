@@ -20,6 +20,11 @@ describe Channel do
   let(:ch1) {Channel.create(:created_by => u2, :title => "Something")}
   let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
+  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
+  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Diddly")}
+  let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
+  let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
+
 
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }
@@ -171,7 +176,58 @@ describe Channel do
   
   describe "#containing_channels_for" do
     describe "initially" do
-      it {subject.containing_channels_for(u1).should =~ []}
+      it {subject.containing_channels_for(u1).to_a.should =~ []}
+    end
+    describe "after adding to a own channel" do
+      before do
+        u1_ch1.add_channel subject
+      end
+      it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+      describe "after adding to someone else's channel" do
+        before do
+          u1_ch1.add_channel subject
+          u2_ch1.add_channel subject
+        end
+        it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+      end
+    end
+  end
+  
+  describe "#active_channels_for" do
+    before do
+      @expected_channels = []
+      begin
+        @expected_channels << u1.stream
+        @expected_channels << u1.created_facts_channel
+      rescue
+      end
+    end
+    describe "initially" do
+      it {Channel.active_channels_for(u1).to_a.should =~ []+@expected_channels}
+    end
+    describe "after creating a channel" do
+      before do
+        @ch1 = Channel.create created_by: u1, title: 'foo'
+      end
+      it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
+      describe "after creating another channel" do
+        before do
+          @ch2 = Channel.create created_by: u1, title: 'foo2'
+        end
+        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1,@ch2]+@expected_channels}
+        describe "after deleting a channel" do
+          before do
+            @ch1.delete
+          end
+          it {Channel.active_channels_for(u1).to_a.should =~ [@ch2]+@expected_channels}
+        end
+      end
+      describe "after someone else creating another channel" do
+        before do
+          @ch2 = Channel.create created_by: u2, title: 'foo2'
+        end
+        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
+      end
     end
   end
 end
