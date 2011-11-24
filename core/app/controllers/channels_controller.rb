@@ -21,6 +21,18 @@ class ChannelsController < ApplicationController
       :facts,
       :related_users
       ]
+    
+  before_filter :is_authorized?,
+    :except => [
+      :index,
+      :show,
+      :new,
+      :create,
+      :facts,
+      :follow,
+      :related_users,
+      :activities,
+    ]
 
   # GET /:username/channels
   def index
@@ -165,12 +177,15 @@ class ChannelsController < ApplicationController
   end
   
   private
+  def is_authorized?
+    @user == current_user || raise_403("Unauthorized")
+  end
+  
   def get_user
     if params[:username]
       @user = User.first(:conditions => { :username => params[:username]})
     end
   end
-  
   
   def load_channel
     @channel = Channel[params[:id]]
