@@ -1,18 +1,22 @@
 development:
-    host: localhost
-    # logger: false
-    database: factlink_ui_development
+  host: localhost
+  database: factlink_ui_development
 
 test:
-    host: localhost
-    database: factlink_ui_test
+  host: localhost
+  database: factlink_ui_test
 
 testserver:
-    host: localhost
-    port: 27017
-    database: factlink_ui_production
+  host: localhost
+  port: 27017
+  database: factlink_ui_production
+
+staging:
+  host: localhost
+  port: 27017
+  database: factlink_ui_production  
       
 production:
-    host: localhost
-    port: 27017
-    database: factlink_ui_production  
+  host: localhost
+  port: 27017
+  database: factlink_ui_production  
