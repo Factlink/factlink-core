@@ -1,16 +1,30 @@
-require 'spec_helper'
+require 'ohm_helper'
+
+require 'active_support/core_ext/module/delegation'
+require_relative '../../app/ohm-models/activities.rb'
+require_relative '../../app/ohm-models/channel.rb'
+
+class Basefact < OurOhm
+end
+class Fact < Basefact
+  def self.invalid(fact)
+    false
+  end
+end
+class GraphUser < OurOhm
+end
 
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
-  let(:u1) { FactoryGirl.create(:user).graph_user }
-  let(:u2) { FactoryGirl.create(:user).graph_user }
-  let(:u3) { FactoryGirl.create(:user).graph_user }
+  let(:u1) { GraphUser.create }
+  let(:u2) { GraphUser.create }
+  let(:u3) { GraphUser.create }
   
-  let (:f1) {FactoryGirl.create(:fact) }
-  let (:f2) {FactoryGirl.create(:fact) }
-  let (:f3) {FactoryGirl.create(:fact) }
-  let (:f4) {FactoryGirl.create(:fact) }
+  let (:f1) { Fact.create }
+  let (:f2) { Fact.create }
+  let (:f3) { Fact.create }
+  let (:f4) { Fact.create }
   
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
@@ -33,6 +47,7 @@ describe Channel do
     describe "and removing a fact (not from the Channel but the fact itself) without recalculate" do
       before do
         f1.delete
+        Fact.should_receive(:invalid).with(f1).and_return(true)
       end
       it { subject.facts.to_a.should =~ []}
     end
