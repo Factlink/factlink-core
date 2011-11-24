@@ -100,7 +100,6 @@ class Channel < OurOhm
   def fork(user)
     c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
-    self.containing_channels << c
     activity(user,:forked,self,:to,c)
     c
   end
@@ -137,6 +136,7 @@ class Channel < OurOhm
   protected
   def _add_channel(channel)
     contained_channels << channel
+    channel.containing_channels << self
     calculate_facts
   end
 
