@@ -334,10 +334,11 @@ span.factlink {
       
       li {
         #fl > .resetStyles;
-              
-        padding: 2px 12px;
         margin: 3px 0px;
-        
+        padding: 2px 0px;
+        height: 18px;
+        width: 100%;
+        display: block;
         &:hover {
           background: @context-menu-highlight-color;
           .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
@@ -352,9 +353,11 @@ span.factlink {
         
         a {
           #fl > .resetStyles;
-          
           display: block;
-          padding: 2px 0px;
+          padding: 0 12px;
+          margin: 2px 0;
+          height: 100%;
+          width: 100%;
           .text-shadow;
         }
       }
@@ -390,16 +393,17 @@ span.factlink {
         position: absolute;
         top: 100%;
         min-width: 111px;
-        max-width: 160px;
+        max-width: 140px;
+        max-height: 160px;
+        overflow-y: auto;
         left: 0;
+        .visible-scroll();
 
         li {
           #fl > .resetStyles;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
           padding: 4px 0px;
-          white-space: nowrap;
+          width: 100%;
+          .ellipsis();
           
           &.fl-loading {
             text-align: center;

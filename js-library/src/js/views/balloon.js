@@ -16,63 +16,18 @@ Factlink.Balloon = function() {
     bindCheck();
   }
   
-  function setLeft() {
-    el.addClass('left');
-    el.removeClass('right');
-  }
-  
-  function setRight() {
-    el.addClass('right');
-    el.removeClass('right');
-  }
-  
-  function setTop() {
-    el.addClass('top');
-    el.removeClass('bottom');
-  }
-  
-  function setBottom() {
-    el.addClass('bottom');
-    el.removeClass('top');
-  }
-  
-  this.show = function(top, left) {
+  this.show = function(top, left, fast) {
     window.clearTimeout(timeout);
-    
-    var x = left, y = top;
-    
-    timeout = window.setTimeout(function() {
-      hideOthers();
-      
-      el.fadeIn('fast');
-    }, 200);
-    
-    x -= 30;
-    if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
-      x = $(window).width() - el.outerWidth(true);
-      
-      setLeft();
-    } else {
-      if ( x < $(window).scrollLeft() ) {
-        x = $(window).scrollLeft();
-      }
-      
-      setRight();
+    if (fast === true) {
+      hideAll();
+      el.show();
+    }else{
+      timeout = window.setTimeout(function() {
+        hideAll();
+        el.fadeIn('fast');
+      }, 200);
     }
-    
-    y -= 6 + el.outerHeight(true);
-    if (y < $(window).scrollTop()) {
-      y = $(window).scrollTop() + el.outerHeight(true) + 14;
-      
-      setTop();
-    } else {
-      setBottom();
-    }
-    
-    el.css({
-      top: y + 'px',
-      left: x + 'px'
-    });
+    Factlink.set_position(top,left,window,el);
     
     getChannels();
   };
@@ -146,7 +101,7 @@ Factlink.Balloon = function() {
     });
   }
   
-  function hideOthers() {
+  function hideAll() {
     el.closest('#fl').find('.fl-popup').hide();
   }
   

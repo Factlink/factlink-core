@@ -37,7 +37,7 @@ Factlink.Fact = function() {
       .bind('mouseleave', self.blur)
       .bind('click', self.click);
     
-    bindHover();
+    bindFocus();
     
     bindClick(id);
     
@@ -70,7 +70,7 @@ Factlink.Fact = function() {
     _bound_events[type].push(fn);
   }
   
-  function trigger(type, fn) {
+  function trigger(type) {
     var args = Array.prototype.slice.call(arguments);
     
     args.shift();
@@ -98,7 +98,7 @@ Factlink.Fact = function() {
     }
   }
   
-  function bindHover() {
+  function bindFocus() {
     self.focus(function(e) {
       clearTimeout(timeout);
       
@@ -108,8 +108,7 @@ Factlink.Fact = function() {
         // Need to call a direct .hide() here to make sure not two popups are 
         // open at a time
         Factlink.el.find('div.fl-popup').hide();
-        
-        balloon.show($(e.target).offset().top, e.pageX);
+        balloon.show($(e.target).offset().top, e.pageX, e.show_fast);
       }
     });
     
@@ -145,6 +144,10 @@ Factlink.Fact = function() {
   
   this.getObject = function() {
     return _obj;
+  };
+  
+  this.getElements = function() {
+    return elements;
   };
   
   this.destroy = function() {

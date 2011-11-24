@@ -29,6 +29,8 @@ var Factlink = window.Factlink = (function() {
     return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
   };
 
+  Factlink.Facts = [];
+
   // Function which will collect all the facts for the current page
   // and select them.
   Factlink.getTheFacts = function() {
