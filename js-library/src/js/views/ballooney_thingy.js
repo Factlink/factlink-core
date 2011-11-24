@@ -1,24 +1,24 @@
 (function(Factlink, $, _, easyXDM, undefined) {
 
 Factlink.set_position = function(top,left,window,el){
-  function setLeft(el) {
-    el.addClass('left');
-    el.removeClass('right');
+  function setLeft(element) {
+    element.addClass('left');
+    element.removeClass('right');
   }
   
-  function setRight(el) {
-    el.addClass('right');
-    el.removeClass('left');
+  function setRight(element) {
+    element.addClass('right');
+    element.removeClass('left');
   }
   
-  function setTop(el) {
-    el.addClass('top');
-    el.removeClass('bottom');
+  function setTop(element) {
+    element.addClass('top');
+    element.removeClass('bottom');
   }
   
-  function setBottom(el) {
-    el.addClass('bottom');
-    el.removeClass('top');
+  function setBottom(element) {
+    element.addClass('bottom');
+    element.removeClass('top');
   }
   
   var x = left, y = top;
