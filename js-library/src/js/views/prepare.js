@@ -45,7 +45,7 @@ Factlink.Prepare = function() {
           el.hide();
           //fake mouseover over the first fact
           //TODO: actually do this on the selected fact
-          factObjs[0].focus({target: factObjs[0].getElements()[0], pageX: pageX, pageY: pageY});
+          factObjs[0].focus({target: factObjs[0].getElements()[0], pageX: pageX, pageY: pageY,show_fast: true});
         }, 1500);
       });
     });
