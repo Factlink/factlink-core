@@ -107,6 +107,22 @@ describe Channel do
         end
         it {subject.facts.to_a.should == [f1]}
         it {@fork.facts.to_a.should == [f2,f1]}
+
+        describe "after removing the original channel from the fork" do
+          before do
+            @fork.remove_channel(subject)
+          end
+          it {@fork.containing_channels.to_a.should =~ []}
+          it {@fork.facts.to_a.should == [f2]}
+        end
+
+      end
+      describe "after removing the original channel from the fork" do
+        before do
+          @fork.remove_channel(subject)
+        end
+        it {@fork.containing_channels.to_a.should =~ []}
+        it {@fork.facts.to_a.should == []}
       end
     end
   end
