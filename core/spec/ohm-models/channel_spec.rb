@@ -17,6 +17,10 @@ end
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
+  let(:ch1) {Channel.create(:created_by => u2, :title => "Something")}
+  let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
+
+
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
@@ -125,5 +129,14 @@ describe Channel do
         it {@fork.facts.to_a.should == []}
       end
     end
+  end
+  
+  describe "after adding a subchannel" do
+    before do
+      subject.add_channel(ch1)
+    end
+    it {subject.contained_channels.to_a.should =~ [ch1]}
+    it {ch1.containing_channels.to_a.should =~ [subject]}
+    
   end
 end
