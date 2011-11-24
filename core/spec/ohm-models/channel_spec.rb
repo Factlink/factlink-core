@@ -168,4 +168,10 @@ describe Channel do
       it {subject.containing_channels.to_a.should =~ [ch2]}
     end
   end
+  
+  describe "#containing_channels_for" do
+    describe "initially" do
+      it {subject.containing_channels_for(u1).should =~ []}
+    end
+  end
 end

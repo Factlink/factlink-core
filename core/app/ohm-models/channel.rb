@@ -134,6 +134,10 @@ class Channel < OurOhm
     end
   end
 
+  def containing_channels_for(user)
+    return []
+  end
+
   protected
   def _add_channel(channel)
     contained_channels << channel
