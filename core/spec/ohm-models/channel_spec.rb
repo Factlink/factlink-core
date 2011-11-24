@@ -89,7 +89,7 @@ describe Channel do
       describe "and removing the fact from the fork" do
         before do
            @fork.remove_fact(f1)
-         end
+        end
         it {subject.facts.to_a.should =~ [f1]}
         it {@fork.facts.to_a.should =~ []}
       end
@@ -97,14 +97,14 @@ describe Channel do
         before do
            subject.add_fact(f2)
            Channel.recalculate_all
-         end
+        end
         it {subject.facts.to_a.should == [f2,f1]}
         it {@fork.facts.to_a.should == [f2,f1]}
       end
       describe "after adding another fact to the fork" do
         before do
            @fork.add_fact(f2)
-         end
+        end
         it {subject.facts.to_a.should == [f1]}
         it {@fork.facts.to_a.should == [f2,f1]}
       end
