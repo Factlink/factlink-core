@@ -61,7 +61,7 @@ window.ChannelView = Backbone.View.extend({
         url: self.model.url() + '/facts',
         method: "GET",
         success: function( data ) {
-          self.el.find('#facts_for_channel > div.loading').hide().parent().append(data);
+          self.el.find('#facts_for_channel > div.loading').hide().parent().find('div.facts').html(data);
           self.el.find('.fact-block').factlink();
         }
       });
