@@ -32,14 +32,8 @@ else
   RSpec.configure do |config|
     config.mock_with :rspec
 
-
     config.before(:each) do
       Ohm.flush
     end 
-
-    config.after(:suite) do
-      Ohm.flush
-    end
-
   end
 end
