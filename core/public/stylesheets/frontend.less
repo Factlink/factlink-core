@@ -264,7 +264,6 @@ body.factlink-site div.user-block {
     padding-top: 60px;
 
     h1 {
-      font-family: Arial, Helvetica, Garuda, sans-serif;
       font-size: 18px;
       font-weight: 200;
       color: #666;
@@ -309,7 +308,7 @@ body.factlink-site div.user-block {
           width: 32px;
 
           border: solid 1px #ddd;
-          border-radius: 3px;
+          .rounded(3px);
         }
 
         h1 {
@@ -323,10 +322,10 @@ body.factlink-site div.user-block {
     }
 
     #main-wrapper {
+      padding: 15px;
 			margin-bottom: 172px;
       background: white;
-      padding: 16px;
-      border-radius: 3px;
+      .rounded(3px);
 
       min-height: 200px;
 
@@ -334,28 +333,50 @@ body.factlink-site div.user-block {
       position: relative;
       z-index: 100;
 
-      header.title { 
-        padding-bottom: 6px;
+      header.title {
+        margin: -15px -15px 15px -15px;
+        background-color: darken(#fff, 3%);
+        padding: 10px 16px 6px 19px;
         border-bottom: 1px solid #d8d8d8;
-        a { 
-          float: right;
+        span.contained-channel-description { 
+          font-size: 8pt;
         }
         h1 { 
           .ellipsis();
-          margin-bottom: 6px;
+          margin: 3px 0px 6px 0;
           display: block;
           width: 70%;
-          padding-top: 3px;
+        }
+        a { 
+          float: right;
         }
         p { 
           margin: 0 0 6px 0;
         }
+        .more-button { 
+          width: 100%;
+          float: none;
+          display: block;
+          text-align: center;
+          &:hover { 
+            text-decoration: none;          
+          }
+
+          .label {
+            &:hover { 
+              background-color: darken(#bfbfbf, 10%);
+            }
+          }
+        }
+        #contained-channels { 
+          display: none;
+        }
         #contained-channel-list { 
           display: block;
           li { 
-            width: 150px;
+            width: 155px;
             display: inline-block;
-            margin: 4px;
+            margin: 4px 8px 4px 0;
             border: 1px solid transparent;
             box-shadow: 0px 0px 3px #a8a8a8;
             padding: 2px;
@@ -363,7 +384,7 @@ body.factlink-site div.user-block {
             
             a  {
               display: block;
-              font-size: 13px;
+              font-size: 9pt;
               height: 100%; 
               width: 100%;
               text-decoration: none;
@@ -394,6 +415,7 @@ body.factlink-site div.user-block {
     }
     
     #facts_for_channel {
+      padding: 0 16px 16px 16px;
       div.loading {
         text-align: center;
         line-height: 100px;
@@ -465,14 +487,11 @@ body.factlink-site div.user-block {
         } 
         &.active > a,
         &.loading > a {
-          // background: #fff;
           color: #666;
           z-index: 101;
           color: rgb(206,0,0);
           font-weight: bold;
           border-right: none;
-
-          // box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
         }
         
         &.loading > a {
@@ -513,7 +532,7 @@ body.factlink-site div.user-block {
         border-bottom: solid 1px #eee;
         margin-bottom: 16px;
 
-        border-radius: 3px;
+        .rounded(3px);
 
         &:hover {
           background: rgb(247, 247, 247);

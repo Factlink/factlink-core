@@ -1754,84 +1754,15 @@ p {
   font-size: 0.9em;
 }
 /* =============================================================================
-Typography
-========================================================================== */
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b, strong {
-  font-weight: bold;
-}
-blockquote {
-  margin: 1em 40px;
-}
-dfn {
-  font-style: italic;
-}
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-ins {
-  background: #ff9;
-  color: #000;
-  text-decoration: none;
-}
-mark {
-  background: #ff0;
-  color: #000;
-  font-style: italic;
-  font-weight: bold;
-}
-/* Redeclare monospace font family: h5bp.com/j */
-pre,
-code,
-kbd,
-samp {
-  font-family: monospace, monospace;
-  _font-family: 'courier new', monospace;
-  font-size: 1em;
-}
-/* Improve readability of pre-formatted text in all browsers */
-pre {
-  white-space: pre;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-q {
-  quotes: none;
-}
-q:before, q:after {
-  content: "";
-  content: none;
-}
-small {
-  font-size: 85%;
-}
-/* Position subscript and superscript content without affecting line-height: h5bp.com/k */
-sub, sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-/* =============================================================================
 Iconic font for icons
 ========================================================================== */
 @font-face {
   font-family: 'IconicStroke';
   src: url("/fonts/iconic_stroke.eot");
   src: local('IconicStroke'), url("/fonts/iconic_stroke.svg#iconic") format('svg'), url("/fonts/iconic_stroke.otf") format('opentype');
+}
+.iconic {
+  font-family: "IconicStroke";
 }
 /* =============================================================================
 Lists
@@ -2067,7 +1998,6 @@ form .action-wrapper span {
   padding-top: 60px;
 }
 #container h1 {
-  font-family: Arial, Helvetica, Garuda, sans-serif;
   font-size: 18px;
   font-weight: 200;
   color: #666;
@@ -2108,6 +2038,8 @@ form .action-wrapper span {
   height: 32px;
   width: 32px;
   border: solid 1px #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 }
 #container .side-column .user-block h1 {
@@ -2118,9 +2050,11 @@ form .action-wrapper span {
   margin: 0;
 }
 #container #main-wrapper {
+  padding: 15px;
   margin-bottom: 172px;
   background: white;
-  padding: 16px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
   min-height: 200px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
@@ -2128,11 +2062,13 @@ form .action-wrapper span {
   z-index: 100;
 }
 #container #main-wrapper header.title {
-  padding-bottom: 6px;
+  margin: -15px -15px 15px -15px;
+  background-color: #f7f7f7;
+  padding: 10px 16px 6px 19px;
   border-bottom: 1px solid #d8d8d8;
 }
-#container #main-wrapper header.title a {
-  float: right;
+#container #main-wrapper header.title span.contained-channel-description {
+  font-size: 8pt;
 }
 #container #main-wrapper header.title h1 {
   overflow: hidden;
@@ -2140,21 +2076,38 @@ form .action-wrapper span {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   -ms-text-overflow: ellipsis;
-  margin-bottom: 6px;
+  margin: 3px 0px 6px 0;
   display: block;
   width: 70%;
-  padding-top: 3px;
+}
+#container #main-wrapper header.title a {
+  float: right;
 }
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
+}
+#container #main-wrapper header.title .more-button {
+  width: 100%;
+  float: none;
+  display: block;
+  text-align: center;
+}
+#container #main-wrapper header.title .more-button:hover {
+  text-decoration: none;
+}
+#container #main-wrapper header.title .more-button .label:hover {
+  background-color: #a6a6a6;
+}
+#container #main-wrapper header.title #contained-channels {
+  display: none;
 }
 #container #main-wrapper header.title #contained-channel-list {
   display: block;
 }
 #container #main-wrapper header.title #contained-channel-list li {
-  width: 150px;
+  width: 155px;
   display: inline-block;
-  margin: 4px;
+  margin: 4px 8px 4px 0;
   border: 1px solid transparent;
   box-shadow: 0px 0px 3px #a8a8a8;
   padding: 2px;
@@ -2164,7 +2117,7 @@ form .action-wrapper span {
 }
 #container #main-wrapper header.title #contained-channel-list li a {
   display: block;
-  font-size: 13px;
+  font-size: 9pt;
   height: 100%;
   width: 100%;
   text-decoration: none;
@@ -2192,6 +2145,9 @@ form .action-wrapper span {
   box-shadow: 0px 0px 3px #1d8cc8;
   border: 1px solid #1d8cc8;
   background-color: #fbfbfb;
+}
+#container #facts_for_channel {
+  padding: 0 16px 16px 16px;
 }
 #container #facts_for_channel div.loading {
   text-align: center;
@@ -2288,6 +2244,8 @@ form .action-wrapper span {
   background: #fafafa;
   border-bottom: solid 1px #eee;
   margin-bottom: 16px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px;
 }
 #container #wide-activity-list li:hover {

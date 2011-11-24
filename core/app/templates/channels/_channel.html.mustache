@@ -3,7 +3,7 @@
     {{#editable?}}
       <a href="{{ edit_link }}" class="btn">edit</a>
     {{/editable?}}
-  
+    
     {{#followable?}}
       <a class='btn' id="add_to_channel">Add to channels</a>
       <div class="float-box channel-listing" id="follow-channel"></div>
@@ -12,10 +12,13 @@
   	<h1>
   	  {{ title }}
     </h1>
-    
     {{#show_subchannels?}}
-      <ul id="contained-channel-list">
-      </ul>
+    <div id="contained-channels">
+      <span class="contained-channel-description">Other people in this channel</span>
+        <ul id="contained-channel-list">
+        </ul>
+      </div>
+      <a class="more-button"><span class="label">more</span></a>
     {{/show_subchannels?}}
   </header>
   <div id="facts_for_channel">
