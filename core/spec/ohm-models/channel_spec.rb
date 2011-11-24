@@ -7,9 +7,6 @@ require_relative '../../app/ohm-models/channel.rb'
 class Basefact < OurOhm
 end
 class Fact < Basefact
-  def self.invalid(fact)
-    false
-  end
 end
 class GraphUser < OurOhm
 end
@@ -25,17 +22,32 @@ describe Channel do
   let (:f2) { Fact.create }
   let (:f3) { Fact.create }
   let (:f4) { Fact.create }
+
   
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
   end
+
+  describe "after adding one fact and deleting a fact (not from the Channel but the fact itself) without recalculate" do
+    before do
+      subject.add_fact(f1)
+      f1.delete
+      Fact.should_receive(:invalid).with(f1).and_return(true)
+    end
+    it { subject.facts.to_a.should =~ []}
+  end
+
   
   describe "after adding one fact" do
     before do
       subject.add_fact(f1)
+      Fact.should_receive(:invalid).any_number_of_times.and_return(false)
       Channel.recalculate_all
     end
-    it { subject.facts.to_a.should =~ [f1]}
+    it do
+       subject.facts.to_a.should =~ [f1]
+    end
+
     describe "and removing an fact" do
       before do
         subject.remove_fact(f1)
@@ -44,13 +56,6 @@ describe Channel do
       it { subject.facts.to_a.should =~ []}
     end
     
-    describe "and removing a fact (not from the Channel but the fact itself) without recalculate" do
-      before do
-        f1.delete
-        Fact.should_receive(:invalid).with(f1).and_return(true)
-      end
-      it { subject.facts.to_a.should =~ []}
-    end
     
     
     describe "after forking" do
