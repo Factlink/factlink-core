@@ -11,6 +11,24 @@ window.ChannelView = Backbone.View.extend({
     this.subchannels.fetch();
   },
   
+  initSubChannels: function() {
+    if ( this.el.find('#contained-channel-list') ) {
+      this.subchannelView = new SubchannelsView({
+        collection: this.subchannels,
+        el: this.el.find('#contained-channel-list')
+      });
+    }
+  },
+  
+  initAddToFact: function() {
+    if ( this.el.find('#add_to_channel') ) {
+      this.ownChannelView = new OwnChannelCollectionView({
+        collection: currentUser.channels,
+        el: this.el.find('#follow-channel')
+      }).render();
+    }
+  },
+  
   render: function() { 
     var self = this;
 
@@ -20,10 +38,9 @@ window.ChannelView = Backbone.View.extend({
       this.el
         .html( $.mustache(this.tmpl, this.model.toJSON() ));
       
-      this.subchannelView = new SubchannelsView({
-        collection: this.subchannels,
-        el: this.el.find('#contained-channel-list')
-      });
+      this.initSubChannels();
+      
+      this.initAddToFact();
         
       self.model.trigger('loaded')
                   .trigger('activate', self.model);

@@ -6,15 +6,17 @@
   
     {{#followable?}}
       <a class='btn' id="add_to_channel">Add to channels</a>
-      <div class="float-box channel-listing"></div>
+      <div class="float-box channel-listing" id="follow-channel"></div>
     {{/followable?}}
 
   	<h1>
   	  {{ title }}
     </h1>
     
-    <ul id="contained-channel-list">
-    </ul>
+    {{#show_subchannels?}}
+      <ul id="contained-channel-list">
+      </ul>
+    {{/show_subchannels?}}
   </header>
   <div id="facts_for_channel">
     <div class="loading">

@@ -33,6 +33,10 @@ module Channels
     def type
       self[:channel].type
     end
+    
+    def show_subchannels?
+      editable? || followable?
+    end
   
     def nr_of_facts
       unread_count
@@ -55,7 +59,8 @@ module Channels
     end
     
     def followable?
-      current_user.graph_user != self[:channel].created_by && self[:channel].followable?
+      # current_user.graph_user != self[:channel].created_by && self[:channel].followable?
+      false
     end
   
     def to_hash
@@ -73,6 +78,7 @@ module Channels
             :editable? => editable?,
           :nr_of_facts => nr_of_facts,
         :created_by_id => created_by_id,
+    :show_subchannels? => show_subchannels?,
       }
     end
 

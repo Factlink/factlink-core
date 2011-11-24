@@ -1,20 +1,15 @@
 module Subchannels
   class SubchannelItem < Mustache::Railstache
-    def self.for_channel_and_view(channel,view,channel_user=nil)
-      si = new(false)
+    def self.for_channel_and_view(channel,view)
+      si = new
       si.view = view
       si[:channel] = channel
-      si[:user] = channel_user
-      si.init
+      si[:user] = channel.created_by.user
       return si
     end
-
-    def initialize(run=true)
-      init if run
-    end
-
-    def init
-      self[:user]||= self[:channel].created_by.user
+    
+    def id
+      self[:channel].id
     end
     
     def link
@@ -35,6 +30,7 @@ module Subchannels
     
     def to_hash
       return {
+                 :id => id,
                :link => link,
               :title => title,
            :username => username,
