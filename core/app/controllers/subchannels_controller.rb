@@ -6,11 +6,13 @@ class SubchannelsController < ChannelsController
   before_filter :load_subchannel,
     :except => [
       :index,
+      :create,
     ]
     
   before_filter :is_authorized?,
     :except => [
       :index,
+      :create,
     ]
       
   def index
@@ -18,6 +20,22 @@ class SubchannelsController < ChannelsController
     
     respond_to do |format|
       format.json { render :json => @contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)} }
+    end
+  end
+  
+  def create
+    @subchannel = Channel.new(:title => params[:channel_title])
+    @subchannel.created_by = current_user.graph_user
+    
+    # Check if object valid, then execute:
+    if @subchannel.valid?
+      @subchannel.save
+      
+      @channel.add_channel(@subchannel)
+      
+      render :json => @subchannel, :status => :created, :location => @channel
+    else
+      raise_404(@subchannel.errors)
     end
   end
   
