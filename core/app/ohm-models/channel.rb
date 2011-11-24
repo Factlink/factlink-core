@@ -127,6 +127,7 @@ class Channel < OurOhm
   def remove_channel(channel)
     if (contained_channels.include?(channel))
       contained_channels.delete(channel)
+      channel.containing_channels.delete(self)
       calculate_facts
       
       activity(self.created_by, :removed, channel, :to, self)

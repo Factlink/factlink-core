@@ -137,6 +137,35 @@ describe Channel do
     end
     it {subject.contained_channels.to_a.should =~ [ch1]}
     it {ch1.containing_channels.to_a.should =~ [subject]}
-    
+    describe "after adding another subchannel" do
+      before do
+        subject.add_channel(ch2)
+      end
+      it {subject.contained_channels.to_a.should =~ [ch1,ch2]}
+      it {ch1.containing_channels.to_a.should =~ [subject]}
+      it {ch2.containing_channels.to_a.should =~ [subject]}
+      describe "after deleting the first subchannel" do
+        before do
+          subject.remove_channel(ch1)
+        end
+        it {subject.contained_channels.to_a.should =~ [ch2]}
+        it {ch1.containing_channels.to_a.should =~ []}
+        it {ch2.containing_channels.to_a.should =~ [subject]}
+      end
+    end
+  end
+  
+  describe "after adding to two channels" do
+    before do
+      ch1.add_channel subject
+      ch2.add_channel subject
+    end
+    it {subject.containing_channels.to_a.should =~ [ch1,ch2]}
+    describe "after removing it from one channel" do
+      before do
+        ch1.remove_channel subject
+      end
+      it {subject.containing_channels.to_a.should =~ [ch2]}
+    end
   end
 end
