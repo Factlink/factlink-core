@@ -7,7 +7,6 @@ window.ChannelView = Backbone.View.extend({
     var self = this;
     
     this.subchannels = new SubchannelList({channel: this.model});
-    
     this.subchannels.fetch();
   },
   
@@ -28,7 +27,19 @@ window.ChannelView = Backbone.View.extend({
       }).render();
     }
   },
-  
+
+ initMoreButton: function() { 
+   var containedChannels = this.el.find('#contained-channels');
+   if  ( containedChannels ) {
+    this.el.find('.more-button').bind('click', function() { 
+        var button = $(this).find(".label");
+        containedChannels.slideToggle(function(e) { 
+          button.text($(button).text() === 'more' ? 'less' : 'more');
+        });
+      });
+    }
+  },
+
   render: function() { 
     var self = this;
 
@@ -41,6 +52,7 @@ window.ChannelView = Backbone.View.extend({
       this.initSubChannels();
       
       this.initAddToFact();
+      this.initMoreButton(); 
         
       self.model.trigger('loaded')
                   .trigger('activate', self.model);
