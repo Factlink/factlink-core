@@ -31,7 +31,7 @@ window.OwnChannelCollectionView = Backbone.View.extend({
         },
         type: "post",
         success: function(data) {
-          self.containing_channels.push(data.id);
+          currentChannel.get('containing_channels').push(data.id);
           
           currentUser.channels.add(data);
           

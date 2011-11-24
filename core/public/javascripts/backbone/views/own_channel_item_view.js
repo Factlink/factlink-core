@@ -44,10 +44,19 @@ window.OwnChannelItemView = Backbone.View.extend({
       url: this.model.url() + '/subchannels/' + action + '/' + currentChannel.id + '.json',
       type: "post",
       success: function(data) {
+        if ( checked ) {
+          currentChannel.get('containing_channels').push(self.model.id);
+        } else {
+          var indexOf = currentChannel.get('containing_channels').indexOf(self.model.id);
+          if ( indexOf ) {
+            currentChannel.get('containing_channels').splice(indexOf, 1);
+          }
+        }
+        
         self.enable();
       },
       error: function() {
-        e.target.checked = !checked;
+        e.target.checked = newValue;
         
         self.enable();
       }
