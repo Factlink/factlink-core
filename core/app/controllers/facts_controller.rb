@@ -76,7 +76,7 @@ class FactsController < ApplicationController
 
   def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact], params[:title])
-    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:id])
+    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
    
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
@@ -225,7 +225,7 @@ class FactsController < ApplicationController
     @fact = Fact[params[:id]] || raise_404
   end
   
-  def add_evidence(evidence_id, type, fact_id) # private  
+  def add_evidence(evidence_id, type, fact_id) # private
     type     = type.to_sym  
     fact     = Fact[fact_id]
     evidence = Fact[evidence_id]

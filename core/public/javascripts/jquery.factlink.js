@@ -6,7 +6,7 @@
       this.authority = $(fact).find(".authority").first();
       this.params = $.extend(params, {
         "dim": 24,
-        "radius": 18,
+        "radius": 16,
         "default_stroke": {
           "opacity": 0.2,
           "stroke": 9

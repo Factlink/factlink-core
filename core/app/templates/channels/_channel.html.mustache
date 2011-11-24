@@ -5,16 +5,18 @@
     {{/editable?}}
   
     {{#followable?}}
-      <a href='' class='button'>Add to channels</a>
-      <div class="float-box channel-listing"></div>
+      <a class='btn' id="add_to_channel">Add to channels</a>
+      <div class="float-box channel-listing" id="follow-channel"></div>
     {{/followable?}}
 
   	<h1>
   	  {{ title }}
     </h1>
-    <!--<%# if @channel.followable? %>
-      <%#=  render_mustache "contained_channel_list", channels: @channel.contained_channels %>
-    <%# end %>-->
+    
+    {{#show_subchannels?}}
+      <ul id="contained-channel-list">
+      </ul>
+    {{/show_subchannels?}}
   </header>
   <div id="facts_for_channel">
     <div class="loading">

@@ -80,6 +80,13 @@ FactlinkUI::Application.routes.draw do
       end
 
       member do 
+        resources :subchannels do
+          collection do
+            post "add/:subchannel_id/", :as => "add", :action => "add"
+            post "remove/:subchannel_id/", :as => "remove", :action => "remove"
+          end
+        end
+        
         # TODO replace with collection do add:
         get "follow", :as => "follow"
         

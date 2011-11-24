@@ -15,7 +15,13 @@ testserver:
     hostname: localhost
     port: 6379
     database: 0
-      
+
+staging:
+  redis:
+    hostname: localhost
+    port: 6379
+    database: 0      
+
 production:
   redis:
     hostname: localhost

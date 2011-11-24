@@ -24,7 +24,6 @@
 		}
 		
 		iframe.overlay {
-		  /* background: rgba(0, 0, 0, .4); */
 		  background: transparent;
 		}
 		
@@ -174,6 +173,7 @@
       var fact_id = showFrame.contentWindow.fact_id;
       var script = document.createElement("script");
 
+      // Todo: should be done using POST
       script.src = "<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
       script.type = "text/javascript";
 

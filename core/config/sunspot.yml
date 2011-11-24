@@ -16,6 +16,12 @@ testserver:
     port: 8983
     log_level: WARNING
 
+staging:
+  solr:
+    hostname: localhost
+    port: 8983
+    log_level: WARNING
+
 production:
   solr:
     hostname: localhost

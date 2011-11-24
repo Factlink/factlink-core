@@ -5,7 +5,9 @@ require File.join(File.dirname(__FILE__), "channel", "user_stream")
 class Channel < OurOhm
   
   include ActivitySubject
-  
+
+  def type; "channel" end
+
   attribute :title
   index :title
   
@@ -115,8 +117,19 @@ class Channel < OurOhm
   end
 
   def add_channel(channel)
-    _add_channel(channel)
-    activity(self.created_by,:added,channel,:to,self)
+    if (! contained_channels.include?(channel))
+      _add_channel(channel)
+      activity(self.created_by,:added,channel,:to,self)
+    end
+  end
+  
+  def remove_channel(channel)
+    if (contained_channels.include?(channel))
+      contained_channels.delete(channel)
+      calculate_facts
+      
+      activity(self.created_by, :removed, channel, :to, self)
+    end
   end
 
   protected

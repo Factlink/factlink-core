@@ -11,6 +11,12 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 /*!
  * Bootstrap @VERSION
  *
@@ -1242,7 +1248,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   visibility: visible;
   padding: 5px;
   font-size: 11px;
-  z-index: 1000;
+  z-index: 60000;
   -moz-opacity: 80;
   -khtml-opacity: 80;
   -webkit-opacity: 80;
@@ -1719,7 +1725,7 @@ button,
 input,
 select,
 textarea {
-  font-family: sans-serif;
+  font-family: Arial, sans-serif;
   color: #222;
 }
 a {
@@ -1809,6 +1815,14 @@ sub {
   bottom: -0.25em;
 }
 /* =============================================================================
+Iconic font for icons
+========================================================================== */
+@font-face {
+  font-family: 'IconicStroke';
+  src: url("/fonts/iconic_stroke.eot");
+  src: local('IconicStroke'), url("/fonts/iconic_stroke.svg#iconic") format('svg'), url("/fonts/iconic_stroke.otf") format('opentype');
+}
+/* =============================================================================
 Lists
 ========================================================================== */
 ul, ol {
@@ -1834,6 +1848,3 @@ table {
 td {
   vertical-align: top;
 }
-/* =============================================================================
-Mixins
-========================================================================= */
