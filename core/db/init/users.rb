@@ -9,5 +9,4 @@ user "salvador", "salvador@factlink.com", "salvador123", "salvadorven"
 user "mark", "mark@factlink.com", "123hoi", "markijbema"
 user "joel", "joel@factlink.com", "joel123", "joelkuiper"
 user "luit", "luit@factlink.com", "luitwachtwoord", "LuitvD"
-user "batman", "batman@factlink.com", "testvoorsearch", "Batman"
 end
