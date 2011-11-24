@@ -10,7 +10,7 @@ fi
 
 echo "Usage: sh deploy.sh [stage]"
 echo "Default stage: testserver"
-echo "Available stages: testserver, production\n"
+echo "Available stages: testserver, staging, production\n"
 
 read -p "You will deploy to the $stage environment. Are you sure? [Y/n] "
 if [[ $REPLY =~ ^[Yy]$ ]]

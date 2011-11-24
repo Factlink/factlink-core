@@ -13,7 +13,6 @@ window.OwnChannelCollectionView = Backbone.View.extend({
     this.collection.bind('reset', this.render, this);
     
     this.containing_channels = currentChannel.get('containing_channels');
-    
   },
   
   addChannel: function(e) {
@@ -32,7 +31,7 @@ window.OwnChannelCollectionView = Backbone.View.extend({
         },
         type: "post",
         success: function(data) {
-          self.containing_channels.push(data.id);
+          currentChannel.get('containing_channels').push(data.id);
           
           currentUser.channels.add(data);
           
@@ -69,13 +68,16 @@ window.OwnChannelCollectionView = Backbone.View.extend({
     
     var $channelListing = this.el.find('ul');
     
-    _.each(self.containing_channels, function(containing_channel_id) {
-      self.collection.get(containing_channel_id).checked = true;
-    });
-    
     this.collection.each(function(channel) {
-      debugger;
       if ( channel.get('editable?') ) {
+        channel.checked = false;
+        
+        _.each(self.containing_channels, function(containing_channel_id) {
+          if ( channel.id === containing_channel_id ) {
+            channel.checked = true;
+          }
+        });
+        
         var view = new OwnChannelItemView({model: channel}).render();
 
         $channelListing.append(view.el);
