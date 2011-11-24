@@ -4,12 +4,9 @@ require 'active_support/core_ext/module/delegation'
 require_relative '../../app/ohm-models/activities.rb'
 require_relative '../../app/ohm-models/channel.rb'
 
-class Basefact < OurOhm
-end
-class Fact < Basefact
-end
-class GraphUser < OurOhm
-end
+class Basefact < OurOhm;end
+class Fact < Basefact;end
+class GraphUser < OurOhm;end
 
 def create_fact
   FactoryGirl.create :fact
