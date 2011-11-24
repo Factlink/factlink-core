@@ -5,6 +5,7 @@ else
   require "bundler/setup"
   require 'ohm'
   require 'active_model'
+  require 'andand'
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
@@ -15,7 +16,11 @@ else
   
     def self.root
       Pathname.new(File.expand_path('../../', __FILE__))
-    end  
+    end
+    
+    module VERSION
+      MAJOR=3
+    end
   end
 
 
