@@ -71,7 +71,7 @@ span.factlink {
         
 #fl {
   #fl > .resetStyles;
-  .unselectable;
+  .unselectable();
   height: 0;
   width: 0;
   
@@ -379,7 +379,7 @@ span.factlink {
       &:hover {
         background: @bg-color;
       }
-      
+      @channel-box-width: 140px;
       > .fl-channels {
         #fl > .resetStyles;
         
@@ -392,19 +392,17 @@ span.factlink {
         z-index: @z-index;
         position: absolute;
         top: 100%;
-        min-width: 111px;
-        max-width: 140px;
+        width: @channel-box-width;
         max-height: 160px;
-        overflow-y: auto;
         left: 0;
+        overflow-y: auto;
         .visible-scroll();
 
         li {
           #fl > .resetStyles;
           padding: 4px 0px;
-          width: 100%;
+          width: @channel-box-width - 20px;
           .ellipsis();
-          
           &.fl-loading {
             text-align: center;
             
@@ -417,8 +415,9 @@ span.factlink {
           }
 
           label {
-
             #fl > .resetStyles;
+            .ellipsis();
+            width: @channel-box-width - 20px;
             > input {
               #fl > .resetStyles;
               
