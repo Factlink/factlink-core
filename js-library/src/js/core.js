@@ -61,6 +61,13 @@ var Factlink = window.Factlink = (function() {
       }
     });
   };
+
+  Factlink.el.bind('libaryLoaded', function(){
+    if (Factlink !== undefined && FactlinkConfig !== undefined && FactlinkConfig.getFacts === true) {
+      Factlink.getTheFacts();
+    }
+  });
+
   
   Factlink.destroy = function() {
     for( var i = 0; i < Factlink.Facts.length; i++ ) {
