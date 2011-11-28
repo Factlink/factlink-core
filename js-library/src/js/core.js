@@ -51,7 +51,7 @@ var Factlink = window.Factlink = (function() {
         // If there are multiple matches on the page, loop through them all
         //TODO : dit mag pas on document ready
         
-        Factlink.Facts = [];
+        Factlink.destroy();
         
         for (i = 0; i < data.length; i++) {
           // Select the ranges (results)
@@ -66,6 +66,7 @@ var Factlink = window.Factlink = (function() {
     for( var i = 0; i < Factlink.Facts.length; i++ ) {
       Factlink.Facts[i].destroy();
     }
+    Factlink.Facts = [];
   };
   
   // Create the Factlink container
