@@ -35,7 +35,7 @@
     </div>
     
     <%#= TODO: SCROLL TO SEE WHERE TO PLACE THE SCRIPT %>
-    <a class="btn" href='javascript:(function(){var xhr=new XMLHttpRequest();xhr.open("get","<%= abs_url('/site/count/?url="+escape(window.location)') %>,true);xhr.onload=function(){var resp=JSON.parse(this.responseText);if(resp.blacklisted!==true){/*                                         YOU CAN LOAD THE LOADERSCRIPT HERE!                                    */} else {error();}};xhr.onerror=function(){error()};xhr.send(null);function error(){alert("The Factlink bookmarklet does not work on this page.")}})();'>Bookmarklet</a>
+    <a class="btn" href='javascript:<%= minify_js(render 'bookmarklet.js') %>'>Bookmarklet</a>
   </div>
   <% end %>
   

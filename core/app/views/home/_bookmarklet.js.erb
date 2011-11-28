@@ -1,0 +1,25 @@
+//IMPORTANT: please use only double quotes to delimit strings
+(function(){
+  var xhr=new XMLHttpRequest();
+  xhr.open("get","<%= abs_url '/site/count/' %>" + "?url="+escape(window.location),true);
+  xhr.onload=function(){
+    var resp=JSON.parse(this.responseText);
+    if(resp.blacklisted!==true){
+      var FactlinkConfig = {
+        modus: "default",
+        api: localStorage.api_url,
+        lib: localStorage.static_url + "/lib"
+      };
+      
+    } else {
+      error();
+    }
+  };
+  xhr.onerror=function(){
+    error();
+  };
+  xhr.send(null);
+  function error(){
+    alert("The Factlink bookmarklet does not work on this page.");
+  }
+})();
