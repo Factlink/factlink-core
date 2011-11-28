@@ -57,7 +57,7 @@ var Factlink = window.Factlink = (function() {
           // Select the ranges (results)
           $.merge( Factlink.Facts, Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage) );
         }
-        $(window).trigger('factlink.factsLoaded');
+        Factlink.el.trigger('factlink.factsLoaded');
       }
     });
   };
