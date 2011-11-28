@@ -131,7 +131,7 @@ var
 (function(i){
     // Load the script
     if ( dev[i] !== undefined ) {
-      console.info('loading' + dev[i]);
+      console.info('loading ' + dev[i]);
       $script(dev[i], i);
       var toCall = arguments.callee;
       $script.ready( i, function() {
