@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Factlink &mdash; helps people find credibility in the world's information</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="/stylesheets/landing.css">
+  <link rel="stylesheet" href="/stylesheets/grid.css">
+
+  <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
+  <!-- end CSS-->
+
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <%= javascript_include_tag "modernizr-2.0.6.min" %>
+  <%= csrf_meta_tag %>
+
+</head>
+
+<body class="factlink">
+
+  <header class="container append-bottom">
+  <div class="column span-20" id="logo">
+    <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
+  </div>
+  <div class="column prepend-2 last"><input type="submit" class="btn" value="Sign in"></div>
+  </header>
+
+  <div id="body">
+  <div class="container">
+    <div class="column append-1 span-16">
+      <div id="payoff" class="column span-15 clear">
+        <%= yield :payoff %>
+      </div>
+
+
+      <div id="selling-points" class="column span-7 prepend-top">
+        <%= yield :selling_points %>
+      </div>
+
+      <div id="movie" class="column push-1 last prepend-top">
+        <%= yield :movie %> 
+      </div>
+    </div>
+
+    <div class="column span-6 last">
+      <div id="signup" class="column span-6">
+        <%= yield :sign_up %>
+      </div>
+
+      <div id="top-facts" class="column prepend-top">
+        <%= yield :top_facts %>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <footer class="container">
+  <div class="column span-18">
+    © Copyright 2011 Factlink. All Rights Reserved. 
+  </div>
+  <div class="column">
+    <a href="#">Jobs</a> | <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+  </div>
+  </footer>
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
+
+  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
+  <%= javascript_include_tag "bootstrap-twipsy" %>
+  <%= javascript_include_tag "bootstrap-alert" %>
+  <%= javascript_include_tag "bootstrap-popover" %>
+  <%= javascript_include_tag "bootstrap-buttons" %>
+  <%= javascript_include_tag "raphael-min" %>
+  <%= javascript_include_tag "lib/jquery.mustache" %>
+  <%= javascript_include_tag "underscore.js" %>
+  
+	</script>
+	
+	<%= yield :template %>
+	
+	<%= yield :javascript %>
+	
+	
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7 ]>
+    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+
+</body>
+</html>
