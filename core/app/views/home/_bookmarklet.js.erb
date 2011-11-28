@@ -7,8 +7,9 @@
     if(resp.blacklisted!==true){
       var FactlinkConfig = {
         modus: "default",
-        api: localStorage.api_url,
-        lib: localStorage.static_url + "/lib"
+        api: "<%= FactlinkUI::Application.config.api_url %>",
+        lib: "<%= FactlinkUI::Application.config.static_url %>" + "lib",
+        getFacts: true
       };
       
     } else {
