@@ -98,12 +98,12 @@ module Facts
     end
 
     def scroll_to_link
-      show_links ? link_to(self.pretty_url, proxy_scroll_url, :target => "_blank") : self.pretty_url
+      show_links ? link_to(self.pretty_url, self[:fact].site.url, :target => "_blank") : self.pretty_url
     end
 
     def link
       displaystring = h self[:fact].data.displaystring
-      show_links ? link_to(displaystring, self[:fact].site.url, :target => "_blank") : displaystring
+      show_links ? link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
     end
     
     def user_opinion

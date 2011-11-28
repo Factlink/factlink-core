@@ -1,0 +1,75 @@
+@import "style.less";
+@import "bootstrap/forms.less";
+.factlink { 
+  a { 
+    color: @link-blue;
+  }
+  h1, h2, h3 { 
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    color: #303030;
+  }
+  h3 {
+    font-weight: bold;
+    font-size: 14pt;
+  }
+  h4 { 
+    font-weight: bold;
+    font-size: 12pt;
+  }
+  p, span, li, footer { 
+    font-family: Georgia, serif;
+    color: #505050;
+  }
+  #body { 
+    padding: 2.5em 0;
+    .inner-shadow(0, 1px, 2px, 0.1);
+    background-color: #f4f4f4;
+  }
+  header { 
+    padding: 1em;
+  }
+  #payoff { 
+    h2 { 
+      font-weight: bold;
+      font-size: 24pt;
+    }
+    p { 
+      margin-top: 0.25em;
+      font-size: 14pt;
+    }
+  }
+  #selling-points { 
+    ul li {
+      padding-top: 2em;
+      img { 
+        float: left;
+        margin-right: 1em;
+      }
+    }
+  }
+
+  #top-facts { 
+  }
+  #signup { 
+    background-color: #e9f2e2;
+    padding: 20px 20px 10px 20px;
+    .rounded(3px);
+    border: 1px solid #e2eed9;
+    p { 
+      font-size: 9pt;
+      padding-bottom: 1em;
+      margin-right: -0.5em;
+    }
+    input {
+      margin-bottom: 1em;
+    }
+    input[type=submit] {
+      float: right;
+      margin-right: 1em;
+    }
+  }
+  footer { 
+    border: none;
+    margin-top: 1em;
+  }
+}

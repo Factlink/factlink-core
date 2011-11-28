@@ -1,10 +1,17 @@
 module ApplicationHelper
   def image_url(source)
-    abs_path = image_path(source)
-    unless abs_path =~ /^http/
-      abs_path = "#{request.protocol}#{request.host_with_port}#{abs_path}"
+    abs_url(image_path(source))
+  end
+  
+  def javascript_url(source)
+    abs_url(javascript_path(source))
+  end
+  
+  def abs_url(path)
+    unless path =~ /^http/
+      path = "#{request.protocol}#{request.host_with_port}#{path}"
     end
-    abs_path
+    path
   end
 
   def template_as_string(filename)
