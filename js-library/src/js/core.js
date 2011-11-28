@@ -57,12 +57,12 @@ var Factlink = window.Factlink = (function() {
           // Select the ranges (results)
           $.merge( Factlink.Facts, Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage) );
         }
-        Factlink.el.trigger('factlink.factsLoaded');
+        $(window).trigger('factlink.factsLoaded');
       }
     });
   };
 
-  Factlink.el.bind('libaryLoaded', function(){
+  $(window).bind('factlink.libraryLoaded', function(){
     if (Factlink !== undefined && FactlinkConfig !== undefined && FactlinkConfig.getFacts === true) {
       Factlink.getTheFacts();
     }

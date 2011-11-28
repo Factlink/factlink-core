@@ -3,7 +3,7 @@
     $('body')._scrollable().scrollTo("span[data-factid="+fact_id+"]", 800);
   };
 
-  Factlink.el.bind('factlink.factsLoaded', function(){
+  $(window).bind('factlink.factsLoaded', function(){
     if (Factlink !== undefined && FactlinkConfig !== undefined && FactlinkConfig.scrollto) {
       // Get al the facts on the current page
       Factlink.scrollTo(FactlinkConfig.scrollto);
