@@ -86,58 +86,15 @@ domReady(function(){
 
 });
 
-var
-// List of scripts which should be loaded,
-    dev = [
-        [
-            window.FactlinkConfig.lib + '/build/jquery-1.6.1.js',
-            window.FactlinkConfig.lib + '/build/easyXDM/easyXDM.js',
-            window.FactlinkConfig.lib + '/build/underscore.js'
-        ],
-        [
-            window.FactlinkConfig.lib + '/src/js/core.js?' + (new Date()).getTime()
-        ],
-        [
-            window.FactlinkConfig.lib + '/build/jquery.scrollTo-1.4.2.js',
-            window.FactlinkConfig.lib + '/build/jquery.hoverintent.js',
-            window.FactlinkConfig.lib + '/src/js/models/fact.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/views/ballooney_thingy.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/views/balloon.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/views/prepare.js?' + (new Date()).getTime()
-        ],
-        [
-            window.FactlinkConfig.lib + '/src/js/replace.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/scrollto.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/search.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/create.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/modal.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/lib/indicator.js?' + (new Date()).getTime()
-        ],
-        [
-            window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
-        ],
-        [
-            window.FactlinkConfig.lib + '/src/js/last.js?' + (new Date()).getTime(),
-        ]
-    ],
-    // Method which is called when all scripts are loaded
-    onReady = function() {
-        console.info( "Factlink library loaded" );
-    };
-    
-// We use a self invoking anonymous function to load all the scripts 
-// needed.
-(function(i){
-    // Load the script
-    if ( dev[i] !== undefined ) {
-      console.info('loading ' + dev[i]);
-      $script(dev[i], i);
-      var toCall = arguments.callee;
-      $script.ready( i, function() {
-        toCall(i+1);
-      });
-    } else {
-      onReady();
-    }
-})(0);
+function loadLibraryTag(base_url){
+  // DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.async = false;
+  script.src = base_url + "/load_library.js?" + (new Date()).getTime();
+  return script;
+}
+
+
+document.head.insertBefore(loadLibraryTag(window.FactlinkConfig.lib + '/src/js'));
 })(window, document);
