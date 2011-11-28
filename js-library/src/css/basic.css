@@ -9,12 +9,6 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
-.unselectable {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
 /* Actual styles start */span.factlink {
   cursor: pointer;
   -webkit-transition: all 0.4s ease-out;
@@ -881,11 +875,10 @@ span.factlink.fl-active {
   z-index: 2147483644;
   position: absolute;
   top: 100%;
-  min-width: 111px;
-  max-width: 140px;
+  width: 140px;
   max-height: 160px;
-  overflow-y: auto;
   left: 0;
+  overflow-y: auto;
 }
 #fl .fl-popup .fl-share > .fl-channels:hover {
   border: solid 1px #555;
@@ -963,7 +956,7 @@ span.factlink.fl-active {
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
   padding: 4px 0px;
-  width: 100%;
+  width: 120px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1056,6 +1049,12 @@ span.factlink.fl-active {
   color: #000;
   font-family: Helvetica 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
   font-size: 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  width: 120px;
 }
 #fl .fl-popup .fl-share > .fl-channels li label > input {
   margin: 0;
