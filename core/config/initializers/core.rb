@@ -1,2 +1,2 @@
-proxy_conf = YAML::load_file(Rails.root.join('config/core.yml'))[Rails.env]['core']
-FactlinkUI::Application.config.api_url = proxy_conf['protocol'] + proxy_conf['hostname'] + ':' + proxy_conf['port'].to_s + '/'
+core_conf = YAML::load_file(Rails.root.join('config/core.yml'))[Rails.env]['core']
+FactlinkUI::Application.config.api_url = core_conf['protocol'] + core_conf['hostname'] + ':' + core_conf['port'].to_s + '/'
