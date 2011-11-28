@@ -19,9 +19,18 @@ testserver:
           username: proxyuser
           password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
 
+staging:
+    core:
+        hostname: staging.factlink.com
+        port: 443
+        protocol: https://
+        htpasswd:
+          username: proxyuser
+          password: "f;Y5irI:Is{[,[([Hx:4-JoWP#&usx-"
+
 production:
     core:
-        hostname: demo.factlink.com
+        hostname: beta.factlink.com
         port: 443
         protocol: https://
         htpasswd:

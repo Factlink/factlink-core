@@ -135,7 +135,7 @@ class Channel < OurOhm
   end
 
   def containing_channels_for(user)
-    containing_channels & self.class.active_channels_for(user)
+    self.class.active_channels_for(user) & containing_channels
   end
 
   def self.active_channels_for(user)
