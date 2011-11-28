@@ -51,6 +51,7 @@ module Channels
     end
     
     def containing_channels
+      return [] unless current_graph_user
       self[:channel].containing_channels_for(current_graph_user).ids
     end
   
