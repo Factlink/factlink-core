@@ -121,14 +121,6 @@ var
             window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime() 
         ]
     ],
-    demo = [
-        [
-            window.FactlinkConfig.lib + '/dist/factlink.js'
-        ],
-        [
-            window.FactlinkConfig.lib + '/dist/factlink.getfacts.js'
-        ]
-    ],
     // Method which is called when all scripts are loaded
     onReady = function() {
         console.info( "Factlink library loaded" );
