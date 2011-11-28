@@ -117,8 +117,7 @@ var
             window.FactlinkConfig.lib + '/src/js/xdm.js?' + (new Date()).getTime()
         ],
         [
-            window.FactlinkConfig.lib + '/src/js/getfacts.js?' + (new Date()).getTime(),
-            window.FactlinkConfig.lib + '/src/js/scripts/doscrolling.js?' + (new Date()).getTime() 
+            window.FactlinkConfig.lib + '/src/js/last.js?' + (new Date()).getTime(),
         ]
     ],
     // Method which is called when all scripts are loaded

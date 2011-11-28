@@ -42,7 +42,8 @@ function getServer(config) {
       api: config.API_URL,
       lib: config.LIB_URL,
       proxy: config.PROXY_URL,
-      url: site
+      url: site,
+      getFacts: true,
     };
 
     blacklist.if_allowed(site,function() {
