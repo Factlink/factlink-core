@@ -11,14 +11,14 @@
 */
 @import "style.less";
 /* ==|== primary styles =====================================================
-Author: 
+Author: Factlink 
 ========================================================================== */
 body {
-  background: rgb(238, 238, 238);
+  background: rgb(248, 248, 248);
 }
 body.factlink-site .fact-block,
 body.factlink-site div.user-block {
-  margin-bottom:15px
+  margin-bottom:10px
 }
 
 
@@ -44,11 +44,11 @@ body.factlink-site div.user-block {
     
     .gradient(#F5F5F5, #9cc221, #bada55);
 
-    border-radius: 3px;
+    .rounded(3px);
     border: solid 1px rgba(0, 0, 0, 0.25);
 
     cursor: pointer;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
+    box-shadox: 0px 1px 3px rgba(0, 0, 0, 0.35);
 
     &:active {
       .gradient(#F5F5F5, #9cc221, #9cc221);
@@ -61,7 +61,7 @@ body.factlink-site div.user-block {
 
       font-size: 1.1em;
       
-      border-radius: 2px;
+      .rounded(2px);
       border-top: solid 1px rgba(255, 255, 255, 0.55);
       border-bottom: solid 2px rgba(0, 0, 0, 0.10);
 
@@ -80,6 +80,29 @@ body.factlink-site div.user-block {
   }  
 }
 
+#feedback { 
+  position: fixed;
+  top: 160px;
+  @feedback-height: 20px;
+  padding: 0.3em 0.8em 0.3em 0.8em;
+  left:  -@feedback-height - 6px;
+  height: @feedback-height;
+  background-color: #ddd;
+  .rounded(3px);
+  border: 1px solid #333;
+  .rotation(270deg);
+  &:hover { 
+    background-color: #bbb;
+  }
+  a { 
+    display: block;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
 
 #top-bar {
   width: 100%;
@@ -96,19 +119,13 @@ body.factlink-site div.user-block {
     }
   }
 
-  ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-  }
-
   #application-notification {
     p {
       a {
-        opacity: 0.5;
+        .opacity(0.5);
 
         &:hover {
-          opacity: 1.0;
+          .opacity(1.0);
           cursor: pointer;
         }
       }
@@ -127,11 +144,11 @@ body.factlink-site div.user-block {
   }
 
   .transparent {
-    opacity: 0.3;
+    .opacity(0.3);
     -webkit-transition: all 0.04s ease-in-out ;	
 
     &:hover {
-      opacity: 1.0;
+      .opacity(1.0);
     }
   }
 
@@ -192,7 +209,7 @@ body.factlink-site div.user-block {
         border-radius: 3px;
         border: solid 1px #222;
         font-weight: 100;
-        box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+        .drop-shadow(0px 1px 0px rgba(255, 255, 255, 0.2));
 
         width: 138px;
         color: #eee;
@@ -290,7 +307,6 @@ body.factlink-site div.user-block {
             color: rgb(206, 0, 0);
           }
         }
-
         .wrapper {
           margin-left: 48px;
 
@@ -329,13 +345,13 @@ body.factlink-site div.user-block {
 
       min-height: 200px;
 
-      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.20);
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.60);
       position: relative;
       z-index: 100;
 
       header.title {
         margin: -15px -15px 15px -15px;
-        background-color: darken(#fff, 3%);
+        background-color: darken(#fff, 4%);
         padding: 10px 16px 6px 19px;
         border-bottom: 1px solid #d8d8d8;
         span.contained-channel-description { 
@@ -415,7 +431,6 @@ body.factlink-site div.user-block {
     }
     
     #facts_for_channel {
-      padding: 0 16px 16px 16px;
       div.loading {
         text-align: center;
         line-height: 100px;
@@ -432,7 +447,7 @@ body.factlink-site div.user-block {
       li {
         a {
           display: block;
-          border-radius: 2px;
+          .rounded(2px);
           padding: 5px;
           margin: 2px 0;
           color: #222;
@@ -515,10 +530,10 @@ body.factlink-site div.user-block {
     sub.new-channel {
       margin: 8px 0 0 0;		
       float: right;
-      opacity: 0.5;
+      .opacity(0.5);
 
       &:hover {
-        opacity: 1.0;
+        .opacity(1.0);
       }
     }
 
@@ -547,7 +562,7 @@ body.factlink-site div.user-block {
           height: 32px;
           width: 32px;
 
-          border-radius: 3px;
+          .rounded(3px);
 
           float: left;
           position: relative;
