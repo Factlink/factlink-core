@@ -5,13 +5,21 @@
   xhr.onload=function(){
     var resp=JSON.parse(this.responseText);
     if(resp.blacklisted!==true){
-      var FactlinkConfig = {
+      lib_url = "<%= FactlinkUI::Application.config.static_url %>" + "lib";
+      window.FactlinkConfig = {
         modus: "default",
         api: "<%= FactlinkUI::Application.config.api_url %>",
-        lib: "<%= FactlinkUI::Application.config.static_url %>" + "lib",
-        getFacts: true
+        lib: lib_url,
+          getFacts: true
       };
-      
+
+      //load the library
+      var script = document.createElement("script");
+      var head = document.getElementsByTagName("head")[0];
+      script.type = "text/javascript";
+      script.async = false;
+      script.src = lib_url + "/src/js/load_library.js?" + (new Date()).getTime();
+      head.insertBefore(script,head.firstChild);
     } else {
       error();
     }
@@ -24,3 +32,4 @@
     alert("The Factlink bookmarklet does not work on this page.");
   }
 })();
+
