@@ -2,11 +2,17 @@ window.AppView = Backbone.View.extend({
   el: $('#container'),
   
   initialize: function() {
-    this.channelCollectionView = new ChannelCollectionView({appView: this});
-    this.relatedUsersView = new RelatedUsersView({appView: this});
-    this.activitiesView = new ActivitiesView({appView: this});
+    this.channelCollectionView = new ChannelCollectionView({
+      collection: Channels
+    }).render();
+    
+    this.relatedUsersView = new RelatedUsersView();
+    
+    this.activitiesView = new ActivitiesView();
     
     this.setupChannelReloading();
+    
+    this.changeUser(currentChannel.user);
   },
   
   // TODO: This function needs to wait for loading (Of channel contents in main column)
@@ -43,5 +49,12 @@ window.AppView = Backbone.View.extend({
             .render();
     }
   },
+  
+  changeUser: function(user) {
+    if ( this.userView ) {
+      this.userView.close();
+    }
+    
+    this.userView = new UserView({model: user}).render();
   }
 });
