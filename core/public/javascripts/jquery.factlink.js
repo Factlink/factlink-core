@@ -577,9 +577,6 @@
         e.preventDefault();
       });
 
-      $fact.find(".opinion-box").find("img").twipsy({
-        placement: 'above'
-      });
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {
         $fact.data("wheel").opinions.each(function() {

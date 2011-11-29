@@ -42,10 +42,25 @@
 <body class="factlink">
 
   <header class="container append-bottom">
-  <div class="column span-20" id="logo">
-    <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
-  </div>
-  <div class="column prepend-2 last"><input type="submit" class="btn" value="Sign in"></div>
+
+    <div class="column span-6" id="logo">
+      <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
+    </div>
+
+    <div id="sign-in-form" class="prepend-4 span-14 last">
+      <% unless user_signed_in? %>
+      <%= form_for("user", :url => user_session_path) do |f| %>
+        <div class="input-fields">
+        <%= f.text_field :email, placeholder: "Email" %>
+        <%= f.password_field :password, placeholder: "Password" %>
+        <%= f.submit 'Sign in', class: 'btn' %>
+        </div>
+
+        <%= link_to "Forgot your password?", new_password_path('user') %>
+      <% end %>
+      <% end %>
+    </div>
+
   </header>
 
   <div id="body">
@@ -76,7 +91,7 @@
     </div>
   </div>
   </div>
-
+  
   <footer class="container">
   <div class="column span-18">
     © Copyright 2011 Factlink. All Rights Reserved. 

@@ -1875,7 +1875,7 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
   border-radius: 4;
-  border: solid 1px #e8e8e8;
+  border: solid 1px #ddd;
   color: #BBB;
   text-shadow: 0px 1px 0px white;
   margin-bottom: 0;
@@ -1886,7 +1886,6 @@ div.modal span.proxyWindow {
   opacity: 1;
 }
 .fact-block .controls {
-  border-bottom: solid 1px #ddd;
   background: #f5f5f5;
   border-top: solid 1px #eeeeee;
   min-height: 32px;

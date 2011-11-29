@@ -2106,8 +2106,7 @@ form .action-wrapper span {
   -moz-border-radius: 3px;
   border-radius: 3px;
   min-height: 200px;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ccc;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.35);
   position: relative;
   z-index: 100;
 }
