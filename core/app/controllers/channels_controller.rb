@@ -19,6 +19,7 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels
   def index
+    authorize! :index, Channel
     @channels = @user.graph_user.channels
     
     respond_to do |format|
@@ -29,6 +30,7 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/1
   def show
+    authorize! :show, @channel
     respond_to do |format|
       format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self,@user)}
       format.js
@@ -41,14 +43,18 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/new
   def new
     @channel = Channel.new
+    authorize! :new, @channel
   end
 
   # GET /:username/channels/1/edit
   def edit
+    authorize! :edit, @channel
   end
 
   # POST /:username/channels
   def create
+    authorize! :update, @user
+    
     @channel = Channel.new(params[:channel] || params.slice(:title))
     @channel.created_by = current_user.graph_user
     
@@ -88,6 +94,8 @@ class ChannelsController < ApplicationController
 
   # PUT /:username/channels/1
   def update
+    authorize! :update, @channel
+    
     channel_params = params[:channel] || params
     
     respond_to do |format|
@@ -105,6 +113,8 @@ class ChannelsController < ApplicationController
   
   # DELETE /:username/channels/1
   def destroy
+    authorize! :destroy, @channel
+    
     if @channel.created_by == current_user.graph_user
       @channel.delete
       
@@ -123,7 +133,9 @@ class ChannelsController < ApplicationController
     end
   end
   
-  def remove_fact 
+  def remove_fact
+    authorize! :update, @channel
+    
     @channel = Channel[params[:id]]
     @fact = Fact[params[:fact_id]]
 
@@ -134,6 +146,8 @@ class ChannelsController < ApplicationController
   end
 
   def toggle_fact
+    authorize! :update, @channel
+
     @channel  = Channel[params[:channel_id] || params[:id]]
     @fact     = Fact[params[:fact_id]]
     
@@ -154,6 +168,8 @@ class ChannelsController < ApplicationController
   end
   
   def related_users
+    authorize! :show, @channel
+    
     render layout: false, partial: "channels/related_users",
       locals: {
            related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
@@ -162,6 +178,7 @@ class ChannelsController < ApplicationController
   end
   
   def activities
+    authorize! :show, @channel
     render layout:false, partial: "channels/activity_list",
       locals: {
              channel: @channel
