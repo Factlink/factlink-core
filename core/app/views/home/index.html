@@ -33,25 +33,7 @@
 
 <% content_for :top_facts do %>
 <h3>Top factlinks</h3>
-<% unless user_signed_in? %>
-<div class="get-chrome-extension">
-  <span class="button-information">Use Factlink? Get the extension:</span>
-  
-  <div class="get-extension-wrapper">
-    <div class="get-extension-button">
-      <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">
-        <%= image_tag('arrow_down_16x16.png') %>
-        Chrome Extension
-      </a>
-    </div>
-  </div>
-  
-  <a href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a>
-</div>
 <% end %>
-
-<% end %>
-
 
 <% content_for :movie do %>
 <img src="/images/fact-wheel.png" alt="Facts">
