@@ -85,7 +85,7 @@
         <%= yield :sign_up %>
       </div>
 
-      <div id="top-facts" class="column prepend-top">
+      <div id="top-facts" class="column span-7 prepend-top">
         <%= yield :top_facts %>
       </div>
     </div>
@@ -93,7 +93,7 @@
   </div>
   
   <footer class="container">
-  <div class="column span-14">
+  <div class="column span-15">
     © Copyright 2011 Factlink. All Rights Reserved. 
   </div>
   <div class="column last">
@@ -112,15 +112,20 @@
   <%= javascript_include_tag "bootstrap-popover" %>
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "lib/jquery.mustache" %>
-  <%= javascript_include_tag "underscore.js" %>
-  
+  <%= javascript_include_tag "wheel" %>
+ 
 	</script>
 	
 	<%= yield :template %>
-	
+  <script>
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
 	<%= yield :javascript %>
-	
+
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
