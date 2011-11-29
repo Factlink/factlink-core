@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
     @channels = @user.graph_user.channels
     
     respond_to do |format|
-      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user)} }
+      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context,@user)} }
       format.js
     end
   end
@@ -47,7 +47,7 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1
   def show
     respond_to do |format|
-      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self,@user)}
+      format.json { render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context,@user)}
       format.js
       format.html do
         @channel.mark_as_read
@@ -82,7 +82,7 @@ class ChannelsController < ApplicationController
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
         
-        render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,self)
+        render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context)
         
         return
       end

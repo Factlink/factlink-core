@@ -17,7 +17,7 @@ class SubchannelsController < ChannelsController
     @contained_channels = @channel.contained_channels
     
     respond_to do |format|
-      format.json { render :json => @contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)} }
+      format.json { render :json => @contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)} }
     end
   end
   
@@ -25,7 +25,7 @@ class SubchannelsController < ChannelsController
     @channel.add_channel(@subchannel)
     
     respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)}, :location => @channel }
+      format.json { render :json => @channel.contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)}, :location => @channel }
     end
   end
   
@@ -33,7 +33,7 @@ class SubchannelsController < ChannelsController
     @channel.remove_channel(@subchannel)
     
     respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)}, :location => @channel }
+      format.json { render :json => @channel.contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)}, :location => @channel }
     end
   end
   
