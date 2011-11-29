@@ -46,7 +46,7 @@
     </div>
   </div>
   
-  <a class="btn" href='javascript:<%= minify_js(render 'bookmarklet.js') %>'>Bookmarklet</a>
+  <a href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a>
 </div>
 <% end %>
 

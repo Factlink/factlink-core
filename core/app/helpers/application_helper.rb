@@ -31,8 +31,14 @@ module ApplicationHelper
   
   def minify_js(s)
     res = s
-    res = res.gsub /\/\/[^\n]*\n/, ''
+    res = res.gsub /^\s*\/\/[^\n]*\n/, ''
     res = res.gsub /\s+/, ' '
+    res.html_safe
+  end
+  
+  def ensure_no_single_quotes(s)
+    raise "Please do not use single quotes here" if s.match /'/
+    s
   end
 end
 
