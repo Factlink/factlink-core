@@ -42,7 +42,6 @@
 <body class="factlink">
 
   <header class="container append-bottom">
-
     <div class="column span-6" id="logo">
       <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
     </div>
@@ -60,45 +59,43 @@
       <% end %>
       <% end %>
     </div>
-
   </header>
 
   <div id="body">
-  <div class="container">
-    <div class="column append-1 span-16">
-      <div id="payoff" class="column span-15 clear">
-        <%= yield :payoff %>
+    <div class="container">
+      <div class="column append-1 span-16">
+        <div id="payoff" class="column span-15 clear">
+          <%= yield :payoff %>
+        </div>
+
+        <div id="selling-points" class="column span-7 prepend-top">
+          <%= yield :selling_points %>
+        </div>
+
+        <div id="movie" class="column push-1 last prepend-top">
+          <%= yield :movie %> 
+        </div>
       </div>
 
+      <div class="column span-6 last">
+        <div id="signup" class="column span-6">
+          <%= yield :sign_up %>
+        </div>
 
-      <div id="selling-points" class="column span-7 prepend-top">
-        <%= yield :selling_points %>
-      </div>
-
-      <div id="movie" class="column push-1 last prepend-top">
-        <%= yield :movie %> 
+        <div id="top-facts" class="column prepend-top">
+          <%= yield :top_facts %>
+        </div>
       </div>
     </div>
-
-    <div class="column span-6 last">
-      <div id="signup" class="column span-6">
-        <%= yield :sign_up %>
-      </div>
-
-      <div id="top-facts" class="column prepend-top">
-        <%= yield :top_facts %>
-      </div>
-    </div>
-  </div>
   </div>
   
   <footer class="container">
-  <div class="column span-14">
-    &copy; Copyright 2011 Factlink. All Rights Reserved. 
-  </div>
-  <div class="column last">
-      <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a> |   <a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a> | <a href="#">Team</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
-  </div>
+    <div class="column span-14">
+      &copy; Copyright 2011 Factlink. All Rights Reserved. 
+    </div>
+    <div class="column last">
+        <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a> |   <a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a> | <a href="#">Team</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+    </div>
   </footer>
   <!-- JavaScript at the bottom for fast page loading -->
 
