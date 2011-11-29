@@ -17,6 +17,7 @@ class SubchannelsController < ChannelsController
   end
   
   def add
+    authorize! :update, @channel
     @channel.add_channel(@subchannel)
     
     respond_to do |format|
@@ -25,6 +26,7 @@ class SubchannelsController < ChannelsController
   end
   
   def remove
+    authorize! :update, @channel
     @channel.remove_channel(@subchannel)
     
     respond_to do |format|
