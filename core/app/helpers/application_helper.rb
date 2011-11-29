@@ -28,6 +28,13 @@ module ApplicationHelper
   def render_mustache(*args)
     render(*args).html_safe
   end
+  
+  def load_js_template(id, filename)
+    p = "<script type='text/html' id='#{id}'>"
+    p += template_as_string filename
+    p += "</script>"
+    p.html_safe
+  end
 end
 
 # http://stackoverflow.com/questions/4814631/how-to-disable-link-to-remote-funcation-after-click-made/7415741#7415741
