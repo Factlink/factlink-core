@@ -19,20 +19,29 @@ window.AppView = Backbone.View.extend({
     }, 7000);
   },
   
-  openChannel: function(username, channel) {
-    window.currentChannel = channel;
+  openChannel: function(channel) {
     var self = this;
+    var oldChannel = currentChannel;
     
-    if ( currentChannel ) {
-      this.channelView = new ChannelView({model: currentChannel}).render();
+    window.currentChannel = channel;
+    
+    if ( channel ) {
+      if ( channel.user.id !== oldChannel.user.id ) {
+        this.changeUser(channel.user);
+        
+        this.channelCollectionView.reload(currentChannel.id);
+      }
+      
+      this.channelView = new ChannelView({model: channel}).render();
       
       this.relatedUsersView
-            .setChannel(currentChannel)
+            .setChannel(channel)
             .render();
       
       this.activitiesView
-            .setChannel(currentChannel)
+            .setChannel(channel)
             .render();
     }
+  },
   }
 });
