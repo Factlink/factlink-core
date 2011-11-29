@@ -2508,6 +2508,7 @@ textarea[readonly] {
 }
 .factlink #top-facts ul li header .body a {
   color: #505050;
+  text-align: justify;
 }
 .factlink #top-facts ul li header .body span a {
   color: #5e8ba6;
@@ -2536,4 +2537,7 @@ textarea[readonly] {
   border: none;
   margin-top: 1em;
   margin-bottom: 128px;
+}
+.factlink footer a.bookmarklet {
+  cursor: move;
 }

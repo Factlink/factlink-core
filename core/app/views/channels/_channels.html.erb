@@ -1,16 +1,10 @@
-<% unless user.graph_user.channels.count > 0 %>
-	<p><%= user.username %> has no channels.</p>
-<% else %>
-	<ul id="channel-listing">
-	  <%# please enable this later to allow rails to already render %>
-	  <% false and user.graph_user.channels.each do |channel |%>
-	    <li>
-	      <%= render_mustache 'channels/single_menu_item', channel: channel%>
-	    </li>
-          <% end %>
-	</ul>
-<% end %>
+<ul id="channel-listing">
+  <%# please enable this later to allow rails to already render %>
+  <% false and user.graph_user.channels.each do |channel |%>
+    <li>
+      <%= render_mustache 'channels/single_menu_item', channel: channel%>
+    </li>
+  <% end %>
+</ul>
 
-<% if can? :update, user %>
-    <%= render "channels/add_channel" %>
-<% end %>
+<%= link_to("Add new channel", new_channel_path(current_user.username), :class => "btn small add-channel") %>

@@ -29,6 +29,13 @@ module ApplicationHelper
     render(*args).html_safe
   end
   
+  def load_js_template(id, filename)
+    p = "<script type='text/html' id='#{id}'>"
+    p += template_as_string filename
+    p += "</script>"
+    p.html_safe
+  end
+  
   def minify_js(s)
     res = s
     res = res.gsub /^\s*\/\/[^\n]*\n/, ''

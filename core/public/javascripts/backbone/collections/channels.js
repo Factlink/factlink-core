@@ -22,7 +22,9 @@ window.ChannelList = Backbone.Collection.extend({
     if ( this.activeChannelId ) {
       var activeChannel = this.get(this.activeChannelId);
       
-      activeChannel.trigger('activate', activeChannel);
+      if ( activeChannel ) {
+        activeChannel.trigger('activate', activeChannel);
+      }
     }
   }
 });

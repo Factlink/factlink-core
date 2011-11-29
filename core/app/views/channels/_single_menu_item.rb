@@ -34,6 +34,10 @@ module Channels
       self[:channel].type
     end
     
+    def created_by
+      Users::User.for_user(self[:channel].created_by, self.view)
+    end
+    
     def show_subchannels?
       editable? || followable?
     end
@@ -78,6 +82,7 @@ module Channels
                       :title => title,
                   :edit_link => edit_link,
                   :new_facts => new_facts,
+                 :created_by => created_by,
                 :followable? => followable?,
                   :editable? => editable?,
                 :nr_of_facts => nr_of_facts,

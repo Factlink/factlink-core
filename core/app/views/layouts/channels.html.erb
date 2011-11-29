@@ -2,7 +2,6 @@
 <% end %>
 
 <% content_for :left_column do %>
-  <%= render "users/user_li", user: @user %>
   <%= render "channels/channels", user: @user %>
 <% end %>
 
@@ -23,6 +22,7 @@
 
 <% content_for :javascript do %>
 
+  <%= javascript_include_tag "backbone/contrib.js" %>
   <%= javascript_include_tag "backbone/models/channel.js" %>
   <%= javascript_include_tag "backbone/models/user.js" %>
   <%= javascript_include_tag "backbone/models/subchannel.js" %>
@@ -39,19 +39,26 @@
   <%= javascript_include_tag "backbone/views/own_channel_collection_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_view.js" %>
+  <%= javascript_include_tag "backbone/views/user_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_app_view.js" %>
   <%= javascript_include_tag "backbone/router.js" %>
 
   <script>
-    var Router = new Workspace();
-
-    Backbone.history.start({pushState:true, silent:true});
-
     Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user) }.to_json.html_safe %>);
     
-    window.currentUser = new User(<%= current_user.to_json.html_safe %>);
+    <% if current_user %>
+      window.currentUser = new User(<%= Users::User.for_user(current_graph_user, self).to_json.html_safe %>);
+
+      window.currentUser.setChannels(new OwnChannelList(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
+    <% end %>
     
-    window.currentUser.setChannels(new OwnChannelList(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
+    <% if @channel %>
+      window.currentChannel = Channels.get(<%= @channel.id %>);
+    <% end %>
+    
+    var Router = new Workspace();
+    Backbone.history.start({pushState:true, silent:true});
+    
   </script>
 
   <script>
@@ -70,25 +77,12 @@
 <% end %>
 
 <% content_for :template do %>
-  <script type="text/html" id="channel_li">
-    <%= template_as_string "channels/_single_menu_item.html.mustache" %>
-  </script>
-  
-  <script type="text/html" id="channel_overview">
-    <%= template_as_string "channels/_channel.html.mustache" %>
-  </script>
-  
-  <script type="text/html" id="subchannel_li">
-    <%= template_as_string "subchannels/_subchannel_item.html.mustache" %>
-  </script>
-  
-  <script type="text/html" id="own_channels_collection">
-    <%= template_as_string "channels/_own_channel_listing.html.mustache" %>
-  </script>
-  
-  <script type="text/html" id="own_channel_li">
-    <%= template_as_string "channels/_own_channel.html.mustache" %>
-  </script>
+  <%= load_js_template "user_block_tmpl",         "users/_user.html.mustache" %>
+  <%= load_js_template "channel_li",              "channels/_single_menu_item.html.mustache" %>
+  <%= load_js_template "channel_overview",        "channels/_channel.html.mustache" %>
+  <%= load_js_template "subchannel_li",           "subchannels/_subchannel_item.html.mustache" %>
+  <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
+  <%= load_js_template "own_channel_li",          "channels/_own_channel.html.mustache" %>
 <% end %>
 
 <%= render :template => 'layouts/frontend' %>

@@ -20,7 +20,7 @@ window.ChannelView = Backbone.View.extend({
   },
   
   initAddToFact: function() {
-    if ( this.el.find('#add_to_channel') ) {
+    if ( this.el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
       this.ownChannelView = new OwnChannelCollectionView({
         collection: currentUser.channels,
         el: this.el.find('#follow-channel')
