@@ -35,6 +35,18 @@ module ApplicationHelper
     p += "</script>"
     p.html_safe
   end
+  
+  def minify_js(s)
+    res = s
+    res = res.gsub /^\s*\/\/[^\n]*\n/, ''
+    res = res.gsub /\s+/, ' '
+    res.html_safe
+  end
+  
+  def ensure_no_single_quotes(s)
+    raise "Please do not use single quotes here" if s.match /'/
+    s
+  end
 end
 
 # http://stackoverflow.com/questions/4814631/how-to-disable-link-to-remote-funcation-after-click-made/7415741#7415741

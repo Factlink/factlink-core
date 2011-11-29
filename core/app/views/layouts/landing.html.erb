@@ -22,8 +22,7 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="/stylesheets/frontend.css">
-  <link rel="stylesheet" href="/stylesheets/bubble.css">
+  <link rel="stylesheet" href="/stylesheets/landing.css">
   <link rel="stylesheet" href="/stylesheets/grid.css">
 
   <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
@@ -40,99 +39,93 @@
 
 </head>
 
-<body class="factlink-site">
+<body class="factlink">
 
-	<div id="top-bar">
-		<div class="container">
-
-			<div id="factlink-logo" class="span-4">
-				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
-			</div>
-
-			<div class="span-14">
-        <%= render "facts/fact_search" %>
-			</div>
-			
-			<div class="span-6 last">
-					<%= render "users/account_block" %>
-			</div>
-
-		</div>
-	</div>
-
-
-  <div id="container" class="container">
-    
-		<!-- notifications -->
-		<% if alert || notice %>
-		<div class="alert-message <%= alert ? "error" : "warning" %> push-4 span-13">
-      <a class="close" href="#">x</a>
-      	<% if notice %>
-  				<%= notice %>
-  			<% end %>
-  			<% if alert %>
-  				<%= alert %>
-  		<% end %>
+  <header class="container append-bottom">
+    <div class="column span-6" id="logo">
+      <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
     </div>
-    <% end %>
-	
-    <section id="header" class="span-24 append-bottom">
-			<%= yield :header %>
-    </section>
 
+    <div id="sign-in-form" class="prepend-4 span-14 last">
+      <% unless user_signed_in? %>
+      <%= form_for("user", :url => user_session_path) do |f| %>
+        <div class="input-fields">
+        <%= f.text_field :email, placeholder: "Email" %>
+        <%= f.password_field :password, placeholder: "Password" %>
+        <%= f.submit 'Sign in', class: 'btn' %>
+        </div>
 
-		<section id="left-column" class="span-4 side-column">
-			<%= yield :left_column %>
-		</section>
+        <%= link_to "Forgot your password?", new_password_path('user') %>
+      <% end %>
+      <% end %>
+    </div>
+  </header>
 
-		<section id="main-column" class="span-14" role="main">  
-			<section id="main-wrapper">
-			  <%= yield :main_column %>
-			</section>
-		</section>
+  <div id="body">
+    <div class="container">
+      <div class="column append-1 span-16">
+        <div id="payoff" class="column span-15 clear">
+          <%= yield :payoff %>
+        </div>
 
-    <section id="right-column" class="span-6 last side-column">
-      <%= yield :right_column %>      
-    </section>
-   
-    <div id="feedback">
-      <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
+        <div id="selling-points" class="column span-7 prepend-top">
+          <%= yield :selling_points %>
+        </div>
+
+        <div id="movie" class="column push-1 last prepend-top">
+          <%= yield :movie %> 
+        </div>
+      </div>
+
+      <div class="column span-6 last">
+        <div id="signup" class="column span-6">
+          <%= yield :sign_up %>
+        </div>
+        <div id="top-facts" class="column span-7 prepend-top">
+          <%= yield :top_facts %>
+        </div>
+      </div>
     </div>
   </div>
-
-
+  
+  <footer class="container">
+    <div class="column span-14">
+      &copy; Copyright 2011 Factlink. All Rights Reserved. 
+    </div>
+    <div class="column last">
+        <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a> |   <a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a> | <a href="#">Team</a> | <a href="#">Privacy</a> | <a href="#">Contact</a>
+    </div>
+  </footer>
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
-	<%= javascript_include_tag "rails" %>
   <%= javascript_include_tag "jquery.hoverIntent.minified" %>
   <%= javascript_include_tag "bootstrap-twipsy" %>
   <%= javascript_include_tag "bootstrap-alert" %>
   <%= javascript_include_tag "bootstrap-popover" %>
   <%= javascript_include_tag "bootstrap-buttons" %>
-  <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
-  <%= javascript_include_tag "jquery.factlink" %>
-  <%= javascript_include_tag("jquery.infiniScroll") %>
-  <%= javascript_include_tag "jquery.jeditable.mini" %>
-  <%= javascript_include_tag "lib/jquery.mustache" %>
-  <%= javascript_include_tag "underscore.js" %>
-  <%= javascript_include_tag "backbone.js" %>
-	<%= javascript_include_tag "evidence_search" %>
-  
+ 
+	</script>
+	
 	<script>
-		$(".fact-block").factlink();
-    $(".alert-message").alert();
+	$('.bookmarklet').twipsy();
 	</script>
 	
 	<%= yield :template %>
-	
+  <script>
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
 	<%= yield :javascript %>
-	
+
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->

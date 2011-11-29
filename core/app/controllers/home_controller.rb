@@ -7,9 +7,11 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
         redirect_to user_profile_path(@current_user.username)
+    else 
+      @facts = Fact.all.sort(:order => "DESC",:limit => 3)
+      render layout: "landing"
     end
-    @facts = Fact.all.sort(:order => "DESC",:limit => 10)
-  end
+ end
 
   # Search
   # Not using the same search for the client popup, since we probably want\

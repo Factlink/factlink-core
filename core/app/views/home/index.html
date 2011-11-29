@@ -1,42 +1,47 @@
-<% content_for :header do %>
-	<% if user_signed_in? %>
-		<% unless current_user.graph_user.channels.count > 0 %>
-		  <p>Did you know you can use channels to manage your facts? Start <%= link_to('adding channels', new_channel_path(current_user.username)) %> here.</p>
-		<% end %>	
-	<% end %>
+<% content_for :payoff do %>
+<h2>&#10003; Credibility you can see</h2>
+<p> Factlink helps people find credibility in the world's information. It transforms pieces of information from web documents into dynamic channels of information.</p>
+
 <% end %>
 
-<% content_for :left_column do %>
-	<%= render "user_and_factlink_information" %>
+<% content_for :sign_up do %>
+<h4>Sign up for the beta</h4>
+<p>Sign up for our beta and you’ll be the first in line for a beta account when we release it.</p>
+<form>
+  <input type="text" class="span4" placeholder="First name">
+  <input type="text" class="span4" placeholder="Email">
+  <br>
+  <input type="submit" class="btn success" value="Sign up">
+  <br>
+  <br>
+</form>
+
 <% end %>
 
 
-<% content_for :main_column do %>
-	<header class="append-bottom">
-		<h1>Recent facts</h1>
-	</header>
+<% content_for :selling_points do %>
+<h3>Why use factlink</h3>
+<ul>
+  <li><img src="images/chart.png" alt=""> Factlink provides immediate access to the state of knowledge.</li>
+  <li><img src="images/people.png" alt=""> You can crowdsource with people to find more credibility in information.</li>
+  <li><img src="images/globe.png" alt=""> Create a community where information is gathered and bundled.</li>
+  <li><img src="images/money.png" alt=""> Oh, did we mention it’s <em>completely free?</em></li>
+</ul>
 
-	<%= render "facts/fact_listing", facts: @facts %>
 <% end %>
 
-<% content_for :right_column do %>
 
-  <% unless user_signed_in? %>
-	<div class="get-chrome-extension">
-    <span class="button-information">Use Factlink? Get the extension:</span>
-    
-    <div class="get-extension-wrapper">
-      <div class="get-extension-button">
-        <a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">
-          <%= image_tag('arrow_down_16x16.png') %>
-          Chrome Extension
-        </a>
-      </div>
-    </div>
-    
-    <%#= TODO: SCROLL TO SEE WHERE TO PLACE THE SCRIPT %>
-    <a class="btn" href='javascript:(function(){var xhr=new XMLHttpRequest();xhr.open("get","<%= abs_url('/site/count/?url="+escape(window.location)') %>,true);xhr.onload=function(){var resp=JSON.parse(this.responseText);if(resp.blacklisted!==true){/*                                         YOU CAN LOAD THE LOADERSCRIPT HERE!                                    */} else {error();}};xhr.onerror=function(){error()};xhr.send(null);function error(){alert("The Factlink bookmarklet does not work on this page.")}})();'>Bookmarklet</a>
-  </div>
-  <% end %>
-  
+<% content_for :top_facts do %>
+<h3>Top factlinks</h3>
+  <ul>
+  <% @facts.each do |fact|  %>
+    <li><%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => false, :form_authenticity_token => form_authenticity_token %></li>
+    <% end %>
+  </ul>
+ <% end %>
+
+<% content_for :movie do %>
+<img src="/images/fact-wheel.png" id="movie-container" alt="Facts">
 <% end %>
+
+

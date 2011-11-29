@@ -14,13 +14,7 @@ class ChannelsController < ApplicationController
       :related_users,
       :activities]
   
-  before_filter :authenticate_user!,
-    :except => [
-      :index,
-      :show,
-      :facts,
-      :related_users
-      ]
+  before_filter :authenticate_user!
     
   before_filter :is_authorized?,
     :except => [
