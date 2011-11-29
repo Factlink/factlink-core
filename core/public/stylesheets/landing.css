@@ -2536,6 +2536,7 @@ textarea[readonly] {
 .factlink footer {
   border: none;
   margin-top: 1em;
+  margin-bottom: 128px;
 }
 .factlink footer a.bookmarklet {
   cursor: move;
