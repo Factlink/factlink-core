@@ -35,8 +35,8 @@ class SubchannelsController < ChannelsController
   end
   
   private
-  def load_subchannel
-    @subchannel = Channel[params[:subchannel_id]]
-    @subchannel || raise_404("Subchannel not found")
-  end
+    def load_subchannel
+      @subchannel = Channel[params[:subchannel_id]]
+      @subchannel || raise_404("Subchannel not found")
+    end
 end
