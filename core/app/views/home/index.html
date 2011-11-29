@@ -33,10 +33,15 @@
 
 <% content_for :top_facts do %>
 <h3>Top factlinks</h3>
-<% end %>
+  <ul>
+  <% @facts.each do |fact|  %>
+    <li><%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => false, :form_authenticity_token => form_authenticity_token %></li>
+    <% end %>
+  </ul>
+ <% end %>
 
 <% content_for :movie do %>
-<img src="/images/fact-wheel.png" alt="Facts">
+<img src="/images/fact-wheel.png" id="movie-container" alt="Facts">
 <% end %>
 
 
