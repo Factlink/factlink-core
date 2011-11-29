@@ -2472,6 +2472,46 @@ textarea[readonly] {
 .factlink #selling-points ul li img {
   float: left;
   margin-right: 1em;
+  height: 31px;
+}
+.factlink #movie-container {
+  width: 307px;
+  height: 307px;
+}
+.factlink #top-facts ul li {
+  padding-bottom: 1em;
+}
+.factlink #top-facts ul li:not(:last-child) {
+  border-bottom: 1px solid #dbdbdb;
+}
+.factlink #top-facts ul li:not(:first-child) {
+  border-top: 1px solid #ffffff;
+}
+.factlink #top-facts ul li .wheel {
+  float: left;
+}
+.factlink #top-facts ul li header {
+  margin-left: 55px;
+  padding-top: 10px;
+}
+.factlink #top-facts ul li header .head, .factlink #top-facts ul li header sub {
+  display: block;
+  width: 205px;
+  font-size: 8pt;
+  font-family: "Helvetica" sans-serif;
+  color: #888;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+.factlink #top-facts ul li header .body a {
+  color: #505050;
+  text-align: justify;
+}
+.factlink #top-facts ul li header .body span a {
+  color: #5e8ba6;
 }
 .factlink #signup {
   background-color: #e9f2e2;
@@ -2496,7 +2536,6 @@ textarea[readonly] {
 .factlink footer {
   border: none;
   margin-top: 1em;
-  margin-bottom: 128px;
 }
 .factlink footer a.bookmarklet {
   cursor: move;

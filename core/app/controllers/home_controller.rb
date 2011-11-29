@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     if user_signed_in?
         redirect_to user_profile_path(@current_user.username)
     else 
-      @facts = Fact.all.sort(:order => "DESC",:limit => 10)      
+      @facts = Fact.all.sort(:order => "DESC",:limit => 3)
       render layout: "landing"
     end
  end

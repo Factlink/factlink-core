@@ -74,11 +74,49 @@
       img { 
         float: left;
         margin-right: 1em;
+        height: 31px;
       }
     }
   }
 
+  #movie-container {
+    width: 307px;
+    height: 307px;
+  }
   #top-facts { 
+    ul li { 
+      padding-bottom: 1em;
+      &:not(:last-child) { 
+        border-bottom: 1px solid #dbdbdb;
+      }
+      &:not(:first-child) { 
+        border-top: 1px solid #ffffff;
+      }
+      .wheel { 
+        float: left;
+      }
+      header { 
+        margin-left: 55px;
+        padding-top: 10px;
+        .head, sub { 
+          display: block;
+          width: 205px;
+          font-size: 8pt;
+          font-family: "Helvetica" sans-serif;
+          color: #888;
+          .ellipsis();          
+        }
+        .body {
+          a { 
+            color: #505050;
+            text-align: justify;          
+          }
+          span a { 
+            color: @link-blue;
+          }
+        }
+      }
+    }
   }
   #signup { 
     background-color: #e9f2e2;
