@@ -16,17 +16,6 @@ class ChannelsController < ApplicationController
   
   before_filter :authenticate_user!
     
-  before_filter :is_authorized?,
-    :except => [
-      :index,
-      :show,
-      :new,
-      :create,
-      :facts,
-      :follow,
-      :related_users,
-      :activities,
-    ]
 
   # GET /:username/channels
   def index
@@ -180,9 +169,6 @@ class ChannelsController < ApplicationController
   end
   
   private
-  def is_authorized?
-    @user == current_user || raise_403("Unauthorized")
-  end
   
   def get_user
     if params[:username]
