@@ -63,4 +63,9 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new(message)
   end
   
+  # DEPRECATE
+  def raise_403(message="Not allowed")
+    raise ActionController::RoutingError.new(message)
+  end
+  
 end
