@@ -356,6 +356,7 @@ body.factlink-site div.user-block {
         border-bottom: 1px solid #d8d8d8;
         span.contained-channel-description { 
           font-size: 8pt;
+          display: none;
         }
         h1 { 
           .ellipsis();
@@ -365,17 +366,20 @@ body.factlink-site div.user-block {
         }
         a { 
           float: right;
+          display: block;
         }
         p { 
           margin: 0 0 6px 0;
         }
-        .more-button { 
+        .more { 
           width: 100%;
-          float: none;
-          display: block;
           text-align: center;
+        }
+        #more-button {
+          float: none;
+          display: none;
           &:hover { 
-            text-decoration: none;          
+            text-decoration: none;
           }
 
           .label {
@@ -385,7 +389,9 @@ body.factlink-site div.user-block {
           }
         }
         #contained-channels { 
-          display: none;
+          .overflow { 
+            display: none;
+          }
         }
         #contained-channel-list { 
           display: block;
