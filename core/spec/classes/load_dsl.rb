@@ -32,26 +32,13 @@ describe LoadDsl do
     Channel.all.size.should == 2+2+2
   end
 
-  it "should work" do
-    subject.run do
-      user "merijn", "merijn@gmail.com", "123hoi", "merijn481"
-      user "tom", "tom@codigy.nl", "123hoi", "tomdev"
-    end
-    subject = LoadDsl.new
-    subject.run do
-      user "merijn", "merijn@gmail.com", "123hoi", "merijn481"
-      user "tom", "tom@codigy.nl", "123hoi", "tomdev"
-      user "jordin", "jordin@factlink.com", "123hoi", "vanzwoljj"
-      user "remon", "remon@factlink.com", "123hoi", "R51"
-      user "salvador", "salvador@factlink.com", "123hoi", "salvadorven"
-      user "mark", "mark@factlink.com", "123hoi", "markijbema"
-      user "joel", "joel@factlink.com", "123hoi", "joelkuiper"
-      user "luit", "luit@factlink.com", "123hoi", "LuitvD"
-
-
-      user "tom"
-        fact "foo"
-    end
+  it "should throw an error if a user with a non-unique email is added" do
+    expect do
+      subject.run do
+        user "tom", "tom@codigy.nl", "123hoi", "tomdev"
+        user "tomdev", "tom@codigy.nl", "123hoi", "tomdev"
+      end
+    end.to raise_error
   end
 
 end
