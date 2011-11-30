@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../../db/load_dsl.rb'
 
 describe FactGraph do
 

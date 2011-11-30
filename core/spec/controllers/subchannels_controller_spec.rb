@@ -29,9 +29,7 @@ describe SubchannelsController do
       ch.created_by = otheruser.graph_user
       ch.save
     end
-    @ability = Object.new
-    @ability.extend(CanCan::Ability)
-    subject.should_receive(:current_ability).any_number_of_times.and_return(@ability)
+    get_ability
   end
   
   describe "#index" do
@@ -44,7 +42,7 @@ describe SubchannelsController do
   describe "#add" do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
-      @ability.should_receive(:authorize!).with(:update, ch1)
+      should_check_can :update, ch1
       post :add, username: user.username, id: ch1.id, subchannel_id: subch1.id, format: 'json'
       response.should be_success
     end

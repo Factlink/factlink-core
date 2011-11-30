@@ -3,13 +3,7 @@ class FactsController < ApplicationController
   layout "client"
 
   respond_to :json, :html
-
   
-  before_filter :authenticate_user!, 
-    :except => [
-      :show,
-      :intermediate]
-
   before_filter :load_fact, 
     :only => [
       :show,
@@ -31,6 +25,7 @@ class FactsController < ApplicationController
 
 
   def show
+    authorize! :read, @fact
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
@@ -49,6 +44,7 @@ class FactsController < ApplicationController
 
   def create
     @fact = create_fact(params[:url], params[:fact], params[:title])
+    authorize! :create, @fact
     
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
@@ -67,6 +63,7 @@ class FactsController < ApplicationController
   end
   
   def get_channel_listing
+    authorize! :index, Channel
     @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
@@ -75,6 +72,7 @@ class FactsController < ApplicationController
   end
 
   def create_fact_as_evidence
+    authorize! :create, FactRelation
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
@@ -83,6 +81,7 @@ class FactsController < ApplicationController
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
   def add_evidence_internal(type)
+    authorize! :add_evidence, @fact
     add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
   end
 
@@ -136,11 +135,10 @@ class FactsController < ApplicationController
     # Strip first six characters to find the ID
     id = params[:id].slice(6..(params[:id].length - 1))
     @fact = Fact[id]
+    authorize! :update, @fact
 
-    if current_user.graph_user == @fact.created_by      
-      @fact.data.title = params[:value]
-      @fact.data.save
-    end
+    @fact.data.title = params[:value]
+    @fact.data.save
     
     render :text => @fact.data.title
   end
@@ -153,6 +151,7 @@ class FactsController < ApplicationController
   def set_opinion
     type = params[:type].to_sym
     @fact = Basefact[params[:id]]
+    authorize! :opinionate, @fact
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
     render json: [@fact]
@@ -160,6 +159,7 @@ class FactsController < ApplicationController
 
   def remove_opinions
     @fact = Basefact[params[:id]]
+    authorize! :opinionate, @fact
     @fact.remove_opinions(current_user.graph_user)
     @fact.calculate_opinion(2)
     render json: [@fact]
