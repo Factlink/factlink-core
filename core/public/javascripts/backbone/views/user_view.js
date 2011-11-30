@@ -17,6 +17,6 @@ window.UserView = Backbone.View.extend({
   },
   
   clickHandler: function(e) {
-    Router.navigate(this.model.get('username') + "/channels/" + this.model.get('all_channel_id'), true);
+    Router.navigate(this.model.url(), true);
   }
 });
