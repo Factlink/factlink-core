@@ -14,7 +14,8 @@ window.ChannelView = Backbone.View.extend({
     if ( this.el.find('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
         collection: this.subchannels,
-        el: this.el.find('#contained-channel-list')
+        el: this.el.find('#contained-channel-list'),
+        container: this.el
       });
     }
   },

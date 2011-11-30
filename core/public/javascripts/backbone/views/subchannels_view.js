@@ -29,9 +29,13 @@ window.SubchannelsView = Backbone.View.extend({
     });
 
     var count = 0;
-    if(this.collection.size() > 3) {
+
+    var subchannelSize = this.collection.size();
+    if(subchannelSize !== 0) { $(container).find('.contained-channel-description').show(); } 
+    if(subchannelSize > 3) {
       $("#more-button").show();
     }
+
     this.collection.each(function(subchannel) {
       self.addOneSubchannel.call(self, subchannel, count);
       count++;
