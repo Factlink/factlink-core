@@ -17,15 +17,15 @@ class SitesController < ApplicationController
   end
   
   private
-  def retrieve_facts_for_url(url)
-    url = params[:url]
-    site = Site.find(:url => url).first
-    return site ? site.facts.to_a : []
-  end
-  
-  def check_blacklist
-    if Blacklist.default.matches? params[:url]
-      render :json => { :blacklisted => true }, :callback => params[:callback], :content_type => "application/javascript"
+    def retrieve_facts_for_url(url)
+      url = params[:url]
+      site = Site.find(:url => url).first
+      return site ? site.facts.to_a : []
     end
-  end
+  
+    def check_blacklist
+      if Blacklist.default.matches? params[:url]
+        render :json => { :blacklisted => true }, :callback => params[:callback], :content_type => "application/javascript"
+      end
+    end
 end
