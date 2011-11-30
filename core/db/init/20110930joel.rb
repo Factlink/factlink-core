@@ -1,6 +1,6 @@
 # coding: utf-8
 
-load_fact_data do
+LoadDsl.load do
 
 user "merijn", "merijn@gmail.com", "123hoi", "merijn481"
 user "tomdev", "tom@codigy.nl", "123hoi", "tomdev"

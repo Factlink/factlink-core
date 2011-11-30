@@ -7,11 +7,6 @@ class SubchannelsController < ChannelsController
     :except => [
       :index,
     ]
-    
-  before_filter :is_authorized?,
-    :except => [
-      :index,
-    ]
       
   def index
     @contained_channels = @channel.contained_channels
@@ -22,6 +17,7 @@ class SubchannelsController < ChannelsController
   end
   
   def add
+    authorize! :update, @channel
     @channel.add_channel(@subchannel)
     
     respond_to do |format|
@@ -30,6 +26,7 @@ class SubchannelsController < ChannelsController
   end
   
   def remove
+    authorize! :update, @channel
     @channel.remove_channel(@subchannel)
     
     respond_to do |format|
@@ -38,12 +35,8 @@ class SubchannelsController < ChannelsController
   end
   
   private
-  def is_authorized?
-    @user == current_user || raise_403("Unauthorized")
-  end
-  
-  def load_subchannel
-    @subchannel = Channel[params[:subchannel_id]]
-    @subchannel || raise_404("Subchannel not found")
-  end
+    def load_subchannel
+      @subchannel = Channel[params[:subchannel_id]]
+      @subchannel || raise_404("Subchannel not found")
+    end
 end

@@ -200,68 +200,68 @@ class FactsController < ApplicationController
   
 
   private
-  def sort_column # private
-    FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-  end
+    def sort_column
+      FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
 
-  def sort_direction # private
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
 
-  def potential_evidence # private
-    # TODO Fix this very quick please. Nasty way OhmModels handles querying\
-    # and filtering. Can't use the object ID, so using a workaround with :data_id's
-    # Very nasty :/
-    supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.from_fact.data_id }
-    weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.from_fact.data_id }
-    intersecting_ids = supporting_fact_ids & weakening_fact_ids
-    intersecting_ids << @fact.data_id
+    def potential_evidence
+      # TODO Fix this very quick please. Nasty way OhmModels handles querying\
+      # and filtering. Can't use the object ID, so using a workaround with :data_id's
+      # Very nasty :/
+      supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.from_fact.data_id }
+      weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.from_fact.data_id }
+      intersecting_ids = supporting_fact_ids & weakening_fact_ids
+      intersecting_ids << @fact.data_id
     
-    @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
-  end    
+      @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
+    end    
 
 
-  def load_fact # private
-    @fact = Fact[params[:id]] || raise_404
-  end
-  
-  def add_evidence(evidence_id, type, fact_id) # private
-    type     = type.to_sym  
-    fact     = Fact[fact_id]
-    evidence = Fact[evidence_id]
-
-    # Create FactRelation
-    fact_relation = fact.add_evidence(type, evidence, current_user)   
-    evidence.add_opinion(:beliefs, current_user.graph_user)
-    fact_relation.add_opinion(:beliefs, current_user.graph_user)    
-    fact_relation
-  end
-  
-  def create_fact(url, displaystring, title) # private
-    @site = url && (Site.find(:url => url).first || Site.create(:url => url))
-    if @site
-      @fact = Fact.create(
-        :created_by => current_user.graph_user,
-        :site => @site
-      )
-    else
-      @fact = Fact.create(:created_by => current_user.graph_user)
+    def load_fact
+      @fact = Fact[params[:id]] || raise_404
     end
-    @fact.data.displaystring = displaystring    
-    @fact.data.title = title
-    @fact.data.save
-    @fact
-  end
+  
+    def add_evidence(evidence_id, type, fact_id) # private
+      type     = type.to_sym  
+      fact     = Fact[fact_id]
+      evidence = Fact[evidence_id]
 
-  def allowed_type
-    allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
-    type = params[:type].to_sym
-    if allowed_types.include?(type)
-      yield
-    else 
-      render :json => {"error" => "type not allowed"}, :status => 500
-      false
+      # Create FactRelation
+      fact_relation = fact.add_evidence(type, evidence, current_user)   
+      evidence.add_opinion(:beliefs, current_user.graph_user)
+      fact_relation.add_opinion(:beliefs, current_user.graph_user)    
+      fact_relation
     end
-  end
+  
+    def create_fact(url, displaystring, title) # private
+      @site = url && (Site.find(:url => url).first || Site.create(:url => url))
+      if @site
+        @fact = Fact.create(
+          :created_by => current_user.graph_user,
+          :site => @site
+        )
+      else
+        @fact = Fact.create(:created_by => current_user.graph_user)
+      end
+      @fact.data.displaystring = displaystring    
+      @fact.data.title = title
+      @fact.data.save
+      @fact
+    end
+
+    def allowed_type
+      allowed_types = [:beliefs, :doubts, :disbeliefs,:believes, :disbelieves]
+      type = params[:type].to_sym
+      if allowed_types.include?(type)
+        yield
+      else 
+        render :json => {"error" => "type not allowed"}, :status => 500
+        false
+      end
+    end
   
 end
