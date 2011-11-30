@@ -63,7 +63,7 @@ class FactsController < ApplicationController
   end
   
   def get_channel_listing
-    authorize :index, Channel
+    authorize! :index, Channel
     @channels = current_user.graph_user.editable_channels_for(@fact)
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
@@ -72,7 +72,7 @@ class FactsController < ApplicationController
   end
 
   def create_fact_as_evidence
-    authorize :create, FactRelation
+    authorize! :create, FactRelation
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
@@ -81,7 +81,7 @@ class FactsController < ApplicationController
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
   def add_evidence_internal(type)
-    authorize :add_evidence, @fact
+    authorize! :add_evidence, @fact
     add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
   end
 
