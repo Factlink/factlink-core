@@ -2118,6 +2118,7 @@ form .action-wrapper span {
 }
 #container #main-wrapper header.title span.contained-channel-description {
   font-size: 8pt;
+  display: none;
 }
 #container #main-wrapper header.title h1 {
   overflow: hidden;
