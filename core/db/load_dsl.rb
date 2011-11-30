@@ -1,12 +1,10 @@
-class UndefinedUserError < StandardError
-end
-
-
-def load_fact_data(&block)
-  LoadDsl.new.run(&block)
-end
 
 class LoadDsl
+  class UndefinedUserError < StandardError;end
+  
+  def self.load(&block)
+    new.run(&block)
+  end
 
   def state_graph_user
     u = @user
