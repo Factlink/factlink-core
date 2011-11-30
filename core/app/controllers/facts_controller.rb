@@ -25,7 +25,7 @@ class FactsController < ApplicationController
 
 
   def show
-    authorize! :read, @fact
+    authorize! :show, @fact
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site

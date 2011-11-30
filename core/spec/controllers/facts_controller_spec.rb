@@ -7,9 +7,14 @@ describe FactsController do
 
   let(:user) { FactoryGirl.create(:user) }
 
+  before do
+    get_ability
+  end
+
   describe :show do
     it "should render succesful" do
       @fact = FactoryGirl.create(:fact)
+      should_check_can :show, @fact
       get :show, :id => @fact.id
       response.should be_succes
     end
@@ -20,6 +25,7 @@ describe FactsController do
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
       
+      should_check_can :show, @fact
       get :show, :id => @fact.id
       
       response.body.should_not match(/<xss>/)
@@ -36,12 +42,14 @@ describe FactsController do
   describe :create do
     it "should work" do
       authenticate_user!(user)
+      should_check_can :create, anything
       post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
       response.should redirect_to(created_fact_path(Fact.all.to_a.last.id))
     end
     
     it "should work with json" do
       authenticate_user!(user)
+      should_check_can :create, anything
       post 'create', :format => :json, :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
       response.code.should eq("201")
     end
@@ -50,6 +58,7 @@ describe FactsController do
   describe :add_supporting_evidence do
     it "should respond to XHR" do
       authenticate_user!(user)
+      should_check_can :add_evidence, @fact
       xhr :get, :add_supporting_evidence,
         :id => FactoryGirl.create(:fact).id,
         :evidence_id => FactoryGirl.create(:fact).id
@@ -62,6 +71,7 @@ describe FactsController do
   describe :add_weakening_evidence do
     it "should respond to XHR" do
       authenticate_user!(user)
+      should_check_can :add_evidence, @fact
       xhr :get, :add_supporting_evidence,
         :id => FactoryGirl.create(:fact).id,
         :evidence_id => FactoryGirl.create(:fact).id
