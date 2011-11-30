@@ -31,9 +31,9 @@ window.ChannelView = Backbone.View.extend({
   initMoreButton: function() { 
     var containedChannels = this.el.find('#contained-channels');
     if  ( containedChannels ) {
-    this.el.find('.more-button').bind('click', function() { 
+    this.el.find('#more-button').bind('click', function() { 
         var button = $(this).find(".label");
-        containedChannels.slideToggle(function(e) { 
+        containedChannels.find('.overflow').slideToggle(function(e) { 
           button.text($(button).text() === 'more' ? 'less' : 'more');
         });
       });

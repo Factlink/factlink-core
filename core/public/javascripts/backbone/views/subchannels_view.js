@@ -8,12 +8,17 @@ window.SubchannelsView = Backbone.View.extend({
     this._views = [];
   },
   
-  addOneSubchannel: function(subchannel) {
+  addOneSubchannel: function(subchannel, count) {
     var view = new SubchannelItemView({model: subchannel});
-    
     this._views[subchannel.id] = view;
     
-    this.el.append(view.render().el);
+    var item = view.render().el;
+    if(count < 3) { 
+      this.el.prepend(item);
+    } else { 
+      this.el.find('.overflow').append(item);
+    }
+
   },
   
   resetSubchannels: function() {
@@ -22,9 +27,14 @@ window.SubchannelsView = Backbone.View.extend({
     _.each(this._views,function(view) {
       view.remove();
     });
-    
+
+    var count = 0;
+    if(this.collection.size() > 3) {
+      $("#more-button").show();
+    }
     this.collection.each(function(subchannel) {
-      self.addOneSubchannel.call(self, subchannel);
+      self.addOneSubchannel.call(self, subchannel, count);
+      count++;
     });
   }
 });
