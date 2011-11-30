@@ -2131,23 +2131,26 @@ form .action-wrapper span {
 }
 #container #main-wrapper header.title a {
   float: right;
+  display: block;
 }
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
 }
-#container #main-wrapper header.title .more-button {
+#container #main-wrapper header.title .more {
   width: 100%;
-  float: none;
-  display: block;
   text-align: center;
 }
-#container #main-wrapper header.title .more-button:hover {
+#container #main-wrapper header.title #more-button {
+  float: none;
+  display: none;
+}
+#container #main-wrapper header.title #more-button:hover {
   text-decoration: none;
 }
-#container #main-wrapper header.title .more-button .label:hover {
+#container #main-wrapper header.title #more-button .label:hover {
   background-color: #a6a6a6;
 }
-#container #main-wrapper header.title #contained-channels {
+#container #main-wrapper header.title #contained-channels .overflow {
   display: none;
 }
 #container #main-wrapper header.title #contained-channel-list {
