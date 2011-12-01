@@ -24,7 +24,7 @@ window.OwnChannelCollectionView = Backbone.View.extend({
         
     if ( val.length > 0 ) {
       $.ajax({
-        url: currentUser.url() + '/channels',
+        url: Router.getUsername() + '/channels',
         data: {
           title: val,
           for_channel: currentChannel.id
