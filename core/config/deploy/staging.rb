@@ -2,7 +2,7 @@ server 'staging.factlink.com', :app, :web, :primary => true
 
 set :deploy_env, 'production'
 
-set :branch, "master"
+set :branch, "release"
 
 role :web, "staging.factlink.com"                          # Your HTTP server, Apache/etc
 role :app, "staging.factlink.com"                          # This may be the same as your `Web` server

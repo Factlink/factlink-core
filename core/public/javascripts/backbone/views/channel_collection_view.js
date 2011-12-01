@@ -7,10 +7,8 @@ window.ChannelCollectionView = Backbone.View.extend({
   initialize: function(opts) {
     var self = this;
 
-    Channels.bind('add',   this.addOneChannel, this);
-    Channels.bind('reset', this.resetChannels, this);
-    
-    this.appView = opts.appView;
+    this.collection.bind('add',   this.render, this);
+    this.collection.bind('reset', this.render, this);
     
     // Hacky way to make sure Backbone will refollow the current route
     this.el.find('li.active').live('click', function(e) {
@@ -23,24 +21,49 @@ window.ChannelCollectionView = Backbone.View.extend({
     
     views[channel.id] = view;
     
+    if ( this.collection.activeChannelId === channel.id ) {
+      view.setActive();
+    }
+    
     this.$('#channel-listing').append(view.render().el);
   },
-
-  setLoading: function(channel_id) {
-    views[channel_id].setLoading();
-  },
   
-  stopLoading: function(channel_id) {
-    views[channel_id].stopLoading();
+  setLoading: function() {
+    this.removeChannels();
+    this.el.find('.add-channel').hide();
   },
 
   resetChannels: function() {
     var self = this;
+    
+    this.removeChannels();
+    
+    this.collection.each(function(channel) {
+      self.addOneChannel.call(self, channel);
+    });
+  },
+  
+  removeChannels: function() {
     _.each(views,function(view) {
       view.remove();
     });
-    Channels.each(function(channel) {
-      self.addOneChannel.call(self, channel);
-    });
+  },
+
+  render: function() {
+    this.resetChannels();
+    if ( currentChannel.user.id === currentUser.id ) {
+      this.el.find('.add-channel').show();
+    } else {
+      this.el.find('.add-channel').hide();
+    }
+       
+    return this;
+  },
+  
+  reload: function(id) {
+    this.collection.activeChannelId = id;
+    
+    this.setLoading();
+    Channels.fetch();
   }
 });

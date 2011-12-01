@@ -62,5 +62,4 @@ class ApplicationController < ActionController::Base
   def raise_404(message="Not Found")
     raise ActionController::RoutingError.new(message)
   end
-  
 end
