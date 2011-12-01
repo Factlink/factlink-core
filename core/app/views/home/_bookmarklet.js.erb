@@ -1,10 +1,5 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var xhr=new XMLHttpRequest();
-  xhr.open("get","<%= abs_url '/site/count/' %>" + "?url="+escape(window.location),true);
-  xhr.onload=function(){
-    var resp=JSON.parse(this.responseText);
-    if(resp.blacklisted!==true){
       lib_url = "<%= FactlinkUI::Application.config.static_url %>" + "lib";
       window.FactlinkConfig = {
         modus: "default",
@@ -20,16 +15,5 @@
       script.async = false;
       script.src = lib_url + "/src/js/load_library.js?" + (new Date()).getTime();
       head.insertBefore(script,head.firstChild);
-    } else {
-      error();
-    }
-  };
-  xhr.onerror=function(){
-    error();
-  };
-  xhr.send(null);
-  function error(){
-    alert("The Factlink bookmarklet does not work on this page.");
-  }
 })();
 
