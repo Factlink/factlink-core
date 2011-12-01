@@ -65,3 +65,4 @@ ActionMailer::Base.smtp_settings = {
   :password => '@H-cw8w)6l8.nP',
   :openssl_verify_mode => 'none'
 }
+ActionMailer::Base.default_url_options[:host] = 'beta.factlink.com'

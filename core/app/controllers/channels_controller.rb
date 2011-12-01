@@ -14,7 +14,8 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :related_users,
-      :activities]
+      :activities,
+      :remove_fact]
   
   before_filter :authenticate_user!
     
@@ -140,14 +141,8 @@ class ChannelsController < ApplicationController
   
   def remove_fact
     authorize! :update, @channel
-    
-    @channel = Channel[params[:id]]
     @fact = Fact[params[:fact_id]]
-
-    # Quick check
-    if @channel.created_by == current_user.graph_user
-      @channel.remove_fact(@fact)
-    end
+    @channel.remove_fact(@fact)
   end
 
   def toggle_fact
