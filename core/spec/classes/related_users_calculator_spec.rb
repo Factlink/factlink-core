@@ -16,9 +16,9 @@ class TestFact
 end
 
 describe RelatedUsersCalculator do
-  let(:u1) { FactoryGirl.create(:user).graph_user }
-  let(:u2) { FactoryGirl.create(:user).graph_user }
-  let(:u3) { FactoryGirl.create(:user).graph_user }
+  let(:u1) { FactoryGirl.create(:graph_user) }
+  let(:u2) { FactoryGirl.create(:graph_user) }
+  let(:u3) { FactoryGirl.create(:graph_user) }
 
   let (:f1) {FactoryGirl.create(:fact) }
   let (:f2) {FactoryGirl.create(:fact) }
