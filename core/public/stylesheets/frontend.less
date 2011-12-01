@@ -104,53 +104,41 @@ body.factlink-site div.user-block {
   }
 }
 
-#top-bar {
-  width: 100%;
-  height: 40px;
-		background: #333;
-/*    .gradient(#333, #333, #666);*/
-    border-bottom: solid 1px rgba(255, 255, 255, 0.65);
-    .box-shadow(0px -4px 20px #222);
-    position: fixed;
-    z-index: 4999;
+a.bookmarklet {
+  cursor: move;
+}
 
-    #factlink-logo {	
-      margin-top: 10px;
-    }
-  }
-
-  #application-notification {
-    p {
-      a {
-        .opacity(0.5);
-
-        &:hover {
-          .opacity(1.0);
-          cursor: pointer;
-        }
+#application-notification {
+  p {
+    a {
+      .opacity(0.5);
+      &:hover {
+        .opacity(1.0);
+        cursor: pointer;
       }
     }
   }
+}
 
-  #error_explanation {
-    color: rgb(206, 0, 0);
-    text-shadow: 0px 1px 0px #fff;
+#error_explanation {
+  color: rgb(206, 0, 0);
+  text-shadow: 0px 1px 0px #fff;
 
+  font-weight: 100;
+
+  h2 {
     font-weight: 100;
-
-    h2 {
-      font-weight: 100;
-    }
   }
+}
 
-  .transparent {
-    .opacity(0.3);
-    -webkit-transition: all 0.04s ease-in-out ;	
+ .transparent {
+  .opacity(0.3);
+  -webkit-transition: all 0.04s ease-in-out ;	
 
-    &:hover {
-      .opacity(1.0);
-    }
+  &:hover {
+    .opacity(1.0);
   }
+}
 
   .alert {
     color: rgb(206, 0, 0);
@@ -196,22 +184,21 @@ body.factlink-site div.user-block {
       }
     }
   }
+  
+  .nav > .search {
+    margin: 1px 0 0 32px;
+  }
 
   .fact_search {
-
     form {
-      margin-top: 7px;
-
       input {
-
         background: rgb(102, 102, 102);
         padding: 4px 8px;
         border-radius: 3px;
         border: solid 1px #222;
-        font-weight: 100;
         .drop-shadow(0px 1px 0px rgba(255, 255, 255, 0.2));
 
-        width: 138px;
+        width: 140px;
         color: #eee;
 
         &::-webkit-input-placeholder {
