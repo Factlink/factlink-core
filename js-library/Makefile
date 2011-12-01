@@ -22,7 +22,6 @@ MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
 
-GETFACTS = ${SRC_DIR}/js/getfacts.js
 ADDFACTS = ${SRC_DIR}/js/addfacts.js
 DESTROY = ${SRC_DIR}/js/destroy.js
 
@@ -32,8 +31,6 @@ VER = sed "s/@VERSION/${FL_VER}/"
 
 FACTLINK_TMP = ${DIST_DIR}/factlink-tmp.js
 FACTLINK = ${DIST_DIR}/factlink.js
-FACTLINK_GETFACTS = ${DIST_DIR}/factlink.getfacts.js
-GETFACTS_TMP = ${DIST_DIR}/factlink.getfacts-tmp.js
 FACTLINK_DESTROY = ${DIST_DIR}/factlink.destroy.js
 DESTROY_TMP = ${DIST_DIR}/factlink.destroy-tmp.js
 FACTLINK_ADDFACTS = ${DIST_DIR}/factlink.addfacts.js
@@ -48,7 +45,7 @@ all: factlink
 ${DIST_DIR}:
 	@@mkdir -p ${DIST_DIR}
 
-factlink: ${FACTLINK} ${FACTLINK_GETFACTS} ${FACTLINK_ADDFACTS} ${FACTLINK_DESTROY} modules
+factlink: ${FACTLINK} ${FACTLINK_ADDFACTS} ${FACTLINK_DESTROY} modules
 
 ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	@@echo "Building" ${Factlink}
@@ -62,15 +59,6 @@ ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	node Makefile.js factlink ${FACTLINK_TMP}
 
 	@@rm ${FACTLINK_TMP}
-
-${FACTLINK_GETFACTS}: ${GETFACTS} node_modules
-	@@echo "Building" ${FACTLINK_GETFACTS}
-
-	@@cat ${GETFACTS} > ${GETFACTS_TMP}
-
-	node Makefile.js factlink.getfacts ${GETFACTS_TMP}
-
-	@@rm ${GETFACTS_TMP}
 
 ${FACTLINK_DESTROY}: ${DESTROY} node_modules
 	@@echo "Building" ${FACTLINK_DESTROY}
