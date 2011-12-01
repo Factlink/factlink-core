@@ -8,6 +8,12 @@ window.ChannelView = Backbone.View.extend({
     
     this.subchannels = new SubchannelList({channel: this.model});
     this.subchannels.fetch();
+    
+    this.factsView = new FactsView({
+      collection: new Facts([],{
+        rootUrl: self.model.url()
+      })
+    });
   },
   
   initSubChannels: function() {
@@ -72,19 +78,12 @@ window.ChannelView = Backbone.View.extend({
       this.initSubChannels();
       this.initSubChannelMenu();
       this.initAddToFact();
-      this.initMoreButton(); 
+      this.initMoreButton();
+      
+      $( this.el ).find('#facts_for_channel').append(this.factsView.render().el);
         
       self.model.trigger('loaded')
                   .trigger('activate', self.model);
-                  
-      $.ajax({
-        url: self.model.url() + '/facts',
-        method: "GET",
-        success: function( data ) {
-          self.el.find('#facts_for_channel > div.loading').hide().parent().find('div.facts').html(data);
-          self.el.find('.fact-block').factlink();
-        }
-      });
     }
     
     return this;
