@@ -106,6 +106,7 @@
 		<section id="main-column" class="span-14" role="main">  
 			<section id="main-wrapper">
 			  <%= yield :main_column %>
+			  <%= yield %>
 			</section>
 		</section>
 
@@ -148,7 +149,7 @@
     $(".alert-message").alert();
     
     $('.topbar').dropdown();
-  	$('.bookmarklet').twipsy();
+  	$('.bookmarklet').twipsy({placement:"below",offset:5});
 	</script>
 	
 	<%= yield :template %>
