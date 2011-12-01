@@ -1,11 +1,23 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ||= User.new # guest user (not logged in)
+  def user
+    @user
+  end
+
+  def initialize(user=nil)
+    @user=user
     
-    unless user.new?
+    if user
       can :update, user
+    end
+
+    define_channel_abilities
+    define_fact_abilities
+  end
+
+  def define_channel_abilities
+    if user
       can :index, Channel
       can :read, Channel
       can :manage, Channel do |ch|
@@ -13,4 +25,18 @@ class Ability
       end
     end
   end
+  
+  def define_fact_abilities
+    can :index, Fact
+    can :read, Fact
+    if user
+      can :opinionate, Fact
+      can :add_evidence, Fact
+      can :manage, Fact do |f|
+       f.created_by == user.graph_user
+      end
+    end
+  end
+  
+
 end

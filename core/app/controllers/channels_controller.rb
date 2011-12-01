@@ -44,8 +44,8 @@ class ChannelsController < ApplicationController
 
   # GET /:username/channels/new
   def new
+    authorize! :new, Channel
     @channel = Channel.new
-    authorize! :new, @channel
   end
 
   # GET /:username/channels/1/edit
@@ -129,7 +129,11 @@ class ChannelsController < ApplicationController
   
   # GET /:username/channels/1/facts
   def facts
-    @channel.mark_as_read
+    authorize! :show, @channel
+
+    if @channel.created_by == current_user.graph_user
+      @channel.mark_as_read
+    end
     
     respond_with(@channel.facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
   end

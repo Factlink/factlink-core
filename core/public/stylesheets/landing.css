@@ -2480,6 +2480,7 @@ textarea[readonly] {
 }
 .factlink #top-facts ul li {
   padding-bottom: 1em;
+  min-height: 50px;
 }
 .factlink #top-facts ul li:not(:last-child) {
   border-bottom: 1px solid #dbdbdb;
@@ -2488,6 +2489,8 @@ textarea[readonly] {
   border-top: 1px solid #ffffff;
 }
 .factlink #top-facts ul li .wheel {
+  width: 0px;
+  height: 0px;
   float: left;
 }
 .factlink #top-facts ul li header {
@@ -2531,13 +2534,22 @@ textarea[readonly] {
 }
 .factlink #signup input[type=submit] {
   float: right;
-  margin-right: 1em;
+  margin-right: 0.9em;
 }
 .factlink footer {
   border: none;
   margin-top: 1em;
-  margin-bottom: 128px;
+  margin-bottom: 2em;
 }
 .factlink footer a.bookmarklet {
   cursor: move;
+}
+.factlink footer ul {
+  text-align: right;
+}
+.factlink footer ul li {
+  display: inline;
+}
+.factlink footer ul li:not(:last-child):after {
+  content: " | ";
 }

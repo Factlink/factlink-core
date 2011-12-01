@@ -10,17 +10,15 @@ end
 
 describe Fact do
 
-  subject {FactoryGirl.create(:fact)}
+  subject {FactoryGirl.create :fact}
 
-  before(:each) do
-    @parent = FactoryGirl.create(:fact)
-    @factlink = FactoryGirl.create(:fact)
-    @factlink2 = FactoryGirl.create(:fact)
+  let(:parent) {FactoryGirl.create :fact}
 
-    @user1 = FactoryGirl.create(:user)
-    @user2 = FactoryGirl.create(:user)
-  end
+  let(:factlink) {FactoryGirl.create :fact}
+  let(:factlink2) {FactoryGirl.create :fact}
 
+  let(:gu1) {FactoryGirl.create(:graph_user)}
+  let(:gu2) {FactoryGirl.create(:graph_user)}
 
   context "initially" do
     it "should be findable" do
@@ -44,12 +42,12 @@ describe Fact do
   end
   
   it "should have the GraphUser set when a opinion is added" do
-    @parent.add_opinion(:beliefs, @user1.graph_user)
-    @parent.opiniated(:beliefs).to_a.should =~ [@user1.graph_user]
+    parent.add_opinion(:beliefs, gu1)
+    parent.opiniated(:beliefs).to_a.should =~ [gu1]
   end
 
   it "should have working fact_relations" do
-    @parent.add_evidence(:supporting, @factlink, @user1)
+    parent.add_evidence(:supporting, factlink, gu1)
   end
 
   it "should have a creator" do
@@ -91,7 +89,7 @@ describe Fact do
 
       context "with one #{relation} fact" do
         before do
-          @fr = subject.add_evidence(relation,@factlink,@user1)
+          @fr = subject.add_evidence(relation,factlink,gu1)
         end
 
         its(:get_opinion) {should be_a(Opinion)}
@@ -124,10 +122,10 @@ describe Fact do
         end
         describe ".delete the #{relation} fact" do
           before do
-            @factlink_id = @factlink.id
-            @data_id = @factlink.data.id
+            @factlink_id = factlink.id
+            @data_id = factlink.data.id
             @relation_id = @fr.id
-            @factlink.delete
+            factlink.delete
           end
           it "should remove the fact" do
             Fact[@factlink_id].should be_nil
@@ -143,8 +141,8 @@ describe Fact do
       
       context "with two #{relation} fact" do
         before do
-          @fr = subject.add_evidence(relation,@factlink,@user1)
-          @fr2 = subject.add_evidence(relation,@factlink2,@user1)
+          @fr = subject.add_evidence(relation,factlink,gu1)
+          @fr2 = subject.add_evidence(relation,factlink2,gu1)
         end
         
         it "should have two #{relation} facts" do
@@ -157,8 +155,8 @@ describe Fact do
       
       context "with one #{relation} fact and one #{other_one(relation)} fact" do
         before do
-          @fr = subject.add_evidence(relation,@factlink,@user1)
-          @fr2 = subject.add_evidence(other_one(relation),@factlink2,@user1)
+          @fr = subject.add_evidence(relation,factlink,gu1)
+          @fr2 = subject.add_evidence(other_one(relation),factlink2,gu1)
         end
         
         it "should have one #{relation} fact" do
@@ -200,7 +198,7 @@ describe Fact do
 
     it "should not give a give a document not found for Factdata" do
       f = Fact.create(
-        :created_by => @user1.graph_user
+        :created_by => gu1
       )
       f.data.displaystring = "This is a fact"
       f.data.save

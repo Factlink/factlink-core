@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe GraphUser do
 
-  subject {FactoryGirl.create(:user).graph_user}
+  subject {FactoryGirl.create :graph_user }
   let(:fact) {FactoryGirl.create(:fact,:created_by => subject)}
 
   context "Initially" do

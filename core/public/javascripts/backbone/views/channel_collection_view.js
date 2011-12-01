@@ -48,10 +48,9 @@ window.ChannelCollectionView = Backbone.View.extend({
       view.remove();
     });
   },
-  
+
   render: function() {
     this.resetChannels();
-
     if ( currentChannel.user.id === currentUser.id ) {
       this.el.find('.add-channel').show();
     } else {

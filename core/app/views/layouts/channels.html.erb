@@ -55,7 +55,7 @@
       window.currentUser.setChannels(new OwnChannelList(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
     <% end %>
     
-    <% if @channel %>
+    <% if @channel && !@channel.new? %>
       window.currentChannel = Channels.get(<%= @channel.id %>);
     <% end %>
     

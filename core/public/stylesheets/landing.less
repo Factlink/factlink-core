@@ -86,6 +86,7 @@
   #top-facts { 
     ul li { 
       padding-bottom: 1em;
+      min-height: 50px;
       &:not(:last-child) { 
         border-bottom: 1px solid #dbdbdb;
       }
@@ -93,6 +94,8 @@
         border-top: 1px solid #ffffff;
       }
       .wheel { 
+        width: 0px;
+        height: 0px;
         float: left;
       }
       header { 
@@ -133,16 +136,24 @@
     }
     input[type=submit] {
       float: right;
-      margin-right: 1em;
+      margin-right: 0.9em;
     }
   }
   footer { 
     border: none;
     margin-top: 1em;
-    margin-bottom: 128px;
-    
+    margin-bottom: 2em;
     a.bookmarklet {
       cursor: move;
+    }
+    ul { 
+      text-align: right;
+      li { 
+        display: inline;
+        &:not(:last-child):after { 
+          content: " | ";
+        }
+      }
     }
   }
 }
