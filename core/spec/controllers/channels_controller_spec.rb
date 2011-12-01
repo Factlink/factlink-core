@@ -15,6 +15,12 @@ describe ChannelsController do
 
   before do
     ch1.created_by = user.graph_user
+    
+    [f1,f2,f3].each do |f|
+      f.created_by.user = FactoryGirl.create(:user)
+      f.created_by.save
+    end
+    
     ch1.add_fact f1
     ch1.add_fact f2
     ch1.add_fact f3

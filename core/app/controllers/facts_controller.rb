@@ -14,6 +14,8 @@ class FactsController < ApplicationController
       :bubble,
       :opinion,
       :evidence_search,
+      :add_supporting_evidence,
+      :add_weakening_evidence,
       ]
   before_filter :potential_evidence, 
     :only => [
@@ -86,7 +88,7 @@ class FactsController < ApplicationController
   end
 
   def add_evidence_internal_internal(type,succes,fail)
-    @fact_relation = add_evidence(params[:evidence_id], type, params[:id])
+    @fact_relation = add_evidence(params[:evidence_id], type, @fact.id)
     
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?

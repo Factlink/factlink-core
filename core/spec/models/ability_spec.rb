@@ -45,12 +45,14 @@ describe Ability do
     describe "of my own" do
       it {subject.should be_able_to :update, f1 }
       it {subject.should be_able_to :read, f1 }
+      it {subject.should be_able_to :opinionate, f1 }
       it {subject.should be_able_to :create, f1 }
     end
 
     describe "of someone else" do
       it {subject.should_not be_able_to :update, f2 }
       it {subject.should be_able_to :read, f2 }
+      it {subject.should be_able_to :opinionate, f2 }
       it {subject.should_not be_able_to :create, f2 }
     end
     

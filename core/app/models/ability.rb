@@ -27,6 +27,8 @@ class Ability
   def define_fact_abilities
     can :index, Fact
     can :read, Fact
+    can :opinionate, Fact
+    
     can :manage, Fact do |f|
      f.created_by == user.graph_user
     end
