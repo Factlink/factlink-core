@@ -74,7 +74,6 @@ class FactsController < ApplicationController
   end
 
   def create_fact_as_evidence
-    authorize! :create, FactRelation
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end

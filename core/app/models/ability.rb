@@ -31,7 +31,7 @@ class Ability
     can :read, Fact
     if user
       can :opinionate, Fact
-    
+      can :add_evidence, Fact
       can :manage, Fact do |f|
        f.created_by == user.graph_user
       end
