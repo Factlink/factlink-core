@@ -3,6 +3,8 @@ class ChannelsController < ApplicationController
   layout "channels"
   
   before_filter :get_user
+  
+  respond_to :json, :html
 
   before_filter :load_channel, 
     :only => [
@@ -128,14 +130,12 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
-    
+
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
     
-    respond_to do |format|
-      format.html { render layout: "ajax" }
-    end
+    respond_with(@channel.facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
   end
   
   def remove_fact

@@ -1,13 +1,4 @@
 /*
-Shameless port of a shameless port
-@defunkt => @janl => @aq
- 
-See http://github.com/defunkt/mustache for more info.
-*/
- 
-;(function($) {
-
-/*
   mustache.js — Logic-less templates in JavaScript
 
   See http://mustache.github.com/ for more info.
@@ -278,18 +269,21 @@ var Mustache = function() {
       }
 
       var value;
-			
-			// check for dot notation eg. foo.bar
-			if(name.match(/([a-z_]+)\./ig)){
-				value = is_kinda_truthy(this.walk_context(name, context));
-			}
-			else{
-				if(is_kinda_truthy(context[name])) {
-	        value = context[name];
-	      } else if(is_kinda_truthy(this.context[name])) {
-	        value = this.context[name];
-	      }
-			}
+      
+      // check for dot notation eg. foo.bar
+      if(name.match(/([a-z_]+)\./ig)){
+        var childValue = this.walk_context(name, context);
+        if(is_kinda_truthy(childValue)) {
+          value = childValue;
+        }
+      }
+      else{
+        if(is_kinda_truthy(context[name])) {
+          value = context[name];
+        } else if(is_kinda_truthy(this.context[name])) {
+          value = this.context[name];
+        }
+      }
 
       if(typeof value === "function") {
         return value.apply(context);
@@ -301,21 +295,21 @@ var Mustache = function() {
       return "";
     },
 
-		walk_context: function(name, context){
-			var path = name.split('.');
-			// if the var doesn't exist in current context, check the top level context
-			var value_context = (context[path[0]] != undefined) ? context : this.context;
-			var value = value_context[path.shift()];
-			while(value != undefined && path.length > 0){
-				value_context = value;
-				value = value[path.shift()];
-			}
-			// if the value is a function, call it, binding the correct context
-			if(typeof value === "function") {
+    walk_context: function(name, context){
+      var path = name.split('.');
+      // if the var doesn't exist in current context, check the top level context
+      var value_context = (context[path[0]] != undefined) ? context : this.context;
+      var value = value_context[path.shift()];
+      while(value != undefined && path.length > 0){
+        value_context = value;
+        value = value[path.shift()];
+      }
+      // if the value is a function, call it, binding the correct context
+      if(typeof value === "function") {
         return value.apply(value_context);
       }
-			return value;
-		},
+      return value;
+    },
 
     // Utility methods
 
@@ -426,8 +420,3 @@ var Mustache = function() {
     }
   });
 }();
-  $.mustache = function(template, view, partials) {
-    return Mustache.to_html(template, view, partials);
-  };
-
-})(jQuery);

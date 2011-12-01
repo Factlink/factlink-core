@@ -1,12 +1,9 @@
-window.FactList = Backbone.Collection.extend({
-  model: Channel,
+window.Facts = Backbone.Collection.extend({
+  model: Fact,
+  initialize: function(models, opts) {
+    this.rootUrl = opts.rootUrl;
+  },
   url: function() {
-    if (this.forChannel !== undefined) {
-      return Channels.get(this.forChannel).url() + '/facts/';
-    } else {
-      return '/tomdev/channels/';
-    }
+    return this.rootUrl + '/facts';
   }
 });
-
-window.Facts = new FactList();

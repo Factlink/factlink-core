@@ -25,6 +25,7 @@
   <%= javascript_include_tag "backbone/contrib.js" %>
   <%= javascript_include_tag "backbone/models/channel.js" %>
   <%= javascript_include_tag "backbone/models/user.js" %>
+  <%= javascript_include_tag "backbone/models/fact.js" %>
   <%= javascript_include_tag "backbone/models/subchannel.js" %>
   <%= javascript_include_tag "backbone/collections/channels.js" %>
   <%= javascript_include_tag "backbone/collections/own_channel_list.js" %>
@@ -38,6 +39,8 @@
   <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
   <%= javascript_include_tag "backbone/views/own_channel_collection_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
+  <%= javascript_include_tag "backbone/views/facts_view.js" %>
+  <%= javascript_include_tag "backbone/views/fact_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_view.js" %>
   <%= javascript_include_tag "backbone/views/user_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_app_view.js" %>
@@ -70,6 +73,10 @@
   <%= load_js_template "subchannel_li",           "subchannels/_subchannel_item.html.mustache" %>
   <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
   <%= load_js_template "own_channel_li",          "channels/_own_channel.html.mustache" %>
+  <%= load_js_template "fact_tmpl",               "facts/_fact.html.mustache" %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
+  <%= load_js_template "facts_tmpl",              "channels/_facts.html.mustache" %>
 <% end %>
 
 <%= render :template => 'layouts/frontend' %>
