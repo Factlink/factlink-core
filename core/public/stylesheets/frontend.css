@@ -1872,24 +1872,8 @@ body.factlink-site .fact-block, body.factlink-site div.user-block {
 #feedback a:hover {
   text-decoration: none;
 }
-#top-bar {
-  width: 100%;
-  height: 40px;
-  background: #333;
-  /*    .gradient(#333, #333, #666);*/
-
-  border-bottom: solid 1px rgba(255, 255, 255, 0.65);
-  -webkit-box-shadow: 0px -4px 20px #222222;
-  -moz-box-shadow: 0px -4px 20px #222222;
-  box-shadow: 0px -4px 20px #222222;
-  -webkit-box-shadow: 0px -4px 20px #222222;
-  -moz-box-shadow: 0px -4px 20px #222222;
-  box-shadow: 0px -4px 20px #222222;
-  position: fixed;
-  z-index: 4999;
-}
-#top-bar #factlink-logo {
-  margin-top: 10px;
+a.bookmarklet {
+  cursor: move;
 }
 #application-notification p a {
   -moz-opacity: 0.5;
@@ -1976,19 +1960,18 @@ form .action-wrapper input, form .action-wrapper span, form .action-wrapper butt
 form .action-wrapper span {
   padding: 0;
 }
-.fact_search form {
-  margin-top: 7px;
+.nav > .search {
+  margin: 1px 0 0 32px;
 }
 .fact_search form input {
   background: #666666;
   padding: 4px 8px;
   border-radius: 3px;
   border: solid 1px #222;
-  font-weight: 100;
   -webkit-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) 1px 2px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) 1px 2px rgba(0, 0, 0, 0.1);
-  width: 138px;
+  width: 140px;
   color: #eee;
   -webkit-transition: all ease-out 0.3s;
   -moz-transition: all ease-out 0.3s;
