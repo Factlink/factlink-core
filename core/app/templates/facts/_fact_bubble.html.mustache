@@ -1,8 +1,7 @@
-<article class="fact" data-fact-id="{{fact.id}}" >
+<article class="fact" data-fact-id="{{fact_id}}" >
   {{>fact_wheel}}
 	<header>
-
-	  <span id="title-{{fact.id}}" class="head {{editable_title_class}}">{{fact.data.title}}</span>
+	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
 
 		<span class="body">
       {{{link}}} &mdash; <span>{{{scroll_to_link}}}</span><br>
@@ -20,6 +19,5 @@
       <div class="float-box channel-listing">
 		  </div>
 	  {{/user_signed_in?}}
-
 	</header>
 </article>

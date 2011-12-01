@@ -23,7 +23,7 @@ window.ChannelItemView = Backbone.View.extend({
   
   render: function() {
     this.$( this.el )
-      .html( $.mustache(this.tmpl, this.model.toJSON() ))
+      .html( Mustache.to_html(this.tmpl, this.model.toJSON() ))
       .attr('id', 'channel-' + this.model.id);
     return this;
   },
