@@ -9,5 +9,7 @@ else
   SERVER="testserver"
 fi
 
+echo "deploying to $SERVER"
 cap -q $SERVER deploy || exit 1
+echo "deployed to $SERVER"
 exit
