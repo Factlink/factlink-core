@@ -14,6 +14,8 @@ describe FactsController do
   describe :show do
     it "should render succesful" do
       @fact = FactoryGirl.create(:fact)
+      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.save
       should_check_can :show, @fact
       get :show, :id => @fact.id
       response.should be_succes
@@ -24,6 +26,9 @@ describe FactsController do
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
+
+      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.save
       
       should_check_can :show, @fact
       get :show, :id => @fact.id
@@ -55,32 +60,41 @@ describe FactsController do
     end
   end
 
-  describe :add_supporting_evidence do
-    it "should respond to XHR" do
-      authenticate_user!(user)
-      should_check_can :add_evidence, @fact
-      xhr :get, :add_supporting_evidence,
-        :id => FactoryGirl.create(:fact).id,
-        :evidence_id => FactoryGirl.create(:fact).id
-
-      response.code.should eq("200")
+  describe "adding evidence" do
+    before do
+      @fact = FactoryGirl.create(:fact)
+      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.save
+      
+      @evidence = FactoryGirl.create :fact
+      @evidence.created_by.user = FactoryGirl.create :user
+      @evidence.created_by.save
     end
+
+    describe :add_supporting_evidence do
+      it "should respond to XHR" do
+        authenticate_user!(user)
+        should_check_can :add_evidence, @fact
+        xhr :get, :add_supporting_evidence,
+          :id => @fact.id,
+          :evidence_id => @evidence.id
+
+        response.code.should eq("200")
+      end
     
-  end
+    end
 
-  describe :add_weakening_evidence do
-    it "should respond to XHR" do
-      authenticate_user!(user)
-      should_check_can :add_evidence, @fact
-      xhr :get, :add_supporting_evidence,
-        :id => FactoryGirl.create(:fact).id,
-        :evidence_id => FactoryGirl.create(:fact).id
+    describe :add_weakening_evidence do
+      it "should respond to XHR" do
+        authenticate_user!(user)
+        should_check_can :add_evidence, @fact
+        xhr :get, :add_supporting_evidence,
+          :id => @fact.id,
+          :evidence_id => @evidence.id
 
-      response.code.should eq("200")
+        response.code.should eq("200")
+      end
     end
   end
-
-
-
 
 end
