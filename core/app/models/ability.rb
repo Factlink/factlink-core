@@ -5,32 +5,36 @@ class Ability
     @user
   end
 
-  def initialize(user)
+  def initialize(user=nil)
     @user=user
     
-    unless user.new?
+    if user
       can :update, user
-      define_channel_abilities
-      define_fact_abilities
     end
-    
+
+    define_channel_abilities
+    define_fact_abilities
   end
 
   def define_channel_abilities
-    can :index, Channel
-    can :read, Channel
-    can :manage, Channel do |ch|
-      ch.created_by == user.graph_user
+    if user
+      can :index, Channel
+      can :read, Channel
+      can :manage, Channel do |ch|
+        ch.created_by == user.graph_user
+      end
     end
   end
   
   def define_fact_abilities
     can :index, Fact
     can :read, Fact
-    can :opinionate, Fact
+    if user
+      can :opinionate, Fact
     
-    can :manage, Fact do |f|
-     f.created_by == user.graph_user
+      can :manage, Fact do |f|
+       f.created_by == user.graph_user
+      end
     end
   end
   

@@ -4,6 +4,7 @@ require "cancan/matchers"
 describe Ability do
   
   subject {Ability.new(user)}
+  let(:anonymous) {Ability.new}
 
   let(:user) {FactoryGirl.create :user}
   let(:other_user) {FactoryGirl.create :user}
@@ -33,6 +34,14 @@ describe Ability do
       it {subject.should be_able_to :read, ch2 }
       it {subject.should_not be_able_to :create, ch2 }
     end
+
+    describe "without logging in" do
+      it {anonymous.should_not be_able_to :index, Channel }
+      it {anonymous.should_not be_able_to :create, Channel }
+      it {anonymous.should_not be_able_to :read, ch1 }
+      it {anonymous.should_not be_able_to :update, ch1 }
+      it {anonymous.should_not be_able_to :create, ch1 }
+    end
   end
   
   describe "to manage facts" do
@@ -54,6 +63,13 @@ describe Ability do
       it {subject.should be_able_to :read, f2 }
       it {subject.should be_able_to :opinionate, f2 }
       it {subject.should_not be_able_to :create, f2 }
+    end
+   
+    describe "without logging in" do
+      it {anonymous.should be_able_to :index, Fact }
+      it {anonymous.should_not be_able_to :create, Fact }
+      it {anonymous.should_not be_able_to :opinionate, Fact }
+      it {anonymous.should be_able_to :read, f1 }
     end
     
   end
