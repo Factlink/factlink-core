@@ -1,7 +1,5 @@
 <% content_for :left_column do %>
-
-	<%= render "home/user_and_factlink_information" %>
-
+  &nbsp;
 <% end %>
 
 
@@ -29,7 +27,9 @@
 	</section>
 
 	<div>
-	<%= render :partial => "devise/shared/links" %>
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+    <% end -%>
 	</div>
 
 	<div class="action-wrapper">
