@@ -31,6 +31,8 @@ module BeliefExpressions
   end
 
   def a(user)
+    @nothing_happened = false
+    possible_reset
     GraphUser[user.graph_user.id].authority.to_f.should
   end
 
