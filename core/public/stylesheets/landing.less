@@ -146,5 +146,14 @@
     a.bookmarklet {
       cursor: move;
     }
+    ul { 
+      text-align: right;
+      li { 
+        display: inline;
+        &:not(:last-child):after { 
+          content: " | ";
+        }
+      }
+    }
   }
 }
