@@ -2480,6 +2480,7 @@ textarea[readonly] {
 }
 .factlink #top-facts ul li {
   padding-bottom: 1em;
+  min-height: 50px;
 }
 .factlink #top-facts ul li:not(:last-child) {
   border-bottom: 1px solid #dbdbdb;
@@ -2488,6 +2489,8 @@ textarea[readonly] {
   border-top: 1px solid #ffffff;
 }
 .factlink #top-facts ul li .wheel {
+  width: 0px;
+  height: 0px;
   float: left;
 }
 .factlink #top-facts ul li header {
