@@ -55,6 +55,7 @@ describe Ability do
       it {subject.should be_able_to :update, f1 }
       it {subject.should be_able_to :read, f1 }
       it {subject.should be_able_to :opinionate, f1 }
+      it {subject.should be_able_to :add_evidence, f1 }
       it {subject.should be_able_to :create, f1 }
     end
 
@@ -62,6 +63,7 @@ describe Ability do
       it {subject.should_not be_able_to :update, f2 }
       it {subject.should be_able_to :read, f2 }
       it {subject.should be_able_to :opinionate, f2 }
+      it {subject.should be_able_to :add_evidence, f2 }
       it {subject.should_not be_able_to :create, f2 }
     end
    
@@ -69,6 +71,7 @@ describe Ability do
       it {anonymous.should be_able_to :index, Fact }
       it {anonymous.should_not be_able_to :create, Fact }
       it {anonymous.should_not be_able_to :opinionate, Fact }
+      it {anonymous.should_not be_able_to :add_evidence, f1 }
       it {anonymous.should be_able_to :read, f1 }
     end
     
