@@ -2544,3 +2544,12 @@ textarea[readonly] {
 .factlink footer a.bookmarklet {
   cursor: move;
 }
+.factlink footer ul {
+  text-align: right;
+}
+.factlink footer ul li {
+  display: inline;
+}
+.factlink footer ul li:not(:last-child):after {
+  content: " | ";
+}
