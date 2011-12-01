@@ -4,6 +4,7 @@
 cd `dirname $0`
 cd ..
 
+export GIT_BRANCH=`git branch | grep '*' | perl -pe 's/\* //'`
 
 for action in bin/ci/*.sh; do
   banner $action;
