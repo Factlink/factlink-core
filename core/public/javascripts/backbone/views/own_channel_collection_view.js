@@ -64,7 +64,7 @@ window.OwnChannelCollectionView = Backbone.View.extend({
     var self = this;
     
     this.el
-      .html( $.mustache(this.tmpl) );
+      .html( Mustache.to_html(this.tmpl) );
     
     var $channelListing = this.el.find('ul');
     
