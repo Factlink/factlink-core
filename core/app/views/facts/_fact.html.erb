@@ -29,7 +29,7 @@
     <!-- default view - show the evidence for this fact -->
     <div class="page evidence-list" style="display: block;">
       <div class="evidence-list-wrapper">
-        <% if can? :add_evidence, @fact %>
+        <% if can? :add_evidence, fact %>
         <div class="notification">
           <span>Factlink is build on evidence. <a href"#" class="do-add">Add evidence to this Factlink</a></span>
         </div>
@@ -37,7 +37,7 @@
         
         <div class="no-evidence-message">
           This Factlink is not supported or weakened by other Factlinks.<br/>
-          <% if can? :add_evidence, @fact %>
+          <% if can? :add_evidence, fact %>
             <a href"#" class="do-add">Add evidence to this Factlink</a>
           <% end %>
         </div>
