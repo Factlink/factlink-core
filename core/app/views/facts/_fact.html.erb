@@ -37,7 +37,9 @@
         
         <div class="no-evidence-message">
           This Factlink is not supported or weakened by other Factlinks.<br/>
-          <a href"#" class="do-add">Add evidence to this Factlink</a>
+          <% if can? :add_evidence, @fact %>
+            <a href"#" class="do-add">Add evidence to this Factlink</a>
+          <% end %>
         </div>
         
         <div class="loading-evidence">
