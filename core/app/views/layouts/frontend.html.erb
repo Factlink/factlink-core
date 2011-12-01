@@ -42,24 +42,42 @@
 
 <body class="factlink-site">
 
-	<div id="top-bar">
-		<div class="container">
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">        
+        <a class="brand" href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
+        
+        <ul class="nav">
+          <li class="search">
+            <%= render "facts/fact_search" %>
+          </li>          
+        </ul>
 
-			<div id="factlink-logo" class="span-4">
-				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
-			</div>
+        <ul class="nav secondary-nav">
+          <% if current_user %>
+          <li class="dropdown" data-dropdown="dropdown">
+            <a class="dropdown-toggle"><%= current_user.username %></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to("Sign out", destroy_user_session_path) %></li>
+            </ul>
+          </li>
+          <% else %>
+          <li>
+            <%= link_to("Sign in", new_user_session_path) %>              
+          </li>
+          <% end %>
 
-			<div class="span-14">
-        <%= render "facts/fact_search" %>
-			</div>
-			
-			<div class="span-6 last">
-					<%= render "users/account_block" %>
-			</div>
-
-		</div>
-	</div>
-
+          <li class="dropdown" data-dropdown="dropdown">
+            <a class="dropdown-toggle">✓</a>
+            <ul class="dropdown-menu">
+              <li><a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a></li>
+              <li><a title="You can drag this Bookmarklet to your bookmarks bar. For browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div id="container" class="container">
     
@@ -113,6 +131,7 @@
   <%= javascript_include_tag "bootstrap-alert" %>
   <%= javascript_include_tag "bootstrap-popover" %>
   <%= javascript_include_tag "bootstrap-buttons" %>
+  <%= javascript_include_tag "bootstrap-dropdown" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
@@ -127,6 +146,9 @@
 	<script>
 		$(".fact-block").factlink();
     $(".alert-message").alert();
+    
+    $('.topbar').dropdown();
+  	$('.bookmarklet').twipsy();
 	</script>
 	
 	<%= yield :template %>
