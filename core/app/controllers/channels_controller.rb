@@ -186,16 +186,15 @@ class ChannelsController < ApplicationController
   end
   
   private
-  
-  def get_user
-    if params[:username]
-      @user = User.first(:conditions => { :username => params[:username]})
+    def get_user
+      if params[:username]
+        @user = User.first(:conditions => { :username => params[:username]})
+      end
     end
-  end
   
-  def load_channel
-    @channel  = Channel[params[:channel_id] || params[:id]]
-    @channel || raise_404("Channel not found")
-    @user ||= @channel.created_by.user
-  end
+    def load_channel
+      @channel  = Channel[params[:channel_id] || params[:id]]
+      @channel || raise_404("Channel not found")
+      @user ||= @channel.created_by.user
+    end
 end
