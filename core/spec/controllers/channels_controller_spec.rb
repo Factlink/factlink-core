@@ -69,7 +69,7 @@ describe ChannelsController do
   end
   
   describe "#get_facts_for" do
-    it "should render" do
+    pending "should render" do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :facts, username: user.username, id: ch1.id
