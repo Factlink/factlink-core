@@ -31,8 +31,8 @@
   };
   
   Factlink.ajax = function(path, options) {
-    var success = ( $.isFunction(options.success) ? options.success : function(){} );
-    var error = ( $.isFunction(options.error) ? options.error : function(){} );
+    var success = ( $.isFunction(options.success) ? options.success : undefined );
+    var error = ( $.isFunction(options.error) ? options.error : undefined );
     delete options.success;
     delete options.error;
     
