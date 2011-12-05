@@ -45,8 +45,8 @@ class FactsController < ApplicationController
   end
 
   def create
+    authorize! :create, Fact
     @fact = create_fact(params[:url], params[:fact], params[:title])
-    authorize! :create, @fact
     
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
