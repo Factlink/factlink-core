@@ -8,6 +8,8 @@ class Blacklist
       /^http:\/\/localhost[:\/]/,
       /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
       /^http(s)?:\/\/([^\/]+\.)?gmail\.com\//,
+      /^http(s)?:\/\/([^\/]+\.)?irccloud\.com\//,
+      /^http(s)?:\/\/([^\/]+\.)?moneybird\.nl\//,
     ]
   end
   
