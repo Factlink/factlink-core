@@ -88,7 +88,7 @@
   -moz-transition: all @duration @ease;
   transition: all @duration @ease;
 }
-.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.1) {
   -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
   -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
 	box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
@@ -136,7 +136,7 @@
   ::-webkit-scrollbar-thumb { background-color: #DDD;}
   ::-webkit-scrollbar-thumb:hover { background-color: #999;}
 }
-.unselectable {
+.unselectable() {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;

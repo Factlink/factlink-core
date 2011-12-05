@@ -7,9 +7,11 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
         redirect_to user_profile_path(@current_user.username)
+    else 
+      @facts = Fact.all.sort(:order => "DESC",:limit => 3)
+      render layout: "landing"
     end
-    @facts = Fact.all.sort(:order => "DESC",:limit => 10)
-  end
+ end
 
   # Search
   # Not using the same search for the client popup, since we probably want\
@@ -47,12 +49,12 @@ class HomeController < ApplicationController
 
 
   private
-  def sort_column # private
-    FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-  end
+    def sort_column
+      FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
 
-  def sort_direction # private
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-  end
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
 
 end

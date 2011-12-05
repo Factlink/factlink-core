@@ -49,11 +49,7 @@ window.ChannelItemView = Backbone.View.extend({
   },
   
   clickHandler: function( e ) {
-    // Nasty fix, previously we used triggerRoute = true here, to make sure the 
-    // route gets triggered, but somehow this called the Router twice.
-    // @TODO read-later: http://lostechies.com/derickbailey/2011/08/28/dont-execute-a-backbone-js-route-handler-from-your-code/
-    Router.navigate(Router.getUsername() + "/channels/" + this.model.id);
-    Router.getChannelFacts(Router.getUsername(), this.model.id);
+    Router.navigate(Router.getUsername() + "/channels/" + this.model.id, true);
 
     this.model.set({new_facts: false});
     

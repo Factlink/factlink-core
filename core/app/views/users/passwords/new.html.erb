@@ -1,12 +1,29 @@
-<h2>Forgot your password?</h2>
+<% content_for :left_column do %>
+  &nbsp;
+<% end %>
+
+<% content_for :main_column do %>
+
+
+<h1>Forgot your password?</h1>
+<p>Please enter your email address so we can send you a password reset:</p>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
-
-  <p><%= f.submit "Send me reset password instructions" %></p>
+  <section class="append-bottom">
+    <div class="row">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+  </section>
+  
+  <div class="action-wrapper">
+    <%= f.submit "Send me reset password instructions", :class => "btn" %>
+  </div>
+  
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+<% end %>

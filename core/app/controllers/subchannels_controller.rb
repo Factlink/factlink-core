@@ -7,43 +7,36 @@ class SubchannelsController < ChannelsController
     :except => [
       :index,
     ]
-    
-  before_filter :is_authorized?,
-    :except => [
-      :index,
-    ]
       
   def index
     @contained_channels = @channel.contained_channels
     
     respond_to do |format|
-      format.json { render :json => @contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)} }
+      format.json { render :json => @contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)} }
     end
   end
   
   def add
+    authorize! :update, @channel
     @channel.add_channel(@subchannel)
     
     respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)}, :location => @channel }
+      format.json { render :json => @channel.contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)}, :location => @channel }
     end
   end
   
   def remove
+    authorize! :update, @channel
     @channel.remove_channel(@subchannel)
     
     respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Subchannels::SubchannelItem.for_channel_and_view(ch,self)}, :location => @channel }
+      format.json { render :json => @channel.contained_channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context)}, :location => @channel }
     end
   end
   
   private
-  def is_authorized?
-    @user == current_user || raise_403("Unauthorized")
-  end
-  
-  def load_subchannel
-    @subchannel = Channel[params[:subchannel_id]]
-    @subchannel || raise_404("Subchannel not found")
-  end
+    def load_subchannel
+      @subchannel = Channel[params[:subchannel_id]]
+      @subchannel || raise_404("Subchannel not found")
+    end
 end

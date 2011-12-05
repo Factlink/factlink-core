@@ -95,6 +95,9 @@ gem 'rmagick', :require => 'RMagick'
 # Avatars
 gem "mongoid-paperclip", :require => "mongoid_paperclip"
 
+# authorization
+gem "cancan"
+
 group :development, :test do
   gem 'metric_fu'
   # dependencies of metric_fu:

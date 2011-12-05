@@ -21,7 +21,7 @@ testserver:
 
 staging:
   proxy:
-    hostname: proxy.factlink.com
+    hostname: proxy.staging.factlink.com
     port: 80
     internal_port: 8080
     protocol: http://

@@ -18,24 +18,13 @@ window.SubchannelItemView = Backbone.View.extend({
       .attr('id', 'subchannel-' + this.model.id);
     return this;
   },
-
-  remove: function() {
-    this.$( this.el ).remove();
-  },
   
   clickHandler: function( e ) {
-    // Nasty fix, previously we used triggerRoute = true here, to make sure the 
-    // route gets triggered, but somehow this called the Router twice.
-    // @TODO read-later: http://lostechies.com/derickbailey/2011/08/28/dont-execute-a-backbone-js-route-handler-from-your-code/
-    // @TODO Uncomment this and make it work (username change in backbone)
-    // Router.navigate(this.model.get('username') + '/channels/' + this.model.id);
-    // Router.getChannelFacts(Router.getUsername(), this.model.id);
+    Router.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
 
     this.model.set({new_facts: false});
     
     e.preventDefault();
-    
-    location.href = '/' + this.model.get('username') + '/channels/' + this.model.id;
     
     return false;
   }

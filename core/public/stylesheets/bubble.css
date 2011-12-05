@@ -11,12 +11,16 @@
 			
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
-.unselectable {
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-}
+/*!
+ * Bootstrap @VERSION
+ *
+ * Copyright 2011 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ * Date: @DATE
+ */
 /* Reset.less
  * Props to Eric Meyer (meyerweb.com) for his CSS reset file. We're using an adapted version here	that cuts out some of the reset HTML elements we will never need here (i.e., dfn, samp, etc).
  * ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -178,16 +182,6 @@ textarea {
   overflow: auto;
   vertical-align: top;
 }
-/*!
- * Bootstrap @VERSION
- *
- * Copyright 2011 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- * Date: @DATE
- */
 /* Variables.less
  * Variables to customize the look and feel of Bootstrap
  * ----------------------------------------------------- */
@@ -1881,7 +1875,7 @@ div.modal span.proxyWindow {
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
   border-radius: 4;
-  border: solid 1px #e8e8e8;
+  border: solid 1px #ddd;
   color: #BBB;
   text-shadow: 0px 1px 0px white;
   margin-bottom: 0;
@@ -1892,7 +1886,6 @@ div.modal span.proxyWindow {
   opacity: 1;
 }
 .fact-block .controls {
-  border-bottom: solid 1px #ddd;
   background: #f5f5f5;
   border-top: solid 1px #eeeeee;
   min-height: 32px;

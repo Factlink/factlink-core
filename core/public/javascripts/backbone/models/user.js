@@ -5,6 +5,6 @@ window.User = Backbone.Model.extend({
   },
   
   url: function() {
-    return '/' + this.get('username');
+    return '/' + this.get('username') + "/channels/" + this.get('all_channel_id');
   }
 });
