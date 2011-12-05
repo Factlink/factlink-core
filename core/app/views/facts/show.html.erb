@@ -1,9 +1,20 @@
-<%= render "/facts/fact", :fact => @fact, :channel => nil, :modal => @modal, :hide_links_for_site => @hide_links_for_site %>
-
 <% content_for :javascript do %> 
+  <%= javascript_include_tag "backbone/views/fact_view.js" %>
+  <%= javascript_include_tag "backbone/models/fact.js" %>
 
   <script>
-    $('.fact-block').factlink();
+    var Fact = new Fact(<%= Facts::FactView.for_fact_and_view(@fact, self, nil, @modal).to_json.html_safe %>);
+    var View = new FactView({
+      model: Fact
+    }).render();
+    
+    $('div.modal').append(View.el);
     window.fact_id = "<%= @fact.id %>";
   </script>
+<% end %>
+
+<% content_for :template do %>
+  <%= load_js_template "fact_tmpl",               "facts/_fact.html.mustache" %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
 <% end %>
