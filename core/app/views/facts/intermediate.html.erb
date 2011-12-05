@@ -125,12 +125,8 @@
     
     function globalErrorFunction(xhr, status, err) {
       if (xhr.status === 401) {
-        openLoginWindow();
+        alert("Please login to Factlink.");
       }
-    }
-    
-    function openLoginWindow() {
-      alert("Please login to Factlink.");
     }
     
     function getTopIntermediatePage() {
