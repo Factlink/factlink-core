@@ -10,6 +10,9 @@ describe User do
   context "Initially" do
     it {subject.graph_user.facts.to_a.should == []}
     it {subject.graph_user.should == subject.graph_user }
+    it "should not be an Admin" do
+      subject.admin.should == false
+    end
   end
 
   it "should have one active factlink after adding believe" do
