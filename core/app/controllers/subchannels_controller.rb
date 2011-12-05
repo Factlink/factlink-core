@@ -35,6 +35,12 @@ class SubchannelsController
   end
   
   private
+    def get_user
+      if params[:username]
+        @user = User.first(:conditions => { :username => params[:username]})
+      end
+    end
+
     def load_channel
       @channel  = Channel[params[:channel_id]]
       @channel || raise_404("Channel not found")
