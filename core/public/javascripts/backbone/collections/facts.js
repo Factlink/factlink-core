@@ -1,5 +1,5 @@
 window.FactList = Backbone.Collection.extend({
-  model: Channel,
+  model: Fact,
   url: function() {
     if (this.forChannel !== undefined) {
       return Channels.get(this.forChannel).url() + '/facts/';
