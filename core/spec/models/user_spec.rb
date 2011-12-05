@@ -6,8 +6,6 @@ describe User do
 
   let(:fact) {FactoryGirl.create :fact}
   let(:child1) {FactoryGirl.create :fact}
-  
-  let(:mass_assigned_user) {FactoryGirl.create :user, :admin => true}
 
   context "Initially" do
     it {subject.graph_user.facts.to_a.should == []}
@@ -24,11 +22,6 @@ describe User do
 
   it "should have a GraphUser" do
     subject.graph_user.should be_a(GraphUser)
-  end
-
-  # See http://guides.rubyonrails.org/security.html#mass-assignment
-  it "should not be possible to mass assign Admin boolean" do
-    mass_assigned_user.admin.should == false
   end
 
   [:beliefs,:doubts,:disbeliefs].each do |type|
