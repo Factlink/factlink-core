@@ -15,7 +15,8 @@ class ChannelsController < ApplicationController
       :facts,
       :related_users,
       :activities,
-      :remove_fact]
+      :remove_fact,
+      :toggle_fact]
   
   before_filter :authenticate_user!
     
@@ -148,7 +149,6 @@ class ChannelsController < ApplicationController
   def toggle_fact
     authorize! :update, @channel
 
-    @channel  = Channel[params[:channel_id] || params[:id]]
     @fact     = Fact[params[:fact_id]]
     
     if @channel.facts.include?(@fact)
@@ -194,7 +194,7 @@ class ChannelsController < ApplicationController
   end
   
   def load_channel
-    @channel = Channel[params[:id]]
+    @channel  = Channel[params[:channel_id] || params[:id]]
     @channel || raise_404("Channel not found")
     @user ||= @channel.created_by.user
   end
