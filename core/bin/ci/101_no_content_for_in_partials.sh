@@ -1,5 +1,5 @@
 #!/bin/bash
-banner "partial content for check"
+echo "partial content for check"
 
 ERROR_FILES=`ack-grep content_for -l | grep "/_" | wc -l`
 echo $ERROR_FILES

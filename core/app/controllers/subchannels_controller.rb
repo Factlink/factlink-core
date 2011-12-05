@@ -1,4 +1,4 @@
-class SubchannelsController < ChannelsController
+class SubchannelsController
   before_filter :get_user
 
   before_filter :load_channel
@@ -35,6 +35,12 @@ class SubchannelsController < ChannelsController
   end
   
   private
+    def load_channel
+      @channel  = Channel[params[:channel_id]]
+      @channel || raise_404("Channel not found")
+      @user ||= @channel.created_by.user
+    end
+  
     def load_subchannel
       @subchannel = Channel[params[:subchannel_id]]
       @subchannel || raise_404("Subchannel not found")

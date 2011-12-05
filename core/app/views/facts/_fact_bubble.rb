@@ -1,7 +1,7 @@
 module Facts
   class FactBubble < Mustache::Railstache
     def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
-      fb = new(false)
+      fb = new
       fb.view = view
       fb[:channel] = channel
       fb[:fact] = fact
