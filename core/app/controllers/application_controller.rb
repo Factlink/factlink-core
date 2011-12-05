@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
     require_dependency path 
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :unauthorized }
+      format.any  { raise exception }
+    end
+  end
 
   around_filter :profile
   
