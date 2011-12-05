@@ -25,13 +25,8 @@ module Facts
       end
     end
   
-    def link_to_delete_from_channel
-      link_to("x",
-              remove_from_channel_path,
-              :class => "close",
-              :method => :delete,
-              :confirm => "Are you sure you want to remove this Factlink from your channel?", 
-              :remote => true)
+    def delete_from_channel_link
+      remove_from_channel_path
     end
   
     def deletable_from_channel?
@@ -102,8 +97,8 @@ module Facts
                :evidence_search_path => evidence_search_path,
              :prefilled_search_value => prefilled_search_value,
             :deletable_from_channel? => deletable_from_channel?,
+           :delete_from_channel_link => delete_from_channel_link,
            :remove_from_channel_path => remove_from_channel_path,
-        :link_to_delete_from_channel => link_to_delete_from_channel,
       }
     end
   end
