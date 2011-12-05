@@ -1,4 +1,4 @@
-class SubchannelsController
+class SubchannelsController < ApplicationController
   before_filter :get_user
 
   before_filter :load_channel
