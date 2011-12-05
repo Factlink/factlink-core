@@ -1,7 +1,7 @@
 module Facts
   class FactWheel < Mustache::Railstache
     def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
-      fw = new(false)
+      fw = new
       fw.view = view
       fw[:channel] = channel
       fw[:fact] = fact
