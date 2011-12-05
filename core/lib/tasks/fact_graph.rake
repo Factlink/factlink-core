@@ -6,7 +6,7 @@ namespace :fact_graph do
     
     
     STDOUT.flush
-    sleep_time = 10
+    sleep_time = 59
     puts "now recalculating with interval of #{sleep_time} seconds"  
     while true
       #print "(#{Time.now.asctime}) recalculating FactGraph\n"
@@ -23,7 +23,7 @@ namespace :channels do
     `echo "#{Process.pid}" > #{Rails.root}/log/channels_recalculate.pid`
     `echo "#{Process.ppid}" > #{Rails.root}/log/channels_recalculate.ppid`
     
-    sleep_time = 2
+    sleep_time = 47
     puts "now recalculating with interval of #{sleep_time} seconds"  
     while true
       #print "(#{Time.now.asctime}) recalculating channels\n"
