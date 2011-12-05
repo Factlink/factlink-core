@@ -146,9 +146,8 @@ class ChannelsController < ApplicationController
   end
 
   def toggle_fact
-    authorize! :update, @channel
-
     @channel  = Channel[params[:channel_id] || params[:id]]
+    authorize! :update, @channel
     @fact     = Fact[params[:fact_id]]
     
     if @channel.facts.include?(@fact)
