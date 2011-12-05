@@ -26,9 +26,9 @@
     }
   };
   
-  Factlink.createFactFromSelection = function(opinion,callback){
+  Factlink.createFactFromSelection = function(opinion,callback,errorCallback){
     var selInfo = Factlink.getSelectionInfo();
-    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback);
+    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback,errorCallback);
   };
   
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
