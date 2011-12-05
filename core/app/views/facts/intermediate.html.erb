@@ -61,8 +61,6 @@
           local: {
             // DEPRECATED
             createEvidence: function(evidence_id, url, type, title) {
-              document.getElementById("url").value = url;
-              document.getElementById("title").value = title;
               
               getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
             },
