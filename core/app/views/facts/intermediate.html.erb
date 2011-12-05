@@ -35,6 +35,7 @@
 	<%= csrf_meta_tag %>
 </head>
 <body>
+  <!-- THIS FORM IS DEPRECATED -->
 	<%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="">
   	<input type="text" name="url" id="url" value="">
@@ -93,14 +94,17 @@
             //easyXDM does not support passing functions wrapped in objects (such as options in this case)
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
+              if (errorFn !== undefined) {
+                errorFn = globalErrorFunction;
+              }
               ajax(path, $.extend({
-                success: function eminem(data){
+                success: function eminem(){
                   console.info('SUCCESS : ' + path );
-                  successFn(data);
+                  successFn.apply(this,arguments);
                 },
-                error: function vanillaIce(data) {
+                error: function vanillaIce() {
                   console.info('ERROR : ' + path );
-                  errorFn(data);
+                  errorFn.apply(this,arguments);
                 }
               }, options));
             }
@@ -115,11 +119,11 @@
       }, options));
     }
     
-    $(document).ajaxError(function(e, xhr, status, err) {
+    function globalErrorFunction(xhr, status, err) {
       if (xhr.status === 401) {
         openLoginWindow();
       }
-    });
+    }
     
     function openLoginWindow() {
       alert("Please login to Factlink.");
