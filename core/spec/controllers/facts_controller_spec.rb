@@ -60,6 +60,15 @@ describe FactsController do
     end
   end
 
+  describe :new do
+    it "should work" do
+      authenticate_user!(user)
+      post 'new', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      response.should be_succes
+    end
+  end
+
+
   describe "adding evidence" do
     before do
       @fact = FactoryGirl.create(:fact)
