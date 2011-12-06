@@ -35,6 +35,7 @@
 	<%= csrf_meta_tag %>
 </head>
 <body>
+  <!-- THIS FORM IS DEPRECATED -->
 	<%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
   	<input type="hidden" name="evidence_id" id="evidence_id" value="">
   	<input type="text" name="url" id="url" value="">
@@ -60,15 +61,17 @@
           local: {
             // DEPRECATED
             createEvidence: function(evidence_id, url, type, title) {
-              document.getElementById("evidence_id").value = evidence_id;
-              document.getElementById("url").value = url;
-              document.getElementById("title").value = title;
-              addEvidence(type);
+              
+              getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
             },
             // DEPRECATED
             createNewEvidence: function(fact, passage, url, type, title) {
-              prepareFactlink(fact, passage, url, title);
-              addEvidence(type);
+              if (opinion !== undefined) {
+                document.getElementById("opinion").value = opinion;
+              }
+              
+
+              getTopIntermediatePage().submitNewEvidenceToShowFrame(type, fact, passage, url, title);
             },
             showFactlink: function(id, successFn) {
               showFrame.onload = function() {
@@ -93,14 +96,17 @@
             //easyXDM does not support passing functions wrapped in objects (such as options in this case)
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
+              if (errorFn !== undefined) {
+                errorFn = globalErrorFunction;
+              }
               ajax(path, $.extend({
-                success: function eminem(data){
+                success: function eminem(){
                   console.info('SUCCESS : ' + path );
-                  successFn(data);
+                  successFn.apply(this,arguments);
                 },
-                error: function vanillaIce(data) {
+                error: function vanillaIce() {
                   console.info('ERROR : ' + path );
-                  errorFn(data);
+                  errorFn.apply(this,arguments);
                 }
               }, options));
             }
@@ -115,14 +121,10 @@
       }, options));
     }
     
-    $(document).ajaxError(function(e, xhr, status, err) {
+    function globalErrorFunction(xhr, status, err) {
       if (xhr.status === 401) {
-        openLoginWindow();
+        alert("Please login to Factlink.");
       }
-    });
-    
-    function openLoginWindow() {
-      alert("Please login to Factlink.");
     }
     
     function getTopIntermediatePage() {
@@ -132,32 +134,7 @@
       return showFactlinkContainer.parent; //(same source as current page)
     }
 
-    function prepareFactlink(fact, passage, url, title, opinion) {
-      document.getElementById("fact").value = fact;
-      document.getElementById("passage").value = passage;
-      document.getElementById("url").value = url;
-      document.getElementById("title").value = title;
 
-      if (opinion !== undefined) {
-        document.getElementById("opinion").value = opinion;
-      }
-    }
-
-    // Add to an existing Factlink 
-    function addEvidence(type) {
-      var evidence_id = document.getElementById("evidence_id").value;
-      
-      if (evidence_id.length > 0) {
-        getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
-      } else {
-        var fact = document.getElementById("fact").value;
-        var passage = document.getElementById("passage").value;
-        var url = document.getElementById("url").value;
-        var title = document.getElementById("title").value;
-
-        getTopIntermediatePage().submitNewEvidenceToShowFrame(type, fact, passage, url, title);
-      }
-    }
 
     function submitEvidenceToShowFrame(type, evidence_id) {
       var fact_id = showFrame.contentWindow.fact_id;
