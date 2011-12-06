@@ -81,7 +81,7 @@ class Channel < OurOhm
   end
 
   def to_s
-    self.id
+    self.title
   end
   
   
