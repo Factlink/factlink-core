@@ -96,19 +96,13 @@
             //easyXDM does not support passing functions wrapped in objects (such as options in this case)
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
-              if (errorFn !== undefined) {
-                errorFn = globalErrorFunction;
-              }
+              
               ajax(path, $.extend({
-                success: function eminem(){
-                  console.info('SUCCESS : ' + path );
-                  successFn.apply(this,arguments);
-                },
-                error: function vanillaIce() {
-                  console.info('ERROR : ' + path );
-                  errorFn.apply(this,arguments);
+                success: successFn,
+                error: function(xhr,status,err){
+                  errorFn(xhr,status,err);
                 }
-              }, options));
+              },options));
             }
           }
         });
@@ -119,12 +113,6 @@
           'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         }
       }, options));
-    }
-    
-    function globalErrorFunction(xhr, status, err) {
-      if (xhr.status === 401) {
-        alert("Please login to Factlink.");
-      }
     }
     
     function getTopIntermediatePage() {
