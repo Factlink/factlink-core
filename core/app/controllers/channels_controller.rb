@@ -144,6 +144,8 @@ class ChannelsController < ApplicationController
     authorize! :update, @channel
     @fact = Fact[params[:fact_id]]
     @channel.remove_fact(@fact)
+    
+    respond_with(@fact)
   end
 
   def toggle_fact
