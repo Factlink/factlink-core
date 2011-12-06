@@ -99,9 +99,7 @@
               
               ajax(path, $.extend({
                 success: successFn,
-                error: function(xhr,status,err){
-                  errorFn(xhr,status,err);
-                }
+                error: errorFn
               },options));
             }
           }
