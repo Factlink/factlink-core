@@ -31,8 +31,19 @@
   };
   
   Factlink.ajax = function(path, options) {
-    var success = ( $.isFunction(options.success) ? options.success : undefined );
-    var error = ( $.isFunction(options.error) ? options.error : undefined );
+    function globalErrorFunction(xhr, status, err) {
+      console.info('ERROR : ' + path );
+      if (xhr.message.status === 401) {
+        alert("Please login to Factlink.");
+      }
+    }
+
+    function globalSuccesFunction(data) {
+      console.info('SUCCESS : ' + path );
+    }
+
+    var success = ( $.isFunction(options.success) ? options.success : globalSuccessFunction );
+    var error = ( $.isFunction(options.error) ? options.error : globalErrorFunction );
     delete options.success;
     delete options.error;
     
