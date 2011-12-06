@@ -42,7 +42,7 @@ class SubchannelsController < ApplicationController
     end
 
     def load_channel
-      @channel  = Channel[params[:channel_id]]
+      @channel  = Channel[params[:channel_id]||params[:id]]
       @channel || raise_404("Channel not found")
       @user ||= @channel.created_by.user
     end
