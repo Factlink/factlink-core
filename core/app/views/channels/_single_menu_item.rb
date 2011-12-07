@@ -19,11 +19,12 @@ module Channels
     end
 
     def link
-      channel_path(self[:user].username, self[:channel].id)
+      #channel_path(self[:user].username, id)
+      @link||="/#{self[:user].username}/channels/#{id}/"
     end
     
     def edit_link
-      edit_channel_path(self[:channel].created_by.user.username, id)
+      link + "edit"
     end
   
     def title
