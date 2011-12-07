@@ -36,7 +36,7 @@ module Channels
     end
     
     def created_by
-      Users::User.for_user(self[:user].graph_user, self.view)
+      Users::User.for_user(self[:user], self.view)
     end
     
     def show_subchannels?
