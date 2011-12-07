@@ -56,7 +56,7 @@ module Channels
     end
     
     def containing_channels
-      return [] unless current_graph_user
+      return [] unless followable?
       self[:channel].containing_channels_for(current_graph_user).ids
     end
   
@@ -65,11 +65,11 @@ module Channels
     end
     
     def editable?
-      current_graph_user == self[:channel].created_by && self[:channel].editable?
+      current_graph_user.id == created_by_id && self[:channel].editable?
     end
     
     def followable?
-      current_graph_user != self[:channel].created_by && self[:channel].followable?
+      current_graph_user.id != created_by_id && self[:channel].followable?
     end
   
     def to_hash
