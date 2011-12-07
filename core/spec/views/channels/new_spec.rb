@@ -1,9 +1,15 @@
 require 'spec_helper'
 
 describe "channels/new" do
-  pending "should render" do
-    @channel = Channel.new
+
+  def params(paramshash={})
+    view.should_receive(:params).any_number_of_times.and_return(paramshash)
+  end
+  
+  it "should render" do
+    assign(:channel, Channel.new)
+    params({username: 'tomdev'})
     render
-    response.should have_tag('div')
+    rendered.should have_selector('div')
   end
 end
