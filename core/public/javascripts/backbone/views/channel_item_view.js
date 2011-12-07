@@ -50,8 +50,6 @@ window.ChannelItemView = Backbone.View.extend({
   
   clickHandler: function( e ) {
     Router.navigate(Router.getUsername() + "/channels/" + this.model.id, true);
-
-    this.model.set({new_facts: false});
     
     e.preventDefault();
     

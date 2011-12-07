@@ -12,6 +12,8 @@ var Workspace = Backbone.Router.extend({
       channel = this.view.channelView.subchannels.get(channel_id);
     }
     
+    channel.set({new_facts: false});
+    
     this.view.openChannel(channel);
   },
   
