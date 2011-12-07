@@ -26,11 +26,12 @@ window.ChannelView = Backbone.View.extend({
     }
   },
   
-  initAddToFact: function() {
+  initAddToChannel: function() {
     if ( this.el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
-      this.ownChannelView = new OwnChannelCollectionView({
+      this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
-        el: this.el.find('#follow-channel')
+        el: this.el.find('#follow-channel'),
+        containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
     }
   },
@@ -78,7 +79,7 @@ window.ChannelView = Backbone.View.extend({
       
       this.initSubChannels();
       this.initSubChannelMenu();
-      this.initAddToFact();
+      this.initAddToChannel();
       this.initMoreButton();
       
       $( this.el ).find('#facts_for_channel').append(this.factsView.render().el);
