@@ -35,7 +35,7 @@ window.FactsView = Backbone.View.extend({
       model: fact
     });
 
-    $(this.el).append(view.render().el);
+    $(this.el).find('.facts').append(view.render().el);
   },
   
   resetFacts: function() {
