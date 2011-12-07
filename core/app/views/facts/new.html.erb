@@ -1,12 +1,10 @@
 <h1>Adding new Factlink:</h1>
 
 <%= form_tag(facts_path) do %>
-  <% if params[:title] %>
-    <div class="field">
-      <%= label_tag :title %>:
-      <%= text_field_tag :title, params[:title] %>
-    </div>
-  <% end %>
+  <div class="field">
+    <%= label_tag :title %>:
+    <%= text_field_tag :title, params[:title] %>
+  </div>
 
   <% if params[:site_url] %>
     <div class="field">
