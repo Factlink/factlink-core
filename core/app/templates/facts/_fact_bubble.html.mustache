@@ -10,14 +10,18 @@
 		{{#user_signed_in?}}
 		  <div class="actions">
 		    <ul>
-			    <li><a href="#" class="add-to-channel"><img src="/images/bookmark.gif">Channels</a></li>
+			    <li class="add-to-channel">
+			      <a><img src="/images/bookmark.gif">Channels</a>
+			      <div class="float-box channel-listing">
+      		  </div>
+			    </li>
+			    
 			    {{#i_am_fact_owner}}
 			      <li>{{{delete_link}}}</li>
 			    {{/i_am_fact_owner}}
 		    </ul>
 		  </div>
-      <div class="float-box channel-listing">
-		  </div>
+
 	  {{/user_signed_in?}}
 	</header>
 </article>
