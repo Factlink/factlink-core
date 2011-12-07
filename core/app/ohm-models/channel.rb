@@ -143,16 +143,16 @@ class Channel < OurOhm
   end
 
   protected
-  def _add_channel(channel)
-    contained_channels << channel
-    channel.containing_channels << self
-    calculate_facts
-  end
-
-  def self.recalculate_all
-    all.andand.each do |ch|
-      ch.calculate_facts
+    def _add_channel(channel)
+      contained_channels << channel
+      channel.containing_channels << self
+      calculate_facts
     end
-  end
+
+    def self.recalculate_all
+      all.andand.each do |ch|
+        ch.calculate_facts
+      end
+    end
 
 end
