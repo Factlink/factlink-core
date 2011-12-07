@@ -6,10 +6,10 @@
     <%= text_field_tag :title, params[:title] %>
   </div>
 
-  <% if params[:site_url] %>
+  <% if params[:url] %>
     <div class="field">
-      <%= label_tag :site %>:
-      <%= text_field_tag :site, params[:site_url] %>
+      <%= label_tag :url %>:
+      <%= text_field_tag :url, params[:url] %>
     </div>
   <% end %>
     
