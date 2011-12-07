@@ -83,6 +83,10 @@ module Facts
       Facts::FactBubble.for_fact_and_view(self[:fact], self.view)
     end
     
+    def containing_channel_ids
+      current_graph_user.containing_channel_ids(self[:fact])
+    end
+    
     def to_hash
       {
                                  :id => id,
@@ -95,6 +99,7 @@ module Facts
                 :no_evidence_message => no_evidence_message,
                :fact_relations_count => fact_relations_count,
                :evidence_search_path => evidence_search_path,
+             :containing_channel_ids => containing_channel_ids,
              :prefilled_search_value => prefilled_search_value,
             :deletable_from_channel? => deletable_from_channel?,
            :delete_from_channel_link => delete_from_channel_link,
