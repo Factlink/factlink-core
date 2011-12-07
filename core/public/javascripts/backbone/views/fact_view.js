@@ -6,8 +6,9 @@ window.FactView = Backbone.View.extend({
   tmpl: $('#fact_tmpl').html(),
   
   events: {
-    "click a.remove": "removeFact",
-    "click .add-to-channel": "addToChannelClick"
+    "click a.remove": "removeFactFromChannel",
+    "click .add-to-channel": "addToChannelClick",
+    "click li.destroy": "destroyFact"
   },
   
   partials: {
@@ -34,16 +35,34 @@ window.FactView = Backbone.View.extend({
     $(this.el).fadeOut('fast', function() {
       $(this.el).remove();
     });
+    
+    // Hides the popup (if necessary)
+    if ( parent.remote ) {
+      parent.remote.hide();
+      parent.remote.stopHighlightingFactlink(this.model.id);
+    }
   },
   
   addToChannelClick: function(e) {
     e.preventDefault();
   },
   
-  removeFact: function() {
-    this.model.destroy({ error: function() {
-      alert("Error while removing Factlink from Channel" );
-    }});
+  removeFactFromChannel: function() {
+    this.model.destroy({ 
+      error: function() {
+        alert("Error while removing Factlink from Channel" );
+      },
+      forChannel: true
+    });
+  },
+  
+  destroyFact: function() {
+    this.model.destroy({ 
+      error: function() {
+        alert("Error while destroying the Factlink" );
+      },
+      forChannel: false
+    });
   },
 
   initAddToChannel: function() {
