@@ -39,7 +39,7 @@ window.ChannelView = Backbone.View.extend({
   initMoreButton: function() { 
     var containedChannels = this.el.find('#contained-channels');
     if  ( containedChannels ) {
-    this.el.find('#more-button').bind('click', function() { 
+      this.el.find('#more-button').bind('click', function() { 
         var button = $(this).find(".label");
         containedChannels.find('.overflow').slideToggle(function(e) { 
           button.text($(button).text() === 'more' ? 'less' : 'more');
@@ -52,14 +52,18 @@ window.ChannelView = Backbone.View.extend({
     if( this.model.get("followable?") ) { 
       var addToChannelButton = this.el.find("#add_to_channel");
       var followChannelMenu = this.el.find("#follow-channel");
+      
       followChannelMenu.css({"left": addToChannelButton.position().left});
+      
       addToChannelButton.hoverIntent(
         function() { followChannelMenu.fadeIn("fast"); }, 
         function() { followChannelMenu.delay(600).fadeOut("fast"); }
       );
+      
       followChannelMenu.on("mouseover", function() { 
-        followChannelMenu.stop(true, true).css({"opacity": "1"});
+        followChannelMenu.stop(true, true).show();
       });
+      
       followChannelMenu.on("mouseout", function() { 
        if (!followChannelMenu.find("input#channel_title").is(":focus")) {
           followChannelMenu.delay(500).fadeOut("fast");
