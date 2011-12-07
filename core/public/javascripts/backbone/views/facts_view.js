@@ -20,6 +20,8 @@ window.FactsView = Backbone.View.extend({
         page: self._page
       }
     });
+    
+    this.bindScroll();
   },
   
   render: function() {
@@ -50,7 +52,53 @@ window.FactsView = Backbone.View.extend({
         self.addFact(fact);
       });
     }
+    
+    this.loadMore();
   },
+  
+  _moreNeeded: true,
+  
+  moreNeeded: function() {
+    var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
+    var bottomOfEl = $(this.el).offset().top + $(this.el).outerHeight();
+    
+    if ( this.hasMore ) {
+      if ( bottomOfEl < bottomOfTheViewport ) {
+        return true;
+      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
+        return true;
+      }
+    }
+    
+    return false;
+  },
+  
+  loadMore: function() {
+    var self = this;
+    
+    if ( self.moreNeeded() && ! self._loading ) {
+      self.setLoading();
+      
+      self._page += 1;
+
+      self.collection.fetch({
+        add: true,
+        data: {
+          page: self._page
+        },
+        success: function() {
+          self.stopLoading();
+          self.loadMore();
+        },
+        error: function() {
+          self.stopLoading();
+          self.hasMore = false;
+        }
+      });
+    }
+  },
+  
+  hasMore: true,
   
   showNoFacts: function() {
     $(this.el).find('div.no_facts').show();
@@ -68,5 +116,14 @@ window.FactsView = Backbone.View.extend({
   stopLoading: function() {
     this._loading = false;
     $(this.el).find('div.loading').hide();
+  },
+  
+  //TODO: Unbind on remove?
+  bindScroll: function() {
+    var self = this;
+    
+    $(window).bind('scroll', function fugglyWrapper() {
+      self.loadMore.apply(self);
+    });
   }
 });
