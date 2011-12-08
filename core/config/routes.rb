@@ -71,6 +71,10 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
 
+  namespace :admin do
+    resources :users
+  end
+
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
 
