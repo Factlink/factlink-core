@@ -63,7 +63,7 @@ class FactsController < ApplicationController
       if @fact.save
         format.html do
            flash[:notice] = 'Fact was successfully created.'
-           redirect_to controller: 'facts', action: 'new', url: params[:url]
+           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title]
          end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
