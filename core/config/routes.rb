@@ -90,7 +90,11 @@ FactlinkUI::Application.routes.draw do
         
         get "related_users", :as => "channel_related_users"
         get "activities", :as => "activities"
+        
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
+        
+        post "add/:fact_id" => "channels#add_fact"
+        post "remove/:fact_id" => "channels#remove_fact"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"
