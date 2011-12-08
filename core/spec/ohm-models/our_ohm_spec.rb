@@ -80,6 +80,16 @@ describe Ohm::Model::SortedSet do
     c2.sorted_items.all.should =~ [a]
     diff.all.should =~ []
   end
+
+  it "should have a working assignment" do
+    c1 = Container.create()
+    c2 = Container.create()
+    c1.items << Item.create << Item.create
+    c2.items = c1.items
+    c2.items.count.should == 2
+    Container[c2.id].items.count.should == 2
+  end
+  
 end
 
 
