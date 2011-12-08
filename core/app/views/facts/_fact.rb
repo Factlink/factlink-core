@@ -1,11 +1,12 @@
 module Facts
   class FactView < Mustache::Railstache
-    def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
+    def self.for_fact_and_view(fact, view, channel=nil, modal=nil,timestamp=0)
       fv = new(false)
       fv.view = view
       fv[:channel] = channel
       fv[:fact] = fact
       fv[:modal] = modal
+      fv[:timestamp] = timestamp
       fv.init
       return fv
     end
@@ -88,9 +89,12 @@ module Facts
       current_graph_user.containing_channel_ids(self[:fact])
     end
     
+    def timestamp
+      self[:timestamp]
+    end
+    
     def to_hash
       {
-                                 :id => id,
                              :modal? => modal?,
                          :signed_in? => signed_in?,
                         :fact_bubble => fact_bubble,
@@ -105,6 +109,8 @@ module Facts
             :deletable_from_channel? => deletable_from_channel?,
            :delete_from_channel_link => delete_from_channel_link,
            :remove_from_channel_path => remove_from_channel_path,
+                                 :id => id,
+                          :timestamp => timestamp
       }
     end
   end

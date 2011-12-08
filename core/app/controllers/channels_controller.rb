@@ -134,18 +134,14 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
-    
-    if params[:timestamp]
-      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7, withscores: true)
-    else
-      @facts = @channel.facts
-    end
+    puts params[:number] || 7
+    @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
 
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
     
-    respond_with(@facts.map {|fact| Facts::FactView.for_fact_and_view(fact,view_context,@channel)})
+    respond_with(@facts.map {|fact| Facts::FactView.for_fact_and_view(fact[:item],view_context,@channel,nil,fact[:score])})
   end
   
   def remove_fact
