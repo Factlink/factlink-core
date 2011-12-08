@@ -236,6 +236,17 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     opts[:reversed]? res : res.reverse 
   end
 
+  def self.hash_array_for_withscores(arr)
+    res = []
+    (arr.length / 2).times do |i|
+      res << {
+        item:arr[i*2],
+        score:arr[i*2+1]
+      }
+    end
+    res
+  end
+
   protected
     # @private
     def apply(target,operation,*args)

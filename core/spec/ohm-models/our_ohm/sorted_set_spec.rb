@@ -99,6 +99,18 @@ describe Ohm::Model::SortedSet do
       c1.items.below(5,count:2,reversed:true).should == [i2,i3]
     end
   end
+  
+  describe "#hash_array_for_withscores" do
+    it "should work for an empty array" do
+      c1.items.class.hash_array_for_withscores([]).should == []
+    end
+    it "should work for an array with one item with score" do
+      c1.items.class.hash_array_for_withscores(['a',10]).should == [{score:10,item:'a'}]
+    end
+    it "should work for an array with multiple item with score" do
+      c1.items.class.hash_array_for_withscores(['a',10,'b',5]).should == [{score:10,item:'a'},{score:5,item:'b'}]
+    end
+  end
 
 end
 
