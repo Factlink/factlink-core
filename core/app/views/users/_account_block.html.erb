@@ -2,6 +2,6 @@
 	<% if user_signed_in? %>
 		<span>Signed in as <%= link_to(current_user, user_profile_path(current_user.username), :style => "color: #000;") %> <%= link_to("(sign out)", destroy_user_session_path, :style => "color: #000;") %></span>
 	<% else %>
-		<%= link_to("Sign in", new_user_session_path, :style => "color: #000;") %>
+		<%= link_to("Sign in", new_user_session_path, style: "color: #000;", target: target) %>
 	<% end %>
 </div>
