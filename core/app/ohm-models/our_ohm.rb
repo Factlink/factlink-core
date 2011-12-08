@@ -225,8 +225,8 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     key.zrevrange(0,-1).map(&model)
   end
 
-  def below(*args)
-    all
+  def below(limit)
+    key.zrevrangebyscore(limit,'-inf').map(&model).reverse
   end
 
   protected

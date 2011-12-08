@@ -70,7 +70,11 @@ describe Ohm::Model::SortedSet do
       c1.items.below(3).should == [i1,i2]
     end
   end
-  
+  it "should return only items below the limit" do
+    c1.items.add(i1,1)
+    c1.items.add(i2,4)
+    c1.items.below(3).should == [i1]
+  end
 end
 
 
