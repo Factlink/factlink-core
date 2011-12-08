@@ -59,7 +59,9 @@ class Channel < OurOhm
     facts_opts[:withscores] = opts[:withscores] ? true : false
     facts_opts[:count] = opts[:count].to_i if opts[:count]
     
-    res = sorted_cached_facts.below('inf',facts_opts)
+    limit = opts[:from] || 'inf'
+    
+    res = sorted_cached_facts.below(limit,facts_opts)
     
     if facts_opts[:withscores]
      res = res.delete_if{ |f| Fact.invalid(f[:item]) }
