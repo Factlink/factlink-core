@@ -17,7 +17,7 @@ window.Channel = Backbone.Model.extend({
   },
   
   getOwnContainingChannels: function() {
-    var containingChannels = this.get('containing_channels');
+    var containingChannels = this.get('containing_channel_ids');
     var ret = [];
     
     currentUser.channels.each(function(ch) { 
