@@ -225,7 +225,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     key.zrevrange(0,-1).map(&model)
   end
 
-  def smaller(*args)
+  def below(*args)
     all
   end
 
@@ -261,7 +261,7 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
     key['last_read'].set(self.class.current_time)
   end
   
-  alias :until :smaller
+  alias :until :below
   
   def inspect
     "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"

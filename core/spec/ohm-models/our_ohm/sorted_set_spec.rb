@@ -59,6 +59,17 @@ describe Ohm::Model::SortedSet do
     c2.items.count.should == 2
     SortedContainer[c2.id].items.count.should == 2
   end
+
+  describe "#smaller" do
+    it "should return an empty list for an empty set" do
+      c1.items.below(3).should =~ []
+    end
+    it "should return all items when no limit is given" do
+      c1.items.add(i1,1)
+      c1.items.add(i2,2)
+      c1.items.below(3).should == [i1,i2]
+    end
+  end
   
 end
 

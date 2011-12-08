@@ -27,18 +27,4 @@ describe Ohm::Model::TimestampedSet do
     c1.items << item3
     c1.items.unread_count.should == 2
   end
-  
-  
-  describe "#until" do
-    it "should return an empty list for an empty set" do
-      c1 = TimeContainer.create
-      c1.items.until(Ohm::Model::TimestampedSet.current_time).should =~ []
-    end
-    it "should return all items when no limit is given" do
-      c1 = TimeContainer.create
-      c1.items << item1
-      c1.items << item2
-      c1.items.until(Ohm::Model::TimestampedSet.current_time).should =~ [item1,item2]
-    end
-  end
 end
