@@ -9,21 +9,28 @@
   <h1>Add a Factlink:</h1>
 
   <%= form_tag(facts_path) do %>
-    <div class="field">
-      <%= label_tag :title %>:
-      <%= text_field_tag :title, params[:title] %>
+
+    <div class="row">
+      <%= label_tag :title %>
+      <div class="field">
+        <%= text_field_tag :title, params[:title] %>
+      </div>
     </div>
 
     <% if params[:url] %>
-      <div class="field">
-        <%= label_tag :url %>:
+      <div class="row">
+        <%= label_tag :url %>
+        <div class="field">
         <%= text_field_tag :url, params[:url] %>
+        </div>
       </div>
     <% end %>
     
-    <div class="field">
-      <%= label_tag :fact %>:
-      <%= text_area_tag :fact, params[:fact] %>
+    <div class="row">
+      <%= label_tag :fact %>
+      <div class="field">
+        <%= text_area_tag :fact, params[:fact] %>
+      </div>
     </div>
   
     <%= hidden_field_tag 'layout', 'popup' %>
