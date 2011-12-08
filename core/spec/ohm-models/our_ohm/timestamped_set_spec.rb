@@ -6,6 +6,9 @@ class TimeContainer < OurOhm
 end
 
 describe Ohm::Model::TimestampedSet do
+  
+  let(:item1) { Item.create }
+  
   it "should have an unread count of 0 when marked as unread" do
     c1 = TimeContainer.create()
     c1.items.unread_count.should == 0
@@ -34,7 +37,8 @@ describe Ohm::Model::TimestampedSet do
   describe "#until" do
     it "should return an empty list for an empty set" do
       c1 = TimeContainer.create
-      c1.items.until(Ohm::Model::TimestampedSet.current_time).should =~ []
+      c1.items << item1
+      c1.items.until(Ohm::Model::TimestampedSet.current_time).should =~ [item1]
     end
   end
 end

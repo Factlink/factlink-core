@@ -259,7 +259,7 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
   end
   
   def until(*args)
-    []
+    all
   end
   
   def inspect
