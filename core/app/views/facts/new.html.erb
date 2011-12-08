@@ -17,7 +17,9 @@
     <%= label_tag :fact %>:
     <%= text_area_tag :fact, params[:fact] %>
   </div>
-   
+  
+  <%= hidden_field_tag 'layout', 'popup' %>
+  
   <div class="actions">
     <%= submit_tag "Create Factlink", :class => "btn" %>
   </div>
