@@ -92,6 +92,13 @@ describe Ohm::Model::SortedSet do
     c1.items.below(5,count:2).should == [i3,i2]
   end
 
+  it "should return from high to low when reversed is true" do
+    c1.items.add(i1,1)
+    c1.items.add(i2,4)
+    c1.items.add(i3,3)
+    c1.items.below(5,count:2,reversed:true).should == [i2,i3]
+  end
+
 end
 
 

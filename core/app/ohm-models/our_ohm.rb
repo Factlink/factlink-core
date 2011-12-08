@@ -232,7 +232,8 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
       redis_opts = {}
     end
     res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts).map(&model)
-    res.reverse
+    
+    opts[:reversed]? res : res.reverse 
   end
 
   protected
