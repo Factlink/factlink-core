@@ -231,8 +231,16 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     else
       redis_opts = {}
     end
-    res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts).map(&model)
     
+    redis_opts[:withscores] = opts[:withscores]
+    
+    res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts)
+    
+    if opts[:withscores]
+      res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}
+    else
+      res = res.map(&model)
+    end
     opts[:reversed]? res : res.reverse 
   end
 
@@ -241,7 +249,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     (arr.length / 2).times do |i|
       res << {
         item:arr[i*2],
-        score:arr[i*2+1]
+        score:arr[i*2+1].to_f
       }
     end
     res

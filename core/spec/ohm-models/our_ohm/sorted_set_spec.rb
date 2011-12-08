@@ -98,6 +98,12 @@ describe Ohm::Model::SortedSet do
       c1.items.add(i3,3)
       c1.items.below(5,count:2,reversed:true).should == [i2,i3]
     end
+    
+    it "should return items with scores when the withscores option is given" do
+      c1.items.add(i1,1)
+      c1.items.add(i2,4)
+      c1.items.below(3,withscores:true).should == [{item:i1,score:1}]
+    end
   end
   
   describe "#hash_array_for_withscores" do
@@ -106,6 +112,9 @@ describe Ohm::Model::SortedSet do
     end
     it "should work for an array with one item with score" do
       c1.items.class.hash_array_for_withscores(['a',10]).should == [{score:10,item:'a'}]
+    end
+    it "should work for an array with scores which are strings" do
+      c1.items.class.hash_array_for_withscores(['a','10']).should == [{score:10,item:'a'}]
     end
     it "should work for an array with multiple item with score" do
       c1.items.class.hash_array_for_withscores(['a',10,'b',5]).should == [{score:10,item:'a'},{score:5,item:'b'}]
