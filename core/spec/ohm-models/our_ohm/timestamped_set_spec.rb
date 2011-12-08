@@ -28,12 +28,6 @@ describe Ohm::Model::TimestampedSet do
     c1.items.unread_count.should == 2
   end
   
-  it "should have a working assignment" do
-    c1.items << item1 << item2
-    c2.items = c1.items
-    c2.items.count.should == 2
-    TimeContainer[c2.id].items.count.should == 2
-  end
   
   describe "#until" do
     it "should return an empty list for an empty set" do
