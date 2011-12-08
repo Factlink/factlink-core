@@ -14,6 +14,7 @@ describe Ohm::Model::SortedSet do
   
   let(:i1) { Item.create }
   let(:i2) { Item.create }
+  let(:i3) { Item.create }
   
   describe "union" do
     before do
@@ -70,9 +71,17 @@ describe Ohm::Model::SortedSet do
       c1.items.below(3).should == [i1,i2]
     end
   end
+  
   it "should return only items below the limit" do
     c1.items.add(i1,1)
     c1.items.add(i2,4)
+    c1.items.below(3).should == [i1]
+  end
+
+  it "should return only items below the limit (exclusive)" do
+    c1.items.add(i1,1)
+    c1.items.add(i2,4)
+    c1.items.add(i3,3)
     c1.items.below(3).should == [i1]
   end
 end

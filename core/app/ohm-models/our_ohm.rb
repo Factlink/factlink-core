@@ -226,7 +226,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
   end
 
   def below(limit)
-    key.zrevrangebyscore(limit,'-inf').map(&model).reverse
+    key.zrevrangebyscore("(#{limit.to_f}",'-inf').map(&model).reverse
   end
 
   protected
