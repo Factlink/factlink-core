@@ -27,8 +27,6 @@ FactlinkUI::Application.routes.draw do
       get     "opinion" => "facts#opinion"
       post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
       delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
-      
-      get     "created" => "facts#created"
     end
     collection do
       #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url

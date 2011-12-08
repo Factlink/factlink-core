@@ -106,12 +106,6 @@ class FactsController < ApplicationController
     end
   end
   
-  # GET /facts/:fact_id/created
-  def created
-    render :layout => "popup"
-  end
-
-  
   def add_new_evidence
     type = params[:type].to_sym
     if type == :weakening
