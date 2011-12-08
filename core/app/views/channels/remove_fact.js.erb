@@ -1,7 +1,0 @@
-$('#results-listing div[data-fact-id=<%= @fact.id %>]').fadeOut('fast', function() {
-	$(this).remove();
-});
-
-if ( window.Channels !== undefined ) {
-  Channels.get("<%= @channel.id %>").fetch();
-}

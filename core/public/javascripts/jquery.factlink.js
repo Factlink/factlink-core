@@ -120,16 +120,6 @@
           var fact = init_fact(this, $fact);
           $fact.data("facts")[fact.attr("data-fact-id")] = fact;
         });
-
-        // Prevents boxes from dissapearing on mouse over
-        $fact.find(".float-box").mouseover(function() {
-          stop_fade($(this));
-        });
-        $fact.find(".float-box").mouseout(function() {
-          if (!$(this).find("input#channel_title").is(":focus")) {
-            $(this).delay(500).fadeOut("fast");
-          }
-        });
       });
     },
     
@@ -184,18 +174,6 @@
           channel_id: channel,
           fact_id: fact
         }
-      });
-    },
-    getChannelChecklist: function(fact) {
-      var id = fact.attr("data-fact-id");
-      fact.find(".add-to-channel").off('hover.load_channel_list');
-
-      $.ajax({
-        url: '/facts/' + id + '/channels',
-        type: "GET",
-        dataType: "html",
-        success: function(data) {fact.find(".channel-listing").html(data);},
-        error: function(data) {}
       });
     }
   };
@@ -406,18 +384,6 @@
       bindEvidencePrepare($c);
       bindNewEvidenceAddAction($c);
       bindInstantSearch($c);
-
-      // Channels are in the container
-      $fact.find(".add-to-channel")
-        .on('hover.load_channel_list',function(){$().factlink('getChannelChecklist',$fact);})
-        .hoverIntent(function(e) {
-          var channelList = $fact.find(".channel-listing");
-          $(channelList).fadeIn("fast");
-      }, function() {
-        $fact.find(".channel-listing").delay(600).fadeOut("fast");
-      }).bind('click', function(e) {
-        e.preventDefault();
-      });
 
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {

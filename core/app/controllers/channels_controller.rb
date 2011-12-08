@@ -132,18 +132,26 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
+    
+    if params[:timestamp]
+      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7)
+    else
+      @facts = @channel.facts
+    end
 
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
     
-    respond_with(@channel.facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
+    respond_with(@facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context,@channel)})
   end
   
   def remove_fact
     authorize! :update, @channel
     @fact = Fact[params[:fact_id]]
     @channel.remove_fact(@fact)
+    
+    respond_with(@fact)
   end
 
   def toggle_fact

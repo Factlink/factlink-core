@@ -1,49 +1,129 @@
 window.FactsView = Backbone.View.extend({
   tagName: "div",
   className: "facts",
-  _views: [],
-  _loading: false,
+  _loading: true,
   _page: 1,
   tmpl: $('#facts_tmpl').html(),
+  
   initialize: function() {
     var self = this;
-    
+
     this.collection.bind('add', this.addFact, this);
     this.collection.bind('reset', this.resetFacts, this);
-    
+
     $(this.el).html(Mustache.to_html(this.tmpl));
-    
+
+    this.setLoading();
+
     this.collection.fetch({
       data: {
         page: self._page
       }
     });
+    
+    this.bindScroll();
   },
+  
   render: function() {
-    if ( this.collection.length > 0 ) {
+    if (this.collection.length > 0) {
       this.resetFacts();
     }
-    
+
     return this;
   },
+  
   addFact: function(fact) {
     var view = new FactView({
       model: fact
     });
-    
-    $( this.el ).append(view.render().el);
-    
-    this._views.push(view);
+
+    $(this.el).find('.facts').append(view.render().el);
   },
+  
   resetFacts: function() {
     var self = this;
+
+    this.stopLoading();
+
+    if (this.collection.length === 0) {
+      this.showNoFacts();
+    } else {
+      this.collection.forEach(function(fact) {
+        self.addFact(fact);
+      });
+    }
     
+    this.loadMore();
+  },
+  
+  _moreNeeded: true,
+  
+  moreNeeded: function() {
+    var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
+    var bottomOfEl = $(this.el).offset().top + $(this.el).outerHeight();
+    
+    if ( this.hasMore ) {
+      if ( bottomOfEl < bottomOfTheViewport ) {
+        return true;
+      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
+        return true;
+      }
+    }
+    
+    return false;
+  },
+  
+  loadMore: function() {
+    var self = this;
+    
+    if ( self.moreNeeded() && ! self._loading ) {
+      self.setLoading();
+      
+      self._page += 1;
+
+      self.collection.fetch({
+        add: true,
+        data: {
+          page: self._page
+        },
+        success: function() {
+          self.stopLoading();
+          self.loadMore();
+        },
+        error: function() {
+          self.stopLoading();
+          self.hasMore = false;
+        }
+      });
+    }
+  },
+  
+  hasMore: true,
+  
+  showNoFacts: function() {
+    $(this.el).find('div.no_facts').show();
+  },
+  
+  hideNoFacts: function() {
+    $(this.el).find('div.no_facts').hide();
+  },
+  
+  setLoading: function() {
+    this._loading = true;
+    $(this.el).find('div.loading').show();
+  },
+  
+  stopLoading: function() {
+    this._loading = false;
     $(this.el).find('div.loading').hide();
+  },
+  
+  //TODO: Unbind on remove?
+  bindScroll: function() {
+    var self = this;
     
-    $(this.el).find('div.no_facts').toggle(this.collection.length);
-    
-    this.collection.forEach(function(fact) {
-      self.addFact(fact);
+    $(window).bind('scroll', function fugglyWrapper() {
+      self.loadMore.apply(self);
     });
   }
 });

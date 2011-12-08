@@ -1,4 +1,4 @@
-window.OwnChannelCollectionView = Backbone.View.extend({
+window.AddToChannelView = Backbone.View.extend({
   tmpl: $('#own_channels_collection').html(),
   tagName: "div",
   
@@ -8,14 +8,15 @@ window.OwnChannelCollectionView = Backbone.View.extend({
     'submit form': 'addChannel'
   },
     
-  initialize: function() {
+  initialize: function(opts) {
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
     
-    this.containing_channels = currentChannel.get('containing_channels');
+    this.containingChannels = opts.containingChannels;
   },
   
   addChannel: function(e) {
+    console.info( "BAM" );
     var self = this;
     
     self.disableAdd();
@@ -31,8 +32,7 @@ window.OwnChannelCollectionView = Backbone.View.extend({
         },
         type: "post",
         success: function(data) {
-          currentChannel.get('containing_channels').push(data.id);
-          
+          self.containingChannels.push(data);
           currentUser.channels.add(data);
           
           self.resetAdd();
@@ -60,33 +60,41 @@ window.OwnChannelCollectionView = Backbone.View.extend({
     this.$submit.prop('disabled',false);
   },
   
-  render: function() {
-    var self = this;
-    
-    this.el
-      .html( Mustache.to_html(this.tmpl) );
-    
-    var $channelListing = this.el.find('ul');
+  resetCheckedState: function() {
+    var containingChannels = _.map(this.containingChannels, function(ch) {
+      return ch.id;
+    });
     
     this.collection.each(function(channel) {
       if ( channel.get('editable?') ) {
         channel.checked = false;
         
-        _.each(self.containing_channels, function(containing_channel_id) {
-          if ( channel.id === containing_channel_id ) {
-            channel.checked = true;
-          }
-        });
-        
+        if (_.indexOf(containingChannels,channel.id) !== -1 ) {
+          channel.checked = true;
+        }
+      }
+    });
+  },
+  
+  render: function() {
+    this.el
+      .html( Mustache.to_html(this.tmpl) );
+
+    var $channelListing = this.el.find('ul');
+    
+    this.resetCheckedState();
+    
+    this.collection.each(function(channel) {
+      if ( channel.get('editable?') ) {
         var view = new OwnChannelItemView({model: channel}).render();
 
         $channelListing.append(view.el);
       }
     });
     
-    var el = $( this.el );
+    this.$input = this.el.find('input[name="channel_title"]');
+    this.$submit = this.el.find('input[type="submit"]');
     
-    this.$input = el.find('input[name="channel_title"]');
-    this.$submit = el.find('input[type="submit"]');
+    return this;
   }
 });

@@ -9,4 +9,9 @@ class ChannelManager
     @channels.reject! { |channel| ! channel.editable? }
     @channels.map {|ch| ChannelForFact.new(ch,fact,@username)}
   end
+  
+  def containing_channel_ids(fact)
+    @channels = @gu.channels.to_a
+    @channels.select { |ch| ch.include? fact }.map{ |ch| ch.id }
+  end
 end

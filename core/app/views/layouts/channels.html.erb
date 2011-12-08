@@ -28,7 +28,7 @@
   <%= javascript_include_tag "backbone/models/fact.js" %>
   <%= javascript_include_tag "backbone/models/subchannel.js" %>
   <%= javascript_include_tag "backbone/collections/channels.js" %>
-  <%= javascript_include_tag "backbone/collections/own_channel_list.js" %>
+  <%= javascript_include_tag "backbone/collections/own_channel_collection.js" %>
   <%= javascript_include_tag "backbone/collections/subchannels.js" %>
   <%= javascript_include_tag "backbone/collections/facts.js" %>
   <%= javascript_include_tag "backbone/views/subchannels_view.js" %>
@@ -37,7 +37,7 @@
   <%= javascript_include_tag "backbone/views/related_users_view.js" %>
   <%= javascript_include_tag "backbone/views/activities_view.js" %>
   <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
-  <%= javascript_include_tag "backbone/views/own_channel_collection_view.js" %>
+  <%= javascript_include_tag "backbone/views/add_to_channel_view.js" %>
   <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
   <%= javascript_include_tag "backbone/views/facts_view.js" %>
   <%= javascript_include_tag "backbone/views/fact_view.js" %>
@@ -49,14 +49,14 @@
   <script>
     Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user) }.to_json.html_safe %>);
     
+    <% if @channel && !@channel.new? %>
+      window.currentChannel = Channels.get(<%= @channel.id %>);
+    <% end %>
+
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for_user(current_user, self).to_json.html_safe %>);
 
-      window.currentUser.setChannels(new OwnChannelList(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
-    <% end %>
-    
-    <% if @channel && !@channel.new? %>
-      window.currentChannel = Channels.get(<%= @channel.id %>);
+      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
     <% end %>
     
     var Router = new Workspace();

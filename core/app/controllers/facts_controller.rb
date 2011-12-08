@@ -125,6 +125,8 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact_id = @fact.id
       @fact.delete
+      
+      respond_with(@fact)
     end
   end
 

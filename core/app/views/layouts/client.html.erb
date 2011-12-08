@@ -33,7 +33,10 @@
   <%= javascript_include_tag "jquery.infiniScroll"%>
   <%= javascript_include_tag "evidence_search" %>
   <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
-
+  <%= javascript_include_tag "lib/mustache" %>
+  <%= javascript_include_tag "underscore.js" %>
+  <%= javascript_include_tag "backbone.js" %>
+  
 	<%= javascript_include_tag "/client/js/jquery.scrollTo-1.4.2-min.js" %>
 	<%= javascript_include_tag "jquery.jeditable.mini" %>
 
@@ -45,6 +48,8 @@
     });
   </script>
 
+  <%= yield :template %>
+	
 	<%= yield :javascript %>
 	
 </body>

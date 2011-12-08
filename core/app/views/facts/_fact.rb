@@ -25,13 +25,8 @@ module Facts
       end
     end
   
-    def link_to_delete_from_channel
-      link_to("x",
-              remove_from_channel_path,
-              :class => "close",
-              :method => :delete,
-              :confirm => "Are you sure you want to remove this Factlink from your channel?", 
-              :remote => true)
+    def delete_from_channel_link
+      remove_from_channel_path
     end
   
     def deletable_from_channel?
@@ -88,6 +83,10 @@ module Facts
       Facts::FactBubble.for_fact_and_view(self[:fact], self.view)
     end
     
+    def containing_channel_ids
+      current_graph_user.containing_channel_ids(self[:fact])
+    end
+    
     def to_hash
       {
                                  :id => id,
@@ -100,10 +99,11 @@ module Facts
                 :no_evidence_message => no_evidence_message,
                :fact_relations_count => fact_relations_count,
                :evidence_search_path => evidence_search_path,
+             :containing_channel_ids => containing_channel_ids,
              :prefilled_search_value => prefilled_search_value,
             :deletable_from_channel? => deletable_from_channel?,
+           :delete_from_channel_link => delete_from_channel_link,
            :remove_from_channel_path => remove_from_channel_path,
-        :link_to_delete_from_channel => link_to_delete_from_channel,
       }
     end
   end
