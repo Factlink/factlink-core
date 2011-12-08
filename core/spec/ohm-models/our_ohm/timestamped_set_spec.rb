@@ -34,7 +34,7 @@ describe Ohm::Model::TimestampedSet do
   describe "#until" do
     it "should return an empty list for an empty set" do
       c1 = TimeContainer.create
-      c1.until(c1.class.current_time).should =~ []
+      c1.items.until(Ohm::Model::TimestampedSet.current_time).should =~ []
     end
   end
 end
