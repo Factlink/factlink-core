@@ -12,11 +12,20 @@ window.AddToChannelView = Backbone.View.extend({
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
     
-    this.containingChannels = opts.containingChannels;
+    this.containingChannels = this.model.getOwnContainingChannels();
+    
+    if ( opts.forChannel ) {
+      this.forChannel = opts.forChannel;
+    } else if ( opts.forFact ) {
+      this.forFact = opts.forFact;
+    } else {
+      this.forChannel = currentChannel;
+    }
   },
   
   addChannel: function(e) {
-    console.info( "BAM" );
+    e.preventDefault();
+    
     var self = this;
     
     self.disableAdd();
@@ -24,15 +33,23 @@ window.AddToChannelView = Backbone.View.extend({
     var val = self.$input.val();
         
     if ( val.length > 0 ) {
+      var dataHolder = {
+        title: val
+      };
+      
+      if ( self.forChannel ) {
+        dataHolder.for_channel= self.forChannel.id;
+      } else {
+        dataHolder.for_fact = self.forFact.id;
+      }
+      
       $.ajax({
         url: '/' + currentUser.get('username') + '/channels',
-        data: {
-          title: val,
-          for_channel: currentChannel.id
-        },
+        data: dataHolder,
         type: "post",
         success: function(data) {
-          self.containingChannels.push(data);
+          self.model.get('containing_channel_ids').push(data.id);
+          
           currentUser.channels.add(data);
           
           self.resetAdd();
@@ -61,7 +78,7 @@ window.AddToChannelView = Backbone.View.extend({
   },
   
   resetCheckedState: function() {
-    var containingChannels = _.map(this.containingChannels, function(ch) {
+    var containingChannels = _.map(this.model.getOwnContainingChannels(), function(ch) {
       return ch.id;
     });
     
@@ -77,6 +94,8 @@ window.AddToChannelView = Backbone.View.extend({
   },
   
   render: function() {
+    var self = this;
+    
     this.el
       .html( Mustache.to_html(this.tmpl) );
 
@@ -86,7 +105,12 @@ window.AddToChannelView = Backbone.View.extend({
     
     this.collection.each(function(channel) {
       if ( channel.get('editable?') ) {
-        var view = new OwnChannelItemView({model: channel}).render();
+        var view = new OwnChannelItemView(
+          {
+            model: channel,
+            forChannel: self.forChannel,
+            forFact: self.forFact
+          }).render();
 
         $channelListing.append(view.el);
       }
