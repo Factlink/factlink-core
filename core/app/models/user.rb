@@ -6,6 +6,7 @@ class User
   include Sunspot::Mongoid
 
   field :username
+  index :username
   field :twitter
   field :graph_user_id
 

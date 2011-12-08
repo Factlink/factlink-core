@@ -12,13 +12,10 @@
   </head>
   <body>
     <div id="top-bar">
-			<div id="factlink-logo" class="span-4">
-				<a href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
-			</div>
-
 			<div class="span-6 last">
 					<%= render "users/account_block" %>
 			</div>
+			<%= render 'home/notifications', notice: notice, alert: alert %>
   	</div>
   	<div id="container">
   	  <%= yield %>

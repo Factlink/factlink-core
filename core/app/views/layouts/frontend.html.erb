@@ -81,18 +81,7 @@
 
   <div id="container" class="container">
     
-		<!-- notifications -->
-		<% if alert || notice %>
-		<div class="alert-message <%= alert ? "error" : "warning" %> push-4 span-13">
-      <a class="close" href="#">x</a>
-      	<% if notice %>
-  				<%= notice %>
-  			<% end %>
-  			<% if alert %>
-  				<%= alert %>
-  		<% end %>
-    </div>
-    <% end %>
+		<%= render 'home/notifications', notice: notice, alert: alert %>
 	
     <section id="header" class="span-24 append-bottom">
 			<%= yield :header %>
