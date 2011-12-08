@@ -258,6 +258,10 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
     key['last_read'].set(self.class.current_time)
   end
   
+  def until(*args)
+    []
+  end
+  
   def inspect
     "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"
   end
