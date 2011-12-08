@@ -23,7 +23,6 @@ body {
   padding: 32px 0;
 }
 #container form {
-  background: rgba(206, 0, 0, 0.1);
   width: 393px;
 }
 #container form div.field {
