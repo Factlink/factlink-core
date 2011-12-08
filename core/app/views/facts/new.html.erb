@@ -1,8 +1,12 @@
 <% unless user_signed_in? %>
-  You need to sign in before you can add a Factlink.
+
+<div class="alert-message block-message warning">
+  Hi! You need to sign in before you can add a Factlink. <%= link_to("Sign in", new_user_session_path, target: "_blank") %>
+</div>
+
 <% else %>
 
-  <h1>Adding new Factlink:</h1>
+  <h1>Add a Factlink:</h1>
 
   <%= form_tag(facts_path) do %>
     <div class="field">
