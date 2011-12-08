@@ -136,7 +136,7 @@ class ChannelsController < ApplicationController
     authorize! :show, @channel
     
     if params[:timestamp]
-      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7)
+      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7, withscores: true)
     else
       @facts = @channel.facts
     end
@@ -145,7 +145,7 @@ class ChannelsController < ApplicationController
       @channel.mark_as_read
     end
     
-    respond_with(@facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context,@channel)})
+    respond_with(@facts.map {|fact| Facts::FactView.for_fact_and_view(fact,view_context,@channel)})
   end
   
   def remove_fact

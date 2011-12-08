@@ -225,6 +225,35 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     key.zrevrange(0,-1).map(&model)
   end
 
+  def below(limit,opts={})
+    if opts[:count]
+      redis_opts = { limit: [0,opts[:count]] }
+    else
+      redis_opts = {}
+    end
+    
+    redis_opts[:withscores] = opts[:withscores]
+    
+    res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts)
+    
+    if opts[:withscores]
+      res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}
+    else
+      res = res.map(&model)
+    end
+    opts[:reversed]? res : res.reverse 
+  end
+
+  def self.hash_array_for_withscores(arr)
+    res = []
+    (arr.length / 2).times do |i|
+      res << {
+        item:arr[i*2],
+        score:arr[i*2+1].to_f
+      }
+    end
+    res
+  end
 
   protected
     # @private
@@ -258,9 +287,7 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
     key['last_read'].set(self.class.current_time)
   end
   
-  def until(*args)
-    all
-  end
+  alias :until :below
   
   def inspect
     "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"

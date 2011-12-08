@@ -37,7 +37,6 @@ describe Channel do
 
   
   describe "initially" do
-    it { subject.facts.to_a.should =~ []}
     it { subject.containing_channels.to_a.should =~ [] }
   end
 
@@ -227,6 +226,24 @@ describe Channel do
           @ch2 = Channel.create created_by: u2, title: 'foo2'
         end
         it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
+      end
+    end
+  end
+  
+  describe "#facts" do
+    before do
+      Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+    end
+    context "initially" do
+      it "should be empty" do
+        subject.facts.to_a.should =~ []
+        Channel.new.facts.to_a.should =~ []
+      end
+    end
+    context "after adding a fact" do
+      it "should contain the fact" do
+        subject.add_fact f1
+        subject.facts.to_a.should =~ [f1]
       end
     end
   end
