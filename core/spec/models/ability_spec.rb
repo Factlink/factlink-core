@@ -9,10 +9,17 @@ describe Ability do
   let(:user) {FactoryGirl.create :user}
   let(:other_user) {FactoryGirl.create :user}
 
+  let(:admin) { FactoryGirl.create :user, admin: true }
+  let(:admin_ability) { Ability.new(admin) }
   
   describe "to managing myself" do
     it {subject.should be_able_to :update, user }
     it {subject.should_not be_able_to :update, other_user }
+    it {subject.should_not be_able_to :update, admin }
+  end
+
+  describe ", as Admin, to manage a user" do
+    it {admin_ability.should be_able_to :manage, User }
   end
 
   describe "to manage channels" do
@@ -74,6 +81,5 @@ describe Ability do
       it {anonymous.should_not be_able_to :add_evidence, f1 }
       it {anonymous.should be_able_to :read, f1 }
     end
-    
   end
 end

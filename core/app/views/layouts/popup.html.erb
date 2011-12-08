@@ -6,14 +6,16 @@
     
     <%= stylesheet_link_tag "frontend" %>
     <%= stylesheet_link_tag "grid" %>
+    <%= stylesheet_link_tag "bootstrap/bootstrap" %>
     <%= stylesheet_link_tag "popup" %>
+
     
     <%= javascript_include_tag "modernizr-2.0.6.min" %>
   </head>
   <body>
-    <div id="top-bar">
-			<div class="span-6 last">
-					<%= render "users/account_block" %>
+    <div class="topbar">
+			<div class="fill">
+				<%= render "users/account_block", target: "_blank" %>
 			</div>
 			<%= render 'home/notifications', notice: notice, alert: alert %>
   	</div>
@@ -21,4 +23,16 @@
   	  <%= yield %>
   	</div>
   </body>
+  
+  
+  <!-- JavaScript at the bottom for fast page loading -->
+
+  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
+  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
+  <%= javascript_include_tag "bootstrap-alert" %>
+  
+  <script>
+  $(".alert-message").alert();
+  </script>
 </html>

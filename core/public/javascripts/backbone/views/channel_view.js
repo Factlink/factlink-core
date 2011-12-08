@@ -13,6 +13,14 @@ window.ChannelView = Backbone.View.extend({
         rootUrl: self.model.url()
       })
     });
+    
+    this.factsView.setLoading();
+
+    this.factsView.collection.fetch({
+      data: {
+        page: this.factsView._page
+      }
+    });
   },
   
   initSubChannels: function() {

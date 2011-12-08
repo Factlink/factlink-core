@@ -7,13 +7,10 @@ class Ability
 
   def initialize(user=nil)
     @user=user
-    
-    if user
-      can :update, user
-    end
 
     define_channel_abilities
     define_fact_abilities
+    define_user_abilities
   end
 
   def define_channel_abilities
@@ -38,5 +35,14 @@ class Ability
     end
   end
   
-
+  def define_user_abilities
+    if user
+      can :update, user
+    end
+    
+    if user.andand.admin
+      can :manage, User
+    end
+  end
+  
 end
