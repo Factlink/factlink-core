@@ -64,7 +64,7 @@ class FactsController < ApplicationController
     respond_to do |format|
       if @fact.save
         format.html do
-           flash[:notice] = 'Fact was successfully created.'
+           flash[:notice] = "Factlink successfully added."
            redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout]
          end
         format.json { render json: @fact, status: :created, location: @fact.id }
