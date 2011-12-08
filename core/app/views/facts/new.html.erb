@@ -1,26 +1,32 @@
-<h1>Adding new Factlink:</h1>
+<% unless user_signed_in? %>
+  You need to sign in before you can add a Factlink.
+<% else %>
 
-<%= form_tag(facts_path) do %>
-  <div class="field">
-    <%= label_tag :title %>:
-    <%= text_field_tag :title, params[:title] %>
-  </div>
+  <h1>Adding new Factlink:</h1>
 
-  <% if params[:url] %>
+  <%= form_tag(facts_path) do %>
     <div class="field">
-      <%= label_tag :url %>:
-      <%= text_field_tag :url, params[:url] %>
+      <%= label_tag :title %>:
+      <%= text_field_tag :title, params[:title] %>
+    </div>
+
+    <% if params[:url] %>
+      <div class="field">
+        <%= label_tag :url %>:
+        <%= text_field_tag :url, params[:url] %>
+      </div>
+    <% end %>
+    
+    <div class="field">
+      <%= label_tag :fact %>:
+      <%= text_area_tag :fact, params[:fact] %>
+    </div>
+  
+    <%= hidden_field_tag 'layout', 'popup' %>
+  
+    <div class="actions">
+      <%= submit_tag "Create Factlink", :class => "btn" %>
     </div>
   <% end %>
-    
-  <div class="field">
-    <%= label_tag :fact %>:
-    <%= text_area_tag :fact, params[:fact] %>
-  </div>
-  
-  <%= hidden_field_tag 'layout', 'popup' %>
-  
-  <div class="actions">
-    <%= submit_tag "Create Factlink", :class => "btn" %>
-  </div>
+
 <% end %>
