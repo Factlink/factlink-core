@@ -2,7 +2,7 @@ window.FactsView = Backbone.View.extend({
   tagName: "div",
   className: "facts",
   _loading: true,
-  _page: 1,
+  _timestamp: undefined,
   tmpl: $('#facts_tmpl').html(),
   _previousLength: 0,
   
@@ -80,16 +80,18 @@ window.FactsView = Backbone.View.extend({
   
   loadMore: function() {
     var self = this;
+    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
+    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
     
-    if ( self.moreNeeded() && ! self._loading ) {
+    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
       self.setLoading();
       
-      self._page += 1;
+      self._timestamp = new_timestamp;
 
       self.collection.fetch({
         add: true,
         data: {
-          page: self._page
+          timestamp: self._timestamp
         },
         success: function() {
           self.stopLoading();

@@ -234,7 +234,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     
     redis_opts[:withscores] = opts[:withscores]
     
-    res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts)
+    res = key.zrevrangebyscore("(#{limit}",'-inf',redis_opts)
     
     if opts[:withscores]
       res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}

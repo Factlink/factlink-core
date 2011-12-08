@@ -61,7 +61,7 @@ describe Ohm::Model::SortedSet do
     SortedContainer[c2.id].items.count.should == 2
   end
 
-  describe "#smaller" do
+  describe "#below" do
     it "should return an empty list for an empty set" do
       c1.items.below(3).should =~ []
     end
@@ -85,6 +85,13 @@ describe Ohm::Model::SortedSet do
       c1.items.below(3).should == [i1]
     end
 
+    it "should return all items when limit is infinity" do
+      c1.items.add(i1,1)
+      c1.items.add(i2,4)
+      c1.items.add(i3,3)
+      c1.items.below('inf').should == [i1,i3,i2]
+    end
+
     it "should return a limitable set" do
       c1.items.add(i1,1)
       c1.items.add(i2,4)
@@ -97,6 +104,13 @@ describe Ohm::Model::SortedSet do
       c1.items.add(i2,4)
       c1.items.add(i3,3)
       c1.items.below(5,count:2,reversed:true).should == [i2,i3]
+    end
+
+    it "should return from low to high when reversed is false" do
+      c1.items.add(i1,1)
+      c1.items.add(i2,4)
+      c1.items.add(i3,3)
+      c1.items.below(5,count:2,reversed:false).should == [i3,i2]
     end
     
     it "should return items with scores when the withscores option is given" do
