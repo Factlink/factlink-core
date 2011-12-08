@@ -84,6 +84,7 @@ module Facts
     end
     
     def containing_channel_ids
+      return [] unless current_graph_user
       current_graph_user.containing_channel_ids(self[:fact])
     end
     
