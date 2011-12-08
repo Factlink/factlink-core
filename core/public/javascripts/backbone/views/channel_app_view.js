@@ -38,6 +38,10 @@ window.AppView = Backbone.View.extend({
         this.channelCollectionView.reload(currentChannel.id);
       }
       
+      if ( this.channelView ) {
+        this.channelView.close();
+      }
+      
       this.channelView = new ChannelView({model: channel}).render();
       
       this.relatedUsersView
@@ -48,6 +52,12 @@ window.AppView = Backbone.View.extend({
             .setChannel(channel)
             .render();
     }
+    
+    return this;
+  },
+  
+  render: function() {
+    $('#main-wrapper').html( this.channelView.el );
   },
   
   changeUser: function(user) {

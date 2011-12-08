@@ -4,13 +4,7 @@ class Item < OurOhm;end
 
 class Container < OurOhm
   set :items, Item
-  sorted_set :sorted_items, Item do |x|
-    1
-  end
 end
-
-
-    
 
 describe Ohm::Model::Set do
   before do
@@ -34,54 +28,6 @@ describe Ohm::Model::Set do
   end
   
 end
-
-describe Ohm::Model::SortedSet do
-  describe "union" do
-    before do
-      @c1 = Container.create()
-      @c2 = Container.create()
-      @a = Item.create()
-      @b = Item.create()
-      @c1.sorted_items << @a
-      @c2.sorted_items << @b
-      @union = @c1.sorted_items | @c2.sorted_items
-    
-    end
-    it { @c1.sorted_items.all.should =~ [@a] }
-    it { @c2.sorted_items.all.should =~ [@b] }
-    it { @union.all.should =~ [@a,@b] }
-    it do
-      @c3 = Container.create()
-      @union.all.should =~ [@a,@b]
-      @c3.sorted_items = @union
-      @c3.sorted_items.all.should =~ [@a,@b]
-      
-      @c3.sorted_items = @c1.sorted_items
-      @c3.sorted_items.all.should =~ [@a]
-    end
-  end 
-  
-  
-  it "should have a working difference" do
-    c1 = Container.create()
-    c2 = Container.create()
-    a = Item.create()
-    b = Item.create()
-    c1.sorted_items << a << b
-    c2.sorted_items << a
-    diff = c1.sorted_items - c2.sorted_items
-    c1.sorted_items.all.should =~ [a,b]
-    c2.sorted_items.all.should =~ [a]
-    diff.all.should =~ [b]
-    
-    c1.sorted_items.delete(b)
-    diff = c1.sorted_items - c2.sorted_items
-    c1.sorted_items.all.should =~ [a]
-    c2.sorted_items.all.should =~ [a]
-    diff.all.should =~ []
-  end
-end
-
 
 
 describe OurOhm do

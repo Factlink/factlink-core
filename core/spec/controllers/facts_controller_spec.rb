@@ -12,7 +12,7 @@ describe FactsController do
   end
 
   describe :show do
-    pending "should render succesful" do
+    it "should render succesful" do
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save

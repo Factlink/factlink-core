@@ -1,14 +1,29 @@
 <% content_for :javascript do %>
-  <%= javascript_include_tag("factlink_overview") %>
-	<% if @results.count < @row_count %>
-	  <script type="text/javascript">
-	    var a = <%= @results.count %>;
-	    var b = <%= @row_count %>;
-	    window.isFullyLoaded = true;
-	    $( '#load_more' ).hide();
-      $( '#loading' ).hide();
-	  </script>
-	<% end %>
+  <%= javascript_include_tag "backbone/contrib.js" %>
+  <%= javascript_include_tag "backbone/models/user.js" %>
+  <%= javascript_include_tag "backbone/models/channel.js" %>
+  <%= javascript_include_tag "backbone/models/fact.js" %>
+  <%= javascript_include_tag "backbone/collections/channels.js" %>
+  <%= javascript_include_tag "backbone/collections/own_channel_collection.js" %>
+  <%= javascript_include_tag "backbone/collections/facts.js" %>
+  <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
+  <%= javascript_include_tag "backbone/views/add_to_channel_view.js" %>
+  <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
+  <%= javascript_include_tag "backbone/views/facts_view.js" %>
+  <%= javascript_include_tag "backbone/views/fact_view.js" %>
+  <%= javascript_include_tag "backbone/views/channel_view.js" %>
+  <%= javascript_include_tag "backbone/views/user_view.js" %>
+  <script>
+    var results = new Facts(<%= @results.to_json.html_safe %>, {
+      search: "<%= params[:s] %>"
+    });
+    
+    var factsView = new FactsView({
+      collection: results
+    }).render();
+        
+    $('#results-listing').append(factsView.el);
+  </script>
 <% end %>
 
 
@@ -28,11 +43,16 @@
 		
 	<% else %>
     <ul id="results-listing">
-      <% @results.each do |result| %>
-        <li>
-         <%= render result %>
-        </li>
-      <% end %>
     </ul>
 	<% end %>
+<% end %>
+
+<% content_for :template do %>
+  <%= load_js_template "user_block_tmpl",         "users/_user.html.mustache" %>
+  <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
+  <%= load_js_template "own_channel_li",          "channels/_own_channel.html.mustache" %>
+  <%= load_js_template "fact_tmpl",               "facts/_fact.html.mustache" %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
+  <%= load_js_template "facts_tmpl",              "channels/_facts.html.mustache" %>
 <% end %>

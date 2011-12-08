@@ -55,7 +55,7 @@ module Channels
       self[:channel].id
     end
     
-    def containing_channels
+    def containing_channel_ids
       return [] unless followable?
       self[:channel].containing_channels_for(current_graph_user).ids
     end
@@ -89,7 +89,7 @@ module Channels
                 :nr_of_facts => nr_of_facts,
               :created_by_id => created_by_id,
           :show_subchannels? => show_subchannels?,
-        :containing_channels => containing_channels,
+     :containing_channel_ids => containing_channel_ids,
       }
     end
 

@@ -6,10 +6,13 @@ window.OwnChannelItemView = Backbone.View.extend({
     "change input" : "change"
   },
   
-  initialize: function() {
+  initialize: function(opts) {
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);
+    
+    this.forFact = opts.forFact;
+    this.forChannel = opts.forChannel;
   },
   
   render: function() {
@@ -40,23 +43,33 @@ window.OwnChannelItemView = Backbone.View.extend({
     
     self.disable();
     
+    var changeUrl;
+    
+    if ( self.forChannel ) {
+      changeUrl = this.model.url() + '/subchannels/' + action + '/' + self.forChannel.id + '.json';
+    } else if ( self.forFact ) {
+      changeUrl = this.model.url() + '/' + action + '/' + self.forFact.id + '.json';
+    }
+    
     $.ajax({
-      url: this.model.url() + '/subchannels/' + action + '/' + currentChannel.id + '.json',
+      url: changeUrl,
       type: "post",
       success: function(data) {
+        var model = self.forFact || self.forChannel;
+        
         if ( checked ) {
-          currentChannel.get('containing_channels').push(self.model.id);
+          model.get('containing_channel_ids').push(self.model.id);
         } else {
-          var indexOf = currentChannel.get('containing_channels').indexOf(self.model.id);
+          var indexOf = model.get('containing_channel_ids').indexOf(self.model.id);
           if ( indexOf ) {
-            currentChannel.get('containing_channels').splice(indexOf, 1);
+            model.get('containing_channel_ids').splice(indexOf, 1);
           }
         }
         
         self.enable();
       },
       error: function() {
-        e.target.checked = newValue;
+        e.target.checked = !checked;
         
         self.enable();
       }
