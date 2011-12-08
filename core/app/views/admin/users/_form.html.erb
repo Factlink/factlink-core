@@ -1,8 +1,7 @@
 <%= form_for(@user, :url => [:admin, @user]) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert-message block-message error">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -11,27 +10,39 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
+  <div class="row">
+    <%= f.label :username %>
+    <div class="field">
+      <%= f.text_field :username %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :twitter %><br />
-    <%= f.text_field :twitter %>
+  <div class="row">
+    <%= f.label :twitter %>
+    <div class="field">
+      <%= f.text_field :twitter %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
+  <div class="row">
+    <%= f.label :email %>
+    <div class="field">
+      <%= f.text_field :email %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.text_field :password %>
+  <div class="row">
+    <%= f.label :password %>
+    <div class="field">
+      <%= f.text_field :password %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.text_field :password_confirmation %>
+  <div class="row">
+    <%= f.label :password_confirmation %>
+    <div class="field">
+      <%= f.text_field :password_confirmation %>
+    </div>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'cancel', admin_users_path %>
+    <%= f.submit class: 'btn' %>
   </div>
 <% end %>
