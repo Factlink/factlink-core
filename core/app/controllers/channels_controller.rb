@@ -134,7 +134,7 @@ class ChannelsController < ApplicationController
     authorize! :show, @channel
     
     if params[:timestamp]
-      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7)
+      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7, withscores: true)
     else
       @facts = @channel.facts
     end
