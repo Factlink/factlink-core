@@ -31,6 +31,7 @@ window.ChannelView = Backbone.View.extend({
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
         el: this.el.find('#follow-channel'),
+        model: currentChannel,
         containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
     }

@@ -68,7 +68,9 @@ window.FactView = Backbone.View.extend({
         
         el: $(this.el).find('.channel-listing'),
         
-        containingChannels: this.model.getOwnContainingChannels()
+        model: this.model,
+        
+        forFact: this.model
       }).render();
       
       // Channels are in the container
