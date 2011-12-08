@@ -25,16 +25,28 @@ body {
 
 
 #container {
-  padding: 32px 0;
+  padding: 32px 10px 0 0;
+  
+  h1 {
+    padding: 0px;
+    margin: 0px;
+  }
   
   form {
-    width: 393px;
-    
-    div.field {
-      margin: 0 0 5px;
 
+    .row {
+      position: relative;
+    
       label {
-        line-height: 20px;
+        position: absolute;
+        width: 42px;
+        float: left;
+        text-align: right;
+      }
+
+      .field {
+        display: block;
+        padding-left: 50px;
       }
 
       input, textarea {
@@ -52,7 +64,7 @@ body {
   }
   
   input[type=submit] {
-    margin: 5px 0 0 0;
+    margin: 5px 28px 0 0;
     float: right;
   }
 }
