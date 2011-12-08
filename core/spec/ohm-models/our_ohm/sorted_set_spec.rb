@@ -84,6 +84,14 @@ describe Ohm::Model::SortedSet do
     c1.items.add(i3,3)
     c1.items.below(3).should == [i1]
   end
+
+  it "should return a limitable set" do
+    c1.items.add(i1,1)
+    c1.items.add(i2,4)
+    c1.items.add(i3,3)
+    c1.items.below(5,count:2).should == [i3,i2]
+  end
+
 end
 
 

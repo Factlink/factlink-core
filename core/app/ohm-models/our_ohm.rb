@@ -225,8 +225,14 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     key.zrevrange(0,-1).map(&model)
   end
 
-  def below(limit)
-    key.zrevrangebyscore("(#{limit.to_f}",'-inf').map(&model).reverse
+  def below(limit,opts={})
+    if opts[:count]
+      redis_opts = { limit: [0,opts[:count]] }
+    else
+      redis_opts = {}
+    end
+    res = key.zrevrangebyscore("(#{limit.to_f}",'-inf',redis_opts).map(&model)
+    res.reverse
   end
 
   protected
