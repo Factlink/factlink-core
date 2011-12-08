@@ -21,7 +21,8 @@ class GraphUser < OurOhm
   def channel_manager
     @channel_manager || ChannelManager.new(self)
   end
-  delegate :editable_channels_for, 
+  
+  delegate :editable_channels_for, :containing_channel_ids, 
          :to => :channel_manager
 
   

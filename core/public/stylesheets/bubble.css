@@ -1962,12 +1962,12 @@ div.modal span.proxyWindow {
   -moz-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
 }
-.fact-block article.fact header .actions li {
+.fact-block article.fact header .actions > ul > li {
   margin: 5px 10px 0 0;
   display: inline-block;
   list-style-type: none;
 }
-.fact-block article.fact header .actions li img {
+.fact-block article.fact header .actions > ul > li img {
   margin: 0 3px 0 0;
   vertical-align: baseline;
 }

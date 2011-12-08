@@ -1,6 +1,5 @@
 window.ChannelView = Backbone.View.extend({
-
-  el: $("#main-wrapper"),
+  tagName: "div",
   tmpl: $('#channel_overview').html(),
   
   initialize: function(opts) {
@@ -14,31 +13,41 @@ window.ChannelView = Backbone.View.extend({
         rootUrl: self.model.url()
       })
     });
+    
+    this.factsView.setLoading();
+
+    this.factsView.collection.fetch({
+      data: {
+        page: this.factsView._page
+      }
+    });
   },
   
   initSubChannels: function() {
-    if ( this.el.find('#contained-channel-list') ) {
+    if ( $( this.el ).find('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
         collection: this.subchannels,
-        el: this.el.find('#contained-channel-list'),
-        container: this.el
+        el: $( this.el ).find('#contained-channel-list'),
+        container: $( this.el )
       });
     }
   },
   
-  initAddToFact: function() {
-    if ( this.el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
-      this.ownChannelView = new OwnChannelCollectionView({
+  initAddToChannel: function() {
+    if ( $( this.el ).find('#add_to_channel') && typeof currentUser !== "undefined" ) {
+      this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
-        el: this.el.find('#follow-channel')
+        el: $( this.el ).find('#follow-channel'),
+        model: currentChannel,
+        containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
     }
   },
 
   initMoreButton: function() { 
-    var containedChannels = this.el.find('#contained-channels');
+    var containedChannels = $( this.el ).find('#contained-channels');
     if  ( containedChannels ) {
-    this.el.find('#more-button').bind('click', function() { 
+      $( this.el ).find('#more-button').bind('click', function() { 
         var button = $(this).find(".label");
         containedChannels.find('.overflow').slideToggle(function(e) { 
           button.text($(button).text() === 'more' ? 'less' : 'more');
@@ -49,21 +58,41 @@ window.ChannelView = Backbone.View.extend({
 
   initSubChannelMenu: function() { 
     if( this.model.get("followable?") ) { 
-      var addToChannelButton = this.el.find("#add_to_channel");
-      var followChannelMenu = this.el.find("#follow-channel");
+      var addToChannelButton = $( this.el ).find("#add_to_channel");
+      var followChannelMenu =$( this.el ).find("#follow-channel");
+      
       followChannelMenu.css({"left": addToChannelButton.position().left});
+      
       addToChannelButton.hoverIntent(
         function() { followChannelMenu.fadeIn("fast"); }, 
         function() { followChannelMenu.delay(600).fadeOut("fast"); }
       );
+      
       followChannelMenu.on("mouseover", function() { 
-        followChannelMenu.stop(true, true).css({"opacity": "1"});
+        followChannelMenu.stop(true, true).show();
       });
+      
       followChannelMenu.on("mouseout", function() { 
        if (!followChannelMenu.find("input#channel_title").is(":focus")) {
           followChannelMenu.delay(500).fadeOut("fast");
         }
       });
+    }
+  },
+  
+  remove: function() {
+    Backbone.View.prototype.remove.apply(this);
+    
+    if ( this.factsView ) {
+      this.factsView.close();
+    }
+    
+    if ( this.addToChannelView ) {
+      this.addToChannelView.close();
+    }
+    
+    if ( this.subchannelView ) {
+      this.subchannelView.close();
     }
   },
 
@@ -73,12 +102,12 @@ window.ChannelView = Backbone.View.extend({
     if ( self.model ) {
       self.model.trigger('loading');
       
-      this.el
+      $( this.el )
         .html( Mustache.to_html(this.tmpl, this.model.toJSON() ));
       
       this.initSubChannels();
       this.initSubChannelMenu();
-      this.initAddToFact();
+      this.initAddToChannel();
       this.initMoreButton();
       
       $( this.el ).find('#facts_for_channel').append(this.factsView.render().el);

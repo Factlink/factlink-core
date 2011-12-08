@@ -19,11 +19,12 @@ module Channels
     end
 
     def link
-      channel_path(self[:user].username, self[:channel].id)
+      #channel_path(self[:user].username, id)
+      @link||="/#{self[:user].username}/channels/#{id}/"
     end
     
     def edit_link
-      edit_channel_path(self[:channel].created_by.user.username, id)
+      link + "edit"
     end
   
     def title
@@ -35,7 +36,7 @@ module Channels
     end
     
     def created_by
-      Users::User.for_user(self[:channel].created_by, self.view)
+      Users::User.for_user(self[:user], self.view)
     end
     
     def show_subchannels?
@@ -54,8 +55,8 @@ module Channels
       self[:channel].id
     end
     
-    def containing_channels
-      return [] unless current_graph_user
+    def containing_channel_ids
+      return [] unless followable?
       self[:channel].containing_channels_for(current_graph_user).ids
     end
   
@@ -64,11 +65,11 @@ module Channels
     end
     
     def editable?
-      current_graph_user == self[:channel].created_by && self[:channel].editable?
+      current_graph_user.id == created_by_id && self[:channel].editable?
     end
     
     def followable?
-      current_graph_user != self[:channel].created_by && self[:channel].followable?
+      current_graph_user.id != created_by_id && self[:channel].followable?
     end
   
     def to_hash
@@ -88,7 +89,7 @@ module Channels
                 :nr_of_facts => nr_of_facts,
               :created_by_id => created_by_id,
           :show_subchannels? => show_subchannels?,
-        :containing_channels => containing_channels,
+     :containing_channel_ids => containing_channel_ids,
       }
     end
 

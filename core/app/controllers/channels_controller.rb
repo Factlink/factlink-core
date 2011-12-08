@@ -16,7 +16,9 @@ class ChannelsController < ApplicationController
       :related_users,
       :activities,
       :remove_fact,
-      :toggle_fact]
+      :toggle_fact,
+      :add_fact,
+      :remove_fact,]
   
   before_filter :authenticate_user!
     
@@ -69,6 +71,9 @@ class ChannelsController < ApplicationController
       unless params[:for_fact].nil?
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
+        
+        render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context)
+        return
       end
       
       unless params[:for_channel].nil?
@@ -76,14 +81,11 @@ class ChannelsController < ApplicationController
         @channel.add_channel(@subchannel)
         
         render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context)
-        
         return
       end
       
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel), :notice => 'Channel successfully created') }
-        format.json { render :json => @channel,
-                      :status => :created, :location => channel_path(@channel.created_by, @channel)}
+        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel.id), :notice => 'Channel successfully created') }
         format.js
       end
       
@@ -104,7 +106,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel),
+        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel.id),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
@@ -132,18 +134,22 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
+    puts params[:number] || 7
+    @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
 
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
     
-    respond_with(@channel.facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
+    respond_with(@facts.map {|fact| Facts::FactView.for_fact_and_view(fact[:item],view_context,@channel,nil,fact[:score])})
   end
   
   def remove_fact
     authorize! :update, @channel
     @fact = Fact[params[:fact_id]]
     @channel.remove_fact(@fact)
+    
+    respond_with(@fact)
   end
 
   def toggle_fact
@@ -160,6 +166,26 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+  
+  def add_fact
+    authorize! :update, @channel
+    
+    @fact     = Fact[params[:fact_id]]
+    
+    @channel.add_fact(@fact)
+    
+    respond_with(@channel)
+  end
+  
+  def remove_fact
+    authorize! :update, @channel
+    
+    @fact = Fact[params[:fact_id]]
+    
+    @channel.remove_fact(@fact)
+    
+    respond_with(@channel)
   end
   
   def follow

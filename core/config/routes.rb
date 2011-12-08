@@ -27,8 +27,6 @@ FactlinkUI::Application.routes.draw do
       get     "opinion" => "facts#opinion"
       post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
       delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
-      
-      get     "created" => "facts#created"
     end
     collection do
       #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
@@ -67,12 +65,16 @@ FactlinkUI::Application.routes.draw do
   # generate the images for the indicator used in the js-lib
   get "/images/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
 
- ##########
+  ##########
   # Web Front-end
   root :to => "home#index"
   
   get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }
   
+
+  namespace :admin do
+    resources :users
+  end
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
@@ -95,7 +97,11 @@ FactlinkUI::Application.routes.draw do
         
         get "related_users", :as => "channel_related_users"
         get "activities", :as => "activities"
+        
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
+        
+        post "add/:fact_id" => "channels#add_fact"
+        post "remove/:fact_id" => "channels#remove_fact"
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"

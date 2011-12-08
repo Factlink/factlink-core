@@ -21,10 +21,6 @@ module Facts
       (user_signed_in? and i_am_fact_owner) ? " edit " : ""
     end
 
-    def delete_link
-      link_to(image_tag('/images/trash.gif') + "Delete", fact_path(self[:fact].id), :confirm => "You will delete this Factlink. Are you sure?", :method => :delete, :remote => true )
-    end
-
     def scroll_to_link
       show_links ? link_to(pretty_url, self[:fact].site.url, :target => "_blank") : pretty_url
     end
@@ -61,7 +57,6 @@ module Facts
         :last_activity => last_activity,
         :user_signed_in? => user_signed_in?,
         :i_am_fact_owner => i_am_fact_owner,
-        :delete_link => delete_link,
         :fact_wheel => fact_wheel,
       }
     end

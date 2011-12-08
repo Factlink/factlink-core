@@ -52,10 +52,22 @@ class Channel < OurOhm
     save
   end
 
-  def facts
+  def facts(opts={})
     return [] if new?
-
-    sorted_cached_facts.all_reversed.delete_if{ |f| Fact.invalid(f) } # TODO the reverse is inefficient, fix me somewhere in redis
+    
+    facts_opts = {reversed:true}
+    facts_opts[:withscores] = opts[:withscores] ? true : false
+    facts_opts[:count] = opts[:count].to_i if opts[:count]
+    
+    res = sorted_cached_facts.below('inf',facts_opts)
+    
+    if facts_opts[:withscores]
+     res = res.delete_if{ |f| Fact.invalid(f[:item]) }
+    else
+     res = res.delete_if{ |f| Fact.invalid(f) }
+    end
+     
+    res
   end
   
   def validate
@@ -135,7 +147,7 @@ class Channel < OurOhm
   end
 
   def containing_channels_for(user)
-    self.class.active_channels_for(user) & containing_channels
+    Channel.active_channels_for(user) & containing_channels
   end
 
   def self.active_channels_for(user)
@@ -143,16 +155,16 @@ class Channel < OurOhm
   end
 
   protected
-  def _add_channel(channel)
-    contained_channels << channel
-    channel.containing_channels << self
-    calculate_facts
-  end
-
-  def self.recalculate_all
-    all.andand.each do |ch|
-      ch.calculate_facts
+    def _add_channel(channel)
+      contained_channels << channel
+      channel.containing_channels << self
+      calculate_facts
     end
-  end
+
+    def self.recalculate_all
+      all.andand.each do |ch|
+        ch.calculate_facts
+      end
+    end
 
 end

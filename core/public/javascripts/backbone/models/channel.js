@@ -1,5 +1,7 @@
 window.Channel = Backbone.Model.extend({
   initialize: function(opts) {
+    var self = this;
+    
     this.bind('activate', this.setActive);
     this.bind('deactivate', this.setNotActive);
     
@@ -12,5 +14,18 @@ window.Channel = Backbone.Model.extend({
   
   setNotActive: function() {
     this.isActive = false;
+  },
+  
+  getOwnContainingChannels: function() {
+    var containingChannels = this.get('containing_channel_ids');
+    var ret = [];
+    
+    currentUser.channels.each(function(ch) { 
+      if ( _.indexOf(containingChannels, ch.id ) !== -1 ) {
+        ret.push(ch);
+      }
+    });
+    
+    return ret;
   }
 });

@@ -2,6 +2,8 @@ class FactsController < ApplicationController
 
   layout "client"
 
+  before_filter :set_layout, :only => [:new]
+
   respond_to :json, :html
   
   before_filter :load_fact, 
@@ -46,8 +48,8 @@ class FactsController < ApplicationController
   end
   
   # GET /facts/new
-  def new
-    render layout: 'popup'
+  def new    
+    render layout: @layout
   end
 
   def create
@@ -61,7 +63,10 @@ class FactsController < ApplicationController
     
     respond_to do |format|
       if @fact.save
-        format.html { redirect_to created_fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.html do
+           flash[:notice] = "Factlink successfully added."
+           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout]
+         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
         format.html { render action: "new" }
@@ -103,12 +108,6 @@ class FactsController < ApplicationController
     end
   end
   
-  # GET /facts/:fact_id/created
-  def created
-    render :layout => "popup"
-  end
-
-  
   def add_new_evidence
     type = params[:type].to_sym
     if type == :weakening
@@ -122,6 +121,8 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact_id = @fact.id
       @fact.delete
+      
+      respond_with(@fact)
     end
   end
 
@@ -270,5 +271,9 @@ class FactsController < ApplicationController
         false
       end
     end
-  
+
+    def set_layout
+      allowed_layouts = ['popup']
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+    end
 end

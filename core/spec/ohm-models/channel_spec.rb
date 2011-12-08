@@ -37,7 +37,6 @@ describe Channel do
 
   
   describe "initially" do
-    it { subject.facts.to_a.should =~ []}
     it { subject.containing_channels.to_a.should =~ [] }
   end
 
@@ -227,6 +226,44 @@ describe Channel do
           @ch2 = Channel.create created_by: u2, title: 'foo2'
         end
         it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
+      end
+    end
+  end
+  
+  describe "#facts" do
+    before do
+      Fact.should_receive(:invalid).any_number_of_times.and_return(false)
+    end
+    context "initially" do
+      it "should be empty" do
+        subject.facts.to_a.should =~ []
+        Channel.new.facts.to_a.should =~ []
+      end
+    end
+    context "after adding some facts" do
+      before do
+        subject.add_fact f1
+        sleep(0.01)
+        subject.add_fact f2
+      end
+      it "should contain the facts" do
+        subject.facts.to_a.should =~ [f1,f2]
+      end
+      it "should contain the facts in order" do
+        subject.facts.to_a.should == [f2,f1]
+      end
+      it "should return with timestamps when asked" do
+        res = subject.facts(withscores:true)
+        res[0][:item].should == f2
+        res[1][:item].should == f1
+        res[0][:score].should be_a(Float)
+        res[1][:score].should be_a(Float)
+      end
+      it "should not return more than ask" do
+        subject.facts(withscores:true,count:0).length.should == 0
+        subject.facts(withscores:true,count:1).length.should == 1
+        subject.facts(withscores:false,count:0).length.should == 0
+        subject.facts(withscores:false,count:1).length.should == 1
       end
     end
   end

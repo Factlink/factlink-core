@@ -12,7 +12,7 @@ describe FactsController do
   end
 
   describe :show do
-    pending "should render succesful" do
+    it "should render succesful" do
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
@@ -49,7 +49,7 @@ describe FactsController do
       authenticate_user!(user)
       should_check_can :create, anything
       post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
-      response.should redirect_to(created_fact_path(Fact.all.to_a.last.id))
+      response.should redirect_to(new_fact_path url: "http://example.org/", title: "Title")
     end
     
     it "should work with json" do

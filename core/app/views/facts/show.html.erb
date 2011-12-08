@@ -1,9 +1,34 @@
-<%= render "/facts/fact", :fact => @fact, :channel => nil, :modal => @modal, :hide_links_for_site => @hide_links_for_site %>
-
 <% content_for :javascript do %> 
+  <%= javascript_include_tag "backbone/contrib.js" %>
+  <%= javascript_include_tag "backbone/models/channel.js" %>
+  <%= javascript_include_tag "backbone/models/fact.js" %>
+  <%= javascript_include_tag "backbone/models/user.js" %>
+  <%= javascript_include_tag "backbone/collections/own_channel_collection.js" %>
+  <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
+  <%= javascript_include_tag "backbone/views/add_to_channel_view.js" %>
+  <%= javascript_include_tag "backbone/views/fact_view.js" %>
 
   <script>
-    $('.fact-block').factlink();
+    <% if current_user %>
+      window.currentUser = new User(<%= Users::User.for_user(current_user, self).to_json.html_safe %>);
+
+      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
+    <% end %>
+    
+    var Fact = new Fact(<%= Facts::FactView.for_fact_and_view(@fact, self, nil, @modal).to_json.html_safe %>);
+    var View = new FactView({
+      model: Fact
+    }).render();
+    
+    $('div.modal').append(View.el);
     window.fact_id = "<%= @fact.id %>";
   </script>
+<% end %>
+
+<% content_for :template do %>
+  <%= load_js_template "fact_tmpl",               "facts/_fact.html.mustache" %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
+  <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
+  <%= load_js_template "own_channel_li",          "channels/_own_channel.html.mustache" %>
 <% end %>

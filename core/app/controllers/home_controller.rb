@@ -26,7 +26,7 @@ class HomeController < ApplicationController
     @row_count = 20
     row_count = @row_count
     
-    solr_result = Sunspot.search FactData, User do
+    solr_result = Sunspot.search FactData do
       keywords params[:s] || ""
       
       order_by sort_column, sort_direction
@@ -41,9 +41,9 @@ class HomeController < ApplicationController
 
     @results = solr_result.results.map do |result|
       begin
-        result.fact
+        Facts::FactView.for_fact_and_view(result.fact,view_context)
       rescue
-        result
+        Users::User.for_user(result, view_context)
       end
     end
 

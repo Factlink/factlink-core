@@ -12,7 +12,9 @@ var Workspace = Backbone.Router.extend({
       channel = this.view.channelView.subchannels.get(channel_id);
     }
     
-    this.view.openChannel(channel);
+    channel.set({new_facts: false});
+    
+    this.view.openChannel(channel).render();
   },
   
   getUsername: function() {
