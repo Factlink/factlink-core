@@ -4,6 +4,7 @@ window.FactsView = Backbone.View.extend({
   _loading: true,
   _page: 1,
   tmpl: $('#facts_tmpl').html(),
+  _previousLength: 0,
   
   initialize: function() {
     var self = this;
@@ -12,14 +13,6 @@ window.FactsView = Backbone.View.extend({
     this.collection.bind('reset', this.resetFacts, this);
 
     $(this.el).html(Mustache.to_html(this.tmpl));
-
-    this.setLoading();
-
-    this.collection.fetch({
-      data: {
-        page: self._page
-      }
-    });
     
     this.bindScroll();
   },
@@ -46,7 +39,7 @@ window.FactsView = Backbone.View.extend({
     $(this.el).find('.facts').append(view.render().el);
   },
   
-  resetFacts: function() {
+  resetFacts: function(e) {
     var self = this;
 
     this.stopLoading();
@@ -57,6 +50,12 @@ window.FactsView = Backbone.View.extend({
       this.collection.forEach(function(fact) {
         self.addFact(fact);
       });
+    }
+    
+    if ( this._previousLength === this.collection.length ) {
+      this.hasMore = false;
+    } else {
+      this._previousLength = this.collection.length;
     }
     
     this.loadMore();
