@@ -20,28 +20,36 @@ body {
   margin-right: 16px;
 }
 #container {
-  padding: 32px 0;
+  padding: 32px 10px 0 0;
 }
-#container form {
-  width: 393px;
+#container h1 {
+  padding: 0px;
+  margin: 0px;
 }
-#container form div.field {
-  margin: 0 0 5px;
+#container form .row {
+  position: relative;
 }
-#container form div.field label {
-  line-height: 20px;
+#container form .row label {
+  position: absolute;
+  width: 42px;
+  float: left;
+  text-align: right;
 }
-#container form div.field input, #container form div.field textarea {
+#container form .row .field {
+  display: block;
+  padding-left: 50px;
+}
+#container form .row input, #container form .row textarea {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 2px 5px;
   width: 380px;
   height: 20px;
 }
-#container form div.field textarea {
+#container form .row textarea {
   height: 60px;
 }
 #container input[type=submit] {
-  margin: 5px 0 0 0;
+  margin: 5px 28px 0 0;
   float: right;
 }
