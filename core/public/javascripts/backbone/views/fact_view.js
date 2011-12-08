@@ -7,7 +7,6 @@ window.FactView = Backbone.View.extend({
   
   events: {
     "click a.remove": "removeFactFromChannel",
-    "click .add-to-channel": "addToChannelClick",
     "click li.destroy": "destroyFact"
   },
   
@@ -41,10 +40,6 @@ window.FactView = Backbone.View.extend({
       parent.remote.hide();
       parent.remote.stopHighlightingFactlink(this.model.id);
     }
-  },
-  
-  addToChannelClick: function(e) {
-    e.preventDefault();
   },
   
   removeFactFromChannel: function() {
