@@ -31,6 +31,9 @@ if ['test', 'development'].include? Rails.env
                   :filetypes => ['rb'] }
     config.rcov[:external] = 'coverage/rcov/rcov.txt'
     
+    # Fix the compine bug (see https://github.com/jscruggs/metric_fu/issues/61)
+    config.syntax_highlighting = false
+    
     #remove non-working metrics
     config.metrics -= [:flog, :reek, :roodi]
   end

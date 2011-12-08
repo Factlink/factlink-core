@@ -68,11 +68,11 @@ describe ChannelsController do
     end
   end
   
-  describe "#get_facts_for" do
+  describe "#facts" do
     it "should render" do
       authenticate_user!(user)
       should_check_can :show, ch1
-      get :facts, username: user.username, id: ch1.id
+      get :facts, username: user.username, id: ch1.id, :format => :json
       response.should be_succes
     end
   end

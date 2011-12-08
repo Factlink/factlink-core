@@ -21,8 +21,6 @@ window.SubchannelItemView = Backbone.View.extend({
   
   clickHandler: function( e ) {
     Router.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
-
-    this.model.set({new_facts: false});
     
     e.preventDefault();
     

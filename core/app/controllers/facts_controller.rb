@@ -51,8 +51,8 @@ class FactsController < ApplicationController
   end
 
   def create
+    authorize! :create, Fact
     @fact = create_fact(params[:url], params[:fact], params[:title])
-    authorize! :create, @fact
     
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
@@ -61,7 +61,10 @@ class FactsController < ApplicationController
     
     respond_to do |format|
       if @fact.save
-        format.html { redirect_to created_fact_url(@fact.id), notice: 'Fact was successfully created.' }
+        format.html do
+           flash[:notice] = 'Fact was successfully created.'
+           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title]
+         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
         format.html { render action: "new" }
@@ -103,12 +106,6 @@ class FactsController < ApplicationController
     end
   end
   
-  # GET /facts/:fact_id/created
-  def created
-    render :layout => "popup"
-  end
-
-  
   def add_new_evidence
     type = params[:type].to_sym
     if type == :weakening
@@ -122,6 +119,8 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact_id = @fact.id
       @fact.delete
+      
+      respond_with(@fact)
     end
   end
 

@@ -15,7 +15,8 @@ class ChannelsController < ApplicationController
       :facts,
       :related_users,
       :activities,
-      :remove_fact]
+      :remove_fact,
+      :toggle_fact]
   
   before_filter :authenticate_user!
     
@@ -103,7 +104,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel),
+        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel.id),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
@@ -131,24 +132,31 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
+    
+    if params[:timestamp]
+      @facts = @channel.facts(from: params[:timestamp], number: params[:number] || 7)
+    else
+      @facts = @channel.facts
+    end
 
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
     
-    respond_with(@channel.facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
+    respond_with(@facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context,@channel)})
   end
   
   def remove_fact
     authorize! :update, @channel
     @fact = Fact[params[:fact_id]]
     @channel.remove_fact(@fact)
+    
+    respond_with(@fact)
   end
 
   def toggle_fact
     authorize! :update, @channel
 
-    @channel  = Channel[params[:channel_id] || params[:id]]
     @fact     = Fact[params[:fact_id]]
     
     if @channel.facts.include?(@fact)
@@ -186,16 +194,15 @@ class ChannelsController < ApplicationController
   end
   
   private
-  
-  def get_user
-    if params[:username]
-      @user = User.first(:conditions => { :username => params[:username]})
+    def get_user
+      if params[:username]
+        @user = User.first(:conditions => { :username => params[:username]})
+      end
     end
-  end
   
-  def load_channel
-    @channel = Channel[params[:id]]
-    @channel || raise_404("Channel not found")
-    @user ||= @channel.created_by.user
-  end
+    def load_channel
+      @channel  = Channel[params[:channel_id] || params[:id]]
+      @channel || raise_404("Channel not found")
+      @user ||= @channel.created_by.user
+    end
 end

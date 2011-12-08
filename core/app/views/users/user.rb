@@ -1,12 +1,10 @@
 module Users
   class User < Mustache::Railstache
-    def self.for_user(graph_user, view)
+    def self.for_user(user, view)
       u = new(false)
+      u[:user] = user
       u.view = view
-      u[:user] = graph_user.user
-      u[:graph_user] = graph_user
       u.init
-
       return u
     end
     
@@ -15,7 +13,7 @@ module Users
     end
 
     def init
-
+      self[:graph_user] = self[:user].graph_user
     end
     
     def id
@@ -35,7 +33,7 @@ module Users
     end
     
     def all_channel_id
-      self[:graph_user].stream.id
+      self[:graph_user].stream_id
     end
     
     def to_hash
