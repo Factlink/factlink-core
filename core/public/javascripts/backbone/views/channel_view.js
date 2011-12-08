@@ -18,7 +18,7 @@ window.ChannelView = Backbone.View.extend({
 
     this.factsView.collection.fetch({
       data: {
-        page: this.factsView._page
+        timestamp: this.factsView._timestamp
       }
     });
   },

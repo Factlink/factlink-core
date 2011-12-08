@@ -1,30 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
+<div style="padding: 12px 0;">
+  <p>
+    <b>Username:</b>
+    <%= @user.username %>
+  </p>
 
-<p>
-  <b>Twitter:</b>
-  <%= @user.twitter %>
-</p>
+  <p>
+    <b>Twitter:</b>
+    <%= @user.twitter %>
+  </p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
 
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
+  <p>
+    <b>Password:</b>
+    <%= @user.password %>
+  </p>
 
-<p>
-  <b>Password confirmation:</b>
-  <%= @user.password_confirmation %>
-</p>
+  <p>
+    <b>Password confirmation:</b>
+    <%= @user.password_confirmation %>
+  </p>
+</div>
 
+<%= link_to 'back', admin_users_path %>
+<%= link_to 'Edit', edit_admin_user_path(@user), class: 'btn' %>
 
-<%= link_to 'Edit', edit_admin_user_path(@user) %> |
-<%= link_to 'Back', admin_users_path %>

@@ -22,8 +22,9 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
+
   <link rel="stylesheet" href="/stylesheets/frontend.css">
-  <link rel="stylesheet" href="/stylesheets/bubble.css">
+  <link rel="stylesheet" href="/stylesheets/admin.css">
   <link rel="stylesheet" href="/stylesheets/grid.css">
 
   <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
@@ -40,7 +41,7 @@
 
 </head>
 
-<body class="factlink-site">
+<body class="factlink-admin">
 
   <%= render 'home/topbar' %>
 
@@ -48,29 +49,7 @@
     
 		<%= render 'home/notifications', notice: notice, alert: alert %>
 	
-    <section id="header" class="span-24 append-bottom">
-			<%= yield :header %>
-    </section>
-
-
-		<section id="left-column" class="span-4 side-column">
-			<%= yield :left_column %>
-		</section>
-
-		<section id="main-column" class="span-14" role="main">  
-			<section id="main-wrapper">
-			  <%= yield :main_column %>
-			  <%= yield %>
-			</section>
-		</section>
-
-    <section id="right-column" class="span-6 last side-column">
-      <%= yield :right_column %>      
-    </section>
-   
-    <div id="feedback">
-      <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
-    </div>
+		  <%= yield %>
   </div>
 
 
@@ -81,35 +60,17 @@
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
 	<%= javascript_include_tag "rails" %>
-  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
   <%= javascript_include_tag "bootstrap-twipsy" %>
   <%= javascript_include_tag "bootstrap-alert" %>
   <%= javascript_include_tag "bootstrap-popover" %>
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "bootstrap-dropdown" %>
-  <%= javascript_include_tag "disablewith" %>
-  <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "wheel" %>
-  <%= javascript_include_tag "jquery.factlink" %>
-  <%= javascript_include_tag("jquery.infiniScroll") %>
-  <%= javascript_include_tag "jquery.jeditable.mini" %>
-  <%= javascript_include_tag "lib/mustache" %>
-  <%= javascript_include_tag "underscore.js" %>
-  <%= javascript_include_tag "backbone.js" %>
-	<%= javascript_include_tag "evidence_search" %>
   
 	<script>
-		$(".fact-block").factlink();
     $(".alert-message").alert();
     
     $('.topbar').dropdown();
-  	$('.bookmarklet').twipsy({placement:"below",offset:5});
 	</script>
-	
-	<%= yield :template %>
-	
-	<%= yield :javascript %>
-	
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->

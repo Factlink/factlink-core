@@ -1,0 +1,37 @@
+tr {
+  background: white;
+}
+form .row {
+  position: relative;
+}
+form .row label {
+  position: absolute;
+  width: 140px;
+  float: left;
+  text-align: right;
+}
+form .row .field {
+  display: block;
+  padding-left: 150px;
+}
+form .row input, form .row textarea {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  width: 380px;
+  height: 20px;
+}
+form .row textarea {
+  height: 60px;
+}
+.actions {
+  margin-left: 410px;
+}
+.actions a {
+  opacity: 0.6;
+  margin-left: -12px;
+  padding-right: 12px;
+}
+.actions a:hover {
+  opacity: 1.0;
+}

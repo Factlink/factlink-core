@@ -3,6 +3,8 @@ class Admin::UsersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
+  layout "admin"
+  
   # GET /users
   # GET /users.json
   def index
@@ -48,6 +50,8 @@ class Admin::UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        @user.confirmed_at = DateTime.now
+        @user.save
         format.html { redirect_to admin_user_path(@user), notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
