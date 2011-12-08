@@ -1793,6 +1793,13 @@ body {
 body.factlink-site .fact-block, body.factlink-site div.user-block {
   margin-bottom: 10px;
 }
+body.factlink-site .alert-message {
+  /* Use blueprints push-4 here: */
+
+  margin: 0 -160px 1.5em 160px;
+  float: left;
+  position: relative;
+}
 .get-chrome-extension .button-information {
   margin: 4px 0 0 0;
   padding-bottom: 6px;
