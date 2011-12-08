@@ -85,6 +85,13 @@ describe Ohm::Model::SortedSet do
       c1.items.below(3).should == [i1]
     end
 
+    it "should return all items when limit is infinity" do
+      c1.items.add(i1,1)
+      c1.items.add(i2,4)
+      c1.items.add(i3,3)
+      c1.items.below('inf').should == [i1,i3,i2]
+    end
+
     it "should return a limitable set" do
       c1.items.add(i1,1)
       c1.items.add(i2,4)
