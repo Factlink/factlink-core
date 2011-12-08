@@ -12,18 +12,18 @@ test:
 
 testserver:
   static:
-    hostname: static.testserver.factlink.com
+    hostname: static-testserver.factlink.com
     port: 443
     protocol: https://
 
 staging:
   static:
-    hostname: static.staging.factlink.com
+    hostname: static-staging.factlink.com
     port: 443
     protocol: https://
 
 production:
   static:
-    hostname: static.beta.factlink.com
+    hostname: static-beta.factlink.com
     port: 443
     protocol: https://
