@@ -32,6 +32,12 @@ window.FactsView = Backbone.View.extend({
     return this;
   },
   
+  remove: function() {
+    Backbone.View.prototype.remove.apply(this);
+    
+    this.unbindScroll();
+  },
+  
   addFact: function(fact) {
     var view = new FactView({
       model: fact
@@ -121,9 +127,12 @@ window.FactsView = Backbone.View.extend({
   //TODO: Unbind on remove?
   bindScroll: function() {
     var self = this;
-    
-    $(window).bind('scroll', function fugglyWrapper() {
+    $(window).bind('scroll.' + this.cid, function fugglyWrapper() {
       self.loadMore.apply(self);
     });
+  },
+  
+  unbindScroll: function() {
+    $(window).unbind('scroll.' + this.cid);
   }
 });
