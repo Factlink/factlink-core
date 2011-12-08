@@ -2,6 +2,9 @@ class FactsController < ApplicationController
 
   layout "client"
 
+  before_filter :authenticate_user!, :only => [:new]
+  before_filter :set_layout, :only => [:new]
+
   respond_to :json, :html
   
   before_filter :load_fact, 
@@ -46,8 +49,8 @@ class FactsController < ApplicationController
   end
   
   # GET /facts/new
-  def new
-    render layout: 'popup'
+  def new    
+    render layout: @layout
   end
 
   def create
@@ -63,7 +66,7 @@ class FactsController < ApplicationController
       if @fact.save
         format.html do
            flash[:notice] = 'Fact was successfully created.'
-           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title]
+           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout]
          end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
@@ -269,5 +272,9 @@ class FactsController < ApplicationController
         false
       end
     end
-  
+
+    def set_layout
+      allowed_layouts = ['popup']
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+    end
 end
