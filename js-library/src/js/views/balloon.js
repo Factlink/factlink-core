@@ -97,6 +97,15 @@ Factlink.Balloon = function() {
             });
           });
         }
+      },
+      error: function(e) {
+        ul.find('li.fl-loading').hide();
+        
+        if (e.message.status === 401) {
+          ul.append('<li>You are not logged in.</li>');
+        } else {
+          ul.append('<li>There was an error retrieving your channels.</li>');
+        }
       }
     });
   }
