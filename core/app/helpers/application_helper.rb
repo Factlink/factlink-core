@@ -30,7 +30,7 @@ module ApplicationHelper
   end
   
   def load_js_template(id, filename)
-    p = "<script type='text/html' id='#{id}'>"
+    p = '<script type="text/html" id="#{id}">'
     p += template_as_string filename
     p += "</script>"
     p.html_safe

@@ -57,7 +57,7 @@ module Facts
     end
   
     def prefilled_search_value
-      params[:s] ? "value='#{params[:s]}'" : ""
+      params[:s] ? 'value="#{params[:s]}"' : ""
     end
   
     def evidence_index_path
