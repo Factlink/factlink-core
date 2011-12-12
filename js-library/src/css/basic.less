@@ -13,6 +13,7 @@
 @border-hover-color: #1d8cc8;
 @context-menu-highlight-color: #4E9CB5;
 
+@link-blue:     darken(#7fa3b8, 10);
 @pink: #e6007e;
 
 // Offset for the floating boxes
@@ -403,6 +404,11 @@ span.factlink {
           padding: 4px 0px;
           width: @channel-box-width - 20px;
           .ellipsis();
+          a  {
+            #fl > .resetStyles;
+            text-decoration: underline;
+            color: @link-blue;
+          }
           &.fl-loading {
             text-align: center;
             

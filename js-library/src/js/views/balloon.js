@@ -100,9 +100,8 @@ Factlink.Balloon = function() {
       },
       error: function(e) {
         ul.find('li.fl-loading').hide();
-        
         if (e.message.status === 401) {
-          ul.append('<li>You are not logged in.</li>');
+          ul.append('<li>Please <a href="' + FactlinkConfig.api + '/users/sign_in">login</a><br> to see your channels </li>');
         } else {
           ul.append('<li>There was an error retrieving your channels.</li>');
         }
