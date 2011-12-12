@@ -1,8 +1,8 @@
 <% unless user_signed_in? %>
 
-<div class="alert-message block-message warning">
-  Hi! You need to sign in before you can add a Factlink. <%= link_to("Sign in", new_user_session_path, target: "_blank") %>
-</div>
+  <div class="alert-message block-message warning">
+    Hi! You need to sign in before you can add a Factlink. <%= link_to("Sign in", new_user_session_path, target: "_blank") %>
+  </div>
 
 <% else %>
 
@@ -29,7 +29,7 @@
     <div class="row">
       <%= label_tag :fact %>
       <div class="field">
-        <%= text_area_tag :fact, params[:fact] %>
+        <%= text_area_tag :fact, params[:fact], :required => "required" %>
       </div>
     </div>
   
