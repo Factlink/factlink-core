@@ -2,8 +2,8 @@
 echo "TODO check"
 echo $PATH
 
-TODO=`ack-grep -c --ignore-dir=coverage --ignore-dir=tmp '(TODO|HACK)' | perl -pe 's/.*://' | grep -v 0 | perl -pe 's/\n/+/smg' | perl -pe 's/$/0\n/'  | bc`
-TOO_MUCH_TODO=55
+TODO=`ack-grep -c --ignore-dir=coverage  --ignore-dir=bin --ignore-dir=tmp '(TODO|HACK)' | perl -pe 's/.*://' | perl -pe 's/\n/+/smg' | perl -pe 's/$/0\n/'  | bc`
+TOO_MUCH_TODO=50
 echo "$TODO TODO's"
 
 if [ "$TODO" -gt "$TOO_MUCH_TODO" ]; then

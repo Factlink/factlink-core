@@ -95,7 +95,7 @@
     <div class="column span-10 last">
         <ul>
           <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Chrome Extension</a></li>
-          <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a></li>
+          <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href="javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>">Bookmarklet</a></li>
       </ul>
         <!-- <a href="javascript:void();">Team</a> |
         <a href="javascript:void();">Privacy</a> |
@@ -120,6 +120,7 @@
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
+  <%= javascript_include_tag "lib/mustache" %>
  
 	</script>
 	
@@ -128,13 +129,7 @@
 	</script>
 	
 	<%= yield :template %>
-  <script>
-    $("article.fact").each(function()  {
-      $fact = $(this);
-      $fact.data("wheel", new Wheel(this));
-      $fact.data("wheel").init($fact.find(".wheel").get(0));
-    });
-  </script>
+
 	<%= yield :javascript %>
 
 	
