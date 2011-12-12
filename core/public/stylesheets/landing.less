@@ -156,4 +156,29 @@
       }
     }
   }
+  
+  #feedback { 
+    position: fixed;
+    top: 160px;
+    @feedback-height: 20px;
+    padding: 0.3em 0.8em 0.3em 0.8em;
+    left:  -@feedback-height - 6px;
+    height: @feedback-height;
+    background-color: #ddd;
+    .rounded(3px);
+    border: 1px solid #333;
+    .rotation(270deg);
+    &:hover { 
+      background-color: #bbb;
+    }
+    a { 
+      display: block;
+      color: #333;
+      width: 100%;
+      height: 100%;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 }

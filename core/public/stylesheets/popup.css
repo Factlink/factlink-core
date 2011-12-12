@@ -1,6 +1,7 @@
 body {
   background: #fff;
   width: 480px;
+  padding-top: 32px;
 }
 .topbar {
   color: #ddd;
@@ -52,4 +53,8 @@ body {
 #container input[type=submit] {
   margin: 5px 28px 0 0;
   float: right;
+}
+div.alert-message a.close {
+  font-size: 20px;
+  margin-top: -3px;
 }

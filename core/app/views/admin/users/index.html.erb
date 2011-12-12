@@ -1,29 +1,30 @@
-<h1>Listing users</h1>
+<div style="margin-bottom: 12px;">
+  <h1>Listing users</h1>
 
-<table class="bordered-table">
-  <thead>
-  <tr>
-    <th>Username</th>
-    <th>Twitter</th>
-    <th>Email</th>
-    <th></th>
-    <th></th>
-    <!-- <th></th> -->
-  </tr>
-  </thead>
+  <table class="bordered-table">
+    <thead>
+    <tr>
+      <th>Username</th>
+      <th>Twitter</th>
+      <th>Email</th>
+      <th></th>
+      <th></th>
+      <!-- <th></th> -->
+    </tr>
+    </thead>
 
-  <tbody>
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.username %></td>
-    <td><%= user.twitter %></td>
-    <td><%= user.email %></td>
-    <td><%= link_to 'Show', admin_user_path(user) %></td>
-    <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-    <!-- <td><%= link_to 'Destroy', admin_user_path(user), confirm: 'Are you sure?', method: :delete %></td> -->
-  </tr>
-<% end %>
-  </tbody>
-</table>
-
-<%= link_to 'New User', new_admin_user_path, class: 'btn' %>
+    <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.username %></td>
+      <td><%= user.twitter %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to 'Show', admin_user_path(user) %></td>
+      <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+      <!-- <td><%= link_to 'Destroy', admin_user_path(user), confirm: 'Are you sure?', method: :delete %></td> -->
+    </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to 'New User', new_admin_user_path, class: 'btn', style: "float: right;" %>

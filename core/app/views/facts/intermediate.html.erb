@@ -6,7 +6,7 @@
   <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
-	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}lib/dist/easyXDM/easyXDM.min.js" %>
+	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}/lib/dist/easyXDM/easyXDM.min.js" %>
 	<style type="text/css">
 		html, body {
 			height: 100%;
@@ -148,14 +148,14 @@
       window.proxyFrame = document.createElement("iframe");
 
       window.proxyFrame.className = "proxyFrame";
-      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>search?query=" + search_params + "&factlinkModus=addToFact";
+      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>/search?query=" + search_params + "&factlinkModus=addToFact";
 
       doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
     }
 
     function hideProxyWindow() {
       window.proxyFrame.style.display = "none";
-      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>?url=http://www.google.com&factlinkModus=addToFact";
+      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>/?url=http://www.google.com&factlinkModus=addToFact";
     }
 
 	</script>
