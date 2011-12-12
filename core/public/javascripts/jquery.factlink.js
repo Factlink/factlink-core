@@ -236,8 +236,7 @@
   }
 
   function submitEvidence($c, type) {
-    
-    console.info("submitting evidence");
+
     var factId = $c.attr("data-fact-id");
     var evidenceId = $c.data("evidence-id");
     var url_part;
@@ -268,6 +267,12 @@
     var factId = $c.attr("data-fact-id");
     var displayString = $($c.find("#fact_data_displaystring")).val();
     var url_part;
+
+    // Little client side validation on the displaystring length
+    if ($('#fact_data_displaystring').val().length < 1) {
+      $('#fact_data_displaystring').css('border', 'solid 1px rgba(206, 0, 0, 0.6)').attr("placeholder", "This field is required");
+      return false;
+    }
 
     if (type === "supporting") {
       console.info('add as supporting');
