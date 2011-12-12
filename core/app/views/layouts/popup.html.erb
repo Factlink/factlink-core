@@ -17,8 +17,10 @@
 			<div class="fill">
 				<%= render "users/account_block", target: "_blank" %>
 			</div>
-			<%= render 'home/notifications', notice: notice, alert: alert %>
   	</div>
+  	
+  	<%= render 'home/notifications', notice: notice, alert: alert %>
+  	
   	<div id="container">
   	  <%= yield %>
   	</div>
