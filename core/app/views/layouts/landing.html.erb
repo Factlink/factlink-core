@@ -120,6 +120,7 @@
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
+  <%= javascript_include_tag "lib/mustache" %>
  
 	</script>
 	
@@ -128,13 +129,7 @@
 	</script>
 	
 	<%= yield :template %>
-  <script>
-    $("article.fact").each(function()  {
-      $fact = $(this);
-      $fact.data("wheel", new Wheel(this));
-      $fact.data("wheel").init($fact.find(".wheel").get(0));
-    });
-  </script>
+
 	<%= yield :javascript %>
 
 	
