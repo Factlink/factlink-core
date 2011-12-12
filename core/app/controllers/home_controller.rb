@@ -7,6 +7,7 @@ class HomeController < ApplicationController
   def pages
     respond_to do |format| 
       format.html {render "home/pages/" + params[:name], :layout => "general"}
+      
     end
   end
 
