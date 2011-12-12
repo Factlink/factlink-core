@@ -2554,3 +2554,29 @@ textarea[readonly] {
 .factlink footer ul li:not(:last-child):after {
   content: " | ";
 }
+.factlink #feedback {
+  position: fixed;
+  top: 160px;
+  padding: 0.3em 0.8em 0.3em 0.8em;
+  left: -26px;
+  height: 20px;
+  background-color: #ddd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #333;
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+.factlink #feedback:hover {
+  background-color: #bbb;
+}
+.factlink #feedback a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.factlink #feedback a:hover {
+  text-decoration: none;
+}

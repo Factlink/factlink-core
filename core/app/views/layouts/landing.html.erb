@@ -94,7 +94,7 @@
     </div>
     <div class="column span-10 last">
         <ul>
-          <li><a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a></li>
+          <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Chrome Extension</a></li>
           <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a></li>
       </ul>
         <!-- <a href="javascript:void();">Team</a> |
@@ -102,6 +102,11 @@
         <a href="javascript:void();">Contact</a> -->
     </div>
   </footer>
+  
+  <div id="feedback">
+    <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
+  </div>
+  
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
