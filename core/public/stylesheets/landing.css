@@ -2574,6 +2574,7 @@ textarea[readonly] {
 }
 .factlink #feedback a {
   display: block;
+  color: #333;
   width: 100%;
   height: 100%;
 }
