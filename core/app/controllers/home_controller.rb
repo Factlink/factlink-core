@@ -4,10 +4,10 @@ class HomeController < ApplicationController
   
   helper_method :sort_column, :sort_direction
 
+  #general static pages:
   def pages
     respond_to do |format| 
       format.html {render "home/pages/" + params[:name], :layout => "general"}
-      
     end
   end
 

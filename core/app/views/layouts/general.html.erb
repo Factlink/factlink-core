@@ -11,7 +11,7 @@
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Factlink &mdash; helps people find credibility in the world's information</title>
+  <title><%= yield :title %> </title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -62,27 +62,14 @@
 
   <div id="body">
     <div class="container">
-      <div class="column append-1 span-16">
-        <div id="payoff" class="column span-15 clear">
-         Payoff
-        </div>
-
-        <div id="selling-points" class="column span-7 prepend-top">
-         Selling points
-        </div>
-
-        <div id="movie" class="column push-1 last prepend-top">
-        Movie
-        </div>
+      <div id="menu" class="column span-7">
+        <ul>
+          <%= yield :menu_items %>
+        </ul>
       </div>
 
-      <div class="column span-6 last">
-        <div id="signup" class="column span-6">
-          Sign up
-        </div>
-        <div id="top-facts" class="column span-7 prepend-top">
-          <%= yield :test_text %>
-        </div>
+      <div id="body_text" class="column span-17 last">
+        <%= yield :body_text %>
       </div>
     </div>
   </div>
