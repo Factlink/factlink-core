@@ -35,7 +35,7 @@ module FactsHelper
       return @current_user
     end
     def image_tag(path)
-      return "<img src='#{path}'>".html_safe
+      return '<img src="#{path}">'.html_safe
     end
   end
   

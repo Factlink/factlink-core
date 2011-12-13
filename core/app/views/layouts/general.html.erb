@@ -11,7 +11,7 @@
        More info: h5bp.com/b/378 -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Factlink &mdash; helps people find credibility in the world's information</title>
+  <title><%= yield :title %> </title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -22,10 +22,9 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="/stylesheets/landing.css">
-  <link rel="stylesheet" href="/stylesheets/grid.css">
-
   <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="/stylesheets/grid.css">
+  <link rel="stylesheet" href="/stylesheets/general.css">
   <!-- end CSS-->
 
 
@@ -63,27 +62,14 @@
 
   <div id="body">
     <div class="container">
-      <div class="column append-1 span-16">
-        <div id="payoff" class="column span-15 clear">
-          <%= yield :payoff %>
-        </div>
-
-        <div id="selling-points" class="column span-7 prepend-top">
-          <%= yield :selling_points %>
-        </div>
-
-        <div id="movie" class="column push-1 last prepend-top">
-          <%= yield :movie %> 
-        </div>
+      <div id="menu" class="column span-7">
+        <ul>
+          <%= yield :menu_items %>
+        </ul>
       </div>
 
-      <div class="column span-6 last">
-        <div id="signup" class="column span-6">
-          <%= yield :sign_up %>
-        </div>
-        <div id="top-facts" class="column span-7 prepend-top">
-          <%= yield :top_facts %>
-        </div>
+      <div id="body_text" class="column span-17 last">
+        <%= yield :body_text %>
       </div>
     </div>
   </div>
@@ -94,19 +80,14 @@
     </div>
     <div class="column span-10 last">
         <ul>
-          <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Chrome Extension</a></li>
-          <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href="javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>">Bookmarklet</a></li>
+          <li><a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a></li>
+          <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a></li>
       </ul>
         <!-- <a href="javascript:void();">Team</a> |
         <a href="javascript:void();">Privacy</a> |
         <a href="javascript:void();">Contact</a> -->
     </div>
   </footer>
-  
-  <div id="feedback">
-    <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
-  </div>
-  
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
@@ -120,7 +101,6 @@
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
-  <%= javascript_include_tag "lib/mustache" %>
  
 	</script>
 	
@@ -129,7 +109,13 @@
 	</script>
 	
 	<%= yield :template %>
-
+  <script>
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
 	<%= yield :javascript %>
 
 	

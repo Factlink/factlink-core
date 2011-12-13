@@ -67,7 +67,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_with_password(params[:user])
         format.html { redirect_to admin_user_path(@user), notice: 'User was successfully updated.' }
         format.json { head :ok }
       else

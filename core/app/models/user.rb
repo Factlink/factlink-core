@@ -65,6 +65,11 @@ class User
     guser.save
   end
 
+  def update_with_password(params={})
+    params.delete(:current_password)
+    self.update_without_password(params)
+  end
+
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 
