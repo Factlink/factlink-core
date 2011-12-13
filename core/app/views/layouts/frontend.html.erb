@@ -87,6 +87,7 @@
   <%= javascript_include_tag "bootstrap-popover" %>
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "bootstrap-dropdown" %>
+  <%= javascript_include_tag "bootstrap-modal" %>
   <%= javascript_include_tag "disablewith" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
@@ -106,30 +107,17 @@
   	$('.bookmarklet').twipsy({placement:"below",offset:5});
 	</script>
 	
+	<% if user_signed_in? %>
+  	<% if (current_user.andand.sign_in_count < 10) %>
+  	  <%= render "home/twipsy" %>
+  	<% end %>
+  <% end %>
+	
+	<%= render "home/tour" %>
+	
 	<%= yield :template %>
 	
-	<%= yield :javascript %>
-	
-	<script>
-  $('#channel-listing > li:first').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "All Factlinks you've created or follow in your channels." },
-  });
-
-  $('#channel-listing > li:eq(1)').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "All Factlinks you've created." },
-  });
-
-  $('.add-channel').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "You can categorize Factlinks withins channels. Really interesting for other users to follow!" },
-  });
-	</script>
-	
+	<%= yield :javascript %>	
 	
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
