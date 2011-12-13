@@ -15,8 +15,12 @@ window.FactView = Backbone.View.extend({
     fact_wheel: $('#fact_wheel_tmpl').html()
   },
   
-  initialize: function(e) {
+  initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
+    
+    if ( opts.tmpl ) {
+      this.tmpl = opts.tmpl;
+    }
     
     $(this.el).attr('data-fact-id', this.model.id);
   },

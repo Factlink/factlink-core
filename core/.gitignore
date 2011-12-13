@@ -20,3 +20,4 @@ public/system/
 solr/pids
 temp-8546.rdb
 dump.rdb
+.jhw-cache
