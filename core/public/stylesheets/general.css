@@ -2439,6 +2439,9 @@ textarea[readonly] {
 .factlink header {
   padding: 1em 1em 0;
 }
+.factlink header h1 {
+  margin-top: 12px;
+}
 .factlink #sign-in-form {
   margin: 0px;
 }
