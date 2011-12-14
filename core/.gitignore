@@ -20,5 +20,5 @@ public/system/
 solr/pids
 temp-8546.rdb
 dump.rdb
-/nbproject/private/
+/nbproject/
 .jhw-cache
