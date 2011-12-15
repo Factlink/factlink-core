@@ -2126,6 +2126,10 @@ form .action-wrapper span {
   float: right;
   display: block;
 }
+#container #main-wrapper header.title div.float-box-container {
+  float: right;
+  position: relative;
+}
 #container #main-wrapper header.title p {
   margin: 0 0 6px 0;
 }
