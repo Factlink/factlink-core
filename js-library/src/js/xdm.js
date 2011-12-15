@@ -38,7 +38,7 @@
       }
     }
 
-    function globalSuccesFunction(data) {
+    function globalSuccessFunction(data) {
       console.info('SUCCESS : ' + path );
     }
 
