@@ -7,5 +7,15 @@ fact.find('.no-evidence-message').hide();
 fact.find('.page').hide();
 fact.find('.evidence-list').show();
 
+var $el, $bubble;
+
 // Add the evidence
-evidenceList.prepend("<%= escape_javascript(render(:partial => '/facts/evidence_bubble', :locals => { :fact_relation => @fact_relation } )) %>").factlink();
+$el = $("<%= escape_javascript(render('/facts/evidence_bubble', fact_relation: @fact_relation )) %>");
+$bubble = $(Mustache.to_html($('#fact_bubble_tmpl').html(), <%= Facts::FactBubble.for_fact_and_view(@fact_relation.from_fact, self).to_json.html_safe %>, {fact_wheel: $('#fact_wheel_tmpl').html()}));
+
+$el.append($bubble);
+
+$el.data("wheel", new Wheel($el));
+$el.data("wheel").init($el.find(".wheel").get(0));
+
+evidenceList.prepend($el);
