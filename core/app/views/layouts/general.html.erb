@@ -40,8 +40,7 @@
 
 <body class="factlink">
 
-   <%= render 'home/header' %>
-
+  <%= render 'home/header' %>
 
   <div id="body">
     <div class="container">
@@ -60,7 +59,9 @@
   <%= render 'home/footer' %>
   
   <!-- JavaScript at the bottom for fast page loading -->
-
+  
+  <%= yield :template %>
+	
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
   <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
@@ -72,14 +73,11 @@
   <%= javascript_include_tag "bootstrap-buttons" %>
   <%= javascript_include_tag "raphael-min" %>
   <%= javascript_include_tag "wheel" %>
- 
-	</script>
 	
 	<script>
-	$('.bookmarklet').twipsy();
+	  $('.bookmarklet').twipsy();
 	</script>
 	
-	<%= yield :template %>
   <script>
     $("article.fact").each(function()  {
       $fact = $(this);
@@ -87,6 +85,7 @@
       $fact.data("wheel").init($fact.find(".wheel").get(0));
     });
   </script>
+  
 	<%= yield :javascript %>
 
 	

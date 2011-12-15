@@ -2409,7 +2409,7 @@ textarea[readonly] {
   color: #5e8ba6;
 }
 .factlink h1, .factlink h2, .factlink h3 {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #303030;
 }
 .factlink h3 {
@@ -2420,10 +2420,7 @@ textarea[readonly] {
   font-weight: bold;
   font-size: 12pt;
 }
-.factlink p,
-.factlink span,
-.factlink li,
-.factlink footer {
+.factlink p, .factlink li, .factlink footer {
   font-family: Georgia, serif;
   color: #505050;
 }
@@ -2505,7 +2502,7 @@ textarea[readonly] {
   display: block;
   width: 205px;
   font-size: 8pt;
-  font-family: "Helvetica" sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   color: #888;
   overflow: hidden;
   white-space: nowrap;
@@ -2585,9 +2582,9 @@ textarea[readonly] {
   text-decoration: none;
 }
 p {
-  font-size: 14pt;
+  font-size: 13pt;
   margin-bottom: 5px;
-  line-height: 1.2em;
+  line-height: 1.4em;
 }
 h1 {
   font-size: 24pt;
@@ -2607,26 +2604,33 @@ h5 {
   margin-top: 2px;
   margin-bottom: 7px;
 }
+.team_photos {
+  margin-bottom: 4em;
+}
 #menu li {
   padding-top: 5px;
   padding-left: 10px;
   margin-bottom: 5px;
   font-size: 12pt;
   font-weight: bold;
-  color: blue;
   height: 27px;
 }
-#menu a {
+#menu li a {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  padding-top: 2px;
+  font-weight: bold;
+  font-size: 0.8em;
+  color: #5e8ba6;
   display: block;
   width: 100%;
   height: 100%;
 }
-.selected_menu_item {
-  background-image: url('../../images/menu_arrow.png');
+#menu .selected_menu_item {
+  background-image: url('/images/menu_arrow.png');
   background-repeat: no-repeat;
 }
-.selected_menu_item a {
-  color: black;
+#menu .selected_menu_item a {
+  color: #555;
 }
 .team_photos img {
   padding: 8px;
@@ -2641,5 +2645,6 @@ h5 {
   line-height: 1.5em;
 }
 .enquiries a {
+  font-family: "Georgia", serif;
   font-size: 14pt;
 }
