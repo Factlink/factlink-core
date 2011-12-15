@@ -11,9 +11,11 @@ Factlink.Balloon = function() {
     id = factId;
     factObj = fact;
     
-    Factlink.getTemplate("indicator", initializeTemplate);
-    
-    bindCheck();
+    Factlink.getTemplate("indicator", function() {
+      initializeTemplate();
+      
+      bindCheck();
+    });
   }
   
   this.show = function(top, left, fast) {
