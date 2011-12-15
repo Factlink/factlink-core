@@ -2584,3 +2584,47 @@ textarea[readonly] {
 .factlink #feedback a:hover {
   text-decoration: none;
 }
+p {
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  padding-top: 3px;
+  padding-bottum: 10px;
+}
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 2px;
+  padding-bottum: 7px;
+}
+#menu li {
+  padding-top: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: blue;
+  height: 27px;
+}
+#menu a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.selected_menu_item {
+  background-image: url('../../images/menu_arrow.png');
+  background-repeat: no-repeat;
+}
+.selected_menu_item a {
+  color: black;
+}
+.team_photos img {
+  padding: 5px;
+  margin: 10px;
+  background: #ececec;
+  border-bottom: solid white 1px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}

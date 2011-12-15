@@ -1,6 +1,16 @@
-<% content_for :test_text do %>
-  <h2>About Factlink</h2>
-  <p> Factlink helps people find credibility in the world's information. 
-    It transforms pieces of information from web documents into dynamic channels of information.</p>
+<% content_for :title do %>
+  About Factlink
+<% end %>
 
+<% content_for :menu_items do %>
+  <li class="selected_menu_item"><a href="about">About Factlink</a></li>
+  <li><a href="team">Our team</a></li>
+<% end %>
+  
+<% content_for :body_text do %>
+  <h1>About Factlink</h1>
+  <p>Factlink helps people find credibility in the world's information. The service is built on the belief that information should be openly shared, accessible, and transparent. Factlink provides immediate access to the state of knowledge on the topics people are discussing by transforming web documents into dynamic channels of information.</p>   
+  
+  <br/><br/>
+  <a href ="signup"><span class="btn success">Sign up for our Beta</span></a>
 <% end %>

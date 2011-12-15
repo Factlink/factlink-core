@@ -4,18 +4,18 @@ class HomeController < ApplicationController
   
   helper_method :sort_column, :sort_direction
 
+  #general static pages:
   def pages
     respond_to do |format| 
       format.html {render "home/pages/" + params[:name], :layout => "general"}
-      
     end
   end
 
   def index
     if user_signed_in?
         redirect_to user_profile_path(@current_user.username)
-    else 
-      @facts = Fact.all.sort(:order => "DESC",:limit => 3)
+    else
+      @facts = Fact.all.sort(:order => "DESC",:limit => 3).map {|fact| Facts::FactBubble.for_fact_and_view(fact,view_context)}
       render layout: "landing"
     end
  end

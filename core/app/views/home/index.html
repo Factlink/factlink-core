@@ -35,10 +35,7 @@
 
 <% content_for :top_facts do %>
 <h3>Top factlinks</h3>
-  <ul>
-  <% @facts.each do |fact|  %>
-    <li><%= render_mustache "/facts/fact_bubble", :fact => fact, :modal => false, :form_authenticity_token => form_authenticity_token %></li>
-    <% end %>
+  <ul id="top-factlinks">
   </ul>
  <% end %>
 
@@ -46,4 +43,25 @@
   <img src="/images/fact-wheel.png" id="movie-container" alt="Facts">
 <% end %>
 
+<% content_for :template do %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
+<% end %>
 
+<% content_for :javascript do %>
+  <script>
+    var TopFactlinks = <%= @facts.to_json.html_safe %>;
+    
+    for ( var i = 0; i < TopFactlinks.length; i++ ) {
+      var fact = TopFactlinks[i];
+      
+      $('#top-factlinks').append('<li>' + Mustache.to_html($('#fact_bubble_tmpl').html(), fact, {fact_wheel: $('#fact_wheel_tmpl').html()}) + '</li>');
+    }
+    
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
+<% end %>
