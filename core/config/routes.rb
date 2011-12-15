@@ -69,8 +69,8 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
   
-  get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }
-  
+  get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+
 
   namespace :admin do
     resources :users

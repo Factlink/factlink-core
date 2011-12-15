@@ -40,25 +40,8 @@
 
 <body class="factlink">
 
-  <header class="container append-bottom">
-    <div class="column span-6" id="logo">
-      <h1><img src="/images/logo-gray.png" alt="factlink"></h1>
-    </div>
+   <%= render 'home/header' %>
 
-    <div id="sign-in-form" class="prepend-4 span-14 last">
-      <% unless user_signed_in? %>
-      <%= form_for("user", :url => user_session_path) do |f| %>
-        <div class="input-fields">
-        <%= f.text_field :email, placeholder: "Email" %>
-        <%= f.password_field :password, placeholder: "Password" %>
-        <%= f.submit 'Sign in', class: 'btn' %>
-        </div>
-
-        <%= link_to "Forgot your password?", new_password_path('user') %>
-      <% end %>
-      <% end %>
-    </div>
-  </header>
 
   <div id="body">
     <div class="container">
@@ -74,20 +57,8 @@
     </div>
   </div>
   
-  <footer class="container">
-    <div class="column span-14">
-      &copy; Copyright 2011 Factlink. All Rights Reserved. 
-    </div>
-    <div class="column span-10 last">
-        <ul>
-          <li><a href="<%= FactlinkUI::Application.config.static_url %>chrome/factlink-latest.crx">Chrome Extension</a></li>
-          <li><a title="You can drag this Bookmarklet to your bookmarks bar." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'bookmarklet.js')) %>'>Bookmarklet</a></li>
-      </ul>
-        <!-- <a href="javascript:void();">Team</a> |
-        <a href="javascript:void();">Privacy</a> |
-        <a href="javascript:void();">Contact</a> -->
-    </div>
-  </footer>
+  <%= render 'home/footer' %>
+  
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
