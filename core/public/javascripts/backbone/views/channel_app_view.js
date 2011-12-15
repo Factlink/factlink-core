@@ -12,7 +12,11 @@ window.AppView = Backbone.View.extend({
     
     this.setupChannelReloading();
     
-    this.changeUser(currentChannel.user);
+    if ( typeof currentChannel !== "undefined" ) {
+      this.changeUser(currentChannel.user);
+    } else {
+      this.changeUser(currentUser);
+    }
   },
   
   // TODO: This function needs to wait for loading (Of channel contents in main column)

@@ -51,7 +51,8 @@ window.ChannelCollectionView = Backbone.View.extend({
 
   render: function() {
     this.resetChannels();
-    if ( currentChannel.user.id === currentUser.id ) {
+    
+    if ( typeof currentChannel !== "undefined" && currentChannel.user.id === currentUser.id ) {
       this.el.find('.add-channel').show();
     } else {
       this.el.find('.add-channel').hide();
