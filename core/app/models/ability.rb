@@ -38,10 +38,10 @@ class Ability
   def define_user_abilities
     if user
       can :update, user
-    end
-    
-    if user.andand.admin
-      can :manage, User
+      
+      if user.admin?
+        can :manage, User  
+      end
     end
   end
   
