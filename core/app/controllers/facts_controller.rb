@@ -155,7 +155,6 @@ class FactsController < ApplicationController
     render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript" 
   end
 
-
   def set_opinion
     type = params[:type].to_sym
     @fact = Basefact[params[:id]]
