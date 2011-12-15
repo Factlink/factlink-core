@@ -12,20 +12,20 @@
   <p>Factlink is made by a world-class group who have built many pioneering products. Each has brought his or her experience to not only deliver the best customer experiences, but to also help build a unique company that will thrive for many years to come.</p>
 
   <div class="team_photos">
-    <img src="/images/team/merijn.png" height="82" width="82" alt="Merijn Terheggen"> </img>
-    <img src="/images/team/gordon.png" height="82" width="82" alt="Gordon Rios"> </img>
-    <img src="/images/team/tom.png" height="82" width="82" alt="Tom de Vries"> </img>
-    <img src="/images/team/remon.png" height="82" width="82" alt="Remon Oldenbeuving"> </img>
-    <img src="/images/team/michiel.png" height="82" width="82" alt="Michiel Prins"> </img>
-    <img src="/images/team/jobert.png" height="82" width="82" alt="Jobert Abma"> </img>
-    <img src="/images/team/jan.png" height="82" width="82" alt="Jan Salvador van der Ven"> </img>
-    <img src="/images/team/mark.png" height="82" width="82" alt="Mark Ijbema"> </img>
-    <img src="/images/team/jordin.png" height="82" width="82" alt="Jordin van Zwol"> </img>
-    <img src="/images/team/joel.png" height="82" width="82" alt="Joel Kuiper"> </img>
-    <img src="/images/team/jens.png" height="82" width="82" alt="Jens Kanis"> </img>
+    <%= image_tag "team/merijn.png", alt: "Merijn Terheggen", width: 82, height: 82 %>
+    <%= image_tag "team/gordon.png", alt: "Gordon Rios", width: 82, height: 82 %>
+    <%= image_tag "team/tom.png", alt: "Tom de Vries", width: 82, height: 82 %>
+    <%= image_tag "team/remon.png", alt: "Remon Oldenbeuving", width: 82, height: 82 %>
+    <%= image_tag "team/michiel.png", alt: "Michiel Prins", width: 82, height: 82 %>
+    <%= image_tag "team/jobert.png", alt: "Jobert Abma", width: 82, height: 82 %>
+    <%= image_tag "team/jan.png", alt: "Jan Salvador van der Ven", width: 82, height: 82 %>
+    <%= image_tag "team/mark.png", alt: "Mark Ijbema", width: 82, height: 82 %>
+    <%= image_tag "team/jordin.png", alt: "Jordin van Zwol", width: 82, height: 82 %>
+    <%= image_tag "team/joel.png", alt: "Joël Kuiper", width: 82, height: 82 %>
+    <%= image_tag "team/jens.png", alt: "Jens Kanis", width: 82, height: 82 %>
   </div>
   <h2>Join our team?</h2>
   <p>We're always looking for talented people to add to our team. Are you one of those people? Maybe you should take a look at our opportunities.</p>
   <br/><br/>
-  <a href ="jobs"><span class="btn success">Apply for a job</span></a>
+  <%= link_to "<span class='btn success'>Apply for a job</span>".html_safe, pages_path("jobs") %>
 <% end %>
