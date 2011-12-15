@@ -17,7 +17,7 @@ class FactsController < ApplicationController
       :opinion,
       :evidence_search,
       :add_supporting_evidence,
-      :add_weakening_evidence,
+      :add_weakening_evidence
       ]
   before_filter :potential_evidence, 
     :only => [
@@ -230,7 +230,9 @@ class FactsController < ApplicationController
 
 
     def load_fact
-      @fact = Fact[params[:id]] || raise_404
+      id = params[:id] || params[:fact_id]
+      
+      @fact = Fact[id] || raise_404
     end
   
     def add_evidence(evidence_id, type, fact_id) # private
