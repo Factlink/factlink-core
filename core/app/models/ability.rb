@@ -31,7 +31,7 @@ class Ability
       can :opinionate, Fact
       can :add_evidence, Fact
       can :manage, Fact do |f|
-       f.created_by == user.graph_user
+        f.created_by == user.graph_user
       end
     end
   end
