@@ -2588,7 +2588,6 @@ p {
   font-size: 14pt;
   margin-bottom: 5px;
   line-height: 1.2em;
-  font-weight: lighter;
 }
 h1 {
   font-size: 24pt;
@@ -2598,6 +2597,12 @@ h1 {
 }
 h2 {
   font-size: 18pt;
+  font-weight: bold;
+  margin-top: 2px;
+  margin-bottom: 7px;
+}
+h5 {
+  font-size: 11pt;
   font-weight: bold;
   margin-top: 2px;
   margin-bottom: 7px;
@@ -2630,4 +2635,11 @@ h2 {
   border-bottom: solid white 1px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+}
+.address {
+  font-size: 10pt;
+  line-height: 1.5em;
+}
+.enquiries a {
+  font-size: 14pt;
 }
