@@ -2409,7 +2409,7 @@ textarea[readonly] {
   color: #5e8ba6;
 }
 .factlink h1, .factlink h2, .factlink h3 {
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #303030;
 }
 .factlink h3 {
@@ -2420,10 +2420,7 @@ textarea[readonly] {
   font-weight: bold;
   font-size: 12pt;
 }
-.factlink p,
-.factlink span,
-.factlink li,
-.factlink footer {
+.factlink p, .factlink li, .factlink footer {
   font-family: Georgia, serif;
   color: #505050;
 }
@@ -2505,7 +2502,7 @@ textarea[readonly] {
   display: block;
   width: 205px;
   font-size: 8pt;
-  font-family: "Helvetica" sans-serif;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   color: #888;
   overflow: hidden;
   white-space: nowrap;
