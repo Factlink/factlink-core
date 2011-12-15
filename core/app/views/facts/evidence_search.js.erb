@@ -15,9 +15,7 @@ var searchList = fact.find('.evidence-search-results ul.search-term-results');
   <% end %>
   
 <% else %>
-	<% @facts.each do |evidence| %>
+ <% @facts.each do |evidence| %>
     searchList.append('<li data-evidence-id="<%= evidence.id %>" class="evidence"><span><%= evidence.data.title %></span><%= evidence.data.displaystring %></li>');
-	<% end %>
-
-	fact.factlink();
+ <% end %>
 <% end %>
