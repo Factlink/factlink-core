@@ -10,6 +10,7 @@ class Ability
 
     define_channel_abilities
     define_fact_abilities
+    define_fact_relation_abilities
     define_user_abilities
   end
 
@@ -32,6 +33,12 @@ class Ability
       can :manage, Fact do |f|
        f.created_by == user.graph_user
       end
+    end
+  end
+  
+  def define_fact_relation_abilities
+    if user
+      can :opinionate, FactRelation
     end
   end
   
