@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :menu_items do %>
-  <li class="selected_menu_item"><a href="about">Senior Software Engineer</a></li>
+  <li class="selected_menu_item"><%= link_to "Senior Software Engineer", pages_path("jobs") %></li>
 <% end %>
   
 <% content_for :body_text do %>

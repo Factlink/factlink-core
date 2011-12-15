@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :menu_items do %>
-  <li class="selected_menu_item"><a href="contact">Contact us</a></li>
+  <li class="selected_menu_item"><%= link_to "Contact us", pages_path("contact") %></li>
 <% end %>
 
 <% content_for :body_text do %>

@@ -3,8 +3,8 @@
 <% end %>
 
 <% content_for :menu_items do %>
-  <li><a href="about">About Factlink</a></li>
-  <li class="selected_menu_item"><a href="team">Our team</a></li>
+  <li><%= link_to "About Factlink", pages_path("about") %></li>
+  <li class="selected_menu_item"><%= link_to "Our Team", pages_path("team") %></li>
 <% end %>
 
 <% content_for :body_text do %>
