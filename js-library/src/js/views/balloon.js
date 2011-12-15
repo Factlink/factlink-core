@@ -12,7 +12,7 @@ Factlink.Balloon = function() {
     factObj = fact;
     
     Factlink.getTemplate("indicator", function() {
-      initializeTemplate();
+      initializeTemplate.apply(this);
       
       bindCheck();
     });
