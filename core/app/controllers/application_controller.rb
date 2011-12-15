@@ -1,6 +1,9 @@
 require 'net/http'
 
 class ApplicationController < ActionController::Base
+  include UrlHelper
+  before_filter :set_mailer_url_options
+  
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
     require_dependency path 
