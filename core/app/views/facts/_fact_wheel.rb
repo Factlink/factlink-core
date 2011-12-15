@@ -25,7 +25,6 @@ module Facts
       {
         :authority => authority,
         :opinions => opinions,
-        :user_signed_in? => user_signed_in?,
       }
     end
     
@@ -38,6 +37,7 @@ module Facts
             :percentage => fact.get_opinion.as_percentages[:believe][:percentage],
             :is_current_opinion => user_signed_in? && current_graph_user.has_opinion?(:believes, fact),
             :color => "#98d100",
+            :user_signed_in? => user_signed_in?,
           },
           {
             :type => 'doubt',
@@ -45,6 +45,7 @@ module Facts
             :percentage => fact.get_opinion.as_percentages[:doubt][:percentage],
             :is_current_opinion => user_signed_in? && current_graph_user.has_opinion?(:doubts, fact),
             :color => "#36a9e1",
+            :user_signed_in? => user_signed_in?,
           },
           {
             :type => 'disbelieve',
@@ -52,6 +53,7 @@ module Facts
             :percentage => fact.get_opinion.as_percentages[:disbelieve][:percentage],
             :is_current_opinion => user_signed_in? && current_graph_user.has_opinion?(:disbelieves, fact),
             :color => "#e94e1b",
+            :user_signed_in? => user_signed_in?,
           }
         ]
       end
