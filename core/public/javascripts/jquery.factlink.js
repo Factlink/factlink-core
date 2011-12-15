@@ -216,7 +216,7 @@
       showNewEvidenceAdd($c);
       // Populate the input field
       var currentInput = $c.find('input.evidence_search').val();
-      $c.find("#fact_data_displaystring").val(currentInput);
+      $c.find(".fact_data_displaystring").val(currentInput);
     });
   }
   function bindEvidencePrepare($c) {
@@ -265,20 +265,20 @@
 
   function submitNewEvidence($c, type) {
     var factId = $c.attr("data-fact-id");
-    var displayString = $($c.find("#fact_data_displaystring")).val();
+    var displayString = $($c.find(".fact_data_displaystring")).val();
     var url_part;
 
     // Little client side validation on the displaystring length
-    if ($('#fact_data_displaystring').val().length < 1) {
-      $('#fact_data_displaystring').css('border', 'solid 1px rgba(206, 0, 0, 0.6)').attr("placeholder", "This field is required");
+    var displaystring_input_field = $c.find('.fact_data_displaystring');
+    
+    if (displaystring_input_field.val().length < 1) {
+      displaystring_input_field.css('border', 'solid 1px rgba(206, 0, 0, 0.6)').attr("placeholder", "This field is required");
       return false;
     }
 
     if (type === "supporting") {
-      console.info('add as supporting');
       url_part = "/supporting_evidence/";
     } else if (type === "weakening") {
-      console.info('add as weakening');
       url_part = "/weakening_evidence/";
     } else {
       alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
@@ -295,7 +295,7 @@
       success: function(data) {
         resetSearch($c);
       },
-      error: function(data) {  
+      error: function(data) {
       }
     });
   }

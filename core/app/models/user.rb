@@ -11,8 +11,9 @@ class User
   field :graph_user_id
 
   field :admin, type: Boolean, default: false
+  field :agrees_tos, type: Boolean, default: false
   
-  attr_protected :admin  
+  attr_protected :admin, :agrees_tos
 
   # Only allow letters, digits and underscore in a username
   validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
