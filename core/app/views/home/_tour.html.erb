@@ -166,8 +166,6 @@
   $('#first-tour-modal').hide();
   $('#first-tour-modal').modal({backdrop: true});
 
-  $('#first-tour-modal').modal('show');
-
   $('.show-modal').bind('click', function() {
     $('#first-tour-modal').modal('show');
   });
@@ -202,7 +200,7 @@ $('#slider').cycle({
   activePagerClass: "current",
 	fx:       "scrollHorz",
 	timeout:  0, 
-	speed:    1800,
+	speed:    1000,
 	next: 	  "#next",
 	prev:     "#previous", 
 	easing:   "easeOutSine",
