@@ -63,8 +63,10 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Web Front-end
   root :to => "home#index"
-  
+  get "terms-of-service" => "tos#show", as: "tos"
+
   get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+
 
 
   namespace :admin do
