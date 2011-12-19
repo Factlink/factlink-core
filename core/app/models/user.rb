@@ -13,7 +13,8 @@ class User
 
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
-  
+  field :agrees_tos_on, type: DateTime
+
   attr_protected :admin, :agrees_tos
 
   # Only allow letters, digits and underscore in a username
