@@ -49,7 +49,7 @@ module Facts
     end
   
     def ajax_loader_image
-      image_tag("ajax-loader.gif")
+      image_tag("/images/ajax-loader.gif")
     end
   
     def evidence_search_path
