@@ -2349,14 +2349,14 @@ form .action-wrapper span {
   margin: 0 0 0 4px;
 }
 #container #wide-activity-list li .activity-container .fact {
-  background: url('/images/right_quote_12x12.png') no-repeat;
+  background: url('/assets/right_quote_12x12.png') no-repeat;
   background-size: 10px 7px;
 }
 #container #wide-activity-list li .activity-container .factrelation {
-  background: url('/images/quote.gif') no-repeat;
+  background: url('/assets/quote.gif') no-repeat;
 }
 #container #wide-activity-list li .activity-container .channel {
-  background: url('/images/list_unordered.gif') no-repeat;
+  background: url('/assets/list_unordered.gif') no-repeat;
 }
 #container #activity-listing {
   margin-left: -10px;

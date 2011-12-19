@@ -19,38 +19,20 @@
 	<div class="modal">			
 		<%= yield %>
 	</div>
-
-	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-	<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.min.js"><\/script>')</script>
-
-	<%= javascript_include_tag "rails" %>
-  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
-  <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "bootstrap-twipsy" %>
-  <%= javascript_include_tag "wheel" %>
-  <%= javascript_include_tag "jquery.factlink" %>
-  <%= javascript_include_tag "jquery.infiniScroll"%>
-  <%= javascript_include_tag "evidence_search" %>
-  <%= javascript_include_tag "jquery-ui-1.8.16.custom.min" %>
-  <%= javascript_include_tag "lib/mustache" %>
-  <%= javascript_include_tag "underscore.js" %>
-  <%= javascript_include_tag "backbone.js" %>
+	
+	<%= yield :template %>
   
-	<%= javascript_include_tag "/client/js/jquery.scrollTo-1.4.2-min.js" %>
-	<%= javascript_include_tag "jquery.jeditable.mini" %>
-
-  <script type="text/javascript">
+	<%= javascript_include_tag "modal" %>
+	
+	<%= yield :javascript %>
+	
+	<script type="text/javascript">
     $(".modal").draggable();
     $( document ).bind('click', function(e) {
       if( $(e.target).is('body') )
         parent.remote.hide();
     });
   </script>
-
-  <%= yield :template %>
-	
-	<%= yield :javascript %>
 	
 </body>
 </html>
