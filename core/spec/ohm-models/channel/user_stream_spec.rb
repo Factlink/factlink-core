@@ -9,7 +9,6 @@ describe Channel::UserStream do
     it { subject.facts.to_a.should =~ []}
     its(:discontinued) {should == false}
     its(:editable?) {should == false}
-    its(:followable?) {should == true}
     its(:inspectable?) {should == false}
     its(:title) {should == "All" }
     its(:unread_count) {should == 0 }
