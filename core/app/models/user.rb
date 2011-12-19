@@ -15,9 +15,9 @@ class User
   field :agrees_tos,  type: Boolean, default: false
   field :agrees_tos_on, type: DateTime
 
-  attr_protected :admin, :agrees_tos
+  attr_protected :admin
 
-  validates :agrees_tos, :acceptance => true
+  validates_acceptance_of :agrees_tos, :accept => true
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
