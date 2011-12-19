@@ -1,24 +1,26 @@
 <%= content_for :javascript do %>
 <script>
-function twipper() {
-  $('#channel-listing > li:first').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "All Factlinks you've created or follow in your channels." },
-  });
+(function($){
+  
+  function toElement(div){
+    var rv = {div: $(div)};
+    rv.addHint = function (hint){
+      this.div.twipsy({
+        live: true,
+        placement: 'right',
+        title: function() { return hint; }
+      });
+    };
+    return rv;
+  }
 
-  $('#channel-listing > li:eq(1)').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "All Factlinks you've created." },
-  });
+  toElement('#channel-listing > li:first')
+    .addHint("All Factlinks you've created or follow in your channels.");
+  toElement('#channel-listing > li:eq(1)')
+    .addHint("All Factlinks you've created.");
+  toElement('.add-channel')
+    .addHint("You can categorize Factlinks withins channels. Really interesting for other users to follow!");
 
-  $('.add-channel').twipsy({
-    live: true,
-    placement: 'right',
-    title: function() { return "You can categorize Factlinks withins channels. Really interesting for other users to follow!" },
-  });
-}
-twipper();
+})(jQuery);
 </script>
 <% end %>
