@@ -2626,7 +2626,7 @@ h5 {
   height: 100%;
 }
 #menu .selected_menu_item {
-  background-image: url('/images/menu_arrow.png');
+  background-image: url('/assets/menu_arrow.png');
   background-repeat: no-repeat;
 }
 #menu .selected_menu_item a {

@@ -12,7 +12,7 @@ class Channel < OurOhm
       false
     end
 
-    def followable?
+    def inspectable?
       false
     end
   end
