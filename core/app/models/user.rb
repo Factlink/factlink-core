@@ -5,6 +5,7 @@ class User
   include Mongoid::Paperclip
   include Sunspot::Mongoid
 
+  field :name
   field :username
   index :username
   field :twitter
