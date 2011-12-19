@@ -128,7 +128,7 @@ window.FactsView = Backbone.View.extend({
   //TODO: Unbind on remove?
   bindScroll: function() {
     var self = this;
-    $(window).bind('scroll.' + this.cid, function fugglyWrapper() {
+    $(window).bind('scroll.' + this.cid, function MCBiggah() {
       self.loadMore.apply(self);
     });
   },
