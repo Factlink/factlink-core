@@ -41,6 +41,7 @@ window.ChannelCollectionView = Backbone.View.extend({
     this.collection.each(function(channel) {
       self.addOneChannel.call(self, channel);
     });
+    $('div.twipsy').remove();
   },
   
   removeChannels: function() {

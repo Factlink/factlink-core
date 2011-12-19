@@ -9,11 +9,6 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'rake', '~> 0.9.2'
 
-# system_timer is only needed in ruby 1.8.*
-if RUBY_VERSION == "1.8.7"
-  gem 'SystemTimer'
-end
-
 ##########
 # Devise already comes with oauth2 support, 
 # so we just need to put this gems in the Gemfile:
@@ -35,7 +30,6 @@ gem 'mongoid_taggable'
 
 # Redis
 gem 'redis', '2.2.1'
-gem 'redis-objects'
 gem 'ohm', :git => "https://github.com/markijbema/ohm.git" # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'ohm-contrib', :git => 'http://github.com/sinefunc/ohm-contrib.git'
 

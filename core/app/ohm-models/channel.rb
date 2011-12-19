@@ -111,6 +111,11 @@ class Channel < OurOhm
     true
   end
 
+  def inspectable?
+    true
+  end
+
+ 
   def fork(user)
     c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
