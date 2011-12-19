@@ -35,7 +35,6 @@ gem 'mongoid_taggable'
 
 # Redis
 gem 'redis', '2.2.1'
-gem 'redis-objects'
 gem 'ohm', :git => "https://github.com/markijbema/ohm.git" # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'ohm-contrib', :git => 'http://github.com/sinefunc/ohm-contrib.git'
 
