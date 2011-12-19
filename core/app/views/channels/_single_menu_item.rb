@@ -63,6 +63,10 @@ module Channels
       current_graph_user.id == created_by_id && self[:channel].editable?
     end
     
+    def followable?
+      current_graph_user.id != created_by_id
+    end
+  
     def inspectable?
        self[:channel].inspectable?
     end
@@ -79,10 +83,11 @@ module Channels
                   :edit_link => edit_link,
                   :new_facts => new_facts,
                  :created_by => created_by,
+                :followable? => followable?,
                   :editable? => editable?,
                 :nr_of_facts => nr_of_facts,
               :created_by_id => created_by_id,
-                :inspectable => inspectable?,
+               :inspectable? => inspectable?,
      :containing_channel_ids => containing_channel_ids,
       }
     end
