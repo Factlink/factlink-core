@@ -151,9 +151,9 @@
     </div>
   </div>
   <div class="modal-footer">
+    <a href="#" id="close" class="btn success hide-modal" style="display:none;">Close this window</a>
     <a href="#" id="next" class="btn primary">next</a>
     <a href="#" id="previous" class="btn" style="display:none;">previous</a>
-    <a href="#" id="close" class="btn success hide-modal" style="display:none;">Close this window</a>
   </div>
 </div>
 
@@ -185,12 +185,15 @@ function sliderSize() {
 
 function setButtonsForSlide(idx) {  
   if (idx === 0) {
+    // First page
     $("#next").show();
     $("#previous, #close").hide();
   } else if (idx === sliderSize()) {
-    $("#previous, #next").hide();
-    $("#close").show();    
+    // Last page
+    $("#next").hide();
+    $("#previous, #close").show();    
   } else {
+    // Middle page
     $("#previous, #next").show();
     $("#close").hide();
   }
