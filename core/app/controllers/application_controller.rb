@@ -21,8 +21,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :unauthorized }
-      format.any  { raise exception }
+      
+      unless current_user.andand.agrees_tos
+        format.html { redirect_to tos_path }
+        format.json { render json: {error: "You did not agree to the Terms of Service."}, status: :unauthorized }
+        format.any  { raise exception }
+      else
+        format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :unauthorized }
+        format.any  { raise exception }
+      end
     end
   end
 
