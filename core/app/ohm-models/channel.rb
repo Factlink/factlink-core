@@ -107,10 +107,6 @@ class Channel < OurOhm
     true
   end
   
-  def followable?
-    true
-  end
-
   def inspectable?
     true
   end
