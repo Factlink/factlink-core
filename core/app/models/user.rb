@@ -17,6 +17,8 @@ class User
 
   attr_protected :admin, :agrees_tos
 
+  validates :agrees_tos, :acceptance => true
+
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
   validates_presence_of   :username, :message => "is required", :allow_blank => true
