@@ -46,21 +46,7 @@ module Facts
     def fact_wheel
       Facts::FactWheel.for_fact_and_view(self[:fact], self.view)
     end
-    
-    def to_hash
-      {
-        :fact_id => fact_id,
-        :editable_title_class => editable_title_class,
-        :fact_title => fact_title,
-        :link => link,
-        :scroll_to_link => scroll_to_link,
-        :last_activity => last_activity,
-        :user_signed_in? => user_signed_in?,
-        :i_am_fact_owner => i_am_fact_owner,
-        :fact_wheel => fact_wheel,
-      }
-    end
-    
+
     private
       def show_links
         not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and self[:fact].site
