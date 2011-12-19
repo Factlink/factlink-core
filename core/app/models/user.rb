@@ -11,14 +11,14 @@ class User
   field :twitter
   field :graph_user_id
 
-  field :admin, type: Boolean, default: false
-  field :agrees_tos, type: Boolean, default: false
+  field :admin,       type: Boolean, default: false
+  field :agrees_tos,  type: Boolean, default: false
   
   attr_protected :admin, :agrees_tos
 
   # Only allow letters, digits and underscore in a username
-  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
-  validates_presence_of :username, :message => "is required", :allow_blank => true
+  validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
   has_mongoid_attached_file :avatar,
