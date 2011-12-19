@@ -15,8 +15,7 @@ evidenceList.empty();
     
     $el.append($bubble);
     
-    $el.data("wheel", new Wheel($el));
-    $el.data("wheel").init($el.find(".wheel").get(0));
+    $el.factlink();
     
     evidenceList.append($el);
   <% end %>

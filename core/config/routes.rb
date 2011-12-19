@@ -56,11 +56,6 @@ FactlinkUI::Application.routes.draw do
 
   # Search and infinite scrolling
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview" 
-    
-  
-  
-  match "/topic/:search" => "home#index", :as => "search_topic"  
-
 
   # generate the images for the indicator used in the js-lib
   get "/images/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
@@ -68,8 +63,10 @@ FactlinkUI::Application.routes.draw do
   ##########
   # Web Front-end
   root :to => "home#index"
-  
+  get "terms-of-service" => "tos#show", as: "tos"
+
   get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+
 
 
   namespace :admin do

@@ -15,7 +15,6 @@ $bubble = $(Mustache.to_html($('#fact_bubble_tmpl').html(), <%= Facts::FactBubbl
 
 $el.append($bubble);
 
-$el.data("wheel", new Wheel($el));
-$el.data("wheel").init($el.find(".wheel").get(0));
+$el.factlink();
 
 evidenceList.prepend($el);

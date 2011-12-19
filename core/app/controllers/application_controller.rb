@@ -1,6 +1,19 @@
 require 'net/http'
 
 class ApplicationController < ActionController::Base
+
+  # before_filter :checkie_checkie
+  def checkie_checkie
+    unless is_a?(Devise::SessionsController) || is_a?(TosController)
+      if current_user.andand.agrees_tos == false
+        redirect_to tos_path
+      end
+    end
+  end
+
+  include UrlHelper
+  before_filter :set_mailer_url_options
+  
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
     require_dependency path 

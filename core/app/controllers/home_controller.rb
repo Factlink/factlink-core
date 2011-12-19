@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   
   helper_method :sort_column, :sort_direction
 
+  before_filter :authenticate_user!, only: [:tos]
+
   #general static pages:
   def pages
     respond_to do |format| 
@@ -18,6 +20,10 @@ class HomeController < ApplicationController
       @facts = Fact.all.sort(:order => "DESC",:limit => 3).map {|fact| Facts::FactBubble.for_fact_and_view(fact,view_context)}
       render layout: "landing"
     end
+ end
+ 
+ def tos
+   
  end
 
   # Search

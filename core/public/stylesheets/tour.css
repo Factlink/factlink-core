@@ -1,0 +1,127 @@
+/*---------------------------------------------------
+		LESS Elements 0.5
+	---------------------------------------------------
+		A set of useful LESS mixins by Dmitry Fadeyev
+		Special thanks for mixin suggestions to:
+			Kris Van Herzeele,
+			Benoit Adam,
+			Portenart Emile-Victor
+			
+		More info at: http://lesselements.com
+-----------------------------------------------------*/
+#first-tour-modal {
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
+  /** Tour Navigation */
+
+  /** Grid */
+
+  /** Develop */
+
+}
+#first-tour-modal p, #first-tour-modal h1, #first-tour-modal h2 {
+  color: #313131 !important;
+}
+#first-tour-modal h1, #first-tour-modal h2 {
+  margin-bottom: 0.1em;
+}
+#first-tour-modal h1 {
+  font-size: 2.2em;
+}
+#first-tour-modal h2 {
+  font-size: 1.8em;
+}
+#first-tour-modal p {
+  font-size: 1.2em;
+  font-weight: lighter;
+  margin-bottom: 0.5em;
+}
+#first-tour-modal #tour-nav {
+  margin: 0 0 12px 0;
+}
+#first-tour-modal #pagerNav {
+  list-style: none;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+}
+#first-tour-modal #pagerNav li {
+  float: left;
+  border: solid 1px transparent;
+  height: 24px;
+}
+#first-tour-modal #pagerNav li a {
+  text-decoration: none;
+  display: block;
+  padding: 0 24px;
+  line-height: 24px;
+  color: #aaa;
+}
+#first-tour-modal #pagerNav .current {
+  background: #f5f5f5;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #ffffff));
+  background: -moz-linear-gradient(center bottom, #f0f0f0 0%, #ffffff 100%);
+  border: solid 1px #ddd;
+  border-radius: 2px;
+}
+#first-tour-modal #pagerNav .current a {
+  color: #313131;
+}
+#first-tour-modal #slider {
+  margin-left: 10px;
+  height: 370px;
+}
+#first-tour-modal a.bookmarklet {
+  margin-left: 12px;
+  border: dashed 2px #ddd;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+#first-tour-modal a.bookmarklet:hover {
+  text-decoration: none;
+  border: dashed 2px #bbb;
+}
+#first-tour-modal .center {
+  margin: 0 auto;
+  text-align: center;
+}
+#first-tour-modal .show-factlink {
+  position: absolute;
+  left: 460px;
+}
+#first-tour-modal .add-factlink {
+  position: absolute;
+  left: 620px;
+  top: 128px;
+}
+#first-tour-modal .container {
+  width: 875px;
+  margin: 0 auto;
+  padding-right: 100px;
+}
+#first-tour-modal .s1, #first-tour-modal .s2, #first-tour-modal .s3 {
+  float: left;
+  margin-right: 10px;
+}
+#first-tour-modal .s1 {
+  width: 285px;
+}
+#first-tour-modal .s2 {
+  width: 580px;
+}
+#first-tour-modal .s3 {
+  width: 875px;
+  margin-right: 0px;
+}
+#first-tour-modal .last {
+  margin-right: 0 !important;
+}
+#first-tour-modal .r {
+  background: red;
+}
+#first-tour-modal .g {
+  background: green;
+}
+#first-tour-modal .b {
+  background: blue;
+}
