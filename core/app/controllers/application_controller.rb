@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :unauthorized }
+      format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :forbidden }
       format.any  { raise exception }
     end
   end
