@@ -88,8 +88,10 @@ gem "mongoid-paperclip", :require => "mongoid_paperclip"
 # authorization
 gem "cancan"
 
+gem 'tilt', :git => 'git://github.com/thisduck/tilt.git'
+
 group :assets do
-  gem 'less-rails'
+  gem 'less-js'
   gem 'uglifier'
 end
 
