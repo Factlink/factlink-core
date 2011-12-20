@@ -1811,8 +1811,6 @@ body.factlink-site .alert-message {
   text-shadow: 0px -1px 1px #ffffff;
   display: block;
   text-align: center;
-  /*    border: solid 1px red;*/
-
 }
 .get-chrome-extension .get-extension-wrapper {
   margin: 0 0 0 16px;
@@ -1854,6 +1852,53 @@ body.factlink-site .alert-message {
   height: 100%;
   color: #fff;
   text-shadow: 0px -1px 1px #777777;
+}
+#tos textarea {
+  width: 500px;
+  height: 240px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  font-family: Georgia;
+  line-height: 1.4em;
+  color: #666;
+  padding: 10px;
+  margin: 0 0 24px 0;
+}
+#tos .explanation {
+  font-size: 0.8em;
+  width: 100%;
+  text-align: right;
+  margin: 0 0 12px -82px;
+  color: #aaa;
+}
+#tos form .row {
+  padding: 10px 0px;
+  color: #777;
+  text-shadow: 0px 1px 0px #fff;
+}
+#tos form .row label {
+  display: block;
+  float: left;
+  width: 100px;
+  margin-top: 6px;
+  font-weight: 100;
+}
+#tos form .row input {
+  padding: 8px;
+  width: 320px;
+  border-radius: 3px;
+  border: solid 1px #ddd;
+  font-weight: 100;
+}
+#tos form input[type="submit"] {
+  margin: 16px 0 0 384px;
+}
+#tos form .tos_checkbox {
+  margin: 0 0 0 100px;
+}
+#tos form .tos_checkbox .field_with_errors {
+  width: 20px;
+  float: left;
 }
 #feedback {
   position: fixed;
