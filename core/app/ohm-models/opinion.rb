@@ -122,16 +122,10 @@ class Opinion < OurOhm
     l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
 
     @percentage_hash = {
-      :believe => {
-        :percentage => l_believe_percentage
-      },
-      :disbelieve => {
-        :percentage => l_disbelieve_percentage
-      },
-      :doubt => {
-        :percentage => l_doubt_percentage
-      },
-      :authority => a.round.to_i
+      believe:    { percentage: l_believe_percentage },
+      disbelieve: { percentage: l_disbelieve_percentage },
+      doubt:      { percentage: l_doubt_percentage  },
+      authority: a.round.to_i
     }
   end
 
