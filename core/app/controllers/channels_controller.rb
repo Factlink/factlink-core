@@ -134,7 +134,6 @@ class ChannelsController < ApplicationController
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
-    puts params[:number] || 7
     @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
 
     if @channel.created_by == current_user.graph_user

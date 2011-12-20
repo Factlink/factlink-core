@@ -57,7 +57,7 @@ window.ChannelView = Backbone.View.extend({
   },
 
   initSubChannelMenu: function() { 
-    if( this.model.get("inspectable?") ) { 
+    if( this.model.get("followable?") ) { 
       var addToChannelButton = $( this.el ).find("#add_to_channel");
       var followChannelMenu =$( this.el ).find("#follow-channel");
       
