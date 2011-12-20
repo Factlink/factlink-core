@@ -240,14 +240,11 @@ class FactsController < ApplicationController
   
     def create_fact(url, displaystring, title) # private
       @site = url && (Site.find(:url => url).first || Site.create(:url => url))
-      if @site
-        @fact = Fact.create(
-          :created_by => current_user.graph_user,
-          :site => @site
-        )
-      else
-        @fact = Fact.create(:created_by => current_user.graph_user)
-      end
+
+      fact_params = {created_by: current_user.graph_user}
+      fact_params[:site] = @site if @site
+      @fact = Fact.create fact_params
+
       @fact.data.displaystring = displaystring    
       @fact.data.title = title
       @fact.data.save
