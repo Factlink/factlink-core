@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/markijbema/mustache_rails3.git
-  revision: 3fb8b0bf36256775f5a38d0a41c2ba0deb9ed47f
+  revision: 6747ec35b086e7c9910c9e7ae3a894a1ab832ed3
   specs:
     mustache_rails3 (0.1.2.3)
 
