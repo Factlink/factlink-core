@@ -1,0 +1,54 @@
+@import "color_declarations";
+@import "elements";
+@import "bootstrap";
+
+/* =============================================================================
+Base
+========================================================================== */
+body { margin: 0; font-size: 10pt;  }
+body, button, input, select, textarea { font-family: Arial, sans-serif; color: #222; }
+
+a {
+  color: #333;
+  text-decoration: none; 
+}
+a:hover { 
+    cursor: pointer;
+    text-decoration: underline;
+}
+p {
+  color: #888;
+  text-shadow: 0px 1px 0px #fff;
+  font-weight: 100;
+  font-size: 0.9em;
+}
+
+/* =============================================================================
+Iconic font for icons
+========================================================================== */
+
+@font-face {
+  font-family: 'IconicStroke';
+    src: url("/fonts/iconic_stroke.eot");
+    src: local('IconicStroke'),
+       url("/fonts/iconic_stroke.svg#iconic") format('svg'),
+	   url("/fonts/iconic_stroke.otf") format('opentype');
+}
+.iconic { 
+  font-family: "IconicStroke";
+}
+
+/* =============================================================================
+Lists
+========================================================================== */
+
+ul, ol { margin: 0; padding: 0; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+/* =============================================================================
+Tables
+========================================================================== */
+
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
