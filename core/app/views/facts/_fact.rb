@@ -93,25 +93,5 @@ module Facts
       self[:timestamp]
     end
     
-    def to_hash
-      {
-                             :modal? => modal?,
-                         :signed_in? => signed_in?,
-                        :fact_bubble => fact_bubble,
-                      :displaystring => displaystring,
-                  :ajax_loader_image => ajax_loader_image,
-                :evidence_index_path => evidence_index_path,
-                :no_evidence_message => no_evidence_message,
-               :fact_relations_count => fact_relations_count,
-               :evidence_search_path => evidence_search_path,
-             :containing_channel_ids => containing_channel_ids,
-             :prefilled_search_value => prefilled_search_value,
-            :deletable_from_channel? => deletable_from_channel?,
-           :delete_from_channel_link => delete_from_channel_link,
-           :remove_from_channel_path => remove_from_channel_path,
-                                 :id => id,
-                          :timestamp => timestamp
-      }
-    end
   end
 end

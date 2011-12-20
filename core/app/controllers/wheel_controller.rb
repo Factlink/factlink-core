@@ -33,7 +33,7 @@ class WheelController < ApplicationController
               canvas.use(SvgWheelBuilder.new().wheel(after_percentages)).translate(10,10)
               
           end
-          filename = Rails.root.join('public', local_path)
+          filename = Rails.root.join('app','assets', local_path)
           rvg.draw.write(filename)    
         end
         redirect_to '/' + local_path

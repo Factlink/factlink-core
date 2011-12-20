@@ -39,10 +39,6 @@ module Channels
       Users::User.for_user(self[:user], self.view)
     end
     
-    def show_subchannels?
-      editable? || followable?
-    end
-  
     def nr_of_facts
       unread_count
     end
@@ -56,7 +52,6 @@ module Channels
     end
     
     def containing_channel_ids
-      return [] unless followable?
       self[:channel].containing_channels_for(current_graph_user).ids
     end
   
@@ -69,28 +64,11 @@ module Channels
     end
     
     def followable?
-      current_graph_user.id != created_by_id && self[:channel].followable?
+      current_graph_user.id != created_by_id
     end
   
-    def to_hash
-      return {
-#                             |
-#                            ()
-#                            |
-                         :id => id,
-                       :link => link,
-                       :type => type,
-                      :title => title,
-                  :edit_link => edit_link,
-                  :new_facts => new_facts,
-                 :created_by => created_by,
-                :followable? => followable?,
-                  :editable? => editable?,
-                :nr_of_facts => nr_of_facts,
-              :created_by_id => created_by_id,
-          :show_subchannels? => show_subchannels?,
-     :containing_channel_ids => containing_channel_ids,
-      }
+    def inspectable?
+       self[:channel].inspectable?
     end
 
     def unread_count

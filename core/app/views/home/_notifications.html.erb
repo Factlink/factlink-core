@@ -2,12 +2,8 @@
 <div class="alert-message <%= alert ? "error" : "warning" %>">
   <a class="close" href="#">x</a>
   <p>
-  	<% if notice %>
-			<%= notice %>
-		<% end %>
-		<% if alert %>
-			<%= alert %>
-	  <% end %>
+		<%= notice || '' %>
+		<%= alert  || '' %>
 	</p>
 </div>
 <% end %>

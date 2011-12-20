@@ -1,18 +1,4 @@
 <% content_for :javascript do %>
-  <%= javascript_include_tag "backbone/contrib.js" %>
-  <%= javascript_include_tag "backbone/models/user.js" %>
-  <%= javascript_include_tag "backbone/models/channel.js" %>
-  <%= javascript_include_tag "backbone/models/fact.js" %>
-  <%= javascript_include_tag "backbone/collections/channels.js" %>
-  <%= javascript_include_tag "backbone/collections/own_channel_collection.js" %>
-  <%= javascript_include_tag "backbone/collections/facts.js" %>
-  <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
-  <%= javascript_include_tag "backbone/views/add_to_channel_view.js" %>
-  <%= javascript_include_tag "backbone/views/channel_collection_view.js" %>
-  <%= javascript_include_tag "backbone/views/facts_view.js" %>
-  <%= javascript_include_tag "backbone/views/fact_view.js" %>
-  <%= javascript_include_tag "backbone/views/channel_view.js" %>
-  <%= javascript_include_tag "backbone/views/user_view.js" %>
   <script>
     var results = new Facts(<%= @results.to_json.html_safe %>, {
       search: "<%= params[:s] %>"

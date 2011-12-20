@@ -1,13 +1,4 @@
 <% content_for :javascript do %> 
-  <%= javascript_include_tag "backbone/contrib.js" %>
-  <%= javascript_include_tag "backbone/models/channel.js" %>
-  <%= javascript_include_tag "backbone/models/fact.js" %>
-  <%= javascript_include_tag "backbone/models/user.js" %>
-  <%= javascript_include_tag "backbone/collections/own_channel_collection.js" %>
-  <%= javascript_include_tag "backbone/views/own_channel_item_view.js" %>
-  <%= javascript_include_tag "backbone/views/add_to_channel_view.js" %>
-  <%= javascript_include_tag "backbone/views/fact_view.js" %>
-
   <script>
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for_user(current_user, self).to_json.html_safe %>);

@@ -36,14 +36,5 @@ module Users
       self[:graph_user].stream_id
     end
     
-    def to_hash
-      return {
-                    :id => id,
-                :avatar => avatar,
-              :username => username,
-             :authority => authority,
-        :all_channel_id => all_channel_id,
-      }
-    end
   end
 end

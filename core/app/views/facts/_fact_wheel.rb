@@ -21,13 +21,6 @@ module Facts
       self.view.user_signed_in?
     end
     
-    def to_hash
-      {
-        :authority => authority,
-        :opinions => opinions,
-      }
-    end
-    
     private
       def opinions_for_user_and_fact(fact)
         [

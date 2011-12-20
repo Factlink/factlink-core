@@ -52,7 +52,7 @@ namespace :deploy do
   end
   
   task :set_wheel_permissions do
-    run "chmod 777 #{current_path}/public/images/wheel"
+    run "chmod 777 #{current_path}/app/assets/images/wheel"
     run "cat /root/pirate.ascii"
   end
 

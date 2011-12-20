@@ -21,13 +21,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
-      
       unless current_user.andand.agrees_tos
         format.html { redirect_to tos_path }
-        format.json { render json: {error: "You did not agree to the Terms of Service."}, status: :unauthorized }
+        format.json { render json: {error: "You did not agree to the Terms of Service."}, status: :forbidden }
         format.any  { raise exception }
       else
-        format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :unauthorized }
+        format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :forbidden }
         format.any  { raise exception }
       end
     end
@@ -60,29 +59,6 @@ class ApplicationController < ActionController::Base
   
   def current_graph_user
     @current_graph_user ||= current_user.andand.graph_user
-  end
-
-  def mustache_json(klass)
-    #ripped from mustache itself
-    mustache = klass.new
-    variables = self.instance_variable_names
-    variables -= %w[@template]
-
-    if self.respond_to?(:protected_instance_variables)
-      variables -= self.protected_instance_variables
-    end
-
-    variables.each do |name|
-      mustache.instance_variable_set(name, self.instance_variable_get(name))
-    end
-
-    # Declaring an +attr_reader+ for each instance variable in the
-    # Mustache::Rails subclass makes them available to your templates.
-    mustache.class.class_eval do
-      attr_reader *variables.map { |name| name.sub(/^@/, '').to_sym }
-    end
-
-    mustache.to_json
   end
   
   def raise_404(message="Not Found")
