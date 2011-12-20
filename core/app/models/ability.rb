@@ -8,10 +8,22 @@ class Ability
   def initialize(user=nil)
     @user=user
 
-    define_channel_abilities
-    define_fact_abilities
-    define_fact_relation_abilities
-    define_user_abilities
+    # Anonymous user
+    can :index, Fact
+    can :read, Fact
+
+    # Registered user
+    if user
+      if user.agrees_tos
+        define_channel_abilities
+        define_fact_abilities
+        define_fact_relation_abilities
+        define_user_abilities
+      else
+        cannot :manage, :all
+        can :update, user
+      end
+    end
   end
 
   def define_channel_abilities

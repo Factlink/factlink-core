@@ -7,7 +7,7 @@ describe ChannelsController do
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
-
+  let (:bogus_user) { FactoryGirl.create(:user, agrees_tos: false) }
 
   let (:f1) {FactoryGirl.create(:fact)}
   let (:f2) {FactoryGirl.create(:fact)}
@@ -32,6 +32,8 @@ describe ChannelsController do
     get_ability
   end
   
+  
+  
   describe "#new" do
     it "should be succesful" do
       authenticate_user!(user)
@@ -47,6 +49,12 @@ describe ChannelsController do
       should_check_can :index, Channel
       get :index, username: user.username, format: 'json'
       response.should be_succes
+    end
+    
+    it "as bogus user should redirect to Terms of Service page" do
+      authenticate_user!(bogus_user)
+      get :index, username: user.username
+      response.should redirect_to(tos_path)
     end
   end
   

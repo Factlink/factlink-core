@@ -35,7 +35,7 @@
       <div data-title="Factlink">
         <div class="container">
           <div class="s2">
-            <h1>Build on knowledge</h1>
+            <h1>Built on knowledge</h1>
             <p>Your opinion is really valuable to Factlink.</p>
             <p>You can express your opinion by clicking on the Fact Wheel. Your options are to agree, disagree or be neutral about a Factlink.</p>
             <p>On hover you will see a percentage of users with that opinion.</p>
@@ -151,9 +151,9 @@
     </div>
   </div>
   <div class="modal-footer">
+    <a href="#" id="close" class="btn success hide-modal" style="display:none;">Close this window</a>
     <a href="#" id="next" class="btn primary">next</a>
     <a href="#" id="previous" class="btn" style="display:none;">previous</a>
-    <a href="#" id="close" class="btn success hide-modal" style="display:none;">Close this window</a>
   </div>
 </div>
 
@@ -184,12 +184,15 @@ function sliderSize() {
 
 function setButtonsForSlide(idx) {  
   if (idx === 0) {
+    // First page
     $("#next").show();
     $("#previous, #close").hide();
   } else if (idx === sliderSize()) {
-    $("#previous, #next").hide();
-    $("#close").show();    
+    // Last page
+    $("#next").hide();
+    $("#previous, #close").show();    
   } else {
+    // Middle page
     $("#previous, #next").show();
     $("#close").hide();
   }
