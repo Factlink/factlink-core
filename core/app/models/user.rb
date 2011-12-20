@@ -13,17 +13,8 @@ class User
 
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
-  field :agrees_tos_on, type: DateTime
 
   attr_protected :admin
-
-  validate :validate_agrees_tos
-
-  def validate_agrees_tos
-    unless self.agrees_tos == true
-      errors.add("", "You have to accept the Terms of Service to continue.")
-    end
-  end
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
