@@ -219,12 +219,8 @@ class FactsController < ApplicationController
       # TODO Fix this very quick please. Nasty way OhmModels handles querying\
       # and filtering. Can't use the object ID, so using a workaround with :data_id's
       # Very nasty :/
-      supporting_fact_ids = @fact.evidence(:supporting).map { |i| i.from_fact.data_id }
-      weakening_fact_ids  = @fact.evidence(:weakening).map { |i| i.from_fact.data_id }
-      intersecting_ids = supporting_fact_ids & weakening_fact_ids
-      intersecting_ids << @fact.data_id
-    
-      @potential_evidence = Fact.all.except(:data_id => intersecting_ids).sort(:order => "DESC")
+
+      @potential_evidence = Fact.all.except(:data_id => @fact.data_id).sort(:order => "DESC")
     end    
 
 
