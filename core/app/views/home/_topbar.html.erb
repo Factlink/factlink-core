@@ -15,7 +15,7 @@
         </li>
         <% if current_user %>
         
-          <% if current_user.admin? %>
+          <% if can? :manage, User %>
           <li class="dropdown" data-dropdown="dropdown">
             <a class="dropdown-toggle">Admin</a>
             <ul class="dropdown-menu">
