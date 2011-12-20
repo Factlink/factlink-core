@@ -216,10 +216,6 @@ class FactsController < ApplicationController
     end
 
     def potential_evidence
-      # TODO Fix this very quick please. Nasty way OhmModels handles querying\
-      # and filtering. Can't use the object ID, so using a workaround with :data_id's
-      # Very nasty :/
-
       @potential_evidence = Fact.all.except(:data_id => @fact.data_id).sort(:order => "DESC")
     end    
 
