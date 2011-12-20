@@ -12,6 +12,7 @@ FactoryGirl.define do
     email
     password '123hoi'
     password_confirmation '123hoi'
+    agrees_tos true
   end
 
   factory :fact_data do
