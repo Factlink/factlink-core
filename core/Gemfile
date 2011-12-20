@@ -1,0 +1,128 @@
+source 'http://rubygems.org'
+
+# Defaults
+gem 'rails', '3.1.3'
+gem 'activerecord', '3.1.3'
+gem "bcrypt-ruby", "~> 3.0.1"
+
+gem 'sqlite3-ruby', :require => 'sqlite3'
+
+gem 'rake', '~> 0.9.2'
+
+##########
+# Devise already comes with oauth2 support, 
+# so we just need to put this gems in the Gemfile:
+# gem 'devise', :git => "http://github.com/plataformatec/devise.git"
+gem 'devise', '~> 1.4.9'
+
+
+# gem "sunspot_autocomplete", :path => "~/Desktop/sunspot_autocomplete"
+
+##########
+# Databases
+#
+# Mongo
+gem "mongoid", "2.3.3" 
+gem 'mongo', '= 1.3.1' 
+gem 'bson', '= 1.3.1' 
+gem 'bson_ext', '= 1.3.1'
+gem 'mongoid_taggable'
+
+# Redis
+gem 'redis', '2.2.1'
+gem 'ohm', :git => "https://github.com/markijbema/ohm.git" # we need the tribalvibes fork (0.1.4), for polymorphism
+gem 'ohm-contrib', :git => 'http://github.com/sinefunc/ohm-contrib.git'
+
+##########
+# Pagination & sorting
+gem 'will_paginate', '~> 3.0'
+
+#########
+# Mustache
+gem 'mustache'
+gem 'mustache_rails3', :git => "https://github.com/markijbema/mustache_rails3.git"
+
+##########
+# Everyone loves JSON
+gem 'json'
+
+##########
+# Email on errors
+gem 'exception_notification', :require => 'exception_notifier'
+
+##########
+# Whoo, full text search!
+#
+# Install SunSpot:
+# https://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less
+#
+# Using SunSpot for Mongoid, Ruby wrapper for Solr
+# Use fork: https://github.com/vinova/sunspot_mongoid - patched for ActiveModel
+
+gem "sunspot_solr", "~> 1.3.0.rc3"
+gem 'sunspot_rails', '~> 1.3.0.rc4'
+# gem 'sunspot_rails', '~> 1.2.1'
+gem 'vinova_sunspot_mongoid', :require => 'sunspot_mongoid'
+# gem 'sunspot_mongoid', :git => 'http://github.com/jugyo/sunspot_mongoid.git'
+
+#needed for migrations to be compatible when no sql backend is available
+gem "mongoid_rails_migrations", '0.0.13'
+
+
+# Andand is a library to handle nil more easily
+# http://andand.rubyforge.org/
+#gem 'andand'
+# newer version does not give creepy warning:
+gem 'andand', :git => 'http://github.com/raganwald/andand.git'
+
+# Deployment
+gem 'capistrano'
+gem 'capistrano-ext'
+
+# imagemagick
+gem 'rmagick', :require => 'RMagick'
+
+# Avatars
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+
+# authorization
+gem "cancan"
+
+gem 'tilt', :git => 'git://github.com/thisduck/tilt.git'
+
+group :assets do
+  gem 'less-js'
+  gem 'uglifier'
+end
+
+###########
+# jQuery
+gem 'jquery-rails', '>= 0.2.6'
+
+group :development, :test do
+  gem 'metric_fu'
+  # dependencies of metric_fu:
+    gem "fattr"
+    gem "arrayfields"
+    gem "map"
+    #use simplecov:
+  	gem 'simplecov', :require => false
+  	gem 'simplecov-rcov-text', :require => false
+
+  gem 'webrat'
+  
+  # Profiling
+  gem 'ruby-prof'
+
+  gem 'rspec-rails'
+  gem "factory_girl_rails", "1.1.rc1" #factories for easy creation of a lot of objects
+  gem "factory_girl", "2.0.0.rc1"
+  gem "database_cleaner"
+  
+  gem 'jasmine'
+  gem 'jasmine-headless-webkit'
+
+  #for static files serving
+  gem 'rack'
+  gem 'thin'
+end
