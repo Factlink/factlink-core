@@ -8,6 +8,11 @@ class Ability
   def initialize(user=nil)
     @user=user
 
+    # Anonymous user
+    can :index, Fact
+    can :read, Fact
+
+    # Registered user
     if user
       if user.agrees_tos
         define_channel_abilities
