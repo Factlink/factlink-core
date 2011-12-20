@@ -3,14 +3,14 @@ require "cancan/matchers"
 
 describe Ability do
   
+  #abilities
   subject {Ability.new(user)}
   let(:anonymous) {Ability.new}
+  let(:admin) { Ability.new FactoryGirl.create :user, admin: true }
 
+  #users used as object
   let(:user) {FactoryGirl.create :user}
   let(:other_user) {FactoryGirl.create :user}
-
-  let(:admin) { FactoryGirl.create :user, admin: true }
-  let(:admin_ability) { Ability.new(admin) }
   
   describe "to managing myself" do
     it {subject.should be_able_to :update, user }
@@ -18,8 +18,13 @@ describe Ability do
     it {subject.should_not be_able_to :update, admin }
   end
 
-  describe ", as Admin, to manage a user" do
-    it {admin_ability.should be_able_to :manage, User }
+  describe "to manage a user" do
+    context "as a normal user" do
+      it {subject.should_not be_able_to :manage, User }
+    end
+    context "as an admin" do
+      it {admin.should be_able_to :manage, User }
+    end
   end
 
   describe "to manage channels" do
