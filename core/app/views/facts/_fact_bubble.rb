@@ -44,7 +44,7 @@ module Facts
     end
     
     def fact_wheel
-      Facts::FactWheel.for_fact_and_view(self[:fact], self.view)
+      Facts::FactWheel.for_fact_and_view(self[:fact], self.view, self[:channel],self[:modal]).to_hash
     end
 
     private

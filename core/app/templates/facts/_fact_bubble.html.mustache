@@ -1,5 +1,7 @@
 <article class="fact" data-fact-id="{{fact_id}}" >
-  {{>fact_wheel}}
+  {{#fact_wheel}}
+    {{>fact_wheel}}
+  {{/fact_wheel}}
 	<header>
 	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
 

@@ -36,6 +36,9 @@
 <% content_for :top_facts do %>
   <h3>Top factlinks</h3>
   <ul id="top-factlinks">
+  <% @facts.each do |f| %>
+    <li><%= render_mustache 'facts/fact_bubble',  fact: f %></li>
+  <% end %>
   </ul>
 <% end %>
 
@@ -50,14 +53,6 @@
 
 <% content_for :javascript do %>
   <script>
-    var TopFactlinks = <%= @facts.to_json.html_safe %>;
-    
-    for ( var i = 0; i < TopFactlinks.length; i++ ) {
-      var fact = TopFactlinks[i];
-      
-      $('#top-factlinks').append('<li>' + Mustache.to_html($('#fact_bubble_tmpl').html(), fact, {fact_wheel: $('#fact_wheel_tmpl').html()}) + '</li>');
-    }
-    
     $("article.fact").each(function()  {
       $fact = $(this);
       $fact.data("wheel", new Wheel(this));
