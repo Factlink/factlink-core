@@ -118,5 +118,20 @@ module FactlinkUI
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    config.assets.precompile += [
+      'admin.css.less', 
+      'bubble.css.less', 
+      'frontend.css.less', 
+      'general.css.less', 
+      'landing.css.less', 
+      'modal.css.less', 
+      'popup.css.less', 
+      'tour.css.less',
+      'bubble.js',
+      'frontend.js',
+      'modal.js',
+      'popup.js',
+      'tour.js']
   end
 end
