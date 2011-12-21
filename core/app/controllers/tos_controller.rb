@@ -4,7 +4,7 @@ class TosController < ApplicationController
   layout "clean"
 
   def show
-    authorize! :show, current_user
+    authorize! :sign_tos, current_user
   end
   
   def update
