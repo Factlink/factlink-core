@@ -97,6 +97,7 @@
       dataType: "html",
       success: function(data) {
         $('body').append(data);
+        initTourModal();
       },
       error: function(data) {
         console.log('Error while loading the tour.');

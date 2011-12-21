@@ -1,11 +1,13 @@
-$('#first-tour-modal').modal({backdrop: true});
-$('#first-tour-modal').modal('show');
+function initTourModal() {
+  $('#first-tour-modal').modal({backdrop: true});
+  $('#first-tour-modal').modal('show');
 
-$('.hide-modal').live('click', function() {
-  $('#first-tour-modal').modal('hide');
-});
+  $('.hide-modal').live('click', function() {
+    $('#first-tour-modal').modal('hide');
+  });
 
-$('.bookmarklet').twipsy({placement:"below",offset:5});
+  $('.bookmarklet').twipsy({placement:"below", offset:5});
+}
 
 function sliderSize() {
   return $("#slider > div").length - 1;
