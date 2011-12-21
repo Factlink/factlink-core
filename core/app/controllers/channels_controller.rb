@@ -18,7 +18,8 @@ class ChannelsController < ApplicationController
       :remove_fact,
       :toggle_fact,
       :add_fact,
-      :remove_fact,]
+      :remove_fact,
+      :follow]
   
   before_filter :authenticate_user!
     
@@ -188,7 +189,6 @@ class ChannelsController < ApplicationController
   end
   
   def follow
-    @channel = Channel[params[:id]]
     @channel.fork(current_user.graph_user)
   end
   
