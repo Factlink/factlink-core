@@ -1,0 +1,28 @@
+/*!
+ * Bootstrap @VERSION
+ *
+ * Copyright 2011 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ * Date: @DATE
+ */
+
+// CSS Reset
+@import "twitter/bootstrap/reset";
+
+// Core variables and mixins
+@import "twitter/bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+
+// Wait for this to get fixed in precompile. Not sure why it fails, but it throws a
+//
+// missing closing ) for alpha()
+// Error when you try to use .opacity()
+/*@import "twitter/bootstrap/mixins";*/
+@import "bootstrap/mixins";
+
+// Styled patterns and elements
+@import "twitter/bootstrap/patterns";
+
+@import "twitter/bootstrap/forms";

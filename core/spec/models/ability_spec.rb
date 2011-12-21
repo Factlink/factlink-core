@@ -2,23 +2,42 @@ require 'spec_helper'
 require "cancan/matchers"
 
 describe Ability do
+
+  #abilities
   subject {Ability.new(user)}
   let(:anonymous) {Ability.new}
+  let(:admin) { Ability.new admin_user}
+  let(:nonnda) { Ability.new nonnda_user}
 
+  #users used as object
   let(:user) {FactoryGirl.create :user}
   let(:other_user) {FactoryGirl.create :user}
-
-  let(:admin) { FactoryGirl.create :user, admin: true }
-  let(:admin_ability) { Ability.new(admin) }
+  let(:admin_user) {FactoryGirl.create :user, admin: true}
+  let(:nonnda_user) {FactoryGirl.create :user, agrees_tos: false}
   
-  describe "to managing myself" do
-    it {subject.should be_able_to :update, user }
-    it {subject.should_not be_able_to :update, other_user }
-    it {subject.should_not be_able_to :update, admin }
-  end
+  describe "to manage a user" do
+    context "as a normal user" do
+      it {subject.should_not be_able_to :manage, User }
+ 
+      it {subject.should     be_able_to :show, user }
+      it {subject.should     be_able_to :update, user }
+      it {subject.should_not be_able_to :sign_tos, user }
+      it {subject.should_not be_able_to :update, other_user }
+      it {subject.should_not be_able_to :update, admin }
+    end
+    context "as a nonnda user" do
+      it {nonnda.should_not be_able_to :manage, User }
 
-  describe ", as Admin, to manage a user" do
-    it {admin_ability.should be_able_to :manage, User }
+      it {nonnda.should_not be_able_to :update, nonnda_user }
+      it {nonnda.should     be_able_to :sign_tos, nonnda_user }
+      it {nonnda.should     be_able_to :show, nonnda_user }
+      it {nonnda.should_not be_able_to :show, User }
+    end
+    context "as an admin" do
+      it {admin.should       be_able_to :manage, User }
+      it {admin.should_not be_able_to :sign_tos, user }
+      it {admin.should_not be_able_to :sign_tos, admin_user }
+    end
   end
 
   describe "to manage channels" do

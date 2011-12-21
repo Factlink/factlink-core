@@ -1,0 +1,8 @@
+nl:
+  fact_believe_action: "eens"
+  fact_doubt_action: "neutraal"
+  fact_disbelieve_action: "oneens"
+
+  fact_believe_opinion: "eens"
+  fact_doubt_opinion: "neutraal"
+  fact_disbelieve_opinion: "oneens"

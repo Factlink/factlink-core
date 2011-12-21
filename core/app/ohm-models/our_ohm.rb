@@ -134,6 +134,10 @@ class OurOhm < Ohm::Model
     end
   end
   
+  def to_param
+    id
+  end
+  
   def update_attributes!(attrs)
     self.update_attributes(attrs)
     valid = valid?

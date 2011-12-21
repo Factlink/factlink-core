@@ -1,0 +1,83 @@
+@import "style.css.less";
+@import "frontend.css.less";
+@import "grid";
+@import "elements";
+@import "bootstrap";
+
+body {
+  background: #fff;
+  width: 480px;
+  padding-top: 32px;
+}
+
+.topbar {  
+  color: #ddd;
+  text-shadow: 0px 0px 1px #fff;
+  
+  a {
+    color: #BFBFBF;
+    text-shadow: 0px 0px 1px #fff;
+  }
+  
+  .fill {
+    height: 24px;
+    line-height: 24px;
+    border-radius: 3px;
+  }  
+  .accountblock {
+    float: right;
+    margin-right: 16px;
+  }
+}
+
+
+#container {
+  padding: 0 !important;
+  h1 {
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  form {
+
+    .row {
+      position: relative;
+    
+      label {
+        position: absolute;
+        width: 42px;
+        float: left;
+        text-align: right;
+      }
+
+      .field {
+        display: block;
+        padding-left: 50px;
+      }
+
+      input, textarea {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 2px 5px;
+        width: 380px;
+        height: 20px;
+      }
+      
+      textarea {
+        height: 60px;
+      }
+    }
+  }
+  
+  input[type=submit] {
+    margin: 5px 28px 0 0;
+    float: right;
+  }
+}
+
+div.alert-message {
+  a.close {
+    font-size: 20px;
+    margin-top: -3px;
+  }
+}

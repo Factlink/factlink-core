@@ -1,23 +1,29 @@
 <article class="fact" data-fact-id="{{fact_id}}" >
-  {{>fact_wheel}}
+  {{#fact_wheel}}
+    {{>fact_wheel}}
+  {{/fact_wheel}}
 	<header>
 	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
 
 		<span class="body">
-      {{{link}}} &mdash; <span>{{{scroll_to_link}}}</span><br>
+      {{{link}}}
+      {{#scroll_to_link}}
+        &mdash; <span>{{{scroll_to_link}}}</span>
+      {{/scroll_to_link}}
+      <br>
     </span>
     <sub>{{{last_activity}}}</sub>
 		{{#user_signed_in?}}
 		  <div class="actions">
 		    <ul>
 			    <li class="add-to-channel">
-			      <a><img src="/images/bookmark.gif">Channels</a>
+			      <a><img src="/assets/bookmark.gif">Channels</a>
 			      <div class="float-box channel-listing">
       		  </div>
 			    </li>
 			    {{#i_am_fact_owner}}
 			      <li class="destroy">
-			        <a><img src="/images/trash.gif">Delete</a>
+			        <a onclick="return confirm('Are you sure you want to delete this Factlink?');"><img src="/assets/trash.gif">Delete</a>
 			      </li>
 			    {{/i_am_fact_owner}}
 		    </ul>

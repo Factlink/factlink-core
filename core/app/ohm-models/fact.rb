@@ -86,9 +86,6 @@ class Fact < Basefact
   end
 
   def add_evidence(type, evidence, user)
-    # Some extra loop protection
-    return nil if evidence.id == self.id
-      
     fr = FactRelation.get_or_create(evidence,type,self,user)
     activity(user,:created,fr)
     fr

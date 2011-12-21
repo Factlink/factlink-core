@@ -9,7 +9,7 @@ describe Channel::UserStream do
     it { subject.facts.to_a.should =~ []}
     its(:discontinued) {should == false}
     its(:editable?) {should == false}
-    its(:followable?) {should == false}
+    its(:inspectable?) {should == false}
     its(:title) {should == "All" }
     its(:unread_count) {should == 0 }
     its(:contained_channels) {should == [u1.created_facts_channel]}

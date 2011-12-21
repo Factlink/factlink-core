@@ -5,19 +5,22 @@ class User
   include Mongoid::Paperclip
   include Sunspot::Mongoid
 
+  field :name
   field :username
   index :username
   field :twitter
   field :graph_user_id
 
-  field :admin, type: Boolean, default: false
-  field :agrees_tos, type: Boolean, default: false
-  
-  attr_protected :admin, :agrees_tos
+  field :admin,       type: Boolean, default: false
+  field :agrees_tos,  type: Boolean, default: false
+
+  field :seen_the_tour,  type: Boolean, default: false
+
+  attr_protected :admin
 
   # Only allow letters, digits and underscore in a username
-  validates_format_of :username, :with => /^[A-Za-z0-9\d_]+$/
-  validates_presence_of :username, :message => "is required", :allow_blank => true
+  validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
   has_mongoid_attached_file :avatar,
@@ -71,6 +74,20 @@ class User
     self.update_without_password(params)
   end
 
+  def sign_tos(agrees_tos,name)
+    valid = true
+    unless agrees_tos
+      valid = false
+      self.errors.add("a", "You have to accept the Terms of Service to continue.")  
+    end
+    if name.blank?
+      valid = false
+      self.errors.add("b", "Please fill in your name to accept the Terms of Service.")  
+    end
+    
+    valid and self.update_without_password(agrees_tos: agrees_tos, name: name)
+  end
+
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 
@@ -78,6 +95,19 @@ class User
     username
   end
 
+  def to_param
+    username
+  end
+
+  def self.from_param(param)
+    self.first :conditions => { username: param }
+  end
+
+  def self.find(param,*args)
+    super
+  rescue  
+    from_param(param)
+  end
 
   def set_avatar_from_twitter
     if self.twitter

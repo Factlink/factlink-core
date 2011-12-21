@@ -1,0 +1,9 @@
+//= require jquery
+//= require underscore
+//= require mustache
+//= require backbone.lib
+//= require_tree ./backbone/contrib/
+//= require_tree ./backbone/models/
+//= require_tree ./backbone/collections/
+//= require_tree ./backbone/views/
+//= require_tree ./backbone/

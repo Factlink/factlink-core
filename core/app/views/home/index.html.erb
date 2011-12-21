@@ -1,0 +1,62 @@
+<% content_for :payoff do %>
+<h2>&#10003; Credibility you can see</h2>
+<p> Factlink helps people find credibility in the world's information. It transforms pieces of information from web documents into dynamic channels of information.</p>
+
+<% end %>
+
+<% content_for :sign_up do %>
+<h4>Sign up for the beta</h4>
+<p>Sign up for our beta and you’ll be the first in line for a beta account when we release it.</p>
+  <form action="http://factlink.us4.list-manage.com/subscribe/post" method="post">
+  <input type="hidden" name="u" value="fd33e0360f4f3267ed6d180e4">
+  <input type="hidden" name="id" value="d823d5a083">
+  <input type="text" name="MERGE1" id="MERGE1" size="25" class="span4" placehoder="First name" placeholder="First name" value="">  
+  <input type="email" autocapitalize="off" autocorrect="off" name="MERGE0" id="MERGE0" size="25" value="" class="span4" placeholder="Email">
+  <br>
+  <input type="submit" class="btn success" value="Sign up">
+  <br>
+  <br>
+</form>
+
+<% end %>
+
+
+<% content_for :selling_points do %>
+<h3>Why use factlink</h3>
+<ul>
+  <li><img src="/assets/chart.png" alt=""> Factlink provides immediate access to the state of knowledge.</li>
+  <li><img src="/assets/people.png" alt=""> You can crowdsource with people to find more credibility in information.</li>
+  <li><img src="/assets/globe.png" alt=""> Create a community where information is gathered and bundled.</li>
+  <li><img src="/assets/money.png" alt=""> Oh, did we mention it’s <em>completely free?</em></li>
+</ul>
+
+<% end %>
+
+
+<% content_for :top_facts do %>
+  <h3>Top factlinks</h3>
+  <ul id="top-factlinks">
+  <% @facts.each do |f| %>
+    <li><%= render_mustache 'facts/fact_bubble',  fact: f %></li>
+  <% end %>
+  </ul>
+<% end %>
+
+<% content_for :movie do %>
+  <img src="/assets/fact-wheel.png" id="movie-container" alt="Facts">
+<% end %>
+
+<% content_for :template do %>
+  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
+  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
+<% end %>

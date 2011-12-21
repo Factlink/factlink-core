@@ -1,0 +1,49 @@
+<div id="tos">
+  <% if current_user.errors.any? %>
+    <div class="alert-message block-message error">
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1>Terms of Service</h1>
+  <textarea readonly>
+"Factlink Services" shall mean functionality and data provided with the Factlink (pre) beta, including the Factlink websites (www.factlink.com, beta.factlink.com, proxy-beta.factlink.com and static-beta.factlink.com), downloads provided through or with the Factlink website (including scripts or plugins), information provided through the website or service and any output, including any modified content output provided with the service (e.g., third-party content modified with commentary from invited participant). 
+
+In connection with your participation in the Factlink (pre) beta-release, all functionality, content, or material that is authored, invented or otherwise provided from Factlink ("Factlink Material") and/or in connection with the Factlink Service, is strictly confidential and non-public, and not for use other than with the Factlink Service. In exchange for participating in the (pre) beta-release and other consideration, you agree to (i) not distribute, publicly disclose or share information you learn about the Factlink Materials, (ii) not reverse engineer or decompile the Factlink Materials or the Factlink Service. No license to use the Factlink Materials or Factlink Service is being granted outside of the limited use through this (pre) beta release. 
+
+Factlink may update these terms and conditions at any time.
+  </textarea>
+
+  <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
+
+    <div class="row">
+      <%= f.label "Name*" %>
+      <div class="field">
+      <%= f.text_field :name, required: true %>
+      </div>
+    </div>
+  
+    <div class="row">
+      <%= f.label "Email address*" %>
+      <div class="field">
+      <%= f.email_field :email, value: current_user ? current_user.email : "", required: true %>
+      </div>
+    </div>
+
+    <span class="explanation">* fields are required</span>
+
+    <div class="tos_checkbox">
+      <%= f.check_box :agrees_tos %>
+      <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Continue" %>
+    </div>
+  <% end %>
+
+</div>

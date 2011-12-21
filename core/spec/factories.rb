@@ -6,16 +6,13 @@ FactoryGirl.define do
   sequence :username do |n|
     "johndoe#{n}"
   end
-  
-  
-  
+
   factory :user do
-    # first_name 'John'
-    # last_name  'Doe'
     username
     email
     password '123hoi'
     password_confirmation '123hoi'
+    agrees_tos true
   end
 
   factory :fact_data do

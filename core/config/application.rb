@@ -7,10 +7,16 @@ require "active_resource/railtie"
 Mime::Type.register "image/png", :png
 Mime::Type.register "image/gif", :gif
 
+if defined?(Bundler)
+  # If you precompile assets before deploying to production, use this line
+  # Bundler.require *Rails.groups(:assets => %w(development test))
+  # If you want your assets lazily compiled in production, use this line
+  Bundler.require(:default, :assets, Rails.env)
+end
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env) if defined?(Bundler)
+# Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 if ['test', 'development'].include? Rails.env
   require 'metric_fu'
@@ -82,7 +88,7 @@ module FactlinkUI
     config.to_prepare do
       Devise::PasswordsController.layout "frontend"
     end
-
+    
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -107,5 +113,31 @@ module FactlinkUI
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
     
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+    
+    config.less.paths << "#{Rails.root}/app/assets/stylesheets"
+    
+    config.less.compress = true
+    
+    config.assets.precompile = [
+      /\w+\.(?!js|css|less).+/,
+      'admin.css',
+      'bubble.css',
+      'frontend.css',
+      'general.css',
+      'landing.css',
+      'modal.css',
+      'popup.css',
+      'tour.css',
+      'bubble.js',
+      'frontend.js',
+      'modal.js',
+      'popup.js',
+      'tour.js',
+    ]
   end
 end

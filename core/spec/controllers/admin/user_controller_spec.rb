@@ -7,12 +7,16 @@ describe Admin::UsersController do
   
   render_views
 
-  let (:admin) {FactoryGirl.create(:user, admin: true)}
-  let (:user)  {FactoryGirl.create(:user)}
+  let (:user)  {FactoryGirl.create :user, admin: true}
+  
+  before do
+    get_ability
+  end
   
   describe "#index" do
     it "should render the index" do
-      authenticate_user!(admin)
+      authenticate_user!(user)
+      should_check_can :index, User
       get :index
       response.should be_succes
     end

@@ -1,3 +1,9 @@
+<% if current_user && !current_user.seen_the_tour %>
+  <% content_for :javascript do%>
+    <script>$(document).ready(function(){$(".take-the-tour").click();});</script>
+  <% end %>
+<% end %>
+
 <div class="topbar">
   <div class="fill">
     <div class="container">        
@@ -10,30 +16,34 @@
       </ul>
 
       <ul class="nav secondary-nav">
+        <li>
+          <a class="show-modal take-the-tour" href="#" onclick="void(0);">Take the tour</a>
+        </li>
         <% if current_user %>
         
-        <% if current_user.admin? %>
-        <li class="dropdown" data-dropdown="dropdown">
-          <a class="dropdown-toggle">Admin</a>
-          <ul class="dropdown-menu">
-            <li><%= link_to("View Users", admin_users_path) %></li>
-            <li><%= link_to("Add User", new_admin_user_path) %></li>
-            <li><hr></li>
-            <li><%= link_to("Manage Jobs", admin_jobs_path) %></li>
-          </ul>
-        </li>        
-        <% end %>
+
+          <% if can? :manage, User %>
+          <li class="dropdown" data-dropdown="dropdown">
+            <a class="dropdown-toggle">Admin</a>
+            <ul class="dropdown-menu">
+              <li><%= link_to("View Users", admin_users_path) %></li>
+              <li><%= link_to("Add User", new_admin_user_path) %></li>
+              <li><hr></li>
+              <li><%= link_to("Manage Jobs", admin_jobs_path) %></li>
+            </ul>
+          </li>        
+          <% end %>
         
-        <li class="dropdown" data-dropdown="dropdown">
-          <a class="dropdown-toggle"><%= current_user.username %></a>
-          <ul class="dropdown-menu">
-            <li><%= link_to("Sign out", destroy_user_session_path) %></li>
-          </ul>
-        </li>
+          <li class="dropdown" data-dropdown="dropdown">
+            <a class="dropdown-toggle"><%= current_user.username %></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to("Sign out", destroy_user_session_path) %></li>
+            </ul>
+          </li>
         <% else %>
-        <li>
-          <%= link_to("Sign in", new_user_session_path) %>              
-        </li>
+          <li>
+            <%= link_to("Sign in", new_user_session_path) %>              
+          </li>
         <% end %>
 
         <li class="dropdown" data-dropdown="dropdown">

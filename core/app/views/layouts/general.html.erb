@@ -22,9 +22,7 @@
 
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
-  <link rel="stylesheet" href="/stylesheets/bootstrap/bootstrap.css">
-  <link rel="stylesheet" href="/stylesheets/grid.css">
-  <link rel="stylesheet" href="/stylesheets/general.css">
+  <%= stylesheet_link_tag "general" %>
   <!-- end CSS-->
 
 
@@ -33,7 +31,7 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <%= javascript_include_tag "modernizr-2.0.6.min" %>
+  <%= javascript_include_tag "modernizr" %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -61,18 +59,8 @@
   <!-- JavaScript at the bottom for fast page loading -->
   
   <%= yield :template %>
-	
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
 
-  <%= javascript_include_tag "jquery.hoverIntent.minified" %>
-  <%= javascript_include_tag "bootstrap-twipsy" %>
-  <%= javascript_include_tag "bootstrap-alert" %>
-  <%= javascript_include_tag "bootstrap-popover" %>
-  <%= javascript_include_tag "bootstrap-buttons" %>
-  <%= javascript_include_tag "raphael-min" %>
-  <%= javascript_include_tag "wheel" %>
+  <%= javascript_include_tag "frontend" %>
 	
 	<script>
 	  $('.bookmarklet').twipsy();

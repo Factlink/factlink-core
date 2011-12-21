@@ -1,0 +1,26 @@
+<%= content_for :javascript do %>
+<script>
+(function($){
+  
+  function toElement(div){
+    var rv = {div: $(div)};
+    rv.addHint = function (hint){
+      this.div.twipsy({
+        live: true,
+        placement: 'right',
+        title: function() { return hint; }
+      });
+    };
+    return rv;
+  }
+
+  toElement('#channel-listing > li:first')
+    .addHint("All Factlinks you've created or follow in your channels.");
+  toElement('#channel-listing > li:eq(1)')
+    .addHint("All Factlinks you've created.");
+  toElement('.add-channel')
+    .addHint("You can categorize Factlinks withins channels. Really interesting for other users to follow!");
+
+})(jQuery);
+</script>
+<% end %>
