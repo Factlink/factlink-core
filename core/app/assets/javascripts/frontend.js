@@ -1,5 +1,5 @@
 //= require application
-//= require bootstrap
+//= require twitter/bootstrap
 //= require jquery.hoverIntent
 //= require bubble
 //= require modal
