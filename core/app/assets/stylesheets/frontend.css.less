@@ -10,11 +10,11 @@
 * ==|== normalize ==========================================================
 */
 @import "elements";
-@import "style.css";
-@import "tour.css";
-@import "bubble.css";
-@import "grid.css";
-@import "bootstrap.css";
+@import "bootstrap";
+@import "style.css.less";
+@import "tour.css.less";
+@import "bubble.css.less";
+@import "grid";
 
 /* ==|== primary styles =====================================================
 Author: Factlink 
@@ -29,7 +29,6 @@ body.factlink-site div.user-block {
 
 
 body.factlink-site .alert-message {
-  /* Use blueprints push-4 here: */
   margin: 0 -160px 1.5em 160px;
   float: left; position:relative;
   
@@ -214,9 +213,9 @@ a.bookmarklet {
   }
 }
 
- .transparent {
+.transparent {
   .opacity(0.3);
-  -webkit-transition: all 0.04s ease-in-out ;	
+  -webkit-transition: all 0.04s ease-in-out ; 
 
   &:hover {
     .opacity(1.0);
@@ -366,7 +365,6 @@ a.bookmarklet {
       header {
         margin-top: 16px;
       }
-      /** User block */
       .user-block {
         margin: 12px 0px 0px 0px;
         width: 140px;
@@ -409,7 +407,7 @@ a.bookmarklet {
 
     #main-wrapper {
       padding: 15px;
-			margin-bottom: 172px;
+      margin-bottom: 172px;
       background: white;
       .rounded(3px);
 
@@ -536,7 +534,7 @@ a.bookmarklet {
           &.stream,
           &.channel,
           &.created { 
-	          font-family: "IconicStroke";
+            font-family: "IconicStroke";
           }
           &.stream { 
             &:before { 
@@ -569,7 +567,7 @@ a.bookmarklet {
             background-color: #fff;
             cursor: pointer;
             text-decoration: none;
-  					box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
+            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
           }
           span { 
             font-family: Arial, sans-serif;
@@ -591,8 +589,8 @@ a.bookmarklet {
         
         &.loading > a {
           img {
-  				  visibility: visible;
-  				}
+            visibility: visible;
+          }
         }
       }
       
@@ -603,12 +601,12 @@ a.bookmarklet {
       }
       
       li > ul > li + li {
-				margin-top:8px;
+        margin-top:8px;
       }
     }
 
     sub.new-channel {
-      margin: 8px 0 0 0;		
+      margin: 8px 0 0 0;    
       float: right;
       .opacity(0.5);
 
@@ -652,14 +650,14 @@ a.bookmarklet {
           }
         }
 
-        .activity-container {				
+        .activity-container {       
           margin-left: 48px;
 
           span.img {
             background-position: 0px 3px;
 
             padding: 0 0 0 14px;
-            margin: 0 0 0 4px;					
+            margin: 0 0 0 4px;          
           }
 
           .fact {
@@ -696,7 +694,7 @@ a.bookmarklet {
         margin-bottom: 16px;
 
         article {
-          .icon-container {						
+          .icon-container {           
             float: left;
             width: 16px;
           }
