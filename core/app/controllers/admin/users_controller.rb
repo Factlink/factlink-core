@@ -22,29 +22,20 @@ class Admin::UsersController < ApplicationController
   end
 
   def create
-    respond_to do |format|
-      if @user.save
-        @user.confirmed_at = DateTime.now
-        @user.save
-        format.html { redirect_to admin_user_path(@user), notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      @user.confirmed_at = DateTime.now
+      @user.save
+      redirect_to admin_user_path(@user), notice: 'User was successfully created.'
+    else
+      render action: "new"
     end
   end
 
   def update
-    respond_to do |format|
-      if @user.update_with_password(params[:user])
-        format.html { redirect_to admin_user_path(@user), notice: 'User was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.update_with_password(params[:user])
+      redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
+    else
+      render action: "edit"
     end
   end
-  
 end
