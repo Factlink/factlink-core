@@ -49,7 +49,7 @@ body.factlink-site div.user-block {
     .row {
       padding: 10px 0px;
       color: #777;
-      text-shadow: 0px 1px 0px #fff;
+      text-shadow: 0px 1px 0px @white;
 
       label {
         display: block;
@@ -126,12 +126,12 @@ a.bookmarklet {
 
 
 .topbar .search {
-  margin-left: 18px;
+  margin-left: 36px;
 }
 
 #results-listing div.user-block { 
   border: 1px solid #DDD; 
-  border-radius: 3px; 
+  .border-radius(3px); 
   color: #BBB; 
   text-shadow: 0px 1px 0px white; 
   width: 510px; 
@@ -147,7 +147,7 @@ a.bookmarklet {
 
       img { 
         vertical-align: middle; 
-        border-radius: 3px; 
+        .border-radius(3px); 
       } 
     } 
 
@@ -170,56 +170,57 @@ a.bookmarklet {
 
 #container {
   padding-top: 60px;
+  .user-block {
+    margin: 12px 0px 0px 0px;
+    width: 140px;
+    &:hover {
+      cursor: pointer;
 
-  h1 {
-    color: #666;
-    margin: 0px 0px 12px 0px;
-    text-shadow: 0px 1px 0px #fff;
+      h1 {
+        color: @linkColor;
+      }
+    }
+    .wrapper {
+      margin-left: 48px;
+      h3 { 
+       color: @linkColor;
+        font-weight: bold;
+        &:hover { 
+          color: @linkColorHover;
+        }
+      }
+    }
+    .user-avatar {
+      background: #f7f7f7;
+      float: left;
+      position: relative;
+      top: 0px;
+      left: 0px;
+
+      display: block;
+
+      height: 32px;
+      width: 32px;
+
+      border: solid 1px #ddd;
+      .border-radius(3px);
+    }
   }
 
   sub {
-    color: #aaa;
-    text-shadow: 0px 1px 0px #fff;
+    color: @gray;
+    #font > .serif(normal, x-small, @baseline);
+    text-shadow: 0px 1px 0px @white;
   }
   .side-column {
     header {
       margin-top: 16px;
     }
-    .user-block {
-      margin: 12px 0px 0px 0px;
-      width: 140px;
-      &:hover {
-        cursor: pointer;
-
-        h1 {
-          color: rgb(206, 0, 0);
-        }
-      }
-      .wrapper {
-        margin-left: 48px;
-
-      }
-      .user-avatar {
-        background: #f7f7f7;
-        float: left;
-        position: relative;
-        top: 0px;
-        left: 0px;
-
-        display: block;
-
-        height: 32px;
-        width: 32px;
-
-        border: solid 1px #ddd;
-        .border-radius(3px);
-      }
-
-      h1 {
-        font-family: Georgia, "Times New Roman", Garamond, serif;
-        color: #333;
-        margin: 0;
-      }
+    .related-users { 
+      margin-top: 50px;
+    }
+    h2 {
+      font-weight: bold;
     }
   }
 
@@ -231,13 +232,13 @@ a.bookmarklet {
 
     min-height: 200px;
 
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.35);
+    .box-shadow(0px 0px 2px rgba(0, 0, 0, 0.35));
     position: relative;
     z-index: 100;
 
     header.title {
       margin: -15px -15px 15px -15px;
-      background-color: darken(#fff, 4%);
+      background-color: darken(@white, 4%);
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
       span.contained-channel-description { 
@@ -248,6 +249,7 @@ a.bookmarklet {
         margin: 3px 0px 6px 0;
         display: block;
         font-size: @basefont * 1.5;
+        height: @basefont * 2;
         width: 70%;
       }
       a { 
@@ -338,184 +340,125 @@ a.bookmarklet {
   }
 
   #channel-listing {
+    @margin: 6px;
     margin: 1.5em 0 1em 0;
-    li {
-      a {
-        display: block;
-        .border-radius(2px);
-        padding: 5px;
-        margin: 2px 0;
-        color: #222;
-
-        position: relative;
-        &.stream,
-        &.channel,
-        &.created { 
-          font-family: "IconicStroke";
-        }
-        &.stream { 
-          &:before { 
-            content: "!"; 
-          }
-        }
-        &.created  { 
-          margin-left: 0.4em;
-          &:before { 
-            content: "u"; 
-          }
-        }
-        &.channel  { 
-          margin-left: 1.25em;
-        }
-
-        .title {
-          .ellipsis();
-          max-width: 116px;
-          display: inline-block;
-          &:first-letter { 
-            text-transform: uppercase;
-          }
-        }
-        .new { 
-          font-weight: bold;
-        }
-        &:hover {
-          background-color: #fff;
-          cursor: pointer;
-          text-decoration: none;
-          box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.175);
-        }
-        span { 
-          font-family: Arial, sans-serif;
-          vertical-align: middle;
-        }
-        img {
-          float: right;
-          visibility: hidden;
-        }
-      } 
-      &.active > a,
-      &.loading > a {
-        color: #666;
-        z-index: 101;
-        color: rgb(206,0,0);
-        font-weight: bold;
-        border-right: none;
-      }
-
-      &.loading > a {
-        img {
-          visibility: visible;
-        }
-      }
-    }
-
-    li > ul > li {
-      padding: 0 ;
-      margin: 0 0 0 15px;
-      background-color: transparent;
-    }
-
-    li > ul > li + li {
-      margin-top:8px;
-    }
-  }
-
-  sub.new-channel {
-    margin: 8px 0 0 0;    
-    float: right;
-  }
-
-  #wide-activity-list {
-
-    li {
-      line-height: 20px;
-      padding: 16px;
-      background: rgb(250, 250, 250);
-
-      border-bottom: solid 1px #eee;
-      margin-bottom: 16px;
-
-      .border-radius(3px);
-
+    li a {
+      padding: @margin 4px @margin 0;
+      width: 130px;
+      display: block;
+      .ellipsis();
+      #font > .serif(normal, @basefont, @baseline);
+      padding-left: 24px;
       &:hover {
-        background: rgb(247, 247, 247);
+        text-decoration: none;
       }
-
-      .icon-container {
-        border: solid 1px #fff;
-
-        background: rgb(246, 246, 246);
-        box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.20);
-
-        height: 32px;
-        width: 32px;
-
-        .border-radius(3px);
-
-        float: left;
-        position: relative;
-
-        img {
-          padding: 11px;
-        }
+      &.stream { 
+        padding-bottom: 3px;
+        background: url("/assets/homeIcon.png") 4px @margin no-repeat transparent;
+        border-bottom: 1px solid #dbdbdb;
       }
-
-      .activity-container {       
-        margin-left: 48px;
-
-        span.img {
-          background-position: 0px 3px;
-
-          padding: 0 0 0 14px;
-          margin: 0 0 0 4px;          
-        }
-
-        .fact {
-          background: url('/assets/right_quote_12x12.png') no-repeat;
-          background-size: 10px 7px;
-        }
-
-        .factrelation {
-          background: url('/assets/quote.gif') no-repeat;
-        }
-
-        .channel {
-          background: url('/assets/list_unordered.gif') no-repeat;
-        }
+      &.created { 
+        border-top: 1px solid white;
+        background: url("/assets/userIcon.png") 5px @margin no-repeat transparent;
+      }
+      .new {
+        color: @black;
+        margin-left: -20px;
+        float: right;
       }
     }
-  }
-
-  #activity-listing {
-    margin-left: -10px;
-    padding: 16px;
-
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-
-    background: #fff;
-    margin-top: 48px;
-
-    #activity-list {
-
-      li {
-        color: #aaa;
-        font-weight: 100;
-        margin-bottom: 16px;
-
-        article {
-          .icon-container {           
-            float: left;
-            width: 16px;
-          }
-
-          .activity-container {
-            margin-left: 16px;
-            line-height: 18px;
-          }
-        }
+    li.active { 
+      a {
+        color: @black;
       }
+      background: url("/assets/menuBackground.png") left (@margin / 2) - 2 no-repeat transparent;
     }
   }
+  // #wide-activity-list {
+
+  //   li {
+  //     line-height: 20px;
+  //     padding: 16px;
+  //     background: rgb(250, 250, 250);
+
+  //     border-bottom: solid 1px #eee;
+  //     margin-bottom: 16px;
+
+  //     .border-radius(3px);
+
+  //     &:hover {
+  //       background: rgb(247, 247, 247);
+  //     }
+
+  //     .icon-container {
+  //       border: solid 1px @white;
+
+  //       background: rgb(246, 246, 246);
+  //       .box-shadow(inset 0px 0px 3px rgba(0, 0, 0, 0.20);
+  //       height: 32px;
+  //       width: 32px;
+
+  //       .border-radius(3px);
+  //       float: left;
+  //       position: relative;
+
+  //       img {
+  //         padding: 11px;
+  //       }
+  //     }
+
+  //     .activity-container {       
+  //       margin-left: 48px;
+  //       span.img {
+  //         background-position: 0px 3px;
+
+  //         padding: 0 0 0 14px;
+  //         margin: 0 0 0 4px;          
+  //       }
+
+  //       .fact {
+  //         background: url('/assets/right_quote_12x12.png') no-repeat;
+  //         background-size: 10px 7px;
+  //       }
+
+  //       .factrelation {
+  //         background: url('/assets/quote.gif') no-repeat;
+  //       }
+
+  //       .channel {
+  //         background: url('/assets/list_unordered.gif') no-repeat;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // #activity-listing {
+  //   margin-left: -10px;
+  //   padding: 16px;
+
+  //   border-top-right-radius: 10px;
+  //   border-bottom-right-radius: 10px;
+
+  //   background: @white;
+  //   margin-top: 48px;
+
+  //   #activity-list {
+
+  //     li {
+  //       margin-bottom: 16px;
+
+  //       article {
+  //         .icon-container {           
+  //           float: left;
+  //           width: 16px;
+  //         }
+
+  //         .activity-container {
+  //           margin-left: 16px;
+  //           line-height: 18px;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
