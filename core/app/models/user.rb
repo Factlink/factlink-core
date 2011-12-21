@@ -93,6 +93,10 @@ class User
     username
   end
 
+  def to_param
+    username
+  end
+
 
   def set_avatar_from_twitter
     if self.twitter

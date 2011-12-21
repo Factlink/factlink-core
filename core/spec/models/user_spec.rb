@@ -32,6 +32,10 @@ describe User do
     end
   end
   
+  describe :to_param do
+    it {subject.to_param.should == subject.username }
+  end
+  
   context "when agreeing the tos" do
     describe "when trying to agree without signing, without a name" do
       it "should not be allowed" do
