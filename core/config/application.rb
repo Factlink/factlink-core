@@ -139,6 +139,7 @@ module FactlinkUI
       'popup.js',
       'tour.js',
       'intermediate.js',
+      'modernizr-loader.js',
     ]
   end
 end
