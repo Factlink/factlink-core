@@ -69,11 +69,14 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
   
-  get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
-
-
+  scope "/pages" do
+    resources :jobs, :only => [:show, :index]
+    get ":name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+  end
+  
   namespace :admin do
     resources :users
+    resources :jobs
   end
 
   scope "/:username" do

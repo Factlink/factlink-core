@@ -1,0 +1,32 @@
+<% content_for :title do %>
+  Jobs
+<% end %>
+
+<% content_for :menu_items do %>
+  <li class="selected_menu_item"><%= link_to "Senior Software Engineer", pages_path("jobs") %></li>
+<% end %>
+  
+<% content_for :body_text do %>
+  <h1>Listing jobs</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Content</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @jobs.each do |job| %>
+  <tr>
+    <td><%= job.title %></td>
+    <td><%= job.content %></td>
+    <td><%= link_to 'Show', job %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% end %>

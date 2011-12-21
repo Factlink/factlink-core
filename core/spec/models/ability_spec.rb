@@ -2,7 +2,6 @@ require 'spec_helper'
 require "cancan/matchers"
 
 describe Ability do
-  
   subject {Ability.new(user)}
   let(:anonymous) {Ability.new}
 
@@ -80,6 +79,20 @@ describe Ability do
       it {anonymous.should_not  be_able_to :opinionate, Fact }
       it {anonymous.should_not  be_able_to :add_evidence, f1 }
       it {anonymous.should      be_able_to :read, f1 }
+    end
+  end
+  
+  describe "managing jobs" do
+    describe "as anonymous" do
+      it {anonymous.should      be_able_to :read, Job}
+      it {anonymous.should_not  be_able_to :manage, Job}      
+    end
+    describe "as a user" do
+      it {subject.should        be_able_to :read, Job}      
+      it {subject.should_not    be_able_to :manage, Job}      
+    end
+    describe "as an admin" do
+      it {admin.should          be_able_to :manage, Job}      
     end
   end
 end

@@ -43,11 +43,14 @@ class Ability
   end
   
   def define_user_abilities
+    can :read, Job
+
     if user
       can :update, user
       
       if user.admin?
-        can :manage, User  
+        can :manage, User
+        can :manage, Job
       end
     end
   end

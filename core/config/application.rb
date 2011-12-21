@@ -63,7 +63,7 @@ module FactlinkUI
     require_dependency "#{config.root}/app/ohm-models/graph_user.rb"
 
     require 'mustache_railstache'
-    Rails.application.config.generators.template_engine :mustache
+    Rails.application.config.generators.template_engine :erb
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
