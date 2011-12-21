@@ -1,3 +1,7 @@
+# Dutch translations for Ruby on Rails, based on US English template
+# Original version by Ariejan de Vroom <ariejan@ariejan.net>
+#  - Sponsored by Kabisa ICT - http://kabisa.nl
+# Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
   fact_believe_action: "eens"
   fact_doubt_action: "neutraal"

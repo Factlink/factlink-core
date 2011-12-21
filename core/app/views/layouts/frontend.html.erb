@@ -32,7 +32,7 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <%= javascript_include_tag "modernizr" %>
+  <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -49,12 +49,11 @@
 			<%= yield :header %>
     </section>
 
-
 		<section id="left-column" class="span-4 side-column">
 			<%= yield :left_column %>
 		</section>
 
-		<section id="main-column" class="span-14" role="main">
+  	<section id="main-column" class="span-14" role="main">
 			<section id="main-wrapper">
 			  <%= yield :main_column %>
 			  <%= yield %>
@@ -69,9 +68,7 @@
       <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
     </div>
   </div>
-	
-	<%= render "home/tour" %>
-	
+
 	<%= yield :template %>
 	
 	<%= javascript_include_tag "frontend" %>
@@ -89,6 +86,25 @@
   	  <%= render "home/twipsy" %>
   	<% end %>
   <% end %>
+
+  <script>
+  $('.take-the-tour').live('click', function() {
+    $('#first-tour-modal').remove();
+
+    // Load the tour
+    $.ajax({
+      url: "<%= tour_path %>",
+      dataType: "html",
+      success: function(data) {
+        $('body').append(data);
+        initTourModal();
+      },
+      error: function(data) {
+        console.log('Error while loading the tour.');
+      }
+    });
+  });
+  </script>
   
 	<%= yield :javascript %>
 	

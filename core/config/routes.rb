@@ -67,7 +67,7 @@ FactlinkUI::Application.routes.draw do
   post "tos" => "tos#update", as: "tos"
 
   get "/pages/:name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
-
+  get "/tour" => "home#tour", as: "tour"
 
 
   namespace :admin do
