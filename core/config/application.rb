@@ -57,7 +57,7 @@ module FactlinkUI
 
     require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
-    require_dependency "#{config.root}/app/ohm-models/activities.rb"
+    require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/fact_graph.rb"
     require_dependency "#{config.root}/app/ohm-models/opinion.rb"
     require_dependency "#{config.root}/app/ohm-models/basefact.rb"
@@ -139,6 +139,7 @@ module FactlinkUI
       'popup.js',
       'tour.js',
       'intermediate.js',
+      'modernizr-loader.js',
     ]
   end
 end
