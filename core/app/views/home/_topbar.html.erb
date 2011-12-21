@@ -5,15 +5,12 @@
 <% end %>
 
 <div class="topbar">
-  <div class="fill">
+  <div class="topbar-inner">
     <div class="container">        
-      <a class="brand" href="/"><%= image_tag('factlink-logo-inverse.png', :height => 20) %></a>
-      
-      <ul class="nav">
-        <li class="search">
-          <%= render "facts/fact_search" %>
-        </li>          
-      </ul>
+      <h3>
+        <a class="brand" href="/"><%= image_tag('logo-gray.png', :height => 20) %></a>
+      </h3>
+      <%= render "facts/fact_search" %>
 
       <ul class="nav secondary-nav">
         <li>
@@ -32,25 +29,19 @@
           <% end %>
         
           <li class="dropdown" data-dropdown="dropdown">
-            <a class="dropdown-toggle"><%= current_user.username %></a>
+            <a class="dropdown-toggle">		<%= image_tag(current_user.avatar.url(:small), :width => 20) %> <%= current_user.username %>  </a>
             <ul class="dropdown-menu">
+              <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Chrome Extension</a></li>
+              <li><a title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a></li>
+              <li class="divider"></li>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>
-          </li>
+            </li>
         <% else %>
           <li>
             <%= link_to("Sign in", new_user_session_path) %>              
           </li>
         <% end %>
-
-        <li class="dropdown" data-dropdown="dropdown">
-          <a class="dropdown-toggle">✓</a>
-          <ul class="dropdown-menu">
-            <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx">Chrome Extension</a></li>
-            <li><a title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a></li>
-          </ul>
-        </li>
-      </ul>
     </div>
   </div>
 </div>
