@@ -36,7 +36,7 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <%= javascript_include_tag "modernizr-loader" %>
+  <%= javascript_include_tag "modernizr" %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -53,7 +53,7 @@
 			<%= yield :header %>
     </section>
 
-		<section id="left-column" class="span-4 side-column">
+		<section id="left-column" class="span-5 side-column">
 			<%= yield :left_column %>
 		</section>
 
@@ -64,7 +64,7 @@
 			</section>
 		</section>
 
-    <section id="right-column" class="span-6 last side-column">
+    <section id="right-column" class="span-5 last side-column">
       <%= yield :right_column %>      
     </section>
    
@@ -101,7 +101,6 @@
       dataType: "html",
       success: function(data) {
         $('body').append(data);
-        initTourModal();
       },
       error: function(data) {
         console.log('Error while loading the tour.');

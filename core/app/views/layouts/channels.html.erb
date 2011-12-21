@@ -5,7 +5,7 @@
   <%= render "channels/channels", user: @user %>
 <% end %>
 
-<% content_for :right_column do %>
+<% content_for :left_column do %>
   <div class="related-users">
     <%= render("channels/related_users",
                  :related_users => @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
@@ -13,7 +13,7 @@
                %>
   </div>
   
-  <% if @channel and not @channel.new? %>
+  <% if false and @channel and not @channel.new? %>
     <div id="activity-listing">
       <%= render "channels/activity_list", channel: @channel %>
     </div>
