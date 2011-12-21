@@ -1,5 +1,5 @@
 require_relative '../ohm_helper.rb'
-require_relative '../../app/ohm-models/activities.rb'
+require_relative '../../app/ohm-models/activity.rb'
 
 class Blob < OurOhm ;end
 class Foo < OurOhm ;end
