@@ -1,7 +1,5 @@
 <div id="tos">
-
-  <% if @user %>
-  <% if @user.errors.any? %>
+  <% if current_user.errors.any? %>
     <div class="alert-message block-message error">
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -10,8 +8,6 @@
       </ul>
     </div>
   <% end %>
-  <% end %>
-
 
   <h1>Terms of Service</h1>
   <textarea readonly>
@@ -24,32 +20,30 @@ Factlink may update these terms and conditions at any time.
 
   <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
 
-  <div class="row">
-    <%= f.label "Name*" %>
-    <div class="field">
-    <%= f.text_field :name, required: true %>
+    <div class="row">
+      <%= f.label "Name*" %>
+      <div class="field">
+      <%= f.text_field :name, required: true %>
+      </div>
     </div>
-  </div>
   
-  <div class="row">
-    <%= f.label "Email address*" %>
-    <div class="field">
-    <%= f.email_field :email, value: current_user ? current_user.email : "", required: true %>
+    <div class="row">
+      <%= f.label "Email address*" %>
+      <div class="field">
+      <%= f.email_field :email, value: current_user ? current_user.email : "", required: true %>
+      </div>
     </div>
-  </div>
 
-  <div class="explanation">* fields are required</div>
+    <span class="explanation">* fields are required</span>
 
-  <div class="tos_checkbox">
-  <%= f.check_box :agrees_tos %>
-  <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
-  </div>
+    <div class="tos_checkbox">
+      <%= f.check_box :agrees_tos %>
+      <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
+    </div>
 
-
-  <div class="actions">
-  <%= f.submit "Continue" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "Continue" %>
+    </div>
   <% end %>
 
-  
 </div>

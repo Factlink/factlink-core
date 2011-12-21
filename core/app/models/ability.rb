@@ -14,6 +14,7 @@ class Ability
 
     # Registered user
     if user
+      can :sign_tos, user
       if user.agrees_tos
         define_channel_abilities
         define_fact_abilities
@@ -59,7 +60,9 @@ class Ability
       can :update, user
       
       if user.admin?
-        can :manage, User  
+        can :manage, User
+        cannot :sign_tos, User
+        can :sign_tos, user
       end
     end
   end

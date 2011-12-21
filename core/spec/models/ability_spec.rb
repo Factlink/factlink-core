@@ -6,24 +6,26 @@ describe Ability do
   #abilities
   subject {Ability.new(user)}
   let(:anonymous) {Ability.new}
-  let(:admin) { Ability.new FactoryGirl.create :user, admin: true }
+  let(:admin) { Ability.new admin_user}
 
   #users used as object
   let(:user) {FactoryGirl.create :user}
   let(:other_user) {FactoryGirl.create :user}
+  let(:admin_user) {FactoryGirl.create :user, admin: true}
   
-  describe "to managing myself" do
-    it {subject.should be_able_to :update, user }
-    it {subject.should_not be_able_to :update, other_user }
-    it {subject.should_not be_able_to :update, admin }
-  end
-
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
+ 
+      it {subject.should     be_able_to :update, user }
+      it {subject.should     be_able_to :sign_tos, user }
+      it {subject.should_not be_able_to :update, other_user }
+      it {subject.should_not be_able_to :update, admin }
     end
     context "as an admin" do
-      it {admin.should be_able_to :manage, User }
+      it {admin.should       be_able_to :manage, User }
+      it {admin.should_not be_able_to :sign_tos, user }
+      it {admin.should     be_able_to :sign_tos, admin_user }
     end
   end
 

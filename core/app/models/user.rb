@@ -72,6 +72,20 @@ class User
     self.update_without_password(params)
   end
 
+  def sign_tos(agrees_tos,name)
+    valid = true
+    unless agrees_tos
+      valid = false
+      self.errors.add("a", "You have to accept the Terms of Service to continue.")  
+    end
+    if name.blank?
+      valid = false
+      self.errors.add("b", "Please fill in your name to accept the Terms of Service.")  
+    end
+    
+    valid and self.update_without_password(agrees_tos: agrees_tos, name: name)
+  end
+
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
   around_create :create_graph_user
 

@@ -7,7 +7,7 @@ describe ChannelsController do
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
-  let (:bogus_user) { FactoryGirl.create(:user, agrees_tos: false) }
+  let (:nonnda_user) { FactoryGirl.create(:user, agrees_tos: false) }
 
   let (:f1) {FactoryGirl.create(:fact)}
   let (:f2) {FactoryGirl.create(:fact)}
@@ -52,7 +52,7 @@ describe ChannelsController do
     end
     
     it "as bogus user should redirect to Terms of Service page" do
-      authenticate_user!(bogus_user)
+      authenticate_user!(nonnda_user)
       get :index, username: user.username
       response.should redirect_to(tos_path)
     end
