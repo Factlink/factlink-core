@@ -34,7 +34,7 @@ describe Ability do
       it {nonnda.should_not be_able_to :show, User }
     end
     context "as an admin" do
-      it {admin.should       be_able_to :manage, User }
+      it {admin.should     be_able_to :manage, User }
       it {admin.should_not be_able_to :sign_tos, user }
       it {admin.should_not be_able_to :sign_tos, admin_user }
     end

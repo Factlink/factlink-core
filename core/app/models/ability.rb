@@ -11,6 +11,7 @@ class Ability
     # Anonymous user
     can :index, Fact
     can :read, Fact
+    can :read, Job
 
     # Registered user
     if user
@@ -56,8 +57,6 @@ class Ability
   end
   
   def define_user_abilities
-    can :read, Job
-
     if user
       can :update, user
       can :read, user
