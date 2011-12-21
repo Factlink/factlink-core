@@ -1,5 +1,4 @@
-@import "elements";
-
+@import "bootstrap/mixins";
 #first-tour-modal {
   font-family: 'Open Sans', sans-serif;
   overflow: hidden;
@@ -45,7 +44,7 @@
     }
     
     .current {
-      .gradient(#f5f5f5, #f0f0f0, #fff);
+      #gradient > .vertical (#f5f5f5, #f0f0f0);
       border: solid 1px #ddd;
       border-radius: 2px;
 
