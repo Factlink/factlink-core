@@ -119,19 +119,25 @@ module FactlinkUI
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    config.assets.precompile += [
-      'admin.css.less', 
-      'bubble.css.less', 
-      'frontend.css.less', 
-      'general.css.less', 
-      'landing.css.less', 
-      'modal.css.less', 
-      'popup.css.less', 
-      'tour.css.less',
+    config.less.paths << "#{Rails.root}/app/assets/stylesheets"
+    
+    config.less.compress = true
+    
+    config.assets.precompile = [
+      /\w+\.(?!js|css|less).+/,
+      'admin.css',
+      'bubble.css',
+      'frontend.css',
+      'general.css',
+      'landing.css',
+      'modal.css',
+      'popup.css',
+      'tour.css',
       'bubble.js',
       'frontend.js',
       'modal.js',
       'popup.js',
-      'tour.js']
+      'tour.js',
+    ]
   end
 end
