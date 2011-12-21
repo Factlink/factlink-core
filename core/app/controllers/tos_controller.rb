@@ -4,7 +4,7 @@ class TosController < ApplicationController
   layout "clean"
 
   def show
-    authorize! :show, current_user
+    authorize! :sign_tos, current_user
   end
   
   def update
@@ -15,7 +15,7 @@ class TosController < ApplicationController
 
 
     if current_user.sign_tos(agrees_tos,name)
-      redirect_to user_profile_path(current_user.username)
+      redirect_to user_profile_path(current_user)
     else
       render :show
     end

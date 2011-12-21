@@ -31,6 +31,7 @@ end
 
 
 describe OurOhm do
+  subject { OurOhm.create }
   it "should do normal with collections" do
     class Root < OurOhm
       set :rootitems, Item
@@ -45,6 +46,10 @@ describe OurOhm do
     A.collections.should =~ [:rootitems, :aitems]
     B.collections.should =~ [:rootitems, :bitems]
   end
+  describe :to_param do
+    it {subject.to_param.should == subject.id }
+  end
+  
 end
 
 

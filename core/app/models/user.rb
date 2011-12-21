@@ -14,6 +14,8 @@ class User
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
 
+  field :seen_the_tour,  type: Boolean, default: false
+
   attr_protected :admin
 
   # Only allow letters, digits and underscore in a username
@@ -93,6 +95,19 @@ class User
     username
   end
 
+  def to_param
+    username
+  end
+
+  def self.from_param(param)
+    self.first :conditions => { username: param }
+  end
+
+  def self.find(param,*args)
+    super
+  rescue  
+    from_param(param)
+  end
 
   def set_avatar_from_twitter
     if self.twitter

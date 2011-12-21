@@ -13,7 +13,7 @@ describe TosController do
   describe :show do
     it "should render show" do
       authenticate_user!(user)
-      should_check_can :show, user
+      should_check_can :sign_tos, user
       get :show
       response.should render_template(:show)
     end

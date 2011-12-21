@@ -18,7 +18,8 @@ class ChannelsController < ApplicationController
       :remove_fact,
       :toggle_fact,
       :add_fact,
-      :remove_fact,]
+      :remove_fact,
+      :follow]
   
   before_filter :authenticate_user!
     
@@ -85,7 +86,7 @@ class ChannelsController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to(channel_path(@channel.created_by.user.username, @channel.id), :notice => 'Channel successfully created') }
+        format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
         format.js
       end
       
@@ -106,7 +107,7 @@ class ChannelsController < ApplicationController
     
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
-        format.html  { redirect_to(channel_path(@channel.created_by.user.username, @channel.id),
+        format.html  { redirect_to(channel_path(@channel.created_by.user, @channel),
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
@@ -125,7 +126,7 @@ class ChannelsController < ApplicationController
       @channel.delete
       
       respond_to do |format|
-        format.html  { redirect_to(channel_path(@user.username, @user.graph_user.stream.id), :notice => 'Channel successfully deleted') }
+        format.html  { redirect_to(channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
         format.json  { render :json => {}, :status => :ok }
       end
     end
@@ -188,7 +189,6 @@ class ChannelsController < ApplicationController
   end
   
   def follow
-    @channel = Channel[params[:id]]
     @channel.fork(current_user.graph_user)
   end
   
