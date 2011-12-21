@@ -14,7 +14,13 @@
 
 // Core variables and mixins
 @import "twitter/bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
-@import "twitter/bootstrap/mixins";
+
+// Wait for this to get fixed in precompile. Not sure why it fails, but it throws a
+//
+// missing closing ) for alpha()
+// Error when you try to use .opacity()
+/*@import "twitter/bootstrap/mixins";*/
+@import "bootstrap/mixins";
 
 // Styled patterns and elements
 @import "twitter/bootstrap/patterns";
