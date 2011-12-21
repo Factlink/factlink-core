@@ -1,4 +1,4 @@
-//= require bootstrap
+//= require twitter/bootstrap
 //= require raphael-min
 //= require ./bubble/wheel
 //= require ./bubble/jquery.infiniScroll
