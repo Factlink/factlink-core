@@ -1,3 +1,9 @@
+<% if current_user && !current_user.seen_the_tour %>
+  <% content_for :javascript do %>
+    <script>$(document).ready(function(){$(".take-the-tour").click();});</script>
+  <% end %>
+<% end %>
+
 <div class="topbar">
   <div class="fill">
     <div class="container">        
@@ -11,7 +17,7 @@
 
       <ul class="nav secondary-nav">
         <li>
-          <a class="show-modal" href="#" onclick="void(0);">Take the tour</a>
+          <a class="show-modal take-the-tour" href="javascript:void(0);">Take the tour</a>
         </li>
         <% if current_user %>
         
@@ -22,7 +28,7 @@
               <li><%= link_to("View Users", admin_users_path) %></li>
               <li><%= link_to("Add User", new_admin_user_path) %></li>
             </ul>
-          </li>        
+          </li>
           <% end %>
         
           <li class="dropdown" data-dropdown="dropdown">

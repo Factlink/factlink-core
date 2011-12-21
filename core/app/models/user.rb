@@ -14,6 +14,8 @@ class User
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
 
+  field :seen_the_tour,  type: Boolean, default: false
+
   attr_protected :admin
 
   # Only allow letters, digits and underscore in a username

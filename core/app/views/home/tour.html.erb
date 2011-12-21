@@ -130,11 +130,10 @@
 
           <div class="s1" style="margin-top: 12px;">
             <h2>Consume</h2>
-
             <p>See Factlinks added by other users. Enable highlighting in the Chrome Extension or activate the Bookmarklet.</p>
           </div>
 
-          <div class="s2" style="margin-top: 12px;">
+          <div class="s2" style="margin-top: 24px;">
             <h2>Join the conversation</h2>
             <p>Not sure about an online statement? Or do you know evidence that supports or weakens a statement in an article? Than add it to Factlink and share it with the world. With Factlink enabled, just select the section you want to add.</p>
           </div>
@@ -157,73 +156,4 @@
   </div>
 </div>
 
-<% content_for :javascript do %>
-
 <%= javascript_include_tag "tour" %>
-
-<script>
-  $('#first-tour-modal').hide();
-  $('#first-tour-modal').modal({backdrop: true});
-
-  $('.show-modal').bind('click', function() {
-    $('#first-tour-modal').modal('show');
-  });
-  $('.hide-modal').bind('click', function() {
-    $('#first-tour-modal').modal('hide');
-  });
-</script>
-
-<script>
-  $('.bookmarklet').twipsy({placement:"below",offset:5});
-</script>
-
-<script>
-function sliderSize() {
-  return $("#slider > div").length - 1;
-}
-
-function setButtonsForSlide(idx) {  
-  if (idx === 0) {
-    // First page
-    $("#next").show();
-    $("#previous, #close").hide();
-  } else if (idx === sliderSize()) {
-    // Last page
-    $("#next").hide();
-    $("#previous, #close").show();    
-  } else {
-    // Middle page
-    $("#previous, #next").show();
-    $("#close").hide();
-  }
-}
-
-$('#slider').cycle({
-  activePagerClass: "current",
-	fx:       "scrollHorz",
-	timeout:  0, 
-	speed:    1000,
-	next: 	  "#next",
-	prev:     "#previous", 
-	easing:   "easeOutSine",
-	nowrap: 1,
-	pause: 1,
-	pager:  "#pagerNav",
-	before: function(current_slide) {
-	},
-	
-  // callback fn that creates a thumbnail to use as pager anchor 
-  pagerAnchorBuilder: function(idx, slide) {
-    var title = $(slide).data('title');
-    return '<li><a href="#">' + title + '</a></li>'; 
-  },
-  
-  onPagerEvent: function(zeroBasedSlideIndex) {
-    setButtonsForSlide(zeroBasedSlideIndex);
-  },
-  onPrevNextEvent: function(isNext, zeroBasedSlideIndex, slideElement) {
-    setButtonsForSlide(zeroBasedSlideIndex);
-  }
-});
-</script>
-<% end %>
