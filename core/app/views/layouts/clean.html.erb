@@ -37,7 +37,7 @@
 
 </head>
 
-<body class="factlink-asite">
+<body>
 
   <div class="topbar">
     <div class="fill">
@@ -58,15 +58,8 @@
 		</section>
 
   </div>
-
-
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
-
-	<%= javascript_include_tag "rails" %>
+  
+	<%= javascript_include_tag "frontend" %>
 	
 	<%= yield :javascript %>	
 	
