@@ -4,29 +4,20 @@ class TosController < ApplicationController
   layout "clean"
 
   def show
+    authorize! :show, current_user
   end
   
   def update
-    @user = current_user
-  
+    authorize! :sign_tos, current_user
+    
     agrees_tos  = (params[:user][:agrees_tos].to_i == 1) ? true : false
     name        = params[:user][:name]
 
-    valid = true
-    
-    unless agrees_tos
-      valid = false
-      @user.errors.add("", "You have to accept the Terms of Service to continue.")  
-    end
-    if name.blank?
-      valid = false
-      @user.errors.add("", "Please fill in your name to accept the Terms of Service.")  
-    end
 
-    if valid and @user.update_with_password(params[:user])
-      redirect_to user_profile_path(@user.username), notice: 'You did it!'      
+    if current_user.sign_tos(agrees_tos,name)
+      redirect_to user_profile_path(current_user.username)
     else
-      render action: "show"
+      render :show
     end
   end
   

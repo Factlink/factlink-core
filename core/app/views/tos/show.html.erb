@@ -1,7 +1,5 @@
 <div id="tos">
-
-  <% if @user %>
-  <% if @user.errors.any? %>
+  <% if current_user.errors.any? %>
     <div class="alert-message block-message error">
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -10,8 +8,6 @@
       </ul>
     </div>
   <% end %>
-  <% end %>
-
 
   <h1>Terms of Service</h1>
   <textarea readonly>
