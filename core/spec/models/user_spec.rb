@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
 
   subject {FactoryGirl.create :user}
+  let(:nonnda_subject) {FactoryGirl.create :user, agrees_tos: false, name:'Klaas'}
 
   let(:fact) {FactoryGirl.create :fact}
   let(:child1) {FactoryGirl.create :fact}
@@ -28,6 +29,42 @@ describe User do
     it "should store the Fact ID in the graph_user object when a user #{type} a fact" do
       fact.add_opinion(type, subject.graph_user )
       subject.graph_user.has_opinion?(type,fact).should == true
+    end
+  end
+  
+  context "when agreeing the tos" do
+    describe "when trying to agree without signing, without a name" do
+      it "should not be allowed" do
+        nonnda_subject.sign_tos(false, '').should == false
+        nonnda_subject.errors.keys.length.should == 2
+        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos.should == false
+      end
+    end
+
+    describe "when trying to agree without signing" do
+      it "should not be allowed" do
+        nonnda_subject.sign_tos(false, 'Sjaak').should == false
+        nonnda_subject.errors.keys.length.should == 1
+        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos.should == false
+      end
+    end
+    describe "when trying to agree without a name" do
+      it "should not be allowed" do
+        nonnda_subject.sign_tos(true, '').should == false
+        nonnda_subject.errors.keys.length.should == 1
+        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos.should == false
+      end
+    end
+    describe "when agreeing with a name" do
+      it "should be allowed" do
+        nonnda_subject.sign_tos(true, 'Sjaak').should == true
+        nonnda_subject.name.should == 'Sjaak'
+        nonnda_subject.agrees_tos.should == true
+        nonnda_subject.errors.keys.length.should == 0
+      end
     end
   end
 end
