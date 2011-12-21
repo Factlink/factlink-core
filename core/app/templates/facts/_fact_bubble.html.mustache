@@ -6,7 +6,11 @@
 	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
 
 		<span class="body">
-      {{{link}}} &mdash; <span>{{{scroll_to_link}}}</span><br>
+      {{{link}}}
+      {{#scroll_to_link}}
+        &mdash; <span>{{{scroll_to_link}}}</span>
+      {{/scroll_to_link}}
+      <br>
     </span>
     <sub>{{{last_activity}}}</sub>
 		{{#user_signed_in?}}
