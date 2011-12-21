@@ -22,7 +22,11 @@ module Facts
     end
 
     def scroll_to_link
-      show_links ? link_to(pretty_url, self[:fact].site.url, :target => "_blank") : pretty_url
+      show_links ? link_to(pretty_url, proxy_scroll_url, :target => "_blank") : pretty_url
+    end
+
+    def displaystring 
+      displaystring = h self[:fact].data.displaystring
     end
 
     def link

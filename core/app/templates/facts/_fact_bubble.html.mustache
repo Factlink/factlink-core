@@ -6,7 +6,7 @@
 	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
 
 		<span class="body">
-      {{{link}}}
+      {{{displaystring}}}
       {{#scroll_to_link}}
         &mdash; <span>{{{scroll_to_link}}}</span>
       {{/scroll_to_link}}
@@ -14,7 +14,7 @@
     </span>
     <sub>{{{last_activity}}}</sub>
 		{{#user_signed_in?}}
-		  <div class="actions">
+		  <div class="activity">
 		    <ul>
 			    <li class="add-to-channel">
 			      <a><img src="/assets/bookmark.gif">Channels</a>
