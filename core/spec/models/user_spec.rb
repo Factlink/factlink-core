@@ -71,4 +71,13 @@ describe User do
       end
     end
   end
+  
+  describe ".find" do
+    it "should work with numerical ids" do
+      User.find(subject.id).should == subject
+    end
+    it "should work with usernames" do
+      User.find(subject.username).should == subject
+    end
+  end
 end

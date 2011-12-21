@@ -97,6 +97,15 @@ class User
     username
   end
 
+  def self.from_param(param)
+    self.first :conditions => { username: param }
+  end
+
+  def self.find(param,*args)
+    super
+  rescue  
+    from_param(param)
+  end
 
   def set_avatar_from_twitter
     if self.twitter
