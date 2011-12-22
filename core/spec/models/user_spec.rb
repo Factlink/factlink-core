@@ -33,7 +33,7 @@ describe User do
     describe "when trying to agree without signing, without a name" do
       it "should not be allowed" do
         nonnda_subject.sign_tos(false, '').should == false
-        nonnda_subject.errors.keys.length.should == 2
+        nonnda_subject.errors.full_messages.length.should == 2
         nonnda_subject.name.should == 'Klaas'
         nonnda_subject.agrees_tos.should == false
       end
