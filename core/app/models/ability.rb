@@ -11,7 +11,7 @@ class Ability
     # Anonymous user
     can :index, Fact
     can :read, Fact
-    can :read, Job
+    can :read, Job, :show => true
 
     # Registered user
     if user

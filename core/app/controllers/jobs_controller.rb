@@ -1,12 +1,12 @@
 class JobsController < ApplicationController
   layout "general"
   
+  load_and_authorize_resource
+
   def index
-    @jobs = Job.all
   end
 
   def show
-    @jobs = Job.all
-    @job = Job.find(params[:id])
+    @jobs = Job.accessible_by current_ability
   end
 end
