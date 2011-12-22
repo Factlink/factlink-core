@@ -42,8 +42,8 @@ describe Fact do
   end
   
   it "should have the GraphUser set when a opinion is added" do
-    parent.add_opinion(:beliefs, gu1)
-    parent.opiniated(:beliefs).to_a.should =~ [gu1]
+    parent.add_opinion(:believes, gu1)
+    parent.opiniated(:believes).to_a.should =~ [gu1]
   end
 
   it "should have working fact_relations" do

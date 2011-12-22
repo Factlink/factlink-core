@@ -1,4 +1,6 @@
 class Ability
+  class AdminArea;end
+
   include CanCan::Ability
 
   def user
@@ -62,6 +64,7 @@ class Ability
       can :read, user
       
       if user.admin?
+        can :access, AdminArea
         can :manage, User
         can :manage, Job
         cannot :sign_tos, User

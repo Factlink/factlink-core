@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def others(opinion)
-  others = [:beliefs, :doubts, :disbeliefs]
+  others = [:believes, :doubts, :disbelieves]
   others.delete(opinion)
   others
 end
@@ -20,7 +20,7 @@ describe Basefact do
   let(:fact2) {FactoryGirl.create(:basefact)}
 
   context "initially" do
-    [:beliefs, :doubts, :disbeliefs].each do |opinion|
+    [:believes, :doubts, :disbelieves].each do |opinion|
       it { subject.opiniated_count(opinion).should == 0 }
       it { subject.opiniated(opinion).all.should == [] }
       it { expect_opinion(subject,Opinion.identity)}
@@ -49,7 +49,7 @@ describe Basefact do
     end
   end
 
-  @opinions = [:beliefs, :doubts, :disbeliefs]
+  @opinions = [:believes, :doubts, :disbelieves]
   @opinions.each do |opinion|
 
     describe "#add_opinion" do
