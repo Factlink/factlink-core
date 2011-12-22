@@ -9,4 +9,4 @@
 //= require_directory ./bubble
 
 //@TODO: FIX THIS BOYS
-var TEMPORARY_AUTHORITY_MARGIN = 4;
+var TEMPORARY_AUTHORITY_MARGIN = 0;

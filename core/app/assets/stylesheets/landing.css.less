@@ -18,6 +18,8 @@ body {
   }
   h4 { 
     font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 6px;
   }
   p, li, footer { 
     #font > .serif(normal, @basefont, @baseline);
@@ -34,12 +36,13 @@ body {
     h1 { 
       margin-top: 12px;
     }
-    padding: 1em 1em 0;
+    margin-top: 1em;
+    margin-bottom: 0;
   }
   
   #sign-in-form {
     margin: 0px;
-    
+    line-height: 10pt;
     form {
       margin-top: 10px;
       float: right;
@@ -67,9 +70,11 @@ body {
     h2 { 
       font-weight: bold;
       font-size: 24pt;
+      margin-bottom: @basefont;
     }
     p { 
       margin-top: 0.25em;
+      line-height: @basefont * 1.8;
       font-size: 14pt;
     }
   }
