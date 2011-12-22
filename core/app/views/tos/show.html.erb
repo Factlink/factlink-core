@@ -32,9 +32,9 @@ Factlink may update these terms and conditions at any time.
       <div class="field">
       <%= f.email_field :email, value: current_user ? current_user.email : "", required: true %>
       </div>
+      <span class="explanation">* fields are required</span>
     </div>
 
-    <span class="explanation">* fields are required</span>
 
     <div class="tos_checkbox">
       <%= f.check_box :agrees_tos, required: true %>
@@ -42,7 +42,7 @@ Factlink may update these terms and conditions at any time.
     </div>
 
     <div class="actions">
-      <%= f.submit "Continue" %>
+      <%= f.submit "Continue", class: "btn" %>
     </div>
   <% end %>
 
