@@ -47,7 +47,6 @@ class FactsController < ApplicationController
     render layout: nil
   end
   
-  # GET /facts/new
   def new    
     render layout: @layout
   end
