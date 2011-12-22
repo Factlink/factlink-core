@@ -124,10 +124,10 @@ class LoadDsl
 
 
   def believers(*l)
-    self.set_opinion(:beliefs,*l)
+    self.set_opinion(:believes,*l)
   end
   def disbelievers(*l)
-    self.set_opinion(:disbeliefs,*l)
+    self.set_opinion(:disbelieves,*l)
   end
   def doubters(*l)
     self.set_opinion(:doubts,*l)
