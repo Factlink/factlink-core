@@ -1,3 +1,3 @@
 //= require application
 //= require twitter/bootstrap
-//= require bubble
+//= require bubble-landing

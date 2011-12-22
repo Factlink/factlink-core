@@ -42,7 +42,7 @@ var Wheel = (function() {
     var pos = w.params.dim + (w.params.dim * 0.25);
     
     if (!authority_element.raphael) {
-      authority_element.raphael = w.r.text(pos, pos+4, auth).attr({
+      authority_element.raphael = w.r.text(pos, pos+TEMPORARY_AUTHORITY_MARGIN, auth).attr({
         "font-size": "13pt",
         "fill": "#999"
       });
