@@ -10,3 +10,9 @@ en:
   fact_doubt_opinion: "neutral"
   fact_disbelieve_opinion: "disagree"
   
+  fact_believe_past_action: "agreed"
+  fact_doubt_past_action: "neutraled"
+  fact_disbelieve_past_action: "disagreed"
+  fact_create_past_action: "created"
+  fact_remove_opinion_past_action: "removed opinion"
+  fact_add_evidence_past_action: "added evidence"

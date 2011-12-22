@@ -10,3 +10,10 @@ nl:
   fact_believe_opinion: "eens"
   fact_doubt_opinion: "neutraal"
   fact_disbelieve_opinion: "oneens"
+  
+  fact_believe_past_action: "stemde in"
+  fact_doubt_past_action: "stemde neutraal op"
+  fact_disbelieve_past_action: "ontkende"
+  fact_create_past_action: "maakte aan"
+  fact_remove_opinion_past_action: "trok zijn mening terug"
+  fact_add_evidence_past_action: "voegde bewijs toe"

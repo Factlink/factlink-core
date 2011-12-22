@@ -36,7 +36,20 @@ module Facts
   
     def last_activity
       activity = self[:fact].activities(1)[0]
-      activity && link_to(activity.user.user.username, user_profile_path(activity.user.user.username), target: "_top") + " " + activity.action + " " + time_ago_in_words(activity.created_at) + " ago"
+      action = activity.action.to_sym
+      translation = { 
+        :believes => :believe,
+        :disbelieves => :disbelieve,
+        :doubts => :doubt,
+        :created => :create,
+        :removed_opinions => :remove_opinion,
+        :added => :add_evidence
+      }
+      action = t("fact_#{translation[action]}_past_action") if translation[action]
+
+      # TODO: Fix translations (ago)
+      # TODO: Fix concatenation
+      activity && link_to(activity.user.user.username, user_profile_path(activity.user.user.username), target: "_top") + " " + action + " " + time_ago_in_words(activity.created_at) + " ago"
     end
     
     def fact_title
