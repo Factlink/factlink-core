@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "jobs/index.html.erb" do
-  before(:each) do
+  before do
     assign(:jobs, [
       stub_model(Job,
         :title => "Title",
@@ -14,7 +14,7 @@ describe "jobs/index.html.erb" do
     ])
   end
 
-  pending "renders a list of jobs" do
+  it "renders a list of jobs" do
     render
   end
 end

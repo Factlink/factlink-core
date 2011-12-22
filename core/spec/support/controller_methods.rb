@@ -3,10 +3,6 @@ module ControllerMethods
     request.env['warden'] = mock(Warden, :authenticate => user, :authenticate! => user)
   end
   
-  def get_ability
-    ability
-  end
-  
   def ability
     unless @ability
       @ability = Object.new

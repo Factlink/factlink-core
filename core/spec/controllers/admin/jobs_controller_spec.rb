@@ -16,7 +16,6 @@ describe Admin::JobsController do
   end
   
   before do
-    get_ability
     should_check_admin_ability
   end
   
