@@ -14,7 +14,7 @@
   	<h1>
   	  {{ title }}
     </h1>
-    {{#show_subchannels?}}
+    {{#inspectable?}}
     <div id="contained-channels">
       <span class="contained-channel-description">Other people in this channel</span>
         <ul id="contained-channel-list">
@@ -22,7 +22,7 @@
         </ul>
       </div>
       <div class="more"><a id="more-button"><span class="label">more</span></a></div>
-    {{/show_subchannels?}}
+    {{/inspectable?}}
   </header>
   <div id="facts_for_channel">
   </div>
