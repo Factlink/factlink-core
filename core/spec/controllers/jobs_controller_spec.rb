@@ -4,7 +4,7 @@ describe JobsController do
   include Devise::TestHelpers
   include ControllerMethods
   
-  let (:user)  {FactoryGirl.create(:user, admin: false)}
+  let (:user)  {FactoryGirl.create :user}
  
   # This should return the minimal set of attributes required to create a valid
   # Job. As you add validations to Job, be sure to
