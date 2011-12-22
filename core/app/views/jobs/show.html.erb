@@ -1,22 +1,24 @@
-<p id="notice"><%= notice %></p>
+<% content_for :title do %>
+  <%= @job.title %>
+<% end %>
+
 
 <% content_for :menu_items do %>
   <% @jobs.each do |job| %>
     <%  if (job.show) %>
-      <li class="selected_menu_item"><a href="<%= job.id %>"><%= job.title %></a></li>
+      <li <%= job.id == @job.id ? "class='selected_menu_item'" : '' %>  >
+         <a href="/pages/jobs/<%= job.id %>"><%= job.title %></a>
+        
+         <%#*#link_to job.title, pages_path(job)%>
+      </li>
     <% end %>
   <% end %>
 <% end %>
 
-<p>
-  <b>Title:</b>
-  <%= @job.title %>
-</p>
 
-<p>
-  <b>Content:</b>
-  <%= @job.content %>
-</p>
-
-
-<%= link_to 'Back', jobs_path %>
+<% content_for :body_text do %>
+  <h1> <%= @job.title %></h1>
+  <p> <%= @job.content %> </p>
+<% end %>
+  
+  
