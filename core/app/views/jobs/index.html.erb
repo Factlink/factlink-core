@@ -6,6 +6,7 @@
   <% @jobs.all.each do |job| %>
     <li>
       <%=  link_to job.title, job_path(job) %>
+      <%=  job.show ? '' : '*' %>
     </li>
   <% end %>
     
