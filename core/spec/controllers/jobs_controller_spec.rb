@@ -6,28 +6,22 @@ describe JobsController do
   
   let (:user)  {FactoryGirl.create :user}
  
-  # This should return the minimal set of attributes required to create a valid
-  # Job. As you add validations to Job, be sure to
-  # update the return value of this method accordingly.
-  def valid_attributes
-    {}
-  end
-
   describe "GET index" do
-    pending "assigns all jobs as @jobs" do
+    it "assigns all jobs as @jobs" do
       authenticate_user!(user)
-      @job = Job.new
-      Job.stub(:new) { @job }
-      should_check_can :new, @job
-      job = Job.create! valid_attributes
+      job = FactoryGirl.create :job, show: true
+      
+      ability.can :index, Job
+      should_check_can :index, Job
+      
       get :index
       assigns(:jobs).to_a.should =~ [job]
     end
   end
 
   describe "GET show" do
-    pending "assigns the requested job as @job" do
-      job = Job.create! valid_attributes
+    it "assigns the requested job as @job" do
+      job = FactoryGirl.create :job, show: true
       get :show, :id => job.id
       assigns(:job).should == job
     end
