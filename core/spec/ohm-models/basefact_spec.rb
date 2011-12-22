@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def others(opinion)
-  others = [:beliefs, :doubts, :disbeliefs]
+  others = [:believes, :doubts, :disbelieves]
   others.delete(opinion)
   others
 end
