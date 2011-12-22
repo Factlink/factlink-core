@@ -3,10 +3,10 @@
 <% end %>
 
 <% content_for :javascript do %>
-	<!-- Quick workaround for not showing the devise error in the header -->
-	<script>
-		$('#application-notification > p ').hide();
-	</script>
+  <!-- Quick workaround for not showing the devise error in the header -->
+  <script>
+    $('#application-notification > p ').hide();
+  </script>
 <% end %>
 
 
@@ -15,15 +15,15 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
 <section class="append-bottom">
-	
-	<div class="row">
-		<%= f.label "Email" %>
-	  <%= f.email_field :email, :placeholder => "Email" %><br/>
-	</div>
-	<div class="row">
-		<%= f.label "Password" %>
-	  <%= f.password_field :password, :placeholder => "Password" %><br/>
-	</div>
+
+  <div class="row">
+    <%= f.label "Email" %>
+    <%= f.email_field :email, :placeholder => "Email" %><br/>
+  </div>
+  <div class="row">
+    <%= f.label "Password" %>
+    <%= f.password_field :password, :placeholder => "Password" %><br/>
+  </div>
 
   <% if devise_mapping.rememberable? -%>
     <span style="margin-left: 350px;"><%= f.check_box :remember_me %> <%= f.label :remember_me, :style => "font-weight: 100; font-size: 0.85em;" %></span>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="action-wrapper">
-	<%= f.submit "Sign in", :class => "btn" %>
+  <%= f.submit "Sign in", :class => "btn" %>
 </div>
 <% end %>
 

@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Intermediate action</title>
+  <title>Intermediate action</title>
 
   <%= javascript_include_tag "intermediate" %>
 
-	<%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}/lib/dist/easyXDM/easyXDM.min.js" %>
-	<style type="text/css">
-		html, body {
-			height: 100%;
-			width: 100%;
-			margin: 0 auto;
-			padding: 0;
-			overflow: hidden;
-		}
-		
-		iframe {
-			height: 100%;
-			width: 100%;
-			border: 0;
-			z-index: 2147483646;
-		}
-		
-		iframe.overlay {
-		  background: transparent;
-		}
-		
-		form {
-			display: none;
-		}
-	</style>
+  <%= javascript_include_tag "#{FactlinkUI::Application.config.static_url}/lib/dist/easyXDM/easyXDM.min.js" %>
+  <style type="text/css">
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      overflow: hidden;
+    }
 
-	<%= csrf_meta_tag %>
+    iframe {
+      height: 100%;
+      width: 100%;
+      border: 0;
+      z-index: 2147483646;
+    }
+
+    iframe.overlay {
+      background: transparent;
+    }
+
+    form {
+      display: none;
+    }
+  </style>
+
+  <%= csrf_meta_tag %>
 </head>
 <body>
   <!-- THIS FORM IS DEPRECATED -->
-	<%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
-  	<input type="hidden" name="evidence_id" id="evidence_id" value="">
-  	<input type="text" name="url" id="url" value="">
-  	<input type="text" name="title" id="title" value="">
-  	<input type="text" name="opinion" id="opinion" value="">
+  <%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
+    <input type="hidden" name="evidence_id" id="evidence_id" value="">
+    <input type="text" name="url" id="url" value="">
+    <input type="text" name="title" id="title" value="">
+    <input type="text" name="opinion" id="opinion" value="">
     <textarea name="passage" id="passage">
     </textarea>
     <input type="text" name="fact" id="fact" value="">
-	<% end %>
-	<iframe src="" name="frame" id="frame"></iframe>
-	
-	<script type="text/javascript">
-    var // The iFrame 
+  <% end %>
+  <iframe src="" name="frame" id="frame"></iframe>
+
+  <script type="text/javascript">
+    var // The iFrame
         showFrame = document.getElementById("frame"),
-        // The global remote object 
+        // The global remote object
         remote = new easyXDM.Rpc({}, {
           remote: {
             hide: {},
@@ -60,7 +60,7 @@
           local: {
             // DEPRECATED
             createEvidence: function(evidence_id, url, type, title) {
-              
+
               getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
             },
             // DEPRECATED
@@ -68,7 +68,7 @@
               if (opinion !== undefined) {
                 document.getElementById("opinion").value = opinion;
               }
-              
+
 
               getTopIntermediatePage().submitNewEvidenceToShowFrame(type, fact, passage, url, title);
             },
@@ -78,15 +78,15 @@
                 successFn();
               };
 
-              // Set the source of the iframe 
+              // Set the source of the iframe
               showFrame.src = "/facts/" + id;
-              // Show the overlay 
+              // Show the overlay
               showFrame.className = "overlay";
             },
             position: function(top, left) {
               try {
                 showFrame.contentWindow.position(top, left);
-              } catch (e) { // Window not yet loaded 
+              } catch (e) { // Window not yet loaded
                 showFrame.onload = function() {
                   showFrame.contentWindow.position(top, left);
                 };
@@ -95,7 +95,7 @@
             //easyXDM does not support passing functions wrapped in objects (such as options in this case)
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
-              
+
               ajax(path, $.extend({
                 success: successFn,
                 error: errorFn
@@ -103,7 +103,7 @@
             }
           }
         });
-    
+
     function ajax(path, options) {
       $.ajax(path, $.extend({
         headers: {
@@ -111,7 +111,7 @@
         }
       }, options));
     }
-    
+
     function getTopIntermediatePage() {
       var proxiedPage = parent;
       var proxyContainer = proxiedPage.parent;
@@ -157,6 +157,6 @@
       window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>/?url=http://www.google.com&factlinkModus=addToFact";
     }
 
-	</script>
+  </script>
 </body>
 </html>

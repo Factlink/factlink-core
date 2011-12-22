@@ -22,7 +22,7 @@ if ['test', 'development'].include? Rails.env
   require 'metric_fu'
   require 'simplecov'
   require 'simplecov-rcov-text'
-  
+
   class SimpleCov::Formatter::MergedFormatter
       def format(result)
          SimpleCov::Formatter::HTMLFormatter.new.format(result)
@@ -30,16 +30,16 @@ if ['test', 'development'].include? Rails.env
       end
   end
   SimpleCov.formatter = SimpleCov::Formatter::MergedFormatter
-	
-  MetricFu::Configuration.run do |config|  
+
+  MetricFu::Configuration.run do |config|
     config.flay ={:dirs_to_flay => ['app', 'lib', 'spec'],
                   :minimum_score => 10,
                   :filetypes => ['rb'] }
     config.rcov[:external] = 'coverage/rcov/rcov.txt'
-    
+
     # Fix the compine bug (see https://github.com/jscruggs/metric_fu/issues/61)
     config.syntax_highlighting = false
-    
+
     #remove non-working metrics
     config.metrics -= [:flog, :reek, :roodi]
   end
@@ -52,7 +52,7 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/views"
-    
+
     config.mongoid.logger = nil
 
     require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
@@ -84,11 +84,11 @@ module FactlinkUI
     # config.autoload_paths += %W(#{config.root}/extras)
 
 
-    
+
     config.to_prepare do
       Devise::PasswordsController.layout "frontend"
     end
-    
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -112,17 +112,17 @@ module FactlinkUI
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
-    
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    
+
     config.less.paths << "#{Rails.root}/app/assets/stylesheets"
-    
+
     config.less.compress = true
-    
+
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
       'admin.css',

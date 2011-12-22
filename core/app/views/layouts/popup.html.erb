@@ -3,29 +3,29 @@
   <head>
     <title>Factlink</title>
     <%= stylesheet_link_tag "popup" %>
-    
+
     <%= javascript_include_tag "modernizr-loader" %>
   </head>
   <body>
     <div class="topbar">
-			<div class="fill">
-				<%= render "users/account_block", target: "_blank" %>
-			</div>
-  	</div>
-  	
-  	<%= render 'home/notifications', notice: notice, alert: alert %>
-  	
-  	<div id="container">
-  	  <%= yield %>
-  	</div>
+      <div class="fill">
+        <%= render "users/account_block", target: "_blank" %>
+      </div>
+    </div>
+
+    <%= render 'home/notifications', notice: notice, alert: alert %>
+
+    <div id="container">
+      <%= yield %>
+    </div>
   </body>
-  
-  
+
+
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "popup" %>
-  
+
   <script>
   $(".alert-message").alert();
   </script>

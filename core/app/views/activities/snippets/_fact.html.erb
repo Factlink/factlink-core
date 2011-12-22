@@ -1,13 +1,13 @@
 <div>
   <% case activity.action.to_sym %>
   <% when :beliefs, :believes %>
-	  <span class="action"><%= t(:believe_action) %></span> 
+    <span class="action"><%= t(:believe_action) %></span>
   <% when :disbeliefs, :disbelieves %>
-    <span class="action"><%= t(:disbelieve_action) %></span> 
+    <span class="action"><%= t(:disbelieve_action) %></span>
   <% when :doubts %>
-    <span class="action"><%= t(:doubt_action) %></span> 
+    <span class="action"><%= t(:doubt_action) %></span>
   <% else %>
-    <span class="action"><%= activity.action %></span> 
-  <% end %>  
-	<span class="img <%= activity.subject.class.to_s.downcase %>"><a><%= truncate(activity.subject.displaystring, :length => 55) %></a></span>
+    <span class="action"><%= activity.action %></span>
+  <% end %>
+  <span class="img <%= activity.subject.class.to_s.downcase %>"><a><%= truncate(activity.subject.displaystring, :length => 55) %></a></span>
 </div>

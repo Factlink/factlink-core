@@ -43,49 +43,49 @@
   <%= render 'home/topbar' %>
 
   <div id="container" class="container">
-    
-		<%= render 'home/notifications', notice: notice, alert: alert %>
-	
+
+    <%= render 'home/notifications', notice: notice, alert: alert %>
+
     <section id="header" class="span-24 append-bottom">
-			<%= yield :header %>
+      <%= yield :header %>
     </section>
 
-		<section id="left-column" class="span-5 prepend-2 side-column">
-			<%= yield :left_column %>
-		</section>
+    <section id="left-column" class="span-5 prepend-2 side-column">
+      <%= yield :left_column %>
+    </section>
 
-  	<section id="main-column" class="span-14" role="main">
-			<section id="main-wrapper">
-			  <%= yield :main_column %>
-			  <%= yield %>
-			</section>
-		</section>
+    <section id="main-column" class="span-14" role="main">
+      <section id="main-wrapper">
+        <%= yield :main_column %>
+        <%= yield %>
+      </section>
+    </section>
 
     <section id="right-column" class="span-5 last side-column">
-      <%= yield :right_column %>      
+      <%= yield :right_column %>
     </section>
-   
+
     <div id="feedback">
       <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
     </div>
   </div>
 
-	<%= yield :template %>
-	
-	<%= javascript_include_tag "frontend" %>
-  
+  <%= yield :template %>
+
+  <%= javascript_include_tag "frontend" %>
+
   <script>
-		$(".fact-block").factlink();
+    $(".fact-block").factlink();
     $(".alert-message").alert();
-    
+
     $('.topbar').dropdown();
-  	$('.bookmarklet').twipsy({placement:"below",offset:5});
-	</script>
-	
-	<% if user_signed_in? %>
-  	<% if (current_user.andand.sign_in_count < 10) %>
-  	  <%= render "home/twipsy" %>
-  	<% end %>
+    $('.bookmarklet').twipsy({placement:"below",offset:5});
+  </script>
+
+  <% if user_signed_in? %>
+    <% if (current_user.andand.sign_in_count < 10) %>
+      <%= render "home/twipsy" %>
+    <% end %>
   <% end %>
 
   <script>
@@ -106,9 +106,9 @@
     });
   });
   </script>
-  
-	<%= yield :javascript %>
-	
+
+  <%= yield :javascript %>
+
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7 ]>

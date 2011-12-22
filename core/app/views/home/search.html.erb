@@ -3,34 +3,34 @@
     var results = new Facts(<%= @results.to_json.html_safe %>, {
       search: "<%= params[:s] %>"
     });
-    
+
     var factsView = new FactsView({
       collection: results
     }).render();
-        
+
     $('#results-listing').append(factsView.el);
   </script>
 <% end %>
 
 
 <% content_for :left_column do %>
-	<%= user_signed_in? ? render("users/user_li", user: current_user ) : "&nbsp;".html_safe %>
+  <%= user_signed_in? ? render("users/user_li", user: current_user ) : "&nbsp;".html_safe %>
 
 <% end %>
 
 <% content_for :main_column do %>
-	<h1>Factlink search - providing credibility you can see</h1>
+  <h1>Factlink search - providing credibility you can see</h1>
 
-	<% unless @results.count > 0 %>
+  <% unless @results.count > 0 %>
 
-		<div class="append-bottom">
-				<p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
-		</div>
-		
-	<% else %>
+    <div class="append-bottom">
+        <p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
+    </div>
+
+  <% else %>
     <ul id="results-listing">
     </ul>
-	<% end %>
+  <% end %>
 <% end %>
 
 <% content_for :template do %>
