@@ -1,9 +1,9 @@
-<%= form_for(@user, :url => [:admin, @user]) do |f| %>
-  <% if @user.errors.any? %>
+<%= form_for(user, :url => [:admin, user]) do |f| %>
+  <% if user.errors.any? %>
     <div class="alert-message block-message error">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
