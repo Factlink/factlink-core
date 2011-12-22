@@ -21,7 +21,7 @@ describe JobsController do
       should_check_can :new, @job
       job = Job.create! valid_attributes
       get :index
-      assigns(:jobs).should eq([Job])
+      assigns(:jobs).to_a.should =~ [job]
     end
   end
 
@@ -29,7 +29,7 @@ describe JobsController do
     pending "assigns the requested job as @job" do
       job = Job.create! valid_attributes
       get :show, :id => job.id
-      assigns(:job).should eq(job)
+      assigns(:job).should == job
     end
   end
 
