@@ -17,7 +17,14 @@
 
 <% content_for :body_text do %>
   <h1> <%= @job.title %></h1>
-  <p> <%= @job.content %> </p>
+
+  <%= simple_format(@job.content,sanitize: false) %>
+  
+  <% if can? :update, @job %>
+    <div style="text-align:right">
+      <%=link_to "Edit", edit_admin_job_path(@job)%>
+    </div>
+  <% end%>
 <% end %>
   
   

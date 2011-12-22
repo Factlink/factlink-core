@@ -16,9 +16,21 @@ class Basefact < OurOhm
     assert_present :created_by
   end
 
+  def real_opinion(type)
+    type = type.to_sym
+    if [:beliefs,:believes].include?(type)
+      :believes
+    elsif [:doubts].include?(type)
+      :doubts
+    elsif [:disbeliefs,:disbelieves].include?(type)
+      :disbelieves
+    else
+      raise "invalid opinion"
+    end
+  end
 
   def opiniated(type)
-    type = type.to_sym
+    type = real_opinion(type)
     belief_check(type)
     if [:beliefs,:believes].include?(type)
       people_believes
@@ -48,7 +60,7 @@ class Basefact < OurOhm
 
     add_opiniated(type,user)
     user.update_opinion(type, self)
-    activity(user,type,self)
+    activity(user,real_opinion(type),self)
   end
 
   def remove_opinions(user)
@@ -58,7 +70,7 @@ class Basefact < OurOhm
   
   def _remove_opinions(user)
     user.remove_opinions(self)
-    [:beliefs, :doubts, :disbeliefs].each do |type|
+    [:believes, :doubts, :disbelieves].each do |type|
       delete_opiniated(type,user)
     end
   end
@@ -68,7 +80,7 @@ class Basefact < OurOhm
   def calculate_user_opinion(depth=0)
     #depth has no meaning here unless we want the depth to also recalculate authorities
     opinions = []
-    [:beliefs, :doubts, :disbeliefs].each do |type|      
+    [:believes, :doubts, :disbelieves].each do |type|      
       opiniated = opiniated(type)
       opiniated.each do |user|
         opinions << Opinion.for_type(type, user.authority)

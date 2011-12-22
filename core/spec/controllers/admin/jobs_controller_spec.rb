@@ -62,13 +62,13 @@ describe Admin::JobsController do
         assigns(:job).should be_persisted
       end
 
-      it "redirects to the created job" do
+      it "redirects to the index" do
         authenticate_user!(user)
         @job = Job.new
         Job.stub(:new) { @job }
         should_check_can :create, @job
         post :create, :job => valid_attributes
-        response.should redirect_to(admin_job_url(Job.last))
+        response.should redirect_to(admin_jobs_url)
       end
     end
 
@@ -134,7 +134,7 @@ describe Admin::JobsController do
 
         job = Job.create! valid_attributes
         put :update, :id => job.id, :job => valid_attributes
-        response.should redirect_to(admin_job_url(job))
+        response.should redirect_to(admin_jobs_url)
       end
     end
 
