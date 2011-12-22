@@ -69,7 +69,7 @@ class FactsController < ApplicationController
          end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
-        format.html { render action: "new" }
+        format.html { render :new }
         format.json { render json: @fact.errors, status: :unprocessable_entity }
       end
     end
