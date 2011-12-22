@@ -12,10 +12,10 @@ log/
 *.un~
 *.log
 .idea
-public/images/wheel/*.png
 *.rej
 *.orig
 public/system/avatars
+public/system/wheel/*.png
 *~
 solr/pids
 temp-8546.rdb
