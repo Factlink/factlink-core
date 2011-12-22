@@ -1,4 +1,6 @@
 class Ability
+  class AdminArea;end
+
   include CanCan::Ability
 
   def user
@@ -11,7 +13,7 @@ class Ability
     # Anonymous user
     can :index, Fact
     can :read, Fact
-    can :read, Job
+    can :read, Job, :show => true
 
     # Registered user
     if user
@@ -62,6 +64,7 @@ class Ability
       can :read, user
       
       if user.admin?
+        can :access, AdminArea
         can :manage, User
         can :manage, Job
         cannot :sign_tos, User
