@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
       @user.save
       redirect_to admin_user_path(@user), notice: 'User was successfully created.'
     else
-      render action: "new"
+      render :new
     end
   end
 
@@ -35,7 +35,7 @@ class Admin::UsersController < ApplicationController
     if @user.update_with_password(params[:user])
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
-      render action: "edit"
+      render :edit
     end
   end
 end
