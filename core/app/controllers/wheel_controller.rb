@@ -13,7 +13,6 @@ class WheelController < ApplicationController
     after_percentages = PercentageFormatter.new(5,15).process_percentages(percentages)
 
     local_path = "system/wheel/#{after_percentages.join('-')}.png"
-    redir_url = "images/wheel/#{after_percentages.join('-')}.png"
 
     respond_to do |format|
       format.png do
@@ -36,7 +35,7 @@ class WheelController < ApplicationController
           filename = Rails.root.join('public', local_path)
           rvg.draw.write(filename)
         end
-        redirect_to '/' + redir_url
+        redirect_to '/' + local_path
       end
     end
   end
