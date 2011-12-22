@@ -14,7 +14,7 @@ describe "jobs/index.html.erb" do
     ])
   end
 
-  it "renders a list of jobs" do
+  pending "renders a list of jobs" do
     render
   end
 end
