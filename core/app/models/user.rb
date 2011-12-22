@@ -78,11 +78,11 @@ class User
     valid = true
     unless agrees_tos
       valid = false
-      self.errors.add("a", "You have to accept the Terms of Service to continue.")  
+      self.errors.add("", "You have to accept the Terms of Service to continue.")  
     end
     if name.blank?
       valid = false
-      self.errors.add("b", "Please fill in your name to accept the Terms of Service.")  
+      self.errors.add("", "Please fill in your name to accept the Terms of Service.")  
     end
     
     valid and self.update_without_password(agrees_tos: agrees_tos, name: name)
