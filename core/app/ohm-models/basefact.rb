@@ -58,7 +58,7 @@ class Basefact < OurOhm
   
   def _remove_opinions(user)
     user.remove_opinions(self)
-    [:beliefs, :doubts, :disbeliefs].each do |type|
+    [:believes, :doubts, :disbelieves].each do |type|
       delete_opiniated(type,user)
     end
   end
@@ -68,7 +68,7 @@ class Basefact < OurOhm
   def calculate_user_opinion(depth=0)
     #depth has no meaning here unless we want the depth to also recalculate authorities
     opinions = []
-    [:beliefs, :doubts, :disbeliefs].each do |type|      
+    [:believes, :doubts, :disbelieves].each do |type|      
       opiniated = opiniated(type)
       opiniated.each do |user|
         opinions << Opinion.for_type(type, user.authority)
