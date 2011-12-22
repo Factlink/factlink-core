@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :menu_items do %>
+  <% @jobs.each do |job| %>
+    <%  if (job.show) %>
+      <li class="selected_menu_item"><a href="<%= job.id %>"><%= job.title %></a></li>
+    <% end %>
+  <% end %>
+<% end %>
+
 <p>
   <b>Title:</b>
   <%= @job.title %>
