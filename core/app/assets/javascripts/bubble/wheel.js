@@ -40,14 +40,17 @@ var Wheel = (function() {
   function update_authority(w, authority_element) {
     var auth = authority_element.data("authority");
     var pos = w.params.dim + (w.params.dim * 0.25);
+    
     if (!authority_element.raphael) {
-      authority_element.raphael = w.r.text(pos, pos, auth).attr({
+      authority_element.raphael = w.r.text(pos, pos+4, auth).attr({
         "font-size": "13pt",
         "fill": "#999"
       });
     } else {
       authority_element.raphael.attr({
-        "text": auth
+        "text": auth,
+        "x": pos,
+        "y": pos
       });
     }
   }

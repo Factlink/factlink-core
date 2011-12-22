@@ -37,11 +37,15 @@ body.factlink-site div.user-block {
     padding: 10px;
     margin: 0 0 24px 0;
   }
+  h1 { 
+    font-size: @basefont * 2;
+    font-weight: bold;
+    margin-bottom: @baseline;
+  }
   .explanation {
     font-size: 0.8em;
     width: 100%;
     text-align: right;
-    margin: 0 0 12px -82px;
     color: #aaa;
   }
 
@@ -124,9 +128,12 @@ a.bookmarklet {
   cursor: move;
 }
 
-
+.topbar h3 { 
+  left: 70px!important;
+  margin-left: 0px !important;
+}
 .topbar .search {
-  margin-left: 36px;
+  left: 150px;
 }
 
 #results-listing div.user-block { 
@@ -136,7 +143,7 @@ a.bookmarklet {
   text-shadow: 0px 1px 0px white; 
   width: 510px; 
 
-  .side { 
+  .side {
     margin: 10px; 
     float: left; 
 
@@ -171,8 +178,9 @@ a.bookmarklet {
 #container {
   padding-top: 60px;
   .user-block {
-    margin: 12px 0px 0px 0px;
+    margin: 4px 0px 0px 0px;
     width: 140px;
+    padding-bottom: @baseline / 2;
     &:hover {
       cursor: pointer;
 
@@ -206,6 +214,47 @@ a.bookmarklet {
       .border-radius(3px);
     }
   }
+  h1 {
+    font-size: @basefont * 1.5;
+    margin-bottom: @basefont;
+  }
+
+
+  form {
+    .row {
+      padding: 10px 0px;
+      color: #777;
+      text-shadow: 0px 1px 0px #fff;
+      label {
+        display: block;
+        float: left;
+        width: 100px;
+        margin-top: 6px;
+      }
+
+      input {
+        padding: 8px;
+        width: 320px;
+        border-radius: 3px;
+        border: solid 1px #ddd;
+      }
+    }
+
+    .action-wrapper {
+      margin-top: 10px;
+      height: 20px;
+
+      input, span, button {
+        float: right;
+      }
+
+      span {
+        padding: 0;
+      }
+    }
+  }
+
+
 
   sub {
     color: @gray;
@@ -255,6 +304,7 @@ a.bookmarklet {
       a { 
         float: right;
         display: block;
+        color: @black;
       }
       div.float-box-container {
         float: right;
