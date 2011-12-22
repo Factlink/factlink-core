@@ -3,17 +3,24 @@
 <% end %>
 
 <% content_for :menu_items do %>
-  <% @jobs.each do |job| %>
-    <%  if (job.show) %>
-      <li>
-         <a href="/pages/jobs/<%= job.id %>"><%= job.title %></a>
-         <%#*#link_to job.title, pages_path(job)%>
-      </li>
-    <% end %>
+  <% @jobs.visible.each do |job| %>
+    <li>
+      <%=  link_to job.title, job_path(job) %>
+    </li>
+  <% end %>
+  
+  <% if @jobs.visible.length == 0 %>
+    <li>
+      <%= link_to "Jobs", jobs_path %>
+    </li>
   <% end %>
 <% end %>
 
 <% content_for :body_text do %>
   <h1>Jobs</h1>
-  <p>We are always looking for talented people to join our team. See our current openings to the left, or apply for an open application by mailing us at <a href="mailto:jobs@factlink.com">jobs@factlink.com</a>, or call us at +31 (0)50 - 2101047.</p> 
+  <% if @jobs.visible.length == 0 %>
+    <p>Currently, we don't have any jobs available. Apply for an open application by mailing us at <a href="mailto:jobs@factlink.com">jobs@factlink.com</a>, or call us at +31 (0)50 - 2101047.</p> 
+  <% else %>
+    <p>We are always looking for talented people to join our team. See our current openings to the left, or apply for an open application by mailing us at <a href="mailto:jobs@factlink.com">jobs@factlink.com</a>, or call us at +31 (0)50 - 2101047.</p> 
+  <% end %>  
 <% end %>
