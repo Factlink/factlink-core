@@ -27,7 +27,7 @@ class EvidenceController < FactsController
 
     respond_to do |format|
       format.json { render json: @fact_relation }
-      format.js   { render layout: false, partial: "facts/add_evidence_as_li", locals: { fact_relation @fact_relation } }
+      format.js   { render layout: false, partial: "facts/add_evidence_as_li", locals: { fact_relation: @fact_relation } }
     end
   end
 
