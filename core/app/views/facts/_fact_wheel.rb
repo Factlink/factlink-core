@@ -8,19 +8,19 @@ module Facts
       fw[:modal] = modal
       return fw
     end
-    
+
     def authority
       self[:fact].get_opinion.as_percentages[:authority]
     end
-    
+
     def opinions
       opinions_for_user_and_fact(self[:fact])
     end
-    
+
     def user_signed_in?
       self.view.user_signed_in?
     end
-    
+
     private
       def opinions_for_user_and_fact(fact)
         [

@@ -1,7 +1,7 @@
 
 class LoadDsl
   class UndefinedUserError < StandardError;end
-  
+
   def self.load(&block)
     new.run(&block)
   end
@@ -90,7 +90,7 @@ class LoadDsl
   def load_user(username,email=nil, password=nil, twitter=nil)
     u = User.where(:username => username).first
     if not u
-      
+
       if email and password
         u = User.create(
           :username => username,
@@ -99,7 +99,7 @@ class LoadDsl
           :password => password,
           :password_confirmation => password,
           :twitter => twitter)
-        
+
         raise "User #{username} could not be created, maybe the email address wasn't unique?" if u.new?
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller

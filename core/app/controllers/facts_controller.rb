@@ -5,8 +5,8 @@ class FactsController < ApplicationController
   before_filter :set_layout, :only => [:new]
 
   respond_to :json, :html
-  
-  before_filter :load_fact, 
+
+  before_filter :load_fact,
     :only => [
       :show,
       :edit,
@@ -19,7 +19,7 @@ class FactsController < ApplicationController
       :add_supporting_evidence,
       :add_weakening_evidence
       ]
-  before_filter :potential_evidence, 
+  before_filter :potential_evidence,
     :only => [
       :show,
       :edit]
@@ -33,33 +33,33 @@ class FactsController < ApplicationController
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
-    
+
     respond_with(Facts::FactView.for_fact_and_view(@fact, view_context))
   end
-  
+
   def index
     @facts = Fact.all
-    
+
     respond_with(@facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
   end
 
   def intermediate
     render layout: nil
   end
-  
-  def new    
+
+  def new
     render layout: @layout
   end
 
   def create
     authorize! :create, Fact
     @fact = create_fact(params[:url], params[:fact], params[:title])
-    
+
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
       @fact.calculate_opinion(1)
     end
-    
+
     respond_to do |format|
       if @fact.save
         format.html do
@@ -73,7 +73,7 @@ class FactsController < ApplicationController
       end
     end
   end
-  
+
   def get_channel_listing
     authorize! :index, Channel
     @channels = current_user.graph_user.editable_channels_for(@fact)
@@ -87,7 +87,7 @@ class FactsController < ApplicationController
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
   end
-   
+
   def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
   def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
 
@@ -98,7 +98,7 @@ class FactsController < ApplicationController
 
   def add_evidence_internal_internal(type,succes,fail)
     @fact_relation = add_evidence(params[:evidence_id], type, @fact.id)
-    
+
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
       render fail
@@ -106,7 +106,7 @@ class FactsController < ApplicationController
       render succes
     end
   end
-  
+
   def add_new_evidence
     type = params[:type].to_sym
     if type == :weakening
@@ -120,7 +120,7 @@ class FactsController < ApplicationController
     if current_user.graph_user == @fact.created_by
       @fact_id = @fact.id
       @fact.delete
-      
+
       respond_with(@fact)
     end
   end
@@ -136,7 +136,7 @@ class FactsController < ApplicationController
       end
     end
   end
-  
+
   def update_title
     # Gets 'title-[id]' 'cuz it must be unique and Jeditable is using the elements 'id'
     # Strip first six characters to find the ID
@@ -146,12 +146,12 @@ class FactsController < ApplicationController
 
     @fact.data.title = params[:value]
     @fact.data.save
-    
+
     render :text => @fact.data.title
   end
 
   def opinion
-    render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript" 
+    render :json => {"opinions" => @fact.get_opinion(3).as_percentages}, :callback => params[:callback], :content_type => "text/javascript"
   end
 
   def set_opinion
@@ -179,7 +179,7 @@ class FactsController < ApplicationController
     end
   end
 
-  # Search in the client popup.  
+  # Search in the client popup.
   def internal_search(eligible_facts)
     @page = params[:page]
     page = @page
@@ -188,22 +188,22 @@ class FactsController < ApplicationController
 
     solr_result = Sunspot.search FactData do
       keywords params[:s] || ""
-      
+
       order_by sort_column, sort_direction
       paginate :page => page , :per_page => row_count
-      
+
       # Exclude the Facts that are already supporting AND weakening
       with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
     end
-    
+
     @first_page = @page.nil? || @page.to_i < 2
-    
+
     @fact_data = solr_result.results
-    
+
     # Return the actual Facts in stead of FactData
     @facts = @fact_data.map { |fd| fd.fact }
   end
-  
+
 
   private
     def sort_column
@@ -216,27 +216,27 @@ class FactsController < ApplicationController
 
     def potential_evidence
       @potential_evidence = Fact.all.except(:data_id => @fact.data_id).sort(:order => "DESC")
-    end    
+    end
 
 
     def load_fact
       id = params[:id] || params[:fact_id]
-      
+
       @fact = Fact[id] || raise_404
     end
-  
+
     def add_evidence(evidence_id, type, fact_id) # private
-      type     = type.to_sym  
+      type     = type.to_sym
       fact     = Fact[fact_id]
       evidence = Fact[evidence_id]
 
       # Create FactRelation
-      fact_relation = fact.add_evidence(type, evidence, current_user)   
+      fact_relation = fact.add_evidence(type, evidence, current_user)
       evidence.add_opinion(:believes, current_user.graph_user)
-      fact_relation.add_opinion(:believes, current_user.graph_user)    
+      fact_relation.add_opinion(:believes, current_user.graph_user)
       fact_relation
     end
-  
+
     def create_fact(url, displaystring, title) # private
       @site = url && (Site.find(:url => url).first || Site.create(:url => url))
 
@@ -244,7 +244,7 @@ class FactsController < ApplicationController
       fact_params[:site] = @site if @site
       @fact = Fact.create fact_params
 
-      @fact.data.displaystring = displaystring    
+      @fact.data.displaystring = displaystring
       @fact.data.title = title
       @fact.data.save
       @fact
@@ -255,7 +255,7 @@ class FactsController < ApplicationController
       type = params[:type].to_sym
       if allowed_types.include?(type)
         yield
-      else 
+      else
         render :json => {"error" => "type not allowed"}, :status => 500
         false
       end

@@ -17,11 +17,11 @@ paths = [
 
 
 
-app = Rack::Builder.new do 
+app = Rack::Builder.new do
   paths.each do |path|
-    map path[:path] do 
+    map path[:path] do
       run Rack::Directory.new(path[:filepath])
-    end 
+    end
   end
-end 
+end
 Rack::Handler::Thin.run(app, :Port => serverport)

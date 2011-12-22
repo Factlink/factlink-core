@@ -15,7 +15,7 @@ module FactsHelper
 
   def evidence_buttons(fact_relation, user)
     locals = evidence_buttons_locals(fact_relation,user)
-    if fact_relation.type.to_sym == :supporting 
+    if fact_relation.type.to_sym == :supporting
       locals[:positive_action] = "supporting"
       locals[:negative_action] = "not supporting"
     elsif fact_relation.type.to_sym == :weakening
@@ -24,9 +24,9 @@ module FactsHelper
     end
     render "/facts/evidence_buttons",  locals
   end
-  
+
   class SemiMustacheView
-    include Rails.application.routes.url_helpers    
+    include Rails.application.routes.url_helpers
     include ActionView::Helpers::UrlHelper
     def controller
       return nil.andand #dit is mijn ranzigste truc ooit -- mark
@@ -38,7 +38,7 @@ module FactsHelper
       return '<img src="#{path}">'.html_safe
     end
   end
-  
+
   class FactView < SemiMustacheView
 
     def initialize(fact,user,channel)
@@ -46,8 +46,8 @@ module FactsHelper
       @current_user = user
       @channel = channel
     end
-    
-    
+
+
     def no_evidence_message
       if user_signed_in?
         "Perhaps you know something that supports or weakens this fact?"
@@ -56,16 +56,16 @@ module FactsHelper
       end
     end
 
-    
+
     def deletable_from_channel?
       user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
     end
-    
+
     def remove_from_channel_path
       remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id)
     end
   end
-  
 
-      
+
+
 end

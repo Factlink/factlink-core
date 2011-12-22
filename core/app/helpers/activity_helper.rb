@@ -1,16 +1,16 @@
-module ActivityHelper  
+module ActivityHelper
 
   def image_for_activity(activity)
-        
+
     case activity.action
     when "added"
       return image_tag('plus.gif')
-      
+
     when "created"
       if activity.subject.class == Fact
         return image_tag('plus.gif')
       end
-      
+
       if activity.subject.class == Channel
         return image_tag('list_unordered.gif')
       end

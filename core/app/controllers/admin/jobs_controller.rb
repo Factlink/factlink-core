@@ -1,9 +1,9 @@
 class Admin::JobsController < AdminController
   layout "admin"
-  
+
   load_and_authorize_resource
-  
-  
+
+
   def index
   end
 
@@ -36,6 +36,6 @@ class Admin::JobsController < AdminController
     @job.destroy
     redirect_to admin_jobs_url
   end
-  
-  
+
+
 end

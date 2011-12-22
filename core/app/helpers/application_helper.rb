@@ -2,11 +2,11 @@ module ApplicationHelper
   def image_url(source)
     abs_url(image_path(source))
   end
-  
+
   def javascript_url(source)
     abs_url(javascript_path(source))
   end
-  
+
   def abs_url(path)
     unless path =~ /^http/
       path = "#{request.protocol}#{request.host_with_port}#{path}"
@@ -24,25 +24,25 @@ module ApplicationHelper
     end
     return data.html_safe
   end
-  
+
   def render_mustache(*args)
     render(*args).html_safe
   end
-  
+
   def load_js_template(id, filename)
     p = "<script type='text/html' id='#{id}'>"
     p += template_as_string filename
     p += "</script>"
     p.html_safe
   end
-  
+
   def minify_js(s)
     res = s
     res = res.gsub /^\s*\/\/[^\n]*\n/, ''
     res = res.gsub /\s+/, ' '
     res.html_safe
   end
-  
+
   def ensure_no_single_quotes(s)
     raise "Please do not use single quotes here" if s.match /'/
     s

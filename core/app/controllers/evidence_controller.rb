@@ -1,7 +1,7 @@
 class EvidenceController < FactsController
-  
+
   before_filter :authenticate_user!, :except => [:index]
-  
+
   respond_to :json, :js
 
   def index
@@ -13,11 +13,11 @@ class EvidenceController < FactsController
 
   def create
     type          = params[:type]
-    fact_id       = params[:fact_id]    
+    fact_id       = params[:fact_id]
     displaystring = params[:displaystring]
 
     @fact = Fact[params[:fact_id]]
-    
+
     # Create the evidence
     @evidence = create_fact(nil, displaystring, nil)
     evidence_id = @evidence.id

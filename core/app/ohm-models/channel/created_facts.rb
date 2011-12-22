@@ -8,7 +8,7 @@ class Channel < OurOhm
       self.title = "Created"
     end
     before :validate, :add_fields
-  
+
     def contained_channels
       []
     end

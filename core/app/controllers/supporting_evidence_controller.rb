@@ -2,6 +2,6 @@ class SupportingEvidenceController < EvidenceController
 
   private
   def relation
-    return :supporting    
+    return :supporting
   end
 end

@@ -12,18 +12,18 @@ class Blacklist
       /^http(s)?:\/\/([^\/]+\.)?moneybird\.nl\//,
     ]
   end
-  
+
   def initialize(blacklist)
     @blacklist = blacklist
   end
-  
+
   def matches?(str)
     @blacklist.each do |regex|
       if regex.match(str)
         return true
       end
     end
-    
+
     false
   end
 end

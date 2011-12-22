@@ -39,7 +39,7 @@ class Ability
       end
     end
   end
-  
+
   def define_fact_abilities
     can :index, Fact
     can :read, Fact
@@ -51,18 +51,18 @@ class Ability
       end
     end
   end
-  
+
   def define_fact_relation_abilities
     if user
       can :opinionate, FactRelation
     end
   end
-  
+
   def define_user_abilities
     if user
       can :update, user
       can :read, user
-      
+
       if user.admin?
         can :access, AdminArea
         can :manage, User
@@ -71,5 +71,5 @@ class Ability
       end
     end
   end
-  
+
 end

@@ -1,6 +1,6 @@
 class Activity < OurOhm
   module Subject
-  
+
     def activity(user, action, subject, sub_action = :to ,object = nil)
       Activity.create(user: user,action: action, subject: subject, object: object)
     end

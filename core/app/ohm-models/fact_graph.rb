@@ -2,7 +2,7 @@ class FactGraph
 
   def self.recalculate
       Basefact.all.to_a.each {|f| f.calculate_user_opinion }
-      5.times do 
+      5.times do
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
         Fact.all.to_a.each {|f| f.calculate_opinion}
       end

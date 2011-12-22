@@ -1,5 +1,5 @@
 class PercentageFormatter
-  
+
   def initialize(round_to, minimum)
     @round_to = round_to
     @minimum = minimum
@@ -14,12 +14,12 @@ class PercentageFormatter
   def cap_percentages(percentages)
     round_to = @round_to
     minimum = @minimum
-    
+
     after_total, large_ones = 0.0, 0.0
     percentages.each do |percentage|
       after_total += [percentage, minimum].max
       if percentage > (100 - minimum)/2
-        large_ones += percentage 
+        large_ones += percentage
       end
     end
     too_much = after_total - 100
@@ -39,5 +39,5 @@ class PercentageFormatter
     percentages[DOUBT_INDEX] += 100 - percentages.reduce(0,:+)
     percentages
   end
-  
+
 end

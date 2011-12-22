@@ -10,5 +10,5 @@ class FactRelationsController < ApplicationController
 
     respond_with(@fact.sorted_fact_relations)
   end
-  
+
 end

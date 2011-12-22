@@ -8,12 +8,12 @@ class FactData
   searchable :auto_index => true do
     text    :displaystring
     string  :displaystring
-    
+
     integer :fact_id
-    
+
     text    :title
     string  :title
-    
+
     time    :created_at
   end
 
@@ -34,5 +34,5 @@ class FactData
   def fact
     @fact ||= Fact[fact_id]
   end
-  
+
 end

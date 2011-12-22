@@ -53,7 +53,7 @@ module OhmGenericReference
       write_local(reader_c, value)
     end
   end
-end 
+end
 
 module OhmValueReference
   def value_reference(name, model)
@@ -90,7 +90,7 @@ module OhmValueReference
     end
 
   end
-end 
+end
 
 
 class OurOhm < Ohm::Model
@@ -108,7 +108,7 @@ class OurOhm < Ohm::Model
     alias :create! :create
     alias :ohm_set :set
     alias :ohm_sorted_set :sorted_set
-  
+
     def set(name,model)
       ohm_set(name, model)
       define_method(:"#{name}=") do |value|
@@ -133,17 +133,17 @@ class OurOhm < Ohm::Model
       collections(self) << name unless collections.include?(name)
     end
   end
-  
+
   def to_param
     id
   end
-  
+
   def update_attributes!(attrs)
     self.update_attributes(attrs)
     valid = valid?
-    
+
     save if valid
-    
+
     valid
   end
 
@@ -235,17 +235,17 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     else
       redis_opts = {}
     end
-    
+
     redis_opts[:withscores] = opts[:withscores]
-    
+
     res = key.zrevrangebyscore("(#{limit}",'-inf',redis_opts)
-    
+
     if opts[:withscores]
       res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}
     else
       res = res.map(&model)
     end
-    opts[:reversed]? res : res.reverse 
+    opts[:reversed]? res : res.reverse
   end
 
   def self.hash_array_for_withscores(arr)
@@ -264,7 +264,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     def apply(target,operation,*args)
       target.send(operation,*args)
       self.class.new(target,Ohm::Model::Wrapper.wrap(model),&@score_calculator)
-    end   
+    end
 
 end
 
@@ -286,17 +286,17 @@ class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
       key.zcard
     end
   end
-  
+
   def mark_as_read
     key['last_read'].set(self.class.current_time)
   end
-  
+
   alias :until :below
-  
+
   def inspect
     "#<TimestampedSet (#{model}): #{key.zrange(0,-1).inspect}>"
   end
-  
+
 end
 
 

@@ -5,7 +5,7 @@ class ChannelForFact
     @fact = fact
     @created_by_username=created_by_username
   end
-  
+
   def to_hash
     @channel.to_hash.merge({
       :created_by => created_by,

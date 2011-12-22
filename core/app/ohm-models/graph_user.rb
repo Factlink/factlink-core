@@ -1,6 +1,6 @@
 class GraphUser < OurOhm
   include Activity::Subject
-  
+
   def graph_user
     return self
   end
@@ -21,11 +21,11 @@ class GraphUser < OurOhm
   def channel_manager
     @channel_manager || ChannelManager.new(self)
   end
-  
-  delegate :editable_channels_for, :containing_channel_ids, 
+
+  delegate :editable_channels_for, :containing_channel_ids,
          :to => :channel_manager
 
-  
+
   define_memoized_method :channels do
     channels = self.internal_channels.to_a
 
@@ -51,9 +51,9 @@ class GraphUser < OurOhm
     save
   end
   after :create, :create_created_facts_channel
-  
+
   after :create, :calculate_authority
-  
+
   attribute :cached_authority
   index :cached_authority
   def calculate_authority
@@ -101,7 +101,7 @@ class GraphUser < OurOhm
 
   def opinion_on(fact)
     [:beliefs, :doubts, :disbeliefs].each do |opinion|
-      return opinion if has_opinion?(opinion,fact)  
+      return opinion if has_opinion?(opinion,fact)
     end
     return nil
   end

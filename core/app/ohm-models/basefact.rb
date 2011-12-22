@@ -1,6 +1,6 @@
 class Basefact < OurOhm
   include Activity::Subject
-  
+
   reference :created_by, GraphUser
   reference :opinion, Opinion
 
@@ -46,7 +46,7 @@ class Basefact < OurOhm
   def add_opiniated(type, user)
     opiniated(type).add(user)
   end
-  
+
   def delete_opiniated(type, user)
     opiniated(type).delete(user)
   end
@@ -55,7 +55,7 @@ class Basefact < OurOhm
     opiniated(type).size
   end
 
-  def add_opinion(type, user)    
+  def add_opinion(type, user)
     _remove_opinions(user)
 
     add_opiniated(type,user)
@@ -67,7 +67,7 @@ class Basefact < OurOhm
     _remove_opinions(user)
     activity(user,:removed_opinions,self)
   end
-  
+
   def _remove_opinions(user)
     user.remove_opinions(self)
     [:believes, :doubts, :disbelieves].each do |type|
@@ -80,7 +80,7 @@ class Basefact < OurOhm
   def calculate_user_opinion(depth=0)
     #depth has no meaning here unless we want the depth to also recalculate authorities
     opinions = []
-    [:believes, :doubts, :disbelieves].each do |type|      
+    [:believes, :doubts, :disbelieves].each do |type|
       opiniated = opiniated(type)
       opiniated.each do |user|
         opinions << Opinion.for_type(type, user.authority)
@@ -96,7 +96,7 @@ class Basefact < OurOhm
     end
     self.user_opinion || Opinion.identity
   end
-  
+
   private :delete
-  
+
 end

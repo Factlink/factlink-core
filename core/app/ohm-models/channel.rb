@@ -3,14 +3,13 @@ require File.join(File.dirname(__FILE__), "channel", "created_facts")
 require File.join(File.dirname(__FILE__), "channel", "user_stream")
 
 class Channel < OurOhm
-  
   include Activity::Subject
 
   def type; "channel" end
 
   attribute :title
   index :title
-  
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
 
@@ -54,24 +53,24 @@ class Channel < OurOhm
 
   def facts(opts={})
     return [] if new?
-    
+
     facts_opts = {reversed:true}
     facts_opts[:withscores] = opts[:withscores] ? true : false
     facts_opts[:count] = opts[:count].to_i if opts[:count]
-    
+
     limit = opts[:from] || 'inf'
-    
+
     res = sorted_cached_facts.below(limit,facts_opts)
-    
+
     if facts_opts[:withscores]
      res = res.delete_if{ |f| Fact.invalid(f[:item]) }
     else
      res = res.delete_if{ |f| Fact.invalid(f) }
     end
-     
+
     res
   end
-  
+
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
     super
@@ -97,21 +96,21 @@ class Channel < OurOhm
   def to_s
     self.title
   end
-  
-  
+
+
   def include?(obj)
     self.sorted_cached_facts.include?(obj)
   end
-  
+
   def editable?
     true
   end
-  
+
   def inspectable?
     true
   end
 
- 
+
   def fork(user)
     c = Channel.create(:created_by => user, :title => title)
     c._add_channel(self)
@@ -124,10 +123,10 @@ class Channel < OurOhm
     options[:without] << created_by
     calculator.related_users(facts,options)
   end
-  
+
   def to_hash
-    return {:id => id, 
-            :title => title, 
+    return {:id => id,
+            :title => title,
             :created_by => created_by,
             :discontinued => discontinued}
   end
@@ -138,13 +137,13 @@ class Channel < OurOhm
       activity(self.created_by,:added,channel,:to,self)
     end
   end
-  
+
   def remove_channel(channel)
     if (contained_channels.include?(channel))
       contained_channels.delete(channel)
       channel.containing_channels.delete(self)
       calculate_facts
-      
+
       activity(self.created_by, :removed, channel, :to, self)
     end
   end

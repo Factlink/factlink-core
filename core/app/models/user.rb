@@ -31,11 +31,11 @@ class User
       :large  => "64x64#"
     }
   before_post_process :set_avatar_filename
-  
+
   after_create :set_avatar_from_twitter
-  
+
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable, 
+  # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
   devise :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
@@ -62,9 +62,9 @@ class User
     guser = GraphUser.new
     guser.save
     self.graph_user = guser
-      
+
     yield
-      
+
     guser.user = self
     guser.save
   end
@@ -78,13 +78,13 @@ class User
     valid = true
     unless agrees_tos
       valid = false
-      self.errors.add("", "You have to accept the Terms of Service to continue.")  
+      self.errors.add("", "You have to accept the Terms of Service to continue.")
     end
     if name.blank?
       valid = false
-      self.errors.add("", "Please fill in your name to accept the Terms of Service.")  
+      self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
-    
+
     valid and self.update_without_password(agrees_tos: agrees_tos, name: name)
   end
 
@@ -105,7 +105,7 @@ class User
 
   def self.find(param,*args)
     super
-  rescue  
+  rescue
     from_param(param)
   end
 
@@ -128,11 +128,11 @@ class User
       set_avatar_filename
     end
   end
-  
+
   def set_avatar_filename
     self.avatar.instance_write(:file_name, self.twitter)
   end
-  
+
   def twitter_image_url
     "http://api.twitter.com/1/users/profile_image?screen_name=#{twitter}&size=bigger"
   end

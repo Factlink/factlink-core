@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
 
   include UrlHelper
   before_filter :set_mailer_url_options
-  
+
   #require mustache partial views (the autoloader does not find them)
-  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path| 
-    require_dependency path 
+  Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path|
+    require_dependency path
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   around_filter :profile
-  
+
   def profile
     return yield if ((params[:profile].nil?) || (Rails.env != 'development'))
     result = RubyProf.profile { yield }
@@ -45,22 +45,22 @@ class ApplicationController < ActionController::Base
   end
 
   protect_from_forgery
-  
+
   helper :all
-  
+
   after_filter :set_access_control
-  
+
   ##########
   # Set the Access Control, so XHR request from other domains are allowed.
   def set_access_control
     headers['Access-Control-Allow-Origin'] = '*'
     headers['Access-Control-Request-Origin'] = '*'
   end
-  
+
   def current_graph_user
     @current_graph_user ||= current_user.andand.graph_user
   end
-  
+
   def raise_404(message="Not Found")
     raise ActionController::RoutingError.new(message)
   end

@@ -1,12 +1,12 @@
 class ChannelsController < ApplicationController
 
   layout "channels"
-  
+
   before_filter :get_user
-  
+
   respond_to :json, :html
 
-  before_filter :load_channel, 
+  before_filter :load_channel,
     :only => [
       :show,
       :edit,
@@ -20,15 +20,15 @@ class ChannelsController < ApplicationController
       :add_fact,
       :remove_fact,
       :follow]
-  
+
   before_filter :authenticate_user!
-    
+
 
   # GET /:username/channels
   def index
     authorize! :index, Channel
     @channels = @user.graph_user.channels
-    
+
     respond_to do |format|
       format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for_channel_and_view(ch,view_context,@user)} }
       format.js
@@ -61,10 +61,10 @@ class ChannelsController < ApplicationController
   # POST /:username/channels
   def create
     authorize! :update, @user
-    
+
     @channel = Channel.new(params[:channel] || params.slice(:title))
     @channel.created_by = current_user.graph_user
-    
+
     # Check if object valid, then execute:
     if @channel.valid?
       @channel.save
@@ -72,24 +72,24 @@ class ChannelsController < ApplicationController
       unless params[:for_fact].nil?
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
-        
+
         render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context)
         return
       end
-      
+
       unless params[:for_channel].nil?
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
-        
+
         render :json => Channels::SingleMenuItem.for_channel_and_view(@channel,view_context)
         return
       end
-      
+
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
         format.js
       end
-      
+
     else
       respond_to do |format|
         format.html { render :action => "new" }
@@ -102,9 +102,9 @@ class ChannelsController < ApplicationController
   # PUT /:username/channels/1
   def update
     authorize! :update, @channel
-    
+
     channel_params = params[:channel] || params
-    
+
     respond_to do |format|
       if @channel.update_attributes!(channel_params.slice(:title))
         format.html  { redirect_to(channel_path(@channel.created_by.user, @channel),
@@ -117,21 +117,21 @@ class ChannelsController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /:username/channels/1
   def destroy
     authorize! :destroy, @channel
-    
+
     if @channel.created_by == current_user.graph_user
       @channel.delete
-      
+
       respond_to do |format|
         format.html  { redirect_to(channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
         format.json  { render :json => {}, :status => :ok }
       end
     end
   end
-  
+
   # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
@@ -140,15 +140,15 @@ class ChannelsController < ApplicationController
     if @channel.created_by == current_user.graph_user
       @channel.mark_as_read
     end
-    
+
     respond_with(@facts.map {|fact| Facts::FactView.for_fact_and_view(fact[:item],view_context,@channel,nil,fact[:score])})
   end
-  
+
   def remove_fact
     authorize! :update, @channel
     @fact = Fact[params[:fact_id]]
     @channel.remove_fact(@fact)
-    
+
     respond_with(@fact)
   end
 
@@ -156,52 +156,52 @@ class ChannelsController < ApplicationController
     authorize! :update, @channel
 
     @fact     = Fact[params[:fact_id]]
-    
+
     if @channel.facts.include?(@fact)
       @channel.remove_fact(@fact)
     else
       @channel.add_fact(@fact)
     end
-    
+
     respond_to do |format|
       format.js
     end
   end
-  
+
   def add_fact
     authorize! :update, @channel
-    
+
     @fact     = Fact[params[:fact_id]]
-    
+
     @channel.add_fact(@fact)
-    
+
     respond_with(@channel)
   end
-  
+
   def remove_fact
     authorize! :update, @channel
-    
+
     @fact = Fact[params[:fact_id]]
-    
+
     @channel.remove_fact(@fact)
-    
+
     respond_with(@channel)
   end
-  
+
   def follow
     @channel.fork(current_user.graph_user)
   end
-  
+
   def related_users
     authorize! :show, @channel
-    
+
     render layout: false, partial: "channels/related_users",
       locals: {
            related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
            excluded_users: [@channel.created_by]
       }
   end
-  
+
   def activities
     authorize! :show, @channel
     render layout:false, partial: "channels/activity_list",
@@ -209,14 +209,14 @@ class ChannelsController < ApplicationController
              channel: @channel
       }
   end
-  
+
   private
     def get_user
       if params[:username]
         @user = User.first(:conditions => { :username => params[:username]})
       end
     end
-  
+
     def load_channel
       @channel  = Channel[params[:channel_id] || params[:id]]
       @channel || raise_404("Channel not found")
