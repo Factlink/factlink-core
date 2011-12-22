@@ -23,6 +23,10 @@
   <!-- CSS: implied media=all -->
   <!-- CSS concatenated and minified via ant build script-->
   <%= stylesheet_link_tag "frontend" %>
+  <%= stylesheet_link_tag "tour" %>
+  <%= stylesheet_link_tag "bubble" %>
+
+
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
   <!-- end CSS-->
 
@@ -32,7 +36,7 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <%= javascript_include_tag "modernizr" %>
+  <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 
 </head>
@@ -49,19 +53,18 @@
 			<%= yield :header %>
     </section>
 
-
-		<section id="left-column" class="span-4 side-column">
+		<section id="left-column" class="span-5 side-column">
 			<%= yield :left_column %>
 		</section>
 
-		<section id="main-column" class="span-14" role="main">
+  	<section id="main-column" class="span-14" role="main">
 			<section id="main-wrapper">
 			  <%= yield :main_column %>
 			  <%= yield %>
 			</section>
 		</section>
 
-    <section id="right-column" class="span-6 last side-column">
+    <section id="right-column" class="span-5 last side-column">
       <%= yield :right_column %>      
     </section>
    
@@ -69,9 +72,7 @@
       <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
     </div>
   </div>
-	
-	<%= render "home/tour" %>
-	
+
 	<%= yield :template %>
 	
 	<%= javascript_include_tag "frontend" %>
@@ -89,6 +90,25 @@
   	  <%= render "home/twipsy" %>
   	<% end %>
   <% end %>
+
+  <script>
+  $('.take-the-tour').live('click', function() {
+    $('#first-tour-modal').remove();
+
+    // Load the tour
+    $.ajax({
+      url: "<%= tour_path %>",
+      dataType: "html",
+      success: function(data) {
+        $('body').append(data);
+        initTourModal();
+      },
+      error: function(data) {
+        console.log('Error while loading the tour.');
+      }
+    });
+  });
+  </script>
   
 	<%= yield :javascript %>
 	

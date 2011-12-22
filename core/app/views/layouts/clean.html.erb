@@ -32,12 +32,12 @@
   <!-- All JavaScript at the bottom, except for Modernizr / Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-  <%= javascript_include_tag "modernizr" %>
+  <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 
 </head>
 
-<body class="factlink-asite">
+<body>
 
   <div class="topbar">
     <div class="fill">
@@ -58,15 +58,8 @@
 		</section>
 
   </div>
-
-
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" %>
-  <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.js"><\/script>')</script>
-
-	<%= javascript_include_tag "rails" %>
+  
+	<%= javascript_include_tag "frontend" %>
 	
 	<%= yield :javascript %>	
 	

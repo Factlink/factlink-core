@@ -71,6 +71,7 @@ FactlinkUI::Application.routes.draw do
     resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
   end
+  get "/tour" => "home#tour", as: "tour"
 
   namespace :admin do
     resources :users

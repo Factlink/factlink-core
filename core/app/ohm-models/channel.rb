@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), "channel", "user_stream")
 
 class Channel < OurOhm
   
-  include ActivitySubject
+  include Activity::Subject
 
   def type; "channel" end
 

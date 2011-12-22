@@ -1,7 +1,8 @@
-@import "bootstrap";
-@import "color_declarations";
-@import "elements";
-
+@import "twitter/bootstrap/reset";
+@import "style.css.less";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/patterns";
 /** Fact block */
 span.proxyWindow { 
   display: none;
@@ -15,24 +16,26 @@ iframe.proxyFrame {
   height: 500px;
   border: solid 1px #777;
   z-index: 2147483645;
-  box-shadow: 2px 2px 1px rgba(0,0,0,0.4);
+  .box-shadow(2px 2px 1px rgba(0,0,0,0.4));
 }
 
 div.modal {
   border: none;
   top: 40px;
   .drop-shadow(0px, 5px, 10px, 0.4);
-  margin-top: 0;
+  margin: 0 auto;
+  left: 30%;
   padding: 0;
-  color: #777;
   width: 510px;
   span.proxyWindow { 
     display: inline !important;
   }
 }
-
+div.fact-block .close { 
+  margin: 5px;
+}
 .float { 
-  background-color: @bg;
+  background-color: @white;
   z-index: 2000;
   display: none;
   .drop-shadow(0, 0, 10px, 0.3);
@@ -64,33 +67,27 @@ div.modal {
     input[type="text"] {
       width: 130px;
       padding: 2px;
-      .rounded(3px);
+      .border-radius(3px);
       border: solid 1px #ccc;
     }
   }
 }
 .new-style {
-  .gradient(#fbfbfb, #e2e2e2, #fbfbfb);
+  #gradient > .vertical(#fbfbfb, #e2e2e2);
   border: solid 1px #a8a8a8;
   padding: 4px;
-  .rounded(3px);
-}
-
-.close { 
-  cursor: pointer;
-  font-family: Arial, sans-serif;
-  font-size: 12pt!important;
-  margin: 4px 4px 0 0;
+  .border-radius(3px);
 }
 
 /** Default styles for new modal */
 .default-modal {
-  background: @popup-bg;
+  background: @white;
   .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
 }
 .underbar {
-  background: @underbar-bg;
-  border-top: solid 1px @divider;
+  background: whiteSmoke;
+  font-weight: lighter;
+  border-top: solid 1px @grayLight;
   min-height: 32px;
   line-height: 32px;
 }
@@ -98,24 +95,20 @@ div.modal {
 .fact-block {
   .default-modal;
   border: solid 1px #ddd;
-  color: #BBB;
 
   text-shadow: 0px 1px 0px white;
   margin-bottom: 0;
-  font-size: 9pt;
 
-  &:hover > article.fact .actions {
+  &:hover > article.fact .activity {
     visibility: visible;
-    opacity: 1;
   }
 
   .controls {
     .underbar;
     a, li {
-      color: @link-blue;
+      color: @linkColor;
       text-shadow: 0px 1px 0px #fff;
-      font-weight: 100;
-      font-size: 11px;
+      font-size: 9pt;
     }
     ul.evidence {
       list-style: none;
@@ -128,7 +121,7 @@ div.modal {
   }
 
   article.fact {
-    -webkit-box-shadow: inset 0px 2px 1px #fff;
+    .box-shadow(inset 0px 2px 1px #fff);
     
     padding: 10px 0 10px 5px;
     min-height: 83px;
@@ -139,18 +132,17 @@ div.modal {
 			margin: 0 0 0px 75px;
 
       padding-right: 20px;
-      font-family:  Helvetica, Arial, sans-serif;      
-      color: #333;
+      #font > .sans-serif(normal,@basefont,@baseline);
+      color: #555;
       sub {
-        color: #aaa;
+        color: #888;
         line-height: inherit;
         font-size: x-small;
         a {
-          color: @link-blue;
+          color: @linkColor;
         }
       }
       .head {
-        font-weight: 100;
         font-size: 0.9em;
 				color: #888;
 
@@ -167,7 +159,7 @@ div.modal {
 					input, input:focus {
 						padding: 4px 0;
 						background-color: #ffffe1;
-						.rounded(3px);
+						.border-radius(3px);
 						
 						outline:none;
 						margin: -6px 0px -6px 0px;
@@ -176,20 +168,18 @@ div.modal {
 			}
 
       .body { 
-        font-family: Georgia, "Times New Roman", Garamond, serif;
-				font-size: 1.1em;
-				line-height: 19px;
+        #font > .serif(normal,@basefont,@baseline);
         span a { 
-          color: @link-blue;
+          color: @linkColor;
         }
 
 			}
 
-      .actions { 
+      .activity { 
         margin-top: 4px;
         visibility: hidden;
         height: 18px;
-        .transition(0.2s,ease-in);
+        .transition(all 0.2s ease-in);
 
         > ul > li { 
           margin: 5px 10px 0 0;
@@ -205,7 +195,6 @@ div.modal {
   }
   .wheel { 
     float: left;
-    width: 72px;
     height: 90px;
     svg {
       width: 52px !important;
@@ -218,60 +207,10 @@ div.modal {
       }
     }
   }
-  .authority { 
-    display: none;
-  }
-  .opinion-box {
-    .float;
-      height: 85px;
-      width: 150px;
-      position: absolute;
-      left: 72px;
-      display: none;
-      border: solid 1px #ccc;
-
-    .percentage { 
-      margin-top: 10px;
-      margin-right: 5px;
-      display: block;
-      text-align: right;
-      width: 60px;
-      float: right;
-      font-size: 18pt;
-    }
-    ul { 
-      float: left;
-      width: 80px;
-      height: 60px;
-      li { 
-        display: inline-block; 
-        img { 
-          width: 24px;
-          height: 24px;
-        }
-      }
-    }
-
-    .opinion-type {
-      text-shadow: none;
-      display: block;
-      color: white;
-      float: left;
-      padding: 4px 8px;
-      width: 134px;
-      background: darken(@divider, 15);
-    }
-  }
-
   div.evidence {
-    .opinion-box {
-      left: 78px;
-    }
-
     td {
-      &:hover > article.fact .actions {
+      &:hover > article.fact .activity {
         visibility: visible;
-        opacity: 1;
       }
     }
   }
@@ -308,16 +247,14 @@ div.modal {
       
       ul {
         li {
-          font-family: Lucida grande;
-          font-size: 12px;
           color: #aaa;
-          text-shadow: 0px 1px 0px #fff;
+          text-shadow: 0px 1px 0px)#fff;
           padding: 10px 10px 10px 36px;
-          border-bottom: solid 1px @divider;
+          border-bottom: solid 1px @grayLight;
           
           &:hover {
             color: darken(#aaa, 20);
-            background: darken(@underbar-bg, 2);
+            background: darken(@grayLighter, 2);
             cursor: pointer;
           }
         }
@@ -330,17 +267,17 @@ div.modal {
         a {
           margin-left: 15px;
         }
-        border-top: solid 1px @divider;
-        border-bottom: solid 1px darken(@divider, 2);
+        border-top: solid 1px @grayLight;
+        border-bottom: solid 1px darken(@grayLight, 2);
         .evidence_search {
           width: 300px;
           padding: 3px;
           border-radius: 4px;
-          border: solid 1px darken(@divider, 20);
+          border: solid 1px darken(@grayLight, 20);
           margin: 8px 4px 8px 15px;
         }
         a {
-          color: @link-blue;
+          color: @linkColor;
         }
       }
       .results {
@@ -354,17 +291,16 @@ div.modal {
         ul {
           li {
             color: lighten(#313131, 25);
-            font-family: "Georgia";
+            #font > .serif(normal, @basefont, @baseline);
             font-size: 14px;
-            font-weight: 100;
             padding: 15px;
-            border-bottom: solid 1px @divider;
+            border-bottom: solid 1px @grayLight;
 
             &.evidence {
               span {
                 display: block;
                 width: 100%;
-                font-size: 12px;
+                font-size: 10pt;
                 color: lighten(#313131, 40);
                 line-height: 20px;
               }
@@ -389,22 +325,20 @@ div.modal {
       }
       a {
         margin: 13px 15px;
-        color: @link-blue;
+        color: @linkColor;
         display: block;
       }
       
       .evidence-bubble {
         color: lighten(#313131, 25);
-        font-family: "Georgia";
-        font-size: 13px;
+        font-size: 10pt;
         line-height: 20px;
-        font-weight: 100;
         padding: 15px;
         margin: 0 15px 15px;
 
         border: solid 1px #ddd;
-        border-radius: 6px;
-        box-shadow: 2px 2px 1px @divider;
+        .border-radius(6px);
+        .box-shadow(2px 2px 1px @grayLight);
       }
       
       input {
@@ -412,15 +346,14 @@ div.modal {
         width: 450px;
         color: lighten(#313131, 25);
         font-family: "Georgia";
-        font-size: 13px;
+        font-size: 10pt;
         line-height: 20px;
-        font-weight: 100;
         padding: 15px;
         margin: 0 15px 15px;
         
         border: solid 1px #ddd;
-        border-radius: 6px;
-        box-shadow: 2px 2px 1px @divider;
+        .border-radius(6px);
+        .box-shadow(2px 2px 1px @grayLight);
       }
     }
     
@@ -447,7 +380,7 @@ div.modal {
       padding: 0 16px;
       color: #313131;
       a {
-        color: @link-blue;
+        color: @linkColor;
         margin-left: 4px;
       }
     }
@@ -462,15 +395,14 @@ div.modal {
 
       .no-evidence-message {
         display: none;
-        font-size: 14px;
+        font-size: 11pt;
         line-height: 24px;
         color: lighten(#313131, 25);
-        font-weight: 100;
         text-shadow: 0px 1px 0px #fff;
         margin-top: 100px;
         text-align: center;
         a {
-          color: @link-blue;
+          color: @linkColor;
         }
       }
       
@@ -485,7 +417,7 @@ div.modal {
       }
 
       li {
-        background: @underbar-bg;
+        background: whiteSmoke;
 
         .relation {
           width: 60px;
@@ -515,7 +447,7 @@ div.modal {
             display: block;
             background: url('../assets/relation-sprite.png') no-repeat -30px -28px;
           }
-          .supporting-indicator {
+         .supporting-indicator {
             .relation-indicator;
           }
           .weakening-indicator {
@@ -541,7 +473,7 @@ div.modal {
           width: 445px;
           text-align: left;
           background: #fff;
-          -webkit-box-shadow: none;
+          .box-shadow(none);
 
           border-left: solid 1px #ddd;
           border-bottom: solid 1px #ebebeb;

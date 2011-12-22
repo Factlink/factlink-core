@@ -108,7 +108,16 @@
      -moz-box-shadow: @shadow;
           box-shadow: @shadow;
 }
-
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+	-webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	-moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+  box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
 // Transitions
 .transition(@transition) {
      -webkit-transition: @transition;
@@ -211,4 +220,46 @@
 // Reset filters for IE
 .reset-filter() {
   filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+// Opacity
+.opacity(@opacity: 100) {
+  filter: alpha(opacity=@opacity);
+  -khtml-opacity: @opacity / 100;
+    -moz-opacity: @opacity / 100;
+         opacity: @opacity / 100;
+}
+// Custom mixins by Factlink and Elements.less
+.rotation(@deg:5deg){ 
+  -webkit-transform: rotate(@deg);
+  -moz-transform: rotate(@deg);
+  transform: rotate(@deg);
+}
+.scale(@ratio:1.5){
+	-webkit-transform:scale(@ratio);
+ 	-moz-transform:scale(@ratio);
+	transform:scale(@ratio);
+}
+.ellipsis() { 
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+.visible-scroll() { // sorry WebKit only
+  ::-webkit-scrollbar { background:transparent;overflow:visible; width:15px;}
+  ::-webkit-scrollbar-thumb { background-color:rgba(0,0,0,0.2); border:solid #fff;}
+  ::-webkit-scrollbar-thumb:hover { background:rgba(0,0,0,0.4);}
+  ::-webkit-scrollbar-thumb:horizontal { border-width:4px 6px;min-width:40px;}
+  ::-webkit-scrollbar-thumb:vertical { border-width:6px 4px;min-height:40px;}
+  ::-webkit-scrollbar-track-piece { background-color:#fff;}
+  ::-webkit-scrollbar-corner { background:transparent;}
+  ::-webkit-scrollbar-thumb { background-color: #DDD;}
+  ::-webkit-scrollbar-thumb:hover { background-color: #999;}
+}
+.unselectable() {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }

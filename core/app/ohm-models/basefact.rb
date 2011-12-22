@@ -1,5 +1,5 @@
 class Basefact < OurOhm
-  include ActivitySubject
+  include Activity::Subject
   
   reference :created_by, GraphUser
   reference :opinion, Opinion

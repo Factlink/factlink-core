@@ -1,5 +1,3 @@
-<div class="fact_search append-bottom">
-	<form method="GET" action="<%= factlink_overview_path %>">
-		<input id="factlink_search" type="text" class="search" name="s" placeholder="Search Factlink..." value="<%= params[:s] ? params[:s] : '' %>" >
-	</form>
-</div>
+<form method="GET" class="search" action="<%= factlink_overview_path %>">
+  <input id="factlink_search" type="text" class="search" style="width: 236px" name="s" placeholder="Search Factlink..." value="<%= params[:s] ? params[:s] : '' %>" >
+</form>

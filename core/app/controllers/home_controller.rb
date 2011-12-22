@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   
   helper_method :sort_column, :sort_direction
 
-  before_filter :authenticate_user!, only: [:tos]
+  before_filter :authenticate_user!, only: [:tos, :tour]
 
   #general static pages:
   def pages
@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   def index
     if user_signed_in?
-        redirect_to user_profile_path(@current_user.username)
+      redirect_to user_profile_path(@current_user)
     else
       @facts = Fact.all.sort(:order => "DESC",:limit => 3)
       render layout: "landing"
@@ -23,9 +23,14 @@ class HomeController < ApplicationController
  end
  
  def tos
-   
  end
 
+ def tour
+   current_user.seen_the_tour = true
+   current_user.save
+   render layout: nil
+ end
+ 
   # Search
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
