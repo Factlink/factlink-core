@@ -13,7 +13,6 @@ class TosController < ApplicationController
     agrees_tos  = (params[:user][:agrees_tos].to_i == 1) ? true : false
     name        = params[:user][:name]
 
-
     if current_user.sign_tos(agrees_tos,name)
       redirect_to user_profile_path(current_user)
     else
