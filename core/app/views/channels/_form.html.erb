@@ -1,10 +1,10 @@
 <%= form_for(:channel, :html=>{:method=> (action == "update") ? :put : :post}, :url => { action: action, username: params[:username] }) do |f| %>
-	<% if @channel.errors.any? %>
+	<% if channel.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+      <h2><%= pluralize(channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
 
       <ul>
-      <% @channel.errors.each do |key, value| %>
+      <% channel.errors.each do |key, value| %>
         <li><%= key.to_s %> <%= value.to_s %></li>
       <% end %>
       </ul>
@@ -22,7 +22,7 @@
 		<div class="actions">
 			<%= button_tag("Save", :disable_with => "Saving...", :class => "positive btn primary") %>&nbsp;
       <% if action == "update" %> 
-			  <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, @channel.id), :confirm => "Are you sure?", :method => :delete, :class => "danger btn" ) %></span>&nbsp;
+			  <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure?", :method => :delete, :class => "danger btn" ) %></span>&nbsp;
 			<% end %>
 		</div>
 	</div>
