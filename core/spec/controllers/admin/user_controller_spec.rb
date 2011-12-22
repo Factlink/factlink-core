@@ -11,6 +11,7 @@ describe Admin::UsersController do
   
   before do
     get_ability
+    should_check_admin_ability
   end
   
   describe "#index" do
