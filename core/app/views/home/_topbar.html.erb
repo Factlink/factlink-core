@@ -19,14 +19,12 @@
         <% if current_user %>
         
 
-          <% if can? :manage, User %>
+          <% if can? :access, Ability::AdminArea %>
           <li class="dropdown" data-dropdown="dropdown">
             <a class="dropdown-toggle">Admin</a>
             <ul class="dropdown-menu">
-              <li><%= link_to("View Users", admin_users_path) %></li>
-              <li><%= link_to("Add User", new_admin_user_path) %></li>
-              <li><hr></li>
-              <li><%= link_to("Manage Jobs", admin_jobs_path) %></li>
+              <li><%= link_to("Users", admin_users_path) %></li>
+              <li><%= link_to("Jobs", admin_jobs_path) %></li>
             </ul>
           </li>
           <% end %>
