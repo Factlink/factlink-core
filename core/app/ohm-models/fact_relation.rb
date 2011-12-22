@@ -62,9 +62,9 @@ class FactRelation < Basefact
     # Just to be sure: parse to Symbol
     case self.type.to_sym
     when :supporting
-      Opinion.for_type(:beliefs)
+      Opinion.for_type(:believes)
     when :weakening
-      Opinion.for_type(:disbeliefs)
+      Opinion.for_type(:disbelieves)
     end
   end
 

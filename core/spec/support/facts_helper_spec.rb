@@ -1,12 +1,12 @@
 module BeliefExpressions
   def b(user,fact)
     something_happened
-    fact.add_opinion(:beliefs,user.graph_user)
+    fact.add_opinion(:believes,user.graph_user)
   end
 
   def d(user,fact)
     something_happened
-    fact.add_opinion(:disbeliefs,user.graph_user)
+    fact.add_opinion(:disbelieves,user.graph_user)
   end
 
   def u(user,fact)
@@ -15,7 +15,7 @@ module BeliefExpressions
   end
 
   def _(b,d,u,a)
-    Opinion.new(:b=>b,:d=>d,:u=>u,:a=>a)
+    Opinion.new(b:b,d:d,u:u,a:a)
   end
 
   def possible_reset

@@ -114,7 +114,15 @@ describe Ability do
       it {admin.should          be_able_to :manage, Job}      
     end
   end
-
+  
+  describe "accessing the admin area" do
+    it "should only be allowed as admin" do
+      admin.should         be_able_to :access, Ability::AdminArea
+      subject.should_not   be_able_to :access, Ability::AdminArea
+      anonymous.should_not be_able_to :access, Ability::AdminArea
+    end
+  end
+  
   describe "listing jobs" do
     before do
       @j1 = FactoryGirl.create :job, show: true

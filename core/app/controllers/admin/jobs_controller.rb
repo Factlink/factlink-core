@@ -1,4 +1,4 @@
-class Admin::JobsController < ApplicationController
+class Admin::JobsController < AdminController
   layout "admin"
   
   load_and_authorize_resource

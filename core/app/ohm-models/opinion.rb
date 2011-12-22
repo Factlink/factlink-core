@@ -60,9 +60,9 @@ class Opinion < OurOhm
 
   def Opinion.for_type(type, authority=0)
     case type
-    when :beliefs
+    when :believes
       Opinion.new(:b=>1,:d=>0,:u=>0,:a=>authority)
-    when :disbeliefs
+    when :disbelieves
       Opinion.new(:b=>0,:d=>1,:u=>0,:a=>authority)
     when :doubts
       Opinion.new(:b=>0,:d=>0,:u=>1,:a=>authority)
