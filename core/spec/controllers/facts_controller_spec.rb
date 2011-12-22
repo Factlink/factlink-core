@@ -7,10 +7,6 @@ describe FactsController do
 
   let(:user) { FactoryGirl.create(:user) }
 
-  before do
-    get_ability
-  end
-
   describe :show do
     it "should render succesful" do
       @fact = FactoryGirl.create(:fact)

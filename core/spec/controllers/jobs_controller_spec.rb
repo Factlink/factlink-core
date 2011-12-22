@@ -6,11 +6,6 @@ describe JobsController do
   
   let (:user)  {FactoryGirl.create(:user, admin: false)}
  
-    
-  before do
-    get_ability
-  end
-  
   # This should return the minimal set of attributes required to create a valid
   # Job. As you add validations to Job, be sure to
   # update the return value of this method accordingly.

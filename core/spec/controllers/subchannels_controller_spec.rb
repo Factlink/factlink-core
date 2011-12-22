@@ -29,7 +29,6 @@ describe SubchannelsController do
       ch.created_by = otheruser.graph_user
       ch.save
     end
-    get_ability
   end
   
   describe "#index" do

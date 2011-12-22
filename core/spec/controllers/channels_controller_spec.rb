@@ -27,12 +27,6 @@ describe ChannelsController do
     ch1.save
     ch1
   end
-
-  before do
-    get_ability
-  end
-  
-  
   
   describe "#new" do
     it "should be succesful" do

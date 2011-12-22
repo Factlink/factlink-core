@@ -6,10 +6,6 @@ describe TosController do
 
   let(:user) { FactoryGirl.create :user, agrees_tos: false }
 
-  before do
-    get_ability
-  end
-
   describe :show do
     it "should render show" do
       authenticate_user!(user)
