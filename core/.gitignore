@@ -15,7 +15,7 @@ log/
 public/images/wheel/*.png
 *.rej
 *.orig
-public/system/
+public/system/avatars
 *~
 solr/pids
 temp-8546.rdb
