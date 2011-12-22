@@ -122,4 +122,24 @@ describe Ability do
       anonymous.should_not be_able_to :access, Ability::AdminArea
     end
   end
+  
+  describe "listing jobs" do
+    before do
+      @j1 = FactoryGirl.create :job, show: true
+      @j2 = FactoryGirl.create :job, show: false
+      @j3 = FactoryGirl.create :job, show: true
+    end
+    
+    it "should list all jobs for admin" do
+      Job.accessible_by(admin).to_a.should =~ [@j1, @j2, @j3]
+    end
+    
+    it "should list two jobs for non-admin user" do
+      Job.accessible_by(subject).to_a.should =~ [@j1, @j3]
+    end
+    
+    it "should list two jobs for anonymous user" do
+      Job.accessible_by(anonymous).to_a.should =~ [@j1, @j3]
+    end
+  end
 end

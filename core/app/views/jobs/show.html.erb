@@ -4,13 +4,16 @@
 
 
 <% content_for :menu_items do %>
-  <% @jobs.each do |job| %>
-    <%  if (job.show) %>
-      <li <%= job.id == @job.id ? "class='selected_menu_item'" : '' %>  >
-         <a href="/pages/jobs/<%= job.id %>"><%= job.title %></a>
-         <%#*#link_to job.title, pages_path(job)%>
-      </li>
-    <% end %>
+  <% @jobs.all.each do |job| %>
+    <li <%= job.id == @job.id ? "class='selected_menu_item'" : '' %>  >
+      <%=  link_to job.title, job_path(job) %>
+    </li>
+  <% end %>
+
+  <% if @jobs.all.length == 0 %>
+    <li>
+      <%= link_to "Jobs", jobs_path %>
+    </li>
   <% end %>
 <% end %>
 
