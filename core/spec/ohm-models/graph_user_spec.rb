@@ -14,7 +14,7 @@ describe GraphUser do
   end
 
 
-  [:believe,:doubts,:disbelieves].each do |type|
+  [:believes,:doubts,:disbelieves].each do |type|
     context "after adding #{type} to a fact" do
       before do
         fact.add_opinion(type,subject)

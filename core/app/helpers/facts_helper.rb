@@ -4,9 +4,9 @@ module FactsHelper
     locals = {  :fact_relation => fact_relation,}
     locals[:negative_active] = ''
     locals[:positive_active] = ''
-    if current_user.graph_user.opinion_on(fact_relation) == :beliefs
+    if current_user.graph_user.opinion_on(fact_relation) == :believes
       locals[:positive_active] = ' active'
-    elsif current_user.graph_user.opinion_on(fact_relation) == :disbeliefs
+    elsif current_user.graph_user.opinion_on(fact_relation) == :disbelieves
       locals[:negative_active] = ' active'
     end
     locals

@@ -56,15 +56,15 @@ describe Opinion do
   end
   
   it "should have the proper values when retrieved with for_type without explicit authority" do
-    Opinion.for_type(:beliefs).should    == Opinion.tuple(1,0,0,0)
-    Opinion.for_type(:disbeliefs).should == Opinion.tuple(0,1,0,0)
+    Opinion.for_type(:believes).should    == Opinion.tuple(1,0,0,0)
+    Opinion.for_type(:disbelieves).should == Opinion.tuple(0,1,0,0)
     Opinion.for_type(:doubts).should     == Opinion.tuple(0,0,1,0)
   end
   
   it "should have the proper values when retrieved with for_type with explicit authority" do
-    Opinion.for_type(:beliefs,1.3).should    == Opinion.tuple(1,0,0,1.3)
-    Opinion.for_type(:disbeliefs,1.3).should == Opinion.tuple(0,1,0,1.3)
-    Opinion.for_type(:doubts,1.3).should     == Opinion.tuple(0,0,1,1.3)
+    Opinion.for_type(:believes,1.3).should    == Opinion.tuple(1,0,0,1.3)
+    Opinion.for_type(:disbelieves,1.3).should == Opinion.tuple(0,1,0,1.3)
+    Opinion.for_type(:doubts,1.3).should      == Opinion.tuple(0,0,1,1.3)
   end
 
   it "should result in the same opinion when you sum it with an opinion with 0 authority" do
