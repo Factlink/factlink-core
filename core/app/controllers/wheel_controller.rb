@@ -12,18 +12,18 @@ class WheelController < ApplicationController
     
     after_percentages = PercentageFormatter.new(5,15).process_percentages(percentages)
 
-    local_path = "images/wheel/#{after_percentages.join('-')}.png"
+    local_path = "system/wheel/#{after_percentages.join('-')}.png"
 
     respond_to do |format|
       format.png do
         if after_percentages != percentages
-          this_url_path = "images/wheel/#{percentages.join('-')}.png"
+          this_url_path = "system/wheel/#{percentages.join('-')}.png"
           redir_to_file = "#{after_percentages.join('-')}.png"
-          redir_to_path = "images/wheel/#{redir_to_file}"
+          redir_to_path = "system/wheel/#{redir_to_file}"
 
           # only make a symlink if the file already exists to prevent concurrent requests on the same url from failing
-          if File.exists?(Rails.root.join('app', 'assets', redir_to_path))
-            File.symlink(redir_to_file, Rails.root.join('app', 'assets', this_url_path))
+          if File.exists?(Rails.root.join('public', redir_to_path))
+            File.symlink(redir_to_file, Rails.root.join('app', this_url_path))
           end
           
           # maybe this image already exists, redirect first
@@ -33,7 +33,7 @@ class WheelController < ApplicationController
               canvas.use(SvgWheelBuilder.new().wheel(after_percentages)).translate(10,10)
               
           end
-          filename = Rails.root.join('app','assets', local_path)
+          filename = Rails.root.join('public', local_path)
           rvg.draw.write(filename)    
         end
         redirect_to '/' + local_path
