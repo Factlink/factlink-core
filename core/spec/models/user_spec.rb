@@ -25,7 +25,7 @@ describe User do
     subject.graph_user.should be_a(GraphUser)
   end
 
-  [:beliefs,:doubts,:disbeliefs].each do |type|
+  [:believes,:doubts,:disbelieves].each do |type|
     it "should store the Fact ID in the graph_user object when a user #{type} a fact" do
       fact.add_opinion(type, subject.graph_user )
       subject.graph_user.has_opinion?(type,fact).should == true
