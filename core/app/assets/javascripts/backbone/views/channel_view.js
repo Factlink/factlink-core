@@ -1,3 +1,5 @@
+//= require jquery.hoverIntent
+
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
   tmpl: $('#channel_overview').html(),
