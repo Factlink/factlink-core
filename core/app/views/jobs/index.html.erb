@@ -5,32 +5,15 @@
 <% content_for :menu_items do %>
   <% @jobs.each do |job| %>
     <%  if (job.show) %>
-      <li class="selected_menu_item"><a href="<%= job.id %>"><%= job.title %></a></li>
+      <li>
+         <a href="/pages/jobs/<%= job.id %>"><%= job.title %></a>
+         <%#*#link_to job.title, pages_path(job)%>
+      </li>
     <% end %>
   <% end %>
 <% end %>
 
 <% content_for :body_text do %>
-  <h1></h1>
-
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-
-    <% @jobs.each do |job| %>
-      <tr>
-        <td><%= job.title %></td>
-        <td><%= job.content %></td>
-        <td><%= link_to 'Show', job %></td>
-      </tr>
-    <% end %>
-  </table>
-
-  <br />
-
+  <h1>Jobs</h1>
+  <p>We are always looking for talented people to join our team. See our current openings to the left, or apply for an open application by mailing us at <a href="mailto:jobs@factlink.com">jobs@factlink.com</a>, or call us at +31 (0)50 - 2101047.</p> 
 <% end %>

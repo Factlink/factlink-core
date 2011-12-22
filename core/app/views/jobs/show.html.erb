@@ -8,7 +8,6 @@
     <%  if (job.show) %>
       <li <%= job.id == @job.id ? "class='selected_menu_item'" : '' %>  >
          <a href="/pages/jobs/<%= job.id %>"><%= job.title %></a>
-        
          <%#*#link_to job.title, pages_path(job)%>
       </li>
     <% end %>
