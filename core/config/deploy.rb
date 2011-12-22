@@ -16,7 +16,7 @@ require "bundler/capistrano"
 # RVM support
 # Add RVM's lib directory to the load path.
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-# Load RVM's capistrano plugin.    
+# Load RVM's capistrano plugin.
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 
@@ -35,24 +35,24 @@ ssh_options[:forward_agent] = true
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-  
+
   task :all do
-    set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"    
+    set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"
   end
-  
+
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
-  
+
   task :aptget do
     run 'apt-get -y update'
     run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
-  
+
   task :set_wheel_permissions do
-    run "chmod 777 #{current_path}/app/assets/images/wheel"
+    run "chmod 777 #{current_path}/public/system/wheel"
     run "cat /root/pirate.ascii"
   end
 

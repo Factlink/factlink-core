@@ -58,7 +58,7 @@ FactlinkUI::Application.routes.draw do
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
 
   # generate the images for the indicator used in the js-lib
-  get "/images/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
+  get "/system/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
 
   ##########
   # Web Front-end
