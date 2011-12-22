@@ -22,8 +22,8 @@ class WheelController < ApplicationController
           redir_to_path = "images/wheel/#{redir_to_file}"
 
           # only make a symlink if the file already exists to prevent concurrent requests on the same url from failing
-          if File.exists?(Rails.root.join('public',redir_to_path))
-            File.symlink(redir_to_file, Rails.root.join('public',this_url_path))
+          if File.exists?(Rails.root.join('app', 'assets', redir_to_path))
+            File.symlink(redir_to_file, Rails.root.join('app', 'assets', this_url_path))
           end
           
           # maybe this image already exists, redirect first
