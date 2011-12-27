@@ -35,6 +35,18 @@ module Channels
       self[:channel].type
     end
 
+    def is_created
+      type == 'created'
+    end
+
+    def is_all
+      type == 'stream'
+    end
+
+    def is_normal
+      !is_all && !is_created
+    end
+
     def created_by
       Users::User.for_user(self[:user], self.view)
     end
