@@ -14,11 +14,11 @@ describe Ability do
   let(:other_user) {FactoryGirl.create :user}
   let(:admin_user) {FactoryGirl.create :user, admin: true}
   let(:nonnda_user) {FactoryGirl.create :user, agrees_tos: false}
-  
+
   describe "to manage a user" do
     context "as a normal user" do
       it {subject.should_not be_able_to :manage, User }
- 
+
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :update, user }
       it {subject.should_not be_able_to :sign_tos, user }
@@ -68,14 +68,14 @@ describe Ability do
       it {anonymous.should_not be_able_to :create, ch1 }
     end
   end
-  
+
   describe "to manage facts" do
     let(:f1) { FactoryGirl.create :fact, created_by: user.graph_user }
     let(:f2) { FactoryGirl.create :fact, created_by: other_user.graph_user }
-    
+
     it {subject.should be_able_to :index, Fact }
     it {subject.should be_able_to :create, Fact }
-    
+
     describe "of my own" do
       it {subject.should be_able_to :update, f1 }
       it {subject.should be_able_to :read, f1 }
@@ -91,7 +91,7 @@ describe Ability do
       it {subject.should      be_able_to :add_evidence, f2 }
       it {subject.should_not  be_able_to :create, f2 }
     end
-   
+
     describe "without logging in" do
       it {anonymous.should      be_able_to :index, Fact }
       it {anonymous.should_not  be_able_to :create, Fact }
@@ -100,21 +100,21 @@ describe Ability do
       it {anonymous.should      be_able_to :read, f1 }
     end
   end
-  
+
   describe "managing jobs" do
     describe "as anonymous" do
       it {anonymous.should      be_able_to :read, Job}
-      it {anonymous.should_not  be_able_to :manage, Job}      
+      it {anonymous.should_not  be_able_to :manage, Job}
     end
     describe "as a user" do
-      it {subject.should        be_able_to :read, Job}      
-      it {subject.should_not    be_able_to :manage, Job}      
+      it {subject.should        be_able_to :read, Job}
+      it {subject.should_not    be_able_to :manage, Job}
     end
     describe "as an admin" do
-      it {admin.should          be_able_to :manage, Job}      
+      it {admin.should          be_able_to :manage, Job}
     end
   end
-  
+
   describe "accessing the admin area" do
     it "should only be allowed as admin" do
       admin.should         be_able_to :access, Ability::AdminArea
@@ -122,22 +122,31 @@ describe Ability do
       anonymous.should_not be_able_to :access, Ability::AdminArea
     end
   end
-  
+
+  describe "accessing factlink" do
+    it "should be allowed to users who signed the nda" do
+      admin.should           be_able_to :access, Ability::FactlinkWebapp
+      subject.should         be_able_to :access, Ability::FactlinkWebapp
+      anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
+      nonnda.should_not      be_able_to :access, Ability::FactlinkWebapp
+    end
+  end
+
   describe "listing jobs" do
     before do
       @j1 = FactoryGirl.create :job, show: true
       @j2 = FactoryGirl.create :job, show: false
       @j3 = FactoryGirl.create :job, show: true
     end
-    
+
     it "should list all jobs for admin" do
       Job.accessible_by(admin).to_a.should =~ [@j1, @j2, @j3]
     end
-    
+
     it "should list two jobs for non-admin user" do
       Job.accessible_by(subject).to_a.should =~ [@j1, @j3]
     end
-    
+
     it "should list two jobs for anonymous user" do
       Job.accessible_by(anonymous).to_a.should =~ [@j1, @j3]
     end
