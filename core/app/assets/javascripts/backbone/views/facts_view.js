@@ -6,14 +6,13 @@ window.FactsView = Backbone.View.extend({
   tmpl: $('#facts_tmpl').html(),
   _previousLength: 0,
   
-  initialize: function() {
+  initialize: function(options) {
     var self = this;
 
     this.collection.bind('add', this.addFact, this);
     this.collection.bind('reset', this.resetFacts, this);
 
-    $(this.el).html(Mustache.to_html(this.tmpl));
-    
+    $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON()));
     this.bindScroll();
   },
   

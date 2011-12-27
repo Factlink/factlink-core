@@ -13,7 +13,8 @@ window.ChannelView = Backbone.View.extend({
     this.factsView = new FactsView({
       collection: new Facts([],{
         rootUrl: self.model.url()
-      })
+      }),
+      channel: self.model
     });
     
     this.factsView.setLoading();

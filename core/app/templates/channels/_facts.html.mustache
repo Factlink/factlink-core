@@ -1,9 +1,36 @@
 <div class="facts">
-  
+
 </div>
 <div class="loading">
   <img src="/assets/ajax-loader.gif"> <span>Loading...</span>
 </div>
 <div class="no_facts" style="display:none;">
-  There are no Factlinks in this channel
+  {{#is_all}}
+    <p>You have not created a channel or added someone's channel yet. You can:</p>
+    <div class="empty-channel-action">
+      <h3>Add a Factlink</h3>
+      <img src="/assets/empty_channel_placeholders/addfactlink.png">
+    </div>
+    <div class="empty-channel-action">
+      <h3>Create a channel</h3>
+      <img src="/assets/empty_channel_placeholders/createchannel.png">
+    </div>
+  {{/is_all}}
+  {{#is_created}}
+    <p>You have not created any Factlinks yet. You can create Factlinks anywhere on the web.</p>
+    <h3>Create a Factlink</h3>
+    <img src="/assets/empty_channel_placeholders/addfactlink.png">
+  {{/is_created}}
+  {{#is_normal}}
+    <p>This channel does not contain any Factlinks yet. You can:</p>
+    <div class="empty-channel-action">
+      <h3>Add a Factlink</h3>
+      <img src="/assets/empty_channel_placeholders/addfactlinktochannel.png">
+    </div>
+    <div class="empty-channel-action">
+      <h3>Add a channel</h3>
+      <img src="/assets/empty_channel_placeholders/addtochannels.png">
+    </div>
+  {{/is_normal}}
+  <div class="empty-channel-action-end"></div>
 </div>
