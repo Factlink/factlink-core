@@ -52,6 +52,7 @@ namespace :deploy do
   end
 
   task :set_wheel_permissions do
+    run "mkdir -p #{current_path}/public/system/wheel"
     run "chmod 777 #{current_path}/public/system/wheel"
     run "cat /root/pirate.ascii"
   end
