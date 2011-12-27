@@ -48,21 +48,21 @@
   </div>
 
   <div id="container" class="container">
-    
-		<%= render 'home/notifications', notice: notice, alert: alert %>
-	
-		<section id="main-column" class="prepend-4 span-14" role="main">
-			<section id="main-wrapper">
-			  <%= yield %>
-			</section>
-		</section>
+
+    <%= render 'home/notifications', notice: notice, alert: alert %>
+
+    <section id="main-column" class="prepend-4 span-14" role="main">
+      <section id="main-wrapper">
+        <%= yield %>
+      </section>
+    </section>
 
   </div>
-  
-	<%= javascript_include_tag "frontend" %>
-	
-	<%= yield :javascript %>	
-	
+
+  <%= javascript_include_tag "frontend" %>
+
+  <%= yield :javascript %>
+
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7 ]>

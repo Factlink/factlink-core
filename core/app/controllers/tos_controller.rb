@@ -1,7 +1,7 @@
 class TosController < ApplicationController
   
   before_filter :authenticate_user!
-  layout "clean"
+  layout "frontend"
 
   def show
     authorize! :sign_tos, current_user
