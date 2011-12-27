@@ -9,6 +9,21 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
+
+module Devise
+  module Models
+    module DatabaseAuthenticatable
+      protected
+        def password_digest(password)
+          password
+        end
+    end
+  end
+end
+Devise.setup do |config|
+  config.stretches = 0
+end
+
 RSpec.configure do |config|
   #mix in FactoryGirl methods
   config.include Factory::Syntax::Methods
