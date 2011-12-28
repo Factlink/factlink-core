@@ -12,8 +12,9 @@
                  :excluded_users => [@channel.andand.created_by.andand.user])
                %>
   </div>
-  
-  <% if false and @channel and not @channel.new? %>
+  <% end %>
+  <% content_for :right_column do %>
+  <% if @channel and not @channel.new? %>
     <div id="activity-listing">
       <%= render "channels/activity_list", channel: @channel %>
     </div>
@@ -23,7 +24,7 @@
 <% content_for :javascript do %>
   <script>
     Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user) }.to_json.html_safe %>);
-    
+
     <% if @channel && !@channel.new? %>
       window.currentChannel = Channels.get(<%= @channel.id %>);
     <% end %>
@@ -33,11 +34,11 @@
 
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
     <% end %>
-    
+
     var Router = new Workspace();
-    
+
     Backbone.history.start({pushState:true, silent:true});
-    
+
   </script>
 <% end %>
 
