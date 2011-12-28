@@ -28,14 +28,12 @@
   <%= load_js_template "facts_tmpl",              "channels/_facts.html.mustache" %>
 <% end %>
 
-<h1>Factlink search - providing credibility you can see</h1>
+<h1>Searched for: <b><%= params[:s] %></b></h1>
 
 <% unless @results.count > 0 %>
-
   <div class="append-bottom">
-      <p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
+      <p>Sorry, your search didn't return any results.</p>
   </div>
-
 <% else %>
   <ul id="results-listing">
   </ul>
