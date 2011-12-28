@@ -12,7 +12,11 @@ window.FactsView = Backbone.View.extend({
     this.collection.bind('add', this.addFact, this);
     this.collection.bind('reset', this.resetFacts, this);
 
-    $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON()));
+    if(options.channel !== undefined ) {
+      $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON()));
+    } else {
+      $(this.el).html(Mustache.to_html(this.tmpl));
+    }
     this.bindScroll();
   },
   
