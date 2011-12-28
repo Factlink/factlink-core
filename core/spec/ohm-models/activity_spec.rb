@@ -11,7 +11,7 @@ describe Activity do
     @b2 = Blob.create
     @gu = GraphUser.create
   end
-  
+
   context "initially" do
     describe ".for" do
       it "should be empty" do
@@ -21,7 +21,7 @@ describe Activity do
       end
     end
   end
-  
+
   context "after creating one activity" do
     before do
       a = Activity.create(
@@ -44,7 +44,7 @@ describe Activity do
       it {Activity.for(@b2).to_a.should =~ [@activity] }
     end
   end
-  
+
   context "when dealing with activities on graphusers" do
     before do
       @gu2 = GraphUser.create
@@ -69,5 +69,5 @@ describe Activity do
       it {Activity.for(@gu3).to_a.should =~ [@activity] }
     end
   end
-    
+
 end
