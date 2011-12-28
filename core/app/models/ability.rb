@@ -1,5 +1,6 @@
 class Ability
   class AdminArea;end
+  class FactlinkWebapp;end
 
   include CanCan::Ability
 
@@ -18,6 +19,7 @@ class Ability
     # Registered user
     if user
       if user.agrees_tos
+        can :access, FactlinkWebapp
         define_channel_abilities
         define_fact_abilities
         define_fact_relation_abilities
