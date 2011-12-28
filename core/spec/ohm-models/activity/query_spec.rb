@@ -30,7 +30,7 @@ describe Activity::Query do
     end
     it "should not return elements for a user without activity" do
       a = Activity.create user: gu, action: 'foo', object: b1, subject: f1
-      Activity::Query.where_one(user: gu2).to_a.should == [a]
+      Activity::Query.where_one(user: gu2).to_a.should == []
     end
   end
 
