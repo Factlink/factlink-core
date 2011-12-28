@@ -1,7 +1,7 @@
 <div class="fl-popup" style="display:none">
   <div class="fl-share">
     <img class="fl-share-icon" src=<%= "#{FactlinkUI::Application.config.static_url}/lib/src/images/bookmark.gif" %> alt="Share">
-    
+
     <ul class="fl-channels">
       <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
     </ul>
@@ -9,11 +9,11 @@
 
   <div class="fl-label">
     <span>Show</span>
-    
+
     <div class="fl-indication">
       <span class="fl-authority">{%= opinions.authority %}</span>
       <div class="fl-indicator-icon">
-        <%= image_tag(image_url("/images/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe)) %>
+        <%= image_tag(image_url("/system/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe)) %>
       </div>
     </div>
   </div>
