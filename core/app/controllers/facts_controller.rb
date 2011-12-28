@@ -34,13 +34,13 @@ class FactsController < ApplicationController
     @modal = true
     @hide_links_for_site = @modal && @fact.site
 
-    respond_with(Facts::FactView.for_fact_and_view(@fact, view_context))
+    respond_with(Facts::Fact.for_fact_and_view(@fact, view_context))
   end
 
   def index
     @facts = Fact.all
 
-    respond_with(@facts.map {|ch| Facts::FactView.for_fact_and_view(ch,view_context)})
+    respond_with(@facts.map {|ch| Facts::Fact.for_fact_and_view(ch,view_context)})
   end
 
   def intermediate

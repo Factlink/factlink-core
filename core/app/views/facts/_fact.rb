@@ -1,5 +1,5 @@
 module Facts
-  class FactView < Mustache::Railstache
+  class Fact < Mustache::Railstache
     def self.for_fact_and_view(fact, view, channel=nil, modal=nil,timestamp=0)
       fv = new(false)
       fv.view = view
