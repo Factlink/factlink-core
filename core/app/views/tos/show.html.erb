@@ -30,7 +30,11 @@ Factlink may update these terms and conditions at any time.
     <div class="row">
       <%= f.label "Email address*" %>
       <div class="field">
+<<<<<<< HEAD
       <%= f.email_field :email, value: current_user ? current_user.email : "", required: true, readonly:true %>
+=======
+      <%= f.email_field :email, value: current_user ? current_user.email : "", required: true, readonly: true %>
+>>>>>>> hotfix/0.0.17.4
       </div>
       <span class="explanation">* fields are required</span>
     </div>
