@@ -26,10 +26,12 @@ class Activity < OurOhm
     end
 
     def self.where_one(query)
-      return empty_activity_set if query.slice(:user) == {}
+      return empty_activity_set if query.slice(:user, :subject, :object) == {}
 
       set = Activity.all()
       set = set.find(user_id: query[:user].id ) if query[:user]
+      set = set.find(subject_id: query[:subject].id, subject_class: query[:subject].class ) if query[:subject]
+      set = set.find(object_id: query[:object].id, object_class: query[:object].class ) if query[:object]
       set
     end
   end
