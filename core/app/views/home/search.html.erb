@@ -18,21 +18,6 @@
 
 <% end %>
 
-<% content_for :main_column do %>
-  <h1>Factlink search - providing credibility you can see</h1>
-
-  <% unless @results.count > 0 %>
-
-    <div class="append-bottom">
-        <p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
-    </div>
-
-  <% else %>
-    <ul id="results-listing">
-    </ul>
-  <% end %>
-<% end %>
-
 <% content_for :template do %>
   <%= load_js_template "user_block_tmpl",         "users/_user.html.mustache" %>
   <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
@@ -41,4 +26,17 @@
   <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
   <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
   <%= load_js_template "facts_tmpl",              "channels/_facts.html.mustache" %>
+<% end %>
+
+<h1>Factlink search - providing credibility you can see</h1>
+
+<% unless @results.count > 0 %>
+
+  <div class="append-bottom">
+      <p>Your search didn't return any matching results.</p> <p>Perhaps you should refine your search?</p>
+  </div>
+
+<% else %>
+  <ul id="results-listing">
+  </ul>
 <% end %>
