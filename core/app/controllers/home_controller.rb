@@ -52,15 +52,11 @@ class HomeController < ApplicationController
     end
 
     @results = solr_result.results.map do |result|
-      begin
-        Facts::FactView.for_fact_and_view(result.fact,view_context)
-      rescue
-        Users::User.for_user(result, view_context)
-      end
+      result.fact
     end
 
     respond_to do |format|
-      format.html # search.html.erb
+      format.html
       format.js
     end
   end
