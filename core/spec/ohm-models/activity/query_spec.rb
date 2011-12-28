@@ -61,6 +61,37 @@ describe Activity::Query do
       a = Activity.create user: gu1, action: 'foo', object: b1, subject: f1
       Activity::Query.where_one(object: b2).to_a.should == []
     end
+
+    it "should return all elements of a object when queried for it" do
+      a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
+      Activity::Query.where_one(action: :foo).to_a.should == [a]
+    end
+
+    it "should not return elements for a object without activity" do
+      a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
+      Activity::Query.where_one(action: :bar).to_a.should == []
+    end
+
+    it "should only find activities which match all queries" do
+      a1 = Activity.create user: gu1, action: :foo, object: b1, subject: f1
+      a2 = Activity.create user: gu1, action: :foo, object: b2, subject: f1
+      a3 = Activity.create user: gu1, action: :foo, object: b1, subject: f2
+      a4 = Activity.create user: gu2, action: :foo, object: b1, subject: f1
+      a5 = Activity.create user: gu2, action: :foo, object: b2, subject: f1
+      a6 = Activity.create user: gu2, action: :foo, object: b1, subject: f2
+
+      Activity::Query.where_one(user:   gu1, action: :foo).to_a.should =~ [a1,a2,a3]
+      Activity::Query.where_one(subject: f1, action: :foo).to_a.should =~ [a1,a2,a4,a5]
+      Activity::Query.where_one(object:  b1, action: :foo).to_a.should =~ [a1,a3,a4,a6]
+
+      Activity::Query.where_one(user:   gu1, action: :bar).to_a.should =~ []
+      Activity::Query.where_one(subject: f1, action: :bar).to_a.should =~ []
+      Activity::Query.where_one(object:  f2, action: :bar).to_a.should =~ []
+
+      Activity::Query.where_one(user:   gu1, object: b1).to_a.should =~ [a1,a3]
+      Activity::Query.where_one(user:   gu1, subject: f1).to_a.should =~ [a1,a2]
+    end
+
   end
 
 end

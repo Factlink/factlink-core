@@ -12,6 +12,7 @@ class Activity < OurOhm
   generic_reference :object
 
   attribute :action
+  index     :action
 
   def self.for(search_for)
     Activity::Query.for(search_for)
