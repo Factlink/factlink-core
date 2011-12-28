@@ -13,5 +13,16 @@ class Activity < OurOhm
       Activity.find *args
     end
 
+    def self.where(queries)
+      return Ohm::Model::Set.new(Ohm::Model.key[:emptyset], Ohm::Model::Wrapper.new(:Activity) {Activity}) if queries.length == 0
+
+      queries.map {|q| where_one(q)}.reduce {|res, set| res | set}
+    end
+
+    def self.where_one(query)
+      set = Activity.all()
+      #set = set.find(user_id: query[:user].id ) if query[:user]
+      set
+    end
   end
 end
