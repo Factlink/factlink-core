@@ -18,8 +18,8 @@ class FactGraph
   end
 
   def self.export_opiniated(writer,fact,prefix="")
-    writer.write(prefix + LoadDsl.export_believers(fact.opiniated(:beliefs))) if fact.opiniated(:beliefs).size > 0
-    writer.write(prefix + LoadDsl.export_disbelievers(fact.opiniated(:disbeliefs))) if fact.opiniated(:disbeliefs).size > 0
+    writer.write(prefix + LoadDsl.export_believers(fact.opiniated(:believes))) if fact.opiniated(:believes).size > 0
+    writer.write(prefix + LoadDsl.export_disbelievers(fact.opiniated(:disbelieves))) if fact.opiniated(:disbelieves).size > 0
     writer.write(prefix + LoadDsl.export_doubters(fact.opiniated(:doubts))) if fact.opiniated(:doubts).size > 0
   end
 
