@@ -130,26 +130,20 @@ class Fact < Basefact
     define_method(:"calculate_#{name}") do |*args|
       depth = args[0] || 0
       instance_exec depth, &block
+      save
     end
   end
 
   opinion_reference :evidence_opinion do |depth|
     opinions = []
-    [:supporting, :weakening].each do |type|
-      factrelations = evidence(type)
-      factrelations.each do |factrelation|
-        opinions << factrelation.get_influencing_opinion(depth-1)
-      end
+    evidence(:both).each do |factrelation|
+      opinions << factrelation.get_influencing_opinion(depth-1)
     end
     self.evidence_opinion = Opinion.combine(opinions)
-    save
   end
 
   opinion_reference :opinion do |depth|
-    calculate_evidence_opinion
-    total_opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth)
-    self.opinion = total_opinion
-    save
+    self.opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth<1?1:depth)
   end
 
   attribute :cached_incluencing_authority
