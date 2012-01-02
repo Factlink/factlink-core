@@ -31,7 +31,6 @@ class Basefact < OurOhm
 
   def opiniated(type)
     type = real_opinion(type)
-    belief_check(type)
     if [:beliefs,:believes].include?(type)
       people_believes
     elsif [:doubts].include?(type)

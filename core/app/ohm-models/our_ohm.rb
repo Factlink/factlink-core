@@ -86,13 +86,4 @@ class OurOhm < Ohm::Model
   def self.find_or_create_by(opts)
     self.find(opts).first || self.create(opts)
   end
-
-
-  def belief_check(type)
-    type = type.to_sym
-    if [:beliefs,:disbeliefs].include?(type)
-      #warn "please fix the spelling of your #{type}"
-    end
-  end
-
 end

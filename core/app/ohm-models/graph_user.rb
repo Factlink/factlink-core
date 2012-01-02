@@ -83,7 +83,6 @@ class GraphUser < OurOhm
   # user.facts_he(:beliefs)
   def facts_he(type)
     type = type.to_sym
-    belief_check(type)
     if [:beliefs,:believes].include?(type)
       believes_facts
     elsif [:doubts].include?(type)
