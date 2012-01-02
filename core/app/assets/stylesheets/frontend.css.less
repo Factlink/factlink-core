@@ -256,15 +256,16 @@ a.bookmarklet {
     .add-channel {
       float: right;
       padding: 4px;
-      margin-right: 24px;
+      margin-right: 18px;
+      &:before {
+        content: "+ ";
+	      font-family: "IconicStroke";
+      }
     }
     .related-users {
       padding-top: @baseline;
       article, li {
         padding-bottom: @baseline / 2;
-      }
-      h2 {
-        margin-left: -4px;
       }
       // User block for related users
       .user-block {
@@ -409,7 +410,7 @@ a.bookmarklet {
 
   #channel-listing {
     @margin: 6px;
-    margin: 1.5em 0 1em -6px;
+    margin: 1.5em 0 1em 0;
     li a {
       padding: @margin 4px @margin 0;
       width: 140px;
