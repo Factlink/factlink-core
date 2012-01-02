@@ -12,7 +12,6 @@ class FactRelation < Basefact
     assert_present :type # TODO check if it's one of the permitted values
   end
 
-  #TODO add proper index for get_or_create
   def FactRelation.get_or_create(from, type, to, user)
     if FactRelation.exists_already?(from,type,to)
       FactRelation.get_relation(from,type,to)
