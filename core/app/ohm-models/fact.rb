@@ -93,11 +93,9 @@ class Fact < Basefact
     !f || !f.data_id
   end
 
-  def delete
-    delete_all_evidence
-    delete_all_evidenced
+
+  def delete_data
     data.delete
-    super
   end
 
   def delete_all_evidence
@@ -112,8 +110,10 @@ class Fact < Basefact
     end
   end
 
-
-  private :delete_all_evidence, :delete_all_evidenced
+  before :delete, :delete_data
+  before :delete, :delete_all_evidence
+  before :delete, :delete_all_evidenced
+  private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   attribute :cached_incluencing_authority
   def calculate_influencing_authority
