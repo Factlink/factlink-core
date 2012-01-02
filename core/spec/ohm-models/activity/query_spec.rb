@@ -92,6 +92,11 @@ describe Activity::Query do
       Activity::Query.where_one(user:   gu1, subject: f1).to_a.should =~ [a1,a2]
     end
 
+    it "should find an activity with a certain action when searched for with a string" do
+      a = Activity.create user: gu1, action: :foo, subject: f1
+      Activity::Query.where_one(subject: f1, action: "foo").to_a.should == [a]
+    end
+
   end
 
 end
