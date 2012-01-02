@@ -61,9 +61,12 @@ class FactRelation < Basefact
     Opinion.for_relation_type(self.type)
   end
 
-  def delete
+  def delete_key
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
-    fact.evidence(self.type.to_sym).delete(self)
-    super
   end
+  def delete_from_evidence
+    fact.evidence(self.type.to_sym).delete(self)
+  end
+  before :delete, :delete_key
+  before :delete, :delete_from_evidence
 end
