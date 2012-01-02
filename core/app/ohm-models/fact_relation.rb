@@ -73,18 +73,8 @@ class FactRelation < Basefact
     super
   end
 
-
-  value_reference :influencing_opinion, Opinion
-  def calculate_influencing_opinion(depth=0)
-    self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth))
-    save
-  end
-
-  def get_influencing_opinion(depth=0)
-    if depth > 0
-      calculate_influencing_opinion(depth)
-    end
-    self.influencing_opinion || Opinion.identity
+  opinion_reference :influencing_opinion do |depth|
+    get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth))
   end
 
   alias :get_opinion :get_user_opinion

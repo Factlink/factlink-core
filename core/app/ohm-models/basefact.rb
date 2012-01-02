@@ -76,8 +76,7 @@ class Basefact < OurOhm
   end
 
 
-  value_reference :user_opinion, Opinion
-  def calculate_user_opinion(depth=0)
+  opinion_reference :user_opinion do |depth|
     #depth has no meaning here unless we want the depth to also recalculate authorities
     opinions = []
     [:believes, :doubts, :disbelieves].each do |type|
@@ -86,15 +85,7 @@ class Basefact < OurOhm
         opinions << Opinion.for_type(type, user.authority)
       end
     end
-    self.user_opinion = Opinion.combine(opinions)
-    save
-  end
-
-  def get_user_opinion(depth=0)
-    if depth > 0
-      self.calculate_user_opinion(depth)
-    end
-    self.user_opinion || Opinion.identity
+    Opinion.combine(opinions)
   end
 
   private :delete
