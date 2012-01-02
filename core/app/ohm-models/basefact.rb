@@ -8,7 +8,7 @@ class Basefact < OurOhm
   set :people_doubts, GraphUser
   set :people_disbelieves, GraphUser
   private :people_believes, :people_doubts, :people_disbelieves
-  def interacting_users
+  def opinionated_users
     return people_believes | people_doubts | people_disbelieves
   end
 
