@@ -128,6 +128,22 @@ class Opinion < OurOhm
     }
   end
 
+  def self.types
+    [:believes, :doubts, :disbelieves]
+  end
+
+  def self.real_for(type)
+    type = type.to_sym
+    if [:beliefs,:believes].include?(type)
+      :believes
+    elsif [:doubts].include?(type)
+      :doubts
+    elsif [:disbeliefs,:disbelieves].include?(type)
+      :disbelieves
+    else
+      raise "invalid opinion"
+    end
+  end
 
   protected
   def discount_by(fl)

@@ -1,12 +1,14 @@
 class RemoveDuplicateAllChannels < Mongoid::Migration
   def self.up
-    GraphUser.all.each do |gu|
-      userstreams = Channel.find(:created_by_id=>gu.id).all.find_all {|x| x.class == Channel::UserStream }
-      userstreams[1,99999].each do |ch|
-        ch.destroy
+    say_with_time "remove duplicate all channels (accidentally created)" do
+      GraphUser.all.each do |gu|
+        userstreams = Channel.find(:created_by_id=>gu.id).all.find_all {|x| x.class == Channel::UserStream }
+        userstreams[1,99999].each do |ch|
+          ch.destroy
+        end
+        gu.stream = userstreams.first
+        gu.save
       end
-      gu.stream = userstreams.first
-      gu.save
     end
   end
 

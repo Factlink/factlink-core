@@ -12,7 +12,6 @@ class FactRelation < Basefact
     assert_present :type # TODO check if it's one of the permitted values
   end
 
-  #TODO add proper index for get_or_create
   def FactRelation.get_or_create(from, type, to, user)
     if FactRelation.exists_already?(from,type,to)
       FactRelation.get_relation(from,type,to)
@@ -73,21 +72,4 @@ class FactRelation < Basefact
     fact.evidence(self.type.to_sym).delete(self)
     super
   end
-
-
-  value_reference :influencing_opinion, Opinion
-  def calculate_influencing_opinion(depth=0)
-    self.influencing_opinion = get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth))
-    save
-  end
-
-  def get_influencing_opinion(depth=0)
-    if depth > 0
-      calculate_influencing_opinion(depth)
-    end
-    self.influencing_opinion || Opinion.identity
-  end
-
-  alias :get_opinion :get_user_opinion
-  alias :calculate_opinion :calculate_user_opinion
 end

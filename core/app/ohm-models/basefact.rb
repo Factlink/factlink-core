@@ -8,7 +8,7 @@ class Basefact < OurOhm
   set :people_doubts, GraphUser
   set :people_disbelieves, GraphUser
   private :people_believes, :people_doubts, :people_disbelieves
-  def interacting_users
+  def opinionated_users
     return people_believes | people_doubts | people_disbelieves
   end
 
@@ -16,31 +16,8 @@ class Basefact < OurOhm
     assert_present :created_by
   end
 
-  def real_opinion(type)
-    type = type.to_sym
-    if [:beliefs,:believes].include?(type)
-      :believes
-    elsif [:doubts].include?(type)
-      :doubts
-    elsif [:disbeliefs,:disbelieves].include?(type)
-      :disbelieves
-    else
-      raise "invalid opinion"
-    end
-  end
-
   def opiniated(type)
-    type = real_opinion(type)
-    belief_check(type)
-    if [:beliefs,:believes].include?(type)
-      people_believes
-    elsif [:doubts].include?(type)
-      people_doubts
-    elsif [:disbeliefs,:disbelieves].include?(type)
-      people_disbelieves
-    else
-      raise "invalid opinion"
-    end
+    send(:"people_#{Opinion.real_for(type)}")
   end
 
   def add_opiniated(type, user)
@@ -60,7 +37,7 @@ class Basefact < OurOhm
 
     add_opiniated(type,user)
     user.update_opinion(type, self)
-    activity(user,real_opinion(type),self)
+    activity(user,Opinion.real_for(type),self)
   end
 
   def remove_opinions(user)
@@ -70,33 +47,9 @@ class Basefact < OurOhm
 
   def _remove_opinions(user)
     user.remove_opinions(self)
-    [:believes, :doubts, :disbelieves].each do |type|
+    Opinion.types.each do |type|
       delete_opiniated(type,user)
     end
   end
-
-
-  value_reference :user_opinion, Opinion
-  def calculate_user_opinion(depth=0)
-    #depth has no meaning here unless we want the depth to also recalculate authorities
-    opinions = []
-    [:believes, :doubts, :disbelieves].each do |type|
-      opiniated = opiniated(type)
-      opiniated.each do |user|
-        opinions << Opinion.for_type(type, user.authority)
-      end
-    end
-    self.user_opinion = Opinion.combine(opinions)
-    save
-  end
-
-  def get_user_opinion(depth=0)
-    if depth > 0
-      self.calculate_user_opinion(depth)
-    end
-    self.user_opinion || Opinion.identity
-  end
-
   private :delete
-
 end

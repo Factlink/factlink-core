@@ -120,35 +120,6 @@ class Fact < Basefact
 
   private :delete_all_evidence, :delete_all_evidenced
 
-  value_reference :evidence_opinion, Opinion
-  def calculate_evidence_opinion(depth=0)
-    opinions = []
-    [:supporting, :weakening].each do |type|
-      factrelations = evidence(type)
-      factrelations.each do |factrelation|
-        opinions << factrelation.get_influencing_opinion(depth-1)
-      end
-    end
-    self.evidence_opinion = Opinion.combine(opinions)
-    save
-  end
-  def get_evidence_opinion(depth=0)
-    self.calculate_evidence_opinion(depth) if depth > 0
-    self.evidence_opinion || Opinion.identity
-  end
-
-  value_reference :opinion, Opinion
-  def calculate_opinion(depth=0)
-    calculate_evidence_opinion
-    total_opinion = self.get_user_opinion(depth) + self.get_evidence_opinion(depth)
-    self.opinion = total_opinion
-    save
-  end
-  def get_opinion(depth=0)
-    self.calculate_opinion(depth) if depth > 0
-    self.opinion || Opinion.identity
-  end
-
   attribute :cached_incluencing_authority
   def calculate_influencing_authority
     self.cached_incluencing_authority = [1, FactRelation.find(:from_fact_id => self.id).except(:created_by_id => self.created_by_id).count].max

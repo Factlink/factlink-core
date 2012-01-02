@@ -23,20 +23,22 @@ end
 
 class SortedFactsInChannels < Mongoid::Migration
   def self.up
-    Channel.all.each do |ch|
-      ch.internal_facts.each do |f|
-        ch.sorted_internal_facts << f
-      end
-      ch.delete_facts.each do |f|
-        ch.sorted_delete_facts << f
-      end
-      ch.cached_facts.each do |f|
-        ch.sorted_cached_facts << f
-      end
+    say_with_time "move facts in channels from sets to sorted sets" do
+      Channel.all.each do |ch|
+        ch.internal_facts.each do |f|
+          ch.sorted_internal_facts << f
+        end
+        ch.delete_facts.each do |f|
+          ch.sorted_delete_facts << f
+        end
+        ch.cached_facts.each do |f|
+          ch.sorted_cached_facts << f
+        end
 
-      ch.internal_facts.clear
-      ch.delete_facts.clear
-      ch.cached_facts.clear
+        ch.internal_facts.clear
+        ch.delete_facts.clear
+        ch.cached_facts.clear
+      end
     end
   end
 

@@ -8,8 +8,10 @@ end
 
 class AddUserstream < Mongoid::Migration
   def self.up
-    GraphUser.all.each do |gu|
-      gu.create_stream
+    say_with_time "add a userstream (all channel) for all graphusers" do
+      GraphUser.all.each do |gu|
+        gu.create_stream
+      end
     end
   end
 
