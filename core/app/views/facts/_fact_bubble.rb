@@ -35,7 +35,13 @@ module Facts
     end
 
     def last_activity
-      activity = self[:fact].activities(1)[0]
+      activities = Activity::Query.where([
+        {action: 'created', subject: self[:fact]},
+      ])
+
+      activity = activities.first
+      return nil unless activity
+
       action = activity.action.to_sym
       translation = {
         :believes => :believe,
