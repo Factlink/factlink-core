@@ -100,7 +100,7 @@ class GraphUser < OurOhm
   end
 
   def opinion_on(fact)
-    [:beliefs, :doubts, :disbeliefs].each do |opinion|
+    [:believes, :doubts, :disbelieves].each do |opinion|
       return opinion if has_opinion?(opinion,fact)
     end
     return nil
