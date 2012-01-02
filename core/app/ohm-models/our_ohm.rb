@@ -8,8 +8,8 @@ class OurOhm < Ohm::Model
   include Ohm::Callbacks
   include Ohm::Boundaries
   extend ActiveModel::Naming
-  extend OhmGenericReference
-  extend OhmValueReference
+  extend OurOhm::GenericReference
+  extend OurOhm::ValueReference
 
   # needed for Ohm polymorphism:
   self.base = self

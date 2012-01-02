@@ -21,12 +21,12 @@ describe Ohm::Model::Set do
     @c2.items.all.should =~ [@b]
     union.all.should =~ [@a,@b]
   end
-  
+
   it "should be able to return the list of ids" do
     @c1.items << @b
     @c1.items.ids.should =~ [@a.id,@b.id]
   end
-  
+
 end
 
 
@@ -49,16 +49,16 @@ describe OurOhm do
   describe :to_param do
     it {subject.to_param.should == subject.id }
   end
-  
+
 end
 
 
 class GenTest < Ohm::Model
-  extend OhmGenericReference
+  extend OurOhm::GenericReference
   generic_reference :foo
 end
 
-describe OhmGenericReference do
+describe OurOhm::GenericReference do
   context "initially" do
     it {GenTest.new.foo.should == nil}
     it {GenTest.create.foo.should == nil}
