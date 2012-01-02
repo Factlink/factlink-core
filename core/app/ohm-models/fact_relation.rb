@@ -72,11 +72,4 @@ class FactRelation < Basefact
     fact.evidence(self.type.to_sym).delete(self)
     super
   end
-
-  opinion_reference :influencing_opinion do |depth|
-    get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth))
-  end
-
-  alias :get_opinion :get_user_opinion
-  alias :calculate_opinion :calculate_user_opinion
 end

@@ -74,20 +74,5 @@ class Basefact < OurOhm
       delete_opiniated(type,user)
     end
   end
-
-
-  opinion_reference :user_opinion do |depth|
-    #depth has no meaning here unless we want the depth to also recalculate authorities
-    opinions = []
-    [:believes, :doubts, :disbelieves].each do |type|
-      opiniated = opiniated(type)
-      opiniated.each do |user|
-        opinions << Opinion.for_type(type, user.authority)
-      end
-    end
-    Opinion.combine(opinions)
-  end
-
   private :delete
-
 end
