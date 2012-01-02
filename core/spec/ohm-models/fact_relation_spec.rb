@@ -1,5 +1,4 @@
-require File.expand_path("../../spec_helper.rb", __FILE__)
-#require 'spec_helper'
+require 'spec_helper'
 
 describe FactRelation do
 
@@ -18,7 +17,7 @@ describe FactRelation do
       @fr = FactRelation.get_or_create(@fact1, :supporting, @fact2, gu)
       @fr.should be_a(FactRelation)
     end
-    
+
     it "should have a created_by GraphUser when created" do
       @parent = FactoryGirl.create(:fact)
       @fr = FactRelation.get_or_create(@evidence[0], :supporting, @parent, gu)
@@ -53,5 +52,5 @@ describe FactRelation do
     @fact1.delete
     @fact2.evidence(:supporting).size.should == 0
   end
-  
+
 end
