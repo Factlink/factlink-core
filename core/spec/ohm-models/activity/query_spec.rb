@@ -62,12 +62,12 @@ describe Activity::Query do
       Activity::Query.where_one(object: b2).to_a.should == []
     end
 
-    it "should return all elements of a object when queried for it" do
+    it "should return all elements for an action when queried for it" do
       a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
       Activity::Query.where_one(action: :foo).to_a.should == [a]
     end
 
-    it "should not return elements for a object without activity" do
+    it "should not return elements for an non-existing action" do
       a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
       Activity::Query.where_one(action: :bar).to_a.should == []
     end
