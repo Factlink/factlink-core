@@ -75,15 +75,10 @@ class Fact < Basefact
     res.reverse
   end
 
-  def evidence(type)
-    case type
-    when :supporting
-      return self.supporting_facts
-    when :weakening
-      return self.weakening_facts
-    when :both
-      return self.fact_relations
-    end
+  def evidence(type=:both)
+    return fact_relations if type == :both
+
+    send(:"#{type}_facts")
   end
 
   def add_evidence(type, evidence, user)
