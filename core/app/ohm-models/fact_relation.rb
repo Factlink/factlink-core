@@ -58,13 +58,7 @@ class FactRelation < Basefact
   end
 
   def get_type_opinion
-    # Just to be sure: parse to Symbol
-    case self.type.to_sym
-    when :supporting
-      Opinion.for_type(:believes)
-    when :weakening
-      Opinion.for_type(:disbelieves)
-    end
+    Opinion.for_relation_type(self.type)
   end
 
   def delete

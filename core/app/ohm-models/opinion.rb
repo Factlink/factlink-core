@@ -132,6 +132,15 @@ class Opinion < OurOhm
     [:believes, :doubts, :disbelieves]
   end
 
+  def self.for_relation_type(type)
+    case type.to_sym
+    when :supporting
+      Opinion.for_type(:believes)
+    when :weakening
+      Opinion.for_type(:disbelieves)
+    end
+  end
+
   def self.real_for(type)
     type = type.to_sym
     if [:beliefs,:believes].include?(type)
