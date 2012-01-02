@@ -51,5 +51,4 @@ class Basefact < OurOhm
       delete_opiniated(type,user)
     end
   end
-  private :delete
 end
