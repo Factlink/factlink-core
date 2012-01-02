@@ -1,8 +1,7 @@
 require 'ohm/contrib'
 
-require File.join(File.dirname(__FILE__), "activity", "subject")
-require File.join(File.dirname(__FILE__), "activity", "query")
-
+require_relative 'activity/subject'
+require_relative 'activity/query'
 
 class Activity < OurOhm
   include Ohm::Timestamping

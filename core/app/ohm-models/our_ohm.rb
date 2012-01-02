@@ -1,7 +1,7 @@
 require 'ohm/contrib'
 
-require File.join(File.dirname(__FILE__), "our_ohm", "generic_reference")
-require File.join(File.dirname(__FILE__), "our_ohm", "value_reference")
+require_relative 'our_ohm/generic_reference'
+require_relative 'our_ohm/value_reference'
 
 class OurOhm < Ohm::Model
   include Ohm::Contrib
