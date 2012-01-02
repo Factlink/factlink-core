@@ -80,18 +80,9 @@ class GraphUser < OurOhm
     sprintf('%.1f', auth)
   end
 
-  # user.facts_he(:beliefs)
+  # user.facts_he(:believes)
   def facts_he(type)
-    type = type.to_sym
-    if [:beliefs,:believes].include?(type)
-      believes_facts
-    elsif [:doubts].include?(type)
-      doubts_facts
-    elsif [:disbeliefs,:disbelieves].include?(type)
-      disbelieves_facts
-    else
-      raise "invalid opinion"
-    end
+    send(:"#{Opinion.real_for(type)}_facts")
   end
 
   def has_opinion?(type, fact)
