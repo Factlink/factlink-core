@@ -6,7 +6,7 @@ class RemoveDuplicateAllChannels < Mongoid::Migration
         ch.destroy
       end
       gu.stream = userstreams.first
-      gu.save 
+      gu.save
     end
   end
 

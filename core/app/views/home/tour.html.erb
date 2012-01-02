@@ -4,15 +4,15 @@
     <h3><%= image_tag('factlink-logo.png', height: "24px") %></h3>
   </div>
   <div class="modal-body">
-    
+
     <div id="tour-nav">
       <div class="container">
         <ul id="pagerNav">
         </ul>
       </div>
     </div>
-    
-    <div id="slider">      
+
+    <div id="slider">
       <!-- Start -->
       <div data-title="Start">
         <div class="container">
@@ -30,7 +30,7 @@
           <div class="s1 last"></div>
         </div>
       </div>
-      
+
       <!-- Factlinks -->
       <div data-title="Factlink">
         <div class="container">
@@ -48,7 +48,7 @@
         </div>
       </div>
 
-      
+
       <!-- Evidence -->
       <div data-title="Evidence">
         <div class="container">
@@ -98,7 +98,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- On-page one -->
       <div  data-title="Get ready...">
         <div class="container">
@@ -107,7 +107,7 @@
             <p>Use the Factlink website to stay up to date on your Factlinks, or explore other interesting Factlinks by browsing a users’ Channel.</p>
             <p>There is so much information to discover!</p>
             <p>The power of Factlink is that it can be used on almost every web page on the internet. Use the Chrome Extension or bookmarklet to activate Factlink on whatever page you are on.</p>
-            
+
             <div class="center" style="margin-top: 64px;">
               <a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx" class="btn success">Chrome Extension</a>
               <a title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a>
@@ -137,7 +137,7 @@
             <h2>Join the conversation</h2>
             <p>Not sure about an online statement? Or do you know evidence that supports or weakens a statement in an article? Than add it to Factlink and share it with the world. With Factlink enabled, just select the section you want to add.</p>
           </div>
-          
+
           <div class="show-factlink">
             <%= image_tag('tour/show-factlink.png')%>
           </div>
@@ -146,7 +146,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
   <div class="modal-footer">

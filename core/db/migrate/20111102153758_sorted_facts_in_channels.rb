@@ -33,7 +33,7 @@ class SortedFactsInChannels < Mongoid::Migration
       ch.cached_facts.each do |f|
         ch.sorted_cached_facts << f
       end
-      
+
       ch.internal_facts.clear
       ch.delete_facts.clear
       ch.cached_facts.clear
