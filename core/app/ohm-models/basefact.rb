@@ -70,7 +70,7 @@ class Basefact < OurOhm
 
   def _remove_opinions(user)
     user.remove_opinions(self)
-    [:believes, :doubts, :disbelieves].each do |type|
+    Opinion.types.each do |type|
       delete_opiniated(type,user)
     end
   end

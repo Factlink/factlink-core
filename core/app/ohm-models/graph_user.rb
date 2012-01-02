@@ -100,7 +100,7 @@ class GraphUser < OurOhm
   end
 
   def opinion_on(fact)
-    [:believes, :doubts, :disbelieves].each do |opinion|
+    Opinion.types.each do |opinion|
       return opinion if has_opinion?(opinion,fact)
     end
     return nil
@@ -120,7 +120,7 @@ class GraphUser < OurOhm
   end
 
   def remove_opinions(fact)
-    [:believes, :doubts, :disbelieves].each do |type|
+    Opinion.types.each do |type|
       facts_he(type).delete(fact)
     end
   end

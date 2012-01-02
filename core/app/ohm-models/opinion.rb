@@ -128,6 +128,9 @@ class Opinion < OurOhm
     }
   end
 
+  def self.types
+    [:believes, :doubts, :disbelieves]
+  end
 
   protected
   def discount_by(fl)
