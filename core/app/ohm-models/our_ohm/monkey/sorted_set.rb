@@ -22,10 +22,6 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     result
   end
 
-  def all_reversed
-    key.zrevrange(0,-1).map(&model)
-  end
-
   def below(limit,opts={})
     if opts[:count]
       redis_opts = { limit: [0,opts[:count]] }
