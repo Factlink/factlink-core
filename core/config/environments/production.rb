@@ -4,8 +4,8 @@ FactlinkUI::Application.configure do
   # Error reporting
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[FL##{Rails.env}] ",
-    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
-    :exception_recipients => %w{bugs@factlink.com}
+    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <team+bugs@factlink.com>},
+    :exception_recipients => %w{team+bugs@factlink.com}
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
@@ -36,7 +36,7 @@ FactlinkUI::Application.configure do
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
-  
+
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
@@ -52,7 +52,7 @@ FactlinkUI::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "beta.factlink.com" }
-  
+
   # Enable threaded mode
   # config.threadsafe!
 
@@ -62,15 +62,14 @@ FactlinkUI::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
 end
 
 ActionMailer::Base.smtp_settings = {
-  :address => 'mail.factlink.com',
-  :port => 25,
+  :address => 'smtp.factlink.com',
+  :port => 587,
   :domain => 'factlink.com',
   :authentication => :plain,
-  :user_name => 'noreply',
-  :password => '@H-cw8w)6l8.nP',
-  :openssl_verify_mode => 'none'
+  :user_name => 'team@factlink.com',
+  :password => 'hIx2l52ii209b2gRZ'
 }
