@@ -74,7 +74,7 @@ FactlinkUI::Application.routes.draw do
   get "/tour" => "home#tour", as: "tour"
 
   namespace :admin do
-    resources :users, except: [:remove]
+    resources :users, :only => [:show, :new, :create, :edit, :update, :index]
     resources :jobs
   end
 
