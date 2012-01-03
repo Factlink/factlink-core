@@ -7,7 +7,7 @@
 div.modal {
   border: none;
   top: 40px;
-  .drop-shadow(0px, 5px, 10px, 0.4);
+  .drop-shadow(0px, 0, 5px, 0.2);
   margin: 0 auto;
   left: 30%;
   padding: 0;
@@ -17,28 +17,36 @@ div.modal {
   }
 }
 div.fact-block .close {
-  margin: 10px;
+  margin: 5px;
 }
 .float {
   background-color: @white;
   display: none;
   z-index: 2000;
-  .drop-shadow(0, 0, 5px, 0.1);
+  .drop-shadow(0, 0, 5px, 0.2);
+  border: 1px solid @grayLight;
 }
 .channel-listing {
   .float;
   width: 200px;
   position: absolute;
-
   ul {
     max-height: 160px;
     overflow-y: auto;
     .visible-scroll();
     padding: 4px 0 0 4px;
-  }
-  li {
-    .ellipsis();
-  }
+    margin: 0;
+    li {
+      .ellipsis();
+      padding: 5px 0 5px 0 !important;
+      margin: 0 0 0 5px !important;
+      border: none !important;
+      a {
+        margin: 0;
+        padding: 0;
+        }
+      }
+    }
   .add-channel {
     border-top: solid 1px #ddd;
     padding: 8px;
@@ -50,18 +58,29 @@ div.fact-block .close {
     }
   }
 }
+@rightIndent: 10px;
 .fact-block {
+  color: #555;
   background: @white;
   .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
-  border: 1px solid @grayLighter;
+  border: 1px solid @grayLight;
   article.fact {
-    padding: 10px 0 10px 5px;
-    display: block;
+    padding: 10px 0 10px (@rightIndent / 2);
+    min-height: 50px;
+    .wheel {
+      float: left;
+      svg {
+        margin: -7px 0 0 (@rightIndent / 2);
+        path:hover {
+          cursor: pointer;
+        }
+      }
+    }
 
     header {
-			margin: 0 0 0px 75px;
+      margin: 0 0 0px 75px;
       padding-right: 20px;
-      #font > .sans-serif(normal,@basefont,@baseline);
+      #font > .sans-serif(normal,12px,@baseline);
       sub {
         line-height: inherit;
         font-size: x-small;
@@ -71,13 +90,14 @@ div.fact-block .close {
       }
       .head {
 				display: block;
+        font-weight: bold;
       }
 			.edit {
         #font > .sans-serif(normal,9pt,@baseline);
         color: @linkColor;
         &:before {
 	        font-family: "IconicStroke";
-          content: "P ";
+          content: "p ";
         }
 				&:hover {
 					background-color: @lightYellow;
@@ -97,27 +117,58 @@ div.fact-block .close {
 			}
 
       .body {
-        #font > .serif(normal,@basefont,@baseline);
+        word-wrap: break-word;
+        vertical-align: baseline;
         span a {
           color: @linkColor;
         }
 			}
     }
   }
-  .wheel {
-    float: left;
-    min-height: 60px;
-    svg {
-      margin: 0 0 0 4px;
-      display: block;
-      overflow: hidden;
-      path:hover {
-        cursor: pointer;
+  .controls {
+    font-size: 12px;
+    .opacity(0);
+    .transition(opacity 0.2s ease);
+    border-bottom: 1px solid @grayLighter;
+    ul.evidence {
+      height: 25px;
+      li {
+        display: block;
+        float: left;
+        margin: 0 0 0 15px;
+        position: relative;
+        .border-radius(3px);
+        a {
+          display: block;
+          padding: 5px;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+        &:hover, &.active {
+        }
+        &.active a {
+          color: #555;
+        }
       }
     }
   }
   .dropdown-container {
     display: none;
+    .visible-scroll();
     width: 100%;
+  }
+  &:hover, &.active, .controls.active {
+    .controls {
+      .opacity(100);
+    }
+  }
+  .evidence-list {
+    background-color: @whiteDarker;
+    ul.evidence-listing {
+      .relation {
+        display: none;
+      }
+    }
   }
 }

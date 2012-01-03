@@ -22,15 +22,18 @@
               }
 
               $(this).addClass("active");
+              $fact.addClass("active");
 
             } else {
               if ($(this).hasClass("active")) {
                 $fact.find(".dropdown-container").slideUp(function() {
                   $fact.find("ul.evidence li").removeClass("active");
+                  $fact.removeClass("active");
                 });
               } else {
                 $fact.find("ul.evidence li").removeClass("active");
                 $(this).addClass("active");
+                $fact.addClass("active");
               }
             }
             return false;
