@@ -62,15 +62,14 @@ FactlinkUI::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
 end
 
 ActionMailer::Base.smtp_settings = {
-  :address => 'mail.factlink.com',
-  :port => 25,
+  :address => 'smtp.gmail.com',
+  :port => 587,
   :domain => 'factlink.com',
   :authentication => :plain,
-  :user_name => 'noreply',
-  :password => '@H-cw8w)6l8.nP',
-  :openssl_verify_mode => 'none'
+  :user_name => 'team@factlink.com',
+  :password => 'hIx2l52ii209b2gRZ',
+  :enable_starttls_auto => true
 }
