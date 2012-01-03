@@ -132,7 +132,7 @@ class FactsController < ApplicationController
         format.html { redirect_to(@fact,
           :notice => 'Fact was successfully updated.') }
       else
-        format.html { render :action => "edit" }
+        format.html { render :edit }
       end
     end
   end

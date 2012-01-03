@@ -24,7 +24,6 @@ class ChannelsController < ApplicationController
   before_filter :authenticate_user!
 
 
-  # GET /:username/channels
   def index
     authorize! :index, Channel
     @channels = @user.graph_user.channels
@@ -35,7 +34,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # GET /:username/channels/1
   def show
     authorize! :show, @channel
     respond_to do |format|
@@ -47,18 +45,15 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # GET /:username/channels/new
   def new
     authorize! :new, Channel
     @channel = Channel.new
   end
 
-  # GET /:username/channels/1/edit
   def edit
     authorize! :edit, @channel
   end
 
-  # POST /:username/channels
   def create
     authorize! :update, @user
 
@@ -92,14 +87,13 @@ class ChannelsController < ApplicationController
 
     else
       respond_to do |format|
-        format.html { render :action => "new" }
+        format.html { render :new }
         format.json { render :json => @channel.errors,
                       :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /:username/channels/1
   def update
     authorize! :update, @channel
 
@@ -111,14 +105,13 @@ class ChannelsController < ApplicationController
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
-        format.html  { render :action => "edit" }
+        format.html  { render :edit }
         format.json  { render :json => @channel.errors,
                       :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /:username/channels/1
   def destroy
     authorize! :destroy, @channel
 
@@ -132,7 +125,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # GET /:username/channels/1/facts
   def facts
     authorize! :show, @channel
     @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)

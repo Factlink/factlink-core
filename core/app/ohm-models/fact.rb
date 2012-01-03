@@ -44,10 +44,6 @@ class Fact < Basefact
     FactRelation.find(:from_fact_id => self.id).all
   end
 
-  def evidenced_facts
-    evidenced_factrelations.map{|f| f.fact }
-  end
-
   def self.by_display_string(displaystring)
     fd = FactData.where(:displaystring => displaystring)
     if fd.count > 0
@@ -75,15 +71,10 @@ class Fact < Basefact
     res.reverse
   end
 
-  def evidence(type)
-    case type
-    when :supporting
-      return self.supporting_facts
-    when :weakening
-      return self.weakening_facts
-    when :both
-      return self.fact_relations
-    end
+  def evidence(type=:both)
+    return fact_relations if type == :both
+
+    send(:"#{type}_facts")
   end
 
   def add_evidence(type, evidence, user)
@@ -98,11 +89,9 @@ class Fact < Basefact
     !f || !f.data_id
   end
 
-  def delete
-    delete_all_evidence
-    delete_all_evidenced
+
+  def delete_data
     data.delete
-    super
   end
 
   def delete_all_evidence
@@ -117,8 +106,10 @@ class Fact < Basefact
     end
   end
 
-
-  private :delete_all_evidence, :delete_all_evidenced
+  before :delete, :delete_data
+  before :delete, :delete_all_evidence
+  before :delete, :delete_all_evidenced
+  private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
   attribute :cached_incluencing_authority
   def calculate_influencing_authority

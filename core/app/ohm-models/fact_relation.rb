@@ -44,11 +44,6 @@ class FactRelation < Basefact
     fl
   end
 
-  def evidenced_facts
-    [fact]
-  end
-
-
   def percentage
     if self.fact.get_opinion.weight == 0
       return 0
@@ -58,18 +53,15 @@ class FactRelation < Basefact
   end
 
   def get_type_opinion
-    # Just to be sure: parse to Symbol
-    case self.type.to_sym
-    when :supporting
-      Opinion.for_type(:believes)
-    when :weakening
-      Opinion.for_type(:disbelieves)
-    end
+    Opinion.for_relation_type(self.type)
   end
 
-  def delete
+  def delete_key
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
-    fact.evidence(self.type.to_sym).delete(self)
-    super
   end
+  def delete_from_evidence
+    fact.evidence(self.type.to_sym).delete(self)
+  end
+  before :delete, :delete_key
+  before :delete, :delete_from_evidence
 end

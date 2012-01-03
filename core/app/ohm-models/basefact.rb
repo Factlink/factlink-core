@@ -24,14 +24,6 @@ class Basefact < OurOhm
     opiniated(type).add(user)
   end
 
-  def delete_opiniated(type, user)
-    opiniated(type).delete(user)
-  end
-
-  def opiniated_count(type)
-    opiniated(type).size
-  end
-
   def add_opinion(type, user)
     _remove_opinions(user)
 
@@ -48,8 +40,7 @@ class Basefact < OurOhm
   def _remove_opinions(user)
     user.remove_opinions(self)
     Opinion.types.each do |type|
-      delete_opiniated(type,user)
+      opiniated(type).delete(user)
     end
   end
-  private :delete
 end

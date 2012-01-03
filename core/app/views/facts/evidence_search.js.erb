@@ -13,7 +13,7 @@ var searchList = fact.find('.evidence-search-results ul.search-term-results');
   <% else %>
     searchList.closest('.tab_content:visible').data('isFullyLoaded', true);
   <% end %>
-  
+
 <% else %>
  <% @facts.each do |evidence| %>
     searchList.append('<li data-evidence-id="<%= escape_javascript(evidence.id) %>" class="evidence"><span><%= escape_javascript(evidence.data.title) %></span><%= escape_javascript(evidence.data.displaystring) %></li>');
