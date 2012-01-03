@@ -25,18 +25,4 @@ module FactsHelper
     render "/facts/evidence_buttons",  locals
   end
 
-  class SemiMustacheView
-    include Rails.application.routes.url_helpers
-    include ActionView::Helpers::UrlHelper
-    def controller
-      return nil.andand #dit is mijn ranzigste truc ooit -- mark
-    end
-    def user_signed_in?
-      return @current_user
-    end
-    def image_tag(path)
-      return '<img src="#{path}">'.html_safe
-    end
-  end
-
 end
