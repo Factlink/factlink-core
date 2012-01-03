@@ -1,8 +1,8 @@
 #!/bin/bash
-git clone git@codebasehq.com:factlink/factlink/factlink-chrome-extension.git
-git clone git@codebasehq.com:factlink/factlink/factlink-core.git
-git clone git@codebasehq.com:factlink/factlink/factlink-js-library.git
-git clone git@codebasehq.com:factlink/factlink/web-proxy.git
+git clone git@codebasehq.com:factlink/factlink/factlink-chrome-extension.git -b master
+git clone git@codebasehq.com:factlink/factlink/factlink-core.git -b master
+git clone git@codebasehq.com:factlink/factlink/factlink-js-library.git -b master
+git clone git@codebasehq.com:factlink/factlink/web-proxy.git -b master
 
 ln -s factlink-core/config config
 gem install bundler
