@@ -20,8 +20,6 @@ module ActivityHelper
   end
 
   def activity_for_type(activity)
-    render "activities/snippets/" + activity.object.class.name.underscore, activity: activity
-  rescue
     render "activities/snippets/unknown", activity: activity
   end
 
