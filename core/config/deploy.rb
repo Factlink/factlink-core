@@ -1,6 +1,7 @@
 #############
 # Application
 set :application, "factlink-core"
+set :keep_releases, 10
 
 ########
 # Stages
@@ -76,3 +77,4 @@ before 'deploy:restart', 'deploy:set_wheel_permissions'
 before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',         'deploy:migrate'
 after 'deploy:migrate', 'deploy:start_recalculate'
+after 'deploy:update', 'deploy:cleanup'
