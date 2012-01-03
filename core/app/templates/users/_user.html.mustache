@@ -1,4 +1,5 @@
-<div class="container">
+{{^is_current_user}}
+<div class="avatar-container">
   <div class="user-avatar">
   	{{{ avatar }}}
   </div>
@@ -8,3 +9,9 @@
   	<sub>authority: {{ authority }}</sub>
   </div>
 </div>
+{{/is_current_user}}
+
+{{#is_current_user}}
+<h2>My Channels</h2>
+{{{new_channel_button}}}
+{{/is_current_user}}

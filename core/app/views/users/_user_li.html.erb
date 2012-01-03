@@ -1,4 +1,4 @@
-<article class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
+<li class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
   <div class="user-avatar">
     <%= image_tag(user.avatar.url(:small), :width => 32) %>
   </div>
@@ -7,4 +7,4 @@
     <h3><%= user.username %></h3>
     <sub>authority: <%= user.graph_user.rounded_authority %></sub>
   </div>
-</article>
+</li>

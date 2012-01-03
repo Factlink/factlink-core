@@ -4,8 +4,8 @@ FactlinkUI::Application.configure do
   # Error reporting
   config.middleware.use ExceptionNotifier,
     :email_prefix => "[FL##{Rails.env}] ",
-    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
-    :exception_recipients => %w{bugs@factlink.com}
+    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <team+bugs@factlink.com>},
+    :exception_recipients => %w{team+bugs@factlink.com}
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
@@ -66,11 +66,11 @@ FactlinkUI::Application.configure do
 end
 
 ActionMailer::Base.smtp_settings = {
-  :address => 'mail.factlink.com',
-  :port => 25,
+  :address => 'smtp.gmail.com',
+  :port => 587,
   :domain => 'factlink.com',
   :authentication => :plain,
-  :user_name => 'noreply',
-  :password => '@H-cw8w)6l8.nP',
-  :openssl_verify_mode => 'none'
+  :user_name => 'team@factlink.com',
+  :password => 'hIx2l52ii209b2gRZ',
+  :enable_starttls_auto => true
 }

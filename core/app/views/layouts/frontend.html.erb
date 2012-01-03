@@ -50,7 +50,7 @@
       <%= yield :header %>
     </section>
 
-    <section id="left-column" class="span-5 side-column">
+    <section id="left-column" class="prepend-2 span-5 side-column">
       <%= yield :left_column %>
     </section>
 
@@ -59,10 +59,6 @@
         <%= yield :main_column %>
         <%= yield %>
       </section>
-    </section>
-
-    <section id="right-column" class="span-5 last side-column">
-      <%= yield :right_column %>
     </section>
 
     <div id="feedback">
