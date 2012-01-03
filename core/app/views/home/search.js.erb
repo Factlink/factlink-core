@@ -1,5 +1,5 @@
 <% @results.each do |result| %>
-	$('#results-listing').append("<%= escape_javascript( render result ) %>");
+  $('#results-listing').append("<%= escape_javascript( render result ) %>");
 <% end %>
 
 <% if @results.count == 0 %>

@@ -2,9 +2,9 @@
   <script>
     $(function(){
       var channel = Channels.get(<%= @channel.id %>);
-      
+
       channel.trigger('activate', channel);
-     
+
       Router.view.openChannel(channel).render();
     });
   </script>

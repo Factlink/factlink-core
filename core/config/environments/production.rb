@@ -36,7 +36,7 @@ FactlinkUI::Application.configure do
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
-  
+
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
@@ -52,7 +52,7 @@ FactlinkUI::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options = { :host => "beta.factlink.com" }
-  
+
   # Enable threaded mode
   # config.threadsafe!
 
@@ -62,7 +62,7 @@ FactlinkUI::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
 end
 
 ActionMailer::Base.smtp_settings = {

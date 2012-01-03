@@ -25,16 +25,16 @@
         </div>
       </div>
     <% end %>
-    
+
     <div class="row">
       <%= label_tag :fact %>
       <div class="field">
         <%= text_area_tag :fact, params[:fact], :required => "required" %>
       </div>
     </div>
-  
+
     <%= hidden_field_tag 'layout', 'popup' %>
-  
+
     <div class="actions">
       <%= submit_tag "Create Factlink", :class => "btn" %>
     </div>
