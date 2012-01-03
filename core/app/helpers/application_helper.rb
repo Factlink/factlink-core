@@ -3,10 +3,6 @@ module ApplicationHelper
     abs_url(image_path(source))
   end
 
-  def javascript_url(source)
-    abs_url(javascript_path(source))
-  end
-
   def abs_url(path)
     unless path =~ /^http/
       path = "#{request.protocol}#{request.host_with_port}#{path}"
