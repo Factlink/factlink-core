@@ -10,6 +10,20 @@ module ApplicationHelper
     path
   end
 
+  def load_mustache_templates
+    p = "<div id='mustache-templates'>"
+    Dir["#{Rails.root}/app/templates/*/*.html.mustache"].each do |path|
+      parts = path.gsub(/\.html\.mustache/,'').split /\//
+      dir = parts[-2]
+      file = parts[-1]
+      p += "<script type='text/html' class='mustache-dir-#{dir} mustache-file-#{file}' data-filename='#{file}'>"
+      p += template_as_string path
+      p += "</script>"
+    end
+    p += "</div>"
+    p.html_safe
+  end
+
   def template_as_string(filename)
     data = ''
     filename = Rails.root.join('app','templates',filename)

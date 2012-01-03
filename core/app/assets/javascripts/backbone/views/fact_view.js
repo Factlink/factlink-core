@@ -3,19 +3,13 @@ window.FactView = Backbone.View.extend({
   
   className: "fact-block",
   
-  tmpl: $('#fact_tmpl').html(),
-  
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact"
   },
   
-  partials: {
-    fact_bubble: $('#fact_bubble_tmpl').html(),
-    fact_wheel: $('#fact_wheel_tmpl').html()
-  },
-  
   initialize: function(opts) {
+    this.use_template('facts','_fact')
     this.model.bind('destroy', this.remove, this);
     
     if ( opts.tmpl ) {
