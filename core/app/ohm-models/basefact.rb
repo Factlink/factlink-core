@@ -24,10 +24,6 @@ class Basefact < OurOhm
     opiniated(type).add(user)
   end
 
-  def opiniated_count(type)
-    opiniated(type).size
-  end
-
   def add_opinion(type, user)
     _remove_opinions(user)
 
