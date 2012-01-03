@@ -92,7 +92,7 @@ class ChannelsController < ApplicationController
 
     else
       respond_to do |format|
-        format.html { render :action => "new" }
+        format.html { render :new }
         format.json { render :json => @channel.errors,
                       :status => :unprocessable_entity }
       end
@@ -111,7 +111,7 @@ class ChannelsController < ApplicationController
                       :notice => 'Channel was successfully updated.' )}
         format.json  { render :json => {}, :status => :ok }
       else
-        format.html  { render :action => "edit" }
+        format.html  { render :edit }
         format.json  { render :json => @channel.errors,
                       :status => :unprocessable_entity }
       end
