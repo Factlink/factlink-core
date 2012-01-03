@@ -44,11 +44,6 @@ class FactRelation < Basefact
     fl
   end
 
-  def evidenced_facts
-    [fact]
-  end
-
-
   def percentage
     if self.fact.get_opinion.weight == 0
       return 0
