@@ -9,58 +9,6 @@
           });
         }
 
-        function switchTabAction(active) {
-          $fact.find(".tab_content[rel=" + active + "] .add-evidence").toggle();
-          $fact.find(".tab_content[rel=" + active + "] .evidence").toggle();
-          var action = $fact.find(".add-action[rel=" + active + "] > a");
-          action.text($(action).text() === 'Add facts' ? 'Show facts' : 'Add facts');
-        }
-
-        function addEventHandlersDoAdd($fact) {
-          $fact.find("a.do-add").live("click", function() {
-            resetSearch($fact);
-            $fact.find('.evidence-list').hide();
-            $fact.find('.evidence-search-results').show();
-            return false;
-          });
-        }
-
-        function addEventHandlersBackToEvidenceListing($fact) {
-          $fact.find("a.back-to-evidence-listing").bind("click", function() {
-            showEvidenceList($fact);
-            resetSearch($fact);
-            return false;
-          });
-        }
-
-        function addEventHandlersBackToSearch($fact) {
-          $fact.find("a.back-to-search").bind("click", function() {
-            $fact.find('.page').hide();
-            $fact.find('.evidence-search-results').show();
-            return false;
-          });
-        }
-
-        function bindEvidenceAddButtons($fact) {
-          $fact.find('.evidence-add button.supporting').bind('click', function() {
-            submitEvidence($fact, "supporting");
-          });
-
-          $fact.find('.evidence-add button.weakening').bind('click', function() {
-            submitEvidence($fact, "weakening");
-          });
-        }
-        
-        function bindNewEvidenceAddButtons($fact) {
-          $fact.find('.new-evidence-add button.supporting').bind('click', function() {
-            submitNewEvidence($fact, "supporting");
-          });
-
-          $fact.find('.new-evidence-add button.weakening').bind('click', function() {
-            submitNewEvidence($fact, "weakening");
-          });
-        }
-
         function addEventHandlersTabs($fact) {
           $fact.find("ul.evidence li").click(function() {
 
@@ -92,12 +40,6 @@
         function initialize($fact) { /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
           //On Click Event
           addEventHandlersTabs($fact);
-          addEventHandlersDoAdd($fact);
-          addEventHandlersBackToEvidenceListing($fact);
-          addEventHandlersBackToSearch($fact);
-
-          bindEvidenceAddButtons($fact);
-          bindNewEvidenceAddButtons($fact);
 
           $fact.data('loaded-evidence', false);
 
@@ -122,7 +64,7 @@
         });
       });
     },
-    
+
     update: function(data) {
       var $fact = $(this).data("container") || $(this);
       if ($fact.data("initialized")) {
@@ -163,7 +105,7 @@
       });
     },
 
-    
+
     to_channel: function(user, channel, fact) {
       $.ajax({
         url: "/" + user + "/channels/toggle/fact",
@@ -211,30 +153,6 @@
     });
   }
 
-  function bindNewEvidenceAddAction($c) {
-    $c.find('.new-evidence-add-action').bind('click', function() {
-      showNewEvidenceAdd($c);
-      // Populate the input field
-      var currentInput = $c.find('input.evidence_search').val();
-      $c.find(".fact_data_displaystring").val(currentInput);
-    });
-  }
-  function bindEvidencePrepare($c) {
-    $c.find('.results ul li.evidence').live('click', function() {
-      showEvidenceAdd($c);
-
-      var elem = $(this);
-      var evidenceId = elem.data('evidence-id');
-      var evidenceDisplayString = elem.html();
-
-      // Set the evidence ID used for posting
-      $c.data('evidenceId', evidenceId);
-
-      // Set the displaystring to the evidence bubble
-      $c.find('.evidence-add .evidence').html(evidenceDisplayString);
-    });
-  }
-
   function submitEvidence($c, type) {
 
     var factId = $c.attr("data-fact-id");
@@ -270,7 +188,7 @@
 
     // Little client side validation on the displaystring length
     var displaystring_input_field = $c.find('.fact_data_displaystring');
-    
+
     if (displaystring_input_field.val().length < 1) {
       displaystring_input_field.css('border', 'solid 1px rgba(206, 0, 0, 0.6)').attr("placeholder", "This field is required");
       return false;
@@ -283,14 +201,14 @@
     } else {
       alert('There is a problem adding the evidence to this Factlink. We are sorry for the inconvenience, please try again later.');
     }
-    
+
     $.ajax({
       url:      "/facts/" + factId + url_part,
       type:     "post",
       dataType: "script",
-      data:   { 
+      data:   {
                 displaystring: displayString,
-                type: type 
+                type: type
               },
       success: function(data) {
         resetSearch($c);
@@ -300,95 +218,21 @@
     });
   }
 
-  function bindInstantSearch($c) {
-    var is_timeout;
-    $c.find('.search-area .evidence_search').keyup(function() {
-      showSearchResults($c);
-      
-      var elem = $(this);
-      $('.user-search-input').text(elem.val());
-
-      if (elem.val().length >= 2) {
-        
-        showAddOptions($c);
-        
-        clearTimeout(is_timeout);
-        is_timeout = setTimeout(function() {
-          elem.closest('form').submit();
-        }, 200); // <-- choose some sensible value here        
-      } else {
-        hideSearchResults($c);
-        hideAddOptions($c);
-      }
-    });
-  }
-
-
-  function showEvidenceList($c) {
-    hidePages($c);
-    $c.find('.evidence-list').show();
-  }
-
-  function showEvidenceSearchResults($c) {
-    hidePages($c);
-    $c.find('.evidence-search-results').show();
-  }
-
-  function showEvidenceAdd($c) {
-    hidePages($c);
-    $c.find('.evidence-add').show();
-  }
-  
-  function showNewEvidenceAdd($c) {
-    hidePages($c);
-    $c.find('.new-evidence-add').show();
-  }
-
-  function hidePages($c) {
-    $c.find('.page').hide();
-  }
-  
-  function resetSearch($c) {
-    hideSearchResults($c);
-    hideAddOptions($c);
-    $c.find('.search-and-add-actions').hide();
-    $c.find('.search-area .evidence_search').val('');
-  }
-  function showSearchResults($c) {
-    $c.find('.evidence-search-results .search-term-results').show();
-    $c.find('.evidence-search-results .default-results').hide();
-  }
-  function hideSearchResults($c) {
-    $c.find('.evidence-search-results .search-term-results').hide();
-    $c.find('.evidence-search-results .default-results').show();
-  }
-  
-  function showAddOptions($c) {
-    $c.find('.search-and-add-actions:hidden').fadeIn(100);
-  }
-  function hideAddOptions($c) {  
-    $c.find('.search-and-add-actions').fadeOut(100, function() {
-      $('.user-search-input').html('');
-    });
-  }
-
-
   function init_fact(fact, container) {
     var $fact = $(fact);
     var $c = $(container);
     if (!$fact.data("initialized")) {
       $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
-        tooltip: 'You can edit this title to place the Factlink in the correct context.'
+        tooltip: 'Click to add a title to this Factlink',
+        placeholder: "Add title",
+        width: "380"
       });
 
       $fact.data("container", container);
       $fact.data("wheel", new Wheel(fact));
       $fact.data("wheel").init($fact.find(".wheel").get(0));
 
-      bindEvidencePrepare($c);
-      bindNewEvidenceAddAction($c);
-      bindInstantSearch($c);
 
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {

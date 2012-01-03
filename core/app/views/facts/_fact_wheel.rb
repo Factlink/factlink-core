@@ -8,10 +8,6 @@ module Facts
       opinions_for_user_and_fact(self[:fact])
     end
 
-    def user_signed_in?
-      self.view.user_signed_in?
-    end
-
     private
       def opinions_for_user_and_fact(fact)
         [

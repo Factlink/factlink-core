@@ -27,10 +27,6 @@ module Facts
       end
     end
 
-    def fact_relations_count
-      self[:fact].fact_relations.count
-    end
-
     def signed_in?
       user_signed_in?
     end

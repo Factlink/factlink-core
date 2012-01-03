@@ -25,30 +25,6 @@ module Facts
       show_links ? link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
     end
 
-    def last_activity
-      activities = Activity::Query.where([
-        {action: 'created', subject: self[:fact]},
-      ])
-
-      activity = activities.first
-      return nil unless activity
-
-      action = activity.action.to_sym
-      translation = {
-        :believes => :believe,
-        :disbelieves => :disbelieve,
-        :doubts => :doubt,
-        :created => :create,
-        :removed_opinions => :remove_opinion,
-        :added => :add_evidence
-      }
-      action = t("fact_#{translation[action]}_past_action") if translation[action]
-
-      # TODO: Fix translations (ago)
-      # TODO: Fix concatenation
-      activity && link_to(activity.user.user.username, user_profile_path(activity.user.user.username), target: "_top") + " " + action + " " + time_ago_in_words(activity.created_at) + " ago"
-    end
-
     def fact_title
       self[:fact].data.title
     end

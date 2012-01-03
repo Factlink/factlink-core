@@ -4,21 +4,6 @@
 @import "bootstrap/mixins";
 @import "bootstrap/patterns";
 /** Fact block */
-span.proxyWindow { 
-  display: none;
-}
-iframe.proxyFrame {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  margin-left: -400px;
-  width: 800px;
-  height: 500px;
-  border: solid 1px #777;
-  z-index: 2147483645;
-  .box-shadow(2px 2px 1px rgba(0,0,0,0.4));
-}
-
 div.modal {
   border: none;
   top: 40px;
@@ -27,461 +12,112 @@ div.modal {
   left: 30%;
   padding: 0;
   width: 510px;
-  span.proxyWindow { 
+  span.proxyWindow {
     display: inline !important;
   }
 }
-div.fact-block .close { 
-  margin: 5px;
+div.fact-block .close {
+  margin: 10px;
 }
-.float { 
+.float {
   background-color: @white;
   display: none;
   z-index: 2000;
-  .drop-shadow(0, 0, 10px, 0.3);
-  position: fixed;
+  .drop-shadow(0, 0, 5px, 0.1);
 }
 .channel-listing {
   .float;
   width: 200px;
   position: absolute;
 
-  ul { 
+  ul {
     max-height: 160px;
     overflow-y: auto;
     .visible-scroll();
-    padding: 8px 8px 4px 12px;
+    padding: 4px 0 0 4px;
   }
   li {
     .ellipsis();
-    padding: 4px 0px;
-  }
-  label { 
-    margin: 0;
-    padding: 0;
   }
   .add-channel {
     border-top: solid 1px #ddd;
     padding: 8px;
-    
+
     input[type="text"] {
       width: 130px;
       padding: 2px;
-      .border-radius(3px);
       border: solid 1px #ccc;
     }
   }
 }
-.new-style {
-  #gradient > .vertical(#fbfbfb, #e2e2e2);
-  border: solid 1px #a8a8a8;
-  padding: 4px;
-  .border-radius(3px);
-}
-
-/** Default styles for new modal */
-.default-modal {
+.fact-block {
   background: @white;
   .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
-}
-.underbar {
-  background: whiteSmoke;
-  font-weight: lighter;
-  border-top: solid 1px @grayLight;
-  min-height: 32px;
-  line-height: 32px;
-}
-
-.fact-block {
-  .default-modal;
-  border: solid 1px #ddd;
-
-  text-shadow: 0px 1px 0px white;
-  margin-bottom: 0;
-
-  &:hover > article.fact .activity {
-    visibility: visible;
-  }
-
-  .controls {
-    .underbar;
-    a, li {
-      color: @linkColor;
-      text-shadow: 0px 1px 0px #fff;
-      font-size: 9pt;
-    }
-    ul.evidence {
-      list-style: none;
-      li {
-        line-height: 32px;
-        padding: 0 15px;
-        float:left;
-      }
-    }
-  }
-
+  border: 1px solid @grayLighter;
   article.fact {
-    .box-shadow(inset 0px 2px 1px #fff);
-    
     padding: 10px 0 10px 5px;
-    min-height: 83px;
     display: block;
-    border-right: 1px solid #FBFAFA;
-    
+
     header {
 			margin: 0 0 0px 75px;
-
       padding-right: 20px;
       #font > .sans-serif(normal,@basefont,@baseline);
-      color: #555;
       sub {
-        color: #888;
         line-height: inherit;
         font-size: x-small;
         a {
           color: @linkColor;
         }
       }
-      form {
-      
-      }
       .head {
-        font-size: 0.9em;
-				color: #888;
-
-				padding: 6px 0;
 				display: block;
       }
 			.edit {
+        #font > .sans-serif(normal,9pt,@baseline);
+        color: @linkColor;
+        &:before {
+	        font-family: "IconicStroke";
+          content: "P ";
+        }
 				&:hover {
-					background-color: #ffffe1;
-					color: #888;
+					background-color: @lightYellow;
 				}
 
 				form {
-					input, input:focus {
-						padding: 4px 0;
-						background-color: #ffffe1;
-						.border-radius(3px);
-						
-						outline:none;
-						margin: -6px 0px -6px 0px;
+          display: inline-block;
+          input, input:focus {
+            #font > .sans-serif(normal,9pt,@baseline);
+						background-color: @lightYellow;
+            border: none;
+						outline: none;
+            padding: 0;
+            margin: 0;
 					}
 				}
 			}
 
-      .body { 
+      .body {
         #font > .serif(normal,@basefont,@baseline);
-        span a { 
+        span a {
           color: @linkColor;
         }
-
 			}
-
-      .activity { 
-        margin-top: 4px;
-        visibility: hidden;
-        height: 18px;
-        .transition(all 0.2s ease-in);
-
-        > ul > li { 
-          margin: 5px 10px 0 0;
-          display: inline-block;
-          list-style-type: none;
-          img {
-            margin: 0 3px 0 0;
-            vertical-align: baseline;
-          }
-        }
-      }
     }
   }
-  .wheel { 
+  .wheel {
     float: left;
-    height: 90px;
+    min-height: 60px;
     svg {
-      width: 52px !important;
-      height: 60px !important;
       margin: 0 0 0 4px;
       display: block;
       overflow: hidden;
-      path:hover { 
+      path:hover {
         cursor: pointer;
       }
     }
   }
-  div.evidence {
-    td {
-      &:hover > article.fact .activity {
-        visibility: visible;
-      }
-    }
-  }
-  
   .dropdown-container {
     display: none;
-    background-color: #fff;
-    border-top: none;
-    clear: both;
     width: 100%;
-
-    height: 300px;
-
-    position: relative;
-    .dropdown-underbar {
-      .underbar;
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
-
-      .user-search-input {
-        font-style: italic;
-      }
-      
-      .add-actions {
-        margin: 0 auto;
-        text-align: center;
-        padding: 8px;
-        
-        button {
-          margin: 2px;
-        }
-      }
-      
-      ul {
-        li {
-          color: #aaa;
-          text-shadow: 0px 1px 0px)#fff;
-          padding: 10px 10px 10px 36px;
-          border-bottom: solid 1px @grayLight;
-          
-          &:hover {
-            color: darken(#aaa, 20);
-            background: darken(@grayLighter, 2);
-            cursor: pointer;
-          }
-        }
-      }
-    }
-    
-    .evidence-search-results {
-
-      .search-area {
-        a {
-          margin-left: 15px;
-        }
-        border-top: solid 1px @grayLight;
-        border-bottom: solid 1px darken(@grayLight, 2);
-        .evidence_search {
-          width: 300px;
-          padding: 3px;
-          border-radius: 4px;
-          border: solid 1px darken(@grayLight, 20);
-          margin: 8px 4px 8px 15px;
-        }
-        a {
-          color: @linkColor;
-        }
-      }
-      .results {
-        height: 260px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        
-        .search-term-results{
-          margin-bottom: 106px;
-        }
-        ul {
-          li {
-            color: lighten(#313131, 25);
-            #font > .serif(normal, @basefont, @baseline);
-            font-size: 14px;
-            padding: 15px;
-            border-bottom: solid 1px @grayLight;
-
-            &.evidence {
-              span {
-                display: block;
-                width: 100%;
-                font-size: 10pt;
-                color: lighten(#313131, 40);
-                line-height: 20px;
-              }
-              
-              &:hover {
-                color: #313131;
-                background: #f5f5f5;
-                cursor: pointer;
-              }              
-            }
-          }
-        }
-      }      
-    }
-    
-    .evidence-add,
-    .new-evidence-add {
-      .message {
-        color: lighten(#313131, 25);
-        margin-left: 15px;
-        font-size: 14px;
-      }
-      a {
-        margin: 13px 15px;
-        color: @linkColor;
-        display: block;
-      }
-      
-      .evidence-bubble {
-        color: lighten(#313131, 25);
-        font-size: 10pt;
-        line-height: 20px;
-        padding: 15px;
-        margin: 0 15px 15px;
-
-        border: solid 1px #ddd;
-        .border-radius(6px);
-        .box-shadow(2px 2px 1px @grayLight);
-      }
-      
-      input {
-        display: block;
-        width: 450px;
-        color: lighten(#313131, 25);
-        font-family: "Georgia";
-        font-size: 10pt;
-        line-height: 20px;
-        padding: 15px;
-        margin: 0 15px 15px;
-        
-        border: solid 1px #ddd;
-        .border-radius(6px);
-        .box-shadow(2px 2px 1px @grayLight);
-      }
-    }
-    
-    .add-action {
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
-      text-align: center;
-      .underbar;
-    }
-  }
-
-  .notification {
-    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    background: lighten(#d1eed1, 5) !important;
-    height: 28px;
-    line-height: 28px;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-
-    span {
-      padding: 0 16px;
-      color: #313131;
-      a {
-        color: @linkColor;
-        margin-left: 4px;
-      }
-    }
-  }
-
-  .evidence-list {    
-    .evidence-list-wrapper { 
-      min-height: 80px;
-      height: 300px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-
-      .no-evidence-message {
-        display: none;
-        font-size: 11pt;
-        line-height: 24px;
-        color: lighten(#313131, 25);
-        text-shadow: 0px 1px 0px #fff;
-        margin-top: 100px;
-        text-align: center;
-        a {
-          color: @linkColor;
-        }
-      }
-      
-      .loading-evidence {
-        line-height: 165px;
-        text-align: center;
-        
-        img {
-          vertical-align: text-bottom;
-          margin: 0 3px;
-        }
-      }
-
-      li {
-        background: whiteSmoke;
-
-        .relation {
-          width: 60px;
-          overflow: hidden;
-          float: left;
-          margin: 10px 0 0 14px;
-           
-          .relation-arrow {
-            height: 24px;
-            width: 24px;
-            display: block;
-            background: url('../assets/relation-sprite.png') no-repeat 0 -2px;
-          }
-           
-          .supporting {
-            .relation-arrow;
-            background-position: 0 -2px;
-            &.active {
-              background-position: -30px -2px;
-            }
-          }
-           
-          .relation-indicator {
-            .relation-arrow;
-            height: 24px;
-            width: 24px;
-            display: block;
-            background: url('../assets/relation-sprite.png') no-repeat -30px -28px;
-          }
-         .supporting-indicator {
-            .relation-indicator;
-          }
-          .weakening-indicator {
-            .relation-indicator;
-              background-position: 0 -28px;
-          }
-
-          .weakening {
-            height: 24px;
-            width: 24px;
-            display: block;
-            background: url('../assets/relation-sprite.png') no-repeat -30px -58px;
-            background-position: -30px -58px;
-            &.active {
-              background-position: 0px -58px;
-            }
-          }
-        }
-        article.fact {
-          margin-left: 55px;
-          
-          position:relative;
-          width: 445px;
-          text-align: left;
-          background: #fff;
-          .box-shadow(none);
-
-          border-left: solid 1px #ddd;
-          border-bottom: solid 1px #ebebeb;
-        }
-      }
-    }
   }
 }
