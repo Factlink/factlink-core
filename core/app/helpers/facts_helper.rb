@@ -39,33 +39,4 @@ module FactsHelper
     end
   end
 
-  class FactView < SemiMustacheView
-
-    def initialize(fact,user,channel)
-      @fact = fact
-      @current_user = user
-      @channel = channel
-    end
-
-
-    def no_evidence_message
-      if user_signed_in?
-        "Perhaps you know something that supports or weakens this fact?"
-      else
-        "There are no Factlinks supporting or weakening this Factlink at the moment."
-      end
-    end
-
-
-    def deletable_from_channel?
-      user_signed_in? and @channel and @channel.editable? and @channel.created_by == @current_user.graph_user
-    end
-
-    def remove_from_channel_path
-      remove_fact_from_channel_path(@current_user.username, @channel.id, @fact.id)
-    end
-  end
-
-
-
 end
