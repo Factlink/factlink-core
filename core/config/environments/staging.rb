@@ -57,10 +57,11 @@ FactlinkUI::Application.configure do
 end
 
 ActionMailer::Base.smtp_settings = {
-  :address => 'smtp.factlink.com',
+  :address => 'smtp.gmail.com',
   :port => 587,
   :domain => 'factlink.com',
   :authentication => :plain,
   :user_name => 'team@factlink.com',
-  :password => 'hIx2l52ii209b2gRZ'
+  :password => 'hIx2l52ii209b2gRZ',
+  :enable_starttls_auto => true
 }
