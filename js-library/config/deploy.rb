@@ -1,6 +1,7 @@
 #############
 # Application
 set :application, "factlink-js-library"
+set :keep_releases, 10
 
 ########
 # Stages
@@ -12,7 +13,7 @@ require 'capistrano/ext/multistage'
 # RVM support
 # Add RVM's lib directory to the load path.
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-# Load RVM's capistrano plugin.    
+# Load RVM's capistrano plugin.
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 
@@ -47,14 +48,16 @@ after "deploy", "deploy:build"
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-  
+
   task :build do
     run "cd #{current_path}; make"
   end
-  
+
 #   task :start do ; end
 #   task :stop do ; end
 #   task :restart, :roles => :app, :except => { :no_release => true } do
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
 end
+
+after 'deploy:update', 'deploy:cleanup'
