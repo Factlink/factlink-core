@@ -133,7 +133,7 @@ class ChannelsController < ApplicationController
       @channel.mark_as_read
     end
 
-    respond_with(@facts.map {|fact| Facts::Fact.for_fact_and_view(fact[:item],view_context,@channel,nil,fact[:score])})
+    respond_with(@facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])})
   end
 
   def remove_fact
