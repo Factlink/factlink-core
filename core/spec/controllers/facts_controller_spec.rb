@@ -16,6 +16,15 @@ describe FactsController do
       get :show, :id => @fact.id
       response.should be_succes
     end
+
+    it "should render json succesful" do
+      @fact = FactoryGirl.create(:fact)
+      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.save
+      should_check_can :show, @fact
+      get :show, id: @fact.id, format: :json
+      response.should be_succes
+    end
     
     pending "should escape html in fields" do
       @fact = FactoryGirl.create(:fact)
