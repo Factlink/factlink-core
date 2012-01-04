@@ -21,7 +21,7 @@ describe Basefact do
 
   context "initially" do
     [:believes, :doubts, :disbelieves].each do |opinion|
-      it { subject.opiniated_count(opinion).should == 0 }
+      it { subject.opiniated(opinion).count.should == 0 }
       it { subject.opiniated(opinion).all.should == [] }
       it { expect_opinion(subject,Opinion.identity)}
     end
@@ -58,7 +58,7 @@ describe Basefact do
           subject.add_opinion(opinion, user)
           FactGraph.recalculate
         end
-        it { subject.opiniated_count(opinion).should == 1 }
+        it { subject.opiniated(opinion).count.should == 1 }
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
 
@@ -68,7 +68,7 @@ describe Basefact do
           subject.add_opinion(opinion, user)
           FactGraph.recalculate
         end
-        it {subject.opiniated_count(opinion).should == 1}
+        it {subject.opiniated(opinion).count.should == 1}
         it { expect_opinion(subject,Opinion.for_type(opinion,user.authority))}
       end
     end
@@ -80,7 +80,7 @@ describe Basefact do
         subject.remove_opinions user
         FactGraph.recalculate
       end
-      it {subject.opiniated_count(opinion).should == 0 }
+      it {subject.opiniated(opinion).count.should == 0 }
       it { expect_opinion(subject,Opinion.identity)}
     end
 
@@ -90,7 +90,7 @@ describe Basefact do
         subject.add_opinion(opinion, user2)
         FactGraph.recalculate
       end
-      it {subject.opiniated_count(opinion).should == 2}
+      it {subject.opiniated(opinion).count.should == 2}
       it { expect_opinion(subject,Opinion.for_type(opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
     end
 
@@ -106,7 +106,7 @@ describe Basefact do
             subject.add_opinion(other_opinion, user)
             FactGraph.recalculate
           end
-          it {subject.opiniated_count(opinion).should == 1}
+          it {subject.opiniated(opinion).count.should == 1}
           it { expect_opinion(subject,Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(opinion,user2.authority))}
         end
 
@@ -116,7 +116,7 @@ describe Basefact do
             subject.add_opinion(other_opinion, user2)
             FactGraph.recalculate
           end
-          it {subject.opiniated_count(opinion).should == 0}
+          it {subject.opiniated(opinion).count.should == 0}
           it { Basefact[subject.id].get_user_opinion.should == Opinion.for_type(other_opinion,user.authority)+Opinion.for_type(other_opinion,user2.authority)}
         end
 

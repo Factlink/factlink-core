@@ -17,11 +17,11 @@ Backbone.View.prototype.close = function() {
 
 
 /*
-    View.usetemplate() method which loads the mustache templates
+    View.useTemplate() method which loads the mustache templates
 
     call this in the initialize()
 */
-Backbone.View.prototype.use_template = function(dir,file) {
+Backbone.View.prototype.useTemplate = function(dir,file) {
   var self = this;
   this.tmpl = $('#mustache-templates .mustache-dir-'+dir+".mustache-file-"+file).html();
   this.partials = {};
