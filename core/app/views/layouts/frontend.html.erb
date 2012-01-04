@@ -51,7 +51,11 @@
     </section>
 
     <section id="left-column" class="prepend-2 span-5 side-column">
-      <%= yield :left_column %>
+      <% if content_for?(:left_column) %>
+        <%= yield(:left_column) %>
+      <% else %>
+        &nbsp;
+      <% end %>
     </section>
 
     <section id="main-column" class="span-14" role="main">

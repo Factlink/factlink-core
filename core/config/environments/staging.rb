@@ -37,6 +37,15 @@ FactlinkUI::Application.configure do
   # In staging, Apache or nginx will already do this
   config.serve_static_assets = false
 
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
+
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
+
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
@@ -54,6 +63,8 @@ FactlinkUI::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Redirect all traffic to https equivalent. Add 'secure' flag to cookie.
+  config.force_ssl = true
 end
 
 ActionMailer::Base.smtp_settings = {

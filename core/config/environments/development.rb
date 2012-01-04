@@ -31,6 +31,8 @@ FactlinkUI::Application.configure do
   config.assets.debug = true
 
   I18n.default_locale = :nl
+
+  config.force_ssl = false
 end
 
 Rails.logger = Logger.new(STDOUT)
