@@ -101,6 +101,10 @@ group :assets do
   gem "modernizr-rails", "~> 2.0.6"
 end
 
+group :development do
+  gem "pry"
+end
+
 group :development, :test do
   gem 'metric_fu'
   # dependencies of metric_fu:

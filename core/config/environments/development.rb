@@ -33,6 +33,9 @@ FactlinkUI::Application.configure do
   I18n.default_locale = :nl
 
   config.force_ssl = false
+
+  require 'pry'
+  IRB = Pry
 end
 
 Rails.logger = Logger.new(STDOUT)
