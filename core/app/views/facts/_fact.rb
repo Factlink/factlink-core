@@ -1,8 +1,5 @@
 module Facts
   class Fact < Mustache::Railstache
-    def self.for_fact_and_view(fact, view, channel=nil, modal=nil,timestamp=0)
-      self.for(fact: fact, view: view, channel: channel, modal: modal, timestamp: timestamp)
-    end
 
     def self.for(options={})
       options[:channel] ||= nil
