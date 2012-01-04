@@ -34,7 +34,7 @@ class FactsController < ApplicationController
     @modal = true
     @hide_links_for_site = @modal && @fact.site
 
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
+    respond_with(lazy {Facts::Fact.for_fact_and_view(@fact, view_context)})
   end
 
   def index
