@@ -1,6 +1,6 @@
 <% content_for :javascript do %>
   <script>
-    var results = new Facts(<%= @results.map{|f| Facts::Fact.for_fact_and_view(f,self)}.to_json.html_safe %>, {
+    var results = new Facts(<%= @results.map{|f| Facts::Fact.for(fact: f,view: self)}.to_json.html_safe %>, {
       search: "<%= params[:s] %>"
     });
 
