@@ -24,6 +24,7 @@ window.Fact = Backbone.Model.extend({
     options = options || {};
     var forChannel = options.forChannel;
 
+    //@TODO: Remove this strange default behaviour
     if ( forChannel === undefined ) {
       forChannel = true;
     }

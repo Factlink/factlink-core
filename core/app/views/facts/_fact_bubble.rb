@@ -33,6 +33,8 @@ module Facts
       self[:fact].id
     end
 
+    alias id fact_id
+
     def fact_wheel
       Facts::FactWheel.for(fact: self[:fact], view: self.view, channel: self[:channel],modal: self[:modal]).to_hash
     end

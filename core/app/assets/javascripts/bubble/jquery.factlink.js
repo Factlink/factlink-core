@@ -9,40 +9,40 @@
           });
         }
 
-        function addEventHandlersTabs($fact) {
-          $fact.find("ul.evidence li").click(function() {
-
-            if ($fact.find(".dropdown-container").is(":hidden")) {
-              $fact.find(".dropdown-container").slideDown();
-
-              // AJAX call to load the FactRelations
-              if (!$fact.data('loaded-evidence')) {
-                getEvidence($fact);
-                $fact.data('loaded-evidence', true);
-              }
-
-              $(this).addClass("active");
-              $fact.addClass("active");
-
-            } else {
-              if ($(this).hasClass("active")) {
-                $fact.find(".dropdown-container").slideUp(function() {
-                  $fact.find("ul.evidence li").removeClass("active");
-                  $fact.removeClass("active");
-                });
-              } else {
-                $fact.find("ul.evidence li").removeClass("active");
-                $(this).addClass("active");
-                $fact.addClass("active");
-              }
-            }
-            return false;
-          });
-        }
+        // function addEventHandlersTabs($fact) {
+        //   $fact.find("ul.evidence li").click(function() {
+        //
+        //     if ($fact.find(".dropdown-container").is(":hidden")) {
+        //       $fact.find(".dropdown-container").slideDown();
+        //
+        //       // AJAX call to load the FactRelations
+        //       if (!$fact.data('loaded-evidence')) {
+        //         getEvidence($fact);
+        //         $fact.data('loaded-evidence', true);
+        //       }
+        //
+        //       $(this).addClass("active");
+        //       $fact.addClass("active");
+        //
+        //     } else {
+        //       if ($(this).hasClass("active")) {
+        //         $fact.find(".dropdown-container").slideUp(function() {
+        //           $fact.find("ul.evidence li").removeClass("active");
+        //           $fact.removeClass("active");
+        //         });
+        //       } else {
+        //         $fact.find("ul.evidence li").removeClass("active");
+        //         $(this).addClass("active");
+        //         $fact.addClass("active");
+        //       }
+        //     }
+        //     return false;
+        //   });
+        // }
 
         function initialize($fact) { /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
           //On Click Event
-          addEventHandlersTabs($fact);
+          // addEventHandlersTabs($fact);
 
           $fact.data('loaded-evidence', false);
 
@@ -142,19 +142,19 @@
     $(el).data(attr, data);
   }
 
-  function getEvidence($fact) {
-    var id = $fact.attr("data-fact-id");
-    var loader = $fact.find('.loading-evidence');
-    $.ajax({
-      url: '/facts/' + id + '/fact_relations',
-      type: "GET",
-      dataType: "script",
-      success: function(data) {
-        loader.hide();
-      },
-      error: function(data) {}
-    });
-  }
+  // function getEvidence($fact) {
+  //   var id = $fact.attr("data-fact-id");
+  //   var loader = $fact.find('.loading-evidence');
+  //   $.ajax({
+  //     url: '/facts/' + id + '/fact_relations',
+  //     type: "GET",
+  //     dataType: "script",
+  //     success: function(data) {
+  //       loader.hide();
+  //     },
+  //     error: function(data) {}
+  //   });
+  // }
 
   function submitEvidence($c, type) {
 

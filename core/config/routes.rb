@@ -34,7 +34,6 @@ FactlinkUI::Application.routes.draw do
       post  "/update_title" => "facts#update_title", :as => "update_title"
     end
 
-    #TODO: is this still needed?
     resources :fact_relations, only: [:index]
   end
 
@@ -107,7 +106,12 @@ FactlinkUI::Application.routes.draw do
 
         scope "/facts" do
           get "/" => "channels#facts", :as => "get_facts_for"
-          delete "/:fact_id/" => "channels#remove_fact",  :as => "remove_fact_from"
+
+          scope "/:fact_id" do
+            delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
+
+            resources :fact_relations, only: [:index]
+          end
         end
       end
     end
