@@ -211,10 +211,9 @@ a.bookmarklet {
   }
 
   sub {
-    color: @gray;
-    #font > .serif(normal, x-small, @baseline);
-    text-shadow: 0px 1px 0px @white;
-  }
+    color: #555;
+    #font > .sans-serif(normal, x-small, @baseline);
+   }
   .side-column {
     header {
       margin-top: 16px;
@@ -416,7 +415,8 @@ a.bookmarklet {
       width: 140px;
       display: block;
       .ellipsis();
-      #font > .serif(normal, @basefont, @baseline);
+      #font > .sans-serif(normal, @basefont, @baseline);
+      text-shadow: 0px 1px 0px @white;
       padding-left: 24px;
       &:hover {
         text-decoration: none;

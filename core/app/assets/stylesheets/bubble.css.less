@@ -24,7 +24,7 @@ div.fact-block .close {
   display: none;
   z-index: 2000;
   .drop-shadow(0, 0, 5px, 0.2);
-  border: 1px solid @grayLight;
+  border: 1px solid @grayLighter;
 }
 .channel-listing {
   .float;
@@ -39,6 +39,7 @@ div.fact-block .close {
     li {
       .ellipsis();
       padding: 5px 0 5px 0 !important;
+      width: 180px;
       margin: 0 0 0 5px !important;
       border: none !important;
       a {
@@ -62,7 +63,6 @@ div.fact-block .close {
 .fact-block {
   color: #555;
   background: @white;
-  .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
   border: 1px solid @grayLight;
   article.fact {
     padding: 10px 0 10px (@rightIndent / 2);
@@ -97,7 +97,7 @@ div.fact-block .close {
         color: @linkColor;
         &:before {
 	        font-family: "IconicStroke";
-          content: "p ";
+          content: "P ";
         }
 				&:hover {
 					background-color: @lightYellow;
@@ -131,13 +131,14 @@ div.fact-block .close {
     .transition(opacity 0.2s ease);
     border-bottom: 1px solid @grayLighter;
     ul.evidence {
-      height: 25px;
+      height: 23px;
       li {
         display: block;
         float: left;
         margin: 0 0 0 15px;
-        position: relative;
-        .border-radius(3px);
+        .border-radius(3px 3px 0 0);
+        border: 1px solid transparent;
+        border-bottom: none;
         a {
           display: block;
           padding: 5px;
@@ -146,6 +147,7 @@ div.fact-block .close {
           }
         }
         &:hover, &.active {
+          border-color: @grayLight;
         }
         &.active a {
           color: #555;
@@ -155,8 +157,6 @@ div.fact-block .close {
   }
   .dropdown-container {
     display: none;
-    .visible-scroll();
-    width: 100%;
   }
   &:hover, &.active, .controls.active {
     .controls {
@@ -164,10 +164,32 @@ div.fact-block .close {
     }
   }
   .evidence-list {
+    max-height: 260px;
+    min-height: 50px;
+    overflow: auto;
+    .visible-scroll();
     background-color: @whiteDarker;
     ul.evidence-listing {
       .relation {
         display: none;
+      }
+    }
+    .no-evidence-message {
+      display: none;
+      text-align: center;
+      padding: 5px;
+    }
+    .loading-evidence {
+      position: relative;
+      top: 15px;
+      left: 45%;
+    }
+    li {
+      &:not(:first-child) {
+        border-top: 1px solid @grayLight;
+      }
+      article.fact {
+        margin-left: 30px;
       }
     }
   }

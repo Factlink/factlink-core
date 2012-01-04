@@ -227,9 +227,9 @@
     if (!$fact.data("initialized")) {
       $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
-        tooltip: 'Click to add a title to this Factlink',
+        tooltip: 'Click to change the title of this Factlink',
         placeholder: "Add title",
-        width: "380"
+        width: "340"
       });
 
       $fact.data("container", container);
