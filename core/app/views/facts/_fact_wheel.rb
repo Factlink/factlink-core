@@ -1,9 +1,5 @@
 module Facts
   class FactWheel < Mustache::Railstache
-    def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
-      self.for(fact: fact, view: view, channel: channel, modal: modal)
-    end
-
     def authority
       self[:fact].get_opinion.as_percentages[:authority]
     end
