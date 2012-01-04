@@ -28,7 +28,7 @@
     <% end %>
 
     <% if current_user %>
-      window.currentUser = new User(<%= Users::User.for_user(current_user, self).to_json.html_safe %>);
+      window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
 
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for(channel: ch,view: self) }.to_json.html_safe %>));
     <% end %>

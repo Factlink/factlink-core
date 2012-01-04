@@ -1,9 +1,5 @@
 module Users
   class User < Mustache::Railstache
-    def self.for_user(user, view)
-      self.for(user: user, view: view)
-    end
-    
     def init
       self[:graph_user] = self[:user].graph_user
     end

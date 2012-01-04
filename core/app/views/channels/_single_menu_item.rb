@@ -35,7 +35,7 @@ module Channels
     end
 
     def created_by
-      Users::User.for_user(self[:user], self.view)
+      Users::User.for(user: self[:user], view: self.view)
     end
 
     def nr_of_facts
