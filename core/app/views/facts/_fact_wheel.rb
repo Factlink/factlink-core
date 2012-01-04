@@ -1,12 +1,7 @@
 module Facts
   class FactWheel < Mustache::Railstache
     def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
-      fw = new
-      fw.view = view
-      fw[:channel] = channel
-      fw[:fact] = fact
-      fw[:modal] = modal
-      return fw
+      self.for(fact: fact, view: view, channel: channel, modal: modal)
     end
 
     def authority

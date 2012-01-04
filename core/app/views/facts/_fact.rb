@@ -1,21 +1,7 @@
 module Facts
   class Fact < Mustache::Railstache
     def self.for_fact_and_view(fact, view, channel=nil, modal=nil,timestamp=0)
-      fv = new(false)
-      fv.view = view
-      fv[:channel] = channel
-      fv[:fact] = fact
-      fv[:modal] = modal
-      fv[:timestamp] = timestamp
-      fv.init
-      return fv
-    end
-
-    def initialize(run=true)
-      init if run
-    end
-
-    def init
+      self.for(fact: fact, view: view, channel: channel, modal: modal, timestamp: timestamp)
     end
 
     def no_evidence_message
