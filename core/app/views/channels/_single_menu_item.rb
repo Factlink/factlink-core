@@ -1,19 +1,6 @@
 module Channels
   class SingleMenuItem < Mustache::Railstache
 
-    def self.for_channel_and_view(channel,view,channel_user=nil)
-      smi = new(false)
-      smi.view = view
-      smi[:channel] = channel
-      smi[:user] = channel_user
-      smi.init
-      return smi
-    end
-
-    def initialize(run=true)
-      init if run
-    end
-
     def init
       self[:user]||= self[:channel].created_by.user
     end

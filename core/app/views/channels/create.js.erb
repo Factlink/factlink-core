@@ -11,5 +11,5 @@ $("article.fact").each(function() {
 $().factlink('getChannelChecklist',$('article.fact[data-fact-id=<%=@fact.id%>]'));
 
 if (Channels !== undefined && "<%=current_user.graph_user.id%>" === Channels.models[0].get('created_by_id') ) {
-  Channels.add(<%= Channels::SingleMenuItem.for_channel_and_view(@channel,self).to_json.html_safe %>);
+  Channels.add(<%= Channels::SingleMenuItem.for(channel: @channel,view: self).to_json.html_safe %>);
 }

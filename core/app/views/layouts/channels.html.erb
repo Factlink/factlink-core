@@ -21,7 +21,7 @@
 
 <% content_for :javascript do %>
   <script>
-    Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self,@user) }.to_json.html_safe %>);
+    Channels.reset(<%= @user.graph_user.channels.map{|ch| Channels::SingleMenuItem.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
 
     <% if @channel && !@channel.new? %>
       window.currentChannel = Channels.get(<%= @channel.id %>);
@@ -30,7 +30,7 @@
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for_user(current_user, self).to_json.html_safe %>);
 
-      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for_channel_and_view(ch,self) }.to_json.html_safe %>));
+      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for(channel: ch,view: self) }.to_json.html_safe %>));
     <% end %>
 
     var Router = new Workspace();
