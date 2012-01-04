@@ -67,7 +67,7 @@ module Facts
     end
 
     def fact_bubble
-      Facts::FactBubble.for_fact_and_view(self[:fact], self.view)
+      Facts::FactBubble.for(fact: self[:fact], view: self.view)
     end
 
     def containing_channel_ids

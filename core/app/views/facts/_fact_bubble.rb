@@ -1,9 +1,5 @@
 module Facts
   class FactBubble < Mustache::Railstache
-    def self.for_fact_and_view(fact, view, channel=nil, modal=nil)
-      self.for(fact: fact, view: view, channel: channel, modal: modal)
-    end
-
     def user_signed_in?
       self.view.user_signed_in?
     end
