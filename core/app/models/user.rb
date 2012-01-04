@@ -24,7 +24,7 @@ class User
   validates_uniqueness_of :username, :message => "must be unique"
 
   has_mongoid_attached_file :avatar,
-    :default_url   => "/images/avatar.jpeg",
+    :default_url   => "/assets/avatar.jpeg",
     :styles => {
       :small  => "32x32#",
       :medium => "48x48#",
