@@ -9,7 +9,7 @@ window.FactView = Backbone.View.extend({
   },
   
   initialize: function(opts) {
-    this.use_template('facts','_fact')
+    this.useTemplate('facts','_fact')
     this.model.bind('destroy', this.remove, this);
     
     if ( opts.tmpl ) {
