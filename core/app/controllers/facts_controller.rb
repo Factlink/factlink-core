@@ -40,7 +40,7 @@ class FactsController < ApplicationController
   def index
     @facts = Fact.all
 
-    respond_with(@facts.map {|ch| Facts::Fact.for_fact_and_view(ch,view_context)})
+    respond_with(@facts.map {|f| Facts::Fact.for(fact: f,view: view_context)})
   end
 
   def intermediate
