@@ -99,6 +99,18 @@ class User
     username
   end
 
+  def serializable_hash(options={})
+    options ||= {}
+    options[:except] ||= Array.new
+    options[:except] += [
+      :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
+      :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
+      :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
+      :sign_in_count
+    ]
+    super(options)
+  end
+
   def self.from_param(param)
     self.first :conditions => { username: param }
   end

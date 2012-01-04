@@ -28,7 +28,7 @@ describe User do
   describe :to_param do
     it {subject.to_param.should == subject.username }
   end
-  
+
   context "when agreeing the tos" do
     describe "when trying to agree without signing, without a name" do
       it "should not be allowed" do
@@ -64,13 +64,29 @@ describe User do
       end
     end
   end
-  
+
   describe ".find" do
     it "should work with numerical ids" do
       User.find(subject.id).should == subject
     end
     it "should work with usernames" do
       User.find(subject.username).should == subject
+    end
+  end
+
+  describe :to_json do
+    it "should not contain a password" do
+      subject.to_json.should_not include(subject.encrypted_password)
+    end
+    it "should not contain other sensitive information" do
+      [
+        :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
+        :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
+        :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
+        :sign_in_count
+      ].map{|x| x.to_s}.each do |field|
+        subject.to_json.should_not include(field)
+      end
     end
   end
 end
