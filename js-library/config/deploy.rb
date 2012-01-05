@@ -17,7 +17,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 
-set :user, "root"
+set :user, "deploy"
 set :use_sudo,    false
 
 # Repository
@@ -30,7 +30,7 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
-# don't tuch all static files:
+# don't touch all static files:
 set :normalize_asset_timestamps, false
 
 
