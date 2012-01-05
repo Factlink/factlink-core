@@ -135,13 +135,13 @@ window.FactView = Backbone.View.extend({
       currentVisibleDropdown = type;
 
       this.switchToRelationDropdown(type);
+      $target.addClass("active");
     } else {
       this.hideDropdownContainer();
 
       currentVisibleDropdown = undefined;
     }
 
-    $target.addClass("active");
   }
 });
 })();
