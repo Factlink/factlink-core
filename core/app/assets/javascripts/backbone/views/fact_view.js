@@ -110,8 +110,8 @@ window.FactView = Backbone.View.extend({
     $('.dropdown-container', this.el).slideUp('fast');
   },
 
-  showRelationDropdown: function(type){
-    if (type === "supporting"){
+  switchToRelationDropdown: function(type){
+    if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
       this.supportingFactRelationsView.showAndFetch();
     }else{
