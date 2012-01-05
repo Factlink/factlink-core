@@ -53,12 +53,6 @@ namespace :deploy do
     run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
 
-  task :set_wheel_permissions do
-    run "mkdir -p #{current_path}/public/system/wheel"
-    run "chmod 777 #{current_path}/public/system/wheel"
-    run "cat /root/pirate.ascii"
-  end
-
   task :start_recalculate do
     run "sh #{current_path}/bin/server/start_recalculate.sh #{deploy_env}"
   end
@@ -73,7 +67,6 @@ end
 before 'deploy:all',    'deploy'
 
 after 'deploy:all',     'deploy:restart'
-before 'deploy:restart', 'deploy:set_wheel_permissions'
 
 before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',         'deploy:migrate'
