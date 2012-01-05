@@ -15,7 +15,7 @@ window.FactRelationView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
+    $(this.el).html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     return this;
   }
