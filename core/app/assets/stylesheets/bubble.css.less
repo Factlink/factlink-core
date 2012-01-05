@@ -180,19 +180,21 @@ div.fact-block .close {
   .dropdown-container {
     .visible-scroll();
     width: 100%;
+    overflow: auto;
     display: none;
     background: @whiteDarker;
     padding: 7px 0 8px 0;
+    min-height: 55px;
     .no-evidence-message {
       display: none;
       text-align: center;
       padding: 5px;
+      height: 55px;
     }
     .loading-evidence {
-      position: relative;
-      top: 15px;
       height: 55px;
-      left: 45%;
+      padding-top: 20px;
+      text-align: center;
     }
     .arrow {
       position: absolute;
@@ -225,7 +227,6 @@ div.fact-block .close {
     }
   }
   .evidence-list {
-    min-height: 60px;
     .drop-shadow(0, 1px, 2px, 0.1);
     background-color: @white;
     border-top: 1px solid @grayLighter;
