@@ -8,12 +8,15 @@
 Author: Factlink
 ========================================================================== */
 body {
-  background: #f4f4f4;
+  background: #F4F4F4;
 }
 
 body.factlink-site .fact-block,
 body.factlink-site div.user-block {
-  margin-bottom:10px
+  margin-bottom:15px;
+  .border-radius(3px);
+  border: 1px solid @grayLight;
+
 }
 
 #tos {
@@ -30,7 +33,7 @@ body.factlink-site div.user-block {
   }
   h1 {
     font-size: @basefont * 2;
-    sfont-weight: bold;
+    font-weight: bold;
     margin-bottom: @baseline;
   }
   .explanation {
@@ -176,7 +179,6 @@ a.bookmarklet {
     margin-bottom: @basefont;
   }
 
-
   form {
     .row {
       padding: 10px 0px;
@@ -306,7 +308,7 @@ a.bookmarklet {
 
     header.title {
       margin: -15px -15px 15px -15px;
-      background-color: #ededed;
+      background-color: #EDEDED;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
       span.contained-channel-description {

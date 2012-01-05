@@ -1,10 +1,10 @@
 (function(){
-var currentVisibleDropdown;
-
 window.FactView = Backbone.View.extend({
   tagName: "div",
 
   className: "fact-block",
+
+  _currentVisibleDropdown: undefined,
 
   events: {
     "click a.remove": "removeFactFromChannel",
@@ -97,9 +97,9 @@ window.FactView = Backbone.View.extend({
   },
 
   showDropdownContainer: function(className) {
-    if (typeof currentVisibleDropdown === "undefined") {
+    if (typeof this._currentVisibleDropdown === "undefined") {
       console.info( "Showing dropdownContainer" );
-      $('.dropdown-container', this.el).slideDown('fast');
+      $('.dropdown-container', this.el).show();
     }
 
     $(this.el).addClass("active");
@@ -109,7 +109,7 @@ window.FactView = Backbone.View.extend({
     $(this.el).removeClass("active");
     console.info( "Hiding dropdownContainer" );
 
-    $('.dropdown-container', this.el).slideUp('fast');
+    $('.dropdown-container', this.el).hide();
   },
 
   switchToRelationDropdown: function(type){
@@ -129,17 +129,17 @@ window.FactView = Backbone.View.extend({
 
     $tabButtons.removeClass("active");
 
-    if ( type !== currentVisibleDropdown ) {
+    if ( type !== this._currentVisibleDropdown ) {
       this.showDropdownContainer(type);
 
-      currentVisibleDropdown = type;
+      this._currentVisibleDropdown = type;
 
       this.switchToRelationDropdown(type);
       $target.addClass("active");
     } else {
       this.hideDropdownContainer();
 
-      currentVisibleDropdown = undefined;
+      this._currentVisibleDropdown = undefined;
     }
 
   }
