@@ -127,13 +127,18 @@ window.FactView = Backbone.View.extend({
     var className = $target.attr('class');
     var $tabButtons = $(this.el).find('.controls li');
     $tabButtons.removeClass("active");
+    var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
-    if ( className !== currentVisibleDropdown ) {
-      this.showDropdownContainer(className);
+    if ( type !== currentVisibleDropdown ) {
+      this.showDropdownContainer(type);
 
-      this.showRelationDropdown(className);
+      currentVisibleDropdown = className;
+
+      this.switchToRelationDropdown(type);
     } else {
       this.hideDropdownContainer();
+
+      currentVisibleDropdown = undefined;
     }
     $target.addClass("active");
   }
