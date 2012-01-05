@@ -12,7 +12,7 @@ GIT
 
 GIT
   remote: https://github.com/markijbema/mustache_rails3.git
-  revision: 9020f56a6831958c06cc0be430241b1bcb4f9eb7
+  revision: e5af9facb02787cc9349242a9734622f39d94d1a
   specs:
     mustache_rails3 (0.1.2.3)
 
@@ -70,7 +70,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    childprocess (0.2.4)
+    childprocess (0.2.5)
       ffi (~> 1.0.6)
     chronic (0.3.0)
     churn (0.0.15)
@@ -208,7 +208,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.2.1)
+    net-ssh (2.2.2)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
@@ -272,19 +272,19 @@ GEM
       ruby_parser
     rsolr (1.0.6)
       builder (>= 2.1.2)
-    rspec (2.7.0)
-      rspec-core (~> 2.7.0)
-      rspec-expectations (~> 2.7.0)
-      rspec-mocks (~> 2.7.0)
-    rspec-core (2.7.1)
-    rspec-expectations (2.7.0)
+    rspec (2.8.0)
+      rspec-core (~> 2.8.0)
+      rspec-expectations (~> 2.8.0)
+      rspec-mocks (~> 2.8.0)
+    rspec-core (2.8.0)
+    rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.7.0)
-    rspec-rails (2.7.0)
-      actionpack (~> 3.0)
-      activesupport (~> 3.0)
-      railties (~> 3.0)
-      rspec (~> 2.7.0)
+    rspec-mocks (2.8.0)
+    rspec-rails (2.8.1)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.8.0)
     ruby-prof (0.10.8)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
@@ -298,8 +298,8 @@ GEM
       railties (~> 3.1.0)
       sass (~> 3.1.10)
       tilt (~> 1.3.2)
-    selenium-webdriver (2.15.0)
-      childprocess (>= 0.2.1)
+    selenium-webdriver (2.16.0)
+      childprocess (>= 0.2.5)
       ffi (~> 1.0.9)
       multi_json (~> 1.0.4)
       rubyzip
@@ -313,7 +313,7 @@ GEM
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
+      tilt (!= 1.3.0, ~> 1.1)
     sqlite3 (1.3.5)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
