@@ -12,9 +12,9 @@ window.Fact = Backbone.Model.extend({
     return ret;
   },
 
-  dependentUrl: function(forChannel) {
-    if ( forChannel ) {
-      return this.collection.url() + '/' + this.get('id');
+  url: function(forChannel) {
+    if ( this.collection || forChannel ) {
+      return Backbone.Model.prototype.url.apply(this, arguments);
     } else {
       return '/facts/' + this.get('id');
     }
@@ -29,7 +29,7 @@ window.Fact = Backbone.Model.extend({
       forChannel = true;
     }
 
-    options.url = model.dependentUrl(forChannel);
+    options.url = model.url(forChannel);
 
     Backbone.sync(method, model, options);
   }
