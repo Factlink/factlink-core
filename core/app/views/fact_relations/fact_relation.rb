@@ -1,4 +1,4 @@
-module Facts
+module FactRelations
   class FactRelation < Mustache::Railstache
     def self.for(options={})
       self.for_fact_relation_and_view(options[:fact_relation], options[:view])
@@ -19,8 +19,8 @@ module Facts
     def init
     end
 
-    def baas
-      "baas"
+    def fact_bubble
+      Facts::FactBubble.for_fact_and_view(self[:fact_relation].from_fact, self.view)
     end
 
   end

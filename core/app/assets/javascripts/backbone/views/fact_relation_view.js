@@ -3,6 +3,8 @@ window.FactRelationView = Backbone.View.extend({
   className: "fact-relation",
 
   initialize: function() {
+    this.useTemplate('fact_relations','fact_relation');
+
     this.model.bind('destroy', this.remove, this);
   },
 
@@ -13,7 +15,7 @@ window.FactRelationView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(this.model.get("displaystring"));
+    $(this.el).html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
 
     return this;
   }

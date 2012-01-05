@@ -2,7 +2,6 @@ window.FactRelationsView = Backbone.View.extend({
   tagName: "div",
   className: "page evidence-list fact-relations-container",
   _views: [],
-  _visible: false,
 
   initialize: function(options) {
     this.useTemplate('fact_relations','fact_relations');
@@ -35,14 +34,6 @@ window.FactRelationsView = Backbone.View.extend({
     $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
 
     return this;
-  },
-
-  toggle: function() {
-    if ( this._visible ) {
-      this.hide();
-    } else {
-      this.showAndFetch();
-    }
   },
 
   hide: function() {

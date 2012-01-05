@@ -2,13 +2,13 @@ class EvidenceController < FactsController
 
   before_filter :authenticate_user!, :except => [:index]
 
-  respond_to :json, :js
+  respond_to :json
 
   def index
     @fact = Fact[params[:fact_id]]
-    @evidence = @fact.evidence(relation).map{|fr| fr.from_fact }
+    @evidence = @fact.evidence(relation)
 
-    respond_with(@evidence)
+    respond_with(@evidence.map {|fr| FactRelations::FactRelation.for(fact_relation: fr, view: view_context)})
   end
 
   def create

@@ -1,3 +1,6 @@
+(function(){
+var currentVisibleDropdown;
+
 window.FactView = Backbone.View.extend({
   tagName: "div",
 
@@ -6,7 +9,7 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-	  "click .controls li.evidence": "toggleEvidence"
+	  "click .controls li.supporting,.controls li.weakening": "toggleEvidence"
   },
   initialize: function(opts) {
     this.useTemplate('facts','_fact');
@@ -24,7 +27,7 @@ window.FactView = Backbone.View.extend({
       .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     this.initAddToChannel();
-    this.initializeFactRelationsView();
+    this.initializeFactRelationsViews();
 
     return this;
   },
@@ -82,15 +85,67 @@ window.FactView = Backbone.View.extend({
     }
   },
 
-  initializeFactRelationsView: function() {
-    var factRelations = new FactRelations([], { fact: this.model });
+  initializeFactRelationsViews: function() {
+    var supportingFactRelations = new SupportingFactRelations([], { fact: this.model });
+    var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model });
 
-    this.factRelationsView = new FactRelationsView({collection: factRelations});
+    this.supportingFactRelationsView = new FactRelationsView({collection: supportingFactRelations});
+    this.weakeningFactRelationsView = new FactRelationsView({collection: weakeningFactRelations});
 
-    $('.dropdown-container', this.el).append(this.factRelationsView.render().el);
+    $('.dropdown-container', this.el).append(this.supportingFactRelationsView.render().el);
+    $('.dropdown-container', this.el).append(this.weakeningFactRelationsView.render().el);
+  },
+
+  showDropdownContainer: function(className) {
+    if (typeof currentVisibleDropdown === "undefined") {
+      console.info( "Showing dropdownContainer" );
+
+      $('.dropdown-container', this.el).show();
+    }
+
+    currentVisibleDropdown = className;
+  },
+
+  hideDropdownContainer: function(className) {
+    console.info( "Hiding dropdownContainer" );
+    currentVisibleDropdown = undefined;
+
+    $('.dropdown-container', this.el).hide();
+  },
+
+  showSupportingDropdown: function() {
+    console.info( "Showing Supporting Fact Relations" );
+    this.weakeningFactRelationsView.hide();
+    this.supportingFactRelationsView.showAndFetch();
+  },
+
+  showWeakeningDropdown: function() {
+    console.info( "Showing Weakening Fact Relations" );
+    this.supportingFactRelationsView.hide();
+    this.weakeningFactRelationsView.showAndFetch();
   },
 
   toggleEvidence: function(e) {
-    this.factRelationsView.toggle();
+    var $target = $(e.target).closest('li');
+    var className = $target.attr('class');
+
+    if (className === "supporting") {
+      if ( className !== currentVisibleDropdown ) {
+        this.showDropdownContainer(className);
+
+        this.showSupportingDropdown();
+      } else {
+        this.hideDropdownContainer();
+      }
+    } else {
+      if ( className !== currentVisibleDropdown ) {
+        this.showDropdownContainer(className);
+
+        this.showWeakeningDropdown();
+      } else {
+        this.hideDropdownContainer();
+      }
+    }
   }
 });
+})();

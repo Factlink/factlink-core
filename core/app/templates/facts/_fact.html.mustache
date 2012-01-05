@@ -10,38 +10,24 @@
 
 <div class="controls">
   <ul class="evidence">
-    <li><a>Supporting</a><a class="add-button"> </a></li>
-    <li><a>Weakening</a></li>
-		{{#signed_in?}}
-    <li class="add-to-channel">
-      <a>Channels</a>
-      <div class="float-box channel-listing">
-    </div>
+    <li class="supporting">
+      <a>Supporting</a>
     </li>
+
+    <li class="weakening">
+      <a>Weakening</a>
+    </li>
+
+		{{#signed_in?}}
+      <li class="add-to-channel">
+        <a>Channels</a>
+        <div class="float-box channel-listing">
+      </div>
+      </li>
 		{{/signed_in?}}
   </ul>
 </div>
 
 
 <div class="dropdown-container">
-  <div class="arrow">
-    <div class="arrow-down-border"></div>
-    <div class="arrow-down"></div>
-  </div>
-  <!-- default view - show the evidence for this fact -->
-  <div class="page evidence-list" style="display: block;">
-    <div class="evidence-list-wrapper">
-      <div class="no-evidence-message">
-        This Factlink is not supported or weakened by other Factlinks.<br/>
-        <a href"#" class="do-add">Add evidence to this Factlink</a>
-      </div>
-
-      <div class="loading-evidence">
-        {{{ajax_loader_image}}} <span>Loading...</span>
-      </div>
-
-      <ul class="evidence-listing">
-      </ul>
-    </div>
-  </div
 </div>
