@@ -98,54 +98,44 @@ window.FactView = Backbone.View.extend({
 
   showDropdownContainer: function(className) {
     if (typeof currentVisibleDropdown === "undefined") {
-      console.info( "Showing dropdownContainer" );
-
-      $('.dropdown-container', this.el).show();
+      $('.dropdown-container', this.el).slideDown('fast');
     }
-
+    $(this.el).addClass("active");
     currentVisibleDropdown = className;
   },
 
   hideDropdownContainer: function(className) {
+    $(this.el).removeClass("active");
     console.info( "Hiding dropdownContainer" );
     currentVisibleDropdown = undefined;
 
-    $('.dropdown-container', this.el).hide();
+    $('.dropdown-container', this.el).slideUp('fast');
   },
 
-  showSupportingDropdown: function() {
-    console.info( "Showing Supporting Fact Relations" );
-    this.weakeningFactRelationsView.hide();
-    this.supportingFactRelationsView.showAndFetch();
-  },
-
-  showWeakeningDropdown: function() {
-    console.info( "Showing Weakening Fact Relations" );
-    this.supportingFactRelationsView.hide();
-    this.weakeningFactRelationsView.showAndFetch();
+  showRelationDropdown: function(type){
+    if (type === "supporting"){
+      this.weakeningFactRelationsView.hide();
+      this.supportingFactRelationsView.showAndFetch();
+    }else{
+      this.supportingFactRelationsView.hide();
+      this.weakeningFactRelationsView.showAndFetch();
+    }
   },
 
   toggleEvidence: function(e) {
     var $target = $(e.target).closest('li');
     var className = $target.attr('class');
+    var $tabButtons = $(this.el).find('.controls li');
+    $tabButtons.removeClass("active");
 
-    if (className === "supporting") {
-      if ( className !== currentVisibleDropdown ) {
-        this.showDropdownContainer(className);
+    if ( className !== currentVisibleDropdown ) {
+      this.showDropdownContainer(className);
 
-        this.showSupportingDropdown();
-      } else {
-        this.hideDropdownContainer();
-      }
+      this.showRelationDropdown(className);
     } else {
-      if ( className !== currentVisibleDropdown ) {
-        this.showDropdownContainer(className);
-
-        this.showWeakeningDropdown();
-      } else {
-        this.hideDropdownContainer();
-      }
+      this.hideDropdownContainer();
     }
+    $target.addClass("active");
   }
 });
 })();
