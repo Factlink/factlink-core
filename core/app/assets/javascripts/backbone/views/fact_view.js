@@ -114,7 +114,7 @@ window.FactView = Backbone.View.extend({
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
       this.supportingFactRelationsView.showAndFetch();
-    }else{
+    } else {
       this.supportingFactRelationsView.hide();
       this.weakeningFactRelationsView.showAndFetch();
     }
