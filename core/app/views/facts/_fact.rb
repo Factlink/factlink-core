@@ -1,13 +1,6 @@
 module Facts
   class Fact < Mustache::Railstache
 
-    def self.for(options={})
-      options[:channel] ||= nil
-      options[:modal] ||= nil
-      options[:timestamp] ||= 0
-      super
-    end
-
     def init
       self[:timestamp] ||= 0
     end
@@ -83,9 +76,7 @@ module Facts
       current_graph_user.containing_channel_ids(self[:fact])
     end
 
-    def timestamp
-      self[:timestamp]
-    end
+    expose_to_hash :timestamp
 
   end
 end
