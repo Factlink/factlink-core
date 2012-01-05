@@ -20,7 +20,7 @@ module FactRelations
     end
 
     def fact_bubble
-      Facts::FactBubble.for_fact_and_view(self[:fact_relation].from_fact, self.view)
+      Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
     end
 
   end
