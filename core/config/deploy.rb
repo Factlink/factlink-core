@@ -22,7 +22,7 @@ require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 set :rvm_bin_path, "/usr/local/rvm/bin"
 
-set :user, "root"
+set :user, "deploy"
 set :use_sudo,    false
 
 # Repository
@@ -67,7 +67,8 @@ namespace :deploy do
   end
 end
 
-before "bundle:install", "deploy:aptget"
+# Deploy user is not allowed to apt-get
+# before "bundle:install", "deploy:aptget"
 
 before 'deploy:all',    'deploy'
 
