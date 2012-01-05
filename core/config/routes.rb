@@ -110,7 +110,8 @@ FactlinkUI::Application.routes.draw do
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
 
-            resources :fact_relations, only: [:index]
+            resources :supporting_evidence
+            resources :weakening_evidence
           end
         end
       end
