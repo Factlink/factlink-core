@@ -14,8 +14,7 @@ module FactRelations
       Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
     end
 
-    expose_to_hash :negative_active
-    expose_to_hash :positive_active
+    expose_to_hash :negative_active, :positive_active
 
     def fact_relation_type
       self[:fact_relation].type
