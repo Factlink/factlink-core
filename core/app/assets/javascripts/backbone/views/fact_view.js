@@ -99,7 +99,7 @@ window.FactView = Backbone.View.extend({
   showDropdownContainer: function(className) {
     if (typeof currentVisibleDropdown === "undefined") {
       console.info( "Showing dropdownContainer" );
-      $('.dropdown-container', this.el).slideDown('fast');
+      $('.dropdown-container', this.el).show();
     }
 
     $(this.el).addClass("active");
@@ -109,7 +109,7 @@ window.FactView = Backbone.View.extend({
     $(this.el).removeClass("active");
     console.info( "Hiding dropdownContainer" );
 
-    $('.dropdown-container', this.el).slideUp('fast');
+    $('.dropdown-container', this.el).hide();
   },
 
   switchToRelationDropdown: function(type){
