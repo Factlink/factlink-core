@@ -98,8 +98,10 @@ window.FactView = Backbone.View.extend({
 
   showDropdownContainer: function(className) {
     if (typeof currentVisibleDropdown === "undefined") {
+      console.info( "Showing dropdownContainer" );
       $('.dropdown-container', this.el).slideDown('fast');
     }
+
     $(this.el).addClass("active");
   },
 
@@ -122,15 +124,15 @@ window.FactView = Backbone.View.extend({
 
   toggleEvidence: function(e) {
     var $target = $(e.target).closest('li');
-    var className = $target.attr('class');
     var $tabButtons = $(this.el).find('.controls li');
-    $tabButtons.removeClass("active");
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
+
+    $tabButtons.removeClass("active");
 
     if ( type !== currentVisibleDropdown ) {
       this.showDropdownContainer(type);
 
-      currentVisibleDropdown = className;
+      currentVisibleDropdown = type;
 
       this.switchToRelationDropdown(type);
     } else {
@@ -138,6 +140,7 @@ window.FactView = Backbone.View.extend({
 
       currentVisibleDropdown = undefined;
     }
+
     $target.addClass("active");
   }
 });
