@@ -101,13 +101,11 @@ window.FactView = Backbone.View.extend({
       $('.dropdown-container', this.el).slideDown('fast');
     }
     $(this.el).addClass("active");
-    currentVisibleDropdown = className;
   },
 
   hideDropdownContainer: function(className) {
     $(this.el).removeClass("active");
     console.info( "Hiding dropdownContainer" );
-    currentVisibleDropdown = undefined;
 
     $('.dropdown-container', this.el).slideUp('fast');
   },
