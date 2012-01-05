@@ -7,7 +7,9 @@
 div.modal {
   border: none;
   top: 40px;
-  .drop-shadow(0px, 0, 5px, 0.2);
+  .drop-shadow(0px, 0, 8px, 0.2);
+  .border-radius(3px);
+  border: 1px solid @grayLighter;
   margin: 0 auto;
   left: 30%;
   padding: 0;
@@ -38,6 +40,7 @@ div.fact-block .close {
     margin: 0;
     li {
       .ellipsis();
+      width: 170px;
       padding: 5px 0 5px 0 !important;
       margin: 0 0 0 5px !important;
       border: none !important;
@@ -62,15 +65,12 @@ div.fact-block .close {
 .fact-block {
   color: #555;
   background: @white;
-  .border-radius(4, 0, 0, 4); // topright, bottomrigh, bottomleft, topleft
-  border: 1px solid @grayLight;
   article.fact {
-    padding: 10px 0 10px (@rightIndent / 2);
-    min-height: 50px;
+    padding: 10px 0 3px (@rightIndent / 2);
     .wheel {
       float: left;
+      margin: 0 0 0 4px;
       svg {
-        margin: -7px 0 0 (@rightIndent / 2);
         path:hover {
           cursor: pointer;
         }
@@ -79,6 +79,7 @@ div.fact-block .close {
 
     header {
       margin: 0 0 0px 75px;
+      min-height: 70px;
       padding-right: 20px;
       #font > .sans-serif(normal,12px,@baseline);
       sub {
@@ -131,32 +132,67 @@ div.fact-block .close {
     .transition(opacity 0.2s ease);
     border-bottom: 1px solid @grayLighter;
     ul.evidence {
-      height: 25px;
+      height: 23px;
+      margin-left: 60px;
       li {
         display: block;
         float: left;
-        margin: 0 0 0 15px;
-        position: relative;
-        .border-radius(3px);
+        margin: 1px 0 0 15px;
+        border: 1px solid transparent;
+        .border-radius(3px 3px 0 0);
+        border-bottom: none;
         a {
-          display: block;
+          display: inline-block;
           padding: 5px;
           &:hover {
             text-decoration: none;
           }
         }
+        .add-button {
+	        font-family: "IconicStroke";
+          display: none;
+          line-height: 3px;
+          margin: -5px -3px -5px -5px;
+          color: @grayLight !important;
+          &:before {
+            font-size: 18px;
+            content: " =";
+          }
+          &:hover {
+            color: @gray !important;
+          }
+        }
         &:hover, &.active {
+          border: 1px solid @grayLight;
+          border-bottom: none;
+          background-color: @whiteDarker;
+        }
+        &:hover a {
+          color: @linkColorHover;
         }
         &.active a {
+          display: inline-block;
           color: #555;
         }
       }
     }
   }
   .dropdown-container {
-    display: none;
     .visible-scroll();
     width: 100%;
+    display: none;
+    background: @whiteDarker;
+    padding: 7px 0 8px 0;
+    .no-evidence-message {
+      display: none;
+      text-align: center;
+      padding: 5px;
+    }
+    .loading-evidence {
+      position: relative;
+      top: 15px;
+      left: 45%;
+    }
   }
   &:hover, &.active, .controls.active {
     .controls {
@@ -164,10 +200,21 @@ div.fact-block .close {
     }
   }
   .evidence-list {
-    background-color: @whiteDarker;
+    .drop-shadow(0, 1px, 2px, 0.1);
+    background-color: @white;
+    min-height: 60px;
+    border-top: 1px solid @grayLighter;
     ul.evidence-listing {
       .relation {
         display: none;
+      }
+      li {
+        &:not(:first-child) {
+          border-top: 1px solid @grayLight;
+        }
+        article.fact {
+          margin-left: 30px;
+        }
       }
     }
   }
