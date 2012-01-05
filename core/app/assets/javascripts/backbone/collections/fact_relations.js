@@ -3,9 +3,5 @@ window.FactRelations = Backbone.Collection.extend({
 
   initialize: function(model, opts) {
     this.fact = opts.fact;
-  },
-
-  url: function() {
-    return this.fact.url() + '/fact_relations';
   }
 });
