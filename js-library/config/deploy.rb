@@ -34,30 +34,11 @@ ssh_options[:forward_agent] = true
 set :normalize_asset_timestamps, false
 
 
-###
-
-# ADD BUILD ON PRODUCTION
-
-###
-
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-after "deploy", "deploy:build"
-
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-
   task :build do
     run "cd #{current_path}; make"
   end
-
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
 end
 
+after "deploy", "deploy:build"
 after 'deploy:update', 'deploy:cleanup'
