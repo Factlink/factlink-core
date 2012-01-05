@@ -152,7 +152,7 @@ div.fact-block .close {
 	        font-family: "IconicStroke";
           display: none;
           line-height: 3px;
-          margin: -5px -3px -5px -5px;
+          margin: 0 -3px -5px -5px;
           color: @grayLight !important;
           &:before {
             font-size: 18px;
@@ -192,6 +192,30 @@ div.fact-block .close {
       position: relative;
       top: 15px;
       left: 45%;
+    }
+    .arrow {
+      position: absolute;
+      .arrow-down, .arrow-down-border {
+        position: relative;
+        left: 10px;
+      }
+      .arrow-down {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid @whiteDarker;
+        position: relative;
+        top: -21px;
+      }
+      .arrow-down-border {
+        border-color: @grayLighter transparent transparent transparent;
+        border-style: solid;
+        border-width: 10px;
+        height:0;
+        width:0;
+        top: 1px;
+      }
     }
   }
   &:hover, &.active, .controls.active {
