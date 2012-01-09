@@ -17,7 +17,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 
-set :user, "root"
+set :user, "deploy"
 set :use_sudo,    false
 
 # Repository
@@ -36,7 +36,6 @@ def set_conf_path
   "export CONFIG_PATH=/applications/factlink-core/current/config/; export NODE_ENV=#{deploy_env};"
 end
 
-# If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
 
   task :build do
