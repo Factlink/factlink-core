@@ -87,6 +87,7 @@ describe FactsController do
 
     describe :add_supporting_evidence do
       it "should respond to XHR" do
+        pending
         authenticate_user!(user)
         should_check_can :add_evidence, @fact
         xhr :get, :add_supporting_evidence,
@@ -100,6 +101,7 @@ describe FactsController do
 
     describe :add_weakening_evidence do
       it "should respond to XHR" do
+        pending
         authenticate_user!(user)
         should_check_can :add_evidence, @fact
         xhr :get, :add_supporting_evidence,
