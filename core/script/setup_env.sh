@@ -1,15 +1,15 @@
 #!/bin/bash
-git clone git@codebasehq.com:factlink/factlink/factlink-chrome-extension.git -b master
-git clone git@codebasehq.com:factlink/factlink/factlink-core.git -b master
-git clone git@codebasehq.com:factlink/factlink/factlink-js-library.git -b master
-git clone git@codebasehq.com:factlink/factlink/web-proxy.git -b master
+git clone git@github.com:Factlink/chrome-extension.git
+git clone git@github.com:Factlink/core.git
+git clone git@github.com:Factlink/js-library.git
+git clone git@github.com:Factlink/web-proxy.git
 
-ln -s factlink-core/config config
+ln -s core/config config
 gem install bundler
 npm install jslint -g
 npm install supervisor -g
 
-cd factlink-core
+cd core
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	gem install bundler
@@ -30,13 +30,13 @@ cd web-proxy
 	npm install
 cd ..
 
-cd factlink-chrome-extension
+cd chrome-extension
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	./release_repo.sh
 cd ..
 
-cd factlink-js-library
+cd js-library
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	git submodule init

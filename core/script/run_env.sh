@@ -2,7 +2,7 @@
 cd web-proxy
 npm install
 
-cd ../factlink-core
+cd ../core
 bundle install
 rake db:migrate
 rake sunspot:solr:start
