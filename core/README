@@ -10,16 +10,16 @@ http://groups.google.com/group/ruby-sunspot/browse_thread/thread/b871c32b8000c17
 
 ### MESSAGE ###
 
-record. To overcome this I added this file to my rails project: 
-#lib/tasks/sunspot.rake 
-namespace :sunspot do 
-  desc "indexes searchable models" 
-  task :index => :environment do 
-    [list your models here].each {|model| Sunspot.index!(model.all)} 
-  end 
-end 
-then you can do: 
 Now, that doesn't work since those rake tasks are coupled to active
+record. To overcome this I added this file to my rails project:
+#lib/tasks/sunspot.rake
+namespace :sunspot do
+  desc "indexes searchable models"
+  task :index => :environment do
+    [list your models here].each {|model| Sunspot.index!(model.all)}
+  end
+end
+then you can do:
 rake sunspot:index
 
 ### EOM ###
