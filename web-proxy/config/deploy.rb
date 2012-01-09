@@ -1,6 +1,7 @@
 #############
 # Application
 set :application, "web-proxy"
+set :keep_releases, 10
 
 ########
 # Stages
@@ -12,7 +13,7 @@ require 'capistrano/ext/multistage'
 # RVM support
 # Add RVM's lib directory to the load path.
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
-# Load RVM's capistrano plugin.    
+# Load RVM's capistrano plugin.
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
 
@@ -37,20 +38,22 @@ end
 
 # If you are using Passenger mod_rails uncomment this:
 namespace :deploy do
-  
+
   task :build do
   end
-  
+
   task :start do
-    deploy.stop    
+    deploy.stop
     run "sh #{current_path}/bin/server/start_proxy.sh"
   end
-  
+
   task :stop do
     run "sh #{current_path}/bin/server/stop_proxy.sh"
   end
-  
+
   task :restart, :roles => :app, :except => { :no_release => true } do
     deploy.start
   end
 end
+
+after 'deploy:update', 'deploy:cleanup'
