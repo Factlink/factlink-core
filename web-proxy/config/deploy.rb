@@ -21,7 +21,7 @@ set :use_sudo,    false
 
 # Repository
 set :scm, :git
-set :repository,  "git@codebasehq.com:factlink/factlink/web-proxy.git"
+set :repository,  "git@github.com:Factlink/web-proxy.git"
 
 set :deploy_to, "/applications/#{application}"
 set :deploy_via, :remote_cache    # only fetch changes since since last
