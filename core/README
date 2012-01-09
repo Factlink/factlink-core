@@ -10,7 +10,6 @@ http://groups.google.com/group/ruby-sunspot/browse_thread/thread/b871c32b8000c17
 
 ### MESSAGE ###
 
-Now, that doesn't work since those rake tasks are coupled to active 
 record. To overcome this I added this file to my rails project: 
 #lib/tasks/sunspot.rake 
 namespace :sunspot do 
@@ -20,6 +19,7 @@ namespace :sunspot do
   end 
 end 
 then you can do: 
+Now, that doesn't work since those rake tasks are coupled to active
 rake sunspot:index
 
 ### EOM ###
