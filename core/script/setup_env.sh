@@ -1,8 +1,8 @@
 #!/bin/bash
-git clone git@github.com:Factlink/chrome-extension.git
-git clone git@github.com:Factlink/core.git
-git clone git@github.com:Factlink/js-library.git
-git clone git@github.com:Factlink/web-proxy.git
+git clone git@github.com:Factlink/chrome-extension.git -b master
+git clone git@github.com:Factlink/core.git -b master
+git clone git@github.com:Factlink/js-library.git -b master
+git clone git@github.com:Factlink/web-proxy.git -b master
 
 ln -s core/config config
 gem install bundler
