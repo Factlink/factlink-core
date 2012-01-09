@@ -229,16 +229,17 @@ div.fact-block .close {
   .evidence-list {
     .visible-scroll();
     overflow: auto;
-    max-height: 380px;
     min-height: 80px;
+    max-height: 300px;
 
-    .drop-shadow(0, 1px, 2px, 0.1);
     background-color: @white;
     border-top: 1px solid @grayLighter;
+    border-bottom: 1px solid @grayLighter;
+
     ul.evidence-listing {
       li {
         &:not(:first-child) {
-          border-top: 1px solid @grayLight;
+          border-top: 1px solid @grayLighter;
         }
         article.fact {
           margin-left: 25px;
@@ -250,7 +251,7 @@ div.fact-block .close {
     float: left;
     margin: 25px 0 0 15px;
     span {
-      height: 2px;
+      height: 1px;
       display: block;
     }
     a.supporting, a.weakening {
