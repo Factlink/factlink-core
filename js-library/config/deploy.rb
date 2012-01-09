@@ -22,7 +22,7 @@ set :use_sudo,    false
 
 # Repository
 set :scm, :git
-set :repository,  "git@codebasehq.com:factlink/factlink/factlink-js-library.git"
+set :repository,  "git@github.com:Factlink/js-library.git"
 set :git_enable_submodules, 1
 
 set :deploy_to, "/applications/#{application}"
