@@ -66,8 +66,9 @@ div.fact-block .close {
   color: #555;
   background: @white;
   article.fact {
-    padding: 10px 0 3px (@rightIndent / 2);
+    padding: 10px 0 0px (@rightIndent / 2);
     .wheel {
+      height: 55px;
       float: left;
       margin: 0 0 0 4px;
       svg {
@@ -78,8 +79,8 @@ div.fact-block .close {
     }
 
     header {
-      margin: 0 0 0px 75px;
-      min-height: 70px;
+      margin: 0 0 5px 75px;
+      min-height: 55px;
       padding-right: 20px;
       #font > .sans-serif(normal,12px,@baseline);
       sub {
@@ -152,6 +153,7 @@ div.fact-block .close {
         }
         .add-button {
 	        font-family: "IconicStroke";
+          text-shadow: 1px 1px 0px @white;
           display: none;
           line-height: 3px;
           margin: 0 -3px -5px -5px;
@@ -227,8 +229,8 @@ div.fact-block .close {
   .evidence-list {
     .visible-scroll();
     overflow: auto;
-    max-height: 300px;
-    min-height: 55px;
+    max-height: 380px;
+    min-height: 80px;
 
     .drop-shadow(0, 1px, 2px, 0.1);
     background-color: @white;
@@ -239,21 +241,21 @@ div.fact-block .close {
           border-top: 1px solid @grayLight;
         }
         article.fact {
-          margin-left: 30px;
+          margin-left: 25px;
         }
       }
     }
   }
   .relation-actions {
     float: left;
-    margin: 25px 0 0 10px;
+    margin: 25px 0 0 15px;
     span {
       height: 2px;
       display: block;
     }
     a.supporting, a.weakening {
       display: block;
-      width: 10px;
+      width: 9px;
       height: 15px;
     }
     a.supporting {
