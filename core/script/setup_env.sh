@@ -41,5 +41,5 @@ cd js-library
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	git submodule init
 	git submodule update
-	make all
+	make modules
 cd ..
