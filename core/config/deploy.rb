@@ -30,7 +30,7 @@ set :scm, :git
 set :repository,  "git@github.com:Factlink/core.git"
 
 set :deploy_to, "/applications/#{application}"
-set :deploy_via, :remote_cache    # only fetch changes since since last
+#set :deploy_via, :remote_cache    # only fetch changes since since last
 
 ssh_options[:forward_agent] = true
 
