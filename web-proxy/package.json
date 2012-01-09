@@ -13,7 +13,8 @@
     "restler":"0.2.1",
     "yaml":"0.2.2",
     "validator": "",
-    "expresso": ""
+    "expresso": "",
+	"jshint": ""
   },
   "devDependencies": {}
 }
