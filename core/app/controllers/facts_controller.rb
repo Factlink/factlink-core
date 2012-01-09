@@ -93,17 +93,17 @@ class FactsController < ApplicationController
 
   def add_evidence_internal(type)
     authorize! :add_evidence, @fact
-    add_evidence_internal_internal(type,"add_source_to_factlink", "adding_evidence_not_possible")
+    add_evidence_internal_internal(type, success: "add_source_to_factlink", fail: "adding_evidence_not_possible")
   end
 
-  def add_evidence_internal_internal(type,success,fail)
+  def add_evidence_internal_internal(type,render_params)
     @fact_relation = add_evidence(params[:evidence_id], type, @fact.id)
 
     # A FactRelation will not get created if it will cause a loop
     if @fact_relation.nil?
-      render fail
+      render render_params[:fail]
     else
-      render success
+      render render_params[:success]
     end
   end
 
