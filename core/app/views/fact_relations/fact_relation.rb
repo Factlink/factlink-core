@@ -3,9 +3,9 @@ module FactRelations
     def init
       self[:negative_active] = ''
       self[:positive_active] = ''
-      if current_user.graph_user.opinion_on(self[:fact_relation]) == :believes
+      if current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :believes
         self[:positive_active] = ' active'
-      elsif current_user.graph_user.opinion_on(self[:fact_relation]) == :disbelieves
+      elsif current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :disbelieves
         self[:negative_active] = ' active'
       end
     end
