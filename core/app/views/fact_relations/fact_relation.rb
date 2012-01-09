@@ -19,5 +19,9 @@ module FactRelations
     def fact_relation_type
       self[:fact_relation].type
     end
+
+    def id
+      self[:fact_relation].id
+    end
   end
 end
