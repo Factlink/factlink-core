@@ -157,9 +157,12 @@ class FactsController < ApplicationController
   def set_opinion
     type = params[:type].to_sym
     @fact = Basefact[params[:id]]
+
     authorize! :opinionate, @fact
+
     @fact.add_opinion(type, current_user.graph_user)
     @fact.calculate_opinion(2)
+
     render json: [@fact]
   end
 
