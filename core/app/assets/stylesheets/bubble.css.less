@@ -246,5 +246,27 @@ div.fact-block .close {
   }
   .relation-actions {
     float: left;
+    margin: 25px 0 0 10px;
+    span {
+      height: 2px;
+      display: block;
+    }
+    a.supporting, a.weakening {
+      display: block;
+      width: 10px;
+      height: 15px;
+    }
+    a.supporting {
+      background: url("/assets/relation_actions.png") no-repeat top left transparent;
+      &.active {
+        background: url("/assets/relation_actions.png") no-repeat top right transparent;
+      }
+    }
+    a.weakening {
+      background: url("/assets/relation_actions.png") no-repeat bottom left transparent;
+      &.active {
+        background: url("/assets/relation_actions.png") no-repeat bottom right transparent;
+      }
+    }
   }
 }
