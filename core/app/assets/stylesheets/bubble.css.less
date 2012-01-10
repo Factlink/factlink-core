@@ -207,7 +207,6 @@ div.fact-block .close {
         border: 1px solid @grayLighter;
         font-size: 12px;
         padding: 3px;
-        font-style: italic;
       }
       .cancel {
         margin-left: 18px;
@@ -220,6 +219,7 @@ div.fact-block .close {
       height: 55px;
     }
     .loading-evidence {
+      display: block;
       height: 55px;
       padding-top: 20px;
       text-align: center;
@@ -258,16 +258,18 @@ div.fact-block .close {
     }
   }
   .evidence-list {
-    .visible-scroll();
-    overflow: auto;
-    min-height: 80px;
-    max-height: 300px;
-
+    display: none;
     background-color: @white;
     border-top: 1px solid @grayLighter;
     border-bottom: 1px solid @grayLighter;
 
     ul.evidence-listing {
+      height: 100%;
+      display: block;
+      .visible-scroll();
+      overflow: auto;
+      max-height: 300px;
+
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
