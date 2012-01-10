@@ -167,11 +167,11 @@ class FactsController < ApplicationController
   end
 
   def remove_opinions
-    @fact = Basefact[params[:id]]
+    @basefact = Basefact[params[:id]]
     authorize! :opinionate, @fact
-    @fact.remove_opinions(current_user.graph_user)
-    @fact.calculate_opinion(2)
-    render json: [@fact]
+    @basefact.remove_opinions(current_user.graph_user)
+    @basefact.calculate_opinion(2)
+    render json: [@basefact]
   end
 
   def evidence_search
