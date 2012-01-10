@@ -9,7 +9,9 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-	  "click .controls li.supporting,.controls li.weakening": "toggleEvidence"
+	  "click .controls .supporting a.tab, .controls .weakening a.tab": "toggleEvidence",
+    "click .controls .supporting a.add-button, .controls .weakening a.add-button": "showAddRelation",
+    "click .supporting a.cancel, .weakening a.cancel": "hideAddRelation"
   },
   initialize: function(opts) {
     this.useTemplate('facts','_fact');
@@ -56,7 +58,7 @@ window.FactView = Backbone.View.extend({
   destroyFact: function() {
     this.model.destroy({
       error: function() {
-        alert("Error while destroying the Factlink" );
+        alert("Error while removing the Factlink" );
       },
       forChannel: false
     });
@@ -98,7 +100,6 @@ window.FactView = Backbone.View.extend({
 
   showDropdownContainer: function(className) {
     if (typeof this._currentVisibleDropdown === "undefined") {
-      console.info( "Showing dropdownContainer" );
       $('.dropdown-container', this.el).show();
     }
 
@@ -107,7 +108,6 @@ window.FactView = Backbone.View.extend({
 
   hideDropdownContainer: function(className) {
     $(this.el).removeClass("active");
-    console.info( "Hiding dropdownContainer" );
 
     $('.dropdown-container', this.el).hide();
   },
@@ -125,6 +125,7 @@ window.FactView = Backbone.View.extend({
   toggleEvidence: function(e) {
     var $target = $(e.target).closest('li');
     var $tabButtons = $(this.el).find('.controls li');
+    var $addEvidence = $(".add-evidence-container", this.el);
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
     $tabButtons.removeClass("active");
@@ -135,6 +136,9 @@ window.FactView = Backbone.View.extend({
       this._currentVisibleDropdown = type;
 
       this.switchToRelationDropdown(type);
+      if($addEvidence.is(":visible")) {
+        this.switchAddRelation(type);
+      }
       $target.addClass("active");
     } else {
       this.hideDropdownContainer();
@@ -142,6 +146,25 @@ window.FactView = Backbone.View.extend({
       this._currentVisibleDropdown = undefined;
     }
 
+  },
+
+  switchAddRelation: function(type) {
+    var $addEvidence = $('.add-evidence', this.el);
+    $addEvidence.hide();
+    $addEvidence.each(function() {
+      if($(this).hasClass(type)) {
+        $(this).show();
+      }
+    });
+  },
+
+  showAddRelation: function(e) {
+    $(".add-evidence-container", this.el).show();
+    this.switchAddRelation(this._currentVisibleDropdown);
+  },
+
+  hideAddRelation: function(e) {
+    $(".add-evidence-container", this.el).hide();
   }
 });
 })();

@@ -31,6 +31,29 @@ class EvidenceController < FactsController
     end
   end
 
+  def set_opinion
+    type = params[:type].to_sym
+    evidence = Basefact[params[:id]]
+
+    authorize! :opinionate, evidence
+
+    evidence.add_opinion(type, current_user.graph_user)
+    evidence.calculate_opinion(2)
+
+    render json: [FactRelations::FactRelation.for(fact_relation: evidence, view: view_context)]
+  end
+
+  def remove_opinions
+    evidence = Basefact[params[:id]]
+
+    authorize! :opinionate, evidence
+
+    evidence.remove_opinions(current_user.graph_user)
+    evidence.calculate_opinion(2)
+
+    render json: [FactRelations::FactRelation.for(fact_relation: evidence, view: view_context)]
+  end
+
   private
   def relation
     :both

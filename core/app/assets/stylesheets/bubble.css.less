@@ -162,7 +162,7 @@ div.fact-block .close {
             font-size: 18px;
             content: " =";
           }
-          &:hover {
+          &:hover, &.active {
             color: @gray !important;
           }
         }
@@ -185,6 +185,25 @@ div.fact-block .close {
     display: none;
     background: @whiteDarker;
     padding: 7px 0 8px 0;
+    .add-evidence-container {
+      display: none;
+      margin: 0 5px 5px 5px;
+      .add-evidence {
+        display: none;
+      }
+      input[type="text"] {
+        @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.1);
+        .box-shadow(@shadow);
+        width: 85%;
+        border: 1px solid @grayLighter;
+        font-size: 12px;
+        padding: 3px;
+        font-style: italic;
+      }
+      .cancel {
+        margin-left: 18px;
+      }
+    }
     .no-evidence-message {
       display: none;
       text-align: center;
@@ -229,16 +248,17 @@ div.fact-block .close {
   .evidence-list {
     .visible-scroll();
     overflow: auto;
-    max-height: 380px;
     min-height: 80px;
+    max-height: 300px;
 
-    .drop-shadow(0, 1px, 2px, 0.1);
     background-color: @white;
     border-top: 1px solid @grayLighter;
+    border-bottom: 1px solid @grayLighter;
+
     ul.evidence-listing {
       li {
         &:not(:first-child) {
-          border-top: 1px solid @grayLight;
+          border-top: 1px solid @grayLighter;
         }
         article.fact {
           margin-left: 25px;
@@ -248,15 +268,18 @@ div.fact-block .close {
   }
   .relation-actions {
     float: left;
-    margin: 25px 0 0 15px;
+    margin: 25px 0 0 18px;
     span {
-      height: 2px;
+      height: 1px;
       display: block;
     }
     a.supporting, a.weakening {
       display: block;
       width: 9px;
       height: 15px;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     a.supporting {
       background: url("/assets/relation_actions.png") no-repeat top left transparent;

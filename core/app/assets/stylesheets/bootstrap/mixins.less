@@ -51,7 +51,7 @@
     line-height: @lineHeight;
   }
   .sans-serif(@weight: normal, @size: 14px, @lineHeight: 20px) {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: @size;
     font-weight: @weight;
     line-height: @lineHeight;
@@ -229,7 +229,7 @@
          opacity: @opacity / 100;
 }
 // Custom mixins by Factlink and Elements.less
-.rotation(@deg:5deg){ 
+.rotation(@deg:5deg){
   -webkit-transform: rotate(@deg);
   -moz-transform: rotate(@deg);
   transform: rotate(@deg);
@@ -239,7 +239,7 @@
  	-moz-transform:scale(@ratio);
 	transform:scale(@ratio);
 }
-.ellipsis() { 
+.ellipsis() {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

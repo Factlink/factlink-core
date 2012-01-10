@@ -11,12 +11,12 @@
 <div class="controls">
   <ul class="evidence">
     <li class="supporting">
-      <a>Supporting</a>
+      <a class="tab">Supporting</a>
       {{#signed_in?}} <a class="add-button"></a> {{/signed_in?}}
     </li>
 
     <li class="weakening">
-      <a>Weakening</a>
+      <a class="tab">Weakening</a>
       {{#signed_in?}}<a class="add-button"></a> {{/signed_in?}}
     </li>
 
@@ -28,10 +28,19 @@
       </li>
 		{{/signed_in?}}
   </ul>
+  <div class="users"></div>
 </div>
 
 
 <div class="dropdown-container">
+  <div class="add-evidence-container">
+    <div class="add-evidence supporting">
+      <input type="text" placeholder="The Factlink above is true because ..."></input><a class="cancel">cancel</a>
+    </div>
+    <div class="add-evidence weakening">
+      <input type="text" placeholder="The Factlink above is false because ..."></input><a class="cancel">cancel</a>
+    </div>
+  </div>
   <div class="arrow">
     <div class="arrow-down-border"></div>
     <div class="arrow-down"></div>
