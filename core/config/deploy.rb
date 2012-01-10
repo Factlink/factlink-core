@@ -65,7 +65,8 @@ namespace :deploy do
   end
 end
 
-before "bundle:install", "deploy:aptget"
+# Deploy user is not allowed to apt-get
+# before "bundle:install", "deploy:aptget"
 
 before 'deploy:all',    'deploy'
 
