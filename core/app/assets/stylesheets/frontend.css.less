@@ -17,9 +17,8 @@ body.factlink-site div.user-block {
   margin: 0px;
   .transition(all 0.2s ease);
   &.active {
-    margin: 20px 0 20px 0;
+    margin: 15px 0 15px 0;
     .drop-shadow(0px, 0, 8px, 0.3);
-
   }
 
 }
@@ -265,6 +264,7 @@ a.bookmarklet {
       float: right;
       padding: 4px;
       margin-right: 18px;
+      margin-top: -2px;
       &:before {
         content: "+ ";
 	      font-family: "IconicStroke";
@@ -281,7 +281,6 @@ a.bookmarklet {
         background-color: transparent;
         &:hover {
           cursor: pointer;
-
           h1 {
             color: @linkColor;
           }
@@ -306,7 +305,7 @@ a.bookmarklet {
     background: @white;
     .border-radius(4px);
     border: 1px solid whiteSmoke;
-    min-height: 200px;
+    min-height: 400px;
 
     .box-shadow(0px 0px 2px rgba(0, 0, 0, 0.35));
     position: relative;
@@ -453,6 +452,7 @@ a.bookmarklet {
     }
   }
   .no_facts {
+    margin-top: 15px;
     font-size: @basefont;
     text-align: center;
     p {
