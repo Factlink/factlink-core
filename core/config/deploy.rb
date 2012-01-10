@@ -1,6 +1,7 @@
 #############
 # Application
 set :application, "factlink-core"
+set :keep_releases, 10
 
 ########
 # Stages
@@ -19,6 +20,7 @@ $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # Load RVM's capistrano plugin.
 require "rvm/capistrano"
 set :rvm_ruby_string, '1.9.2'
+set :rvm_bin_path, "/usr/local/rvm/bin"
 
 set :user, "deploy"
 set :use_sudo,    false
@@ -51,12 +53,6 @@ namespace :deploy do
     run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
 
-  task :set_wheel_permissions do
-    run "mkdir -p #{current_path}/public/system/wheel"
-    run "chmod 777 #{current_path}/public/system/wheel"
-    run "cat /root/pirate.ascii"
-  end
-
   task :start_recalculate do
     run "sh #{current_path}/bin/server/start_recalculate.sh #{deploy_env}"
   end
@@ -71,8 +67,9 @@ end
 before 'deploy:all',    'deploy'
 
 after 'deploy:all',     'deploy:restart'
-before 'deploy:restart', 'deploy:set_wheel_permissions'
 
 before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',         'deploy:migrate'
 after 'deploy:migrate', 'deploy:start_recalculate'
+after 'deploy:update', 'deploy:cleanup'
+
