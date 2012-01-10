@@ -3,6 +3,10 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "bootstrap/patterns";
+
+
+@transition: opacity 0.2s ease;
+
 /** Fact block */
 div.modal {
   border: none;
@@ -17,9 +21,14 @@ div.modal {
   span.proxyWindow {
     display: inline !important;
   }
+  div.fact-block .close {
+    .opacity(40);
+  }
 }
 div.fact-block .close {
-  margin: 5px;
+  .opacity(0);
+  .transition(@transition);
+  margin: 10px;
 }
 .float {
   background-color: @white;
@@ -81,7 +90,7 @@ div.fact-block .close {
     header {
       margin: 0 0 5px 75px;
       min-height: 55px;
-      padding-right: 20px;
+      padding-right: 25px;
       #font > .sans-serif(normal,12px,@baseline);
       sub {
         line-height: inherit;
@@ -132,7 +141,7 @@ div.fact-block .close {
   .controls {
     font-size: 12px;
     .opacity(0);
-    .transition(opacity 0.2s ease);
+    .transition(@transition);
     border-bottom: 1px solid @grayLighter;
     ul.evidence {
       height: 23px;
@@ -187,7 +196,7 @@ div.fact-block .close {
     padding: 7px 0 8px 0;
     .add-evidence-container {
       display: none;
-      margin: 0 5px 5px 5px;
+      margin: 5px 5px 10px 5px;
       .add-evidence {
         display: none;
       }
@@ -244,6 +253,9 @@ div.fact-block .close {
     .controls {
       .opacity(100);
     }
+    .close {
+      .opacity(40);
+    }
   }
   .evidence-list {
     .visible-scroll();
@@ -268,7 +280,8 @@ div.fact-block .close {
   }
   .relation-actions {
     float: left;
-    margin: 25px 0 0 18px;
+      margin: 25px 0 0 18px;
+
     span {
       height: 1px;
       display: block;
@@ -278,7 +291,7 @@ div.fact-block .close {
       width: 9px;
       height: 15px;
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
       }
     }
     a.supporting {
