@@ -7,13 +7,8 @@ class FactData
 
   searchable :auto_index => true do
     text    :displaystring
-    string  :displaystring
-
-    integer :fact_id
-
+    string  :fact_id
     text    :title
-    string  :title
-
     time    :created_at
   end
 

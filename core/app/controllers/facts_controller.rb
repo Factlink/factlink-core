@@ -22,6 +22,7 @@ class FactsController < ApplicationController
   before_filter :potential_evidence,
     :only => [
       :show,
+      :evidence_search,
       :edit]
 
   around_filter :allowed_type,
@@ -178,52 +179,25 @@ class FactsController < ApplicationController
   end
 
   def evidence_search
-    potential_evidence
-    internal_search(@potential_evidence.to_a)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # Search in the client popup.
-  def internal_search(eligible_facts)
-    @page = params[:page]
-    page = @page
-    @row_count = 20
-    row_count = @row_count
+    pe = @potential_evidence.to_a.map { |fact|
+      fact.id.to_s
+    }
 
     solr_result = Sunspot.search FactData do
-      keywords params[:s] || ""
+      fulltext params[:s]
 
-      order_by sort_column, sort_direction
-      paginate :page => page , :per_page => row_count
-
-      # Exclude the Facts that are already supporting AND weakening
-      with(:fact_id).any_of(eligible_facts.map{|fact| fact.id})
+      with(:fact_id).any_of(pe)
     end
 
-    @first_page = @page.nil? || @page.to_i < 2
+    facts = solr_result.results.map { |fd| Facts::FactRelationSearchResult.for(fact: fd, view: view_context) }
 
-    @fact_data = solr_result.results
-
-    # Return the actual Facts in stead of FactData
-    @facts = @fact_data.map { |fd| fd.fact }
+    render json: facts
   end
 
-
   private
-    def sort_column
-      FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    end
-
     def potential_evidence
       @potential_evidence = Fact.all.except(:data_id => @fact.data_id).sort(:order => "DESC")
     end
-
 
     def load_fact
       id = params[:id] || params[:fact_id]
