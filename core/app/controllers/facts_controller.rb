@@ -156,22 +156,25 @@ class FactsController < ApplicationController
 
   def set_opinion
     type = params[:type].to_sym
-    @fact = Basefact[params[:id]]
+    @basefact = Basefact[params[:id]]
 
-    authorize! :opinionate, @fact
+    authorize! :opinionate, @basefact
 
-    @fact.add_opinion(type, current_user.graph_user)
-    @fact.calculate_opinion(2)
+    @basefact.add_opinion(type, current_user.graph_user)
+    @basefact.calculate_opinion(2)
 
-    render json: [@fact]
+    render json: [@basefact]
   end
 
   def remove_opinions
-    @fact = Basefact[params[:id]]
+    @basefact = Basefact[params[:id]]
+
     authorize! :opinionate, @fact
-    @fact.remove_opinions(current_user.graph_user)
-    @fact.calculate_opinion(2)
-    render json: [@fact]
+
+    @basefact.remove_opinions(current_user.graph_user)
+    @basefact.calculate_opinion(2)
+
+    render json: [@basefact]
   end
 
   def evidence_search

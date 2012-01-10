@@ -26,4 +26,5 @@ end
 
 class FactRelation < Basefact
   alias :get_opinion :get_user_opinion
+  alias :calculate_opinion :calculate_user_opinion
 end

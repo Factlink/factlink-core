@@ -58,7 +58,7 @@ window.FactView = Backbone.View.extend({
   destroyFact: function() {
     this.model.destroy({
       error: function() {
-        alert("Error while destroying the Factlink" );
+        alert("Error while removing the Factlink" );
       },
       forChannel: false
     });
@@ -100,7 +100,6 @@ window.FactView = Backbone.View.extend({
 
   showDropdownContainer: function(className) {
     if (typeof this._currentVisibleDropdown === "undefined") {
-      console.info( "Showing dropdownContainer" );
       $('.dropdown-container', this.el).show();
     }
 
@@ -109,7 +108,6 @@ window.FactView = Backbone.View.extend({
 
   hideDropdownContainer: function(className) {
     $(this.el).removeClass("active");
-    console.info( "Hiding dropdownContainer" );
 
     $('.dropdown-container', this.el).hide();
   },
