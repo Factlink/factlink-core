@@ -9,10 +9,11 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-	  "click .controls .supporting a.tab, .controls .weakening a.tab": "toggleEvidence",
+	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
     "click .controls .supporting a.add-button, .controls .weakening a.add-button": "showAddRelation",
     "click .supporting a.cancel, .weakening a.cancel": "hideAddRelation"
   },
+
   initialize: function(opts) {
     this.useTemplate('facts','_fact');
     this.model.bind('destroy', this.remove, this);
@@ -88,14 +89,16 @@ window.FactView = Backbone.View.extend({
   },
 
   initializeFactRelationsViews: function() {
-    var supportingFactRelations = new SupportingFactRelations([], { fact: this.model });
-    var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model });
+    var supportingFactRelations = new SupportingFactRelations([], { fact: this.model } );
+    var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
 
     this.supportingFactRelationsView = new FactRelationsView({collection: supportingFactRelations});
     this.weakeningFactRelationsView = new FactRelationsView({collection: weakeningFactRelations});
 
-    $('.dropdown-container', this.el).append(this.supportingFactRelationsView.render().el);
-    $('.dropdown-container', this.el).append(this.weakeningFactRelationsView.render().el);
+    $('.dropdown-container', this.el)
+      .append( this.supportingFactRelationsView.render().el );
+    $('.dropdown-container', this.el)
+      .append( this.weakeningFactRelationsView.render().el );
   },
 
   showDropdownContainer: function(className) {
@@ -125,7 +128,6 @@ window.FactView = Backbone.View.extend({
   toggleEvidence: function(e) {
     var $target = $(e.target).closest('li');
     var $tabButtons = $(this.el).find('.controls li');
-    var $addEvidence = $(".add-evidence-container", this.el);
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
     $tabButtons.removeClass("active");
@@ -136,9 +138,11 @@ window.FactView = Backbone.View.extend({
       this._currentVisibleDropdown = type;
 
       this.switchToRelationDropdown(type);
-      if($addEvidence.is(":visible")) {
+
+      if ( $(".add-evidence-container", this.el).is(":visible") ) {
         this.switchAddRelation(type);
       }
+
       $target.addClass("active");
     } else {
       this.hideDropdownContainer();
@@ -149,16 +153,18 @@ window.FactView = Backbone.View.extend({
   },
 
   switchAddRelation: function(type) {
-    var $addEvidence = $('.add-evidence', this.el);
-    $addEvidence.hide();
-    $addEvidence.each(function() {
-      if($(this).hasClass(type)) {
-        $(this).show();
-      }
-    });
+    $('.add-evidence', this.el)
+      .hide()
+      .each(function() {
+        if ( $( this ).hasClass(type) ) {
+          $( this ).show();
+        }
+      });
   },
 
   showAddRelation: function(e) {
+    e.stopPropagation();
+
     $(".add-evidence-container", this.el).show();
     this.switchAddRelation(this._currentVisibleDropdown);
   },
