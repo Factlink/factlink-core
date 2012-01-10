@@ -11,6 +11,7 @@ window.FactRelationView = Backbone.View.extend({
     this.useTemplate('fact_relations','fact_relation');
 
     this.model.bind('destroy', this.remove, this);
+    this.model.bind('change', this.render, this);
   },
 
   remove: function() {

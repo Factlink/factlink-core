@@ -38,6 +38,18 @@ FactlinkUI::Application.routes.draw do
   end
 
   ###############
+  # Evidence, used in fact_relation.js
+  ###############
+  resources :evidence do
+    member do
+      get     "opinion" => "evidence#opinion"
+      post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
+      delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
+    end
+  end
+
+
+  ###############
   # Sites Controller
   ##########
   # Javascript Client calls

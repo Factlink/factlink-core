@@ -20,6 +20,6 @@ window.FactRelation = Backbone.Model.extend({
   },
 
   url: function() {
-    return "/facts/" + this.get('id');
+    return "/evidence/" + this.get('id');
   }
 });
