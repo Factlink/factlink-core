@@ -96,9 +96,13 @@ window.FactView = Backbone.View.extend({
     this.weakeningFactRelationsView = new FactRelationsView({collection: weakeningFactRelations});
 
     $('.dropdown-container', this.el)
-      .append( this.supportingFactRelationsView.render().el );
-    $('.dropdown-container', this.el)
+      .append( this.supportingFactRelationsView.render().el )
       .append( this.weakeningFactRelationsView.render().el );
+
+    this.factRelationSearchView = new FactRelationSearchView({
+      el: $('.add-evidence-container', this.el),
+      model: this.model
+    });
   },
 
   showDropdownContainer: function(className) {
