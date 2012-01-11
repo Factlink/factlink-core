@@ -3,10 +3,11 @@ window.FactsView = Backbone.View.extend({
   className: "facts",
   _loading: true,
   _timestamp: undefined,
-  tmpl: $('#facts_tmpl').html(),
   _previousLength: 0,
   
   initialize: function(options) {
+    this.useTemplate("channels", "_facts");
+        
     var self = this;
 
     this.collection.bind('add', this.addFact, this);
@@ -14,9 +15,9 @@ window.FactsView = Backbone.View.extend({
 
     //TODO split this into two views, one for channels, one for searchresults
     if(options.channel !== undefined ) {
-      $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON()));
+      $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON(), this.partials));
     } else {
-      $(this.el).html(Mustache.to_html(this.tmpl));
+      $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
     }
     this.bindScroll();
   },

@@ -15,17 +15,6 @@
 
 <% content_for :left_column do %>
   <%= user_signed_in? ? render("users/user_li", user: current_user ) : "&nbsp;".html_safe %>
-
-<% end %>
-
-<% content_for :template do %>
-  <%= load_js_template "user_block_tmpl",         "users/_user.html.mustache" %>
-  <%= load_js_template "own_channels_collection", "channels/_own_channel_listing.html.mustache" %>
-  <%= load_js_template "own_channel_li",          "channels/_own_channel.html.mustache" %>
-  <%= load_js_template "fact_tmpl",               "facts/_fact.html.mustache" %>
-  <%= load_js_template "fact_bubble_tmpl",        "facts/_fact_bubble.html.mustache" %>
-  <%= load_js_template "fact_wheel_tmpl",         "facts/_fact_wheel.html.mustache" %>
-  <%= load_js_template "facts_tmpl",              "channels/_facts.html.mustache" %>
 <% end %>
 
 <h1>Searched for: <b><%= params[:s] %></b></h1>

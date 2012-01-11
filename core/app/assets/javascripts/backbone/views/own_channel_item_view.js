@@ -1,12 +1,13 @@
 window.OwnChannelItemView = Backbone.View.extend({
   tagName: "li",
-  tmpl: $('#own_channel_li').html(),
   
   events: {
     "change input" : "change"
   },
   
   initialize: function(opts) {
+    this.useTemplate("channels", "_own_channel");
+    
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);
