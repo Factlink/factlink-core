@@ -10,20 +10,21 @@ class Blacklist
       /^http(s)?:\/\/([^\/]+\.)?gmail\.com\//,
       /^http(s)?:\/\/([^\/]+\.)?irccloud\.com\//,
       /^http(s)?:\/\/([^\/]+\.)?moneybird\.nl\//,
+      /^http(s)?:\/\/([^\/]+\.)?github\.com\//,
     ]
   end
-  
+
   def initialize(blacklist)
     @blacklist = blacklist
   end
-  
+
   def matches?(str)
     @blacklist.each do |regex|
       if regex.match(str)
         return true
       end
     end
-    
+
     false
   end
 end
