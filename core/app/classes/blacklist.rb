@@ -10,6 +10,7 @@ class Blacklist
       /^http(s)?:\/\/([^\/]+\.)?gmail\.com\//,
       /^http(s)?:\/\/([^\/]+\.)?irccloud\.com\//,
       /^http(s)?:\/\/([^\/]+\.)?moneybird\.nl\//,
+      /^http(s)?:\/\/([^\/]+\.)?github\.com\//,
     ]
   end
 
