@@ -11,7 +11,7 @@ var FactRelationSearchView = Backbone.View.extend({
     var searchVal = $('input', this.el).val();
     var self = this;
 
-    if ( searchVal.length < 4 ) {
+    if ( searchVal.length < 2 ) {
       this.truncateSearchContainer();
 
       return;
