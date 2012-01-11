@@ -2,6 +2,7 @@ require 'ohm/contrib'
 
 require_relative 'activity/subject'
 require_relative 'activity/query'
+require_relative 'activity/queries'
 
 class Activity < OurOhm
   include Ohm::Timestamping
