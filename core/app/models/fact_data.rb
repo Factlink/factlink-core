@@ -6,16 +6,16 @@ class FactData
   include Sunspot::Mongoid
 
   searchable :auto_index => true do
-    text    :displaystring
+    text    :displaystring, :stored => true
     string  :fact_id
     text    :title
     time    :created_at
   end
 
   field :title,           :type => String
-  field :displaystring,   :type => String   # For matching Fact on a page
-  field :passage,         :type => String   # Passage for matching: not implemented
-  field :content,         :type => String   # Source content
+  field :displaystring,   :type => String
+  field :passage,         :type => String
+  field :content,         :type => String
   field :fact_id,         :type => String
 
   def self.column_names
