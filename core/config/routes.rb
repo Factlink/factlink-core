@@ -19,7 +19,8 @@ FactlinkUI::Application.routes.draw do
     resources :weakening_evidence
 
     member do
-      match "/evidence_search(/page/:page)(/:sort/:direction)" => "facts#evidence_search", :as => "evidence_search"
+      match "/evidence_search" => "facts#evidence_search"
+
       get "/channels" => "facts#get_channel_listing"
 
       get     "opinion" => "facts#opinion"
@@ -119,6 +120,8 @@ FactlinkUI::Application.routes.draw do
 
           scope "/:fact_id" do
             delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
+
+            match "/evidence_search" => "facts#evidence_search"
 
             resources :supporting_evidence
             resources :weakening_evidence
