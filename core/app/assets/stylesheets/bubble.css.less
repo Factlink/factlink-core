@@ -220,10 +220,10 @@ div.fact-block .close {
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 84%;
+      width: 80%;
       border: 1px solid @grayLighter;
-      margin-top: -1px;
       li {
+        cursor: pointer;
         padding: 4px;
         border-bottom: 1px solid @grayLighter;
         &:hover, &:focus {
@@ -247,6 +247,10 @@ div.fact-block .close {
         padding: 5px 9px;
         .border-radius(4px);
         #font > .sans-serif(13px, normal, 1.1);
+        &:focus {
+          outline: 0;
+          border: 1px solid @linkColor;
+        }
       }
       .cancel {
         margin-left: 18px;
