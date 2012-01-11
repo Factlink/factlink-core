@@ -204,7 +204,7 @@ class FactsController < ApplicationController
     end
 
     def load_fact
-      id = params[:id] || params[:fact_id]
+      id = params[:fact_id] || params[:id]
 
       @fact = Fact[id] || raise_404
     end
