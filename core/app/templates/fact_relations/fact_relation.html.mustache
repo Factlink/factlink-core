@@ -1,4 +1,5 @@
 <div class="relation">
+  {{#signed_in?}}
   <div class="relation-actions">
     <a class="supporting {{ positive_active }}"> &nbsp; </a>
 
@@ -6,6 +7,6 @@
 
     <a class="weakening {{ negative_active }}"> &nbsp; </a>
   </div>
-
+  {{/signed_in?}}
   {{>fact_bubble}}
 </div>

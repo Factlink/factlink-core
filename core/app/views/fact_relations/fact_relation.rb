@@ -24,5 +24,9 @@ module FactRelations
     def id
       self[:fact_relation].id
     end
+
+    def signed_in?
+      user_signed_in?
+    end
   end
 end
