@@ -16,5 +16,14 @@ class Activity < OurOhm
   def self.for(search_for)
     Activity::Query.for(search_for)
   end
+
+  def to_hash_without_time
+    h = { user: user,
+          action: action.to_sym,
+          subject: subject, }
+    h[:object] = object if object
+    h
+  end
+
 end
 
