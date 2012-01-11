@@ -24,10 +24,9 @@ module ActivityHelper
   end
 
   def activities_for_channel_sidebar(channel)
-    # TODO omgwtfbbq don't convert to array first
     Activity::Query.where([
       { subject: channel },
       { object: channel },
-    ]).to_a[0..10]
+    ]).sort_by(:created_at, limit: 10, order: "DESC")
   end
 end
