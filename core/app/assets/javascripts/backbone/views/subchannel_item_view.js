@@ -1,12 +1,13 @@
 window.SubchannelItemView = Backbone.View.extend({
   tagName: "li",
-  tmpl: $('#subchannel_li').html(),
   
   events: {
     "click" : "clickHandler"
   },
   
   initialize: function() {
+    this.useTemplate("subchannels", "_subchannel_item");
+    
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);

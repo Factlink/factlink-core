@@ -2,9 +2,9 @@
 
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
-  tmpl: $('#channel_overview').html(),
 
   initialize: function(opts) {
+    this.useTemplate("channels", "_channel");
     var self = this;
 
     this.subchannels = new SubchannelList({channel: this.model});

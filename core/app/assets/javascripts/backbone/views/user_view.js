@@ -1,12 +1,14 @@
 window.UserView = Backbone.View.extend({
-
   root: $("#left-column"),
   tagName: "article",
   className: "user-block",
-  tmpl: $('#user_block_tmpl').html(),
 
   events: {
     "click div.avatar-container": "clickHandler"
+  },
+  
+  initialize: function() {
+    this.useTemplate("users", "_user");
   },
 
   render: function() {

@@ -1,5 +1,4 @@
 window.AddToChannelView = Backbone.View.extend({
-  tmpl: $('#own_channels_collection').html(),
   tagName: "div",
   
   _views: [],
@@ -9,6 +8,8 @@ window.AddToChannelView = Backbone.View.extend({
   },
     
   initialize: function(opts) {
+    this.useTemplate("channels", "_own_channel_listing");
+    
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
     
