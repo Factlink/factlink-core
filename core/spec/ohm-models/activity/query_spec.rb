@@ -97,6 +97,17 @@ describe Activity::Query do
       Activity::Query.where_one(subject: f1, action: "foo").to_a.should == [a]
     end
 
+    it "should find activity when called with multiple actions" do
+      a1 = Activity.create user: gu1, action: :foo, subject: f1
+      a2 = Activity.create user: gu1, action: :bar, subject: f1
+      Activity::Query.where_one(subject: f1, action: [:foo, :bar]).to_a.should == [a1, a2]
+    end
+    it "should only find activity specified in the multiple actions" do
+      a1 = Activity.create user: gu1, action: :foo, subject: f1
+      a2 = Activity.create user: gu1, action: :bar, subject: f1
+      a3 = Activity.create user: gu1, action: :baz, subject: f1
+      Activity::Query.where_one(subject: f1, action: [:foo, :bar]).to_a.should == [a1, a2]
+    end
   end
 
 end
