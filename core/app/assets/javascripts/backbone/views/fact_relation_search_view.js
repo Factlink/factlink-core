@@ -3,6 +3,8 @@ var FactRelationSearchView = Backbone.View.extend({
     "keyup input": "doSearch"
   },
 
+  _searchResultViews: [],
+
   initialize: function() {
     this.useTemplate("facts","_evidence_as_search_result");
   },
@@ -40,12 +42,16 @@ var FactRelationSearchView = Backbone.View.extend({
       });
 
       searchResultsContainer.append( view.render().el );
+
+      self._searchResultViews.push(view);
     });
   },
 
   truncateSearchContainer: function() {
-    var searchResultsContainer = this.el.find('.search-results');
+    _.forEach(this._searchResultViews, function(view) {
+      view.remove();
+    });
 
-    searchResultsContainer.empty();
+    this._searchResultViews = [];
   }
 });
