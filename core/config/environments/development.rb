@@ -33,9 +33,15 @@ FactlinkUI::Application.configure do
   I18n.default_locale = :nl
 
   config.force_ssl = false
+end
 
-  require 'pry'
-  IRB = Pry
+silence_warnings do
+  begin
+    require 'pry'
+    IRB = Pry
+  rescue LoadError
+    puts "Error: Failed on loading Pry as shell"
+  end
 end
 
 Rails.logger = Logger.new(STDOUT)
