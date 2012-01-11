@@ -56,10 +56,5 @@ module Facts
         end
       end
 
-      def link_for(gu)
-        imgtag = image_tag(gu.user.avatar.url(:small), :size => "24x24", :title => "#{gu.user.username} (#{gu.rounded_authority})")
-        path = view.user_profile_path(gu.user.username)
-        link_to( imgtag, path, :target => "_top" )
-      end
   end
 end
