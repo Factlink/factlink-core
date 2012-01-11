@@ -72,7 +72,29 @@ module Facts
       current_graph_user.containing_channel_ids(self[:fact])
     end
 
+    def last_active_users
+      last_activity().map { |a|
+         { "avatar"   => avatar_for(a.user),
+           "userId"   => a.user.id,
+           "action"   => a.action.to_s,
+         }
+      }
+    end
+
     expose_to_hash :timestamp
 
+    private
+      def last_activity(nr=3)
+        Activity::Query.where([
+          { object: self[:fact] },
+          { subject: self[:fact] },
+        ]).sort_by(:created_at, limit: nr, order: "DESC")
+      end
+
+      def avatar_for(gu)
+        imgtag = image_tag(gu.user.avatar.url(:small), :size => "20x20", :alt => "#{gu.user.username}")
+        path = view.user_profile_path(gu.user.username)
+        link_to( imgtag, path, target: "_top" )
+      end
   end
 end

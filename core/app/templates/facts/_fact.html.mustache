@@ -8,6 +8,7 @@
 
 {{>fact_bubble}}
 
+
 <div class="controls">
   <ul class="evidence">
     <li class="supporting">
@@ -28,7 +29,13 @@
       </li>
 		{{/signed_in?}}
   </ul>
-  <div class="users"></div>
+  <ul class="users">
+    {{#last_active_users}}
+    <li class="user" data-user-id="{{userId}}">
+      {{{avatar}}}
+    </li>
+    {{/last_active_users}}
+  </ul>
 </div>
 
 
