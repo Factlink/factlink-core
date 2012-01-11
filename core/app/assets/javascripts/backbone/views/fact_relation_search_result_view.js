@@ -9,5 +9,9 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     this.el.innerHTML = Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials);
 
     return this;
+  },
+
+  remove: function() {
+    $(this.el).remove();
   }
 });

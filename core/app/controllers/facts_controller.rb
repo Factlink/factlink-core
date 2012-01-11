@@ -184,12 +184,16 @@ class FactsController < ApplicationController
     }
 
     solr_result = Sunspot.search FactData do
-      fulltext params[:s]
+      fulltext params[:s] do
+        highlight :displaystring
+      end
 
       with(:fact_id).any_of(pe)
     end
 
-    facts = solr_result.results.map { |fd| Facts::FactRelationSearchResult.for(fact: fd, view: view_context) }
+    facts = solr_result.results.map do |result|
+      Facts::FactRelationSearchResult.for(fact: result, view: view_context)
+    end
 
     render json: facts
   end
