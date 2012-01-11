@@ -15,6 +15,7 @@ class Activity < OurOhm
       Activity.find *args
     end
 
+    # TODO : bit fragile
     def self.empty_activity_set
       Ohm::Model::Set.new(Ohm::Model.key[:emptyset], Ohm::Model::Wrapper.new(:Activity) {Activity})
     end
