@@ -12,7 +12,7 @@ div.modal {
   border: none;
   top: 40px;
   .drop-shadow(0px, 0, 8px, 0.3);
-  .border-radius(3px);
+  .border-radius(4px);
   border: 1px solid @grayLighter;
   margin: 0 auto;
   left: 30%;
@@ -62,7 +62,6 @@ div.fact-block .close {
   .add-channel {
     border-top: solid 1px #ddd;
     padding: 8px;
-
     input[type="text"] {
       width: 130px;
       padding: 2px;
@@ -73,6 +72,7 @@ div.fact-block .close {
 @rightIndent: 10px;
 .fact-block {
   color: #555;
+  .border-radius(4px);
   background: @white;
   article.fact {
     padding: 10px 0 0px (@rightIndent / 2);
@@ -138,14 +138,32 @@ div.fact-block .close {
 			}
     }
   }
+  @controlsHeight: 23px;
   .controls {
     font-size: 12px;
     .opacity(0);
     .unselectable();
     .transition(@transition);
     border-bottom: 1px solid @grayLighter;
+
+    ul.users {
+      float: right;
+      margin: -(@controlsHeight) 10px 0 0;
+      li {
+        display: inline-block;
+        margin-right: 2px;
+        img {
+          .border-radius(3px);
+          .opacity(60);
+          &:hover {
+            .opacity(100);
+          }
+        }
+      }
+    }
+
     ul.evidence {
-      height: 23px;
+      height: @controlsHeight;
       margin-left: 60px;
       li {
         display: block;
@@ -195,6 +213,25 @@ div.fact-block .close {
     display: none;
     background: @whiteDarker;
     padding: 7px 0 8px 0;
+    min-height: 55px;
+    .visible-scroll();
+    overflow: auto;
+    ul.search-results {
+      position: absolute;
+      z-index: 200;
+      background: @white;
+      width: 84%;
+      border: 1px solid @grayLighter;
+      margin-top: -1px;
+      li {
+        padding: 4px;
+        border-bottom: 1px solid @grayLighter;
+        &:hover, &:focus {
+          background-color: @lightYellow;
+        }
+      }
+
+    }
     .add-evidence-container {
       display: none;
       margin: 5px 5px 10px 5px;
@@ -204,10 +241,12 @@ div.fact-block .close {
       input[type="text"] {
         @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.1);
         .box-shadow(@shadow);
-        width: 85%;
+        width: 80%;
         border: 1px solid @grayLighter;
         font-size: 12px;
-        padding: 3px;
+        padding: 5px 9px;
+        .border-radius(4px);
+        #font > .sans-serif(13px, normal, 1.1);
       }
       .cancel {
         margin-left: 18px;
@@ -229,11 +268,11 @@ div.fact-block .close {
       position: absolute;
       .arrow-down, .arrow-down-border {
         position: relative;
+        width: 0;
+        height: 0;
         left: 10px;
       }
       .arrow-down {
-        width: 0;
-        height: 0;
         border-left: 10px solid transparent;
         border-right: 10px solid transparent;
         border-top: 10px solid @whiteDarker;
@@ -244,13 +283,11 @@ div.fact-block .close {
         border-color: @grayLighter transparent transparent transparent;
         border-style: solid;
         border-width: 10px;
-        height:0;
-        width:0;
         top: 1px;
       }
     }
   }
-  &:hover, &.active, .controls.active {
+  &:hover, &:active, &.active, .controls.active {
     .controls {
       .opacity(100);
     }
@@ -263,15 +300,10 @@ div.fact-block .close {
     background-color: @white;
     border-top: 1px solid @grayLighter;
     border-bottom: 1px solid @grayLighter;
-    min-height: 55px;
 
     ul.evidence-listing {
       height: 100%;
-      display: block;
-      .visible-scroll();
-      overflow: auto;
       max-height: 300px;
-
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
