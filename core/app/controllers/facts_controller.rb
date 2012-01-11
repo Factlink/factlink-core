@@ -9,11 +9,9 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
-      :edit,
       :destroy,
       :get_channel_listing,
       :update,
-      :bubble,
       :opinion,
       :evidence_search,
       :add_supporting_evidence,
@@ -22,8 +20,8 @@ class FactsController < ApplicationController
   before_filter :potential_evidence,
     :only => [
       :show,
-      :evidence_search,
-      :edit]
+      :evidence_search
+    ]
 
   around_filter :allowed_type,
     :only => [:set_opinion ]
@@ -216,15 +214,15 @@ class FactsController < ApplicationController
 
       # Create FactRelation
       fact_relation = fact.add_evidence(type, evidence, current_user)
-      evidence.add_opinion(:believes, current_user.graph_user)
-      fact_relation.add_opinion(:believes, current_user.graph_user)
+      evidence.add_opinion(:believes, current_graph_user)
+      fact_relation.add_opinion(:believes, current_graph_user)
       fact_relation
     end
 
     def create_fact(url, displaystring, title) # private
       @site = url && (Site.find(:url => url).first || Site.create(:url => url))
 
-      fact_params = {created_by: current_user.graph_user}
+      fact_params = {created_by: current_graph_user}
       fact_params[:site] = @site if @site
       @fact = Fact.create fact_params
 
