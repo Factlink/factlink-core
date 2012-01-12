@@ -163,7 +163,7 @@ class ChannelsController < ApplicationController
   def add_fact
     authorize! :update, @channel
 
-    @fact     = Fact[params[:fact_id]]
+    @fact = Fact[params[:fact_id]]
 
     @channel.add_fact(@fact)
 
