@@ -82,6 +82,7 @@ class FactsController < ApplicationController
     end
   end
 
+  # TODO: See if this is still used
   def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
@@ -190,7 +191,7 @@ class FactsController < ApplicationController
     end
 
     facts = solr_result.results.map do |result|
-      Facts::FactRelationSearchResult.for(fact: result, view: view_context)
+      Facts::FactBubble.for(fact: result.fact, view: view_context)
     end
 
     render json: facts
