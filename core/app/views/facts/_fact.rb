@@ -73,7 +73,7 @@ module Facts
     end
 
     def last_active_users
-      last_activity().map { |a|
+      last_activity(3).map { |a|
          { "avatar"   => avatar_for(a.user),
            "userId"   => a.user.id,
            "action"   => a.action.to_s,
@@ -85,10 +85,7 @@ module Facts
 
     private
       def last_activity(nr=3)
-        Activity::Query.where([
-          { object: self[:fact] },
-          { subject: self[:fact] },
-        ]).sort_by(:created_at, limit: nr, order: "DESC")
+        Activity::For.fact(self[:fact]).sort_by(:created_at, limit: nr, order: "DESC")
       end
 
       def avatar_for(gu)
