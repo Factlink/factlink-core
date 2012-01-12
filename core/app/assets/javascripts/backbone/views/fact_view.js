@@ -15,15 +15,13 @@ window.FactView = Backbone.View.extend({
   },
 
   initialize: function(opts) {
-    this.useTemplate('facts','_fact');
+    this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
-
-    if ( opts.tmpl ) {
-      this.tmpl = opts.tmpl;
-    }
 
     $(this.el).attr('data-fact-id', this.model.id);
   },
+  
+  partials: {},
 
   render: function() {
     $( this.el )

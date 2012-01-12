@@ -5,6 +5,10 @@ describe GraphUser do
   subject {FactoryGirl.create :graph_user }
   let(:fact) {FactoryGirl.create(:fact,:created_by => subject)}
 
+  describe "delegates" do
+    it { should respond_to(:editable_channels) }
+  end
+
   context "Initially" do
     it { subject.facts.to_a.should == [] }
     it { subject.facts_he(:believes).should be_empty }

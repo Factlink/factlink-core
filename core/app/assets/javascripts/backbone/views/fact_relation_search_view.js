@@ -1,6 +1,7 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
-    "keyup input": "doSearch"
+    "keyup input": "doSearch",
+    "click a.cancel": "cancelSearch"
   },
 
   _searchResultViews: [],
@@ -19,6 +20,12 @@ var FactRelationSearchView = Backbone.View.extend({
     }
 
     return this;
+  },
+
+  cancelSearch: function(e) {
+    this.truncateSearchContainer();
+
+    $('input', this.el).val('');
   },
 
   doSearch: _.throttle(function() {

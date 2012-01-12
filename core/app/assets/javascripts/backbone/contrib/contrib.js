@@ -22,6 +22,10 @@ Backbone.View.prototype.close = function() {
     call this in the initialize()
 */
 Backbone.View.prototype.useTemplate = function(dir,file) {
+  if (this.tmpl !== undefined) {
+    return;
+  }
+
   var self = this;
   this.tmpl = $('#mustache-templates .mustache-dir-'+dir+".mustache-file-"+file).html();
   this.partials = {};

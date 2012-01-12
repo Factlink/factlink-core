@@ -1,0 +1,280 @@
+<div id='mustache-templates'><script type='text/html' class='mustache-dir-channels mustache-file-_channel' data-filename='_channel'><div id="channel" data-channel-id="{{ id }}">
+  <header class="append-bottom title">
+    {{#editable?}}
+      <a href="{{ edit_link }}" class="btn">edit</a>
+    {{/editable?}}
+    
+    {{#followable?}}
+      <div class="float-box-container">
+        <a class="btn" id="add_to_channel">Add to channels</a>
+        <div class="float-box channel-listing" id="follow-channel"></div>
+      </div>
+    {{/followable?}}
+
+  	<h1>
+  	  {{ title }}
+    </h1>
+    {{#inspectable?}}
+    <div id="contained-channels">
+      <span class="contained-channel-description">Other people in this channel</span>
+        <ul id="contained-channel-list">
+          <div class="overflow"></div>
+        </ul>
+      </div>
+      <div class="more"><a id="more-button"><span class="label">more</span></a></div>
+    {{/inspectable?}}
+  </header>
+  <div id="facts_for_channel">
+  </div>
+</div>
+</script><script type='text/html' class='mustache-dir-channels mustache-file-_contained_channel_list' data-filename='_contained_channel_list'><ul class="contained-channel-list">
+  {{#channels_with_link}}
+    <li class="contained-channel">
+      <a href="{{link}}" title="{{title}}"><img src="{{user_avatar}}" alt="{{username}}" title="{{username}}"><span>{{title}}</span></a>
+    </li>
+  {{/channels_with_link}}
+</ul>
+</script><script type='text/html' class='mustache-dir-channels mustache-file-_facts' data-filename='_facts'><div class="facts">
+
+</div>
+<div class="loading">
+  <img src="/assets/ajax-loader.gif"> <span>Loading...</span>
+</div>
+<div class="no_facts" style="display:none;">
+  {{#is_all}}
+    <p>You have not created a channel or added someone's channel yet. You can:</p>
+    <div class="empty-channel-action">
+      <h3>Add a Factlink</h3>
+      <img src="/assets/empty_channel_placeholders/addfactlink.png">
+    </div>
+    <div class="empty-channel-action">
+      <h3>Create a channel</h3>
+      <img src="/assets/empty_channel_placeholders/createchannel.png">
+    </div>
+    <div class="empty-channel-action-end"></div>
+  {{/is_all}}
+  {{#is_created}}
+    <p>You have not created any Factlinks yet. You can create Factlinks anywhere on the web.</p>
+    <h3>Create a Factlink</h3>
+    <img src="/assets/empty_channel_placeholders/addfactlink.png">
+  {{/is_created}}
+  {{#is_normal}}
+    <p>This channel does not contain any Factlinks yet. You can:</p>
+    <div class="empty-channel-action">
+      <h3>Add a Factlink</h3>
+      <img src="/assets/empty_channel_placeholders/addfactlinktochannel.png">
+    </div>
+    <div class="empty-channel-action">
+      <h3>Add a channel</h3>
+      <img src="/assets/empty_channel_placeholders/addtochannels.png">
+    </div>
+    <div class="empty-channel-action-end"></div>
+  {{/is_normal}}
+</div></script><script type='text/html' class='mustache-dir-channels mustache-file-_own_channel' data-filename='_own_channel'><label>
+  <input type="checkbox">
+  {{title}}
+</label>
+</script><script type='text/html' class='mustache-dir-channels mustache-file-_own_channel_listing' data-filename='_own_channel_listing'><ul>
+</ul>
+
+<div class="add-channel">
+  <form method="post" action=".">
+    <input type="text" name="channel_title" placeholder="Add new channel">
+    <input type="submit" value="Add"> 
+
+  </form>
+</div>
+</script><script type='text/html' class='mustache-dir-channels mustache-file-_single_menu_item' data-filename='_single_menu_item'><a href="{{link}}" class="{{type}}">
+  <span class="title">
+    {{title}} 
+  </span>
+  {{#new_facts}}
+    <span class="new"> ({{nr_of_facts}}) </span> 
+  {{/new_facts}}
+</a>
+</script><script type='text/html' class='mustache-dir-fact_relations mustache-file-_evidence_search' data-filename='_evidence_search'><div class="add-evidence-container">
+  <div class="add-evidence supporting">
+    <input type="text" placeholder="The Factlink above is true because ...">
+    <a class="cancel">cancel</a>
+  </div>
+
+  <div class="add-evidence weakening">
+    <input type="text" placeholder="The Factlink above is false because ...">
+    <a class="cancel">cancel</a>
+  </div>
+
+  <ul class="search-results">
+
+  </ul>
+</div></script><script type='text/html' class='mustache-dir-fact_relations mustache-file-_fact_bubble' data-filename='_fact_bubble'><article class="fact" data-fact-id="{{fact_id}}" >
+  {{#fact_wheel}}
+    {{>fact_wheel}}
+  {{/fact_wheel}}
+	<header>
+	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
+
+		<span class="body">
+      {{{displaystring}}}
+      {{#scroll_to_link}}
+        &mdash; <span>{{{scroll_to_link}}}</span>
+      {{/scroll_to_link}}
+      <br>
+    </span>
+	</header>
+</article>
+</script><script type='text/html' class='mustache-dir-fact_relations mustache-file-_fact_wheel' data-filename='_fact_wheel'><div class="wheel">
+  <div class="authority" data-authority="{{authority}}"></div>
+  {{#opinions}}
+    <div class="opinion" data-value="{{percentage}}" data-opinion="{{type}}s" data-name="{{groupname}}" data-opinions="{{type}}"
+        {{#user_signed_in?}}
+          data-user-opinion="{{is_current_opinion}}"
+        {{/user_signed_in?}}
+        data-color="{{color}}">
+    </div>
+  {{/opinions}}
+</div>
+
+</script><script type='text/html' class='mustache-dir-fact_relations mustache-file-fact_relation' data-filename='fact_relation'><div class="relation">
+  {{#signed_in?}}
+  <div class="relation-actions">
+    <a class="supporting {{ positive_active }}"> &nbsp; </a>
+
+    <span class="{{ fact_relation_type }}-indicator"> &nbsp; </span>
+
+    <a class="weakening {{ negative_active }}"> &nbsp; </a>
+  </div>
+  {{/signed_in?}}
+  {{>fact_bubble}}
+</div>
+</script><script type='text/html' class='mustache-dir-fact_relations mustache-file-fact_relations' data-filename='fact_relations'><div class="arrow">
+  <div class="arrow-down-border"></div>
+  <div class="arrow-down"></div>
+</div>
+
+<div class="evidence-list-wrapper">
+  <div class="no-evidence-message">
+    This Factlink is not supported or weakened by other Factlinks.<br>
+    <a class="do-add">Add evidence to this Factlink</a>
+  </div>
+
+  <div class="loading-evidence">
+    <img src="/assets/ajax-loader.gif"> <span>Loading...</span>
+  </div>
+
+  <ul class="evidence-listing">
+  </ul>
+</div></script><script type='text/html' class='mustache-dir-facts mustache-file-_fact' data-filename='_fact'>{{#deletable_from_channel?}}
+  <a class="close remove" rel="nofollow">&times;</a>
+{{/deletable_from_channel?}}
+
+{{#modal?}}
+  <a class="close remove" rel="nofollow" onclick="parent.remote.hide();">&times;</a>
+{{/modal?}}
+
+{{>fact_bubble}}
+
+
+<div class="controls">
+  <ul class="evidence">
+    <li class="supporting">
+      <a class="tab">Supporting</a>
+      {{#signed_in?}} <a class="add-button"></a> {{/signed_in?}}
+    </li>
+
+    <li class="weakening">
+      <a class="tab">Weakening</a>
+      {{#signed_in?}}<a class="add-button"></a> {{/signed_in?}}
+    </li>
+
+		{{#signed_in?}}
+      <li class="add-to-channel">
+        <a>Channels</a>
+        <div class="float-box channel-listing">
+      </div>
+      </li>
+		{{/signed_in?}}
+  </ul>
+  <ul class="users">
+    {{#last_active_users}}
+    <li class="user" data-user-id="{{userId}}">
+      {{{avatar}}}
+    </li>
+    {{/last_active_users}}
+  </ul>
+</div>
+
+
+<div class="dropdown-container">
+</div>
+</script><script type='text/html' class='mustache-dir-facts mustache-file-_fact_bubble' data-filename='_fact_bubble'><article class="fact" data-fact-id="{{fact_id}}" >
+  {{#fact_wheel}}
+    {{>fact_wheel}}
+  {{/fact_wheel}}
+	<header>
+	  <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
+
+		<span class="body">
+      {{{displaystring}}}
+      {{#scroll_to_link}}
+        &mdash; <span>{{{scroll_to_link}}}</span>
+      {{/scroll_to_link}}
+      <br>
+    </span>
+	</header>
+</article>
+</script><script type='text/html' class='mustache-dir-facts mustache-file-_fact_relation_search_result' data-filename='_fact_relation_search_result'><div>{{ displaystring }}</div></script><script type='text/html' class='mustache-dir-facts mustache-file-_fact_wheel' data-filename='_fact_wheel'><div class="wheel">
+  <div class="authority" data-authority="{{authority}}"></div>
+  {{#opinions}}
+    <div class="opinion" data-value="{{percentage}}" data-opinion="{{type}}s" data-name="{{groupname}}" data-opinions="{{type}}"
+        {{#user_signed_in?}}
+          data-user-opinion="{{is_current_opinion}}"
+        {{/user_signed_in?}}
+        data-color="{{color}}">
+    </div>
+  {{/opinions}}
+</div>
+
+</script><script type='text/html' class='mustache-dir-facts mustache-file-_remote_form' data-filename='_remote_form'><form accept-charset="UTF8" action="{{channel_path}}" method="post" data-remote="true">
+  <div style="margin:0;padding:0;display:inline">
+    <input name="utf8" type="hidden" value="✓">
+    <input name="authenticity_token" type="hidden" value="{{form_authenticity_token}}">
+  </div>
+  
+
+  <input class="channel_title" name="channel[title]" placeholder="Add new channel" size="30" type="text">
+	<input type="hidden" id="for_fact" name="for_fact" value="{{fact.id}}" />
+
+	<input type="submit" id="channel_submit" name="commit" value="Add" >
+	
+</form>
+</script><script type='text/html' class='mustache-dir-facts mustache-file-channel_listing' data-filename='channel_listing'><ul>
+  {{#channels}}
+	  <li><label>
+	    <input type="checkbox" {{checked_attribute}} data-channel-id="{{id}}" data-username="{{created_by}}"
+	            onclick="$('article#fact-' + $(this).closest('div.fact-block').data('fact-id')).factlink('to_channel', '{{current_user.username}}', {{id}}, {{fact.id}});">
+	    {{title}}
+		  </label></li>
+  {{/channels}}
+</ul>
+
+<div class="add-channel">
+	{{>remote_form}}
+</div>
+</script><script type='text/html' class='mustache-dir-subchannels mustache-file-_subchannel_item' data-filename='_subchannel_item'><a href="javascript:void();" title="{{title}}">{{{created_by.avatar}}}<span>{{title}}</span></a></script><script type='text/html' class='mustache-dir-users mustache-file-_user' data-filename='_user'>{{^is_current_user}}
+<div class="avatar-container">
+  <div class="user-avatar">
+  	{{{ avatar }}}
+  </div>
+
+  <div class="wrapper">
+  	<h3>{{ username }}</h3>
+  	<sub>authority: {{ authority }}</sub>
+  </div>
+</div>
+{{/is_current_user}}
+
+{{#is_current_user}}
+<h2>My Channels</h2>
+{{{new_channel_button}}}
+{{/is_current_user}}
+</script></div>
