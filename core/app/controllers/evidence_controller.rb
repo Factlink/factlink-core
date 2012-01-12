@@ -31,8 +31,7 @@ class EvidenceController < FactsController
     @fact_relation = add_evidence(evidence_id, type, fact_id)
 
     respond_to do |format|
-      format.json { render json: @fact_relation }
-      format.js   { render layout: false, partial: "facts/add_evidence_as_li", locals: { fact_relation: @fact_relation } }
+      format.json { render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context) }
     end
   end
 
