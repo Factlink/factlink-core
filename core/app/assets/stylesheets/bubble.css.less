@@ -179,7 +179,7 @@ div.fact-block .close {
             text-decoration: none;
           }
         }
-        .add-button {
+        .add-button, .cancel-button {
 	        font-family: "IconicStroke";
           text-shadow: 1px 1px 0px @white;
           display: none;
@@ -192,6 +192,12 @@ div.fact-block .close {
           }
           &:hover, &.active {
             color: @gray !important;
+          }
+        }
+        .cancel-button {
+          &:before {
+            font-size: 18px;
+            content: " _";
           }
         }
         &:hover, &.active {
@@ -219,11 +225,11 @@ div.fact-block .close {
       z-index: 200;
       background: @white;
       width: 80%;
-      border: 1px solid @grayLighter;
       li {
         cursor: pointer;
         padding: 4px;
-        border-bottom: 1px solid @grayLighter;
+        border: 1px solid @grayLighter;
+        border-top: none;
         &:hover, &:focus {
           background-color: @lightYellow;
         }
@@ -232,7 +238,9 @@ div.fact-block .close {
     }
     .add-evidence-container {
       display: none;
-      margin: 5px 5px 10px 5px;
+      padding: 0 0 5px 5px;
+      background-color: @whiteDarker;
+
       .add-evidence {
         display: none;
       }
@@ -268,6 +276,7 @@ div.fact-block .close {
     }
     .arrow {
       position: absolute;
+      margin-top: -1px;
       .arrow-down, .arrow-down-border {
         position: relative;
         width: 0;
@@ -297,10 +306,12 @@ div.fact-block .close {
       .opacity(30);
     }
   }
+  .evidence-list-wrapper {
+    border-top: 1px solid @grayLighter;
+  }
   .evidence-list {
     display: none;
     background-color: @white;
-    border-top: 1px solid @grayLighter;
     border-bottom: 1px solid @grayLighter;
     .visible-scroll();
     overflow: auto;
