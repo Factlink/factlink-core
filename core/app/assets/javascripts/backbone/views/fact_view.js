@@ -15,10 +15,6 @@ window.FactView = Backbone.View.extend({
   },
 
   initialize: function(opts) {
-    if ( opts.tmpl ) {
-      this.tmpl = opts.tmpl;
-    }
-
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
 
