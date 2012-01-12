@@ -213,17 +213,15 @@ div.fact-block .close {
     display: none;
     background: @whiteDarker;
     padding: 7px 0 8px 0;
-    min-height: 55px;
-    .visible-scroll();
-    overflow: auto;
+    min-height: 70px;
     ul.search-results {
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 84%;
+      width: 80%;
       border: 1px solid @grayLighter;
-      margin-top: -1px;
       li {
+        cursor: pointer;
         padding: 4px;
         border-bottom: 1px solid @grayLighter;
         &:hover, &:focus {
@@ -247,6 +245,10 @@ div.fact-block .close {
         padding: 5px 9px;
         .border-radius(4px);
         #font > .sans-serif(13px, normal, 1.1);
+        &:focus {
+          outline: 0;
+          border: 1px solid @linkColor;
+        }
       }
       .cancel {
         margin-left: 18px;
@@ -300,7 +302,8 @@ div.fact-block .close {
     background-color: @white;
     border-top: 1px solid @grayLighter;
     border-bottom: 1px solid @grayLighter;
-
+    .visible-scroll();
+    overflow: auto;
     ul.evidence-listing {
       height: 100%;
       max-height: 300px;

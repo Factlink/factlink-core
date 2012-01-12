@@ -3,11 +3,15 @@ class ChannelManager
     @gu = gu
   end
 
-  def editable_channels_for(fact)
+  def editable_channels
     @channels = @gu.channels.to_a
     @username = @gu.user.username
     @channels.reject! { |channel| ! channel.editable? }
-    @channels.map {|ch| ChannelForFact.new(ch,fact,@username)}
+  end
+
+  def editable_channels_for(fact)
+    channels = editable_channels
+    channels.map {|ch| ChannelForFact.new(ch,fact,@username)}
   end
 
   def containing_channel_ids(fact)

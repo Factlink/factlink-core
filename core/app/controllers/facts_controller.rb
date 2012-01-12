@@ -9,11 +9,9 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
-      :edit,
       :destroy,
       :get_channel_listing,
       :update,
-      :bubble,
       :opinion,
       :evidence_search,
       :add_supporting_evidence,
@@ -22,8 +20,8 @@ class FactsController < ApplicationController
   before_filter :potential_evidence,
     :only => [
       :show,
-      :evidence_search,
-      :edit]
+      :evidence_search
+    ]
 
   around_filter :allowed_type,
     :only => [:set_opinion ]
@@ -84,6 +82,7 @@ class FactsController < ApplicationController
     end
   end
 
+  # TODO: See if this is still used
   def create_fact_as_evidence
     evidence = create_fact(params[:url], params[:fact], params[:title])
     @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
@@ -192,7 +191,7 @@ class FactsController < ApplicationController
     end
 
     facts = solr_result.results.map do |result|
-      Facts::FactRelationSearchResult.for(fact: result, view: view_context)
+      Facts::FactBubble.for(fact: result.fact, view: view_context)
     end
 
     render json: facts
@@ -204,7 +203,7 @@ class FactsController < ApplicationController
     end
 
     def load_fact
-      id = params[:id] || params[:fact_id]
+      id = params[:fact_id] || params[:id]
 
       @fact = Fact[id] || raise_404
     end
@@ -216,15 +215,15 @@ class FactsController < ApplicationController
 
       # Create FactRelation
       fact_relation = fact.add_evidence(type, evidence, current_user)
-      evidence.add_opinion(:believes, current_user.graph_user)
-      fact_relation.add_opinion(:believes, current_user.graph_user)
+      evidence.add_opinion(:believes, current_graph_user)
+      fact_relation.add_opinion(:believes, current_graph_user)
       fact_relation
     end
 
     def create_fact(url, displaystring, title) # private
       @site = url && (Site.find(:url => url).first || Site.create(:url => url))
 
-      fact_params = {created_by: current_user.graph_user}
+      fact_params = {created_by: current_graph_user}
       fact_params[:site] = @site if @site
       @fact = Fact.create fact_params
 

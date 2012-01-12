@@ -2,6 +2,7 @@ require 'ohm/contrib'
 
 require_relative 'activity/subject'
 require_relative 'activity/query'
+require_relative 'activity/queries'
 
 class Activity < OurOhm
   include Ohm::Timestamping
@@ -16,5 +17,14 @@ class Activity < OurOhm
   def self.for(search_for)
     Activity::Query.for(search_for)
   end
+
+  def to_hash_without_time
+    h = { user: user,
+          action: action.to_sym,
+          subject: subject, }
+    h[:object] = object if object
+    h
+  end
+
 end
 

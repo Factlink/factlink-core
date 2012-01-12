@@ -15,6 +15,7 @@ class Activity < OurOhm
       Activity.find *args
     end
 
+    # TODO : bit fragile
     def self.empty_activity_set
       Ohm::Model::Set.new(Ohm::Model.key[:emptyset], Ohm::Model::Wrapper.new(:Activity) {Activity})
     end
@@ -32,7 +33,14 @@ class Activity < OurOhm
       set = set.find(   user_id: query[:user].id )                                          if query[:user]
       set = set.find(subject_id: query[:subject].id, subject_class: query[:subject].class ) if query[:subject]
       set = set.find( object_id: query[:object].id,   object_class: query[:object].class )  if query[:object]
-      set = set.find(    action: query[:action].to_s)                                       if query[:action]
+      if query[:action]
+        if query[:action].respond_to? :map
+          set = query[:action].map {|action| set.find(action: action.to_s) }
+                              .inject(empty_activity_set,:|)
+        else
+          set = set.find(    action: query[:action].to_s)
+       end
+      end
       set
     end
   end

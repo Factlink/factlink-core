@@ -20,6 +20,12 @@ window.FactRelation = Backbone.Model.extend({
   },
 
   url: function() {
-    return "/evidence/" + this.get('id');
+    var evidence_type = "weakening_evidence";
+
+    if ( this.get('fact_relation_type') === "believing" ) {
+      evidence_type = "supporting_evidence";
+    }
+
+    return this.collection.fact.url() + "/" + evidence_type + "/" + this.get('id');
   }
 });

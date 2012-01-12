@@ -12,15 +12,20 @@ class EvidenceController < FactsController
   end
 
   def create
-    type          = params[:type]
+    type          = relation
     fact_id       = params[:fact_id]
     displaystring = params[:displaystring]
+    evidence_id   = params[:evidence_id]
 
-    @fact = Fact[params[:fact_id]]
+    @fact = Fact[fact_id]
 
-    # Create the evidence
-    @evidence = create_fact(nil, displaystring, nil)
-    evidence_id = @evidence.id
+    if ( displaystring != nil )
+      # Create the evidence
+      @evidence = create_fact(nil, displaystring, nil)
+      evidence_id = @evidence.id
+    else
+      @evidence = Fact[evidence_id]
+    end
 
     # Create the relation
     @fact_relation = add_evidence(evidence_id, type, fact_id)

@@ -2,44 +2,44 @@
 @import "grid";
 @import "bootstrap";
 @import "twitter/bootstrap/forms";
-body { 
+body {
   background: white;
 }
-.factlink { 
-  a { 
+.factlink {
+  a {
     color: @linkColor;
   }
-  h1, h2, h3 { 
+  h1, h2, h3 {
     #font > .sans-serif(bold, @basefont, @baseline);
     color: #303030;
   }
   h3 {
     font-size: 14pt;
   }
-  h4 { 
+  h4 {
     font-size: 12pt;
     font-weight: bold;
     margin-bottom: 6px;
   }
-  p, li, footer { 
+  p, li, footer {
     #font > .serif(normal, @basefont, @baseline);
     color: #505050;
   }
-  #body { 
+  #body {
     padding: 2.5em 0;
     .inner-shadow(0, 0px, 9px, 0.1);
     background-color: #f4f4f4;
     text-shadow: 0 1px 1px #fff;
     border: solid 1px rgba(0, 0, 0, 0.06);
   }
-  header { 
-    h1 { 
+  header {
+    h1 {
       margin-top: 12px;
     }
     margin-top: 1em;
     margin-bottom: 0;
   }
-  
+
   #sign-in-form {
     margin: 0px;
     line-height: 10pt;
@@ -66,23 +66,23 @@ body {
     }
 
   }
-  #payoff { 
-    h2 { 
+  #payoff {
+    h2 {
       font-weight: bold;
       font-size: 24pt;
       margin-bottom: @basefont;
     }
-    p { 
+    p {
       margin-top: 0.25em;
       line-height: @basefont * 1.8;
       font-size: 14pt;
     }
   }
-  #selling-points { 
+  #selling-points {
     ul li {
       padding-top: 2em;
 
-      img { 
+      img {
         float: left;
         margin-right: 1em;
         height: 31px;
@@ -94,50 +94,50 @@ body {
     width: 307px;
     height: 307px;
   }
-  #top-facts { 
-    ul li { 
+  #top-facts {
+    ul li {
       padding-bottom: 1em;
       min-height: 50px;
-      &:not(:last-child) { 
+      &:not(:last-child) {
         border-bottom: 1px solid #dbdbdb;
       }
-      &:not(:first-child) { 
+      &:not(:first-child) {
         border-top: 1px solid #ffffff;
       }
-      .wheel { 
+      .wheel {
         width: 0px;
         height: 0px;
         float: left;
       }
-      header { 
+      header {
         margin-left: 55px;
         padding-top: 10px;
-        .head, sub { 
+        .head, sub {
           display: block;
           width: 205px;
           font-size: 8pt;
           font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
           color: #888;
-          .ellipsis();          
+          .ellipsis();
         }
         .body {
-          a { 
+          a {
             color: #505050;
-            text-align: justify;          
+            text-align: justify;
           }
-          span a { 
+          span a {
             color: @linkColor;
           }
         }
       }
     }
   }
-  #signup { 
+  #signup {
     background-color: #e9f2e2;
     padding: 20px 20px 10px 20px;
     .border-radius(3px);
     border: 1px solid #e2eed9;
-    p { 
+    p {
       font-size: 9pt;
       padding-bottom: 1em;
       margin-right: -0.5em;
@@ -150,46 +150,35 @@ body {
       margin-right: 0.9em;
     }
   }
-  footer { 
+  footer {
     border: none;
     margin-top: 1em;
     margin-bottom: 2em;
     a.bookmarklet {
       cursor: move;
     }
-    ul { 
+    ul {
       text-align: right;
-      li { 
+      li {
         display: inline;
-        &:not(:last-child):after { 
+        :not(:last-child):after {
           content: " | ";
         }
       }
     }
   }
-  
-  #feedback { 
+  #feedback {
     position: fixed;
     top: 160px;
-    @feedback-height: 20px;
-    padding: 0.3em 0.8em 0.3em 0.8em;
-    left:  -@feedback-height - 6px;
-    height: @feedback-height;
-    background-color: #ddd;
-    .border-radius(3px);
-    border: 1px solid #333;
-    .rotation(270deg);
-    &:hover { 
-      background-color: #bbb;
-    }
-    a { 
+    background: url("/assets/feedback.png") top left no-repeat transparent;
+    height: 97px;
+    width: 37px;
+    left: 0;
+    a {
+      text-indent: -10000em;
       display: block;
-      color: #333;
       width: 100%;
       height: 100%;
-      &:hover {
-        text-decoration: none;
-      }
     }
   }
 }
