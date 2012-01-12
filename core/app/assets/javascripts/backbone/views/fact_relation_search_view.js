@@ -44,7 +44,7 @@ var FactRelationSearchView = Backbone.View.extend({
 
   parseSearchResults: function(searchResults) {
     var self = this;
-    var searchResultsContainer = this.el.find('.search-results');
+    var searchResultsContainer = $(this.el).find('.search-results');
 
     this.truncateSearchContainer();
 
