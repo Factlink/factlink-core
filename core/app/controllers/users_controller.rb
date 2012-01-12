@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def show
     respond_to do |format|
       format.html { redirect_to(channel_path(params[:username], @user.graph_user.stream)) }
-      format.json { render json: {"user" => @user, "channels" => @user.graph_user.editable_channels_for(@user.graph_user) } }
+      format.json { render json: {"user" => Users::User.for(user: @user, view: view_context) }}
     end
   end
 
