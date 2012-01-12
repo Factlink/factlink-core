@@ -17,11 +17,6 @@ class FactsController < ApplicationController
       :add_supporting_evidence,
       :add_weakening_evidence
       ]
-  before_filter :potential_evidence,
-    :only => [
-      :show,
-      :evidence_search
-    ]
 
   around_filter :allowed_type,
     :only => [:set_opinion ]
@@ -79,40 +74,6 @@ class FactsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
       format.html { render 'channel_listing', layout: nil }
-    end
-  end
-
-  # TODO: See if this is still used
-  def create_fact_as_evidence
-    evidence = create_fact(params[:url], params[:fact], params[:title])
-    @fact_relation = add_evidence(evidence.id, params[:type].to_sym, params[:fact_id])
-  end
-
-  def add_supporting_evidence() ; add_evidence_internal(:supporting)  end
-  def add_weakening_evidence()  ; add_evidence_internal(:weakening)   end
-
-  def add_evidence_internal(type)
-    authorize! :add_evidence, @fact
-    add_evidence_internal_internal(type, success: "add_source_to_factlink", fail: "adding_evidence_not_possible")
-  end
-
-  def add_evidence_internal_internal(type,render_params)
-    @fact_relation = add_evidence(params[:evidence_id], type, @fact.id)
-
-    # A FactRelation will not get created if it will cause a loop
-    if @fact_relation.nil?
-      render render_params[:fail]
-    else
-      render render_params[:success]
-    end
-  end
-
-  def add_new_evidence
-    type = params[:type].to_sym
-    if type == :weakening
-      self.add_weakening_evidence
-    elsif type == :supporting
-      self.add_supporting_evidence
     end
   end
 
@@ -177,6 +138,10 @@ class FactsController < ApplicationController
     render json: [@basefact]
   end
 
+  # TODO: This search is way to simple now, we need to make sure already
+  # evidenced Factlinks are not shown in search results and therefore we need
+  # to move this search to the evidence_controller, to make sure it's
+  # type-specific
   def evidence_search
     solr_result = Sunspot.search FactData do
       fulltext params[:s] do
@@ -192,10 +157,6 @@ class FactsController < ApplicationController
   end
 
   private
-    def potential_evidence
-      @potential_evidence = Fact.all.except(:data_id => @fact.data_id).sort(:order => "DESC")
-    end
-
     def load_fact
       id = params[:fact_id] || params[:id]
 
