@@ -32,5 +32,11 @@ window.FactRelationView = Backbone.View.extend({
 
   believeFactRelation: function() {
     this.model.believe();
+  },
+
+  highlight: function() {
+    // TODO: Joel, could you specify some highlighting here? <3 <3
+    //       Tried to do it, but don't know on which element I should set the
+    //       styles :( <3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3
   }
 });
