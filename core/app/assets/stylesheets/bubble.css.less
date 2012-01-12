@@ -313,11 +313,11 @@ div.fact-block .close {
     display: none;
     background-color: @white;
     border-bottom: 1px solid @grayLighter;
-    .visible-scroll();
-    overflow: auto;
     ul.evidence-listing {
       height: 100%;
       max-height: 300px;
+      overflow: auto;
+      .visible-scroll();
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
