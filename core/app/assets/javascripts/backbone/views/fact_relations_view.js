@@ -12,6 +12,15 @@ window.FactRelationsView = Backbone.View.extend({
     this.collection.bind('reset', this.resetFactRelations, this);
 
     this.showNoEvidenceMessage();
+
+    this.initializeSearchView();
+  },
+
+  initializeSearchView: function() {
+    this.factRelationSearchView = new FactRelationSearchView({
+      fact: this.collection.fact,
+      type: this.options.type
+    });
   },
 
   addFactRelation: function(factRelation) {
@@ -21,7 +30,7 @@ window.FactRelationsView = Backbone.View.extend({
 
     this._views.push(factRelationView);
 
-    $(this.el).find('ul').append(factRelationView.render().el);
+    $(this.el).find('ul.evidence-listing').append(factRelationView.render().el);
   },
 
   resetFactRelations: function() {
@@ -41,7 +50,9 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
+    $(this.el)
+      .html(Mustache.to_html(this.tmpl, {}, this.partials))
+      .prepend(this.factRelationSearchView.render().el);
 
     return this;
   },
@@ -86,5 +97,13 @@ window.FactRelationsView = Backbone.View.extend({
 
   hideNoEvidenceMessage: function() {
     $(this.el).find('.no-evidence-message').hide();
+  },
+
+  showSearch: function() {
+    $(this.el).find('.add-evidence-container').show();
+  },
+
+  hideSearch: function() {
+    $(this.el).find('.add-evidence-container').hide();
   }
 });
