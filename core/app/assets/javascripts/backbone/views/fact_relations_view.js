@@ -24,6 +24,11 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   addFactRelation: function(factRelation) {
+  addFactRelation: function(factRelation, factRelations, options) {
+    if ( !options ) {
+      options = {};
+    }
+
     var factRelationView = new FactRelationView({model: factRelation});
 
     this.hideNoEvidenceMessage();
@@ -31,6 +36,10 @@ window.FactRelationsView = Backbone.View.extend({
     this._views.push(factRelationView);
 
     $(this.el).find('ul.evidence-listing').append(factRelationView.render().el);
+
+    if ( options.highlight ) {
+      this.highlightFactRelation(factRelationView);
+    }
   },
 
   resetFactRelations: function() {
