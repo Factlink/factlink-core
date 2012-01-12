@@ -178,16 +178,10 @@ class FactsController < ApplicationController
   end
 
   def evidence_search
-    pe = @potential_evidence.to_a.map { |fact|
-      fact.id.to_s
-    }
-
     solr_result = Sunspot.search FactData do
       fulltext params[:s] do
         highlight :displaystring
       end
-
-      with(:fact_id).any_of(pe)
     end
 
     facts = solr_result.results.map do |result|
