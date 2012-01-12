@@ -43,10 +43,6 @@ module Facts
       params[:s] ? 'value="#{params[:s]}"' : ""
     end
 
-    def evidence_index_path
-      fact_evidence_index_path(self[:fact].id)
-    end
-
     def id
       self[:fact].id
     end
