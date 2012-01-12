@@ -8,6 +8,10 @@ module Users
       self[:user].id
     end
 
+    def channels
+      self[:graph_user].editable_channels
+    end
+
     def username
       self[:user].username
     end
