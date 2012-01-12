@@ -20,6 +20,23 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   },
 
   createFactRelation: function(e) {
+    var self = this;
+    var factRelations = this.options.factRelations;
 
+    $.ajax({
+      url: factRelations.url(),
+      type: "POST",
+      data: {
+        fact_id: factRelations.fact.get('id'),
+        evidence_id: this.model.get('id')
+      },
+      success: function(newFactRelation) {
+        factRelations.add(new factRelations.model(newFactRelation), {
+          highlight: true
+        });
+
+        self.options.parentView.cancelSearch();
+      }
+    });
   }
 });
