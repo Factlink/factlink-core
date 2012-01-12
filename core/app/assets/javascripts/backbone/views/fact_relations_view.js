@@ -1,3 +1,5 @@
+//= require jquery.scrollTo
+
 window.FactRelationsView = Backbone.View.extend({
   tagName: "div",
   className: "page evidence-list fact-relations-container",
@@ -24,7 +26,9 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   highlightFactRelation: function(view) {
-    // Needz scrolling
+    $( 'ul.evidence-listing', this.el)
+      .scrollTo(view.el, 800);
+
     view.highlight();
   },
 
