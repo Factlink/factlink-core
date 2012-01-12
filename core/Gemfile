@@ -45,7 +45,9 @@ gem 'json'
 
 ##########
 # Email on errors
-gem 'exception_notification', :require => 'exception_notifier'
+group :testserver, :staging, :production do
+  gem 'exception_notification', :require => 'exception_notifier'
+end
 
 ##########
 # Whoo, full text search!
@@ -69,8 +71,8 @@ gem "mongoid_rails_migrations", '0.0.13'
 gem 'andand', :git => 'http://github.com/Factlink/andand.git'
 
 # Deployment
-gem 'capistrano'
-gem 'capistrano-ext'
+gem 'capistrano', :require => false
+gem 'capistrano-ext', :require => false
 
 # imagemagick
 gem 'rmagick', :require => 'RMagick'
@@ -82,9 +84,7 @@ gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem "cancan"
 
 group :assets do
-  gem 'sass-rails', "~> 3.1.0"
   gem 'less-rails'
-  gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
 
   ###########
@@ -96,6 +96,10 @@ end
 
 group :development do
   gem "pry", :require => false
+  
+  #for static files serving
+  gem 'rack'
+  gem 'thin'
 end
 
 group :development, :test do
@@ -121,8 +125,4 @@ group :development, :test do
 
   gem 'jasmine'
   gem 'jasmine-headless-webkit'
-
-  #for static files serving
-  gem 'rack'
-  gem 'thin'
 end
