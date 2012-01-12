@@ -2,8 +2,7 @@
 .bundle
 db/*.sqlite3
 log/*.log
-tmp
-tmp/**/*
+tmp/*
 solr/data/
 webrat.log
 .nide
