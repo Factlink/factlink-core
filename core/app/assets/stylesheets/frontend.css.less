@@ -83,25 +83,15 @@ body.factlink-site div.user-block {
 #feedback {
   position: fixed;
   top: 160px;
-  @feedback-height: 20px;
-  padding: 0.3em 0.8em 0.3em 0.8em;
-  left:  -@feedback-height - 8px;
-  height: @feedback-height;
-  background-color: #ddd;
-  .border-radius(3px);
-  border: 1px solid #333;
-  .rotation(270deg);
-  &:hover {
-    background-color: #bbb;
-  }
+  background: url("/assets/feedback.png") top left no-repeat transparent;
+  height: 97px;
+  width: 37px;
+  left: 0;
   a {
+    text-indent: -10000em;
     display: block;
     width: 100%;
-    color: @grayDark;
     height: 100%;
-    &:hover {
-      text-decoration: none;
-    }
   }
 }
 
@@ -151,6 +141,7 @@ a.bookmarklet {
       display: block;
       text-align: center;
       margin: 5px 0 0 0;
+      color: #333;
 
       img {
         vertical-align: middle;
@@ -218,7 +209,7 @@ a.bookmarklet {
   }
 
   sub {
-    color: #555;
+    color: #333;
     #font > .sans-serif(normal, x-small, @baseline);
     bottom: 0.45em;
    }
@@ -305,7 +296,7 @@ a.bookmarklet {
     margin-bottom: 172px;
     background: @white;
     .border-radius(@borderRadius);
-    border: 1px solid @grayLight;
+    border: 1px solid @grayLighter;
     min-height: 400px;
     .drop-shadow();
     position: relative;
