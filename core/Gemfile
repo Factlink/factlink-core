@@ -99,11 +99,11 @@ group :development do
 end
 
 group :development, :test do
-  gem 'metric_fu'
+  gem 'metric_fu', :require => false
   # dependencies of metric_fu:
-    gem "fattr"
-    gem "arrayfields"
-    gem "map"
+    gem "fattr", :require => false
+    gem "arrayfields", :require => false
+    gem "map", :require => false
     #use simplecov:
     gem 'simplecov', :require => false
     gem 'simplecov-rcov-text', :require => false

@@ -18,8 +18,12 @@ end
 # you've limited to :test, :development, or :production.
 # Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-if ['test', 'development'].include? Rails.env
+if ENV['RUN_METRICS'] == "TRUE" and ['test', 'development'].include? Rails.env
   require 'metric_fu'
+  require "fattr"
+  require "arrayfields"
+  require "map"
+
   require 'simplecov'
   require 'simplecov-rcov-text'
 
