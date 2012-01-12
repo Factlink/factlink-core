@@ -39,7 +39,7 @@ var FactRelationSearchView = Backbone.View.extend({
     }
 
     $.ajax({
-      url: this.options.fact.url() + "/evidence_search",
+      url: this.options.factRelations.fact.url() + "/evidence_search",
       data: {
         s: searchVal
       },
@@ -59,7 +59,8 @@ var FactRelationSearchView = Backbone.View.extend({
       var view = new FactRelationSearchResultView({
         model: new FactRelationSearchResult(searchResult),
         // Give the search result a reference to the FactRelation collection
-        collection: self.collection
+        factRelations: self.options.factRelations,
+        parentView: self
       });
 
       searchResultsContainer.append( view.render().el );

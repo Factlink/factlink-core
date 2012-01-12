@@ -18,12 +18,16 @@ window.FactRelationsView = Backbone.View.extend({
 
   initializeSearchView: function() {
     this.factRelationSearchView = new FactRelationSearchView({
-      fact: this.collection.fact,
+      factRelations: this.collection,
       type: this.options.type
     });
   },
 
-  addFactRelation: function(factRelation) {
+  highlightFactRelation: function(view) {
+    // Needz scrolling
+    view.highlight();
+  },
+
   addFactRelation: function(factRelation, factRelations, options) {
     if ( !options ) {
       options = {};
