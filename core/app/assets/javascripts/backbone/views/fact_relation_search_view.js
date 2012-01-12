@@ -29,7 +29,7 @@ var FactRelationSearchView = Backbone.View.extend({
   },
 
   doSearch: _.throttle(function() {
-    var searchVal = $('input', this.el).val();
+    var searchVal = $('input:visible', this.el).val();
     var self = this;
 
     if ( searchVal.length < 2 ) {
