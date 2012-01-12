@@ -1,8 +1,11 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
     "keyup input": "doSearch",
-    "click a.cancel": "cancelSearch"
+    "click a.cancel": "cancelSearch",
+    "click li.add": "addNewFactRelation"
   },
+
+  _lastKnownSearch: "",
 
   _searchResultViews: [],
 
@@ -32,11 +35,15 @@ var FactRelationSearchView = Backbone.View.extend({
     var searchVal = $('input:visible', this.el).val();
     var self = this;
 
-    if ( searchVal.length < 2 ) {
+    if ( searchVal.length < 2 && searchVal !== this._lastKnownSearch ) {
       this.truncateSearchContainer();
 
       return;
     }
+
+    this._lastKnownSearch = searchVal;
+
+    this.setLoading();
 
     $.ajax({
       url: this.options.factRelations.fact.url() + "/evidence_search",
@@ -45,6 +52,14 @@ var FactRelationSearchView = Backbone.View.extend({
       },
       success: function(searchResults) {
         self.parseSearchResults.call(self, searchResults);
+
+        $( self.el )
+          .find('li.add>span.word')
+          .text(searchVal)
+          .closest('li')
+          .show();
+
+        self.stopLoading();
       }
     });
   }, 300),
@@ -63,9 +78,30 @@ var FactRelationSearchView = Backbone.View.extend({
         parentView: self
       });
 
-      searchResultsContainer.append( view.render().el );
+      searchResultsContainer.find('li.loading').after( view.render().el );
 
       self._searchResultViews.push(view);
+    });
+  },
+
+  addNewFactRelation: function(e) {
+    var self = this;
+    var factRelations = self.options.factRelations;
+
+    $.ajax({
+      url: factRelations.url(),
+      type: "POST",
+      data: {
+        fact_id: factRelations.fact.get('id'),
+        displaystring: this._lastKnownSearch
+      },
+      success: function(newFactRelation) {
+        factRelations.add(new factRelations.model(newFactRelation), {
+          highlight: true
+        });
+
+        self.cancelSearch();
+      }
     });
   },
 
@@ -74,6 +110,16 @@ var FactRelationSearchView = Backbone.View.extend({
       view.remove();
     });
 
+    $( this.el ).find('li.add').hide();
+
     this._searchResultViews = [];
+  },
+
+  setLoading: function() {
+    $( this.el ).find('li.loading').show();
+  },
+
+  stopLoading: function() {
+    $( this.el ).find('li.loading').hide();
   }
 });
