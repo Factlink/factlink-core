@@ -13,40 +13,28 @@ FactlinkUI::Application.routes.draw do
   # Facts Controller
   ################
   resources :facts, :except => [:edit, :index] do
-
     resources :evidence
-    resources :supporting_evidence
-    resources :weakening_evidence
+
+    resources :supporting_evidence, :weakening_evidence do
+      get     "opinion" => "evidence#opinion"
+      post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
+      delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
+    end
 
     member do
+      post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
+      delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
+
       match "/evidence_search" => "facts#evidence_search"
 
       get "/channels" => "facts#get_channel_listing"
-
-      get     "opinion" => "facts#opinion"
-      post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
-      delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
     end
     collection do
       #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
       #       the function should be able to use the json response of the put
       post  "/update_title" => "facts#update_title", :as => "update_title"
     end
-
-    resources :fact_relations, only: [:index]
   end
-
-  ###############
-  # Evidence, used in fact_relation.js
-  ###############
-  resources :evidence do
-    member do
-      get     "opinion" => "evidence#opinion"
-      post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
-      delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
-    end
-  end
-
 
   ###############
   # Sites Controller
@@ -123,8 +111,10 @@ FactlinkUI::Application.routes.draw do
 
             match "/evidence_search" => "facts#evidence_search"
 
-            resources :supporting_evidence
-            resources :weakening_evidence
+            resources :supporting_evidence, :weakening_evidence do
+              post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
+              delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
+            end
           end
         end
       end
@@ -139,14 +129,9 @@ FactlinkUI::Application.routes.draw do
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
 
-  ################
-  # FactRelation Controller
-  ################
-
   # Add evidence as supporting or weakening
   post  "/factlink/:id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
   post  "/factlink/:id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
-
 
   # Create new facts as evidence (supporting or weakening)
   get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"

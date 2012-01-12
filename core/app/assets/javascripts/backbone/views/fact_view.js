@@ -10,8 +10,8 @@ window.FactView = Backbone.View.extend({
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
-    "click .controls .supporting a.add-button, .controls .weakening a.add-button": "showAddRelation",
-    "click .supporting a.cancel, .weakening a.cancel": "hideAddRelation"
+    "click .controls .supporting a.add-button,    .controls .weakening a.add-button": "showAddRelation",
+    "click .controls .supporting a.cancel-button, .controls .weakening a.cancel-button": "hideAddRelation"
   },
 
   initialize: function(opts) {
@@ -92,17 +92,19 @@ window.FactView = Backbone.View.extend({
     var supportingFactRelations = new SupportingFactRelations([], { fact: this.model } );
     var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
 
-    this.supportingFactRelationsView = new FactRelationsView({collection: supportingFactRelations});
-    this.weakeningFactRelationsView = new FactRelationsView({collection: weakeningFactRelations});
+    this.supportingFactRelationsView = new FactRelationsView({
+      collection: supportingFactRelations,
+      type: "supporting"
+    });
+
+    this.weakeningFactRelationsView = new FactRelationsView({
+      collection: weakeningFactRelations,
+      type: "weakening"
+    });
 
     $('.dropdown-container', this.el)
       .append( this.supportingFactRelationsView.render().el )
       .append( this.weakeningFactRelationsView.render().el );
-
-    this.factRelationSearchView = new FactRelationSearchView({
-      el: $('.add-evidence-container', this.el),
-      model: this.model
-    });
   },
 
   showDropdownContainer: function(className) {
@@ -143,38 +145,36 @@ window.FactView = Backbone.View.extend({
 
       this.switchToRelationDropdown(type);
 
-      if ( $(".add-evidence-container", this.el).is(":visible") ) {
-        this.switchAddRelation(type);
-      }
-
       $target.addClass("active");
     } else {
       this.hideDropdownContainer();
 
       this._currentVisibleDropdown = undefined;
     }
-
-  },
-
-  switchAddRelation: function(type) {
-    $('.add-evidence', this.el)
-      .hide()
-      .each(function() {
-        if ( $( this ).hasClass(type) ) {
-          $( this ).show();
-        }
-      });
   },
 
   showAddRelation: function(e) {
     e.stopPropagation();
 
-    $(".add-evidence-container", this.el).show();
-    this.switchAddRelation(this._currentVisibleDropdown);
+    $(e.target).toggleClass('add-button cancel-button');
+
+    if ( this._currentVisibleDropdown === "supporting" ) {
+      this.supportingFactRelationsView.showSearch();
+    } else {
+      this.weakeningFactRelationsView.showSearch();
+    }
   },
 
   hideAddRelation: function(e) {
-    $(".add-evidence-container", this.el).hide();
+    e.stopPropagation();
+
+    $(e.target).toggleClass('add-button cancel-button');
+
+    if ( this._currentVisibleDropdown === "supporting" ) {
+      this.supportingFactRelationsView.hideSearch();
+    } else {
+      this.weakeningFactRelationsView.hideSearch();
+    }
   }
 });
 })();

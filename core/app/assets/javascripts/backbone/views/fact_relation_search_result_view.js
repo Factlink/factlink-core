@@ -1,6 +1,10 @@
 window.FactRelationSearchResultView = Backbone.View.extend({
   tagName: "li",
 
+  events: {
+    "click": "createFactRelation"
+  },
+
   initialize: function() {
     this.useTemplate("facts","_fact_relation_search_result");
   },
@@ -13,5 +17,9 @@ window.FactRelationSearchResultView = Backbone.View.extend({
 
   remove: function() {
     $(this.el).remove();
+  },
+
+  createFactRelation: function(e) {
+
   }
 });

@@ -6,7 +6,19 @@ var FactRelationSearchView = Backbone.View.extend({
   _searchResultViews: [],
 
   initialize: function() {
-    this.useTemplate("facts","_evidence_as_search_result");
+    this.useTemplate("fact_relations","_evidence_search");
+  },
+
+  render: function() {
+    $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
+
+    if ( this.options.type === "supporting" ) {
+      $( this.el ).find('.add-evidence.supporting' ).css('display','block');
+    } else {
+      $( this.el ).find('.add-evidence.weakening' ).css('display','block');
+    }
+
+    return this;
   },
 
   doSearch: _.throttle(function() {
@@ -20,7 +32,7 @@ var FactRelationSearchView = Backbone.View.extend({
     }
 
     $.ajax({
-      url: this.model.url() + "/evidence_search",
+      url: this.options.fact.url() + "/evidence_search",
       data: {
         s: searchVal
       },
@@ -32,13 +44,15 @@ var FactRelationSearchView = Backbone.View.extend({
 
   parseSearchResults: function(searchResults) {
     var self = this;
-    var searchResultsContainer = this.el.find('.search-results');
+    var searchResultsContainer = $(this.el).find('.search-results');
 
     this.truncateSearchContainer();
 
     _.forEach(searchResults, function(searchResult) {
       var view = new FactRelationSearchResultView({
-        model: new FactRelationSearchResult(searchResult)
+        model: new FactRelationSearchResult(searchResult),
+        // Give the search result a reference to the FactRelation collection
+        collection: self.collection
       });
 
       searchResultsContainer.append( view.render().el );
