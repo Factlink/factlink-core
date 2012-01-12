@@ -11,17 +11,6 @@
 #   - dist/**/*.js
 #
 src_files:
-  - public/javascripts/testing/sinon-1.2.0.js
-  - public/javascripts/jquery-1.7.js
-  - public/javascripts/jquery.factlink.js
-  - public/javascripts/underscore.js
-  - public/javascripts/lib/mustache.js
-  - public/javascripts/backbone.js
-  - public/javascripts/backbone/contrib.js
-  - public/javascripts/backbone/models/*.js
-  - public/javascripts/backbone/controllers/*.js
-  - public/javascripts/backbone/views/*.js
-  - public/javascripts/backbone/*.js
 
 # stylesheets
 #
@@ -73,6 +62,8 @@ spec_files:
 # src_dir: public
 #
 src_dir:
+  - app/assets/javascripts
+  - vendor/assets/javascripts
 
 # spec_dir
 #
