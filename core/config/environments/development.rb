@@ -37,8 +37,11 @@ end
 
 silence_warnings do
   begin
-    require 'pry'
-    IRB = Pry
+    #only require this gem if we're starting a console
+    if Rails.const_defined?(:Console)
+      require 'pry'
+      IRB = Pry
+    end
   rescue LoadError
     puts "Error: Failed on loading Pry as shell"
   end

@@ -95,7 +95,7 @@ group :assets do
 end
 
 group :development do
-  gem "pry"
+  gem "pry", :require => false
 end
 
 group :development, :test do
