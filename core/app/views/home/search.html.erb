@@ -1,14 +1,14 @@
 <% content_for :javascript do %>
   <script>
-    var results = new SearchFacts(<%= @results.map{|f| Facts::Fact.for(fact: f, view: self)}.to_json.html_safe %>, {
+    var results = new SearchResults(<%= @results.map{|sri| SearchResults::SearchResultItem.for(search_result_item: sri, view: self)}.to_json.html_safe %>, {
       search: "<%= params[:s] %>"
     });
 
-    var factsView = new FactsView({
+    var searchResultView = new SearchResultView({
       collection: results
     }).render();
 
-    $('#results-listing').append(factsView.el);
+    $('#results-listing').append(searchResultView.el);
   </script>
 <% end %>
 
@@ -16,6 +16,12 @@
 <% content_for :left_column do %>
   <%= user_signed_in? ? render("users/user_li", user: current_user ) : "&nbsp;".html_safe %>
 <% end %>
+
+
++-----------<br>
+@results.count: <b><%= @results.count %></b>
+<br>------------+<br><br>
+
 
 <h1>Searched for: <b><%= params[:s] %></b></h1>
 
