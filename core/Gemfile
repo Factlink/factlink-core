@@ -118,8 +118,8 @@ group :development, :test do
   gem 'ruby-prof'
 
   gem 'rspec-rails'
-  gem "factory_girl_rails", "1.1.rc1" #factories for easy creation of a lot of objects
-  gem "factory_girl", "2.0.0.rc1"
+  gem "factory_girl_rails" #factories for easy creation of a lot of objects
+  gem "factory_girl"
   gem "database_cleaner"
   gem "mock_redis"
 

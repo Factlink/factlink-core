@@ -79,7 +79,7 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     capistrano-ext (1.2.1)
       capistrano (>= 1.0.0)
-    childprocess (0.2.5)
+    childprocess (0.3.0)
       ffi (~> 1.0.6)
     chronic (0.3.0)
     churn (0.0.15)
@@ -109,7 +109,7 @@ GEM
     commonjs (0.2.0)
       therubyracer (~> 0.9.9)
     daemons (1.1.5)
-    database_cleaner (0.7.0)
+    database_cleaner (0.7.1)
     devise (1.4.9)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -122,9 +122,10 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.2.13)
       multi_json (~> 1.0)
-    factory_girl (2.0.0.rc1)
-    factory_girl_rails (1.1.rc1)
-      factory_girl (~> 2.0.0.rc)
+    factory_girl (2.4.0)
+      activesupport
+    factory_girl_rails (1.5.0)
+      factory_girl (~> 2.4.0)
       railties (>= 3.0.0)
     fattr (2.2.0)
     ffi (1.0.11)
@@ -159,7 +160,7 @@ GEM
       railties (~> 3.0)
       thor (~> 0.14)
     json (1.6.1)
-    json_pure (1.6.4)
+    json_pure (1.6.5)
     less (2.0.8)
       commonjs (~> 0.2.0)
       therubyracer (~> 0.9.9)
@@ -214,12 +215,12 @@ GEM
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
       net-ssh (>= 2.0.9)
-    net-ssh (2.2.2)
+    net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
-    orm_adapter (0.0.5)
-    paperclip (2.4.5)
+    orm_adapter (0.0.6)
+    paperclip (2.5.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -339,7 +340,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    uglifier (1.2.1)
+    uglifier (1.2.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
     warden (1.0.6)
@@ -366,8 +367,8 @@ DEPENDENCIES
   database_cleaner
   devise (~> 1.4.9)
   exception_notification
-  factory_girl (= 2.0.0.rc1)
-  factory_girl_rails (= 1.1.rc1)
+  factory_girl
+  factory_girl_rails
   fattr
   jasmine
   jasmine-headless-webkit
