@@ -36,7 +36,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#show", as: "frurl_fact"
 
   ###############
   # Sites Controller
