@@ -19,7 +19,7 @@ class EvidenceController < FactsController
 
     @fact = Fact[fact_id]
 
-    if ( displaystring != nil )
+    if displaystring != nil
       # Create the evidence
       @evidence = create_fact(nil, displaystring, nil)
       evidence_id = @evidence.id
