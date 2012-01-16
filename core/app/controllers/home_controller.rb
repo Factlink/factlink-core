@@ -38,7 +38,7 @@ class HomeController < ApplicationController
     @row_count = 20
     row_count = @row_count
 
-    solr_result = Sunspot.search FactData do
+    solr_result = Sunspot.search FactData, User do
       keywords params[:s] || ""
 
       order_by sort_column, sort_direction
@@ -51,8 +51,8 @@ class HomeController < ApplicationController
       logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
     end
 
-    @results = solr_result.results.map do |result|
-      result.fact
+    @results = solr_result.hits.map do |hit|
+      SearchResultItem.new(klass: hit.class_name, obj: hit.result)
     end
 
     respond_to do |format|
