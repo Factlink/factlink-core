@@ -1,9 +1,7 @@
-@import "twitter/bootstrap/reset";
-@import "style.css.less";
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "twitter/bootstrap/reset";
 @import "bootstrap/patterns";
-
 
 @transition: opacity 0.2s ease;
 
@@ -109,7 +107,7 @@ div.fact-block .close {
         #font > .sans-serif(normal,9pt,@baseline);
         color: @linkColor;
         &:before {
-	        font-family: "IconicStroke";
+	        #font > .iconic();
           content: "p ";
         }
 				&:hover {
@@ -180,7 +178,7 @@ div.fact-block .close {
           }
         }
         .add-button, .cancel-button {
-	        font-family: "IconicStroke";
+          #font > .iconic();
           text-shadow: 1px 1px 0px @white;
           display: none;
           line-height: 3px;

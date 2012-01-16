@@ -42,7 +42,13 @@
     color: @color;
   }
 }
-
+@font-face {
+  font-family: 'IconicStroke';
+    src: url("/fonts/iconic_stroke.eot");
+    src: local('IconicStroke'),
+       url("/fonts/iconic_stroke.svg#iconic") format('svg'),
+	   url("/fonts/iconic_stroke.otf") format('opentype');
+}
 // Font Stacks
 #font {
   .shorthand(@weight: normal, @size: 14px, @lineHeight: 20px) {
@@ -67,6 +73,9 @@
     font-size: @size;
     font-weight: @weight;
     line-height: @lineHeight;
+  }
+  .iconic() {
+    font-family: "IconicStroke";
   }
 }
 
