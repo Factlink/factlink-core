@@ -1,7 +1,6 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
     "keyup input": "doSearch",
-    "click a.cancel": "cancelSearch",
     "click li.add": "addNewFactRelation"
   },
 
