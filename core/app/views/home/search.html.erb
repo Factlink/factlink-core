@@ -17,12 +17,6 @@
   <%= user_signed_in? ? render("users/user_li", user: current_user ) : "&nbsp;".html_safe %>
 <% end %>
 
-
-+-----------<br>
-@results.count: <b><%= @results.count %></b>
-<br>------------+<br><br>
-
-
 <h1>Searched for: <b><%= params[:s] %></b></h1>
 
 <% unless @results.count > 0 %>
