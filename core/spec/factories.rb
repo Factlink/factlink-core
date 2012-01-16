@@ -2,7 +2,7 @@ FactoryGirl.define do
   sequence :email do |n|
     "johndoe#{n}@example.com"
   end
-  
+
   sequence :username do |n|
     "johndoe#{n}"
   end
@@ -17,7 +17,7 @@ FactoryGirl.define do
 
   factory :fact_data do
   end
-  
+
   factory :basefact do
     association :created_by, :factory => :graph_user
   end
@@ -27,18 +27,18 @@ FactoryGirl.define do
     association :created_by, :factory => :graph_user
     association :site
   end
-  
+
   factory :graph_user do
   end
-  
+
   sequence :url do |n|
     "http://example.org/#{n}.html"
   end
-  
+
   factory :site do
-    url 
+    url
   end
-  
+
   factory :fact_relation do
     association :created_by, :factory => :graph_user
   end
@@ -47,8 +47,8 @@ FactoryGirl.define do
     association :created_by, :factory => :graph_user
     title "Titel"
   end
-  
+
   factory :job do
-    
   end
+
 end
