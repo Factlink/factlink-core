@@ -45,6 +45,7 @@ class Ability
   def define_fact_abilities
     can :index, Fact
     can :read, Fact
+    can :get_evidence, Fact
     if user
       can :opinionate, Fact
       can :add_evidence, Fact
