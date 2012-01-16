@@ -129,9 +129,10 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.2.13)
       multi_json (~> 1.0)
-    factory_girl (2.0.0.rc1)
-    factory_girl_rails (1.1.rc1)
-      factory_girl (~> 2.0.0.rc)
+    factory_girl (2.4.0)
+      activesupport
+    factory_girl_rails (1.5.0)
+      factory_girl (~> 2.4.0)
       railties (>= 3.0.0)
     fattr (2.2.0)
     ffi (1.0.11)
@@ -371,8 +372,8 @@ DEPENDENCIES
   database_cleaner
   devise (~> 1.4.9)
   exception_notification
-  factory_girl (= 2.0.0.rc1)
-  factory_girl_rails (= 1.1.rc1)
+  factory_girl
+  factory_girl_rails
   fattr
   jasmine
   jasmine-headless-webkit
