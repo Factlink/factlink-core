@@ -6,7 +6,7 @@ GIT
 
 GIT
   remote: http://github.com/Factlink/less-rails.git
-  revision: 1a23fdde969481fcd4c8c7399327f21a7fbe8891
+  revision: bb1dd84924a2c3da8039bd85e0c92bd65d9dbbf2
   specs:
     less-rails (2.1.2)
       actionpack (>= 3.1)
