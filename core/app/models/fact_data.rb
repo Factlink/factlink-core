@@ -1,7 +1,6 @@
 class FactData
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Mongoid::Taggable
 
   include Sunspot::Mongoid
 
