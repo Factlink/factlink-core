@@ -20,7 +20,7 @@ window.FactView = Backbone.View.extend({
 
     $(this.el).attr('data-fact-id', this.model.id);
   },
-  
+
   partials: {},
 
   render: function() {
@@ -28,7 +28,8 @@ window.FactView = Backbone.View.extend({
       .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     this.initAddToChannel();
-    this.initializeFactRelationsViews();
+    this.initFactRelationsViews();
+    this.initUserPassportViews();
 
     return this;
   },
@@ -86,7 +87,7 @@ window.FactView = Backbone.View.extend({
     }
   },
 
-  initializeFactRelationsViews: function() {
+  initFactRelationsViews: function() {
     var supportingFactRelations = new SupportingFactRelations([], { fact: this.model } );
     var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
 
@@ -173,6 +174,15 @@ window.FactView = Backbone.View.extend({
     } else {
       this.weakeningFactRelationsView.hideSearch();
     }
+  },
+
+  initUserPassportViews: function() {
+    var self = this;
+    $(this.model.get("last_active_users")).each(function()  {
+      var el = $("li.user[data-user-id="+ this.graph_id + "]", self.el);
+      var model = new User(this);
+      var view = new UserPassportView({model: model, el: el}).render();
+    });
   }
 });
 })();
