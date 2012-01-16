@@ -12,13 +12,13 @@ describe EvidenceController do
   let (:f3) {FactoryGirl.create(:fact)}
 
   before do
-    f1.add_evidence(:supporting, f2, user)
+    @fr = f1.add_evidence(:supporting, f2, user)
   end
 
   describe :index do
     it "should show" do
       get 'index', :fact_id => f1.id, :format => 'json'
-      response.should be_succes
+      response.should be_success
     end
 
     it "should show the correct evidence" do
@@ -28,4 +28,13 @@ describe EvidenceController do
     end
   end
 
+  it "should be able to set an opinion" do
+    authenticate_user!(user)
+
+    should_check_can :opinionate, @fr
+
+    post 'set_opinion', :fact_id => f1.id, :supporting_evidence_id => @fr.id, :type => :believes, :format => 'json'
+
+    response.should be_success
+  end
 end
