@@ -1,6 +1,6 @@
 <% content_for :javascript do %>
   <script>
-    var results = new SearchResults(<%= @results.map{|sri| SearchResults::SearchResultItem.for(search_result_item: sri, view: self)}.to_json.html_safe %>, {
+    var results = new SearchResults(<%= @results.to_json.html_safe %>, {
       search: "<%= params[:s] %>"
     });
 
@@ -8,7 +8,7 @@
       collection: results
     }).render();
 
-    $('#results-listing').append(searchResultView.el);
+    $('#main-wrapper').append(searchResultView.el);
   </script>
 <% end %>
 
@@ -29,7 +29,4 @@
   <div class="append-bottom">
       <p>Sorry, your search didn't return any results.</p>
   </div>
-<% else %>
-  <ul id="results-listing">
-  </ul>
 <% end %>
