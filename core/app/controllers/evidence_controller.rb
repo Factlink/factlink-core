@@ -8,6 +8,8 @@ class EvidenceController < FactsController
     @fact = Fact[params[:fact_id]]
     @evidence = @fact.evidence(relation)
 
+    authorize! :get_evidence, @fact
+
     respond_with(@evidence.map {|fr| FactRelations::FactRelation.for(fact_relation: fr, view: view_context)})
   end
 
@@ -18,6 +20,8 @@ class EvidenceController < FactsController
     evidence_id   = params[:evidence_id]
 
     @fact = Fact[fact_id]
+
+    authorize! :add_evidence, @fact
 
     if displaystring != nil
       # Create the evidence

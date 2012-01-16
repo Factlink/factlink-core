@@ -17,11 +17,15 @@ describe EvidenceController do
 
   describe :index do
     it "should show" do
+      should_check_can :get_evidence, f1
+
       get 'index', :fact_id => f1.id, :format => 'json'
       response.should be_success
     end
 
     it "should show the correct evidence" do
+      should_check_can :get_evidence, f1
+
       get 'index', :fact_id => f1.id, :format => 'json'
       parsed_content = JSON.parse(response.body)
       parsed_content[0]["fact_bubble"]["id"].should == f2.id
