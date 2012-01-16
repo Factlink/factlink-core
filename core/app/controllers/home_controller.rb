@@ -51,12 +51,13 @@ class HomeController < ApplicationController
       logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
     end
 
-    @results = solr_result.hits.map do |hit|
-      SearchResultItem.new(klass: hit.class_name, obj: hit.result)
+    @results = solr_result.results.map do |result|
+      SearchResults::SearchResultItem.for(obj: result, view: view_context)
     end
 
     respond_to do |format|
       format.html
+      format.json {render json: @results}
     end
   end
 
