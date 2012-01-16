@@ -34,16 +34,6 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <!-- THIS FORM IS DEPRECATED -->
-  <%= form_for(facts_path, :url => facts_path, :as => :post, :html => { :target => "frame", :id => "form"}) do |f| %>
-    <input type="hidden" name="evidence_id" id="evidence_id" value="">
-    <input type="text" name="url" id="url" value="">
-    <input type="text" name="title" id="title" value="">
-    <input type="text" name="opinion" id="opinion" value="">
-    <textarea name="passage" id="passage">
-    </textarea>
-    <input type="text" name="fact" id="fact" value="">
-  <% end %>
   <iframe src="" name="frame" id="frame"></iframe>
 
   <script type="text/javascript">
@@ -58,20 +48,6 @@
             stopHighlightingFactlink: {}
           },
           local: {
-            // DEPRECATED
-            createEvidence: function(evidence_id, url, type, title) {
-
-              getTopIntermediatePage().submitEvidenceToShowFrame(type, evidence_id);
-            },
-            // DEPRECATED
-            createNewEvidence: function(fact, passage, url, type, title) {
-              if (opinion !== undefined) {
-                document.getElementById("opinion").value = opinion;
-              }
-
-
-              getTopIntermediatePage().submitNewEvidenceToShowFrame(type, fact, passage, url, title);
-            },
             showFactlink: function(id, successFn) {
               showFrame.onload = function() {
                 showFrame.onload = undefined;
@@ -95,7 +71,6 @@
             //easyXDM does not support passing functions wrapped in objects (such as options in this case)
             // so therefore we need this workaround
             ajax: function(path, options, successFn, errorFn) {
-
               ajax(path, $.extend({
                 success: successFn,
                 error: errorFn
@@ -111,52 +86,6 @@
         }
       }, options));
     }
-
-    function getTopIntermediatePage() {
-      var proxiedPage = parent;
-      var proxyContainer = proxiedPage.parent;
-      var showFactlinkContainer = proxyContainer.parent;
-      return showFactlinkContainer.parent; //(same source as current page)
-    }
-
-
-
-    function submitEvidenceToShowFrame(type, evidence_id) {
-      var fact_id = showFrame.contentWindow.fact_id;
-      var script = document.createElement("script");
-
-      script.src = "<%= add_evidence_path %>?type=" + type + "&fact_id=" + fact_id + "&evidence_id=" + evidence_id;
-      script.type = "text/javascript";
-
-      showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
-    }
-
-    function submitNewEvidenceToShowFrame(type, fact, passage, url, title) {
-      var fact_id = showFrame.contentWindow.fact_id;
-      var script = document.createElement("script");
-
-      // Todo: should be done using POST
-      script.src = "<%= create_fact_as_evidence_path %>?type=" + type + "&fact=" + fact + "&url=" + escape(url) + "&passage=" + passage + "&fact_id=" + fact_id + "&title=" + title;
-      script.type = "text/javascript";
-
-      showFrame.contentWindow.document.getElementsByTagName('head')[0].appendChild(script);
-    }
-
-    function openNewProxyWindow(search_params) {
-      var doc = showFrame.contentWindow.document;
-      window.proxyFrame = document.createElement("iframe");
-
-      window.proxyFrame.className = "proxyFrame";
-      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>/search?query=" + search_params + "&factlinkModus=addToFact";
-
-      doc.getElementsByTagName("body")[0].appendChild(window.proxyFrame);
-    }
-
-    function hideProxyWindow() {
-      window.proxyFrame.style.display = "none";
-      window.proxyFrame.src = "<%= FactlinkUI::Application.config.proxy_url %>/?url=http://www.google.com&factlinkModus=addToFact";
-    }
-
   </script>
 </body>
 </html>
