@@ -9,6 +9,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
+      :extended_show,
       :destroy,
       :get_channel_listing,
       :update,
@@ -29,6 +30,12 @@ class FactsController < ApplicationController
     @hide_links_for_site = @modal && @fact.site
 
     respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
+  end
+
+  def extended_show
+    authorize! :show, @fact
+
+    render layout: "frontend"
   end
 
   def index

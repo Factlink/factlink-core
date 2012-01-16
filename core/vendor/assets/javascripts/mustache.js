@@ -2,6 +2,8 @@
   mustache.js — Logic-less templates in JavaScript
 
   See http://mustache.github.com/ for more info.
+
+  Patched file, search for PATCH:
 */
 
 var Mustache = function() {
@@ -109,10 +111,9 @@ var Mustache = function() {
       if(!partials || partials[name] === undefined) {
         throw({message: "unknown_partial '" + name + "'"});
       }
-      if(typeof(context[name]) != "object") {
-        return this.render(partials[name], context, partials, true);
-      }
-      return this.render(partials[name], context[name], partials, true);
+
+      // PATCH: Disable entering context, to conform to Mustache spec
+      return this.render(partials[name], context, partials, true);
     },
 
     /*
@@ -269,7 +270,7 @@ var Mustache = function() {
       }
 
       var value;
-      
+
       // check for dot notation eg. foo.bar
       if(name.match(/([a-z_]+)\./ig)){
         var childValue = this.walk_context(name, context);

@@ -1,0 +1,9 @@
+<h1>Test</h1>
+
+<%= render_mustache "fact", fact: @fact %>
+
+<% content_for :javascript do %>
+  <script>
+    $('article.fact').factlink();
+  </script>
+<% end %>
