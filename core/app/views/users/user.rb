@@ -8,6 +8,10 @@ module Users
       self[:user].id
     end
 
+    def graph_id
+      self[:graph_user].id
+    end
+
     def channels
       self[:graph_user].editable_channels
     end
@@ -20,8 +24,8 @@ module Users
       image_tag(self[:user].avatar.url(:small), :width => 32)
     end
 
-    def new_channel_button
-      link_to("Add new", new_channel_path(current_user.username), :class => "btn small add-channel")
+    def avatar_thumb
+      image_tag(self[:user].avatar.url(:small), :width => 20)
     end
 
     def authority

@@ -31,9 +31,8 @@
   </ul>
   <ul class="users">
     {{#last_active_users}}
-    <li class="user" data-user-id="{{userId}}">
-      {{{avatar}}}
-    </li>
+    <li class="user" data-user-id="{{graph_id}}" rel="twipsy" title="{{username}}">
+      {{{avatar_thumb}}}
     {{/last_active_users}}
   </ul>
 </div>

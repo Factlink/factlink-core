@@ -69,12 +69,7 @@ module Facts
     end
 
     def last_active_users
-      last_activity(3).map { |a|
-         { "avatar"   => avatar_for(a.user),
-           "userId"   => a.user.id,
-           "action"   => a.action.to_s,
-         }
-      }
+      last_activity().map { |a| Users::User.for(user: a.user.user, view: self.view)}
     end
 
     expose_to_hash :timestamp
@@ -82,12 +77,6 @@ module Facts
     private
       def last_activity(nr=3)
         Activity::For.fact(self[:fact]).sort_by(:created_at, limit: nr, order: "DESC")
-      end
-
-      def avatar_for(gu)
-        imgtag = image_tag(gu.user.avatar.url(:small), :size => "20x20", :alt => "#{gu.user.username}")
-        path = view.user_profile_path(gu.user.username)
-        link_to( imgtag, path, target: "_top" )
       end
   end
 end
