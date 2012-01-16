@@ -20,12 +20,17 @@ module Users
       self[:user].username
     end
 
-    def avatar
-      image_tag(self[:user].avatar.url(:small), :width => 32)
+    def avatar(size=32)
+      image_tag(self[:user].avatar.url(:small), :width => size)
+    end
+
+    def avatar_to_profile
+      path = view.user_profile_path(self[:user].username)
+      link_to(avatar_thumb, path, target: "_top" )
     end
 
     def avatar_thumb
-      image_tag(self[:user].avatar.url(:small), :width => 20)
+      avatar(20)
     end
 
     def authority
