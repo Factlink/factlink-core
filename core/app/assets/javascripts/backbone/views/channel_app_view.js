@@ -32,23 +32,21 @@ window.AppView = Backbone.View.extend({
     
     window.currentChannel = channel;
     
-    if ( channel ) {
-      if ( channel.user.id !== oldChannel.user.id ) {
-        this.changeUser(channel.user);
-        
-        this.channelCollectionView.reload(currentChannel.id);
-      }
+    if ( channel.user.id !== oldChannel.user.id ) {
+      this.changeUser(channel.user);
       
-      if ( this.channelView ) {
-        this.channelView.close();
-      }
-      
-      this.channelView = new ChannelView({model: channel}).render();
-      
-      this.relatedUsersView
-            .reInit({model:channel})
-            .render();
+      this.channelCollectionView.reload(currentChannel.id);
     }
+    
+    if ( this.channelView ) {
+      this.channelView.close();
+    }
+    
+    this.channelView = new ChannelView({model: channel}).render();
+    
+    this.relatedUsersView
+          .reInit({model:channel})
+          .render();
     
     return this;
   },
