@@ -8,7 +8,11 @@
     <a class="weakening {{ negative_active }}"> &nbsp; </a>
   </div>
   {{/signed_in?}}
-  {{>fact_bubble}}
+
+  {{#fact_bubble}}
+    {{>fact_bubble}}
+  {{/fact_bubble}}
+
   <div class="weight-container">
     <div class="weight" style="width: {{weight}}%"></div>
   </div>

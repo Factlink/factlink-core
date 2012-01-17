@@ -7,7 +7,6 @@ window.UserPassportView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).popover();
     return this;
   }
 
