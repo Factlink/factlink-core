@@ -320,9 +320,12 @@ div.fact-block .close {
   .evidence-list {
     display: none;
     background-color: @white;
-    max-height: 300px;
     border-bottom: 1px solid @grayLighter;
     ul.evidence-listing {
+      overflow: auto;
+      max-height: 300px;
+      .visible-scroll();
+      padding-bottom: 5px;
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
