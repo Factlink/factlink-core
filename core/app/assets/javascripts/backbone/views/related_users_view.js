@@ -6,12 +6,10 @@ window.RelatedUsersView = Backbone.View.extend({
   },
 
   reInit: function(opts) {
-    if (this.model && this.model.id === opts.model.id){
-      return this;
-    } else {
+    if (!this.model || this.model.id !== opts.model.id){
       this.model = opts.model;
-      return this
     }
+    return this;
   },
   
   render: function() { 
