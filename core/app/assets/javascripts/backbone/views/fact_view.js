@@ -181,7 +181,7 @@ window.FactView = Backbone.View.extend({
     $(this.model.get("last_active_users")).each(function()  {
       var el = $("li.user[data-user-id="+ this.graph_id + "]", self.el);
       var model = new User(this);
-      var view = new UserPassportView({model: model, el: el}).render();
+      var view = new UserPassportView({model: model, el: el});
     });
   }
 });
