@@ -7,8 +7,7 @@ window.AppView = Backbone.View.extend({
     }).render();
     
     this.relatedUsersView = new RelatedUsersView();
-    
-    this.activitiesView = new ActivitiesView();
+    this.channelView = new ChannelView();
     
     this.setupChannelReloading();
     
@@ -30,32 +29,21 @@ window.AppView = Backbone.View.extend({
   },
   
   openChannel: function(channel) {
-    var self = this;
     var oldChannel = currentChannel;
     
     window.currentChannel = channel;
     
-    if ( channel ) {
-      if ( channel.user.id !== oldChannel.user.id ) {
-        this.changeUser(channel.user);
-        
-        this.channelCollectionView.reload(currentChannel.id);
-      }
+    if ( channel.user.id !== oldChannel.user.id ) {
+      this.changeUser(channel.user);
       
-      if ( this.channelView ) {
-        this.channelView.close();
-      }
-      
-      this.channelView = new ChannelView({model: channel}).render();
-      
-      this.relatedUsersView
-            .setChannel(channel)
-            .render();
-      
-      this.activitiesView
-            .setChannel(channel)
-            .render();
+      this.channelCollectionView.reload(currentChannel.id);
     }
+    
+    this.channelView = this.channelView.reInit({model: channel}).render();
+    
+    this.relatedUsersView
+          .reInit({model:channel})
+          .render();
     
     return this;
   },

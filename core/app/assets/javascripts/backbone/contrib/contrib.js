@@ -34,3 +34,13 @@ Backbone.View.prototype.useTemplate = function(dir,file) {
     self.partials[filename] = $(element).html();
   });
 };
+
+/*
+ */
+Backbone.View.prototype.defaultClickHandler = function( e ) {
+  Router.navigate(e.target.getAttribute('href'), true);
+  
+  e.preventDefault();
+  
+  return false;
+};

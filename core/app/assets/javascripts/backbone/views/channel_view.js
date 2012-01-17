@@ -2,29 +2,43 @@
 
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
+  events: {
+    "click a[rel=backbone]" : "defaultClickHandler"
+  },
 
   initialize: function(opts) {
     this.useTemplate("channels", "_channel");
     var self = this;
 
-    this.subchannels = new SubchannelList({channel: this.model});
-    this.subchannels.fetch();
+    if (this.model !== undefined) {
+      this.subchannels = new SubchannelList({channel: this.model});
+      this.subchannels.fetch();
 
-    this.factsView = new FactsView({
-      collection: new ChannelFacts([],{
+      this.factsView = new FactsView({
+        collection: new ChannelFacts([],{
+          channel: self.model
+        }),
         channel: self.model
-      }),
-      channel: self.model
-    });
+      });
 
-    this.factsView.setLoading();
+      this.factsView.setLoading();
 
-    this.factsView.collection.fetch({
-      data: {
-        timestamp: this.factsView._timestamp
-      }
-    });
+      this.factsView.collection.fetch({
+        data: {
+          timestamp: this.factsView._timestamp
+        }
+      });
+    }
   },
+
+  reInit: function(opts) {
+    if (!this.model || this.model.id !== opts.model.id){
+      this.close();
+      return new ChannelView(opts);
+    }
+    return this;
+  },
+
 
   initSubChannels: function() {
     if ( $( this.el ).find('#contained-channel-list') ) {

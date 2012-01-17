@@ -14,6 +14,10 @@ module Channels
       link + "edit"
     end
 
+    def activities_link
+      link + "activities"
+    end
+
     def title
       self[:channel].title
     end
