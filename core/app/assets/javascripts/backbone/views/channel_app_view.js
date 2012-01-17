@@ -7,6 +7,7 @@ window.AppView = Backbone.View.extend({
     }).render();
     
     this.relatedUsersView = new RelatedUsersView();
+    this.channelView = new ChannelView();
     
     this.setupChannelReloading();
     
@@ -38,11 +39,7 @@ window.AppView = Backbone.View.extend({
       this.channelCollectionView.reload(currentChannel.id);
     }
     
-    if ( this.channelView ) {
-      this.channelView.close();
-    }
-    
-    this.channelView = new ChannelView({model: channel}).render();
+    this.channelView = this.channelView.reInit({model: channel}).render();
     
     this.relatedUsersView
           .reInit({model:channel})
