@@ -27,6 +27,10 @@ module Facts
       end
     end
 
+    def i_am_owner
+      (self[:fact].created_by == current_graph_user)
+    end
+
     def signed_in?
       user_signed_in?
     end
@@ -60,7 +64,7 @@ module Facts
     end
 
     def fact_bubble
-      Facts::FactBubble.for(fact: self[:fact], view: self.view)
+      Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 
     def containing_channel_ids
