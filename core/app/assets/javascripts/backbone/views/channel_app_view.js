@@ -30,7 +30,6 @@ window.AppView = Backbone.View.extend({
   },
   
   openChannel: function(channel) {
-    var self = this;
     var oldChannel = currentChannel;
     
     window.currentChannel = channel;
