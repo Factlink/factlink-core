@@ -229,7 +229,7 @@ div.fact-block .close {
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 86%;
+      width: 553px;
       
       li {
         cursor: pointer;
@@ -244,8 +244,13 @@ div.fact-block .close {
         }
         &.add {
           background-color: whiteSmoke;
+          font-weight: bolder;
+          &:hover {
+            background: darken(#f5f5f5, 2);
+          }
         }
         .word {
+          font-weight: normal;
           font-style: italic;
         }
       }
