@@ -85,11 +85,10 @@ window.SearchResultView = Backbone.View.extend({
           page: self._page
         },
         success: function(collection, response) {
+          self.stopLoading();
           if (response.length > 0 ) {
-            self.stopLoading();
             self.loadMore();            
           } else {
-            self.stopLoading();
             self.hasMore = false;            
           }
         },
