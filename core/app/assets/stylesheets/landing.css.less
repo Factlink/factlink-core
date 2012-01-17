@@ -21,7 +21,7 @@ body {
     margin-bottom: 6px;
   }
   p, li, footer {
-    #font > .serif(normal, @basefont, @baseline);
+    #font > .sans-serif(normal, @basefont, @baseline);
     color: #505050;
   }
   #body {
@@ -109,13 +109,13 @@ body {
         float: left;
       }
       header {
-        margin-left: 55px;
+        margin-left: 65px;
         padding-top: 10px;
         .head, sub {
           display: block;
           width: 205px;
           font-size: 8pt;
-          font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+          font-family: "Helvetica", Arial, sans-serif;
           color: #888;
           .ellipsis();
         }
@@ -160,7 +160,7 @@ body {
       text-align: right;
       li {
         display: inline;
-        :not(:last-child):after {
+        &:not(:last-child):after {
           content: " | ";
         }
       }
