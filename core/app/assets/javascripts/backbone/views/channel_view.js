@@ -2,6 +2,9 @@
 
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
+  events: {
+    "click a[rel=backbone]" : "defaultClickHandler"
+  },
 
   initialize: function(opts) {
     this.useTemplate("channels", "_channel");
