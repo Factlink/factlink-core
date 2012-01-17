@@ -5,10 +5,12 @@ window.RelatedUsersView = Backbone.View.extend({
   initialize: function() { 
   },
 
-  setChannel: function(channel) {
-    this.model = channel;
-
-    return this;
+  reInit: function(opts) {
+    if (this.model.id === opts.model.id){
+      return this;
+    } else {
+      this.model = opts.model;
+    }
   },
   
   render: function() { 

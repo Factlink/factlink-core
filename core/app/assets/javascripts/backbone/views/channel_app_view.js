@@ -46,7 +46,7 @@ window.AppView = Backbone.View.extend({
       this.channelView = new ChannelView({model: channel}).render();
       
       this.relatedUsersView
-            .setChannel(channel)
+            .reInit({model:channel})
             .render();
     }
     
