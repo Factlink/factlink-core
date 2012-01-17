@@ -1,14 +1,14 @@
 <% content_for :javascript do %>
   <script>
-    var results = new SearchFacts(<%= @results.map{|f| Facts::Fact.for(fact: f, view: self)}.to_json.html_safe %>, {
+    var results = new SearchResults(<%= @results.to_json.html_safe %>, {
       search: "<%= params[:s] %>"
     });
 
-    var factsView = new FactsView({
+    var searchResultView = new SearchResultView({
       collection: results
     }).render();
 
-    $('#results-listing').append(factsView.el);
+    $('#main-wrapper').append(searchResultView.el);
   </script>
 <% end %>
 
@@ -23,7 +23,4 @@
   <div class="append-bottom">
       <p>Sorry, your search didn't return any results.</p>
   </div>
-<% else %>
-  <ul id="results-listing">
-  </ul>
 <% end %>

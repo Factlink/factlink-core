@@ -3,6 +3,9 @@ git clone git@github.com:Factlink/chrome-extension.git -b master
 git clone git@github.com:Factlink/core.git -b master
 git clone git@github.com:Factlink/js-library.git -b master
 git clone git@github.com:Factlink/web-proxy.git -b master
+git clone git@github.com:Factlink/server-management -b master
+git clone git@github.com:Factlink/homepage -b master
+
 
 ln -s core/config config
 gem install bundler
