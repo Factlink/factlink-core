@@ -27,6 +27,10 @@ module Facts
       end
     end
 
+    def i_am_owner
+      (self[:fact].created_by == current_graph_user)
+    end
+
     def signed_in?
       user_signed_in?
     end
