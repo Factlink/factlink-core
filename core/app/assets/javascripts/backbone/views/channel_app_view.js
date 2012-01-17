@@ -8,8 +8,6 @@ window.AppView = Backbone.View.extend({
     
     this.relatedUsersView = new RelatedUsersView();
     
-    this.activitiesView = new ActivitiesView();
-    
     this.setupChannelReloading();
     
     if ( typeof currentChannel !== "undefined" ) {
@@ -48,10 +46,6 @@ window.AppView = Backbone.View.extend({
       this.channelView = new ChannelView({model: channel}).render();
       
       this.relatedUsersView
-            .setChannel(channel)
-            .render();
-      
-      this.activitiesView
             .setChannel(channel)
             .render();
     }
