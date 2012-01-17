@@ -140,7 +140,7 @@ a.bookmarklet {
   .user-avatar {
     width: 76px;
     float: left;
-    
+
     img {
       height: 32px;
       width: 32px;
@@ -293,7 +293,9 @@ a.bookmarklet {
     position: relative;
     z-index: 100;
     header.title {
-      background-color: #EDEDED;
+      border-top: 1px solid @white;
+      background-color: #f8f8f8;
+      text-shadow: 0px 1px 0px @white;
       .border-radius(@borderRadius @borderRadius 0 0);
       margin: -15px -15px 0 -15px;
       padding: 10px 16px 6px 19px;
@@ -308,6 +310,7 @@ a.bookmarklet {
         font-size: 16pt;
         height: @basefont * 2;
         width: 70%;
+
       }
       a {
         float: right;
