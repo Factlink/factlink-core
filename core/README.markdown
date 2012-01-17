@@ -1,4 +1,4 @@
-== Core
+## Core
 
 This project is the factlink core application. Currently it consists of
 
