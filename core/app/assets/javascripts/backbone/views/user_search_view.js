@@ -17,6 +17,6 @@ window.UserSearchView = Backbone.View.extend({
   },
 
   clickHandler: function(e) {
-    Router.navigate(this.model.url(), true);
+    document.location.href = this.model.url();
   }
 });
