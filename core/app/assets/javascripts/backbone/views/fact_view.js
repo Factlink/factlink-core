@@ -56,6 +56,7 @@ window.FactView = Backbone.View.extend({
   },
 
   destroyFact: function() {
+    if(!confirm("Are you sure you want to delete the Factlink you have created?")) return false;
     this.model.destroy({
       error: function() {
         alert("Error while removing the Factlink" );
