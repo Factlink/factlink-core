@@ -23,12 +23,19 @@
     </li>
 
 		{{#signed_in?}}
-      <li class="add-to-channel">
-        <a>Channels</a>
-        <div class="float-box channel-listing">
-      </div>
-      </li>
+    <li class="add-to-channel">
+      <a>Channels</a>
+      <div class="float-box channel-listing">
+    </div>
+    </li>
 		{{/signed_in?}}
+
+    {{#i_am_owner}}
+    <li class="destroy">
+      <a onclick="return confirm('Are you sure you want to delete this Factlink?');"></a>
+    </li>
+    {{/i_am_owner}}
+
   </ul>
   <ul class="users">
     {{#last_active_users}}

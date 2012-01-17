@@ -84,6 +84,7 @@ gem "mongoid-paperclip", :require => "mongoid_paperclip"
 gem "cancan"
 
 group :assets do
+  
   # Temporary fix for @import bug, merge back to original Gem when it's in master
   gem 'less-rails', :git => "http://github.com/Factlink/less-rails.git"
   gem 'uglifier'
@@ -96,6 +97,9 @@ group :assets do
 end
 
 group :development do
+  # mesa want speed:
+  gem 'rails-dev-tweaks', '~> 0.5.2'  
+
   gem "pry", :require => false
 
   #for static files serving
