@@ -10,7 +10,7 @@ window.FactView = Backbone.View.extend({
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
-    "click .controls .supporting a.add-button,    .controls .weakening a.add-button": "showAddRelation",
+    "click .controls .supporting a.add-button,    .controls .weakening a.add-button, .no-evidence-message .do-add": "showAddRelation",
     "click .controls .supporting a.cancel-button, .controls .weakening a.cancel-button": "hideAddRelation"
   },
 
