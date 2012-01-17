@@ -10,7 +10,7 @@ window.FactView = Backbone.View.extend({
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
-    "click .controls .supporting a.add-button,    .controls .weakening a.add-button": "showAddRelation",
+    "click .controls .supporting a.add-button,    .controls .weakening a.add-button, .no-evidence-message .do-add": "showAddRelation",
     "click .controls .supporting a.cancel-button, .controls .weakening a.cancel-button": "hideAddRelation"
   },
 
@@ -56,6 +56,7 @@ window.FactView = Backbone.View.extend({
   },
 
   destroyFact: function() {
+    if(!confirm("Are you sure you want to delete the Factlink you have created?")) return false;
     this.model.destroy({
       error: function() {
         alert("Error while removing the Factlink" );
@@ -181,7 +182,7 @@ window.FactView = Backbone.View.extend({
     $(this.model.get("last_active_users")).each(function()  {
       var el = $("li.user[data-user-id="+ this.graph_id + "]", self.el);
       var model = new User(this);
-      var view = new UserPassportView({model: model, el: el}).render();
+      var view = new UserPassportView({model: model, el: el});
     });
   }
 });

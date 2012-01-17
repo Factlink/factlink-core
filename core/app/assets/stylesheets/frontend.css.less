@@ -1,7 +1,7 @@
 @import "grid";
 @import "bootstrap";
-@import "tour.css.less";
-@import "bubble.css.less";
+@import "tour.css";
+@import "bubble.css";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -126,41 +126,32 @@ a.bookmarklet {
   top: 1px;
 }
 
-#results-listing div.user-block {
-  border: 1px solid #DDD;
-  .border-radius(3px);
-  color: #BBB;
-  text-shadow: 0px 1px 0px white;
-  width: 510px;
+.search-results .results .user-block {
+  padding: 10px 0 0px 5px;
+  height: 72px;
 
-  .side {
-    margin: 10px;
+  .avatar-container {
+    height: 72px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .user-avatar {
+    width: 76px;
     float: left;
 
-    .authority {
-      display: block;
-      text-align: center;
-      margin: 5px 0 0 0;
-      color: #333;
-
-      img {
-        vertical-align: middle;
-        .border-radius(3px);
-      }
+    img {
+      height: 32px;
+      width: 32px;
+      margin: 0 0 0 16px;
+      border: solid 1px #ddd;
+      .border-radius(3px);
     }
-
-    .username {
-      color: #666363;
-      float: left;
-      vertical-align: top;
-
-      a {
-        color: #666363;
-      }
-    }
-
-    .type {
-      line-height: 26px;
+  }
+  .wrapper {
+    h3, sub {
+      color: #555 !important;
     }
   }
 }
@@ -302,7 +293,9 @@ a.bookmarklet {
     position: relative;
     z-index: 100;
     header.title {
-      background-color: #EDEDED;
+      border-top: 1px solid @white;
+      background-color: #f8f8f8;
+      text-shadow: 0px 1px 0px @white;
       .border-radius(@borderRadius @borderRadius 0 0);
       margin: -15px -15px 0 -15px;
       padding: 10px 16px 6px 19px;
@@ -317,6 +310,7 @@ a.bookmarklet {
         font-size: 16pt;
         height: @basefont * 2;
         width: 70%;
+
       }
       a {
         float: right;

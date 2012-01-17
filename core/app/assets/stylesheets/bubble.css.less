@@ -224,15 +224,16 @@ div.fact-block .close {
   .dropdown-container {
     display: none;
     background: @whiteDarker;
-    padding: 7px 0 8px 0;
+    padding: 9px 0 10px 0;
     ul.search-results {
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 80%;
+      width: 86%;
+      
       li {
         cursor: pointer;
-        padding: 4px;
+        padding: 8px 12px;
         border: 1px solid @grayLighter;
         border-top: none;
         &:hover, &:focus {
@@ -240,6 +241,12 @@ div.fact-block .close {
         }
         &.loading, &.add {
           display: none;
+        }
+        &.add {
+          background-color: whiteSmoke;
+        }
+        .word {
+          font-style: italic;
         }
       }
 
@@ -320,9 +327,12 @@ div.fact-block .close {
   .evidence-list {
     display: none;
     background-color: @white;
-    max-height: 300px;
     border-bottom: 1px solid @grayLighter;
     ul.evidence-listing {
+      overflow: auto;
+      max-height: 300px;
+      .visible-scroll();
+      padding-bottom: 5px;
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;

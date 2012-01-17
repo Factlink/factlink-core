@@ -1,5 +1,5 @@
-window.SearchFacts = Backbone.Collection.extend({
-  model: Fact,
+window.SearchResults = Backbone.Collection.extend({
+  model: SearchResultItem,
   initialize: function(models, opts) {
     this.search = opts.search;
   },
