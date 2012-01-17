@@ -5,5 +5,15 @@ class Activity < OurOhm
         {action: [:created, :believe, :disbelieve, :doubt] ,subject: f}
       ])
     end
+
+    def self.channel(ch)
+      Query.where([
+        {subject: ch}
+      ])
+    end
+
+    def self.channel(user)
+      Query.for user
+    end
   end
 end

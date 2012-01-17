@@ -1,7 +1,22 @@
 /* Patterns.less
  * Repeatable UI elements outside the base styles provided from the scaffolding
  * ---------------------------------------------------------------------------- */
-
+body {
+  #font > .sans-serif(normal,@basefont,@baseline);
+  color: @grayDark;
+}
+// Links
+a {
+  color: @linkColor;
+  text-decoration: none;
+  line-height: inherit;
+  font-weight: inherit;
+  &:hover {
+    color: @linkColorHover;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
 
 // TOPBAR
 // ------
@@ -15,7 +30,7 @@
   right: 0;
   z-index: 10000;
   overflow: visible;
-  .container { 
+  .container {
     padding: 4px;
   }
   // Links get text shadow
@@ -167,12 +182,12 @@
       right: 0;
       border: 0;
     }
-    & > li { 
+    & > li {
       background-color: white;
       border: 1px solid transparent;
       &:hover,
       &.open,
-      &.hover { 
+      &.hover {
         .border-radius(4px);
         border: 1px solid @grayLighter;
         background-color: @whiteDarker;
@@ -231,7 +246,7 @@
 li.menu,
 .dropdown {
   position: relative;
-  img { 
+  img {
     vertical-align: middle;
     margin-right: 4px;
   }
@@ -901,7 +916,7 @@ input[type=submit].btn {
 // --------------
 
 #popoverArrow {
-  .above(@arrowWidth: 5px) {
+  .top(@arrowWidth: 5px) {
     bottom: 0;
     left: 50%;
     margin-left: -@arrowWidth;
@@ -917,7 +932,7 @@ input[type=submit].btn {
     border-bottom: @arrowWidth solid transparent;
     border-left: @arrowWidth solid @black;
   }
-  .below(@arrowWidth: 5px) {
+  .bottom(@arrowWidth: 5px) {
     top: 0;
     left: 50%;
     margin-left: -@arrowWidth;
@@ -939,28 +954,30 @@ input[type=submit].btn {
 // ------
 
 .twipsy {
-  display: block;
   position: absolute;
+  z-index: 2147483645;
+  display: block;
   visibility: visible;
   padding: 5px;
   font-size: 11px;
-  z-index:  2147483646;
-  .opacity(80);
-  &.fade.in {
-    .opacity(80);
-  }
-  &.above .twipsy-arrow   { #popoverArrow > .above(); }
-  &.left .twipsy-arrow    { #popoverArrow > .left(); }
-  &.below .twipsy-arrow   { #popoverArrow > .below(); }
-  &.right .twipsy-arrow   { #popoverArrow > .right(); }
+  .opacity(0);
+  &.in     { .opacity(80); }
+  &.top    { margin-top:  -2px; }
+  &.right  { margin-left:  2px; }
+  &.bottom { margin-top:   2px; }
+  &.left   { margin-left: -2px; }
+  &.top .twipsy-arrow    { #popoverArrow > .top(); }
+  &.left .twipsy-arrow   { #popoverArrow > .left(); }
+  &.bottom .twipsy-arrow { #popoverArrow > .bottom(); }
+  &.right .twipsy-arrow  { #popoverArrow > .right(); }
 }
 .twipsy-inner {
+  max-width: 200px;
   padding: 3px 8px;
-  background-color: @black;
   color: white;
   text-align: center;
-  max-width: 200px;
   text-decoration: none;
+  background-color: @black;
   .border-radius(4px);
 }
 .twipsy-arrow {
@@ -968,7 +985,6 @@ input[type=submit].btn {
   width: 0;
   height: 0;
 }
-
 
 // POPOVERS
 // --------
@@ -980,9 +996,9 @@ input[type=submit].btn {
   z-index: 1000;
   padding: 5px;
   display: none;
-  &.above .arrow { #popoverArrow > .above(); }
+  &.above .arrow { #popoverArrow > .top(); }
   &.right .arrow { #popoverArrow > .right(); }
-  &.below .arrow { #popoverArrow > .below(); }
+  &.below .arrow { #popoverArrow > .bottom(); }
   &.left .arrow  { #popoverArrow > .left(); }
   .arrow {
     position: absolute;

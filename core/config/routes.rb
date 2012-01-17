@@ -36,7 +36,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  get "/:fact_slug/f/:id" => "facts#show", as: "frurl_fact"
+  get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
   ###############
   # Sites Controller
@@ -130,15 +130,4 @@ FactlinkUI::Application.routes.draw do
 
   # Prepare a new Fact
   match "/factlink/intermediate" => "facts#intermediate"
-
-  # Add evidence as supporting or weakening
-  post  "/factlink/:id/add_supporting_evidence/:evidence_id"  => "facts#add_supporting_evidence",  :as => "add_supporting_evidence"
-  post  "/factlink/:id/add_weakening_evidence/:evidence_id"   => "facts#add_weakening_evidence",   :as => "add_weakening_evidence"
-
-  # Create new facts as evidence (supporting or weakening)
-  get   "/factlink/create_evidence/"  => "facts#create_fact_as_evidence",  :as => "create_fact_as_evidence"
-  get   "/factlink/add_evidence/"  => "facts#add_new_evidence",  :as => "add_evidence"
-
-
-
 end
