@@ -2,7 +2,7 @@ window.SearchResultView = Backbone.View.extend({
   tagName: "div",
   className: "search-results",
   _loading: true,
-  _timestamp: undefined,
+  _page: 1,
   _previousLength: 0,
   
   initialize: function(options) {
@@ -25,12 +25,6 @@ window.SearchResultView = Backbone.View.extend({
     return this;
   },
   
-  remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-    
-    this.unbindScroll();
-  },
-  
   addSearchResultItem: function(search_result_item) {
     var view = new SearchResultItemView({
       model: search_result_item
@@ -51,13 +45,13 @@ window.SearchResultView = Backbone.View.extend({
         self.addSearchResultItem(search_result_item);
       });
     }
-    
+
     if ( this._previousLength === this.collection.length ) {
       this.hasMore = false;
     } else {
       this._previousLength = this.collection.length;
     }
-    
+
     this.loadMore();
   },
   
@@ -66,7 +60,7 @@ window.SearchResultView = Backbone.View.extend({
   moreNeeded: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
     var bottomOfEl = $(this.el).offset().top + $(this.el).outerHeight();
-    
+
     if ( this.hasMore ) {
       if ( bottomOfEl < bottomOfTheViewport ) {
         return true;
@@ -80,22 +74,24 @@ window.SearchResultView = Backbone.View.extend({
   
   loadMore: function() {
     var self = this;
-    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
-    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
-    
-    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
-      self.setLoading();
-      
-      self._timestamp = new_timestamp;
 
+    if ( self.moreNeeded() && ! self._loading ) {
+      self._page += 1;
+      
+      self.setLoading();
       self.collection.fetch({
         add: true,
         data: {
-          timestamp: self._timestamp
+          page: self._page
         },
-        success: function() {
-          self.stopLoading();
-          self.loadMore();
+        success: function(collection, response) {
+          if (response.length > 0 ) {
+            self.stopLoading();
+            self.loadMore();            
+          } else {
+            self.stopLoading();
+            self.hasMore = false;            
+          }
         },
         error: function() {
           self.stopLoading();
