@@ -11,5 +11,9 @@ class Activity < OurOhm
         {subject: ch}
       ])
     end
+
+    def self.channel(user)
+      Query.for user
+    end
   end
 end
