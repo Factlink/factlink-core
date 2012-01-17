@@ -25,6 +25,10 @@ module FactRelations
       self[:fact_relation].id
     end
 
+    def weight
+      self[:fact_relation].percentage
+    end
+
     def signed_in?
       user_signed_in?
     end
