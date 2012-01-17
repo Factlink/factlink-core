@@ -126,9 +126,16 @@ a.bookmarklet {
   top: 1px;
 }
 
-.search-results .user-block {
+.search-results .results .user-block {
   padding: 10px 0 0px 5px;
   height: 72px;
+
+  .avatar-container {
+    height: 72px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
   .user-avatar {
     width: 76px;
