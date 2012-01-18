@@ -6,8 +6,8 @@ window.AppView = Backbone.View.extend({
       collection: Channels
     }).render();
     
-    this.relatedUsersView = new RelatedUsersView();
     this.channelView = new ChannelView();
+    this.views = [new RelatedUsersView()];
     
     this.setupChannelReloading();
     
@@ -28,7 +28,8 @@ window.AppView = Backbone.View.extend({
     }, 7000);
   },
   
-  openChannel: function(channel) {
+  reInit: function(opts) {
+    var channel = opts.model;
     var oldChannel = currentChannel;
     
     window.currentChannel = channel;
@@ -39,16 +40,20 @@ window.AppView = Backbone.View.extend({
       this.channelCollectionView.reload(currentChannel.id);
     }
     
-    this.channelView = this.channelView.reInit({model: channel}).render();
+    for(var i = 0; i < this.views.length; i++){
+      this.views[i] = this.views[i].reInit({model: channel});
+    }
     
-    this.relatedUsersView
-          .reInit({model:channel})
-          .render();
+    this.channelView = this.channelView.reInit({model: channel}).render();
     
     return this;
   },
   
   render: function() {
+    for(var i = 0; i < this.views.length; i++){
+      this.views[i].render();
+    }
+
     $('#main-wrapper').html( this.channelView.el );
   },
   
