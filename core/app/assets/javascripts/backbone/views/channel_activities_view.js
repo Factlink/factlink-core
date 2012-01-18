@@ -13,19 +13,10 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.subchannels = new SubchannelList({channel: this.model});
       this.subchannels.fetch();
 
-      this.factsView = new FactsView({
-        collection: new ChannelFacts([],{
+      this.activitiesView = new ActivitiesView({
+        collection: new ChannelActivities([],{
           channel: self.model
-        }),
-        channel: self.model
-      });
-      console.info('activities are fun!');
-      this.factsView.setLoading();
-
-      this.factsView.collection.fetch({
-        data: {
-          timestamp: this.factsView._timestamp
-        }
+        })
       });
     }
   },
@@ -33,7 +24,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
   reInit: function(opts) {
     if (!this.model || this.model.id !== opts.model.id){
       this.close();
-      return new ChannelView(opts);
+      return new ChannelActivitiesView(opts);
     }
     return this;
   },
@@ -99,8 +90,8 @@ window.ChannelActivitiesView = Backbone.View.extend({
   remove: function() {
     Backbone.View.prototype.remove.apply(this);
 
-    if ( this.factsView ) {
-      this.factsView.close();
+    if ( this.activitiesView ) {
+      this.activitiesView.close();
     }
 
     if ( this.addToChannelView ) {
@@ -126,7 +117,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      $( this.el ).find('#facts_for_channel').append(this.factsView.render().el);
+      $( this.el ).find('#facts_for_channel').append(this.activitiesView.render().el);
 
       self.model.trigger('loaded')
                   .trigger('activate', self.model);
