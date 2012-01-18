@@ -28,7 +28,8 @@ window.AppView = Backbone.View.extend({
     }, 7000);
   },
   
-  openChannel: function(channel) {
+  reInit: function(opts) {
+    var channel = opts.model;
     var oldChannel = currentChannel;
     
     window.currentChannel = channel;
