@@ -16,14 +16,14 @@ FactlinkUI::Application.routes.draw do
     resources :evidence
 
     resources :supporting_evidence, :weakening_evidence do
-      get     "opinion" => "evidence#opinion"
+      get     "opinion"       => "evidence#opinion"
       post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
-      delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
+      delete  "opinion/"      => "evidence#remove_opinions", :as => "delete_opinion"
     end
 
     member do
       post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
-      delete  "opinion/" => "facts#remove_opinions", :as => "delete_opinion"
+      delete  "opinion/"      => "facts#remove_opinions", :as => "delete_opinion"
 
       match "/evidence_search" => "facts#evidence_search"
 
