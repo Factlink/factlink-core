@@ -13,7 +13,7 @@ window.AppView = Backbone.View.extend({
     
     this.userView = new UserView({
       model: ( typeof currentChannel !== undefined ) ? currentChannel.user : currentUser
-    })
+    });
   },
   
   // TODO: This function needs to wait for loading (Of channel contents in main column)
@@ -39,7 +39,7 @@ window.AppView = Backbone.View.extend({
     for(var i = 0; i < this.views.length; i++){
       this.views[i] = this.views[i].reInit({model: channel});
     }
-    this.userView = this.userView.reInit({model:channel.user})
+    this.userView = this.userView.reInit({model:channel.user});
     this.channelView = this.channelView.reInit({model: channel});
     
     return this;
@@ -49,8 +49,9 @@ window.AppView = Backbone.View.extend({
     for(var i = 0; i < this.views.length; i++){
       this.views[i].render();
     }
+    this.channelView.render();
     this.userView.render();
     $('#main-wrapper').html( this.channelView.el );
-  },
+  }
   
 });
