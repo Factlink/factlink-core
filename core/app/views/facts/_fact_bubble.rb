@@ -46,14 +46,14 @@ module Facts
 
       def proxy_scroll_url
         FactlinkUI::Application.config.proxy_url + "/?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
+      rescue
+        ""
       end
 
       def pretty_url
-        if self[:fact].site.andand.url
-          self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-        else
-          ""
-        end
+        self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
+      rescue
+        ""
       end
 
   end
