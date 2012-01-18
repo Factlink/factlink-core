@@ -1,4 +1,4 @@
-window.SubchannelsView = Backbone.View.extend({
+window.SubchannelsView = Backbone.CollectionView.extend({
   tagName: "ul",
   
   initialize: function() {

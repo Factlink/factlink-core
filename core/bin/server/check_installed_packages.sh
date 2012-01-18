@@ -6,7 +6,7 @@
 is_missing_packages=false
 the_missing_packages=""
 
-for line in $(cat /applications/factlink-core/current/apt-requirements.txt); do
+for line in $(cat /applications/factlink-core/current/config/apt-requirements.txt); do
   count=`dpkg --get-selections | cut -f1 | grep -e ^$line$ -c`
 
   if [ "$count" -eq "1" ]; then

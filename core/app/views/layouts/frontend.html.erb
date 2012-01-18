@@ -74,14 +74,6 @@
 
   <%= javascript_include_tag "frontend" %>
 
-  <script>
-    $(".fact-block").factlink();
-    $(".alert-message").alert();
-
-    $('.topbar').dropdown();
-    $('.bookmarklet').twipsy({placement:"below",offset:5});
-  </script>
-
   <% if user_signed_in? %>
     <% if (current_user.andand.sign_in_count < 10) %>
       <%= render "home/twipsy" %>
@@ -89,22 +81,15 @@
   <% end %>
 
   <script>
-  $('.take-the-tour').live('click', function() {
-    $('#first-tour-modal').remove();
+    <% if current_user %>
+      window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
 
-    // Load the tour
-    $.ajax({
-      url: "<%= tour_path %>",
-      dataType: "html",
-      success: function(data) {
-        $('body').append(data);
-        initTourModal();
-      },
-      error: function(data) {
-        console.log('Error while loading the tour.');
-      }
-    });
-  });
+      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for(channel: ch,view: self) }.to_json.html_safe %>));
+    <% end %>
+
+    var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+
+    Backbone.history.start({pushState:true, silent:true});
   </script>
 
   <%= yield :javascript %>

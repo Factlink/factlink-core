@@ -18,7 +18,11 @@ window.FactView = Backbone.View.extend({
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
 
-    $(this.el).attr('data-fact-id', this.model.id);
+    $(this.el).attr('data-fact-id', this.model.id).factlink();
+
+    this.initAddToChannel();
+    this.initFactRelationsViews();
+    this.initUserPassportViews();
   },
 
   partials: {},
