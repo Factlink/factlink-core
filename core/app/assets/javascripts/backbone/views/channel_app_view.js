@@ -11,11 +11,9 @@ window.AppView = Backbone.View.extend({
     
     this.setupChannelReloading();
     
-    if ( typeof currentChannel !== "undefined" ) {
-      this.changeUser(currentChannel.user);
-    } else {
-      this.changeUser(currentUser);
-    }
+    this.userView = new UserView({
+      model: ( typeof currentChannel !== undefined ) ? currentChannel.user : currentUser
+    })
   },
   
   // TODO: This function needs to wait for loading (Of channel contents in main column)
@@ -35,16 +33,14 @@ window.AppView = Backbone.View.extend({
     window.currentChannel = channel;
     
     if ( channel.user.id !== oldChannel.user.id ) {
-      this.changeUser(channel.user);
-      
       this.channelCollectionView.reload(currentChannel.id);
     }
     
     for(var i = 0; i < this.views.length; i++){
       this.views[i] = this.views[i].reInit({model: channel});
     }
-    
-    this.channelView = this.channelView.reInit({model: channel}).render();
+    this.userView = this.userView.reInit({model:channel.user})
+    this.channelView = this.channelView.reInit({model: channel});
     
     return this;
   },
@@ -53,15 +49,8 @@ window.AppView = Backbone.View.extend({
     for(var i = 0; i < this.views.length; i++){
       this.views[i].render();
     }
-
+    this.userView.render();
     $('#main-wrapper').html( this.channelView.el );
   },
   
-  changeUser: function(user) {
-    if ( this.userView ) {
-      this.userView.close();
-    }
-    
-    this.userView = new UserView({model: user}).render();
-  }
 });
