@@ -5,5 +5,5 @@ window.SearchResultItemView = function SearchResultItemView(opts) {
   } else {
     return new UserSearchView({model: new User(opts.model.get('the_object'))});
   }
-}
+};
 })();
