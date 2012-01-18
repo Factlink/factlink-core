@@ -184,10 +184,10 @@ $('.do-add').show();
 
   initUserPassportViews: function() {
     var self = this;
-    $(this.model.get("last_active_users")).each(function()  {
-      var el = $("li.user[data-user-id="+ this.graph_id + "]", self.el);
-      var model = new User(this);
-      var view = new UserPassportView({model: model, el: el});
+    $(this.model.get("interacting_users")["activity"]).each(function()  {
+      var el = $("li.user[data-activity-id="+ this.id + "]", self.el);
+      var model = new User(this.user);
+      var view = new UserPassportView({model: model, el: el, activity: this});
     });
   }
 });
