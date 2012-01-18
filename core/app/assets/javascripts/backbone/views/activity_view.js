@@ -2,7 +2,7 @@ window.GenericActivityView = Backbone.View.extend({
   tagName: "div",
   className: "user-block",
 
-  initialize: function() {
+  initialize: function(options) {
     this.useTemplate("activities", "_generic_activity");
   },
 
