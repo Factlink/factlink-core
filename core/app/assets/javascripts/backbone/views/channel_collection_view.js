@@ -38,8 +38,6 @@ window.ChannelCollectionView = Backbone.CollectionView.extend({
   render: function() {
     var self = this;
 
-    console.info('rendering channels collection with:',this.collection);
-
     this.collection.each(function(channel) {
       self.add.call(self, channel);
     });
