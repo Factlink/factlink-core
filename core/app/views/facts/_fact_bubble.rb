@@ -49,7 +49,7 @@ module Facts
       end
 
       def pretty_url
-        if self[:fact].site
+        if self[:fact].site.andand.url
           self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
         else
           ""
