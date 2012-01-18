@@ -41,7 +41,6 @@ window.AppView = Backbone.View.extend({
     
     for(var i = 0; i < this.views.length; i++){
       this.views[i] = this.views[i].reInit({model: channel});
-      this.views[i].render();
     }
     
     this.channelView = this.channelView.reInit({model: channel}).render();
@@ -50,6 +49,10 @@ window.AppView = Backbone.View.extend({
   },
   
   render: function() {
+    for(var i = 0; i < this.views.length; i++){
+      this.views[i].render();
+    }
+
     $('#main-wrapper').html( this.channelView.el );
   },
   
