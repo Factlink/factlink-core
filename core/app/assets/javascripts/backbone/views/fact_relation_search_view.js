@@ -1,6 +1,7 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
     "keyup input": "doSearch",
+    "blur input": "cancelSearch",
     "click li.add": "addNewFactRelation"
   },
 
@@ -87,6 +88,8 @@ var FactRelationSearchView = Backbone.View.extend({
     var self = this;
     var factRelations = self.options.factRelations;
 
+    self.setAddingIndicator();
+
     $.ajax({
       url: factRelations.url(),
       type: "POST",
@@ -100,6 +103,10 @@ var FactRelationSearchView = Backbone.View.extend({
         });
 
         self.cancelSearch();
+        self.stopAddingIndicator();
+      },
+      error: function() {
+        self.stopAddingIndicator();
       }
     });
   },
@@ -120,5 +127,14 @@ var FactRelationSearchView = Backbone.View.extend({
 
   stopLoading: function() {
     $( this.el ).find('li.loading').hide();
+  },
+  
+  setAddingIndicator: function() {
+    $( this.el ).find('.add img').show();
+    $( this.el ).find('.add .add-message').text('Adding');
+  },
+  stopAddingIndicator: function() {
+    $( this.el ).find('.add img').hide();
+    $( this.el ).find('.add .add-message').text('Add');
   }
 });
