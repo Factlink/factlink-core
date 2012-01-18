@@ -180,49 +180,49 @@ div.fact-block .close {
           }
         }
       }
-    }
-    .passport {
-      .float();
-      position: absolute;
-      margin-top: -10px;
-      width: 200px;
-      display: none;
-      height: 85px;
-      margin-top: -85px;
+      .passport {
+        .float();
+        position: absolute;
+        margin-top: -10px;
+        width: 200px;
+        display: none;
+        height: 85px;
+        margin-top: -82px;
 
-      .activity {
-        width: 60%;
-        text-transform: capitalize;
-        .border-radius(0 0 5px 0);
-        font-weight: bold;
-        line-height: 18px;
-        padding-left: 5px;
-        background-color: @grayLighter;
+        .activity {
+          width: 40%;
+          text-transform: capitalize;
+          .border-radius(0 0 5px 0);
+          font-weight: bold;
+          line-height: 18px;
+          padding-left: 5px;
+          background-color: @grayLighter;
           &.doubts, &.disbelieves, &.believes { color: @white; }
           &.doubts { background-color: #36a9e1; }
           &.disbelieves { background-color: #e94e1b; }
           &.believes { background-color: #98d100; }
         }
 
-      .username {
-        font-weight: bold;
-        line-height: @baseline * 1.1;
-      }
-      img {
-        margin-top: 5px;
-        margin-left: 5px;
-        float: left;
-      }
-      .user-info {
-        padding: 0px 5px 15px 5px;
-
-        margin-left: 40px;
-        ul li {
-          word-wrap: break-word;
-          margin-right: 0;
-          display: inline;
-          &:not(:last-child):after {
-            content: ",";
+        .username {
+          font-weight: bold;
+          line-height: @baseline * 1.1;
+        }
+        img {
+          margin-top: 5px;
+          margin-left: 5px;
+          float: left;
+          .opacity(100);
+        }
+        .user-info {
+          padding: 0px 5px 15px 5px;
+          margin-left: 40px;
+          ul li {
+            word-wrap: break-word;
+            margin-right: 0;
+            display: inline;
+            &:not(:last-child):after {
+              content: ",";
+            }
           }
         }
       }
