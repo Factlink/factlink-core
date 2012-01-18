@@ -8,7 +8,8 @@ for line in $(cat apt-requirements.txt); do
   # Example line from dpkg -l:
   # ii  dialog                              1.1-20100428-1      [description]
   # Added [[:space:]] in front and end of $line to get a perfect match
-  count=`dpkg -l | grep -e ^ii[[:space:]][[:space:]]$line[[:space:]] -c`
+  # count=`dpkg -l | grep -e ^ii[[:space:]][[:space:]]$line[[:space:]] -c`
+  count=`dpkg --get-selections | cut -f1 | grep -e ^$line$ -c`
 
   if [ "$count" -eq "1" ]; then
     # Installed
