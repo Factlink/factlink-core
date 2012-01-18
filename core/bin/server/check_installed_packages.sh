@@ -20,7 +20,7 @@ for line in $(cat /applications/factlink-core/current/config/apt-requirements.tx
 done
 
 if $is_missing_packages ; then
-  echo "Not all required packages are installed. The following packages are missing: $the_missing_packages"
+  echo "Not all required packages are installed. The following packages are missing: $the_missing_packages" >&2
   exit 1
 else
   echo "Success: All required packages from apt-packages.txt are installed."
