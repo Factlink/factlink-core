@@ -9,52 +9,8 @@
           });
         }
 
-        // function addEventHandlersTabs($fact) {
-        //   $fact.find("ul.evidence li").click(function() {
-        //
-        //     if ($fact.find(".dropdown-container").is(":hidden")) {
-        //       $fact.find(".dropdown-container").slideDown();
-        //
-        //       // AJAX call to load the FactRelations
-        //       if (!$fact.data('loaded-evidence')) {
-        //         getEvidence($fact);
-        //         $fact.data('loaded-evidence', true);
-        //       }
-        //
-        //       $(this).addClass("active");
-        //       $fact.addClass("active");
-        //
-        //     } else {
-        //       if ($(this).hasClass("active")) {
-        //         $fact.find(".dropdown-container").slideUp(function() {
-        //           $fact.find("ul.evidence li").removeClass("active");
-        //           $fact.removeClass("active");
-        //         });
-        //       } else {
-        //         $fact.find("ul.evidence li").removeClass("active");
-        //         $(this).addClass("active");
-        //         $fact.addClass("active");
-        //       }
-        //     }
-        //     return false;
-        //   });
-        // }
-
-        function initialize($fact) { /* based on http://www.sohtanaka.com/web-design/simple-tabs-w-css-jquery/ */
-          //On Click Event
-          // addEventHandlersTabs($fact);
-
-          $fact.data('loaded-evidence', false);
-
-          $fact.bind("factlink:switchTabAction", function(e, active) {
-            switchTabAction(active);
-          });
-          // Evidence buttons
-          $fact.find(".existing_evidence a").live("ajax:complete", function(et, e) {
-            $(this).closest('ul').children().find('a').removeClass("active");
-            $(this).addClass('active');
-          });
-          $fact.data("initialized", true);
+        function initialize($fact) {
+         $fact.data("initialized", true);
         } /*start of method*/
         var $fact = $(this);
         $fact.data("facts", {});
@@ -149,7 +105,7 @@
       $fact.find('.edit').editable('/facts/update_title', {
         indicator: 'Saving...',
         tooltip: 'Click to change the title of this Factlink',
-        placeholder: "Add title",
+        placeholder: "Click to add a title",
         width: "340"
       });
 
