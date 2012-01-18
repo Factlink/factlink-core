@@ -13,7 +13,7 @@ window.AppView = Backbone.View.extend({
     this.setupChannelReloading();
 
     this.userView = new UserView({
-      model: ( typeof currentChannel !== undefined ) ? currentChannel.user : currentUser
+      model: ( typeof currentChannel !== "undefined" ) ? currentChannel.user : currentUser
     });
   },
 
