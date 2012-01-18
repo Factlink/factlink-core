@@ -49,7 +49,7 @@ namespace :deploy do
   end
 
   task :check_installed_packages do
-    run "sh #{current_path}/bin/server/check_installed_packages.sh"
+    run "sh #{release_path}/bin/server/check_installed_packages.sh"
   end
 
   task :start_recalculate do
@@ -60,10 +60,11 @@ namespace :deploy do
   end
 end
 
-before 'deploy',          'deploy:check_installed_packages'
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
 before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'deploy:start_recalculate'
-after 'deploy:update',    'deploy:cleanup'
+
+after 'deploy:update_code',                      'deploy:check_installed_packages'
+after 'deploy:check_installed_packages',    'deploy:cleanup'
