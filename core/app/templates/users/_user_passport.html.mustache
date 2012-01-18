@@ -1,0 +1,17 @@
+<a href="{{profile_path}}">{{{avatar}}}</a>
+
+<div class="user-info">
+  <span class="username">{{username}}</span>
+
+  <ul class="channels">
+    {{#channels}}
+    <li><a href="/{{username}}/channels/{{id}}/">{{title}}</a></li>
+    {{/channels}}
+    <li><a href="{{profile_path}}">more...</a></li>
+  </ul>
+
+  <div class="arrow">
+    <div class="arrow-down-border"></div>
+    <div class="arrow-down"></div>
+  </div>
+</div>

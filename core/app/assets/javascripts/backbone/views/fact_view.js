@@ -47,6 +47,7 @@ window.FactView = Backbone.View.extend({
   },
 
   removeFactFromChannel: function() {
+    if(!confirm("Do you want to remove this Factlink from your channel? It will still be available in your `Created` channel.")) return false;
     this.model.destroy({
       error: function() {
         alert("Error while removing Factlink from Channel" );
@@ -155,7 +156,7 @@ window.FactView = Backbone.View.extend({
 
   showAddRelation: function(e) {
     e.stopPropagation();
-
+    $('.do-add').hide();
     $(e.target).toggleClass('add-button cancel-button');
 
     if ( this._currentVisibleDropdown === "supporting" ) {
@@ -167,7 +168,7 @@ window.FactView = Backbone.View.extend({
 
   hideAddRelation: function(e) {
     e.stopPropagation();
-
+$('.do-add').show();
     $(e.target).toggleClass('add-button cancel-button');
 
     if ( this._currentVisibleDropdown === "supporting" ) {

@@ -1,12 +1,13 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
     "keyup input": "doSearch",
-    "blur input": "cancelSearch",
     "click li.add": "addNewFactRelation"
   },
 
+  _busyAdding: false,
+  
   _lastKnownSearch: "",
-
+  
   _searchResultViews: [],
 
   initialize: function() {
@@ -86,6 +87,13 @@ var FactRelationSearchView = Backbone.View.extend({
 
   addNewFactRelation: function(e) {
     var self = this;
+    
+    if ( self._busyAdding ) {
+      return;
+    } else {
+      self._busyAdding = true;
+    }
+    
     var factRelations = self.options.factRelations;
 
     self.setAddingIndicator();
@@ -101,11 +109,13 @@ var FactRelationSearchView = Backbone.View.extend({
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true
         });
-
+        self._busyAdding = false;
         self.cancelSearch();
         self.stopAddingIndicator();
       },
       error: function() {
+        self._busyAdding = false;
+        self.cancelSearch();
         self.stopAddingIndicator();
       }
     });

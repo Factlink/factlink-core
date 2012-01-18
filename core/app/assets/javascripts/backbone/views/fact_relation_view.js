@@ -35,10 +35,9 @@ window.FactRelationView = Backbone.View.extend({
   },
 
   highlight: function() {
-    // TODO: Joel, could you specify some highlighting here? <3 <3
-    //       Tried to do it, but don't know on which element I should set the
-    //       styles :( <3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3<3
-    // Color fade out in JS required a jQuery plugin? Only giving new background color now.
-    $(this.el).addClass('highlighted');
+    var self = this;
+    $(self.el).animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
+      $(this).animate({"background-color": "#ffffff"}, 2000);
+    }});
   }
 });

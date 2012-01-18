@@ -12,8 +12,10 @@ module Users
       self[:graph_user].id
     end
 
+    # TODO should render User view or similar, but will infinitely recurse if
+    # also containing a Users:User view
     def channels
-      self[:graph_user].editable_channels
+      self[:graph_user].editable_channels(4)
     end
 
     def username
@@ -24,15 +26,13 @@ module Users
       image_tag(self[:user].avatar.url(:small), :width => size)
     end
 
-    def avatar_to_profile
-      path = view.user_profile_path(self[:user].username)
-      link_to(avatar_thumb, path, target: "_top" )
-    end
-
     def avatar_thumb
       avatar(20)
     end
 
+    def profile_path
+      view.user_profile_path(self[:user].username)
+    end
     def authority
       self[:graph_user].rounded_authority
     end
