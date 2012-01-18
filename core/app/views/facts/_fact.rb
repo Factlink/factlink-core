@@ -67,20 +67,16 @@ module Facts
       Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 
+    def interacting_users
+      Facts::InteractingUsers.for(fact: self[:fact], view: self.view).to_hash
+    end
+
     def containing_channel_ids
       return [] unless current_graph_user
       current_graph_user.containing_channel_ids(self[:fact])
     end
 
-    def last_active_users
-      last_activity().map { |a| Users::User.for(user: a.user.user, view: self.view)}
-    end
-
     expose_to_hash :timestamp
 
-    private
-      def last_activity(nr=3)
-        Activity::For.fact(self[:fact]).sort_by(:created_at, limit: nr, order: "DESC")
-      end
   end
 end

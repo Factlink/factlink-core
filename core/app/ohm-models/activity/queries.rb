@@ -2,7 +2,7 @@ class Activity < OurOhm
   module For
     def self.fact(f)
       Query.where([
-        {action: [:created, :believe, :disbelieve, :doubt] ,subject: f}
+        {action: [:created, :believes, :disbelieves, :doubts] ,subject: f}
       ])
     end
 
