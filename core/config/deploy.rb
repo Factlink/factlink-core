@@ -49,7 +49,7 @@ namespace :deploy do
   end
 
   task :check_installed_packages do
-    run "sh #{current_path}/bin/server/check_installed_packages.sh"
+    run "sh #{release_path}/bin/server/check_installed_packages.sh"
   end
 
   task :start_recalculate do
