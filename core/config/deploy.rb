@@ -67,4 +67,4 @@ after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'deploy:start_recalculate'
 
 before 'deploy:symlink', 'deploy:check_installed_packages'
-after 'deploy:check_installed_packages',    'deploy:cleanup'
+after 'deploy:update', 'deploy:cleanup'
