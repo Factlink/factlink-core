@@ -48,11 +48,6 @@ namespace :deploy do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 
-  task :aptget do
-    run 'apt-get -y update'
-    run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
-  end
-
   task :check_installed_packages do
     run "sh #{current_path}/bin/server/check_installed_packages.sh"
   end
@@ -64,9 +59,6 @@ namespace :deploy do
     run "sh #{current_path}/bin/server/stop_recalculate.sh"
   end
 end
-
-# Deploy user is not allowed to apt-get
-# before "bundle:install", "deploy:aptget"
 
 before 'deploy',          'deploy:check_installed_packages'
 before 'deploy:all',      'deploy'
