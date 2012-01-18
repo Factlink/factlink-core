@@ -1,11 +1,13 @@
 var Workspace = Backbone.Router.extend({
-  initialize: function(channel_dump) {
+  initialize: function(opts) {
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/?$/, "getChannelFacts", this.getChannelFacts);
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities\/?$/, "getChannelActivities", this.getChannelActivities);
-    
+
     this.view = new AppView();
+
+    this._username = opts.username;
   },
-  
+
   loadChannel: function(channel_id) {
       var channel = Channels.get(channel_id);
 
@@ -16,7 +18,7 @@ var Workspace = Backbone.Router.extend({
       channel.set({new_facts: false});
       return channel;
   },
-  
+
   getChannelFacts: function(username, channel_id) {
     this.view.reInit({model: this.loadChannel(channel_id),content_type: 'facts'}).render();
   },
@@ -26,7 +28,11 @@ var Workspace = Backbone.Router.extend({
   },
 
   getUsername: function() {
-    return location.pathname.split("/")[1];
+    if ( this._username ) {
+      return this._username;
+    }
+
+    return false;
   }
 
 });
