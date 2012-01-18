@@ -53,6 +53,10 @@ namespace :deploy do
     run "cat #{File.join(release_path,'config','apt-requirements.txt')} | grep -v '^\s*#' | xargs -L1 apt-get -y install"
   end
 
+  task :check_installed_packages do
+    run "sh #{current_path}/bin/server/check_installed_packages.sh"
+  end
+
   task :start_recalculate do
     run "sh #{current_path}/bin/server/start_recalculate.sh #{deploy_env}"
   end
@@ -64,11 +68,10 @@ end
 # Deploy user is not allowed to apt-get
 # before "bundle:install", "deploy:aptget"
 
-before 'deploy:all',    'deploy'
-
-after 'deploy:all',     'deploy:restart'
-
+before 'deploy',          'deploy:check_installed_packages'
+before 'deploy:all',      'deploy'
+after 'deploy:all',       'deploy:restart'
 before 'deploy:migrate',  'deploy:stop_recalculate'
-after 'deploy',         'deploy:migrate'
-after 'deploy:migrate', 'deploy:start_recalculate'
-after 'deploy:update', 'deploy:cleanup'
+after 'deploy',           'deploy:migrate'
+after 'deploy:migrate',   'deploy:start_recalculate'
+after 'deploy:update',    'deploy:cleanup'
