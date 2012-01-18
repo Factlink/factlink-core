@@ -40,6 +40,7 @@ class ChannelsController < ApplicationController
       format.json { render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context,channel_user: @user)}
       format.js
       format.html do
+        render inline:'', layout: "channels"
         @channel.mark_as_read
       end
     end
@@ -196,10 +197,7 @@ class ChannelsController < ApplicationController
 
   def activities
     authorize! :show, @channel
-    render layout:false, partial: "channels/activity_list",
-      locals: {
-             channel: @channel
-      }
+    render inline:'', layout: "channels"
   end
 
   private
