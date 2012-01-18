@@ -1,5 +1,7 @@
 //= require jquery.hoverIntent
 
+//TODO fix duplication with channel_view
+
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
