@@ -126,7 +126,6 @@ div.fact-block .close {
 					}
 				}
 			}
-
       .body {
         word-wrap: break-word;
         vertical-align: baseline;
@@ -159,7 +158,35 @@ div.fact-block .close {
         }
       }
     }
-
+    .passport {
+      .float();
+      position: absolute;
+      margin-top: -10px;
+      width: 200px;
+      display: none;
+      height: 50px;
+      margin-top: -70px;
+      padding: 5px 5px 15px 5px;
+      .username {
+        font-weight: bold;
+        line-height: @baseline * 1.1;
+      }
+      img {
+        margin-top: 10px;
+        float: left;
+      }
+      .user-info {
+        margin-left: 40px;
+        ul li {
+          word-wrap: break-word;
+          margin-right: 0;
+          display: inline;
+          &:not(:last-child):after {
+            content: ",";
+          }
+        }
+      }
+    }
     ul.evidence {
       height: @controlsHeight;
       margin-left: 60px;
@@ -230,7 +257,7 @@ div.fact-block .close {
       z-index: 200;
       background: @white;
       width: 553px;
-      
+
       li {
         cursor: pointer;
         padding: 8px 12px;
@@ -349,7 +376,7 @@ div.fact-block .close {
       }
     }
   }
-  .highlighted {  
+  .highlighted {
     background: @lightYellow;
   }
   .relation-actions {
