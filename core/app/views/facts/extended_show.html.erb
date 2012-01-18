@@ -1,3 +1,17 @@
-<h1>test</h1>
+<div class="fact-block">
+  <%= render_mustache "fact", fact: @fact %>
+</div>
 
-<%= render_mustache "fact_bubble", fact: @fact %>
+<% content_for :javascript do %>
+<script>
+  (function(){
+    window.currentFact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self).to_json.html_safe %>);
+
+    var view = new FactView({
+      el: $('.fact-block'),
+      model: window.currentFact,
+      extended: true
+    });
+  })();
+</script>
+<% end %>
