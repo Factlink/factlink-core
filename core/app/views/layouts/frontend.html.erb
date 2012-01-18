@@ -87,7 +87,7 @@
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::SingleMenuItem.for(channel: ch,view: self) }.to_json.html_safe %>));
     <% end %>
 
-    var Router = new Workspace({username: "<%= @user.nil? ? current_user.username : @user.username %>"});
+    var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
 
     Backbone.history.start({pushState:true, silent:true});
   </script>
