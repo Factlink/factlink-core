@@ -36,6 +36,7 @@
     var Router = new Workspace();
 
     Backbone.history.start({pushState:true, silent:true});
+    Router.navigate(window.location.pathname);
 
   </script>
 <% end %>
