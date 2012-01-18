@@ -1,4 +1,4 @@
-window.FactsView = Backbone.View.extend({
+window.FactsView = Backbone.CollectionView.extend({
   tagName: "div",
   className: "facts",
   _loading: true,

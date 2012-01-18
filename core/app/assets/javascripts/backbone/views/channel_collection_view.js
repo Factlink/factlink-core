@@ -1,7 +1,7 @@
 var views = {};
 var activeChannel;
 
-window.ChannelCollectionView = Backbone.View.extend({
+window.ChannelCollectionView = Backbone.CollectionView.extend({
   el: $('#left-column'),
   
   initialize: function(opts) {
