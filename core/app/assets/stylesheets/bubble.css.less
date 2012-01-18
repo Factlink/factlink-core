@@ -28,7 +28,31 @@ div.fact-block .close {
   .transition(@transition);
   margin: 10px;
 }
-.float {
+
+.arrowDown(@width: 10px, @color: @whiteDarker) {
+  position: absolute;
+  margin-top: -1px;
+  .arrow-down, .arrow-down-border {
+    position: relative;
+    width: 0;
+    height: 0;
+    left: 10px;
+  }
+  .arrow-down {
+    border-left: @width solid transparent;
+    border-right: @width solid transparent;
+    border-top: @width solid @color;
+    position: relative;
+    top: -21px;
+  }
+  .arrow-down-border {
+    border-color: @grayLighter transparent transparent transparent;
+    border-style: solid;
+    border-width: @width;
+    top: 1px;
+  }
+}
+.float() {
   background-color: @white;
   display: none;
   z-index: 2000;
@@ -36,7 +60,7 @@ div.fact-block .close {
   border: 1px solid @grayLight;
 }
 .channel-listing {
-  .float;
+  .float();
   width: 200px;
   position: absolute;
   ul {
@@ -104,8 +128,7 @@ div.fact-block .close {
         font-weight: bold;
       }
 			.edit {
-        #font > .sans-serif(normal,9pt,@baseline);
-        color: @linkColor;
+        #font > .sans-serif(bold,9pt,@baseline);
         &:before {
 	        #font > .iconic();
           content: "p ";
@@ -126,7 +149,6 @@ div.fact-block .close {
 					}
 				}
 			}
-
       .body {
         word-wrap: break-word;
         vertical-align: baseline;
@@ -159,7 +181,35 @@ div.fact-block .close {
         }
       }
     }
-
+    .passport {
+      .float();
+      position: absolute;
+      margin-top: -10px;
+      width: 200px;
+      display: none;
+      height: 50px;
+      margin-top: -70px;
+      padding: 5px 5px 15px 5px;
+      .username {
+        font-weight: bold;
+        line-height: @baseline * 1.1;
+      }
+      img {
+        margin-top: 10px;
+        float: left;
+      }
+      .user-info {
+        margin-left: 40px;
+        ul li {
+          word-wrap: break-word;
+          margin-right: 0;
+          display: inline;
+          &:not(:last-child):after {
+            content: ",";
+          }
+        }
+      }
+    }
     ul.evidence {
       height: @controlsHeight;
       margin-left: 60px;
@@ -224,15 +274,17 @@ div.fact-block .close {
   .dropdown-container {
     display: none;
     background: @whiteDarker;
-    padding: 7px 0 8px 0;
+    padding: 9px 0 10px 0;
     ul.search-results {
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 80%;
+      width: 553px;
+      .box-shadow(0px 0px 6px rgba(0, 0, 0, 0.20));
+
       li {
         cursor: pointer;
-        padding: 4px;
+        padding: 8px 12px;
         border: 1px solid @grayLighter;
         border-top: none;
         &:hover, &:focus {
@@ -240,6 +292,18 @@ div.fact-block .close {
         }
         &.loading, &.add {
           display: none;
+        }
+        &.add {
+          background-color: whiteSmoke;
+          font-weight: bolder;
+          &:hover {
+            background: darken(#f5f5f5, 2);
+          }
+          img { display: none; }
+        }
+        .word {
+          font-weight: normal;
+          font-style: italic;
         }
       }
 
@@ -283,27 +347,7 @@ div.fact-block .close {
       text-align: center;
     }
     .arrow {
-      position: absolute;
-      margin-top: -1px;
-      .arrow-down, .arrow-down-border {
-        position: relative;
-        width: 0;
-        height: 0;
-        left: 10px;
-      }
-      .arrow-down {
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid @whiteDarker;
-        position: relative;
-        top: -21px;
-      }
-      .arrow-down-border {
-        border-color: @grayLighter transparent transparent transparent;
-        border-style: solid;
-        border-width: 10px;
-        top: 1px;
-      }
+      .arrowDown();
     }
   }
   &:hover, &:active, &.active, .controls.active {
@@ -320,9 +364,12 @@ div.fact-block .close {
   .evidence-list {
     display: none;
     background-color: @white;
-    max-height: 300px;
     border-bottom: 1px solid @grayLighter;
     ul.evidence-listing {
+      overflow: auto;
+      max-height: 300px;
+      .visible-scroll();
+      padding-bottom: 5px;
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
@@ -332,6 +379,9 @@ div.fact-block .close {
         }
       }
     }
+  }
+  .highlighted {
+    background: @lightYellow;
   }
   .relation-actions {
     float: left;

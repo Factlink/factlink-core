@@ -1,6 +1,7 @@
 var Workspace = Backbone.Router.extend({
   initialize: function(opts) {
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/?$/, "getChannelFacts", this.getChannelFacts);
+    this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities\/?$/, "getChannelActivities", this.getChannelActivities);
 
     this.view = new AppView();
 
@@ -8,15 +9,11 @@ var Workspace = Backbone.Router.extend({
   },
 
   getChannelFacts: function(username, channel_id) {
-    var channel = Channels.get(channel_id);
+    this.view.reInit({model: this.loadChannel(channel_id),content_type: 'facts'}).render();
+  },
 
-    if ( !channel ) {
-      channel = this.view.channelView.subchannels.get(channel_id);
-    }
-
-    channel.set({new_facts: false});
-
-    this.view.openChannel(channel).render();
+  getChannelActivities: function(username, channel_id) {
+    this.view.reInit({model: this.loadChannel(channel_id),content_type: 'activities'}).render();
   },
 
   getUsername: function() {

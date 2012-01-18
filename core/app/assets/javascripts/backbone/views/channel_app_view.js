@@ -1,24 +1,22 @@
 window.AppView = Backbone.View.extend({
   el: $('#container'),
-  
-  initialize: function() {
+
+  initialize: function(options) {
+    if (typeof(options)==='undefined') {options = {};}
     this.channelCollectionView = new ChannelCollectionView({
       collection: Channels
     }).render();
-    
-    this.relatedUsersView = new RelatedUsersView();
-    
-    this.activitiesView = new ActivitiesView();
-    
+
+    this.channelView = new ChannelView();
+    this.views = [new RelatedUsersView()];
+
     this.setupChannelReloading();
-    
-    if ( typeof currentChannel !== "undefined" ) {
-      this.changeUser(currentChannel.user);
-    } else {
-      this.changeUser(currentUser);
-    }
+
+    this.userView = new UserView({
+      model: ( typeof currentChannel !== undefined ) ? currentChannel.user : currentUser
+    });
   },
-  
+
   // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
     var args = arguments;
@@ -28,47 +26,47 @@ window.AppView = Backbone.View.extend({
       });
     }, 7000);
   },
-  
-  openChannel: function(channel) {
-    var self = this;
+
+  reInit: function(opts) {
+    var channel = opts.model;
     var oldChannel = currentChannel;
-    
+
     window.currentChannel = channel;
-    
-    if ( channel ) {
-      if ( channel.user.id !== oldChannel.user.id ) {
-        this.changeUser(channel.user);
-        
-        this.channelCollectionView.reload(currentChannel.id);
-      }
-      
-      if ( this.channelView ) {
-        this.channelView.close();
-      }
-      
-      this.channelView = new ChannelView({model: channel}).render();
-      
-      this.relatedUsersView
-            .setChannel(channel)
-            .render();
-      
-      this.activitiesView
-            .setChannel(channel)
-            .render();
+
+    if ( channel.user.id !== oldChannel.user.id ) {
+      this.channelCollectionView.reload(currentChannel.id);
     }
-    
+
+    for(var i = 0; i < this.views.length; i++){
+      this.views[i] = this.views[i].reInit({model: channel});
+    }
+    this.userView = this.userView.reInit({model:channel.user, content_type: opts.content_type});
+    this.setChannelViewFor(opts);
+
     return this;
   },
-  
-  render: function() {
-    $('#main-wrapper').html( this.channelView.el );
-  },
-  
-  changeUser: function(user) {
-    if ( this.userView ) {
-      this.userView.close();
+
+  setChannelViewFor : function(options) {
+    if ((options.content_type === this.options.content_type) || (options.model === undefined )) {
+      this.channelView = this.channelView.reInit(options);
+    } else {
+      this.channelView.close();
+      if (options.content_type === 'activities'){
+        this.channelView = new ChannelActivitiesView(options);
+      } else {
+        this.channelView = new ChannelView(options);
+      }
+
     }
-    
-    this.userView = new UserView({model: user}).render();
+  },
+
+  render: function() {
+    for(var i = 0; i < this.views.length; i++){
+      this.views[i].render();
+    }
+    this.channelView.render();
+    this.userView.render();
+    $('#main-wrapper').html( this.channelView.el );
   }
+
 });

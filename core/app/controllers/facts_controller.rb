@@ -137,7 +137,7 @@ class FactsController < ApplicationController
   def remove_opinions
     @basefact = Basefact[params[:id]]
 
-    authorize! :opinionate, @fact
+    authorize! :opinionate, @basefact
 
     @basefact.remove_opinions(current_user.graph_user)
     @basefact.calculate_opinion(2)

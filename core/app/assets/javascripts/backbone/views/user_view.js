@@ -11,6 +11,15 @@ window.UserView = Backbone.View.extend({
     this.useTemplate("users", "_user");
   },
 
+  reInit: function(opts){
+    if (!this.model || opts.model.id !== this.model.id) {
+      this.close();
+      return new UserView(opts);
+    } else {
+      return this;
+    }
+  },
+
   render: function() {
     this.el.innerHTML = Mustache.to_html(this.tmpl, this.model.toJSON());
     this.root.prepend( this.el );

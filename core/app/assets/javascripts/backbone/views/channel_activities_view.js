@@ -1,6 +1,8 @@
 //= require jquery.hoverIntent
 
-window.ChannelView = Backbone.View.extend({
+//TODO fix duplication with channel_view
+
+window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
   initialize: function(opts) {
@@ -17,7 +19,7 @@ window.ChannelView = Backbone.View.extend({
         }),
         channel: self.model
       });
-
+      console.info('activities are fun!');
       this.factsView.setLoading();
 
       this.factsView.collection.fetch({

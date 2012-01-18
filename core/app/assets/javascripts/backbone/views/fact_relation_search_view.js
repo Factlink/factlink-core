@@ -4,8 +4,10 @@ var FactRelationSearchView = Backbone.View.extend({
     "click li.add": "addNewFactRelation"
   },
 
+  _busyAdding: false,
+  
   _lastKnownSearch: "",
-
+  
   _searchResultViews: [],
 
   initialize: function() {
@@ -85,7 +87,16 @@ var FactRelationSearchView = Backbone.View.extend({
 
   addNewFactRelation: function(e) {
     var self = this;
+    
+    if ( self._busyAdding ) {
+      return;
+    } else {
+      self._busyAdding = true;
+    }
+    
     var factRelations = self.options.factRelations;
+
+    self.setAddingIndicator();
 
     $.ajax({
       url: factRelations.url(),
@@ -98,8 +109,14 @@ var FactRelationSearchView = Backbone.View.extend({
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true
         });
-
+        self._busyAdding = false;
         self.cancelSearch();
+        self.stopAddingIndicator();
+      },
+      error: function() {
+        self._busyAdding = false;
+        self.cancelSearch();
+        self.stopAddingIndicator();
       }
     });
   },
@@ -120,5 +137,14 @@ var FactRelationSearchView = Backbone.View.extend({
 
   stopLoading: function() {
     $( this.el ).find('li.loading').hide();
+  },
+  
+  setAddingIndicator: function() {
+    $( this.el ).find('.add img').show();
+    $( this.el ).find('.add .add-message').text('Adding');
+  },
+  stopAddingIndicator: function() {
+    $( this.el ).find('.add img').hide();
+    $( this.el ).find('.add .add-message').text('Add');
   }
 });

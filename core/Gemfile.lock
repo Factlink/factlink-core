@@ -211,7 +211,6 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.0.0)
       railties (>= 3.0.0)
-    mongoid_taggable (0.1.7)
     multi_json (1.0.4)
     mustache (0.99.4)
     nest (1.1.0)
@@ -391,7 +390,6 @@ DEPENDENCIES
   mongoid (= 2.3.3)
   mongoid-paperclip
   mongoid_rails_migrations (= 0.0.13)
-  mongoid_taggable
   mustache
   mustache_rails3!
   ohm!
