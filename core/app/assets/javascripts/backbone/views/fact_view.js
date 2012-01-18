@@ -47,6 +47,7 @@ window.FactView = Backbone.View.extend({
   },
 
   removeFactFromChannel: function() {
+    if(!confirm("Do you want to remove this Factlink from your channel? It will still be available in your `Created` channel.")) return false;
     this.model.destroy({
       error: function() {
         alert("Error while removing Factlink from Channel" );
