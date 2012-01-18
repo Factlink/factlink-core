@@ -39,8 +39,9 @@
   </ul>
   <ul class="users">
     {{#last_active_users}}
-    <li class="user" data-user-id="{{graph_id}}" rel="twipsy" title="{{username}}">
-    {{{avatar_to_profile}}}
+    <li class="user" data-user-id="{{graph_id}}">
+      <div class="passport"></div>
+      <a href="{{profile_path}}">{{{avatar_thumb}}}</a>
     </li>
     {{/last_active_users}}
   </ul>

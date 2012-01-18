@@ -3,8 +3,8 @@ class ChannelManager
     @gu = gu
   end
 
-  def editable_channels
-    @channels = @gu.channels.to_a
+  def editable_channels(limit=nil)
+    @channels = limit ? @gu.channels.to_a[0..limit] : @gu.channels.to_a
     @username = @gu.user.username
     @channels.reject! { |channel| ! channel.editable? }
   end
