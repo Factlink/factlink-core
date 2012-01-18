@@ -1,7 +1,6 @@
 var activeChannel;
 
 window.ChannelCollectionView = Backbone.CollectionView.extend({
-  views: {},
   el: $('#left-column'),
 
   containerSelector: '#channel-listing',
