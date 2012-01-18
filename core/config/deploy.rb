@@ -66,5 +66,4 @@ before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'deploy:start_recalculate'
 
-before 'deploy:symlink', 'deploy:check_installed_packages'
 after 'deploy:update', 'deploy:cleanup'
