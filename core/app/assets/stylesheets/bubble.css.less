@@ -28,7 +28,31 @@ div.fact-block .close {
   .transition(@transition);
   margin: 10px;
 }
-.float {
+
+.arrowDown(@width: 10px, @color: @whiteDarker) {
+  position: absolute;
+  margin-top: -1px;
+  .arrow-down, .arrow-down-border {
+    position: relative;
+    width: 0;
+    height: 0;
+    left: 10px;
+  }
+  .arrow-down {
+    border-left: @width solid transparent;
+    border-right: @width solid transparent;
+    border-top: @width solid @color;
+    position: relative;
+    top: -21px;
+  }
+  .arrow-down-border {
+    border-color: @grayLighter transparent transparent transparent;
+    border-style: solid;
+    border-width: @width;
+    top: 1px;
+  }
+}
+.float() {
   background-color: @white;
   display: none;
   z-index: 2000;
@@ -36,7 +60,7 @@ div.fact-block .close {
   border: 1px solid @grayLight;
 }
 .channel-listing {
-  .float;
+  .float();
   width: 200px;
   position: absolute;
   ul {
@@ -104,8 +128,7 @@ div.fact-block .close {
         font-weight: bold;
       }
 			.edit {
-        #font > .sans-serif(normal,9pt,@baseline);
-        color: @linkColor;
+        #font > .sans-serif(bold,9pt,@baseline);
         &:before {
 	        #font > .iconic();
           content: "p ";
@@ -324,27 +347,7 @@ div.fact-block .close {
       text-align: center;
     }
     .arrow {
-      position: absolute;
-      margin-top: -1px;
-      .arrow-down, .arrow-down-border {
-        position: relative;
-        width: 0;
-        height: 0;
-        left: 10px;
-      }
-      .arrow-down {
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid @whiteDarker;
-        position: relative;
-        top: -21px;
-      }
-      .arrow-down-border {
-        border-color: @grayLighter transparent transparent transparent;
-        border-style: solid;
-        border-width: 10px;
-        top: 1px;
-      }
+      .arrowDown();
     }
   }
   &:hover, &:active, &.active, .controls.active {
