@@ -7,7 +7,18 @@ var Workspace = Backbone.Router.extend({
 
     this._username = opts.username;
   },
+  
+  loadChannel: function(channel_id) {
+      var channel = Channels.get(channel_id);
 
+      if ( !channel ) {
+        channel = this.view.channelView.subchannels.get(channel_id);
+      }
+
+      channel.set({new_facts: false});
+      return channel;
+  },
+  
   getChannelFacts: function(username, channel_id) {
     this.view.reInit({model: this.loadChannel(channel_id),content_type: 'facts'}).render();
   },
