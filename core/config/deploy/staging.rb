@@ -1,6 +1,6 @@
 server 'staging.factlink.com', :app, :web, :primary => true
 
-set :deploy_env, 'production'
+set :deploy_env, 'staging'
 
 set :branch, "master"
 
