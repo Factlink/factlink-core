@@ -41,24 +41,27 @@ class HomeController < ApplicationController
     search_for = params[:s] || ""
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
 
+    if search_for.length > 0
+      solr_result = Sunspot.search FactData, User do
+        keywords search_for
 
-    solr_result = Sunspot.search FactData, User do
-      keywords search_for
+        order_by sort_column, sort_direction
 
-      order_by sort_column, sort_direction
+        paginate :page => params[:page] || 1, :per_page => row_count
+      end
 
-      paginate :page => params[:page] || 1, :per_page => row_count
+      # TODO: This message gets lost easily in history, what are the options?
+      if solr_result.hits.count > solr_result.results.count || true
+        logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
+      end
+
+      @results = solr_result.results.map do |result|
+        SearchResults::SearchResultItem.for(obj: result, view: view_context)
+      end
+    else
+      @results = []
     end
-
-    # TODO: This message gets lost easily in history, what are the options?
-    if solr_result.hits.count > solr_result.results.count || true
-      logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
-    end
-
-    @results = solr_result.results.map do |result|
-      SearchResults::SearchResultItem.for(obj: result, view: view_context)
-    end
-
+    
     respond_to do |format|
       format.html
       format.json {render json: @results}
