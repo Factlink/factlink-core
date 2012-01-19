@@ -110,7 +110,7 @@
 
             <div class="center" style="margin-top: 64px;">
               <a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx" class="btn success">Chrome Extension</a>
-              <a title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a>
+              <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a>
             </div>
           </div>
           <div class="s1 last" style="margin-top: 6px;">
