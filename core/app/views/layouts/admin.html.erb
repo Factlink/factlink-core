@@ -50,12 +50,8 @@
 
   <!-- JavaScript at the bottom for fast page loading -->
   <%= javascript_include_tag "frontend" %>
+  <%= yield :javascript %>
 
-  <script>
-    $(".alert-message").alert();
-
-    $('.topbar').dropdown();
-  </script>
 
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
