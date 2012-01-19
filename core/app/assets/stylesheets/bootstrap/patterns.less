@@ -190,7 +190,7 @@ a {
       &.hover {
         .border-radius(4px);
         border: 1px solid @grayLighter;
-        background-color: @whiteDarker;
+        background-color: @whiteGray;
       }
     }
   }
@@ -201,7 +201,7 @@ a {
   .dropdown-toggle:hover,
   .dropdown.open .dropdown-toggle {
     background: #444;
-    background: rgba(255,255,255,.05);
+    background: @whiteGray;
     vertical-align: center;
   }
   // .menu-dropdown for backwards compatibility
@@ -237,9 +237,11 @@ a {
 // For backwards compatibility with new dropdowns, redeclare dropdown link padding
 .topbar ul .menu-dropdown li a,
 .topbar ul .dropdown-menu li a {
-  padding: 4px 15px;
+  padding: 4px 8px;
 }
-
+.topbar ul .dropdown-menu li > span {
+  display: block;
+}
 // Dropdown Menus
 // Use the .menu class on any <li> element within the topbar or ul.tabs and you'll get some superfancy dropdowns
 // li.menu for backwards compatibility
@@ -302,7 +304,7 @@ a.menu:after,
   // Dividers (basically an hr) within the dropdown
   .divider {
     height: 1px;
-    margin: 5px 0;
+    margin: 3px 0;
     overflow: hidden;
     background-color: #eee;
     border-bottom: 1px solid @white;
