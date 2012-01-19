@@ -38,8 +38,12 @@ class HomeController < ApplicationController
     @row_count = 20
     row_count = @row_count
 
+    search_for = params[:s] || ""
+    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
+
+
     solr_result = Sunspot.search FactData, User do
-      keywords params[:s] || ""
+      keywords search_for
 
       order_by sort_column, sort_direction
 
