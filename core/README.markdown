@@ -6,6 +6,44 @@ This project is the factlink core application. Currently it consists of
 * The website
 * The communication layer between the backend and the js-library
 
-To get this up and running, use the setup_env.sh script in app/scripts. For setting up your system, see:
+## Installation
+
+For setting up the basic dependencies on your system, see:
 
 https://github.com/Factlink/core/wiki/Setting-up-a-developer-environment
+
+Now to setup factlink, go to your projectdir, and save the following script there:
+https://github.com/Factlink/core/blob/develop/script/setup_env.sh
+
+Now run the script:
+
+```
+sh setup_env.sh
+```
+
+Now run the factlinkapps by running run_env:
+
+```
+core/scripts/run_env.sh
+```
+
+Now open your browser and surf to http://localhost:3000
+
+## Running the tests
+
+The first time you need to install soundcheck
+
+```
+gem install soundcheck --pre
+```
+
+After that, simply do the following (from the base dir):
+
+```
+cd core
+soundcheck
+```
+
+## Licensing
+
+This project is closed source, (C) Factlink
