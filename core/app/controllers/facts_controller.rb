@@ -152,16 +152,19 @@ class FactsController < ApplicationController
   def evidence_search
     search_for = params[:s]
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
-    solr_result = Sunspot.search FactData do
-      fulltext search_for do
-        highlight :displaystring
+    if search_for.length > 0
+      solr_result = Sunspot.search FactData do
+        fulltext search_for do
+          highlight :displaystring
+        end
       end
-    end
 
-    facts = solr_result.results.map do |result|
-      Facts::FactBubble.for(fact: result.fact, view: view_context)
+      facts = solr_result.results.map do |result|
+        Facts::FactBubble.for(fact: result.fact, view: view_context)
+      end
+    else
+      facts = []
     end
-
     render json: facts
   end
 
