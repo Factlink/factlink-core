@@ -41,8 +41,8 @@
                 <li><%= link_to("My profile", user_profile_path(current_user)) %></li>
                 <li class="divider"></li>
                 <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png") %>Chrome Extension</a></li>
-                <li><a title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
-                       {# here we need singlequotes kthxbye: #}
+                <li><a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
+                       <%# here we need singlequotes kthxbye: %>
                        href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'><%= image_tag("bookmarkletGrayIcon.png") %><span style="display: none">Factlink</span> Bookmarklet</a></li>
                 <li class="divider"></li>
               <% end %>
