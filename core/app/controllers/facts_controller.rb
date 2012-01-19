@@ -150,8 +150,10 @@ class FactsController < ApplicationController
   # to move this search to the evidence_controller, to make sure it's
   # type-specific
   def evidence_search
+    search_for = params[:s]
+    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
     solr_result = Sunspot.search FactData do
-      fulltext params[:s] do
+      fulltext search_for do
         highlight :displaystring
       end
     end
