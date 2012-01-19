@@ -134,7 +134,9 @@ class ChannelsController < ApplicationController
       @channel.mark_as_read
     end
 
-    respond_with(@facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])})
+    respond_to do |format|
+      format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])} }
+    end
   end
 
   def remove_fact

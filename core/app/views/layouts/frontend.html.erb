@@ -70,6 +70,9 @@
     </div>
   </div>
 
+  <div id="first-tour-modal" class="modal hide fade tour-modal">
+  </div>
+
   <%= load_mustache_templates %>
 
   <%= javascript_include_tag "frontend" %>
@@ -91,7 +94,7 @@
 
     Backbone.history.start({pushState:true, silent:true});
     Router.navigate(window.location.pathname);
-    
+
   </script>
 
   <%= yield :javascript %>
