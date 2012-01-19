@@ -76,14 +76,10 @@
 
     if ($(window).width() < (x + $frame.outerWidth(true) - $(window).scrollLeft())) {
       x -= $frame.outerWidth(true);
-
-      // console.log("outerWIdth: " + $frame.outerWidth(true));
     }
 
     if ($(window).height() < (y + $frame.outerHeight(true) - $(window).scrollTop())) {
       y -= $frame.outerHeight(true);
-
-      // console.log("outerHEight: " + $frame.outerHeight(true));
     }
 
     // Position the middle of the frame at the mouse pointer\

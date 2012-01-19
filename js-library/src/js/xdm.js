@@ -9,27 +9,24 @@
     // See modal.js #Factlink.modal
     local: Factlink.modal,
     remote: {
-      createEvidence: {},
-      createNewEvidence: {},
       showFactlink: {},
       position: {},
-      opinionateFactlink: {},
       ajax: {}
     }
   });
-  
+
   Factlink.post = function(path, options) {
     Factlink.ajax(path, $.extend({
       type: "POST"
     }, options));
   };
-  
+
   Factlink.get = function(path, options) {
     Factlink.ajax(path, $.extend({
       type: "GET"
     }, options));
   };
-  
+
   Factlink.ajax = function(path, options) {
     function globalErrorFunction(xhr, status, err) {
       console.info('ERROR : ' + path );
@@ -46,9 +43,9 @@
     var error = ( $.isFunction(options.error) ? options.error : globalErrorFunction );
     delete options.success;
     delete options.error;
-    
+
     Factlink.remote.ajax(path, options, success, error);
   };
-  
+
   $(window).trigger("factlink.loaded");
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

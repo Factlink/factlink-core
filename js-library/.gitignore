@@ -4,3 +4,4 @@ node_modules/
 *.un~
 *.rej
 *.orig
+dump.rdb

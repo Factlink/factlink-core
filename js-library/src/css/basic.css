@@ -209,9 +209,13 @@ span.factlink.fl-active {
   background-image: url(../images/arrows-top.png);
   top: -8px;
 }
-#fl .fl-popup.bottom .fl-arrow, #fl .fl-popup.left .fl-arrow, #fl .fl-popup.right .fl-arrow {
+#fl .fl-popup.bottom .fl-arrow {
   background-image: url(../images/arrows-bottom.png);
   top: 100%;
+}
+#fl .fl-popup.left, #fl .fl-popup.right {
+  /*not implemented*/
+
 }
 #fl .fl-popup:hover {
   border: solid 1px #555;
