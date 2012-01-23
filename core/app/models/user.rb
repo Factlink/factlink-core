@@ -3,7 +3,6 @@ require 'digest/md5'
 
 class User
   include Mongoid::Document
-  include Mongoid::Paperclip
   include Sunspot::Mongoid
 
   field :name
