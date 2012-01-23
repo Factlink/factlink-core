@@ -12,7 +12,7 @@ module Facts
 
     private
       def last_activity(nr=3)
-        Activity::For.fact(self[:fact]).sort_by(:created_at, limit: nr, order: "ALPHA DESC").reverse
+        Activity::For.fact(self[:fact]).sort_by(:created_at, limit: nr, order: "ALPHA DESC")
       end
   end
 end
