@@ -1,4 +1,4 @@
-## Core
+## Javascript Library
 
 This project is the Javascript library. This is a set of javascript files which can be included on
 any webpage. When included they enable Factlink functionality on the webpage
