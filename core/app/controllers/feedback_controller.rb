@@ -9,11 +9,11 @@ class FeedbackController < ApplicationController
       content: params[:content]
     }
     begin
-      issue = GithubIssue.new.report(issue)
-      params = {}
-      render :json =>  { msg: "Thank you for your feedback. We have registered your comments under the number #{issue[:number]}".html_safe }
+      issue_gh = GithubIssue.new.report(issue)
+      render :json =>  { msg: "Thank you for your feedback! We will get back to you shortly" }
     rescue
-      render :json => { msg: "We're sorry, something went wrong with saving your feedback, you can still reach us at feedback@factlink.com".html_safe }, :status => 500
+      ExceptionNotifier::Notifier.exception_notification(request.env, $!).deliver
+      render :json => { msg: "We're sorry, something went wrong with saving your feedback, you can still reach us at feedback@factlink.com" }, :status => 500
     end
   end
 end
