@@ -1,0 +1,71 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+#feedback-modal {
+  form {
+    margin-bottom: 0;
+  }
+  fieldset {
+    margin-bottom: @baseline;
+    padding-top: @baseline;
+    legend {
+      display: block;
+      padding-left: 150px;
+      font-size: @basefont * 1.5;
+      line-height: 1;
+      color: @grayDark;
+      *padding: 0 0 5px 145px; /* IE6-7 */
+      *line-height: 1.5; /* IE6-7 */
+    }
+  }
+
+  form .clearfix {
+    margin-bottom: @baseline;
+    .clearfix()
+  }
+
+  // Set font for forms
+  label,
+  input,
+  select,
+  textarea {
+    #font > .sans-serif(normal,13px,normal);
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.1);
+    .box-shadow(@shadow);
+    width: 90%;
+    border: 1px solid @grayLighter;
+    font-size: 12px;
+    padding: 5px 9px;
+    .border-radius(4px);
+    #font > .sans-serif(13px, normal, 1.1);
+    &:focus {
+      outline: 0;
+      border: 1px solid @linkColor;
+    }
+  }
+  // Float labels left
+  label {
+    padding-top: 6px;
+    font-size: @basefont;
+    line-height: @baseline;
+    float: left;
+    width: 130px;
+    text-align: right;
+    color: @grayDark;
+  }
+
+  form .input {
+    margin-left: 150px;
+  }
+
+
+  h1 {
+    font-size: 18px;
+    line-height: 36px;
+    font-weight: bold;
+  }
+}
