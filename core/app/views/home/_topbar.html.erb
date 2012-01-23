@@ -36,7 +36,7 @@
             <a class="dropdown-toggle">   <%= image_tag(current_user.avatar.url(:small), :width => 20) %> <%= current_user.username %>  </a>
             <ul class="dropdown-menu">
               <% if can? :access, Ability::FactlinkWebapp %>
-                <li><span>Authority: <%= current_user.graph_user.authority %></span></li>
+                <li><span>Authority: <%= current_user.graph_user.rounded_authority %></span></li>
                 <li class="divider"></li>
                 <li><%= link_to("My profile", user_profile_path(current_user)) %></li>
                 <li class="divider"></li>
