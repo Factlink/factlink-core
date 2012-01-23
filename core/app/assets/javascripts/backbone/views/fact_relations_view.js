@@ -84,6 +84,10 @@ window.FactRelationsView = Backbone.View.extend({
     $(this.el).find('.add-evidence-container').show();
   },
 
+  show: function() {
+    $(this.el).show();
+  },
+
   showAndFetch: function() {
     var self = this;
 
