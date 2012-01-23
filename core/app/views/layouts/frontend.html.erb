@@ -24,7 +24,6 @@
   <!-- CSS concatenated and minified via ant build script-->
   <%= stylesheet_link_tag "frontend" %>
 
-  <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
   <!-- end CSS-->
 
 
@@ -64,14 +63,12 @@
         <%= yield %>
       </section>
     </section>
-
-    <div id="feedback">
-      <a href="mailto:feedback@factlink.com?Subject=Feedback Factlink pre-alpha">Feedback</a>
-    </div>
+    <%= render 'home/feedback' %>
   </div>
 
-  <div id="first-tour-modal" class="modal hide fade tour-modal">
-  </div>
+  <div id="first-tour-modal" class="modal hide fade tour-modal"></div>
+
+
 
   <%= load_mustache_templates %>
 
