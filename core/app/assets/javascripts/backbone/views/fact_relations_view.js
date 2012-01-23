@@ -76,6 +76,12 @@ window.FactRelationsView = Backbone.View.extend({
 
   hide: function() {
     $(this.el).hide();
+    $(this.el).find('.add-evidence-container').hide();
+  },
+
+  show: function() {
+    $(this.el).show();
+    $(this.el).find('.add-evidence-container').show();
   },
 
   showAndFetch: function() {
@@ -114,13 +120,5 @@ window.FactRelationsView = Backbone.View.extend({
 
   hideNoEvidenceMessage: function() {
     $(this.el).find('.no-evidence-message').hide();
-  },
-
-  showSearch: function() {
-    $(this.el).find('.add-evidence-container').show();
-  },
-
-  hideSearch: function() {
-    $(this.el).find('.add-evidence-container').hide();
   }
 });

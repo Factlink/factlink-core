@@ -10,8 +10,6 @@ window.FactView = Backbone.View.extend({
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
-    "click .controls .supporting a.add-button,    .controls .weakening a.add-button, .no-evidence-message .do-add": "showAddRelation",
-    "click .controls .supporting a.cancel-button, .controls .weakening a.cancel-button": "hideAddRelation"
   },
 
   initialize: function(opts) {
@@ -154,30 +152,6 @@ window.FactView = Backbone.View.extend({
       this.hideDropdownContainer();
 
       this._currentVisibleDropdown = undefined;
-    }
-  },
-
-  showAddRelation: function(e) {
-    e.stopPropagation();
-    $('.do-add').hide();
-    $(e.target).toggleClass('add-button cancel-button');
-
-    if ( this._currentVisibleDropdown === "supporting" ) {
-      this.supportingFactRelationsView.showSearch();
-    } else {
-      this.weakeningFactRelationsView.showSearch();
-    }
-  },
-
-  hideAddRelation: function(e) {
-    e.stopPropagation();
-$('.do-add').show();
-    $(e.target).toggleClass('add-button cancel-button');
-
-    if ( this._currentVisibleDropdown === "supporting" ) {
-      this.supportingFactRelationsView.hideSearch();
-    } else {
-      this.weakeningFactRelationsView.hideSearch();
     }
   },
 
