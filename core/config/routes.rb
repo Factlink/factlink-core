@@ -78,6 +78,8 @@ FactlinkUI::Application.routes.draw do
     resources :jobs
   end
 
+  resource :feedback, only: [:new, :create], controller: "feedback"
+
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
 

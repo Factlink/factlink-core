@@ -3,6 +3,7 @@
 //= require bubble
 //= require modal
 //= require tour
+//= require feedback
 //= require_tree ./frontend
 
 $(".alert-message").alert();

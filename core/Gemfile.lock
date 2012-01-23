@@ -72,6 +72,7 @@ GEM
       activesupport (= 3.1.3)
     activesupport (3.1.3)
       multi_json (~> 1.0)
+    api_cache (0.2.3)
     arel (2.2.1)
     arrayfields (4.7.4)
     bcrypt-ruby (3.0.1)
@@ -123,6 +124,8 @@ GEM
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
     diff-lcs (1.1.3)
+    domain_name (0.5.2)
+      unf (~> 0.0.3)
     erubis (2.7.0)
     escape (0.0.4)
     eventmachine (0.12.10)
@@ -147,6 +150,9 @@ GEM
     highline (1.6.9)
     hike (1.2.1)
     hirb (0.5.0)
+    httparty (0.8.1)
+      multi_json
+      multi_xml
     i18n (0.6.0)
     jasmine (1.1.2)
       jasmine-core (>= 1.1.0)
@@ -181,6 +187,13 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (4.3.0)
+    mechanize (2.1)
+      domain_name (~> 0.5, >= 0.5.1)
+      net-http-digest_auth (~> 1.1, >= 1.1.1)
+      net-http-persistent (~> 2.3, >= 2.3.2)
+      nokogiri (~> 1.4)
+      ntlm-http (~> 0.1, >= 0.1.1)
+      webrobots (~> 0.0, >= 0.0.9)
     method_source (0.6.7)
       ruby_parser (>= 2.3.1)
     metric_fu (2.1.1)
@@ -212,9 +225,12 @@ GEM
       rails (>= 3.0.0)
       railties (>= 3.0.0)
     multi_json (1.0.4)
+    multi_xml (0.4.1)
     mustache (0.99.4)
     nest (1.1.0)
       redis (~> 2.1)
+    net-http-digest_auth (1.2)
+    net-http-persistent (2.3.3)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -223,6 +239,12 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.0)
+    ntlm-http (0.1.1)
+    octopi (0.4.5)
+      api_cache
+      httparty (>= 0.4.5)
+      mechanize (>= 0.9.3)
+      nokogiri (>= 1.3.1)
     orm_adapter (0.0.6)
     paperclip (2.5.0)
       activerecord (>= 2.3.0)
@@ -349,12 +371,17 @@ GEM
     uglifier (1.2.2)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    unf (0.0.4)
+      unf_ext
+    unf_ext (0.0.4)
     warden (1.0.6)
       rack (>= 1.0)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    webrobots (0.0.12)
+      nokogiri (>= 1.4.4)
     will_paginate (3.0.2)
 
 PLATFORMS
@@ -392,6 +419,7 @@ DEPENDENCIES
   mongoid_rails_migrations (= 0.0.13)
   mustache
   mustache_rails3!
+  octopi
   ohm!
   ohm-contrib!
   pry
