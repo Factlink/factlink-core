@@ -79,9 +79,6 @@ gem 'capistrano-ext', :require => false
 # imagemagick
 gem 'rmagick', :require => 'RMagick'
 
-# Avatars
-gem "mongoid-paperclip", :require => "mongoid_paperclip"
-
 # authorization
 gem "cancan"
 

@@ -33,7 +33,7 @@
           <% end %>
 
           <li class="dropdown" data-dropdown="dropdown">
-            <a class="dropdown-toggle">   <%= image_tag(current_user.avatar.url(:small), :width => 20) %> <%= current_user.username %>  </a>
+            <a class="dropdown-toggle">   <%= image_tag(current_user.avatar_url(size:20), :width => 20) %> <%= current_user.username %>  </a>
             <ul class="dropdown-menu">
               <% if can? :access, Ability::FactlinkWebapp %>
                 <li><span>Authority: <%= current_user.graph_user.rounded_authority %></span></li>

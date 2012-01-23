@@ -1,8 +1,8 @@
 require 'open-uri'
+require 'digest/md5'
 
 class User
   include Mongoid::Document
-  include Mongoid::Paperclip
   include Sunspot::Mongoid
 
   field :name
@@ -23,16 +23,6 @@ class User
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
-  has_mongoid_attached_file :avatar,
-    :default_url   => "/assets/avatar.jpeg",
-    :styles => {
-      :small  => "32x32#",
-      :medium => "48x48#",
-      :large  => "64x64#"
-    }
-  before_post_process :set_avatar_filename
-
-  after_create :set_avatar_from_twitter
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
@@ -121,32 +111,25 @@ class User
     from_param(param)
   end
 
-  def set_avatar_from_twitter
-    if self.twitter
-      url = twitter_image_url
-
-      begin
-        self.avatar = open(url)
-        self.save
-      rescue
-        puts "[Error] Failed twitter_image_url - User#set_avatar_from_twitter"
-      end
-    end
+  def avatar_url(options={})
+    options[:default] ||= :retro
+    options[:rating] ||= :PG
+    gravatar_url(email,options)
   end
 
   private
-  def update_avatar
-    unless self.avatar_updated_at
-      set_avatar_filename
+    # from: http://douglasfshearer.com/blog/gravatar-for-ruby-and-ruby-on-rails
+    # Returns a Gravatar URL associated with the email parameter.
+    #
+    # Gravatar Options:
+    # - rating: Can be one of G, PG, R or X. Default is X.
+    # - size: Size of the image. Default is 80px.
+    # - default: URL for fallback image if none is found or image exceeds rating.
+    def gravatar_url(email,gravatar_options={})
+      grav_url = 'https://secure.gravatar.com/avatar/'
+      grav_url << "#{Digest::MD5.new.update(email)}?"
+      grav_url << (gravatar_options.slice(:rating,:size,:default).map{|k,v| "#{k}=#{v}"}.join "&")
+      grav_url
     end
-  end
-
-  def set_avatar_filename
-    self.avatar.instance_write(:file_name, self.twitter)
-  end
-
-  def twitter_image_url
-    "http://api.twitter.com/1/users/profile_image?screen_name=#{twitter}&size=bigger"
-  end
 
 end

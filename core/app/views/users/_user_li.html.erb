@@ -1,6 +1,6 @@
 <li class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
   <div class="user-avatar">
-    <%= image_tag(user.avatar.url(:small), :width => 32) %>
+    <%= image_tag(user.avatar_url(size: 32), :width => 32) %>
   </div>
 
   <div class="wrapper">
