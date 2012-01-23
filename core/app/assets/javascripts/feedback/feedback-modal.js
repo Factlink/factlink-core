@@ -11,7 +11,6 @@
   $('.feedback').live('click', function() {
     modal.modal('show');
 
-    // Load the tour
     $.ajax({
       url: "/feedback/new",
       dataType: "html",
