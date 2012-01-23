@@ -76,12 +76,6 @@ window.FactRelationsView = Backbone.View.extend({
 
   hide: function() {
     $(this.el).hide();
-    $(this.el).find('.add-evidence-container').hide();
-  },
-
-  show: function() {
-    $(this.el).show();
-    $(this.el).find('.add-evidence-container').show();
   },
 
   show: function() {
