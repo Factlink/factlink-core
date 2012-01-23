@@ -1,4 +1,4 @@
-## Core
+## Web-proxy
 
 This project is the factlink web proxy. This application provides a proxy to the whole web, and enables Factlink
 functionality on every webpage. For setting up the environment, see the instructions on:
