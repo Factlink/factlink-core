@@ -268,4 +268,27 @@ describe Channel do
       end
     end
   end
+
+  describe "creating a channel" do
+    it "should be possible to create a channel given a username and a title" do
+      @ch = Channel.create created_by: u1, title: 'foo'
+      @ch.should_not be_new
+    end
+    context "should not be possible to create two channels with the same title" do
+      before do
+        Channel.create title: "foo", created_by: u1
+      end
+      it "should not be possible using create" do
+        @ch = Channel.create title: "foo", created_by: u1
+        @ch.should be_new
+        @ch.should_not be_valid
+      end
+      it "should not be possible using save" do
+        @ch = Channel.new title: "foo", created_by: u1
+        @ch.should_not be_valid
+        @ch.save
+        @ch.should be_new
+      end
+    end
+  end
 end
