@@ -21,7 +21,7 @@ describe Channel do
   let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
   let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
-  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Diddly")}
+  let(:u1_ch2) {Channel.create(:created_by => u1, :title => "Diddly")}
   let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
   let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
