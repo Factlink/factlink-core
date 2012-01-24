@@ -12,6 +12,7 @@ class Channel < OurOhm
 
   reference :created_by, GraphUser
   alias :graph_user :created_by
+  index :created_by_id
 
   set :contained_channels, Channel
   set :containing_channels, Channel
