@@ -72,7 +72,7 @@ describe Channel do
     
     describe "after forking" do
       before do
-        @fork = create :channel, created_by: u2
+        @fork = Channel.create created_by: u2, title: "Fork"
         @fork.add_channel(subject)
         @fork.title = "Fork"
         @fork.save
