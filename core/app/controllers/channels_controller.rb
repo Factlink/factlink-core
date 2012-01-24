@@ -183,10 +183,6 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
-  def follow
-    @channel.fork(current_user.graph_user)
-  end
-
   def related_users
     authorize! :show, @channel
 

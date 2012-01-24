@@ -111,13 +111,6 @@ class Channel < OurOhm
   end
 
 
-  def fork(user)
-    c = Channel.create(:created_by => user, :title => title)
-    c._add_channel(self)
-    activity(user,:forked,self,:to,c)
-    c
-  end
-
   def related_users(calculator=RelatedUsersCalculator.new,options)
     options[:without] ||= []
     options[:without] << created_by
@@ -133,7 +126,9 @@ class Channel < OurOhm
 
   def add_channel(channel)
     if (! contained_channels.include?(channel))
-      _add_channel(channel)
+      contained_channels << channel
+      channel.containing_channels << self
+      calculate_facts
       activity(self.created_by,:added,channel,:to,self)
     end
   end
@@ -157,12 +152,6 @@ class Channel < OurOhm
   end
 
   protected
-    def _add_channel(channel)
-      contained_channels << channel
-      channel.containing_channels << self
-      calculate_facts
-    end
-
     def self.recalculate_all
       all.andand.each do |ch|
         ch.calculate_facts

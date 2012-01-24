@@ -96,9 +96,6 @@ FactlinkUI::Application.routes.draw do
           end
         end
 
-        # TODO replace with collection do add:
-        get "follow", :as => "follow"
-
         get "related_users", :as => "channel_related_users"
         get "activities", :as => "activities"
 
