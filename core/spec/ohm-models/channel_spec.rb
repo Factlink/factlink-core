@@ -29,13 +29,13 @@ describe Channel do
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
-  
+
   let (:f1) { create_fact }
   let (:f2) { create_fact }
   let (:f3) { create_fact }
   let (:f4) { create_fact }
 
-  
+
   describe "initially" do
     it { subject.containing_channels.to_a.should =~ [] }
   end
@@ -49,7 +49,7 @@ describe Channel do
     it { subject.facts.to_a.should =~ []}
   end
 
-  
+
   describe "after adding one fact" do
     before do
       subject.add_fact(f1)
@@ -67,22 +67,22 @@ describe Channel do
       end
       it { subject.facts.to_a.should =~ []}
     end
-    
-    
-    
+
+
+
     describe "after forking" do
       before do
         @fork = Channel.create created_by: u2, title: "Fork"
         @fork.add_channel(subject)
         @fork.title = "Fork"
         @fork.save
-      end  
-      
+      end
+
       it {subject.facts.to_a.should =~ [f1]}
       it {@fork.facts.to_a.should =~ [f1]}
 
       it {subject.containing_channels.to_a.should =~ [@fork]}
-      
+
       describe "and removing the fact from the original" do
         before do
           subject.remove_fact(f1)
@@ -135,7 +135,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "after adding a subchannel" do
     before do
       subject.add_channel(ch1)
@@ -159,7 +159,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "after adding to two channels" do
     before do
       ch1.add_channel subject
@@ -173,7 +173,7 @@ describe Channel do
       it {subject.containing_channels.to_a.should =~ [ch2]}
     end
   end
-  
+
   describe "#containing_channels_for" do
     describe "initially" do
       it {subject.containing_channels_for(u1).to_a.should =~ []}
@@ -192,7 +192,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "#active_channels_for" do
     before do
       @expected_channels = []
@@ -230,7 +230,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "#facts" do
     before do
       Fact.should_receive(:invalid).any_number_of_times.and_return(false)
