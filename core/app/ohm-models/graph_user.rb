@@ -58,17 +58,21 @@ class GraphUser < OurOhm
   index :cached_authority
   def calculate_authority
     self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.influencing_authority})
-    self.class.key[:top_users].zadd(self.cached_authority, id)
     self.save
+    self.reposition_in_top_users
+  end
+
+  def reposition_in_top_users
+    GraphUser.key[:top_users].zadd(self.cached_authority, id)
   end
 
   def remove_from_top_users
-    self.class.key[:top_users].zrem(id)
+    GraphUser.key[:top_users].zrem(id)
   end
   after :delete, :remove_from_top_users
 
   def self.top(nr = 10)
-    self.key[:top_users].zrevrange(0,nr-1).map(&GraphUser)
+    GraphUser.key[:top_users].zrevrange(0,nr-1).map(&GraphUser)
   end
 
   def authority
