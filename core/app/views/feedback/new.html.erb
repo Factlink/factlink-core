@@ -28,7 +28,7 @@
     </fieldset>
   </div>
   <div class="modal-footer">
-    <input type="submit" class="btn primary" name="submit" value="Submit">
+      <%= button_tag("Save", :disable_with => "Saving...", :class => "positive btn primary") %>&nbsp;
     <a class="btn secondary cancel">Cancel</a>
   </div>
 <% end %>

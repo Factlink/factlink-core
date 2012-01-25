@@ -26,6 +26,7 @@
 
 
   $("#feedback-form").live("ajax:success ajax:error", function(e, data) {
+    $("#feedback-form")[0].reset();
     var alertMsg = $(".alert-message", modal);
     alertMsg.html(data.msg).show();
     alertMsg.alert();
