@@ -24,6 +24,8 @@ else
     end
   end
 
+  require_relative '../config/initializers/redis.rb'
+  
   #Ohm.redis = MockRedis.new
 
   require_relative '../app/ohm-models/our_ohm.rb'
