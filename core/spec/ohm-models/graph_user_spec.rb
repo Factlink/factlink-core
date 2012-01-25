@@ -14,7 +14,7 @@ describe GraphUser do
     it { subject.facts_he(:believes).should be_empty }
     it { subject.facts_he(:doubts).should be_empty }
     it { subject.facts_he(:disbelieves).should be_empty }
-    
+
     context "the subjects channels" do
       it { subject.created_facts_channel.title.should == "Created" }
       it { subject.stream.title.should == "All" }
@@ -46,6 +46,25 @@ describe GraphUser do
         subject.channels.each do |ch|
           ch.should be_a Channel
         end
+      end
+    end
+  end
+
+  describe "Recalculate top users" do
+    context "Initially" do
+      it { GraphUser.top(10).should == [] }
+    end
+    context "After adding 2 users" do
+      before do
+        @u1 = create :graph_user
+        @u2 = create :graph_user
+      end
+      it { GraphUser.top(10).should == [@u2, @u1]}
+      context "After one user creates a channel" do
+        before do
+          @c1 = create :channel, :created_by => @u1
+        end
+        it { GraphUser.top(10).should == [@u1, @u2]}
       end
     end
   end

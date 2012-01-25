@@ -22,6 +22,8 @@ class Channel < OurOhm
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
+  after :create, :update_top_users
+
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
   def prune_invalid_facts
@@ -57,11 +59,19 @@ class Channel < OurOhm
       a.delete
     end
     old_real_delete
+    update_top_users
   end
+
   def delete
     self.discontinued = true
     save
+    update_top_users
   end
+
+  def update_top_users
+    self.created_by.reposition_in_top_users
+  end
+
 
   def facts(opts={})
     return [] if new?

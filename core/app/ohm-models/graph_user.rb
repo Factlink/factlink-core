@@ -63,7 +63,7 @@ class GraphUser < OurOhm
   end
 
   def reposition_in_top_users
-    GraphUser.key[:top_users].zadd(self.cached_authority, id)
+    GraphUser.key[:top_users].zadd(self.internal_channels.size, id)
   end
 
   def remove_from_top_users
