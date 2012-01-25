@@ -52,15 +52,6 @@ class GraphUser < OurOhm
   end
   after :create, :create_created_facts_channel
 
-  after :create, :calculate_authority
-
-  attribute :cached_authority
-  index :cached_authority
-  def calculate_authority
-    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.influencing_authority})
-    self.save
-    self.reposition_in_top_users
-  end
 
   after :create, :reposition_in_top_users
   def reposition_in_top_users
@@ -74,15 +65,6 @@ class GraphUser < OurOhm
 
   def self.top(nr = 10)
     GraphUser.key[:top_users].zrevrange(0,nr-1).map(&GraphUser)
-  end
-
-  def authority
-    self.cached_authority || 1.0
-  end
-
-  def rounded_authority
-    auth = [self.authority.to_f, 1.0].max
-    sprintf('%.1f', auth)
   end
 
   # user.facts_he(:believes)

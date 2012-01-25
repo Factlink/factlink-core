@@ -43,3 +43,25 @@ class Fact
     [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
   end
 end
+
+class GraphUser < OurOhm
+  after :create, :calculate_authority
+
+  attribute :cached_authority
+  index :cached_authority
+  def calculate_authority
+    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.influencing_authority})
+    self.save
+  end
+
+  def authority
+    self.cached_authority || 1.0
+  end
+
+  def rounded_authority
+    auth = [self.authority.to_f, 1.0].max
+    sprintf('%.1f', auth)
+  end
+
+
+end
