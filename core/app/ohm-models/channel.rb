@@ -47,6 +47,16 @@ class Channel < OurOhm
 
   attribute :discontinued
   index :discontinued
+  alias :old_real_delete :delete
+  def real_delete
+    contained_channels.each do |subch|
+      subch.containing_channels.delete self
+    end
+    Activity.for(self).each do |a|
+      a.delete
+    end
+    old_real_delete
+  end
   def delete
     self.discontinued = true
     save

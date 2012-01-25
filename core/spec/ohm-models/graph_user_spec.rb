@@ -17,6 +17,18 @@ describe GraphUser do
     it { GraphUser.top(10).to_a =~ []}
   end
 
+  describe "removing a channel" do
+    it "should be removed from the graph_users channels" do
+      u1 = create :graph_user
+      ch1 = create :channel, created_by: u1
+      u1.internal_channels.should include(ch1)
+      u1.channels.should include(ch1)
+      ch1.real_delete
+      u1 = GraphUser[u1.id]
+      u1.internal_channels.should_not include(ch1)
+      u1.channels.should_not include(ch1)
+    end
+  end
 
   [:believes,:doubts,:disbelieves].each do |type|
     context "after adding #{type} to a fact" do

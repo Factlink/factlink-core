@@ -291,4 +291,35 @@ describe Channel do
       end
     end
   end
+  
+  describe "removing a channel" do
+    it "should be possible" do
+      id = ch1.id
+      Channel[id].should_not be_nil
+      ch1.real_delete
+      Channel[id].should be_nil
+    end
+    it "should remove itself from other channels' containing_channels" do
+      id = ch1.id
+      ch1.add_channel u1_ch1
+      u1_ch1.containing_channels.ids.should =~ [id]
+      ch1.real_delete
+      u1_ch1.containing_channels.ids.should =~ []
+    end
+    it "should remove activities" do
+      fakech1 = Channel.new
+      ch1.add_channel u1_ch1
+      fakech1.stub(:id,ch1.id)
+      ch1.add_fact f1
+      ch1.real_delete
+      Activity.for(fakech1).all.should == []
+    end
+    it "should be removed from the graph_users active channels for" do
+      subject
+      Channel.active_channels_for(u1).should include(subject)
+      subject.real_delete
+      Channel.active_channels_for(u1).should_not include(subject)
+    end
+  end
+  
 end
