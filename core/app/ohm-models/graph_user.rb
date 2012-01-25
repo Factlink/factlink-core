@@ -62,6 +62,7 @@ class GraphUser < OurOhm
     self.reposition_in_top_users
   end
 
+  after :create, :reposition_in_top_users
   def reposition_in_top_users
     GraphUser.key[:top_users].zadd(self.internal_channels.size, id)
   end
