@@ -43,9 +43,13 @@ FactoryGirl.define do
     association :created_by, :factory => :graph_user
   end
 
+  sequence :title do |n|
+    "Title #{n}"
+  end
+
   factory :channel do
     association :created_by, :factory => :graph_user
-    title "Titel"
+    title
   end
 
   factory :job do
