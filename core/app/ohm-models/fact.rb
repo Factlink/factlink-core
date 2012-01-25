@@ -111,13 +111,5 @@ class Fact < Basefact
   before :delete, :delete_all_evidenced
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
-  attribute :cached_incluencing_authority
-  def calculate_influencing_authority
-    self.cached_incluencing_authority = [1, FactRelation.find(:from_fact_id => self.id).except(:created_by_id => self.created_by_id).count].max
-    self.save
-  end
-  def influencing_authority
-    [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
-  end
 
 end

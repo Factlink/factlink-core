@@ -24,7 +24,22 @@ FactRelation.opinion_reference :influencing_opinion do |depth|
   get_type_opinion.dfa(self.from_fact.get_opinion(depth), self.get_user_opinion(depth))
 end
 
-class FactRelation < Basefact
+class FactRelation
   alias :get_opinion :get_user_opinion
   alias :calculate_opinion :calculate_user_opinion
+end
+
+
+
+# authority
+
+class Fact
+  attribute :cached_incluencing_authority
+  def calculate_influencing_authority
+    self.cached_incluencing_authority = [1, FactRelation.find(:from_fact_id => self.id).except(:created_by_id => self.created_by_id).count].max
+    self.save
+  end
+  def influencing_authority
+    [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
+  end
 end
