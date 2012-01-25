@@ -1,6 +1,7 @@
 require_relative 'channel/generated_channel'
 require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
+require_relative 'channel/overtaker'
 
 class Channel < OurOhm
   include Activity::Subject
