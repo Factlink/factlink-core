@@ -14,7 +14,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    redirect_to user_profile_path(@current_user) if user_signed_in?
+    redirect_to user_profile_path(@current_user) and return if user_signed_in?
       
     @facts = Fact.all.sort(:order => "DESC",:limit => 3)
     render layout: "landing"

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe HomeController do
   include Devise::TestHelpers
   include ControllerMethods
+
+  let (:user)  {FactoryGirl.create :user}
   
   render_views
 
@@ -13,6 +15,11 @@ describe HomeController do
       response.should be_succes
     end
 
+    it "should work" do
+      authenticate_user!(user)
+      get :index
+      response.should redirect_to(user_profile_path user)
+    end
 
 
     it "assigns @facts" do
