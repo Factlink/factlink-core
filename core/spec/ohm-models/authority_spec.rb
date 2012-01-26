@@ -48,6 +48,7 @@ describe Authority do
     it "should return an authority for the subject" do
       Authority.from(i1).subject.should == i1
     end
+    it "should return the authority from the user, when provided" do
   end
   describe ".set_from" do
     it "should set the authority" do
