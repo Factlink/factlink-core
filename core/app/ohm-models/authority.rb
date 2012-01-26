@@ -1,5 +1,6 @@
 class Authority < OurOhm
   generic_reference :subject
+  reference :user, GraphUser
 
   attribute :authority
 
@@ -13,6 +14,14 @@ class Authority < OurOhm
       a = from(subject)
       a.authority = authority
       a.save
+    def from(subject, opts={})
+      if opts[:for]
+        find( subject_id: subject.id.to_s, subject_class: subject.class.to_s,
+              user_id: opts[:for].id).first ||
+            Authority.new(subject: subject, user: opts[:for],  authority: 0.0)
+      else
+        find( subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(subject: subject)
+      end
     end
 
     def calculate_from klass, &block
