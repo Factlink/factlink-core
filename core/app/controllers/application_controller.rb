@@ -56,6 +56,14 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new(message)
   end
 
+  class HackAttempt < StandardError
+  end
+  rescue_from HackAttempt, with: :rescue_hacker
+
+  def rescue_hacker
+    render nothing: true, status: 500
+  end
+
   def lazy *args, &block
     Lazy.new *args, &block
   end
