@@ -55,4 +55,6 @@ FactoryGirl.define do
   factory :job do
   end
 
+  factory :topic do
+  end
 end
