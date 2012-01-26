@@ -32,9 +32,9 @@ class Authority < OurOhm
     end
 
     private
-      def calculators
+    def calculators
         @calculators ||= reset_calculators
-      end
+    end
   end
 
   def << auth
