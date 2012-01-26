@@ -51,20 +51,16 @@ end
 class GraphUser < OurOhm
   after :create, :calculate_authority
 
-  attribute :cached_authority
-  index :cached_authority
   def calculate_authority
-    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.authority})
-    self.save
+    Authority.recalculate_from self
   end
 
   def authority
-    self.cached_authority || 1.0
+    Authority.from(self).to_f
   end
 
   def rounded_authority
-    auth = [self.authority.to_f, 1.0].max
-    sprintf('%.1f', auth)
+    Authority.from(self).to_s
   end
 
 
