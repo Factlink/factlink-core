@@ -33,7 +33,7 @@ module BeliefExpressions
   def a(user)
     @nothing_happened = false
     possible_reset
-    GraphUser[user.graph_user.id].authority.to_f.should
+    Authority.from(GraphUser[user.graph_user.id]).to_f.should
   end
 
   def opinion?(fact)

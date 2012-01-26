@@ -38,14 +38,7 @@ Authority.calculate_from :Fact do |f|
 end
 
 Authority.calculate_from :GraphUser do |gu|
-  1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * fact.authority})
-end
-
-
-class Fact
-  def authority
-    Authority.from(self).to_f
-  end
+  1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * Authority.from(fact).to_f })
 end
 
 class GraphUser < OurOhm

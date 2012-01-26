@@ -35,7 +35,6 @@ module Users
     end
 
     def authority
-
       Authority.from self[:graph_user]
     end
 

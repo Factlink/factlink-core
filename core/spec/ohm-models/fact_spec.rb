@@ -25,7 +25,7 @@ describe Fact do
       subject.should be_a(Fact)
     end
     it "should have an authority of 1" do
-      subject.authority.should == 1.0
+      Authority.from(subject).to_f.should == 1.0
     end
     it "should be persisted" do
       Fact[subject.id].should == subject
@@ -40,7 +40,7 @@ describe Fact do
       end
     end
   end
-  
+
   it "should have the GraphUser set when a opinion is added" do
     parent.add_opinion(:believes, gu1)
     parent.opiniated(:believes).to_a.should =~ [gu1]
@@ -59,7 +59,7 @@ describe Fact do
     @gu.created_facts.to_a.should =~ [subject]
   end
 
-  
+
   context "evidence" do
     describe "should initially be empty" do
 
@@ -84,7 +84,7 @@ describe Fact do
         end
       end
     end
-    
+
     describe ".add_evidence" do
 
       context "with one #{relation} fact" do
@@ -97,12 +97,12 @@ describe Fact do
         describe "should have one evidence" do
           it "for the relation #{relation}" do
             subject.evidence(relation).count.should == 1
-          end 
+          end
           it "for :both" do
             subject.evidence(:both).count.should == 1
           end
         end
-        
+
         describe ".delete the fact, which has a #{relation} fact" do
           before do
             @subject_id = subject.id
@@ -138,13 +138,13 @@ describe Fact do
           end
         end
       end
-      
+
       context "with two #{relation} fact" do
         before do
           @fr = subject.add_evidence(relation,factlink,gu1)
           @fr2 = subject.add_evidence(relation,factlink2,gu1)
         end
-        
+
         it "should have two #{relation} facts" do
           subject.evidence(relation).count.should == 2
         end
@@ -152,13 +152,13 @@ describe Fact do
           subject.evidence(:both).count.should == 2
         end
       end
-      
+
       context "with one #{relation} fact and one #{other_one(relation)} fact" do
         before do
           @fr = subject.add_evidence(relation,factlink,gu1)
           @fr2 = subject.add_evidence(other_one(relation),factlink2,gu1)
         end
-        
+
         it "should have one #{relation} fact" do
           subject.evidence(relation).count.should == 1
         end
@@ -171,7 +171,7 @@ describe Fact do
       end
     end
   end
-  
+
 
   describe "Mongoid properties: " do
     [:displaystring, :title, :passage, :content].each do |attr|
@@ -209,7 +209,7 @@ describe Fact do
       f2.data.displaystring.should == "This is a fact"
     end
   end
-  
+
 
 
 end
