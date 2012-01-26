@@ -33,14 +33,17 @@ end
 
 # authority
 
+Authority.calculate_from :Fact do |f|
+  [1, FactRelation.find(:from_fact_id => f.id).except(:created_by_id => f.created_by_id).count].max
+end
+
 class Fact
   attribute :cached_incluencing_authority
   def calculate_influencing_authority
-    self.cached_incluencing_authority = [1, FactRelation.find(:from_fact_id => self.id).except(:created_by_id => self.created_by_id).count].max
-    self.save
+    Authority.recalculate_from self
   end
   def influencing_authority
-    [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
+    Authority.from(self).to_f
   end
 end
 
