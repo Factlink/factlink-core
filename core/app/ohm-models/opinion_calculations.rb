@@ -54,9 +54,4 @@ class GraphUser < OurOhm
     Authority.from(self).to_f
   end
 
-  def rounded_authority
-    Authority.from(self).to_s
-  end
-
-
 end

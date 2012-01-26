@@ -33,8 +33,10 @@ module Users
     def profile_path
       view.user_profile_path(self[:user].username)
     end
+
     def authority
-      self[:graph_user].rounded_authority
+
+      Authority.from self[:graph_user]
     end
 
     def all_channel_id

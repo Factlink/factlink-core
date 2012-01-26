@@ -5,6 +5,6 @@
 
   <div class="wrapper">
     <h3><%= user.username %></h3>
-    <sub>authority: <%= user.graph_user.rounded_authority %></sub>
+    <sub>authority: <%= Authority.from user.graph_user %></sub>
   </div>
 </li>
