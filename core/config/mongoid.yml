@@ -7,9 +7,14 @@ test:
   database: factlink_ui_test
 
 testserver:
-  host: localhost
-  port: 27019
   database: factlink_ui_production
+  hosts:
+    - - mongo1-testserver.factlink.com
+      - 27019
+    - - mongo2-testserver.factlink.com
+      - 27019
+    - - mongo3-testserver.factlink.com
+      - 27019
 
 staging:
   host: localhost
