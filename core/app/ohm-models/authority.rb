@@ -24,7 +24,7 @@ class Authority < OurOhm
     end
 
     def recalculate_from subject
-      set_from subject, authority
+      set_from subject, calculated_from_authority(subject)
     end
 
     def reset_calculators
