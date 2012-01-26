@@ -6,10 +6,11 @@ class Item < OurOhm
   attribute :number
 end
 
-
+class GraphUser < OurOhm; end
 
 describe Authority do
   let(:i1) { Item.create }
+  let(:gu1) { GraphUser.create }
 
   before do
     Authority.reset_calculators
@@ -38,6 +39,10 @@ describe Authority do
       it do
         Authority.from(Item.create).to_f.should == 1
       end
+      it do
+        a = Authority.from(i1, for: gu1)
+        a.to_f.should == 0
+      end
     end
     context "for a defined authority" do
       it do
@@ -49,16 +54,31 @@ describe Authority do
       Authority.from(i1).subject.should == i1
     end
     it "should return the authority from the user, when provided" do
-  end
-  describe ".set_from" do
-    it "should set the authority" do
-      Authority.set_from(i1, 21)
-      Authority.from(i1).to_f.should == 21
+      a = Authority.from(i1, for: gu1)
+      a.user.should == gu1
     end
-    it "should update the authority" do
-      Authority.set_from(i1, 23)
-      Authority.set_from(i1, 21)
-      Authority.from(i1).to_f.should == 21
+  end
+  describe :<< do
+    context "without for" do
+      it "should set the authority" do
+        Authority.from(i1) << 21
+        Authority.from(i1).to_f.should == 21
+      end
+      it "should update the authority" do
+        Authority.from(i1) << 23
+        Authority.from(i1) << 21
+        Authority.from(i1).to_f.should == 21
+      end
+      it "should not influence the from with for" do
+        Authority.from(i1) << 10
+        Authority.from(i1,for: gu1).to_f.should == 0
+      end
+    end
+    context "with for" do
+      it "should set the authority" do
+        Authority.from(i1, for: gu1) << 21
+        Authority.from(i1, for: gu1).to_f.should == 21
+      end
     end
   end
   describe ".calculated_from_authority" do
