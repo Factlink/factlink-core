@@ -5,15 +5,6 @@ class Authority < OurOhm
   attribute :authority
 
   class << self
-    def from(search_for)
-      find(subject_id: search_for.id.to_s, subject_class: search_for.class.to_s).first ||
-        Authority.new(subject: search_for)
-    end
-
-    def set_from(subject, authority)
-      a = from(subject)
-      a.authority = authority
-      a.save
     def from(subject, opts={})
       if opts[:for]
         find( subject_id: subject.id.to_s, subject_class: subject.class.to_s,
@@ -33,7 +24,7 @@ class Authority < OurOhm
     end
 
     def recalculate_from subject
-      set_from subject, calculated_from_authority(subject)
+      from(subject) << calculated_from_authority(subject)
     end
 
     def reset_calculators
@@ -44,6 +35,11 @@ class Authority < OurOhm
       def calculators
         @calculators ||= reset_calculators
       end
+  end
+
+  def << auth
+    self.authority = auth
+    save
   end
 
   def to_f
