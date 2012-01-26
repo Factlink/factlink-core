@@ -3,8 +3,38 @@ class Authority < OurOhm
 
   attribute :authority
 
-  def self.from(search_for)
-    find(subject_id: search_for.id.to_s, subject_class: search_for.class.to_s).first || Authority.new
+  class << self
+    def from(search_for)
+      find(subject_id: search_for.id.to_s, subject_class: search_for.class.to_s).first ||
+        Authority.new(subject: search_for)
+    end
+
+    def set_from(subject, authority)
+      a = from(subject)
+      a.authority = authority
+      a.save
+    end
+
+    def calculate_from klass, &block
+      calculators[klass] = block
+    end
+
+    def calculated_from_authority(subject)
+      calculators[subject.class].call subject
+    end
+
+    def recalculate_from subject
+      set_from subject, authority
+    end
+
+    def reset_calculators
+      @calculators = Hash.new(lambda {|obj| 1})
+    end
+
+    private
+      def calculators
+        @calculators ||= reset_calculators
+      end
   end
 
   def to_f
