@@ -38,7 +38,6 @@ Authority.calculate_from :Fact do |f|
 end
 
 class Fact
-  attribute :cached_incluencing_authority
   def calculate_influencing_authority
     Authority.recalculate_from self
   end
