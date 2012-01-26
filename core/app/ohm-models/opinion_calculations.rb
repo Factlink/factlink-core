@@ -38,9 +38,6 @@ Authority.calculate_from :Fact do |f|
 end
 
 class Fact
-  def calculate_influencing_authority
-    Authority.recalculate_from self
-  end
   def influencing_authority
     Authority.from(self).to_f
   end

@@ -13,7 +13,7 @@ class FactGraph
   end
 
   def self.calculate_authority
-    Fact.all.to_a.each {|f| f.calculate_influencing_authority}
+    Fact.all.to_a.each {|f|  Authority.recalculate_from f }
     GraphUser.all.to_a.each {|gu| gu.calculate_authority }
   end
 
