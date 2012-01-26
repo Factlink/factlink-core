@@ -61,7 +61,7 @@ describe Authority do
     end
   end
   describe ".calculated_from_authority" do
-    it "should use the calculate from caclculate_from" do
+    it "should use the calculate from calculate_from" do
       Authority.calculate_from Item do |i|
         i.number
       end
