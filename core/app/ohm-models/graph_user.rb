@@ -52,10 +52,12 @@ class GraphUser < OurOhm
   end
   after :create, :create_created_facts_channel
 
+  attribute :interestingness
 
   after :create, :reposition_in_top_users
   def reposition_in_top_users
-    GraphUser.key[:top_users].zadd(self.internal_channels.size, id)
+    self.interestingness = self.internal_channels.size
+    GraphUser.key[:top_users].zadd(self.interestingness, id)
   end
 
   def remove_from_top_users

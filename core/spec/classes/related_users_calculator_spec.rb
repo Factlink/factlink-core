@@ -55,7 +55,7 @@ describe RelatedUsersCalculator do
   describe "after giving a certain user more authority" do
     before do
       f4.add_opiniated(:believes, u3)
-      u3.cached_authority = 13
+      u3.interestingness = 13
       u3.save
     end
     it "should have the right ordering" do
