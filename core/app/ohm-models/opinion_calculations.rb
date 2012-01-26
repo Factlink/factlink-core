@@ -4,7 +4,7 @@ Basefact.opinion_reference :user_opinion do |depth|
   [:believes, :doubts, :disbelieves].each do |type|
     opiniated = opiniated(type)
     opiniated.each do |user|
-      opinions << Opinion.for_type(type, user.authority)
+      opinions << Opinion.for_type(type, Authority.from(user).to_f)
     end
   end
   Opinion.combine(opinions)
@@ -33,35 +33,10 @@ end
 
 # authority
 
-class Fact
-  attribute :cached_incluencing_authority
-  def calculate_influencing_authority
-    self.cached_incluencing_authority = [1, FactRelation.find(:from_fact_id => self.id).except(:created_by_id => self.created_by_id).count].max
-    self.save
-  end
-  def influencing_authority
-    [(self.cached_incluencing_authority.to_f || 1.0), 1.0].max
-  end
+Authority.calculate_from :Fact do |f|
+  [1, FactRelation.find(:from_fact_id => f.id).except(:created_by_id => f.created_by_id).count].max
 end
 
-class GraphUser < OurOhm
-  after :create, :calculate_authority
-
-  attribute :cached_authority
-  index :cached_authority
-  def calculate_authority
-    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.influencing_authority})
-    self.save
-  end
-
-  def authority
-    self.cached_authority || 1.0
-  end
-
-  def rounded_authority
-    auth = [self.authority.to_f, 1.0].max
-    sprintf('%.1f', auth)
-  end
-
-
+Authority.calculate_from :GraphUser do |gu|
+  1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * Authority.from(fact).to_f })
 end
