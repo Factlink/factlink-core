@@ -37,7 +37,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # a(U1) = 1
   # Should have no impact
-  it "should be 1.0 when a user has create one fact" do    
+  it "should be 1.0 when a user has create one fact" do
     @f1 = FactoryGirl.create :fact, created_by: u1
     a(u1) == 1.0
   end
@@ -73,7 +73,7 @@ describe "beliefs should work as described in the google doc" do
     @f1 = FactoryGirl.create :fact, created_by: u1
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
-  
+
     a(u1) == 2
   end
 
@@ -89,7 +89,7 @@ describe "beliefs should work as described in the google doc" do
   # F43 = (F4 -> F6)
   # c(U2, F43)
   # a(U1) = 3
-  # 
+  #
   # a(U1) = 1 + log(2) + log(2) = 3
   it "should have an auhority of3 when 2 facts are used twice" do
     @f1 = FactoryGirl.create :fact, created_by: u1
@@ -97,10 +97,10 @@ describe "beliefs should work as described in the google doc" do
 
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
-  
+
     f5.add_evidence(:supporting, @f4, u2)
     f6.add_evidence(:supporting, @f4, u2)
-  
+
     a(u1) == 3
   end
 
@@ -116,24 +116,24 @@ describe "beliefs should work as described in the google doc" do
   # F43 = (F4 -> F6)
   # c(U2, F43)
   # a(U1) = 1
-  # 
+  #
   # a(U1) = 1 + log(1) + log(1) = 1
   it "should count self generated links" do
     @f1 = FactoryGirl.create :fact, created_by: u1
     @f4 = FactoryGirl.create :fact, created_by: u1
-    
+
     # By the user himself
     f2.add_evidence(:supporting, @f1, u1)
 
     # By another user
     f3.add_evidence(:supporting, @f1, u2)
-  
+
     # By the user himself
     f5.add_evidence(:supporting, @f4, u1)
 
     # By another user
     f6.add_evidence(:supporting, @f4, u2)
-  
+
     a(u1) == 1.0
   end
 
@@ -149,7 +149,7 @@ describe "beliefs should work as described in the google doc" do
   # F43 = (F4 -> F6)
   # c(U2, F43)
   # a(U1) = 3
-  # 
+  #
   # a(U1) = 1 + log(2) + log(2) = 3
   it "should have an auhority of 3 when 2 facts are used for support and two for weakening" do
     @f1 = FactoryGirl.create :fact, created_by: u1
@@ -157,7 +157,7 @@ describe "beliefs should work as described in the google doc" do
 
     f2.add_evidence(:supporting, @f1, u2)
     f3.add_evidence(:supporting, @f1, u2)
-  
+
     f5.add_evidence(:weakening, @f4, u2)
     f6.add_evidence(:weakening, @f4, u2)
 
