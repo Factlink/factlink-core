@@ -49,7 +49,6 @@ class Fact
 end
 
 class GraphUser < OurOhm
-  after :create, :calculate_authority
 
   def calculate_authority
     Authority.recalculate_from self
