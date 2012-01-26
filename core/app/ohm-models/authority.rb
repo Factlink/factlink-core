@@ -16,11 +16,11 @@ class Authority < OurOhm
     end
 
     def calculate_from klass, &block
-      calculators[klass] = block
+      calculators[klass.to_s] = block
     end
 
     def calculated_from_authority(subject)
-      calculators[subject.class].call subject
+      calculators[subject.class.to_s].call subject
     end
 
     def recalculate_from subject

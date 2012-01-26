@@ -68,6 +68,15 @@ describe Authority do
       i1.number = 10
       Authority.calculated_from_authority(i1).should == 10
     end
+    context "when calculate_from is provided with a symbol" do
+      it "should use the calculate from calculate_from" do
+        Authority.calculate_from :Item do |i|
+          i.number
+        end
+        i1.number = 10
+        Authority.calculated_from_authority(i1).should == 10
+      end
+    end
     it "should return 1.0 when no calculator is defined" do
       Authority.calculated_from_authority(i1).should == 1
     end
