@@ -35,7 +35,7 @@ class Authority < OurOhm
       def calculators
         @calculators ||= reset_calculators
       end
- end
+  end
 
   def to_f
     (authority||1).to_f
