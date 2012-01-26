@@ -14,7 +14,7 @@ class FactGraph
 
   def self.calculate_authority
     Fact.all.to_a.each {|f|  Authority.recalculate_from f }
-    GraphUser.all.to_a.each {|gu| gu.calculate_authority }
+    GraphUser.all.to_a.each {|gu| Authority.recalculate_from gu }
   end
 
   def self.export_opiniated(writer,fact,prefix="")

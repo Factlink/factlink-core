@@ -50,10 +50,6 @@ end
 
 class GraphUser < OurOhm
 
-  def calculate_authority
-    Authority.recalculate_from self
-  end
-
   def authority
     Authority.from(self).to_f
   end
