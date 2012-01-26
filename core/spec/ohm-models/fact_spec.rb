@@ -24,8 +24,8 @@ describe Fact do
     it "should be findable" do
       subject.should be_a(Fact)
     end
-    it "should have an influencing authority of 1" do
-      subject.influencing_authority.should == 1.0
+    it "should have an authority of 1" do
+      subject.authority.should == 1.0
     end
     it "should be persisted" do
       Fact[subject.id].should == subject

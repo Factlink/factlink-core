@@ -37,8 +37,13 @@ Authority.calculate_from :Fact do |f|
   [1, FactRelation.find(:from_fact_id => f.id).except(:created_by_id => f.created_by_id).count].max
 end
 
+Authority.calculate_from :GraphUser do |gu|
+  1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * fact.authority})
+end
+
+
 class Fact
-  def influencing_authority
+  def authority
     Authority.from(self).to_f
   end
 end
@@ -49,7 +54,7 @@ class GraphUser < OurOhm
   attribute :cached_authority
   index :cached_authority
   def calculate_authority
-    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.influencing_authority})
+    self.cached_authority = 1.0 + Math.log2(self.real_created_facts.inject(1) { |result, fact| result * fact.authority})
     self.save
   end
 
