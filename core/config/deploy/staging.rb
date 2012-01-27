@@ -1,6 +1,7 @@
 server 'staging.factlink.com', :app, :web, :primary => true
 
 set :deploy_env, 'staging'
+set :rails_env,  'staging' # Also used by capistrano for some specific tasks
 
 set :branch, "master"
 

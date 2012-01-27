@@ -1,6 +1,7 @@
 server 'beta.factlink.com', :app, :web, :primary => true
 
 set :deploy_env, 'production'
+set :rails_env,  'production' # Also used by capistrano for some specific tasks
 
 set :branch, "master"
 
