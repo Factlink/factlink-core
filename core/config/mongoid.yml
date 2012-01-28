@@ -13,8 +13,8 @@ testserver:
 
 staging:
   host: localhost
-  port: 27017
-  database: factlink_ui_production  
+  port: 27018
+  database: factlink_staging
       
 production:
   host: localhost
