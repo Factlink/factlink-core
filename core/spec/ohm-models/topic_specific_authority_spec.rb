@@ -23,8 +23,8 @@ describe "beliefs should work as described in the google doc" do
 
   # Scenario A (a user without any history in Factlink):
   # a(U1) = 1
-  it "for a user without history in Factlink the authority should be 1.0" do
-    authority of: u1, on: t1, should_be: 1.0
+  it "for a user without history in Factlink the authority should be 0.0" do
+    authority of: u1, on: t1, should_be: 0.0
   end
 
 end
