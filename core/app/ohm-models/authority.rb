@@ -9,7 +9,7 @@ class Authority < OurOhm
       if opts[:for]
         find( subject_id: subject.id.to_s, subject_class: subject.class.to_s,
               user_id: opts[:for].id).first ||
-            Authority.new(subject: subject, user: opts[:for],  authority: 0.0)
+            Authority.new(subject: subject, user: opts[:for])
       else
         find( subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(subject: subject)
       end
@@ -28,7 +28,7 @@ class Authority < OurOhm
     end
 
     def reset_calculators
-      @calculators = Hash.new(lambda {|obj| 1})
+      @calculators = Hash.new(lambda {|obj| 0.0})
     end
 
     private
@@ -43,7 +43,7 @@ class Authority < OurOhm
   end
 
   def to_f
-    (authority||1).to_f
+    (authority||0).to_f
   end
 
   def to_s
