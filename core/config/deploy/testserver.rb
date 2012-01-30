@@ -1,6 +1,7 @@
 server 'testserver.factlink.com', :app, :web, :primary => true
 
 set :deploy_env, 'testserver'
+set :rails_env,  'testserver' # Also used by capistrano for some specific tasks
 
 set :branch, "develop"
 
