@@ -1,12 +1,12 @@
 class FactGraph
 
   def self.recalculate
+      calculate_authority
       Basefact.all.to_a.each {|f| f.calculate_user_opinion }
       5.times do
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
         Fact.all.to_a.each {|f| f.calculate_opinion}
       end
-      calculate_authority
   end
 
   def self.reset_values
