@@ -17,9 +17,14 @@ testserver:
       - 27019
 
 staging:
-  host: localhost
-  port: 27018
   database: factlink_staging
+  hosts:
+    - - mongo1-staging.factlink.com
+      - 27018
+    - - mongo2-staging.factlink.com
+      - 27018
+    - - mongo3-staging.factlink.com
+      - 27018
 
 production:
   host: localhost
