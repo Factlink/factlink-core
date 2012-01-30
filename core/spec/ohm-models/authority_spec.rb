@@ -4,9 +4,15 @@ require_relative '../../app/ohm-models/authority.rb'
 
 class Item < OurOhm
   attribute :number
+  collection :items, SubItem
 end
 
 class GraphUser < OurOhm; end
+
+class SubItem < OurOhm
+  attribute :number
+  reference :item, Item
+end
 
 describe Authority do
   let(:i1) { Item.create }
@@ -16,7 +22,7 @@ describe Authority do
     Authority.reset_calculators
   end
   after :all do
-    load_global_authority
+    load_global_authority if respond_to? :load_global_authority
   end
 
 
@@ -42,6 +48,9 @@ describe Authority do
     context "for an undefined authority" do
       it do
         Authority.from(Item.create).to_f.should == 0
+      end
+      it do
+        Authority.from(Item.new).to_f.should == 0
       end
       it do
         a = Authority.from(i1, for: gu1)
@@ -104,6 +113,27 @@ describe Authority do
     end
     it "should return 0.0 when no calculator is defined" do
       Authority.calculated_from_authority(i1).should == 0
+    end
+    describe "should give ... when provided with lambdas" do
+      before do
+        Authority.calculate_from :Item,
+            select: ->(i){ i.items },
+            select_after: ->(select){ select.map { |x| x.number.to_f } },
+            result: ->(select_after){ select_after.inject(0) { |result, item| result + item } },
+            total: ->(result){ [1, result].max }
+      end
+
+      it do
+        i = Item.create
+        SubItem.create  item: i, number: 2
+        SubItem.create  item: i, number: 2
+        Authority.calculated_from_authority(i).to_f.should == 4
+      end
+      it do
+        i = Item.create
+        Authority.calculated_from_authority(i).should == 1
+      end
+
     end
   end
   describe ".reset_calculators" do

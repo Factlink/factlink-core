@@ -6,6 +6,8 @@ class Authority < OurOhm
 
   class << self
     def from(subject, opts={})
+      return Authority.new if subject.new?
+
       if opts[:for]
         find( subject_id: subject.id.to_s, subject_class: subject.class.to_s,
               user_id: opts[:for].id).first ||
@@ -15,8 +17,17 @@ class Authority < OurOhm
       end
     end
 
-    def calculate_from klass, &block
-      calculators[klass.to_s] = block
+    def calculate_from klass, opts={}, &block
+      if block_given?
+        calculators[klass.to_s] = block
+      else
+        calculators[klass.to_s] = lambda do |x|
+          select = opts[:select].call(x)
+          select_after = opts[:select_after].call(select)
+          result = opts[:result].call(select_after)
+          return opts[:total].call(result)
+        end
+      end
     end
 
     def calculated_from_authority(subject)
