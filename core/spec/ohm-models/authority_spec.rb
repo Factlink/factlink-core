@@ -15,13 +15,17 @@ describe Authority do
   before do
     Authority.reset_calculators
   end
+  after :all do
+    load_global_authority
+  end
+
 
   describe :to_f do
     it "should return a float" do
       Authority.new.to_f.should be_a(Float)
     end
     context "initially" do
-      its(:to_f) { should == 1 }
+      its(:to_f) { should == 0 }
     end
   end
 
@@ -37,7 +41,7 @@ describe Authority do
   describe ".from" do
     context "for an undefined authority" do
       it do
-        Authority.from(Item.create).to_f.should == 1
+        Authority.from(Item.create).to_f.should == 0
       end
       it do
         a = Authority.from(i1, for: gu1)
@@ -98,8 +102,8 @@ describe Authority do
         Authority.calculated_from_authority(i1).should == 10
       end
     end
-    it "should return 1.0 when no calculator is defined" do
-      Authority.calculated_from_authority(i1).should == 1
+    it "should return 0.0 when no calculator is defined" do
+      Authority.calculated_from_authority(i1).should == 0
     end
   end
   describe ".reset_calculators" do
@@ -112,7 +116,7 @@ describe Authority do
     end
   end
   describe ".recalculate_from" do
-    it "should use the calculate from caclculate_from" do
+    it "should use the calculate from calculate_from" do
       Authority.calculate_from Item do |i|
         i.number
       end
