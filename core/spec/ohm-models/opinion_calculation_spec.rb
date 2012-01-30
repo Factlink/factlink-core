@@ -14,7 +14,7 @@ describe "beliefs should work as described in the google doc" do
 
   # f1 --> f2
   let(:f22) { f2.add_evidence(:supporting,f1,u1) }
-  
+
   # f1 !-> f2
   let(:f23) { f2.add_evidence(:weakening,f1,u1) }
 
@@ -55,7 +55,7 @@ describe "beliefs should work as described in the google doc" do
     opinion?(f23) == _(1.0,0.0,0.0,1.0)
     opinion?(f2) == _(0.0,1.0,0.0,1.0)
   end
-  
+
   it "scenario 6" do
     b(u1,f1)
     b(u2,f1)
@@ -64,7 +64,7 @@ describe "beliefs should work as described in the google doc" do
     opinion?(f22) == _(0.5,0.5,0.0,2.0)
     opinion?(f2) == _(0.5,0.0,0.5,2.0)
   end
-  
+
   it "scenario 7" do
     b(u1,f1)
     d(u2,f1)
@@ -73,7 +73,7 @@ describe "beliefs should work as described in the google doc" do
     opinion?(f22) == _(1.0,0.0,0.0,1.0)
     opinion?(f2) == _(0.5,0.0,0.5,1.0)
   end
-  
+
   it "scenario 8" do
     b(u1,f1)
     b(u2,f1)
@@ -83,5 +83,5 @@ describe "beliefs should work as described in the google doc" do
     opinion?(f22) == _(1.0,0.0,0.0,1.0)
     opinion?(f2) == _(0.5,0.5,0.0,2.0)
   end
-  
+
 end
