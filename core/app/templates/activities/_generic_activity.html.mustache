@@ -1,7 +1,8 @@
 <article class="generic-activity">
-  <div class="avatar"><img src="" alt="" /></div>
+  <div class="avatar">{{{ activity.avatar }}}</div>
 	<header>
-		<span class="body"><a href="#">Jens Kanis</a> did something</span>
-		<span class="meta channel">About 10 hours ago</span>
+    <span class="body"><a href="{{ activity.user_profile_url }}">{{ activity.username }}</a> {{ activity.action }} <a href="{{ activity.channel_owner_profile_url }}">{{ activity.subject }}</a></span>
+    <span class="meta channel">{{ time_ago }}</span>
+
 	</header>
 </article>
