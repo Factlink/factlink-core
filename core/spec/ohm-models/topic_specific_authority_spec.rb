@@ -38,7 +38,7 @@ describe "beliefs should work"  do
     authority of:u1, on: Topic.by_title("foo"), should_be: 0.0
   end
 
-  it "should not give authority on a topic when creating a fact in it" do
+  pending "should not give authority on a topic when creating a fact in it" do
     f = create :fact, created_by: u1
     c = create :channel, title: "foo"
     f2 = create :fact, created_by: u1
