@@ -22,7 +22,10 @@ describe Authority do
     Authority.reset_calculators
   end
   after :all do
-    load_global_authority if respond_to? :load_global_authority
+    begin
+      load_global_authority
+    rescue
+    end
   end
 
 
