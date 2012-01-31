@@ -1,7 +1,7 @@
 require File.expand_path('../../../app/classes/map_reduce.rb', __FILE__)
 
 class ExampleMapReduce < MapReduce
-  def map(iterator)
+  def map iterator
     iterator.each do |i|
       i.each_pair do |k,v|
         yield k, v*v
@@ -9,7 +9,7 @@ class ExampleMapReduce < MapReduce
     end
   end
 
-  def reduce(bucket, partials)
+  def reduce bucket, partials
       partials.inject(:+)
   end
 end
