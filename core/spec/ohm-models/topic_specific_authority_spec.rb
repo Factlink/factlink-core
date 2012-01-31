@@ -9,6 +9,15 @@ describe "beliefs should work"  do
   let(:u3) {FactoryGirl.create(:graph_user)}
   let(:u4) {FactoryGirl.create(:graph_user)}
 
+  before :all do
+    load_topic_specific_authority
+  end
+
+  after :all do
+    load_global_authority
+  end
+
+
   it "for a user without history in Factlink the authority should be 0.0" do
     t1 = create :topic
     authority of: u1, on: t1, should_be: 0.0

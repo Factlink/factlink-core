@@ -94,6 +94,7 @@ describe Authority do
       end
     end
   end
+
   describe ".calculated_from_authority" do
     it "should use the calculate from calculate_from" do
       Authority.calculate_from Item do |i|
@@ -114,7 +115,8 @@ describe Authority do
     it "should return 0.0 when no calculator is defined" do
       Authority.calculated_from_authority(i1).should == 0
     end
-    describe "should give ... when provided with lambdas" do
+
+    describe "should work when provided with lambdas" do
       before do
         Authority.calculate_from :Item,
             select: ->(i){ i.items },
@@ -133,9 +135,19 @@ describe Authority do
         i = Item.create
         Authority.calculated_from_authority(i).should == 1
       end
-
+    end
+    describe "should work when provided with user specific lambdas" do
+      before do
+        Authority.calculate_from :Item, 
+            user_specific: true, 
+            select: ->(i){ { i.items } },
+            select_after: ->(select){ select.map { |x| x.number.to_f } },
+            result: ->(select_after){ select_after.inject(0) { |result, item| result + item } },
+            total: ->(result){ [1, result].max }
+      end
     end
   end
+
   describe ".reset_calculators" do
     it "should remove all calculators" do
       Authority.calculate_from Item do |i|
@@ -145,6 +157,7 @@ describe Authority do
       Authority.send(:calculators).length.should == 0
     end
   end
+
   describe ".recalculate_from" do
     it "should use the calculate from calculate_from" do
       Authority.calculate_from Item do |i|
