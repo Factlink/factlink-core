@@ -1,5 +1,7 @@
 (function(Factlink, $, _, easyXDM, undefined) {
 var timeout;
+var pageX;
+var pageY;
 
 Factlink.annotate = function(start) {
   if ( start === true ) {
