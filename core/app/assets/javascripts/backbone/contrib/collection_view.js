@@ -22,10 +22,10 @@ Backbone.CollectionView = Backbone.View.extend({
       model: model
     });
     this.views[model.id] = view;
-    this.$(this.containerSelector).append(view.render().el);
+    this.$el.find(this.containerSelector).append(view.render().el);
     this.afterAdd(model,opts);
   },
-  
+
   render: function() {
     var self = this;
 

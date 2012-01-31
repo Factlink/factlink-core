@@ -16,7 +16,7 @@ window.FactView = Backbone.View.extend({
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
 
-    $(this.el).attr('data-fact-id', this.model.id).factlink();
+    this.$el.attr('data-fact-id', this.model.id).factlink();
 
     this.initAddToChannel();
     this.initFactRelationsViews();
@@ -26,7 +26,7 @@ window.FactView = Backbone.View.extend({
   partials: {},
 
   render: function() {
-    $( this.el )
+    this.$el
       .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     this.initAddToChannel();
@@ -37,8 +37,8 @@ window.FactView = Backbone.View.extend({
   },
 
   remove: function() {
-    $(this.el).fadeOut('fast', function() {
-      $(this.el).remove();
+    this.$el.fadeOut('fast', function() {
+      $(this).remove();
     });
 
     // Hides the popup (if necessary)
@@ -85,12 +85,12 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( $(this.el).find('.channel-listing') && typeof currentUser !== "undefined" ) {
+    if ( this.$el.find('.channel-listing') && typeof currentUser !== "undefined" ) {
 
       var addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
 
-        el: $(this.el).find('.channel-listing'),
+        el: this.$el.find('.channel-listing'),
 
         model: this.model,
 
@@ -131,11 +131,11 @@ window.FactView = Backbone.View.extend({
       $('.dropdown-container', this.el).slideDown('fast');
     }
 
-    $(this.el).addClass("active");
+    this.$el.addClass("active");
   },
 
   hideDropdownContainer: function(className) {
-    $(this.el).removeClass("active");
+    this.$el.removeClass("active");
 
     $('.dropdown-container', this.el).slideUp('fast');
   },
@@ -153,7 +153,7 @@ window.FactView = Backbone.View.extend({
   toggleEvidence: function(e) {
     var self = this;
     var $target = $(e.target).closest('li');
-    var $tabButtons = $(this.el).find('.controls li');
+    var $tabButtons = this.$el.find('.controls li');
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
     mpmetrics.track("Factlink: Open tab", {

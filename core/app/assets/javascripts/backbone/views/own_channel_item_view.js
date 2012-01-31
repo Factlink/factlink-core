@@ -17,24 +17,24 @@ window.OwnChannelItemView = Backbone.View.extend({
   },
 
   render: function() {
-    $( this.el )
+    this.$el
       .html( Mustache.to_html(this.tmpl, this.model.toJSON() ));
 
-    $( this.el ).find('input').prop('checked', this.model.checked === true ? true : false);
+    this.$el.find('input').prop('checked', this.model.checked === true ? true : false);
 
     return this;
   },
 
   remove: function() {
-    $( this.el ).remove();
+    this.$el.remove();
   },
 
   disable: function() {
-    $( this.el ).find('input').prop('disabled',true);
+    this.$el.find('input').prop('disabled',true);
   },
 
   enable: function() {
-    $( this.el ).find('input').prop('disabled',false);
+    this.$el.find('input').prop('disabled',false);
   },
 
   change: function( e ) {

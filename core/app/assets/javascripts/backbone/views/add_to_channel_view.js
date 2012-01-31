@@ -111,10 +111,10 @@ window.AddToChannelView = Backbone.View.extend({
   render: function() {
     var self = this;
 
-    this.el
+    this.$el
       .html( Mustache.to_html(this.tmpl) );
 
-    var $channelListing = this.el.find('ul');
+    var $channelListing = this.$el.find('ul');
 
     this.resetCheckedState();
 
@@ -131,8 +131,8 @@ window.AddToChannelView = Backbone.View.extend({
       }
     });
 
-    this.$input = this.el.find('input[name="channel_title"]');
-    this.$submit = this.el.find('input[type="submit"]');
+    this.$input = this.$el.find('input[name="channel_title"]');
+    this.$submit = this.$el.find('input[type="submit"]');
 
     return this;
   }

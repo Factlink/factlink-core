@@ -15,12 +15,12 @@ var FactRelationSearchView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
+    this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
 
     if ( this.options.type === "supporting" ) {
-      $( this.el ).find('.add-evidence.supporting' ).css('display','block');
+      this.$el.find('.add-evidence.supporting' ).css('display','block');
     } else {
-      $( this.el ).find('.add-evidence.weakening' ).css('display','block');
+      this.$el.find('.add-evidence.weakening' ).css('display','block');
     }
 
     return this;
@@ -54,7 +54,7 @@ var FactRelationSearchView = Backbone.View.extend({
       success: function(searchResults) {
         self.parseSearchResults.call(self, searchResults);
 
-        $( self.el )
+        self.$el
           .find('li.add>span.word')
           .text(searchVal)
           .closest('li')
@@ -73,7 +73,7 @@ var FactRelationSearchView = Backbone.View.extend({
 
   parseSearchResults: function(searchResults) {
     var self = this;
-    var searchResultsContainer = $(this.el).find('.search-results');
+    var searchResultsContainer = this.$el.find('.search-results');
 
     this.truncateSearchContainer();
 
@@ -139,25 +139,25 @@ var FactRelationSearchView = Backbone.View.extend({
       view.remove();
     });
 
-    $( this.el ).find('li.add').hide();
+    this.$el.find('li.add').hide();
 
     this._searchResultViews = [];
   },
 
   setLoading: function() {
-    $( this.el ).find('li.loading').show();
+    this.$el.find('li.loading').show();
   },
 
   stopLoading: function() {
-    $( this.el ).find('li.loading').hide();
+    this.$el.find('li.loading').hide();
   },
 
   setAddingIndicator: function() {
-    $( this.el ).find('.add img').show();
-    $( this.el ).find('.add .add-message').text('Adding');
+    this.$el.find('.add img').show();
+    this.$el.find('.add .add-message').text('Adding');
   },
   stopAddingIndicator: function() {
-    $( this.el ).find('.add img').hide();
-    $( this.el ).find('.add .add-message').text('Add');
+    this.$el.find('.add img').hide();
+    this.$el.find('.add .add-message').text('Add');
   }
 });

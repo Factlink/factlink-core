@@ -17,9 +17,9 @@ window.FactsView = Backbone.CollectionView.extend({
 
     //TODO split this into two views, one for channels, one for searchresults
     if(options.channel !== undefined ) {
-      $(this.el).html(Mustache.to_html(this.tmpl,options.channel.toJSON(), this.partials));
+      this.$el.html(Mustache.to_html(this.tmpl,options.channel.toJSON(), this.partials));
     } else {
-      $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
+      this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     }
     this.bindScroll();
   },
@@ -58,7 +58,7 @@ window.FactsView = Backbone.CollectionView.extend({
 
   moreNeeded: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
-    var bottomOfEl = $(this.el).offset().top + $(this.el).outerHeight();
+    var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
 
     if ( this.hasMore ) {
       if ( bottomOfEl < bottomOfTheViewport ) {
@@ -101,21 +101,21 @@ window.FactsView = Backbone.CollectionView.extend({
   hasMore: true,
 
   showNoFacts: function() {
-    $(this.el).find('div.no_facts').show();
+    this.$el.find('div.no_facts').show();
   },
 
   hideNoFacts: function() {
-    $(this.el).find('div.no_facts').hide();
+    this.$el.find('div.no_facts').hide();
   },
 
   setLoading: function() {
     this._loading = true;
-    $(this.el).find('div.loading').show();
+    this.$el.find('div.loading').show();
   },
 
   stopLoading: function() {
     this._loading = false;
-    $(this.el).find('div.loading').hide();
+    this.$el.find('div.loading').hide();
   },
 
   bindScroll: function() {

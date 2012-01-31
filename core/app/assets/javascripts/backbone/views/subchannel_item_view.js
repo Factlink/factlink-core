@@ -14,7 +14,7 @@ window.SubchannelItemView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$( this.el )
+    this.$el
       .html( Mustache.to_html(this.tmpl, this.model.toJSON() ))
       .attr('id', 'subchannel-' + this.model.id);
     return this;

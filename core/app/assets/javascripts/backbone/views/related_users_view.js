@@ -1,8 +1,7 @@
 window.RelatedUsersView = Backbone.View.extend({
 
-  el: $("#left-column .related-users"),
-  
-  initialize: function() { 
+  initialize: function() {
+    this.setElement($("#left-column .related-users"));
   },
 
   reInit: function(opts) {
@@ -11,8 +10,8 @@ window.RelatedUsersView = Backbone.View.extend({
     }
     return this;
   },
-  
-  render: function() { 
+
+  render: function() {
     var self = this;
 
     if ( this.model ) {
@@ -20,7 +19,7 @@ window.RelatedUsersView = Backbone.View.extend({
         url: this.model.url() + '/related_users',
         method: "GET",
         success: function( data ) {
-          self.el.html(data);
+          self.$el.html(data);
         }
       });
     }

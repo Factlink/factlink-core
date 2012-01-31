@@ -7,7 +7,7 @@ window.GenericActivityView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
     return this;
   },
 

@@ -16,7 +16,7 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   },
 
   remove: function() {
-    $(this.el).remove();
+    this.$el.remove();
   },
 
   createFactRelation: function(e) {
