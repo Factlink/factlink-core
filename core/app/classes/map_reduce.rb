@@ -23,4 +23,9 @@ class MapReduce
     end
     result
   end
+
+  def map_reduce iterator, partial
+    reduce(map(iterator), partial)
+  end
+
 end

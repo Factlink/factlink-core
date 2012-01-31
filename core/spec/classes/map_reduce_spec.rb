@@ -10,10 +10,8 @@ class ExampleMapReduce < MapReduce
   end
 
   def internal_reduce(iterator, partial)
-    iterator.each do |i|
-      i.each_pair do |k, v|
-         partial += v.inject(:+)
-      end
+    iterator.each_pair do |k, v|
+      partial += v.inject(:+)
     end
     yield iterator, partial
   end
@@ -27,8 +25,12 @@ describe ExampleMapReduce do
   end
 
   it do
-    list = [{a: [1, 16], b: [4], c: [9]}]
+    list = {a: [1, 16], b: [4], c: [9]}
     subject.reduce(list, 0).should == 30
   end
 
+  it do
+    list = [{a: 1}, {b: 2}, {c: 3}, {a: 4}]
+    subject.map_reduce(list, 0).should == 30
+  end
 end
