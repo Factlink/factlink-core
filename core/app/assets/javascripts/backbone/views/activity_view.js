@@ -18,7 +18,11 @@ window.GenericActivityView = Backbone.View.extend({
 });
 
 ActivityAddedEvidenceView = GenericActivityView.extend({});
-ActivityAddedSubchannelView = GenericActivityView.extend({});
+ActivityAddedSubchannelView = GenericActivityView.extend({
+  initialize: function(options) {
+    this.useTemplate("activities", "_added_subchannel_activity");
+  }
+});
 ActivityWasFollowedView = GenericActivityView.extend({});
 
 window.ActivityView = function(opts) {
