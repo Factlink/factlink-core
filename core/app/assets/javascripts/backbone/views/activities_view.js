@@ -8,5 +8,4 @@ window.ActivitiesView = Backbone.CollectionView.extend({
     this.collection.bind('add',   this.add, this);
     this.collection.bind('reset', this.reset, this);
   }
-
 });
