@@ -36,6 +36,15 @@ describe Channel do
   let (:f4) { create_fact }
 
 
+  context "activity on a channel" do
+    describe "when adding a subchannel" do
+      before do
+        subject.add_channel(ch1)
+      end
+      it { Activity.for(subject).to_a.last.action.should == "added_subchannel" }
+    end
+  end
+
   describe "initially" do
     it { subject.containing_channels.to_a.should =~ [] }
   end
@@ -291,7 +300,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "removing a channel" do
     it "should be possible" do
       id = ch1.id
@@ -321,5 +330,5 @@ describe Channel do
       Channel.active_channels_for(u1).should_not include(subject)
     end
   end
-  
+
 end
