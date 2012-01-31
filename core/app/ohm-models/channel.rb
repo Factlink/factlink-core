@@ -152,7 +152,7 @@ class Channel < OurOhm
       contained_channels << channel
       channel.containing_channels << self
       calculate_facts
-      activity(self.created_by,:added,channel,:to,self)
+      activity(self.created_by,:added_subchannel,channel,:to,self)
     end
   end
 
