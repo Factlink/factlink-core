@@ -11,7 +11,7 @@ Factlink.annotate = function(start) {
   }
 };
 
-function startAnnotating() {
+Factlink.startAnnotating = function() {
   $('body').bind('mouseup.factlink', function(e) {
     window.clearTimeout(timeout);
 
@@ -37,10 +37,10 @@ function startAnnotating() {
       }
     }, 200);
   });
-}
+};
 
-function stopAnnotating() {
+Factlink.stopAnnotating = function() {
   $('body').unbind('mouseup.factlink');
-}
+};
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
