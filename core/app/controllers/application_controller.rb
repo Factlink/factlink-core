@@ -6,13 +6,9 @@ class ApplicationController < ActionController::Base
   before_filter :set_mailer_url_options, :initialize_mixpanel
 
   def initialize_mixpanel
-    if defined?(MIXPANEL_TOKEN)
-      @mixpanel = Mixpanel::Tracker.new(FactlinkUI::Application.config.mixpanel_token, request.env, true)
+    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
-      @mixpanel.append_api(:identify, current_user.id) if current_user
-    else
-      @mixpanel = DummyMixpanel.new
-    end
+    @mixpanel.append_api(:identify, current_user.id) if current_user
   end
 
   #require mustache partial views (the autoloader does not find them)
