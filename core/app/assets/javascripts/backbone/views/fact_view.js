@@ -156,10 +156,12 @@ window.FactView = Backbone.View.extend({
     var $tabButtons = this.$el.find('.controls li');
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
-    mpmetrics.track("Factlink: Open tab", {
-      factlink_id: self.model.id,
-      type: type
-    });
+    try {
+      mpmetrics.track("Factlink: Open tab", {
+        factlink_id: self.model.id,
+        type: type
+      });
+    } catch(e) {}
 
     $tabButtons.removeClass("active");
 
