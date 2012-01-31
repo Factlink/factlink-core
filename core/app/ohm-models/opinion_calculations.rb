@@ -44,3 +44,29 @@ def load_global_authority
   end
 end
 load_global_authority
+
+def load_topic_specific_authority
+  Authority.reset_calculators
+
+  Authority.calculate_from :Fact,
+    all_set: ->() { FactRelation.all },
+    set_for_one: ->(f) { FactRelation.all.find(from_fact_id: f.id)},
+    map: ->(set) do
+      set.each do |fr|
+        emit fr.from_fact, fr.created_by
+      end
+    end,
+    reduce: ->(f, list) do |f, list|
+      result = 0
+      list.each do |i|
+        if i != f.created_by
+          result += 1
+        end
+      end
+      [1, result].max
+    end
+
+  Authority.calculate_from :GraphUser do |gu|
+    1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * Authority.from(fact).to_f })
+  end
+end
