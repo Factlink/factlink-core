@@ -5,9 +5,9 @@ var FactRelationSearchView = Backbone.View.extend({
   },
 
   _busyAdding: false,
-  
+
   _lastKnownSearch: "",
-  
+
   _searchResultViews: [],
 
   initialize: function() {
@@ -60,6 +60,12 @@ var FactRelationSearchView = Backbone.View.extend({
           .closest('li')
           .show();
 
+        try {
+          mpmetrics.track("Evidence: Search", {
+            type: self.options.type
+          });
+        } catch(e) {}
+
         self.stopLoading();
       }
     });
@@ -87,13 +93,13 @@ var FactRelationSearchView = Backbone.View.extend({
 
   addNewFactRelation: function(e) {
     var self = this;
-    
+
     if ( self._busyAdding ) {
       return;
     } else {
       self._busyAdding = true;
     }
-    
+
     var factRelations = self.options.factRelations;
 
     self.setAddingIndicator();
@@ -106,6 +112,13 @@ var FactRelationSearchView = Backbone.View.extend({
         displaystring: this._lastKnownSearch
       },
       success: function(newFactRelation) {
+        try {
+          mpmetrics.track("Evidence: Create", {
+            factlink_id: self.options.factRelations.fact.id,
+            type: self.options.type
+          });
+        } catch(e) {}
+
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true
         });
@@ -138,7 +151,7 @@ var FactRelationSearchView = Backbone.View.extend({
   stopLoading: function() {
     $( this.el ).find('li.loading').hide();
   },
-  
+
   setAddingIndicator: function() {
     $( this.el ).find('.add img').show();
     $( this.el ).find('.add .add-message').text('Adding');

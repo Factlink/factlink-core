@@ -3,7 +3,13 @@ require 'net/http'
 class ApplicationController < ActionController::Base
 
   include UrlHelper
-  before_filter :set_mailer_url_options
+  before_filter :set_mailer_url_options, :initialize_mixpanel
+
+  def initialize_mixpanel
+    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+
+    @mixpanel.append_api(:identify, current_user.id) if current_user
+  end
 
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path|
@@ -66,6 +72,14 @@ class ApplicationController < ActionController::Base
 
   def lazy *args, &block
     Lazy.new *args, &block
+  end
+
+  def track(event, opts={})
+    new_opts = opts.update({
+      :mp_name_tag => current_user.username,
+      :distinct_id => current_user.id }) if current_user
+
+    @mixpanel.track_event event, new_opts
   end
 
 end
