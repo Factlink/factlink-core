@@ -12,7 +12,7 @@ body {
 }
 
 body.factlink-site .fact-block,
-body.factlink-site div.user-block {
+body.factlink-site {
   border-bottom: 1px solid @grayLighter;
   margin: 0px;
   .transition(all 0.2s ease);
@@ -111,7 +111,6 @@ body.factlink-site div.user-block {
   background: rgba(255, 255, 255, 0.75) !important;
 }
 
-
 a.bookmarklet {
   cursor: move;
 }
@@ -125,16 +124,46 @@ a.bookmarklet {
   left: 153px;
   top: 1px;
 }
+
+
+.list-block {
+  min-height: 48px;
+  padding: 16px;
+
+  border-bottom: 1px solid #E6E6E6;
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    float: left;
+  }
+  
+  .activity-container {
+    padding: 0 0 0 48px;
+    
+    .body {
+      color: #555;
+    }
+    .meta {
+      padding: 4px 0 0 0;
+      img {
+        vertical-align: middle;
+        padding: 0 6px 0 0;
+      }
+      display: block;
+      font-size: 0.85em;
+      color: #888;
+    }
+  }
+}
+
 .search-results .results .user-block {
   padding: 10px 0 0px 5px;
   height: 72px;
   list-style: none;
 
-  .avatar-container {
-    height: 72px;
-    &:hover {
+  .list-block:hover {
       cursor: pointer;
-    }
   }
 
   .user-avatar {
@@ -147,11 +176,6 @@ a.bookmarklet {
       margin: 0 0 0 16px;
       border: solid 1px #ddd;
       .border-radius(3px);
-    }
-  }
-  .wrapper {
-    h3, sub {
-      color: #555 !important;
     }
   }
 }
@@ -261,6 +285,9 @@ a.bookmarklet {
       .user-block {
         padding: 0;
         background-color: transparent;
+        img {
+          border: solid 3px #e9e8e8;
+        }
         &:hover {
           cursor: pointer;
           h1 {
@@ -317,6 +344,23 @@ a.bookmarklet {
         display: block;
         color: @black;
       }
+      
+      .channel-tabs {
+        float: right;
+
+        ul {
+          list-style: none;
+          li {
+            float: left; 
+            padding: 6px;
+            border: solid 1px #D8D8D8;
+            .border-radius(3px);
+          }
+        }
+        margin: -20px 0 0 0;
+        padding: 0px;
+      }
+      
       div.float-box-container {
         float: right;
         position: relative;
