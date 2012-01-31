@@ -1,12 +1,4 @@
 class MapReduce
-  def all_iterator
-
-  end
-
-  def one_iterator
-
-  end
-
   def map iterator
     result_hash = {}
     internal_map iterator do |bucket, value|
@@ -16,16 +8,16 @@ class MapReduce
     result_hash
   end
 
-  def reduce iterator, partial
-    result = 0
-    internal_reduce iterator, partial do |iterator, partial|
-      result = partial
+  def reduce iterator
+    results_hash = {}
+    iterator.each_pair do |bucket, partials|
+      results_hash[bucket] = (internal_reduce bucket, partials)
     end
-    result
+    results_hash
   end
 
-  def map_reduce iterator, partial
-    reduce(map(iterator), partial)
+  def map_reduce iterator
+    reduce(map(iterator))
   end
 
 end
