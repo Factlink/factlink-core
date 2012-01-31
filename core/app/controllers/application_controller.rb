@@ -75,10 +75,13 @@ class ApplicationController < ActionController::Base
   end
 
   def track(event, opts={})
-    new_opts = opts.update({
-      :mp_name_tag => current_user.username,
-      :distinct_id => current_user.id }) if current_user
-
+    new_opts =  if current_user
+                   opts.update({
+                     :mp_name_tag => current_user.username,
+                     :distinct_id => current_user.id })
+                else
+                  opts
+                end
     @mixpanel.track_event event, new_opts
   end
 
