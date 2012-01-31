@@ -3,7 +3,7 @@ window.UserSearchView = Backbone.View.extend({
   className: "user-block",
 
   events: {
-    "click div.avatar-container": "clickHandler"
+    "click div.list-block": "clickHandler"
   },
   
   initialize: function() {
