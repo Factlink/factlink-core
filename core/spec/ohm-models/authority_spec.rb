@@ -1,4 +1,3 @@
-
 require_relative '../ohm_helper.rb'
 require_relative '../../app/ohm-models/authority.rb'
 
@@ -27,7 +26,6 @@ describe Authority do
     rescue
     end
   end
-
 
   describe :to_f do
     it "should return a float" do
@@ -139,7 +137,7 @@ describe Authority do
         Authority.calculated_from_authority(i).should == 1
       end
     end
-    describe "should work when provided with user specific lambdas" do
+    pending "should work when provided with user specific lambdas" do
       before do
         Authority.calculate_from :Item,
             user_specific: true,
