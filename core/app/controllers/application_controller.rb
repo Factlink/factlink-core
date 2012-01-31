@@ -3,7 +3,17 @@ require 'net/http'
 class ApplicationController < ActionController::Base
 
   include UrlHelper
-  before_filter :set_mailer_url_options
+  before_filter :set_mailer_url_options, :initialize_mixpanel
+
+  def initialize_mixpanel
+    if defined?(MIXPANEL_TOKEN)
+      @mixpanel = Mixpanel::Tracker.new(FactlinkUI::Application.config.mixpanel_token, request.env, true)
+
+      @mixpanel.append_api(:identify, current_user.id) if current_user
+    else
+      @mixpanel = DummyMixpanel.new
+    end
+  end
 
   #require mustache partial views (the autoloader does not find them)
   Dir["#{Rails.root}/app/views/**/_*.rb"].each do |path|
