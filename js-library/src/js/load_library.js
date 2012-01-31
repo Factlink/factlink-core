@@ -29,7 +29,8 @@ function loadScripts(base_url){
               base_url + '/src/js/models/fact.js' + timestamp,
               base_url + '/src/js/views/ballooney_thingy.js' + timestamp,
               base_url + '/src/js/views/balloon.js' + timestamp,
-              base_url + '/src/js/views/prepare.js' + timestamp
+              base_url + '/src/js/views/prepare.js' + timestamp,
+              base_url + '/src/js/annotate.js' + timestamp
           ],
           [
               base_url + '/src/js/replace.js' + timestamp,
@@ -46,8 +47,8 @@ function loadScripts(base_url){
               base_url + '/src/js/last.js' + timestamp
           ]
       ];
-  
-  // We use a self invoking anonymous function to load all the scripts 
+
+  // We use a self invoking anonymous function to load all the scripts
   // needed.
   (function(i){
       // Load the script
@@ -59,7 +60,7 @@ function loadScripts(base_url){
           // ready method of $script)
           var toCall = arguments.callee;
 
-          // When $script is done loading the first batch, start loading 
+          // When $script is done loading the first batch, start loading
           // the next one
           $script.ready( i, function() {
               // Make a recursive call to make sure all scripts get loaded
