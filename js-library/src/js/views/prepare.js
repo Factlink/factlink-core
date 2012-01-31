@@ -1,5 +1,5 @@
 (function(Factlink, $, _, easyXDM, undefined) {
-    
+
 Factlink.Prepare = function() {
   var hasFocus = false;
   var el;
@@ -9,12 +9,12 @@ Factlink.Prepare = function() {
   var timeout;
   var pageX;
   var pageY;
-  
+
   function initialize(tmpl) {
     var createFact;
-    
+
     el = $(tmpl()).appendTo(Factlink.el);
-    
+
     el.hoverIntent({
       over: function(e) {
         el.addClass('add-active');
@@ -24,18 +24,18 @@ Factlink.Prepare = function() {
       },
       timeout: 500
     });
-    
+
     if (FactlinkConfig.modus === "addToFact") {
       createFact = Factlink.createEvidenceFromSelection;
     } else {
       createFact = Factlink.createFactFromSelection;
     }
-    
+
     el.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
-  
+
       createFact(e.currentTarget.id, function(factId, factObjs) {
         // Factlink.showFactAddedPopup(factId, e.pageX, e.pageY);
         self.setFactId(factId);
@@ -49,92 +49,61 @@ Factlink.Prepare = function() {
         }, 1500);
       });
     });
-    
-    bindBodyClick();
-    
+
     bindAddEvidenceClick();
   }
-  
-  function bindBodyClick() {
-    // Bind the actual selecting
-    $('body').bind('mouseup', function(e) {
-      window.clearTimeout(timeout);
 
-      if (self.isVisible()) {
-        self.hide();
-        self.resetFactId();
-      }
-
-      // We execute the showing of the prepare menu inside of a setTimeout
-      // because of selection change only activating after mouseup event call.
-      // Without this hack there are moments when the prepare menu will show
-      // without any text being selected
-      timeout = setTimeout(function() {
-        // Retrieve all needed info of current selection
-        var selectionInfo = Factlink.getSelectionInfo();
-
-        pageX = e.pageX;
-        pageY = e.pageY;
-
-        // Check if the selected text is long enough to be added
-        if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
-          self.show(pageY, pageX);
-        }
-      }, 200);
-    });
-  }
-  
   function bindAddEvidenceClick() {
     el.delegate(".fl-add-evidence, .fl-created","click", function(e) {
       if ( facts.length > 0 ) {
         facts[0].click();
-        
+
         self.hide(100);
       }
     });
   }
-  
+
   this.show = function(top, left) {
     self.resetType();
     Factlink.set_position(top,left,window,el);
     el.fadeIn('fast');
   };
-  
+
   this.hide = function() {
     el.fadeOut('fast');
   };
-  
+
   this.isVisible = function() {
     return el.is(':visible');
   };
-  
+
   this.setFactId = function(id) {
     factId = id;
   };
-  
+
   this.resetFactId = function() {
     factId = undefined;
   };
-  
+
   this.getFactId = function() {
     return factId;
   };
-  
-  
+
+
   var types = ["fl-create","fl-created","fl-add-evidence"];
-  
+
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);
   };
-  
+
   this.resetType = function() {
     el.removeClass(types.join(" ")).addClass(types[0]);
     el.removeClass("right left");
     facts = [];
     self.resetFactId();
   };
-  
-  
+
+
   initialize.apply(this, arguments);
 };
 
