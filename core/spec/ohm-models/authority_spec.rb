@@ -137,16 +137,6 @@ describe Authority do
         Authority.calculated_from_authority(i).should == 1
       end
     end
-    pending "should work when provided with user specific lambdas" do
-      before do
-        Authority.calculate_from :Item,
-            user_specific: true,
-            select: ->(i){ i.items },
-            select_after: ->(select){ select.map { |x| x.number.to_f } },
-            result: ->(select_after){ select_after.inject(0) { |result, item| result + item } },
-            total: ->(result){ [1, result].max }
-      end
-    end
   end
 
   describe ".reset_calculators" do
