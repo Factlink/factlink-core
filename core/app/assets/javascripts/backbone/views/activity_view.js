@@ -1,6 +1,6 @@
 window.GenericActivityView = Backbone.View.extend({
   tagName: "div",
-  className: "user-block",
+  className: "activity-block",
 
   initialize: function(options) {
     this.useTemplate("activities", "_generic_activity");
