@@ -1,10 +1,10 @@
-class MapReduce 
+class MapReduce
   class ChannelAuthority < MapReduce
-    def internal_map
+    def map
 
     end
 
-    def internal_reduce
+    def reduce
 
     end
   end
