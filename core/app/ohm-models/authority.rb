@@ -6,6 +6,10 @@ class Authority < OurOhm
 
   class << self
     def from(subject, opts={})
+      if subject.is_a?(Hash)
+        subject = Kernel.const_get(subject.keys[0])[subject.values[0]]
+      end
+
       return Authority.new if subject.new?
 
       if opts[:for]

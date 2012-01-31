@@ -59,9 +59,14 @@ describe Authority do
       end
     end
     context "for a defined authority" do
+      before do
+        @a = Authority.create subject: i1, authority: 15.6
+      end
       it do
-        a = Authority.create subject: i1, authority: 15.6
-        Authority.from(i1).should == a
+        Authority.from(i1).should == @a
+      end
+      it "should work when quiried with classname and id" do
+        Authority.from(Item: i1.id).should == @a
       end
     end
     it "should return an authority for the subject" do
