@@ -21,11 +21,11 @@ ActivityAddedSubchannelView = GenericActivityView.extend({});
 ActivityWasFollowedView = GenericActivityView.extend({});
 
 window.ActivityView = function(opts) {
-  if (opts.model.get("type") === "added_evidence") {
+  if (opts.model.get("action") === "added_evidence") {
     return new ActivityAddedEvidenceView(opts);
-  } else if (opts.model.get("type") === "added_subchannel") {
+  } else if (opts.model.get("action") === "added_subchannel") {
     return new ActivityAddedSubchannelView(opts);
-  } else if (opts.model.get("type") === "was_followed") {
+  } else if (opts.model.get("action") === "was_followed") {
     return new ActivityWasFollowedView(opts);
   } else {
     return new GenericActivityView(opts);
