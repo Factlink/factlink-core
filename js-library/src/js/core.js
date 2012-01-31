@@ -1,12 +1,12 @@
 var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
-  
+
   // noConflicts!
   Factlink.$ = window.jQuery.noConflict();
   Factlink._ = window._.noConflict();
   Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
-  
+
   Factlink._.templateSettings = {
     interpolate : /\{%\=(.+?)%\}/g,
     evaluate : /\{%(.+?)%\}/g
@@ -48,11 +48,9 @@ var Factlink = window.Factlink = (function() {
       // the JSON data
       success: function(data) {
         var i;
+
         // If there are multiple matches on the page, loop through them all
         //TODO : dit mag pas on document ready
-        
-        Factlink.destroy();
-        
         for (i = 0; i < data.length; i++) {
           // Select the ranges (results)
           $.merge( Factlink.Facts, Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage) );
@@ -68,14 +66,6 @@ var Factlink = window.Factlink = (function() {
     }
   });
 
-  
-  Factlink.destroy = function() {
-    for( var i = 0; i < Factlink.Facts.length; i++ ) {
-      Factlink.Facts[i].destroy();
-    }
-    Factlink.Facts = [];
-  };
-  
   // Create the Factlink container
   Factlink.el = $('<div id="fl" />').appendTo('body');
   // Create template wrapper
