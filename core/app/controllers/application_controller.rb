@@ -74,4 +74,12 @@ class ApplicationController < ActionController::Base
     Lazy.new *args, &block
   end
 
+  def track(event, opts={})
+    new_opts = opts.update({
+      :mp_name_tag => current_user.username,
+      :distinct_id => current_user.id }) if current_user
+
+    @mixpanel.track_event event, new_opts
+  end
+
 end
