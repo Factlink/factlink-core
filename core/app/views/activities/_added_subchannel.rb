@@ -1,14 +1,6 @@
 module Activities
   class AddedSubchannel < Mustache::Railstache
 
-    def init
-      puts self[:activity]
-    end
-
-    def action
-      self[:activity].action
-    end
-
     def username
       self[:activity].user.user.username
     end
@@ -37,8 +29,8 @@ module Activities
       channel_path(self[:activity].subject.created_by.user, self[:activity].subject)
     end
 
-    def time_ago
-      "#{time_ago_in_words(self[:activity].created_at)} ago"
+    def icon
+      image_tag('activities/icon-channel.png')
     end
 
   end
