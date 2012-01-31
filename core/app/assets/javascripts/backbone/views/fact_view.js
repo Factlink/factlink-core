@@ -49,9 +49,19 @@ window.FactView = Backbone.View.extend({
   },
 
   removeFactFromChannel: function() {
+    var self = this;
+
     this.model.destroy({
       error: function() {
         alert("Error while removing Factlink from Channel" );
+      },
+      success: function() {
+        try {
+          mpmetrics.track("Channel: Silence Factlink from Channel", {
+            factlink_id: self.model.id,
+            channel_id: currentChannel.id
+          });
+        } catch(e) {}
       },
       forChannel: true
     });
@@ -62,6 +72,13 @@ window.FactView = Backbone.View.extend({
     this.model.destroy({
       error: function() {
         alert("Error while removing the Factlink" );
+      },
+      success: function() {
+        try {
+          mpmetrics.track("Factlink: Destroy", {
+            factlink_id: self.model.id
+          });
+        } catch(e) {}
       },
       forChannel: false
     });
@@ -134,9 +151,15 @@ window.FactView = Backbone.View.extend({
   },
 
   toggleEvidence: function(e) {
+    var self = this;
     var $target = $(e.target).closest('li');
     var $tabButtons = $(this.el).find('.controls li');
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
+
+    mpmetrics.track("Factlink: Open tab", {
+      factlink_id: self.model.id,
+      type: type
+    });
 
     $tabButtons.removeClass("active");
 

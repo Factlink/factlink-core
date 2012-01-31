@@ -11,6 +11,12 @@ var Workspace = Backbone.Router.extend({
   loadChannel: function(channel_id) {
       var channel = Channels.get(channel_id);
 
+      try {
+        mpmetrics.track("mp_page_view", {
+          mp_page: window.location.href
+        });
+      } catch(e) {}
+
       if ( !channel ) {
         channel = this.view.channelView.subchannels.get(channel_id);
       }

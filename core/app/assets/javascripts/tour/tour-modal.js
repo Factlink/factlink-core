@@ -11,6 +11,12 @@
   $('.take-the-tour').live('click', function() {
     modal.modal('show');
 
+    try {
+      mpmetrics.track("Take The Tour: Click", {
+        where: "topbar"
+      });
+    } catch(e) {}
+
     // Load the tour
     $.ajax({
       url: "/tour",
@@ -25,6 +31,12 @@
 
   $('.hide-modal').live('click', function() {
     modal.modal('hide');
+
+    try {
+      mpmetrics.track("Take The Tour: Hide", {
+        where: "cross"
+      });
+    } catch(e) {}
   });
 
   function initTourModal(data) {
@@ -47,6 +59,14 @@
     	nowrap: 1,
     	pause: 1,
     	pager:  "#pagerNav",
+
+    	after: function(currSlideElement, nextSlideElement, options, forward) {
+        try {
+          mpmetrics.track("Take The Tour: Slide", {
+            type: (forward ? "forward" : "backward")
+          });
+        } catch(e) {}
+    	},
 
       // callback fn that creates a thumbnail to use as pager anchor
       pagerAnchorBuilder: function(idx, slide) {
