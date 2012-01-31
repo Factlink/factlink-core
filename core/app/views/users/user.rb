@@ -35,7 +35,7 @@ module Users
     end
 
     def authority
-      (Authority.from self[:graph_user]).to_f
+      (Authority.from self[:graph_user]).to_s
     end
 
     def all_channel_id
