@@ -8,14 +8,18 @@ function passThroughClick(elem, messageKey) {
 }
 
 window.addEventListener("message", function(messageObject) {
-  if ( messageObject.data === "highlight" ) {
+  var data = messageObject.data;
+  if ( data === "highlight" ) {
     $('#highlight').prop('checked', true );
-  } else if ( messageObject.data === "annotate" ) {
-    // Here you can set the initial annotate button status
-  } else if ( typeof messageObject.data.title !== "undefined" ) {
-    $('#title').val(messageObject.data.title);
-    $('#fact').val(messageObject.data.text);
-    $('#url').val(messageObject.data.url);
+  } else if ( data === "annotate" ) {
+    $('#annotate_button').hide();
+  } else if ( typeof data.title !== "undefined" ) {
+    $('#title').val(data.title);
+    $('#fact').val(data.text);
+    $('#url').val(data.url);
+  } else if ( data === "blacklist" ) {
+    $('#highlight').prop('disabled', true);
+    $('#annotate_button').prop('disabled', true);
   }
 }, false);
 
