@@ -11,19 +11,22 @@ body {
 
 #container {
   padding: 0 !important;
-  
+
   #header {
     overflow: auto;
     width: 100%;
-    padding: 0 0 3px 0;
+    padding: 0 0 6px 0;
     border-bottom: 1px solid #ccc;
     color: #000;
+    img {
+      vertical-align: middle;
+    }
   }
-  
+
   span.float {
     float: left;
   }
-  
+
   ul.float {
     padding: 0;
     margin: 0;
@@ -35,7 +38,7 @@ body {
       margin: 0 3px;
     }
   }
-    
+
   form {
     .row {
       position: relative;
@@ -52,17 +55,28 @@ body {
         height: 60px;
       }
     }
-    
+
     input[type=submit] {
-      margin: 5px 3px 0 0;
       float: right;
     }
   }
-  
+
+  input[type=submit], button {
+    padding: 5px;
+  }
   #annotate_button {
-    &:before { 
+    &:before {
       #font > .iconic();
       content: "p "
+    }
+    &.active {
+      color: @blue;
+    }
+  }
+  #slideDown {
+    &:before {
+      #font > .iconic();
+      content: "+ "
     }
   }
 }

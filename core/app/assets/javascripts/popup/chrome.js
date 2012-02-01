@@ -27,11 +27,11 @@ passThroughClick( $('#slideUp, #slideDown'), "slideToggle");
 passThroughClick( $('#annotate_button'), "annotateToggle");
 passThroughClick( $('#highlight'), "highlightToggle");
 
-$('#slideUp, #slideDown').bind('click', function() {
-  if ( $( '#slideDown' ).val() === "+ Add new" ) {
-    $( this ).val("+ Add new");
+$('#annotate_button').bind('click', function() {
+  if ($(this).hasClass("active")) {
+    $(this).removeClass("active");
   } else {
-    $( this ).val("+ Add new");
+    $(this).addClass("active");
   }
 });
 
