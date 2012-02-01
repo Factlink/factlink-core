@@ -11,6 +11,14 @@ class Channel < OurOhm
   attribute :title
   index :title
 
+  attribute :lowercase_title
+  alias :old_set_title :title= unless method_defined?(:old_set_title)
+  def title=(newtitle)
+    old_set_title newtitle
+    self.lowercase_title = newtitle.downcase
+  end
+
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
   index :created_by_id

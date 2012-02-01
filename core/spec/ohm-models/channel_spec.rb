@@ -338,4 +338,14 @@ describe Channel do
     end
   end
 
+  describe :title= do
+    it "should set the title" do
+      subject.title = "hasfudurbar"
+      subject.title.should  == "hasfudurbar"
+    end
+    it "should set the lowercase title" do
+      subject.title = "HasfudUrbar"
+      subject.lowercase_title.should  == "hasfudurbar"
+    end
+  end
 end
