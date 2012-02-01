@@ -11,8 +11,10 @@ window.addEventListener("message", function(messageObject) {
   var data = messageObject.data;
   if ( data === "highlight" ) {
     $('#highlight').prop('checked', true );
-  } else if ( data === "annotate" ) {
+  } else if ( data === "auto_annotate" ) {
     $('#annotate_button').hide();
+  } else if ( data === "annotate" ) {
+    $('#annotate_button').addClass('active');
   } else if ( typeof data.title !== "undefined" ) {
     $('#title').val(data.title);
     $('#fact').val(data.text);
