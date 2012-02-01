@@ -6,7 +6,7 @@ module Activities
     end
 
     def channel_owner_profile_url
-      user_profile_path(self[:activity].subject.created_by.user)
+      channel_path(self[:activity].subject.created_by.user, self[:activity].subject.created_by.stream)
     end
 
     def channel_title

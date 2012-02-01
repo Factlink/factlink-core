@@ -5,7 +5,7 @@
 
 	<div class="activity-container">
     <span class="body">
-      <a href="{{ user_profile_url }}">{{ username }}</a> added <a href="{{ activity.evidence_url }}">{{ activity.evidence }}</a> as {{ activity.type }} evidence to <a href="{{ activity.fact_url }}">{{ activity.fact }}</a></span>
+      <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added <a href="{{ activity.evidence_url }}">{{ activity.evidence }}</a> as {{ activity.type }} evidence to <a href="{{ activity.fact_url }}">{{ activity.fact }}</a></span>
     <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
   </div>
 </article>
