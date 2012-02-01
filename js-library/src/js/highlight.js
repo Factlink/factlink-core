@@ -51,6 +51,6 @@ function fetchFacts() {
     type: "GET",
     jsonp: "callback"
   });
-};
+}
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
