@@ -6,16 +6,15 @@ module Channels
     end
 
     def link
-      #channel_path(self[:user].username, id)
-      @link||="/#{self[:user].username}/channels/#{id}/"
+      @link||="/#{self[:user].username}/channels/#{id}"
     end
 
     def edit_link
-      link + "edit"
+      link + "/edit"
     end
 
     def activities_link
-      link + "activities"
+      link + "/activities"
     end
 
     def title
