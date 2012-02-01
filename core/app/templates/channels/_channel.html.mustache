@@ -2,12 +2,9 @@
 
 
   <header class="append-bottom title">
-
-
   	<h1>
   	  {{ title }}
     </h1>
-
 
     <div class="button-wrap">
       {{#editable?}}
@@ -20,7 +17,6 @@
       {{/followable?}}
     </div>
 
-
     {{#inspectable?}}
     <div id="contained-channels">
       <span class="contained-channel-description">Other people in this channel</span>
@@ -30,7 +26,6 @@
       </div>
       <div class="more"><a id="more-button"><span class="label">more</span></a></div>
     {{/inspectable?}}
-
 
     <div class="channel-tabs">
       <ul>
