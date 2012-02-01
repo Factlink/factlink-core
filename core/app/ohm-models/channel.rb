@@ -77,7 +77,7 @@ class Channel < OurOhm
   end
 
   def update_top_users
-    self.created_by.reposition_in_top_users
+    self.created_by.andand.reposition_in_top_users
   end
 
 
