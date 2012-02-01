@@ -79,7 +79,7 @@ class Fact < Basefact
 
   def add_evidence(type, evidence, user)
     fr = FactRelation.get_or_create(evidence,type,self,user)
-    activity(user,:created,fr)
+    activity(user,:"added_#{type}_evidence",evidence, :to, self)
     fr
   end
 
