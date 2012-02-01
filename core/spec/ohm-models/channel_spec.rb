@@ -6,7 +6,14 @@ require_relative '../../app/ohm-models/channel.rb'
 
 class Basefact < OurOhm;end
 class Fact < Basefact;end
-class GraphUser < OurOhm;end
+
+unless defined?(GraphUser)
+  class GraphUser < OurOhm
+    def reposition_in_top_users; end
+  end
+end
+
+
 
 def create_fact
   FactoryGirl.create :fact
@@ -331,4 +338,14 @@ describe Channel do
     end
   end
 
+  describe :title= do
+    it "should set the title" do
+      subject.title = "hasfudurbar"
+      subject.title.should  == "hasfudurbar"
+    end
+    it "should set the lowercase title" do
+      subject.title = "HasfudUrbar"
+      subject.lowercase_title.should  == "hasfudurbar"
+    end
+  end
 end
