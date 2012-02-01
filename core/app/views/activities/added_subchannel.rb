@@ -1,18 +1,6 @@
 module Activities
   class AddedSubchannel < Mustache::Railstache
 
-    def username
-      self[:activity].user.user.username
-    end
-
-    def user_profile_url
-      user_profile_path(self[:activity].user.user)
-    end
-
-    def avatar(size=32)
-      image_tag(self[:activity].user.user.avatar_url(size: size), :width => size)
-    end
-
     def channel_owner
       self[:activity].subject.created_by.user.username
     end
