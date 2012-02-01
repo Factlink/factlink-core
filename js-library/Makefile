@@ -22,19 +22,12 @@ MODULES = ${BUILD_DIR}/jquery-1.6.1.js\
 	${BASE_FILES}\
 	${SRC_DIR}/js/outro.js
 
-ADDFACTS = ${SRC_DIR}/js/addfacts.js
-DESTROY = ${SRC_DIR}/js/destroy.js
-
 FL_VER = $(shell cat version.txt)
 
 VER = sed "s/@VERSION/${FL_VER}/"
 
 FACTLINK_TMP = ${DIST_DIR}/factlink-tmp.js
 FACTLINK = ${DIST_DIR}/factlink.js
-FACTLINK_DESTROY = ${DIST_DIR}/factlink.destroy.js
-DESTROY_TMP = ${DIST_DIR}/factlink.destroy-tmp.js
-FACTLINK_ADDFACTS = ${DIST_DIR}/factlink.addfacts.js
-ADDFACTS_TMP = ${DIST_DIR}/factlink.addfacts-tmp.js
 FACTLINK_MIN = ${DIST_DIR}/factlink.min.js
 
 DATE=$(shell git log -1 --pretty=format:%ad)
@@ -45,7 +38,7 @@ all: factlink
 ${DIST_DIR}:
 	@@mkdir -p ${DIST_DIR}
 
-factlink: ${FACTLINK} ${FACTLINK_ADDFACTS} ${FACTLINK_DESTROY} modules
+factlink: ${FACTLINK} modules
 
 ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	@@echo "Building" ${Factlink}
@@ -59,24 +52,6 @@ ${FACTLINK}: ${MODULES} ${DIST_DIR} node_modules
 	node Makefile.js factlink ${FACTLINK_TMP}
 
 	@@rm ${FACTLINK_TMP}
-
-${FACTLINK_DESTROY}: ${DESTROY} node_modules
-	@@echo "Building" ${FACTLINK_DESTROY}
-
-	@@cat ${DESTROY} > ${DESTROY_TMP}
-
-	node Makefile.js factlink.destroy ${DESTROY_TMP}
-
-	@@rm ${DESTROY_TMP}
-
-${FACTLINK_ADDFACTS}: ${ADDFACTS} node_modules
-	@@echo "Building" ${FACTLINK_ADDFACTS}
-
-	@@cat ${ADDFACTS} > ${ADDFACTS_TMP}
-
-	node Makefile.js factlink.addfacts ${ADDFACTS_TMP}
-
-	@@rm ${ADDFACTS_TMP}
 
 ${DISTDIR}/easyXDM: ${DIST_DIR}
 	mkdir -p "${DIST_DIR}/easyXDM"
