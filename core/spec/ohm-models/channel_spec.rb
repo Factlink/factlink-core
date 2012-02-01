@@ -6,7 +6,14 @@ require_relative '../../app/ohm-models/channel.rb'
 
 class Basefact < OurOhm;end
 class Fact < Basefact;end
-class GraphUser < OurOhm;end
+
+unless defined?(GraphUser)
+  class GraphUser < OurOhm
+    def reposition_in_top_users; end
+  end
+end
+
+
 
 def create_fact
   FactoryGirl.create :fact
