@@ -13,9 +13,9 @@ class Channel < OurOhm
 
   attribute :lowercase_title
   alias :old_set_title :title= unless method_defined?(:old_set_title)
-  def title=(newtitle)
-    old_set_title newtitle
-    self.lowercase_title = newtitle.downcase
+  def title=(new_title)
+    old_set_title new_title
+    self.lowercase_title = new_title.downcase
   end
 
 
