@@ -1,6 +1,6 @@
 window.ActivitiesView = Backbone.CollectionView.extend({
 
-  containerSelector: '#facts_for_channel',
+  containerSelector: '#activity_for_channel',
 
   initialize: function(opts) {
     this.modelView = ActivityView;
