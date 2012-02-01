@@ -1,6 +1,7 @@
 require "spec_helper"
 
 describe Activity::For do
+  include RedisSupport
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
 
@@ -40,7 +41,12 @@ describe Activity::For do
         f2 = create :fact
         ch1.add_fact f1
         f1.add_evidence type, f2, gu1
-        Activity::For.channel(ch1).map(&:to_hash_without_time).should == [
+        
+        @nr = number_of_commands_on Ohm.redis do
+          @activities = Activity::For.channel(ch1).map(&:to_hash_without_time)
+        end
+        @nr.should < 25
+        @activities.should == [
           {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
         ]
       end
