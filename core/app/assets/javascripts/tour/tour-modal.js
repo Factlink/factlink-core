@@ -44,7 +44,7 @@
 
     initSlider(modal.find('.slider'));
 
-    $('.bookmarklet').twipsy({placement:"below", offset:5});
+    $('.bookmarklet').tooltip({placement:"below", offset:5});
   }
 
   function initSlider(el) {

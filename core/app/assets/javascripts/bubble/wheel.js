@@ -40,7 +40,7 @@ var Wheel = (function() {
   function update_authority(w, authority_element) {
     var auth = authority_element.data("authority");
     var pos = w.params.dim + (w.params.dim * 0.25);
-    
+
     if (!authority_element.raphael) {
       authority_element.raphael = w.r.text(pos, pos+TEMPORARY_AUTHORITY_MARGIN, auth).attr({
         "font-size": "13pt",
@@ -125,10 +125,10 @@ var Wheel = (function() {
         $(w.fact).factlink("switch_opinion", $t);
       });
       // Bootstap popver
-      $(this.raphael.node).attr("rel", "twipsy").twipsy({
-        title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; }, 
+      $(this.raphael.node).attr("rel", "tooltip").tooltip({
+        title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; },
         offset: 0,
-        placement:"left" 
+        placement:"left"
       });
     });
   };

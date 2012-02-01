@@ -93,7 +93,7 @@ group :assets do
   ###########
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'
-  gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap', :git => "http://github.com/Factlink/less-rails-bootstrap"
   gem "modernizr-rails", "~> 2.0.6"
 end
 

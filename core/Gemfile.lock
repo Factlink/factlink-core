@@ -5,6 +5,13 @@ GIT
     andand (1.3.2)
 
 GIT
+  remote: http://github.com/Factlink/less-rails-bootstrap
+  revision: 9daa35bab99783a8698229d0410fc8d30a09c138
+  specs:
+    less-rails-bootstrap (2.0.1)
+      less-rails (~> 2.1.0)
+
+GIT
   remote: http://github.com/Factlink/less-rails.git
   revision: bb1dd84924a2c3da8039bd85e0c92bd65d9dbbf2
   specs:
@@ -177,8 +184,6 @@ GEM
     less (2.0.8)
       commonjs (~> 0.2.0)
       therubyracer (~> 0.9.9)
-    less-rails-bootstrap (1.4.2)
-      less-rails (~> 2.1.0)
     libv8 (3.3.10.4)
     mail (2.3.0)
       i18n (>= 0.4.0)
@@ -404,7 +409,7 @@ DEPENDENCIES
   jquery-rails (>= 1.0.17)
   json
   less-rails!
-  less-rails-bootstrap
+  less-rails-bootstrap!
   map
   metric_fu
   mixpanel (~> 1.1.3)
