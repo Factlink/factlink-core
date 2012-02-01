@@ -32,20 +32,20 @@ window.ChannelActivitiesView = Backbone.View.extend({
 
 
   initSubChannels: function() {
-    if ( $( this.el ).find('#contained-channel-list') ) {
+    if ( this.$el.find('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
         collection: this.subchannels,
-        el: $( this.el ).find('#contained-channel-list'),
-        container: $( this.el )
+        el: this.$el.find('#contained-channel-list'),
+        container: this.$el
       });
     }
   },
 
   initAddToChannel: function() {
-    if ( $( this.el ).find('#add_to_channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
-        el: $( this.el ).find('#follow-channel'),
+        el: this.$el.find('#follow-channel'),
         model: currentChannel,
         containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
@@ -53,9 +53,9 @@ window.ChannelActivitiesView = Backbone.View.extend({
   },
 
   initMoreButton: function() {
-    var containedChannels = $( this.el ).find('#contained-channels');
+    var containedChannels = this.$el.find('#contained-channels');
     if  ( containedChannels ) {
-      $( this.el ).find('#more-button').bind('click', function() {
+      this.$el.find('#more-button').bind('click', function() {
         var button = $(this).find(".label");
         containedChannels.find('.overflow').slideToggle(function(e) {
           button.text($(button).text() === 'more' ? 'less' : 'more');
@@ -66,8 +66,8 @@ window.ChannelActivitiesView = Backbone.View.extend({
 
   initSubChannelMenu: function() {
     if( this.model.get("followable?") ) {
-      var addToChannelButton = $( this.el ).find("#add_to_channel");
-      var followChannelMenu =$( this.el ).find("#follow-channel");
+      var addToChannelButton = this.$el.find("#add_to_channel");
+      var followChannelMenu =this.$el.find("#follow-channel");
 
       followChannelMenu.css({"left": addToChannelButton.position().left});
 
@@ -110,7 +110,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
     if ( self.model ) {
       self.model.trigger('loading');
 
-      $( this.el )
+      this.$el
         .html( Mustache.to_html(this.tmpl, this.model.toJSON() ));
 
       this.initSubChannels();
@@ -118,7 +118,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      $( this.el ).find('#facts_for_channel').append(this.activitiesView.render().el);
+      this.$el.find('#facts_for_channel').append(this.activitiesView.render().el);
 
       self.model.trigger('loaded')
                   .trigger('activate', self.model);

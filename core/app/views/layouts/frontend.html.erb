@@ -34,7 +34,6 @@
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
   <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
-
 </head>
 
 <body class="factlink-site">
@@ -80,6 +79,7 @@
     <% end %>
   <% end %>
 
+
   <script>
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
@@ -90,11 +90,14 @@
     var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
 
     Backbone.history.start({pushState:true, silent:true});
-    Router.navigate(window.location.pathname);
-
   </script>
 
   <%= yield :javascript %>
+
+  <script>
+    Router.navigate(window.location.pathname);
+    Backbone.history.loadUrl( Backbone.history.fragment );
+  </script>
 
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
        chromium.org/developers/how-tos/chrome-frame-getting-started -->

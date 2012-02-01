@@ -6,7 +6,7 @@ module Activities
     end
 
     def user_profile_url
-      user_profile_path(self[:activity].user.user)
+      channel_path(self[:activity].user.user,self[:activity].user.stream)
     end
 
     def avatar(size=32)
