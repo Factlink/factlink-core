@@ -1,4 +1,5 @@
 (function(Factlink, $, _, easyXDM, undefined) {
+Factlink.Facts = [];
 
 Factlink.highlight = function(start) {
   if ( start ) {
@@ -9,7 +10,22 @@ Factlink.highlight = function(start) {
 };
 
 Factlink.startHighlighting = function() {
-  Factlink.getTheFacts();
+  fetchFacts()
+    .done(function(data) {
+      // If there are multiple matches on the page, loop through them all
+      for (var i = 0; i < data.length; i++) {
+        // Select the ranges (results)
+        $.merge( Factlink.Facts,
+                 Factlink.selectRanges(
+                   Factlink.search(data[i].displaystring),
+                   data[i]._id,
+                   data[i].score_dict_as_percentage
+                 )
+                );
+      }
+
+      $(window).trigger('factlink.factsLoaded');
+    });
 };
 
 Factlink.stopHighlighting = function() {
@@ -18,6 +34,23 @@ Factlink.stopHighlighting = function() {
   }
 
   Factlink.Facts = [];
+};
+
+// Function which will collect all the facts for the current page
+// and select them.
+// Returns deferred object
+function fetchFacts() {
+  // The URL to the Factlink backend
+  var src = FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
+
+  // We use the jQuery AJAX plugin
+  return $.ajax({
+    url: src,
+    dataType: "jsonp",
+    crossDomain: true,
+    type: "GET",
+    jsonp: "callback"
+  });
 };
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);

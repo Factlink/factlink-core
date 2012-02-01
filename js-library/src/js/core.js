@@ -29,43 +29,6 @@ var Factlink = window.Factlink = (function() {
     return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
   };
 
-  Factlink.Facts = [];
-
-  // Function which will collect all the facts for the current page
-  // and select them.
-  Factlink.getTheFacts = function() {
-    // The URL to the Factlink backend
-    var src = FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
-
-    // We use the jQuery AJAX plugin
-    $.ajax({
-      url: src,
-      dataType: "jsonp",
-      crossDomain: true,
-      type: "GET",
-      jsonp: "callback",
-      // Callback which is called when the response is loaded, will contain
-      // the JSON data
-      success: function(data) {
-        var i;
-
-        // If there are multiple matches on the page, loop through them all
-        //TODO : dit mag pas on document ready
-        for (i = 0; i < data.length; i++) {
-          // Select the ranges (results)
-          $.merge( Factlink.Facts, Factlink.selectRanges(Factlink.search(data[i].displaystring), data[i]._id, data[i].score_dict_as_percentage) );
-        }
-        $(window).trigger('factlink.factsLoaded');
-      }
-    });
-  };
-
-  $(window).bind('factlink.libraryLoaded', function(){
-    if (Factlink !== undefined && FactlinkConfig !== undefined && FactlinkConfig.getFacts === true) {
-      Factlink.getTheFacts();
-    }
-  });
-
   // Create the Factlink container
   Factlink.el = $('<div id="fl" />').appendTo('body');
   // Create template wrapper
