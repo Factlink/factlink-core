@@ -98,11 +98,11 @@ window.FactView = Backbone.View.extend({
       }).render();
 
       // Channels are in the container
-      $('.add-to-channel', this.el)
+      $('.add-to-channel', this.$el)
         .hoverIntent(function(e) {
-          addToChannelView.el.fadeIn("fast");
+          addToChannelView.$el.fadeIn("fast");
         }, function() {
-          addToChannelView.el.delay(600).fadeOut("fast");
+          addToChannelView.$el.delay(600).fadeOut("fast");
         });
     }
   },
