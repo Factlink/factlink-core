@@ -372,7 +372,14 @@ a.bookmarklet {
             &.active {
               border: solid 1px #D8D8D8;
               border-bottom: solid 1px #fff;
-              .border-radius(3px);
+              .custom-radius(3px, 0, 0, 3px);
+              a {
+                color: #555;
+              }
+            }
+
+            a {
+              color: @linkColor;
             }
           }
         }
