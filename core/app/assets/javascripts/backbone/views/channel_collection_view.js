@@ -29,7 +29,7 @@ window.ChannelCollectionView = Backbone.CollectionView.extend({
 
   setLoading: function() {
     this.reset();
-    this.el.find('.add-channel').hide();
+    this.$el.find('.add-channel').hide();
   },
 
   afterReset: function() {
