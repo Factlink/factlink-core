@@ -3,9 +3,10 @@ window.AppView = Backbone.View.extend({
 
   initialize: function(options) {
     if (typeof(options)==='undefined') {options = {};}
+
     this.channelCollectionView = new ChannelCollectionView({
       collection: Channels
-    }).render();
+    });
 
     this.channelView = new ChannelView();
     this.views = [new RelatedUsersView()];

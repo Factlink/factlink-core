@@ -15,13 +15,13 @@ window.FactRelationView = Backbone.View.extend({
   },
 
   remove: function() {
-    $(this.el).fadeOut('fast', function() {
-      $(this.el).remove();
+    this.$el.fadeOut('fast', function() {
+      this.$el.remove();
     });
   },
 
   render: function() {
-    $(this.el).html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
+    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     return this;
   },
@@ -36,7 +36,7 @@ window.FactRelationView = Backbone.View.extend({
 
   highlight: function() {
     var self = this;
-    $(self.el).animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
+    self.$el.animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
       $(this).animate({"background-color": "#ffffff"}, 2000);
     }});
   }

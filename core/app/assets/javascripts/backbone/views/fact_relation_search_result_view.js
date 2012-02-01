@@ -16,7 +16,7 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   },
 
   remove: function() {
-    $(this.el).remove();
+    this.$el.remove();
   },
 
   createFactRelation: function(e) {
@@ -31,6 +31,13 @@ window.FactRelationSearchResultView = Backbone.View.extend({
         evidence_id: this.model.get('id')
       },
       success: function(newFactRelation) {
+        try {
+          mpmetrics.track("Evidence: Create", {
+            factlink_id: factRelations.fact.id,
+            evidence_id: self.model.get('id')
+          });
+        } catch(e) {}
+
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true
         });
