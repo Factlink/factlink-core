@@ -333,18 +333,33 @@ a.bookmarklet {
       h1 {
         .ellipsis();
         margin: 3px 0px 6px 0;
-        display: block;
+        display: inline-block;
         font-size: 16pt;
         height: @basefont * 2;
-        width: 70%;
-
+        padding: 0 10px 0 0;
       }
       a {
-        float: right;
-        display: block;
         color: @black;
       }
-      
+
+      div.button-wrap {
+        position: absolute;
+        width: 150px;
+        display: inline-block;
+        
+        .btn {
+          margin-top: 2px;
+          padding: 4px;
+
+          &.add {
+            &:before {
+              content: "+ ";
+              #font > .iconic();
+            }
+          }
+        }
+      }
+
       .channel-tabs {
         float: right;
 
@@ -353,17 +368,16 @@ a.bookmarklet {
           li {
             float: left; 
             padding: 6px;
-            border: solid 1px #D8D8D8;
-            .border-radius(3px);
+            border: solid 1px transparent;
+            &.active {
+              border: solid 1px #D8D8D8;
+              border-bottom: solid 1px #fff;
+              .border-radius(3px);
+            }
           }
         }
         margin: -20px 0 0 0;
         padding: 0px;
-      }
-      
-      div.float-box-container {
-        float: right;
-        position: relative;
       }
       p {
         margin: 0 0 6px 0;

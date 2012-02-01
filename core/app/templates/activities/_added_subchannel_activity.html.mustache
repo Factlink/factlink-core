@@ -1,10 +1,10 @@
 <article class="list-block">
   <div class="user-avatar">
-    {{{ activity.avatar }}}
+    {{{ avatar }}}
   </div>
 
   <div class="activity-container">
-    <span class="body"><a href="{{ activity.user_profile_url }}">{{ activity.username }}</a> added <a href="{{ activity.channel_owner_profile_url }}">{{ activity.channel_owner }}'s</a> channel <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his channels</span>
+    <span class="body"><a href="{{ user_profile_url }}">{{ username }}</a> added <a href="{{ activity.channel_owner_profile_url }}">{{ activity.channel_owner }}'s</a> channel <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his channels</span>
     <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
   </div>
 </article>

@@ -1,19 +1,21 @@
 <div id="channel" data-channel-id="{{ id }}">
+
+
   <header class="append-bottom title">
-    {{#editable?}}
-      <a href="{{ edit_link }}" class="btn small">edit</a>
-    {{/editable?}}
-
-    {{#followable?}}
-      <div class="float-box-container">
-        <a class="btn" id="add_to_channel">Add to channels</a>
-        <div class="float-box channel-listing" id="follow-channel"></div>
-      </div>
-    {{/followable?}}
-
   	<h1>
   	  {{ title }}
     </h1>
+
+    <div class="button-wrap">
+      {{#editable?}}
+      <a href="{{ edit_link }}" class="btn edit small">edit</a>
+      {{/editable?}}
+
+      {{#followable?}}
+      <a class="btn add small" id="add_to_channel">Add to channels</a>
+      <div class="float-box channel-listing" id="follow-channel"></div>
+      {{/followable?}}
+    </div>
 
     {{#inspectable?}}
     <div id="contained-channels">
@@ -25,10 +27,9 @@
       <div class="more"><a id="more-button"><span class="label">more</span></a></div>
     {{/inspectable?}}
 
-
     <div class="channel-tabs">
       <ul>
-        <li><a href="{{{link}}}" rel="backbone">facts</a></li>
+        <li class="active"><a href="{{{link}}}" rel="backbone">facts</a></li>
         <li><a href="{{{activities_link}}}" rel="backbone">activities</a></li>
       </ul>
     </div>
