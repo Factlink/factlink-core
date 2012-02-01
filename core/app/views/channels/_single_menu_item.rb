@@ -10,11 +10,11 @@ module Channels
     end
 
     def edit_link
-      link + "edit"
+      link + "/edit"
     end
 
     def activities_link
-      link + "activities"
+      link + "/activities"
     end
 
     def title
