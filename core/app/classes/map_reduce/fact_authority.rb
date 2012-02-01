@@ -4,7 +4,7 @@ class MapReduce
       FactRelation.all
     end
 
-    def set_for_one(f)
+    def set_for_one f
       FactRelation.all.find(from_fact_id: f.id)
     end
 

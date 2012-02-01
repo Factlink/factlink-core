@@ -29,8 +29,6 @@ class FactRelation
   alias :calculate_opinion :calculate_user_opinion
 end
 
-
-
 # authority
 
 def load_global_authority
@@ -49,7 +47,8 @@ def load_topic_specific_authority
   Authority.reset_calculators
 
   Authority.calculate_from :Fact do |f|
-    [1, FactRelation.find(:from_fact_id => f.id).except(:created_by_id => f.created_by_id).count].max
+    calculator = MapReduce::FactAuthority.new()
+    calculator.map_reduce( calculator.set_for_one f )
   end
 
   Authority.calculate_from :GraphUser do |gu|
