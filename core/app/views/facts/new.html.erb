@@ -1,43 +1,72 @@
-<% unless user_signed_in? %>
+<div id="header">
+  <span class="float">
+    <%= link_to image_tag("factlink_logo71x15.png"), root_path, { target: "_blank" } %>
+  </span>
 
-  <div class="alert-message block-message warning">
-    Hi! You need to sign in before you can add a Factlink. <%= link_to("Sign in", new_user_session_path, target: "_blank") %>
-  </div>
+  <ul class="float">
+  <% unless user_signed_in? %>
+    <li>
+      <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
+    </li>
+  <% else %>
+    <li class="highlight">
+      <label>
+        <input type="checkbox" name="highlight" id="highlight" /> Highlight
+      </label>
+    </li>
+    <li>
+    <button class="btn small" id="slideDown">Add new</button>
+    </li>
+  <% end %>
+  </ul>
+</div>
 
-<% else %>
-
-  <h1>Add a Factlink:</h1>
-
+<% if user_signed_in? %>
   <%= form_tag(facts_path) do %>
 
     <div class="row">
-      <%= label_tag :title %>
       <div class="field">
-        <%= text_field_tag :title, params[:title] %>
+        <%= text_field_tag :title, params[:title], placeholder: "Title (optional)" %>
       </div>
     </div>
 
     <% if params[:url] %>
       <div class="row">
-        <%= label_tag :url %>
         <div class="field">
-        <%= text_field_tag :url, params[:url] %>
+        <%= text_field_tag :url, params[:url], placeholder: "URL (optional)" %>
         </div>
       </div>
     <% end %>
 
     <div class="row">
-      <%= label_tag :fact %>
       <div class="field">
-        <%= text_area_tag :fact, params[:fact], :required => "required" %>
+        <%= text_area_tag :fact, params[:fact], :required => "required", placeholder: "Factlink text" %>
       </div>
     </div>
 
     <%= hidden_field_tag 'layout', 'popup' %>
 
-    <div class="actions">
-      <%= submit_tag "Create Factlink", :class => "btn" %>
-    </div>
+    <span class="float">
+      <button type="button" class="btn" id="annotate_button">Annotate</button>
+    </span>
+    <ul class="float">
+      <li style="margin-top: 5px;">
+        <a id="slideUp">Cancel</a>
+      </li>
+      <li>
+        <%= submit_tag "Save", :class => "btn" %>
+      </li>
+    </ul>
   <% end %>
+<% end%>
 
-<% end %>
+
+<script>
+  (function() {
+    var topWindow = window.top;
+
+    topWindow.postMessage({
+      messageKey: "slideDown"
+    }, "*");
+  })();
+</script>

@@ -195,7 +195,11 @@ class ChannelsController < ApplicationController
 
   def activities
     authorize! :show, @channel
-    render inline:'', layout: "channels"
+
+    respond_to do |format|
+      format.json { render json: Activity::For.channel(@channel).map { |activity| Activities::Activity.for(activity: activity, view: view_context) }.reverse }
+      format.html { render inline:'', layout: "channels" }
+    end
   end
 
   private

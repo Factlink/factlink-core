@@ -11,8 +11,7 @@ body {
   background: #F4F4F4;
 }
 
-body.factlink-site .fact-block,
-body.factlink-site div.user-block {
+body.factlink-site .fact-block {
   border-bottom: 1px solid @grayLighter;
   margin: 0px;
   .transition(all 0.2s ease);
@@ -111,7 +110,6 @@ body.factlink-site div.user-block {
   background: rgba(255, 255, 255, 0.75) !important;
 }
 
-
 a.bookmarklet {
   cursor: move;
 }
@@ -125,16 +123,46 @@ a.bookmarklet {
   left: 153px;
   top: 1px;
 }
+
+
+.list-block {
+  min-height: 48px;
+  padding: 16px;
+
+  border-bottom: 1px solid #E6E6E6;
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    float: left;
+  }
+  
+  .activity-container {
+    padding: 0 0 0 48px;
+    
+    .body {
+      color: #555;
+    }
+    .meta {
+      padding: 4px 0 0 0;
+      img {
+        vertical-align: middle;
+        padding: 0 6px 0 0;
+      }
+      display: block;
+      font-size: 0.85em;
+      color: #888;
+    }
+  }
+}
+
 .search-results .results .user-block {
   padding: 10px 0 0px 5px;
   height: 72px;
   list-style: none;
 
-  .avatar-container {
-    height: 72px;
-    &:hover {
+  .list-block:hover {
       cursor: pointer;
-    }
   }
 
   .user-avatar {
@@ -147,11 +175,6 @@ a.bookmarklet {
       margin: 0 0 0 16px;
       border: solid 1px #ddd;
       .border-radius(3px);
-    }
-  }
-  .wrapper {
-    h3, sub {
-      color: #555 !important;
     }
   }
 }
@@ -261,6 +284,9 @@ a.bookmarklet {
       .user-block {
         padding: 0;
         background-color: transparent;
+        img {
+          border: solid 3px #e9e8e8;
+        }
         &:hover {
           cursor: pointer;
           h1 {
@@ -306,20 +332,59 @@ a.bookmarklet {
       h1 {
         .ellipsis();
         margin: 3px 0px 6px 0;
-        display: block;
+        display: inline-block;
         font-size: 16pt;
         height: @basefont * 2;
-        width: 70%;
-
+        padding: 0 10px 0 0;
       }
       a {
-        float: right;
-        display: block;
         color: @black;
       }
-      div.float-box-container {
+
+      div.button-wrap {
+        position: absolute;
+        width: 150px;
+        display: inline-block;
+        
+        .btn {
+          margin-top: 2px;
+          padding: 4px;
+
+          &.add {
+            &:before {
+              content: "+ ";
+              #font > .iconic();
+            }
+          }
+        }
+      }
+
+      .channel-tabs {
         float: right;
-        position: relative;
+
+        ul {
+          list-style: none;
+          li {
+            float: left; 
+            padding: 6px;
+            border: solid 1px transparent;
+            &.active {
+              background: #fff;
+              border: solid 1px #D8D8D8;
+              border-bottom: solid 1px #fff;
+              .custom-radius(3px, 0, 0, 3px);
+              a {
+                color: #555;
+              }
+            }
+
+            a {
+              color: @linkColor;
+            }
+          }
+        }
+        margin: -20px 0 0 0;
+        padding: 0px;
       }
       p {
         margin: 0 0 6px 0;
@@ -342,6 +407,7 @@ a.bookmarklet {
         }
       }
       #contained-channels {
+        margin-bottom: 8px;
         .overflow {
           display: none;
         }
@@ -356,7 +422,7 @@ a.bookmarklet {
           .box-shadow(0px 0px 3px #a8a8a8);
           padding: 2px;
           .border-radius(3px);
-
+          background: #fff;
           a  {
             display: block;
             height: 100%;
