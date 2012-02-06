@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
     @mixpanel.append_api(:identify, current_user.id) if current_user
+    @mixpanel.append_api(:name_tag, current_user.username) if current_user
   end
 
   #require mustache partial views (the autoloader does not find them)

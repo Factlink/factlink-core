@@ -21,64 +21,6 @@ body.factlink-site .fact-block {
   }
 }
 
-#tos {
-  textarea {
-    width: 500px;
-    height: 240px;
-    border: solid 1px #ccc;
-    .border-radius(4px);
-
-    #font > .serif(normal, @basefont, @baseline);
-    line-height: 1.4em;
-    color: #666;
-    padding: 10px;
-    margin: 0 0 24px 0;
-  }
-  h1 {
-    font-size: @basefont * 2;
-    font-weight: bold;
-    margin-bottom: @baseline;
-  }
-  .explanation {
-    font-size: 0.8em;
-    width: 100%;
-    text-align: right;
-    color: #aaa;
-  }
-
-  form {
-    .row {
-      padding: 10px 0px;
-      color: #777;
-      text-shadow: 0px 1px 0px @white;
-
-      label {
-        display: block;
-        float: left;
-        width: 100px;
-        margin-top: 6px;
-      }
-
-      input {
-        padding: 8px;
-        width: 320px;
-        .border-radius(3px);
-        border: solid 1px #ddd;
-      }
-    }
-
-    input[type="submit"] {
-      margin: 16px 0 0 384px;
-    }
-
-    .tos_checkbox {
-      margin: 0 0 0 100px;
-      .field_with_errors {
-        width: 20px; float:left;
-      }
-    }
-  }
-}
 #feedback {
   position: fixed;
   top: 160px;
@@ -474,9 +416,8 @@ a.bookmarklet {
     margin: 1.5em 0 1em 0;
     li a {
       padding: @margin 4px @margin 0;
-      width: 140px;
+      width: 145px;
       display: block;
-      .ellipsis();
       #font > .sans-serif(normal, @basefont, @baseline);
       text-shadow: 0px 1px 0px @white;
       padding-left: 24px;
@@ -496,6 +437,11 @@ a.bookmarklet {
         color: @black;
         margin-left: -20px;
         float: right;
+      }
+      .title {
+        .ellipsis();
+        width: 130px;
+        display: inline-block;
       }
     }
     li.active {
