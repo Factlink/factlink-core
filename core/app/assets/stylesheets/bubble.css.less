@@ -264,13 +264,14 @@ div.fact-block .close {
             content: " X";
           }
         }
-        &:hover, &.active {
+        &:active, &:focus, &.active {
           border: 1px solid @grayLight;
           border-bottom: none;
           background-color: @whiteDarker;
         }
         &:hover a {
           color: @linkColorHover;
+          text-decoration: underline;
         }
         &.active a {
           display: inline-block;
