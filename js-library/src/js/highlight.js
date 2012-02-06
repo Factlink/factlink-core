@@ -10,6 +10,7 @@ Factlink.highlight = function(start) {
 };
 
 Factlink.startHighlighting = function() {
+  console.info( "Factlink:", "startHighlighting" );
   fetchFacts()
     .done(function(data) {
       // If there are multiple matches on the page, loop through them all
@@ -29,6 +30,7 @@ Factlink.startHighlighting = function() {
 };
 
 Factlink.stopHighlighting = function() {
+  console.info( "Factlink:", "stopHighlighting" );
   for( var i = 0; i < Factlink.Facts.length; i++ ) {
     Factlink.Facts[i].destroy();
   }

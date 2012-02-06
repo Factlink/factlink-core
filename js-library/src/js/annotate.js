@@ -12,6 +12,7 @@ Factlink.annotate = function(start) {
 };
 
 Factlink.startAnnotating = function() {
+  console.info( "Factlink:", "startAnnotating" );
   $('body').bind('mouseup.factlink', function(e) {
     window.clearTimeout(timeout);
 
@@ -40,6 +41,7 @@ Factlink.startAnnotating = function() {
 };
 
 Factlink.stopAnnotating = function() {
+  console.info( "Factlink:", "stopAnnotating" );
   $('body').unbind('mouseup.factlink');
 };
 
