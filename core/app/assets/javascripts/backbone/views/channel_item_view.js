@@ -54,7 +54,5 @@ window.ChannelItemView = Backbone.View.extend({
     Router.navigate(Router.getUsername() + "/channels/" + this.model.id, true);
 
     e.preventDefault();
-
-    return false;
   }
 });
