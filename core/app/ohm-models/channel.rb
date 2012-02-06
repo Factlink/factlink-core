@@ -1,6 +1,7 @@
 require_relative 'channel/generated_channel'
 require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
+require_relative 'channel/overtaker'
 
 class Channel < OurOhm
   include Activity::Subject
@@ -10,8 +11,17 @@ class Channel < OurOhm
   attribute :title
   index :title
 
+  attribute :lowercase_title
+  alias :old_set_title :title= unless method_defined?(:old_set_title)
+  def title=(new_title)
+    old_set_title new_title
+    self.lowercase_title = new_title.downcase
+  end
+
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
+  index :created_by_id
 
   set :contained_channels, Channel
   set :containing_channels, Channel
@@ -19,6 +29,8 @@ class Channel < OurOhm
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
+
+  after :create, :update_top_users
 
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
@@ -46,10 +58,28 @@ class Channel < OurOhm
 
   attribute :discontinued
   index :discontinued
+  alias :old_real_delete :delete unless method_defined?(:old_real_delete)
+  def real_delete
+    contained_channels.each do |subch|
+      subch.containing_channels.delete self
+    end
+    Activity.for(self).each do |a|
+      a.delete
+    end
+    old_real_delete
+    update_top_users
+  end
+
   def delete
     self.discontinued = true
     save
+    update_top_users
   end
+
+  def update_top_users
+    self.created_by.andand.reposition_in_top_users
+  end
+
 
   def facts(opts={})
     return [] if new?
@@ -76,6 +106,7 @@ class Channel < OurOhm
     super
     assert_present :title
     assert_present :created_by
+    assert_unique([:title,:created_by_id])
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
@@ -111,13 +142,6 @@ class Channel < OurOhm
   end
 
 
-  def fork(user)
-    c = Channel.create(:created_by => user, :title => title)
-    c._add_channel(self)
-    activity(user,:forked,self,:to,c)
-    c
-  end
-
   def related_users(calculator=RelatedUsersCalculator.new,options)
     options[:without] ||= []
     options[:without] << created_by
@@ -133,8 +157,10 @@ class Channel < OurOhm
 
   def add_channel(channel)
     if (! contained_channels.include?(channel))
-      _add_channel(channel)
-      activity(self.created_by,:added,channel,:to,self)
+      contained_channels << channel
+      channel.containing_channels << self
+      calculate_facts
+      activity(self.created_by,:added_subchannel,channel,:to,self)
     end
   end
 
@@ -157,12 +183,6 @@ class Channel < OurOhm
   end
 
   protected
-    def _add_channel(channel)
-      contained_channels << channel
-      channel.containing_channels << self
-      calculate_facts
-    end
-
     def self.recalculate_all
       all.andand.each do |ch|
         ch.calculate_facts

@@ -183,10 +183,6 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
-  def follow
-    @channel.fork(current_user.graph_user)
-  end
-
   def related_users
     authorize! :show, @channel
 
@@ -199,7 +195,11 @@ class ChannelsController < ApplicationController
 
   def activities
     authorize! :show, @channel
-    render inline:'', layout: "channels"
+
+    respond_to do |format|
+      format.json { render json: Activity::For.channel(@channel).map { |activity| Activities::Activity.for(activity: activity, view: view_context) }.reverse }
+      format.html { render inline:'', layout: "channels" }
+    end
   end
 
   private

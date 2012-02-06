@@ -13,7 +13,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
 
-    $(this.el).html(Mustache.to_html(this.tmpl, {}, this.partials));
+    this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     this.bindScroll();
   },
   
@@ -30,7 +30,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
       model: search_result_item
     });
 
-    $(this.el).find('.results').append(view.render().el);
+    this.$el.find('.results').append(view.render().el);
   },
   
   resetSearchResultItems: function(e) {
@@ -59,7 +59,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
   
   moreNeeded: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
-    var bottomOfEl = $(this.el).offset().top + $(this.el).outerHeight();
+    var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
 
     if ( this.hasMore ) {
       if ( bottomOfEl < bottomOfTheViewport ) {
@@ -103,21 +103,21 @@ window.SearchResultView = Backbone.CollectionView.extend({
   hasMore: true,
   
   showNoFacts: function() {
-    $(this.el).find('div.no_results').show();
+    this.$el.find('div.no_results').show();
   },
   
   hideNoFacts: function() {
-    $(this.el).find('div.no_results').hide();
+    this.$el.find('div.no_results').hide();
   },
   
   setLoading: function() {
     this._loading = true;
-    $(this.el).find('div.loading').show();
+    this.$el.find('div.loading').show();
   },
   
   stopLoading: function() {
     this._loading = false;
-    $(this.el).find('div.loading').hide();
+    this.$el.find('div.loading').hide();
   },
   
   //TODO: Unbind on remove?

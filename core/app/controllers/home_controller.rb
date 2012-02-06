@@ -14,12 +14,10 @@ class HomeController < ApplicationController
   end
 
   def index
-    if user_signed_in?
-      redirect_to user_profile_path(@current_user)
-    else
-      @facts = Fact.all.sort(:order => "DESC",:limit => 3)
-      render layout: "landing"
-    end
+    redirect_to user_profile_path(@current_user) and return if user_signed_in?
+      
+    @facts = Fact.all.sort(:order => "DESC",:limit => 3)
+    render layout: "landing"
  end
 
  def tos
@@ -35,6 +33,9 @@ class HomeController < ApplicationController
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
   def search
+    if params[:s]
+      raise HackAttempt unless params[:s].is_a? String
+    end
     @row_count = 20
     row_count = @row_count
 

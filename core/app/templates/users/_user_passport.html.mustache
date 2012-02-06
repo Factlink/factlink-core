@@ -6,7 +6,7 @@
 
   <ul class="channels">
     {{#channels}}
-    <li><a href="/{{username}}/channels/{{id}}/">{{title}}</a></li>
+    <li><a rel="backbone" href="/{{username}}/channels/{{id}}">{{title}}</a></li>
     {{/channels}}
     <li><a href="{{profile_path}}">more...</a></li>
   </ul>

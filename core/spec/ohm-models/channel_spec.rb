@@ -6,7 +6,14 @@ require_relative '../../app/ohm-models/channel.rb'
 
 class Basefact < OurOhm;end
 class Fact < Basefact;end
-class GraphUser < OurOhm;end
+
+unless defined?(GraphUser)
+  class GraphUser < OurOhm
+    def reposition_in_top_users; end
+  end
+end
+
+
 
 def create_fact
   FactoryGirl.create :fact
@@ -21,7 +28,7 @@ describe Channel do
   let(:ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
   let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Something")}
-  let(:u1_ch1) {Channel.create(:created_by => u1, :title => "Diddly")}
+  let(:u1_ch2) {Channel.create(:created_by => u1, :title => "Diddly")}
   let(:u2_ch1) {Channel.create(:created_by => u2, :title => "Something")}
   let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
@@ -29,13 +36,22 @@ describe Channel do
   let(:u1) { GraphUser.create }
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
-  
+
   let (:f1) { create_fact }
   let (:f2) { create_fact }
   let (:f3) { create_fact }
   let (:f4) { create_fact }
 
-  
+
+  context "activity on a channel" do
+    describe "when adding a subchannel" do
+      before do
+        subject.add_channel(ch1)
+      end
+      it { Activity.for(subject).to_a.last.action.should == "added_subchannel" }
+    end
+  end
+
   describe "initially" do
     it { subject.containing_channels.to_a.should =~ [] }
   end
@@ -49,7 +65,7 @@ describe Channel do
     it { subject.facts.to_a.should =~ []}
   end
 
-  
+
   describe "after adding one fact" do
     before do
       subject.add_fact(f1)
@@ -67,21 +83,22 @@ describe Channel do
       end
       it { subject.facts.to_a.should =~ []}
     end
-    
-    
-    
+
+
+
     describe "after forking" do
       before do
-        @fork = subject.fork(u2)
+        @fork = Channel.create created_by: u2, title: "Fork"
+        @fork.add_channel(subject)
         @fork.title = "Fork"
         @fork.save
-      end  
-      
+      end
+
       it {subject.facts.to_a.should =~ [f1]}
       it {@fork.facts.to_a.should =~ [f1]}
 
       it {subject.containing_channels.to_a.should =~ [@fork]}
-      
+
       describe "and removing the fact from the original" do
         before do
           subject.remove_fact(f1)
@@ -134,7 +151,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "after adding a subchannel" do
     before do
       subject.add_channel(ch1)
@@ -158,7 +175,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "after adding to two channels" do
     before do
       ch1.add_channel subject
@@ -172,7 +189,7 @@ describe Channel do
       it {subject.containing_channels.to_a.should =~ [ch2]}
     end
   end
-  
+
   describe "#containing_channels_for" do
     describe "initially" do
       it {subject.containing_channels_for(u1).to_a.should =~ []}
@@ -191,7 +208,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "#active_channels_for" do
     before do
       @expected_channels = []
@@ -229,7 +246,7 @@ describe Channel do
       end
     end
   end
-  
+
   describe "#facts" do
     before do
       Fact.should_receive(:invalid).any_number_of_times.and_return(false)
@@ -265,6 +282,70 @@ describe Channel do
         subject.facts(withscores:false,count:0).length.should == 0
         subject.facts(withscores:false,count:1).length.should == 1
       end
+    end
+  end
+
+  describe "creating a channel" do
+    it "should be possible to create a channel given a username and a title" do
+      @ch = Channel.create created_by: u1, title: 'foo'
+      @ch.should_not be_new
+    end
+    context "should not be possible to create two channels with the same title" do
+      before do
+        Channel.create title: "foo", created_by: u1
+      end
+      it "should not be possible using create" do
+        @ch = Channel.create title: "foo", created_by: u1
+        @ch.should be_new
+        @ch.should_not be_valid
+      end
+      it "should not be possible using save" do
+        @ch = Channel.new title: "foo", created_by: u1
+        @ch.should_not be_valid
+        @ch.save
+        @ch.should be_new
+      end
+    end
+  end
+
+  describe "removing a channel" do
+    it "should be possible" do
+      id = ch1.id
+      Channel[id].should_not be_nil
+      ch1.real_delete
+      Channel[id].should be_nil
+    end
+    it "should remove itself from other channels' containing_channels" do
+      id = ch1.id
+      ch1.add_channel u1_ch1
+      u1_ch1.containing_channels.ids.should =~ [id]
+      ch1.real_delete
+      u1_ch1.containing_channels.ids.should =~ []
+    end
+    it "should remove activities" do
+      fakech1 = Channel.new
+      ch1.add_channel u1_ch1
+      fakech1.stub(:id,ch1.id)
+      ch1.add_fact f1
+      ch1.real_delete
+      Activity.for(fakech1).all.should == []
+    end
+    it "should be removed from the graph_users active channels for" do
+      subject
+      Channel.active_channels_for(u1).should include(subject)
+      subject.real_delete
+      Channel.active_channels_for(u1).should_not include(subject)
+    end
+  end
+
+  describe :title= do
+    it "should set the title" do
+      subject.title = "hasfudurbar"
+      subject.title.should  == "hasfudurbar"
+    end
+    it "should set the lowercase title" do
+      subject.title = "HasfudUrbar"
+      subject.lowercase_title.should  == "hasfudurbar"
     end
   end
 end

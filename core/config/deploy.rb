@@ -58,10 +58,15 @@ namespace :deploy do
   task :stop_recalculate do
     run "sh #{current_path}/bin/server/stop_recalculate.sh"
   end
+
+  task :reindex do
+    run "cd #{current_path}; bundle exec rake sunspot:solr:reindex RAILS_ENV=#{deploy_env}"
+  end
 end
 
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
+after 'deploy:all',       'deploy:reindex'
 before 'deploy:migrate',  'deploy:stop_recalculate'
 after 'deploy',           'deploy:migrate'
 after 'deploy:migrate',   'deploy:start_recalculate'

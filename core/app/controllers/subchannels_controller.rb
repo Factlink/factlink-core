@@ -9,6 +9,7 @@ class SubchannelsController < ApplicationController
     ]
 
   def index
+    authorize! :show, @channel
     @contained_channels = @channel.contained_channels
 
     respond_to do |format|

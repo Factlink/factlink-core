@@ -43,7 +43,7 @@ window.FactRelationsView = Backbone.View.extend({
 
     this._views.push(factRelationView);
 
-    $(this.el).find('ul.evidence-listing').append(factRelationView.render().el);
+    this.$el.find('ul.evidence-listing').append(factRelationView.render().el);
 
     if ( options.highlight ) {
       this.highlightFactRelation(factRelationView);
@@ -67,7 +67,7 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el)
+    this.$el
       .html(Mustache.to_html(this.tmpl, {}, this.partials))
       .prepend(this.factRelationSearchView.render().el);
 
@@ -75,11 +75,11 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   hide: function() {
-    $(this.el).hide();
+    this.$el.hide();
   },
 
   show: function() {
-    $(this.el).show();
+    this.$el.show();
   },
 
   showAndFetch: function() {
@@ -99,24 +99,24 @@ window.FactRelationsView = Backbone.View.extend({
       });
     }
 
-    $(this.el).show();
+    this.$el.show();
   },
 
   showLoadingIndicator: function() {
-    $(this.el).find('.loading-evidence').show();
+    this.$el.find('.loading-evidence').show();
     this.hideNoEvidenceMessage();
   },
 
   hideLoadingIndicator: function() {
-    $(this.el).find('.loading-evidence').hide();
+    this.$el.find('.loading-evidence').hide();
   },
 
   showNoEvidenceMessage: function() {
-    $(this.el).find('.no-evidence-message').show();
+    this.$el.find('.no-evidence-message').show();
     this.hideLoadingIndicator();
   },
 
   hideNoEvidenceMessage: function() {
-    $(this.el).find('.no-evidence-message').hide();
+    this.$el.find('.no-evidence-message').hide();
   }
 });

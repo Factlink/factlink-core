@@ -3,7 +3,7 @@ window.UserSearchView = Backbone.View.extend({
   className: "user-block",
 
   events: {
-    "click div.avatar-container": "clickHandler"
+    "click div.list-block": "clickHandler"
   },
   
   initialize: function() {
@@ -11,7 +11,7 @@ window.UserSearchView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
 
     return this;
   },
