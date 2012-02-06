@@ -111,5 +111,11 @@ class Fact < Basefact
   before :delete, :delete_all_evidenced
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
+  def channels
+    Channel.for_fact(self)
+  end
+  def channel_ids
+    channels.map {|ch| ch.id}
+  end
 
 end
