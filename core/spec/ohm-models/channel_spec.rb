@@ -351,4 +351,18 @@ describe Channel do
       subject.lowercase_title.should  == "hasfudurbar"
     end
   end
+
+  describe ".for_fact" do
+    it "should give all channels which contain a certain fact" do
+      ch1
+      ch2
+      ch1.add_fact f1
+      ch1.add_fact f2
+      ch2.add_fact f2
+
+      Channel.for_fact(f1).should =~ [ch1]
+      Channel.for_fact(f2).should =~ [ch1,ch2]
+    end
+  end
+
 end
