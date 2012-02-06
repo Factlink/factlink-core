@@ -182,6 +182,10 @@ class Channel < OurOhm
     Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
   end
 
+  def self.for_fact(f)
+    Channel.all.all.keep_if {|ch| ch.include?(f) }
+  end
+
   protected
     def self.recalculate_all
       all.andand.each do |ch|
