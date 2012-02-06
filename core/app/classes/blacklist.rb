@@ -11,6 +11,7 @@ class Blacklist
       /^http(s)?:\/\/([^\/]+\.)?irccloud\.com\//,
       /^http(s)?:\/\/([^\/]+\.)?moneybird\.nl\//,
       /^http(s)?:\/\/([^\/]+\.)?github\.com\//,
+      /^http(s)?:\/\/([^\/]+\.)?mixpanel\.com\//,
     ]
   end
 

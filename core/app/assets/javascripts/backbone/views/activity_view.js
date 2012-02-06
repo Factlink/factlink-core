@@ -1,6 +1,6 @@
 window.GenericActivityView = Backbone.View.extend({
   tagName: "div",
-  className: "user-block",
+  className: "activity-block",
 
   initialize: function(options) {
     this.useTemplate("activities", "_generic_activity");
@@ -8,6 +8,7 @@ window.GenericActivityView = Backbone.View.extend({
 
   render: function() {
     this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    $('#activity_for_channel').append(this.$el);
     return this;
   },
 
@@ -16,18 +17,35 @@ window.GenericActivityView = Backbone.View.extend({
   }
 });
 
-ActivityAddedEvidenceView = GenericActivityView.extend({});
-ActivityAddedSubchannelView = GenericActivityView.extend({});
+ActivityAddedEvidenceView = GenericActivityView.extend({
+  initialize: function(options) {
+    this.useTemplate("activities", "_added_evidence_activity");
+  }
+});
+
+ActivityAddedSubchannelView = GenericActivityView.extend({
+  initialize: function(options) {
+    this.useTemplate("activities", "_added_subchannel_activity");
+  }
+});
 ActivityWasFollowedView = GenericActivityView.extend({});
 
 window.ActivityView = function(opts) {
-  if (opts.model.get("type") === "added_evidence") {
-    return new ActivityAddedEvidenceView(opts);
-  } else if (opts.model.get("type") === "added_subchannel") {
-    return new ActivityAddedSubchannelView(opts);
-  } else if (opts.model.get("type") === "was_followed") {
-    return new ActivityWasFollowedView(opts);
-  } else {
-    return new GenericActivityView(opts);
+
+  switch (opts.model.get("action")) {
+    case "added_supporting_evidence":
+      return new ActivityAddedEvidenceView(opts);
+
+    case "added_weakening_evidence":
+      return new ActivityAddedEvidenceView(opts);
+
+    case "added_subchannel":
+      return new ActivityAddedSubchannelView(opts);
+
+    case "was_followed":
+      return new ActivityWasFollowedView(opts);
+
+    default:
+      return new GenericActivityView(opts);
   }
 };

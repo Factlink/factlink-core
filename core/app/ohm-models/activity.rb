@@ -8,6 +8,12 @@ class Activity < OurOhm
   include Ohm::Timestamping
   reference :user, GraphUser
 
+  alias :old_set_user :user= unless method_defined?(:old_set_user)
+  def user=(new_user)
+    old_set_user new_user.graph_user
+  end
+
+
   generic_reference :subject
   generic_reference :object
 
