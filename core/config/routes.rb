@@ -2,8 +2,6 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-
-
   ##########
   # User Authentication
   devise_for :users, :controllers => {  :registrations => "users/registrations",
@@ -72,6 +70,7 @@ FactlinkUI::Application.routes.draw do
     get ":name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
   end
   get "/tour" => "home#tour", as: "tour"
+  get "/privacy" => "privacy#privacy", as: "privacy"
 
   namespace :admin do
     resources :users, :only => [:show, :new, :create, :edit, :update, :index]
