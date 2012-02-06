@@ -8,10 +8,10 @@
     return;
   }
 
-  try {
+  if ( typeof Factlink === "object" && typeof Factlink.startAnnotating === "function" ) {
     // Start annotating
     Factlink.startAnnotating();
-  } catch (e) {
+  } else {
     setTimeout(function() {
       arg.callee(Factlink, ++waitingCount);
     }, 100);
