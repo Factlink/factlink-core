@@ -9,6 +9,9 @@ class Fact < Basefact;end
 
 unless defined?(GraphUser)
   class GraphUser < OurOhm
+    def graph_user
+      return self
+    end
     def reposition_in_top_users; end
   end
 end
