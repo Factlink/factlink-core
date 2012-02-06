@@ -1,7 +1,10 @@
-<article class="fact">
-  <div class="avatar"><img src="" alt="" /></div>
-	<header>
-		<span class="body"><a href="#">Jens Kanis</a> added evidence to the Factlink <a href="#">White people can't dance</a></span>
-		<span class="meta evidence">About 10 hours ago</span>
-	</header>
+<article class="list-block">
+  <div class="user-avatar">
+    {{{ avatar }}}
+  </div>
+
+	<div class="activity-container">
+    <span class="body"><a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added "{{ activity.evidence }}" as {{ activity.type }} evidence to "{{ activity.fact }}"</span>
+    <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
+  </div>
 </article>

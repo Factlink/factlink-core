@@ -16,7 +16,7 @@ window.FactView = Backbone.View.extend({
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
 
-    $(this.el).attr('data-fact-id', this.model.id).factlink();
+    this.$el.attr('data-fact-id', this.model.id).factlink();
 
     this.initAddToChannel();
     this.initFactRelationsViews();
@@ -26,7 +26,7 @@ window.FactView = Backbone.View.extend({
   partials: {},
 
   render: function() {
-    $( this.el )
+    this.$el
       .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
 
     this.initAddToChannel();
@@ -37,8 +37,8 @@ window.FactView = Backbone.View.extend({
   },
 
   remove: function() {
-    $(this.el).fadeOut('fast', function() {
-      $(this.el).remove();
+    this.$el.fadeOut('fast', function() {
+      $(this).remove();
     });
 
     // Hides the popup (if necessary)
@@ -49,9 +49,19 @@ window.FactView = Backbone.View.extend({
   },
 
   removeFactFromChannel: function() {
+    var self = this;
+
     this.model.destroy({
       error: function() {
         alert("Error while removing Factlink from Channel" );
+      },
+      success: function() {
+        try {
+          mpmetrics.track("Channel: Silence Factlink from Channel", {
+            factlink_id: self.model.id,
+            channel_id: currentChannel.id
+          });
+        } catch(e) {}
       },
       forChannel: true
     });
@@ -63,17 +73,24 @@ window.FactView = Backbone.View.extend({
       error: function() {
         alert("Error while removing the Factlink" );
       },
+      success: function() {
+        try {
+          mpmetrics.track("Factlink: Destroy", {
+            factlink_id: self.model.id
+          });
+        } catch(e) {}
+      },
       forChannel: false
     });
   },
 
   initAddToChannel: function() {
-    if ( $(this.el).find('.channel-listing') && typeof currentUser !== "undefined" ) {
+    if ( this.$el.find('.channel-listing') && typeof currentUser !== "undefined" ) {
 
       var addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
 
-        el: $(this.el).find('.channel-listing'),
+        el: this.$el.find('.channel-listing'),
 
         model: this.model,
 
@@ -81,11 +98,11 @@ window.FactView = Backbone.View.extend({
       }).render();
 
       // Channels are in the container
-      $('.add-to-channel', this.el)
+      $('.add-to-channel', this.$el)
         .hoverIntent(function(e) {
-          addToChannelView.el.fadeIn("fast");
+          addToChannelView.$el.fadeIn("fast");
         }, function() {
-          addToChannelView.el.delay(600).fadeOut("fast");
+          addToChannelView.$el.delay(600).fadeOut("fast");
         });
     }
   },
@@ -114,11 +131,11 @@ window.FactView = Backbone.View.extend({
       $('.dropdown-container', this.el).slideDown('fast');
     }
 
-    $(this.el).addClass("active");
+    this.$el.addClass("active");
   },
 
   hideDropdownContainer: function(className) {
-    $(this.el).removeClass("active");
+    this.$el.removeClass("active");
 
     $('.dropdown-container', this.el).slideUp('fast');
   },
@@ -134,9 +151,17 @@ window.FactView = Backbone.View.extend({
   },
 
   toggleEvidence: function(e) {
+    var self = this;
     var $target = $(e.target).closest('li');
-    var $tabButtons = $(this.el).find('.controls li');
+    var $tabButtons = this.$el.find('.controls li');
     var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
+
+    try {
+      mpmetrics.track("Factlink: Open tab", {
+        factlink_id: self.model.id,
+        type: type
+      });
+    } catch(e) {}
 
     $tabButtons.removeClass("active");
 

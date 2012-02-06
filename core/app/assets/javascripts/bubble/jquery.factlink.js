@@ -45,6 +45,13 @@
             $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
               data_attr(current_op, "user-opinion", true);
               fact.factlink("update", data);
+
+              try {
+                mpmetrics.track("Factlink: Opinionate", {
+                  factlink: $(fact).data('fact-id'),
+                  opinion: opinion.data("opinion")
+                });
+              } catch(e) {}
             });
           }
           else {
@@ -54,6 +61,12 @@
               success: function(data) {
                 data_attr(current_op, "user-opinion", false);
                 fact.factlink("update", data);
+
+                try {
+                  mpmetrics.track("Factlink: De-opinionate", {
+                    factlink: $(fact).data('fact-id')
+                  });
+                } catch(e) {}
               }
             });
           }

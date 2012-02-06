@@ -11,6 +11,14 @@ class Channel < OurOhm
   attribute :title
   index :title
 
+  attribute :lowercase_title
+  alias :old_set_title :title= unless method_defined?(:old_set_title)
+  def title=(new_title)
+    old_set_title new_title
+    self.lowercase_title = new_title.downcase
+  end
+
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
   index :created_by_id
@@ -69,7 +77,7 @@ class Channel < OurOhm
   end
 
   def update_top_users
-    self.created_by.reposition_in_top_users
+    self.created_by.andand.reposition_in_top_users
   end
 
 
@@ -152,7 +160,7 @@ class Channel < OurOhm
       contained_channels << channel
       channel.containing_channels << self
       calculate_facts
-      activity(self.created_by,:added,channel,:to,self)
+      activity(self.created_by,:added_subchannel,channel,:to,self)
     end
   end
 

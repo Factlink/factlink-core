@@ -1,8 +1,8 @@
 class Activity < OurOhm
   module Subject
 
-    def activity(user, action, subject, sub_action = :to ,object = nil)
-      Activity.create(user: user,action: action, subject: subject, object: object)
+    def activity(graph_user, action, subject, sub_action = :to ,object = nil)
+      Activity.create(user: graph_user,action: action, subject: subject, object: object)
     end
 
     def activities(nr=nil)

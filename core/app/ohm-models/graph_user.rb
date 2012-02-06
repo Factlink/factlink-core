@@ -27,7 +27,7 @@ class GraphUser < OurOhm
 
 
   define_memoized_method :channels do
-    channels = self.internal_channels.sort_by(:title, order: 'ALPHA ASC').to_a
+    channels = self.internal_channels.sort_by(:lowercase_title, order: 'ALPHA ASC').to_a
 
     channels.delete(self.created_facts_channel)
     channels.unshift(self.created_facts_channel)

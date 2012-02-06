@@ -155,7 +155,7 @@ div.fact-block .close {
     .opacity(0);
     .unselectable();
     .transition(@transition);
-    border-bottom: 1px solid @grayLighter;
+    border-bottom: 1px solid transparent;
 
     ul.users {
       float: right;
@@ -281,6 +281,8 @@ div.fact-block .close {
   }
   .dropdown-container {
     display: none;
+    border-top: 1px solid #E6E6E6;
+    margin-top: -1px;
     background: @whiteDarker;
     padding: 9px 0 10px 0;
     ul.search-results {
