@@ -4,8 +4,6 @@ var Workspace = Backbone.Router.extend({
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities$/, "getChannelActivities", this.getChannelActivities);
 
     this.view = new AppView();
-
-    //this._username = opts.username;
   },
 
   loadChannel: function(username, channel_id) {

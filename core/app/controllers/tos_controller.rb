@@ -4,7 +4,7 @@ class TosController < ApplicationController
   layout "frontend"
 
   def show
-    authorize! :sign_tos, current_user
+    authorize! :read_tos, current_user
   end
 
   def update

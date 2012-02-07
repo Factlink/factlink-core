@@ -43,26 +43,29 @@
   <div id="container" class="container">
 
     <%= render 'home/notifications', notice: notice, alert: alert %>
-
-    <section id="header" class="span-24 append-bottom">
-      <%= yield :header %>
-    </section>
-
-    <section id="left-column" class="prepend-2 span-5 side-column">
-      <% if content_for?(:left_column) %>
-        <%= yield(:left_column) %>
-      <% else %>
-        &nbsp;
-      <% end %>
-    </section>
-
-    <section id="main-column" class="span-16" role="main">
-      <section id="main-wrapper">
-        <%= yield :main_column %>
-        <%= yield %>
+    <div class="row">
+      <section id="header" class="span24">
+        <%= yield :header %>
       </section>
-    </section>
-    <%= render 'home/feedback' %>
+    </div>
+
+    <div class="row" id="main">
+      <section id="left-column" class="span4">
+        <% if content_for?(:left_column) %>
+          <%= yield(:left_column) %>
+        <% else %>
+          &nbsp;
+        <% end %>
+      </section>
+
+      <section id="main-column" class="span12" role="main">
+        <section id="main-wrapper">
+          <%= yield :main_column %>
+          <%= yield %>
+        </section>
+      </section>
+      <%= render 'home/feedback' %>
+    </div>
   </div>
 
   <div id="first-tour-modal" class="modal hide fade tour-modal"></div>

@@ -62,6 +62,12 @@ namespace :deploy do
   task :reindex do
     run "cd #{current_path}; bundle exec rake sunspot:solr:reindex RAILS_ENV=#{deploy_env}"
   end
+
+  task :curl_site do
+    run <<-CMD
+      curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url}
+    CMD
+  end
 end
 
 before 'deploy:all',      'deploy'
@@ -73,3 +79,5 @@ after 'deploy:migrate',   'deploy:start_recalculate'
 
 after 'deploy:update', 'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
+
+after 'deploy', 'deploy:curl_site'
