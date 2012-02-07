@@ -1,5 +1,7 @@
 server 'staging.factlink.com', :app, :web, :primary => true
 
+set :full_url, 'https://staging.factlink.com'
+
 set :deploy_env, 'staging'
 set :rails_env,  'staging' # Also used by capistrano for some specific tasks
 
