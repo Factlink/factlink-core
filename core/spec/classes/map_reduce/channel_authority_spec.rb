@@ -13,11 +13,26 @@ describe MapReduce::ChannelAuthority do
         stub(:Fact,
           id: 10,
           created_by_id: 20,
+          channel_ids: [10,11],
+        ),
+        stub(:Fact,
+          id: 11,
+          created_by_id: 21,
           channel_ids: [10],
+        ),
+        stub(:Fact,
+          id: 12,
+          created_by_id: 21,
+          channel_ids: [10,11],
         )
       ]
       Authority.stub!(:from).and_return(18)
-      subject.wrapped_map(facts).should == {{user_id: 20, channel_id:10} => [18] }
+      subject.wrapped_map(facts).should == {
+        {user_id: 20, channel_id:10} => [18],
+        {user_id: 21, channel_id:10} => [18,18],
+        {user_id: 20, channel_id:11} => [18],
+        {user_id: 21, channel_id:11} => [18],
+      }
     end
   end
 end
