@@ -1,6 +1,9 @@
 require File.expand_path('../../../app/classes/map_reduce.rb', __FILE__)
 
 class ExampleMapReduce < MapReduce
+  def initialize &block
+    @block = block
+  end
   def map iterator
     iterator.each do |i|
       i.each_pair do |k,v|
@@ -12,10 +15,21 @@ class ExampleMapReduce < MapReduce
   def reduce bucket, partials
       partials.inject(:+)
   end
+
+  def write_output k,v
+    @block.call k,v
+  end
 end
 
 
 describe ExampleMapReduce do
+  subject do
+    ExampleMapReduce.new do|k,v|
+      @res ||= {}
+      @res[k] = v
+    end
+  end
+
   it do
     list = [{a: 1}, {b: 2}, {c: 3}, {a: 4}]
     subject.wrapped_map(list).should == {a: [1, 16], b: [4], c: [9]}
@@ -28,7 +42,8 @@ describe ExampleMapReduce do
 
   it do
     list = [{a: 1}, {b: 2}, {c: 3}, {a: 4}]
-    subject.map_reduce(list).should == {:a=>17, :b=>4, :c=>9}
+    subject.map_reduce(list)
+    @res.should == {:a=>17, :b=>4, :c=>9}
   end
 end
 
