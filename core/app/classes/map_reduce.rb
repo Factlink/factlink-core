@@ -17,7 +17,9 @@ class MapReduce
   end
 
   def map_reduce iterator
-    wrapped_reduce(wrapped_map(iterator))
+    wrapped_reduce(wrapped_map(iterator)).each_pair do |key, value|
+      write_output key, value
+    end
   end
 
 end
