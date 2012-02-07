@@ -205,7 +205,7 @@ class ChannelsController < ApplicationController
   private
     def get_user
       if params[:username]
-        @user = User.first(:conditions => { :username => params[:username]})
+        @user = User.first(:conditions => { :username => params[:username]}) || raise_404
       end
     end
 
