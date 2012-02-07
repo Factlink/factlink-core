@@ -10,7 +10,7 @@ class MapReduce
     end
 
     def reduce bucket, values
-      return 0
+      return values.inject(0) {|sum, value| sum += value }
     end
   end
 end
