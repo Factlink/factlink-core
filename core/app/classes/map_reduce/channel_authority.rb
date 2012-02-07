@@ -12,5 +12,12 @@ class MapReduce
     def reduce bucket, values
       return values.inject(0) {|sum, value| sum += value }
     end
+
+    def write_output ident, value
+      ch = Channel[ident[:channel_id]]
+      gu = GraphUser[ident[:user_id]]
+      Authority.from(ch, for: gu) << value
+    end
+
   end
 end
