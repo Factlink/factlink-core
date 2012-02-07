@@ -48,16 +48,18 @@
             <%= yield :payoff %>
           </div>
 
-          <div id="selling-points" class="span5">
+          <div class="row">
+            <div id="selling-points" class="span5">
             <%= yield :selling_points %>
           </div>
 
-          <div id="movie" class="offset1 span5">
+          <div id="movie" class="span1">
             <%= yield :movie %>
           </div>
         </div>
+        </div>
 
-        <div class="span5 offset1">
+        <div class="span5 offset1" id="right">
           <div id="signup" class="row">
             <%= yield :sign_up %>
           </div>
