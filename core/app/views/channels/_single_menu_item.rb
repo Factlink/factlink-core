@@ -38,7 +38,12 @@ module Channels
     end
 
     def created_by
-      Users::User.for(user: self[:user], view: self.view)
+      {
+        id: self[:user].id,
+        username: self[:user].username,
+        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32),
+        authority: Authority.from(self[:user].graph_user).to_f
+      }
     end
 
     def nr_of_facts
