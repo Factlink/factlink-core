@@ -22,5 +22,9 @@ class MapReduce
       end
       [1, result].max
     end
+
+    def write_output fact_id, value
+      Authority.from({Fact: fact_id}) << value
+    end
   end
 end
