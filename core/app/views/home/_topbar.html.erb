@@ -44,6 +44,7 @@
             </ul>
             </li>
 
+          <% if can? :access, Ability::FactlinkWebapp %>
           <li class="dropdown" data-dropdown="dropdown">
             <a class="dropdown-toggle"> <%= image_tag('factlink-icon-top-bar.png') %> </a>
             <ul class="dropdown-menu">
@@ -56,6 +57,7 @@
               <li><%= link_to "Terms of Service", tos_path %></li>
             </ul>
           </li>
+          <% end %>
         <% else %>
           <li>
             <%= link_to("Sign in", new_user_session_path) %>
