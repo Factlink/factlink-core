@@ -42,26 +42,28 @@
 
   <div id="body">
     <div class="container">
-      <div class="column append-1 span-16">
-        <div id="payoff" class="column span-15 clear">
-          <%= yield :payoff %>
+      <div class="row">
+        <div class="span10">
+          <div id="payoff" class="span10">
+            <%= yield :payoff %>
+          </div>
+
+          <div id="selling-points" class="span5">
+            <%= yield :selling_points %>
+          </div>
+
+          <div id="movie" class="offset1 span5">
+            <%= yield :movie %>
+          </div>
         </div>
 
-        <div id="selling-points" class="column span-7 prepend-top">
-          <%= yield :selling_points %>
-        </div>
-
-        <div id="movie" class="column push-1 last prepend-top">
-          <%= yield :movie %>
-        </div>
-      </div>
-
-      <div class="column span-6 last">
-        <div id="signup" class="column span-6">
-          <%= yield :sign_up %>
-        </div>
-        <div id="top-facts" class="column span-7 prepend-top">
-          <%= yield :top_facts %>
+        <div class="span5 offset1">
+          <div id="signup" class="row">
+            <%= yield :sign_up %>
+          </div>
+          <div id="top-facts" class="row">
+            <%= yield :top_facts %>
+          </div>
         </div>
       </div>
     </div>
@@ -73,23 +75,23 @@
 
   <%= javascript_include_tag "landing" %>
 
-  </script>
+</script>
 
-  <script>
+<script>
   $('.bookmarklet').twipsy();
-  </script>
+</script>
 
-  <%= yield :template %>
+<%= yield :template %>
 
-  <%= yield :javascript %>
+<%= yield :javascript %>
 
 
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
+<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
+chromium.org/developers/how-tos/chrome-frame-getting-started -->
+<!--[if lt IE 7 ]>
+<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+<![endif]-->
 
 </body>
 </html>
