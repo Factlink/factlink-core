@@ -109,12 +109,15 @@ group :development do
 end
 
 group :development, :test do
-  gem 'metric_fu', :require => false
-  # dependencies of metric_fu:
+  #suddenly we need to require this gem, else bundle update goes wrong, we never use it however
+  gem 'rcov', '0.9.11', :require => false
+
+  gem 'metric_fu', '2.1.1', :require => false
+    #dependencies of metric_fu:
     gem "fattr", :require => false
     gem "arrayfields", :require => false
     gem "map", :require => false
-    #use simplecov:
+    #use simplecov instead of rcov:
     gem 'simplecov', :require => false
     gem 'simplecov-rcov-text', :require => false
 
