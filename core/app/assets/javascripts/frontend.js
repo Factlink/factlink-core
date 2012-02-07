@@ -7,7 +7,7 @@
 //= require_tree ./frontend
 
 $(".alert-message").alert();
+$('.dropdown-toggle').dropdown()
 
-$('.topbar').dropdown();
 $('.bookmarklet').tooltip({placement:"below",offset:5});
 

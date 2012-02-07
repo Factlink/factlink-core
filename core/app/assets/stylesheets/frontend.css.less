@@ -3,10 +3,9 @@
 */
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-@import "bootstrap/patterns";
-@import "tour.css";
 @import "feedback.css.less";
 @import "bubble.css.less";
+@import "tour.css.less";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -14,7 +13,11 @@ Author: Factlink
 body {
   background: #F4F4F4;
 }
-
+ul {
+  li {
+    list-style-type: none !important;
+  }
+}
 body.factlink-site .fact-block {
   border-bottom: 1px solid @grayLighter;
   margin: 0px;
@@ -44,11 +47,6 @@ body.factlink-site .fact-block {
 a.bookmarklet {
   cursor: move;
 }
-// TODO should be in the patterns, fix when using bootstrap grid.
-.topbar .search {
-  left: 113px;
-}
-
 
 .list-block {
   min-height: 48px;
@@ -152,9 +150,6 @@ a.bookmarklet {
     #font > .sans-serif(normal, x-small, @baseline);
     bottom: 0.45em;
    }
-  #main {
-    margin-top: 25px;
-  }
   #left-column {
     .user-block {
       .avatar-container {
