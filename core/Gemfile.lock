@@ -162,7 +162,7 @@ GEM
     less (2.0.9)
       commonjs (~> 0.2.0)
       therubyracer (~> 0.9.9)
-    less-rails-bootstrap (2.0.4)
+    less-rails-bootstrap (1.4.2)
       less-rails (~> 2.1.0)
     libv8 (3.3.10.4)
     mail (2.3.0)
@@ -386,7 +386,7 @@ DEPENDENCIES
   jquery-rails (>= 1.0.17)
   json
   less-rails!
-  less-rails-bootstrap
+  less-rails-bootstrap (= 1.4.2)
   map
   metric_fu (= 2.1.1)
   mixpanel (~> 1.1.3)
