@@ -27,7 +27,9 @@ end
 RSpec.configure do |config|
   #mix in FactoryGirl methods
   config.include Factory::Syntax::Methods
-  
+
+  config.include Devise::TestHelpers, type: :view
+
   config.mock_with :rspec
   require 'database_cleaner'
 
@@ -39,7 +41,7 @@ RSpec.configure do |config|
   config.before(:each) do
     Ohm.flush
     DatabaseCleaner.clean
-  end 
+  end
 
   config.after(:suite) do
     Ohm.flush
