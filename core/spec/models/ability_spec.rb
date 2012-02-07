@@ -21,7 +21,10 @@ describe Ability do
 
       it {subject.should     be_able_to :show, user }
       it {subject.should     be_able_to :update, user }
+
+      it {subject.should     be_able_to :read_tos, user }
       it {subject.should_not be_able_to :sign_tos, user }
+
       it {subject.should_not be_able_to :update, other_user }
       it {subject.should_not be_able_to :update, admin }
     end
