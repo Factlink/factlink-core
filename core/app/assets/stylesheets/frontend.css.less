@@ -1,8 +1,12 @@
-@import "bootstrap";
-// @import "bootstrap/mixins";
+/*
+ *= require twitter/bootstrap
+*/
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/patterns";
 @import "tour.css";
 @import "feedback.css.less";
-@import "bubble.css";
+@import "bubble.css.less";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -34,7 +38,7 @@ body.factlink-site .fact-block {
 }
 
 .modal-backdrop {
-  background: rgba(255, 255, 255, 0.75) !important;
+  background-color: rgba(255, 255, 255, 0.75) !important;
 }
 
 a.bookmarklet {
@@ -105,7 +109,7 @@ a.bookmarklet {
   padding-top: 60px;
 
   h1 {
-    font-size: @basefont * 1.5;
+    font-size: (@basefont * 1.5);
     margin-bottom: @basefont;
   }
 
@@ -169,7 +173,7 @@ a.bookmarklet {
         margin-left: 48px;
       }
       .user-avatar {
-        background: #f7f7f7;
+        background-color: #f7f7f7;
         float: left;
         position: relative;
         top: 0px;
@@ -233,7 +237,7 @@ a.bookmarklet {
   #main-wrapper {
     padding: 15px;
     margin-bottom: 172px;
-    background: @white;
+    background-color: @white;
     .border-radius(@borderRadius);
     border: 1px solid @grayLighter;
     min-height: 400px;
@@ -291,7 +295,7 @@ a.bookmarklet {
             padding: 6px;
             border: solid 1px transparent;
             &.active {
-              background: #fff;
+              background-color: @white;
               border: solid 1px #D8D8D8;
               border-bottom: solid 1px #fff;
               .custom-radius(3px, 0, 0, 3px);
@@ -344,7 +348,7 @@ a.bookmarklet {
           .box-shadow(0px 0px 3px #a8a8a8);
           padding: 2px;
           .border-radius(3px);
-          background: #fff;
+          background-color: @white;
           a  {
             display: block;
             height: 100%;
@@ -367,7 +371,7 @@ a.bookmarklet {
             }
           }
           &:hover {
-            box-shadow: 0px 0px 3px #1d8cc8;
+            .box-shadow(0px 0px 3px #1d8cc8);
             border: 1px solid #1d8cc8;
             background-color: #fbfbfb;
           }
@@ -403,12 +407,12 @@ a.bookmarklet {
       }
       &.stream {
         padding-bottom: 3px;
-        background: url("/assets/homeIcon.png") 4px @margin no-repeat transparent;
+        background: url(/assets/homeIcon.png) 4px @margin no-repeat transparent;
         border-bottom: 1px solid #dbdbdb;
       }
       &.created {
         border-top: 1px solid white;
-        background: url("/assets/userIcon.png") 5px @margin no-repeat transparent;
+        background: url(/assets/userIcon.png) 5px @margin no-repeat transparent;
       }
       .new {
         color: @black;
@@ -425,7 +429,7 @@ a.bookmarklet {
       a {
         color: @black;
       }
-      background: url("/assets/menuBackground.png") left (@margin / 2) - 2 no-repeat transparent;
+      background: url(/assets/menuBackground.png) left ((@margin / 2) - 2) no-repeat transparent;
     }
   }
   .no_facts {
@@ -436,7 +440,7 @@ a.bookmarklet {
       padding-bottom: 1em;
     }
     h3 {
-      font-size: @basefont*1.5;
+      font-size: (@basefont * 1.5);
       padding-bottom: 0.5em;
     }
 
