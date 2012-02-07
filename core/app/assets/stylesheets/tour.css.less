@@ -1,5 +1,21 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+.tour-modal {
+  width: 920px !important;
+
+  top: 60px !important;
+  left: 50% !important;
+  margin: 0 0 0 -470px !important;
+
+  .modal-body {
+    height: 400px;
+  }
+}
+
+.modal-backdrop {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
 #first-tour-modal {
   #font > .sans-serif(normal,@basefont,@baseline);
   overflow: hidden;

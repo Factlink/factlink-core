@@ -15,8 +15,13 @@ body {
 }
 ul {
   li {
-    list-style-type: none !important;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
   }
+}
+img {
+  vertical-align: middle;
 }
 body.factlink-site .fact-block {
   border-bottom: 1px solid @grayLighter;
@@ -26,22 +31,6 @@ body.factlink-site .fact-block {
     margin: 15px 0 15px 0;
     .drop-shadow(0px, 0, 8px, 0.3);
   }
-}
-
-.tour-modal {
-  width: 920px !important;
-
-  top: 60px !important;
-  left: 50% !important;
-  margin: 0 0 0 -470px !important;
-
-  .modal-body {
-    height: 400px;
-  }
-}
-
-.modal-backdrop {
-  background-color: rgba(255, 255, 255, 0.75) !important;
 }
 
 a.bookmarklet {
@@ -104,7 +93,7 @@ a.bookmarklet {
 
 
 #container {
-  padding-top: 60px;
+  padding-top: 30px;
 
   h1 {
     font-size: (@basefont * 1.5);
