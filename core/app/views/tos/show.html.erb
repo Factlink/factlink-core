@@ -2,14 +2,17 @@
   <%= stylesheet_link_tag "tos" %>
 <% end %>
 <div id="tos">
-  <% if current_user.errors.any? %>
-    <div class="alert-message block-message error">
-      <ul>
-      <% current_user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+
+  <% if can? :sign_tos, current_user %>
+    <% if current_user.errors.any? %>
+      <div class="alert-message block-message error">
+        <ul>
+        <% current_user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
   <% end %>
 
   <div id="real_tos">
@@ -22,7 +25,7 @@
     </p>
 
     <p>
-      NOTE: We’ve decided adopt the Terms of Service below adapted from the Terms of Service of of <a href="http://wordpress.com">Wordpress.com</a> and Automattic Inc, which they graciously made available under a Creative Commons Sharealike license. Thanks Factlink! <img src="<%= image_path("creative_commons.png") %>">
+      NOTE: We’ve decided adopt the Terms of Service below adapted from the Terms of Service of of <a href="http://wordpress.com">Wordpress.com</a> and Automattic Inc, which they graciously made available under a Creative Commons Sharealike license.<img src="<%= image_path("creative_commons.png") %>">
     </p>
 
     <h1>Terms of Service:</h1>
@@ -157,32 +160,34 @@
     </ol>
   </div>
 
-  <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
+  <% if can? :sign_tos, current_user %>
+    <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
 
-    <div class="row">
-      <%= f.label "Name*" %>
-      <div class="field">
-      <%= f.text_field :name, required: true %>
+      <div class="row">
+        <%= f.label "Name*" %>
+        <div class="field">
+        <%= f.text_field :name, required: true %>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <%= f.label "Email address*" %>
-      <div class="field">
-      <%= f.email_field :email, value: current_user ? current_user.email : "", required: true, readonly: true %>
+      <div class="row">
+        <%= f.label "Email address*" %>
+        <div class="field">
+        <%= f.email_field :email, value: current_user ? current_user.email : "", required: true, readonly: true %>
+        </div>
       </div>
-      <span class="explanation">* fields are required</span>
-    </div>
 
 
-    <div class="tos_checkbox">
-      <%= f.check_box :agrees_tos, required: true %>
-      <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
-    </div>
+      <div class="tos_checkbox">
+        <%= f.check_box :agrees_tos, required: true %>
+        <%= f.label :agrees_tos, "I accept the (pre) beta agreement and terms & conditions. *" %>
+      </div>
 
-    <div class="actions">
-      <%= f.submit "Continue", class: "btn" %>
-    </div>
+      <div class="explanation">* fields are required</div>
+
+      <div class="actions">
+        <%= f.submit "Continue", class: "btn" %>
+      </div>
+    <% end %>
   <% end %>
-
 </div>
