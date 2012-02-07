@@ -46,5 +46,9 @@
         <%= f.submit "Continue", class: "btn" %>
       </div>
     <% end %>
+  <% else %>
+    <div class="center">
+      <%= link_to("Close", user_profile_path(current_user)) %>
+    </div>
   <% end %>
 </div>
