@@ -18,11 +18,9 @@ class Ability
 
     # Registered user
     if user
-      can :read_tos, user
 
       if user.agrees_tos
         can :access, FactlinkWebapp
-
         define_channel_abilities
         define_fact_abilities
         define_fact_relation_abilities
@@ -32,6 +30,8 @@ class Ability
         can :sign_tos, user
         can :read, user
       end
+
+      can :read_tos, user
     end
   end
 
