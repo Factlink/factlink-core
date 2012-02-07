@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@codebasehq.com:factlink/factlink/factlink-js-library.git"
+    "url": "git@github.com:Factlink/js-library.git"
   },
   "dependencies": {
   },
