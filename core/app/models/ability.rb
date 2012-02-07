@@ -29,6 +29,7 @@ class Ability
       else
         cannot :manage, :all
         can :sign_tos, user
+        can :read_tos, user
         can :read, user
       end
     end
