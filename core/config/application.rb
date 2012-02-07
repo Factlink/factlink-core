@@ -145,7 +145,7 @@ module FactlinkUI
       'landing.js',
       'intermediate.js',
       'modernizr-loader.js',
-      'popup.css',
+      'privacy.css',
       'tos.css',
     ]
   end
