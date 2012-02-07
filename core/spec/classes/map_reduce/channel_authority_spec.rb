@@ -1,12 +1,14 @@
 require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
 require File.expand_path('../../../../app/classes/map_reduce/channel_authority.rb', __FILE__)
 
-unless defined?(Authority)
-  class Authority
-  end
-end
 
 describe MapReduce::ChannelAuthority do
+  before do
+    unless defined?(Authority)
+      class Authority; end
+    end
+  end
+
   describe :wrapped_map do
     it do
       facts = [
@@ -26,6 +28,7 @@ describe MapReduce::ChannelAuthority do
           channel_ids: [10,11],
         )
       ]
+
       Authority.stub!(:from).and_return(18)
       subject.wrapped_map(facts).should == {
         {user_id: 20, channel_id:10} => [18],

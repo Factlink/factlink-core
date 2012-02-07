@@ -1,13 +1,14 @@
 require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
 require File.expand_path('../../../../app/classes/map_reduce/fact_authority.rb', __FILE__)
 
-unless defined?(Fact)
-  class Fact
-  end
-end
 
 
 describe MapReduce::FactAuthority do
+  before do
+    unless defined?(Fact)
+      class Fact;end
+    end
+  end
   describe :wrapped_map do
     it do
       factrelations = [
