@@ -33,6 +33,7 @@ class HomeController < ApplicationController
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
   def search
+    authorize! :index, Fact
     if params[:s]
       raise HackAttempt unless params[:s].is_a? String
     end
