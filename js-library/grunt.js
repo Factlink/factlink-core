@@ -58,10 +58,18 @@ config.init({
     ' */'
   },
   concat: {
-    'dist/factlink.js': createFactlinkConcatObject(files)
+    'dist/factlink.js': createFactlinkConcatObject(files),
+    'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/chrome/start_annotating.js>',
+    'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/chrome/stop_annotating.js>',
+    'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
+    'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>'
   },
   min: {
-    'dist/factlink.min.js': ['<banner>', 'dist/factlink.js']
+    'dist/factlink.min.js': ['<banner>', 'dist/factlink.js'],
+    'dist/factlink.start_annotating.min.js': ['<banner>', 'dist/factlink.start_annotating.js'],
+    'dist/factlink.stop_annotating.min.js': ['<banner>', 'dist/factlink.stop_annotating.js'],
+    'dist/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
+    'dist/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js']
   },
   qunit: {
     files: ['test/*.html']
