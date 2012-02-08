@@ -41,6 +41,7 @@ function get(process_env){
   config.STATIC_URL           = config['static'].protocol + config['static'].hostname + ':' + config['static'].port;  
   config.LIB_URL              = config.STATIC_URL + "/lib";
   config.INTERNAL_PROXY_PORT  = parseInt(config.proxy.internal_port, 10);
+  config.ENV                  = env;
 
   return config;
 }
