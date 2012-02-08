@@ -36,7 +36,7 @@ set :normalize_asset_timestamps, false
 
 namespace :deploy do
   task :build do
-    run "cd #{current_path}; make"
+    run "cd #{current_path}; grunt"
   end
 end
 
