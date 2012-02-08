@@ -1,14 +1,6 @@
 (function(Factlink, $, _, easyXDM, undefined) {
 Factlink.Facts = [];
 
-Factlink.highlight = function(start) {
-  if ( start ) {
-    Factlink.startHighlighting();
-  } else {
-    Factlink.stopHighlighting();
-  }
-};
-
 Factlink.startHighlighting = function() {
   console.info( "Factlink:", "startHighlighting" );
   fetchFacts()

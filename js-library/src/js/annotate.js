@@ -3,14 +3,6 @@ var timeout;
 var pageX;
 var pageY;
 
-Factlink.annotate = function(start) {
-  if ( start === true ) {
-    startAnnotating();
-  } else {
-    stopAnnotating();
-  }
-};
-
 Factlink.startAnnotating = function() {
   console.info( "Factlink:", "startAnnotating" );
   $('body').bind('mouseup.factlink', function(e) {
