@@ -71,7 +71,7 @@ config.init({
   },
   watch: {
     files: '<config:lint.files>',
-    tasks: 'lint qunit'
+    tasks: 'lint qunit concat'
   },
   jshint: {
     options: {
