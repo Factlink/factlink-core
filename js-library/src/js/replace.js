@@ -36,9 +36,9 @@
     var matches = [];
     var results = [];
     var i;
-    
+
     for (i = 0; i < ranges.length; i += matches.length) {
-      // Check if the given factlink is not already selected 
+      // Check if the given factlink is not already selected
       // (fixes multiple check marks when editing a factlink)
       if (re.test(ranges[i].startContainer.parentNode.className)) {
         matches.push({}); // Dirty hack: we should still skip one
@@ -59,35 +59,35 @@
     var len,
         elements = [],
         ret = [];
-    
+
     for (i = 0, len = results.length; i < len; i++) {
       var res = results[i];
-      
+
       elements[res.matchId] = elements[res.matchId] || [];
-      
+
       // Insert the fact-span
       elements[res.matchId] = elements[res.matchId].concat(insertFactSpan(
-        res.startOffset, 
+        res.startOffset,
         res.endOffset,
-        res.node, 
+        res.node,
         id,
         // Only select the first range of every matched string
-        // Needed for when one displayString is matched mutliple times on 
+        // Needed for when one displayString is matched mutliple times on
         // one page
         i % (results.length / ranges.length) === 0));
     }
-    
+
     for ( var el in elements ) {
       if ( elements.hasOwnProperty(el) ) {
         ret.push( new Factlink.Fact(id, elements[el], opinions) );
       }
     }
-    
+
     return ret;
   };
 
   // This is where the actual magic will take place
-  // A Span will be inserted around the startOffset/endOffset 
+  // A Span will be inserted around the startOffset/endOffset
   // in the startNode/endNode
   var insertFactSpan = function(startOffset, endOffset, node, id, isFirst) {
         // Value of the startNode, represented in an array
@@ -102,7 +102,7 @@
           // Slice the array by changing it's length
           selTextStart.length = endOffset - startOffset;
 
-          // Insert the textnode with the remaining text after the 
+          // Insert the textnode with the remaining text after the
           // current textNode
           node.parentNode.insertBefore(document.createTextNode(after), node.nextSibling);
         }
@@ -112,10 +112,10 @@
         // Remove the last part of the nodeValue
         node.nodeValue = startNodeValue.join('');
 
-        // Insert the span right after the startNode 
+        // Insert the span right after the startNode
         // (there is no insertAfter available)
         node.parentNode.insertBefore(span, node.nextSibling);
-        
+
         // Add span to stash
         spans.push(span);
 
@@ -125,11 +125,11 @@
           first.innerHTML = "&#10003;";
 
           node.parentNode.insertBefore(first, span);
-          
+
           // Add "first-span" to stash
           spans.push(first);
         }
-        
+
         return spans;
       },
       // Create a "fact"-span with the right attributes
@@ -146,7 +146,7 @@
 
         span.setAttribute('data-factid', id);
 
-        // IE Doesn't support the standard (textContent) and Firefox doesn't 
+        // IE Doesn't support the standard (textContent) and Firefox doesn't
         // support innerText
         if (document.getElementsByTagName("body")[0].innerText === undefined) {
           span.textContent = text;
@@ -159,11 +159,11 @@
 
   // Function that tracks the DOM for nodes containing the fact
   Factlink.parseFactNodes = function(range, results, matchId) {
-    // Only parse the nodes if the startNode is already found, 
+    // Only parse the nodes if the startNode is already found,
     // this boolean is used for tracking
     var foundStart = false;
 
-    // Walk the DOM in the right order and call the function for every 
+    // Walk the DOM in the right order and call the function for every
     // node it passes
     walkTheDOM(range.commonAncestorContainer, function(node) {
       // We're only interested in textNodes
@@ -180,7 +180,7 @@
             rEndOffset = range.endOffset;
           }
 
-          // Push the right info to the results array, the info 
+          // Push the right info to the results array, the info
           // is being parsed later (selectRanges -end)
           results.push({
             startOffset: rStartOffset,
@@ -191,7 +191,7 @@
         }
 
         if (foundStart && node === range.endContainer) {
-          // If we encountered the last node we don't 
+          // If we encountered the last node we don't
           // need to walk the DOM anymore
           return false;
         }

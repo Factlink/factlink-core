@@ -1,23 +1,23 @@
 (function(Factlink, $, _, easyXDM, undefined) {
-    
+
 Factlink.Balloon = function() {
   var id;
   var el;
   var hasFocus = false;
   var factObj;
   var timeout;
-    
+
   function initialize(factId, fact) {
     id = factId;
     factObj = fact;
-    
+
     Factlink.getTemplate("indicator", function(tmpl) {
       initializeTemplate(tmpl);
-      
+
       bindCheck();
     });
   }
-  
+
   this.show = function(top, left, fast) {
     window.clearTimeout(timeout);
     if (fast === true) {
@@ -30,38 +30,38 @@ Factlink.Balloon = function() {
       }, 200);
     }
     Factlink.set_position(top,left,window,el);
-    
+
     getChannels();
   };
-  
+
   this.hide = function() {
     window.clearTimeout(timeout);
-    
+
     el.fadeOut('fast');
     resetState();
   };
-  
+
   this.isVisible = function() {
     return el.is(':visible');
   };
-  
+
   this.destroy = function() {
     el.remove();
   };
-  
+
   function resetState() {
     el.removeClass("fl-channel-active");
   }
-  
+
   function initializeTemplate(tmpl) {
     el = $(tmpl(factObj.getObject())).appendTo(Factlink.el);
-    
+
     el.bind('mouseenter', function() {
       factObj.focus();
     }).bind('mouseleave', function() {
       factObj.blur();
     });
-    
+
     el.find('div.fl-share').hoverIntent({
       over: function(e) {
         el.addClass('fl-channel-active');
@@ -71,17 +71,17 @@ Factlink.Balloon = function() {
       },
       timeout: 500
     });
-    
+
     el.find('div.fl-label').bind('click', function() {
       factObj.click();
     });
   }
-  
+
   function getChannels() {
     var ul = el.find('ul.fl-channels');
-    
+
     ul.find('li.fl-loading').show().siblings().remove();
-    
+
     Factlink.get('/facts/' + id + '/channels.json',{
       dataType: "jsonp",
       jsonp: "callback",
@@ -89,12 +89,12 @@ Factlink.Balloon = function() {
         ul.find('li.fl-loading').hide();
         if(_.isEmpty(data)) {
           ul.append("<li>You have no channels yet</li>");
-        } 
+        }
         else {
           _.each(data, function(channel) {
             Factlink.getTemplate('channel_li', function(tmpl) {
               var $li = $(tmpl(channel));
-              
+
               ul.append($li);
             });
           });
@@ -110,11 +110,11 @@ Factlink.Balloon = function() {
       }
     });
   }
-  
+
   function hideAll() {
     el.closest('#fl').find('.fl-popup').hide();
   }
-  
+
   function bindCheck() {
     el.delegate('ul.fl-channels :checkbox', 'change', function(e) {
       Factlink.post("/" + $(this).data('username') + "/channels/" + $(this).data('channel-id') + "/toggle/fact/" + id, {
@@ -122,7 +122,7 @@ Factlink.Balloon = function() {
       });
     });
   }
-  
+
   initialize.apply(this, arguments);
 };
 
