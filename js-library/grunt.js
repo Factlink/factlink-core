@@ -11,7 +11,7 @@ function createFactlinkConcatObject(filesObj) {
 var files = {
   0: [
     'libs/jquery-1.6.1.js',
-    'libs/easyXDM/easyXDM.js',
+    'libs/easyXDM.js',
     'libs/underscore.js'
   ],
   1: [
@@ -62,14 +62,16 @@ config.init({
     'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/chrome/start_annotating.js>',
     'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/chrome/stop_annotating.js>',
     'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
-    'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>'
+    'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
+    'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>'
   },
   min: {
     'dist/factlink.min.js': ['<banner>', 'dist/factlink.js'],
     'dist/factlink.start_annotating.min.js': ['<banner>', 'dist/factlink.start_annotating.js'],
     'dist/factlink.stop_annotating.min.js': ['<banner>', 'dist/factlink.stop_annotating.js'],
     'dist/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
-    'dist/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js']
+    'dist/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js'],
+    'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js']
   },
   qunit: {
     files: ['test/*.html']
