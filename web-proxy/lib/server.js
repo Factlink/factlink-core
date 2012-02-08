@@ -18,7 +18,7 @@ function getServer(config) {
   var urlbuilder    = require('./urlbuilder');
   blacklist.set_API_URL(config.API_URL);
   blacklist.set_API_OPTIONS(config.API_OPTIONS);
-  
+
   /**
    *  Use Jade as templating engine
    */
@@ -76,7 +76,7 @@ function getServer(config) {
       });
       return;
     }
-    
+
     modus = get_modus(modus);
 
     // A site is needed
@@ -87,7 +87,7 @@ function getServer(config) {
     }
 
     var request = restler.get(site, form_hash);
-        
+
     errorhandler = function(data) {
       console.error(new Date().toString() + " : Failed on: " + url);
       res.render('something_went_wrong', {
@@ -107,11 +107,11 @@ function getServer(config) {
         res.end();
       }, function(html) {
         console.info( html );
-        res.write(html);      
+        res.write(html);
         res.end();
       });
     };
-    
+
     // Handle states
     request.on('complete',  completehandler);
     request.on('error',     errorhandler);
@@ -177,7 +177,7 @@ function getServer(config) {
     handleProxyRequest(res, site, scrollto, modus, {});
   }
 
-  /** 
+  /**
    * Forms get posted with a hidden 'factlinkFormUrl' field,
    * which is added by the proxy (in proxy.js). This is the 'action' URL which
    * the form normally submits its form to.

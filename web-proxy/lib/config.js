@@ -22,7 +22,7 @@ function read_conf(config_path, fs, env) {
   for(i = 0; i < confs.length; i++) {
     // eval gives jshint issues, but this is because yaml should not use eval, not something we can fix
     file_conf = require('yaml').eval(
-      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */ 
+      fs.readFileSync(config_path+confs[i] +'.yml').toString('utf-8') + "\n\n")[env]; /* https://github.com/visionmedia/js-yaml/issues/13 */
 
     parsed_conf = merge_options(parsed_conf,file_conf);
   }
@@ -35,10 +35,10 @@ function get(process_env){
 
   config = read_conf(config_path, fs, env);
 
-  config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port; 
+  config.API_URL              = config.core.protocol + config.core.hostname + ':' + config.core.port;
   config.API_OPTIONS          = config.core.htpasswd;
   config.PROXY_URL            = config.proxy.protocol + config.proxy.hostname + ':' + config.proxy.port;
-  config.STATIC_URL           = config['static'].protocol + config['static'].hostname + ':' + config['static'].port;  
+  config.STATIC_URL           = config['static'].protocol + config['static'].hostname + ':' + config['static'].port;
   config.LIB_URL              = config.STATIC_URL + "/lib";
   config.INTERNAL_PROXY_PORT  = parseInt(config.proxy.internal_port, 10);
   config.ENV                  = env;

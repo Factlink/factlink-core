@@ -22,22 +22,22 @@ domReady(function(){
   for ( var i = 0, j = a.length; i < j; i++ ) {
     var href = a[i].href;
 
-    if ( href.search(/https?:\/\//) === 0 ) { 
+    if ( href.search(/https?:\/\//) === 0 ) {
       a[i].href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
       a[i].target = "_parent";
-      
+
       //prevent quietly changing the url afterwards
       //at least needed for the google search results
       a[i].onmousedown="";
       a[i].onclick="";
       a[i].onmouseup="";
-      
+
     } else if ( href.search(/mailto:/) !== 0 && href.search(/javascript:/) !== 0 ) {
         console.info( "No matching for href: " + href );
     }
   }
 
-	/** 
+	/**
 	 * Replace all <form> actions with a proxied URL
 	 * Send the action URL in a hidden field.
 	 */
@@ -50,18 +50,18 @@ domReady(function(){
     var valid = false;
 
     if ( action.length > 0 ) {
-      if ( action.search(/http(s|):\/\//) !== 0 ) { 
+      if ( action.search(/http(s|):\/\//) !== 0 ) {
          console.info( "No matching for href: " + href );
       } else {
         valid = true;
       }
-      
+
     }
 
     if (form.method !== undefined && form.method.match(/post/i)){
       valid = false;
     }
-        
+
     if ( valid ) {
 				// Add the action url to form
 			var input = document.createElement('input');
@@ -69,14 +69,14 @@ domReady(function(){
 			input.setAttribute('name', 'factlinkFormUrl');
 			input.setAttribute('value', action);
 			form.appendChild(input);
-			
+
 			var input = document.createElement('input');
 			input.setAttribute('type', 'hidden');
 			input.setAttribute('name', 'factlinkModus');
 			input.setAttribute('value', FactlinkConfig.modus);
 			form.appendChild(input);
 
-			
+
 			// Set the proxied URL
       form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkConfig.proxy + '/submit/');
     } else {
