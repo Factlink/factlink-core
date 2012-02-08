@@ -86,15 +86,21 @@ domReady(function(){
 
 });
 
-function loadLibraryTag(base_url){
-  // DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
+function scriptTag(url){
   var script = document.createElement("script");
   script.type = "text/javascript";
   script.async = false;
-  script.src = base_url + "/load_library.js?" + (new Date()).getTime();
+  script.src = url;
   return script;
 }
 
+// DUPLICATED IN CHROME EXTENSION, PLEASE CHANGE BOTH!
+var script = scriptTag(window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.js" : "/dist/factlink.min.js"));
 
-document.head.insertBefore(loadLibraryTag(window.FactlinkConfig.lib + '/src/js'));
+script.onload = function() {
+  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.start_highlighting.js" : "/dist/factlink.stop_highlighting.min.js" ) ) );
+  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.start_annotating.js" : "/dist/factlink.start_annotating.min.js" ) ) );
+};
+
+document.head.insertBefore(script);
 })(window, document);
