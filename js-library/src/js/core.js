@@ -12,14 +12,6 @@ var Factlink = window.Factlink = (function() {
     evaluate : /\{%(.+?)%\}/g
   };
 
-  try {
-    if ( typeof global === "undefined" && global !== window.global ) {
-      global.$ = Factlink.$;
-      global._ = Factlink._;
-      global.easyXDM = Factlink.easyXDM;
-    }
-  } catch(e) { }
-
   // Expose the Factlink object to the global object
   return Factlink;
 })();
