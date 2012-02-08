@@ -42,6 +42,7 @@ function getServer(config) {
       api: config.API_URL,
       lib: config.LIB_URL,
       proxy: config.PROXY_URL,
+      env: config.ENV,
       url: site,
       getFacts: true,
     };
