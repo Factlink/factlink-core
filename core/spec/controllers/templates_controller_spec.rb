@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe TemplatesController do
-  include Devise::TestHelpers
-  include ControllerMethods
   render_views
 
   it "should be routed to for valid templates" do

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe HomeController do
-  include Devise::TestHelpers
-  include ControllerMethods
-
   let (:user)  {FactoryGirl.create :user}
   
   render_views
@@ -41,6 +38,7 @@ describe HomeController do
 
   describe "Search" do
     it "should render succesful" do
+      should_check_can :index, Fact
       get :search
       response.should be_succes
     end
