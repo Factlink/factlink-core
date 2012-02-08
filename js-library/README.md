@@ -37,8 +37,6 @@ This task will test and build the Factlink JavaScript library.
 ###Installing PhantomJS
 **Mac OS X**
 
-Install Xcode and the necessary SDK for development (gcc, various tools, libraries, etc).
-
 Install [Qt binary package](http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x).
 
 Get the source:
