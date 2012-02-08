@@ -1,61 +1,40 @@
 /*global config:true, task:true, underscore: true */
 
 var files = {
-  0: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/build/jquery-1.6.1.js',
-      '/build/easyXDM/easyXDM.js',
-      '/build/underscore.js'
-    ]
-  },
-  1: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/build/jquery.scrollTo-1.4.2.js',
-      '/build/jquery.hoverintent.js'
-    ]
-  },
-  2: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/src/js/core.js'
-    ]
-  },
-  3: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/src/js/models/fact.js',
-      '/src/js/views/ballooney_thingy.js',
-      '/src/js/views/balloon.js',
-      '/src/js/views/prepare.js'
-    ]
-  },
-  4: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/src/js/replace.js',
-      '/src/js/annotate.js',
-      '/src/js/highlight.js',
-      '/src/js/scrollto.js',
-      '/src/js/search.js',
-      '/src/js/create.js',
-      '/src/js/modal.js',
-      '/src/js/lib/indicator.js'
-    ]
-  },
-  5: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/src/js/xdm.js'
-    ]
-  },
-  6: {
-    directives: ["file_strip_banner"],
-    files: [
-      '/src/js/last.js'
-    ]
-  }
+  0: [
+    'libs/jquery-1.6.1.js',
+    'libs/easyXDM/easyXDM.js',
+    'libs/underscore.js'
+  ],
+  1: [
+    'libs/jquery.scrollTo-1.4.2.js',
+    'libs/jquery.hoverintent.js'
+  ],
+  2: [
+    'src/js/core.js'
+  ],
+  3: [
+    'src/js/models/fact.js',
+    'src/js/views/ballooney_thingy.js',
+    'src/js/views/balloon.js',
+    'src/js/views/prepare.js'
+  ],
+  4: [
+    'src/js/replace.js',
+    'src/js/annotate.js',
+    'src/js/highlight.js',
+    'src/js/scrollto.js',
+    'src/js/search.js',
+    'src/js/create.js',
+    'src/js/modal.js',
+    'src/js/lib/indicator.js'
+  ],
+  5: [
+    'src/js/xdm.js'
+  ],
+  6: [
+    'src/js/last.js'
+  ]
 };
 
 config.init({
