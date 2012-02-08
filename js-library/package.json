@@ -1,8 +1,10 @@
 {
   "author": "Factlink Team",
   "name": "js-library",
+  "title": "Factlink JavaScript library",
   "description": "javascript library",
   "version": "0.0.1",
+  "homepage": "http://factlink.com",
   "repository": {
     "type": "git",
     "url": "git@github.com:Factlink/js-library.git"
