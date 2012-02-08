@@ -64,7 +64,7 @@ config.init({
     'dist/factlink.min.js': ['<banner>', 'dist/factlink.js']
   },
   qunit: {
-    files: ['test/*.html', 'test/**/*.html']
+    files: ['test/*.html']
   },
   lint: {
     files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
