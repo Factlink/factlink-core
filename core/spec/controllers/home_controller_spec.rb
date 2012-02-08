@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe HomeController do
-  include Devise::TestHelpers
-  include ControllerMethods
-
   let (:user)  {FactoryGirl.create :user}
   
   render_views

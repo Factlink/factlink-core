@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe TosController do
-  include Devise::TestHelpers
-  include ControllerMethods
-
   let(:user) { FactoryGirl.create :user, agrees_tos: false }
 
   describe :show do
