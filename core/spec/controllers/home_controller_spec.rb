@@ -38,6 +38,7 @@ describe HomeController do
 
   describe "Search" do
     it "should render succesful" do
+      should_check_can :index, Fact
       get :search
       response.should be_succes
     end
