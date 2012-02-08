@@ -12,8 +12,6 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :index, Fact
-    can :read, Fact
     can :read, Job, :show => true
 
     # Registered user
