@@ -11,7 +11,7 @@ Clone the [repository][repo] on your machine:
 $ git clone git@github.com:Factlink/js-library.git
 ```
 
-If you want to work on the stable (live) branch, run:
+Optionaly you can choose to build from the live branch:
 
 ```bash
 $ git checkout master
@@ -31,6 +31,33 @@ $ grunt
 ```
 
 This task will test and build the Factlink JavaScript library.
+
+## FAQ
+
+###Installing PhantomJS
+**Mac OS X**
+
+Install Xcode and the necessary SDK for development (gcc, various tools, libraries, etc).
+
+Install [Qt binary package](http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x).
+
+Get the source:
+
+```bash
+$ git clone git://github.com/ariya/phantomjs.git && cd phantomjs && git checkout 1.4.1
+```
+
+Compile:
+
+```bash
+$ qmake -spec macx-g++ && make
+```
+
+For convenience, copy the executable bin/phantomjs to some directory in your PATH. (like /usr/bin)
+
+```bash
+$ sudo cp bin/phantomjs /usr/bin/phantomjs
+```
 
 ## Documentation
 _(Coming soon)_
