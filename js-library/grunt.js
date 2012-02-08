@@ -1,5 +1,13 @@
 /*global config:true, task:true, underscore: true */
 
+function createFactlinkConcatObject(filesObj) {
+  return underscore.flatten(["<banner>", underscore(filesObj).map(function(fileGroup) {
+    return fileGroup.map(function(file) {
+      return "<file_strip_banner:" + file + ">";
+    });
+  })], true);
+}
+
 var files = {
   0: [
     'libs/jquery-1.6.1.js',
@@ -47,7 +55,7 @@ config.init({
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
   },
   concat: {
-    'dist/factlink.js': []
+    'dist/factlink.js': createFactlinkConcatObject(files)
   },
   min: {
     'dist/factlink.min.js': ['<banner>', 'dist/factlink.js']
