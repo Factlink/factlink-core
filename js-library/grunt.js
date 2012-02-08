@@ -48,11 +48,14 @@ var files = {
 config.init({
   pkg: '<json:package.json>',
   meta: {
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-      '<%= template.today("m/d/yyyy") %>\n' +
-      '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-      '* Copyright (c) <%= template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+    banner: '/*! \n' +
+    ' * <%= pkg.title || pkg.name %> - v<%= pkg.version %> - \n' +
+    '<%= pkg.homepage ? " * " + pkg.homepage + "\n" : "" %>' +
+    ' *\n' +
+    ' * Date: <%= template.today("m/d/yyyy") %>\n' +
+    ' *\n' +
+    ' * Copyright (c) <%= template.today("yyyy") %> <%= pkg.author %>;\n' +
+    ' */'
   },
   concat: {
     'dist/factlink.js': createFactlinkConcatObject(files)
