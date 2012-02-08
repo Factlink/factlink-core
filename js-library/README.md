@@ -37,6 +37,7 @@ _(Coming soon)_
 
 ## Examples
 After the Library is built, it's easy to include this library in any site.
+
 ```html
 <html>
   <head>
