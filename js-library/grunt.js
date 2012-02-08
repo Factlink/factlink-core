@@ -1,4 +1,4 @@
-/*global config:true, task:true*/
+/*global config:true, task:true, underscore: true */
 
 var files = {
   0: {
