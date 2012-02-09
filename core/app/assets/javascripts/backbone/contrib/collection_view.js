@@ -5,25 +5,25 @@ Backbone.CollectionView = Backbone.View.extend({
   afterReset: function(e){},
 
   reset: function(e) {
-    this.beforeReset();
+    this.beforeReset.apply(this, arguments);
     _.each(this.views,function(view) {
       view.remove();
     });
     this.render();
-    this.afterReset();
+    this.afterReset.apply(this, arguments);
   },
 
   beforeAdd: function(model){},
   afterAddBeforeRender: function(model,view){},
   afterAdd: function(model){},
   add: function(model,opts) {
-    this.beforeAdd(model,opts);
+    this.beforeAdd.apply(this,arguments);
     var view = new this.modelView({
       model: model
     });
     this.views[model.id] = view;
     this.$el.find(this.containerSelector).append(view.render().el);
-    this.afterAdd(model,opts);
+    this.afterAdd.apply(this, arguments);
   },
 
   render: function() {
