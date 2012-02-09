@@ -1,4 +1,5 @@
-var Workspace = Backbone.Router.extend({
+(function(){
+window.Workspace = Backbone.Router.extend({
   initialize: function(opts) {
     this.route(/([^\/]+)\/channels\/([0-9]+|all)$/, "getChannelFacts", this.getChannelFacts);
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities$/, "getChannelActivities", this.getChannelActivities);
@@ -50,3 +51,4 @@ var Workspace = Backbone.Router.extend({
   }
 
 });
+}());
