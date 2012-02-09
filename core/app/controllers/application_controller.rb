@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
         format.html { redirect_to new_user_session_path }
         format.json { render json: {error: "You don't have the correct credentials to execute this operation"}, status: :forbidden }
         format.any  { raise exception }
-      elsif current_user.agrees_tos
+      elsif !current_user.agrees_tos
         format.html { redirect_to tos_path }
         format.json { render json: {error: "You did not agree to the Terms of Service."}, status: :forbidden }
         format.any  { raise exception }

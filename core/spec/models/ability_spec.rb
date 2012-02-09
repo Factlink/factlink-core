@@ -96,11 +96,11 @@ describe Ability do
     end
 
     describe "without logging in" do
-      it {anonymous.should      be_able_to :index, Fact }
+      it {anonymous.should_not  be_able_to :index, Fact }
       it {anonymous.should_not  be_able_to :create, Fact }
       it {anonymous.should_not  be_able_to :opinionate, Fact }
       it {anonymous.should_not  be_able_to :add_evidence, f1 }
-      it {anonymous.should      be_able_to :read, f1 }
+      it {anonymous.should_not  be_able_to :read, f1 }
     end
   end
 
