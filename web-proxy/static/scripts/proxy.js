@@ -98,7 +98,7 @@ function scriptTag(url){
 var script = scriptTag(window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.js" : "/dist/factlink.min.js"));
 
 script.onload = function() {
-  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.start_highlighting.js" : "/dist/factlink.stop_highlighting.min.js" ) ) );
+  document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.start_highlighting.js" : "/dist/factlink.start_highlighting.min.js" ) ) );
   document.head.insertBefore( scriptTag( window.FactlinkConfig.lib + (FactlinkConfig.env === "development" ? "/dist/factlink.start_annotating.js" : "/dist/factlink.start_annotating.min.js" ) ) );
 };
 
