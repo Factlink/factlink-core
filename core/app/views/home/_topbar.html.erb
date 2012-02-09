@@ -42,7 +42,7 @@
               <% end %>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>
-            </li>
+          </li>
 
           <% if can? :access, Ability::FactlinkWebapp %>
           <li class="dropdown" data-dropdown="dropdown">
