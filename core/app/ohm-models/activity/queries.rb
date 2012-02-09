@@ -16,7 +16,8 @@ class Activity < OurOhm
 
     def self.user(gu)
       Query.where(
-        gu.channels.map { |ch| {subject: ch, action: 'added_subchannel'}}.flatten
+        gu.channels.map { |ch| {subject: ch, action: 'added_subchannel'} }.flatten +
+        gu.created_facts.map { |f| {object: f, action: [:added_supporting_evidence, :added_weakening_evidence]} }.flatten
       )
     end
   end
