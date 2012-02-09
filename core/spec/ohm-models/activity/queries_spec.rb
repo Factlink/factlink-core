@@ -62,5 +62,16 @@ describe Activity::For do
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
+    [:supporting, :weakening].each do |type|
+      it "should return activity when a users adds #{type} evidence to a fact in your channels" do
+        f1 = create :fact
+        f2 = create :fact
+        f1.add_evidence type, f2, gu1
+
+        Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+          {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
+        ]
+      end
+    end
   end
 end
