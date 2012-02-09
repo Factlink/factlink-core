@@ -13,7 +13,6 @@ describe Activity::For do
       ]
     end
 
-
     it "should return only creation activity on the fact queried" do
       f1 = create :fact, created_by: gu1
       f2 = create :fact, created_by: gu1
@@ -23,7 +22,7 @@ describe Activity::For do
       ]
     end
   end
-  
+
   describe ".channel" do
     it "should return activity for when a channel followed this channel" do
       ch1 = create :channel
@@ -33,7 +32,7 @@ describe Activity::For do
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
-    
+
     [:supporting, :weakening].each do |type|
       it "should return activities about facts which have received extra #{type} evidence" do
         ch1 = create :channel
@@ -41,7 +40,7 @@ describe Activity::For do
         f2 = create :fact
         ch1.add_fact f1
         f1.add_evidence type, f2, gu1
-        
+
         @nr = number_of_commands_on Ohm.redis do
           @activities = Activity::For.channel(ch1).map(&:to_hash_without_time)
         end
@@ -50,6 +49,18 @@ describe Activity::For do
           {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
         ]
       end
+    end
+  end
+
+  describe ".user" do
+    it "should return activity when a user follows your channel" do
+      ch1 = create :channel
+      ch2 = create :channel
+
+      ch1.add_channel(ch2)
+      Activity::For.user(ch2.created_by).map(&:to_hash_without_time).should == [
+        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
+      ]
     end
   end
 end
