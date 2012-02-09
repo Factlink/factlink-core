@@ -4,6 +4,16 @@ var Workspace = Backbone.Router.extend({
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities$/, "getChannelActivities", this.getChannelActivities);
 
     this.view = new AppView();
+
+    if ( $('#notifications').length === 1 ) {
+      // The notifications-icon is present in the topbar, create the appropriate Backbone View
+      this.notificationsView = new NotificationsView({
+        el : $('#notifications'),
+        collection: new Notifications()
+      });
+
+      this.notificationsView.render();
+    }
   },
 
   loadChannel: function(username, channel_id) {
