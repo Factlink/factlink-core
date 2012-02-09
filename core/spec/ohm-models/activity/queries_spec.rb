@@ -73,5 +73,15 @@ describe Activity::For do
         ]
       end
     end
+    [:believes, :doubts, :disbelieves].each do |opinion|
+      it "should return activity when a users opinionates a fact of the user" do
+        f1 = create :fact
+        f1.add_opinion(opinion, gu1)
+
+        Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+            {user: gu1, action: opinion, subject: f1}
+        ]
+      end
+    end
   end
 end
