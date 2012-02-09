@@ -10,7 +10,7 @@ class Activity < OurOhm
       Query.where([
         {subject: ch, action: 'added_subchannel'}
       ] +
-      ch.facts.map { |f| [{object: f, action: 'added_supporting_evidence'},{object: f, action: 'added_weakening_evidence'} ]}.flatten
+      ch.facts.map { |f| {object: f, action: [:added_supporting_evidence, :added_weakening_evidence] } }.flatten
       )
     end
 
