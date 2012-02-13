@@ -19,6 +19,8 @@ window.NotificationsView = Backbone.CollectionView.extend({
     this.modelView = NotificationView;
 
     this.setupNotificationsFetch();
+
+    this.$el.find('ul').preventScrollPropagation();
   },
 
   beforeReset: function () {
@@ -60,13 +62,19 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var args = arguments;
     var self = this;
 
-    this.collection.fetch({
-      success: function () {
-        setTimeout(function () {
-          args.callee.apply(self, args);
-        }, 7000);
-      }
-    });
+    if ( ! this._visible ) {
+      this.collection.fetch({
+        success: function () {
+          setTimeout(function () {
+            args.callee.apply(self, args);
+          }, 7000);
+        }
+      });
+    } else {
+      setTimeout(function () {
+        args.callee.apply(self, args);
+      }, 7000);
+    }
   },
 
   clickHandler: function (e) {
@@ -83,6 +91,8 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   showDropdown: function () {
+    this._visible = true;
+
     this.$el.find('ul').show();
 
     this.markAsRead();
@@ -91,6 +101,8 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   hideDropdown: function () {
+    this._visible = false;
+
     this.$el.find('ul').hide();
 
     this._unbindWindowClick();
