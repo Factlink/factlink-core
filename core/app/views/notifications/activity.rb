@@ -1,6 +1,12 @@
 module Notifications
   class Activity < Mustache::Railstache
 
+    # TODO: This should have the real indication wheter the activity is read
+    # or unread
+    def unread
+      true
+    end
+
     def username
       self[:activity].user.user.username
     end
