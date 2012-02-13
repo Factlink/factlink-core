@@ -18,6 +18,16 @@ describe "beliefs should work"  do
   end
 
 
+  it "should give authority for a fact with supporting evidence" do
+    f = create :fact, created_by: u1
+    f2 = create :fact, created_by: u1
+    f3= create :fact, created_by: u1
+
+    f.add_evidence(:supporting,f2,u2)
+    f.add_evidence(:supporting,f3,u2)
+    authority on: f, should_be: 1.0
+  end
+
   it "for a user without history in Factlink the authority should be 0.0" do
     t1 = create :topic
     authority of: u1, on: t1, should_be: 0.0
