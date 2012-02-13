@@ -21,6 +21,18 @@ window.NotificationsView = Backbone.CollectionView.extend({
     this.setupNotificationsFetch();
   },
 
+  setupNotificationsFetch: function () {
+    var args = arguments;
+    var self = this;
+
+    this.collection.fetch({
+      success: function () {
+        setTimeout(function () {
+          args.callee.apply(self, args);
+        }, 7000);
+      }
+    });
+  },
     }
   },
 
