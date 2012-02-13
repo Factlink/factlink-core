@@ -38,6 +38,7 @@ describe MapReduce::ChannelAuthority do
       }
     end
   end
+
   describe :reduce do
     it { subject.reduce(:a, [10,15]).should == 25 }
   end
