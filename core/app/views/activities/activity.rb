@@ -1,6 +1,5 @@
 module Activities
   class Activity < Mustache::Railstache
-
     def username
       self[:activity].user.user.username
     end
