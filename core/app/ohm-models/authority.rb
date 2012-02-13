@@ -38,7 +38,19 @@ class Authority < OurOhm
     end
 
     def reset_calculators
+      @map_reducers = nil
       @calculators = Hash.new(lambda {|obj| 0.0})
+    end
+
+    #new system with mapreduce:
+    def calculation=(map_reducers)
+      @map_reducers = map_reducers
+    end
+
+    def run_calculation
+      @map_reducers.andand.each do |mr|
+        mr.process_all
+      end
     end
 
     private
