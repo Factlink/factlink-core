@@ -1,6 +1,4 @@
 Backbone.CollectionView = Backbone.View.extend({
-  views: {},
-
   beforeReset: function(e){},
   afterReset: function(e){},
 
@@ -21,6 +19,7 @@ Backbone.CollectionView = Backbone.View.extend({
     var view = new this.modelView({
       model: model
     });
+
     this.views[model.id] = view;
     this.$el.find(this.containerSelector).append(view.render().el);
     this.afterAdd.apply(this, arguments);

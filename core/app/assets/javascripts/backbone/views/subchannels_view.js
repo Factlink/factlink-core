@@ -1,5 +1,6 @@
 window.SubchannelsView = Backbone.CollectionView.extend({
   tagName: "ul",
+  views: {},
 
   initialize: function() {
     this.collection.bind('add',   this.addOneSubchannel, this);
