@@ -1,5 +1,12 @@
 class MapReduce
   class Example < MapReduce
+    def all_set
+      @all || []
+    end
+    def all_set=(list)
+      @all = list
+    end
+
     def initialize &block
       @block = block
     end
