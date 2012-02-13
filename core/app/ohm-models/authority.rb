@@ -34,6 +34,10 @@ class Authority < OurOhm
       end
     end
 
+    def all_from(subject)
+      find(subject_id: subject.id.to_s, subject_class: subject.class.to_s)
+    end
+
     def calculated_from_authority(subject)
       calculators[subject.class.to_s].call subject
     end

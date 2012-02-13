@@ -15,7 +15,9 @@ end
 
 describe Authority do
   let(:i1) { Item.create }
+  let(:i2) { Item.create }
   let(:gu1) { GraphUser.create }
+  let(:gu2) { GraphUser.create }
 
   before do
     Authority.reset_calculators
@@ -162,6 +164,17 @@ describe Authority do
       i1.number = 10
       Authority.recalculate_from i1
       Authority.from(i1).to_f.should == 10
+    end
+  end
+
+  describe ".all_from" do
+    it "should return an empty list when no authorities are defined on the subject" do
+      Authority.all_from(i1).all.should =~ []
+    end
+    it "should return all authority objects" do
+      Authority.from(i1, for: gu1) << 2
+      Authority.from(i1, for: gu2) << 3
+      Authority.all_from(i1).all.should =~ [Authority.from(i1, for:gu1), Authority.from(i1,for:gu2)]
     end
   end
 end
