@@ -9,9 +9,7 @@ module Activities
       if self[:activity].subject.class.to_s == "Fact"
         return "#{self[:activity].subject}"
       elsif self[:activity].subject.class.to_s == "FactRelation"
-        return "the relation between \"#{self[:activity].subject.from_fact}\" and \"#{self[:activity].subject.fact}\""
-      else
-        return "no idea"
+        return "#{self[:activity].subject.from_fact}"
       end
     end
 
