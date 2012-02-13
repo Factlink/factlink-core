@@ -12,6 +12,6 @@ module TopicBeliefExpressions
 
   def authority opts={}
     possible_reset
-    Authority.from(opts[:on], opts.slice(:of)).to_f.should == opts[:should_be]
+    Authority.from(opts[:from], opts.slice(:of)).to_f.should == opts[:should_be]
   end
 end
