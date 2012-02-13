@@ -1,8 +1,7 @@
 module TopicBeliefExpressions
   def possible_reset
     unless @nothing_happened
-      FactGraph.reset_values
-      FactGraph.recalculate
+      Authority.run_calculation
       @nothing_happened = true
     end
   end
