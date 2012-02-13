@@ -24,4 +24,13 @@ describe MapReduce::Example do
     subject.map_reduce(list)
     @res.should == {:a=>17, :b=>4, :c=>9}
   end
+
+  describe :process_all do
+    it do
+      subject.all_set = [{a: 1}, {b: 2}, {c: 3}, {a: 4}]
+      subject.process_all
+      @res.should == {:a=>17, :b=>4, :c=>9}
+    end
+  end
+
 end

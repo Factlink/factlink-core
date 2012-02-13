@@ -22,4 +22,8 @@ class MapReduce
     end
   end
 
+  def process_all
+    map_reduce(all_set)
+  end
+
 end
