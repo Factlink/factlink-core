@@ -20,7 +20,7 @@ Backbone.CollectionView = Backbone.View.extend({
       model: model
     });
 
-    this.views[model.id] = view;
+    this.views[model.cid] = view;
     this.$el.find(this.containerSelector).append(view.render().el);
     this.afterAdd.apply(this, arguments);
   },
