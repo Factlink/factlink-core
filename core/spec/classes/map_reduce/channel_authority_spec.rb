@@ -29,7 +29,7 @@ describe MapReduce::ChannelAuthority do
         )
       ]
 
-      Authority.stub!(:from).and_return(18)
+      Authority.stub!(:from).and_return(mock(:Authority, to_f: 18))
       subject.wrapped_map(facts).should == {
         {user_id: 20, channel_id:10} => [18],
         {user_id: 21, channel_id:10} => [18,18],
