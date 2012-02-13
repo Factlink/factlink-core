@@ -41,8 +41,7 @@ module Channels
       {
         id: self[:user].id,
         username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32),
-        authority: Authority.from(self[:user].graph_user).to_f
+        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32)
       }
     end
 
