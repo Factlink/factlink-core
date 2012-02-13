@@ -62,7 +62,7 @@ describe Authority do
     end
     context "for a defined authority" do
       before do
-        @a = Authority.create subject: i1, authority: 15.6
+        @a = Authority.create subject: i1, authority: 15.6, label: :from
       end
       it do
         Authority.from(i1).should == @a
@@ -76,6 +76,38 @@ describe Authority do
     end
     it "should return the authority from the user, when provided" do
       a = Authority.from(i1, for: gu1)
+      a.user.should == gu1
+    end
+  end
+  describe ".on" do
+    context "for an undefined authority" do
+      it do
+        Authority.on(Item.create).to_f.should == 0
+      end
+      it do
+        Authority.on(Item.new).to_f.should == 0
+      end
+      it do
+        a = Authority.on(i1, for: gu1)
+        a.to_f.should == 0
+      end
+    end
+    context "for a defined authority" do
+      before do
+        @a = Authority.create subject: i1, authority: 15.6, label: :on
+      end
+      it do
+        Authority.on(i1).should == @a
+      end
+      it "should work when quiried with classname and id" do
+        Authority.on(Item: i1.id).should == @a
+      end
+    end
+    it "should return an authority for the subject" do
+      Authority.on(i1).subject.should == i1
+    end
+    it "should return the authority from the user, when provided" do
+      a = Authority.on(i1, for: gu1)
       a.user.should == gu1
     end
   end
@@ -154,6 +186,16 @@ describe Authority do
       Authority.from(i1, for: gu1) << 2
       Authority.from(i1, for: gu2) << 3
       Authority.all_from(i1).all.should =~ [Authority.from(i1, for:gu1), Authority.from(i1,for:gu2)]
+    end
+  end
+  describe ".all_on" do
+    it "should return an empty list when no authorities are defined on the subject" do
+      Authority.all_on(i1).all.should =~ []
+    end
+    it "should return all authority objects" do
+      Authority.on(i1, for: gu1) << 2
+      Authority.on(i1, for: gu2) << 3
+      Authority.all_on(i1).all.should =~ [Authority.on(i1, for:gu1), Authority.on(i1,for:gu2)]
     end
   end
 

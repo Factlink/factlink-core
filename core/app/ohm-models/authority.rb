@@ -2,10 +2,13 @@ class Authority < OurOhm
   generic_reference :subject
   reference :user, GraphUser
 
+  attribute :label
+  index :label
+
   attribute :authority
 
   class << self
-    def from(subject, opts={})
+    def related(label, subject, opts={})
       if subject.is_a?(Hash)
         subject = Kernel.const_get(subject.keys[0])[subject.values[0]]
       end
@@ -13,20 +16,36 @@ class Authority < OurOhm
       return Authority.new if subject.new?
 
       if opts[:for]
-        find( subject_id: subject.id.to_s, subject_class: subject.class.to_s,
+        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s,
               user_id: opts[:for].id).first ||
-            Authority.new(subject: subject, user: opts[:for])
+            Authority.new(label: label, subject: subject, user: opts[:for])
       else
-        find( subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(subject: subject)
+        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(label: label, subject: subject)
       end
+    end
+    
+    def from(subject, opts={})
+      related(:from, subject, opts)
+    end
+
+    def on(subject, opts={})
+      related(:on, subject, opts)
     end
 
     def calculate_from klass, opts={}, &block
       calculators[klass.to_s] = block
     end
 
+    def all_related(label, subject)
+      find(label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s)
+    end
+
     def all_from(subject)
-      find(subject_id: subject.id.to_s, subject_class: subject.class.to_s)
+      all_related(:from, subject)
+    end
+
+    def all_on(subject)
+      all_related(:on, subject)
     end
 
     def calculated_from_authority(subject)
@@ -55,7 +74,7 @@ class Authority < OurOhm
 
     private
       def calculators
-       @calculators ||= reset_calculators
+        @calculators ||= reset_calculators
       end
   end
 
