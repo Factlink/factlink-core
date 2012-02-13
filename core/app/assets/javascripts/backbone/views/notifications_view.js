@@ -1,7 +1,10 @@
 (function(){
-window.NotificationsView = Backbone.View.extend({
-  tagName: "a",
-  className: "notifications",
+window.NotificationsView = Backbone.CollectionView.extend({
+  views: {},
+
+  tagName: "li",
+  id: "notifications",
+  containerSelector: "ul",
 
   _unreadCount: 0,
 
@@ -10,15 +13,14 @@ window.NotificationsView = Backbone.View.extend({
   },
 
   initialize: function () {
-    this.collection.on("add", this.addOne, this);
+    this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
+
+    this.modelView = NotificationItemView;
 
     this.setupNotificationsFetch();
   },
 
-  addOne: function (notification) {
-    if ( notification.get("unread") === true ) {
-      this._unreadCount += 1;
     }
   },
 
