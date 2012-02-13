@@ -32,6 +32,12 @@
           </li>
           <% end %>
 
+          <li class="dropdown">
+            <a id="notifications">
+              <%= image_tag("activities/icon-generic.png") %>
+            </a>
+          </li>
+
           <li class="dropdown" data-dropdown="dropdown">
             <a class="dropdown-toggle">   <%= image_tag(current_user.avatar_url(size:20), :width => 20) %> <%= current_user.username %>  </a>
             <ul class="dropdown-menu">
@@ -39,18 +45,25 @@
                 <li><span>Authority: <%=  (Authority.from current_user.graph_user).to_s %></span></li>
                 <li class="divider"></li>
                 <li><%= link_to("My profile", user_profile_path(current_user)) %></li>
-                <li class="divider"></li>
-                <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png", style: "padding-right: 4px") %>Chrome Extension</a></li>
-                <li><a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
-                       <%# here we need singlequotes kthxbye: %>
-                       href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'><%= image_tag("bookmarkletGrayIcon.png") %><span style="display: none">Factlink</span> Bookmarklet</a></li>
-                <li class="divider"></li>
-                <li><%= link_to "Privacy Policy", privacy_path %></li>
-                <li class="divider"></li>
               <% end %>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>
-            </li>
+          </li>
+
+          <% if can? :access, Ability::FactlinkWebapp %>
+          <li class="dropdown" data-dropdown="dropdown">
+            <a class="dropdown-toggle"> <%= image_tag('factlink-icon-top-bar.png') %> </a>
+            <ul class="dropdown-menu">
+              <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png", style: "padding-right: 4px") %>Chrome Extension</a></li>
+              <li><a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
+                     <%# here we need singlequotes kthxbye: %>
+                     href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'><%= image_tag("bookmarkletGrayIcon.png") %><span style="display: none">Factlink</span> Bookmarklet</a></li>
+              <li class="divider"></li>
+              <li><%= link_to "Privacy Policy", privacy_path %></li>
+              <li><%= link_to "Terms of Service", tos_path %></li>
+            </ul>
+          </li>
+          <% end %>
         <% else %>
           <li>
             <%= link_to("Sign in", new_user_session_path) %>

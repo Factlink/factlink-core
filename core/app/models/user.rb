@@ -13,6 +13,7 @@ class User
 
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
+  field :agreed_tos_on, type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
 
@@ -33,6 +34,30 @@ class User
   :validatable,   # Validation of email and password
   :confirmable   # Require e-mail verification
   # :registerable   # Allow registration
+
+  ## Database authenticatable
+    field :email,              :type => String, :null => false
+    field :encrypted_password, :type => String, :null => false
+
+  ## Recoverable
+    field :reset_password_token,   :type => String
+    field :reset_password_sent_at, :type => Time
+
+  ## Rememberable
+    field :remember_created_at, :type => Time
+
+  ## Trackable
+    field :sign_in_count,      :type => Integer
+    field :current_sign_in_at, :type => Time
+    field :last_sign_in_at,    :type => Time
+    field :current_sign_in_ip, :type => String
+    field :last_sign_in_ip,    :type => String
+
+  ## Confirmable
+    field :confirmation_token,   :type => String
+    field :confirmed_at,         :type => Time
+    field :confirmation_sent_at, :type => Time
+
 
   searchable :auto_index => true do
     text    :username, :twitter
@@ -75,7 +100,7 @@ class User
       self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
 
-    valid and self.update_without_password(agrees_tos: agrees_tos, name: name)
+    valid and self.update_without_password(agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now)
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved

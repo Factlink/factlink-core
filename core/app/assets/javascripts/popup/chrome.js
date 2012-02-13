@@ -9,6 +9,7 @@ function passThroughClick(elem, messageKey) {
 
 window.addEventListener("message", function(messageObject) {
   var data = messageObject.data;
+
   if ( data === "highlight" ) {
     $('#highlight').prop('checked', true );
   } else if ( data === "auto_annotate" ) {

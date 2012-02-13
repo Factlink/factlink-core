@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def activities
+    respond_to do |format|
+      format.json { render json: Activity::For.user(current_user.graph_user) }
+    end
+  end
+
   private
   def load_user
     @user = User.first(:conditions => { :username => params[:username] }) or raise_404

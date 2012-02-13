@@ -13,7 +13,7 @@ gem 'rake', '~> 0.9.2'
 # Devise already comes with oauth2 support,
 # so we just need to put this gems in the Gemfile:
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
-gem 'devise', '~> 1.4.9'
+gem 'devise', '~> 2.0.0'
 
 ##########
 # Databases
@@ -93,7 +93,7 @@ group :assets do
   ###########
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'
-  gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap', '1.4.2'
   gem "modernizr-rails", "~> 2.0.6"
 end
 
@@ -109,12 +109,15 @@ group :development do
 end
 
 group :development, :test do
-  gem 'metric_fu', :require => false
-  # dependencies of metric_fu:
+  #suddenly we need to require this gem, else bundle update goes wrong, we never use it however
+  gem 'rcov', '0.9.11', :require => false
+
+  gem 'metric_fu', '2.1.1', :require => false
+    #dependencies of metric_fu:
     gem "fattr", :require => false
     gem "arrayfields", :require => false
     gem "map", :require => false
-    #use simplecov:
+    #use simplecov instead of rcov:
     gem 'simplecov', :require => false
     gem 'simplecov-rcov-text', :require => false
 

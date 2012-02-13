@@ -3,7 +3,6 @@ require_relative '../../../app/ohm-models/activity.rb'
 
 class Blob < OurOhm ;end
 class Foo < OurOhm ;end
-class GraphUser < OurOhm ;end
 
 describe Activity::Query do
   let(:gu1) { GraphUser.create }
@@ -12,6 +11,16 @@ describe Activity::Query do
   let(:b2)  { Blob.create }
   let(:f1)  { Foo.create }
   let(:f2)  { Foo.create }
+
+  before do
+    unless defined?(GraphUser)
+      class GraphUser < OurOhm
+        def graph_user
+          self
+        end
+      end
+    end
+  end
 
   describe ".where" do
     it "should return an empty list when given an empty query" do
