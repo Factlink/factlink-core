@@ -22,16 +22,7 @@ class Authority < OurOhm
     end
 
     def calculate_from klass, opts={}, &block
-      if block_given?
-        calculators[klass.to_s] = block
-      else
-        calculators[klass.to_s] = lambda do |x|
-          select = opts[:select].call(x)
-          select_after = opts[:select_after].call(select)
-          result = opts[:result].call(select_after)
-          return opts[:total].call(result)
-        end
-      end
+      calculators[klass.to_s] = block
     end
 
     def all_from(subject)
