@@ -1,5 +1,9 @@
 class MapReduce
   class ChannelAuthority < MapReduce
+    def all_set
+      Fact.all
+    end
+
     def map iterator
       iterator.each do |fact|
         fact.channel_ids.each do |ch_id|

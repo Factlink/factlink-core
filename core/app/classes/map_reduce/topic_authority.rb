@@ -1,5 +1,9 @@
 class MapReduce
   class TopicAuthority < MapReduce
+    def all_set
+      Channel.all
+    end
+
     def map iterator
       iterator.each do |ch|
         Authority.all_from(ch).each do |authority|
