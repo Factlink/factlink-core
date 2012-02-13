@@ -30,7 +30,7 @@ describe "beliefs should work"  do
   end
 
 
-  it "should not give authority on a topic when creating a fact in it" do
+  it "should not give authority on a topic with a fact in it with only one supporting fact" do
     f = create :fact, created_by: u1
     f2 = create :fact, created_by: u1
     c = create :channel, title: "foo"
