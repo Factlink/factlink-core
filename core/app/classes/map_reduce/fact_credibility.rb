@@ -11,6 +11,9 @@ class MapReduce
           t.save if t.new?
           Authority.all_from(t).each do |a|
             yield({fact_id: f.id, user_id: a.user_id}, a.to_f)
+            f.fact_relations.each do |fr|
+              yield({fact_id: fr.id, user_id: a.user_id}, a.to_f)
+            end
           end
         end
       end
