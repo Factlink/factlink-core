@@ -17,6 +17,14 @@ module Activities
       channel_path(self[:activity].subject.created_by.user, self[:activity].subject)
     end
 
+    def to_channel_title
+      self[:activity].object.title
+    end
+
+    def to_channel_url
+      channel_path(self[:activity].object.created_by.user, self[:activity].object)
+    end
+
     def icon
       image_tag('activities/icon-channel.png')
     end
