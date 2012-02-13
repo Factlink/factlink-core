@@ -45,14 +45,5 @@ load_global_authority
 
 def load_topic_specific_authority
   Authority.reset_calculators
-
-  Authority.calculate_from :Fact do |f|
-    calculator = MapReduce::FactAuthority.new()
-    calculator.map_reduce( calculator.set_for_one f )
-    Authority.from(f)
-  end
-
-  Authority.calculate_from :GraphUser do |gu|
-    1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * Authority.from(fact).to_f })
-  end
+  Authority.calculation = [MapReduce::FactAuthority.new]
 end
