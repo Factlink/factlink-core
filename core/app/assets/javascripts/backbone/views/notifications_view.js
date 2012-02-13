@@ -16,7 +16,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 
-    this.modelView = NotificationItemView;
+    this.modelView = NotificationView;
 
     this.setupNotificationsFetch();
   },
