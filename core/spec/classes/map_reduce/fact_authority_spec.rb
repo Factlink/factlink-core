@@ -32,7 +32,7 @@ describe MapReduce::FactAuthority do
   describe :reduce do
     it do
       Fact.should_receive(:[]).with(12).and_return(stub(:Fact, created_by_id: 3))
-      subject.reduce 12, [20, 15]
+      subject.reduce(12, [20, 15]).should == 2
     end
   end
 end
