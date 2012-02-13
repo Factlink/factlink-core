@@ -20,7 +20,7 @@ class MapReduce
       created_by_ids.each do |supporter_id|
         result += 1 unless supporter_id == fact_creator_id
       end
-      [1, result].max
+      [0, Math.log2(result)].max
     end
 
     def write_output fact_id, value
