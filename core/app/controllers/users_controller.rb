@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def activities
     respond_to do |format|
-      format.json { render json: Activity::For.user(current_user.graph_user) }
+      format.json { render json: Activity::For.user(current_user.graph_user).map { |activity| Notifications::Activity.for(activity: activity, view: view_context) }.reverse }
     end
   end
 
