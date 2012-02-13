@@ -18,7 +18,7 @@ class MapReduce
       result = 0
       fact_creator_id = Fact[fact_id].created_by_id
       created_by_ids.each do |supporter_id|
-        results += 1 unless supporter_id != fact_creator_id
+        result += 1 unless supporter_id == fact_creator_id
       end
       [1, result].max
     end
