@@ -93,12 +93,61 @@ a.bookmarklet {
     position: absolute;
     margin: 8px 0 0 0;
     right: 0;
+    width: 240px;
     background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 0 10px 10px 10px;
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    max-height: 500px;
+    overflow-y: scroll;
 
     li {
-      white-space: nowrap;
+      border-bottom: 1px solid #e4e4e4;
+      margin: 7px 0 0;
+
+      div.avatar {
+        width: 30px;
+        float: left;
+
+        img {
+          border-radius: 2px;
+          display: inline-block;
+        }
+      }
+
+      div.info {
+        width: 210px;
+        float: left;
+        margin: 0 0 7px;
+
+        a {
+          display: inline;
+          padding: 0;
+        }
+
+        span {
+          font-size: 12px;
+        }
+
+        div.time_ago {
+          img {
+            vertical-align: middle;
+          }
+
+          span {
+            vertical-align: middle;
+            color: #888;
+            font-size: 11px;
+          }
+        }
+      }
+
+      div.clear {
+        clear: both;
+      }
     }
   }
 }
