@@ -33,28 +33,45 @@ window.NotificationsView = Backbone.CollectionView.extend({
       }
     });
   },
-    }
-  },
-
-  reset: function () {
-
-  },
-
-  setupNotificationsFetch: function () {
-    var args = arguments;
-    var self = this;
-
-    setTimeout(function() {
-      false && self.collection.fetch({
-        success: function() {
-          args.callee();
-        }
-      });
-    }, 7000);
-  },
 
   clickHandler: function (e) {
-    this.collection.markAsRead();
+    var self = this;
+    var $dropdown = this.$el.find('ul');
+
+    if ( ! $dropdown.is(':visible' ) ) {
+      this.showDropdown();
+    } else {
+      this.hideDropdown();
+    }
+
+    e.stopPropagation();
+  },
+
+  showDropdown: function () {
+    console.info( this );
+    this.$el.find('ul').show();
+
+    this._bindWindowClick();
+  },
+
+  hideDropdown: function () {
+    this.$el.find('ul').hide();
+
+    this._unbindWindowClick();
+  },
+
+  _bindWindowClick: function () {
+    var self = this;
+
+    $(window).on('click.notifications', function ( e ) {
+      if ( ! $( e.target ).closest('ul').is('#notifications-dropdown') ) {
+        self.hideDropdown();
+      }
+    })
+  },
+
+  _unbindWindowClick: function () {
+    $(window).off('click.notifications');
   }
 });
 }());
