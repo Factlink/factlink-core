@@ -7,7 +7,9 @@ class MapReduce
     def map iterator
       iterator.each do |ch|
         ch.facts.each do |f|
-          Authority.all_from(Topic.by_title(ch.title)).each do |a|
+          t = Topic.by_title(ch.title)
+          t.save if t.new?
+          Authority.all_from(t).each do |a|
             yield({fact_id: f.id, user_id: a.user_id}, a.to_f)
           end
         end
@@ -19,7 +21,7 @@ class MapReduce
     end
 
     def write_output bucket, value
-      Authority.on({Fact: bucket[:fact_id]}, for: GraphUser[bucket[:user_id]]) << value
+      Authority.on(Basefact[bucket[:fact_id]], for: GraphUser[bucket[:user_id]]) << value
     end
   end
 end

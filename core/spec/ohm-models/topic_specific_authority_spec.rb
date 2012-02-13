@@ -31,7 +31,7 @@ describe "beliefs should work"  do
   end
 
 
-  context "for facts" do
+  context "from facts" do
     it "should give zero authority when a fact is only created" do
       f = create :fact, created_by: u1
 
@@ -43,7 +43,7 @@ describe "beliefs should work"  do
     end
   end
 
-  context "for channels" do
+  context "from channels" do
     it "should give zero authority to a user who hasn't done anything" do
       authority from: ch1, for: u1, should_be: 0.0
     end
@@ -54,7 +54,7 @@ describe "beliefs should work"  do
     end
   end
 
-  context "for topics" do
+  context "from topics" do
     it "for a user without history in Factlink the authority should be 0.0" do
       t1 = create :topic
       authority of: u1, from: t1, should_be: 0.0
@@ -85,11 +85,24 @@ describe "beliefs should work"  do
       authority of:u1, from: foo_t, should_be: 0.0
     end
 
-    it "should not give authority on a topic when creating a fact in it" do
+    it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
       foo_ch.add_fact(fact_of_u1_with_two_supporting)
       foo_t = create :topic, title: "foo"
       authority of:u1, from: foo_t, should_be: 1.0
+    end
+  end
+
+  context "on facts" do
+    it "should give a user authority on a fact in a topic it knows something about" do
+      foo_ch = create :channel, title: "foo"
+      foo_ch.add_fact(fact_of_u1_with_two_supporting)
+      foo_t = create :topic, title: "foo"
+
+      fact2 = create :fact
+      foo_ch.add_fact fact2
+
+      authority of:u1, on: fact2, should_be: 1.0
     end
   end
 end

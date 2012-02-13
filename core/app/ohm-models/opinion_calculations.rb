@@ -45,5 +45,5 @@ load_global_authority
 
 def load_topic_specific_authority
   Authority.reset_calculators
-  Authority.calculation = [MapReduce::FactAuthority.new, MapReduce::ChannelAuthority.new, MapReduce::TopicAuthority.new]
+  Authority.calculation = [MapReduce::FactAuthority.new, MapReduce::ChannelAuthority.new, MapReduce::TopicAuthority.new, MapReduce::FactCredibility.new]
 end

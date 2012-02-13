@@ -5,6 +5,10 @@ module TopicBeliefExpressions
 
   def authority opts={}
     reset
-    Authority.from(opts[:from], opts.slice(:of)).to_f.should == opts[:should_be]
+    if opts[:from]
+      Authority.from(opts[:from], opts.slice(:of)).to_f.should == opts[:should_be]
+    else
+      Authority.on(opts[:on], opts.slice(:of)).to_f.should == opts[:should_be]
+    end
   end
 end
