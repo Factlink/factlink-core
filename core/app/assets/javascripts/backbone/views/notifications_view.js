@@ -21,6 +21,41 @@ window.NotificationsView = Backbone.CollectionView.extend({
     this.setupNotificationsFetch();
   },
 
+  beforeReset: function () {
+    this.setUnreadCount(0);
+  },
+
+  afterAdd: function (notification) {
+    if ( notification.get('unread') === true ) {
+      this.incrementUnreadCount();
+    }
+  },
+
+  incrementUnreadCount: function () {
+    this.setUnreadCount( this._unreadCount + 1 );
+  },
+
+  setUnreadCount: function (count) {
+    var $unread = this.$el.find('.unread');
+    this._unreadCount = count;
+
+    $unread.text(this._unreadCount);
+
+    if ( count > 0 ) {
+      $unread.show();
+    } else {
+      $unread.hide();
+    }
+  },
+
+  markAsRead: function () {
+    this.collection.markAsRead({
+      success: function () {
+        this.setUnreadCount(0);
+      }
+    });
+  },
+
   setupNotificationsFetch: function () {
     var args = arguments;
     var self = this;
@@ -48,8 +83,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   showDropdown: function () {
-    console.info( this );
     this.$el.find('ul').show();
+
+    this.markAsRead();
 
     this._bindWindowClick();
   },
