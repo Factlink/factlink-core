@@ -49,6 +49,7 @@ def load_topic_specific_authority
   Authority.calculate_from :Fact do |f|
     calculator = MapReduce::FactAuthority.new()
     calculator.map_reduce( calculator.set_for_one f )
+    Authority.from(f)
   end
 
   Authority.calculate_from :GraphUser do |gu|
