@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       # returned and sliced.
       activities = Activity::For.user(current_user.graph_user).to_a.slice(0..6)
 
-      format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) }.reverse }
+      format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
     end
   end
 
