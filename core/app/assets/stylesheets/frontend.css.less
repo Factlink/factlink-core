@@ -1,8 +1,6 @@
 /*
  *= require twitter/bootstrap
 */
-@import "bootstrap/variables";
-@import "bootstrap/mixins";
 @import "feedback.css.less";
 @import "bubble.css.less";
 @import "tour.css.less";
@@ -47,7 +45,7 @@ a.bookmarklet {
     display: none;
     position: absolute;
     background: #DE997B;
-    border-radius: 10px;
+    .border-radius(10px);
     font-size: 5pt;
     height: 10px;
     width: 10px;
@@ -82,7 +80,7 @@ a.bookmarklet {
         float: left;
 
         img {
-          border-radius: 2px;
+          .border-radius(2px);
           display: inline-block;
         }
       }
