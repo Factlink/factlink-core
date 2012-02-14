@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
       # TODO: This needs to become much more efficient. Now all activities are
       # returned and sliced.
-      activities = Activity::For.user(current_user.graph_user).to_a.slice(0..6)
+      activities = Activity::For.user(current_user.graph_user).slice(0..6)
 
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
     end
