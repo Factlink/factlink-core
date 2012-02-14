@@ -62,6 +62,18 @@ describe Activity::For do
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
+
+    it "should only return other users activities, not User his own activities" do
+      f1 = create :fact
+
+      f1.add_opinion(:believes, gu1)
+      f1.add_opinion(:believes, f1.created_by)
+
+      Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+        {user: gu1, action: :believes, subject: f1},
+      ]
+    end
+
     [:supporting, :weakening].each do |type|
       it "should return activity when a users adds #{type} evidence to a fact in your channels" do
         f1 = create :fact
