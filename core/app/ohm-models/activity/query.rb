@@ -23,7 +23,7 @@ class Activity < OurOhm
     def self.where(queries)
       return empty_activity_set if queries.length == 0
 
-      queries.map {|q| where_one(q)}.reduce {|res, set| res | set}.sort(order: "DESC")
+      queries.map {|q| where_one(q)}.reduce {|res, set| res | set}
     end
 
     def self.where_one(query)
