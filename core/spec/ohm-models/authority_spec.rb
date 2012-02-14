@@ -67,9 +67,6 @@ describe Authority do
       it do
         Authority.from(i1).should == @a
       end
-      it "should work when quiried with classname and id" do
-        Authority.from(Item: i1.id).should == @a
-      end
     end
     it "should return an authority for the subject" do
       Authority.from(i1).subject.should == i1
@@ -98,9 +95,6 @@ describe Authority do
       end
       it do
         Authority.on(i1).should == @a
-      end
-      it "should work when quiried with classname and id" do
-        Authority.on(Item: i1.id).should == @a
       end
     end
     it "should return an authority for the subject" do
