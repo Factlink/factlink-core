@@ -17,6 +17,8 @@ class User
 
   field :seen_the_tour,  type: Boolean, default: false
 
+  field :last_read_activities_on, type: DateTime, default: 0
+
   attr_protected :admin
 
   # Only allow letters, digits and underscore in a username
