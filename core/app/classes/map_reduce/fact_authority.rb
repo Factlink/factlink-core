@@ -10,7 +10,7 @@ class MapReduce
 
     def map iterator
       iterator.each do |fr|
-        yield fr.fact_id, fr.created_by_id
+        yield fr.from_fact_id, fr.created_by_id
       end
     end
 
