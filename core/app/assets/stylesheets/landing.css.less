@@ -5,9 +5,13 @@
 @import "bootstrap/mixins";
 
 @import "feedback.css";
+
+
 body {
-  background: white;
+  background: @white;
 }
+
+
 .factlink {
   a {
     color: @linkColor;
@@ -28,6 +32,7 @@ body {
   p, li, footer {
     #font > .sans-serif(normal, @basefont, @baseline);
     color: #505050;
+    list-style-type:none;
   }
   #body {
     padding: 2.5em 0;
