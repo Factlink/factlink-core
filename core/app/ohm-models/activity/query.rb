@@ -33,6 +33,7 @@ class Activity < OurOhm
       set = set.find(   user_id: query[:user].id )                                          if query[:user]
       set = set.find(subject_id: query[:subject].id, subject_class: query[:subject].class ) if query[:subject]
       set = set.find( object_id: query[:object].id,   object_class: query[:object].class )  if query[:object]
+      set = set.except( user_id: query[:exclude_user].id )                                  if query[:exclude_user]
       if query[:action]
         if query[:action].respond_to? :map
           set = query[:action].map {|action| set.find(action: action.to_s) }
