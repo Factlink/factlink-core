@@ -40,9 +40,9 @@ Grunt is a task-based command line build tool for JavaScript projects. It provid
 Inside of the Factlink JavaScript Library folder, you can run a few grunt tasks:
 
  * **concat** - Concatenate files.
- * **lint** - Validate files with [JSHint][jshint].
- * **min** - Minify files with [UglifyJS][uglify].
- * **qunit** - Run [QUnit][qunit] unit tests in a headless [PhantomJS][phantom] instance.
+ * **lint** - Validate files with JSHint.
+ * **min** - Minify files with UglifyJS.
+ * **qunit** - Run QUnit unit tests in a headless PhantomJS instance.
  * **server** - Start a static web server.
  * **watch** - Run predefined tasks whenever watched files change.
 
