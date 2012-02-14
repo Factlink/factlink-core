@@ -29,12 +29,8 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
   afterAdd: function (notification) {
     if ( notification.get('unread') === true ) {
-      this.incrementUnreadCount();
+      this.setUnreadCount( this._unreadCount + 1 );
     }
-  },
-
-  incrementUnreadCount: function () {
-    this.setUnreadCount( this._unreadCount + 1 );
   },
 
   setUnreadCount: function (count) {
