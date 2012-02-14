@@ -45,7 +45,7 @@ module Notifications
 
       # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"
-        return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
+        return Notifications::AddedEvidence.for(activity: self[:activity], view: self[:view])
       else
         return self[:activity]
       end
