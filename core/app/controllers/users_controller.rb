@@ -11,17 +11,23 @@ class UsersController < ApplicationController
   end
 
   def activities
-    respond_to do |format|
     # TODO: This needs to become much more efficient. Now all activities are
     # returned and sliced.
     activities = Activity::For.user(@user.graph_user).sort(order: "DESC").slice(0..6)
 
+    authorize! :index, Activity
 
+    respond_to do |format|
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
     end
   end
 
   def mark_activities_as_read
+    puts "controller"
+    puts @user.id
+
+    authorize! :mark_activities_as_read, @user
+
     @user.last_read_activities_on = DateTime.now
 
     respond_to do |format|
