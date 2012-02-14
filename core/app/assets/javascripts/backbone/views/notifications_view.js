@@ -47,11 +47,18 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   markAsRead: function () {
+    var self = this;
+
     this.collection.markAsRead({
       success: function () {
-        this.setUnreadCount(0);
+        self.markViewsForUnreadification();
+        self.setUnreadCount(0);
       }
     });
+  },
+
+  markViewsForUnreadification: function () {
+    this._shouldMarkUnread = true;
   },
 
   setupNotificationsFetch: function () {
@@ -104,6 +111,14 @@ window.NotificationsView = Backbone.CollectionView.extend({
     this.$el
       .removeClass("open")
       .find('ul').hide();
+
+    if ( this._shouldMarkUnread === true ) {
+      this._shouldMarkUnread = false;
+
+      _.forEach(this.views, function ( view ) {
+        view.markAsRead();
+      });
+    }
 
     this._unbindWindowClick();
   },

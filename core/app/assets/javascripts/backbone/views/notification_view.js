@@ -19,6 +19,10 @@ window.GenericNotificationView = Backbone.View.extend({
 
   clickHandler: function(e) {
     document.location.href = this.model.url();
+  },
+
+  markAsRead: function () {
+    this.$el.removeClass('unread');
   }
 });
 
@@ -43,8 +47,6 @@ NotificationOpinionatedView = GenericNotificationView.extend({
 window.NotificationView = function(opts) {
   switch (opts.model.get("action")) {
     case "added_supporting_evidence":
-      return new NotificationAddedEvidenceView(opts);
-
     case "added_weakening_evidence":
       return new NotificationAddedEvidenceView(opts);
 

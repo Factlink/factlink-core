@@ -78,6 +78,14 @@ class OurOhm < Ohm::Model
     return self.to_json
   end
 
+  def created_at_as_datetime
+   parse_ohm_datetime self.created_at
+  end
+
+  def updated_at_as_datetime
+   parse_ohm_datetime self.updated_at
+  end
+
   alias save! save
 
   #needed for some rails compatibility
@@ -85,5 +93,10 @@ class OurOhm < Ohm::Model
 
   def self.find_or_create_by(opts)
     self.find(opts).first || self.create(opts)
+  end
+
+  protected
+  def parse_ohm_datetime(str)
+    DateTime.strptime str, '%Y-%m-%d %H:%M:%S %Z'
   end
 end

@@ -1,10 +1,8 @@
 module Notifications
   class Activity < Mustache::Railstache
 
-    # TODO: This should have the real indication wheter the activity is read
-    # or unread
     def unread
-      self[:activity].created_at.to_i > current_user.last_read_activities_on.to_i ? true : false
+      self[:activity].created_at_as_datetime > current_user.last_read_activities_on
     end
 
     def username
@@ -32,7 +30,6 @@ module Notifications
     end
 
     def activity
-
       case self[:activity].action
 
       # Channel activity
@@ -45,7 +42,7 @@ module Notifications
 
       # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"
-        return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
+        return Notifications::AddedEvidence.for(activity: self[:activity], view: self[:view])
       else
         return self[:activity]
       end
