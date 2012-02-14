@@ -41,7 +41,7 @@ module Notifications
 
       # Opinion activity
       when "believes", "doubts", "disbelieves"
-        return Activities::Opinionated.for(activity: self[:activity], view: self[:view])
+        return Notifications::Opinionated.for(activity: self[:activity], view: self[:view])
 
       # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"
