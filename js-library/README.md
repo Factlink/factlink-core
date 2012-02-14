@@ -26,11 +26,31 @@ $ npm install grunt -g
 
 When grunt is installed, to run the default task, run, inside the js-library dir:
 
-```
+```bash
 $ grunt
 ```
 
 This task will test and build the Factlink JavaScript library.
+
+## Grunt
+
+Grunt is a task-based command line build tool for JavaScript projects. It provides a few simple tasks that help with the packaging of JavaScript libraries.
+
+### Tasks
+Inside of the Factlink JavaScript Library folder, you can run a few grunt tasks:
+
+ * **concat** - Concatenate files.
+ * **lint** - Validate files with [JSHint][jshint].
+ * **min** - Minify files with [UglifyJS][uglify].
+ * **qunit** - Run [QUnit][qunit] unit tests in a headless [PhantomJS][phantom] instance.
+ * **server** - Start a static web server.
+ * **watch** - Run predefined tasks whenever watched files change.
+
+Run the commands inside the js-library directory with:
+
+```bash
+$ grunt COMMAND
+```
 
 ## FAQ
 
