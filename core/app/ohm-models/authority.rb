@@ -32,10 +32,6 @@ class Authority < OurOhm
       related(:on, subject, opts)
     end
 
-    def calculate_from klass, opts={}, &block
-      calculators[klass.to_s] = block
-    end
-
     def all_related(label, subject)
       find(label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s)
     end
@@ -48,19 +44,6 @@ class Authority < OurOhm
       all_related(:on, subject)
     end
 
-    def calculated_from_authority(subject)
-      calculators[subject.class.to_s].call subject
-    end
-
-    def recalculate_from subject
-      from(subject) << calculated_from_authority(subject)
-    end
-
-    def reset_calculators
-      @map_reducers = nil
-      @calculators = Hash.new(lambda {|obj| 0.0})
-    end
-
     #new system with mapreduce:
     def calculation=(map_reducers)
       @map_reducers = map_reducers
@@ -71,11 +54,6 @@ class Authority < OurOhm
         mr.process_all
       end
     end
-
-    private
-      def calculators
-        @calculators ||= reset_calculators
-      end
   end
 
   def << auth

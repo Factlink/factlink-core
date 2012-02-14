@@ -20,7 +20,7 @@ describe Authority do
   let(:gu2) { GraphUser.create }
 
   before do
-    Authority.reset_calculators
+    Authority.calculation = nil
   end
   after :all do
     begin
@@ -132,49 +132,6 @@ describe Authority do
         Authority.from(i1, for: gu1) << 21
         Authority.from(i1, for: gu1).to_f.should == 21
       end
-    end
-  end
-
-  describe ".calculated_from_authority" do
-    it "should use the calculate from calculate_from" do
-      Authority.calculate_from Item do |i|
-        i.number
-      end
-      i1.number = 10
-      Authority.calculated_from_authority(i1).should == 10
-    end
-    context "when calculate_from is provided with a symbol" do
-      it "should use the calculate from calculate_from" do
-        Authority.calculate_from :Item do |i|
-          i.number
-        end
-        i1.number = 10
-        Authority.calculated_from_authority(i1).should == 10
-      end
-    end
-    it "should return 0.0 when no calculator is defined" do
-      Authority.calculated_from_authority(i1).should == 0
-    end
-  end
-
-  describe ".reset_calculators" do
-    it "should remove all calculators" do
-      Authority.calculate_from Item do |i|
-        i.number
-      end
-      Authority.reset_calculators.length.should == 0
-      Authority.send(:calculators).length.should == 0
-    end
-  end
-
-  describe ".recalculate_from" do
-    it "should use the calculate from calculate_from" do
-      Authority.calculate_from Item do |i|
-        i.number
-      end
-      i1.number = 10
-      Authority.recalculate_from i1
-      Authority.from(i1).to_f.should == 10
     end
   end
 
