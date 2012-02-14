@@ -1,0 +1,1 @@
+cat ~/resque.pid | xargs kill
