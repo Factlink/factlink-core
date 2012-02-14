@@ -4,7 +4,7 @@ module Notifications
     # TODO: This should have the real indication wheter the activity is read
     # or unread
     def unread
-      true
+      self[:activity].created_at.to_i > current_user.last_read_activities_on.to_i ? true : false
     end
 
     def username
