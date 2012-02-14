@@ -64,10 +64,6 @@ div.fact-block .close {
       padding: 5px 0 5px 0 !important;
       margin: 0 0 0 5px !important;
       border: none !important;
-      a {
-        margin: 0;
-        padding: 0;
-        }
       }
     }
   .add-channel {
@@ -75,7 +71,6 @@ div.fact-block .close {
     padding: 8px;
     input[type="text"] {
       width: 130px;
-      padding: 2px;
       border: solid 1px #ccc;
     }
   }
@@ -84,6 +79,7 @@ div.fact-block .close {
 .fact-block {
   color: #555;
   .border-radius(4px);
+  border: 1px solid transparent;
   background: @white;
   article.fact {
     padding: 10px 0 0px (@rightIndent / 2);
@@ -228,7 +224,7 @@ div.fact-block .close {
         border-bottom: none;
         a {
           display: inline-block;
-          padding: 5px;
+          padding: 2px 5px;
           &:hover {
             text-decoration: none;
           }
@@ -327,6 +323,7 @@ div.fact-block .close {
       }
       input[type="text"] {
         width: 95%;
+        margin-bottom: 3px;
       }
       .cancel {
         margin-left: 18px;
