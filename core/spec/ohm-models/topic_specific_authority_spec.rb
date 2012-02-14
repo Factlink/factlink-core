@@ -22,15 +22,6 @@ describe "beliefs should work"  do
     f
   end
 
-  before :all do
-    load_topic_specific_authority
-  end
-
-  after :all do
-    load_global_authority
-  end
-
-
   context "from facts" do
     it "should give zero authority when a fact is only created" do
       f = create :fact, created_by: u1

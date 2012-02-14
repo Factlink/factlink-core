@@ -24,7 +24,7 @@ describe Authority do
   end
   after :all do
     begin
-      load_global_authority
+      load_topic_specific_authority
     rescue
     end
   end
