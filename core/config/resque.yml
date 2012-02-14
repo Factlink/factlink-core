@@ -1,5 +1,5 @@
-development: localhost:6379
-test: localhost:6379
-testserver: localhost:6379
-staging: localhost:6379
-production: localhost:6379
+development: localhost:6380
+test: localhost:6380
+testserver: localhost:6380
+staging: localhost:6380
+production: localhost:6380
