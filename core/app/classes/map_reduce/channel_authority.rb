@@ -8,7 +8,9 @@ class MapReduce
       iterator.each do |fact|
         fact.channel_ids.each do |ch_id|
           authority = Authority.from(fact).to_f
-          yield({user_id: fact.created_by_id, channel_id: ch_id }, authority)
+          if authority > 0
+            yield({user_id: fact.created_by_id, channel_id: ch_id }, authority)
+          end
         end
       end
     end
