@@ -95,7 +95,7 @@ a.bookmarklet {
     right: 0;
     width: 240px;
     background: white;
-    padding: 0 10px 10px 10px;
+    padding: 0;
     -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
@@ -106,7 +106,12 @@ a.bookmarklet {
 
     li {
       border-bottom: 1px solid #e4e4e4;
-      margin: 7px 0 0;
+      margin: 0;
+      padding: 7px 10px 10px 10px;
+
+      &.unread {
+        background-color: #ffffe1
+      }
 
       div.avatar {
         width: 30px;
@@ -119,7 +124,7 @@ a.bookmarklet {
       }
 
       div.info {
-        width: 210px;
+        width: 190px;
         float: left;
         margin: 0 0 7px;
 
