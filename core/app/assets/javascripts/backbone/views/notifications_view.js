@@ -89,7 +89,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
   showDropdown: function () {
     this._visible = true;
 
-    this.$el.find('ul').show();
+    this.$el
+      .addClass('open')
+      .find('ul').show();
 
     this.markAsRead();
 
@@ -99,7 +101,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
   hideDropdown: function () {
     this._visible = false;
 
-    this.$el.find('ul').hide();
+    this.$el
+      .removeClass("open")
+      .find('ul').hide();
 
     this._unbindWindowClick();
   },
