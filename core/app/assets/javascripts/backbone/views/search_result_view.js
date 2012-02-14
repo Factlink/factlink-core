@@ -3,8 +3,9 @@ window.SearchResultView = Backbone.CollectionView.extend({
   className: "search-results",
   _loading: true,
   _page: 1,
+  views: {},
   _previousLength: 0,
-  
+
   initialize: function(options) {
     this.useTemplate("search_results", "_search_results");
 
@@ -16,7 +17,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
     this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     this.bindScroll();
   },
-  
+
   render: function() {
     if (this.collection.length > 0) {
       this.resetSearchResultItems();
@@ -24,7 +25,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
 
     return this;
   },
-  
+
   addSearchResultItem: function(search_result_item) {
     var view = new SearchResultItemView({
       model: search_result_item
@@ -32,7 +33,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
 
     this.$el.find('.results').append(view.render().el);
   },
-  
+
   resetSearchResultItems: function(e) {
     var self = this;
 
@@ -54,9 +55,9 @@ window.SearchResultView = Backbone.CollectionView.extend({
 
     this.loadMore();
   },
-  
+
   _moreNeeded: true,
-  
+
   moreNeeded: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
     var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
@@ -68,16 +69,16 @@ window.SearchResultView = Backbone.CollectionView.extend({
         return true;
       }
     }
-    
+
     return false;
   },
-  
+
   loadMore: function() {
     var self = this;
 
     if ( self.moreNeeded() && ! self._loading ) {
       self._page += 1;
-      
+
       self.setLoading();
       self.collection.fetch({
         add: true,
@@ -87,9 +88,9 @@ window.SearchResultView = Backbone.CollectionView.extend({
         success: function(collection, response) {
           self.stopLoading();
           if (response.length > 0 ) {
-            self.loadMore();            
+            self.loadMore();
           } else {
-            self.hasMore = false;            
+            self.hasMore = false;
           }
         },
         error: function() {
@@ -99,27 +100,27 @@ window.SearchResultView = Backbone.CollectionView.extend({
       });
     }
   },
-  
+
   hasMore: true,
-  
+
   showNoFacts: function() {
     this.$el.find('div.no_results').show();
   },
-  
+
   hideNoFacts: function() {
     this.$el.find('div.no_results').hide();
   },
-  
+
   setLoading: function() {
     this._loading = true;
     this.$el.find('div.loading').show();
   },
-  
+
   stopLoading: function() {
     this._loading = false;
     this.$el.find('div.loading').hide();
   },
-  
+
   //TODO: Unbind on remove?
   bindScroll: function() {
     var self = this;
@@ -127,7 +128,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
       self.loadMore.apply(self);
     });
   },
-  
+
   unbindScroll: function() {
     $(window).unbind('scroll.' + this.cid);
   }

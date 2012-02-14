@@ -15,7 +15,7 @@ module Notifications
       channel_path(self[:activity].user.user,self[:activity].user.stream)
     end
 
-    def avatar(size=32)
+    def avatar(size=20)
       image_tag(self[:activity].user.user.avatar_url(size: size), :width => size)
     end
 

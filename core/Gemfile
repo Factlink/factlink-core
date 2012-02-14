@@ -86,9 +86,7 @@ gem 'rmagick', :require => 'RMagick'
 gem "cancan"
 
 group :assets do
-
-  # Temporary fix for @import bug, merge back to original Gem when it's in master
-  gem 'less-rails', :git => "http://github.com/Factlink/less-rails.git"
+  gem 'less-rails'
   gem 'uglifier'
 
   ###########
