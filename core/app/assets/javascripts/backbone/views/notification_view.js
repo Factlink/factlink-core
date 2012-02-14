@@ -43,8 +43,6 @@ NotificationOpinionatedView = GenericNotificationView.extend({
 window.NotificationView = function(opts) {
   switch (opts.model.get("action")) {
     case "added_supporting_evidence":
-      return new NotificationAddedEvidenceView(opts);
-
     case "added_weakening_evidence":
       return new NotificationAddedEvidenceView(opts);
 
