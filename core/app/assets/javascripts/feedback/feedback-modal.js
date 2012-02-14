@@ -1,12 +1,5 @@
 (function(){
-  var modal = $('#feedback-modal').modal({backdrop: true});
-  var hidden = true;
-
-  modal.bind('hide', function() {
-    hidden = true;
-  }).bind('show', function() {
-    hidden = false;
-  });
+  var modal = $('#feedback-modal');
 
   $('.feedback').live('click', function() {
     modal.modal('show');

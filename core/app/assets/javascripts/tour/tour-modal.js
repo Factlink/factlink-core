@@ -1,10 +1,10 @@
 (function(){
-  var modal = $('#first-tour-modal').modal({backdrop: true});
+  var modal = $('#first-tour-modal');
   var hidden = true;
 
-  modal.bind('hide', function() {
+  modal.on('hide', function() {
     hidden = true;
-  }).bind('show', function() {
+  }).on('show', function() {
     hidden = false;
   });
 
