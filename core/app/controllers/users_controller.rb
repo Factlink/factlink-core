@@ -10,6 +10,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def activities
+    respond_to do |format|
+
+      # TODO: This needs to become much more efficient. Now all activities are
+      # returned and sliced.
+      activities = Activity::For.user(current_user.graph_user).to_a.slice(0..6)
+
+      format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) }.reverse }
+    end
+  end
+
   private
   def load_user
     @user = User.first(:conditions => { :username => params[:username] }) or raise_404

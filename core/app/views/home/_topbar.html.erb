@@ -32,6 +32,16 @@
           </li>
           <% end %>
 
+          <li id="notifications">
+            <a>
+              <%= image_tag("activities/icon-generic.png") %>
+
+              <span class="unread"></span>
+            </a>
+            <ul id="notifications-dropdown">
+            </ul>
+          </li>
+
           <li class="dropdown" data-dropdown="dropdown">
             <a class="dropdown-toggle">   <%= image_tag(current_user.avatar_url(size:20), :width => 20) %> <%= current_user.username %>  </a>
             <ul class="dropdown-menu">
@@ -42,7 +52,7 @@
               <% end %>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>
-            </li>
+          </li>
 
           <% if can? :access, Ability::FactlinkWebapp %>
           <li class="dropdown" data-dropdown="dropdown">

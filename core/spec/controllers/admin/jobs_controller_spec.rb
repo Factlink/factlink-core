@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Admin::JobsController do
-  include Devise::TestHelpers
-  include ControllerMethods
-  
   let (:admin) {FactoryGirl.create(:user, admin: true)}
   let (:user)  {FactoryGirl.create(:user, admin: false)}
   let (:job)   {FactoryGirl.create :job}

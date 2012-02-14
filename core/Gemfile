@@ -13,7 +13,7 @@ gem 'rake', '~> 0.9.2'
 # Devise already comes with oauth2 support,
 # so we just need to put this gems in the Gemfile:
 # gem 'devise', :git => "http://github.com/plataformatec/devise.git"
-gem 'devise', '~> 1.4.9'
+gem 'devise', '~> 2.0.0'
 
 ##########
 # Databases
@@ -85,15 +85,13 @@ gem 'rmagick', :require => 'RMagick'
 gem "cancan"
 
 group :assets do
-
-  # Temporary fix for @import bug, merge back to original Gem when it's in master
-  gem 'less-rails', :git => "http://github.com/Factlink/less-rails.git"
+  gem 'less-rails'
   gem 'uglifier'
 
   ###########
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'
-  gem 'less-rails-bootstrap'
+  gem 'less-rails-bootstrap', '1.4.2'
   gem "modernizr-rails", "~> 2.0.6"
 end
 

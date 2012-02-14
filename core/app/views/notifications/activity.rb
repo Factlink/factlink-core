@@ -1,5 +1,12 @@
-module Activities
+module Notifications
   class Activity < Mustache::Railstache
+
+    # TODO: This should have the real indication wheter the activity is read
+    # or unread
+    def unread
+      true
+    end
+
     def username
       self[:activity].user.user.username
     end
@@ -8,16 +15,8 @@ module Activities
       channel_path(self[:activity].user.user,self[:activity].user.stream)
     end
 
-    def avatar(size=32)
+    def avatar(size=20)
       image_tag(self[:activity].user.user.avatar_url(size: size), :width => size)
-    end
-
-    def action
-      self[:activity].action
-    end
-
-    def subject
-      self[:activity].subject.to_s
     end
 
     def icon
@@ -28,19 +27,28 @@ module Activities
       "#{time_ago_in_words(self[:activity].created_at)} ago"
     end
 
+    def action
+      self[:activity].action
+    end
+
     def activity
+
       case self[:activity].action
+
+      # Channel activity
       when "added_subchannel"
+        puts "Baron: Subchannel"
         return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
 
-      when "added_supporting_evidence"
-        return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
+      # Opinion activity
+      when "believes", "doubts", "disbelieves"
+        return Activities::Opinionated.for(activity: self[:activity], view: self[:view])
 
-      when "added_weakening_evidence"
+      # Evidence activities
+      when "added_supporting_evidence", "added_weakening_evidence"
         return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
-
       else
-        return self
+        return self[:activity]
       end
     end
   end

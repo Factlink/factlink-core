@@ -1,5 +1,5 @@
 window.ActivitiesView = Backbone.CollectionView.extend({
-
+  views: {},
   containerSelector: '#activity_for_channel',
 
   initialize: function(opts) {

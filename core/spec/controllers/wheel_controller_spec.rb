@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe WheelController do
-  include Devise::TestHelpers
-  include ControllerMethods
   render_views
 
   it "should be succesful" do

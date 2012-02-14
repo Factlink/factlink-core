@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe SubchannelsController do
-  include Devise::TestHelpers
-  include ControllerMethods
-  
   render_views
 
 
