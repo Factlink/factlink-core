@@ -11,6 +11,10 @@ def expect_opinion(subject,opinion)
   subject.class[subject.id].get_user_opinion.should == opinion
 end
 
+def fact_credibility_for_user(fact, user)
+  Authority.on(fact, for: user).to_f + 1
+end
+
 describe Basefact do
 
   let(:user) {FactoryGirl.create(:user).graph_user}
@@ -59,7 +63,7 @@ describe Basefact do
           FactGraph.recalculate
         end
         it { subject.opiniated(opinion).count.should == 1 }
-        it { expect_opinion(subject,Opinion.for_type(opinion,Authority.from(user).to_f))}
+        it { expect_opinion(subject,Opinion.for_type(opinion,fact_credibility_for_user(subject, user)))}
       end
 
       context "after 1 person has stated its #{opinion} twice" do
@@ -69,7 +73,7 @@ describe Basefact do
           FactGraph.recalculate
         end
         it {subject.opiniated(opinion).count.should == 1}
-        it { expect_opinion(subject,Opinion.for_type(opinion,Authority.from(user).to_f))}
+        it { expect_opinion(subject,Opinion.for_type(opinion,fact_credibility_for_user(subject, user)))}
       end
     end
 
@@ -91,7 +95,10 @@ describe Basefact do
         FactGraph.recalculate
       end
       it {subject.opiniated(opinion).count.should == 2}
-      it { expect_opinion(subject,Opinion.for_type(opinion,Authority.from(user).to_f)+Opinion.for_type(opinion,Authority.from(user2).to_f))}
+      it { expect_opinion(subject,
+                 Opinion.for_type(opinion,fact_credibility_for_user(subject, user)) +
+                  Opinion.for_type(opinion,fact_credibility_for_user(subject, user2))
+         )}
     end
 
     others(opinion).each do |other_opinion|
@@ -107,7 +114,10 @@ describe Basefact do
             FactGraph.recalculate
           end
           it {subject.opiniated(opinion).count.should == 1}
-          it { expect_opinion(subject,Opinion.for_type(other_opinion,Authority.from(user).to_f)+Opinion.for_type(opinion,Authority.from(user2).to_f))}
+          it { expect_opinion(subject,
+                  Opinion.for_type(other_opinion,fact_credibility_for_user(subject, user)) +
+                  Opinion.for_type(opinion,fact_credibility_for_user(subject, user2))
+             )}
         end
 
         context "after both existing believers change their opinion from #{opinion} to #{other_opinion}" do
@@ -117,7 +127,9 @@ describe Basefact do
             FactGraph.recalculate
           end
           it {subject.opiniated(opinion).count.should == 0}
-          it { Basefact[subject.id].get_user_opinion.should == Opinion.for_type(other_opinion,Authority.from(user).to_f)+Opinion.for_type(other_opinion,Authority.from(user2).to_f)}
+          it { Basefact[subject.id].get_user_opinion.should ==
+                  Opinion.for_type(other_opinion,fact_credibility_for_user(subject, user)) +
+                  Opinion.for_type(other_opinion,fact_credibility_for_user(subject, user))}
         end
 
       end
