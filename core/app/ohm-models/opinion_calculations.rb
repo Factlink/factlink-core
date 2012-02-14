@@ -4,7 +4,7 @@ Basefact.opinion_reference :user_opinion do |depth|
   [:believes, :doubts, :disbelieves].each do |type|
     opiniated = opiniated(type)
     opiniated.each do |user|
-      opinions << Opinion.for_type(type, Authority.on(self, for: user).to_f)
+      opinions << Opinion.for_type(type, Authority.on(self, for: user).to_f + 1.0)
     end
   end
   Opinion.combine(opinions)
