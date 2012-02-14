@@ -11,13 +11,13 @@ describe "beliefs should work"  do
 
   let(:ch1) { create :channel }
 
-  let(:fact_of_u1_with_two_supporting) do
+  let(:fact_of_u1_which_supports_two) do
     f   = create :fact, created_by: u1
     sf1 = create :fact, created_by: u2
     sf2 = create :fact, created_by: u2
 
-    f.add_evidence(:supporting,sf1,u2)
-    f.add_evidence(:supporting,sf2,u2)
+    sf1.add_evidence(:supporting,f,u2)
+    sf2.add_evidence(:supporting,f,u2)
 
     f
   end
@@ -30,7 +30,7 @@ describe "beliefs should work"  do
     end
 
     it "should give authority for a fact with supporting evidence" do
-      authority from: fact_of_u1_with_two_supporting, should_be: 1.0
+      authority from: fact_of_u1_which_supports_two, should_be: 1.0
     end
   end
 
@@ -39,7 +39,7 @@ describe "beliefs should work"  do
       authority from: ch1, for: u1, should_be: 0.0
     end
     it "should forward the authority from the facts it contains" do
-      ch1.add_fact(fact_of_u1_with_two_supporting)
+      ch1.add_fact(fact_of_u1_which_supports_two)
 
       authority from: ch1, should_be: 1.0
     end
@@ -78,7 +78,7 @@ describe "beliefs should work"  do
 
     it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
-      foo_ch.add_fact(fact_of_u1_with_two_supporting)
+      foo_ch.add_fact(fact_of_u1_which_supports_two)
       foo_t = create :topic, title: "foo"
       authority of:u1, from: foo_t, should_be: 1.0
     end
@@ -87,7 +87,7 @@ describe "beliefs should work"  do
   context "on facts" do
     it "should give a user authority on a fact in a topic it knows something about" do
       foo_ch = create :channel, title: "foo"
-      foo_ch.add_fact(fact_of_u1_with_two_supporting)
+      foo_ch.add_fact(fact_of_u1_which_supports_two)
       foo_t = create :topic, title: "foo"
 
       fact2 = create :fact
