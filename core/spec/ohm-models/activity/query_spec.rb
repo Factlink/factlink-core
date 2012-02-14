@@ -76,6 +76,11 @@ describe Activity::Query do
       Activity::Query.where_one(action: :foo).to_a.should == [a]
     end
 
+    it "should not return an activity when the user is excluded" do
+      a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
+      Activity::Query.where_one(action: :foo, exclude_user: gu1).to_a.should == []
+    end
+
     it "should not return elements for an non-existing action" do
       a = Activity.create user: gu1, action: :foo, object: b1, subject: f1
       Activity::Query.where_one(action: :bar).to_a.should == []
