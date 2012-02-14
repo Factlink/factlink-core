@@ -56,7 +56,7 @@ describe "beliefs should work as described in the google doc" do
   # c(U1, F1)
   # F22 = (F1 -> F2)
   # a(U1) = 1
-  it "should have ana authority of 1.0 when user created one fact" do
+  it "should have an authority of 1.0 when user created one fact which is supported by another fact" do
     @f1 = FactoryGirl.create :fact, created_by: u1
     f2.add_evidence(:supporting, @f1, u1)
     a(u1) == 1.0
