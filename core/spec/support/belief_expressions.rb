@@ -39,7 +39,6 @@ module BeliefExpressions
       @random_fact ||= Fact.create(created_by: god_user)
       add_to_global_channel @random_fact
       FactGraph.reset_values
-      Authority.run_calculation
       FactGraph.recalculate
       @nothing_happened = true
     end
