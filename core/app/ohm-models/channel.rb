@@ -113,14 +113,14 @@ class Channel < OurOhm
   def add_fact(fact)
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
-    self.sorted_cached_facts.add(fact)
+    Resque.enqueue(AddFactToChannel, fact.id, self.id)
     activity(self.created_by,:added,fact,:to,self)
   end
 
   def remove_fact(fact)
     self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
-    self.sorted_cached_facts.delete(fact)   if self.sorted_cached_facts.include?(fact)
     self.sorted_delete_facts.add(fact)
+    Resque.enqueue(RemoveFactFromChannel, fact.id, self.id)
     activity(self.created_by,:removed,fact,:from,self)
   end
 
