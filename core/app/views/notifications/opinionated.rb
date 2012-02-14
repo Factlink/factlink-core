@@ -6,7 +6,11 @@ module Notifications
     end
 
     def fact_path
-      friendly_fact_path self[:activity].subject.from_fact
+      if self[:activity].subject.class.to_s == "Fact"
+        friendly_fact_path self[:activity].subject
+      elsif self[:activity].subject.class.to_s == "FactRelation"
+        friendly_fact_path self[:activity].subject.from_fact
+      end
     end
 
     def subject

@@ -21,6 +21,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def mark_activities_as_read
+    current_user.last_read_activities_on = DateTime.now
+    current_user.save
+  end
+
   private
   def load_user
     @user = User.first(:conditions => { :username => params[:username] }) or raise_404
