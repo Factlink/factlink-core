@@ -1,5 +1,6 @@
 module FactHelper
   def friendly_fact_path(fact)
-    frurl_fact_path(fact.to_s.parameterize, fact.id)
+    slug = fact.to_s.blank? ? fact.id : fact.to_s.parameterize
+    frurl_fact_path(slug, fact.id)
   end
 end

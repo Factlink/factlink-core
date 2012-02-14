@@ -12,16 +12,13 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :index, Fact
-    can :read, Fact
     can :read, Job, :show => true
 
     # Registered user
     if user
+
       if user.agrees_tos
         can :access, FactlinkWebapp
-        can :read_tos, user
-
         define_channel_abilities
         define_fact_abilities
         define_fact_relation_abilities
@@ -29,9 +26,10 @@ class Ability
       else
         cannot :manage, :all
         can :sign_tos, user
-        can :read_tos, user
         can :read, user
       end
+
+      can :read_tos, user
     end
   end
 

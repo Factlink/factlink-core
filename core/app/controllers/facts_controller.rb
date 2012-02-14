@@ -38,12 +38,6 @@ class FactsController < ApplicationController
     render layout: "frontend"
   end
 
-  def index
-    @facts = Fact.all
-
-    respond_with(@facts.map {|f| Facts::Fact.for(fact: f,view: view_context)})
-  end
-
   def intermediate
     render layout: nil
   end

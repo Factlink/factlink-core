@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe Admin::UsersController do
-  
-  include Devise::TestHelpers
-  include ControllerMethods
-  
   render_views
 
   let (:user)  {FactoryGirl.create :user, admin: true}

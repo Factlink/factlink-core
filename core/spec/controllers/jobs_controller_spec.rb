@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe JobsController do
-  include Devise::TestHelpers
-  include ControllerMethods
-  
   let (:user)  {FactoryGirl.create :user}
  
   describe "GET index" do

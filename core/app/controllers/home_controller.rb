@@ -18,21 +18,22 @@ class HomeController < ApplicationController
       
     @facts = Fact.all.sort(:order => "DESC",:limit => 3)
     render layout: "landing"
- end
+  end
 
- def tos
- end
+  def tos
+  end
 
- def tour
-   current_user.seen_the_tour = true
-   current_user.save
-   render layout: nil
- end
+  def tour
+    current_user.seen_the_tour = true
+    current_user.save
+    render layout: nil
+  end
 
   # Search
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
   def search
+    authorize! :index, Fact
     if params[:s]
       raise HackAttempt unless params[:s].is_a? String
     end

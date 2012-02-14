@@ -6,6 +6,7 @@ window.FactsView = Backbone.CollectionView.extend({
   _loading: true,
   _timestamp: undefined,
   _previousLength: -1,
+  views: {},
 
   initialize: function(options) {
     this.useTemplate("channels", "_facts");
