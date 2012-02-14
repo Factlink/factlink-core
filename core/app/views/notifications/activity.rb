@@ -15,7 +15,7 @@ module Notifications
       channel_path(self[:activity].user.user,self[:activity].user.stream)
     end
 
-    def avatar(size=32)
+    def avatar(size=20)
       image_tag(self[:activity].user.user.avatar_url(size: size), :width => size)
     end
 
@@ -37,12 +37,11 @@ module Notifications
 
       # Channel activity
       when "added_subchannel"
-        puts "Baron: Subchannel"
         return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
 
       # Opinion activity
       when "believes", "doubts", "disbelieves"
-        return Activities::Opinionated.for(activity: self[:activity], view: self[:view])
+        return Notifications::Opinionated.for(activity: self[:activity], view: self[:view])
 
       # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"

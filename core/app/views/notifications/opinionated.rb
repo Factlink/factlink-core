@@ -1,4 +1,4 @@
-module Activities
+module Notifications
   class Opinionated < Mustache::Railstache
 
     def action
@@ -11,9 +11,9 @@ module Activities
 
     def subject
       if self[:activity].subject.class.to_s == "Fact"
-        return "#{self[:activity].subject}"
+        return truncate("#{self[:activity].subject}", length: 85, separator: ' ')
       elsif self[:activity].subject.class.to_s == "FactRelation"
-        return "#{self[:activity].subject.from_fact}"
+        return truncate("#{self[:activity].subject.from_fact}", length: 85, separator: ' ')
       end
     end
 

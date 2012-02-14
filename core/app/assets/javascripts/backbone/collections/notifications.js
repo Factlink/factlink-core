@@ -2,7 +2,7 @@
 window.Notifications = Backbone.Collection.extend({
   model: Notification,
   url: function() {
-    return currentUser.get("username") + "/activities";
+    return "/" + currentUser.get("username") + "/activities";
   },
 
   markAsRead: function(opts) {
