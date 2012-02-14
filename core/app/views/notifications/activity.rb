@@ -37,7 +37,6 @@ module Notifications
 
       # Channel activity
       when "added_subchannel"
-        puts "Baron: Subchannel"
         return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
 
       # Opinion activity
