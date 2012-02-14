@@ -34,7 +34,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   setUnreadCount: function (count) {
-    var $unread = this.$el.find('.unread');
+    var $unread = this.$el.find('span.unread');
     this._unreadCount = count;
 
     $unread.text(this._unreadCount);
