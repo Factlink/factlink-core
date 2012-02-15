@@ -14,7 +14,7 @@ class GithubIssue
   end
 
   def report(issue)
-    authenticated_with :login => "factlink-feedback", :token => "9ebbc1d9ea9bd7762bcee08448a49d34" do
+    authenticated_with :login => "factlink-feedback", :token => "5bbd77b68c0f8e5a487e3f8d3c272764" do
       repo = Repository.find(:name => "feedback", :user => "Factlink")
 
       gh_issue = Issue.open :repo => repo, :params => {
