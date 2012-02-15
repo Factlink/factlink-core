@@ -141,6 +141,10 @@ class Channel < OurOhm
     true
   end
 
+  def has_authority?
+    true
+  end
+
 
   def related_users(calculator=RelatedUsersCalculator.new,options)
     options[:without] ||= []
