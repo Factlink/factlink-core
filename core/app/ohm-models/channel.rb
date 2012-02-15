@@ -104,33 +104,6 @@ class Channel < OurOhm
     res
   end
 
-  def channels_by_authority(channels, gu)
-    auth = {}
-
-    channels.to_a.sort do |a, b|
-      topic_a = Topic.by_title(a.title)
-      topic_b = Topic.by_title(b.title)
-
-      if topic_a.new?
-        topic_a.save
-      end
-
-      if topic_b.new?
-        topic_b.save
-      end
-
-      auth[topic_a.id] ||= Authority.from(topic_a, for: gu).to_f
-      auth[topic_b.id] ||= Authority.from(topic_b, for: gu).to_f
-
-      auth[topic_b.id] <=> auth[topic_a.id]
-    end
-  end
-
-  # TODO: channels_by_authority is not yet tested, when it is, use it here:
-  def contained_channels_by_authority(gu)
-    contained_channels
-  end
-
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
     super
