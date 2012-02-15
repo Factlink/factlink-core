@@ -137,6 +137,7 @@ class Channel < OurOhm
     if (! contained_channels.include?(channel))
       contained_channels << channel
       channel.containing_channels << self
+      Resque.enqueue(AddChannelToChannel, channel.id, self.id)
       activity(self.created_by,:added_subchannel,channel,:to,self)
     end
   end
