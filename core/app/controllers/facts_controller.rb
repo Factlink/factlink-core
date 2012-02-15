@@ -15,8 +15,6 @@ class FactsController < ApplicationController
       :update,
       :opinion,
       :evidence_search,
-      :add_supporting_evidence,
-      :add_weakening_evidence
       ]
 
   around_filter :allowed_type,
