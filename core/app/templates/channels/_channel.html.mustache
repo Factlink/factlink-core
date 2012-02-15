@@ -5,6 +5,13 @@
     </h1>
 
     <div class="button-wrap">
+      {{#has_authority?}}
+      <div class="authority">
+        {{{brain_icon}}}
+        <span>{{personalized_authority}}</span>
+      </div>
+      {{/has_authority?}}
+
       {{#editable?}}
       <a href="{{ edit_link }}" class="btn edit small">edit</a>
       {{/editable?}}
