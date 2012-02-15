@@ -13,6 +13,18 @@ module Channels
       link + "/edit"
     end
 
+    def personalized_authority
+      (Authority.from( Topic.by_title(title), for: self[:user].graph_user ).to_s.to_f + 1.0).to_s
+    end
+
+    def has_authority?
+      self[:channel].has_authority?
+    end
+
+    def brain_icon
+      image_tag image_path("brain.png")
+    end
+
     def activities_link
       link + "/activities"
     end
