@@ -27,6 +27,16 @@ describe Ohm::Model::Set do
     @c1.items.ids.should =~ [@a.id,@b.id]
   end
 
+  describe :clean_non_existing do
+    it "should remove elements which do not exist" do
+      @c1.items.key.sadd(12345)
+      @c1.items.ids.should =~ [@a.id, "12345"]
+      @c1.items.clean_non_existing
+      @c1.items.ids.should =~ [@a.id]
+    end
+
+  end
+
 end
 
 

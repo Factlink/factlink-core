@@ -153,7 +153,8 @@ class FactsController < ApplicationController
         end
       end
 
-      facts = solr_result.results.map do |result|
+      results = solr_result.results.delete_if {|fd| FactData.invalid(fd)}
+      facts = results.map do |result|
         Facts::FactBubble.for(fact: result.fact, view: view_context)
       end
     else
