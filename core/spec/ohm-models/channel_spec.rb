@@ -1,4 +1,4 @@
-require 'ohm_helper'
+require 'spec_helper'
 
 require 'active_support/core_ext/module/delegation'
 require_relative '../../app/ohm-models/activity.rb'
