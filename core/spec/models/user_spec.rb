@@ -25,6 +25,18 @@ describe User do
     subject.graph_user.should be_a(GraphUser)
   end
 
+  describe "last_read_activities_on" do
+    it "should set the correct DateTime in the database" do
+      datetime = DateTime.parse("2001-02-03T04:05:06+07:00").change(:offset => "+0000")
+
+      subject.last_read_activities_on = datetime
+
+      subject.save
+
+      subject.last_read_activities_on.should == datetime
+    end
+  end
+
   describe :to_param do
     it {subject.to_param.should == subject.username }
   end
