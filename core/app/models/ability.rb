@@ -78,9 +78,6 @@ class Ability
   end
 
   def define_user_activities_abilities
-    puts "ability"
-    puts user.id
-
     if user
       can :index, Activity
       can :mark_activities_as_read, User do |u|

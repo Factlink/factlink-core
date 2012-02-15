@@ -23,15 +23,12 @@ class UsersController < ApplicationController
   end
 
   def mark_activities_as_read
-    puts "controller"
-    puts @user.id
-
     authorize! :mark_activities_as_read, @user
 
     @user.last_read_activities_on = DateTime.now
 
     respond_to do |format|
-      if current_user.save
+      if @user.save
         format.json { head :no_content }
       else
         format.json { render json: { :status => :unprocessable_entity } }
