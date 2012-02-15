@@ -10,6 +10,7 @@ class AddFactToChannel
       channel.containing_channels.each do |ch|
         Resque.enqueue(AddFactToChannel, fact_id, ch.id)
       end
+      Resque.enqueue(AddFactToChannel, fact_id, channel.created_by.stream.id) unless channel.type == 'stream'
     end
   end
 end
