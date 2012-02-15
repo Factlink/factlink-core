@@ -24,6 +24,7 @@ class RemoveFactFromChannel
        (not included_from_elsewhere?(fact,channel) and
         not already_deleted?(fact,channel))
       channel.sorted_cached_facts.delete(fact)
+      fact.channels.delete(channel)
       channel.containing_channels.each do |ch|
         Resque.enqueue(RemoveFactFromChannel, fact_id, ch.id)
       end

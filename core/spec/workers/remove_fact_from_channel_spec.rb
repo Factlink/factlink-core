@@ -6,11 +6,13 @@ describe RemoveFactFromChannel do
       @ch = create :channel
       @f = create :fact
       @ch.sorted_cached_facts << @f
+      @f.channels << @ch
     end
 
     it "should remove the fact from the cached facts" do
       RemoveFactFromChannel.perform @f.id, @ch.id
       @ch.sorted_cached_facts.should_not include(@f)
+      @f.channels.should_not include(@ch)
     end
 
     it "should call resque on all its containing channels" do
@@ -43,6 +45,7 @@ describe RemoveFactFromChannel do
         it "should remove the fact from the cached facts" do
           RemoveFactFromChannel.perform @f.id, @ch.id
           @ch.sorted_cached_facts.should_not include(@f)
+          @f.channels.should_not include(@ch)
         end
       end
     end

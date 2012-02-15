@@ -10,6 +10,7 @@ describe AddFactToChannel do
     it "should add the fact to the cached facts" do
       AddFactToChannel.perform @f.id, @ch.id
       @ch.sorted_cached_facts.should include(@f)
+      @f.channels.should include(@ch)
     end
 
     it "should add the fact to the all stream of the owner" do
@@ -43,6 +44,7 @@ describe AddFactToChannel do
       it "should not add the fact" do
         AddFactToChannel.perform @f.id, @ch.id
         @ch.sorted_cached_facts.should_not include(@f)
+        @f.channels.should_not include(@ch)
       end
 
       it "should not call resque on its containing channels if the channel explicitely deletes the fact" do
