@@ -56,6 +56,7 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/views"
+    config.autoload_paths << "#{config.root}/app/workers"
 
     config.mongoid.logger = nil
 
