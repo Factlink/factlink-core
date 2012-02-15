@@ -76,7 +76,8 @@ class ApplicationController < ActionController::Base
     new_opts =  if current_user
                    opts.update({
                      :mp_name_tag => current_user.username,
-                     :distinct_id => current_user.id })
+                     :distinct_id => current_user.id,
+                     :time => Time.now.utc.to_i })
                 else
                   opts
                 end
