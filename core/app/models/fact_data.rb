@@ -29,4 +29,11 @@ class FactData
     @fact ||= Fact[fact_id]
   end
 
+  #returns whether a given factdata should be considered
+  #unsuitable for usage/viewing
+  def self.invalid(fd)
+    !fd || !fd.fact_id || !fd.fact
+  end
+
+
 end
