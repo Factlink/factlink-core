@@ -119,7 +119,7 @@ class Channel < OurOhm
       auth[topic_a.id] ||= Authority.from(topic_a, for: gu).to_f
       auth[topic_b.id] ||= Authority.from(topic_b, for: gu).to_f
 
-      authority_b <=> authority_a
+      auth[topic_b.id] <=> auth[topic_a.id]
     end
   end
 
