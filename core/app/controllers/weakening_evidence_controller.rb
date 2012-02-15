@@ -2,6 +2,6 @@ class WeakeningEvidenceController < EvidenceController
 
   private
   def relation
-    return :weakening
+    :weakening
   end
 end
