@@ -70,7 +70,6 @@ describe Channel do
     before do
       subject.add_fact(f1)
       Fact.should_receive(:invalid).any_number_of_times.and_return(false)
-      Channel.recalculate_all
     end
     it do
        subject.facts.to_a.should =~ [f1]
@@ -79,7 +78,6 @@ describe Channel do
     describe "and removing an fact" do
       before do
         subject.remove_fact(f1)
-        Channel.recalculate_all
       end
       it { subject.facts.to_a.should =~ []}
     end
@@ -102,7 +100,6 @@ describe Channel do
       describe "and removing the fact from the original" do
         before do
           subject.remove_fact(f1)
-          Channel.recalculate_all
         end
         it {subject.facts.to_a.should =~ []}
         it {subject.sorted_internal_facts.to_a.should =~ []}
@@ -121,7 +118,6 @@ describe Channel do
       describe "after adding another fact to the original" do
         before do
            subject.add_fact(f2)
-           Channel.recalculate_all
         end
         it {subject.facts.to_a.should == [f2,f1]}
         it {@fork.facts.to_a.should == [f2,f1]}
