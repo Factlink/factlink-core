@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @user.last_read_activities_on = DateTime.now
 
     respond_to do |format|
-      if current_user.save
+      if @user.save
         format.json { head :no_content }
       else
         format.json { render json: { :status => :unprocessable_entity } }
