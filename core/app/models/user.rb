@@ -102,7 +102,7 @@ class User
       self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
 
-    valid and self.update_without_password(agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now.new_offset(0))
+    valid and self.update_without_password(agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now)
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved
