@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   def mark_activities_as_read
     authorize! :mark_activities_as_read, @user
 
-    @user.last_read_activities_on = DateTime.now
+    @user.last_read_activities_on = DateTime.now.new_offset(0)
 
     respond_to do |format|
       if @user.save
