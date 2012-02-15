@@ -27,7 +27,7 @@ describe User do
 
   describe "last_read_activities_on" do
     it "should set the correct DateTime in the database" do
-      datetime = DateTime.parse("2001-02-03T04:05:06+07:00").change(:offset => "+0000")
+      datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
       subject.last_read_activities_on = datetime
 
