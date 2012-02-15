@@ -10,7 +10,7 @@ describe AddFactToChannel do
     it "should add the fact to the cached facts" do
       AddFactToChannel.perform @f.id, @ch.id
       @ch.sorted_cached_facts.should include(@f)
-      @f.channels.should include(@ch)
+      @f.channels.all.should =~ [@ch]
     end
 
     it "should add the fact to the all stream of the owner" do

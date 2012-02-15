@@ -163,6 +163,6 @@ class Channel < OurOhm
   end
 
   def self.for_fact(f)
-    f.channels.all.keep_if {|ch| ch.type == 'channel'}
+    f.channels.all
   end
 end
