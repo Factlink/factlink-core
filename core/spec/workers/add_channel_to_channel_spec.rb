@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AddFactToChannel do
+describe AddChannelToChannel do
   describe ".perform" do
     before do
       @ch = create :channel
