@@ -297,6 +297,14 @@ describe Channel do
       ch1.real_delete
       u1_ch1.containing_channels.ids.should =~ []
     end
+    it "should be removed from the contained_channels when deleted" do
+      id = ch1.id
+      ch1.add_channel u1_ch1
+      ch1.contained_channels.ids.should =~ [u1_ch1.id]
+
+      u1_ch1.real_delete
+      ch1.contained_channels.ids.should =~ []
+    end
     it "should remove activities" do
       fakech1 = Channel.new
       ch1.add_channel u1_ch1

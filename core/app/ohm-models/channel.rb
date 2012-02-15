@@ -41,6 +41,9 @@ class Channel < OurOhm
     contained_channels.each do |subch|
       subch.containing_channels.delete self
     end
+    containing_channels.each do |ch|
+      ch.contained_channels.delete self
+    end
     Activity.for(self).each do |a|
       a.delete
     end

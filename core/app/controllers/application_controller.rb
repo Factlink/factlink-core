@@ -76,12 +76,13 @@ class ApplicationController < ActionController::Base
     new_opts =  if current_user
                    opts.update({
                      :mp_name_tag => current_user.username,
-                     :distinct_id => current_user.id })
+                     :distinct_id => current_user.id,
+                     :time => Time.now.utc.to_i })
                 else
                   opts
                 end
-
-    req_env = cleaned_request_environment
+    
+    req_env = MixpanelRequestPresenter.new(request).to_hash
 
     username = current_user ? current_user.username : nil
     user_id  = current_user ? current_user.id : nil
@@ -89,22 +90,4 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
   end
 
-  private
-    def cleaned_request_environment
-      # Filter out required parameters for Mixpanel, in stead of sending the full
-      # request.env. Sending the full request.env will break the Mixpanel object.
-      clean_env = {}
-
-      if request.env.has_key?("HTTP_X_FORWARDED_FOR")
-        clean_env[:HTTP_X_FORWARDED_FOR] = request.env[:HTTP_X_FORWARDED_FOR]
-      end
-      if request.env.has_key?("REMOTE_ADDR")
-        clean_env[:REMOTE_ADDR] = request.env[:REMOTE_ADDR]
-      end
-      if request.env.has_key?("mixpanel_events")
-        clean_env[:mixpanel_events] = request.env[:mixpanel_events]
-      end
-
-      return clean_env
-    end
 end
