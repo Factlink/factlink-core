@@ -165,10 +165,4 @@ class Channel < OurOhm
   def self.for_fact(f)
     Channel.all.all.keep_if {|ch| ch.include?(f) && ch.type == 'channel'}
   end
-
-  protected
-    def self.recalculate_all
-      puts "WARNING: Channel.recalculate_all should not be used anymore, since it does nothing"
-    end
-
 end
