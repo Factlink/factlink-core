@@ -7,17 +7,22 @@ class RemoveFactFromChannel
     end
     return false
   end
-  
+
   def self.already_deleted?(fact,channel)
     not channel.sorted_cached_facts.include?(fact)
   end
-  
+
+  def self.explicitely_deleted?(fact,channel)
+    channel.sorted_delete_facts.include?(fact)
+  end
+
   def self.perform(fact_id, channel_id)
     fact = Fact[fact_id]
     channel = Channel[channel_id]
-    
-    unless included_from_elsewhere?(fact,channel) or
-           already_deleted?(fact,channel)
+
+    if explicitely_deleted?(fact,channel) or
+       (not included_from_elsewhere?(fact,channel) and
+        not already_deleted?(fact,channel))
       channel.sorted_cached_facts.delete(fact)
       channel.containing_channels.each do |ch|
         Resque.enqueue(RemoveFactFromChannel, fact_id, ch.id)

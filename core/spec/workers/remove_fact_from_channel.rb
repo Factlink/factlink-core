@@ -7,12 +7,12 @@ describe RemoveFactFromChannel do
       @f = create :fact
       @ch.sorted_cached_facts << @f
     end
-    
+
     it "should remove the fact from the cached facts" do
       RemoveFactFromChannel.perform @f.id, @ch.id
       @ch.sorted_cached_facts.should_not include(@f)
     end
-    
+
     it "should call resque on all its containing channels" do
       sup_ch = create :channel
       @ch.containing_channels << sup_ch
@@ -21,25 +21,37 @@ describe RemoveFactFromChannel do
 
       RemoveFactFromChannel.perform @f.id, @ch.id
     end
-    
+
+
     context "when the channel has another channel which contains the same fact" do
       before do
         @subch = create :channel
         @subch.sorted_cached_facts << @f
         @ch.contained_channels << @subch
       end
-      
+
       it "should not remove the fact from the cached facts" do
         RemoveFactFromChannel.perform @f.id, @ch.id
         @ch.sorted_cached_facts.should include(@f)
       end
+
+      context "when it is in the delete_facts" do
+        before do
+          @ch.sorted_delete_facts << @f
+        end
+
+        it "should remove the fact from the cached facts" do
+          RemoveFactFromChannel.perform @f.id, @ch.id
+          @ch.sorted_cached_facts.should_not include(@f)
+        end
+      end
     end
-    
+
     context "when the channel already does not include the fact" do
       before do
         @ch.sorted_cached_facts.delete @f
       end
-      
+
       it "should call resque on all its containing channels" do
         sup_ch = create :channel
         @ch.containing_channels << sup_ch
@@ -48,7 +60,7 @@ describe RemoveFactFromChannel do
 
         RemoveFactFromChannel.perform @f.id, @ch.id
       end
-      
+
     end
   end
 end
