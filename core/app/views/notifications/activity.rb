@@ -2,7 +2,7 @@ module Notifications
   class Activity < Mustache::Railstache
 
     def unread
-      self[:activity].created_at_as_datetime > current_user.last_read_activities_on.new_offset(1)
+      self[:activity].created_at_as_datetime > current_user.last_read_activities_on
     end
 
     def username
