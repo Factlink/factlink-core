@@ -69,13 +69,12 @@ describe User do
     end
     describe "when agreeing with a name" do
       it "should be allowed" do
-        t = DateTime.now.change(:offset => "+0000")
-
+        t = DateTime.now
         DateTime.stub!(:now).and_return(t)
         nonnda_subject.sign_tos(true, 'Sjaak').should == true
         nonnda_subject.name.should == 'Sjaak'
         nonnda_subject.agrees_tos.should == true
-        nonnda_subject.agreed_tos_on.should == t
+        nonnda_subject.agreed_tos_on.to_i.should == t.to_i
         nonnda_subject.errors.keys.length.should == 0
       end
     end
