@@ -101,10 +101,10 @@ class Channel < OurOhm
     res
   end
 
-  def contained_channels_by_authority(gu)
+  def channels_by_authority(channels, gu)
     auth = {}
 
-    self.contained_channels.to_a.sort do |a, b|
+    channels.to_a.sort do |a, b|
       topic_a = Topic.by_title(a.title)
       topic_b = Topic.by_title(b.title)
 
@@ -121,6 +121,11 @@ class Channel < OurOhm
 
       auth[topic_b.id] <=> auth[topic_a.id]
     end
+  end
+
+  # TODO: channels_by_authority is not yet tested, when it is, use it here:
+  def contained_channels_by_authority(gu)
+    contained_channels
   end
 
   def validate
