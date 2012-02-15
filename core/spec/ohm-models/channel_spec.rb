@@ -1,26 +1,5 @@
 require 'spec_helper'
 
-require 'active_support/core_ext/module/delegation'
-require_relative '../../app/ohm-models/activity.rb'
-require_relative '../../app/ohm-models/channel.rb'
-
-class Basefact < OurOhm;end
-class Fact < Basefact;end
-
-unless defined?(GraphUser)
-  class GraphUser < OurOhm
-    def reposition_in_top_users; end
-  end
-end
-
-
-
-def create_fact
-  FactoryGirl.create :fact
-rescue
-  Fact.create
-end
-
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
@@ -37,10 +16,10 @@ describe Channel do
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
 
-  let (:f1) { create_fact }
-  let (:f2) { create_fact }
-  let (:f3) { create_fact }
-  let (:f4) { create_fact }
+  let (:f1) { FactoryGirl.create :fact }
+  let (:f2) { FactoryGirl.create :fact }
+  let (:f3) { FactoryGirl.create :fact }
+  let (:f4) { FactoryGirl.create :fact }
 
 
   context "activity on a channel" do
