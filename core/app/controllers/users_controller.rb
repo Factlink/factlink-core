@@ -11,19 +11,29 @@ class UsersController < ApplicationController
   end
 
   def activities
+    # TODO: This needs to become much more efficient. Now all activities are
+    # returned and sliced.
+    activities = Activity::For.user(@user.graph_user).sort(order: "DESC").slice(0..6)
+
+    authorize! :index, Activity
+
     respond_to do |format|
-
-      # TODO: This needs to become much more efficient. Now all activities are
-      # returned and sliced.
-      activities = Activity::For.user(current_user.graph_user).sort(order: "DESC").slice(0..6)
-
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
     end
   end
 
   def mark_activities_as_read
-    current_user.last_read_activities_on = DateTime.now
-    current_user.save
+    authorize! :mark_activities_as_read, @user
+
+    @user.last_read_activities_on = DateTime.now
+
+    respond_to do |format|
+      if @user.save
+        format.json { head :no_content }
+      else
+        format.json { render json: { :status => :unprocessable_entity } }
+      end
+    end
   end
 
   private

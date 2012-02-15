@@ -19,6 +19,10 @@ window.GenericNotificationView = Backbone.View.extend({
 
   clickHandler: function(e) {
     document.location.href = this.model.url();
+  },
+
+  markAsRead: function () {
+    this.$el.removeClass('unread');
   }
 });
 
