@@ -76,6 +76,10 @@ module Facts
       current_graph_user.containing_channel_ids(self[:fact])
     end
 
+    def channels_definition
+      t(:channels).titleize
+    end
+
     expose_to_hash :timestamp
 
   end
