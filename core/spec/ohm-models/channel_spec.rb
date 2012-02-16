@@ -1,28 +1,4 @@
-require 'ohm_helper'
-
-require 'active_support/core_ext/module/delegation'
-require_relative '../../app/ohm-models/activity.rb'
-require_relative '../../app/ohm-models/channel.rb'
-
-class Basefact < OurOhm;end
-class Fact < Basefact;end
-
-unless defined?(GraphUser)
-  class GraphUser < OurOhm
-    def graph_user
-      return self
-    end
-    def reposition_in_top_users; end
-  end
-end
-
-
-
-def create_fact
-  FactoryGirl.create :fact
-rescue
-  Fact.create
-end
+require 'spec_helper'
 
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
@@ -40,10 +16,10 @@ describe Channel do
   let(:u2) { GraphUser.create }
   let(:u3) { GraphUser.create }
 
-  let (:f1) { create_fact }
-  let (:f2) { create_fact }
-  let (:f3) { create_fact }
-  let (:f4) { create_fact }
+  let (:f1) { FactoryGirl.create :fact }
+  let (:f2) { FactoryGirl.create :fact }
+  let (:f3) { FactoryGirl.create :fact }
+  let (:f4) { FactoryGirl.create :fact }
 
 
   context "activity on a channel" do
@@ -73,7 +49,6 @@ describe Channel do
     before do
       subject.add_fact(f1)
       Fact.should_receive(:invalid).any_number_of_times.and_return(false)
-      Channel.recalculate_all
     end
     it do
        subject.facts.to_a.should =~ [f1]
@@ -82,7 +57,6 @@ describe Channel do
     describe "and removing an fact" do
       before do
         subject.remove_fact(f1)
-        Channel.recalculate_all
       end
       it { subject.facts.to_a.should =~ []}
     end
@@ -105,7 +79,6 @@ describe Channel do
       describe "and removing the fact from the original" do
         before do
           subject.remove_fact(f1)
-          Channel.recalculate_all
         end
         it {subject.facts.to_a.should =~ []}
         it {subject.sorted_internal_facts.to_a.should =~ []}
@@ -124,7 +97,6 @@ describe Channel do
       describe "after adding another fact to the original" do
         before do
            subject.add_fact(f2)
-           Channel.recalculate_all
         end
         it {subject.facts.to_a.should == [f2,f1]}
         it {@fork.facts.to_a.should == [f2,f1]}

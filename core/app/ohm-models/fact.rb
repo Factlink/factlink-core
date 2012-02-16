@@ -2,6 +2,8 @@ class Fact < Basefact
   after :create, :set_activity!
   after :create, :add_to_created_facts
 
+  set :channels, Channel
+
   def set_activity!
     activity(self.created_by, "created", self)
   end
