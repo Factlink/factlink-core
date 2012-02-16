@@ -37,9 +37,23 @@ a.bookmarklet {
   cursor: move;
 }
 
+// TODO should be in the patterns, fix when using bootstrap grid.
+.topbar h3 {
+  top: 1px;
+  margin-left: 0px !important;
+}
+.topbar .search {
+  left: 73px;
+  top: 1px;
+}
+
 #notifications {
   position: relative;
   overflow: visible;
+
+  a {
+    padding: 9px 10px 3px;
+  }
 
   span.unread {
     display: none;
@@ -50,7 +64,7 @@ a.bookmarklet {
     height: 10px;
     width: 10px;
     color: white;
-    top: 3px;
+    top: 6px;
     right: 6px;
     text-align: center;
     line-height: 12px;
@@ -60,12 +74,19 @@ a.bookmarklet {
   > ul {
     display: none;
     position: absolute;
-    margin: 8px 0 0 0;
+    margin: 5px 0 0 0;
     right: 0;
-    width: 240px;
+    width: 300px;
     background: white;
+<<<<<<< HEAD
     padding: 0 10px 10px 10px;
     .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.2));
+=======
+    padding: 0;
+    -moz-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+>>>>>>> develop
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
     max-height: 500px;
@@ -73,7 +94,12 @@ a.bookmarklet {
 
     li {
       border-bottom: 1px solid #e4e4e4;
-      margin: 7px 0 0;
+      margin: 0;
+      padding: 7px 10px 10px 10px;
+
+      &.unread {
+        background-color: #ffffe1
+      }
 
       div.avatar {
         width: 30px;
@@ -86,7 +112,7 @@ a.bookmarklet {
       }
 
       div.info {
-        width: 210px;
+        width: 230px;
         float: left;
         margin: 0 0 7px;
 
@@ -513,4 +539,9 @@ a.bookmarklet {
       height: 212px;
     }
   }
+}
+
+/* fix positioning of X in alert message */
+.alert-message .close {
+  margin-top: -4px;
 }

@@ -81,7 +81,11 @@ FactlinkUI::Application.routes.draw do
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
-    get "activities" => "users#activities", :as => "activities"
+
+    scope "/activities" do
+      get "/" => "users#activities", :as => "activities"
+      post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
+    end
 
     resources :channels do
       collection do

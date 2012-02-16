@@ -5,6 +5,10 @@ module Activities
       self[:activity].action
     end
 
+    def fact_path
+      friendly_fact_path self[:activity].subject.from_fact
+    end
+
     def subject
       if self[:activity].subject.class.to_s == "Fact"
         return "#{self[:activity].subject}"

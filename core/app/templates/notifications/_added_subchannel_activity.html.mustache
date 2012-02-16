@@ -2,7 +2,9 @@
   {{{avatar}}}
 </div>
 <div class="info">
-  <span>Jordin van Zwol created the Factlink Pindakaas is lek..</span>
+  <span>
+    <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added your channel <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his own channel <a href="{{activity.to_channel_url}}">{{activity.to_channel_title}}</a>
+  </span>
   <div class="time_ago">
     <img src="/assets/time_ago.gif">
     <span>{{time_ago}}</span>

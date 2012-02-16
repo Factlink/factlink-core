@@ -23,6 +23,7 @@ class Ability
         define_fact_abilities
         define_fact_relation_abilities
         define_user_abilities
+        define_user_activities_abilities
       else
         cannot :manage, :all
         can :sign_tos, user
@@ -72,6 +73,15 @@ class Ability
         can :manage, User
         can :manage, Job
         cannot :sign_tos, User
+      end
+    end
+  end
+
+  def define_user_activities_abilities
+    if user
+      can :index, Activity
+      can :mark_activities_as_read, User do |u|
+        u.id == user.id
       end
     end
   end

@@ -29,16 +29,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
   afterAdd: function (notification) {
     if ( notification.get('unread') === true ) {
-      this.incrementUnreadCount();
+      this.setUnreadCount( this._unreadCount + 1 );
     }
   },
 
-  incrementUnreadCount: function () {
-    this.setUnreadCount( this._unreadCount + 1 );
-  },
-
   setUnreadCount: function (count) {
-    var $unread = this.$el.find('.unread');
+    var $unread = this.$el.find('span.unread');
     this._unreadCount = count;
 
     $unread.text(this._unreadCount);
@@ -51,11 +47,18 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   markAsRead: function () {
+    var self = this;
+
     this.collection.markAsRead({
       success: function () {
-        this.setUnreadCount(0);
+        self.markViewsForUnreadification();
+        self.setUnreadCount(0);
       }
     });
+  },
+
+  markViewsForUnreadification: function () {
+    this._shouldMarkUnread = true;
   },
 
   setupNotificationsFetch: function () {
@@ -93,7 +96,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
   showDropdown: function () {
     this._visible = true;
 
-    this.$el.find('ul').show();
+    this.$el
+      .addClass('open')
+      .find('ul').show();
 
     this.markAsRead();
 
@@ -103,7 +108,17 @@ window.NotificationsView = Backbone.CollectionView.extend({
   hideDropdown: function () {
     this._visible = false;
 
-    this.$el.find('ul').hide();
+    this.$el
+      .removeClass("open")
+      .find('ul').hide();
+
+    if ( this._shouldMarkUnread === true ) {
+      this._shouldMarkUnread = false;
+
+      _.forEach(this.views, function ( view ) {
+        view.markAsRead();
+      });
+    }
 
     this._unbindWindowClick();
   },
