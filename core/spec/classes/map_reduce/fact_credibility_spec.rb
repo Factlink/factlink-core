@@ -28,7 +28,8 @@ describe MapReduce::FactCredibility do
   describe :wrapped_map do
     it do
       ch1 = Channel.create(title: "Ruby", created_by: gu1)
-      ruby_t = Topic.create title: "Ruby"
+      ruby_t = Topic.by_title "Ruby"
+      ruby_t.save
       fact = Fact.create created_by: gu1
       ch1.stub!(:facts).and_return([fact])
       

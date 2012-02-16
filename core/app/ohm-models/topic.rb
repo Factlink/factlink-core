@@ -5,4 +5,8 @@ class Topic < OurOhm
   def self.by_title(title)
     find(title: title).first || new(title: title)
   end
+
+  def validate
+    assert_unique :title
+  end
 end
