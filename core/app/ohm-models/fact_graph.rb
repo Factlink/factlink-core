@@ -22,18 +22,20 @@ class FactGraph
     writer.write(prefix + LoadDsl.export_doubters(fact.opiniated(:doubts))) if fact.opiniated(:doubts).size > 0
   end
 
-  def self.export(writer)
+  def self.export(writer, options={})
+    verbose = options[:verbose]
+
     writer.write(LoadDsl.export_header)
 
     GraphUser.all.each do |gu|
       writer.write(LoadDsl.export_user(gu))
-      print "."
+      print "." if verbose
     end
     writer.write("\n")
 
     Site.all.each do |s|
       writer.write(LoadDsl.export_site(s))
-      print "."
+      print "." if verbose
     end
     writer.write("\n")
 
@@ -46,7 +48,7 @@ class FactGraph
       fs.each do |fact|
         writer.write("  "+LoadDsl.export_fact(fact))
         self.export_opiniated(writer,fact,"    ")
-        print "."
+        print "." if verbose
       end
     end
 
@@ -59,9 +61,9 @@ class FactGraph
       fs.each do |fact_relation|
         writer.write("  "+LoadDsl.export_fact_relation(fact_relation))
         self.export_opiniated(writer,fact_relation,"    ")
-        print "."
+        print "."  if verbose
       end
-      puts
+      puts if verbose
     end
 
     GraphUser.all.each do |gu|

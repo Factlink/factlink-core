@@ -9,7 +9,7 @@ describe FactGraph do
       @ch.created_by.save
       
       writer = mock('writer', write: nil)
-      FactGraph.export(writer)
+      FactGraph.export(writer, verbose: true)
     end
   end
 end
