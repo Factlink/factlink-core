@@ -14,7 +14,7 @@ describe AddFactToChannel do
     end
 
     it "should add the fact to the all stream of the owner" do
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id)
+      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id, nil)
 
       AddFactToChannel.perform @f.id, @ch.id
     end
@@ -30,8 +30,8 @@ describe AddFactToChannel do
       sup_ch = create :channel
       @ch.containing_channels << sup_ch
 
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, sup_ch.id)
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id)
+      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, sup_ch.id, nil)
+      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id, nil)
 
       AddFactToChannel.perform @f.id, @ch.id
     end
