@@ -16,20 +16,3 @@ namespace :fact_graph do
     end
   end
 end
-
-namespace :channels do
-  task :recalculate => :environment do
-
-    `echo "#{Process.pid}" > #{Rails.root}/log/channels_recalculate.pid`
-    `echo "#{Process.ppid}" > #{Rails.root}/log/channels_recalculate.ppid`
-
-    sleep_time = 47
-    puts "now recalculating with interval of #{sleep_time} seconds"
-    while true
-      #print "(#{Time.now.asctime}) recalculating channels\n"
-      Channel.recalculate_all
-      #print "(#{Time.now.asctime}) sleeping\n"
-      sleep sleep_time
-    end
-  end
-end

@@ -34,28 +34,6 @@ class Channel < OurOhm
 
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
-  def prune_invalid_facts
-    [sorted_internal_facts, sorted_delete_facts].each do |facts|
-      facts.each do |fact|
-        if Fact.invalid(fact)
-          facts.delete(fact)
-        end
-      end
-    end
-  end
-
-  def calculate_facts
-    prune_invalid_facts
-    fs = sorted_internal_facts
-    contained_channels.each do |ch|
-      fs |= ch.sorted_cached_facts
-    end
-    fs -= sorted_delete_facts
-    self.sorted_cached_facts = fs
-    return self.sorted_cached_facts
-  end
-
-
   attribute :discontinued
   index :discontinued
   alias :old_real_delete :delete unless method_defined?(:old_real_delete)
@@ -116,14 +94,14 @@ class Channel < OurOhm
   def add_fact(fact)
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
-    self.sorted_cached_facts.add(fact)
+    Resque.enqueue(AddFactToChannel, fact.id, self.id)
     activity(self.created_by,:added,fact,:to,self)
   end
 
   def remove_fact(fact)
     self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
-    self.sorted_cached_facts.delete(fact)   if self.sorted_cached_facts.include?(fact)
     self.sorted_delete_facts.add(fact)
+    Resque.enqueue(RemoveFactFromChannel, fact.id, self.id)
     activity(self.created_by,:removed,fact,:from,self)
   end
 
@@ -162,7 +140,7 @@ class Channel < OurOhm
     if (! contained_channels.include?(channel))
       contained_channels << channel
       channel.containing_channels << self
-      calculate_facts
+      Resque.enqueue(AddChannelToChannel, channel.id, self.id)
       activity(self.created_by,:added_subchannel,channel,:to,self)
     end
   end
@@ -171,8 +149,7 @@ class Channel < OurOhm
     if (contained_channels.include?(channel))
       contained_channels.delete(channel)
       channel.containing_channels.delete(self)
-      calculate_facts
-
+      Resque.enqueue(RemoveChannelFromChannel, channel.id, self.id)
       activity(self.created_by, :removed, channel, :to, self)
     end
   end
@@ -185,11 +162,7 @@ class Channel < OurOhm
     Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
   end
 
-  protected
-    def self.recalculate_all
-      all.andand.each do |ch|
-        ch.calculate_facts
-      end
-    end
-
+  def self.for_fact(f)
+    f.channels.all
+  end
 end
