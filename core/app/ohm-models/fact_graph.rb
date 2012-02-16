@@ -23,7 +23,7 @@ class FactGraph
   end
 
   def self.export(writer, options={})
-    verbose = options[:verbose]
+    verbose = options.has_key?(:verbose) and options[:verbose]
 
     writer.write(LoadDsl.export_header)
 

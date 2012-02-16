@@ -1,8 +1,8 @@
-require_relative '../../ohm_helper.rb'
-require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-require File.expand_path('../../../../app/classes/map_reduce/fact_credibility.rb', __FILE__)
-require_relative '../../../app/ohm-models/authority.rb'
-require_relative '../../../app/ohm-models/topic.rb'
+require 'spec_helper'
+#require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
+#require File.expand_path('../../../../app/classes/map_reduce/fact_credibility.rb', __FILE__)
+#require_relative '../../../app/ohm-models/authority.rb'
+#require_relative '../../../app/ohm-models/topic.rb'
 
 describe MapReduce::FactCredibility do
   let(:gu1) {GraphUser.create}
