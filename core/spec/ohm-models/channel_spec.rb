@@ -345,4 +345,12 @@ describe Channel do
     end
   end
 
+  describe "save" do
+    it "should ensure the topic exists" do
+      @ch = FactoryGirl.build :channel
+      @ch.save
+      Topic.by_title(@ch.title).should_not be_new
+    end
+  end
+
 end

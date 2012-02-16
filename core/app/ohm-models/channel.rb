@@ -18,6 +18,12 @@ class Channel < OurOhm
     self.lowercase_title = new_title.downcase
   end
 
+  after :save, :possibly_create_topic
+
+  def possibly_create_topic
+    t = Topic.by_title(self.title)
+    t.save if t.new?
+  end
 
   reference :created_by, GraphUser
   alias :graph_user :created_by
