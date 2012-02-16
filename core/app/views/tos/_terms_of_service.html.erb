@@ -145,3 +145,10 @@
     </li>
   </ol>
 </div>
+<% content_for :javascript do %>
+<script>
+  (function() {
+    $('#real_tos').preventScrollPropagation();
+  })();
+</script>
+<% end %>
