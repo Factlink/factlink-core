@@ -79,7 +79,7 @@ describe "beliefs should work"  do
     it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
       foo_ch.add_fact(fact_of_u1_which_supports_two)
-      foo_t = create :topic, title: "foo"
+      foo_t = Topic.by_title "foo"
       authority of:u1, from: foo_t, should_be: 1.0
     end
   end

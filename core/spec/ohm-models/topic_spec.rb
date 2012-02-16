@@ -17,4 +17,12 @@ describe Topic do
       Topic.by_title("foo").should == t1
     end
   end
+
+  describe "create" do
+    it "should not be able to create multiple topics with the same name" do
+      t1 = Topic.create title: "foo"
+      t2 = Topic.create title: t1.title
+      t2.should be_new
+    end
+  end
 end
