@@ -10,7 +10,7 @@ class SubchannelsController < ApplicationController
 
   def index
     authorize! :show, @channel
-    @contained_channels = @channel.contained_channels(current_graph_user)
+    @contained_channels = @channel.contained_channels
 
     respond_to do |format|
       format.json { render :json => @contained_channels.map {|ch| Channels::SingleMenuItem.for(channel: ch,view: view_context)} }
