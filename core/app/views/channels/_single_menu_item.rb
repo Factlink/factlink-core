@@ -93,5 +93,9 @@ module Channels
       @unread ||= self[:channel].unread_count
     end
 
+    def channel_definition
+      t(:channel)
+    end
+
   end
 end
