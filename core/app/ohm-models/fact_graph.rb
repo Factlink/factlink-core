@@ -1,20 +1,19 @@
 class FactGraph
 
   def self.recalculate
+      calculate_authority
       Basefact.all.to_a.each {|f| f.calculate_user_opinion }
       5.times do
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
         Fact.all.to_a.each {|f| f.calculate_opinion}
       end
-      calculate_authority
   end
 
   def self.reset_values
   end
 
   def self.calculate_authority
-    Fact.all.to_a.each {|f|  Authority.recalculate_from f }
-    GraphUser.all.to_a.each {|gu| Authority.recalculate_from gu }
+    Authority.run_calculation
   end
 
   def self.export_opiniated(writer,fact,prefix="")
@@ -23,18 +22,20 @@ class FactGraph
     writer.write(prefix + LoadDsl.export_doubters(fact.opiniated(:doubts))) if fact.opiniated(:doubts).size > 0
   end
 
-  def self.export(writer)
+  def self.export(writer, options={})
+    verbose = options.has_key?(:verbose) and options[:verbose]
+
     writer.write(LoadDsl.export_header)
 
     GraphUser.all.each do |gu|
       writer.write(LoadDsl.export_user(gu))
-      print "."
+      print "." if verbose
     end
     writer.write("\n")
 
     Site.all.each do |s|
       writer.write(LoadDsl.export_site(s))
-      print "."
+      print "." if verbose
     end
     writer.write("\n")
 
@@ -47,7 +48,7 @@ class FactGraph
       fs.each do |fact|
         writer.write("  "+LoadDsl.export_fact(fact))
         self.export_opiniated(writer,fact,"    ")
-        print "."
+        print "." if verbose
       end
     end
 
@@ -60,9 +61,9 @@ class FactGraph
       fs.each do |fact_relation|
         writer.write("  "+LoadDsl.export_fact_relation(fact_relation))
         self.export_opiniated(writer,fact_relation,"    ")
-        print "."
+        print "."  if verbose
       end
-      puts
+      puts if verbose
     end
 
     GraphUser.all.each do |gu|

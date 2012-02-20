@@ -15,11 +15,11 @@
   }
 
   toElement('#channel-listing > li:first')
-    .addHint("All Factlinks you've created or follow in your channels.");
+    .addHint("All Factlinks you've created or follow in your <%= t(:channels) %>.");
   toElement('#channel-listing > li:eq(1)')
     .addHint("All Factlinks you've created.");
   toElement('.add-channel')
-    .addHint("You can categorize Factlinks withins channels. Really interesting for other users to follow!");
+    .addHint("You can categorize Factlinks withins <%= t(:channels) %>. Really interesting for other users to follow!");
 
 })(jQuery);
 </script>

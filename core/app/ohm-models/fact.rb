@@ -2,6 +2,8 @@ class Fact < Basefact
   after :create, :set_activity!
   after :create, :add_to_created_facts
 
+  set :channels, Channel
+
   def set_activity!
     activity(self.created_by, "created", self)
   end
@@ -111,5 +113,8 @@ class Fact < Basefact
   before :delete, :delete_all_evidenced
   private :delete_all_evidence, :delete_all_evidenced, :delete_data
 
+  def channel_ids
+    channels.map {|ch| ch.id}
+  end
 
 end

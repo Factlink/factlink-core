@@ -13,6 +13,18 @@ module Channels
       link + "/edit"
     end
 
+    def personalized_authority
+      (Authority.from( Topic.by_title(title), for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
+    end
+
+    def has_authority?
+      self[:channel].has_authority?
+    end
+
+    def brain_icon
+      image_tag image_path("brain.png")
+    end
+
     def activities_link
       link + "/activities"
     end
@@ -41,8 +53,7 @@ module Channels
       {
         id: self[:user].id,
         username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32),
-        authority: Authority.from(self[:user].graph_user).to_s
+        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32)
       }
     end
 
@@ -80,6 +91,10 @@ module Channels
 
     def unread_count
       @unread ||= self[:channel].unread_count
+    end
+
+    def channel_definition
+      t(:channel)
     end
 
   end

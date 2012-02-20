@@ -15,7 +15,7 @@ module Users
     # TODO should render User view or similar, but will infinitely recurse if
     # also containing a Users:User view
     def channels
-      self[:graph_user].editable_channels(4)
+      self[:graph_user].editable_channels_by_authority(current_graph_user, 4)
     end
 
     def username
@@ -35,7 +35,7 @@ module Users
     end
 
     def authority
-      Authority.from(self[:graph_user]).to_s
+      "?"
     end
 
     def all_channel_id
@@ -44,6 +44,10 @@ module Users
 
     def is_current_user
       self[:user] == current_user
+    end
+
+    def channel_listing_header
+      t(:my_channels)
     end
 
   end

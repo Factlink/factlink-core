@@ -245,6 +245,7 @@ a.bookmarklet {
         padding: 1em;
         .border-radius(3px);
         width: 160px;
+        height: 32px;
         border-bottom: 1px solid white;
         background-color: #ededed;
         .inner-shadow(0, 1px, 1px, 0.2);
@@ -292,6 +293,7 @@ a.bookmarklet {
       }
       // User block for related users
       .user-block {
+        height: 32px;
         padding: 0;
         background-color: transparent;
         &:hover {
@@ -349,8 +351,22 @@ a.bookmarklet {
 
       div.button-wrap {
         position: absolute;
-        width: 150px;
         display: inline-block;
+
+        .authority {
+          display: inline-block;
+          padding: 5px 20px 0;
+
+          img {
+            vertical-align: middle;
+          }
+
+          span {
+            vertical-align: middle;
+            color: #333;
+            font-size: 11px;
+          }
+        }
 
         .btn {
           margin-top: 2px;

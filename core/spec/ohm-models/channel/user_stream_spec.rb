@@ -18,7 +18,6 @@ describe Channel::UserStream do
   describe "after adding one empty channel" do
     before do
       @ch1 = create(:channel, :created_by => u1)
-      Channel.recalculate_all
     end
     it { subject.facts.to_a.should =~ []}
   end
@@ -26,7 +25,6 @@ describe Channel::UserStream do
   describe "after creating a fact" do
     before do
       @f1 = create(:fact, :created_by => u1)
-      Channel.recalculate_all
     end
     it { subject.facts.to_a.should =~ [@f1]}
   end
@@ -36,7 +34,6 @@ describe Channel::UserStream do
       @ch1 = create(:channel, :created_by => u1)
       @f1 = create(:fact)
       @ch1.add_fact(@f1)
-      Channel.recalculate_all
     end
     it { subject.facts.to_a.should =~ [@f1]}
     its(:unread_count) {should == 0 }
@@ -52,14 +49,12 @@ describe Channel::UserStream do
       @ch2 = create(:channel, :created_by => u1)
       @f2 = create(:fact)
       @ch2.add_fact(@f2)
-      Channel.recalculate_all
     end
     it { subject.facts.to_a.should == [@f2,@f1]}
     its(:unread_count) {should == 0 }
     describe "after creating a fact" do
       before do
         @f3 = create(:fact, :created_by => u1)
-        Channel.recalculate_all
       end
       it { subject.facts.to_a.should == [@f3,@f2,@f1]}
     end

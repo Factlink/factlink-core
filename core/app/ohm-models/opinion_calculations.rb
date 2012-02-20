@@ -4,7 +4,7 @@ Basefact.opinion_reference :user_opinion do |depth|
   [:believes, :doubts, :disbelieves].each do |type|
     opiniated = opiniated(type)
     opiniated.each do |user|
-      opinions << Opinion.for_type(type, Authority.from(user).to_f)
+      opinions << Opinion.for_type(type, Authority.on(self, for: user).to_f + 1.0)
     end
   end
   Opinion.combine(opinions)
@@ -31,12 +31,7 @@ end
 
 
 
-# authority
-
-Authority.calculate_from :Fact do |f|
-  [1, FactRelation.find(:from_fact_id => f.id).except(:created_by_id => f.created_by_id).count].max
+def load_topic_specific_authority
+  Authority.calculation = [MapReduce::FactAuthority.new, MapReduce::ChannelAuthority.new, MapReduce::TopicAuthority.new, MapReduce::FactCredibility.new]
 end
-
-Authority.calculate_from :GraphUser do |gu|
-  1.0 + Math.log2(gu.real_created_facts.inject(1) { |result, fact| result * Authority.from(fact).to_f })
-end
+load_topic_specific_authority

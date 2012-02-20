@@ -51,8 +51,6 @@ end
 
 module FactlinkUI
   class Application < Rails::Application
-    # Auto load files in lib directory
-    config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths << "#{config.root}/app/classes"
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/views"
@@ -61,6 +59,7 @@ module FactlinkUI
     config.mongoid.logger = nil
 
     require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
+    require_dependency "#{config.root}/app/classes/map_reduce.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"
     require_dependency "#{config.root}/app/ohm-models/activity.rb"
     require_dependency "#{config.root}/app/ohm-models/authority.rb"

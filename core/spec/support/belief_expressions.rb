@@ -18,8 +18,26 @@ module BeliefExpressions
     Opinion.new(b:b,d:d,u:u,a:a)
   end
 
+  def god_user
+    @god_user ||= GraphUser.create
+  end
+
+  def global_channel
+    @t  ||= Topic.create title: 'global'
+    @ch ||= Channel.create title: 'global', created_by: god_user
+  end
+
+  def add_to_global_channel(f)
+    global_channel.add_fact f
+  end
+
   def possible_reset
     unless @nothing_happened
+      Fact.all.each do |f|
+        add_to_global_channel(f)
+      end
+      @random_fact ||= Fact.create(created_by: god_user)
+      add_to_global_channel @random_fact
       FactGraph.reset_values
       FactGraph.recalculate
       @nothing_happened = true
@@ -33,7 +51,7 @@ module BeliefExpressions
   def a(user)
     @nothing_happened = false
     possible_reset
-    Authority.from(GraphUser[user.graph_user.id]).to_f.should
+    (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
   def opinion?(fact)

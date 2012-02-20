@@ -15,5 +15,9 @@ class Channel < OurOhm
     def inspectable?
       false
     end
+
+    def has_authority?
+      false
+    end
   end
 end

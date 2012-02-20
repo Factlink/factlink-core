@@ -1,44 +1,64 @@
 class Authority < OurOhm
   generic_reference :subject
+  reference :user, GraphUser
+
+  attribute :label
+  index :label
 
   attribute :authority
 
   class << self
-    def from(search_for)
-      find(subject_id: search_for.id.to_s, subject_class: search_for.class.to_s).first ||
-        Authority.new(subject: search_for)
-    end
+    def related(label, subject, opts={})
+      return Authority.new if subject.new?
 
-    def set_from(subject, authority)
-      a = from(subject)
-      a.authority = authority
-      a.save
-    end
-
-    def calculate_from klass, &block
-      calculators[klass.to_s] = block
-    end
-
-    def calculated_from_authority(subject)
-      calculators[subject.class.to_s].call subject
-    end
-
-    def recalculate_from subject
-      set_from subject, calculated_from_authority(subject)
-    end
-
-    def reset_calculators
-      @calculators = Hash.new(lambda {|obj| 1})
-    end
-
-    private
-      def calculators
-        @calculators ||= reset_calculators
+      if opts[:for]
+        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s,
+              user_id: opts[:for].id).first ||
+            Authority.new(label: label, subject: subject, user: opts[:for])
+      else
+        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(label: label, subject: subject)
       end
+    end
+    
+    def from(subject, opts={})
+      related(:from, subject, opts)
+    end
+
+    def on(subject, opts={})
+      related(:on, subject, opts)
+    end
+
+    def all_related(label, subject)
+      find(label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s)
+    end
+
+    def all_from(subject)
+      all_related(:from, subject)
+    end
+
+    def all_on(subject)
+      all_related(:on, subject)
+    end
+
+    #new system with mapreduce:
+    def calculation=(map_reducers)
+      @map_reducers = map_reducers
+    end
+
+    def run_calculation
+      @map_reducers.andand.each do |mr|
+        mr.process_all
+      end
+    end
+  end
+
+  def << auth
+    self.authority = auth
+    save
   end
 
   def to_f
-    (authority||1).to_f
+    (authority||0).to_f
   end
 
   def to_s

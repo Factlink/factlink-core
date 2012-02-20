@@ -25,7 +25,7 @@ describe Fact do
       subject.should be_a(Fact)
     end
     it "should have an authority of 1" do
-      Authority.from(subject).to_f.should == 1.0
+      Authority.from(subject).to_f.should == 0.0
     end
     it "should be persisted" do
       Fact[subject.id].should == subject
