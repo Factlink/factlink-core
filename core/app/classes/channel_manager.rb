@@ -21,13 +21,8 @@ class ChannelManager
       topic_a = Topic.by_title(a.title)
       topic_b = Topic.by_title(b.title)
 
-      if topic_a.new?
-        topic_a.save
-      end
-
-      if topic_b.new?
-        topic_b.save
-      end
+      topic_a.save if topic_a.new?
+      topic_b.save if topic_b.new?
 
       auth[topic_a.id] ||= Authority.from(topic_a, for: gu).to_f
       auth[topic_b.id] ||= Authority.from(topic_b, for: gu).to_f
