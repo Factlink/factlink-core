@@ -28,7 +28,7 @@ class ChannelManager
       auth[topic_b.id] <=> auth[topic_a.id]
     end
 
-    limit ? @channels[0..limit] : @channels
+    limit ? @channels.take(limit) : @channels
   end
 
   def editable_channels_for(fact)
