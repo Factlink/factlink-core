@@ -5,8 +5,6 @@ class ChannelManager
 
   def editable_channels(limit=nil)
     @channels = @gu.channels.to_a
-    # TODO: wtf?
-    @username = @gu.user.username
     @channels = @channels.reject! { |channel| ! channel.editable? }
 
     limit ? @channels[0..limit] : @channels
@@ -35,7 +33,7 @@ class ChannelManager
 
   def editable_channels_for(fact)
     channels = editable_channels
-    # TODO: wtf continued; dirty shit with @username
+    @username = @gu.user.username
     channels.map {|ch| ChannelForFact.new(ch,fact,@username)}
   end
 
