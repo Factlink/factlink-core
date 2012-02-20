@@ -5,13 +5,6 @@
     </h1>
 
     <div class="button-wrap">
-      {{#has_authority?}}
-      <div class="authority">
-        {{{brain_icon}}}
-        <span>{{personalized_authority}}</span>
-      </div>
-      {{/has_authority?}}
-
       {{#editable?}}
       <a href="{{ edit_link }}" class="btn edit small">edit</a>
       {{/editable?}}
@@ -20,6 +13,13 @@
       <a class="btn add small" id="add_to_channel">Add to channels</a>
       <div class="float-box channel-listing" id="follow-channel"></div>
       {{/followable?}}
+
+      {{#has_authority?}}
+      <div class="authority">
+        {{{brain_icon}}}
+        <span>{{personalized_authority}}</span>
+      </div>
+      {{/has_authority?}}
     </div>
 
     {{#inspectable?}}
