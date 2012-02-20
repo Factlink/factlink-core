@@ -23,7 +23,6 @@
           <% end %>
           <li class="divider-vertical"></li>
 
-
           <% if can? :access, Ability::AdminArea %>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">
@@ -37,12 +36,12 @@
             </li>
           <% end %>
 
-          <li id="notifications" id="notifcations-menu">
-            <a data-toggle="dropdown">
+          <li class="dropdown" id="notifications">
+            <a class="dropdown-toggle" data-toggle="dropdown">
               <%= image_tag("activities/icon-generic.png") %>
               <span class="unread"></span>
             </a>
-            <ul id="notifications-dropdown">
+            <ul class="dropdown-menu">
             </ul>
           </li>
 
