@@ -30,6 +30,13 @@ module Facts
     def i_am_owner
       (self[:fact].created_by == current_graph_user)
     end
+    
+    def my_authority
+      auth = Authority.on(self[:fact], for: current_graph_user)
+      #return false if auth == 0
+      
+      (auth.to_s.to_f + 1.0).to_s
+    end
 
     def signed_in?
       user_signed_in?
