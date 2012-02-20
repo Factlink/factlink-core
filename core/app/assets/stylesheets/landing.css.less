@@ -64,11 +64,10 @@ body {
         input[type="password"] {
           width: 160px;
           margin-right: 8px;
+          margin-bottom: 0;
         }
         input[type="submit"] {
-          top: -1px;
-          right: -2px;
-          position: relative;
+          margin-bottom: 0;
         }
       }
     }
@@ -93,53 +92,61 @@ body {
   #selling-points {
     width: 270px;
     margin-right: 20px;
-    ul li {
-      padding-top: 2em;
+    ul {
+      margin-left: 0;
+      li {
+        padding-top: 2em;
 
-      img {
-        float: left;
-        margin-right: 1em;
-        height: 31px;
+        img {
+          float: left;
+          margin-right: 1em;
+          height: 31px;
+        }
       }
     }
   }
 
   #movie-container {
-    width: 307px;
-    height: 307px;
+    width: 300px;
+    height: 300px;
   }
+  
   #top-facts {
-    ul li {
-      padding-bottom: 1em;
-      min-height: 50px;
-      &:not(:last-child) {
-        border-bottom: 1px solid #dbdbdb;
-      }
-      &:not(:first-child) {
-        border-top: 1px solid #ffffff;
-      }
-      .wheel {
-        width: 0px;
-        height: 0px;
-        float: left;
-      }
-      header {
-        margin-left: 65px;
-        padding-top: 10px;
-        .head, sub {
-          display: block;
-          width: 205px;
-          font-size: 8pt;
-          color: #888;
-          .ellipsis();
+    ul {
+      margin-left: 0;
+      
+      li {
+        padding-bottom: 1em;
+        min-height: 50px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #dbdbdb;
         }
-        .body {
-          a {
-            color: #505050;
-            text-align: justify;
+        &:not(:first-child) {
+          border-top: 1px solid #ffffff;
+        }
+        .wheel {
+          width: 0px;
+          height: 0px;
+          float: left;
+        }
+        header {
+          margin-left: 65px;
+          padding-top: 10px;
+          .head, sub {
+            display: block;
+            width: 205px;
+            font-size: 8pt;
+            color: #888;
+            .ellipsis();
           }
-          span a {
-            color: @linkColor;
+          .body {
+            a {
+              color: #505050;
+              text-align: justify;
+            }
+            span a {
+              color: @linkColor;
+            }
           }
         }
       }
@@ -157,6 +164,10 @@ body {
     }
     input {
       margin-bottom: 1em;
+    }
+    input[type=text],
+    input[type=email] {
+      width: 237px;
     }
     input[type=submit] {
       float: right;

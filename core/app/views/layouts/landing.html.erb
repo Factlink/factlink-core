@@ -43,27 +43,27 @@
   <div id="body">
     <div class="container">
       <div class="row">
-        <div class="span10">
-          <div id="payoff" class="span10">
+        <div class="span8">
+          <div id="payoff">
             <%= yield :payoff %>
           </div>
 
           <div class="row">
-            <div id="selling-points" class="span5">
+            <div id="selling-points" class="span4">
             <%= yield :selling_points %>
           </div>
 
-          <div id="movie" class="span1">
+          <div id="movie" class="span4">
             <%= yield :movie %>
           </div>
         </div>
         </div>
 
-        <div class="span5 offset1" id="right">
-          <div id="signup" class="row">
+        <div class="span4">
+          <div id="signup">
             <%= yield :sign_up %>
           </div>
-          <div id="top-facts" class="row">
+          <div id="top-facts">
             <%= yield :top_facts %>
           </div>
         </div>
