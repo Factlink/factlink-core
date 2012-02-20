@@ -33,7 +33,7 @@ module Facts
     
     def my_authority
       auth = Authority.on(self[:fact], for: current_graph_user)
-      return false if auth == 0
+      return false if auth.to_f == 0.0
       
       (auth.to_s.to_f + 1.0).to_s
     end
