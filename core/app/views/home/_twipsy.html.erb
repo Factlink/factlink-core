@@ -1,26 +1,24 @@
 <%= content_for :javascript do %>
 <script>
-(function($){
+twipsy = {};
+twipsy.toElement = function(div){
+  var rv = {div: $(div)};
+  rv.addHint = function (hint){
+    this.div.twipsy({
+      live: true,
+      placement: 'right',
+      title: function() { return hint; }
+    });
+  };
+  return rv;
+}
 
-  function toElement(div){
-    var rv = {div: $(div)};
-    rv.addHint = function (hint){
-      this.div.twipsy({
-        live: true,
-        placement: 'right',
-        title: function() { return hint; }
-      });
-    };
-    return rv;
-  }
+twipsy.toElement('#channel-listing > li:first')
+  .addHint("All Factlinks you've created or follow in your <%= t(:channels) %>.");
+twipsy.toElement('#channel-listing > li:eq(1)')
+  .addHint("All Factlinks you've created.");
+twipsy.toElement('.add-channel')
+  .addHint("You can categorize Factlinks within <%= t(:channels) %>. Really interesting for other users to follow!");
 
-  toElement('#channel-listing > li:first')
-    .addHint("All Factlinks you've created or follow in your <%= t(:channels) %>.");
-  toElement('#channel-listing > li:eq(1)')
-    .addHint("All Factlinks you've created.");
-  toElement('.add-channel')
-    .addHint("You can categorize Factlinks withins <%= t(:channels) %>. Really interesting for other users to follow!");
-
-})(jQuery);
 </script>
 <% end %>

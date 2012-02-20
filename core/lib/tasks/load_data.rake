@@ -62,7 +62,7 @@ namespace :db do
 
       # Dump the exports to the file
       File.open(file, 'w') do |f|
-        FactGraph.export(f)
+        FactGraph.export(f, verbose: true)
       end
     end
 
