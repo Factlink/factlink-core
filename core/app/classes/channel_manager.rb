@@ -10,7 +10,7 @@ class ChannelManager
     limit ? @channels[0..limit] : @channels
   end
 
-  def editable_channels_by_authority(gu, limit=nil)
+  def editable_channels_by_authority(limit=nil)
     auth = {}
 
     @channels = editable_channels
@@ -22,8 +22,8 @@ class ChannelManager
       topic_a.save if topic_a.new?
       topic_b.save if topic_b.new?
 
-      auth[topic_a.id] ||= Authority.from(topic_a, for: gu).to_f
-      auth[topic_b.id] ||= Authority.from(topic_b, for: gu).to_f
+      auth[topic_a.id] ||= Authority.from(topic_a, for: @gu).to_f
+      auth[topic_b.id] ||= Authority.from(topic_b, for: @gu).to_f
 
       auth[topic_b.id] <=> auth[topic_a.id]
     end
