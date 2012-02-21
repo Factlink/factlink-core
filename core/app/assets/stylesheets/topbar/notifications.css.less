@@ -1,0 +1,85 @@
+@import "bootstrap/mixins";
+
+#notifications {
+  span.unread {
+    display: none;
+    position: absolute;
+    background: #DE997B;
+    .border-radius(10px);
+    font-size: 6pt;
+    height: 11px;
+    width: 11px;
+    color: white;
+    top: 8px;
+    right: 6px;
+    text-align: center;
+    line-height: 11px;
+    .box-shadow(inner 0 0 1px #D37650);
+    text-shadow: 0;
+  }
+
+  > ul {
+    max-width: 300px;
+    width: 300px;
+    .box-shadow(0px 1px 3px rgba(0, 0, 0, 0.2));
+    max-height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    li {
+      border-bottom: 1px solid #e4e4e4;
+      margin: 0;
+      padding: 7px 10px 10px 10px;
+      white-space: normal;
+      
+      a {
+        white-space: normal;
+      }
+
+      &.unread {
+        background-color: #ffffe1
+      }
+
+      div.avatar {
+        width: 30px;
+        float: left;
+
+        img {
+          .border-radius(2px);
+          display: inline-block;
+        }
+      }
+
+      div.info {
+        width: 230px;
+        float: left;
+        margin: 0 0 7px;
+
+        a {
+          display: inline;
+          padding: 0;
+        }
+
+        span {
+          font-size: 12px;
+        }
+
+        div.time_ago {
+          img {
+            vertical-align: middle;
+          }
+
+          span {
+            vertical-align: middle;
+            color: #888;
+            font-size: 11px;
+          }
+        }
+      }
+
+      div.clear {
+        clear: both;
+      }
+    }
+  }
+}
