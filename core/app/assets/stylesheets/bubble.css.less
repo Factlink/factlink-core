@@ -65,14 +65,36 @@ div.fact-block .close {
       padding: 5px 0 5px 0 !important;
       margin: 0 0 0 5px !important;
       border: none !important;
+      line-height: 13px;
+      
+      label {
+        margin: 0;
+        line-height: 13px;
       }
     }
+  }
   .add-channel {
     border-top: solid 1px #ddd;
     padding: 8px;
-    input[type="text"] {
-      width: 130px;
-      border: solid 1px #ccc;
+    
+    form {
+      height: 22px;
+      line-height: 13px;
+      margin: 0;
+      padding: 0;
+      input[type="text"] {
+        height: 16px;
+        line-height: normal;
+        width: 130px;
+        border: solid 1px #ccc;
+      }
+      
+      input[type="submit"] {
+        height: 25;
+        line-height: 20px;
+        padding: 2px 6px 3px;
+        margin: 0;
+      }
     }
   }
 }
