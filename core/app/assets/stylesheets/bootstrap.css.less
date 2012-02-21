@@ -1,3 +1,15 @@
 //= require twitter/bootstrap
 
 @import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+// OVERWRITING DEFAULT BOOTSTRAP LINKS
+// -----
+a {
+  color: @linkColor;
+  text-decoration: none;
+}
+a:hover {
+  color: @linkColorHover;
+  text-decoration: underline;
+}
