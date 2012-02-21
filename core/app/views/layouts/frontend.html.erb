@@ -71,12 +71,7 @@
 
   <%= javascript_include_tag "frontend" %>
 
-  <% if user_signed_in? %>
-    <% if (current_user.andand.sign_in_count || 0 < 10) %>
-      <%= render "home/twipsy" %>
-    <% end %>
-  <% end %>
-
+  <%= render "home/twipsy" %>
 
   <script>
     <% if current_user %>

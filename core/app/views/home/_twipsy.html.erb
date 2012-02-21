@@ -1,24 +1,12 @@
-<%= content_for :javascript do %>
-<script>
-twipsy = {};
-twipsy.toElement = function(div){
-  var rv = {div: $(div)};
-  rv.addHint = function (hint){
-    this.div.tooltip({
-      live: true,
-      placement: 'right',
-      title: function() { return hint; }
-    });
-  };
-  return rv;
-}
-
-twipsy.toElement('#channel-listing > li:first')
-  .addHint("All Factlinks you've created or follow in your <%= t(:channels) %>.");
-twipsy.toElement('#channel-listing > li:eq(1)')
-  .addHint("All Factlinks you've created.");
-twipsy.toElement('.add-channel')
-  .addHint("You can categorize Factlinks within <%= t(:channels) %>. Really interesting for other users to follow!");
-
-</script>
+<% if user_signed_in? %>
+  <% if (current_user.andand.sign_in_count || 0 < 10) %>
+    <script>
+      twipsy.toElement('#channel-listing > li:first')
+        .addHint("All Factlinks you've created or follow in your <%= t(:channels) %>.");
+      twipsy.toElement('#channel-listing > li:eq(1)')
+        .addHint("All Factlinks you've created.");
+      twipsy.toElement('.add-channel')
+        .addHint("You can categorize Factlinks within <%= t(:channels) %>. Really interesting for other users to follow!");
+    </script>
+  <% end %>
 <% end %>

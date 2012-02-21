@@ -2,6 +2,9 @@
 //= require underscore
 //= require mustache
 //= require backbone.lib
+
+//= require twipsy
+
 //= require_tree ./backbone/contrib/
 //= require_tree ./backbone/models/
 
