@@ -17,7 +17,7 @@ body {
     color: @linkColor;
   }
   h1, h2, h3 {
-    #font > .sans-serif(bold, @basefont, @baseline);
+    #font > .sans-serif(bold, @baseFontSize, @baseLineHeight);
     color: #303030;
   }
   h3 {
@@ -30,7 +30,7 @@ body {
     margin-bottom: 6px;
   }
   p, li, footer {
-    #font > .sans-serif(normal, @basefont, @baseline);
+    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     color: #505050;
     list-style-type:none;
   }
@@ -81,11 +81,11 @@ body {
     h2 {
       font-weight: bold;
       font-size: 24pt;
-      margin-bottom: @basefont;
+      margin-bottom: @baseFontSize;
     }
     p {
       margin-top: 0.25em;
-      line-height: @basefont * 1.8;
+      line-height: @baseFontSize * 1.8;
       font-size: 14pt;
     }
   }

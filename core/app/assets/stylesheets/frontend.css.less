@@ -190,8 +190,8 @@ a.bookmarklet {
   padding-top: 70px;
 
   h1 {
-    font-size: (@basefont * 1.5);
-    margin-bottom: @basefont;
+    font-size: (@baseFontSize * 1.5);
+    margin-bottom: @baseFontSize;
   }
 
   form {
@@ -230,7 +230,7 @@ a.bookmarklet {
 
   sub {
     color: #333;
-    #font > .sans-serif(normal, x-small, @baseline);
+    #font > .sans-serif(normal, x-small, @baseLineHeight);
     bottom: 0.45em;
    }
   #left-column {
@@ -246,7 +246,7 @@ a.bookmarklet {
       }
       margin-bottom: 8px;
       h3 {
-        #font > .sans-serif(bold, @baseline * 0.9, @baseline);
+        #font > .sans-serif(bold, @baseLineHeight * 0.9, @baseLineHeight);
       }
       .wrapper {
         margin-left: 48px;
@@ -268,7 +268,7 @@ a.bookmarklet {
         }
     }
     h2 {
-      #font > .sans-serif(bold, @baseline * 0.9, @baseline);
+      #font > .sans-serif(bold, @baseLineHeight * 0.9, @baseLineHeight);
       display: inline;
     }
     .add-channel {
@@ -281,9 +281,9 @@ a.bookmarklet {
       }
     }
     .related-users {
-      padding-top: @baseline;
+      padding-top: @baseLineHeight;
       article, li {
-        padding-bottom: @baseline / 2;
+        padding-bottom: @baseLineHeight / 2;
       }
       // User block for related users
       .user-block {
@@ -300,7 +300,7 @@ a.bookmarklet {
           margin-left: 48px;
           h3 {
             color: @linkColor;
-            font-size: @basefont;
+            font-size: @baseFontSize;
             font-weight: bold;
             &:hover {
               color: @linkColorHover;
@@ -486,7 +486,7 @@ a.bookmarklet {
       padding: @margin 4px @margin 0;
       width: 145px;
       display: block;
-      #font > .sans-serif(normal, @basefont, @baseline);
+      #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
       color: @linkColor;
       text-shadow: 0px 1px 0px @white;
       padding-left: 24px;
@@ -522,13 +522,13 @@ a.bookmarklet {
   }
   .no_facts {
     margin-top: 15px;
-    font-size: @basefont;
+    font-size: @baseFontSize;
     text-align: center;
     p {
       padding-bottom: 1em;
     }
     h3 {
-      font-size: (@basefont * 1.5);
+      font-size: (@baseFontSize * 1.5);
       padding-bottom: 0.5em;
     }
 
