@@ -1,7 +1,7 @@
 count=`ps x | grep -v grep | grep -c "resque-"`
 
 if [ "$count" -lt "1" ]; then
-    . ~/.bash_profile
+    . /home/deploy/.bash_profile
 
     cd /applications/factlink-core/current
 
