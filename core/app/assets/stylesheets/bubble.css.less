@@ -207,12 +207,23 @@ div.fact-block .close {
         .user-info {
           padding: 0px 5px 15px 5px;
           margin-left: 40px;
-          ul li {
-            word-wrap: break-word;
-            margin-right: 0;
-            display: inline;
-            &:not(:last-child):after {
-              content: ",";
+          line-height: 12px;
+          height: auto;
+          
+          ul {
+            height: auto;
+            
+            li {
+              word-wrap: break-word;
+              margin-right: 0;
+              display: inline;
+              line-height: 12px;
+              &:not(:last-child):after {
+                content: ",";
+              }
+              a {
+                line-height: 12px;
+              }
             }
           }
         }
