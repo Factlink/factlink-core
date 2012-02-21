@@ -158,7 +158,7 @@ GEM
     less-rails (2.1.5)
       actionpack (>= 3.1)
       less (~> 2.0.7)
-    less-rails-bootstrap (2.0.4)
+    less-rails-bootstrap (2.0.6)
       less-rails (~> 2.1.0)
     libv8 (3.3.10.4)
     mail (2.3.0)
@@ -396,7 +396,7 @@ DEPENDENCIES
   jquery-rails (>= 1.0.17)
   json
   less-rails (>= 2.1.5)
-  less-rails-bootstrap (>= 2.0.4)
+  less-rails-bootstrap (>= 2.0.6)
   map
   metric_fu (= 2.1.1)
   mixpanel (~> 1.1.3)
