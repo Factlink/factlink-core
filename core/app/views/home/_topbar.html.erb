@@ -53,9 +53,7 @@
             </a>
             <ul class="dropdown-menu">
               <% if can? :access, Ability::FactlinkWebapp %>
-                <li><a>Authority: <%=  Authority.from current_user.graph_user %></a></li>
-                <li class="divider"></li>
-                <li><%= link_to("My profile", user_profile_path(current_user)) %></li>
+                <li><%= link_to(t(:my_channels), user_profile_path(current_user)) %></li>
               <% end %>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>

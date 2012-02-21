@@ -1,8 +1,12 @@
-. ~/.bash_profile
+count=`ps x | grep -v grep | grep -c "resque-"`
 
-cd /applications/factlink-core/current
+if [ "$count" -lt "1" ]; then
+    . ~/.bash_profile
 
-export PIDFILE=/home/deploy/resque.pid
-export QUEUE=*
+    cd /applications/factlink-core/current
 
-bundle exec rake environment resque:work PIDFILE=$PIDFILE > /applications/factlink-core/current/log/resque.log 2>&1 &
+    export PIDFILE=/home/deploy/resque.pid
+    export QUEUE=*
+
+    bundle exec rake environment resque:work PIDFILE=$PIDFILE > /applications/factlink-core/current/log/resque.log 2>&1 &
+fi

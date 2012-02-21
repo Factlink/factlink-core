@@ -114,7 +114,7 @@ div.fact-block .close {
         color: #afafaf;
       }
 			.edit {
-        #font > .sans-serif(bold,9pt,@baseLineHeight);
+        #font > .sans-serif(normal,9pt,@baseLineHeight);
         &:before {
 	        #font > .iconic();
           content: "p ";
@@ -151,6 +151,11 @@ div.fact-block .close {
     .unselectable();
     .transition(@transition);
     border-bottom: 1px solid transparent;
+    
+    div.authority {
+      float: right;
+      margin: -20px 130px 0 0;
+    }
 
     ul.users {
       float: right;
@@ -219,13 +224,13 @@ div.fact-block .close {
       li {
         display: block;
         float: left;
-        margin: 1px 0 0 15px;
+        margin: 1px 0 0 10px;
         border: 1px solid transparent;
         .border-radius(3px 3px 0 0);
         border-bottom: none;
         a {
           display: inline-block;
-          padding: 2px 5px;
+          padding: 5px 10px;
           &:hover {
             text-decoration: none;
           }
@@ -260,7 +265,7 @@ div.fact-block .close {
           }
         }
         &:active, &:focus, &.active {
-          border: 1px solid @grayLight;
+          border: 1px solid @grayLighter;
           border-bottom: none;
           background-color: @whiteDarker;
         }

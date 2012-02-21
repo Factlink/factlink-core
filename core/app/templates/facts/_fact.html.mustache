@@ -13,11 +13,11 @@
 <div class="controls">
   <ul class="evidence">
     <li class="supporting">
-      <a class="tab">Supporting</a>
+      <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
     </li>
 
     <li class="weakening">
-      <a class="tab">Weakening</a>
+      <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
     </li>
 
 		{{#signed_in?}}
@@ -35,6 +35,12 @@
     {{/i_am_owner}}
 
   </ul>
+    {{#my_authority}}
+    <div class="authority">
+      <img src="/assets/brain.png" alt="Brain" />
+      <span>{{my_authority}}</span>
+    </div>
+    {{/my_authority}}
     {{#interacting_users}}
       {{>interacting_users}}
     {{/interacting_users}}

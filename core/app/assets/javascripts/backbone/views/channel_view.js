@@ -134,6 +134,9 @@ window.ChannelView = Backbone.View.extend({
       self.model.trigger('loaded')
                   .trigger('activate', self.model);
     }
+    twipsy.toElement(this.$el.find('header .authority'))
+      .addHint('Authority of ' + self.model.attributes.created_by.username + ' on "' + self.model.attributes.title + '"');
+
 
     return this;
   }

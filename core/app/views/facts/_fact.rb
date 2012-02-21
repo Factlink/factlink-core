@@ -22,13 +22,20 @@ module Facts
     end
 
     def remove_from_channel_path
-      if self[:channel]
+      if self[:channel] and current_user
         remove_fact_from_channel_path(current_user.username, self[:channel].id, self[:fact].id)
       end
     end
 
     def i_am_owner
       (self[:fact].created_by == current_graph_user)
+    end
+    
+    def my_authority
+      auth = Authority.on(self[:fact], for: current_graph_user)
+      return false if auth.to_f == 0.0
+      
+      (auth.to_s.to_f + 1.0).to_s
     end
 
     def signed_in?
@@ -78,6 +85,13 @@ module Facts
 
     def channels_definition
       t(:channels).titleize
+    end
+
+    def nr_of_supporting_facts
+      self[:fact].supporting_facts.size
+    end
+    def nr_of_weakening_facts
+      self[:fact].weakening_facts.size
     end
 
     expose_to_hash :timestamp
