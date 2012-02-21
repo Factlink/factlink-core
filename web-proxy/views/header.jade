@@ -7,8 +7,8 @@ html
     header
       form(action=".", method="GET", target="_parent")
       
-        input(type="text", value=page_url, name="url")
+        input(type="text", value=clean_page_url, name="url")
         input(type="hidden", value=factlinkModus, name="factlinkModus")
         
-        - if (factlinkModus !== "default")
-          a.close(href="javascript:parent.location.href='#{core_url}/client/close_proxy.html'") x
+        -if (page_url !== undefined && page_url !== '')
+          a.close(href=clean_page_url, target="_top") x

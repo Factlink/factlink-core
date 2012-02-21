@@ -132,6 +132,7 @@ function getServer(config) {
           proxy_url: config.PROXY_URL,
           core_url: config.API_URL,
           page_url: req.query.url,
+          clean_page_url: urlvalidation.clean_url(req.query.url),
           factlinkModus: get_modus(req.query.factlinkModus),
           header_url: header_url,
           parse_url: parse_url
