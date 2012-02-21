@@ -86,19 +86,21 @@ gem 'rmagick', :require => 'RMagick'
 gem "cancan"
 
 group :assets do
-  gem 'less-rails'
+
+  # Temporary fix for @import bug, merge back to original Gem when it's in master
+  gem 'less-rails', ">= 2.1.5"
   gem 'uglifier'
 
   ###########
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'
-  gem 'less-rails-bootstrap', '1.4.2'
+  gem 'less-rails-bootstrap', '>= 2.0.6'
   gem "modernizr-rails", "~> 2.0.6"
 end
 
 group :development do
   # mesa want speed:
-  gem 'rails-dev-tweaks', '~> 0.5.2'
+  # gem 'rails-dev-tweaks', '~> 0.5.2'
 
   gem "pry", :require => false
 

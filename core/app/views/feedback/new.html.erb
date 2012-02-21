@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <a href="#" class="close">×</a>
+  <a href="#" class="close" data-dismiss="modal">×</a>
   <h1>Share Feedback</h1>
 </div>
 <div class="alert-message fade in" style="display: none"></div>
@@ -28,7 +28,7 @@
     </fieldset>
   </div>
   <div class="modal-footer">
-      <%= button_tag("Save", :disable_with => "Saving...", :class => "positive btn primary") %>&nbsp;
+      <%= button_tag("Save", :disable_with => "Saving...", :class => "positive btn btn-primary") %>&nbsp;
     <a class="btn secondary cancel">Cancel</a>
   </div>
 <% end %>

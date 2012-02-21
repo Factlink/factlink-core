@@ -87,6 +87,13 @@ module Facts
       t(:channels).titleize
     end
 
+    def nr_of_supporting_facts
+      self[:fact].supporting_facts.size
+    end
+    def nr_of_weakening_facts
+      self[:fact].weakening_facts.size
+    end
+
     expose_to_hash :timestamp
 
   end

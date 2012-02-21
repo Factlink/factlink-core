@@ -97,5 +97,9 @@ module Channels
       t(:channel)
     end
 
+    def channels_definition
+      t(:channels)
+    end
+
   end
 end

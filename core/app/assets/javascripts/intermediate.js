@@ -1,4 +1,4 @@
-//= require jquery
+//= require application
 
 var // The iFrame
     showFrame = document.getElementById("frame"),

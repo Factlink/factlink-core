@@ -10,7 +10,10 @@
       {{/editable?}}
 
       {{#followable?}}
-      <a class="btn add small" id="add_to_channel">Add to channels</a>
+      <a class="btn btn-mini" id="add_to_channel">
+        <i class="icon-plus"></i>
+        Add to channels
+      </a>
       <div class="float-box channel-listing" id="follow-channel"></div>
       {{/followable?}}
 
@@ -24,7 +27,7 @@
 
     {{#inspectable?}}
     <div id="contained-channels">
-      <span class="contained-channel-description">Other people in this {{channel_definition}}</span>
+      <span class="contained-channel-description">Followed {{channels_definition}}</span>
         <ul id="contained-channel-list">
           <div class="overflow"></div>
         </ul>

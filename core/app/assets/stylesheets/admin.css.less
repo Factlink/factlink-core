@@ -1,9 +1,10 @@
-/*Core variables and mixins*/
-@import "frontend.css";
-@import "grid";
-@import "bootstrap";
-@import "twitter/bootstrap/forms";
-@import "twitter/bootstrap/tables";
+/*
+ *= require bootstrap
+ *= require frontend
+*/
+
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
 
 tr {
   background: white;
@@ -55,5 +56,5 @@ form {
   }
 }
 h1 {
-  font-size: @basefont * 2;
+  font-size: @baseFontSize * 2;
 }

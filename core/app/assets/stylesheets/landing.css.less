@@ -1,19 +1,27 @@
-@import "grid";
-@import "bootstrap";
-@import "twitter/bootstrap/forms";
-@import "feedback.css";
+/*
+ *= require bootstrap
+ *= require_self
+ *= require feedback
+*/
+
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
 body {
-  background: white;
+  background: @white;
 }
+
+
 .factlink {
   a {
     color: @linkColor;
   }
   h1, h2, h3 {
-    #font > .sans-serif(bold, @basefont, @baseline);
+    #font > .sans-serif(bold, @baseFontSize, @baseLineHeight);
     color: #303030;
   }
   h3 {
+    margin-top: 23px;
     font-size: 14pt;
   }
   h4 {
@@ -22,8 +30,9 @@ body {
     margin-bottom: 6px;
   }
   p, li, footer {
-    #font > .sans-serif(normal, @basefont, @baseline);
+    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     color: #505050;
+    list-style-type:none;
   }
   #body {
     padding: 2.5em 0;
@@ -39,12 +48,11 @@ body {
     margin-top: 1em;
     margin-bottom: 0;
   }
-
+  
   #sign-in-form {
     margin: 0px;
-    line-height: 10pt;
+    margin-top: 10px;
     form {
-      margin-top: 10px;
       float: right;
 
       .input-fields {
@@ -52,11 +60,10 @@ body {
         input[type="password"] {
           width: 160px;
           margin-right: 8px;
+          margin-bottom: 0;
         }
         input[type="submit"] {
-          top: -1px;
-          right: -2px;
-          position: relative;
+          margin-bottom: 0;
         }
       }
     }
@@ -70,63 +77,67 @@ body {
     h2 {
       font-weight: bold;
       font-size: 24pt;
-      margin-bottom: @basefont;
+      margin-bottom: @baseFontSize;
     }
     p {
       margin-top: 0.25em;
-      line-height: @basefont * 1.8;
+      line-height: @baseFontSize * 1.8;
       font-size: 14pt;
     }
   }
   #selling-points {
-    ul li {
-      padding-top: 2em;
+    width: 270px;
+    margin-right: 20px;
+    ul {
+      margin-left: 0;
+      li {
+        padding-top: 2em;
 
-      img {
-        float: left;
-        margin-right: 1em;
-        height: 31px;
+        img {
+          float: left;
+          margin-right: 1em;
+          height: 31px;
+        }
       }
     }
   }
-
-  #movie-container {
-    width: 307px;
-    height: 307px;
-  }
+  
   #top-facts {
-    ul li {
-      padding-bottom: 1em;
-      min-height: 50px;
-      &:not(:last-child) {
-        border-bottom: 1px solid #dbdbdb;
-      }
-      &:not(:first-child) {
-        border-top: 1px solid #ffffff;
-      }
-      .wheel {
-        width: 0px;
-        height: 0px;
-        float: left;
-      }
-      header {
-        margin-left: 65px;
-        padding-top: 10px;
-        .head, sub {
-          display: block;
-          width: 205px;
-          font-size: 8pt;
-          font-family: "Helvetica", Arial, sans-serif;
-          color: #888;
-          .ellipsis();
+    ul {
+      margin-left: 0;
+      
+      li {
+        padding-bottom: 1em;
+        min-height: 50px;
+        &:not(:last-child) {
+          border-bottom: 1px solid #dbdbdb;
         }
-        .body {
-          a {
-            color: #505050;
-            text-align: justify;
+        &:not(:first-child) {
+          border-top: 1px solid #ffffff;
+        }
+        .wheel {
+          width: 0px;
+          height: 0px;
+          float: left;
+        }
+        header {
+          margin-left: 65px;
+          padding-top: 10px;
+          .head, sub {
+            display: block;
+            width: 205px;
+            font-size: 8pt;
+            color: #888;
+            .ellipsis();
           }
-          span a {
-            color: @linkColor;
+          .body {
+            a {
+              color: #505050;
+              text-align: justify;
+            }
+            span a {
+              color: @linkColor;
+            }
           }
         }
       }
@@ -144,6 +155,10 @@ body {
     }
     input {
       margin-bottom: 1em;
+    }
+    input[type=text],
+    input[type=email] {
+      width: 237px;
     }
     input[type=submit] {
       float: right;
@@ -165,20 +180,6 @@ body {
           content: " | ";
         }
       }
-    }
-  }
-  #feedback {
-    position: fixed;
-    top: 160px;
-    background: url("/assets/feedback.png") top left no-repeat transparent;
-    height: 97px;
-    width: 37px;
-    left: 0;
-    a {
-      text-indent: -10000em;
-      display: block;
-      width: 100%;
-      height: 100%;
     }
   }
 }

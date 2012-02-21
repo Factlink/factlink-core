@@ -125,7 +125,7 @@ var Wheel = (function() {
         $(w.fact).factlink("switch_opinion", $t);
       });
       // Bootstap popver
-      $(this.raphael.node).attr("rel", "twipsy").twipsy({
+      $(this.raphael.node).attr("rel", "twipsy").tooltip({
         title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; }, 
         offset: 0,
         placement:"left" 
