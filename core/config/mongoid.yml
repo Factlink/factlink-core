@@ -27,6 +27,12 @@ staging:
       - 27018
 
 production:
-  host: localhost
-  port: 27017
   database: factlink_ui_production
+  hosts:
+    - - mongo1-production.factlink.com
+      - 27017
+    - - mongo2-production.factlink.com
+      - 27017
+    - - mongo3-production.factlink.com
+      - 27017
+
