@@ -55,6 +55,7 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/views"
     config.autoload_paths << "#{config.root}/app/workers"
+    config.autoload_paths << "#{config.root}/lib"
 
     config.mongoid.logger = nil
 
@@ -92,6 +93,9 @@ module FactlinkUI
     config.to_prepare do
       Devise::PasswordsController.layout "frontend"
     end
+
+    # X-Frame-Options headers
+    config.middleware.use "FrameOptionsHeaders"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
