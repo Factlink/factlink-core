@@ -11,10 +11,6 @@ class FrameOptionsHeaders
     status, headers, body = @app.call(env)
 
     if headers['Content-Type'] =~ /html/ and not env["PATH_INFO"] == "/factlink/intermediate"
-
-      puts "PATH_INFO:"
-      puts env['PATH_INFO']
-
       headers['X-Frame-Options'] = "SAMEORIGIN"
     end
 
