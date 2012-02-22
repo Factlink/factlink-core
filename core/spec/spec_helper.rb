@@ -49,10 +49,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.after(:each, type: :controller) do
-    return if @dont_check_frame_options
-    response.headers['X-Frame-Options'].should == 'SAMEORIGIN'
-  end
+  # config.after(:each, type: :controller) do
+  #   unless @dont_check_frame_options
+  #     if response.content_type == "html"
+  #       last_response.headers['X-Frame-Options'].should == 'SAMEORIGIN'
+  #     end
+  #   end
+  # end
 
   config.after(:suite) do
     Ohm.flush
