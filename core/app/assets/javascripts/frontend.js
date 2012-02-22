@@ -9,7 +9,6 @@
 //= require twipsy
 
 $(".alert-message").alert();
+$('.dropdown-toggle').dropdown()
 
-$('.topbar').dropdown();
-$('.bookmarklet').twipsy({placement:"below",offset:5});
-
+$('.bookmarklet').tooltip({placement:"below",offset:5});

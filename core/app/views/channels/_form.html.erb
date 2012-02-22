@@ -1,4 +1,5 @@
 <%= form_for(:channel, :html=>{:method=> (action == "update") ? :put : :post}, :url => { action: action, username: params[:username] }) do |f| %>
+  <div class="row" style="margin-left: 0px">
   <% if channel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
@@ -13,18 +14,17 @@
 
   <p><%= t(:channels).titleize %> can be interesting for other users to follow, or are there just to keep your facts categorized.</p>
 
-  <div class="row">
     <%= f.label "Title" %>
     <%= f.text_field :title, :placeholder => "Politics, Cooking, Sports, ..." %>
-  </div>
 
   <div class="action-wrapper">
     <div class="actions">
-      <%= button_tag("Save", :disable_with => "Saving...", :class => "positive btn primary") %>&nbsp;
+      <%= button_tag("Save", :disable_with => "Saving...", :class => "btn btn-primary") %>&nbsp;
       <% if action == "update" %>
-        <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure?", :method => :delete, :class => "danger btn" ) %></span>&nbsp;
+        <span style="margin-right: 5px"><%= link_to("delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure?", :method => :delete, :class => "btn-danger btn" ) %></span>&nbsp;
       <% end %>
     </div>
+  </div>
   </div>
 <% end %>
 

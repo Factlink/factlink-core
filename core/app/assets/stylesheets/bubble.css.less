@@ -1,7 +1,6 @@
-@import "bootstrap/variables";
+//= require bootstrap
 @import "bootstrap/mixins";
-@import "twitter/bootstrap/reset";
-@import "bootstrap/patterns";
+@import "bootstrap/variables";
 
 @transition: opacity 0.2s ease;
 
@@ -66,19 +65,36 @@ div.fact-block .close {
       padding: 5px 0 5px 0 !important;
       margin: 0 0 0 5px !important;
       border: none !important;
-      a {
+      line-height: 13px;
+      
+      label {
         margin: 0;
-        padding: 0;
-        }
+        line-height: 13px;
       }
     }
+  }
   .add-channel {
     border-top: solid 1px #ddd;
     padding: 8px;
-    input[type="text"] {
-      width: 130px;
-      padding: 2px;
-      border: solid 1px #ccc;
+    
+    form {
+      height: 22px;
+      line-height: 13px;
+      margin: 0;
+      padding: 0;
+      input[type="text"] {
+        height: 16px;
+        line-height: normal;
+        width: 130px;
+        border: solid 1px #ccc;
+      }
+      
+      input[type="submit"] {
+        height: 25;
+        line-height: 20px;
+        padding: 2px 6px 3px;
+        margin: 0;
+      }
     }
   }
 }
@@ -86,7 +102,9 @@ div.fact-block .close {
 .fact-block {
   color: #555;
   .border-radius(4px);
+  border: 1px solid transparent;
   background: @white;
+  padding-bottom: 5px;
   article.fact {
     padding: 10px 0 0px (@rightIndent / 2);
     .wheel {
@@ -104,7 +122,7 @@ div.fact-block .close {
       margin: 0 0 5px 75px;
       min-height: 60px;
       padding-right: 25px;
-      #font > .sans-serif(normal,12px,@baseline);
+      #font > .sans-serif(normal,12px,@baseLineHeight);
       sub {
         line-height: inherit;
         font-size: x-small;
@@ -119,7 +137,7 @@ div.fact-block .close {
         color: #afafaf;
       }
 			.edit {
-        #font > .sans-serif(normal,9pt,@baseline);
+        #font > .sans-serif(normal,9pt,@baseLineHeight);
         &:before {
 	        #font > .iconic();
           content: "p ";
@@ -131,7 +149,7 @@ div.fact-block .close {
 				form {
           display: inline-block;
           input, input:focus {
-            #font > .sans-serif(normal,9pt,@baseline);
+            #font > .sans-serif(normal,9pt,@baseLineHeight);
 						background-color: @lightYellow;
             border: none;
 						outline: none;
@@ -201,7 +219,7 @@ div.fact-block .close {
 
         .username {
           font-weight: bold;
-          line-height: @baseline * 1.1;
+          line-height: @baseLineHeight * 1.1;
         }
         img {
           margin-top: 5px;
@@ -212,12 +230,23 @@ div.fact-block .close {
         .user-info {
           padding: 0px 5px 15px 5px;
           margin-left: 40px;
-          ul li {
-            word-wrap: break-word;
-            margin-right: 0;
-            display: inline;
-            &:not(:last-child):after {
-              content: ",";
+          line-height: 12px;
+          height: auto;
+          
+          ul {
+            height: auto;
+            
+            li {
+              word-wrap: break-word;
+              margin-right: 0;
+              display: inline;
+              line-height: 12px;
+              &:not(:last-child):after {
+                content: ",";
+              }
+              a {
+                line-height: 12px;
+              }
             }
           }
         }
@@ -236,6 +265,8 @@ div.fact-block .close {
         a {
           display: inline-block;
           padding: 5px 10px;
+          height: 12px;
+          line-height: 12px;
           &:hover {
             text-decoration: none;
           }
@@ -341,6 +372,9 @@ div.fact-block .close {
         padding: 8px 9px;
         .border-radius(4px);
         #font > .sans-serif(13px, normal, 1.1);
+        height: 14px;
+        margin: 0;
+        
         &:focus {
           outline: 0;
           border: 1px solid @linkColor;

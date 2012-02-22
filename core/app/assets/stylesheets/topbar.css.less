@@ -1,0 +1,81 @@
+/*
+ *= require_tree ./topbar
+ */
+
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+// Our navbar is white :)
+.navbar-inner {
+  background: @navbarBackground;
+  @shadow: 0 0px 3px rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.1);
+  .box-shadow(@shadow);
+}
+
+// Overwrite the default link styles
+.navbar .nav > li > a {
+  color: @linkColor;
+  text-shadow: 0 -1px 0 rgba(255,255,255,.25);
+  font-weight: bold;
+  cursor: pointer;
+  
+  &:hover {
+    color: @linkColorHover;
+  }
+}
+
+// Overwrite caret color
+.navbar .nav .dropdown-toggle .caret,
+.navbar .nav .open.dropdown .caret {
+  border-top-color: @black;
+  .opacity(30);
+}
+
+// Overwrite Text color for the active dropdown text (defaults to white)
+.dropdown.open {
+  .dropdown-toggle {
+    color: @linkColorHover;
+  }
+}
+
+// Dividers (basically a vertical hr)
+.navbar .divider-vertical {
+  background-color: @navbarBackground;
+  border-right: 1px solid @navbarBackgroundHighlight;
+}
+
+.navbar-search {
+  .search-query {
+    background: image-url("searchIcon.png") 8px center no-repeat #fff;
+    padding-left: 28px;
+    color: @gray;
+    border: 1px solid #ccc;
+    .border-radius(4px);
+    padding-bottom: 5px;
+
+    // Placeholder text gets special styles; can't be bundled together though for some reason
+    &:-moz-placeholder {
+      padding-top: 2px;
+      color: @grayLight;
+    }
+    &::-webkit-input-placeholder {
+      padding-top: 2px;
+      color: @grayLight;
+    }
+    // Hover states
+    &:hover {
+      color: @grayDark;
+      border: 1px solid @gray;
+    }
+    // Focus states (we use .focused since IE8 and down doesn't support :focus)
+    &:focus,
+    &.focused {
+      padding-left: 28px;
+      outline: 0;
+      background-color: @white;
+      color: @gray;
+      text-shadow: 0 1px 0 @white;
+      border: 1px solid @linkColor;
+    }
+  }
+}

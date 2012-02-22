@@ -1,9 +1,10 @@
-<header class="container append-bottom">
-  <div class="column span-6" id="logo">
+<header class="container">
+<div class="row">
+  <div class="span3" id="logo" style="float: left">
     <h1><%= link_to '<img src="/assets/logo-gray.png" alt="factlink">'.html_safe, root_path %> </h1>
   </div>
 
-  <div id="sign-in-form" class="prepend-4 span-14 last">
+  <div id="sign-in-form" style="float: right" class="span8">
     <% unless user_signed_in? %>
       <%= form_for("user", :url => user_session_path) do |f| %>
         <div class="input-fields">
@@ -15,5 +16,6 @@
         <%= link_to "Forgot your password?", new_password_path('user') %>
       <% end %>
     <% end %>
+    </div>
   </div>
 </header>

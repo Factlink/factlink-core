@@ -130,19 +130,15 @@ module FactlinkUI
       'frontend.css',
       'general.css',
       'landing.css',
-      'modal.css',
       'popup.css',
-      'tour.css',
-      'bubble.js',
+      'privacy.css',
+      'tos.css',
       'frontend.js',
       'modal.js',
       'popup.js',
-      'tour.js',
       'landing.js',
       'intermediate.js',
       'modernizr-loader.js',
-      'privacy.css',
-      'tos.css',
     ]
   end
 end

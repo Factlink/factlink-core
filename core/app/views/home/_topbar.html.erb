@@ -4,8 +4,8 @@
   <% end %>
 <% end %>
 
-<div class="topbar">
-  <div class="topbar-inner">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
     <div class="container">
       <h3>
         <a class="brand" href="/"><%= image_tag('logo-gray.png', :height => 20, :width => 106) %></a>
@@ -14,36 +14,43 @@
         <%= render "facts/fact_search" %>
       <% end %>
 
-      <ul class="nav secondary-nav">
+      <ul class="nav secondary-nav pull-right">
         <% if current_user %>
           <% if can? :access, Ability::FactlinkWebapp %>
             <li>
-              <a class="show-modal take-the-tour" href="javascript:void(0);">Take the tour</a>
+              <a class="take-the-tour" data-toggle="modal" href="first-tour-modal">Take the tour</a>
+            </li>
+          <% end %>
+          <li class="divider-vertical"></li>
+
+          <% if can? :access, Ability::AdminArea %>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                Admin
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to("Users", admin_users_path) %></li>
+                <li><%= link_to("Jobs", admin_jobs_path) %></li>
+              </ul>
             </li>
           <% end %>
 
-          <% if can? :access, Ability::AdminArea %>
-          <li class="dropdown" data-dropdown="dropdown">
-            <a class="dropdown-toggle">Admin</a>
-            <ul class="dropdown-menu">
-              <li><%= link_to("Users", admin_users_path) %></li>
-              <li><%= link_to("Jobs", admin_jobs_path) %></li>
-            </ul>
-          </li>
-          <% end %>
-
-          <li id="notifications">
-            <a>
+          <li class="dropdown" id="notifications">
+            <a class="dropdown-toggle" data-toggle="dropdown">
               <%= image_tag("activities/icon-generic.png") %>
-
               <span class="unread"></span>
             </a>
-            <ul id="notifications-dropdown">
+            <ul class="dropdown-menu">
             </ul>
           </li>
 
-          <li class="dropdown" data-dropdown="dropdown">
-            <a class="dropdown-toggle">   <%= image_tag(current_user.avatar_url(size:20), :width => 20) %> <%= current_user.username %>  </a>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <%= image_tag(current_user.avatar_url(size:20), :width => 20) %>
+              <%= current_user.username %>
+              <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <% if can? :access, Ability::FactlinkWebapp %>
                 <li><%= link_to(t(:my_channels), user_profile_path(current_user)) %></li>
@@ -54,7 +61,10 @@
 
           <% if can? :access, Ability::FactlinkWebapp %>
           <li class="dropdown" data-dropdown="dropdown">
-            <a class="dropdown-toggle"> <%= image_tag('info.png') %> </a>
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <%= image_tag('info.png') %>
+              <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <li><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png", style: "padding-right: 4px") %>Chrome Extension</a></li>
               <li><a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"

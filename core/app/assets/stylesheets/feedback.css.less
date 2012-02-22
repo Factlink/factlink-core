@@ -1,16 +1,17 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+
 #feedback-modal {
   form {
     margin-bottom: 0;
   }
   fieldset {
-    margin-bottom: @baseline;
-    padding-top: @baseline;
+    margin-bottom: @baseLineHeight;
+    padding-top: @baseLineHeight;
     legend {
       display: block;
       padding-left: 150px;
-      font-size: @basefont * 1.5;
+      font-size: @baseFontSize * 1.5;
       line-height: 1;
       color: @grayDark;
       *padding: 0 0 5px 145px; /* IE6-7 */
@@ -19,7 +20,7 @@
   }
 
   form .clearfix {
-    margin-bottom: @baseline;
+    margin-bottom: @baseLineHeight;
     .clearfix()
   }
 
@@ -50,8 +51,8 @@
   // Float labels left
   label {
     padding-top: 6px;
-    font-size: @basefont;
-    line-height: @baseline;
+    font-size: @baseFontSize;
+    line-height: @baseLineHeight;
     float: left;
     width: 130px;
     text-align: right;
@@ -72,5 +73,19 @@
   .alert-message {
     margin-left: 15px;
     margin-right: 15px;
+  }
+}
+#feedback {
+  position: fixed;
+  top: 160px;
+  background: url("/assets/feedback.png") top left no-repeat transparent;
+  height: 97px;
+  width: 37px;
+  left: 0;
+  a {
+    text-indent: -10000em;
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 }
