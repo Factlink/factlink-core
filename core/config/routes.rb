@@ -132,5 +132,6 @@ FactlinkUI::Application.routes.draw do
   ##################
 
   # Prepare a new Fact
+  # If you change this route, don't forget to change it in application.rb as well (frame busting)
   match "/factlink/intermediate" => "facts#intermediate"
 end
