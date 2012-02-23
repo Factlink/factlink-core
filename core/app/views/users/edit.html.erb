@@ -13,7 +13,7 @@
 
 <div class="row" id="edit_user">
   <div class="span8">
-    <%= form_for(@user, :as => @user, :url => edit_user_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+    <%= form_for(@user, :as => @user, :url => user_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
       <fieldset>
         <legend></legend>
         <div class="control-group<%= " error" if @user.errors[:username].any? %>">
