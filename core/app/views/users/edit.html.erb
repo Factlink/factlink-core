@@ -21,7 +21,7 @@
           <div class="controls">
             <%= f.text_field :username, autocomplete: "off", required: true, tabindex: 1 %>
             <% if @user.errors[:username].any? %>
-              <span class="inline-help"><%= @user.errors[:username] %></span>
+              <span class="help-inline"><%= @user.errors[:username].first %></span>
             <% end %>
           </div>
         </div>
@@ -31,7 +31,7 @@
           <div class="controls">
             <%= f.text_field :first_name, autocomplete: "off", tabindex: 2 %>
             <% if @user.errors[:first_name].any? %>
-              <span class="inline-help"><%= @user.errors[:first_name] %></span>
+              <span class="help-inline"><%= @user.errors[:first_name].first %></span>
             <% end %>
           </div>
         </div>
@@ -41,7 +41,7 @@
           <div class="controls">
             <%= f.text_field :last_name, autocomplete: "off", tabindex: 3 %>
             <% if @user.errors[:last_name].any? %>
-              <span class="inline-help"><%= @user.errors[:last_name] %></span>
+              <span class="help-inline"><%= @user.errors[:last_name].first %></span>
             <% end %>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <div class="controls">
             <%= f.email_field :email, autocomplete: "off", required: true, tabindex: 4 %>
             <% if @user.errors[:email].any? %>
-              <span class="inline-help"><%= @user.errors[:email] %></span>
+              <span class="help-inline"><%= @user.errors[:email].first %></span>
             <% end %>
           </div>
         </div>
