@@ -51,7 +51,7 @@ exports['The header should render'] = function(beforeExit, assert){
 
 exports['The proxied page should be succesful'] = function(beforeExit, assert){
   assert.response(server, {
-      url: '/?url=http://www.google.com',
+      url: '/parse?url=http://www.google.com',
       method: 'GET'
   }, {
       status: 200
@@ -60,9 +60,18 @@ exports['The proxied page should be succesful'] = function(beforeExit, assert){
 
 exports['The proxied page should be succesful'] = function(beforeExit, assert){
   assert.response(server, {
-      url: '/?url=http://www.google.com',
+      url: '/parse?url=http://www.google.com',
       method: 'GET'
   }, {
       status: 200
   });
 };
+
+exports["When an empty url is given, the route should not throw an error"] = function(beforeExit, assert) {
+  assert.response(server, {
+    url: '/parse?url=',
+    method: "GET"
+  }, {
+    status: 200
+  });
+}
