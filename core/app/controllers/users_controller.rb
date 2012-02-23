@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout "channels"
+  layout "frontend"
 
   before_filter :load_user
 
@@ -8,6 +8,9 @@ class UsersController < ApplicationController
       format.html { redirect_to(channel_path(params[:username], @user.graph_user.stream)) }
       format.json { render json: {:user => Users::User.for(user: @user, view: view_context) }}
     end
+  end
+
+  def edit
   end
 
   def activities
@@ -28,6 +31,6 @@ class UsersController < ApplicationController
 
   private
   def load_user
-    @user = User.first(:conditions => { :username => params[:username] }) or raise_404
+    @user = User.first(:conditions => { :username => (params[:username] or params[:id]) }) or raise_404
   end
 end
