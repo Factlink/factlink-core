@@ -121,7 +121,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.$el.find('#activity_for_channel').append(this.activitiesView.render().el);
 
       // Set the active tab
-      var tabs = this.$el.find('.channel-tabs ul');
+      var tabs = this.$el.find('.tabs ul');
       tabs.find('li').removeClass('active');
       tabs.find('.activity').addClass('active');
 

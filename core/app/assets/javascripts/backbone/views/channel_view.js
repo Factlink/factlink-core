@@ -127,7 +127,7 @@ window.ChannelView = Backbone.View.extend({
       this.$el.find('#facts_for_channel').append(this.factsView.render().el);
 
       // Set the active tab
-      var tabs = this.$el.find('.channel-tabs ul');
+      var tabs = this.$el.find('.tabs ul');
       tabs.find('li').removeClass('active');
       tabs.find('.factlinks').addClass('active');
 
