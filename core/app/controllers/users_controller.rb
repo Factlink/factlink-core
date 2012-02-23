@@ -13,6 +13,14 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def update
+    if @user.update_attributes(params[:user])
+      redirect_to edit_user_url, notice: 'Your account was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   def activities
     authorize! :index, Activity
 
