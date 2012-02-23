@@ -19,6 +19,7 @@ describe UsersController do
 
   describe :mark_as_read do
     it "should update last read timestamp on the user" do
+      pending "reenabling this functionality"
       datetime = DateTime.parse("2001-02-03T04:05:06+01:00")
 
       authenticate_user!(user)
