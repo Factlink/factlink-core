@@ -12,42 +12,62 @@
 </header>
 
 <div class="row" id="edit_user">
-  <%= form_for(@user, :as => @user, :url => edit_user_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
-    <fieldset>
-      <legend></legend>
-      <div class="control-group">
-        <%= f.label :username, class: "control-label" %>
-        <div class="controls">
-          <%= f.text_field :username %>
+  <div class="span8">
+    <%= form_for(@user, :as => @user, :url => edit_user_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+      <fieldset>
+        <legend></legend>
+        <div class="control-group<%= " error" if @user.errors[:username].any? %>">
+          <%= f.label :username, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :username, autocomplete: "off", required: true, tabindex: 1 %>
+            <% if @user.errors[:username].any? %>
+              <span class="inline-help"><%= @user.errors[:username] %></span>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="control-group">
-        <label class="control-label">Picture</label>
-        <div class="controls">
-          <%= image_tag @user.avatar_url, class: "avatar" %>
-          <span class="help-inline">This image is automatically grabbed from <a>Gravatar</a>. Edit your Gravatar account to edit the profile picture.</span>
+        <div class="control-group<%= " error" if @user.errors[:first_name].any? %>">
+          <%= f.label :first_name, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :first_name, autocomplete: "off", tabindex: 2 %>
+            <% if @user.errors[:first_name].any? %>
+              <span class="inline-help"><%= @user.errors[:first_name] %></span>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="control-group">
-        <%= f.label :email, class: "control-label" %>
-        <div class="controls">
-          <%= f.email_field :email %>
+        <div class="control-group<%= " error" if @user.errors[:last_name].any? %>">
+          <%= f.label :last_name, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :last_name, autocomplete: "off", tabindex: 3 %>
+            <% if @user.errors[:last_name].any? %>
+              <span class="inline-help"><%= @user.errors[:last_name] %></span>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="control-group">
-        <%= f.label :current_password, class: "control-label" %>
-        <div class="controls">
-          <%= f.password_field :current_password %>
-          <p class="help-block">(we need your current password to confirm your changes)</p>
+        <div class="control-group">
+          <label class="control-label">Picture</label>
+          <div class="controls">
+            <%= image_tag @user.avatar_url, class: "avatar" %>
+            <span class="help-inline">This image is automatically grabbed from <a>Gravatar</a>. Edit your Gravatar account to edit the profile picture.</span>
+          </div>
         </div>
-      </div>
 
-      <div class="controls">
-        <%= f.submit "Save settings", class: "btn btn-primary" %>
-      </div>
-    </fieldset>
-  <% end %>
+        <div class="control-group<%= " error" if @user.errors[:email].any? %>">
+          <%= f.label :email, class: "control-label" %>
+          <div class="controls">
+            <%= f.email_field :email, autocomplete: "off", required: true, tabindex: 4 %>
+            <% if @user.errors[:email].any? %>
+              <span class="inline-help"><%= @user.errors[:email] %></span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="controls">
+          <%= f.submit "Save settings", class: "btn btn-primary" %>
+        </div>
+      </fieldset>
+    <% end %>
+  </div>
 </div>
