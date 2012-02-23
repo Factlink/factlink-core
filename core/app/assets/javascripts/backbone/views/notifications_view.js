@@ -16,14 +16,15 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
     this.modelView = NotificationView;
 
-    this.setupNotificationsFetch();
+    //this.setupNotificationsFetch();
 
     this.$el.find('ul').preventScrollPropagation();
 
     // We need this click handler to be attached here, because
     // Bootstrap.dropdown() has a return false; which makes the event not bubble.
     // And Backbone.events doesn't bind directly on the element.
-    this.$el.find(">a").on("click", $.proxy(this.clickHandler, this));
+    //this.$el.find(">a").on("click", $.proxy(this.clickHandler, this));
+    this.$el.hide();
   },
 
   beforeReset: function () {
