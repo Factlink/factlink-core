@@ -65,7 +65,7 @@ function getServer(config) {
 
   function handleProxyRequest(res, url, scrollto, modus, form_hash) {
     // Welcome page
-    if (url === undefined) {
+    if ( typeof url !== "string" || url.length === 0) {
       res.render('welcome.jade',{
         layout:false,
         locals: {
