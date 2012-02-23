@@ -6,8 +6,12 @@ class User
   include Sunspot::Mongoid
 
   field :name
+
   field :username
   index :username
+  field :first_name
+  field :last_name
+
   field :twitter
   field :graph_user_id
 
