@@ -5,10 +5,14 @@ html
     link(rel="stylesheet", type="text/css", href= static_url + "/proxy/styles/header.css")
   body
     header
+      a(href=core_url)
+        img(src=static_url + "/proxy/images/logo.png")
       form(action=".", method="GET", target="_parent")
-      
+
         input(type="text", value=clean_page_url, name="url")
         input(type="hidden", value=factlinkModus, name="factlinkModus")
-        
+
         -if (page_url !== undefined && page_url !== '')
-          a.close(href=clean_page_url, target="_top") x
+          div.top-right
+            a.help(href=proxy_url, target="_top") help
+            a.close(href=clean_page_url, target="_top") x
