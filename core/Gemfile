@@ -85,6 +85,9 @@ gem 'rmagick', :require => 'RMagick'
 # authorization
 gem "cancan"
 
+# Set X-Frame-Headers
+gem "rack-xframe-options", git: "git@github.com:Factlink/rack-xframe-options.git"
+
 group :assets do
 
   # Temporary fix for @import bug, merge back to original Gem when it's in master
