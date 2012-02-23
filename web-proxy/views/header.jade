@@ -12,7 +12,7 @@ html
         input(type="text", value=clean_page_url, name="url")
         input(type="hidden", value=factlinkModus, name="factlinkModus")
 
-        -if (page_url !== undefined && page_url !== '')
-          div.top-right
-            a.help(href=proxy_url, target="_top") help
+        div.top-right
+          a.help(href=proxy_url, target="_top") help
+          -if (page_url !== undefined && page_url !== '')
             a.close(href=clean_page_url, target="_top") x
