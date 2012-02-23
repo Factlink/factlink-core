@@ -103,10 +103,12 @@ function getServer(config) {
 
     completehandler = function(data) {
       injectFactlinkJs(data, site, scrollto, modus, function(html) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(html);
         res.end();
       }, function(html) {
         console.info( html );
+        res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(html);
         res.end();
       });
