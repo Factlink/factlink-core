@@ -21,6 +21,10 @@ class FactRelation < Basefact
     end
   end
 
+  def FactRelation.get_by(from,type,to)
+    FactRelation[get_id(from,type,to)]
+  end
+
   def FactRelation.get_id(from,type,to)
     id = key['gcby'][from.id][type][to.id].get()
   end
