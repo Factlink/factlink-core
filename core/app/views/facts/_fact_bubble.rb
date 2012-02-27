@@ -17,7 +17,9 @@ module Facts
     end
 
     def displaystring
-      displaystring = h self[:fact].data.displaystring
+      displaystring = self[:fact].data.displaystring
+      displaystring = displaystring[0, self[:limit_characters_to_display]] + " ..." if (self[:limit_characters_to_display] and displaystring.length > self[:limit_characters_to_display])
+      h displaystring
     end
 
     def link

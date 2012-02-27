@@ -36,7 +36,7 @@
   <h3>Top factlinks</h3>
   <ul id="top-factlinks">
   <% @facts.each do |f| %>
-    <li><%= render_mustache 'facts/fact_bubble',  fact: f %></li>
+    <li><%= render_mustache 'facts/fact_bubble',  fact: f, limit_characters_to_display: 100 %></li>
   <% end %>
   </ul>
 <% end %>
