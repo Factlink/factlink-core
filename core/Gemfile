@@ -85,6 +85,9 @@ gem 'rmagick', :require => 'RMagick'
 # authorization
 gem "cancan"
 
+gem 'rpm_contrib'
+gem 'newrelic_rpm'
+
 group :assets do
   gem 'less-rails'
   gem 'uglifier'

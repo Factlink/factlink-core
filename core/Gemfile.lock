@@ -220,6 +220,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_rpm (3.3.2)
     nokogiri (1.5.0)
     ntlm-http (0.1.1)
     octopi (0.4.5)
@@ -290,6 +291,9 @@ GEM
     rmagick (2.13.1)
     roodi (2.1.0)
       ruby_parser
+    rpm_contrib (2.1.7)
+      newrelic_rpm (>= 3.1.1)
+      newrelic_rpm (>= 3.1.1)
     rsolr (1.0.7)
       builder (>= 2.1.2)
     rspec (2.8.0)
@@ -409,6 +413,7 @@ DEPENDENCIES
   mongoid_rails_migrations (= 0.0.13)
   mustache
   mustache_rails3!
+  newrelic_rpm
   octopi
   ohm!
   ohm-contrib!
@@ -421,6 +426,7 @@ DEPENDENCIES
   redis (= 2.2.1)
   resque (= 1.19.0)
   rmagick
+  rpm_contrib
   rspec-rails
   ruby-prof
   simplecov
