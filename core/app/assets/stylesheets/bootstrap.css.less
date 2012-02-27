@@ -13,3 +13,19 @@ a:hover {
   color: @linkColorHover;
   text-decoration: underline;
 }
+
+// FORM FIELD FEEDBACK STATES
+// --------------------------
+
+// Warning
+.control-group.warning {
+  .formFieldState(@warningText, @warningText, @warningBackground);
+}
+// Error
+.control-group.error {
+  .formFieldState(@errorText, @errorText, @errorBackground);
+}
+// Success
+.control-group.success {
+  .formFieldState(@successText, @successText, @successBackground);
+}
