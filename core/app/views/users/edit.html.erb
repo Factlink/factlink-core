@@ -50,7 +50,7 @@
           <label class="control-label">Picture</label>
           <div class="controls">
             <%= image_tag @user.avatar_url, class: "avatar" %>
-            <span class="help-inline">This image is automatically grabbed from <a>Gravatar</a>. Edit your Gravatar account to edit the profile picture.</span>
+            <span class="help-inline">This image is automatically grabbed from <%= link_to "Gravatar", "http://gravatar.com", target: "_blank" %>. Edit your Gravatar account to edit the profile picture.</span>
           </div>
         </div>
 
