@@ -88,6 +88,9 @@ gem "cancan"
 # Set X-Frame-Headers
 gem "rack-xframe-options", git: "git@github.com:Factlink/rack-xframe-options.git"
 
+gem 'rpm_contrib'
+gem 'newrelic_rpm'
+
 group :assets do
 
   # Temporary fix for @import bug, merge back to original Gem when it's in master
