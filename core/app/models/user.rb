@@ -25,6 +25,8 @@ class User
 
   attr_protected :admin
 
+  attr_accessible :username, :first_name, :last_name, :twitter, :email
+
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
   validates_presence_of   :username, :message => "is required", :allow_blank => true
