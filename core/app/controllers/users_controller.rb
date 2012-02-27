@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.'
     else
-      render :action => "edit"
+      render :edit
     end
   end
 
