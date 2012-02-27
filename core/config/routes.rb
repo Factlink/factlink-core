@@ -79,6 +79,10 @@ FactlinkUI::Application.routes.draw do
 
   resource :feedback, only: [:new, :create], controller: "feedback"
 
+  # Seems to me we want to lose the scope "/:username" later and place all
+  # stuff in this resource?
+  resources :users, path: "", only: [ :edit, :update ]
+
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
 

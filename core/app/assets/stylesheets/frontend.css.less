@@ -4,6 +4,7 @@
  *= require bubble
  *= require tour
  *= require topbar
+ *= require users
  */
 
 @import "bootstrap/variables";
@@ -291,13 +292,13 @@ a.bookmarklet {
         }
       }
 
-      .channel-tabs {
+      .tabs {
         float: right;
         ul {
           list-style: none;
           li {
             float: left;
-            padding: 4px;
+            padding: 4px 10px;
             border: solid 1px transparent;
             &.active {
               background-color: @white;
