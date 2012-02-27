@@ -36,4 +36,16 @@ describe UsersController do
     end
   end
 
+  describe :update do
+    it "should redirect to the correct path after changing a username" do
+      authenticate_user!(user)
+
+      should_check_can :update, user
+
+      put :update, :id => user.username, :user => {'username' => 'nice_username'}
+
+      response.should redirect_to edit_user_path('nice_username')
+    end
+  end
+
 end
