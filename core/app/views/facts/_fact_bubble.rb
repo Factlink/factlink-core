@@ -18,7 +18,11 @@ module Facts
 
     def displaystring
       displaystring = self[:fact].data.displaystring
-      displaystring = displaystring[0, self[:limit_characters_to_display]] + " ..." if (self[:limit_characters_to_display] and displaystring.length > self[:limit_characters_to_display])
+      
+      if self[:limit_characters_to_display]
+        displaystring = truncate(displaystring, {length: self[:limit_characters_to_display]})
+      end
+
       h displaystring
     end
 
