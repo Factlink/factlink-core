@@ -13,20 +13,16 @@ class FactRelation < Basefact
   end
 
   def FactRelation.get_or_create(from, type, to, user)
-    if FactRelation.exists_already?(from,type,to)
-      FactRelation.get_relation(from,type,to)
+    id = get_id(from,type,to)
+    if id
+      FactRelation[id]
     else
       FactRelation.create_new(from,type,to, user)
     end
   end
 
-  def FactRelation.exists_already?(from,type,to)
-    key['gcby'][from.id][type][to.id].exists
-  end
-
-  def FactRelation.get_relation(from,type,to)
+  def FactRelation.get_id(from,type,to)
     id = key['gcby'][from.id][type][to.id].get()
-    FactRelation[id]
   end
 
   def FactRelation.create_new(from,type,to,user)
