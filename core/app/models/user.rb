@@ -103,7 +103,7 @@ class User
       self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
 
-    if valid and self.assign_attributes({agrees_tos: agrees_tos, agrees_tos_name: agrees_tos_name, agreed_tos_on: DateTime.now}, as: :from_tos)
+    if valid and self.assign_attributes({agrees_tos: agrees_tos, agrees_tos_name: agrees_tos_name, agreed_tos_on: DateTime.now}, as: :from_tos) and save
       true
     else
       false

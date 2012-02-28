@@ -78,6 +78,19 @@ describe User do
         nonnda_subject.errors.keys.length.should == 0
       end
     end
+
+    describe "user signing the ToS" do
+      it "correctly should persist to the database" do
+        agrees_tos      = true
+        agrees_tos_name = "Tom"
+
+        nonnda_subject.sign_tos(agrees_tos, agrees_tos_name)
+
+        user = User.find(nonnda_subject.id)
+        user.agrees_tos.should      == agrees_tos
+        user.agrees_tos_name.should == agrees_tos_name
+      end
+    end
   end
 
   describe ".find" do
