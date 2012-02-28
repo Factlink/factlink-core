@@ -1,11 +1,12 @@
 <% content_for :stylesheets do %>
   <%= stylesheet_link_tag "tos" %>
 <% end %>
-<div id="tos">
 
+<% content_for :notifications do %>
   <% if can? :sign_tos, current_user %>
     <% if current_user.errors.any? %>
-      <div class="alert-message block-message error">
+      <div class="alert alert-error">
+        <a class="close" data-dismiss="alert">×</a>
         <ul>
         <% current_user.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -14,6 +15,9 @@
       </div>
     <% end %>
   <% end %>
+<% end %>
+
+<div id="tos">
 
   <%= render "terms_of_service" %>
 
@@ -23,7 +27,7 @@
       <div class="row">
         <%= f.label "Name*" %>
         <div class="field">
-        <%= f.text_field :name, required: true %>
+        <%= f.text_field :agrees_tos_name, required: true %>
         </div>
       </div>
 

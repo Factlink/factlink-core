@@ -20,7 +20,7 @@ describe TosController do
 
         user.should_receive(:sign_tos).with(true, 'Sjonnie').and_return(true)
 
-        post :update, user: {agrees_tos: 1, name: 'Sjonnie'}
+        post :update, user: {agrees_tos: 1, agrees_tos_name: 'Sjonnie'}
         response.should redirect_to(user_profile_path(user.username))
       end
     end
@@ -31,7 +31,7 @@ describe TosController do
 
         user.should_receive(:sign_tos).with(false, 'Sjonnie').and_return(false)
 
-        post :update, user: {agrees_tos: 0, name: 'Sjonnie'}
+        post :update, user: {agrees_tos: 0, agrees_tos_name: 'Sjonnie'}
         response.should render_template(:show)
       end
     end

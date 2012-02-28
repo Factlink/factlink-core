@@ -29,5 +29,12 @@ module Activities
       image_tag('activities/icon-channel.png')
     end
 
+    def channel_definition
+      t(:channel)
+    end
+
+    def channels_definition
+      t(:channels)
+    end
   end
 end

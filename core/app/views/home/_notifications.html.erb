@@ -1,9 +1,9 @@
 <% if alert || notice %>
-<div class="alert-message <%= alert ? "error" : "warning" %>">
+<div class="alert<%= alert ? " alert-error" : (notice ? " alert-success" : "") %>" data-dismiss="alert">
   <a class="close" href="#">x</a>
-  <p>
-    <%= notice || '' %>
-    <%= alert  || '' %>
-  </p>
+  <%= notice || '' %>
+  <%= alert  || '' %>
 </div>
 <% end %>
+
+<%= yield :notifications %>

@@ -5,8 +5,6 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
-  field :name
-
   field :username
   index :username
   field :first_name
@@ -17,7 +15,8 @@ class User
 
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
-  field :agreed_tos_on, type: DateTime
+  field :agrees_tos_name, type: String, default: ""
+  field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
 
@@ -25,8 +24,8 @@ class User
 
   attr_protected :admin
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :email
-  attr_accessible :name, :agrees_tos, :agreed_tos_on, as: :from_tos
+  attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
+  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
@@ -93,18 +92,18 @@ class User
     guser.save
   end
 
-  def sign_tos(agrees_tos,name)
+  def sign_tos(agrees_tos, agrees_tos_name)
     valid = true
     unless agrees_tos
       valid = false
       self.errors.add("", "You have to accept the Terms of Service to continue.")
     end
-    if name.blank?
+    if agrees_tos_name.blank?
       valid = false
       self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
 
-    if valid and self.assign_attributes({agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now}, as: :from_tos)
+    if valid and self.assign_attributes({agrees_tos: agrees_tos, agrees_tos_name: agrees_tos_name, agreed_tos_on: DateTime.now}, as: :from_tos) and save
       true
     else
       false
