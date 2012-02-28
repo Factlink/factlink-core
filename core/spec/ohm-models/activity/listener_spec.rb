@@ -1,0 +1,103 @@
+require_relative '../../ohm_helper.rb'
+require_relative '../../../app/ohm-models/activity.rb'
+
+class Blob < OurOhm ;end
+class Foo < OurOhm ;end
+
+describe Activity::Listener do
+  let(:gu1) { GraphUser.create }
+  let(:gu2) { GraphUser.create }
+  let(:b1)  { Blob.create }
+  let(:b2)  { Blob.create }
+  let(:f1)  { Foo.create }
+  let(:f2)  { Foo.create }
+
+  before do
+    unless defined?(GraphUser)
+      class GraphUser < OurOhm
+        def graph_user
+          self
+        end
+      end
+    end
+  end
+
+  describe :new do
+    it "should call its dsl with the block if there is a block" do
+      block = proc { puts "hoi" }
+      Activity::Listener::Dsl.should_receive(:new)
+      Activity::Listener.new &block
+    end
+    it "should not call the dsl when no block is provided" do
+      Activity::Listener::Dsl.should_not_receive(:new)
+      Activity::Listener.new
+    end
+  end
+  
+  describe :add_to do
+    before do
+      subject.activity_for = Blob
+      subject.listname = 'foo'
+      
+      @a = Activity.create subject: b1, object: f1, action: :foobar
+    end
+    it "should return no result when no queries are defined" do
+      subject.add_to(@a).should == []
+    end
+    it "should return the id of the blob and list to which to add if a query matches" do
+      subject.queries << {subject: Blob, write_ids: lambda {[1,2,3]}}
+      subject.stub(matches: true)
+      subject.add_to(@a).should == [1,2,3]
+    end
+  end
+  
+  describe :matches do
+    before do
+      subject.activity_for = Blob
+      subject.listname = 'foo'
+      
+      @a = Activity.create subject: b1, object: f1, action: :foobar
+    end
+    it "should not match for an empty query" do
+      subject.matches({}, @a).should be_false
+      subject.matches({baron: 0b100}, @a).should be_false
+    end
+    it "should match if a property is the same" do
+      subject.matches({subject_class: Blob },@a).should be_true
+      subject.matches({object_class: Foo },@a).should be_true
+      subject.matches({action: :foobar},@a).should be_true
+    end
+    it "should not match if a property is different" do
+      subject.matches({subject_class: Foo },@a).should be_false
+      subject.matches({object_class: Blob },@a).should be_false
+      subject.matches({action: :barfoo},@a).should be_false
+    end
+    it "should match if a property is in a list" do
+      subject.matches({action: [:foobar, :jigglypuff]},@a).should be_true
+    end
+    it "should not match if a property is not in a list" do
+      subject.matches({action: [:barfoo, :humbug, :dizzly]},@a).should be_false
+    end
+    it "should execute the extra_condition query to see if the activity matches" do
+      subject.matches({
+        subject_class: Blob,
+        extra_condition: lambda do |a|
+          a.action.to_s == 'foobar'
+        end
+        },@a).should be_true
+      subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a).should be_false
+    end
+  end
+  
+  describe "attributes" do
+    it do
+      subject.activity_for = "hoi"
+      subject.activity_for.should == "hoi"
+    end
+    it do
+      subject.listname = "doei"
+      subject.listname.should == "doei"
+    end
+  end
+  
+end
