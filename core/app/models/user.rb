@@ -28,7 +28,7 @@ class User
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
-  validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
+  validates_format_of     :username, :with => /^[A-Za-z0-9_]+$/
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
 
