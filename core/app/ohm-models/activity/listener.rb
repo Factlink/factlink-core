@@ -44,7 +44,9 @@ class Activity < OurOhm
     def process activity
       add_to(activity).each do |id|
         score = Ohm::Model::TimestampedSet.current_time(DateTime.parse(activity.created_at))
-        self.activity_for[id].send(listname).add(activity, score)
+                                     #constantize
+        klass = self.activity_for.split('::').inject(Kernel) {|x,y|x.const_get(y)}
+        klass[id].send(listname).add(activity, score)
       end
     end
     

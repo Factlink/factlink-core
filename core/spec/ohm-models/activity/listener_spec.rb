@@ -91,7 +91,7 @@ describe Activity::Listener do
   
   describe :process do
     it "should add the activities to a timestamped set on the object" do
-      subject.activity_for = Foo
+      subject.activity_for = 'Foo'
       subject.listname = :activities
       subject.queries << {subject_class: Foo, write_ids: lambda { [f1.id] } }
 
