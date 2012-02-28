@@ -7,13 +7,13 @@
 </div>
 <div class="no_facts" style="display:none;">
   {{#is_all}}
-    <p>You have not created a channel or added someone's channel yet. You can:</p>
+    <p>You have not created a {{ channel_definition }} or added someone's {{ channel_definition }} yet. You can:</p>
     <div class="empty-channel-action">
       <h3>Add a Factlink</h3>
       <img src="/assets/screenshots/addfactlink.png">
     </div>
     <div class="empty-channel-action">
-      <h3>Create a channel</h3>
+      <h3>Create a {{channel_definition}}</h3>
       <img src="/assets/screenshots/createchannel.png">
     </div>
     <div class="empty-channel-action-end"></div>
@@ -24,13 +24,13 @@
     <img src="/assets/screenshots/addfactlink.png">
   {{/is_created}}
   {{#is_normal}}
-    <p>This channel does not contain any Factlinks yet. You can:</p>
+    <p>This {{ channel_definition }} does not contain any Factlinks yet. You can:</p>
     <div class="empty-channel-action">
       <h3>Add a Factlink</h3>
       <img src="/assets/screenshots/addfactlinktochannel.png">
     </div>
     <div class="empty-channel-action">
-      <h3>Add a channel</h3>
+      <h3>Add a {{ channel_definition }}</h3>
       <img src="/assets/screenshots/addtochannels.png">
     </div>
     <div class="empty-channel-action-end"></div>

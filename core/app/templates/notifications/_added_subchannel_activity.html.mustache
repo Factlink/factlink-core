@@ -3,7 +3,7 @@
 </div>
 <div class="info">
   <span>
-    <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added your channel <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his own channel <a href="{{activity.to_channel_url}}">{{activity.to_channel_title}}</a>
+    <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added your {{ activity.channel_definition }} <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his own {{ activity.channel_definition}} <a href="{{activity.to_channel_url}}">{{activity.to_channel_title}}</a>
   </span>
   <div class="time_ago">
     <img src="/assets/time_ago.gif">
