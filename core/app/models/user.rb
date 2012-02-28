@@ -5,8 +5,6 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
-  field :name
-
   field :username
   index :username
   field :first_name
