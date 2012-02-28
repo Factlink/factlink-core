@@ -4,6 +4,9 @@ class Fact < Basefact
 
   set :channels, Channel
 
+  timestamped_set :interactions, Activity
+
+
   def set_activity!
     activity(self.created_by, "created", self)
   end

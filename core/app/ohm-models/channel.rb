@@ -11,6 +11,9 @@ class Channel < OurOhm
   attribute :title
   index :title
 
+  timestamped_set :activities, Activity
+
+
   attribute :lowercase_title
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
