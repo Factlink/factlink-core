@@ -14,7 +14,7 @@ class Activity < OurOhm
       res = []
       self.queries.each do |query|
         if matches(query, activity)
-          res += query[:write_ids].call
+          res += query[:write_ids].call(activity)
         end
       end
       res
