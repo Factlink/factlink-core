@@ -25,7 +25,7 @@ class User
 
   attr_protected :admin
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :email
+  attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
   attr_accessible :name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
