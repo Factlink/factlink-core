@@ -2,7 +2,7 @@ require_relative '../../ohm_helper.rb'
 require_relative '../../../app/ohm-models/activity.rb'
 
 class Blob < OurOhm ;end
-class Foo < OurOhm 
+class Foo < OurOhm
   timestamped_set :activities, Activity
 end
 
@@ -35,12 +35,12 @@ describe Activity::Listener do
       Activity::Listener.new
     end
   end
-  
+
   describe :add_to do
     before do
       subject.activity_for = Blob
       subject.listname = 'foo'
-      
+
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
     it "should return no result when no queries are defined" do
@@ -52,12 +52,12 @@ describe Activity::Listener do
       subject.add_to(@a).should == [1,2,3]
     end
   end
-  
+
   describe :matches do
     before do
       subject.activity_for = Blob
       subject.listname = 'foo'
-      
+
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
     it "should not match for an empty query" do
@@ -88,7 +88,7 @@ describe Activity::Listener do
       subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a).should be_false
     end
   end
-  
+
   describe :process do
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
@@ -100,8 +100,19 @@ describe Activity::Listener do
       f1.activities.ids.should =~ [a1.id]
       f2.activities.ids.should =~ []
     end
+    it "should pass the activity to the write_ids" do
+      subject.activity_for = 'Foo'
+      subject.listname = :activities
+      subject.queries << {subject_class: Foo, write_ids: lambda { |a| [a.subject.id] } }
+
+      a1 = Activity.create subject: f1, object: f1, action: :foobar
+      subject.process a1
+      f1.activities.ids.should =~ [a1.id]
+      f2.activities.ids.should =~ []
+
+    end
   end
-  
+
   describe "attributes" do
     it do
       subject.activity_for = "hoi"
@@ -112,5 +123,5 @@ describe Activity::Listener do
       subject.listname.should == "doei"
     end
   end
-  
+
 end
