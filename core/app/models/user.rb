@@ -28,10 +28,15 @@ class User
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
-  validates_format_of     :username, :with => /^[A-Za-z0-9_]+$/
+  validates_format_of     :username, :with => /^[A-Za-z0-9_]+$/, :message => "only letters, digits and _ are allowed"
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique"
+  validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
 
+  before_validation :downcase_username
+  def downcase_username
+    self.username.downcase!
+  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
