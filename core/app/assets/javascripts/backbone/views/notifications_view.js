@@ -8,19 +8,23 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
   _unreadCount: 0,
 
-  events: {
-    "click": "clickHandler"
-  },
-
   initialize: function () {
+    var self = this;
+
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 
     this.modelView = NotificationView;
 
-    this.setupNotificationsFetch();
+    //this.setupNotificationsFetch();
 
     this.$el.find('ul').preventScrollPropagation();
+
+    // We need this click handler to be attached here, because
+    // Bootstrap.dropdown() has a return false; which makes the event not bubble.
+    // And Backbone.events doesn't bind directly on the element.
+    //this.$el.find(">a").on("click", $.proxy(this.clickHandler, this));
+    this.$el.hide();
   },
 
   beforeReset: function () {
@@ -65,7 +69,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var args = arguments;
     var self = this;
 
-    if ( ! this._visible ) {
+    if ( ! this.$el.find("ul").is(":visible") ) {
       this.collection.fetch({
         success: function () {
           setTimeout(function () {
@@ -81,60 +85,15 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   clickHandler: function (e) {
-    var self = this;
-    var $dropdown = this.$el.find('ul');
-
-    if ( ! $dropdown.is(':visible' ) ) {
-      this.showDropdown();
-    } else {
-      this.hideDropdown();
-    }
-
-    e.stopPropagation();
-  },
-
-  showDropdown: function () {
-    this._visible = true;
-
-    this.$el
-      .addClass('open')
-      .find('ul').show();
-
-    this.markAsRead();
-
-    this._bindWindowClick();
-  },
-
-  hideDropdown: function () {
-    this._visible = false;
-
-    this.$el
-      .removeClass("open")
-      .find('ul').hide();
-
-    if ( this._shouldMarkUnread === true ) {
+    if ( this.$el.find("ul").is(":visible") ) {
+      this.markAsRead();
+    } else if ( this._shouldMarkUnread === true ) {
       this._shouldMarkUnread = false;
 
       _.forEach(this.views, function ( view ) {
         view.markAsRead();
       });
     }
-
-    this._unbindWindowClick();
-  },
-
-  _bindWindowClick: function () {
-    var self = this;
-
-    $(window).on('click.notifications', function ( e ) {
-      if ( ! $( e.target ).closest('ul').is('#notifications-dropdown') ) {
-        self.hideDropdown();
-      }
-    })
-  },
-
-  _unbindWindowClick: function () {
-    $(window).off('click.notifications');
   }
 });
 }());
