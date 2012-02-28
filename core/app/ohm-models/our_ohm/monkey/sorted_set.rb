@@ -41,6 +41,10 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     opts[:reversed]? res : res.reverse
   end
 
+  def ids
+    key.zrange(0, -1)
+  end
+
   def self.hash_array_for_withscores(arr)
     res = []
     (arr.length / 2).times do |i|

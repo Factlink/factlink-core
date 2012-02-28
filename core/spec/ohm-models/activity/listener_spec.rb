@@ -2,7 +2,9 @@ require_relative '../../ohm_helper.rb'
 require_relative '../../../app/ohm-models/activity.rb'
 
 class Blob < OurOhm ;end
-class Foo < OurOhm ;end
+class Foo < OurOhm 
+  timestamped_set :activities, Activity
+end
 
 describe Activity::Listener do
   let(:gu1) { GraphUser.create }
@@ -81,11 +83,22 @@ describe Activity::Listener do
     it "should execute the extra_condition query to see if the activity matches" do
       subject.matches({
         subject_class: Blob,
-        extra_condition: lambda do |a|
-          a.action.to_s == 'foobar'
-        end
+        extra_condition: lambda { |a| a.action.to_s == 'foobar' }
         },@a).should be_true
       subject.matches({subject_class: Blob, extra_condition: lambda {|a| a.action.to_s == 'barfoo'} },@a).should be_false
+    end
+  end
+  
+  describe :process do
+    it "should add the activities to a timestamped set on the object" do
+      subject.activity_for = Foo
+      subject.listname = :activities
+      subject.queries << {subject_class: Foo, write_ids: lambda { [f1.id] } }
+
+      a1 = Activity.create subject: f1, object: f1, action: :foobar
+      subject.process a1
+      f1.activities.ids.should =~ [a1.id]
+      f2.activities.ids.should =~ []
     end
   end
   

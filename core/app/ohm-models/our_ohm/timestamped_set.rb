@@ -1,6 +1,7 @@
 class Ohm::Model::TimestampedSet < Ohm::Model::SortedSet
-  def self.current_time
-   (DateTime.now.to_time.to_f*1000).to_i
+  def self.current_time(time=nil)
+    time ||= DateTime.now
+    (time.to_time.to_f*1000).to_i
   end
   def initialize(*args)
     super(*args) do |f|
