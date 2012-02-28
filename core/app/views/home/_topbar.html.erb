@@ -55,6 +55,7 @@
               <% if can? :access, Ability::FactlinkWebapp %>
                 <li><%= link_to(t(:my_channels), user_profile_path(current_user)) %></li>
               <% end %>
+              <li><%= link_to("Settings", edit_user_path(current_user)) %></li>
               <li><%= link_to("Sign out", destroy_user_session_path) %></li>
             </ul>
           </li>
