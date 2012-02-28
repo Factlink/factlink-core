@@ -15,7 +15,7 @@ class User
 
   field :admin,       type: Boolean, default: false
   field :agrees_tos,  type: Boolean, default: false
-  field :agrees_tos_name, type: String
+  field :agrees_tos_name, type: String, default: ""
   field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
