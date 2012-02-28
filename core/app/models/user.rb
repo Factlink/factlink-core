@@ -25,6 +25,9 @@ class User
 
   attr_protected :admin
 
+  attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
+  attr_accessible :name, :agrees_tos, :agreed_tos_on, as: :from_tos
+
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username, :with => /^[A-Za-z0-9\d_]+$/
   validates_presence_of   :username, :message => "is required", :allow_blank => true
@@ -90,11 +93,6 @@ class User
     guser.save
   end
 
-  def update_with_password(params={})
-    params.delete(:current_password)
-    self.update_without_password(params)
-  end
-
   def sign_tos(agrees_tos,name)
     valid = true
     unless agrees_tos
@@ -106,7 +104,11 @@ class User
       self.errors.add("", "Please fill in your name to accept the Terms of Service.")
     end
 
-    valid and self.update_without_password(agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now)
+    if valid and self.assign_attributes({agrees_tos: agrees_tos, name: name, agreed_tos_on: DateTime.now}, as: :from_tos)
+      true
+    else
+      false
+    end
   end
 
   private :create_graph_user #WARING!!! is called by the database reset function to recreate graph_users after they were wiped, while users were preserved

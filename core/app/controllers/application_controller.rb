@@ -27,18 +27,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  around_filter :profile
-
-  def profile
-    return yield if ((params[:profile].nil?) || (Rails.env != 'development'))
-    result = RubyProf.profile { yield }
-    printer = RubyProf::GraphPrinter.new(result)
-    out = StringIO.new
-    printer.print(out,{})
-    response.body = out.string
-    response.content_type = "text/plain"
-  end
-
   protect_from_forgery
 
   helper :all

@@ -5,15 +5,15 @@
 
   <div class="tabs">
     <ul>
-      <li class="account active"><a>Account</a></li>
-      <li class="password"><a>Change password</a></li>
+      <li class="account active"><%= link_to "Account", edit_user_path(current_user) %></li>
+      <li class="password"><%= link_to "Change password", user_password_edit_path(current_user) %></li>
     </ul>
   </div>
 </header>
 
 <div class="row" id="edit_user">
   <div class="span8">
-    <%= form_for(@user, :as => @user, :url => user_path(@user), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
+    <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }) do |f| %>
       <fieldset>
         <legend></legend>
         <div class="control-group<%= " error" if @user.errors[:username].any? %>">
@@ -50,7 +50,7 @@
           <label class="control-label">Picture</label>
           <div class="controls">
             <%= image_tag @user.avatar_url, class: "avatar" %>
-            <span class="help-inline">This image is automatically grabbed from <%= link_to "Gravatar", "http://gravatar.com", target: "_blank" %>. Edit your Gravatar account to edit the profile picture.</span>
+            <span class="help-inline avatar">This image is automatically grabbed from <%= link_to "Gravatar", "http://gravatar.com", target: "_blank" %>. Edit your Gravatar account to edit the profile picture.</span>
           </div>
         </div>
 

@@ -23,7 +23,8 @@ module Facts
 
     def remove_from_channel_path
       if self[:channel] and current_user
-        remove_fact_from_channel_path(current_user.username, self[:channel].id, self[:fact].id)
+        "/#{current_user.username}/channels/#{self[:channel].id}/facts/#{self[:fact].id}"
+        #remove_fact_from_channel_path(current_user.username, self[:channel].id, self[:fact].id)
       end
     end
 

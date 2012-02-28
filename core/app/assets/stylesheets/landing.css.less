@@ -20,6 +20,14 @@ body {
     #font > .sans-serif(bold, @baseFontSize, @baseLineHeight);
     color: #303030;
   }
+  h1 {
+    font-size: 30px;
+	margin-bottom: 15px;
+  }
+  h2 {
+    font-size: 20px;
+	margin-bottom: 10px;
+  }
   h3 {
     margin-top: 23px;
     font-size: 14pt;
@@ -45,7 +53,9 @@ body {
     h1 {
       margin-top: 12px;
     }
-    margin-top: 1em;
+    form {
+	  margin: 0 0 10px;
+	}
     margin-bottom: 0;
   }
   
@@ -69,15 +79,17 @@ body {
     }
     a {
       opacity: 1.0;
-      font-size: 0.8em;
+      font-size: 11px;
     }
 
   }
   #payoff {
+	margin-bottom: 60px;
     h2 {
       font-weight: bold;
       font-size: 24pt;
-      margin-bottom: @baseFontSize;
+      margin-bottom: 20px;
+	  line-height: 36px;
     }
     p {
       margin-top: 0.25em;
@@ -92,7 +104,7 @@ body {
       margin-left: 0;
       li {
         padding-top: 2em;
-
+		font-size: 14px;
         img {
           float: left;
           margin-right: 1em;
@@ -123,7 +135,10 @@ body {
         header {
           margin-left: 65px;
           padding-top: 10px;
-          .head, sub {
+		  .head {
+		    display:none;
+		  }
+          sub {
             display: block;
             width: 205px;
             font-size: 8pt;
@@ -166,6 +181,7 @@ body {
     }
   }
   footer {
+	color: #777;
     border: none;
     margin-top: 1em;
     margin-bottom: 2em;
@@ -181,5 +197,22 @@ body {
         }
       }
     }
+  }
+  #body_text{
+	p {
+	  font-size: 15px;
+	  margin-bottom: 1em;
+	}
+  }
+  .team_photos {
+    margin-bottom: 2em;
+  }
+
+  .address {
+    line-height: 1.5em;
+  }
+
+  .enquiries{
+	margin: 0;	
   }
 }

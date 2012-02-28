@@ -14,6 +14,8 @@ class SitesController < ApplicationController
 
   private
     def retrieve_facts_for_url
+      authorize! :index, Fact
+
       url = params[:url]
       site = Site.find(:url => url).first
       @facts = site ? site.facts.to_a : []

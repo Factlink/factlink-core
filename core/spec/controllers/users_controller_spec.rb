@@ -37,14 +37,30 @@ describe UsersController do
   end
 
   describe :update do
-    it "should redirect to the correct path after changing a username" do
+    before do
       authenticate_user!(user)
 
       should_check_can :update, user
+    end
 
+    it "should redirect to the correct path after changing a username" do
       put :update, :id => user.username, :user => {'username' => 'nice_username'}
 
       response.should redirect_to edit_user_path('nice_username')
+    end
+
+    it "should not allow people to update their passwords" do
+      old_user = User.find(user.id)
+
+      encrypted_password = old_user.encrypted_password
+      old_username = old_user.username
+
+      put :update, :id => user.username, :user => {'encrypted_password' => "blaat_password", "username" => "new_username"}
+
+      new_user = User.find(user.id)
+
+      new_user.encrypted_password.should == encrypted_password
+      new_user.username.should == "new_username"
     end
   end
 

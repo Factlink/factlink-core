@@ -17,7 +17,13 @@ module Facts
     end
 
     def displaystring
-      displaystring = h self[:fact].data.displaystring
+      displaystring = self[:fact].data.displaystring
+      
+      if self[:limit_characters_to_display]
+        displaystring = truncate(displaystring, {length: self[:limit_characters_to_display]})
+      end
+
+      h displaystring
     end
 
     def link

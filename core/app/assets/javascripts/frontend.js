@@ -8,7 +8,4 @@
 //= require_tree ./frontend
 //= require twipsy
 
-$(".alert-message").alert();
-$('.dropdown-toggle').dropdown()
-
 $('.bookmarklet').tooltip({placement:"below",offset:5});
