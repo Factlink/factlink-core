@@ -1,31 +1,17 @@
 require 'spec_helper'
 
 describe  do
+  before do
+    load File.expand_path('../../../db/init/20110930joel.rb', __FILE__)
+  end
+  
   it "the speed of the Facts::Fact view" do
-    u1 = create :user
-    gu1 = u1.graph_user
-
-    u2 = create :user
-    gu2 = u2.graph_user
-
-    u3 = create :user
-    gu3 = u3.graph_user
-
-    u4 = create :user
-    gu4 = u4.graph_user
-
-    u5 = create :user
-    gu5 = u5.graph_user
-    
-    current_user = create :user
+    current_user = User.all.first
     current_graph_user = current_user.graph_user
     
-  
-    f1 = create :fact, created_by: gu1
-    f2 = create :fact, created_by: current_graph_user
-    
-    
-    facts = [f1,f2]
+    facts = Fact.all.all
+    facts = facts + facts + facts + facts + facts + facts + facts + facts + facts + facts + facts + facts +
+            facts + facts + facts + facts
     
     view = mock()
     view.stub(
