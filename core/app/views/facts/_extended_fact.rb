@@ -36,6 +36,10 @@ module Facts
       self[:fact].created_by.user.username
     end
 
+    def channels_definition
+      t(:channels).titleize
+    end
+
     def created_by_url
       user_profile_path(self[:fact].created_by.user)
     end
@@ -74,6 +78,15 @@ module Facts
 
     def interacting_users
       Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 5).to_hash
+    end
+
+    def signed_in?
+      user_signed_in?
+    end
+
+    def containing_channel_ids
+      return [] unless current_graph_user
+      current_graph_user.containing_channel_ids(self[:fact])
     end
 
     private
