@@ -11,6 +11,7 @@
   }
   
   span.header-wrap {
+    .ellipsis();
     width: 585px;
     display: inline-block;
     overflow: hidden;
@@ -52,7 +53,7 @@
         display: inline;
         font-size: 18px;
         color: #555;
-        line-height: 20px;
+        line-height: 26px;
         font-weight: normal;
       }
     
@@ -88,13 +89,11 @@
         text-align: center;
         font-size: 18px;
       }
-      
+
       &.agree div { color: #91ad45; }
       &.disagree div { color: #d6663c; }
       &.unsure div { color: #2099e6; }
       &.interacting div { 
-        font-size: 13px;
-        
         > ul {
           float: none;
           margin: 0;
@@ -109,7 +108,8 @@
         }
       }
       &.authority div { 
-        font-size: 11px; 
+        span { font-size: 11px; }
+
         color: #333; 
         vertical-align: middle;
         
