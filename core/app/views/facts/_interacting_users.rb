@@ -15,8 +15,7 @@ module Facts
 
     private
       def last_activity()
-        # TODO inefficient implementation, we can speed this up by doing more manually
-        Activity::For.fact(self[:fact]).sort(limit: self[:user_count]*3, order: 'DESC').uniq {|a| a.user_id}.take(self[:user_count])
+        self[:fact].interactions.below('inf',limit: self[:user_count]*3).uniq {|a| a.user_id}.take(self[:user_count])
       end
 
       def internationalize_action action
