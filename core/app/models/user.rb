@@ -25,8 +25,6 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
 
-  attr_protected :admin
-
   attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
