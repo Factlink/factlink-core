@@ -19,9 +19,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
   },
 
   render: function() {
-    if (this.collection.length > 0) {
-      this.resetSearchResultItems();
-    }
+    this.resetSearchResultItems();
 
     return this;
   },
