@@ -25,10 +25,7 @@ class UsersController < ApplicationController
   end
 
   def activities
-    # TODO: This needs to become much more efficient. Now all activities are
-    # returned and sliced.
-    activities = Activity::For.user(@user.graph_user).sort(order: "DESC").slice(0..6)
-
+    activities = @user.graph_user.notifications.below('inf',limit:7)
     authorize! :index, Activity
 
     respond_to do |format|
