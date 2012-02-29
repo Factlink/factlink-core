@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
-  before_filter :retrieve_facts_for_url
+  before_filter :retrieve_facts_for_url, except: :blacklisted
   before_filter :check_blacklist
 
   def facts_count_for_url
