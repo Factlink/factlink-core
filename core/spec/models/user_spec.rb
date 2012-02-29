@@ -103,17 +103,20 @@ describe User do
   end
 
   describe :to_json do
-    it "should not contain a password" do
-      subject.to_json.should_not include(subject.encrypted_password)
+    before do
+      @json = subject.to_json
     end
-    it "should not contain other sensitive information" do
-      [
-        :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
-        :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
-        :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
-        :sign_in_count
-      ].map{|x| x.to_s}.each do |field|
-        subject.to_json.should_not include(field)
+    it "should not contain a password" do
+      @json.should_not include(subject.encrypted_password)
+    end
+    [
+      :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
+      :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
+      :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
+      :sign_in_count, :agreed_tos_on, :agrees_tos_name
+    ].map{|x| x.to_s}.each do |field|
+      it "should not contain other sensitive information: #{field}" do
+        @json.should_not include(field)
       end
     end
   end
