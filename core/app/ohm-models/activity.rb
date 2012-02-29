@@ -4,7 +4,6 @@ require_relative 'activity/subject'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
 require_relative 'activity/query'
-require_relative 'activity/queries'
 
 class Activity < OurOhm
   include Ohm::Timestamping
