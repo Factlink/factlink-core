@@ -3,7 +3,7 @@ class Activity::Listener
   all << new do
     activity_for "GraphUser"
     named :notifications
-  
+
     activity subject_class: "Channel", action: 'added_subchannel',
              extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
              write_ids: lambda { |a| [a.subject.created_by_id] }
@@ -23,11 +23,11 @@ class Activity::Listener
 
     activity_for "Channel"
     named :activities
-  
+
     activity subject_class: "Channel",
              action: 'added_subchannel',
              write_ids: lambda { |a| [a.subject_id] }
-  
+
     activity object_class: "Fact",
              action: [:added_supporting_evidence, :added_weakening_evidence],
              write_ids: lambda { |a| a.object.channels.ids }
@@ -36,7 +36,7 @@ class Activity::Listener
   all << new do
     activity_for "Fact"
     named :interactions
-  
+
     activity subject_class: "Fact",
              action: [:created, :believes, :disbelieves, :doubts],
              write_ids: lambda { |a| [a.subject.id]}
