@@ -1,25 +1,15 @@
 class Activity < OurOhm
   module For
     def self.fact(f)
-      Query.where([
-        {action: [:created, :believes, :disbelieves, :doubts] ,subject: f}
-      ])
+      f.interactions
     end
 
     def self.channel(ch)
-      Query.where([
-        {subject: ch, action: 'added_subchannel'}
-      ] +
-      ch.facts.map { |f| {object: f, action: [:added_supporting_evidence, :added_weakening_evidence] } }.flatten
-      )
+      ch.activities
     end
 
     def self.user(gu)
-      Query.where(
-        gu.channels.map { |ch|     { exclude_user: gu, subject: ch, action: 'added_subchannel'} }.flatten +
-        gu.created_facts.map { |f| { exclude_user: gu, object:  f, action: [:added_supporting_evidence, :added_weakening_evidence]} }.flatten +
-        gu.created_facts.map { |f| { exclude_user: gu, subject: f, action: [:believes, :doubts, :disbelieves]} }.flatten
-      )
+      gu.notifications
     end
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   subject {FactoryGirl.create :user}
-  let(:nonnda_subject) {FactoryGirl.create :user, agrees_tos: false, name:'Klaas'}
+  let(:nonnda_subject) {FactoryGirl.create :user, agrees_tos: false}
 
   let(:fact) {FactoryGirl.create :fact}
   let(:child1) {FactoryGirl.create :fact}
@@ -46,7 +46,7 @@ describe User do
       it "should not be allowed" do
         nonnda_subject.sign_tos(false, '').should == false
         nonnda_subject.errors.full_messages.length.should == 2
-        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
       end
     end
@@ -55,7 +55,7 @@ describe User do
       it "should not be allowed" do
         nonnda_subject.sign_tos(false, 'Sjaak').should == false
         nonnda_subject.errors.keys.length.should == 1
-        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
       end
     end
@@ -63,7 +63,7 @@ describe User do
       it "should not be allowed" do
         nonnda_subject.sign_tos(true, '').should == false
         nonnda_subject.errors.keys.length.should == 1
-        nonnda_subject.name.should == 'Klaas'
+        nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
       end
     end
@@ -72,10 +72,23 @@ describe User do
         t = DateTime.now
         DateTime.stub!(:now).and_return(t)
         nonnda_subject.sign_tos(true, 'Sjaak').should == true
-        nonnda_subject.name.should == 'Sjaak'
+        nonnda_subject.agrees_tos_name.should == 'Sjaak'
         nonnda_subject.agrees_tos.should == true
         nonnda_subject.agreed_tos_on.to_i.should == t.to_i
         nonnda_subject.errors.keys.length.should == 0
+      end
+    end
+
+    describe "user signing the ToS" do
+      it "correctly should persist to the database" do
+        agrees_tos      = true
+        agrees_tos_name = "Tom"
+
+        nonnda_subject.sign_tos(agrees_tos, agrees_tos_name)
+
+        user = User.find(nonnda_subject.id)
+        user.agrees_tos.should      == agrees_tos
+        user.agrees_tos_name.should == agrees_tos_name
       end
     end
   end

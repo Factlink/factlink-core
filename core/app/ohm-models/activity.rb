@@ -1,6 +1,8 @@
 require 'ohm/contrib'
 
 require_relative 'activity/subject'
+require_relative 'activity/listener'
+require_relative 'activity/create_listeners'
 require_relative 'activity/query'
 require_relative 'activity/queries'
 
@@ -11,6 +13,11 @@ class Activity < OurOhm
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
     old_set_user new_user.graph_user
+  end
+
+  after :create, :process_activity
+  def process_activity
+    Resque.enqueue(ProcessActivity, self.id)
   end
 
 
