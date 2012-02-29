@@ -29,7 +29,7 @@ module Users
     end
 
     def avatar(size=32)
-      image_tag(self[:user].avatar_url(size: size), :width => size)
+      image_tag(self[:user].avatar_url(size: size), :width => size, :height => size, :alt => self[:user].username) 
     end
 
     def avatar_thumb
