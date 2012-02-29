@@ -22,11 +22,12 @@
           <ul class="nav secondary-nav pull-right">
             <% if current_user %>
               <% if can? :access, Ability::FactlinkWebapp %>
+              <% if cannot? :access, Ability::AdminArea %>
                 <li>
                   <a class="take-the-tour" data-toggle="modal" href="first-tour-modal">Take the tour</a>
                 </li>
               <% end %>
-              <li class="divider-vertical"></li>
+              <% end %>
 
               <% if can? :access, Ability::AdminArea %>
                 <li class="dropdown">
