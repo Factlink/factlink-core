@@ -10,7 +10,7 @@ function set_API_OPTIONS(api_options) {
 }
 
 function if_allowed(url, successFn, errorFn) {
-  var factlink_blacklist_url = API_URL + '/site/?url=' + encodeURIComponent(url);
+  var factlink_blacklist_url = API_URL + '/site/blacklisted?url=' + encodeURIComponent(url);
 
   var options = { parser: restler.parsers.json }
 
