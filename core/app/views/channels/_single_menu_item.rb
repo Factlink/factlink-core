@@ -22,7 +22,7 @@ module Channels
     end
 
     def brain_icon
-      image_tag image_path("brain.png")
+      @@brain_png ||= image_tag image_path("brain.png")
     end
 
     def activities_link
