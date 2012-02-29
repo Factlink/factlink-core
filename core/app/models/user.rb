@@ -25,8 +25,6 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
 
-  attr_protected :admin
-
   attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
@@ -132,12 +130,7 @@ class User
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= Array.new
-    options[:except] += [
-      :admin, :agrees_tos, :'confirmation_sent_at', :confirmation_token,
-      :confirmed_at, :current_sign_in_at, :current_sign_in_ip, :encrypted_password,
-      :last_sign_in_at, :last_sign_in_ip, :remember_created_at, :reset_password_token,
-      :sign_in_count
-    ]
+    options[:except] += [:admin, :agrees_tos, :agreed_tos_on, :agrees_tos_name, ]
     super(options)
   end
 

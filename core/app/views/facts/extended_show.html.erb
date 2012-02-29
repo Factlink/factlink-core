@@ -1,6 +1,4 @@
-<div class="fact-block">
-  <%= render_mustache "fact", fact: @fact %>
-</div>
+<%= render_mustache "extended_fact", fact: @fact %>
 
 <% content_for :javascript do %>
 <script>
