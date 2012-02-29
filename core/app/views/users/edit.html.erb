@@ -54,16 +54,6 @@
           </div>
         </div>
 
-        <div class="control-group<%= " error" if @user.errors[:email].any? %>">
-          <%= f.label :email, class: "control-label" %>
-          <div class="controls">
-            <%= f.email_field :email, autocomplete: "off", required: true, tabindex: 4 %>
-            <% if @user.errors[:email].any? %>
-              <span class="help-inline"><%= @user.errors[:email].first %></span>
-            <% end %>
-          </div>
-        </div>
-
         <div class="controls">
           <%= f.submit "Save settings", class: "btn btn-primary" %>
         </div>
