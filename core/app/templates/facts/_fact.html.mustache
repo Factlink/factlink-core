@@ -28,6 +28,10 @@
     </li>
 		{{/signed_in?}}
 
+		<li class="permalink">
+		  <a href="{{url}}"></a>
+		</li>
+
     {{#i_am_owner}}
     <li class="destroy">
       <a></a>
@@ -35,16 +39,16 @@
     {{/i_am_owner}}
 
   </ul>
-    {{#my_authority}}
-    <div class="authority">
-      <img src="/assets/brain.png" alt="Brain" />
-      <span>{{my_authority}}</span>
-    </div>
-    {{/my_authority}}
-    {{#interacting_users}}
-      {{>interacting_users}}
-    {{/interacting_users}}
-  </ul>
+
+  {{#my_authority}}
+  <div class="authority">
+    <img src="/assets/brain.png" alt="Brain" />
+    <span>{{my_authority}}</span>
+  </div>
+  {{/my_authority}}
+  {{#interacting_users}}
+    {{>interacting_users}}
+  {{/interacting_users}}
 </div>
 
 

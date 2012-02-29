@@ -30,11 +30,11 @@ module Facts
     def i_am_owner
       (self[:fact].created_by == current_graph_user)
     end
-    
+
     def my_authority
       auth = Authority.on(self[:fact], for: current_graph_user)
       return false if auth.to_f == 0.0
-      
+
       (auth.to_s.to_f + 1.0).to_s
     end
 
@@ -92,6 +92,10 @@ module Facts
     end
     def nr_of_weakening_facts
       self[:fact].weakening_facts.size
+    end
+
+    def url
+      friendly_fact_path(self[:fact])
     end
 
     expose_to_hash :timestamp
