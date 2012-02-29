@@ -50,17 +50,8 @@
           <label class="control-label">Picture</label>
           <div class="controls">
             <%= image_tag @user.avatar_url, class: "avatar" %>
-            <span class="help-inline avatar">This image is automatically grabbed from <%= link_to "Gravatar", "http://gravatar.com", target: "_blank" %>. Edit your Gravatar account to edit the profile picture.</span>
-          </div>
-        </div>
+            <span class="help-inline avatar">This image is automatically grabbed from <%= link_to "Gravatar", "http://gravatar.com", target: "_blank" %>. Edit your Gravatar account to edit the profile picture.<br><br>(we use <%= @user.email %>)</span>
 
-        <div class="control-group<%= " error" if @user.errors[:email].any? %>">
-          <%= f.label :email, class: "control-label" %>
-          <div class="controls">
-            <%= f.email_field :email, autocomplete: "off", required: true, tabindex: 4 %>
-            <% if @user.errors[:email].any? %>
-              <span class="help-inline"><%= @user.errors[:email].first %></span>
-            <% end %>
           </div>
         </div>
 
