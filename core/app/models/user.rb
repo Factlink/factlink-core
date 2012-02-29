@@ -25,7 +25,7 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :email, :password, :password_confirmation
+  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
