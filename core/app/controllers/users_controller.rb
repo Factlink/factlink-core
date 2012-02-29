@@ -25,8 +25,8 @@ class UsersController < ApplicationController
   end
 
   def activities
+    authorize! :see_activities, @user
     activities = @user.graph_user.notifications.below('inf',limit:7)
-    authorize! :index, Activity
 
     respond_to do |format|
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }

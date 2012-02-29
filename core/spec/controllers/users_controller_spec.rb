@@ -9,7 +9,7 @@ describe UsersController do
     it "should render succesful" do
       authenticate_user!(user)
 
-      should_check_can :index, Activity
+      should_check_can :see_activities, user
 
       get :activities, :username => user.username, :format => :json
 

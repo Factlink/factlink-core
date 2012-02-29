@@ -83,6 +83,9 @@ class Ability
       can :mark_activities_as_read, User do |u|
         u.id == user.id
       end
+      can :see_activities, User do |u|
+        u.id == user.id
+      end
     end
   end
 
