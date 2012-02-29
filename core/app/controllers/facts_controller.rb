@@ -77,12 +77,12 @@ class FactsController < ApplicationController
   end
 
   def destroy
-    if current_user.graph_user == @fact.created_by
-      @fact_id = @fact.id
-      @fact.delete
+    authorize! :destroy, @fact
 
-      respond_with(@fact)
-    end
+    @fact_id = @fact.id
+    @fact.delete
+
+    respond_with(@fact)
   end
 
   def update
