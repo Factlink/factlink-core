@@ -94,7 +94,85 @@ div.fact-block .close {
     }
   }
 }
+
+@controlsHeight: 23px;
 @rightIndent: 10px;
+
+/* INTERACTING USERS + PASSPORT */
+ul.interacting-users {
+  float: right;
+  margin: -(@controlsHeight) 10px 0 0;
+  li {
+    display: inline-block;
+    margin-right: 2px;
+    img {
+      .border-radius(3px);
+      .opacity(60);
+      &:hover {
+        .opacity(100);
+      }
+    }
+  }
+  .passport {
+    .float();
+    position: absolute;
+    margin-left:-182px;
+    width: 200px;
+    display: none;
+    height: 85px;
+    margin-top: -88px;
+
+    .activity {
+      width: 40%;
+      text-transform: capitalize;
+      .border-radius(0 0 5px 0);
+      font-weight: bold;
+      line-height: 18px;
+      padding-left: 5px;
+      background-color: @grayLighter;
+      &.Neutraled, &.Disagreed, &.Agreed { color: @white; }
+      &.Neutraled { background-color: #36a9e1; }
+      &.Disagreed { background-color: #e94e1b; }
+      &.Agreed { background-color: #98d100; }
+    }
+
+    .username {
+      font-weight: bold;
+      line-height: @baseLineHeight * 1.1;
+    }
+    img {
+      margin-top: 5px;
+      margin-left: 5px;
+      float: left;
+      .opacity(100);
+    }
+    .user-info {
+      padding: 0px 5px 15px 5px;
+      margin-left: 40px;
+      line-height: 12px;
+      height: auto;
+      
+      ul {
+        height: auto;
+        overflow: hidden;
+        
+        li {
+          word-wrap: break-word;
+          margin-right: 0;
+          display: inline;
+          line-height: 12px;
+          &:not(:last-child):after {
+            content: ",";
+          }
+          a {
+            line-height: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
 .fact-block {
   color: #555;
   .border-radius(4px);
@@ -163,7 +241,7 @@ div.fact-block .close {
 			}
     }
   }
-  @controlsHeight: 23px;
+
   .controls {
     font-size: 12px;
     .opacity(0);
@@ -176,78 +254,6 @@ div.fact-block .close {
       margin: -20px 130px 0 0;
     }
 
-    ul.users {
-      float: right;
-      margin: -(@controlsHeight) 10px 0 0;
-      li {
-        display: inline-block;
-        margin-right: 2px;
-        img {
-          .border-radius(3px);
-          .opacity(60);
-          &:hover {
-            .opacity(100);
-          }
-        }
-      }
-      .passport {
-        .float();
-        position: absolute;
-        margin-left:-182px;
-        width: 200px;
-        display: none;
-        height: 85px;
-        margin-top: -88px;
-
-        .activity {
-          width: 40%;
-          text-transform: capitalize;
-          .border-radius(0 0 5px 0);
-          font-weight: bold;
-          line-height: 18px;
-          padding-left: 5px;
-          background-color: @grayLighter;
-          &.Neutraled, &.Disagreed, &.Agreed { color: @white; }
-          &.Neutraled { background-color: #36a9e1; }
-          &.Disagreed { background-color: #e94e1b; }
-          &.Agreed { background-color: #98d100; }
-        }
-
-        .username {
-          font-weight: bold;
-          line-height: @baseLineHeight * 1.1;
-        }
-        img {
-          margin-top: 5px;
-          margin-left: 5px;
-          float: left;
-          .opacity(100);
-        }
-        .user-info {
-          padding: 0px 5px 15px 5px;
-          margin-left: 40px;
-          line-height: 12px;
-          height: auto;
-          
-          ul {
-            height: auto;
-            
-            li {
-              word-wrap: break-word;
-              margin-right: 0;
-              display: inline;
-              line-height: 12px;
-              &:not(:last-child):after {
-                content: ",";
-              }
-              a {
-                line-height: 12px;
-              }
-            }
-          }
-        }
-      }
-    }
     ul.evidence {
       height: @controlsHeight;
       margin-left: 60px;
