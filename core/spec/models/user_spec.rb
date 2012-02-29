@@ -129,6 +129,10 @@ describe User do
       @u.username = "GerardEkdom"
       @u.valid?.should be_true
     end
+    it "should be possible to choose 1 letter as name" do
+      @u.username = "a"
+      @u.valid?.should be_false
+    end
     [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :feedback, :factlink].each do |name|
       it "should not be possible to choose #{name} as name" do
         @u.username = name.to_s

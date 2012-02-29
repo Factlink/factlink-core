@@ -30,8 +30,11 @@ class User
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
-                          :with => /^[A-Za-z0-9_]+$/,
+                          :with => /^[A-Za-z0-9_]*$/,
                           :message => "only letters, digits and _ are allowed"
+  validates_format_of     :username,
+                          :with => /.{2,}/,
+                          :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
                             :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :feedback, :factlink
