@@ -55,7 +55,7 @@ module Facts
     end
 
     def users_authority
-      Authority.on(self[:fact], for: current_graph_user).to_f + 1.0
+      Authority.on(self[:fact], for: current_graph_user).to_s.to_f + 1.0
     end
 
     def nr_of_supporting_facts
