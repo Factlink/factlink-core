@@ -8,14 +8,6 @@ describe User do
   let(:fact) {FactoryGirl.create :fact}
   let(:child1) {FactoryGirl.create :fact}
 
-  def valid_attributes
-    {
-      username: "TestUser",
-      email: "test@emial.nl",
-      password: "test123"
-    }
-  end
-
   context "Initially" do
     it {subject.graph_user.facts.to_a.should == []}
     it {subject.graph_user.should == subject.graph_user }
@@ -45,7 +37,15 @@ describe User do
     end
   end
 
-  describe "Usernames" do
+  describe :assign_attributes do
+    let (:valid_attributes) {
+      {
+        username: "TestUser",
+        email: "test@emial.nl",
+        password: "test123"
+      }
+    }
+
     it "should not fail when trying assign a username" do
       user = User.new
       user.assign_attributes(valid_attributes, as: :admin)
@@ -53,6 +53,21 @@ describe User do
       user.confirmed_at = DateTime.now
 
       user.save.should == true
+    end
+  end
+
+  describe :username do
+    it "should respect the username's case" do
+      user = build :user, username: "TestUser"
+      user.save.should == true
+
+      User.find(user.id).username.should == "TestUser"
+    end
+
+    it "should check uniqueness case insensitive" do
+      user1 = create :user, username: "TestUser"
+      user2 = build  :user, username: "testuser"
+      user2.save.should be_false
     end
   end
 
