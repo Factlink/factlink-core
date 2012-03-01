@@ -5,17 +5,17 @@
   padding-top: 0;  padding-bottom: 0;
   white-space: nowrap;
   height: 45px;
-  
+
   .tabs {
     margin-top: -27px;
   }
-  
+
   span.header-wrap {
     .ellipsis();
     width: 585px;
     display: inline-block;
     overflow: hidden;
-    
+
     a.site {
       color: @linkColor;
       font-weight: bold;
@@ -27,6 +27,8 @@
 
     span.title {
       white-space: nowrap;
+      line-height: 45px;
+      display: inline-block;
     }
   }
 }
@@ -35,20 +37,20 @@
   .fact-block {
     margin-left: 20px;
     border: none;
-    
+
     .controls {
       .opacity(100);
     }
   }
-  
+
   h3 {
     margin: 20px 0 10px 75px;
   }
-  
+
   .fact-body {
     div {
       padding: 0 0 10px;
-      
+
       h2 {
         display: inline;
         font-size: 18px;
@@ -56,35 +58,35 @@
         line-height: 26px;
         font-weight: normal;
       }
-    
+
       .scroll-to-container {
         white-space: nowrap;
       }
     }
-    
+
     sub {
       color: #888;
       font-weight: normal;
       font-size: 11px;
     }
   }
-  
+
   article.fact > ul {
     margin: 0 0 0 75px;
     border-top: 1px solid #E1E1E1;
-    
+
     > li {
       margin: 10px 0 0 0;
       display: inline-block;
       border-right: 1px solid #E1E1E1;
-      
+
       h6 {
         color: #555555;
         font-size: 13px;
         text-transform: capitalize;
         padding: 0 12px;
       }
-      
+
       div {
         text-align: center;
         font-size: 18px;
@@ -93,41 +95,41 @@
       &.agree div { color: #91ad45; }
       &.disagree div { color: #d6663c; }
       &.unsure div { color: #2099e6; }
-      &.interacting div { 
+      &.interacting div {
         > ul {
           float: none;
           margin: 0;
-          
+
           > li {
             text-align: left;
             display: inline-block;
-            
+
             img {
               .border-radius(2px);
             }
-            
+
             div {
               font-size: 12px;
-              
+
             }
           }
         }
       }
-      &.authority div { 
+      &.authority div {
         span { font-size: 11px; }
 
-        color: #333; 
+        color: #333;
         vertical-align: middle;
-        
+
         img {
           vertical-align: middle;
         }
-        
+
         span {
           vertical-align: middle;
         }
       }
-      
+
       &.last {
         border: none;
       }
