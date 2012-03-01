@@ -189,7 +189,7 @@ class ChannelsController < ApplicationController
     authorize! :show, @channel
 
     respond_to do |format|
-      format.json { render json: Activity::For.channel(@channel).map { |activity| Activities::Activity.for(activity: activity, view: view_context) }.reverse }
+      format.json { render json: Activity::For.channel(@channel).below('inf',count: 17).keep_if{|a| a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }.reverse }
       format.html { render inline:'', layout: "channels" }
     end
   end
