@@ -1,9 +1,7 @@
-require_relative '../ohm_helper.rb'
-require_relative '../../app/ohm-models/activity.rb'
+require 'spec_helper'
 
 class Blob < OurOhm ;end
 class Foo < OurOhm ;end
-class GraphUser < OurOhm ;end
 
 describe Activity do
   let(:b1) { Blob.create }
@@ -66,6 +64,56 @@ describe Activity do
       it {Activity.for(gu2).to_a.should =~ [@activity] }
       it {Activity.for(gu3).to_a.should =~ [@activity] }
     end
+  end
+
+  describe "still_valid?" do
+    before do
+      @a = Activity.create(
+             :user => gu,
+             :action => :foo,
+             :subject => gu2,
+             :object => gu3
+           )
+    end
+
+    it "should be valid for valid activity" do
+      @a.should be_still_valid
+    end
+
+    it "should not be valid if the user is deleted" do
+      gu.delete
+      @a.should_not be_still_valid
+    end
+
+    it "should not be valid if the subject is deleted" do
+      gu2.delete
+      @a.should_not be_still_valid
+    end
+
+    it "should not be valid if the object is deleted" do
+      gu3.delete
+      @a.should_not be_still_valid
+    end
+
+    it "should be valid when the user is not set" do
+      @a = Activity.create(
+             :action => :foo,
+             :subject => gu2,
+             :object => gu3
+           )
+      @a.should be_still_valid
+    end
+
+    it "should be valid when the subject is unset/not set" do
+      @a.subject = nil
+      @a.should be_still_valid
+    end
+
+    it "should be valid when the object is unset/not set" do
+      @a.object = nil
+      @a.should be_still_valid
+    end
+
   end
 
   describe :to_hash_without_time do

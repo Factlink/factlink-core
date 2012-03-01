@@ -3,18 +3,44 @@ require 'spec_helper'
 describe Admin::UsersController do
   render_views
 
+  # This should return the minimal set of attributes required to create a valid
+  # User. As you add validations to User, be sure to
+  # update the return value of this method accordingly.
+  def valid_attributes
+    {
+      username: "test_user",
+      email: "test@mail.nl",
+      password: "test123",
+      password_confirmation: "test123"
+    }
+  end
+
   let (:user)  {FactoryGirl.create :user, admin: true}
-  
+
   before do
     should_check_admin_ability
   end
-  
+
   describe "#index" do
     it "should render the index" do
       authenticate_user!(user)
       should_check_can :index, User
       get :index
       response.should be_succes
+    end
+  end
+
+  describe "POST create" do
+    describe "with valid params" do
+      it "creates a new User" do
+        authenticate_user!(user)
+        @new_user = User.new valid_attributes
+        User.stub(:new) { @new_user }
+        should_check_can :create, @new_user
+        expect {
+          post :create, :user => valid_attributes
+        }.to change(User, :count).by(1)
+      end
     end
   end
 end
