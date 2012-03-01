@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Activity::For do
+describe 'activity queries' do
   include RedisSupport
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
@@ -8,7 +8,7 @@ describe Activity::For do
   describe ".fact" do
     it "should return creation activity" do
       f1 = create :fact, created_by: gu1
-      Activity::For.fact(f1).map(&:to_hash_without_time).should == [
+      f1.interactions.map(&:to_hash_without_time).should == [
         {user: gu1, action: :created, subject: f1}
       ]
     end
@@ -17,7 +17,7 @@ describe Activity::For do
       f1 = create :fact, created_by: gu1
       f2 = create :fact, created_by: gu1
       f3 = create :fact, created_by: gu1
-      Activity::For.fact(f1).map(&:to_hash_without_time).should == [
+      f1.interactions.map(&:to_hash_without_time).should == [
         {user: gu1, action: :created, subject: f1}
       ]
     end
@@ -28,7 +28,7 @@ describe Activity::For do
       ch1 = create :channel
       ch2 = create :channel
       ch1.add_channel(ch2)
-      Activity::For.channel(ch2).map(&:to_hash_without_time).should == [
+      ch2.activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
@@ -42,7 +42,7 @@ describe Activity::For do
         f1.add_evidence type, f2, gu1
 
         @nr = number_of_commands_on Ohm.redis do
-          @activities = Activity::For.channel(ch1).map(&:to_hash_without_time)
+          @activities = ch1.activities.map(&:to_hash_without_time)
         end
         @nr.should < 25
         @activities.should == [
@@ -58,7 +58,7 @@ describe Activity::For do
       ch2 = create :channel
 
       ch1.add_channel(ch2)
-      Activity::For.user(ch2.created_by).map(&:to_hash_without_time).should == [
+      ch2.created_by.notifications.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
@@ -69,7 +69,7 @@ describe Activity::For do
       f1.add_opinion(:believes, gu1)
       f1.add_opinion(:disbelieves, f1.created_by)
 
-      Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+      f1.created_by.notifications.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
       ]
     end
@@ -79,7 +79,7 @@ describe Activity::For do
         f1 = create :fact
         f2 = create :fact
         f1.add_evidence type, f2, gu1
-        Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+        f1.created_by.notifications.map(&:to_hash_without_time).should == [
           {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
         ]
       end
@@ -89,7 +89,7 @@ describe Activity::For do
         f1 = create :fact
         f1.add_opinion(opinion, gu1)
 
-        Activity::For.user(f1.created_by).map(&:to_hash_without_time).should == [
+        f1.created_by.notifications.map(&:to_hash_without_time).should == [
             {user: gu1, action: opinion, subject: f1}
         ]
       end

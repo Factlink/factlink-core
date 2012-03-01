@@ -154,4 +154,16 @@ describe Ability do
       Job.accessible_by(anonymous).to_a.should =~ [@j1, @j3]
     end
   end
+
+  describe "seeing notifications" do
+    it "should be possible to see and modify your own notifications" do
+      subject.should be_able_to :see_activities, user
+      subject.should be_able_to :mark_activities_as_read, user
+    end
+
+    it "should not be able to see and modify other people their notifications" do
+      subject.should_not be_able_to :see_activities, other_user
+      subject.should_not be_able_to :mark_activities_as_read, other_user
+    end
+  end
 end

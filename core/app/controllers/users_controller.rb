@@ -25,11 +25,8 @@ class UsersController < ApplicationController
   end
 
   def activities
-    # TODO: This needs to become much more efficient. Now all activities are
-    # returned and sliced.
-    activities = Activity::For.user(@user.graph_user).sort(order: "DESC").slice(0..6)
-
-    authorize! :index, Activity
+    authorize! :see_activities, @user
+    activities = @user.graph_user.notifications.below('inf', count: 7, reversed: true )
 
     respond_to do |format|
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }

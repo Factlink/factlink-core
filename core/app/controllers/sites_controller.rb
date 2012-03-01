@@ -1,8 +1,6 @@
 class SitesController < ApplicationController
-  before_filter :retrieve_facts_for_url
-  before_filter :check_blacklist, :only => [
-      :facts_count_for_url
-    ]
+  before_filter :retrieve_facts_for_url, except: :blacklisted
+  before_filter :check_blacklist
 
   def facts_count_for_url
     render :json => { :count => @facts.count }, :callback => params[:callback], :content_type => "application/javascript"
@@ -12,10 +10,13 @@ class SitesController < ApplicationController
     render :json => @facts , :callback => params[:callback], :content_type => "application/javascript"
   end
 
+  def blacklisted
+    render json: {}
+  end
+
   private
     def retrieve_facts_for_url
       authorize! :index, Fact
-
       url = params[:url]
       site = Site.find(:url => url).first
       @facts = site ? site.facts.to_a : []
