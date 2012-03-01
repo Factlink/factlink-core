@@ -8,7 +8,7 @@ class Activity < OurOhm
   attribute :action
 
   def self.for(search_for)
-    Activity::Query.for(search_for)
+    Activity.for(search_for)
   end
 end
 
