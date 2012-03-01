@@ -39,5 +39,11 @@ class Activity < OurOhm
     h
   end
 
+  def still_valid?
+    (user or not user_id) and
+      (subject or not subject_id) and
+      (object or not object_id)
+  end
+
 end
 

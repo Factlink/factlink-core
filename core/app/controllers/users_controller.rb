@@ -29,6 +29,8 @@ class UsersController < ApplicationController
     activities = @user.graph_user.notifications.below('inf', count: 7)
     activities.reverse!
 
+    activities.keep_if { |a| a.still_valid? }
+
     respond_to do |format|
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
     end
