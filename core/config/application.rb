@@ -95,7 +95,11 @@ module FactlinkUI
 
     # Block frame busting for all routes except the intermediate
     # If you update this route, also update it here please.
-    config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/factlink/intermediate"]
+    #
+    # Why?
+    # - /factlink/intermediate  : Loaded in iframe through JS Library
+    # - /facts/new              : Loaded in iframe through Chrome Extension (popup)
+    config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/factlink/intermediate", "/facts/new"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
