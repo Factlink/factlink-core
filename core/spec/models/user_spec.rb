@@ -8,6 +8,14 @@ describe User do
   let(:fact) {FactoryGirl.create :fact}
   let(:child1) {FactoryGirl.create :fact}
 
+  def valid_attributes
+    {
+      username: "TestUser",
+      email: "test@emial.nl",
+      password: "test123"
+    }
+  end
+
   context "Initially" do
     it {subject.graph_user.facts.to_a.should == []}
     it {subject.graph_user.should == subject.graph_user }
@@ -34,6 +42,17 @@ describe User do
       subject.save
 
       subject.last_read_activities_on.should == datetime
+    end
+  end
+
+  describe "Usernames" do
+    it "should not fail when trying assign a username" do
+      user = User.new
+      user.assign_attributes(valid_attributes, as: :admin)
+
+      user.confirmed_at = DateTime.now
+
+      user.save.should == true
     end
   end
 
