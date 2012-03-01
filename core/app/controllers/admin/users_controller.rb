@@ -1,7 +1,7 @@
 class Admin::UsersController < AdminController
 
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
 
   layout "admin"
 
@@ -18,7 +18,12 @@ class Admin::UsersController < AdminController
   end
 
   def create
+    @user = User.new
+    @user.assign_attributes(params[:user], as: :admin)
+
     @user.confirmed_at = DateTime.now
+
+    authorize! :create, @user
     if @user.save
       redirect_to admin_user_path(@user), notice: 'User was successfully created.'
     else
@@ -27,7 +32,7 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    if @user.update_with_password(params[:user])
+    if @user.assign_attributes(params[:user], as: :admin) and @user.save
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
