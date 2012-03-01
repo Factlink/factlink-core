@@ -89,15 +89,15 @@ module Facts
       current_graph_user.containing_channel_ids(self[:fact])
     end
 
+    def proxy_scroll_url
+      FactlinkUI::Application.config.proxy_url + "/?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
+    rescue
+      ""
+    end
+
     private
       def show_links
         not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and self[:fact].site
-      end
-
-      def proxy_scroll_url
-        FactlinkUI::Application.config.proxy_url + "/?url=" + URI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
-      rescue
-        ""
       end
   end
 end
