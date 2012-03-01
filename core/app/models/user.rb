@@ -42,13 +42,8 @@ class User
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_presence_of   :username, :message => "is required", :allow_blank => true
-  validates_uniqueness_of :username, :message => "must be unique"
+  validates_uniqueness_of :username, :message => "must be unique", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
-
-  before_validation :downcase_username
-  def downcase_username
-    self.username.andand.downcase!
-  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
