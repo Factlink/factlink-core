@@ -1,2 +1,2 @@
-^/Users/markijbema/devel/factlink/core/app/controllers/home_controller.rb.*Dynamic Render Path.*home/pages/#\{$1\}.*$
-^/Users/markijbema/devel/factlink/core/app/controllers/templates_controller.rb.*Dynamic Render Path.*"templates/" + params[:name].*$
+/Users/markijbema/devel/factlink/core/app/controllers/home_controller.rb.*Dynamic Render Path.*home/pages/.*
+/Users/markijbema/devel/factlink/core/app/controllers/templates_controller.rb.*Dynamic Render Path.*"templates/".*
