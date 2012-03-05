@@ -10,7 +10,7 @@ FactlinkUI::Application.routes.draw do
   ################
   # Facts Controller
   ################
-  resources :facts, :except => [:edit, :index] do
+  resources :facts, :except => [:edit, :index, :update] do
     resources :evidence
 
     resources :supporting_evidence, :weakening_evidence do
