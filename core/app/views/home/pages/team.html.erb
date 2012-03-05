@@ -12,19 +12,19 @@
   <p>The Factlink team is a group of world-class people who have been involved with building many pioneering products. Our expertise is in building web-wide scale products. Our focus is on solving hard problems and delighting users. We care deeply about helping people to excel and explore their full talents.</p>
 
   <div class="team_photos">
-    <%= image_tag "team/merijn.png", alt: "Merijn Terheggen", class: "tooltip", rel: "tooltip", title: "Merijn Terheggen", width: 82, height: 82 %>
-    <%= image_tag "team/gordon.png", alt: "Gordon Rios", class: "tooltip", rel: "tooltip", title: "Gordon Rios", width: 82, height: 82 %>
-    <%= image_tag "team/tom.png", alt: "Tom de Vries", class: "tooltip", rel: "tooltip", title: "Tom de Vries", width: 82, height: 82 %>
-    <%= image_tag "team/remon.png", alt: "Remon Oldenbeuving", class: "tooltip", rel: "tooltip", title: "Remon Oldenbeuving", width: 82, height: 82 %>
-    <%= image_tag "team/michiel.png", alt: "Michiel Prins", class: "tooltip", rel: "tooltip", title: "Michiel Prins", width: 82, height: 82 %>
-    <%= image_tag "team/jobert.png", alt: "Jobert Abma", class: "tooltip", rel: "tooltip", title: "Jobert Abma", width: 82, height: 82 %>
-    <%= image_tag "team/jan.png", alt: "Jan Salvador van der Ven", class: "tooltip", rel: "tooltip", title: "Jan Salvador van der Ven", width: 82, height: 82 %>
-    <%= image_tag "team/mark.png", alt: "Mark Ijbema", class: "tooltip", rel: "tooltip", title: "Mark Ijbema", width: 82, height: 82 %>
-    <%= image_tag "team/jordin.png", alt: "Jordin van Zwol", class: "tooltip", rel: "tooltip", title: "Jordin van Zwol", width: 82, height: 82 %>
-    <%= image_tag "team/joel.png", alt: "Joël Kuiper", class: "tooltip", rel: "tooltip", title: "Joël Kuiper", width: 82, height: 82 %>
-    <%= image_tag "team/jens.png", alt: "Jens Kanis", class: "tooltip", rel: "tooltip", title: "Jens Kanis", width: 82, height: 82 %>
-    <%= image_tag "team/martijn.png", alt: "Martijn Russchen", class: "tooltip", rel: "tooltip", title: "Martijn Russchen", width: 82, height: 82 %>
-    <%= image_tag "team/knud.png", alt: "Knud Balslev", class: "tooltip", rel: "tooltip", title: "Knud Balslev", width: 82, height: 82 %>
+    <%= image_tag "team/merijn.png", alt: "Merijn Terheggen", class: "tooltips", rel: "tooltip", title: "Merijn Terheggen", width: 82, height: 82 %>
+    <%= image_tag "team/gordon.png", alt: "Gordon Rios", class: "tooltips", rel: "tooltip", title: "Gordon Rios", width: 82, height: 82 %>
+    <%= image_tag "team/tom.png", alt: "Tom de Vries", class: "tooltips", rel: "tooltip", title: "Tom de Vries", width: 82, height: 82 %>
+    <%= image_tag "team/remon.png", alt: "Remon Oldenbeuving", class: "tooltips", rel: "tooltip", title: "Remon Oldenbeuving", width: 82, height: 82 %>
+    <%= image_tag "team/michiel.png", alt: "Michiel Prins", class: "tooltips", rel: "tooltip", title: "Michiel Prins", width: 82, height: 82 %>
+    <%= image_tag "team/jobert.png", alt: "Jobert Abma", class: "tooltips", rel: "tooltip", title: "Jobert Abma", width: 82, height: 82 %>
+    <%= image_tag "team/jan.png", alt: "Jan Salvador van der Ven", class: "tooltip"s, rel: "tooltip", title: "Jan Salvador van der Ven", width: 82, height: 82 %>
+    <%= image_tag "team/mark.png", alt: "Mark Ijbema", class: "tooltips", rel: "tooltip", title: "Mark Ijbema", width: 82, height: 82 %>
+    <%= image_tag "team/jordin.png", alt: "Jordin van Zwol", class: "tooltips", rel: "tooltip", title: "Jordin van Zwol", width: 82, height: 82 %>
+    <%= image_tag "team/joel.png", alt: "Joël Kuiper", class: "tooltips", rel: "tooltip", title: "Joël Kuiper", width: 82, height: 82 %>
+    <%= image_tag "team/jens.png", alt: "Jens Kanis", class: "tooltips", rel: "tooltip", title: "Jens Kanis", width: 82, height: 82 %>
+    <%= image_tag "team/martijn.png", alt: "Martijn Russchen", class: "tooltips", rel: "tooltip", title: "Martijn Russchen", width: 82, height: 82 %>
+    <%= image_tag "team/knud.png", alt: "Knud Balslev", class: "tooltips", rel: "tooltip", title: "Knud Balslev", width: 82, height: 82 %>
   </div>
   <h2>Get in touch!</h2>
   <p>Do you care about building something amazing? We love talking to talented people. <a href="mailto:info@factlink.com">Drop us a note!</a></p>
@@ -32,6 +32,6 @@
 
 <% content_for :javascript do %>
   <script>
-  $('.tooltip').tooltip();
+  $('.tooltips').tooltip();
   </script>
 <% end %>
