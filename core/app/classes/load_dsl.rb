@@ -92,15 +92,19 @@ class LoadDsl
     if not u
 
       if email and password
-        u = User.create(
+        u = User.new(
           :username => username,
-          :email => email,
-          :confirmed_at => DateTime.now,
           :password => password,
           :password_confirmation => password,
           :twitter => twitter)
-
-        raise "User #{username} could not be created, maybe the email address wasn't unique?" if u.new?
+        u.email = email
+        u.confirmed_at = DateTime.now
+        u.save
+        if u.new?
+          err_msg = "User #{username} could not be created, maybe the email address wasn't unique?"
+          u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
+          raise err_msg if u.new?
+        end
       else
         raise UndefinedUserError, "A new user was introduced, but email and password were not given", caller
       end
