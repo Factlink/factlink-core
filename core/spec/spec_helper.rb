@@ -36,6 +36,8 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include ControllerMethods, type: :controller
 
+  config.pattern = "**/*_spec.rb"
+
   config.mock_with :rspec
   require 'database_cleaner'
 
