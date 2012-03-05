@@ -7,6 +7,8 @@ module FactlinkApi
                     confirmed_at: DateTime.now
       })
       u.email = email
+      u.confirmed_at = DateTime.now
+      
       u.save
       if(u.errors.size > 0)
         msg = "Failed to import "

@@ -1,3 +1,4 @@
+
 class Activity::Listener
 
   all << new do
