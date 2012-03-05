@@ -107,7 +107,6 @@ end
 group :development do
   # mesa want speed:
   # gem 'rails-dev-tweaks', '~> 0.5.2'
-
   gem "pry", :require => false
 
   #for static files serving
@@ -118,6 +117,7 @@ end
 group :development, :test do
   #suddenly we need to require this gem, else bundle update goes wrong, we never use it however
   gem 'rcov', '0.9.11', :require => false
+  gem 'brakeman'
 
   gem 'metric_fu', '2.1.1', :require => false
     #dependencies of metric_fu:
