@@ -1,6 +1,6 @@
 <% if current_user && !current_user.seen_the_tour && (can? :access, Ability::FactlinkWebapp) %>
   <% content_for :javascript do %>
-    <script>$(document).ready(function(){$(".take-the-tour").click();});</script>
+    <script>$(document).ready(function(){ Tour.show(); });</script>
   <% end %>
 <% end %>
 
@@ -23,7 +23,7 @@
             <% if current_user %>
               <% if can? :access, Ability::FactlinkWebapp %>
                 <li>
-                  <a class="take-the-tour" data-toggle="modal" href="first-tour-modal">Take the tour</a>
+                  <a class="take-the-tour" data-toggle="modal">Take the tour</a>
                 </li>
               <% end %>
               <li class="divider-vertical"></li>
