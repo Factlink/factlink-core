@@ -1,5 +1,4 @@
-require_relative '../../ohm_helper.rb'
-require_relative '../../../app/ohm-models/activity.rb'
+require 'spec_helper'
 
 class Blob < OurOhm ;end
 class Foo < OurOhm
@@ -13,16 +12,6 @@ describe Activity::Listener do
   let(:b2)  { Blob.create }
   let(:f1)  { Foo.create }
   let(:f2)  { Foo.create }
-
-  before do
-    unless defined?(GraphUser)
-      class GraphUser < OurOhm
-        def graph_user
-          self
-        end
-      end
-    end
-  end
 
   describe :new do
     it "should call its dsl with the block if there is a block" do
