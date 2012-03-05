@@ -68,7 +68,7 @@ FactlinkUI::Application.routes.draw do
 
   scope "/pages" do
     resources :jobs, :only => [:show, :index]
-    get ":name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+    get ":name" => "home#pages", :as => "pages"
   end
   get "/tour" => "home#tour", as: "tour"
   get "/privacy" => "privacy#privacy", as: "privacy"
