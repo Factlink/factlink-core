@@ -1,5 +1,4 @@
-require_relative '../../ohm_helper.rb'
-require_relative '../../../app/ohm-models/activity.rb'
+require 'spec_helper'
 
 class Blob < OurOhm ;end
 class Foo < OurOhm
@@ -13,16 +12,6 @@ describe Activity::Listener do
   let(:b2)  { Blob.create }
   let(:f1)  { Foo.create }
   let(:f2)  { Foo.create }
-
-  before do
-    unless defined?(GraphUser)
-      class GraphUser < OurOhm
-        def graph_user
-          self
-        end
-      end
-    end
-  end
 
   describe :new do
     it "should call its dsl with the block if there is a block" do
@@ -110,6 +99,19 @@ describe Activity::Listener do
       f1.activities.ids.should =~ [a1.id]
       f2.activities.ids.should =~ []
 
+    end
+  end
+
+  describe ".register" do
+    it "should contain the registered query in the .all" do
+      Activity::Listener.reset
+      Activity::Listener.register do
+        activity_for "Foo"
+        named :bar
+      end
+      Activity::Listener.all.length.should == 1
+      Activity::Listener.all.first.activity_for.should == "Foo"
+      Activity::Listener.all.first.listname.should == :bar
     end
   end
 

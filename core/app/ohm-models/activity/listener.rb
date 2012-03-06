@@ -4,10 +4,21 @@ class Activity < OurOhm
   class Listener
 
     def self.all
-      @all ||= []
+      @all ||= {}
+      @all.values
     end
 
     attr_accessor :activity_for, :listname, :queries
+
+    def self.register &block
+      a = new &block
+      @all ||= {}
+      @all[{class: a.activity_for, list: a.listname}] = a
+    end
+
+    def self.reset
+      @all = {}
+    end
 
     def initialize(&block)
       self.queries = []
