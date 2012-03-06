@@ -85,17 +85,6 @@ class FactsController < ApplicationController
     respond_with(@fact)
   end
 
-  def update
-    @fact = Fact[params[:id]]
-    respond_to do |format|
-      if @fact.update_attributes(params[:factlink])
-        format.html { redirect_to(@fact, :notice => 'Fact was successfully updated.', only_path: true) }
-      else
-        format.html { render :edit }
-      end
-    end
-  end
-
   def update_title
     # Gets 'title-[id]' 'cuz it must be unique and Jeditable is using the elements 'id'
     # Strip first six characters to find the ID
