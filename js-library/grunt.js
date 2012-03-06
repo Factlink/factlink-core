@@ -63,7 +63,22 @@ config.init({
     'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/chrome/stop_annotating.js>',
     'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
     'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
-    'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>'
+    'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
+    // WARNING: fucking ugly
+    'dist/server/css/basic.css': 'src/css/basic.css',
+    'dist/css/basic.css': 'src/css/basic.css',
+
+    'dist/server/images/arrow.png': 'src/images/arrow.png',
+    'dist/server/images/arrow-bottom.png': 'src/images/arrow-bottom.png',
+    'dist/server/images/arrow-top.png': 'src/images/arrow-top.png',
+    'dist/server/images/bookmark.gif': 'src/images/bookmark.gif',
+    'dist/server/images/logo-small.png': 'src/images/logo-small.png',
+
+    'dist/images/arrow.png': 'src/images/arrow.png',
+    'dist/images/arrow-bottom.png': 'src/images/arrow-bottom.png',
+    'dist/images/arrow-top.png': 'src/images/arrow-top.png',
+    'dist/images/bookmark.gif': 'src/images/bookmark.gif',
+    'dist/images/logo-small.png': 'src/images/logo-small.png'
   },
   min: {
     'dist/server/factlink.min.js': ['<banner>', 'dist/factlink.js'],
