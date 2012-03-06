@@ -1,6 +1,6 @@
 class Activity::Listener
 
-  all << new do
+  register do
     activity_for "GraphUser"
     named :notifications
 
@@ -19,7 +19,7 @@ class Activity::Listener
              write_ids: lambda { |a| [a.subject.created_by_id] }
   end
 
-  all << new do
+  register do
 
     activity_for "Channel"
     named :activities
@@ -33,7 +33,7 @@ class Activity::Listener
              write_ids: lambda { |a| a.object.channels.ids }
   end
 
-  all << new do
+  register do
     activity_for "Fact"
     named :interactions
 

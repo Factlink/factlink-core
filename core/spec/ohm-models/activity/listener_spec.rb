@@ -102,6 +102,19 @@ describe Activity::Listener do
     end
   end
 
+  describe ".register" do
+    it "should contain the registered query in the .all" do
+      Activity::Listener.reset
+      Activity::Listener.register do
+        activity_for "Foo"
+        named :bar
+      end
+      Activity::Listener.all.length.should == 1
+      Activity::Listener.all.first.activity_for.should == "Foo"
+      Activity::Listener.all.first.listname.should == :bar
+    end
+  end
+
   describe "attributes" do
     it do
       subject.activity_for = "hoi"
