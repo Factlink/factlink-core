@@ -66,12 +66,13 @@ config.init({
     'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>'
   },
   min: {
-    'dist/factlink.min.js': ['<banner>', 'dist/factlink.js'],
-    'dist/factlink.start_annotating.min.js': ['<banner>', 'dist/factlink.start_annotating.js'],
-    'dist/factlink.stop_annotating.min.js': ['<banner>', 'dist/factlink.stop_annotating.js'],
-    'dist/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
-    'dist/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js'],
-    'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js']
+    'dist/server/factlink.min.js': ['<banner>', 'dist/factlink.js'],
+    'dist/server/factlink.start_annotating.min.js': ['<banner>', 'dist/factlink.start_annotating.js'],
+    'dist/server/factlink.stop_annotating.min.js': ['<banner>', 'dist/factlink.stop_annotating.js'],
+    'dist/server/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
+    'dist/server/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js'],
+    'dist/server/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js'], // for the server
+    'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js']         // for local
   },
   qunit: {
     files: ['test/*.html']
