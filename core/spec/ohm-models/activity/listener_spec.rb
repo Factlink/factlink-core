@@ -13,6 +13,10 @@ describe Activity::Listener do
   let(:f1)  { Foo.create }
   let(:f2)  { Foo.create }
 
+  after :all do
+    create_activity_listeners
+  end
+
   describe :new do
     it "should call its dsl with the block if there is a block" do
       block = proc { puts "hoi" }
