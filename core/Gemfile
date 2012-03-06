@@ -139,6 +139,7 @@ group :development, :test do
   gem "database_cleaner"
   gem "mock_redis"
 
-  gem 'jasmine'
-  gem 'jasmine-headless-webkit'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'evergreen', :require => 'evergreen/rails'
 end
