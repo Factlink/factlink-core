@@ -10,7 +10,7 @@ FactlinkUI::Application.routes.draw do
   ################
   # Facts Controller
   ################
-  resources :facts, :except => [:edit, :index] do
+  resources :facts, :except => [:edit, :index, :update] do
     resources :evidence
 
     resources :supporting_evidence, :weakening_evidence do
@@ -57,7 +57,7 @@ FactlinkUI::Application.routes.draw do
   match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
 
   # generate the images for the indicator used in the js-lib
-  get "/system/wheel/:percentages" => "wheel#show", constraints: { percentages: /[0-9]+-[0-9]+-[0-9]+/ }
+  get "/system/wheel/:percentages" => "wheel#show"
 
   ##########
   # Web Front-end
@@ -68,7 +68,7 @@ FactlinkUI::Application.routes.draw do
 
   scope "/pages" do
     resources :jobs, :only => [:show, :index]
-    get ":name" => "home#pages", constraints: { name: /[-a-zA-Z_]+/ }, :as => "pages"
+    get ":name" => "home#pages", :as => "pages"
   end
   get "/tour" => "home#tour", as: "tour"
   get "/privacy" => "privacy#privacy", as: "privacy"

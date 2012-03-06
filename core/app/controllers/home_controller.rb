@@ -8,8 +8,13 @@ class HomeController < ApplicationController
 
   #general static pages:
   def pages
-    respond_to do |format|
-      format.html {render "home/pages/" + params[:name], :layout => "general"}
+    if ( /\A([-a-zA-Z_]+)\Z/.match(params[:name]))
+      respond_to do |format|
+        template = "home/pages/#{$1}"
+        format.html {render template, :layout => "general"}
+      end
+    else
+      raise_404
     end
   end
 

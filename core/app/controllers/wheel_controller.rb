@@ -7,8 +7,11 @@ include Math
 class WheelController < ApplicationController
 
   def show
-
-    percentages = params[:percentages].split('-').map {|x| x.to_i}
+    if /\A([0-9]+)-([0-9]+)-([0-9]+)\Z/.match(params[:percentages])
+      percentages = [$1.to_i,$2.to_i,$3.to_i]
+    else
+      raise_404
+    end
 
     after_percentages = PercentageFormatter.new(5,15).process_percentages(percentages)
 

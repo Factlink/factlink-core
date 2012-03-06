@@ -57,7 +57,7 @@ class FactsController < ApplicationController
       if @fact.save
         format.html do
            flash[:notice] = "Factlink successfully added. <a href=\"#{channel_url(current_user.username, current_graph_user.created_facts_channel_id)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout]
+           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout], only_path: true
          end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
@@ -83,18 +83,6 @@ class FactsController < ApplicationController
     @fact.delete
 
     respond_with(@fact)
-  end
-
-  def update
-    @fact = Fact[params[:id]]
-    respond_to do |format|
-      if @fact.update_attributes(params[:factlink])
-        format.html { redirect_to(@fact,
-          :notice => 'Fact was successfully updated.') }
-      else
-        format.html { render :edit }
-      end
-    end
   end
 
   def update_title

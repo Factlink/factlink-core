@@ -1,3 +1,4 @@
+
 class Activity::Listener
 
   register do

@@ -9,9 +9,7 @@ namespace :fact_graph do
     sleep_time = 59
     puts "now recalculating with interval of #{sleep_time} seconds"
     while true
-      #print "(#{Time.now.asctime}) recalculating FactGraph\n"
       FactGraph.recalculate
-      #print "(#{Time.now.asctime}) sleeping\n"
       sleep sleep_time
     end
   end
