@@ -9,14 +9,14 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-	  "click .controls .supporting, .controls .weakening": "toggleEvidence",
+	  "click .controls .supporting, .controls .weakening": "toggleEvidence"
   },
 
   initialize: function(opts) {
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
     this.model.bind('destroy', this.remove, this);
 
-    this.$el.attr('data-fact-id', this.model.id).factlink();
+    this.$el.attr('data-fact-id', ( this.model.id || this.model.cid )).factlink();
 
     this.initAddToChannel();
     this.initFactRelationsViews();
