@@ -1,4 +1,4 @@
-/*global config:true, task:true, underscore: true */
+/*global config:true, file:true, task:true, underscore: true */
 
 function createFactlinkConcatObject(filesObj) {
   return underscore.flatten(["<banner>", underscore(filesObj).map(function(fileGroup) {
@@ -64,19 +64,20 @@ config.init({
     'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
     'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
     'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
-    // WARNING: fucking ugly
+  },
+  copy: {
     'dist/server/css/basic.css': 'src/css/basic.css',
     'dist/css/basic.css': 'src/css/basic.css',
 
     'dist/server/images/arrow.png': 'src/images/arrow.png',
-    'dist/server/images/arrow-bottom.png': 'src/images/arrow-bottom.png',
-    'dist/server/images/arrow-top.png': 'src/images/arrow-top.png',
+    'dist/server/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
+    'dist/server/images/arrows-top.png': 'src/images/arrows-top.png',
     'dist/server/images/bookmark.gif': 'src/images/bookmark.gif',
     'dist/server/images/logo-small.png': 'src/images/logo-small.png',
 
     'dist/images/arrow.png': 'src/images/arrow.png',
-    'dist/images/arrow-bottom.png': 'src/images/arrow-bottom.png',
-    'dist/images/arrow-top.png': 'src/images/arrow-top.png',
+    'dist/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
+    'dist/images/arrows-top.png': 'src/images/arrows-top.png',
     'dist/images/bookmark.gif': 'src/images/bookmark.gif',
     'dist/images/logo-small.png': 'src/images/logo-small.png'
   },
@@ -175,4 +176,9 @@ config.init({
 });
 
 // Default task.
-task.registerTask('default', 'lint qunit concat min');
+task.registerTask('default', 'lint qunit concat min copy');
+task.registerTask('server', 'concat min copy');
+
+task.registerBasicTask('copy', 'copy files', function (data, name) {
+  file.copy(data,name);
+});
