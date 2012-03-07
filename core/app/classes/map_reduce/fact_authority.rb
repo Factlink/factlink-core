@@ -25,9 +25,7 @@ class MapReduce
 
     def write_output fact_id, value
       authority = Authority.from(Fact[fact_id])
-      if value > 0 and authority.new?
-         authority << value
-      end
+      authority << value
     end
   end
 end

@@ -41,14 +41,15 @@ describe "beliefs should work"  do
     it "should forward the authority from the facts it contains" do
       ch1.add_fact(fact_of_u1_which_supports_two)
 
-      authority from: ch1, should_be: 1.0
+      authority from: ch1, for: u1, should_be: 1.0
+      authority from: ch1, for: u4, should_be: 0.0
     end
   end
 
   context "from topics" do
     it "for a user without history in Factlink the authority should be 0.0" do
       t1 = create :topic
-      authority of: u1, from: t1, should_be: 0.0
+      authority for: u1, from: t1, should_be: 0.0
     end
 
     it "should not give authority on a topic when creating a fact in it" do
@@ -57,9 +58,9 @@ describe "beliefs should work"  do
       c = create :channel, title: "foo"
       c.add_fact f
 
-      foo_t = create :topic, title: "foo"
+      foo_t = Topic.by_title("foo")
 
-      authority of:u1, from: foo_t, should_be: 0.0
+      authority for:u1, from: foo_t, should_be: 0.0
     end
 
 
@@ -71,16 +72,16 @@ describe "beliefs should work"  do
       c = create :channel, title: "foo"
       c.add_fact(f)
 
-      foo_t = create :topic, title: "foo"
+      foo_t = Topic.by_title "foo"
 
-      authority of:u1, from: foo_t, should_be: 0.0
+      authority for:u1, from: foo_t, should_be: 0.0
     end
 
     it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
       foo_ch.add_fact(fact_of_u1_which_supports_two)
       foo_t = Topic.by_title "foo"
-      authority of:u1, from: foo_t, should_be: 1.0
+      authority for:u1, from: foo_t, should_be: 1.0
     end
   end
 
@@ -93,7 +94,7 @@ describe "beliefs should work"  do
       fact2 = create :fact
       foo_ch.add_fact fact2
 
-      authority of:u1, on: fact2, should_be: 1.0
+      authority for:u1, on: fact2, should_be: 1.0
     end
   end
 end
