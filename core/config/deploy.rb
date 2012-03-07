@@ -60,10 +60,10 @@ namespace :deploy do
   end
 
   task :start_resque do
-    run "sh #{current_path}/bin/server/start_resque.sh"
+    run "sh #{current_path}/bin/server/resque.sh start"
   end
   task :stop_resque do
-    run "sh #{current_path}/bin/server/stop_resque.sh"
+    run "sh #{current_path}/bin/server/resque.sh stop"
   end
 
   task :reindex do
