@@ -16,6 +16,11 @@ class GraphUser < OurOhm
 
   collection :created_facts, Basefact, :created_by
 
+  sorted_set :channels_by_authority, Channel do |ch|
+    topic = Topic.by_title(ch.title)
+    Authority.from(topic, for: ch.created_by)
+  end
+
   define_memoized_method :internal_channels do
     Channel.active_channels_for(self)
   end
