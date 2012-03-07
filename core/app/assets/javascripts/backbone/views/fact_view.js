@@ -51,9 +51,11 @@ window.FactView = Backbone.View.extend({
   },
 
   removeFactFromChannel: function() {
+    if(!confirm("Are you sure you want to remove this Factlink from the current channel?")) return false;
+
     var self = this;
 
-    this.model.destroy({
+    this.model.removeFromChannel({
       error: function() {
         alert("Error while removing Factlink from Channel" );
       },
@@ -64,13 +66,13 @@ window.FactView = Backbone.View.extend({
             channel_id: currentChannel.id
           });
         } catch(e) {}
-      },
-      forChannel: true
+      }
     });
   },
 
   destroyFact: function() {
     if(!confirm("Are you sure you want to delete the Factlink you have created?")) return false;
+
     this.model.destroy({
       error: function() {
         alert("Error while removing the Factlink" );
@@ -81,8 +83,7 @@ window.FactView = Backbone.View.extend({
             factlink_id: self.model.id
           });
         } catch(e) {}
-      },
-      forChannel: false
+      }
     });
   },
 
