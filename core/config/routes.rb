@@ -89,7 +89,7 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-  scope "/:username" do
+  scope "/:username", :constraints => {:username => /(?!evergreen).*/} do
     get "/" => "users#show", :as => "user_profile"
 
     scope "/activities" do
