@@ -12,25 +12,22 @@ window.Fact = Backbone.Model.extend({
     return ret;
   },
 
-  url: function(forChannel) {
-    if ( this.collection || forChannel ) {
-      return Backbone.Model.prototype.url.apply(this, arguments);
-    } else {
-      return '/facts/' + this.get('id');
-    }
+  url: function() {
+    return '/facts/' + this.get('id');
   },
 
-  sync: function(method, model, options) {
-    options = options || {};
-    var forChannel = options.forChannel;
+  removeFromChannel: function (opts) {
+    var self = this;
 
-    //@TODO: Remove this strange default behaviour
-    if ( forChannel === undefined ) {
-      forChannel = true;
-    }
-
-    options.url = model.url(forChannel);
-
-    Backbone.sync(method, model, options);
+    $.ajax({
+      url: Backbone.Model.prototype.url.apply(this, arguments),
+      type: "DELETE",
+      success: function () {
+        self.collection.remove(self);
+    
+        opts.success.apply(this, arguments);
+      },
+      error: opts.error
+    });
   }
 });

@@ -15,6 +15,7 @@ window.FactsView = Backbone.CollectionView.extend({
 
     this.collection.bind('add', this.add, this);
     this.collection.bind('reset', this.reset, this);
+    this.collection.bind('remove', this.removeOne, this);
 
     //TODO split this into two views, one for channels, one for searchresults
     if(options.channel !== undefined ) {
@@ -23,6 +24,10 @@ window.FactsView = Backbone.CollectionView.extend({
       this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     }
     this.bindScroll();
+  },
+
+  removeOne: function (fact) {
+    this.views[fact.cid].remove();
   },
 
   render: function() {

@@ -60,10 +60,10 @@ namespace :deploy do
   end
 
   task :start_resque do
-    run "sh #{current_path}/bin/server/start_resque.sh"
+    run "sudo /usr/sbin/monit start resque"
   end
   task :stop_resque do
-    run "sh #{current_path}/bin/server/stop_resque.sh"
+    run "sudo /usr/sbin/monit stop resque"
   end
 
   task :reindex do
