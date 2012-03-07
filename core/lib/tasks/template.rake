@@ -8,3 +8,5 @@ namespace :template do
     File.open(filename, 'w') { |f| f.write(load_mustache_templates) }
   end
 end
+
+task 'spec:javascripts' => 'template:create'
