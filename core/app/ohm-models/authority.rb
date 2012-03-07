@@ -58,7 +58,8 @@ class Authority < OurOhm
   end
 end
 
-# we do this ourselves, since retrieval and setting with ohm takes to many operations, get should be 1, get should be 1, period.
+# we do this ourselves, since retrieval and setting with ohm takes to many
+# operations, get should be 1, get should be 1, period.
 class AuthorityObject
   def initialize(key, index)
     @key = key
