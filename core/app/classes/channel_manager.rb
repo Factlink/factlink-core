@@ -11,26 +11,8 @@ class ChannelManager
   end
 
   def editable_channels_by_authority(limit=nil)
-    auth = {}
-    topic = {}
-
-    @channels = editable_channels
-    #return @channels
-
-    @channels = @channels.to_a.sort do |a, b|
-      topic[a.title] ||= Topic.by_title(a.title)
-      topic[b.title] ||= Topic.by_title(b.title)
-
-      topic[a.title].save if topic[a.title].new?
-      topic[b.title].save if topic[b.title].new?
-
-      auth[topic[a.title].id] ||= Authority.from(topic[a.title], for: @gu).to_f
-      auth[topic[b.title].id] ||= Authority.from(topic[b.title], for: @gu).to_f
-
-      auth[topic[b.title].id] <=> auth[topic[a.title].id]
-    end
-
-    limit ? @channels.take(limit) : @channels
+    channels = @gu.channels_by_authority
+    return channels.below('inf',count: limit, reversed: true)
   end
 
   def editable_channels_for(fact)

@@ -20,6 +20,9 @@ class MapReduce
       topic = Topic.by_title(ident[:topic])
       topic.save if topic.new?
       gu = GraphUser[ident[:user_id]]
+      Channel.find(created_by_id: ident[:user_id], title: ident[:topic]).each do |ch|
+        gu.channels_by_authority.add ch, value
+      end
       Authority.from(topic, for: gu) << value
     end
   end
