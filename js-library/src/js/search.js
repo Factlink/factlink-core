@@ -13,7 +13,7 @@
 
     if (window.find) { // Chrome, Firefox, Safari
       // Reset the selection
-      selection = window.getSelection();
+      selection = document.getSelection();
 
       // If the user currently has selected some text
       if (selection.rangeCount > 0) {
@@ -21,11 +21,11 @@
         selectedRange = selection.getRangeAt(0);
       }
 
-      window.getSelection().removeAllRanges();
+      document.getSelection().removeAllRanges();
 
       // Loop through all the results of the search string
       while (window.find(searchString, false)) {
-        selection = window.getSelection();
+        selection = document.getSelection();
         range = selection.getRangeAt(0);
 
         // Add the range to the results
@@ -33,10 +33,10 @@
       }
 
       // Reset the selection
-      window.getSelection().removeAllRanges();
+      document.getSelection().removeAllRanges();
 
       if (selectedRange !== undefined) {
-        window.getSelection().addRange(selectedRange);
+        document.getSelection().addRange(selectedRange);
       }
     } else { // No window.find
       return false;

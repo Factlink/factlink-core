@@ -5,8 +5,8 @@
   function getTextRange() {
     var d;
 
-    if (window.getSelection) {
-      d = window.getSelection();
+    if (document.getSelection) {
+      d = document.getSelection();
     } else if (document.getSelection) {
       d = document.getSelection();
     } else if (document.selection) {

@@ -5,11 +5,11 @@ test("Simple search", function(){
     equal(Factlink.search("character").length, 1, "Found character once");
     equal(Factlink.search("spiderman").length, 0, "No results for spiderman");
 
-    equal(window.getSelection().rangeCount, 0, "Selection has been reset");
+    equal(document.getSelection().rangeCount, 0, "Selection has been reset");
 });
 
 test("Search with ranges", function(){
-    var selection = window.getSelection();
+    var selection = document.getSelection();
     var range = document.createRange();
     range.selectNode($('#search-test p')[0]);
     selection.addRange(range);
