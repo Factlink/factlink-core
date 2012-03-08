@@ -50,7 +50,9 @@ window.FactView = Backbone.View.extend({
     }
   },
 
-  removeFactFromChannel: function() {
+  removeFactFromChannel: function(e) {
+    e.preventDefault();
+    
     if(!confirm("Are you sure you want to remove this Factlink from the current channel?")) return false;
 
     var self = this;
@@ -70,7 +72,9 @@ window.FactView = Backbone.View.extend({
     });
   },
 
-  destroyFact: function() {
+  destroyFact: function(e) {
+    e.preventDefault();
+
     if(!confirm("Are you sure you want to delete the Factlink you have created?")) return false;
 
     this.model.destroy({
