@@ -1,0 +1,20 @@
+.factlink, .factlink-site {
+  footer {
+  color: #777;
+    border: none;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    a.bookmarklet {
+      cursor: move;
+    }
+    ul {
+      text-align: right;
+      li {
+        display: inline;
+        &:not(:last-child):after {
+          content: " | ";
+        }
+      }
+    }
+  }
+}
