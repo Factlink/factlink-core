@@ -13,7 +13,7 @@ window.addEventListener("message", function(messageObject) {
   if ( data === "highlight" ) {
     $('#highlight').prop('checked', true );
   } else if ( data === "auto_annotate" ) {
-    $('#annotate_button').hide();
+    $('#annotate_button').css({'visibility': 'hidden'});
   } else if ( data === "annotate" ) {
     $('#annotate_button').addClass('active');
   } else if ( typeof data.title !== "undefined" ) {
