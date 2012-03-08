@@ -18,6 +18,16 @@ class Blacklist
       domain('mixpanel.com'),
       /^http:\/\/localhost[:\/]/,
       /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
+    ] + flash + frames
+  end
+
+  def self.flash
+    [domain('kiprecepten.nl')]
+  end
+
+  def self.frames
+    [
+      domain('insiteproject.com')
     ]
   end
 
@@ -34,4 +44,5 @@ class Blacklist
 
     false
   end
+
 end
