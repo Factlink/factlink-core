@@ -15,9 +15,16 @@
 /* ==|== primary styles =====================================================
 Author: Factlink
 ========================================================================== */
-body {
-  background: #F4F4F4;
+#body {
+  .inner-shadow(0, 0px, 9px, 0.1);
+  background-color: #f4f4f4;
+  text-shadow: 0 1px 1px #fff;
+  border: solid 1px rgba(0, 0, 0, 0.06);
 }
+body {
+  background: @white;
+}
+
 ul {
   margin: 0;
   padding: 0;
