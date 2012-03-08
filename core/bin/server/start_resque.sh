@@ -8,5 +8,6 @@ if [ "$count" -lt "1" ]; then
     export PIDFILE=/home/deploy/resque.pid
     export QUEUE=*
 
-    nohup bundle exec rake environment resque:work PIDFILE=$PIDFILE >> /applications/factlink-core/current/log/resque.log 2>&1
+    nohup bundle exec rake environment resque:work PIDFILE=$PIDFILE & >> /applications/factlink-core/current/log/resque.log 2>&1
 fi
+exit 0

@@ -14,7 +14,9 @@ module Channels
     end
 
     def personalized_authority
-      (Authority.from( Topic.by_title(title), for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
+      t = Topic.by_title(title)
+      t.save if t.new?
+      (Authority.from(t , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
     end
 
     def has_authority?

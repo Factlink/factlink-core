@@ -28,6 +28,11 @@ class Channel < OurOhm
     t.save if t.new?
   end
 
+  after :save, :add_to_graph_user
+  def add_to_graph_user
+    self.created_by.channels_by_authority.add(self) if self.type == 'channel'
+  end
+
   reference :created_by, GraphUser
   alias :graph_user :created_by
   index :created_by_id

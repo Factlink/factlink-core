@@ -9,17 +9,9 @@ class Authority < OurOhm
 
   class << self
     def related(label, subject, opts={})
-      return Authority.new if subject.new?
-
-      if opts[:for]
-        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s,
-              user_id: opts[:for].id).first ||
-            Authority.new(label: label, subject: subject, user: opts[:for])
-      else
-        find( label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s).first || Authority.new(label: label, subject: subject)
-      end
+      AuthorityObject.by_reference self.key+"NEW", label, subject.class.to_s, subject.id.to_s, opts[:for].andand.id
     end
-    
+
     def from(subject, opts={})
       related(:from, subject, opts)
     end
@@ -29,7 +21,7 @@ class Authority < OurOhm
     end
 
     def all_related(label, subject)
-      find(label: label, subject_id: subject.id.to_s, subject_class: subject.class.to_s)
+      return AuthorityObject.all_for self.key+"NEW", label, subject.class.to_s, subject.id.to_s
     end
 
     def all_from(subject)
@@ -64,4 +56,82 @@ class Authority < OurOhm
   def to_s
     sprintf('%.1f', to_f)
   end
+end
+
+# we do this ourselves, since retrieval and setting with ohm takes to many
+# operations, get should be 1, get should be 1, period.
+class AuthorityObject
+  def initialize(key, index)
+    @key = key
+    @index = index
+  end
+
+  def self.by_reference(basekey, type, subject_class, subject_id, user_id=nil)
+    key = key_for(basekey, type, subject_class, subject_id, user_id)
+    index =  index_key_for(basekey, type, subject_class, subject_id)
+    new key, index
+  end
+
+  def new?
+    false
+  end
+
+  def to_f
+    @key.get.to_f
+  end
+
+  def to_s
+    sprintf('%.1f', to_f)
+  end
+
+  def << auth
+    @key.set auth
+    @index.sadd @key.to_s
+  end
+
+  def key
+    @key
+  end
+
+  def == other
+    self.key == other.key
+  end
+
+  def self.all_for(basekey, type, subject_class, subject_id)
+    @index = index_key_for(basekey, type, subject_class, subject_id)
+    res = @index.smembers.map { |key| AuthorityObject.new (Nest.new key, Ohm.redis), @index}
+    res.class.send(:define_method,:all) { return self }
+    res
+  end
+
+  def self.key_for(basekey, type, subject_class, subject_id, user_id)
+    key = basekey + type + subject_class + subject_id
+    key += user_id ? user_id : 'nil'
+    key
+  end
+
+  def subject
+    klassname,id = @key.split('+')[-3..-2]
+            #constantize
+    klass = klassname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
+    klass[id]
+  end
+
+  def user_id
+    id = @key.split('+')[-1]
+    if id == 'nil'
+      nil
+    else
+      id
+    end
+  end
+
+  def user
+    user_id && GraphUser[user_id]
+  end
+
+  def self.index_key_for(basekey, type, subject_class, subject_id)
+    basekey + "LIST" + type + subject_class + subject_id
+  end
+
 end

@@ -1,13 +1,13 @@
 <div class="activity"></div>
-<a href="{{profile_path}}">{{{avatar}}}</a>
+<a href="{{profile_path}}" target="_top">{{{avatar}}}</a>
 
 <div class="user-info">
   <span class="username">{{username}}</span>
 
   <ul class="channels">
     {{#channels}}
-    <li><a rel="backbone" href="/{{username}}/channels/{{id}}">{{title}}</a></li>
+    <li><a rel="backbone" target="_top" href="/{{username}}/channels/{{id}}">{{title}}</a></li>
     {{/channels}}
-    <li><a href="{{profile_path}}">more...</a></li>
+    <li><a href="{{profile_path}}" target="_top">more...</a></li>
   </ul>
 </div>

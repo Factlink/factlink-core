@@ -21,6 +21,8 @@ window.SubchannelItemView = Backbone.View.extend({
   },
 
   clickHandler: function( e ) {
+    if ( e.metaKey || e.ctrlKey || e.altKey ) return;
+
     var self = this;
 
     try {

@@ -2,6 +2,8 @@
    Add a default clickhandler so we can use hrefs
  */
 Backbone.View.prototype.defaultClickHandler = function( e ) {
+  if ( e.metaKey || e.ctrlKey || e.altKey ) return;
+
   console.log("Navigating to "+e.target.getAttribute('href'));
 
   Router.navigate(e.target.getAttribute('href'), true);
