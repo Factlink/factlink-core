@@ -76,6 +76,16 @@ module Facts
       self[:fact].opiniated(:doubts).count
     end
 
+    def believers_text
+      t(:fact_believe_opinion).titleize
+    end
+    def doubters_text
+      t(:fact_doubt_opinion).titleize
+    end
+    def disbelievers_text
+      t(:fact_disbelieve_opinion).titleize
+    end
+
     def interacting_users
       Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 5).to_hash
     end
