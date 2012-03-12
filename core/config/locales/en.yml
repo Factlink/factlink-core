@@ -20,6 +20,7 @@ en:
   channel: "channel"
   channels: "channels"
   my_channels: "My Channels"
+  add_to_channels: "add to channels"
   
   related_users: "Related users"
   interesting_users: "Interesting users"
