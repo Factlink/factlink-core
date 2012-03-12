@@ -63,15 +63,15 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
 
-  get "tos" => "tos#show", as: "tos"
-  post "tos" => "tos#update", as: "tos"
+  get "p/tos" => "tos#show", as: "tos"
+  post "p/tos" => "tos#update", as: "tos"
 
+  get "/p/tour" => "home#tour", as: "tour"
+  get "/p/privacy" => "privacy#privacy", as: "privacy"
   scope "/p" do
     resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages"
   end
-  get "/tour" => "home#tour", as: "tour"
-  get "/privacy" => "privacy#privacy", as: "privacy"
 
   namespace :admin do
     resources :users, :only => [:show, :new, :create, :edit, :update, :index]
