@@ -66,7 +66,7 @@ FactlinkUI::Application.routes.draw do
   get "tos" => "tos#show", as: "tos"
   post "tos" => "tos#update", as: "tos"
 
-  scope "/pages" do
+  scope "/p" do
     resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages"
   end
