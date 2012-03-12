@@ -21,3 +21,6 @@ nl:
   channel: "kanaal"
   channels: "kanalen"
   my_channels: "Mijn kanalen"
+  
+  related_users: "Gerelateerde gebruikers"
+  interesting_users: "Interessante gebruikers"

@@ -20,3 +20,6 @@ en:
   channel: "channel"
   channels: "channels"
   my_channels: "My Channels"
+  
+  related_users: "Related users"
+  interesting_users: "Interesting users"

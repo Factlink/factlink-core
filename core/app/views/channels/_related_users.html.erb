@@ -1,7 +1,7 @@
 <% if related_users && related_users.count > 0 %>
-  <h2>Related users</h2>
+  <h2><%= t(:related_users)%></h2>
 <% else %>
-  <h2>Interesting users</h2>
+  <h2><%= t(:interesting_users) %></h2>
   <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
 <% end %>
 
