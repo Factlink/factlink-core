@@ -31,8 +31,9 @@ class Ability
       end
 
       can :read_tos, user
+
+      define_feature_toggles
     end
-    define_feature_toggles
   end
 
   def define_channel_abilities
