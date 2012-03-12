@@ -14,6 +14,7 @@ class Blacklist
       domain('gmail.com'),
       domain('irccloud.com'),
       domain('moneybird.nl'),
+      domain('flowdock.com'),
       domain('github.com'),
       domain('mixpanel.com'),
       /^http:\/\/localhost[:\/]/,
