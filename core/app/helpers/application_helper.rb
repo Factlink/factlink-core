@@ -61,6 +61,10 @@ module ApplicationHelper
   def team_photo_tag photo, name
     image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
   end
+
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
 end
 
 # http://stackoverflow.com/questions/4814631/how-to-disable-link-to-remote-funcation-after-click-made/7415741#7415741

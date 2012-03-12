@@ -8,10 +8,7 @@
 
 
 <% content_for :more_specific_page do %>
-<body class="factlink-site">
-
-  <%= render 'home/topbar' %>
-
+<div id="body">
   <div id="container" class="container">
 
     <%= render 'home/notifications', notice: notice, alert: alert %>
@@ -34,7 +31,7 @@
       <%= render 'home/feedback' %>
     </div>
   </div>
-
+</div>
   <div id="first-tour-modal" class="modal hide fade tour-modal"></div>
 
   <%= render 'home/footer' %>

@@ -31,6 +31,8 @@ class Ability
       end
 
       can :read_tos, user
+
+      define_feature_toggles
     end
   end
 
@@ -86,6 +88,12 @@ class Ability
       can :see_activities, User do |u|
         u.id == user.id
       end
+    end
+  end
+
+  def define_feature_toggles
+    if user.admin?
+       can :see_feature_version_number, FactlinkWebapp
     end
   end
 

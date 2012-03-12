@@ -151,3 +151,7 @@ module FactlinkUI
     ]
   end
 end
+
+version_file = File.new('version.txt','r')
+FactlinkUI::Application.config.version_number = version_file.gets.chomp
+version_file.close

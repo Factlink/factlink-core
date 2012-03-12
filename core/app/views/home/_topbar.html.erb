@@ -14,6 +14,7 @@
           </h3>
         </div>
 
+        <% if current_user %>
         <div class="span9">
           <% if can? :index, Fact %>
             <%= render "facts/fact_search" %>
@@ -80,16 +81,37 @@
                   <li class="divider"></li>
                   <li><%= link_to "Privacy Policy", privacy_path %></li>
                   <li><%= link_to "Terms of Service", tos_path %></li>
+                  <% if can_haz :version_number %>
+                    <li><a>Version <%= FactlinkUI::Application.config.version_number %></a></li>
+                  <% end %>
+
                 </ul>
               </li>
               <% end %>
             <% else %>
               <li>
+                
                 <%= link_to("Sign in", new_user_session_path) %>
               </li>
             <% end %>
           </ul>
         </div>
+        <% else %>
+        <div id="sign-in-form" style="float: right" class="span8">
+          <% unless user_signed_in? %>
+            <%= form_for("user", :url => user_session_path) do |f| %>
+            <%= link_to "Can't access?", new_password_path('user'), id: :cannot_access_account %>
+
+              <div class="input-fields">
+                <%= f.text_field :email, placeholder: "Email" %>
+                <%= f.password_field :password, placeholder: "Password" %>
+                <%= f.submit 'Sign in', class: 'btn' %>
+              </div>
+
+            <% end %>
+          <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
