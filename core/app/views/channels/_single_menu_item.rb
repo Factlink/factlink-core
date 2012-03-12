@@ -104,7 +104,7 @@ module Channels
     end
     
     def add_to_channels_definition
-      t(:add_to_channels)
+      t(:add_to_channels).capitalize
     end
 
   end
