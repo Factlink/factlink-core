@@ -1,5 +1,5 @@
 <% if related_users && related_users.count > 0 %>
-  <h2><%= t(:related_users)%></h2>
+  <h2><%= t(:related_users)%> for <%= topic.title %></h2>
 <% else %>
   <h2><%= t(:interesting_users) %></h2>
   <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
@@ -7,6 +7,17 @@
 
 <% if related_users %>
   <ul>
-    <%= render :partial => "users/user_li", :collection => related_users, :as => :user %>
+    <% related_users.each do |user| %>
+      <li class="user-block" onclick="document.location = '<%= user_profile_path(user.username) %>';">
+        <div class="user-avatar">
+           <%= image_tag(user.avatar_url(size: 32), width: 32, height: 32, alt: user.username) %>
+        </div>
+
+        <div class="wrapper">
+          <h3><%= user.username %></h3>
+          <span><%= Authority.from(topic, for: user.graph_user).to_s.to_f + 1.0 %></span>
+        </div>
+      </li>
+    <% end %>
   </ul>
 <% end %>

@@ -4,9 +4,10 @@
 Backbone.View.prototype.defaultClickHandler = function( e ) {
   if ( e.metaKey || e.ctrlKey || e.altKey ) return;
 
-  console.log("Navigating to "+e.target.getAttribute('href'));
+  var routeTo = $(e.target).closest('a').attr('href');
+  console.log("Navigating to "+ routeTo);
 
-  Router.navigate(e.target.getAttribute('href'), true);
+  Router.navigate(routeTo, true);
   e.preventDefault();
 
   return false;
