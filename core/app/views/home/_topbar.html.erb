@@ -81,6 +81,10 @@
                   <li class="divider"></li>
                   <li><%= link_to "Privacy Policy", privacy_path %></li>
                   <li><%= link_to "Terms of Service", tos_path %></li>
+                  <% if can_haz :version_number %>
+                    <li><a>Version <%= FactlinkUI::Application.config.version_number %></a></li>
+                  <% end %>
+
                 </ul>
               </li>
               <% end %>
