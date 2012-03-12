@@ -53,7 +53,7 @@ module Users
     end
 
     def channel_listing_header
-      t(:my_channels)
+      t(:my_channels).capitalize
     end
 
   end

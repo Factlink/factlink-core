@@ -20,7 +20,7 @@ nl:
 
   channel: "kanaal"
   channels: "kanalen"
-  my_channels: "Mijn kanalen"
+  my_channels: "mijn kanalen"
   add_to_channels: "toevoegen aan kanalen"
   
   related_users: "Gerelateerde gebruikers"

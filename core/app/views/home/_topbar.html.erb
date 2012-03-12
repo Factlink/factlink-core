@@ -60,7 +60,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <% if can? :access, Ability::FactlinkWebapp %>
-                    <li><%= link_to("<i class='icon-book'></i>&nbsp;#{t(:my_channels)}".html_safe, user_profile_path(current_user)) %></li>
+                    <li><%= link_to("<i class='icon-book'></i>&nbsp;#{t(:my_channels).capitalize}".html_safe, user_profile_path(current_user)) %></li>
                   <% end %>
                   <li><%= link_to("<i class='icon-cog'></i>&nbsp;Settings".html_safe, edit_user_path(current_user)) %></li>
                   <li><%= link_to("<i class='icon-off'></i>&nbsp;Sign out".html_safe, destroy_user_session_path) %></li>
