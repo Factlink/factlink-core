@@ -52,7 +52,7 @@ RSpec.configure do |config|
   config.pattern = "**/*_spec.rb"
 
   # Exclude integration tests in normal suite
-  config.filter_run_excluding integration: true
+  config.filter_run_excluding type: :request
 
   config.mock_with :rspec
   require 'database_cleaner'

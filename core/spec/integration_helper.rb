@@ -1,5 +1,12 @@
+# Integrations tests should be marked with the type :request, e.g:
+# describe "Channel", type: :request do
+# end
+
 # This is the normal spec_helper, excluding the Devise section
 require 'rubygems'
+require 'capybara/rspec'
+
+Capybara.javascript_driver = :webkit
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
@@ -52,9 +59,6 @@ Devise.setup do |config|
   config.stretches = 1
 end
 
-require 'capybara/rspec'
-
-Capybara.javascript_driver = :webkit
 
 def int_user
   user = Factory.create(:user, email: "user@example.com")
@@ -67,4 +71,14 @@ def handle_js_confirm(accept=true)
   page.evaluate_script "window.confirm = function(msg) { return #{!!accept}; }"
   yield
   page.evaluate_script "window.confirm = window.original_confirm_function"
+end
+
+
+def make_user_and_login
+  password = "secretpass"
+  @user = Factory(:user, :password => password)
+  visit login_path
+  fill_in "Email", :with => @user.email
+  fill_in "Password", :with => password
+  click_button "Log in"
 end

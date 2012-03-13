@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-describe "When visiting the home page", integration: true do
+describe "When visiting the home page", type: :request do
 
   before do
     visit "/"
