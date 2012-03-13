@@ -82,7 +82,7 @@ group :capistrano do
 end
 
 # imagemagick
-gem 'rmagick'
+gem 'rmagick', require: false
 
 # authorization
 gem "cancan"
@@ -119,8 +119,7 @@ group :development do
 end
 
 group :test do
-  gem 'webrat'
-
+  # gem 'webrat'
   gem 'rspec-rails'
   gem "factory_girl_rails" #factories for easy creation of a lot of objects
   gem "factory_girl"
