@@ -29,6 +29,7 @@ Factlink.Balloon = function() {
         el.fadeIn('fast');
       }, 200);
     }
+
     Factlink.set_position(top,left,window,el);
 
     getChannels();
