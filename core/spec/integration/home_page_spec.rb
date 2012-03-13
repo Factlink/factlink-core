@@ -1,7 +1,6 @@
-require 'spec_helper'
 require 'integration_helper'
 
-describe "When visiting the home page" do
+describe "When visiting the home page", integration: true do
 
   before do
     visit "/"
