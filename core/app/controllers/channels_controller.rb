@@ -58,7 +58,7 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    @channel = Channel.new(params[:channel].slice(:title) || params.slice(:title))
+    @channel = Channel.new(params[:channel].andand.slice(:title) || params.slice(:title))
     @channel.created_by = current_user.graph_user
 
     # Check if object valid, then execute:
