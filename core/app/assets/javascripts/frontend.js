@@ -7,5 +7,3 @@
 //= require feedback
 //= require_tree ./frontend
 //= require twipsy
-
-$('.bookmarklet').tooltip({placement:"below",offset:5});

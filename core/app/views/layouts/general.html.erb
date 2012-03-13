@@ -29,10 +29,6 @@
     <%= javascript_include_tag "frontend" %>
 
     <script>
-      $('.bookmarklet').tooltip();
-    </script>
-
-    <script>
       $("article.fact").each(function()  {
         $fact = $(this);
         $fact.data("wheel", new Wheel(this));
