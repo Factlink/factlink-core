@@ -40,7 +40,7 @@ var Wheel = (function() {
   function update_authority(w, authority_element) {
     var auth = authority_element.data("authority");
     var pos = w.params.dim + (w.params.dim * 0.25);
-    
+
     if (!authority_element.raphael) {
       authority_element.raphael = w.r.text(pos, pos+TEMPORARY_AUTHORITY_MARGIN, auth).attr({
         "font-size": "13pt",
@@ -80,6 +80,9 @@ var Wheel = (function() {
   Wheel.prototype.update = function() {
     var wheel = this;
     update_authority(wheel, wheel.authority);
+
+    $(wheel.authority.raphael[0]).tooltip({title: 'This number represents the amount of thinking people have spend on this Factlink'});
+
     wheel.calc_display(this.opinions);
     var offset = 0;
     $(this.opinions).each(function() {
@@ -126,9 +129,9 @@ var Wheel = (function() {
       });
       // Bootstap popver
       $(this.raphael.node).attr("rel", "twipsy").tooltip({
-        title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; }, 
+        title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; },
         offset: 0,
-        placement:"left" 
+        placement:"left"
       });
     });
   };
