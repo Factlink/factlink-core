@@ -158,6 +158,7 @@ class FactsController < ApplicationController
       @fact = Fact[id] || raise_404
     end
 
+    # TODO This should not be a Controller method. Move to FactRelation
     def add_evidence(evidence_id, type, fact_id) # private
       type     = type.to_sym
       fact     = Fact[fact_id]
@@ -165,11 +166,15 @@ class FactsController < ApplicationController
 
       # Create FactRelation
       fact_relation = fact.add_evidence(type, evidence, current_user)
+
       evidence.add_opinion(:believes, current_graph_user)
+      evidence.calculate_opinion(1)
+
       fact_relation.add_opinion(:believes, current_graph_user)
       fact_relation
     end
 
+    # TODO This should not be a Controller method. Move to Fact
     def create_fact(url, displaystring, title) # private
       @site = url && (Site.find(:url => url).first || Site.create(:url => url))
 
