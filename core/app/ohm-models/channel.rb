@@ -2,9 +2,11 @@ require_relative 'channel/generated_channel'
 require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
+require_relative '../classes/slugify'
 
 class Channel < OurOhm
   include Activity::Subject
+  include Slugify
 
   def type; "channel" end
 
@@ -18,7 +20,7 @@ class Channel < OurOhm
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
-    self.lowercase_title = new_title.downcase
+    self.lowercase_title = slugify new_title
   end
 
   after :save, :possibly_create_topic
