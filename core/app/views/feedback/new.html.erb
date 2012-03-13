@@ -2,7 +2,12 @@
   <a href="#" class="close" data-dismiss="modal">×</a>
   <h1>Share Feedback</h1>
 </div>
-<div class="alert-message fade in" style="display: none"></div>
+<div class="alert alert-success fade in" style="display: none">
+  <a class="close" href="#">x</a>
+  <span class='message'></span>
+</div>
+
+
 <%= form_for(:feedback, url: {action: :create}, remote: true, html: {id: "feedback-form"}) do |f| %>
   <div class="modal-body">
     Your feedback is greatly appreciated.

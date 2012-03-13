@@ -19,7 +19,7 @@ module Notifications
     end
 
     def fact_url
-      friendly_fact_path(self[:activity].object)
+      friendly_fact_path self[:activity].object
     end
 
 

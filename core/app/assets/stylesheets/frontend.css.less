@@ -62,9 +62,6 @@ body.factlink-site .fact-block {
   -moz-border-radius: 0;
 }
 
-a.bookmarklet {
-  cursor: move;
-}
 
 .list-block {
   min-height: 48px;
@@ -126,7 +123,25 @@ a.bookmarklet {
     font-size: (@baseFontSize * 1.5);
     margin-bottom: @baseFontSize;
   }
+  .authority {
+    display: inline-block;
+    padding: 5px 20px 0;
+    margin-left: 15px;
 
+    img {
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+      color: #333;
+      font-size: 11px;
+    }
+  }
+  .user-block .authority {
+  	padding: 0;
+  	margin: 0;
+  }
   form {
     .row {
       padding: 10px 0px;
@@ -285,22 +300,6 @@ a.bookmarklet {
       div.button-wrap {
         position: absolute;
         display: inline-block;
-
-        .authority {
-          display: inline-block;
-          padding: 5px 20px 0;
-          margin-left: 15px;
-
-          img {
-            vertical-align: middle;
-          }
-
-          span {
-            vertical-align: middle;
-            color: #333;
-            font-size: 11px;
-          }
-        }
       }
 
       .tabs {
@@ -476,4 +475,8 @@ a.bookmarklet {
 /* fix positioning of X in alert message */
 .alert-message .close {
   margin-top: -4px;
+}
+
+.hidden{
+  display: none;
 }

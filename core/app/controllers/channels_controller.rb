@@ -58,7 +58,7 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    @channel = Channel.new(params[:channel].slice(:title) || params.slice(:title))
+    @channel = Channel.new(params[:channel].andand.slice(:title) || params.slice(:title))
     @channel.created_by = current_user.graph_user
 
     # Check if object valid, then execute:
@@ -181,6 +181,7 @@ class ChannelsController < ApplicationController
     render layout: false, partial: "channels/related_users",
       locals: {
            related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
+           topic: Topic.by_title(@channel.title),
            excluded_users: [@channel.created_by]
       }
   end

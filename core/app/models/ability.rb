@@ -95,6 +95,7 @@ class Ability
     if user.admin?
        can :see_feature_version_number, FactlinkWebapp
     end
+    can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
   end
 
 end

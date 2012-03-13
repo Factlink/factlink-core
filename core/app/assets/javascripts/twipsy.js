@@ -1,9 +1,12 @@
 twipsy = {};
 twipsy.toElement = function(div){
-  var rv = {div: $(div)};
+  console.info('adding twipsy to ',div)
+  var rv = {div: div};
   rv.addHint = function (hint){
-    this.div.tooltip({
-      live: true,
+    var self = this;
+    console.info('hint for ',self.div, 'is', hint)
+    $('body').tooltip({
+      selector: self.div,
       placement: 'right',
       title: function() { return hint; }
     });

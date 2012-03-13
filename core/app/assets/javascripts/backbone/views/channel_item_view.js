@@ -1,10 +1,6 @@
 window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
 
-  events: {
-    "click" : "clickHandler"
-  },
-
   initialize: function() {
     this.useTemplate("channels", "_single_menu_item");
 
@@ -48,11 +44,7 @@ window.ChannelItemView = Backbone.View.extend({
 
   remove: function() {
     this.$el.remove();
-  },
-
-  clickHandler: function( e ) {
-    Router.navigate(Router.getUsername() + "/channels/" + this.model.id, true);
-
-    e.preventDefault();
   }
+
+
 });

@@ -110,9 +110,17 @@ window.AddToChannelView = Backbone.View.extend({
 
   render: function() {
     var self = this;
+    var add_model = {};
+
+    if ( this.forChannel !== undefined ) {
+      if (this.collection.get(this.forChannel.id) === undefined) {
+        add_model = {'default_add_new_value': this.forChannel.get('title')};
+      }
+    }
+
 
     this.$el
-      .html( Mustache.to_html(this.tmpl) );
+      .html( Mustache.to_html(this.tmpl,add_model) );
 
     var $channelListing = this.$el.find('ul');
 

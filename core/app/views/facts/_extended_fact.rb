@@ -12,6 +12,10 @@ module Facts
       self[:fact].data.displaystring
     end
 
+    def fact_title
+      self[:fact].data.title
+    end
+
     def id
       self[:fact].id
     end
