@@ -96,6 +96,7 @@ group :development do
 end
 
 group :test do
+  # gem 'webrat'
   gem 'rspec-rails'
   gem 'factory_girl_rails' #factories for easy creation of a lot of objects
   gem 'factory_girl'
