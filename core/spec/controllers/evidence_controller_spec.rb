@@ -30,13 +30,45 @@ describe EvidenceController do
     end
   end
 
-  it "should be able to set an opinion" do
-    authenticate_user!(user)
+  describe :create do
 
-    should_check_can :opinionate, @fr
 
-    post 'set_opinion', :fact_id => f1.id, :supporting_evidence_id => @fr.id, :type => :believes, :format => 'json'
+    context "adding new evidence to a fact" do
 
-    response.should be_success
+      it "should fail" do
+        authenticate_user!(user)
+
+        should_check_can :add_evidence, f1
+
+        post 'create', fact_id: f1.id, displaystring: "Nieuwe features van Mark", format: :json
+
+        puts "Response:"
+        puts response.body
+        puts "-------"
+        response.should be_success
+      end
+
+    end
+
+    # context "adding a new fact as evidence to a fact" do
+    #   puts "pending"
+    # end
+
+  end
+
+
+  describe :set_opinion do
+    it "should be able to set an opinion" do
+      authenticate_user!(user)
+
+      should_check_can :opinionate, @fr
+
+      post 'set_opinion', fact_id: f1.id, supporting_evidence_id: @fr.id, type: :believes, format: :json
+
+      response.should be_success
+
+      parsed_content = JSON.parse(response.body)
+      parsed_content.first.should have_key("fact_bubble")
+    end
   end
 end
