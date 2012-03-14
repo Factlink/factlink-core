@@ -50,7 +50,7 @@ if ENV['RUN_METRICS'] == "TRUE" and ['test', 'development'].include? Rails.env
 end
 
 
-ActiveSupport.escape_html_entities_in_json = true
+#ActiveSupport.escape_html_entities_in_json = true
 
 
 module FactlinkUI
