@@ -1,33 +1,33 @@
-# Integrations tests should be marked with the type :request, e.g:
-# describe "Channel", type: :request do
-# end
-
-# This is the normal spec_helper, excluding the Devise section
-require 'rubygems'
-require 'capybara/rspec'
-
-Capybara.javascript_driver = :webkit
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'rubygems'
+require 'capybara/rspec'
+require 'capybara-webkit'
+# require 'headless'
+require 'database_cleaner'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  #mix in FactoryGirl methods
+  Capybara.javascript_driver = :webkit
+
+  config.pattern = "**/*_spec.rb"
+  config.mock_with :rspec
+
   config.include Factory::Syntax::Methods
   config.include ControllerMethods, type: :controller
 
-  config.pattern = "**/*_spec.rb"
-
-  config.mock_with :rspec
-  require 'database_cleaner'
+  config.include Devise::TestHelpers, type: :view
+  config.include Devise::TestHelpers, type: :controller
 
   config.before(:suite) do
+    # Use the headless gem to manage your Xvfb server
+    # So not destroy X server in case
+    # Headless.new(destroy_on_exit: false).start
+
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
   end
@@ -43,22 +43,10 @@ RSpec.configure do |config|
   end
 end
 
-# Integration helper specific:
-
-RSpec.configure do |config|
-  config.include Devise::TestHelpers, type: :view
-  config.include Devise::TestHelpers, type: :controller
-end
-
 Devise.setup do |config|
-  # Set the number of stretches to 1 for your test environment to speed up
-  # unit tests: https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
-
-  # Using less stretches will increase performance dramatically if you use
-  # bcrypt and create a lot of users (i.e. you use FactoryGirl or Machinist).
-  config.stretches = 1
+  # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
+  config.stretches = 1    # should be low to improve performance
 end
-
 
 def int_user
   user = Factory.create(:user, email: "user@example.com")
@@ -73,10 +61,9 @@ def handle_js_confirm(accept=true)
   page.evaluate_script "window.confirm = window.original_confirm_function"
 end
 
-
 def make_user_and_login
   password = "secretpass"
-  @user = Factory(:user, :password => password)
+  @user = Factory.create(:user, email: "user@example.com")
   visit login_path
   fill_in "Email", :with => @user.email
   fill_in "Password", :with => password
