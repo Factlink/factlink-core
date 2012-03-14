@@ -162,6 +162,7 @@ GEM
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
     haml (3.1.4)
+    headless (0.2.2)
     highline (1.6.11)
     hike (1.2.1)
     hirb (0.6.0)
@@ -433,6 +434,7 @@ DEPENDENCIES
   factory_girl
   factory_girl_rails
   fattr
+  headless
   jquery-rails (>= 1.0.17)
   json
   less-rails (>= 2.1.5)

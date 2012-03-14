@@ -127,6 +127,7 @@ group :test do
 
   gem 'capybara'
   gem 'capybara-webkit'
+  gem "headless"
 end
 
 group :jstest do
