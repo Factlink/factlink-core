@@ -1,8 +1,8 @@
 @import "reset.less";
 @import "elements.less";
 
-/* Actual styles start */ 
-@z-index      : 2147483644; 
+/* Actual styles start */
+@z-index      : 2147483644;
 @hover-color  : darken(rgb(240,240,240), 10);
 @bg-color-stop: #fbfbfb;
 @bg-color     : #e2e2e2;
@@ -58,9 +58,9 @@ span.factlink {
   background: lighten(@bg-color, 8);
   padding: 6px;
   position: relative;
-  
+
   .drop-shadow(1px, 2px, 3px, 0.20);
-  
+
   &:hover {
     border: solid 1px #555;
   }
@@ -69,19 +69,19 @@ span.factlink {
 .text-shadow {
   text-shadow: 0px 1px 0px #fff;
 }
-        
+
 #fl {
   #fl > .resetStyles;
   .unselectable();
   height: 0;
   width: 0;
-  
+
   .fl-popup {
     #fl > .resetStyles;
     .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
     .rounded(3px);
     .drop-shadow(1px, 2px, 3px, 0.20);
-    
+
     position: absolute;
     display:  none;
     height:   @popup-height;
@@ -104,7 +104,7 @@ span.factlink {
       }
     }
 
-    &.bottom { 
+    &.bottom {
       .fl-arrow  {
         background-image: url(../images/arrows-bottom.png);
         top: 100%;
@@ -116,17 +116,17 @@ span.factlink {
 
     &:hover {
       border: solid 1px #555;
-      
+
       .fl-arrow {
         background-position: 12px 0px !important;
       }
-      
+
       > div.fl-share > ul.fl-channels,
       > ul.fl-add-options {
         border: solid 1px #555;
       }
     }
-    
+
     &.fl-create,
     &.fl-created,
     &.fl-add-evidence  {
@@ -140,7 +140,7 @@ span.factlink {
         color: #000;
         text-decoration: none;
         display: inline-block;
-        width: 100%; 
+        width: 100%;
         height: 100%;
       }
     }
@@ -151,7 +151,7 @@ span.factlink {
           display: block;
           width: 100%;
           margin: 0;
-          img { 
+          img {
             float: right;
             margin-top: 4px;
           }
@@ -160,22 +160,22 @@ span.factlink {
         > span.fl-add-evidence {
           display: none;
         }
-      } 
+      }
     }
-    
+
     &.fl-add-evidence {
       > div.fl-label {
         > span.fl-create,
         > span.fl-created {
           display: none;
         }
-        
+
         > span.fl-add-evidence {
           display: block;
           width: 105px;
         }
       }
-      
+
       ul.fl-add-options {
         display: none !important;
       }
@@ -186,23 +186,23 @@ span.factlink {
         > span.fl-add-evidence {
           display: none;
         }
-        
+
         > span.fl-created {
           display: block;
           width: 105px;
         }
       }
-      
+
       ul.fl-add-options {
         display: none !important;
       }
     }
-        
+
     &.add-active {
       &.right {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-        
+
         > ul.fl-add-options {
           border-top-left-radius: 0;
           display: block;
@@ -210,104 +210,105 @@ span.factlink {
           left: @popup-create-width;
         }
       }
-      
+
       &.left {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-        
+
         > ul.fl-add-options {
           border-top-right-radius: 0;
           display: block;
           left: -100%;
+          width: 100%;
           top: 0;
-          margin: -1px 0 0 -5px;
+          margin: -1px 0 0 -2px;
         }
       }
     }
-    
+
     &.fl-channel-active {
       &.bottom {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-        
+
         >div.fl-share {
           border-bottom-left-radius: 0;
-          
+
           >ul.fl-channels {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
           }
         }
       }
-      
+
       &.top {
         border-top-left-radius: 0;
-        
+
         > div.fl-share {
           border-top-left-radius: 0;
-          
+
           > ul.fl-channels {
             border-bottom-left-radius: 0;
           }
         }
       }
-      
+
       > div.fl-share {
         background: @bg-color;
-        
+
         > ul.fl-channels {
           display: block;
         }
       }
     }
-        
+
     .fl-label {
       #fl > .resetStyles;
-      height: @popup-height; 
+      height: @popup-height;
       text-align: center;
       overflow: hidden;
-      
+
       > span {
         #fl > .resetStyles;
-        
-        float: left;  
+
+        float: left;
         line-height: @popup-height;
         display: inline-block;
         min-width: 55px;
         text-align: center;
         .text-shadow;
       }
-      
+
       > span.add-evidence {
         display: none;
       }
-      
+
       .fl-indication {
         #fl > .resetStyles;
-        
+
         float: right;
         height: 30px;
         overflow: auto;
-       
+
         .fl-authority {
           #fl > .resetStyles;
-          
+
           float: left;
           margin: 0 3px 0 0;
           color: #a0a0a0;
           font-size: 0.8em;
           line-height: @popup-height;
-          
+
         }
         .fl-indicator-icon {
           #fl > .resetStyles;
-          
+
           float: right;
           margin-top: 2px;
           padding-right: 4px;
           width: 17px;
-          height: 20px;          
-          
+          height: 20px;
+
           background-repeat: none;
           background-color: transparent;
 
@@ -317,26 +318,27 @@ span.factlink {
           &.disbelieve {
             background-position: 41px 0px !important;
           }
-          &.doubt { 
+          &.doubt {
             background-position: 21px 0px !important;
           }
-        } 
+        }
       }
     }
 
     // Create
     .fl-add-options {
       #fl > .resetStyles;
-      
+
       .fl-float-box;
       display: none;
       position: absolute;
       top: 0;
-      
+      width: 100%;
+
       margin: -1px 0 0 0;
       padding: 0px;
       z-index: @z-index;
-      
+
       li {
         #fl > .resetStyles;
         margin: 3px 0px;
@@ -348,14 +350,14 @@ span.factlink {
           background: @context-menu-highlight-color;
           .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
           cursor: pointer;
-          
-          a { 
+
+          a {
             color: #fff;
             text-shadow: 0px 0px 0px transparent;
             font-weight: 100;
           }
         }
-        
+
         a {
           #fl > .resetStyles;
           display: block;
@@ -371,24 +373,22 @@ span.factlink {
     // Indicator
     .fl-share {
       #fl > .resetStyles;
-      
+
       float: left;
       padding: 6px 4px 4px;
       .bordered(transparent, lighten(@border-color, 16), transparent, transparent);
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
-      
       line-height: 12px;
-      
       position: relative;
-      
+
       &:hover {
         background: @bg-color;
       }
       @channel-box-width: 140px;
       > .fl-channels {
         #fl > .resetStyles;
-        
+
         .fl-float-box;
 
         cursor: default;
@@ -416,10 +416,10 @@ span.factlink {
           }
           &.fl-loading {
             text-align: center;
-            
+
             img {
               #fl > .resetStyles;
-              
+
               vertical-align: bottom;
               margin: 0 4px 0 0;
             }
@@ -431,7 +431,7 @@ span.factlink {
             width: @channel-box-width - 20px;
             > input {
               #fl > .resetStyles;
-              
+
               margin-right: 5px;
             }
           }

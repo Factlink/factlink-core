@@ -64,6 +64,8 @@ Factlink.Prepare = function() {
   }
 
   this.show = function(top, left) {
+    pageX = left;
+    pageY = top;
     self.resetType();
     Factlink.set_position(top,left,window,el);
     el.fadeIn('fast');
