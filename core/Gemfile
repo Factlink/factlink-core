@@ -103,8 +103,8 @@ group :test do
   gem 'database_cleaner'
   gem 'mock_redis'
 
-  gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara', require: false
+  gem 'capybara-webkit', require: false
   gem 'headless'
 end
 
