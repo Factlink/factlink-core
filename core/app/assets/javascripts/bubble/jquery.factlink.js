@@ -43,7 +43,7 @@
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
           if (!$(current_op).data("user-opinion")) {
             $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
-              data_attr(current_op, "user-opinion", true);
+              $(current_op).realData("user-opinion", true);
               fact.factlink("update", data);
 
               try {
@@ -59,7 +59,7 @@
               type: "DELETE",
               url: "/facts/" + $(fact).data("fact-id") + "/opinion.json",
               success: function(data) {
-                data_attr(current_op, "user-opinion", false);
+                $(current_op).realData('user-opinion', false);
                 fact.factlink("update", data);
 
                 try {
@@ -72,7 +72,7 @@
           }
         }
         else {
-          data_attr(current_op, "user-opinion", false);
+          $(current_op).realData("user-opinion", false);
         }
       });
     },
@@ -105,11 +105,10 @@
     }
   };
 
-  // Private functions
-  function data_attr(el, attr, data) {
-    $(el).attr("data-" + attr, data);
-    $(el).data(attr, data);
-  }
+  $.fn.realData = function (attr, data) {
+    $(this).attr('data-' + attr, data);
+    $(this).data(attr, data);
+  };
 
   function init_fact(fact, container) {
     var $fact = $(fact);
@@ -130,9 +129,9 @@
       // Now setting a function in the jquery data to keep track of it, would be prettier with custom events
       $fact.data("update", function(data) {
         $fact.data("wheel").opinions.each(function() {
-          data_attr(this, "value", data[$(this).data("opinions")].percentage);
+          $(this).realData("value", data[$(this).data("opinions")].percentage)
         });
-        data_attr($fact.data("wheel").authority,"authority",data.authority);
+        $fact.data("wheel").authority.realData("authority", data.authority);
         $fact.data("wheel").update();
       });
 
