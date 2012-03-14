@@ -91,7 +91,20 @@ describe ChannelsController do
       get :show, username: user.username, id: ch1.id, format: 'json'
       response.should be_succes
     end
+
+    it "should escape html in fields" do
+      authenticate_user!(user)
+      @ch = FactoryGirl.create(:channel)
+      @ch.title = "baas<xss> of niet"
+      @ch.created_by = user.graph_user
+      @ch.save
+
+      should_check_can :show, @ch
+      get :show, :id => @ch.id, :username => user.username
+
+      response.body.should_not match(/<xss>/)
+    end
   end
 
-  
+
 end

@@ -49,6 +49,10 @@ if ENV['RUN_METRICS'] == "TRUE" and ['test', 'development'].include? Rails.env
   end
 end
 
+
+ActiveSupport.escape_html_entities_in_json = true
+
+
 module FactlinkUI
   class Application < Rails::Application
     config.autoload_paths << "#{config.root}/lib"
