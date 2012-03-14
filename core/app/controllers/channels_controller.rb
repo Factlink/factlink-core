@@ -26,10 +26,9 @@ class ChannelsController < ApplicationController
 
   def index
     authorize! :index, Channel
-    @channels = @user.graph_user.channels
 
     respond_to do |format|
-      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for(channel: ch,view: view_context,channel_user: @user)} }
+      format.json { render :json => channels_for_user(@user).map {|ch| Channels::SingleMenuItem.for(channel: ch,view: view_context,channel_user: @user)} }
       format.js
     end
   end
@@ -207,4 +206,14 @@ class ChannelsController < ApplicationController
       @channel || raise_404("Channel not found")
       @user ||= @channel.created_by.user
     end
+
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+      end
+      @channels
+    end
+    helper_method :channels_for_user
+
 end

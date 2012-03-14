@@ -191,10 +191,15 @@ ul.interacting-users {
           cursor: pointer;
         }
       }
+
+      div.authority {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
     }
 
     header {
-      margin: 0 0 5px 128px;
+      margin: 0 0 5px 75px;
       min-height: 60px;
       padding-right: 25px;
       #font > .sans-serif(normal,12px,@baseLineHeight);
@@ -206,40 +211,40 @@ ul.interacting-users {
         }
       }
       .head {
-				display: block;
+        display: block;
         .ellipsis();
         width: 340px;
         color: #afafaf;
       }
-			.edit {
+      .edit {
         #font > .sans-serif(normal,9pt,@baseLineHeight);
         &:before {
-	        #font > .iconic();
+          #font > .iconic();
           content: "p ";
         }
-				&:hover {
-					background-color: @lightYellow;
-				}
+        &:hover {
+          background-color: @lightYellow;
+        }
 
-				form {
+        form {
           display: inline-block;
           input, input:focus {
             #font > .sans-serif(normal,9pt,@baseLineHeight);
-						background-color: @lightYellow;
+            background-color: @lightYellow;
             border: none;
-						outline: none;
+            outline: none;
             padding: 0;
             margin: 0;
-					}
-				}
-			}
+          }
+        }
+      }
       .body {
         word-wrap: break-word;
         vertical-align: baseline;
         span a {
           color: @linkColor;
         }
-			}
+      }
     }
   }
 

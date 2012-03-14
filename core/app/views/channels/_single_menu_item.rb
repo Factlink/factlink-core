@@ -51,6 +51,10 @@ module Channels
       !is_all && !is_created
     end
 
+    def is_mine
+      self[:user] == current_user
+    end
+
     def created_by
       {
         id: self[:user].id,
