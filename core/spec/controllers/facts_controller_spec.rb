@@ -99,31 +99,6 @@ describe FactsController do
       @evidence.created_by.user = FactoryGirl.create :user
       @evidence.created_by.save
     end
-
-    pending :add_supporting_evidence do
-      it "should respond to XHR" do
-        authenticate_user!(user)
-        should_check_can :add_evidence, @fact
-        xhr :get, :add_supporting_evidence,
-          :id => @fact.id,
-          :evidence_id => @evidence.id
-
-        response.code.should eq("200")
-      end
-
-    end
-
-    pending :add_weakening_evidence do
-      it "should respond to XHR" do
-        authenticate_user!(user)
-        should_check_can :add_evidence, @fact
-        xhr :get, :add_supporting_evidence,
-          :id => @fact.id,
-          :evidence_id => @evidence.id
-
-        response.code.should eq("200")
-      end
-    end
   end
 
 end
