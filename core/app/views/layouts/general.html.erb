@@ -28,14 +28,6 @@
 
     <%= javascript_include_tag "frontend" %>
 
-    <script>
-      $("article.fact").each(function()  {
-        $fact = $(this);
-        $fact.data("wheel", new Wheel(this));
-        $fact.data("wheel").init($fact.find(".wheel").get(0));
-      });
-    </script>
-
     <%= yield :javascript %>
 
 <% end %>
