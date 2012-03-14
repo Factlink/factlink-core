@@ -26,7 +26,7 @@ FactlinkUI::Application.routes.draw do
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new]
 
-  authenticate :user do
+  authenticated :user do
     get "/p/tour" => "home#tour", as: "tour"
 
     resources :facts, :except => [:edit, :index, :update] do
