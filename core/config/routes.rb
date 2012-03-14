@@ -2,81 +2,66 @@ FactlinkUI::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
-  ##########
   # User Authentication
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions" }
 
-
-  ##########
   # Web Front-end
   root :to => "home#index"
-
   get   "/site/blacklisted" => "sites#blacklisted"
-  
-  # Prepare a new Fact
-  # If you change this route, don't forget to change it in application.rb as well (frame busting)
-  match "/factlink/intermediate" => "facts#intermediate"
 
+  # Prepare a new Fact
+  # If you change this route, don't forget to change it in application.rb
+  # as well (frame busting)
+  match "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
   get "/templates/:name" => "templates#show", constraints: { name: /[-a-zA-Z_]+/ }
 
-  # generate the images for the indicator used in the js-lib
+  # Generate the images for the indicator used in the js-lib
   get "/system/wheel/:percentages" => "wheel#show"
 
   resource :feedback, only: [:new, :create], controller: "feedback"
 
+  # Show Facts#new as unauthenticated user to show the correct login link
+  resources :facts, only: [:new]
+
   authenticate :user do
     get "/p/tour" => "home#tour", as: "tour"
 
-    ################
-    # Facts Controller
-    ################
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 
       resources :supporting_evidence, :weakening_evidence do
         get     "opinion"       => "evidence#opinion"
-        post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
-        delete  "opinion/"      => "evidence#remove_opinions", :as => "delete_opinion"
+        post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
+        delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
       end
 
       member do
-        post    "opinion/:type" => "facts#set_opinion", :as => "set_opinion"
-        delete  "opinion/"      => "facts#remove_opinions", :as => "delete_opinion"
-
-        match "/evidence_search" => "facts#evidence_search"
-
-        get "/channels" => "facts#get_channel_listing"
+        post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
+        delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+        match   "/evidence_search"  => "facts#evidence_search"
+        get     "/channels"         => "facts#get_channel_listing"
       end
       collection do
-        #SHOULD be replaced with a PUT to a fact, let the jeditable post to a function instead of to a url
-        #       the function should be able to use the json response of the put
+        # SHOULD be replaced with a PUT to a fact, let the jeditable post to a
+        # function instead of to a url. The function should be able to use the
+        # json response of the put.
         post  "/update_title" => "facts#update_title", :as => "update_title"
       end
     end
 
     get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
-    ###############
-    # Sites Controller
-    ##########
     # Javascript Client calls
     # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
     get   "/site/count" => "sites#facts_count_for_url"
     get   "/site" => "sites#facts_for_url"
     get   "/site/:id" => "sites#show"
 
-    ################
-    # OTHER
-    ###############
-
-
     # Search and infinite scrolling
     match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
-
- 
 
     namespace :admin do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index]
@@ -108,18 +93,18 @@ FactlinkUI::Application.routes.draw do
         member do
           resources :subchannels, only: [:index] do
             collection do
-              post "add/:subchannel_id/", :as => "add", :action => "add"
-              post "remove/:subchannel_id/", :as => "remove", :action => "remove"
+              post "add/:subchannel_id/",     :as => "add",     :action => "add"
+              post "remove/:subchannel_id/",  :as => "remove",  :action => "remove"
             end
           end
 
-          get "related_users", :as => "channel_related_users"
-          get "activities", :as => "activities"
+          get "related_users",  :as => "channel_related_users"
+          get "activities",     :as => "activities"
 
           post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
-          post "add/:fact_id" => "channels#add_fact"
-          post "remove/:fact_id" => "channels#remove_fact"
+          post "add/:fact_id"     => "channels#add_fact"
+          post "remove/:fact_id"  => "channels#remove_fact"
 
           scope "/facts" do
             get "/" => "channels#facts", :as => "get_facts_for"
@@ -130,8 +115,8 @@ FactlinkUI::Application.routes.draw do
               match "/evidence_search" => "facts#evidence_search"
 
               resources :supporting_evidence, :weakening_evidence do
-                post    "opinion/:type" => "evidence#set_opinion", :as => "set_opinion"
-                delete  "opinion/" => "evidence#remove_opinions", :as => "delete_opinion"
+                post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
+                delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
               end
             end
           end
@@ -140,14 +125,12 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
-
-  get "p/tos" => "tos#show", as: "tos"
-  post "p/tos" => "tos#update", as: "tos"
-  get "/p/privacy" => "privacy#privacy", as: "privacy"
+  get  "/p/tos"     => "tos#show",        as: "tos"
+  post "/p/tos"     => "tos#update",      as: "tos"
+  get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
     resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages"
   end
-
 end
