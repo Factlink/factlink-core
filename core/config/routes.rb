@@ -13,7 +13,7 @@ FactlinkUI::Application.routes.draw do
   root :to => "home#index"
 
   get   "/site/blacklisted" => "sites#blacklisted"
-  
+
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb as well (frame busting)
   match "/factlink/intermediate" => "facts#intermediate"
@@ -26,6 +26,8 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   resource :feedback, only: [:new, :create], controller: "feedback"
+
+  resources :facts, only: [:new]
 
   authenticate :user do
     get "/p/tour" => "home#tour", as: "tour"
@@ -76,7 +78,7 @@ FactlinkUI::Application.routes.draw do
     # Search and infinite scrolling
     match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
 
- 
+
 
     namespace :admin do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index]
