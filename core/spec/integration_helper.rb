@@ -4,7 +4,7 @@ require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
 require 'capybara-webkit'
-# require 'headless'
+require 'headless'
 require 'database_cleaner'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -26,7 +26,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     # Use the headless gem to manage your Xvfb server
     # So not destroy X server in case
-    # Headless.new(destroy_on_exit: false).start
+    Headless.new(destroy_on_exit: false).start
 
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
