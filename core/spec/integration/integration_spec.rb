@@ -17,7 +17,7 @@ describe "Channel", type: :request do
 
     click_link "Add new"
     fill_in "channel_title", with: channel_title
-    click_button "Save"
+    click_button "Submit"
 
     within(:css, "h1") do
       page.should have_content(channel_title)
