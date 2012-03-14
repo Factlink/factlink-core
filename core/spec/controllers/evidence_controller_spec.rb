@@ -68,7 +68,6 @@ describe EvidenceController do
         f2.add_opinion(:disbelieves, user.graph_user)
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
-
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
