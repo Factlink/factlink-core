@@ -79,7 +79,6 @@ var Wheel = (function() {
       }
       this.display_value = percentage;
     });
-
   };
 
   Wheel.prototype.update = function() {
