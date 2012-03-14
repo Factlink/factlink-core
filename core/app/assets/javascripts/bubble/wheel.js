@@ -17,24 +17,26 @@ var Wheel = (function() {
     });
   }
 
-  function arc(wheel, op, p) {
-    var opacity = $(op).data("user-opinion") ? 1.0 : wheel.params.default_stroke.opacity;
-    var the_arc = [op.display_value, p.offset, p.r];
+  function arc(wheel, opinion, p) {
+    var opacity = $(opinion).data("user-opinion") ? 1.0 : wheel.params.default_stroke.opacity;
+    var the_arc = [opinion.display_value, p.offset, p.radius];
 
-    if (!op.raphael) {
+    if (!opinion.raphael) {
       // set new path
-      return (op.raphael = wheel.raphael.path().attr({
+      opinion.raphael = wheel.raphael.path().attr({
         arc: the_arc,
-        stroke: $(op).data("color"),
+        stroke: $(opinion).data("color"),
         "stroke-width": wheel.params.default_stroke.stroke,
         opacity: opacity
-      }));
+      });
     } else {
-      return op.raphael.animate({
+      opinion.raphael.animate({
         arc: the_arc,
         opacity: opacity
       }, 200, '<>');
     }
+
+    return opinion.raphael;
   }
 
   function update_authority(wheel, authority_element) {
@@ -86,10 +88,10 @@ var Wheel = (function() {
     wheel.calc_display(this.opinions);
     var offset = 0;
     $(this.opinions).each(function() {
-      var z = arc(wheel, this, {
+      arc(wheel, this, {
         offset: offset,
         val: this.display_value,
-        r: wheel.params.radius
+        radius: wheel.params.radius
       });
       offset = offset + this.display_value;
     });
