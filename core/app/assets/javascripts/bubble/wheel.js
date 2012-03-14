@@ -44,17 +44,19 @@ var Wheel = (function() {
     var pos = wheel.params.dim + (wheel.params.dim * 0.25);
 
     if (!authority_element.raphael) {
-      authority_element.raphael = wheel.raphael.text().attr({
+      authority_element.raphael = wheel.raphael.text(pos, pos, auth).attr({
         "font-size": "13pt",
         "fill": "#999"
       });
+      authority_element.raphael.node.childNodes[0].setAttribute("dy","5");
+    } else {
+      authority_element.raphael.attr({
+        "text": auth,
+        "x": pos,
+        "y": pos
+      });
     }
 
-    authority_element.raphael.attr({
-      "text": auth,
-      "x": pos,
-      "y": pos
-    });
     $(authority_element.raphael[0]).tooltip({title: 'This number represents the amount of thinking people have spend on this Factlink'});
   }
 
@@ -82,8 +84,6 @@ var Wheel = (function() {
 
   Wheel.prototype.update = function() {
     var wheel = this;
-    update_authority(wheel, wheel.authority);
-
 
     wheel.calc_display(this.opinions);
     var offset = 0;
@@ -95,6 +95,8 @@ var Wheel = (function() {
       });
       offset = offset + this.display_value;
     });
+
+    update_authority(wheel, wheel.authority);
   };
 
   Wheel.prototype.bind_events = function() {
