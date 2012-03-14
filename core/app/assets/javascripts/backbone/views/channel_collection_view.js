@@ -33,7 +33,7 @@ window.ChannelCollectionView = Backbone.CollectionView.extend({
   },
 
   afterReset: function() {
-    $('div.tooltip').remove();
+    $('div.tooltip',this.$el).remove();
   },
 
   render: function() {
