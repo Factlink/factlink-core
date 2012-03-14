@@ -29,6 +29,10 @@
     <%= javascript_include_tag "frontend" %>
 
     <script>
+      console.info( "This is the version that should be deployed" );
+    </script>
+
+    <script>
       $("article.fact").each(function()  {
         $fact = $(this);
         $fact.data("wheel", new Wheel(this));
