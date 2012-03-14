@@ -3,13 +3,7 @@ require 'integration_helper'
 describe "Channel", type: :request do
 
   before :each do
-    @user = int_user
-    visit "/"
-
-    fill_in 'user_email', :with => @user.email
-    fill_in 'user_password', :with => @user.password
-
-    click_button 'Sign in'
+    make_user_and_login
   end
 
   it "should be able to create and delete", js: true do
