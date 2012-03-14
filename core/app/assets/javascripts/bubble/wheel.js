@@ -53,6 +53,7 @@ var Wheel = (function() {
       "x": pos,
       "y": pos
     });
+    $(authority_element.raphael[0]).tooltip({title: 'This number represents the amount of thinking people have spend on this Factlink'});
   }
 
   Wheel.prototype.calc_display = function(opinions) {
@@ -81,7 +82,6 @@ var Wheel = (function() {
     var wheel = this;
     update_authority(wheel, wheel.authority);
 
-    $(wheel.authority.raphael[0]).tooltip({title: 'This number represents the amount of thinking people have spend on this Factlink'});
 
     wheel.calc_display(this.opinions);
     var offset = 0;
