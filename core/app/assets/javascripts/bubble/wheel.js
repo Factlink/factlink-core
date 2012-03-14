@@ -17,16 +17,16 @@ var Wheel = (function() {
     });
   }
 
-  function arc(w, op, p) {
-    var opacity = $(op).data("user-opinion") ? 1.0 : w.params.default_stroke.opacity;
+  function arc(wheel, op, p) {
+    var opacity = $(op).data("user-opinion") ? 1.0 : wheel.params.default_stroke.opacity;
     var the_arc = [op.display_value, p.offset, p.r];
 
     if (!op.raphael) {
       // set new path
-      return (op.raphael = w.r.path().attr({
+      return (op.raphael = wheel.raphael.path().attr({
         arc: the_arc,
         stroke: $(op).data("color"),
-        "stroke-width": w.params.default_stroke.stroke,
+        "stroke-width": wheel.params.default_stroke.stroke,
         opacity: opacity
       }));
     } else {
@@ -37,22 +37,22 @@ var Wheel = (function() {
     }
   }
 
-  function update_authority(w, authority_element) {
+  function update_authority(wheel, authority_element) {
     var auth = authority_element.data("authority");
-    var pos = w.params.dim + (w.params.dim * 0.25);
+    var pos = wheel.params.dim + (wheel.params.dim * 0.25);
 
     if (!authority_element.raphael) {
-      authority_element.raphael = w.r.text(pos, pos+TEMPORARY_AUTHORITY_MARGIN, auth).attr({
+      authority_element.raphael = wheel.raphael.text().attr({
         "font-size": "13pt",
         "fill": "#999"
       });
-    } else {
-      authority_element.raphael.attr({
-        "text": auth,
-        "x": pos,
-        "y": pos
-      });
     }
+
+    authority_element.raphael.attr({
+      "text": auth,
+      "x": pos,
+      "y": pos
+    });
   }
 
   Wheel.prototype.calc_display = function(opinions) {
@@ -96,36 +96,36 @@ var Wheel = (function() {
   };
 
   Wheel.prototype.bind_events = function() {
-    var w = this;
+    var wheel = this;
     $(this.opinions).each(function() {
       // bind events
       var $t = $(this);
       this.raphael.mouseover(function() {
         if (!$t.data("user-opinion")) {
           this.animate({
-            'stroke-width': w.params.hover_stroke.stroke,
-            opacity: w.params.hover_stroke.opacity
+            'stroke-width': wheel.params.hover_stroke.stroke,
+            opacity: wheel.params.hover_stroke.opacity
           }, 200, '<>');
         } else {
           this.animate({
-            'stroke-width': w.params.hover_stroke.stroke
+            'stroke-width': wheel.params.hover_stroke.stroke
           }, 200, '<>');
         }
       });
       this.raphael.mouseout(function() {
         if (!$t.data("user-opinion")) {
           this.stop().animate({
-            'stroke-width': w.params.default_stroke.stroke,
-            opacity: w.params.default_stroke.opacity
+            'stroke-width': wheel.params.default_stroke.stroke,
+            opacity: wheel.params.default_stroke.opacity
           }, 200, '<>');
         } else {
           this.animate({
-            'stroke-width': w.params.default_stroke.stroke
+            'stroke-width': wheel.params.default_stroke.stroke
           }, 200, '<>');
         }
       });
       $(this.raphael.node).bind("click", function() {
-        $(w.fact).factlink("switch_opinion", $t);
+        $(wheel.fact).factlink("switch_opinion", $t);
       });
       // Bootstap popver
       $(this.raphael.node).attr("rel", "twipsy").tooltip({
@@ -137,12 +137,12 @@ var Wheel = (function() {
   };
 
   Wheel.prototype.init = function(canvas) {
-    var w = this;
-    w.r = Raphael(canvas, w.params.dim * 2 + 17, w.params.dim * 2 + 17);
-    w.r.customAttributes.arc = function(percentage, percentage_offset, radius) {
+    var wheel = this;
+    wheel.raphael = Raphael(canvas, wheel.params.dim * 2 + 17, wheel.params.dim * 2 + 17);
+    wheel.raphael.customAttributes.arc = function(percentage, percentage_offset, radius) {
       percentage = percentage - 2; // add padding after arc
       var large_angle = percentage > 50,
-          box_dim = w.params.dim + 6,
+          box_dim = wheel.params.dim + 6,
           start_angle = percentage_offset * 2 * Math.PI / 100,
           end_angle = (percentage_offset + percentage) * 2 * Math.PI / 100,
           start_x = box_dim + radius * Math.cos(start_angle),
