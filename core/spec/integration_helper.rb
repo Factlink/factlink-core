@@ -62,10 +62,10 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user_and_login
-  password = "secretpass"
   @user = Factory.create(:user, email: "user@example.com")
-  visit login_path
-  fill_in "Email", :with => @user.email
-  fill_in "Password", :with => password
-  click_button "Log in"
+  @user.confirm!
+  visit "/"
+  fill_in "user_email", :with => @user.email
+  fill_in "user_password", :with => @user.password
+  click_button "Sign in"
 end
