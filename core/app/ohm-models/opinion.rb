@@ -8,7 +8,6 @@ class Opinion < OurOhm
   #
   # _r in redis
 
-  #TODO: refactor
   attribute :b_r
   attribute :d_r
   attribute :u_r
