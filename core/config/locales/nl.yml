@@ -3,9 +3,9 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
-  fact_believe_action: "eens"
-  fact_doubt_action: "neutraal"
-  fact_disbelieve_action: "oneens"
+  fact_believe_action: "stem in met"
+  fact_doubt_action: "stem neutraal op"
+  fact_disbelieve_action: "ontken"
 
   fact_believe_opinion: "eens"
   fact_doubt_opinion: "neutraal"
