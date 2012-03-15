@@ -40,7 +40,9 @@
     <div class="tabs">
       <ul>
         <li class="factlinks"><a href="{{{link}}}" rel="backbone">Recent</a></li>
-        <li class="activity"><a href="{{{activities_link}}}" rel="backbone">Discovery</a></li>
+        {{#is_normal}}
+          <li class="activity"><a href="{{{activities_link}}}" rel="backbone">Discovery</a></li>
+        {{/is_normal}}
       </ul>
     </div>
 
