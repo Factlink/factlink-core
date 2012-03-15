@@ -40,7 +40,7 @@ var Wheel = (function() {
   }
 
   function update_authority(wheel, authority_element) {
-    var auth = authority_element.data("authority");
+    var auth = authority_element.attr("data-authority");
     var pos = wheel.params.dim + (wheel.params.dim * 0.25);
 
     if (!authority_element.raphael) {

@@ -123,7 +123,7 @@ class Opinion < OurOhm
       believe:    { percentage: l_believe_percentage },
       disbelieve: { percentage: l_disbelieve_percentage },
       doubt:      { percentage: l_doubt_percentage  },
-      authority: a.round.to_i
+      authority: sprintf('%.1f', a)
     }
   end
 
