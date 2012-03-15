@@ -28,7 +28,7 @@ class ChannelsController < ApplicationController
     authorize! :index, Channel
 
     respond_to do |format|
-      format.json { render :json => channels_for_user(@user).map {|ch| Channels::SingleMenuItem.for(channel: ch,view: view_context,channel_user: @user)} }
+      format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
       format.js
     end
   end
@@ -36,7 +36,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json { render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context,channel_user: @user)}
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
       format.js
       format.html do
         render inline:'', layout: "channels"
@@ -68,7 +68,7 @@ class ChannelsController < ApplicationController
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
 
-        render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context)
+        render :json => Channels::Channel.for(channel: @channel,view: view_context)
         return
       end
 
@@ -76,7 +76,7 @@ class ChannelsController < ApplicationController
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
 
-        render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context)
+        render :json => Channels::Channel.for(channel: @channel,view: view_context)
         return
       end
 

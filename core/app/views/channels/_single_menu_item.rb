@@ -1,5 +1,5 @@
 module Channels
-  class SingleMenuItem < Mustache::Railstache
+  class Channel < Mustache::Railstache
 
     def init
       self[:user]||= self[:channel].created_by.user
