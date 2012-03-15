@@ -16,6 +16,17 @@ describe FactRelation do
       @fact2 =FactoryGirl.create(:fact)
       @fr = FactRelation.get_or_create(@fact1, :supporting, @fact2, gu)
       @fr.should be_a(FactRelation)
+      @fr.should_not be_new
+    end
+
+    it "should return a new factrelation when the relation does not exist" do
+      @fact1 =FactoryGirl.create(:fact)
+      @fact2 =FactoryGirl.create(:fact)
+      @fr = FactRelation.new type: :retroverting,
+                             fact: @fact1,
+                             from_fact: @fact2
+      @fr.save
+      @fr.should be_new
     end
 
     it "should have a created_by GraphUser when created" do
