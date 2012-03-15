@@ -88,7 +88,7 @@ module Channels
     end
 
     def followable?
-      current_graph_user.id != created_by_id
+      current_graph_user.id != created_by_id && is_normal
     end
 
     def inspectable?
