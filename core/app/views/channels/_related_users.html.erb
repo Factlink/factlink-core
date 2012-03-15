@@ -15,10 +15,12 @@
 
         <div class="wrapper">
           <h3><%= user.username %></h3>
-          <div class="authority">
-	        <%= brain_icon %>
-	        <span><%= Authority.from(topic, for: user.graph_user).to_s.to_f + 1.0 %></span>
-	      </div>
+          <% if can_haz :authority_for_related_users %>
+            <div class="authority">
+  	          <%= brain_icon %>
+  	          <span><%= Authority.from(topic, for: user.graph_user).to_s.to_f + 1.0 %></span>
+  	        </div>
+  	      <% end %>
         </div>
       </li>
     <% end %>

@@ -62,10 +62,21 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user_and_login
-  @user = Factory.create(:user, email: "user@example.com")
-  @user.confirm!
+  user = Factory.create(:user, email: "user@example.com")
+  sign_in_user(user)
+end
+
+def make_non_tos_user_and_login
+  user = Factory.create(:user, email: "user@example.com", agrees_tos: false)
+  sign_in_user(user)
+end
+
+def sign_in_user(user)
+  user.confirm!
   visit "/"
-  fill_in "user_email", :with => @user.email
-  fill_in "user_password", :with => @user.password
+  fill_in "user_email", :with => user.email
+  fill_in "user_password", :with => user.password
   click_button "Sign in"
+
+  user
 end
