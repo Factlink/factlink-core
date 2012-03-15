@@ -57,7 +57,7 @@ var Wheel = (function() {
       });
     }
 
-    $(authority_element.raphael[0]).tooltip({title: 'This number represents the amount of thinking people have spend on this Factlink'});
+    $(authority_element.raphael[0]).tooltip({title: 'This number represents the amount of thinking spent by people on this Factlink'});
   }
 
   Wheel.prototype.calc_display = function(opinions) {
