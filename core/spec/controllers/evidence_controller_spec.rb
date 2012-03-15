@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EvidenceController do
+describe SupportingEvidenceController do
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
@@ -94,7 +94,7 @@ describe EvidenceController do
 
       should_check_can :opinionate, @fr
 
-      post 'set_opinion', fact_id: f1.id, supporting_evidence_id: @fr.id, type: :believes, format: :json
+      post :set_opinion, username: 'ohwellwhatever', id: 1, fact_id: f1.id, supporting_evidence_id: @fr.id, type: :believes, format: :json
 
       response.should be_success
 

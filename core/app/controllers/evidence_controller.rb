@@ -36,7 +36,7 @@ class EvidenceController < FactsController
   
   def set_opinion
     type = params[:type].to_sym
-    evidence = Basefact[params[:supporting_evidence_id] || params[:weakening_evidence_id]]
+    evidence = Basefact[params[:"#{relation}_evidence_id"]]
 
     authorize! :opinionate, evidence
 
