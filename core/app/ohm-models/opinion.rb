@@ -116,8 +116,8 @@ class Opinion < OurOhm
   define_memoized_method :as_percentages do
     total = b + d + u
 
-    l_believe_percentage = calc_percentage(total, b).round.to_i
-    l_disbelieve_percentage = calc_percentage(total, d).round.to_i
+    l_believe_percentage = calc_percentage(total, b)
+    l_disbelieve_percentage = calc_percentage(total, d)
     l_doubt_percentage = 100 - l_believe_percentage - l_disbelieve_percentage
 
     @percentage_hash = {
@@ -167,7 +167,7 @@ class Opinion < OurOhm
   private
   def calc_percentage(total, part)
     if total > 0
-      (100 * part) / total
+      ((100 * part) / total).round.to_i
     else
       0
     end
