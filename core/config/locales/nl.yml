@@ -11,7 +11,7 @@ nl:
   fact_doubt_opinion: "neutraal"
   fact_disbelieve_opinion: "oneens"
 
-  fact_believe_past_action: "stemde in"
+  fact_believe_past_action: "stemde in met"
   fact_doubt_past_action: "stemde neutraal op"
   fact_disbelieve_past_action: "ontkende"
   fact_create_past_action: "maakte aan"
@@ -22,6 +22,6 @@ nl:
   channels: "kanalen"
   my_channels: "mijn kanalen"
   add_to_channels: "toevoegen aan kanalen"
-  
+
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
