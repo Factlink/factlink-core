@@ -11,7 +11,7 @@ class FactRelation < Basefact
     assert_present :from_fact_id
     assert_present :fact_id
     assert_present :type
-    assert_member :type, [:supporting, :weakening]
+    assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
   end
 
   def FactRelation.get_or_create(from, type, to, user)

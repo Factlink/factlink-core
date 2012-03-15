@@ -19,6 +19,19 @@ describe FactRelation do
       @fr.should_not be_new
     end
 
+
+    [:supporting, :weakening, 'supporting','weakening'].each do |type|
+      it "should return a new factrelation when the relation does not exist" do
+        @fact1 =FactoryGirl.create(:fact)
+        @fact2 =FactoryGirl.create(:fact)
+        @fr = FactRelation.new type: type,
+                               fact: @fact1,
+                               from_fact: @fact2
+        @fr.save
+        @fr.should_not be_new
+      end
+    end
+
     it "should return a new factrelation when the relation does not exist" do
       @fact1 =FactoryGirl.create(:fact)
       @fact2 =FactoryGirl.create(:fact)
