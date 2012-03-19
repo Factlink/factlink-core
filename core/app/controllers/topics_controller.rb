@@ -2,13 +2,12 @@ class TopicsController < ApplicationController
   before_filter :load_topic
 
   def related_users
-     authorize! :show, @channel
+     authorize! :show, @topic
 
      render layout: false, partial: "channels/related_users",
        locals: {
-            related_users: GraphUser.all,
-            topic: @topic,
-            excluded_users: [@channel.created_by]
+            related_users: User.all,
+            topic: @topic
        }
   end
 
