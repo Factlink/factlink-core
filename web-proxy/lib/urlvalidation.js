@@ -20,6 +20,7 @@ function check_validity(url) {
     validator.check(url, 'invalid url').isUrl();
     return url;
   } catch (e) {
+    console.error( e.stack );
     return undefined;
   }
 }
