@@ -5,16 +5,16 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git@codebasehq.com:factlink/factlink/web-proxy.git"
+    "url": "git@github.com:Factlink/web-proxy.git"
   },
   "dependencies": {
-    "express":"2.1.0",
-    "jade":"0.13.0",
-    "restler":"0.2.1",
-    "yaml":"0.2.2",
+    "express":"2.5.4",
+    "jade":"0.21.0",
+    "restler":"0.2.2",
+    "yaml":"0.2.3",
     "validator": "",
-    "expresso": "",
-	"jshint": ""
+    "expresso": "0.9.2",
+  "jshint": ""
   },
   "devDependencies": {}
 }
