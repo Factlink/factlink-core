@@ -6,7 +6,7 @@ class TopicController < ApplicationController
 
      render layout: false, partial: "channels/related_users",
        locals: {
-            related_users: GraphUser.all
+            related_users: GraphUser.all,
             topic: Topic.by_title(@channel.title),
             excluded_users: [@channel.created_by]
        }
