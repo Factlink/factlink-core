@@ -14,9 +14,11 @@ module Channels
     end
 
     def personalized_authority
-      t = Topic.by_title(title)
-      t.save if t.new?
-      (Authority.from(t , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
+      (Authority.from(topic , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
+    end
+
+    def topic_url
+      "/t/#{topic.slug_title}"
     end
 
     def has_authority?
@@ -106,10 +108,18 @@ module Channels
     def channels_definition
       t(:channels)
     end
-    
+
     def add_to_channels_definition
       t(:add_to_channels).capitalize
     end
+
+    private
+     def topic
+       t = Topic.by_title(title)
+       t.save if t.new?
+       t
+     end
+
 
   end
 end
