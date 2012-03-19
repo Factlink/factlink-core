@@ -123,6 +123,12 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+    
+    resources :topics, path: 't', only: [] do
+      member do
+        get :related_users
+      end
+    end
   end
 
   get  "/p/tos"     => "tos#show",        as: "tos"
