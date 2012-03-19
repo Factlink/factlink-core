@@ -36,10 +36,10 @@ describe Topic do
   end
 
   describe 'by_slug' do
-    ['foo'].each do
-    it "should return the object by its slug" do
-         t1 = Topic.create title: "foo"
-         Topic.by_title("foo").should == t1
+    ['foo'].each do |title|
+      it "should return the object by its slug" do
+         t1 = Topic.create title: title
+         Topic.by_slug(title.to_url).should == t1
       end
     end
   end
