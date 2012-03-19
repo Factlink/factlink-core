@@ -5,7 +5,7 @@
 <% content_for :menu_items do %>
   <% @jobs.each do |job| %>
     <li>
-      <%=  link_to job.title + (job.show ? '' : '*'), '#'+job.id.to_s %>
+      <%=  link_to job.title + (job.show ? '' : '*'), job%>
     </li>
   <% end %>
 
