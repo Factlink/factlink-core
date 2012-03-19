@@ -30,7 +30,7 @@ staging:
 
 production:
     core:
-        hostname: beta.factlink.com
+        hostname: factlink.com
         port: 443
         protocol: https://
         htpasswd:
