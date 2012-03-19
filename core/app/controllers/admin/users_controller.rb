@@ -32,6 +32,10 @@ class Admin::UsersController < AdminController
   end
 
   def update
+    if params[:user][:password] == ''
+      params[:user][:password] = nil
+      params[:user][:password_confirmation] = nil
+    end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
