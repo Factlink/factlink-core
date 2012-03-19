@@ -33,17 +33,18 @@ class EvidenceController < FactsController
       format.json { render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context) }
     end
   end
-  
+
   def set_opinion
     type = params[:type].to_sym
-    evidence = Basefact[params[:"#{relation}_evidence_id"]]
 
-    authorize! :opinionate, evidence
+    fact_relation = FactRelation[params[:id]]
 
-    evidence.add_opinion(type, current_user.graph_user)
-    evidence.calculate_opinion(2)
+    authorize! :opinionate, fact_relation
 
-    render json: [FactRelations::FactRelation.for(fact_relation: evidence, view: view_context)]
+    fact_relation.add_opinion(type, current_user.graph_user)
+    fact_relation.calculate_opinion(2)
+
+    render json: [FactRelations::FactRelation.for(fact_relation: fact_relation, view: view_context)]
   end
 
   def remove_opinions
