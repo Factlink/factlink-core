@@ -16,6 +16,10 @@ describe Topic do
       t1 = Topic.create title: "foo"
       Topic.by_title("foo").should == t1
     end
+    it "should return a topic with a similar title if the topic already existed" do
+      t1 = Topic.create title: "foo"
+      Topic.by_title("Foo").should == t1
+    end
   end
 
   describe "create" do
@@ -23,6 +27,20 @@ describe Topic do
       t1 = Topic.create title: "foo"
       t2 = Topic.create title: t1.title
       t2.should be_new
+    end
+    it "should not be able to create multiple topics with the a similar name" do
+      t1 = Topic.create title: "Foo"
+      t2 = Topic.create title: 'foo'
+      t2.should be_new
+    end
+  end
+
+  describe 'by_slug' do
+    ['foo'].each do
+    it "should return the object by its slug" do
+         t1 = Topic.create title: "foo"
+         Topic.by_title("foo").should == t1
+      end
     end
   end
 end
