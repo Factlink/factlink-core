@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EvidenceController do
+describe SupportingEvidenceController do
   render_views
 
   let (:user) {FactoryGirl.create(:user)}
@@ -30,13 +30,76 @@ describe EvidenceController do
     end
   end
 
-  it "should be able to set an opinion" do
-    authenticate_user!(user)
+  describe :create do
 
-    should_check_can :opinionate, @fr
+    before do
+      authenticate_user!(user)
+      should_check_can :add_evidence, f1
+    end
 
-    post 'set_opinion', :fact_id => f1.id, :supporting_evidence_id => @fr.id, :type => :believes, :format => 'json'
 
-    response.should be_success
+    context "adding new evidence to a fact" do
+
+      it "should return the new evidence" do
+        displaystring = "Nieuwe features van Mark"
+
+        post 'create', fact_id: f1.id, displaystring: displaystring, format: :json
+        response.should be_success
+
+        parsed_content = JSON.parse(response.body)
+        parsed_content["fact_bubble"]["displaystring"].should == displaystring
+      end
+
+    end
+
+    context "adding a new fact as evidence to a fact" do
+
+      it "should return the existing fact as new evidence" do
+        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+
+        parsed_content = JSON.parse(response.body)
+        parsed_content["fact_bubble"]["fact_id"].should == f2.id
+
+        response.should be_success
+      end
+
+      it "should not set the user's opinion on the evidence to believe" do
+
+        f2.add_opinion(:disbelieves, user.graph_user)
+
+        post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
+        response.should be_success
+
+        parsed_content = JSON.parse(response.body)
+
+        opinions = parsed_content["fact_bubble"]["fact_wheel"]["opinions"]
+
+        opinions[0]["type"].should == "believe"
+        opinions[0]["percentage"].should == 0
+
+        opinions[1]["type"].should == "doubt"
+        opinions[1]["percentage"].should == 0
+
+        opinions[2]["type"].should == "disbelieve"
+        opinions[2]["percentage"].should == 100
+      end
+    end
+
+  end
+
+
+  describe :set_opinion do
+    it "should be able to set an opinion" do
+      authenticate_user!(user)
+
+      should_check_can :opinionate, @fr
+
+      post :set_opinion, username: 'ohwellwhatever', id: 1, fact_id: f1.id, supporting_evidence_id: @fr.id, type: :believes, format: :json
+
+      response.should be_success
+
+      parsed_content = JSON.parse(response.body)
+      parsed_content.first.should have_key("fact_bubble")
+    end
   end
 end

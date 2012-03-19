@@ -14,34 +14,29 @@ class EvidenceController < FactsController
   end
 
   def create
-    type          = relation
-    fact_id       = params[:fact_id]
-    displaystring = params[:displaystring]
-    evidence_id   = params[:evidence_id]
-
-    @fact = Fact[fact_id]
+    @fact = Fact[params[:fact_id]]
 
     authorize! :add_evidence, @fact
 
-    if displaystring != nil
-      # Create the evidence
-      @evidence = create_fact(nil, displaystring, nil)
-      evidence_id = @evidence.id
+    if params[:displaystring] != nil
+      @evidence = create_fact(nil, params[:displaystring], nil)
+      @evidence.add_opinion(:believes, current_graph_user)
     else
-      @evidence = Fact[evidence_id]
+      @evidence = Fact[params[:evidence_id]]
     end
 
-    # Create the relation
-    @fact_relation = add_evidence(evidence_id, type, fact_id)
+    @fact_relation = create_believed_factrelation(@evidence, relation, @fact)
+
+    @fact.calculate_opinion(2)
 
     respond_to do |format|
       format.json { render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context) }
     end
   end
-
+  
   def set_opinion
     type = params[:type].to_sym
-    evidence = Basefact[params[:supporting_evidence_id] || params[:weakening_evidence_id]]
+    evidence = Basefact[params[:"#{relation}_evidence_id"]]
 
     authorize! :opinionate, evidence
 
@@ -63,7 +58,18 @@ class EvidenceController < FactsController
   end
 
   private
-  def relation
-    :both
-  end
+    def relation
+      :both
+    end
+    # TODO This should not be a Controller method. Move to FactRelation
+    def create_believed_factrelation(evidence, type, fact) # private
+      type     = type.to_sym
+
+      # Create FactRelation
+      fact_relation = fact.add_evidence(type, evidence, current_user)
+      fact_relation.add_opinion(:believes, current_graph_user)
+
+
+      fact_relation
+    end
 end

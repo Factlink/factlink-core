@@ -22,7 +22,8 @@ window.FactRelationView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
-
+    $('a.supporting',this.$el).tooltip({'title':"This is relevant"});
+    $('a.weakening',this.$el).tooltip({'title':"This is not relevant", 'placement':'bottom'});
     return this;
   },
 

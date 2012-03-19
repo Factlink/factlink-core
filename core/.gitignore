@@ -3,6 +3,7 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
+tmp
 solr/data/
 webrat.log
 .nide

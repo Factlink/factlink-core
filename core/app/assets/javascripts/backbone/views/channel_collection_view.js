@@ -14,11 +14,6 @@ window.ChannelCollectionView = Backbone.CollectionView.extend({
 
     this.collection.bind('add',   this.add, this);
     this.collection.bind('reset', this.reset, this);
-
-    // HACK Hacky way to make sure Backbone will refollow the current route
-    this.$el.find('li.active').live('click', function(e) {
-      Backbone.history.loadUrl( Backbone.history.fragment );
-    });
   },
 
   afterAddBeforeRender: function(model,view) {
@@ -33,7 +28,7 @@ window.ChannelCollectionView = Backbone.CollectionView.extend({
   },
 
   afterReset: function() {
-    $('div.tooltip').remove();
+    $('div.tooltip',this.$el).remove();
   },
 
   render: function() {

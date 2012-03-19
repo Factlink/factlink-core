@@ -53,10 +53,6 @@ describe Authority do
         Authority.from(Item.create).to_f.should == 0
       end
       it do
-        pending "I don't see why we need this, disabling for now -- Mark"
-        Authority.from(Item.new).to_f.should == 0
-      end
-      it do
         a = Authority.from(i1, for: gu1)
         a.to_f.should == 0
       end
@@ -81,10 +77,6 @@ describe Authority do
     context "for an undefined authority" do
       it do
         Authority.on(Item.create).to_f.should == 0
-      end
-      it do
-        pending "don't know if we need this"
-        Authority.on(Item.new).to_f.should == 0
       end
       it do
         a = Authority.on(i1, for: gu1)

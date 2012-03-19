@@ -5,12 +5,12 @@ module Facts
     end
 
     def activity
-      a = last_activity().map { |a|
+      activities = last_activity().map { |a|
         { user: Users::User.for(user: a.user.user, view: self.view),
           id: a.id,
           action: internationalize_action(a.action)}
       }
-      a
+      activities
     end
 
     private

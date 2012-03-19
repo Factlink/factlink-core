@@ -1,5 +1,5 @@
 module Channels
-  class SingleMenuItem < Mustache::Railstache
+  class Channel < Mustache::Railstache
 
     def init
       self[:user]||= self[:channel].created_by.user
@@ -51,6 +51,10 @@ module Channels
       !is_all && !is_created
     end
 
+    def is_mine
+      self[:user] == current_user
+    end
+
     def created_by
       {
         id: self[:user].id,
@@ -84,7 +88,7 @@ module Channels
     end
 
     def followable?
-      current_graph_user.id != created_by_id
+      current_graph_user.id != created_by_id && is_normal
     end
 
     def inspectable?

@@ -5,9 +5,6 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
-  # TODO: remove name attribute after relase of sprint 20
-  field :name
-
   field :username
   index :username
   field :first_name

@@ -7,7 +7,7 @@ $(function(){
     self.show = function show () {
       console.info( "Modal:", "Show");
       $.ajax({
-        url: "/tour",
+        url: "/p/tour",
         dataType: "html",
         success: function () {
           init.apply(this, arguments);

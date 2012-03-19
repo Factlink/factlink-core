@@ -26,10 +26,9 @@ class ChannelsController < ApplicationController
 
   def index
     authorize! :index, Channel
-    @channels = @user.graph_user.channels
 
     respond_to do |format|
-      format.json { render :json => @channels.map {|ch| Channels::SingleMenuItem.for(channel: ch,view: view_context,channel_user: @user)} }
+      format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
       format.js
     end
   end
@@ -37,7 +36,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json { render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context,channel_user: @user)}
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
       format.js
       format.html do
         render inline:'', layout: "channels"
@@ -58,7 +57,7 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    @channel = Channel.new(params[:channel].slice(:title) || params.slice(:title))
+    @channel = Channel.new(params[:channel].andand.slice(:title) || params.slice(:title))
     @channel.created_by = current_user.graph_user
 
     # Check if object valid, then execute:
@@ -69,7 +68,7 @@ class ChannelsController < ApplicationController
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
 
-        render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context)
+        render :json => Channels::Channel.for(channel: @channel,view: view_context)
         return
       end
 
@@ -77,7 +76,7 @@ class ChannelsController < ApplicationController
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
 
-        render :json => Channels::SingleMenuItem.for(channel: @channel,view: view_context)
+        render :json => Channels::Channel.for(channel: @channel,view: view_context)
         return
       end
 
@@ -207,4 +206,14 @@ class ChannelsController < ApplicationController
       @channel || raise_404("Channel not found")
       @user ||= @channel.created_by.user
     end
+
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+      end
+      @channels
+    end
+    helper_method :channels_for_user
+
 end

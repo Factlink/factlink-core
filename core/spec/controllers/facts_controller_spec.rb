@@ -23,8 +23,10 @@ describe FactsController do
       get :show, id: @fact.id, format: :json
       response.should be_succes
     end
+  end
 
-    pending "should escape html in fields" do
+  describe :extended_show do
+    it "should escape html in fields" do
       @fact = FactoryGirl.create(:fact)
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
@@ -34,7 +36,7 @@ describe FactsController do
       @fact.created_by.save
 
       should_check_can :show, @fact
-      get :show, :id => @fact.id
+      get :extended_show, :id => @fact.id, :fact_slug => 'hoi'
 
       response.body.should_not match(/<xss>/)
     end
@@ -96,31 +98,6 @@ describe FactsController do
       @evidence = FactoryGirl.create :fact
       @evidence.created_by.user = FactoryGirl.create :user
       @evidence.created_by.save
-    end
-
-    pending :add_supporting_evidence do
-      it "should respond to XHR" do
-        authenticate_user!(user)
-        should_check_can :add_evidence, @fact
-        xhr :get, :add_supporting_evidence,
-          :id => @fact.id,
-          :evidence_id => @evidence.id
-
-        response.code.should eq("200")
-      end
-
-    end
-
-    pending :add_weakening_evidence do
-      it "should respond to XHR" do
-        authenticate_user!(user)
-        should_check_can :add_evidence, @fact
-        xhr :get, :add_supporting_evidence,
-          :id => @fact.id,
-          :evidence_id => @evidence.id
-
-        response.code.should eq("200")
-      end
     end
   end
 

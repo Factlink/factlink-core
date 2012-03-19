@@ -1,4 +1,5 @@
 class FactRelation < Basefact
+  include Ohm::ExtraValidations
 
   reference :from_fact, Fact
   reference :fact, Fact
@@ -9,7 +10,8 @@ class FactRelation < Basefact
   def validate
     assert_present :from_fact_id
     assert_present :fact_id
-    assert_present :type # TODO check if it's one of the permitted values
+    assert_present :type
+    assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
   end
 
   def FactRelation.get_or_create(from, type, to, user)

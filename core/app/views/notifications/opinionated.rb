@@ -5,6 +5,19 @@ module Notifications
       self[:activity].action
     end
 
+    def translated_action
+      return case action.to_sym
+      when :believes
+        t(:fact_believe_past_action)
+      when :disbelieves
+        t(:fact_disbelieve_past_action)
+      when :doubts
+        t(:fact_doubt_past_action)
+      else
+        ""
+      end
+    end
+
     def fact_path
       if self[:activity].subject.class.to_s == "Fact"
         friendly_fact_path self[:activity].subject

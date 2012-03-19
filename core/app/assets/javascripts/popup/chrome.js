@@ -38,4 +38,12 @@ $('#annotate_button').bind('click', function() {
   }
 });
 
+if ( $('.alert').length === 1 ) {
+  top.postMessage("showNotification", "*");
+
+  $('.alert').bind('closed', function (e) {
+    top.postMessage('hideNotification', "*");
+  });
+}
+
 })();

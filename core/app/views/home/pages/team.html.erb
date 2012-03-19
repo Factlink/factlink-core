@@ -1,14 +1,14 @@
 <% content_for :title do %>
-  Our Team
+Factlink - The people behind Factlink
 <% end %>
 
 <% content_for :menu_items do %>
-  <li><%= link_to "About Factlink", pages_path("about") %></li>
-  <li class="selected_menu_item"><%= link_to "Our Team", pages_path("team") %></li>
+  <li><%= link_to "About", pages_path("about") %></li>
+  <li class="selected_menu_item"><%= link_to "Team", pages_path("team") %></li>
 <% end %>
 
 <% content_for :body_text do %>
-  <h1>Our People</h1>
+  <h1>The people behind Factlink</h1>
   <p>The Factlink team is a group of world-class people who have been involved with building many pioneering products. Our expertise is in building web-wide scale products. Our focus is on solving hard problems and delighting users. We care deeply about helping people to excel and explore their full talents.</p>
 
   <div class="team_photos">
@@ -18,6 +18,7 @@
     <%= team_photo_tag "remon",  "Remon Oldenbeuving" %>
     <%= team_photo_tag "michiel",  "Michiel Prins" %>
     <%= team_photo_tag "jobert",  "Jobert Abma" %>
+    <%= team_photo_tag "luit",  "Luit van Drongelen" %>
     <%= team_photo_tag "jan",  "Jan Salvador van der Ven" %>
     <%= team_photo_tag "mark",  "Mark IJbema" %>
     <%= team_photo_tag "jordin",  "Jordin van Zwol" %>
@@ -25,6 +26,8 @@
     <%= team_photo_tag "jens",  "Jens Kanis" %>
     <%= team_photo_tag "martijn",  "Martijn Russchen" %>
     <%= team_photo_tag "knud",  "Knud Balslev" %>
+    <%= team_photo_tag "floris",  "Floris Venneman" %>
+    <%= team_photo_tag "bobbie",  "Bobbie Karagiannis" %>
   </div>
   <h2>Get in touch!</h2>
   <p>Do you care about building something amazing? We love talking to talented people. <a href="mailto:info@factlink.com">Drop us a note!</a></p>

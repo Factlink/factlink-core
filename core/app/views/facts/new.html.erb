@@ -5,9 +5,7 @@
 
   <div class="span6 pull-right" style="text-align: right;">
     <% unless user_signed_in? %>
-      <div class="span3">
          <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
-      </div>
     <% else %>
       <span>
         <label>
@@ -52,7 +50,7 @@
       <div class="span3" style="text-align:right;">
         <button id="slideUp" class="btn">Cancel</button>
 
-        <%= submit_tag "Save", class: "btn btn-primary", disable_with: "Saving..." %>
+        <%= submit_tag "Submit", class: "btn btn-primary", disable_with: "Submitting..." %>
       </div>
     </div>
   <% end %>
