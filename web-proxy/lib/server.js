@@ -10,7 +10,7 @@ function getServer(config) {
   });
 
   /**
-   *	We execute our requests using Restler (supports redirects)
+   *  We execute our requests using Restler (supports redirects)
    */
   var restler       = require('restler');
   var urlvalidation = require('./urlvalidation');
@@ -25,7 +25,7 @@ function getServer(config) {
   server.set('view engine', 'jade');
 
   /**
-   *	Routes and request handling
+   *  Routes and request handling
    */
   server.get('/',       render_page('index'));
   server.get('/header', render_page('header'));
@@ -64,6 +64,32 @@ function getServer(config) {
   }
 
   function handleProxyRequest(res, url, scrollto, modus, form_hash) {
+    var errorhandler = function(data) {
+      console.error(new Date().toString() + " : Failed on: " + url);
+      res.render('something_went_wrong', {
+        layout: false,
+        locals: {
+          static_url: config.STATIC_URL,
+          proxy_url: config.PROXY_URL,
+          site: url,
+          factlinkModus : modus
+        }
+      });
+    };
+
+    var completehandler = function(data) {
+      injectFactlinkJs(data, site, scrollto, modus, function(html) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end();
+      }, function(html) {
+        console.info( html );
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end();
+      });
+    };
+
     // Welcome page
     if ( typeof url !== "string" || url.length === 0) {
       res.render('welcome.jade',{
@@ -87,32 +113,6 @@ function getServer(config) {
     }
 
     var request = restler.get(site, form_hash);
-
-    errorhandler = function(data) {
-      console.error(new Date().toString() + " : Failed on: " + url);
-      res.render('something_went_wrong', {
-        layout: false,
-        locals: {
-          static_url: config.STATIC_URL,
-          proxy_url: config.PROXY_URL,
-          site: url,
-          factlinkModus : modus
-        }
-      });
-    };
-
-    completehandler = function(data) {
-      injectFactlinkJs(data, site, scrollto, modus, function(html) {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(html);
-        res.end();
-      }, function(html) {
-        console.info( html );
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(html);
-        res.end();
-      });
-    };
 
     // Handle states
     request.on('complete',  completehandler);
