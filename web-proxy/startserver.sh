@@ -1,5 +1,6 @@
 #!/bin/bash
 cd "$( dirname "$0" )"
+npm update
 npm install
 npm install supervisor -g
 
