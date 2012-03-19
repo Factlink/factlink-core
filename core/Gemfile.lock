@@ -372,6 +372,7 @@ GEM
     sqlite3 (1.3.5)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
+    stringex (1.3.2)
     sunspot (1.3.0)
       escape (~> 0.0.4)
       pr_geohash (~> 1.0)
@@ -469,6 +470,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov-text
   sqlite3-ruby
+  stringex
   sunspot_mongoid!
   sunspot_rails (~> 1.3.0)
   sunspot_solr (~> 1.3.0)

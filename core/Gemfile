@@ -19,6 +19,7 @@ gem 'ohm', :git => 'https://github.com/Factlink/ohm.git' # we need the tribalvib
 gem 'ohm-contrib', :git => 'http://github.com/Factlink/ohm-contrib.git'
 gem 'resque', '1.19.0'
 
+gem 'stringex'
 
 gem 'mixpanel', '~> 1.1.3'
 
