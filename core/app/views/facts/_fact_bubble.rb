@@ -18,7 +18,7 @@ module Facts
 
     def displaystring
       displaystring = self[:fact].data.displaystring
-      
+
       if self[:limit_characters_to_display]
         displaystring = truncate(displaystring, {length: self[:limit_characters_to_display]})
       end
@@ -47,7 +47,13 @@ module Facts
 
     private
       def show_links
-        not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and self[:fact].site
+        self[:fact].site and
+          not self[:hide_links] and
+          not bubble_is_on_facts_site
+      end
+
+      def bubble_is_on_facts_site
+        self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]
       end
 
       def proxy_scroll_url
