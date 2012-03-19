@@ -17,6 +17,10 @@ class Topic < OurOhm
     find(slug_title: title.to_url).first || new(title: title)
   end
 
+  def self.by_slug(slug)
+    find(slug_title: slug).first
+  end
+
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
     super
