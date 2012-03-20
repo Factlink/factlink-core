@@ -5,7 +5,7 @@ class EvidenceController < FactsController
   respond_to :json
 
   def index
-    @fact = Fact[params[:fact_id]]
+    @fact = Fact[params[:fact_id]] || raise_404("Fact not found")
     @evidence = @fact.evidence(relation)
 
     authorize! :get_evidence, @fact
