@@ -104,6 +104,16 @@ describe Ability do
     end
   end
 
+  describe "to manage FactRelations" do
+
+    let(:fr1) { FactoryGirl.create :fact_relation, created_by: user.graph_user }
+    let(:fr2) { FactoryGirl.create :fact_relation, created_by: other_user.graph_user }
+
+    it {subject.should be_able_to :opinionate, fr1 }
+    it {subject.should be_able_to :opinionate, fr2 }
+
+  end
+
   describe "managing jobs" do
     describe "as anonymous" do
       it {anonymous.should      be_able_to :read, Job}
