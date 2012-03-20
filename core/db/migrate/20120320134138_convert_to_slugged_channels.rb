@@ -10,14 +10,14 @@ class ConvertToSluggedChannels < Mongoid::Migration
         fixed = {}
         real_channels = Channel.all.find(created_by_id: gu.id).find_all { |ch| ch.class == Channel }
         real_channels.each do |ch|
-          if fixed[ch.slug_title]
-            fixed[ch.slug_title].singleton_class.send :include, Channel::Overtaker
-            puts "Combining #{fixed[ch.slug_title]} and #{ch.id}"
-            fixed[ch.slug_title].take_over(ch)
+          if fixed[ch.title.to_url]
+            fixed[ch.title.to_url].singleton_class.send :include, Channel::Overtaker
+            puts "Combining #{fixed[ch.title.to_url]} and #{ch.id}"
+            fixed[ch.title.to_url].take_over(ch)
             puts "Deleting #{ch.id}"
             ch.real_delete
           else
-            fixed[ch.slug_title] = ch
+            fixed[ch.title.to_url] = ch
           end
           ch.save
         end
