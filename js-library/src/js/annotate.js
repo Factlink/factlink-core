@@ -25,7 +25,8 @@ Factlink.startAnnotating = function() {
       pageY = e.pageY;
 
       // Check if the selected text is long enough to be added
-      if (selectionInfo.text !== undefined && selectionInfo.text.length > 1) {
+      if ((selectionInfo.text !== undefined && selectionInfo.text.length > 1) &&
+          (! $(e.target).is(':input') )){
         Factlink.prepare.show(pageY, pageX);
       }
     }, 200);
