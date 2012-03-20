@@ -15,10 +15,15 @@ class Channel < OurOhm
 
 
   attribute :lowercase_title
+  
+  attribute :slug_title
+  index :slug_title
+  
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
     self.lowercase_title = new_title.downcase
+    self.slug_title = new_title.to_url
   end
 
   after :save, :possibly_create_topic
@@ -101,7 +106,7 @@ class Channel < OurOhm
     super
     assert_present :title
     assert_present :created_by
-    assert_unique([:title,:created_by_id])
+    assert_unique([:slug_title,:created_by_id])
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
