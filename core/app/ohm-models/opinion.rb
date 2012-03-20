@@ -123,8 +123,18 @@ class Opinion < OurOhm
       believe:    { percentage: l_believe_percentage },
       disbelieve: { percentage: l_disbelieve_percentage },
       doubt:      { percentage: l_doubt_percentage  },
-      authority: sprintf('%.1f', a)
+      # TODO this logic should go elsewhere, but only after letting the update_opinion and
+      #     remove opinion build proper json (instead of fact.to_json)
+      authority: friendly_authority
     }
+  end
+
+  def friendly_authority
+    if a < 10
+      sprintf('%.1f', a)
+    else
+      sprintf('%.0f', a)
+    end
   end
 
   def self.types
