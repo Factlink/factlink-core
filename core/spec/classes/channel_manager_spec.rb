@@ -13,9 +13,9 @@ describe ChannelManager do
       ch2 = create :channel, created_by: gu
       ch3 = create :channel, created_by: gu
 
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch1.title}, 30)
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch2.title}, 50)
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch3.title}, 10)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch1.slug_title}, 30)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch2.slug_title}, 50)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch3.slug_title}, 10)
 
       subject.editable_channels_by_authority.map(&:title).should == [ch2, ch1, ch3].map(&:title)
     end
@@ -24,9 +24,9 @@ describe ChannelManager do
       ch2 = create :channel, created_by: gu
       ch3 = create :channel, created_by: gu
 
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch1.title}, 30)
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch2.title}, 50)
-      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch3.title}, 10)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch1.slug_title}, 30)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch2.slug_title}, 50)
+      MapReduce::TopicAuthority.new.write_output({user_id: gu.id, topic: ch3.slug_title}, 10)
 
       subject.editable_channels_by_authority(2).map(&:title).should == [ch2, ch1].map(&:title)
     end

@@ -23,6 +23,13 @@ class Topic < OurOhm
     find(slug_title: slug).first
   end
 
+  def self.ensure_for_channel(ch)
+    unless Topic.find(slug_title: ch.slug_title).first
+      t = Topic.by_title(ch.title)
+      t.save
+    end
+  end
+
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
     super
