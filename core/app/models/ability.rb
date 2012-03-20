@@ -24,6 +24,7 @@ class Ability
         define_fact_relation_abilities
         define_user_abilities
         define_user_activities_abilities
+        define_topic_abilities
       else
         cannot :manage, :all
         can :sign_tos, user
@@ -89,6 +90,10 @@ class Ability
         u.id == user.id
       end
     end
+  end
+  
+  def define_topic_abilities
+    can :show, Topic
   end
 
   def define_feature_toggles

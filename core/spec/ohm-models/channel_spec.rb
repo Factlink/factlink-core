@@ -353,4 +353,13 @@ describe Channel do
     end
   end
 
+  describe 'slugs' do
+    it "should not be possible to save two channels with a similar name" do
+      @ch1 = FactoryGirl.create :channel, title: 'hoi', created_by: u1
+      @ch2 = FactoryGirl.build  :channel, title: 'Hoi', created_by: u1
+      @ch2.save
+      @ch2.should be_new
+    end
+  end
+
 end
