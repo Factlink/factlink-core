@@ -1,7 +1,9 @@
-require_relative '../../ohm_helper.rb'
-require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-require File.expand_path('../../../../app/classes/map_reduce/topic_authority.rb', __FILE__)
-require_relative '../../../app/ohm-models/authority.rb'
+#require_relative '../../ohm_helper.rb'
+#require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
+#require File.expand_path('../../../../app/classes/map_reduce/topic_authority.rb', __FILE__)
+#require_relative '../../../app/ohm-models/authority.rb'
+
+require 'spec_helper'
 
 describe MapReduce::TopicAuthority do
   let(:gu1) {GraphUser.create}
