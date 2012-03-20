@@ -44,4 +44,11 @@ describe MapReduce::TopicAuthority do
        subject.reduce(:foo, [1,2,3]).should == 6.0
      end
    end
+   
+   describe :write_output do
+     it "should add the user to the top_users of the topic" do
+       subject.write_output({user_id: gu1.id, topic: 'foo'}, 10)
+       Topic.by_title('foo').top_users.all.should =~ [gu1]
+     end
+   end
 end
