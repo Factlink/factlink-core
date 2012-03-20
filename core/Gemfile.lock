@@ -1,4 +1,11 @@
 GIT
+  remote: git@github.com:Factlink/modernizr-rails.git
+  revision: a7d661c524ebb4b903509b836edfabacfbbf4f9e
+  specs:
+    modernizr-rails (1.0.0)
+      railties (~> 3.1.0)
+
+GIT
   remote: git@github.com:Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
@@ -221,7 +228,6 @@ GEM
       json
       rack
     mock_redis (0.4.0)
-    modernizr-rails (2.0.6)
     mongo (1.3.1)
       bson (>= 1.3.1)
     mongoid (2.4.6)
@@ -443,7 +449,7 @@ DEPENDENCIES
   metric_fu (= 2.1.1)
   mixpanel (~> 1.1.3)
   mock_redis
-  modernizr-rails (~> 2.0.6)
+  modernizr-rails!
   mongo (= 1.3.1)
   mongoid (~> 2.4.4)
   mongoid_rails_migrations (= 0.0.13)
