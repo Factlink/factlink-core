@@ -7,6 +7,8 @@ class Topic < OurOhm
   attribute :slug_title
   index :slug_title
 
+  sorted_set :top_users, GraphUser
+
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
