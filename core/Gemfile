@@ -105,7 +105,7 @@ group :test do
   gem 'mock_redis'
 
   gem 'capybara', require: false
-  gem 'capybara-webkit', require: false
+  gem 'capybara-webkit', '= 0.10.1', require: false
   gem 'headless'
 end
 
