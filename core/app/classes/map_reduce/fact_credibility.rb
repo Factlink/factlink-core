@@ -1,7 +1,7 @@
 class MapReduce
   class FactCredibility < MapReduce
     def all_set
-      Channel.all
+      Channel.all.find_all { |ch| ch.type == "channel" }
     end
 
     def map iterator
