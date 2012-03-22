@@ -16,7 +16,7 @@ window.RelatedUsersView = Backbone.View.extend({
 
     if ( this.model ) {
       $.ajax({
-        url: this.model.url() + '/related_users',
+        url: this.model.get('topic_url') + '/related_users',
         method: "GET",
         success: function( data ) {
           self.$el.html(data);

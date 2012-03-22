@@ -26,6 +26,9 @@ FactlinkUI::Application.routes.draw do
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new]
 
+  get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
+
+
   authenticated :user do
     get "/p/tour" => "home#tour", as: "tour"
 
@@ -54,7 +57,6 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
     # Javascript Client calls
     # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
@@ -127,6 +129,12 @@ FactlinkUI::Application.routes.draw do
             end
           end
         end
+      end
+    end
+    
+    resources :topics, path: 't', only: [] do
+      member do
+        get :related_users
       end
     end
   end

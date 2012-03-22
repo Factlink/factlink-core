@@ -1,4 +1,11 @@
 GIT
+  remote: git@github.com:Factlink/modernizr-rails.git
+  revision: a7d661c524ebb4b903509b836edfabacfbbf4f9e
+  specs:
+    modernizr-rails (1.0.0)
+      railties (~> 3.1.0)
+
+GIT
   remote: git@github.com:Factlink/rack-xframe-options.git
   revision: 09c759164ea0add2c9eb48f0365b1beb79172377
   specs:
@@ -75,7 +82,7 @@ GEM
     arel (2.2.3)
     arrayfields (4.7.4)
     bcrypt-ruby (3.0.1)
-    brakeman (1.5.0)
+    brakeman (1.5.1)
       activesupport
       erubis (~> 2.6)
       haml (~> 3.0)
@@ -122,8 +129,7 @@ GEM
     coffee-script-source (1.2.0)
     color (1.4.1)
     colored (1.2)
-    commonjs (0.2.0)
-      therubyracer (~> 0.9.9)
+    commonjs (0.2.4)
     daemons (1.1.8)
     database_cleaner (0.7.1)
     devise (2.0.4)
@@ -147,7 +153,7 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.3.0)
       multi_json (~> 1.0)
-    factory_girl (2.6.1)
+    factory_girl (2.6.4)
       activesupport (>= 2.3.9)
     factory_girl_rails (1.7.0)
       factory_girl (~> 2.6.0)
@@ -165,8 +171,8 @@ GEM
     headless (0.2.2)
     highline (1.6.11)
     hike (1.2.1)
-    hirb (0.6.0)
-    hoe (2.15.0)
+    hirb (0.6.2)
+    hoe (2.16.1)
       rake (~> 0.8)
     httparty (0.8.1)
       multi_json
@@ -177,23 +183,23 @@ GEM
       thor (~> 0.14)
     json (1.6.5)
     json_pure (1.6.5)
-    launchy (2.0.5)
+    launchy (2.1.0)
       addressable (~> 2.2.6)
-    less (2.0.9)
+    less (2.0.11)
       commonjs (~> 0.2.0)
       therubyracer (~> 0.9.9)
-    less-rails (2.1.6)
+    less-rails (2.1.8)
       actionpack (>= 3.1)
       less (~> 2.0.7)
-    less-rails-bootstrap (2.0.6)
+    less-rails-bootstrap (2.0.8)
       less-rails (~> 2.1.0)
     libv8 (3.3.10.4)
-    mail (2.3.0)
+    mail (2.3.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     main (4.7.1)
-    map (5.2.0)
+    map (5.4.0)
     mechanize (2.3)
       domain_name (~> 0.5, >= 0.5.1)
       mime-types (~> 1.17, >= 1.17.2)
@@ -221,7 +227,6 @@ GEM
       json
       rack
     mock_redis (0.4.0)
-    modernizr-rails (2.0.6)
     mongo (1.3.1)
       bson (>= 1.3.1)
     mongoid (2.4.6)
@@ -234,7 +239,7 @@ GEM
       rails (>= 3.0.0)
       railties (>= 3.0.0)
     multi_json (1.1.0)
-    multi_xml (0.4.1)
+    multi_xml (0.4.2)
     mustache (0.99.4)
     nest (1.1.0)
       redis (~> 2.1)
@@ -247,8 +252,8 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.3.2)
-    nokogiri (1.5.0)
+    newrelic_rpm (3.3.2.1)
+    nokogiri (1.5.2)
     ntlm-http (0.1.1)
     octopi (0.4.5)
       api_cache
@@ -262,7 +267,7 @@ GEM
     polyglot (0.3.3)
     pr_geohash (1.0.0)
     progressbar (0.10.0)
-    pry (0.9.8.3)
+    pry (0.9.8.4)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
       slop (>= 2.4.4, < 3)
@@ -287,7 +292,7 @@ GEM
       railties (= 3.1.4)
     rails-dev-tweaks (0.5.2)
       rails (~> 3.1.0)
-    rails_best_practices (1.8.0)
+    rails_best_practices (1.9.0)
       activesupport
       colored
       erubis
@@ -325,19 +330,19 @@ GEM
       newrelic_rpm (>= 3.1.1)
     rsolr (1.0.7)
       builder (>= 2.1.2)
-    rspec (2.8.0)
-      rspec-core (~> 2.8.0)
-      rspec-expectations (~> 2.8.0)
-      rspec-mocks (~> 2.8.0)
-    rspec-core (2.8.0)
-    rspec-expectations (2.8.0)
-      diff-lcs (~> 1.1.2)
-    rspec-mocks (2.8.0)
-    rspec-rails (2.8.1)
+    rspec (2.9.0)
+      rspec-core (~> 2.9.0)
+      rspec-expectations (~> 2.9.0)
+      rspec-mocks (~> 2.9.0)
+    rspec-core (2.9.0)
+    rspec-expectations (2.9.0)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.9.0)
+    rspec-rails (2.9.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec (~> 2.8.0)
+      rspec (~> 2.9.0)
     ruby-prof (0.10.8)
     ruby2ruby (1.3.1)
       ruby_parser (~> 2.0)
@@ -372,14 +377,15 @@ GEM
     sqlite3 (1.3.5)
     sqlite3-ruby (1.3.3)
       sqlite3 (>= 1.3.3)
-    sunspot (1.3.0)
+    stringex (1.3.2)
+    sunspot (1.3.1)
       escape (~> 0.0.4)
       pr_geohash (~> 1.0)
-      rsolr (~> 1.0.6)
-    sunspot_rails (1.3.0)
+      rsolr (~> 1.0.7)
+    sunspot_rails (1.3.1)
       nokogiri
-      sunspot (= 1.3.0)
-    sunspot_solr (1.3.0)
+      sunspot (= 1.3.1)
+    sunspot_solr (1.3.1)
       escape (~> 0.0.4)
     syntax (1.0.0)
     therubyracer (0.9.10)
@@ -426,7 +432,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara
-  capybara-webkit
+  capybara-webkit (= 0.10.1)
   database_cleaner
   devise (~> 2.0.0)
   evergreen
@@ -443,7 +449,7 @@ DEPENDENCIES
   metric_fu (= 2.1.1)
   mixpanel (~> 1.1.3)
   mock_redis
-  modernizr-rails (~> 2.0.6)
+  modernizr-rails!
   mongo (= 1.3.1)
   mongoid (~> 2.4.4)
   mongoid_rails_migrations (= 0.0.13)
@@ -469,6 +475,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov-text
   sqlite3-ruby
+  stringex
   sunspot_mongoid!
   sunspot_rails (~> 1.3.0)
   sunspot_solr (~> 1.3.0)

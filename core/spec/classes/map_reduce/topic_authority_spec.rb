@@ -1,7 +1,9 @@
-require_relative '../../ohm_helper.rb'
-require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-require File.expand_path('../../../../app/classes/map_reduce/topic_authority.rb', __FILE__)
-require_relative '../../../app/ohm-models/authority.rb'
+#require_relative '../../ohm_helper.rb'
+#require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
+#require File.expand_path('../../../../app/classes/map_reduce/topic_authority.rb', __FILE__)
+#require_relative '../../../app/ohm-models/authority.rb'
+
+require 'spec_helper'
 
 describe MapReduce::TopicAuthority do
   let(:gu1) {GraphUser.create}
@@ -33,15 +35,23 @@ describe MapReduce::TopicAuthority do
 
        result = subject.wrapped_map(channels)
 
-       result[{topic: "Ruby", user_id: gu1.id}].should == [2.0, 3.0]
-       result[{topic: "Ruby", user_id: gu2.id}].should == [4.0]
-       result[{topic: "Java", user_id: gu2.id}].should == [5.0]
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [2.0, 3.0]
+       result[{topic: ch2.slug_title, user_id: gu2.id}].should == [4.0]
+       result[{topic: ch3.slug_title, user_id: gu2.id}].should == [5.0]
        result.length.should == 3
      end
    end
    describe :reduce do
      it do
        subject.reduce(:foo, [1,2,3]).should == 6.0
+     end
+   end
+   
+   describe :write_output do
+     it "should add the user to the top_users of the topic" do
+       Topic.ensure_for_channel(Channel.create(created_by: gu1, title: 'Foo'))
+       subject.write_output({user_id: gu1.id, topic: 'foo'}, 10)
+       Topic.by_title('foo').top_users.all.should =~ [gu1]
      end
    end
 end

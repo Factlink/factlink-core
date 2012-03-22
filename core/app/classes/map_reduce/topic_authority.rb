@@ -7,7 +7,8 @@ class MapReduce
     def map iterator
       iterator.each do |ch|
         Authority.all_from(ch).each do |authority|
-          yield({topic: ch.title, user_id: authority.user_id}, authority.to_f)
+          Topic.ensure_for_channel(ch)
+          yield({topic: ch.slug_title, user_id: authority.user_id}, authority.to_f)
         end
       end
     end
@@ -17,12 +18,13 @@ class MapReduce
     end
 
     def write_output ident, value
-      topic = Topic.by_title(ident[:topic])
-      topic.save if topic.new?
+      topic = Topic.by_slug(ident[:topic])
+
       gu = GraphUser[ident[:user_id]]
-      Channel.find(created_by_id: ident[:user_id], title: ident[:topic]).each do |ch|
+      Channel.find(created_by_id: ident[:user_id], slug_title: ident[:topic]).each do |ch|
         gu.channels_by_authority.add ch, value
       end
+      topic.top_users.add(gu,value)
       Authority.from(topic, for: gu) << value
     end
   end
