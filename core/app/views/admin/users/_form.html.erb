@@ -40,6 +40,12 @@
       <%= f.text_field :password_confirmation %>
     </div>
   </div>
+  <div class="row">
+    <%= f.label :admin %>
+    <div class="field">
+      <%= f.check_box :admin %>
+    </div>
+  </div>
 
   <div class="actions">
     <%= link_to 'cancel', admin_users_path %>

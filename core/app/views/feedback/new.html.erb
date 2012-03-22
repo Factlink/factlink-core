@@ -1,39 +1,42 @@
-<div class="modal-header">
-  <a href="#" class="close" data-dismiss="modal">×</a>
-  <h1>Share Feedback</h1>
-</div>
-<div class="alert alert-success fade in" style="display: none">
-  <a class="close" href="#">x</a>
-  <span class='message'></span>
-</div>
+<div id="feedback-modal">
+
+  <div class="modal-header">
+    <h1>Share Feedback</h1>
+  </div>
+  <div class="alert alert-success fade in" style="display: none">
+    <a class="close" href="#">x</a>
+    <span class='message'></span>
+  </div>
 
 
-<%= form_for(:feedback, url: {action: :create}, remote: true, html: {id: "feedback-form"}) do |f| %>
-  <div class="modal-body">
-    Your feedback is greatly appreciated.
-    <fieldset>
-      <div class="clearfix">
-        <label for="email">E-mail</label>
-        <div class="input">
-          <input id="email" type="email" required name="email" size="30"  value="<%= current_user.andand.email || "" %>">
+  <%= form_for(:feedback, url: "/feedback", remote: true, html: {id: "feedback-form"}) do |f| %>
+    <div class="modal-body">
+      Your feedback is greatly appreciated.
+      <fieldset>
+        <div class="clearfix">
+          <label for="email">E-mail</label>
+          <div class="input">
+            <input id="email" type="email" required name="email" size="30"  value="<%= current_user.andand.email || "" %>">
+          </div>
         </div>
-      </div>
-      <div class="clearfix">
-        <label for="subject">Feedback</label>
-        <div class="input">
-          <input id="subject" required name="subject" size="30" type="text">
+        <div class="clearfix">
+          <label for="subject">Feedback</label>
+          <div class="input">
+            <input id="subject" required name="subject" size="30" type="text">
+          </div>
         </div>
-      </div>
-      <div class="clearfix">
-        <label for="content">Extra information</label>
-        <div class="input">
-          <textarea rows="5" columns="30" name="content"></textarea>
+        <div class="clearfix">
+          <label for="content">Extra information</label>
+          <div class="input">
+            <textarea rows="5" columns="30" name="content"></textarea>
+          </div>
         </div>
-      </div>
-    </fieldset>
-  </div>
-  <div class="modal-footer">
-      <%= button_tag("Submit", :disable_with => "Submitting...", :class => "positive btn btn-primary") %>&nbsp;
-    <a class="btn secondary cancel">Cancel</a>
-  </div>
+      </fieldset>
+    </div>
+    <div class="modal-footer feedback-footer" id="feedback-footer">
+        <%= button_tag("Submit", :disable_with => "Submitting...", :class => "positive btn btn-primary") %>&nbsp;
+      <a class="btn secondary cancel">Cancel</a>
+    </div>
+
+</div>
 <% end %>

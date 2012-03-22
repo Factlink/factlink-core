@@ -82,7 +82,7 @@ class ChannelsController < ApplicationController
 
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
-        format.js
+        format.json { render :json => @channel}
       end
 
     else

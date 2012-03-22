@@ -28,7 +28,9 @@
           <%= yield %>
         </section>
       </section>
-      <%= render 'home/feedback' %>
+
+      <%= render 'home/feedback' unless defined? dont_render_feedback %>
+
     </div>
   </div>
 </div>
