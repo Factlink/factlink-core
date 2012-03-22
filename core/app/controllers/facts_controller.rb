@@ -56,7 +56,7 @@ class FactsController < ApplicationController
     respond_to do |format|
       if @fact.save
         format.html do
-          flash[:notice] = "Factlink successfully added. <a href=\"#{channel_url(current_user.username, current_graph_user.created_facts_channel_id)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
+          flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout], only_path: true
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
