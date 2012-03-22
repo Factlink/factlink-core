@@ -1,9 +1,9 @@
 <div id="header" class="row-fluid">
-  <div class="span6">
+  <div class="span3">
     <%= link_to image_tag("factlink_logo71x15.png"), root_path, { target: "_blank" } %>
   </div>
 
-  <div class="span6 pull-right" style="text-align: right;">
+  <div class="span9 pull-right" style="text-align: right;">
     <% unless user_signed_in? %>
          <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
     <% else %>
@@ -12,6 +12,11 @@
           <input type="checkbox" name="highlight" id="highlight" /> Highlight
         </label>
       </span>
+
+      <a class="btn" id="annotate_button">
+        <i class="icon-pencil"></i>
+        Annotate
+      </a>
 
       <span>
         <a class="btn btn-small" id="slideDown">
@@ -41,13 +46,7 @@
 
     <%= hidden_field_tag 'layout', 'popup' %>
     <div class="row">
-      <div class="span3">
-        <a class="btn" id="annotate_button">
-          <i class="icon-pencil"></i>
-          Annotate
-        </a>
-      </div>
-      <div class="span3" style="text-align:right;">
+      <div class="span6" style="text-align:right;">
         <button id="slideUp" class="btn">Cancel</button>
 
         <%= submit_tag "Submit", class: "btn btn-primary", disable_with: "Submitting..." %>
