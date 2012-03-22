@@ -187,4 +187,9 @@ class FactsController < ApplicationController
       allowed_layouts = ['popup']
       allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
     end
+
+    def friendly_fact_path(fact)
+      slug = fact.to_s.blank? ? fact.id : fact.to_s.parameterize
+      frurl_fact_path(slug, fact.id)
+    end
 end
