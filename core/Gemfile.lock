@@ -122,6 +122,7 @@ GEM
       main
       ruby_parser (~> 2.0.4)
       sexp_processor (~> 3.0.3)
+    client_side_validations (3.1.4)
     coderay (1.0.5)
     coffee-script (2.2.0)
       coffee-script-source
@@ -433,6 +434,7 @@ DEPENDENCIES
   capistrano-ext
   capybara
   capybara-webkit (= 0.10.1)
+  client_side_validations
   database_cleaner
   devise (~> 2.0.0)
   evergreen
