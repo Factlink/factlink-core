@@ -14,6 +14,7 @@ nl:
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Je account is nog niet geactiveerd.'
+      not_approved: 'Je account is nog niet geactiveerd.'
     sessions:
       signed_in: 'Je bent succesvol ingelogd.'
       signed_out: 'Je bent succesvol uitgelogd.'
@@ -27,6 +28,7 @@ nl:
       signed_up: 'Je bent inschreven.'
       updated: 'Je account gegevens zijn opgeslagen.'
       destroyed: 'Je account is verwijderd, wellicht tot ziens!'
+      signed_up_but_not_approved: 'Je registratie is gelukt. Je krijgt bericht wanneer je account is geactiveerd.'
     unlocks:
       send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan un-locken.'
       unlocked: 'Je account is ge-unlocked. Je kan nu weer inloggen.'
