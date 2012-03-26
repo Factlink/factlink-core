@@ -7,7 +7,9 @@
 <% content_for :sign_up do %>
 
   <% if notice %>
-  <pre><%= notice %></pre>
+  <div class="alert alert-info">
+    <%= notice %>
+  </div>
   <% end %>
 
   <h4>Register your username</h4>
