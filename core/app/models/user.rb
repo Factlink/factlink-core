@@ -13,7 +13,10 @@ class User
   field :twitter
   field :graph_user_id
 
+  field :approved, default: false, null: false
+
   field :admin,       type: Boolean, default: false
+
   field :agrees_tos,  type: Boolean, default: false
   field :agrees_tos_name, type: String, default: ""
   field :agreed_tos_on,   type: DateTime
@@ -151,6 +154,30 @@ class User
     options[:default] ||= :retro
     options[:rating] ||= :PG
     gravatar_url(email,options)
+  end
+
+  # Require activated accounts to work with
+  # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
+  def active_for_authentication?
+    super && approved?
+  end
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
+  end
+
+  # don't send reset password instructions when the account is not approved yet
+  def self.send_reset_password_instructions(attributes={})
+    recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
+    if !recoverable.approved?
+      recoverable.errors[:base] << I18n.t("devise.failure.not_approved")
+    elsif recoverable.persisted?
+      recoverable.send_reset_password_instructions
+    end
+    recoverable
   end
 
   private
