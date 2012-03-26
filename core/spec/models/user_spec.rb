@@ -14,6 +14,9 @@ describe User do
     it "should not be an Admin" do
       subject.admin.should == false
     end
+    it "should not be approved" do
+      subject.approved.should == false
+    end
   end
 
   it "should have one active factlink after adding believe" do
