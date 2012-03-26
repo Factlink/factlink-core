@@ -44,6 +44,7 @@ class User
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "must be unique", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
+  validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,

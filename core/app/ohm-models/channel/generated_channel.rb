@@ -19,5 +19,9 @@ class Channel < OurOhm
     def has_authority?
       false
     end
+
+    def topic
+      nil
+    end
   end
 end

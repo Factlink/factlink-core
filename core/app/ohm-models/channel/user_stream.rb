@@ -5,19 +5,20 @@ class Channel < OurOhm
     def type; "stream" end
 
     def add_fields
-       self.title = "All"
-     end
-     before :validate, :add_fields
+      self.title = "All"
+    end
 
-     def contained_channels
-       channels = created_by.internal_channels.to_a
-       channels.delete(self)
-       return channels
-     end
+    before :validate, :add_fields
 
-     def inspect
-       "UserStream of #{created_by}"
-     end
+    def contained_channels
+      channels = created_by.internal_channels.to_a
+      channels.delete(self)
+      return channels
+    end
+
+    def inspect
+      "UserStream of #{created_by}"
+    end
 
   end
 end

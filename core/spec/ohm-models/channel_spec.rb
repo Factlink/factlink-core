@@ -362,4 +362,17 @@ describe Channel do
     end
   end
 
+  describe :topic do
+    it "should get the topic" do
+      @ch1 = create :channel, title: 'hoi'
+      @ch1.topic.title.should == 'hoi'
+      @ch1.topic.should_not be_new
+    end
+    it "should get the topic if the topic existed before the channel" do
+      @t = create :topic, title: "HoI"
+      @ch1 = create :channel, title: 'hoi'
+      @ch1.topic.should == @t
+    end
+  end
+
 end

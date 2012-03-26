@@ -6,8 +6,7 @@ class MapReduce
 
     def map iterator
       iterator.each do |ch|
-        t = Topic.by_title(ch.title)
-        t.save if t.new?
+        t = ch.topic
         ch.facts.each do |f|
           Authority.all_from(t).each do |a|
             yield({fact_id: f.id, user_id: a.user_id}, a.to_f)

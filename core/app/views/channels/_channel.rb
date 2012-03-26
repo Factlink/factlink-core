@@ -14,11 +14,11 @@ module Channels
     end
 
     def personalized_authority
-      (Authority.from(topic , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
+      topic and (Authority.from(topic , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
     end
 
     def topic_url
-      "/t/#{topic.slug_title}"
+      topic and "/t/#{topic.slug_title}"
     end
 
     def has_authority?
@@ -114,11 +114,13 @@ module Channels
     end
 
     private
-     def topic
-       t = Topic.by_title(title)
-       t.save if t.new?
-       t
-     end
+      def topic
+        @topic ||= if is_normal
+                     self[:channel].topic
+                   else
+                     nil
+                   end
+      end
 
 
   end

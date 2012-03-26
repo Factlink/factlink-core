@@ -26,15 +26,9 @@ class Channel < OurOhm
     self.slug_title = new_title.to_url
   end
 
-  after :save, :possibly_create_topic
-
-  def possibly_create_topic
-    t = Topic.by_title(self.title)
-    t.save if t.new?
-  end
-
-  after :save, :add_to_graph_user
-  def add_to_graph_user
+  after :save, :after_save_actions
+  def after_save_actions
+    Topic.ensure_for_channel(self)
     self.created_by.channels_by_authority.add(self) if self.type == 'channel'
   end
 
@@ -179,6 +173,10 @@ class Channel < OurOhm
 
   def containing_channels_for(user)
     Channel.active_channels_for(user) & containing_channels
+  end
+
+  def topic
+    self.slug_title and Topic.by_slug self.slug_title
   end
 
   def self.active_channels_for(user)

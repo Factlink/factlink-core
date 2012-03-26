@@ -68,4 +68,14 @@ describe Channel::UserStream do
     
   end
 
+  describe :topic do
+    it "should be nil" do
+      subject.topic.should be_nil
+    end
+    it "should be nil, and not crash when slugtitle is not set" do
+      subject.slug_title = nil
+      subject.topic.should be_nil
+    end
+  end
+
 end
