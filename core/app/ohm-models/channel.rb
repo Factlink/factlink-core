@@ -26,14 +26,9 @@ class Channel < OurOhm
     self.slug_title = new_title.to_url
   end
 
-  after :save, :possibly_create_topic
-
-  def possibly_create_topic
+  after :save, :after_save_actions
+  def after_save_actions
     Topic.ensure_for_channel(self)
-  end
-
-  after :save, :add_to_graph_user
-  def add_to_graph_user
     self.created_by.channels_by_authority.add(self) if self.type == 'channel'
   end
 
