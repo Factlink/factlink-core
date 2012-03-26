@@ -1,3 +1,4 @@
+search: bundle exec rake sunspot:solr:run
 worker:	bundle exec rake environment resque:work QUEUE=*
 webserver: bundle exec thin start
 recalculate: bundle exec rake fact_graph:recalculate
