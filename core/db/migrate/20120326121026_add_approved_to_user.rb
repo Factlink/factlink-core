@@ -2,7 +2,7 @@ class AddApprovedToUser < Mongoid::Migration
   def self.up
     say_with_time "approving current users" do
       User.all.each do |user|
-        user.approve = true
+        user.approved = true
         user.save
       end
     end
