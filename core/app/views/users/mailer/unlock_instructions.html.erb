@@ -1,7 +1,14 @@
-<p>Hello <%= @resource.email %>!</p>
+<% content_for :email_body do %>
 
-<p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</p>
+  <p>Hello <%= @resource.email %>!</p>
 
-<p>Click the link below to unlock your account:</p>
+  <p>Your account has been locked due to an excessive amount of unsuccessful sign in attempts.</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+  <p>Click the link below to unlock your account:</p>
+
+  <p><%= link_to 'Unlock my account', unlock_url(@resource, :unlock_token => @resource.unlock_token) %></p>
+
+
+<% end %>
+
+<%= render template: "layouts/email" %>
