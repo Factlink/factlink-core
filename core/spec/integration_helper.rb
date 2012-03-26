@@ -62,12 +62,12 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user_and_login
-  user = Factory.create(:user, email: "user@example.com")
+  user = Factory.create(:user, email: "user@example.com", approved: true)
   sign_in_user(user)
 end
 
 def make_non_tos_user_and_login
-  user = Factory.create(:user, email: "user@example.com", agrees_tos: false)
+  user = Factory.create(:user, email: "user@example.com", agrees_tos: false, approved: true)
   sign_in_user(user)
 end
 
