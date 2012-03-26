@@ -49,8 +49,8 @@ class User
   :rememberable,  # 'Remember me' box
   :trackable,     # Log sign in count, timestamps and IP address
   :validatable,   # Validation of email and password
-  :confirmable   # Require e-mail verification
-  # :registerable   # Allow registration
+  :confirmable,   # Require e-mail verification
+  :registerable   # Allow registration
 
   ## Database authenticatable
     field :email,              :type => String, :null => false
