@@ -17,7 +17,7 @@ class GraphUser < OurOhm
   collection :created_facts, Basefact, :created_by
 
   sorted_set :channels_by_authority, Channel do |ch|
-    topic = Topic.by_title(ch.title)
+    topic = ch.topic
     Authority.from(topic, for: ch.created_by)
   end
 

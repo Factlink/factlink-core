@@ -29,8 +29,7 @@ class Channel < OurOhm
   after :save, :possibly_create_topic
 
   def possibly_create_topic
-    t = Topic.by_title(self.title)
-    t.save if t.new?
+    Topic.ensure_for_channel(self)
   end
 
   after :save, :add_to_graph_user
@@ -179,6 +178,10 @@ class Channel < OurOhm
 
   def containing_channels_for(user)
     Channel.active_channels_for(user) & containing_channels
+  end
+
+  def topic
+    Topic.by_slug self.slug_title
   end
 
   def self.active_channels_for(user)
