@@ -120,4 +120,19 @@ class Fact < Basefact
     channels.map {|ch| ch.id}
   end
 
+  def reposition_in_top_facts
+    interestingness = self.opinion.a
+    Fact.key[:top_facts].zadd(interestingness, id)
+  end
+
+  def remove_from_top_facts
+    Fact.key[:top_facts].zrem(id)
+  end
+  before :delete, :remove_from_top_facts
+  def self.cut_off_topfacts
+    Fact.key[:top_facts].zremrangebyrank(0,-20)
+  end
+  def self.top(nr=10)
+    Fact.key[:top_facts].zrevrange(0,nr-1).map(&Fact)
+  end
 end

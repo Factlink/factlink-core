@@ -5,8 +5,12 @@ class FactGraph
       Basefact.all.to_a.each {|f| f.calculate_user_opinion }
       5.times do
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
-        Fact.all.to_a.each {|f| f.calculate_opinion}
+        Fact.all.to_a.each do |f|
+          f.calculate_opinion
+          f.reposition_in_top_facts
+        end
       end
+      Fact.cut_off_topfacts
   end
 
   def self.reset_values
