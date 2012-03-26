@@ -16,33 +16,24 @@
     <%= form_for(@user, :url => { action: :update, id: (@user.errors[:username].any? ? @user.username_was : @user.username) }, :html => { :class => "form-horizontal" }, validate: true) do |f| %>
       <fieldset>
         <legend></legend>
-        <div class="control-group<%= " error" if @user.errors[:username].any? %>">
+        <div class="control-group">
           <%= f.label :username, class: "control-label" %>
           <div class="controls">
             <%= f.text_field :username, autocomplete: "off", required: true, tabindex: 1 %>
-            <% if @user.errors[:username].any? %>
-              <span class="help-inline"><%= @user.errors[:username].first %></span>
-            <% end %>
           </div>
         </div>
 
-        <div class="control-group<%= " error" if @user.errors[:first_name].any? %>">
+        <div class="control-group">
           <%= f.label :first_name, class: "control-label" %>
           <div class="controls">
             <%= f.text_field :first_name, autocomplete: "off", tabindex: 2 %>
-            <% if @user.errors[:first_name].any? %>
-              <span class="help-inline"><%= @user.errors[:first_name].first %></span>
-            <% end %>
           </div>
         </div>
 
-        <div class="control-group<%= " error" if @user.errors[:last_name].any? %>">
+        <div class="control-group">
           <%= f.label :last_name, class: "control-label" %>
           <div class="controls">
             <%= f.text_field :last_name, autocomplete: "off", tabindex: 3 %>
-            <% if @user.errors[:last_name].any? %>
-              <span class="help-inline"><%= @user.errors[:last_name].first %></span>
-            <% end %>
           </div>
         </div>
 
