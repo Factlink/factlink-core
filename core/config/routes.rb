@@ -4,7 +4,8 @@ FactlinkUI::Application.routes.draw do
 
   # User Authentication
   devise_for :users, :controllers => {  :registrations => "users/registrations",
-                                        :sessions => "users/sessions" }
+                                        :sessions => "users/sessions",
+                                        :confirmations => "users/confirmations" }
 
   # Web Front-end
   root :to => "home#index"
@@ -131,7 +132,7 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-    
+
     resources :topics, path: 't', only: [] do
       member do
         get :related_users
