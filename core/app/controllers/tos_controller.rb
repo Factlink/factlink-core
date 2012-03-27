@@ -1,10 +1,9 @@
 class TosController < ApplicationController
 
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:update]
   layout "frontend"
 
   def show
-    authorize! :read_tos, current_user
   end
 
   def update
