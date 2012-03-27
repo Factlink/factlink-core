@@ -26,6 +26,11 @@ class Channel < OurOhm
     self.slug_title = new_title.to_url
   end
 
+  before :save, :before_save_actions
+  def before_save_actions
+    self.title = self.title
+  end
+
   after :save, :after_save_actions
   def after_save_actions
     Topic.ensure_for_channel(self)
