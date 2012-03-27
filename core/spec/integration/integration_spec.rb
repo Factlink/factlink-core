@@ -44,7 +44,7 @@ describe "Check the ToS", type: :request do
 end
 
 def create_channel(user)
-  channel = Factory.create(:channel, created_by: user.graph_user)
+  channel = FactoryGirl.create(:channel, created_by: user.graph_user)
   channel
 end
 

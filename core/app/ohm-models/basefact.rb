@@ -12,6 +12,10 @@ class Basefact < OurOhm
     return people_believes | people_doubts | people_disbelieves
   end
 
+  def opinionated_users_count
+    return people_believes.count + people_doubts.count + people_disbelieves.count
+  end
+
   def validate
     assert_present :created_by
   end

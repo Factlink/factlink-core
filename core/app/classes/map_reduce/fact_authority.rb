@@ -15,12 +15,26 @@ class MapReduce
     end
 
     def reduce fact_id, created_by_ids
+      f = Fact[fact_id]
+      res = authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
+            authority_from_opiniated_users(f) +
+            authority_from_channels(f)
+    end
+
+    def authority_from_used_as_evidence fact_creator_id, used_by_user_ids
       result = 0
-      fact_creator_id = Fact[fact_id].created_by_id
-      created_by_ids.each do |supporter_id|
+      used_by_user_ids.each do |supporter_id|
         result += 1 unless supporter_id == fact_creator_id
       end
-      [0, Math.log2(result)].max
+      res = [0, Math.log2(result)].max
+    end
+
+    def authority_from_opiniated_users fact
+      0 # fact.opiniated_users_count / 100
+    end
+
+    def authority_from_channels fact
+      0 # fact.channels.count / 10
     end
 
     def write_output fact_id, value

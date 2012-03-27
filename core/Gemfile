@@ -102,8 +102,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails' #factories for easy creation of a lot of objects
-  gem 'factory_girl'
+  gem 'factory_girl_rails', '~> 3.0'
   gem 'database_cleaner'
   gem 'mock_redis'
 

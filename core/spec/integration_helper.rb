@@ -17,7 +17,7 @@ RSpec.configure do |config|
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
 
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
 
   config.include Devise::TestHelpers, type: :view
@@ -49,7 +49,7 @@ Devise.setup do |config|
 end
 
 def int_user
-  user = Factory.create(:user, email: "user@example.com")
+  user = FactoryGirl.create(:user, email: "user@example.com")
   user.confirm!
   user
 end
@@ -62,12 +62,12 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user_and_login
-  user = Factory.create(:user, email: "user@example.com", approved: true)
+  user = FactoryGirl.create(:user, email: "user@example.com", approved: true)
   sign_in_user(user)
 end
 
 def make_non_tos_user_and_login
-  user = Factory.create(:user, email: "user@example.com", agrees_tos: false, approved: true)
+  user = FactoryGirl.create(:user, email: "user@example.com", agrees_tos: false, approved: true)
   sign_in_user(user)
 end
 
