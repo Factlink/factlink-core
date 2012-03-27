@@ -23,12 +23,11 @@
 <% content_for :selling_points do %>
 <h3>Why use Factlink</h3>
 <ul>
-  <li><img src="/assets/chart.png" alt="Pie Chart">Build authority on any topic, discover expertise</li>
-  <li><img src="/assets/people.png" alt="People">Share what you know, contribute to people's perspective</li>
-  <li><img src="/assets/globe.png" alt="Worls">Check the credibility of the information you are reading</li>
-  <li><img src="/assets/money.png" alt="Money">Free information access. Period</li>
+  <li><%= image_tag("chart.png",  alt: "Pie Chart") %>Build authority on any topic, discover expertise</li>
+  <li><%= image_tag("people.png", alt: "People") %>Share what you know, contribute to people's perspective</li>
+  <li><%= image_tag("globe.png",  alt: "World") %>Check the credibility of the information you are reading</li>
+  <li><%= image_tag("money.png",  alt: "Money") %>Free information access. Period</li>
 </ul>
-
 <% end %>
 
 
@@ -42,7 +41,7 @@
 <% end %>
 
 <% content_for :movie do %>
-  <img src="/assets/fact-wheel.png" id="movie-container" alt="Facts">
+  <%= image_tag("fact-wheel.png", id: "movie-container", alt: "Fact Wheel") %>
 <% end %>
 
 <% content_for :template do %>
