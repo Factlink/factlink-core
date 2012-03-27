@@ -20,7 +20,7 @@ RSpec.configure do |config|
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
 
-  config.include Factory::Syntax::Methods
+  config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
 
   config.include Devise::TestHelpers, type: :view
