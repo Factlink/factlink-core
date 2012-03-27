@@ -16,8 +16,9 @@ class MapReduce
 
     def reduce fact_id, created_by_ids
       f = Fact[fact_id]
-      res = authority_from_used_as_evidence(f.created_by_id, created_by_ids)
-#     res = res * 10 +  f.channels.count
+      res = authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
+            authority_from_opiniated_users(f) +
+            authority_from_channels(f)
     end
 
     def authority_from_used_as_evidence fact_creator_id, used_by_user_ids
@@ -26,6 +27,14 @@ class MapReduce
         result += 1 unless supporter_id == fact_creator_id
       end
       res = [0, Math.log2(result)].max
+    end
+
+    def authority_from_opiniated_users fact
+      0 # fact.opiniated_users_count / 100
+    end
+
+    def authority_from_channels fact
+      0 # fact.channels.count / 10
     end
 
     def write_output fact_id, value
