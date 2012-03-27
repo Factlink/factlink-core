@@ -18,7 +18,6 @@ class MapReduce
     end
 
     def write_output ident, value
-      puts "getting channel for #{ident[:topic]}"
       topic = Topic.by_slug(ident[:topic])
 
       gu = GraphUser[ident[:user_id]]
