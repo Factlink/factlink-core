@@ -13,7 +13,8 @@ class AddSlugTitleToAllChannels < Mongoid::Migration
           end
           puts ch.id
           ch.title = ch.title # also trigger the functionality which is called after setting the title
-          ch.save
+
+          ch.save or raise "Channel #{ch.created_by.user.username}:#{ch.title} could not be saved"
         end
       end
     end
