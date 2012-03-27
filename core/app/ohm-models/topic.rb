@@ -26,8 +26,12 @@ class Topic < OurOhm
   def self.ensure_for_channel(ch)
     unless Topic.find(slug_title: ch.slug_title).first
       t = Topic.by_title(ch.title)
-      t.save
+      t.save and t
     end
+  end
+
+  def self.for_channel(ch)
+    by_slug(ch.slug_title) or ensure_for_channel(ch)
   end
 
   def validate

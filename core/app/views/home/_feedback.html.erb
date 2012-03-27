@@ -1,8 +1,14 @@
-<div id="feedback-popup" class="modal hide fade feedback-modal">
-  <%= render template: "feedback/new" %>
+<script type="text/javascript">
+  var uvOptions = {};
+  (function() {
+    var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+    uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/nj021FlqrVcAhM5i1zpww.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+  })();
+</script>
+
+<div id="feedback" >
+  <a class="feedback" href="javascript:UserVoice.showPopupWidget();" title="feedback and support">Feedback</a>
 </div>
 
 
-<div id="feedback">
-  <a class="feedback" href="#feedback-modal">Feedback</a>
-</div>
