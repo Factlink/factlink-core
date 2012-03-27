@@ -18,8 +18,8 @@ class ConvertToSluggedChannels < Mongoid::Migration
             ch.real_delete
           else
             fixed[ch.title.to_url] = ch
+            ch.save
           end
-          ch.save
         end
       end
     end    
