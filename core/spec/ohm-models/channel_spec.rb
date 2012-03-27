@@ -373,6 +373,12 @@ describe Channel do
       @ch1 = create :channel, title: 'hoi'
       @ch1.topic.should == @t
     end
+    it "should get the topic even if I removed the topic" do
+      @t = create :topic, title: "HoI"
+      @ch1 = create :channel, title: 'hoi'
+      @t.delete
+      @ch1.topic.slug_title.should == 'hoi'
+    end
   end
 
 end
