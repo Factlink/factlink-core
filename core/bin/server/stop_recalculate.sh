@@ -7,3 +7,5 @@ while [ "$fact_graph_count" -gt "0" ]; do
   sleep 1
   fact_graph_count=`ps aux | grep -v grep | grep -c 'rake fact_graph:recalculate'`
 done
+
+exit 0
