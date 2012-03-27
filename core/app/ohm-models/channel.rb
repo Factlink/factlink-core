@@ -176,7 +176,7 @@ class Channel < OurOhm
   end
 
   def topic
-    self.slug_title and Topic.by_slug self.slug_title
+    Topic.for_channel self
   end
 
   def self.active_channels_for(user)
