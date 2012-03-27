@@ -21,6 +21,10 @@ describe Basefact do
 
   let(:user) {FactoryGirl.create(:user).graph_user}
   let(:user2) {FactoryGirl.create(:user).graph_user}
+  let(:user3) {FactoryGirl.create(:user).graph_user}
+  let(:user4) {FactoryGirl.create(:user).graph_user}
+  let(:user5) {FactoryGirl.create(:user).graph_user}
+  let(:user6) {FactoryGirl.create(:user).graph_user}
 
   subject {FactoryGirl.create(:basefact)}
   let(:fact2) {FactoryGirl.create(:basefact)}
@@ -130,6 +134,18 @@ describe Basefact do
     end
 
   end
+  describe :opiniated_users_count do
+    before do
+      subject.add_opinion(:believe, user)
+      subject.add_opinion(:disbelieve, user)
 
+      subject.add_opinion(:believe, user2)
+      subject.add_opinion(:believe, user3)
+      subject.add_opinion(:disbelieve, user4)
+      subject.add_opinion(:doubt, user5)
+      subject.add_opinion(:doubt, user6)
+
+    end
+  end
 
 end
