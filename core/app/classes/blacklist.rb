@@ -2,14 +2,14 @@ class Blacklist
 
   def self.domain domain
     regexdomain = domain.gsub /\./, '\\\.'
-    r = "https?:\\\/\\\/([^/]*\\\.)?#{regexdomain}\\\/"
+    r = "https?:\\\/\\\/([^/]*\\\.)?#{regexdomain}\\\/?"
     Regexp.new r
   end
 
   def self.default
     @@default ||= self.new [
       domain('facebook.com'),
-      domain('factlink.com'),
+      /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),

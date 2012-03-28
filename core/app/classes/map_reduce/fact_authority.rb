@@ -30,11 +30,11 @@ class MapReduce
     end
 
     def authority_from_opiniated_users fact
-      0 # fact.opiniated_users_count / 100
+      fact.opinionated_users_count / 100
     end
 
     def authority_from_channels fact
-      0 # fact.channels.count / 10
+      fact.channels.count / 10
     end
 
     def write_output fact_id, value
