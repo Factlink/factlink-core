@@ -40,5 +40,12 @@ describe Site do
     site2.id.should == site.id
   end
 
+  describe ".normalize_url" do
+    it "should call UrlNormalizer.normalize" do
+      UrlNormalizer.should_receive(:normalize).with('http://hoi')
+      Site.normalize_url(url: 'http://hoi')
+    end
+  end
+
 
 end
