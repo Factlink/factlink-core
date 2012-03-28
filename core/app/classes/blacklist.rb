@@ -9,7 +9,7 @@ class Blacklist
   def self.default
     @@default ||= self.new [
       domain('facebook.com'),
-      domain('factlink.com'),
+      /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),
