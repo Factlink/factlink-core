@@ -14,7 +14,7 @@ test:
 
 testserver:
   proxy:
-    hostname: proxy-testserver.factlink.com
+    hostname: proxy-testserver.fct.li
     port: 80
     internal_port: 8080
     protocol: http://
