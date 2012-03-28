@@ -2,6 +2,9 @@ namespace :fact_graph do
   if defined?(ExceptionNotifier)
     def exception_notify
       yield
+    rescue SignalException => exception
+      # we were killed (probably by deploy)
+      raise exception
     rescue Exception => exception
       ExceptionNotifier::Notifier.background_exception_notification(exception)
       raise exception
