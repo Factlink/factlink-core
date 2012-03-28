@@ -54,9 +54,6 @@ gem 'cancan'
 # newer version does not give creepy warning:
 gem 'andand', :git => 'http://github.com/Factlink/andand.git'
 
-# Github API
-gem 'octopi'
-
 # Email on errors
 group :testserver, :staging, :production do
   gem 'exception_notification', :require => 'exception_notifier'

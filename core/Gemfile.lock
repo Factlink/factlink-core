@@ -78,7 +78,6 @@ GEM
     activesupport (3.1.4)
       multi_json (~> 1.0)
     addressable (2.2.7)
-    api_cache (0.2.3)
     arel (2.2.3)
     arrayfields (4.7.4)
     bcrypt-ruby (3.0.1)
@@ -139,8 +138,6 @@ GEM
       railties (~> 3.1)
       warden (~> 1.1.1)
     diff-lcs (1.1.3)
-    domain_name (0.5.2)
-      unf (~> 0.0.3)
     erubis (2.7.0)
     escape (0.0.4)
     eventmachine (0.12.10)
@@ -175,9 +172,6 @@ GEM
     hirb (0.6.2)
     hoe (2.16.1)
       rake (~> 0.8)
-    httparty (0.8.1)
-      multi_json
-      multi_xml
     i18n (0.6.0)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -201,14 +195,6 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (5.4.0)
-    mechanize (2.3)
-      domain_name (~> 0.5, >= 0.5.1)
-      mime-types (~> 1.17, >= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.5, >= 2.5.2)
-      nokogiri (~> 1.4)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (~> 0.0, >= 0.0.9)
     method_source (0.7.1)
     metric_fu (2.1.1)
       Saikuro (>= 1.1.0)
@@ -240,12 +226,9 @@ GEM
       rails (>= 3.0.0)
       railties (>= 3.0.0)
     multi_json (1.1.0)
-    multi_xml (0.4.2)
     mustache (0.99.4)
     nest (1.1.0)
       redis (~> 2.1)
-    net-http-digest_auth (1.2)
-    net-http-persistent (2.5.2)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -255,12 +238,6 @@ GEM
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.3.2.1)
     nokogiri (1.5.2)
-    ntlm-http (0.1.1)
-    octopi (0.4.5)
-      api_cache
-      httparty (>= 0.4.5)
-      mechanize (>= 0.9.3)
-      nokogiri (>= 1.3.1)
     orm_adapter (0.0.6)
     pdf-writer (1.1.8)
       color (>= 1.4.0)
@@ -406,14 +383,10 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    unf (0.0.5)
-      unf_ext
-    unf_ext (0.0.4)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.1.1)
       rack (>= 1.0)
-    webrobots (0.0.13)
     will_paginate (3.0.3)
     xpath (0.1.4)
       nokogiri (~> 1.3)
@@ -457,7 +430,6 @@ DEPENDENCIES
   mustache
   mustache_rails3!
   newrelic_rpm
-  octopi
   ohm!
   ohm-contrib!
   pry
