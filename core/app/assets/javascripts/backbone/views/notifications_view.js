@@ -54,9 +54,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
     $unread.text(this._unreadCount);
 
     if ( count > 0 ) {
-      $unread.show();
+      $unread.addClass('active');
     } else {
-      $unread.hide();
+      $unread.removeClass('active');
     }
   },
 
