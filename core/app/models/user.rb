@@ -38,7 +38,7 @@ class User
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
-                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :feedback, :factlink
+                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_presence_of   :username, :message => "is required", :allow_blank => true

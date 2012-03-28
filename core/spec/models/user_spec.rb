@@ -170,7 +170,7 @@ describe User do
       @u.username = "a"
       @u.valid?.should be_false
     end
-    [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :feedback, :factlink].each do |name|
+    [:users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink].each do |name|
       it "should not be possible to choose #{name} as name" do
         @u.username = name.to_s
         @u.valid?.should be_false

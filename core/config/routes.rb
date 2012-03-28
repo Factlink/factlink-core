@@ -22,8 +22,6 @@ FactlinkUI::Application.routes.draw do
   # Generate the images for the indicator used in the js-lib
   get "/system/wheel/:percentages" => "wheel#show"
 
-  resource :feedback, only: [:new, :create], controller: "feedback"
-
   # Show Facts#new as unauthenticated user to show the correct login link
   resources :facts, only: [:new]
 
