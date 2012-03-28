@@ -40,15 +40,15 @@
 
   </ul>
 
+  {{#interacting_users}}
+    {{>interacting_users}}
+  {{/interacting_users}}
   {{#my_authority}}
   <div class="authority">
     <img src="/assets/brain.png" alt="Brain" />
     <span>{{my_authority}}</span>
   </div>
   {{/my_authority}}
-  {{#interacting_users}}
-    {{>interacting_users}}
-  {{/interacting_users}}
 </div>
 
 
