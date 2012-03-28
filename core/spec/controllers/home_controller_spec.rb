@@ -15,7 +15,7 @@ describe HomeController do
     it "should work" do
       authenticate_user!(user)
       get :index
-      response.should redirect_to(user_profile_path user)
+      response.should redirect_to(channel_path user, user.graph_user.stream)
     end
 
 
