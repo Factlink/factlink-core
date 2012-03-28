@@ -5,7 +5,9 @@ FactlinkUI::Application.routes.draw do
   # User Authentication
   devise_for :users, :controllers => {  :registrations => "users/registrations",
                                         :sessions => "users/sessions",
-                                        :confirmations => "users/confirmations" }
+                                        :confirmations => "users/confirmations",
+                                        :invitations => "users/invitations"
+                                         }
 
   # Web Front-end
   root :to => "home#index"
