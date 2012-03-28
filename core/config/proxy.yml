@@ -14,21 +14,21 @@ test:
 
 testserver:
   proxy:
-    hostname: proxy-testserver.fct.li
+    hostname: testserver.fct.li
     port: 80
     internal_port: 8080
     protocol: http://
 
 staging:
   proxy:
-    hostname: proxy-staging.fct.li
+    hostname: staging.fct.li
     port: 80
     internal_port: 8080
     protocol: http://
 
 production:
   proxy:
-    hostname: proxy-beta.factlink.com
+    hostname: fct.li
     port: 80
     internal_port: 8080
     protocol: http://
