@@ -13,7 +13,7 @@ describe TemplatesController do
   
   it "should be able to retrieve a valid template" do
     get :show, name: '_channel_li'
-    response.should be_succes
+    response.should be_success
   end
 
   it "should render the indicator template when not logged in without raising errors" do
