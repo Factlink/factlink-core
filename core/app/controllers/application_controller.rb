@@ -33,6 +33,11 @@ class ApplicationController < ActionController::Base
 
   after_filter :set_access_control
 
+
+  def after_sign_in_path_for(user)
+    channel_path(current_user, current_user.graph_user.stream)
+  end
+
   ##########
   # Set the Access Control, so XHR request from other domains are allowed.
   def set_access_control

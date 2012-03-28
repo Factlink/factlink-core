@@ -19,7 +19,7 @@ class HomeController < ApplicationController
   end
 
   def index
-    redirect_to user_profile_path(current_user) and return if user_signed_in?
+    redirect_to after_sign_in_path_for(current_user) and return if user_signed_in?
       
     @facts = Fact.top(3).delete_if {|f| Fact.invalid(f)}
     render layout: "landing"
