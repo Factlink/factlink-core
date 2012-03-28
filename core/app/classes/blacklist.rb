@@ -2,7 +2,7 @@ class Blacklist
 
   def self.domain domain
     regexdomain = domain.gsub /\./, '\\\.'
-    r = "https?:\\\/\\\/([^/]*\\\.)?#{regexdomain}\\\/"
+    r = "https?:\\\/\\\/([^/]*\\\.)?#{regexdomain}\\\/?"
     Regexp.new r
   end
 
