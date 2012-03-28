@@ -48,7 +48,7 @@ class User
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
-  devise :database_authenticatable,
+  devise :invitable, :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
   :trackable,     # Log sign in count, timestamps and IP address
@@ -79,6 +79,15 @@ class User
     field :confirmed_at,         :type => Time
     field :confirmation_sent_at, :type => Time
 
+
+  ## Invitable
+    field :invitation_token,  type: String
+    field :invitation_sent_at, type: Time
+    field :invitation_accepted_at, type: Time
+    field :invitation_limit, type: Integer
+    field :invited_by_id, type: Integer
+    field :invited_by_type, type: String
+  
 
   searchable :auto_index => true do
     text    :username, :twitter
