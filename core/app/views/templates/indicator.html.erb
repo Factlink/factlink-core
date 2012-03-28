@@ -4,12 +4,14 @@
 
     <ul class="fl-channels">
       <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
-      <li class="fl-form">
-        <form method="post" action='<%= channels_path(current_user) %>'>
-          <input type="text" name="channel_title" value="" placeholder="Add new">
-          <input type="submit" value="Add" class="btn btn-mini">
-        </form>
-      </li>
+      <% if current_user%>
+        <li class="fl-form">
+          <form method="post" action='<%= channels_path(current_user) %>'>
+            <input type="text" name="channel_title" value="" placeholder="Add new">
+            <input type="submit" value="Add" class="btn btn-mini">
+          </form>
+        </li>
+      <% end %>
     </ul>
   </div>
 

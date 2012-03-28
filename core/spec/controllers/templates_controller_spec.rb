@@ -16,4 +16,9 @@ describe TemplatesController do
     response.should be_succes
   end
 
+  it "should render the indicator template when not logged in without raising errors" do
+    get :show, name: 'indicator'
+    response.should be_success
+  end
+
 end
