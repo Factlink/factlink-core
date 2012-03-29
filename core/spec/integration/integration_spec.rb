@@ -35,50 +35,45 @@ describe "Check the ToS", type: :request do
       click_button "Continue"
     end
 
-    pending "should show the Tour", js: true do
-      page.should have_selector("div#first-tour-modal")
+    it "should show the Tour", js: true do
+      page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Built on knowledge")
-      end
+      page.has_xpath?("//div[@data-title='Start']", :visible => true)
 
       page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Solid as a rock")
-      end
+      page.has_xpath?("//div[@data-title='Factlink']", :visible => true)
+      page.has_xpath?("//div[@data-title='Start']", :visible => false)
 
       page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Connect the dots")
-      end
+      page.has_xpath?("//div[@data-title='Evidence']", :visible => true)
+      page.has_xpath?("//div[@data-title='Factlink']", :visible => false)
+
 
       page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Discover Factlink")
-      end
+      page.has_xpath?("//div[@data-title='Relations']", :visible => true)
+      page.has_xpath?("//div[@data-title='Evidence']", :visible => false)
+      
+      page.find(".next").click
+      page.has_xpath?("//div[@data-title='Channels']", :visible => true)
+      page.has_xpath?("//div[@data-title='Relations']", :visible => false)
+      
+      page.find(".next").click
+      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
+      page.has_xpath?("//div[@data-title='Channels']", :visible => false)
 
       page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Get ready...")
-      end
-
-      page.find(".next").click
-      within(:css, "h1") do
-        page.should have_content("Start using it. Everywhere!")
-      end
-
+      page.has_xpath?("//div[@data-title='Use it!']", :visible => true)
+      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
+  
       page.find(".previous").click
+      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
+      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
+      
       page.find(".next").click
       page.find(".closeButton").click
-
-          within(:css, "h1") do
-            page.should_not have_content("Start using it. Everywhere!")
-          end
-
-
-      # 'next' link has no href, so Capybara can't select it...
-      # For now, assume it works when the Tour is shown.
+      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
+      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
     end
   end
 end

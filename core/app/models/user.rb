@@ -48,7 +48,7 @@ class User
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
-  devise :database_authenticatable,
+  devise :invitable, :database_authenticatable,
   :recoverable,   # Password retrieval
   :rememberable,  # 'Remember me' box
   :trackable,     # Log sign in count, timestamps and IP address
@@ -80,6 +80,21 @@ class User
     field :confirmation_sent_at, :type => Time
 
 
+  ## Invitable
+    field :invitation_token,  type: String
+    field :invitation_sent_at, type: Time
+    field :invitation_accepted_at, type: Time
+    field :invitation_limit, type: Integer
+    field :invited_by_id, type: Integer
+    field :invited_by_type, type: String
+  
+  after_invitation_accepted :approve_invited_user
+  def approve_invited_user
+    self.skip_confirmation!
+    self.approved = true
+    self.save
+  end
+  
   searchable :auto_index => true do
     text    :username, :twitter
     string  :username, :twitter
@@ -98,7 +113,6 @@ class User
     guser = GraphUser.new
     guser.save
     self.graph_user = guser
-
     yield
 
     guser.user = self
