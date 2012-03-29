@@ -3,6 +3,11 @@
 @import "bootstrap/variables";
 
 @transition: opacity 0.2s ease;
+@max-z-index : 2147483647;
+
+.tooltip {
+  z-index: @max-z-index;
+}
 
 /** Fact block */
 div.modal {
@@ -173,7 +178,6 @@ ul.interacting-users {
     }
   }
 }
-
 .fact-block {
   color: #555;
   .border-radius(4px);
