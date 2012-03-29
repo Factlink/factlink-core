@@ -78,6 +78,11 @@ class Ability
         can :manage, Job
         cannot :sign_tos, User
       end
+      if user.has_invitations_left?
+        can :invite, User
+      else
+        cannot :invite, User
+      end
     end
   end
 
