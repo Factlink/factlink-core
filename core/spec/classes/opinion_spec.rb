@@ -101,4 +101,17 @@ describe Opinion do
     (@o1+@o2).weight.should == @o1.weight + @o2.weight
     (@o1+@o2+@o3).weight.should == @o1.weight + @o2.weight + @o3.weight
   end
+
+  describe :friendly_authority do
+    it "should display in 3 characters" do
+      Opinion.tuple(0,0,0,0).friendly_authority.should == "0.0"
+      Opinion.tuple(0,0,0,1.0).friendly_authority.should == "1.0"
+      Opinion.tuple(0,0,0,10).friendly_authority.should == "10"
+      Opinion.tuple(0,0,0,101).friendly_authority.should == "101"
+      Opinion.tuple(0,0,0,1000).friendly_authority.should == "1k"
+      Opinion.tuple(0,0,0,1001).friendly_authority.should == "1k"
+      Opinion.tuple(0,0,0,1999).friendly_authority.should == "1k"
+      Opinion.tuple(0,0,0,2000).friendly_authority.should == "2k"
+    end
+  end
 end

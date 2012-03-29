@@ -23,6 +23,7 @@ class SitesController < ApplicationController
     end
 
     def check_blacklist
+      authorize! :check, Blacklist
       if Blacklist.default.matches? params[:url]
         render :json => { :blacklisted => true }, :callback => params[:callback], :content_type => "application/javascript"
       end

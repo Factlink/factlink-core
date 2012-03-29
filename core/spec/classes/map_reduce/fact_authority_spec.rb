@@ -31,8 +31,12 @@ describe MapReduce::FactAuthority do
 
   describe :reduce do
     it do
-      Fact.should_receive(:[]).with(12).and_return(stub(:Fact, created_by_id: 3))
-      subject.reduce(12, [20, 15]).should == Math.log2(2)
+      Fact.should_receive(:[]).with(12).and_return(stub(:Fact,
+        created_by_id: 3,
+        opinionated_users_count: 100,
+        channels: stub(:Set, count: 40)
+      ))
+      subject.reduce(12, [20, 15]).should == Math.log2(2) + 1 + 4
     end
   end
 end

@@ -176,11 +176,19 @@ describe Ability do
       subject.should_not be_able_to :mark_activities_as_read, other_user
     end
   end
-  
+
   describe "topics" do
     let(:topic) { create :topic }
     it "should be able to view a topic" do
       subject.should be_able_to :show, topic
     end
   end
+
+  describe "checking the blacklist" do
+    it "should be possible for everyone to check the blacklist" do
+      anonymous.should be_able_to :check, Blacklist
+      subject.should   be_able_to :check, Blacklist
+    end
+  end
+
 end

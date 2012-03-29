@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
   def activities
     authorize! :see_activities, @user
-    activities = @user.graph_user.notifications.below('inf', count: 7, reversed: true )
+    activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true )
 
     activities.keep_if { |a| a.still_valid? }
 

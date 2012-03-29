@@ -11,7 +11,12 @@ FactlinkUI::Application.routes.draw do
 
   # Web Front-end
   root :to => "home#index"
+
+  # Javascript Client calls
+  # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
   get   "/site/blacklisted" => "sites#blacklisted"
+  get   "/site/count" => "sites#facts_count_for_url"
+  get   "/site" => "sites#facts_for_url"
 
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb
@@ -57,13 +62,6 @@ FactlinkUI::Application.routes.draw do
         post  "/update_title" => "facts#update_title", :as => "update_title"
       end
     end
-
-
-    # Javascript Client calls
-    # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
-    get   "/site/count" => "sites#facts_count_for_url"
-    get   "/site" => "sites#facts_for_url"
-    get   "/site/:id" => "sites#show"
 
     # Search and infinite scrolling
     match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"

@@ -13,6 +13,7 @@ class Ability
 
     # Anonymous user
     can :read, Job, :show => true
+    can :check, Blacklist
 
     # Registered user
     if user

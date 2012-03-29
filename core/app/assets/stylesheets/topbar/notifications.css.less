@@ -1,21 +1,41 @@
 @import "bootstrap/mixins";
 
+.transition(@duration:0.2s, @ease:ease-out) {
+  -webkit-transition: all @duration @ease;
+  -moz-transition: all @duration @ease;
+  transition: all @duration @ease;
+}
+
 #notifications {
+  width: 42px;
+
   span.unread {
-    display: none;
+    background: #dfdfdf;
+    color: #fff;
+
+    height: 20px;
+    width:  20px;
+
     position: absolute;
-    background: #DE997B;
-    .border-radius(10px);
-    font-size: 6pt;
-    height: 11px;
-    width: 11px;
-    color: white;
-    top: 8px;
-    right: 6px;
+    top:   11px;
+    right: 11px;
+
+    line-height: 18px;
+    font-size: 15px;    
     text-align: center;
-    line-height: 11px;
-    .box-shadow(inner 0 0 1px #D37650);
-    text-shadow: 0;
+    text-shadow: 0px -1px 1px #c3c3c3;
+
+    .box-shadow(inset 0 1px 2px #bbb);
+    .border-radius(2px);
+  
+    .transition(0.4s, ease-out);
+  
+    &.active {
+      @shadowColor: #cb7d5f;
+      background: #e8a991;
+      .box-shadow(inset 0 1px 2px @shadowColor);
+      text-shadow: 0px -1px 1px @shadowColor;
+    }
   }
 
   > ul {

@@ -22,7 +22,9 @@ class MapReduce
     def write_output ident, value
       ch = Channel[ident[:channel_id]]
       gu = GraphUser[ident[:user_id]]
-      Authority.from(ch, for: gu) << value
+      if ch and gu
+        Authority.from(ch, for: gu) << value
+      end
     end
 
   end
