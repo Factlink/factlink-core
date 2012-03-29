@@ -37,6 +37,46 @@ describe "Check the ToS", type: :request do
 
     it "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal")
+
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Built on knowledge")
+      end
+
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Solid as a rock")
+      end
+
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Connect the dots")
+      end
+
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Discover Factlink")
+      end
+      
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Get ready...")
+      end
+      
+      page.find(".next").click
+      within(:css, "h1") do
+        page.should have_content("Start using it. Everywhere!")
+      end
+
+      page.find(".previous").click
+      page.find(".next").click
+      page.find(".closeButton").click
+      
+          within(:css, "h1") do
+            page.should_not have_content("Start using it. Everywhere!")
+          end
+
+
       # 'next' link has no href, so Capybara can't select it...
       # For now, assume it works when the Tour is shown.
     end
@@ -87,7 +127,7 @@ describe "Walkthrough the app", type: :request do
 
       click_link "edit"
       handle_js_confirm(accept=true) do
-        click_link "delete"
+        click_link "Delete"
       end
 
       within(:css, "h1") do

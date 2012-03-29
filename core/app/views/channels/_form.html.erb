@@ -21,7 +21,7 @@
     <div class="actions">
       <%= button_tag("Submit", :disable_with => "Submitting...", :class => "btn btn-primary") %>&nbsp;
       <% if action == "update" %>
-        <span style="margin-right: 5px"><%= link_to("Delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure?", :method => :delete, :class => "btn-danger btn" ) %></span>&nbsp;
+        <span style="margin-right: 5px"><%= link_to("Delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn-danger btn" ) %></span>&nbsp;
       <% end %>
     </div>
   </div>
