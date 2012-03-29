@@ -111,6 +111,7 @@ class Fact < Basefact
     end
   end
 
+  #TODO also remove yourself from channels, possibly using resque
   before :delete, :delete_data
   before :delete, :delete_all_evidence
   before :delete, :delete_all_evidenced
