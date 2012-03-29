@@ -88,7 +88,13 @@ class User
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
   
-
+  after_invitation_accepted :approve_invited_user
+  def approve_invited_user
+    self.skip_confirmation!
+    self.approved = true
+    self.save
+  end
+  
   searchable :auto_index => true do
     text    :username, :twitter
     string  :username, :twitter
@@ -107,7 +113,6 @@ class User
     guser = GraphUser.new
     guser.save
     self.graph_user = guser
-
     yield
 
     guser.user = self
