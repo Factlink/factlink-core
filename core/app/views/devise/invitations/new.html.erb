@@ -9,7 +9,8 @@
   <% if current_user.has_invitations_left? %>
     <p><%= f.label :email %><br />
     <%= f.text_field :email %></p>
-    <%= text_field :invite, :message %></p>
+    <p><%= f.label :message %><br />
+    <%= text_area :invite, :message %></p>
 
 
     <p><%= f.submit "Send an invitation" %></p>
