@@ -87,7 +87,7 @@ describe "Walkthrough the app", type: :request do
 
       click_link "edit"
       handle_js_confirm(accept=true) do
-        click_link "delete"
+        click_link "Delete"
       end
 
       within(:css, "h1") do
