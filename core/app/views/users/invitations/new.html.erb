@@ -1,19 +1,32 @@
 <h2>Send invitation</h2>
 
-<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post} do |f| %>
-  <%= devise_error_messages! %>
+<%= form_for resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:method => :post, :class => "form-horizontal"} do |f| %>
+  <fieldset>
+    <legend>
+      Invitations left: <%= current_user.invitation_limit %>
+    </legend>
+    <%= devise_error_messages! %>
 
-  <p>Invitations left: <%= current_user.invitation_limit %></p>
+    <% if current_user.has_invitations_left? %>
+      <div class="control-group">
+        <%= f.label :email, class: "control-label" %>
+        <div class="controls">
+          <%= f.text_field :email, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :message, class: "control-label" %>
+        <div class="controls">
+          <%= text_area :invite, :message, class: "input-xlarge" %>
+        </div>
+      </div>
 
 
-  <% if current_user.has_invitations_left? %>
-    <p><%= f.label :email %><br />
-    <%= f.text_field :email %></p>
-    <p><%= f.label :message %><br />
-    <%= text_area :invite, :message %></p>
-
-
-    <p><%= f.submit "Send an invitation" %></p>
-  <% end %>
+      <div class="form-actions">
+        <%= f.submit "Send an invitation", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </fieldset>
 <% end %>
 
