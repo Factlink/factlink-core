@@ -37,13 +37,6 @@ describe "When visiting the home page", type: :request do
       end
     end
 
-    it "should be able to view the Blog page" do
-      click_link "Blog"
-      within(:css, "h2") do
-        page.should have_content("Pages")
-      end
-    end
-
     it "should be able to view the Contact page" do
       click_link "Contact"
       within(:css, "h1") do
@@ -58,6 +51,14 @@ describe "When visiting the home page", type: :request do
       end
     end
 
+    it "should be able to view the Privacy Policy page" do
+      click_link "Privacy Policy"
+      within(:css, "h1") do
+        page.should have_content("Privacy Policy")
+      end
+    end
+    
+    
     it "should be able to view the Privacy Policy page" do
       click_link "Privacy Policy"
       within(:css, "h1") do
