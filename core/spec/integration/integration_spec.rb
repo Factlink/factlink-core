@@ -35,7 +35,7 @@ describe "Check the ToS", type: :request do
       click_button "Continue"
     end
 
-    it "should show the Tour", js: true do
+    pending "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal")
 
       page.find(".next").click
@@ -57,12 +57,12 @@ describe "Check the ToS", type: :request do
       within(:css, "h1") do
         page.should have_content("Discover Factlink")
       end
-      
+
       page.find(".next").click
       within(:css, "h1") do
         page.should have_content("Get ready...")
       end
-      
+
       page.find(".next").click
       within(:css, "h1") do
         page.should have_content("Start using it. Everywhere!")
@@ -71,7 +71,7 @@ describe "Check the ToS", type: :request do
       page.find(".previous").click
       page.find(".next").click
       page.find(".closeButton").click
-      
+
           within(:css, "h1") do
             page.should_not have_content("Start using it. Everywhere!")
           end
