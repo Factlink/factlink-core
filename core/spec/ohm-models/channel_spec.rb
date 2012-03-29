@@ -39,7 +39,7 @@ describe Channel do
     before do
       subject.add_fact(f1)
       f1.delete
-      Fact.should_receive(:invalid).with(f1).and_return(true)
+      Fact.should_receive(:invalid).with(nil).at_least(:once).and_return(true)
     end
     it { subject.facts.to_a.should =~ []}
   end
@@ -378,6 +378,22 @@ describe Channel do
       @ch1 = create :channel, title: 'hoi'
       @t.delete
       @ch1.topic.slug_title.should == 'hoi'
+    end
+  end
+
+  describe :facts do
+    it "should clean up removed facts" do
+      @ch1 = create :channel, title: 'hoi'
+      @f1 = create :fact
+      @f2 = create :fact
+      @ch1.add_fact @f1
+      @ch1.add_fact @f2
+      @ch1.facts.should =~ [@f1,@f2]
+      @ch1.sorted_cached_facts.count.should == 2
+      @f1.delete
+      @ch1.facts.should =~ [@f2]
+      @ch1.sorted_cached_facts.count.should == 1
+      
     end
   end
 

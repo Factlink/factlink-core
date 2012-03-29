@@ -91,10 +91,17 @@ class Channel < OurOhm
 
     res = sorted_cached_facts.below(limit,facts_opts)
 
-    if facts_opts[:withscores]
-     res = res.delete_if{ |f| Fact.invalid(f[:item]) }
-    else
-     res = res.delete_if{ |f| Fact.invalid(f) }
+    fixchan = false
+
+    res.delete_if do |item|
+      check_item = facts_opts[:withscores] ? item[:item] : item
+      invalid = Fact.invalid(check_item)
+      fixchan |= invalid
+      invalid
+    end
+
+    if fixchan
+      Resque.enqueue(CleanChannel, self.id)
     end
 
     res
