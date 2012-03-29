@@ -35,7 +35,7 @@ describe "Check the ToS", type: :request do
       click_button "Continue"
     end
 
-    it "should show the Tour", js: true do
+    pending "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click

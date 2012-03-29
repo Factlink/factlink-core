@@ -36,7 +36,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
     if opts[:withscores]
       res = self.class.hash_array_for_withscores(res).map {|x| { item: model[x[:item]], score: x[:score]}}
     else
-      res = res.map(&model)
+      res = res.map { |x| model[x] }
     end
     opts[:reversed]? res : res.reverse
   end
