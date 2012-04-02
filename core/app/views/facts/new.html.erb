@@ -7,11 +7,6 @@
     <% unless user_signed_in? %>
          <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
     <% else %>
-      <span>
-        <label>
-          <input type="checkbox" name="highlight" id="highlight" /> Highlight
-        </label>
-      </span>
 
       <a class="btn" id="annotate_button">
         <i class="icon-pencil"></i>
