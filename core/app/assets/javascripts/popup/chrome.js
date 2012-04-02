@@ -26,7 +26,6 @@ window.addEventListener("message", function(messageObject) {
   }
 }, false);
 
-passThroughClick( $('#slideUp, #slideDown'), "slideToggle");
 passThroughClick( $('#annotate_button>input'), "annotateToggle");
 passThroughClick( $('#highlight'), "highlightToggle");
 
