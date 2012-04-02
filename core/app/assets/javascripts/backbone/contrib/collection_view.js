@@ -7,6 +7,9 @@ Backbone.CollectionView = Backbone.View.extend({
     _.each(this.views,function(view) {
       view.remove();
     });
+
+    this.views = {};
+
     this.render();
     this.afterReset.apply(this, arguments);
   },
