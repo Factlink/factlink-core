@@ -30,7 +30,7 @@
     <% end %>
 
     <div class="control-group">
-      <%= text_area_tag :fact, params[:fact], :class => "input-xxlarge span6", :required => "required", placeholder: "Factlink text" %>
+      <%= text_area_tag :fact, params[:fact], :class => "input-xxlarge span6", :required => "required", :disabled => "disabled", placeholder: "Factlink text" %>
     </div>
 
     <%= hidden_field_tag 'layout', 'popup' %>
