@@ -4,9 +4,9 @@
 
 <p>You have been invited by <%= @resource.invited_by %> to join Factlink:</p>
 
-<p style='background-color: red;'>
-<%= @resource.invitation_message %>
-<p>
+<div style='font-style: italic; border-left: solid 2px #ccc; padding:0 0 0 24px;'>
+	<%= @resource.invitation_message %>
+</div>
 
 <p>We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link: <%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
 
