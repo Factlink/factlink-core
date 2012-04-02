@@ -15,28 +15,20 @@ window.addEventListener("message", function(messageObject) {
   } else if ( data === "auto_annotate" ) {
     $('#annotate_button').css({'visibility': 'hidden'});
   } else if ( data === "annotate" ) {
-    $('#annotate_button').addClass('active');
+    $('#annotate_button>input').prop('checked',true);
   } else if ( typeof data.title !== "undefined" ) {
     $('#title').val(data.title);
     $('#fact').val(data.text);
     $('#url').val(data.url);
   } else if ( data === "blacklist" ) {
     $('#highlight').prop('disabled', true);
-    $('#annotate_button').prop('disabled', true);
+    $('#annotate_button>input').prop('disabled', true);
   }
 }, false);
 
 passThroughClick( $('#slideUp, #slideDown'), "slideToggle");
-passThroughClick( $('#annotate_button'), "annotateToggle");
+passThroughClick( $('#annotate_button>input'), "annotateToggle");
 passThroughClick( $('#highlight'), "highlightToggle");
-
-$('#annotate_button').bind('click', function() {
-  if ($(this).hasClass("active")) {
-    $(this).removeClass("active");
-  } else {
-    $(this).addClass("active");
-  }
-});
 
 if ( $('.alert').length === 1 ) {
   top.postMessage("showNotification", "*");
