@@ -36,5 +36,4 @@ if ( $('.alert').length === 1 ) {
     top.postMessage('hideNotification', "*");
   });
 }
-
 })();
