@@ -3,7 +3,7 @@
 <% content_for :javascript do %>
 <script>
   (function(){
-    window.currentFact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self).to_json.html_safe %>);
+    window.currentFact = new Fact(<%= Facts::ExtendedFact.for(fact: @fact, view: self).to_json.html_safe %>);
 
     var view = new FactView({
       el: $('.fact-block'),
