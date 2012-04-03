@@ -13,6 +13,7 @@ class ChannelsController < ApplicationController
       :destroy,
       :update,
       :facts,
+      :create_fact,
       :related_users,
       :activities,
       :remove_fact,
@@ -162,6 +163,21 @@ class ChannelsController < ApplicationController
     @channel.add_fact(@fact)
 
     respond_with(@channel)
+  end
+
+  def create_fact
+    authorize! :create, Fact
+    authorize! :update, @channel
+
+    @fact = Fact.create(:created_by => current_graph_user)
+
+    @fact.data.displaystring = params[:displaystring]
+    @fact.data.title = params[:title]
+    @fact.data.save
+
+    @channel.add_fact(@fact)
+
+    render json: Facts::Fact.for(fact: @fact, view: view_context)
   end
 
   def remove_fact
