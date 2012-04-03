@@ -1,7 +1,9 @@
-<form id="create_fact_for_channel" class="well">
-  <textarea name="fact" class="input-xxlarge"></textarea>
-  <button class="btn btn-primary" name="submit" type="submit">Add Factlink</button>
-</form>
+{{#editable?}}
+  <form id="create_fact_for_channel" class="well">
+    <textarea name="fact" class="input-xxlarge"></textarea>
+    <button class="btn btn-primary" name="submit" type="submit">Add Factlink</button>
+  </form>
+{{/editable?}}
 
 <div class="facts">
 
