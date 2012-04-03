@@ -21,7 +21,7 @@ window.AppView = Backbone.View.extend({
   // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
     var args = arguments;
-    localStorage.noReload || setTimeout(function(){
+    setTimeout(function(){
       Channels.fetch({
         success: args.callee
       });
