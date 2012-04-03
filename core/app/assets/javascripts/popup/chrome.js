@@ -15,7 +15,9 @@ window.addEventListener("message", function(messageObject) {
   } else if ( data === "annotate" ) {
     $('#annotate_button>input').prop('checked',true);
   } else if ( typeof data.title !== "undefined" ) {
-    top.postMessage({message: "changeHeight", height: $(document).height()}, "*");
+    if ( data.text.length > 0 ) {
+      top.postMessage({message: "changeHeight", height: $(document).height()}, "*");
+    }
 
     $('#title').val(data.title);
     $('#fact').val(data.text);
