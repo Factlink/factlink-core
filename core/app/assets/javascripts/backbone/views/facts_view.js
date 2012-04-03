@@ -31,13 +31,19 @@ window.FactsView = Backbone.CollectionView.extend({
 
   createFact: function (e) {
     var self = this;
+    var $textarea = this.$el.find('#create_fact_for_channel textarea');
+    var $submit = this.$el.find('#create_fact_for_channel button');
+
     e.preventDefault();
+
+    $textarea.prop('disabled', true);
+    $submit.prop('disabled', true);
 
     $.ajax({
       url: this.collection.url(),
       type: "POST",
       data: {
-        displaystring: this.$el.find('#create_fact_for_channel textarea').val()
+        displaystring: $textarea.val()
       },
       success: function(data) {
         var fact = new Fact(data);
@@ -45,6 +51,9 @@ window.FactsView = Backbone.CollectionView.extend({
         var a = self.collection.unshift(fact);
 
         self.views[fact.cid].highlight();
+
+        $textarea.val('').prop('disabled', false);
+        $submit.prop('disabled', false);
       }
     });
   },
