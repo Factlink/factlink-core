@@ -1,19 +1,30 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= FactlinkUI::Application.config.static_url %>" + "/lib";
+  var lib_url = "<%= FactlinkUI::Application.config.static_url %>/lib",
+      min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
+      head = document.getElementsByTagName("head")[0];
+
+  function createScript(location, onLoad) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = false;
+    script.src = location;
+
+    onLoad && (script.onload = onLoad);
+
+    head.insertBefore(script,head.firstChild);
+  }
+
   window.FactlinkConfig = {
     modus: "default",
     api: "<%= FactlinkUI::Application.config.api_url %>",
-    lib: lib_url,
-    getFacts: true
+    lib: lib_url
   };
 
   //load the library
-  var script = document.createElement("script");
-  var head = document.getElementsByTagName("head")[0];
-  script.type = "text/javascript";
-  script.async = false;
-  script.src = lib_url + "/src/js/load_library.js?" + (new Date()).getTime();
-  head.insertBefore(script,head.firstChild);
+  createScript(lib_url + "/dist/factlink" + min + ".js?", function() {
+    createScript(lib_url + "/dist/factlink.start_annotating" + min + ".js");
+    createScript(lib_url + "/dist/factlink.start_highlighting" + min + ".js");
+  });
 })();
 

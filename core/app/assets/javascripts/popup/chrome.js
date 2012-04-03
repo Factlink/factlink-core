@@ -12,11 +12,13 @@ window.addEventListener("message", function(messageObject) {
 
   if ( data === "highlight" ) {
     $('#highlight').prop('checked', true );
-  } else if ( data === "auto_annotate" ) {
-    $('#annotate_button').css({'visibility': 'hidden'});
   } else if ( data === "annotate" ) {
     $('#annotate_button>input').prop('checked',true);
   } else if ( typeof data.title !== "undefined" ) {
+    if ( data.text.length > 0 ) {
+      top.postMessage({message: "changeHeight", height: $(document).height()}, "*");
+    }
+
     $('#title').val(data.title);
     $('#fact').val(data.text);
     $('#url').val(data.url);
@@ -36,4 +38,5 @@ if ( $('.alert').length === 1 ) {
     top.postMessage('hideNotification', "*");
   });
 }
+
 })();

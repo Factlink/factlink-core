@@ -7,13 +7,15 @@
 
 html {
   overflow: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 body {
   background: #fff;
   width: 460px;
   font-family: "Lucida Grande", 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
-  padding: 10px 5px;
+  padding: 10px 5px 0;
 }
 
 #container {
@@ -50,6 +52,12 @@ body {
     cursor: default;
     box-shadow: none;
     resize: none;
+    height: 60px;
+    line-height: 20px;
+  }
+
+  form.form-horizontal {
+    margin: 0;
   }
 }
 

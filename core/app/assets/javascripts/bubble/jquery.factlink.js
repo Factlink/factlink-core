@@ -10,7 +10,7 @@
         }
 
         function initialize($fact) {
-         $fact.data("initialized", true);
+          $fact.data("initialized", true);
         } /*start of method*/
         var $fact = $(this);
         $fact.data("facts", {});
@@ -42,24 +42,38 @@
         var current_op = this;
         if ($(current_op).data("opinion") === opinion.data("opinion")) {
           if (!$(current_op).data("user-opinion")) {
-            $.post("/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json", function(data) {
-              $(current_op).realData("user-opinion", true);
-              fact.factlink("update", data);
+            // Pre-set the user-opinion, so we don't have to wait till the request is finished
+            $( current_op ).realData("user-opinion", true);
 
-              try {
-                mpmetrics.track("Factlink: Opinionate", {
-                  factlink: $(fact).data('fact-id'),
-                  opinion: opinion.data("opinion")
-                });
-              } catch(e) {}
+            $.ajax({
+              url: "/facts/" + $(fact).data("fact-id") + "/opinion/" + opinion.data("opinion") + ".json",
+              type: "POST",
+              success: function(data) {
+                fact.factlink("update", data);
+
+                try {
+                  mpmetrics.track("Factlink: Opinionate", {
+                    factlink: $(fact).data('fact-id'),
+                    opinion: opinion.data("opinion")
+                  });
+                } catch(e) {}
+              },
+              error: function() {
+                $(current_op).realData("user-opinion", false);
+
+                fact.data('wheel').update();
+
+                alert("Something went wrong while setting your opinion on the Factlink, please try again");
+              }
             });
           }
           else {
+            $(current_op).realData('user-opinion', false);
+
             $.ajax({
               type: "DELETE",
               url: "/facts/" + $(fact).data("fact-id") + "/opinion.json",
               success: function(data) {
-                $(current_op).realData('user-opinion', false);
                 fact.factlink("update", data);
 
                 try {
@@ -67,6 +81,13 @@
                     factlink: $(fact).data('fact-id')
                   });
                 } catch(e) {}
+              },
+              error: function() {
+                $(current_op).realData("user-opinion", true);
+
+                fact.data('wheel').update();
+
+                alert("Something went wrong while removing your opinion on the Factlink, please try again");
               }
             });
           }
@@ -75,6 +96,8 @@
           $(current_op).realData("user-opinion", false);
         }
       });
+
+      fact.data("wheel").update();
     },
 
 

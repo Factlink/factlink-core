@@ -28,6 +28,18 @@ window.FactRelationView = Backbone.View.extend({
 
     $('a.supporting',this.$el).tooltip({'title':"This is relevant"});
     $('a.weakening',this.$el).tooltip({'title':"This is not relevant", 'placement':'bottom'});
+
+    var weight = this.model.get("weight");
+    var weightTooltipText = "This fact influences the top fact a lot";
+
+    if ( weight < 33 ) {
+      weightTooltipText = "This fact doesn't influence the top fact that much";
+    } else if ( weight < 66 ) {
+      weightTooltipText = "This fact influences the top fact a little bit";
+    }
+
+    this.$el.find('.weight-container').tooltip({title: weightTooltipText});
+
     return this;
   },
 

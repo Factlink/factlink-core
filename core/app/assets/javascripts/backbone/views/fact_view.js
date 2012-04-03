@@ -9,7 +9,7 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-	  "click .controls .supporting, .controls .weakening": "toggleEvidence"
+    "click .controls .supporting, .controls .weakening": "toggleEvidence"
   },
 
   initialize: function(opts) {
@@ -52,7 +52,7 @@ window.FactView = Backbone.View.extend({
 
   removeFactFromChannel: function(e) {
     e.preventDefault();
-    
+
     if(!confirm("Are you sure you want to remove this Factlink from the current channel?")) return false;
 
     var self = this;
