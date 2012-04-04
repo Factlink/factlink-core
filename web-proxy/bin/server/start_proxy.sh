@@ -12,4 +12,4 @@ export CONFIG_PATH=/applications/factlink-core/current/config/;
 export NODE_ENV=$ENVIRONMENT;
 
 npm install;
-forever start server.js;
+node_modules/forever/bin/forever start server.js;
