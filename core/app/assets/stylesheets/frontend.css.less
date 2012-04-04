@@ -7,6 +7,7 @@
  *= require users
  *= require facts
  *= require footer
+ *= require channels
  */
 
 @import "bootstrap/variables";
@@ -141,8 +142,8 @@ body.factlink-site .fact-block {
     }
   }
   .user-block .authority {
-  	padding: 0;
-  	margin: 0;
+    padding: 0;
+    margin: 0;
   }
   form {
     .row {
@@ -154,7 +155,7 @@ body.factlink-site .fact-block {
         float: left;
         width: 100px;
         margin-top: 6px;
-		margin-left: 20px;
+    margin-left: 20px;
       }
 
       input {
@@ -184,7 +185,7 @@ body.factlink-site .fact-block {
     #font > .sans-serif(normal, x-small, @baseLineHeight);
     bottom: 0.45em;
   }
-  
+
   #left-column {
     .user-block {
       .avatar-container {
@@ -402,7 +403,7 @@ body.factlink-site .fact-block {
     div.loading {
       text-align: center;
       line-height: 100px;
-      
+
       img, span {
         vertical-align: middle;
       }
