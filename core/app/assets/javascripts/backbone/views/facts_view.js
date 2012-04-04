@@ -8,7 +8,9 @@ window.FactsView = Backbone.CollectionView.extend({
   _previousLength: -1,
   views: {},
   events: {
-    "submit #create_fact_for_channel": "createFact"
+    "submit #create_fact_for_channel": "createFact",
+    "focus #create_fact_for_channel textarea": "openCreateFactForm",
+    "blur #create_fact_for_channel textarea": "closeCreateFactForm"
   },
 
   initialize: function(options) {
@@ -55,6 +57,26 @@ window.FactsView = Backbone.CollectionView.extend({
         $textarea.val('').prop('disabled', false);
         $submit.prop('disabled', false);
       }
+    });
+  },
+
+  openCreateFactForm: function (e) {
+    var $textarea = this.$el.find('#create_fact_for_channel textarea');
+
+    $textarea.stop().animate({
+      height: 75
+    }, function() {
+      $(this).closest('form').addClass('active');
+    });
+  },
+
+  closeCreateFactForm: function (e) {
+    var $textarea = this.$el.find('#create_fact_for_channel textarea');
+
+    $textarea.closest('form').removeClass('active');
+
+    $textarea.stop().animate({
+      height: 35
     });
   },
 

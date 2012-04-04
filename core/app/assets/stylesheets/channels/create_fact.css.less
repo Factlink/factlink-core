@@ -1,0 +1,27 @@
+#create_fact_for_channel {
+  overflow: hidden;
+  width: 100%;
+  border-bottom: 1px solid #E1E1E1;
+
+  textarea {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+
+    resize: none;
+    height: 35px;
+    width: 100%;
+    margin: 15px 0;
+    padding: 8px 50px 0 15px;
+    overflow: hidden;
+  }
+
+  #create_new_factlink_button {
+    display: none;
+    margin: 0 0 10px;
+  }
+
+  &.active {
+    #create_new_factlink_button {
+      display: inline-block;
+    }
+  }
+}
