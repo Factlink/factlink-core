@@ -12,6 +12,12 @@
   </div>
   <% end %>
 
+  <% if alert %>
+  <div class="alert alert-error">
+    <%= alert %>
+  </div>
+  <% end %>
+
   <h4>Reserve your username</h4>
   <p>We'll get you account access as we're opening up for more users.</p>
   <%= render template: "users/registrations/new" %>

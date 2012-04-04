@@ -35,6 +35,7 @@ en:
       updated: 'You updated your account successfully.'
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       signed_up_but_not_approved: 'You have signed up successfully. You will get notified when your account is approved.'
+      sign_up_failed: 'De registratie ging niet goed. Probeer het nog eens.'
     unlocks:
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
       unlocked: 'Your account was successfully unlocked. You are now signed in.'
