@@ -1,7 +1,7 @@
-server 'testserver.factlink.com', :app, :web, :primary => true
+server 'testserver.fct.li', :app, :web, :primary => true
 
 set :deploy_env, 'testserver'
 
-role :web, "testserver.factlink.com"                          # Your HTTP server, Apache/etc
-role :app, "testserver.factlink.com"                          # This may be the same as your `Web` server
-role :db,  "testserver.factlink.com", :primary => true # This is where Rails migrations will run
+role :web, "testserver.fct.li"                          # Your HTTP server, Apache/etc
+role :app, "testserver.fct.li"                          # This may be the same as your `Web` server
+role :db,  "testserver.fct.li", :primary => true # This is where Rails migrations will run
