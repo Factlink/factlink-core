@@ -194,6 +194,13 @@ window.FactView = Backbone.View.extend({
       var model = new User(this.user);
       var view = new UserPassportView({model: model, el: el, activity: this});
     });
+  },
+
+  highlight: function() {
+    var self = this;
+    self.$el.animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
+      $(this).animate({"background-color": "#ffffff"}, 2000);
+    }});
   }
 });
 })();

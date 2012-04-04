@@ -7,6 +7,9 @@ window.FactsView = Backbone.CollectionView.extend({
   _timestamp: undefined,
   _previousLength: -1,
   views: {},
+  events: {
+    "submit #create_fact_for_channel": "createFact"
+  },
 
   initialize: function(options) {
     this.useTemplate("channels", "_facts");
@@ -24,6 +27,35 @@ window.FactsView = Backbone.CollectionView.extend({
       this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     }
     this.bindScroll();
+  },
+
+  createFact: function (e) {
+    var self = this;
+    var $textarea = this.$el.find('#create_fact_for_channel textarea');
+    var $submit = this.$el.find('#create_fact_for_channel button');
+
+    e.preventDefault();
+
+    $textarea.prop('disabled', true);
+    $submit.prop('disabled', true);
+
+    $.ajax({
+      url: this.collection.url(),
+      type: "POST",
+      data: {
+        displaystring: $textarea.val()
+      },
+      success: function(data) {
+        var fact = new Fact(data);
+
+        var a = self.collection.unshift(fact);
+
+        self.views[fact.cid].highlight();
+
+        $textarea.val('').prop('disabled', false);
+        $submit.prop('disabled', false);
+      }
+    });
   },
 
   removeOne: function (fact) {

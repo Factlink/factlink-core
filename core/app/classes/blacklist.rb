@@ -17,6 +17,7 @@ class Blacklist
       domain('flowdock.com'),
       domain('github.com'),
       domain('mixpanel.com'),
+      domain('grooveshark.com'),
       /^http:\/\/localhost[:\/]/,
       /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
     ] + flash + frames
