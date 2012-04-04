@@ -8,7 +8,7 @@ echo "starting node proxy using forever";
 
 cd $PROXY_PATH;
 
-export CONFIG_PATH=/applications/factlink-core/current/config/;
+export CONFIG_PATH=/applications/config/;
 export NODE_ENV=$ENVIRONMENT;
 
 npm install;
