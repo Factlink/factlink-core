@@ -1,7 +1,7 @@
 #!/bin/bash
 ENVIRONMENT=`cat /etc/factlink-environment`;
 
-CONFIG_PATH=/applications/factlink-core/current/config/;
+CONFIG_PATH=/applications/config/;
 PROXY_PATH=/applications/web-proxy/current/;
 
 echo "starting node proxy using forever";
