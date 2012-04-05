@@ -61,6 +61,10 @@ class FactRelation < Basefact
     Opinion.for_relation_type(self.type)
   end
 
+  def deletable?
+    people_believes.count <= 1 && ((people_believes.ids == []) or (people_believes.ids.map {|i| i.to_i} == [created_by_id.to_i]))
+  end
+
   def delete_key
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
   end

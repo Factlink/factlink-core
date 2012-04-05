@@ -65,7 +65,7 @@ class Ability
     if user
       can :opinionate, FactRelation
       can :destroy, FactRelation do |f|
-        f.created_by == user.graph_user
+        f.created_by == user.graph_user && f.deletable?
       end
     end
   end

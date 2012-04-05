@@ -3,6 +3,7 @@ require 'spec_helper'
 describe FactRelation do
 
   let(:gu) {FactoryGirl.create :graph_user}
+  let(:gu2) {FactoryGirl.create :graph_user}
 
   before(:each) do
     @evidence = FactoryGirl.create_list(:fact,2)
@@ -87,6 +88,32 @@ describe FactRelation do
     @fr4 = FactRelation.create_new(@fact2,:supporting,@fact1,gu)
     FactRelation.all.size.should == 2  
   end
-  
+
+  describe :deletable? do
+    before do
+      @fact1 = FactoryGirl.create(:fact)
+      @fact2 = FactoryGirl.create(:fact)
+      @fr = FactRelation.get_or_create(@fact1,:supporting,@fact2,gu)
+    end
+    it "should be true initially" do
+      @fr.deletable?.should be_true
+    end
+    it "should be true if only the creator believes it" do
+      @fr.add_opiniated(:believes, gu)
+      @fr.deletable?.should be_true
+    end
+    it "should be false after someone else believes the relation" do
+      @fr.add_opiniated(:believes, gu2)
+      @fr.deletable?.should be_false
+    end
+    it "should be true if only the creator believes it" do
+      @fr.add_opiniated(:disbelieves, gu2)
+      @fr.deletable?.should be_true
+    end
+    it "should be true if only the creator believes it" do
+      @fr.add_opiniated(:doubts, gu2)
+      @fr.deletable?.should be_true
+    end
+  end
 
 end
