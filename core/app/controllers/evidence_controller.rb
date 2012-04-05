@@ -58,6 +58,18 @@ class EvidenceController < FactsController
     render json: [FactRelations::FactRelation.for(fact_relation: evidence, view: view_context)]
   end
 
+  def destroy
+    fact_relation = FactRelation[params[:id]]
+
+    authorize! :destroy, fact_relation
+
+    fact_relation.delete
+
+    respond_to do |format|
+      format.json  { render :json => {}, :status => :ok }
+    end
+  end
+
   private
     def relation
       :both

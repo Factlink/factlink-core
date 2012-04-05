@@ -208,7 +208,7 @@ testserver:
   <<: *default_settings
   # It almost never makes sense to turn on the agent when running
   # unit, functional or integration tests or the like.
-  monitor_mode: true
+  monitor_mode: false
   app_name: Factlink (Testserver)
   
 
@@ -226,5 +226,5 @@ production:
 # here.  By default, the staging environment has the agent turned on.
 staging:
   <<: *default_settings
-  monitor_mode: true
+  monitor_mode: false
   app_name: Factlink (Staging)

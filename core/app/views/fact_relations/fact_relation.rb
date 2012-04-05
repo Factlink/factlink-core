@@ -29,8 +29,16 @@ module FactRelations
       self[:fact_relation].percentage
     end
 
+    def can_destroy?
+      can? :destroy, self[:fact_relation]
+    end
+
     def signed_in?
       user_signed_in?
+    end
+
+    def url
+      friendly_fact_path(self[:fact_relation].from_fact)
     end
   end
 end
