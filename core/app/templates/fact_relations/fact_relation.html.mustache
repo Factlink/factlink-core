@@ -10,6 +10,13 @@
     {{>fact_bubble}}
   {{/fact_bubble}}
 
+  <div class="evidence-actions">
+    <a class="permalink" href="{{url}}"></a>
+    {{#can_destroy?}}
+      <a class="remove-relation"></a>
+    {{/can_destroy?}}
+  </div>
+
   <div class="weight-container">
     <div class="weight {{ fact_relation_type }}" style="width: {{weight}}%"></div>
   </div>
