@@ -403,4 +403,22 @@ describe Channel do
     end
   end
 
+  describe :delete do
+    before do
+      u1_ch1.add_fact f1
+      u2_ch1.add_fact f2
+      u1_ch1.add_fact f3
+      u2_ch1.add_fact f4
+      u1_ch1.add_channel u2_ch1
+      u2_ch1.delete
+    end
+    it "should not remove the facts from the channels which follow this channel" do
+      u1_ch1.facts.should =~ [f1,f2,f3,f4]
+    end
+    it "should not exist anymore" do
+      Channel[u2_ch1.id].should be_nil
+    end
+    it "should not be referred to by other objects"
+  end
+
 end

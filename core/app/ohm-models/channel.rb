@@ -70,9 +70,7 @@ class Channel < OurOhm
   end
 
   def delete
-    self.discontinued = true
-    save
-    update_top_users
+    real_delete
   end
 
   def update_top_users
