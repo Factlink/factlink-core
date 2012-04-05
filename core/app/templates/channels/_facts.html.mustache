@@ -1,7 +1,7 @@
 {{#editable?}}
   <form id="create_fact_for_channel">
     <div class="create_factlink input-box">
-      <textarea name="fact" class="input-xxlarge" placeholder="Post a new Factlink in this channel"></textarea>
+      <textarea name="fact" class="input-xxlarge" required="required" placeholder="Post a new Factlink in this channel"></textarea>
 
       <a class="close">x</a>
 
@@ -12,7 +12,7 @@
     </div>
 
     <div class="add-url input-box">
-      <input type="text" name="url" placeholder="Add site">
+      <input type="url" name="url" placeholder="Add site">
     </div>
 
     <div class="add-title input-box">
