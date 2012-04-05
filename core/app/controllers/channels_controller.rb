@@ -116,13 +116,11 @@ class ChannelsController < ApplicationController
   def destroy
     authorize! :destroy, @channel
 
-    if @channel.created_by == current_user.graph_user
-      @channel.delete
+    @channel.delete
 
-      respond_to do |format|
-        format.html  { redirect_to(channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
-        format.json  { render :json => {}, :status => :ok }
-      end
+    respond_to do |format|
+      format.html  { redirect_to(channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
+      format.json  { render :json => {}, :status => :ok }
     end
   end
 
