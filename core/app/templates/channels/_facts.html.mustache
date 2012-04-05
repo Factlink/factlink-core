@@ -1,6 +1,23 @@
 {{#editable?}}
   <form id="create_fact_for_channel">
-    <textarea name="fact" class="input-xxlarge" placeholder="Post a new Factlink in this channel"></textarea>
+    <div class="create_factlink input-box">
+      <textarea name="fact" class="input-xxlarge" placeholder="Post a new Factlink in this channel"></textarea>
+
+      <a class="close">x</a>
+
+      <div class="inset-icon-box">
+        <a class="inset-icon icon-chain"></a>
+        <a class="inset-icon icon-pen"></a>
+      </div>
+    </div>
+
+    <div class="add-url input-box">
+      <input type="text" name="url" placeholder="Add site">
+    </div>
+
+    <div class="add-title input-box">
+      <input type="text" name="title" placeholder="Add title">
+    </div>
 
     <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Add Factlink</button>
   </form>

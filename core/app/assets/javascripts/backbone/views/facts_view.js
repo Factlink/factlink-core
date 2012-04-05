@@ -10,7 +10,10 @@ window.FactsView = Backbone.CollectionView.extend({
   events: {
     "submit #create_fact_for_channel": "createFact",
     "focus #create_fact_for_channel textarea": "openCreateFactForm",
-    "blur #create_fact_for_channel textarea": "closeCreateFactForm"
+    "click #create_fact_for_channel .create_factlink .close": "closeCreateFactForm",
+    "click #create_fact_for_channel": "focusCreateFactlink",
+    "click #create_fact_for_channel .inset-icon.icon-pen": "toggleTitleField",
+    "click #create_fact_for_channel .inset-icon.icon-chain": "toggleURLField"
   },
 
   initialize: function(options) {
@@ -28,24 +31,33 @@ window.FactsView = Backbone.CollectionView.extend({
     } else {
       this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
     }
+
+    this.$el.find('.icon-pen').tooltip({ title: 'Add a title to this Factlink'});
+    this.$el.find('.icon-chain').tooltip({ title: 'Add a source (url) to this Factlink'});
+
     this.bindScroll();
   },
 
   createFact: function (e) {
     var self = this;
-    var $textarea = this.$el.find('#create_fact_for_channel textarea');
-    var $submit = this.$el.find('#create_fact_for_channel button');
+    var $form = this.$el.find('form');
+
+    var $textarea = $form.find('textarea[name=fact]');
+    var $url = $form.find('input[name=url]');
+    var $title = $form.find('input[name=title]');
+    var $submit = $form.find('button');
 
     e.preventDefault();
 
-    $textarea.prop('disabled', true);
-    $submit.prop('disabled', true);
+    $form.find(':input').prop('disabled', true);
 
     $.ajax({
       url: this.collection.url(),
       type: "POST",
       data: {
-        displaystring: $textarea.val()
+        displaystring: $textarea.val(),
+        title: $title.val(),
+        url: $url.val()
       },
       success: function(data) {
         var fact = new Fact(data);
@@ -54,30 +66,47 @@ window.FactsView = Backbone.CollectionView.extend({
 
         self.views[fact.cid].highlight();
 
-        $textarea.val('').prop('disabled', false);
-        $submit.prop('disabled', false);
+        $form.find(':input').val('').prop('disabled',false);
+
+        self.closeCreateFactForm();
       }
     });
   },
 
-  openCreateFactForm: function (e) {
-    var $textarea = this.$el.find('#create_fact_for_channel textarea');
-
-    $textarea.stop().animate({
-      height: 75
-    }, function() {
-      $(this).closest('form').addClass('active');
-    });
-  },
+  openCreateFactForm: function () {  this.$el.find('form').addClass('active'); },
 
   closeCreateFactForm: function (e) {
-    var $textarea = this.$el.find('#create_fact_for_channel textarea');
+    this.$el.find('form')
+      .removeClass('active show-url show-title')
+      .filter(':input').val('');
 
-    $textarea.closest('form').removeClass('active');
+    e && e.stopPropagation();
+  },
 
-    $textarea.stop().animate({
-      height: 35
-    });
+  toggleTitleField: function (e) {
+    var $form = this.$el.find('form');
+
+    $form.toggleClass('show-title');
+
+    $form.hasClass('show-title') && $form.addClass('active').find('.add-title>input').focus();
+
+    e.stopPropagation();
+  },
+
+  toggleURLField: function (e) {
+    var $form = this.$el.find('form');
+
+    $form.toggleClass('show-url');
+
+    $form.hasClass('show-url') && $form.addClass('active').find('.add-url>input').focus();
+
+    e.stopPropagation();
+  },
+
+  focusCreateFactlink: function (e) {
+    var $target = $(e.target);
+
+    ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
   },
 
   removeOne: function (fact) {
