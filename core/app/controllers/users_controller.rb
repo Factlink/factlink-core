@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     authorize! :see_activities, @user
     activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true )
 
-    activities.keep_if { |a| a.still_valid? }
+    activities.keep_if { |a| a && a.still_valid? }
 
     respond_to do |format|
       format.json { render json: activities.map { |activity| Notifications::Activity.for(activity: activity, view: view_context) } }
