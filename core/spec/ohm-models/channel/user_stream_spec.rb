@@ -78,4 +78,10 @@ describe Channel::UserStream do
     end
   end
 
+  describe :can_be_added_as_subchannel? do
+    it "should be false" do
+      subject.can_be_added_as_subchannel?.should be_false
+    end
+  end
+
 end
