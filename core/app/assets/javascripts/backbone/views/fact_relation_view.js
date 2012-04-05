@@ -4,7 +4,8 @@ window.FactRelationView = Backbone.View.extend({
 
   events: {
     "click .relation-actions>.weakening": "disbelieveFactRelation",
-    "click .relation-actions>.supporting": "believeFactRelation"
+    "click .relation-actions>.supporting": "believeFactRelation",
+    "click .remove-relation": "destroyFactRelation"
   },
 
   initialize: function() {
@@ -12,12 +13,20 @@ window.FactRelationView = Backbone.View.extend({
 
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
+
+    console.info( this.model.url() );
   },
 
   remove: function() {
     this.$el.fadeOut('fast', function() {
       this.$el.remove();
     });
+  },
+
+  destroyFactRelation: function () {
+    if ( confirm("Are you sure you want to delete this Factlink as evidence?") ) {
+      this.model.destroy();
+    }
   },
 
   render: function() {
