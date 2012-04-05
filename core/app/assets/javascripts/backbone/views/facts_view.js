@@ -202,6 +202,10 @@ window.FactsView = Backbone.CollectionView.extend({
     this.$el.find('div.no_facts').hide();
   },
 
+  afterAdd: function () {
+    this.hideNoFacts();
+  },
+
   setLoading: function() {
     this._loading = true;
     this.$el.find('div.loading').show();
