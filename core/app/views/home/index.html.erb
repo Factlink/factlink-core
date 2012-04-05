@@ -47,6 +47,8 @@
 <% end %>
 
 <% content_for :movie do %>
+  <% if can_haz :intro_video %> VIDEO! <% end %>
+
   <%= image_tag("fact-wheel.png", id: "movie-container", alt: "Fact Wheel") %>
 <% end %>
 

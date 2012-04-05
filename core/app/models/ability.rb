@@ -107,6 +107,7 @@ class Ability
        can :see_feature_version_number, FactlinkWebapp
     end
     can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
+    cannot :see_feature_intro_video, FactlinkWebapp
     
     # enable as soon as we have related users only for channels, and this gives
     # a list of users sorted by authority for the topic of the channel
