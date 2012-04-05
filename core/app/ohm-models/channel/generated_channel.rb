@@ -23,5 +23,10 @@ class Channel < OurOhm
     def topic
       nil
     end
+    
+    def can_be_added_as_subchannel?
+      false
+    end
+    
   end
 end

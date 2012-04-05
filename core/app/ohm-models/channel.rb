@@ -151,7 +151,7 @@ class Channel < OurOhm
   end
 
   def can_be_added_as_subchannel?
-    !(self.type == "stream" || self.type == "created")
+    true
   end
     
 
@@ -167,8 +167,6 @@ class Channel < OurOhm
             :created_by => created_by,
             :discontinued => discontinued}
   end
-  
-
 
   def add_channel(channel)
     if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
