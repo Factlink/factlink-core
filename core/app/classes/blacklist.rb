@@ -15,6 +15,7 @@ class Blacklist
       domain('irccloud.com'),
       domain('moneybird.nl'),
       domain('flowdock.com'),
+      domain('yammer.com'),
       domain('github.com'),
       domain('mixpanel.com'),
       domain('grooveshark.com'),
