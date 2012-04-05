@@ -76,5 +76,17 @@ describe FactRelation do
     @fact1.delete
     @fact2.evidence(:supporting).size.should == 0
   end
+  
+  it "should not be able to create identical factRelations" do
+    @fact1 = FactoryGirl.create(:fact)
+    @fact2 = FactoryGirl.create(:fact)
+    @fr1 = FactRelation.get_or_create(@fact1,:supporting,@fact2,gu)
+    @fr2 = FactRelation.get_or_create(@fact1,:supporting,@fact2,gu)
+    FactRelation.all.size.should == 1
+    @fr3 = FactRelation.create_new(@fact2,:supporting,@fact1,gu)
+    @fr4 = FactRelation.create_new(@fact2,:supporting,@fact1,gu)
+    FactRelation.all.size.should == 2  
+  end
+  
 
 end

@@ -12,6 +12,7 @@ class FactRelation < Basefact
     assert_present :fact_id
     assert_present :type
     assert_member :type, [:supporting, :weakening, 'supporting', 'weakening']
+    assert_unique [:from_fact_id, :fact_id, :type]
   end
 
   def FactRelation.get_or_create(from, type, to, user)
@@ -39,10 +40,12 @@ class FactRelation < Basefact
       :type => type
     )
 
-    #TODO this should use a collection
-    to.evidence(type) << fl
-    key['gcby'][from.id][type][to.id].set(fl.id)
-
+    unless fl.new?
+      #TODO this should use a collection
+      to.evidence(type) << fl
+      key['gcby'][from.id][type][to.id].set(fl.id)
+    end
+    
     fl
   end
 
@@ -61,9 +64,11 @@ class FactRelation < Basefact
   def delete_key
     self.class.key['gcby'][from_fact.id][self.type][fact.id].del()
   end
+
   def delete_from_evidence
     fact.evidence(self.type.to_sym).delete(self)
   end
+
   before :delete, :delete_key
   before :delete, :delete_from_evidence
 end
