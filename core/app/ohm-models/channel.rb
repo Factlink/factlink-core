@@ -134,7 +134,6 @@ class Channel < OurOhm
     self.title
   end
 
-
   def include?(obj)
     self.sorted_cached_facts.include?(obj)
   end
@@ -151,6 +150,10 @@ class Channel < OurOhm
     true
   end
 
+  def can_be_added_as_subchannel?
+    !(self.type == "stream" || self.type == "created")
+  end
+    
 
   def related_users(calculator=RelatedUsersCalculator.new,options)
     options[:without] ||= []
@@ -164,9 +167,11 @@ class Channel < OurOhm
             :created_by => created_by,
             :discontinued => discontinued}
   end
+  
+
 
   def add_channel(channel)
-    if (! contained_channels.include?(channel))
+    if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
       contained_channels << channel
       channel.containing_channels << self
       Resque.enqueue(AddChannelToChannel, channel.id, self.id)
