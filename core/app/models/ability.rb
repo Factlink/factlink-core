@@ -34,8 +34,8 @@ class Ability
 
       can :read_tos, user
 
-      define_feature_toggles
     end
+    define_feature_toggles
   end
 
   def define_channel_abilities
@@ -103,10 +103,12 @@ class Ability
   end
 
   def define_feature_toggles
-    if user.admin?
-       can :see_feature_version_number, FactlinkWebapp
+    if user
+      if user.admin?
+         can :see_feature_version_number, FactlinkWebapp
+      end
+      can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
     end
-    can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
     cannot :see_feature_intro_video, FactlinkWebapp
     
     # enable as soon as we have related users only for channels, and this gives
