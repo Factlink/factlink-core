@@ -13,7 +13,8 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .create_factlink .close": "closeCreateFactForm",
     "click #create_fact_for_channel": "focusCreateFactlink",
     "click #create_fact_for_channel .inset-icon.icon-pen": "toggleTitleField",
-    "click #create_fact_for_channel .inset-icon.icon-chain": "toggleURLField"
+    "click #create_fact_for_channel .inset-icon.icon-chain": "toggleURLField",
+    "click #create_fact_for_channel .input-box": "focusField"
   },
 
   initialize: function(options) {
@@ -71,6 +72,10 @@ window.FactsView = Backbone.CollectionView.extend({
         self.closeCreateFactForm();
       }
     });
+  },
+
+  focusField: function (e) {
+    $(e.target).closest('input-box').find(':input').focus();
   },
 
   openCreateFactForm: function () {  this.$el.find('form').addClass('active'); },
