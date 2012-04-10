@@ -17,11 +17,11 @@
 
 <div class="controls">
   <ul class="evidence">
-    <li class="supporting">
+    <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}">
       <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
     </li>
 
-    <li class="weakening">
+    <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}">
       <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
     </li>
 
