@@ -24,7 +24,7 @@ div.modal {
   }
 }
 div.fact-block .close {
-  .opacity(30);
+  .opacity(0);
   margin: 10px;
 }
 
@@ -253,13 +253,18 @@ ul.interacting-users {
       }
     }
   }
-
+  .timestamp {
+    float:right; color: #afafaf; font-size: 11px;margin-top:13px; margin-right: -5px;
+  }
   .controls {
     font-size: 12px;
-    .opacity(100);
     .unselectable();
-    .transition(@transition);
     border-bottom: 1px solid transparent;
+
+    li {
+      .opacity(0);
+      .transition(@transition);
+    }
 
     div.authority {
       float: right;
@@ -423,6 +428,19 @@ ul.interacting-users {
     .arrow {
       .arrowDown();
     }
+  }
+
+  &:hover, &:active, &.active, .controls.active {
+    .controls * {
+      .opacity(100);
+    }
+    .close {
+      .opacity(30);
+    }
+  }
+
+  .controls .alwaysshow {
+    .opacity(100);
   }
 
   .evidence-list-wrapper {

@@ -2,7 +2,7 @@
   <a class="close remove" rel="nofollow">&times;</a>
 {{/deletable_from_channel?}}
 
-<div class="timestamp" style="float:right; color: #afafaf; font-size: 11px;margin-top:13px; margin-right: -5px;" >
+<div class="timestamp">
   {{friendly_time}}
 </div>
 
@@ -17,11 +17,11 @@
 
 <div class="controls">
   <ul class="evidence">
-    <li class="supporting">
+    <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}">
       <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
     </li>
 
-    <li class="weakening">
+    <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}">
       <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
     </li>
 
