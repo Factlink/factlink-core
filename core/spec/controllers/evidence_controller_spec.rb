@@ -48,6 +48,8 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
         parsed_content["fact_bubble"]["displaystring"].should == displaystring
+
+        FactRelation[parsed_content["id"].to_i].fact.id.should == f1.id
       end
 
     end
