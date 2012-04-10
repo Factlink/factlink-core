@@ -98,6 +98,10 @@ module Facts
       friendly_fact_path(self[:fact])
     end
 
+    def friendly_time
+      time_ago_short(Time.at(self[:timestamp]/1000))
+    end
+
     expose_to_hash :timestamp
 
   end
