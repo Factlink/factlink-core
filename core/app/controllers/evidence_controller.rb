@@ -14,9 +14,9 @@ class EvidenceController < FactsController
   end
 
   def create
-    @fact = Fact[params[:fact_id]]
+    fact = Fact[params[:fact_id]]
 
-    authorize! :add_evidence, @fact
+    authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
       @evidence = create_fact(nil, params[:displaystring], nil)
@@ -25,9 +25,9 @@ class EvidenceController < FactsController
       @evidence = Fact[params[:evidence_id]]
     end
 
-    @fact_relation = create_believed_factrelation(@evidence, relation, @fact)
+    @fact_relation = create_believed_factrelation(@evidence, relation, fact)
 
-    @fact.calculate_opinion(2)
+    fact.calculate_opinion(2)
 
     respond_to do |format|
       format.json { render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context) }
