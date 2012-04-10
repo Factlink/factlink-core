@@ -177,7 +177,7 @@ class ChannelsController < ApplicationController
 
     @channel.add_fact(@fact)
 
-    render json: Facts::Fact.for(fact: @fact, view: view_context)
+    render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
   end
 
   def remove_fact

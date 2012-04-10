@@ -15,12 +15,16 @@
         </div>
       </div>
 
+      <% content_for :personalized_message do %>
       <div class="control-group">
         <%= f.label :message, class: "control-label" %>
         <div class="controls">
           <%= text_area :invite, :message, class: "input-xlarge" %>
         </div>
       </div>
+      <% end %>
+
+      <%= render 'users/mailer/invitation_text' %>
 
 
       <div class="form-actions">
