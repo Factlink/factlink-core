@@ -1,24 +1,12 @@
 <% content_for :email_body do %>
 
-<p>Hey!</p>
+<% content_for :personalized_message do %>
+  <div style='font-style: italic; border-left: solid 2px #ccc; padding:0 0 0 24px;'>
+    <%= @resource.invitation_message %>
+  </div>
+<% end %>
 
-<p>You have been invited by <%= @resource.invited_by %> to join Factlink:</p>
-
-<div style='font-style: italic; border-left: solid 2px #ccc; padding:0 0 0 24px;'>
-	<%= @resource.invitation_message %>
-</div>
-
-<p>We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link: <%= link_to 'Accept invitation', accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
-
-<p>Factlink has build a platform that lets you add what you know by creating Factlinks. You can annotate any statement on the web and ‘attach’ review information, for instance supporting or weakening facts.</p>
-
-<p>Creating a Factlink is an intuitive but powerful way for people to add what they know when they have expertise on something they see. The kicker is that other people that look at a Factlink see a clean and visual overview of expertise that is based on the feedback and ‘ratings’ that people have attached to it. Each Factlink directly shows how ‘knowledgeable’ its interacting users are.</p>
-
-<p>Factlink is a new way to discover information and contribute to understanding. Factlink, because the web needs what you know.</p>
-
-<p>When you are logged into Factlink, you can start exploring Factlinks and creating your Factlinks. You can download the Factlink Chrome plugin, or you can use the bookmarklet with your preferred browser. If you have any comments, bugs or ideas, please let us know using the feedback button to the left of the site!</p>
-
-<p>Enjoy Factlink!</p>
+<%= render 'users/mailer/invitation_text' %>
 
 <% end %>
 
