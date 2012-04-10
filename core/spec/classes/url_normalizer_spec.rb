@@ -9,10 +9,12 @@ describe UrlNormalizer do
     it { should_normalize_to 'http://www.google.com/foo', 'http://www.google.com/foo' }
     it { should_normalize_to 'http://www.google.com/foo#bar', 'http://www.google.com/foo' }
 
-    pending "fixing issue #140" do
-      ['utm_source', 'utm_medium', 'utm_source', 'utm_content', 'utm_campaign'].each do |strip_param|
-        it { should_normalize_to "http://www.google.com/foo?#{strip_param}=bar",'http://www.google.com/foo'}
-        it { should_normalize_to "http://www.google.com/foo?#{strip_param}=bar&x=y",'http://www.google.com/foo?x=y'}
+    ['utm_source', 'utm_medium', 'utm_source', 'utm_content', 'utm_campaign'].each do |strip_param|
+      it "should strip #{strip_param} if it is the only parameter" do 
+        should_normalize_to "http://www.google.com/foo?#{strip_param}=bar",'http://www.google.com/foo'
+      end
+      it "should strip #{strip_param} if there are other parameters" do
+        should_normalize_to "http://www.google.com/foo?#{strip_param}=bar&x=y",'http://www.google.com/foo?x=y'
       end
     end
 
