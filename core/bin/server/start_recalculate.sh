@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if a env is given
-if [ -z $1 ] 
+if [ -z $1 ]
 then
   echo "Please supply the environment for starting the recalculate."
   echo "Usage:"
@@ -16,6 +16,6 @@ RAILS_ENV=$1
 fact_graph_count=`ps aux | grep -v grep | grep -c 'rake fact_graph:recalculate'`
 
 if [ "$fact_graph_count" -lt "1" ]; then
-   cd /applications/factlink-core/current/
-   bundle exec rake fact_graph:recalculate RAILS_ENV=$RAILS_ENV > /applications/factlink-core/current/log/fact_graph.log 2>&1 &
+   cd /applications/core/current/
+   bundle exec rake fact_graph:recalculate RAILS_ENV=$RAILS_ENV > /applications/core/current/log/fact_graph.log 2>&1 &
 fi

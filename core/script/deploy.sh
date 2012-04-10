@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check the stage
-if test -z "$1" 
+if test -z "$1"
 then
 	stage="testserver"
 else
@@ -18,21 +18,21 @@ then
     echo "\nDeploying"
 
 		echo "\n\n\n=== factlink-core ==="
-		cd factlink-core
+		cd core
 		cap -v $stage deploy
-		
+
 		echo "\n\n\n=== factlink-js-library ==="
 		cd ../factlink-js-library
 		cap -v $stage deploy
-		
+
 		echo "\n\n\n=== factlink-chrome-extension ==="
 		cd ../factlink-chrome-extension
 		cap -v $stage deploy
-		
+
 		echo "\n\n\n=== web-proxy ==="
 		cd ../web-proxy
 		cap -v $stage deploy
-		
+
 		echo "\nDeployed to $stage environment."
 		exit 0
 else
