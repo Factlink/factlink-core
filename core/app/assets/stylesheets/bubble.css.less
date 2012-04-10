@@ -257,7 +257,7 @@ ul.interacting-users {
 
   .controls {
     font-size: 12px;
-    .opacity(0);
+    .opacity(100);
     .unselectable();
     .transition(@transition);
     border-bottom: 1px solid transparent;
@@ -332,6 +332,13 @@ ul.interacting-users {
           &:hover { text-decoration: none }
           display: inline-block;
           color: #555;
+        }
+
+        &.supporting,
+        &.weakening {
+          a {
+            width: 80px;
+          }
         }
       }
     }
@@ -418,14 +425,14 @@ ul.interacting-users {
       .arrowDown();
     }
   }
-  &:hover, &:active, &.active, .controls.active {
+/*  &:hover, &:active, &.active, .controls.active {
     .controls {
       .opacity(100);
     }
     .close {
       .opacity(30);
     }
-  }
+  }*/
   .evidence-list-wrapper {
     border-top: 1px solid @grayLighter;
   }
