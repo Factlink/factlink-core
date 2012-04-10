@@ -24,7 +24,7 @@ domReady(function(){
 
     if ( href.search(/https?:\/\//) === 0 ) {
       a[i].href = window.FactlinkConfig.proxy + '/?factlinkModus=' + FactlinkConfig.modus + '&url=' + escape(href);
-      a[i].target = "_parent";
+      a[i].target = "_top";
 
       //prevent quietly changing the url afterwards
       //at least needed for the google search results
