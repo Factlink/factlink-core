@@ -1,6 +1,6 @@
 #############
 # Application
-set :application, "factlink-core"
+set :application, "core"
 set :keep_releases, 10
 
 ########
