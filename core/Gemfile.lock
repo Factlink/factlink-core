@@ -81,6 +81,7 @@ GEM
     arel (2.2.3)
     arrayfields (4.7.4)
     bcrypt-ruby (3.0.1)
+    blankslate (2.1.2.4)
     brakeman (1.5.1)
       activesupport
       erubis (~> 2.6)
@@ -176,6 +177,9 @@ GEM
     hoe (2.16.1)
       rake (~> 0.8)
     i18n (0.6.0)
+    jbuilder (0.4.0)
+      activesupport (>= 3.0.0)
+      blankslate (>= 2.1.2.4)
     jquery-rails (1.0.19)
       railties (~> 3.0)
       thor (~> 0.14)
@@ -419,6 +423,7 @@ DEPENDENCIES
   factory_girl_rails (~> 3.0)
   fattr
   headless
+  jbuilder
   jquery-rails (>= 1.0.17)
   json
   less-rails (>= 2.1.5)

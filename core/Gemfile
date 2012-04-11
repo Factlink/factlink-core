@@ -36,6 +36,7 @@ gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
 
 # Everyone loves JSON
 gem 'json'
+gem 'jbuilder'
 
 # for easy json generation
 gem 'jbuilder'
@@ -76,10 +77,10 @@ gem 'rmagick', require: false
 # Set X-Frame-Headers
 gem 'rack-xframe-options', git: 'git@github.com:Factlink/rack-xframe-options.git'
 
-group :monitoring do
+#group :monitoring do
   gem 'rpm_contrib'
   gem 'newrelic_rpm'
-end
+#end
 
 group :assets do
   # Temporary fix for @import bug, merge back to original Gem when it's in master
