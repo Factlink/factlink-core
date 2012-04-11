@@ -10,6 +10,7 @@ class Blacklist
     @@default ||= self.new [
       domain('facebook.com'),
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
+      domain('fct.li'),
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),
