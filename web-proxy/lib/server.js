@@ -4,7 +4,8 @@ function getServer(config) {
   /**
    *  The actual server
    */
-  var server = require('express').createServer();
+  var express = require('express');
+  var server = express.createServer();
   server.configure(function() {
     server.set('views', __dirname + '/../views');
   });
@@ -32,6 +33,13 @@ function getServer(config) {
   server.get('/search', get_search);
   server.get('/parse',  get_parse);
   server.get('/submit', get_submit);
+
+  /**
+   * Static file serving in develop
+   */
+  if (config.ENV === 'development') {
+    server.use("/static/", express.static(__dirname + "/../static/"));
+  }
 
   /**
    * Add base url and inject proxy.js, and return the proxied site
