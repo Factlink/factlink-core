@@ -204,8 +204,11 @@ class ChannelsController < ApplicationController
   def activities
     authorize! :show, @channel
 
+    @activities = @channel.activities.below('inf', count:117, reversed: true).keep_if{|a| a && a.still_valid?}
+
+
     respond_to do |format|
-      format.json { render json: @channel.activities.below('inf', count:17, reversed: true).keep_if{|a| a && a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) } }
+      format.json #{ render json: @activities.map { |activity| Activities::Activity.for(activity: activity, view: view_context) } }
       format.html { render inline:'', layout: "channels" }
     end
   end
