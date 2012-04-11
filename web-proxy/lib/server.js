@@ -55,7 +55,7 @@ function getServer(config) {
       }
 
       var set_urls      = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
-      var load_proxy_js = '<script src="' + config.STATIC_URL + '/proxy/scripts/proxy.js?' + Number(new Date()) + '"></script>';
+      var load_proxy_js = '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
       html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
       successFn(html);
     },function(){

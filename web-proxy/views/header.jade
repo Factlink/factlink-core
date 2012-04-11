@@ -2,11 +2,11 @@
 html
   head
     title Factlink Short URL Service
-    link(rel="stylesheet", type="text/css", href= static_url + "/proxy/styles/header.css")
+    link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/header.css")
   body
     header
       a(href=core_url, target="_top")
-        img(src=static_url + "/proxy/images/logo.png")
+        img(src=proxy_url + "/static/images/logo.png")
       form(action=".", method="GET", target="_parent")
 
         input(type="text", value=clean_page_url, name="url", placeholder="Type the url you want to go to (e.g. http://search.yahoo.com/)")
