@@ -24,7 +24,7 @@ window.FactRelationView = Backbone.View.extend({
   },
 
   destroyFactRelation: function () {
-    if ( confirm("Are you sure you want to delete this Factlink as evidence?") ) {
+    if ( confirm("Are you sure you want to remove this Factlink from the list of evidence?") ) {
       this.model.destroy();
     }
   },
