@@ -1,38 +1,24 @@
-<div id="header" class="row-fluid">
-  <div class="span3">
-    <%= link_to image_tag("factlink_logo71x15.png"), root_path, { target: "_blank" } %>
-  </div>
-
-  <div class="span9 pull-right" style="text-align: right;">
-    <% unless user_signed_in? %>
-         <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
-    <% else %>
-      <label class="btn" id="annotate_button">
-        <input type="checkbox" name="annotate">
-        Annotation mode
-      </label>
-    <% end %>
-  </div>
-</div>
-
 <% if user_signed_in? %>
   <%= form_tag facts_path, class: "form-horizontal" do %>
-    <div class="control-group">
-      <%= text_field_tag :title, params[:title], class: "span6", placeholder: "Title (optional)" %>
-    </div>
 
     <div class="control-group" style="display: none;">
       <%= text_field_tag :url, params[:url], class: "span6", placeholder: "URL (optional)" %>
     </div>
 
     <div class="control-group">
+      <label>Factlink</label>
       <%= text_area_tag :fact, params[:fact], :class => "input-xxlarge span6", :required => "required", :readonly => "readonly", placeholder: "Factlink text" %>
+    </div>
+
+    <div class="control-group">
+      <label>Title</label>
+      <%= text_field_tag :title, params[:title], class: "span6", placeholder: "Title (optional)" %>
     </div>
 
     <%= hidden_field_tag 'layout', 'popup' %>
     <div class="row">
       <div style="text-align:right;">
-        <%= submit_tag "Submit", class: "btn btn-primary", disable_with: "Submitting..." %>
+        <%= submit_tag "Add fact", class: "btn btn-primary", disable_with: "Adding..." %>
       </div>
     </div>
   <% end %>

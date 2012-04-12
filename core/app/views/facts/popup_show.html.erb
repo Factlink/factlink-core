@@ -1,0 +1,14 @@
+<% if user_signed_in? %>
+  <%= render_mustache 'facts/fact_bubble',  fact: @fact, limit_characters_to_display: 80, hide_links: true %>
+<% end %>
+
+
+<% content_for :javascript do %>
+  <script>
+    $("article.fact").each(function()  {
+      $fact = $(this);
+      $fact.data("wheel", new Wheel(this));
+      $fact.data("wheel").init($fact.find(".wheel").get(0));
+    });
+  </script>
+<% end %>

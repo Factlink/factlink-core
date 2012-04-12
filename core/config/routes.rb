@@ -30,7 +30,11 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new]
+  resources :facts, only: [:new] do
+    member do
+      get 'popup_show' => "facts#popup_show"
+    end
+  end
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 

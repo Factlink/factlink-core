@@ -1,10 +1,10 @@
 /*
  *= require bootstrap
+ *= require bubble
  */
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-
 html {
   overflow: hidden;
   padding: 0;
@@ -45,9 +45,13 @@ body {
     display: inline-block;
   }
 
+  label {
+    margin-bottom: -2px;
+  }
+
   textarea {
     color: #555;
-    border: none;
+    border: 1px dotted #ccc;
     background: transparent;
     cursor: default;
     box-shadow: none;
@@ -66,4 +70,18 @@ div.alert-message {
     font-size: 20px;
     margin-top: -3px;
   }
+}
+
+article.fact {
+  .wheel {
+    width: 60px;
+    float: left;
+  }
+  header {
+    padding-top: 12px;
+    .head.edit {
+      display: block;
+    }
+  }
+}
 }

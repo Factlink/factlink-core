@@ -7,9 +7,26 @@
     <%= javascript_include_tag "modernizr-loader" %>
   </head>
   <body>
-    <%= render 'home/notifications', notice: notice, alert: alert %>
 
     <div id="container">
+      <div id="header" class="row-fluid">
+        <div class="span3">
+          <%= link_to image_tag("factlink_logo71x15.png"), root_path, { target: "_blank" } %>
+        </div>
+
+        <div class="span9 pull-right" style="text-align: right;">
+          <% unless user_signed_in? %>
+               <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
+          <% else %>
+            <label class="btn" id="annotate_button">
+              <input type="checkbox" name="annotate">
+              Annotation mode
+            </label>
+          <% end %>
+        </div>
+      </div>
+      <%= render 'home/notifications', notice: notice, alert: alert %>
+      
       <%= yield %>
     </div>
   </body>
@@ -18,5 +35,6 @@
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "popup" %>
+  <%= yield :javascript%>
 
 </html>

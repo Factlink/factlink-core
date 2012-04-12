@@ -9,6 +9,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
+      :popup_show,
       :extended_show,
       :destroy,
       :get_channel_listing,
@@ -36,6 +37,10 @@ class FactsController < ApplicationController
     render layout: "frontend"
   end
 
+  def popup_show
+    render layout: 'popup'
+  end
+
   def intermediate
     render layout: nil
   end
@@ -57,7 +62,7 @@ class FactsController < ApplicationController
       if @fact.save
         format.html do
           flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-          redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout], only_path: true
+          redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
