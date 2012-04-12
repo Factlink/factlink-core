@@ -10,27 +10,32 @@ json.array!(@activities) do |json, activity|
   graph_user = activity.user
   user = graph_user.user
 
+  subject = activity.subject
+  object = activity.object
+  action = activity.action
+
 
   json.username user.username
-  json.user_profile_url channel_path(user,graph_user.stream)
+  json.user_profile_url channel_path(user,graph_user.stream_id)
   size = 32
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
   
-  json.action activity.action
+  json.action action
   
   json.time_ago "#{time_ago_in_words(activity.created_at)} ago"
 
   json.activity do |json|
-    case activity.action
+    
+    
+    case action
     when "added_supporting_evidence", "added_weakening_evidence"
       json.action       :added
-      json.evidence     activity.subject.to_s
-      json.evidence_url friendly_fact_path(activity.subject)
-      json.fact         activity.object.to_s
-      json.fact_url     friendly_fact_path(activity.object)
+      json.evidence     subject.to_s
+      json.evidence_url friendly_fact_path(subject)
+      json.fact         object.to_s
+      json.fact_url     friendly_fact_path(object)
 
-      the_action = activity.action
-      if the_action == "added_supporting_evidence"
+      if action == "added_supporting_evidence"
         json.type :supporting
       else
         json.type :weakening
@@ -38,12 +43,18 @@ json.array!(@activities) do |json, activity|
 
       json.icon cached_evidence_icon
     when "added_subchannel"
-      json.channel_owner             activity.subject.created_by.user.username
-      json.channel_owner_profile_url channel_path(activity.subject.created_by.user, activity.subject.created_by.stream)
-      json.channel_title             activity.subject.title
-      json.channel_url               channel_path(activity.subject.created_by.user, activity.subject)
-      json.to_channel_title          activity.object.title
-      json.to_channel_url            channel_path(activity.object.created_by.user, activity.object)
+      subject_creator_graph_user = subject.created_by
+      subject_creator_user = subject_creator_graph_user.user
+      
+      json.channel_owner             subject_creator_user.username
+      json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
+      json.channel_title             subject.title
+      json.channel_url               channel_path(subject_creator_user, subject)
+      
+      object_creator_user = object.created_by.user
+
+      json.to_channel_title          object.title
+      json.to_channel_url            channel_path(object_creator_user, object)
 
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
