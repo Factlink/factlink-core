@@ -167,9 +167,7 @@ class ChannelsController < ApplicationController
     authorize! :create, Fact
     authorize! :update, @channel
 
-    @site = params[:url] && (Site.find(:url => params[:url]).first || Site.create(:url => params[:url]))
-
-    @fact = Fact.create(:created_by => current_graph_user, :site => @site)
+    @fact = Fact.create(:created_by => current_graph_user)
 
     @fact.data.displaystring = params[:displaystring]
     @fact.data.title = params[:title]
