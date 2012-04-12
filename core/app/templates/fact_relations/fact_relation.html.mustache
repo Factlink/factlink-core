@@ -1,4 +1,8 @@
 <div class="relation">
+  {{#can_destroy?}}
+    <a class="close remove-relation">×</a>
+  {{/can_destroy?}}
+
   {{#signed_in?}}
   <div class="relation-actions">
     <a class="supporting {{ positive_active }}"> &nbsp; </a>
@@ -12,9 +16,6 @@
 
   <div class="evidence-actions">
     <a class="permalink" href="{{url}}"></a>
-    {{#can_destroy?}}
-      <a class="remove-relation"></a>
-    {{/can_destroy?}}
   </div>
 
   <div class="weight-container">
