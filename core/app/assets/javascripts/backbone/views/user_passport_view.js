@@ -19,7 +19,7 @@ window.UserPassportView = Backbone.View.extend({
 
   show: function() {
     this.$passport.html( Mustache.to_html(this.tmpl, this.model.toJSON()));
-    $(".activity", this.$passport).html(this.options.activity["action"]).addClass(this.options.activity["action"])
+    $(".activity", this.$passport).html(this.options.activity["internationalized_action"]).addClass(this.options.activity["action"])
     this.$passport.fadeIn('fast');
   },
 

@@ -8,7 +8,8 @@ module Facts
       activities = last_activity().map { |a|
         { user: Users::User.for(user: a.user.user, view: self.view),
           id: a.id,
-          action: internationalize_action(a.action)}
+          action: a.action.to_sym,
+          internationalized_action: internationalize_action(a.action)}
       }
       activities
     end
