@@ -426,14 +426,12 @@ body.factlink-site .fact-block {
         text-decoration: none;
       }
       &.stream {
-        padding-bottom: 3px;
         background: url(/assets/homeIcon.png) 4px @margin no-repeat transparent;
-        border-bottom: 1px solid #dbdbdb;
       }
       &.created {
-        border-top: 1px solid white;
         background: url(/assets/userIcon.png) 5px @margin no-repeat transparent;
       }
+
       .new {
         color: @black;
         margin-left: -20px;
@@ -444,6 +442,16 @@ body.factlink-site .fact-block {
         width: 130px;
         display: inline-block;
       }
+    }
+    li:nth-child(2) a {
+      padding-bottom: 3px;
+    }
+    li:nth-child(3) a {
+      border-bottom: none;
+      border-top: 1px solid #dbdbdb;
+    }
+    li.active a {
+      border-top: none;
     }
     li.active {
       a {

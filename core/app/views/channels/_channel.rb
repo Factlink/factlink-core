@@ -34,7 +34,13 @@ module Channels
     end
 
     def title
-      self[:channel].title
+      if is_all
+        is_mine ? 'My Stream' : 'Stream'
+      elsif is_created
+        is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username 
+      else
+        self[:channel].title
+      end
     end
 
     def type
