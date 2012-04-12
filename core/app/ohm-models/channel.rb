@@ -65,6 +65,7 @@ class Channel < OurOhm
     Activity.for(self).each do |a|
       a.delete
     end
+    created_by.channels_by_authority.delete(self)
     old_real_delete
     update_top_users
   end
