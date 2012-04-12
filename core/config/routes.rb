@@ -33,6 +33,8 @@ FactlinkUI::Application.routes.draw do
   resources :facts, only: [:new] do
     member do
       get 'popup_show' => "facts#popup_show"
+      post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
+      delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
     end
   end
 
