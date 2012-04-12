@@ -50,8 +50,12 @@
   <% if can_haz :intro_video %>
 		<a data-toggle="modal" href="#videoModal" id="watchVideoButton"><%= image_tag("watchvideo.png", id: "movie-container", alt: "Fact Wheel") %></a>
 		<div class="modal fade" id="videoModal">
-		  <div class="modal-body">
 
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal"><i class="icon-remove"></i></a><br>
+      </div>
+
+		  <div class="modal-body">
 		  </div>
 		</div>
 
@@ -68,18 +72,18 @@
       $fact.data("wheel", new Wheel(this));
       $fact.data("wheel").init($fact.find(".wheel").get(0));
     });
-    
-    
-    var iframe = $('<iframe src="https://player.vimeo.com/video/39821677" width="740" height="416" style="border: 0px;"></iframe>');
+
+
+    var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
     $('#watchVideoButton').click(function(){
       iframe.clone().appendTo($('#videoModal > .modal-body'));
     });
-    
+
     $('#videoModal').on('hidden', function () {
       $('#videoModal > .modal-body').empty();
     });
-      
 
-    
+
+
   </script>
 <% end %>

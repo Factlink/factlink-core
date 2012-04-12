@@ -53,11 +53,11 @@ describe "Check the ToS", type: :request do
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Relations']", :visible => true)
       page.has_xpath?("//div[@data-title='Evidence']", :visible => false)
-      
+
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Channels']", :visible => true)
       page.has_xpath?("//div[@data-title='Relations']", :visible => false)
-      
+
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
       page.has_xpath?("//div[@data-title='Channels']", :visible => false)
@@ -65,11 +65,11 @@ describe "Check the ToS", type: :request do
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Use it!']", :visible => true)
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
-  
+
       page.find(".previous").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
       page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
-      
+
       page.find(".next").click
       page.find(".closeButton").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
@@ -94,7 +94,7 @@ describe "Walkthrough the app", type: :request do
     it "should work" do
       visit new_fact_path
       fill_in "fact", with: "baronnenbillen"
-      click_button "Submit"
+      click_button "Add fact"
       page.should have_content "Factlink successfully added"
     end
   end
@@ -152,7 +152,7 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fact_title = "fact to be found"
       fill_in "fact", with: fact_title
-      click_button "Submit"
+      click_button "Add fact"
       page.should have_content "Factlink successfully added"
 
       # and search for it:

@@ -138,10 +138,10 @@ ul.interacting-users {
       line-height: 18px;
       padding-left: 5px;
       background-color: @grayLighter;
-      &.Neutraled, &.Disagreed, &.Agreed { color: @white; }
-      &.Neutraled { background-color: #36a9e1; }
-      &.Disagreed { background-color: #e94e1b; }
-      &.Agreed { background-color: #98d100; }
+      &.doubts, &.disbelieves, &.believes { color: @white; }
+      &.doubts { background-color: #36a9e1; }
+      &.disbelieves { background-color: #e94e1b; }
+      &.believes { background-color: #98d100; }
     }
 
     .username {
@@ -458,6 +458,9 @@ ul.interacting-users {
       li {
         &:not(:first-child) {
           border-top: 1px solid @grayLighter;
+        }
+        .close {
+          margin-top: 7px;
         }
         article.fact {
           margin-left: 25px;
