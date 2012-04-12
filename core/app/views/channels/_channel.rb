@@ -61,7 +61,8 @@ module Channels
       {
         id: self[:user].id,
         username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32)
+        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32),
+        all_channel_id: self[:user].graph_user.stream_id
       }
     end
 
