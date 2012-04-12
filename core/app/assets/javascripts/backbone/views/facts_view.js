@@ -13,7 +13,6 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .create_factlink .close": "closeCreateFactForm",
     "click #create_fact_for_channel": "focusCreateFactlink",
     "click #create_fact_for_channel .inset-icon.icon-pen": "toggleTitleField",
-    "click #create_fact_for_channel .inset-icon.icon-chain": "toggleURLField",
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
@@ -34,7 +33,6 @@ window.FactsView = Backbone.CollectionView.extend({
     }
 
     this.$el.find('.icon-pen').tooltip({ title: 'Add a title to this Factlink'});
-    this.$el.find('.icon-chain').tooltip({ title: 'Add a source (url) to this Factlink'});
 
     this.bindScroll();
   },
@@ -44,7 +42,6 @@ window.FactsView = Backbone.CollectionView.extend({
     var $form = this.$el.find('form');
 
     var $textarea = $form.find('textarea[name=fact]');
-    var $url = $form.find('input[name=url]');
     var $title = $form.find('input[name=title]');
     var $submit = $form.find('button');
 
@@ -57,8 +54,7 @@ window.FactsView = Backbone.CollectionView.extend({
       type: "POST",
       data: {
         displaystring: $textarea.val(),
-        title: $title.val(),
-        url: $url.val()
+        title: $title.val()
       },
       success: function(data) {
         var fact = new Fact(data);
@@ -82,7 +78,7 @@ window.FactsView = Backbone.CollectionView.extend({
 
   closeCreateFactForm: function (e) {
     this.$el.find('form')
-      .removeClass('active show-url show-title')
+      .removeClass('active show-title')
       .filter(':input').val('');
 
     e && e.stopPropagation();
@@ -94,16 +90,6 @@ window.FactsView = Backbone.CollectionView.extend({
     $form.toggleClass('show-title');
 
     $form.hasClass('show-title') && $form.addClass('active').find('.add-title>input').focus();
-
-    e.stopPropagation();
-  },
-
-  toggleURLField: function (e) {
-    var $form = this.$el.find('form');
-
-    $form.toggleClass('show-url');
-
-    $form.hasClass('show-url') && $form.addClass('active').find('.add-url>input').focus();
 
     e.stopPropagation();
   },
