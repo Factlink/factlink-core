@@ -4,15 +4,21 @@ html
     title Factlink Short URL Service
     link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/header.css")
   body
-    header
-      a(href=core_url, target="_top")
-        img(src=proxy_url + "/static/images/logo.png")
-      form(action=".", method="GET", target="_parent")
+    #wrapper
+      header
+        a(href=core_url, target="_top")
+          img(src=proxy_url + "/static/images/factlink-logo-beta.png")
+        form(action=".", method="GET", target="_parent", class="input-append")
 
-        input(type="text", value=clean_page_url, name="url", placeholder="Type the url you want to go to (e.g. http://search.yahoo.com/)")
-        input(type="hidden", value=factlinkModus, name="factlinkModus")
+          input(type="text", value=clean_page_url, name="url", placeholder="Type the url you want to go to (e.g. http://search.yahoo.com/)")
+          input(type="hidden", value=factlinkModus, name="factlinkModus")
+          input(type="submit", value="Go", class="btn btn-primary")
 
-        div.top-right
-          a.help(href=proxy_url, target="_top") help
+        div.top-right.btn-group
+          a.btn(href=core_url, target="_top", title="Visit Factlink")
+            i.icon-home
           -if (page_url !== undefined && page_url !== '')
-            a.close(href=clean_page_url, target="_top") x
+            a.btn(href=proxy_url, target="_top", title="More information")
+              i.icon-info-sign
+            a.btn(href=clean_page_url, target="_top", title="Close this frame")
+              i.icon-remove
