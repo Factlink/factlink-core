@@ -1,16 +1,15 @@
 <div class="fl-popup fl-create">
   <div class="fl-label">
-    <span class="fl-create"><a href="#">Add factlink
+    <span class="fl-create"><a href="#"><%= t(:add_fact).humanize %>
         <img src=<%= "#{FactlinkUI::Application.config.static_url}/lib/dist/images/arrow.png" %> alt="">
     </a></span>
-    <span class="fl-created">Added!</span>
-    <span class="fl-add-evidence">Add evidence?</span>
+    <span class="fl-created"><%= t(:added_fact).humanize %></span>
   </div>
 
   <ul class="fl-add-options">
-    <li><a href="#" id="beliefs"><%= t(:fact_believe_action).titleize %></a></li>
-    <li><a href="#" id="doubts"><%= t(:fact_doubt_action).titleize %></a></li>
-    <li><a href="#" id="disbeliefs"><%= t(:fact_disbelieve_action).titleize %></a></li>
+    <li><a href="#" id="beliefs"><%= t(:fact_believe_action).humanize %></a></li>
+    <li><a href="#" id="doubts"><%= t(:fact_doubt_action).humanize %></a></li>
+    <li><a href="#" id="disbeliefs"><%= t(:fact_disbelieve_action).humanize %></a></li>
   </ul>
 
   <div class="fl-arrow fl-arrow-bottom"></div>
