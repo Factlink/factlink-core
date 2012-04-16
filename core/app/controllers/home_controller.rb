@@ -11,7 +11,13 @@ class HomeController < ApplicationController
     if ( /\A([-a-zA-Z_]+)\Z/.match(params[:name]))
       respond_to do |format|
         template = "home/pages/#{$1}"
-        format.html {render template, :layout => "general"}
+        format.html do
+          begin
+            render template, :layout => "general"
+          rescue ActionView::MissingTemplate
+            raise_404
+          end
+        end
       end
     else
       raise_404
