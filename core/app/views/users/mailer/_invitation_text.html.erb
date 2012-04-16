@@ -1,10 +1,8 @@
 <p>Hey!</p>
 
-<p>You have been invited by <%= @resource.invited_by || current_user %> to join Factlink:</p>
-
 <%= yield :personalized_message %>
 
-<p>We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link:
+<p>You have been invited by <%= @resource.invited_by || current_user %> to join Factlink. We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link:
 <%= link_to 'Accept invitation', @resource.invitation_token && accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
 
 <p>Factlink has build a platform that lets you add what you know by creating Factlinks. You can annotate any statement on the web and ‘attach’ review information, for instance supporting or weakening facts.</p>
