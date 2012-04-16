@@ -28,10 +28,10 @@
 <% content_for :selling_points do %>
   <h3>Why use Factlink</h3>
   <ul>
-    <li><%= image_tag("chart.png",  alt: "Pie Chart", width: 31, height: 31) %>Build authority on any topic, discover expertise</li>
-    <li><%= image_tag("people.png", alt: "People", width: 31, height: 31) %>Share what you know, contribute to people's perspective</li>
-    <li><%= image_tag("globe.png",  alt: "World", width: 31, height: 31) %>Check the credibility of the information you are reading</li>
-    <li><%= image_tag("money.png",  alt: "Money", width: 31, height: 31) %>Free information access. Period</li>
+    <li class="image-chart">Build authority on any topic, discover expertise</li>
+    <li class="image-people">Share what you know, contribute to people's perspective</li>
+    <li class="image-globe">Check the credibility of the information you are reading</li>
+    <li class="image-money">Free information access. Period</li>
   </ul>
 <% end %>
 
@@ -46,7 +46,7 @@
 <% end %>
 
 <% content_for :movie do %>
-		<a data-toggle="modal" href="#videoModal" id="watchVideoButton"><%= image_tag("watchvideo.png", id: "movie-container", alt: "Fact Wheel") %></a>
+		<a data-toggle="modal" href="#videoModal" id="watchVideoButton"></a>
 		<div class="modal fade" id="videoModal">
 
       <div class="modal-header">

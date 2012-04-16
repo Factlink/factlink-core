@@ -27,11 +27,11 @@ body {
     }
     h1 {
       font-size: 30px;
-  	margin-bottom: 15px;
+    margin-bottom: 15px;
     }
     h2 {
       font-size: 20px;
-  	margin-bottom: 10px;
+    margin-bottom: 10px;
     }
     h3 {
       margin-top: 23px;
@@ -60,12 +60,12 @@ body {
   }
 
   #payoff {
-	margin-bottom: 60px;
+  margin-bottom: 60px;
     h2 {
       font-weight: bold;
       font-size: 24pt;
       margin-bottom: 20px;
-	  line-height: 36px;
+      line-height: 36px;
     }
     p {
       margin-top: 0.25em;
@@ -79,21 +79,29 @@ body {
     ul {
       margin-left: 0;
       li {
-        padding-top: 2em;
-		font-size: 14px;
-        img {
-          float: left;
-          margin-right: 1em;
-          height: 31px;
-        }
+        margin-top: 2em;
+        font-size: 14px;
+        height:32px;
+        background: image-url('sprite.png');
+        background-repeat: no-repeat;
+        padding-left: 40px;
+        &.image-chart  { background-position: -306px 0; }
+        &.image-people { background-position: -306px -40px; }
+        &.image-globe  { background-position: -306px -80px; }
+        &.image-money  { background-position: -306px -120px; }
       }
     }
   }
-  
+  #watchVideoButton {
+    background: image-url('sprite.png');
+    display: block;
+    width:306px;
+    height:306px;
+  }
   #top-facts {
     ul {
       margin-left: 0;
-      
+
       li {
         padding-bottom: 1em;
         min-height: 50px;
@@ -111,9 +119,9 @@ body {
         header {
           margin-left: 65px;
           padding-top: 10px;
-		  .head {
-		    display:none;
-		  }
+      .head {
+        display:none;
+      }
           sub {
             display: block;
             width: 205px;
@@ -154,7 +162,7 @@ body {
     input[type=submit] {
       float: right;
     }
-    
+
     .help-inline {
       margin: 0px;
       padding: 0px;
@@ -167,9 +175,9 @@ body {
     }
   }
   #body_text{
-  	p {
-  	  font-size: 15px;
-  	  margin-bottom: 1em;
+    p {
+      font-size: 15px;
+      margin-bottom: 1em;
       line-height: 22px;
       }
   }
@@ -182,7 +190,7 @@ body {
   }
 
   .enquiries{
-  	margin: 0;
+    margin: 0;
   }
 
   #videoModal{

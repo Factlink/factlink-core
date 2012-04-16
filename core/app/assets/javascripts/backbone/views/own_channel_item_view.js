@@ -14,6 +14,7 @@ window.OwnChannelItemView = Backbone.View.extend({
 
     this.forFact = opts.forFact;
     this.forChannel = opts.forChannel;
+    this.rootView = opts.rootView;
   },
 
   render: function() {
@@ -53,7 +54,9 @@ window.OwnChannelItemView = Backbone.View.extend({
     } else {
       self.enable();
 
-      self.model.checked = checked;
+      if ( checked ) {
+        self.rootView.selectedChannels.push(self.model.id);
+      }
 
       return;
     }
