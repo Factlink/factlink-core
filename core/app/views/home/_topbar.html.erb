@@ -70,7 +70,7 @@
                   <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                  <li class="chrome_extension_download"><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png", style: "padding-right: 4px") %>Chrome Extension</a></li>
+                  <li class="chrome_extension_download"><a href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeGrayIcon.png", style: "padding-right: 4px") %>Chrome Extension <span class="label label-warning chrome_install">Install</span></a></li>
                   <li><a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet"
                          <%# here we need singlequotes kthxbye: %>
                          href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'><%= image_tag("bookmarkletGrayIcon.png") %><span style="display: none">Factlink</span> Bookmarklet</a></li>

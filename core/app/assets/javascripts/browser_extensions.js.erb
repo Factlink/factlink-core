@@ -6,7 +6,8 @@ function detectChromeExtension(if_installed, if_not_installed) {
   s.src = 'chrome-extension://<%=FactlinkUI::Application.config.chrome_extension_id%>/manifest.json';
 }
 
-if ($.browser.webkit) {
+var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+if (is_chrome) {
   detectChromeExtension(runIfChromeExtensionIsInstalled, runIfChromeExtensionIsNotInstalled);
 }
 
@@ -15,4 +16,5 @@ function runIfChromeExtensionIsInstalled(){
 }
 
 function runIfChromeExtensionIsNotInstalled(){
+  $('html').addClass('chrome_without_extension');
 }
