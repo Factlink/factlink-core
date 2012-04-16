@@ -50,6 +50,12 @@ window.OwnChannelItemView = Backbone.View.extend({
       changeUrl = this.model.url() + '/subchannels/' + action + '/' + self.forChannel.id + '.json';
     } else if ( self.forFact ) {
       changeUrl = this.model.url() + '/' + action + '/' + self.forFact.id + '.json';
+    } else {
+      self.enable();
+
+      self.model.checked = checked;
+
+      return;
     }
 
     $.ajax({
