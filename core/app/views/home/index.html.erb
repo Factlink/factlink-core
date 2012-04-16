@@ -47,7 +47,6 @@
 <% end %>
 
 <% content_for :movie do %>
-  <% if can_haz :intro_video %>
 		<a data-toggle="modal" href="#videoModal" id="watchVideoButton"><%= image_tag("watchvideo.png", id: "movie-container", alt: "Fact Wheel") %></a>
 		<div class="modal fade" id="videoModal">
 
@@ -58,11 +57,6 @@
 		  <div class="modal-body">
 		  </div>
 		</div>
-
-  <% else %>
-  	<%= image_tag("fact-wheel.png", id: "movie-container", alt: "Fact Wheel") %>
-  <% end %>
-
 <% end %>
 
 <% content_for :javascript do %>
