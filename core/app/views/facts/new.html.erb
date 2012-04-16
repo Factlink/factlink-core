@@ -6,18 +6,18 @@
     </div>
 
     <div class="control-group">
-      <label>Factlink</label>
+      <label><strong>Factlink</strong></label>
       <%= text_area_tag :fact, params[:fact], :class => "input-xxlarge span6", :required => "required", :readonly => "readonly", placeholder: "Factlink text" %>
     </div>
 
     <div class="control-group">
-      <label>Title</label>
+      <label><strong>Title</strong></label>
       <%= text_field_tag :title, params[:title], class: "span6", placeholder: "Title (optional)" %>
     </div>
 
     <div class="control-group">
-      <label>Channels</label>
-      <div id="add_to_channels" class="well"></div>
+      <label><strong>Channels</strong></label>
+      <div id="add_to_channels"></div>
     </div>
 
     <%= hidden_field_tag 'layout', 'popup' %>

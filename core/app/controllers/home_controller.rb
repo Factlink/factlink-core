@@ -24,9 +24,14 @@ class HomeController < ApplicationController
     end
   end
 
+  before_filter :redirect_logged_in_user, only: :index
+  caches_action :index, expires_in: 5.minutes
+  
+  def redirect_logged_in_user
+    redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
+  end
+
   def index
-    redirect_to after_sign_in_path_for(current_user) and return if user_signed_in?
-      
     @facts = Fact.top(3).delete_if {|f| Fact.invalid(f)}
     render layout: "landing"
   end
