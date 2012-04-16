@@ -20,7 +20,7 @@
           <% unless user_signed_in? %>
                <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
           <% else %>
-            <label class="btn" id="annotate_button">
+            <label id="annotate_button">
               <input type="checkbox" name="annotate">
               Annotation mode
             </label>
@@ -39,19 +39,6 @@
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "popup" %>
-
-  <script>
-    <% if current_user %>
-      window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
-
-      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
-    <% end %>
-
-    var addToChannelView = new AddToChannelView({
-      collection: currentUser.channels,
-      el: $('#add_to_channels')
-    }).render();
-  </script>
 
   <%= yield :javascript %>
 </html>

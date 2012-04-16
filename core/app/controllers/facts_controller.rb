@@ -61,6 +61,16 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       if @fact.save
+        if params[:channels]
+          params[:channels].each do |channel_id|
+            channel = Channel[channel_id]
+
+            authorize! :update, channel
+
+            channel.add_fact(@fact)
+          end
+        end
+
         format.html do
           flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true

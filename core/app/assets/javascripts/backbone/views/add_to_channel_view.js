@@ -4,8 +4,8 @@ window.AddToChannelView = Backbone.View.extend({
   _views: [],
 
   events: {
-    'keyup input.channel-title': 'submitFormIfNeeded',
-    'click input.submit': 'addChannel'
+    'keyup .channel-title': 'submitFormIfNeeded',
+    'click .submit': 'addChannel'
   },
 
   initialize: function(opts) {
@@ -72,7 +72,11 @@ window.AddToChannelView = Backbone.View.extend({
             self.model.get('containing_channel_ids').push(data.id);
           }
 
-          currentUser.channels.add(data);
+          var channel = new Channel(data);
+
+          channel.checked = true;
+
+          currentUser.channels.add(channel);
 
           self.resetAdd();
           self.enableAdd();
@@ -116,8 +120,6 @@ window.AddToChannelView = Backbone.View.extend({
 
     this.collection.each(function(channel) {
       if ( channel.get('editable?') ) {
-        channel.checked = false;
-
         if (_.indexOf(containingChannels,channel.id) !== -1 ) {
           channel.checked = true;
         }
