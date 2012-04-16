@@ -1,21 +1,20 @@
 <% content_for :payoff do %>
-<h2>Building a collectively reviewed perspective on the world's information</h2>
-<p> Because the world needs what you know!</p>
-
+  <h2>Building a collectively reviewed perspective on the world's information</h2>
+  <p> Because the world needs what you know!</p>
 <% end %>
 
 <% content_for :sign_up do %>
 
   <% if notice %>
-  <div class="alert alert-info">
-    <%= notice %>
-  </div>
+    <div class="alert alert-info">
+      <%= notice %>
+    </div>
   <% end %>
 
   <% if alert %>
-  <div class="alert alert-error">
-    <%= alert %>
-  </div>
+    <div class="alert alert-error">
+      <%= alert %>
+    </div>
   <% end %>
 
   <h4>Reserve your username</h4>
@@ -27,13 +26,13 @@
 
 
 <% content_for :selling_points do %>
-<h3>Why use Factlink</h3>
-<ul>
-  <li><%= image_tag("chart.png",  alt: "Pie Chart") %>Build authority on any topic, discover expertise</li>
-  <li><%= image_tag("people.png", alt: "People") %>Share what you know, contribute to people's perspective</li>
-  <li><%= image_tag("globe.png",  alt: "World") %>Check the credibility of the information you are reading</li>
-  <li><%= image_tag("money.png",  alt: "Money") %>Free information access. Period</li>
-</ul>
+  <h3>Why use Factlink</h3>
+  <ul>
+    <li><%= image_tag("chart.png",  alt: "Pie Chart", width: 31, height: 31) %>Build authority on any topic, discover expertise</li>
+    <li><%= image_tag("people.png", alt: "People", width: 31, height: 31) %>Share what you know, contribute to people's perspective</li>
+    <li><%= image_tag("globe.png",  alt: "World", width: 31, height: 31) %>Check the credibility of the information you are reading</li>
+    <li><%= image_tag("money.png",  alt: "Money", width: 31, height: 31) %>Free information access. Period</li>
+  </ul>
 <% end %>
 
 
