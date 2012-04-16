@@ -38,6 +38,7 @@ class FactsController < ApplicationController
   end
 
   def popup_show
+    @fact.calculate_opinion(1)
     render layout: 'popup'
   end
 
