@@ -4,7 +4,8 @@ window.AddToChannelView = Backbone.View.extend({
   _views: [],
 
   events: {
-    'submit form': 'addChannel'
+    'keyup input.channel-title': 'submitFormIfNeeded',
+    'click input.submit': 'addChannel'
   },
 
   initialize: function(opts) {
@@ -13,19 +14,23 @@ window.AddToChannelView = Backbone.View.extend({
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
 
-    this.containingChannels = this.model.getOwnContainingChannels();
+    if ( this.model ) {
+      this.containingChannels = this.model.getOwnContainingChannels();
+    }
 
     if ( opts.forChannel ) {
       this.forChannel = opts.forChannel;
     } else if ( opts.forFact ) {
       this.forFact = opts.forFact;
-    } else {
+    } else if ( typeof currentChannel !== "undefined" ){
       this.forChannel = currentChannel;
+    } else {
+      this.forChannel = false;
     }
   },
 
   addChannel: function(e) {
-    e.preventDefault();
+    e && e.preventDefault();
 
     var self = this;
 
@@ -40,7 +45,7 @@ window.AddToChannelView = Backbone.View.extend({
 
       if ( self.forChannel ) {
         dataHolder.for_channel= self.forChannel.id;
-      } else {
+      } else if ( self.forFact ) {
         dataHolder.for_fact = self.forFact.id;
       }
 
@@ -63,7 +68,9 @@ window.AddToChannelView = Backbone.View.extend({
             });
           } catch(e) {}
 
-          self.model.get('containing_channel_ids').push(data.id);
+          if ( self.model ) {
+            self.model.get('containing_channel_ids').push(data.id);
+          }
 
           currentUser.channels.add(data);
 
@@ -76,6 +83,12 @@ window.AddToChannelView = Backbone.View.extend({
     }
 
     return false;
+  },
+
+  submitFormIfNeeded: function (e) {
+    if ( e.keyCode === 13 ) {
+      this.addChannel();
+    }
   },
 
   resetAdd: function() {
@@ -93,9 +106,13 @@ window.AddToChannelView = Backbone.View.extend({
   },
 
   resetCheckedState: function() {
-    var containingChannels = _.map(this.model.getOwnContainingChannels(), function(ch) {
-      return ch.id;
-    });
+    var containingChannels = [];
+
+    if ( this.model ) {
+      containingChannels = _.map(this.model.getOwnContainingChannels(), function(ch) {
+        return ch.id;
+      });
+    }
 
     this.collection.each(function(channel) {
       if ( channel.get('editable?') ) {
@@ -112,7 +129,7 @@ window.AddToChannelView = Backbone.View.extend({
     var self = this;
     var add_model = {};
 
-    if ( this.forChannel !== undefined ) {
+    if ( this.forChannel ) {
       if (this.collection.get(this.forChannel.id) === undefined) {
         add_model = {'default_add_new_value': this.forChannel.get('title')};
       }
