@@ -38,6 +38,7 @@ class FactsController < ApplicationController
   end
 
   def popup_show
+    @fact.calculate_opinion(1)
     render layout: 'popup'
   end
 
@@ -51,7 +52,7 @@ class FactsController < ApplicationController
 
   def create
     authorize! :create, Fact
-    @fact = create_fact(params[:url], params[:fact], params[:title])
+    @fact = create_fact(params[:url].to_s, params[:fact].to_s, params[:title].to_s)
 
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
@@ -60,6 +61,16 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       if @fact.save
+        if params[:channels]
+          params[:channels].each do |channel_id|
+            channel = Channel[channel_id]
+
+            authorize! :update, channel
+
+            channel.add_fact(@fact)
+          end
+        end
+
         format.html do
           flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true

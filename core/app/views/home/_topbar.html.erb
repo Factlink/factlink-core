@@ -99,7 +99,7 @@
             <%= link_to "Can't access?", new_password_path('user'), id: :cannot_access_account, tabindex: '4' %>
 
               <div class="input-fields">
-                <%= f.email_field :email, placeholder: "Email", tabindex: '1' %>
+                <%= f.email_field :email, id: "user_login_email", placeholder: "Email", tabindex: '1' %>
                 <%= f.password_field :password, placeholder: "Password", tabindex: '2' %>
                 <%= f.submit 'Sign in', class: 'btn', tabindex: '3' %>
               </div>

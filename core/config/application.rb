@@ -153,6 +153,9 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
     ]
+
+    # we only cache very little, so memory_store is fine for now
+    config.cache_store = :memory_store
   end
 end
 

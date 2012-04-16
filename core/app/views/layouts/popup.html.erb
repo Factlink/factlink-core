@@ -20,7 +20,7 @@
           <% unless user_signed_in? %>
                <%= link_to "Login to Factlink", new_user_session_path, { target: "_blank" } %>
           <% else %>
-            <label class="btn" id="annotate_button">
+            <label id="annotate_button">
               <input type="checkbox" name="annotate">
               Annotation mode
             </label>
@@ -28,15 +28,17 @@
         </div>
       </div>
       <%= render 'home/notifications', notice: notice, alert: alert %>
-      
+
       <%= yield %>
     </div>
   </body>
 
   <!-- JavaScript at the bottom for fast page loading -->
 
+  <%= load_mustache_templates %>
+
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
   <%= javascript_include_tag "popup" %>
-  <%= yield :javascript%>
 
+  <%= yield :javascript %>
 </html>
