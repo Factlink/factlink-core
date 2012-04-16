@@ -72,7 +72,11 @@ window.AddToChannelView = Backbone.View.extend({
             self.model.get('containing_channel_ids').push(data.id);
           }
 
-          currentUser.channels.add(data);
+          var channel = new Channel(data);
+
+          channel.checked = true;
+
+          currentUser.channels.add(channel);
 
           self.resetAdd();
           self.enableAdd();
