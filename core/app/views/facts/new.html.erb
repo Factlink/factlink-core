@@ -16,14 +16,14 @@
     </div>
 
     <div class="control-group">
-      <label>Title</label>
-      <div id="add_to_channels"></div>
+      <label>Channels</label>
+      <div id="add_to_channels" class="well"></div>
     </div>
 
     <%= hidden_field_tag 'layout', 'popup' %>
     <div class="row">
       <div style="text-align:right;">
-        <%= submit_tag "Add fact", class: "btn btn-primary", disable_with: "Adding..." %>
+        <%= submit_tag "Post Factlink", class: "btn btn-primary", disable_with: "Adding..." %>
       </div>
     </div>
   <% end %>
