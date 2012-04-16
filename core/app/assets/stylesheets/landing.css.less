@@ -79,13 +79,16 @@ body {
     ul {
       margin-left: 0;
       li {
-        padding-top: 2em;
-		font-size: 14px;
-        img {
-          float: left;
-          margin-right: 1em;
-          height: 31px;
-        }
+        margin-top: 2em;
+        font-size: 14px;
+        height:32px;
+        background-image: url('/assets/sprite.gif');
+        background-repeat: no-repeat;
+        padding-left: 40px;
+        &.image-chart  { background-position: 0 0; }
+        &.image-people { background-position: 0 -40px; }
+        &.image-globe  { background-position: 0 -80px; }
+        &.image-money  { background-position: 0 -120px; }
       }
     }
   }
