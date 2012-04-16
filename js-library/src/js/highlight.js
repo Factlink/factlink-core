@@ -35,7 +35,7 @@ Factlink.stopHighlighting = function() {
 // Returns deferred object
 function fetchFacts() {
   // The URL to the Factlink backend
-  var src = FactlinkConfig.api + '/site?url=' + escape(Factlink.siteUrl());
+  var src = FactlinkConfig.api + '/site?url=' + encodeURIComponent(Factlink.siteUrl());
 
   // We use the jQuery AJAX plugin
   return $.ajax({
