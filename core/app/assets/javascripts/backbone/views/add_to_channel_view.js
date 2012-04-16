@@ -16,6 +16,8 @@ window.AddToChannelView = Backbone.View.extend({
 
     if ( this.model ) {
       this.containingChannels = this.model.getOwnContainingChannels();
+    } else {
+      this.selectedChannels = [];
     }
 
     if ( opts.forChannel ) {
@@ -70,13 +72,11 @@ window.AddToChannelView = Backbone.View.extend({
 
           if ( self.model ) {
             self.model.get('containing_channel_ids').push(data.id);
+          } else {
+            self.selectedChannels.push(data.id);
           }
 
-          var channel = new Channel(data);
-
-          channel.checked = true;
-
-          currentUser.channels.add(channel);
+          currentUser.channels.add(data);
 
           self.resetAdd();
           self.enableAdd();
@@ -110,6 +110,7 @@ window.AddToChannelView = Backbone.View.extend({
   },
 
   resetCheckedState: function() {
+    var self = this;
     var containingChannels = [];
 
     if ( this.model ) {
@@ -122,7 +123,7 @@ window.AddToChannelView = Backbone.View.extend({
       if ( channel.get('editable?') ) {
         channel.checked = false;
 
-        if (_.indexOf(containingChannels,channel.id) !== -1 ) {
+        if (_.indexOf(containingChannels,channel.id) !== -1 || _.indexOf(self.selectedChannels, channel.id) !== -1 ) {
           channel.checked = true;
         }
       }
@@ -155,7 +156,8 @@ window.AddToChannelView = Backbone.View.extend({
           {
             model: channel,
             forChannel: self.forChannel,
-            forFact: self.forFact
+            forFact: self.forFact,
+            rootView: self
           }).render();
 
         $channelListing.append(view.el);
