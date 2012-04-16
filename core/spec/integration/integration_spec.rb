@@ -94,7 +94,7 @@ describe "Walkthrough the app", type: :request do
     it "should work" do
       visit new_fact_path
       fill_in "fact", with: "baronnenbillen"
-      click_button "Add fact"
+      click_button "Post Factlink"
       page.should have_content "Factlink successfully added"
     end
   end
@@ -152,7 +152,7 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fact_title = "fact to be found"
       fill_in "fact", with: fact_title
-      click_button "Add fact"
+      click_button "Post Factlink"
       page.should have_content "Factlink successfully added"
 
       # and search for it:
