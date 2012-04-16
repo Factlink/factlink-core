@@ -4,8 +4,8 @@ window.AddToChannelView = Backbone.View.extend({
   _views: [],
 
   events: {
-    'keyup input.channel-title': 'submitFormIfNeeded',
-    'click input.submit': 'addChannel'
+    'keyup .channel-title': 'submitFormIfNeeded',
+    'click .submit': 'addChannel'
   },
 
   initialize: function(opts) {
