@@ -120,8 +120,6 @@ window.AddToChannelView = Backbone.View.extend({
 
     this.collection.each(function(channel) {
       if ( channel.get('editable?') ) {
-        channel.checked = false;
-
         if (_.indexOf(containingChannels,channel.id) !== -1 ) {
           channel.checked = true;
         }
