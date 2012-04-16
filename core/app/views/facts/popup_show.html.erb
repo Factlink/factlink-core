@@ -8,5 +8,11 @@
 <% content_for :javascript do %>
   <script>
     $(".fact-block").factlink();
+    top.postMessage({
+      'message': 'highlight',
+      'fact': '<%= j @fact.data.displaystring %>',
+      'fact_id': '<%= j @fact.id %>',
+      'percentages': '<%= @fact.opinion.as_percentages.to_json.html_safe %>'
+    }, "*");
   </script>
 <% end %>

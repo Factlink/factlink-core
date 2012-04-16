@@ -23,7 +23,11 @@ class MapReduce
     end
 
     def write_output bucket, value
-      Authority.on(Basefact[bucket[:fact_id]], for: GraphUser[bucket[:user_id]]) << value
+      f = Basefact[bucket[:fact_id]]
+      gu = GraphUser[bucket[:user_id]]
+      if f and gu
+        Authority.on(f, for: gu) << value
+      end
     end
   end
 end

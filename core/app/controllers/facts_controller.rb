@@ -38,6 +38,7 @@ class FactsController < ApplicationController
   end
 
   def popup_show
+    @fact.calculate_opinion(1)
     render layout: 'popup'
   end
 
@@ -51,7 +52,7 @@ class FactsController < ApplicationController
 
   def create
     authorize! :create, Fact
-    @fact = create_fact(params[:url], params[:fact], params[:title])
+    @fact = create_fact(params[:url].to_s, params[:fact].to_s, params[:title].to_s)
 
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
