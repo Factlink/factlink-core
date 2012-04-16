@@ -145,6 +145,8 @@ window.AddToChannelView = Backbone.View.extend({
 
     var $channelListing = this.$el.find('ul');
 
+    $channelListing.preventScrollPropagation();
+
     this.resetCheckedState();
 
     this.collection.each(function(channel) {
