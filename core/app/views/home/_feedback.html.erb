@@ -1,3 +1,8 @@
+<div id="feedback" class="box-rotate">
+  <a class="feedback" href="javascript:UserVoice.showPopupWidget();" title="feedback and support">Feedback</a>
+</div>
+
+<% content_for :feedback_javascript do %>
 <script type="text/javascript">
   var uvOptions = {};
   (function() {
@@ -6,9 +11,4 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
   })();
 </script>
-
-<div id="feedback" >
-  <a class="feedback" href="javascript:UserVoice.showPopupWidget();" title="feedback and support">Feedback</a>
-</div>
-
-
+<% end %>
