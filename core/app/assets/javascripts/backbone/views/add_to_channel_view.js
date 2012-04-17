@@ -135,7 +135,7 @@ window.AddToChannelView = Backbone.View.extend({
     var add_model = {};
 
     if ( this.forChannel ) {
-      if (this.collection.get(this.forChannel.id) === undefined) {
+      if (this.collection.get(this.forChannel.id) === undefined && this.collection.where({'title': this.forChannel.get('title')}).length == 0) {
         add_model = {'default_add_new_value': this.forChannel.get('title')};
       }
     }
