@@ -26,7 +26,7 @@ class SubchannelsController < ApplicationController
     end
   end
 
-  def remove
+  def destroy
     authorize! :update, @channel
     @channel.remove_channel(@subchannel)
 
@@ -43,13 +43,13 @@ class SubchannelsController < ApplicationController
     end
 
     def load_channel
-      @channel  = Channel[params[:channel_id]||params[:id]]
+      @channel  = Channel[params[:channel_id]]
       @channel || raise_404("Channel not found")
       @user ||= @channel.created_by.user
     end
 
     def load_subchannel
-      @subchannel = Channel[params[:subchannel_id]]
+      @subchannel = Channel[params[:subchannel_id]||params[:id]]
       @subchannel || raise_404("Subchannel not found")
     end
 end

@@ -2,8 +2,18 @@ window.SubchannelItemView = Backbone.View.extend({
   tagName: "li",
 
   events: {
-    "click" : "clickHandler"
+    "click" : "clickHandler",
+    "click .close": "destroySubchannel"
   },
+
+  destroySubchannel: function (e) {
+    if ( confirm("Are you sure you want to remove this channel from your channel?") ) {
+      this.model.destroy();
+    }
+    e.stopPropagation();
+    return false;
+  },
+
 
   initialize: function() {
     this.useTemplate("subchannels", "_subchannel_item");

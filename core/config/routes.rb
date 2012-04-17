@@ -98,14 +98,14 @@ FactlinkUI::Application.routes.draw do
         collection do
           post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
         end
+        resources :subchannels, only: [:index, :destroy] do
+          collection do
+            post "add/:id/",     :as => "add",     :action => "add"
+            post "remove/:id/",  :as => "remove",  :action => "destroy"
+          end
+        end
 
         member do
-          resources :subchannels, only: [:index] do
-            collection do
-              post "add/:subchannel_id/",     :as => "add",     :action => "add"
-              post "remove/:subchannel_id/",  :as => "remove",  :action => "remove"
-            end
-          end
 
           get "related_users",  :as => "channel_related_users"
           get "activities",     :as => "activities"
