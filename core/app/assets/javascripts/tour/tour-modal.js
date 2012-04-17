@@ -5,7 +5,6 @@ $(function(){
     var opts = $.merge(opts, {});
     
     self.show = function show () {
-      console.info( "Modal:", "Show");
       $.ajax({
         url: "/p/tour",
         dataType: "html",
@@ -18,7 +17,6 @@ $(function(){
     };
     
     self.hide = function hide () {
-      console.info( "Modal:", "Hide");
       opts.el.modal('hide');
     };
     
@@ -50,6 +48,8 @@ $(function(){
       opts.el.html(html);
 
       initCycle();
+      
+      opts.el.on('hidden', resetMovieInTour);
 
       // TODO: Fix the tooltip.
       // opts.el.find('.slider').find('.bookmarklet')
@@ -89,7 +89,12 @@ $(function(){
         pause: 1,
         pager:  "#pagerNav",
 
+        
         after: function(currSlideElement, nextSlideElement, options, forward) {
+          if ($(currSlideElement).is("#tour_start")){
+            resetMovieInTour();
+          }
+          
           try {
             mpmetrics.track("Take The Tour: Slide", {
               type: (forward ? "forward" : "backward")
@@ -119,4 +124,12 @@ $(function(){
     showActionEl: $('a.take-the-tour'),
     hideActionEl: $('.hide-modal')
   });
+  
+  function resetMovieInTour(){
+    var movie_clone = $('#tour_movie > iframe').clone();
+    $('#tour_movie > iframe').remove();
+    $('#tour_movie').append(movie_clone);
+  }
+  
 });
+
