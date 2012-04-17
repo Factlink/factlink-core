@@ -105,7 +105,7 @@
           <p>The power of Factlink is that it can be used on almost every web page on the internet. Use the Chrome Extension or bookmarklet to activate Factlink on whatever page you are on.</p>
 
           <div class="center" style="margin-top: 64px;">
-            <a class="chrome_extension_download" chref="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx" class="btn success">Google Chrome Extension <span class="label label-warning chrome_install">Install</span></a>
+            <a class="chrome_extension_download btn" chref="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx" class="btn success">Google Chrome Extension <span class="label label-warning chrome_install">Install</span></a>
             <a onclick="return false" title="You can drag this Bookmarklet to your bookmarks bar. Suitable for browsers other than Chrome." class="bookmarklet" href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'>Factlink Bookmarklet</a>
           </div>
         </div>
@@ -116,7 +116,7 @@
         </div>-->
       </div>
     </div>
-    
+
     <!-- On-page two -->
     <div data-title="Use it!">
       <div class="container" style="height: 372px;">
