@@ -35,7 +35,7 @@ describe "Check the ToS", type: :request do
       click_button "Continue"
     end
 
-    pending "should show the Tour", js: true do
+    it "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click
@@ -61,10 +61,6 @@ describe "Check the ToS", type: :request do
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
       page.has_xpath?("//div[@data-title='Channels']", :visible => false)
-
-      page.find(".next").click
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => true)
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
 
       page.find(".previous").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
