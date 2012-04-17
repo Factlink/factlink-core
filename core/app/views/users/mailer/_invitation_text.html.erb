@@ -1,16 +1,16 @@
-<p>Hey!</p>
-
 <%= yield :personalized_message %>
 
-<p>You have been invited by <%= @resource.invited_by || current_user %> to join Factlink. We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link:
-<%= link_to 'Accept invitation', @resource.invitation_token && accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
-
-<p>Factlink has build a platform that lets you add what you know by creating Factlinks. You can annotate any statement on the web and ‘attach’ review information, for instance supporting or weakening facts.</p>
-
-<p>Creating a Factlink is an intuitive but powerful way for people to add what they know when they have expertise on something they see. The kicker is that other people that look at a Factlink see a clean and visual overview of expertise that is based on the feedback and ‘ratings’ that people have attached to it. Each Factlink directly shows how ‘knowledgeable’ its interacting users are.</p>
-
-<p>Factlink is a new way to discover information and contribute to understanding. Factlink, because the web needs what you know.</p>
-
-<p>When you are logged into Factlink, you can start exploring Factlinks and creating your Factlinks. You can download the Factlink Chrome plugin, or you can use the bookmarklet with your preferred browser. If you have any comments, bugs or ideas, please let us know using the feedback button to the left of the site!</p>
-
-<p>Enjoy Factlink!</p>
+<p>Je bent door <%= @resource.invited_by || current_user %> voor Factlink uitgenodigd. We hebben een account voor je gemaakt zodat je de mogelijkheden van Factlink kunt ontdekken.
+</p><b>
+<%= link_to 'Accepteer de uitnodiging door op deze link te klikken', @resource.invitation_token && accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
+</b></p><p>
+Factlink is een nieuw internetconcept, waarmee je gemakkelijk uit kunt vinden of wat je online tegenkomt in artikelen of blog-posts wel betrouwbaar is. Vaak staan er stellingen op websites waar je je misschien van afvraagt of deze wel kloppen. Veel online informatie is snel verouderd: iets wat net nog waar was kan al weer achterhaald zijn. Ook is er veel misleidende informatie op het internet. Alles uitzoeken en nakijken is natuurlijk ondoenlijk. Met Factlink doen mensen dat samen. Wat een persoon weet en toevoegt kan een ander weer verder helpen. Via Factlink krijg je direct inzicht in wat anderen met expertise weten van het onderwerp wat jou interesseert. 
+</p><p>
+Hoe het werkt? Je kunt met behulp van Factlink gemakkelijk op bijna alle websites een bewering selecteren en aangeven of je het eens of oneens bent met deze bewering. Daarnaast kun je aangeven of je andere bronnen kent die jouw mening ondersteunen. Ook kun je direct aangeven bij welk onderwerp de bewering hoort. Andere gebruikers kunnen daarna zien wat jij hebt toegevoegd en hun mening hierover geven. Als ze je toevoeging waardevol vinden en gebruiken dan krijg je daardoor meer autoriteit.
+</p><p>
+Factlink is nog zeer nieuw en we hebben jouw hulp als gebruiker nodig om te leren wat we moeten verbeteren. Op basis van jouw feedback voegen we dagelijks nieuwe functionaliteit toe om te zorgen dat Factlink nog beter wordt. Zo zullen we bijvoorbeeld sociale functionaliteit toevoegen, zodat je gemakkelijk iemand uit je sociale netwerk kunt laten weten wat jij interessant vindt en diegene om zijn/haar mening vragen. Ook kun je straks via Factlink zien wat jouw vrienden die ook op Factlink zitten ergens over weten.
+</p><p>
+Dank je wel voor het uitproberen van Factlink. We zijn heel benieuwd wat je er van vindt en hoe je het gaat gebruiken! Via de ‘Feedback’ knop kun je eenvoudig aangeven wat je wel of niet bevalt of suggesties doen voor wat beter kan. We wensen je veel plezier met Factlink en horen graag van je!
+</p><p><i>
+--Merijn Terheggen, CEO
+</i></p>

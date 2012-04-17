@@ -8,7 +8,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def create
     self.resource = resource_class.invite! params[resource_name], current_inviter do |invitee|
-      invitee.instance_variable_set :@invitation_message, params[:invite][:message]
+      invitation_message = view_context.send(:h,params[:invite][:message])
+      invitation_message = view_context.simple_format invitation_message
+      invitee.instance_variable_set :@invitation_message, invitation_message
       class << invitee
         def invitation_message
           @invitation_message

@@ -113,6 +113,8 @@ group :jstest do
 end
 
 group :development do
+  # SHUT THE FUCK UP
+  gem 'quiet_assets'
   # Profiling
   gem 'ruby-prof'
 end

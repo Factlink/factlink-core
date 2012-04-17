@@ -7,4 +7,4 @@ en:
       no_invitations_remaining: "No invitations remaining"
     mailer:
       invitation_instructions:
-        subject: 'Invitation instructions'
+        subject: 'Je bent uitgenodigd voor Factlink'
