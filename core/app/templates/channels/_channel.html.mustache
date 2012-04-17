@@ -28,7 +28,7 @@
     {{#inspectable?}}
     <div id="contained-channels">
       <span class="contained-channel-description">Followed {{channels_definition}}</span>
-        <ul id="contained-channel-list">
+        <ul id="contained-channel-list" {{^is_mine}}class="not_my_channel"{{/is_mine}}>
           <div class="overflow"></div>
         </ul>
       </div>
