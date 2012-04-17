@@ -168,5 +168,10 @@ window.AddToChannelView = Backbone.View.extend({
     this.$submit = this.$el.find('input[type="submit"]');
 
     return this;
+  },
+
+  resetClickedState: function () {
+    this.selectedChannels = [];
+    this.render();
   }
 });
