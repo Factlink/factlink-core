@@ -39,4 +39,12 @@ if ( $('.alert').length === 1 ) {
   });
 }
 
+$('#cancel').on('click', function (e) {
+  e.preventDefault();
+
+  addToChannelView.resetClickedState();
+
+  top.window.close();
+});
+
 })();

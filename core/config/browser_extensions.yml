@@ -1,7 +1,3 @@
-development:
-  chrome:
-    id: not_available
-
 test:
   chrome:
     id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb

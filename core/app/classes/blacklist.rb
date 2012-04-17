@@ -22,7 +22,7 @@ class Blacklist
       domain('grooveshark.com'),
       /^http:\/\/localhost[:\/]/,
       /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
-    ] + flash + frames
+    ] + flash + frames + weird_bugs
   end
 
   def self.flash
@@ -32,6 +32,12 @@ class Blacklist
   def self.frames
     [
       domain('insiteproject.com')
+    ]
+  end
+
+  def self.weird_bugs
+    [
+      domain('avc.com')
     ]
   end
 
