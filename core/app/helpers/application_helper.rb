@@ -77,7 +77,7 @@ module ApplicationHelper
       when 0..119 then return '1m' #120 = 2 minutes
       when 120..3540 then return (a/60).to_i.to_s+'m'
       when 3541..7100 then return '1h' # 3600 = 1 hour
-      when 7101..82800 then return ((a+99)/3600).to_i.to_s+'h' 
+      when 7101..82800 then return ((a+99)/3600).to_i.to_s+'h'
       when 82801..172000 then return '1d' # 86400 = 1 day
       when 172001..518400 then return ((a+800)/(60*60*24)).to_i.to_s+'d'
       when 518400..1036800 then return '1w'
