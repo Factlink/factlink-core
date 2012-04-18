@@ -158,4 +158,6 @@ describe "Walkthrough the app", type: :request do
       page.should have_content(fact_title)
     end
   end
+
+  it "should be possible to reserve a username and this should result in a confirmation message"
 end
