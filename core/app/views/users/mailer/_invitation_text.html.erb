@@ -1,8 +1,8 @@
 <%= yield :personalized_message %>
 
-<p>Je bent door <%= @resource.invited_by || current_user %> voor Factlink uitgenodigd. We hebben een account voor je gemaakt zodat je de mogelijkheden van Factlink kunt ontdekken.
+<p>Je bent door <%= @resource.andand.invited_by || current_user %> voor Factlink uitgenodigd. We hebben een account voor je gemaakt zodat je de mogelijkheden van Factlink kunt ontdekken.
 </p><b>
-<%= link_to 'Accepteer de uitnodiging door op deze link te klikken', @resource.invitation_token && accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
+<%= link_to 'Accepteer de uitnodiging door op deze link te klikken', @resource.andand.invitation_token && accept_invitation_url(@resource, :invitation_token => @resource.invitation_token) %></p>
 </b></p><p>
 Factlink is een nieuw internetconcept, waarmee je gemakkelijk uit kunt vinden of wat je online tegenkomt in artikelen of blog-posts wel betrouwbaar is. Vaak staan er stellingen op websites waar je je misschien van afvraagt of deze wel kloppen. Veel online informatie is snel verouderd: iets wat net nog waar was kan al weer achterhaald zijn. Ook is er veel misleidende informatie op het internet. Alles uitzoeken en nakijken is natuurlijk ondoenlijk. Met Factlink doen mensen dat samen. Wat een persoon weet en toevoegt kan een ander weer verder helpen. Via Factlink krijg je direct inzicht in wat anderen met expertise weten van het onderwerp wat jou interesseert. 
 </p><p>
