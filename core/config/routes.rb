@@ -153,4 +153,6 @@ FactlinkUI::Application.routes.draw do
     resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages"
   end
+
+  get "/x/:id" => "fake_facts#show"
 end
