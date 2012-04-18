@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag "fake_facts" %>
+</head>
+<body>
+  <%= yield %>
+
+  <%= load_mustache_templates %>
+
+  <%= javascript_include_tag "frontend" %>
+
+  <%= yield :javascript %>
+</body>
+</html>

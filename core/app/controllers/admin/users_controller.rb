@@ -1,11 +1,13 @@
 class Admin::UsersController < AdminController
+  helper_method :sort_column, :sort_direction
 
   before_filter :authenticate_user!
-  load_and_authorize_resource :except => [:create]
+  load_and_authorize_resource :except => [:create, :index]
 
   layout "admin"
 
   def index
+    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def show
@@ -41,5 +43,15 @@ class Admin::UsersController < AdminController
     else
       render :edit
     end
+  end
+
+  private
+
+  def sort_column
+    User.fields.collect {|field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

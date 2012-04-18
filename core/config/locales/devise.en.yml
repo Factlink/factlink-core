@@ -34,7 +34,7 @@ en:
       signed_up_but_locked: 'You have signed up successfully. However, we could not sign you in because your account is locked.'
       updated: 'You updated your account successfully.'
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
-      signed_up_but_not_approved: 'You have signed up successfully. Confirm your email so you will get notified when your account is approved.'
+      signed_up_but_not_approved: 'You have successfully reserved your username! Confirm your email so you will get notified when we are rolling out our service to more users.'
       sign_up_failed: 'Failed on registering. Pleases try again.'
     unlocks:
       send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
