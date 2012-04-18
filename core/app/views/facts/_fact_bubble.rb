@@ -13,7 +13,11 @@ module Facts
     end
 
     def scroll_to_link
-      show_links ? link_to(pretty_url, proxy_scroll_url, :target => "_blank") : pretty_url
+      if show_links
+        link_to(pretty_url, proxy_scroll_url, :target => "_blank")
+      else
+        pretty_url
+      end
     end
 
     def displaystring
@@ -59,7 +63,7 @@ module Facts
       def proxy_scroll_url
         FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
       rescue
-        ""
+        nil
       end
 
       def pretty_url
