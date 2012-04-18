@@ -162,6 +162,7 @@ GEM
     fastercsv (1.5.4)
     fattr (2.2.1)
     ffi (1.0.11)
+    fivemat (1.0.0)
     flay (1.4.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
@@ -420,6 +421,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails (~> 3.0)
   fattr
+  fivemat
   headless
   jquery-rails (>= 1.0.17)
   json
