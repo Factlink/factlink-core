@@ -21,6 +21,9 @@ gem 'resque', '1.19.0'
 
 gem 'stringex'
 
+# Fake Fact Page
+gem 'hashie'
+
 gem 'mixpanel', '~> 1.1.3'
 
 # Pagination & sorting
