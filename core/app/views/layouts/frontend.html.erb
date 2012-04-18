@@ -49,8 +49,6 @@
     <% end %>
 
     var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
-
-    Backbone.history.start({pushState:true, silent:true});
   </script>
 
   <%= yield :javascript %>

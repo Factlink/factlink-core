@@ -37,7 +37,11 @@ class Blacklist
 
   def self.weird_bugs
     [
-      domain('avc.com')
+      # breaks jquery:
+      domain('avc.com'),
+
+      #annotating does not work
+      domain('smashingmagazine.com')
     ]
   end
 

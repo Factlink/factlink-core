@@ -10,6 +10,8 @@
 
 <% content_for :javascript do %>
   <script>
+    Backbone.history.start({pushState:true, silent:true});
+
     Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
 
     <% if @channel && !@channel.new? %>

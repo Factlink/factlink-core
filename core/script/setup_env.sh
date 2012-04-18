@@ -1,10 +1,10 @@
 #!/bin/bash
 git clone git@github.com:Factlink/chrome-extension.git -b master
+git clone git@github.com:Factlink/firefox-extension -b master
 git clone git@github.com:Factlink/core.git -b master
 git clone git@github.com:Factlink/js-library.git -b master
 git clone git@github.com:Factlink/web-proxy.git -b master
 git clone git@github.com:Factlink/server-management -b master
-git clone git@github.com:Factlink/homepage -b master
 
 
 ln -s core/config config
@@ -37,6 +37,11 @@ cd chrome-extension
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	./release_repo.sh
+cd ..
+
+cd firefox-extension
+	git checkout develop
+	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 cd ..
 
 cd js-library
