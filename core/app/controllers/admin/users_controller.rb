@@ -7,7 +7,7 @@ class Admin::UsersController < AdminController
   layout "admin"
 
   def index
-    @users = User.order_by([sort_column.to_sym, sort_direction.to_sym])
+    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
   def show
