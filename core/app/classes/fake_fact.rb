@@ -16,7 +16,6 @@ class FakeFact
 
   def self.new opinions, interacting_users, factlink_text
     interacting_users = interacting_users.map {|u| fake_graph_user u[0], u[1]}
-    total_opinions = opinions[:doubts] + opinions[:disbelieves] + opinions[:believes]
 
     interactions = interacting_users.map { |interacting_user|
       fake_interaction(interacting_user)
@@ -41,10 +40,7 @@ class FakeFact
       supporting_facts: [],
       weakening_facts: [],
       created_by: {user: {username: 'hoi'}},
-      get_opinion: fake_wheel(total_opinions,
-                              ((opinions[:believes].to_f/total_opinions)*100).to_i,
-                              ((opinions[:disbelieves].to_f/total_opinions)*100).to_i,
-                              ((opinions[:doubts].to_f/total_opinions)*100).to_i)
+      get_opinion: fake_wheel(opinions[:believes], opinions[:disbelieves], opinions[:doubts])
     })
 
     x.singleton_class.send :include, Foo
@@ -78,20 +74,9 @@ class FakeFact
     }
   end
 
-  def self.fake_wheel count, believes, disbelieves, doubt
-    {
-      as_percentages: {
-        authority: count,
-        believe: {
-          percentage: believes
-        },
-        disbelieve: {
-          percentage: disbelieves
-        },
-        doubt: {
-          percentage: doubt
-        }
-      }
-    }
+  def self.fake_wheel  believes, disbelieves, doubts
+    total_opinions = doubts + disbelieves + believes
+    o = Opinion.tuple(believes, disbelieves, doubts, total_opinions)
+    return o
   end
 end
