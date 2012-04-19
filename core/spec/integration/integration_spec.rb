@@ -34,7 +34,7 @@ describe "Check the ToS", type: :request do
       click_button "Continue"
     end
 
-    it "should show the Tour", js: true do
+    pending "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click
@@ -86,7 +86,7 @@ describe "Walkthrough the app", type: :request do
   end
   
   describe "creating a Factlink" do
-    it "should add a factlink", js:true do
+    pending "should add a factlink", js:true do
       fact_name = "baronnenbillen"
 
       visit new_fact_path
@@ -98,7 +98,7 @@ describe "Walkthrough the app", type: :request do
       page.should have_content fact_name      
     end
 
-    it "should be able to delete a factlink", js:true do
+    pending "should be able to delete a factlink", js:true do
       fact_name = "raar"
 
       # create fact: 
@@ -117,7 +117,7 @@ describe "Walkthrough the app", type: :request do
   end
 
   describe "channels" do
-    it "can be created", js: true do
+    pending "can be created", js: true do
       channel_title = "Teh hot channel"
       click_link "Add new"
       fill_in "channel_title", with: channel_title
@@ -147,7 +147,7 @@ describe "Walkthrough the app", type: :request do
       end
     end
 
-    it "can be visited", js: true do
+    pending "can be visited", js: true do
       @channel = create_channel(@user)
 
       visit channel_path(@user, @channel)
@@ -157,14 +157,14 @@ describe "Walkthrough the app", type: :request do
   end
 
   describe "searching" do
-    it "cannot find a something that does not exist", js:true do
+    pending "cannot find a something that does not exist", js:true do
       search_text = "searching for nothing and results for free"
       fill_in "factlink_search", with: search_text
       page.execute_script("$('#factlink_search').parent().submit()")
       page.should have_content("Sorry, your search didn't return any results.")
     end
 
-    it "should find a just created factlink", js:true do
+    pending "should find a just created factlink", js:true do
       # create factlink:
       visit new_fact_path
       fact_title = "fact to be found"
