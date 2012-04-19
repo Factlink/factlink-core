@@ -4,6 +4,7 @@ require 'cgi'
 class UrlNormalizer
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
+    url.sub!('|', '%7C')
 
     uri = URI.parse(url)
 
