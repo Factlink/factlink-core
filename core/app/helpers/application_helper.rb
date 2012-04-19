@@ -58,8 +58,15 @@ module ApplicationHelper
     s
   end
 
-  def team_photo_tag photo, name
-    image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
+  def team_photo_tag photo, name, linkedin=nil
+    image = image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
+    if linkedin
+      linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
+      link_to image, linkedin_url, target: "_blank"
+      
+    else
+      image
+    end
   end
 
   def can_haz feature
