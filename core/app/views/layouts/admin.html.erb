@@ -7,14 +7,18 @@
 <% end %>
 
 <% content_for :more_specific_page do %>
+  <div id="body">
+    <div id="container" class="container">
+      <%= render 'home/notifications', notice: notice, alert: alert %>
 
-  <div id="container" class="container">
-
-    <%= render 'home/notifications', notice: notice, alert: alert %>
-
-      <%= yield %>
+      <section id="main-wrapper">
+        <%= yield %>
+        <div class="clearfix"></div>
+      </section>
+    </div>
   </div>
 
+  <%= render 'home/footer' %>
 
   <!-- JavaScript at the bottom for fast page loading -->
   <%= javascript_include_tag "admin" %>
