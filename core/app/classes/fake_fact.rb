@@ -14,16 +14,17 @@ class FakeFact
   end
 
 
-  def self.new opinions, interacting_users, factlink_text
-    interacting_users = interacting_users.map {|u| fake_graph_user u[0], u[1]}
-
-    interactions = interacting_users.map { |interacting_user|
-      fake_interaction(interacting_user)
+  def self.new ops, interacting_users, factlink_text
+    opinions = {
+      believes: ops[0],
+      doubts: ops[1],
+      disbelieves: ops[2]
     }
-
-    puts "WHADDAP: #{interactions}"
-    STDOUT.flush
-
+    interactions = interacting_users.map { |u|
+      gu = fake_graph_user u[0], u[1]
+      fake_interaction(gu, u[2])
+    }
+    
     x = Hashie::Mash.new({
       data: {
         title: "",
@@ -48,13 +49,13 @@ class FakeFact
     x
   end
 
-  def self.fake_interaction user
+  def self.fake_interaction user, action
     @i ||= 0
     @i = @i + 1
     { 
       user: user,
       user_id: user[:user][:graph_user][:id],
-      action: "believes",
+      action: action.to_s,
       id: @i
     }
   end
