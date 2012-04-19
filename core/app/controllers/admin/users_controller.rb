@@ -2,22 +2,12 @@ class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
   before_filter :authenticate_user!
-  before_filter :get_users, :only => [:index]
+  before_filter :get_activated_users, :only => [:index]
+  before_filter :get_uninvited_users, :only => [:uninvited]
+
   load_and_authorize_resource :except => [:create]
 
   layout "admin"
-
-  def index
-  end
-
-  def show
-  end
-
-  def new
-  end
-
-  def edit
-  end
 
   def create
     @user = User.new
@@ -55,7 +45,11 @@ class Admin::UsersController < AdminController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  def get_users
+  def get_activated_users
     @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def get_uninvited_users
+    @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 end

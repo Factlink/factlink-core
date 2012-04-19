@@ -1,0 +1,11 @@
+<header class="append-bottom title">
+  <h1><%= title %></h1>
+
+  <div class="clearfix"></div>
+  <div class="tabs">
+    <ul>
+      <li<%= active == "activated" ? " class='active'" : "" %>><%= link_to "Activated", admin_users_path %></li>
+      <li<%= active == "uninvited" ? " class='active'" : "" %>><%= link_to "Uninvited", uninvited_admin_users_path  %></li>
+    </ul>
+  </div>
+</header>
