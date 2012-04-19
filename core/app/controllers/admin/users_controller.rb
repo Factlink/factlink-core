@@ -3,7 +3,7 @@ class Admin::UsersController < AdminController
 
   before_filter :authenticate_user!
   before_filter :get_activated_users, :only => [:index]
-  before_filter :get_uninvited_users, :only => [:uninvited]
+  before_filter :get_reserved_users, :only => [:reserved]
 
   load_and_authorize_resource :except => [:create]
 
@@ -49,7 +49,7 @@ class Admin::UsersController < AdminController
     @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 
-  def get_uninvited_users
+  def get_reserved_users
     @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
   end
 end

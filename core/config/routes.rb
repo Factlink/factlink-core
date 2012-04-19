@@ -75,7 +75,7 @@ FactlinkUI::Application.routes.draw do
     namespace :admin, path: 'a' do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
         collection do
-          get :uninvited
+          get :reserved
         end
       end
 

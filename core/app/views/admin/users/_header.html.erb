@@ -5,7 +5,7 @@
   <div class="tabs">
     <ul>
       <li<%= active == "activated" ? " class='active'" : "" %>><%= link_to "Activated", admin_users_path %></li>
-      <li<%= active == "uninvited" ? " class='active'" : "" %>><%= link_to "Uninvited", uninvited_admin_users_path  %></li>
+      <li<%= active == "reserved" ? " class='active'" : "" %>><%= link_to "Reserved", reserved_admin_users_path  %></li>
     </ul>
   </div>
 </header>
