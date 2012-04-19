@@ -10,19 +10,21 @@
 
 <% content_for :javascript do %>
   <script>
-    Backbone.history.start({pushState:true, silent:true});
+    $(function() {
+      Backbone.history.start({pushState:true, silent:true});
 
-    Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
+      Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
 
-    <% if @channel && !@channel.new? %>
-      window.currentChannel = Channels.get(<%= @channel.id %>);
-    <% end %>
+      <% if @channel && !@channel.new? %>
+        window.currentChannel = Channels.get(<%= @channel.id %>);
+      <% end %>
+
+      <% if current_user && !current_user.seen_the_tour && (can? :access, Ability::FactlinkWebapp) %>
+        Tour.show(); });
+      <% end %>
+
+    });
   </script>
-
-  <% if current_user && !current_user.seen_the_tour && (can? :access, Ability::FactlinkWebapp) %>
-      <script>$(document).ready(function(){ Tour.show(); });</script>
-  <% end %>
-
 <% end %>
 
 <%= render template: 'layouts/frontend' %>

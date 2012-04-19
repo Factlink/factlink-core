@@ -61,10 +61,12 @@
   <%= yield :javascript %>
 
   <script>
-    <% if use_backbone %>
-      Router.navigate(window.location.pathname);
-      Backbone.history.loadUrl( Backbone.history.fragment );
-    <% end %>
+    $(function() {
+      <% if use_backbone %>
+        Router.navigate(window.location.pathname);
+        Backbone.history.loadUrl( Backbone.history.fragment );
+      <% end %>
+    });
   </script>
 
 <% end %>
