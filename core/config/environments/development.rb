@@ -33,6 +33,8 @@ FactlinkUI::Application.configure do
   I18n.default_locale = :nl
 
   config.force_ssl = false
+  
+  config.action_controller.perform_caching = true
 end
 
 silence_warnings do

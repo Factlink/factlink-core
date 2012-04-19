@@ -17,7 +17,8 @@ describe UrlNormalizer do
         should_normalize_to "http://www.google.com/foo?#{strip_param}=bar&x=y",'http://www.google.com/foo?x=y'
       end
     end
-
+    it { should_normalize_to 'http://www.google.com/?x=y|z', 'http://www.google.com/?x=y%7cz' }
+    it { should_normalize_to 'http://www.google.com/a[b]', 'http://www.google.com/a[b]' }
   end
 
 end

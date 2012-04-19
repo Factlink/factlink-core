@@ -1,6 +1,6 @@
 var FactRelationSearchView = Backbone.View.extend({
   events: {
-    "keyup input": "doSearch",
+    "keyup input": "doSearchOrSubmit",
     "click li.add": "addNewFactRelation"
   },
 
@@ -31,6 +31,18 @@ var FactRelationSearchView = Backbone.View.extend({
 
     $('input', this.el).val('');
   },
+
+  doSearchOrSubmit: function(e) {
+
+    if (e.keyCode === 13) {
+      var searchVal = $('input:visible', this.el).val();
+      this._lastKnownSearch = searchVal;
+      this.addNewFactRelation();
+    } else {
+      this.doSearch();
+    }
+  },
+
 
   doSearch: _.throttle(function() {
     var searchVal = $('input:visible', this.el).val();
@@ -91,7 +103,7 @@ var FactRelationSearchView = Backbone.View.extend({
     });
   },
 
-  addNewFactRelation: function(e) {
+  addNewFactRelation: function() {
     var self = this;
 
     if ( self._busyAdding ) {
