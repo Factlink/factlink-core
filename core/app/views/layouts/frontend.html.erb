@@ -46,16 +46,25 @@
       window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
 
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
+
     <% end %>
 
-    var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+    <% use_backbone = current_user %>
+
+    <% if use_backbone %>
+
+      var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+    <% end %>
+
   </script>
 
   <%= yield :javascript %>
 
   <script>
-    Router.navigate(window.location.pathname);
-    Backbone.history.loadUrl( Backbone.history.fragment );
+    <% if use_backbone %>
+      Router.navigate(window.location.pathname);
+      Backbone.history.loadUrl( Backbone.history.fragment );
+    <% end %>
   </script>
 
 <% end %>
