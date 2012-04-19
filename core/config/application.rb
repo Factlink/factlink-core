@@ -140,6 +140,7 @@ module FactlinkUI
       /\w+\.(?!js|css|less).+/,
       'admin.css',
       'bubble.css',
+      'fake_facts.css',
       'frontend.css',
       'general.css',
       'landing.css',
@@ -152,8 +153,7 @@ module FactlinkUI
       'landing.js',
       'intermediate.js',
       'modernizr-loader.js',
-      'admin.js',
-      'fake_facts'
+      'admin.js'
     ]
 
     # we only cache very little, so memory_store is fine for now
