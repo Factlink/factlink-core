@@ -153,6 +153,7 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
       'admin.js',
+      'fake_facts'
     ]
 
     # we only cache very little, so memory_store is fine for now
