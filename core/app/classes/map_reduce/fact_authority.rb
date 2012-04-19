@@ -16,6 +16,8 @@ class MapReduce
 
     def reduce fact_id, created_by_ids
       f = Fact[fact_id]
+      return nil unless f
+
       res = authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
             authority_from_opiniated_users(f) +
             authority_from_channels(f)
@@ -38,8 +40,10 @@ class MapReduce
     end
 
     def write_output fact_id, value
-      authority = Authority.from(Fact[fact_id])
-      authority << value
+      f = Fact[fact_id]
+      if f
+        Authority.from(f) << value
+      end
     end
   end
 end
