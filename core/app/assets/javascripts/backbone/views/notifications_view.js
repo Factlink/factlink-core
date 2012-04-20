@@ -63,6 +63,13 @@ window.NotificationsView = Backbone.CollectionView.extend({
     }
     
     $unread.html(this._unreadCount);
+
+    var $factlink_page_title = "Factlink - Because the web needs what you know";
+    if ( count > 0 ) {
+      document.title = "(" + this._unreadCount + ") " + $factlink_page_title;
+    } else {
+      document.title = $factlink_page_title;
+    }
   },
 
   markAsRead: function () {
