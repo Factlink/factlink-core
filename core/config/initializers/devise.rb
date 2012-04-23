@@ -203,3 +203,5 @@ Devise.setup do |config|
 
   config.apply_schema = false
 end
+
+Devise::Mailer.send :include, Resque::Mailer
