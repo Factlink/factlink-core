@@ -6,7 +6,7 @@ Devise.setup do |config|
   config.mailer_sender = "no-reply@factlink.com"
 
   # Configure the class responsible to send e-mails.
-  config.mailer = "Devise::Mailer"
+  config.mailer = "ResquedDeviseMailer"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -203,5 +203,3 @@ Devise.setup do |config|
 
   config.apply_schema = false
 end
-
-Devise::Mailer.send :include, Resque::Mailer

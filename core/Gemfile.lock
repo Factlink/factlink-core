@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: https://github.com/Factlink/resqued_devise_mailer.git
-  revision: 66df99df74c46f77eb0ec8e7a695de4f3decf53c
+  revision: 309fe1cc818c00ab81490ffa33ed2460d0097bf4
   specs:
     resqued_devise_mailer (0.0.1)
 
