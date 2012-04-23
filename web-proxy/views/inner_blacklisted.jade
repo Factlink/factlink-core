@@ -1,0 +1,15 @@
+!!! 5
+html(lang="en")
+  head
+    title Factlink - Blacklisted site
+    link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/error.css")
+  body
+    div#error
+      h1 Blacklisted page
+
+      div.bubble
+        p The site you are visiting is not accessible with the Factlink proxy. 
+        p 
+          | Type another url in the Factlink proxy or visit 
+          a(href="javascript:parent.location.href='#{core_url}'") Factlink
+          |  for more information.

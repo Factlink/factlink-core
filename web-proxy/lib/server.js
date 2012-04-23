@@ -30,6 +30,8 @@ function getServer(config) {
    */
   server.get('/',       render_page('index'));
   server.get('/header', render_page('header'));
+  server.get('/blacklisted', render_page('index', config.PROXY_URL + "/inner_blacklisted"));
+  server.get('/inner_blacklisted', render_page('inner_blacklisted'));
   server.get('/search', get_search);
   server.get('/parse',  get_parse);
   server.get('/submit', get_submit);
@@ -52,7 +54,7 @@ function getServer(config) {
       proxy: config.PROXY_URL,
       env: config.ENV,
       url: site,
-      getFacts: true,
+      getFacts: true
     };
 
     blacklist.if_allowed(site,function() {
@@ -68,12 +70,12 @@ function getServer(config) {
       successFn(html);
     },function(){
       successFn(html_in);
+      
     });
   }
 
   function handleProxyRequest(res, url, scrollto, modus, form_hash) {
     var errorhandler = function(data) {
-      console.error(new Date().toString() + " : Failed on: " + url);
       res.render('something_went_wrong', {
         layout: false,
         locals: {
@@ -91,7 +93,6 @@ function getServer(config) {
         res.write(html);
         res.end();
       }, function(html) {
-        console.info( html );
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(html);
         res.end();
@@ -131,10 +132,10 @@ function getServer(config) {
   /**
    *  Render a jade template
    */
-  function render_page(pagename) {
+  function render_page(pagename, page_url) {
     return function(req, res) {
       var header_url  = urlbuilder.create_url(config.PROXY_URL + "/header", req.query);
-      var parse_url   = urlbuilder.create_url(config.PROXY_URL + "/parse", req.query);
+      var parse_url   = page_url || urlbuilder.create_url(config.PROXY_URL + "/parse", req.query);
       res.render(pagename, {
         layout: false,
         locals: {
@@ -167,12 +168,9 @@ function getServer(config) {
    *  Search on Factlink enabled Google
    */
   function get_search(req, res) {
-    console.info("\nGET /search");
-
     var query             = req.query.query;
     var search_redir_url  = urlbuilder.search_redir_url(config.PROXY_URL, query, get_modus(req.query.factlinkModus));
 
-    console.info("\nGET /search to: " + search_redir_url);
     res.redirect(search_redir_url);
   }
 
@@ -180,7 +178,6 @@ function getServer(config) {
    *  Inject Factlink in regular get requests
    */
   function get_parse(req, res) {
-    console.info("\nGET /parse");
     var site      = req.query.url;
     var scrollto  = req.query.scrollto;
     var modus     = get_modus(req.query.factlinkModus);

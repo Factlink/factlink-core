@@ -198,3 +198,19 @@ div.top-right {
 .icon-info-sign {background-position: -120px -96px;}
 .icon-remove {background-position: -312px 0;}
 .icon-home {background-position: 0 -24px;}
+.icon-exclamation-sign{ background-position: 0 -120px;}
+
+#error_in_proxy {
+  display:none;
+  background-color:#d28876;background-image:-moz-linear-gradient(top, #e8a991, #d28876);
+  background-image:-ms-linear-gradient(top, #e8a991, #d28876);
+  background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#e8a991), to(#d28876));
+  background-image:-webkit-linear-gradient(top, #e8a991, #d28876);
+  background-image:-o-linear-gradient(top, #e8a991, #d28876);
+  background-image:linear-gradient(top, #e8a991, #d28876);
+  background-repeat:repeat-x;filter:progid:dximagetransform.microsoft.gradient(startColorstr='#e8a991', endColorstr='#d28876', GradientType=0);
+  border-color:#d28876 #d28876 #000000;border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter:progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+#error_in_proxy:hover, .error_in_proxy:active  {background-color: #d28876;}
+

@@ -3,6 +3,12 @@ html
   head
     title Factlink Short URL Service
     link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/header.css")
+    script
+      top.frames[1].onload=function(){
+        if (typeof top.frames[1].Factlink === 'undefined'){
+          document.getElementById('error_in_proxy').style.display="block";
+        }
+      }
   body
     #wrapper
       header
@@ -17,6 +23,8 @@ html
         div.top-right.btn-group
           a.btn(href=core_url, target="_top", title="Visit Factlink")
             i.icon-home
+          a.btn#error_in_proxy(href=proxy_url + "/blacklisted", target="_top", title="Error: this site is blacklisted")
+            i.icon-exclamation-sign.icon-white
           -if (page_url !== undefined && page_url !== '')
             a.btn(href=proxy_url, target="_top", title="More information")
               i.icon-info-sign
