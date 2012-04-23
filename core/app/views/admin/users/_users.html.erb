@@ -6,7 +6,6 @@
   <thead>
   <tr>
     <th><%= sortable "username", "Username" %></th>
-    <th><%= sortable "twitter", "Twitter" %></th>
     <th><%= sortable "email", "Email" %></th>
     <th><%= sortable "sign_in_count", "#sign ins" %></th>
     <th><%= sortable "last_sign_in_at", "last seen" %></th>
@@ -18,7 +17,6 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.username %></td>
-        <td><%= user.twitter %></td>
         <td><%= user.email %></td>
         <td>
           <% @class = case user.sign_in_count
