@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= form_tag facts_path, class: "form-horizontal" do %>
+  <%= form_tag facts_path, class: "form-horizontal", id:"new_fact_form" do %>
 
     <div class="control-group" style="display: none;">
       <%= text_field_tag :url, params[:url], class: "span6", placeholder: "URL (optional)" %>

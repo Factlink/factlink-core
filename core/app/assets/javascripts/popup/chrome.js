@@ -16,7 +16,9 @@ window.addEventListener("message", function(messageObject) {
     $('#annotate_button>input').prop('checked',true);
   } else if ( typeof data.title !== "undefined" ) {
     if ( data.text.length > 0 ) {
-      top.postMessage({message: "changeHeight", height: $(document).height()}, "*");
+      updateHeight();
+    }else{
+      $('#new_fact_form').hide();
     }
 
     $('#title').val(data.title);
@@ -24,9 +26,20 @@ window.addEventListener("message", function(messageObject) {
     $('#url').val(data.url);
   } else if ( data === "blacklist" ) {
     $('#highlight').prop('disabled', true);
+    $('#blacklisted').show();
+    $('#annotate_button').hide();
+    updateHeight();
+  } else if ( data === "error") {
+    $('#highlight').prop('disabled', true);
+    $('#error_loading_factlink').show();
     $('#annotate_button>input').prop('disabled', true);
+    updateHeight();   
   }
 }, false);
+
+function updateHeight(){
+  top.postMessage({message: "changeHeight", height: $(document).height()}, "*");
+}
 
 passThroughClick( $('#annotate_button>input'), "annotateToggle");
 passThroughClick( $('#highlight'), "highlightToggle");
