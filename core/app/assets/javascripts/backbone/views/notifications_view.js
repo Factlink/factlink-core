@@ -51,6 +51,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var $unread = this.$el.find('span.unread');
     this.$el.css({'visibility':'visible'});
     this._unreadCount = count;
+    this._unreadTitleCount = count;
 
     if ( count > 0 ) {
       $unread.addClass('active');
@@ -60,13 +61,15 @@ window.NotificationsView = Backbone.CollectionView.extend({
     
     if ( count > 9 ) {
       this._unreadCount = "9<sup>+</sup>";
+      this._unreadTitleCount = "9+";
     }
     
     $unread.html(this._unreadCount);
 
+
     var $factlink_page_title = "Factlink - Because the web needs what you know";
     if ( count > 0 ) {
-      document.title = "(" + this._unreadCount + ") " + $factlink_page_title;
+      document.title = "(" + this._unreadTitleCount + ") " + $factlink_page_title;
     } else {
       document.title = $factlink_page_title;
     }
