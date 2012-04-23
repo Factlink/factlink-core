@@ -40,19 +40,20 @@
     </div>
   </div>
 
-  <div class="row">
+ <div class="row">
+    <%= f.label :approved %>
+    <div class="field">
+      <%= f.check_box :approved %>
+    </div>
+  </div>
+
+  <div class="row alert-error">
     <%= f.label :admin %>
     <div class="field">
       <%= f.check_box :admin %>
     </div>
   </div>
 
-  <div class="row">
-    <%= f.label :approved %>
-    <div class="field">
-      <%= f.check_box :approved %>
-    </div>
-  </div>
 
   <div class="form-actions">
     <%= link_to 'cancel', admin_users_path, class: "btn" %>
