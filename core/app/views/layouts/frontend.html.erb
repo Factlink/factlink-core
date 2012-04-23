@@ -32,9 +32,9 @@
     </div>
   </div>
   <div id="first-tour-modal" class="modal hide fade tour-modal"></div>
+<% end %>
 
-  <%= render 'home/footer' %>
-
+<% content_for :specific_javascript do %>
   <%= load_mustache_templates %>
 
   <%= javascript_include_tag "frontend" %>
