@@ -16,34 +16,39 @@
       <%= f.text_field :username %>
     </div>
   </div>
-  <div class="row">
-    <%= f.label :twitter %>
-    <div class="field">
-      <%= f.text_field :twitter %>
-    </div>
-  </div>
+
   <div class="row">
     <%= f.label :email %>
     <div class="field">
       <%= f.text_field :email %>
     </div>
   </div>
+
   <div class="row">
     <%= f.label :password %>
     <div class="field">
       <%= f.text_field :password %>
     </div>
   </div>
+
   <div class="row">
     <%= f.label :password_confirmation %>
     <div class="field">
       <%= f.text_field :password_confirmation %>
     </div>
   </div>
+
   <div class="row">
     <%= f.label :admin %>
     <div class="field">
       <%= f.check_box :admin %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= f.label :approved %>
+    <div class="field">
+      <%= f.check_box :approved %>
     </div>
   </div>
 
