@@ -92,3 +92,5 @@ after 'deploy:update', 'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy', 'deploy:curl_site'
+        require './config/boot'
+        require 'airbrake/capistrano'
