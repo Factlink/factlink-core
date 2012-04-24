@@ -35,6 +35,16 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def approve
+    @user.approved = true
+
+    if @user.save
+      render :json => {}, :status => :ok
+    else
+      render :json => @user.errors, :status => :unprocessable_entity
+    end
+  end
+
   private
 
   def sort_column
