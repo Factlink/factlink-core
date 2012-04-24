@@ -1,11 +1,11 @@
 #!/bin/bash
 case $1 in
    start)
-      echo "Starting Resque"
+      echo "Starting Resque" 1>&2
       sh /applications/core/current/bin/server/start_resque.sh || exit 1
       ;;
     stop)
-      echo "Stopping Resque"
+      echo "Stopping Resque" 1>&2
       sh /applications/core/current/bin/server/stop_resque.sh || exit 1
       ;;
     *)
