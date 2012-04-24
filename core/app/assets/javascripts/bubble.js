@@ -4,7 +4,6 @@
 //= require ./bubble/wheel
 //= require ./bubble/jquery.infiniScroll
 //= require jquery.scrollTo
-//= require jquery.jeditable
 //= require jquery.hoverIntent
 //= require jquery.prevent_scroll_propagation
 //= require_directory ./bubble

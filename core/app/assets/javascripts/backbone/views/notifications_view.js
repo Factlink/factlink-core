@@ -58,12 +58,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
     } else {
       $unread.removeClass('active');
     }
-    
+
     if ( count > 9 ) {
       this._unreadCount = "9<sup>+</sup>";
       this._unreadTitleCount = "9+";
     }
-    
+
     $unread.html(this._unreadCount);
 
 
@@ -94,18 +94,20 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var args = arguments;
     var self = this;
 
-    if ( ! this._visible ) {
-      this.collection.fetch({
-        success: function () {
-          setTimeout(function () {
-            args.callee.apply(self, args);
-          }, 7000);
-        }
-      });
-    } else {
-      setTimeout(function () {
-        args.callee.apply(self, args);
-      }, 7000);
+    if ( typeof localStorage !== "object" || localStorage["no_reload"] !== "true" ) {
+      if ( ! this._visible ) {
+        this.collection.fetch({
+          success: function () {
+            setTimeout(function () {
+              args.callee.apply(self, args);
+            }, 7000);
+          }
+        });
+      } else {
+        setTimeout(function () {
+          args.callee.apply(self, args);
+        }, 7000);
+      }
     }
   },
 

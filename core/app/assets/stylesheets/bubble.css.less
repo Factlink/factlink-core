@@ -222,26 +222,33 @@ ul.interacting-users {
         width: 340px;
         color: #afafaf;
       }
-      .edit {
+      .title {
         #font > .sans-serif(normal,9pt,@baseLineHeight);
-        &:before {
-          #font > .iconic();
-          content: "p ";
-        }
+        padding: 0;
+        margin: 0;
+
         &:hover {
           background-color: @lightYellow;
         }
 
-        form {
-          display: inline-block;
-          margin: 0;
-          input, input:focus {
+        > input {
+          display: none;
+        }
+
+        &.edit-active {
+          > span {
+            display: none;
+          }
+
+          > input {
+            display: inline-block;
             #font > .sans-serif(normal,9pt,@baseLineHeight);
             background-color: @lightYellow;
             border: none;
             outline: none;
             padding: 0;
             margin: 0;
+            width: 100%;
           }
         }
       }

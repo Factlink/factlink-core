@@ -20,8 +20,8 @@ module Facts
       self[:fact].id
     end
 
-    def editable_title_class
-      (user_signed_in? and i_am_fact_owner) ? " edit " : ""
+    def can_edit?
+      user_signed_in? and i_am_fact_owner
     end
 
     def user_signed_in?

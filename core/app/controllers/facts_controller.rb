@@ -101,17 +101,17 @@ class FactsController < ApplicationController
     respond_with(@fact)
   end
 
-  def update_title
-    # Gets 'title-[id]' 'cuz it must be unique and Jeditable is using the elements 'id'
-    # Strip first six characters to find the ID
-    id = params[:id].slice(6..(params[:id].length - 1))
-    @fact = Fact[id]
+  # This update now only supports setting the title, for use in Backbone Views
+  def update
     authorize! :update, @fact
 
-    @fact.data.title = params[:value]
-    @fact.data.save
+    @fact.data.title = params[:title]
 
-    render :text => @fact.data.title
+    if @fact.data.save
+      render :json => {}, :status => :ok
+    else
+      render :json => @fact.errors, :status => :unprocessable_entity
+    end
   end
 
   def opinion

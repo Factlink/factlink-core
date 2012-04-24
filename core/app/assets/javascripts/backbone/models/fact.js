@@ -16,6 +16,18 @@ window.Fact = Backbone.Model.extend({
     return '/facts/' + this.get('id');
   },
 
+  setTitle: function (title, options) {
+    var fact_bubble = this.get('fact_bubble');
+
+    fact_bubble['fact_title'] = title;
+
+    return this.set('fact_bubble', fact_bubble, options);
+  },
+
+  getTitle: function() {
+    return this.get('fact_bubble')['fact_title'];
+  },
+
   removeFromChannel: function (opts) {
     var self = this;
 
@@ -24,7 +36,7 @@ window.Fact = Backbone.Model.extend({
       type: "DELETE",
       success: function () {
         self.collection.remove(self);
-    
+
         opts.success.apply(this, arguments);
       },
       error: opts.error
