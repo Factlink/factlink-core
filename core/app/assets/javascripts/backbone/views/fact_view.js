@@ -32,7 +32,7 @@ window.FactView = Backbone.View.extend({
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
-    this.$el.find('.authority').tooltip({title:"hoi"});
+    this.$el.find('.authority').tooltip();
     
     return this;
   },
