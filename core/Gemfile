@@ -18,7 +18,9 @@ gem 'redis', '2.2.1'
 gem 'ohm', :git => 'https://github.com/Factlink/ohm.git' # we need the tribalvibes fork (0.1.4), for polymorphism
 gem 'ohm-contrib', :git => 'http://github.com/Factlink/ohm-contrib.git'
 gem 'multi_json', '1.1.0'
+
 gem 'resque', '1.19.0'
+gem 'resque_mailer'
 
 gem 'stringex'
 
@@ -52,6 +54,9 @@ gem 'mongoid_rails_migrations', '0.0.13'
 gem 'devise', '~> 2.0.0'
 gem 'devise_invitable', '~> 1.0.0'
 gem 'cancan'
+
+gem 'resqued_devise_mailer', :git => 'https://github.com/Factlink/resqued_devise_mailer.git'
+
 
 # Andand is a library to handle nil more easily
 # http://andand.rubyforge.org/

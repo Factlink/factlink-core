@@ -26,22 +26,26 @@
             </label>
           <% end %>
         </div>
-        
+
       </div>
       <%= render 'home/notifications', notice: notice, alert: alert %>
 
       <div class="row-fluid">
-        
         <div class="span12" id="blacklisted">
           <h3>Blacklisted website</h3>
-          <p>Unfortunately this website is blacklisted for our annotation tool. You cannot view Factlinks on this site. You can create Factlinks my selecting text and pressing the Factlink button.</p>
+          <p>Unfortunately this website is blacklisted for our annotation tool. You cannot view Factlinks on this site.</p>
         </div>
-        
+      </div>
+      <div class="row-fluid">
+        <div class="span12" id="createFactlinkHelp">
+          <p>You can create Factlinks by selecting text and pressing the Factlink button above.</p>
+        </div>
+      </div>
+      <div class="row-fluid">
         <div class="span12" id="error_loading_factlink">
           <h3>Error</h3>
           <p>Something went wrong while loading Factlink. Please try again later.</p>
         </div>
-        
       </div>
 
       <%= yield %>
