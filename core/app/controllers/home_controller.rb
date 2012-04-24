@@ -25,7 +25,7 @@ class HomeController < ApplicationController
   end
 
   before_filter :redirect_logged_in_user, only: :index
-  
+
   def redirect_logged_in_user
     redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
   end
@@ -87,7 +87,7 @@ class HomeController < ApplicationController
     else
       @results = []
     end
-    
+
     respond_to do |format|
       format.html
       format.json {render json: @results}
