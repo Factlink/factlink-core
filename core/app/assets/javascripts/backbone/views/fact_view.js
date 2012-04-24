@@ -32,9 +32,8 @@ window.FactView = Backbone.View.extend({
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
-    twipsy.toElement(this.$el.find('.fact-block .authority'))
-      .addHint('Your authority on this Factlink');
-
+    this.$el.find('.authority').tooltip();
+    
     return this;
   },
 

@@ -19,14 +19,38 @@ describe Admin::UsersController do
 
   before do
     should_check_admin_ability
+
+    @user1 = FactoryGirl.create :user
+    @user2 = FactoryGirl.create :user
   end
 
-  describe "#index" do
+  describe "GET index" do
     it "should render the index" do
       authenticate_user!(user)
       should_check_can :index, User
       get :index
       response.should be_succes
+    end
+  end
+
+  describe "GET reserved" do
+    it "should render the reserved" do
+      authenticate_user!(user)
+      should_check_can :reserved, User
+      get :reserved
+      response.should be_succes
+    end
+  end
+
+  describe "GET show" do
+    it "assigns the requested user as @user" do
+
+      authenticate_user!(user)
+      should_check_can :show, @user1
+
+      get :show, {:id => @user1.id}
+      response.should be_success
+      assigns(:user).should eq(@user1)
     end
   end
 

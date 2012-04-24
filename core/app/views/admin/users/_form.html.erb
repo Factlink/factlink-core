@@ -1,4 +1,6 @@
-<%= form_for(user, :url => [:admin, user]) do |f| %>
+<div class="span8">
+
+<%= form_for(user, :url => [:admin, user], class: "form-horizontal") do |f| %>
   <% if user.errors.any? %>
     <div class="alert-message block-message error">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -16,39 +18,47 @@
       <%= f.text_field :username %>
     </div>
   </div>
-  <div class="row">
-    <%= f.label :twitter %>
-    <div class="field">
-      <%= f.text_field :twitter %>
-    </div>
-  </div>
+
   <div class="row">
     <%= f.label :email %>
     <div class="field">
       <%= f.text_field :email %>
     </div>
   </div>
+
   <div class="row">
     <%= f.label :password %>
     <div class="field">
       <%= f.text_field :password %>
     </div>
   </div>
+
   <div class="row">
     <%= f.label :password_confirmation %>
     <div class="field">
       <%= f.text_field :password_confirmation %>
     </div>
   </div>
-  <div class="row">
+
+ <div class="row">
+    <%= f.label :approved %>
+    <div class="field">
+      <%= f.check_box :approved %>
+    </div>
+  </div>
+
+  <div class="row alert-error">
     <%= f.label :admin %>
     <div class="field">
       <%= f.check_box :admin %>
     </div>
   </div>
 
-  <div class="actions">
-    <%= link_to 'cancel', admin_users_path %>
-    <%= f.submit class: 'btn' %>
+
+  <div class="form-actions">
+    <%= link_to 'cancel', admin_users_path, class: "btn" %>
+    <%= f.submit class: 'btn btn-primary' %>
   </div>
+
 <% end %>
+</div>

@@ -1,4 +1,4 @@
-<%= render :partial => "header", :locals => { title: "Listing activated users", active: "activated" } %>
+<%= render "header", title: "#{@users.count} activated users", active: "activated" %>
 
 <div>
   <%= render "users" %>

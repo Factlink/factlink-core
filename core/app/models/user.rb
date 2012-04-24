@@ -13,7 +13,7 @@ class User
   field :twitter
   field :graph_user_id
 
-  field :approved, default: false, null: false
+  field :approved,    type: Boolean, default: false, null: false
 
   field :admin,       type: Boolean, default: false
 
@@ -26,7 +26,8 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
 
   attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation
-  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation, :email, :admin, as: :admin
+  field :invitation_message, type: String, default: ""
+  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation, :email, :approved, :admin, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username

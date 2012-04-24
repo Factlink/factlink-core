@@ -1,22 +1,40 @@
 <p id="notice"><%= notice %></p>
 
-<div style="padding: 12px 0;">
-  <p>
-    <b>Username:</b>
-    <%= @user.username %>
-  </p>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Email</th>
+    <th>#sign ins</th>
+    <th>last seen</th>
+    <th></th>
+  </tr>
+  </thead>
 
-  <p>
-    <b>Twitter:</b>
-    <%= @user.twitter %>
-  </p>
+  <tbody>
+    <tr>
+      <td><%= @user.username %></td>
+      <td><%= @user.email %></td>
+      <td>
+        <% @class = case @user.sign_in_count
+        when nil
+          "important"
+        when 0
+          "important"
+        when 1
+          "warning"
+        else
+          "success"
+        end %>
+        <span class="label label-<%= @class %>"><%= @user.sign_in_count || 0 %></span>
+      </td>
+      <td><%= @user.current_sign_in_at %></td>
+      <td><%= link_to "<i class=\"icon-edit\">".html_safe, edit_admin_user_path(@user.id) %></i></td>
+    </tr>
+  </tbody>
+</table>
 
-  <p>
-    <b>Email:</b>
-    <%= @user.email %>
-  </p>
+<div class="form-actions">
+  <%= link_to 'Back', admin_users_path, class: 'btn' %>
+  <%= link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-primary' %>
 </div>
-
-<%= link_to 'back', admin_users_path %>
-<%= link_to 'Edit', edit_admin_user_path(@user), class: 'btn' %>
-

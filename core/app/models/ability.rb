@@ -78,6 +78,7 @@ class Ability
       if user.admin?
         can :access, AdminArea
         can :manage, User
+        can :approve, User
         can :manage, Job
         cannot :sign_tos, User
       end

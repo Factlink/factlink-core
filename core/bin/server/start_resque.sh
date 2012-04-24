@@ -1,4 +1,4 @@
-count=`ps x | grep -v grep | grep -c "resque-"`
+count=`ps x | grep -v grep | grep -c "resque-[0-9]"`
 
 if [ "$count" -lt "1" ]; then
     . /home/deploy/.bash_profile

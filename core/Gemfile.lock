@@ -37,6 +37,12 @@ GIT
       nest (~> 1.0)
 
 GIT
+  remote: https://github.com/Factlink/resqued_devise_mailer.git
+  revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
+  specs:
+    resqued_devise_mailer (0.0.1)
+
+GIT
   remote: https://github.com/Factlink/sunspot_mongoid.git
   revision: 8f5574d805363279b9dd2acf6ccc1ae44e55f2d8
   specs:
@@ -309,6 +315,9 @@ GEM
       redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque_mailer (2.0.3)
+      actionmailer (>= 3.0.0)
+      resque (>= 1.2.3)
     rmagick (2.13.1)
     roodi (2.1.0)
       ruby_parser
@@ -456,6 +465,8 @@ DEPENDENCIES
   rcov (= 0.9.11)
   redis (= 2.2.1)
   resque (= 1.19.0)
+  resque_mailer
+  resqued_devise_mailer!
   rmagick
   rpm_contrib (= 2.1.7)
   rspec-rails

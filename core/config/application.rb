@@ -60,8 +60,11 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/ohm-models"
     config.autoload_paths << "#{config.root}/app/views"
     config.autoload_paths << "#{config.root}/app/workers"
+    config.autoload_paths << "#{config.root}/app/observers"
 
     config.mongoid.logger = nil
+
+    config.mongoid.observers = :user_observer
 
     require_dependency "#{config.root}/app/classes/related_users_calculator.rb"
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
