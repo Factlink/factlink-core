@@ -131,7 +131,6 @@ FactlinkUI::Application.routes.draw do
 
 
               resource :supporting_evidence, :weakening_evidence do
-              # scope :supporting_evidence do
                 scope '/:evidence_id' do
                   post    "/opinion/:type", action: :set_opinion,  :as => "set_opinion"
                   delete  "/opinion/", action:  :remove_opinions,  :as => "delete_opinion"
