@@ -77,6 +77,10 @@ FactlinkUI::Application.routes.draw do
         collection do
           get :reserved
         end
+
+        member do
+          put :approve
+        end
       end
 
       resources :jobs
