@@ -108,4 +108,11 @@
   $('form.filter>input').on('keyup', function( e ) {
     filterTable(this, table);
   });
+
+
+  $('a.approve-user').on('ajax:success', function(e) {
+    $(this).closest('tr').remove();
+  }).on('ajax:error', function (e) {
+    alert("Something went wrong while trying to approve this user, please try again");
+  });
 }());
