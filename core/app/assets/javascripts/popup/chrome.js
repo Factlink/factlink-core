@@ -59,4 +59,8 @@ $('#cancel').on('click', function (e) {
 });
 
 
+$(window).on('resize', function(e) {
+  console.info( "Resize" );
+  updateHeight();
+});
 })();
