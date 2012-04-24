@@ -39,7 +39,7 @@ def create_activity_listeners
       named :interactions
 
       activity subject_class: "Fact",
-               action: [:believes, :disbelieves, :doubts, :removed_opinions],
+               action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
                write_ids: lambda { |a| [a.subject.id]}
                               
     end
