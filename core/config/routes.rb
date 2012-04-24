@@ -142,10 +142,11 @@ FactlinkUI::Application.routes.draw do
       end
     end
 
-    resources :topics, path: 't', only: [] do
-      member do
-        get :related_users
-      end
+  end
+
+  resources :topics, path: 't', only: [] do
+    member do
+      get :related_users
     end
   end
 
