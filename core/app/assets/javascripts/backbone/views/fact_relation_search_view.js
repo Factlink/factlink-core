@@ -36,8 +36,10 @@ var FactRelationSearchView = Backbone.View.extend({
 
     if (e.keyCode === 13) {
       var searchVal = $('input:visible', this.el).val();
-      this._lastKnownSearch = searchVal;
-      this.addNewFactRelation();
+      if (searchVal.trim().length > 0 ) {
+        this._lastKnownSearch = searchVal;
+        this.addNewFactRelation();
+      }
     } else {
       this.doSearch();
     }
