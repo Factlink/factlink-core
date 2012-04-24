@@ -36,6 +36,7 @@ listenFor("annotate", function(messageObject) {
 listenFor("setFormData", function(messageObject) {
   if ( messageObject.data.text.length > 0 ) {
     $('#new_fact_form').show();
+    $('#createFactlinkHelp').hide();
 
     updateHeight();
   }
