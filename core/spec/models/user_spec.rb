@@ -177,4 +177,9 @@ describe User do
       end
     end
   end
+
+  it "sends a welcome e-mail" do
+    subject.send_welcome_instructions
+    ActionMailer::Base.deliveries.last.to.should == [subject.email]
+  end
 end
