@@ -12,7 +12,7 @@ window.FactView = Backbone.View.extend({
     "click .controls .supporting, .controls .weakening": "toggleEvidence",
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
-    "blur .title.edit>input": "saveTitleEdit",
+    "blur .title.edit>input": "cancelTitleEdit",
     "keydown .title.edit>input": "parseKeyInputTitleEdit"
   },
 
@@ -256,6 +256,22 @@ window.FactView = Backbone.View.extend({
         });
       }
     }
+  },
+
+  cancelTitleEdit: function (e) {
+    var $titleField = this.$el.find('.edit.title');
+    var value = $titleField.find('>input').val();
+
+    if ( this.model.getTitle() !== value ) {
+      if ( ! confirm("Are you sure you want to cancel editing this Factlinks title?") ) {
+        return;
+      }
+
+      $titleField.find('>input').val( this.model.getTitle() );
+    }
+
+    $titleField.removeClass('edit-active');
+    this._titleFieldHasFocus = false;
   },
 
   parseKeyInputTitleEdit: function (e) {
