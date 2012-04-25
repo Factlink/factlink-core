@@ -8,8 +8,11 @@ html(lang="en")
       h1 Factlink Browser
 
       div.bubble
-        p The Factlink Browser enables Factlink on each page you visit.
+        img(src=proxy_url + "/static/images/add-factlink.png")
+        p The Factlink Browser enables Factlink on each page you visit. The Factlink software is automaticly loaded when you visit a website trough the Factlink Browser. You can just annotate a statement and add your opinion to it.
         p
-          | You can use the url bar above or do a
+          | To start using the Factlink Browser you can use the url bar above or do a
           a(href="javascript:parent.location.href='#{proxy_url}/?url=http://search.yahoo.com&factlinkModus=#{factlinkModus}'") web search
-          |  to continue.
+          |  to continue. You can stop using the browser at any time by clicking the close button on the right top of your screen. 
+        p More information about using Factlink can be found 
+          a(href="https://factlink.com/p/faq",target="_top") here
