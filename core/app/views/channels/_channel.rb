@@ -43,6 +43,15 @@ module Channels
       end
     end
 
+
+    def long_title
+      if is_all
+        is_mine ? 'My Stream' : self[:user].username.possessive+ ' Stream'
+      else
+        title
+      end
+    end
+
     def type
       self[:channel].type
     end

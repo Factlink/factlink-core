@@ -58,6 +58,8 @@ gem 'cancan'
 gem 'resqued_devise_mailer', :git => 'https://github.com/Factlink/resqued_devise_mailer.git'
 
 
+gem "possessive"
+
 # Andand is a library to handle nil more easily
 # http://andand.rubyforge.org/
 # gem 'andand'
