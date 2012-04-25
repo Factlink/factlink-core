@@ -105,6 +105,7 @@ function getServer(config) {
         layout:false,
         locals: {
           proxy_url:      config.PROXY_URL,
+          core_url:       config.API_URL,
           static_url:     config.STATIC_URL,
           factlinkModus:  modus
         }
