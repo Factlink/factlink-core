@@ -75,7 +75,7 @@ def sign_in_user(user)
   user.confirm!
   visit "/"
   fill_in "user_login_email", :with => user.email
-  fill_in "user_password", :with => user.password
+  fill_in "user_login_password", :with => user.password
   click_button "Sign in"
 
   user
