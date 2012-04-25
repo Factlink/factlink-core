@@ -98,7 +98,7 @@ var Wheel = (function() {
     update_authority(wheel, wheel.authority);
   };
 
-  Wheel.prototype.bind_events = function() {
+  Wheel.prototype.bind_events = function(options) {
     var wheel = this;
     $(this.opinions).each(function() {
       // bind events
@@ -127,9 +127,11 @@ var Wheel = (function() {
           }, 200, '<>');
         }
       });
-      $(this.raphael.node).bind("click", function() {
-        $(wheel.fact).factlink("switch_opinion", $t);
-      });
+      if (options === undefined || options.noninteractive === undefined) {
+        $(this.raphael.node).bind("click", function() {
+          $(wheel.fact).factlink("switch_opinion", $t);
+        });
+      }
       // Bootstap popver
       $(this.raphael.node).attr("rel", "twipsy").tooltip({
         title: function() { return $t.data("name") + ": " + $t.data("value") + "%"; },
@@ -139,7 +141,7 @@ var Wheel = (function() {
     });
   };
 
-  Wheel.prototype.init = function(canvas) {
+  Wheel.prototype.init = function(canvas, options) {
     var wheel = this;
     wheel.raphael = Raphael(canvas, wheel.params.dim * 2 + 17, wheel.params.dim * 2 + 17);
     wheel.raphael.customAttributes.arc = function(percentage, percentage_offset, radius) {
@@ -160,7 +162,7 @@ var Wheel = (function() {
       };
     };
     this.update();
-    this.bind_events();
+    this.bind_events(options);
   };
   return Wheel;
 })();
