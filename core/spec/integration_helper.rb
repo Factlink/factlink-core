@@ -45,7 +45,7 @@ end
 
 Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
-  config.stretches = 1    # should be low to improve performance
+  config.stretches = 1    # should be low to improve performance. But should not be 0
 end
 
 def int_user
