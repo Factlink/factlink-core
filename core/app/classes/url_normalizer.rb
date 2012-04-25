@@ -3,6 +3,15 @@ require 'cgi'
 
 class UrlNormalizer
   def self.normalize url
+    new(url).normalize
+  end
+
+  def initialize url
+    @url = url
+  end
+
+  def normalize
+    url = @url
     url.sub!(/#(?!\!)[^#]*$/,'')
     url.sub!('|', '%7C')
 
@@ -16,7 +25,7 @@ class UrlNormalizer
     url.sub(/\?$/,'')
   end
 
-  def self.clean_query query
+  def clean_query query
     return unless query
     forbidden_uri_params = [:utm_source, :utm_content, :utm_medium, :utm_campaign, ]
 
@@ -26,7 +35,7 @@ class UrlNormalizer
     build_query(uri_params)
   end
 
-  def self.build_query(params)
+  def build_query(params)
     params.map do |name,values|
       values.map do |value|
         "#{CGI.escape name}=#{CGI.escape value}"
