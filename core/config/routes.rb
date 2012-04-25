@@ -30,7 +30,7 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new] do
+  resources :facts, only: [:new, :update] do
     member do
       get 'popup_show' => "facts#popup_show"
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
@@ -60,12 +60,6 @@ FactlinkUI::Application.routes.draw do
         delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/channels"         => "facts#get_channel_listing"
-      end
-      collection do
-        # SHOULD be replaced with a PUT to a fact, let the jeditable post to a
-        # function instead of to a url. The function should be able to use the
-        # json response of the put.
-        post  "/update_title" => "facts#update_title", :as => "update_title"
       end
     end
 

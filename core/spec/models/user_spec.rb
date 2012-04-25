@@ -177,4 +177,16 @@ describe User do
       end
     end
   end
+
+  describe "welcome_instructions" do
+    it "sends a welcome e-mail" do
+      subject.send_welcome_instructions
+      ActionMailer::Base.deliveries.last.to.should == [subject.email]
+    end
+    it "sends a welcome message after confirming the user" do
+      subject.approved = true
+      subject.save
+      ActionMailer::Base.deliveries.last.to.should == [subject.email]
+    end
+  end
 end

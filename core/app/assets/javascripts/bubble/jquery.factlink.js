@@ -137,13 +137,6 @@
     var $fact = $(fact);
     var $c = $(container);
     if (!$fact.data("initialized")) {
-      $fact.find('.edit').editable('/facts/update_title', {
-        indicator: 'Saving...',
-        tooltip: 'Click to change the title of this Factlink',
-        placeholder: "Click to add a title",
-        width: "340"
-      });
-
       $fact.data("container", container);
       $fact.data("wheel", new Wheel(fact));
       $fact.data("wheel").init($fact.find(".wheel").get(0));

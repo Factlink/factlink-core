@@ -9,12 +9,18 @@ window.FactView = Backbone.View.extend({
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-    "click .controls .supporting, .controls .weakening": "toggleEvidence"
+    "click .controls .supporting, .controls .weakening": "toggleEvidence",
+    "click .title.edit": "toggleTitleEdit",
+    "focus .title.edit>input": "focusTitleEdit",
+    "blur .title.edit>input": "cancelTitleEdit",
+    "keydown .title.edit>input": "parseKeyInputTitleEdit"
   },
 
   initialize: function(opts) {
     this.useTemplate('facts','_fact'); // use after setting this.tmpl
+
     this.model.bind('destroy', this.remove, this);
+    this.model.bind('change', this.render, this);
 
     this.$el.attr('data-fact-id', ( this.model.id || this.model.cid )).factlink();
 
@@ -32,8 +38,9 @@ window.FactView = Backbone.View.extend({
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
+
     this.$el.find('.authority').tooltip();
-    
+
     return this;
   },
 
@@ -200,6 +207,79 @@ window.FactView = Backbone.View.extend({
     self.$el.animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
       $(this).animate({"background-color": "#ffffff"}, 2000);
     }});
+  },
+
+  toggleTitleEdit: function () {
+    var $editField = this.$el.find('.edit.title');
+
+    if ( ! this._titleFieldHasFocus ) {
+      $editField.toggleClass('edit-active');
+
+      if ( $editField.hasClass('edit-active') ) {
+        $editField.find('input').focus();
+      }
+    }
+  },
+
+  focusTitleEdit: function () {
+    this._titleFieldHasFocus = true;
+  },
+
+  saveTitleEdit: function () {
+    if ( this._titleFieldHasFocus ) {
+      var self = this;
+      var $titleField = this.$el.find('.edit.title');
+      var value = $titleField.find('>input').val();
+
+      $titleField.find('>span').html(value);
+      $titleField.removeClass('edit-active');
+
+      this._titleFieldHasFocus = false;
+
+      if ( this.model.getTitle() === value ) {
+        return;
+      }
+
+      // TODO: Please replace this with a proper Backbone.Model.prototype.save
+      //       Once we got rid of Mustache
+      if ( this.model.setTitle(value, { silent: true } ) ) {
+        $.ajax({
+          type: "PUT",
+          url: this.model.url(),
+          data: {
+            title: value
+          }
+        }).done(function() {
+          self.model.trigger('change');
+        }).error(function() {
+          alert("Something went wrong while trying to save this Factlink. Please try again");
+        });
+      }
+    }
+  },
+
+  cancelTitleEdit: function (e) {
+    var $titleField = this.$el.find('.edit.title');
+    var value = $titleField.find('>input').val();
+
+    if ( this.model.getTitle() !== value ) {
+      if ( ! confirm("Are you sure you want to cancel editing this Factlinks title?") ) {
+        return;
+      }
+
+      $titleField.find('>input').val( this.model.getTitle() );
+    }
+
+    $titleField.removeClass('edit-active');
+    this._titleFieldHasFocus = false;
+  },
+
+  parseKeyInputTitleEdit: function (e) {
+    if ( e.keyCode === 13 ) {
+      this.saveTitleEdit();
+
+      e.preventDefault();
+    }
   }
 });
 })();

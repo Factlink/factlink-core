@@ -58,12 +58,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
     } else {
       $unread.removeClass('active');
     }
-    
+
     if ( count > 9 ) {
       this._unreadCount = "9<sup>+</sup>";
       this._unreadTitleCount = "9+";
     }
-    
+
     $unread.html(this._unreadCount);
 
 

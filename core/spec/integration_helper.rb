@@ -45,7 +45,7 @@ end
 
 Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
-  config.stretches = 1    # should be low to improve performance
+  config.stretches = 1    # should be low to improve performance. But should not be 0
 end
 
 def int_user
@@ -75,7 +75,7 @@ def sign_in_user(user)
   user.confirm!
   visit "/"
   fill_in "user_login_email", :with => user.email
-  fill_in "user_password", :with => user.password
+  fill_in "user_login_password", :with => user.password
   click_button "Sign in"
 
   user

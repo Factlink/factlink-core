@@ -13,10 +13,13 @@
       {{#fact_wheel}}
         {{>fact_wheel}}
       {{/fact_wheel}}
-    	<header class="fact-body">
-    	  <span id="title-{{id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
+      <header class="fact-body">
+        <p class="head title{{#can_edit?}} edit{{/can_edit?}}">
+          <span>{{fact_title}}</span>
+          <input type="text" value="{{fact_title}}">
+        </p>
 
-    		<div>
+        <div>
           <h2>{{displaystring}}</h2>
           <span class="scroll-to-container">
             {{#scroll_to_link}}
@@ -26,37 +29,37 @@
         </div>
 
         <sub>Created by <a href="{{{created_by_url}}}">{{created_by}}</a> {{created_by_ago}}</sub>
-    	</header>
+      </header>
 
-    	<ul>
-    	  <li class="agree">
-    	    <h6>{{believers_text}}</h6>
-    	    <div>{{believers_count}}</div>
-    	  </li>
-    	  <li class="disagree">
-    	    <h6>{{disbelievers_text}}</h6>
-    	    <div>{{disbelievers_count}}</div>
-    	  </li>
-    	  <li class="unsure">
-    	    <h6>{{doubters_text}}</h6>
-    	    <div>{{doubters_count}}</div>
-    	  </li>
-    	  <li class="interacting">
-    	    <h6>People that interacted</h6>
-    	    <div>
+      <ul>
+        <li class="agree">
+          <h6>{{believers_text}}</h6>
+          <div>{{believers_count}}</div>
+        </li>
+        <li class="disagree">
+          <h6>{{disbelievers_text}}</h6>
+          <div>{{disbelievers_count}}</div>
+        </li>
+        <li class="unsure">
+          <h6>{{doubters_text}}</h6>
+          <div>{{doubters_count}}</div>
+        </li>
+        <li class="interacting">
+          <h6>People that interacted</h6>
+          <div>
             {{#interacting_users}}
               {{>interacting_users}}
             {{/interacting_users}}
-    	    </div>
-    	  </li>
-    	  <li class="last authority">
-    	    <h6>Your authority here</h6>
-    	    <div>
-    	      <img src="/assets/brain.png">
-    	      <span>{{users_authority}}</span>
-    	    </div>
-    	  </li>
-    	</ul>
+          </div>
+        </li>
+        <li class="last authority">
+          <h6>Your authority here</h6>
+          <div>
+            <img src="/assets/brain.png">
+            <span>{{users_authority}}</span>
+          </div>
+        </li>
+      </ul>
     </article>
 
     <h3>Evidence</h3>
@@ -70,13 +73,13 @@
           <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
         </li>
 
-    		{{#signed_in?}}
+        {{#signed_in?}}
           <li class="add-to-channel">
             <a>{{channels_definition}}</a>
             <div class="float-box channel-listing">
             </div>
           </li>
-    		{{/signed_in?}}
+        {{/signed_in?}}
 
         {{#i_am_owner}}
           <li class="destroy">
