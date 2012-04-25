@@ -50,4 +50,4 @@ class UrlNormalizer
   end
 end
 
-require_relative 'url_normalizer/proxy'
+#require_relative 'url_normalizer/proxy'
