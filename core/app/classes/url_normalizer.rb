@@ -2,21 +2,27 @@ require 'uri'
 require 'cgi'
 
 class UrlNormalizer
+  @@normalizer_for = Hash.new(UrlNormalizer)
+
+  def self.normalize_for domain
+    @@normalizer_for[domain] = self
+  end
+
   def self.normalize url
-    new(url).normalize
-  end
-
-  def initialize url
-    @url = url
-  end
-
-  def normalize
-    url = @url
     url.sub!(/#(?!\!)[^#]*$/,'')
     url.sub!('|', '%7C')
 
     uri = URI.parse(url)
 
+    @@normalizer_for[uri.host].new(uri).normalize
+  end
+
+  def initialize uri
+    @uri = uri
+  end
+
+  def normalize
+    uri = @uri
 
     uri.query = clean_query(uri.query)
     uri.normalize!
@@ -43,3 +49,5 @@ class UrlNormalizer
     end.flatten.join("&")
   end
 end
+
+require_relative 'url_normalizer/proxy'
