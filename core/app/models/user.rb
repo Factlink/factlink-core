@@ -196,6 +196,12 @@ class User
     recoverable
   end
 
+  # Welcome the user with an email when the Admin approved the account
+  def send_welcome_instructions
+    generate_reset_password_token! if should_generate_reset_token?
+    UserMailer.welcome_instructions(self).deliver
+  end
+
   private
     # from: http://douglasfshearer.com/blog/gravatar-for-ruby-and-ruby-on-rails
     # Returns a Gravatar URL associated with the email parameter.
