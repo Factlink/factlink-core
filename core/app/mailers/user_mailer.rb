@@ -3,10 +3,9 @@ class UserMailer < ActionMailer::Base
 
   default from: "no-reply@factlink.com"
 
-  def welcome_instructions(email, reset_password_token)
-  	@email                = email
-  	@reset_password_token = reset_token
-  	mail to: @email, subject: 'Start using Factlink'
+  def welcome_instructions(user_id)
+  	@user = User.find(user_id)
+  	mail to: @user.email, subject: 'Start using Factlink'
   end
 
 end
