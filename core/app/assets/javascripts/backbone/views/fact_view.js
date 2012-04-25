@@ -12,7 +12,7 @@ window.FactView = Backbone.View.extend({
     "click .controls .supporting, .controls .weakening": "toggleEvidence",
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
-    "blur .title.edit>input": "saveTitleEdit",
+    "blur .title.edit>input": "blurTitleEdit",
     "keydown .title.edit>input": "parseKeyInputTitleEdit"
   },
 
@@ -258,9 +258,40 @@ window.FactView = Backbone.View.extend({
     }
   },
 
+  blurTitleEdit: function (e) {
+    var $titleField = this.$el.find('.edit.title');
+    var value = $titleField.find('>input').val();
+
+    console.info( this.model.getTitle() );
+    console.info( value );
+
+    // Check if user has changes and wants to save
+    if ( this.model.getTitle() !== value ) {
+      if ( confirm("Do you want to save your changes?") ) {
+        this.saveTitleEdit();
+      } else {
+        this.cancelTitleEdit();
+      }
+    }
+  },
+
+  cancelTitleEdit: function () {
+    var $titleField = this.$el.find('.edit.title');
+    var value = $titleField.find('>input').val();
+
+    $titleField.find('>input').val( this.model.getTitle() );
+
+    $titleField.removeClass('edit-active');
+    this._titleFieldHasFocus = false;
+  },
+
   parseKeyInputTitleEdit: function (e) {
     if ( e.keyCode === 13 ) {
       this.saveTitleEdit();
+
+      e.preventDefault();
+    } else if ( e.keyCode === 27 ) {
+      this.cancelTitleEdit();
 
       e.preventDefault();
     }

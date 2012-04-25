@@ -2,12 +2,27 @@ require 'uri'
 require 'cgi'
 
 class UrlNormalizer
+  @@normalizer_for = Hash.new(UrlNormalizer)
+
+  def self.normalize_for domain
+    @@normalizer_for[domain] = self
+  end
+
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
     url.sub!('|', '%7C')
 
     uri = URI.parse(url)
 
+    @@normalizer_for[uri.host].new(uri).normalize
+  end
+
+  def initialize uri
+    @uri = uri
+  end
+
+  def normalize
+    uri = @uri
 
     uri.query = clean_query(uri.query)
     uri.normalize!
@@ -16,7 +31,7 @@ class UrlNormalizer
     url.sub(/\?$/,'')
   end
 
-  def self.clean_query query
+  def clean_query query
     return unless query
     forbidden_uri_params = [:utm_source, :utm_content, :utm_medium, :utm_campaign, ]
 
@@ -26,7 +41,7 @@ class UrlNormalizer
     build_query(uri_params)
   end
 
-  def self.build_query(params)
+  def build_query(params)
     params.map do |name,values|
       values.map do |value|
         "#{CGI.escape name}=#{CGI.escape value}"
@@ -34,3 +49,5 @@ class UrlNormalizer
     end.flatten.join("&")
   end
 end
+
+require_relative 'url_normalizer/proxy'
