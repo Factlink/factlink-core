@@ -25,8 +25,7 @@ html
             i.icon-home
           a.btn#error_in_proxy(href=proxy_url + "/blacklisted", target="_top", title="Error: this site is blacklisted")
             i.icon-exclamation-sign.icon-white
-          -if (page_url !== undefined && page_url !== '')
-            a.btn(href=proxy_url, target="_top", title="More information")
-              i.icon-info-sign
-            a.btn(href=clean_page_url, target="_top", title="Browse this site without the Factlink Browser")
-              i.icon-remove
+          a.btn(href=proxy_url, target="_top", title="More information")
+            i.icon-info-sign
+          a.btn(href=clean_page_url, target="_top", title="Browse this site without the Factlink Browser")
+            i.icon-remove
