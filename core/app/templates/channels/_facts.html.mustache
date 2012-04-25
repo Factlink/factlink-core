@@ -30,29 +30,33 @@
     {{#is_all}}
       <p>You have not created a {{ channel_definition }} or added someone's {{ channel_definition }} yet. You can:</p>
       <div class="empty-channel-action">
-        <h3>Add a Factlink</h3>
-        <img src="/assets/screenshots/addfactlink.png">
+        <h3>Add a Factlink with Extension</h3>
+        <a href="{{chrome_extension_url}}">
+          <img src="/assets/screenshots/addfactlink.png">
+        </a>
       </div>
       <div class="empty-channel-action">
         <h3>Create a {{channel_definition}}</h3>
-        <img src="/assets/screenshots/createchannel.png">
+        <a href="{{add_channel_url}}">
+          <img src="/assets/screenshots/createchannel.png">
+        </a>
       </div>
       <div class="empty-channel-action-end"></div>
     {{/is_all}}
     {{#is_created}}
       <p>You have not created any Factlinks yet. You can create Factlinks anywhere on the web.</p>
-      <h3>Create a Factlink</h3>
-      <img src="/assets/screenshots/addfactlink.png">
+      <h3>Add a Factlink with Extension</h3>
+      <a href="{{chrome_extension_url}}">
+        <img src="/assets/screenshots/addfactlink.png">
+      </a>
     {{/is_created}}
     {{#is_normal}}
-      <p>This {{ channel_definition }} does not contain any Factlinks yet. You can:</p>
+      <p>This {{ channel_definition }} does not contain any Factlinks yet. Create one above or download the Chrome Extension and add Factlinks across the web:</p>
       <div class="empty-channel-action">
-        <h3>Add a Factlink</h3>
-        <img src="/assets/screenshots/addfactlinktochannel.png">
-      </div>
-      <div class="empty-channel-action">
-        <h3>Add a {{ channel_definition }}</h3>
-        <img src="/assets/screenshots/addtochannels.png">
+        <h3>Download the Chrome extension</h3>
+        <a href="{{chrome_extension_url}}">
+          <img src="/assets/screenshots/addfactlinktochannel.png">
+        </a>
       </div>
       <div class="empty-channel-action-end"></div>
     {{/is_normal}}
