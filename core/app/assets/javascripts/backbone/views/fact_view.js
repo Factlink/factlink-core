@@ -12,7 +12,7 @@ window.FactView = Backbone.View.extend({
     "click .controls .supporting, .controls .weakening": "toggleEvidence",
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
-    "blur .title.edit>input": "cancelTitleEdit",
+    "blur .title.edit>input": "blurTitleEdit",
     "keydown .title.edit>input": "parseKeyInputTitleEdit"
   },
 
@@ -258,17 +258,28 @@ window.FactView = Backbone.View.extend({
     }
   },
 
-  cancelTitleEdit: function (e) {
+  blurTitleEdit: function (e) {
     var $titleField = this.$el.find('.edit.title');
     var value = $titleField.find('>input').val();
 
-    if ( this.model.getTitle() !== value ) {
-      if ( ! confirm("Are you sure you want to cancel editing this Factlinks title?") ) {
-        return;
-      }
+    console.info( this.model.getTitle() );
+    console.info( value );
 
-      $titleField.find('>input').val( this.model.getTitle() );
+    // Check if user has changes and wants to save
+    if ( this.model.getTitle() !== value ) {
+      if ( confirm("Do you want to save your changes?") ) {
+        this.saveTitleEdit();
+      } else {
+        this.cancelTitleEdit();
+      }
     }
+  },
+
+  cancelTitleEdit: function () {
+    var $titleField = this.$el.find('.edit.title');
+    var value = $titleField.find('>input').val();
+
+    $titleField.find('>input').val( this.model.getTitle() );
 
     $titleField.removeClass('edit-active');
     this._titleFieldHasFocus = false;
@@ -277,6 +288,10 @@ window.FactView = Backbone.View.extend({
   parseKeyInputTitleEdit: function (e) {
     if ( e.keyCode === 13 ) {
       this.saveTitleEdit();
+
+      e.preventDefault();
+    } else if ( e.keyCode === 27 ) {
+      this.cancelTitleEdit();
 
       e.preventDefault();
     }

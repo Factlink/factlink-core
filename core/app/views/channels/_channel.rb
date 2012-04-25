@@ -21,6 +21,14 @@ module Channels
       topic and "/t/#{topic.slug_title}"
     end
 
+    def chrome_extension_url
+      FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx'
+    end
+    
+    def add_channel_url
+      '/' + self[:user].username + '/channels/new'
+    end
+    
     def has_authority?
       self[:channel].has_authority?
     end
