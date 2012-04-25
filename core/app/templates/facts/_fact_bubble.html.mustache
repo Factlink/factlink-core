@@ -3,7 +3,10 @@
     {{>fact_wheel}}
   {{/fact_wheel}}
   <header>
-    <span id="title-{{fact_id}}" class="head {{editable_title_class}}">{{fact_title}}</span>
+    <p class="head title{{#can_edit?}} edit{{/can_edit?}}">
+      <span>{{fact_title}}</span>
+      <input type="text" value="{{fact_title}}">
+    </p>
 
     <span class="body">
       {{{displaystring}}}

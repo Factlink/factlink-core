@@ -66,8 +66,9 @@ gem 'andand', :git => 'http://github.com/Factlink/andand.git'
 
 # Email on errors
 group :testserver, :staging, :production do
-  gem 'exception_notification', :require => 'exception_notifier'
+  #gem 'exception_notification', :require => 'exception_notifier'
 end
+gem 'airbrake'
 
 # Deployment
 group :capistrano do

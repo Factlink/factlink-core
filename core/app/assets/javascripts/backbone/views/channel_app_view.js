@@ -21,11 +21,14 @@ window.AppView = Backbone.View.extend({
   // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
     var args = arguments;
-    setTimeout(function(){
-      Channels.fetch({
-        success: args.callee
-      });
-    }, 7000);
+
+    if ( typeof localStorage !== "object" || localStorage["no_reload"] !== "true" ) {
+      setTimeout(function(){
+        Channels.fetch({
+          success: args.callee
+        });
+      }, 7000);
+    }
   },
 
   reInit: function(opts) {

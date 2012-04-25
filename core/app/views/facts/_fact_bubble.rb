@@ -8,8 +8,8 @@ module Facts
       (self[:fact].created_by == current_graph_user)
     end
 
-    def editable_title_class
-      (user_signed_in? and i_am_fact_owner) ? " edit " : ""
+    def can_edit?
+      user_signed_in? and i_am_fact_owner
     end
 
     def scroll_to_link

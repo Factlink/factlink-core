@@ -16,7 +16,7 @@ module Facts
 
     private
       def last_activity()
-        self[:fact].interactions.below('inf',limit: self[:user_count]*3).uniq {|a| a.user_id}.take(self[:user_count])
+        self[:fact].interactions.below('inf',count: self[:user_count]*3, reversed:true).uniq {|a| a.user_id}.take(self[:user_count])
       end
 
       def internationalize_action action
@@ -27,6 +27,8 @@ module Facts
           t(:fact_believe_past_action).titleize
         when :disbelieves
           t(:fact_disbelieve_past_action).titleize
+        when :removed_opinions
+          t(:fact_removed_opinions_past_action).titleize
         when :created
           t(:fact_create_past_action).titleize
         else
