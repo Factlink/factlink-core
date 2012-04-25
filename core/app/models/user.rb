@@ -198,7 +198,7 @@ class User
 
   # Welcome the user with an email when the Admin approved the account
   def send_welcome_instructions
-    UserMailer.welcome_instructions(self.email, self.password_reset_token).deliver
+    UserMailer.welcome_instructions(self.id).deliver
   end
 
   before_update :set_reset_token
