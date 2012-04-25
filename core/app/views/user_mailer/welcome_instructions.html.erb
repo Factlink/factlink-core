@@ -6,7 +6,7 @@
 
   <p>Click the link below to start using your account:</p>
 
-	<p><%= link_to edit_password_url(@user, :reset_password_token => @user.reset_password_token), edit_password_url(@user, :reset_password_token => @user.reset_password_token) %></p>
+	<p><%= link_to edit_password_url(User, :reset_password_token => @reset_password_token), edit_password_url(User, :reset_password_token => @reset_password_token) %></p>
 
 <% end %>
 
