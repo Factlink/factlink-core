@@ -198,14 +198,8 @@ class User
 
   # Welcome the user with an email when the Admin approved the account
   def send_welcome_instructions
+    generate_reset_password_token! if should_generate_reset_token?
     UserMailer.welcome_instructions(self.id).deliver
-  end
-
-  before_update :set_reset_token
-  def set_reset_token
-    if !approved?
-      generate_reset_password_token if should_generate_reset_token?
-    end
   end
 
   private
