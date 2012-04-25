@@ -14,7 +14,7 @@ class Site < OurOhm
   end
 
   def self.normalize_url(opts)
-    UrlNormalizer.normalize(opts[:url]) if opts[:url]
+    opts[:url] = UrlNormalizer.normalize(opts[:url]) if opts[:url]
     opts
   end
 

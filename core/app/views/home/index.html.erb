@@ -65,7 +65,7 @@
     $("article.fact").each(function()  {
       $fact = $(this);
       $fact.data("wheel", new Wheel(this));
-      $fact.data("wheel").init($fact.find(".wheel").get(0));
+      $fact.data("wheel").init($fact.find(".wheel").get(0), {'noninteractive':true});
     });
 
     var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
