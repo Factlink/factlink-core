@@ -94,20 +94,18 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var args = arguments;
     var self = this;
 
-    if ( typeof localStorage !== "object" || localStorage["no_reload"] !== "true" ) {
-      if ( ! this._visible ) {
-        this.collection.fetch({
-          success: function () {
-            setTimeout(function () {
-              args.callee.apply(self, args);
-            }, 7000);
-          }
-        });
-      } else {
-        setTimeout(function () {
-          args.callee.apply(self, args);
-        }, 7000);
-      }
+    if ( ! this._visible ) {
+      this.collection.fetch({
+        success: function () {
+          setTimeout(function () {
+            args.callee.apply(self, args);
+          }, 7000);
+        }
+      });
+    } else {
+      setTimeout(function () {
+        args.callee.apply(self, args);
+      }, 7000);
     }
   },
 
