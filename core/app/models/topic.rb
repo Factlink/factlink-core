@@ -46,11 +46,11 @@ class Topic
 
 
   def top_users(nr=5)
-    redis[:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}
+    redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}
   end
   
   def top_users_add(user, val)
-    redis[:top_users].zadd val ,user
+    redis[id][:top_users].zadd val ,user
   end
 
 end
