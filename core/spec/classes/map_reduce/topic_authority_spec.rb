@@ -9,17 +9,6 @@ describe MapReduce::TopicAuthority do
   let(:gu1) {GraphUser.create}
   let(:gu2) {GraphUser.create}
 
-  before do
-    unless defined?(GraphUser)
-      class GraphUser < OurOhm; end
-    end
-    unless defined?(Channel)
-      class Channel < OurOhm;
-        attribute :title
-        reference :created_by, GraphUser
-      end
-    end
-  end
 
   describe :wrapped_map do
      it do
