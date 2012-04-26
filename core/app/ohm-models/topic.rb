@@ -16,11 +16,11 @@ class Topic < OurOhm
   end
 
   def self.by_title(title)
-    find(slug_title: title.to_url).first || new(title: title)
+    find(slug_title: title.to_url||'').first || new(title: title)
   end
 
   def self.by_slug(slug)
-    find(slug_title: slug).first
+    find(slug_title: slug||'').first
   end
 
   def self.ensure_for_channel(ch)
