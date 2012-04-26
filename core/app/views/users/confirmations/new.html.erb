@@ -1,6 +1,6 @@
 <h2>Resend confirmation instructions</h2>
 
-<div class="alert alert-info">You're account might already be activated. Are you still on the waiting list to get approved?</div>
+<div class="alert alert-info">Your account might already be activated. Are you still on the waiting list to get approved?</div>
 
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
