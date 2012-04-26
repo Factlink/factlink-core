@@ -16,15 +16,15 @@ class Topic < OurOhm
   end
 
   def self.by_title(title)
-    find(slug_title: title.to_url).first || new(title: title)
+    find(slug_title: title.to_url||'').first || new(title: title)
   end
 
   def self.by_slug(slug)
-    find(slug_title: slug).first
+    find(slug_title: slug||'').first
   end
 
   def self.ensure_for_channel(ch)
-    unless Topic.find(slug_title: ch.slug_title).first
+    unless Topic.find(slug_title: ch.slug_title||'').first
       t = Topic.by_title(ch.title)
       t.save and t
     end
