@@ -1,9 +1,4 @@
-require_relative '../ohm_helper.rb'
-require_relative '../../app/ohm-models/topic.rb'
-
-class Channel < OurOhm
-end
-
+require'spec_helper'
 
 describe Topic do
 
