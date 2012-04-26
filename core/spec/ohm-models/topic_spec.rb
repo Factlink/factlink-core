@@ -46,8 +46,8 @@ describe Topic do
   describe 'by_channel' do
     it "should not crash when channel.slug_title is nil" do
       ch = mock(Channel)
-      ch.stub! :title, '<EVIL>'
-      ch.stub! :slug_title, nil
+      ch.stub!(:title).and_return('<EVIL>')
+      ch.stub!(:slug_title).and_return(nil)
       Topic.for_channel(ch)
     end
   end
