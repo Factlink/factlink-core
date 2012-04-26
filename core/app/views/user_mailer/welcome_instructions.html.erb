@@ -1,11 +1,13 @@
 <% content_for :email_body do %>
 
-  <p>Welcome!</p>
+  <p>Hi there!</p>
 
-  <p>We've taken you off the waiting list so you are ready to use Factlink!</p>
+  <p>You've made it to the top of our waiting list. We've taken you off the waiting list so you can start using Factlink!</p>
 
+  <p>We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link:</p>
 
 	<p><%= link_to 'Start using your account', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %></p>
+
 <% end %>
 
 <%= render template: "layouts/email" %>
