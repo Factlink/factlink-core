@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe MapReduce::TopicAuthority do
-  let(:gu1) {User.create.graph_user}
-  let(:gu2) {User.create.graph_user}
+  let(:gu1) {create(:user).graph_user}
+  let(:gu2) {create(:user).graph_user}
 
   describe :wrapped_map do
      it do
