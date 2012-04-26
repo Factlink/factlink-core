@@ -2,12 +2,10 @@
 
   <p>Welcome!</p>
 
-  <p>We've taken you off the waiting list so you can start using Factlink!</p>
+  <p>We've taken you off the waiting list so you are ready to use Factlink!</p>
 
-  <p>Click the link below to start using your account:</p>
 
-	<p><%= link_to edit_password_url(@user, :reset_password_token => @user.reset_password_token), edit_password_url(@user, :reset_password_token => @user.reset_password_token) %></p>
-
+	<p><%= link_to 'Start using your account', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %></p>
 <% end %>
 
 <%= render template: "layouts/email" %>
