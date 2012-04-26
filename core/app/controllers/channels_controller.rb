@@ -14,7 +14,6 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :create_fact,
-      :related_users,
       :activities,
       :remove_fact,
       :toggle_fact,
@@ -186,17 +185,6 @@ class ChannelsController < ApplicationController
     @channel.remove_fact(@fact)
 
     respond_with(@channel)
-  end
-
-  def related_users
-    authorize! :show, @channel
-
-    render layout: false, partial: "channels/related_users",
-      locals: {
-           related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-           topic: @channel.topic,
-           excluded_users: [@channel.created_by]
-      }
   end
 
   def activities
