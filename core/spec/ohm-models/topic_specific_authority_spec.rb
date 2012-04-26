@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe "beliefs should work"  do
+describe "topic specific authority"  do
   include TopicBeliefExpressions
 
   let(:u1) { create :graph_user }
