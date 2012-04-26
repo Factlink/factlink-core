@@ -1,10 +1,10 @@
 <% content_for :email_body do %>
 
-  <p>Welcome!</p>
+  <p>Hi there!</p>
 
-  <p>We've taken you off the waiting list so you can start using Factlink!</p>
+  <p>You've made it to the top of our waiting list. We've taken you off the waiting list so you can start using Factlink!</p>
 
-  <p>Click the link below to start using your account:</p>
+  <p>We have created an account for you and invite you to start exploring the possibilities of Factlink. You can activate your account by clicking this link:</p>
 
 	<p><%= link_to edit_password_url(@user, :reset_password_token => @user.reset_password_token), edit_password_url(@user, :reset_password_token => @user.reset_password_token) %></p>
 
