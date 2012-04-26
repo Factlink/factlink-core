@@ -17,9 +17,13 @@ describe UserMailer do
 			mail.from.should == ['no-reply@factlink.com']
 		end
 
-		it 'assigns the set password link' do
+		it 'activation_link # contains "reset_password_token" parameter' do
 			mail.body.encoded.should match("reset_password_token=")
 		end
+
+	  it 'activation_link # contains "msg" parameter' do
+	  	mail.body.encoded.should match("msg=welcome")
+	  end
 
 	end
 end
