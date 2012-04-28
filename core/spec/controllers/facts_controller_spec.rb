@@ -12,7 +12,7 @@ describe FactsController do
       @fact.created_by.save
       should_check_can :show, @fact
       get :show, :id => @fact.id
-      response.should be_succes
+      response.should be_success
     end
 
     it "should render json succesful" do
@@ -21,7 +21,7 @@ describe FactsController do
       @fact.created_by.save
       should_check_can :show, @fact
       get :show, id: @fact.id, format: :json
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -51,7 +51,7 @@ describe FactsController do
 
       should_check_can :destroy, @fact
       get :destroy, id: @fact.id, format: :json
-      response.should be_succes
+      response.should be_success
 
       Fact[@fact_id].should == nil
     end
@@ -84,7 +84,7 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       post 'new', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
-      response.should be_succes
+      response.should be_success
     end
   end
 

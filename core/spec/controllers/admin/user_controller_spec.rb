@@ -29,7 +29,7 @@ describe Admin::UsersController do
       authenticate_user!(user)
       should_check_can :index, User
       get :index
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -38,7 +38,7 @@ describe Admin::UsersController do
       authenticate_user!(user)
       should_check_can :reserved, User
       get :reserved
-      response.should be_succes
+      response.should be_success
     end
   end
 

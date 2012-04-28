@@ -30,7 +30,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :new, Channel
       get :new, username: user.username
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -39,7 +39,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :index, Channel
       get :index, username: user.username, format: 'json'
-      response.should be_succes
+      response.should be_success
     end
 
     it "as bogus user should redirect to Terms of Service page" do
@@ -54,7 +54,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :related_users, username: user.username, id: ch1.id
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -63,7 +63,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :activities, username: user.username, id: ch1.id
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -72,7 +72,7 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :facts, username: user.username, id: ch1.id, :format => :json
-      response.should be_succes
+      response.should be_success
     end
   end
 
@@ -82,14 +82,14 @@ describe ChannelsController do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :show, username: user.username, id: ch1.id
-      response.should be_succes
+      response.should be_success
     end
 
     it "a channel as json should be succesful" do
       authenticate_user!(user)
       should_check_can :show, ch1
       get :show, username: user.username, id: ch1.id, format: 'json'
-      response.should be_succes
+      response.should be_success
     end
 
     it "should escape html in fields" do
