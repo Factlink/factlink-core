@@ -11,8 +11,7 @@ def create_activity_listeners
 
       activity subject_class: "Fact",
                action: [:added_supporting_evidence, :added_weakening_evidence],
-               extra_condition: lambda { |a| a.object.created_by_id != a.user_id },
-               write_ids: lambda {|a| [a.object.created_by_id]}
+               write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids).uniq.delete_if {|id| id == a.user_id}}
 
       activity subject_class: "Fact",
                action: [:believes, :doubts, :disbelieves],
