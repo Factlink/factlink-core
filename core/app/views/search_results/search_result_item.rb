@@ -17,6 +17,8 @@ module SearchResults
 
       elsif klass == User
         return Users::User.for(user: self[:obj], view: self[:view])
+      elsif klass == Topic
+        return Topics::Topic.for(topic: self[:obj], view: self[:view])
       else
         raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
       end
