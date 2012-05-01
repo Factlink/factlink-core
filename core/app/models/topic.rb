@@ -4,7 +4,7 @@ class Topic
   include Mongoid::Document
   include Sunspot::Mongoid
   include Redis::Aid::Ns(:new_topic)
-  
+
   field :title
   index :title
 
@@ -48,7 +48,7 @@ class Topic
   def top_users(nr=5)
     redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}
   end
-  
+
   def top_users_add(user, val)
     redis[id][:top_users].zadd val ,user
   end
