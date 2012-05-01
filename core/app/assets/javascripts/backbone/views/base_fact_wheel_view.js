@@ -22,7 +22,7 @@ window.BaseFactWheelView = Backbone.View.extend({
   initialize: function (options) {
     this.useTemplate("facts", "_fact_wheel");
 
-    this.options = $.extend(this.defaults, options);
+    this.options = $.extend({}, this.defaults, options);
 
     this.opinionTypeRaphaels = {};
   },
