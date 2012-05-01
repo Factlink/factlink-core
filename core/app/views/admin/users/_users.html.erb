@@ -51,7 +51,7 @@
                         approve_admin_user_path(user.id) ,
                         method: "PUT",
                         remote: true,
-                        confirm: "Are you sure you want to approve this user?",
+                        confirm: "Are you sure you want to approve user #{user.username}?",
                         class: "approve-user" %>
           <% end %>
         </td>
