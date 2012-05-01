@@ -22,8 +22,6 @@ window.FactView = Backbone.View.extend({
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
 
-    this.$el.attr('data-fact-id', ( this.model.id || this.model.cid )).factlink();
-
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
@@ -33,7 +31,7 @@ window.FactView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
+      .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
 
     this.initAddToChannel();
     this.initFactRelationsViews();
