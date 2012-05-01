@@ -49,15 +49,6 @@ describe ChannelsController do
     end
   end
 
-  describe "#related_users" do
-    it "should render" do
-      authenticate_user!(user)
-      should_check_can :show, ch1
-      get :related_users, username: user.username, id: ch1.id
-      response.should be_success
-    end
-  end
-
   describe "#activities" do
     it "should render" do
       authenticate_user!(user)
