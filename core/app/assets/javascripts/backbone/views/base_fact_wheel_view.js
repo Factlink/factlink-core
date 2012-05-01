@@ -198,6 +198,8 @@ window.BaseFactWheelView = Backbone.View.extend({
   bindTooltips: function () {
     var self = this;
 
+    $('div.tooltip',this.$el).remove();
+
     this.$el.find('.authority').tooltip({
       title: "This number represents the amount of thinking "
            + "spent by people on this Factlink"
