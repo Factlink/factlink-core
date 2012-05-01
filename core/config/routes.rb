@@ -3,11 +3,11 @@ FactlinkUI::Application.routes.draw do
   # first created -> highest priority.
 
   # User Authentication
-  devise_for :users, :controllers => {  :registrations => "users/registrations",
-                                        :sessions => "users/sessions",
-                                        :confirmations => "users/confirmations",
-                                        :invitations => "users/invitations"
-                                         }
+  devise_for :users, :controllers => {  confirmations: "users/confirmations",
+                                        invitations:   "users/invitations",
+                                        registrations: "users/registrations",
+                                        sessions:      "users/sessions"
+                                      }
 
   # Web Front-end
   root :to => "home#index"
@@ -110,7 +110,6 @@ FactlinkUI::Application.routes.draw do
 
         member do
 
-          get "related_users",  :as => "channel_related_users"
           get "activities",     :as => "activities"
 
           post "toggle/fact/:fact_id/" => "channels#toggle_fact"

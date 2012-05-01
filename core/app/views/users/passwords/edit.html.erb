@@ -1,4 +1,6 @@
-<h1>Change your password</h1>
+<h1>
+<%= params[:msg] ? "Set up your Factlink account" : "Change your password" %>
+</h1>
 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -10,7 +12,11 @@
   <div class="row"><%= f.label :password_confirmation, "Confirm new password", style: 'width: 160px' %>
   <%= f.password_field :password_confirmation %></div>
 
-  <div class="action-wrapper"><%= f.submit "Change my password", class: 'btn' %></div>
+  <div class="action-wrapper" style="margin-right: 170px;">
+  	<%= f.submit(params[:msg] ? "Login" : "Change my password", class: 'btn btn-primary') %>
+ 	</div>
 <% end %>
 
+<% unless params[:msg] %>
 <%= render "devise/shared/links" %>
+<% end %>

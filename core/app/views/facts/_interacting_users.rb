@@ -16,7 +16,7 @@ module Facts
 
     private
       def last_activity()
-        self[:fact].interactions.below('inf', count: self[:user_count]*3, reversed:true).uniq {|a| a.user_id}.take(self[:user_count])
+        self[:fact].interactions.below('inf', count: self[:user_count]*6, reversed:true).uniq {|a| a.user_id}.take(self[:user_count])
       end
 
       def internationalize_action action

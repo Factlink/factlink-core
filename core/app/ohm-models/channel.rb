@@ -154,12 +154,6 @@ class Channel < OurOhm
   end
     
 
-  def related_users(calculator=RelatedUsersCalculator.new,options)
-    options[:without] ||= []
-    options[:without] << created_by
-    calculator.related_users(facts,options)
-  end
-
   def to_hash
     return {:id => id,
             :title => title,
