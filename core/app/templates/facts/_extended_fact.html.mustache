@@ -10,9 +10,11 @@
 <div class="row" id="extended_factlink">
   <div class="span8 fact-block">
     <article class="fact" data-fact-id="{{id}}">
-      {{#fact_wheel}}
-        {{>fact_wheel}}
-      {{/fact_wheel}}
+      <div class="wheel">
+        {{#fact_wheel}}
+          {{>fact_wheel}}
+        {{/fact_wheel}}
+      </div>
       <header class="fact-body">
         <p class="head title{{#can_edit?}} edit{{/can_edit?}}">
           <span>{{fact_title}}</span>
