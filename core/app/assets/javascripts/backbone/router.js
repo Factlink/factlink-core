@@ -29,6 +29,7 @@ window.Workspace = Backbone.Router.extend({
 
     if ( !channel ) {
       channel = this.view.channelView.subchannels.get(channel_id);
+      channel.collection = Channels;
     }
     channel.set({new_facts: false});
     return channel;

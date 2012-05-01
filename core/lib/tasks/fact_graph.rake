@@ -1,18 +1,13 @@
 namespace :fact_graph do
-  if defined?(ExceptionNotifier)
-    def exception_notify
-      yield
-    rescue SignalException => exception
-      # we were killed (probably by deploy)
-      raise exception
-    rescue Exception => exception
+  def exception_notify
+    yield
+  rescue SignalException => exception
+    # we were killed (probably by deploy)
+  rescue Exception => exception
+    if defined?(ExceptionNotifier)
       ExceptionNotifier::Notifier.background_exception_notification(exception)
-      raise exception
     end
-  else
-    def exception_notify
-      yield
-    end
+    raise exception
   end
 
   task :recalculate => :environment do

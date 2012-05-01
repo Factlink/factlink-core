@@ -88,14 +88,14 @@ class User
     field :invitation_limit, type: Integer
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
-  
+
   after_invitation_accepted :approve_invited_user
   def approve_invited_user
     self.skip_confirmation!
     self.approved = true
     self.save
   end
-  
+
   searchable :auto_index => true do
     text    :username, :twitter
     string  :username, :twitter
@@ -199,7 +199,7 @@ class User
   # Welcome the user with an email when the Admin approved the account
   def send_welcome_instructions
     generate_reset_password_token! if should_generate_reset_token?
-    UserMailer.welcome_instructions(self).deliver
+    UserMailer.welcome_instructions(self.id).deliver
   end
 
   private

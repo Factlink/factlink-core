@@ -67,4 +67,11 @@ describe Admin::UsersController do
       end
     end
   end
+
+  describe "PUT /approved" do
+    it "should set approved" do
+      put :approve, id: @user1.id, format: 'json'
+      response.should_not be_succes
+    end
+  end
 end

@@ -1,12 +1,16 @@
 <h2>Resend confirmation instructions</h2>
 
+<% if @params_token %>
+<div class="alert alert-info">Your account might already be activated. Are you still on the waiting list to get approved?</div>
+<% end %>
+
 <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <p><%= f.label :email %><br />
-  <%= f.email_field :email %></p>
+  <div class="row"><%= f.label :email, style: 'width: 160px' %>
+  <%= f.email_field :email %></div>
 
-  <p><%= f.submit "Resend confirmation instructions" %></p>
+  <div class="action-wrapper"><%= f.submit "Resend confirmation instructions", class: 'btn' %></div>
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>

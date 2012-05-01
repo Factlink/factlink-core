@@ -21,7 +21,7 @@ module BaseViews
 		end
 
 		def interacting_users
-			Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 5).to_hash
+			Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: interacting_user_count).to_hash
 		end
 
 		def signed_in?
@@ -32,5 +32,11 @@ module BaseViews
 			return [] unless current_graph_user
 			current_graph_user.containing_channel_ids(self[:fact])
 		end
+		
+		private
+		
+    def interacting_user_count
+      3
+    end
 	end
 end
