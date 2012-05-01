@@ -217,6 +217,16 @@ window.BaseFactWheelView = Backbone.View.extend({
   updateTo: function (authority, opinionTypes) {
     this.model.set('authority', authority );
 
+    if ( _.isArray( opinionTypes ) ) {
+      var tempObject = {};
+
+      _.each(opinionTypes, function (opinionType) {
+        tempObject[opinionType.type] = opinionType;
+      });
+
+      opinionTypes = tempObject;
+    }
+
     this.model.opinionTypes.each(function(opinionType) {
       var newOpinionType = opinionTypes[opinionType.get('type')];
 
