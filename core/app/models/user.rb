@@ -32,9 +32,6 @@ class User
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
-                          :with => /\A[A-Za-z0-9_]*\Z/,
-                          :message => "only letters, digits and _ are allowed"
-  validates_format_of     :username,
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
@@ -42,6 +39,10 @@ class User
                             :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
+  validates_format_of     :username,
+                          :with => /\A[A-Za-z0-9_]*\Z/i,
+                          :message => "only letters, digits and _ are allowed"
+
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
