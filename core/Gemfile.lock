@@ -306,6 +306,9 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redis (2.2.1)
+    redis-aid (0.1.0)
+      nest
+      redis (>= 2.0)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
     reek (1.2.8)
@@ -467,6 +470,7 @@ DEPENDENCIES
   rake (~> 0.9.2)
   rcov (= 0.9.11)
   redis (= 2.2.1)
+  redis-aid
   resque (= 1.19.0)
   resque_mailer
   resqued_devise_mailer!
