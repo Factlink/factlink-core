@@ -25,6 +25,11 @@ window.FactView = Backbone.View.extend({
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
+
+    this.factWheelView = new InteractiveWheelView({
+      model: new Wheel(this.model.get('fact_bubble')['fact_wheel']),
+      fact: this.model
+    });
   },
 
   partials: {},
@@ -38,6 +43,8 @@ window.FactView = Backbone.View.extend({
     this.initUserPassportViews();
 
     this.$el.find('.authority').tooltip();
+
+    this.$el.find('.wheel').replaceWith(this.factWheelView.render().el);
 
     return this;
   },

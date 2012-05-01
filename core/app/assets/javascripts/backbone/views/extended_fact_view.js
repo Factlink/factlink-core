@@ -12,6 +12,12 @@ window.ExtendedFactView = FactView.extend({
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
+
+    this.factWheelView = new InteractiveWheelView({
+      model: new Wheel(this.model.get('fact_wheel')),
+      el: this.$el.find('.wheel'),
+      fact: this.model
+    }).render();
   }
 });
 })();
