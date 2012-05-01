@@ -1,11 +1,4 @@
-<div class="wheel">
-  <div class="authority" data-authority="{{authority}}"></div>
-  {{#opinions}}
-    <div class="opinion" data-value="{{percentage}}" data-opinion="{{type}}s" data-name="{{groupname}}" data-opinions="{{type}}"
-        {{#user_signed_in?}}
-          data-user-opinion="{{is_current_opinion}}"
-        {{/user_signed_in?}}
-        data-color="{{color}}">
-    </div>
-  {{/opinions}}
-</div>
+<div class="authority">{{authority}}</div>
+{{#opinion_types}}
+<input type="radio" name="opinion_type" value="{{type}}"{{#is_current_opinion}} selected="selected"{{/is_current_opinion}}>
+{{/opinion_types}}
