@@ -1,0 +1,3 @@
+window.PassiveWheelView = BaseFactWheelView.extend({
+
+});
