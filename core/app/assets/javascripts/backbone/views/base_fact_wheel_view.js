@@ -237,7 +237,6 @@ window.BaseFactWheelView = Backbone.View.extend({
     this.reRender();
   },
 
-  //TODO: End of the day hacking going on, check later
   toggleActiveOpinionType: function (opinionType) {
     var oldAuthority = this.model.get("authority");
     var updateObj = {};
