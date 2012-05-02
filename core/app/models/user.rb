@@ -207,6 +207,12 @@ class User
     UserMailer.welcome_instructions(self.id).deliver
   end
 
+  # Override login mechanism to allow username or email logins
+  def self.find_for_database_authentication(conditions)
+    login = conditions.delete(:login)
+    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
+  end
+
   private
     # from: http://douglasfshearer.com/blog/gravatar-for-ruby-and-ruby-on-rails
     # Returns a Gravatar URL associated with the email parameter.
