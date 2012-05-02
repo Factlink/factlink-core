@@ -35,7 +35,10 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_in_path_for(user)
-    channel_path(user, user.graph_user.stream)
+    return_to = session[:return_to]
+    session[:return_to] = nil
+
+    return return_to || stored_location_for(user) || channel_path(user, user.graph_user.stream)
   end
 
   ##########
