@@ -1,0 +1,61 @@
+@import "bubble/wheel";
+@import "bubble/title";
+
+form.fact-block {
+  .content {
+    border-bottom: 1px solid #D7D7D7;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .wheel {
+      #fact>.wheel();
+    }
+
+    .factlink {
+      box-sizing: border-box;
+      width: 389px;
+      float: right;
+      padding: 8px 0 0 0;
+
+      .title {
+        #fact>.title();
+      }
+
+      .fact {
+        p {
+          box-sizing: border-box;
+          word-wrap: break-word;
+          color: #555;
+        }
+
+        textarea {
+          display: none;
+        }
+      }
+    }
+  }
+
+  h4 {
+    margin: 10px;
+  }
+
+  #add_to_channels {
+    margin-left: 10px;
+
+    .channel-title {
+      margin: 0;
+    }
+  }
+
+  .buttons {
+    margin: 15px 0 0 0;
+    #cancel {
+      float: left;
+    }
+
+    #submit {
+      float: right;
+    }
+  }
+}
