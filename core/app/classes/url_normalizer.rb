@@ -7,8 +7,11 @@ module URI
     def parse_with_safety(uri)
       parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D')
     end
-    alias_method_chain :parse, :safety unless method_defined?(:parse_with_safety)
 
+    unless method_defined?(:parse_without_safety)
+      alias_method :parse_without_safety, :parse
+      alias_method :parse, :parse_with_safety
+    end
 
   end
 end
