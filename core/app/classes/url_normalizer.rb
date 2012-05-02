@@ -5,7 +5,6 @@ module URI
   class << self
 
     def parse_with_safety(uri)
-      puts "parsing with safety"
       parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D')
     end
 
