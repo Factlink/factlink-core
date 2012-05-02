@@ -33,6 +33,9 @@ describe UrlNormalizer do
         it { should_normalize_to "http://fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
 
       end
+      describe "it should work on normal proxy urls" do
+        it { should_normalize_to "http://fct.li/", "http://fct.li/" }
+      end
     end
   end
 
