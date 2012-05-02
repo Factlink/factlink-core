@@ -23,13 +23,16 @@ span.factlink {
   cursor: pointer;
 
   &.fl-first {
-    padding: 0 3px 0 0;
   }
 
   &.fl-active {
     background: #B4D5FE !important;
   }
   .transition(0.4s);
+  &.fl-first::before {
+    padding: 0 3px 0 0;
+    content: '\2713';
+  }
 }
 
 #factlink-modal-frame {

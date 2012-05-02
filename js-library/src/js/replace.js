@@ -107,7 +107,7 @@
           node.parentNode.insertBefore(document.createTextNode(after), node.nextSibling);
         }
         // Create a reference to the actual "fact"-span
-        var span = createFactSpan(selTextStart.join(''), id);
+        var span = createFactSpan(selTextStart.join(''), id, isFirst);
 
         // Remove the last part of the nodeValue
         node.nodeValue = startNodeValue.join('');
@@ -120,7 +120,7 @@
         spans.push(span);
 
         // If this span is the first in a range of fact-spans
-        if (isFirst) {
+        if (isFirst && false ) {
           var first = createFactSpan("", id, true);
           first.innerHTML = "&#10003;";
 
