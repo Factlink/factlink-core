@@ -42,9 +42,6 @@ window.ActivityView = function(opts) {
     case "added_subchannel":
       return new ActivityAddedSubchannelView(opts);
 
-    case "was_followed":
-      return new ActivityWasFollowedView(opts);
-
     default:
       return new GenericActivityView(opts);
   }

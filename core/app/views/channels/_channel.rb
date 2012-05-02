@@ -82,10 +82,6 @@ module Channels
       }
     end
 
-    def nr_of_facts
-      unread_count
-    end
-
     def new_facts
       (unread_count != 0) && self[:user] == current_user
     end

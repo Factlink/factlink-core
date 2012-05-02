@@ -47,7 +47,11 @@ class FactsController < ApplicationController
   end
 
   def new
-    render layout: @layout
+    if current_user
+      render layout: @layout
+    else
+      redirect_to user_session_path(layout: @layout)
+    end
   end
 
   def create
