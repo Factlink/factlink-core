@@ -37,13 +37,14 @@ listenFor("setFormData", function(messageObject) {
   if ( messageObject.data.text.length > 0 ) {
     $('#new_fact_form').show();
     $('#createFactlinkHelp').hide();
-
-    updateHeight();
   }
 
   $('#title').val(messageObject.data.title);
-  $('#fact').val(messageObject.data.text);
+  $('.fact>textarea').val(messageObject.data.text);
+  $('.fact>p').html(messageObject.data.text);
   $('#url').val(messageObject.data.url);
+
+  updateHeight();
 });
 
 listenFor("blacklist", function(messageObject) {
