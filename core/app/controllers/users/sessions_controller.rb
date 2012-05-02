@@ -1,5 +1,12 @@
 class Users::SessionsController < Devise::SessionsController
-  layout "frontend"
+  layout :choose_layout
+  def choose_layout
+    @layout = if params[:layout] == 'popup'
+      'popup'
+    else
+      'frontend'
+    end
+  end
 
   after_filter  :track_sign_in, only: :create 
   before_filter :track_sign_out, only: :destroy
