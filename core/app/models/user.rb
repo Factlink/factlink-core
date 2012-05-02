@@ -5,6 +5,10 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
+
   field :username
   index :username
   field :first_name
