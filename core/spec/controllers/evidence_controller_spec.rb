@@ -74,7 +74,7 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["fact_bubble"]["fact_wheel"]["opinions"]
+        opinions = parsed_content["fact_bubble"]["fact_wheel"]["opinion_types"]
 
         opinions[0]["type"].should == "believe"
         opinions[0]["percentage"].should == 0
