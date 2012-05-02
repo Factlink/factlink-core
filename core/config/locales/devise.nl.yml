@@ -15,6 +15,7 @@ nl:
       timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Je account is nog niet geactiveerd.'
       not_approved: 'Je account is nog niet goedgekeurd.'
+      already_authenticated: 'Je was al ingelogd.'
     sessions:
       signed_in: ''
       signed_out: ''
