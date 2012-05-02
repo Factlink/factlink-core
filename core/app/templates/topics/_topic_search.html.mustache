@@ -1,3 +1,16 @@
 <div class="list-block">
-  {{title}}
+	{{#channels}}
+	<div class="list-channel">
+		<a href="{{channel_url}}" target="_top"><img src="{{avatar_url}}" class="list-channel-avatar"></a>
+		<h4>{{title}}</h4>
+		<p class="list-channel-user">by {{user_name}}</p>
+		<div>
+  			<img src="/assets/brain.png">
+  			<span>{{authority}}</span>
+  		</div>
+	</div>
+	{{/channels}}
+	{{^channels}}
+	  {{title}}
+	{{/channels}}
 </div>
