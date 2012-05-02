@@ -20,10 +20,6 @@ module Channels
     def topic_url
       topic and "/t/#{topic.slug_title}"
     end
-
-    def chrome_extension_url
-      FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx'
-    end
     
     def add_channel_url
       '/' + self[:user].username + '/channels/new'
@@ -33,9 +29,6 @@ module Channels
       self[:channel].has_authority?
     end
 
-    def brain_icon
-      @@brain_png ||= image_tag image_path("brain.png")
-    end
 
     def activities_link
       link + "/activities"
@@ -89,10 +82,6 @@ module Channels
       }
     end
 
-    def nr_of_facts
-      unread_count
-    end
-
     def new_facts
       (unread_count != 0) && self[:user] == current_user
     end
@@ -123,18 +112,6 @@ module Channels
 
     def unread_count
       @unread ||= self[:channel].unread_count
-    end
-
-    def channel_definition
-      t(:channel)
-    end
-
-    def channels_definition
-      t(:channels)
-    end
-
-    def add_to_channels_definition
-      t(:add_to_channels).capitalize
     end
 
     private

@@ -17,13 +17,25 @@ describe UrlNormalizer do
         should_normalize_to "http://www.google.com/foo?#{strip_param}=bar&x=y",'http://www.google.com/foo?x=y'
       end
     end
+
     it { should_normalize_to 'http://www.google.com/?x=y|z', 'http://www.google.com/?x=y%7Cz' }
     it { should_normalize_to 'http://www.google.com/?x=y|z', 'http://www.google.com/?x=y%7Cz' }
-    pending { should_normalize_to 'http://www.google.com/a[b]', 'http://www.google.com/a[b]' }
-    describe "normalizing proxy urls" do
-      it { should_normalize_to "http://testserver.fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
-      it { should_normalize_to "http://staging.fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
-      it { should_normalize_to "http://fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
+
+    describe "improvements" do
+
+      it { should_normalize_to 'http://www.google.com/a[b]', 'http://www.google.com/a%5Bb%5D' } # [ and ] are not allowed according to RFC 2732 http://www.ietf.org/rfc/rfc2732.txt
+      it { should_normalize_to 'http://www.google.com/foo?bar=bax|zuup', 'http://www.google.com/foo?bar=bax%7Czuup' }
+
+      describe "normalizing proxy urls" do
+
+        it { should_normalize_to "http://testserver.fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
+        it { should_normalize_to "http://staging.fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
+        it { should_normalize_to "http://fct.li/parse?url=http%3A%2F%2Fwww.google.com&factlinkModus=default", "http://www.google.com/" }
+
+      end
+      describe "it should work on normal proxy urls" do
+        it { should_normalize_to "http://fct.li/", "http://fct.li/" }
+      end
     end
   end
 

@@ -5,6 +5,10 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
+
   field :username
   index :username
   field :first_name
@@ -32,9 +36,6 @@ class User
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
-                          :with => /\A[A-Za-z0-9_]*\Z/,
-                          :message => "only letters, digits and _ are allowed"
-  validates_format_of     :username,
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
@@ -42,6 +43,10 @@ class User
                             :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
+  validates_format_of     :username,
+                          :with => /\A[A-Za-z0-9_]*\Z/i,
+                          :message => "only letters, digits and _ are allowed"
+
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
@@ -200,6 +205,12 @@ class User
   def send_welcome_instructions
     generate_reset_password_token! if should_generate_reset_token?
     UserMailer.welcome_instructions(self.id).deliver
+  end
+
+  # Override login mechanism to allow username or email logins
+  def self.find_for_database_authentication(conditions)
+    login = conditions.delete(:login)
+    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
   private

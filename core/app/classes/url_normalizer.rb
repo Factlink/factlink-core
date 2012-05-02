@@ -1,6 +1,21 @@
 require 'uri'
 require 'cgi'
 
+module URI
+  class << self
+
+    def parse_with_safety(uri)
+      parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D')
+    end
+
+    unless method_defined?(:parse_without_safety)
+      alias_method :parse_without_safety, :parse
+      alias_method :parse, :parse_with_safety
+    end
+
+  end
+end
+
 class UrlNormalizer
   @@normalizer_for = Hash.new(UrlNormalizer)
 
@@ -50,4 +65,4 @@ class UrlNormalizer
   end
 end
 
-#require_relative 'url_normalizer/proxy'
+require_relative 'url_normalizer/proxy'

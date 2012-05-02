@@ -8,6 +8,7 @@
  *= require facts
  *= require footer
  *= require channels
+ *= require search
  */
 
 @import "bootstrap/variables";
@@ -67,7 +68,7 @@ body.factlink-site .fact-block {
 
 
 .list-block {
-  min-height: 48px;
+  min-height: 80px;
   padding: 16px;
   border-bottom: 1px solid #E6E6E6;
   .user-avatar {
@@ -126,6 +127,9 @@ body.factlink-site .fact-block {
     font-size: (@baseFontSize * 1.5);
     margin-bottom: @baseFontSize;
   }
+
+
+
   .authority {
     display: inline-block;
     padding: 0px 20px 5px;
@@ -270,7 +274,6 @@ body.factlink-site .fact-block {
     background-color: @white;
     .border-radius(@borderRadius);
     border: 1px solid @grayLighter;
-    min-height: 400px;
     .drop-shadow();
     position: relative;
     z-index: 100;

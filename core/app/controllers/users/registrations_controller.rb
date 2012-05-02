@@ -27,8 +27,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      set_flash_message :alert, :sign_up_failed
-      redirect_to root_path
+
+      the_errors = "Registration failed:<br>"
+      resource.errors.each do |key, value|
+        the_errors << "#{value.to_s}<br>"
+      end
+
+      redirect_to root_path, alert: the_errors.html_safe
     end
   end
 

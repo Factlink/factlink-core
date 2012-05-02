@@ -22,24 +22,29 @@ window.FactView = Backbone.View.extend({
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
 
-    this.$el.attr('data-fact-id', ( this.model.id || this.model.cid )).factlink();
-
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
+
+    this.factWheelView = new InteractiveWheelView({
+      model: new Wheel(this.model.get('fact_bubble')['fact_wheel']),
+      fact: this.model
+    });
   },
 
   partials: {},
 
   render: function() {
     this.$el
-      .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
+      .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
 
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
     this.$el.find('.authority').tooltip();
+
+    this.$el.find('.wheel').replaceWith(this.factWheelView.render().el);
 
     return this;
   },
@@ -261,9 +266,6 @@ window.FactView = Backbone.View.extend({
   blurTitleEdit: function (e) {
     var $titleField = this.$el.find('.edit.title');
     var value = $titleField.find('>input').val();
-
-    console.info( this.model.getTitle() );
-    console.info( value );
 
     // Check if user has changes and wants to save
     if ( this.model.getTitle() !== value ) {

@@ -10,11 +10,12 @@ nl:
       unauthenticated: 'Je dient in te loggen of je in te schrijven.'
       unconfirmed: 'Je dient eerst je account te bevestigen.'
       locked: 'Je account is gelocked.'
-      invalid: 'Ongeldig e-mail of wachtwoord.'
+      invalid: 'Ongeldige logingegevens. Controleer je gegevens en probeer het nog eens.'
       invalid_token: 'Invalide authenticiteit token.'
       timeout: 'Je sessie is verlopen, log a.u.b. opnieuw in.'
       inactive: 'Je account is nog niet geactiveerd.'
       not_approved: 'Je account is nog niet goedgekeurd.'
+      already_authenticated: 'Je was al ingelogd.'
     sessions:
       signed_in: ''
       signed_out: ''

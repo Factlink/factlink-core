@@ -56,5 +56,9 @@ FactoryGirl.define do
   end
 
   factory :topic do
+    slug_title
+  end
+  sequence :slug_title do |n|
+    "slug-#{n}-title"
   end
 end

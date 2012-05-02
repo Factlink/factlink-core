@@ -25,11 +25,12 @@ window.SearchResultView = Backbone.CollectionView.extend({
   },
 
   addSearchResultItem: function(search_result_item) {
-    var view = new SearchResultItemView({
+    var view = getSearchResultItemView({
       model: search_result_item
     });
-
-    this.$el.find('.results').append(view.render().el);
+    if (view !== undefined ) {
+      this.$el.find('.results').append(view.render().el);
+    }
   },
 
   resetSearchResultItems: function(e) {

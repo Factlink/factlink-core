@@ -1,10 +1,12 @@
 /*
  *= require bootstrap
  *= require bubble
+ *= require bubble_form
  */
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+
 html {
   overflow: hidden;
   padding: 0;
@@ -21,6 +23,7 @@ body {
 a:focus {
   outline: none;
 }
+
 #container {
   padding: 0 !important;
 
@@ -52,32 +55,17 @@ a:focus {
     display: inline-block;
   }
 
-  label {
-    margin-bottom: -1px;
-  }
-
-  textarea {
-    color: #555;
-    border: 1px dotted #ccc;
-    background: transparent;
-    cursor: default;
-    box-shadow: none;
-    resize: none;
-    height: 60px;
-    line-height: 20px;
-  }
-
-  form.form-horizontal {
-    margin: 0;
-  }
   #annotate_button {
     cursor: pointer;
   }
+
   #add_to_channels {
     ul {
       li {
         margin-bottom: 3px;
       }
+
+      margin: 0;
       width: 250px;
       height: 162px;
       overflow: scroll;
@@ -92,6 +80,7 @@ a:focus {
       -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     }
+
     .add-channel {
       margin-top: 10px;
     }

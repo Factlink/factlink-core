@@ -13,7 +13,7 @@ en:
   fact_doubt_opinion: "neutral"
   fact_disbelieve_opinion: "disagree"
 
-  fact_removed_opinions_past_action: "withdrawned opinion"
+  fact_removed_opinions_past_action: "withdrew opinion"
 
   fact_believe_past_action: "agreed"
   fact_doubt_past_action: "neutraled"

@@ -1,0 +1,37 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#fact {
+  .title {
+    box-sizing: border-box;
+    #font > .sans-serif(normal,9pt,@baseLineHeight);
+    padding: 0;
+    color: #4d7796;
+    margin: 0;
+
+    &:hover {
+      background-color: @lightYellow;
+    }
+
+    > input {
+      display: none;
+    }
+
+    &.edit-active {
+      > span {
+        display: none;
+      }
+
+      > input {
+        display: inline-block;
+        #font > .sans-serif(normal,9pt,@baseLineHeight);
+        background-color: @lightYellow;
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+    }
+  }
+}

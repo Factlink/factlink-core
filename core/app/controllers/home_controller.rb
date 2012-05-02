@@ -67,7 +67,7 @@ class HomeController < ApplicationController
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
 
     if search_for.length > 0
-      solr_result = Sunspot.search FactData, User do
+      solr_result = Sunspot.search FactData, User, Topic do
         keywords search_for
 
         order_by sort_column, sort_direction

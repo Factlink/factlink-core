@@ -2,6 +2,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   layout "frontend"
 
+  before_filter :require_no_authentication, :only => :show
   def show
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
