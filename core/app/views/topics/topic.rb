@@ -6,7 +6,7 @@ module Topics
 
     def channels
     	self[:topic].top_users(3).map do |u|
-    		ch = u.graph_user.channels.find(slug_title: self[:topic].slug_title).first
+    		ch = u.graph_user.internal_channels.find(slug_title: self[:topic].slug_title).first
     		{channel: ch, user: u}
     	end.keep_if { |h| h[:channel] }.map do |h|
     		{
