@@ -1,7 +1,9 @@
 <%= form_for(User.new, :as => :user, :url => registration_path(:user), validate: true) do |f| %>
 
   <%= f.text_field :username, placeholder: "Username", required: "required" %>
-  <%= f.email_field :email, placeholder: "Email", required: "required" %>
+  <div id="user_email_wrapper">
+    <%= f.email_field :email, placeholder: "Email", required: "required" %>
+  </div>
 
   <%= f.submit "Reserve", class: "btn btn-success", disable_with: "Reserving..." %>
 
