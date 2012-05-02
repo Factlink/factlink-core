@@ -13,7 +13,7 @@ module Topics
     			user_name: h[:user].username,
     			channel_url: channel_path(h[:user],h[:channel]),
     			avatar_url: h[:user].avatar_url,
-    			authority: Authority.from(self[:topic],for: h[:user].graph_user).to_f	
+    			authority: sprintf('%.1f',Authority.from(self[:topic],for: h[:user].graph_user).to_f+1.0)	
     		}
     	end
     end
