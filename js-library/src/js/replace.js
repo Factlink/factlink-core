@@ -119,17 +119,6 @@
         // Add span to stash
         spans.push(span);
 
-        // If this span is the first in a range of fact-spans
-        if (isFirst && false ) {
-          var first = createFactSpan("", id, true);
-          first.innerHTML = "&#10003;";
-
-          node.parentNode.insertBefore(first, span);
-
-          // Add "first-span" to stash
-          spans.push(first);
-        }
-
         return spans;
       },
       // Create a "fact"-span with the right attributes
