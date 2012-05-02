@@ -15,6 +15,10 @@
       <%= text_field_tag :title, params[:title], class: "span6", placeholder: "Title (optional)" %>
     </div>
 
+    <% if @layout %>
+      <%= hidden_field_tag :layout, value: @layout%>
+    <% end %>
+
     <div class="control-group">
       <label><strong>Channels</strong></label>
       <div id="add_to_channels"></div>

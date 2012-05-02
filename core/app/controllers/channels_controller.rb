@@ -204,9 +204,15 @@ class ChannelsController < ApplicationController
     end
 
     def load_channel
-      @channel  = Channel[params[:channel_id] || params[:id]]
-      @channel || raise_404("Channel not found")
-      @user ||= @channel.created_by.user
+      id = params[:channel_id] || params[:id]
+      if /^[0-9]+$/.match(id)
+        @channel  = Channel[id]
+        @channel || raise_404("Channel not found")
+        @user ||= @channel.created_by.user
+      else
+        @user = User.where(username: params[:username]).first
+        @channel = @user.graph_user.channels.find(slug_title: id.to_url).first
+      end
     end
 
     def channels_for_user(user)
