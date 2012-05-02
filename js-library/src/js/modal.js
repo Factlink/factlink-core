@@ -44,11 +44,7 @@
     },
     stopHighlightingFactlink: function(id) {
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
-        if ($(val).is('.fl-first')) {
-          $(val).remove();
-        } else {
-          $(val).before($(val).text()).remove();
-        }
+        $(val).contents().unwrap();
       });
     }
   };
