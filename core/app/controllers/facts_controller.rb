@@ -127,7 +127,7 @@ class FactsController < ApplicationController
     @basefact.add_opinion(type, current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: [@basefact]
+    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
   def remove_opinions
@@ -138,7 +138,7 @@ class FactsController < ApplicationController
     @basefact.remove_opinions(current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: [@basefact]
+    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
   # TODO: This search is way to simple now, we need to make sure already
