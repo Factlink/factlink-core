@@ -267,9 +267,6 @@ window.FactView = Backbone.View.extend({
     var $titleField = this.$el.find('.edit.title');
     var value = $titleField.find('>input').val();
 
-    console.info( this.model.getTitle() );
-    console.info( value );
-
     // Check if user has changes and wants to save
     if ( this.model.getTitle() !== value ) {
       if ( confirm("Do you want to save your changes?") ) {

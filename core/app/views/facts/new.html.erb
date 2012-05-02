@@ -1,35 +1,33 @@
 <% if user_signed_in? %>
-  <%= form_tag facts_path, class: "form-horizontal", id:"new_fact_form" do %>
+  <%= form_tag facts_path, class: "fact-block", id:"new_fact_form" do %>
+    <div class="content">
+      <div class="wheel"></div>
 
-    <div class="control-group" style="display: none;">
-      <%= text_field_tag :url, params[:url], class: "span6", placeholder: "URL (optional)" %>
+      <div class="factlink">
+        <div class="title">
+          <span><%= params[:title] %></span>
+          <%= text_field_tag :title, params[:title] %>
+        </div>
+
+        <div class="fact">
+          <%= text_area_tag :fact, params[:fact] %>
+          <%= simple_format params[:fact] %>
+        </div>
+
+        <%= hidden_field_tag :url, params[:url] %>
+      </div>
     </div>
 
-    <div class="control-group">
-      <label><strong>Factlink</strong></label>
-      <%= text_area_tag :fact, params[:fact], :class => "input-xxlarge span6", :required => "required", :readonly => "readonly", placeholder: "Factlink text" %>
-    </div>
-
-    <div class="control-group">
-      <label><strong>Title</strong></label>
-      <%= text_field_tag :title, params[:title], class: "span6", placeholder: "Title (optional)" %>
-    </div>
+    <h4>Add to</h4>
+    <div id="add_to_channels"></div>
 
     <% if @layout %>
       <%= hidden_field_tag :layout, value: @layout%>
     <% end %>
 
-    <div class="control-group">
-      <label><strong>Channels</strong></label>
-      <div id="add_to_channels"></div>
-    </div>
-
-    <%= hidden_field_tag 'layout', 'popup' %>
-    <div class="row">
-      <div style="text-align:right;">
-        <button class="btn" name="cancel" id="cancel">Cancel</button>
-        <%= submit_tag "Post Factlink", class: "btn btn-primary", disable_with: "Adding..." %>
-      </div>
+    <div class="buttons">
+      <button class="btn" name="cancel" id="cancel">Cancel</button>
+      <%= submit_tag "Post to Factlink", class: "btn btn-primary", disable_with: "Adding...", id: "submit" %>
     </div>
   <% end %>
 <% end %>
@@ -45,6 +43,11 @@
     var addToChannelView = new AddToChannelView({
       collection: currentUser.channels,
       el: $('#add_to_channels')
+    }).render();
+
+    var persistentWheel = new PersistentWheelView({
+      el: $('.wheel'),
+      model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
   </script>
 <% end %>
