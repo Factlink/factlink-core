@@ -63,7 +63,7 @@ module ApplicationHelper
     if linkedin
       linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
       link_to image, linkedin_url, target: "_blank"
-      
+
     else
       image
     end

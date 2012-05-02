@@ -7,7 +7,11 @@
 
 <% content_for :javascript do %>
   <script>
-    $(".fact-block").factlink();
+    new InteractiveWheelView({
+      el: $('.wheel'),
+      model: new Wheel(<%= Facts::FactWheel.for(fact: @fact, view: self).to_json.html_safe %>)
+    }).render();
+
     top.postMessage({
       'message': 'highlight',
       'fact': '<%= j @fact.data.displaystring %>',

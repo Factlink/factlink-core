@@ -138,7 +138,6 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
-
   end
 
   resources :topics, path: 't', only: [] do

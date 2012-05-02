@@ -41,7 +41,9 @@
     <h3>Top factlinks</h3>
     <ul id="top-factlinks">
     <% top_facts(3).each do |f| %>
-      <li><%= render_mustache 'facts/fact_bubble',  fact: f, limit_characters_to_display: 80, hide_links: true %></li>
+      <li>
+        <%= render_mustache 'facts/fact_bubble',  fact: f, limit_characters_to_display: 80, hide_links: true %>
+      </li>
     <% end %>
     </ul>
   <% end %>
@@ -61,12 +63,15 @@
 <% end %>
 
 <% content_for :javascript do %>
+  <%= load_mustache_templates %>
+
   <script>
-    $("article.fact").each(function()  {
-      $fact = $(this);
-      $fact.data("wheel", new Wheel(this));
-      $fact.data("wheel").init($fact.find(".wheel").get(0), {'noninteractive':true});
-    });
+    <% top_facts(3).each do |f| %>
+      new PassiveWheelView({
+        el: $('article[data-fact-id=<%= f.id %>]').find('.wheel'),
+        model: new Wheel(<%= Facts::FactWheel.for(fact: f, view: self).to_json.to_s.html_safe %>)
+      }).render();
+    <% end %>
 
     var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
     $('#watchVideoButton').click(function(){
@@ -76,8 +81,5 @@
     $('#videoModal').on('hidden', function () {
       $('#videoModal > .modal-body').empty();
     });
-
-
-
   </script>
 <% end %>

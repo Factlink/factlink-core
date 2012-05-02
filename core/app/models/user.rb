@@ -5,6 +5,10 @@ class User
   include Mongoid::Document
   include Sunspot::Mongoid
 
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
+
   field :username
   index :username
   field :first_name
@@ -201,6 +205,12 @@ class User
   def send_welcome_instructions
     generate_reset_password_token! if should_generate_reset_token?
     UserMailer.welcome_instructions(self.id).deliver
+  end
+
+  # Override login mechanism to allow username or email logins
+  def self.find_for_database_authentication(conditions)
+    login = conditions.delete(:login)
+    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
   private

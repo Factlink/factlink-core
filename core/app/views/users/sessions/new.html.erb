@@ -12,18 +12,20 @@
 
 <h2>Sign in with your Factlink account</h2>
 
+<br>
+
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => "form-horizontal" }) do |f| %>
   <fieldset></fieldset>
   <div class="control-group">
-    <%= f.label "Email", class: "control-label" %>
+    <%= f.label "Username or email", class: "control-label" %>
     <div class="controls">
-      <%= f.email_field :email, :placeholder => "Email" %>
+      <%= f.text_field :login %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label "Password", class: "control-label" %>
     <div class="controls">
-      <%= f.password_field :password, :placeholder => "Password" %>
+      <%= f.password_field :password %>
     </div>
   </div>
 
@@ -37,20 +39,22 @@
   <% end -%>
 
   <% if @layout %>
-    <%= hidden_field_tag :layout, @layout%>
+    <%= hidden_field_tag :layout, @layout %>
   <% end %>
 
 
   <div class="form-actions">
     <div class="control-group">
-      <%= f.submit "Sign in", disable_with: "Signing in...", class: "btn" %>
+      <%= f.submit "Sign in", disable_with: "Signing in...", class: "btn btn-primary" %>
     </div>
   </div>
 
+  <% unless @layout == "popup" %>
   <div class="control-group">
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
       <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
     <% end -%>
   </div>
+  <% end %>
 <% end %>
 

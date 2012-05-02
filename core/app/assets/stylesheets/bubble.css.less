@@ -1,6 +1,8 @@
 //= require bootstrap
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+@import "bubble/wheel";
+@import "bubble/title";
 
 @transition: opacity 0.2s ease;
 @max-z-index : 2147483647;
@@ -186,22 +188,12 @@ ul.interacting-users {
   border: 1px solid transparent;
   background: @white;
   padding-bottom: 5px;
+
   article.fact {
     padding: 10px 0 0px (@rightIndent / 2);
-    .wheel {
-      height: 55px;
-      float: left;
-      margin: 0 0 0 4px;
-      svg {
-        path:hover {
-          cursor: pointer;
-        }
-      }
 
-      div.authority {
-        padding: 0 !important;
-        margin: 0 !important;
-      }
+    .wheel {
+      #fact>.wheel();
     }
 
     header {
@@ -222,36 +214,11 @@ ul.interacting-users {
         width: 340px;
         color: #afafaf;
       }
+
       .title {
-        #font > .sans-serif(normal,9pt,@baseLineHeight);
-        padding: 0;
-        margin: 0;
-
-        &:hover {
-          background-color: @lightYellow;
-        }
-
-        > input {
-          display: none;
-        }
-
-        &.edit-active {
-          > span {
-            display: none;
-          }
-
-          > input {
-            display: inline-block;
-            #font > .sans-serif(normal,9pt,@baseLineHeight);
-            background-color: @lightYellow;
-            border: none;
-            outline: none;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-          }
-        }
+        #fact>.title();
       }
+
       .body {
         word-wrap: break-word;
         vertical-align: baseline;
