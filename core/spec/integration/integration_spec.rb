@@ -19,7 +19,7 @@ describe "Check the ToS", type: :request do
   end
 
   it "should show errors when not agreeing the ToS" do
-    click_button "Continue"
+    click_button "Finish"
 
     page.should have_selector("div.alert")
     page.should have_content("You have to accept the Terms of Service to continue.")
@@ -31,7 +31,7 @@ describe "Check the ToS", type: :request do
       fill_in "user_agrees_tos_name", with: "Sko Brenden"
       check "user_agrees_tos"
 
-      click_button "Continue"
+      click_button "Finish"
     end
 
     it "should show the Tour", js: true do
