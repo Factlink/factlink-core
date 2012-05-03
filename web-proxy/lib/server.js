@@ -30,8 +30,8 @@ function getServer(config) {
    */
   server.get('/',       render_page('index'));
   server.get('/header', render_page('header'));
-  server.get('/blacklisted', render_page('index', config.PROXY_URL + "/inner_blacklisted"));
-  server.get('/inner_blacklisted', render_page('inner_blacklisted'));
+  server.get('/unsupported', render_page('index', config.PROXY_URL + "/inner_unsupported"));
+  server.get('/inner_unsupported', render_page('inner_unsupported'));
   server.get('/search', get_search);
   server.get('/parse',  get_parse);
   server.get('/submit', get_submit);
@@ -70,7 +70,7 @@ function getServer(config) {
       successFn(html);
     },function(){
       successFn(html_in);
-      
+
     });
   }
 
