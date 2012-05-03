@@ -12,6 +12,9 @@
   <div class="row"><%= f.label :password_confirmation, "Confirm new password", style: 'width: 160px' %>
   <%= f.password_field :password_confirmation %></div>
 
+  <% if params[:msg] == 'welcome' %>
+    <%= hidden_field_tag :msg, 'welcome' %>
+  <% end %>
   <div class="action-wrapper" style="margin-right: 170px;">
   	<%= f.submit(params[:msg] ? "Next Step" : "Change my password", class: 'btn btn-primary') %>
  	</div>
