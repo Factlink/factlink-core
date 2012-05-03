@@ -56,6 +56,14 @@ listenFor("blacklist", function(messageObject) {
   updateHeight();
 });
 
+listenFor("hideError", function(messageObject) {
+  $('#highlight').prop('disabled', false);
+  $('#error_loading_factlink').hide();
+  $('#annotate_button>input').prop('disabled', false);
+
+  updateHeight();
+});
+
 listenFor("error", function(messageObject) {
   $('#highlight').prop('disabled', true);
   $('#error_loading_factlink').show();
