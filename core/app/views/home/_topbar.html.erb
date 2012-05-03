@@ -14,20 +14,13 @@
           <% end %>
 
           <ul class="nav secondary-nav pull-right">
-            <% if current_user %>
-              <% if can? :access, Ability::AdminArea %>
-                <%= render "home/topbar/admin_menu" %>
-              <% end %>
-
-              <%= render "home/topbar/notifications" %>
-              <%= render "home/topbar/user_menu" %>
-              <%= render "home/topbar/info_menu" %>
-
-            <% else %>
-              <li>
-                <%= link_to("Sign in", new_user_session_path) %>
-              </li>
+            <% if can? :access, Ability::AdminArea %>
+              <%= render "home/topbar/admin_menu" %>
             <% end %>
+
+            <%= render "home/topbar/notifications" %>
+            <%= render "home/topbar/user_menu" %>
+            <%= render "home/topbar/info_menu" %>
           </ul>
         </div>
         <% else %>
