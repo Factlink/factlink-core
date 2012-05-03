@@ -1,7 +1,5 @@
-<% if @step_in_signup_process == :choose_password %>
-  Choose your password wisely
-<% elsif @step_in_signup_process == :sign_tos %>
-  Sign the tos
-<% else %>
-  Mystery step
-<% end %>
+<ul>
+  <li <% if @step_in_signup_process == :choose_password %>class="active"<%end%> >Choose Password</li>
+  <li <% if @step_in_signup_process == :sign_tos %>class="active"<%end%> >Sign the tos</li>
+  <li>Start using Factlink</li>
+</ul>
