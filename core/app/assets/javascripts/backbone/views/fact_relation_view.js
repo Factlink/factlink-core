@@ -13,8 +13,6 @@ window.FactRelationView = Backbone.View.extend({
 
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
-
-    console.info( this.model.url() );
   },
 
   remove: function() {
@@ -33,7 +31,12 @@ window.FactRelationView = Backbone.View.extend({
     $('a.weakening',this.$el).tooltip('hide');
     $('a.supporting',this.$el).tooltip('hide');
 
-    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials)).factlink();
+    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
+
+    this.wheelView = new InteractiveWheelView({
+      el: this.$el.find('.wheel'),
+      model: new Wheel(this.model.get('fact_bubble')['fact_wheel'])
+    }).render();
 
     $('a.supporting',this.$el).tooltip({'title':"This is relevant"});
     $('a.weakening',this.$el).tooltip({'title':"This is not relevant", 'placement':'bottom'});
