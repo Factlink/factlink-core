@@ -1,0 +1,22 @@
+<% content_for :title do %>
+Factlink &mdash; Frequently Asked Questions
+<% end %>
+
+<% content_for :menu_items do %>
+  <li><%= link_to "Help", pages_path("help") %></li>
+  <li><%= link_to "FAQ", pages_path("faq") %></li>
+  <li><%= link_to "Chrome extension", pages_path("chrome-extension") %></li>
+  <li class="selected_menu_item"><%= link_to "Unsupported websites", pages_path("unsupported-websites") %></li>
+
+<% end %>
+
+<% content_for :body_text do %>
+  <h1>Unsupported websites</h1>
+
+  <p>
+    If you are visiting a website that currently is not supported with the Factlink proxy you will find a red sign on the top right corner of your browser. This means that we disabled our Factlink functionality to prevent the website no longer works. We disabled Factlink also on websites that are using information that is against our privacy policy.
+  </p>
+  <p>
+    If you are visiting a website that is not working but should work with Factlink please contact us so we can try to make Factlink working on this website.
+  </p>
+<% end %>
