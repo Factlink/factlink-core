@@ -16,6 +16,12 @@ class Users::SessionsController < Devise::SessionsController
 
   before_filter :set_redir, only: :create
   def set_redir
-    session[:return_to] = new_fact_path(layout: 'popup') if params[:layout] == 'popup'
+    if params[:layout] == 'popup'
+      session[:return_to] = new_fact_path(layout: 'popup')
+      session[:just_signed_in] = true
+    else
+      session[:return_to] = nil
+      session[:just_signed_in] = nil
+    end
   end
 end

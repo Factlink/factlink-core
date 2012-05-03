@@ -31,6 +31,10 @@
 
 <% content_for :javascript do %>
   <script>
+    <% if @just_signed_in %>
+      window.top.postMessage({message: "updateState"}, "*");
+    <% end %>
+
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
 

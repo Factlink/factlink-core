@@ -47,6 +47,12 @@ class FactsController < ApplicationController
   end
 
   def new
+    if session[:just_signed_in]
+      session[:just_signed_in] = nil
+
+      @just_signed_in = true
+    end
+
     if current_user
       render layout: @layout
     else
