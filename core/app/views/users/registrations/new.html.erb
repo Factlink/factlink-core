@@ -1,6 +1,6 @@
 <%= form_for(User.new, :as => :user, :url => registration_path(:user), validate: true) do |f| %>
 
-  <%= f.text_field :username, placeholder: "Desired Username", required: "required" %>
+  <%= f.text_field :username, placeholder: "Desired username", required: "required" %>
   <div id="user_email_wrapper">
     <%= f.email_field :email, placeholder: "Email", required: "required" %>
   </div>
