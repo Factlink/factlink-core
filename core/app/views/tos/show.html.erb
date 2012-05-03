@@ -25,7 +25,7 @@
     <%= form_for(current_user, url: tos_path, method: "POST") do |f| %>
 
       <div class="row">
-        <%= f.label "Name*" %>
+        <%= f.label "Full Name*" %>
         <div class="field">
         <%= f.text_field :agrees_tos_name, required: true %>
         </div>
