@@ -5,12 +5,23 @@ Factlink &mdash; Frequently Asked Questions
 <% content_for :menu_items do %>
   <li><%= link_to "Help", pages_path("help") %></li>
   <li><%= link_to "FAQ", pages_path("faq") %></li>
-  <li class="selected_menu_item"><%= link_to "Install Chrome extension", pages_path("chrome-extension") %></li>
+  <li class="selected_menu_item"><%= link_to "Chrome extension", pages_path("chrome-extension") %></li>
 <% end %>
 
 <% content_for :body_text do %>
-  <h1>Install Chrome extension</h1>
+  <h1>Chrome extension</h1>
 
-  <p>To install the Chrome extension you need to install Chrome....</p>
+  <p>You can install the chrome extension from the menu in the top bar.</p>
+
+  <h2>Permissions</h2>
+
+  <p>Since for Factlink to work we need to insert a Javascript on each site you visit, you get a warning that Factlink can access your data on all website. However, we only do two things:</p>
+  <ol>
+    <li style="list-style-type: decimal">Send the url you browse to our server to check if any text is already Factlinked.</li>
+    <li style="list-style-type: decimal">Send text you factlink to our servers.</li>
+  </ol>
+  <p>
+    If you have any questions, don't hesitate to ask support via the Feedback button to the left.
+  </p>
 
 <% end %>
