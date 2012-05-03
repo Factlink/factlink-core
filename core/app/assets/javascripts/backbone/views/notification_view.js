@@ -44,6 +44,12 @@ NotificationOpinionatedView = GenericNotificationView.extend({
   }
 });
 
+NotificationInvitedView = GenericNotificationView.extend({
+  initialize: function(options) {
+    this.useTemplate("notifications", "_invited_activity");
+  }
+});
+
 window.NotificationView = function(opts) {
   switch (opts.model.get("action")) {
     case "added_supporting_evidence":
@@ -57,6 +63,9 @@ window.NotificationView = function(opts) {
     case "disbelieves":
     case "doubts":
       return new NotificationOpinionatedView(opts);
+
+    case "invites":
+      return new NotificationInvitedView(opts);
 
     default:
       return new GenericNotificationView(opts);

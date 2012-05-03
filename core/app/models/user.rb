@@ -94,11 +94,13 @@ class User
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
 
-  after_invitation_accepted :approve_invited_user
-  def approve_invited_user
+  after_invitation_accepted :approve_invited_user_and_create_activity
+  def approve_invited_user_and_create_activity
     self.skip_confirmation!
     self.approved = true
     self.save
+    
+    Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
   searchable :auto_index => true do

@@ -17,6 +17,11 @@ def create_activity_listeners
                action: [:believes, :doubts, :disbelieves],
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
+
+     activity subject_class: "GraphUser",
+              action: :invites,
+              write_ids: lambda { |a| [a.subject_id] }
+
     end
 
     register do
