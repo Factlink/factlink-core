@@ -1,0 +1,7 @@
+<% if @step_in_signup_process == :choose_password %>
+  Choose your password wisely
+<% elsif @step_in_signup_process == :sign_tos %>
+  Sign the tos
+<% else %>
+  Mystery step
+<% end %>

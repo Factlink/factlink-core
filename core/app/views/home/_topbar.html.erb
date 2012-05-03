@@ -7,22 +7,24 @@
             <a class="brand" href="/"><%= image_tag('factlink-logo-beta.png', width: 133, height: 20 ) %></a>
           </h3>
         </div>
-        <% if current_user %>
-        <div class="span9">
-          <% if can? :index, Fact %>
-            <%= render "facts/fact_search" %>
-          <% end %>
-
-          <ul class="nav secondary-nav pull-right">
-            <% if can? :access, Ability::AdminArea %>
-              <%= render "home/topbar/admin_menu" %>
+        <% if @step_in_signup_process %>
+          <%= render "home/topbar/signup" %>
+        <% elsif current_user %>
+          <div class="span9">
+            <% if can? :index, Fact %>
+              <%= render "facts/fact_search" %>
             <% end %>
 
-            <%= render "home/topbar/notifications" %>
-            <%= render "home/topbar/user_menu" %>
-            <%= render "home/topbar/info_menu" %>
-          </ul>
-        </div>
+            <ul class="nav secondary-nav pull-right">
+              <% if can? :access, Ability::AdminArea %>
+                <%= render "home/topbar/admin_menu" %>
+              <% end %>
+
+              <%= render "home/topbar/notifications" %>
+              <%= render "home/topbar/user_menu" %>
+              <%= render "home/topbar/info_menu" %>
+            </ul>
+          </div>
         <% else %>
           <%= render "home/topbar/not_signed_in"%>
         <% end %>
