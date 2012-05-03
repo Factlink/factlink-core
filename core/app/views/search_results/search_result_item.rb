@@ -10,6 +10,11 @@ module SearchResults
     end
 
     def the_object
+      @the_object ||= the_internal_object
+    end
+
+    private
+    def the_internal_object
       klass = self[:obj].class
 
       if klass == FactData

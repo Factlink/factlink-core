@@ -81,7 +81,7 @@ class HomeController < ApplicationController
       @results = solr_result.results.delete_if {|res| res.class == FactData and FactData.invalid(res)}
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
-      end
+      end.delete_if {|x| x.the_object.nil?}
     else
       @results = []
     end
