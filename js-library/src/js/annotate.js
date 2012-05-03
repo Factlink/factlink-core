@@ -35,6 +35,7 @@ Factlink.startAnnotating = function() {
 
 Factlink.stopAnnotating = function() {
   console.info( "Factlink:", "stopAnnotating" );
+  Factlink.prepare.hide();
   $('body').unbind('mouseup.factlink');
 };
 
