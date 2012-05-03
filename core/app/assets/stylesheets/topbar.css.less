@@ -118,3 +118,38 @@ html.chrome_without_extension{
     display: inline;
   }
 }
+
+#steps {
+  float: right;
+  margin-top: 9px;
+  li {
+    float: left;
+    margin-left: 20px;
+    line-height: 22px;
+    font-size: 16px;
+    color: #777;
+    padding-left: 25px;
+    background: url(steps-arrow.png) no-repeat left center;
+    span {
+      float: left;
+      width: 22px;
+      height: 22px;
+      text-align: center;
+      line-height: 22px;
+      margin-right: 10px;
+      color: #fff;
+      font-weight: bold;
+      background: url(steps.png) no-repeat top;
+    }
+    &.active {
+      color: #5E8BA6;
+      span {
+        background-position: bottom;
+      }
+    }
+    &:first-child {
+      padding: 0;
+      background: none;
+    }
+  }
+}
