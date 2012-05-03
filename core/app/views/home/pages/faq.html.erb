@@ -3,6 +3,9 @@ Factlink &mdash; Frequently Asked Questions
 <% end %>
 
 <% content_for :menu_items do %>
+  <li><%= link_to "Help", pages_path("help") %></li>
+  <li class="selected_menu_item"><%= link_to "FAQ", pages_path("faq") %></li>
+  <li><%= link_to "Install Chrome extension", pages_path("chrome-extension") %></li>
 <% end %>
 
 <% content_for :body_text do %>
@@ -13,14 +16,14 @@ Factlink &mdash; Frequently Asked Questions
 <p>
   Factlink works on helping people understand how credible the information is that they’re reading. We’ve build a platform that lets you add what you know by creating Factlinks. You can annotate any statement on the web and ‘attach’ review information, for instance supporting or weakening facts. The service is built on the belief that information should be openly shared, accessible, and transparent. You can read more about us on our about page.
   </p>
-  
+
   <h2>How do I create a Factlink?</h2>
 
 
 <p>
   You can create a Factlink on two several ways. First you can use Factlink on every website you’re visiting. Just annotate a statement and add your opinion to it. Secondly, you create a Factlink right from your own channel.
   </p>
-  
+
   <h2>How do I install Factlink in my browser?</h2>
 
 
@@ -39,9 +42,9 @@ We think it’s better to follow specific topics from persons instead of followi
 <p>
   Authority means how knowledgeable people are on a single topic. We use authority to calculate the credibility score of a Factlink. This is based on all the ratings, opinions and their connections of the raters.
   </p>
-  
+
   <h2>How do I get authority?</h2>
-  
+
   <p>
     Authority is gained by creating relevant and interesting Factlinks. When people interact more with your Factlinks you gain more authority.
     </p>

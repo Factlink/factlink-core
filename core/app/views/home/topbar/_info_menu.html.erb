@@ -10,7 +10,7 @@
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render 'home/bookmarklet.js')) %>'><%= image_tag("bookmarkletGrayIcon.png") %><span style="display: none">Factlink</span> Bookmarklet</a></li>
     <li class="divider"></li>
-    <li><%= link_to "FAQ", pages_path("faq") %></li>
+    <li><%= link_to "Help", pages_path("help") %></li>
     <li><a class="take-the-tour" data-toggle="modal">Take the tour</a></li>
     <li><%= link_to "Privacy Policy", privacy_path %></li>
     <li><%= link_to "Terms of Service", tos_path %></li>
