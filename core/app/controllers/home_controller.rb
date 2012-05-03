@@ -70,8 +70,6 @@ class HomeController < ApplicationController
       solr_result = Sunspot.search FactData, User, Topic do
         keywords search_for
 
-        order_by sort_column, sort_direction
-
         paginate :page => params[:page] || 1, :per_page => row_count
       end
 
@@ -93,15 +91,5 @@ class HomeController < ApplicationController
       format.json {render json: @results}
     end
   end
-
-
-  private
-    def sort_column
-      FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    end
 
 end
