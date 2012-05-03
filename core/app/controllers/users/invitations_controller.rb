@@ -31,7 +31,7 @@ class Users::InvitationsController < Devise::InvitationsController
     end
   end
 
-  before_filter :setup_step_in_process, only: :edit
+  before_filter :setup_step_in_process, only: [:edit, :update]
   def setup_step_in_process
     @step_in_signup_process = :choose_password if params[:msg] = 'welcome'
   end
