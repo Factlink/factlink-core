@@ -1,13 +1,5 @@
-<% content_for :title do %>
-Factlink &mdash; Frequently Asked Questions
-<% end %>
-
-<% content_for :menu_items do %>
-  <li><%= link_to "Help", pages_path("help") %></li>
-  <li class="selected_menu_item"><%= link_to "FAQ", pages_path("faq") %></li>
-  <li><%= link_to "Chrome extension", pages_path("chrome-extension") %></li>
-  <li><%= link_to "Unsupported websites", pages_path("unsupported-websites") %></li>
-<% end %>
+<% content_for :title do %>Factlink &mdash; Frequently Asked Questions<% end %>
+<% content_for :menu_items do %><%= render 'home/pages/help/menu' %><% end %>
 
 <% content_for :body_text do %>
   <h1>Frequently Asked Questions</h1>
