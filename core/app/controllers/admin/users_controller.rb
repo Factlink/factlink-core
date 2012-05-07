@@ -9,6 +9,7 @@ class Admin::UsersController < AdminController
 
   layout "admin"
 
+
   def create
     @user = User.new
     @user.assign_attributes(params[:user], as: :admin)
@@ -23,14 +24,17 @@ class Admin::UsersController < AdminController
     end
   end
 
+  def edit
+    @user_features = Ability::FEATURES
+  end
+
   def update
     if params[:user][:password] == ''
       params[:user][:password] = nil
       params[:user][:password_confirmation] = nil
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
-      @user.features.del
-      params[:user][:features].split(',').each {|f| @user.features << f.strip}
+      @user.features = params[:user][:features].andand.keys
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
