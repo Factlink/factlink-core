@@ -1,8 +1,16 @@
 module BaseViews
 	module FactBase
 		def displaystring
-			self[:fact].data.displaystring
+			truncate(self[:fact].data.displaystring)
 		end
+
+    def full_displaystring
+      self[:fact].data.displaystring
+    end
+
+    def big_displaystring?
+      displaystring != full_displaystring
+    end
 
 		def id
 			self[:fact].id
@@ -32,9 +40,9 @@ module BaseViews
 			return [] unless current_graph_user
 			current_graph_user.containing_channel_ids(self[:fact])
 		end
-		
+
 		private
-		
+
     def interacting_user_count
       3
     end
