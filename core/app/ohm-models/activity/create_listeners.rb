@@ -25,7 +25,6 @@ def create_activity_listeners
     end
 
     register do
-
       activity_for "Channel"
       named :activities
 
@@ -45,7 +44,7 @@ def create_activity_listeners
       activity subject_class: "Fact",
                action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
                write_ids: lambda { |a| [a.subject.id]}
-                              
+
     end
   end
 end
