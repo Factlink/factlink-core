@@ -15,10 +15,10 @@ class Channel < OurOhm
 
 
   attribute :lowercase_title
-  
+
   attribute :slug_title
   index :slug_title
-  
+
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
@@ -49,6 +49,7 @@ class Channel < OurOhm
   timestamped_set :sorted_cached_facts, Fact
 
   after :create, :update_top_users
+  after :create, :add_created_channel_activity
 
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
@@ -76,6 +77,10 @@ class Channel < OurOhm
 
   def update_top_users
     self.created_by.andand.reposition_in_top_users
+  end
+
+  def add_created_channel_activity
+    activity(self.created_by, :created_channel, self)
   end
 
 
@@ -152,7 +157,7 @@ class Channel < OurOhm
   def can_be_added_as_subchannel?
     true
   end
-    
+
 
   def to_hash
     return {:id => id,
