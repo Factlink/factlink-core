@@ -306,9 +306,8 @@ describe Channel do
       ch1.contained_channels.ids.should =~ []
     end
     it "should remove activities" do
-      fakech1 = Channel.new
       ch1.add_channel u1_ch1
-      fakech1.stub(:id,ch1.id)
+      fakech1 = Channel[ch1.id]
       ch1.add_fact f1
       ch1.real_delete
       Activity.for(fakech1).all.should == []
@@ -393,7 +392,7 @@ describe Channel do
       @f1.delete
       @ch1.facts.should =~ [@f2]
       @ch1.sorted_cached_facts.count.should == 1
-      
+
     end
   end
 
