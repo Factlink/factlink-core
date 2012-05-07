@@ -6,11 +6,24 @@ class MapReduce
 
     def map iterator
       iterator.each do |ch|
+        Topic.ensure_for_channel(ch)
         Authority.all_from(ch).each do |authority|
-          Topic.ensure_for_channel(ch)
           yield({topic: ch.slug_title, user_id: authority.user_id}, authority.to_f)
         end
+        auth = (authority_from_added_facts(ch) + authority_from_followers(ch))
+        if auth > 0
+          yield({topic: ch.slug_title, user_id: ch.created_by_id}, auth)
+        end
       end
+    end
+
+
+    def authority_from_followers ch
+      ch.containing_channels.count
+    end
+
+    def authority_from_added_facts ch
+      [ch.sorted_internal_facts.count / 10, 5].min
     end
 
     def reduce bucket, values

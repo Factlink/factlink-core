@@ -36,7 +36,7 @@ describe MapReduce::FactAuthority do
         opinionated_users_count: 100,
         channels: stub(:Set, count: 40)
       ))
-      subject.reduce(12, [20, 15]).should == Math.log2(2) + 1 + 4
+      subject.reduce(12, [20, 15]).should == Math.log2(2) + 1
     end
   end
 end

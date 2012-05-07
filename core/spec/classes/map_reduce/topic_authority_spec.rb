@@ -23,6 +23,40 @@ describe MapReduce::TopicAuthority do
        result[{topic: ch3.slug_title, user_id: gu2.id}].should == [5.0]
        result.length.should == 3
      end
+     it "should give you credit if you add facts" do
+       ch1 = Channel.create(title: "Ruby", created_by: gu1)
+       channels = [ch1]
+
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+
+       result = subject.wrapped_map(channels)
+
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [1.0]
+       result.length.should == 1
+     end
+     it "should give you credit if your channels are followed by other channels" do
+       ch1 = Channel.create(title: "Ruby", created_by: gu1)
+       channels = [ch1]
+
+       1.upto(10) do |i|
+         ch = create :channel
+         ch.add_channel ch1
+       end
+
+       result = subject.wrapped_map(channels)
+
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [10]
+       result.length.should == 1
+     end
    end
    describe :reduce do
      it do
