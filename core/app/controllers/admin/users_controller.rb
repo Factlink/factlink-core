@@ -2,8 +2,9 @@ class Admin::UsersController < AdminController
   helper_method :sort_column, :sort_direction
 
   before_filter :authenticate_user!
-  before_filter :get_activated_users, :only => [:index]
-  before_filter :get_reserved_users, :only => [:reserved]
+  before_filter :get_activated_users,         only: [:index]
+  before_filter :get_reserved_users,          only: [:reserved]
+  before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
 
   load_and_authorize_resource :except => [:create]
 
@@ -22,10 +23,6 @@ class Admin::UsersController < AdminController
     else
       render :new
     end
-  end
-
-  def edit
-    @user_features = Ability::FEATURES
   end
 
   def update
@@ -67,5 +64,9 @@ class Admin::UsersController < AdminController
 
   def get_reserved_users
     @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def set_available_user_features
+    @user_features = Ability::FEATURES
   end
 end
