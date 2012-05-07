@@ -49,7 +49,6 @@ class Channel < OurOhm
   timestamped_set :sorted_cached_facts, Fact
 
   after :create, :update_top_users
-  after :create, :add_created_channel_activity
 
   delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
 
@@ -80,7 +79,9 @@ class Channel < OurOhm
   end
 
   def add_created_channel_activity
-    activity(self.created_by, :created_channel, self)
+    if self.sorted_cached_facts.count == 0
+      activity(self.created_by, :created_channel, self)
+    end
   end
 
 
@@ -121,6 +122,7 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
+    add_created_channel_activity
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
     Resque.enqueue(AddFactToChannel, fact.id, self.id)
@@ -168,6 +170,7 @@ class Channel < OurOhm
 
   def add_channel(channel)
     if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
+      add_created_channel_activity
       contained_channels << channel
       channel.containing_channels << self
       Resque.enqueue(AddChannelToChannel, channel.id, self.id)
