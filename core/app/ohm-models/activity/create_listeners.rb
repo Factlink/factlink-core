@@ -10,7 +10,7 @@ def create_activity_listeners
                write_ids: lambda { |a| [a.subject.created_by_id] }
 
       activity subject_class: "Channel", action: :created_channel,
-               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq }
+               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
 
       activity subject_class: "Fact",
                action: [:added_supporting_evidence, :added_weakening_evidence],
