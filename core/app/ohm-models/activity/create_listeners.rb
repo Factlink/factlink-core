@@ -9,6 +9,9 @@ def create_activity_listeners
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
 
+      activity subject_class: "Channel", action: :created_channel,
+               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq }
+
       activity subject_class: "Fact",
                action: [:added_supporting_evidence, :added_weakening_evidence],
                write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids).uniq.delete_if {|id| id == a.user_id}}
