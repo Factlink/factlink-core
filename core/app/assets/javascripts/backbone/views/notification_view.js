@@ -50,6 +50,12 @@ NotificationInvitedView = GenericNotificationView.extend({
   }
 });
 
+NotificationNewChannelView = GenericNotificationView.extend({
+  initialize: function(options) {
+    this.useTemplate("notifications", "_new_channel_activity");
+  }
+});
+
 window.NotificationView = function(opts) {
   switch (opts.model.get("action")) {
     case "added_supporting_evidence":
@@ -66,6 +72,9 @@ window.NotificationView = function(opts) {
 
     case "invites":
       return new NotificationInvitedView(opts);
+
+    case "created_channel":
+      return new NotificationNewChannelView(opts);
 
     default:
       return new GenericNotificationView(opts);

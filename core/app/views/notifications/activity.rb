@@ -43,6 +43,10 @@ module Notifications
       # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"
         return Notifications::AddedEvidence.for(activity: self[:activity], view: self[:view])
+
+      when "created_channel"
+        return Notifications::NewChannel.for(activity: self[:activity], view: self[:view])
+
       else
         return self[:activity]
       end
