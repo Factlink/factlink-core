@@ -153,7 +153,7 @@ FactlinkUI::Application.routes.draw do
 
   scope "/p" do
     resources :jobs, :only => [:show, :index]
-    get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /.*/}
+    get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
   end
 
   get "/x/:id" => "fake_facts#show"
