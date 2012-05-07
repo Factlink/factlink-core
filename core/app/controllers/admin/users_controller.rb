@@ -29,6 +29,8 @@ class Admin::UsersController < AdminController
       params[:user][:password_confirmation] = nil
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
+      @user.features.del
+      params[:user][:features].split(',').each {|f| @user.features << f.strip}
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
