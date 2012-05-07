@@ -40,6 +40,10 @@ describe 'activity queries' do
       ch1.add_channel(ch2)
       ch3 = create :channel, created_by: gu2
 
+      # Channel should not be empty
+      f1 = create :fact
+      ch3.add_fact f1
+
       gu1.notifications.map(&:to_hash_without_time).should == [
         {user: gu2, action: :created_channel, subject: ch3}
       ]
