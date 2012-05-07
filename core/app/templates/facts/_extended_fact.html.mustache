@@ -22,7 +22,16 @@
         </p>
 
         <div>
-          <h2>{{displaystring}}</h2>
+          <h2 class="normal">
+            {{{displaystring}}}
+            {{#big_displaystring?}}
+              <a class="more">... (more)</a>
+            {{/big_displaystring?}}
+          </h2>
+          <h2 class="full">
+            {{{full_displaystring}}}
+            <a class="less">(less)</a>
+          </h2>
           <span class="scroll-to-container">
             {{#scroll_to_link}}
               &mdash; {{{scroll_to_link}}}
