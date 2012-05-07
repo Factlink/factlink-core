@@ -1,9 +1,11 @@
 require 'open-uri'
 require 'digest/md5'
+require 'redis/objects'
 
 class User
   include Mongoid::Document
   include Sunspot::Mongoid
+  include Redis::Objects
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -191,6 +193,8 @@ class User
       super # Use whatever other message
     end
   end
+
+  set :features
 
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})

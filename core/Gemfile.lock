@@ -311,6 +311,8 @@ GEM
       redis (>= 2.0)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
+    redis-objects (0.5.2)
+      redis (>= 2.1.1)
     reek (1.2.8)
       ruby2ruby (~> 1.2)
       ruby_parser (~> 2.0)
@@ -471,6 +473,7 @@ DEPENDENCIES
   rcov (= 0.9.11)
   redis (= 2.2.1)
   redis-aid
+  redis-objects
   resque (= 1.19.0)
   resque_mailer
   resqued_devise_mailer!
