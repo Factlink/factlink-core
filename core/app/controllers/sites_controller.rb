@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   before_filter :retrieve_facts_for_url, except: :blacklisted
-  before_filter :check_blacklist
+  prepend_before_filter :retrieve_facts_for_url, :check_blacklist
 
   def facts_count_for_url
     render :json => { :count => @facts.count }, :callback => params[:callback], :content_type => "application/javascript"
