@@ -1,5 +1,6 @@
 window.AutoCompletedAddToChannelView = Backbone.View.extend({
   tagName: "div",
+  className: "add_to_channel",
 
   events: {
     "keydown input.typeahead": "parseKeyInput"
@@ -90,7 +91,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       model: channel
     }).render();
 
-    this.$el.find('.auto_complete').append(view.el);
+    this.$el.find('.auto_complete>ul').append(view.el);
 
     this._autoCompleteViews.push(view);
   }
