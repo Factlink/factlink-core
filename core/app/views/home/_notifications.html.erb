@@ -1,6 +1,8 @@
 <% if alert || notice %>
 <div class="alert<%= alert ? " alert-error" : (notice ? " alert-success" : "") %>">
+  <% unless params[:action] == "popup_show" %>
   <a class="close" href="#" data-dismiss="alert">x</a>
+  <% end %>
   <%= notice || '' %>
   <%= alert  || '' %>
 </div>
