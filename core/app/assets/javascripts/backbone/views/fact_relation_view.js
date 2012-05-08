@@ -31,7 +31,10 @@ window.FactRelationView = Backbone.View.extend({
     $('a.weakening',this.$el).tooltip('hide');
     $('a.supporting',this.$el).tooltip('hide');
 
-    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
+    this.$el.html(this.tmpl.render(this.model.toJSON(), {
+      fact_bubble: Template.use("facts", "_fact_bubble"),
+      fact_wheel: Template.use("facts", "_fact_wheel")
+    }));
 
     this.wheelView = new InteractiveWheelView({
       el: this.$el.find('.wheel'),

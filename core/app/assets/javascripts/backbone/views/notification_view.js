@@ -8,7 +8,7 @@ window.GenericNotificationView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+    this.$el.html( this.tmpl.render(this.model.toJSON()) );
 
     if ( this.model.get('unread') === true ) {
       this.$el.addClass('unread');

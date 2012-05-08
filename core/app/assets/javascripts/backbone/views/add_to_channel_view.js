@@ -142,7 +142,7 @@ window.AddToChannelView = Backbone.View.extend({
 
 
     this.$el
-      .html( Mustache.to_html(this.tmpl,add_model) );
+      .html( this.tmpl.render(add_model) );
 
     var $channelListing = this.$el.find('ul');
 

@@ -33,7 +33,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.html('<div class="html_container"></div>').find('.html_container')
-      .html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+      .html( this.tmpl.render(this.model.toJSON()) );
 
     this.canvas = Raphael(this.el,
                           this.options.dimension * 2 + 17,
@@ -60,7 +60,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.find('.html_container')
-      .html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+      .html( this.tmpl.render(this.model.toJSON()));
 
     this.calculateDisplayablePercentages();
 

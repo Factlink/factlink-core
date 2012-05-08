@@ -15,7 +15,7 @@ var FactRelationSearchView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
+    this.$el.html(this.tmpl.render());
 
     if ( this.options.type === "supporting" ) {
       this.$el.find('.add-evidence.supporting' ).css('display','block');

@@ -7,7 +7,7 @@ window.GenericActivityView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    this.$el.html( this.tmpl.render(this.model.toJSON()) );
     $('#activity_for_channel').append(this.$el);
     return this;
   },

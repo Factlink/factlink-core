@@ -68,7 +68,7 @@ window.FactRelationsView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html(Mustache.to_html(this.tmpl, {}, this.partials))
+      .html(this.tmpl.render())
       .prepend(this.factRelationSearchView.render().el);
 
     return this;

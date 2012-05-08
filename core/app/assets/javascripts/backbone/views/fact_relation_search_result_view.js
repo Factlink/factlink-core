@@ -10,7 +10,7 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   },
 
   render: function() {
-    this.el.innerHTML = Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials);
+    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
 
     return this;
   },
