@@ -54,6 +54,18 @@ class ChannelsController < ApplicationController
     authorize! :edit, @channel
   end
 
+  def search
+    solr_result = Sunspot.search Topic do
+      keywords params[:s].to_s
+    end
+
+    results = solr_result.results.map do |topic|
+      Channels::AutoCompletedChannel.for(topic: topic, view: view_context)
+    end
+
+    render json: results
+  end
+
   def create
     authorize! :update, @user
 
