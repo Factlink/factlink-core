@@ -10,9 +10,7 @@ var FactRelationSearchView = Backbone.View.extend({
 
   _searchResultViews: [],
 
-  initialize: function() {
-    this.useTemplate("fact_relations","_evidence_search");
-  },
+  tmpl: Template.use("fact_relations","_evidence_search"),
 
   render: function() {
     this.$el.html(this.tmpl.render());

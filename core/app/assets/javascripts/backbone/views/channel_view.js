@@ -3,8 +3,9 @@
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
 
+  tmpl: Template.use("channels", "_channel"),
+
   initialize: function(opts) {
-    this.useTemplate("channels", "_channel");
     var self = this;
 
     if (this.model !== undefined) {

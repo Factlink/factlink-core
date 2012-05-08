@@ -6,9 +6,7 @@ window.UserSearchView = Backbone.View.extend({
     "click div.list-block": "clickHandler"
   },
 
-  initialize: function() {
-    this.useTemplate("users", "_user_search");
-  },
+  tmpl: Template.use("users", "_user_search"),
 
   render: function() {
     this.$el.html( this.tmpl.render( this.model.toJSON()) );

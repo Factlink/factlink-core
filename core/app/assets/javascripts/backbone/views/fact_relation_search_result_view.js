@@ -5,9 +5,7 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     "click": "createFactRelation"
   },
 
-  initialize: function() {
-    this.useTemplate("facts","_fact_relation_search_result");
-  },
+  tmpl: Template.use("facts", "_fact_relation_search_result"),
 
   render: function() {
     this.el.innerHTML = this.tmpl.render(this.model.toJSON());

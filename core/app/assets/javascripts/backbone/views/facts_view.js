@@ -16,9 +16,9 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
-  initialize: function(options) {
-    this.useTemplate("channels", "_facts");
+  tmpl: Template.use("channels", "_facts"),
 
+  initialize: function(options) {
     var self = this;
 
     this.collection.bind('add', this.add, this);

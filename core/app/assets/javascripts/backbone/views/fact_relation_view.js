@@ -8,9 +8,9 @@ window.FactRelationView = Backbone.View.extend({
     "click .remove-relation": "destroyFactRelation"
   },
 
-  initialize: function() {
-    this.useTemplate('fact_relations','fact_relation');
+  tmpl: Template.use('fact_relations','fact_relation'),
 
+  initialize: function() {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
   },

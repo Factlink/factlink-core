@@ -8,9 +8,9 @@ window.AddToChannelView = Backbone.View.extend({
     'click .submit': 'addChannel'
   },
 
-  initialize: function(opts) {
-    this.useTemplate("channels", "_own_channel_listing");
+  tmpl: Template.use("channels", "_own_channel_listing"),
 
+  initialize: function(opts) {
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
 

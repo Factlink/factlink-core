@@ -6,9 +6,9 @@ window.SearchResultView = Backbone.CollectionView.extend({
   views: {},
   _previousLength: 0,
 
-  initialize: function(options) {
-    this.useTemplate("search_results", "_search_results");
+  tmpl: Template.use("search_results", "_search_results"),
 
+  initialize: function(options) {
     var self = this;
 
     this.collection.bind('add', this.addSearchResultItem, this);

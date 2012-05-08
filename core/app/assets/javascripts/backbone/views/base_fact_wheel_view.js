@@ -19,9 +19,9 @@ window.BaseFactWheelView = Backbone.View.extend({
     }
   },
 
-  initialize: function (options) {
-    this.useTemplate("facts", "_fact_wheel");
+  tmpl: Template.use("facts", "_fact_wheel"),
 
+  initialize: function (options) {
     this.options = $.extend({}, this.defaults, options);
 
     this.opinionTypeRaphaels = {};

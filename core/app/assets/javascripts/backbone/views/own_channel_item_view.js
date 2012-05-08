@@ -5,9 +5,9 @@ window.OwnChannelItemView = Backbone.View.extend({
     "change input" : "change"
   },
 
-  initialize: function(opts) {
-    this.useTemplate("channels", "_own_channel");
+  tmpl: Template.use("channels","_own_channel"),
 
+  initialize: function(opts) {
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);

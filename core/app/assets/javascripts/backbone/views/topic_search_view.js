@@ -4,9 +4,7 @@ window.TopicSearchView = Backbone.View.extend({
 
 
 
-  initialize: function() {
-    this.useTemplate("topics", "_topic_search");
-  },
+  tmpl: Template.use("topics", "_topic_search"),
 
   render: function() {
     this.$el.html( this.tmpl.render( this.model.toJSON()) );

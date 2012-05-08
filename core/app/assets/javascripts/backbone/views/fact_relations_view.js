@@ -6,9 +6,9 @@ window.FactRelationsView = Backbone.View.extend({
   _views: [],
   _loading: true,
 
-  initialize: function(options) {
-    this.useTemplate('fact_relations','fact_relations');
+  tmpl: Template.use('fact_relations','fact_relations'),
 
+  initialize: function(options) {
     this.collection.bind('add', this.addFactRelation, this);
     this.collection.bind('remove', this.removeFactRelation, this);
     this.collection.bind('reset', this.resetFactRelations, this);

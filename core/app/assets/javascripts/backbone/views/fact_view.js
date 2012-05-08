@@ -18,9 +18,9 @@ window.FactView = Backbone.View.extend({
     "click a.less": "hideCompleteDisplaystring"
   },
 
-  initialize: function(opts) {
-    this.useTemplate('facts','_fact'); // use after setting this.tmpl
+  tmpl: Template.use("facts", "_fact"),
 
+  initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
 

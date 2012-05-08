@@ -12,10 +12,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
     "click": "clickHandler"
   },
 
+  tmpl: Template.use("notifications", "_notifications"),
+
   initialize: function () {
-    this.useTemplate("notifications", "_notifications");
-
-
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 

@@ -7,9 +7,7 @@ window.UserView = Backbone.View.extend({
     "click div.avatar-container": "clickHandler"
   },
 
-  initialize: function() {
-    this.useTemplate("users", "_user");
-  },
+  tmpl: Template.use("users", "_user"),
 
   reInit: function(opts){
     if (!this.model || opts.model.id !== this.model.id) {

@@ -1,9 +1,9 @@
 window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
 
-  initialize: function() {
-    this.useTemplate("channels", "_single_menu_item");
+  tmpl: Template.use("channels", "_single_menu_item"),
 
+  initialize: function() {
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);

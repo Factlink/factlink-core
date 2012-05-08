@@ -14,10 +14,9 @@ window.SubchannelItemView = Backbone.View.extend({
     return false;
   },
 
+  tmpl: Template.use("subchannels", "_subchannel_item"),
 
   initialize: function() {
-    this.useTemplate("subchannels", "_subchannel_item");
-
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);

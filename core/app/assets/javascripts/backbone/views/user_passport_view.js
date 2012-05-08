@@ -7,9 +7,11 @@ window.UserPassportView = Backbone.View.extend({
     "mouseleave": "hide"
   },
 
+  tmpl: Template.use("users", "_user_passport"),
+
   initialize: function(opts) {
     this.$passport = $(".passport", this.el);
-    this.useTemplate('users','_user_passport');
+
     this.model.bind("change", this.render, this);
   },
 
