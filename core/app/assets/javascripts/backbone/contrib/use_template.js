@@ -10,7 +10,6 @@
 
       if ( !self.templates ) { self.templates = {}; }
 
-      if ( !self.templates[dir] ) {
         self.templates[dir] = {};
 
         $('#mustache-templates>.mustache-dir-' + dir ).each(function(index, element) {
