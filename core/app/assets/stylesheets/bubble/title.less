@@ -9,13 +9,17 @@
     color: #4d7796;
     margin: 0;
 
-    &:before {
-      #font > .iconic();
-      content: "p ";
+    &.owner {
+      &:before {
+        #font > .iconic();
+        content: "p ";
+      }
     }
 
-    &:hover {
-      background-color: @lightYellow;
+    &.edit {
+      &:hover {
+        background-color: @lightYellow;
+      }
     }
 
     > input {

@@ -4,6 +4,7 @@ require 'redis/objects'
 
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Sunspot::Mongoid
   include Redis::Objects
 
@@ -101,7 +102,7 @@ class User
     self.skip_confirmation!
     self.approved = true
     self.save
-    
+
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
@@ -195,6 +196,13 @@ class User
   end
 
   set :features
+  def features=(values)
+    values ||= []
+    features.del
+    values.each do |val|
+      features << val
+    end
+  end
 
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})

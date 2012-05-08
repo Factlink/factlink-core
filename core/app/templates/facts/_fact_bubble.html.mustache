@@ -5,13 +5,23 @@
     {{/fact_wheel}}
   </div>
   <header>
-    <p class="head title{{#can_edit?}} edit{{/can_edit?}}">
+    <p class="head title{{#can_edit?}} owner edit{{/can_edit?}}">
       <span>{{fact_title}}</span>
       <input type="text" value="{{fact_title}}">
     </p>
 
     <span class="body">
-      {{{displaystring}}}
+      <span class="normal">
+        {{displaystring}}
+        {{#big_displaystring?}}
+          <a class="more">... (more)</a>
+        {{/big_displaystring?}}
+      </span>
+      <span class="full">
+        {{full_displaystring}}
+        <a class="less">(less)</a>
+      </span>
+
       {{#scroll_to_link}}
         &mdash; <span>{{{scroll_to_link}}}</span>
       {{/scroll_to_link}}

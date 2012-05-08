@@ -8,6 +8,7 @@
     <th><%= sortable "username", "Username" %></th>
     <th><%= sortable "email", "Email" %></th>
     <th><%= sortable "sign_in_count", "#sign ins" %></th>
+    <th><%= sortable "features", "#features" %></th>
     <th>status</th>
     <th><%= sortable "last_sign_in_at", "last seen" %></th>
     <th></th>
@@ -31,6 +32,16 @@
             "success"
           end %>
           <span class="label label-<%= @class %>"><%= user.sign_in_count || 0 %></span>
+        </td>
+
+        <td>
+          <% @class = case user.features.count
+          when 0
+            "error"
+          when 1
+            "important"
+          end %>
+          <span class="label label-<%= @class %>"><%= user.features.count %></span>
         </td>
 
         <td>

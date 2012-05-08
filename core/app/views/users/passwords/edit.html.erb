@@ -2,28 +2,30 @@
 <%= params[:msg] ? "Set up your Factlink account" : "Change your password" %>
 </h1>
 
-<style>
-  <%# HACK; fix error rendering properly %>
-  label.message.help-inline {display: none!important;}
-</style>
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f| %>
   <%= f.hidden_field :reset_password_token %>
 
-  <div class="row"><%= f.label :password, "New password", style: 'width: 160px'  %>
-  <%= f.password_field :password %></div>
+  <div class="control-group">
+    <%= f.label :password, "New password", class: "control-label" %>
 
-  <div class="row"><%= f.label :password_confirmation, "Confirm new password", style: 'width: 160px' %>
-  <%= f.password_field :password_confirmation %></div>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password_confirmation, "Confirm new password", class: "control-label" %>
+
+    <div class="controls">
+      <%= f.password_field :password_confirmation %>
+    </div>
+  </div>
 
   <% if params[:msg] == 'welcome' %>
     <%= hidden_field_tag :msg, 'welcome' %>
   <% end %>
-  <div class="action-wrapper" style="margin-right: 170px;">
+
+  <div class="form-actions">
     <%= f.submit(params[:msg] ? "Next Step" : "Change my password", class: 'btn btn-primary') %>
   </div>
-<% end %>
-
-<% unless params[:msg] %>
-<%= render "devise/shared/links" %>
 <% end %>

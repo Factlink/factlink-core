@@ -13,7 +13,9 @@ window.FactView = Backbone.View.extend({
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
     "blur .title.edit>input": "blurTitleEdit",
-    "keydown .title.edit>input": "parseKeyInputTitleEdit"
+    "keydown .title.edit>input": "parseKeyInputTitleEdit",
+    "click a.more": "showCompleteDisplaystring",
+    "click a.less": "hideCompleteDisplaystring"
   },
 
   initialize: function(opts) {
@@ -303,6 +305,16 @@ window.FactView = Backbone.View.extend({
 
       e.preventDefault();
     }
+  },
+
+  showCompleteDisplaystring: function (e) {
+    this.$el.find('.normal').hide()
+      .siblings('.full').show();
+  },
+
+  hideCompleteDisplaystring: function (e) {
+    this.$el.find('.full').hide()
+      .siblings('.normal').show();
   }
 });
 })();

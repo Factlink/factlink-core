@@ -8,7 +8,7 @@
 
         <div class="fact">
           <%= text_area_tag :fact, params[:fact] %>
-          <%= simple_format params[:fact] %>
+          <p style='max-height: 100px; overflow: auto;'><%= params[:fact] %></p>
         </div>
 
         <%= hidden_field_tag :url, params[:url] %>
