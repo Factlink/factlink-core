@@ -106,7 +106,7 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button)
+  FEATURES = %w(pink_feedback_button authority_calculation_details)
 
   def define_feature_toggles
     if user
