@@ -33,6 +33,22 @@ describe 'activity queries' do
       ]
     end
 
+    it "should return activity for all users following a channel of User1 when User1 creates a new channel" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
+
+      ch1.add_channel(ch2)
+      ch3 = create :channel, created_by: gu2
+
+      # Channel should not be empty
+      f1 = create :fact
+      ch3.add_fact f1
+
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :created_channel, subject: ch3}
+      ]
+    end
+
     [:supporting, :weakening].each do |type|
       it "should return activities about facts which have received extra #{type} evidence" do
         ch1 = create :channel
@@ -110,9 +126,9 @@ describe 'activity queries' do
       u = create :user
       u.invited_by = inviter
       u.save
-      
+
       u.approve_invited_user_and_create_activity
-      
+
       u.graph_user.notifications.map(&:to_hash_without_time).should == [
         {user: inviter.graph_user, action: :invites, subject: u.graph_user}
       ]

@@ -9,6 +9,13 @@
     color: #4d7796;
     margin: 0;
 
+    &.owner {
+      &:before {
+        #font > .iconic();
+        content: "p ";
+      }
+    }
+
     &:hover {
       background-color: @lightYellow;
     }

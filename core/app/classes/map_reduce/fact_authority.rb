@@ -19,8 +19,7 @@ class MapReduce
       return nil unless f
 
       res = authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
-            authority_from_opiniated_users(f) +
-            authority_from_channels(f)
+            authority_from_opiniated_users(f)
     end
 
     def authority_from_used_as_evidence fact_creator_id, used_by_user_ids
@@ -33,10 +32,6 @@ class MapReduce
 
     def authority_from_opiniated_users fact
       fact.opinionated_users_count / 100
-    end
-
-    def authority_from_channels fact
-      fact.channels.count / 10
     end
 
     def write_output fact_id, value

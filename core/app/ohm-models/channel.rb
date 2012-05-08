@@ -15,10 +15,10 @@ class Channel < OurOhm
 
 
   attribute :lowercase_title
-  
+
   attribute :slug_title
   index :slug_title
-  
+
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)
     old_set_title new_title
@@ -78,6 +78,12 @@ class Channel < OurOhm
     self.created_by.andand.reposition_in_top_users
   end
 
+  def add_created_channel_activity
+    if self.sorted_cached_facts.count == 0
+      activity(self.created_by, :created_channel, self)
+    end
+  end
+
 
   def facts(opts={})
     return [] if new?
@@ -116,6 +122,7 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
+    add_created_channel_activity
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
     Resque.enqueue(AddFactToChannel, fact.id, self.id)
@@ -152,7 +159,7 @@ class Channel < OurOhm
   def can_be_added_as_subchannel?
     true
   end
-    
+
 
   def to_hash
     return {:id => id,
@@ -163,6 +170,7 @@ class Channel < OurOhm
 
   def add_channel(channel)
     if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
+      add_created_channel_activity
       contained_channels << channel
       channel.containing_channels << self
       Resque.enqueue(AddChannelToChannel, channel.id, self.id)

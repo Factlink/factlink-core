@@ -13,7 +13,9 @@ window.FactView = Backbone.View.extend({
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
     "blur .title.edit>input": "blurTitleEdit",
-    "keydown .title.edit>input": "parseKeyInputTitleEdit"
+    "keydown .title.edit>input": "parseKeyInputTitleEdit",
+    "click a.more": "showCompleteDisplaystring",
+    "click a.less": "hideCompleteDisplaystring"
   },
 
   initialize: function(opts) {
@@ -26,10 +28,7 @@ window.FactView = Backbone.View.extend({
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
-    this.factWheelView = new InteractiveWheelView({
-      model: new Wheel(this.model.get('fact_bubble')['fact_wheel']),
-      fact: this.model
-    });
+    this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
   },
 
   partials: {},
@@ -44,7 +43,16 @@ window.FactView = Backbone.View.extend({
 
     this.$el.find('.authority').tooltip();
 
-    this.$el.find('.wheel').replaceWith(this.factWheelView.render().el);
+    if ( this.factWheelView ) {
+      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble')['fact_wheel']);
+      this.$el.find('.wheel').replaceWith(this.factWheelView.reRender().el);
+    } else {
+      this.factWheelView = new InteractiveWheelView({
+        model: this.wheel,
+        fact: this.model,
+        el: this.$el.find('.wheel')
+      }).render();
+    }
 
     return this;
   },
@@ -297,6 +305,16 @@ window.FactView = Backbone.View.extend({
 
       e.preventDefault();
     }
+  },
+
+  showCompleteDisplaystring: function (e) {
+    this.$el.find('.normal').hide()
+      .siblings('.full').show();
+  },
+
+  hideCompleteDisplaystring: function (e) {
+    this.$el.find('.full').hide()
+      .siblings('.normal').show();
   }
 });
 })();

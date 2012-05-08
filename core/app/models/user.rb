@@ -1,9 +1,11 @@
 require 'open-uri'
 require 'digest/md5'
+require 'redis/objects'
 
 class User
   include Mongoid::Document
   include Sunspot::Mongoid
+  include Redis::Objects
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -99,7 +101,7 @@ class User
     self.skip_confirmation!
     self.approved = true
     self.save
-    
+
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
 
@@ -189,6 +191,15 @@ class User
       :not_approved
     else
       super # Use whatever other message
+    end
+  end
+
+  set :features
+  def features=(values)
+    values ||= []
+    features.del
+    values.each do |val|
+      features << val
     end
   end
 
