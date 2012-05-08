@@ -41,8 +41,7 @@
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
     <% end %>
 
-    var addToChannelView = new AddToChannelView({
-      collection: currentUser.channels,
+    var addToChannelView = new AutoCompletedAddToChannelView({
       el: $('#add_to_channels')
     }).render();
 
