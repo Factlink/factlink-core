@@ -19,19 +19,28 @@ ActivityAddedEvidenceView = GenericActivityView.extend({
   tmpl: Template.use("activities", "_added_evidence_activity")
 });
 
+ActivityCreatedChannelView = GenericActivityView.extend({
+  tmpl: Template.use("activities", '_created_channel')
+});
+
 ActivityAddedSubchannelView = GenericActivityView.extend({
   tmpl: Template.use("activities", "_added_subchannel_activity")
 });
+
 ActivityWasFollowedView = GenericActivityView.extend({});
 
 window.ActivityView = function(opts) {
 
   switch (opts.model.get("action")) {
+
     case "added_supporting_evidence":
       return new ActivityAddedEvidenceView(opts);
 
     case "added_weakening_evidence":
       return new ActivityAddedEvidenceView(opts);
+
+    case "created_channel":
+      return new ActivityCreatedChannelView(opts);
 
     case "added_subchannel":
       return new ActivityAddedSubchannelView(opts);
