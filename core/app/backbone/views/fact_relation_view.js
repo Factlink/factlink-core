@@ -35,6 +35,7 @@ window.FactRelationView = Backbone.View.extend({
 
     this.wheelView = new InteractiveWheelView({
       el: this.$el.find('.wheel'),
+      fact: this.model.get("fact_bubble"),
       model: new Wheel(this.model.get('fact_bubble')['fact_wheel'])
     }).render();
 
