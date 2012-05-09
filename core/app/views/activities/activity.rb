@@ -1,6 +1,10 @@
 module Activities
   class Activity < Mustache::Railstache
 
+    def debug
+      can_haz :debug_discovery_tab
+    end
+
     def username
       self[:activity].user.user.username
     end

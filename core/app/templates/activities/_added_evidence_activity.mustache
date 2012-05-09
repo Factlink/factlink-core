@@ -7,10 +7,14 @@
     <span class="body">
       <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
       added
-      <a href="{{ activity.evidence_url }}">{{ activity.evidence }}</a>
-      as {{ activity.type }} evidence to
+      <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
+      to
       <a href="{{ activity.fact_url }}">{{ activity.fact }}</a>
     </span>
     <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
   </div>
+
+  {{#debug}}
+  <pre>:added_evidence_activity</pre>
+  {{/debug}}
 </article>

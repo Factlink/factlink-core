@@ -7,4 +7,8 @@
     <span class="body"><a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a> added <a href="{{ activity.channel_owner_profile_url }}" rel="backbone">{{ activity.channel_owner }}'s</a> {{ activity.channel_definition }} <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a> to his {{ activity.channels_definition }}</span>
     <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
   </div>
+
+  {{#debug}}
+  <pre>:added_subchannel</pre>
+  {{/debug}}
 </article>
