@@ -66,7 +66,11 @@ module Channels
     end
 
     def is_normal
-      !is_created
+      if (can_haz :discovery_tab_all_stream) && is_all
+        return true
+      else
+        !is_all && !is_created
+      end
     end
 
     def is_mine
