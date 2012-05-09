@@ -53,7 +53,7 @@
 
     <% if use_backbone %>
 
-      var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+      var Router = new Workspace();
     <% end %>
 
   </script>
