@@ -66,7 +66,7 @@ module Channels
     end
 
     def is_normal
-      !is_all && !is_created
+      !is_created
     end
 
     def is_mine
