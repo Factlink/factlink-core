@@ -5,21 +5,21 @@
 
 //= require twipsy
 
-//= require_tree ./backbone/contrib/
+//= require_tree ./contrib
 
 // Include Fact Model so it can be used inside extended_fact
-//= require ./backbone/models/fact.js
+//= require ./models/fact.js
 
-//= require_tree ./backbone/models/
+//= require_tree ./models/
 
 /* We need to load dependencies first. window.FactRelation is being extended
    by Supporting/WeakeningFactRelations */
-//= require ./backbone/collections/fact_relations.js
+//= require ./collections/fact_relations.js
 
-//= require_tree ./backbone/collections/
+//= require_tree ./collections/
 
 // Include FactView so it can be used in ExtendedFactView
-//= require ./backbone/views/fact_view.js
+//= require ./views/fact_view.js
 
-//= require_tree ./backbone/views/
-//= require_tree ./backbone/
+//= require_tree ./views/
+//= require ./router.js

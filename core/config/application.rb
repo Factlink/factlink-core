@@ -162,6 +162,8 @@ module FactlinkUI
       'admin.js'
     ]
 
+    config.assets.paths << Rails.root.join("app", "backbone")
+
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
   end
