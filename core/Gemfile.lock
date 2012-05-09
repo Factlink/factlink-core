@@ -117,6 +117,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-screenshot (0.1.10)
+      capybara (>= 1.0)
     capybara-webkit (0.10.1)
       capybara (>= 1.0.0, < 1.2)
       json
@@ -433,6 +435,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara
+  capybara-screenshot
   capybara-webkit (= 0.10.1)
   client_side_validations
   database_cleaner
