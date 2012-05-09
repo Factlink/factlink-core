@@ -6,15 +6,15 @@ window.SearchResultView = Backbone.CollectionView.extend({
   views: {},
   _previousLength: 0,
 
-  initialize: function(options) {
-    this.useTemplate("search_results", "_search_results");
+  tmpl: Template.use("search_results", "_search_results"),
 
+  initialize: function(options) {
     var self = this;
 
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
 
-    this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
+    this.$el.html(this.tmpl.render());
     this.bindScroll();
   },
 

@@ -6,10 +6,8 @@ window.UserView = Backbone.View.extend({
   events: {
     "click div.avatar-container": "clickHandler"
   },
-  
-  initialize: function() {
-    this.useTemplate("users", "_user");
-  },
+
+  tmpl: Template.use("users", "_user"),
 
   reInit: function(opts){
     if (!this.model || opts.model.id !== this.model.id) {
@@ -21,7 +19,7 @@ window.UserView = Backbone.View.extend({
   },
 
   render: function() {
-    this.el.innerHTML = Mustache.to_html(this.tmpl, this.model.toJSON());
+    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
     this.root.prepend( this.el );
 
     return this;

@@ -3,12 +3,10 @@ window.GenericNotificationView = Backbone.View.extend({
   tagName: "li",
   className: "activity",
 
-  initialize: function(options) {
-    this.useTemplate("notifications", "_generic_activity");
-  },
+  tmpl: Template.use("notifications", "_generic_activity"),
 
   render: function () {
-    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+    this.$el.html( this.tmpl.render(this.model.toJSON()) );
 
     if ( this.model.get('unread') === true ) {
       this.$el.addClass('unread');
@@ -27,33 +25,23 @@ window.GenericNotificationView = Backbone.View.extend({
 });
 
 NotificationAddedEvidenceView = GenericNotificationView.extend({
-  initialize: function(options) {
-    this.useTemplate("notifications", "_added_evidence_activity");
-  }
+  tmpl: Template.use("notifications", "_added_evidence_activity")
 });
 
 NotificationAddedSubchannelView = GenericNotificationView.extend({
-  initialize: function(options) {
-    this.useTemplate("notifications", "_added_subchannel_activity");
-  }
+  tmpl: Template.use("notifications", "_added_subchannel_activity")
 });
 
 NotificationOpinionatedView = GenericNotificationView.extend({
-  initialize: function(options) {
-    this.useTemplate("notifications", "_opinionated_activity");
-  }
+  tmpl: Template.use("notifications", "_opinionated_activity")
 });
 
 NotificationInvitedView = GenericNotificationView.extend({
-  initialize: function(options) {
-    this.useTemplate("notifications", "_invited_activity");
-  }
+  tmpl: Template.use("notifications", "_invited_activity")
 });
 
 NotificationNewChannelView = GenericNotificationView.extend({
-  initialize: function(options) {
-    this.useTemplate("notifications", "_new_channel_activity");
-  }
+  tmpl: Template.use("notifications", "_new_channel_activity")
 });
 
 window.NotificationView = function(opts) {

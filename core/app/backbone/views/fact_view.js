@@ -18,9 +18,9 @@ window.FactView = Backbone.View.extend({
     "click a.less": "hideCompleteDisplaystring"
   },
 
-  initialize: function(opts) {
-    this.useTemplate('facts','_fact'); // use after setting this.tmpl
+  tmpl: Template.use("facts", "_fact"),
 
+  initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
 
@@ -35,7 +35,11 @@ window.FactView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
+      .html( this.tmpl.render(this.model.toJSON(), {
+        fact_bubble: Template.use("facts","_fact_bubble"),
+        fact_wheel: Template.use("facts","_fact_wheel"),
+        interacting_users: Template.use("facts","_interacting_users")
+      }));
 
     this.initAddToChannel();
     this.initFactRelationsViews();

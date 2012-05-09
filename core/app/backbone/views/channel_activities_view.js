@@ -5,8 +5,9 @@
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
+  tmpl: Template.use("channels", "_channel"),
+
   initialize: function(opts) {
-    this.useTemplate("channels", "_channel");
     var self = this;
 
     if (this.model !== undefined) {
@@ -111,7 +112,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( Mustache.to_html(this.tmpl, this.model.toJSON() ));
+        .html( this.tmpl.render(this.model.toJSON()) );
 
       this.initSubChannels();
       this.initSubChannelMenu();

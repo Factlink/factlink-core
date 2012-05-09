@@ -3,9 +3,9 @@ window.ExtendedFactView = FactView.extend({
   tagName: "section",
   id: "main-wrapper",
 
-  initialize: function(opts) {
-    this.useTemplate('facts','_extended_fact'); // use after setting this.tmpl
+  tmpl: Template.use("facts", "_extended_fact"),
 
+  initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
 
