@@ -24,6 +24,7 @@ var files = {
     'src/js/annotate.js',
     'src/js/highlight.js',
     'src/js/scrollto.js',
+    'src/js/loaded_message.js',
     'src/js/search.js',
     'src/js/create.js',
     'src/js/modal.js',
