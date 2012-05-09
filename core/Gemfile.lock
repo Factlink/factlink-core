@@ -125,6 +125,7 @@ GEM
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     chronic (0.3.0)
+    chunky_png (1.2.5)
     churn (0.0.13)
       chronic (>= 0.2.3)
       hirb
@@ -437,6 +438,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   capybara-webkit (= 0.10.1)
+  chunky_png
   client_side_validations
   database_cleaner
   devise (~> 2.0.0)
