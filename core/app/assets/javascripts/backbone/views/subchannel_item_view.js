@@ -42,7 +42,7 @@ window.SubchannelItemView = Backbone.View.extend({
       });
     } catch(e) {}
 
-    Router.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
+    Backbone.history.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
 
     e.preventDefault();
 
