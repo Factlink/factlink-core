@@ -1,5 +1,14 @@
 require 'integration_helper'
 
+describe "Compare screens", type: :request do
+
+  it "should render the frontpage as expected", js: true do
+    visit "/"
+    screen_shot_and_save_page
+  end
+
+end
+
 describe "Check the ToS", type: :request do
 
   before do
