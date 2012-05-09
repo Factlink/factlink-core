@@ -7,6 +7,11 @@ test("Simple search", function(){
     equal(Factlink.search("character").length, 2, "Found character once");
     equal(Factlink.search("spiderman").length, 0, "No results for spiderman");
 
+
+    // the following line tests for a bug, which we haven't fixed yet
+    // it also magically causes another test to fail, no clue why -- mark
+    //equal(Factlink.search("foo bar").length, 1, "Find foo bar once");
+
     equal(document.getSelection().rangeCount, 0, "Selection has been reset");
 });
 
