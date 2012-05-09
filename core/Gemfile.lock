@@ -25,7 +25,7 @@ GIT
 
 GIT
   remote: https://github.com/Factlink/mustache_rails3.git
-  revision: 8d173df4632286407c6907fa27e94e1a0d676164
+  revision: 5a1a7a33c7a42f0225835e006af8233146c47e21
   specs:
     mustache_rails3 (0.1.2.4)
 
