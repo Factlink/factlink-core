@@ -49,6 +49,17 @@ describe RemoveFactFromChannel do
         end
       end
     end
+    
+    context "when the channel itself contains the fact" do
+      before do
+        @ch.sorted_internal_facts << @f
+      end
+      it "should not remove the fact from the cached facts" do
+        RemoveFactFromChannel.perform @f.id, @ch.id
+        @ch.sorted_cached_facts.should include(@f)
+        @f.channels.should include(@ch)
+      end
+    end
 
     context "when the channel already does not include the fact" do
       before do

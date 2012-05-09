@@ -2,6 +2,7 @@ class RemoveFactFromChannel
   @queue = :channel_operations
 
   def self.included_from_elsewhere?(fact,channel)
+    return true if channel.sorted_internal_facts.include? fact
     channel.contained_channels.each do |subch|
       return true if subch.include? fact
     end
