@@ -146,10 +146,6 @@ class ChannelsController < ApplicationController
     else
       @channel.add_fact(@fact)
     end
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def add_fact
