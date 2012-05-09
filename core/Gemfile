@@ -93,6 +93,7 @@ group :assets do
   # Temporary fix for @import bug, merge back to original Gem when it's in master
   gem 'less-rails', '>= 2.1.5'
   gem 'uglifier'
+  gem 'hogan_assets'
 
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'

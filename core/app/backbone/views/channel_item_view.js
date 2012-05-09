@@ -1,9 +1,9 @@
 window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
 
-  initialize: function() {
-    this.useTemplate("channels", "_single_menu_item");
+  tmpl: Template.use("channels", "_single_menu_item"),
 
+  initialize: function() {
     this.model.bind('change', this.render, this);
     this.model.bind('destroy', this.remove, this);
     this.model.bind('remove', this.remove, this);
@@ -20,7 +20,7 @@ window.ChannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( Mustache.to_html(this.tmpl, this.model.toJSON() ))
+      .html( this.tmpl.render(this.model.toJSON()) )
       .attr('id', 'channel-' + this.model.id);
 
     return this;

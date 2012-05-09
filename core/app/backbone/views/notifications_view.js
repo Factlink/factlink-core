@@ -12,10 +12,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
     "click": "clickHandler"
   },
 
+  tmpl: Template.use("notifications", "_notifications"),
+
   initialize: function () {
-    this.useTemplate("notifications", "_notifications");
-
-
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 
@@ -27,7 +26,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   render: function() {
-    this.$el.find("ul.dropdown-menu").html(Mustache.to_html(this.tmpl));
+    this.$el.find("ul.dropdown-menu").html(this.tmpl.render());
 
     if (this.collection.length === 0){
       this.$el.find("li.no-notifications").removeClass('hidden');

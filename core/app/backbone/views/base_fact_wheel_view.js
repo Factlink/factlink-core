@@ -19,9 +19,9 @@ window.BaseFactWheelView = Backbone.View.extend({
     }
   },
 
-  initialize: function (options) {
-    this.useTemplate("facts", "_fact_wheel");
+  tmpl: Template.use("facts", "_fact_wheel"),
 
+  initialize: function (options) {
     this.options = $.extend({}, this.defaults, options);
 
     this.opinionTypeRaphaels = {};
@@ -33,7 +33,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.html('<div class="html_container"></div>').find('.html_container')
-      .html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+      .html( this.tmpl.render(this.model.toJSON()) );
 
     this.canvas = Raphael(this.el,
                           this.options.dimension * 2 + 17,
@@ -60,7 +60,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.find('.html_container')
-      .html(Mustache.to_html(this.tmpl, this.model.toJSON()));
+      .html( this.tmpl.render(this.model.toJSON()));
 
     this.calculateDisplayablePercentages();
 

@@ -2,12 +2,10 @@ window.GenericActivityView = Backbone.View.extend({
   tagName: "div",
   className: "activity-block",
 
-  initialize: function(options) {
-    this.useTemplate("activities", "_generic_activity");
-  },
+  tmpl: Template.use("activities", "_generic_activity"),
 
   render: function() {
-    this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    this.$el.html( this.tmpl.render(this.model.toJSON()) );
     $('#activity_for_channel').append(this.$el);
     return this;
   },
@@ -18,15 +16,11 @@ window.GenericActivityView = Backbone.View.extend({
 });
 
 ActivityAddedEvidenceView = GenericActivityView.extend({
-  initialize: function(options) {
-    this.useTemplate("activities", "_added_evidence_activity");
-  }
+  tmpl: Template.use("activities", "_added_evidence_activity")
 });
 
 ActivityAddedSubchannelView = GenericActivityView.extend({
-  initialize: function(options) {
-    this.useTemplate("activities", "_added_subchannel_activity");
-  }
+  tmpl: Template.use("activities", "_added_subchannel_activity")
 });
 ActivityWasFollowedView = GenericActivityView.extend({});
 

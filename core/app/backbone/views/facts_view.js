@@ -16,9 +16,9 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
-  initialize: function(options) {
-    this.useTemplate("channels", "_facts");
+  tmpl: Template.use("channels", "_facts"),
 
+  initialize: function(options) {
     var self = this;
 
     this.collection.bind('add', this.add, this);
@@ -26,11 +26,7 @@ window.FactsView = Backbone.CollectionView.extend({
     this.collection.bind('remove', this.removeOne, this);
 
     //TODO split this into two views, one for channels, one for searchresults
-    if(options.channel !== undefined ) {
-      this.$el.html(Mustache.to_html(this.tmpl,options.channel.toJSON(), this.partials));
-    } else {
-      this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
-    }
+    this.$el.html(this.tmpl.render(options.channel && options.channel.toJSON()));
 
     this.$el.find('.icon-pen').tooltip({ title: 'Add a title to this Factlink'});
 

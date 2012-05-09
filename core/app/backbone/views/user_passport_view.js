@@ -7,9 +7,11 @@ window.UserPassportView = Backbone.View.extend({
     "mouseleave": "hide"
   },
 
+  tmpl: Template.use("users", "_user_passport"),
+
   initialize: function(opts) {
     this.$passport = $(".passport", this.el);
-    this.useTemplate('users','_user_passport');
+
     this.model.bind("change", this.render, this);
   },
 
@@ -18,8 +20,12 @@ window.UserPassportView = Backbone.View.extend({
   },
 
   show: function() {
-    this.$passport.html( Mustache.to_html(this.tmpl, this.model.toJSON()));
-    $(".activity", this.$passport).html(this.options.activity["internationalized_action"]).addClass(this.options.activity["action"])
+    this.$passport.html( this.tmpl.render(this.model.toJSON()));
+
+    $(".activity", this.$passport)
+      .html(this.options.activity["internationalized_action"])
+      .addClass(this.options.activity["action"]);
+
     this.$passport.fadeIn('fast');
   },
 
