@@ -81,10 +81,14 @@ def sign_in_user(user)
   user
 end
 
+# Nice post about comparing images:
+# http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
+def compare folder
+  path = Rails.root.join "#{Capybara.save_and_open_page_path}" "#{folder}"
+end
 
-def screen_shot_and_save_page
+def screen_shot_and_save_page filename="#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
   require 'capybara/util/save_and_open_page'
-  path = "/#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
-  Capybara.save_page body, "#{path}.html"
-  page.driver.render Rails.root.join "#{Capybara.save_and_open_page_path}" "#{path}.png"
+  Capybara.save_page body, "/#{filename}.html"
+  page.driver.render Rails.root.join "#{Capybara.save_and_open_page_path}" "#{filename}.png"
 end
