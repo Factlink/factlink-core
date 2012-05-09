@@ -1,5 +1,6 @@
 module Activities
   class Activity < Mustache::Railstache
+
     def username
       self[:activity].user.user.username
     end
@@ -30,8 +31,6 @@ module Activities
 
     def activity
       case self[:activity].action
-      when "added_subchannel"
-        return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
 
       when "added_supporting_evidence"
         return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
@@ -39,8 +38,11 @@ module Activities
       when "added_weakening_evidence"
         return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
 
-      else
-        return self
+      when "created_channel"
+        return Activities::CreatedChannel.for(activity: self[:activity], view: self[:view])
+
+      when "added_subchannel"
+        return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
       end
     end
   end
