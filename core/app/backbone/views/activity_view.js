@@ -20,7 +20,7 @@ ActivityAddedEvidenceView = GenericActivityView.extend({
 });
 
 ActivityCreatedChannelView = GenericActivityView.extend({
-  tmpl: Template.use("activities", '_created_channel')
+  tmpl: Template.use("activities", '_created_channel_activity')
 });
 
 ActivityAddedSubchannelView = GenericActivityView.extend({
