@@ -17,7 +17,7 @@
     </div>
   <% end %>
 
-  <h4>Reserve your username</h4>
+  <h3>Reserve your username</h3>
   <p>We'll get you account access as we're opening up for more users.</p>
   <%= render template: "users/registrations/new" %>
   &nbsp;
@@ -63,8 +63,6 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <%= load_mustache_templates %>
-
   <script>
     <% top_facts(3).each do |f| %>
       new PassiveWheelView({

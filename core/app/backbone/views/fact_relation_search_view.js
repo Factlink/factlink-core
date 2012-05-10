@@ -10,12 +10,10 @@ var FactRelationSearchView = Backbone.View.extend({
 
   _searchResultViews: [],
 
-  initialize: function() {
-    this.useTemplate("fact_relations","_evidence_search");
-  },
+  tmpl: Template.use("fact_relations","_evidence_search"),
 
   render: function() {
-    this.$el.html(Mustache.to_html(this.tmpl, {}, this.partials));
+    this.$el.html(this.tmpl.render());
 
     if ( this.options.type === "supporting" ) {
       this.$el.find('.add-evidence.supporting' ).css('display','block');

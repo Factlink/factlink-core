@@ -1,37 +1,32 @@
 //= require jquery.hoverIntent
 
-window.ChannelView = Backbone.View.extend({
+//TODO fix duplication with channel_view
+
+window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
+  tmpl: Template.use("channels", "_channel"),
+
   initialize: function(opts) {
-    this.useTemplate("channels", "_channel");
     var self = this;
 
     if (this.model !== undefined) {
       this.subchannels = new SubchannelList({channel: this.model});
       this.subchannels.fetch();
 
-      this.factsView = new FactsView({
-        collection: new ChannelFacts([],{
+      this.activitiesView = new ActivitiesView({
+        collection: new ChannelActivities([],{
           channel: self.model
-        }),
-        channel: self.model
+        })
       });
-
-      this.factsView.setLoading();
-
-      this.factsView.collection.fetch({
-        data: {
-          timestamp: this.factsView._timestamp
-        }
-      });
+      this.activitiesView.collection.fetch();
     }
   },
 
   reInit: function(opts) {
     if (!this.model || this.model.id !== opts.model.id){
       this.close();
-      return new ChannelView(opts);
+      return new ChannelActivitiesView(opts);
     }
     return this;
   },
@@ -97,8 +92,8 @@ window.ChannelView = Backbone.View.extend({
   remove: function() {
     Backbone.View.prototype.remove.apply(this);
 
-    if ( this.factsView ) {
-      this.factsView.close();
+    if ( this.activitiesView ) {
+      this.activitiesView.close();
     }
 
     if ( this.addToChannelView ) {
@@ -117,26 +112,23 @@ window.ChannelView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( Mustache.to_html(this.tmpl, this.model.toJSON() ));
+        .html( this.tmpl.render(this.model.toJSON()) );
 
       this.initSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.$el.find('#facts_for_channel').append(this.factsView.render().el);
+      this.$el.find('#activity_for_channel').append(this.activitiesView.render().el);
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');
       tabs.find('li').removeClass('active');
-      tabs.find('.factlinks').addClass('active');
+      tabs.find('.activity').addClass('active');
 
       self.model.trigger('loaded')
                   .trigger('activate', self.model);
     }
-    this.$el.find('header .authority')
-      .tooltip({title: 'Authority of ' + self.model.attributes.created_by.username + ' on "' + self.model.attributes.title + '"'});
-
 
     return this;
   }

@@ -132,6 +132,9 @@ module FactlinkUI
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
 
+    # Add /app/templates to asset path
+    config.assets.paths << "#{Rails.root}/app/templates"
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -158,6 +161,8 @@ module FactlinkUI
       'modernizr-loader.js',
       'admin.js'
     ]
+
+    config.assets.paths << Rails.root.join("app", "backbone")
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store

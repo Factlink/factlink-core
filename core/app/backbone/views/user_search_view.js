@@ -5,13 +5,11 @@ window.UserSearchView = Backbone.View.extend({
   events: {
     "click div.list-block": "clickHandler"
   },
-  
-  initialize: function() {
-    this.useTemplate("users", "_user_search");
-  },
+
+  tmpl: Template.use("users", "_user_search"),
 
   render: function() {
-    this.$el.html( Mustache.to_html(this.tmpl, this.model.toJSON()) );
+    this.$el.html( this.tmpl.render( this.model.toJSON()) );
 
     return this;
   },

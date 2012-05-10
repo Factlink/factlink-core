@@ -8,9 +8,9 @@ window.FactRelationView = Backbone.View.extend({
     "click .remove-relation": "destroyFactRelation"
   },
 
-  initialize: function() {
-    this.useTemplate('fact_relations','fact_relation');
+  tmpl: Template.use('fact_relations','fact_relation'),
 
+  initialize: function() {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
   },
@@ -31,10 +31,14 @@ window.FactRelationView = Backbone.View.extend({
     $('a.weakening',this.$el).tooltip('hide');
     $('a.supporting',this.$el).tooltip('hide');
 
-    this.$el.html(Mustache.to_html(this.tmpl, this.model.toJSON(), this.partials));
+    this.$el.html(this.tmpl.render(this.model.toJSON(), {
+      fact_bubble: Template.use("facts", "_fact_bubble"),
+      fact_wheel: Template.use("facts", "_fact_wheel")
+    }));
 
     this.wheelView = new InteractiveWheelView({
       el: this.$el.find('.wheel'),
+      fact: this.model.get("fact_bubble"),
       model: new Wheel(this.model.get('fact_bubble')['fact_wheel'])
     }).render();
 
