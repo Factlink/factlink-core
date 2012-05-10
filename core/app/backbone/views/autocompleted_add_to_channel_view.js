@@ -3,7 +3,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   className: "add_to_channel",
 
   events: {
-    "keydown input.typeahead": "parseKeyInput"
+    "keydown input.typeahead": "parseKeyDown",
+    "keyup input.typeahead": "autoComplete"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
@@ -14,23 +15,37 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     return this;
   },
 
-  parseKeyInput: function (e) {
-    console.info( "parseKeyInput", e.keyCode );
+  parseKeyDown: function (e) {
+    console.info( "parseKeyDown", e.keyCode );
+
+    this._proceed = false;
 
     switch(e.keyCode) {
       case 13:
         this.parseReturn();
         break;
       case 40:
-        this.moveSelectionDown();
+        this.moveSelectionDown(e);
         break;
       case 38:
-        this.moveSelectionUp();
+        this.moveSelectionUp(e);
         break;
       default:
-        this.autoComplete();
+        this._proceed = true;
         break;
     }
+  },
+
+  moveSelectionUp: function (e) {
+
+
+    e.preventDefault();
+  },
+
+  moveSelectionDown: function (e) {
+
+
+    e.preventDefault();
   },
 
   parseReturn: function () {
@@ -45,9 +60,12 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var searchValue = this.$el.find('input.typeahead').val();
 
     if ( this._lastKnownSearchValue === searchValue
-        || searchValue.length < 1 ) {
+        || searchValue.length < 1
+        || !this._proceed ) {
       return;
     }
+
+    console.info( "autoComplete", searchValue );
 
     this._lastKnownSearchValue = searchValue;
 
