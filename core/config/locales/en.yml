@@ -4,7 +4,7 @@
 en:
   add_fact: "add factlink"
   added_fact: "added"
-  
+
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"
@@ -29,3 +29,5 @@ en:
 
   related_users: "related users"
   interesting_users: "interesting users"
+
+  ago: "ago"

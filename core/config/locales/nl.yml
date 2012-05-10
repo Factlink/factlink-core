@@ -5,7 +5,7 @@
 nl:
   add_fact: "factlink toevoegen"
   added_fact: "toegevoegd"
-  
+
   fact_believe_action: "stem in met"
   fact_doubt_action: "stem neutraal op"
   fact_disbelieve_action: "ontken"
@@ -15,7 +15,7 @@ nl:
   fact_disbelieve_opinion: "oneens"
 
   fact_removed_opinions_past_action: "trok mening in"
-  
+
   fact_believe_past_action: "stemde in met"
   fact_doubt_past_action: "stemde neutraal op"
   fact_disbelieve_past_action: "ontkende"
@@ -30,3 +30,5 @@ nl:
 
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
+
+  ago: "geleden"
