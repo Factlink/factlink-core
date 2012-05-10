@@ -17,6 +17,10 @@ module Activities
       self[:activity].action
     end
 
+    def translated_action
+      t("fact_#{self[:activity].action.to_sym}_action".to_sym)
+    end
+
     def subject
       self[:activity].subject.to_s
     end
@@ -43,6 +47,10 @@ module Activities
 
       when "added_subchannel"
         return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
+
+      when "believes", "doubts", "disbelieves"
+        return Activities::AddedOpinion.for(activity: self[:activity], view: self[:view])
+
       end
     end
   end
