@@ -66,15 +66,15 @@ module Channels
     end
 
     def is_normal
-      if (can_haz :discovery_tab_all_stream) && is_all && is_mine
-        return true
-      else
-        !is_all && !is_created
-      end
+      !is_all && !is_created
     end
 
     def is_mine
       self[:user] == current_user
+    end
+
+    def discover_stream?
+      (can_haz :discovery_tab_all_stream) && is_all && is_mine
     end
 
     def created_by
