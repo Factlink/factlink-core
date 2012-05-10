@@ -192,7 +192,7 @@ class ChannelsController < ApplicationController
 
     if @channel.type == "stream"
       # TODO Tom, clean this.
-      @activities = @user.graph_user.notifications.below('inf', count: 10, reversed: true ).keep_if { |a| a && a.still_valid? }.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
+      @activities = @user.graph_user.notifications.below('inf', count: 24, reversed: true ).keep_if { |a| a && a.still_valid? }.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
     else
       @activities = @channel.activities.below('inf', count:17, reversed: true).keep_if{|a| a && a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
     end
