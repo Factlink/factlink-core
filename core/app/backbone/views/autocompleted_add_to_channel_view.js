@@ -45,7 +45,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   autoComplete: _.throttle(function () {
     var searchValue = this.$el.find('input.typeahead').val();
-    var self = this;
 
     if ( this._lastKnownSearchValue === searchValue
         || searchValue.length < 1 ) {
@@ -88,7 +87,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this._autoCompletes.push(channel);
 
     var view = new AutoCompletedChannelView({
-      model: channel
+      model: channel,
+      query: this._lastKnownSearchValue
     }).render();
 
     this.$el.find('.auto_complete>ul').append(view.el);

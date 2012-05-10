@@ -5,7 +5,14 @@ window.AutoCompletedChannelView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$el.html( Mustache.to_html( this.tmpl, this.model.toJSON() ) );
+    console.info( this.options.query );
+    var highlightedTitle = this.model.get('title');
+
+    var context = _.extend(this.model.toJSON(), {
+
+    });
+
+    this.$el.html( Mustache.to_html( this.tmpl, context ) );
 
     return this;
   }
