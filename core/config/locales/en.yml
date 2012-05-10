@@ -9,6 +9,10 @@ en:
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"
 
+  fact_believes_action: "agrees"
+  fact_doubts_action: "doubts"
+  fact_disbelieves_action: "disagrees"
+
   fact_believe_opinion: "agree"
   fact_doubt_opinion: "neutral"
   fact_disbelieve_opinion: "disagree"

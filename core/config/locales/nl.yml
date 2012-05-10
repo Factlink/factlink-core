@@ -10,6 +10,10 @@ nl:
   fact_doubt_action: "stem neutraal op"
   fact_disbelieve_action: "ontken"
 
+  fact_believes_action: "stemt in met"
+  fact_doubts_action: "stemt neutraal op"
+  fact_disbelieves_action: "ontkent"
+
   fact_believe_opinion: "eens"
   fact_doubt_opinion: "neutraal"
   fact_disbelieve_opinion: "oneens"
