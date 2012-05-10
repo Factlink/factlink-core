@@ -16,7 +16,16 @@ window.GenericActivityView = Backbone.View.extend({
 });
 
 ActivityAddedEvidenceView = GenericActivityView.extend({
-  tmpl: Template.use("activities", "_added_evidence_activity")
+  tmpl: Template.use("activities", "_added_evidence_activity"),
+
+  render: function() {
+    GenericActivityView.prototype.render.apply(this);
+    var factView = new FactView({
+      el: this.$el.find('.fact-block'),
+      model: new Fact(this.model.get('activity')['fact'])
+    }).render();
+    return this;
+  }
 });
 
 ActivityCreatedChannelView = GenericActivityView.extend({
