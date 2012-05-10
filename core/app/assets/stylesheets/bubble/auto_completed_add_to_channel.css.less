@@ -1,7 +1,75 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
 .add_to_channel {
   .auto_complete {
-    .btn-mini {
-      padding: 4px 4px 5px 5px;
+    box-sizing: border-box;
+    .custom-radius(5px, 5px, 5px, 5px);
+    border: 1px solid #b5b5b5;
+    width: 255px;
+    font-size: 13px;
+
+    ul {
+      li {
+        line-height: 30px;
+        padding: 0 10px;
+        margin: 4px 0 0;
+        height: 30px;
+        overflow: hidden;
+        height: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        em {
+          color: #5e8ba6;
+          font-style: normal;
+          font-weight: bold;
+        }
+
+        &.active {
+          background: #5e8ba6;
+          color: #fff;
+
+          em {
+            color: #fff;
+          }
+
+          &.user-channel {
+            background-image: image-url("glyphicons/user--white.png")
+          }
+        }
+
+        &.user-channel {
+          background-image: image-url("glyphicons/user.png");
+          background-position: 230px 8px;
+          background-repeat: no-repeat;
+          padding-right: 30px;
+        }
+      }
+    }
+
+    > div {
+      background: #f7f7f7;
+      border-top: 1px solid #e0dcdc;
+      padding: 5px 10px;
+      margin-top: 7px;
+      color: #555;
+      .custom-radius(0, 5px, 5px, 0);
+
+      a {
+        margin: 0 10px 0 0;
+      }
+
+      .btn-mini {
+        padding: 4px 4px 5px 5px;
+      }
+
+      span {
+        vertical-align: middle;
+        display: inline-block;
+        width: 190px;
+        word-wrap: break-word;
+      }
     }
   }
 }
