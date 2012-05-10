@@ -1,10 +1,16 @@
 // = require bubble
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
 
 #activity_for_channel {
 
   .fact-block {
     // Removes the border-bottom the .fact-block default has
     border: none;
+  }
+
+  .user-avatar img {
+    .border-radius(3px);
   }
 
   .activity-block {
@@ -23,15 +29,12 @@
       width: 600px;
     }
 
-    .fact-block {
-      margin-bottom: 12px;
-    }
-
     .meta {
-      font-size: 0.9em;
       color: #999;
+      display: block;
+      font-size: 0.9em;
       font-weight: 200;
+      margin-top: 12px;
     }
-
   }
 }
