@@ -4,7 +4,7 @@ describe "Compare screens", type: :request do
 
   it "should render the frontpage as expected", js: true do
     visit "/"
-    screen_shot_and_save_page
+    assume_unchanged_screenshot "homepage"
   end
 
 end

@@ -87,8 +87,42 @@ def compare folder
   path = Rails.root.join "#{Capybara.save_and_open_page_path}" "#{folder}"
 end
 
+def assume_unchanged_screenshot title
+  filename = "screenshot-#{title}-new"
+  screen_shot_and_save_page filename
+  if compare_two_images(Rails.root.join('spec','integration','screenshots',"#{title}.png"),Rails.root.join("#{Capybara.save_and_open_page_path}" "#{filename}.png"), Rails.root.join("#{Capybara.save_and_open_page_path}" "screenshot-#{title}-diff.png"))
+    raise "Screenshot #{title} changed"
+  end
+end
+
 def screen_shot_and_save_page filename="#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}"
   require 'capybara/util/save_and_open_page'
   Capybara.save_page body, "/#{filename}.html"
   page.driver.render Rails.root.join "#{Capybara.save_and_open_page_path}" "#{filename}.png"
+end
+
+include ChunkyPNG::Color
+
+def compare_two_images file1, file2, diff
+
+  images = [
+    ChunkyPNG::Image.from_file(file1),
+    ChunkyPNG::Image.from_file(file2)
+  ]
+
+  changed = false
+
+  images.first.height.times do |y|
+    images.first.row(y).each_with_index do |pixel, x|
+      changed ||= images.last[x,y] != pixel
+      images.last[x,y] = rgb(
+        r(pixel) + r(images.last[x,y]) - 2 * [r(pixel), r(images.last[x,y])].min,
+        g(pixel) + g(images.last[x,y]) - 2 * [g(pixel), g(images.last[x,y])].min,
+        b(pixel) + b(images.last[x,y]) - 2 * [b(pixel), b(images.last[x,y])].min
+      )
+    end
+  end
+
+  images.last.save(diff)
+  changed
 end
