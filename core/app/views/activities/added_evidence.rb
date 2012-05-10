@@ -15,7 +15,11 @@ module Activities
     end
 
     def fact
-      self[:activity].object.to_s
+      return Facts::Fact.for(fact: self[:activity].object, view: self[:view])
+    end
+
+    def fact_displaystring
+      truncate(self[:activity].object.data.displaystring.to_s, length: 48)
     end
 
     def fact_url
