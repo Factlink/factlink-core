@@ -29,7 +29,6 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
-      format.js
     end
   end
 
