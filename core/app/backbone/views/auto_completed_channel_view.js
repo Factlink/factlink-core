@@ -1,8 +1,7 @@
 window.AutoCompletedChannelView = Backbone.View.extend({
   tagName: "li",
-  initialize: function () {
-    this.useTemplate("channels", "_auto_completed_channel");
-  },
+
+  tmpl: HoganTemplates["channels/_auto_completed_channel"],
 
   render: function () {
     console.info( this.options.query );
@@ -12,7 +11,7 @@ window.AutoCompletedChannelView = Backbone.View.extend({
 
     });
 
-    this.$el.html( Mustache.to_html( this.tmpl, context ) );
+    this.$el.html( this.tmpl.render( context ) );
 
     return this;
   }

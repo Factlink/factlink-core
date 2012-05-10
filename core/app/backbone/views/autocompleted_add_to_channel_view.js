@@ -6,12 +6,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     "keydown input.typeahead": "parseKeyInput"
   },
 
-  initialize: function() {
-    this.useTemplate("channels","_auto_completed_add_to_channel");
-  },
+  tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
 
   render: function () {
-    this.$el.html( Mustache.to_html(this.tmpl) );
+    this.$el.html( this.tmpl.render() );
 
     return this;
   },
