@@ -10,7 +10,7 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
   if ( $(e.target).closest('li').hasClass('active') ) {
     Backbone.history.loadUrl( Backbone.history.fragment );
   } else {
-    Router.navigate(routeTo, true);
+    Backbone.history.navigate(routeTo, true);
   }
 
   e.preventDefault();
