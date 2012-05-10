@@ -9,8 +9,14 @@
       added
       <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
       to
-      <a href="{{ activity.fact_url }}">{{ activity.fact }}</a>
+      <a href="{{ activity.fact_url }}">"{{ activity.fact }}"</a>
     </span>
+
+    <div style="padding: 16px; margin: 12px; border: 1px solid #dee5ef; background: #f3f6fa;">
+      <b>Evidence:</b>
+      {{ activity.evidence }}
+    </div>
+
     <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
   </div>
 
