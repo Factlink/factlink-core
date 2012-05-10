@@ -26,7 +26,6 @@ module Activities
       friendly_fact_path(self[:activity].object)
     end
 
-
     def type
       the_action = self[:activity].action
       if the_action == "added_supporting_evidence"
@@ -39,7 +38,6 @@ module Activities
     def icon
       image_tag('activities/icon-evidencetofactlink.png')
     end
-
 
   end
 end
