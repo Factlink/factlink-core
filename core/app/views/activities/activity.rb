@@ -30,7 +30,7 @@ module Activities
     end
 
     def time_ago
-      "#{time_ago_in_words(self[:activity].created_at)} ago"
+      "#{time_ago_in_words(self[:activity].created_at)} #{t(:ago)}".capitalize
     end
 
     def activity
