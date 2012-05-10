@@ -45,6 +45,21 @@ describe Blacklist do
     end
   end
 
+  describe ".strict_domain" do
+    let(:regex) {Blacklist.strict_domain('foo.com')}
+
+    it "should match the domain" do
+      regex.match('http://foo.com').should be_true
+      regex.match('http://foo.com/').should be_true
+      regex.match('https://foo.com/').should be_true
+      regex.match('https://fooacom/').should be_false
+    end
+    it "should not match subdomains" do
+      regex.match('http://bar.foo.com').should be_false
+      regex.match('http://bar.foo.com/').should be_false
+    end
+  end
+
   describe ".default" do
     let(:defaultlist) { Blacklist.default }
     it "should match factlink.com" do
