@@ -1,26 +1,22 @@
-<article class="list-block">
+<div class="left-col">
   <div class="user-avatar">
     {{{ avatar }}}
   </div>
+</div>
 
-	<div class="activity-container">
-    <span class="body">
-      <a href="{{ user_profile_url }}" rel="backbone">{{ username }}</a>
-      added
-      <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
-      to
-      <a href="{{ activity.fact_url }}">"{{ activity.fact }}"</a>
-    </span>
+<div class="right-col">
+  <span>
+    <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
+    added
+    <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
+    to
+    <a href="{{ activity.fact_url }}">"{{ activity.fact_displaystring }}"</a>
+  </span>
 
-    <div style="padding: 16px; margin: 12px; border: 1px solid #dee5ef; background: #f3f6fa;">
-      <b>Evidence:</b>
-      {{ activity.evidence }}
-    </div>
+  <div class="fact-block"></div>
 
-    <span class="meta channel">{{{ activity.icon }}} {{ time_ago }}</span>
-  </div>
+  <span class="meta">{{ time_ago }}</span>
 
-  {{#debug}}
-  <pre>:added_evidence_activity</pre>
-  {{/debug}}
-</article>
+</div>
+
+
