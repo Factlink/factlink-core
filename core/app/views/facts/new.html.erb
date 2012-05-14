@@ -15,8 +15,10 @@
       </div>
     </div>
 
-    <h4>Add to</h4>
-    <div id="add_to_channels"></div>
+    <div id="add_to_container">
+      <h4>Add to</h4>
+      <div id="add_to_channels"></div>
+    </div>
 
     <% if @layout %>
       <%= hidden_field_tag :layout, value: @layout %>
@@ -41,10 +43,10 @@
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
     <% end %>
 
-    var addToChannelView = new AddToChannelView({
-      collection: currentUser.channels,
-      el: $('#add_to_channels')
-    }).render();
+    var addToChannelView = new AutoCompletedAddToChannelView().render();
+
+    $('#add_to_channels').replaceWith(addToChannelView.el);
+
 
     var persistentWheel = new PersistentWheelView({
       el: $('.wheel'),

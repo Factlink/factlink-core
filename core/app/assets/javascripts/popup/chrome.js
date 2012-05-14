@@ -23,11 +23,11 @@ function passThroughClick(elem, messageKey) {
   });
 }
 
-function updateHeight(){
+window.updateHeight = function updateHeight(){
   var height = document.body.scrollHeight;
 
   top.postMessage({message: "changeHeight", height: height}, "*");
-}
+};
 
 listenFor("annotate", function(messageObject) {
   $('#annotate_button>input').prop('checked',true);
@@ -77,8 +77,6 @@ passThroughClick( $('#annotate_button>input'), "annotateToggle");
 // When the cancel button is clicked, close the popup
 $('#cancel').on('click', function (e) {
   e.preventDefault();
-
-  addToChannelView.resetClickedState();
 
   top.window.close();
 });

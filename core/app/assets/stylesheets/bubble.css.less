@@ -1,4 +1,7 @@
 //= require bootstrap
+//= require_self
+//= require_tree ./bubble
+
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 @import "bubble/wheel";
@@ -135,6 +138,7 @@ ul.interacting-users {
     .activity {
       width: 40%;
       text-transform: capitalize;
+      text-shadow: none;
       .border-radius(0 0 5px 0);
       font-weight: bold;
       line-height: 18px;
