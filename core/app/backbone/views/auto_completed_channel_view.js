@@ -2,7 +2,8 @@ window.AutoCompletedChannelView = Backbone.View.extend({
   tagName: "li",
 
   events: {
-    "mouseenter": "mouseEnter"
+    "mouseenter": "mouseEnter",
+    "mouseleave": "mouseLeave"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_channel"],
@@ -38,5 +39,9 @@ window.AutoCompletedChannelView = Backbone.View.extend({
 
   mouseEnter: function (e) {
     this.options.parent.activateAutoCompleteView(this);
+  },
+
+  mouseLeave: function (e) {
+    this.options.parent.deActivateAutoCompleteView(this);
   }
 });
