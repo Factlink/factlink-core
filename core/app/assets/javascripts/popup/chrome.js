@@ -23,11 +23,11 @@ function passThroughClick(elem, messageKey) {
   });
 }
 
-function updateHeight(){
+window.updateHeight = function updateHeight(){
   var height = document.body.scrollHeight;
 
   top.postMessage({message: "changeHeight", height: height}, "*");
-}
+};
 
 listenFor("annotate", function(messageObject) {
   $('#annotate_button>input').prop('checked',true);

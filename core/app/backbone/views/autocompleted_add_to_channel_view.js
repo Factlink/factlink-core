@@ -259,6 +259,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     _.each(channels, this.addAutoComplete, this);
 
     this.showAutoComplete();
+
+    if ( window.updateHeight ) {
+      window.updateHeight();
+    }
   },
 
   hideAutoComplete: function () {
