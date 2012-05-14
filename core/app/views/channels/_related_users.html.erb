@@ -1,5 +1,5 @@
 <% if related_users && related_users.count > 0 %>
-  <h2><%= t(:related_users).capitalize %> for <%= topic.title %></h2>
+  <h2><%= t(:related_users).capitalize %> for<br><%= topic.title %></h2>
 <% else %>
   <h2><%= t(:interesting_users).capitalize %></h2>
   <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
