@@ -2,7 +2,8 @@ window.AutoCompletedChannelView = Backbone.View.extend({
   tagName: "li",
 
   events: {
-    "mouseenter": "mouseEnter"
+    "mouseenter": "mouseEnter",
+    "mouseleave": "mouseLeave"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_channel"],
@@ -12,7 +13,7 @@ window.AutoCompletedChannelView = Backbone.View.extend({
   },
 
   render: function () {
-    var title = this.model.escape('title');
+    var title = this.model.get('title');
     var highlightedTitle = title.replace(this.queryRegex, "<em>$&</em>");
 
     var context = _.extend(this.model.toJSON(), {
@@ -38,5 +39,9 @@ window.AutoCompletedChannelView = Backbone.View.extend({
 
   mouseEnter: function (e) {
     this.options.parent.activateAutoCompleteView(this);
+  },
+
+  mouseLeave: function (e) {
+    this.options.parent.deActivateAutoCompleteView(this);
   }
 });

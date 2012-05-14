@@ -67,6 +67,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.find('.added_channels').append( view.el );
 
     this._channelViews[channel.id] = view;
+
+    if ( window.updateHeight ) {
+      window.updateHeight();
+    }
   },
 
   reset: function () {
@@ -134,7 +138,16 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }, this);
   },
 
+  deActivateAutoCompleteView: function (view) {
+    this._autoCompleteViews[ this._activeChannelKey ].deActivate();
+
+    this._activeChannelKey = undefined;
+  },
+
   parseReturn: function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     this.disable();
 
     if ( this._activeChannelKey !== undefined ) {
@@ -156,6 +169,24 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var title = this.$el.find('input.typeahead').val();
 
     this.showLoading();
+
+    var dupe = false;
+
+    this.collection.each(function (channel) {
+      if ( channel.get('title') === title ) {
+        dupe = true;
+      }
+    });
+
+    if ( dupe ) {
+      this.hideAutoComplete();
+
+      this.enable();
+      this.hideLoading();
+      this.clearInput();
+
+      return;
+    }
 
     $.ajax({
       url: '/' + currentUser.get('username') + '/channels',
@@ -183,6 +214,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   clearInput: function () {
     this.$el.find('input.typeahead').val('');
+
+    if ( this.collection.length ) {
+      this.$el.addClass('hide-input');
+    }
   },
 
   disable: function () {
@@ -315,5 +350,13 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this._channelViews[id].remove();
 
     delete this._channelViews[id];
+
+    this.collection.remove(id);
+
+    if ( this.collection.length ) {
+      this.$el.addClass("hide-input");
+    } else {
+      this.$el.removeClass("hide-input");
+    }
   }
 });
