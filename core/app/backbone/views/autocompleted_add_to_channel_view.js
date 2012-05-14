@@ -170,6 +170,24 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.showLoading();
 
+    var dupe = false;
+
+    this.collection.each(function (channel) {
+      if ( channel.get('title') === title ) {
+        dupe = true;
+      }
+    });
+
+    if ( dupe ) {
+      this.hideAutoComplete();
+
+      this.enable();
+      this.hideLoading();
+      this.clearInput();
+
+      return;
+    }
+
     $.ajax({
       url: '/' + currentUser.get('username') + '/channels',
       data: {
