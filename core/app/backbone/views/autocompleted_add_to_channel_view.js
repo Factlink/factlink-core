@@ -98,6 +98,23 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   parseReturn: function () {
     if ( this.hasSelection() ) {
       this.$el.find('input.typeahead').val( this.selected.get('title') );
+  setActiveAutoComplete: function (key) {
+    if ( this._autoCompleteViews[this._activeChannelKey] ) {
+      this._autoCompleteViews[this._activeChannelKey].deActivate();
+    }
+
+    this._autoCompleteViews[key].activate();
+
+    this._activeChannelKey = key;
+  },
+
+  activateAutoCompleteView: function (view) {
+    _.each(this._autoCompleteViews, function (autocomplete, key) {
+      if ( view === autocomplete ) {
+        this.setActiveAutoComplete(key);
+      }
+    }, this);
+  },
     }
 
     this.addNewChannel();
