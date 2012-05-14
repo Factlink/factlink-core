@@ -1,15 +1,19 @@
 (function(){
 
-FactlinkApp = new Backbone.Marionette.Application();
+window.FactlinkApp = new Backbone.Marionette.Application();
 
-window.Workspace = Backbone.Router.extend({
-  initialize: function(opts) {
-    this.route(/([^\/]+)\/channels\/([0-9]+|all)$/, "getChannelFacts", this.getChannelFacts);
-    this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities$/, "getChannelActivities", this.getChannelActivities);
+FactlinkRouter = Backbone.Marionette.AppRouter.extend({
+  appRoutes: {
+    ':username/channels/:channel_id': 'getChannelFacts',
+    ':username/channels/:channel_id/activities': 'getChannelActivities'
+  }
+});
 
+FactlinkController = {
+
+  initialize: function() {
     this.view = new AppView();
   },
-
 
 
   loadChannel: function(username, channel_id) {
@@ -38,5 +42,14 @@ window.Workspace = Backbone.Router.extend({
     this.view.reInit({model: this.loadChannel(username, channel_id),content_type: 'activities'}).render();
   }
 
+}
+
+FactlinkApp.addInitializer(function(options){
+  FactlinkController.initialize();
 });
+
+
+new FactlinkRouter({controller: FactlinkController});
+
+
 }());
