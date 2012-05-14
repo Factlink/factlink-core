@@ -1,6 +1,14 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+#add_to_container {
+  margin: 0 0 0 70px;
+
+  h4 {
+    margin-left: 0;
+  }
+}
+
 .add_to_channel {
   &.disabled {
     .fake_input {
@@ -101,6 +109,9 @@
     display: none;
 
     ul {
+      max-height: 190px;
+      overflow-y: scroll;
+
       li {
         line-height: 30px;
         padding: 0 10px;
