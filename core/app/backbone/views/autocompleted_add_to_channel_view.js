@@ -93,7 +93,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       }
     }
 
-    this.setActiveAutoComplete(prevKey);
+    this.setActiveAutoComplete(prevKey, true);
 
     e.preventDefault();
   },
@@ -107,17 +107,21 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       }
     }
 
-    this.setActiveAutoComplete(nextKey);
+    this.setActiveAutoComplete(nextKey, false);
 
     e.preventDefault();
   },
 
-  setActiveAutoComplete: function (key) {
+  setActiveAutoComplete: function (key, scroll) {
     if ( this._autoCompleteViews[this._activeChannelKey] ) {
       this._autoCompleteViews[this._activeChannelKey].deActivate();
     }
 
     this._autoCompleteViews[key].activate();
+
+    if ( typeof scroll === "boolean" ) {
+      this._autoCompleteViews[key].el.scrollIntoView(scroll);
+    }
 
     this._activeChannelKey = key;
   },
