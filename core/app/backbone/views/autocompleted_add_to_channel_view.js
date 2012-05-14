@@ -9,8 +9,17 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
 
+  initialize: function () {
+    this.collection = new OwnChannelCollection();
+    this.collection.bind('add', this.addChannel, this);
+
+    this._channelViews = {};
+  },
+
   render: function () {
     this.$el.html( this.tmpl.render() );
+
+    this.reset();
 
     return this;
   },
@@ -22,7 +31,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     switch(e.keyCode) {
       case 13:
-        this.parseReturn();
+        this.parseReturn(e);
         break;
       case 40:
         this.moveSelectionDown(e);
@@ -34,6 +43,28 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
         this._proceed = true;
         break;
     }
+  },
+
+  addChannel: function (channel) {
+    var view = new AutoCompletedAddedChannelView({
+      model: channel
+    }).render();
+
+    this.$el.find('.added_channels').append( view.el );
+
+    this._channelViews[channel.id] = view;
+  },
+
+  reset: function () {
+    _.each(this._channelViews, function (view) {
+      view.remove();
+    });
+
+    this._channelViews = {};
+
+    this.collection.each(function(channel) {
+      this.addChannel(channel);
+    }, this);
   },
 
   moveSelectionUp: function (e) {
