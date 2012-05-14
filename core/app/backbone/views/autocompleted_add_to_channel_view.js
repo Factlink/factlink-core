@@ -37,13 +37,29 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   moveSelectionUp: function (e) {
+    var prevKey = this._autoCompleteViews.length - 1;
 
+    if ( this._activeChannelKey !== undefined ) {
+      if ( this._autoCompleteViews[this._activeChannelKey - 1] ) {
+        prevKey = this._activeChannelKey - 1;
+      }
+    }
+
+    this.setActiveAutoComplete(prevKey);
 
     e.preventDefault();
   },
 
   moveSelectionDown: function (e) {
+    var nextKey = 0;
 
+    if ( this._activeChannelKey !== undefined ) {
+      if ( this._autoCompleteViews[this._activeChannelKey + 1] ) {
+        nextKey = this._activeChannelKey + 1;
+      }
+    }
+
+    this.setActiveAutoComplete(nextKey);
 
     e.preventDefault();
   },
