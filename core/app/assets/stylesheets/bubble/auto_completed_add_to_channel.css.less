@@ -2,12 +2,81 @@
 @import "bootstrap/mixins";
 
 .add_to_channel {
+  &.disabled {
+    .fake_input {
+      background-color: #eee;
+      border-color: #ddd;
+      cursor: not-allowed;
+    }
+  }
+
+  &.has-text {
+    .fake_input a.btn {
+      display: inline-block !important;
+    }
+  }
+
+  .added_channels {
+    li {
+      background: #f0f0f0;
+      padding: 10px 15px;
+      color: #777;
+      font-size: 13px;
+      margin: 0 0 10px;
+
+      a.icon-remove {
+        float: right;
+        position: relative;
+        top: 2px;
+      }
+    }
+  }
+
+  .fake_input {
+    width: 300px;
+    box-sizing: border-box;
+    .custom-radius(4px, 4px, 4px, 4px);
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
+    border: 1px solid #ccc;
+    color: #555;
+    display: inline-block;
+    line-height: 18px;
+    font-size: 13px;
+    margin-bottom: 9px;
+    padding: 3px;
+    position: relative;
+
+    .typeahead {
+      border: none;
+      margin: 0;
+      .box-shadow(none);
+      width: 255px;
+    }
+
+    .loading {
+      position: absolute;
+      top: 8px;
+      right: 35px;
+      display: none;
+    }
+
+    a.btn {
+      display: none;
+      float: right;
+    }
+  }
+
+  .btn-mini {
+    padding: 4px 4px 5px 5px;
+  }
+
   .auto_complete {
     box-sizing: border-box;
     .custom-radius(5px, 5px, 5px, 5px);
     border: 1px solid #b5b5b5;
     width: 255px;
     font-size: 13px;
+    display: none;
 
     ul {
       li {
@@ -19,6 +88,7 @@
         height: 30px;
         text-overflow: ellipsis;
         white-space: nowrap;
+        cursor: pointer;
 
         em {
           color: #5e8ba6;
@@ -48,23 +118,26 @@
       }
     }
 
+    &.empty {
+      > div {
+        border-top: none;
+        .custom-radius(5px, 5px, 5px, 5px);
+      }
+    }
+
     > div {
       background: #f7f7f7;
       border-top: 1px solid #e0dcdc;
       padding: 5px 10px;
-      margin-top: 7px;
       color: #555;
       .custom-radius(0, 5px, 5px, 0);
+      cursor: pointer;
 
       a {
         margin: 0 10px 0 0;
       }
 
-      .btn-mini {
-        padding: 4px 4px 5px 5px;
-      }
-
-      span {
+      > span {
         vertical-align: middle;
         display: inline-block;
         width: 190px;
