@@ -29,7 +29,8 @@ window.SearchResultView = Backbone.CollectionView.extend({
       model: search_result_item
     });
     if (view !== undefined ) {
-      this.$el.find('.results').append(view.render().el);
+      view.render();
+      this.$el.find('.results').append(view.el);
     }
   },
 

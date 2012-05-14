@@ -1,12 +1,5 @@
-window.UserSearchView = Backbone.View.extend({
+window.UserSearchView = Backbone.Marionette.ItemView.extend({
   tagName: "div",
   className: "user-block",
-
-  tmpl: Template.use("users", "_user_search"),
-
-  render: function() {
-    this.$el.html( this.tmpl.render( this.model.toJSON()) );
-
-    return this;
-  }
+  template:"users/_user_search"
 });
