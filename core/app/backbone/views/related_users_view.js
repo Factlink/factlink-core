@@ -1,9 +1,5 @@
 window.RelatedUsersView = Backbone.View.extend({
 
-  initialize: function() {
-    this.setElement($("#left-column .related-users"));
-  },
-
   reInit: function(opts) {
     if (!this.model || this.model.id !== opts.model.id){
       this.model = opts.model;

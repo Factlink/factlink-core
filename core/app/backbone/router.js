@@ -51,5 +51,10 @@ FactlinkApp.addInitializer(function(options){
 
 new FactlinkRouter({controller: FactlinkController});
 
+FactlinkApp.addRegions({
+  relatedUsersRegion: "#left-column .related-users"
+});
+
+
 
 }());
