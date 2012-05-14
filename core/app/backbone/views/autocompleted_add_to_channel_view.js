@@ -291,21 +291,24 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   addAutoComplete: function (channel) {
-    this._autoCompletes.push(channel);
+    if ( ! ( channel.get('user_channel')
+                && this.collection.get( channel.get('user_channel').id ) ) ) {
+      this._autoCompletes.push(channel);
 
-    var view = new AutoCompletedChannelView({
-      model: channel,
-      query: this._lastKnownSearchValue,
-      parent: this
-    }).render();
+      var view = new AutoCompletedChannelView({
+        model: channel,
+        query: this._lastKnownSearchValue,
+        parent: this
+      }).render();
 
-    this.$el.find('.auto_complete>ul').append(view.el);
+      this.$el.find('.auto_complete>ul').append(view.el);
 
-    this.$el.find('.auto_complete').removeClass('empty');
+      this.$el.find('.auto_complete').removeClass('empty');
 
-    this._autoCompleteViews.push(view);
+      this._autoCompleteViews.push(view);
 
-    this.showAutoComplete();
+      this.showAutoComplete();
+    }
   },
 
   removeAddedChannel: function (id) {
