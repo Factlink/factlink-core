@@ -92,6 +92,12 @@ namespace :deploy do
 
 end
 
+namespace :mongoid do
+  task :create_indexes do
+    run "cd #{current_path}; #{rake} db:mongoid:create_indexes"
+  end
+end
+
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
 after 'deploy:all',       'deploy:reindex'
