@@ -101,7 +101,9 @@ FactlinkUI::Application.routes.draw do
       resources :channels do
         collection do
           post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+          get "find" => "channels#search", :as => "find"
         end
+
         resources :subchannels, only: [:index, :destroy] do
           collection do
             post "add/:id/",     :as => "add",     :action => "add"
@@ -110,7 +112,6 @@ FactlinkUI::Application.routes.draw do
         end
 
         member do
-
           get "activities",     :as => "activities"
 
           post "toggle/fact/:fact_id/" => "channels#toggle_fact"
