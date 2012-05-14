@@ -18,8 +18,10 @@
 
   .added_channels {
     li {
+      width: 300px;
+      box-sizing: border-box;
       background: #f0f0f0;
-      padding: 10px 15px;
+      padding: 10px;
       color: #777;
       font-size: 13px;
       margin: 0 0 10px;
@@ -28,6 +30,11 @@
         float: right;
         position: relative;
         top: 2px;
+        cursor: pointer;
+      }
+
+      input {
+        display: none;
       }
     }
   }
