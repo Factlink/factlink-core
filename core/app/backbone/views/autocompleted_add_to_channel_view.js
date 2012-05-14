@@ -4,7 +4,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   events: {
     "keydown input.typeahead": "parseKeyDown",
-    "keyup input.typeahead": "autoComplete"
+    "keyup input.typeahead": "autoComplete",
+    "focus input.typeahead": "focusInput",
+    "blur input.typeahead": "blurInput"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
@@ -66,6 +68,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       this.addChannel(channel);
     }, this);
   },
+
+  focusInput: function () { this.$el.addClass('focus'); },
+  blurInput: function () { this.$el.removeClass('focus'); },
 
   moveSelectionUp: function (e) {
     var prevKey = this._autoCompleteViews.length - 1;
