@@ -9,7 +9,6 @@ window.AppView = Backbone.View.extend({
     });
 
     this.channelView = new ChannelView();
-    this.RelatedUserView = new RelatedUsersView();
 
     this.setupChannelReloading();
 
@@ -42,6 +41,7 @@ window.AppView = Backbone.View.extend({
 
   reInit: function(opts) {
     var channel = opts.model;
+    this.model = opts.model;
     var oldChannel = currentChannel;
 
     window.currentChannel = channel;
@@ -50,7 +50,6 @@ window.AppView = Backbone.View.extend({
       this.channelCollectionView.reload(currentChannel.id);
     }
 
-    this.relatedUsersView = this.relatedUsersView.reInit({model: channel});
     this.userView = this.userView.reInit({model:channel.user, content_type: opts.content_type});
     this.setChannelViewFor(opts);
 
@@ -72,7 +71,7 @@ window.AppView = Backbone.View.extend({
   },
 
   render: function() {
-    FactlinkApp.relatedUsersRegion.show(this.relatedUsersView)
+    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: this.model}));
     this.channelView.render();
     this.userView.render();
     $('#main-wrapper').html( this.channelView.el );
