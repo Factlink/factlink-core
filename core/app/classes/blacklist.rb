@@ -6,18 +6,26 @@ class Blacklist
     Regexp.new r
   end
 
+  def self.strict_domain domain
+    regexdomain = domain.gsub /\./, '\\\.'
+    r = "https?:\\\/\\\/#{regexdomain}\\\/?"
+    Regexp.new r
+  end
+
   def self.default
     @@default ||= self.new [
       domain('facebook.com'),
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('fct.li'),
+      domain('icloud.com'),
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),
       domain('moneybird.nl'),
       domain('flowdock.com'),
       domain('yammer.com'),
-      domain('github.com'),
+      strict_domain('github.com'),
+      strict_domain('www.github.com'),
       domain('mixpanel.com'),
       domain('grooveshark.com'),
       /^http:\/\/localhost[:\/]/,

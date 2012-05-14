@@ -20,11 +20,11 @@ module Channels
     def topic_url
       topic and "/t/#{topic.slug_title}"
     end
-    
+
     def add_channel_url
       '/' + self[:user].username + '/channels/new'
     end
-    
+
     def has_authority?
       self[:channel].has_authority?
     end
@@ -38,7 +38,7 @@ module Channels
       if is_all
         is_mine ? 'My Stream' : 'Stream'
       elsif is_created
-        is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username 
+        is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username
       else
         self[:channel].title
       end
@@ -73,11 +73,15 @@ module Channels
       self[:user] == current_user
     end
 
+    def discover_stream?
+      (can_haz :discovery_tab_all_stream) && is_all && is_mine
+    end
+
     def created_by
       {
         id: self[:user].id,
         username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32),
+        avatar: image_tag(self[:user].avatar_url(size: 32), title: self[:user].username, alt: self[:user].username, width: 32),
         all_channel_id: self[:user].graph_user.stream_id
       }
     end

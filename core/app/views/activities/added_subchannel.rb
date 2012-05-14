@@ -2,7 +2,12 @@ module Activities
   class AddedSubchannel < Mustache::Railstache
 
     def channel_owner
-      self[:activity].subject.created_by.user.username
+      if self[:activity].subject.created_by.user == current_user
+        "your"
+      else
+        "#{self[:activity].subject.created_by.user.username}'s"
+      end
+
     end
 
     def channel_owner_profile_url

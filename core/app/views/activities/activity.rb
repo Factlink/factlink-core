@@ -1,5 +1,6 @@
 module Activities
   class Activity < Mustache::Railstache
+
     def username
       self[:activity].user.user.username
     end
@@ -16,6 +17,10 @@ module Activities
       self[:activity].action
     end
 
+    def translated_action
+      t("fact_#{self[:activity].action.to_sym}_action".to_sym)
+    end
+
     def subject
       self[:activity].subject.to_s
     end
@@ -25,13 +30,11 @@ module Activities
     end
 
     def time_ago
-      "#{time_ago_in_words(self[:activity].created_at)} ago"
+      "#{time_ago_in_words(self[:activity].created_at)} #{t(:ago)}".capitalize
     end
 
     def activity
       case self[:activity].action
-      when "added_subchannel"
-        return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
 
       when "added_supporting_evidence"
         return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
@@ -39,8 +42,15 @@ module Activities
       when "added_weakening_evidence"
         return Activities::AddedEvidence.for(activity: self[:activity], view: self[:view])
 
-      else
-        return self
+      when "created_channel"
+        return Activities::CreatedChannel.for(activity: self[:activity], view: self[:view])
+
+      when "added_subchannel"
+        return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
+
+      when "believes", "doubts", "disbelieves"
+        return Activities::AddedOpinion.for(activity: self[:activity], view: self[:view])
+
       end
     end
   end
