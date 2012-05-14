@@ -15,13 +15,16 @@ module Activities
     end
 
     def fact
-      self[:activity].object.to_s
+      return Facts::Fact.for(fact: self[:activity].object, view: self[:view])
+    end
+
+    def fact_displaystring
+      truncate(self[:activity].object.data.displaystring.to_s, length: 48)
     end
 
     def fact_url
       friendly_fact_path(self[:activity].object)
     end
-
 
     def type
       the_action = self[:activity].action
@@ -35,7 +38,6 @@ module Activities
     def icon
       image_tag('activities/icon-evidencetofactlink.png')
     end
-
 
   end
 end

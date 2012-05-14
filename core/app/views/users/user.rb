@@ -36,6 +36,7 @@ module Users
       view.user_profile_path(self[:user].username)
     end
 
+    #DEPRECATED
     def authority
       "?"
     end

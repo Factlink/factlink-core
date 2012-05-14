@@ -110,7 +110,9 @@
 .navbar a.bookmarklet {
   cursor: move;
 }
-
+.navbar a.bookmarklet::after {
+  content: ' Bookmarklet';
+}
 html.chrome_extension_installed{
   .chrome_extension_download{
     display:none;

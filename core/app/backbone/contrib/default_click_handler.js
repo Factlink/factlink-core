@@ -4,8 +4,8 @@
 Backbone.View.prototype.defaultClickHandler = function( e ) {
   if ( e.metaKey || e.ctrlKey || e.altKey ) return;
 
-  console.log("Navigating to "+ routeTo);
   var routeTo = $(e.target).closest('a').attr('href');
+  console.log("Navigating to "+ routeTo);
 
   if ( $(e.target).closest('li').hasClass('active') ) {
     Backbone.history.loadUrl( Backbone.history.fragment );
