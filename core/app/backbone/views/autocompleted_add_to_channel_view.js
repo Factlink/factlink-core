@@ -27,8 +27,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   parseKeyDown: function (e) {
-    console.info( "parseKeyDown", e.keyCode );
-
     this._proceed = false;
 
     switch(e.keyCode) {
@@ -40,6 +38,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
         break;
       case 38:
         this.moveSelectionUp(e);
+        break;
+      case 27:
+        this.hideAutoComplete();
         break;
       default:
         this._proceed = true;
@@ -159,6 +160,14 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     _.each(channels, this.addAutoComplete, this);
   },
 
+  hideAutoComplete: function () {
+    this.$el.find('.auto_complete').hide();
+  },
+
+  showAutoComplete: function () {
+    this.$el.find('.auto_complete').show();
+  },
+
   clearAutoComplete: function () {
     _.each( this._autoCompleteViews, function (view) {
       view.remove();
@@ -166,6 +175,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this._autoCompleteViews = [];
     this._autoCompletes = [];
+
+    this.$el.find('.auto_complete').addClass('empty');
+
+    this.hideAutoComplete();
   },
 
   addAutoComplete: function (channel) {
@@ -178,6 +191,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.$el.find('.auto_complete>ul').append(view.el);
 
+    this.$el.find('.auto_complete').removeClass('empty');
+
     this._autoCompleteViews.push(view);
+
+    this.showAutoComplete();
   }
 });
