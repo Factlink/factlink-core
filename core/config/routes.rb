@@ -41,10 +41,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
-  scope "/:username" do
-    resources :channels, only: :show do
-    end
-  end
 
   authenticated :user do
     get "/p/tour" => "home#tour", as: "tour"
@@ -102,8 +98,7 @@ FactlinkUI::Application.routes.draw do
         post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
       end
 
-
-      resources :channels, except: :show do
+      resources :channels do
         collection do
           post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
         end
