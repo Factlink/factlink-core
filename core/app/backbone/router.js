@@ -53,10 +53,24 @@ FactlinkApp.addInitializer(function(options){
 });
 
 
+FactlinkApp.addInitializer(function(options){
+  if ( $('#notifications').length === 1 ) {
+    // The notifications-icon is present in the topbar, create the appropriate Backbone View
+    this.notificationsView = new NotificationsView({
+      el : $('#notifications'),
+      collection: new Notifications()
+    });
+
+    FactlinkRouter.notificationsRegion.show(this.notificationsView);
+  }
+});
+
+
 new FactlinkRouter({controller: FactlinkController});
 
 FactlinkApp.addRegions({
-  relatedUsersRegion: "#left-column .related-users"
+  relatedUsersRegion: "#left-column .related-users",
+  notificationsRegion: "#left-column .related-users"
 });
 
 
