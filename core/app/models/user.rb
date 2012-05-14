@@ -4,6 +4,7 @@ require 'redis/objects'
 
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Sunspot::Mongoid
   include Redis::Objects
 

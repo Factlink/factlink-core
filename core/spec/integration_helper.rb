@@ -11,6 +11,8 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+
+
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
@@ -19,6 +21,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
+  config.include ScreenshotTest
 
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
