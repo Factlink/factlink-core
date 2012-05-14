@@ -19,7 +19,7 @@ window.Workspace = Backbone.Router.extend({
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
-    this._username = username;
+    Channels.setUsername(username);
 
     try {
       mpmetrics.track("mp_page_view", {
@@ -41,14 +41,6 @@ window.Workspace = Backbone.Router.extend({
 
   getChannelActivities: function(username, channel_id) {
     this.view.reInit({model: this.loadChannel(username, channel_id),content_type: 'activities'}).render();
-  },
-
-  getUsername: function() {
-    if ( this._username ) {
-      return this._username;
-    }
-
-    return false;
   }
 
 });

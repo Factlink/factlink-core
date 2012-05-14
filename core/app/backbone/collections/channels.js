@@ -7,7 +7,7 @@ window.ChannelList = Backbone.Collection.extend({
   },
 
   url: function() {
-    return '/' + Router.getUsername() + '/channels/';
+    return '/' + this.getUsername() + '/channels/';
   },
 
   setActiveChannel: function(channel) {
@@ -26,7 +26,20 @@ window.ChannelList = Backbone.Collection.extend({
         activeChannel.trigger('activate', activeChannel);
       }
     }
+  },
+  
+  getUsername: function() {
+    if ( this._username ) {
+      return this._username;
+    }
+
+    return false;
+  },
+
+  setUsername: function(name) {
+    this._username = name;
   }
+  
 });
 
 window.Channels = new ChannelList();
