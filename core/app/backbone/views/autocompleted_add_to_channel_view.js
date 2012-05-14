@@ -69,12 +69,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this._channelViews[channel.id] = view;
   },
 
-  resetClickedState: function () {
-    this.collection.reset();
-    this.reset();
-    this.render();
-  },
-
   reset: function () {
     _.each(this._channelViews, function (view) {
       view.remove();

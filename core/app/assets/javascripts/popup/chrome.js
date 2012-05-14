@@ -78,8 +78,6 @@ passThroughClick( $('#annotate_button>input'), "annotateToggle");
 $('#cancel').on('click', function (e) {
   e.preventDefault();
 
-  addToChannelView.resetClickedState();
-
   top.window.close();
 });
 
