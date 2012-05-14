@@ -148,6 +148,7 @@ module FactlinkUI
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
+      'activity.css',
       'admin.css',
       'bubble.css',
       'fake_facts.css',

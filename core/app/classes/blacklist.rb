@@ -17,6 +17,7 @@ class Blacklist
       domain('facebook.com'),
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('fct.li'),
+      domain('icloud.com'),
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),

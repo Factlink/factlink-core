@@ -189,8 +189,15 @@ class ChannelsController < ApplicationController
   def activities
     authorize! :show, @channel
 
+    if @channel.type == "stream"
+      # TODO Tom, clean this.
+      @activities = @user.graph_user.notifications.below('inf', count: 24, reversed: true ).keep_if { |a| a && a.still_valid? }.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
+    else
+      @activities = @channel.activities.below('inf', count:17, reversed: true).keep_if{|a| a && a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
+    end
+
     respond_to do |format|
-      format.json { render json: @channel.activities.below('inf', count:17, reversed: true).keep_if{|a| a && a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) } }
+      format.json { render json: @activities }
       format.html { render inline:'', layout: "channels" }
     end
   end

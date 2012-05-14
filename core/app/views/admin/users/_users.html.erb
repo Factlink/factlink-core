@@ -38,7 +38,7 @@
           <% @class = case user.features.count
           when 0
             "error"
-          when 1
+          else
             "important"
           end %>
           <span class="label label-<%= @class %>"><%= user.features.count %></span>
