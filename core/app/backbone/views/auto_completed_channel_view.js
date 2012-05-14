@@ -12,7 +12,7 @@ window.AutoCompletedChannelView = Backbone.View.extend({
   },
 
   render: function () {
-    var title = this.model.get('title');
+    var title = this.model.escape('title');
     var highlightedTitle = title.replace(this.queryRegex, "<em>$&</em>");
 
     var context = _.extend(this.model.toJSON(), {
