@@ -67,6 +67,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.find('.added_channels').append( view.el );
 
     this._channelViews[channel.id] = view;
+
+    if ( window.updateHeight ) {
+      window.updateHeight();
+    }
   },
 
   reset: function () {
