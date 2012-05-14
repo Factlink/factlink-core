@@ -141,6 +141,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   parseReturn: function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     this.disable();
 
     if ( this._activeChannelKey !== undefined ) {
