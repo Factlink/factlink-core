@@ -50,7 +50,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   addChannel: function (channel) {
     var view = new AutoCompletedAddedChannelView({
-      model: channel
+      model: channel,
+      rootView: this
     }).render();
 
     this.$el.find('.added_channels').append( view.el );
@@ -287,5 +288,11 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this._autoCompleteViews.push(view);
 
     this.showAutoComplete();
+  },
+
+  removeAddedChannel: function (id) {
+    this._channelViews[id].remove();
+
+    delete this._channelViews[id];
   }
 });
