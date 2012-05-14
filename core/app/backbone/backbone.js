@@ -2,6 +2,7 @@
 //= require underscore
 //= require mustache
 //= require backbone.lib
+//= require backbone.marionette
 
 //= require twipsy
 
