@@ -214,6 +214,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   clearInput: function () {
     this.$el.find('input.typeahead').val('');
+
+    if ( this.collection.length ) {
+      this.$el.addClass('hide-input');
+    }
   },
 
   disable: function () {
@@ -346,5 +350,13 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this._channelViews[id].remove();
 
     delete this._channelViews[id];
+
+    this.collection.remove(id);
+
+    if ( this.collection.length ) {
+      this.$el.addClass("hide-input");
+    } else {
+      this.$el.removeClass("hide-input");
+    }
   }
 });
