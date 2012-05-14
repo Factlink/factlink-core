@@ -71,7 +71,6 @@ window.AppView = Backbone.View.extend({
   },
 
   render: function() {
-    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: this.model}));
     this.channelView.render();
     this.userView.render();
     $('#main-wrapper').html( this.channelView.el );
