@@ -1,21 +1,16 @@
 (function(){
+
+FactlinkApp = new Backbone.Marionette.Application();
+
 window.Workspace = Backbone.Router.extend({
   initialize: function(opts) {
     this.route(/([^\/]+)\/channels\/([0-9]+|all)$/, "getChannelFacts", this.getChannelFacts);
     this.route(/([^\/]+)\/channels\/([0-9]+|all)\/activities$/, "getChannelActivities", this.getChannelActivities);
 
     this.view = new AppView();
-
-    if ( $('#notifications').length === 1 ) {
-      // The notifications-icon is present in the topbar, create the appropriate Backbone View
-      this.notificationsView = new NotificationsView({
-        el : $('#notifications'),
-        collection: new Notifications()
-      });
-
-      this.notificationsView.render();
-    }
   },
+
+
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);

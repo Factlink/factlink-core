@@ -16,6 +16,17 @@ window.AppView = Backbone.View.extend({
     this.userView = new UserView({
       model: ( typeof currentChannel !== "undefined" ) ? currentChannel.user : currentUser
     });
+
+    if ( $('#notifications').length === 1 ) {
+      // The notifications-icon is present in the topbar, create the appropriate Backbone View
+      this.notificationsView = new NotificationsView({
+        el : $('#notifications'),
+        collection: new Notifications()
+      });
+
+      this.notificationsView.render();
+    }
+
   },
 
   // TODO: This function needs to wait for loading (Of channel contents in main column)
