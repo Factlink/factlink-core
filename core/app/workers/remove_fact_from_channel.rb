@@ -1,7 +1,7 @@
 class RemoveFactFromChannel
   @queue = :channel_operations
 
-  def self.included_from_elsewhere?(fact,channel)
+  def included_from_elsewhere?
     return true if channel.sorted_internal_facts.include? fact
     channel.contained_channels.each do |subch|
       return true if subch.include? fact
@@ -9,26 +9,47 @@ class RemoveFactFromChannel
     return false
   end
 
-  def self.already_deleted?(fact,channel)
+  def already_deleted?
     not channel.sorted_cached_facts.include?(fact)
   end
 
-  def self.explicitely_deleted?(fact,channel)
+  def explicitely_deleted?
     channel.sorted_delete_facts.include?(fact)
   end
 
-  def self.perform(fact_id, channel_id)
-    fact = Fact[fact_id]
-    channel = Channel[channel_id]
+  def fact
+    Fact[@fact_id]
+  end
 
-    if explicitely_deleted?(fact,channel) or
-       (not included_from_elsewhere?(fact,channel) and
-        not already_deleted?(fact,channel))
-      channel.sorted_cached_facts.delete(fact)
+  def channel
+    Channel[@channel_id]
+  end
+
+  extend ActiveSupport::Memoizable
+  memoize :channel, :fact, :explicitely_deleted?, :already_deleted?, :included_from_elsewhere?
+
+  def perform
+    should_delete = (explicitely_deleted? or not included_from_elsewhere?)
+    should_propagate = (not already_deleted?)
+    
+    if should_delete
+      channel.sorted_cached_facts.delete(fact) unless already_deleted?
       fact.channels.delete(channel)
-      channel.containing_channels.each do |ch|
-        Resque.enqueue(RemoveFactFromChannel, fact_id, ch.id)
+      if should_propagate
+        channel.containing_channels.each do |ch|
+          Resque.enqueue(RemoveFactFromChannel, fact.id, ch.id)
+        end
       end
     end
   end
+  
+  def initialize(fact_id, channel_id)
+    @fact_id = fact_id
+    @channel_id = channel_id
+  end
+  
+  def self.perform(fact_id, channel_id)
+    new(fact_id, channel_id).perform
+  end
+  
 end
