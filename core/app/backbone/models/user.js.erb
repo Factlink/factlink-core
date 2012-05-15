@@ -19,5 +19,17 @@ window.User = Backbone.Model.extend({
     options.url = model.url(forProfile);
 
     Backbone.sync(method, model, options);
-  }
+  },
+  
+  is_current_user: function(){
+    return (currentUser !== undefined && currentUser.get('id') === this.get('id'));
+  },
+  
+  toJSON: function(){
+    var json = Backbone.Model.prototype.toJSON.apply(this);
+    return _.extend(json,{
+      'is_current_user': this.is_current_user(),
+      'channel_listing_header': '<%= I18n.t(:my_channels).capitalize %>'
+    })
+  }  
 });
