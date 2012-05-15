@@ -38,7 +38,7 @@ var files = {
 };
 
 module.exports = function(grunt){
-  
+
   function createFactlinkConcatObject(filesObj) {
     return grunt.utils._.flatten(["<banner>", grunt.utils._(filesObj).map(function(fileGroup) {
       return fileGroup.map(function(file) {
@@ -46,7 +46,7 @@ module.exports = function(grunt){
       });
     })], true);
   }
-  
+
   grunt.initConfig({
     pkg: '<json:package.json>',
     meta: {
@@ -100,7 +100,7 @@ module.exports = function(grunt){
     },
     watch: {
       files: '<config:lint.files>',
-      tasks: 'lint qunit concat'
+      tasks: 'lint qunit concat copy'
     },
     jshint: {
       options: {
