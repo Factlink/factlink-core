@@ -34,15 +34,21 @@ FactlinkController = {
     return channel;
   },
 
+  commonChannelViews: function(channel) {
+    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
+    var channelCollectionView = new ChannelCollectionView({collection: window.Channels});
+    FactlinkApp.channelListRegion.show(channelCollectionView);
+  },
+
   getChannelFacts: function(username, channel_id) {
     var channel = this.loadChannel(username, channel_id);
-    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
+    this.commonChannelViews(channel);
     this.view.reInit({model: channel,content_type: 'facts'}).render();
   },
 
   getChannelActivities: function(username, channel_id) {
     var channel = this.loadChannel(username, channel_id);
-    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
+    this.commonChannelViews(channel);
     this.view.reInit({model: channel,content_type: 'activities'}).render();
   }
 

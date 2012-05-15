@@ -4,10 +4,6 @@ window.AppView = Backbone.View.extend({
   initialize: function(options) {
     if (typeof(options)==='undefined') {options = {};}
 
-    this.channelCollectionView = new ChannelCollectionView({
-      collection: Channels
-    });
-
     this.channelView = new ChannelView();
 
     this.setupChannelReloading();
@@ -34,10 +30,6 @@ window.AppView = Backbone.View.extend({
     var oldChannel = currentChannel;
 
     window.currentChannel = channel;
-
-    if ( channel.user.id !== oldChannel.user.id ) {
-      this.channelCollectionView.reload(currentChannel.id);
-    }
 
     this.userView = this.userView.reInit({model:channel.user, content_type: opts.content_type});
     this.setChannelViewFor(opts);
