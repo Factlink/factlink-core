@@ -21,9 +21,9 @@ def create_activity_listeners
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
 
-     activity subject_class: "GraphUser",
-              action: :invites,
-              write_ids: lambda { |a| [a.subject_id] }
+      activity subject_class: "GraphUser",
+               action: :invites,
+               write_ids: lambda { |a| [a.subject_id] }
 
     end
 
