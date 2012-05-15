@@ -169,7 +169,7 @@
       border-top: 1px solid #e0dcdc;
       padding: 5px 10px;
       color: #555;
-      .custom-radius(0, 5px, 5px, 0);
+      .custom-radius(0, 3px, 3px, 0);
       cursor: pointer;
 
       a {
@@ -181,6 +181,16 @@
         display: inline-block;
         width: 190px;
         word-wrap: break-word;
+      }
+
+      &.active {
+        background: #5e8ba6;
+        color: #fff;
+        border-top: 1px solid #5e8ba6;
+
+        a {
+          border: 1px solid #5e8ba6;
+        }
       }
     }
   }

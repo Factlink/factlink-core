@@ -8,7 +8,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     "focus input.typeahead": "focusInput",
     "click div.auto_complete": "parseReturn",
     "blur input.typeahead": "blurInput",
-    "click .show-input-button": "showInput"
+    "click .show-input-button": "showInput",
+    "mouseenter .auto_complete>div": "selectAddNew",
+    "mouseleave .auto_complete>div": "deActivateAddNew"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
@@ -89,29 +91,60 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   blurInput: function () { this.$el.removeClass('focus'); },
 
   moveSelectionUp: function (e) {
-    var prevKey = this._autoCompleteViews.length - 1;
+    var prevKey;
 
     if ( this._activeChannelKey !== undefined ) {
+      // There is an active channel key
       if ( this._autoCompleteViews[this._activeChannelKey - 1] ) {
+        // Select the previous key
         prevKey = this._activeChannelKey - 1;
       }
     }
 
-    this.setActiveAutoComplete(prevKey, true);
+    if ( typeof prevKey === "undefined" ) {
+      // No previous item to be selected
+      if ( ! this.isAddNewActive() ) {
+        // Select addNew
+        this.selectAddNew();
+
+        if ( ! this.isAddNewActive() ) {
+          prevKey = this._autoCompleteViews.length - 1;
+        }
+      } else {
+        prevKey = this._autoCompleteViews.length - 1;
+      }
+    }
+
+    if ( typeof prevKey === "number" ) {
+      this.setActiveAutoComplete(prevKey, true);
+    }
 
     e.preventDefault();
   },
 
   moveSelectionDown: function (e) {
-    var nextKey = 0;
+    var nextKey;
 
     if ( this._activeChannelKey !== undefined ) {
       if ( this._autoCompleteViews[this._activeChannelKey + 1] ) {
         nextKey = this._activeChannelKey + 1;
       }
+    } else {
+      nextKey = 0;
     }
 
-    this.setActiveAutoComplete(nextKey, false);
+    if ( typeof nextKey === "undefined" ) {
+      this.selectAddNew();
+
+      if ( ! this.isAddNewActive() ) {
+        nextKey = 0;
+      }
+    }
+
+    if ( typeof nextKey === "number" ) {
+      this.setActiveAutoComplete(nextKey, false);
+    }
+
 
     e.preventDefault();
   },
@@ -121,6 +154,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       this._autoCompleteViews[this._activeChannelKey].deActivate();
     }
 
+    this.deActivateAddNew();
+
     this._autoCompleteViews[key].activate();
 
     if ( typeof scroll === "boolean" ) {
@@ -128,6 +163,32 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
 
     this._activeChannelKey = key;
+  },
+
+  selectAddNew: function () {
+    if ( ! this.isAddNewVisible() ) {
+      return false;
+    }
+
+    if ( typeof this._activeChannelKey === "number" ) {
+      this._autoCompleteViews[this._activeChannelKey].deActivate();
+
+      this._activeChannelKey = undefined;
+    }
+
+    this.activateAddNew();
+  },
+
+  activateAddNew: function () {
+    this.$el.find('.auto_complete>div').addClass('active');
+  },
+
+  deActivateAddNew: function () {
+    this.$el.find('.auto_complete>div').removeClass('active');
+  },
+
+  isAddNewActive: function () {
+    return this.$el.find('.auto_complete>div').hasClass('active');
   },
 
   activateAutoCompleteView: function (view) {
@@ -312,6 +373,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.removeClass('hide-add-new');
   },
 
+  isAddNewVisible: function () {
+    return ! this.$el.hasClass('hide-add-new');
+  },
+
   hideAutoComplete: function () {
     this.$el.find('.auto_complete').hide();
   },
@@ -357,8 +422,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       if ( channel.get('user_channel') ) {
         var lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
         var lowerCaseSearch = this._lastKnownSearchValue.toLowerCase();
-
-        console.info( lowerCaseTitle, lowerCaseSearch);
 
         if ( lowerCaseSearch === lowerCaseTitle ) {
           this.hideAddNew();
