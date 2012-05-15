@@ -304,6 +304,14 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   },
 
+  hideAddNew: function () {
+    this.$el.addClass('hide-add-new');
+  },
+
+  showAddNew: function () {
+    this.$el.removeClass('hide-add-new');
+  },
+
   hideAutoComplete: function () {
     this.$el.find('.auto_complete').hide();
   },
@@ -323,6 +331,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.find('.auto_complete').addClass('empty');
 
     this.hideAutoComplete();
+
+    this.showAddNew();
   },
 
   addAutoComplete: function (channel) {
@@ -343,6 +353,17 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       this._autoCompleteViews.push(view);
 
       this.showAutoComplete();
+
+      if ( channel.get('user_channel') ) {
+        var lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
+        var lowerCaseSearch = this._lastKnownSearchValue.toLowerCase();
+
+        console.info( lowerCaseTitle, lowerCaseSearch);
+
+        if ( lowerCaseSearch === lowerCaseTitle ) {
+          this.hideAddNew();
+        }
+      }
     }
   },
 
