@@ -12,9 +12,7 @@ FactlinkRouter = Backbone.Marionette.AppRouter.extend({
 FactlinkController = {
 
   initialize: function() {
-    this.view = new AppView();
   },
-
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
@@ -34,22 +32,36 @@ FactlinkController = {
     return channel;
   },
 
+  // TODO: This function needs to wait for loading (Of channel contents in main column)
+  setupChannelReloading: function(){
+    var args = arguments;
+
+    setTimeout(function(){
+      Channels.fetch({
+        success: args.callee
+      });
+    }, 7000);
+  },
+
   commonChannelViews: function(channel) {
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelCollectionView({collection: window.Channels});
+    this.setupChannelReloading();
     FactlinkApp.channelListRegion.show(channelCollectionView);
+    var userView = new UserView({model: channel.user});
+    FactlinkApp.userblockRegion.show(userView);
   },
 
   getChannelFacts: function(username, channel_id) {
     var channel = this.loadChannel(username, channel_id);
     this.commonChannelViews(channel);
-    this.view.reInit({model: channel,content_type: 'facts'}).render();
+    FactlinkApp.mainRegion.show(new ChannelView({model: channel}));
   },
 
   getChannelActivities: function(username, channel_id) {
     var channel = this.loadChannel(username, channel_id);
     this.commonChannelViews(channel);
-    this.view.reInit({model: channel,content_type: 'activities'}).render();
+    FactlinkApp.mainRegion.show(ChannelActivitiesView({model: channel}));
   }
 
 }
@@ -75,8 +87,10 @@ FactlinkApp.addInitializer(function(options){
 new FactlinkRouter({controller: FactlinkController});
 
 FactlinkApp.addRegions({
+  mainRegion: '#main-wrapper',
   relatedUsersRegion: "#left-column .related-users",
   notificationsRegion: "#notifications",
+  userblockRegion: "#left-column .userblock-container",
   channelListRegion: "#left-column .channel-listing-container"
 });
 
