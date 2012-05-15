@@ -66,7 +66,7 @@ describe RemoveFactFromChannel do
         @ch.sorted_cached_facts.delete @f
       end
 
-      it "should call resque on all its containing channels" do
+      it "should not call resque on all its containing channels" do
         sup_ch = create :channel
         @ch.containing_channels << sup_ch
 
@@ -75,6 +75,24 @@ describe RemoveFactFromChannel do
         RemoveFactFromChannel.perform @f.id, @ch.id
       end
 
+      context "but it was explicitely deleted" do
+        before do
+          @ch.sorted_delete_facts.add @f
+        end
+        it "should still remove the channel from the facts channellist" do
+          Fact.should_receive(:[]).with(@f.id).and_return(@f)
+          @f.channels.should_receive(:delete).with(@ch)
+          RemoveFactFromChannel.perform @f.id, @ch.id
+        end
+        it "should not call resque on all its containing channels" do
+          sup_ch = create :channel
+          @ch.containing_channels << sup_ch
+
+          Resque.should_not_receive(:enqueue)
+
+          RemoveFactFromChannel.perform @f.id, @ch.id
+        end
+      end
     end
   end
 end
