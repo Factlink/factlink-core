@@ -7,6 +7,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     "keyup input.typeahead": "autoComplete",
     "focus input.typeahead": "focusInput",
     "click div.auto_complete": "parseReturn",
+    "click div.fake_input a": "parseReturn",
     "blur input.typeahead": "blurInput",
     "click .show-input-button": "showInput",
     "mouseenter .auto_complete>div": "selectAddNew",
