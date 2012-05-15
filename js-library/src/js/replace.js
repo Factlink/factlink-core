@@ -123,27 +123,17 @@
       },
       // Create a "fact"-span with the right attributes
       createFactSpan = function(text, id, first) {
-        var span = document.createElement('span');
-
-        // Set the span attributes
-        span.className = "factlink";
-        span.setAttribute('data-factid',id);
+        var span = $(document.createElement('span'))
+          .addClass('factlink')
+          .data('factid', id);
 
         if (first === true) {
-          span.className += " fl-first";
+          span.addClass("fl-first");
         }
 
-        span.setAttribute('data-factid', id);
+        span.html(text);
 
-        // IE Doesn't support the standard (textContent) and Firefox doesn't
-        // support innerText
-        if (document.getElementsByTagName("body")[0].innerText === undefined) {
-          span.textContent = text;
-        } else {
-          span.innerText = text;
-        }
-
-        return span;
+        return span[0];
       };
 
   // Function that tracks the DOM for nodes containing the fact
