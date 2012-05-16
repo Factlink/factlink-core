@@ -398,6 +398,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.hideAutoComplete();
 
+    this.deActivateAddNew();
+
     this.showAddNew();
   },
 
