@@ -110,6 +110,8 @@ group :development do
   #for static files serving
   gem 'rack'
   gem 'thin'
+
+  gem 'letter_opener'
 end
 
 group :test do
