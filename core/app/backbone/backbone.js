@@ -8,6 +8,8 @@
 
 //= require_tree ./contrib
 
+//= require app.js
+
 // Include Fact Model so it can be used inside extended_fact
 //= require ./models/fact.js
 
@@ -26,4 +28,8 @@
 //= require ./views/channel_item_view.js
 
 //= require_tree ./views/
-//= require ./router.js
+
+//= require ./layout.js
+//= require_tree ./controllers/
+//= require_tree ./routers/
+//= require ./initializers.js

@@ -1,18 +1,4 @@
-(function(){
-
-window.FactlinkApp = new Backbone.Marionette.Application();
-
-FactlinkRouter = Backbone.Marionette.AppRouter.extend({
-  appRoutes: {
-    ':username/channels/:channel_id': 'getChannelFacts',
-    ':username/channels/:channel_id/activities': 'getChannelActivities'
-  }
-});
-
-FactlinkController = {
-
-  initialize: function() {
-  },
+ChannelsController = {
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
@@ -65,35 +51,3 @@ FactlinkController = {
   }
 
 }
-
-FactlinkApp.addInitializer(function(options){
-  FactlinkController.initialize();
-});
-
-
-FactlinkApp.addInitializer(function(options){
-  if ( $('#notifications').length === 1 ) {
-    // The notifications-icon is present in the topbar, create the appropriate Backbone View
-    var notificationsView = new NotificationsView({
-      el : $('#notifications'),
-      collection: new Notifications()
-    });
-
-    FactlinkApp.notificationsRegion.attachView(notificationsView);
-  }
-});
-
-
-new FactlinkRouter({controller: FactlinkController});
-
-FactlinkApp.addRegions({
-  mainRegion: '#main-wrapper',
-  relatedUsersRegion: "#left-column .related-users",
-  notificationsRegion: "#notifications",
-  userblockRegion: "#left-column .userblock-container",
-  channelListRegion: "#left-column .channel-listing-container"
-});
-
-
-
-}());
