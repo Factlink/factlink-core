@@ -61,7 +61,7 @@ FactlinkController = {
   getChannelActivities: function(username, channel_id) {
     var channel = this.loadChannel(username, channel_id);
     this.commonChannelViews(channel);
-    FactlinkApp.mainRegion.show(ChannelActivitiesView({model: channel}));
+    FactlinkApp.mainRegion.show(new ChannelActivitiesView({model: channel}));
   }
 
 }
