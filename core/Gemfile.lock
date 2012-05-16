@@ -207,6 +207,8 @@ GEM
       less (~> 2.1.0)
     less-rails-bootstrap (2.0.10)
       less-rails (~> 2.2.0)
+    letter_opener (0.0.2)
+      launchy
     libv8 (3.3.10.4)
     libwebsocket (0.1.3)
       addressable
@@ -459,6 +461,7 @@ DEPENDENCIES
   json
   less-rails (>= 2.1.5)
   less-rails-bootstrap (>= 2.0.6)
+  letter_opener
   map
   metric_fu (= 2.1.1)
   mixpanel (~> 1.1.3)
