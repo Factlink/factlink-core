@@ -209,7 +209,7 @@ class ChannelsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json #{ render json: @activities }
+      format.json { render json: @activities }
       format.html { render inline:'', layout: "channels" }
     end
   end
