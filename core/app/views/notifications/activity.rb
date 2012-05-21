@@ -47,6 +47,9 @@ module Notifications
       when "created_channel"
         return Notifications::NewChannel.for(activity: self[:activity], view: self[:view])
 
+      when "added_fact_to_channel"
+        return Notifications::AddedFactToChannel.for(activity: self[:activity], view: self[:view])
+
       else
         return self[:activity]
       end
