@@ -127,13 +127,9 @@ class Channel < OurOhm
     self.sorted_internal_facts.add(fact)
     Resque.enqueue(AddFactToChannel, fact.id, self.id)
 
-    # This sucks - but does show the logic of what needs to happen:
+    # This needs improvement when containing_channels get larger
     self.containing_channels.each do |containing_channel|
-      unless containing_channel.sorted_cached_facts.include?(fact) or # this fact was already there, no propagation needed
-             containing_channel.sorted_delete_facts.include?(fact)    # this fact should not be added
-
-        activity(self.created_by, :added_fact_to_channel, fact, :to, containing_channel)
-      end
+      activity(self.created_by, :added_fact_to_channel, fact, :to, containing_channel)
     end
 
     activity(self.created_by,:added,fact,:to,self)
