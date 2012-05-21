@@ -30,25 +30,27 @@ module Notifications
     end
 
     def activity
-      case self[:activity].action
+      opts = { activity: self[:activity], view: self[:view]}
 
-      # Channel activity
+      case opts[:activity].action
+
       when "added_subchannel"
-        return Activities::AddedSubchannel.for(activity: self[:activity], view: self[:view])
+        return Activities::AddedSubchannel.for(opts)
 
-      # Opinion activity
       when "believes", "doubts", "disbelieves"
-        return Notifications::Opinionated.for(activity: self[:activity], view: self[:view])
+        return Notifications::Opinionated.for(opts)
 
-      # Evidence activities
       when "added_supporting_evidence", "added_weakening_evidence"
-        return Notifications::AddedEvidence.for(activity: self[:activity], view: self[:view])
+        return Notifications::AddedEvidence.for(opts)
 
       when "created_channel"
-        return Notifications::NewChannel.for(activity: self[:activity], view: self[:view])
+        return Notifications::NewChannel.for(opts)
+
+      when "added_fact_to_channel"
+        return Notifications::AddedFactToChannel.for(opts)
 
       else
-        return self[:activity]
+        return opts[:activity]
       end
     end
   end

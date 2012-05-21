@@ -90,7 +90,10 @@ GEM
     arel (2.2.3)
     arrayfields (4.7.4)
     bcrypt-ruby (3.0.1)
+<<<<<<< HEAD
     blankslate (2.1.2.4)
+=======
+>>>>>>> develop
     brakeman (1.5.3)
       activesupport
       erubis (~> 2.6)
@@ -461,7 +464,10 @@ DEPENDENCIES
   hashie
   headless
   hogan_assets
+<<<<<<< HEAD
   jbuilder
+=======
+>>>>>>> develop
   jquery-rails (>= 1.0.17)
   json
   less-rails (>= 2.1.5)

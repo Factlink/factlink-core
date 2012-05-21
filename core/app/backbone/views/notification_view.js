@@ -44,6 +44,10 @@ NotificationNewChannelView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_new_channel_activity")
 });
 
+AddedFactToChannelView = GenericNotificationView.extend({
+  tmpl: Template.use('notifications', '_added_fact_to_channel')
+});
+
 window.NotificationView = function(opts) {
   switch (opts.model.get("action")) {
     case "added_supporting_evidence":
@@ -63,6 +67,9 @@ window.NotificationView = function(opts) {
 
     case "created_channel":
       return new NotificationNewChannelView(opts);
+
+    case "added_fact_to_channel":
+      return new AddedFactToChannelView(opts);
 
     default:
       return new GenericNotificationView(opts);
