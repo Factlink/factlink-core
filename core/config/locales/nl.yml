@@ -36,3 +36,7 @@ nl:
   interesting_users: "interessante gebruikers"
 
   ago: "geleden"
+
+  facts:
+    new:
+      add_to_channels: "voeg toe aan kanaal"
