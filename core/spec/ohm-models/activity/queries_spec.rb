@@ -90,6 +90,22 @@ describe 'activity queries' do
       ]
     end
 
+    it "should return activity when a user adds a Fact to your channel" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
+
+      ch1.add_channel(ch2)
+
+      f1 = create :fact, created_by: gu2
+
+      ch2.add_fact(f1)
+
+      gu1.notifications.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :added, subject: f1, object: ch1}
+      ]
+
+    end
+
     [:supporting, :weakening].each do |type|
       it "should return activity when a users adds #{type} evidence to a fact that you created" do
         f1 = create :fact

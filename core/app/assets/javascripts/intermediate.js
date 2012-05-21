@@ -1,4 +1,4 @@
-//= require application
+//= require jquery
 
 var // The iFrame
     showFrame = document.getElementById("frame"),
@@ -31,7 +31,7 @@ var // The iFrame
             };
           }
         },
-        //easyXDM does not support passing functions wrapped in objects (such as options in this case)
+        // easyXDM does not support passing functions wrapped in objects (such as options in this case)
         // so therefore we need this workaround
         ajax: function(path, options, successFn, errorFn) {
           ajax(path, $.extend({
