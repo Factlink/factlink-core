@@ -1,13 +1,5 @@
-window.TopicSearchView = Backbone.View.extend({
+window.TopicSearchView = Backbone.Marionette.ItemView.extend({
   tagName: "div",
   className: "topic-block",
-
-  tmpl: Template.use("topics", "_topic_search"),
-
-  render: function() {
-    this.$el.html( this.tmpl.render( this.model.toJSON()) );
-
-    return this;
-  },
-
+  template: 'topics/_topic_search'
 });

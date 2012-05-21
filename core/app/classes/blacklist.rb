@@ -22,6 +22,7 @@ class Blacklist
       domain('gmail.com'),
       domain('irccloud.com'),
       domain('moneybird.nl'),
+      domain('newrelic.com'),
       domain('flowdock.com'),
       domain('yammer.com'),
       strict_domain('github.com'),

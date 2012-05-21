@@ -152,7 +152,7 @@ window.FactsView = Backbone.CollectionView.extend({
     var lastModel = self.collection.models[(self.collection.length - 1) || 0];
     var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
 
-     if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
+    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
       self.setLoading();
 
       self._timestamp = new_timestamp;

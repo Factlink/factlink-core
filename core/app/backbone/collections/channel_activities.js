@@ -6,6 +6,6 @@ window.ChannelActivities = Backbone.Collection.extend({
   },
 
   url: function() {
-    return this.channel.url() + '/activities';
+    return this.channel.url() + '/activities.json';
   }
 });
