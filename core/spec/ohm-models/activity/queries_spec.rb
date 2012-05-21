@@ -90,7 +90,7 @@ describe 'activity queries' do
       ]
     end
 
-    it "should return activity when a user adds a Fact to your channel" do
+    pending "should return activity when a user adds a Fact to your channel" do
       ch1 = create :channel, created_by: gu1
       ch2 = create :channel, created_by: gu2
 
