@@ -1,5 +1,14 @@
 require 'integration_helper'
 
+describe "Compare screens", type: :request do
+
+  it "should render the frontpage as expected", js: true do
+    visit "/"
+    assume_unchanged_screenshot "homepage"
+  end
+
+end
+
 describe "Check the ToS", type: :request do
 
   before do
@@ -19,7 +28,7 @@ describe "Check the ToS", type: :request do
   end
 
   it "should show errors when not agreeing the ToS" do
-    click_button "Continue"
+    click_button "Finish"
 
     page.should have_selector("div.alert")
     page.should have_content("You have to accept the Terms of Service to continue.")
@@ -27,15 +36,14 @@ describe "Check the ToS", type: :request do
   end
 
   describe "when agreeing the ToS" do
-
     before do
       fill_in "user_agrees_tos_name", with: "Sko Brenden"
       check "user_agrees_tos"
 
-      click_button "Continue"
+      click_button "Finish"
     end
 
-    pending "should show the Tour", js: true do
+    it "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click
@@ -53,23 +61,19 @@ describe "Check the ToS", type: :request do
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Relations']", :visible => true)
       page.has_xpath?("//div[@data-title='Evidence']", :visible => false)
-      
+
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Channels']", :visible => true)
       page.has_xpath?("//div[@data-title='Relations']", :visible => false)
-      
+
       page.find(".next").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
       page.has_xpath?("//div[@data-title='Channels']", :visible => false)
 
-      page.find(".next").click
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => true)
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
-  
       page.find(".previous").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
       page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
-      
+
       page.find(".next").click
       page.find(".closeButton").click
       page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
@@ -91,11 +95,33 @@ describe "Walkthrough the app", type: :request do
   end
 
   describe "creating a Factlink" do
-    it "should work" do
+    it "should add a factlink", js:true do
+      fact_name = "baronnenbillen"
+
       visit new_fact_path
-      fill_in "fact", with: "baronnenbillen"
-      click_button "Submit"
+      fill_in "fact", with: fact_name
+      click_button "submit"
       page.should have_content "Factlink successfully added"
+      visit root_path
+      page.should have_content "My Stream"
+      page.should have_content fact_name
+    end
+
+    it "should be able to delete a factlink", js:true do
+      fact_name = "raar"
+
+      # create fact:
+      visit new_fact_path
+      fill_in "fact", with: fact_name
+      click_button "submit"
+      visit root_path
+      page.should have_content fact_name
+
+      # and delete it:
+      page.evaluate_script('window.confirm = function() { return true; }')
+      page.execute_script("$('a[href*=" + fact_name + "]').click()")
+
+      page.should_not have_content fact_name
     end
   end
 
@@ -152,7 +178,7 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fact_title = "fact to be found"
       fill_in "fact", with: fact_title
-      click_button "Submit"
+      click_button "submit"
       page.should have_content "Factlink successfully added"
 
       # and search for it:
@@ -162,4 +188,6 @@ describe "Walkthrough the app", type: :request do
       page.should have_content(fact_title)
     end
   end
+
+  it "should be possible to reserve a username and this should result in a confirmation message"
 end

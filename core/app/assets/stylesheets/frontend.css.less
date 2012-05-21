@@ -8,6 +8,8 @@
  *= require facts
  *= require footer
  *= require channels
+ *= require search
+ *= require activity
  */
 
 @import "bootstrap/variables";
@@ -24,6 +26,7 @@ Author: Factlink
 }
 body {
   background: @white;
+  overflow-y: scroll;
 }
 a:hover{
   cursor: pointer;
@@ -65,41 +68,15 @@ body.factlink-site .fact-block {
   -moz-border-radius: 0;
 }
 
-
-.list-block {
-  min-height: 48px;
-  padding: 16px;
-  border-bottom: 1px solid #E6E6E6;
-  .user-avatar {
-    width: 32px;
-    height: 32px;
-    float: left;
-  }
-
-  .activity-container {
-    padding: 0 0 0 48px;
-
-    .body {
-      color: #555;
-    }
-    .meta {
-      padding: 4px 0 0 0;
-      img {
-        vertical-align: middle;
-        padding: 0 6px 0 0;
-      }
-      display: block;
-      font-size: 0.85em;
-      color: #888;
-    }
-  }
-}
-
 .search-results .results .user-block {
-  padding: 10px 0 0px 5px;
-  height: 72px;
+  padding: 16px 0 0px 5px;
+  height: 48px;
   list-style: none;
+  border-bottom: 1px solid #e6e6e6;
 
+  .list-block {
+    height: 100%;
+  }
   .list-block:hover {
       cursor: pointer;
   }
@@ -126,10 +103,10 @@ body.factlink-site .fact-block {
     font-size: (@baseFontSize * 1.5);
     margin-bottom: @baseFontSize;
   }
+
   .authority {
     display: inline-block;
     padding: 0px 20px 5px;
-    margin-left: 15px;
 
     img {
       vertical-align: middle;
@@ -155,7 +132,7 @@ body.factlink-site .fact-block {
         float: left;
         width: 100px;
         margin-top: 6px;
-    margin-left: 20px;
+        margin-left: 20px;
       }
 
       input {
@@ -187,6 +164,7 @@ body.factlink-site .fact-block {
   }
 
   #left-column {
+    padding-bottom: 25px;
     .user-block {
       .avatar-container {
         padding: 1em;
@@ -270,7 +248,6 @@ body.factlink-site .fact-block {
     background-color: @white;
     .border-radius(@borderRadius);
     border: 1px solid @grayLighter;
-    min-height: 400px;
     .drop-shadow();
     position: relative;
     z-index: 100;
@@ -302,6 +279,7 @@ body.factlink-site .fact-block {
 
       div.button-wrap {
         position: absolute;
+        line-height: 30px;
         display: inline-block;
       }
 
@@ -328,7 +306,8 @@ body.factlink-site .fact-block {
             }
           }
         }
-        margin: -20px 0 0 0;
+
+        margin: -21px 0 0 0;
         padding: 0px;
       }
       p {
@@ -357,6 +336,10 @@ body.factlink-site .fact-block {
           display: none;
         }
       }
+      #contained-channel-list.not_my_channel span.close {
+        display:none;
+      }
+
       #contained-channel-list {
         display: block;
         li {
@@ -382,7 +365,12 @@ body.factlink-site .fact-block {
             span {
               .ellipsis();
               display: inline-block;
-              width: 110px;
+              width: 100px;
+            }
+            span.close {
+              float: right;
+              width: auto;
+              margin-right: 5px;
             }
             &:hover {
               text-decoration: none;
@@ -425,14 +413,12 @@ body.factlink-site .fact-block {
         text-decoration: none;
       }
       &.stream {
-        padding-bottom: 3px;
-        background: url(/assets/homeIcon.png) 4px @margin no-repeat transparent;
-        border-bottom: 1px solid #dbdbdb;
+        background: image-url("homeIcon.png") 4px @margin no-repeat transparent;
       }
       &.created {
-        border-top: 1px solid white;
-        background: url(/assets/userIcon.png) 5px @margin no-repeat transparent;
+        background: image-url("userIcon.png") 5px @margin no-repeat transparent;
       }
+
       .new {
         color: @black;
         margin-left: -20px;
@@ -444,11 +430,21 @@ body.factlink-site .fact-block {
         display: inline-block;
       }
     }
+    li:nth-child(2) a {
+      padding-bottom: 3px;
+    }
+    li:nth-child(3) a {
+      border-bottom: none;
+      border-top: 1px solid #dbdbdb;
+    }
+    li.active a {
+      border-top: none;
+    }
     li.active {
       a {
         color: @black;
       }
-      background: url(/assets/menuBackground.png) left ((@margin / 2) - 2) no-repeat transparent;
+      background: image-url("menuBackground.png") left ((@margin / 2) - 2) no-repeat transparent;
     }
   }
   .no_facts {

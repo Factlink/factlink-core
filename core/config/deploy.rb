@@ -74,6 +74,28 @@ namespace :deploy do
       curl --user deploy:sdU35-YGGdv1tv21jnen3 #{full_url}
     CMD
   end
+
+  #
+  #  Only precompile if files have changed
+  #
+  namespace :assets do
+    task :precompile, :roles => :web, :except => { :no_release => true } do
+      # Only precompile if files have changed: http://www.bencurtis.com/2011/12/skipping-asset-compilation-with-capistrano/
+      from = source.next_revision(current_revision)
+      if capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ app/backbone/ app/templates/ Gemfile.lock config/deploy.rb config/deploy/ | wc -l").to_i > 0
+        run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
+      else
+        logger.info "Skipping asset pre-compilation because there were no asset changes"
+      end
+    end
+  end
+
+end
+
+namespace :mongoid do
+  task :create_indexes do
+    run "cd #{current_path}; #{rake} db:mongoid:create_indexes"
+  end
 end
 
 before 'deploy:all',      'deploy'
@@ -92,3 +114,5 @@ after 'deploy:update', 'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy', 'deploy:curl_site'
+
+require './config/boot'

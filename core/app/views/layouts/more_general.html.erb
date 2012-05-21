@@ -15,27 +15,36 @@
 
   <%= yield :specific_stylesheet_tag %>
   <%= yield :stylesheets %>
+  <% if can_haz :pink_feedback_button %>
+    <!-- Speciaal voor jou Joel! -->
+    <style>
+      #feedback {background: #e6007e;}
+      #notifications span.unread.active {background: #e6007e; text-shadow: rgba(0,0,0,0.25);}
+    </style>
+  <% end %>
 
   <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 </head>
 <body class="factlink-site">
-
+  <%= render 'home/feedback' unless defined? dont_render_feedback %>
   <%= render 'home/topbar' %>
 
   <%= yield :more_specific_page %>
 
+  <%= render 'home/footer' %>
 
+  <%= yield :specific_javascript%>
 
   <%# Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
   chromium.org/developers/how-tos/chrome-frame-getting-started %>
-  <!--[if lt IE 7 ]>
+  <!--[if lt IE 9 ]>
   <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
   <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
 
-  <%= render 'home/feedback' unless defined? dont_render_feedback %>
   <%= render 'snippets/google_analytics' %>
-  </body>
+  <%= yield :feedback_javascript %>
+</body>
 
 </html>

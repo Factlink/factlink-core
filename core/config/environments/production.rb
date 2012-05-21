@@ -2,10 +2,10 @@ FactlinkUI::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Error reporting
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[FL##{Rails.env}] ",
-    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <team+bugs@factlink.com>},
-    :exception_recipients => %w{team+bugs@factlink.com}
+  # config.middleware.use ExceptionNotifier,
+  #   :email_prefix => "[FL##{Rails.env}] ",
+  #   :sender_address => %{"#{Rails.env} - FL - Bug notifier" <team+bugs@factlink.com>},
+  #   :exception_recipients => %w{team+bugs@factlink.com}
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests

@@ -38,7 +38,7 @@
     margin-left: 20px;
     border: none;
 
-    .controls {
+    .controls li {
       .opacity(100);
     }
   }
@@ -57,6 +57,11 @@
         color: #555;
         line-height: 26px;
         font-weight: normal;
+        word-wrap: break-word;
+
+        &.full {
+          display: none;
+        }
       }
 
       .scroll-to-container {
@@ -83,7 +88,7 @@
       h6 {
         color: #555555;
         font-size: 13px;
-        text-transform: capitalize;
+        text-transform: none;
         padding: 0 12px;
       }
 

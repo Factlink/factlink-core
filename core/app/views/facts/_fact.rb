@@ -1,5 +1,6 @@
 module Facts
   class Fact < Mustache::Railstache
+    include BaseViews::FactBase
 
     def init
       self[:timestamp] ||= 0
@@ -38,10 +39,6 @@ module Facts
       (auth.to_s.to_f + 1.0).to_s
     end
 
-    def signed_in?
-      user_signed_in?
-    end
-
     def ajax_loader_image
       image_tag("ajax-loader.gif")
     end
@@ -52,14 +49,6 @@ module Facts
 
     def prefilled_search_value
       params[:s] ? 'value="#{params[:s]}"' : ""
-    end
-
-    def id
-      self[:fact].id
-    end
-
-    def displaystring
-      self[:fact].data.displaystring
     end
 
     def modal?
@@ -74,35 +63,14 @@ module Facts
       Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 
-    def interacting_users
-      Facts::InteractingUsers.for(fact: self[:fact], view: self.view).to_hash
-    end
-
-    def containing_channel_ids
-      return [] unless current_graph_user
-      current_graph_user.containing_channel_ids(self[:fact])
-    end
-
-    def channels_definition
-      t(:channels).titleize
-    end
-
-    def nr_of_supporting_facts
-      self[:fact].supporting_facts.size
-    end
-    def nr_of_weakening_facts
-      self[:fact].weakening_facts.size
-    end
-
     def url
       friendly_fact_path(self[:fact])
     end
 
     def friendly_time
-      time_ago_short(Time.at(self[:timestamp]/1000))
+      time_ago_short(Time.at(self[:timestamp]/1000)) if self[:channel]
     end
 
     expose_to_hash :timestamp
-
   end
 end

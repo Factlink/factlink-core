@@ -1,21 +1,15 @@
 class Admin::UsersController < AdminController
+  helper_method :sort_column, :sort_direction
 
   before_filter :authenticate_user!
+  before_filter :get_activated_users,         only: [:index]
+  before_filter :get_reserved_users,          only: [:reserved]
+  before_filter :set_available_user_features, only: [:new, :create, :edit, :update]
+
   load_and_authorize_resource :except => [:create]
 
   layout "admin"
 
-  def index
-  end
-
-  def show
-  end
-
-  def new
-  end
-
-  def edit
-  end
 
   def create
     @user = User.new
@@ -37,9 +31,42 @@ class Admin::UsersController < AdminController
       params[:user][:password_confirmation] = nil
     end
     if @user.assign_attributes(params[:user], as: :admin) and @user.save
+      @user.features = params[:user][:features].andand.keys
       redirect_to admin_user_path(@user), notice: 'User was successfully updated.'
     else
       render :edit
     end
+  end
+
+  def approve
+    @user.approved = true
+
+    if @user.save
+      render :json => {}, :status => :ok
+    else
+      render :json => @user.errors, :status => :unprocessable_entity
+    end
+  end
+
+  private
+
+  def sort_column
+    User.fields.collect {|field| field[0] }.include?(params[:sort]) ? params[:sort] : "username"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  def get_activated_users
+    @users = User.where(:approved => true).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def get_reserved_users
+    @users = User.where(:invitation_token => nil, :approved => false).order_by([sort_column.to_sym, sort_direction.to_sym])
+  end
+
+  def set_available_user_features
+    @user_features = Ability::FEATURES
   end
 end

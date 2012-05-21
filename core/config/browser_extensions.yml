@@ -1,0 +1,15 @@
+test:
+  chrome:
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+
+testserver:
+  chrome:
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+
+staging:
+  chrome:
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+
+production:
+  chrome:
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb

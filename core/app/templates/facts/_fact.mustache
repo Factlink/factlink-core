@@ -1,0 +1,61 @@
+{{#deletable_from_channel?}}
+  <a class="close remove" rel="nofollow">&times;</a>
+{{/deletable_from_channel?}}
+
+<div class="timestamp">
+  {{friendly_time}}
+</div>
+
+
+{{#modal?}}
+  <a class="close" rel="nofollow" onclick="parent.remote.hide();">&times;</a>
+{{/modal?}}
+
+{{#fact_bubble}}
+  {{>fact_bubble}}
+{{/fact_bubble}}
+
+<div class="controls">
+  <ul class="evidence">
+    <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}">
+      <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
+    </li>
+
+    <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}">
+      <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
+    </li>
+
+		{{#signed_in?}}
+    <li class="add-to-channel">
+      <a>{{channels_definition}}</a>
+      <div class="float-box channel-listing">
+    </div>
+    </li>
+		{{/signed_in?}}
+
+		<li class="permalink">
+		  <a href="{{url}}" target="_top"></a>
+		</li>
+
+    {{#i_am_owner}}
+      <li class="destroy">
+        <a href="{{url}}"></a>
+      </li>
+    {{/i_am_owner}}
+
+  </ul>
+
+  {{#interacting_users}}
+    {{>interacting_users}}
+  {{/interacting_users}}
+  {{#my_authority}}
+  <div class="authority" rel="tooltip" title="Your authority on this Factlink">
+    <img src="/assets/brain.png" alt="Brain" />
+    <span>{{my_authority}}</span>
+  </div>
+  {{/my_authority}}
+</div>
+
+
+<div class="dropdown-container">
+</div>

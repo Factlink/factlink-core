@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag "fake_facts" %>
+</head>
+<body>
+  <%= yield %>
+
+  <%= javascript_include_tag "frontend" %>
+
+  <%= yield :javascript %>
+</body>
+</html>

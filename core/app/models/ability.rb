@@ -78,6 +78,7 @@ class Ability
       if user.admin?
         can :access, AdminArea
         can :manage, User
+        can :approve, User
         can :manage, Job
         cannot :sign_tos, User
       end
@@ -105,19 +106,18 @@ class Ability
     can :show, Topic
   end
 
+  FEATURES = %w(pink_feedback_button authority_calculation_details discovery_tab_all_stream)
+
   def define_feature_toggles
     if user
       if user.admin?
          can :see_feature_version_number, FactlinkWebapp
       end
       can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
+      user.features.each do |feature|
+        can :"see_feature_#{feature}", FactlinkWebapp
+      end
     end
-
-    cannot :see_feature_intro_video, FactlinkWebapp
-    
-    # enable as soon as we have related users only for channels, and this gives
-    # a list of users sorted by authority for the topic of the channel
-    #can :see_feature_authority_for_related_users, FactlinkWebapp
   end
 
 end

@@ -1,54 +1,81 @@
-<%= form_for(user, :url => [:admin, user]) do |f| %>
-  <% if user.errors.any? %>
-    <div class="alert-message block-message error">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-      <% user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for(user, :url => [:admin, user], class: "form-horizontal") do |f| %>
+  <div class="span8">
 
-  <div class="row">
-    <%= f.label :username %>
-    <div class="field">
-      <%= f.text_field :username %>
+    <% if user.errors.any? %>
+      <div class="alert-message block-message error">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+        <% user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="row">
+      <%= f.label :username %>
+      <div class="field">
+        <%= f.text_field :username %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.label :twitter %>
-    <div class="field">
-      <%= f.text_field :twitter %>
+
+    <div class="row">
+      <%= f.label :email %>
+      <div class="field">
+        <%= f.text_field :email %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.label :email %>
-    <div class="field">
-      <%= f.text_field :email %>
+
+    <div class="row">
+      <%= f.label :password %>
+      <div class="field">
+        <%= f.text_field :password %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.label :password %>
-    <div class="field">
-      <%= f.text_field :password %>
+
+    <div class="row">
+      <%= f.label :password_confirmation %>
+      <div class="field">
+        <%= f.text_field :password_confirmation %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.label :password_confirmation %>
-    <div class="field">
-      <%= f.text_field :password_confirmation %>
+
+   <div class="row">
+      <%= f.label :approved %>
+      <div class="field">
+        <%= f.check_box :approved %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <%= f.label :admin %>
-    <div class="field">
-      <%= f.check_box :admin %>
+
+    <div class="row alert-error">
+      <%= f.label :admin %>
+      <div class="field">
+        <%= f.check_box :admin %>
+      </div>
     </div>
+
+
+    <div class="form-actions">
+      <%= link_to 'cancel', admin_users_path, class: 'btn' %>
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+
   </div>
 
-  <div class="actions">
-    <%= link_to 'cancel', admin_users_path %>
-    <%= f.submit class: 'btn' %>
+
+  <!-- Feature toggle -->
+  <div class="span3 well" style="width: 200px;">
+    <h1>Features</h1>
+
+    <ul>
+    <% @user_features.each do |feat| %>
+      <li>
+        <label class="checkbox">
+          <%= check_box_tag("user[features][#{feat}]", true, @user.features.member?(feat), class: 'checkbox') %> <%= feat %>
+        </label>
+      </li>
+    <% end %>
+    </ul>
   </div>
+
 <% end %>

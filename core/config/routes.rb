@@ -3,11 +3,12 @@ FactlinkUI::Application.routes.draw do
   # first created -> highest priority.
 
   # User Authentication
-  devise_for :users, :controllers => {  :registrations => "users/registrations",
-                                        :sessions => "users/sessions",
-                                        :confirmations => "users/confirmations",
-                                        :invitations => "users/invitations"
-                                         }
+  devise_for :users, :controllers => {  confirmations: "users/confirmations",
+                                        invitations:   "users/invitations",
+                                        registrations: "users/registrations",
+                                        sessions:      "users/sessions",
+                                        passwords:      "users/passwords"
+                                      }
 
   # Web Front-end
   root :to => "home#index"
@@ -30,7 +31,13 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new]
+  resources :facts, only: [:new, :update] do
+    member do
+      get 'popup_show' => "facts#popup_show"
+      post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
+      delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+    end
+  end
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
@@ -55,19 +62,22 @@ FactlinkUI::Application.routes.draw do
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/channels"         => "facts#get_channel_listing"
       end
-      collection do
-        # SHOULD be replaced with a PUT to a fact, let the jeditable post to a
-        # function instead of to a url. The function should be able to use the
-        # json response of the put.
-        post  "/update_title" => "facts#update_title", :as => "update_title"
-      end
     end
 
     # Search and infinite scrolling
     match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
 
     namespace :admin, path: 'a' do
-      resources :users, :only => [:show, :new, :create, :edit, :update, :index]
+      resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
+        collection do
+          get :reserved
+        end
+
+        member do
+          put :approve
+        end
+      end
+
       resources :jobs
     end
 
@@ -91,17 +101,17 @@ FactlinkUI::Application.routes.draw do
       resources :channels do
         collection do
           post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+          get "find" => "channels#search", :as => "find"
+        end
+
+        resources :subchannels, only: [:index, :destroy] do
+          collection do
+            post "add/:id/",     :as => "add",     :action => "add"
+            post "remove/:id/",  :as => "remove",  :action => "destroy"
+          end
         end
 
         member do
-          resources :subchannels, only: [:index] do
-            collection do
-              post "add/:subchannel_id/",     :as => "add",     :action => "add"
-              post "remove/:subchannel_id/",  :as => "remove",  :action => "remove"
-            end
-          end
-
-          get "related_users",  :as => "channel_related_users"
           get "activities",     :as => "activities"
 
           post "toggle/fact/:fact_id/" => "channels#toggle_fact"
@@ -120,7 +130,6 @@ FactlinkUI::Application.routes.draw do
 
 
               resource :supporting_evidence, :weakening_evidence do
-              # scope :supporting_evidence do
                 scope '/:evidence_id' do
                   post    "/opinion/:type", action: :set_opinion,  :as => "set_opinion"
                   delete  "/opinion/", action:  :remove_opinions,  :as => "delete_opinion"
@@ -131,11 +140,11 @@ FactlinkUI::Application.routes.draw do
         end
       end
     end
+  end
 
-    resources :topics, path: 't', only: [] do
-      member do
-        get :related_users
-      end
+  resources :topics, path: 't', only: [] do
+    member do
+      get :related_users
     end
   end
 
@@ -145,6 +154,8 @@ FactlinkUI::Application.routes.draw do
 
   scope "/p" do
     resources :jobs, :only => [:show, :index]
-    get ":name" => "home#pages", :as => "pages"
+    get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
   end
+
+  get "/x/:id" => "fake_facts#show"
 end

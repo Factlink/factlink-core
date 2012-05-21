@@ -1,9 +1,16 @@
 require 'open-uri'
 require 'digest/md5'
+require 'redis/objects'
 
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Sunspot::Mongoid
+  include Redis::Objects
+
+  # Virtual attribute for authenticating by either username or email
+  # This is in addition to a real persisted field like 'username'
+  attr_accessor :login
 
   field :username
   index :username
@@ -13,7 +20,7 @@ class User
   field :twitter
   field :graph_user_id
 
-  field :approved, default: false, null: false
+  field :approved,    type: Boolean, default: false, null: false
 
   field :admin,       type: Boolean, default: false
 
@@ -26,13 +33,11 @@ class User
   field :last_read_activities_on, type: DateTime, default: 0
 
   attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation
-  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation, :email, :admin, as: :admin
+  field :invitation_message, type: String, default: ""
+  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation, :email, :approved, :admin, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
-  validates_format_of     :username,
-                          :with => /\A[A-Za-z0-9_]*\Z/,
-                          :message => "only letters, digits and _ are allowed"
   validates_format_of     :username,
                           :with => /\A.{2,}\Z/,
                           :message => "at least 2 characters needed"
@@ -41,6 +46,10 @@ class User
                             :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
+  validates_format_of     :username,
+                          :with => /\A[A-Za-z0-9_]*\Z/i,
+                          :message => "only letters, digits and _ are allowed"
+
   validates_presence_of   :username, :message => "is required", :allow_blank => true
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
@@ -87,14 +96,16 @@ class User
     field :invitation_limit, type: Integer
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
-  
-  after_invitation_accepted :approve_invited_user
-  def approve_invited_user
+
+  after_invitation_accepted :approve_invited_user_and_create_activity
+  def approve_invited_user_and_create_activity
     self.skip_confirmation!
     self.approved = true
     self.save
+
+    Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
   end
-  
+
   searchable :auto_index => true do
     text    :username, :twitter
     string  :username, :twitter
@@ -184,6 +195,15 @@ class User
     end
   end
 
+  set :features
+  def features=(values)
+    values ||= []
+    features.del
+    values.each do |val|
+      features << val
+    end
+  end
+
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})
     recoverable = find_or_initialize_with_errors(reset_password_keys, attributes, :not_found)
@@ -193,6 +213,18 @@ class User
       recoverable.send_reset_password_instructions
     end
     recoverable
+  end
+
+  # Welcome the user with an email when the Admin approved the account
+  def send_welcome_instructions
+    generate_reset_password_token! if should_generate_reset_token?
+    UserMailer.welcome_instructions(self.id).deliver
+  end
+
+  # Override login mechanism to allow username or email logins
+  def self.find_for_database_authentication(conditions)
+    login = conditions.delete(:login)
+    self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
   private

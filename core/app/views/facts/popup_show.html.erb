@@ -1,0 +1,23 @@
+<% if user_signed_in? %>
+  <div class="fact-block">
+    <%= render_mustache 'facts/fact_bubble',  fact: @fact, limit_characters_to_display: 80, hide_links: true %>
+  </div>
+<% end %>
+
+
+<% content_for :javascript do %>
+  <script>
+    new InteractiveWheelView({
+      el: $('.wheel'),
+      model: new Wheel(<%= Facts::FactWheel.for(fact: @fact, view: self).to_json.html_safe %>),
+      fact: new Fact(<%= Facts::Fact.for(fact: @fact, view:self).to_json.html_safe %>)
+    }).render();
+
+    top.postMessage({
+      'message': 'highlight',
+      'fact': '<%= j @fact.data.displaystring %>',
+      'fact_id': '<%= j @fact.id %>',
+      'percentages': '<%= @fact.opinion.as_percentages.to_json.html_safe %>'
+    }, "*");
+  </script>
+<% end %>

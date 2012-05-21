@@ -1,5 +1,7 @@
 search: bundle exec rake sunspot:solr:run
-worker:	bundle exec rake environment resque:work QUEUE=*
+worker: bundle exec rake environment resque:work QUEUE=*
 webserver: bundle exec thin start
 recalculate: bundle exec rake fact_graph:recalculate
-static: bundle exec script/static.rb 
+static: bundle exec script/static.rb
+proxy: supervisor --watch ../web-proxy ../web-proxy/server.js
+resqueweb: bundle exec resque-web -F -L config/initializers/resque.rb

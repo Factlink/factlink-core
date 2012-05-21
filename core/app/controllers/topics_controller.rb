@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
 
      render layout: false, partial: "channels/related_users",
        locals: {
-            related_users: @topic.top_users.below('inf', count: 5).map {|gu| gu.user },
+            related_users: @topic.top_users(5),
             topic: @topic,
             excluded_users: []
        }

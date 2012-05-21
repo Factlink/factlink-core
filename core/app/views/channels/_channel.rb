@@ -21,20 +21,36 @@ module Channels
       topic and "/t/#{topic.slug_title}"
     end
 
+    def add_channel_url
+      '/' + self[:user].username + '/channels/new'
+    end
+
     def has_authority?
       self[:channel].has_authority?
     end
 
-    def brain_icon
-      @@brain_png ||= image_tag image_path("brain.png")
-    end
 
     def activities_link
       link + "/activities"
     end
 
     def title
-      self[:channel].title
+      if is_all
+        is_mine ? 'My Stream' : 'Stream'
+      elsif is_created
+        is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username
+      else
+        self[:channel].title
+      end
+    end
+
+
+    def long_title
+      if is_all
+        is_mine ? 'My Stream' : self[:user].username.possessive+ ' Stream'
+      else
+        title
+      end
     end
 
     def type
@@ -57,16 +73,17 @@ module Channels
       self[:user] == current_user
     end
 
+    def discover_stream?
+      (can_haz :discovery_tab_all_stream) && is_all && is_mine
+    end
+
     def created_by
       {
         id: self[:user].id,
         username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), :width => 32)
+        avatar: image_tag(self[:user].avatar_url(size: 32), title: self[:user].username, alt: self[:user].username, width: 32),
+        all_channel_id: self[:user].graph_user.stream_id
       }
-    end
-
-    def nr_of_facts
-      unread_count
     end
 
     def new_facts
@@ -99,18 +116,6 @@ module Channels
 
     def unread_count
       @unread ||= self[:channel].unread_count
-    end
-
-    def channel_definition
-      t(:channel)
-    end
-
-    def channels_definition
-      t(:channels)
-    end
-
-    def add_to_channels_definition
-      t(:add_to_channels).capitalize
     end
 
     private

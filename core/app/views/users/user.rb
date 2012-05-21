@@ -2,10 +2,6 @@ module Users
   class User < Mustache::Railstache
     @cache = {}
 
-    #def self.for opts
-    #  @cache[opts[:user].id] ||= super
-    #end
-
     def init
       self[:graph_user] = self[:user].graph_user
     end
@@ -40,6 +36,7 @@ module Users
       view.user_profile_path(self[:user].username)
     end
 
+    #DEPRECATED
     def authority
       "?"
     end

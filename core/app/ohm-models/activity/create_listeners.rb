@@ -9,19 +9,25 @@ def create_activity_listeners
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
 
+      activity subject_class: "Channel", action: :created_channel,
+               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+
       activity subject_class: "Fact",
                action: [:added_supporting_evidence, :added_weakening_evidence],
-               extra_condition: lambda { |a| a.object.created_by_id != a.user_id },
-               write_ids: lambda {|a| [a.object.created_by_id]}
+               write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids).uniq.delete_if {|id| id == a.user_id}}
 
       activity subject_class: "Fact",
                action: [:believes, :doubts, :disbelieves],
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
+
+     activity subject_class: "GraphUser",
+              action: :invites,
+              write_ids: lambda { |a| [a.subject_id] }
+
     end
 
     register do
-
       activity_for "Channel"
       named :activities
 
@@ -39,8 +45,9 @@ def create_activity_listeners
       named :interactions
 
       activity subject_class: "Fact",
-               action: [:created, :believes, :disbelieves, :doubts],
+               action: [:created, :believes, :disbelieves, :doubts, :removed_opinions],
                write_ids: lambda { |a| [a.subject.id]}
+
     end
   end
 end

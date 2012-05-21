@@ -14,12 +14,12 @@ describe "When visiting the home page", type: :request do
         page.should have_content("Building a collectively reviewed perspective on the world's information")
       end
     end
-   
+
     it "should be able to view the About page" do
       click_link "About"
 
       within(:css, "h1") do
-        page.should have_content("Building a collective perspective")
+        page.should have_content("Because the web needs what you know")
       end
     end
 
@@ -57,8 +57,8 @@ describe "When visiting the home page", type: :request do
         page.should have_content("Privacy Policy")
       end
     end
-    
-    
+
+
     it "should be able to view the Privacy Policy page" do
       click_link "Privacy Policy"
       within(:css, "h1") do

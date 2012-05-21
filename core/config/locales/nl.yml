@@ -3,13 +3,22 @@
 #  - Sponsored by Kabisa ICT - http://kabisa.nl
 # Rails 3 update by Floris Huetink <floris@avocado.nl> (github: florish)
 nl:
+  add_fact: "factlink toevoegen"
+  added_fact: "toegevoegd"
+
   fact_believe_action: "stem in met"
   fact_doubt_action: "stem neutraal op"
   fact_disbelieve_action: "ontken"
 
+  fact_believes_action: "stemt in met"
+  fact_doubts_action: "stemt neutraal op"
+  fact_disbelieves_action: "ontkent"
+
   fact_believe_opinion: "eens"
   fact_doubt_opinion: "neutraal"
   fact_disbelieve_opinion: "oneens"
+
+  fact_removed_opinions_past_action: "trok mening in"
 
   fact_believe_past_action: "stemde in met"
   fact_doubt_past_action: "stemde neutraal op"
@@ -25,3 +34,5 @@ nl:
 
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
+
+  ago: "geleden"

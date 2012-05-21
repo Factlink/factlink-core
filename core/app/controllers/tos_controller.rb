@@ -4,6 +4,9 @@ class TosController < ApplicationController
   layout "frontend"
 
   def show
+    if can? :sign_tos, current_user
+      @step_in_signup_process = :sign_tos
+    end
   end
 
   def update

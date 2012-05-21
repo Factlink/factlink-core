@@ -2,18 +2,26 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  add_fact: "add factlink"
+  added_fact: "added"
+
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"
+
+  fact_believes_action: "agrees"
+  fact_doubts_action: "doubts"
+  fact_disbelieves_action: "disagrees"
 
   fact_believe_opinion: "agree"
   fact_doubt_opinion: "neutral"
   fact_disbelieve_opinion: "disagree"
 
+  fact_removed_opinions_past_action: "withdrew opinion"
+
   fact_believe_past_action: "agreed"
   fact_doubt_past_action: "neutraled"
   fact_disbelieve_past_action: "disagreed"
-
   fact_create_past_action: "created"
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
@@ -25,3 +33,5 @@ en:
 
   related_users: "related users"
   interesting_users: "interesting users"
+
+  ago: "ago"

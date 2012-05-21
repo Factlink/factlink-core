@@ -1,25 +1,8 @@
-#require_relative '../../ohm_helper.rb'
-#require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-#require File.expand_path('../../../../app/classes/map_reduce/topic_authority.rb', __FILE__)
-#require_relative '../../../app/ohm-models/authority.rb'
-
 require 'spec_helper'
 
 describe MapReduce::TopicAuthority do
-  let(:gu1) {GraphUser.create}
-  let(:gu2) {GraphUser.create}
-
-  before do
-    unless defined?(GraphUser)
-      class GraphUser < OurOhm; end
-    end
-    unless defined?(Channel)
-      class Channel < OurOhm;
-        attribute :title
-        reference :created_by, GraphUser
-      end
-    end
-  end
+  let(:gu1) {create(:user).graph_user}
+  let(:gu2) {create(:user).graph_user}
 
   describe :wrapped_map do
      it do
@@ -40,6 +23,40 @@ describe MapReduce::TopicAuthority do
        result[{topic: ch3.slug_title, user_id: gu2.id}].should == [5.0]
        result.length.should == 3
      end
+     it "should give you credit if you add facts" do
+       ch1 = Channel.create(title: "Ruby", created_by: gu1)
+       channels = [ch1]
+
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+       ch1.add_fact create(:fact)
+
+       result = subject.wrapped_map(channels)
+
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [1.0]
+       result.length.should == 1
+     end
+     it "should give you credit if your channels are followed by other channels" do
+       ch1 = Channel.create(title: "Ruby", created_by: gu1)
+       channels = [ch1]
+
+       1.upto(10) do |i|
+         ch = create :channel
+         ch.add_channel ch1
+       end
+
+       result = subject.wrapped_map(channels)
+
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [10]
+       result.length.should == 1
+     end
    end
    describe :reduce do
      it do
@@ -51,7 +68,7 @@ describe MapReduce::TopicAuthority do
      it "should add the user to the top_users of the topic" do
        Topic.ensure_for_channel(Channel.create(created_by: gu1, title: 'Foo'))
        subject.write_output({user_id: gu1.id, topic: 'foo'}, 10)
-       Topic.by_title('foo').top_users.all.should =~ [gu1]
+       Topic.by_title('foo').top_users(3).should =~ [gu1.user]
      end
    end
 end

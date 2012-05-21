@@ -6,3 +6,4 @@
 //= require tour
 //= require_tree ./frontend
 //= require twipsy
+//= require browser_extensions

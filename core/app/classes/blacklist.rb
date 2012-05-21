@@ -6,22 +6,32 @@ class Blacklist
     Regexp.new r
   end
 
+  def self.strict_domain domain
+    regexdomain = domain.gsub /\./, '\\\.'
+    r = "https?:\\\/\\\/#{regexdomain}\\\/?"
+    Regexp.new r
+  end
+
   def self.default
     @@default ||= self.new [
       domain('facebook.com'),
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
+      domain('fct.li'),
+      domain('icloud.com'),
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),
       domain('moneybird.nl'),
+      domain('newrelic.com'),
       domain('flowdock.com'),
       domain('yammer.com'),
-      domain('github.com'),
+      strict_domain('github.com'),
+      strict_domain('www.github.com'),
       domain('mixpanel.com'),
       domain('grooveshark.com'),
       /^http:\/\/localhost[:\/]/,
       /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
-    ] + flash + frames
+    ] + flash + frames + weird_bugs
   end
 
   def self.flash
@@ -31,6 +41,16 @@ class Blacklist
   def self.frames
     [
       domain('insiteproject.com')
+    ]
+  end
+
+  def self.weird_bugs
+    [
+      # breaks jquery:
+      domain('avc.com'),
+
+      #annotating does not work
+      domain('smashingmagazine.com')
     ]
   end
 

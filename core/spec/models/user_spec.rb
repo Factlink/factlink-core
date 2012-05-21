@@ -177,4 +177,19 @@ describe User do
       end
     end
   end
+
+  describe "welcome_instructions" do
+
+    it "sends a welcome email" do
+      subject.send_welcome_instructions
+      ActionMailer::Base.deliveries.last.to.should == [subject.email]
+    end
+
+    it "#send_welcome_instructions should be called once" do
+      subject.should_receive(:send_welcome_instructions).once
+      subject.approved = true
+      subject.save
+    end
+
+  end
 end

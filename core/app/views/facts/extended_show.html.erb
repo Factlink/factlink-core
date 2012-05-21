@@ -1,14 +1,13 @@
-<%= render_mustache "extended_fact", fact: @fact %>
+<%= render_mustache "facts/extended_fact", fact: @fact %>
 
 <% content_for :javascript do %>
 <script>
   (function(){
-    window.currentFact = new Fact(<%= Facts::ExtendedFact.for(fact: @fact, view: self).to_json.html_safe %>);
+    window.currentFact = new ExtendedFact(<%= Facts::ExtendedFact.for(fact: @fact, view: self).to_json.html_safe %>);
 
-    var view = new FactView({
-      el: $('.fact-block'),
-      model: window.currentFact,
-      extended: true
+    var view = new ExtendedFactView({
+      el: $('#main-wrapper'),
+      model: window.currentFact
     });
   })();
 </script>

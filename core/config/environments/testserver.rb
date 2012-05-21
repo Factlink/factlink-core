@@ -2,10 +2,10 @@ FactlinkUI::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Error reporting
-  config.middleware.use ExceptionNotifier,
-    :email_prefix => "[FL##{Rails.env}] ",
-    :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
-    :exception_recipients => %w{bugs@factlink.com}
+  # config.middleware.use ExceptionNotifier,
+  #   :email_prefix => "[FL##{Rails.env}] ",
+  #   :sender_address => %{"#{Rails.env} - FL - Bug notifier" <bugs@factlink.com>},
+  #   :exception_recipients => %w{bugs@factlink.com}
 
   # The production environment is meant for finished, "live" apps.
   # Code is not reloaded between requests
@@ -51,7 +51,7 @@ FactlinkUI::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "factlink.com" }
+  config.action_mailer.default_url_options = { :host => "testserver.factlink.com" }
 
   # Enable threaded mode
   # config.threadsafe!

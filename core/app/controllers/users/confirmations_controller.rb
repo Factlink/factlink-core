@@ -2,6 +2,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
   layout "frontend"
 
+  before_filter :require_no_authentication, :only => :show
   def show
     self.resource = resource_class.confirm_by_token(params[:confirmation_token])
 
@@ -15,6 +16,9 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
         respond_with_navigational(resource){ render "/" }
       end
     else
+      if params[:confirmation_token]
+        @params_token = true
+      end
       respond_with_navigational(resource.errors, :status => :unprocessable_entity){ render :new }
     end
   end

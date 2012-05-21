@@ -20,9 +20,18 @@
   text-shadow: 0 -1px 0 rgba(255,255,255,.25);
   font-weight: bold;
   cursor: pointer;
-  
+
   &:hover {
     color: @linkColorHover;
+  }
+}
+
+.navbar {
+  div.field_with_errors {
+    display: inline-block;
+    label.message.help-inline {
+      display: none;
+    }
   }
 }
 
@@ -88,10 +97,10 @@
     margin-top: 1px;
     font-size: 11px;
   }
-  
+
   margin: 0;
   .input-fields {
-    #user_email, #user_password {
+    #user_login, #user_login_password {
       margin: 0;
       margin-top: 5px;
     }
@@ -100,4 +109,58 @@
 
 .navbar a.bookmarklet {
   cursor: move;
+}
+.navbar a.bookmarklet::after {
+  content: ' Bookmarklet';
+}
+html.chrome_extension_installed{
+  .chrome_extension_download{
+    display:none;
+  }
+}
+
+.chrome_install{
+  vertical-align: baseline;
+  display:none;
+}
+
+html.chrome_without_extension{
+  .chrome_install{
+    display: inline;
+  }
+}
+
+#steps {
+  float: right;
+  margin-top: 9px;
+  li {
+    float: left;
+    margin-left: 20px;
+    line-height: 22px;
+    font-size: 16px;
+    color: #777;
+    padding-left: 25px;
+    background: url(steps-arrow.png) no-repeat left center;
+    span {
+      float: left;
+      width: 22px;
+      height: 22px;
+      text-align: center;
+      line-height: 22px;
+      margin-right: 10px;
+      color: #fff;
+      font-weight: bold;
+      background: url(steps.png) no-repeat top;
+    }
+    &.active {
+      color: #5E8BA6;
+      span {
+        background-position: bottom;
+      }
+    }
+    &:first-child {
+      padding: 0;
+      background: none;
+    }
+  }
 }

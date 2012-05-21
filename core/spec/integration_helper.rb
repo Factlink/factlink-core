@@ -11,6 +11,8 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+
+
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
@@ -19,6 +21,7 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include ControllerMethods, type: :controller
+  config.include ScreenshotTest
 
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
@@ -45,7 +48,7 @@ end
 
 Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
-  config.stretches = 1    # should be low to improve performance
+  config.stretches = 1    # should be low to improve performance. But should not be 0
 end
 
 def int_user
@@ -74,8 +77,8 @@ end
 def sign_in_user(user)
   user.confirm!
   visit "/"
-  fill_in "user_email", :with => user.email
-  fill_in "user_password", :with => user.password
+  fill_in "user_login", :with => user.email
+  fill_in "user_login_password", :with => user.password
   click_button "Sign in"
 
   user

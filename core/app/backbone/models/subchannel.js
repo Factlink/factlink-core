@@ -1,0 +1,2 @@
+window.Subchannel = Channel.extend({
+});

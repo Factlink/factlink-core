@@ -8,21 +8,43 @@ class HomeController < ApplicationController
 
   #general static pages:
   def pages
-    if ( /\A([-a-zA-Z_]+)\Z/.match(params[:name]))
+    if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
       respond_to do |format|
         template = "home/pages/#{$1}"
-        format.html {render template, :layout => "general"}
+        format.html do
+          begin
+            render template, :layout => "general"
+          rescue ActionView::MissingTemplate
+            begin
+              render "#{template}/index", :layout => "general"
+            rescue ActionView::MissingTemplate
+              raise_404
+            end
+          end
+        end
       end
     else
       raise_404
     end
   end
 
+  before_filter :redirect_logged_in_user, only: :index
+
+  def redirect_logged_in_user
+    redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
+  end
+
   def index
-    redirect_to after_sign_in_path_for(current_user) and return if user_signed_in?
-      
-    @facts = Fact.top(3).delete_if {|f| Fact.invalid(f)}
-    render layout: "landing"
+    # If the request 'Content Accept' header indicates a '*/*' format,
+    # we set the format to :html.
+    # This is necessary for GoogleBot which requests / with '*/*; q=0.6' for example.
+    if request.format.to_s =~ %r%\*\/\*%
+      request.format = :html
+    end
+
+    respond_to do |format|
+      format.html { render layout: "landing" }
+    end
   end
 
   def tos
@@ -49,10 +71,8 @@ class HomeController < ApplicationController
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
 
     if search_for.length > 0
-      solr_result = Sunspot.search FactData, User do
+      solr_result = Sunspot.search FactData, User, Topic do
         keywords search_for
-
-        order_by sort_column, sort_direction
 
         paginate :page => params[:page] || 1, :per_page => row_count
       end
@@ -65,25 +85,15 @@ class HomeController < ApplicationController
       @results = solr_result.results.delete_if {|res| res.class == FactData and FactData.invalid(res)}
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
-      end
+      end.delete_if {|x| x.the_object.nil?}
     else
       @results = []
     end
-    
+
     respond_to do |format|
       format.html
       format.json {render json: @results}
     end
   end
-
-
-  private
-    def sort_column
-      FactData.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
-    end
-
-    def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
-    end
 
 end

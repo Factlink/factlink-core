@@ -14,7 +14,6 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :create_fact,
-      :related_users,
       :activities,
       :remove_fact,
       :toggle_fact,
@@ -30,7 +29,6 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
-      format.js
     end
   end
 
@@ -53,6 +51,18 @@ class ChannelsController < ApplicationController
 
   def edit
     authorize! :edit, @channel
+  end
+
+  def search
+    solr_result = Sunspot.search Topic do
+      keywords params[:s].to_s
+    end
+
+    results = solr_result.results.map do |topic|
+      Channels::AutoCompletedChannel.for(topic: topic, view: view_context)
+    end
+
+    render json: results
   end
 
   def create
@@ -188,25 +198,18 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
-  def related_users
-    authorize! :show, @channel
-
-    render layout: false, partial: "channels/related_users",
-      locals: {
-           related_users: @channel.related_users(:without=>[current_graph_user]).andand.map{|x| x.user },
-           topic: @channel.topic,
-           excluded_users: [@channel.created_by]
-      }
-  end
-
   def activities
     authorize! :show, @channel
 
-    @activities = @channel.activities.below('inf', count:117, reversed: true).keep_if{|a| a && a.still_valid?}
-
+    if @channel.type == "stream"
+      # TODO Tom, clean this.
+      @activities = @user.graph_user.notifications.below('inf', count: 24, reversed: true ).keep_if { |a| a && a.still_valid? }.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
+    else
+      @activities = @channel.activities.below('inf', count:17, reversed: true).keep_if{|a| a && a.still_valid?}.map { |activity| Activities::Activity.for(activity: activity, view: view_context) }
+    end
 
     respond_to do |format|
-      format.json #{ render json: @activities.map { |activity| Activities::Activity.for(activity: activity, view: view_context) } }
+      format.json #{ render json: @activities }
       format.html { render inline:'', layout: "channels" }
     end
   end

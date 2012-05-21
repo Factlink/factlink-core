@@ -1,0 +1,19 @@
+<div class="left-col">
+  <div class="user-avatar">
+    {{{ avatar }}}
+  </div>
+</div>
+
+<div class="right-col">
+  <div>
+    <strong><a href="{{ user_profile_url }}" class="heavy">{{ username }}</a></strong>
+    added
+    <a href="{{ activity.evidence_url }}">{{ activity.type }} evidence</a>
+    to
+    <a href="{{ activity.fact_url }}">"{{ activity.fact_displaystring }}"</a>
+  </div>
+
+  <div class="fact-block"></div>
+
+  <span class="meta">{{ time_ago }}</span>
+</div>

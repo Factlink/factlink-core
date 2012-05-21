@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  Factlink &mdash; helps people find credibility in the world's information
+  Factlink &mdash; Because the web needs what you know
 <% end %>
 
 <% content_for :specific_stylesheet_tag do %>
@@ -8,35 +8,33 @@
 
 
 <% content_for :more_specific_page do %>
-<div id="body">
-  <div id="container" class="container">
+  <div id="body">
+    <div id="container" class="container">
 
-    <%= render 'home/notifications', notice: notice, alert: alert %>
+      <%= render 'home/notifications', notice: notice, alert: alert %>
 
-    <div class="row" id="main">
-      <section id="left-column" class="span3">
-        <% if content_for?(:left_column) %>
-          <%= yield(:left_column) %>
-        <% else %>
-          &nbsp;
-        <% end %>
-      </section>
-
-      <section id="main-column" class="span9" role="main">
-        <section id="main-wrapper">
-          <%= yield :main_column %>
-          <%= yield %>
+      <div class="row" id="main">
+        <section id="left-column" class="span3">
+          <% if content_for?(:left_column) %>
+            <%= yield(:left_column) %>
+          <% else %>
+            &nbsp;
+          <% end %>
         </section>
-      </section>
+
+        <section id="main-column" class="span9" role="main">
+          <section id="main-wrapper">
+            <%= yield :main_column %>
+            <%= yield %>
+          </section>
+        </section>
+      </div>
     </div>
   </div>
-</div>
   <div id="first-tour-modal" class="modal hide fade tour-modal"></div>
+<% end %>
 
-  <%= render 'home/footer' %>
-
-  <%= load_mustache_templates %>
-
+<% content_for :specific_javascript do %>
   <%= javascript_include_tag "frontend" %>
 
   <%= render "home/twipsy" %>
@@ -46,18 +44,27 @@
       window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
 
       window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
+
     <% end %>
 
-    var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+    <% use_backbone = current_user %>
 
-    Backbone.history.start({pushState:true, silent:true});
+    <% if use_backbone %>
+
+      var Router = new Workspace({username: "<%= @user.nil? ? (current_user.nil? ? "" : current_user.username) : @user.username %>"});
+    <% end %>
+
   </script>
 
   <%= yield :javascript %>
 
   <script>
-    Router.navigate(window.location.pathname);
-    Backbone.history.loadUrl( Backbone.history.fragment );
+    $(function() {
+      <% if use_backbone %>
+        Router.navigate(window.location.pathname);
+        Backbone.history.loadUrl( Backbone.history.fragment );
+      <% end %>
+    });
   </script>
 
 <% end %>

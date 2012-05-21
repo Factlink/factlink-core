@@ -1,4 +1,6 @@
 //= require jquery
 //= require twitter/bootstrap
-//= require_tree ./popup
 //= require rails
+//= require frontend
+//= require bubble-landing
+//= require_tree ./popup

@@ -1,9 +1,4 @@
-require_relative '../ohm_helper.rb'
-require_relative '../../app/ohm-models/topic.rb'
-
-class Channel < OurOhm
-end
-
+require'spec_helper'
 
 describe Topic do
 
@@ -41,6 +36,14 @@ describe Topic do
          t1 = Topic.create title: title
          Topic.by_slug(title.to_url).should == t1
       end
+    end
+  end
+  describe 'by_channel' do
+    it "should not crash when channel.slug_title is nil" do
+      ch = mock(Channel)
+      ch.stub!(:title).and_return('<EVIL>')
+      ch.stub!(:slug_title).and_return(nil)
+      Topic.for_channel(ch)
     end
   end
 end

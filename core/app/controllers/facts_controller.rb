@@ -9,6 +9,7 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
+      :popup_show,
       :extended_show,
       :destroy,
       :get_channel_listing,
@@ -36,17 +37,32 @@ class FactsController < ApplicationController
     render layout: "frontend"
   end
 
+  def popup_show
+    @fact.calculate_opinion(1)
+    render layout: 'popup'
+  end
+
   def intermediate
     render layout: nil
   end
 
   def new
-    render layout: @layout
+    if session[:just_signed_in]
+      session[:just_signed_in] = nil
+
+      @just_signed_in = true
+    end
+
+    if current_user
+      render layout: @layout
+    else
+      redirect_to user_session_path(layout: @layout)
+    end
   end
 
   def create
     authorize! :create, Fact
-    @fact = create_fact(params[:url], params[:fact], params[:title])
+    @fact = create_fact(params[:url].to_s, params[:fact].to_s, params[:title].to_s)
 
     if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
@@ -55,9 +71,19 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       if @fact.save
+        if params[:channels]
+          params[:channels].each do |channel_id|
+            channel = Channel[channel_id]
+
+            authorize! :update, channel
+
+            channel.add_fact(@fact)
+          end
+        end
+
         format.html do
           flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-          redirect_to controller: 'facts', action: 'new', url: params[:url], title: params[:title], layout: params[:layout], only_path: true
+          redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
@@ -85,17 +111,17 @@ class FactsController < ApplicationController
     respond_with(@fact)
   end
 
-  def update_title
-    # Gets 'title-[id]' 'cuz it must be unique and Jeditable is using the elements 'id'
-    # Strip first six characters to find the ID
-    id = params[:id].slice(6..(params[:id].length - 1))
-    @fact = Fact[id]
+  # This update now only supports setting the title, for use in Backbone Views
+  def update
     authorize! :update, @fact
 
-    @fact.data.title = params[:value]
-    @fact.data.save
+    @fact.data.title = params[:title]
 
-    render :text => @fact.data.title
+    if @fact.data.save
+      render :json => {}, :status => :ok
+    else
+      render :json => @fact.errors, :status => :unprocessable_entity
+    end
   end
 
   def opinion
@@ -111,7 +137,7 @@ class FactsController < ApplicationController
     @basefact.add_opinion(type, current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: [@basefact]
+    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
   def remove_opinions
@@ -122,7 +148,7 @@ class FactsController < ApplicationController
     @basefact.remove_opinions(current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: [@basefact]
+    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
   # TODO: This search is way to simple now, we need to make sure already

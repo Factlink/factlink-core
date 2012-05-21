@@ -31,7 +31,7 @@ describe SubchannelsController do
   describe "#index" do
     it "as json should be successful" do
       authenticate_user!(user)
-      get :index, username: user.username, id: ch1.id, format: 'json'
+      get :index, username: user.username, channel_id: ch1.id, format: 'json'
       response.should be_success
     end
   end
@@ -39,7 +39,7 @@ describe SubchannelsController do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
       should_check_can :update, ch1
-      post :add, username: user.username, id: ch1.id, subchannel_id: subch1.id, format: 'json'
+      post :add, username: user.username, channel_id: ch1.id, id: subch1.id, format: 'json'
       response.should be_success
     end
   end

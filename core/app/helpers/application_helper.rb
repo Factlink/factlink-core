@@ -10,20 +10,6 @@ module ApplicationHelper
     path
   end
 
-  def load_mustache_templates
-    p = "<div id='mustache-templates'>"
-    Dir["#{Rails.root}/app/templates/*/*.html.mustache"].each do |path|
-      parts = path.gsub(/\.html\.mustache/,'').split /\//
-      dir = parts[-2]
-      file = parts[-1]
-      p += "<script type='text/html' class='mustache-dir-#{dir} mustache-file-#{file}' data-filename='#{file}'>"
-      p += template_as_string path
-      p += "</script>"
-    end
-    p += "</div>"
-    p.html_safe
-  end
-
   def template_as_string(filename)
     data = ''
     filename = Rails.root.join('app','templates',filename)
@@ -58,8 +44,15 @@ module ApplicationHelper
     s
   end
 
-  def team_photo_tag photo, name
-    image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
+  def team_photo_tag photo, name, linkedin=nil
+    image = image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
+    if linkedin
+      linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
+      link_to image, linkedin_url, target: "_blank"
+
+    else
+      image
+    end
   end
 
   def can_haz feature
@@ -77,7 +70,7 @@ module ApplicationHelper
       when 0..119 then return '1m' #120 = 2 minutes
       when 120..3540 then return (a/60).to_i.to_s+'m'
       when 3541..7100 then return '1h' # 3600 = 1 hour
-      when 7101..82800 then return ((a+99)/3600).to_i.to_s+'h' 
+      when 7101..82800 then return ((a+99)/3600).to_i.to_s+'h'
       when 82801..172000 then return '1d' # 86400 = 1 day
       when 172001..518400 then return ((a+800)/(60*60*24)).to_i.to_s+'d'
       when 518400..1036800 then return '1w'

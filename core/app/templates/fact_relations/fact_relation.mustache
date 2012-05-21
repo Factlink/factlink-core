@@ -1,0 +1,28 @@
+<div class="relation">
+  {{#can_destroy?}}
+    <a class="close remove-relation">×</a>
+  {{/can_destroy?}}
+
+  {{#signed_in?}}
+  <div class="relation-actions">
+    <a class="supporting {{ positive_active }}"> &nbsp; </a>
+    <a class="weakening {{ negative_active }}"> &nbsp; </a>
+  </div>
+  {{/signed_in?}}
+
+  {{#fact_bubble}}
+    {{>fact_bubble}}
+  {{/fact_bubble}}
+
+
+  <div class="evidence-options">
+    &nbsp;
+    <div class="evidence-actions">
+      <a class="permalink" href="{{url}}"></a>
+    </div>
+
+    <div class="weight-container">
+      <div class="weight {{ fact_relation_type }}" style="width: {{weight}}%"></div>
+    </div>
+  </div>
+</div>
