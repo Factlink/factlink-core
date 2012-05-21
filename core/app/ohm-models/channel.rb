@@ -127,13 +127,12 @@ class Channel < OurOhm
     self.sorted_internal_facts.add(fact)
     Resque.enqueue(AddFactToChannel, fact.id, self.id)
 
-    # This sucks.
+    # This sucks - but does show the logic of what needs to happen:
     self.containing_channels.each do |containing_channel|
-      if containing_channel.sorted_cached_facts.include?(fact) or # this fact was already there, no propagation needed
-         containing_channel.sorted_delete_facts.include?(fact)    # this fact should not be added
 
-        activity(self.created_by, :added_fact_to_channel, fact, :to, containing_channel)
-      end
+      # and needs a check here, we don't want to create an activity when the Fact is already in the channel
+      #   or in the deleted_facts of the channel.
+      activity(self.created_by, :added_fact_to_channel, fact, :to, containing_channel)
     end
 
     activity(self.created_by,:added,fact,:to,self)
