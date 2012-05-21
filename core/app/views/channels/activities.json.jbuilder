@@ -21,6 +21,9 @@ json.array!(@activities) do |json, activity|
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
   
   json.action action
+  json.translated_action t("fact_#{action.to_sym}_action".to_sym)
+  json.subject subject.to_s
+  json.icon cached_generic_icon
   
   json.time_ago "#{time_ago_in_words(activity.created_at)} ago"
 
@@ -32,8 +35,9 @@ json.array!(@activities) do |json, activity|
       json.action       :added
       json.evidence     subject.to_s
       json.evidence_url friendly_fact_path(subject)
-      json.fact         object.to_s
+      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
       json.fact_url     friendly_fact_path(object)
+      json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
       if action == "added_supporting_evidence"
         json.type :supporting
@@ -50,8 +54,7 @@ json.array!(@activities) do |json, activity|
       json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
       json.channel_title             subject.title
       json.channel_url               channel_path(subject_creator_user, subject)
-      
-      object_creator_user = object.created_by.user
+
 
       json.to_channel_title          object.title
       json.to_channel_url            channel_path(object_creator_user, object)
@@ -59,6 +62,15 @@ json.array!(@activities) do |json, activity|
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
       json.channels_definition       cached_channels_definition
+    when "created_channel"
+      json.channel_title             subject.title
+      json.channel_url               channel_path(subject_creator_user, subject)
+
+      json.icon                      cached_channel_icon
+      json.channel_definition        cached_channel_definition
+      json.channels_definition       cached_channels_definition
+    when "believes", "doubts", "disbelieves"
+      json.fact                      Facts::Fact.for(fact: subject, view: self).to_hash
     end
   end
 end
