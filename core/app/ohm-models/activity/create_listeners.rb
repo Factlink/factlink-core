@@ -23,7 +23,7 @@ def create_activity_listeners
 
       activity subject_class: "Fact",
                action: :added_fact_to_channel,
-               extra_conditions: lambda { |a| a.objects.created_by_id != a.user_id },
+               extra_conditions: lambda { |a| a.object.created_by_id != a.user_id },
                write_ids: lambda { |a| [a.object.created_by_id] }
 
       activity subject_class: "GraphUser",
