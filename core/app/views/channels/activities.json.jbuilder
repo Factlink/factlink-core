@@ -7,12 +7,13 @@ cached_channels_definition = t(:channels)
 
 
 json.array!(@activities) do |json, activity|
+
   graph_user = activity.user
-  user = graph_user.user
+  user       = graph_user.user
 
   subject = activity.subject
-  object = activity.object
-  action = activity.action
+  object  = activity.object
+  action  = activity.action
 
 
   json.username user.username
@@ -21,7 +22,7 @@ json.array!(@activities) do |json, activity|
     activity.created_at_as_datetime > current_user.last_read_activities_on
   end
 
-  json.user_profile_url channel_path(user,graph_user.stream_id)
+  json.user_profile_url channel_path(user, graph_user.stream_id)
   size = 32
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
 
@@ -83,7 +84,7 @@ json.array!(@activities) do |json, activity|
       json.channels_definition       cached_channels_definition
     when "created_channel"
       json.channel_title             subject.title
-      json.channel_url               channel_path(subject_creator_user, subject.id)
+      json.channel_url               channel_path(subject.created_by.user, subject.id)
 
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
@@ -98,7 +99,7 @@ json.array!(@activities) do |json, activity|
           json.channel_owner "#{subject.created_by.user.username}'s"
       end
 
-      json.channel_owner_profile_url profile_path(object.created_by.user)
+      json.channel_owner_profile_url user_profile_path(object.created_by.user)
       json.channel_title             object.title
       json.channel_url               channel_path(object.created_by.user, object.id)
       json.channel_definition        cached_channel_definition
