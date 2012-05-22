@@ -4,7 +4,7 @@
 cd `dirname $0`
 cd ..
 
-for action in bin/ci/*.sh; do
+for action in bin/ci2/*.sh; do
   banner $action;
   /bin/bash $action
   if [ "$?" -gt "0" ] ; then exit 1; fi
