@@ -1,0 +1,2 @@
+.*app/controllers/home_controller.rb.*Dynamic Render Path.*home/pages/.*
+.*app/controllers/templates_controller.rb.*Dynamic Render Path.*templates/.*
