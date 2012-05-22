@@ -2,9 +2,13 @@ test:
   chrome:
     id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
 
+development:
+  chrome:
+    id: kkihgbnaciigoekfgfgjpjggojlobigh
+
 testserver:
   chrome:
-    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+    id: bmekjogijonolmphikpeppogdmcclkfc
 
 staging:
   chrome:

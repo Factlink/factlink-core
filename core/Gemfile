@@ -41,8 +41,13 @@ gem 'client_side_validations'
 gem 'mustache'
 gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
 
+
 # Everyone loves JSON
 gem 'json'
+gem 'jbuilder'
+
+# for easy json generation
+gem 'jbuilder'
 
 # Sunspot / Solr
 gem 'sunspot_solr', '~> 1.3.0'

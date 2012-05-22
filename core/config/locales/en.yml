@@ -35,3 +35,7 @@ en:
   interesting_users: "interesting users"
 
   ago: "ago"
+
+  facts:
+      new:
+        add_to_channels: "add to channel"

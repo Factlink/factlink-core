@@ -24,24 +24,28 @@ window.GenericNotificationView = Backbone.View.extend({
   }
 });
 
-NotificationAddedEvidenceView = GenericNotificationView.extend({
+var NotificationAddedEvidenceView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_added_evidence_activity")
 });
 
-NotificationAddedSubchannelView = GenericNotificationView.extend({
+var NotificationAddedSubchannelView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_added_subchannel_activity")
 });
 
-NotificationOpinionatedView = GenericNotificationView.extend({
+var NotificationOpinionatedView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_opinionated_activity")
 });
 
-NotificationInvitedView = GenericNotificationView.extend({
+var NotificationInvitedView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_invited_activity")
 });
 
-NotificationNewChannelView = GenericNotificationView.extend({
+var NotificationNewChannelView = GenericNotificationView.extend({
   tmpl: Template.use("notifications", "_new_channel_activity")
+});
+
+var AddedFactToChannelView = GenericNotificationView.extend({
+  tmpl: Template.use('notifications', '_added_fact_to_channel')
 });
 
 window.NotificationView = function(opts) {
@@ -63,6 +67,9 @@ window.NotificationView = function(opts) {
 
     case "created_channel":
       return new NotificationNewChannelView(opts);
+
+    case "added_fact_to_channel":
+      return new AddedFactToChannelView(opts);
 
     default:
       return new GenericNotificationView(opts);
