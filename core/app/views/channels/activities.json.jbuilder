@@ -19,7 +19,7 @@ json.array!(@activities) do |json, activity|
   json.username user.username
 
   if @showing_notifications
-    activity.created_at_as_datetime > current_user.last_read_activities_on
+    json.unread activity.created_at_as_datetime > current_user.last_read_activities_on
   end
 
   size = @showing_notifications ? 24 : 32
