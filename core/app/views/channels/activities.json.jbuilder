@@ -22,8 +22,9 @@ json.array!(@activities) do |json, activity|
     activity.created_at_as_datetime > current_user.last_read_activities_on
   end
 
+  size = @showing_notifications ? 24 : 32
+
   json.user_profile_url channel_path(user, graph_user.stream_id)
-  size = 32
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
 
   json.action action
