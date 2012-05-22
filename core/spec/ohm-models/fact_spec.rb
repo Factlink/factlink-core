@@ -36,7 +36,7 @@ describe Fact do
         data_id = subject.data.id
         subject.delete
         Fact[old_id].should be_nil
-        expect {FactData.find(data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+        FactData.find(data_id).should be_nil
       end
     end
   end
@@ -114,7 +114,7 @@ describe Fact do
             Fact[@subject_id].should be_nil
           end
           it "should remove the associated factdata" do
-            expect {FactData.find(@data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+            FactData.find(@data_id).should be_nil
           end
           it "should remove the #{relation} factrelation" do
             FactRelation[@relation_id].should be_nil
@@ -131,7 +131,7 @@ describe Fact do
             Fact[@factlink_id].should be_nil
           end
           it "should remove the associated factdata" do
-            expect {FactData.find(@data_id)}.to raise_error(Mongoid::Errors::DocumentNotFound)
+            FactData.find(@data_id).should be_nil
           end
           it "should remove the #{relation} factrelation" do
             FactRelation[@relation_id].should be_nil
