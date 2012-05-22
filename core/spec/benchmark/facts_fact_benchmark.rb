@@ -26,6 +26,7 @@ describe  do
       h: '',
       t: '',
       user_profile_path: '',
+      time_ago_short: '',
     )
 
     Benchmark.bmbm do |bm|

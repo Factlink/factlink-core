@@ -9,6 +9,7 @@
  *= require footer
  *= require channels
  *= require search
+ *= require activity
  */
 
 @import "bootstrap/variables";
@@ -25,6 +26,7 @@ Author: Factlink
 }
 body {
   background: @white;
+  overflow-y: scroll;
 }
 a:hover{
   cursor: pointer;
@@ -66,41 +68,15 @@ body.factlink-site .fact-block {
   -moz-border-radius: 0;
 }
 
-
-.list-block {
-  min-height: 80px;
-  padding: 16px;
-  border-bottom: 1px solid #E6E6E6;
-  .user-avatar {
-    width: 32px;
-    height: 32px;
-    float: left;
-  }
-
-  .activity-container {
-    padding: 0 0 0 48px;
-
-    .body {
-      color: #555;
-    }
-    .meta {
-      padding: 4px 0 0 0;
-      img {
-        vertical-align: middle;
-        padding: 0 6px 0 0;
-      }
-      display: block;
-      font-size: 0.85em;
-      color: #888;
-    }
-  }
-}
-
 .search-results .results .user-block {
-  padding: 10px 0 0px 5px;
-  height: 72px;
+  padding: 16px 0 0px 5px;
+  height: 48px;
   list-style: none;
+  border-bottom: 1px solid #e6e6e6;
 
+  .list-block {
+    height: 100%;
+  }
   .list-block:hover {
       cursor: pointer;
   }
@@ -127,8 +103,6 @@ body.factlink-site .fact-block {
     font-size: (@baseFontSize * 1.5);
     margin-bottom: @baseFontSize;
   }
-
-
 
   .authority {
     display: inline-block;
@@ -158,7 +132,7 @@ body.factlink-site .fact-block {
         float: left;
         width: 100px;
         margin-top: 6px;
-    margin-left: 20px;
+        margin-left: 20px;
       }
 
       input {
@@ -332,7 +306,8 @@ body.factlink-site .fact-block {
             }
           }
         }
-        margin: -20px 0 0 0;
+
+        margin: -21px 0 0 0;
         padding: 0px;
       }
       p {

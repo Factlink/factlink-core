@@ -17,6 +17,10 @@
 <body>
 
   <div class="modal">
+    <div class="drag-handler" style="height:7px; cursor: all-scroll; position:absolute; width:100%"></div>
+    <div class="drag-handler" style="height:7px; cursor: all-scroll; position:absolute; bottom: 0; width:100%"></div>
+    <div class="drag-handler" style="width:7px; cursor: all-scroll; position:absolute; left: 0; red; height:100%"></div>
+    <div class="drag-handler" style="width:7px; cursor: all-scroll; position:absolute; right:0; height:100%"></div>
     <%= yield %>
   </div>
 
@@ -27,7 +31,7 @@
   <%= yield :javascript %>
 
   <script type="text/javascript">
-    $(".modal").draggable();
+    $(".modal").draggable({handle: '.drag-handler'});
     $( document ).bind('click', function(e) {
       if( $(e.target).is('body') )
         parent.remote.hide();

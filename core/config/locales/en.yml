@@ -4,10 +4,14 @@
 en:
   add_fact: "add factlink"
   added_fact: "added"
-  
+
   fact_believe_action: "agree"
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"
+
+  fact_believes_action: "agrees"
+  fact_doubts_action: "doubts"
+  fact_disbelieves_action: "disagrees"
 
   fact_believe_opinion: "agree"
   fact_doubt_opinion: "neutral"
@@ -29,3 +33,9 @@ en:
 
   related_users: "related users"
   interesting_users: "interesting users"
+
+  ago: "ago"
+
+  facts:
+      new:
+        add_to_channels: "add to channel"

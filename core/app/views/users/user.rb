@@ -36,6 +36,7 @@ module Users
       view.user_profile_path(self[:user].username)
     end
 
+    #DEPRECATED
     def authority
       "?"
     end
@@ -48,9 +49,6 @@ module Users
       self[:user] == current_user
     end
 
-    def channel_listing_header
-      t(:my_channels).capitalize
-    end
 
   end
 end

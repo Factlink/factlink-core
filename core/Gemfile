@@ -41,8 +41,13 @@ gem 'client_side_validations'
 gem 'mustache'
 gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
 
+
 # Everyone loves JSON
 gem 'json'
+gem 'jbuilder'
+
+# for easy json generation
+gem 'jbuilder'
 
 # Sunspot / Solr
 gem 'sunspot_solr', '~> 1.3.0'
@@ -85,6 +90,7 @@ gem 'rmagick', require: false
 
 # Set X-Frame-Headers
 gem 'rack-xframe-options', git: 'git@github.com:Factlink/rack-xframe-options.git'
+gem 'rack-rewrite'
 
 gem 'rpm_contrib', '2.1.7'
 gem 'newrelic_rpm'
@@ -93,6 +99,7 @@ group :assets do
   # Temporary fix for @import bug, merge back to original Gem when it's in master
   gem 'less-rails', '>= 2.1.5'
   gem 'uglifier'
+  gem 'hogan_assets'
 
   # jQuery
   gem 'jquery-rails', '>= 1.0.17'
@@ -108,6 +115,8 @@ group :development do
   #for static files serving
   gem 'rack'
   gem 'thin'
+
+  gem 'letter_opener'
 end
 
 group :test do
@@ -121,6 +130,8 @@ group :test do
   gem 'capybara', require: false
   # capybara-webkit 0.11 breaks with the QT on the CI. Use 0.10.1 for now
   gem 'capybara-webkit', '= 0.10.1', require: false
+  gem 'capybara-screenshot'
+  gem 'chunky_png'
   gem 'headless'
 end
 

@@ -108,6 +108,11 @@ module FactlinkUI
     # - /facts/new              : Loaded in iframe through Chrome Extension (popup)
     # config.middleware.use Rack::XFrameOptions, "SAMEORIGIN", ["/factlink/intermediate", "/facts/new"]
 
+
+    config.middleware.insert_before("Rack::Lock", "Rack::Rewrite") do
+      r301 %r{^\/(.+)\/(\?.*)?$}, '/$1$2'
+    end
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -132,6 +137,9 @@ module FactlinkUI
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
 
+    # Add /app/templates to asset path
+    config.assets.paths << "#{Rails.root}/app/templates"
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -140,6 +148,7 @@ module FactlinkUI
 
     config.assets.precompile = [
       /\w+\.(?!js|css|less).+/,
+      'activity.css',
       'admin.css',
       'bubble.css',
       'fake_facts.css',
@@ -158,6 +167,8 @@ module FactlinkUI
       'modernizr-loader.js',
       'admin.js'
     ]
+
+    config.assets.paths << Rails.root.join("app", "backbone")
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store

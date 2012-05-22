@@ -25,7 +25,7 @@ class UrlNormalizer
 
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
-    url.sub!('|', '%7C')
+    url.gsub!('|', '%7C')
 
     uri = URI.parse(url)
 

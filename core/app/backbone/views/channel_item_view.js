@@ -1,0 +1,50 @@
+window.ChannelItemView = Backbone.View.extend({
+  tagName: "li",
+
+  tmpl: Template.use("channels", "_single_menu_item"),
+
+  initialize: function() {
+    this.model.bind('change', this.render, this);
+    this.model.bind('destroy', this.remove, this);
+    this.model.bind('remove', this.remove, this);
+    this.model.bind('loading', this.setLoading, this);
+    this.model.bind('loaded', this.stopLoading, this);
+    this.model.bind('activate', this.setActive, this);
+    this.model.bind('deactivate', this.setNotActive, this);
+
+    // The model can already be set active before the view has rendered
+    if ( this.model.isActive ) {
+      this.setActive();
+    }
+  },
+
+  render: function() {
+    this.$el
+      .html( this.tmpl.render(this.model.toJSON()) )
+      .attr('id', 'channel-' + this.model.id);
+
+    return this;
+  },
+
+  setActive: function() {
+    this.$el.addClass('active');
+  },
+
+  setNotActive: function() {
+    this.$el.removeClass('active');
+  },
+
+  setLoading: function() {
+    this.$el.addClass('loading');
+  },
+
+  stopLoading: function() {
+    this.$el.removeClass('loading');
+  },
+
+  remove: function() {
+    this.$el.remove();
+  }
+
+
+});
