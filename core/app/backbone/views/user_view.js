@@ -26,6 +26,6 @@ window.UserView = Backbone.View.extend({
   },
 
   clickHandler: function(e) {
-    Router.navigate(this.model.url(), true);
+    Backbone.history.navigate(this.model.url(), true);
   }
 });

@@ -49,9 +49,6 @@ module Users
       self[:user] == current_user
     end
 
-    def channel_listing_header
-      t(:my_channels).capitalize
-    end
 
   end
 end
