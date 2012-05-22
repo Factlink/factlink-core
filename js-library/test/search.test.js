@@ -26,3 +26,7 @@ test("Search with ranges", function(){
     notEqual(selection.rangeCount, 0, "Rangecount is bigger then one");
     equal($.trim(selection.getRangeAt(0).toString()), range.toString(), "Range was reset");
 });
+
+test("Search text with newlines", function() {
+  equal(Factlink.search("Dit is een tekst met expresse newlines, deze moeten wel gematched worden.").length, 1, "It should find text with newlines");
+});

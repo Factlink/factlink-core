@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../libs/qunit/qunit.js"></script>
     <!-- Your project file goes here -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/jquery.hoverintent.js"></script>
     <script type="text/javascript" src="../libs/easyXDM.js"></script>
     <script type="text/javascript" src="../libs/underscore.js"></script>
     <script type="text/javascript">
@@ -17,8 +18,11 @@
       };
     </script>
     <script type="text/javascript" src="../src/js/core.js"></script>
+    <script type="text/javascript" src="../src/js/models/fact.js"></script>
+    <script type="text/javascript" src="../src/js/views/balloon.js"></script>
     <script type="text/javascript" src="../src/js/search.js"></script>
     <script type="text/javascript" src="../src/js/replace.js"></script>
+
     <!-- Your tests file goes here -->
     <script type="text/javascript" src="replace.test.js"></script>
 
@@ -38,8 +42,12 @@
     <h2 id="qunit-userAgent"></h2>
     <ol id="qunit-tests"></ol>
 
-    <div id="search-test" class="visible-but-hidden">
+    <div class="visible-but-hidden">
       <p>Batman is a fictional character. <span>B</span>a<span><b>t</b></span>man</p>
+
+      <p class="newline">This text
+        has multiple
+        newlines</p>
     </div>
 </body>
 </html>
