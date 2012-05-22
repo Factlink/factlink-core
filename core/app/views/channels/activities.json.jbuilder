@@ -72,25 +72,25 @@ json.array!(@activities) do |json, activity|
       end
       json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
       json.channel_title             subject.title
-      json.channel_url               channel_path(subject_creator_user, subject)
+      json.channel_url               channel_path(subject_creator_user, subject.id)
 
 
       json.to_channel_title          object.title
-      json.to_channel_url            channel_path(object.created_by.user, object)
+      json.to_channel_url            channel_path(object.created_by.user, object.id)
 
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
       json.channels_definition       cached_channels_definition
     when "created_channel"
       json.channel_title             subject.title
-      json.channel_url               channel_path(subject_creator_user, subject)
+      json.channel_url               channel_path(subject_creator_user, subject.id)
 
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
       json.channels_definition       cached_channels_definition
     when "added_fact_to_channel"
       json.fact_displaystring (subject.data.displaystring || "[]")
-      json.fact_url friendly_fact_path(subject)
+      json.fact_url friendly_fact_path(subject\)
 
       if subject.created_by.user == current_user
         json.channel_owner "your"
@@ -100,7 +100,7 @@ json.array!(@activities) do |json, activity|
 
       json.channel_owner_profile_url profile_path(object.created_by.user)
       json.channel_title             object.title
-      json.channel_url               channel_path(object.created_by.user, object)
+      json.channel_url               channel_path(object.created_by.user, object.id)
       json.channel_definition        cached_channel_definition
       json.channels_definition       cached_channels_definition
     when "believes", "doubts", "disbelieves"
