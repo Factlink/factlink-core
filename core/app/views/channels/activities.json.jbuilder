@@ -90,7 +90,7 @@ json.array!(@activities) do |json, activity|
       json.channels_definition       cached_channels_definition
     when "added_fact_to_channel"
       json.fact_displaystring (subject.data.displaystring || "[]")
-      json.fact_url friendly_fact_path(subject\)
+      json.fact_url friendly_fact_path(subject)
 
       if subject.created_by.user == current_user
         json.channel_owner "your"
