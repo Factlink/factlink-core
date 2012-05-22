@@ -1,9 +1,17 @@
-<%= form_for(:channel, :html=>{:method=> (action == "update") ? :put : :post}, :url => { action: action, username: params[:username] }) do |f| %>
-  <div class="row" style="margin-left: 0px">
+<%= form_for(:channel,
+  html: { method: (action == "update") ? :put : :post, class: 'form-horizontal'},
+  url: { action: action, username: params[:username] }) do |f| %>
+
+  <% if action == "update" %>
+    <h1>Edit your <%= t(:channel) %></h1>
+    <div style="float: right; margin-top: -42px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn" ) %></div>
+  <% else %>
+    <h1>Create a new <%= t(:channel) %></h1>
+  <% end %>
+
   <% if channel.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
-
       <ul>
       <% channel.errors.each do |key, value| %>
         <li><%= key.to_s %> <%= value.to_s %></li>
@@ -12,19 +20,22 @@
     </div>
   <% end %>
 
-  <p><%= t(:channels).titleize %> can be interesting for other users to follow, or are there just to keep your facts categorized.</p>
+  <div style="margin-bottom: 24px;">
+    <p class="help-block">
+      <%= t(:channels).titleize %> can help to keep your Factlinks organised.
+    </p>
+  </div>
 
-    <%= f.label "Title" %>
-    <%= f.text_field :title, :placeholder => "Politics, Cooking, Sports, ..." %>
-
-  <div class="action-wrapper">
-    <div class="actions">
-      <%= button_tag("Submit", :disable_with => "Submitting...", :class => "btn btn-primary") %>&nbsp;
-      <% if action == "update" %>
-        <span style="margin-right: 5px"><%= link_to("Delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn-danger btn" ) %></span>&nbsp;
-      <% end %>
+  <div class="control-group">
+    <%= f.label "Title", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, placeholder: "Politics, Cooking, Sports, ...", class: "input-xlarge", required: :required %>
     </div>
   </div>
-  </div>
-<% end %>
 
+  <div class="form-actions">
+    <%= link_to("Cancel", root_path, class: :btn) %>
+    <%= button_tag("Submit", :disable_with => "Submitting...", :class => "btn btn-primary") %>
+  </div>
+
+<% end %>
