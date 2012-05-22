@@ -65,7 +65,7 @@ json.array!(@activities) do |json, activity|
         if subject.created_by.user == current_user
           json.channel_owner "your"
         else
-          json.channel_owner "#{self[:activity].subject.created_by.user.username}'s"
+          json.channel_owner "#{subject.created_by.user.username}'s"
         end
       else
         json.channel_owner             subject_creator_user.username
@@ -95,7 +95,7 @@ json.array!(@activities) do |json, activity|
       if subject.created_by.user == current_user
         json.channel_owner "your"
       else
-          json.channel_owner "#{self[:activity].subject.created_by.user.username}'s"
+          json.channel_owner "#{subject.created_by.user.username}'s"
       end
 
       json.channel_owner_profile_url profile_path(object.created_by.user)
