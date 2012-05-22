@@ -15,7 +15,7 @@ window.GenericActivityView = Backbone.View.extend({
   }
 });
 
-ActivityAddedEvidenceView = GenericActivityView.extend({
+var ActivityAddedEvidenceView = GenericActivityView.extend({
   tmpl: Template.use("activities", "_added_evidence_activity"),
 
   render: function() {
@@ -28,15 +28,15 @@ ActivityAddedEvidenceView = GenericActivityView.extend({
   }
 });
 
-ActivityCreatedChannelView = GenericActivityView.extend({
+var ActivityCreatedChannelView = GenericActivityView.extend({
   tmpl: Template.use("activities", '_created_channel_activity')
 });
 
-ActivityAddedSubchannelView = GenericActivityView.extend({
+var ActivityAddedSubchannelView = GenericActivityView.extend({
   tmpl: Template.use("activities", "_added_subchannel_activity")
 });
 
-ActivityAddedOpinionView = GenericActivityView.extend({
+var ActivityAddedOpinionView = GenericActivityView.extend({
   tmpl: Template.use("activities", "_added_opinion_activity"),
 
   render: function() {
@@ -51,7 +51,7 @@ ActivityAddedOpinionView = GenericActivityView.extend({
   }
 });
 
-ActivityWasFollowedView = GenericActivityView.extend({});
+var ActivityWasFollowedView = GenericActivityView.extend({});
 
 window.ActivityView = function(opts) {
 
