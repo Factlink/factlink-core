@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html
+      format.html { render layout: 'channels'}
       format.json { render json: {:user => Users::User.for(user: @user, view: view_context) }}
     end
   end

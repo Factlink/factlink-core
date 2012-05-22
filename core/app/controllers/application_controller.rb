@@ -86,4 +86,14 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
   end
 
+  private
+  def channels_for_user(user)
+    @channels = user.graph_user.channels
+    unless @user == current_user
+      @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+    end
+    @channels
+  end
+  helper_method :channels_for_user
+
 end

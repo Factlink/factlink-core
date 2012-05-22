@@ -209,13 +209,4 @@ class ChannelsController < ApplicationController
       @user ||= @channel.created_by.user
     end
 
-    def channels_for_user(user)
-      @channels = user.graph_user.channels
-      unless @user == current_user
-        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
-      end
-      @channels
-    end
-    helper_method :channels_for_user
-
 end
