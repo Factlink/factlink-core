@@ -76,7 +76,7 @@ json.array!(@activities) do |json, activity|
 
 
       json.to_channel_title          object.title
-      json.to_channel_url            channel_path(object_creator_user, object)
+      json.to_channel_url            channel_path(object.created_by.user, object)
 
       json.icon                      cached_channel_icon
       json.channel_definition        cached_channel_definition
