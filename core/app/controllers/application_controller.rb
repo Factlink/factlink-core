@@ -41,6 +41,11 @@ class ApplicationController < ActionController::Base
     return return_to || stored_location_for(user) || channel_path(user, user.graph_user.stream)
   end
 
+  before_filter :return_json_if_xhr
+  def return_json_if_xhr
+    request.format = :json if request.xhr?
+  end
+
   ##########
   # Set the Access Control, so XHR request from other domains are allowed.
   def set_access_control
