@@ -20,6 +20,7 @@ describe Ability do
       it {subject.should_not be_able_to :manage, User }
 
       it {subject.should     be_able_to :show, user }
+      it {subject.should     be_able_to :show, other_user }
       it {subject.should     be_able_to :update, user }
 
       it {subject.should     be_able_to :read_tos, user }

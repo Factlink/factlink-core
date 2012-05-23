@@ -55,7 +55,8 @@ class ChannelsController < ApplicationController
 
   def search
     authorize! :index, Topic
-    authorize!  :show, @user
+    authorize! :show, @user
+
     solr_result = Sunspot.search Topic do
       keywords params[:s].to_s
     end

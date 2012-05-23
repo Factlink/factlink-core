@@ -21,6 +21,7 @@ class Ability
       if user.agrees_tos
         can :access, FactlinkWebapp
         define_channel_abilities
+        define_topic_abilites
         define_fact_abilities
         define_fact_relation_abilities
         define_user_abilities
@@ -45,6 +46,12 @@ class Ability
       can :manage, Channel do |ch|
         ch.created_by == user.graph_user
       end
+    end
+  end
+
+  def define_topic_abilites
+    if user
+      can :index, Topic
     end
   end
 
@@ -73,7 +80,7 @@ class Ability
   def define_user_abilities
     if user
       can :update, user
-      can :read, user
+      can :read, User
 
       if user.admin?
         can :access, AdminArea

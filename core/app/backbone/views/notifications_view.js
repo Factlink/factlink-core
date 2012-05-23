@@ -15,7 +15,6 @@ window.NotificationsView = Backbone.CollectionView.extend({
   tmpl: Template.use("notifications", "_notifications"),
 
   initialize: function () {
-    console.info('notifications element: ', this.el, this.$el)
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 
@@ -25,7 +24,6 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
   render: function() {
     this.$el.find("ul.dropdown-menu").html(this.tmpl.render());
-    console.info('notifications element: ', this.el, this.$el)
 
     if (this.collection.length === 0){
       this.$el.find("li.no-notifications").removeClass('hidden');
@@ -98,6 +96,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
       this.collection.fetch({
         success: function () {
           setTimeout(function () {
+            if ( typeof localStorage === "object"
+              && localStorage !== null
+              && localStorage['reload'] === "false" ) {
+              return;
+            }
+
             args.callee.apply(self, args);
           }, 7000);
         }

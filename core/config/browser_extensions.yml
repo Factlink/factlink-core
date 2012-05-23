@@ -12,7 +12,7 @@ testserver:
 
 staging:
   chrome:
-    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+    id: fkhpmbcgikfdnnobmembneidakkifjgp
 
 production:
   chrome:
