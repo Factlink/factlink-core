@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :load_user
 
   def show
+    authorize! :show, @user
     respond_to do |format|
       format.html { redirect_to(channel_path(params[:username], @user.graph_user.stream)) }
       format.json { render json: {:user => Users::User.for(user: @user, view: view_context) }}
