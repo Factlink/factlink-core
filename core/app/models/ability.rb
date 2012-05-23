@@ -73,7 +73,7 @@ class Ability
   def define_user_abilities
     if user
       can :update, user
-      can :read, user
+      can :read, User
 
       if user.admin?
         can :access, AdminArea
