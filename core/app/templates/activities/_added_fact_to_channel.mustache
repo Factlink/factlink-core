@@ -1,0 +1,16 @@
+<div class="left-col">
+  <div class="user-avatar">
+    {{{ avatar }}}
+  </div>
+</div>
+
+<div class="right-col">
+  <div>
+    <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
+    {{ translated_action }} <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a>
+  </div>
+
+  <div class="fact-block"></div>
+
+  <span class="meta">{{ time_ago }}</span>
+</div>

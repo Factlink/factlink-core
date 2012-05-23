@@ -53,6 +53,21 @@ var ActivityAddedOpinionView = GenericActivityView.extend({
 
 var ActivityWasFollowedView = GenericActivityView.extend({});
 
+var ActivityAddedFactToChannelView = GenericActivityView.extend({
+  tmpl: Template.use('activities', '_added_fact_to_channel'),
+
+  render: function() {
+    GenericActivityView.prototype.render.apply(this);
+
+    var factView = new FactView({
+      el: this.$el.find('.fact-block'),
+      model: new Fact(this.model.get('activity')['fact'])
+    }).render();
+
+    return this;
+  }
+});
+
 window.ActivityView = function(opts) {
 
   switch (opts.model.get("action")) {
@@ -71,6 +86,9 @@ window.ActivityView = function(opts) {
     case "doubts":
     case "disbelieves":
       return new ActivityAddedOpinionView(opts);
+
+    case "added_fact_to_channel":
+      return new ActivityAddedFactToChannelView(opts);
 
     default:
       return new GenericActivityView(opts);

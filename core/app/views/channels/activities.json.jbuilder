@@ -105,6 +105,9 @@ json.array!(@activities) do |json, activity|
       json.channel_url               channel_path(object.created_by.user, object.id)
       json.channel_definition        cached_channel_definition
       json.channels_definition       cached_channels_definition
+
+      json.fact Facts::Fact.for(fact: subject, view: self).to_hash
+
     when "believes", "doubts", "disbelieves"
       if @showing_notifications
         json.action action
