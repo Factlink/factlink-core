@@ -15,7 +15,6 @@ window.NotificationsView = Backbone.CollectionView.extend({
   tmpl: Template.use("notifications", "_notifications"),
 
   initialize: function () {
-    console.info('notifications element: ', this.el, this.$el)
     this.collection.on("add", this.add, this);
     this.collection.on("reset", this.reset, this);
 
