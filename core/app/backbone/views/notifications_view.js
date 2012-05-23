@@ -98,6 +98,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
       this.collection.fetch({
         success: function () {
           setTimeout(function () {
+            if ( typeof localStorage === "object"
+              && localStorage !== null
+              && localStorage['reload'] === "false" ) {
+              return;
+            }
+
             args.callee.apply(self, args);
           }, 7000);
         }
