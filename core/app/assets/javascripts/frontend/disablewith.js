@@ -1,7 +1,4 @@
 (function () {
-  var disableWiths = $('a[data-disable-with]');
-  var nonRemote = disableWiths.not("[data-remote]");
-
   $('a[data-disable-with][data-onloadingtext]')
     .live("ajax:before", setLoadingText);
 
