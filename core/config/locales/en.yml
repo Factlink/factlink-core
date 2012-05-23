@@ -36,6 +36,8 @@ en:
 
   ago: "ago"
 
+  fact_added_fact_to_channel_action: "added a Factlink to your Channel"
+
   facts:
       new:
         add_to_channels: "add to channel"

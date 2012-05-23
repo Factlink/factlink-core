@@ -14,7 +14,7 @@
       <input type="text" name="title" placeholder="Add title">
     </div>
 
-    <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Add Factlink</button>
+    <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Post Factlink</button>
   </form>
 {{/editable?}}
 
@@ -52,7 +52,7 @@
     {{/is_created}}
     {{#is_normal}}
       <p>This {{ channel_definition }} does not contain any Factlinks yet. Create one above or download the Chrome Extension and add Factlinks across the web:</p>
-      <div class="empty-channel-action">
+      <div class="empty-channel-action chrome_extension_download">
         <h3>Download the Chrome extension</h3>
         <a href="{{chrome_extension_url}}">
           <img src="/assets/screenshots/addfactlinktochannel.png">
