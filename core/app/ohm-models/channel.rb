@@ -127,12 +127,7 @@ class Channel < OurOhm
     self.sorted_internal_facts.add(fact)
     Resque.enqueue(AddFactToChannel, fact.id, self.id)
 
-    # This needs improvement when containing_channels get larger
-    self.containing_channels.each do |containing_channel|
-      activity(self.created_by, :added_fact_to_channel, fact, :to, containing_channel)
-    end
-
-    activity(self.created_by,:added,fact,:to,self)
+    activity(self.created_by,:added_fact_to_channel,fact,:to,self)
   end
 
   def remove_fact(fact)

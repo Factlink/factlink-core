@@ -38,6 +38,8 @@ class Activity < OurOhm
     def matches query, activity
       fields_to_match = :subject_class, :object_class, :action
       return false if query.slice(:extra_condition, *fields_to_match) == {}
+      extra_keys = query.keys - query.slice(:extra_condition, :write_ids, *fields_to_match).keys
+      raise Exception.exception("Extra keys: #{extra_keys}") if extra_keys != []
 
       field_query = query.slice *fields_to_match
       field_query.each_pair do |field, value|

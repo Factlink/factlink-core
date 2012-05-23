@@ -4,6 +4,7 @@ require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
 require 'capybara-webkit'
+require 'capybara/email/rspec'
 require 'headless'
 require 'database_cleaner'
 
@@ -64,8 +65,12 @@ def handle_js_confirm(accept=true)
   page.evaluate_script "window.confirm = window.original_confirm_function"
 end
 
+def make_user
+  FactoryGirl.create(:user, email: "user@example.com", approved: true)
+end
+
 def make_user_and_login
-  user = FactoryGirl.create(:user, email: "user@example.com", approved: true)
+  user = make_user
   sign_in_user(user)
 end
 

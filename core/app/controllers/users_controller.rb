@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :load_user
 
   def show
+    authorize! :show, @user
     respond_to do |format|
       format.html { render layout: 'channels'}
       format.json { render json: {:user => Users::User.for(user: @user, view: view_context) }}

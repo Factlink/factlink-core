@@ -1,8 +1,10 @@
+<% @edit = (action == :update) ? true : false %>
+
 <%= form_for(:channel,
-  html: { method: (action == "update") ? :put : :post, class: 'form-horizontal'},
+  html: { method: (action == :update) ? :put : :post, class: 'form-horizontal'},
   url: { action: action, username: params[:username] }) do |f| %>
 
-  <% if action == "update" %>
+  <% if @edit %>
     <h1>Edit your <%= t(:channel) %></h1>
     <div style="float: right; margin-top: -42px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn" ) %></div>
   <% else %>
@@ -27,7 +29,7 @@
   </div>
 
   <div class="control-group">
-    <%= f.label "Title", class: 'control-label' %>
+    <%= f.label "#{t(:channel).titleize} name", class: 'control-label' %>
     <div class="controls">
       <%= f.text_field :title, placeholder: "Politics, Cooking, Sports, ...", class: "input-xlarge", required: :required %>
     </div>
@@ -35,7 +37,7 @@
 
   <div class="form-actions">
     <%= link_to("Cancel", root_path, class: :btn) %>
-    <%= button_tag("Submit", :disable_with => "Submitting...", :class => "btn btn-primary") %>
+    <%= button_tag( @edit ? "Apply" : "Create", disable_with: (@edit ? "Applying..." : "Creating..."), :class => "btn btn-primary") %>
   </div>
 
 <% end %>

@@ -43,6 +43,8 @@ FactlinkUI::Application.routes.draw do
 
 
   authenticated :user do
+
+    # this one is actually not checked
     get "/p/tour" => "home#tour", as: "tour"
 
     resources :facts, :except => [:edit, :index, :update] do
@@ -89,51 +91,51 @@ FactlinkUI::Application.routes.draw do
         put "/password" => "users/registrations#update_password", as: "update_password"
       end
     end
+  end
 
-    scope "/:username" do
-      get "/" => "users#show", :as => "user_profile"
+  scope "/:username" do
+    get "/" => "users#show", :as => "user_profile"
 
-      scope "/activities" do
-        get "/" => "users#activities", :as => "activities"
-        post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
+    scope "/activities" do
+      get "/" => "users#activities", :as => "activities"
+      post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
+    end
+
+
+    resources :channels do
+      collection do
+        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
+        get "find" => "channels#search", :as => "find"
       end
 
-      resources :channels do
+      resources :subchannels, only: [:index, :destroy] do
         collection do
-          post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
-          get "find" => "channels#search", :as => "find"
+          post "add/:id/",     :as => "add",     :action => "add"
+          post "remove/:id/",  :as => "remove",  :action => "destroy"
         end
+      end
 
-        resources :subchannels, only: [:index, :destroy] do
-          collection do
-            post "add/:id/",     :as => "add",     :action => "add"
-            post "remove/:id/",  :as => "remove",  :action => "destroy"
-          end
-        end
+      member do
+        get "activities",     :as => "activities"
 
-        member do
-          get "activities",     :as => "activities"
+        post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
-          post "toggle/fact/:fact_id/" => "channels#toggle_fact"
+        post "add/:fact_id"     => "channels#add_fact"
+        post "remove/:fact_id"  => "channels#remove_fact"
 
-          post "add/:fact_id"     => "channels#add_fact"
-          post "remove/:fact_id"  => "channels#remove_fact"
+        scope "/facts" do
+          get "/" => "channels#facts", :as => "get_facts_for"
+          post "/" => "channels#create_fact", :as => "create_fact_for"
 
-          scope "/facts" do
-            get "/" => "channels#facts", :as => "get_facts_for"
-            post "/" => "channels#create_fact", :as => "create_fact_for"
+          scope "/:fact_id" do
+            delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
 
-            scope "/:fact_id" do
-              delete "/" => "channels#remove_fact",  :as => "remove_fact_from"
+            match "/evidence_search" => "facts#evidence_search"
 
-              match "/evidence_search" => "facts#evidence_search"
-
-
-              resource :supporting_evidence, :weakening_evidence do
-                scope '/:evidence_id' do
-                  post    "/opinion/:type", action: :set_opinion,  :as => "set_opinion"
-                  delete  "/opinion/", action:  :remove_opinions,  :as => "delete_opinion"
-                end
+            resource :supporting_evidence, :weakening_evidence do
+              scope '/:evidence_id' do
+                post    "/opinion/:type", action: :set_opinion,  :as => "set_opinion"
+                delete  "/opinion/", action:  :remove_opinions,  :as => "delete_opinion"
               end
             end
           end

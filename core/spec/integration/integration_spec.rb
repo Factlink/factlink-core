@@ -130,7 +130,7 @@ describe "Walkthrough the app", type: :request do
       channel_title = "Teh hot channel"
       click_link "Add new"
       fill_in "channel_title", with: channel_title
-      click_button "Submit"
+      click_button "Create"
 
       within(:css, "h1") do
         page.should have_content(channel_title)
@@ -140,7 +140,7 @@ describe "Walkthrough the app", type: :request do
       click_link "edit"
       channel_title_modified = "this is the corrected one"
       fill_in "channel_title", with: channel_title_modified
-      click_button "Submit"
+      click_button "Apply"
 
       within(:css, "h1") do
         page.should have_content(channel_title_modified)

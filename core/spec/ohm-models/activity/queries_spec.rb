@@ -91,25 +91,13 @@ describe 'activity queries' do
     end
 
     it "should return activity when a user adds a Fact to your channel" do
-      ch1 = create :channel, created_by: gu1
-      ch2 = create :channel, created_by: gu2
+      f = create :fact, created_by: gu1
+      ch = create :channel, created_by: gu2
+      ch.add_fact(f)
 
-      ch1.add_channel(ch2)
-
-      f1 = create :fact, created_by: gu2
-      ch2.add_fact(f1)
-
-      # Using the regular expectation syntax fails, because the interestingness of the user has changed.
-          # gu1.notifications.map(&:to_hash_without_time).last.should == [
-          #   {user: gu2, action: :added_fact_to_channel, subject: f1, object: ch1}
-          # ]
-
-      notification = gu1.notifications.map(&:to_hash_without_time).last
-
-      notification[:user].should    == gu2
-      notification[:action].should  == :added_fact_to_channel
-      notification[:subject].should == f1
-      notification[:object].should  == ch1
+      notification = gu1.notifications.map(&:to_hash_without_time).should == [
+        {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
+      ]
     end
 
     [:supporting, :weakening].each do |type|

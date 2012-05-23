@@ -47,6 +47,7 @@ class FactsController < ApplicationController
   end
 
   def new
+    authorize! :create, Fact
     if session[:just_signed_in]
       session[:just_signed_in] = nil
 
@@ -74,10 +75,11 @@ class FactsController < ApplicationController
         if params[:channels]
           params[:channels].each do |channel_id|
             channel = Channel[channel_id]
+            if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
+              authorize! :update, channel
 
-            authorize! :update, channel
-
-            channel.add_fact(@fact)
+              channel.add_fact(@fact)
+            end
           end
         end
 
@@ -156,6 +158,7 @@ class FactsController < ApplicationController
   # to move this search to the evidence_controller, to make sure it's
   # type-specific
   def evidence_search
+    authorize :index, Fact
     search_for = params[:s]
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
     if search_for.length > 0
