@@ -37,6 +37,8 @@ nl:
 
   ago: "geleden"
 
+  fact_added_fact_to_channel_action: "heeft een Factlink toegevoegd aan je kanaal"
+
   facts:
     new:
       add_to_channels: "voeg toe aan kanaal"
