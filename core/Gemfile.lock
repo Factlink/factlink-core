@@ -118,6 +118,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-email (0.1.2)
     capybara-screenshot (0.1.10)
       capybara (>= 1.0)
     capybara-webkit (0.10.1)
@@ -447,6 +448,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara
+  capybara-email
   capybara-screenshot
   capybara-webkit (= 0.10.1)
   chunky_png
