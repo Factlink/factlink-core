@@ -47,7 +47,7 @@ class FactsController < ApplicationController
   end
 
   def new
-    authorize! :create, Fact
+    authorize! :new, Fact
     if session[:just_signed_in]
       session[:just_signed_in] = nil
 

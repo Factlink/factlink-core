@@ -7,7 +7,7 @@ window.ChannelList = Backbone.Collection.extend({
   },
 
   url: function() {
-    return '/' + this.getUsername() + '/channels/';
+    return '/' + this.getUsername() + '/channels';
   },
 
   setActiveChannel: function(channel) {
