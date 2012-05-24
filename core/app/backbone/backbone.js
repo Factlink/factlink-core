@@ -27,9 +27,10 @@
 // Required by Channelcollectionview
 //= require ./views/channel_item_view.js
 
+//= require_tree ./layouts/
+
 //= require_tree ./views/
 
-//= require ./layout.js
 //= require_tree ./controllers/
 //= require_tree ./routers/
 //= require ./initializers.js

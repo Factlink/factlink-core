@@ -1,4 +1,4 @@
-ProfileController = {
+window.ProfileController = {
 
   // TODO: This function needs to wait for loading (Of channel contents in main column)
   setupChannelReloading: function(){
@@ -23,8 +23,13 @@ ProfileController = {
   showUser: function(user) {
     var userView = new UserView({model: user});
     FactlinkApp.userblockRegion.show(userView);
-    FactlinkApp.mainRegion.show(new ProfileView({model: user}));
-  },
+
+    var mainLayout = new TabbedMainRegionLayout();
+    mainLayout.render();
+
+    mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({text: 'HOI'})}));
+    FactlinkApp.mainRegion.show(mainLayout);
+  }
 
 
-}
+};
