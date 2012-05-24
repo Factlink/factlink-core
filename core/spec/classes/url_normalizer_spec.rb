@@ -21,6 +21,7 @@ describe UrlNormalizer do
     it { should_normalize_to 'http://www.google.com/?x=y|z', 'http://www.google.com/?x=y%7Cz' }
     it { should_normalize_to 'http://www.google.com/?x=y|z', 'http://www.google.com/?x=y%7Cz' }
 
+    it { should_normalize_to 'http://www.example.org/file\bier.png', 'http://www.example.org/file%5Cbier.png' }
 
     it { should_normalize_to 'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl|ic|hp_main|smarteasyliving|ikea365',
                              'http://www.ikea.com/nl/nl/catalog/products/30101154/?icid=nl%7Cic%7Chp_main%7Csmarteasyliving%7Cikea365'}
