@@ -4,6 +4,8 @@
 class FakeFactsController < ApplicationController
   layout "fake_facts"
   include Gravatar
+  include Redis::Aid::Ns(:fake_facts_controller)
+
 
   def facts
     [
@@ -100,13 +102,14 @@ class FakeFactsController < ApplicationController
       pos_opinions = [most, middle, least]
       neg_opinions = [most, middle, least]
     elsif type == 2
-      interacting_users = [["fam expert",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
+      interacting_users = [["dr. M.L. Noordzij",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
     elsif type == 3
-      interacting_users = [["unfam expert",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
+      interacting_users = [["dr. L. Panneels",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
     elsif type == 4
-      interacting_users = [["fam non-expert","https://secure.gravatar.com/avatar/2fbbe1c53162b9e2417bb85aab1726a1?rating=PG&size=20&default=retro", beltype]]
+      interacting_username = redis["user_"+(params[:unr] || 0).to_i.to_s].get || 'someone'
+      interacting_users = [[interacting_username ,"https://secure.gravatar.com/avatar/2fbbe1c53162b9e2417bb85aab1726a1?rating=PG&size=20&default=retro", beltype]]
     elsif type == 5
-      interacting_users = [["unfam nonexp",gravatar_url('mark+belg@factlink.com', size: 20), beltype]]
+      interacting_users = [["Jef Vanderoost",gravatar_url('mark+belg@factlink.com', size: 20), beltype]]
     else
       interacting_users = []
     end
@@ -119,6 +122,15 @@ class FakeFactsController < ApplicationController
 
     @fact = FakeFact.new opinions, interacting_users, facts[factnr]
     render "facts/extended_show"
+  end
+
+  def set_name
+    if params[:name].match(/\A[a-zA-Z0-9 .]+\Z/)
+      redis["user_"+params[:id].to_i.to_s].set params[:name]
+      render text: "name #{params[:id]} set to #{params[:name]}"
+    else
+      render text: "invalid username #{params[:name]}"
+    end
   end
 
 end
