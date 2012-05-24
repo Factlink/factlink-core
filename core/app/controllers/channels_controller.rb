@@ -160,6 +160,7 @@ class ChannelsController < ApplicationController
     else
       @channel.add_fact(@fact)
     end
+    render nothing: true
   end
 
   def add_fact
