@@ -93,7 +93,7 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       should_check_can :index, Fact
-      get :evidence_search, fact_id: fact.id, s: "Skobrenden"
+      get :evidence_search, id: fact.id, s: "Baron"
       response.should be_success
     end
   end
