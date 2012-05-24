@@ -4,6 +4,7 @@ describe FactsController do
   render_views
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:fact) { FactoryGirl.create(:fact) }
 
   describe :show do
     it "should render succesful" do
@@ -88,6 +89,14 @@ describe FactsController do
     end
   end
 
+  describe :evidence_search do
+    it "should work" do
+      authenticate_user!(user)
+      should_check_can :index, Fact
+      get :evidence_search, fact_id: fact.id, s: "Skobrenden"
+      response.should be_success
+    end
+  end
 
   describe "adding evidence" do
     before do
