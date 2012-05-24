@@ -89,8 +89,16 @@ class FakeFactsController < ApplicationController
       neg_opinions = [0,0,0]
     elsif type == 1 # majority opinions
       interacting_users = []
-      pos_opinions = [340,10,30]
-      neg_opinions = [34,10,303]
+
+      r = Random.new(factnr)
+
+      most = 340 + r.rand(60)
+      middle = 40 + r.rand(30)
+      least = 10 + r.rand(20)
+
+
+      pos_opinions = [most, middle, least]
+      neg_opinions = [most, middle, least]
     elsif type == 2
       interacting_users = [["fam expert",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
     elsif type == 3
