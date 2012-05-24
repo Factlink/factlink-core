@@ -36,6 +36,7 @@ ChannelsController = {
   },
 
   commonChannelViews: function(channel) {
+    window.currentChannel = channel;
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelCollectionView({collection: window.Channels});
     this.setupChannelReloading();
