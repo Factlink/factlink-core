@@ -228,7 +228,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var dupe = false;
 
     this.showLoading();
-    console.info((this.isDupe(title)), title);
     if ( (title.length < 1) || (this.isDupe(title)) ) {
       this.hideAutoComplete();
 
