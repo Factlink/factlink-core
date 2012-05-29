@@ -57,8 +57,12 @@ class UrlNormalizer
 
   def build_query(params)
     params.map do |name,values|
-      values.map do |value|
-        "#{CGI.escape name}=#{CGI.escape value}"
+      if values.length > 0
+        values.map do |value|
+          "#{CGI.escape name}=#{CGI.escape value}"
+        end
+      else
+        ["#{CGI.escape name}"]
       end
     end.flatten.join("&")
   end

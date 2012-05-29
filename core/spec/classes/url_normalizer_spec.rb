@@ -41,6 +41,6 @@ describe UrlNormalizer do
         it { should_normalize_to "http://fct.li/", "http://fct.li/" }
       end
     end
+    it {should_normalize_to 'http://www.example.com/ff/entry.asp?123', 'http://www.example.com/ff/entry.asp?123'}
   end
-
 end
