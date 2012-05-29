@@ -20,7 +20,6 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend({
   },
 
   onRender: function () {
-    console.info(this.$el);
     if ( this.model.get('user_channel' ) ) {
       this.$el.addClass('user-channel');
     }
