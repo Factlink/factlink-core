@@ -9,9 +9,9 @@ en:
   fact_doubt_action: "neutral"
   fact_disbelieve_action: "disagree"
 
-  fact_believes_action: "agrees"
+  fact_believes_action: "agrees with"
   fact_doubts_action: "doubts"
-  fact_disbelieves_action: "disagrees"
+  fact_disbelieves_action: "disagrees with"
 
   fact_believe_opinion: "agree"
   fact_doubt_opinion: "neutral"
@@ -30,6 +30,7 @@ en:
   channels: "channels"
   my_channels: "my Channels"
   add_to_channels: "add to channels"
+  created_channel: "created a channel"
 
   related_users: "related users"
   interesting_users: "interesting users"
