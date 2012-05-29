@@ -22,7 +22,7 @@ window.User = Backbone.Model.extend({
   },
   
   is_current_user: function(){
-    return (currentUser !== undefined && currentUser.get('id') === this.get('id'));
+    return (window.currentUser !== undefined && currentUser.get('id') === this.get('id'));
   },
   
   toJSON: function(){
