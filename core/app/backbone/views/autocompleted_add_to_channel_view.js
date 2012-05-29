@@ -222,6 +222,14 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     return this.collection.where({title: title}).length > 0
   },
 
+  completelyDisappear: function (){
+    this.hideAutoComplete();
+
+    this.enable();
+    this.hideLoading();
+    this.clearInput();
+  }
+
   createNewChannel: function (e) {
     var title = this.$el.find('input.typeahead').val();
     title = $.trim(title);
@@ -229,12 +237,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.showLoading();
     if ( (title.length < 1) || (this.isDupe(title)) ) {
-      this.hideAutoComplete();
-
-      this.enable();
-      this.hideLoading();
-      this.clearInput();
-
+      this.completelyDisappear();
       return;
     }
 
@@ -260,12 +263,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     currentUser.channels.add(channel);
     this.collection.add(channel);
-
-    this.hideAutoComplete();
-
-    this.enable();
-    this.hideLoading();
-    this.clearInput();
+    this.completelyDisappear();
   },
 
   clearInput: function () {
