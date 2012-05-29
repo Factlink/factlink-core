@@ -226,11 +226,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var title = this.$el.find('input.typeahead').val();
     title = $.trim(title);
     var dupe = false;
-    var isUserChannel = false;
 
     this.showLoading();
-
-    if ( $.trim(title).length < 1 ) {
+    console.info((this.isDupe(title)), title);
+    if ( (title.length < 1) || (this.isDupe(title)) ) {
       this.hideAutoComplete();
 
       this.enable();
@@ -240,34 +239,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       return;
     }
 
-    this.collection.each(function (channel) {
-      if ( channel.get('title') === title ) {
-        dupe = true;
-      }
-    });
-
-    if ( dupe ) {
-      this.hideAutoComplete();
-
-      this.enable();
-      this.hideLoading();
-      this.clearInput();
-
-      return;
-    }
-
-
-    _.each(this._autoCompletes, function (autoComplete) {
-      if ( autoComplete.get('title') === title && autoComplete.get('user_channel') ) {
-        isUserChannel = true;
-
-        this.addNewChannel(autoComplete);
-
-        return false;
-      }
-    }, this);
-
-    if ( isUserChannel ) {
+    var to_create_user_channels = this._autoCompletes.filter( function(item){return item.get('title') == title && item.get('user_channel');});
+    if (to_create_user_channels.length > 0) {
+      this.addNewChannel(to_create_user_channels[0]);
       return;
     }
 
@@ -414,7 +388,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     });
 
     this._autoCompleteViews = [];
-    this._autoCompletes = [];
+    this._autoCompletes = new Backbone.Collection();
 
     this.$el.find('.auto_complete').addClass('empty');
 
