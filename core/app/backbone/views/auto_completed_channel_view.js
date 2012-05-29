@@ -12,14 +12,11 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend({
     this.queryRegex = new RegExp(this.options.query, "gi");
   },
 
-  serializeData: function(){
-    var title = this.model.get('title');
-    var highlightedTitle = title.replace(this.queryRegex, "<em>$&</em>");
-
-    return _.extend(this.model.toJSON(), {
-      highlightedTitle: highlightedTitle
-    });
-
+  templateHelpers: function(){
+    var view = this
+    return {
+      highlightedTitle: function(){return this.title.replace(view.queryRegex, "<em>$&</em>");}
+    };
   },
 
   onRender: function () {
