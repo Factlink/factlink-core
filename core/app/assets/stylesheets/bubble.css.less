@@ -236,104 +236,14 @@ ul.interacting-users {
       }
     }
   }
+
   .timestamp {
     float:right; color: #afafaf; font-size: 11px;margin-top:13px; margin-right: -5px;
   }
-  .controls {
-    font-size: 12px;
-    .unselectable();
-    border-bottom: 1px solid transparent;
 
-    li {
-      .opacity(0);
-      .transition(@transition);
-    }
-
-    div.authority {
-      float: right;
-      margin: -20px 84px 0 0;
-    }
-
-    ul.evidence {
-      height: @controlsHeight;
-      margin-left: 60px;
-      li {
-        display: block;
-        float: left;
-        margin: 1px 0 0 10px;
-        border: 1px solid transparent;
-        .border-radius(3px 3px 0 0);
-        border-bottom: none;
-        a {
-          display: inline-block;
-          padding: 5px 10px;
-          height: 12px;
-          line-height: 12px;
-          cursor: pointer;
-          &:hover {
-            text-decoration: none;
-          }
-        }
-        &.destroy {
-          a {
-            #font > .iconic();
-            &:before {
-              content: "t";
-            }
-          }
-        }
-        &.permalink {
-          background: image-url("icon-permalink.png") no-repeat center 6px;
-        }
-        .add-button, .cancel-button {
-          #font > .iconic();
-          text-shadow: 1px 1px 0px @white;
-          display: none;
-          line-height: 3px;
-          margin: 0 -3px -5px -5px;
-          color: @grayLight !important;
-          &:before {
-            font-size: 18px;
-            content: " =";
-          }
-          &:hover, &.active {
-            color: @gray !important;
-          }
-        }
-        .cancel-button {
-          &:before {
-            font-size: 18px;
-            content: " X";
-          }
-        }
-        &:active, &:focus, &.active {
-          border: 1px solid @grayLighter;
-          border-bottom: none;
-          background-color: @whiteDarker;
-        }
-        &:hover a {
-          color: @linkColorHover;
-          text-decoration: underline;
-        }
-        &.active a {
-          &:hover { text-decoration: none }
-          display: inline-block;
-          color: #555;
-        }
-
-        &.supporting,
-        &.weakening {
-          a {
-            width: 86px;
-          }
-        }
-      }
-    }
-  }
   .dropdown-container {
-    display: none;
-    border-top: 1px solid #E6E6E6;
-    margin-top: -1px;
+    border-top: 1px solid #eee;
+    margin-top: 30px;
     background: @whiteDarker;
     padding: 9px 0 10px 0;
     ul.search-results {
