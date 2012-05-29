@@ -37,8 +37,6 @@
 <% content_for :specific_javascript do %>
   <%= javascript_include_tag "frontend" %>
 
-  <%= render "home/twipsy" %>
-
   <script>
     <% if current_user %>
       window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
