@@ -203,8 +203,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.disable();
 
-    console.info(this._activeChannelKey)
-
     if ( this._activeChannelKey >= 0 && this._activeChannelKey < this._autoCompleteViews.length ) {
       var selected = this._autoCompleteViews[this._activeChannelKey].model;
 
