@@ -412,7 +412,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   clearAutoComplete: function () {
     _.each( this._autoCompleteViews, function (view) {
-      view.remove();
+      view.close();
     });
 
     this._autoCompleteViews = [];
@@ -436,7 +436,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
         model: channel,
         query: this._lastKnownSearchValue,
         parent: this
-      }).render();
+      });
+      view.render();
 
       this.$el.find('.auto_complete>ul').append(view.el);
 

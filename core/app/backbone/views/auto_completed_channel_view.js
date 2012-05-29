@@ -1,4 +1,4 @@
-window.AutoCompletedChannelView = Backbone.View.extend({
+window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
 
   events: {
@@ -6,27 +6,27 @@ window.AutoCompletedChannelView = Backbone.View.extend({
     "mouseleave": "mouseLeave"
   },
 
-  tmpl: HoganTemplates["channels/_auto_completed_channel"],
+  template: "channels/_auto_completed_channel",
 
   initialize: function () {
     this.queryRegex = new RegExp(this.options.query, "gi");
   },
 
-  render: function () {
+  serializeData: function(){
     var title = this.model.get('title');
     var highlightedTitle = title.replace(this.queryRegex, "<em>$&</em>");
 
-    var context = _.extend(this.model.toJSON(), {
+    return _.extend(this.model.toJSON(), {
       highlightedTitle: highlightedTitle
     });
 
+  },
+
+  onRender: function () {
+    console.info(this.$el);
     if ( this.model.get('user_channel' ) ) {
       this.$el.addClass('user-channel');
     }
-
-    this.$el.html( this.tmpl.render( context ) );
-
-    return this;
   },
 
   activate: function () {
