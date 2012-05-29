@@ -195,7 +195,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }, this);
   },
 
-  deActivateAutoCompleteView: function (view) {
+  deActivateAutoCompleteView: function () {
     this._autoCompleteViews[ this._activeChannelKey ].trigger('deactivate');
 
     this._activeChannelKey = undefined;
@@ -436,7 +436,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       view.on('mouseEnter', function () {
          self.activateAutoCompleteView(this);
       }).on('mouseLeave', function(){
-        self.deActivateAutoCompleteView(this);
+        self.deActivateAutoCompleteView();
       });
       view.render();
 
