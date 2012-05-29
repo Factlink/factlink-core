@@ -119,10 +119,11 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('.tab-content .add_to_channel').length > 0 && typeof currentUser !== "undefined" ) {
-      console.info(this.$el.find('.tab-content .add_to_channel')[0]);
+    var add_el = '.tab-content .add_to_channel .dropdown-container';
+    if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+      console.info(this.$el.find(add_el)[0]);
       var addToChannelView = new AutoCompletedAddToChannelView({
-        el: this.$el.find('.tab-content .add_to_channel')[0],
+        el: this.$el.find(add_el)[0],
       })
       addToChannelView.render();
     }
