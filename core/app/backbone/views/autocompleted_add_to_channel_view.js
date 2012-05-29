@@ -218,6 +218,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.createNewChannel(e);
   },
 
+  isDupe: function(title){
+    return this.collection.where({title: title}).length > 0
+  },
+
   createNewChannel: function (e) {
     var title = this.$el.find('input.typeahead').val();
     var dupe = false;
