@@ -1,19 +1,9 @@
-window.AutoCompletedAddedChannelView = Backbone.View.extend({
+window.AutoCompletedAddedChannelView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
 
-  events: {
-    "click a": "removeFromRootView"
+  triggers: {
+    "click a": "remove"
   },
 
-  removeFromRootView: function () {
-    this.options.rootView.removeAddedChannel(this.model.id);
-  },
-
-  tmpl: HoganTemplates["channels/_auto_completed_added"],
-
-  render: function () {
-    this.$el.html( this.tmpl.render( this.model.toJSON() ) );
-
-    return this;
-  }
+  template: "channels/_auto_completed_added"
 });
