@@ -230,6 +230,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
       this.enable();
       this.hideLoading();
+      this.clearInput();
 
       return;
     }
