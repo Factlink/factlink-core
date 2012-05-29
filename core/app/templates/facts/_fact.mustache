@@ -15,47 +15,54 @@
   {{>fact_bubble}}
 {{/fact_bubble}}
 
-<div class="controls">
-  <ul class="evidence">
-    <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}">
-      <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
-    </li>
 
-    <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}">
-      <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
-    </li>
+<ul class="tab-control">
+  <!-- Interacting users listing -->
+  <li class="interacting-users">
+    {{#interacting_users}}
+      {{>interacting_users}}
+    {{/interacting_users}}
+  </li>
 
-		{{#signed_in?}}
-    <li class="add-to-channel">
-      <a>{{channels_definition}}</a>
-      <div class="float-box channel-listing">
-    </div>
-    </li>
-		{{/signed_in?}}
+  <!-- Evidence -->
+  <li class="supporting"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
+  <li class="weakening"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
-		<li class="permalink">
-		  <a href="{{url}}" target="_top"></a>
-		</li>
+  <!-- Destroy -->
+  {{#i_am_owner}}
+  <li class="destroy"><a></a></li>
+  {{/i_am_owner}}
 
-    {{#i_am_owner}}
-      <li class="destroy">
-        <a href="{{url}}"></a>
-      </li>
-    {{/i_am_owner}}
-
-  </ul>
-
-  {{#interacting_users}}
-    {{>interacting_users}}
-  {{/interacting_users}}
+  <!-- Authority -->
   {{#my_authority}}
-  <div class="authority" rel="tooltip" title="Your authority on this Factlink">
-    <img src="/assets/brain.png" alt="Brain" />
-    <span>{{my_authority}}</span>
-  </div>
+  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
   {{/my_authority}}
-</div>
 
+  <li class="permalink">
+    <a href="{{url}}" target="_top"></a>
+  </li>
 
-<div class="dropdown-container">
+  <!-- Channels -->
+  {{#signed_in?}}
+  <li class="channels"><a href="#">My Channels</a></li>
+  {{/signed_in?}}
+
+</ul>
+
+<div class="tab-content" style="display: block;">
+
+  <div class="supporting" style="display: none;">
+    <div class="dropdown-container"></div>
+  </div>
+
+  <div class="weakening" style="display: none;">
+    <div class="dropdown-container"></div>
+  </div>
+
+  <div class="channels" style="display: none;">
+    <div class="somediv">Add to channels:
+      <input type="text">
+    </div>
+  </div>
+
 </div>

@@ -74,35 +74,45 @@
     </article>
 
     <h3>Evidence</h3>
-    <div class="controls">
-      <ul class="evidence">
-        <li class="supporting">
-          <a class="tab">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a>
-        </li>
 
-        <li class="weakening">
-          <a class="tab">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a>
-        </li>
+    <ul class="tab-control">
 
-        {{#signed_in?}}
-          <li class="add-to-channel">
-            <a>{{channels_definition}}</a>
-            <div class="float-box channel-listing">
-            </div>
-          </li>
-        {{/signed_in?}}
+      <!-- Evidence -->
+      <li class="supporting"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
+      <li class="weakening"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
-        {{#i_am_owner}}
-          <li class="destroy">
-            <a></a>
-          </li>
-        {{/i_am_owner}}
+      <!-- Destroy -->
+      {{#i_am_owner}}
+      <li class="destroy"><a></a></li>
+      {{/i_am_owner}}
 
-      </ul>
+      <!-- Authority -->
+      {{#my_authority}}
+      <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
+      {{/my_authority}}
+
+      <!-- Channels -->
+      {{#signed_in?}}
+      <li class="channels"><a href="#">My Channels</a></li>
+      {{/signed_in?}}
+
+    </ul>
+
+    <div class="tab-content" style="display: block;">
+      <div class="supporting" style="display: none;">
+        <div class="dropdown-container"></div>
+      </div>
+
+      <div class="weakening" style="display: none;">
+        <div class="dropdown-container"></div>
+      </div>
+
+      <div class="channels" style="display: none;">
+        <div class="somediv">Add to channels:
+          <input type="text">
+        </div>
+      </div>
     </div>
 
-
-    <div class="dropdown-container">
-    </div>
   </div>
 </div>
