@@ -156,20 +156,28 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     e.preventDefault();
   },
 
-  setActiveAutoComplete: function (key, scroll) {
+  deActivateCurrent: function(){
     if ( this._autoCompleteViews[this._activeChannelKey] ) {
       this._autoCompleteViews[this._activeChannelKey].deActivate();
     }
-
     this.deActivateAddNew();
+  },
 
-    this._autoCompleteViews[key].activate();
+  setActiveAutoComplete: function (key, scroll) {
+    this.deActivateCurrent();
 
-    if ( typeof scroll === "boolean" ) {
-      this._autoCompleteViews[key].el.scrollIntoView(scroll);
+    if (key < this._autoCompleteViews.length && key >= 0) {
+      this._autoCompleteViews[key].activate();
+      if ( typeof scroll === "boolean" ) {
+        this._autoCompleteViews[key].el.scrollIntoView(scroll);
+      }
+    } else {
+      this.activateAddNew();
+      key = this._autoCompleteViews.length
     }
-
     this._activeChannelKey = key;
+
+
   },
 
   selectAddNew: function () {
@@ -388,7 +396,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     _.each(channels, this.addAutoComplete, this);
 
+
     this.showAutoComplete();
+    this.setActiveAutoComplete(0, false);
 
     if ( window.updateHeight ) {
       window.updateHeight();
