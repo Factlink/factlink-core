@@ -167,9 +167,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
 
     if ( typeof this._activeChannelKey === "number" ) {
-      this._autoCompleteViews[this._activeChannelKey].trigger('deactivate');
-
-      this._activeChannelKey = undefined;
+      this.deActivateAutoCompleteView();
     }
 
     this.activateAddNew();
@@ -192,8 +190,10 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   deActivateAutoCompleteView: function () {
-    this._autoCompleteViews[ this._activeChannelKey ].trigger('deactivate');
-
+    var activeview = this._autoCompleteViews[this._activeChannelKey];
+    if (activeview !== undefined) {
+      activeview.trigger('deactivate');
+    }
     this._activeChannelKey = undefined;
   },
 
