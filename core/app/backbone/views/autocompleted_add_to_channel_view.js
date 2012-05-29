@@ -428,6 +428,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   addAutoComplete: function (channel) {
+    var self = this;
     if ( ! ( channel.get('user_channel')
                 && this.collection.get( channel.get('user_channel').id ) ) ) {
       this._autoCompletes.push(channel);
@@ -436,6 +437,11 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
         model: channel,
         query: this._lastKnownSearchValue,
         parent: this
+      });
+      view.on('mouseEnter', function () {
+         self.activateAutoCompleteView(this);
+      }).on('mouseLeave', function(){
+        self.deActivateAutoCompleteView(this)
       });
       view.render();
 

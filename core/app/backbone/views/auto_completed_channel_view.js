@@ -1,7 +1,7 @@
 window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
 
-  events: {
+  triggers: {
     "mouseenter": "mouseEnter",
     "mouseleave": "mouseLeave"
   },
@@ -31,13 +31,5 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend({
 
   deActivate: function () {
     this.$el.removeClass('active');
-  },
-
-  mouseEnter: function (e) {
-    this.options.parent.activateAutoCompleteView(this);
-  },
-
-  mouseLeave: function (e) {
-    this.options.parent.deActivateAutoCompleteView(this);
   }
 });
