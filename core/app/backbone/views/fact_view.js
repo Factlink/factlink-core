@@ -10,9 +10,9 @@ window.FactView = Backbone.View.extend({
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 
-    "click .tab-control .supporting": "tabClick",
-    "click .tab-control .weakening" : "tabClick",
-    "click .tab-control .channels"  : "tabClick",
+    "click .tab-control .supporting"     : "tabClick",
+    "click .tab-control .weakening"      : "tabClick",
+    "click .tab-control .add_to_channel" : "tabClick",
 
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
@@ -119,25 +119,12 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('.channel-listing') && typeof currentUser !== "undefined" ) {
-
-      var addToChannelView = new AddToChannelView({
-        collection: currentUser.channels,
-
-        el: this.$el.find('.channel-listing'),
-
-        model: this.model,
-
-        forFact: this.model
-      }).render();
-
-      // Channels are in the container
-      $('.add-to-channel', this.$el)
-        .hoverIntent(function(e) {
-          addToChannelView.$el.fadeIn("fast");
-        }, function() {
-          addToChannelView.$el.delay(600).fadeOut("fast");
-        });
+    if ( this.$el.find('.tab-content .add_to_channel').length > 0 && typeof currentUser !== "undefined" ) {
+      console.info(this.$el.find('.tab-content .add_to_channel')[0]);
+      var addToChannelView = new AutoCompletedAddToChannelView({
+        el: this.$el.find('.tab-content .add_to_channel')[0],
+      })
+      addToChannelView.render();
     }
   },
 
