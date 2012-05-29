@@ -8,20 +8,20 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
   template: "channels/_auto_completed_channel"
 
   initialize: ->
-    this.queryRegex = new RegExp(this.options.query, "gi")
+    @queryRegex = new RegExp(@options.query, "gi")
 
   templateHelpers: ->
     view = this
-    return { highlightedTitle: -> this.title.replace(view.queryRegex, "<em>$&</em>")}
+    return { highlightedTitle: -> @title.replace(view.queryRegex, "<em>$&</em>")}
 
   onRender: ->
-    if this.model.get('user_channel' )
-      this.$el.addClass('user-channel')
+    if @model.get('user_channel' )
+      @$el.addClass('user-channel')
 
   activate: ->
-    this.$el.addClass 'active'
+    @$el.addClass 'active'
 
   deActivate: ->
-    this.$el.removeClass 'active'
+    @$el.removeClass 'active'
 
 )
