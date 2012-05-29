@@ -203,7 +203,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.disable();
 
-    if ( this._activeChannelKey !== undefined ) {
+    if ( this._activeChannelKey > 0 && this._activeChannelKey < this._autoCompleteViews ) {
       var selected = this._autoCompleteViews[ this._activeChannelKey].model;
 
       this.$el.find('input.typeahead').val( selected.get('title') );
