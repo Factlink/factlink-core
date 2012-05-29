@@ -9,6 +9,8 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
 
   initialize: ->
     @queryRegex = new RegExp(@options.query, "gi")
+    this.on 'activate', -> @$el.addClass 'active'
+    this.on 'deactivate', -> @$el.removeClass 'active'
 
   templateHelpers: ->
     view = this
@@ -17,11 +19,4 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
   onRender: ->
     if @model.get('user_channel' )
       @$el.addClass('user-channel')
-
-  activate: ->
-    @$el.addClass 'active'
-
-  deActivate: ->
-    @$el.removeClass 'active'
-
 )

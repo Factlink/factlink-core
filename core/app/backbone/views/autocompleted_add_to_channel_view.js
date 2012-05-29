@@ -101,30 +101,12 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var prevKey;
 
     if ( this._activeChannelKey !== undefined ) {
-      // There is an active channel key
-      if ( this._autoCompleteViews[this._activeChannelKey - 1] ) {
-        // Select the previous key
-        prevKey = this._activeChannelKey - 1;
-      }
+      prevKey = this._activeChannelKey - 1;
+    } else {
+      prevKey = -1;
     }
 
-    if ( typeof prevKey === "undefined" ) {
-      // No previous item to be selected
-      if ( ! this.isAddNewActive() ) {
-        // Select addNew
-        this.selectAddNew();
-
-        if ( ! this.isAddNewActive() ) {
-          prevKey = this._autoCompleteViews.length - 1;
-        }
-      } else {
-        prevKey = this._autoCompleteViews.length - 1;
-      }
-    }
-
-    if ( typeof prevKey === "number" ) {
-      this.setActiveAutoComplete(prevKey, true);
-    }
+    this.setActiveAutoComplete(prevKey, false);
 
     e.preventDefault();
   },
@@ -133,24 +115,12 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var nextKey;
 
     if ( this._activeChannelKey !== undefined ) {
-      if ( this._autoCompleteViews[this._activeChannelKey + 1] ) {
-        nextKey = this._activeChannelKey + 1;
-      }
+      nextKey = this._activeChannelKey + 1;
     } else {
       nextKey = 0;
     }
 
-    if ( typeof nextKey === "undefined" ) {
-      this.selectAddNew();
-
-      if ( ! this.isAddNewActive() ) {
-        nextKey = 0;
-      }
-    }
-
-    if ( typeof nextKey === "number" ) {
-      this.setActiveAutoComplete(nextKey, false);
-    }
+    this.setActiveAutoComplete(nextKey, false);
 
 
     e.preventDefault();
@@ -158,26 +128,37 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   deActivateCurrent: function(){
     if ( this._autoCompleteViews[this._activeChannelKey] ) {
-      this._autoCompleteViews[this._activeChannelKey].deActivate();
+      this._autoCompleteViews[this._activeChannelKey].trigger('deactivate');
     }
     this.deActivateAddNew();
   },
 
+  fixKeyModulo: function(key){
+    var maxval;
+    if (this.isAddNewVisible()){
+      maxval = this._autoCompleteViews.length;
+    } else {
+      maxval = this._autoCompleteViews.length - 1;
+    }
+    if (key > maxval) {key = 0;}
+    if (key < 0) {key = maxval;}
+    return key;
+  },
+
+
   setActiveAutoComplete: function (key, scroll) {
     this.deActivateCurrent();
+    key = this.fixKeyModulo(key)
 
     if (key < this._autoCompleteViews.length && key >= 0) {
-      this._autoCompleteViews[key].activate();
+      this._autoCompleteViews[key].trigger('activate');
       if ( typeof scroll === "boolean" ) {
         this._autoCompleteViews[key].el.scrollIntoView(scroll);
       }
     } else {
       this.activateAddNew();
-      key = this._autoCompleteViews.length
     }
     this._activeChannelKey = key;
-
-
   },
 
   selectAddNew: function () {
@@ -186,7 +167,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
 
     if ( typeof this._activeChannelKey === "number" ) {
-      this._autoCompleteViews[this._activeChannelKey].deActivate();
+      this._autoCompleteViews[this._activeChannelKey].trigger('deactivate');
 
       this._activeChannelKey = undefined;
     }
@@ -215,7 +196,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   deActivateAutoCompleteView: function (view) {
-    this._autoCompleteViews[ this._activeChannelKey ].deActivate();
+    this._autoCompleteViews[ this._activeChannelKey ].trigger('deactivate');
 
     this._activeChannelKey = undefined;
   },
