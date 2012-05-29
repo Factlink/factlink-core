@@ -425,10 +425,14 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.showAddNew();
   },
 
+  alreadyAdded: function(channel) {
+    return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id )
+  },
+
   addAutoComplete: function (channel) {
     var self = this;
-    if ( ! ( channel.get('user_channel') && this.collection.get( channel.get('user_channel').id ) ) ) {
-      this._autoCompletes.push(channel);
+    if ( ! this.alreadyAdded(channel) ) {
+      this._autoCompletes.add(channel);
 
       var view = new AutoCompletedChannelView({
         model: channel,
