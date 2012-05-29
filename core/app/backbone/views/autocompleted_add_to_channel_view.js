@@ -224,6 +224,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   createNewChannel: function (e) {
     var title = this.$el.find('input.typeahead').val();
+    title = $.trim(title);
     var dupe = false;
     var isUserChannel = false;
 
