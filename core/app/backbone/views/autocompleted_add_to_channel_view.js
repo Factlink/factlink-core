@@ -240,7 +240,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     var to_create_user_channels = this._autoCompletes.filter( function(item){return item.get('title') == title && item.get('user_channel');});
     if (to_create_user_channels.length > 0) {
-      this.addNewChannel(to_create_user_channels[0]);
+      this.addNewChannel(to_create_user_channels[0].get('user_channel'));
       return;
     }
 
