@@ -119,7 +119,7 @@ describe "Walkthrough the app", type: :request do
 
       # and delete it:
       page.evaluate_script('window.confirm = function() { return true; }')
-      page.execute_script("$('a[href*=" + fact_name + "]').click()")
+      page.execute_script("$($('article.fact')[0]).parent().find('li.destroy').click()")
 
       page.should_not have_content fact_name
     end
