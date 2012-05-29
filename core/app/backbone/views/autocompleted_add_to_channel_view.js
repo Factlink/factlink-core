@@ -352,8 +352,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     this.updateText();
 
-    if ( this._lastKnownSearchValue === searchValue
-        || ! this._proceed ) {
+    if ( this._lastKnownSearchValue === searchValue || ! this._proceed ) {
       return;
     }
 
@@ -435,8 +434,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   addAutoComplete: function (channel) {
     var self = this;
-    if ( ! ( channel.get('user_channel')
-                && this.collection.get( channel.get('user_channel').id ) ) ) {
+    if ( ! ( channel.get('user_channel') && this.collection.get( channel.get('user_channel').id ) ) ) {
       this._autoCompletes.push(channel);
 
       var view = new AutoCompletedChannelView({
@@ -447,7 +445,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       view.on('mouseEnter', function () {
          self.activateAutoCompleteView(this);
       }).on('mouseLeave', function(){
-        self.deActivateAutoCompleteView(this)
+        self.deActivateAutoCompleteView(this);
       });
       view.render();
 
