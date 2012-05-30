@@ -163,6 +163,10 @@ class User
     username
   end
 
+  def name
+    "#{first_name} #{last_name}".strip
+  end
+
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= Array.new

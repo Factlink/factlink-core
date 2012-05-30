@@ -20,6 +20,10 @@ module Users
       self[:graph_user].editable_channels_by_authority(4)
     end
 
+    def name
+      self[:user].name.blank? ? username : self[:user].name
+    end
+
     def username
       self[:user].username
     end
@@ -38,6 +42,10 @@ module Users
 
     def avatar_thumb
       avatar(20)
+    end
+
+    def avatar_200
+      avatar(200)
     end
 
     def profile_path
