@@ -1,11 +1,5 @@
-window.ActivitiesView = Backbone.CollectionView.extend({
-  views: {},
-  containerSelector: '#activity_for_channel',
-
+window.ActivitiesView = Backbone.Marionette.CollectionView.extend({
   initialize: function(opts) {
-    this.modelView = ActivityView;
-
-    this.collection.bind('add',   this.add, this);
-    this.collection.bind('reset', this.reset, this);
-  }
+    this.itemView = ActivityView;
+  },
 });
