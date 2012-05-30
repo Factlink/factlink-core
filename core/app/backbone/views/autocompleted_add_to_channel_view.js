@@ -1,6 +1,6 @@
 window.AutoCompletedAddToChannelView = Backbone.View.extend({
   tagName: "div",
-  className: "add_to_channel",
+  className: "add-to-channel",
 
   events: {
     "keydown input.typeahead": "parseKeyDown",

@@ -12,7 +12,7 @@ window.FactView = Backbone.View.extend({
 
     "click .tab-control .supporting"     : "tabClick",
     "click .tab-control .weakening"      : "tabClick",
-    "click .tab-control .add_to_channel" : "tabClick",
+    "click .tab-control .add-to-channel" : "tabClick",
 
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
@@ -119,7 +119,7 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    var add_el = '.tab-content .add_to_channel .dropdown-container';
+    var add_el = '.tab-content .add-to-channel .dropdown-container';
     if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
       console.info(this.$el.find(add_el)[0]);
       var addToChannelView = new AutoCompletedAddToChannelView({
