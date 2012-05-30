@@ -20,6 +20,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.collection = new OwnChannelCollection();
     this.collection.bind('add', this.addChannel, this);
 
+    this.vent = new Backbone.Marionette.EventAggregator();
     this._channelViews = {};
   },
 
@@ -63,7 +64,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     var self = this;
     var view = new AutoCompletedAddedChannelView({model: channel});
     view.on('remove',function() {
-      self.removeAddedChannel(this.model.id);
+      self.removeAddedChannel(this.model);
     });
 
     view.render();
@@ -256,7 +257,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   addNewChannel: function (channel) {
     channel = new Channel(channel);
-
+    this.vent.trigger("addChannel", channel);
     currentUser.channels.add(channel);
     this.collection.add(channel);
     this.completelyDisappear();
@@ -432,10 +433,14 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   },
 
-  removeAddedChannel: function (id) {
+  removeAddedChannel: function (channel) {
+    var id = channel.id;
     this._channelViews[id].remove();
 
     delete this._channelViews[id];
+
+    this.vent.trigger("removeChannel", channel);
+
 
     this.collection.remove(id);
 

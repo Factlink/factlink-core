@@ -84,7 +84,8 @@ window.FactView = Backbone.View.extend({
 
     var self = this;
 
-    this.model.removeFromChannel({
+    this.model.removeFromChannel(
+      currentChannel, {
       error: function() {
         alert("Error while removing Factlink from Channel" );
       },
@@ -119,11 +120,18 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
+    var self = this;
     var add_el = '.tab-content .add_to_channel .dropdown-container';
     if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
       console.info(this.$el.find(add_el)[0]);
       var addToChannelView = new AutoCompletedAddToChannelView({
         el: this.$el.find(add_el)[0],
+      });
+      addToChannelView.vent.bindTo("addChannel", function(channel){
+        self.model.addToChannel(channel,{});
+      })
+      addToChannelView.vent.bindTo("removeChannel", function(channel){
+        self.model.removeFromChannel(channel,{});
       })
       addToChannelView.render();
     }
