@@ -11,7 +11,7 @@
 
 .add-to-channel {
   &.disabled {
-    .fake_input {
+    .fake-input {
       background-color: #eee;
       border-color: #ddd;
       cursor: not-allowed;
@@ -19,7 +19,7 @@
   }
 
   &.has-text {
-    .fake_input a.btn {
+    .fake-input a.btn {
       display: inline-block !important;
     }
   }
@@ -29,7 +29,7 @@
       display: none;
     }
 
-    .fake_input a.btn {
+    .fake-input a.btn {
       display: none !important;
     }
   }
@@ -39,7 +39,7 @@
   }
 
   &.hide-input {
-    .fake_input {
+    .fake-input {
       display: none;
     }
 
@@ -72,19 +72,20 @@
     }
   }
 
-  .fake_input {
-    width: 300px;
-    box-sizing: border-box;
-    .custom-radius(4px, 4px, 4px, 4px);
-    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
+  .fake-input {
+    background: white;
     border: 1px solid #ccc;
+    box-sizing: border-box;
     color: #555;
     display: inline-block;
-    line-height: 18px;
     font-size: 13px;
+    line-height: 18px;
     margin-bottom: 9px;
     padding: 3px;
     position: relative;
+    width: 300px;
+    .custom-radius(4px, 4px, 4px, 4px);
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
 
     .typeahead {
       border: none;

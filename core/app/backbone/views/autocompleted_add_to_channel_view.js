@@ -3,15 +3,15 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   className: "add-to-channel",
 
   events: {
-    "keydown input.typeahead": "parseKeyDown",
-    "keyup input.typeahead": "autoComplete",
-    "focus input.typeahead": "focusInput",
-    "click div.auto_complete": "parseReturn",
-    "click div.fake_input a": "parseReturn",
-    "blur input.typeahead": "blurInput",
-    "click .show-input-button": "showInput",
-    "mouseenter .auto_complete>div": "selectAddNew",
-    "mouseleave .auto_complete>div": "deActivateAddNew"
+    "keydown input.typeahead"       : "parseKeyDown",
+    "keyup input.typeahead"         : "autoComplete",
+    "focus input.typeahead"         : "focusInput",
+    "click div.auto_complete"       : "parseReturn",
+    "click div.fake-input a"        : "parseReturn",
+    "blur input.typeahead"          : "blurInput",
+    "click .show-input-button"      : "showInput",
+    "mouseenter .auto_complete>div" : "selectAddNew",
+    "mouseleave .auto_complete>div" : "deActivateAddNew"
   },
 
   tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
@@ -56,7 +56,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   showInput: function () {
     this.$el
       .removeClass('hide-input')
-      .find('.fake_input input').focus();
+      .find('.fake-input input').focus();
   },
 
   addChannel: function (channel) {
