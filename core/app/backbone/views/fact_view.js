@@ -4,12 +4,16 @@ window.FactView = Backbone.View.extend({
 
   className: "fact-block",
 
-  _currentVisibleDropdown: undefined,
+  _currentTab: undefined,
 
   events: {
     "click a.remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
-    "click .controls .supporting, .controls .weakening": "toggleEvidence",
+
+    "click .tab-control .supporting"     : "tabClick",
+    "click .tab-control .weakening"      : "tabClick",
+    "click .tab-control .add-to-channel" : "tabClick",
+
     "click .title.edit": "toggleTitleEdit",
     "focus .title.edit>input": "focusTitleEdit",
     "blur .title.edit>input": "blurTitleEdit",
@@ -80,11 +84,13 @@ window.FactView = Backbone.View.extend({
 
     var self = this;
 
-    this.model.removeFromChannel({
+    this.model.removeFromChannel(
+      currentChannel, {
       error: function() {
         alert("Error while removing Factlink from Channel" );
       },
       success: function() {
+        self.model.collection.remove(self.model);
         try {
           mpmetrics.track("Channel: Silence Factlink from Channel", {
             factlink_id: self.model.id,
@@ -115,25 +121,28 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('.channel-listing') && typeof currentUser !== "undefined" ) {
-
-      var addToChannelView = new AddToChannelView({
-        collection: currentUser.channels,
-
-        el: this.$el.find('.channel-listing'),
-
-        model: this.model,
-
-        forFact: this.model
-      }).render();
-
-      // Channels are in the container
-      $('.add-to-channel', this.$el)
-        .hoverIntent(function(e) {
-          addToChannelView.$el.fadeIn("fast");
-        }, function() {
-          addToChannelView.$el.delay(600).fadeOut("fast");
-        });
+    var self = this;
+    var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
+    if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+      var addToChannelView = new AutoCompletedAddToChannelView({
+        el: this.$el.find(add_el)[0],
+      });
+      _.each(this.model.getOwnContainingChannels(),function(ch){
+        //hacky hacky bang bang
+        if (ch.get('type') === 'channel'){
+          addToChannelView.collection.add(ch);
+        }
+      })
+      addToChannelView.vent.bindTo("addChannel", function(channel){
+        self.model.addToChannel(channel,{});
+      })
+      addToChannelView.vent.bindTo("removeChannel", function(channel){
+        self.model.removeFromChannel(channel,{});
+        if (currentChannel.get('id') === channel.get('id')){
+          self.model.collection.remove(self.model);
+        }
+      })
+      addToChannelView.render();
     }
   },
 
@@ -151,26 +160,21 @@ window.FactView = Backbone.View.extend({
       type: "weakening"
     });
 
-    $('.dropdown-container', this.el)
-      .append( this.supportingFactRelationsView.render().el )
-      .append( this.weakeningFactRelationsView.render().el );
-  },
+   $('.supporting .dropdown-container', this.el)
+   .append( this.supportingFactRelationsView.render().el );
 
-  showDropdownContainer: function(className) {
-    if (typeof this._currentVisibleDropdown === "undefined") {
-      $('.dropdown-container', this.el).slideDown('fast');
-    }
-
-    this.$el.addClass("active");
-  },
-
-  hideDropdownContainer: function(className) {
-    this.$el.removeClass("active");
-
-    $('.dropdown-container', this.el).slideUp('fast');
+   $('.weakening .dropdown-container', this.el)
+   .append( this.weakeningFactRelationsView.render().el );
   },
 
   switchToRelationDropdown: function(type){
+    try {
+      mpmetrics.track("Factlink: Open tab", {
+        factlink_id: self.model.id,
+        type: type
+      });
+    } catch(e) {}
+
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
       this.supportingFactRelationsView.showAndFetch();
@@ -180,33 +184,53 @@ window.FactView = Backbone.View.extend({
     }
   },
 
-  toggleEvidence: function(e) {
-    var self = this;
+  tabClick: function(e) {
+
+    e.preventDefault();
+    e.stopPropagation();
+
     var $target = $(e.target).closest('li');
-    var $tabButtons = this.$el.find('.controls li');
-    var type = $target.hasClass('supporting') ? 'supporting' : 'weakening';
 
-    try {
-      mpmetrics.track("Factlink: Open tab", {
-        factlink_id: self.model.id,
-        type: type
-      });
-    } catch(e) {}
+    // Need a way to identify the clicked tab. Using the li class sucks monkeyballs.
+    tab = $target.attr('class').split(' ')[0];
 
+    // Remove .active
+    var $tabButtons = this.$el.find('.tab-control li');
     $tabButtons.removeClass("active");
 
-    if ( type !== this._currentVisibleDropdown ) {
-      this.showDropdownContainer(type);
+    if (tab !== this._currentTab) {
+      // Open the clicked tab
+      this._currentTab = tab;
+      this.hideTabs();
 
-      this._currentVisibleDropdown = type;
+      $target.addClass('active');
+      // Show the tab
+      this.$el.find('.tab-content > .' + tab).show();
+      this.handleTabActions(tab);
 
-      this.switchToRelationDropdown(type);
-
-      $target.addClass("active");
     } else {
-      this.hideDropdownContainer();
+      // Same tab was clicked - hide it!
+      this.hideTabs();
+      this._currentTab = undefined;
+    }
+  },
 
-      this._currentVisibleDropdown = undefined;
+  hideTabs: function() {
+    $('.tab-content > div').hide();
+  },
+
+  handleTabActions: function(tab) {
+    switch (tab) {
+    case "supporting":
+    case "weakening":
+      this.switchToRelationDropdown(tab);
+      return true;
+
+    case "channels":
+      return true;
+
+    default:
+      return true;
     }
   },
 

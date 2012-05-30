@@ -160,4 +160,5 @@ FactlinkUI::Application.routes.draw do
   end
 
   get "/x/:id" => "fake_facts#show"
+  get "/x/set/:id/:name" => "fake_facts#set_name"
 end

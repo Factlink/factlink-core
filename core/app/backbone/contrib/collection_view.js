@@ -26,10 +26,11 @@ Backbone.CollectionView = Backbone.View.extend({
     this.views[model.cid] = view;
 
     //TODO: Also allow to add views in the middle of the collection
+    view.render()
     if ( opts && opts.at === 0 ) {
-      this.$el.find(this.containerSelector).prepend(view.render().el);
+      this.$el.find(this.containerSelector).prepend(view.el);
     } else {
-      this.$el.find(this.containerSelector).append(view.render().el);
+      this.$el.find(this.containerSelector).append(view.el);
     }
 
     this.afterAdd.apply(this, arguments);

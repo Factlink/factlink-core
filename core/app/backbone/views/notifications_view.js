@@ -92,35 +92,35 @@ window.NotificationsView = Backbone.CollectionView.extend({
     var args = arguments;
     var self = this;
 
+    function doReloading(){
+      return ! ( typeof localStorage === "object"
+        && localStorage !== null
+        && localStorage['reload'] === "false" );
+    };
+
+    function refreshAgain(always) {
+      if (always || doReloading()){
+        setTimeout(function () {
+          args.callee.apply(self, args);
+        }, 7000);
+      }
+    };
+
     if ( ! this._visible ) {
       this.collection.fetch({
-        success: function () {
-          setTimeout(function () {
-            if ( typeof localStorage === "object"
-              && localStorage !== null
-              && localStorage['reload'] === "false" ) {
-              return;
-            }
-
-            args.callee.apply(self, args);
-          }, 7000);
-        }
+        success: refreshAgain,
+        error: refreshAgain
       });
     } else {
-      setTimeout(function () {
-        args.callee.apply(self, args);
-      }, 7000);
+      refreshAgain(true);
     }
   },
 
   clickHandler: function (e) {
-    var self = this;
-    var $dropdown = this.$el.find('ul');
-
-    if ( ! $dropdown.is(':visible' ) ) {
-      this.showDropdown();
-    } else {
+    if ( this._visible ) {
       this.hideDropdown();
+    } else {
+      this.showDropdown();
     }
 
     e.stopPropagation();

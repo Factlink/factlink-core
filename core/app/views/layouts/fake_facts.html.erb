@@ -4,9 +4,17 @@
   <%= stylesheet_link_tag "fake_facts" %>
 </head>
 <body>
-  <%= yield %>
+  <div id='main-wrapper'>
+    <%= yield %>
+  </div>
 
   <%= javascript_include_tag "frontend" %>
+
+  <script>
+    $('body').on('click', function(e){
+      e.preventDefault; e.stopPropagation(); return false;
+    });
+  </script>
 
   <%= yield :javascript %>
 </body>

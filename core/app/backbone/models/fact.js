@@ -28,18 +28,30 @@ window.Fact = Backbone.Model.extend({
     return this.get('fact_bubble')['fact_title'];
   },
 
-  removeFromChannel: function (opts) {
+  removeFromChannel: function(channel, opts) {
     var self = this;
+    opts.url = channel.url() + '/' + 'remove' + '/' + this.get('id') + '.json';
+    var oldSuccess = opts.success;
+    opts.success = function(){
+      var indexOf = self.get('containing_channel_ids').indexOf(channel.id);
+      if ( indexOf ) {
+        self.get('containing_channel_ids').splice(indexOf, 1);
+      }
+      console.info('hoi');
+      if (oldSuccess !== undefined) { console.info('hoi2');oldSuccess();}
+    }
+    $.ajax(_.extend({type: "post"}, opts));
+  },
 
-    $.ajax({
-      url: Backbone.Model.prototype.url.apply(this, arguments),
-      type: "DELETE",
-      success: function () {
-        self.collection.remove(self);
-
-        opts.success.apply(this, arguments);
-      },
-      error: opts.error
-    });
+  addToChannel: function(channel, opts) {
+    var self = this;
+    opts.url = channel.url() + '/' + 'add' + '/' + this.get('id') + '.json';
+    var oldSuccess = opts.success;
+    opts.success = function(){
+      self.get('containing_channel_ids').push(channel.id);
+      if (oldSuccess !== undefined) { oldSuccess();}
+    }
+    $.ajax(_.extend({type: "post"}, opts));
   }
+
 });

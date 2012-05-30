@@ -101,7 +101,7 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fill_in "fact", with: fact_name
       click_button "submit"
-      page.should have_content "Factlink successfully added"
+      page.should have_content "Factlink successfully posted"
       visit root_path
       page.should have_content "My Stream"
       page.should have_content fact_name
@@ -119,7 +119,7 @@ describe "Walkthrough the app", type: :request do
 
       # and delete it:
       page.evaluate_script('window.confirm = function() { return true; }')
-      page.execute_script("$('a[href*=" + fact_name + "]').click()")
+      page.execute_script("$($('article.fact')[0]).parent().find('li.destroy').click()")
 
       page.should_not have_content fact_name
     end
@@ -179,7 +179,7 @@ describe "Walkthrough the app", type: :request do
       fact_title = "fact to be found"
       fill_in "fact", with: fact_title
       click_button "submit"
-      page.should have_content "Factlink successfully added"
+      page.should have_content "Factlink successfully posted"
 
       # and search for it:
       visit root_path
