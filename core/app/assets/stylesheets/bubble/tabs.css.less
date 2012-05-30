@@ -24,7 +24,7 @@
 
   li {
     float: left;
-    padding-bottom: 8px;
+    padding-bottom: 5px;
     opacity: 0;
 
     &.alwaysshow, &.tabOpened {
@@ -67,20 +67,6 @@
       }
     }
 
-    &.authority {
-      border: 1px solid pink;
-      float: right;
-
-      padding: 0 0 0 20px;
-      img {
-        padding: 0 4px 0;
-      }
-
-      .authority {
-        float: right;
-      }
-    }
-
     &.permalink {
       background: image-url("icon-permalink.png") no-repeat center 6px;
     }
@@ -99,12 +85,15 @@
     }
 
     &.interacting-users {
+      float: right;
+
       padding: 0 0 0 8px;
       width: 72px;
       ul {
         padding: 0px;
         margin: 0px;
         li {
+          float:right;
           padding: 0px;
           margin: 0px;
           a {
