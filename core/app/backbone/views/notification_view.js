@@ -11,10 +11,6 @@ var GenericNotificationView = Backbone.Marionette.ItemView.extend({
     }
   },
 
-  clickHandler: function(e) {
-    document.location.href = this.model.url();
-  },
-
   markAsRead: function () {
     this.$el.removeClass('unread');
   }
