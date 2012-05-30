@@ -32,7 +32,7 @@ ChannelsController = {
       Channels.fetch({
         success: args.callee
       });
-    }, 7000);
+    }, 60000);
   },
 
   commonChannelViews: function(channel) {

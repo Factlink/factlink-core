@@ -103,13 +103,13 @@ window.NotificationsView = Backbone.CollectionView.extend({
             }
 
             args.callee.apply(self, args);
-          }, 7000);
+          }, 60000);
         }
       });
     } else {
       setTimeout(function () {
         args.callee.apply(self, args);
-      }, 7000);
+      }, 60000);
     }
   },
 

@@ -8,7 +8,7 @@ window.ProfileController = {
       Channels.fetch({
         success: args.callee
       });
-    }, 7000);
+    }, 60000);
   },
 
   showProfile: function(username) {
@@ -19,7 +19,13 @@ window.ProfileController = {
     FactlinkApp.channelListRegion.show(channelCollectionView);
     var user = new User({username: username});
     user.fetch({success: function(){self.showUser(user);}, forProfile: true});
+
+    console.info("user: ");
+    console.info(user);
+    console.info("user.get_authority: " + user.get('authority'));
+    console.info("user.get_user: " + user.get('user'));
   },
+
   showUser: function(user) {
     var userView = new UserView({model: user});
     FactlinkApp.userblockRegion.show(userView);
@@ -27,8 +33,11 @@ window.ProfileController = {
     var mainLayout = new TabbedMainRegionLayout();
     mainLayout.render();
 
-    mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({text: 'HOI'})}));
+    mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({username: 'HOI'})}));
     FactlinkApp.mainRegion.show(mainLayout);
+
+    mainLayout.contentRegion.show(new ProfileView({model: user}));
+    // FactlinkApp.mainRegion.show(mainLayout);
   }
 
 
