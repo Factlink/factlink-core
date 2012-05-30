@@ -78,3 +78,4 @@ ActionMailer::Base.smtp_settings = {
   :password => 'hIx2l52ii209b2gRZ',
   :enable_starttls_auto => true
 }
+ActionMailer::Base.default reply_to: 'support@factlink.com'
