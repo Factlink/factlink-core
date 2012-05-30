@@ -102,7 +102,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
       if (always || doReloading()){
         setTimeout(function () {
           args.callee.apply(self, args);
-        }, 700);
+        }, 7000);
       }
     };
 
