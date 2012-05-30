@@ -1,12 +1,15 @@
 window.ProfileView = Backbone.Marionette.CompositeView.extend({
   template: 'users/profile',
+  className: 'profile',
+
   events: {
-    'click a.show-more': 'showMore',
-    'click a.show-less': 'showLess'
+    'click a.show-more': 'showMoreOn',
+    'click a.show-less': 'showMoreOff'
   },
 
   initialize: function() {
     this.itemView = TopChannelView
+    this.addClassToggle('showMore');
   },
 
   appendHtml: function(collectionView, itemView) {
@@ -22,17 +25,5 @@ window.ProfileView = Backbone.Marionette.CompositeView.extend({
       this.$('.no-channels').show();
     }
   },
-
-  showMore: function() {
-    this.$('a.show-more').hide();
-    this.$('a.show-less').show();
-    this.$('.top-channels ol').addClass('show-all');
-  },
-
-  showLess: function() {
-    this.$('a.show-less').hide();
-    this.$('a.show-more').show();
-    this.$('.top-channels ol').removeClass('show-all');
-  }
 
 });
