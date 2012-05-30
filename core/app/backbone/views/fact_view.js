@@ -216,7 +216,7 @@ window.FactView = Backbone.View.extend({
   },
 
   hideTabs: function() {
-    $('.tab-content > div').hide();
+    this.$('.tab-content > div').hide();
   },
 
   handleTabActions: function(tab) {
