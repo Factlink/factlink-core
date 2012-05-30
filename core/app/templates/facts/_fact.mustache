@@ -26,24 +26,24 @@
   <li class="supporting"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
   <li class="weakening"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
+  <!-- Channels -->
+  {{#signed_in?}}
+  <li class="add_to_channel"><a href="#">My Channels</a></li>
+  {{/signed_in?}}
+
   <!-- Destroy -->
   {{#i_am_owner}}
   <li class="destroy"><a></a></li>
   {{/i_am_owner}}
 
-  <!-- Authority -->
-  {{#my_authority}}
-  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
-  {{/my_authority}}
-
   <li class="permalink">
     <a href="{{url}}" target="_top"></a>
   </li>
 
-  <!-- Channels -->
-  {{#signed_in?}}
-  <li class="add_to_channel"><a href="#">My Channels</a></li>
-  {{/signed_in?}}
+   <!-- Authority -->
+  {{#my_authority}}
+  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
+  {{/my_authority}}
 
 </ul>
 
