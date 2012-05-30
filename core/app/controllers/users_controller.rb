@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     authorize! :show, @user
     respond_to do |format|
       format.html { render layout: 'channels'}
-      format.json { render json: {:user => Users::User.for(user: @user, view: view_context) }}
+      format.json { render json: Users::User.for(user: @user, view: view_context) }
+
     end
   end
 
