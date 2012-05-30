@@ -93,7 +93,7 @@
 
       <!-- Channels -->
       {{#signed_in?}}
-      <li class="channels"><a href="#">My Channels</a></li>
+      <li class="add-to-channel"><a href="#">My Channels</a></li>
       {{/signed_in?}}
 
     </ul>
@@ -107,12 +107,14 @@
         <div class="dropdown-container"></div>
       </div>
 
-      <div class="channels" style="display: none;">
-        <div class="somediv">Add to channels:
-          <input type="text">
+      <div class="add-to-channel" style="display: none;">
+        <div class="dropdown-container">
+          <div class="wrapper">
+            <h3>Add to a channel:</h3>
+            <div class="add-to-channel-container"></div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
