@@ -26,23 +26,25 @@
   <li class="supporting"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
   <li class="weakening"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
+
   <!-- Destroy -->
   {{#i_am_owner}}
   <li class="destroy"><a></a></li>
   {{/i_am_owner}}
 
-  <!-- Authority -->
-  {{#my_authority}}
-  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
-  {{/my_authority}}
-
+  <!-- Permalink -->
   <li class="permalink">
     <a href="{{url}}" target="_top"></a>
   </li>
 
+   <!-- Authority -->
+  {{#my_authority}}
+  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
+  {{/my_authority}}
+
   <!-- Channels -->
   {{#signed_in?}}
-  <li class="add_to_channel"><a href="#">My Channels</a></li>
+  <li class="add-to-channel"><a href="#">My Channels</a></li>
   {{/signed_in?}}
 
 </ul>
@@ -57,8 +59,13 @@
     <div class="dropdown-container"></div>
   </div>
 
-  <div class="add_to_channel" style="display: none;">
-    <div class="dropdown-container"></div>
+  <div class="add-to-channel" style="display: none;">
+    <div class="dropdown-container">
+      <div class="wrapper">
+        <h3>Add to a channel:</h3>
+        <div class="add-to-channel-container"></div>
+      </div>
+    </div>
   </div>
 
 </div>

@@ -40,7 +40,7 @@ window.ChannelView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$el.find('#add-to-channel') && typeof currentUser !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
         el: this.$el.find('#follow-channel'),
@@ -64,7 +64,7 @@ window.ChannelView = Backbone.View.extend({
 
   initSubChannelMenu: function() {
     if( this.model.get("followable?") ) {
-      var addToChannelButton = this.$el.find("#add_to_channel");
+      var addToChannelButton = this.$el.find("#add-to-channel");
       var followChannelMenu =this.$el.find("#follow-channel");
 
       followChannelMenu.css({"left": addToChannelButton.position().left});
