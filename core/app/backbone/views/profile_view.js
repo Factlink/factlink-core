@@ -24,6 +24,9 @@ window.ProfileView = Backbone.Marionette.CompositeView.extend({
       this.$('.top-channels').hide();
       this.$('.no-channels').show();
     }
+    if (this.collection.length < 6) {
+      this.$('.top-channels .show-more').hide();
+    }
   },
 
 });
