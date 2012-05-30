@@ -13,6 +13,8 @@
   margin-bottom: 8px;
   list-style: none;
 
+  width: 100%;
+
   li {
     float: left;
     padding-bottom: 8px;
@@ -32,8 +34,6 @@
         text-decoration: none;
       }
     }
-
-// border: solid 1px #e6007e;
 
     &.active {
       a {
@@ -60,6 +60,19 @@
 
     &.permalink {
       background: image-url("icon-permalink.png") no-repeat center 6px;
+    }
+
+    &.add_to_channel {
+      float: right;
+      padding-right: 12px;
+      &.active {
+
+        a {
+          background: #f3f6fa;
+          border: 1px solid #dee5ef;
+          border-bottom: 1px solid #f3f6fa;
+        }
+      }
     }
 
     &.interacting-users {
