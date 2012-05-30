@@ -17,13 +17,9 @@ window.ProfileController = {
     window.Channels.setUsername(username);
     this.setupChannelReloading();
     FactlinkApp.channelListRegion.show(channelCollectionView);
+
     var user = new User({username: username});
     user.fetch({success: function(){self.showUser(user);}, forProfile: true});
-
-    console.info("user: ");
-    console.info(user);
-    console.info("user.get_authority: " + user.get('authority'));
-    console.info("user.get_user: " + user.get('user'));
   },
 
   showUser: function(user) {
@@ -37,7 +33,6 @@ window.ProfileController = {
     FactlinkApp.mainRegion.show(mainLayout);
 
     mainLayout.contentRegion.show(new ProfileView({model: user}));
-    // FactlinkApp.mainRegion.show(mainLayout);
   }
 
 
