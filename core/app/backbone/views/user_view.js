@@ -29,3 +29,8 @@ window.UserView = Backbone.View.extend({
     Backbone.history.navigate(this.model.url(), true);
   }
 });
+
+
+window.UserLargeView = window.UserView.extend({
+  tmpl: Template.use("users", "_user_large")
+});

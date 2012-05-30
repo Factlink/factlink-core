@@ -23,8 +23,8 @@ window.ProfileController = {
   },
 
   showUser: function(user) {
-    var userView = new UserView({model: user});
-    FactlinkApp.userblockRegion.show(userView);
+    var userLargeView = new UserLargeView({model: user});
+    FactlinkApp.userblockRegion.show(userLargeView);
 
     var mainLayout = new TabbedMainRegionLayout();
     mainLayout.render();
@@ -34,6 +34,5 @@ window.ProfileController = {
 
     mainLayout.contentRegion.show(new ProfileView({model: user}));
   }
-
 
 };
