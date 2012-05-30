@@ -30,6 +30,7 @@ nl:
   channel: "kanaal"
   channels: "kanalen"
   my_channels: "mijn kanalen"
+  my_profile: "mijn profiel"
   add_to_channels: "toevoegen aan kanalen"
   created_channel: "heeft een kanaal aangemaakt"
 
