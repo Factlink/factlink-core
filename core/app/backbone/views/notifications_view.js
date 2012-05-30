@@ -114,13 +114,10 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   clickHandler: function (e) {
-    var self = this;
-    var $dropdown = this.$el.find('ul');
-
-    if ( ! $dropdown.is(':visible' ) ) {
-      this.showDropdown();
-    } else {
+    if ( this._visible ) {
       this.hideDropdown();
+    } else {
+      this.showDropdown();
     }
 
     e.stopPropagation();
