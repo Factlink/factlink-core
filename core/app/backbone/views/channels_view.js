@@ -1,4 +1,4 @@
-window.ChannelCollectionView = Backbone.Marionette.CompositeView.extend({
+window.ChannelsView = Backbone.Marionette.CompositeView.extend({
   template: 'channels/channel_list',
   itemView: ChannelItemView,
 

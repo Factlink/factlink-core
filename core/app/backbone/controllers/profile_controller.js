@@ -13,7 +13,7 @@ window.ProfileController = {
 
   showProfile: function(username) {
     var self = this;
-    var channelCollectionView = new ChannelCollectionView({collection: window.Channels});
+    var channelCollectionView = new ChannelsView({collection: window.Channels});
     window.Channels.setUsername(username);
     this.setupChannelReloading();
     FactlinkApp.channelListRegion.show(channelCollectionView);
