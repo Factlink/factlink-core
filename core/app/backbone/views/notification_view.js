@@ -1,18 +1,14 @@
 (function(){
-window.GenericNotificationView = Backbone.View.extend({
+window.GenericNotificationView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
   className: "activity",
 
-  tmpl: Template.use("notifications", "_generic_activity"),
+  template: "notifications/_generic_activity",
 
-  render: function () {
-    this.$el.html( this.tmpl.render(this.model.toJSON()) );
-
+  onRender: function () {
     if ( this.model.get('unread') === true ) {
       this.$el.addClass('unread');
     }
-
-    return this;
   },
 
   clickHandler: function(e) {
@@ -25,27 +21,27 @@ window.GenericNotificationView = Backbone.View.extend({
 });
 
 var NotificationAddedEvidenceView = GenericNotificationView.extend({
-  tmpl: Template.use("notifications", "_added_evidence_activity")
+  template: "notifications/_added_evidence_activity"
 });
 
 var NotificationAddedSubchannelView = GenericNotificationView.extend({
-  tmpl: Template.use("notifications", "_added_subchannel_activity")
+  template: "notifications/_added_subchannel_activity"
 });
 
 var NotificationOpinionatedView = GenericNotificationView.extend({
-  tmpl: Template.use("notifications", "_opinionated_activity")
+  template: "notifications/_opinionated_activity"
 });
 
 var NotificationInvitedView = GenericNotificationView.extend({
-  tmpl: Template.use("notifications", "_invited_activity")
+  template: "notifications/_invited_activity"
 });
 
 var NotificationNewChannelView = GenericNotificationView.extend({
-  tmpl: Template.use("notifications", "_new_channel_activity")
+  template: "notifications/_new_channel_activity"
 });
 
 var AddedFactToChannelView = GenericNotificationView.extend({
-  tmpl: Template.use('notifications', '_added_fact_to_channel')
+  template: 'notifications/_added_fact_to_channel'
 });
 
 window.NotificationView = function(opts) {
