@@ -30,7 +30,8 @@ ChannelsController = {
 
     setTimeout(function(){
       Channels.fetch({
-        success: args.callee
+        success: args.callee,
+        error: args.callee
       });
     }, 7000);
   },
