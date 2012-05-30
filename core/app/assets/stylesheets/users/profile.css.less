@@ -1,0 +1,51 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#main-wrapper .content {
+  display: block;
+  font-weight: 200;
+  margin: 24px 0 0;
+  overflow: hidden;
+
+  .top-channels {
+    ol {
+      .border-radius(3px);
+      border: 1px solid #e7e7e7;
+      list-style-position: inside;
+      margin: 8px 32px 0 0;
+      padding: 0;
+      li {
+        border-bottom: 1px solid #e7e7e7;
+        padding: 8px 0px 8px 10px;
+        &:last-child {
+          border-bottom: solid 1px transparent;
+        }
+        a {
+          padding: 0 0 0 6px;
+        }
+      }
+    }
+    > a {
+      float: right;
+      padding: 6px 48px 0;
+    }
+  }
+
+  .divider {
+    border-right: 1px solid #e7e7e7;
+  }
+
+  .row {
+    display: block;
+    margin: 0 0 12px;
+    .field-label {
+      float: left;
+      display: inline-block;
+      width: 92px;
+    }
+    .field {
+      width: 208px;
+      display: inline-block;
+    }
+  }
+}

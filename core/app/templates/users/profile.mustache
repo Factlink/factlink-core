@@ -1,30 +1,44 @@
-<h3>Top channels</h3>
 
-<div class="topchannels"></div>
+<div class="span4 divider">
+  <h3>Top channels</h3>
 
-<h3>Information</h3>
+  {{^channels}}
+  {{username}} doesn't have any channels yet.
+  {{/channels}}
 
-{{#website}}
-  <h4>Website</h4>
-  <p>{{website}}</p>
-{{/website}}
-{{#location}}
-  <h4>Location</h4>
-  <p>{{biography}}</p>
-{{/location}}
-{{#biography}}
-  <h4>Biography</h4>
-  <p>{{biography}}</p>
-{{/biography}}
+  <div class="top-channels">
+    <ol>
+    {{#channels}}
+      <li><a href="#">{{title}}</a></li>
+    {{/channels}}
+    </ol>
+    <a href="#">Show all</a>
+  </div>
 
-{{^website}}
-{{^location}}
-{{^biography}}
-{{username}} did not fill out their profile yet.
-{{/biography}}
-{{/location}}
-{{/website}}
+</div>
 
-((
-{{ authority }}
-))
+
+<div class="span4">
+  <h3>Information</h3>
+
+  {{#location}}
+  <div class="row">
+    <span class="field-label">Location:</span>
+    <span class="field">{{location}}</span>
+  </div>
+  {{/location}}
+
+  {{#biography}}
+  <div class="row">
+    <span class="field-label">Biography:</span>
+    <span class="field">{{biography}}</span>
+  </div>
+  {{/biography}}
+
+  {{^location}}
+  {{^biography}}
+    {{username}} did not fill out their profile yet.
+  {{/biography}}
+  {{/location}}
+
+</div>
