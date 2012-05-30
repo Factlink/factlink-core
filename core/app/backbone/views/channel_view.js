@@ -29,15 +29,6 @@ window.ChannelView = Backbone.View.extend({
     }
   },
 
-  reInit: function(opts) {
-    if (!this.model || this.model.id !== opts.model.id){
-      this.close();
-      return new ChannelView(opts);
-    }
-    return this;
-  },
-
-
   initSubChannels: function() {
     if ( this.$el.find('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
