@@ -90,6 +90,7 @@ window.FactView = Backbone.View.extend({
         alert("Error while removing Factlink from Channel" );
       },
       success: function() {
+        self.model.collection.remove(self.model);
         try {
           mpmetrics.track("Channel: Silence Factlink from Channel", {
             factlink_id: self.model.id,
@@ -132,6 +133,9 @@ window.FactView = Backbone.View.extend({
       })
       addToChannelView.vent.bindTo("removeChannel", function(channel){
         self.model.removeFromChannel(channel,{});
+        if (currentChannel.get('id') === channel.get('id')){
+          self.model.collection.remove(self.model);
+        }
       })
       addToChannelView.render();
     }

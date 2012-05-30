@@ -34,7 +34,6 @@ window.Fact = Backbone.Model.extend({
     var oldSuccess = opts.success;
     opts.success = function(){
       var indexOf = self.get('containing_channel_ids').indexOf(channel.id);
-      self.collection.remove(self);
       if ( indexOf ) {
         self.get('containing_channel_ids').splice(indexOf, 1);
       }
