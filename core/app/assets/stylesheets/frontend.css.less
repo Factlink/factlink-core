@@ -170,13 +170,16 @@ body.factlink-site .fact-block {
         margin-bottom: 2px;
       }
       .avatar-container {
-        padding: 1em;
         .border-radius(3px);
-        width: 160px;
-        height: 32px;
-        border-bottom: 1px solid white;
         background-color: #ededed;
+        border-bottom: 1px solid white;
+        height: 32px;
+        padding: 1em;
+        width: 160px;
         .inner-shadow(0, 1px, 1px, 0.2);
+        &:hover {
+          cursor: pointer;
+        }
       }
       margin-bottom: 8px;
       h3 {
