@@ -1,16 +1,12 @@
-
 <div class="span4 divider">
   <h3>Top channels</h3>
 
-  {{^channels}}
+  <div class="no-channels">
   {{username}} doesn't have any channels yet.
-  {{/channels}}
+  </div>
 
   <div class="top-channels">
     <ol>
-    {{#channels}}
-      <li><a href="#">{{title}}</a></li>
-    {{/channels}}
     </ol>
     <a href="#">Show all</a>
   </div>
