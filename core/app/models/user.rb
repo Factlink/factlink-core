@@ -18,6 +18,8 @@ class User
   field :last_name
 
   field :twitter
+  field :location
+  field :biography
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false, null: false
@@ -32,9 +34,9 @@ class User
 
   field :last_read_activities_on, type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :password, :password_confirmation, :email, :approved, :admin, as: :admin
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :email, :approved, :admin, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
@@ -54,6 +56,8 @@ class User
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
+  validates_length_of     :location, maximum: 127
+  validates_length_of     :location, maximum: 1023
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,

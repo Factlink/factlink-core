@@ -24,8 +24,16 @@ module Users
       self[:user].username
     end
 
+    def location
+      self[:user].location
+    end
+
+    def biography
+      self[:user].biography
+    end
+
     def avatar(size=32)
-      image_tag(self[:user].avatar_url(size: size), :width => size, :height => size, :alt => self[:user].username) 
+      image_tag(self[:user].avatar_url(size: size), :width => size, :height => size, :alt => self[:user].username)
     end
 
     def avatar_thumb
