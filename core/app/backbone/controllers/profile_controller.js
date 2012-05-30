@@ -32,7 +32,22 @@ window.ProfileController = {
     mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({username: 'HOI'})}));
     FactlinkApp.mainRegion.show(mainLayout);
 
-    mainLayout.contentRegion.show(new ProfileView({model: user}));
+    mainLayout.contentRegion.show(new ProfileView({model: user, collection: this.topChannels()}));
+  },
+
+  topChannels: function() {
+    var topchannels = new ChannelList();
+    _.each(window.Channels.models, function(channel){
+      if(channel.get('type') === 'channel'){
+        topchannels.add(channel);
+      }
+    });
+
+    topchannels.comparator = function(channel) {
+      return channel.get('created_by_authority');
+    }
+    topchannels.sort();
+    return topchannels;
   }
 
 };
