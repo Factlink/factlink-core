@@ -128,6 +128,12 @@ window.FactView = Backbone.View.extend({
       var addToChannelView = new AutoCompletedAddToChannelView({
         el: this.$el.find(add_el)[0],
       });
+      _.each(this.model.getOwnContainingChannels(),function(ch){
+        //hacky hacky bang bang
+        if (ch.get('type') === 'channel'){
+          addToChannelView.collection.add(ch);
+        }
+      })
       addToChannelView.vent.bindTo("addChannel", function(channel){
         self.model.addToChannel(channel,{});
       })
