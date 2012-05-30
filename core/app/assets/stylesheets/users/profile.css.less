@@ -16,12 +16,29 @@
       padding: 0;
       li {
         border-bottom: 1px solid #e7e7e7;
+        display: none;
         padding: 8px 0px 8px 10px;
-        &:last-child {
+
+        &:nth-child(-n+5) {
+          display: list-item;
+        }
+        &:nth-child(5), &:last-child {
           border-bottom: solid 1px transparent;
         }
         a {
           padding: 0 0 0 6px;
+        }
+      }
+      &.show-all {
+        li {
+          display: list-item;
+
+          &:nth-child(5) {
+            border-bottom: 1px solid #e7e7e7;
+          }
+          &:last-child {
+            border-bottom: solid 1px transparent;
+          }
         }
       }
     }

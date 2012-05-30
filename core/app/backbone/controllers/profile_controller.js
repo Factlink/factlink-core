@@ -44,7 +44,7 @@ window.ProfileController = {
     });
 
     topchannels.comparator = function(channel) {
-      return channel.get('created_by_authority');
+      return -parseFloat(channel.get('created_by_authority'));
     }
     topchannels.sort();
     return topchannels;
