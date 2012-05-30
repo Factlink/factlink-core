@@ -101,7 +101,7 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fill_in "fact", with: fact_name
       click_button "submit"
-      page.should have_content "Factlink successfully added"
+      page.should have_content "Factlink successfully posted"
       visit root_path
       page.should have_content "My Stream"
       page.should have_content fact_name
