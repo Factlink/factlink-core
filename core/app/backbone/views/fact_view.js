@@ -119,7 +119,7 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    var add_el = '.tab-content .add-to-channel .dropdown-container';
+    var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
     if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
       var addToChannelView = new AutoCompletedAddToChannelView({
         el: this.$el.find(add_el)[0],
