@@ -132,16 +132,16 @@ window.FactView = Backbone.View.extend({
         if (ch.get('type') === 'channel'){
           addToChannelView.collection.add(ch);
         }
-      })
+      });
       addToChannelView.vent.bindTo("addChannel", function(channel){
         self.model.addToChannel(channel,{});
-      })
+      });
       addToChannelView.vent.bindTo("removeChannel", function(channel){
         self.model.removeFromChannel(channel,{});
         if (currentChannel.get('id') === channel.get('id')){
           self.model.collection.remove(self.model);
         }
-      })
+      });
       addToChannelView.render();
     }
   },
