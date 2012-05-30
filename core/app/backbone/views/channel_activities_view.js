@@ -15,6 +15,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.subchannels.fetch();
 
       this.activitiesView = new ActivitiesView({
+        el: '#activity_for_channel',
         collection: new ChannelActivities([],{
           channel: self.model
         })
@@ -22,15 +23,6 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.activitiesView.collection.fetch();
     }
   },
-
-  reInit: function(opts) {
-    if (!this.model || this.model.id !== opts.model.id){
-      this.close();
-      return new ChannelActivitiesView(opts);
-    }
-    return this;
-  },
-
 
   initSubChannels: function() {
     if ( this.$el.find('#contained-channel-list') ) {
@@ -43,7 +35,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('#add_to_channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$el.find('#add-to-channel') && typeof currentUser !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
         el: this.$el.find('#follow-channel'),
@@ -67,7 +59,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
 
   initSubChannelMenu: function() {
     if( this.model.get("followable?") ) {
-      var addToChannelButton = this.$el.find("#add_to_channel");
+      var addToChannelButton = this.$el.find("#add-to-channel");
       var followChannelMenu =this.$el.find("#follow-channel");
 
       followChannelMenu.css({"left": addToChannelButton.position().left});
@@ -119,7 +111,8 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.$el.find('#activity_for_channel').append(this.activitiesView.render().el);
+      this.activitiesView.$el = this.$el.find('#activity_for_channel')
+      this.activitiesView.render()
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');

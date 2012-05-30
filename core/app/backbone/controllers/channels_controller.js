@@ -30,12 +30,14 @@ ChannelsController = {
 
     setTimeout(function(){
       Channels.fetch({
-        success: args.callee
+        success: args.callee,
+        error: args.callee
       });
     }, 60000);
   },
 
   commonChannelViews: function(channel) {
+    window.currentChannel = channel;
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelCollectionView({collection: window.Channels});
     this.setupChannelReloading();

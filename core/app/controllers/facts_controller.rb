@@ -47,7 +47,7 @@ class FactsController < ApplicationController
   end
 
   def new
-    authorize! :create, Fact
+    authorize! :new, Fact
     if session[:just_signed_in]
       session[:just_signed_in] = nil
 
@@ -84,7 +84,7 @@ class FactsController < ApplicationController
         end
 
         format.html do
-          flash[:notice] = "Factlink successfully added. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
+          flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
@@ -158,7 +158,7 @@ class FactsController < ApplicationController
   # to move this search to the evidence_controller, to make sure it's
   # type-specific
   def evidence_search
-    authorize :index, Fact
+    authorize! :index, Fact
     search_for = params[:s]
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
     if search_for.length > 0

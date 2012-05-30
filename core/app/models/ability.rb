@@ -14,6 +14,7 @@ class Ability
     # Anonymous user
     can :read, Job, :show => true
     can :check, Blacklist
+    can :new, Fact
 
     # Registered user
     if user
@@ -34,7 +35,6 @@ class Ability
       end
 
       can :read_tos, user
-
     end
     define_feature_toggles
   end

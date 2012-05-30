@@ -7,6 +7,7 @@ class User
   include Mongoid::Timestamps
   include Sunspot::Mongoid
   include Redis::Objects
+  include Gravatar
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -234,20 +235,5 @@ class User
     login = conditions.delete(:login)
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
-
-  private
-    # from: http://douglasfshearer.com/blog/gravatar-for-ruby-and-ruby-on-rails
-    # Returns a Gravatar URL associated with the email parameter.
-    #
-    # Gravatar Options:
-    # - rating: Can be one of G, PG, R or X. Default is X.
-    # - size: Size of the image. Default is 80px.
-    # - default: URL for fallback image if none is found or image exceeds rating.
-    def gravatar_url(email,gravatar_options={})
-      grav_url = 'https://secure.gravatar.com/avatar/'
-      grav_url << "#{Digest::MD5.new.update(email)}?"
-      grav_url << (gravatar_options.slice(:rating,:size,:default).map{|k,v| "#{k}=#{v}"}.join "&")
-      grav_url
-    end
 
 end

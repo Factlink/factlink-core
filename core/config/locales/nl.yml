@@ -31,13 +31,14 @@ nl:
   channels: "kanalen"
   my_channels: "mijn kanalen"
   add_to_channels: "toevoegen aan kanalen"
+  created_channel: "heeft een kanaal aangemaakt"
 
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
 
   ago: "geleden"
 
-  fact_added_fact_to_channel_action: "heeft een Factlink toegevoegd aan je kanaal"
+  fact_added_fact_to_channel_action: "heeft jouw Factlink toegevoegd aan zijn/haar kanaal"
 
   facts:
     new:
