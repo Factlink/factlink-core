@@ -206,6 +206,8 @@ window.FactView = Backbone.View.extend({
       $target.addClass('active');
       // Show the tab
       this.$el.find('.tab-content > .' + tab).show();
+      // Keep showing the tabs (in the li)
+      this.$('.tab-control > li').addClass('tabOpened');
       this.handleTabActions(tab);
 
     } else {
@@ -216,7 +218,8 @@ window.FactView = Backbone.View.extend({
   },
 
   hideTabs: function() {
-    $('.tab-content > div').hide();
+    this.$('.tab-content > div').hide();
+    this.$('.tab-control > li').removeClass('tabOpened');
   },
 
   handleTabActions: function(tab) {

@@ -15,17 +15,10 @@
 {{/fact_bubble}}
 
 <ul class="tab-control">
-  <!-- Interacting users listing -->
-  <li class="interacting-users">
-    {{#interacting_users}}
-      {{>interacting_users}}
-    {{/interacting_users}}
-  </li>
 
   <!-- Evidence -->
-  <li class="supporting"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
-  <li class="weakening"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
-
+  <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
+  <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
   <!-- Destroy -->
   {{#i_am_owner}}
@@ -37,15 +30,22 @@
     <a href="{{url}}" target="_top"></a>
   </li>
 
-   <!-- Authority -->
-  {{#my_authority}}
-  <li class="authority"><div class="authority" rel="tooltip" title="Your authority on this Factlink"><img src="/assets/brain.png" alt="Brain" /><span>{{my_authority}}</span></div></li>
-  {{/my_authority}}
+
+  <!-- right floaties: -->
+
+  <!-- Interacting users listing -->
+  <li class="interacting-users alwaysshow">
+    {{#interacting_users}}
+      {{>interacting_users}}
+    {{/interacting_users}}
+  </li>
 
   <!-- Channels -->
   {{#signed_in?}}
   <li class="add-to-channel"><a href="#">My Channels</a></li>
   {{/signed_in?}}
+
+
 
 </ul>
 
@@ -61,8 +61,8 @@
 
   <div class="add-to-channel" style="display: none;">
     <div class="dropdown-container">
+      <h4>This Factlink is in my channels:</h4>
       <div class="wrapper">
-        <h3>Add to a channel:</h3>
         <div class="add-to-channel-container"></div>
       </div>
     </div>

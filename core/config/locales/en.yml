@@ -29,6 +29,7 @@ en:
   channel: "channel"
   channels: "channels"
   my_channels: "my Channels"
+  my_profile: "my profile"
   add_to_channels: "add to channels"
   created_channel: "created a channel"
 
