@@ -1,6 +1,8 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+@activeColor: #558da5;
+
 #add_to_container {
   margin: 0 0 0 70px;
 
@@ -80,7 +82,7 @@
     display: inline-block;
     font-size: 13px;
     line-height: 18px;
-    margin-bottom: 9px;
+    margin-bottom: 2px;
     padding: 3px;
     position: relative;
     width: 300px;
@@ -112,36 +114,37 @@
   }
 
   .auto_complete {
+    border: 1px solid #b5b5b5;
     box-sizing: border-box;
     .custom-radius(5px, 5px, 5px, 5px);
-    border: 1px solid #b5b5b5;
-    width: 300px;
-    font-size: 13px;
     display: none;
+    .drop-shadow(0, 1px, 4px, 0.17);
+    font-size: 13px;
+    width: 300px;
 
     ul {
       max-height: 190px;
       overflow-y: scroll;
 
       li {
+        cursor: pointer;
+        font-weight: 200;
+        height: 30px;
         line-height: 30px;
-        padding: 0 10px;
         margin: 4px 0 0;
-        height: 30px;
         overflow: hidden;
-        height: 30px;
+        padding: 0 10px;
         text-overflow: ellipsis;
         white-space: nowrap;
-        cursor: pointer;
 
         em {
-          color: #5e8ba6;
+          color: @activeColor;
           font-style: normal;
           font-weight: bold;
         }
 
         &.active {
-          background: #5e8ba6;
+          background: @activeColor;
           color: #fff;
           text-shadow: none;
 
@@ -191,12 +194,12 @@
       }
 
       &.active {
-        background: #5e8ba6;
+        background: @activeColor;
         color: #fff;
-        border-top: 1px solid #5e8ba6;
+        border-top: 1px solid @activeColor;
 
         a {
-          border: 1px solid #5e8ba6;
+          border: 1px solid @activeColor;
         }
       }
     }
