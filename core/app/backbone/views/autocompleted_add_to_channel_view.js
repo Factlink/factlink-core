@@ -150,7 +150,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
     if (key < this._autoCompleteViews.length && key >= 0) {
       this._autoCompleteViews[key].trigger('activate');
-      if ( typeof scroll === "boolean" ) {
+      if ( typeof scroll === "boolean" && this.ikwilechtheelgraagdatmijnhelechannelpaginascrollt === true) {
         this._autoCompleteViews[key].el.scrollIntoView(scroll);
       }
     } else {
