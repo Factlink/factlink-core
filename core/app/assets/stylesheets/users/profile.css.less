@@ -36,24 +36,32 @@
           }
         }
       }
-      &.show-all {
-        li {
-          display: list-item;
-
-          &:nth-child(5) {
-            border-bottom: 1px solid #e7e7e7;
-          }
-          &:last-child {
-            border-bottom: solid 1px transparent;
-          }
-        }
-      }
     }
+    .show-more { display: block;}
+    .show-less { display: none;}
     > a {
       float: right;
       padding: 6px 48px 0;
     }
   }
+
+
+  .profile.showMore .top-channels {
+    li {
+      display: list-item;
+
+      &:nth-child(5) {
+        border-bottom: 1px solid #e7e7e7;
+      }
+      &:last-child {
+        border-bottom: solid 1px transparent;
+      }
+    }
+    .show-more { display: none;}
+    .show-less { display: block;}
+    
+  }
+
 
   .divider {
     border-right: 1px solid #e7e7e7;
