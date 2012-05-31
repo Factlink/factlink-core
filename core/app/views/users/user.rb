@@ -29,11 +29,11 @@ module Users
     end
 
     def location
-      self[:user].location
+      nil_if_empty(self[:user].location)
     end
 
     def biography
-      self[:user].biography
+      nil_if_empty(self[:user].biography)
     end
 
     def avatar(size=32)
@@ -65,6 +65,10 @@ module Users
       self[:user] == current_user
     end
 
+    private
+      def nil_if_empty x
+        x.blank? ? nil : x
+      end
 
   end
 end

@@ -8,7 +8,7 @@ window.User = Backbone.Model.extend({
     if (forProfile == true) {
       return '/' + this.get('username') + ".json";
     } else {
-      return '/' + this.get('username') + "/channels/" + this.get('all_channel_id');
+      return '/' + this.get('username');
     }
   },
 
@@ -20,16 +20,16 @@ window.User = Backbone.Model.extend({
 
     Backbone.sync(method, model, options);
   },
-  
+
   is_current_user: function(){
     return (window.currentUser !== undefined && currentUser.get('id') === this.get('id'));
   },
-  
+
   toJSON: function(){
     var json = Backbone.Model.prototype.toJSON.apply(this);
     return _.extend(json,{
       'is_current_user': this.is_current_user(),
       'channel_listing_header': '<%= I18n.t(:my_channels).capitalize %>'
     })
-  }  
+  }
 });
