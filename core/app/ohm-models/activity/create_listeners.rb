@@ -48,6 +48,11 @@ def create_activity_listeners
               extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
               write_ids: lambda { |a| [a.subject.created_by_id] }
 
+      # # someone added a fact to a channel which you follow
+      # activity subject_class: "Fact",
+      #          action: :added_fact_to_channel,
+      #          write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.keep_if { |id| id != a.user_id } ] }
+
     end
 
     register do
