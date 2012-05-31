@@ -19,15 +19,15 @@ end
 
 describe Basefact do
 
-  let(:user) {FactoryGirl.create(:user).graph_user}
-  let(:user2) {FactoryGirl.create(:user).graph_user}
-  let(:user3) {FactoryGirl.create(:user).graph_user}
-  let(:user4) {FactoryGirl.create(:user).graph_user}
-  let(:user5) {FactoryGirl.create(:user).graph_user}
-  let(:user6) {FactoryGirl.create(:user).graph_user}
+  let(:user)  {create(:graph_user)}
+  let(:user2) {create(:graph_user)}
+  let(:user3) {create(:graph_user)}
+  let(:user4) {create(:graph_user)}
+  let(:user5) {create(:graph_user)}
+  let(:user6) {create(:graph_user)}
 
-  subject {FactoryGirl.create(:basefact)}
-  let(:fact2) {FactoryGirl.create(:basefact)}
+  subject {create(:basefact)}
+  let(:fact2) {create(:basefact)}
 
   context "initially" do
     [:believes, :doubts, :disbelieves].each do |opinion|
