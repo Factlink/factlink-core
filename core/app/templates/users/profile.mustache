@@ -38,4 +38,7 @@
   {{/biography}}
   {{/location}}
 
+  {{#is_current_user}}
+  <a href="/{{username}}/edit">Edit my profile</a>
+  {{/is_current_user}}
 </div>
