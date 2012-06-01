@@ -21,6 +21,7 @@ class Blacklist
       domain('twitter.com'),
       domain('gmail.com'),
       domain('irccloud.com'),
+      domain('kickoffapp.com'),
       domain('moneybird.nl'),
       domain('newrelic.com'),
       domain('flowdock.com'),
