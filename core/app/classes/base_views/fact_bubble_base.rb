@@ -16,7 +16,7 @@ module BaseViews
       if show_links
         link_to(pretty_url, proxy_scroll_url, :target => "_blank")
       else
-        pretty_url
+        not pretty_url.blank? ? pretty_url : nil
       end
     end
 
@@ -58,7 +58,7 @@ module BaseViews
 
     private
       def show_links
-        not (self[:hide_links_for_site] and  self[:fact].site == self[:hide_links_for_site]) and not self[:hide_links] and self[:fact].site
+        not (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]) and not self[:hide_links] and self[:fact].site
       end
 	end
 end
