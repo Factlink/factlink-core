@@ -7,11 +7,8 @@
 <div class="right-col">
   <div>
     <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
-    added
-    <a href="{{ activity.channel_owner_profile_url }}" rel="backbone">{{ activity.channel_owner }}</a>
-    {{ activity.channel_definition }}
-    <a href="{{ activity.channel_url }}" rel="backbone">{{ activity.channel_title }}</a>
-    to their {{ activity.channels_definition }}
+    added {{ activity.channel_owner }} {{ activity.channel_definition }} {{ activity.channel_title }}
+    to their {{ activity.channel_definition }} <a href="{{ activity.to_channel_url }}">{{ activity.to_channel_title }}</a>
   </div>
 
   <span class="meta">{{ time_ago }}</span>
