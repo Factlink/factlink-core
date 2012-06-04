@@ -31,7 +31,9 @@ class Blacklist
       domain('mixpanel.com'),
       domain('grooveshark.com'),
       /^http:\/\/localhost[:\/]/,
-      /^http(s)?:\/\/([^\/]+\.)?google\.([a-z.]{2,6})\//,
+      strict_domain('google.([a-z.]{2,6})'),
+      strict_domain('www.google.([a-z.]{2,6})')
+
     ] + flash + frames + weird_bugs
   end
 
