@@ -10,7 +10,7 @@
   "dependencies": {
     "express":"2.5.4",
     "jade":"0.21.0",
-    "restler":"0.2.2",
+    "restler":"2.0.1",
     "yaml":"0.2.3",
     "validator": "",
     "expresso": "0.9.2",
