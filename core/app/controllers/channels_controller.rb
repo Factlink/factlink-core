@@ -46,6 +46,7 @@ class ChannelsController < ApplicationController
 
   def new
     authorize! :new, Channel
+    authorize! :update, @user
     @channel = Channel.new
   end
 
