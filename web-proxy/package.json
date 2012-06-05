@@ -8,8 +8,8 @@
     "url": "git@github.com:Factlink/web-proxy.git"
   },
   "dependencies": {
-    "express":"2.5.4",
-    "jade":"0.21.0",
+    "express":"2.5.9",
+    "jade":"0.26.1",
     "restler":"2.0.1",
     "yaml":"0.2.3",
     "validator": "",
