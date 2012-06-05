@@ -62,7 +62,9 @@ function getServer(config) {
 
       // Inject Frame Busting Buster directly after <head>
       var fbb = '<script>window.self = window.top;</script>';
-      html = html.replace(/<head>/i, '$&' + fbb);
+      html = html.replace(/<head[^\>]+>/i, '$&' + fbb);
+
+      console.log(html)
 
       if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
         FactlinkConfig.scrollto = parseInt(scrollto, 10);
