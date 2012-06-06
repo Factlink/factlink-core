@@ -2,7 +2,15 @@
   <h3>Top channels</h3>
 
   <div class="no-channels">
+  {{#is_current_user}}
+  <p>You don't have any channels yet.</p>
+  <p>Channels  are there to keep your facts categorized and can be interesting for other users to follow.</p>
+  <a href="{{ username }}/channels/new" class="btn">Add channel</a>
+  {{/is_current_user}}
+
+  {{^is_current_user}}
   {{username}} doesn't have any channels yet.
+  {{/is_current_user}}
   </div>
 
   <div class="top-channels">
@@ -34,8 +42,7 @@
 
   {{^location}}
   {{^biography}}
-    {{username}} did not fill out their profile yet.
+    <p>{{username}} has no profile information available.</p>
   {{/biography}}
   {{/location}}
-
 </div>

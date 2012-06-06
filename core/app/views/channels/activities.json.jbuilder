@@ -63,16 +63,12 @@ json.array!(@activities) do |json, activity|
       subject_creator_graph_user = subject.created_by
       subject_creator_user = subject_creator_graph_user.user
 
-
-      if @showing_notifications
-        if subject.created_by.user == current_user
-          json.channel_owner "your"
-        else
-          json.channel_owner "#{subject.created_by.user.username}'s"
-        end
+      if subject.created_by.user == current_user
+        json.channel_owner "your"
       else
-        json.channel_owner             subject_creator_user.username
+        json.channel_owner "#{subject.created_by.user.username}'s"
       end
+
       json.channel_owner_profile_url channel_path(subject_creator_user, subject_creator_graph_user.stream_id)
       json.channel_title             subject.title
       json.channel_url               channel_path(subject_creator_user, subject.id)
