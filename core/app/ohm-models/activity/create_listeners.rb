@@ -44,9 +44,9 @@ def create_activity_listeners
 
       # someone added a fact created by you to his channel
       activity subject_class: "Fact",
-              action: :added_fact_to_channel,
-              extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
-              write_ids: lambda { |a| [a.subject.created_by_id] }
+               action: :added_fact_to_channel,
+               extra_condition: lambda { |a| (a.subject.created_by_id != a.user_id) and (a.object.type == 'channel')},
+               write_ids: lambda { |a| [a.subject.created_by_id] }
 
       # # someone added a fact to a channel which you follow
       # activity subject_class: "Fact",
