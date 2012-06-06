@@ -17,6 +17,7 @@ def create_activity_listeners
                extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
                write_ids: lambda { |a| [a.subject.created_by_id] }
 
+      # someone added supporting or weakening evidence
       activity forGraphUser_evidence_was_added
 
       # you were invited to factlink by this user
@@ -34,6 +35,7 @@ def create_activity_listeners
       activity subject_class: "Channel", action: :created_channel,
                write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
 
+      # someone added supporting or weakening evidence
       activity forGraphUser_evidence_was_added
 
       # someone believed/disbelieved/doubted your fact
