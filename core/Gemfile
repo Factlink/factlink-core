@@ -105,6 +105,8 @@ group :assets do
   gem 'jquery-rails', '>= 1.0.17'
   gem 'less-rails-bootstrap', '>= 2.0.6'
   gem 'modernizr-rails', git: 'git@github.com:Factlink/modernizr-rails.git'
+
+  gem "marionette-rails", "~> 0.8.4"
 end
 
 group :development do
