@@ -125,7 +125,7 @@
       createFactSpan = function(text, id, first) {
         var span = $(document.createElement('span'))
           .addClass('factlink')
-          .data('factid', id);
+          .attr('data-factid', id);
 
         if (first === true) {
           span.addClass("fl-first");
