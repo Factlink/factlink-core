@@ -9,7 +9,8 @@
     <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
     {{ activity.created_channel_definition }}:
     <a href="{{ activity.channel_url }}" rel="backbone">{{ activity.channel_title }}</a>
+
+    <span class="meta">{{ time_ago }}</span>
   </div>
 
-  <span class="meta">{{ time_ago }}</span>
 </div>

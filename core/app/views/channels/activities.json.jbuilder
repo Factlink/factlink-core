@@ -23,20 +23,21 @@ json.array!(@activities) do |json, activity|
     json.unread activity.created_at_as_datetime > current_user.last_read_activities_on
   end
 
-  size = @showing_notifications ? 24 : 32
+  size = 24
 
   json.user_profile_url channel_path(user, graph_user.stream_id)
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
 
   json.action action
   json.translated_action t("fact_#{action.to_sym}_action".to_sym)
+
   json.subject subject.to_s
   json.icon cached_generic_icon
 
-  json.time_ago "#{time_ago_in_words(activity.created_at)} ago"
+  json.time_ago time_ago_short(Time.at(activity.created_at.to_time))
+
 
   json.activity do |json|
-
 
     case action
     when "added_supporting_evidence", "added_weakening_evidence"
@@ -90,13 +91,24 @@ json.array!(@activities) do |json, activity|
       json.created_channel_definition cached_created_channel_definition
     when "added_fact_to_channel"
       json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
-
       json.fact_url friendly_fact_path(subject)
 
+      json.translated_action "freefly"
+
+      # The Fact owner
       if subject.created_by.user == current_user
-        json.channel_owner "your"
+        json.fact_owner "your"
+      elsif subject.created_by.user == object.created_by.user
+        json.fact_owner "a"
       else
-        json.channel_owner "#{subject.created_by.user.username}'s"
+        json.fact_owner "#{subject.created_by.user.username}'s"
+      end
+
+      # The Channel owner
+      if object.created_by.user == current_user
+        json.channel_owner "your #{t(:channel)}"
+      else
+        json.channel_owner "their #{t(:channel)}"
       end
 
       json.channel_owner_profile_url user_profile_path(object.created_by.user)
