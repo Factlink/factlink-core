@@ -4,40 +4,37 @@
 
 #activity_for_channel {
 
-  .fact-block {
-    // Removes the border-bottom the .fact-block default has
-    border: none;
-    .tab-control {
-      width: 530px;
-    }
-  }
-
-  .user-avatar img {
-    .border-radius(3px);
-  }
-
   .activity-block {
-    border-bottom: 1px solid #e6e6e6;
-    margin: 20px 0;
-    overflow: auto;
-    width: 100%;
+    border-bottom: solid 1px #eee;
+    color: #777;
+    padding: 12px 0;
+    font-size: 0.9em;
 
-    .left-col  {
-      float: left;
-      margin: 0 0 0 4px;
-      width: 24px;
-    }
-    .right-col {
-      float: left;
-      margin: 0 0 0 12px;
-      width: 626px;
+    .activity-container {
+
+      line-height: 24px;
+
+      img {
+        .border-radius(3px);
+        float: left;
+        margin: 0 8px 0 0;
+      }
+
+      .meta {
+        color: #ccc;
+        display: block;
+        float: right;
+        font-weight: 200;
+        font-size: 0.9em;
+      }
     }
 
-    .meta {
-      color: #ccc;
-      display: block;
-      float: right;
-      font-weight: 200;
+    .fact-block {
+      // Removes the border-bottom the .fact-block default has
+      border: none;
+      .tab-control {
+        width: 600px;
+      }
     }
   }
 }

@@ -1,16 +1,7 @@
-<div class="left-col">
-  <div class="user-avatar">
-    {{{ avatar }}}
-  </div>
+<div class="activity-container">
+  <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}} {{ username }}</a> posted to <a href="{{ activity.channel_url }}">#{{ activity.channel_title }}</a>
+
+  <span class="meta">{{ time_ago }}</span>
 </div>
 
-<div class="right-col">
-  <div class=astral>
-    <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
-    added {{ activity.fact_owner }} Factlink to {{ activity.channel_owner }} <a href="{{ activity.channel_url }}">{{ activity.channel_title }}</a>
-
-    <span class="meta">{{ time_ago }}</span>
-  </div>
-
-  <div class="fact-block"></div>
-</div>
+<div class="fact-block"></div>

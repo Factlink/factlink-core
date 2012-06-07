@@ -1,15 +1,6 @@
-<div class="left-col">
-  <div class="user-avatar">
-    {{{ avatar }}}
-  </div>
-</div>
-
-<div class="right-col">
-  <div>
-    <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
+<div class="activity-container">
+  <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}} {{ username }}</a>
     {{ action }} {{ subject }}
 
-    <span class="meta">{{ time_ago }}</span>
-  </div>
-
+  <span class="meta">{{ time_ago }}</span>
 </div>
