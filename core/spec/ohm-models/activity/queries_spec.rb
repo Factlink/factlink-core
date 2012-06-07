@@ -69,12 +69,22 @@ describe 'activity queries' do
   end
 
   describe ".user" do
-    it "should return activity when a user follows your channel" do
+    it "should return notification when a user follows your channel" do
       ch1 = create :channel
       ch2 = create :channel
 
       ch1.add_channel(ch2)
       ch2.created_by.notifications.map(&:to_hash_without_time).should == [
+        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
+      ]
+    end
+
+    it "should return stream activity when a user follows your channel" do
+      ch1 = create :channel
+      ch2 = create :channel
+
+      ch1.add_channel(ch2)
+      ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end

@@ -8,14 +8,20 @@ def create_activity_listeners
       write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids).uniq.delete_if {|id| id == a.user_id}}
     }
 
+    # someone followed your channel
+    forGraphUser_channel_was_followed = {
+      subject_class: "Channel",
+      action: 'added_subchannel',
+      extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
+      write_ids: lambda { |a| [a.subject.created_by_id] }
+    }
+
     register do
       activity_for "GraphUser"
       named :notifications
 
       # someone followed your channel
-      activity subject_class: "Channel", action: 'added_subchannel',
-               extra_condition: lambda { |a| a.subject.created_by_id != a.user.id },
-               write_ids: lambda { |a| [a.subject.created_by_id] }
+      activity forGraphUser_channel_was_followed
 
       # someone added supporting or weakening evidence
       activity forGraphUser_evidence_was_added
@@ -34,6 +40,9 @@ def create_activity_listeners
       # someone of whom you follow a channel created a new channel
       activity subject_class: "Channel", action: :created_channel,
                write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+
+      # someone followed your channel
+      activity forGraphUser_channel_was_followed
 
       # someone added supporting or weakening evidence
       activity forGraphUser_evidence_was_added
