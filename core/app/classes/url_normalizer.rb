@@ -59,12 +59,14 @@ class UrlNormalizer
 
   def build_query(params)
     params.map do |name,values|
+      escaped_name = URI.encode_www_form_component name
       if values.length > 0
         values.map do |value|
-          "#{CGI.escape name}=#{CGI.escape value}"
+          escaped_value = URI.encode_www_form_component value
+          "#{escaped_name}=#{escaped_value}"
         end
       else
-        ["#{CGI.escape name}"]
+        ["#{escaped_name}"]
       end
     end.flatten.join("&")
   end

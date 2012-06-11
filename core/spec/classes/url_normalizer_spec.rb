@@ -49,5 +49,6 @@ describe UrlNormalizer do
 
     it {should_normalize_to 'http://example.com/foo?x=^y', 'http://example.com/foo?x=%5Ey'}
     it {should_normalize_to 'http://example.com/foo?x={y}', 'http://example.com/foo?x=%7By%7D'}
+    it {should_normalize_to 'http://example.org/search.php?a=%F6', 'http://example.org/search.php?a=%F6'}
   end
 end
