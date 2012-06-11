@@ -55,13 +55,18 @@
       a {
         #font > .iconic();
         &:before {
-          content: "t";
+          content: "\e05a";
         }
       }
     }
 
     &.permalink {
-      background: image-url("icon-permalink.png") no-repeat center 6px;
+      a {
+        #font > .iconic();
+        &:before {
+          content: '\e025'
+        }
+      }
     }
 
     &.add-to-channel {

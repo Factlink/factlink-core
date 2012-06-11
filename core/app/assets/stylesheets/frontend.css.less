@@ -214,7 +214,7 @@ body.factlink-site .fact-block {
       padding: 4px;
       margin-top: -2px;
       &:before {
-        content: "+ ";
+        content: "\2795";
         #font > .iconic();
       }
     }
@@ -470,6 +470,27 @@ body.factlink-site .fact-block {
       display: block;
       width: 1px;
       height: 212px;
+    }
+  }
+
+  .more_facts {
+    padding: 15px;
+    border-bottom: 1px solid #e7e7e7;
+    margin:0 -15px;
+
+    a {
+      border: 1px solid #dee5ef;
+      background: #f3f6fa;
+      .border-radius(5px);
+      display: block;
+      text-align: center;
+      line-height: 40px;
+
+      i {
+        background: image-url('list-icon.png');
+        background-position: center center;
+        margin: 0 5px 0 0;
+      }
     }
   }
 }
