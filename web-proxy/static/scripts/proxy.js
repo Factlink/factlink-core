@@ -84,6 +84,8 @@ domReady(function(){
     }
   }
 
+  top.document.title = document.title;
+
 });
 
 function scriptTag(url){

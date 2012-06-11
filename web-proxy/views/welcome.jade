@@ -1,7 +1,7 @@
 !!! 5
 html(lang="en")
   head
-    title Factlink - Something went wrong
+    title Factlink - Welcome
     link(rel="stylesheet", type="text/css", href= proxy_url + "/static/styles/error.css")
   body
     div#error
@@ -17,3 +17,6 @@ html(lang="en")
         p More information about using Factlink can be found 
           a(href="#{core_url}/p/faq",target="_top") here
           .
+
+    script(type='text/javascript')
+      top.document.title = document.title
