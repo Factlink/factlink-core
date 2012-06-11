@@ -8,6 +8,7 @@ class GraphUser < OurOhm
   reference :user, lambda { |id| id && User.find(id) }
 
   timestamped_set :notifications, Activity
+  timestamped_set :stream_activities, Activity
 
   set :believes_facts, Basefact
   set :doubts_facts, Basefact

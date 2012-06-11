@@ -1,16 +1,8 @@
-<div class="left-col">
-  <div class="user-avatar">
-    {{{ avatar }}}
-  </div>
-</div>
-
-<div class="right-col">
-  <div>
-    <strong><a href="{{ user_profile_url }}" class="heavy" rel="backbone">{{ username }}</a></strong>
-    {{ translated_action }} a Factlink you have created:
-  </div>
-
-  <div class="fact-block"></div>
+<div class="activity-container">
+  <a href="{{ user_profile_url }}" rel="backbone">{{{ avatar }}} {{ username }}</a>
+    {{ translated_action }} your Factlink
 
   <span class="meta">{{ time_ago }}</span>
 </div>
+
+<div class="fact-block"></div>

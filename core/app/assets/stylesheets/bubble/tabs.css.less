@@ -8,27 +8,12 @@
 @controlsHeight: 23px;
 @rightIndent: 10px;
 
-// Hi nasty override - fix this width please
-#extended_factlink {
-  .tab-control {
-    margin-left: 70px;
-    width: 550px;
-  }
-}
-// Hi nasty override - fix this width please
-.modal {
-  .tab-control {
-    width: 487px;
-  }
-}
-// Hi nasty override - fix this width please
 .tab-control {
   margin-left: 70px;
   margin-top: 14px;
   margin-bottom: 8px;
   list-style: none;
-
-  width: 595px;
+  padding: 0 15px 0 0;
 
   li {
     float: left;
@@ -82,6 +67,7 @@
     &.add-to-channel {
       float: right;
       padding-right: 12px;
+
       &.active {
 
         a {
@@ -97,6 +83,7 @@
 
       padding: 0 0 0 8px;
       width: 72px;
+      margin-top: -3px;
       ul {
         padding: 0px;
         margin: 0px;
@@ -230,9 +217,10 @@
       padding: 12px 0;
       background: #f3f6fa;
 
-      h4 {
-        padding: 0 0 10px 16px;
-        font-weight: 300;
+      .title {
+        display: block;
+        padding: 0 0 13px 22px;
+        line-height: 26px;
       }
 
       .wrapper {

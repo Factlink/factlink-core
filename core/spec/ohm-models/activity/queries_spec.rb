@@ -44,7 +44,7 @@ describe 'activity queries' do
       f1 = create :fact
       ch3.add_fact f1
 
-      gu1.notifications.map(&:to_hash_without_time).should == [
+      gu1.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu2, action: :created_channel, subject: ch3}
       ]
     end
@@ -69,12 +69,22 @@ describe 'activity queries' do
   end
 
   describe ".user" do
-    it "should return activity when a user follows your channel" do
+    it "should return notification when a user follows your channel" do
       ch1 = create :channel
       ch2 = create :channel
 
       ch1.add_channel(ch2)
       ch2.created_by.notifications.map(&:to_hash_without_time).should == [
+        {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
+      ]
+    end
+
+    it "should return stream activity when a user follows your channel" do
+      ch1 = create :channel
+      ch2 = create :channel
+
+      ch1.add_channel(ch2)
+      ch2.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: ch1.created_by, action: :added_subchannel, subject: ch2, object: ch1}
       ]
     end
@@ -85,7 +95,7 @@ describe 'activity queries' do
       f1.add_opinion(:believes, gu1)
       f1.add_opinion(:disbelieves, f1.created_by)
 
-      f1.created_by.notifications.map(&:to_hash_without_time).should == [
+      f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
       ]
     end
@@ -95,7 +105,7 @@ describe 'activity queries' do
       ch = create :channel, created_by: gu2
       ch.add_fact(f)
 
-      notification = gu1.notifications.map(&:to_hash_without_time).should == [
+      notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
       ]
     end
@@ -121,11 +131,11 @@ describe 'activity queries' do
 
     end
     [:believes, :doubts, :disbelieves].each do |opinion|
-      it "should return activity when a users opinionates a fact of the user" do
+      it "should return activity when a user opinionates a fact of the user" do
         f1 = create :fact
         f1.add_opinion(opinion, gu1)
 
-        f1.created_by.notifications.map(&:to_hash_without_time).should == [
+        f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
             {user: gu1, action: opinion, subject: f1}
         ]
       end

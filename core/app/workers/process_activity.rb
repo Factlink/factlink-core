@@ -3,8 +3,10 @@ class ProcessActivity
 
   def self.perform(id)
     activity = Activity[id]
-    Activity::Listener.all.each do |listener|
-      listener.process activity
+    if activity and activity.still_valid?
+      Activity::Listener.all.each do |listener|
+        listener.process activity
+      end
     end
   end
 end

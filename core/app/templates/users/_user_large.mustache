@@ -1,2 +1,6 @@
-<h1>{{name}}</h1>
+<h1>{{ name }}
+  {{#is_current_user}}
+    <a href="/{{username}}/edit" class="btn btn-mini" style="font-weight: 200; margin-left: 12px; margin-top: -6px;">Edit profile</a>
+  {{/is_current_user}}
+</h1>
 {{{ avatar_200 }}}

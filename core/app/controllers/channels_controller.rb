@@ -201,10 +201,9 @@ class ChannelsController < ApplicationController
   def activities
     authorize! :show, @channel
     if @channel.type == "stream"
-      # TODO Tom, clean this.
-      @activities = @user.graph_user.notifications.below('inf', count: 24, reversed: true )
+      @activities = @user.graph_user.stream_activities.below('inf', count: 24, reversed: true)
     else
-      @activities = @channel.activities.below('inf', count:17, reversed: true)
+      @activities = @channel.activities.below('inf', count: 17, reversed: true)
     end
 
     @activities = @activities.keep_if{|a| a && a.still_valid?}
