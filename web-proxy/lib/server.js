@@ -60,10 +60,15 @@ function getServer(config) {
     blacklist.if_allowed(site,function() {
       var html = html_in.replace(/<head[^>]*>/i, '$&<base href="' + site + '" />');
 
+      // Inject Frame Busting Buster directly after <head>
+      var fbb = '<script>window.self = window.top;</script>';
+      html = html.replace(/<head?[^\>]+>/i, '$&' + fbb);
+
       if (scrollto !== undefined && !isNaN(parseInt(scrollto, 10))) {
         FactlinkConfig.scrollto = parseInt(scrollto, 10);
       }
 
+      // Inject Factlink library before </head>
       var set_urls      = '<script>window.FactlinkConfig = ' + JSON.stringify(FactlinkConfig) + '</script>';
       var load_proxy_js = '<script src="' + config.PROXY_URL + '/static/scripts/proxy.js?' + Number(new Date()) + '"></script>';
       html = html.replace(/<\/head>/i, set_urls + load_proxy_js + '$&');
