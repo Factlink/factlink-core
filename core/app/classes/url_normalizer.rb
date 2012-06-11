@@ -28,7 +28,7 @@ class UrlNormalizer
 
     url = encode_chars(url)
 
-    uri = URI.parse(url)
+    uri = URI(url)
 
     @@normalizer_for[uri.host].new(uri).normalize
   end
