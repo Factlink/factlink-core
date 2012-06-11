@@ -29,7 +29,9 @@ window.User = Backbone.Model.extend({
     var json = Backbone.Model.prototype.toJSON.apply(this);
     return _.extend(json,{
       'is_current_user': this.is_current_user(),
-      'channel_listing_header': '<%= I18n.t(:my_channels).capitalize %>'
+      'channel_listing_header': '<%= I18n.t(:my_channels).capitalize %>',
+      'edit_path': '/' + this.get('username') + '/edit',
+      'change_password_path': '/' + this.get('username') + '/password/edit'
     })
   }
 });
