@@ -14,7 +14,7 @@ window.ProfileController = {
       Channels.fetch({
         success: args.callee
       });
-    }, 60000);
+    }, 7000);
   },
 
   showProfile: function(username) {
