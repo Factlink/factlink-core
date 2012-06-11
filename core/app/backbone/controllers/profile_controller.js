@@ -4,11 +4,17 @@ window.ProfileController = {
   setupChannelReloading: function(){
     var args = arguments;
 
+    if ( typeof localStorage === "object"
+      && localStorage !== null
+      && localStorage['reload'] === "false" ) {
+      return;
+    }
+
     setTimeout(function(){
       Channels.fetch({
         success: args.callee
       });
-    }, 60000);
+    }, 7000);
   },
 
   showProfile: function(username) {

@@ -33,7 +33,7 @@
   border-bottom-right-radius: @bottomright;
   border-bottom-left-radius: @bottomleft;
   border-top-left-radius: @topleft;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 
 @font-face {
@@ -70,11 +70,12 @@
   }
   .iconic() {
     font-family: "IconicStroke";
+    font-size: 10px;
   }
 }
 
 // sorry WebKit only
-.visible-scroll() { 
+.visible-scroll() {
   ::-webkit-scrollbar { background:transparent;overflow:visible; width:15px;}
   ::-webkit-scrollbar-thumb { background-color:rgba(0,0,0,0.2); border:solid #fff;}
   ::-webkit-scrollbar-thumb:hover { background:rgba(0,0,0,0.4);}
@@ -99,7 +100,7 @@
   .field_with_errors {
     display: inline;
   }
-  
+
   // Set the text color
   > label,
   > .field_with_errors > label,
