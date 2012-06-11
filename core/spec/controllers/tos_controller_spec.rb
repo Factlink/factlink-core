@@ -20,7 +20,7 @@ describe TosController do
         user.should_receive(:sign_tos).with(true, 'Sjonnie').and_return(true)
 
         post :update, user: {agrees_tos: 1, agrees_tos_name: 'Sjonnie'}
-        response.should redirect_to(user_profile_path(user.username))
+        response.should redirect_to(after_sign_in_path_for(user))
       end
     end
     context "with invalid credentials" do
