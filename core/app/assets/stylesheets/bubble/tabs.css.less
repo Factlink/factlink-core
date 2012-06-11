@@ -43,21 +43,11 @@
     }
 
     &.destroy {
-      a {
-        #font > .iconic();
-        &:before {
-          content: "\e05a";
-        }
-      }
+      .icon("\e05a");
     }
 
     &.permalink {
-      a {
-        #font > .iconic();
-        &:before {
-          content: '\e000'
-        }
-      }
+      .icon("\e000");
     }
 
     &.add-to-channel {
@@ -319,10 +309,7 @@ div.relation {
         width: 15px;
         height: 15px;
 
-        #font > .iconic();
-        &:before {
-          content: "\e05a";
-        }
+        .icon("\e05a");
       }
     }
 
