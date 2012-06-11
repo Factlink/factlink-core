@@ -27,11 +27,10 @@ window.ProfileController = {
     FactlinkApp.userblockRegion.show(userLargeView);
 
     var mainLayout = new TabbedMainRegionLayout();
-    mainLayout.render();
-
-    mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({username: 'HOI'})}));
     FactlinkApp.mainRegion.show(mainLayout);
 
+    mainLayout.titleRegion.show(new TextView({model: new Backbone.Model({text: 'About ' + user.get('username')})}));
+    mainLayout.tabsRegion.show(new UserTabsView({model: user}));
     mainLayout.contentRegion.show(new ProfileView({model: user, collection: this.topChannels()}));
   },
 
