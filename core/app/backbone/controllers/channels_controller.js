@@ -33,7 +33,7 @@ ChannelsController = {
         success: args.callee,
         error: args.callee
       });
-    }, 60000);
+    }, 7000);
   },
 
   commonChannelViews: function(channel) {
