@@ -1,32 +1,6 @@
 require 'uri'
 require 'cgi'
 
-module URI
-  class << self
-
-    def parse_with_safety(uri)
-      [
-        ['[', '%5B'],
-        [']', '%5D'],
-        ['{', '%7B'],
-        ['}', '%7D'],
-        ['|', '%7C'],
-        ['\\','%5C'],
-        ['^', '%5E'],
-      ].each do |from, to|
-        uri = uri.gsub from, to
-      end
-      parse_without_safety uri
-    end
-
-    unless method_defined?(:parse_without_safety)
-      alias_method :parse_without_safety, :parse
-      alias_method :parse, :parse_with_safety
-    end
-
-  end
-end
-
 class UrlNormalizer
   @@normalizer_for = Hash.new(UrlNormalizer)
 
@@ -34,8 +8,25 @@ class UrlNormalizer
     @@normalizer_for[domain] = self
   end
 
+  def self.encode_chars url
+    [
+      ['[', '%5B'],
+      [']', '%5D'],
+      ['{', '%7B'],
+      ['}', '%7D'],
+      ['|', '%7C'],
+      ['\\','%5C'],
+      ['^', '%5E'],
+    ].each do |from, to|
+      url = url.gsub from, to
+    end
+    url
+  end
+
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
+
+    url = encode_chars(url)
 
     uri = URI.parse(url)
 
