@@ -3,6 +3,7 @@ window.TabbedMainRegionLayout = Backbone.Marionette.Layout.extend({
 
   regions: {
     titleRegion:   'h1',
-    contentRegion: '.content'
+    contentRegion: '.content',
+    tabsRegion:    '.tabs'
   }
 });

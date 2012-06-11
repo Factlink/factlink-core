@@ -1,0 +1,6 @@
+<li class="active"><a>About {{username}}</a></li>
+
+{{#is_current_user}}
+  <li><a href="{{edit_path}}">Edit</a></li>
+  <li><a href="{{change_password_path}}">Change password</a></li>
+{{/is_current_user}}

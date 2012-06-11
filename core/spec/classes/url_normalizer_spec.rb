@@ -45,5 +45,10 @@ describe UrlNormalizer do
       end
     end
     it {should_normalize_to 'http://www.example.com/ff/entry.asp?123', 'http://www.example.com/ff/entry.asp?123'}
+
+
+    it {should_normalize_to 'http://example.com/foo?x=^y', 'http://example.com/foo?x=%5Ey'}
+    it {should_normalize_to 'http://example.com/foo?x={y}', 'http://example.com/foo?x=%7By%7D'}
+    it {should_normalize_to 'http://example.org/search.php?a=%F6', 'http://example.org/search.php?a=%F6'}
   end
 end

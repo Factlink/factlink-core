@@ -1,21 +1,6 @@
 require 'uri'
 require 'cgi'
 
-module URI
-  class << self
-
-    def parse_with_safety(uri)
-      parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D').gsub('|', '%7C').gsub('\\','%5C')
-    end
-
-    unless method_defined?(:parse_without_safety)
-      alias_method :parse_without_safety, :parse
-      alias_method :parse, :parse_with_safety
-    end
-
-  end
-end
-
 class UrlNormalizer
   @@normalizer_for = Hash.new(UrlNormalizer)
 
@@ -23,10 +8,27 @@ class UrlNormalizer
     @@normalizer_for[domain] = self
   end
 
+  def self.encode_chars url
+    [
+      ['[', '%5B'],
+      [']', '%5D'],
+      ['{', '%7B'],
+      ['}', '%7D'],
+      ['|', '%7C'],
+      ['\\','%5C'],
+      ['^', '%5E'],
+    ].each do |from, to|
+      url = url.gsub from, to
+    end
+    url
+  end
+
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
 
-    uri = URI.parse(url)
+    url = encode_chars(url)
+
+    uri = URI(url)
 
     @@normalizer_for[uri.host].new(uri).normalize
   end
@@ -57,12 +59,14 @@ class UrlNormalizer
 
   def build_query(params)
     params.map do |name,values|
+      escaped_name = URI.encode_www_form_component name
       if values.length > 0
         values.map do |value|
-          "#{CGI.escape name}=#{CGI.escape value}"
+          escaped_value = URI.encode_www_form_component value
+          "#{escaped_name}=#{escaped_value}"
         end
       else
-        ["#{CGI.escape name}"]
+        ["#{escaped_name}"]
       end
     end.flatten.join("&")
   end
