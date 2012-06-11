@@ -5,7 +5,18 @@ module URI
   class << self
 
     def parse_with_safety(uri)
-      parse_without_safety uri.gsub('[', '%5B').gsub(']', '%5D').gsub('|', '%7C').gsub('\\','%5C')
+      [
+        ['[', '%5B'],
+        [']', '%5D'],
+        ['{', '%7B'],
+        ['}', '%7D'],
+        ['|', '%7C'],
+        ['\\','%5C'],
+        ['^', '%5E'],
+      ].each do |from, to|
+        uri = uri.gsub from, to
+      end
+      parse_without_safety uri
     end
 
     unless method_defined?(:parse_without_safety)
