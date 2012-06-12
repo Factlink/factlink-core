@@ -7,7 +7,7 @@ window.FactView = Backbone.View.extend({
   _currentTab: undefined,
 
   events: {
-    "click a.remove": "removeFactFromChannel",
+    "click .remove": "removeFactFromChannel",
     "click li.destroy": "destroyFact",
 
     "click .tab-control .supporting"     : "tabClick",
