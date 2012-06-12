@@ -6,13 +6,16 @@ class MapReduce
 
     def map iterator
       iterator.each do |ch|
-        Topic.ensure_for_channel(ch)
-        Authority.all_from(ch).each do |authority|
-          yield({topic: ch.slug_title, user_id: authority.user_id}, authority.to_f)
-        end
-        auth = (authority_from_added_facts(ch) + authority_from_followers(ch))
-        if auth > 0
-          yield({topic: ch.slug_title, user_id: ch.created_by_id}, auth)
+        if ch.type == 'channel'
+          puts ch.id
+          Topic.ensure_for_channel(ch)
+          Authority.all_from(ch).each do |authority|
+            yield({topic: ch.slug_title, user_id: authority.user_id}, authority.to_f)
+          end
+          auth = (authority_from_added_facts(ch) + authority_from_followers(ch))
+          if auth > 0
+            yield({topic: ch.slug_title, user_id: ch.created_by_id}, auth)
+          end
         end
       end
     end
