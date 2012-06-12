@@ -12,14 +12,12 @@
     overflow: auto;
     width: 100%;
 
-    color: #777;
-    font-size: 0.9em;
-    line-height: 24px;
+
 
     .the-user {
-      // border: 1px solid rgba(206, 0, 0, 0.2);
-      float: left;
       padding: 0 3px 0 0;
+      line-height: 24px;
+      float: left;
 
       img {
         .border-radius(3px);
@@ -29,10 +27,27 @@
     }
 
     .the-activities {
-      // border: 1px solid rgba(0, 206, 0, 0.2);
-      float: left;
+      width: 100%;
+
+      padding: 0 0 0 32px;
+      box-sizing: border-box;
 
       div {
+        .activity-description {
+          color: #777;
+          font-size: 0.9em;
+          line-height: 24px;
+        }
+      }
+
+      > div {
+
+        &:nth-child(n + 2) {
+          // background: pink;
+          .meta {
+            .opacity(0);
+          }
+        }
         .meta {
           color: #ccc;
           display: block;
