@@ -102,9 +102,9 @@ class FakeFactsController < ApplicationController
       pos_opinions = [most, middle, least]
       neg_opinions = [least, middle, most]
     elsif type == 2
-      interacting_users = [["drMLNoordzij",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
+      interacting_users = [["dr ML Noordzij",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
     elsif type == 3
-      interacting_users = [["drLPanneels",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
+      interacting_users = [["dr L Panneels",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
     elsif type == 4
       interacting_username = redis["user_"+(params[:unr] || 0).to_i.to_s].get || 'someone'
       interacting_email = ['c.j.kramer@student.utwente.nl','s0168181@student.utwente.nl'][(params[:unr] || 0).to_i]
