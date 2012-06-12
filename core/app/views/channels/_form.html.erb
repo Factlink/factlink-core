@@ -31,13 +31,13 @@
   <div class="control-group">
     <%= f.label "#{t(:channel).titleize} name", class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :title, placeholder: "Politics, Cooking, Sports, ...", class: "input-xlarge", required: :required %>
+      <%= f.text_field :title, placeholder: "Politics, Cooking, Sports, ...", class: "input-xlarge", required: :required, tabindex: 1 %>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= link_to("Cancel", root_path, class: :btn) %>
-    <%= button_tag( @edit ? "Apply" : "Create", disable_with: (@edit ? "Applying..." : "Creating..."), :class => "btn btn-primary") %>
+    <%= link_to("Cancel", root_path, class: :btn, tabindex: 3) %>
+    <%= button_tag( @edit ? "Apply" : "Create", disable_with: (@edit ? "Applying..." : "Creating..."), :class => "btn btn-primary", tabindex: 2) %>
   </div>
 
 <% end %>
