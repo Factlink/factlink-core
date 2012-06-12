@@ -16,7 +16,7 @@ module BaseViews
       if show_links
         link_to(pretty_url, proxy_scroll_url, :target => "_blank")
       else
-        not pretty_url.blank? ? pretty_url : nil
+        (not pretty_url.blank?) ? pretty_url : nil
       end
     end
 

@@ -122,7 +122,7 @@ class Fact < Basefact
   end
 
   def reposition_in_top_facts
-    interestingness = self.opinion.a
+    interestingness = self.get_opinion().a
     Fact.key[:top_facts].zadd(interestingness, id)
   end
 
