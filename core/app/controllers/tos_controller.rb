@@ -16,7 +16,7 @@ class TosController < ApplicationController
     agrees_tos_name = params[:user][:agrees_tos_name]
 
     if current_user.sign_tos(agrees_tos, agrees_tos_name)
-      redirect_to user_profile_path(current_user)
+      redirect_to after_sign_in_path_for(current_user)
     else
       render :show
     end
