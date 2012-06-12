@@ -1,5 +1,6 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+@import "users/passport";
 
 // These variables are defined in parent filed as well. Should be removed from here
 @transition: opacity 0.2s ease;
@@ -22,7 +23,7 @@
       .opacity(100);
     }
 
-    a {
+    > a {
       padding: 6px 12px;
       line-height: 18px;
       border: 1px solid transparent;
@@ -68,15 +69,29 @@
       float: right;
 
       ul {
+        float: right;
         padding: 0px;
-        margin: -3px 0 0;
+        margin: -3px 0 -2px 10px;
+        position: relative;
+
+        .passport {
+          #user > .passport();
+        }
+
         li {
-          float:right;
-          padding: 0;
-          margin: 0;
+          display: inline;
+
           a {
-            padding: 0;
             margin: 0;
+            padding: 0;
+          }
+
+          img {
+            .border-radius(3px);
+            .opacity(60);
+            &:hover {
+              .opacity(100);
+            }
           }
         }
       }
