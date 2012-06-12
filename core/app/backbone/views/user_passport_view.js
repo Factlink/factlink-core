@@ -22,11 +22,11 @@ window.UserPassportView = Backbone.View.extend({
       .html(this.options.activity["internationalized_action"])
       .addClass(this.options.activity["action"]);
 
-    this.$passport.stop().fadeIn('fast');
+    this.$passport.fadeIn('fast');
   },
 
   hide: function() {
-    this.$passport.stop().fadeOut('fast');
+    this.$passport.fadeOut('fast');
   }
 
 });
