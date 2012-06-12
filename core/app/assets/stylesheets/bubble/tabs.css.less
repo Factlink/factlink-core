@@ -12,10 +12,11 @@
   margin: 14px 15px 0 70px;
   list-style: none;
 
-  li {
+  > li {
     float: left;
     height: 24px;
     .opacity(0);
+    margin-bottom: -2px;
 
     &.alwaysshow, &.tabOpened {
       .opacity(100);
@@ -65,11 +66,10 @@
 
     &.interacting-users {
       float: right;
-      width: 72px;
 
       ul {
         padding: 0px;
-        margin: -3px 0;
+        margin: -3px 0 0;
         li {
           float:right;
           padding: 0;
@@ -85,8 +85,6 @@
 }
 
 .tab-content {
-  /*margin-top: -2px;*/
-
   .arrowDown(@width: 10px, @color: @whiteDarker) {
     position: absolute;
     margin-top: -1px;
