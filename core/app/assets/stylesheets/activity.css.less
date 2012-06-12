@@ -9,22 +9,36 @@
     margin: 0 -15px;
     padding: 10px 15px;
 
-    .activity-container {
-      color: #777;
-      font-size: 0.9em;
-      line-height: 24px;
+    overflow: auto;
+    width: 100%;
+
+    color: #777;
+    font-size: 0.9em;
+    line-height: 24px;
+
+    .the-user {
+      // border: 1px solid rgba(206, 0, 0, 0.2);
+      float: left;
+      padding: 0 3px 0 0;
 
       img {
         .border-radius(3px);
         float: left;
         margin: 0 8px 0 0;
       }
+    }
 
-      .meta {
-        color: #ccc;
-        display: block;
-        float: right;
-        font-weight: 200;
+    .the-activities {
+      // border: 1px solid rgba(0, 206, 0, 0.2);
+      float: left;
+
+      div {
+        .meta {
+          color: #ccc;
+          display: block;
+          float: right;
+          font-weight: 200;
+        }
       }
     }
 
