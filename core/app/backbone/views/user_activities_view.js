@@ -3,10 +3,6 @@ window.UserActivitiesView = Backbone.Marionette.CompositeView.extend({
   template: 'activities/user-activities',
   className: 'activity-block',
 
-  beforeRender: function() {
-    console.info( this );
-  },
-
   initialize: function(opts) {
     this.itemView = ActivityItemView;
   },
