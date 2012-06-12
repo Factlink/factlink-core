@@ -13,11 +13,7 @@
 .tooltip {
   z-index: @max-z-index;
 }
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+
 /** Fact block */
 div.modal {
   overflow: visible !important;
@@ -27,11 +23,6 @@ div.modal {
   div.fact-block .close {
     .opacity(30);
   }
-}
-div.fact-block .close {
-  .opacity(0);
-  margin-right: 12px;
-  margin-top: 22px;
 }
 
 .float() {
@@ -163,6 +154,7 @@ ul.interacting-users {
     }
   }
 }
+
 .fact-block {
   color: #555;
   padding-bottom: 0px;
@@ -212,13 +204,33 @@ ul.interacting-users {
     }
   }
 
-  .timestamp {
-    color: #ccc;
-    font-size: 0.9em;
-    font-weight: 200;
-    padding: 10px 0 0;
-    position: absolute;
-    right: 15px;
-    top: 0;
+  ul.top-right {
+    float: right;
+    padding: 0 15px 0 0;
+
+    li {
+      display: inline;
+
+      &.close {
+        float: none;
+        position: relative;
+        top: 1px;
+        .opacity(0);
+      }
+
+      &.timestamp {
+        color: #ccc;
+        font-size: 0.9em;
+        font-weight: 200;
+      }
+    }
+  }
+
+  &:hover, &:active, &.active, .tab-control.active {
+    ul.top-right {
+      li.close {
+        .opacity(30);
+      }
+    }
   }
 }
