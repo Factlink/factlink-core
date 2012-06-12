@@ -15,10 +15,6 @@ window.UserPassportView = Backbone.View.extend({
     this.model.bind("change", this.render, this);
   },
 
-  render: function() {
-    return this;
-  },
-
   show: function() {
     this.$passport.html( this.tmpl.render(this.model.toJSON()));
 
@@ -26,11 +22,11 @@ window.UserPassportView = Backbone.View.extend({
       .html(this.options.activity["internationalized_action"])
       .addClass(this.options.activity["action"]);
 
-    this.$passport.fadeIn('fast');
+    this.$passport.stop().fadeIn('fast');
   },
 
   hide: function() {
-    this.$passport.fadeOut('fast');
+    this.$passport.stop().fadeOut('fast');
   }
 
 });
