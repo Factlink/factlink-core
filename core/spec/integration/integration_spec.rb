@@ -16,10 +16,6 @@ describe "Compare screens", type: :request do
       f1.data.save
       f1.reposition_in_top_facts
     end
-    puts "HOI"
-    puts Fact.top(3)
-    $stdout.flush
-
 
     visit "/"
     assume_unchanged_screenshot "homepage"
