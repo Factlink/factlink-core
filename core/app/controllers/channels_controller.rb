@@ -201,19 +201,20 @@ class ChannelsController < ApplicationController
   def activities
     authorize! :show, @channel
 
-    if @channel.type == "stream"
-      @activities_set = @user.graph_user.stream_activities
-    else
-      @activities_set = @channel.activities
-    end
-
-    @activities = @activities_set.below( params[:timestamp] || 'inf',
-      count: params[:number].andand.to_i || 24,
-      reversed: true, withscores: true).
-        keep_if{|a| a.andand[:item].andand.still_valid?}
-
     respond_to do |format|
-      format.json
+      format.json do
+        if @channel.type == "stream"
+          @activities_set = @user.graph_user.stream_activities
+        else
+          @activities_set = @channel.activities
+        end
+
+        @activities = @activities_set.below( params[:timestamp] || 'inf',
+          count: params[:number].andand.to_i || 24,
+          reversed: true, withscores: true).
+            keep_if{|a| a.andand[:item].andand.still_valid?}
+        render
+      end
       format.html { render inline:'', layout: "channels" }
     end
   end
