@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
                 else
                   opts
                 end
-    
+
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
     username = current_user ? current_user.username : nil
