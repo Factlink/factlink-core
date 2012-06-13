@@ -19,6 +19,8 @@ json.array!(@activities) do |json, activity|
 
   json.username user.username
 
+  json.subject_class activity.subject.class.to_s
+
   if @showing_notifications
     json.unread activity.created_at_as_datetime > current_user.last_read_activities_on
   end
