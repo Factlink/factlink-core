@@ -21,7 +21,7 @@ describe "Compare screens", type: :request do
     assume_unchanged_screenshot "homepage"
   end
 
-  0.upto(6) do |i|
+  [0,1,2,3,5,6] do |i|
     it "should render the fake factpage with cid #{i} as expected", js: true do
       visit "/x/3?cid=#{i}"
       assume_unchanged_screenshot "fake_fact_#{i}"
