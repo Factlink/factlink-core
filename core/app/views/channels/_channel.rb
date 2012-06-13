@@ -6,7 +6,11 @@ module Channels
     end
 
     def link
-      @link||="/#{self[:user].username}/channels/#{id}"
+      if discover_stream?
+        @link||="/#{self[:user].username}/channels/#{id}/activities"
+      else
+        @link||="/#{self[:user].username}/channels/#{id}"
+      end
     end
 
     def edit_link
