@@ -96,4 +96,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :channels_for_user
 
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
+  helper_method :can_haz
+
 end
