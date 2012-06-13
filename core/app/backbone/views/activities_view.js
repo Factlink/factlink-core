@@ -40,7 +40,7 @@ window.ActivitiesView = Backbone.View.extend({
 
   newChildView: function(model) {
     var ch = this.collection.channel;
-    return new UserActivitiesView({model: model.getUser(), collection: new ChannelActivities([], {channel: ch})});
+    return new UserActivitiesView({model: model.getActivity(), collection: new ChannelActivities([], {channel: ch})});
   }
 
 });
