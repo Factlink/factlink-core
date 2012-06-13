@@ -1,4 +1,4 @@
-if ENV['NEWRELIC']
+if ENV['NEWRELIC'] || Rails.env == 'production'
 
   require 'rpm_contrib'
   require 'new_relic/agent/method_tracer'
