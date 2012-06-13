@@ -8,7 +8,9 @@ window.UserActivitiesView = Backbone.Marionette.CompositeView.extend({
   },
 
   appendable: function(model) {
-    return this.model.get('username') === model.get('username');
+    var same_user           = this.model.get('username') === model.get('username');
+    var is_channel_activity = model.get('subject_class') === "Channel";
+    return same_user && is_channel_activity;
   },
 
   appendHtml: function(collectionView, itemView){
