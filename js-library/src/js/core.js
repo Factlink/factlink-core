@@ -3,7 +3,7 @@ var Factlink = window.Factlink = (function() {
   var Factlink = {};
 
   // noConflicts!
-  Factlink.$ = window.jQuery.noConflict();
+  Factlink.$ = window.jQuery.noConflict(true);
   Factlink._ = window._.noConflict();
   Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
 
