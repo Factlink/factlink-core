@@ -86,3 +86,5 @@ $(window).on('resize', function(e) {
   updateHeight();
 });
 })();
+
+updateHeight();

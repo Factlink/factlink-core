@@ -1,5 +1,6 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+@import "users/passport";
 
 // These variables are defined in parent filed as well. Should be removed from here
 @transition: opacity 0.2s ease;
@@ -12,16 +13,17 @@
   margin: 14px 15px 0 70px;
   list-style: none;
 
-  li {
+  > li {
     float: left;
     height: 24px;
     .opacity(0);
+    margin-bottom: -2px;
 
     &.alwaysshow, &.tabOpened {
       .opacity(100);
     }
 
-    a {
+    > a {
       padding: 6px 12px;
       line-height: 18px;
       border: 1px solid transparent;
@@ -43,50 +45,58 @@
     }
 
     &.destroy {
-      a {
-        #font > .iconic();
-        &:before {
-          content: "\e05a";
-        }
-      }
+      margin: -1px 0 0 0; // Align the delete icon with tab text
+      .icon("\e05a");
+      cursor: pointer;
     }
 
     &.permalink {
-      a {
-        #font > .iconic();
-        &:before {
-          content: '\e000'
-        }
-      }
+      .icon("\e025");
+      cursor: pointer;
+      line-height: 20px;
     }
 
     &.add-to-channel {
       float: right;
+      cursor: pointer;
 
       &.active {
 
         a {
           background: #f3f6fa;
-          border: 1px solid #dee5ef;
-          border-bottom: 1px solid #f3f6fa;
+          border: 1px solid #E2E2E2;
+          border-bottom: 1px solid transparent;
         }
       }
     }
 
     &.interacting-users {
       float: right;
-      width: 72px;
 
       ul {
+        float: right;
         padding: 0px;
-        margin: -3px 0;
+        margin: -3px 0 -2px 5px;
+        position: relative;
+
+        .passport {
+          #user > .passport();
+        }
+
         li {
-          float:right;
-          padding: 0;
-          margin: 0;
+          display: inline;
+
           a {
-            padding: 0;
             margin: 0;
+            padding: 0;
+          }
+
+          img {
+            .border-radius(3px);
+            .opacity(60);
+            &:hover {
+              .opacity(100);
+            }
           }
         }
       }
@@ -95,8 +105,6 @@
 }
 
 .tab-content {
-  margin-top: -2px;
-
   .arrowDown(@width: 10px, @color: @whiteDarker) {
     position: absolute;
     margin-top: -1px;
@@ -230,9 +238,6 @@
     .tab-control * {
       .opacity(100);
     }
-    .close {
-      .opacity(30);
-    }
   }
 }
 .evidence-list-wrapper {
@@ -241,7 +246,8 @@
 .evidence-list {
   display: none;
   background-color: @white;
-  border-bottom: 1px solid @grayLighter;
+  .border-radius(0 3px 3px 0);
+
   ul.evidence-listing {
     overflow: auto;
     max-height: 300px;
@@ -319,10 +325,7 @@ div.relation {
         width: 15px;
         height: 15px;
 
-        #font > .iconic();
-        &:before {
-          content: "\e05a";
-        }
+        .icon("\e05a");
       }
     }
 

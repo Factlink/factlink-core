@@ -15,10 +15,6 @@ window.UserPassportView = Backbone.View.extend({
     this.model.bind("change", this.render, this);
   },
 
-  render: function() {
-    return this;
-  },
-
   show: function() {
     this.$passport.html( this.tmpl.render(this.model.toJSON()));
 

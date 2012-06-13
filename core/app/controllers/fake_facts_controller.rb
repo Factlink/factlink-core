@@ -100,14 +100,15 @@ class FakeFactsController < ApplicationController
 
 
       pos_opinions = [most, middle, least]
-      neg_opinions = [most, middle, least]
+      neg_opinions = [least, middle, most]
     elsif type == 2
-      interacting_users = [["dr. M.L. Noordzij",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
+      interacting_users = [["dr ML Noordzij",gravatar_url('mark+prof@factlink.com', size: 20), beltype]]
     elsif type == 3
-      interacting_users = [["dr. L. Panneels",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
+      interacting_users = [["dr L Panneels",gravatar_url('mark+prof2@factlink.com', size: 20), beltype ]]
     elsif type == 4
       interacting_username = redis["user_"+(params[:unr] || 0).to_i.to_s].get || 'someone'
-      interacting_users = [[interacting_username ,"https://secure.gravatar.com/avatar/2fbbe1c53162b9e2417bb85aab1726a1?rating=PG&size=20&default=retro", beltype]]
+      interacting_email = ['c.j.kramer@student.utwente.nl','s0168181@student.utwente.nl'][(params[:unr] || 0).to_i]
+      interacting_users = [[interacting_username ,gravatar_url(interacting_email), beltype]]
     elsif type == 5
       interacting_users = [["Jef Vanderoost",gravatar_url('mark+belg@factlink.com', size: 20), beltype]]
     else

@@ -1,14 +1,19 @@
-{{#deletable_from_channel?}}
-  <a class="close remove" rel="nofollow">&times;</a>
-{{/deletable_from_channel?}}
+<ul class="top-right">
+  {{#deletable_from_channel?}}
+    <li class="close remove">
+      <a rel="nofollow">&times;</a>
+    </li>
+  {{/deletable_from_channel?}}
 
-<div class="timestamp">
-  {{friendly_time}}
-</div>
-
-{{#modal?}}
-  <a class="close" rel="nofollow" onclick="parent.remote.hide();">&times;</a>
-{{/modal?}}
+  {{#modal?}}
+    <li class="close">
+      <a rel="nofollow" onclick="parent.remote.hide();">&times;</a>
+    </li>
+  {{/modal?}}
+  <li class="timestamp">
+    {{ friendly_time }}
+  </li>
+</ul>
 
 {{#fact_bubble}}
   {{>fact_bubble}}

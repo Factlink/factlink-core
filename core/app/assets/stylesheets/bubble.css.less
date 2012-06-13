@@ -6,6 +6,7 @@
 @import "bootstrap/variables";
 @import "bubble/wheel";
 @import "bubble/title";
+@import "users/passport";
 
 @transition: opacity 0.2s ease;
 @max-z-index : 2147483647;
@@ -13,11 +14,7 @@
 .tooltip {
   z-index: @max-z-index;
 }
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+
 /** Fact block */
 div.modal {
   overflow: visible !important;
@@ -28,141 +25,9 @@ div.modal {
     .opacity(30);
   }
 }
-div.fact-block .close {
-  .opacity(0);
-  margin-right: 12px;
-  margin-top: 22px;
-}
 
-.float() {
-  background-color: @white;
-  display: none;
-  z-index: 2000;
-  .drop-shadow(0, 0, 5px, 0.2);
-  border: 1px solid @grayLight;
-}
-.channel-listing {
-  .float();
-  width: 200px;
-  position: absolute;
-  ul {
-    max-height: 160px;
-    overflow-y: auto;
-    .visible-scroll();
-    padding: 4px 0 0 4px;
-    li {
-      .ellipsis();
-      width: 170px;
-      padding: 5px 0 5px 0 !important;
-      margin: 0 0 0 5px !important;
-      border: none !important;
-      line-height: 13px;
-
-      label {
-        margin: 0;
-        line-height: 13px;
-      }
-    }
-  }
-  .add-channel {
-    border-top: solid 1px #ddd;
-    padding: 8px;
-
-    div {
-      height: 28px;
-      line-height: 14px;
-      margin: 0;
-      padding: 0;
-      input[type="text"] {
-        line-height: normal;
-        width: 124px;
-        border: solid 1px #ccc;
-      }
-
-      .submit{
-        margin: -9px 0 0;
-      }
-    }
-  }
-}
-
-@controlsHeight: 23px;
 @rightIndent: 10px;
 
-/* INTERACTING USERS + PASSPORT */
-ul.interacting-users {
-  li {
-    display: inline-block;
-    margin-right: 2px;
-    img {
-      .border-radius(3px);
-      .opacity(60);
-      &:hover {
-        .opacity(100);
-      }
-    }
-  }
-  .passport {
-    .float();
-    position: absolute;
-    margin-left:-182px;
-    width: 200px;
-    display: none;
-    height: 85px;
-    margin-top: -88px;
-
-    .activity {
-      width: 40%;
-      text-transform: capitalize;
-      text-shadow: none;
-      .border-radius(0 0 5px 0);
-      font-weight: bold;
-      line-height: 18px;
-      padding-left: 5px;
-      background-color: @grayLighter;
-      &.doubts, &.disbelieves, &.believes { color: @white; }
-      &.doubts { background-color: #36a9e1; }
-      &.disbelieves { background-color: #e94e1b; }
-      &.believes { background-color: #98d100; }
-    }
-
-    .username {
-      font-weight: bold;
-      line-height: @baseLineHeight * 1.1;
-    }
-    img {
-      margin-top: 5px;
-      margin-left: 5px;
-      float: left;
-      .opacity(100);
-    }
-    .user-info {
-      padding: 0px 5px 15px 5px;
-      margin-left: 40px;
-      line-height: 12px;
-      height: auto;
-
-      ul {
-        height: auto;
-        overflow: hidden;
-
-        li {
-          float: left;
-          word-wrap: break-word;
-          margin-right: 0;
-          display: inline;
-          line-height: 12px;
-          &:not(:last-child):after {
-            content: ",";
-          }
-          a {
-            line-height: 12px;
-          }
-        }
-      }
-    }
-  }
-}
 .fact-block {
   color: #555;
   padding-bottom: 0px;
@@ -172,7 +37,7 @@ ul.interacting-users {
     padding: 10px 0 0px (@rightIndent / 2);
 
     .wheel {
-      #fact>.wheel();
+      #fact > .wheel();
     }
 
     header {
@@ -195,7 +60,7 @@ ul.interacting-users {
       }
 
       .title {
-        #fact>.title();
+        #fact > .title();
       }
 
       .body {
@@ -212,13 +77,33 @@ ul.interacting-users {
     }
   }
 
-  .timestamp {
-    color: #ccc;
-    font-size: 0.9em;
-    font-weight: 200;
-    padding: 10px 0 0;
-    position: absolute;
-    right: 15px;
-    top: 0;
+  ul.top-right {
+    float: right;
+    padding: 0 15px 0 0;
+
+    li {
+      display: inline;
+
+      &.close {
+        float: none;
+        position: relative;
+        top: 1px;
+        .opacity(0);
+      }
+
+      &.timestamp {
+        color: #ccc;
+        font-size: 0.9em;
+        font-weight: 200;
+      }
+    }
+  }
+
+  &:hover, &:active, &.active, .tab-control.active {
+    ul.top-right {
+      li.close {
+        .opacity(30);
+      }
+    }
   }
 }

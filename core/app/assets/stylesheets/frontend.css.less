@@ -14,6 +14,7 @@
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "channels/add_channel_to_channel";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -47,9 +48,15 @@ body.factlink-site .fact-block {
   border-bottom: 1px solid @grayLighter;
   margin: 0px -15px;
   .transition(all 0.2s ease);
+
   &.active {
     margin: 15px 0 15px 0;
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
   .dropdown-container {
     margin-left: 70px;
     margin-right: 15px;
@@ -175,8 +182,9 @@ body.factlink-site .fact-block {
       padding: 4px;
       margin-top: -2px;
       &:before {
-        content: "\2795";
         #font > .iconic();
+        content: "\2795";
+        margin: 0 3px 0 0;
       }
     }
     .related-users {
@@ -211,7 +219,7 @@ body.factlink-site .fact-block {
   }
   @borderRadius: 4px;
   #main-wrapper {
-    padding: 15px;
+    padding: 15px 15px 0;
     margin-bottom: 172px;
     background-color: @white;
     .border-radius(@borderRadius);
@@ -219,6 +227,7 @@ body.factlink-site .fact-block {
     .drop-shadow();
     position: relative;
     z-index: 100;
+
     header.title {
       color: #777;
       border-top: 1px solid @white;
@@ -306,6 +315,10 @@ body.factlink-site .fact-block {
       }
       #contained-channel-list.not_my_channel span.close {
         display:none;
+      }
+
+      .channel-listing {
+        #channel > .channel-listing();
       }
 
       #contained-channel-list {
@@ -415,6 +428,10 @@ body.factlink-site .fact-block {
     margin-top: 15px;
     font-size: @baseFontSize;
     text-align: center;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 0 25px 0;
+
     p {
       padding-bottom: 1em;
     }
@@ -437,21 +454,21 @@ body.factlink-site .fact-block {
   .more_facts {
     padding: 15px;
     border-bottom: 1px solid #e7e7e7;
-    margin:0 -15px;
+    margin: 0 -15px;
 
     a {
+      span {
+        padding: 0 5px 0 0;
+        #font > .iconic();
+        font-size: 13px;
+      }
+
       border: 1px solid #dee5ef;
       background: #f3f6fa;
       .border-radius(5px);
       display: block;
       text-align: center;
       line-height: 40px;
-
-      i {
-        background: image-url('list-icon.png');
-        background-position: center center;
-        margin: 0 5px 0 0;
-      }
     }
   }
 }
