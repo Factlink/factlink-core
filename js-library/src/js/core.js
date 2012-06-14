@@ -3,7 +3,11 @@ var Factlink = window.Factlink = (function() {
   var Factlink = {};
 
   // noConflicts!
-  Factlink.$ = window.jQuery.noConflict(true);
+  jQuery.noConflict();
+  window.$ = function (selector,context) { return new jQuery.fn.init(selector,context || window.parent.document); };
+  $.fn = $.prototype = jQuery.fn;
+  jQuery.extend($, jQuery);
+  Factlink.$ = $;
   Factlink._ = window._.noConflict();
   // Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
 
@@ -27,9 +31,9 @@ var Factlink = window.Factlink = (function() {
   Factlink.tmpl = {};
 
   // Add the stylesheet
-  var style = document.createElement("link");
-  style.type = "text/css";
-  style.rel = "stylesheet";
-  style.href = FactlinkConfig.lib + "/dist/css/basic.css?" + (new Date()).getTime();
-  document.getElementsByTagName("head")[0].appendChild(style);
+  var $style = $('<link>').attr({
+    type: "text/css",
+    rel: "stylesheet",
+    href: FactlinkConfig.lib + "/dist/css/basic.css?" + (new Date()).getTime()
+  }).prependTo('head');
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
