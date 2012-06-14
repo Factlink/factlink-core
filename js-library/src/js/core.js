@@ -5,7 +5,7 @@ var Factlink = window.Factlink = (function() {
   // noConflicts!
   Factlink.$ = window.jQuery.noConflict(true);
   Factlink._ = window._.noConflict();
-  Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
+  // Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
 
   Factlink._.templateSettings = {
     interpolate : /\{%\=(.+?)%\}/g,
