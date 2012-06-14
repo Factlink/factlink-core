@@ -3,7 +3,7 @@ window.BaseFactWheelView = Backbone.View.extend({
   className: "wheel",
 
   defaults: {
-    dimension: 24,
+    dimension: 16,
     radius: 16,
     minimalVisiblePercentage: 15,
     defaultStroke: {
@@ -36,8 +36,8 @@ window.BaseFactWheelView = Backbone.View.extend({
       .html( this.tmpl.render(this.model.toJSON()) );
 
     this.canvas = Raphael(this.el,
-                          this.options.dimension * 2 + 17,
-                          this.options.dimension * 2 + 17);
+                          this.options.dimension * 2 + 12,
+                          this.options.dimension * 2 + 12);
 
     this.bindCustomRaphaelAttributes();
 
