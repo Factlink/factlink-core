@@ -18,14 +18,6 @@ window.ChannelView = Backbone.View.extend({
         }),
         channel: self.model
       });
-
-      this.factsView.setLoading();
-
-      this.factsView.collection.fetch({
-        data: {
-          timestamp: this.factsView._timestamp
-        }
-      });
     }
   },
 
@@ -116,7 +108,8 @@ window.ChannelView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.$el.find('#facts_for_channel').append(this.factsView.render().el);
+      this.factsView.render();
+      this.$el.find('#facts_for_channel').append(this.factsView.el);
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');

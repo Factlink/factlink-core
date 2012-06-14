@@ -1,8 +1,8 @@
-window.FactsView = Backbone.CollectionView.extend({
+window.FactsView = Backbone.Marionette.CompositeView.extend({
   tagName: "div",
   className: "facts",
   containerSelector: ".facts",
-  modelView: FactView,
+  itemView: FactView,
   _loading: true,
   _timestamp: undefined,
   _previousLength: -1,
@@ -16,21 +16,20 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
-  tmpl: Template.use("channels", "_facts"),
+  template: "channels/_facts",
 
   initialize: function(options) {
-    var self = this;
+    this.model = options.channel;
+    this.actualLoadMore();
+  },
 
-    this.collection.bind('add', this.add, this);
-    this.collection.bind('reset', this.reset, this);
-    this.collection.bind('remove', this.removeOne, this);
-
-    //TODO split this into two views, one for channels, one for searchresults
-    this.$el.html(this.tmpl.render(options.channel && options.channel.toJSON()));
-
-    this.$el.find('.icon-pen').tooltip({ title: 'Add a title to this Factlink'});
-
-    this.bindScroll();
+  appendHtml: function(collectionView, itemView){
+    //TODO: also allow for adding in the middle
+    if (collectionView.collection.indexOf(itemView.model) === 0) {
+      this.$el.find(this.containerSelector).prepend(itemView.el);
+    } else {
+      this.$el.find(this.containerSelector).append(itemView.el);
+    }
   },
 
   createFact: function (e) {
@@ -57,7 +56,9 @@ window.FactsView = Backbone.CollectionView.extend({
 
         var a = self.collection.unshift(fact);
 
-        self.views[fact.cid].highlight();
+        // HACK this is how backbone marionette stores childviews:
+        // dependent on their implementation though
+        self.children[fact.cid].highlight();
 
         $form.find(':input').val('').prop('disabled',false);
 
@@ -96,35 +97,17 @@ window.FactsView = Backbone.CollectionView.extend({
     ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
   },
 
-  removeOne: function (fact) {
-    this.views[fact.cid].remove();
-  },
-
-  render: function() {
-    var self = this;
+  onRender: function() {
+    this.bindScroll();
 
     if (this.collection.length === 0 && !this._loading) {
       this.showNoFacts();
-    } else {
-      this.collection.forEach(function(fact) {
-        self.add(fact);
-      });
-    }
-
-    if ( this._previousLength === this.collection.length ) {
-      this.hasMore = false;
-    } else {
-      this._previousLength = this.collection.length;
-    }
+    } 
 
     this.loadMore();
-
-    return this;
   },
 
-  remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-
+  onClose: function() {
     this.unbindScroll();
   },
 
@@ -151,27 +134,32 @@ window.FactsView = Backbone.CollectionView.extend({
     var self = this;
     var lastModel = self.collection.models[(self.collection.length - 1) || 0];
     var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
-
+    
+    
     if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
-      self.setLoading();
-
       self._timestamp = new_timestamp;
 
-      self.collection.fetch({
-        add: true,
-        data: {
-          timestamp: self._timestamp
-        },
-        success: function() {
-          self.stopLoading();
-          self.loadMore();
-        },
-        error: function() {
-          self.stopLoading();
-          self.hasMore = false;
-        }
-      });
+      this.actualLoadMore();
     }
+  },
+
+  actualLoadMore: function() {
+    self = this;
+    this.setLoading();
+    this.collection.fetch({
+      add: true,
+      data: {
+        timestamp: this._timestamp
+      },
+      success: function() {
+        self.stopLoading();
+        self.loadMore();
+      },
+      error: function() {
+        self.stopLoading();
+        self.hasMore = false;
+      }
+    });
   },
 
   hasMore: true,
