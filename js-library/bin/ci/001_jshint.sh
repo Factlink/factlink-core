@@ -1,3 +1,3 @@
 #!/bin/bash
-grunt lint || exit 1
+grunt lint --no-color || exit 1
 exit
