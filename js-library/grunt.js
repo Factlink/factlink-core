@@ -69,8 +69,7 @@ module.exports = function(grunt){
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
     },
     copy: {
-      'dist/server/css/basic.css': 'src/css/basic.css',
-      'dist/css/basic.css': 'src/css/basic.css',
+      'dist/server/css/basic.css': 'dist/css/basic.css',
 
       'dist/server/images/arrow.png': 'src/images/arrow.png',
       'dist/server/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
@@ -83,6 +82,15 @@ module.exports = function(grunt){
       'dist/images/arrows-top.png': 'src/images/arrows-top.png',
       'dist/images/bookmark.gif': 'src/images/bookmark.gif',
       'dist/images/logo-small.png': 'src/images/logo-small.png'
+    },
+    less: {
+      basic: {
+        src: 'src/css/basic.less',
+        dest: 'dist/css/basic.css',
+        options: {
+          yuicompress: true
+        }
+      }
     },
     min: {
       'dist/server/factlink.min.js': ['<banner>', 'dist/factlink.js'],
@@ -100,8 +108,8 @@ module.exports = function(grunt){
       files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit concat copy'
+      files: '*',
+      tasks: 'lint qunit concat less copy'
     },
     jshint: {
       options: {
@@ -185,4 +193,6 @@ module.exports = function(grunt){
   grunt.registerMultiTask('copy', 'copy files', function () {
     grunt.file.copy(this.data,this.target);
   });
+
+  grunt.loadNpmTasks('grunt-less');
 };
