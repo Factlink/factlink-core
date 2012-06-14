@@ -219,7 +219,7 @@ body.factlink-site .fact-block {
   }
   @borderRadius: 4px;
   #main-wrapper {
-    padding: 15px 15px 0;
+    padding: 15px 15px 15px;
     margin-bottom: 172px;
     background-color: @white;
     .border-radius(@borderRadius);
@@ -227,6 +227,10 @@ body.factlink-site .fact-block {
     .drop-shadow();
     position: relative;
     z-index: 100;
+
+    #channel {
+      margin-bottom: -15px;
+    }
 
     header.title {
       color: #777;
@@ -426,11 +430,11 @@ body.factlink-site .fact-block {
   }
   .no_facts {
     margin-top: 15px;
+    margin-bottom: 15px;
     font-size: @baseFontSize;
     text-align: center;
     width: 100%;
     overflow: hidden;
-    padding: 0 0 25px 0;
 
     p {
       padding-bottom: 1em;

@@ -9,14 +9,16 @@
     margin: 0 -15px;
     padding: 10px 15px;
 
+
+    &:last-child {
+      border-bottom: solid 1px transparent;
+    }
+
     overflow: auto;
     width: 100%;
 
-
-
     .the-user {
       padding: 0 3px 0 0;
-      line-height: 24px;
       float: left;
 
       img {
@@ -32,11 +34,17 @@
       padding: 0 0 0 32px;
       box-sizing: border-box;
 
+      .fact-block article.fact {
+        padding: 0;
+        float: right;
+        margin-top: -10px;
+        width: 666px
+      }
+
       div {
         .activity-description {
-          color: #777;
+          color: #999;
           font-size: 0.9em;
-          line-height: 24px;
         }
       }
 
