@@ -2,4 +2,4 @@
 
 export DISPLAY=:0
 
-grunt qunit || exit 1
+grunt qunit --no-color || exit 1
