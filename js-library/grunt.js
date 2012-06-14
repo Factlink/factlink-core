@@ -3,7 +3,7 @@
 var files = {
   0: [
     'libs/jquery-1.6.1.js',
-    'libs/easyXDM.js',
+    // 'libs/easyXDM.js',
     'libs/underscore.js'
   ],
   1: [
@@ -31,7 +31,7 @@ var files = {
     'src/js/lib/indicator.js'
   ],
   5: [
-    'src/js/xdm.js'
+    // 'src/js/xdm.js'
   ],
   6: [
     'src/js/last.js'
