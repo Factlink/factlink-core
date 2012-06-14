@@ -67,6 +67,7 @@ module.exports = function(grunt){
       'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
       'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
+      'dist/loader.js': '<file_strip_banner:src/js/loader.js>'
     },
     copy: {
       'dist/server/css/basic.css': 'src/css/basic.css',
@@ -91,7 +92,8 @@ module.exports = function(grunt){
       'dist/server/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
       'dist/server/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js'],
       'dist/server/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js'], // for the server
-      'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js']         // for local
+      'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js'],        // for local
+      'dist/loader.min.js': ['<banner>', 'dist/loader.js']
     },
     qunit: {
       files: ['test/*.html']
