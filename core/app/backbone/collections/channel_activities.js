@@ -9,3 +9,5 @@ window.ChannelActivities = Backbone.Collection.extend({
     return this.channel.url() + '/activities.json';
   }
 });
+
+_.extend(ChannelActivities.prototype, AutoloadCollectionOnTimestamp);
