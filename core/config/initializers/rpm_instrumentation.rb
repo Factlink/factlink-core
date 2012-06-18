@@ -1,6 +1,4 @@
-if ENV['NEWRELIC'] || Rails.env == 'production'
-  require 'newrelic_rpm'
-  require 'rpm_contrib'
+if defined?(NewRelic)
   require 'new_relic/agent/method_tracer'
 
   Ability.class_eval do
