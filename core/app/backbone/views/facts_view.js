@@ -8,11 +8,9 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
 
   startLoading: function() {
     this.$el.find('div.loading').show();
-    this.unbindScroll();
   },
 
   stopLoading: function() {
-    this.bindScroll();
     this.$el.find('div.loading').hide();
   },
 
@@ -42,6 +40,7 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   },
 
   bindScroll: function() {
+    this.unbindScroll();
     var self = this;
     $(window).bind('scroll.' + this.cid, function MCBiggah() {
       self.loadMore.apply(self);
