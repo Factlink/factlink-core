@@ -34,7 +34,6 @@ window.ChannelFacts = Backbone.Collection.extend({
   },
 
   loadMore: function() {
-    self = this;
     if( ! this.needsMore() ) {return;}
     this.startLoading();
     this.fetch({
@@ -42,13 +41,13 @@ window.ChannelFacts = Backbone.Collection.extend({
       data: {
         timestamp: this._timestamp
       },
-      success: function() {
-        self.stopLoading();
-      },
-      error: function() {
-        self.stopLoading();
-        self.hasMore = false;
-      }
+      success: _.bind(function() {
+        this.stopLoading();
+      }, this),
+      error: _.bind(function() {
+        this.stopLoading();
+        this.hasMore = false;
+      }, this)
     });
   }
 
