@@ -6,7 +6,7 @@ window.ChannelActivities = Backbone.Collection.extend({
   },
 
   url: function() {
-    return this.channel.url() + '/activities.json';
+    return '/' + this.channel.get('created_by').username + '/channels/' + this.channel.get('id') + '/activities.json';
   }
 });
 
