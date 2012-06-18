@@ -4,7 +4,7 @@ window.ActivitiesView = AutoloadingView.extend({
 
   initialize: function(opts) {
     this.collection.on('reset', this.reset, this);
-    this.collection.bind('add', this.add, this);
+    this.collection.on('add', this.add, this);
     // this.collection.bind('remove', this.removeOne, this);
 
     this.itemView = ActivityItemView;
