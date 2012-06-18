@@ -16,12 +16,8 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
 
 
   loadMore: function() {
-    var self = this;
-    var new_timestamp = self.collection.new_timestamp();
-
-    if ( self.bottomOfViewReached() && self.collection.needsMore(new_timestamp) ) {
-      self.collection._timestamp = new_timestamp;
-
+    if ( this.bottomOfViewReached()) {
+      console.info(this.collection.loadMore);
       this.collection.loadMore();
     }
   },

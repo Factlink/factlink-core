@@ -6,13 +6,13 @@ window.ChannelFacts = Backbone.Collection.extend({
 
   initialize: function(model, opts) {
     this.channel = opts.channel;
+    this.on('add',this.updateTimestamp,this);
   },
 
-  new_timestamp: function() {
-    self = this;
-    var lastModel = self.models[(self.length - 1) || 0];
-    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
-    return new_timestamp;
+
+  updateTimestamp: function(){
+    var lastModel = this.models[(self.length - 1) || 0];
+    this._timestamp = (lastModel ? lastModel.get('timestamp') : 0);
   },
 
   startLoading: function(){
@@ -26,7 +26,7 @@ window.ChannelFacts = Backbone.Collection.extend({
   },
 
   needsMore: function(){
-    return this.hasMore && ! this._loading && this._timestamp !== this.new_timestamp()
+    return this.hasMore && ! this._loading;
   },
 
   url: function() {
@@ -35,6 +35,7 @@ window.ChannelFacts = Backbone.Collection.extend({
 
   loadMore: function() {
     self = this;
+    if( ! this.needsMore() ) {return;}
     this.startLoading();
     this.fetch({
       add: true,
