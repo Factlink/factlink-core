@@ -108,7 +108,7 @@ module.exports = function(grunt){
       files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '*',
+      files: ['src/js/**/*', 'test/**/*', 'grunt.js'],
       tasks: 'lint qunit concat less copy'
     },
     jshint: {
