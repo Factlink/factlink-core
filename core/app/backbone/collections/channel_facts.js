@@ -1,5 +1,6 @@
 window.ChannelFacts = Backbone.Collection.extend({
   model: Fact,
+  _loading: undefined,
 
   initialize: function(model, opts) {
     this.channel = opts.channel;

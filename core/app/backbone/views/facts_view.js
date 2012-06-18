@@ -5,12 +5,12 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   },
 
   setLoading: function() {
-    this._loading = true;
+    this.collection._loading = true;
     this.$el.find('div.loading').show();
   },
 
   stopLoading: function() {
-    this._loading = false;
+    this.collection._loading = false;
     this.$el.find('div.loading').hide();
   },
 
@@ -21,7 +21,7 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
 
 
-    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
+    if ( self.bottomOfViewReached() && ! self.collection._loading && self._timestamp !== new_timestamp ) {
       self._timestamp = new_timestamp;
 
       this.actualLoadMore();
@@ -45,9 +45,23 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   },
 
   _timestamp: undefined,
-  _loading: true,
   _previousLength: -1,
   hasMore: true,
+
+  bottomOfViewReached: function() {
+    var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
+    var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
+
+    if ( this.hasMore ) {
+      if ( bottomOfEl < bottomOfTheViewport ) {
+        return true;
+      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
+        return true;
+      }
+    }
+
+    return false;
+  },
 
   bindScroll: function() {
     var self = this;
@@ -63,7 +77,30 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   close: function() {
     Backbone.Marionette.CompositeView.prototype.close.apply(this, arguments);
     this.unbindScroll();
-  }
+  },
+  
+
+  onRender: function() {
+    this.bindScroll();
+
+    if (this.collection.length === 0 && !this.collection._loading) {
+      this.showEmpty();
+    }
+
+    this.loadMore();
+  },
+
+
+  beforeReset: function(e){
+    this.stopLoading();
+  },
+  
+  afterAdd: function () {
+    this.hideEmpty();
+  },
+  
+  showEmpty: function(){},
+  hideEmpty: function(){}
 
 });
 
@@ -162,46 +199,11 @@ window.FactsView = AutoloadingCompositeView.extend({
     ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
   },
 
-  onRender: function() {
-    this.bindScroll();
-
-    if (this.collection.length === 0 && !this._loading) {
-      this.showNoFacts();
-    }
-
-    this.loadMore();
-  },
-
-
-  beforeReset: function(e){
-    this.stopLoading();
-  },
-
-  moreNeeded: function() {
-    var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
-    var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
-
-    if ( this.hasMore ) {
-      if ( bottomOfEl < bottomOfTheViewport ) {
-        return true;
-      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
-        return true;
-      }
-    }
-
-    return false;
-  },
-
-  showNoFacts: function() {
+  showEmpty: function() {
     this.$el.find('div.no_facts').show();
   },
 
-  hideNoFacts: function() {
+  hideEmpty: function() {
     this.$el.find('div.no_facts').hide();
-  },
-
-  afterAdd: function () {
-    this.hideNoFacts();
-  },
-
+  }
 });
