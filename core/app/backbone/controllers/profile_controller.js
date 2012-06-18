@@ -1,27 +1,10 @@
 window.ProfileController = {
 
-  // TODO: This function needs to wait for loading (Of channel contents in main column)
-  setupChannelReloading: function(){
-    var args = arguments;
-
-    if ( typeof localStorage === "object"
-      && localStorage !== null
-      && localStorage['reload'] === "false" ) {
-      return;
-    }
-
-    setTimeout(function(){
-      Channels.fetch({
-        success: args.callee
-      });
-    }, 7000);
-  },
-
   showProfile: function(username) {
     var self = this;
     var channelCollectionView = new ChannelsView({collection: window.Channels});
     window.Channels.setUsername(username);
-    this.setupChannelReloading();
+    window.Channels.setupReloading();
     FactlinkApp.channelListRegion.show(channelCollectionView);
 
     var user = new User({username: username});
