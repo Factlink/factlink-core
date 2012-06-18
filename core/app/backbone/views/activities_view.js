@@ -11,12 +11,12 @@ window.ActivitiesView = AutoloadingView.extend({
   },
 
   render: function() {
-    var self = this;
+    this.$el.html('');
 
     _.each(this.childViews, function(view) {
       view.render();
-      self.$el.append(view.$el);
-    });
+      this.$el.append(view.$el);
+    }, this);
     AutoloadingView.prototype.render.apply(this, arguments);
 
   },
@@ -38,6 +38,7 @@ window.ActivitiesView = AutoloadingView.extend({
     }
 
     appendTo.collection.add(model);
+    this.render();
   },
 
   newChildView: function(model) {
