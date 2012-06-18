@@ -39,7 +39,7 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     this.unbindScroll();
     var self = this;
     $(window).bind('scroll.' + this.cid, function MCBiggah() {
-      self.loadMore.apply(self);
+      self.loadMore();
     });
   },
 
