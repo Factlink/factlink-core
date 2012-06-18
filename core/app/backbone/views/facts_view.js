@@ -1,16 +1,16 @@
 window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   constructor: function(options){
     Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
-    this.actualLoadMore();
+    this.collection.on('startLoading', this.startLoading, this);
+    this.collection.on('stopLoading', this.setLoading, this);
+    this.collection.loadMore();
   },
 
-  setLoading: function() {
-    this.collection._loading = true;
+  startLoading: function() {
     this.$el.find('div.loading').show();
   },
 
   stopLoading: function() {
-    this.collection._loading = false;
     this.$el.find('div.loading').hide();
   },
 
@@ -22,27 +22,9 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     if ( self.bottomOfViewReached() && self.collection.needsMore(new_timestamp) ) {
       self.collection._timestamp = new_timestamp;
 
-      this.actualLoadMore();
+      this.collection.loadMore();
     }
   },
-
-  actualLoadMore: function() {
-    self = this;
-    this.setLoading();
-    this.collection.loadMore({
-      timestamp: this.collection._timestamp,
-      success: function() {
-        self.stopLoading();
-        self.loadMore();
-      },
-      error: function() {
-        self.stopLoading();
-        self.collection.hasMore = false;
-      }
-    })
-  },
-
-  _previousLength: -1,
 
   bottomOfViewReached: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
@@ -80,13 +62,11 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     if (this.collection.length === 0 && !this.collection._loading) {
       this.showEmpty();
     }
-
-    this.loadMore();
   },
 
 
   beforeReset: function(e){
-    this.stopLoading();
+    this.collection.stopLoading();
   },
 
   afterAdd: function () {

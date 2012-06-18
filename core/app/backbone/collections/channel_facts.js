@@ -9,9 +9,20 @@ window.ChannelFacts = Backbone.Collection.extend({
   },
 
   new_timestamp: function() {
-    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
+    self = this;
+    var lastModel = self.models[(self.length - 1) || 0];
     var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
     return new_timestamp;
+  },
+
+  startLoading: function(){
+    this._loading = true;
+    this.trigger('startLoading',this);
+  },
+
+  stopLoading: function(){
+    this._loading = false;
+    this.trigger('stopLoading',this);
   },
 
   needsMore: function(){
@@ -22,17 +33,22 @@ window.ChannelFacts = Backbone.Collection.extend({
     return this.channel.url() + '/facts';
   },
 
-  loadMore: function(opts) {
+  loadMore: function() {
+    self = this;
+    this.startLoading();
     this.fetch({
       add: true,
       data: {
-        timestamp: opts.timestamp
+        timestamp: this._timestamp
       },
-      success: opts.success,
-      error: opts.error
+      success: function() {
+        self.stopLoading();
+      },
+      error: function() {
+        self.stopLoading();
+        self.hasMore = false;
+      }
     });
-
   }
-
 
 });
