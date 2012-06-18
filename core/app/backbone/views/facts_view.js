@@ -17,7 +17,6 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
 
   loadMore: function() {
     if ( this.bottomOfViewReached()) {
-      console.info(this.collection.loadMore);
       this.collection.loadMore();
     }
   },
