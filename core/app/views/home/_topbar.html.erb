@@ -15,14 +15,14 @@
               <%= render "facts/fact_search" %>
             <% end %>
 
-            <ul class="nav secondary-nav pull-right">
+            <ul class="nav secondary-nav pull-right navbar-options">
               <% if can? :access, Ability::AdminArea %>
                 <%= render "home/topbar/admin_menu" %>
               <% end %>
 
               <%= render "home/topbar/notifications" %>
-              <%= render "home/topbar/user_menu" %>
-              <%= render "home/topbar/info_menu" %>
+              <%= render "home/topbar/user_profile" %>
+              <%= render "home/topbar/topbar_menu" %>
             </ul>
           </div>
         <% else %>

@@ -9,16 +9,15 @@
     margin: 0 -15px;
     padding: 10px 15px;
 
+    overflow: auto;
+    width: 100%;
 
     &:last-child {
       border-bottom: solid 1px transparent;
     }
 
-    overflow: auto;
-    width: 100%;
-
     .the-user {
-      padding: 0 3px 0 0;
+      padding: 0;
       float: left;
 
       img {
@@ -28,18 +27,15 @@
       }
     }
 
+    .the-link {
+      float: left;
+      padding: 0 4px 0 0;
+    }
+
     .the-activities {
-      width: 100%;
-
-      padding: 0 0 0 32px;
       box-sizing: border-box;
-
-      .fact-block article.fact {
-        padding: 0;
-        float: right;
-        margin-top: -10px;
-        width: 666px
-      }
+      padding: 0 0 0 32px;
+      width: 100%;
 
       div {
         .activity-description {
@@ -51,7 +47,6 @@
       > div {
 
         &:nth-child(n + 2) {
-          // background: pink;
           .meta {
             .opacity(0);
           }

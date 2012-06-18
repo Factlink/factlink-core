@@ -18,29 +18,11 @@ ChannelsController = {
     return channel;
   },
 
-  // TODO: This function needs to wait for loading (Of channel contents in main column)
-  setupChannelReloading: function(){
-    var args = arguments;
-
-    if ( typeof localStorage === "object"
-      && localStorage !== null
-      && localStorage['reload'] === "false" ) {
-      return;
-    }
-
-    setTimeout(function(){
-      Channels.fetch({
-        success: args.callee,
-        error: args.callee
-      });
-    }, 7000);
-  },
-
   commonChannelViews: function(channel) {
     window.currentChannel = channel;
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelsView({collection: window.Channels});
-    this.setupChannelReloading();
+    window.Channels.setupReloading();
     FactlinkApp.channelListRegion.show(channelCollectionView);
     var userView = new UserView({model: channel.user});
     FactlinkApp.userblockRegion.show(userView);

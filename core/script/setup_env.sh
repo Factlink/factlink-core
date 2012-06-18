@@ -9,8 +9,8 @@ git clone git@github.com:Factlink/server-management -b master
 
 ln -s core/config config
 gem install bundler
-npm install jslint -g
-npm install supervisor -g
+sudo npm install jslint -g
+sudo npm install supervisor -g
 
 cd core
 	git checkout develop

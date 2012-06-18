@@ -92,8 +92,10 @@ gem 'rmagick', require: false
 gem 'rack-xframe-options', git: 'git@github.com:Factlink/rack-xframe-options.git'
 gem 'rack-rewrite'
 
-gem 'rpm_contrib', '2.1.7', require: false
-gem 'newrelic_rpm', require: false
+group :production do
+  gem 'rpm_contrib', '2.1.7'
+  gem 'newrelic_rpm'
+end
 
 group :assets do
   # Temporary fix for @import bug, merge back to original Gem when it's in master
