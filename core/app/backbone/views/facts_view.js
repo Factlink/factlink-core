@@ -17,12 +17,10 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
 
   loadMore: function() {
     var self = this;
-    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
-    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
+    var new_timestamp = self.collection.new_timestamp();
 
-
-    if ( self.bottomOfViewReached() && ! self.collection._loading && self._timestamp !== new_timestamp ) {
-      self._timestamp = new_timestamp;
+    if ( self.bottomOfViewReached() && self.collection.needsMore(new_timestamp) ) {
+      self.collection._timestamp = new_timestamp;
 
       this.actualLoadMore();
     }
@@ -32,35 +30,31 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     self = this;
     this.setLoading();
     this.collection.loadMore({
-      timestamp: this._timestamp,
+      timestamp: this.collection._timestamp,
       success: function() {
         self.stopLoading();
         self.loadMore();
       },
       error: function() {
         self.stopLoading();
-        self.hasMore = false;
+        self.collection.hasMore = false;
       }
     })
   },
 
-  _timestamp: undefined,
   _previousLength: -1,
-  hasMore: true,
 
   bottomOfViewReached: function() {
     var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
     var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
 
-    if ( this.hasMore ) {
-      if ( bottomOfEl < bottomOfTheViewport ) {
-        return true;
-      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
-        return true;
-      }
+    if ( bottomOfEl < bottomOfTheViewport ) {
+      return true;
+    } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
+      return true;
+    } else {
+      return false;
     }
-
-    return false;
   },
 
   bindScroll: function() {
@@ -78,7 +72,7 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
     Backbone.Marionette.CompositeView.prototype.close.apply(this, arguments);
     this.unbindScroll();
   },
-  
+
 
   onRender: function() {
     this.bindScroll();
@@ -94,11 +88,11 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   beforeReset: function(e){
     this.stopLoading();
   },
-  
+
   afterAdd: function () {
     this.hideEmpty();
   },
-  
+
   showEmpty: function(){},
   hideEmpty: function(){}
 
