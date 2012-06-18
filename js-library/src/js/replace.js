@@ -74,7 +74,7 @@
         // Only select the first range of every matched string
         // Needed for when one displayString is matched mutliple times on
         // one page
-        i % (results.length / ranges.length) === 0));
+        res.first));
     }
 
     for ( var el in elements ) {
@@ -141,6 +141,7 @@
     // Only parse the nodes if the startNode is already found,
     // this boolean is used for tracking
     var foundStart = false;
+    var first = true;
 
     // Walk the DOM in the right order and call the function for every
     // node it passes
@@ -165,8 +166,11 @@
             startOffset: rStartOffset,
             endOffset: rEndOffset,
             node: node,
-            matchId: matchId
+            matchId: matchId,
+            first: first
           });
+
+          first = false;
         }
 
         if (foundStart && node === range.endContainer) {
