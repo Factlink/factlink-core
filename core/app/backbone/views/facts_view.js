@@ -1,11 +1,77 @@
-window.FactsView = Backbone.Marionette.CompositeView.extend({
+window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
+  constructor: function(options){
+    Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
+    this.actualLoadMore();
+  },
+
+  setLoading: function() {
+    this._loading = true;
+    this.$el.find('div.loading').show();
+  },
+
+  stopLoading: function() {
+    this._loading = false;
+    this.$el.find('div.loading').hide();
+  },
+
+
+  loadMore: function() {
+    var self = this;
+    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
+    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
+
+
+    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
+      self._timestamp = new_timestamp;
+
+      this.actualLoadMore();
+    }
+  },
+
+  actualLoadMore: function() {
+    self = this;
+    this.setLoading();
+    this.collection.loadMore({
+      timestamp: this._timestamp,
+      success: function() {
+        self.stopLoading();
+        self.loadMore();
+      },
+      error: function() {
+        self.stopLoading();
+        self.hasMore = false;
+      }
+    })
+  },
+
+  _timestamp: undefined,
+  _loading: true,
+  _previousLength: -1,
+  hasMore: true,
+
+  bindScroll: function() {
+    var self = this;
+    $(window).bind('scroll.' + this.cid, function MCBiggah() {
+      self.loadMore.apply(self);
+    });
+  },
+
+  unbindScroll: function() {
+    $(window).unbind('scroll.' + this.cid);
+  },
+
+  close: function() {
+    Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
+    this.unbindScroll();
+  }
+
+});
+
+window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
   className: "facts",
   containerSelector: ".facts",
   itemView: FactView,
-  _loading: true,
-  _timestamp: undefined,
-  _previousLength: -1,
   views: {},
   events: {
     "submit #create_fact_for_channel": "createFact",
@@ -20,7 +86,6 @@ window.FactsView = Backbone.Marionette.CompositeView.extend({
 
   initialize: function(options) {
     this.model = options.channel;
-    this.actualLoadMore();
   },
 
   appendHtml: function(collectionView, itemView){
@@ -102,14 +167,11 @@ window.FactsView = Backbone.Marionette.CompositeView.extend({
 
     if (this.collection.length === 0 && !this._loading) {
       this.showNoFacts();
-    } 
+    }
 
     this.loadMore();
   },
 
-  onClose: function() {
-    this.unbindScroll();
-  },
 
   beforeReset: function(e){
     this.stopLoading();
@@ -130,40 +192,6 @@ window.FactsView = Backbone.Marionette.CompositeView.extend({
     return false;
   },
 
-  loadMore: function() {
-    var self = this;
-    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
-    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
-    
-    
-    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
-      self._timestamp = new_timestamp;
-
-      this.actualLoadMore();
-    }
-  },
-
-  actualLoadMore: function() {
-    self = this;
-    this.setLoading();
-    this.collection.fetch({
-      add: true,
-      data: {
-        timestamp: this._timestamp
-      },
-      success: function() {
-        self.stopLoading();
-        self.loadMore();
-      },
-      error: function() {
-        self.stopLoading();
-        self.hasMore = false;
-      }
-    });
-  },
-
-  hasMore: true,
-
   showNoFacts: function() {
     this.$el.find('div.no_facts').show();
   },
@@ -176,24 +204,4 @@ window.FactsView = Backbone.Marionette.CompositeView.extend({
     this.hideNoFacts();
   },
 
-  setLoading: function() {
-    this._loading = true;
-    this.$el.find('div.loading').show();
-  },
-
-  stopLoading: function() {
-    this._loading = false;
-    this.$el.find('div.loading').hide();
-  },
-
-  bindScroll: function() {
-    var self = this;
-    $(window).bind('scroll.' + this.cid, function MCBiggah() {
-      self.loadMore.apply(self);
-    });
-  },
-
-  unbindScroll: function() {
-    $(window).unbind('scroll.' + this.cid);
-  }
 });
