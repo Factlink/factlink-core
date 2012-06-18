@@ -61,7 +61,7 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   },
 
   close: function() {
-    Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
+    Backbone.Marionette.CompositeView.prototype.close.apply(this, arguments);
     this.unbindScroll();
   }
 
