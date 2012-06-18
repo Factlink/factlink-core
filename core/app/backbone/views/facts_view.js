@@ -81,7 +81,6 @@ window.FactsView = AutoloadingCompositeView.extend({
   template: "channels/_facts",
 
   initialize: function(options) {
-    this.model = options.channel;
     this.collection.on('startLoading', this.startLoading, this);
     this.collection.on('stopLoading', this.stopLoading, this);
   },

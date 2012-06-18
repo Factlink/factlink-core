@@ -16,7 +16,7 @@ window.ChannelView = Backbone.View.extend({
         collection: new ChannelFacts([],{
           channel: self.model
         }),
-        channel: self.model
+        model: self.model
       });
     }
   },
