@@ -1,4 +1,4 @@
-window.ActivitiesView = Backbone.View.extend({
+window.ActivitiesView = AutoloadingView.extend({
 
   childViews: [],
 
@@ -17,6 +17,8 @@ window.ActivitiesView = Backbone.View.extend({
       view.render();
       self.$el.append(view.$el);
     });
+    AutoloadingView.prototype.render.apply(this, arguments);
+
   },
 
   reset: function() {
