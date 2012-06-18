@@ -1,17 +1,7 @@
 window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   constructor: function(options){
     Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
-    this.collection.on('startLoading', this.startLoading, this);
-    this.collection.on('stopLoading', this.stopLoading, this);
     this.collection.loadMore();
-  },
-
-  startLoading: function() {
-    this.$el.find('div.loading').show();
-  },
-
-  stopLoading: function() {
-    this.$el.find('div.loading').hide();
   },
 
 
@@ -92,7 +82,18 @@ window.FactsView = AutoloadingCompositeView.extend({
 
   initialize: function(options) {
     this.model = options.channel;
+    this.collection.on('startLoading', this.startLoading, this);
+    this.collection.on('stopLoading', this.stopLoading, this);
   },
+
+  startLoading: function() {
+    this.$el.find('div.loading').show();
+  },
+
+  stopLoading: function() {
+    this.$el.find('div.loading').hide();
+  },
+
 
   appendHtml: function(collectionView, itemView){
     //TODO: also allow for adding in the middle
