@@ -2,15 +2,17 @@ window.AutoloadingCompositeView = Backbone.Marionette.CompositeView.extend({
   constructor: function(options){
     Backbone.Marionette.CompositeView.prototype.constructor.apply(this, arguments);
     this.collection.on('startLoading', this.startLoading, this);
-    this.collection.on('stopLoading', this.setLoading, this);
+    this.collection.on('stopLoading', this.stopLoading, this);
     this.collection.loadMore();
   },
 
   startLoading: function() {
     this.$el.find('div.loading').show();
+    this.unbindScroll();
   },
 
   stopLoading: function() {
+    this.bindScroll();
     this.$el.find('div.loading').hide();
   },
 
