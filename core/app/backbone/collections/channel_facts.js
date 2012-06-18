@@ -11,8 +11,8 @@ window.ChannelFacts = Backbone.Collection.extend({
 
 
   updateTimestamp: function(){
-    var lastModel = this.models[(self.length - 1) || 0];
-    this._timestamp = (lastModel ? lastModel.get('timestamp') : 0);
+    var lastModel = this.models[(this.length - 1) || 0];
+    this._timestamp = (lastModel ? lastModel.get('timestamp') : undefined);
   },
 
   startLoading: function(){
