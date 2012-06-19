@@ -1,6 +1,4 @@
 describe("FactView", function() {
-  template('mustache-templates.html');
-
   it("should escape HTML in fields", function() {
     var model = new Fact({
       displaystring: "baas<a>test</a> of niet",
