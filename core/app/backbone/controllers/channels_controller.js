@@ -1,4 +1,4 @@
-ChannelsController = {
+window.ChannelsController = {
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
@@ -40,4 +40,4 @@ ChannelsController = {
     FactlinkApp.mainRegion.show(new ChannelActivitiesView({model: channel}));
   }
 
-}
+};
