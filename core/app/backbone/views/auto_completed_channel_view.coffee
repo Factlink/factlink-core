@@ -1,4 +1,4 @@
-window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
+class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   triggers:
@@ -19,4 +19,3 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
   onRender: ->
     if @model.get('user_channel' )
       @$el.addClass('user-channel')
-)
