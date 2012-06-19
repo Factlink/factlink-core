@@ -28,7 +28,7 @@ window.ChannelList = Backbone.Collection.extend({
       }
     }
   },
-  
+
   getUsername: function() {
     if ( this._username ) {
       return this._username;
@@ -49,7 +49,7 @@ window.ChannelList = Backbone.Collection.extend({
 
   setupReloading: function() {
     if(this.shouldReload() && (! this.reloadingEnabled === true)) {
-      this.reloadingEnabled = true
+      this.reloadingEnabled = true;
       this.startReloading();
     }
   },
