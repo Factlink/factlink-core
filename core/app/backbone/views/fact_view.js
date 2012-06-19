@@ -238,12 +238,18 @@ window.FactView = Backbone.View.extend({
   },
 
   initUserPassportViews: function() {
-    var self = this;
-    $(this.model.get("interacting_users")["activity"]).each(function()  {
-      var el = $("li.user[data-activity-id="+ this.id + "]", self.el);
-      var model = new User(this.user);
-      var view = new UserPassportView({model: model, el: el, activity: this});
-    });
+    var interacting_users = this.model.get('interacting_users');
+
+    _.each(interacting_users.activity, function (user) {
+      var el = this.$el.find('li.user[data-activity-id=' + user.id + ']');
+      var model = new User(user.user);
+
+      var view = new UserPassportView({
+        model: model,
+        el: el,
+        activity: user
+      }).render();
+    }, this);
   },
 
   highlight: function() {
