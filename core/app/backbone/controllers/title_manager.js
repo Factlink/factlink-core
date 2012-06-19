@@ -32,12 +32,14 @@ window.TitleManagerView = Backbone.View.extend({
       return memo + channel.get('unread_count');
     }, 0);
 
-    TitleManager.set('channelUnreadCount', count);
+    this.model.set('channelUnreadCount', count);
   }
 });
 
+window.TitleManager = new Backbone.Model();
+
 new TitleManagerView({
-  model: new Backbone.Model()
+  model: TitleManager
 });
 
 }());
