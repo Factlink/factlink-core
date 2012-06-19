@@ -19,7 +19,7 @@ gem 'ohm', :git => 'https://github.com/Factlink/ohm.git' # we need the tribalvib
 gem 'ohm-contrib', :git => 'http://github.com/Factlink/ohm-contrib.git'
 gem 'redis-aid'
 gem 'redis-objects'
-gem 'multi_json', '1.1.0'
+gem 'multi_json', '>= 1.2.0'
 
 gem 'resque', '1.19.0'
 gem 'resque_mailer'
@@ -138,10 +138,10 @@ group :test do
   gem 'capybara-email'
   gem 'chunky_png'
   gem 'headless'
-end
 
-group :jstest do
-  gem 'evergreen', :require => 'evergreen/rails'
+  gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
+  gem 'jasmine-headless-webkit', :git => "git://github.com/johnbintz/jasmine-headless-webkit.git"
+  gem 'therubyracer'
 end
 
 group :development do
