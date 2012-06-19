@@ -60,8 +60,8 @@ window.ChannelList = Backbone.Collection.extend({
       var self = this;
       setTimeout(function(){
         self.fetch({
-          succes: args.callee,
-          error: args.callee
+          success: _.bind(args.callee, self),
+          error:   _.bind(args.callee, self)
         });
       }, 7000);
     }
