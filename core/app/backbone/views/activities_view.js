@@ -13,10 +13,10 @@ window.ActivitiesView = AutoloadingView.extend({
   render: function() {
     this.$el.html('');
 
-    _.each(this.childViews, function(view) {
-      view.render();
-      this.$el.append(view.$el);
-    }, this);
+    // _.each(this.childViews, function(view) {
+    //   view.render();
+    //   this.$el.append(view.$el);
+    // }, this);
     AutoloadingView.prototype.render.apply(this, arguments);
 
   },
@@ -35,10 +35,13 @@ window.ActivitiesView = AutoloadingView.extend({
     } else {
       appendTo = this.newChildView(model);
       this.childViews.push(appendTo);
+      var view = appendTo;
+      view.render();
+      this.$el.append(view.$el);
+      
     }
 
     appendTo.collection.add(model);
-    this.render();
   },
 
   newChildView: function(model) {
