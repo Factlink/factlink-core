@@ -3,6 +3,21 @@ var timeout;
 var pageX;
 var pageY;
 
+function rightClick(e) {
+  var rightclick;
+  if (!e) {
+    e = window.event;
+  }
+
+  if (e.which) {
+    rightclick = (e.which === 3);
+  } else if (e.button) {
+    rightclick = (e.button === 2);
+  }
+
+  return rightclick;
+}
+
 Factlink.startAnnotating = function() {
   console.info( "Factlink:", "startAnnotating" );
   $('body').bind('mouseup.factlink', function(e) {
@@ -18,6 +33,7 @@ Factlink.startAnnotating = function() {
     // Without this hack there are moments when the prepare menu will show
     // without any text being selected
     timeout = setTimeout(function() {
+      if ( rightClick(e) ) { return; }
       // Retrieve all needed info of current selection
       var selectionInfo = Factlink.getSelectionInfo();
 
