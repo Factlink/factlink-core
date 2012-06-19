@@ -19,7 +19,7 @@ window.ChannelsController = {
   },
 
   commonChannelViews: function(channel) {
-    window.currentChannel = channel;
+    this.setCurrentChannel(channel);
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelsView({collection: window.Channels});
     window.Channels.setupReloading();
@@ -38,6 +38,12 @@ window.ChannelsController = {
     var channel = this.loadChannel(username, channel_id);
     this.commonChannelViews(channel);
     FactlinkApp.mainRegion.show(new ChannelActivitiesView({model: channel}));
+  },
+
+  setCurrentChannel: function(channel) {
+    window.currentChannel = channel;
   }
 
 };
+
+window.Channels = new ChannelList();

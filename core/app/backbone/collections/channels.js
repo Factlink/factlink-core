@@ -60,7 +60,11 @@ window.ChannelList = Backbone.Collection.extend({
       var self = this;
       setTimeout(function(){
         self.fetch({
-          success: _.bind(args.callee, self),
+          success: function(collection, response) {
+            var newCurrentChannel = collection.get(currentChannel.id);
+            currentChannel.set(newCurrentChannel.attributes);
+            _.bind(args.callee, self)();
+          },
           error:   _.bind(args.callee, self)
         });
       }, 7000);
@@ -68,5 +72,3 @@ window.ChannelList = Backbone.Collection.extend({
   }
 
 });
-
-window.Channels = new ChannelList();
