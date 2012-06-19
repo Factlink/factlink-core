@@ -20,10 +20,6 @@ var GenericActivityFactItemView = Backbone.Marionette.CompositeView.extend({
   initialize: function(opts){
     var fact = new Fact(this.model.get('activity')['fact']);
     this.collection = new Backbone.Collection([fact]);
-  },
-
-  appendHtml: function(collectionView, itemView) {
-    this.$el.append(itemView.el);
   }
 
 });
