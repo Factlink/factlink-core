@@ -3,8 +3,8 @@ window.ChannelList = Backbone.Collection.extend({
   reloadingEnabled: false,
 
   initialize: function() {
-    this.bind('activate', this.setActiveChannel);
-    this.bind('reset', this.checkActiveChannel);
+    this.on('activate', this.setActiveChannel);
+    this.on('reset', this.checkActiveChannel);
   },
 
   url: function() {
