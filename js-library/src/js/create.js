@@ -7,8 +7,6 @@
 
     if (document.getSelection) {
       d = document.getSelection();
-    } else if (document.getSelection) {
-      d = document.getSelection();
     } else if (document.selection) {
       d = document.selection.createRange().text;
     } else {
@@ -25,12 +23,12 @@
         Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
     }
   };
-  
+
   Factlink.createFactFromSelection = function(opinion,callback,errorCallback){
     var selInfo = Factlink.getSelectionInfo();
     Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback,errorCallback);
   };
-  
+
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
     Factlink.post("/facts.json", {
       data: {
@@ -42,7 +40,7 @@
       },
       success: function(data) {
         var factObjs = Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id, data.score_dict_as_percentage);
-        
+
         if ($.isFunction(successFn)) {
           successFn(data.id, factObjs);
         }
