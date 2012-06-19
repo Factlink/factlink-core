@@ -1,6 +1,7 @@
 window.UserPassportView = Backbone.View.extend({
   tagName: "li",
   className: "user",
+  shouldShow: false,
 
   events: {
     "mouseenter": "show",
@@ -15,18 +16,29 @@ window.UserPassportView = Backbone.View.extend({
     this.model.bind("change", this.render, this);
   },
 
-  show: function() {
-    this.$passport.html( this.tmpl.render(this.model.toJSON()));
+  render: function () {
+    this.$passport.html( this.tmpl.render( this.model.toJSON() ) );
 
     $(".activity", this.$passport)
-      .html(this.options.activity["internationalized_action"])
-      .addClass(this.options.activity["action"]);
+      .html( this.options.activity["internationalized_action"] )
+      .addClass( this.options.activity["action"] );
+
+    return this;
+  },
+
+  show: function() {
+    this.shouldShow = true;
 
     this.$passport.fadeIn('fast');
   },
 
   hide: function() {
-    this.$passport.fadeOut('fast');
-  }
+    this.shouldShow = false;
 
+    _.delay( _.bind(function() {
+      if ( ! this.shouldShow ) {
+        this.$passport.fadeOut('fast');
+      }
+    }, this), 150);
+  }
 });
