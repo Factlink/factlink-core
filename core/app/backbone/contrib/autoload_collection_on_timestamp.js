@@ -24,9 +24,10 @@ window.AutoloadCollectionOnTimestamp = {
   },
 
   loadMore: function() {
+    var prevlength;
     if( ! this.needsMore() ) {return;}
     
-    var prevlength = this.length;
+    prevlength = this.length;
     
     this.startLoading();
     this.fetch({
@@ -37,15 +38,15 @@ window.AutoloadCollectionOnTimestamp = {
       success: _.bind(function() {
         console.info('lange jan', this.length);
         this.updateTimestamp();
-        this.stopLoading();
         if (prevlength === this.length){
           this.hasMore = false;
         }
+        this.stopLoading();
       }, this),
       error: _.bind(function() {
         this.updateTimestamp();
-        this.stopLoading();
         this.hasMore = false;
+        this.stopLoading();
       }, this)
     });
   }
