@@ -135,15 +135,19 @@ class User
     guser.save
   end
 
+  def self.human_attribute_name(attr, options = {})
+    attr.to_sym == :non_field_error ? '' : super
+  end
+
   def sign_tos(agrees_tos, agrees_tos_name)
     valid = true
     unless agrees_tos
       valid = false
-      self.errors.add("", "You have to accept the Terms of Service to continue.")
+      self.errors.add(:non_field_error, "You have to accept the Terms of Service to continue.")
     end
     if agrees_tos_name.blank?
       valid = false
-      self.errors.add("", "Please fill in your name to accept the Terms of Service.")
+      self.errors.add(:non_field_error, "Please fill in your name to accept the Terms of Service.")
     end
 
     if valid and self.assign_attributes({agrees_tos: agrees_tos, agrees_tos_name: agrees_tos_name, agreed_tos_on: DateTime.now}, as: :from_tos) and save
