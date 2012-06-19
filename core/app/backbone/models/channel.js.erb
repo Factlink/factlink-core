@@ -1,9 +1,10 @@
 window.Channel = Backbone.Model.extend({
+
   initialize: function(opts) {
     var self = this;
 
-    this.bind('activate', this.setActive);
-    this.bind('deactivate', this.setNotActive);
+    this.on('activate', this.setActive);
+    this.on('deactivate', this.setNotActive);
 
     this.user = new User(opts.created_by);
   },
