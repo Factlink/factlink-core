@@ -1,4 +1,6 @@
+/*
 <% if FactlinkUI::Application.config.chrome_extension_id %>
+*/
   function detectChromeExtension(if_installed, if_not_installed) {
     var s = document.createElement('script');
     s.onerror = if_not_installed;
@@ -19,4 +21,6 @@
   function runIfChromeExtensionIsNotInstalled(){
     $('html').addClass('chrome_without_extension');
   }
+/*
 <% end %>
+*/
