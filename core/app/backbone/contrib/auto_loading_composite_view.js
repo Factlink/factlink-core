@@ -25,7 +25,6 @@ function extendWithAutoloading(superclass) {
     },
 
     afterLoad: function() {
-
       if (this.collection.length === 0 && !this.collection._loading) {
         this.showEmpty();
       }
