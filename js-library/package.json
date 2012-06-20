@@ -10,6 +10,7 @@
     "url": "git@github.com:Factlink/js-library.git"
   },
   "dependencies": {
+    "grunt-less": "0.1.4"
   },
   "devDependencies": {}
 }
