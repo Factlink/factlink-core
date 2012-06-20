@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
       format.js
       format.html do
         render inline:'', layout: "channels"
-        @channel.mark_as_read
+        @channel.mark_as_read if @channel.created_by == current_graph_user
       end
     end
   end
