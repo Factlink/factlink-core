@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
 	include Resque::Mailer
 
-  default from: "no-reply@factlink.com"
+  default from: "Factlink <no-reply@factlink.com>"
 
   def welcome_instructions(user_id)
   	@user = User.find(user_id)
