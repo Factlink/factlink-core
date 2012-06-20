@@ -28,7 +28,7 @@ var Factlink = window.Factlink = (function() {
   };
 
   // Create the Factlink container
-  Factlink.el = $('<div id="fl" />').appendTo('body');
+  Factlink.el = $('#fl');
   // Create template wrapper
   Factlink.tmpl = {};
 
