@@ -1,21 +1,32 @@
 (function () {
-  var iframe = document.createElement("iframe");
-  var body = document.getElementsByTagName("body")[0];
+  function createIframe() {
+    var body = document.getElementsByTagName("body")[0];
+    var iframe = document.createElement("iframe");
+    var div = document.createElement("div");
 
-  iframe.style.display = "none";
+    iframe.style.display = "none";
+    iframe.id = "factlink-iframe";
+    div.id = "fl";
 
-  body.insertBefore(iframe, body.firstChild);
+    body.insertBefore(div, body.firstChild);
+    div.insertBefore(iframe, div.firstChild);
+
+    return iframe;
+  }
+
+  var iframe = createIframe();
 
   var iDocument = iframe.contentWindow.document;
   var iHead = iDocument.getElementsByTagName("head")[0];
+  var head = document.getElementsByTagName("head")[0];
 
-  var script = document.createElement("script");
-  script.src = FactlinkConfig.lib + "/dist/factlink.js";
+  var flScript = document.createElement("script");
+  flScript.src = FactlinkConfig.lib + "/dist/factlink.js";
 
   var configScript = document.createElement("script");
   configScript.type = "text/javascript";
   configScript.innerHTML = "window.FactlinkConfig = " + JSON.stringify(FactlinkConfig) + ";";
 
   iHead.insertBefore(configScript, iHead.firstChild);
-  iHead.insertBefore(script, iHead.firstChild);
+  iHead.insertBefore(flScript, iHead.firstChild);
 }());
