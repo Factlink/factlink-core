@@ -44,13 +44,20 @@ class Channel < OurOhm
   set :contained_channels, Channel
   set :containing_channels, Channel
 
+  set :unread_facts, Channel
+
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
   after :create, :update_top_users
 
-  delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
+  delegate :unread_count,  :to => :sorted_cached_facts
+
+  def mark_as_read
+    sorted_cached_facts.mark_as_read
+    unread_facts.make_empty
+  end
 
   attribute :discontinued
   index :discontinued
@@ -85,7 +92,7 @@ class Channel < OurOhm
   end
 
   def new_unread_count
-    return 99
+    unread_facts.size
   end
 
   def facts(opts={})
