@@ -69,13 +69,13 @@ module.exports = function(grunt){
       ' */'
     },
     concat: {
-      'dist/factlink.js': createFactlinkConcatObject(files),
+      'dist/factlink.core.js': createFactlinkConcatObject(files),
       'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/chrome/start_annotating.js>',
       'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/chrome/stop_annotating.js>',
       'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
       'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
-      'dist/loader.js': createFactlinkConcatObject(loaderFiles)
+      'dist/factlink.js': createFactlinkConcatObject(loaderFiles)
     },
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
@@ -102,14 +102,14 @@ module.exports = function(grunt){
       }
     },
     min: {
-      'dist/server/factlink.min.js': ['<banner>', 'dist/factlink.js'],
+      'dist/server/factlink.core.min.js': ['<banner>', 'dist/factlink.core.js'],
       'dist/server/factlink.start_annotating.min.js': ['<banner>', 'dist/factlink.start_annotating.js'],
       'dist/server/factlink.stop_annotating.min.js': ['<banner>', 'dist/factlink.stop_annotating.js'],
       'dist/server/factlink.start_highlighting.min.js': ['<banner>', 'dist/factlink.start_highlighting.js'],
       'dist/server/factlink.stop_highlighting.min.js': ['<banner>', 'dist/factlink.stop_highlighting.js'],
       'dist/server/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js'], // for the server
       'dist/easyXDM/easyXDM.min.js': ['<banner>', 'dist/easyXDM/easyXDM.js'],        // for local
-      'dist/loader.min.js': ['<banner>', 'dist/loader.js']
+      'dist/factlink.min.js': ['<banner>', 'dist/factlink.js']
     },
     qunit: {
       files: ['test/*.html']
