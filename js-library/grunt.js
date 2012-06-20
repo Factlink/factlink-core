@@ -38,6 +38,15 @@ var files = {
   ]
 };
 
+var loaderFiles = {
+  0: [
+    'libs/easyXDM.js'
+  ],
+  1: [
+    'src/js/loader.js'
+  ]
+};
+
 module.exports = function(grunt){
 
   function createFactlinkConcatObject(filesObj) {
@@ -67,7 +76,7 @@ module.exports = function(grunt){
       'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
       'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
-      'dist/loader.js': '<file_strip_banner:src/js/loader.js>'
+      'dist/loader.js': createFactlinkConcatObject(loaderFiles)
     },
     copy: {
       'dist/server/css/basic.css': 'src/css/basic.css',
@@ -102,8 +111,8 @@ module.exports = function(grunt){
       files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit concat copy'
+      files: ['src/js/**/*', 'src/css/**/*', 'grunt.js', 'test/**/*.js'],
+      tasks: 'lint concat copy'
     },
     jshint: {
       options: {
