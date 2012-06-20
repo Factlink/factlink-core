@@ -33,4 +33,8 @@ class Ohm::Model::Set < Ohm::Model::Collection
     end
   end
 
+  def make_empty
+    key.del
+  end
+
 end

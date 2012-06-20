@@ -37,6 +37,15 @@ describe Ohm::Model::Set do
 
   end
 
+  describe :make_empty do
+    it "should remove all elements" do
+      @c1.items << @b
+      @c1.items.make_empty
+      @c1.items.ids.should =~ []
+    end
+
+  end
+
 end
 
 
