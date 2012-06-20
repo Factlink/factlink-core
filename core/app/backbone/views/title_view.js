@@ -16,10 +16,7 @@ window.TitleView = Backbone.View.extend({
   },
 
   countString: function() {
-    var notificationsCount = this.model.get('notificationsCount') || 0;
-    var channelUnreadCount = this.model.get('channelUnreadCount') || 0;
-
-    var count = notificationsCount + channelUnreadCount;
+    var count = this.model.totalUnreadCount();
 
     if (count > 0) {
       return "(" + count + ") ";
