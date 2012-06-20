@@ -21,7 +21,7 @@
   var head = document.getElementsByTagName("head")[0];
 
   var flScript = document.createElement("script");
-  flScript.src = FactlinkConfig.lib + "/dist/factlink.js";
+  flScript.src = FactlinkConfig.lib + FactlinkConfig.srcPath;
 
   var configScript = document.createElement("script");
   configScript.type = "text/javascript";
