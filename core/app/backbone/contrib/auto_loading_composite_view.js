@@ -52,14 +52,12 @@ function extendWithAutoloading(superclass) {
     },
 
     render: function() {
-      console.info('render       # AutoloadingCompositeView');
       superclass.prototype.render.apply(this, arguments);
       this.bindScroll();
     },
 
 
     reset: function(e){
-      console.info("reset");
       this.collection.stopLoading();
       superclass.prototype.reset.apply(this, arguments);
     },
