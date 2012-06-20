@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
       format.js
       format.html do
         render inline:'', layout: "channels"
-        @channel.mark_as_read if @channel.created_by == current_graph_user
+        mark_channel_as_read
       end
     end
   end
@@ -141,9 +141,7 @@ class ChannelsController < ApplicationController
     authorize! :show, @channel
     @facts = @channel.facts(from: params[:timestamp], count: params[:number] || 7, withscores: true)
 
-    if @channel.created_by == current_user.graph_user
-      @channel.mark_as_read
-    end
+    mark_channel_as_read
 
     respond_to do |format|
       format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])} }
@@ -230,6 +228,10 @@ class ChannelsController < ApplicationController
       @channel  = Channel[params[:channel_id] || params[:id]]
       @channel || raise_404("Channel not found")
       @user ||= @channel.created_by.user
+    end
+
+    def mark_channel_as_read
+      @channel.mark_as_read if @channel.created_by == current_graph_user
     end
 
 end
