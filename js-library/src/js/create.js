@@ -60,7 +60,7 @@
     return {
       text: selection.toString(),
       passage: "",
-      title: document.title
+      title: window.document.title
     };
   };
 
