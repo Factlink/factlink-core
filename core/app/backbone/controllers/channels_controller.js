@@ -45,5 +45,3 @@ window.ChannelsController = {
   }
 
 };
-
-window.Channels = new ChannelList();

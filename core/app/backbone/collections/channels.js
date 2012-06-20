@@ -54,6 +54,12 @@ window.ChannelList = Backbone.Collection.extend({
     }
   },
 
+  unreadCount: function(){
+    return this.reduce(function(memo, channel) {
+      return memo + channel.get('unread_count');
+    }, 0);
+  },
+
   startReloading: function(){
     if(this.shouldReload()) {
       var args = arguments;
