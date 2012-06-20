@@ -3,7 +3,6 @@
 var files = {
   0: [
     'libs/jquery-1.6.1.js',
-    // 'libs/easyXDM.js',
     'libs/underscore.js'
   ],
   1: [
@@ -112,7 +111,7 @@ module.exports = function(grunt){
     },
     watch: {
       files: ['src/js/**/*', 'src/css/**/*', 'grunt.js', 'test/**/*.js'],
-      tasks: 'lint concat copy'
+      tasks: 'lint qunit concat copy'
     },
     jshint: {
       options: {
