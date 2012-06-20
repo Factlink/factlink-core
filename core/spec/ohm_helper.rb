@@ -7,6 +7,7 @@ else
   require 'active_model'
   require 'andand'
   require 'mock_redis'
+  require 'redis-aid'
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
@@ -25,7 +26,7 @@ else
   end
 
   require_relative '../config/initializers/redis.rb'
-  
+
   #Ohm.redis = MockRedis.new
 
   require_relative '../app/ohm-models/our_ohm.rb'
