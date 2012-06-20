@@ -31,7 +31,7 @@ var files = {
     'src/js/lib/indicator.js'
   ],
   5: [
-    // 'src/js/xdm.js'
+    'src/js/xdm.js'
   ],
   6: [
     'src/js/last.js'

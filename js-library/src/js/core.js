@@ -9,7 +9,9 @@ var Factlink = window.Factlink = (function() {
   jQuery.extend($, jQuery);
   Factlink.$ = $;
   Factlink._ = window._.noConflict();
-  // Factlink.easyXDM = window.easyXDM.noConflict("FACTLINK");
+  if ( window.parent.easyXDM ) {
+    Factlink.easyXDM = window.parent.easyXDM.noConflict("FACTLINK");
+  }
 
   Factlink._.templateSettings = {
     interpolate : /\{%\=(.+?)%\}/g,
