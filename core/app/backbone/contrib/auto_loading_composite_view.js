@@ -6,8 +6,8 @@ function extendWithAutoloading(superclass) {
       this.on('add', _.bind(function(){
         this.hideEmpty();
       },this));
-      this.collection.on('stopLoading', this.loadMore, this);
-      
+      this.collection.on('stopLoading', this.afterLoad, this);
+
     },
 
 
@@ -24,7 +24,12 @@ function extendWithAutoloading(superclass) {
       }
     },
 
-    loadMore: function() {
+    afterLoad: function() {
+
+      if (this.collection.length === 0 && !this.collection._loading) {
+        this.showEmpty();
+      }
+
       if ( this.bottomOfViewReached()) {
         this.collection.loadMore();
       }
@@ -33,7 +38,7 @@ function extendWithAutoloading(superclass) {
     bindScroll: function() {
       this.unbindScroll();
       $(window).on('scroll.' + this.cid, _.bind(function MCBiggah() {
-        this.loadMore();
+        this.afterLoad();
       }, this));
     },
 
@@ -47,16 +52,14 @@ function extendWithAutoloading(superclass) {
     },
 
     render: function() {
+      console.info('render       # AutoloadingCompositeView');
       superclass.prototype.render.apply(this, arguments);
       this.bindScroll();
-
-      if (this.collection.length === 0 && !this.collection._loading) {
-        this.showEmpty();
-      }
     },
 
 
     reset: function(e){
+      console.info("reset");
       this.collection.stopLoading();
       superclass.prototype.reset.apply(this, arguments);
     },
