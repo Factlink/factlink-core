@@ -1,6 +1,7 @@
-(function(Factlink, waitingCount) {
+(function(waitingCount) {
   // Store arguments object so we can use from the setTimeout and loadFactlink
   var arg = arguments;
+  var Factlink = document.getElementById("factlink-iframe").contentWindow.Factlink;
 
   // If it takes longer then 5 seconds we just stop
   // TODO maybe some error message here?
@@ -8,7 +9,7 @@
     return;
   }
 
-  if ( typeof Factlink === "object" && typeof Factlink.startAnnotating === "function" ) {
+  if ( typeof Factlink === "object" && typeof Factlink.startHighlighting === "function" ) {
     // Start highlighting
     Factlink.startHighlighting();
   } else {
@@ -16,4 +17,4 @@
       arg.callee(Factlink, ++waitingCount);
     }, 100);
   }
-})(window.Factlink, 0);
+})(0);

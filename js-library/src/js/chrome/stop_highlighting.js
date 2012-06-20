@@ -1,3 +1,3 @@
 (function(Factlink){
   Factlink.stopHighlighting();
-})(window.Factlink);
+})(document.getElementById("factlink-iframe").contentWindow.Factlink);

@@ -1,3 +1,3 @@
 (function(Factlink){
   Factlink.stopAnnotating();
-})(window.Factlink);
+})(document.getElementById("factlink-iframe").contentWindow.Factlink);
