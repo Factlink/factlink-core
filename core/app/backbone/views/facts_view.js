@@ -16,15 +16,15 @@ window.FactsView = AutoloadingCompositeView.extend({
   template: "channels/_facts",
 
   initialize: function(options) {
-    this.collection.on('startLoading', this.startLoading, this);
-    this.collection.on('stopLoading', this.stopLoading, this);
+    this.collection.on('startLoading', this.showLoadingIndicator, this);
+    this.collection.on('stopLoading', this.hideLoadingIndicator, this);
   },
 
-  startLoading: function() {
+  showLoadingIndicator: function() {
     this.$el.find('div.loading').show();
   },
 
-  stopLoading: function() {
+  hideLoadingIndicator: function() {
     this.$el.find('div.loading').hide();
   },
 
