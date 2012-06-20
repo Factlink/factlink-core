@@ -84,6 +84,9 @@ class Channel < OurOhm
     end
   end
 
+  def new_unread_count
+    return 99
+  end
 
   def facts(opts={})
     return [] if new?
