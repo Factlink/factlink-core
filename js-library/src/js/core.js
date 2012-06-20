@@ -37,5 +37,5 @@ var Factlink = window.Factlink = (function() {
     type: "text/css",
     rel: "stylesheet",
     href: FactlinkConfig.lib + "/dist/css/basic.css?" + (new Date()).getTime()
-  }).prependTo('head');
+  }).prependTo($('head'));
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
