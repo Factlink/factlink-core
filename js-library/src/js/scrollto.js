@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   Factlink.scrollTo = function(fact_id){
     $('body')._scrollable().scrollTo("span[data-factid="+fact_id+"]", 800, {offset: {top:-100}});
   };
@@ -9,5 +9,5 @@
       Factlink.scrollTo(FactlinkConfig.scrollto);
     }
   });
-  
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

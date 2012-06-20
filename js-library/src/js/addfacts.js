@@ -1,6 +1,6 @@
 // this is a script called from the extension
-(function(Factlink) {
-    var el = document.getElementById("factlink-opinion-holder");
+(function(Factlink, window) {
+    var el = window.document.getElementById("factlink-opinion-holder");
     var opinion;
 
     if (el !== undefined) {
@@ -10,4 +10,4 @@
     }
 
     Factlink.createFactFromSelection(opinion);
-})(window.Factlink);
+})(window.Factlink, Factlink.global);

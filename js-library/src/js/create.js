@@ -1,9 +1,9 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   // var timeout;
   var popupTimeout;
 
   function getTextRange() {
-    var doc = window.parent.document;
+    var doc = window.document;
     var d;
 
     if (doc.getSelection) {
@@ -96,5 +96,5 @@
   };
 
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
 

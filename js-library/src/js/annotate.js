@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
 var timeout;
 var pageX;
 var pageY;
@@ -39,4 +39,4 @@ Factlink.stopAnnotating = function() {
   $('body').unbind('mouseup.factlink');
 };
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

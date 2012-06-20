@@ -1,7 +1,7 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   // Function to search the page
   Factlink.search = function(searchString) {
-    var document = window.parent.document,
+    var document = window.document,
         alert = window.alert,
         // Array which will hold all the results
         results = [],
@@ -11,7 +11,7 @@
 
         selection, range, selectedRange;
 
-    if (window.parent.find) { // Chrome, Firefox, Safari
+    if (window.find) { // Chrome, Firefox, Safari
       // Reset the selection
       selection = document.getSelection();
 
@@ -24,7 +24,7 @@
       document.getSelection().removeAllRanges();
 
       // Loop through all the results of the search string
-      while (window.parent.find(searchString, false)) {
+      while (window.find(searchString, false)) {
         selection = document.getSelection();
         range = selection.getRangeAt(0);
 
@@ -43,8 +43,8 @@
     }
 
     // Scroll back to previous location
-    window.parent.scroll(scrollLeft, scrollTop);
+    window.scroll(scrollLeft, scrollTop);
 
     return results;
   };
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

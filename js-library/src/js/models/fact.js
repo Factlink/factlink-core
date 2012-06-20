@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
 
 Factlink.Fact = function() {
   var elements;
@@ -169,4 +169,4 @@ Factlink.Fact = function() {
   initialize.apply(this, arguments);
 };
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

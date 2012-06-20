@@ -2,15 +2,18 @@ var Factlink = window.Factlink = (function() {
   // Empty Factlink object
   var Factlink = {};
 
+  Factlink.global = window.parent;
+
   // noConflicts!
   jQuery.noConflict();
-  window.$ = function (selector,context) { return new jQuery.fn.init(selector,context || window.parent.document); };
+  window.$ = function (selector,context) { return new jQuery.fn.init(selector,context || Factlink.global.document); };
   $.fn = $.prototype = jQuery.fn;
   jQuery.extend($, jQuery);
   Factlink.$ = $;
   Factlink._ = window._.noConflict();
-  if ( window.parent.easyXDM ) {
-    Factlink.easyXDM = window.parent.easyXDM.noConflict("FACTLINK");
+
+  if ( Factlink.global.easyXDM ) {
+    Factlink.easyXDM = Factlink.global.easyXDM.noConflict("FACTLINK");
   }
 
   Factlink._.templateSettings = {
@@ -22,7 +25,7 @@ var Factlink = window.Factlink = (function() {
   return Factlink;
 })();
 
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   Factlink.siteUrl = function() {
     return FactlinkConfig.url !== undefined ? FactlinkConfig.url : window.location.href;
   };
@@ -38,4 +41,4 @@ var Factlink = window.Factlink = (function() {
     rel: "stylesheet",
     href: FactlinkConfig.lib + "/dist/css/basic.css?" + (new Date()).getTime()
   }).prependTo($('head'));
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

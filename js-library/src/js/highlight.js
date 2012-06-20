@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
 Factlink.Facts = [];
 
 Factlink.startHighlighting = function() {
@@ -47,4 +47,4 @@ function fetchFacts() {
   });
 }
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

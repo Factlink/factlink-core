@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   Factlink.loadedMessage = function(fact_id){
     $('#fl').append("<div class='fl-message' style='display:none'> Factlink is loaded</div>");
     $('#fl .fl-message').fadeIn('slow');
@@ -13,4 +13,4 @@
     }
   });
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

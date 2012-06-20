@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
 
 Factlink.set_position = function(top,left,window,el){
   function setLeft(element) {
@@ -24,21 +24,21 @@ Factlink.set_position = function(top,left,window,el){
   var x = left, y = top;
 
   x -= 30;
-  if ($(window.parent).width() < (x + el.outerWidth(true) - $(window.parent).scrollLeft())) {
-    x = $(window.parent).width() - el.outerWidth(true);
+  if ($(window).width() < (x + el.outerWidth(true) - $(window).scrollLeft())) {
+    x = $(window).width() - el.outerWidth(true);
 
     setLeft(el);
   } else {
-    if ( x < $(window.parent).scrollLeft() ) {
-      x = $(window.parent).scrollLeft();
+    if ( x < $(window).scrollLeft() ) {
+      x = $(window).scrollLeft();
     }
 
     setRight(el);
   }
 
   y -= 6 + el.outerHeight(true);
-  if (y < $(window.parent).scrollTop()) {
-    y = $(window.parent).scrollTop() + el.outerHeight(true) + 14;
+  if (y < $(window).scrollTop()) {
+    y = $(window).scrollTop() + el.outerHeight(true) + 14;
 
     setTop(el);
   } else {
@@ -51,4 +51,4 @@ Factlink.set_position = function(top,left,window,el){
   });
 };
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

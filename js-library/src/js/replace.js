@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   // Function which walks the DOM in HTML source order
   // as long as func does not return false
   // Inspiration: Douglas Crockford, JavaScript: the good parts
@@ -177,4 +177,4 @@
       }
     });
   };
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

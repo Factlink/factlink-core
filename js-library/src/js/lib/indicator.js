@@ -1,5 +1,5 @@
-(function(Factlink, $, _, easyXDM, undefined) {
-    
+(function(Factlink, $, _, easyXDM, window, undefined) {
+
 $.ajax({
   url: FactlinkConfig.api + '/templates/indicator',
   dataType: 'jsonp',
@@ -8,7 +8,7 @@ $.ajax({
   jsonp: 'callback',
   success: function(data) {
     Factlink.tmpl.indicator = _.template(data);
-    
+
     Factlink.el.trigger('factlink.tmpl.indicator');
   }
 });
@@ -21,7 +21,7 @@ $.ajax({
   jsonp: 'callback',
   success: function(data) {
     Factlink.tmpl.channel_li = _.template(data);
-    
+
     Factlink.el.trigger('factlink.tmpl.channel_li');
   }
 });
@@ -47,4 +47,4 @@ $.ajax({
   }
 });
 
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

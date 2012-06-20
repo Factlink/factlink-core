@@ -1,4 +1,4 @@
-(function(Factlink, $, _, easyXDM, undefined) {
+(function(Factlink, $, _, easyXDM, window, undefined) {
   // The iFrame which holds the intermediate
   var iFrame = $("<div />").attr({
     "id": "factlink-modal-frame"
@@ -48,4 +48,4 @@
       });
     }
   };
-})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM);
+})(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
