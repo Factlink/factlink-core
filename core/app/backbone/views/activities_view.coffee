@@ -36,10 +36,16 @@ class window.ActivitiesView extends AutoloadingView
 
     appendTo.collection.add(model);
 
+  beforeClose: ->
+    for childView in @childViews
+      childView.close
+
   appendHtml: (collectionView, childView) ->
     childView.render();
     this.$(".list").append(childView.$el);
 
   newChildView: (model) ->
     ch = this.collection.channel;
-    return new UserActivitiesView({model: model.getActivity(), collection: new ChannelActivities([], {channel: ch})});
+    new UserActivitiesView
+      model: model.getActivity(),
+      collection: new ChannelActivities([], {channel: ch})
