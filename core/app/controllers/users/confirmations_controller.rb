@@ -8,12 +8,11 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
 
     if resource.errors.empty?
       set_flash_message(:notice, :confirmed) if is_navigational_format?
-      # sign_in(resource_name, resource) #Don't sign in, we don't allow that
 
       unless resource.approved?
         respond_with_navigational(resource){ render "awaiting_approval" }
       else
-        respond_with_navigational(resource){ render "/" }
+        redirect_to "/"
       end
     else
       if params[:confirmation_token]
