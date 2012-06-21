@@ -13,7 +13,7 @@ class window.ActivitiesView extends AutoloadingView
 
   render: () ->
     super arguments
-    this.renderChildren
+    this.renderChildren()
 
   renderChildren: () ->
     this.$('.list').html('')
