@@ -11,13 +11,11 @@
 
   Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(template) {
     console.info("TEMPLATE:", template)
-    compiledTemplate = HoganTemplates[template];
-    //callback.call(this, compiledTemplate);
-    return compiledTemplate;
+    return HoganTemplates[template];
   };
 
-  Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(template) {
-    return template;
+  Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(template) {
+    return _.bind(template.render, template);
   };
 
   Backbone.Marionette.Renderer.renderTemplate = function(template, data) {
