@@ -10,9 +10,18 @@ class window.ActivitiesView extends AutoloadingView
     @collection.on('reset', this.reset, this)
     @collection.on('add', this.add, this)
     @itemView = ActivityItemView
+    @collection.on 'startLoading stopLoading', => this.renderLoading()
+
+  renderLoading: ->
+    if this.collection._loading
+      this.$('div.loading').show()
+    else
+      this.$('div.loading').hide()
+
 
   render: ->
     super arguments
+    this.renderLoading()
     this.renderChildren()
 
   renderChildren: ->
