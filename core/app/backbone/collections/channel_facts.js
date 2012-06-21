@@ -9,3 +9,5 @@ window.ChannelFacts = Backbone.Collection.extend({
     return this.channel.url() + '/facts';
   }
 });
+
+_.extend(ChannelFacts.prototype, AutoloadCollectionOnTimestamp);
