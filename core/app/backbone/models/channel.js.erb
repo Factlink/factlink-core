@@ -1,9 +1,10 @@
 window.Channel = Backbone.Model.extend({
+
   initialize: function(opts) {
     var self = this;
 
-    this.bind('activate', this.setActive);
-    this.bind('deactivate', this.setNotActive);
+    this.on('activate', this.setActive);
+    this.on('deactivate', this.setNotActive);
 
     this.user = new User(opts.created_by);
   },
@@ -38,19 +39,19 @@ window.Channel = Backbone.Model.extend({
   },
 
   chromeExtensionUrl: function() {
-    return 
+    return;
   },
-  
+
   brain_icon: function() {
-    return 
+    return;
   },
-  
+
   channel_definition: function() {
-    return 
+    return;
   },
-  
+
   channels_definition: function() {
-    return 
+    return;
   },
 
   toJSON: function(){

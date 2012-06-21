@@ -10,12 +10,10 @@ window.InteractiveWheelView = window.BaseFactWheelView.extend({
         success: function(data) {
           self.updateTo(data.authority, data.opinion_types);
 
-          try {
-            mpmetrics.track("Factlink: Opinionate", {
-              factlink: self.options.fact.id,
-              opinion: opinionType.get('type')
-            });
-          } catch(e) {}
+          mp_track("Factlink: Opinionate", {
+            factlink: self.options.fact.id,
+            opinion: opinionType.get('type')
+          });
         },
         error: function() {
           self.toggleActiveOpinionType(opinionType);
@@ -30,11 +28,7 @@ window.InteractiveWheelView = window.BaseFactWheelView.extend({
         success: function(data) {
           self.updateTo(data.authority, data.opinion_types);
 
-          try {
-            mpmetrics.track("Factlink: De-opinionate", {
-              factlink: self.options.fact.id
-            });
-          } catch(e) {}
+          mp_track("Factlink: De-opinionate", {factlink: self.options.fact.id});
         },
         error: function() {
           self.toggleActiveOpinionType(opinionType);

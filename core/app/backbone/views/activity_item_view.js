@@ -5,25 +5,29 @@ var GenericActivityItemView = Backbone.Marionette.ItemView.extend({
   template: "activities/_generic_activity"
 });
 
-var GenericActivityFactItemView = Backbone.Marionette.ItemView.extend({
-  render: function() {
-    GenericActivityItemView.prototype.render.apply(this);
-    var factView = new FactView({
-      el: this.$el.find('.fact-block'),
-      model: new Fact(this.model.get('activity')['fact'])
-    }).render();
-  }
-});
 
-var AddedEvidenceView = GenericActivityFactItemView.extend({
-  template: "activities/_added_evidence"
-});
 var CreatedChannelView = GenericActivityItemView.extend({
   template: "activities/_created_channel"
 });
 var AddedSubchannelView = GenericActivityItemView.extend({
   template: "activities/_added_subchannel"
 });
+
+
+var GenericActivityFactItemView = Backbone.Marionette.CompositeView.extend({
+  itemView: FactView,
+
+  initialize: function(opts){
+    var fact = new Fact(this.model.get('activity')['fact']);
+    this.collection = new Backbone.Collection([fact]);
+  }
+
+});
+
+var AddedEvidenceView = GenericActivityFactItemView.extend({
+  template: "activities/_added_evidence"
+});
+
 var AddedOpinionView = GenericActivityFactItemView.extend({
   template: "activities/_added_opinion"
 });

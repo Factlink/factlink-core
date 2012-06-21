@@ -72,11 +72,7 @@ var FactRelationSearchView = Backbone.View.extend({
           .closest('li')
           .show();
 
-        try {
-          mpmetrics.track("Evidence: Search", {
-            type: self.options.type
-          });
-        } catch(e) {}
+        mp_track("Evidence: Search", {type: self.options.type});
 
         self.stopLoading();
       }
@@ -124,12 +120,10 @@ var FactRelationSearchView = Backbone.View.extend({
         displaystring: this._lastKnownSearch
       },
       success: function(newFactRelation) {
-        try {
-          mpmetrics.track("Evidence: Create", {
-            factlink_id: self.options.factRelations.fact.id,
-            type: self.options.type
-          });
-        } catch(e) {}
+        mp_track("Evidence: Create", {
+          factlink_id: self.options.factRelations.fact.id,
+          type: self.options.type
+        });
 
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true

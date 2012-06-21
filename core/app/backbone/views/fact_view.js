@@ -91,12 +91,10 @@ window.FactView = Backbone.View.extend({
       },
       success: function() {
         self.model.collection.remove(self.model);
-        try {
-          mpmetrics.track("Channel: Silence Factlink from Channel", {
-            factlink_id: self.model.id,
-            channel_id: currentChannel.id
-          });
-        } catch(e) {}
+        mp_track("Channel: Silence Factlink from Channel", {
+          factlink_id: self.model.id,
+          channel_id: currentChannel.id
+        });
       }
     });
   },
@@ -111,11 +109,7 @@ window.FactView = Backbone.View.extend({
         alert("Error while removing the Factlink" );
       },
       success: function() {
-        try {
-          mpmetrics.track("Factlink: Destroy", {
-            factlink_id: self.model.id
-          });
-        } catch(e) {}
+        mp_track("Factlink: Destroy");
       }
     });
   },
@@ -168,12 +162,7 @@ window.FactView = Backbone.View.extend({
   },
 
   switchToRelationDropdown: function(type){
-    try {
-      mpmetrics.track("Factlink: Open tab", {
-        factlink_id: self.model.id,
-        type: type
-      });
-    } catch(e) {}
+    mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
@@ -238,12 +227,18 @@ window.FactView = Backbone.View.extend({
   },
 
   initUserPassportViews: function() {
-    var self = this;
-    $(this.model.get("interacting_users")["activity"]).each(function()  {
-      var el = $("li.user[data-activity-id="+ this.id + "]", self.el);
-      var model = new User(this.user);
-      var view = new UserPassportView({model: model, el: el, activity: this});
-    });
+    var interacting_users = this.model.get('interacting_users');
+
+    _.each(interacting_users.activity, function (user) {
+      var el = this.$el.find('li.user[data-activity-id=' + user.id + ']');
+      var model = new User(user.user);
+
+      var view = new UserPassportView({
+        model: model,
+        el: el,
+        activity: user
+      }).render();
+    }, this);
   },
 
   highlight: function() {

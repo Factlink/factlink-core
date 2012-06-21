@@ -1,4 +1,4 @@
-window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
+class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   triggers:
@@ -14,9 +14,8 @@ window.AutoCompletedChannelView = Backbone.Marionette.ItemView.extend(
 
   templateHelpers: ->
     view = this
-    return { highlightedTitle: -> @title.replace(view.queryRegex, "<em>$&</em>")}
+    return { highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")}
 
   onRender: ->
     if @model.get('user_channel' )
       @$el.addClass('user-channel')
-)
