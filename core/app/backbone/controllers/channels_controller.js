@@ -4,11 +4,7 @@ window.ChannelsController = {
     var channel = Channels.get(channel_id);
     Channels.setUsername(username);
 
-    try {
-      mpmetrics.track("mp_page_view", {
-        mp_page: window.location.href
-      });
-    } catch(e) {}
+    mp_track("mp_page_view", {mp_page: window.location.href});
 
     if ( !channel ) {
       channel = this.view.channelView.subchannels.get(channel_id);

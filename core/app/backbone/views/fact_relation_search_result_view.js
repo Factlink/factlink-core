@@ -29,12 +29,10 @@ window.FactRelationSearchResultView = Backbone.View.extend({
         evidence_id: this.model.get('id')
       },
       success: function(newFactRelation) {
-        try {
-          mpmetrics.track("Evidence: Create", {
-            factlink_id: factRelations.fact.id,
-            evidence_id: self.model.get('id')
-          });
-        } catch(e) {}
+        mp_track("Evidence: Create", {
+          factlink_id: factRelations.fact.id,
+          evidence_id: self.model.get('id')
+        });
 
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true

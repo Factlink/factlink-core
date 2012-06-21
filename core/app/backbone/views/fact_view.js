@@ -91,12 +91,10 @@ window.FactView = Backbone.View.extend({
       },
       success: function() {
         self.model.collection.remove(self.model);
-        try {
-          mpmetrics.track("Channel: Silence Factlink from Channel", {
-            factlink_id: self.model.id,
-            channel_id: currentChannel.id
-          });
-        } catch(e) {}
+        mp_track("Channel: Silence Factlink from Channel", {
+          factlink_id: self.model.id,
+          channel_id: currentChannel.id
+        });
       }
     });
   },
@@ -111,11 +109,7 @@ window.FactView = Backbone.View.extend({
         alert("Error while removing the Factlink" );
       },
       success: function() {
-        try {
-          mpmetrics.track("Factlink: Destroy", {
-            factlink_id: self.model.id
-          });
-        } catch(e) {}
+        mp_track("Factlink: Destroy");
       }
     });
   },
@@ -168,12 +162,7 @@ window.FactView = Backbone.View.extend({
   },
 
   switchToRelationDropdown: function(type){
-    try {
-      mpmetrics.track("Factlink: Open tab", {
-        factlink_id: self.model.id,
-        type: type
-      });
-    } catch(e) {}
+    mp_track("Factlink: Open tab", {factlink_id: self.model.id,type: type});
 
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
