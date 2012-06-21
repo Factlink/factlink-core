@@ -8,6 +8,12 @@
     }
   };
 
+  window.TemplateMixin = {
+    tmpl_render: function(data){
+      return Backbone.Marionette.Renderer.render(this.template, data)
+    }
+  },
+
   Backbone.Marionette.Renderer.render = function(template, data){
     return HoganTemplates[template].render(data)
   };
