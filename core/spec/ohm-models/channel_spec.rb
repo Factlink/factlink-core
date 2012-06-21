@@ -420,4 +420,55 @@ describe Channel do
     it "should not be referred to by other objects"
   end
 
+  describe "new unread count functionality" do
+    let (:u1_f1) { FactoryGirl.create :fact, created_by: u1 }
+    let (:u2_f1) { FactoryGirl.create :fact, created_by: u2 }
+
+    it "should be zero initially" do
+      u1_ch1.new_unread_count.should == 0
+    end
+    it "should be zero after adding fact myself" do
+      u1_ch1.add_fact u2_f1
+      u1_ch1.new_unread_count.should == 0
+    end
+    context "after a fact was added in a channel I followed" do
+      before do
+        @ch = u1_ch1
+        @ch.add_channel u2_ch1
+        u2_ch1.add_fact u2_f1
+      end
+      it "should be one" do
+        @ch.new_unread_count.should == 1
+      end
+      it "after reading, it should be zero" do
+        @ch.mark_as_read
+        @ch.new_unread_count.should == 0
+      end
+    end
+    context "after my own fact was added in a channel I followed" do
+      before do
+        @ch = u1_ch1
+        @ch2 = u1_ch2
+
+        @ch.add_channel u2_ch1
+        u2_ch1.add_channel @ch2
+        @ch2.add_fact u2_f1
+      end
+      it "should be zero" do
+        @ch.new_unread_count.should == 0
+      end
+    end
+    context "when someone is adding my factlink to a channel I follow" do
+      before do
+        @ch = u1_ch1
+        @ch.add_channel u2_ch1
+        u2_ch1.add_fact u1_f1
+      end
+      it "should be zero" do
+        @ch.new_unread_count.should == 0
+      end
+    end
+
+  end
+
 end

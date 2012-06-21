@@ -1,14 +1,10 @@
-ChannelsController = {
+window.ChannelsController = {
 
   loadChannel: function(username, channel_id) {
     var channel = Channels.get(channel_id);
     Channels.setUsername(username);
 
-    try {
-      mpmetrics.track("mp_page_view", {
-        mp_page: window.location.href
-      });
-    } catch(e) {}
+    mp_track("mp_page_view", {mp_page: window.location.href});
 
     if ( !channel ) {
       channel = this.view.channelView.subchannels.get(channel_id);
@@ -19,7 +15,7 @@ ChannelsController = {
   },
 
   commonChannelViews: function(channel) {
-    window.currentChannel = channel;
+    this.setCurrentChannel(channel);
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView({model: channel}));
     var channelCollectionView = new ChannelsView({collection: window.Channels});
     window.Channels.setupReloading();
@@ -38,6 +34,10 @@ ChannelsController = {
     var channel = this.loadChannel(username, channel_id);
     this.commonChannelViews(channel);
     FactlinkApp.mainRegion.show(new ChannelActivitiesView({model: channel}));
+  },
+
+  setCurrentChannel: function(channel) {
+    window.currentChannel = channel;
   }
 
-}
+};

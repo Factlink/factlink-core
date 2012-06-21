@@ -5,13 +5,7 @@ window.FactRelation = Backbone.Model.extend({
     $.ajax({
       url: this.url() + "/opinion/" + type,
       success: function(data) {
-        try {
-          mpmetrics.track("Evidence: opinionate", {
-            type: type,
-            evidence_id: self.id
-          });
-        } catch (e) {}
-
+        mp_track("Evidence: opinionate", {type: type, evidence_id: self.id});
         self.set(data[0]);
       },
       type: "post"

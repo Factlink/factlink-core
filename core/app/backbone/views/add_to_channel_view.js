@@ -56,19 +56,17 @@ window.AddToChannelView = Backbone.View.extend({
         data: dataHolder,
         type: "post",
         success: function(data) {
-          try {
-            mpmetrics.track("Channel: created", {
-              title: dataHolder.title,
-              channel_id: data.id
-            });
+          mp_track("Channel: created", {
+            title: dataHolder.title,
+            channel_id: data.id
+          });
 
-            mpmetrics.track("Channel: content changed", {
-              channel_id: data.id,
-              subchannel_id: dataHolder.for_channel,
-              factlink_id: dataHolder.for_fact,
-              added: true
-            });
-          } catch(e) {}
+          mp_track("Channel: content changed", {
+            channel_id: data.id,
+            subchannel_id: dataHolder.for_channel,
+            factlink_id: dataHolder.for_fact,
+            added: true
+          });
 
           if ( self.model ) {
             self.model.get('containing_channel_ids').push(data.id);
