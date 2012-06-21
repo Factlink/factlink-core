@@ -162,7 +162,7 @@ window.FactView = Backbone.View.extend({
   },
 
   switchToRelationDropdown: function(type){
-    mp_track("Factlink: Open tab", {factlink_id: self.model.id,type: type});
+    mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
