@@ -7,31 +7,31 @@ class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
   initialize: (opts) ->
-    this.collection.on('reset', this.reset, this);
-    this.collection.on('add', this.add, this);
-    this.itemView = ActivityItemView;
+    @collection.on('reset', this.reset, this)
+    @collection.on('add', this.add, this)
+    @itemView = ActivityItemView
 
-  render: () ->
+  render: ->
     super arguments
     this.renderChildren()
 
-  renderChildren: () ->
+  renderChildren: ->
     this.$('.list').html('')
     for childView in @childViews
       this.appendHtml(this, childView)
 
-  reset: () ->
+  reset: ->
     this.collection.each( this.add, this );
-    this.renderChildren();
+    this.renderChildren()
 
   add: (model) ->
     last = _.last(this.childViews);
 
     if (last && (last.appendable(model)))
-      appendTo = last;
+      appendTo = last
     else
-      appendTo = this.newChildView(model);
-      this.childViews.push(appendTo);
+      appendTo = this.newChildView(model)
+      this.childViews.push(appendTo)
       this.appendHtml(this, appendTo)
 
     appendTo.collection.add(model);
@@ -41,11 +41,11 @@ class window.ActivitiesView extends AutoloadingView
       childView.close
 
   appendHtml: (collectionView, childView) ->
-    childView.render();
-    this.$(".list").append(childView.$el);
+    childView.render()
+    this.$(".list").append(childView.$el)
 
   newChildView: (model) ->
-    ch = this.collection.channel;
+    ch = this.collection.channel
     new UserActivitiesView
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
