@@ -18,7 +18,4 @@
     return _.bind(template.render, template);
   };
 
-  Backbone.Marionette.Renderer.renderTemplate = function(template, data) {
-    return template.render(data);
-  };
 }());
