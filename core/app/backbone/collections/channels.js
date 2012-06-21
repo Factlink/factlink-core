@@ -1,5 +1,6 @@
 window.ChannelList = Backbone.Collection.extend({
   model: Channel,
+  reloadingEnabled: false,
 
   initialize: function() {
     this.bind('activate', this.setActiveChannel);
@@ -27,7 +28,7 @@ window.ChannelList = Backbone.Collection.extend({
       }
     }
   },
-  
+
   getUsername: function() {
     if ( this._username ) {
       return this._username;
@@ -38,8 +39,34 @@ window.ChannelList = Backbone.Collection.extend({
 
   setUsername: function(name) {
     this._username = name;
+  },
+
+  shouldReload: function(){
+    return ! ( typeof localStorage === "object"
+      && localStorage !== null
+      && localStorage['reload'] === "false" );
+  },
+
+  setupReloading: function() {
+    if(this.shouldReload() && (! this.reloadingEnabled === true)) {
+      this.reloadingEnabled = true;
+      this.startReloading();
+    }
+  },
+
+  startReloading: function(){
+    if(this.shouldReload()) {
+      var args = arguments;
+      var self = this;
+      setTimeout(function(){
+        self.fetch({
+          succes: args.callee,
+          error: args.callee
+        });
+      }, 7000);
+    }
   }
-  
+
 });
 
 window.Channels = new ChannelList();

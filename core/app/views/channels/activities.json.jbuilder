@@ -7,7 +7,11 @@ cached_channels_definition = t(:channels)
 cached_created_channel_definition = t(:created_channel)
 
 
-json.array!(@activities) do |json, activity|
+json.array!(@activities) do |json, activity_hash|
+
+  activity = activity_hash[:item]
+
+  json.timestamp activity_hash[:score]
 
   graph_user = activity.user
   user       = graph_user.user
@@ -18,6 +22,8 @@ json.array!(@activities) do |json, activity|
 
 
   json.username user.username
+
+  json.subject_class activity.subject.class.to_s
 
   if @showing_notifications
     json.unread activity.created_at_as_datetime > current_user.last_read_activities_on

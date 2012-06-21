@@ -1,5 +1,6 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
+@import "users/passport";
 
 #container #main-wrapper header#single-factlink-header {
   padding-top: 0;  padding-bottom: 0;
@@ -108,9 +109,14 @@
           > li {
             text-align: left;
             display: inline-block;
+            position: relative;
 
             img {
               .border-radius(2px);
+            }
+
+            > div {
+              #user > .passport();
             }
 
             div {

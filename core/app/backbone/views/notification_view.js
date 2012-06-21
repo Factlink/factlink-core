@@ -1,4 +1,5 @@
 (function(){
+
 var GenericNotificationView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
   className: "activity",

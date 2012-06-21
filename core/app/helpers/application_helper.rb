@@ -55,9 +55,6 @@ module ApplicationHelper
     end
   end
 
-  def can_haz feature
-    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-  end
 
   def brain_icon
     image_tag image_path("brain.png")

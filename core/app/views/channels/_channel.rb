@@ -6,7 +6,11 @@ module Channels
     end
 
     def link
-      @link||="/#{self[:user].username}/channels/#{id}"
+      if discover_stream?
+        @link||="/#{self[:user].username}/channels/#{id}/activities"
+      else
+        @link||="/#{self[:user].username}/channels/#{id}"
+      end
     end
 
     def edit_link
@@ -29,7 +33,6 @@ module Channels
       self[:channel].has_authority?
     end
 
-
     def activities_link
       link + "/activities"
     end
@@ -43,7 +46,6 @@ module Channels
         self[:channel].title
       end
     end
-
 
     def long_title
       if is_all
@@ -126,7 +128,6 @@ module Channels
                      nil
                    end
       end
-
 
   end
 end

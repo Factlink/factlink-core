@@ -9,22 +9,54 @@
     margin: 0 -15px;
     padding: 10px 15px;
 
-    .activity-container {
-      color: #777;
-      font-size: 0.9em;
-      line-height: 24px;
+    overflow: auto;
+    width: 100%;
+
+    &:last-child {
+      border-bottom: solid 1px transparent;
+    }
+
+    .the-user {
+      padding: 0;
+      float: left;
 
       img {
         .border-radius(3px);
         float: left;
         margin: 0 8px 0 0;
       }
+    }
 
-      .meta {
-        color: #ccc;
-        display: block;
-        float: right;
-        font-weight: 200;
+    .the-link {
+      float: left;
+      padding: 0 4px 0 0;
+    }
+
+    .the-activities {
+      box-sizing: border-box;
+      padding: 0 0 0 32px;
+      width: 100%;
+
+      div {
+        .activity-description {
+          color: #999;
+          font-size: 0.9em;
+        }
+      }
+
+      > div {
+
+        &:nth-child(n + 2) {
+          .meta {
+            .opacity(0);
+          }
+        }
+        .meta {
+          color: #ccc;
+          display: block;
+          float: right;
+          font-weight: 200;
+        }
       }
     }
 

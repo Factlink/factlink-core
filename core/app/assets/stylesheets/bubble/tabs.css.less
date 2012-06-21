@@ -6,16 +6,14 @@
 @transition: opacity 0.2s ease;
 @max-z-index : 2147483647;
 
-@controlsHeight: 23px;
-@rightIndent: 10px;
-
 .tab-control {
   margin: 14px 15px 0 70px;
   list-style: none;
 
   > li {
     float: left;
-    height: 24px;
+    font-size: 0.9em;
+    height: 22px;
     .opacity(0);
     margin-bottom: -2px;
 
@@ -24,9 +22,11 @@
     }
 
     > a {
-      padding: 6px 12px;
-      line-height: 18px;
+      padding: 4px 12px;
+      line-height: 20px;
       border: 1px solid transparent;
+
+      line-height: 20px;
 
       &:hover {
         text-decoration: none;
@@ -45,15 +45,20 @@
     }
 
     &.destroy {
+      margin: -1px 0 0 0; // Align the delete icon with tab text
       .icon("\e05a");
+      cursor: pointer;
     }
 
     &.permalink {
-      .icon("\e000");
+      .icon("\e025");
+      cursor: pointer;
+      line-height: 20px;
     }
 
     &.add-to-channel {
       float: right;
+      cursor: pointer;
 
       &.active {
         a {
@@ -67,10 +72,10 @@
     &.interacting-users {
       float: right;
 
-      ul {
+      > ul {
         float: right;
         padding: 0px;
-        margin: -3px 0 -2px 5px;
+        margin: -1px 0 -2px 5px;
         position: relative;
 
         .passport {
@@ -79,11 +84,6 @@
 
         li {
           display: inline;
-
-          a {
-            margin: 0;
-            padding: 0;
-          }
 
           img {
             .border-radius(3px);
@@ -134,7 +134,7 @@
       position: absolute;
       z-index: 200;
       background: @white;
-      width: 90%;
+      width: 80%;
       .box-shadow(0px 0px 6px rgba(0, 0, 0, 0.20));
       li {
         cursor: pointer;
@@ -214,7 +214,7 @@
 
       .title {
         display: block;
-        padding: 15px 22px;
+        padding: 16px 22px;
       }
 
       .wrapper {
@@ -240,8 +240,10 @@
 .evidence-list {
   display: none;
   background-color: @white;
-  border-bottom: 1px solid @grayLighter;
+  .border-radius(0 2px 2px 0);
+
   ul.evidence-listing {
+    margin: 0;
     overflow: auto;
     max-height: 300px;
     .visible-scroll();
@@ -250,7 +252,7 @@
         border-top: 1px solid @grayLighter;
       }
       .close {
-        margin-top: 7px;
+        margin: 7px 8px 0 0;
       }
       article.fact {
         margin-left: 25px;

@@ -37,18 +37,14 @@
 
     <div class="clearfix"></div>
 
-    <div class="tabs">
-      <ul>
-        {{#discover_stream?}}
-          <li class="activity"><a href="{{{activities_link}}}" rel="backbone">New Stream</a></li>
-        {{/discover_stream?}}
-
-        <li class="factlinks"><a href="{{{link}}}" rel="backbone">Recent</a></li>
-        {{#is_normal}}
+    {{#is_normal}}
+      <div class="tabs">
+        <ul>
+          <li class="factlinks"><a href="{{{link}}}" rel="backbone">Recent</a></li>
           <li class="activity"><a href="{{{activities_link}}}" rel="backbone">Discovery</a></li>
-        {{/is_normal}}
-      </ul>
-    </div>
+        </ul>
+      </div>
+    {{/is_normal}}
 
   </header>
 

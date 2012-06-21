@@ -1,7 +1,7 @@
 window.ChannelActivities = Backbone.Collection.extend({
-  model: Fact,
+  model: Activity,
 
-  initialize: function(model, opts) {
+  initialize: function(models, opts) {
     this.channel = opts.channel;
   },
 

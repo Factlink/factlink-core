@@ -38,7 +38,12 @@ class ApplicationController < ActionController::Base
     return_to = session[:return_to]
     session[:return_to] = nil
 
-    return return_to || stored_location_for(user) || channel_path(user, user.graph_user.stream)
+    return return_to || stored_location_for(user) ||
+      if can_haz :discovery_tab_all_stream
+        activities_channel_path(user, user.graph_user.stream)
+      else
+        channel_path(user, user.graph_user.stream)
+      end
   end
 
   ##########
@@ -77,7 +82,7 @@ class ApplicationController < ActionController::Base
                 else
                   opts
                 end
-    
+
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
     username = current_user ? current_user.username : nil
@@ -95,5 +100,10 @@ class ApplicationController < ActionController::Base
     @channels
   end
   helper_method :channels_for_user
+
+  def can_haz feature
+    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+  end
+  helper_method :can_haz
 
 end

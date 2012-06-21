@@ -10,7 +10,11 @@
     margin: 0;
 
     &.owner {
-      .icon("\270e");
+      :before {
+        #font > .iconic();
+        content: "\270e";
+        margin: 0 3px 0 0;
+      }
     }
 
     &.edit {
