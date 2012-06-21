@@ -8,14 +8,8 @@
     }
   };
 
-
-  Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(template) {
-    console.info("TEMPLATE:", template)
-    return HoganTemplates[template];
-  };
-
-  Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(template) {
-    return _.bind(template.render, template);
+  Backbone.Marionette.Renderer.render = function(template, data){
+    return HoganTemplates[template].render(data)
   };
 
 }());
