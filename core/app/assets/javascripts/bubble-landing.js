@@ -2,5 +2,5 @@
 //= require twitter/bootstrap
 //= require raphael-min
 //= require bubble
-//= require backbone
+//= require factlink.backbone
 //= require jquery.hoverIntent

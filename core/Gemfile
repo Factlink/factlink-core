@@ -108,6 +108,7 @@ group :assets do
   gem 'less-rails-bootstrap', '>= 2.0.6'
   gem 'modernizr-rails', "~> 2.0.6"
 
+  gem "backbone-on-rails", git: 'git@github.com:meleyal/backbone-on-rails.git'
   gem "marionette-rails", "~> 0.9.0"
 end
 
