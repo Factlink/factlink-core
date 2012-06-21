@@ -8,7 +8,7 @@ window.UserPassportView = Backbone.View.extend({
     "mouseleave": "hide"
   },
 
-  tmpl: Template.use("users", "_user_passport"),
+  template: "users/_user_passport",
 
   initialize: function(opts) {
     this.$passport = $(".passport", this.el);
@@ -17,7 +17,7 @@ window.UserPassportView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$passport.html( this.tmpl.render( this.model.toJSON() ) );
+    this.$passport.html( this.tmpl_render( this.model.toJSON() ) );
 
     $(".activity", this.$passport)
       .html( this.options.activity["internationalized_action"] )
@@ -42,3 +42,4 @@ window.UserPassportView = Backbone.View.extend({
     }, this), 150);
   }
 });
+_.extend(UserPassportView.prototype, TemplateMixin);

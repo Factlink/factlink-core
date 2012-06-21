@@ -22,7 +22,7 @@ window.FactView = Backbone.View.extend({
     "click a.less": "hideCompleteDisplaystring"
   },
 
-  tmpl: Template.use("facts", "_fact"),
+  template: "facts/_fact",
 
   initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
@@ -39,7 +39,7 @@ window.FactView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl.render(this.model.toJSON(), {
+      .html( this.tmpl_render(this.model.toJSON(), {
         fact_bubble: Template.use("facts","_fact_bubble"),
         fact_wheel: Template.use("facts","_fact_wheel"),
         interacting_users: Template.use("facts","_interacting_users")
@@ -344,3 +344,4 @@ window.FactView = Backbone.View.extend({
   }
 });
 })();
+_.extend(FactView.prototype, TemplateMixin);

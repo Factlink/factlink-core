@@ -5,7 +5,7 @@
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
-  tmpl: Template.use("channels", "_channel"),
+  template: "channels/_channel"),
 
   initialize: function(opts) {
     var self = this;
@@ -104,7 +104,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( this.tmpl.render(this.model.toJSON()) );
+        .html( this.tmpl_render(this.model.toJSON()) );
 
       this.initSubChannels();
       this.initSubChannelMenu();
@@ -127,3 +127,4 @@ window.ChannelActivitiesView = Backbone.View.extend({
   }
 });
 
+_.extend(ChannelActivitiesView.prototype, TemplateMixin);

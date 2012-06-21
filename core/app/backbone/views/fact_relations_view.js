@@ -6,7 +6,7 @@ window.FactRelationsView = Backbone.View.extend({
   _views: [],
   _loading: true,
 
-  tmpl: Template.use('fact_relations','fact_relations'),
+  template: 'fact_relations/fact_relations',
 
   initialize: function(options) {
     this.collection.bind('add', this.addFactRelation, this);
@@ -68,7 +68,7 @@ window.FactRelationsView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html(this.tmpl.render())
+      .html(this.tmpl_render())
       .prepend(this.factRelationSearchView.render().el);
 
     return this;
@@ -120,3 +120,4 @@ window.FactRelationsView = Backbone.View.extend({
     this.$el.find('.no-evidence-message').hide();
   }
 });
+_.extend(FactRelationsView.prototype, TemplateMixin);
