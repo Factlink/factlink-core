@@ -1,7 +1,7 @@
 module Channels
   class AutoCompletedChannel < Mustache::Railstache
     def title
-      h self[:topic].title
+      self[:topic].title
     end
 
     def user_channel

@@ -3,8 +3,8 @@ window.ChannelList = Backbone.Collection.extend({
   reloadingEnabled: false,
 
   initialize: function() {
-    this.bind('activate', this.setActiveChannel);
-    this.bind('reset', this.checkActiveChannel);
+    this.on('activate', this.setActiveChannel);
+    this.on('reset', this.checkActiveChannel);
   },
 
   url: function() {
@@ -54,19 +54,27 @@ window.ChannelList = Backbone.Collection.extend({
     }
   },
 
+  unreadCount: function(){
+    return this.reduce(function(memo, channel) {
+      return memo + channel.get('unread_count');
+    }, 0);
+  },
+
   startReloading: function(){
     if(this.shouldReload()) {
       var args = arguments;
       var self = this;
       setTimeout(function(){
         self.fetch({
-          succes: args.callee,
-          error: args.callee
+          success: function(collection, response) {
+            var newCurrentChannel = collection.get(currentChannel.id);
+            currentChannel.set(newCurrentChannel.attributes);
+            _.bind(args.callee, self)();
+          },
+          error:   _.bind(args.callee, self)
         });
       }, 7000);
     }
   }
 
 });
-
-window.Channels = new ChannelList();
