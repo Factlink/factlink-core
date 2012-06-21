@@ -5,7 +5,7 @@
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
-  template: "channels/_channel"),
+  template: "channels/_channel",
 
   initialize: function(opts) {
     var self = this;
