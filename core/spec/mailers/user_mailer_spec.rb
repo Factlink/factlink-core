@@ -14,7 +14,7 @@ describe UserMailer do
 		end
 
 		it 'renders the sender email' do
-			mail.from.should == ['no-reply@factlink.com']
+			mail.from.should == ['support@factlink.com']
 		end
 
 		it 'activation_link # contains "reset_password_token" parameter' do

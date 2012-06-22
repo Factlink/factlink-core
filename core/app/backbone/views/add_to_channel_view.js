@@ -8,7 +8,7 @@ window.AddToChannelView = Backbone.View.extend({
     'click .submit': 'addChannel'
   },
 
-  tmpl: Template.use("channels", "_own_channel_listing"),
+  template: "channels/_own_channel_listing",
 
   initialize: function(opts) {
     this.collection.bind('add',   this.render, this);
@@ -56,19 +56,17 @@ window.AddToChannelView = Backbone.View.extend({
         data: dataHolder,
         type: "post",
         success: function(data) {
-          try {
-            mpmetrics.track("Channel: created", {
-              title: dataHolder.title,
-              channel_id: data.id
-            });
+          mp_track("Channel: created", {
+            title: dataHolder.title,
+            channel_id: data.id
+          });
 
-            mpmetrics.track("Channel: content changed", {
-              channel_id: data.id,
-              subchannel_id: dataHolder.for_channel,
-              factlink_id: dataHolder.for_fact,
-              added: true
-            });
-          } catch(e) {}
+          mp_track("Channel: content changed", {
+            channel_id: data.id,
+            subchannel_id: dataHolder.for_channel,
+            factlink_id: dataHolder.for_fact,
+            added: true
+          });
 
           if ( self.model ) {
             self.model.get('containing_channel_ids').push(data.id);
@@ -142,7 +140,7 @@ window.AddToChannelView = Backbone.View.extend({
 
 
     this.$el
-      .html( this.tmpl.render(add_model) );
+      .html( this.tmpl_render(add_model) );
 
     var $channelListing = this.$el.find('ul');
 
@@ -175,3 +173,5 @@ window.AddToChannelView = Backbone.View.extend({
     this.render();
   }
 });
+
+_.extend(AddToChannelView.prototype, TemplateMixin);

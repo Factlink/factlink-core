@@ -113,7 +113,7 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details discovery_tab_all_stream)
+  FEATURES = %w(pink_feedback_button authority_calculation_details discovery_tab_all_stream new_read_counter)
 
   def define_feature_toggles
     if user

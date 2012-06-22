@@ -8,13 +8,14 @@
     }
   };
 
+  window.TemplateMixin = {
+    tmpl_render: function(data){
+      return Backbone.Marionette.Renderer.render(this.template, data)
+    }
+  },
 
-  Backbone.Marionette.TemplateCache.loadTemplate = function(template, callback) {
-    console.info("TEMPLATE:", template)
-    compiledTemplate = HoganTemplates[template];
-    callback.call(this, compiledTemplate);
+  Backbone.Marionette.Renderer.render = function(template, data){
+    return HoganTemplates[template].render(data)
   };
-  Backbone.Marionette.Renderer.renderTemplate = function(template, data) {
-    return template.render(data);
-  };
+
 }());

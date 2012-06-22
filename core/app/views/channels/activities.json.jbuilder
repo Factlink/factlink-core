@@ -99,6 +99,12 @@ json.array!(@activities) do |json, activity_hash|
       json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
       json.fact_url friendly_fact_path(subject)
 
+      if subject.created_by.user == user
+        json.posted 'posted'
+      else
+        json.posted 're-posted'
+      end
+
       json.translated_action "freefly"
 
       # The Fact owner

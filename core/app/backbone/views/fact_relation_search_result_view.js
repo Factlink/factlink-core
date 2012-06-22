@@ -5,10 +5,10 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     "click": "createFactRelation"
   },
 
-  tmpl: Template.use("facts", "_fact_relation_search_result"),
+  template: "facts/_fact_relation_search_result",
 
   render: function() {
-    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
+    this.el.innerHTML = this.tmpl_render(this.model.toJSON());
 
     return this;
   },
@@ -29,12 +29,10 @@ window.FactRelationSearchResultView = Backbone.View.extend({
         evidence_id: this.model.get('id')
       },
       success: function(newFactRelation) {
-        try {
-          mpmetrics.track("Evidence: Create", {
-            factlink_id: factRelations.fact.id,
-            evidence_id: self.model.get('id')
-          });
-        } catch(e) {}
+        mp_track("Evidence: Create", {
+          factlink_id: factRelations.fact.id,
+          evidence_id: self.model.get('id')
+        });
 
         factRelations.add(new factRelations.model(newFactRelation), {
           highlight: true
@@ -45,3 +43,4 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     });
   }
 });
+_.extend(FactRelationSearchResultView.prototype, TemplateMixin);

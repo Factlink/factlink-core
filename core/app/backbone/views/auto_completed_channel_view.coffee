@@ -14,7 +14,7 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
 
   templateHelpers: ->
     view = this
-    return { highlightedTitle: -> @title.replace(view.queryRegex, "<em>$&</em>")}
+    return { highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")}
 
   onRender: ->
     if @model.get('user_channel' )

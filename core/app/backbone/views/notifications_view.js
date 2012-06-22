@@ -12,7 +12,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
     "click": "clickHandler"
   },
 
-  tmpl: Template.use("notifications", "_notifications"),
+  template: "notifications/_notifications",
 
   initialize: function () {
     this.collection.on("add", this.add, this);
@@ -23,7 +23,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   render: function() {
-    this.$el.find("ul.dropdown-menu").html(this.tmpl.render());
+    this.$el.find("ul.dropdown-menu").html(this.tmpl_render());
 
     if (this.collection.length === 0){
       this.$el.find("li.no-notifications").removeClass('hidden');
@@ -59,18 +59,12 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
     if ( count > 9 ) {
       this._unreadCount = "9<sup>+</sup>";
-      this._unreadTitleCount = "9+";
+      this._unreadTitleCount = 9;
     }
 
     $unread.html(this._unreadCount);
 
-
-    var $factlink_page_title = "Factlink - Because the web needs what you know";
-    if ( count > 0 ) {
-      document.title = "(" + this._unreadTitleCount + ") " + $factlink_page_title;
-    } else {
-      document.title = $factlink_page_title;
-    }
+    TitleManager.set('notificationsCount', this._unreadTitleCount);
   },
 
   markAsRead: function () {
@@ -171,3 +165,4 @@ window.NotificationsView = Backbone.CollectionView.extend({
   }
 });
 }());
+_.extend(NotificationsView.prototype, TemplateMixin);
