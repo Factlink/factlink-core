@@ -50,7 +50,7 @@ class Topic
   end
 
   def top_users_add(user, val)
-    redis[id][:top_users].zadd val ,user
+    redis[id][:top_users].zadd val, user.id
   end
 
 end
