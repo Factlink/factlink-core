@@ -60,7 +60,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.find('.html_container')
-      .html( this.tmpl.render(this.model.toJSON()));
+      .html( this.templateRender(this.model.toJSON()) );
 
     this.calculateDisplayablePercentages();
 
