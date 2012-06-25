@@ -47,7 +47,7 @@ window.FactView = Backbone.View.extend({
     this.$el
       .html( this.templateRender(this.model.toJSON()));
 
-    this.initAddToChannel();
+    this.renderAddToChannel();
     this.initFactRelationsViews();
     this.renderUserPassportViews();
 
@@ -76,7 +76,9 @@ window.FactView = Backbone.View.extend({
       view.remove();
     },this)
 
-
+    if(this.addToChannelView){
+      this.addToChannelView.close();
+    }
     // Hides the popup (if necessary)
     if ( parent.remote ) {
       parent.remote.hide();
@@ -122,6 +124,9 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
+  },
+
+  renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
     if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
@@ -144,6 +149,7 @@ window.FactView = Backbone.View.extend({
         }
       });
       addToChannelView.render();
+      this.addToChannelView = addToChannelView;
     }
   },
 
