@@ -111,8 +111,8 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.activitiesView.$el = this.$el.find('#activity_for_channel')
-      this.activitiesView.render()
+      this.activitiesView.$el = this.$el.find('#activity_for_channel');
+      this.activitiesView.render();
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');
