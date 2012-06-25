@@ -32,4 +32,4 @@ window.ChannelItemView = Backbone.View.extend({
 
 
 });
-_.extend(ChannelItemView.prototype, TemplateMixin);
+_.extend(ChannelItemView.prototype, TemplateMixin, ToggleMixin);
