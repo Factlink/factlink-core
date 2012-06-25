@@ -82,8 +82,6 @@ window.ChannelActivitiesView = Backbone.View.extend({
   },
 
   remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-
     if ( this.activitiesView ) {
       this.activitiesView.close();
     }
@@ -95,6 +93,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
     if ( this.subchannelView ) {
       this.subchannelView.close();
     }
+    Backbone.View.prototype.remove.apply(this);
   },
 
   render: function() {
@@ -111,8 +110,8 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.activitiesView.$el = this.$el.find('#activity_for_channel')
-      this.activitiesView.render()
+      this.activitiesView.$el = this.$el.find('#activity_for_channel');
+      this.activitiesView.render();
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');

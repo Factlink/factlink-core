@@ -30,8 +30,10 @@ window.FactView = Backbone.View.extend({
     interacting_users: "facts/_interacting_users"
   },
 
+  interactingUserViews: [],
+
   initialize: function(opts) {
-    this.model.bind('destroy', this.remove, this);
+    this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
     this.initAddToChannel();
@@ -45,9 +47,9 @@ window.FactView = Backbone.View.extend({
     this.$el
       .html( this.templateRender(this.model.toJSON()));
 
-    this.initAddToChannel();
+    this.renderAddToChannel();
     this.initFactRelationsViews();
-    this.initUserPassportViews();
+    this.renderUserPassportViews();
 
     this.$el.find('.authority').tooltip();
 
@@ -70,6 +72,13 @@ window.FactView = Backbone.View.extend({
       $(this).remove();
     });
 
+    _.each(this.interactingUserViews, function(view){
+      view.remove();
+    },this)
+
+    if(this.addToChannelView){
+      this.addToChannelView.close();
+    }
     // Hides the popup (if necessary)
     if ( parent.remote ) {
       parent.remote.hide();
@@ -115,6 +124,9 @@ window.FactView = Backbone.View.extend({
   },
 
   initAddToChannel: function() {
+  },
+
+  renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
     if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
@@ -137,6 +149,7 @@ window.FactView = Backbone.View.extend({
         }
       });
       addToChannelView.render();
+      this.addToChannelView = addToChannelView;
     }
   },
 
@@ -227,6 +240,10 @@ window.FactView = Backbone.View.extend({
   },
 
   initUserPassportViews: function() {
+
+  },
+
+  renderUserPassportViews: function(){
     var interacting_users = this.model.get('interacting_users');
 
     _.each(interacting_users.activity, function (user) {

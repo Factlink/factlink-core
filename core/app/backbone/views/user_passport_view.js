@@ -33,6 +33,7 @@ window.UserPassportView = Backbone.View.extend({
     this.shouldShow = false;
 
     _.delay( _.bind(function() {
+      // TODO find smo way to remove this bind on closing
       if ( ! this.shouldShow ) {
         this.$(".passport").fadeOut('fast');
       }

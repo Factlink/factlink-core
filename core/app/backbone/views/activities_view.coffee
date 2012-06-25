@@ -9,19 +9,14 @@ class window.ActivitiesView extends AutoloadingView
   initialize: (opts) ->
     @collection.on('reset', this.reset, this)
     @collection.on('add', this.add, this)
-    @itemView = ActivityItemView
-    @collection.on 'startLoading stopLoading', => this.renderLoading()
 
-  renderLoading: ->
-    if this.collection._loading
-      this.$('div.loading').show()
-    else
-      this.$('div.loading').hide()
+    this.addShowHideToggle('loadingIndicator', 'div.loading');
+    this.collection.on('startLoading', this.loadingIndicatorOn, this);
+    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
 
 
   render: ->
     super arguments
-    this.renderLoading()
     this.renderChildren()
 
   renderChildren: ->
@@ -46,7 +41,7 @@ class window.ActivitiesView extends AutoloadingView
     appendTo.collection.add(model);
 
   beforeClose: ->
-    childView.close for childView in @childViews
+    childView.close() for childView in @childViews
 
   appendHtml: (collectionView, childView) ->
     childView.render()
@@ -57,3 +52,5 @@ class window.ActivitiesView extends AutoloadingView
     new UserActivitiesView
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
+
+_.extend(ActivitiesView.prototype, ToggleMixin)
