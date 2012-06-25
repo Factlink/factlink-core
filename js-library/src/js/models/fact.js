@@ -108,7 +108,7 @@ Factlink.Fact = function() {
         // Need to call a direct .hide() here to make sure not two popups are
         // open at a time
         Factlink.el.find('div.fl-popup').hide();
-        balloon.show($(e.target)[0].offsetTop, e.pageX, e.show_fast);
+        balloon.show($(e.target).offset().top, e.pageX, e.show_fast);
       }
     });
 
