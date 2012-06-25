@@ -309,11 +309,21 @@ div.relation {
       width: 14px;
 
       a.permalink {
+        cursor: pointer;
+        line-height: 20px;
         display: inline-block;
         width: 15px;
         height: 15px;
-        margin: 0 5px 0 0;
-        background: image-url("icon-permalink.png") no-repeat center 6px;
+
+        &:hover {
+          text-decoration: none;
+        }
+
+        &:before {
+          #font > .iconic();
+          content: "\e025";
+          margin: 0 3px 0 0;
+        }
       }
 
       a.remove-relation {
