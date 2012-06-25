@@ -30,8 +30,10 @@ window.FactView = Backbone.View.extend({
     interacting_users: "facts/_interacting_users"
   },
 
+  interactingUserViews: [],
+
   initialize: function(opts) {
-    this.model.bind('destroy', this.remove, this);
+    this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
     this.initAddToChannel();
@@ -47,7 +49,7 @@ window.FactView = Backbone.View.extend({
 
     this.initAddToChannel();
     this.initFactRelationsViews();
-    this.initUserPassportViews();
+    this.renderUserPassportViews();
 
     this.$el.find('.authority').tooltip();
 
@@ -69,6 +71,11 @@ window.FactView = Backbone.View.extend({
     this.$el.fadeOut('fast', function() {
       $(this).remove();
     });
+
+    _.each(this.interactingUserViews, function(view){
+      view.remove();
+    },this)
+
 
     // Hides the popup (if necessary)
     if ( parent.remote ) {
@@ -227,6 +234,10 @@ window.FactView = Backbone.View.extend({
   },
 
   initUserPassportViews: function() {
+
+  },
+
+  renderUserPassportViews: function(){
     var interacting_users = this.model.get('interacting_users');
 
     _.each(interacting_users.activity, function (user) {
