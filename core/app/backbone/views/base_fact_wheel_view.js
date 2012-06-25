@@ -33,7 +33,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.html('<div class="html_container"></div>').find('.html_container')
-      .html( this.tmpl_render(this.model.toJSON()) );
+      .html( this.templateRender(this.model.toJSON()) );
 
     this.canvas = Raphael(this.el,
                           this.options.dimension * 2 + 12,

@@ -10,7 +10,7 @@ window.UserView = Backbone.View.extend({
   template:"users/_user",
 
   render: function() {
-    this.el.innerHTML = this.tmpl_render(this.model.toJSON());
+    this.el.innerHTML = this.templateRender(this.model.toJSON());
     this.root.prepend( this.el );
 
     return this;

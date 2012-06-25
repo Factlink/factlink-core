@@ -20,7 +20,7 @@ window.ChannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl_render(this.model.toJSON()) )
+      .html( this.templateRender(this.model.toJSON()) )
       .attr('id', 'channel-' + this.model.id);
 
     return this;
@@ -32,4 +32,4 @@ window.ChannelItemView = Backbone.View.extend({
 
 
 });
-_.extend(ChannelItemView.prototype, TemplateMixin);
+_.extend(ChannelItemView.prototype, TemplateMixin, ToggleMixin);

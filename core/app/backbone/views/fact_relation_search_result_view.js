@@ -8,7 +8,7 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   template: "facts/_fact_relation_search_result",
 
   render: function() {
-    this.el.innerHTML = this.tmpl_render(this.model.toJSON());
+    this.el.innerHTML = this.templateRender(this.model.toJSON());
 
     return this;
   },

@@ -24,7 +24,7 @@ window.SubchannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl_render( this.model.toJSON() ))
+      .html( this.templateRender( this.model.toJSON() ))
       .attr('id', 'subchannel-' + this.model.id);
     return this;
   },

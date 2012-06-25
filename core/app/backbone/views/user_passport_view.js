@@ -15,8 +15,7 @@ window.UserPassportView = Backbone.View.extend({
   },
 
   render: function () {
-    this.$(".passport").html( this.tmpl_render( this.model.toJSON() ) );
-
+    this.$(".passport").html( this.templateRender( this.model.toJSON() ) );
     this.$(".activity", this.$(".passport"))
       .html( this.options.activity["internationalized_action"] )
       .addClass( this.options.activity["action"] );

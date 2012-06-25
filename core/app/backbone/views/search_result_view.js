@@ -14,7 +14,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
 
-    this.$el.html(this.tmpl_render());
+    this.$el.html(this.templateRender());
     this.bindScroll();
   },
 
