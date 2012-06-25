@@ -24,6 +24,12 @@ window.FactView = Backbone.View.extend({
 
   template: "facts/_fact",
 
+  partials: {
+    fact_bubble: "facts/_fact_bubble",
+    fact_wheel: "facts/_fact_wheel",
+    interacting_users: "facts/_interacting_users"
+  },
+
   initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
     this.model.bind('change', this.render, this);
@@ -37,11 +43,7 @@ window.FactView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl_render(this.model.toJSON(), {
-        fact_bubble: Template.use("facts","_fact_bubble"),
-        fact_wheel: Template.use("facts","_fact_wheel"),
-        interacting_users: Template.use("facts","_interacting_users")
-      }));
+      .html( this.tmpl_render(this.model.toJSON()));
 
     this.initAddToChannel();
     this.initFactRelationsViews();
