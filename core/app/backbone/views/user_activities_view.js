@@ -4,7 +4,7 @@ window.UserActivitiesView = Backbone.Marionette.CompositeView.extend({
   className: 'activity-block',
 
   initialize: function(opts) {
-    this.itemView = ActivityItemView;
+    this.itemView = Backbone.View;
   },
 
   appendable: function(new_model) {
@@ -16,6 +16,12 @@ window.UserActivitiesView = Backbone.Marionette.CompositeView.extend({
 
   appendHtml: function(collectionView, itemView){
     collectionView.$(".the-activities").append(itemView.el);
+  },
+
+  buildItemView: function(item, ItemView) {
+    //ignore ItemView
+    var newItemView = window.getActivityItemViewFor(item);
+    return Backbone.Marionette.CompositeView.prototype.buildItemView.call(this,item, newItemView);
   }
 
 });
