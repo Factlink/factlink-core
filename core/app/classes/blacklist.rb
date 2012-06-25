@@ -43,8 +43,8 @@ class Blacklist
 
   def self.flash
     [
-      domain('kiprecepten.nl')
-      domain('grooveshark.com'),
+      domain('kiprecepten.nl'),
+      domain('grooveshark.com')
     ]
   end
 
