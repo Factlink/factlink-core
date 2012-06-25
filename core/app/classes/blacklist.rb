@@ -16,13 +16,7 @@ class Blacklist
     @@default ||= self.new [
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('fct.li'),
-      #domain('kickoffapp.com'),
-      #strict_domain('github.com'),
-      #strict_domain('www.github.com'),
       /^http:\/\/localhost[:\/]/,
-      strict_domain('google.([a-z.]{2,6})'),
-      strict_domain('www.google.([a-z.]{2,6})')
-
     ] + privacy + flash + frames + weird_bugs
   end
 
@@ -37,30 +31,27 @@ class Blacklist
       domain('moneybird.nl'),
       domain('newrelic.com'),
       domain('mixpanel.com'),
-      domain('facebook.com')
+      domain('facebook.com'),
     ]
   end
 
   def self.flash
     [
       domain('kiprecepten.nl'),
-      domain('grooveshark.com')
+      domain('grooveshark.com'),
     ]
   end
 
   def self.frames
     [
-      #domain('insiteproject.com')
+      domain('insiteproject.com'),
     ]
   end
 
   def self.weird_bugs
     [
-      # breaks jquery:
-      #domain('avc.com'),
-
-      #annotating does not work
-      #domain('smashingmagazine.com')
+      #show factlink button not full width
+      domain('smashingmagazine.com'),
     ]
   end
 
