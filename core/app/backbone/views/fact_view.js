@@ -35,8 +35,6 @@ window.FactView = Backbone.View.extend({
     this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
   },
 
-  partials: {},
-
   render: function() {
     this.$el
       .html( this.tmpl_render(this.model.toJSON(), {
