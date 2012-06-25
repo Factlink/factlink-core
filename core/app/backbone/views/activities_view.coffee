@@ -41,7 +41,7 @@ class window.ActivitiesView extends AutoloadingView
     appendTo.collection.add(model);
 
   beforeClose: ->
-    childView.close for childView in @childViews
+    childView.close() for childView in @childViews
 
   appendHtml: (collectionView, childView) ->
     childView.render()
