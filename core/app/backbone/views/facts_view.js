@@ -16,16 +16,11 @@ window.FactsView = AutoloadingCompositeView.extend({
   template: "channels/_facts",
 
   initialize: function(options) {
-    this.collection.on('startLoading', this.showLoadingIndicator, this);
-    this.collection.on('stopLoading', this.hideLoadingIndicator, this);
-  },
+    this.addShowHideToggle('loadingIndicator', 'div.loading');
+    this.addShowHideToggle('emptyView', 'div.no_facts');
 
-  showLoadingIndicator: function() {
-    this.$el.find('div.loading').show();
-  },
-
-  hideLoadingIndicator: function() {
-    this.$el.find('div.loading').hide();
+    this.collection.on('startLoading', this.loadingIndicatorOn, this);
+    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
   },
 
 
@@ -101,13 +96,8 @@ window.FactsView = AutoloadingCompositeView.extend({
     var $target = $(e.target);
 
     ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
-  },
-
-  showEmpty: function() {
-    this.$el.find('div.no_facts').show();
-  },
-
-  hideEmpty: function() {
-    this.$el.find('div.no_facts').hide();
   }
+
 });
+
+_.extend(window.FactsView.prototype, ToggleMixin);
