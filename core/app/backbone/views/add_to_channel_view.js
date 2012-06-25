@@ -140,7 +140,7 @@ window.AddToChannelView = Backbone.View.extend({
 
 
     this.$el
-      .html( this.tmpl_render(add_model) );
+      .html( this.templateRender(add_model) );
 
     var $channelListing = this.$el.find('ul');
 

@@ -36,7 +36,7 @@ window.FactRelationView = Backbone.View.extend({
     $('a.weakening',this.$el).tooltip('hide');
     $('a.supporting',this.$el).tooltip('hide');
 
-    this.$el.html(this.tmpl_render(this.model.toJSON()));
+    this.$el.html(this.templateRender(this.model.toJSON()));
 
     this.wheelView = new InteractiveWheelView({
       el: this.$el.find('.wheel'),

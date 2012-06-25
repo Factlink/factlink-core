@@ -1,7 +1,7 @@
 # Global Template object which loads the templates from HoganTemplates
 
 window.TemplateMixin = 
-  tmpl_render: (data) ->
+  templateRender: (data) ->
     partials = {}
     if @partials
       partials[name] = HoganTemplates[template] for name, template of @partials

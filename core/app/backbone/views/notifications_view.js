@@ -23,7 +23,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
   },
 
   render: function() {
-    this.$el.find("ul.dropdown-menu").html(this.tmpl_render());
+    this.$el.find("ul.dropdown-menu").html(this.templateRender());
 
     if (this.collection.length === 0){
       this.$el.find("li.no-notifications").removeClass('hidden');

@@ -101,7 +101,7 @@ window.ChannelView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( this.tmpl_render( this.model.toJSON() ) );
+        .html( this.templateRender( this.model.toJSON() ) );
 
       this.initSubChannels();
       this.initSubChannelMenu();
