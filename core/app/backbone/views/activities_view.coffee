@@ -9,7 +9,6 @@ class window.ActivitiesView extends AutoloadingView
   initialize: (opts) ->
     @collection.on('reset', this.reset, this)
     @collection.on('add', this.add, this)
-    @itemView = ActivityItemView
 
     this.addShowHideToggle('loadingIndicator', 'div.loading');
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
