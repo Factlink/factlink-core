@@ -9,13 +9,13 @@
   };
 
   window.TemplateMixin = {
-    tmpl_render: function(data){
-      return Backbone.Marionette.Renderer.render(this.template, data)
+    tmpl_render: function(data,partials){
+      return Backbone.Marionette.Renderer.render(this.template, data, partials)
     }
   },
 
-  Backbone.Marionette.Renderer.render = function(template, data){
-    return HoganTemplates[template].render(data)
+  Backbone.Marionette.Renderer.render = function(template, data, partials){
+    return HoganTemplates[template].render(data, partials)
   };
 
 }());
