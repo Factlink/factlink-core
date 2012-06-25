@@ -5,7 +5,7 @@ window.OwnChannelItemView = Backbone.View.extend({
     "change input" : "change"
   },
 
-  tmpl: Template.use("channels","_own_channel"),
+  template: "channels/_own_channel",
 
   initialize: function(opts) {
     this.model.bind('change', this.render, this);
@@ -19,7 +19,7 @@ window.OwnChannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl.render( this.model.toJSON() ) );
+      .html( this.templateRender( this.model.toJSON() ) );
 
     this.$el.find('input').prop('checked', this.model.checked === true ? true : false);
 
@@ -101,3 +101,4 @@ window.OwnChannelItemView = Backbone.View.extend({
     });
   }
 });
+_.extend(OwnChannelItemView.prototype, TemplateMixin);

@@ -1,7 +1,7 @@
 window.ChannelItemView = Backbone.View.extend({
   tagName: "li",
 
-  tmpl: Template.use("channels", "_single_menu_item"),
+  template: "channels/_single_menu_item",
 
   initialize: function() {
     this.addClassToggle('active');
@@ -20,7 +20,7 @@ window.ChannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl.render(this.model.toJSON()) )
+      .html( this.templateRender(this.model.toJSON()) )
       .attr('id', 'channel-' + this.model.id);
 
     return this;
@@ -32,3 +32,4 @@ window.ChannelItemView = Backbone.View.extend({
 
 
 });
+_.extend(ChannelItemView.prototype, TemplateMixin, ToggleMixin);

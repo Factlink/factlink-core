@@ -6,7 +6,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
   views: {},
   _previousLength: 0,
 
-  tmpl: Template.use("search_results", "_search_results"),
+  template: "search_results/_search_results",
 
   initialize: function(options) {
     var self = this;
@@ -14,7 +14,7 @@ window.SearchResultView = Backbone.CollectionView.extend({
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
 
-    this.$el.html(this.tmpl.render());
+    this.$el.html(this.templateRender());
     this.bindScroll();
   },
 
@@ -133,3 +133,4 @@ window.SearchResultView = Backbone.CollectionView.extend({
     $(window).unbind('scroll.' + this.cid);
   }
 });
+_.extend(SearchResultView.prototype, TemplateMixin);

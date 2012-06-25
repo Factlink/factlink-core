@@ -19,7 +19,7 @@ window.BaseFactWheelView = Backbone.View.extend({
     }
   },
 
-  tmpl: Template.use("facts", "_fact_wheel"),
+  template: "facts/_fact_wheel",
 
   initialize: function (options) {
     this.options = $.extend({}, this.defaults, options);
@@ -33,7 +33,7 @@ window.BaseFactWheelView = Backbone.View.extend({
 
     this
       .$el.html('<div class="html_container"></div>').find('.html_container')
-      .html( this.tmpl.render(this.model.toJSON()) );
+      .html( this.templateRender(this.model.toJSON()) );
 
     this.canvas = Raphael(this.el,
                           this.options.dimension * 2 + 12,
@@ -258,3 +258,5 @@ window.BaseFactWheelView = Backbone.View.extend({
     this.updateTo(oldAuthority, updateObj);
   }
 });
+
+_.extend(BaseFactWheelView.prototype, TemplateMixin);

@@ -5,10 +5,10 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     "click": "createFactRelation"
   },
 
-  tmpl: Template.use("facts", "_fact_relation_search_result"),
+  template: "facts/_fact_relation_search_result",
 
   render: function() {
-    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
+    this.el.innerHTML = this.templateRender(this.model.toJSON());
 
     return this;
   },
@@ -43,3 +43,4 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     });
   }
 });
+_.extend(FactRelationSearchResultView.prototype, TemplateMixin);

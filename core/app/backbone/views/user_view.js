@@ -7,10 +7,10 @@ window.UserView = Backbone.View.extend({
     "click div.avatar-container": "clickHandler"
   },
 
-  tmpl: Template.use("users", "_user"),
+  template:"users/_user",
 
   render: function() {
-    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
+    this.el.innerHTML = this.templateRender(this.model.toJSON());
     this.root.prepend( this.el );
 
     return this;
@@ -21,7 +21,8 @@ window.UserView = Backbone.View.extend({
   }
 });
 
+_.extend(UserView.prototype, TemplateMixin);
 
 window.UserLargeView = window.UserView.extend({
-  tmpl: Template.use("users", "_user_large")
+  template: "users/_user_large"
 });

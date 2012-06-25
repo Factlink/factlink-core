@@ -14,7 +14,7 @@ window.SubchannelItemView = Backbone.View.extend({
     return false;
   },
 
-  tmpl: Template.use("subchannels", "_subchannel_item"),
+  template: "subchannels/_subchannel_item",
 
   initialize: function() {
     this.model.bind('change', this.render, this);
@@ -24,7 +24,7 @@ window.SubchannelItemView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html( this.tmpl.render( this.model.toJSON() ))
+      .html( this.templateRender( this.model.toJSON() ))
       .attr('id', 'subchannel-' + this.model.id);
     return this;
   },
@@ -48,3 +48,4 @@ window.SubchannelItemView = Backbone.View.extend({
     return false;
   }
 });
+_.extend(SubchannelItemView.prototype, TemplateMixin);

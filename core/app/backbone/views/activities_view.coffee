@@ -1,4 +1,4 @@
-window.AutoloadingView = extendWithAutoloading(Backbone.Marionette.ItemView);
+AutoloadingView = extendWithAutoloading(Backbone.Marionette.ItemView);
 
 class window.ActivitiesView extends AutoloadingView
 

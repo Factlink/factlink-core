@@ -4,7 +4,7 @@ function extendWithAutoloading(superclass) {
       superclass.prototype.constructor.apply(this, arguments);
       this.collection.loadMore();
       this.on('add', _.bind(function(){
-        this.hideEmpty();
+        this.emptyViewOff();
       },this));
       this.collection.on('stopLoading', this.afterLoad, this);
 
@@ -26,7 +26,7 @@ function extendWithAutoloading(superclass) {
 
     afterLoad: function() {
       if (this.collection.length === 0 && !this.collection._loading) {
-        this.showEmpty();
+        this.emptyViewOn();
       }
 
       if ( this.bottomOfViewReached()) {
@@ -61,8 +61,8 @@ function extendWithAutoloading(superclass) {
       superclass.prototype.reset.apply(this, arguments);
     },
 
-    showEmpty: function(){},
-    hideEmpty: function(){}
+    emptyViewOn: function(){},
+    emptyViewOff: function(){}
 
   });
 }

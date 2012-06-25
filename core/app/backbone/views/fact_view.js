@@ -22,7 +22,13 @@ window.FactView = Backbone.View.extend({
     "click a.less": "hideCompleteDisplaystring"
   },
 
-  tmpl: Template.use("facts", "_fact"),
+  template: "facts/_fact",
+
+  partials: {
+    fact_bubble: "facts/_fact_bubble",
+    fact_wheel: "facts/_fact_wheel",
+    interacting_users: "facts/_interacting_users"
+  },
 
   initialize: function(opts) {
     this.model.bind('destroy', this.remove, this);
@@ -35,15 +41,9 @@ window.FactView = Backbone.View.extend({
     this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
   },
 
-  partials: {},
-
   render: function() {
     this.$el
-      .html( this.tmpl.render(this.model.toJSON(), {
-        fact_bubble: Template.use("facts","_fact_bubble"),
-        fact_wheel: Template.use("facts","_fact_wheel"),
-        interacting_users: Template.use("facts","_interacting_users")
-      }));
+      .html( this.templateRender(this.model.toJSON()));
 
     this.initAddToChannel();
     this.initFactRelationsViews();
@@ -344,3 +344,4 @@ window.FactView = Backbone.View.extend({
   }
 });
 })();
+_.extend(FactView.prototype, TemplateMixin);

@@ -8,18 +8,15 @@ window.UserPassportView = Backbone.View.extend({
     "mouseleave": "hide"
   },
 
-  tmpl: Template.use("users", "_user_passport"),
+  template: "users/_user_passport",
 
   initialize: function(opts) {
-    this.$passport = $(".passport", this.el);
-
     this.model.bind("change", this.render, this);
   },
 
   render: function () {
-    this.$passport.html( this.tmpl.render( this.model.toJSON() ) );
-
-    $(".activity", this.$passport)
+    this.$(".passport").html( this.templateRender( this.model.toJSON() ) );
+    this.$(".activity", this.$(".passport"))
       .html( this.options.activity["internationalized_action"] )
       .addClass( this.options.activity["action"] );
 
@@ -29,7 +26,7 @@ window.UserPassportView = Backbone.View.extend({
   show: function() {
     this.shouldShow = true;
 
-    this.$passport.fadeIn('fast');
+    this.$(".passport").fadeIn('fast');
   },
 
   hide: function() {
@@ -37,8 +34,9 @@ window.UserPassportView = Backbone.View.extend({
 
     _.delay( _.bind(function() {
       if ( ! this.shouldShow ) {
-        this.$passport.fadeOut('fast');
+        this.$(".passport").fadeOut('fast');
       }
     }, this), 150);
   }
 });
+_.extend(UserPassportView.prototype, TemplateMixin);
