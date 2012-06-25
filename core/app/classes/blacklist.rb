@@ -37,7 +37,7 @@ class Blacklist
       domain('moneybird.nl'),
       domain('newrelic.com'),
       domain('mixpanel.com'),
-      domain('facebook.com'),
+      domain('facebook.com')
     ]
   end
 
