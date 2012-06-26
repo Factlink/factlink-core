@@ -14,8 +14,7 @@ class window.ActivitiesView extends AutoloadingView
 
     this.childViews = []
 
-  render: ->
-    super arguments
+  onRender: ->
     this.renderChildren()
 
   renderChildren: ->
