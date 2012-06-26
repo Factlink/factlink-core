@@ -67,20 +67,18 @@ window.OwnChannelItemView = Backbone.View.extend({
       success: function(data) {
         var model = self.forFact || self.forChannel;
 
-        try {
-          var mpdata = {
-            channel_id: self.model.id,
-            added: checked
-          };
+        var mpdata = {
+          channel_id: self.model.id,
+          added: checked
+        };
 
-          if ( self.forChannel ) {
-            mpdata.subchannel_id = self.forChannel.id;
-          } else {
-            mpdata.factlink_id = self.forFact.id;
-          }
+        if ( self.forChannel ) {
+          mpdata.subchannel_id = self.forChannel.id;
+        } else {
+          mpdata.factlink_id = self.forFact.id;
+        }
 
-          mpmetrics.track("Channel: content changed", mpdata);
-        } catch(e) {}
+        mp_track("Channel: content changed", mpdata);
 
         if ( checked ) {
           model.get('containing_channel_ids').push(self.model.id);
