@@ -18,7 +18,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
           channel: this.model
         })
       });
-      this.activitiesView.collection.fetch();
+      this.activitiesView.collection.loadMore();
     }
   },
 
