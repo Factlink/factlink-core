@@ -4,13 +4,13 @@ var FactRelationSearchView = Backbone.View.extend({
     "click li.add": "addNewFactRelation"
   },
 
-  _busyAdding: false,
-
-  _lastKnownSearch: "",
-
-  _searchResultViews: [],
-
   template: "fact_relations/_evidence_search",
+
+  initialize: function(){
+    this._busyAdding = false;
+    this._lastKnownSearch = "";
+    this._searchResultViews = [];
+  },
 
   render: function() {
     this.$el.html(this.templateRender());
