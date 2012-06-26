@@ -4,4 +4,3 @@ ChannelsRouter = Backbone.Marionette.AppRouter.extend({
     ':username/channels/:channel_id/activities': 'getChannelActivities'
   }
 });
-new ChannelsRouter({controller: ChannelsController});

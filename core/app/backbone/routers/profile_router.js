@@ -3,4 +3,3 @@ ProfileRouter = Backbone.Marionette.AppRouter.extend({
     ':username': 'showProfile',
   }
 });
-new ProfileRouter({controller: ProfileController});

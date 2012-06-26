@@ -19,3 +19,8 @@ FactlinkApp.addInitializer(function(options){
   window.Global.TitleView = new TitleView({model: window.TitleManager, collection: window.Channels, el: 'title'});
   window.Global.TitleView.render();
 });
+
+FactlinkApp.addInitializer(function(options){
+  new ChannelsRouter({controller: new ChannelsController()});
+  new ProfileRouter({controller: new ProfileController()});
+});
