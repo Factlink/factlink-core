@@ -123,9 +123,9 @@ window.FactView = Backbone.Factlink.PlainView.extend({
   renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
-    if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" ) {
       var addToChannelView = new AutoCompletedAddToChannelView({
-        el: this.$el.find(add_el)[0],
+        el: this.$(add_el)[0]
       });
       _.each(this.model.getOwnContainingChannels(),function(ch){
         //hacky hacky bang bang
@@ -201,7 +201,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
 
       $target.addClass('active');
       // Show the tab
-      this.$el.find('.tab-content > .' + tab).show();
+      this.$('.tab-content > .' + tab).show();
       // Keep showing the tabs (in the li)
       this.$('.tab-control > li').addClass('tabOpened');
       this.handleTabActions(tab);
