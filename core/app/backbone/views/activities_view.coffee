@@ -2,8 +2,6 @@ AutoloadingView = extendWithAutoloading(Backbone.Marionette.ItemView);
 
 class window.ActivitiesView extends AutoloadingView
 
-  childViews: []
-
   template: 'activities/list'
 
   initialize: (opts) ->
@@ -14,6 +12,7 @@ class window.ActivitiesView extends AutoloadingView
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
 
+    this.childViews = []
 
   render: ->
     super arguments
@@ -35,6 +34,7 @@ class window.ActivitiesView extends AutoloadingView
       appendTo = last
     else
       appendTo = this.newChildView(model)
+      appendTo.render()
       this.childViews.push(appendTo)
       this.appendHtml(this, appendTo)
 
@@ -44,7 +44,6 @@ class window.ActivitiesView extends AutoloadingView
     childView.close() for childView in @childViews
 
   appendHtml: (collectionView, childView) ->
-    childView.render()
     this.$(".list").append(childView.$el)
 
   newChildView: (model) ->
