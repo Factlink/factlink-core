@@ -1,6 +1,6 @@
 app = FactlinkApp
 
-class window.ProfileController
+class window.ProfileController extends CommonController
 
   showProfile: (username) ->
     self = this;
