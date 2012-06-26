@@ -355,4 +355,3 @@ window.FactView = Backbone.Factlink.PlainView.extend({
   }
 });
 })();
-_.extend(FactView.prototype, TemplateMixin);
