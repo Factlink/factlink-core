@@ -8,8 +8,6 @@ window.ChannelActivitiesView = Backbone.View.extend({
   template: "channels/_channel",
 
   initialize: function(opts) {
-    var self = this;
-
     if (this.model !== undefined) {
       this.subchannels = new SubchannelList({channel: this.model});
       this.subchannels.fetch();
@@ -17,7 +15,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.activitiesView = new ActivitiesView({
         el: '#activity_for_channel',
         collection: new ChannelActivities([],{
-          channel: self.model
+          channel: this.model
         })
       });
       this.activitiesView.collection.fetch();
