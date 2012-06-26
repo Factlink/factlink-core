@@ -1,10 +1,8 @@
 (function(){
-window.FactView = Backbone.View.extend({
+window.FactView = Backbone.Factlink.PlainView.extend({
   tagName: "div",
 
   className: "fact-block",
-
-  _currentTab: undefined,
 
   events: {
     "click .remove": "removeFactFromChannel",
@@ -30,9 +28,10 @@ window.FactView = Backbone.View.extend({
     interacting_users: "facts/_interacting_users"
   },
 
-  interactingUserViews: [],
-
   initialize: function(opts) {
+    this._currentTab = undefined;
+    this.interactingUserViews = [];
+
     this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
@@ -43,10 +42,7 @@ window.FactView = Backbone.View.extend({
     this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
   },
 
-  render: function() {
-    this.$el
-      .html( this.templateRender(this.model.toJSON()));
-
+  onRender: function() {
     this.renderAddToChannel();
     this.initFactRelationsViews();
     this.renderUserPassportViews();
@@ -63,8 +59,6 @@ window.FactView = Backbone.View.extend({
         el: this.$el.find('.wheel')
       }).render();
     }
-
-    return this;
   },
 
   remove: function() {
