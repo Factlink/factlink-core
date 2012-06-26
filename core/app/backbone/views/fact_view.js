@@ -73,7 +73,7 @@ window.FactView = Backbone.View.extend({
     });
 
     _.each(this.interactingUserViews, function(view){
-      view.remove();
+      view.close();
     },this)
 
     if(this.addToChannelView){

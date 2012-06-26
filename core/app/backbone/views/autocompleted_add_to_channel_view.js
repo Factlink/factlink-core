@@ -451,7 +451,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   removeAddedChannel: function (channel) {
     var id = channel.id;
-    this._channelViews[id].remove();
+    this._channelViews[id].close();
 
     delete this._channelViews[id];
 

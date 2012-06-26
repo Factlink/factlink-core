@@ -26,7 +26,7 @@ window.SubchannelsView = Backbone.CollectionView.extend({
     var self = this;
 
     _.each(this._views,function(view) {
-      view.remove();
+      view.close();
     });
 
     var count = 0;

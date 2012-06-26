@@ -142,7 +142,7 @@ var FactRelationSearchView = Backbone.View.extend({
 
   truncateSearchContainer: function() {
     _.forEach(this._searchResultViews, function(view) {
-      view.remove();
+      view.close();
     });
 
     this.$el.find('li.add').hide();
