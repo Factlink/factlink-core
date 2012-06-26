@@ -6,10 +6,6 @@ window.ChannelsController = {
 
     mp_track("mp_page_view", {mp_page: window.location.href});
 
-    if ( !channel ) {
-      channel = this.view.channelView.subchannels.get(channel_id);
-      channel.collection = Channels;
-    }
     channel.set({new_facts: false});
     return channel;
   },
