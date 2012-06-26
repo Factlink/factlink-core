@@ -14,20 +14,19 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     "mouseleave .auto_complete>div" : "deActivateAddNew"
   },
 
-  tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
-
-  _channelViews: {},
-  _autoCompleteViews:[],
+  template: "channels/_auto_completed_add_to_channel",
 
   initialize: function () {
+    this._channelViews = {};
+    this._autoCompleteViews = [];
+    this.vent = new Backbone.Marionette.EventAggregator();
+
     this.collection = new OwnChannelCollection();
     this.collection.bind('add', this.addChannel, this);
-
-    this.vent = new Backbone.Marionette.EventAggregator();
   },
 
   render: function () {
-    this.$el.html( this.tmpl.render() );
+    this.$el.html( this.templateRender(this.model) );
 
     this.reset();
 
@@ -467,3 +466,5 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   }
 });
+
+_.extend(AutoCompletedAddToChannelView.prototype, TemplateMixin);
