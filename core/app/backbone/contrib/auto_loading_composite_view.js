@@ -66,4 +66,4 @@ function extendWithAutoloading(superclass) {
 
   });
 }
-window.AutoloadingCompositeView = extendWithAutoloading(Backbone.Marionette.CompositeView);
+window.AutoloadingCompositeView = extendWithAutoloading(Backbone.Factlink.CompositeView);

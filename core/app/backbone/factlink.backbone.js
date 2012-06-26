@@ -6,6 +6,7 @@
 
 //= require twipsy
 
+//= require_tree ./factlink
 //= require_tree ./contrib
 
 //= require app.js

@@ -23,16 +23,6 @@ window.FactsView = AutoloadingCompositeView.extend({
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
   },
 
-
-  appendHtml: function(collectionView, itemView){
-    //TODO: also allow for adding in the middle
-    if (collectionView.collection.indexOf(itemView.model) === 0) {
-      this.$el.find(this.containerSelector).prepend(itemView.el);
-    } else {
-      this.$el.find(this.containerSelector).append(itemView.el);
-    }
-  },
-
   createFact: function (e) {
     var self = this;
     var $form = this.$el.find('form');
