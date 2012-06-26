@@ -7,10 +7,6 @@ window.FactRelationSearchResultView = Backbone.Factlink.PlainView.extend({
 
   template: "facts/_fact_relation_search_result",
 
-  remove: function() {
-    this.$el.remove();
-  },
-
   createFactRelation: function(e) {
     var self = this;
     var factRelations = this.options.factRelations;
