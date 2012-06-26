@@ -248,7 +248,8 @@ window.FactView = Backbone.Factlink.PlainView.extend({
         model: model,
         el: el,
         activity: user
-      }).render();
+      });
+      view.render();
     }, this);
   },
 

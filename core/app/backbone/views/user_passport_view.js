@@ -1,7 +1,6 @@
 window.UserPassportView = Backbone.View.extend({
   tagName: "li",
   className: "user",
-  shouldShow: false,
 
   events: {
     "mouseenter": "show",
@@ -11,6 +10,7 @@ window.UserPassportView = Backbone.View.extend({
   template: "users/_user_passport",
 
   initialize: function(opts) {
+    this.shouldShow = false;
     this.model.bind("change", this.render, this);
   },
 
@@ -19,8 +19,6 @@ window.UserPassportView = Backbone.View.extend({
     this.$(".activity", this.$(".passport"))
       .html( this.options.activity["internationalized_action"] )
       .addClass( this.options.activity["action"] );
-
-    return this;
   },
 
   show: function() {
@@ -33,7 +31,7 @@ window.UserPassportView = Backbone.View.extend({
     this.shouldShow = false;
 
     _.delay( _.bind(function() {
-      // TODO find smo way to remove this bind on closing
+      // TODO find some way to remove this bind on closing
       if ( ! this.shouldShow ) {
         this.$(".passport").fadeOut('fast');
       }
