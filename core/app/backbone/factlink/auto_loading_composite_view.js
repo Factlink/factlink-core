@@ -1,3 +1,5 @@
+//= require ./composite_view
+
 function extendWithAutoloading(superclass) {
   return superclass.extend({
     constructor: function(options){

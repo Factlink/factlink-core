@@ -1,4 +1,4 @@
-window.FactRelationSearchResultView = Backbone.View.extend({
+window.FactRelationSearchResultView = Backbone.Factlink.PlainView.extend({
   tagName: "li",
 
   events: {
@@ -6,12 +6,6 @@ window.FactRelationSearchResultView = Backbone.View.extend({
   },
 
   template: "facts/_fact_relation_search_result",
-
-  render: function() {
-    this.el.innerHTML = this.templateRender(this.model.toJSON());
-
-    return this;
-  },
 
   remove: function() {
     this.$el.remove();
@@ -43,4 +37,3 @@ window.FactRelationSearchResultView = Backbone.View.extend({
     });
   }
 });
-_.extend(FactRelationSearchResultView.prototype, TemplateMixin);

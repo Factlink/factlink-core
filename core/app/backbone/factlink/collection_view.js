@@ -1,4 +1,6 @@
-Backbone.CollectionView = Backbone.View.extend({
+Backbone.Factlink = Backbone.Factlink || {};
+
+Backbone.Factlink.CollectionView = Backbone.View.extend({
   beforeReset: function(e){},
   afterReset: function(e){},
 

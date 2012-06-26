@@ -1,4 +1,4 @@
-window.SubchannelsView = Backbone.CollectionView.extend({
+window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
   tagName: "ul",
   views: {},
 

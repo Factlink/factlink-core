@@ -1,4 +1,4 @@
-window.SearchResultView = Backbone.CollectionView.extend({
+window.SearchResultView = Backbone.Factlink.CollectionView.extend({
   tagName: "div",
   className: "search-results",
   _loading: true,

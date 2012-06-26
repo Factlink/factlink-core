@@ -93,7 +93,8 @@ var FactRelationSearchView = Backbone.View.extend({
         parentView: self
       });
 
-      searchResultsContainer.find('li.loading').after( view.render().el );
+      view.render()
+      searchResultsContainer.find('li.loading').after( view.el );
 
       self._searchResultViews.push(view);
     });

@@ -1,5 +1,5 @@
 (function(){
-window.NotificationsView = Backbone.CollectionView.extend({
+window.NotificationsView = Backbone.Factlink.CollectionView.extend({
 
   tagName: "li",
   id: "notifications",
@@ -29,7 +29,7 @@ window.NotificationsView = Backbone.CollectionView.extend({
       this.$el.find("li.no-notifications").removeClass('hidden');
     }else{
       this.$el.find("li.no-notifications").addClass('hidden');
-      Backbone.CollectionView.prototype.render.apply(this, arguments);
+      Backbone.Factlink.CollectionView.prototype.render.apply(this, arguments);
     }
     this.$el.find('ul').preventScrollPropagation();
     return this;
