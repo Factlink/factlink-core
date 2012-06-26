@@ -39,7 +39,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
-    this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
+    this.wheel = new Wheel(this.model.get('fact_bubble').fact_wheel);
   },
 
   onRender: function() {
@@ -50,7 +50,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.$el.find('.authority').tooltip();
 
     if ( this.factWheelView ) {
-      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble')['fact_wheel']);
+      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble').fact_wheel);
       this.$el.find('.wheel').replaceWith(this.factWheelView.reRender().el);
     } else {
       this.factWheelView = new InteractiveWheelView({
@@ -68,7 +68,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
 
     _.each(this.interactingUserViews, function(view){
       view.close();
-    },this)
+    },this);
 
     if(this.addToChannelView){
       this.addToChannelView.close();
