@@ -3,7 +3,6 @@ window.FactsView = AutoloadingCompositeView.extend({
   className: "facts",
   containerSelector: ".facts",
   itemView: FactView,
-  views: {},
   events: {
     "submit #create_fact_for_channel": "createFact",
     "focus #create_fact_for_channel textarea": "openCreateFactForm",
@@ -16,6 +15,8 @@ window.FactsView = AutoloadingCompositeView.extend({
   template: "channels/_facts",
 
   initialize: function(options) {
+    this.views = {};
+
     this.addShowHideToggle('loadingIndicator', 'div.loading');
     this.addShowHideToggle('emptyView', 'div.no_facts');
 
