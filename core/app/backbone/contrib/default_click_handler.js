@@ -19,4 +19,4 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
 };
 
 /* HACK: this is needed because internal events did not seem to work*/
-$("a[rel=backbone]").live("click",Backbone.View.prototype.defaultClickHandler);
+//$("a[rel=backbone]").live("click",Backbone.View.prototype.defaultClickHandler);
