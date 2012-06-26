@@ -1,12 +1,9 @@
 (function(){
 window.NotificationsView = Backbone.CollectionView.extend({
-  views: {},
 
   tagName: "li",
   id: "notifications",
   containerSelector: "ul",
-
-  _unreadCount: 0,
 
   events: {
     "click": "clickHandler"
@@ -20,6 +17,9 @@ window.NotificationsView = Backbone.CollectionView.extend({
 
     this.modelView = NotificationView;
     this.setupNotificationsFetch();
+
+    this._unreadCount = 0;
+    this.views = {};
   },
 
   render: function() {
