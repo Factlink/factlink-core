@@ -1,33 +1,27 @@
 window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
   tagName: "ul",
-  views: {},
 
   initialize: function() {
     this.collection.bind('add',   this.addOneSubchannel, this);
     this.collection.bind('reset', this.resetSubchannels, this);
 
-    this._views = [];
+    this.views = {};
   },
 
   addOneSubchannel: function(subchannel, count) {
     var view = new SubchannelItemView({model: subchannel});
-    this._views[subchannel.id] = view;
-
-    var item = view.render().el;
+    this.views[subchannel.id] = view;
+    view.render();
     if(count < 3) {
-      this.$el.prepend(item);
+      this.$el.prepend(view.el);
     } else {
-      this.$el.find('.overflow').append(item);
+      this.$el.find('.overflow').append(view.el);
     }
 
   },
 
   resetSubchannels: function() {
-    var self = this;
-
-    _.each(this._views,function(view) {
-      view.close();
-    });
+    _.each(this._views,function(view) { view.close(); });
 
     var count = 0;
 
@@ -38,9 +32,9 @@ window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
     }
 
     this.collection.each(function(subchannel) {
-      self.addOneSubchannel.call(self, subchannel, count);
+      this.addOneSubchannel.call(this, subchannel, count);
       count++;
-    });
+    },this);
   }
 });
 
