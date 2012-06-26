@@ -1,15 +1,14 @@
 window.SearchResultView = Backbone.Factlink.CollectionView.extend({
   tagName: "div",
   className: "search-results",
-  _loading: true,
-  _page: 1,
-  views: {},
-  _previousLength: 0,
 
   template: "search_results/_search_results",
 
   initialize: function(options) {
-    var self = this;
+    this._loading = true;
+    this._page = 1;
+    this.views = {};
+    this._previousLength = 0;
 
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
