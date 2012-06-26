@@ -16,9 +16,9 @@ var FactRelationSearchView = Backbone.View.extend({
     this.$el.html(this.templateRender());
 
     if ( this.options.type === "supporting" ) {
-      this.$el.find('.add-evidence.supporting' ).css('display','block');
+      this.$('.add-evidence.supporting' ).css('display','block');
     } else {
-      this.$el.find('.add-evidence.weakening' ).css('display','block');
+      this.$('.add-evidence.weakening' ).css('display','block');
     }
 
     return this;
@@ -66,8 +66,7 @@ var FactRelationSearchView = Backbone.View.extend({
       success: function(searchResults) {
         self.parseSearchResults.call(self, searchResults);
 
-        self.$el
-          .find('li.add>span.word')
+        self.$('li.add>span.word')
           .text(searchVal)
           .closest('li')
           .show();
@@ -146,26 +145,26 @@ var FactRelationSearchView = Backbone.View.extend({
       view.close();
     });
 
-    this.$el.find('li.add').hide();
+    this.$('li.add').hide();
 
     this._searchResultViews = [];
   },
 
   setLoading: function() {
-    this.$el.find('li.loading').show();
+    this.$('li.loading').show();
   },
 
   stopLoading: function() {
-    this.$el.find('li.loading').hide();
+    this.$('li.loading').hide();
   },
 
   setAddingIndicator: function() {
-    this.$el.find('.add img').show();
-    this.$el.find('.add .add-message').text('Adding');
+    this.$('.add img').show();
+    this.$('.add .add-message').text('Adding');
   },
   stopAddingIndicator: function() {
-    this.$el.find('.add img').hide();
-    this.$el.find('.add .add-message').text('Add');
+    this.$('.add img').hide();
+    this.$('.add .add-message').text('Add');
   }
 });
 _.extend(FactRelationSearchView.prototype, TemplateMixin);
