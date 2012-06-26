@@ -43,7 +43,8 @@ window.FactRelationsView = Backbone.View.extend({
 
     this._views.push(factRelationView);
 
-    this.$el.find('ul.evidence-listing').append(factRelationView.render().el);
+    factRelationView.render();
+    this.$el.find('ul.evidence-listing').append(factRelationView.el);
 
     if ( options.highlight ) {
       this.highlightFactRelation(factRelationView);
