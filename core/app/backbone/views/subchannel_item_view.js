@@ -36,7 +36,7 @@ window.SubchannelItemView = Backbone.Factlink.PlainView.extend({
       subchannel_id: self.model.id
     });
 
-    Backbone.history.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
+    Backbone.history.navigate(this.model.get('created_by').username + '/channels/' + this.model.id, true);
 
     e.preventDefault();
 
