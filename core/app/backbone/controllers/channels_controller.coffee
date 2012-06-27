@@ -1,6 +1,4 @@
-#= require ./common_controller
-
-class window.ChannelsController extends CommonController
+class window.ChannelsController
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id);
@@ -27,7 +25,6 @@ class window.ChannelsController extends CommonController
   commonChannelViews: (channel) ->
     this.setCurrentChannel(channel);
     FactlinkApp.relatedUsersRegion.show(new RelatedUsersView(model: channel))
-
 
     user = channel.user()
     userView = new UserView(model: user)
