@@ -110,6 +110,9 @@ end
 
 
 describe "Walkthrough the app", type: :request do
+  def created_channel_path(user)
+    channel_path(user.username, user.graph_user.created_facts_channel.id)
+  end
 
   before :each do
     @user = make_user_and_login
@@ -123,7 +126,9 @@ describe "Walkthrough the app", type: :request do
       fill_in "fact", with: fact_name
       click_button "submit"
       page.should have_content "Factlink successfully posted"
-      visit root_path
+      
+      visit created_channel_path(@user)
+
       page.should have_content "My Stream"
       page.should have_content fact_name
     end
@@ -135,7 +140,9 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fill_in "fact", with: fact_name
       click_button "submit"
-      visit root_path
+      
+      visit created_channel_path(@user)
+
       page.should have_content fact_name
 
       # and delete it:
