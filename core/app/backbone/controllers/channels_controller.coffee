@@ -12,7 +12,7 @@ class window.ChannelsController
     if (channel)
       withChannel(channel);
     else
-      channel = new Channel({username: username, id: channel_id})
+      channel = new Channel({created_by:{username: username}, id: channel_id})
       channel.fetch
         success: (model, response) -> withChannel(model)
 
