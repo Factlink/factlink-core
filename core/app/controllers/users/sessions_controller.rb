@@ -14,6 +14,8 @@ class Users::SessionsController < Devise::SessionsController
   def track_sign_out; track "Sign out"; end
   def track_sign_in; track "Sign in"; end
 
+  before_filter :set_layout, only: :new
+
   before_filter :set_redir, only: :create
   def set_redir
     if params[:layout] == 'popup'

@@ -101,4 +101,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :can_haz
 
+  def set_layout
+    allowed_layouts = ['popup']
+    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+  end
+
 end
