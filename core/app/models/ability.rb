@@ -114,7 +114,7 @@ class Ability
   end
 
   FEATURES = %w(pink_feedback_button authority_calculation_details new_read_counter)
-  GLOBAL_ENABLED_FEATURES = %w( discovery_tab_all_stream )
+  GLOBAL_ENABLED_FEATURES = []
 
   def define_feature_toggles
     if user
