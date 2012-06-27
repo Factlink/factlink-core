@@ -34,7 +34,7 @@ window.Channel = Backbone.Model.extend({
     if ( this.collection ) {
       return Backbone.Model.prototype.url.apply(this,arguments);
     } else {
-      return '/' + this.get('username') + '/channels/' + this.get('id');
+      return '/' + this.get('created_by').username + '/channels/' + this.get('id');
     }
   },
 
