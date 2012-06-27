@@ -75,6 +75,21 @@ window.ChannelList = Backbone.Collection.extend({
         });
       }, 7000);
     }
+  },
+
+  orderedByAuthority: function(){
+    var topchannels = new ChannelList();
+    _.each(this.models, function(channel){
+      if(channel.get('type') == 'channel') {
+        topchannels.add(channel);
+      }
+    })
+
+    topchannels.comparator =  function (channel) {
+      -parseFloat(channel.get('created_by_authority'));
+    }
+    topchannels.sort();
+    return topchannels;
   }
 
 });
