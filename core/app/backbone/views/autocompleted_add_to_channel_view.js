@@ -29,7 +29,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.html( this.templateRender(this.model) );
 
     this.reset();
-
     return this;
   },
 
@@ -392,6 +391,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   clearAutoComplete: function () {
+    this.closeAutoCompleteViews();
+    
     this._autoCompletes = new Backbone.Collection();
 
     this.$el.find('.auto_complete').addClass('empty');
