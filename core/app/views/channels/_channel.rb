@@ -76,7 +76,7 @@ module Channels
     end
 
     def discover_stream?
-      (can_haz :discovery_tab_all_stream) && is_all && is_mine
+      is_all && is_mine
     end
 
     def created_by
