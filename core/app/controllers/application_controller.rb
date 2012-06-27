@@ -38,12 +38,7 @@ class ApplicationController < ActionController::Base
     return_to = session[:return_to]
     session[:return_to] = nil
 
-    return return_to || stored_location_for(user) ||
-      if can_haz :discovery_tab_all_stream
-        activities_channel_path(user, user.graph_user.stream)
-      else
-        channel_path(user, user.graph_user.stream)
-      end
+    return_to || stored_location_for(user) || activities_channel_path(user, user.graph_user.stream)
   end
 
   ##########
