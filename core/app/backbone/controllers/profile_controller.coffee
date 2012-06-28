@@ -6,6 +6,7 @@ class window.ProfileController
     channelCollectionView = new ChannelsView(collection: window.Channels)
     window.Channels.setUsername(username)
     window.Channels.setupReloading()
+    window.Channels.unsetActiveChannel()
     app.channelListRegion.show(channelCollectionView)
 
     user = new User(username: username)

@@ -11,9 +11,15 @@ window.ChannelList = Backbone.Collection.extend({
     return '/' + this.getUsername() + '/channels';
   },
 
+  unsetActiveChannel: function(){
+    var activeChannel = this.get(this.activeChannelId)
+    if (activeChannel)
+      activeChannel.trigger('deactivate');
+  },
+
   setActiveChannel: function(channel) {
     if ( this.activeChannelId && this.activeChannelId !== channel.id ) {
-      this.get(this.activeChannelId).trigger('deactivate');
+      this.unsetActiveChannel()
     }
 
     this.activeChannelId = channel.id;
