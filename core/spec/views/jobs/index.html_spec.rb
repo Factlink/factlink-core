@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "jobs/index.html.erb" do
+describe "jobs/index.html" do
   before do
     assign(:jobs, [
       stub_model(Job,

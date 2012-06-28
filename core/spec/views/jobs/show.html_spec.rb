@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "jobs/show.html.erb" do
+describe "jobs/show.html" do
   before(:each) do
     assign(:job, stub_model(Job,
       :title       => "Title",
