@@ -6,6 +6,7 @@ gem 'activerecord', '3.2.6'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'rake', '~> 0.9.2', :require => false
+gem 'memoist'
 
 # Mongo
 gem 'mongoid', '~> 2.4.4'
