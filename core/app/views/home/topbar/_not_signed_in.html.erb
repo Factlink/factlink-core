@@ -4,7 +4,7 @@
     <div class="input-fields">
       <%= f.text_field     :login,    id: "user_login",    placeholder: "Username or email",    tabindex: '1' %>
       <%= f.password_field :password, id: "user_login_password", placeholder: "Password", tabindex: '2' %>
-      <%= f.submit 'Sign in', disable_with: 'Signing in...', class: 'btn', tabindex: '3' %>
+      <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '3' %>
     </div>
   <% end %>
 </div>
