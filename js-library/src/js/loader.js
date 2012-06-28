@@ -8,7 +8,7 @@
     iframe.id = "factlink-iframe";
     div.id = "fl";
 
-    body.insertBefore(div, body.firstChild);
+    body.appendChild(div);
     div.insertBefore(iframe, div.firstChild);
 
     return iframe;
