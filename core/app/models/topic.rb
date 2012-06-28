@@ -53,4 +53,7 @@ class Topic
     redis[id][:top_users].zadd val, user.id
   end
 
+  def top_users_clear
+    redis[id][:top_users].del
+  end
 end
