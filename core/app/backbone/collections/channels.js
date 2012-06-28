@@ -86,7 +86,7 @@ window.ChannelList = Backbone.Collection.extend({
     })
 
     topchannels.comparator =  function (channel) {
-      -parseFloat(channel.get('created_by_authority'));
+      return -parseFloat(channel.get('created_by_authority'));
     }
     topchannels.sort();
     return topchannels;
