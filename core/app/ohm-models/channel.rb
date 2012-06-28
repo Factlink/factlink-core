@@ -52,10 +52,7 @@ class Channel < OurOhm
 
   after :create, :update_top_users
 
-  delegate :unread_count,  :to => :sorted_cached_facts
-
   def mark_as_read
-    sorted_cached_facts.mark_as_read
     unread_facts.make_empty
   end
 
@@ -91,7 +88,7 @@ class Channel < OurOhm
     end
   end
 
-  def new_unread_count
+  def unread_count
     unread_facts.size
   end
 
