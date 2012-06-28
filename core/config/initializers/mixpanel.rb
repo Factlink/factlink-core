@@ -4,7 +4,7 @@ if ["production", "staging"].include?(Rails.env)
   FactlinkUI::Application.config.mixpanel_token = mixpanel_conf['token']
   FactlinkUI::Application.config.mixpanel = MixpanelRails::Tracker
 
-  FactlinkUI::Application.config.middleware.use "Mixpanel::Tracker::Middleware", mixpanel_conf['token']
+  FactlinkUI::Application.config.middleware.use "Mixpanel::Tracker::Middleware", mixpanel_conf['token'], async: true, insert_js_last: true
 else
 
 
