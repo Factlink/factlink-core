@@ -1,10 +1,8 @@
 (function(){
-window.FactView = Backbone.View.extend({
+window.FactView = Backbone.Factlink.PlainView.extend({
   tagName: "div",
 
   className: "fact-block",
-
-  _currentTab: undefined,
 
   events: {
     "click .remove": "removeFactFromChannel",
@@ -22,37 +20,37 @@ window.FactView = Backbone.View.extend({
     "click a.less": "hideCompleteDisplaystring"
   },
 
-  tmpl: Template.use("facts", "_fact"),
+  template: "facts/_fact",
+
+  partials: {
+    fact_bubble: "facts/_fact_bubble",
+    fact_wheel: "facts/_fact_wheel",
+    interacting_users: "facts/_interacting_users"
+  },
 
   initialize: function(opts) {
-    this.model.bind('destroy', this.remove, this);
+    this._currentTab = undefined;
+    this.interactingUserViews = [];
+
+    this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
     this.initAddToChannel();
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
-    this.wheel = new Wheel(this.model.get('fact_bubble')['fact_wheel']);
+    this.wheel = new Wheel(this.model.get('fact_bubble').fact_wheel);
   },
 
-  partials: {},
-
-  render: function() {
-    this.$el
-      .html( this.tmpl.render(this.model.toJSON(), {
-        fact_bubble: Template.use("facts","_fact_bubble"),
-        fact_wheel: Template.use("facts","_fact_wheel"),
-        interacting_users: Template.use("facts","_interacting_users")
-      }));
-
-    this.initAddToChannel();
+  onRender: function() {
+    this.renderAddToChannel();
     this.initFactRelationsViews();
-    this.initUserPassportViews();
+    this.renderUserPassportViews();
 
     this.$el.find('.authority').tooltip();
 
     if ( this.factWheelView ) {
-      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble')['fact_wheel']);
+      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble').fact_wheel);
       this.$el.find('.wheel').replaceWith(this.factWheelView.reRender().el);
     } else {
       this.factWheelView = new InteractiveWheelView({
@@ -61,8 +59,6 @@ window.FactView = Backbone.View.extend({
         el: this.$el.find('.wheel')
       }).render();
     }
-
-    return this;
   },
 
   remove: function() {
@@ -70,6 +66,13 @@ window.FactView = Backbone.View.extend({
       $(this).remove();
     });
 
+    _.each(this.interactingUserViews, function(view){
+      view.close();
+    },this);
+
+    if(this.addToChannelView){
+      this.addToChannelView.close();
+    }
     // Hides the popup (if necessary)
     if ( parent.remote ) {
       parent.remote.hide();
@@ -91,12 +94,10 @@ window.FactView = Backbone.View.extend({
       },
       success: function() {
         self.model.collection.remove(self.model);
-        try {
-          mpmetrics.track("Channel: Silence Factlink from Channel", {
-            factlink_id: self.model.id,
-            channel_id: currentChannel.id
-          });
-        } catch(e) {}
+        mp_track("Channel: Silence Factlink from Channel", {
+          factlink_id: self.model.id,
+          channel_id: currentChannel.id
+        });
       }
     });
   },
@@ -111,21 +112,20 @@ window.FactView = Backbone.View.extend({
         alert("Error while removing the Factlink" );
       },
       success: function() {
-        try {
-          mpmetrics.track("Factlink: Destroy", {
-            factlink_id: self.model.id
-          });
-        } catch(e) {}
+        mp_track("Factlink: Destroy");
       }
     });
   },
 
   initAddToChannel: function() {
+  },
+
+  renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
-    if ( this.$el.find(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" ) {
       var addToChannelView = new AutoCompletedAddToChannelView({
-        el: this.$el.find(add_el)[0],
+        el: this.$(add_el)[0]
       });
       _.each(this.model.getOwnContainingChannels(),function(ch){
         //hacky hacky bang bang
@@ -143,6 +143,7 @@ window.FactView = Backbone.View.extend({
         }
       });
       addToChannelView.render();
+      this.addToChannelView = addToChannelView;
     }
   },
 
@@ -168,12 +169,7 @@ window.FactView = Backbone.View.extend({
   },
 
   switchToRelationDropdown: function(type){
-    try {
-      mpmetrics.track("Factlink: Open tab", {
-        factlink_id: self.model.id,
-        type: type
-      });
-    } catch(e) {}
+    mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
@@ -205,7 +201,7 @@ window.FactView = Backbone.View.extend({
 
       $target.addClass('active');
       // Show the tab
-      this.$el.find('.tab-content > .' + tab).show();
+      this.$('.tab-content > .' + tab).show();
       // Keep showing the tabs (in the li)
       this.$('.tab-control > li').addClass('tabOpened');
       this.handleTabActions(tab);
@@ -238,6 +234,10 @@ window.FactView = Backbone.View.extend({
   },
 
   initUserPassportViews: function() {
+
+  },
+
+  renderUserPassportViews: function(){
     var interacting_users = this.model.get('interacting_users');
 
     _.each(interacting_users.activity, function (user) {
@@ -248,7 +248,8 @@ window.FactView = Backbone.View.extend({
         model: model,
         el: el,
         activity: user
-      }).render();
+      });
+      view.render();
     }, this);
   },
 

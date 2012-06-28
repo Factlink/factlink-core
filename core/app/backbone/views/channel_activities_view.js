@@ -5,11 +5,9 @@
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
 
-  tmpl: Template.use("channels", "_channel"),
+  template: "channels/_channel",
 
   initialize: function(opts) {
-    var self = this;
-
     if (this.model !== undefined) {
       this.subchannels = new SubchannelList({channel: this.model});
       this.subchannels.fetch();
@@ -17,10 +15,10 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.activitiesView = new ActivitiesView({
         el: '#activity_for_channel',
         collection: new ChannelActivities([],{
-          channel: self.model
+          channel: this.model
         })
       });
-      this.activitiesView.collection.fetch();
+      this.activitiesView.collection.loadMore();
     }
   },
 
@@ -82,8 +80,6 @@ window.ChannelActivitiesView = Backbone.View.extend({
   },
 
   remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-
     if ( this.activitiesView ) {
       this.activitiesView.close();
     }
@@ -95,6 +91,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
     if ( this.subchannelView ) {
       this.subchannelView.close();
     }
+    Backbone.View.prototype.remove.apply(this);
   },
 
   render: function() {
@@ -104,15 +101,15 @@ window.ChannelActivitiesView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( this.tmpl.render(this.model.toJSON()) );
+        .html( this.templateRender(this.model.toJSON()) );
 
       this.initSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.activitiesView.$el = this.$el.find('#activity_for_channel')
-      this.activitiesView.render()
+      this.activitiesView.$el = this.$el.find('#activity_for_channel');
+      this.activitiesView.render();
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');
@@ -127,3 +124,4 @@ window.ChannelActivitiesView = Backbone.View.extend({
   }
 });
 
+_.extend(ChannelActivitiesView.prototype, TemplateMixin);

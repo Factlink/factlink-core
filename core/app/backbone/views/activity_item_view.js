@@ -35,28 +35,28 @@ var AddedFactToChannelView = GenericActivityFactItemView.extend({
   template: "activities/_added_fact_to_channel"
 });
 
-window.ActivityItemView = function(opts) {
-  switch (opts.model.get("action")) {
+window.getActivityItemViewFor = function(model) {
+  switch (model.get("action")) {
     case "added_supporting_evidence":
     case "added_weakening_evidence":
-      return new AddedEvidenceView(opts);
+      return AddedEvidenceView;
 
     case "created_channel":
-      return new CreatedChannelView(opts);
+      return CreatedChannelView;
 
     case "added_subchannel":
-      return new AddedSubchannelView(opts);
+      return AddedSubchannelView;
 
     case "believes":
     case "doubts":
     case "disbelieves":
-      return new AddedOpinionView(opts);
+      return AddedOpinionView;
 
     case "added_fact_to_channel":
-      return new AddedFactToChannelView(opts);
+      return AddedFactToChannelView;
 
     default:
-      return new GenericActivityItemView(opts);
+      return GenericActivityItemView;
   }
 };
 

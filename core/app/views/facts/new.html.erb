@@ -26,7 +26,7 @@
 
     <div class="buttons">
       <button class="btn" name="cancel" id="cancel">Cancel</button>
-      <%= submit_tag "Post to Factlink", class: "btn btn-primary", disable_with: "Adding...", id: "submit" %>
+      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Adding...", id: "submit" %>
     </div>
   <% end %>
 <% end %>

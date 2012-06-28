@@ -3,12 +3,13 @@
 window.FactRelationsView = Backbone.View.extend({
   tagName: "div",
   className: "page evidence-list fact-relations-container",
-  _views: [],
-  _loading: true,
 
-  tmpl: Template.use('fact_relations','fact_relations'),
+  template: 'fact_relations/fact_relations',
 
   initialize: function(options) {
+    this._views = [];
+    this._loading = true;
+
     this.collection.bind('add', this.addFactRelation, this);
     this.collection.bind('remove', this.removeFactRelation, this);
     this.collection.bind('reset', this.resetFactRelations, this);
@@ -43,7 +44,8 @@ window.FactRelationsView = Backbone.View.extend({
 
     this._views.push(factRelationView);
 
-    this.$el.find('ul.evidence-listing').append(factRelationView.render().el);
+    factRelationView.render();
+    this.$el.find('ul.evidence-listing').append(factRelationView.el);
 
     if ( options.highlight ) {
       this.highlightFactRelation(factRelationView);
@@ -68,7 +70,7 @@ window.FactRelationsView = Backbone.View.extend({
 
   render: function() {
     this.$el
-      .html(this.tmpl.render())
+      .html(this.templateRender())
       .prepend(this.factRelationSearchView.render().el);
 
     return this;
@@ -120,3 +122,4 @@ window.FactRelationsView = Backbone.View.extend({
     this.$el.find('.no-evidence-message').hide();
   }
 });
+_.extend(FactRelationsView.prototype, TemplateMixin);

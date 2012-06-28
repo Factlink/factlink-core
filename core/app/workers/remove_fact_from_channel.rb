@@ -25,7 +25,7 @@ class RemoveFactFromChannel
     Channel[@channel_id]
   end
 
-  extend ActiveSupport::Memoizable
+  extend Memoist
   memoize :channel, :fact, :explicitely_deleted?, :already_deleted?, :included_from_elsewhere?
 
   def perform

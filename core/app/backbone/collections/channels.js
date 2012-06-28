@@ -3,17 +3,23 @@ window.ChannelList = Backbone.Collection.extend({
   reloadingEnabled: false,
 
   initialize: function() {
-    this.bind('activate', this.setActiveChannel);
-    this.bind('reset', this.checkActiveChannel);
+    this.on('activate', this.setActiveChannel);
+    this.on('reset', this.checkActiveChannel);
   },
 
   url: function() {
     return '/' + this.getUsername() + '/channels';
   },
 
+  unsetActiveChannel: function(){
+    var activeChannel = this.get(this.activeChannelId)
+    if (activeChannel)
+      activeChannel.trigger('deactivate');
+  },
+
   setActiveChannel: function(channel) {
     if ( this.activeChannelId && this.activeChannelId !== channel.id ) {
-      this.get(this.activeChannelId).trigger('deactivate');
+      this.unsetActiveChannel()
     }
 
     this.activeChannelId = channel.id;
@@ -54,19 +60,42 @@ window.ChannelList = Backbone.Collection.extend({
     }
   },
 
+  unreadCount: function(){
+    return this.reduce(function(memo, channel) {
+      return memo + channel.get('unread_count');
+    }, 0);
+  },
+
   startReloading: function(){
     if(this.shouldReload()) {
       var args = arguments;
       var self = this;
       setTimeout(function(){
         self.fetch({
-          succes: args.callee,
-          error: args.callee
+          success: function(collection, response) {
+            var newCurrentChannel = collection.get(currentChannel.id);
+            currentChannel.set(newCurrentChannel.attributes);
+            _.bind(args.callee, self)();
+          },
+          error:   _.bind(args.callee, self)
         });
       }, 7000);
     }
+  },
+
+  orderedByAuthority: function(){
+    var topchannels = new ChannelList();
+    _.each(this.models, function(channel){
+      if(channel.get('type') == 'channel') {
+        topchannels.add(channel);
+      }
+    })
+
+    topchannels.comparator =  function (channel) {
+      -parseFloat(channel.get('created_by_authority'));
+    }
+    topchannels.sort();
+    return topchannels;
   }
 
 });
-
-window.Channels = new ChannelList();

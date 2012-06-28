@@ -11,6 +11,22 @@
 Backbone.View.prototype.close = function() {
   this.remove();
   this.unbind();
-  
+  if (this.onClose) {
+    this.onClose();
+  }
   this.trigger('close');
 };
+
+/*
+window.bekijks={};
+Backbone.View.prototype.constructor = function(options) {
+  this.cid = _.uniqueId('view');
+  console.info('+CID ', this.cid);
+  window.bekijks[this.cid]=this;
+     this._configure(options || {});
+     this._ensureElement();
+     this.initialize.apply(this, arguments);
+     this.delegateEvents();
+     this.on('close', function(){console.info('-CID', this.cid);delete window.bekijks[this.cid];},this);
+}
+*/

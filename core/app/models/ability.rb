@@ -113,17 +113,21 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details discovery_tab_all_stream)
+  FEATURES = %w(pink_feedback_button authority_calculation_details)
+  GLOBAL_ENABLED_FEATURES = []
+
+  def enable_features list
+    list.each do |feature|
+      can :"see_feature_#{feature}", FactlinkWebapp
+    end
+  end
 
   def define_feature_toggles
     if user
-      if user.admin?
-         can :see_feature_version_number, FactlinkWebapp
-      end
-      can :see_feature_beginners_hints, FactlinkWebapp if (user.sign_in_count || 0) < 10
-      user.features.each do |feature|
-        can :"see_feature_#{feature}", FactlinkWebapp
-      end
+      enable_features [:version_number]  if user.admin?
+      enable_features [:beginners_hints] if (user.sign_in_count || 0) < 10
+      enable_features user.features
+      enable_features GLOBAL_ENABLED_FEATURES
     end
   end
 

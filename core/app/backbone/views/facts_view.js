@@ -1,12 +1,8 @@
-window.FactsView = Backbone.CollectionView.extend({
+window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
   className: "facts",
   containerSelector: ".facts",
-  modelView: FactView,
-  _loading: true,
-  _timestamp: undefined,
-  _previousLength: -1,
-  views: {},
+  itemView: FactView,
   events: {
     "submit #create_fact_for_channel": "createFact",
     "focus #create_fact_for_channel textarea": "openCreateFactForm",
@@ -16,21 +12,16 @@ window.FactsView = Backbone.CollectionView.extend({
     "click #create_fact_for_channel .input-box": "focusField"
   },
 
-  tmpl: Template.use("channels", "_facts"),
+  template: "channels/_facts",
 
   initialize: function(options) {
-    var self = this;
+    this.views = {};
 
-    this.collection.bind('add', this.add, this);
-    this.collection.bind('reset', this.reset, this);
-    this.collection.bind('remove', this.removeOne, this);
+    this.addShowHideToggle('loadingIndicator', 'div.loading');
+    this.addShowHideToggle('emptyView', 'div.no_facts');
 
-    //TODO split this into two views, one for channels, one for searchresults
-    this.$el.html(this.tmpl.render(options.channel && options.channel.toJSON()));
-
-    this.$el.find('.icon-pen').tooltip({ title: 'Add a title to this Factlink'});
-
-    this.bindScroll();
+    this.collection.on('startLoading', this.loadingIndicatorOn, this);
+    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
   },
 
   createFact: function (e) {
@@ -57,7 +48,9 @@ window.FactsView = Backbone.CollectionView.extend({
 
         var a = self.collection.unshift(fact);
 
-        self.views[fact.cid].highlight();
+        // HACK this is how backbone marionette stores childviews:
+        // dependent on their implementation though
+        self.children[fact.cid].highlight();
 
         $form.find(':input').val('').prop('disabled',false);
 
@@ -94,118 +87,8 @@ window.FactsView = Backbone.CollectionView.extend({
     var $target = $(e.target);
 
     ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
-  },
-
-  removeOne: function (fact) {
-    this.views[fact.cid].remove();
-  },
-
-  render: function() {
-    var self = this;
-
-    if (this.collection.length === 0 && !this._loading) {
-      this.showNoFacts();
-    } else {
-      this.collection.forEach(function(fact) {
-        self.add(fact);
-      });
-    }
-
-    if ( this._previousLength === this.collection.length ) {
-      this.hasMore = false;
-    } else {
-      this._previousLength = this.collection.length;
-    }
-
-    this.loadMore();
-
-    return this;
-  },
-
-  remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-
-    this.unbindScroll();
-  },
-
-  beforeReset: function(e){
-    this.stopLoading();
-  },
-
-  moreNeeded: function() {
-    var bottomOfTheViewport = window.pageYOffset + window.innerHeight;
-    var bottomOfEl = this.$el.offset().top + this.$el.outerHeight();
-
-    if ( this.hasMore ) {
-      if ( bottomOfEl < bottomOfTheViewport ) {
-        return true;
-      } else if ($(document).height() - ($(window).scrollTop() + $(window).height()) < 700) {
-        return true;
-      }
-    }
-
-    return false;
-  },
-
-  loadMore: function() {
-    var self = this;
-    var lastModel = self.collection.models[(self.collection.length - 1) || 0];
-    var new_timestamp = (lastModel ? lastModel.get('timestamp') : 0);
-
-    if ( self.moreNeeded() && ! self._loading && self._timestamp !== new_timestamp ) {
-      self.setLoading();
-
-      self._timestamp = new_timestamp;
-
-      self.collection.fetch({
-        add: true,
-        data: {
-          timestamp: self._timestamp
-        },
-        success: function() {
-          self.stopLoading();
-          self.loadMore();
-        },
-        error: function() {
-          self.stopLoading();
-          self.hasMore = false;
-        }
-      });
-    }
-  },
-
-  hasMore: true,
-
-  showNoFacts: function() {
-    this.$el.find('div.no_facts').show();
-  },
-
-  hideNoFacts: function() {
-    this.$el.find('div.no_facts').hide();
-  },
-
-  afterAdd: function () {
-    this.hideNoFacts();
-  },
-
-  setLoading: function() {
-    this._loading = true;
-    this.$el.find('div.loading').show();
-  },
-
-  stopLoading: function() {
-    this._loading = false;
-    this.$el.find('div.loading').hide();
-  },
-
-  bindScroll: function() {
-    var self = this;
-    $(window).bind('scroll.' + this.cid, function MCBiggah() {
-      self.loadMore.apply(self);
-    });
-  },
-
-  unbindScroll: function() {
-    $(window).unbind('scroll.' + this.cid);
   }
+
 });
+
+_.extend(window.FactsView.prototype, ToggleMixin);

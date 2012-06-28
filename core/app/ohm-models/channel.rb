@@ -44,13 +44,17 @@ class Channel < OurOhm
   set :contained_channels, Channel
   set :containing_channels, Channel
 
+  set :unread_facts, Channel
+
   timestamped_set :sorted_internal_facts, Fact
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
   after :create, :update_top_users
 
-  delegate :unread_count, :mark_as_read, :to => :sorted_cached_facts
+  def mark_as_read
+    unread_facts.make_empty
+  end
 
   attribute :discontinued
   index :discontinued
@@ -84,6 +88,9 @@ class Channel < OurOhm
     end
   end
 
+  def unread_count
+    unread_facts.size
+  end
 
   def facts(opts={})
     return [] if new?
@@ -125,7 +132,7 @@ class Channel < OurOhm
     add_created_channel_activity
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
-    Resque.enqueue(AddFactToChannel, fact.id, self.id)
+    Resque.enqueue(AddFactToChannel, fact.id, self.id, initiated_by_id: created_by_id)
 
     activity(self.created_by,:added_fact_to_channel,fact,:to,self)
   end

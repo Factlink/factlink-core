@@ -1,9 +1,21 @@
-window.SubchannelItemView = Backbone.View.extend({
+window.SubchannelItemView = Backbone.Factlink.PlainView.extend({
   tagName: "li",
 
   events: {
     "click" : "clickHandler",
     "click .close": "destroySubchannel"
+  },
+
+  template: "subchannels/_subchannel_item",
+
+  initialize: function() {
+    this.model.bind('change', this.render, this);
+    this.model.bind('destroy', this.remove, this);
+    this.model.bind('remove', this.remove, this);
+  },
+
+  onRender: function() {
+    this.$el.attr('id', 'subchannel-' + this.model.id);
   },
 
   destroySubchannel: function (e) {
@@ -14,34 +26,17 @@ window.SubchannelItemView = Backbone.View.extend({
     return false;
   },
 
-  tmpl: Template.use("subchannels", "_subchannel_item"),
-
-  initialize: function() {
-    this.model.bind('change', this.render, this);
-    this.model.bind('destroy', this.remove, this);
-    this.model.bind('remove', this.remove, this);
-  },
-
-  render: function() {
-    this.$el
-      .html( this.tmpl.render( this.model.toJSON() ))
-      .attr('id', 'subchannel-' + this.model.id);
-    return this;
-  },
-
   clickHandler: function( e ) {
     if ( e.metaKey || e.ctrlKey || e.altKey ) return;
 
     var self = this;
 
-    try {
-      mpmetrics.track("Channel: Click on subchannel", {
-        channel_id: currentChannel.id,
-        subchannel_id: self.model.id
-      });
-    } catch(e) {}
+    mp_track("Channel: Click on subchannel", {
+      channel_id: currentChannel.id,
+      subchannel_id: self.model.id
+    });
 
-    Backbone.history.navigate(this.model.user.get('username') + '/channels/' + this.model.id, true);
+    Backbone.history.navigate(this.model.get('created_by').username + '/channels/' + this.model.id, true);
 
     e.preventDefault();
 

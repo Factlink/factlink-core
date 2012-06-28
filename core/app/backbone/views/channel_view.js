@@ -3,7 +3,7 @@
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
 
-  tmpl: Template.use("channels", "_channel"),
+  template: 'channels/_channel',
 
   initialize: function(opts) {
     var self = this;
@@ -16,15 +16,7 @@ window.ChannelView = Backbone.View.extend({
         collection: new ChannelFacts([],{
           channel: self.model
         }),
-        channel: self.model
-      });
-
-      this.factsView.setLoading();
-
-      this.factsView.collection.fetch({
-        data: {
-          timestamp: this.factsView._timestamp
-        }
+        model: self.model
       });
     }
   },
@@ -109,14 +101,15 @@ window.ChannelView = Backbone.View.extend({
       self.model.trigger('loading');
 
       this.$el
-        .html( this.tmpl.render( this.model.toJSON() ) );
+        .html( this.templateRender( this.model.toJSON() ) );
 
       this.initSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
       this.initMoreButton();
 
-      this.$el.find('#facts_for_channel').append(this.factsView.render().el);
+      this.factsView.render();
+      this.$el.find('#facts_for_channel').append(this.factsView.el);
 
       // Set the active tab
       var tabs = this.$el.find('.tabs ul');
@@ -134,3 +127,4 @@ window.ChannelView = Backbone.View.extend({
   }
 });
 
+_.extend(ChannelView.prototype, TemplateMixin);

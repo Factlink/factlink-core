@@ -1,12 +1,13 @@
 //= require jquery
 //= require underscore
 //= require mustache
-//= require backbone.lib
+//= require backbone
 //= require backbone.marionette
 
 //= require twipsy
 
 //= require_tree ./contrib
+//= require_tree ./factlink
 
 //= require app.js
 

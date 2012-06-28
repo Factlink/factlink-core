@@ -22,24 +22,14 @@ $(function(){
     
     if (opts.showActionEl) {
       opts.showActionEl.live('click', function() {
-        try {
-          mpmetrics.track("Take The Tour: Click", {
-            where: "topbar"
-          });
-        } catch(e) {}
-        
+        mp_track("Take The Tour: Click", {where: "topbar"});
         self.show();
       });
     }
     
     if (opts.hideActionEl) {
       opts.hideActionEl.live('click', function() {
-        try {
-          mpmetrics.track("Take The Tour: Hide", {
-            where: "cross"
-          });
-        } catch(e) {}
-        
+        mp_track("Take The Tour: Hide", {where: "cross"});
         self.hide();
       });
     }
@@ -95,11 +85,7 @@ $(function(){
             resetMovieInTour();
           }
           
-          try {
-            mpmetrics.track("Take The Tour: Slide", {
-              type: (forward ? "forward" : "backward")
-            });
-          } catch(e) {}
+          mp_track("Take The Tour: Slide", {type: (forward ? "forward" : "backward")});
         },
 
         // callback fn that creates a thumbnail to use as pager anchor

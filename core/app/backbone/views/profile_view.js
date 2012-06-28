@@ -30,3 +30,4 @@ window.ProfileView = Backbone.Marionette.CompositeView.extend({
   },
 
 });
+_.extend(ProfileView.prototype,ToggleMixin);
