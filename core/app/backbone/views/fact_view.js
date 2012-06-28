@@ -346,13 +346,11 @@ window.FactView = Backbone.Factlink.PlainView.extend({
   },
 
   showCompleteDisplaystring: function (e) {
-    this.$el.find('.normal').hide()
-      .siblings('.full').show();
+    this.$('.normal').hide().siblings('.full').show();
   },
 
   hideCompleteDisplaystring: function (e) {
-    this.$el.find('.full').hide()
-      .siblings('.normal').show();
+    this.$('.full').hide().siblings('.normal').show();
   }
 });
 })();
