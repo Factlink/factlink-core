@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "jobs/show.html" do
+describe "jobs/show" do
   before(:each) do
     assign(:job, stub_model(Job,
       :title       => "Title",
