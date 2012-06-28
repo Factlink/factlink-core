@@ -117,15 +117,11 @@ module Channels
     end
 
     def unread_count
-      @unread ||= if can_haz :new_read_counter
-          if is_normal
-            self[:channel].new_unread_count
-          else
-            0
-          end
-        else
-          self[:channel].unread_count
-        end
+      @unread_count ||= if is_normal
+                          self[:channel].new_unread_count
+                        else
+                          0
+                        end
     end
 
     private
