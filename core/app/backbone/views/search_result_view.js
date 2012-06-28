@@ -1,20 +1,19 @@
-window.SearchResultView = Backbone.CollectionView.extend({
+window.SearchResultView = Backbone.Factlink.CollectionView.extend({
   tagName: "div",
   className: "search-results",
-  _loading: true,
-  _page: 1,
-  views: {},
-  _previousLength: 0,
 
-  tmpl: Template.use("search_results", "_search_results"),
+  template: "search_results/_search_results",
 
   initialize: function(options) {
-    var self = this;
+    this._loading = true;
+    this._page = 1;
+    this.views = {};
+    this._previousLength = 0;
 
     this.collection.bind('add', this.addSearchResultItem, this);
     this.collection.bind('reset', this.resetSearchResultItems, this);
 
-    this.$el.html(this.tmpl.render());
+    this.$el.html(this.templateRender());
     this.bindScroll();
   },
 
@@ -133,3 +132,4 @@ window.SearchResultView = Backbone.CollectionView.extend({
     $(window).unbind('scroll.' + this.cid);
   }
 });
+_.extend(SearchResultView.prototype, TemplateMixin);

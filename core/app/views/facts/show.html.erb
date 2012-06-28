@@ -9,7 +9,8 @@
     var Fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
     var View = new FactView({
       model: Fact
-    }).render();
+    })
+    View.render();
 
     $('div.modal').append(View.el);
     window.fact_id = "<%= @fact.id %>";

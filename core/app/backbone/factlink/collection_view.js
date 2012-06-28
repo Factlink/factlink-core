@@ -1,11 +1,13 @@
-Backbone.CollectionView = Backbone.View.extend({
+Backbone.Factlink = Backbone.Factlink || {};
+
+Backbone.Factlink.CollectionView = Backbone.View.extend({
   beforeReset: function(e){},
   afterReset: function(e){},
 
   reset: function(e) {
     this.beforeReset.apply(this, arguments);
     _.each(this.views,function(view) {
-      view.remove();
+      view.close();
     });
 
     this.views = {};

@@ -1,5 +1,4 @@
-window.UserView = Backbone.View.extend({
-  root: $("#left-column"),
+window.UserView = Backbone.Marionette.ItemView.extend({
   tagName: "article",
   className: "user-block",
 
@@ -7,14 +6,7 @@ window.UserView = Backbone.View.extend({
     "click div.avatar-container": "clickHandler"
   },
 
-  tmpl: Template.use("users", "_user"),
-
-  render: function() {
-    this.el.innerHTML = this.tmpl.render(this.model.toJSON());
-    this.root.prepend( this.el );
-
-    return this;
-  },
+  template:"users/_user",
 
   clickHandler: function(e) {
     Backbone.history.navigate(this.model.url(), true);
@@ -23,5 +15,5 @@ window.UserView = Backbone.View.extend({
 
 
 window.UserLargeView = window.UserView.extend({
-  tmpl: Template.use("users", "_user_large")
+  template: "users/_user_large"
 });

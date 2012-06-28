@@ -3,7 +3,6 @@ window.FactsView = AutoloadingCompositeView.extend({
   className: "facts",
   containerSelector: ".facts",
   itemView: FactView,
-  views: {},
   events: {
     "submit #create_fact_for_channel": "createFact",
     "focus #create_fact_for_channel textarea": "openCreateFactForm",
@@ -16,26 +15,13 @@ window.FactsView = AutoloadingCompositeView.extend({
   template: "channels/_facts",
 
   initialize: function(options) {
-    this.collection.on('startLoading', this.showLoadingIndicator, this);
-    this.collection.on('stopLoading', this.hideLoadingIndicator, this);
-  },
+    this.views = {};
 
-  showLoadingIndicator: function() {
-    this.$el.find('div.loading').show();
-  },
+    this.addShowHideToggle('loadingIndicator', 'div.loading');
+    this.addShowHideToggle('emptyView', 'div.no_facts');
 
-  hideLoadingIndicator: function() {
-    this.$el.find('div.loading').hide();
-  },
-
-
-  appendHtml: function(collectionView, itemView){
-    //TODO: also allow for adding in the middle
-    if (collectionView.collection.indexOf(itemView.model) === 0) {
-      this.$el.find(this.containerSelector).prepend(itemView.el);
-    } else {
-      this.$el.find(this.containerSelector).append(itemView.el);
-    }
+    this.collection.on('startLoading', this.loadingIndicatorOn, this);
+    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
   },
 
   createFact: function (e) {
@@ -101,13 +87,8 @@ window.FactsView = AutoloadingCompositeView.extend({
     var $target = $(e.target);
 
     ! $target.is(':input') && $(e.target).closest('form').find('textarea').focus();
-  },
-
-  showEmpty: function() {
-    this.$el.find('div.no_facts').show();
-  },
-
-  hideEmpty: function() {
-    this.$el.find('div.no_facts').hide();
   }
+
 });
+
+_.extend(window.FactsView.prototype, ToggleMixin);

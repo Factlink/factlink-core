@@ -7,14 +7,9 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
   var routeTo = $(e.target).closest('a').attr('href');
   console.log("Navigating to "+ routeTo);
 
-  if ( $(e.target).closest('li').hasClass('active') ) {
-    Backbone.history.loadUrl( Backbone.history.fragment );
-  } else {
-    Backbone.history.navigate(routeTo, true);
-  }
+  Backbone.history.navigate(routeTo, true);
 
   e.preventDefault();
-
   return false;
 };
 

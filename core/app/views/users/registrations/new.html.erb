@@ -5,7 +5,7 @@
     <%= f.email_field :email, placeholder: "Email", required: "required" %>
   </div>
 
-  <%= f.submit "Reserve", class: "btn btn-success", disable_with: "Reserving..." %>
+  <%= f.submit "Reserve", class: "btn btn-success", 'data-disable-with' => "Reserving..." %>
 
   <% content_for :javascript do %>
     <script>

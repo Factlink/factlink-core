@@ -1,16 +1,16 @@
 window.AddToChannelView = Backbone.View.extend({
   tagName: "div",
 
-  _views: [],
-
   events: {
     'keyup .channel-title': 'submitFormIfNeeded',
     'click .submit': 'addChannel'
   },
 
-  tmpl: Template.use("channels", "_own_channel_listing"),
+  template: "channels/_own_channel_listing",
 
   initialize: function(opts) {
+    this._views = [];
+
     this.collection.bind('add',   this.render, this);
     this.collection.bind('reset', this.render, this);
 
@@ -140,7 +140,7 @@ window.AddToChannelView = Backbone.View.extend({
 
 
     this.$el
-      .html( this.tmpl.render(add_model) );
+      .html( this.templateRender(add_model) );
 
     var $channelListing = this.$el.find('ul');
 
@@ -173,3 +173,5 @@ window.AddToChannelView = Backbone.View.extend({
     this.render();
   }
 });
+
+_.extend(AddToChannelView.prototype, TemplateMixin);

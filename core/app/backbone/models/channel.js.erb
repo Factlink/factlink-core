@@ -1,12 +1,8 @@
 window.Channel = Backbone.Model.extend({
 
   initialize: function(opts) {
-    var self = this;
-
     this.on('activate', this.setActive);
     this.on('deactivate', this.setNotActive);
-
-    this.user = new User(opts.created_by);
   },
 
   setActive: function() {
@@ -15,6 +11,10 @@ window.Channel = Backbone.Model.extend({
 
   setNotActive: function() {
     this.isActive = false;
+  },
+
+  user: function(){
+    return new User(this.get('created_by'));
   },
 
   getOwnContainingChannels: function() {
@@ -34,24 +34,8 @@ window.Channel = Backbone.Model.extend({
     if ( this.collection ) {
       return Backbone.Model.prototype.url.apply(this,arguments);
     } else {
-      return this.get('link');
+      return '/' + this.get('created_by').username + '/channels/' + this.get('id');
     }
-  },
-
-  chromeExtensionUrl: function() {
-    return;
-  },
-
-  brain_icon: function() {
-    return;
-  },
-
-  channel_definition: function() {
-    return;
-  },
-
-  channels_definition: function() {
-    return;
   },
 
   toJSON: function(){

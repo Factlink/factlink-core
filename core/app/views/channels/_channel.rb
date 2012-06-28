@@ -76,7 +76,7 @@ module Channels
     end
 
     def discover_stream?
-      (can_haz :discovery_tab_all_stream) && is_all && is_mine
+      is_all && is_mine
     end
 
     def created_by
@@ -117,11 +117,7 @@ module Channels
     end
 
     def unread_count
-      @unread ||= if can_haz :new_read_counter
-          self[:channel].new_unread_count
-        else
-          self[:channel].unread_count
-        end
+      @unread_count ||= is_normal ? self[:channel].unread_count : 0
     end
 
     private

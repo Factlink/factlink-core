@@ -14,21 +14,21 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     "mouseleave .auto_complete>div" : "deActivateAddNew"
   },
 
-  tmpl: HoganTemplates["channels/_auto_completed_add_to_channel"],
+  template: "channels/_auto_completed_add_to_channel",
 
   initialize: function () {
+    this._channelViews = {};
+    this._autoCompleteViews = [];
+    this.vent = new Backbone.Marionette.EventAggregator();
+
     this.collection = new OwnChannelCollection();
     this.collection.bind('add', this.addChannel, this);
-
-    this.vent = new Backbone.Marionette.EventAggregator();
-    this._channelViews = {};
   },
 
   render: function () {
-    this.$el.html( this.tmpl.render() );
+    this.$el.html( this.templateRender(this.model) );
 
     this.reset();
-
     return this;
   },
 
@@ -80,12 +80,15 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   },
 
-  reset: function () {
+  closeAutoCompletedAddToChannelViews: function(){
     _.each(this._channelViews, function (view) {
-      view.remove();
+      view.close();
     });
-
     this._channelViews = {};
+  },
+
+  reset: function () {
+    this.closeAutoCompletedAddToChannelViews();
 
     this.collection.each(function(channel) {
       this.addChannel(channel);
@@ -379,12 +382,17 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.$el.find('.auto_complete').show();
   },
 
-  clearAutoComplete: function () {
+  closeAutoCompleteViews: function() {
     _.each( this._autoCompleteViews, function (view) {
       view.close();
     });
 
     this._autoCompleteViews = [];
+  },
+
+  clearAutoComplete: function () {
+    this.closeAutoCompleteViews();
+    
     this._autoCompletes = new Backbone.Collection();
 
     this.$el.find('.auto_complete').addClass('empty');
@@ -394,6 +402,11 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     this.deActivateAddNew();
 
     this.showAddNew();
+  },
+
+  onClose: function(){
+    this.closeAutoCompletedAddToChannelViews();
+    this.closeAutoCompleteViews();
   },
 
   alreadyAdded: function(channel) {
@@ -438,7 +451,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   removeAddedChannel: function (channel) {
     var id = channel.id;
-    this._channelViews[id].remove();
+    this._channelViews[id].close();
 
     delete this._channelViews[id];
 
@@ -454,3 +467,5 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   }
 });
+
+_.extend(AutoCompletedAddToChannelView.prototype, TemplateMixin);
