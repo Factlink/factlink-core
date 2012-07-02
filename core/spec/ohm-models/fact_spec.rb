@@ -212,6 +212,10 @@ describe Fact do
       subject.data.displaystring = '     '
       subject.data.save.should be_false
     end
+
+    it "should not be possible to save a fact with a string consisting out of only spaces" do
+      Fact.create_with_data('http://google.com/',' ', 'foo', gu1).data.save.should be_false
+    end
   end
 
 
