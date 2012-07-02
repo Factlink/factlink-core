@@ -68,37 +68,37 @@ describe "Check the ToS", type: :request do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Start']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Start']", :visible => true)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Factlink']", :visible => true)
-      page.has_xpath?("//div[@data-title='Start']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Factlink']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Start']", :visible => false)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Evidence']", :visible => true)
-      page.has_xpath?("//div[@data-title='Factlink']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Evidence']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Factlink']", :visible => false)
 
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Relations']", :visible => true)
-      page.has_xpath?("//div[@data-title='Evidence']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Relations']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Evidence']", :visible => false)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Channels']", :visible => true)
-      page.has_xpath?("//div[@data-title='Relations']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Channels']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Relations']", :visible => false)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?("//div[@data-title='Channels']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Channels']", :visible => false)
 
       page.find(".previous").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Use it!']", :visible => false)
 
       page.find(".next").click
       page.find(".closeButton").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Use it!']", :visible => false)
     end
   end
 end
