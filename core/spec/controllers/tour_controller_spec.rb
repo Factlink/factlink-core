@@ -8,7 +8,7 @@ describe TourController do
     it "should render almost_done template" do
       authenticate_user!(user)
       get :almost_done
-      response.should render_template(template: /\Atour\/almost_done\Z/, layout: "layouts/frontend")
+      response.should render_template(template: /\Atour\/almost_done\Z/, layout: "layouts/general")
       assigns(:step_in_signup_process).should eq(:almost_done)
     end
   end
