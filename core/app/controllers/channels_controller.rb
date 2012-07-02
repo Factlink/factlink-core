@@ -195,6 +195,12 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
+  before_filter :track_logo_click, only: :activities
+
+  def track_logo_click 
+    track "Logo click" if params[:click] == "logo"
+  end
+
   def activities
     authorize! :show, @channel
 
