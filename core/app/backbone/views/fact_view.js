@@ -56,7 +56,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
       this.factWheelView = new InteractiveWheelView({
         model: this.wheel,
         fact: this.model,
-        el: this.$el.find('.wheel')
+        el: this.$('.wheel')
       }).render();
     }
   },
@@ -241,7 +241,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     var interacting_users = this.model.get('interacting_users');
 
     _.each(interacting_users.activity, function (user) {
-      var el = this.$el.find('li.user[data-activity-id=' + user.id + ']');
+      var el = this.$('li.user[data-activity-id=' + user.id + ']');
       var model = new User(user.user);
 
       var view = new UserPassportView({
