@@ -34,6 +34,8 @@ nl:
   add_to_channels: "toevoegen aan kanalen"
   created_channel: "heeft een kanaal aangemaakt"
 
+  related_channels: "gerelateerde channels"
+  interesting_channels: "interessante channels"
   related_users: "gerelateerde gebruikers"
   interesting_users: "interessante gebruikers"
 

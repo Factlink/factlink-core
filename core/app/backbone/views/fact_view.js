@@ -39,7 +39,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
-    this.wheel = new Wheel(this.model.get('fact_bubble').fact_wheel);
+    this.wheel = new Wheel(this.model.getFactWheel());
   },
 
   onRender: function() {
@@ -47,16 +47,16 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.initFactRelationsViews();
     this.renderUserPassportViews();
 
-    this.$el.find('.authority').tooltip();
+    this.$('.authority').tooltip();
 
     if ( this.factWheelView ) {
-      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble').fact_wheel);
-      this.$el.find('.wheel').replaceWith(this.factWheelView.reRender().el);
+      this.wheel.set(this.model.getFactWheel());
+      this.$('.wheel').replaceWith(this.factWheelView.reRender().el);
     } else {
       this.factWheelView = new InteractiveWheelView({
         model: this.wheel,
         fact: this.model,
-        el: this.$el.find('.wheel')
+        el: this.$('.wheel')
       }).render();
     }
   },
@@ -241,7 +241,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     var interacting_users = this.model.get('interacting_users');
 
     _.each(interacting_users.activity, function (user) {
-      var el = this.$el.find('li.user[data-activity-id=' + user.id + ']');
+      var el = this.$('li.user[data-activity-id=' + user.id + ']');
       var model = new User(user.user);
 
       var view = new UserPassportView({

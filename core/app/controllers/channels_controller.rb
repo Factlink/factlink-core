@@ -175,15 +175,14 @@ class ChannelsController < ApplicationController
     authorize! :create, Fact
     authorize! :update, @channel
 
-    @fact = Fact.create(:created_by => current_graph_user)
+    @fact = Fact.build_with_data(nil, params[:displaystring].to_s, params[:title].to_s, current_graph_user)
 
-    @fact.data.displaystring = params[:displaystring]
-    @fact.data.title = params[:title]
-    @fact.data.save
-
-    @channel.add_fact(@fact)
-
-    render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
+    if @fact.data.save and @fact.save
+      @channel.add_fact(@fact)
+      render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
+    else
+      render json: @fact.errors, status: :unprocessable_entity
+    end
   end
 
   def remove_fact
@@ -194,6 +193,12 @@ class ChannelsController < ApplicationController
     @channel.remove_fact(@fact)
 
     respond_with(@channel)
+  end
+
+  before_filter :track_logo_click, only: :activities
+
+  def track_logo_click 
+    track "Logo click" if params[:click] == "logo"
   end
 
   def activities

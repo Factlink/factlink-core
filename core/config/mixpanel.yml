@@ -1,6 +1,6 @@
 development:
   mixpanel:
-    token: "8d6864d76fbc062074506129cd298a5f"
+    token: "254dc7f42664e0d14f5260e0fb459da4"
 testserver:
   mixpanel:
     token: "8d6864d76fbc062074506129cd298a5f"

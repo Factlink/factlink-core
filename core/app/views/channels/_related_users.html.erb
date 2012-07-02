@@ -1,7 +1,7 @@
 <% if related_users && related_users.count > 0 %>
-  <h2><%= t(:related_users).capitalize %> for<br><%= topic.title %></h2>
+  <h2><%= t(:related_channels).capitalize %></h2>
 <% else %>
-  <h2><%= t(:interesting_users).capitalize %></h2>
+  <h2><%= t(:interesting_channels).capitalize %></h2>
   <% related_users = interesting_users_without( [current_user] + excluded_users, 5) %>
 <% end %>
 
@@ -14,7 +14,8 @@
         </div>
 
         <div class="wrapper">
-          <h3><%= user.username %></h3>
+          <h3><%= topic.title %></h3>
+          <span class="related-user"><%= user.username %></span>
           <% if can_haz :authority_for_related_users %>
             <div class="authority">
   	          <%= brain_icon %>

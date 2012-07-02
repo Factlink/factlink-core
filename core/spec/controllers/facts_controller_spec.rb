@@ -28,12 +28,12 @@ describe FactsController do
 
   describe :extended_show do
     it "should escape html in fields" do
-      @fact = FactoryGirl.create(:fact)
+      @fact = create :fact
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
 
-      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.user = create :user
       @fact.created_by.save
 
       should_check_can :show, @fact
@@ -45,7 +45,7 @@ describe FactsController do
 
   describe :destroy do
     it "should delete the fact" do
-      @fact = FactoryGirl.create(:fact)
+      @fact = create :fact
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
       @fact_id = @fact.id
@@ -69,14 +69,20 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      post 'create', :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
       response.should redirect_to(popup_show_fact_path(Fact.all.all[-1].id))
     end
 
     it "should work with json" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :format => :json, :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
+      response.code.should eq("201")
+    end
+    it "should work with json, with initial belief" do
+      authenticate_user!(user)
+      should_check_can :create, anything
+      post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title", :opinion => :believes
       response.code.should eq("201")
     end
   end
