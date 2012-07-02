@@ -28,12 +28,12 @@ describe FactsController do
 
   describe :extended_show do
     it "should escape html in fields" do
-      @fact = FactoryGirl.create(:fact)
+      @fact = create :fact
       @fact.data.displaystring = "baas<xss> of niet"
       @fact.data.title = "baas<xss> of niet"
       @fact.data.save
 
-      @fact.created_by.user = FactoryGirl.create :user
+      @fact.created_by.user = create :user
       @fact.created_by.save
 
       should_check_can :show, @fact
@@ -45,7 +45,7 @@ describe FactsController do
 
   describe :destroy do
     it "should delete the fact" do
-      @fact = FactoryGirl.create(:fact)
+      @fact = create :fact
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
       @fact_id = @fact.id
