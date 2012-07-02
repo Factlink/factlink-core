@@ -105,21 +105,21 @@ window.FactRelationsView = Backbone.View.extend({
   },
 
   showLoadingIndicator: function() {
-    this.$el.find('.loading-evidence').show();
+    this.$('.loading-evidence').show();
     this.hideNoEvidenceMessage();
   },
 
   hideLoadingIndicator: function() {
-    this.$el.find('.loading-evidence').hide();
+    this.$('.loading-evidence').hide();
   },
 
   showNoEvidenceMessage: function() {
-    this.$el.find('.no-evidence-message').show();
+    this.$('.no-evidence-message').show();
     this.hideLoadingIndicator();
   },
 
   hideNoEvidenceMessage: function() {
-    this.$el.find('.no-evidence-message').hide();
+    this.$('.no-evidence-message').hide();
   }
 });
 _.extend(FactRelationsView.prototype, TemplateMixin);
