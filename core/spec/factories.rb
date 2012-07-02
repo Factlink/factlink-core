@@ -15,7 +15,12 @@ FactoryGirl.define do
     agrees_tos true
   end
 
+  sequence :displaystring do |n|
+    "Fact #{n}"
+  end
+
   factory :fact_data do
+    displaystring
   end
 
   factory :basefact do

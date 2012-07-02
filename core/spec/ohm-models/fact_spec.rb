@@ -191,7 +191,7 @@ describe Fact do
     end
     context "after setting a displaystring to 'hiephoi'" do
       before do
-        subject.data.displaystring = "hiephoi"\
+        subject.data.displaystring = "hiephoi"
       end
       its(:to_s){should == "hiephoi"}
     end
@@ -207,6 +207,10 @@ describe Fact do
       f2 = Fact[f.id]
 
       f2.data.displaystring.should == "This is a fact"
+    end
+    it "should not be possible to save a fact with a string consisting out of only spaces" do
+      subject.data.displaystring = '     '
+      subject.data.save.should be_false
     end
   end
 
