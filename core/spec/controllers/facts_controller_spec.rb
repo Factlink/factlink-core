@@ -69,14 +69,14 @@ describe FactsController do
     it "should work" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      post 'create', :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
       response.should redirect_to(popup_show_fact_path(Fact.all.all[-1].id))
     end
 
     it "should work with json" do
       authenticate_user!(user)
       should_check_can :create, anything
-      post 'create', :format => :json, :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
+      post 'create', :format => :json, :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
       response.code.should eq("201")
     end
   end
