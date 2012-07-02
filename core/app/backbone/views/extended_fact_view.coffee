@@ -5,18 +5,16 @@ class window.ExtendedFactView extends FactView
   template: "facts/_extended_fact"
 
   initialize: (opts) ->
-    @model.bind('destroy', this.remove, this)
-    @model.bind('change', this.render, this)
-
-    @initAddToChannel()
-    @renderAddToChannel() # sorry, dirty, but has to stay here, because we don't actually render this view
-    @initFactRelationsViews()
-    @initUserPassportViews()
-
-    @wheel = new Wheel(@model.get('fact_wheel'))
-
+    super(opts)
     @factWheelView = new InteractiveWheelView({
       model: @wheel,
       fact: @model,
       el: @$('.wheel')
-    }).render();
+    })
+    @initRenderActions()
+
+  initRenderActions: () ->
+    # the extended factpage is rendered in ruby, so the render of this view is never called,
+    # therefore we have to force the rendering which we do need to do in the frontend in the initialize
+    @renderAddToChannel()
+    @factWheelView.render();

@@ -39,7 +39,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.initFactRelationsViews();
     this.initUserPassportViews();
 
-    this.wheel = new Wheel(this.model.get('fact_bubble').fact_wheel);
+    this.wheel = new Wheel(this.model.getFactWheel());
   },
 
   onRender: function() {

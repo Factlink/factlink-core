@@ -5,3 +5,5 @@ class window.ExtendedFact extends Fact
     @set('fact_title', title, options)
 
   getTitle: () -> @get('fact_title')
+
+  getFactWheel: () -> @get('fact_wheel')
