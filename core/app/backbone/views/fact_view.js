@@ -47,11 +47,11 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.initFactRelationsViews();
     this.renderUserPassportViews();
 
-    this.$el.find('.authority').tooltip();
+    this.$('.authority').tooltip();
 
     if ( this.factWheelView ) {
       this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble').fact_wheel);
-      this.$el.find('.wheel').replaceWith(this.factWheelView.reRender().el);
+      this.$('.wheel').replaceWith(this.factWheelView.reRender().el);
     } else {
       this.factWheelView = new InteractiveWheelView({
         model: this.wheel,
@@ -63,7 +63,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
 
   remove: function() {
     this.$el.fadeOut('fast', function() {
-      $(this).remove();
+      this.$el.remove();
     });
 
     _.each(this.interactingUserViews, function(view){
