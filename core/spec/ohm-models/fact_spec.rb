@@ -197,9 +197,7 @@ describe Fact do
     end
 
     it "should not give a give a document not found for Factdata" do
-      f = Fact.create(
-        :created_by => gu1
-      )
+      f = Fact.create created_by: gu1
       f.data.displaystring = "This is a fact"
       f.data.save
       f.save
