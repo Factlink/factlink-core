@@ -50,7 +50,7 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     this.$('.authority').tooltip();
 
     if ( this.factWheelView ) {
-      this.wheel.set(this.model.get('fact_wheel') || this.model.get('fact_bubble').fact_wheel);
+      this.wheel.set(this.model.getFactWheel());
       this.$('.wheel').replaceWith(this.factWheelView.reRender().el);
     } else {
       this.factWheelView = new InteractiveWheelView({
