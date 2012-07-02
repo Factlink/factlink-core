@@ -66,13 +66,14 @@ class FactsController < ApplicationController
     @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
     @site = @fact.site
 
-    if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
-      @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
-      @fact.calculate_opinion(1)
-    end
 
     respond_to do |format|
       if @fact.data.save and @fact.save
+        if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
+          @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+          @fact.calculate_opinion(1)
+        end
+
         if params[:channels]
           params[:channels].each do |channel_id|
             channel = Channel[channel_id]
