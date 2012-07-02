@@ -62,12 +62,14 @@ describe "Check the ToS", type: :request do
       check "user_agrees_tos"
 
       click_button "Finish"
+
+      page.should have_content "You're almost set!"
+      click_link "Skip step"
     end
 
     it "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
-      page.find(".next").click
       page.has_xpath?(".//div[@data-title='Start']", :visible => true)
 
       page.find(".next").click
@@ -86,14 +88,6 @@ describe "Check the ToS", type: :request do
       page.find(".next").click
       page.has_xpath?(".//div[@data-title='Channels']", :visible => true)
       page.has_xpath?(".//div[@data-title='Relations']", :visible => false)
-
-      page.find(".next").click
-      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Channels']", :visible => false)
-
-      page.find(".previous").click
-      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Use it!']", :visible => false)
 
       page.find(".next").click
       page.find(".closeButton").click
