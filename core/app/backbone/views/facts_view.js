@@ -46,7 +46,7 @@ window.FactsView = AutoloadingCompositeView.extend({
       success: function(data) {
         var fact = new Fact(data);
 
-        var a = self.collection.unshift(fact);
+        self.collection.unshift(fact);
 
         // HACK this is how backbone marionette stores childviews:
         // dependent on their implementation though
