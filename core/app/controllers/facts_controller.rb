@@ -63,15 +63,16 @@ class FactsController < ApplicationController
 
   def create
     authorize! :create, Fact
-    @fact = create_fact(params[:url].to_s, params[:fact].to_s, params[:title].to_s)
+    @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
+    @site = @fact.site
 
-    if params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym)
+    if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
       @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
       @fact.calculate_opinion(1)
     end
 
     respond_to do |format|
-      if @fact.save
+      if @fact.data.save and @fact.save
         if params[:channels]
           params[:channels].each do |channel_id|
             channel = Channel[channel_id]
@@ -87,7 +88,7 @@ class FactsController < ApplicationController
           flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
         end
-        format.json { render json: @fact, status: :created, location: @fact.id }
+        format.json { render json: [@fact.data.displaystring.length], status: :created, location: @fact.id }
       else
         format.html { render :new }
         format.json { render json: @fact.errors, status: :unprocessable_entity }
@@ -185,20 +186,6 @@ class FactsController < ApplicationController
       id = params[:fact_id] || params[:id]
 
       @fact = Fact[id] || raise_404
-    end
-
-    # TODO This should not be a Controller method. Move to Fact
-    def create_fact(url, displaystring, title) # private
-      @site = url && (Site.find(:url => url).first || Site.create(:url => url))
-
-      fact_params = {created_by: current_graph_user}
-      fact_params[:site] = @site if @site
-      @fact = Fact.create fact_params
-
-      @fact.data.displaystring = displaystring
-      @fact.data.title = title
-      @fact.data.save
-      @fact
     end
 
     def allowed_type
