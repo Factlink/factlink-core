@@ -52,6 +52,9 @@ window.Fact = Backbone.Model.extend({
       if (oldSuccess !== undefined) { oldSuccess();}
     }
     $.ajax(_.extend({type: "post"}, opts));
-  }
+  },
 
+  getFactWheel: function(){
+    return this.get('fact_bubble').fact_wheel;
+  }
 });

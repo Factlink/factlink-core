@@ -187,6 +187,39 @@ body.factlink-site .fact-block {
         margin: 0 3px 0 0;
       }
     }
+    .related-users {
+      padding-top: @baseLineHeight;
+      article, li {
+        padding-bottom: @baseLineHeight / 2;
+      }
+      .related-user {
+        color: #777;
+        font-size: 12px;
+      }
+      // User block for related users
+      .user-block {
+        height: 32px;
+        padding: 0;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          h1 {
+            color: @linkColor;
+          }
+        }
+        .wrapper {
+          margin-left: 48px;
+          h3 {
+            color: @linkColor;
+            font-size: @baseFontSize;
+            font-weight: bold;
+            &:hover {
+              color: @linkColorHover;
+            }
+          }
+        }
+      }
+    }
   }
   @borderRadius: 4px;
   #main-wrapper {

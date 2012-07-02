@@ -18,6 +18,8 @@ class FactData
   field :content,         :type => String
   field :fact_id,         :type => String
 
+  validates_format_of :displaystring, allow_nil: true, with: /\S/
+
   def self.column_names
     self.fields.collect { |field| field[0] }
   end
