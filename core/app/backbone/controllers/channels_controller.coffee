@@ -27,7 +27,7 @@ class window.ChannelsController
 
     relatedChannels = new RelatedChannels [], forChannel: channel
 
-    FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(collection: relatedChannels))
+    FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(collection: relatedChannels, addToCollection: window.currentChannel.subchannels()))
 
     relatedChannels.fetch()
 
