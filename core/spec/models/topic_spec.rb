@@ -46,6 +46,15 @@ describe Topic do
       Topic.for_channel(ch)
     end
   end
+
+  describe "channel_for_user" do
+    let(:u) { create :user }
+    let(:ch) { create :channel, created_by: u.graph_user }
+
+    it "should return a channel belonging to the user and topic" do
+      ch.topic.channel_for_user(u).should == ch
+    end
+  end
   
   
   describe 'top_users' do

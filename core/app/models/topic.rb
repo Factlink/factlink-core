@@ -25,6 +25,10 @@ class Topic
     self.slug_title = new_title.to_url
   end
 
+  def channel_for_user(user)
+    user.graph_user.internal_channels.find(slug_title: self.slug_title).first
+  end
+
   def self.by_title(title)
     where(slug_title: title.to_url||'').first || new(title: title)
   end
