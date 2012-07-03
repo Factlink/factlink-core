@@ -6,25 +6,18 @@ window.ChannelView = Backbone.View.extend({
   template: 'channels/_channel',
 
   initialize: function(opts) {
-    var self = this;
-
-    if (this.model !== undefined) {
-      this.subchannels = new SubchannelList({channel: this.model});
-      this.subchannels.fetch();
-
-      this.factsView = new FactsView({
-        collection: new ChannelFacts([],{
-          channel: self.model
-        }),
-        model: self.model
-      });
-    }
+    this.factsView = new FactsView({
+      collection: new ChannelFacts([],{
+        channel: this.model
+      }),
+      model: this.model
+    });
   },
 
   initSubChannels: function() {
     if ( this.$('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
-        collection: this.subchannels,
+        collection: this.model.subchannels(),
         el: this.$('#contained-channel-list'),
         container: this.$el
       });

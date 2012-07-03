@@ -17,6 +17,16 @@ window.Channel = Backbone.Model.extend({
     return new User(this.get('created_by'));
   },
 
+  subchannels: function(){
+    if (this.cachedSubchannels) {
+      return this.cachedSubchannels;
+    } else {
+      this.cachedSubchannels = new SubchannelList({channel: this})
+      this.cachedSubchannels.fetch();
+      return this.cachedSubchannels;
+    }
+  },
+
   getOwnContainingChannels: function() {
     var containingChannels = this.get('containing_channel_ids');
     var ret = [];
