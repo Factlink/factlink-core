@@ -187,11 +187,51 @@ body.factlink-site .fact-block {
         margin: 0 3px 0 0;
       }
     }
-    .related-users {
+    .related-channels {
       padding-top: @baseLineHeight;
-      article, li {
+
+      li {
         padding-bottom: @baseLineHeight / 2;
+        overflow: auto;
+        width: 100%;
+
+        div.user-avatar {
+          float: left;
+          margin-right: 5px;
+        }
+
+        div.wrapper {
+          float: left;
+          width: 148px;
+          text-overflow: ellipsis;
+
+          h3 {
+            color: @linkColor;
+            font-size: @baseFontSize;
+            font-weight: bold;
+            line-height: 16px;
+          }
+
+          > div {
+            font-size: 12px;
+            color: #777;
+          }
+        }
+
+        a.follow {
+          margin-top: 3px;
+        }
+        &:hover {
+          div.wrapper h3 {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          div.user-avatar {
+            cursor: pointer;
+          }
+        }
       }
+
       .related-user {
         color: #777;
         font-size: 12px;

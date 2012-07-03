@@ -10,7 +10,7 @@ class TopicsController < ApplicationController
       @topic.channel_for_user(user)
     end
 
-    render json: top_channels
+    render json: top_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}
   end
 
   private
