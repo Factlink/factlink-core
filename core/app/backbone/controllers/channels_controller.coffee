@@ -24,7 +24,6 @@ class window.ChannelsController
 
   commonChannelViews: (channel) ->
     this.setCurrentChannel(channel);
-    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView(model: channel))
 
     user = channel.user()
     userView = new UserView(model: user)

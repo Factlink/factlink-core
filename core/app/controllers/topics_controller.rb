@@ -1,15 +1,16 @@
 class TopicsController < ApplicationController
   before_filter :load_topic
 
-  def related_users
-     authorize! :show, @topic
+  def related_user_channels
+    authorize! :show, @topic
 
-     render layout: false, partial: "channels/related_users",
-       locals: {
-            related_users: @topic.top_users(5),
-            topic: @topic,
-            excluded_users: []
-       }
+    top_users = @topic.top_users(5)
+
+    top_channels = top_users.map do |user|
+      @topic.channel_for_user(user)
+    end
+
+    render json: top_channels
   end
 
   private
