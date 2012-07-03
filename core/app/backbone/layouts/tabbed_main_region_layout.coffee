@@ -1,4 +1,4 @@
-class window.TabbedMainRegionLayout extends Backbone.Marionette.Layout.extend
+class window.TabbedMainRegionLayout extends Backbone.Marionette.Layout
   template: 'layouts/tabbed_main_region'
 
   regions:
