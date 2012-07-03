@@ -22,20 +22,20 @@ window.ChannelView = Backbone.View.extend({
   },
 
   initSubChannels: function() {
-    if ( this.$el.find('#contained-channel-list') ) {
+    if ( this.$('#contained-channel-list') ) {
       this.subchannelView = new SubchannelsView({
         collection: this.subchannels,
-        el: this.$el.find('#contained-channel-list'),
+        el: this.$('#contained-channel-list'),
         container: this.$el
       });
     }
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('#add-to-channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
-        el: this.$el.find('#follow-channel'),
+        el: this.$('#follow-channel'),
         model: currentChannel,
         containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
@@ -43,9 +43,9 @@ window.ChannelView = Backbone.View.extend({
   },
 
   initMoreButton: function() {
-    var containedChannels = this.$el.find('#contained-channels');
+    var containedChannels = this.$('#contained-channels');
     if  ( containedChannels ) {
-      this.$el.find('#more-button').bind('click', function() {
+      this.$('#more-button').bind('click', function() {
         var button = $(this).find(".label");
         containedChannels.find('.overflow').slideToggle(function(e) {
           button.text($(button).text() === 'more' ? 'less' : 'more');
