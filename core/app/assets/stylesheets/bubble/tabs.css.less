@@ -12,7 +12,7 @@
 
   > li {
     float: left;
-    font-size: 0.9em;
+    #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
     height: 22px;
     .opacity(0);
     margin-bottom: -2px;
@@ -177,7 +177,7 @@
         font-size: 12px;
         padding: 8px 9px;
         .border-radius(4px);
-        #font > .sans-serif(13px, normal, 1.1);
+        #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
         height: 32px;
         width: 100%;
         margin: 0;

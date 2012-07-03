@@ -44,14 +44,9 @@ div.modal {
       margin: 0 0 5px 70px;
       padding-right: 25px;
       min-height: 35px;
-      #font > .sans-serif(normal,12px,@baseLineHeight);
-      sub {
-        line-height: inherit;
-        font-size: x-small;
-        a {
-          color: @linkColor;
-        }
-      }
+
+      #font > .sans-serif(normal, @displayStringFontSize, @baseLineHeight);
+
       .head {
         display: block;
         .ellipsis();
@@ -61,6 +56,7 @@ div.modal {
 
       .title {
         #fact > .title();
+        #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
       }
 
       .body {
@@ -93,8 +89,7 @@ div.modal {
 
       &.timestamp {
         color: #ccc;
-        font-size: 0.9em;
-        font-weight: 200;
+        #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
       }
     }
   }
