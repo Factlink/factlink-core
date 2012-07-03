@@ -1,0 +1,22 @@
+<% content_for :specific_stylesheet_tag do %>
+  <%= stylesheet_link_tag "general" %>
+<% end %>
+
+<% content_for :more_specific_page do %>
+    <div id="body">
+      <div class="container">
+      	<%= yield %>
+      </div>
+    </div>
+<% end %>
+
+<% content_for :specific_javascript do %>
+    <%= yield :template %>
+
+    <%= javascript_include_tag "frontend" %>
+
+    <%= yield :javascript %>
+
+<% end %>
+
+<%= render template: 'layouts/more_general' %>
