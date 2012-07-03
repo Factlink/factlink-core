@@ -63,6 +63,14 @@ module ApplicationHelper
     end
   end
 
+  def home_click_path
+    if user_signed_in?
+      activities_channel_path(current_user.username,current_graph_user.stream_id) + "?click=home"
+    else
+      '/'
+    end
+  end
+
   def brain_icon
     image_tag image_path("brain.png")
   end

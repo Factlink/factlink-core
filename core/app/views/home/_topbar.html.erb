@@ -18,6 +18,7 @@
             <% end %>
 
             <ul class="nav secondary-nav pull-right navbar-options">
+              <li><%= link_to "Home", home_click_path %></li>
               <% if can? :access, Ability::AdminArea %>
                 <%= render "home/topbar/admin_menu" %>
               <% end %>

@@ -201,6 +201,12 @@ class ChannelsController < ApplicationController
     track "Logo click" if params[:click] == "logo"
   end
 
+  before_filter :track_home_click, only: :activities
+
+  def track_home_click 
+    track "Home click" if params[:click] == "home"
+  end
+
   def activities
     authorize! :show, @channel
 
