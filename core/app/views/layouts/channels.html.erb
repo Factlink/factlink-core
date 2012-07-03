@@ -10,7 +10,7 @@
 <% content_for :javascript do %>
   <script>
     $(function() {
-      Backbone.history.start({pushState:true, silent:true});
+      Backbone.history.start({pushState:Modernizr.history, silent:true});
 
       Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
 
