@@ -82,7 +82,10 @@ class HomeController < ApplicationController
         logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
       end
 
-      @results = solr_result.results.delete_if {|res| res.class == FactData and FactData.invalid(res)}
+      @results = solr_result.results.delete_if do |res|
+        (res.class == FactData and FactData.invalid(res)) or
+          (res.class == User and (res.nil? or res.hidden))
+      end
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
       end.delete_if {|x| x.the_object.nil?}

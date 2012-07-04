@@ -10,10 +10,10 @@ describe Ability do
   let(:nonnda) { Ability.new nonnda_user}
 
   #users used as object
-  let(:user) {FactoryGirl.create :user}
-  let(:other_user) {FactoryGirl.create :user}
-  let(:admin_user) {FactoryGirl.create :user, admin: true}
-  let(:nonnda_user) {FactoryGirl.create :user, agrees_tos: false}
+  let(:user) {create :user}
+  let(:other_user) {create :user}
+  let(:admin_user) {create :user, admin: true}
+  let(:nonnda_user) {create :user, agrees_tos: false}
 
   describe "to manage a user" do
     context "as a normal user" do
