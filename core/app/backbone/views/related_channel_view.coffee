@@ -9,4 +9,7 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
     console.info('adding', @model.get('title'), 'to collection', @options.addToCollection)
     ch = new Channel(@model.toJSON())
     @options.addToCollection.add(ch)
-    ch.save()
+    ch.save({},{
+      success: => @$('a.follow').hide()
+      error:   -> alert('something went wrong while adding this channel')
+    })
