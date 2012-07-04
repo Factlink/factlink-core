@@ -127,7 +127,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 3.5'
   gem 'database_cleaner'
   gem 'mock_redis'
 
