@@ -16,7 +16,7 @@ window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
   },
 
   appendHtml: function(collectView, itemView) {
-    $(container).find('.contained-channel-description').show();
+    $('.contained-channel-description').show();
     if(this.$el.children().length < 3 + 1) { // real children + overflow
       this.$el.prepend(itemView.el);
     } else {
@@ -35,6 +35,7 @@ window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
   },
 
   resetSubchannels: function() {
+    $('.contained-channel-description').hide();
     this.closeChildViews();
     this.collection.each(function(subchannel) {
       this.addOneSubchannel(subchannel);
