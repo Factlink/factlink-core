@@ -12,15 +12,23 @@ window.ChannelView = Backbone.View.extend({
       }),
       model: this.model
     });
+    this.initSubChannels();
   },
 
   initSubChannels: function() {
-    if ( this.$('#contained-channel-list') ) {
+    if (this.model.get('inspectable?')){
       this.subchannelView = new SubchannelsView({
         collection: this.model.subchannels(),
-        el: this.$('#contained-channel-list'),
-        container: this.$el
+        model: this.model
       });
+    }
+  },
+
+  renderSubChannels: function(){
+    if (this.subchannelView) {
+      this.subchannelView.render();
+      console.info(this.$('header .button-wrap'));
+      this.$('header .button-wrap').after(this.subchannelView.el);
     }
   },
 
@@ -96,7 +104,7 @@ window.ChannelView = Backbone.View.extend({
       this.$el
         .html( this.templateRender( this.model.toJSON() ) );
 
-      this.initSubChannels();
+      this.renderSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
       this.initMoreButton();

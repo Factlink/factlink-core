@@ -1,45 +1,28 @@
-window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
-  tagName: "ul",
+window.SubchannelsView = Backbone.Factlink.CompositeView.extend({
+  tagName: "div",
+  id: "contained-channels",
+  template: 'channels/subchannels',
+  itemView: SubchannelItemView,
 
   initialize: function() {
-    this.collection.bind('add',   this.addOneSubchannel, this);
-    this.collection.bind('reset remove', this.resetSubchannels, this);
-
-    this.views = {};
-  },
-
-  addOneSubchannel: function(subchannel) {
-    var view = new SubchannelItemView({model: subchannel});
-    this.views[subchannel.id] = view;
-    view.render();
-    this.appendHtml(this, view)
+    this.collection.bind('remove', this.render, this);
   },
 
   appendHtml: function(collectView, itemView) {
     $('.contained-channel-description').show();
-    if(this.$el.children().length < 3 + 1) { // real children + overflow
-      this.$el.prepend(itemView.el);
+    if(this.$('ul').children().length < 3 + 1) { // real children + overflow
+      this.$('ul').prepend(itemView.el);
     } else {
-      this.$el.find('.overflow').append(itemView.el);
+      this.$('.overflow').append(itemView.el);
       $("#more-button").show();
     }
   },
 
-  remove: function() {
-    this.closeChildViews();
-  },
-
-  closeChildViews: function () {
-    _.each(this.views,function(view) { view.close(); });
-    this.views = {};
-  },
-
-  resetSubchannels: function() {
-    $('.contained-channel-description').hide();
-    this.closeChildViews();
-    this.collection.each(function(subchannel) {
-      this.addOneSubchannel(subchannel);
-    },this);
+  onRender: function(){
+    if (this.collection.models.length == 0 ){
+      $('.contained-channel-description').hide();
+    }
   }
+
 });
 
