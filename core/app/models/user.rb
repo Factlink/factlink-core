@@ -116,6 +116,10 @@ class User
     string  :username, :twitter
   end
 
+  def hidden
+    self.approved == false or not self.confirmed_at
+  end
+
   def graph_user
     @graph_user ||= GraphUser[graph_user_id]
   end
