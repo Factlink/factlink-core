@@ -1,20 +1,9 @@
 //= require jquery.hoverIntent
 
-window.ChannelView = Backbone.View.extend({
-  tagName: "div",
 
-  template: 'channels/_channel',
-
-  initialize: function(opts) {
-    this.factsView = new FactsView({
-      collection: new ChannelFacts([],{
-        channel: this.model
-      }),
-      model: this.model
-    });
-    this.initSubChannels();
-  },
-
+// dirty way of factoring out copypasted code, but we should not have those mega-controller views
+// refactor correctly if this object annoys you ;)
+window.CommonChannelStuff = {
   initSubChannels: function() {
     if (this.model.get('inspectable?')){
       this.subchannelView = new SubchannelsView({
@@ -29,6 +18,23 @@ window.ChannelView = Backbone.View.extend({
       this.subchannelView.render();
       this.$('header .button-wrap').after(this.subchannelView.el);
     }
+  },
+};
+
+
+window.ChannelView = Backbone.View.extend({
+  tagName: "div",
+
+  template: 'channels/_channel',
+
+  initialize: function(opts) {
+    this.factsView = new FactsView({
+      collection: new ChannelFacts([],{
+        channel: this.model
+      }),
+      model: this.model
+    });
+    this.initSubChannels();
   },
 
   initAddToChannel: function() {
@@ -114,4 +120,4 @@ window.ChannelView = Backbone.View.extend({
   }
 });
 
-_.extend(ChannelView.prototype, TemplateMixin);
+_.extend(ChannelView.prototype, TemplateMixin, CommonChannelStuff);
