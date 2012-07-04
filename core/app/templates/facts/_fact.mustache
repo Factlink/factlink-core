@@ -1,19 +1,26 @@
-<ul class="top-right">
-  {{#deletable_from_channel?}}
-    <li class="close remove">
-      <a rel="nofollow">&times;</a>
-    </li>
-  {{/deletable_from_channel?}}
+<div class="top-right-arrow">
+  <i></i>
+  <ul class="top-right">
+    {{#deletable_from_channel?}}
+      <li class="hide-from-channel">
+        <a rel="nofollow">Hide Factlink from stream</a>
+      </li>
+    {{/deletable_from_channel?}}
+    {{#i_am_owner}}
+      <li class="delete">
+        <a>
+          <img src="/assets/trash.png" alt="Trash" class="normal">
+          <img src="/assets/trash-hover.png" alt="Trash" class="hover">
+          Delete Factlink..
+        </a>
+      </li>
+    {{/i_am_owner}}
+  </ul>
+</div>
 
-  {{#modal?}}
-    <li class="close">
-      <a rel="nofollow" onclick="parent.remote.hide();">&times;</a>
-    </li>
-  {{/modal?}}
-  <li class="timestamp">
-    {{ friendly_time }}
-  </li>
-</ul>
+{{#modal?}}
+  <a class="close" rel="nofollow" onclick="parent.remote.hide();" title="Close">&times;</a>
+{{/modal?}}
 
 {{#fact_bubble}}
   {{>fact_bubble}}
@@ -24,25 +31,25 @@
   <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
   <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
-  {{#i_am_owner}}
-  <li class="destroy"><a></a></li>
-  {{/i_am_owner}}
-
   <li class="permalink">
     <a href="{{url}}" target="_top"></a>
   </li>
 
-  <li class="interacting-users alwaysshow">
+  <li class="interacting-users hide">
     {{#interacting_users}}
       {{>interacting_users}}
     {{/interacting_users}}
   </li>
 
+  {{#friendly_time}}
+    <li class="timestamp">
+      Posted {{ friendly_time }} ago
+    </li>
+  {{/friendly_time}}
+
   {{#signed_in?}}
     <li class="add-to-channel"><a href="#">My Channels</a></li>
   {{/signed_in?}}
-
-
 
 </ul>
 
