@@ -117,7 +117,9 @@ class User
   end
 
   def hidden
-    self.approved == false or not self.confirmed_at
+    approved == false or
+      not confirmed_at or
+      agrees_tos == false
   end
 
   def graph_user
