@@ -27,7 +27,6 @@ window.ChannelView = Backbone.View.extend({
   renderSubChannels: function(){
     if (this.subchannelView) {
       this.subchannelView.render();
-      console.info(this.$('header .button-wrap'));
       this.$('header .button-wrap').after(this.subchannelView.el);
     }
   },
@@ -40,18 +39,6 @@ window.ChannelView = Backbone.View.extend({
         model: currentChannel,
         containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
-    }
-  },
-
-  initMoreButton: function() {
-    var containedChannels = this.$('#contained-channels');
-    if  ( containedChannels ) {
-      this.$('#more-button').bind('click', function() {
-        var button = $(this).find(".label");
-        containedChannels.find('.overflow').slideToggle(function(e) {
-          button.text($(button).text() === 'more' ? 'less' : 'more');
-        });
-      });
     }
   },
 
@@ -107,7 +94,6 @@ window.ChannelView = Backbone.View.extend({
       this.renderSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
-      this.initMoreButton();
 
       this.factsView.render();
       this.$el.find('#facts_for_channel').append(this.factsView.el);
