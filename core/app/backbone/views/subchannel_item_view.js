@@ -1,4 +1,4 @@
-window.SubchannelItemView = Backbone.Factlink.PlainView.extend({
+window.SubchannelItemView = Backbone.Marionette.ItemView.extend({
   tagName: "li",
 
   events: {
@@ -9,9 +9,7 @@ window.SubchannelItemView = Backbone.Factlink.PlainView.extend({
   template: "subchannels/_subchannel_item",
 
   initialize: function() {
-    this.model.bind('change', this.render, this);
-    this.model.bind('destroy', this.remove, this);
-    this.model.bind('remove', this.remove, this);
+    this.model.bind('destroy', this.close, this);
   },
 
   onRender: function() {
@@ -26,14 +24,13 @@ window.SubchannelItemView = Backbone.Factlink.PlainView.extend({
     return false;
   },
 
+  //TODO do this without this amount of effort, this code is duplicated from default click handler
   clickHandler: function( e ) {
     if ( e.metaKey || e.ctrlKey || e.altKey ) return;
 
-    var self = this;
-
     mp_track("Channel: Click on subchannel", {
       channel_id: currentChannel.id,
-      subchannel_id: self.model.id
+      subchannel_id: this.model.id
     });
 
     Backbone.history.navigate(this.model.get('created_by').username + '/channels/' + this.model.id, true);
