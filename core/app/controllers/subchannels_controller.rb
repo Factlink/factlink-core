@@ -17,7 +17,7 @@ class SubchannelsController < ApplicationController
     end
   end
 
-  def add
+  def create
     authorize! :update, @channel
     @channel.add_channel(@subchannel)
 
@@ -25,6 +25,8 @@ class SubchannelsController < ApplicationController
       format.json { render :json => @channel.contained_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}, :location => @channel }
     end
   end
+
+  alias :update :create
 
   def destroy
     authorize! :update, @channel
