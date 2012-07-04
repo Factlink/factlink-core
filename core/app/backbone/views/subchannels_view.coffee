@@ -5,7 +5,7 @@ class window.SubchannelsView extends Backbone.Factlink.CompositeView
   itemView: SubchannelItemView
   events:
     "click #more-button": "toggleMore"
-    "composite:collection:rendered": "onCollectionRender"
+    "composite:collection:rendered": "setStateForCurrentNumberOfModels"
   nrOfInitialVisibleItems: 3
 
   initialize: ->
@@ -24,7 +24,9 @@ class window.SubchannelsView extends Backbone.Factlink.CompositeView
       @$(".overflow").append itemView.el
       $("#more-button").show()
 
-  onCollectionRender: ->
+  onRender: => @setStateForCurrentNumberOfModels()
+
+  setStateForCurrentNumberOfModels: ->
     if @collection.models.length is 0
       @$(".contained-channel-description").hide()
     if @collection.models.length <= @nrOfInitialVisibleItems
