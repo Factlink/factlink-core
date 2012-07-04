@@ -40,7 +40,7 @@ json.array!(@activities) do |json, activity_hash|
   json.subject subject.to_s
   json.icon cached_generic_icon
 
-  json.time_ago time_ago_short(Time.at(activity.created_at.to_time))
+  json.time_ago time_ago_in_words(Time.at(activity.created_at.to_time))
 
 
   json.activity do |json|
