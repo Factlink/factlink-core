@@ -12,10 +12,6 @@ window.SubchannelItemView = Backbone.Marionette.ItemView.extend({
     this.model.bind('destroy', this.close, this);
   },
 
-  onRender: function() {
-    this.$el.attr('id', 'subchannel-' + this.model.id);
-  },
-
   destroySubchannel: function (e) {
     if ( confirm("Are you sure you want to remove this channel from your channel?") ) {
       this.model.destroy();
