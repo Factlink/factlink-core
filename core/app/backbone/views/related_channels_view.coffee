@@ -6,3 +6,6 @@ class window.RelatedChannelsView extends Backbone.Marionette.CompositeView
   itemView: RelatedChannelView
 
   itemViewOptions: => addToCollection : @options.addToCollection
+
+  showEmptyView: => this.$el.hide()
+  closeEmptyView: => this.$el.show()
