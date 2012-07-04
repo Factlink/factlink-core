@@ -12,6 +12,8 @@ class window.ActivitiesView extends AutoloadingView
     @collection.on('startLoading', @loadingIndicatorOn, this);
     @collection.on('stopLoading', @loadingIndicatorOff, this);
 
+    @addShowHideToggle('emptyView', 'div.empty_stream');
+
     @childViews = []
 
   onRender: ->
