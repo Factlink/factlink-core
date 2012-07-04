@@ -11,16 +11,20 @@
       background-color: #ededed;
       border-bottom: 1px solid white;
       height: 32px;
-      padding: 1em;
+      padding: 1em 1em 1.25em;
       width: 160px;
       .inner-shadow(0, 1px, 1px, 0.2);
       &:hover {
         cursor: pointer;
       }
+      .btn-mini {
+        padding: 1px 4px 1px 5px;
+        font-size: 10px;
+      }
     }
     margin-bottom: 8px;
     h3 {
-      #font > .sans-serif(bold, @baseLineHeight * 0.9, @baseLineHeight);
+      #font > .sans-serif(bold, 14px, @baseLineHeight);
     }
     .wrapper {
       margin-left: 48px;
