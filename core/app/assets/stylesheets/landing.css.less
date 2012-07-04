@@ -11,26 +11,21 @@
 
 @import "bubble/wheel";
 
-body {
-  background: @white;
-}
-
+body { background: @white; }
 
 .factlink-site {
-  a {
-    color: @linkColor;
-  }
+  a { color: @linkColor; }
   #body {
-    h1, h2, h3, h4 {
-      color: #303030;
-    }
-    .container {
-      min-height: 480px;
-    }
+    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+    .container { min-height: 480px; }
+
+    h1, h2, h3, h4 { color: #303030; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 16px; }
+    h4 { font-size: 14px; }
   }
-  ul, footer {
-    list-style-type:none;
-  }
+  ul, footer { list-style-type:none; }
   p, li, footer {
     #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     color: #505050;
@@ -42,19 +37,18 @@ body {
     text-shadow: 0 1px 1px #fff;
     border: solid 1px rgba(0, 0, 0, 0.06);
   }
-
   #payoff {
   margin-bottom: 80px;
     h2 {
       font-weight: bold;
-      font-size: 24pt;
+      font-size: 24px;
       margin-bottom: 20px;
       line-height: 36px;
     }
     p {
       margin-top: 0.25em;
       line-height: @baseFontSize * 1.8;
-      font-size: 14pt;
+      font-size: 18px;
     }
   }
   #selling-points {
@@ -66,7 +60,7 @@ body {
       margin-left: 0;
       li {
         margin-bottom: 2em;
-        font-size: 14px;
+        #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
         height:32px;
         background: image-url('sprite.png');
         background-repeat: no-repeat;
@@ -173,17 +167,8 @@ body {
   }
   #body_text{
     p {
-      font-size: 15px;
       margin-bottom: 1em;
-      line-height: 22px;
-
-      text-shadow: 0px 1px 1px transparent;
-      font-weight: 100;
-      }
-      ul,li {
-        text-shadow: 0px 1px 1px transparent;
-        font-weight: 100;
-      }
+    }
   }
   .team_photos {
     margin-bottom: 2em;

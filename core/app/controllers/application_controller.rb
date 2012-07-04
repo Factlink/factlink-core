@@ -86,6 +86,17 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
   end
 
+  def track_click
+
+    unless params[:ref].blank?
+      ref = params[:ref]
+      if ['logo', 'home'].include?(ref)
+        track "#{ref} click".capitalize
+      end
+    end
+
+  end
+
   private
   def channels_for_user(user)
     @channels = user.graph_user.channels

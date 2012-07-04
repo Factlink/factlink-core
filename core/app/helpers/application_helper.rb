@@ -55,9 +55,9 @@ module ApplicationHelper
     end
   end
 
-  def logo_click_path
+  def click_path(action)
     if user_signed_in?
-      activities_channel_path(current_user.username,current_graph_user.stream_id) + "?click=logo"
+      activities_channel_path(current_user.username,current_graph_user.stream_id) + "?ref=#{action}"
     else
       '/'
     end
