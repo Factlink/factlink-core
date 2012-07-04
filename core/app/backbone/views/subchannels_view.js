@@ -3,7 +3,7 @@ window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
 
   initialize: function() {
     this.collection.bind('add',   this.addOneSubchannel, this);
-    this.collection.bind('reset', this.resetSubchannels, this);
+    this.collection.bind('reset remove', this.resetSubchannels, this);
 
     this.views = {};
   },
@@ -25,9 +25,17 @@ window.SubchannelsView = Backbone.Factlink.CollectionView.extend({
     }
   },
 
-  resetSubchannels: function() {
-    _.each(this._views,function(view) { view.close(); });
+  remove: function() {
+    this.closeChildViews();
+  },
 
+  closeChildViews: function () {
+    _.each(this.views,function(view) { view.close(); });
+    this.views = {};
+  },
+
+  resetSubchannels: function() {
+    this.closeChildViews();
     this.collection.each(function(subchannel) {
       this.addOneSubchannel(subchannel);
     },this);
