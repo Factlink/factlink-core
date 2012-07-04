@@ -7,4 +7,4 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
 
   addChannel: ->
     console.info('adding', @model.get('title'), 'to collection', @options.addToCollection)
-    @options.addToCollection.add(@maddol)
+    @options.addToCollection.add(@model)
