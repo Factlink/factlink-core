@@ -71,6 +71,9 @@ module Channels
       !is_all && !is_created
     end
 
+
+    #DEPRECATED, CALCULATE THIS IN FRONTEND
+    #SEE related_users_view.coffee
     def is_mine
       self[:user] == current_user
     end
