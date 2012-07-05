@@ -12,8 +12,6 @@ class window.ActivitiesView extends AutoloadingView
     @collection.on('startLoading', @loadingIndicatorOn, this);
     @collection.on('stopLoading', @loadingIndicatorOff, this);
 
-    @addShowHideToggle('emptyView', 'div.empty_stream');
-
     @childViews = []
 
   onRender: ->
@@ -52,5 +50,16 @@ class window.ActivitiesView extends AutoloadingView
     new UserActivitiesView
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
+
+  emptyViewOn: ->
+    @suggestedTopics = new SuggestedTopics([], user: @collection.channel.user())
+    @emptyView = new emptyActivitiesView
+      el: @$el.find('.empty_stream'), 
+      collection: @suggestedTopics
+
+    @emptyView.render()
+
+  emptyViewOff: ->
+    @emptyView.close()
 
 _.extend(ActivitiesView.prototype, ToggleMixin)
