@@ -1,4 +1,4 @@
-require 'uri'
+require 'addressable/uri'
 require 'cgi'
 
 class UrlNormalizer
@@ -8,27 +8,10 @@ class UrlNormalizer
     @@normalizer_for[domain] = self
   end
 
-  def self.encode_chars url
-    [
-      ['[', '%5B'],
-      [']', '%5D'],
-      ['{', '%7B'],
-      ['}', '%7D'],
-      ['|', '%7C'],
-      ['\\','%5C'],
-      ['^', '%5E'],
-    ].each do |from, to|
-      url = url.gsub from, to
-    end
-    url
-  end
-
   def self.normalize url
     url.sub!(/#(?!\!)[^#]*$/,'')
 
-    url = encode_chars(url)
-
-    uri = URI(url)
+    uri = Addressable::URI.parse(url)
 
     @@normalizer_for[uri.host].new(uri).normalize
   end
@@ -57,12 +40,16 @@ class UrlNormalizer
     build_query(uri_params)
   end
 
+  def encode_component component
+    Addressable::URI.encode_component component
+  end
+
   def build_query(params)
     params.map do |name,values|
-      escaped_name = URI.encode_www_form_component name
+      escaped_name = encode_component name
       if values.length > 0
         values.map do |value|
-          escaped_value = URI.encode_www_form_component value
+          escaped_value = encode_component value
           "#{escaped_name}=#{escaped_value}"
         end
       else
