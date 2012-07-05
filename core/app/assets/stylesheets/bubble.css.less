@@ -53,7 +53,7 @@ div.modal {
     top: -3px;
     right: 15px;
     padding: 0; margin: 0;
-    .border-radius(2px);
+    .custom-radius(2px, 3px, 3px, 2px);
     display: none;
 
     &.active {
@@ -68,6 +68,7 @@ div.modal {
       height: 20px;
       width: 20px;
       background: #fff;
+      .custom-radius(2px, 3px, 3px, 2px);
       cursor: pointer;
       .caret {
         margin: 8px 0 0 6px;
@@ -81,7 +82,7 @@ div.modal {
       .border-radius(3px);
       top: 100%;
       right: -1px;
-      margin: 4px 0 0 0;
+      margin: 3px 0 0 0;
       z-index: 100;
       background: #fff;
       padding: 3px 0;
