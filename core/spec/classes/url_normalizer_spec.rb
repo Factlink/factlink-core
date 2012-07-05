@@ -1,4 +1,6 @@
 require File.expand_path('../../../app/classes/url_normalizer.rb', __FILE__)
+require 'uri'
+require 'base64'
 
 describe UrlNormalizer do
   describe ".normalize" do
@@ -53,5 +55,12 @@ describe UrlNormalizer do
     it {should_normalize_to 'http://example.com/foo?x=%y', 'http://example.com/foo?x=%25y'}
     it {should_normalize_to 'http://example.com/foo?x={y}', 'http://example.com/foo?x=%7By%7D'}
     it {should_normalize_to 'http://example.org/search.php?a=%F6', 'http://example.org/search.php?a=%F6'}
+    def decode_utf8_b64(string)
+      URI.unescape(string)
+    end
+    it "should not bug with invalid encodings" do
+      should_normalize_to decode_utf8_b64("http%3A%2F%2Fwww.mercuryserver.com%2Fforums%2Fshowthread.php%3F100800-Stephan-Bodzin-amp-Marc-Romboy-%2596-Live-Luna-Live-Tour-(Harry-Klein-M%25FCnchen)-%2596-23-04-2"),
+               "http://www.mercuryserver.com/forums/showthread.php?100800-Stephan-Bodzin-amp-Marc-Romboy-%96-Live-Luna-Live-Tour-(Harry-Klein-M%FCnchen)-%96-23-04-2"
+    end
   end
 end
