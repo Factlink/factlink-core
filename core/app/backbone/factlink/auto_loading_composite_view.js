@@ -5,7 +5,7 @@ function extendWithAutoloading(superclass) {
     constructor: function(options){
       superclass.prototype.constructor.apply(this, arguments);
       this.collection.loadMore();
-      this.on('add', _.bind(function(){
+      this.collection.on('add', _.bind(function(){
         this.emptyViewOff();
       },this));
       this.collection.on('stopLoading', this.afterLoad, this);
@@ -63,6 +63,8 @@ function extendWithAutoloading(superclass) {
       superclass.prototype.reset.apply(this, arguments);
     },
 
+
+    // TODO: replace this by standard empty view functionality by marionette.
     emptyViewOn: function(){},
     emptyViewOff: function(){}
 
