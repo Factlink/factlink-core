@@ -38,8 +38,8 @@
 	</div>
 
 	<div class="bottom">
-		<a id="skip-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream) %>">Skip step</a>
-		<a id="next-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream) %>" class="next btn btn-primary btn-large">Continue</a>
+		<a id="skip-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_skip') %>">Skip step</a>
+		<a id="next-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_next') %>" class="next btn btn-primary btn-large">Continue</a>
 	</div>
 </div>
 

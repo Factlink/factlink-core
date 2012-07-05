@@ -195,8 +195,6 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
-  before_filter :track_click, only: :activities
-
   def activities
     authorize! :show, @channel
 

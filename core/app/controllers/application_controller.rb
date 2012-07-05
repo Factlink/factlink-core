@@ -86,11 +86,11 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
   end
 
+  before_filter :track_click
   def track_click
-
     unless params[:ref].blank?
       ref = params[:ref]
-      if ['logo', 'home'].include?(ref)
+      if ['logo', 'home', 'extension_skip', 'extension_next'].include?(ref)
         track "#{ref} click".capitalize
       end
     end
