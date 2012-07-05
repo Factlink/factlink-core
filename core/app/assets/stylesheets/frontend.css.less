@@ -204,17 +204,21 @@ body.factlink-site .fact-block {
 
         div.wrapper {
           float: left;
-          width: 148px;
-          text-overflow: ellipsis;
+
+          a {
+            .ellipsis();
+            width: 140px;
+            display: inline-block;
+          }
 
           > div {
-            font-size: 12px;
             color: #777;
           }
         }
 
         a.follow {
-          margin-top: 3px;
+          float: left;
+          margin:0 0 0 4px;
         }
         &:hover {
           div.wrapper h3 {
