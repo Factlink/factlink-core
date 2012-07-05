@@ -68,7 +68,7 @@ module Facts
     end
 
     def friendly_time
-      time_ago_short(Time.at(self[:timestamp]/1000)) if self[:channel]
+      time_ago_in_words(Time.at(self[:timestamp]/1000)) if self[:channel]
     end
 
     expose_to_hash :timestamp

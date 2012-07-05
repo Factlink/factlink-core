@@ -1,12 +1,14 @@
 (function(){
-window.FactView = Backbone.Factlink.PlainView.extend({
+var ViewWithPopover = extendWithPopover( Backbone.Factlink.PlainView );
+
+window.FactView = ViewWithPopover.extend({
   tagName: "div",
 
   className: "fact-block",
 
   events: {
-    "click .remove": "removeFactFromChannel",
-    "click li.destroy": "destroyFact",
+    "click .hide-from-channel": "removeFactFromChannel",
+    "click li.delete": "destroyFact",
 
     "click .tab-control .supporting"     : "tabClick",
     "click .tab-control .weakening"      : "tabClick",
@@ -27,6 +29,15 @@ window.FactView = Backbone.Factlink.PlainView.extend({
     fact_wheel: "facts/_fact_wheel",
     interacting_users: "facts/_interacting_users"
   },
+
+  interactingUserViews: [],
+
+  popover: [
+    {
+      selector: ".top-right-arrow",
+      popoverSelector: "ul.top-right"
+    }
+  ],
 
   initialize: function(opts) {
     this._currentTab = undefined;

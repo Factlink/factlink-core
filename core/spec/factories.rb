@@ -12,9 +12,11 @@ FactoryGirl.define do
     email
     password '123hoi'
     password_confirmation '123hoi'
-    confirmed_at DateTime.now
-    approved true
     agrees_tos true
+    trait :approved do
+      confirmed_at DateTime.now
+      approved true
+    end
   end
 
   sequence :displaystring do |n|

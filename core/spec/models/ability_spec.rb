@@ -10,8 +10,8 @@ describe Ability do
   let(:nonnda) { Ability.new nonnda_user}
 
   #users used as object
-  let(:user) {create :user}
-  let(:other_user) {create :user}
+  let(:user) {create :user, :approved}
+  let(:other_user) {create :user, :approved }
   let(:admin_user) {create :user, admin: true}
   let(:nonnda_user) {create :user, agrees_tos: false}
 
