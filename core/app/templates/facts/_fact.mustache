@@ -1,9 +1,9 @@
 <div class="top-right-arrow">
-  <i></i>
+  <i><b class="caret"></b></i>
   <ul class="top-right">
     {{#deletable_from_channel?}}
       <li class="hide-from-channel">
-        <a rel="nofollow">Hide Factlink from stream</a>
+        <a rel="nofollow">Hide Factlink from channel</a>
       </li>
     {{/deletable_from_channel?}}
     {{#i_am_owner}}
@@ -11,7 +11,7 @@
         <a>
           <img src="/assets/trash.png" alt="Trash" class="normal">
           <img src="/assets/trash-hover.png" alt="Trash" class="hover">
-          Delete Factlink..
+          Delete Factlink...
         </a>
       </li>
     {{/i_am_owner}}
