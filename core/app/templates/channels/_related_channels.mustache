@@ -1,4 +1,7 @@
-<h2>Related Channels</h2>
+<h2>
+  {{#is_mine}} Suggested Channels {{/is_mine}}
+  {{^is_mine}} Related Channels   {{/is_mine}}
+</h2>
 
 <ul {{^is_mine}}class="not_my_channel"{{/is_mine}}>
 </ul>
