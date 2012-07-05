@@ -98,23 +98,25 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  def channels_for_user(user)
-    @channels = user.graph_user.channels
-    unless @user == current_user
-      @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+      end
+      @channels
     end
-    @channels
-  end
-  helper_method :channels_for_user
+    helper_method :channels_for_user
 
-  def can_haz feature
-    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-  end
-  helper_method :can_haz
+    def can_haz feature
+      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+    end
+    helper_method :can_haz
 
-  def set_layout
-    allowed_layouts = ['popup']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
-  end
+    def set_layout
+      allowed_layouts = ['popup']
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+    end
+
+
 
 end
