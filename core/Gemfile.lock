@@ -455,6 +455,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 3.2.6)
+  addressable
   airbrake
   andand!
   arrayfields
