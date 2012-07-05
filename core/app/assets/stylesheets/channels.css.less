@@ -1,3 +1,37 @@
 /*
  *= require_tree ./channels
  */
+
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.empty_stream {
+	ul {
+		border: 1px solid #e1e1e1;
+		.border-radius(5px);
+		width: 300px;
+		margin: 0 auto 20px;
+		.box-shadow(0px 1px 2px rgba(0, 0, 0, 0.07));
+
+		> li {
+			border-top: 1px solid #e1e1e1;
+			text-align: left;
+			position: relative;
+			padding: 7px 5px;
+
+			&:first-child {
+				border: none;
+			}
+
+			> h5 {
+				font-size: @baseFontSize;
+			}
+
+			a {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+			}
+		}
+	}
+}
