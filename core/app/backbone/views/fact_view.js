@@ -94,8 +94,6 @@ window.FactView = ViewWithPopover.extend({
   removeFactFromChannel: function(e) {
     e.preventDefault();
 
-    if(!confirm("Are you sure you want to remove this Factlink from the current channel?")) return false;
-
     var self = this;
 
     this.model.removeFromChannel(
@@ -115,8 +113,6 @@ window.FactView = ViewWithPopover.extend({
 
   destroyFact: function(e) {
     e.preventDefault();
-
-    if(!confirm("Are you sure you want to delete the Factlink you have created?")) return false;
 
     this.model.destroy({
       error: function() {
