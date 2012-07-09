@@ -26,7 +26,7 @@ window.FactsView = AutoloadingCompositeView.extend({
 
   createFact: function (e) {
     var self = this;
-    var $form = this.$el.find('form');
+    var $form = this.$('form');
 
     var $textarea = $form.find('textarea[name=fact]');
     var $title = $form.find('input[name=title]');
@@ -69,10 +69,10 @@ window.FactsView = AutoloadingCompositeView.extend({
     $(e.target).closest('input-box').find(':input').focus();
   },
 
-  openCreateFactForm: function () {  this.$el.find('form').addClass('active'); },
+  openCreateFactForm: function () {  this.$('form').addClass('active'); },
 
   closeCreateFactForm: function (e) {
-    this.$el.find('form')
+    this.$('form')
       .removeClass('active show-title')
       .filter(':input').val('');
 
@@ -80,7 +80,7 @@ window.FactsView = AutoloadingCompositeView.extend({
   },
 
   toggleTitleField: function (e) {
-    var $form = this.$el.find('form');
+    var $form = this.$('form');
 
     $form.toggleClass('show-title');
 

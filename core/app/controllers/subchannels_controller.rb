@@ -1,57 +1,35 @@
 class SubchannelsController < ApplicationController
-  before_filter :get_user
-
-  before_filter :load_channel
-
-  before_filter :load_subchannel,
-    :except => [
-      :index,
-    ]
-
   def index
-    authorize! :show, @channel
-    @contained_channels = @channel.contained_channels
-
-    respond_to do |format|
-      format.json { render :json => @contained_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)} }
-    end
+    authorize! :show, channel
+    render_subchannels
   end
 
   def create
-    authorize! :update, @channel
-    @channel.add_channel(@subchannel)
-
-    respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}, :location => @channel }
-    end
+    authorize! :update, channel
+    channel.add_channel subchannel
+    render_subchannels
   end
 
   alias :update :create
 
   def destroy
-    authorize! :update, @channel
-    @channel.remove_channel(@subchannel)
-
-    respond_to do |format|
-      format.json { render :json => @channel.contained_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}, :location => @channel }
-    end
+    authorize! :update, channel
+    channel.remove_channel subchannel
+    render_subchannels
   end
 
   private
-    def get_user
-      if params[:username]
-        @user = User.first(:conditions => { :username => params[:username]})
-      end
+
+    def channel
+      @channel ||= Channel[params[:channel_id]] || raise_404("Channel not found")
     end
 
-    def load_channel
-      @channel  = Channel[params[:channel_id]]
-      @channel || raise_404("Channel not found")
-      @user ||= @channel.created_by.user
+    def subchannel
+      @subchannel ||= Channel[params[:subchannel_id]||params[:id]] || raise_404("Subchannel not found")
     end
 
-    def load_subchannel
-      @subchannel = Channel[params[:subchannel_id]||params[:id]]
-      @subchannel || raise_404("Subchannel not found")
+    def render_subchannels
+      render json: channel.contained_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)},
+                   location: channel_path(channel.created_by.user.username, channel.id)
     end
 end
