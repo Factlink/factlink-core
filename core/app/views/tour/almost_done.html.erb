@@ -15,9 +15,11 @@
 
 	<!-- Chrome Yeah! -->
 	<div class="hidden button-wrapper chrome">
-	
+
 		<span class="transparent-border">
-			<a id="chrome-extension-button" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
+			<iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
+
+			<a id="chrome-extension-button" target="ce-download" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
 		</span>
 
 	</div>
@@ -47,7 +49,7 @@
 <% content_for :javascript do %>
   <script>
     $(function() {
-    	
+
     	var notClicked = true;
 
     	$('#chrome-extension-button, #bookmarklet-button').mousedown(function() {
@@ -59,6 +61,14 @@
 		    		notClicked = false;
 		    	}
 		    }, 1800);
+    	});
+
+    	$('#chrome-extension-button').bind('click', function() {
+    		mp_track("Extension: Download Chrome Extension #almost-ready");
+    	});
+
+    	$('#bookmarklet-button').mousedown(function() {
+    		mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
     	});
     });
   </script>
