@@ -1,56 +1,50 @@
 //= require jquery.hoverIntent
 
+
+// dirty way of factoring out copypasted code, but we should not have those mega-controller views
+// refactor correctly if this object annoys you ;)
+window.CommonChannelStuff = {
+  initSubChannels: function() {
+    if (this.model.get('inspectable?')){
+      this.subchannelView = new SubchannelsView({
+        collection: this.model.subchannels(),
+        model: this.model
+      });
+    }
+  },
+
+  renderSubChannels: function(){
+    if (this.subchannelView) {
+      this.subchannelView.render();
+      this.$('header .button-wrap').after(this.subchannelView.el);
+    }
+  },
+};
+
+
 window.ChannelView = Backbone.View.extend({
   tagName: "div",
 
   template: 'channels/_channel',
 
   initialize: function(opts) {
-    var self = this;
-
-    if (this.model !== undefined) {
-      this.subchannels = new SubchannelList({channel: this.model});
-      this.subchannels.fetch();
-
-      this.factsView = new FactsView({
-        collection: new ChannelFacts([],{
-          channel: self.model
-        }),
-        model: self.model
-      });
-    }
-  },
-
-  initSubChannels: function() {
-    if ( this.$el.find('#contained-channel-list') ) {
-      this.subchannelView = new SubchannelsView({
-        collection: this.subchannels,
-        el: this.$el.find('#contained-channel-list'),
-        container: this.$el
-      });
-    }
+    this.factsView = new FactsView({
+      collection: new ChannelFacts([],{
+        channel: this.model
+      }),
+      model: this.model
+    });
+    this.initSubChannels();
   },
 
   initAddToChannel: function() {
-    if ( this.$el.find('#add-to-channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
-        el: this.$el.find('#follow-channel'),
+        el: this.$('#follow-channel'),
         model: currentChannel,
         containingChannels: currentChannel.getOwnContainingChannels()
       }).render();
-    }
-  },
-
-  initMoreButton: function() {
-    var containedChannels = this.$el.find('#contained-channels');
-    if  ( containedChannels ) {
-      this.$el.find('#more-button').bind('click', function() {
-        var button = $(this).find(".label");
-        containedChannels.find('.overflow').slideToggle(function(e) {
-          button.text($(button).text() === 'more' ? 'less' : 'more');
-        });
-      });
     }
   },
 
@@ -103,10 +97,9 @@ window.ChannelView = Backbone.View.extend({
       this.$el
         .html( this.templateRender( this.model.toJSON() ) );
 
-      this.initSubChannels();
+      this.renderSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
-      this.initMoreButton();
 
       this.factsView.render();
       this.$el.find('#facts_for_channel').append(this.factsView.el);
@@ -127,4 +120,4 @@ window.ChannelView = Backbone.View.extend({
   }
 });
 
-_.extend(ChannelView.prototype, TemplateMixin);
+_.extend(ChannelView.prototype, TemplateMixin, CommonChannelStuff);

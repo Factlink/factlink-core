@@ -180,20 +180,56 @@ body.factlink-site .fact-block {
       display: inline;
     }
     .add-channel {
-      margin-left: 16px;
-      padding: 4px;
-      margin-top: -2px;
+      margin-left: 8px;
+      margin-top: -4px;
       &:before {
         #font > .iconic();
         content: "\2795";
         margin: 0 3px 0 0;
       }
     }
-    .related-users {
+    .related-channels {
       padding-top: @baseLineHeight;
-      article, li {
+
+      li {
         padding-bottom: @baseLineHeight / 2;
+        overflow: auto;
+        width: 100%;
+
+        div.user-avatar {
+          float: left;
+          margin-right: 5px;
+        }
+
+        div.wrapper {
+          float: left;
+
+          a {
+            .ellipsis();
+            width: 146px;
+            display: inline-block;
+          }
+
+          > div {
+            color: #777;
+          }
+        }
+
+        a.follow {
+          float: left;
+          margin:0 0 0 4px;
+        }
+        &:hover {
+          div.wrapper h3 {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          div.user-avatar {
+            cursor: pointer;
+          }
+        }
       }
+
       .related-user {
         color: #777;
         font-size: 12px;
@@ -222,6 +258,10 @@ body.factlink-site .fact-block {
         }
       }
     }
+    .related-channels ul.not_my_channel a.follow {
+      display: none;
+    }
+
   }
   @borderRadius: 4px;
   #main-wrapper {
@@ -243,14 +283,11 @@ body.factlink-site .fact-block {
       margin: -15px -15px 0 -15px;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
-      span.contained-channel-description {
-        display: none;
-      }
       h1 {
         .ellipsis();
         font-weight: normal;
         display: inline-block;
-        font-size: 16pt;
+        font-size: 16px;
         padding: 0 10px 0 0;
         margin: 6px 0 0px;
         max-width: 380px;
