@@ -37,7 +37,6 @@ window.Fact = Backbone.Model.extend({
       if ( indexOf ) {
         self.get('containing_channel_ids').splice(indexOf, 1);
       }
-      console.info('hoi');
       if (oldSuccess !== undefined) { console.info('hoi2');oldSuccess();}
     }
     $.ajax(_.extend({type: "post"}, opts));

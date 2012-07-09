@@ -1,0 +1,49 @@
+window.Channel = Backbone.Model.extend(
+  initialize: (opts) ->
+    @on "activate", @setActive
+    @on "deactivate", @setNotActive
+
+  setActive: ->
+    @isActive = true
+
+  setNotActive: ->
+    @isActive = false
+
+  user: ->
+    new User(@get("created_by"))
+
+  subchannels: ->
+    if @cachedSubchannels
+      @cachedSubchannels
+    else
+      @cachedSubchannels = new SubchannelList(channel: this)
+      @cachedSubchannels.fetch()
+      @cachedSubchannels
+
+  getOwnContainingChannels: ->
+    containingChannels = @get("containing_channel_ids")
+    ret = []
+    currentUser.channels.each (ch) ->
+      ret.push ch  if _.indexOf(containingChannels, ch.id) isnt -1
+
+    ret
+
+  url: ->
+    debugger
+    if @collection
+      Backbone.Model::url.apply this, arguments
+    else
+      "/" + @getUsername() + "/channels/" + @get("id")
+
+  getUsername: ->
+    @get("created_by")?.username ? @get("username")
+
+  # toJSON: ->
+  #   json = Backbone.Model::toJSON.apply(this)
+  #   _.extend json,
+  #     chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
+  #     brain_icon: "<%= image_tag image_path('brain.png') %>"
+  #     channel_definition: "<%= I18n.t(:channel) %>"
+  #     channels_definition: "<%= I18n.t(:channels) %>"
+  #     add_to_channels_definition: "<%= I18n.t(:add_to_channels) %>"
+)

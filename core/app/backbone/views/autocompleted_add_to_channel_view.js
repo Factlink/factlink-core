@@ -244,14 +244,17 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       return;
     }
 
-    var to_create_user_channels = this._autoCompletes.filter( function(item){return item.get('title') == title && item.get('user_channel');});
+    var to_create_user_channels = this._autoCompletes.filter( function(item) {
+      return item.get('title') == title && item.get('user_channel');
+    });
+
     if (to_create_user_channels.length > 0) {
       this.addNewChannel(to_create_user_channels[0].get('user_channel'));
       return;
     }
 
     $.ajax({
-      url: '/' + currentUser.get('username') + '/channels',
+      url: '/' + currentUser.get('username') + '/channels.json',
       data: {
         title: title
       },
@@ -263,8 +266,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   addNewChannel: function (channel) {
     channel = new Channel(channel);
-    this.vent.trigger("addChannel", channel);
     currentUser.channels.add(channel);
+    this.vent.trigger("addChannel", channel);
     this.collection.add(channel);
     this.completelyDisappear();
   },
@@ -392,7 +395,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   clearAutoComplete: function () {
     this.closeAutoCompleteViews();
-    
+
     this._autoCompletes = new Backbone.Collection();
 
     this.$el.find('.auto_complete').addClass('empty');
