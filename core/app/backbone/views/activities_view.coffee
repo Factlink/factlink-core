@@ -52,7 +52,7 @@ class window.ActivitiesView extends AutoloadingView
       collection: new ChannelActivities([], {channel: ch})
 
   emptyViewOn: ->
-    @suggestedTopics = new SuggestedTopics([], user: @collection.channel.user())
+    @suggestedTopics = new SuggestedTopics([{title: 'hoi'},{title: 'doei'}], user: @collection.channel.user())
     @emptyView = new emptyActivitiesView
       el: @$('.empty_stream')
       collection: @suggestedTopics
