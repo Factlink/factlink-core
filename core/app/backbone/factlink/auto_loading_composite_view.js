@@ -8,7 +8,7 @@ function extendWithAutoloading(superclass) {
       this.collection.on('add', _.bind(function(){
         this.emptyViewOff();
       },this));
-      this.collection.on('stopLoading', this.afterLoad, this);
+      this.collection.on('remove stopLoading', this.afterLoad, this);
 
     },
 
