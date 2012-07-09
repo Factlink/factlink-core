@@ -26,6 +26,8 @@ function extendWithAutoloading(superclass) {
       }
     },
 
+    // this function sets the correct state after loading is done, tries to load more if applicable
+    // and sets empty state if we are not loading and we have no items
     afterLoad: function() {
       if(!this.collection._loading) {
         if (this.collection.length === 0) {
