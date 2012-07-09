@@ -108,9 +108,9 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", :as => "find"
       end
 
-      resources :subchannels, only: [:index, :destroy] do
+      resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
-          post "add/:id/",     :as => "add",     :action => "add"
+          post "add/:id/",     :as => "add",     :action => "create"
           post "remove/:id/",  :as => "remove",  :action => "destroy"
         end
       end

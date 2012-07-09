@@ -1,6 +1,5 @@
 //= require jquery.hoverIntent
-
-//TODO fix duplication with channel_view
+//= require ./channel_view
 
 window.ChannelActivitiesView = Backbone.View.extend({
   tagName: "div",
@@ -8,28 +7,14 @@ window.ChannelActivitiesView = Backbone.View.extend({
   template: "channels/_channel",
 
   initialize: function(opts) {
-    if (this.model !== undefined) {
-      this.subchannels = new SubchannelList({channel: this.model});
-      this.subchannels.fetch();
-
-      this.activitiesView = new ActivitiesView({
-        el: '#activity_for_channel',
-        collection: new ChannelActivities([],{
-          channel: this.model
-        })
-      });
-      this.activitiesView.collection.loadMore();
-    }
-  },
-
-  initSubChannels: function() {
-    if ( this.$el.find('#contained-channel-list') ) {
-      this.subchannelView = new SubchannelsView({
-        collection: this.subchannels,
-        el: this.$el.find('#contained-channel-list'),
-        container: this.$el
-      });
-    }
+    this.activitiesView = new ActivitiesView({
+      el: '#activity_for_channel',
+      collection: new ChannelActivities([],{
+        channel: this.model
+      })
+    });
+    this.activitiesView.collection.loadMore();
+    this.initSubChannels()
   },
 
   initAddToChannel: function() {
@@ -103,7 +88,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
       this.$el
         .html( this.templateRender(this.model.toJSON()) );
 
-      this.initSubChannels();
+      this.renderSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
       this.initMoreButton();
@@ -124,4 +109,4 @@ window.ChannelActivitiesView = Backbone.View.extend({
   }
 });
 
-_.extend(ChannelActivitiesView.prototype, TemplateMixin);
+_.extend(ChannelActivitiesView.prototype, TemplateMixin, CommonChannelStuff);
