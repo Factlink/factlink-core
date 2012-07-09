@@ -254,7 +254,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
 
     $.ajax({
-      url: '/' + currentUser.get('username') + '/channels.json',
+      url: '/' + currentUser.get('username') + '/channels',
       data: {
         title: title
       },
