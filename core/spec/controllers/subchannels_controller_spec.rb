@@ -39,7 +39,7 @@ describe SubchannelsController do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
       should_check_can :update, ch1
-      post :add, username: user.username, channel_id: ch1.id, id: subch1.id, format: 'json'
+      post :create, username: user.username, channel_id: ch1.id, id: subch1.id, format: 'json'
       response.should be_success
     end
   end
