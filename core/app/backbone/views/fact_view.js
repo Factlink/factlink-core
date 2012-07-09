@@ -99,7 +99,7 @@ window.FactView = ViewWithPopover.extend({
     this.model.removeFromChannel(
       currentChannel, {
       error: function() {
-        alert("Error while removing Factlink from Channel" );
+        alert("Error while hiding Factlink from Channel" );
       },
       success: function() {
         self.model.collection.remove(self.model);
