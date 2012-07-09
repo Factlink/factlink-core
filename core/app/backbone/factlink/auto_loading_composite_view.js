@@ -6,7 +6,7 @@ function extendWithAutoloading(superclass) {
       superclass.prototype.constructor.apply(this, arguments);
       this.collection.loadMore();
       this.collection.on('add', _.bind(function(){
-        this.emptyViewOff();
+        this.emptyViewOffWrapper();
       },this));
       this.collection.on('remove stopLoading', this.afterLoad, this);
 
@@ -31,7 +31,7 @@ function extendWithAutoloading(superclass) {
     afterLoad: function() {
       if(!this.collection._loading) {
         if (this.collection.length === 0) {
-          this.emptyViewOn();
+          this.emptyViewOnWrapper();
         }
 
         if ( this.bottomOfViewReached()) {
@@ -67,6 +67,19 @@ function extendWithAutoloading(superclass) {
       superclass.prototype.reset.apply(this, arguments);
     },
 
+    emptyViewOnWrapper: function(){
+      console.info("maybe we should enable empty view")
+      if (!('_emptyViewIsOn' in this)) {
+        this.emptyViewOn();
+        this._emptyViewIsOn = true;
+      }
+    },
+    emptyViewOffWrapper: function(){
+      if ('_emptyViewIsOn' in this) {
+        this.emptyViewOff();
+        delete this._emptyViewIsOn;
+      }
+    },
 
     // TODO: replace this by standard empty view functionality by marionette.
     emptyViewOn: function(){},

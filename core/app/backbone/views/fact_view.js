@@ -149,7 +149,7 @@ window.FactView = ViewWithPopover.extend({
       });
       addToChannelView.vent.bindTo("removeChannel", function(channel){
         self.model.removeFromChannel(channel,{});
-        if (currentChannel.get('id') === channel.get('id')){
+        if (window.currentChannel && currentChannel.get('id') === channel.get('id')){
           self.model.collection.remove(self.model);
         }
       });

@@ -102,7 +102,7 @@ json.array!(@activities) do |json, activity_hash|
       if subject.created_by.user == user
         json.posted 'posted'
       else
-        json.posted 're-posted'
+        json.posted 'reposted'
       end
 
       json.translated_action "freefly"

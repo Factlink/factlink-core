@@ -30,15 +30,15 @@ class Topic
   end
 
   def self.by_title(title)
-    where(slug_title: title.to_url||'').first || new(title: title)
+    where(slug_title: title.to_url || '').first || new(title: title)
   end
 
   def self.by_slug(slug)
-    where(slug_title: slug||'').first
+    where(slug_title: slug || '').first
   end
 
   def self.ensure_for_channel(ch)
-    unless Topic.where(slug_title: ch.slug_title||'').first
+    unless Topic.where(slug_title: ch.slug_title || '').first
       t = Topic.by_title(ch.title)
       t.save and t
     end
