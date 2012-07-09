@@ -32,10 +32,10 @@ class UrlNormalizer
 
   def clean_query query
     return unless query
-    forbidden_uri_params = [:utm_source, :utm_content, :utm_medium, :utm_campaign, ]
+    forbidden_uri_params = [:utm_source, :utm_content, :utm_medium, :utm_campaign, ].map {|k| k.to_s }
 
     uri_params = CGI.parse(query)
-    uri_params = uri_params.delete_if {|k,v| forbidden_uri_params.include? k.to_sym}
+    uri_params = uri_params.delete_if {|k,v| forbidden_uri_params.include? k}
 
     build_query(uri_params)
   end

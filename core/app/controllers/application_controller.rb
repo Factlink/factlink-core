@@ -97,24 +97,39 @@ class ApplicationController < ActionController::Base
 
   end
 
-  private
-  def channels_for_user(user)
-    @channels = user.graph_user.channels
-    unless @user == current_user
-      @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+  before_filter :accepts_html_instead_of_stars
+  def accepts_html_instead_of_stars
+    # If the request 'Content Accept' header indicates a '*/*' format,
+    # we set the format to :html.
+    # This is necessary for GoogleBot which requests / with '*/*; q=0.6' for example.
+    #
+    # Also, msie6 seems to require this. That, or 'Explore 6.0'. This should fix crazy
+    # template not found errors, please do not remove, or use great caution ;) -- Mark
+    if request.format.to_s =~ /\A\s*\*\/\*\s*(;|$)/
+      request.format = :html
     end
-    @channels
   end
-  helper_method :channels_for_user
 
-  def can_haz feature
-    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
-  end
-  helper_method :can_haz
+  private
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+      end
+      @channels
+    end
+    helper_method :channels_for_user
 
-  def set_layout
-    allowed_layouts = ['popup']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
-  end
+    def can_haz feature
+      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+    end
+    helper_method :can_haz
+
+    def set_layout
+      allowed_layouts = ['popup']
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+    end
+
+
 
 end

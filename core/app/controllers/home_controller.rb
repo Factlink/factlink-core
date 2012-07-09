@@ -35,13 +35,6 @@ class HomeController < ApplicationController
   end
 
   def index
-    # If the request 'Content Accept' header indicates a '*/*' format,
-    # we set the format to :html.
-    # This is necessary for GoogleBot which requests / with '*/*; q=0.6' for example.
-    if request.format.to_s =~ %r%\*\/\*%
-      request.format = :html
-    end
-
     respond_to do |format|
       format.html { render layout: "landing" }
     end
