@@ -11,7 +11,7 @@ class window.RelatedChannelsView extends Backbone.Marionette.CompositeView
     is_mine: this.model.get('created_by').username == currentUser.get('username')
 
   initialize: (options) ->
-    @collection =  collectionDifference(ChannelList, options.collection, options.addToCollection, new ChannelList([@model]));
+    @collection =  collectionDifference(ChannelList,'id', options.collection, options.addToCollection, new ChannelList([@model]));
 
   showEmptyView: => this.$el.hide()
   closeEmptyView: => this.$el.show()
