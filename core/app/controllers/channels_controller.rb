@@ -204,6 +204,7 @@ class ChannelsController < ApplicationController
           count: params[:number].andand.to_i || 24,
           reversed: true, withscores: true).
             keep_if{|a| a.andand[:item].andand.still_valid?}
+        @activities = []
         render
       end
       format.html { render inline:'', layout: "channels" }
