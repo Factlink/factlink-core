@@ -1,3 +1,14 @@
 class window.SuggestedTopicView extends Backbone.Marionette.ItemView
-	template: "activities/_suggested_topic"
-	tagName: "li"
+  template: "activities/_suggested_topic"
+  tagName: "li"
+
+  events:
+    'click a.btn' : 'addModel'
+
+  addModelSuccess: (model)-> @$('a.btn').hide()
+
+  addModelError: (model)-> alert('something went wrong while creating this channel')
+
+  wrapNewModel: (model) -> new Channel(@model.toJSON())
+
+_.extend(window.SuggestedTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
