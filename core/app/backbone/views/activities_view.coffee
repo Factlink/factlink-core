@@ -54,7 +54,7 @@ class window.ActivitiesView extends AutoloadingView
   emptyViewOn: ->
     @suggestedTopics = new SuggestedTopics([], user: @collection.channel.user())
     @emptyView = new emptyActivitiesView
-      el: @$el.find('.empty_stream'), 
+      el: @$('.empty_stream')
       collection: @suggestedTopics
 
     @emptyView.render()
