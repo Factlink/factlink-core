@@ -11,6 +11,10 @@ class TopicsController < ApplicationController
     render json: top_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}
   end
 
+  def top
+    render json: Topic.all
+  end
+
   private
     def topic
       @topic ||= Topic.by_slug(params[:id])
