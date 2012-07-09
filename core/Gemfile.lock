@@ -490,7 +490,7 @@ DEPENDENCIES
   less-rails-bootstrap (>= 2.0.6)
   letter_opener
   map
-  marionette-rails (~> 0.9.2)
+  marionette-rails (~> 0.9.3)
   memoist
   metric_fu (= 2.1.1)
   mixpanel!

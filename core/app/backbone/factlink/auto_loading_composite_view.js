@@ -8,7 +8,7 @@ function extendWithAutoloading(superclass) {
       this.collection.on('add', _.bind(function(){
         this.emptyViewOff();
       },this));
-      this.collection.on('stopLoading', this.afterLoad, this);
+      this.collection.on('remove stopLoading', this.afterLoad, this);
 
     },
 
@@ -26,13 +26,17 @@ function extendWithAutoloading(superclass) {
       }
     },
 
+    // this function sets the correct state after loading is done, tries to load more if applicable
+    // and sets empty state if we are not loading and we have no items
     afterLoad: function() {
-      if (this.collection.length === 0 && !this.collection._loading) {
-        this.emptyViewOn();
-      }
+      if(!this.collection._loading) {
+        if (this.collection.length === 0) {
+          this.emptyViewOn();
+        }
 
-      if ( this.bottomOfViewReached()) {
-        this.collection.loadMore();
+        if ( this.bottomOfViewReached()) {
+          this.collection.loadMore();
+        }
       }
     },
 

@@ -6,7 +6,7 @@
 
     <div class="button-wrap">
       {{#editable?}}
-      <a href="{{ edit_link }}" class="btn edit small">edit</a>
+      <a href="{{ edit_link }}" class="btn edit btn-micro">edit</a>
       {{/editable?}}
 
       {{#followable?}}
@@ -24,16 +24,6 @@
       </div>
       {{/has_authority?}}
     </div>
-
-    {{#inspectable?}}
-    <div id="contained-channels">
-      <span class="contained-channel-description">Followed {{channels_definition}}</span>
-        <ul id="contained-channel-list" {{^is_mine}}class="not_my_channel"{{/is_mine}}>
-          <div class="overflow"></div>
-        </ul>
-      </div>
-      <div class="more"><a id="more-button"><span class="label">more</span></a></div>
-    {{/inspectable?}}
 
     <div class="clearfix"></div>
 
