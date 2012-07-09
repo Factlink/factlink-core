@@ -81,22 +81,16 @@ class ChannelsController < ApplicationController
       unless params[:for_fact].nil?
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
-
-        render :json => Channels::Channel.for(channel: @channel,view: view_context)
-        return
       end
 
       unless params[:for_channel].nil?
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
-
-        render :json => Channels::Channel.for(channel: @channel,view: view_context)
-        return
       end
 
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
-        format.json { render :json => @channel}
+        format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       end
 
     else
