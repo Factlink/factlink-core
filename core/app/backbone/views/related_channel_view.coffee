@@ -1,21 +1,3 @@
-AddModelToCollectionMixin =
-  addModel: ->
-    console.info('adding', @model.get('title'), 'to collection', @options.addToCollection)
-    if @wrapNewModel
-      model = @wrapNewModel(@model)
-    else
-      model = @model
-    @options.addToCollection.add(model)
-    model.save({},{
-      success: =>
-        if @addModelSuccess
-          @addModelSuccess(model)
-      error: =>
-        @options.addToCollection.remove(model)
-        if addModelError
-          @addModelError(model)
-    })
-
 class window.RelatedChannelView extends Backbone.Marionette.ItemView
   template: "channels/_related_channel"
   tagName: "li"
@@ -29,4 +11,4 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
 
   wrapNewModel: (model) -> new Channel(@model.toJSON())
 
-_.extend(window.RelatedChannelView.prototype, AddModelToCollectionMixin)
+_.extend(window.RelatedChannelView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
