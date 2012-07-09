@@ -5,7 +5,9 @@ class window.SuggestedTopicView extends Backbone.Marionette.ItemView
   events:
     'click a.btn' : 'addModel'
 
-  addModelSuccess: (model)-> @$('a.btn').hide()
+  addModelSuccess: (model)->
+    @$('a.btn').hide()
+    model.change()
 
   addModelError: (model)-> alert('something went wrong while creating this channel')
 
