@@ -200,9 +200,7 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        @activities_set = @channel.activities
-
-        @activities = @activities_set.below( params[:timestamp] || 'inf',
+        @activities = @channel.activities.below( params[:timestamp] || 'inf',
           count: params[:number].andand.to_i || 24,
           reversed: true, withscores: true).
             keep_if{|a| a.andand[:item].andand.still_valid?}
