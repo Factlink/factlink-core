@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
 
     top_channels = top_users.map do |user|
       @topic.channel_for_user(user)
-    end
+    end.delete_if {|t| t.nil?}
 
     render json: top_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}
   end
