@@ -52,14 +52,17 @@ class window.ActivitiesView extends AutoloadingView
       collection: new ChannelActivities([], {channel: ch})
 
   emptyViewOn: ->
-    @suggestedTopics = new SuggestedTopics([{title: 'hoi'},{title: 'doei'}], user: @collection.channel.user())
-    @emptyView = new SuggestedTopicsView
-      el: @$('.empty_stream')
-      collection: @suggestedTopics
+    if @collection.channel.type == 'stream'
+      @suggestedTopics = new SuggestedTopics([{title: 'hoi'},{title: 'doei'}], user: @collection.channel.user())
+      @emptyView = new SuggestedTopicsView
+        el: @$('.empty_stream')
+        collection: @suggestedTopics
 
-    @emptyView.render()
+      @emptyView.render()
 
   emptyViewOff: ->
-    @emptyView.close()
+    if @emptyView
+      @emptyView.close()
+      del @emptyView
 
 _.extend(ActivitiesView.prototype, ToggleMixin)
