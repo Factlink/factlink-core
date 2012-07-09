@@ -25,11 +25,12 @@ class window.ChannelsController
   commonChannelViews: (channel) ->
     this.setCurrentChannel(channel);
 
-    relatedChannels = new RelatedChannels [], forChannel: channel
-
-    FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel, collection: relatedChannels, addToCollection: window.currentChannel.subchannels()))
-
-    relatedChannels.fetch()
+    if channel.get('is_normal')
+      relatedChannels = new RelatedChannels [], forChannel: channel
+      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel, collection: relatedChannels, addToCollection: window.currentChannel.subchannels()))
+      relatedChannels.fetch()
+    else
+      FactlinkApp.relatedChannelsRegion.close()
 
     user = channel.user()
     userView = new UserView(model: user)
