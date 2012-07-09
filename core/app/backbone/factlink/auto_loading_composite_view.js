@@ -27,12 +27,14 @@ function extendWithAutoloading(superclass) {
     },
 
     afterLoad: function() {
-      if (this.collection.length === 0 && !this.collection._loading) {
-        this.emptyViewOn();
-      }
+      if(!this.collection._loading) {
+        if (this.collection.length === 0) {
+          this.emptyViewOn();
+        }
 
-      if ( this.bottomOfViewReached()) {
-        this.collection.loadMore();
+        if ( this.bottomOfViewReached()) {
+          this.collection.loadMore();
+        }
       }
     },
 
