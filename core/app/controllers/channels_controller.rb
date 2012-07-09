@@ -200,11 +200,7 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        if @channel.type == "stream"
-          @activities_set = @user.graph_user.stream_activities
-        else
-          @activities_set = @channel.activities
-        end
+        @activities_set = @channel.activities
 
         @activities = @activities_set.below( params[:timestamp] || 'inf',
           count: params[:number].andand.to_i || 24,
