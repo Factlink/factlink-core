@@ -57,7 +57,7 @@ class window.ActivitiesView extends AutoloadingView
       @suggestedTopics.fetch()
       @emptyView = new SuggestedTopicsView
         el: @$('.empty_stream')
-        collection: @suggestedTopics
+        collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
 
       @emptyView.render()
 
