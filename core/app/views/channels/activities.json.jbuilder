@@ -31,7 +31,7 @@ json.array!(@activities) do |json, activity_hash|
 
   size = 24
 
-  json.user_profile_url channel_path(user, graph_user.stream_id)
+  json.user_profile_url user_profile_path(user)
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
 
   json.action action
