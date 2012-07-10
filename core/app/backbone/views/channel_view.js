@@ -22,7 +22,7 @@ window.CommonChannelStuff = {
 };
 
 
-window.ChannelView = Backbone.View.extend({
+window.ChannelView = Backbone.Marionette.ItemView.extend({
   tagName: "div",
 
   template: 'channels/_channel',
@@ -72,9 +72,7 @@ window.ChannelView = Backbone.View.extend({
     }
   },
 
-  remove: function() {
-    Backbone.View.prototype.remove.apply(this);
-
+  onClose: function() {
     if ( this.factsView ) {
       this.factsView.close();
     }
@@ -88,35 +86,26 @@ window.ChannelView = Backbone.View.extend({
     }
   },
 
-  render: function() {
-    var self = this;
+  onRender: function() {
+    this.model.trigger('loading');
 
-    if ( self.model ) {
-      self.model.trigger('loading');
+    this.renderSubChannels();
+    this.initSubChannelMenu();
+    this.initAddToChannel();
 
-      this.$el
-        .html( this.templateRender( this.model.toJSON() ) );
+    this.factsView.render();
+    this.$('#facts_for_channel').append(this.factsView.el);
 
-      this.renderSubChannels();
-      this.initSubChannelMenu();
-      this.initAddToChannel();
+    // Set the active tab
+    var tabs = this.$('.tabs ul');
+    tabs.find('li').removeClass('active');
+    tabs.find('.factlinks').addClass('active');
 
-      this.factsView.render();
-      this.$el.find('#facts_for_channel').append(this.factsView.el);
+    this.model.trigger('loaded')
+                .trigger('activate', this.model);
 
-      // Set the active tab
-      var tabs = this.$el.find('.tabs ul');
-      tabs.find('li').removeClass('active');
-      tabs.find('.factlinks').addClass('active');
-
-      self.model.trigger('loaded')
-                  .trigger('activate', self.model);
-    }
     this.$el.find('header .authority')
-      .tooltip({title: 'Authority of ' + self.model.attributes.created_by.username + ' on "' + self.model.attributes.title + '"'});
-
-
-    return this;
+      .tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
   }
 });
 

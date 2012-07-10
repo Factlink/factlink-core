@@ -1,7 +1,7 @@
 //= require jquery.hoverIntent
 //= require ./channel_view
 
-window.ChannelActivitiesView = Backbone.View.extend({
+window.ChannelActivitiesView = Backbone.Marionette.ItemView.extend({
   tagName: "div",
 
   template: "channels/_channel",
@@ -64,7 +64,7 @@ window.ChannelActivitiesView = Backbone.View.extend({
     }
   },
 
-  remove: function() {
+  onClose: function() {
     if ( this.activitiesView ) {
       this.activitiesView.close();
     }
@@ -76,36 +76,26 @@ window.ChannelActivitiesView = Backbone.View.extend({
     if ( this.subchannelView ) {
       this.subchannelView.close();
     }
-    Backbone.View.prototype.remove.apply(this);
   },
 
-  render: function() {
-    var self = this;
+  onRender: function() {
+    this.model.trigger('loading');
 
-    if ( self.model ) {
-      self.model.trigger('loading');
+    this.renderSubChannels();
+    this.initSubChannelMenu();
+    this.initAddToChannel();
+    this.initMoreButton();
 
-      this.$el
-        .html( this.templateRender(this.model.toJSON()) );
+    this.activitiesView.$el = this.$('#activity_for_channel');
+    this.activitiesView.render();
 
-      this.renderSubChannels();
-      this.initSubChannelMenu();
-      this.initAddToChannel();
-      this.initMoreButton();
+    // Set the active tab
+    var tabs = this.$('.tabs ul');
+    tabs.find('li').removeClass('active');
+    tabs.find('.activity').addClass('active');
 
-      this.activitiesView.$el = this.$el.find('#activity_for_channel');
-      this.activitiesView.render();
-
-      // Set the active tab
-      var tabs = this.$el.find('.tabs ul');
-      tabs.find('li').removeClass('active');
-      tabs.find('.activity').addClass('active');
-
-      self.model.trigger('loaded')
-                  .trigger('activate', self.model);
-    }
-
-    return this;
+    this.model.trigger('loaded')
+                .trigger('activate', this.model);
   }
 });
 
