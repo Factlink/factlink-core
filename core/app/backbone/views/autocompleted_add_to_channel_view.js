@@ -28,6 +28,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   render: function () {
     this.$el.html( this.templateRender(this.model) );
 
+    this.$el.find('ul').preventScrollPropagation();
+
     this.reset();
     return this;
   },

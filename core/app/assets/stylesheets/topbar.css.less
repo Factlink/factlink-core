@@ -8,9 +8,8 @@
 // Our navbar is white :)
 .navbar-inner {
   background: @navbarBackground;
-  @shadow: 0 0px 3px rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.1);
-  .box-shadow(@shadow);
-
+  border-bottom: 1px solid @baseBorderColor;
+  .box-shadow(none);
   // IE Fix, don't show the gradient
   filter: none;
 }

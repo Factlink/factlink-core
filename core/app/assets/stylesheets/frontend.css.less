@@ -20,10 +20,9 @@
 Author: Factlink
 ========================================================================== */
 #body {
-  .inner-shadow(0, 0px, 9px, 0.1);
   background-color: #f4f4f4;
   text-shadow: 0 1px 1px #fff;
-  border: solid 1px rgba(0, 0, 0, 0.06);
+  border: solid 1px @baseBorderColor;
 }
 body {
   background: @white;
@@ -55,6 +54,10 @@ body.factlink-site .fact-block {
     margin: 15px 0 15px 0;
   }
 
+  &:first-child {
+    border-top: 1px solid @baseBorderColor;
+    margin: 0px -15px;
+  }
   &:last-child {
     border-bottom: none;
   }
@@ -62,9 +65,9 @@ body.factlink-site .fact-block {
   .dropdown-container {
     margin-left: 70px;
     margin-right: 15px;
-    border-left: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2;
-    border-bottom: 1px solid #E2E2E2;
+    border-left: 1px solid @baseBorderColor;
+    border-right: 1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
     margin-bottom: 15px;
     -webkit-border-radius: 3px;
     -webkit-border-top-left-radius: 0;
@@ -269,18 +272,16 @@ body.factlink-site .fact-block {
     margin-bottom: 172px;
     background-color: @white;
     .border-radius(@borderRadius);
-    border: 1px solid @grayLighter;
-    .drop-shadow();
+    border: 1px solid @baseBorderColor;
     position: relative;
     z-index: 100;
 
     header.title {
       color: #777;
-      border-top: 1px solid @white;
       background-color: #f8f8f8;
       text-shadow: 0px 1px 0px @white;
       .border-radius(@borderRadius @borderRadius 0 0);
-      margin: -15px -15px 0 -15px;
+      margin: -15px -15px -1px -15px;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
       h1 {
@@ -455,7 +456,7 @@ body.factlink-site .fact-block {
       }
     }
     li a.created {
-      border-bottom: 1px solid #dbdbdb;
+      border-bottom: 1px solid @baseBorderColor;
     }
     li.active a {
       border-top: none;
