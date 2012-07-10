@@ -5,5 +5,11 @@ class window.SuggestedTopicsView extends Backbone.Marionette.CompositeView
 
   itemViewContainer: "ul"
 
+  events:
+  	'click .done-button':'doneAdding'
+
   itemView: SuggestedTopicView
   itemViewOptions: => addToCollection : window.Channels
+
+  doneAdding: ()->
+  	this.trigger('done')

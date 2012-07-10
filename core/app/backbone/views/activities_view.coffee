@@ -57,7 +57,9 @@ class window.ActivitiesView extends AutoloadingView
       @suggestedTopics.fetch()
       @emptyView = new SuggestedTopicsView
         el: @$('.empty_stream')
+        model: new Backbone.Model({current_url: @collection.link()})
         collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
+      @emptyView.on 'done', => @trigger 'reload'
 
       @emptyView.render()
 
