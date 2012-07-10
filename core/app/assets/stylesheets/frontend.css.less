@@ -20,10 +20,9 @@
 Author: Factlink
 ========================================================================== */
 #body {
-  .inner-shadow(0, 0px, 9px, 0.1);
   background-color: #f4f4f4;
   text-shadow: 0 1px 1px #fff;
-  border: solid 1px rgba(0, 0, 0, 0.06);
+  border: solid 1px @baseBorderColor;
 }
 body {
   background: @white;
@@ -66,9 +65,9 @@ body.factlink-site .fact-block {
   .dropdown-container {
     margin-left: 70px;
     margin-right: 15px;
-    border-left: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2;
-    border-bottom: 1px solid #E2E2E2;
+    border-left: 1px solid @baseBorderColor;
+    border-right: 1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
     margin-bottom: 15px;
     -webkit-border-radius: 3px;
     -webkit-border-top-left-radius: 0;
@@ -457,7 +456,7 @@ body.factlink-site .fact-block {
       }
     }
     li a.created {
-      border-bottom: 1px solid #dbdbdb;
+      border-bottom: 1px solid @baseBorderColor;
     }
     li.active a {
       border-top: none;
