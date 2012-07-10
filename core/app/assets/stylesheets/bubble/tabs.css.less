@@ -36,7 +36,7 @@
     &.active {
       a {
         background: #f4f4f4;
-        border: 1px solid #e2e2e2;
+        border: 1px solid @baseBorderColor;
         border-bottom: 1px solid #f4f4f4;
 
         color: #333;
@@ -132,7 +132,7 @@
   }
 
   .dropdown-container {
-    border-top: 1px solid #e2e2e2;
+    border-top: 1px solid @baseBorderColor;
     background: @whiteDarker;
 
     ul.search-results {
@@ -228,8 +228,8 @@
       .wrapper {
         padding: 12px;
         background: #fff;
-        border-top: 1px solid #e8edf3;
-        border-bottom: 1px solid #e8edf3;
+        border-top: 1px solid @baseBorderColor;
+        border-bottom: 1px solid @baseBorderColor;
       }
     }
   }
@@ -257,7 +257,7 @@
     .visible-scroll();
     li {
       &:not(:first-child) {
-        border-top: 1px solid @grayLighter;
+        border-top: 1px solid @baseBorderColor;
       }
       .close {
         margin: 7px 8px 0 0;
