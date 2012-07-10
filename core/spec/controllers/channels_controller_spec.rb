@@ -3,6 +3,8 @@ require 'spec_helper'
 describe ChannelsController do
   render_views
 
+  before { Resque.stub!(:enqueue,nil) }
+
   let (:user) {FactoryGirl.create(:user)}
   let (:nonnda_user) { FactoryGirl.create(:user, agrees_tos: false) }
 
@@ -12,14 +14,7 @@ describe ChannelsController do
 
   let (:ch1) do
     ch1 = create :channel, created_by: user.graph_user
-
-    [f1,f2,f3].each do |f|
-      f.created_by.user = FactoryGirl.create(:user)
-      f.created_by.save
-      ch1.add_fact f1
-    end
-
-    ch1.save
+    [f1,f2,f3].each { |f| ch1.add_fact f }
     ch1
   end
 
