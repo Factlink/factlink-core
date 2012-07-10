@@ -11,9 +11,6 @@
 
 //= require app.js
 
-// Include Fact Model so it can be used inside extended_fact
-//= require ./models/fact.js
-
 //= require_tree ./models/
 
 /* We need to load dependencies first. window.FactRelation is being extended
