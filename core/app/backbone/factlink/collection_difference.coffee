@@ -2,7 +2,6 @@ window.collectionDifference = (type, onField,collection1, collections...) ->
    result = new type()
    reset = () ->
      forbidden_fields = _.union( (col.pluck(onField) for col in collections)... )
-     console.info('FORBIDDEN', forbidden_fields)
      diffmodels = collection1.reject (model) => model.get(onField) in forbidden_fields
      result.reset diffmodels
 
