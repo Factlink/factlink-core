@@ -14,10 +14,6 @@ window.FactView = ViewWithPopover.extend({
     "click .tab-control .weakening"      : "tabClick",
     "click .tab-control .add-to-channel" : "tabClick",
 
-    "click .title.edit": "toggleTitleEdit",
-    "focus .title.edit>input": "focusTitleEdit",
-    "blur .title.edit>input": "blurTitleEdit",
-    "keydown .title.edit>input": "parseKeyInputTitleEdit",
     "click a.more": "showCompleteDisplaystring",
     "click a.less": "hideCompleteDisplaystring"
   },
@@ -269,91 +265,6 @@ window.FactView = ViewWithPopover.extend({
     self.$el.animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
       $(this).animate({"background-color": "#ffffff"}, 2000);
     }});
-  },
-
-  toggleTitleEdit: function () {
-    var $editField = this.$el.find('.edit.title');
-
-    if ( ! this._titleFieldHasFocus ) {
-      $editField.toggleClass('edit-active');
-
-      if ( $editField.hasClass('edit-active') ) {
-        $editField.find('input').focus();
-      }
-    }
-  },
-
-  focusTitleEdit: function () {
-    this._titleFieldHasFocus = true;
-  },
-
-  saveTitleEdit: function () {
-    if ( this._titleFieldHasFocus ) {
-      var self = this;
-      var $titleField = this.$el.find('.edit.title');
-      var value = $titleField.find('>input').val();
-
-      $titleField.find('>span').html(value);
-      $titleField.removeClass('edit-active');
-
-      this._titleFieldHasFocus = false;
-
-      if ( this.model.getTitle() === value ) {
-        return;
-      }
-
-      // TODO: Please replace this with a proper Backbone.Model.prototype.save
-      //       Once we got rid of Mustache
-      if ( this.model.setTitle(value, { silent: true } ) ) {
-        $.ajax({
-          type: "PUT",
-          url: this.model.url(),
-          data: {
-            title: value
-          }
-        }).done(function() {
-          self.model.trigger('change');
-        }).error(function() {
-          alert("Something went wrong while trying to save this Factlink. Please try again");
-        });
-      }
-    }
-  },
-
-  blurTitleEdit: function (e) {
-    var $titleField = this.$el.find('.edit.title');
-    var value = $titleField.find('>input').val();
-
-    // Check if user has changes and wants to save
-    if ( this.model.getTitle() !== value ) {
-      if ( confirm("Do you want to save your changes?") ) {
-        this.saveTitleEdit();
-      } else {
-        this.cancelTitleEdit();
-      }
-    }
-  },
-
-  cancelTitleEdit: function () {
-    var $titleField = this.$el.find('.edit.title');
-    var value = $titleField.find('>input').val();
-
-    $titleField.find('>input').val( this.model.getTitle() );
-
-    $titleField.removeClass('edit-active');
-    this._titleFieldHasFocus = false;
-  },
-
-  parseKeyInputTitleEdit: function (e) {
-    if ( e.keyCode === 13 ) {
-      this.saveTitleEdit();
-
-      e.preventDefault();
-    } else if ( e.keyCode === 27 ) {
-      this.cancelTitleEdit();
-
-      e.preventDefault();
-    }
   },
 
   showCompleteDisplaystring: function (e) {
