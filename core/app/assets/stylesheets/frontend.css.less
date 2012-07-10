@@ -55,6 +55,10 @@ body.factlink-site .fact-block {
     margin: 15px 0 15px 0;
   }
 
+  &:first-child {
+    border-top: 1px solid @baseBorderColor;
+    margin: 0px -15px;
+  }
   &:last-child {
     border-bottom: none;
   }
@@ -280,7 +284,7 @@ body.factlink-site .fact-block {
       background-color: #f8f8f8;
       text-shadow: 0px 1px 0px @white;
       .border-radius(@borderRadius @borderRadius 0 0);
-      margin: -15px -15px 0 -15px;
+      margin: -15px -15px -1px -15px;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
       h1 {
