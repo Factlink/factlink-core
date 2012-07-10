@@ -6,21 +6,19 @@ describe ChannelsController do
   let (:user) {FactoryGirl.create(:user)}
   let (:nonnda_user) { FactoryGirl.create(:user, agrees_tos: false) }
 
-  let (:f1) {FactoryGirl.create(:fact)}
-  let (:f2) {FactoryGirl.create(:fact)}
-  let (:f3) {FactoryGirl.create(:fact)}
+  let (:f1) {create(:fact)}
+  let (:f2) {create(:fact)}
+  let (:f3) {create(:fact)}
 
   let (:ch1) do
-    ch1 = FactoryGirl.create :channel, created_by: user.graph_user
+    ch1 = create :channel, created_by: user.graph_user
 
     [f1,f2,f3].each do |f|
       f.created_by.user = FactoryGirl.create(:user)
       f.created_by.save
+      ch1.add_fact f1
     end
 
-    ch1.add_fact f1
-    ch1.add_fact f2
-    ch1.add_fact f3
     ch1.save
     ch1
   end
