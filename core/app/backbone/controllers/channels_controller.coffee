@@ -23,7 +23,7 @@ class window.ChannelsController
 
 
   commonChannelViews: (channel) ->
-    this.setCurrentChannel(channel);
+    window.currentChannel = channel
 
     if channel.get('is_normal')
       relatedChannels = new RelatedChannels [], forChannel: channel
@@ -53,7 +53,4 @@ class window.ChannelsController
   getChannelActivities: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>
       this.commonChannelViews(channel);
-      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel));
-
-  setCurrentChannel: (channel) ->
-    window.currentChannel = channel
+      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel))
