@@ -64,6 +64,6 @@ class window.ActivitiesView extends AutoloadingView
   emptyViewOff: ->
     if @emptyView
       @emptyView.close()
-      del @emptyView
+      delete @emptyView
 
 _.extend(ActivitiesView.prototype, ToggleMixin)
