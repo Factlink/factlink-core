@@ -2,10 +2,6 @@ class ChannelsController < ApplicationController
 
   layout "channels"
 
-  before_filter :get_user
-
-  respond_to :json, :html
-
   before_filter :load_channel,
     :only => [
       :show,
@@ -20,6 +16,10 @@ class ChannelsController < ApplicationController
       :add_fact,
       :remove_fact,
       :follow]
+
+  before_filter :get_user
+
+  respond_to :json, :html
 
   before_filter :authenticate_user!
 
@@ -207,15 +207,15 @@ class ChannelsController < ApplicationController
 
   private
     def get_user
-      if params[:username]
-        @user = User.first(:conditions => { :username => params[:username]}) || raise_404
+      if @channel
+        @user ||= @channel.created_by.user
+      elsif params[:username]
+        @user ||= User.first(:conditions => { :username => params[:username]}) || raise_404
       end
     end
 
     def load_channel
-      @channel  = Channel[params[:channel_id] || params[:id]]
-      @channel || raise_404("Channel not found")
-      @user ||= @channel.created_by.user
+      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404("Channel not found")
     end
 
     def mark_channel_as_read
