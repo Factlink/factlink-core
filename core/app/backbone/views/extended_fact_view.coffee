@@ -1,3 +1,5 @@
+#= require ./fact_view.js
+
 class window.ExtendedFactView extends FactView
   tagName: "section"
   id: "main-wrapper"
