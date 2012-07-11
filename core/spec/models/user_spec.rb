@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe User do
 
-  subject {FactoryGirl.create :user}
-  let(:nonnda_subject) {FactoryGirl.create :user, agrees_tos: false}
+  subject {create :user}
+  let(:nonnda_subject) {create :user, agrees_tos: false}
 
-  let(:fact) {FactoryGirl.create :fact}
-  let(:child1) {FactoryGirl.create :fact}
+  let(:fact) {create :fact}
+  let(:child1) {create :fact}
 
   context "Initially" do
     it {subject.graph_user.facts.to_a.should == []}
