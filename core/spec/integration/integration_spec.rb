@@ -175,8 +175,9 @@ describe "Walkthrough the app", type: :request do
       sleep 1
 
       page.should have_selector('li.fact-relation')
-
-      page.should have_content search_string
+      within(:css, 'li.fact-relation') do
+        page.should have_content search_string
+      end
     end
   end
 
