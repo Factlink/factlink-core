@@ -153,8 +153,9 @@ FactlinkUI::Application.routes.draw do
   get  "/p/tos"     => "tos#show",        as: "tos"
   post "/p/tos"     => "tos#update",      as: "tos"
 
-  get "/p/tour/youre-almost-done" => "tour#almost_done", as: "almost_done"
-  
+  get "/p/tour/youre-almost-done"  => "tour#almost_done",        as: "almost_done"
+  get "/p/tour/the-factlink-times" => "tour#the_factlink_times", as: "the_factlink_times"
+
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do

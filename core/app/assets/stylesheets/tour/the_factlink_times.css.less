@@ -1,0 +1,41 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+#container {
+
+  #the-factlink-times {
+    & > * { #font > .serif(); }
+    padding: 32px 72px;
+    text-align: center;
+
+    h1 {
+      font-size: 36px;
+      font-weight: 100;
+      padding: 0 0 8px;
+    }
+    p { text-align: left; }
+  }
+}
+
+
+.help-text {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 12px 20px 4px 12px;
+  .border-radius(4px);
+  z-index: 1;
+  position: absolute;
+}
+
+.arrow1 { height: 24px; width: 24px; z-index: 0; position: relative; top: 15px; left: 172px; background: white; border: 1px solid #ddd; }
+.arrow2 { height: 24px; width: 24px; z-index: 2; position: relative; top: -11px; left: 170px; background: white; border: 1px solid transparent; }
+.rotate {
+    -webkit-transform: rotate(45deg);
+     -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+       -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+             filter: progid:DXImageTransform.Microsoft.Matrix(
+                     M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476, sizingMethod='auto expand');
+               zoom: 1;
+}
