@@ -1,3 +1,5 @@
+//= require './empty_facts_view'
+
 window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
   className: "facts",
@@ -18,10 +20,19 @@ window.FactsView = AutoloadingCompositeView.extend({
     this.views = {};
 
     this.addShowHideToggle('loadingIndicator', 'div.loading');
-    this.addShowHideToggle('emptyView', 'div.no_facts');
 
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
+  },
+
+  emptyViewOn: function() {
+    this.emptyView = new EmptyFactsView({model:this.model});
+    this.$('div.no_facts').html(this.emptyView.render().el);
+  },
+
+  emptyViewOff: function() {
+    this.emptyView.close();
+    delete this.emptyView;
   },
 
   createFact: function (e) {
