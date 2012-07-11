@@ -1,7 +1,7 @@
 window.collectionDifference = (type, onField,collection1, collections...) ->
    result = new type()
    reset = () ->
-     forbidden_ids = _.union(( for col in collections
+     forbidden_fields = _.union(( for col in collections
         if col.pluck
           col.pluck(onField)
         else
