@@ -4,7 +4,7 @@ class TourController < ApplicationController
 	layout "one_column"
 
 	def almost_done
-		@step_in_signup_process = :almost_done
+		@step_in_signup_process = :account
 	end
 
 end
