@@ -25,16 +25,20 @@ class Topic
     self.slug_title = new_title.to_url
   end
 
+  def channel_for_user(user)
+    user.graph_user.internal_channels.find(slug_title: self.slug_title).first
+  end
+
   def self.by_title(title)
-    where(slug_title: title.to_url||'').first || new(title: title)
+    where(slug_title: title.to_url || '').first || new(title: title)
   end
 
   def self.by_slug(slug)
-    where(slug_title: slug||'').first
+    where(slug_title: slug || '').first
   end
 
   def self.ensure_for_channel(ch)
-    unless Topic.where(slug_title: ch.slug_title||'').first
+    unless Topic.where(slug_title: ch.slug_title || '').first
       t = Topic.by_title(ch.title)
       t.save and t
     end
@@ -56,4 +60,17 @@ class Topic
   def top_users_clear
     redis[id][:top_users].del
   end
+
+  include OurOhm::RedisTopFunctionality
+  def top_score
+    Channel.find(slug_title: self.slug_title).count
+  end
+  def self.top_key
+    Topic.redis[:top]
+  end
+  def self.top_instance id
+    Topic.find(id)
+  end
+  before_destroy :remove_from_top
+
 end

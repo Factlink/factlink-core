@@ -49,6 +49,16 @@ GIT
     ohm-contrib (0.0.31)
 
 GIT
+  remote: https://github.com/Factlink/mixpanel.git
+  revision: 0c5fee83fd42fec83a7aba15fab4346b2b48ece5
+  branch: mixpanel_people_api
+  specs:
+    mixpanel (1.1.3)
+      escape
+      json
+      rack
+
+GIT
   remote: https://github.com/Factlink/mustache_rails3.git
   revision: 5a1a7a33c7a42f0225835e006af8233146c47e21
   specs:
@@ -191,10 +201,10 @@ GEM
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    factory_girl (3.4.1)
+    factory_girl (3.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (3.4.0)
-      factory_girl (~> 3.4.0)
+    factory_girl_rails (3.5.0)
+      factory_girl (~> 3.5.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     fattr (2.2.1)
@@ -265,11 +275,7 @@ GEM
       reek (>= 1.2.6)
       roodi (>= 2.1.0)
       syntax
-    mime-types (1.19)
-    mixpanel (1.1.3)
-      escape
-      json
-      rack
+    mime-types (1.18)
     mock_redis (0.4.1)
     modernizr-rails (2.0.6)
     mongo (1.3.1)
@@ -469,6 +475,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (= 3.2.6)
+  addressable
   airbrake
   andand!
   arrayfields
@@ -489,7 +496,7 @@ DEPENDENCIES
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
-  factory_girl_rails (~> 3.0)
+  factory_girl_rails (~> 3.5)
   fattr
   fivemat
   hashie
@@ -504,10 +511,10 @@ DEPENDENCIES
   less-rails-bootstrap (>= 2.0.6)
   letter_opener
   map
-  marionette-rails (~> 0.9.2)
+  marionette-rails (~> 0.9.3)
   memoist
   metric_fu (= 2.1.1)
-  mixpanel (~> 1.1.3)
+  mixpanel!
   mock_redis
   modernizr-rails (~> 2.0.6)
   mongo (= 1.3.1)

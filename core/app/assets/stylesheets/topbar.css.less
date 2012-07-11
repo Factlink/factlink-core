@@ -8,9 +8,8 @@
 // Our navbar is white :)
 .navbar-inner {
   background: @navbarBackground;
-  @shadow: 0 0px 3px rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.1);
-  .box-shadow(@shadow);
-
+  border-bottom: 1px solid @baseBorderColor;
+  .box-shadow(none);
   // IE Fix, don't show the gradient
   filter: none;
 }
@@ -18,7 +17,8 @@
 .navbar .nav > li > a {
   color: @linkColor;
   text-shadow: 0 -1px 0 rgba(255,255,255,.25);
-  font-weight: bold;
+
+  #font > .sans-serif(bold, @baseFontSize, 20px);
   cursor: pointer;
 
   &:hover {
@@ -26,7 +26,9 @@
   }
 }
 
-.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+.dropdown-menu li > a:hover,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
   background-color: #5E8BA6;
 }
 
@@ -62,26 +64,18 @@
 .navbar-search {
   .search-query {
     background: image-url("searchIcon.png") 8px center no-repeat #fff;
-    padding-left: 28px;
     color: @gray;
     border: 1px solid #ccc;
+    padding: 5px 9px 4px 28px;
     .border-radius(4px);
-    padding-bottom: 5px;
     .transition(all 0.2s ease);
 
     // Placeholder text gets special styles; can't be bundled together though for some reason
     &:-moz-placeholder {
-      padding-top: 2px;
       color: @grayLight;
     }
     &::-webkit-input-placeholder {
-      padding-top: 2px;
       color: @grayLight;
-    }
-    // Hover states
-    &:hover {
-      color: @grayDark;
-      border: 1px solid @gray;
     }
     // Focus states (we use .focused since IE8 and down doesn't support :focus)
     &:focus,
@@ -97,19 +91,19 @@
 }
 .navbar-options > li {
   background: url(navbar-divider.png) no-repeat left;
-  height: 42px;
+  height: 41px;
   &:first-child {
     background: none;
   }
 }
 .navbar-search .search-query:focus,.navbar-search .search-query.focused {
-  padding: 4px 9px 5px 28px;
+  padding: 5px 9px 4px 28px;
 }
 .navbar #sign-in-form form{
   #cannot_access_account {
     float: right;
-    margin-top: 1px;
-    font-size: 11px;
+    margin-top: 8px;
+    #font > .sans-serif(normal, 11px, @baseLineHeight);
   }
 
   margin: 0;
@@ -127,6 +121,7 @@
 .navbar a.bookmarklet::after {
   content: ' Bookmarklet';
 }
+
 html.chrome_extension_installed{
   .chrome_extension_download{
     display:none;
@@ -150,8 +145,7 @@ html.chrome_without_extension{
   li {
     float: left;
     margin-left: 20px;
-    line-height: 22px;
-    font-size: 16px;
+    #font > .sans-serif(normal, 14px, 22px);
     color: #777;
     padding-left: 25px;
     background: url(steps-arrow.png) no-repeat left center;
@@ -160,10 +154,8 @@ html.chrome_without_extension{
       width: 22px;
       height: 22px;
       text-align: center;
-      line-height: 22px;
       margin-right: 10px;
       color: #fff;
-      font-weight: bold;
       background: url(steps.png) no-repeat top;
     }
     &.active {

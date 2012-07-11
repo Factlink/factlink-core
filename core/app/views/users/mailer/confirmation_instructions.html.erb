@@ -1,8 +1,8 @@
 <% content_for :email_body do %>
 
-  <p>Hey <%= @resource.username %>,</p>
+  <p>Hi <%= @resource.username %>,</p>
 
-  <p>Congratulations on registering your username on Factlink. Please confirm your email address so we can activate your account once we're gearing up for more users.</p>
+  <p>Congratulations on reserving your username on Factlink. Please confirm your email address so we can activate your account once we're gearing up for more users.</p>
 
   <p><%= link_to 'Confirm my email address', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
 

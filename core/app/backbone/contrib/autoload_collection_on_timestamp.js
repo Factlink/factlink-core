@@ -6,7 +6,6 @@ window.AutoloadCollectionOnTimestamp = {
   updateTimestamp: function(){
     var lastModel = this.models[(this.length - 1) || 0];
     this._timestamp = (lastModel ? lastModel.get('timestamp') : undefined);
-    console.info('updated timestamp to ', this._timestamp);
   },
 
   startLoading: function(){
@@ -36,7 +35,6 @@ window.AutoloadCollectionOnTimestamp = {
         timestamp: this._timestamp
       },
       success: _.bind(function() {
-        console.info('lange jan', this.length);
         this.updateTimestamp();
         if (prevlength === this.length){
           this.hasMore = false;

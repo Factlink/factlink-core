@@ -5,36 +5,36 @@ class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
   initialize: (opts) ->
-    @collection.on('reset', this.reset, this)
-    @collection.on('add', this.add, this)
+    @collection.on('reset', @reset, this)
+    @collection.on('add', @add, this)
 
-    this.addShowHideToggle('loadingIndicator', 'div.loading');
-    this.collection.on('startLoading', this.loadingIndicatorOn, this);
-    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
+    @addShowHideToggle('loadingIndicator', 'div.loading');
+    @collection.on('startLoading', @loadingIndicatorOn, this);
+    @collection.on('stopLoading', @loadingIndicatorOff, this);
 
-    this.childViews = []
+    @childViews = []
 
   onRender: ->
-    this.renderChildren()
+    @renderChildren()
 
   renderChildren: ->
-    this.$('.list').html('')
+    @$('.list').html('')
     for childView in @childViews
-      this.appendHtml(this, childView)
+      @appendHtml(this, childView)
 
   reset: ->
-    this.collection.each( this.add, this );
-    this.renderChildren()
+    @collection.each( @add, this );
+    @renderChildren()
 
   add: (model) ->
-    last = _.last(this.childViews);
+    last = _.last(@childViews);
 
     if (last && (last.appendable(model)))
       appendTo = last
     else
-      appendTo = this.newChildView(model)
-      this.childViews.push(appendTo)
-      this.appendHtml(this, appendTo)
+      appendTo = @newChildView(model)
+      @childViews.push(appendTo)
+      @appendHtml(this, appendTo)
 
     appendTo.collection.add(model);
 
@@ -43,12 +43,27 @@ class window.ActivitiesView extends AutoloadingView
 
   appendHtml: (collectionView, childView) ->
     childView.render()
-    this.$(".list").append(childView.$el)
+    @$(".list").append(childView.$el)
 
   newChildView: (model) ->
-    ch = this.collection.channel
+    ch = @collection.channel
     new UserActivitiesView
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
+
+  emptyViewOn: ->
+    if @collection.channel.get('discover_stream?')
+      @suggestedTopics = new SuggestedTopics()
+      @suggestedTopics.fetch()
+      @emptyView = new SuggestedTopicsView
+        el: @$('.empty_stream')
+        model: new Backbone.Model({current_url: @collection.link()})
+        collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
+      @emptyView.render()
+
+  emptyViewOff: ->
+    if @emptyView
+      @emptyView.close()
+      delete @emptyView
 
 _.extend(ActivitiesView.prototype, ToggleMixin)

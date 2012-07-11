@@ -86,24 +86,37 @@ class ApplicationController < ActionController::Base
     Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
   end
 
-  private
-  def channels_for_user(user)
-    @channels = user.graph_user.channels
-    unless @user == current_user
-      @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+  before_filter :track_click
+  def track_click
+    unless params[:ref].blank?
+      ref = params[:ref]
+      if ['logo', 'home', 'extension_skip', 'extension_next'].include?(ref)
+        track "#{ref} click".capitalize
+      end
     end
-    @channels
-  end
-  helper_method :channels_for_user
 
-  def can_haz feature
-    can? :"see_feature_#{feature}", Ability::FactlinkWebapp
   end
-  helper_method :can_haz
 
-  def set_layout
-    allowed_layouts = ['popup']
-    allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
-  end
+  private
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
+      end
+      @channels
+    end
+    helper_method :channels_for_user
+
+    def can_haz feature
+      can? :"see_feature_#{feature}", Ability::FactlinkWebapp
+    end
+    helper_method :can_haz
+
+    def set_layout
+      allowed_layouts = ['popup']
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+    end
+
+
 
 end

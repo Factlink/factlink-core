@@ -1,0 +1,75 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag "tour" %>
+<% end %>
+
+<div id="almost-done-wrapper">
+	<h1>You're almost set!</h1>
+
+	<div class="hidden chrome">
+		<p>To use Factlink on all of your websites you should install our Chrome Extension.</p>
+	</div>
+
+	<div class="hidden no-chrome">
+		<p>To use Factlink on all of your websites you should use our bookmarklet.</p>
+	</div>
+
+	<!-- Chrome Yeah! -->
+	<div class="hidden button-wrapper chrome">
+
+		<span class="transparent-border">
+			<iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
+
+			<a id="chrome-extension-button" target="ce-download" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
+		</span>
+
+	</div>
+
+	<!-- Non-fancy browsers :-) -->
+	<div class="hidden button-wrapper no-chrome">
+
+		<span class="dashed-border">
+			<a id="bookmarklet-button" class="bookmarklet btn" onclick="return false"
+           <%# here we need singlequotes kthxbye: %>
+           href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><i class='icon-bookmark'></i><span style="display: none">Factlink</span></a>
+
+
+		</span>
+
+		<p>You can drag this Bookmarklet to your bookmarks bar.</p>
+
+	</div>
+
+	<div class="bottom">
+		<a id="skip-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_skip') %>">Skip step</a>
+		<a id="next-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_next') %>" class="next btn btn-primary btn-large">Continue</a>
+	</div>
+</div>
+
+
+<% content_for :javascript do %>
+  <script>
+    $(function() {
+
+    	var notClicked = true;
+
+    	$('#chrome-extension-button, #bookmarklet-button').mousedown(function() {
+    	  setTimeout(function (){
+	    	  if (notClicked) {
+						$('#skip-step').fadeOut(600, function() {
+			    		$('#next-step').fadeIn(600);
+			    	});
+		    		notClicked = false;
+		    	}
+		    }, 1800);
+    	});
+
+    	$('#chrome-extension-button').bind('click', function() {
+    		mp_track("Extension: Download Chrome Extension #almost-ready");
+    	});
+
+    	$('#bookmarklet-button').mousedown(function() {
+    		mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
+    	});
+    });
+  </script>
+ <% end %>

@@ -108,9 +108,9 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", :as => "find"
       end
 
-      resources :subchannels, only: [:index, :destroy] do
+      resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
-          post "add/:id/",     :as => "add",     :action => "add"
+          post "add/:id/",     :as => "add",     :action => "create"
           post "remove/:id/",  :as => "remove",  :action => "destroy"
         end
       end
@@ -145,13 +145,19 @@ FactlinkUI::Application.routes.draw do
   end
 
   resources :topics, path: 't', only: [] do
+    collection do
+      get :top
+    end
     member do
-      get :related_users
+      get :related_user_channels
     end
   end
 
   get  "/p/tos"     => "tos#show",        as: "tos"
   post "/p/tos"     => "tos#update",      as: "tos"
+
+  get "/p/tour/youre-almost-done" => "tour#almost_done", as: "almost_done"
+  
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do

@@ -73,8 +73,10 @@ window.ChannelList = Backbone.Collection.extend({
       setTimeout(function(){
         self.fetch({
           success: function(collection, response) {
-            var newCurrentChannel = collection.get(currentChannel.id);
-            currentChannel.set(newCurrentChannel.attributes);
+            if (typeof window.currentChannel !== 'undefined') {
+              var newCurrentChannel = collection.get(currentChannel.id);
+              currentChannel.set(newCurrentChannel.attributes);
+            }
             _.bind(args.callee, self)();
           },
           error:   _.bind(args.callee, self)

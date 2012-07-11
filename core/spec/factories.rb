@@ -13,9 +13,18 @@ FactoryGirl.define do
     password '123hoi'
     password_confirmation '123hoi'
     agrees_tos true
+    trait :approved do
+      confirmed_at DateTime.now
+      approved true
+    end
+  end
+
+  sequence :displaystring do |n|
+    "Fact #{n}"
   end
 
   factory :fact_data do
+    displaystring
   end
 
   factory :basefact do

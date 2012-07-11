@@ -4,7 +4,9 @@
       <div class="row">
         <div class="span3">
           <h3>
-            <a class="brand" href="/"><%= image_tag('factlink-logo-beta.png', width: 133, height: 20 ) %></a>
+            <%= link_to click_path(:logo), class: 'brand' do %>
+              <%= image_tag('factlink-logo-beta.png', width: 133, height: 20 ) %>
+            <% end %>
           </h3>
         </div>
         <% if @step_in_signup_process %>
@@ -16,6 +18,7 @@
             <% end %>
 
             <ul class="nav secondary-nav pull-right navbar-options">
+              <li><%= link_to "Home", click_path(:home) %></li>
               <% if can? :access, Ability::AdminArea %>
                 <%= render "home/topbar/admin_menu" %>
               <% end %>

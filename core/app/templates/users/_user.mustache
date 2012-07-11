@@ -6,6 +6,7 @@
 
   <div class="wrapper">
   	<h3>{{ username }}</h3>
+  	<a class="btn btn-micro" href="/{{ username }}">View profile</a>
   </div>
 </div>
 {{/is_current_user}}
@@ -13,5 +14,5 @@
 {{#is_current_user}}
 <h2>{{ channel_listing_header }}</h2>
 {{{new_channel_button}}}
-<a href="/{{ username }}/channels/new" class="btn btn-mini add-channel">Add new</a>
+<a href="/{{ username }}/channels/new" class="btn btn-micro add-channel">Add new</a>
 {{/is_current_user}}

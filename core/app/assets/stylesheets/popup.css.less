@@ -16,7 +16,7 @@ html {
 body {
   background: #fff;
   width: 460px;
-  font-family: "Helvetica Neue", "Lucida Grande", 'DejaVu Sans', 'Liberation Sans', Freesans, sans-serif;
+  #font > .sans-serif(normal, @baseFontSize);
   padding: 10px 5px 0;
 }
 
@@ -40,6 +40,8 @@ a:focus {
 
     label {
       display: inline;
+      font-size: 12px;
+      line-height: 12px;
 
       input[type=checkbox] {
         display: inline;
@@ -74,6 +76,10 @@ div.alert-message {
     font-size: 20px;
     margin-top: -3px;
   }
+}
+
+.alert-error, .alert-danger, .alert-success {
+  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
 }
 
 article.fact {

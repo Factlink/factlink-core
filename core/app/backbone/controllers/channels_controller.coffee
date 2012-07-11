@@ -23,8 +23,12 @@ class window.ChannelsController
 
 
   commonChannelViews: (channel) ->
-    this.setCurrentChannel(channel);
-    FactlinkApp.relatedUsersRegion.show(new RelatedUsersView(model: channel))
+    window.currentChannel = channel
+
+    if channel.get('is_normal')
+      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel))
+    else
+      FactlinkApp.relatedChannelsRegion.close()
 
     user = channel.user()
     userView = new UserView(model: user)
@@ -47,7 +51,4 @@ class window.ChannelsController
   getChannelActivities: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>
       this.commonChannelViews(channel);
-      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel));
-
-  setCurrentChannel: (channel) ->
-    window.currentChannel = channel
+      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel))

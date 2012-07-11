@@ -26,7 +26,7 @@ window.FactsView = AutoloadingCompositeView.extend({
 
   createFact: function (e) {
     var self = this;
-    var $form = this.$el.find('form');
+    var $form = this.$('form');
 
     var $textarea = $form.find('textarea[name=fact]');
     var $title = $form.find('input[name=title]');
@@ -46,27 +46,33 @@ window.FactsView = AutoloadingCompositeView.extend({
       success: function(data) {
         var fact = new Fact(data);
 
-        var a = self.collection.unshift(fact);
+        self.collection.unshift(fact);
 
         // HACK this is how backbone marionette stores childviews:
         // dependent on their implementation though
         self.children[fact.cid].highlight();
-
-        $form.find(':input').val('').prop('disabled',false);
-
-        self.closeCreateFactForm();
+        self.setCreateFactFormToInitialState();
+      },
+      error: function(data) {
+        alert("Error while adding Factlink to Channel" );
+        self.setCreateFactFormToInitialState();
       }
     });
+  },
+
+  setCreateFactFormToInitialState: function(){
+    this.$('form').find(':input').val('').prop('disabled',false);
+    this.closeCreateFactForm();
   },
 
   focusField: function (e) {
     $(e.target).closest('input-box').find(':input').focus();
   },
 
-  openCreateFactForm: function () {  this.$el.find('form').addClass('active'); },
+  openCreateFactForm: function () {  this.$('form').addClass('active'); },
 
   closeCreateFactForm: function (e) {
-    this.$el.find('form')
+    this.$('form')
       .removeClass('active show-title')
       .filter(':input').val('');
 
@@ -74,7 +80,7 @@ window.FactsView = AutoloadingCompositeView.extend({
   },
 
   toggleTitleField: function (e) {
-    var $form = this.$el.find('form');
+    var $form = this.$('form');
 
     $form.toggleClass('show-title');
 

@@ -8,6 +8,7 @@ window.ChannelItemView = Backbone.Marionette.ItemView.extend
 
     this.model.bind('activate', this.activeOn, this)
     this.model.bind('deactivate', this.activeOff, this)
+    @model.bind('change',this.render,this)
 
   onRender: () ->
     this.$el.attr('id', 'channel-' + this.model.id)

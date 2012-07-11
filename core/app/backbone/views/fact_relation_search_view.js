@@ -136,6 +136,7 @@ var FactRelationSearchView = Backbone.View.extend({
         self._busyAdding = false;
         self.cancelSearch();
         self.stopAddingIndicator();
+        alert('Something went wrong while adding evidence');
       }
     });
   },
