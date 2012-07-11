@@ -2,8 +2,6 @@ cached_generic_icon  = image_tag('activities/icon-generic.png')
 cached_channel_icon  = image_tag('activities/icon-channel.png')
 cached_evidence_icon = image_tag('activities/icon-evidencetofactlink.png')
 
-cached_channel_definition  = t(:channel)
-cached_channels_definition = t(:channels)
 cached_created_channel_definition = t(:created_channel)
 
 
@@ -85,15 +83,11 @@ json.array!(@activities) do |json, activity_hash|
       json.to_channel_url            channel_path(object.created_by.user, object.id)
 
       json.icon                      cached_channel_icon
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
     when "created_channel"
       json.channel_title             subject.title
       json.channel_url               channel_path(subject.created_by.user, subject.id)
 
       json.icon                      cached_channel_icon
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
       json.created_channel_definition cached_created_channel_definition
     when "added_fact_to_channel"
       json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
@@ -126,8 +120,6 @@ json.array!(@activities) do |json, activity_hash|
       json.channel_owner_profile_url user_profile_path(object.created_by.user)
       json.channel_title             object.title
       json.channel_url               channel_path(object.created_by.user, object.id)
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
 
       json.fact Facts::Fact.for(fact: subject, view: self).to_hash
 
