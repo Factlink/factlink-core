@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
   end
 
   def top
-    render json: Topic.top(10)
+    render json: Topic.top(12).delete_if {|t| ['created','all'].include? t.slug_title}
   end
 
   private
