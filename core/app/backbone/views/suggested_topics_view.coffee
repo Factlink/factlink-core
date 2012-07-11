@@ -9,9 +9,7 @@ class window.SuggestedTopicsView extends Backbone.Marionette.CompositeView
   itemViewOptions: => addToCollection : window.Channels
 
   showEmptyView: ->
-    @$(@itemViewContainer).hide()
     @$(".empty-list-message").show()
 
   closeEmptyView: ->
-    @$(@itemViewContainer).show()
     @$(".empty-list-message").hide()
