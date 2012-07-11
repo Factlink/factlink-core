@@ -1,7 +1,7 @@
 //= require jquery.hoverIntent
 //= require ./channel_view
 
-window.ChannelActivitiesView = Backbone.Marionette.ItemView.extend({
+window.ChannelActivitiesView = ChannelViewLayout.extend({
   tagName: "div",
 
   template: "channels/_channel",
@@ -40,30 +40,6 @@ window.ChannelActivitiesView = Backbone.Marionette.ItemView.extend({
     }
   },
 
-  initSubChannelMenu: function() {
-    if( this.model.get("followable?") ) {
-      var addToChannelButton = this.$el.find("#add-to-channel");
-      var followChannelMenu =this.$el.find("#follow-channel");
-
-      followChannelMenu.css({"left": addToChannelButton.position().left});
-
-      addToChannelButton.hoverIntent(
-        function() { followChannelMenu.fadeIn("fast"); },
-        function() { followChannelMenu.delay(600).fadeOut("fast"); }
-      );
-
-      followChannelMenu.on("mouseover", function() {
-        followChannelMenu.stop(true, true).show();
-      });
-
-      followChannelMenu.on("mouseout", function() {
-       if (!followChannelMenu.find("input#channel_title").is(":focus")) {
-          followChannelMenu.delay(500).fadeOut("fast");
-        }
-      });
-    }
-  },
-
   onClose: function() {
     if ( this.activitiesView ) {
       this.activitiesView.close();
@@ -98,5 +74,3 @@ window.ChannelActivitiesView = Backbone.Marionette.ItemView.extend({
                 .trigger('activate', this.model);
   }
 });
-
-_.extend(ChannelActivitiesView.prototype, TemplateMixin, CommonChannelStuff);
