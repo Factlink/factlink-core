@@ -14,7 +14,7 @@ describe "Compare screens", type: :request do
       f1.add_opinion :believes, u.graph_user
       f1.data.displaystring = displaystrings[i]
       f1.data.save
-      f1.reposition_in_top_facts
+      f1.reposition_in_top
     end
 
     visit "/"
