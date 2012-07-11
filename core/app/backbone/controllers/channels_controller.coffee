@@ -26,9 +26,7 @@ class window.ChannelsController
     window.currentChannel = channel
 
     if channel.get('is_normal')
-      relatedChannels = new RelatedChannels [], forChannel: channel
-      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel, collection: relatedChannels, addToCollection: window.currentChannel.subchannels()))
-      relatedChannels.fetch()
+      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel))
     else
       FactlinkApp.relatedChannelsRegion.close()
 

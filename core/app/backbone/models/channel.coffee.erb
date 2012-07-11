@@ -20,6 +20,16 @@ window.Channel = Backbone.Model.extend(
       @cachedSubchannels.fetch()
       @cachedSubchannels
 
+  relatedChannels: ->
+    if @cachedRelatedChannels
+      @cachedSRelatedChannels
+    else
+      @cachedRelatedChannels = new RelatedChannels [], forChannel: this
+      @cachedRelatedChannels.fetch()
+      @cachedRelatedChannels
+
+
+
   getOwnContainingChannels: ->
     containingChannels = @get("containing_channel_ids")
     ret = []
