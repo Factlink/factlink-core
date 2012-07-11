@@ -22,7 +22,7 @@ window.Channel = Backbone.Model.extend(
 
   relatedChannels: ->
     if @cachedRelatedChannels
-      @cachedSRelatedChannels
+      @cachedRelatedChannels
     else
       @cachedRelatedChannels = new RelatedChannels [], forChannel: this
       @cachedRelatedChannels.fetch()
