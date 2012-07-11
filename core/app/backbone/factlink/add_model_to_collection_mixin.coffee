@@ -2,7 +2,6 @@ Backbone.Factlink ||= {}
 
 Backbone.Factlink.AddModelToCollectionMixin =
   addModel: ->
-    console.info('adding', @model.get('title'), 'to collection', @options.addToCollection)
     if @wrapNewModel
       model = @wrapNewModel(@model)
     else
