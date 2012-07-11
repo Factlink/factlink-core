@@ -4,6 +4,15 @@
 // dirty way of factoring out copypasted code, but we should not have those mega-controller views
 // refactor correctly if this object annoys you ;)
 window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
+  tagName: "div",
+
+  template: 'channels/_channel',
+
+  regions: {
+    factList: '#facts_for_channel',
+    activityList: '#activity_for_channel'
+  },
+
   initSubChannels: function() {
     if (this.model.get('inspectable?')){
       this.subchannelView = new SubchannelsView({
@@ -43,16 +52,21 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       });
     }
   },
+
+  initAddToChannel: function() {
+    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" ) {
+      this.addToChannelView = new AddToChannelView({
+        collection: currentUser.channels,
+        el: this.$('#follow-channel'),
+        model: currentChannel,
+        containingChannels: currentChannel.getOwnContainingChannels()
+      }).render();
+    }
+  },
+
 });
 
 window.ChannelView = ChannelViewLayout.extend({
-  tagName: "div",
-
-  template: 'channels/_channel',
-
-  regions: {
-    content: '#facts_for_channel'
-  },
 
   initialize: function(opts) {
     this.initSubChannels();
@@ -68,19 +82,7 @@ window.ChannelView = ChannelViewLayout.extend({
 
   },
 
-  initAddToChannel: function() {
-    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" ) {
-      this.addToChannelView = new AddToChannelView({
-        collection: currentUser.channels,
-        el: this.$('#follow-channel'),
-        model: currentChannel,
-        containingChannels: currentChannel.getOwnContainingChannels()
-      }).render();
-    }
-  },
-
   onClose: function() {
-
     if ( this.addToChannelView ) {
       this.addToChannelView.close();
     }
@@ -97,7 +99,7 @@ window.ChannelView = ChannelViewLayout.extend({
     this.initSubChannelMenu();
     this.initAddToChannel();
 
-    this.content.show(this.getFactsView())
+    this.factList.show(this.getFactsView())
 
     // Set the active tab
     var tabs = this.$('.tabs ul');

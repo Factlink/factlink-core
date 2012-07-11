@@ -2,10 +2,6 @@
 //= require ./channel_view
 
 window.ChannelActivitiesView = ChannelViewLayout.extend({
-  tagName: "div",
-
-  template: "channels/_channel",
-
   initialize: function(opts) {
     this.activitiesView = new ActivitiesView({
       el: '#activity_for_channel',
@@ -15,17 +11,6 @@ window.ChannelActivitiesView = ChannelViewLayout.extend({
     });
     this.activitiesView.collection.loadMore();
     this.initSubChannels()
-  },
-
-  initAddToChannel: function() {
-    if ( this.$el.find('#add-to-channel') && typeof currentUser !== "undefined" ) {
-      this.addToChannelView = new AddToChannelView({
-        collection: currentUser.channels,
-        el: this.$el.find('#follow-channel'),
-        model: currentChannel,
-        containingChannels: currentChannel.getOwnContainingChannels()
-      }).render();
-    }
   },
 
   initMoreButton: function() {
