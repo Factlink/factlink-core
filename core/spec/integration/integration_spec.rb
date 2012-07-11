@@ -102,6 +102,9 @@ def create_channel(user)
   channel
 end
 
+def create_factlink(user)
+  FactoryGirl.create(:fact, created_by: user.graph_user)
+end
 
 describe "Walkthrough the app", type: :request do
   def created_channel_path(user)
@@ -144,6 +147,36 @@ describe "Walkthrough the app", type: :request do
       page.execute_script("$($('article.fact')[0]).parent().find('li.delete').click()")
 
       page.should_not have_content fact_name
+    end
+  end
+
+  describe "factlinks" do
+    it "should be able to search for evidence", js:true do
+      @factlink = create_factlink @user
+      search_string = 'Test search'
+
+      visit fact_path(@factlink)
+
+      page.should have_content(@factlink.data.title)
+
+      click_on "Supporting"
+
+      fill_in 'supporting_search', :with => search_string
+
+      sleep 1
+      until page.evaluate_script('$.isReady && $.active===0') do
+        sleep 1
+      end
+
+      page.should have_selector('.supporting li.add')
+
+      page.execute_script('$(".supporting li.add").trigger("click")')
+
+      sleep 1
+
+      page.should have_selector('li.fact-relation')
+
+      page.should have_content search_string
     end
   end
 
