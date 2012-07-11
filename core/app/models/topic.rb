@@ -60,4 +60,17 @@ class Topic
   def top_users_clear
     redis[id][:top_users].del
   end
+
+  include OurOhm::RedisTopFunctionality
+  def top_score
+    Channel.find(slug_title: self.slug_title).count
+  end
+  def self.top_key
+    Topic.redis[:top]
+  end
+  def self.top_instance id
+    Topic.find(id)
+  end
+  before_destroy :remove_from_top
+
 end

@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
   end
 
   def top
-    render json: Topic.all
+    render json: Topic.top(10)
   end
 
   private
