@@ -1,17 +1,17 @@
-window.ChannelItemView = Backbone.Marionette.ItemView.extend
+class window.ChannelItemView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   template: "channels/_single_menu_item"
 
   initialize: () ->
-    this.addClassToggle('active')
+    @addClassToggle('active')
 
-    this.model.bind('activate', this.activeOn, this)
-    this.model.bind('deactivate', this.activeOff, this)
-    @model.bind('change',this.render,this)
+    @model.bind('activate', @activeOn, this)
+    @model.bind('deactivate', @activeOff, this)
+    @model.bind('change',@render,this)
 
   onRender: () ->
-    this.$el.attr('id', 'channel-' + this.model.id)
-    this.activeOn() if this.model.isActive
+    @$el.attr('id', 'channel-' + @model.id)
+    @activeOn() if @model.isActive
 
 _.extend ChannelItemView.prototype, ToggleMixin
