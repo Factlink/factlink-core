@@ -13,21 +13,8 @@ window.ChannelActivitiesView = Backbone.Marionette.ItemView.extend({
         channel: this.model
       })
     });
-    this.activitiesView.on('reload', this.reloadActivitiesView, this);
     this.activitiesView.collection.loadMore();
     this.initSubChannels()
-  },
-
-  reloadActivitiesView: function() {
-    this.activitiesView.close();
-    this.render();
-    this.activitiesView = new ActivitiesView({
-      el: '#activity_for_channel',
-      collection: new ChannelActivities([],{
-        channel: this.model
-      })
-    });
-    this.activitiesView.render()
   },
 
   initAddToChannel: function() {
