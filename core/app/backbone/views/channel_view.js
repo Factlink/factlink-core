@@ -22,19 +22,27 @@ window.CommonChannelStuff = {
 };
 
 
-window.ChannelView = Backbone.Marionette.ItemView.extend({
+window.ChannelView = Backbone.Marionette.Layout.extend({
   tagName: "div",
 
   template: 'channels/_channel',
 
+  regions: {
+    content: '#facts_for_channel'
+  },
+
   initialize: function(opts) {
-    this.factsView = new FactsView({
+    this.initSubChannels();
+  },
+
+  getFactsView: function() {
+    return new FactsView({
       collection: new ChannelFacts([],{
         channel: this.model
       }),
       model: this.model
     });
-    this.initSubChannels();
+
   },
 
   initAddToChannel: function() {
@@ -50,8 +58,8 @@ window.ChannelView = Backbone.Marionette.ItemView.extend({
 
   initSubChannelMenu: function() {
     if( this.model.get("followable?") ) {
-      var addToChannelButton = this.$el.find("#add-to-channel");
-      var followChannelMenu =this.$el.find("#follow-channel");
+      var addToChannelButton = this.$("#add-to-channel");
+      var followChannelMenu =this.$("#follow-channel");
 
       followChannelMenu.css({"left": addToChannelButton.position().left});
 
@@ -73,9 +81,6 @@ window.ChannelView = Backbone.Marionette.ItemView.extend({
   },
 
   onClose: function() {
-    if ( this.factsView ) {
-      this.factsView.close();
-    }
 
     if ( this.addToChannelView ) {
       this.addToChannelView.close();
@@ -93,8 +98,7 @@ window.ChannelView = Backbone.Marionette.ItemView.extend({
     this.initSubChannelMenu();
     this.initAddToChannel();
 
-    this.factsView.render();
-    this.$('#facts_for_channel').append(this.factsView.el);
+    this.content.show(this.getFactsView())
 
     // Set the active tab
     var tabs = this.$('.tabs ul');
