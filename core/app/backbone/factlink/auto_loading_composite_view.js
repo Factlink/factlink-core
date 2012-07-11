@@ -68,7 +68,6 @@ function extendWithAutoloading(superclass) {
     },
 
     emptyViewOnWrapper: function(){
-      console.info("maybe we should enable empty view")
       if (!('_emptyViewIsOn' in this)) {
         this.emptyViewOn();
         this._emptyViewIsOn = true;
