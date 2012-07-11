@@ -34,3 +34,19 @@
   <p>Tongue flank pork belly leberkas beef ribs. Turkey meatloaf jerky short loin. Filet mignon prosciutto frankfurter, strip steak tri-tip jerky tongue pastrami t-bone boudin salami. Flank meatloaf cow pig ribeye, jowl tri-tip shoulder chuck. Ball tip flank meatball jowl sirloin fatback jerky turducken.</p>
 
 </div>
+
+<%= content_for :javascript do %>
+  <% lib_url = "#{FactlinkUI::Application.config.static_url}/lib" %>
+  <% min = '.min' unless ['development'].include?(Rails.env) %>
+  <script>
+    window.FactlinkConfig = {
+      modus: "default",
+      api: "<%= FactlinkUI::Application.config.api_url %>",
+      lib: "<%= lib_url %>",
+      siteUrl: ""
+    };
+  </script>
+  <script src="<%= lib_url %>/dist/factlink<%= min %>.js"></script>
+  <script src="<%= lib_url %>/dist/factlink.start_annotating<%= min %>.js"></script>
+
+<% end %>
