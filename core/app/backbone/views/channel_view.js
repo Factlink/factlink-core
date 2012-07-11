@@ -1,8 +1,5 @@
 //= require jquery.hoverIntent
 
-
-// dirty way of factoring out copypasted code, but we should not have those mega-controller views
-// refactor correctly if this object annoys you ;)
 window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
   tagName: "div",
 
@@ -11,6 +8,18 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
   regions: {
     factList: '#facts_for_channel',
     activityList: '#activity_for_channel'
+  },
+
+  initialize: function(opts) {
+    this.initSubChannels();
+    this.on('render', _.bind(function(){
+      this.renderSubChannels();
+      this.initSubChannelMenu();
+      this.initAddToChannel();
+      this.model.trigger('activate', this.model);
+
+      this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
+    },this))
   },
 
   initSubChannels: function() {
@@ -63,14 +72,24 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       }).render();
     }
   },
+  onClose: function() {
+    if ( this.addToChannelView ) {
+      this.addToChannelView.close();
+    }
+
+    if ( this.subchannelView ) {
+      this.subchannelView.close();
+    }
+  },
+  activateTab: function(selector) {
+    var tabs = this.$('.tabs ul');
+    tabs.find('li').removeClass('active');
+    tabs.find(selector).addClass('active');
+  }
 
 });
 
 window.ChannelView = ChannelViewLayout.extend({
-
-  initialize: function(opts) {
-    this.initSubChannels();
-  },
 
   getFactsView: function() {
     return new FactsView({
@@ -82,34 +101,26 @@ window.ChannelView = ChannelViewLayout.extend({
 
   },
 
-  onClose: function() {
-    if ( this.addToChannelView ) {
-      this.addToChannelView.close();
-    }
+  onRender: function() {
+    this.factList.show(this.getFactsView())
+    this.activateTab(".factlinks")
+  }
+});
 
-    if ( this.subchannelView ) {
-      this.subchannelView.close();
-    }
+
+window.ChannelActivitiesView = ChannelViewLayout.extend({
+
+  getActivitiesView: function(){
+    return new ActivitiesView({
+      collection: new ChannelActivities([],{
+        channel: this.model
+      })
+    });
   },
 
   onRender: function() {
-    this.model.trigger('loading');
-
-    this.renderSubChannels();
-    this.initSubChannelMenu();
-    this.initAddToChannel();
-
-    this.factList.show(this.getFactsView())
-
-    // Set the active tab
-    var tabs = this.$('.tabs ul');
-    tabs.find('li').removeClass('active');
-    tabs.find('.factlinks').addClass('active');
-
-    this.model.trigger('loaded')
-                .trigger('activate', this.model);
-
-    this.$el.find('header .authority')
-      .tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
+    this.activityList.show(this.getActivitiesView());
+    this.activateTab('.activity');
   }
+
 });
