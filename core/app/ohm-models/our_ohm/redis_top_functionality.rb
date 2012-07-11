@@ -4,7 +4,6 @@ class OurOhm
 	module RedisTopFunctionality
     extend ActiveSupport::Concern
 	  def reposition_in_top
-	    interestingness = self.get_opinion().a
 	    self.class.top_key.zadd(top_score, id)
 	  end
 	  def remove_from_top
