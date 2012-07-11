@@ -141,6 +141,9 @@ class Fact < Basefact
   def self.top_key
     Fact.key[:top_facts]
   end
+  def self.top_instance id
+    Fact[id]
+  end
   before :delete, :remove_from_top
 
 end

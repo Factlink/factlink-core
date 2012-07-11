@@ -14,7 +14,7 @@ class OurOhm
   	    top_key.zremrangebyrank(0,-20)
   	  end
   	  def top(nr=10)
-  	    top_key.zrevrange(0,nr-1).map(&self)
+  	    top_key.zrevrange(0,nr-1).map { |id| top_instance(id)}
   	  end
     end
 	end
