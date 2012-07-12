@@ -20,3 +20,19 @@ class window.ExtendedFactView extends FactView
     # therefore we have to force the rendering which we do need to do in the frontend in the initialize
     @renderAddToChannel()
     @factWheelView.render();
+    @renderUserPassportViews();
+
+
+  renderUserPassportViews: ()->
+    interacting_users = this.model.get('interacting_users');
+
+    _.each interacting_users.activity, (user)=>
+      el = this.$('li.user[data-activity-id=' + user.id + ']');
+      model = new User(user.user);
+
+      view = new UserPassportView(
+        model: model
+        el: el
+        activity: user)
+      view.render();
+

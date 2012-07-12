@@ -236,26 +236,6 @@ window.FactView = ViewWithPopover.extend({
     }
   },
 
-  initUserPassportViews: function() {
-
-  },
-
-  renderUserPassportViews: function(){
-    var interacting_users = this.model.get('interacting_users');
-
-    _.each(interacting_users.activity, function (user) {
-      var el = this.$('li.user[data-activity-id=' + user.id + ']');
-      var model = new User(user.user);
-
-      var view = new UserPassportView({
-        model: model,
-        el: el,
-        activity: user
-      });
-      view.render();
-    }, this);
-  },
-
   highlight: function() {
     var self = this;
     self.$el.animate({"background-color": "#ffffe1"}, {duration: 2000, complete: function() {
