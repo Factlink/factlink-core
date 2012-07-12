@@ -9,6 +9,6 @@ if Backbone.Factlink.Global.chrome_extension_id
   is_chrome = navigator.userAgent.toLowerCase().indexOf("chrome") > -1
   if is_chrome
     $("html").addClass "is-chrome"
-    detectChromeExtension
+    detectChromeExtension()
   else
     $("html").addClass "no-chrome"
