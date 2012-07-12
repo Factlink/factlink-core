@@ -28,7 +28,7 @@ body {
   background: @white;
   overflow-y: scroll;
 
-  #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
+  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
 }
 a:hover{
   cursor: pointer;
@@ -172,14 +172,14 @@ body.factlink-site .fact-block {
 
   sub {
     color: #333;
-    #font > .sans-serif(x-small, normal, @baseLineHeight);
+    #font > .sans-serif(normal, x-small, @baseLineHeight);
     bottom: 0.45em;
   }
 
   #left-column {
     padding-bottom: 25px;
     h2 {
-      #font > .sans-serif(@baseLineHeight * 0.9, bold, @baseLineHeight);
+      #font > .sans-serif(bold, @baseLineHeight * 0.9, @baseLineHeight);
       display: inline;
     }
     .add-channel {
@@ -434,7 +434,7 @@ body.factlink-site .fact-block {
       padding: @margin 4px @margin 0;
       width: 145px;
       display: block;
-      #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
+      #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
       color: @linkColor;
       text-shadow: 0px 1px 0px @white;
       padding-left: 24px;

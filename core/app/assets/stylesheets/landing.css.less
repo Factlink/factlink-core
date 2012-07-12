@@ -17,7 +17,7 @@ body { background: @white; }
   a { color: @linkColor; }
   .dropdown a { color: #333; }
   #body {
-    #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
+    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     .container { min-height: 480px; }
 
     h1, h2, h3, h4 { color: #303030; }
@@ -28,7 +28,7 @@ body { background: @white; }
   }
   ul, footer { list-style-type:none; }
   p, li, footer {
-    #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
+    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     color: #505050;
   }
   #body {
@@ -61,7 +61,7 @@ body { background: @white; }
       margin-left: 0;
       li {
         margin-bottom: 2em;
-        #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
+        #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
         height:32px;
         background: image-url('sprite.png');
         background-repeat: no-repeat;
