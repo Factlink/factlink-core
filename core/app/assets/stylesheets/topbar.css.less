@@ -18,7 +18,7 @@
   color: @linkColor;
   text-shadow: 0 -1px 0 rgba(255,255,255,.25);
 
-  #font > .sans-serif(bold, @baseFontSize, 20px);
+  #font > .sans-serif(@baseFontSize, bold, 20px);
   cursor: pointer;
 
   &:hover {
@@ -103,7 +103,7 @@
   #cannot_access_account {
     float: right;
     margin-top: 8px;
-    #font > .sans-serif(normal, 11px, @baseLineHeight);
+    #font > .sans-serif(11px, normal, @baseLineHeight);
   }
 
   margin: 0;
@@ -160,7 +160,7 @@ html.no-chrome {
   li {
     float: left;
     margin-left: 20px;
-    #font > .sans-serif(normal, 14px, 22px);
+    #font > .sans-serif(14px, normal, 22px);
     color: #777;
     padding-left: 25px;
     background: url(steps-arrow.png) no-repeat left center;

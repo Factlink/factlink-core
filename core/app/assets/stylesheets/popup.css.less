@@ -16,7 +16,7 @@ html {
 body {
   background: #fff;
   width: 460px;
-  #font > .sans-serif(normal, @baseFontSize);
+  #font > .sans-serif(@baseFontSize, normal);
   padding: 10px 5px 0;
 }
 
@@ -79,7 +79,7 @@ div.alert-message {
 }
 
 .alert-error, .alert-danger, .alert-success {
-  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+  #font > .sans-serif(@baseFontSize, normal, @baseLineHeight);
 }
 
 article.fact {
