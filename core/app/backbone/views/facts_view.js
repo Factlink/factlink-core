@@ -23,6 +23,14 @@ window.FactsView = AutoloadingCompositeView.extend({
 
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
+
+    this.model.on('change', this.shownewposts, this)
+  },
+
+  shownewposts: function(){
+    var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
+    this.$('.more_facts .unread_count').html(unread_count);
+    this.$('.more_facts').toggle(unread_count > 0);
   },
 
   emptyViewOn: function() {

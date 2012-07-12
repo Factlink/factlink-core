@@ -1,29 +1,37 @@
-{{#editable?}}
-  <form id="create_fact_for_channel">
-    <div class="create_factlink input-box">
-      <textarea name="fact" class="input-xxlarge" required="required" placeholder="Post a new Factlink in this channel"></textarea>
+<div class="header">
+  {{#editable?}}
+    <form id="create_fact_for_channel">
+      <div class="create_factlink input-box">
+        <textarea name="fact" class="input-xxlarge" required="required" placeholder="Post a new Factlink in this channel"></textarea>
 
-      <a class="close">x</a>
+        <a class="close">x</a>
 
-      <div class="inset-icon-box">
-        <a class="inset-icon icon-pen" title="Add title"></a>
+        <div class="inset-icon-box">
+          <a class="inset-icon icon-pen" title="Add title"></a>
+        </div>
       </div>
-    </div>
 
-    <div class="add-title input-box">
-      <input type="text" name="title" placeholder="Add title">
-    </div>
+      <div class="add-title input-box">
+        <input type="text" name="title" placeholder="Add title">
+      </div>
 
-    <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Post Factlink</button>
-  </form>
-{{/editable?}}
+      <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Post Factlink</button>
+    </form>
+  {{/editable?}}
+
+  <div class="more_facts" style="display: none;">
+    <a href="{{link}}" rel="backbone"><span class="list">&#xE055;</span><strong class="unread_count">{{unread_count}}</strong> new posts (click here to refresh)</a>
+  </div>
+</div>
 
 <div class="facts">
 
 </div>
+
 <div class="loading">
   <img src="/assets/ajax-loader.gif">
   <span>Loading...</span>
 </div>
+
 <div class="no_facts">
 </div>
