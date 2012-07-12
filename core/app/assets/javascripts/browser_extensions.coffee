@@ -1,6 +1,6 @@
 detectChromeExtension = ->
   s = document.createElement("script")
-  s.onerror = -> $("html").addClass "chrome_without_extension"
+  s.onerror = -> $("html").addClass "chrome_extension_not_installed"
   s.onload = -> $("html").addClass "chrome_extension_installed"
   document.body.appendChild s
   s.src = "chrome-extension://#{Backbone.Factlink.Global.chrome_extension_id}/manifest.json"

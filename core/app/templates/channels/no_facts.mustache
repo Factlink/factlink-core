@@ -23,9 +23,9 @@
     </a>
   {{/is_created}}
   {{#is_normal}}
-    <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create one above or download the Chrome Extension and add Factlinks across the web:</p>
+    <p>This {{ global.t.channel }} does not contain any Factlinks yet. Create a new Factlink above<span class="should-install-chrome-extension"> or download the Chrome Extension and add Factlinks across the web</span>:</p>
     <div class="span3 related-channels"></div>
-    <div class="span5 empty-channel-action chrome_extension_download">
+    <div class="span5 empty-channel-action should-install-chrome-extension">
       <h2>Download the Chrome extension</h2>
       <a href="{{global.chrome_extension_url}}">
         <img src="/assets/screenshots/chrome-extension.png">
