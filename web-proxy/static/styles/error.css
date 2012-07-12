@@ -1,10 +1,11 @@
 body {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
   text-shadow: 0px 1px 1px #fff;
   margin: 0;
   padding: 0;
-  font-size: 13px;
-  line-height: 1.231;
+  font-size: 12px;
+  line-height: 18px;
+  color: #303030;
   background: #f4f4f4;
 }
 a, a:visited, a:active {
@@ -24,7 +25,7 @@ a:hover {
 
 h1 {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 19.5px;
+  font-size: 22px;
   margin-bottom: 13px;
   text-rendering: optimizelegibility;
   text-shadow: 0px 1px 1px #fff;

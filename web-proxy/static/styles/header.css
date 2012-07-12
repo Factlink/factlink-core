@@ -21,7 +21,7 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	font-family: Helvetica,Arial,sans-serif;
+	font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
 	font-weight: lighter;
 	vertical-align: baseline;
 	color: #aaa;
@@ -33,6 +33,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+  font-size: 12px;
+  line-height: 18px;
+  color: #303030;
 }
 
 ol, ul {
@@ -56,7 +59,7 @@ table {
 
 body {
   overflow: hidden;
-  font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
   background: #fff;
 }
 
