@@ -85,17 +85,20 @@ var FactRelationSearchView = Backbone.View.extend({
     this.truncateSearchContainer();
 
     _.forEach(searchResults, function(searchResult) {
-      var view = new FactRelationSearchResultView({
-        model: new FactRelationSearchResult(searchResult),
-        // Give the search result a reference to the FactRelation collection
-        factRelations: self.options.factRelations,
-        parentView: self
-      });
+      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id))){
+        console.info('adding because i cannot find', searchResult);
+        var view = new FactRelationSearchResultView({
+          model: new FactRelationSearchResult(searchResult),
+          // Give the search result a reference to the FactRelation collection
+          factRelations: self.options.factRelations,
+          parentView: self
+        });
 
-      view.render()
-      searchResultsContainer.find('li.loading').after( view.el );
+        view.render()
+        searchResultsContainer.find('li.loading').after( view.el );
 
-      self._searchResultViews.push(view);
+        self._searchResultViews.push(view);
+      }
     });
   },
 
