@@ -44,7 +44,6 @@ window.FactView = ViewWithPopover.extend({
 
     this.initAddToChannel();
     this.initFactRelationsViews();
-    this.initUserPassportViews();
 
     this.wheel = new Wheel(this.model.getFactWheel());
   },
@@ -52,7 +51,6 @@ window.FactView = ViewWithPopover.extend({
   onRender: function() {
     this.renderAddToChannel();
     this.initFactRelationsViews();
-    this.renderUserPassportViews();
 
     this.$('.authority').tooltip();
 
