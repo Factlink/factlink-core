@@ -24,15 +24,12 @@ class window.ExtendedFactView extends FactView
 
 
   renderUserPassportViews: ()->
-    interacting_users = this.model.get('interacting_users');
+    interacting_users = this.model.get('interacting_users')
 
-    _.each interacting_users.activity, (user)=>
-      el = this.$('li.user[data-activity-id=' + user.id + ']');
-      model = new User(user.user);
-
-      view = new UserPassportView(
-        model: model
-        el: el
-        activity: user)
-      view.render();
+    for user_activity in interacting_users.activity
+      view = new UserPassportView
+        model: new User(user_activity.user);
+        el: @$('li.user[data-activity-id=' + user_activity.id + ']');
+        activity: user_activity
+      view.render()
 
