@@ -5,7 +5,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   events: {
     "keydown input.typeahead"       : "parseKeyDown",
     "keyup input.typeahead"         : "autoComplete",
-    "focus input.typeahead"         : "focusInput",
+    "focus input.typeahead"         : "onFocusInput",
+    "click div.fake-input"          : "focusInput",
     "click div.auto_complete"       : "parseReturn",
     "click div.fake-input a"        : "parseReturn",
     "blur input.typeahead"          : "blurInput",
@@ -97,7 +98,9 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }, this);
   },
 
-  focusInput: function () { this.$el.addClass('focus'); },
+
+  focusInput: function() {this.$('input.typeahead').focus(); console.info('hey');},
+  onFocusInput: function () { this.$el.addClass('focus'); console.info('yo');},
   blurInput: function () { this.$el.removeClass('focus'); },
 
   moveSelectionUp: function (e) {
