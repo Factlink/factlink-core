@@ -12,7 +12,7 @@
 
   > li {
     float: left;
-    font-size: 0.9em;
+    #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
     height: 22px;
     .opacity(0);
     margin-bottom: -2px;
@@ -36,7 +36,7 @@
     &.active {
       a {
         background: #f4f4f4;
-        border: 1px solid #e2e2e2;
+        border: 1px solid @baseBorderColor;
         border-bottom: 1px solid #f4f4f4;
 
         color: #333;
@@ -48,6 +48,13 @@
       margin: -1px 0 0 0; // Align the delete icon with tab text
       .icon("\e05a");
       cursor: pointer;
+    }
+
+    &.timestamp {
+      font-size: 11px;
+      color: @grayLight;
+      float: right;
+      padding: 0 5px 0 10px;
     }
 
     &.permalink {
@@ -124,7 +131,7 @@
   }
 
   .dropdown-container {
-    border-top: 1px solid #e2e2e2;
+    border-top: 1px solid @baseBorderColor;
     background: @whiteDarker;
 
     ul.search-results {
@@ -176,7 +183,7 @@
         font-size: 12px;
         padding: 8px 9px;
         .border-radius(4px);
-        #font > .sans-serif(13px, normal, 1.1);
+        #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
         height: 32px;
         width: 100%;
         margin: 0;
@@ -220,8 +227,8 @@
       .wrapper {
         padding: 12px;
         background: #fff;
-        border-top: 1px solid #e8edf3;
-        border-bottom: 1px solid #e8edf3;
+        border-top: 1px solid @baseBorderColor;
+        border-bottom: 1px solid @baseBorderColor;
       }
     }
   }
@@ -249,7 +256,7 @@
     .visible-scroll();
     li {
       &:not(:first-child) {
-        border-top: 1px solid @grayLighter;
+        border-top: 1px solid @baseBorderColor;
       }
       .close {
         margin: 7px 8px 0 0;

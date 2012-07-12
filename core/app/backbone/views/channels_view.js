@@ -1,3 +1,5 @@
+//= require ./channel_item_view.js
+
 window.ChannelsView = Backbone.Marionette.CompositeView.extend({
   template: 'channels/channel_list',
   itemView: ChannelItemView,

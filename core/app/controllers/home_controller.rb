@@ -34,14 +34,18 @@ class HomeController < ApplicationController
     redirect_to after_sign_in_path_for(current_user) and return false if user_signed_in?
   end
 
-  def index
+
+  before_filter :accepts_html_instead_of_stars, only: [:index, :tos]
+  def accepts_html_instead_of_stars
     # If the request 'Content Accept' header indicates a '*/*' format,
     # we set the format to :html.
     # This is necessary for GoogleBot which requests / with '*/*; q=0.6' for example.
     if request.format.to_s =~ %r%\*\/\*%
       request.format = :html
     end
+  end
 
+  def index
     respond_to do |format|
       format.html { render layout: "landing" }
     end
@@ -82,7 +86,10 @@ class HomeController < ApplicationController
         logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
       end
 
-      @results = solr_result.results.delete_if {|res| res.class == FactData and FactData.invalid(res)}
+      @results = solr_result.results.delete_if do |res|
+        (res.class == FactData and FactData.invalid(res)) or
+          (res.class == User and (res.nil? or res.hidden))
+      end
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
       end.delete_if {|x| x.the_object.nil?}

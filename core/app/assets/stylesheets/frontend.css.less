@@ -2,7 +2,7 @@
  *= require bootstrap
  *= require feedback
  *= require bubble
- *= require tour
+ *= require inpage_tour
  *= require topbar
  *= require users
  *= require facts
@@ -20,14 +20,15 @@
 Author: Factlink
 ========================================================================== */
 #body {
-  .inner-shadow(0, 0px, 9px, 0.1);
   background-color: #f4f4f4;
   text-shadow: 0 1px 1px #fff;
-  border: solid 1px rgba(0, 0, 0, 0.06);
+  border: solid 1px @baseBorderColor;
 }
 body {
   background: @white;
   overflow-y: scroll;
+
+  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
 }
 a:hover{
   cursor: pointer;
@@ -45,7 +46,7 @@ img {
   vertical-align: middle;
 }
 body.factlink-site .fact-block {
-  border-bottom: 1px solid @grayLighter;
+  border-bottom: 1px solid @baseBorderColor;
   margin: 0px -15px;
   .transition(all 0.2s ease);
 
@@ -53,6 +54,10 @@ body.factlink-site .fact-block {
     margin: 15px 0 15px 0;
   }
 
+  &:first-child {
+    border-top: 1px solid @baseBorderColor;
+    margin: 0px -15px;
+  }
   &:last-child {
     border-bottom: none;
   }
@@ -60,9 +65,9 @@ body.factlink-site .fact-block {
   .dropdown-container {
     margin-left: 70px;
     margin-right: 15px;
-    border-left: 1px solid #E2E2E2;
-    border-right: 1px solid #E2E2E2;
-    border-bottom: 1px solid #E2E2E2;
+    border-left: 1px solid @baseBorderColor;
+    border-right: 1px solid @baseBorderColor;
+    border-bottom: 1px solid @baseBorderColor;
     margin-bottom: 15px;
     -webkit-border-radius: 3px;
     -webkit-border-top-left-radius: 0;
@@ -123,7 +128,7 @@ body.factlink-site .fact-block {
     span {
       vertical-align: middle;
       color: #333;
-      font-size: 11px;
+      font-size: 10px;
     }
   }
   .user-block .authority {
@@ -178,19 +183,59 @@ body.factlink-site .fact-block {
       display: inline;
     }
     .add-channel {
-      margin-left: 16px;
-      padding: 4px;
-      margin-top: -2px;
+      margin-left: 8px;
+      margin-top: -4px;
       &:before {
         #font > .iconic();
         content: "\2795";
         margin: 0 3px 0 0;
       }
     }
-    .related-users {
+    .related-channels {
       padding-top: @baseLineHeight;
-      article, li {
+
+      li {
         padding-bottom: @baseLineHeight / 2;
+        overflow: auto;
+        width: 100%;
+
+        div.user-avatar {
+          float: left;
+          margin-right: 5px;
+        }
+
+        div.wrapper {
+          float: left;
+
+          a {
+            .ellipsis();
+            width: 146px;
+            display: inline-block;
+          }
+
+          > div {
+            color: #777;
+          }
+        }
+
+        a.follow {
+          float: left;
+          margin:0 0 0 4px;
+        }
+        &:hover {
+          div.wrapper h3 {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          div.user-avatar {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .related-user {
+        color: #777;
+        font-size: 12px;
       }
       // User block for related users
       .user-block {
@@ -216,6 +261,10 @@ body.factlink-site .fact-block {
         }
       }
     }
+    .related-channels ul.not_my_channel a.follow {
+      display: none;
+    }
+
   }
   @borderRadius: 4px;
   #main-wrapper {
@@ -223,30 +272,26 @@ body.factlink-site .fact-block {
     margin-bottom: 172px;
     background-color: @white;
     .border-radius(@borderRadius);
-    border: 1px solid @grayLighter;
-    .drop-shadow();
+    border: 1px solid @baseBorderColor;
     position: relative;
     z-index: 100;
 
     header.title {
       color: #777;
-      border-top: 1px solid @white;
       background-color: #f8f8f8;
       text-shadow: 0px 1px 0px @white;
       .border-radius(@borderRadius @borderRadius 0 0);
-      margin: -15px -15px 0 -15px;
+      margin: -15px -15px -1px -15px;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
-      span.contained-channel-description {
-        display: none;
-      }
       h1 {
         .ellipsis();
         font-weight: normal;
         display: inline-block;
-        font-size: 16pt;
+        font-size: 16px;
         padding: 0 10px 0 0;
-        margin: 3px 0 6px;
+        margin: 6px 0 0px;
+        max-width: 380px;
         height: 26px;
         line-height: 21px;
       }
@@ -327,8 +372,7 @@ body.factlink-site .fact-block {
           width: 155px;
           display: inline-block;
           margin: 4px 8px 4px 0;
-          border: 1px solid transparent;
-          .box-shadow(0px 0px 3px #a8a8a8);
+          border: 1px solid #d8d8d8;
           padding: 2px;
           .border-radius(3px);
           background-color: @white;
@@ -359,8 +403,7 @@ body.factlink-site .fact-block {
             }
           }
           &:hover {
-            .box-shadow(0px 0px 3px #1d8cc8);
-            border: 1px solid #1d8cc8;
+            border: 1px solid @linkColor;
             background-color: #fbfbfb;
           }
         }
@@ -413,7 +456,7 @@ body.factlink-site .fact-block {
       }
     }
     li a.created {
-      border-bottom: 1px solid #dbdbdb;
+      border-bottom: 1px solid @baseBorderColor;
     }
     li.active a {
       border-top: none;
@@ -425,7 +468,7 @@ body.factlink-site .fact-block {
       background: image-url("menuBackground.png") left ((@margin / 2) - 2) no-repeat transparent;
     }
   }
-  .no_facts {
+  .no_facts, .empty_stream {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: @baseFontSize;
@@ -436,21 +479,97 @@ body.factlink-site .fact-block {
     p {
       padding-bottom: 1em;
     }
-    h3 {
-      font-size: (@baseFontSize * 1.5);
+    h2 {
+      font-size: (@baseFontSize * 1.3);
       padding-bottom: 0.5em;
     }
 
     .empty-channel-action {
       float: left;
-      width: 49%;
     }
+
     .empty-channel-action-end {
       display: block;
       width: 1px;
       height: 212px;
     }
+    .related-channels {
+      float: left;
+      text-align: left;
+    }
+    .related-channels {
+      li {
+        padding-bottom: @baseLineHeight / 2;
+        overflow: auto;
+        width: 100%;
+
+        div.user-avatar {
+          float: left;
+          margin-right: 5px;
+        }
+
+        div.wrapper {
+          float: left;
+
+          a {
+            .ellipsis();
+            width: 146px;
+            display: inline-block;
+          }
+
+          > div {
+            color: #777;
+          }
+        }
+
+        a.follow {
+          float: left;
+          margin:0 0 0 4px;
+        }
+        &:hover {
+          div.wrapper h3 {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          div.user-avatar {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .related-user {
+        color: #777;
+        font-size: 12px;
+      }
+      // User block for related users
+      .user-block {
+        height: 32px;
+        padding: 0;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          h1 {
+            color: @linkColor;
+          }
+        }
+        .wrapper {
+          margin-left: 48px;
+          h3 {
+            color: @linkColor;
+            font-size: @baseFontSize;
+            font-weight: bold;
+            &:hover {
+              color: @linkColorHover;
+            }
+          }
+        }
+      }
+    }
+    .related-channels ul.not_my_channel a.follow {
+      display: none;
+    }
   }
+  .empty_stream { width: 500px; margin: 0 auto; margin-top: 32px; }
 }
 
 /* fix positioning of X in alert message */
@@ -460,4 +579,9 @@ body.factlink-site .fact-block {
 
 .hidden{
   display: none;
+}
+
+.btn-micro {
+  padding: 1px 5px;
+  font-size: 10px;
 }

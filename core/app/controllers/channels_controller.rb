@@ -2,10 +2,6 @@ class ChannelsController < ApplicationController
 
   layout "channels"
 
-  before_filter :get_user
-
-  respond_to :json, :html
-
   before_filter :load_channel,
     :only => [
       :show,
@@ -20,6 +16,10 @@ class ChannelsController < ApplicationController
       :add_fact,
       :remove_fact,
       :follow]
+
+  before_filter :get_user
+
+  respond_to :json, :html
 
   before_filter :authenticate_user!
 
@@ -81,22 +81,16 @@ class ChannelsController < ApplicationController
       unless params[:for_fact].nil?
         @fact = Fact[params[:for_fact]]
         @channel.add_fact(@fact)
-
-        render :json => Channels::Channel.for(channel: @channel,view: view_context)
-        return
       end
 
       unless params[:for_channel].nil?
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
-
-        render :json => Channels::Channel.for(channel: @channel,view: view_context)
-        return
       end
 
       respond_to do |format|
         format.html { redirect_to(channel_path(@channel.created_by.user, @channel), :notice => 'Channel successfully created') }
-        format.json { render :json => @channel}
+        format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       end
 
     else
@@ -132,7 +126,7 @@ class ChannelsController < ApplicationController
     @channel.delete
 
     respond_to do |format|
-      format.html  { redirect_to(channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
+      format.html  { redirect_to(activities_channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
       format.json  { render :json => {}, :status => :ok }
     end
   end
@@ -175,15 +169,14 @@ class ChannelsController < ApplicationController
     authorize! :create, Fact
     authorize! :update, @channel
 
-    @fact = Fact.create(:created_by => current_graph_user)
+    @fact = Fact.build_with_data(nil, params[:displaystring].to_s, params[:title].to_s, current_graph_user)
 
-    @fact.data.displaystring = params[:displaystring]
-    @fact.data.title = params[:title]
-    @fact.data.save
-
-    @channel.add_fact(@fact)
-
-    render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
+    if @fact.data.save and @fact.save
+      @channel.add_fact(@fact)
+      render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
+    else
+      render json: @fact.errors, status: :unprocessable_entity
+    end
   end
 
   def remove_fact
@@ -201,13 +194,7 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        if @channel.type == "stream"
-          @activities_set = @user.graph_user.stream_activities
-        else
-          @activities_set = @channel.activities
-        end
-
-        @activities = @activities_set.below( params[:timestamp] || 'inf',
+        @activities = @channel.activities.below( params[:timestamp] || 'inf',
           count: params[:number].andand.to_i || 24,
           reversed: true, withscores: true).
             keep_if{|a| a.andand[:item].andand.still_valid?}
@@ -219,15 +206,15 @@ class ChannelsController < ApplicationController
 
   private
     def get_user
-      if params[:username]
-        @user = User.first(:conditions => { :username => params[:username]}) || raise_404
+      if @channel
+        @user ||= @channel.created_by.user
+      elsif params[:username]
+        @user ||= User.first(:conditions => { :username => params[:username]}) || raise_404
       end
     end
 
     def load_channel
-      @channel  = Channel[params[:channel_id] || params[:id]]
-      @channel || raise_404("Channel not found")
-      @user ||= @channel.created_by.user
+      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404("Channel not found")
     end
 
     def mark_channel_as_read

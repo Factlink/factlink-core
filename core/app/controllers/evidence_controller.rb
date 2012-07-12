@@ -19,18 +19,26 @@ class EvidenceController < FactsController
     authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
-      @evidence = create_fact(nil, params[:displaystring], nil)
-      @evidence.add_opinion(:believes, current_graph_user)
+      @evidence = Fact.build_with_data(nil, params[:displaystring].to_s, nil, current_graph_user)
+      @evidence_saved = @evidence.data.save and @evidence.save
+      @evidence.add_opinion(:believes, current_graph_user) if @evidence_saved
     else
       @evidence = Fact[params[:evidence_id]]
+      @evidence_saved = true
     end
 
-    @fact_relation = create_believed_factrelation(@evidence, relation, fact)
-
-    fact.calculate_opinion(2)
 
     respond_to do |format|
-      format.json { render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context) }
+      if @evidence_saved
+        @fact_relation = create_believed_factrelation(@evidence, relation, fact)
+        fact.calculate_opinion(2)
+
+        format.json do
+          render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context)
+        end
+      else
+        format.json { render json: [], status: :unprocessable_entity }
+      end
     end
   end
 

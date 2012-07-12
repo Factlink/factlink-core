@@ -2,8 +2,6 @@ cached_generic_icon  = image_tag('activities/icon-generic.png')
 cached_channel_icon  = image_tag('activities/icon-channel.png')
 cached_evidence_icon = image_tag('activities/icon-evidencetofactlink.png')
 
-cached_channel_definition  = t(:channel)
-cached_channels_definition = t(:channels)
 cached_created_channel_definition = t(:created_channel)
 
 
@@ -31,7 +29,7 @@ json.array!(@activities) do |json, activity_hash|
 
   size = 24
 
-  json.user_profile_url channel_path(user, graph_user.stream_id)
+  json.user_profile_url user_profile_path(user)
   json.avatar image_tag(user.avatar_url(size: size), :width => size)
 
   json.action action
@@ -40,7 +38,7 @@ json.array!(@activities) do |json, activity_hash|
   json.subject subject.to_s
   json.icon cached_generic_icon
 
-  json.time_ago time_ago_short(Time.at(activity.created_at.to_time))
+  json.time_ago time_ago_in_words(Time.at(activity.created_at.to_time))
 
 
   json.activity do |json|
@@ -85,15 +83,11 @@ json.array!(@activities) do |json, activity_hash|
       json.to_channel_url            channel_path(object.created_by.user, object.id)
 
       json.icon                      cached_channel_icon
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
     when "created_channel"
       json.channel_title             subject.title
       json.channel_url               channel_path(subject.created_by.user, subject.id)
 
       json.icon                      cached_channel_icon
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
       json.created_channel_definition cached_created_channel_definition
     when "added_fact_to_channel"
       json.fact_displaystring truncate(subject.data.displaystring.to_s, length: 48)
@@ -102,7 +96,7 @@ json.array!(@activities) do |json, activity_hash|
       if subject.created_by.user == user
         json.posted 'posted'
       else
-        json.posted 're-posted'
+        json.posted 'reposted'
       end
 
       json.translated_action "freefly"
@@ -126,8 +120,6 @@ json.array!(@activities) do |json, activity_hash|
       json.channel_owner_profile_url user_profile_path(object.created_by.user)
       json.channel_title             object.title
       json.channel_url               channel_path(object.created_by.user, object.id)
-      json.channel_definition        cached_channel_definition
-      json.channels_definition       cached_channels_definition
 
       json.fact Facts::Fact.for(fact: subject, view: self).to_hash
 

@@ -11,6 +11,10 @@ module Facts
       self[:fact].id
     end
 
+    def url
+      friendly_fact_path(self[:fact])
+    end
+
     alias id fact_id
 
     private

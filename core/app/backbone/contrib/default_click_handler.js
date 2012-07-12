@@ -5,9 +5,14 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
   if ( e.metaKey || e.ctrlKey || e.altKey ) return;
 
   var routeTo = $(e.target).closest('a').attr('href');
-  console.log("Navigating to "+ routeTo);
+  console.log("Navigating to "+ routeTo, 'from /'+ Backbone.history.fragment);
 
-  Backbone.history.navigate(routeTo, true);
+  if ('/' + Backbone.history.fragment == routeTo) {
+    Backbone.history.fragment = null;
+    Backbone.history.navigate(routeTo, {trigger: true, replace: true});
+  } else {
+    Backbone.history.navigate(routeTo, {trigger: true});
+  }
 
   e.preventDefault();
   return false;

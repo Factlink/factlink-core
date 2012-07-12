@@ -34,7 +34,7 @@ nl:
       signed_up_but_locked: 'Je registratie is gelukt. Echter kunnen we je niet inloggen omdat je account is gelocked.'
       updated: 'Je account gegevens zijn opgeslagen.'
       destroyed: 'Je account is verwijderd, wellicht tot ziens!'
-      signed_up_but_not_approved: 'Je bent geregistreerd en staat op de wachtlijst.'
+      signed_up_but_not_approved: 'Je bent geregistreerd, bevestig je emailadres om op de wachtlijst gezet te worden.'
       sign_up_failed: 'De registratie ging niet goed. Probeer het nog eens.'
     unlocks:
       send_instructions: 'Je ontvangt via e-mail instructies hoe je je account kan un-locken.'

@@ -21,8 +21,20 @@ div.modal {
   span.proxyWindow {
     display: inline !important;
   }
-  div.fact-block .close {
-    .opacity(30);
+
+  div.fact-block {
+    .close {
+      .opacity(45);
+      position: relative;
+      right: 5px;
+      top: 4px;
+    }
+
+    .top-right-arrow {
+      position: absolute;
+      top: 5px;
+      right: 25px;
+    }
   }
 }
 
@@ -32,6 +44,112 @@ div.modal {
   color: #555;
   padding-bottom: 0px;
   position: relative;
+
+  div.top-right-arrow {
+    position: absolute;
+    border: 1px solid @baseBorderColor;
+    height: 20px;
+    width: 20px;
+    top: -3px;
+    right: 15px;
+    padding: 0; margin: 0;
+    .custom-radius(2px, 3px, 3px, 2px);
+    display: none;
+
+    i {
+      display: block;
+      height: 20px;
+      width: 20px;
+      background: #fff;
+      .custom-radius(2px, 3px, 3px, 2px);
+      cursor: pointer;
+      .caret {
+        margin: 8px 0 0 6px;
+      }
+    }
+
+    &:hover {
+      border: 1px solid #5E8BA6;
+    }
+    &.active {
+      display: block;
+      i {
+        z-index: 101;
+        position: absolute;
+        border-bottom: 1px solid #fff;
+        .custom-radius(2px, 0, 0, 2px);
+      }
+      &:hover {
+        border: 1px solid @baseBorderColor;
+        border-bottom: 1px solid #fff;
+      }
+    }
+
+    ul {
+      display: none;
+      position: absolute;
+      border: 1px solid @baseBorderColor;
+      .custom-radius(0, 3px, 3px, 3px);
+      top: 100%;
+      right: -1px;
+      margin: 0;
+      z-index: 100;
+      background: #fff;
+      padding: 3px 0;
+
+      li {
+        list-style: none;
+        font-size: @baseFontSize;
+        color: #333;
+        white-space: nowrap;
+
+        &.delete {
+          border-top: 1px solid @baseBorderColor;
+        }
+
+        &:first-child {
+          border: none;
+        }
+
+        a {
+          cursor: pointer;
+          padding: 7px 15px;
+          color: #333;
+          display: block;
+          text-shadow: none;
+
+          > img {
+            margin: -4px 0 0 0;
+
+            &.hover {
+              display: none;
+            }
+          }
+
+          &:hover {
+            background: #558da5;
+            color: #fff;
+            text-decoration: none;
+
+            > img {
+              &.hover {
+                display: inline-block;
+              }
+              &.normal {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:hover {
+    div.top-right-arrow {
+      display: block;
+    }
+  }
 
   article.fact {
     padding: 10px 0 0px (@rightIndent / 2);
@@ -44,14 +162,9 @@ div.modal {
       margin: 0 0 5px 70px;
       padding-right: 25px;
       min-height: 35px;
-      #font > .sans-serif(normal,12px,@baseLineHeight);
-      sub {
-        line-height: inherit;
-        font-size: x-small;
-        a {
-          color: @linkColor;
-        }
-      }
+
+      #font > .sans-serif(normal, @displayStringFontSize, @baseLineHeight);
+
       .head {
         display: block;
         .ellipsis();
@@ -63,7 +176,12 @@ div.modal {
         #fact > .title();
       }
 
+      span.title {
+        color: #777;
+      }
+
       .body {
+        display: block;
         word-wrap: break-word;
         vertical-align: baseline;
         span a {
@@ -73,36 +191,6 @@ div.modal {
         span.full {
           display: none;
         }
-      }
-    }
-  }
-
-  ul.top-right {
-    float: right;
-    padding: 8px 15px 0 0;
-
-    li {
-      display: inline;
-
-      &.close {
-        float: none;
-        position: relative;
-        top: 1px;
-        .opacity(0);
-      }
-
-      &.timestamp {
-        color: #ccc;
-        font-size: 0.9em;
-        font-weight: 200;
-      }
-    }
-  }
-
-  &:hover, &:active, &.active, .tab-control.active {
-    ul.top-right {
-      li.close {
-        .opacity(30);
       }
     }
   }

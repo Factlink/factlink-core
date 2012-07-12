@@ -33,8 +33,11 @@ class Channel < OurOhm
 
   after :save, :after_save_actions
   def after_save_actions
-    Topic.ensure_for_channel(self)
-    self.created_by.channels_by_authority.add(self) if self.type == 'channel'
+    if type == 'channel'
+      t = Topic.for_channel(self)
+      t.reposition_in_top
+      self.created_by.channels_by_authority.add(self)
+    end
   end
 
   reference :created_by, GraphUser

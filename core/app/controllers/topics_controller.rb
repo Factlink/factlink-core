@@ -1,20 +1,23 @@
 class TopicsController < ApplicationController
-  before_filter :load_topic
+  def related_user_channels
+    authorize! :show, topic
 
-  def related_users
-     authorize! :show, @topic
+    top_users = topic.top_users(5)
 
-     render layout: false, partial: "channels/related_users",
-       locals: {
-            related_users: @topic.top_users(5),
-            topic: @topic,
-            excluded_users: []
-       }
+    top_channels = top_users.map do |user|
+      @topic.channel_for_user(user)
+    end.delete_if {|t| t.nil?}
+
+    render json: top_channels.map {|ch| Channels::Channel.for(channel: ch,view: view_context)}
+  end
+
+  def top
+    render json: Topic.top(12).delete_if {|t| ['created','all'].include? t.slug_title}
   end
 
   private
-    def load_topic
-      @topic  = Topic.by_slug(params[:id])
+    def topic
+      @topic ||= Topic.by_slug(params[:id])
       @topic || raise_404("Topic not found")
     end
 end

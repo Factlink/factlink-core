@@ -191,15 +191,13 @@ describe Fact do
     end
     context "after setting a displaystring to 'hiephoi'" do
       before do
-        subject.data.displaystring = "hiephoi"\
+        subject.data.displaystring = "hiephoi"
       end
       its(:to_s){should == "hiephoi"}
     end
 
     it "should not give a give a document not found for Factdata" do
-      f = Fact.create(
-        :created_by => gu1
-      )
+      f = Fact.create created_by: gu1
       f.data.displaystring = "This is a fact"
       f.data.save
       f.save
@@ -207,6 +205,14 @@ describe Fact do
       f2 = Fact[f.id]
 
       f2.data.displaystring.should == "This is a fact"
+    end
+    it "should not be possible to save a fact with a string consisting out of only spaces" do
+      subject.data.displaystring = '     '
+      subject.data.save.should be_false
+    end
+
+    it "should not be possible to save a fact with a string consisting out of only spaces" do
+      Fact.build_with_data('http://google.com/',' ', 'foo', gu1).data.save.should be_false
     end
   end
 

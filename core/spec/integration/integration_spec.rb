@@ -14,7 +14,7 @@ describe "Compare screens", type: :request do
       f1.add_opinion :believes, u.graph_user
       f1.data.displaystring = displaystrings[i]
       f1.data.save
-      f1.reposition_in_top_facts
+      f1.reposition_in_top
     end
 
     visit "/"
@@ -62,43 +62,37 @@ describe "Check the ToS", type: :request do
       check "user_agrees_tos"
 
       click_button "Finish"
+
+      page.should have_content "You're almost set!"
+      click_link "Skip step"
     end
 
     it "should show the Tour", js: true do
       page.should have_selector("div#first-tour-modal", :visible => true)
 
-      page.find(".next").click
-      page.has_xpath?("//div[@data-title='Start']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Start']", :visible => true)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Factlink']", :visible => true)
-      page.has_xpath?("//div[@data-title='Start']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Factlink']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Start']", :visible => false)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Evidence']", :visible => true)
-      page.has_xpath?("//div[@data-title='Factlink']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Evidence']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Factlink']", :visible => false)
 
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Relations']", :visible => true)
-      page.has_xpath?("//div[@data-title='Evidence']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Relations']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Evidence']", :visible => false)
 
       page.find(".next").click
-      page.has_xpath?("//div[@data-title='Channels']", :visible => true)
-      page.has_xpath?("//div[@data-title='Relations']", :visible => false)
-
-      page.find(".next").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?("//div[@data-title='Channels']", :visible => false)
-
-      page.find(".previous").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => true)
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Channels']", :visible => true)
+      page.has_xpath?(".//div[@data-title='Relations']", :visible => false)
 
       page.find(".next").click
       page.find(".closeButton").click
-      page.has_xpath?("//div[@data-title='Get Ready...']", :visible => false)
-      page.has_xpath?("//div[@data-title='Use it!']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => false)
+      page.has_xpath?(".//div[@data-title='Use it!']", :visible => false)
     end
   end
 end
@@ -108,6 +102,9 @@ def create_channel(user)
   channel
 end
 
+def create_factlink(user)
+  FactoryGirl.create(:fact, created_by: user.graph_user)
+end
 
 describe "Walkthrough the app", type: :request do
   def created_channel_path(user)
@@ -126,7 +123,7 @@ describe "Walkthrough the app", type: :request do
       fill_in "fact", with: fact_name
       click_button "submit"
       page.should have_content "Factlink successfully posted"
-      
+
       visit created_channel_path(@user)
 
       page.should have_content "My Stream"
@@ -140,16 +137,47 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fill_in "fact", with: fact_name
       click_button "submit"
-      
+
       visit created_channel_path(@user)
 
       page.should have_content fact_name
 
       # and delete it:
       page.evaluate_script('window.confirm = function() { return true; }')
-      page.execute_script("$($('article.fact')[0]).parent().find('li.destroy').click()")
+      page.execute_script("$($('article.fact')[0]).parent().find('li.delete').click()")
 
       page.should_not have_content fact_name
+    end
+  end
+
+  describe "factlinks" do
+    it "should be able to search for evidence", js:true do
+      @factlink = create_factlink @user
+      search_string = 'Test search'
+
+      visit fact_path(@factlink)
+
+      page.should have_content(@factlink.data.title)
+
+      click_on "Supporting"
+
+      fill_in 'supporting_search', :with => search_string
+
+      sleep 1
+      until page.evaluate_script('$.isReady && $.active===0') do
+        sleep 1
+      end
+
+      page.should have_selector('.supporting li.add')
+
+      page.execute_script('$(".supporting li.add").trigger("click")')
+
+      sleep 1
+
+      page.should have_selector('li.fact-relation')
+      within(:css, 'li.fact-relation') do
+        page.should have_content search_string
+      end
     end
   end
 

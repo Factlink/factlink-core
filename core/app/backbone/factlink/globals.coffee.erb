@@ -1,0 +1,12 @@
+#= require ./globals_empty
+Backbone.Factlink.Global =
+  brain_icon: '<%= image_tag image_path("brain.png") %>'
+  chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
+  t:
+    channel: "<%= I18n.t(:channel) %>"
+    channels: "<%= I18n.t(:channels) %>"
+    add_to_channels: "<%= I18n.t(:add_to_channels) %>"
+
+<% if FactlinkUI::Application.config.chrome_extension_id %>
+Backbone.Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
+<% end %>

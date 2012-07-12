@@ -24,6 +24,19 @@ class Fact < Basefact
 
   reference :data, lambda { |id| id && FactData.find(id) }
 
+  def self.build_with_data(url, displaystring, title, creator)
+    site = url && (Site.find(url: url).first || Site.create(url: url))
+
+    fact_params = {created_by: creator}
+    fact_params[:site] = site if site
+    fact = Fact.new fact_params
+    fact.require_saved_data
+
+    fact.data.displaystring = displaystring
+    fact.data.title = title
+    fact
+  end
+
   def require_saved_data
     if not self.data_id
       localdata = FactData.new
@@ -121,19 +134,16 @@ class Fact < Basefact
     channels.map {|ch| ch.id}
   end
 
-  def reposition_in_top_facts
-    interestingness = self.get_opinion().a
-    Fact.key[:top_facts].zadd(interestingness, id)
+  include OurOhm::RedisTopFunctionality
+  def top_score
+    self.get_opinion().a
   end
+  def self.top_key
+    Fact.key[:top_facts]
+  end
+  def self.top_instance id
+    Fact[id]
+  end
+  before :delete, :remove_from_top
 
-  def remove_from_top_facts
-    Fact.key[:top_facts].zrem(id)
-  end
-  before :delete, :remove_from_top_facts
-  def self.cut_off_topfacts
-    Fact.key[:top_facts].zremrangebyrank(0,-20)
-  end
-  def self.top(nr=10)
-    Fact.key[:top_facts].zrevrange(0,nr-1).map(&Fact)
-  end
 end
