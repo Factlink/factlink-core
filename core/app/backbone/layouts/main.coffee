@@ -1,6 +1,7 @@
 FactlinkApp.addRegions
   mainRegion:           '#main-wrapper'
-  relatedChannelsRegion:   '#left-column .related-channels'
   notificationsRegion:  '#notifications'
-  userblockRegion:      '#left-column .user-block-container'
-  channelListRegion:    '#left-column .channel-listing-container'
+
+  leftTopRegion:      '#left-column .user-block-container'
+  leftBottomRegion:   '#left-column .related-channels'
+  leftMiddleRegion:    '#left-column .channel-listing-container'
