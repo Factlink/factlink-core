@@ -7,7 +7,7 @@ describe FactsController do
   let(:fact) { FactoryGirl.create(:fact) }
 
   describe :show do
-    it "should render succesful" do
+    it "should render successful" do
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
@@ -16,7 +16,7 @@ describe FactsController do
       response.should be_success
     end
 
-    it "should render json succesful" do
+    it "should render json successful" do
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
