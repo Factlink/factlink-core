@@ -19,20 +19,20 @@ class window.ChannelsController
   setChannels: (channels) ->
     channelCollectionView = new ChannelsView(collection: channels)
     channels.setupReloading();
-    FactlinkApp.channelListRegion.show(channelCollectionView)
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
 
   commonChannelViews: (channel) ->
     window.currentChannel = channel
 
     if channel.get('is_normal')
-      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel))
+      FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
-      FactlinkApp.relatedChannelsRegion.close()
+      FactlinkApp.leftBottomRegion.close()
 
     user = channel.user()
     userView = new UserView(model: user)
-    FactlinkApp.userblockRegion.show(userView)
+    FactlinkApp.leftTopRegion.show(userView)
 
     if window.Channels.getUsername() == user.get('username')
       @setChannels(window.Channels)

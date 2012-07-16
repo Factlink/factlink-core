@@ -23,8 +23,9 @@ class TopicsController < ApplicationController
     end
 
     def render_json_channels channels
-      render json: channels.delete_if {|ch| ch.nil?}.map do |ch|
+      json_channels = channels.delete_if {|ch| ch.nil?}.map do |ch|
         Channels::Channel.for(channel: ch,view: view_context)
       end
+      render json: json_channels
     end
 end

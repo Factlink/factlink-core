@@ -7,7 +7,7 @@ class window.ProfileController
     window.Channels.setUsername(username)
     window.Channels.setupReloading()
     window.Channels.unsetActiveChannel()
-    app.channelListRegion.show(channelCollectionView)
+    app.leftMiddleRegion.show(channelCollectionView)
 
     user = new User(username: username)
     user.fetch
@@ -16,7 +16,7 @@ class window.ProfileController
 
   showUser: (user) ->
     userLargeView = new UserLargeView(model: user);
-    app.userblockRegion.show(userLargeView);
+    app.leftTopRegion.show(userLargeView);
 
     main = new TabbedMainRegionLayout();
     app.mainRegion.show(main)
