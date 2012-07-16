@@ -147,6 +147,7 @@ FactlinkUI::Application.routes.draw do
   resources :topics, path: 't', only: [] do
     collection do
       get :top
+      get :top_channels
     end
     member do
       get :related_user_channels
