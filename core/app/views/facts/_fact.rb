@@ -68,10 +68,12 @@ module Facts
     end
 
     def post_action
-      if self[:fact].created_by == self[:channel].created_by #current_user
-        'Posted'
-      else
-        'Reposted'
+      if self[:channel]
+        if self[:fact].created_by == self[:channel].created_by #current_user
+          'Posted'
+        else
+          'Reposted'
+        end
       end
     end
 
