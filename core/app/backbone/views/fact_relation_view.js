@@ -1,11 +1,13 @@
-window.FactRelationView = Backbone.View.extend({
+var ViewWithPopover = extendWithPopover( Backbone.Factlink.PlainView );
+
+window.FactRelationView = ViewWithPopover.extend({
   tagName: "li",
   className: "fact-relation",
 
   events: {
     "click .relation-actions>.weakening": "disbelieveFactRelation",
     "click .relation-actions>.supporting": "believeFactRelation",
-    "click .remove-relation": "destroyFactRelation"
+    "click li.delete": "destroyFactRelation"
   },
 
   template: 'fact_relations/fact_relation',
@@ -14,6 +16,13 @@ window.FactRelationView = Backbone.View.extend({
     fact_bubble: "facts/_fact_bubble",
     fact_wheel: "facts/_fact_wheel"
   },
+
+  popover: [
+    {
+      selector: ".relation-top-right-arrow",
+      popoverSelector: "ul.relation-top-right"
+    }
+  ],
 
   initialize: function() {
     this.model.bind('destroy', this.remove, this);
