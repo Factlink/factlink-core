@@ -36,9 +36,7 @@ window.FactRelationView = ViewWithPopover.extend({
   },
 
   destroyFactRelation: function () {
-    if ( confirm("Are you sure you want to remove this Factlink from the list of evidence?") ) {
-      this.model.destroy();
-    }
+    this.model.destroy();
   },
 
   render: function() {
