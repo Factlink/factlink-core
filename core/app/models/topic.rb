@@ -48,6 +48,9 @@ class Topic
     by_slug(ch.slug_title) or ensure_for_channel(ch)
   end
 
+  def top_channels(nr=5)
+    top_users(nr).map { |user| channel_for_user(user) }
+  end
 
   def top_users(nr=5)
     redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.delete_if { |u| u.nil? }
