@@ -8,6 +8,10 @@ class TopicsController < ApplicationController
     render json: top_topics(12)
   end
 
+  def top_channels
+    render_json_channels top_topics(12).map {|t| t.top_channels(1).first }
+  end
+
   private
     def topic
       @topic ||= Topic.by_slug(params[:id])
