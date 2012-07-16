@@ -111,11 +111,7 @@ window.ChannelView = ChannelViewLayout.extend({
 window.ChannelActivitiesView = ChannelViewLayout.extend({
 
   getActivitiesView: function(){
-    return new ActivitiesView({
-      collection: new ChannelActivities([],{
-        channel: this.model
-      })
-    });
+    return new ActivitiesView({collection: this.collection});
   },
 
   onRender: function() {

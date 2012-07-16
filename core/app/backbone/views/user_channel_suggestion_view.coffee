@@ -10,6 +10,17 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
   addModelError: (model)->
 
   addModel: ->
+    facts = @model.facts()
+    facts.fetch
+      success: =>
+        @options.addToActivities.add(new Activity(
+          {
+            username: @model.get('created_by').username
+          }
+        ))
+        console.info(facts.models[0])
+
+
     new_channel = @model.topic().newChannelForUser(window.currentUser)
     @options.addToCollection.add(new_channel)
     new_channel.save({},{
@@ -22,3 +33,4 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
         @options.addToCollection.remove(model)
         alert('something went wrong while creating this channel')
     })
+
