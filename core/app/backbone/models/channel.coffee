@@ -33,6 +33,9 @@ class window.Channel extends Backbone.Model
       slug_title: @get 'slug_title'
       title: @get 'title'
 
+  facts: ->
+    new ChannelFacts [],
+      channel: this
 
   getOwnContainingChannels: ->
     containingChannels = @get("containing_channel_ids")
@@ -46,7 +49,10 @@ class window.Channel extends Backbone.Model
     if @collection
       Backbone.Model::url.apply this, arguments
     else
-      "/" + @getUsername() + "/channels/" + @get("id")
+      @normal_url()
+
+  normal_url: ->
+    "/" + @getUsername() + "/channels/" + @get("id")
 
   getUsername: ->
     @get("created_by")?.username ? @get("username")

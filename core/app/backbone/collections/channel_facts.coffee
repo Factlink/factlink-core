@@ -1,8 +1,8 @@
 class window.ChannelFacts extends Backbone.Collection
-  model: Fact,
+  model: Fact
 
   initialize: (model, opts) -> @channel = opts.channel
 
-  url: -> @channel.url() + '/facts'
+  url: ->  @channel.normal_url() + '/facts'
 
 _.extend(ChannelFacts.prototype, AutoloadCollectionOnTimestamp)
