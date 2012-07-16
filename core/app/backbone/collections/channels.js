@@ -1,4 +1,12 @@
-window.ChannelList = Backbone.Collection.extend({
+window.GenericChannelList = Backbone.Collection.extend({
+  model: Channel,
+});
+
+window.TopChannelList = window.GenericChannelList.extend({
+  url: '/t/top_channels'
+})
+
+window.ChannelList = window.GenericChannelList.extend({
   model: Channel,
   reloadingEnabled: false,
 

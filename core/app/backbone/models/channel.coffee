@@ -28,6 +28,10 @@ class window.Channel extends Backbone.Model
       @cachedRelatedChannels.fetch()
       @cachedRelatedChannels
 
+  topic: ->
+    new Topic
+      slug_title: @get 'slug_title'
+      title: @get 'title'
 
 
   getOwnContainingChannels: ->
