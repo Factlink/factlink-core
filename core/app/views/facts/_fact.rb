@@ -67,6 +67,14 @@ module Facts
       friendly_fact_path(self[:fact])
     end
 
+    def post_action
+      if self[:fact].created_by == self[:channel].created_by #current_user
+        'Posted'
+      else
+        'Reposted'
+      end
+    end
+
     def friendly_time
       time_ago_in_words(Time.at(self[:timestamp]/1000)) if self[:channel]
     end
