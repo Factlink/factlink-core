@@ -64,9 +64,13 @@ class Topic
     redis[id][:top_users].del
   end
 
+  def channels
+    Channel.find(slug_title: self.slug_title)
+  end
+
   include OurOhm::RedisTopFunctionality
   def top_score
-    Channel.find(slug_title: self.slug_title).count
+    channels.count
   end
   def self.top_key
     Topic.redis[:top]
