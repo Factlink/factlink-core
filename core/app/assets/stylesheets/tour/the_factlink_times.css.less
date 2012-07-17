@@ -1,7 +1,7 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-#step2, #step3 { display: none; }
+.help-text-container > div { display: none; }
 
 #container {
 
@@ -30,15 +30,27 @@
   h4 { padding-bottom: 6px; }
 }
 
-.arrow1 { height: 24px; width: 24px; z-index: 0; position: relative; top: 15px; left: 172px; background: white; border: 1px solid #ddd; }
-.arrow2 { height: 24px; width: 24px; z-index: 2; position: relative; top: -11px; left: 170px; background: white; border: 1px solid transparent; }
-.rotate {
-    -webkit-transform: rotate(45deg);
-     -moz-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-       -o-transform: rotate(45deg);
-          transform: rotate(45deg);
-             filter: progid:DXImageTransform.Microsoft.Matrix(
-                     M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476, sizingMethod='auto expand');
-               zoom: 1;
+
+
+
+.arrow-right {
+  position: absolute;
+  left: 172px;
+
+  width: 0;
+  height: 0;
+  border-top:    16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left:   16px solid #ddd;
+}
+.arrow-right-white {
+  position: relative;
+  left: -16px;
+  top: -15px;
+
+  width: 0;
+  height: 0;
+  border-top:    15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left:   15px solid white;
 }
