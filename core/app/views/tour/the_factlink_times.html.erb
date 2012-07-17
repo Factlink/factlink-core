@@ -66,6 +66,13 @@
 
 </div>
 
+<a class="button-initial">reset</a><br>
+<a class="button-textSelected">factlink.textSelected</a><br>
+<a class="button-factlinkAdded">factlink.factlinkAdded</a><br>
+<a class="button-opinionAdded">factlink.opinionAdded</a><br>
+<a class="button-channelAdded">factlink.channelAdded</a>
+
+
 <%= content_for :javascript do %>
   <% lib_url = "#{FactlinkUI::Application.config.static_url}/lib" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
@@ -80,5 +87,47 @@
   </script>
   <script src="<%= lib_url %>/dist/factlink<%= min %>.js"></script>
   <script src="<%= lib_url %>/dist/factlink.start_annotating<%= min %>.js"></script>
+
+  <script>
+  $(window).on('factlink.textSelected', '#fl', function() {
+    console.info("factlink.textSelected");
+    tour.showHelpText('step2');
+
+  });
+
+  $(window).on('factlink.factlinkAdded', '#fl', function() {
+    console.info("factlink.factlinkAdded");
+    tour.showHelpText('step3');
+  });
+
+  $(window).on('factlink.opinionAdded', '#fl', function() {
+    console.info("factlink.opinionAdded");
+    tour.showHelpText('step4');
+  });
+
+  $(window).on('factlink.channelAdded', '#fl', function() {
+    console.info("factlink.channelAdded");
+    tour.showHelpText('step5');
+  });
+
+  // debug buttons
+  $(".button-initial").on('click', function () {
+    tour.showHelpText('step1');
+  });
+  $(".button-textSelected").on('click', function () {
+    $('#fl').trigger('factlink.textSelected');
+  });
+  $(".button-factlinkAdded").on('click', function () {
+    $('#fl').trigger('factlink.factlinkAdded');
+  });
+
+  $(".button-opinionAdded").on('click', function () {
+    $('#fl').trigger('factlink.opinionAdded');
+  });
+  $(".button-channelAdded").on('click', function () {
+    $('#fl').trigger('factlink.channelAdded');
+  });
+
+  </script>
 
 <% end %>
