@@ -3,7 +3,10 @@ class window.TourController
   chooseChannels:  ->
     stream = window.Channels.models[0]
 
-    channelCollectionView = new ChannelsView(collection: window.Channels)
+    visibleAddedChannels = collectionDifference(ChannelList, 'is_normal', window.Channels,
+     [{is_normal: false}])
+
+    channelCollectionView = new EditableChannelsView(collection: visibleAddedChannels)
     FactlinkApp.leftBottomRegion.show(channelCollectionView)
     activities = new ChannelActivities([],{ channel: stream })
     FactlinkApp.mainRegion.show(
