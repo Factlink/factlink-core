@@ -4,13 +4,13 @@ require 'spec_helper'
 describe "beliefs should work as described in the google doc" do
   include BeliefExpressions
 
-  let(:u1) {FactoryGirl.create(:graph_user)}
-  let(:u2) {FactoryGirl.create(:graph_user)}
-  let(:u3) {FactoryGirl.create(:graph_user)}
-  let(:u4) {FactoryGirl.create(:graph_user)}
+  let(:u1) {create(:graph_user)}
+  let(:u2) {create(:graph_user)}
+  let(:u3) {create(:graph_user)}
+  let(:u4) {create(:graph_user)}
 
-  let(:f1) {FactoryGirl.create(:fact)}
-  let(:f2) {FactoryGirl.create(:fact)}
+  let(:f1) {create(:fact)}
+  let(:f2) {create(:fact)}
 
   # f1 --> f2
   let(:f22) { f2.add_evidence(:supporting,f1,u1) }

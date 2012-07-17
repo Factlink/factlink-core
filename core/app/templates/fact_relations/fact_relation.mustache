@@ -1,6 +1,17 @@
 <div class="relation">
   {{#can_destroy?}}
-    <a class="close remove-relation">×</a>
+  <div class="relation-top-right-arrow">
+    <i><b class="caret"></b></i>
+    <ul class="relation-top-right" style="display: none;">
+        <li class="delete">
+          <a>
+            <img src="/assets/trash.png" alt="Trash" class="normal">
+            <img src="/assets/trash-hover.png" alt="Trash" class="hover">
+            Remove this Factlink as evidence
+          </a>
+        </li>
+    </ul>
+  </div>
   {{/can_destroy?}}
 
   {{#signed_in?}}

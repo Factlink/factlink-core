@@ -15,7 +15,9 @@ class ChannelsController < ApplicationController
       :toggle_fact,
       :add_fact,
       :remove_fact,
-      :follow]
+      :follow,
+      :last_fact_activity
+    ]
 
   before_filter :get_user
 
@@ -195,13 +197,17 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.json do
         @activities = @channel.activities.below( params[:timestamp] || 'inf',
-          count: params[:number].andand.to_i || 24,
+          count: params[:number].andand.to_i || 1,
           reversed: true, withscores: true).
             keep_if{|a| a.andand[:item].andand.still_valid?}
         render
       end
       format.html { render inline:'', layout: "channels" }
     end
+  end
+
+  def last_fact_activity
+    authorize! :show, @channel
   end
 
   private

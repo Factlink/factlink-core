@@ -44,7 +44,6 @@ window.FactView = ViewWithPopover.extend({
 
     this.initAddToChannel();
     this.initFactRelationsViews();
-    this.initUserPassportViews();
 
     this.wheel = new Wheel(this.model.getFactWheel());
   },
@@ -52,7 +51,6 @@ window.FactView = ViewWithPopover.extend({
   onRender: function() {
     this.renderAddToChannel();
     this.initFactRelationsViews();
-    this.renderUserPassportViews();
 
     this.$('.authority').tooltip();
 
@@ -234,26 +232,6 @@ window.FactView = ViewWithPopover.extend({
     default:
       return true;
     }
-  },
-
-  initUserPassportViews: function() {
-
-  },
-
-  renderUserPassportViews: function(){
-    var interacting_users = this.model.get('interacting_users');
-
-    _.each(interacting_users.activity, function (user) {
-      var el = this.$('li.user[data-activity-id=' + user.id + ']');
-      var model = new User(user.user);
-
-      var view = new UserPassportView({
-        model: model,
-        el: el,
-        activity: user
-      });
-      view.render();
-    }, this);
   },
 
   highlight: function() {

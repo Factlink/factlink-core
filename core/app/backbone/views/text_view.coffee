@@ -3,5 +3,6 @@ class window.TextView extends Backbone.Marionette.ItemView
   tag: 'span'
 
 window.getTextView = (text) ->
-  TextView.extend
+  tv = TextView.extend
     initialize: -> @model = new Backbone.Model({text: text})
+  return new tv()

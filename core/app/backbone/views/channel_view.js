@@ -63,7 +63,7 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
   },
 
   initAddToChannel: function() {
-    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" ) {
+    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" && typeof currentChannel !== "undefined" ) {
       this.addToChannelView = new AddToChannelView({
         collection: currentUser.channels,
         el: this.$('#follow-channel'),
@@ -111,11 +111,7 @@ window.ChannelView = ChannelViewLayout.extend({
 window.ChannelActivitiesView = ChannelViewLayout.extend({
 
   getActivitiesView: function(){
-    return new ActivitiesView({
-      collection: new ChannelActivities([],{
-        channel: this.model
-      })
-    });
+    return new ActivitiesView({collection: this.collection});
   },
 
   onRender: function() {

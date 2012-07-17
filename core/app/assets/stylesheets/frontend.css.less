@@ -194,6 +194,10 @@ body.factlink-site .fact-block {
     .related-channels {
       padding-top: @baseLineHeight;
 
+      ul {
+        margin-top: 10px;
+      }
+
       li {
         padding-bottom: @baseLineHeight / 2;
         overflow: auto;
@@ -479,19 +483,94 @@ body.factlink-site .fact-block {
     p {
       padding-bottom: 1em;
     }
-    h3 {
-      font-size: (@baseFontSize * 1.5);
+    h2 {
+      font-size: (@baseFontSize * 1.3);
       padding-bottom: 0.5em;
     }
 
     .empty-channel-action {
       float: left;
-      width: 49%;
     }
+
     .empty-channel-action-end {
       display: block;
       width: 1px;
       height: 212px;
+    }
+    .related-channels {
+      float: left;
+      text-align: left;
+    }
+    .related-channels {
+      li {
+        padding-bottom: @baseLineHeight / 2;
+        overflow: auto;
+        width: 100%;
+
+        div.user-avatar {
+          float: left;
+          margin-right: 5px;
+        }
+
+        div.wrapper {
+          float: left;
+
+          a {
+            .ellipsis();
+            width: 146px;
+            display: inline-block;
+          }
+
+          > div {
+            color: #777;
+          }
+        }
+
+        a.follow {
+          float: left;
+          margin:0 0 0 4px;
+        }
+        &:hover {
+          div.wrapper h3 {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          div.user-avatar {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .related-user {
+        color: #777;
+        font-size: 12px;
+      }
+      // User block for related users
+      .user-block {
+        height: 32px;
+        padding: 0;
+        background-color: transparent;
+        &:hover {
+          cursor: pointer;
+          h1 {
+            color: @linkColor;
+          }
+        }
+        .wrapper {
+          margin-left: 48px;
+          h3 {
+            color: @linkColor;
+            font-size: @baseFontSize;
+            font-weight: bold;
+            &:hover {
+              color: @linkColorHover;
+            }
+          }
+        }
+      }
+    }
+    .related-channels ul.not_my_channel a.follow {
+      display: none;
     }
   }
   .empty_stream { width: 500px; margin: 0 auto; margin-top: 32px; }

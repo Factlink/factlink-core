@@ -117,6 +117,7 @@ FactlinkUI::Application.routes.draw do
 
       member do
         get "activities",     :as => "activities"
+        get "last_fact_activity"
 
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
@@ -147,6 +148,7 @@ FactlinkUI::Application.routes.draw do
   resources :topics, path: 't', only: [] do
     collection do
       get :top
+      get :top_channels
     end
     member do
       get :related_user_channels
@@ -156,8 +158,11 @@ FactlinkUI::Application.routes.draw do
   get  "/p/tos"     => "tos#show",        as: "tos"
   post "/p/tos"     => "tos#update",      as: "tos"
 
-  get "/p/tour/youre-almost-done" => "tour#almost_done", as: "almost_done"
-  
+  scope "/p/tour" do
+    get "youre-almost-done" => "tour#almost_done", as: "almost_done"
+    get "choose-channels" => "tour#choose_channels", as: "choose_channels"
+  end
+
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do

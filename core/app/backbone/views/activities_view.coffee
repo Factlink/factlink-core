@@ -26,24 +26,42 @@ class window.ActivitiesView extends AutoloadingView
     @collection.each( @add, this );
     @renderChildren()
 
-  add: (model) ->
-    last = _.last(@childViews);
+  add: (model, collection, options) ->
+    index = options.index
 
-    if (last && (last.appendable(model)))
-      appendTo = last
-    else
+    appendableCandidate =
+      if index == 0
+        _.first(@childViews)
+      else
+        _.last(@childViews);
+
+    appendTo =
+      if (appendableCandidate && (appendableCandidate.appendable(model)))
+        appendableCandidate
+      else
+        @createNewAppendable(model, index)
+
+    appendTo.collection.add(model, at: index);
+
+  createNewAppendable: (model, index) ->
       appendTo = @newChildView(model)
-      @childViews.push(appendTo)
-      @appendHtml(this, appendTo)
+      if index == 0
+        @childViews.unshift(appendTo)
+      else
+        @childViews.push(appendTo)
+      @appendHtml(this, appendTo, index)
+      appendTo
 
-    appendTo.collection.add(model);
 
   beforeClose: ->
     childView.close() for childView in @childViews
 
-  appendHtml: (collectionView, childView) ->
+  appendHtml: (collectionView, childView, index) ->
     childView.render()
-    @$(".list").append(childView.$el)
+    if index == 0
+      @$(".list").prepend(childView.$el)
+    else
+      @$(".list").append(childView.$el)
 
   newChildView: (model) ->
     ch = @collection.channel
@@ -56,10 +74,13 @@ class window.ActivitiesView extends AutoloadingView
       @suggestedTopics = new SuggestedTopics()
       @suggestedTopics.fetch()
       @emptyView = new SuggestedTopicsView
-        el: @$('.empty_stream')
         model: new Backbone.Model({current_url: @collection.link()})
         collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
-      @emptyView.render()
+    else
+      @emptyView = getTextView('Currently there are no activities related to this channel')
+
+    @$('.empty_stream').html(@emptyView.render().el)
+
 
   emptyViewOff: ->
     if @emptyView

@@ -1,3 +1,7 @@
+fetched = (obj) ->
+  obj.fetch()
+  obj
+
 class window.Channel extends Backbone.Model
   initialize: (opts) ->
     @on "activate", @setActive
@@ -9,26 +13,31 @@ class window.Channel extends Backbone.Model
   setNotActive: ->
     @isActive = false
 
-  user: ->
-    new User(@get("created_by"))
+  user: -> new User(@get("created_by"))
+
+  cached: (field, retrieval) ->
+    @cache ||= {}
+    @cache[field] = (@cache[field] || retrieval())
 
   subchannels: ->
-    if @cachedSubchannels
-      @cachedSubchannels
-    else
-      @cachedSubchannels = new SubchannelList(channel: this)
-      @cachedSubchannels.fetch()
-      @cachedSubchannels
+    @cached 'subchannels', => fetched(new SubchannelList(channel: this))
 
   relatedChannels: ->
-    if @cachedRelatedChannels
-      @cachedRelatedChannels
-    else
-      @cachedRelatedChannels = new RelatedChannels [], forChannel: this
-      @cachedRelatedChannels.fetch()
-      @cachedRelatedChannels
+    @cached 'relatedchannels', => fetched(new RelatedChannels [], forChannel: this)
 
+  lastAddedFactAsActivity: ->
+    @cached 'lastFactAsActivity', =>
+      console.info('creating new lastfactactivity')
+      new LastFactActivity(channel: this)
 
+  topic: ->
+    new Topic
+      slug_title: @get 'slug_title'
+      title: @get 'title'
+
+  facts: ->
+    new ChannelFacts [],
+      channel: this
 
   getOwnContainingChannels: ->
     containingChannels = @get("containing_channel_ids")
@@ -42,7 +51,10 @@ class window.Channel extends Backbone.Model
     if @collection
       Backbone.Model::url.apply this, arguments
     else
-      "/" + @getUsername() + "/channels/" + @get("id")
+      @normal_url()
+
+  normal_url: ->
+    "/" + @getUsername() + "/channels/" + @get("id")
 
   getUsername: ->
     @get("created_by")?.username ? @get("username")
