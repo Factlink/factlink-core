@@ -4,10 +4,11 @@ window.TitleView = Backbone.View.extend({
 
   initialize: function(opts) {
     this.model.on('change', this.render, this);
-    this.collection.on('reset', this.setChannelUnread, this);
+    this.collection.on('reset change', this.setChannelUnread, this);
   },
 
   render: function() {
+    console.info("window.TitleView:render");
     document.title = (this.countString() + this.factlinkTitle());
   },
 
@@ -25,8 +26,8 @@ window.TitleView = Backbone.View.extend({
     }
   },
 
-  setChannelUnread: function(collection) {
-    this.model.set('channelUnreadCount', collection.unreadCount());
+  setChannelUnread: function() {
+    this.model.set('channelUnreadCount', this.collection.unreadCount());
   }
 });
 
