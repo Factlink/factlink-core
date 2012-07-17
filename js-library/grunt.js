@@ -2,7 +2,7 @@
 
 var files = {
   0: [
-    'libs/jquery-1.6.1.js',
+    'libs/jquery-1.7.2.js',
     'libs/underscore.js'
   ],
   1: [
