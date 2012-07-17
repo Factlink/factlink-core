@@ -8,7 +8,6 @@ window.TitleView = Backbone.View.extend({
   },
 
   render: function() {
-    console.info("window.TitleView:render");
     document.title = (this.countString() + this.factlinkTitle());
   },
 
