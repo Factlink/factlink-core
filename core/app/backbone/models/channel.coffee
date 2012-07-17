@@ -1,3 +1,7 @@
+fetched = (obj) ->
+  obj.fetch()
+  obj
+
 class window.Channel extends Backbone.Model
   initialize: (opts) ->
     @on "activate", @setActive
@@ -12,21 +16,15 @@ class window.Channel extends Backbone.Model
   user: ->
     new User(@get("created_by"))
 
+  cached: (field, retrieval) ->
+    @cached ||= {}
+    @cached[field] = @cached[field] || retrieval()
+
   subchannels: ->
-    if @cachedSubchannels
-      @cachedSubchannels
-    else
-      @cachedSubchannels = new SubchannelList(channel: this)
-      @cachedSubchannels.fetch()
-      @cachedSubchannels
+    @cached 'subchannels', => fetched(new SubchannelList(channel: this))
 
   relatedChannels: ->
-    if @cachedRelatedChannels
-      @cachedRelatedChannels
-    else
-      @cachedRelatedChannels = new RelatedChannels [], forChannel: this
-      @cachedRelatedChannels.fetch()
-      @cachedRelatedChannels
+    @cached 'relatedchannels', => fetched(new RelatedChannels [], forChannel: this)
 
   topic: ->
     new Topic
