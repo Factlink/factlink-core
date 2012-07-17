@@ -12,7 +12,6 @@ json.action action
 json.translated_action t("fact_#{action.to_sym}_action".to_sym)
 
 json.subject subject.to_s
-json.icon image_tag('activities/icon-generic.png')
 
 json.time_ago time_ago_in_words(Time.at(created_at.to_time))
 
@@ -39,7 +38,6 @@ json.activity do |json|
       json.type :weakening
     end
 
-    json.icon image_tag('activities/icon-evidencetofactlink.png')
   when "added_subchannel"
     subject_creator_graph_user = subject.created_by
     subject_creator_user = subject_creator_graph_user.user
@@ -57,13 +55,10 @@ json.activity do |json|
 
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
-
-    json.icon                      image_tag('activities/icon-channel.png')
   when "created_channel"
     json.channel_title             subject.title
     json.channel_url               channel_path(subject.created_by.user, subject.id)
 
-    json.icon                      image_tag('activities/icon-channel.png')
     json.created_channel_definition t(:created_channel)
   when "added_fact_to_channel"
     json.partial! 'activities/added_fact_to_channel_activity',
