@@ -5,10 +5,6 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
   events:
     'click a.btn' : 'addModel'
 
-  addModelSuccess: (model)->
-
-  addModelError: (model)->
-
   addModel: ->
     facts = @model.facts()
     facts.fetch
