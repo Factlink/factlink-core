@@ -13,8 +13,7 @@ class window.Channel extends Backbone.Model
   setNotActive: ->
     @isActive = false
 
-  user: ->
-    new User(@get("created_by"))
+  user: -> new User(@get("created_by"))
 
   cached: (field, retrieval) ->
     @cached ||= {}
