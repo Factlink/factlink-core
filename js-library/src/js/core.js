@@ -13,7 +13,8 @@ var Factlink = window.Factlink = (function() {
   Factlink._ = window._.noConflict();
 
   if ( Factlink.global.easyXDM ) {
-    Factlink.easyXDM = Factlink.global.easyXDM.noConflict("FACTLINK");
+    Factlink.global.FACTLINK = {};
+    Factlink.easyXDM = Factlink.global.FACTLINK.easyXDM = Factlink.global.easyXDM.noConflict("FACTLINK");
   }
 
   Factlink._.templateSettings = {
