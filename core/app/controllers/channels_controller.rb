@@ -15,7 +15,9 @@ class ChannelsController < ApplicationController
       :toggle_fact,
       :add_fact,
       :remove_fact,
-      :follow]
+      :follow,
+      :last_fact_activity
+    ]
 
   before_filter :get_user
 
@@ -202,6 +204,10 @@ class ChannelsController < ApplicationController
       end
       format.html { render inline:'', layout: "channels" }
     end
+  end
+
+  def last_fact_activity
+    authorize! :show, @channel
   end
 
   private

@@ -3,30 +3,33 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   events:
-    'click a.btn' : 'addModel'
+    'click a.btn' : 'addChannel'
 
-  addModel: ->
-    facts = @model.facts()
-    facts.fetch
+  addChannel: ->
+    @addActivityToStream()
+    @createNewChannelWithSubchannel
+      success: => @$('a.btn').hide()
+      error: -> alert('something went wrong while creating this channel')
+
+  addActivityToStream: ->
+    last_fact_activity = @model.lastAddedFactAsActivity()
+    last_fact_activity.fetch
       success: =>
-        @options.addToActivities.add(new Activity(
-          {
-            username: @model.get('created_by').username
-          }
-        ))
-        console.info(facts.models[0])
+        @options.addToActivities.add(last_fact_activity)
 
-
+  createNewChannelWithSubchannel: (options) ->
     new_channel = @model.topic().newChannelForUser(window.currentUser)
     @options.addToCollection.add(new_channel)
-    new_channel.save({},{
+
+    error_function = =>
+      @options.addToCollection.remove(model)
+      options.error() if options.error
+
+    new_channel.save {},
       success: =>
-        @$('a.btn').hide()
         @model.collection = undefined
         new_channel.subchannels().add(@model)
-        @model.save()
-      error: =>
-        @options.addToCollection.remove(model)
-        alert('something went wrong while creating this channel')
-    })
-
+        @model.save {},
+          success: => options.success() if options.success
+          error: error_function
+      error: => error_function

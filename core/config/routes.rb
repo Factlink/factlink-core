@@ -117,6 +117,7 @@ FactlinkUI::Application.routes.draw do
 
       member do
         get "activities",     :as => "activities"
+        get "last_fact_activity"
 
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
