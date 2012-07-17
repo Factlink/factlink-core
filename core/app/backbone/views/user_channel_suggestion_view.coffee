@@ -15,7 +15,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     last_fact_activity = @model.lastAddedFactAsActivity()
     last_fact_activity.fetch
       success: =>
-        @options.addToActivities.add(last_fact_activity)
+        @options.addToActivities.unshift(last_fact_activity)
 
   createNewChannelWithSubchannel: (options) ->
     new_channel = @model.topic().newChannelForUser(window.currentUser)
