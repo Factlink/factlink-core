@@ -16,8 +16,8 @@ class window.Channel extends Backbone.Model
   user: -> new User(@get("created_by"))
 
   cached: (field, retrieval) ->
-    @cached ||= {}
-    @cached[field] = @cached[field] || retrieval()
+    @cache ||= {}
+    @cache[field] = (@cache[field] || retrieval())
 
   subchannels: ->
     @cached 'subchannels', => fetched(new SubchannelList(channel: this))
