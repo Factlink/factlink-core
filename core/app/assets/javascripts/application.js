@@ -7,4 +7,6 @@
 
 //= require hogan
 //= require_tree ../../templates
+
+this.HoganTemplates || (this.HoganTemplates = {});
 //= require_tree ./lib
