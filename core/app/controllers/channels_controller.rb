@@ -197,7 +197,7 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.json do
         @activities = @channel.activities.below( params[:timestamp] || 'inf',
-          count: params[:number].andand.to_i || 1,
+          count: params[:number].andand.to_i || 11,
           reversed: true, withscores: true).
             keep_if{|a| a.andand[:item].andand.still_valid?}
         render
