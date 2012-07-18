@@ -272,7 +272,7 @@ GEM
       bundler (>= 1.0.0)
       rails (>= 3.0.0)
       railties (>= 3.0.0)
-    multi_json (1.1.0)
+    multi_json (1.3.6)
     mustache (0.99.4)
     nest (1.1.1)
       redis
@@ -499,7 +499,7 @@ DEPENDENCIES
   mongo (= 1.3.1)
   mongoid (~> 2.4.4)
   mongoid_rails_migrations (= 0.0.13)
-  multi_json (= 1.1.0)
+  multi_json (>= 1.2.0)
   mustache
   mustache_rails3!
   newrelic_rpm
