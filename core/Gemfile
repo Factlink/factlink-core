@@ -83,10 +83,10 @@ end
 gem 'airbrake'
 
 # Deployment
-group :capistrano do
+#group :capistrano do
   gem 'capistrano', :require => false
   gem 'capistrano-ext', :require => false
-end
+#end
 
 # imagemagick
 gem 'rmagick', require: false
