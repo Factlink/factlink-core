@@ -19,7 +19,7 @@ describe Facts::Fact do
   }
 
   describe :modal? do
-    it "should work" do
+    pending "should work" do
       subject.modal?.should == false
     end
   end
