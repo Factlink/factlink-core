@@ -407,6 +407,8 @@ GEM
     ruport (1.6.3)
       fastercsv
       pdf-writer (= 1.1.8)
+    rvm-capistrano (1.2.5)
+      capistrano (>= 2.0.0)
     sass (3.1.15)
     selenium-webdriver (2.21.0)
       childprocess (>= 0.2.5)
@@ -545,6 +547,7 @@ DEPENDENCIES
   rpm_contrib (= 2.1.7)
   rspec-rails
   ruby-prof
+  rvm-capistrano
   simplecov
   simplecov-rcov-text
   sqlite3-ruby
