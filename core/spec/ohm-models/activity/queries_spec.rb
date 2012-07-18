@@ -21,6 +21,7 @@ describe 'activity queries' do
         {user: gu1, action: :created, subject: f1}
       ]
     end
+
   end
 
   describe ".channel" do
@@ -107,6 +108,17 @@ describe 'activity queries' do
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
+      ]
+    end
+
+    it "should return a :added_first_factlink activity when the users' first factlink is created" do
+
+      # MAKE THIS WORK :-)
+
+      f1 = create :fact, created_by: gu1
+
+      gu1.stream_activities.map(&:to_hash_without_time).should == [
+        {user: gu1, action: :added_first_factlink, subject: f1}
       ]
     end
 
