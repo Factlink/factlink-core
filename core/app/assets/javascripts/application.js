@@ -5,6 +5,9 @@
 //= require underscore
 //= require andlog
 
+
+//= require_tree ./lib
+
 //= require hogan
 //= require_tree ../../templates
 
