@@ -84,8 +84,9 @@ gem 'airbrake'
 
 # Deployment
 #group :capistrano do
-  gem 'capistrano', :require => false
-  gem 'capistrano-ext', :require => false
+  gem 'capistrano', require: false
+  gem 'capistrano-ext', require: false
+  gem 'rvm-capistrano', require: false
 #end
 
 # imagemagick
