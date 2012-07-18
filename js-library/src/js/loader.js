@@ -15,15 +15,34 @@
   }
 
   var iframe = createIframe();
-
   var iDocument = iframe.contentWindow.document;
   var iHead = iDocument.getElementsByTagName("head")[0];
   var head = document.getElementsByTagName("head")[0];
-
   var flScript = document.createElement("script");
-  flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/dist/factlink.core.min.js");
-
+  var loaded = false;
   var configScript = document.createElement("script");
+
+  flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/dist/factlink.core.min.js");
+  flScript.onload = flScript.onreadystatechange = function () {
+    if ((flScript.readyState && flScript.readyState !== "complete" && flScript.readyState !== "loaded") || loaded) {
+      return false;
+    }
+    flScript.onload = flScript.onreadystatechange = null;
+    loaded = true;
+
+    if ( window.jQuery ) {
+      window.FACTLINK.on = function() {
+        iframe.contentWindow.Factlink.on.apply(iframe.contentWindow.Factlink, arguments);
+      };
+
+      window.FACTLINK.off = function() {
+        iframe.contentWindow.Factlink.off.apply(iframe.contentWindow.Factlink, arguments);
+      };
+
+      jQuery(window).trigger('factlink.libraryLoaded');
+    }
+  };
+
   configScript.type = "text/javascript";
   configScript.innerHTML = "window.FactlinkConfig = " + JSON.stringify(FactlinkConfig) + ";";
 
