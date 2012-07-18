@@ -75,6 +75,8 @@ Factlink.Balloon = function() {
 
     el.find('div.fl-label').bind('click', function() {
       factObj.click();
+
+      Factlink.trigger('balloonClicked');
     });
   }
 

@@ -44,6 +44,8 @@ Factlink.startAnnotating = function() {
       if ((selectionInfo.text !== undefined && selectionInfo.text.length > 1) &&
           (! $(e.target).is(':input') )){
         Factlink.prepare.show(pageY, pageX);
+
+        Factlink.trigger('textSelected');
       }
     }, 200);
   });

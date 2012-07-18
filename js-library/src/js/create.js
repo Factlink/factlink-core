@@ -45,6 +45,8 @@
         if ($.isFunction(successFn)) {
           successFn(data.id, factObjs);
         }
+
+        Factlink.trigger('factlinkAdded');
       },
       error: errorFn
     });
