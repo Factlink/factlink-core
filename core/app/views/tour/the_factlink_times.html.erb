@@ -30,7 +30,7 @@
     <p>Click the Factlink or Show to open.</p>
   </div>
 
-  <div id="step4" class="help-text span2">
+  <!-- <div id="step4" class="help-text span2">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -46,7 +46,7 @@
 
     <h4>Well done!</h4>
     <p>Try adding this Factlink to a channel clicking on "My Channels" and typing in the input field.</p>
-  </div>
+  </div> -->
 
   <div id="step6" class="help-text span2">
     <div class="arrow-right">
@@ -54,7 +54,11 @@
     </div>
 
     <h4>Your all set.</h4>
-    <p>Just click 'Post to Factlink' and you have created your first Factlink!</p>
+    <!-- <p>Just click 'Post to Factlink' and you have created your first Factlink!</p> -->
+    <p>Your first Factlink is a fact!</p>
+
+    <%= link_to( 'Continue', activities_channel_path(current_user, current_user.graph_user.stream), class: "btn btn-primary btn-mini" ) %>
+
   </div>
 
 </div>
@@ -95,16 +99,17 @@
 
   $(window).on('factlink.libraryLoaded', function () {
 
-    FACTLINK.on('textSelected', function (){
+    FACTLINK.on('textSelected', function () {
       tour.showStep(2);
     });
 
-    FACTLINK.on('factlinkAdded', function (){
+    FACTLINK.on('factlinkAdded', function () {
       tour.showStep(3);
     });
 
-    FACTLINK.on('balloonClicked', function (){
-      tour.showStep(4);
+    FACTLINK.on('balloonClicked', function () {
+      // tour.showStep(4);
+      tour.showStep(6);
     });
 
   });
