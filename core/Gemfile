@@ -144,10 +144,6 @@ group :test do
   gem 'headless'
 end
 
-group :jstest do
-  gem 'evergreen', :require => 'evergreen/rails'
-end
-
 group :development do
   # SHUT THE FUCK UP
   gem 'quiet_assets'
