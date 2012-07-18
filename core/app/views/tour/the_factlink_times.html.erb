@@ -92,27 +92,7 @@
   <script src="<%= lib_url %>/dist/factlink.start_annotating<%= min %>.js"></script>
 
   <script>
-  $(window).on('factlink.textSelected', '#fl', function() {
-    console.info("factlink.textSelected");
-    tour.showHelpText('step2');
 
-  });
-
-  $(window).on('factlink.factlinkAdded', '#fl', function() {
-    console.info("factlink.factlinkAdded");
-    tour.showHelpText('step3');
-  });
-
-  $(window).on('factlink.opinionAdded', '#fl', function() {
-    console.info("factlink.opinionAdded");
-    tour.showHelpText('step4');
-  });
-
-  $(window).on('factlink.channelAdded', '#fl', function() {
-    console.info("factlink.channelAdded");
-    tour.showHelpText('step5');
-  });
-  // debug buttons
 
   </script>
 
