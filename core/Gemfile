@@ -142,6 +142,10 @@ group :test do
   gem 'capybara-email'
   gem 'chunky_png'
   gem 'headless'
+
+  gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
+  gem 'jasmine-headless-webkit', :git => "git://github.com/johnbintz/jasmine-headless-webkit.git"
+  gem 'therubyracer'
 end
 
 group :development do
