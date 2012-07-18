@@ -13,6 +13,7 @@ var files = {
     'src/js/core.js'
   ],
   3: [
+    'src/js/events.js',
     'src/js/models/fact.js',
     'src/js/views/ballooney_thingy.js',
     'src/js/views/balloon.js',
