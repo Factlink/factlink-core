@@ -8,4 +8,8 @@ window.TemplateMixin =
     Backbone.Marionette.Renderer.render(@template, data, partials)
 
 Backbone.Marionette.Renderer.render = (template, data, partials) ->
-  HoganTemplates[template].render(data, partials)
+
+  if data?
+    new_data =  _.extend(data,{global: Backbone.Factlink.Global})
+
+  HoganTemplates[template].render(new_data, partials)

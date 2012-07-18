@@ -5,50 +5,86 @@ class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
   initialize: (opts) ->
-    @collection.on('reset', this.reset, this)
-    @collection.on('add', this.add, this)
+    @collection.on('reset', @reset, this)
+    @collection.on('add', @add, this)
 
-    this.addShowHideToggle('loadingIndicator', 'div.loading');
-    this.collection.on('startLoading', this.loadingIndicatorOn, this);
-    this.collection.on('stopLoading', this.loadingIndicatorOff, this);
+    @addShowHideToggle('loadingIndicator', 'div.loading');
+    @collection.on('startLoading', @loadingIndicatorOn, this);
+    @collection.on('stopLoading', @loadingIndicatorOff, this);
 
-    this.childViews = []
+    @childViews = []
 
   onRender: ->
-    this.renderChildren()
+    @renderChildren()
 
   renderChildren: ->
-    this.$('.list').html('')
+    @$('.list').html('')
     for childView in @childViews
-      this.appendHtml(this, childView)
+      @appendHtml(this, childView)
 
   reset: ->
-    this.collection.each( this.add, this );
-    this.renderChildren()
+    @collection.each( @add, this );
+    @renderChildren()
 
-  add: (model) ->
-    last = _.last(this.childViews);
+  add: (model, collection, options) ->
+    index = options.index
 
-    if (last && (last.appendable(model)))
-      appendTo = last
-    else
-      appendTo = this.newChildView(model)
-      this.childViews.push(appendTo)
-      this.appendHtml(this, appendTo)
+    appendableCandidate =
+      if index == 0
+        _.first(@childViews)
+      else
+        _.last(@childViews);
 
-    appendTo.collection.add(model);
+    appendTo =
+      if (appendableCandidate && (appendableCandidate.appendable(model)))
+        appendableCandidate
+      else
+        @createNewAppendable(model, index)
+
+    appendTo.collection.add(model, at: index);
+
+  createNewAppendable: (model, index) ->
+      appendTo = @newChildView(model)
+      if index == 0
+        @childViews.unshift(appendTo)
+      else
+        @childViews.push(appendTo)
+      @appendHtml(this, appendTo, index)
+      appendTo
+
 
   beforeClose: ->
     childView.close() for childView in @childViews
 
-  appendHtml: (collectionView, childView) ->
+  appendHtml: (collectionView, childView, index) ->
     childView.render()
-    this.$(".list").append(childView.$el)
+    if index == 0
+      @$(".list").prepend(childView.$el)
+    else
+      @$(".list").append(childView.$el)
 
   newChildView: (model) ->
-    ch = this.collection.channel
+    ch = @collection.channel
     new UserActivitiesView
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
+
+  emptyViewOn: ->
+    if @collection.channel.get('discover_stream?')
+      @suggestedTopics = new SuggestedTopics()
+      @suggestedTopics.fetch()
+      @emptyView = new SuggestedTopicsView
+        model: new Backbone.Model({current_url: @collection.link()})
+        collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
+    else
+      @emptyView = getTextView('Currently there are no activities related to this channel')
+
+    @$('.empty_stream').html(@emptyView.render().el)
+
+
+  emptyViewOff: ->
+    if @emptyView
+      @emptyView.close()
+      delete @emptyView
 
 _.extend(ActivitiesView.prototype, ToggleMixin)

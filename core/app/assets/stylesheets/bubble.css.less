@@ -30,7 +30,7 @@ div.modal {
       top: 4px;
     }
 
-    .top-right-arrow {
+    .top-right-arrow, .relation-top-right-arrow {
       position: absolute;
       top: 5px;
       right: 25px;
@@ -45,7 +45,7 @@ div.modal {
   padding-bottom: 0px;
   position: relative;
 
-  div.top-right-arrow {
+  div.top-right-arrow, div.relation-top-right-arrow {
     position: absolute;
     border: 1px solid @baseBorderColor;
     height: 20px;
@@ -146,7 +146,7 @@ div.modal {
   }
 
   &:hover {
-    div.top-right-arrow {
+    div.top-right-arrow, div.relation-top-right-arrow {
       display: block;
     }
   }
@@ -174,10 +174,14 @@ div.modal {
 
       .title {
         #fact > .title();
-        #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+      }
+
+      span.title {
+        color: #777;
       }
 
       .body {
+        display: block;
         word-wrap: break-word;
         vertical-align: baseline;
         span a {

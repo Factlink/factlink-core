@@ -19,22 +19,20 @@ class window.ChannelsController
   setChannels: (channels) ->
     channelCollectionView = new ChannelsView(collection: channels)
     channels.setupReloading();
-    FactlinkApp.channelListRegion.show(channelCollectionView)
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
 
   commonChannelViews: (channel) ->
-    this.setCurrentChannel(channel);
+    window.currentChannel = channel
 
     if channel.get('is_normal')
-      relatedChannels = new RelatedChannels [], forChannel: channel
-      FactlinkApp.relatedChannelsRegion.show(new RelatedChannelsView(model: channel, collection: relatedChannels, addToCollection: window.currentChannel.subchannels()))
-      relatedChannels.fetch()
+      FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
-      FactlinkApp.relatedChannelsRegion.close()
+      FactlinkApp.leftBottomRegion.close()
 
     user = channel.user()
     userView = new UserView(model: user)
-    FactlinkApp.userblockRegion.show(userView)
+    FactlinkApp.leftTopRegion.show(userView)
 
     if window.Channels.getUsername() == user.get('username')
       @setChannels(window.Channels)
@@ -53,7 +51,5 @@ class window.ChannelsController
   getChannelActivities: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>
       this.commonChannelViews(channel);
-      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel));
-
-  setCurrentChannel: (channel) ->
-    window.currentChannel = channel
+      activities = new ChannelActivities([],{ channel: channel })
+      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))

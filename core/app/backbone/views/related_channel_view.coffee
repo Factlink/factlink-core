@@ -3,15 +3,12 @@ class window.RelatedChannelView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   events:
-    'click a.btn' : 'addChannel'
+    'click a.btn' : 'addModel'
 
-  addChannel: ->
-    console.info('adding', @model.get('title'), 'to collection', @options.addToCollection)
-    ch = new Channel(@model.toJSON())
-    @options.addToCollection.add(ch)
-    ch.save({},{
-      success: => @$('a.follow').hide()
-      error: =>
-        @options.addToCollection.remove(ch)
-        alert('something went wrong while adding this channel')
-    })
+  addModelSuccess: (model)-> @$('a.follow').hide()
+
+  addModelError: (model)-> alert('something went wrong while adding this channel')
+
+  wrapNewModel: (model) -> new Channel(@model.toJSON())
+
+_.extend(window.RelatedChannelView.prototype, Backbone.Factlink.AddModelToCollectionMixin)

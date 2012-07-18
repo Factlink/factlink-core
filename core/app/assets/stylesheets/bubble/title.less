@@ -3,45 +3,6 @@
 
 #fact {
   .title {
-    box-sizing: border-box;
-    #font > .sans-serif(normal,9pt,@baseLineHeight);
-    padding: 0;
-    color: #4d7796;
-    margin: 0;
-
-    &.owner {
-      :before {
-        #font > .iconic();
-        content: "\270e";
-        margin: 0 3px 0 0;
-      }
-    }
-
-    &.edit {
-      &:hover {
-        background-color: @lightYellow;
-      }
-    }
-
-    > input {
-      display: none;
-    }
-
-    &.edit-active {
-      > span {
-        display: none;
-      }
-
-      > input {
-        display: inline-block;
-        #font > .sans-serif(normal,9pt,@baseLineHeight);
-        background-color: @lightYellow;
-        border: none;
-        outline: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-      }
-    }
+    font-size: @metaFontSize;
   }
 }

@@ -23,4 +23,5 @@ FactlinkApp.addInitializer(function(options){
 FactlinkApp.addInitializer(function(options){
   new ChannelsRouter({controller: new ChannelsController()});
   new ProfileRouter({controller: new ProfileController()});
+  new TourRouter({controller: new TourController()});
 });

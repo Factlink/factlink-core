@@ -8,6 +8,10 @@ class Channel < OurOhm
       self.title = "All"
     end
 
+    def activities
+      created_by.stream_activities
+    end
+
     before :validate, :add_fields
 
     def contained_channels

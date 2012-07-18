@@ -99,6 +99,10 @@ module Channels
       self[:channel].id
     end
 
+    def slug_title
+      self[:channel].slug_title
+    end
+
     def containing_channel_ids
       self[:channel].containing_channels_for(current_graph_user).ids
     end

@@ -1,67 +1,37 @@
-{{#editable?}}
-  <form id="create_fact_for_channel">
-    <div class="create_factlink input-box">
-      <textarea name="fact" class="input-xxlarge" required="required" placeholder="Post a new Factlink in this channel"></textarea>
+<div class="header">
+  {{#editable?}}
+    <form id="create_fact_for_channel">
+      <div class="create_factlink input-box">
+        <textarea name="fact" class="input-xxlarge" required="required" placeholder="Post a new Factlink in this channel"></textarea>
 
-      <a class="close">x</a>
+        <a class="close">x</a>
 
-      <div class="inset-icon-box">
-        <a class="inset-icon icon-pen" title="Add title"></a>
+        <div class="inset-icon-box">
+          <a class="inset-icon icon-pen" title="Add title"></a>
+        </div>
       </div>
-    </div>
 
-    <div class="add-title input-box">
-      <input type="text" name="title" placeholder="Add title">
-    </div>
+      <div class="add-title input-box">
+        <input type="text" name="title" placeholder="Add title">
+      </div>
 
-    <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Post Factlink</button>
-  </form>
-{{/editable?}}
+      <button class="btn btn-primary" name="submit" type="submit" id="create_new_factlink_button">Post Factlink</button>
+    </form>
+  {{/editable?}}
+
+  <div class="more_facts" style="display: none;">
+    <a href="{{link}}" rel="backbone"><span class="list">&#xE055;</span><strong class="unread_count">{{unread_count}}</strong> new posts (click here to refresh)</a>
+  </div>
+</div>
 
 <div class="facts">
 
 </div>
+
 <div class="loading">
   <img src="/assets/ajax-loader.gif">
   <span>Loading...</span>
 </div>
-<div class="no_facts" style="display:none;">
-  {{#is_mine}}
-    {{#is_all}}
-      <p>You have not created a {{ channel_definition }} or added someone's {{ channel_definition }} yet. You can:</p>
-      <div class="empty-channel-action">
-        <h3>Add a Factlink with Extension</h3>
-        <a href="{{chrome_extension_url}}">
-          <img src="/assets/screenshots/addfactlink.png">
-        </a>
-      </div>
-      <div class="empty-channel-action">
-        <h3>Create a {{channel_definition}}</h3>
-        <a href="{{add_channel_url}}">
-          <img src="/assets/screenshots/createchannel.png">
-        </a>
-      </div>
-      <div class="empty-channel-action-end"></div>
-    {{/is_all}}
-    {{#is_created}}
-      <p>You have not created any Factlinks yet. You can create Factlinks anywhere on the web.</p>
-      <h3>Add a Factlink with Extension</h3>
-      <a href="{{chrome_extension_url}}">
-        <img src="/assets/screenshots/addfactlink.png">
-      </a>
-    {{/is_created}}
-    {{#is_normal}}
-      <p>This {{ channel_definition }} does not contain any Factlinks yet. Create one above or download the Chrome Extension and add Factlinks across the web:</p>
-      <div class="empty-channel-action chrome_extension_download">
-        <h3>Download the Chrome extension</h3>
-        <a href="{{chrome_extension_url}}">
-          <img src="/assets/screenshots/addfactlinktochannel.png">
-        </a>
-      </div>
-      <div class="empty-channel-action-end"></div>
-    {{/is_normal}}
-  {{/is_mine}}
-  {{^is_mine}}
-    <p>This channel is currently empty</p>
-  {{/is_mine}}
+
+<div class="no_facts">
 </div>

@@ -7,10 +7,10 @@ class FactGraph
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
         Fact.all.to_a.each do |f|
           f.calculate_opinion
-          f.reposition_in_top_facts
+          f.reposition_in_top
         end
       end
-      Fact.cut_off_topfacts
+      Fact.cut_off_top
   end
 
   def self.reset_values
