@@ -105,10 +105,10 @@ group :assets do
   # Temporary fix for @import bug, merge back to original Gem when it's in master
   gem 'less-rails', '>= 2.1.5'
   gem 'uglifier', '>= 1.0.3'
-  gem 'hogan_assets'
+  gem 'hogan_assets', '= 1.0.3'
 
   # jQuery
-  gem 'jquery-rails', '>= 1.0.17'
+  gem 'jquery-rails', '= 1.0.19'
   gem 'less-rails-bootstrap', '>= 2.0.6'
   gem 'modernizr-rails', "~> 2.0.6"
 
