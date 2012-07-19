@@ -112,9 +112,6 @@ describe 'activity queries' do
     end
 
     it "should return a :added_first_factlink activity when the users' first factlink is created" do
-
-      # MAKE THIS WORK :-)
-
       f1 = create :fact, created_by: gu1
 
       gu1.stream_activities.map(&:to_hash_without_time).should == [
