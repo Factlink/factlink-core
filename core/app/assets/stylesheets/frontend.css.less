@@ -276,6 +276,40 @@ body.factlink-site .fact-block {
     .related-channels ul.not_my_channel a.follow {
       display: none;
     }
+    #channel-listing {
+      padding: 10px;
+      .my-channels {
+        i {
+          .opacity(0.6);
+          margin-top: 2px;
+        }
+        font-weight: bold;
+        font-size: (@baseFontSize + 1);
+      }
+      li {
+        width: auto;
+        padding: 5px 0 0 19px;
+        &:first-child {
+          padding: 0;
+        }
+        .delete {
+          .icon-remove {
+            .opacity(0.6);
+          }
+          float: right;
+          display: inline-block;
+          padding: 0;
+          width: auto;
+        }
+        span {
+          display: inline-block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 160px;
+          color: #555;
+        }
+      }
+    }
 
   }
   @borderRadius: 4px;

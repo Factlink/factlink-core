@@ -14,6 +14,13 @@
   -ms-text-overflow: ellipsis;
 }
 
+.opacity(@opacity: 0.5) {
+  -moz-opacity: @opacity;
+  -khtml-opacity: @opacity;
+  -webkit-opacity: @opacity;
+  opacity: @opacity;
+}
+
 .drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
 	-webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
 	-moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
