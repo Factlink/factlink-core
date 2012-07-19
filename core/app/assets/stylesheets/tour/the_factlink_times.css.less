@@ -1,0 +1,48 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.help-text-container > div {
+  display: none;
+  padding: 12px 20px 4px 12px;
+  z-index: 1;
+  position: absolute;
+  h4 { padding-bottom: 6px; }
+}
+
+#container {
+
+  #the-factlink-times {
+    & > * { #font > .serif(); }
+    padding: 32px 72px;
+    text-align: center;
+
+    h1 {
+      font-size: 36px;
+      font-weight: 100;
+      padding: 0 0 8px;
+    }
+    p { text-align: left; }
+  }
+}
+
+.arrow-right {
+  position: absolute;
+  left: 172px;
+
+  width: 0;
+  height: 0;
+  border-top:    10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left:   10px solid #ddd;
+}
+.arrow-right-white {
+  position: relative;
+  left: -10px;
+  top: -9px;
+
+  width: 0;
+  height: 0;
+  border-top:    9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left:   9px solid white;
+}

@@ -3,7 +3,8 @@
 //= require twitter/bootstrap
 //= require bubble
 //= require modal
-//= require tour
+//= require modal-tour
 //= require_tree ./frontend
+//= require tour
 //= require twipsy
 //= require browser_extensions

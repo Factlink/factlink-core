@@ -1,51 +1,51 @@
 $(function(){
-  
+
   function Modal(opts) {
     var self = this;
     var opts = $.merge(opts, {});
-    
+
     self.show = function show () {
       $.ajax({
         url: "/p/tour",
         dataType: "html",
         success: function () {
           init.apply(this, arguments);
-          
+
           opts.el.modal('show');
         }
       });
     };
-    
+
     self.hide = function hide () {
       opts.el.modal('hide');
     };
-    
+
     if (opts.showActionEl) {
       opts.showActionEl.live('click', function() {
         mp_track("Take The Tour: Click", {where: "topbar"});
         self.show();
       });
     }
-    
+
     if (opts.hideActionEl) {
       opts.hideActionEl.live('click', function() {
         mp_track("Take The Tour: Hide", {where: "cross"});
         self.hide();
       });
     }
-    
+
     function init(html) {
       opts.el.html(html);
 
       initCycle();
-      
+
       opts.el.on('hidden', resetMovieInTour);
 
       // TODO: Fix the tooltip.
       // opts.el.find('.slider').find('.bookmarklet')
       //   .tooltip({placement:"below", offset:5});
     }
-    
+
     function sliderSize() {
       return opts.el.find(".slider > div").length - 1;
     }
@@ -65,7 +65,7 @@ $(function(){
         opts.el.find(".closeButton").hide();
       }
     }
-    
+
     function initCycle() {
       opts.el.find('.slider').cycle({
         activePagerClass: "current",
@@ -79,12 +79,12 @@ $(function(){
         pause: 1,
         pager:  "#pagerNav",
 
-        
+
         after: function(currSlideElement, nextSlideElement, options, forward) {
           if ($(currSlideElement).is("#tour_start")){
             resetMovieInTour();
           }
-          
+
           mp_track("Take The Tour: Slide", {type: (forward ? "forward" : "backward")});
         },
 
@@ -104,18 +104,18 @@ $(function(){
     }
     return self;
   }
-  
-  window.Tour = new Modal({
+
+  window.ModalTour = new Modal({
     el: $('#first-tour-modal'),
     showActionEl: $('a.take-the-tour'),
     hideActionEl: $('.hide-modal')
   });
-  
+
   function resetMovieInTour(){
     var movie_clone = $('#tour_movie > iframe').clone();
     $('#tour_movie > iframe').remove();
     $('#tour_movie').append(movie_clone);
   }
-  
+
 });
 
