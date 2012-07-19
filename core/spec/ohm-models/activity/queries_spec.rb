@@ -92,6 +92,7 @@ describe 'activity queries' do
 
     it "should only return other users activities, not User his own activities" do
       f1 = create :fact
+      f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
       f1.add_opinion(:disbelieves, f1.created_by)
@@ -103,6 +104,8 @@ describe 'activity queries' do
 
     it "should return activity when a user adds a Fact to your channel" do
       f = create :fact, created_by: gu1
+      f.created_by.stream_activities.key.del # delete other activities
+
       ch = create :channel, created_by: gu2
       ch.add_fact(f)
 
@@ -142,6 +145,8 @@ describe 'activity queries' do
     [:believes, :doubts, :disbelieves].each do |opinion|
       it "should return activity when a user opinionates a fact of the user" do
         f1 = create :fact
+        f1.created_by.stream_activities.key.del # delete other activities
+
         f1.add_opinion(opinion, gu1)
 
         f1.created_by.stream_activities.map(&:to_hash_without_time).should == [

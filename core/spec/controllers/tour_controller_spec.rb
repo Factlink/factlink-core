@@ -9,7 +9,7 @@ describe TourController do
       authenticate_user!(user)
       get :almost_done
       response.should render_template(template: /\Atour\/almost_done\Z/, layout: "layouts/one_column")
-      assigns(:step_in_signup_process).should eq(:almost_done)
+      assigns(:step_in_signup_process).should eq(:account)
     end
   end
 
