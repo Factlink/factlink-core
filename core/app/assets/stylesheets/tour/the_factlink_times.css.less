@@ -1,7 +1,13 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.help-text-container > div { display: none; }
+.help-text-container > div {
+  display: none;
+  padding: 12px 20px 4px 12px;
+  z-index: 1;
+  position: absolute;
+  h4 { padding-bottom: 6px; }
+}
 
 #container {
 
@@ -17,16 +23,6 @@
     }
     p { text-align: left; }
   }
-}
-
-.help-text {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 12px 20px 4px 12px;
-  .border-radius(4px);
-  z-index: 1;
-  position: absolute;
-  h4 { padding-bottom: 6px; }
 }
 
 .arrow-right {
