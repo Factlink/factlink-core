@@ -1,6 +1,6 @@
   user       = @channel.created_by.user
 
-  fact = @channel.facts(count: 1, withscores:true)[0]
+  fact = @channel.sorted_internal_facts.below('inf', count: 1, withscores:true)[0]
   subject = fact[:item]
   object  = @channel
   action  = 'added_fact_to_channel'
