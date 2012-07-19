@@ -19,7 +19,7 @@ class TopicsController < ApplicationController
     end
 
     def top_topics(nr)
-      Topic.top(nr+2).delete_if {|t| ['created','all'].include? t.slug_title}
+      Topic.top(nr+2).delete_if {|t| t.nil? or ['created','all'].include? t.slug_title}
     end
 
     def render_json_channels channels
