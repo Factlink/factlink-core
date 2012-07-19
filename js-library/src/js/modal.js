@@ -7,6 +7,7 @@
   Factlink.showInfo = function(factId) {
     Factlink.remote.showFactlink(factId, function ready() {
       Factlink.modal.show.method();
+      Factlink.trigger('modalOpened');
     });
   };
 
