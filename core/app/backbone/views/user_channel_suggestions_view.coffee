@@ -9,8 +9,9 @@ class window.UserChannelSuggestionsView extends Backbone.Marionette.CompositeVie
     addToCollection: @options.addToCollection
     addToActivities: @options.addToActivities
 
-  initialize: (options) ->
+  initialize: (options)->
     @collection =  collectionDifference(ChannelList,'slug_title', @collection, options.addToCollection);
+    @on 'itemview:added', => @trigger 'added'
 
   showEmptyView: => @$el.hide()
   closeEmptyView: => @$el.show()
