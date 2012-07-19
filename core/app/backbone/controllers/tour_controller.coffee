@@ -20,7 +20,7 @@ class window.TourController
 
 
     tourstep.on 'next', =>
-        FactlinkApp.leftTopRegion.close()
+        FactlinkApp.leftTopRegion.show(new AddChannelsTourStep2())
         FactlinkApp.leftBottomRegion.show(channelCollectionView)
         FactlinkApp.leftMiddleRegion.show(
           suggestionview = new UserChannelSuggestionsView(
@@ -28,5 +28,5 @@ class window.TourController
             addToActivities: activities
             collection: @suggestedUserChannels))
         suggestionview.on 'added', ->
-          FactlinkApp.leftTopRegion.show(tourstep = new AddChannelsTourStep2())
+          FactlinkApp.leftTopRegion.show(tourstep = new AddChannelsTourStep3())
           tourstep.on 'next', -> window.location = '/'
