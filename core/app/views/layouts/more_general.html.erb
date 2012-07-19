@@ -32,7 +32,7 @@
 
   <%= yield :more_specific_page %>
 
-  <%= render 'home/footer' %>
+  <%= render 'home/footer' unless @step_in_signup_process %>
 
   <%= yield :specific_javascript%>
 
