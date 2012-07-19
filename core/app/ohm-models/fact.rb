@@ -8,7 +8,7 @@ class Fact < Basefact
 
 
   def set_activity!
-    activity(self.created_by, "created", self)
+    activity(self.created_by, :created, self)
   end
 
   # TODO dirty, please decouple
