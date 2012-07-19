@@ -65,6 +65,8 @@ json.activity do |json|
         subject: subject,
         object: object,
         user: user
+  when "added_first_factlink"
+    json.fact         Facts::Fact.for(fact: subject, view: self).to_hash
   when "believes", "doubts", "disbelieves"
     if showing_notifications
       json.action action
