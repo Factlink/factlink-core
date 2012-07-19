@@ -1,5 +1,5 @@
 class window.UserChannelSuggestionsView extends Backbone.Marionette.CompositeView
-  template: "channels/_related_channels",
+  template: "channels/_suggested_user_channels"
 
   itemViewContainer: "ul",
 

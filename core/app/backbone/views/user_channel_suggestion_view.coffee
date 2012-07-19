@@ -1,5 +1,5 @@
 class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
-  template: "activities/_suggested_topic"
+  template: "channels/_suggested_user_channel"
   tagName: "li"
 
   events:
