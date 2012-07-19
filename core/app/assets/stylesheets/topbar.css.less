@@ -42,9 +42,10 @@
 }
 
 // Overwrite caret color
-.navbar .nav .dropdown-toggle .caret,
-.navbar .nav .open.dropdown .caret {
+.navbar .nav li.dropdown .dropdown-toggle .caret,
+.navbar .nav li.dropdown.open .caret  {
   border-top-color: @black;
+  border-bottom-color: @black;
   .opacity(30);
 }
 
@@ -63,6 +64,8 @@
 
 .navbar-search {
   .search-query {
+    margin-top: 1px;
+    margin-bottom: 0;
     background: image-url("searchIcon.png") 8px center no-repeat #fff;
     color: @gray;
     border: 1px solid #ccc;
@@ -108,9 +111,9 @@
 
   margin: 0;
   .input-fields {
+    margin-top: 2px;
     #user_login, #user_login_password {
       margin: 0;
-      margin-top: 5px;
     }
   }
 }
