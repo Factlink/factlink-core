@@ -2,7 +2,7 @@
 
 <div class="help-text-container">
 
-  <div id="step1" class="white-well span2">
+  <div id="step1" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -12,7 +12,7 @@
     <p>You can use Factlink to select statements on any website by using the Chrome Extension.</p>
   </div>
 
-  <div id="step2" class="white-well span2">
+  <div id="step2" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -21,7 +21,7 @@
     <p>Now click the 'Add Factlink' button.</p>
   </div>
 
-  <div id="step3" class="white-well span2">
+  <div id="step3" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -31,7 +31,7 @@
     <p>Click the text or Show to open.</p>
   </div>
 
-  <!-- <div id="step4" class="white-well span2">
+  <!-- <div id="step4" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -40,7 +40,7 @@
     <p>Add your opinion by clicking into a part of the Factlink wheel.</p>
   </div>
 
-  <div id="step5" class="white-well span2">
+  <div id="step5" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -49,7 +49,7 @@
     <p>Try adding this Factlink to a channel clicking on "My Channels" and typing in the input field.</p>
   </div> -->
 
-  <div id="step6" class="white-well span2">
+  <div id="step6" class="white-well tour-block">
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -58,7 +58,7 @@
     <!-- <p>Just click 'Post to Factlink' and you have created your first Factlink!</p> -->
     <p>You can now interact with the Factlink, or close it and continue.</p>
 
-    <%= link_to( 'Continue', activities_channel_path(current_user, current_user.graph_user.stream), class: "btn btn-primary btn-mini" ) %>
+    <%= link_to( 'Continue', choose_channels_path, class: "btn btn-primary btn-mini" ) %>
 
   </div>
 

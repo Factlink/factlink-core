@@ -25,6 +25,9 @@ class AddedOpinionView extends GenericActivityFactItemView
 class AddedFactToChannelView extends GenericActivityFactItemView
   template: "activities/_added_fact_to_channel"
 
+class AddedFirstFactlinkView extends GenericActivityFactItemView
+  template: "activities/_added_first_factlink"
+
 window.getActivityItemViewFor = (model) ->
   switch model.get("action")
     when "added_supporting_evidence", "added_weakening_evidence"
@@ -37,5 +40,7 @@ window.getActivityItemViewFor = (model) ->
       AddedOpinionView
     when "added_fact_to_channel"
       AddedFactToChannelView
+    when "added_first_factlink"
+      AddedFirstFactlinkView
     else
       GenericActivityItemView
