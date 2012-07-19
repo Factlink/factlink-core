@@ -1,0 +1,1 @@
+class window.SearchResultItem extends Backbone.Model
