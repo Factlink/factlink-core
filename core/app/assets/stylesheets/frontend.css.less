@@ -276,41 +276,96 @@ body.factlink-site .fact-block {
     .related-channels ul.not_my_channel a.follow {
       display: none;
     }
-    #channel-listing {
-      padding: 10px;
-      .my-channels {
-        i {
-          .opacity(0.6);
-          margin-top: 1px;
-        }
-        font-weight: bold;
-        font-size: (@baseFontSize + 1);
-      }
-      li {
-        width: auto;
-        padding: 5px 0 0 19px;
-        &:first-child {
-          padding: 0;
-        }
-        .delete {
-          .icon-remove {
+    .tourChannels {
+      #channel-listing {
+        padding: 10px;
+        .my-channels {
+          i {
             .opacity(0.6);
+            margin-top: 1px;
           }
-          float: right;
-          display: inline-block;
-          padding: 0;
-          width: auto;
+          font-weight: bold;
+          font-size: (@baseFontSize + 1);
         }
-        span {
-          display: inline-block;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: 160px;
-          color: #555;
+        li {
+          width: auto;
+          padding: 5px 0 0 19px;
+          &:first-child {
+            padding: 0;
+          }
+          .delete {
+            .icon-remove {
+              .opacity(0.6);
+            }
+            float: right;
+            display: inline-block;
+            padding: 0;
+            width: auto;
+          }
+          span {
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 160px;
+            color: #555;
+          }
         }
       }
     }
-
+    .tour-block {
+      padding: 10px;
+      color: #555;
+      h4 {
+        color: #333;
+      }
+      p {
+        font-size: @metaFontSize;
+      }
+      margin-bottom: 30px;
+    }
+    .suggested-users {
+      li {
+        padding: 7px 10px;
+        border-top: 1px solid @baseBorderColor;
+        &:first-child {
+          border: none
+        }
+        .channel-avatar {
+          img {
+            width: 25px;
+            height: 25px;
+          }
+          width: 30px;
+          display: inline-block;
+          vertical-align: top;
+        }
+        .channel-info {
+          display: inline-block;
+          width: 125px;
+          vertical-align: top;
+          h5 {
+            font-size: @baseFontSize;
+            line-height: 16px;
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          .channel-user {
+            font-size: @metaFontSize;
+            line-height: 15px;
+            color: #777;
+            width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .btn {
+          display: inline-block;
+          vertical-align: top;
+          margin-top: 4px;
+        }
+      }
+    }
   }
   @borderRadius: 4px;
   #main-wrapper {
