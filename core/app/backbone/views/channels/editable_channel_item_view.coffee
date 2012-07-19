@@ -6,6 +6,6 @@ class window.EditableChannelItemView extends Backbone.Marionette.ItemView
   events:
     'click .delete': 'delete'
 
-  initialize: ()-> @model.bind('change',@render,this)
-  onRender:   ()-> @$el.attr('id', 'channel-' + @model.id)
-  delete:     ()-> @model.destroy()
+  initialize: -> @model.bind('change',@render,this)
+  onRender:   -> @$el.attr('id', 'channel-' + @model.id)
+  delete:     -> @model.destroy()
