@@ -5,7 +5,7 @@ class TosController < ApplicationController
 
   def show
     if can? :sign_tos, current_user
-      @step_in_signup_process = :sign_tos
+      @step_in_signup_process = :account
     end
   end
 
