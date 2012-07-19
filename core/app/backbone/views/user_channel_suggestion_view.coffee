@@ -6,6 +6,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     'click a.btn' : 'addChannel'
 
   addChannel: ->
+    @trigger 'added'
     aantal_callbacks = 0
     activity = undefined
     channel = undefined
