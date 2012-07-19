@@ -3,7 +3,7 @@
   function InteractiveTour () {
 
     var self = this;
-    var SHOW_HELP_TEXT_DELAY = 450;
+    var SHOW_HELP_TEXT_DELAY = 560;
 
     initialize();
 
