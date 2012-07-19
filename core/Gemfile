@@ -107,6 +107,8 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'hogan_assets', '= 1.0.3'
 
+  gem 'therubyracer'
+
   # jQuery
   gem 'jquery-rails', '= 1.0.19'
   gem 'less-rails-bootstrap', '>= 2.0.6'
