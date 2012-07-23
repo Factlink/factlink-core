@@ -44,9 +44,6 @@ FactlinkUI::Application.routes.draw do
 
   authenticated :user do
 
-    # this one is actually not checked
-    get "/p/tour" => "home#tour", as: "tour"
-
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 

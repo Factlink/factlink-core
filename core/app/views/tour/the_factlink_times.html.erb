@@ -17,7 +17,7 @@
       <div class="arrow-right-white"></div>
     </div>
 
-    <h4>Good job! Not so hard after all</h4>
+    <h4>Good job!</h4>
     <p>Now click the 'Add Factlink' button.</p>
   </div>
 
@@ -26,9 +26,8 @@
       <div class="arrow-right-white"></div>
     </div>
 
-    <h4>Nice.</h4>
-    <p>Your first Factlink is a fact!</p>
-    <p>Click the text or Show to open.</p>
+    <h4>Your first Factlink is a fact</h4>
+    <p>To view it, simply click the text you selected or 'Show' to open.</p>
   </div>
 
   <!-- <div id="step4" class="white-well tour-block">
@@ -54,7 +53,7 @@
       <div class="arrow-right-white"></div>
     </div>
 
-    <h4>You're all set.</h4>
+    <h4>That's how you view a Factlink</h4>
     <!-- <p>Just click 'Post to Factlink' and you have created your first Factlink!</p> -->
     <p>You can now interact with the Factlink, or close it and continue.</p>
 
@@ -112,7 +111,7 @@
       tour.showStep(3);
     });
 
-    FACTLINK.on('balloonClicked', function () {
+    FACTLINK.on('modalOpened', function () {
       // tour.showStep(4);
       tour.showStep(6);
     });
