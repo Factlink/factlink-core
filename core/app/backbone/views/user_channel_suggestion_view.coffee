@@ -34,7 +34,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
       success: =>
         @options.addToActivities.unshift(last_fact_activity)
         options.success(last_fact_activity)
-      error: => options.error()
+      error: => options.error() if options.error
 
 
   createNewChannelWithSubchannel: (options) ->
