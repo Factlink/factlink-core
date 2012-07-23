@@ -68,7 +68,7 @@ describe "Check the ToS", type: :request do
     end
 
     it "should redirect to the Interactive Tour" do
-      page.should have_content("The Factlink Times")
+      page.should have_content("Climate change")
     end
 
     pending "should show the Tour", js: true do
