@@ -21,6 +21,7 @@ json.subject subject.to_s
 
 json.time_ago time_ago_in_words(Time.at(created_at.to_time))
 
+json.id activity.id
 
 json.activity do |json|
 
