@@ -50,16 +50,16 @@ input, textarea, .navbar-search .search-query, p {
     color: #ffffff;
 }
 .btn-primary {
-	background-color: #5E8BA6;
-	background-image: -moz-linear-gradient(top, #669BBB, #5E8BA6);
-	background-image: -ms-linear-gradient(top, #669BBB, #5E8BA6);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#669BBB), to(#5E8BA6));
-	background-image: -webkit-linear-gradient(top, #669BBB, #5E8BA6);
-	background-image: -o-linear-gradient(top, #669BBB, #5E8BA6);
-	background-image: linear-gradient(top, #669BBB, #5E8BA6);
+	background-color: @linkColor;
+	background-image: -moz-linear-gradient(top, #669BBB, @linkColor);
+	background-image: -ms-linear-gradient(top, #669BBB, @linkColor);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#669BBB), to(@linkColor));
+	background-image: -webkit-linear-gradient(top, #669BBB, @linkColor);
+	background-image: -o-linear-gradient(top, #669BBB, @linkColor);
+	background-image: linear-gradient(top, #669BBB, @linkColor);
 	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#669BBB', endColorstr='#5E8BA6', GradientType=0);
-	border-color: #5E8BA6 #5E8BA6 #000000;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#669BBB', endColorstr='@linkColor', GradientType=0);
+	border-color: @linkColor @linkColor #000000;
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
@@ -68,5 +68,5 @@ input, textarea, .navbar-search .search-query, p {
 .btn-primary.active,
 .btn-primary.disabled,
 .btn-primary[disabled] {
-	background-color: #5E8BA6;
+	background-color: @linkColor;
 }

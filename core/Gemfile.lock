@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: https://github.com/Factlink/mixpanel.git
-  revision: ecdccd99d0b0470194da030d96cc3d545980e371
+  revision: 5aaa3345467f628920c1345b32eb47269c5719e0
   specs:
     mixpanel (1.1.3)
       escape

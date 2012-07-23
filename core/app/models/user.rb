@@ -102,12 +102,31 @@ class User
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
 
-
   class << self
     def active
       where :approved => true
       where :confirmed_at.ne => nil
       where :agrees_tos => true
+    end
+
+    def not_agreed_with_tos
+      where :approved => true
+      where :confirmed_at.ne => nil
+      where :agrees_tos => false
+    end
+
+    # List of fields that are stored in Mixpanel.
+    # The key   represents how the field is stored in our Model
+    # The value represents how it is stored in Mixpanel
+    def mixpaneled_fields
+      {
+        "first_name"      => "first_name",
+        "last_name"       => "last_name",
+        "username"        => "username",
+        "email"           => "email",
+        "created_at"      => "created",
+        "last_sign_in_at" => "last_login"
+      }
     end
   end
 
