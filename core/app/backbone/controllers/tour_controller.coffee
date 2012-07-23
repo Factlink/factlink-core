@@ -19,6 +19,8 @@ class window.TourController
     FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep1())
 
     tourstep.on 'next', =>
+      done = false
+
       FactlinkApp.leftTopCrossFadeRegion.crossFade(new AddChannelsTourStep2())
       FactlinkApp.leftBottomRegion.crossFade(channelCollectionView)
       FactlinkApp.leftMiddleRegion.crossFade(
@@ -26,6 +28,8 @@ class window.TourController
           addToCollection: window.Channels
           addToActivities: activities
           collection: @suggestedUserChannels))
-      suggestionview.on 'added', ->
-        FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
-        tourstep.on 'next', -> window.location = '/'
+      suggestionview.on 'added', =>
+        unless done
+          done = true
+          FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
+          tourstep.on 'next', -> window.location = '/'
