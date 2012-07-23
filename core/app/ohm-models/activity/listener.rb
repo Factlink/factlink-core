@@ -60,13 +60,10 @@ class Activity < OurOhm
 
     def process activity
       add_to(activity).each do |id|
-        score = Ohm::Model::TimestampedSet.current_time(DateTime.parse(activity.created_at))
                                      #constantize
         klass = self.activity_for.split('::').inject(Kernel) {|x,y|x.const_get(y)}
         instance = klass[id]
-        if instance
-          instance.send(listname).add(activity, score)
-        end
+        activity.add_to_list_with_score(instance.send(listname)) if instance
       end
     end
 

@@ -70,4 +70,7 @@ FactoryGirl.define do
   sequence :slug_title do |n|
     "slug-#{n}-title"
   end
+
+  factory :activity do
+  end
 end

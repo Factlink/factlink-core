@@ -25,7 +25,7 @@ class MapReduce
     end
 
     def authority_from_added_facts ch
-      [ch.sorted_internal_facts.count / 10, 5].min
+      [ch.sorted_internal_facts.count.to_f / 10, 5].min
     end
 
     def reduce bucket, values

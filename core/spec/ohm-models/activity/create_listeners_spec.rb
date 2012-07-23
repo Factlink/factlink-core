@@ -168,4 +168,14 @@ describe 'activity queries' do
       ]
     end
   end
+  describe :added_facts do
+    it 'should contain the last added fact' do
+      ch = create :channel
+      f = create :fact
+      ch.add_fact f
+      ch.added_facts.map(&:to_hash_without_time).should == [
+        {user: ch.created_by, action: :added_fact_to_channel, subject: f, object: ch}
+      ]
+    end
+  end
 end

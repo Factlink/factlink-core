@@ -9,7 +9,7 @@ module MixpanelRails
   end
 
   class Tracker < Mixpanel::Tracker
-    def initialize(env, async = false, url = 'http://api.mixpanel.com/track/?data=')
+    def initialize(env, async = false, url = 'http://api.mixpanel.com/')
       super(FactlinkUI::Application.config.mixpanel_token, env, async, url)
     end
   end
