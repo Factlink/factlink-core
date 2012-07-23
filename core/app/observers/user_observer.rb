@@ -18,9 +18,9 @@ def update_mixpanel_for user
   mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
   changed = false
 
-  fields = user.changes.slice( *User.mixpaneled_fields )
-
-  fields.each { |key, values| fields[key] = values[1] }
+  fields = user.changes
+            .slice( *User.mixpaneled_fields.keys )
+            .inject({}){|memo, (k,v)| memo[User.mixpaneled_fields[k]] = v[1]; memo }
 
   if fields.length > 0
     mixpanel.set_person_event user.id, fields
