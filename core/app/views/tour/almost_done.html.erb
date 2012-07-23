@@ -10,7 +10,13 @@
 	</div>
 
 	<div class="hidden no-chrome">
-		<p>To use Factlink on all of your websites you should use our bookmarklet.</p>
+		<p>This browser is not fully supported. We've build a Chrome Extension that adds a layer to the web. To use this Extension you need to install Google Chrome.</p>
+
+		<a id="chrome-download-button" class="btn download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("chromeDarkIcon.png", style: "margin: 0 8px 0 0") %>Install Google Chrome</a>
+	</div>
+
+	<div class="hidden no-chrome or-divider">
+		<span>or</span>
 	</div>
 
 	<!-- Chrome Yeah! -->
@@ -23,12 +29,14 @@
 
 	<!-- Non-fancy browsers :-) -->
 	<div class="hidden button-wrapper no-chrome">
+		<p>You can use Factlink with this browser by using the bookmarklet, but keep in mind that this won't give you the full Factlink experience.</p>
+
 		<span class="dashed-border">
 			<a id="bookmarklet-button" class="bookmarklet btn" onclick="return false"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><i class='icon-bookmark'></i><span style="display: none">Factlink</span></a>
 		</span>
-		<p>You can drag this Bookmarklet to your bookmarks bar.</p>
+		<p class="bookmarklet-text">You can drag this Bookmarklet to your bookmarks bar.</p>
 	</div>
 
 	<div class="bottom">
