@@ -133,4 +133,61 @@ describe Activity do
     end
   end
 
+  describe 'list management' do
+    let(:activity) do Activity.create(
+             :user => gu,
+             :action => :foo,
+             :subject => b1,
+             :object => b2
+           )
+    end
+
+    before do
+    end
+    describe :add_to_list_with_score do
+      it "should add the activity to the list" do
+        @activity.add_to_list_with_score(gu.stream_activities)
+        gu.stream_activities.map(&:to_hash_without_time).should == [
+          @activity.to_hash_without_time
+        ]
+
+        @activity.key[:containing_sorted_sets].smembers.should == [gu.stream_activities.key.to_s]
+      end
+    end
+
+    describe :remove_from_containing_lists do
+      it "should remove the activity from the list" do
+        @activity.add_to_list_with_score(gu.stream_activities)
+        @activity.remove_from_containing_sorted_sets
+        gu.stream_activities.all.should == []
+      end
+
+      it "should leave other activities intact" do
+        @activity2 = Activity.create(
+               :user => gu,
+               :action => :foo2,
+               :subject => b1,
+               :object => b2
+             )
+
+        @activity.add_to_list_with_score(gu.stream_activities)
+        @activity2.add_to_list_with_score(gu.stream_activities)
+        @activity.remove_from_containing_sorted_sets
+        gu.stream_activities.all.should == [@activity2]
+
+      end
+    end
+    describe :delete do
+      it 'should call remove_from_containing_sorted_sets' do
+        @activity = Activity.create(
+               :user => gu,
+               :action => :foo,
+               :subject => b1,
+               :object => b2
+             )
+        @activity.should_receive(:remove_from_containing_sorted_sets)
+        @activity.delete
+      end
+    end
+  end
 end

@@ -53,6 +53,16 @@ class Activity < OurOhm
 
   def add_to_list_with_score list
     list.add(self,timestamp)
+    self.key[:containing_sorted_sets].sadd list.key.to_s
+  end
+
+  before :delete, :remove_from_containing_sorted_sets
+
+  def remove_from_containing_sorted_sets
+    self.key[:containing_sorted_sets].smembers.each do |list|
+      Nest.new(list).zrem self.id
+    end
+    self.key[:containing_sorted_sets].del
   end
 
 end
