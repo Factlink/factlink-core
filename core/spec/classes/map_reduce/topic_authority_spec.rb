@@ -32,15 +32,10 @@ describe MapReduce::TopicAuthority do
        ch1.add_fact create(:fact)
        ch1.add_fact create(:fact)
        ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
 
        result = subject.wrapped_map(channels)
 
-       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [1.0]
+       result[{topic: ch1.slug_title, user_id: gu1.id}].should == [0.5]
        result.length.should == 1
      end
      it "should give you credit if your channels are followed by other channels" do
@@ -63,7 +58,7 @@ describe MapReduce::TopicAuthority do
        subject.reduce(:foo, [1,2,3]).should == 6.0
      end
    end
-   
+
    describe :write_output do
      it "should add the user to the top_users of the topic" do
        Topic.ensure_for_channel(Channel.create(created_by: gu1, title: 'Foo'))
