@@ -191,15 +191,20 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
+  def sanitized_activities(activities, &block)
+    block.call(activities).keep_if{|a| a.andand[:item].andand.still_valid?}
+  end
+
   def activities
     authorize! :show, @channel
 
     respond_to do |format|
       format.json do
-        @activities = @channel.activities.below( params[:timestamp] || 'inf',
-          count: params[:number].andand.to_i || 11,
-          reversed: true, withscores: true).
-            keep_if{|a| a.andand[:item].andand.still_valid?}
+        @activities = sanitized_activities @channel.activities do |list|
+          list.below( params[:timestamp] || 'inf',
+            count: params[:number].andand.to_i || 11,
+            reversed: true, withscores: true)
+        end
         render
       end
       format.html { render inline:'', layout: "channels" }
