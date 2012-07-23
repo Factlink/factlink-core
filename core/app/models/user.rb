@@ -102,7 +102,6 @@ class User
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
 
-
   class << self
     def active
       where :approved => true
@@ -114,6 +113,10 @@ class User
       where :approved => true
       where :confirmed_at.ne => nil
       where :agrees_tos => false
+    end
+
+    def mixpaneled_fields
+      ["first_name", "last_name", "username", "email", "created_at", "last_sign_in_at"]
     end
   end
 
