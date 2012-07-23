@@ -192,7 +192,17 @@ class ChannelsController < ApplicationController
   end
 
   def sanitized_activities(activities, &block)
-    block.call(activities).keep_if{|a| a.andand[:item].andand.still_valid?}
+    retrieved_activities = block.call(activities)
+    resulting_activities = []
+    retrieved_activities.each do |a|
+      if a.andand[:item].andand.still_valid?
+        resulting_activities << a
+      end
+    end
+    if resulting_activities.length != retrieved_activities.length
+      Resque.enqueue(Janitor::CleanActivityList,activities.key.to_s)
+    end
+    return resulting_activities
   end
 
   def activities
