@@ -18,7 +18,9 @@
       self.lastStep = self.currentStep;
       self.currentStep = id;
 
-      showHelpText(id);
+      if ((self.lastStep !== self.currentStep) && (self.lastStep < self.currentStep) ) {
+        showHelpText(id);
+      }
     }
 
     function showHelpText () {
