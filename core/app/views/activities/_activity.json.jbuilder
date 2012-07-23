@@ -1,3 +1,10 @@
+a = activity
+subject = a.subject
+object = a.object
+action = a.action
+created_at = a.created_at
+user =  a.user.user
+
 json.username user.username
 
 json.subject_class subject.class.to_s
