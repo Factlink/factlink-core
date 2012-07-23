@@ -56,6 +56,11 @@ class Activity < OurOhm
     self.key[:containing_sorted_sets].sadd list.key.to_s
   end
 
+  def remove_from_list list
+    list.delete self
+    self.key[:containing_sorted_sets].srem list.key.to_s
+  end
+
   before :delete, :remove_from_containing_sorted_sets
 
   def remove_from_containing_sorted_sets

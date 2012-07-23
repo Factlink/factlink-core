@@ -160,6 +160,17 @@ describe Activity do
       end
     end
 
+
+    describe :remove_from_list do
+      it "should add the activity to the list" do
+        activity.add_to_list_with_score(gu.stream_activities)
+        activity.remove_from_list(gu.stream_activities)
+
+        gu.stream_activities.map(&:to_hash_without_time).should == []
+        activity.key[:containing_sorted_sets].smembers.should == []
+      end
+    end
+
     describe :remove_from_containing_lists do
       it "should remove the activity from the list" do
         activity.add_to_list_with_score(gu.stream_activities)
