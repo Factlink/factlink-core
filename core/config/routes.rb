@@ -113,7 +113,7 @@ FactlinkUI::Application.routes.draw do
       end
 
       resources :activities, only: [:index, :create, :update, :destroy],
-                controller: 'channelActivities' do |variable|
+                controller: 'channel_activities' do |variable|
         collection do
           get "last_fact"
         end
