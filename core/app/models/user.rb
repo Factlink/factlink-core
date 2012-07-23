@@ -109,6 +109,12 @@ class User
       where :confirmed_at.ne => nil
       where :agrees_tos => true
     end
+
+    def not_agreed_with_tos
+      where :approved => true
+      where :confirmed_at.ne => nil
+      where :agrees_tos => false
+    end
   end
 
   after_invitation_accepted :approve_invited_user_and_create_activity
