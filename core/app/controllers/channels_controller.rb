@@ -191,40 +191,6 @@ class ChannelsController < ApplicationController
     respond_with(@channel)
   end
 
-  def sanitized_activities(activities, &block)
-    retrieved_activities = block.call(activities)
-    resulting_activities = []
-    retrieved_activities.each do |a|
-      if a.andand[:item].andand.still_valid?
-        resulting_activities << a
-      end
-    end
-    if resulting_activities.length != retrieved_activities.length
-      Resque.enqueue(Janitor::CleanActivityList,activities.key.to_s)
-    end
-    return resulting_activities
-  end
-
-  def activities
-    authorize! :show, @channel
-
-    respond_to do |format|
-      format.json do
-        @activities = sanitized_activities @channel.activities do |list|
-          list.below( params[:timestamp] || 'inf',
-            count: params[:number].andand.to_i || 11,
-            reversed: true, withscores: true)
-        end
-        render
-      end
-      format.html { render inline:'', layout: "channels" }
-    end
-  end
-
-  def last_fact_activity
-    authorize! :show, @channel
-  end
-
   private
     def get_user
       if @channel

@@ -112,9 +112,14 @@ FactlinkUI::Application.routes.draw do
         end
       end
 
+      resources :activities, only: [:index, :create, :update, :destroy],
+                controller: 'channelActivities' do |variable|
+        collection do
+          get "last_fact"
+        end
+      end
+
       member do
-        get "activities",     :as => "activities"
-        get "last_fact_activity"
 
         post "toggle/fact/:fact_id/" => "channels#toggle_fact"
 
