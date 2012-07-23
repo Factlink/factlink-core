@@ -58,7 +58,7 @@ module BaseViews
 
     private
       def show_links
-        not (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]) and not self[:hide_links] and self[:fact].site
+        not (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]) and not self[:hide_links] and self[:fact].site and self[:fact].site.blank?
       end
 	end
 end

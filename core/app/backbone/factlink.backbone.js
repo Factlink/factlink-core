@@ -14,6 +14,7 @@
 //= require_tree ./collections/
 //= require_tree ./layouts/
 //= require_tree ./views/
+//= require_tree ./views/channels/
 //= require_tree ./controllers/
 //= require_tree ./routers/
 //= require ./initializers.js

@@ -21,6 +21,7 @@ describe 'activity queries' do
         {user: gu1, action: :created, subject: f1}
       ]
     end
+
   end
 
   describe ".channel" do
@@ -91,6 +92,7 @@ describe 'activity queries' do
 
     it "should only return other users activities, not User his own activities" do
       f1 = create :fact
+      f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
       f1.add_opinion(:disbelieves, f1.created_by)
@@ -102,11 +104,21 @@ describe 'activity queries' do
 
     it "should return activity when a user adds a Fact to your channel" do
       f = create :fact, created_by: gu1
+      f.created_by.stream_activities.key.del # delete other activities
+
       ch = create :channel, created_by: gu2
       ch.add_fact(f)
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
+      ]
+    end
+
+    it "should return a :added_first_factlink activity when the users' first factlink is created" do
+      f1 = create :fact, created_by: gu1
+
+      gu1.stream_activities.map(&:to_hash_without_time).should == [
+        {user: gu1, action: :added_first_factlink, subject: f1}
       ]
     end
 
@@ -133,6 +145,8 @@ describe 'activity queries' do
     [:believes, :doubts, :disbelieves].each do |opinion|
       it "should return activity when a user opinionates a fact of the user" do
         f1 = create :fact
+        f1.created_by.stream_activities.key.del # delete other activities
+
         f1.add_opinion(opinion, gu1)
 
         f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
@@ -151,6 +165,16 @@ describe 'activity queries' do
 
       u.graph_user.notifications.map(&:to_hash_without_time).should == [
         {user: inviter.graph_user, action: :invites, subject: u.graph_user}
+      ]
+    end
+  end
+  describe :added_facts do
+    it 'should contain the last added fact' do
+      ch = create :channel
+      f = create :fact
+      ch.add_fact f
+      ch.added_facts.map(&:to_hash_without_time).should == [
+        {user: ch.created_by, action: :added_fact_to_channel, subject: f, object: ch}
       ]
     end
   end

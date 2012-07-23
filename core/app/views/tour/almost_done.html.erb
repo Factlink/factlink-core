@@ -10,41 +10,40 @@
 	</div>
 
 	<div class="hidden no-chrome">
-		<p>To use Factlink on all of your websites you should use our bookmarklet.</p>
+		<p>This browser is not fully supported. We've build a Chrome Extension that adds a layer to the web. To use this Extension you need to install Google Chrome.</p>
+
+		<a id="chrome-download-button" class="btn download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("chromeDarkIcon.png", style: "margin: 0 8px 0 0") %>Install Google Chrome</a>
+	</div>
+
+	<div class="hidden no-chrome or-divider">
+		<span>or</span>
 	</div>
 
 	<!-- Chrome Yeah! -->
 	<div class="hidden button-wrapper chrome">
-
 		<span class="transparent-border">
 			<iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
-
 			<a id="chrome-extension-button" target="ce-download" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
 		</span>
-
 	</div>
 
 	<!-- Non-fancy browsers :-) -->
 	<div class="hidden button-wrapper no-chrome">
+		<p>You can use Factlink with this browser by using the bookmarklet, but keep in mind that this won't give you the full Factlink experience.</p>
 
 		<span class="dashed-border">
 			<a id="bookmarklet-button" class="bookmarklet btn" onclick="return false"
            <%# here we need singlequotes kthxbye: %>
            href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><i class='icon-bookmark'></i><span style="display: none">Factlink</span></a>
-
-
 		</span>
-
-		<p>You can drag this Bookmarklet to your bookmarks bar.</p>
-
+		<p class="bookmarklet-text">You can drag this Bookmarklet to your bookmarks bar.</p>
 	</div>
 
 	<div class="bottom">
-		<a id="skip-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_skip') %>">Skip step</a>
-		<a id="next-step" href="<%= activities_channel_path(current_user, current_user.graph_user.stream, ref: 'extension_next') %>" class="next btn btn-primary btn-large">Continue</a>
+		<a id="skip-step" href="<%= the_factlink_times_path(ref: 'extension_skip') %>">Skip step</a>
+		<a id="next-step" href="<%= the_factlink_times_path(ref: 'extension_next') %>" class="next btn btn-primary btn-large">Next step</a>
 	</div>
 </div>
-
 
 <% content_for :javascript do %>
   <script>

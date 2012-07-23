@@ -1,0 +1,25 @@
+src_files:
+  - "frontend.js"
+
+stylesheets:
+  - stylesheets/**/*.css
+
+helpers:
+  - helpers/**/*.js
+
+spec_files:
+  - '**/*[sS]pec.js'
+
+src_dir:
+  - app/backbone
+  - app/assets/javascripts
+  - vendor/assets/javascripts
+  - app/templates
+
+asset_paths:
+  - app/backbone
+  - app/assets/javascripts
+  - vendor/assets/javascripts
+  - app/templates
+
+spec_dir: spec/javascripts

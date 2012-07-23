@@ -3,8 +3,10 @@ class window.TourController
   chooseChannels:  ->
     stream = window.Channels.models[0]
 
-    channelCollectionView = new ChannelsView(collection: window.Channels)
-    FactlinkApp.leftBottomRegion.show(channelCollectionView)
+    visibleAddedChannels = collectionDifference(ChannelList, 'is_normal', window.Channels,
+     [{is_normal: false}])
+
+    channelCollectionView = new EditableChannelsView(collection: visibleAddedChannels)
     activities = new ChannelActivities([],{ channel: stream })
     FactlinkApp.mainRegion.show(
       new ChannelActivitiesView
@@ -14,10 +16,17 @@ class window.TourController
     @suggestedUserChannels = new TopChannelList()
     @suggestedUserChannels.fetch()
 
+    FactlinkApp.leftTopRegion.show(tourstep = new AddChannelsTourStep1())
 
 
-    FactlinkApp.leftMiddleRegion.show(
-      new UserChannelSuggestionsView(
-        addToCollection: window.Channels
-        addToActivities: activities
-        collection: @suggestedUserChannels))
+    tourstep.on 'next', =>
+        FactlinkApp.leftTopRegion.show(new AddChannelsTourStep2())
+        FactlinkApp.leftBottomRegion.show(channelCollectionView)
+        FactlinkApp.leftMiddleRegion.show(
+          suggestionview = new UserChannelSuggestionsView(
+            addToCollection: window.Channels
+            addToActivities: activities
+            collection: @suggestedUserChannels))
+        suggestionview.on 'added', ->
+          FactlinkApp.leftTopRegion.show(tourstep = new AddChannelsTourStep3())
+          tourstep.on 'next', -> window.location = '/'

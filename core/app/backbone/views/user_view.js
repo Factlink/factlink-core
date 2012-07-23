@@ -8,6 +8,10 @@ window.UserView = Backbone.Marionette.ItemView.extend({
 
   template:"users/_user",
 
+  templateHelpers: {
+    'channel_listing_header': Backbone.Factlink.Global.t.my_channels.capitalize()
+  },
+
   clickHandler: function(e) {
     Backbone.history.navigate(this.model.url(), true);
   }

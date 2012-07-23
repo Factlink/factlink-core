@@ -5,7 +5,7 @@ class window.ActivitiesView extends AutoloadingView
   template: 'activities/list'
 
   initialize: (opts) ->
-    @collection.on('reset', @reset, this)
+    @collection.on('reset remove', @reset, this)
     @collection.on('add', @add, this)
 
     @addShowHideToggle('loadingIndicator', 'div.loading');
@@ -23,6 +23,7 @@ class window.ActivitiesView extends AutoloadingView
       @appendHtml(this, childView)
 
   reset: ->
+    @closeChildViews()
     @collection.each( @add, this );
     @renderChildren()
 
@@ -53,8 +54,12 @@ class window.ActivitiesView extends AutoloadingView
       appendTo
 
 
-  beforeClose: ->
+  closeChildViews: ->
     childView.close() for childView in @childViews
+    @childViews = []
+
+  beforeClose: -> @closeChildViews()
+
 
   appendHtml: (collectionView, childView, index) ->
     childView.render()

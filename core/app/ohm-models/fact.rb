@@ -8,7 +8,11 @@ class Fact < Basefact
 
 
   def set_activity!
-    activity(self.created_by, "created", self)
+    activity(self.created_by, :created, self)
+
+    if self.created_by.created_facts.size == 1
+      activity(self.created_by, :added_first_factlink , self)
+    end
   end
 
   # TODO dirty, please decouple

@@ -64,6 +64,11 @@ def create_activity_listeners
                action: :added_fact_to_channel,
                write_ids: lambda { |a| [a.object.containing_channels.map {|ch| ch.created_by_id }.keep_if { |id| id != a.user_id } ].flatten }
 
+      # the users first Factlink
+      activity subject_class: "Fact",
+               action: :added_first_factlink,
+               write_ids: lambda { |a| [a.subject.created_by_id] }
+
     end
 
     register do
@@ -77,6 +82,16 @@ def create_activity_listeners
       activity object_class: "Fact",
                action: [:added_supporting_evidence, :added_weakening_evidence],
                write_ids: lambda { |a| a.object.channels.ids }
+    end
+
+    register do
+      activity_for "Channel"
+      named :added_facts
+
+      # someone added a fact created to his channel
+      activity subject_class: "Fact",
+               action: :added_fact_to_channel,
+               write_ids: lambda { |a| [a.object_id] }
     end
 
     register do

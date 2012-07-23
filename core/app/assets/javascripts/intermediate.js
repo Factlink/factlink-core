@@ -2,8 +2,9 @@
 
 var // The iFrame
     showFrame = document.getElementById("frame"),
+    xdm = window.easyXDM.noConflict("FACTLINK"),
     // The global remote object
-    remote = new easyXDM.Rpc({}, {
+    remote = new xdm.Rpc({}, {
       remote: {
         hide: {},
         show: {},

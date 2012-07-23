@@ -19,10 +19,6 @@
         window.currentChannel = Channels.get(<%= @channel.id %>);
       <% end %>
 
-      <% if current_user && !current_user.seen_the_tour && (can? :access, Ability::FactlinkWebapp) %>
-        Tour.show();
-      <% end %>
-
     });
   </script>
 <% end %>

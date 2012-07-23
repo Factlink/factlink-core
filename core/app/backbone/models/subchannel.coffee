@@ -1,0 +1,1 @@
+class window.Subchannel extends Channel

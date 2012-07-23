@@ -1,5 +1,5 @@
 <ul id="steps">
-  <li<% if @step_in_signup_process == :choose_password %> class="active"<%end%> ><span>1</span> Account Completion</li>
-  <li<% if @step_in_signup_process == :sign_tos %> class="active"<%end%> ><span>2</span> Sign the ToS</li>
-  <li<% if @step_in_signup_process == :almost_done %> class="active"<%end%>><span>3</span>Done!</li>
+  <li<% if @step_in_signup_process == :account %> class="active"<%end%> ><span>1</span>Account</li>
+  <li<% if @step_in_signup_process == :create_factlink %> class="active"<%end%> ><span>2</span>Create Factlink</li>
+  <li<% if @step_in_signup_process == :almost_done %> class="active"<%end%> ><span>3</span>Stream</li>
 </ul>

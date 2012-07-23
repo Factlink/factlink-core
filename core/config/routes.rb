@@ -44,9 +44,6 @@ FactlinkUI::Application.routes.draw do
 
   authenticated :user do
 
-    # this one is actually not checked
-    get "/p/tour" => "home#tour", as: "tour"
-
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 
@@ -160,6 +157,7 @@ FactlinkUI::Application.routes.draw do
 
   scope "/p/tour" do
     get "youre-almost-done" => "tour#almost_done", as: "almost_done"
+    get "the-factlink-times" => "tour#the_factlink_times", as: "the_factlink_times"
     get "choose-channels" => "tour#choose_channels", as: "choose_channels"
   end
 
