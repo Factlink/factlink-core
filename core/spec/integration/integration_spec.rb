@@ -64,7 +64,7 @@ describe "Check the ToS", type: :request do
       click_button "Finish"
 
       page.should have_content "You're almost set!"
-      click_link "Skip step"
+      click_link "Skip this step"
     end
 
     it "should redirect to the Interactive Tour" do
