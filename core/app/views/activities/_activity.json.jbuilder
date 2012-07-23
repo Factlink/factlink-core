@@ -1,9 +1,8 @@
-a = activity
-subject = a.subject
-object = a.object
-action = a.action
-created_at = a.created_at
-user =  a.user.user
+subject = activity.subject
+object = activity.object
+action = activity.action
+created_at = activity.created_at
+user =  activity.user.user
 
 json.username user.username
 
