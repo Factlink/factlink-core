@@ -3,7 +3,7 @@ class AddAllUsersToMixpanel < Mongoid::Migration
     @mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
 
     User.active.each do |u|
-      @mixpanel.set_person_event u.id, {
+      @mixpanel.set_person_event u.id.to_s, {
         first_name: u.first_name,
         last_name: u.last_name,
         username: u.username,

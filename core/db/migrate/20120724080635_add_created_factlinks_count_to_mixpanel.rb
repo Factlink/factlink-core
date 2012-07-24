@@ -7,7 +7,7 @@ class AddCreatedFactlinksCountToMixpanel < Mongoid::Migration
 
       facts = gu.real_created_facts.to_a.keep_if { |f| f.site && f.site.url && not f.site.url.blank? }
 
-      mixpanel.set_person_event user.id, factlinks_created_with_url: facts.length
+      mixpanel.set_person_event user.id.to_s, factlinks_created_with_url: facts.length
     end
   end
 
