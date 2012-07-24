@@ -203,6 +203,7 @@ GEM
       sexp_processor (~> 3.0)
     haml (3.1.6)
     hashie (1.2.0)
+    hashr (0.0.21)
     headless (0.3.1)
     highline (1.6.13)
     hike (1.2.1)
@@ -364,6 +365,8 @@ GEM
       vegas (~> 0.1.2)
     resque_mailer (2.1.0)
       actionmailer (~> 3.0)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     ripper_ruby_parser (0.0.8)
       sexp_processor (~> 3.0)
     rmagick (2.13.1)
@@ -441,6 +444,12 @@ GEM
       rack (>= 1.0.0)
     thor (0.15.4)
     tilt (1.3.3)
+    tire (0.4.2)
+      activemodel (>= 3.0)
+      hashr (~> 0.0.19)
+      multi_json (~> 1.0)
+      rake
+      rest-client (~> 1.6)
     transaction-simple (1.4.0.2)
     treetop (1.4.10)
       polyglot
@@ -543,5 +552,6 @@ DEPENDENCIES
   sunspot_solr (~> 1.3.0)
   therubyracer
   thin
+  tire
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0)
