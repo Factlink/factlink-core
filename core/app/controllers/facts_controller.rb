@@ -160,14 +160,12 @@ class FactsController < ApplicationController
     search_for = params[:s]
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
     if search_for.length > 0
-      solr_result = FactData.tire.search(search_for, load:true)
-
-      results = solr_result.results.delete_if {|fd| FactData.invalid(fd)}
-      facts = results.
-        reject {|result| result.fact.id == @fact.id}.
-        map do |result|
-          Facts::FactBubble.for(fact: result.fact, view: view_context)
-        end
+      facts = FactData.tire.search(search_for, load:true).results.
+                        delete_if {|fd| FactData.invalid(fd)}.
+                        reject {|result| result.fact.id == @fact.id}.
+                        map do |result|
+                          Facts::FactBubble.for(fact: result.fact, view: view_context)
+                        end
     else
       facts = []
     end
