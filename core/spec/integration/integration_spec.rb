@@ -61,7 +61,7 @@ describe "Check the ToS", type: :request do
       fill_in "user_agrees_tos_name", with: "Sko Brenden"
       check "user_agrees_tos"
 
-      click_button "Finish"
+      click_button "Next"
 
       page.should have_content "You're almost set!"
       click_link "Skip this step"
