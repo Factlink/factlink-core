@@ -155,10 +155,6 @@ class FactsController < ApplicationController
     render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
-  # TODO: This search is way to simple now, we need to make sure already
-  # evidenced Factlinks are not shown in search results and therefore we need
-  # to move this search to the evidence_controller, to make sure it's
-  # type-specific
   def evidence_search
     authorize! :index, Fact
     search_for = params[:s]
