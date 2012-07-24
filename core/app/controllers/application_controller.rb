@@ -99,6 +99,10 @@ class ApplicationController < ActionController::Base
   def initialize_mixpanel
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
+    if action_name == "intermediate" and controller_name == "facts"
+      @mixpanel.append_api('disable', ['mp_page_view'])
+    end
+
     if current_user
       @mixpanel.append_identify(current_user.id.to_s)
     end
