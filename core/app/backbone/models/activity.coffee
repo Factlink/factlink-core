@@ -5,4 +5,8 @@ class window.Activity extends Backbone.Model
 class window.LastFactActivity extends Activity
   initialize: (options) -> @channel = options.channel
 
-  url: -> "#{@channel.normal_url()}/last_fact_activity.json"
+  url: ->
+    if @collection
+      super()
+    else
+      "#{@channel.normal_url()}/activities/last_fact.json"

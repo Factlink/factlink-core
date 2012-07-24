@@ -9,16 +9,15 @@ describe Janitor::CleanActivityList do
       @a2 = create :activity
 
       @a1.add_to_list_with_score(@u.stream_activities)
-      @a2.add_to_list_with_score(@u.stream_activities)
+      @u.stream_activities.key.zadd 10, 230502378906
 
     end
 
     it "should remove topics without channels" do
-      @a1.delete
-      @u.stream_activities.ids.should =~ [@a1.id,@a2.id]
-      Activity[@a1.id].should be_nil
+      @u.stream_activities.ids.should =~ [@a1.id,"230502378906"]
+      Activity[230502378906].should be_nil
       Janitor::CleanActivityList.perform(@u.stream_activities.key.to_s)
-      @u.stream_activities.ids.should =~ [@a2.id]
+      @u.stream_activities.ids.should =~ [@a1.id]
     end
   end
 end

@@ -128,7 +128,7 @@ class ChannelsController < ApplicationController
     @channel.delete
 
     respond_to do |format|
-      format.html  { redirect_to(activities_channel_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
+      format.html  { redirect_to(channel_activities_path(@user, @user.graph_user.stream), :notice => 'Channel successfully deleted') }
       format.json  { render :json => {}, :status => :ok }
     end
   end
@@ -189,25 +189,6 @@ class ChannelsController < ApplicationController
     @channel.remove_fact(@fact)
 
     respond_with(@channel)
-  end
-
-  def activities
-    authorize! :show, @channel
-
-    respond_to do |format|
-      format.json do
-        @activities = @channel.activities.below( params[:timestamp] || 'inf',
-          count: params[:number].andand.to_i || 11,
-          reversed: true, withscores: true).
-            keep_if{|a| a.andand[:item].andand.still_valid?}
-        render
-      end
-      format.html { render inline:'', layout: "channels" }
-    end
-  end
-
-  def last_fact_activity
-    authorize! :show, @channel
   end
 
   private

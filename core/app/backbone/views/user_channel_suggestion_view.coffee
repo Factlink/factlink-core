@@ -15,7 +15,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
       aantal_callbacks++
       activityCollection = @options.addToActivities
       if (aantal_callbacks == 2 )
-        channel.on 'destroy', -> activityCollection.remove(activity)
+        channel.on 'destroy', -> activity.destroy()
 
     @addActivityToStream
       success: (act)->
@@ -33,8 +33,9 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     last_fact_activity.fetch
       success: =>
         @options.addToActivities.unshift(last_fact_activity)
+        last_fact_activity.save()
         options.success(last_fact_activity)
-      error: => options.error()
+      error: => options.error() if options.error
 
 
   createNewChannelWithSubchannel: (options) ->

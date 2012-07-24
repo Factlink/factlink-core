@@ -16,16 +16,20 @@ class window.TourController
     @suggestedUserChannels = new TopChannelList()
     @suggestedUserChannels.fetch()
 
-    FactlinkApp.leftTopXFadeRegion.crossFade(tourstep = new AddChannelsTourStep1())
+    FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep1())
 
     tourstep.on 'next', =>
-      FactlinkApp.leftTopXFadeRegion.crossFade(new AddChannelsTourStep2())
+      done = false
+
+      FactlinkApp.leftTopCrossFadeRegion.crossFade(new AddChannelsTourStep2())
       FactlinkApp.leftBottomRegion.show(channelCollectionView)
       FactlinkApp.leftMiddleRegion.show(
         suggestionview = new UserChannelSuggestionsView(
           addToCollection: window.Channels
           addToActivities: activities
           collection: @suggestedUserChannels))
-      suggestionview.on 'added', ->
-        FactlinkApp.leftTopXFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
-        tourstep.on 'next', -> window.location = '/'
+      suggestionview.on 'added', =>
+        unless done
+          done = true
+          FactlinkApp.leftTopCrossFadeRegion.crossFade(tourstep = new AddChannelsTourStep3())
+          tourstep.on 'next', -> window.location = '/'

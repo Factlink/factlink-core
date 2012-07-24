@@ -14,7 +14,10 @@ module Janitor
     end
 
     def perform
-      @list.zrem *members_to_remove
+      # the redis lib does not seem to accept removal of multiple elements
+      members_to_remove.each do |member|
+        @list.zrem member
+      end
     end
 
     def self.perform(list_key)
