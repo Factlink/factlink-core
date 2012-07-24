@@ -49,7 +49,7 @@ describe "Check the ToS", type: :request do
   end
 
   it "should show errors when not agreeing the ToS" do
-    click_button "Finish"
+    click_button "Next"
 
     page.should have_selector("div.alert")
     page.should have_content("You have to accept the Terms of Service to continue.")
