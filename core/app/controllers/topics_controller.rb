@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
   end
 
   def top_channels
-    render_json_channels top_topics(12).map {|t| t.top_channels(1).first }
+    render_json_channels top_topics(12).map {|t| t.top_channels_with_fact(1).first }
   end
 
   private

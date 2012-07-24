@@ -51,6 +51,9 @@ class Topic
   def top_channels(nr=5)
     top_users(nr).map { |user| channel_for_user(user) }
   end
+  def top_channels_with_fact(nr=5)
+    redis[id][:top_channels_with_fact].zrevrange(0, (nr-1)).map {|id| Channel[id] }
+  end
 
   def top_users(nr=5)
     redis[id][:top_users].zrevrange(0, (nr-1)).map {|id| User.find(id)}.delete_if { |u| u.nil? }
@@ -58,10 +61,13 @@ class Topic
 
   def top_users_add(user, val)
     redis[id][:top_users].zadd val, user.id
+    ch = channel_for_user(user)
+    redis[id][:top_channels_with_fact].zadd val, ch.id if ch and (ch.added_facts.count > 0)
   end
 
   def top_users_clear
     redis[id][:top_users].del
+    redis[id][:top_channels_with_fact].del
   end
 
   def channels
