@@ -20,6 +20,10 @@ class Fact < Basefact
     self.created_by.created_facts_channel.add_fact(self)
   end
 
+  def has_site?
+    self.site and not self.site.url.andand.blank?
+  end
+
   def to_s
     self.data.displaystring || ""
   end
