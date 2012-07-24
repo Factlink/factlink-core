@@ -22,8 +22,8 @@ class window.TourController
       done = false
 
       FactlinkApp.leftTopCrossFadeRegion.crossFade(new AddChannelsTourStep2())
-      FactlinkApp.leftBottomRegion.crossFade(channelCollectionView)
-      FactlinkApp.leftMiddleRegion.crossFade(
+      FactlinkApp.leftBottomRegion.show(channelCollectionView)
+      FactlinkApp.leftMiddleRegion.show(
         suggestionview = new UserChannelSuggestionsView(
           addToCollection: window.Channels
           addToActivities: activities

@@ -6,5 +6,5 @@ FactlinkApp.addRegions
 
   leftTopCrossFadeRegion:  crossFadeRegion.extend( el: '#left-column .left-top-x-fade' )
   leftTopRegion:       '#left-column .user-block-container'
-  leftBottomRegion:    crossFadeRegion.extend( el: '#left-column .related-channels' )
-  leftMiddleRegion:    crossFadeRegion.extend( el: '#left-column .channel-listing-container' )
+  leftBottomRegion:    '#left-column .related-channels'
+  leftMiddleRegion:    '#left-column .channel-listing-container'
