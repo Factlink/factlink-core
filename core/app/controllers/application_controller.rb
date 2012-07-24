@@ -95,6 +95,15 @@ class ApplicationController < ActionController::Base
 
   end
 
+  before_filter :initialize_mixpanel
+  def initialize_mixpanel
+    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+
+    if current_user
+      @mixpanel.append_identify(current_user.id.to_s)
+    end
+  end
+
   private
     def channels_for_user(user)
       @channels = user.graph_user.channels
