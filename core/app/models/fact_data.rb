@@ -3,6 +3,11 @@ class FactData
   include Mongoid::Timestamps
 
   include Sunspot::Mongoid
+
+  include Tire::Model::Search
+  after_save { update_index }
+
+
   attr_accessible []
 
   searchable :auto_index => true do

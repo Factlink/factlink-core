@@ -160,11 +160,7 @@ class FactsController < ApplicationController
     search_for = params[:s]
     search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
     if search_for.length > 0
-      solr_result = Sunspot.search FactData do
-        fulltext search_for do
-          highlight :displaystring
-        end
-      end
+      solr_result = FactData.tire.search(search_for, load:true)
 
       results = solr_result.results.delete_if {|fd| FactData.invalid(fd)}
       facts = results.
