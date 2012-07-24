@@ -1,0 +1,3 @@
+#!/bin/bash
+bin/check_dependencies.sh || exit 1
+echo "At this point I could do all kinds of bootstrapping, but I don't, currently"
