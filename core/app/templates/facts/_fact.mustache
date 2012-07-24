@@ -32,7 +32,12 @@
   <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
   <li class="permalink">
+    {{#modal?}}
+    <a href="{{url}}" target="new"></a>
+    {{/modal?}}
+    {{^modal?}}
     <a href="{{url}}" target="_top"></a>
+    {{/modal?}}
   </li>
 
   <li class="interacting-users hide">
