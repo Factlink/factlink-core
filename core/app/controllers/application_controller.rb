@@ -104,6 +104,7 @@ class ApplicationController < ActionController::Base
     end
 
     if current_user
+      @mixpanel.append_api('name_tag', current_user.username)
       @mixpanel.append_identify(current_user.id.to_s)
     end
   end
