@@ -17,8 +17,6 @@
     flScript.onload = flScript.onreadystatechange = null;
     scriptLoaded = true;
 
-    console.info( window );
-
     window.FACTLINK.on = function() {
       iframe.contentWindow.Factlink.on.apply(iframe.contentWindow.Factlink, arguments);
     };
