@@ -1,14 +1,11 @@
-window.FactRelationsView = Backbone.Factlink.PlainView.extend(
+class window.FactRelationsView extends Backbone.Factlink.PlainView
   tagName: "div"
   className: "page evidence-list fact-relations-container"
   template: "fact_relations/fact_relations"
   initialize: (options) ->
     @_views = []
-    @_loading = true
     @collection.bind "add", @addFactRelation, this
-    @collection.bind "remove", @removeFactRelation, this
     @collection.bind "reset", @resetFactRelations, this
-    @showEmptyView()
     @initializeSearchView()
 
   initializeSearchView: ->
@@ -35,31 +32,20 @@ window.FactRelationsView = Backbone.Factlink.PlainView.extend(
 
     @showEmptyView() if @collection.length is 0
 
-  removeFactRelation: (factRelation) ->
-    console.info "Removing one FactRelation"
-
   onRender: -> @$el.prepend @factRelationSearchView.render().el
 
   hide: -> @$el.hide()
   show: -> @$el.show()
 
   showAndFetch: ->
-    unless @_fetched
-      @_fetched = true
-      @collection.reset()
-      @showLoadingIndicator()
-      @collection.fetch success: => @hideLoadingIndicator()
+    @fetch() unless @_fetched
     @show()
 
-  showLoadingIndicator: ->
-    @$(".loading-evidence").show()
-    @closeEmptyView()
+  fetch: ->
+    @_fetched = true
+    @collection.reset()
+    @collection.fetch()
 
-  hideLoadingIndicator: -> @$(".loading-evidence").hide()
 
-  showEmptyView: ->
-    @$(".no-evidence-message").show()
-    @hideLoadingIndicator()
-
+  showEmptyView: -> @$(".no-evidence-message").show()
   closeEmptyView: -> @$(".no-evidence-message").hide()
-)
