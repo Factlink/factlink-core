@@ -2,7 +2,11 @@
 (function(){
   var lib_url = "<%= FactlinkUI::Application.config.static_url %>/lib",
       min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
-      clear_cache = <%= "\"?\" + (new Date()).getTime()" if ['development'].include?(Rails.env) %>,
+      <% if ['development'].include?(Rails.env) %>
+        clear_cache = "?" + (new Date()).getTime(),
+      <% else %>
+        clear_cache = "",
+      <% end %>
       head = document.getElementsByTagName("head")[0];
 
   function createScript(location, onLoad) {
