@@ -157,19 +157,8 @@ class FactsController < ApplicationController
 
   def evidence_search
     authorize! :index, Fact
-    search_for = params[:s]
-    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
-    if search_for.length > 0
-      facts = FactData.tire.search(search_for, load:true).results.
-                        delete_if {|fd| FactData.invalid(fd)}.
-                        reject {|result| result.fact.id == @fact.id}.
-                        map do |result|
-                          Facts::FactBubble.for(fact: result.fact, view: view_context)
-                        end
-    else
-      facts = []
-    end
-    render json: facts
+    facts = FactSearch.evidence_for(@fact, params[:s])
+    render json: facts.map { |f| Facts::FactBubble.for(fact: f, view: view_context) }
   end
 
   private
