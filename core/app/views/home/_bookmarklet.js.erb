@@ -2,6 +2,7 @@
 (function(){
   var lib_url = "<%= FactlinkUI::Application.config.static_url %>/lib",
       min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
+      clear_cache = <%= "\"?\" + (new Date()).getTime()" if ['development'].include?(Rails.env) %>,
       head = document.getElementsByTagName("head")[0];
 
   function createScript(location, onLoad) {
@@ -19,13 +20,14 @@
     modus: "default",
     api: "<%= FactlinkUI::Application.config.api_url %>",
     lib: lib_url,
-    client: "bookmarklet"
+    client: "bookmarklet",
+    srcPath: "/dist/factlink.core" + min + ".js"
   };
 
   //load the library
-  createScript(lib_url + "/dist/factlink" + min + ".js?", function() {
-    createScript(lib_url + "/dist/factlink.start_annotating" + min + ".js");
-    createScript(lib_url + "/dist/factlink.start_highlighting" + min + ".js");
+  createScript(lib_url + "/dist/factlink" + min + ".js" + clear_cache, function() {
+    createScript(lib_url + "/dist/factlink.start_annotating" + min + ".js" + clear_cache);
+    createScript(lib_url + "/dist/factlink.start_highlighting" + min + ".js" + clear_cache);
   });
 })();
 
