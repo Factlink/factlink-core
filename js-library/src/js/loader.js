@@ -1,51 +1,55 @@
-(function () {
-  function createIframe() {
-    var body = document.getElementsByTagName("body")[0];
-    var iframe = document.createElement("iframe");
-    var div = document.createElement("div");
+(function(){
+  var iframe = document.createElement("iframe"),
+      div = document.createElement("div"),
+      hasReadyState = "readyState" in iframe,
+      flScript = document.createElement('script'),
+      scriptLoaded = false, iframeLoaded = false,
+      iframeDoc;
 
-    iframe.style.display = "none";
-    iframe.id = "factlink-iframe";
-    div.id = "fl";
+  iframe.style.display = "none";
+  iframe.id = "factlink-iframe";
 
-    body.appendChild(div);
-    div.insertBefore(iframe, div.firstChild);
+  iframe.onload = iframe.onreadystatechange = function () {
+    if ((iframe.readyState && iframe.readyState !== "complete" && iframe.readyState !== "loaded") || iframeLoaded) {
+      return false;
+    }
+    iframe.onload = iframe.onreadystatechange = null;
+    iframeLoaded = true;
 
-    return iframe;
-  }
+    iframe.contentWindow.document.head.appendChild(flScript);
+  };
 
-  var iframe = createIframe();
-  var iDocument = iframe.contentWindow.document;
-  var iHead = iDocument.getElementsByTagName("head")[0];
-  var head = document.getElementsByTagName("head")[0];
-  var flScript = document.createElement("script");
-  var loaded = false;
-  var configScript = document.createElement("script");
+  div.id = "fl";
+
+  document.body.appendChild(div);
+  div.insertBefore(iframe, div.firstChild);
+
+  iframeDoc = iframe.contentWindow.document;
 
   flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/dist/factlink.core.min.js");
   flScript.onload = flScript.onreadystatechange = function () {
-    if ((flScript.readyState && flScript.readyState !== "complete" && flScript.readyState !== "loaded") || loaded) {
+    if ((flScript.readyState && flScript.readyState !== "complete" && flScript.readyState !== "loaded") || scriptLoaded) {
       return false;
     }
     flScript.onload = flScript.onreadystatechange = null;
-    loaded = true;
+    scriptLoaded = true;
+
+    window.FACTLINK.on = function() {
+      iframe.contentWindow.Factlink.on.apply(iframe.contentWindow.Factlink, arguments);
+    };
+
+    window.FACTLINK.off = function() {
+      iframe.contentWindow.Factlink.off.apply(iframe.contentWindow.Factlink, arguments);
+    };
 
     if ( window.jQuery ) {
-      window.FACTLINK.on = function() {
-        iframe.contentWindow.Factlink.on.apply(iframe.contentWindow.Factlink, arguments);
-      };
-
-      window.FACTLINK.off = function() {
-        iframe.contentWindow.Factlink.off.apply(iframe.contentWindow.Factlink, arguments);
-      };
-
       jQuery(window).trigger('factlink.libraryLoaded');
     }
   };
 
-  configScript.type = "text/javascript";
-  configScript.innerHTML = "window.FactlinkConfig = " + JSON.stringify(FactlinkConfig) + ";";
-
-  iHead.insertBefore(configScript, iHead.firstChild);
-  iHead.insertBefore(flScript, iHead.firstChild);
+  iframeDoc.open();
+  iframeDoc.write("<!DOCTYPE html><html><head><script>" +
+                    "window.FactlinkConfig = " + JSON.stringify(FactlinkConfig) + ";" +
+                  "</script>></head><body></body></html>");
+  iframeDoc.close();
 }());
