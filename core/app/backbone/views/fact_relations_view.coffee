@@ -2,6 +2,9 @@ class window.FactRelationsView extends Backbone.Factlink.PlainView
   tagName: "div"
   className: "page evidence-list fact-relations-container"
   template: "fact_relations/fact_relations"
+
+  containerSelector: "ul.evidence-listing"
+
   initialize: (options) ->
     @_views = []
     @collection.bind "add", @addFactRelation, this
@@ -14,7 +17,7 @@ class window.FactRelationsView extends Backbone.Factlink.PlainView
       type: @options.type
 
   highlightFactRelation: (view) ->
-    $("ul.evidence-listing", @el).scrollTo view.el, 800
+    @$(@containerSelector).scrollTo view.el, 800
     view.highlight()
 
   addFactRelation: (factRelation, factRelations, options = {}) ->
@@ -22,7 +25,7 @@ class window.FactRelationsView extends Backbone.Factlink.PlainView
     @closeEmptyView()
     @_views.push factRelationView
     factRelationView.render()
-    @$el.find("ul.evidence-listing").append factRelationView.el
+    @$(@containerSelector).append factRelationView.el
     if options.highlight
       @highlightFactRelation factRelationView
 
