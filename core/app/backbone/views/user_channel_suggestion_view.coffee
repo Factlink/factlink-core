@@ -32,7 +32,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     last_fact_activity = @model.lastAddedFactAsActivity()
     last_fact_activity.fetch
       success: =>
-        @options.addToActivities.unshift(last_fact_activity)
+        @options.addToActivities.add(last_fact_activity)
         last_fact_activity.save()
         options.success(last_fact_activity)
       error: => options.error() if options.error

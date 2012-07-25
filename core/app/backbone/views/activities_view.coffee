@@ -1,8 +1,11 @@
-AutoloadingView = extendWithAutoloading(Backbone.Marionette.ItemView);
+AutoloadingView = extendWithAutoloading(Backbone.Marionette.Layout);
 
 class window.ActivitiesView extends AutoloadingView
 
   template: 'activities/list'
+
+  regions:
+    bottom: '.below_activities'
 
   initialize: (opts) ->
     @collection.on('reset remove', @reset, this)
@@ -91,5 +94,7 @@ class window.ActivitiesView extends AutoloadingView
     if @emptyView
       @emptyView.close()
       delete @emptyView
+
+  addAtBottom:(view)-> @bottom.show(view)
 
 _.extend(ActivitiesView.prototype, ToggleMixin)

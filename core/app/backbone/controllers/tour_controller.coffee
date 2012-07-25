@@ -8,10 +8,14 @@ class window.TourController
 
     channelCollectionView = new EditableChannelsView(collection: visibleAddedChannels)
     activities = new ChannelActivities([],{ channel: stream })
-    FactlinkApp.mainRegion.show(
-      new ChannelActivitiesView
-        model: stream
-        collection: activities)
+
+    activities_view = new ChannelActivitiesView
+      model: stream
+      collection: activities
+
+    FactlinkApp.mainRegion.show activities_view
+
+    activities_view.activityList.currentView.addAtBottom new BananasView(collection: activities)
 
     @suggestedUserChannels = new TopChannelList()
     @suggestedUserChannels.fetch()
