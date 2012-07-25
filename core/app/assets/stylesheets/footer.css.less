@@ -8,6 +8,10 @@
     #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
     a {
       #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+      .transition();
+      &:hover {
+        text-decoration: none;
+      }
     }
     margin-top: 1em;
     margin-bottom: 2em;

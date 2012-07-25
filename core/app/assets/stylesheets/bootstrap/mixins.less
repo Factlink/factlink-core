@@ -43,6 +43,12 @@
   -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 
+.transition(@type: color,@time: .15s) {
+  transition: @type @time ease-in-out;
+  -moz-transition: @type @time ease-in-out;
+  -webkit-transition: @type @time ease-in-out;
+}
+
 @font-face {
   font-family: 'IconicStroke';
     src: url("/fonts/iconic_stroke.eot");
