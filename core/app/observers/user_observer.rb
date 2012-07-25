@@ -27,7 +27,7 @@ def update_mixpanel_for user
             .inject({}){|memo, (k,v)| memo[User.mixpaneled_fields[k]] = v[1]; memo }
 
   if fields.length > 0
-    mixpanel.set_person_event user.id, fields
+    mixpanel.set_person_event user.id.to_s, fields
   end
 end
 
@@ -38,5 +38,5 @@ def initialize_mixpanel_for user
                     .slice( *User.mixpaneled_fields.keys )
                     .inject({}){|memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo}
 
-  mixpanel.set_person_event user.id, new_attributes
+  mixpanel.set_person_event user.id.to_s, new_attributes
 end

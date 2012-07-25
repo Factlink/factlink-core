@@ -162,7 +162,7 @@ FactlinkUI::Application.routes.draw do
 
   scope "/p/tour" do
     get "youre-almost-done" => "tour#almost_done", as: "almost_done"
-    get "the-factlink-times" => "tour#the_factlink_times", as: "the_factlink_times"
+    get "create-your-first-factlink" => "tour#create_your_first_factlink", as: "create_your_first_factlink"
     get "choose-channels" => "tour#choose_channels", as: "choose_channels"
   end
 

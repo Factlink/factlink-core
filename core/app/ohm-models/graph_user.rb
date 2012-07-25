@@ -103,6 +103,7 @@ class GraphUser < OurOhm
   def real_created_facts
     created_facts.find_all { |fact| fact.class == Fact }
   end
+  alias :really_realy_created_facts :real_created_facts
 
   def update_opinion(type, fact)
     remove_opinions(fact)

@@ -1,11 +1,19 @@
 class Fact < Basefact
   after :create, :set_activity!
   after :create, :add_to_created_facts
+  after :create, :increment_mixpanel_count
 
   set :channels, Channel
 
   timestamped_set :interactions, Activity
 
+  def increment_mixpanel_count
+    if self.has_site? and self.created_by.user
+      mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+
+      mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
+    end
+  end
 
   def set_activity!
     activity(self.created_by, :created, self)
@@ -18,6 +26,10 @@ class Fact < Basefact
   # TODO dirty, please decouple
   def add_to_created_facts
     self.created_by.created_facts_channel.add_fact(self)
+  end
+
+  def has_site?
+    self.site and not self.site.url.andand.blank?
   end
 
   def to_s
