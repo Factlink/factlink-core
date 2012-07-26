@@ -157,40 +157,30 @@ window.FactView = ViewWithPopover.extend({
     mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
-      this.showSupportingFactRelations();
+      this.hideFactRelations('weakening');
+      this.showFactRelations('supporting');
     } else {
-      this.showWeakeningFactRelations();
+      this.hideFactRelations('supporting');
+      this.showFactRelations('weakening');
     }
   },
 
-  showSupportingFactRelations: function(){
-    if (! ("supportingFactRelationsView" in this )){
-      this.supportingFactRelationsView = new FactRelationsView({
-        collection: this.supportingFactRelations
+  showFactRelations: function(type){
+    if (! (type+"FactRelationsView" in this )){
+      this[type+"FactRelationsView"] = new FactRelationsView({
+        collection: this[type+"FactRelations"]
       });
 
-      this.$('.supporting .dropdown-container')
-        .append( this.supportingFactRelationsView.render().el );
+      this.$('.'+type+' .dropdown-container')
+        .append( this[type+'FactRelationsView'].render().el );
     }
 
-    this.$('.weakening .dropdown-container').hide();
-    this.$('.supporting .dropdown-container').show();
-    this.supportingFactRelationsView.fetch();
+    this.$('.'+type+' .dropdown-container').show();
+    this[type+"FactRelationsView"].fetch();
   },
 
-  showWeakeningFactRelations: function(){
-    if (! ("weakeningFactRelationsView" in this )){
-      this.weakeningFactRelationsView = new FactRelationsView({
-        collection: this.weakeningFactRelations
-      });
-
-      this.$('.weakening .dropdown-container')
-        .append( this.weakeningFactRelationsView.render().el );
-    }
-
-    this.$('.supporting .dropdown-container').hide();
-    this.$('.weakening .dropdown-container').show();
-    this.weakeningFactRelationsView.fetch();
+  hideFactRelations: function(type){
+    this.$('.'+type+' .dropdown-container').hide();
   },
 
   tabClick: function(e) {
