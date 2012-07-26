@@ -153,13 +153,11 @@ window.FactView = ViewWithPopover.extend({
     var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
 
     this.supportingFactRelationsView = new FactRelationsView({
-      collection: supportingFactRelations,
-      type: "supporting"
+      collection: supportingFactRelations
     });
 
     this.weakeningFactRelationsView = new FactRelationsView({
-      collection: weakeningFactRelations,
-      type: "weakening"
+      collection: weakeningFactRelations
     });
 
    this.$('.supporting .dropdown-container')

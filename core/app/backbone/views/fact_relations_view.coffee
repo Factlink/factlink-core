@@ -13,18 +13,19 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
   itemViewContainer: "ul.evidence-listing"
 
   itemView: FactRelationView
-  itemViewOptions: => type: @options.type
+  itemViewOptions: => type: @type
 
   emptyView: EmptyFactRelationsView
 
   initialize: (options) ->
     @initializeSearchView()
+    @type = @collection.type
     @collection.bind 'add', this.potentialHighlight, this
 
   initializeSearchView: ->
     @factRelationSearchView = new FactRelationSearchView
       factRelations: @collection
-      type: @options.type
+      type: @type
 
   highlightFactRelation: (model) ->
     view = @children[model.cid]
