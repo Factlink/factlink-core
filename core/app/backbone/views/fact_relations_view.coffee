@@ -1,3 +1,7 @@
+class EmptyFactRelationsView extends Backbone.Marionette.ItemView
+  template: "fact_relations/_fact_relations_empty"
+  tagName: 'li'
+
 class window.FactRelationsView extends Backbone.Marionette.CompositeView
   tagName: "div"
   className: "page evidence-list fact-relations-container"
@@ -7,6 +11,8 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
 
   itemView: FactRelationView
   itemViewOptions: => type: @options.type
+
+  emptyView: EmptyFactRelationsView
 
   initialize: (options) ->
     @initializeSearchView()
@@ -40,6 +46,3 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
     @_fetched = true
     @collection.reset()
     @collection.fetch()
-
-  showEmptyView: -> @$(".no-evidence-message").show()
-  closeEmptyView: -> @$(".no-evidence-message").hide()
