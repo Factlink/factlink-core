@@ -173,11 +173,13 @@ window.FactView = ViewWithPopover.extend({
     mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
-      this.weakeningFactRelationsView.hide();
-      this.supportingFactRelationsView.fetchAndShow();
+      this.$('.weakening .dropdown-container').hide()
+      this.$('.supporting .dropdown-container').show()
+      this.supportingFactRelationsView.fetch();
     } else {
-      this.supportingFactRelationsView.hide();
-      this.weakeningFactRelationsView.fetchAndShow();
+      this.$('.supporting .dropdown-container').hide()
+      this.$('.weakening .dropdown-container').show()
+      this.weakeningFactRelationsView.fetch();
     }
   },
 

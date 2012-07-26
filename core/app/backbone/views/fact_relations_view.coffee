@@ -38,14 +38,8 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
 
   onRender: -> @$el.prepend @factRelationSearchView.render().el
 
-  hide: -> @$el.hide()
-  show: -> @$el.show()
-
-  fetchAndShow: ->
-    @fetch() unless @_fetched
-    @show()
-
   fetch: ->
-    @_fetched = true
-    @collection.reset()
-    @collection.fetch()
+    unless @_fetched
+      @_fetched = true
+      @collection.reset()
+      @collection.fetch()
