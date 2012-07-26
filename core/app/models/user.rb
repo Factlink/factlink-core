@@ -34,6 +34,7 @@ class User
   field :seen_the_tour,  type: Boolean, default: false
 
   field :last_read_activities_on, type: DateTime, default: 0
+  field :last_interaction_at,     type: DateTime, default: 0
 
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation
   field :invitation_message, type: String, default: ""
