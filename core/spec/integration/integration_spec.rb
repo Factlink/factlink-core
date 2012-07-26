@@ -177,7 +177,7 @@ describe "Walkthrough the app", type: :request do
 
       page.execute_script('$(".supporting li.add").trigger("click")')
 
-      sleep 1
+      sleep 10
 
       page.should have_selector('li.fact-relation')
       within(:css, 'li.fact-relation') do
