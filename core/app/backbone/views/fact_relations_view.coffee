@@ -32,7 +32,7 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
   hide: -> @$el.hide()
   show: -> @$el.show()
 
-  showAndFetch: ->
+  fetchAndShow: ->
     @fetch() unless @_fetched
     @show()
 

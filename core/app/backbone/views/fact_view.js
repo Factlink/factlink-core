@@ -174,10 +174,10 @@ window.FactView = ViewWithPopover.extend({
 
     if (type === "supporting") {
       this.weakeningFactRelationsView.hide();
-      this.supportingFactRelationsView.showAndFetch();
+      this.supportingFactRelationsView.fetchAndShow();
     } else {
       this.supportingFactRelationsView.hide();
-      this.weakeningFactRelationsView.showAndFetch();
+      this.weakeningFactRelationsView.fetchAndShow();
     }
   },
 
