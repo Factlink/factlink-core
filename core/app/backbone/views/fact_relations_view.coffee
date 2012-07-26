@@ -1,6 +1,9 @@
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
   tagName: 'li'
+  templateHelpers: =>
+    past_action: if (@options.type == 'weakening') then 'weakened' else 'supported'
+
 
 class window.FactRelationsView extends Backbone.Marionette.CompositeView
   tagName: "div"
