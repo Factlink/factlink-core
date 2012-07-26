@@ -1,39 +1,31 @@
-class window.FactRelationsView extends Backbone.Factlink.PlainView
+class window.FactRelationsView extends Backbone.Marionette.CompositeView
   tagName: "div"
   className: "page evidence-list fact-relations-container"
   template: "fact_relations/fact_relations"
 
-  containerSelector: "ul.evidence-listing"
+  itemViewContainer: "ul.evidence-listing"
+
+  itemView: FactRelationView
+  itemViewOptions: => type: @options.type
 
   initialize: (options) ->
-    @_views = []
-    @collection.bind "add", @addFactRelation, this
-    @collection.bind "reset", @resetFactRelations, this
     @initializeSearchView()
+    @collection.bind 'add', this.potentialHighlight, this
 
   initializeSearchView: ->
     @factRelationSearchView = new FactRelationSearchView
       factRelations: @collection
       type: @options.type
 
-  highlightFactRelation: (view) ->
-    @$(@containerSelector).scrollTo view.el, 800
+  highlightFactRelation: (model) ->
+    view = @children[model.cid]
+    @$(this.itemViewContainer).scrollTo view.el, 800
     view.highlight()
 
-  addFactRelation: (factRelation, factRelations, options = {}) ->
-    factRelationView = new FactRelationView(model: factRelation)
-    @closeEmptyView()
-    @_views.push factRelationView
-    factRelationView.render()
-    @$(@containerSelector).append factRelationView.el
-    if options.highlight
-      @highlightFactRelation factRelationView
-
-  resetFactRelations: ->
-    @collection.forEach (factRelation) =>
-      @addFactRelation factRelation
-
-    @showEmptyView() if @collection.length is 0
+  addChildView: (item, collection, options) ->
+    res = super(item, collection, options)
+    @highlightFactRelation(item) if options.highlight
+    return res
 
   onRender: -> @$el.prepend @factRelationSearchView.render().el
 
@@ -48,7 +40,6 @@ class window.FactRelationsView extends Backbone.Factlink.PlainView
     @_fetched = true
     @collection.reset()
     @collection.fetch()
-
 
   showEmptyView: -> @$(".no-evidence-message").show()
   closeEmptyView: -> @$(".no-evidence-message").hide()
