@@ -162,10 +162,10 @@ window.FactView = ViewWithPopover.extend({
       type: "weakening"
     });
 
-   $('.supporting .dropdown-container', this.el)
+   this.$('.supporting .dropdown-container')
    .append( this.supportingFactRelationsView.render().el );
 
-   $('.weakening .dropdown-container', this.el)
+   this.$('.weakening .dropdown-container')
    .append( this.weakeningFactRelationsView.render().el );
   },
 
