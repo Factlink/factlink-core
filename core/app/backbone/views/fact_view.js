@@ -149,36 +149,48 @@ window.FactView = ViewWithPopover.extend({
   },
 
   initFactRelationsViews: function() {
-    var supportingFactRelations = new SupportingFactRelations([], { fact: this.model } );
-    var weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
-
-    this.supportingFactRelationsView = new FactRelationsView({
-      collection: supportingFactRelations,
-      type: "supporting"
-    });
-
-    this.weakeningFactRelationsView = new FactRelationsView({
-      collection: weakeningFactRelations,
-      type: "weakening"
-    });
-
-   $('.supporting .dropdown-container', this.el)
-   .append( this.supportingFactRelationsView.render().el );
-
-   $('.weakening .dropdown-container', this.el)
-   .append( this.weakeningFactRelationsView.render().el );
+    this.supportingFactRelations = new SupportingFactRelations([], { fact: this.model } );
+    this.weakeningFactRelations = new WeakeningFactRelations([], { fact: this.model } );
   },
 
   switchToRelationDropdown: function(type){
     mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
-      this.weakeningFactRelationsView.hide();
-      this.supportingFactRelationsView.showAndFetch();
+      this.showSupportingFactRelations();
     } else {
-      this.supportingFactRelationsView.hide();
-      this.weakeningFactRelationsView.showAndFetch();
+      this.showWeakeningFactRelations();
     }
+  },
+
+  showSupportingFactRelations: function(){
+    if (! ("supportingFactRelationsView" in this )){
+      this.supportingFactRelationsView = new FactRelationsView({
+        collection: this.supportingFactRelations
+      });
+
+      this.$('.supporting .dropdown-container')
+        .append( this.supportingFactRelationsView.render().el );
+    }
+
+    this.$('.weakening .dropdown-container').hide();
+    this.$('.supporting .dropdown-container').show();
+    this.supportingFactRelationsView.fetch();
+  },
+
+  showWeakeningFactRelations: function(){
+    if (! ("weakeningFactRelationsView" in this )){
+      this.weakeningFactRelationsView = new FactRelationsView({
+        collection: this.weakeningFactRelations
+      });
+
+      this.$('.weakening .dropdown-container')
+        .append( this.weakeningFactRelationsView.render().el );
+    }
+
+    this.$('.supporting .dropdown-container').hide();
+    this.$('.weakening .dropdown-container').show();
+    this.weakeningFactRelationsView.fetch();
   },
 
   tabClick: function(e) {

@@ -173,7 +173,6 @@
       }
     }
     .no-evidence-message {
-      display: none;
       text-align: center;
       padding: 20px 5px 5px 5px;
       height: 55px;
@@ -215,15 +214,12 @@
     }
   }
 }
-.evidence-list-wrapper {
-  border-top: 1px solid @grayLighter;
-}
 .evidence-list {
-  display: none;
   background-color: @white;
   .border-radius(0 2px 2px 0);
 
   ul.evidence-listing {
+    border-top: 1px solid @baseBorderColor;
     margin: 0;
     overflow: auto;
     max-height: 300px;
