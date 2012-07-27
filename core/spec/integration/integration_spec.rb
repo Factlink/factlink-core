@@ -156,7 +156,7 @@ describe "Walkthrough the app", type: :request do
   end
 
   describe "factlinks" do
-    it "should be able to search for evidence", js:true do
+    pending "should be able to search for evidence", js:true do
       @factlink = create_factlink @user
       search_string = 'Test search'
 
