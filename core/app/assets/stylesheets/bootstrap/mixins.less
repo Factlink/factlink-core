@@ -49,6 +49,12 @@
   -webkit-transition: @type @time ease-in-out;
 }
 
+.box-sizing(@type: border-box) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
 @font-face {
   font-family: 'IconicStroke';
     src: url("/fonts/iconic_stroke.eot");
