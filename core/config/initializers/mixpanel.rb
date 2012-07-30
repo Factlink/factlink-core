@@ -10,3 +10,6 @@ else
 
   FactlinkUI::Application.config.mixpanel = MixpanelRails::DummyTracker
 end
+
+
+@@mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
