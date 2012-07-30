@@ -13,7 +13,9 @@ Factlink.Prepare = function() {
   function initialize(tmpl) {
     var createFact;
 
-    el = $(tmpl()).appendTo(Factlink.el);
+    el = $(tmpl());
+    el.appendTo(Factlink.el);
+    el.hide();
 
     el.hoverIntent({
       over: function(e) {
