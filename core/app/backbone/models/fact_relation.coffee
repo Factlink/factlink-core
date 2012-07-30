@@ -5,7 +5,7 @@ class window.FactRelation extends Backbone.Model
       success: (data) =>
         mp_track "Evidence: opinionate",
           type: type
-          evidence_id: self.id
+          evidence_id: @id
 
         @set data[0]
 
