@@ -13,8 +13,10 @@ class AddedSubchannelView extends GenericActivityItemView
 class GenericActivityFactItemView extends Backbone.Marionette.CompositeView
   itemView: FactView
   initialize: (opts) ->
-    fact = new Fact(@model.get("activity")["fact"])
-    @collection = new Backbone.Collection([ fact ])
+
+    if @model.get('render_fact')
+      fact = new Fact(@model.get("activity")["fact"])
+      @collection = new Backbone.Collection([ fact ])
 
 class AddedEvidenceView extends GenericActivityFactItemView
   template: "activities/_added_evidence"
