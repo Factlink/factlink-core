@@ -63,9 +63,8 @@ class window.FactView extends ViewWithPopover
   remove: ->
     @$el.fadeOut "fast", -> $(this).remove()
 
-    _.each @interactingUserViews, ((view) ->
-      view.close()
-    ), this
+    _.each @interactingUserViews, (view)-> view.close()
+
     @addToChannelView.close() if @addToChannelView
     if parent.remote
       parent.remote.hide()
