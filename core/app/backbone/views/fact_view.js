@@ -51,9 +51,13 @@ window.FactView = ViewWithPopover.extend({
 
   onRender: function() {
 
+    var self = this;
+    sometimeWhen(function(){
+                   return self.$el.is(':visible');},
+                 function(){
+                   self.truncateText();
+                 });
     this.$('.authority').tooltip();
-
-    this.truncateText();
 
     if ( this.factWheelView ) {
       this.wheel.set(this.model.getFactWheel());
@@ -68,12 +72,9 @@ window.FactView = ViewWithPopover.extend({
   },
 
   truncateText: function() {
-    self = this;
-    this.$el.resize(function(){
-      self.$('.body .text').trunk8({
-        fill: ' <a class="more">(more)</a>',
-        lines:this.showLines
-      });
+    this.$('.body .text').trunk8({
+      fill: ' <a class="more">(more)</a>',
+      lines:this.showLines
     });
   },
 
