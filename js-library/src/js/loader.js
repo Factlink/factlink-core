@@ -6,7 +6,7 @@
       scriptLoaded = false, iframeLoaded = false,
       iframeDoc;
 
-  iframe.style.display = "none";
+  iframe.style.display = "block";
   iframe.id = "factlink-iframe";
 
   flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/dist/factlink.core.min.js");
