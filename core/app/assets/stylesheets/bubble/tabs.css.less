@@ -145,7 +145,7 @@
     .add-evidence-container {
       padding: 9px 10px;
       background-color: @whiteDarker;
-      box-sizing: border-box;
+      .box-sizing();
 
       .add-evidence {
         display: none;
@@ -161,7 +161,8 @@
         height: 32px;
         width: 100%;
         margin: 0;
-        box-sizing: border-box;
+        .box-sizing();
+
 
         &:focus {
           outline: 0;
