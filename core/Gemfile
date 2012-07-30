@@ -26,7 +26,6 @@ gem 'multi_json', '>= 1.2.0'
 
 gem 'resque', '1.19.0', :require => 'resque/server'
 gem 'resque_mailer'
-gem 'resque-throttle'
 
 gem 'stringex'
 
