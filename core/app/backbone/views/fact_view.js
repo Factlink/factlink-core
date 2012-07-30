@@ -68,13 +68,12 @@ window.FactView = ViewWithPopover.extend({
   },
 
   truncateText: function() {
-      this.$('.body .text').trunk8({
-      fill: ' <a class="more">(more)</a>',
-      lines:this.showLines
-    });
-    self = this
-    this.$('.body .text').resize(function(){
-      self.$('.body .text').trunk8('update');
+    self = this;
+    this.$el.resize(function(){
+      self.$('.body .text').trunk8({
+        fill: ' <a class="more">(more)</a>',
+        lines:this.showLines
+      });
     });
   },
 
