@@ -119,7 +119,7 @@ module.exports = function(grunt){
       files: ['grunt.js', 'src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: ['src/js/**/*', 'test/**/*', 'grunt.js'],
+      files: ['src/js/**/*', 'src/css/**/*', 'test/**/*', 'grunt.js'],
       tasks: 'lint qunit concat less copy'
     },
     jshint: {
@@ -198,7 +198,7 @@ module.exports = function(grunt){
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat min copy');
+  grunt.registerTask('default', 'lint qunit less concat min copy');
   grunt.registerTask('server', 'concat min copy');
 
   grunt.registerMultiTask('copy', 'copy files', function () {
