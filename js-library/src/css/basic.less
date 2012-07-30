@@ -85,11 +85,24 @@ span.factlink {
     position: fixed;
     top: 6px;
     right: 12px;
-    padding: 6px;
-    background: white;
-    border: 2px solid #ccc;
-    .border-radius(3px,3px,3px,3px);
-    .drop-shadow(2px,3px,5px);
+    padding: 5px 24px 10px 12px;
+
+    .gradient(#789ab7, #6c8ba4, #789ab7);
+    .double-inner-shadow(0, 1px, 0, 0.4);
+    border: 1px solid #51677b;
+    .border-radius(5px,5px,5px,5px);
+
+    color: #fff;
+    text-shadow: 0px 1px rgba(0, 0, 1px, 0.7);
+    font-size: 14px;
+
+    &:before {
+      content: url(../images/logo-blue.png);
+      position: relative;
+      top: 4px;
+      margin-right: 6px;
+    }
+
   }
 
   .fl-popup {
