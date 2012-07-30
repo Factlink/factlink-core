@@ -42,7 +42,7 @@
     <ul id="top-factlinks">
     <% top_facts(3).each do |f| %>
       <li>
-        <%= render_mustache 'facts/fact_bubble',  fact: f, limit_characters_to_display: 80, hide_links: true %>
+        <%= render_mustache 'facts/fact_bubble',  fact: f, hide_links: true %>
       </li>
     <% end %>
     </ul>
@@ -69,6 +69,7 @@
         el: $('article[data-fact-id=<%= f.id %>]').find('.wheel'),
         model: new Wheel(<%= Facts::FactWheel.for(fact: f, view: self).to_json.to_s.html_safe %>)
       }).render();
+        $('article[data-fact-id=<%= f.id %>]').find('.body .text').trunk8({lines: 2});
     <% end %>
 
     var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
