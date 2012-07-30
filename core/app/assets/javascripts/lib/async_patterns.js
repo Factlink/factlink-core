@@ -1,3 +1,5 @@
+// from: http://fitzgeraldnick.com/weblog/35/
+
 function async (fn) {
     setTimeout(fn, 20);
 }
