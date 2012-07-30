@@ -3,6 +3,7 @@ ViewWithPopover = extendWithPopover(Backbone.Factlink.PlainView)
 class window.FactView extends ViewWithPopover
   tagName: "div"
   className: "fact-block"
+
   events:
     "click .hide-from-channel": "removeFactFromChannel"
     "click li.delete": "destroyFact"
@@ -13,17 +14,21 @@ class window.FactView extends ViewWithPopover
     "click a.less": "hideCompleteDisplaystring"
 
   template: "facts/_fact"
+
   partials:
     fact_bubble: "facts/_fact_bubble"
     fact_wheel: "facts/_fact_wheel"
     interacting_users: "facts/_interacting_users"
 
   interactingUserViews: []
+
   popover: [
     selector: ".top-right-arrow"
     popoverSelector: "ul.top-right"
   ]
+
   showLines: 1
+
   initialize: (opts) ->
     @_currentTab = `undefined`
     @interactingUserViews = []
@@ -56,13 +61,12 @@ class window.FactView extends ViewWithPopover
       lines: @showLines
 
   remove: ->
-    @$el.fadeOut "fast", ->
-      $(this).remove()
+    @$el.fadeOut "fast", -> $(this).remove()
 
     _.each @interactingUserViews, ((view) ->
       view.close()
     ), this
-    @addToChannelView.close()  if @addToChannelView
+    @addToChannelView.close() if @addToChannelView
     if parent.remote
       parent.remote.hide()
       parent.remote.stopHighlightingFactlink @model.id
@@ -83,11 +87,8 @@ class window.FactView extends ViewWithPopover
   destroyFact: (e) ->
     e.preventDefault()
     @model.destroy
-      error: ->
-        alert "Error while removing the Factlink"
-
-      success: ->
-        mp_track "Factlink: Destroy"
+      error: -> alert "Error while removing the Factlink"
+      success: -> mp_track "Factlink: Destroy"
 
   renderAddToChannel: ->
     self = this
@@ -108,12 +109,8 @@ class window.FactView extends ViewWithPopover
       @addToChannelView = addToChannelView
 
   initFactRelationsViews: ->
-    @supportingFactRelations = new SupportingFactRelations([],
-      fact: @model
-    )
-    @weakeningFactRelations = new WeakeningFactRelations([],
-      fact: @model
-    )
+    @supportingFactRelations = new SupportingFactRelations([],fact: @model)
+    @weakeningFactRelations = new WeakeningFactRelations([],fact: @model)
 
   switchToRelationDropdown: (type) ->
     mp_track "Factlink: Open tab",
@@ -163,23 +160,15 @@ class window.FactView extends ViewWithPopover
     switch tab
       when "supporting", "weakening"
         @switchToRelationDropdown tab
-        true
       when "add-to-channel"
         @renderAddToChannel()
-        true
-      else
-        true
 
   highlight: ->
-    self = this
-    self.$el.animate
+    @$el.animate
       "background-color": "#ffffe1"
     ,
       duration: 2000
-      complete: ->
-        $(this).animate
-          "background-color": "#ffffff"
-        , 2000
+      complete: -> $(this).animate "background-color": "#ffffff", 2000
 
   showCompleteDisplaystring: (e) ->
     @$(".body .text").trunk8 lines: 199
