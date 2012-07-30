@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
   def initialize_mixpanel
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
-    if action_name == "intermediate" and controller_name == "facts"
+    if action_is_intermediate?
       @mixpanel.append_api('disable', ['mp_page_view'])
     end
 
@@ -112,6 +112,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+    def action_is_intermediate?
+      action_name == "intermediate" and controller_name == "facts"
+    end
+
     def channels_for_user(user)
       @channels = user.graph_user.channels
       unless @user == current_user
