@@ -35,6 +35,8 @@ window.FactView = ViewWithPopover.extend({
     }
   ],
 
+  showLines:3,
+
   initialize: function(opts) {
     this._currentTab = undefined;
     this.interactingUserViews = [];
@@ -42,17 +44,16 @@ window.FactView = ViewWithPopover.extend({
     this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
-    this.initAddToChannel();
     this.initFactRelationsViews();
 
     this.wheel = new Wheel(this.model.getFactWheel());
   },
 
   onRender: function() {
-    this.renderAddToChannel();
-    this.initFactRelationsViews();
 
     this.$('.authority').tooltip();
+
+    this.truncateText();
 
     if ( this.factWheelView ) {
       this.wheel.set(this.model.getFactWheel());
@@ -64,6 +65,16 @@ window.FactView = ViewWithPopover.extend({
         el: this.$('.wheel')
       }).render();
     }
+  },
+
+  truncateText: function() {
+    self = this;
+    this.$el.resize(function(){
+      self.$('.body .text').trunk8({
+        fill: ' <a class="more">(more)</a>',
+        lines:this.showLines
+      });
+    });
   },
 
   remove: function() {
@@ -118,13 +129,12 @@ window.FactView = ViewWithPopover.extend({
     });
   },
 
-  initAddToChannel: function() {
-  },
-
   renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
-    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+
+    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" &&
+        ! ('addToChannelView' in this)) {
       var addToChannelView = new AutoCompletedAddToChannelView({
         el: this.$(add_el)[0]
       });
@@ -157,40 +167,30 @@ window.FactView = ViewWithPopover.extend({
     mp_track("Factlink: Open tab", {factlink_id: this.model.id,type: type});
 
     if (type === "supporting") {
-      this.showSupportingFactRelations();
+      this.hideFactRelations('weakening');
+      this.showFactRelations('supporting');
     } else {
-      this.showWeakeningFactRelations();
+      this.hideFactRelations('supporting');
+      this.showFactRelations('weakening');
     }
   },
 
-  showSupportingFactRelations: function(){
-    if (! ("supportingFactRelationsView" in this )){
-      this.supportingFactRelationsView = new FactRelationsView({
-        collection: this.supportingFactRelations
+  showFactRelations: function(type){
+    if (! (type+"FactRelationsView" in this )){
+      this[type+"FactRelationsView"] = new FactRelationsView({
+        collection: this[type+"FactRelations"]
       });
 
-      this.$('.supporting .dropdown-container')
-        .append( this.supportingFactRelationsView.render().el );
+      this.$('.'+type+' .dropdown-container')
+        .append( this[type+'FactRelationsView'].render().el );
     }
 
-    this.$('.weakening .dropdown-container').hide();
-    this.$('.supporting .dropdown-container').show();
-    this.supportingFactRelationsView.fetch();
+    this.$('.'+type+' .dropdown-container').show();
+    this[type+"FactRelationsView"].fetch();
   },
 
-  showWeakeningFactRelations: function(){
-    if (! ("weakeningFactRelationsView" in this )){
-      this.weakeningFactRelationsView = new FactRelationsView({
-        collection: this.weakeningFactRelations
-      });
-
-      this.$('.weakening .dropdown-container')
-        .append( this.weakeningFactRelationsView.render().el );
-    }
-
-    this.$('.supporting .dropdown-container').hide();
-    this.$('.weakening .dropdown-container').show();
-    this.weakeningFactRelationsView.fetch();
+  hideFactRelations: function(type){
+    this.$('.'+type+' .dropdown-container').hide();
   },
 
   tabClick: function(e) {
@@ -238,7 +238,8 @@ window.FactView = ViewWithPopover.extend({
       this.switchToRelationDropdown(tab);
       return true;
 
-    case "channels":
+    case "add-to-channel":
+      this.renderAddToChannel();
       return true;
 
     default:
@@ -254,11 +255,13 @@ window.FactView = ViewWithPopover.extend({
   },
 
   showCompleteDisplaystring: function (e) {
-    this.$('.normal').hide().siblings('.full').show();
+    this.$('.body .text').trunk8({lines:199});
+    this.$('.body .less').show();
   },
 
   hideCompleteDisplaystring: function (e) {
-    this.$('.full').hide().siblings('.normal').show();
+    this.$('.body .text').trunk8({lines:this.showLines});
+    this.$('.body .less').hide();
   }
 });
 })();

@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.PlainView extends Backbone.View
 
   render: ->
-    @el.innerHTML = this.templateRender(this.model?.toJSON())
+    @$el.html(this.templateRender(this.model?.toJSON()))
 
     if (@onRender)
       @onRender();

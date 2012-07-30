@@ -18,17 +18,11 @@
       <header class="fact-body">
         <span class="title">{{fact_title}}</span>
 
-        <div>
-          <h2 class="normal">
-            {{displaystring}}
-            {{#big_displaystring?}}
-              <a class="more">... (more)</a>
-            {{/big_displaystring?}}
-          </h2>
-          <h2 class="full">
+        <div class='body'>
+          <h2 class="text">
             {{full_displaystring}}
-            <a class="less">(less)</a>
           </h2>
+          <a class="less" style="display:none">(less)</a>
           <span class="scroll-to-container">
             {{#scroll_to_link}}
               &mdash; {{{scroll_to_link}}}

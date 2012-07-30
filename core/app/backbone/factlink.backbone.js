@@ -1,5 +1,7 @@
 //= require jquery
 //= require underscore
+//= require trunk8
+
 //= require mustache
 //= require backbone
 //= require backbone.marionette
