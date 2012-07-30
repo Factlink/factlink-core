@@ -109,6 +109,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :set_last_interaction_for_user
+  def set_last_interaction_for_user
+    if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
+      @@mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
+      Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
+    end
+  end
+
   private
     def action_is_intermediate?
       action_name == "intermediate" and controller_name == "facts"
