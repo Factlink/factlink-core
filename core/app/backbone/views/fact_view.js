@@ -42,15 +42,12 @@ window.FactView = ViewWithPopover.extend({
     this.model.bind('destroy', this.close, this);
     this.model.bind('change', this.render, this);
 
-    this.initAddToChannel();
     this.initFactRelationsViews();
 
     this.wheel = new Wheel(this.model.getFactWheel());
   },
 
   onRender: function() {
-    this.renderAddToChannel();
-    this.initFactRelationsViews();
 
     this.$('.authority').tooltip();
 
@@ -118,13 +115,12 @@ window.FactView = ViewWithPopover.extend({
     });
   },
 
-  initAddToChannel: function() {
-  },
-
   renderAddToChannel: function() {
     var self = this;
     var add_el = '.tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container';
-    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" ) {
+
+    if ( this.$(add_el).length > 0 && typeof currentUser !== "undefined" &&
+        ! ('addToChannelView' in this)) {
       var addToChannelView = new AutoCompletedAddToChannelView({
         el: this.$(add_el)[0]
       });
@@ -228,7 +224,8 @@ window.FactView = ViewWithPopover.extend({
       this.switchToRelationDropdown(tab);
       return true;
 
-    case "channels":
+    case "add-to-channel":
+      this.renderAddToChannel();
       return true;
 
     default:
