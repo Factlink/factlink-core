@@ -11,6 +11,4 @@
 //= require hogan
 //= require_tree ../../templates
 
-//= require_tree ./lib
-
 this.HoganTemplates || (this.HoganTemplates = {});
