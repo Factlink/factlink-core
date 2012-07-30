@@ -8,16 +8,8 @@
     <a class="title" href="{{{url}}}">{{fact_title}}</a>
 
     <span class="body">
-      <span class="normal">
-        {{displaystring}}
-        {{#big_displaystring?}}
-          <a class="more">... (more)</a>
-        {{/big_displaystring?}}
-      </span>
-      <span class="full">
-        {{full_displaystring}}
-        <a class="less">(less)</a>
-      </span>
+      <span class="text">{{full_displaystring}}</span>
+      <a class="less" style="display:none">(less)</a>
 
       {{#scroll_to_link}}
         &mdash; <span>{{{scroll_to_link}}}</span>

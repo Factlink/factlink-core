@@ -35,6 +35,8 @@ window.FactView = ViewWithPopover.extend({
     }
   ],
 
+  showLines:3,
+
   initialize: function(opts) {
     this._currentTab = undefined;
     this.interactingUserViews = [];
@@ -51,6 +53,8 @@ window.FactView = ViewWithPopover.extend({
 
     this.$('.authority').tooltip();
 
+    this.truncateText();
+
     if ( this.factWheelView ) {
       this.wheel.set(this.model.getFactWheel());
       this.$('.wheel').replaceWith(this.factWheelView.reRender().el);
@@ -61,6 +65,17 @@ window.FactView = ViewWithPopover.extend({
         el: this.$('.wheel')
       }).render();
     }
+  },
+
+  truncateText: function() {
+      this.$('.body .text').trunk8({
+      fill: ' <a class="more">(more)</a>',
+      lines:this.showLines
+    });
+    self = this
+    this.$('.body .text').resize(function(){
+      self.$('.body .text').trunk8('update');
+    });
   },
 
   remove: function() {
@@ -241,11 +256,13 @@ window.FactView = ViewWithPopover.extend({
   },
 
   showCompleteDisplaystring: function (e) {
-    this.$('.normal').hide().siblings('.full').show();
+    this.$('.body .text').trunk8({lines:199});
+    this.$('.body .less').show();
   },
 
   hideCompleteDisplaystring: function (e) {
-    this.$('.full').hide().siblings('.normal').show();
+    this.$('.body .text').trunk8({lines:this.showLines});
+    this.$('.body .less').hide();
   }
 });
 })();
