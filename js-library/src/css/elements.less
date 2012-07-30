@@ -6,7 +6,7 @@
 			Kris Van Herzeele,
 			Benoit Adam,
 			Portenart Emile-Victor
-			
+
 		More info at: http://lesselements.com
 -----------------------------------------------------*/
 
@@ -74,7 +74,7 @@
 	-webkit-transition-duration: @duration;
 	transition-duration: @duration;
 }
-.rotation(@deg:5deg){ 
+.rotation(@deg:5deg){
   -webkit-transform: rotate(@deg);
   -moz-transform: rotate(@deg);
   transform: rotate(@deg);
@@ -93,6 +93,11 @@
   -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
   -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
 	box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
+.double-inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+  -webkit-box-shadow: inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha), inset @horizontal -@vertical @blur rgba(0, 0, 0, @alpha);
+  -moz-box-shadow:    inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha), inset @horizontal -@vertical @blur rgba(0, 0, 0, @alpha);
+  box-shadow:         inset @horizontal @vertical @blur rgba(255, 255, 255, @alpha), inset @horizontal -@vertical @blur rgba(0, 0, 0, @alpha);
 }
 .box-shadow(@arguments) {
 	-webkit-box-shadow: @arguments;
@@ -119,7 +124,7 @@
 	column-rule-style: @columnRuleStyle;
 	column-rule-width: @columnRuleWidth;
 }
-.ellipsis() { 
+.ellipsis() {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
