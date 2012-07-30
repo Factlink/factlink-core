@@ -14,8 +14,6 @@ class FactData
 
   field :title,           :type => String
   field :displaystring,   :type => String
-  field :passage,         :type => String
-  field :content,         :type => String
   field :fact_id,         :type => String
 
   validates_format_of :displaystring, allow_nil: true, with: /\S/
