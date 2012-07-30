@@ -42,7 +42,7 @@
     <ul id="top-factlinks">
     <% top_facts(3).each do |f| %>
       <li>
-        <%= render_mustache 'facts/fact_bubble',  fact: f, limit_characters_to_display: 80, hide_links: true %>
+        <%= render_mustache 'facts/fact_bubble',  fact: f, hide_links: true %>
       </li>
     <% end %>
     </ul>

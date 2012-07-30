@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div class="fact-block">
-    <%= render_mustache 'facts/fact_bubble',  fact: @fact, limit_characters_to_display: 80, hide_links: true %>
+    <%= render_mustache 'facts/fact_bubble',  fact: @fact, hide_links: true %>
   </div>
 <% end %>
 
@@ -19,9 +19,5 @@
       'fact_id': '<%= j @fact.id %>',
       'percentages': '<%= @fact.opinion.as_percentages.to_json.html_safe %>'
     }, "*");
-    
-    <%# dirty hack, why is it that we do not use the factbuble view, and only the wheel?? %>
-    $('a.more').on('click', function(){$('span.full').show();$('span.normal').hide();})
-    $('a.less').on('click', function(){$('span.normal').show();$('span.full').hide();})
   </script>
 <% end %>

@@ -1,16 +1,8 @@
 module BaseViews
 	module FactBase
 		def displaystring
-			truncate(self[:fact].data.displaystring)
+			self[:fact].data.displaystring
 		end
-
-    def full_displaystring
-      self[:fact].data.displaystring
-    end
-
-    def big_displaystring?
-      displaystring != full_displaystring
-    end
 
 		def id
 			self[:fact].id

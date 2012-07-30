@@ -21,19 +21,7 @@ module BaseViews
     end
 
     def displaystring
-      if self[:limit_characters_to_display]
-        return truncate(self[:fact].data.displaystring, {length: self[:limit_characters_to_display]})
-      else
-        return truncate(self[:fact].data.displaystring, :omission => "", :length => 288)
-      end
-    end
-
-    def full_displaystring
       self[:fact].data.displaystring
-    end
-
-    def big_displaystring?
-      displaystring != full_displaystring
     end
 
     def fact_title
