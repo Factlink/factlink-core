@@ -27,7 +27,7 @@ class window.FactView extends ViewWithPopover
     popoverSelector: "ul.top-right"
   ]
 
-  showLines: 1
+  showLines: 3
 
   initialize: (opts) ->
     @_currentTab = `undefined`
