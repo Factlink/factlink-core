@@ -41,8 +41,10 @@ class window.ActivitiesView extends AutoloadingView
 
     appendTo =
       if (appendableCandidate && (appendableCandidate.appendable(model)))
+        model.set('render_fact': false)
         appendableCandidate
       else
+        model.set('render_fact': true)
         @createNewAppendable(model, index)
 
     appendTo.collection.add(model, at: index);
