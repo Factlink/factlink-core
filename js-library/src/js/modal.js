@@ -2,7 +2,9 @@
   // The iFrame which holds the intermediate
   var iFrame = $("<div />").attr({
     "id": "factlink-modal-frame"
-  }).appendTo(Factlink.el);
+  });
+  iFrame.hide();
+  iFrame.appendTo(Factlink.el);
 
   Factlink.showInfo = function(factId) {
     Factlink.remote.showFactlink(factId, function ready() {
