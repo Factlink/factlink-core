@@ -15,17 +15,18 @@ class window.NotificationsView extends Backbone.Factlink.CollectionView
     @views = {}
 
   render: ->
-    @$(@itemViewContainer).html @templateRender()
+    super(arguments)
 
+    @onRender()
+    this
+
+  onRender: ->
     if @collection.length is 0
       @emptyViewOn()
     else
       @emptyViewOff()
-      super(arguments)
-    @onRender()
-    this
 
-  onRender: -> @$el.find("ul").preventScrollPropagation()
+    @$el.find("ul").preventScrollPropagation()
 
   emptyViewOn: -> @$el.find("li.no-notifications").removeClass "hidden"
   emptyViewOff: -> @$el.find("li.no-notifications").addClass "hidden"
