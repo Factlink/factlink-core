@@ -1,23 +1,28 @@
 <% if current_user %>
-  <div class="modal hide" id="ieWarningModal">
-    <div class="modal-header">
-      <h3>MSIE? RLY?</h3>
+  <%= show_message :unsupported_browser_warning do %>
+    <div class="modal hide" id="ieWarningModal">
+      <div class="modal-header">
+        <h3>MSIE? RLY?</h3>
+      </div>
+      <div class="modal-body">
+        <img src="http://hilltopit.com/blog/wp-content/uploads/2010/03/Browsers.jpg">
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn btn-danger" data-dismiss="modal">I understand, nonetheless, I want to continue</a>
+      </div>
     </div>
-    <div class="modal-body">
-      <img src="http://hilltopit.com/blog/wp-content/uploads/2010/03/Browsers.jpg">
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn btn-danger" data-dismiss="modal">I understand, nonetheless, I want to continue</a>
-    </div>
-  </div>
-  <% content_for :modal_javascript  do %>
-    <script>
-      $(function(){
-        $('#ieWarningModal').modal({
-          keyboard: false,
-          backdrop: "static"
-        })
-      });
-    </script>
+    <% content_for :modal_javascript  do %>
+      <script>
+        $(function(){
+          $('#ieWarningModal').modal({
+            keyboard: false,
+            backdrop: "static"
+          })
+          $('#ieWarningModal').on('hide', function(){
+            alert('yo');
+          });
+        });
+      </script>
+    <% end %>
   <% end %>
 <% end %>

@@ -9,4 +9,12 @@ module UserHelper
     current_user.andand.graph_user
   end
 
+  def show_message message, &block
+    if ['mark','martijn'].include? current_user.username
+      capture(&block)
+    else
+      nil
+    end
+  end
+
 end
