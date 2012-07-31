@@ -6,12 +6,10 @@
         <%= image_tag image_path("warning-sign.png"), class: "warning-sign" %>
         <h2>Your browser is not supported</h2>
         <p>Factlink is not working with your browser. To use Factlink, we recommend using the latest version of Google Chrome.</p>
-        <div class="download-chrome">
-            <a id="chrome-download-button" class="btn download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
-        </div>
       </div>
       <div class="modal-footer">
-        <a href="#" class="btn btn-danger" data-dismiss="modal">Proceed anyway</a>
+        <a href="#" class="proceed" data-dismiss="modal">Proceed anyway</a>
+        <a id="chrome-download-button" class="btn download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
       </div>
     </div>
     <% content_for :modal_javascript  do %>
