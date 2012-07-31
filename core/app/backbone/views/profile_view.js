@@ -1,6 +1,12 @@
+//= require './top_channel_view'
+
 window.ProfileView = Backbone.Marionette.CompositeView.extend({
   template: 'users/profile',
   className: 'profile',
+
+
+  itemView: TopChannelView,
+  itemViewContainer: '.top-channels ol',
 
   events: {
     'click a.show-more': 'showMoreOn',
@@ -8,12 +14,7 @@ window.ProfileView = Backbone.Marionette.CompositeView.extend({
   },
 
   initialize: function() {
-    this.itemView = TopChannelView
     this.addClassToggle('showMore');
-  },
-
-  appendHtml: function(collectionView, itemView) {
-    collectionView.$('.top-channels ol').append(itemView.el);
   },
 
   onRender: function() {
