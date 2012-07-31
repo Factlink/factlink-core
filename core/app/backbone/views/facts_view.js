@@ -3,7 +3,7 @@
 window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
   className: "facts",
-  containerSelector: ".facts",
+  itemViewContainer: ".facts",
   itemView: FactView,
   events: {
     "submit #create_fact_for_channel": "createFact",
