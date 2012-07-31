@@ -1,4 +1,5 @@
 <% if current_user %>
+  <% if not browser_supported? %>
   <%= show_message :unsupported_browser_warning do %>
     <div class="modal hide" id="ieWarningModal">
       <div class="modal-body warning-sign">
@@ -32,5 +33,6 @@
         });
       </script>
     <% end %>
+  <% end %>
   <% end %>
 <% end %>

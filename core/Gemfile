@@ -81,6 +81,10 @@ group :testserver, :staging, :production do
 end
 gem 'airbrake'
 
+
+#browser detection
+gem 'browser'
+
 # Deployment
 #group :capistrano do
   gem 'capistrano', require: false
