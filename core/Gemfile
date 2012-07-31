@@ -71,9 +71,9 @@ gem 'possessive'
 
 # Andand is a library to handle nil more easily
 # http://andand.rubyforge.org/
-# gem 'andand'
+gem 'andand', '~> 1.3.3'
 # newer version does not give creepy warning:
-gem 'andand', :git => 'http://github.com/Factlink/andand.git'
+#gem 'andand', :git => 'http://github.com/Factlink/andand.git'
 
 # Email on errors
 group :testserver, :staging, :production do
