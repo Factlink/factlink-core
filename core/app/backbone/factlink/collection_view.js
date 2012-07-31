@@ -31,9 +31,9 @@ Backbone.Factlink.CollectionView = Backbone.View.extend({
 
     //TODO: Also allow to add views in the middle of the collection
     if ( opts && opts.at === 0 ) {
-      this.$el.find(this.containerSelector).prepend(view.el);
+      this.$el.find(this.itemViewContainer).prepend(view.el);
     } else {
-      this.$el.find(this.containerSelector).append(view.el);
+      this.$el.find(this.itemViewContainer).append(view.el);
     }
 
     this.afterAdd.apply(this, arguments);

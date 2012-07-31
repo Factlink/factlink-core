@@ -1,7 +1,7 @@
 class window.NotificationsView extends Backbone.Factlink.CollectionView
   tagName: "li"
   id: "notifications"
-  containerSelector: "ul"
+  itemViewContainer: "ul"
   events:
     click: "clickHandler"
 
