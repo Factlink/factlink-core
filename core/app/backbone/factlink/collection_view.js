@@ -21,7 +21,7 @@ Backbone.Factlink.CollectionView = Backbone.View.extend({
   afterAdd: function(model){},
   add: function(model, collection, opts) {
     this.beforeAdd.apply(this,arguments);
-    var view = new this.modelView({
+    var view = new this.itemView({
       model: model
     });
 

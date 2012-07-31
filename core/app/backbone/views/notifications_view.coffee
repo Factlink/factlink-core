@@ -1,7 +1,7 @@
 class window.NotificationsView extends Backbone.Factlink.CollectionView
   tagName: "li"
   id: "notifications"
-  itemViewContainer: "ul"
+  itemViewContainer: "ul.dropdown-menu"
   events:
     click: "clickHandler"
 
@@ -9,20 +9,26 @@ class window.NotificationsView extends Backbone.Factlink.CollectionView
   initialize: ->
     @collection.on "add", @add, this
     @collection.on "reset", @reset, this
-    @modelView = NotificationView
+    @itemView = NotificationView
     @setupNotificationsFetch()
     @_unreadCount = 0
     @views = {}
 
   render: ->
-    @$el.find("ul.dropdown-menu").html @templateRender()
+    @$(@itemViewContainer).html @templateRender()
+
     if @collection.length is 0
-      @$el.find("li.no-notifications").removeClass "hidden"
+      @emptyViewOn()
     else
-      @$el.find("li.no-notifications").addClass "hidden"
+      @emptyViewOff()
       super(arguments)
-    @$el.find("ul").preventScrollPropagation()
+    @onRender()
     this
+
+  onRender: -> @$el.find("ul").preventScrollPropagation()
+
+  emptyViewOn: -> @$el.find("li.no-notifications").removeClass "hidden"
+  emptyViewOff: -> @$el.find("li.no-notifications").addClass "hidden"
 
   beforeReset: ->
     @setUnreadCount 0
