@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       @show_supported_browser_warning = (not current_user.seen_messages.include? message.to_s) and supported_browser
 
       if @show_supported_browser_warning
-        flash[:notice] = "You are not using a preferred browser for an optimal Factlink experience. <a href='#'>Learn more...</a>".html_safe
+        flash[:notice] = "You are not using a preferred browser for an optimal Factlink experience. #{ view_context.link_to( 'Learn more', pages_path('help/supported-browsers') ) }".html_safe
       end
     end
   end
