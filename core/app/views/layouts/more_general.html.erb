@@ -28,6 +28,7 @@
 </head>
 <body class="factlink-site">
   <%= render 'home/feedback' unless defined? dont_render_feedback %>
+  <%= render 'home/site_messages' %>
   <%= render 'home/topbar' %>
 
   <%= yield :more_specific_page %>
@@ -45,6 +46,7 @@
 
   <%= render 'snippets/google_analytics' %>
   <%= yield :feedback_javascript %>
+  <%= yield :modal_javascript %>
 </body>
 
 </html>

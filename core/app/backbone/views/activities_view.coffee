@@ -75,7 +75,7 @@ class window.ActivitiesView extends AutoloadingView
 
   newChildView: (model) ->
     ch = @collection.channel
-    new UserActivitiesView
+    UserActivitiesView.new
       model: model.getActivity(),
       collection: new ChannelActivities([], {channel: ch})
 
