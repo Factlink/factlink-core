@@ -22,9 +22,6 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     @setUnreadCount @collection.unreadCount()
     @$el.find("ul").preventScrollPropagation()
 
-  #emptyViewOn: -> @$el.find("li.no-notifications").removeClass "hidden"
-  #mptyViewOff: -> @$el.find("li.no-notifications").addClass "hidden"
-
   setUnreadCount: (count) ->
     $unread = @$("span.unread")
     @_unreadCount = count
