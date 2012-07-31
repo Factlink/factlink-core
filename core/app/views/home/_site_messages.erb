@@ -19,7 +19,13 @@
             backdrop: "static"
           })
           $('#ieWarningModal').on('hide', function(){
-            alert('yo');
+           $.ajax({
+            type: 'PUT',
+            url: '<%= see_message_path current_user.username %>',
+            data: {
+              message: "unsupported_browser_warning"
+            }
+           });
           });
         });
       </script>

@@ -10,10 +10,8 @@ module UserHelper
   end
 
   def show_message message, &block
-    if ['mark','martijn'].include? current_user.username
+    unless (current_user.seen_messages.include? message.to_s)
       capture(&block)
-    else
-      nil
     end
   end
 

@@ -100,6 +100,8 @@ FactlinkUI::Application.routes.draw do
   end
 
   scope "/:username" do
+    put "/seen_messages" => "users#seen_message", as: 'see_message'
+
     get "/" => "users#show", :as => "user_profile"
 
     scope "/activities" do

@@ -51,6 +51,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def seen_message
+      authorize! :update, @user
+      raise HackAttempt unless params[:message] =~ /\A[a-zA-Z_0-9]+\Z/
+      @user.seen_messages << params[:message]
+      render json: {ok: 'chill'}
+  end
+
   private
   def load_user
     @user = User.first(:conditions => { :username => (params[:username] or params[:id]) }) or raise_404
