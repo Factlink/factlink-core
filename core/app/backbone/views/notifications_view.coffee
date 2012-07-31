@@ -1,45 +1,32 @@
-class window.NotificationsView extends Backbone.Factlink.CollectionView
+class NotificationsEmptyView extends Backbone.Marionette.ItemView
+   template: "notifications/_notifications"
+
+
+class window.NotificationsView extends Backbone.Factlink.CompositeView
   tagName: "li"
   id: "notifications"
   itemViewContainer: "ul.dropdown-menu"
+  emptyView: NotificationsEmptyView
   events:
     click: "clickHandler"
 
   template: "notifications/_notifications"
   initialize: ->
-    @collection.on "add", @add, this
-    @collection.on "reset", @reset, this
     @itemView = NotificationView
     @setupNotificationsFetch()
     @_unreadCount = 0
     @views = {}
 
-  render: ->
-    super(arguments)
-
-    @onRender()
-    this
-
   onRender: ->
-    if @collection.length is 0
-      @emptyViewOn()
-    else
-      @emptyViewOff()
-
+    @$el.css visibility: "visible"
+    @setUnreadCount @collection.unreadCount()
     @$el.find("ul").preventScrollPropagation()
 
-  emptyViewOn: -> @$el.find("li.no-notifications").removeClass "hidden"
-  emptyViewOff: -> @$el.find("li.no-notifications").addClass "hidden"
-
-  beforeReset: ->
-    @setUnreadCount 0
-
-  afterAdd: (notification) ->
-    @setUnreadCount @_unreadCount + 1  if notification.get("unread") is true
+  #emptyViewOn: -> @$el.find("li.no-notifications").removeClass "hidden"
+  #mptyViewOff: -> @$el.find("li.no-notifications").addClass "hidden"
 
   setUnreadCount: (count) ->
-    $unread = @$el.find("span.unread")
-    @$el.css visibility: "visible"
+    $unread = @$("span.unread")
     @_unreadCount = count
     @_unreadTitleCount = count
     if count > 0
