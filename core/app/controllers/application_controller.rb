@@ -2,6 +2,20 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
+  before_filter :check_preferred_browser
+  def check_preferred_browser
+    if current_user
+      message = :supported_browser_warning
+
+      supported_browser = (view_context.browser_supported? and not view_context.browser_preferred?)
+      @show_supported_browser_warning = (not current_user.seen_messages.include? message.to_s) and supported_browser
+
+      if @show_supported_browser_warning
+        flash[:notice] = "You are not using a preferred browser for an optimal Factlink experience. <a href='#'>Learn more...</a>".html_safe
+      end
+    end
+  end
+
   include UrlHelper
   before_filter :set_mailer_url_options
 
