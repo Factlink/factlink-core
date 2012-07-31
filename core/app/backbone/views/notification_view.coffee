@@ -1,5 +1,3 @@
-# most of these views can savely be discarded,
-
 class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
