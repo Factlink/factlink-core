@@ -10,9 +10,7 @@ module UserHelper
   end
 
   def show_message message, &block
-    unless (current_user.seen_messages.include? message.to_s)
-      capture(&block)
-    end
+    capture(&block) unless (current_user.seen_messages.include? message.to_s)
   end
 
 end
