@@ -27,12 +27,6 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
-  remote: http://github.com/Factlink/andand.git
-  revision: f048eb5543404414d97de4228640c22278cd8a29
-  specs:
-    andand (1.3.2)
-
-GIT
   remote: http://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -110,6 +104,7 @@ GEM
     airbrake (3.1.2)
       activesupport
       builder
+    andand (1.3.3)
     arel (3.0.2)
     arrayfields (4.7.4)
     awesome_print (1.0.2)
@@ -465,7 +460,7 @@ DEPENDENCIES
   activerecord (= 3.2.6)
   addressable
   airbrake
-  andand!
+  andand (~> 1.3.3)
   arrayfields
   bcrypt-ruby (~> 3.0.1)
   brakeman
