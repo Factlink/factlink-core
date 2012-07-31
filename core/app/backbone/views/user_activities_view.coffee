@@ -24,4 +24,6 @@ class window.UserActivitiesView extends Backbone.Marionette.CompositeView
     new_subject_is_evidence =      (new_model.get('action') == "added_supporting_evidence") or (new_model.get('action') == "added_weakening_evidence")
     current_subject_is_evidence = (this.model.get('action') == "added_supporting_evidence") or (this.model.get('action') == "added_weakening_evidence")
 
-    new_subject_is_evidence and current_subject_is_evidence
+    same_fact = this.model.get('activity')?.fact?.id == new_model.get('activity')?.fact?.id
+
+    new_subject_is_evidence and current_subject_is_evidence and same_fact
