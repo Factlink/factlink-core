@@ -158,7 +158,6 @@ span.factlink {
         background-position: 12px 0px !important;
       }
 
-      > div.fl-share > ul.fl-channels,
       > ul.fl-add-options {
         border: solid 1px #555;
       }
@@ -259,42 +258,6 @@ span.factlink {
           width: 100%;
           top: 0;
           margin: -1px 0 0 -2px;
-        }
-      }
-    }
-
-    &.fl-channel-active {
-      &.bottom {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-
-        >div.fl-share {
-          border-bottom-left-radius: 0;
-
-          >ul.fl-channels {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-          }
-        }
-      }
-
-      &.top {
-        border-top-left-radius: 0;
-
-        > div.fl-share {
-          border-top-left-radius: 0;
-
-          > ul.fl-channels {
-            border-bottom-left-radius: 0;
-          }
-        }
-      }
-
-      > div.fl-share {
-        background: @bg-color;
-
-        > ul.fl-channels {
-          display: block;
         }
       }
     }
@@ -412,77 +375,6 @@ span.factlink {
       }
     }
 
-    // Indicator
-    .fl-share {
-      #fl > .resetStyles;
-
-      float: left;
-      padding: 6px 4px 4px;
-      .bordered(transparent, lighten(@border-color, 16), transparent, transparent);
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
-      line-height: 12px;
-      position: relative;
-
-      img {
-        #fl > .resetStyles;
-      }
-
-      &:hover {
-        background: @bg-color;
-      }
-      @channel-box-width: 140px;
-      > .fl-channels {
-        #fl > .resetStyles;
-
-        .fl-float-box;
-
-        cursor: default;
-        display: none;
-        font-size: 0.9em;
-        margin: 1px 0 0 -2px;        // Position underneath popup
-        z-index: @z-index;
-        position: absolute;
-        top: 100%;
-        width: @channel-box-width;
-        max-height: 160px;
-        left: 0;
-        overflow-y: auto;
-        .visible-scroll();
-
-        li {
-          #fl > .resetStyles;
-          padding: 4px 0px;
-          width: @channel-box-width - 20px;
-          .ellipsis();
-          a  {
-            #fl > .resetStyles;
-            text-decoration: underline;
-            color: @link-blue;
-          }
-          &.fl-loading {
-            text-align: center;
-
-            img {
-              #fl > .resetStyles;
-
-              vertical-align: bottom;
-              margin: 0 4px 0 0;
-            }
-          }
-
-          label {
-            #fl > .resetStyles;
-            .ellipsis();
-            width: @channel-box-width - 20px;
-            > input {
-              #fl > .resetStyles;
-
-              margin-right: 5px;
-            }
-          }
-        }
-      }
-    }
+    .fl-share { display: none!important; }
   }
 }
