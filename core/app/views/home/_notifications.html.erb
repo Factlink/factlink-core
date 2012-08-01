@@ -1,3 +1,5 @@
+<div id="alerts"></div>
+
 <% if alert || notice %>
 <div class="alert<%= alert ? " alert-error" : (notice ? " alert-success" : "") %>">
   <% unless params[:action] == "popup_show" %>
