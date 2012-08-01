@@ -2,7 +2,7 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
-  # before_filter :check_preferred_browser
+  before_filter :check_preferred_browser
   def check_preferred_browser
     if current_user
       message = :supported_browser_warning
@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
       if supported_browser
         if not current_user.seen_messages.include? message.to_s
           @show_supported_browser_warning = true
-          flash[:notice] = "You are not using a preferred browser for an optimal Factlink experience. #{ view_context.link_to( 'Learn more', pages_path('help/supported-browsers') ) }".html_safe
         end
       end
     end
