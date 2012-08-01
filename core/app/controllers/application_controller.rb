@@ -8,8 +8,9 @@ class ApplicationController < ActionController::Base
       message = :supported_browser_warning
 
       supported_browser = (view_context.browser_supported? and (not view_context.browser_preferred?))
+      allowed_controller = (not ["tour", "tos"].include? controller_name)
 
-      if supported_browser
+      if supported_browser and allowed_controller
         if not current_user.seen_messages.include? message.to_s
           @show_supported_browser_warning = true
         end
