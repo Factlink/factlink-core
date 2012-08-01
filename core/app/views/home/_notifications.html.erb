@@ -15,7 +15,7 @@
 <% if @show_supported_browser_warning %>
   <% content_for :javascript do %>
     <script type="text/javascript">
-      FactlinkApp.NotificationCenter.error("You're not using a preferred browser. Learn more", disablePreferredBrowserMessage);
+      FactlinkApp.NotificationCenter.error("Your browser is not fully supported. The get the full Factlink experience we recommend to use Google Chrome. <a href='<%= pages_path("help/supported-browsers") %>'>Learn more...</a>", disablePreferredBrowserMessage);
 
       function disablePreferredBrowserMessage() {
         $.ajax({
