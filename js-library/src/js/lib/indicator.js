@@ -1,50 +1,35 @@
 (function(Factlink, $, _, easyXDM, window, undefined) {
 
-$.ajax({
-  url: FactlinkConfig.api + '/templates/indicator',
-  dataType: 'jsonp',
-  crossDomain: true,
-  type: 'GET',
-  jsonp: 'callback',
-  success: function(data) {
-    Factlink.tmpl.indicator = _.template(data);
-
-    Factlink.el.trigger('factlink.tmpl.indicator');
-  }
-});
-
-$.ajax({
-  url: FactlinkConfig.api + '/templates/_channel_li',
-  dataType: 'jsonp',
-  crossDomain: true,
-  type: 'GET',
-  jsonp: 'callback',
-  success: function(data) {
-    Factlink.tmpl.channel_li = _.template(data);
-
-    Factlink.el.trigger('factlink.tmpl.channel_li');
-  }
-});
+var requesting = {};
 
 Factlink.getTemplate = function(str, callback) {
   if ( Factlink.tmpl[str] !== undefined ) {
     callback(Factlink.tmpl[str]);
   } else {
     Factlink.el.bind('factlink.tmpl.' + str, function() {
-      callback(Factlink.tmpl[str]);
+      if (callback) { callback(Factlink.tmpl[str]); }
     });
+    if (! requesting[str] ){
+      requesting[str] = true;
+      $.ajax({
+        url: FactlinkConfig.api + '/templates/'+str,
+        dataType: 'jsonp',
+        crossDomain: true,
+        type: 'GET',
+        jsonp: 'callback',
+        success: function(data) {
+          Factlink.tmpl[str] = _.template(data);
+          Factlink.el.trigger('factlink.tmpl.'+str);
+        }
+      });
+    }
   }
 };
 
-$.ajax({
-  url: FactlinkConfig.api + '/templates/' + ( FactlinkConfig.modus === "default" ? "create" : "addToFact" ) + ".html",
-  dataType: 'jsonp',
-  crossDomain: true,
-  type: 'GET',
-  jsonp: 'callback',
-  success: function( data ) {
-    Factlink.prepare = new Factlink.Prepare(_.template(data));
-  }
+Factlink.getTemplate('indicator');
+Factlink.getTemplate('create',function(template){
+  Factlink.prepare = new Factlink.Prepare(template);
 });
+
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
