@@ -31,7 +31,8 @@
   };
 
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
-    Factlink.post("/facts.json", {
+    Factlink.ajax("/facts.json", {
+      type: "POST",
       data: {
         fact: fact,
         passage: passage,

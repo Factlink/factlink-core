@@ -15,18 +15,6 @@
     }
   });
 
-  Factlink.post = function(path, options) {
-    Factlink.ajax(path, $.extend({
-      type: "POST"
-    }, options));
-  };
-
-  Factlink.get = function(path, options) {
-    Factlink.ajax(path, $.extend({
-      type: "GET"
-    }, options));
-  };
-
   Factlink.ajax = function(path, options) {
     function globalErrorFunction(xhr, status, err) {
       console.info('ERROR : ' + path );
