@@ -14,7 +14,7 @@ class ChannelActivitiesController < ApplicationController
         end
         render 'channels/activities'
       end
-      format.html { render inline:'', layout: "channels" }
+      format.html { render inline: '', layout: 'channels' }
     end
   end
 
@@ -60,12 +60,12 @@ class ChannelActivitiesController < ApplicationController
       if @channel
         @user ||= @channel.created_by.user
       elsif params[:username]
-        @user ||= User.first(:conditions => { :username => params[:username]}) || raise_404
+        @user ||= User.first(conditions: { username: params[:username]}) || raise_404
       end
     end
 
     def load_channel
-      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404("Channel not found")
+      @channel ||= (Channel[params[:channel_id] || params[:id]]) || raise_404('Channel not found')
     end
 
 end
