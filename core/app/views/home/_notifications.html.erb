@@ -9,3 +9,21 @@
 <% end %>
 
 <%= yield :notifications %>
+
+<% if @show_supported_browser_warning %>
+  <% content_for :javascript do %>
+    <script type="text/javascript">
+      $(function(){
+            $('a.close').on('click', function(){
+              $.ajax({
+                type: 'PUT',
+                url: '<%= see_message_path current_user.username %>',
+                data: {
+                  message: "supported_browser_warning"
+                }
+              });
+            });
+          });
+    </script>
+  <% end %>
+<% end %>
