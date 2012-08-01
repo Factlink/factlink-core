@@ -115,7 +115,7 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details jordin_in_factlink_times)
+  FEATURES = %w(pink_feedback_button authority_calculation_details jordin_in_factlink_times webstore_extension)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list

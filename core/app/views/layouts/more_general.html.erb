@@ -22,7 +22,10 @@
       #notifications span.unread.active {background: #e6007e; text-shadow: rgba(0,0,0,0.25);}
     </style>
   <% end %>
-
+  <% if can_haz :webstore_extension %>
+    <link rel="chrome-webstore-item"
+          href="https://chrome.google.com/webstore/detail/pbmlhihdhmjopieoohffemicnggdmbci">
+  <% end %>
   <%= javascript_include_tag "modernizr-loader" %>
   <%= csrf_meta_tag %>
 </head>
