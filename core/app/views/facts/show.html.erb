@@ -7,8 +7,8 @@
       model: Fact
     })
     View.render();
-
     $('div.modal').append(View.el);
+    parent.$(parent.document).trigger("modalready");
     window.fact_id = "<%= @fact.id %>";
   </script>
 <% end %>

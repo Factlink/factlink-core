@@ -13,13 +13,22 @@ var // The iFrame
       },
       local: {
         showFactlink: function(id, successFn) {
-          showFrame.onload = function() {
-            showFrame.onload = undefined;
-            successFn();
-          };
+          var successCalled  = 0;
+          var onLoadSuccess = function(){
+            console.info('modal opened callback ('+successCalled+')', new Date().getTime());
+            if (! successCalled ){
+              successCalled++;
+              successFn();
+            }
 
-          // Set the source of the iframe
+          }
+          showFrame.onload = onLoadSuccess;
+
+          // Somehow only lower case letters seem to work for those events --mark
+          $(document).bind("modalready", onLoadSuccess);
+
           showFrame.src = "/facts/" + id;
+
           // Show the overlay
           showFrame.className = "overlay";
         },
