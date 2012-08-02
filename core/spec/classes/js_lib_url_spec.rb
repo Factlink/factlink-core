@@ -54,8 +54,7 @@ describe :JsLibUrl do
   describe '#salt=' do
     it 'makes the url encode to a different url' do
       url1_string = JsLibUrl.new( 'mark').to_s
-      JsLibUrl.salt = 'hoi'
-      url2_string = JsLibUrl.new( 'mark').to_s
+      url2_string = JsLibUrl.new( 'mark', salt: 'hoi').to_s
       url1_string.should_not == url2_string
     end
   end
@@ -63,8 +62,7 @@ describe :JsLibUrl do
   describe '#base_url=' do
     it 'should set the first part of the url' do
       ['http://example.org/', 'http://example.com/'].each do |base_url|
-        JsLibUrl.base_url = base_url
-        JsLibUrl.new('mark').to_s.should start_with base_url
+        JsLibUrl.new('mark', base_url: base_url).to_s.should start_with base_url
       end
     end
   end

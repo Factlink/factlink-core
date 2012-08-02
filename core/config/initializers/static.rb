@@ -3,5 +3,6 @@ FactlinkUI::Application.config.static_url =
     static_conf['protocol'] + static_conf['hostname'] +
        ':' + static_conf['port'].to_s
 
-JsLibUrl.base_url = FactlinkUI::Application.config.static_url
-JsLibUrl.salt     = 'TOP_SEKRIT'
+FactlinkUI::Application.config.jslib_base_url =
+  FactlinkUI::Application.config.static_url + '/jslib/'
+FactlinkUI::Application.config.jslib_salt = 'TOP_SEKRIT'

@@ -43,12 +43,27 @@ describe JsLibController do
   end
 
   describe :redir_url do
-    it "calls JsLibUrl with the current user" do
+    it "calls redir_url_for with the current user" do
       subject.stub(:current_user) { user }
       url = mock()
       url.should_receive(:to_s).and_return('http://example.com/bees/')
-      JsLibUrl.should_receive(:new).with(user.username).and_return(url)
+      subject.should_receive(:redir_url_for).with(user.username).and_return(url)
       subject.redir_url.should == 'http://example.com/bees/'
+    end
+  end
+
+  describe :redir_url_for do
+    it "constructs a correct JsLibUrl" do
+      FactlinkUI::Application.config.
+          should_receive(:jslib_base_url).
+          and_return('http://example.org/hoi/')
+      FactlinkUI::Application.config.
+          should_receive(:jslib_salt).
+          and_return('dingetje')
+      JsLibUrl.should_receive(:new).
+               with('gerard', base_url: 'http://example.org/hoi/', salt: 'dingetje').
+               and_return('hallo_gerard')
+      subject.redir_url_for('gerard').should == 'hallo_gerard'
     end
   end
 end

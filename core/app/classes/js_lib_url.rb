@@ -21,23 +21,22 @@ class JsLibUrl
     new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')).to_s
   end
 
-  @@salt = 'SUPERSECRET'
-  def self.salt= salt
-    @@salt = salt
-  end
-
-  @@base_url = 'http://invalid.invalid/'
-
-  def self.base_url= base_url
-    @@base_url = base_url
-  end
-
-  def initialize username
+  def initialize username, opts={}
     @username = Username.new username
+    @salt = opts[:salt] || 'SUPERSECRET'
+    @base_url = opts[:base_url] || 'http://invalid.invalid/'
+  end
+
+  def base_url
+    @base_url
+  end
+
+  def salt
+    @salt
   end
 
   def to_s
-     "#{@@base_url}/#{@@salt}---#{@username.encode}/"
+     "#{base_url}#{salt}---#{@username.encode}/"
   end
 
   def username
