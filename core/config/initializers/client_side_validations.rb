@@ -11,4 +11,4 @@ require 'client_side_validations/formtastic'  if defined?(::Formtastic)
       %{<div class="field_with_errors">#{html_tag}</div>}.html_safe
     end
   end
-  
+

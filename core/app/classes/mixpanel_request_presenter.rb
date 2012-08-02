@@ -19,7 +19,7 @@ class MixpanelRequestPresenter
     if @request.env.has_key?(:mixpanel_events)
       clean_env[:mixpanel_events] = @request.env[:mixpanel_events]
     end
-    
+
     return clean_env
   end
 

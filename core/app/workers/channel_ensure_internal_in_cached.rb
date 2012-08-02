@@ -1,6 +1,6 @@
 class ChannelEnsureInternalInCached
   @queue = :channel_operations
-  
+
   def self.perform(channel_id)
     channel = Channel[channel_id]
     channel and channel.sorted_internal_facts.below('inf',withscores:true).each do |h|
