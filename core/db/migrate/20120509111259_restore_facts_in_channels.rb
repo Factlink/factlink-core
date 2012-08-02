@@ -5,7 +5,7 @@ class RestoreFactsInChannels < Mongoid::Migration
         Resque.enqueue(ChannelEnsureInternalInCached,channel.id)
       end
     end
-    
+
   end
 
   def self.down
