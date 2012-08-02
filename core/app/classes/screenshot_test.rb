@@ -7,19 +7,19 @@ if ['test'].include? Rails.env
         @title = title
         @page = page
       end
-    
+
       def old_file
         Rails.root.join('spec','integration','screenshots',"#{@title}.png")
       end
-    
+
       def new_file
         Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-new.png"
       end
-    
+
       def diff_file
         Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-diff.png"
       end
-    
+
       def changed?
         images = [
           ChunkyPNG::Image.from_file(old_file),
@@ -42,7 +42,7 @@ if ['test'].include? Rails.env
         images.last.save(diff_file)
         changed
       end
-    
+
       def take
         @page.driver.render new_file
       end

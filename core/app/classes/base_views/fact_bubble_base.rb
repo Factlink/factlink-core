@@ -1,11 +1,11 @@
 module BaseViews
-	module FactBubbleBase
-		def user_signed_in?
+  module FactBubbleBase
+    def user_signed_in?
       self.view.user_signed_in?
     end
 
     def i_am_fact_owner
-    	(self[:fact].created_by == current_graph_user)
+      (self[:fact].created_by == current_graph_user)
     end
 
     def can_edit?
@@ -50,5 +50,5 @@ module BaseViews
 
         self[:fact].site and not ( self[:hide_links] or hide_links_on_this_site)
       end
-	end
+  end
 end

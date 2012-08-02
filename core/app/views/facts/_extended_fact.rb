@@ -47,7 +47,7 @@ module Facts
 
     def interacting_user_count
       5
-	  end
+    end
 
   end
 end
