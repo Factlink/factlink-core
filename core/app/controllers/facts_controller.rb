@@ -69,6 +69,7 @@ class FactsController < ApplicationController
 
     respond_to do |format|
       if @fact.data.save and @fact.save
+        #TODO switch the following two if blocks if possible
         if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
           @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
           @fact.calculate_opinion(1)
