@@ -43,6 +43,12 @@ describe JsLibController do
   end
 
   describe :redir_url do
-    it "should call our JsLibUrl class with global settings"
+    it "calls JsLibUrl with the current user" do
+      subject.stub(:current_user) { user }
+      url = mock()
+      url.should_receive(:to_s).and_return('http://example.com/bees/')
+      JsLibUrl.should_receive(:new).with(user.username).and_return(url)
+      subject.redir_url.should == 'http://example.com/bees/'
+    end
   end
 end

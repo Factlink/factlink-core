@@ -23,6 +23,6 @@ class JsLibController < ApplicationController
   end
 
   def redir_url
-    "http://example.org/"
+    (JsLibUrl.new current_user.username).to_s
   end
 end
