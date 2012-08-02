@@ -1,11 +1,11 @@
 class UserMailer < ActionMailer::Base
-	include Resque::Mailer
+  include Resque::Mailer
 
   default from: "Factlink <support@factlink.com>"
 
   def welcome_instructions(user_id)
-  	@user = User.find(user_id)
-  	mail to: @user.email, subject: 'Start using Factlink'
+    @user = User.find(user_id)
+    mail to: @user.email, subject: 'Start using Factlink'
   end
 
 end
