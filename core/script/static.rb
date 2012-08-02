@@ -6,7 +6,8 @@ require 'rack'
 
 coredir = File.join(File.dirname(File.expand_path(__FILE__)),'..')
 railsenv = ENV['RAILS_ENV'] || 'development'
-static_conf = YAML::load_file(File.join(coredir,'config/static.yml'))[railsenv]['static']
+yaml_file = File.join(coredir,'config/static.yml')
+static_conf = YAML::load_file(yaml_file)[railsenv]['static']
 serverport = static_conf['port']
 
 #TODO save this in the static settings when we want to use this elsewhere
