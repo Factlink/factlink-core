@@ -63,10 +63,6 @@ module ApplicationHelper
     end
   end
 
-  def brain_icon
-    image_tag image_path("brain.png")
-  end
-
   def time_ago_short(time)
     a = (Time.now-time).to_i
 
