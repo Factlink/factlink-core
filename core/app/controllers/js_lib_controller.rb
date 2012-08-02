@@ -1,6 +1,6 @@
-class TemplatesController < ApplicationController
+class JsLibController < ApplicationController
 
-  def show
+  def show_template
     respond_to do |format|
       format.html do
         begin
