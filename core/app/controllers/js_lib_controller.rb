@@ -11,4 +11,18 @@ class JsLibController < ApplicationController
       end
     end
   end
+
+  def redir
+    unless user_signed_in?
+      render text: '/* error: not logged in*/', status: :forbidden
+      return
+    end
+
+    redirect_to redir_url + params[:path]
+
+  end
+
+  def redir_url
+    "http://example.org/"
+  end
 end
