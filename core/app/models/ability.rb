@@ -12,7 +12,7 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :read, Job, :show => true
+    can :read, Job, show: true
     can :check, Blacklist
     can :new, Fact
 
