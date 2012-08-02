@@ -18,7 +18,18 @@ class JsLibUrl
   end
 
   def self.from_string url
-    new Username.decode(url.gsub(/^.*\/([^\/]*)\/$/, '\1')).to_s
+    new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')).to_s
+  end
+
+  @@salt = 'SUPERSECRET'
+  def self.salt= salt
+    @@salt = salt
+  end
+
+  @@base_url = 'http://invalid.invalid/'
+
+  def self.base_url= base_url
+    @@base_url = base_url
   end
 
   def initialize username
@@ -26,7 +37,7 @@ class JsLibUrl
   end
 
   def to_s
-     "http://foobar.com/#{@username.encode}/"
+     "#{@@base_url}/#{@@salt}---#{@username.encode}/"
   end
 
   def username
