@@ -24,7 +24,7 @@ class FakeFact
       gu = fake_graph_user u[0], u[1]
       fake_interaction(gu, u[2])
     }
-    
+
     x = Hashie::Mash.new({
       data: {
         title: "",
@@ -52,7 +52,7 @@ class FakeFact
   def self.fake_interaction user, action
     @i ||= 0
     @i = @i + 1
-    { 
+    {
       user: user,
       user_id: user[:user][:graph_user][:id],
       action: action.to_s,

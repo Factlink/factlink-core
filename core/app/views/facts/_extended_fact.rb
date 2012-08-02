@@ -42,12 +42,12 @@ module Facts
     def disbelievers_text
       t(:fact_disbelieve_opinion).titleize
     end
-    
+
     private
-    
+
     def interacting_user_count
       5
-	  end
-	  
+    end
+
   end
 end

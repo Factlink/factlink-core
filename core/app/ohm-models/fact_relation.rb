@@ -45,7 +45,7 @@ class FactRelation < Basefact
       to.evidence(type) << fl
       key['gcby'][from.id][type][to.id].set(fl.id)
     end
-    
+
     fl
   end
 

@@ -34,7 +34,11 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
-  get "/templates/:name" => "templates#show", constraints: { name: /[-a-zA-Z_]+/ }
+  get "/templates/:name" => "js_lib#show_template",
+      constraints: { name: /[-a-zA-Z_]+/ }
+
+  get "/jslib/:path" => "js_lib#redir",
+      constraints: { path: /[-a-zA-Z0-9_.\/]*/ }
 
   # Generate the images for the indicator used in the js-lib
   get "/system/wheel/:percentages" => "wheel#show"

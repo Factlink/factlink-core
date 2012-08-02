@@ -14,7 +14,7 @@ class Topic
   validates_uniqueness_of :title
   validates_uniqueness_of :slug_title
 
-  searchable :auto_index => true do
+  searchable auto_index: true do
     text    :title, :slug_title
   end
 

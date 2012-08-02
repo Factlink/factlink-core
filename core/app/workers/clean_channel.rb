@@ -1,6 +1,6 @@
 class CleanChannel
   @queue = :channel_operations
-  
+
   def self.perform(channel_id)
     channel = Channel[channel_id]
     channel.sorted_cached_facts.ids.each do |fact_id|

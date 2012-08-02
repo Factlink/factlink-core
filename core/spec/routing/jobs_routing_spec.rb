@@ -8,7 +8,7 @@ describe JobsController do
     end
 
     it "routes to #show" do
-      get("/p/jobs/1").should route_to("jobs#show", :id => "1")
+      get("/p/jobs/1").should route_to("jobs#show", id: '1')
     end
 
   end
