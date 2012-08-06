@@ -16,9 +16,9 @@ var domReady = function(fn) {
 domReady(function(){
   var a = document.getElementsByTagName("a");
 
-	/**
-	 * Replace all <a> elements with a proxied URL
-	 */
+  /**
+   * Replace all <a> elements with a proxied URL
+   */
   for ( var i = 0, j = a.length; i < j; i++ ) {
     var href = a[i].href;
 
@@ -37,11 +37,11 @@ domReady(function(){
     }
   }
 
-	/**
-	 * Replace all <form> actions with a proxied URL
-	 * Send the action URL in a hidden field.
-	 */
-	var forms = document.getElementsByTagName("form");
+  /**
+   * Replace all <form> actions with a proxied URL
+   * Send the action URL in a hidden field.
+   */
+  var forms = document.getElementsByTagName("form");
 
   for ( var i = 0, j = forms.length; i < j; i++ ) {
     // Store the current a-tag
@@ -63,21 +63,21 @@ domReady(function(){
     }
 
     if ( valid ) {
-				// Add the action url to form
-			var input = document.createElement('input');
-			input.setAttribute('type', 'hidden');
-			input.setAttribute('name', 'factlinkFormUrl');
-			input.setAttribute('value', action);
-			form.appendChild(input);
+        // Add the action url to form
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'factlinkFormUrl');
+      input.setAttribute('value', action);
+      form.appendChild(input);
 
-			var input = document.createElement('input');
-			input.setAttribute('type', 'hidden');
-			input.setAttribute('name', 'factlinkModus');
-			input.setAttribute('value', FactlinkConfig.modus);
-			form.appendChild(input);
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'factlinkModus');
+      input.setAttribute('value', FactlinkConfig.modus);
+      form.appendChild(input);
 
 
-			// Set the proxied URL
+      // Set the proxied URL
       form.action = action.replace(/^http(s|):\/\/.*/, window.FactlinkConfig.proxy + '/submit/');
     } else {
       form.onsubmit = function(){return confirm("After submitting this form, Factlink will be disabled. Are you sure?");}
