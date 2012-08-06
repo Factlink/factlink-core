@@ -7,6 +7,7 @@
       iframeDoc;
 
   iframe.style.display = "block";
+  iframe.style.border = "0px solid transparent";
   iframe.id = "factlink-iframe";
 
   flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/factlink.core.min.js");
