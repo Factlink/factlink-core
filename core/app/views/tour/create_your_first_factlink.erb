@@ -84,7 +84,7 @@
 
 
 <%= content_for :javascript do %>
-  <% lib_url = "#{FactlinkUI::Application.config.static_url}/lib" %>
+  <% lib_url = "#{jslib_url_for(current_user.username)}" %>
   <% min = '.min' unless ['development'].include?(Rails.env) %>
   <script>
     window.FactlinkConfig = {

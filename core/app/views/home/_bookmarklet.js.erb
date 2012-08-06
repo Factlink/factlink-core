@@ -1,6 +1,6 @@
 //IMPORTANT: please use only double quotes to delimit strings
 (function(){
-  var lib_url = "<%= FactlinkUI::Application.config.static_url %>/lib",
+  var lib_url = "<%= jslib_url_for(current_user.username) %>",
       min = "<%= '.min' unless ['development'].include?(Rails.env) %>",
       <% if ['development'].include?(Rails.env) %>
         clear_cache = "?" + (new Date()).getTime(),
@@ -25,13 +25,13 @@
     api: "<%= FactlinkUI::Application.config.api_url %>",
     lib: lib_url,
     client: "bookmarklet",
-    srcPath: "/dist/factlink.core" + min + ".js"
+    srcPath: "/factlink.core" + min + ".js"
   };
 
   //load the library
-  createScript(lib_url + "/dist/factlink" + min + ".js" + clear_cache, function() {
-    createScript(lib_url + "/dist/factlink.start_annotating" + min + ".js" + clear_cache);
-    createScript(lib_url + "/dist/factlink.start_highlighting" + min + ".js" + clear_cache);
+  createScript(lib_url + "/factlink" + min + ".js" + clear_cache, function() {
+    createScript(lib_url + "/factlink.start_annotating" + min + ".js" + clear_cache);
+    createScript(lib_url + "/factlink.start_highlighting" + min + ".js" + clear_cache);
   });
 })();
 

@@ -20,6 +20,7 @@ describe JsLibController do
     end
 
     it "renders the indicator template when not logged in without raising errors" do
+      subject.stub(:current_user) { user }
       get :show_template, name: 'indicator'
       response.should be_success
     end

@@ -60,6 +60,7 @@ describe FactsController do
 
   describe :intermediate do
     it "should have the correct assignments" do
+      subject.stub(:current_user) {user}
       post :intermediate, :the_action => "prepare"
       response.code.should eq("200")
     end
