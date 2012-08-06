@@ -52,7 +52,7 @@ function getServer(config) {
       api: config.API_URL,
       lib: config.LIB_URL,
       proxy: config.PROXY_URL,
-      srcPath: config.ENV === "development" ? "/dist/factlink.core.js" : "/dist/factlink.core.min.js",
+      srcPath: config.ENV === "development" ? "/factlink.core.js" : "/factlink.core.min.js",
       env: config.ENV,
       url: site,
       getFacts: true
