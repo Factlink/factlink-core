@@ -5,48 +5,35 @@ class JsLibUrl
   class Builder
     def initialize(opts={})
       @opts = opts
+      @opts[:cipher] = Gibberish::AES.new(opts[:secret])
     end
     def new_url username
       JsLibUrl.new username, @opts
     end
     def from_string url
-      JsLibUrl.from_string url, @opts[:secret]
+      new_url (username_from_string url)
     end
+
+    def username_from_string url
+      @opts[:cipher].dec(Base64.decode64(JsLibUrl.username_from_url(url)))
+    end
+
   end
 
-  class Username
-    def initialize name, secret
-      @name = name
-      @cipher = Gibberish::AES.new(secret)
-    end
-
-    def to_s
-      @name
-    end
-
-    def encode
-      (Base64.encode64(@cipher.enc(@name))).chomp
-    end
-
-    def self.decode url, cipher
-      cipher.dec(Base64.decode64(url))
-    end
-  end
-
-
-  def self.from_string url, secret
-    new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1'), Gibberish::AES.new(secret))
-  end
 
   def initialize username, opts={}
     @salt = opts[:salt]
-    @secret = opts[:secret]
-    @username = Username.new username, @secret
+    @cipher = opts[:cipher]
+    @username = username
     @base_url = opts[:base_url]
   end
 
+  def self.username_from_url url
+    url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')
+  end
+
   def encoded_username
-    @username.encode
+    Base64.encode64(@cipher.enc(@username)).chomp
   end
 
   def base_url
