@@ -61,8 +61,8 @@ describe :JsLibUrl do
     it "gives the object back from the username" do
       ['mark','tom'].each do |username|
         url = url_for username, secret: secret
-        url.username.should == builder(secret: secret).from_string(url.to_s).username
-        url.should == builder(secret: secret).from_string(url.to_s)
+        url.should == builder(secret: secret).url_from_string(url.to_s)
+        url.username.should == builder(secret: secret).url_from_string(url.to_s).username
       end
     end
   end
