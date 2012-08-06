@@ -9,7 +9,9 @@ class Fact < Basefact
 
   def increment_mixpanel_count
     if self.has_site? and self.created_by.user
-      @@mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
+      mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
+
+      mixpanel.increment_person_event self.created_by.user.id.to_s, factlinks_created_with_url: 1
     end
   end
 
