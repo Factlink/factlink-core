@@ -22,12 +22,7 @@ class JsLibController < ApplicationController
   end
 
   def redir_url
-    redir_url_for(current_user.username).to_s
+    jslib_url_for(current_user.username).to_s
   end
 
-  def redir_url_for(username)
-    JsLibUrl.new username,
-                 base_url: FactlinkUI::Application.config.jslib_base_url,
-                 salt: FactlinkUI::Application.config.jslib_salt
-  end
 end

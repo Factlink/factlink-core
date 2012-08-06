@@ -1,30 +1,19 @@
+require 'base64'
+require 'gibberish'
+
+require_relative './js_lib_url/username.rb'
+require_relative './js_lib_url/builder.rb'
+
 class JsLibUrl
-  class Username
-    def initialize name
-      @name = name
-    end
 
-    def to_s
-      @name
-    end
-
-    def encode
-      return @name.reverse
-    end
-
-    def self.decode name
-      new (name.reverse)
-    end
+  def initialize username, salt, base_url
+    @username = username
+    @salt = salt
+    @base_url = base_url
   end
 
-  def self.from_string url
-    new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')).to_s
-  end
-
-  def initialize username, opts={}
-    @username = Username.new username
-    @salt = opts[:salt] || 'SUPERSECRET'
-    @base_url = opts[:base_url] || 'http://invalid.invalid/'
+  def encoded_username
+    @username.encoded
   end
 
   def base_url
@@ -36,7 +25,21 @@ class JsLibUrl
   end
 
   def to_s
-     "#{base_url}#{salt}---#{@username.encode}/"
+     self.class.prefix(base_url, salt) + encoded_username + self.class.postfix(base_url, salt)
+  end
+
+  def self.prefix(base_url, salt)
+    "#{base_url}#{salt[0..salt.length/2]}"
+  end
+
+  def self.postfix(base_url, salt)
+    "#{salt[salt.length/2+1..-1]}/"
+  end
+
+  def self.username_from_url url, base_url, salt
+    prefix_length = prefix(base_url, salt).length
+    postfix_length = postfix(base_url, salt).length
+    url[prefix_length..-(1+postfix_length)]
   end
 
   def username

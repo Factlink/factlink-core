@@ -20,6 +20,7 @@ describe JsLibController do
     end
 
     it "renders the indicator template when not logged in without raising errors" do
+      subject.stub(:current_user) { user }
       get :show_template, name: 'indicator'
       response.should be_success
     end
@@ -47,23 +48,23 @@ describe JsLibController do
       subject.stub(:current_user) { user }
       url = mock()
       url.should_receive(:to_s).and_return('http://example.com/bees/')
-      subject.should_receive(:redir_url_for).with(user.username).and_return(url)
+      subject.should_receive(:jslib_url_for).with(user.username).and_return(url)
       subject.redir_url.should == 'http://example.com/bees/'
     end
   end
 
-  describe :redir_url_for do
+  describe :jslib_url_for do
     it "constructs a correct JsLibUrl" do
+      jsliburl = mock(JsLibUrl)
+
+      builder = mock()
+      builder.should_receive(:url_for).and_return(jsliburl)
+
       FactlinkUI::Application.config.
-          should_receive(:jslib_base_url).
-          and_return('http://example.org/hoi/')
-      FactlinkUI::Application.config.
-          should_receive(:jslib_salt).
-          and_return('dingetje')
-      JsLibUrl.should_receive(:new).
-               with('gerard', base_url: 'http://example.org/hoi/', salt: 'dingetje').
-               and_return('hallo_gerard')
-      subject.redir_url_for('gerard').should == 'hallo_gerard'
+          should_receive(:jslib_url_builder).
+          and_return(builder)
+
+      subject.jslib_url_for('gerard').should == jsliburl
     end
   end
 end

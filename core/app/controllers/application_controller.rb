@@ -135,6 +135,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def jslib_url_for(username)
+    FactlinkUI::Application.config.jslib_url_builder.url_for username
+  end
+  helper_method :jslib_url_for
+
   private
     def action_is_intermediate?
       action_name == "intermediate" and controller_name == "facts"
