@@ -9,7 +9,7 @@
   iframe.style.display = "block";
   iframe.id = "factlink-iframe";
 
-  flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/dist/factlink.core.min.js");
+  flScript.src = FactlinkConfig.lib + (FactlinkConfig.srcPath || "/factlink.core.min.js");
   flScript.onload = flScript.onreadystatechange = function () {
     if ((flScript.readyState && flScript.readyState !== "complete" && flScript.readyState !== "loaded") || scriptLoaded) {
       return false;
