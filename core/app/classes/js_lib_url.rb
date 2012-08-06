@@ -1,53 +1,15 @@
 require 'base64'
 require 'gibberish'
 
+require_relative './js_lib_url/username.rb'
+require_relative './js_lib_url/builder.rb'
+
 class JsLibUrl
-  class Username
-    def initialize username, cipher
-      @name = username
-      @cipher = cipher
-    end
 
-    def to_s
-      @name
-    end
-
-    def encoded
-      Base64.strict_encode64(@cipher.enc(@name))
-    end
-
-    def self.decode encoded_username, cipher
-      new cipher.dec(Base64.strict_decode64(encoded_username)), cipher
-    end
-
-    def ==(other)
-      self.to_s == other.to_s
-    end
-  end
-
-  class Builder
-    def initialize(opts={})
-      @opts = opts
-      @cipher = Gibberish::AES.new(opts[:secret])
-    end
-    def new_url username
-      JsLibUrl.new Username.new(username, @cipher), @opts
-    end
-    def url_from_string url
-      JsLibUrl.new username_from_string(url), @opts
-    end
-
-    def username_from_string url
-      encoded_username = JsLibUrl.username_from_url(url)
-      Username.decode(encoded_username, @cipher)
-    end
-  end
-
-
-  def initialize username, opts={}
-    @salt = opts[:salt]
+  def initialize username, salt, base_url
     @username = username
-    @base_url = opts[:base_url]
+    @salt = salt
+    @base_url = base_url
   end
 
   def encoded_username
@@ -63,11 +25,21 @@ class JsLibUrl
   end
 
   def to_s
-     "#{base_url}#{salt}---#{encoded_username}/"
+     self.class.prefix(base_url, salt) + encoded_username + self.class.postfix(base_url, salt)
   end
 
-  def self.username_from_url url
-    url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')
+  def self.prefix(base_url, salt)
+    "#{base_url}#{salt[0..salt.length/2]}"
+  end
+
+  def self.postfix(base_url, salt)
+    "#{salt[salt.length/2+1..-1]}/"
+  end
+
+  def self.username_from_url url, base_url, salt
+    prefix_length = prefix(base_url, salt).length
+    postfix_length = postfix(base_url, salt).length
+    url[prefix_length..-(1+postfix_length)]
   end
 
   def username

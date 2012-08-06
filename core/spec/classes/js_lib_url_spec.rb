@@ -18,7 +18,7 @@ def builder opts
 end
 
 def url_for(username, opts={})
-  builder(opts).new_url username
+  builder(opts).url_for username
 end
 
 describe :JsLibUrl do
@@ -47,9 +47,15 @@ describe :JsLibUrl do
   end
 
   describe :to_s do
-    it 'should be a valid url' do
-      url = url_for 'mark'
-      url.to_s.should be_a_valid_url
+    [
+      'mark', 'm','ma','mar','toaoeioaeihoaoesn','tomdev','hoe/.foo','he/.foo','h/.foo',
+      'hooeiaeohtiheoaihtnseoahnsihtnsaeohtnsaeohdtaehodtnaeoshdtrfohtnsdahidrh4cdfahoeutnxsaboxcr/.dhpaioeli'
+    ].each do |name|
+      it 'should be a valid url' do
+        url = url_for name, secret: 'yo'
+        url.to_s.should be_a_valid_url
+        url.to_s.should_not include '='
+      end
     end
     it 'does not contain the username' do
       url = url_for 'mark'
