@@ -1,7 +1,23 @@
+require 'base64'
+require 'gibberish'
+
 class JsLibUrl
+  class Builder
+    def initialize(opts={})
+      @opts = opts
+    end
+    def new_url username
+      JsLibUrl.new username, @opts
+    end
+    def from_string url
+      JsLibUrl.from_string url, @opts[:secret]
+    end
+  end
+
   class Username
-    def initialize name
+    def initialize name, secret
       @name = name
+      @cipher = Gibberish::AES.new(secret)
     end
 
     def to_s
@@ -9,22 +25,28 @@ class JsLibUrl
     end
 
     def encode
-      return @name.reverse
+      (Base64.encode64(@cipher.enc(@name))).chomp
     end
 
-    def self.decode name
-      new (name.reverse)
+    def self.decode url, cipher
+      cipher.dec(Base64.decode64(url))
     end
   end
 
-  def self.from_string url
-    new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1')).to_s
+
+  def self.from_string url, secret
+    new Username.decode(url.gsub(/^.*\/[^\/]*---([^\/]*)\/$/, '\1'), Gibberish::AES.new(secret))
   end
 
   def initialize username, opts={}
-    @username = Username.new username
-    @salt = opts[:salt] || 'SUPERSECRET'
-    @base_url = opts[:base_url] || 'http://invalid.invalid/'
+    @salt = opts[:salt]
+    @secret = opts[:secret]
+    @username = Username.new username, @secret
+    @base_url = opts[:base_url]
+  end
+
+  def encoded_username
+    @username.encode
   end
 
   def base_url
@@ -36,7 +58,7 @@ class JsLibUrl
   end
 
   def to_s
-     "#{base_url}#{salt}---#{@username.encode}/"
+     "#{base_url}#{salt}---#{encoded_username}/"
   end
 
   def username
