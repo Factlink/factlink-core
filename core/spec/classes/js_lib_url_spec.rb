@@ -11,7 +11,6 @@ end
 
 def builder opts
   JsLibUrl::Builder.new({
-    secret: opts[:secret] || 'geheimpje',
     salt: opts[:salt] || 'zoutje' ,
     base_url: opts[:base_url] || 'http://baasje.example.org/'
   })
@@ -22,8 +21,6 @@ def url_for(username, opts={})
 end
 
 describe :JsLibUrl do
-
-  let(:secret) {'our_little_secret'}
 
   describe :username do
     it "gives the username" do
@@ -52,7 +49,7 @@ describe :JsLibUrl do
       'hooeiaeohtiheoaihtnseoahnsihtnsaeohtnsaeohdtaehodtnaeoshdtrfohtnsdahidrh4cdfahoeutnxsaboxcr/.dhpaioeli'
     ].each do |name|
       it 'should be a valid url' do
-        url = url_for name, secret: 'yo'
+        url = url_for name
         url.to_s.should be_a_valid_url
         url.to_s.should_not include '='
       end
@@ -71,9 +68,9 @@ describe :JsLibUrl do
   describe '#from_string' do
     it "gives the object back from the username" do
       ['mark','tom'].each do |username|
-        url = url_for username, secret: secret
-        url.should == builder(secret: secret).url_from_string(url.to_s)
-        url.username.should == builder(secret: secret).url_from_string(url.to_s).username
+        url = url_for username
+        url.should == builder.url_from_string(url.to_s)
+        url.username.should == builder.url_from_string(url.to_s).username
       end
     end
   end
@@ -99,7 +96,7 @@ describe :JsLibUrl do
     # do it better without adding a lot of complexity, but this might have to
     # change if the url generation changes
     it "should match the correct urls with the salt" do
-      url_builder = builder(secret: 'foo', salt: 'abba', base_url: 'http://example.org/vla/')
+      url_builder = builder(salt: 'abba', base_url: 'http://example.org/vla/')
       url_builder.nginx_line.should == 'location ~ /vla/ab[^/]*ba/(.*)$'
     end
   end
