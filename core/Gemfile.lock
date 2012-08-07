@@ -11,14 +11,6 @@ GIT
       sprockets-vendor_gems
 
 GIT
-  remote: git://github.com/markijbema/marionette-rails.git
-  revision: 000a566aad882dc1fb1e9bd50c3666e6a71ad6d9
-  branch: marionette-0.9.6
-  specs:
-    marionette-rails (0.9.3)
-      rails (>= 3.1.0)
-
-GIT
   remote: git://github.com/pivotal/jasmine-gem.git
   revision: 73ea302cb663a6aef00b9a08222c75662f0f117c
   specs:
@@ -247,6 +239,8 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (6.2.0)
+    marionette-rails (0.9.6.1)
+      rails (>= 3.1.0)
     memoist (0.1.0)
     method_source (0.8)
     metric_fu (2.1.1)
@@ -502,7 +496,7 @@ DEPENDENCIES
   less-rails-bootstrap (>= 2.0.6)
   letter_opener
   map
-  marionette-rails!
+  marionette-rails (= 0.9.6.1)
   memoist
   metric_fu (= 2.1.1)
   mixpanel!

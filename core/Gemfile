@@ -121,7 +121,7 @@ group :assets do
   gem 'modernizr-rails', "~> 2.0.6"
 
   gem "rails-backbone", '= 0.7.2'
-  gem "marionette-rails", git: 'git://github.com/markijbema/marionette-rails.git', branch: 'marionette-0.9.6'
+  gem "marionette-rails", '= 0.9.6.1'
 end
 
 group :development do
