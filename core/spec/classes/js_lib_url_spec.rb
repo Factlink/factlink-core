@@ -57,6 +57,11 @@ describe :JsLibUrl do
         url.to_s.should_not include '='
       end
     end
+    it "should give the same return when executed on two urls with the same username" do
+      url1 = url_for('Sjaak').to_s
+      url2 = url_for('Sjaak').to_s
+      url1.should == url2
+    end
     it 'does not contain the username' do
       url = url_for 'mark'
       url.to_s.should_not include 'mark'

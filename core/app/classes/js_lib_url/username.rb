@@ -10,11 +10,16 @@ class JsLibUrl
     end
 
     def encoded
-      Base64.urlsafe_encode64(@cipher.enc(@name)).gsub(/=/,'+') #/ sorry for this, sublime does not highlight correctly
+      Base64.urlsafe_encode64(self.class.encode(@name)).gsub(/=/,'+') #/ sorry for this, sublime does not highlight correctly
     end
 
     def self.decode encoded_username, cipher
-      new cipher.dec(Base64.urlsafe_decode64(encoded_username.gsub(/\+/,'='))), cipher
+      new encode(Base64.urlsafe_decode64(encoded_username.gsub(/\+/,'='))), cipher
+    end
+
+    def self.encode string
+      encoded = string.reverse
+      encoded.tr! "A-Za-z", "N-ZA-Mn-za-m"
     end
 
     def ==(other)
