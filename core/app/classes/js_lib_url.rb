@@ -29,11 +29,11 @@ class JsLibUrl
   end
 
   def self.prefix(base_url, salt)
-    "#{base_url}#{salt[0..salt.length/2]}"
+    "#{base_url}#{salt[0..salt.length/2-1]}"
   end
 
   def self.postfix(base_url, salt)
-    "#{salt[salt.length/2+1..-1]}/"
+    "#{salt[salt.length/2..-1]}/"
   end
 
   def self.username_from_url url, base_url, salt
