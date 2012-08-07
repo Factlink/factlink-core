@@ -32,9 +32,6 @@ gem 'stringex'
 # Fake Fact Page
 gem 'hashie'
 
-# Encryption
-gem 'gibberish'
-
 gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
 # Pagination & sorting
 gem 'will_paginate', '~> 3.0'

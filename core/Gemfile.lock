@@ -197,7 +197,6 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    gibberish (1.2.0)
     haml (3.1.6)
     hashie (1.2.0)
     headless (0.3.1)
@@ -483,7 +482,6 @@ DEPENDENCIES
   factory_girl_rails (~> 3.5)
   fattr
   fivemat
-  gibberish
   hashie
   headless
   hogan_assets (= 1.0.3)

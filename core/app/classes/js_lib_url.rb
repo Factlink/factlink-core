@@ -1,5 +1,4 @@
 require 'base64'
-require 'gibberish'
 
 require_relative './js_lib_url/username.rb'
 require_relative './js_lib_url/builder.rb'
