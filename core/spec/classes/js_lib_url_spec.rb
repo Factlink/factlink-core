@@ -88,4 +88,14 @@ describe :JsLibUrl do
       end
     end
   end
+
+  describe 'nginx_line' do
+    # This test is quite implementation specific, but I did not know a way to
+    # do it better without adding a lot of complexity, but this might have to
+    # change if the url generation changes
+    it "should match the correct urls with the salt" do
+      url_builder = builder(secret: 'foo', salt: 'abba', base_url: 'http://example.org/vla/')
+      url_builder.nginx_line.should == 'location ~ /vla/ab.*ba/(.*)$'
+    end
+  end
 end
