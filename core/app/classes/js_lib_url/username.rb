@@ -1,4 +1,4 @@
-class JsLibUrl
+module JsLibUrl
   class Username
     def initialize username
       @name = username
