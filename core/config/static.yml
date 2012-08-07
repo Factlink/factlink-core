@@ -3,37 +3,37 @@ development:
     hostname: localhost
     port: 8000
     protocol: http://
-    salt: 'hooeiaeohtiheoaihtnseoahnsihtnsaeohtnsaeohdtaehodtnaeoshdtrfohtnsdahidrh4cdfahoeutnxsaboxcr/.dhpaioeli'
-    secret: 'yo'
+    salt: 'tJx,RiGj:\(HPunB0.FX'
+    secret: 'btf{[SfdFc5CVhiTVEOC'
 
 test:
   static:
     hostname: localhost
     port: 8000
     protocol: http://
-    salt: 'hoi'
-    secret: 'yo'
+    salt: 'tJx,RiGj:\(HPunB0.FX'
+    secret: 'btf{[SfdFc5CVhiTVEOC'
 
 testserver:
   static:
     hostname: static-testserver.factlink.com
     port: 443
     protocol: https://
-    salt: 'hoi'
-    secret: 'yo'
+    salt: 'tJx,RiGj:\(HPunB0.FX'
+    secret: 'btf{[SfdFc5CVhiTVEOC'
 
 staging:
   static:
     hostname: static-staging.factlink.com
     port: 443
     protocol: https://
-    salt: 'hoi'
-    secret: 'yo'
+    salt: 'tJx,RiGj:\(HPunB0.FX'
+    secret: 'btf{[SfdFc5CVhiTVEOC'
 
 production:
   static:
     hostname: static-beta.factlink.com
     port: 443
     protocol: https://
-    salt: 'hoi'
-    secret: 'yo'
+    salt: 'tJx,RiGj:\(HPunB0.FX'
+    secret: 'btf{[SfdFc5CVhiTVEOC'
