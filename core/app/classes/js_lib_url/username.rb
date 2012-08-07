@@ -1,8 +1,7 @@
 class JsLibUrl
   class Username
-    def initialize username, cipher
+    def initialize username
       @name = username
-      @cipher = cipher
     end
 
     def to_s
@@ -13,8 +12,8 @@ class JsLibUrl
       Base64.urlsafe_encode64(self.class.encode(@name)).gsub(/=/,'+') #/ sorry for this, sublime does not highlight correctly
     end
 
-    def self.decode encoded_username, cipher
-      new encode(Base64.urlsafe_decode64(encoded_username.gsub(/\+/,'='))), cipher
+    def self.decode encoded_username
+      new encode(Base64.urlsafe_decode64(encoded_username.gsub(/\+/,'=')))
     end
 
     def self.encode string
