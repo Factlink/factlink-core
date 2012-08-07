@@ -115,20 +115,23 @@ class ApplicationController < ActionController::Base
 
   before_filter :initialize_mixpanel
   def initialize_mixpanel
+    @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+
     if action_is_intermediate?
-      @@mixpanel.append_api('disable', ['mp_page_view'])
+      @mixpanel.append_api('disable', ['mp_page_view'])
     end
 
     if current_user
-      @@mixpanel.append_api('name_tag', current_user.username)
-      @@mixpanel.append_identify(current_user.id.to_s)
+      @mixpanel.append_api('name_tag', current_user.username)
+      @mixpanel.append_identify(current_user.id.to_s)
     end
   end
 
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
     if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
-      @@mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
+      @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+      @mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
       Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
     end
   end
