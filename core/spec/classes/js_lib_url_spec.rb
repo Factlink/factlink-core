@@ -9,7 +9,7 @@ RSpec::Matchers.define :be_a_valid_url do
 end
 
 
-def builder opts
+def builder opts={}
   JsLibUrl::Builder.new({
     salt: opts[:salt] || 'zoutje' ,
     base_url: opts[:base_url] || 'http://baasje.example.org/'
