@@ -1,4 +1,4 @@
-var FactRelationSearchView = Backbone.View.extend({
+var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   events: {
     "keyup input": "doSearchOrSubmit",
     "click li.add": "addNewFactRelation"
@@ -6,22 +6,18 @@ var FactRelationSearchView = Backbone.View.extend({
 
   template: "fact_relations/_evidence_search",
 
-  initialize: function(){
+  initialize: function(options){
     this._busyAdding = false;
     this._lastKnownSearch = "";
     this._searchResultViews = [];
   },
 
-  render: function() {
-    this.$el.html(this.templateRender());
-
+  onRender: function() {
     if ( this.options.type === "supporting" ) {
-      this.$('.add-evidence.supporting' ).css('display','block');
+      this.$('.add-evidence.supporting' ).show();
     } else {
-      this.$('.add-evidence.weakening' ).css('display','block');
+      this.$('.add-evidence.weakening' ).show();
     }
-
-    return this;
   },
 
   cancelSearch: function(e) {
@@ -171,4 +167,3 @@ var FactRelationSearchView = Backbone.View.extend({
     this.$('.add .add-message').text('Add');
   }
 });
-_.extend(FactRelationSearchView.prototype, TemplateMixin);

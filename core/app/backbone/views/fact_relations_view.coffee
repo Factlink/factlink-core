@@ -18,9 +18,10 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
   emptyView: EmptyFactRelationsView
 
   initialize: (options) ->
-    @initializeSearchView()
     @type = @collection.type
     @collection.bind 'add', this.potentialHighlight, this
+
+    @initializeSearchView()
 
   initializeSearchView: ->
     @factRelationSearchView = new FactRelationSearchView
