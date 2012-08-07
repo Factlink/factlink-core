@@ -26,7 +26,7 @@ class JsLibUrl
       url = JsLibUrl.new(fake_username, @opts[:salt], @opts[:base_url]).to_s
       path = Addressable::URI.parse(url).path
       regex = Regexp.escape path
-      regex.gsub! /PLACE_HOLDER_FOR_REGEX/ , '.*'
+      regex.gsub! /PLACE_HOLDER_FOR_REGEX/ , '[^/]*'
       "location ~ #{regex}(.*)$"
     end
   end

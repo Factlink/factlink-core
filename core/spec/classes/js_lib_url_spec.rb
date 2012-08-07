@@ -95,7 +95,7 @@ describe :JsLibUrl do
     # change if the url generation changes
     it "should match the correct urls with the salt" do
       url_builder = builder(secret: 'foo', salt: 'abba', base_url: 'http://example.org/vla/')
-      url_builder.nginx_line.should == 'location ~ /vla/ab.*ba/(.*)$'
+      url_builder.nginx_line.should == 'location ~ /vla/ab[^/]*ba/(.*)$'
     end
   end
 end
