@@ -58,7 +58,10 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     unless @_visible
       @collection.fetch
         success: refreshAgain
-        error: refreshAgain
+        error: (collection, response)->
+          if response.status is 403
+            FactlinkApp.vent.trigger('require_login')
+          refreshAgain()
     else
       refreshAgain true
 
