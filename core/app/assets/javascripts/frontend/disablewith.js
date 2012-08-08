@@ -9,10 +9,15 @@
     .live('click', setLoadingText);
 
   function setLoadingText() {
-    $(this)
-      .text( $(this).attr('data-onloadingtext') )
-      .attr('onclick','return false;')
+    var el = $(this);
+    var isDataRemote = el.data('remote');
+
+    el.text( $(this).attr('data-onloadingtext') )
       .addClass('disabled');
+
+    if (isDataRemote) {
+      el.attr('onclick','return false;');
+    }
   }
 
   function setCompletedText() {
