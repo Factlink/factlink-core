@@ -60,16 +60,8 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
         success: refreshAgain
         error: (collection, response)->
           if response.status is 403
-            $('body').html('')
-            $('body').css(
-              'background-color': '#313131'
-              width:'100%'
-              height:'100%')
-
-            alert "You have been signed out, please sign in."
-            window.location = Backbone.Factlink.Global.path.sign_in
-          else
-            refreshAgain()
+            FactlinkApp.vent.trigger('require_login')
+          refreshAgain()
     else
       refreshAgain true
 

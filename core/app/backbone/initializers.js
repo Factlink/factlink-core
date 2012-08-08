@@ -14,7 +14,7 @@ FactlinkApp.addInitializer(function(options){
   window.Channels = new ChannelList();
   window.TitleManager = new WindowTitle();
 
-  window.Global = {}
+  window.Global = {};
 
   window.Global.TitleView = new TitleView({model: window.TitleManager, collection: window.Channels, el: 'title'});
   window.Global.TitleView.render();
@@ -24,4 +24,19 @@ FactlinkApp.addInitializer(function(options){
   new ChannelsRouter({controller: new ChannelsController()});
   new ProfileRouter({controller: new ProfileController()});
   new TourRouter({controller: new TourController()});
+});
+
+
+FactlinkApp.addInitializer(function(options){
+  FactlinkApp.vent.on('require_login', function(){
+    $('body').html('');
+    $('body').css({
+      'background-color': '#313131',
+      width:'100%',
+      height:'100%'
+    });
+
+    alert("You have been signed out, please sign in.");
+    window.location = Backbone.Factlink.Global.path.sign_in;
+  });
 });
