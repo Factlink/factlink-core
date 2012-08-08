@@ -3,7 +3,9 @@ class SitesController < ApplicationController
   prepend_before_filter :check_blacklist
 
   def facts_count_for_url
-    render :json => { :count => @facts.count }, :callback => params[:callback], :content_type => "application/javascript"
+    response = {count: @facts.count}
+    response[:jslib_url] = jslib_url_for(current_user.username).to_s if user_signed_in?
+    render :json => response, :callback => params[:callback], :content_type => "application/javascript"
   end
 
   def facts_for_url
