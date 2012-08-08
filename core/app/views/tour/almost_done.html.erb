@@ -23,7 +23,7 @@
   <div class="hidden button-wrapper chrome">
     <span class="transparent-border">
 
-      <% if Rails.env == "production" %>
+      <% if use_chrome_webstore %>
       <a id="chrome-extension-webstore-button" class="btn"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
       <% else %>
       <!-- for testserver and staging downloads of the Chrome Extension -->
@@ -77,7 +77,7 @@
         }, 1800);
       });
 
-      <% if Rails.env == "production" %>
+      <% if use_chrome_webstore %>
 
         $('#chrome-extension-webstore-button').bind('click', function() {
           mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
