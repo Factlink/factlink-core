@@ -90,6 +90,10 @@
 
     FACTLINK.on('factlinkAdded', function () {
       tour.showStep(3);
+
+      (function(Factlink){
+        Factlink.stopAnnotating();
+      })(document.getElementById("factlink-iframe").contentWindow.Factlink);
     });
 
     FACTLINK.on('modalOpened', function () {
