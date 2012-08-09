@@ -22,8 +22,15 @@
   <!-- Chrome Yeah! -->
   <div class="hidden button-wrapper chrome">
     <span class="transparent-border">
+
+      <% if use_chrome_webstore %>
+      <a id="chrome-extension-webstore-button" class="btn"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
+      <% else %>
+      <!-- for testserver and staging downloads of the Chrome Extension -->
       <iframe id="ce-download" name="ce-download" height=0 width=0 border=0 style="display:none;"></iframe>
       <a id="chrome-extension-button" target="ce-download" class="btn" href="<%= FactlinkUI::Application.config.static_url %>/chrome/factlink-latest.crx"><%= image_tag("chromeDarkIcon.png", style: "margin: -4px 8px 0 0") %>Install Chrome Extension</a>
+      <% end %>
+
     </span>
 
     <p id="what-is-chrome-extension" class="support-text">What is a Chrome Extension?</p>
@@ -70,9 +77,25 @@
         }, 1800);
       });
 
-      $('#chrome-extension-button').bind('click', function() {
-        mp_track("Extension: Download Chrome Extension #almost-ready");
-      });
+      <% if use_chrome_webstore %>
+
+        $('#chrome-extension-webstore-button').bind('click', function() {
+          mp_track("Extension: Download Chrome Extension -> Clicked #almost-ready");
+          chrome.webstore.install(undefined, successFn, errorFn);
+        });
+
+        function successFn() {
+          mp_track("Extension: Download Chrome Extension -> Successful install #almost-ready");
+
+          $('#skip-step').fadeOut(600, function() {
+            window.location = "<%= create_your_first_factlink_path(ref: 'extension_next') %>";
+          });
+        }
+        function errorFn(e) {
+          mp_track("Extension: Download Chrome Extension -> Failed install #almost-ready");
+          FactlinkApp.NotificationCenter.error("Something went wrong installing the Factlink extension: " + e + ". Please try again.");
+        }
+      <% end %>
 
       $('#bookmarklet-button').mousedown(function() {
         mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
