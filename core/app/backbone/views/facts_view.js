@@ -28,9 +28,11 @@ window.FactsView = AutoloadingCompositeView.extend({
   },
 
   shownewposts: function(){
-    var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
-    this.$('.more_facts .unread_count').html(unread_count);
-    this.$('.more_facts').toggle(unread_count > 0);
+    if ( this.model.get('user').username === currentUser.username ) {
+      var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
+      this.$('.more_facts .unread_count').html(unread_count);
+      this.$('.more_facts').toggle(unread_count > 0);
+    }
   },
 
   emptyViewOn: function() {
