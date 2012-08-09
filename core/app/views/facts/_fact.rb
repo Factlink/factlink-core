@@ -6,14 +6,6 @@ module Facts
       self[:timestamp] ||= 0
     end
 
-    def no_evidence_message
-      if user_signed_in?
-        "Perhaps you know something that supports or weakens this fact?"
-      else
-        "There are no Factlinks supporting or weakening this Factlink at the moment."
-      end
-    end
-
     def delete_from_channel_link
       remove_from_channel_path
     end
