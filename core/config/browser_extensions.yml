@@ -1,25 +1,19 @@
 test:
   chrome:
-    ids:
-      - cobkhjnnnbmaigjhgpmmlkmaidbhpinb
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
 
 development:
   chrome:
-    ids:
-      - kkihgbnaciigoekfgfgjpjggojlobigh
+    id: kkihgbnaciigoekfgfgjpjggojlobigh
 
 testserver:
   chrome:
-    ids:
-      - bmekjogijonolmphikpeppogdmcclkfc
+    id: bmekjogijonolmphikpeppogdmcclkfc
 
 staging:
   chrome:
-    ids:
-      - fkhpmbcgikfdnnobmembneidakkifjgp
+    id: fkhpmbcgikfdnnobmembneidakkifjgp
 
 production:
   chrome:
-    ids:
-      - cobkhjnnnbmaigjhgpmmlkmaidbhpinb
-      - pbmlhihdhmjopieoohffemicnggdmbci
+    id: cobkhjnnnbmaigjhgpmmlkmaidbhpinb
