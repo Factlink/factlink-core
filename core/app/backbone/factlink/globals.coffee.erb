@@ -14,7 +14,6 @@ Backbone.Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>
 
 <% end %>
 
-
-<% if FactlinkUI::Application.config.chrome_extension_id %>
-Backbone.Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
+<% if FactlinkUI::Application.config.chrome_extension_ids %>
+Backbone.Factlink.Global.chrome_extension_ids = <%= FactlinkUI::Application.config.chrome_extension_ids.map {|x| x.to_s} %>
 <% end %>
