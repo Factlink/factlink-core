@@ -11,13 +11,11 @@ Factlink.Prepare = function() {
   var pageY;
 
   function initialize(tmpl) {
-    var createFact;
+    var createFact = Factlink.createFactFromSelection;
 
     el = $(tmpl());
     el.appendTo(Factlink.el);
     el.hide();
-
-    createFact = Factlink.createFactFromSelection;
 
     el.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
@@ -25,7 +23,6 @@ Factlink.Prepare = function() {
       e.preventDefault();
 
       createFact(e.currentTarget.id, function(factId, factObjs) {
-        // Factlink.showFactAddedPopup(factId, e.pageX, e.pageY);
         self.setFactId(factId);
         facts = factObjs;
         self.setType("fl-created");
@@ -42,10 +39,9 @@ Factlink.Prepare = function() {
   }
 
   function bindAddEvidenceClick() {
-    el.delegate(".fl-add-evidence, .fl-created","click", function(e) {
+    el.delegate(".fl-created","click", function(e) {
       if ( facts.length > 0 ) {
         facts[0].click();
-
         self.hide(100);
       }
     });
@@ -80,7 +76,7 @@ Factlink.Prepare = function() {
   };
 
 
-  var types = ["fl-create","fl-created","fl-add-evidence"];
+  var types = ["fl-create","fl-created"];
 
   this.setType = function(str) {
     el.removeClass(types.join(" ")).addClass(str);

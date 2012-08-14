@@ -158,15 +158,10 @@ span.factlink {
       .fl-arrow {
         background-position: 12px 0px !important;
       }
-
-      > ul.fl-add-options {
-        border: solid 1px #555;
-      }
     }
 
     &.fl-create,
-    &.fl-created,
-    &.fl-add-evidence  {
+    &.fl-created {
       width: @popup-create-width;
       height: @popup-height;
       text-align: center;
@@ -193,34 +188,15 @@ span.factlink {
             margin-top: 4px;
           }
         }
-        > span.fl-created,
-        > span.fl-add-evidence {
-          display: none;
-        }
-      }
-    }
-
-    &.fl-add-evidence {
-      > div.fl-label {
-        > span.fl-create,
         > span.fl-created {
           display: none;
         }
-
-        > span.fl-add-evidence {
-          display: block;
-          width: 105px;
-        }
-      }
-
-      ul.fl-add-options {
-        display: none !important;
       }
     }
+
     &.fl-created {
       > div.fl-label {
-        > span.fl-create,
-        > span.fl-add-evidence {
+        > span.fl-create {
           display: none;
         }
 
@@ -228,10 +204,6 @@ span.factlink {
           display: block;
           width: 105px;
         }
-      }
-
-      ul.fl-add-options {
-        display: none !important;
       }
     }
 
@@ -239,27 +211,11 @@ span.factlink {
       &.right {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-
-        > ul.fl-add-options {
-          border-top-left-radius: 0;
-          display: block;
-          top: 0;
-          left: @popup-create-width;
-        }
       }
 
       &.left {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
-
-        > ul.fl-add-options {
-          border-top-right-radius: 0;
-          display: block;
-          left: -100%;
-          width: 100%;
-          top: 0;
-          margin: -1px 0 0 -2px;
-        }
       }
     }
 
@@ -293,6 +249,8 @@ span.factlink {
         width: 50px;
 
         .fl-authority {
+          display: none;
+
           #fl > .resetStyles;
 
           float: left;
