@@ -71,10 +71,10 @@ module.exports = function(grunt){
     },
     concat: {
       'dist/factlink.core.js': createFactlinkConcatObject(files),
-      'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/chrome/start_annotating.js>',
-      'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/chrome/stop_annotating.js>',
-      'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/chrome/start_highlighting.js>',
-      'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/chrome/stop_highlighting.js>',
+      'dist/factlink.start_annotating.js': '<file_strip_banner:src/js/start_annotating.js>',
+      'dist/factlink.stop_annotating.js': '<file_strip_banner:src/js/stop_annotating.js>',
+      'dist/factlink.start_highlighting.js': '<file_strip_banner:src/js/start_highlighting.js>',
+      'dist/factlink.stop_highlighting.js': '<file_strip_banner:src/js/stop_highlighting.js>',
       'dist/easyXDM/easyXDM.js': '<file_strip_banner:libs/easyXDM.js>',
       'dist/factlink.js': createFactlinkConcatObject(loaderFiles)
     },
