@@ -13,6 +13,8 @@ class window.UserActivitiesView extends Backbone.Marionette.CompositeView
       UserChannelActivitiesView
     else if model.get('action') in ["added_supporting_evidence", "added_weakening_evidence"]
       EvidenceActivitiesView
+    else if model.get('action') in ["believes", "doubts", "disbelieves"]
+      OpinionActivitiesView
     else
       UserActivitiesView
 
@@ -40,3 +42,10 @@ class EvidenceActivitiesView extends UserActivitiesView
     same_fact = @model.get('activity')?.fact?.id == m.get('activity')?.fact?.id
 
     correct_action and same_fact
+
+
+class OpinionActivitiesView extends UserActivitiesView
+  appendable: (m) ->
+    return false unless @model.get('username') == m.get('username')
+
+    return @model.get('activity')?.fact?.id == m.get('activity')?.fact?.id
