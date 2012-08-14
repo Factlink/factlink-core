@@ -17,16 +17,6 @@ Factlink.Prepare = function() {
     el.appendTo(Factlink.el);
     el.hide();
 
-    el.hoverIntent({
-      over: function(e) {
-        el.addClass('add-active');
-      },
-      out: function(e) {
-        el.removeClass('add-active');
-      },
-      timeout: 500
-    });
-
     if (FactlinkConfig.modus === "addToFact") {
       createFact = Factlink.createEvidenceFromSelection;
     } else {
