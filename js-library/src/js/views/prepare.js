@@ -17,11 +17,7 @@ Factlink.Prepare = function() {
     el.appendTo(Factlink.el);
     el.hide();
 
-    if (FactlinkConfig.modus === "addToFact") {
-      createFact = Factlink.createEvidenceFromSelection;
-    } else {
-      createFact = Factlink.createFactFromSelection;
-    }
+    createFact = Factlink.createFactFromSelection;
 
     el.find('a').bind('mouseup', function(e) {
       e.stopPropagation();
