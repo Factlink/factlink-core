@@ -14,7 +14,13 @@ describe JsLibController do
       {get: "/templates/../../../../etc/passwd"}.should_not be_routable
     end
 
-    it "retrieves a valid template" do
+    it "does not retrieve a valid template when not logged in" do
+      get :show_template, name: '_channel_li'
+      response.should_not be_success
+    end
+
+    it "retrieves a valid template when logged in" do
+      authenticate_user! user
       get :show_template, name: '_channel_li'
       response.should be_success
     end
