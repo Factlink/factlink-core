@@ -29,10 +29,12 @@ Factlink.templates.getTemplate = function(str, callback) {
 };
 
 
-Factlink.templates.getTemplate('indicator');
-Factlink.templates.getTemplate('create',function(template){
-  Factlink.templates.prepare = new Factlink.Prepare(template);
-});
+Factlink.templates.preload = function() {
+  Factlink.templates.getTemplate('indicator');
+  Factlink.templates.getTemplate('create',function(template){
+    Factlink.prepare = new Factlink.Prepare(template);
+  });
+};
 
 
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);
