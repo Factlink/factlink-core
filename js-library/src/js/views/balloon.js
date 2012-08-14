@@ -11,7 +11,7 @@ Factlink.Balloon = function() {
     id = factId;
     factObj = fact;
 
-    Factlink.getTemplate("indicator", function(tmpl) {
+    Factlink.templates.getTemplate("indicator", function(tmpl) {
       initializeTemplate(tmpl);
     });
   }

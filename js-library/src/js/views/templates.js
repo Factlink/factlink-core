@@ -2,7 +2,9 @@
 
 var requesting = {};
 
-Factlink.getTemplate = function(str, callback) {
+Factlink.templates = {};
+
+Factlink.templates.getTemplate = function(str, callback) {
   if ( Factlink.tmpl[str] !== undefined ) {
     callback(Factlink.tmpl[str]);
   } else {
@@ -26,9 +28,10 @@ Factlink.getTemplate = function(str, callback) {
   }
 };
 
-Factlink.getTemplate('indicator');
-Factlink.getTemplate('create',function(template){
-  Factlink.prepare = new Factlink.Prepare(template);
+
+Factlink.templates.getTemplate('indicator');
+Factlink.templates.getTemplate('create',function(template){
+  Factlink.templates.prepare = new Factlink.Prepare(template);
 });
 
 

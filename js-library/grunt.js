@@ -28,7 +28,7 @@ var files = {
     'src/js/search.js',
     'src/js/create.js',
     'src/js/modal.js',
-    'src/js/views/indicator.js'
+    'src/js/views/templates.js'
   ],
   5: [
     'src/js/xdm.js'

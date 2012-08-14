@@ -1,5 +1,6 @@
 /*global test:true, equal:true, notEqual:true, _:true */
-Factlink.getTemplate = function (str, callback) {
+Factlink.templates = {};
+Factlink.templates.getTemplate = function (str, callback) {
   callback(Factlink._.template(""));
 };
 
