@@ -1,19 +1,4 @@
 <div class="fl-popup" style="display:none">
-  <div class="fl-share">
-    <img class="fl-share-icon" src=<%= "#{jslib_url_for(current_user.username)}/images/bookmark.gif" %> alt="Share">
-
-    <ul class="fl-channels">
-      <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
-      <% if current_user%>
-        <li class="fl-form">
-          <form method="post" action='<%= channels_path(current_user) %>'>
-            <input type="text" name="channel_title" value="" placeholder="Add new">
-            <input type="submit" value="Add" class="btn btn-mini">
-          </form>
-        </li>
-      <% end %>
-    </ul>
-  </div>
 
   <div class="fl-label">
     <span>Show</span>
