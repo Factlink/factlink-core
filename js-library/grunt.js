@@ -15,7 +15,7 @@ var files = {
   3: [
     'src/js/events.js',
     'src/js/models/fact.js',
-    'src/js/views/ballooney_thingy.js',
+    'src/js/views/set_position_of_element.js',
     'src/js/views/balloon.js',
     'src/js/views/prepare.js'
   ],

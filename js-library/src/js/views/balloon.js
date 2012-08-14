@@ -21,14 +21,14 @@ Factlink.Balloon = function() {
     if (fast === true) {
       hideAll();
       el.show();
-    }else{
+    } else {
       timeout = window.setTimeout(function() {
         hideAll();
         el.fadeIn('fast');
       }, 200);
     }
 
-    Factlink.set_position(top,left,window,el);
+    Factlink.set_position_of_element(top,left,window,el);
   };
 
   this.hide = function() {
