@@ -147,7 +147,7 @@ class ChannelsController < ApplicationController
   def toggle_fact
     authorize! :update, @channel
 
-    @fact     = Fact[params[:fact_id]]
+    @fact = Fact[params[:fact_id]]
 
     if @channel.facts.include?(@fact)
       @channel.remove_fact(@fact)
@@ -174,6 +174,8 @@ class ChannelsController < ApplicationController
     @fact = Fact.build_with_data(nil, params[:displaystring].to_s, params[:title].to_s, current_graph_user)
 
     if @fact.data.save and @fact.save
+      track "Factlink: Created"
+
       @channel.add_fact(@fact)
       render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
     else
