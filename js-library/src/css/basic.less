@@ -22,9 +22,6 @@
 span.factlink {
   cursor: pointer;
 
-  &.fl-first {
-  }
-
   &.fl-active {
     background: #B4D5FE !important;
     color: #333;
@@ -44,6 +41,7 @@ span.factlink {
 
 #factlink-modal-frame {
   background: transparent;
+  background: rgba(255, 255, 255, 0.8);
   border: none;
   z-index: @z-index + 2;
   padding: 0;
@@ -72,6 +70,7 @@ span.factlink {
   height: 0;
   width: 0;
 
+  // Message after loading the Bookmarklet
   .fl-message {
     #fl > .resetStyles;
     position: fixed;
@@ -98,81 +97,35 @@ span.factlink {
 
   }
 
+  // "Add Factlink"  "Show Factlink"
   .fl-popup {
     #fl > .resetStyles;
-    .gradient(@bg-color, @bg-color,  lighten(@bg-color, 30));
-    .rounded(3px);
-    .drop-shadow(1px, 2px, 3px, 0.20);
 
     position: absolute;
     display:  none;
     height:   @popup-height;
     z-index:  @z-index;
-    border:   solid 1px @border-color;
     cursor:   pointer;
 
-    width: 128px;
+    // default styling of the popup
 
-    .fl-arrow {
-      #fl > .resetStyles;
-      width: 12px;
-      height: 8px;
-      position: absolute;
-      left: 24px;
-    }
-
-    &.top {
-      .fl-arrow {
-        background-image: url(../images/arrows-top.png);
-        top: -8px;
-      }
-    }
-
-    &.bottom {
-      .fl-arrow  {
-        background-image: url(../images/arrows-bottom.png);
-        top: 100%;
-      }
-    }
-    &.left, &.right {
-      /*not implemented*/
-    }
+    background: red;
 
     &:hover {
-      border: solid 1px #555;
-
-      .fl-arrow {
-        background-position: 12px 0px !important;
-      }
+      border: solid 1px #e6007e;
     }
 
     &.fl-create,
     &.fl-created {
-      width: @popup-create-width;
-      height: @popup-height;
-      text-align: center;
-      a, span {
-        #fl > .resetStyles;
-        line-height: 24px;
-        text-align: inherit;
-        color: #000;
-        text-decoration: none;
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-      }
+
     }
 
     &.fl-create {
+
+      // Volgens mij doet dit iets magisch
       >div.fl-label {
         > span.fl-create {
           display: block;
-          width: 100%;
-          margin: 0;
-          img {
-            float: right;
-            margin-top: 4px;
-          }
         }
         > span.fl-created {
           display: none;
@@ -180,6 +133,7 @@ span.factlink {
       }
     }
 
+    // Net als dit
     &.fl-created {
       > div.fl-label {
         > span.fl-create {
@@ -188,138 +142,66 @@ span.factlink {
 
         > span.fl-created {
           display: block;
-          width: 105px;
         }
       }
     }
 
-    &.add-active {
-      &.right {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-      }
+    > span {
+      #fl > .resetStyles;
 
-      &.left {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-      }
+      float: left;
+      line-height: @popup-height;
+      display: inline-block;
+      min-width: 55px;
+      text-align: center;
+      .text-shadow;
     }
 
-    .fl-label {
+    .fl-indication {
       #fl > .resetStyles;
-      height: @popup-height;
-      text-align: center;
-      overflow: hidden;
+      float: right;
+      height: 30px;
+      overflow: auto;
+      width: 50px;
 
-      > span {
+      .fl-authority {
+        display: none;
+
         #fl > .resetStyles;
 
         float: left;
+        margin: 0 3px 0 0;
+        color: #a0a0a0;
+        font-size: 0.8em;
         line-height: @popup-height;
-        display: inline-block;
-        min-width: 55px;
-        text-align: center;
-        .text-shadow;
-      }
 
-      > span.add-evidence {
-        display: none;
       }
-
-      .fl-indication {
+      .fl-indicator-icon {
         #fl > .resetStyles;
 
         float: right;
-        height: 30px;
-        overflow: auto;
-        width: 50px;
+        margin-top: 2px;
+        padding-right: 4px;
+        width: 17px;
+        height: 20px;
 
-        .fl-authority {
-          display: none;
+        background-repeat: none;
+        background-color: transparent;
 
+        img {
           #fl > .resetStyles;
-
-          float: left;
-          margin: 0 3px 0 0;
-          color: #a0a0a0;
-          font-size: 0.8em;
-          line-height: @popup-height;
-
         }
-        .fl-indicator-icon {
-          #fl > .resetStyles;
 
-          float: right;
-          margin-top: 2px;
-          padding-right: 4px;
-          width: 17px;
-          height: 20px;
-
-          background-repeat: none;
-          background-color: transparent;
-
-          img {
-            #fl > .resetStyles;
-          }
-
-          &.believe {
-            background-position: 1px 0px !important;
-          }
-          &.disbelieve {
-            background-position: 41px 0px !important;
-          }
-          &.doubt {
-            background-position: 21px 0px !important;
-          }
+        &.believe {
+          background-position: 1px 0px !important;
+        }
+        &.disbelieve {
+          background-position: 41px 0px !important;
+        }
+        &.doubt {
+          background-position: 21px 0px !important;
         }
       }
     }
-
-    // Create
-    .fl-add-options {
-      #fl > .resetStyles;
-
-      .fl-float-box;
-      display: none;
-      position: absolute;
-      top: 0;
-      width: 100%;
-
-      margin: -1px 0 0 0;
-      padding: 0px;
-      z-index: @z-index;
-
-      li {
-        #fl > .resetStyles;
-        margin: 3px 0px;
-        padding: 2px 0px;
-        height: 18px;
-        width: 100%;
-        display: block;
-        &:hover {
-          background: @context-menu-highlight-color;
-          .gradient(rgba(96,93,245,1), rgb(54,0,230),  rgb(96,93,245));
-          cursor: pointer;
-
-          a {
-            color: #fff;
-            text-shadow: 0px 0px 0px transparent;
-            font-weight: 100;
-          }
-        }
-
-        a {
-          #fl > .resetStyles;
-          display: block;
-          padding: 0 12px;
-          margin: 2px 0;
-          height: 100%;
-          width: 100%;
-          .text-shadow;
-        }
-      }
-    }
-
-    .fl-share { display: none!important; }
   }
 }
