@@ -53,7 +53,7 @@ Factlink.Balloon = function() {
       factObj.blur();
     });
 
-    el.find('div.fl-label').bind('click', function() {
+    el.bind('click', function() {
       factObj.click();
     });
   }

@@ -17,7 +17,7 @@ Factlink.Prepare = function() {
     el.appendTo(Factlink.el);
     el.hide();
 
-    el.find('a').bind('mouseup', function(e) {
+    el.bind('mouseup', function(e) {
       e.stopPropagation();
     }).bind('click', function(e) {
       e.preventDefault();
