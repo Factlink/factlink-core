@@ -55,20 +55,16 @@ span.factlink {
 }
 
 .the-new-button {
-  .gradient(#789ab7, #6c8ba4, #789ab7);
-  .double-inner-shadow(0, 1px, 0, 0.16);
   border: 1px solid #51677b;
   .border-radius(5px,5px,5px,5px);
   color: #fff;
+  .double-inner-shadow(0, 1px, 0, 0.16);
+  .gradient(#789ab7, #6c8ba4, #789ab7);
+  padding:  2px 12px 8px 10px;
   text-shadow: 0px -1px 2px rgba(0, 0, 1px, 0.5);
 
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-  &:hover {
-    background: red !important;
-  }
+  a { color: #fff; text-decoration: none; }
+  &:hover { .gradient(#789ab7, darken(#6c8ba4, 7%), darken(#789ab7, 2%)) !important; } // Needs !important somehow
 }
 
 .logo-positioning {
@@ -90,51 +86,37 @@ span.factlink {
   }
 }
 
-
 #fl {
   #fl > .resetStyles;
   .unselectable();
   height: 0;
   width: 0;
 
-
-  // Message after loading the Bookmarklet
-  .fl-message {
+  .fl-message {  // Message after loading the Bookmarklet
     #fl > .resetStyles;
+    .the-new-button;
+    .logo-white;
     position: fixed;
     z-index: @z-index - 1;
     top: 6px;
     right: 12px;
-    padding: 5px 24px 10px 12px;
-    font-size: 14px;
-
-    .logo-blue;
   }
 
-  // "Add Factlink"  "Show Factlink"
   .fl-popup {
     #fl > .resetStyles;
     cursor:   pointer;
     display:  none;
     height:   @popup-height;
     position: absolute;
-    padding:  2px 12px 8px 10px;
     z-index:  @z-index;
 
     .the-new-button;
     .logo-white;
 
-    // &:hover{
-    //   background: pink !important;
-    // }
-
-
-
     &.fl-blue {
       .gradient(#5E8BA6, #5e8ba6, #669bbb);
     }
 
-    // Toggle 'Add Factlink' / 'Show'
     &.fl-add-new {
       > span.fl-new     { display: inline; }
       > span.fl-created { display: none;  }
@@ -142,28 +124,6 @@ span.factlink {
     &.fl-created {
       > span.fl-new     { display: none;  }
       > span.fl-created { display: inline; }
-    }
-
-
-    .fl-indication {
-      #fl > .resetStyles;
-
-      .fl-indicator-icon {
-        #fl > .resetStyles;
-
-        float: right;
-        // margin-top: 2px;
-        // padding-right: 4px;
-        width: 20px;
-        // height: 20px;
-
-        background-repeat: none;
-        background-color: white;
-
-        img {
-          #fl > .resetStyles;
-        }
-      }
     }
   }
 }
