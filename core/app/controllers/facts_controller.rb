@@ -2,7 +2,7 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  # before_filter :set_layout, :only => [:new]
+  before_filter :set_layout, :only => [:new]
 
   respond_to :json, :html
 
@@ -54,7 +54,9 @@ class FactsController < ApplicationController
       @just_signed_in = true
     end
 
-    unless current_user
+    if current_user
+      render layout: @layout
+    else
       redirect_to user_session_path(layout: @layout)
     end
   end
@@ -89,7 +91,8 @@ class FactsController < ApplicationController
 
         format.html do
           flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-          redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
+          # redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
+          redirect_to fact_path(@fact.id)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
