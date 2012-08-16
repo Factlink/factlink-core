@@ -2,7 +2,7 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  before_filter :set_layout, :only => [:new]
+  # before_filter :set_layout, :only => [:new]
 
   respond_to :json, :html
 
@@ -54,9 +54,7 @@ class FactsController < ApplicationController
       @just_signed_in = true
     end
 
-    if current_user
-      render layout: @layout
-    else
+    unless current_user
       redirect_to user_session_path(layout: @layout)
     end
   end
