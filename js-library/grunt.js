@@ -82,20 +82,18 @@ module.exports = function(grunt){
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
 
-      'dist/server/images/arrow.png': 'src/images/arrow.png',
       'dist/server/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
-      'dist/server/images/arrows-top.png': 'src/images/arrows-top.png',
-      'dist/server/images/bookmark.gif': 'src/images/bookmark.gif',
-      'dist/server/images/logo-small.png': 'src/images/logo-small.png',
-      'dist/server/images/logo-blue.png': 'src/images/logo-blue.png',
+      'dist/server/images/arrows-top.png':    'src/images/arrows-top.png',
+      'dist/server/images/bookmark.gif':      'src/images/bookmark.gif',
+      'dist/server/images/logo-small.png':    'src/images/logo-small.png',
+      'dist/server/images/logo-white.png':    'src/images/logo-white.png',
 
-      'dist/images/arrow.png': 'src/images/arrow.png',
-      'dist/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
-      'dist/images/arrows-top.png': 'src/images/arrows-top.png',
-      'dist/images/bookmark.gif': 'src/images/bookmark.gif',
-      'dist/images/logo-small.png': 'src/images/logo-small.png',
-      'dist/images/logo-blue.png': 'src/images/logo-blue.png'
-
+      'dist/images/arrow.png':                'src/images/arrow.png',
+      'dist/images/arrows-bottom.png':        'src/images/arrows-bottom.png',
+      'dist/images/arrows-top.png':           'src/images/arrows-top.png',
+      'dist/images/bookmark.gif':             'src/images/bookmark.gif',
+      'dist/images/logo-small.png':           'src/images/logo-small.png',
+      'dist/images/logo-white.png':           'src/images/logo-white.png'
     },
     less: {
       basic: {
