@@ -5,7 +5,9 @@ Factlink.Balloon = function() {
   var el;
   var hasFocus = false;
   var factObj;
-  var timeout;
+  var mouseOutTimeoutID;
+  var loadingTimeoutID;
+  var loading = false;
 
   function initialize(factId, fact) {
     id = factId;
@@ -17,12 +19,12 @@ Factlink.Balloon = function() {
   }
 
   this.show = function(top, left, fast) {
-    window.clearTimeout(timeout);
+    window.clearTimeout(mouseOutTimeoutID);
     if (fast === true) {
       hideAll();
       el.show();
     } else {
-      timeout = window.setTimeout(function() {
+      mouseOutTimeoutID = window.setTimeout(function() {
         hideAll();
         el.fadeIn('fast');
       }, 200);
@@ -31,9 +33,18 @@ Factlink.Balloon = function() {
     Factlink.set_position_of_element(top,left,window,el);
   };
 
-  this.hide = function() {
-    window.clearTimeout(timeout);
-    el.fadeOut('fast');
+  this.hide = function(callback) {
+    window.clearTimeout(mouseOutTimeoutID);
+    el.fadeOut('fast', function() {
+
+      if ( $.isFunction(callback) ) {
+        callback();
+      }
+    });
+
+    if (factObj !== undefined) {
+      factObj.stopHighlighting();
+    }
   };
 
   this.isVisible = function() {
@@ -42,6 +53,31 @@ Factlink.Balloon = function() {
 
   this.destroy = function() {
     el.remove();
+  };
+
+  this.startLoading = function() {
+    loading = true;
+
+    var self = this;
+
+    loadingTimeoutID = setTimeout(function() {
+      self.stopLoading();
+    }, 17000);
+
+    el.addClass('loading');
+  };
+
+  this.stopLoading = function() {
+    window.clearTimeout(loadingTimeoutID);
+    loading = false;
+
+    this.hide( function() {
+      el.removeClass('loading');
+    });
+  };
+
+  this.loading = function() {
+    return loading;
   };
 
   function initializeTemplate(tmpl) {

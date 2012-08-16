@@ -41,7 +41,7 @@ Factlink.Fact = function() {
 
     bindClick(id);
 
-    stopHighlighting(1500);
+    this.stopHighlighting(1500);
   }
 
   // This may look like some magic, but here we expose the Fact.blur/focus/click
@@ -86,7 +86,7 @@ Factlink.Fact = function() {
     $( elements ).addClass('fl-active');
   }
 
-  function stopHighlighting(timer) {
+  this.stopHighlighting = function(timer) {
     clearTimeout(highlight_timeout);
 
     if ( timer ) {
@@ -96,7 +96,7 @@ Factlink.Fact = function() {
     } else {
       $( elements ).removeClass('fl-active');
     }
-  }
+  };
 
   function bindFocus() {
     self.focus(function(e) {
@@ -115,23 +115,30 @@ Factlink.Fact = function() {
     self.blur(function(e) {
       clearTimeout(timeout);
 
-      stopHighlighting();
+      if ( ! balloon.loading() ) {
+        self.stopHighlighting();
 
-      timeout = setTimeout(function(){
-        balloon.hide();
-      }, 300);
+        timeout = setTimeout(function(){
+          balloon.hide();
+        }, 300);
+      }
     });
   }
 
   function bindClick(id) {
     self.click(function(e) {
       var self = this;
+
+      balloon.startLoading();
       // A custom switch-like module
       var modusHandler = (function() {
         return {
           "default": function() {
-            Factlink.showInfo(id);
+            Factlink.showInfo(id, function successFn() {
+              balloon.stopLoading();
+            });
           },
+          // TODO: Remove this
           addToFact: function() {
             Factlink.prepare.show(e.pageX, e.pageY);
             Factlink.prepare.setFactId(id);

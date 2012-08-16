@@ -6,10 +6,14 @@
   iFrame.hide();
   iFrame.appendTo(Factlink.el);
 
-  Factlink.showInfo = function(factId) {
-    Factlink.remote.showFactlink(factId, function ready() {
+  Factlink.showInfo = function(factId, successCallback) {
+    Factlink.remote.showFactlink(factId, function successFn() {
       Factlink.modal.show.method();
       Factlink.trigger('modalOpened');
+
+      if ($.isFunction(successCallback)) {
+        successCallback();
+      }
     });
   };
 

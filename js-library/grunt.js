@@ -82,16 +82,18 @@ module.exports = function(grunt){
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
 
-      'dist/server/images/arrows-bottom.png': 'src/images/arrows-bottom.png',
-      'dist/server/images/arrows-top.png':    'src/images/arrows-top.png',
-      'dist/server/images/bookmark.gif':      'src/images/bookmark.gif',
-      'dist/server/images/logo-small.png':    'src/images/logo-small.png',
-      'dist/server/images/logo-white.png':    'src/images/logo-white.png',
+      'dist/server/images/arrows-bottom.png':     'src/images/arrows-bottom.png',
+      'dist/server/images/arrows-top.png':        'src/images/arrows-top.png',
+      'dist/server/images/bookmark.gif':          'src/images/bookmark.gif',
+      'dist/server/images/loading-indicator.gif': 'src/images/loading-indicator.gif',
+      'dist/server/images/logo-small.png':        'src/images/logo-small.png',
+      'dist/server/images/logo-white.png':        'src/images/logo-white.png',
 
       'dist/images/arrow.png':                'src/images/arrow.png',
       'dist/images/arrows-bottom.png':        'src/images/arrows-bottom.png',
       'dist/images/arrows-top.png':           'src/images/arrows-top.png',
       'dist/images/bookmark.gif':             'src/images/bookmark.gif',
+      'dist/images/loading-indicator.gif':    'src/images/loading-indicator.gif',
       'dist/images/logo-small.png':           'src/images/logo-small.png',
       'dist/images/logo-white.png':           'src/images/logo-white.png'
     },

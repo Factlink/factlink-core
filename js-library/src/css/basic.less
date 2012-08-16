@@ -105,6 +105,23 @@ span.factlink {
     .the-new-button;
     .logo-white;
 
+    &.loading &:before {
+      content: url(../images/loading-indicator.gif);
+    }
+
+    &.loading {
+      .loading-message {
+        display: inline;
+      }
+      .show-message {
+        display: none;
+      }
+    }
+
+    .loading-message {
+      display: none;
+    }
+
     &.fl-blue {
       .gradient(#5E8BA6, #5e8ba6, #669bbb);
     }
