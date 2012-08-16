@@ -16,18 +16,15 @@
     return d;
   }
 
-  Factlink.createEvidenceFromSelection = function(opinion, callback){
-    var selInfo = Factlink.getSelectionInfo();
-    if (Factlink.prepare.getFactId()) {
-        Factlink.remote.createEvidence(Factlink.prepare.getFactId(), Factlink.siteUrl(), opinion, selInfo.title);
-    } else {
-        Factlink.remote.createNewEvidence(selInfo.text, selInfo.passage, Factlink.siteUrl(), opinion, selInfo.title);
-    }
-  };
-
   Factlink.createFactFromSelection = function(opinion,callback,errorCallback){
     var selInfo = Factlink.getSelectionInfo();
-    Factlink.create(selInfo.text, selInfo.passage, Factlink.siteUrl(), selInfo.title, opinion,callback,errorCallback);
+    Factlink.create(selInfo.text,
+                    selInfo.passage,
+                    Factlink.siteUrl(),
+                    selInfo.title,
+                    opinion,
+                    callback,
+                    errorCallback);
   };
 
   Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
