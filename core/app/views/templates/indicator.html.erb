@@ -1,3 +1,4 @@
 <div class="fl-popup fl-blue" style="display:none">
-  Show Factlink <%= image_tag(image_url("/system/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe), style: "display: none;") %>
+  <span class="show-message">Show Factlink <%= image_tag(image_url("/system/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe), style: "display: none;") %></span>
+  <span class="loading-message">Loading...</span>
 </div>
