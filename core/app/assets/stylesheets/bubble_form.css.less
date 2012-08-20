@@ -1,7 +1,10 @@
+@import "bubble/variables";
 @import "bubble/wheel";
 @import "bubble/title";
 
 form.fact-block {
+  margin: 0 -@popup-padding;
+
   .content {
     border-bottom: 1px solid #D7D7D7;
     width: 100%;
@@ -56,7 +59,7 @@ form.fact-block {
   }
 
   .buttons {
-    margin: 15px 0 0 0;
+    margin: @popup-padding;
     #cancel {
       float: left;
     }
