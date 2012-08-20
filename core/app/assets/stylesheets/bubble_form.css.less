@@ -3,69 +3,22 @@
 @import "bubble/title";
 
 form.fact-block {
-  margin: 0 -@popup-padding;
+  margin: -1px  -@popup-padding 0;
 
-  .content {
-    border-bottom: 1px solid #D7D7D7;
-    width: 100%;
-    overflow: hidden;
-    .box-sizing();
-
-    .wheel {
-      #fact>.wheel();
-    }
-
-    .factlink {
-      .box-sizing();
-      width: 389px;
-      float: left;
-      padding: 0 0 0 16px;
-
-      .title {
-        #font > .sans-serif(normal,9pt,@baseLineHeight);
-        padding: 0;
-        color: #4d7796;
-        border: none;
-        outline: none;
-        box-shadow: none;
-        margin: 0;
-        width: 100%;
-      }
-
-      .fact {
-        p {
-          .box-sizing();
-          word-wrap: break-word;
-          color: #555;
-        }
-
-        textarea {
-          display: none;
-        }
-      }
-    }
+  article.fact {
+    padding-bottom: 12px;
+    border-bottom: 1px solid @baseBorderColor;
   }
 
-  h4 {
-    margin: 10px;
+  textarea {
+    display: none;
   }
 
-  #add-to-channels {
-    margin-left: 10px;
-
-    .channel-title {
-      margin: 0;
-    }
-  }
+  h4 { margin: 10px; }
 
   .buttons {
     margin: @popup-padding;
-    #cancel {
-      float: left;
-    }
-
-    #submit {
-      float: right;
-    }
+    #cancel { float: left; }
+    #submit { float: right; }
   }
 }

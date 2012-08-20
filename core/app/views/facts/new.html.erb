@@ -1,19 +1,19 @@
 <% if user_signed_in? %>
   <%= form_tag facts_path, class: "fact-block", id:"new_fact_form" do %>
-    <div class="content">
+    <article class="fact">
       <div class="wheel"></div>
 
-      <div class="factlink">
+      <header>
         <%= text_field_tag :title, params[:title], class: "title", autocomplete: "off" %>
 
-        <div class="fact">
+       <span class="body">
           <%= text_area_tag :fact, params[:fact] %>
-          <p style='max-height: 100px; overflow: auto;'><%= params[:fact] %></p>
-        </div>
+          <p style='max-height: 100px; overflow-y: scroll;'><%= params[:fact] %></p>
 
-        <%= hidden_field_tag :url, params[:url] %>
-      </div>
-    </div>
+          <%= hidden_field_tag :url, params[:url] %>
+        </span>
+      </header>
+    </article>
 
     <div id="add-to-container">
       <h4><%= t('.add_to_channels').capitalize %>:</h4>
