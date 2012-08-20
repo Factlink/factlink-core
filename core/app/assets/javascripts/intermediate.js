@@ -33,22 +33,32 @@ var // The iFrame
           showFrame.className = "overlay";
         },
 
-        createFactlink: function(text, successFn) {
+        createFactlink: function(text, siteUrl, siteTitle, successFn, onCreatedFn) {
+          console.info("3 createFactlink - core:intermediate.js");
           var successCalled  = 0;
           var onLoadSuccess = function(){
             console.info('modal opened callback ('+successCalled+')', new Date().getTime());
             if (! successCalled ){
               successCalled++;
-              successFn();
+
+              if ( $.isFunction( successFn ) ) {
+                successFn();
+              }
             }
 
           }
           showFrame.onload = onLoadSuccess;
 
+
+          // ----> Doe something with the onCreatedFn ??
+
           // Somehow only lower case letters seem to work for those events --mark
           $(document).bind("modalready", onLoadSuccess);
 
-          showFrame.src = "/facts/new?fact=" + text;
+          showFrame.src = "/facts/new" +
+                                      "?fact="  + text +
+                                      "&url="   + siteUrl +
+                                      "&title=" + siteTitle;
 
           // Show the overlay
           showFrame.className = "overlay";
