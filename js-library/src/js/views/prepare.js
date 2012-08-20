@@ -6,9 +6,10 @@ Factlink.Prepare = function() {
   var factId;
   var facts;
   var self = this;
-  var timeout;
   var pageX;
   var pageY;
+  var loadingTimeoutID;
+  var loading = false;
 
   function initialize(tmpl) {
     var createFact = Factlink.createFactFromSelection;
@@ -22,10 +23,13 @@ Factlink.Prepare = function() {
     }).bind('click', function(e) {
       e.preventDefault();
 
+      self.startLoading();
+
       createFact(e.currentTarget.id, function(factId, factObjs) {
         self.setFactId(factId);
         facts = factObjs;
         self.setType("fl-created");
+
         setTimeout(function() {
           el.hide();
           //fake mouseover over the first fact
@@ -56,7 +60,20 @@ Factlink.Prepare = function() {
   };
 
   this.hide = function() {
-    el.fadeOut('fast');
+
+    el.fadeOut('fast', function() {
+      if (loading) { self.stopLoading(); }
+    });
+  };
+
+  this.startLoading = function() {
+    loading = true;
+    el.addClass('fl-loading');
+  };
+  this.stopLoading = function() {
+    loading = false;
+    el.removeClass('fl-loading');
+    this.hide();
   };
 
   this.isVisible = function() {

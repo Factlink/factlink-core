@@ -113,7 +113,7 @@ span.factlink {
       .fl-loading-message {
         display: inline;
       }
-      .fl-show-message {
+      .fl-default-message {
         display: none;
       }
     }
@@ -127,12 +127,16 @@ span.factlink {
     }
 
     &.fl-add-new {
+      .fl-default-message {
       > span.fl-new     { display: inline; }
       > span.fl-created { display: none;  }
+      }
     }
     &.fl-created {
+      .fl-default-message {
       > span.fl-new     { display: none;  }
       > span.fl-created { display: inline; }
+      }
     }
   }
 }

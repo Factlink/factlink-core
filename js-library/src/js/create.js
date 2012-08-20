@@ -22,6 +22,7 @@
     var success = function() {
       Factlink.modal.show.method();
       Factlink.trigger('modalOpened');
+      Factlink.prepare.stopLoading();
     };
 
     var onCreated = function(data) {
