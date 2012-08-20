@@ -64,7 +64,7 @@ Factlink.Balloon = function() {
       self.stopLoading();
     }, 17000);
 
-    el.addClass('loading');
+    el.addClass('fl-loading');
   };
 
   this.stopLoading = function() {
@@ -72,7 +72,7 @@ Factlink.Balloon = function() {
     loading = false;
 
     this.hide( function() {
-      el.removeClass('loading');
+      el.removeClass('fl-loading');
     });
   };
 
