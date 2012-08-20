@@ -99,8 +99,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
 
-  focusInput: function() {this.$('input.typeahead').focus(); console.info('hey');},
-  onFocusInput: function () { this.$el.addClass('focus'); console.info('yo');},
+  focusInput: function() {this.$('input.typeahead').focus(); },
+  onFocusInput: function () { this.$el.addClass('focus'); },
   blurInput: function () { this.$el.removeClass('focus'); },
 
   moveSelectionUp: function (e) {
