@@ -33,8 +33,7 @@ var // The iFrame
           showFrame.className = "overlay";
         },
 
-        createFactlink: function(text, siteUrl, siteTitle, successFn, onCreatedFn) {
-          console.info("3 createFactlink - core:intermediate.js");
+        prepareNewFactlink: function(text, siteUrl, siteTitle, successFn, onCreatedFn) {
           var successCalled  = 0;
           var onLoadSuccess = function(){
             console.info('modal opened callback ('+successCalled+')', new Date().getTime());
