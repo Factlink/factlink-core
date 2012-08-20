@@ -4,7 +4,9 @@
       <div class="wheel"></div>
 
       <header>
+        <% unless params[:title].blank? %>
         <%= text_field_tag :title, params[:title], class: "title", autocomplete: "off" %>
+        <% end %>
 
        <span class="body">
           <%= text_area_tag :fact, params[:fact] %>
