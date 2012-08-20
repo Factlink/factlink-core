@@ -1,5 +1,5 @@
 (function(Factlink, $, _, easyXDM, window, undefined) {
-  // var timeout;
+
   var popupTimeout;
 
   function getTextRange() {
@@ -16,38 +16,26 @@
     return d;
   }
 
-  Factlink.createFactFromSelection = function(opinion,callback,errorCallback){
+  Factlink.createFactFromSelection = function(opinion, callback, errorCallback){
     var selInfo = Factlink.getSelectionInfo();
-    Factlink.create(selInfo.text,
-                    selInfo.passage,
-                    Factlink.siteUrl(),
-                    selInfo.title,
-                    opinion,
-                    callback,
-                    errorCallback);
-  };
 
-  Factlink.create = function(fact, passage, url, title, opinion, successFn, errorFn) {
-    Factlink.ajax("/facts.json", {
-      type: "POST",
-      data: {
-        fact: fact,
-        passage: passage,
-        opinion: opinion,
-        title: title,
-        url: url
-      },
-      success: function(data) {
-        var factObjs = Factlink.modal.highlightNewFactlink.method(data.displaystring, data.id, data.score_dict_as_percentage);
+    var success = function() {
+      Factlink.modal.show.method();
+      Factlink.trigger('modalOpened');
+    };
 
-        if ($.isFunction(successFn)) {
-          successFn(data.id, factObjs);
-        }
+    var onCreated = function(data) {
+      // var factObjs = Factlink.modal.highlightNewFactlink.method(data.displaystring,
+      //                                                           data.id,
+      //                                                           data.score_dict_as_percentage);
+      // Factlink.trigger('factlinkAdded');
+    };
 
-        Factlink.trigger('factlinkAdded');
-      },
-      error: errorFn
-    });
+    Factlink.remote.createFactlink( selInfo.text,
+                                    Factlink.siteUrl(),
+                                    selInfo.title,
+                                    success,
+                                    onCreated);
   };
 
   // We make this a global function so it can be used for direct adding of facts

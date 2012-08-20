@@ -10,6 +10,7 @@
     local: Factlink.modal,
     remote: {
       showFactlink: {},
+      createFactlink: {},
       position: {},
       ajax: {}
     }
