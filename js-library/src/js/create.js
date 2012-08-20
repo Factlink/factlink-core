@@ -31,7 +31,7 @@
       // Factlink.trigger('factlinkAdded');
     };
 
-    Factlink.remote.createFactlink( selInfo.text,
+    Factlink.remote.prepareNewFactlink( selInfo.text,
                                     Factlink.siteUrl(),
                                     selInfo.title,
                                     success,
