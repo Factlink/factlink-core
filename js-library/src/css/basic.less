@@ -2,7 +2,8 @@
 @import "elements.less";
 
 /* Actual styles start */
-@z-index      : 2147483644;
+@z-index      : 2147483644; // max z-index supported: 2147483647
+@max-z-index  : 2147483647;
 @hover-color  : darken(rgb(240,240,240), 10);
 @popup-width  : 105px;
 @popup-create-width: 105px;
@@ -32,7 +33,7 @@ span.factlink {
   background: transparent;
   background: rgba(255, 255, 255, 0.6);
   border: none;
-  z-index: @z-index + 2;
+  z-index: @max-z-index;
   padding: 0;
   display: none;
   margin: 0;
@@ -89,7 +90,7 @@ span.factlink {
     .the-new-button;
     .logo-white;
     position: fixed;
-    z-index: @z-index - 1;
+    z-index: @max-z-index;
     top: 6px;
     right: 12px;
   }
@@ -100,7 +101,7 @@ span.factlink {
     display:  none;
     height:   @popup-height;
     position: absolute;
-    z-index:  @z-index;
+    z-index:  @max-z-index;
 
     .the-new-button;
     .logo-white;
