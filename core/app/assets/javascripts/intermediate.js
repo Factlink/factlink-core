@@ -16,7 +16,6 @@ var // The iFrame
         showFactlink: function(id, successFn) {
           var successCalled  = 0;
           var onLoadSuccess = function(){
-            console.info('modal opened callback ('+successCalled+')', new Date().getTime());
             if (! successCalled ){
               successCalled++;
               successFn();
@@ -38,7 +37,6 @@ var // The iFrame
 
           var successCalled = 0;
           var onLoadSuccess = function() {
-            console.info('modal opened callback ('+successCalled+')', new Date().getTime());
             if (! successCalled ){
               successCalled++;
 
