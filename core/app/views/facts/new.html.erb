@@ -5,7 +5,8 @@
 
       <header>
         <% unless params[:title].blank? %>
-        <%= text_field_tag :title, params[:title], class: "title", autocomplete: "off" %>
+        <a class="title"><%= params[:title] %></a>
+        <%= hidden_field_tag :title, params[:title] %>
         <% end %>
 
        <span class="body">
