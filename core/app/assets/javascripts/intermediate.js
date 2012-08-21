@@ -9,7 +9,8 @@ var // The iFrame
         hide: {},
         show: {},
         highlightNewFactlink: {},
-        stopHighlightingFactlink: {}
+        stopHighlightingFactlink: {},
+        createdNewFactlink: {}
       },
       local: {
         showFactlink: function(id, successFn) {
@@ -33,9 +34,10 @@ var // The iFrame
           showFrame.className = "overlay";
         },
 
-        prepareNewFactlink: function(text, siteUrl, siteTitle, successFn, onCreatedFn) {
-          var successCalled  = 0;
-          var onLoadSuccess = function(){
+        prepareNewFactlink: function(text, siteUrl, siteTitle, successFn, errorFn) {
+
+          var successCalled = 0;
+          var onLoadSuccess = function() {
             console.info('modal opened callback ('+successCalled+')', new Date().getTime());
             if (! successCalled ){
               successCalled++;
@@ -48,9 +50,6 @@ var // The iFrame
           }
           showFrame.onload = onLoadSuccess;
 
-
-          // ----> Doe something with the onCreatedFn ??
-
           // Somehow only lower case letters seem to work for those events --mark
           $(document).bind("modalready", onLoadSuccess);
 
@@ -58,9 +57,15 @@ var // The iFrame
                                       "?fact="  + text +
                                       "&url="   + siteUrl +
                                       "&title=" + siteTitle;
-
           // Show the overlay
           showFrame.className = "overlay";
+
+
+          var onFactlinkCreated = function(e, id) {
+            remote.highlightNewFactlink(text, id);
+          }
+          $(document).bind("factlinkCreated", onFactlinkCreated);
+
         },
 
         position: function(top, left) {

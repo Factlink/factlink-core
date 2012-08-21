@@ -13,5 +13,9 @@
 
     window.fact_id = "<%= @fact.id %>";
 
+    <% if @just_added %>
+    parent.$(parent.document).trigger("factlinkCreated", <%= @fact.id %> );
+    <% end %>
+
   </script>
 <% end %>
