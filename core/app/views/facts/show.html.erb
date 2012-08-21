@@ -13,9 +13,5 @@
 
     window.fact_id = "<%= @fact.id %>";
 
-    if( parent.remote ) {
-      parent.remote.highlightNewFactlink("<%= @fact.data.displaystring %>", "<%= @fact.id %>");
-    }
-
   </script>
 <% end %>
