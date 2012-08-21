@@ -29,7 +29,6 @@
     $(document).unbind('click', clickHandler);
   };
 
-
   // Object which holds the methods that can be called from the intermediate iframe
   // These methods are also used by the internal scripts and can be called through
   // Factlink.modal.FUNCTION.method() because easyXDM changes the object structure
@@ -47,6 +46,8 @@
 
       $.merge(Factlink.Facts, fct);
       //@TODO: Authority & opinions need to be added back in
+
+      Factlink.trigger("factlinkAdded");
       return fct;
     },
     stopHighlightingFactlink: function(id) {
