@@ -25,18 +25,15 @@
       Factlink.prepare.stopLoading();
     };
 
-    var onCreated = function(data) {
-      // var factObjs = Factlink.modal.highlightNewFactlink.method(data.displaystring,
-      //                                                           data.id,
-      //                                                           data.score_dict_as_percentage);
-      // Factlink.trigger('factlinkAdded');
+    var error = function(e) {
+      console.error(e);
     };
 
     Factlink.remote.prepareNewFactlink( selInfo.text,
                                     Factlink.siteUrl(),
                                     selInfo.title,
                                     success,
-                                    onCreated);
+                                    error);
   };
 
   // We make this a global function so it can be used for direct adding of facts
