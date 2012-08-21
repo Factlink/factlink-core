@@ -27,6 +27,7 @@ class FactsController < ApplicationController
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
+    @just_added = ( not params[:just_added].blank? )
 
     respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
   end
@@ -89,7 +90,7 @@ class FactsController < ApplicationController
 
         format.html do
           flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-          redirect_to fact_path(@fact.id)
+          redirect_to fact_path(@fact.id, just_added: true)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
