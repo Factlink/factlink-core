@@ -7,21 +7,21 @@ describe JsLibController do
 
   describe :show_template do
     it "routes to valid templates" do
-      {get: "/templates/_channel_li"}.should route_to controller: 'js_lib', action: 'show_template', name: '_channel_li'
+      {get: "/templates/create"}.should route_to controller: 'js_lib', action: 'show_template', name: 'create'
     end
 
     it "does not route with directory traversal" do
       {get: "/templates/../../../../etc/passwd"}.should_not be_routable
     end
 
-    it "does not retrieve a valid template when not logged in" do
-      get :show_template, name: '_channel_li'
-      response.should_not be_success
+    it "retrieves a valid template when not logged in" do
+      get :show_template, name: 'create'
+      response.should be_success
     end
 
     it "retrieves a valid template when logged in" do
       authenticate_user! user
-      get :show_template, name: '_channel_li'
+      get :show_template, name: 'create'
       response.should be_success
     end
 
