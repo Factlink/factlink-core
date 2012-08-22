@@ -1,5 +1,9 @@
 (function(Factlink, $, _, easyXDM, window, undefined) {
 
+Factlink.opinionSet = function() {
+  Factlink.trigger('opinionSet');
+};
+
 Factlink.Fact = function() {
   var elements;
   // This is to scare Mark:
