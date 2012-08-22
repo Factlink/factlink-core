@@ -39,11 +39,11 @@
   Factlink.modal = {
     hide: function() {
       unbindClick();
-      iFrame.hide();
+      iFrame.fadeOut('fast');
     },
     show: function() {
       bindClick();
-      iFrame.show();
+      iFrame.fadeIn('fast');
     },
     highlightNewFactlink: function(fact, id, opinions) {
       var fct = Factlink.selectRanges(Factlink.search(fact), id, opinions);
