@@ -1,0 +1,48 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#new_session {
+  position: relative;
+  margin: 5px;
+  width: 400px;
+
+  img {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    width: 95px;
+    height: 20px;
+  }
+
+  form {
+    fieldset {
+      color: #555;
+      font-size: 13px;
+      padding: 5px 0 20px;
+      display: block;
+    }
+
+    input[type=password], input[type=text] {
+      width: 98%;
+    }
+
+    .split {
+      div {
+        float: left;
+        width: 50%;
+
+        label {
+          display: inline-block;
+        }
+
+        &.second {
+          text-align: right;
+        }
+      }
+    }
+
+    div.inputs {
+      text-align: right;
+    }
+  }
+}

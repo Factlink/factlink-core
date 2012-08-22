@@ -154,6 +154,7 @@ module FactlinkUI
       'fake_facts.css',
       'frontend.css',
       'general.css',
+      'client.css',
       'landing.css',
       'popup.css',
       'privacy.css',
