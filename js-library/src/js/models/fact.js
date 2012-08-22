@@ -134,22 +134,10 @@ Factlink.Fact = function() {
       var self = this;
 
       balloon.startLoading();
-      // A custom switch-like module
-      var modusHandler = (function() {
-        return {
-          "default": function() {
-            Factlink.showInfo(id, function successFn() {
-              balloon.stopLoading();
-            });
-          },
-          // TODO: Remove this
-          addToFact: function() {
-            Factlink.prepare.show(e.pageX, e.pageY);
-            Factlink.prepare.setFactId(id);
-          }
-        };
-      })();
-      modusHandler[FactlinkConfig.modus]();
+
+      Factlink.showInfo(id, function successFn() {
+        balloon.stopLoading();
+      });
     });
   }
 
