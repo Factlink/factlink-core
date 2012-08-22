@@ -16,7 +16,7 @@
 /** Fact block */
 div.modal {
   overflow: visible !important;
-  padding: @popup-padding;
+  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
 
   span.proxyWindow {
     display: inline !important;
@@ -40,7 +40,8 @@ div.modal {
       .opacity(0.45);
       position: relative;
       right: 5px;
-      top: 4px;
+      top: -@popup-padding + 2;
+      z-index: @max-z-index;
     }
 
     .top-right-arrow, .relation-top-right-arrow {
