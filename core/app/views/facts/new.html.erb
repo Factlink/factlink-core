@@ -29,7 +29,7 @@
 
     <div class="buttons">
       <button class="btn" name="cancel" id="cancel">Cancel</button>
-      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Adding...", id: "submit" %>
+      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Posting...", id: "submit" %>
     </div>
   <% end %>
 <% end %>
@@ -56,5 +56,6 @@
       e.preventDefault();
       parent.remote.hide();
     });
+
   </script>
 <% end %>
