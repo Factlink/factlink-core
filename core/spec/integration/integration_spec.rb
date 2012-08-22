@@ -127,7 +127,6 @@ describe "Walkthrough the app", type: :request do
       visit new_fact_path
       fill_in "fact", with: fact_name
       click_button "submit"
-      page.should have_content "Factlink successfully posted"
 
       visit created_channel_path(@user)
 
@@ -240,7 +239,6 @@ describe "Walkthrough the app", type: :request do
       fact_title = "fact to be found"
       fill_in "fact", with: fact_title
       click_button "submit"
-      page.should have_content "Factlink successfully posted"
 
       # and search for it:
       visit root_path
