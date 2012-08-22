@@ -6,6 +6,10 @@
   iFrame.hide();
   iFrame.appendTo(Factlink.el);
 
+  Factlink.hideDimmer = function () {
+    iFrame.css('background', 'none');
+  };
+
   Factlink.showInfo = function(factId, successCallback) {
     Factlink.remote.showFactlink(factId, function successFn() {
       Factlink.modal.show.method();
