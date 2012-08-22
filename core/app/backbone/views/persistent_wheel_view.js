@@ -1,7 +1,7 @@
 (function() {
 window.PersistentWheelView = BaseFactWheelView.extend({
   clickOpinionType: function (opinionType, e) {
-    if ( parent.parent ) {
+    if ( parent.parent && parent.parent.FACTLINK )  {
       parent.parent.FACTLINK.opinionSet();
     }
 
