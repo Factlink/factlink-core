@@ -13,6 +13,8 @@
   </div>
 
   <div id="step2" class="white-well tour-block">
+
+    <!-- textSelected -->
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
@@ -22,24 +24,38 @@
   </div>
 
   <div id="step3" class="white-well tour-block">
+
+    <!-- modalOpened -->
+    <div class="arrow-right">
+      <div class="arrow-right-white"></div>
+    </div>
+
+    <h4>What's your opinion?</h4>
+    <p>Add your opinion by clicking on the colored wheel.</p>
+  </div>
+
+  <div id="step4" class="white-well tour-block">
+
+    <!-- factlinkAdded -->
+    <div class="arrow-right">
+      <div class="arrow-right-white"></div>
+    </div>
+
+    <h4>Great!</h4>
+    <p>Now finish by clicking "Post to Factlink".</p>
+  </div>
+
+  <div id="step5" class="white-well tour-block">
+
+    <!-- factlinkAdded -->
     <div class="arrow-right">
       <div class="arrow-right-white"></div>
     </div>
 
     <h4>Your first Factlink is a fact!</h4>
-    <p>To view it, simply click the text you selected or click on 'Show' to open.</p>
-  </div>
-
-  <div id="step4" class="white-well tour-block">
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
-    </div>
-
-    <h4>That's how you view a Factlink</h4>
-    <p>You can now interact with the Factlink, or close it and click continue.</p>
+    <p>You can now close the Factlink by clicking 'X' and click continue.</p>
 
     <%= link_to( 'Continue', choose_channels_path, class: "btn btn-primary btn-mini", disable_with: "Loading..." ) %>
-
   </div>
 
 </div>
@@ -84,23 +100,27 @@
   <script>
 
   $(window).on('factlink.libraryLoaded', function () {
+    FACTLINK.hideDimmer();
 
     FACTLINK.on('textSelected', function () {
       tour.showStep(2);
     });
 
-    FACTLINK.on('factlinkAdded', function () {
+    FACTLINK.on('modalOpened', function () {
       tour.showStep(3);
+    });
+
+    FACTLINK.on('opinionSet', function () {
+      tour.showStep(4)
+    });
+
+    FACTLINK.on('factlinkAdded', function () {
+      tour.showStep(5);
 
       (function(Factlink){
         Factlink.stopAnnotating();
       })(document.getElementById("factlink-iframe").contentWindow.Factlink);
     });
-
-    FACTLINK.on('modalOpened', function () {
-      tour.showStep(4);
-    });
-
   });
 
   </script>
