@@ -36,16 +36,11 @@
 
 <% content_for :javascript do %>
   <script>
-    <% if @just_signed_in %>
-      window.top.postMessage({message: "updateState"}, "*");
-    <% end %>
-
     <%= render 'backbone/currentUser' %>
 
     var addToChannelView = new AutoCompletedAddToChannelView().render();
 
     $('#add-to-channels').replaceWith(addToChannelView.el);
-
 
     var persistentWheel = new PersistentWheelView({
       el: $('.wheel'),
