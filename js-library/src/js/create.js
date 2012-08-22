@@ -39,13 +39,10 @@
   // We make this a global function so it can be used for direct adding of facts
   // (Right click with chrome-extension)
   Factlink.getSelectionInfo = function() {
-    // Get the selection object
     var selection = getTextRange();
 
-    //TODO: Add passage detection here
     return {
       text: selection.toString(),
-      passage: "",
       title: window.document.title
     };
   };
