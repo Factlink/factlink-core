@@ -51,5 +51,10 @@
       el: $('.wheel'),
       model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
+
+    $('#cancel').on('click', function (e) {
+      e.preventDefault();
+      parent.remote.hide();
+    });
   </script>
 <% end %>
