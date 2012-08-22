@@ -17,10 +17,10 @@
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <fieldset>You have to be logged in to use Factlink.</fieldset>
     <div>
-      <%= f.text_field :login %>
+      <%= f.text_field :login, placeholder: "Username or email" %>
     </div>
     <div>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, placeholder: "Password" %>
     </div>
 
     <div class="split">
