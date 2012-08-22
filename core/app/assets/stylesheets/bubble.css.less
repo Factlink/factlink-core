@@ -37,18 +37,25 @@ div.modal {
     margin: 0 -@popup-padding;
 
     .close {
-      .opacity(0.45);
+      .opacity(0.10);
       position: relative;
-      right: 5px;
-      top: -@popup-padding + 2;
+      right: 2px;
+      top: -8px;
       z-index: @max-z-index;
     }
 
+    &:hover {
+      .close { .opacity(0.35); }
+    }
+
+
     .top-right-arrow, .relation-top-right-arrow {
       position: absolute;
-      top: -14px;
       right: 25px;
     }
+
+    .top-right-arrow { top: 0; }
+    .relation-top-right-arrow { top: -14px; }
   }
 }
 
