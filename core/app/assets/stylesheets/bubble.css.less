@@ -27,10 +27,10 @@ div.modal {
     position:absolute;
     z-index: 100;
 
-    &.top    { height: @popup-padding; width: 100%; top: 0;    left: 0; }
-    &.bottom { height: @popup-padding; width: 100%; bottom: 0; left: 0; }
-    &.left   { width:  @popup-padding; height:100%; left: 0;   top: 0; }
-    &.right  { width:  @popup-padding; height:100%; right:0;   top: 0; }
+    &.top    { height: @drag-handler-padding; width: 100%; top: 0;    left: 0; }
+    &.bottom { height: @drag-handler-padding-bottom; width: 100%; bottom: 0; left: 0; }
+    &.left   { width:  @drag-handler-padding; height:100%; left: 0;   top: 0; }
+    &.right  { width:  @drag-handler-padding; height:100%; right:0;   top: 0; }
   }
 
   div.fact-block {
@@ -46,7 +46,7 @@ div.modal {
 
     .top-right-arrow, .relation-top-right-arrow {
       position: absolute;
-      top: 5px;
+      top: -14px;
       right: 25px;
     }
   }
