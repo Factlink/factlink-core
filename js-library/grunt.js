@@ -82,6 +82,8 @@ module.exports = function(grunt){
     copy: {
       'dist/server/css/basic.css': 'dist/css/basic.css',
 
+      'public/easyXDM.min.js': 'dist/easyXDM/easyXDM.min.js',
+
       'dist/server/images/arrows-bottom.png':     'src/images/arrows-bottom.png',
       'dist/server/images/arrows-top.png':        'src/images/arrows-top.png',
       'dist/server/images/bookmark.gif':          'src/images/bookmark.gif',
