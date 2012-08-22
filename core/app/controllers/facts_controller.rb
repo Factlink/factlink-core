@@ -2,7 +2,7 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  # before_filter :set_layout, :only => [:new]
+  before_filter :set_layout, :only => [:new]
 
   respond_to :json, :html
 
@@ -56,6 +56,7 @@ class FactsController < ApplicationController
     end
 
     unless current_user
+      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: @layout)
     end
   end

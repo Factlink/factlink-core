@@ -27,7 +27,7 @@ var // The iFrame
           // Somehow only lower case letters seem to work for those events --mark
           $(document).bind("modalready", onLoadSuccess);
 
-          showFrame.src = "/facts/" + id;
+          showFrame.src = "/facts/" + id + "?layout=client";
 
           // Show the overlay
           showFrame.className = "overlay";
@@ -44,8 +44,8 @@ var // The iFrame
                 successFn();
               }
             }
+          };
 
-          }
           showFrame.onload = onLoadSuccess;
 
           // Somehow only lower case letters seem to work for those events --mark
@@ -54,7 +54,8 @@ var // The iFrame
           showFrame.src = "/facts/new" +
                                       "?fact="  + text +
                                       "&url="   + siteUrl +
-                                      "&title=" + siteTitle;
+                                      "&title=" + siteTitle +
+                                      "&layout=client";
           // Show the overlay
           showFrame.className = "overlay";
 

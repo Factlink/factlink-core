@@ -3,6 +3,8 @@ class Users::SessionsController < Devise::SessionsController
   def choose_layout
     @layout = if params[:layout] == 'popup'
       'popup'
+    elsif params[:layout] == 'client'
+      'client'
     else
       'frontend'
     end
@@ -20,6 +22,8 @@ class Users::SessionsController < Devise::SessionsController
   def set_redir
     if params[:layout] == 'popup'
       session[:return_to] = new_fact_path(layout: 'popup')
+      session[:just_signed_in] = true
+    elsif params[:layout] == 'client'
       session[:just_signed_in] = true
     else
       session[:return_to] = nil
