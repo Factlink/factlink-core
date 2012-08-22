@@ -52,13 +52,15 @@
     flScript.onload = flScript.onreadystatechange = null;
     scriptLoaded = true;
 
-    window.FACTLINK.on = function() {
-      iframe.contentWindow.Factlink.on.apply(iframe.contentWindow.Factlink, arguments);
-    };
+    function proxy(func) {
+      window.FACTLINK[func] = function () {
+        iframe.contentWindow.Factlink[func].apply(iframe.contentWindow.Factlink, arguments);
+      };
+    }
 
-    window.FACTLINK.off = function() {
-      iframe.contentWindow.Factlink.off.apply(iframe.contentWindow.Factlink, arguments);
-    };
+    proxy('on');
+    proxy('off');
+    proxy('hideDimmer');
 
     if ( window.jQuery ) {
       jQuery(window).trigger('factlink.libraryLoaded');
