@@ -9,7 +9,6 @@ class FactsController < ApplicationController
   before_filter :load_fact,
     :only => [
       :show,
-      :popup_show,
       :extended_show,
       :destroy,
       :get_channel_listing,
@@ -36,11 +35,6 @@ class FactsController < ApplicationController
     authorize! :show, @fact
 
     render layout: "frontend"
-  end
-
-  def popup_show
-    @fact.calculate_opinion(1)
-    render layout: 'popup'
   end
 
   def intermediate
