@@ -1,6 +1,6 @@
 class JsLibController < ApplicationController
 
-  before_filter :check_signed_in
+  before_filter :check_signed_in, only: [:redir]
 
   def show_template
     respond_to do |format|
