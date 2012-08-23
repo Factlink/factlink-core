@@ -62,6 +62,7 @@
     proxy('off');
     proxy('hideDimmer');
     proxy('opinionSet');
+    proxy('triggerClick');
 
     if ( window.jQuery ) {
       jQuery(window).trigger('factlink.libraryLoaded');
