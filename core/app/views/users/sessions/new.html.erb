@@ -1,21 +1,16 @@
-<% content_for :left_column do %>
-  &nbsp;
-<% end %>
-
-<% content_for :javascript do %>
-  <!-- Quick workaround for not showing the devise error in the header -->
-  <script>
-    $('#application-notification > p ').hide();
-  </script>
-<% end %>
-
 <div id="new_session">
+
   <h2>Log in</h2>
 
   <%= image_tag "factlink-logo.png" %>
 
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <fieldset>You have to be logged in to use Factlink.</fieldset>
+
+    <% if @layout == "client" %>
+      <%= render 'home/notifications', notice: notice, alert: alert %>
+    <% end %>
+
     <div>
       <%= f.text_field :login, placeholder: "Username or email" %>
     </div>
