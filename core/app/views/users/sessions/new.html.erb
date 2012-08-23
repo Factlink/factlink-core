@@ -38,9 +38,21 @@
 
 
     <div class="inputs">
+      <% if @layout == "client" %>
+      <button class="btn" name="cancel" id="cancel" style="float: left;">Cancel</button>
+      <% end %>
       <%= f.submit "Log in", disable_with: "Logging in...", class: "btn btn-primary" %>
     </div>
   <% end %>
 
 
 </div>
+
+<% content_for :javascript do %>
+<script>
+$('#cancel').on('click', function (e) {
+  e.preventDefault();
+  parent.remote.hide();
+});
+</script>
+<% end %>
