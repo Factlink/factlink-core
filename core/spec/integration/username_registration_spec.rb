@@ -23,4 +23,27 @@ describe 'Reserving a username', type: :request do
 
     page.should have_content('Registration failed')
   end
+
+  it 'should make the username appear in the reserved user list' do
+    username = random_username
+
+    visit '/'
+
+    fill_in 'user_username', with: username
+    fill_in 'user_email',    with: random_email
+
+    click_button 'Reserve'
+
+    create_admin_and_login
+
+    within(:css, 'a.dropdown-toggle') do
+      page.should have_content('Admin')
+    end
+
+    visit '/a/users/reserved'
+
+    within(:css, '#main-wrapper table') do
+      page.should have_content(username)
+    end
+  end
 end
