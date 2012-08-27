@@ -4,11 +4,12 @@ def create_factlink(user)
   FactoryGirl.create(:fact, created_by: user.graph_user)
 end
   
-before :each do
-  @user = make_user_and_login
-end
-
 describe "factlinks" do
+  
+  before :each do
+    @user = make_user_and_login
+  end
+
   pending "should be able to search for evidence", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
