@@ -5,9 +5,6 @@ def create_channel(user)
   channel
 end
   
-before :each do
-  @user = make_user_and_login
-end
   
 describe "searching" do
     it "cannot find a something that does not exist", js:true do
@@ -16,6 +13,9 @@ describe "searching" do
       page.execute_script("$('#factlink_search').parent().submit()")
       page.should have_content("Sorry, your search didn't return any results.")
     end
+  before :each do
+    @user = make_user_and_login
+  end
 
     it "should find a just created factlink", js:true do
       # create factlink:
