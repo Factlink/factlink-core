@@ -9,7 +9,7 @@ describe 'Password recovery', type: :request do
   it 'should inform the user the email has been send' do
     clear_emails
 
-     @user.username = "Barones"
+    @user.username = "Barones"
 
     visit '/'
     click_link "Can't access?"
