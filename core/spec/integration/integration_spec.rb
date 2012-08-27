@@ -70,35 +70,6 @@ describe "Check the ToS", type: :request do
     it "should redirect to the Interactive Tour" do
       page.should have_content("Climate change")
     end
-
-    pending "should show the Tour", js: true do
-
-      page.should have_selector("div#first-tour-modal", :visible => true)
-
-      page.has_xpath?(".//div[@data-title='Start']", :visible => true)
-
-      page.find(".next").click
-      page.has_xpath?(".//div[@data-title='Factlink']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Start']", :visible => false)
-
-      page.find(".next").click
-      page.has_xpath?(".//div[@data-title='Evidence']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Factlink']", :visible => false)
-
-
-      page.find(".next").click
-      page.has_xpath?(".//div[@data-title='Relations']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Evidence']", :visible => false)
-
-      page.find(".next").click
-      page.has_xpath?(".//div[@data-title='Channels']", :visible => true)
-      page.has_xpath?(".//div[@data-title='Relations']", :visible => false)
-
-      page.find(".next").click
-      page.find(".closeButton").click
-      page.has_xpath?(".//div[@data-title='Get Ready...']", :visible => false)
-      page.has_xpath?(".//div[@data-title='Use it!']", :visible => false)
-    end
   end
 end
 
