@@ -15,7 +15,7 @@ describe Admin::UsersController do
     }
   end
 
-  let (:user)  {FactoryGirl.create :user, admin: true}
+  let (:user)  {FactoryGirl.create :admin_user}
 
   before do
     should_check_admin_ability

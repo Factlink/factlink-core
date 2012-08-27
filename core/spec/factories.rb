@@ -15,7 +15,6 @@ FactoryGirl.define do
     agrees_tos true
 
     trait :approved do
-      confirmed_at DateTime.now
       approved true
     end
 

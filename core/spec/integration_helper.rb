@@ -66,7 +66,7 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user
-  FactoryGirl.create(:user, approved: true)
+  FactoryGirl.create(:approved_confirmed_user)
 end
 
 def make_user_and_login
@@ -75,12 +75,12 @@ def make_user_and_login
 end
 
 def create_admin_and_login
-  admin = FactoryGirl.create(:user, admin: true, approved: true)
+  admin = FactoryGirl.create(:admin_user)
   sign_in_user admin
 end
 
 def make_non_tos_user_and_login
-  user = FactoryGirl.create(:user, agrees_tos: false, approved: true)
+  user = FactoryGirl.create(:approved_user, agrees_tos: false)
   sign_in_user(user)
 end
 
