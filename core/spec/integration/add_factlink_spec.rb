@@ -3,12 +3,12 @@ require 'integration_helper'
 def created_channel_path(user)
   channel_path(user.username, user.graph_user.created_facts_channel.id)
 end
-  
-before :each do
-  @user = make_user_and_login
-end
 
 describe "creating a Factlink" do
+  before :each do
+    @user = make_user_and_login
+  end
+
   it "should add a factlink", js:true do
     fact_name = "baronnenbillen"
 
