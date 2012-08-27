@@ -93,3 +93,19 @@ def sign_in_user(user)
 
   user
 end
+
+def random_username
+  @username_sequence ||= FactoryGirl::Sequence.new :username do |n|
+    "janedoe#{n}"
+  end
+
+  @username_sequence.next
+end
+
+def random_email
+  @email_sequence = FactoryGirl::Sequence.new :email do |n|
+    "janedoe#{n}@example.com"
+  end
+
+  @email_sequence.next
+end

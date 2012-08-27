@@ -5,8 +5,8 @@ describe 'Reserving a username', type: :request do
   it 'should get success note with valid username' do
     visit '/'
 
-    fill_in 'user_username', with: 'teh_user'
-    fill_in 'user_email',    with: 'teh_user@factlink.com'
+    fill_in 'user_username', with: random_username
+    fill_in 'user_email',    with: random_email
 
     click_button 'Reserve'
 
@@ -17,7 +17,7 @@ describe 'Reserving a username', type: :request do
     visit '/'
 
     fill_in 'user_username', with: 'teh_user_has_a_way_too_long_username'
-    fill_in 'user_email',    with: 'teh_user@factlink.com'
+    fill_in 'user_email',    with: random_email
 
     click_button 'Reserve'
 
