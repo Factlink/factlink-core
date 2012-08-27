@@ -42,8 +42,8 @@ describe 'Reserving a username', type: :request do
 
     visit '/a/users/reserved'
 
-    within(:css, '#main-wrapper table') do
-      page.should have_content(username)
+    within(find("#main-wrapper table tr>td", text: username).parent) do
+      page.should_not have_content('confirmed')
     end
   end
 end
