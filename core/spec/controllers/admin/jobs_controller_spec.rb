@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 describe Admin::JobsController do
-  let (:user)  {FactoryGirl.create(:user, admin: false)}
+  let (:user)  {FactoryGirl.create :user}
   let (:job)   {FactoryGirl.create :job}
-  
+
   # This should return the minimal set of attributes required to create a valid
   # Job. As you add validations to Job, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {}
   end
-  
+
   before do
     should_check_admin_ability
   end
-  
+
   describe "GET new" do
     it "assigns a new job as @job" do
       authenticate_user!(user)
@@ -169,7 +169,7 @@ describe Admin::JobsController do
       @job = Job.new
       Job.stub(:new) { @job }
       should_check_can :destroy, @job
-        
+
       job = Job.create! valid_attributes
       expect {
         delete :destroy, :id => job.id
@@ -181,7 +181,7 @@ describe Admin::JobsController do
       @job = Job.new
       Job.stub(:new) { @job }
       should_check_can :destroy, @job
-      
+
       job = Job.create! valid_attributes
       delete :destroy, :id => job.id
       response.should redirect_to(admin_jobs_url)
