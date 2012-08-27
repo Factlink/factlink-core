@@ -53,7 +53,7 @@ Devise.setup do |config|
 end
 
 def int_user
-  user = FactoryGirl.create(:user, email: "user@example.com")
+  user = FactoryGirl.create(:user)
   user.confirm!
   user
 end
@@ -66,7 +66,7 @@ def handle_js_confirm(accept=true)
 end
 
 def make_user
-  FactoryGirl.create(:user, email: "user@example.com", approved: true)
+  FactoryGirl.create(:user, approved: true)
 end
 
 def make_user_and_login
@@ -75,7 +75,7 @@ def make_user_and_login
 end
 
 def make_non_tos_user_and_login
-  user = FactoryGirl.create(:user, email: "user@example.com", agrees_tos: false, approved: true)
+  user = FactoryGirl.create(:user, agrees_tos: false, approved: true)
   sign_in_user(user)
 end
 
