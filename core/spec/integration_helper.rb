@@ -74,6 +74,11 @@ def make_user_and_login
   sign_in_user(user)
 end
 
+def create_admin_and_login
+  admin = FactoryGirl.create(:user, admin: true, approved: true)
+  sign_in_user admin
+end
+
 def make_non_tos_user_and_login
   user = FactoryGirl.create(:user, agrees_tos: false, approved: true)
   sign_in_user(user)
