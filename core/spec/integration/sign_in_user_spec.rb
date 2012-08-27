@@ -2,7 +2,7 @@ require 'integration_helper'
 
 describe 'When a user signs in', type: :request do
   it 'and has not yet confirmed his email address it should fail' do
-    user = FactoryGirl.create :user, approved: false
+    user = FactoryGirl.create :user
 
     sign_in_user(user)
 
