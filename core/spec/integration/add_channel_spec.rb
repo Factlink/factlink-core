@@ -4,12 +4,13 @@ def create_channel(user)
   channel = FactoryGirl.create(:channel, created_by: user.graph_user)
   channel
 end
-  
-before :each do
-  @user = make_user_and_login
-end
-  
+    
 describe "channels" do
+  
+  before :each do
+    @user = make_user_and_login
+  end
+  
   it "can be created", js: true do
     channel_title = "Teh hot channel"
     click_link "Add new"
