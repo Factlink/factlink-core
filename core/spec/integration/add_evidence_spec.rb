@@ -14,9 +14,9 @@ describe "factlinks" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
-  visit fact_path(@factlink)
+    visit fact_path(@factlink)
 
-  page.should have_content(@factlink.data.title)
+    page.should have_content(@factlink.data.title)
 
     click_on "Supporting"
 
