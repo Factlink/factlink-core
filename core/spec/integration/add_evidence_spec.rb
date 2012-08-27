@@ -4,7 +4,7 @@ def create_factlink(user)
   FactoryGirl.create(:fact, created_by: user.graph_user)
 end
   
-describe "factlinks" do
+describe "factlinks", type: :request do
   
   before :each do
     @user = make_user_and_login

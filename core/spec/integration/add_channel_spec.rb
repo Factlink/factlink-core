@@ -5,7 +5,7 @@ def create_channel(user)
   channel
 end
     
-describe "channels" do
+describe "channels", type: :request do
   
   before :each do
     @user = make_user_and_login

@@ -4,7 +4,7 @@ def created_channel_path(user)
   channel_path(user.username, user.graph_user.created_facts_channel.id)
 end
 
-describe "creating a Factlink" do
+describe "creating a Factlink", type: :request do
   before :each do
     @user = make_user_and_login
   end
