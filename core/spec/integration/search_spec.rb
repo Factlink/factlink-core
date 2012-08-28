@@ -8,7 +8,7 @@ end
 describe "searching", type: :request do
 
   before :each do
-    @user = @user = sign_in_user FactoryGirl.create :approved_confirmed_user
+    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
   it "cannot find a something that does not exist", js:true do
