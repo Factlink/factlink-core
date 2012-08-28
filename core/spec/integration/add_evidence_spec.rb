@@ -1,13 +1,13 @@
 require 'integration_helper'
-  
+
 def create_factlink(user)
   FactoryGirl.create(:fact, created_by: user.graph_user)
 end
-  
+
 describe "factlinks", type: :request do
-  
+
   before :each do
-    @user = make_user_and_login
+    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
   pending "should be able to search for evidence", js:true do
