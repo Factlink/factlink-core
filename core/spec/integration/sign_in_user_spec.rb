@@ -20,7 +20,7 @@ describe 'When a user signs in', type: :request do
 
     visit '/'
 
-    find "sign-in-form"
+    find "#sign-in-form"
   end
 
   it 'he should not be able to sign in with false credentials' do
