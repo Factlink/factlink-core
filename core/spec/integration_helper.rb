@@ -76,7 +76,6 @@ def make_non_tos_user_and_login
 end
 
 def sign_in_user(user)
-  user.confirm!
   visit "/"
   fill_in "user_login", :with => user.email
   fill_in "user_login_password", :with => user.password
