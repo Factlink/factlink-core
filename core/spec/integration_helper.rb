@@ -103,7 +103,7 @@ def random_username
 end
 
 def random_email
-  @email_sequence = FactoryGirl::Sequence.new :email do |n|
+  @email_sequence ||= FactoryGirl::Sequence.new :email do |n|
     "janedoe#{n}@example.com"
   end
 
