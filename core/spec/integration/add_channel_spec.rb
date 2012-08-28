@@ -1,16 +1,16 @@
 require 'integration_helper'
-  
+
 def create_channel(user)
   channel = FactoryGirl.create(:channel, created_by: user.graph_user)
   channel
 end
-    
+
 describe "channels", type: :request do
-  
+
   before :each do
-    @user = make_user_and_login
+    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
-  
+
   it "can be created", js: true do
     channel_title = "Teh hot channel"
     click_link "Add new"
