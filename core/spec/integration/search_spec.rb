@@ -1,14 +1,14 @@
 require 'integration_helper'
-  
+
 def create_channel(user)
   channel = FactoryGirl.create(:channel, created_by: user.graph_user)
   channel
 end
-    
+
 describe "searching", type: :request do
-  
+
   before :each do
-    @user = make_user_and_login
+    @user = @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
   it "cannot find a something that does not exist", js:true do

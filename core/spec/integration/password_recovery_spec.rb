@@ -3,7 +3,7 @@ require 'integration_helper'
 describe 'Password recovery', type: :request do
 
   before do
-    @user = make_user
+    @user = FactoryGirl.create :approved_confirmed_user
   end
 
   it 'should inform the user the email has been send' do

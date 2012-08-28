@@ -6,7 +6,7 @@ end
 
 describe "creating a Factlink", type: :request do
   before :each do
-    @user = make_user_and_login
+    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
   it "should add a factlink", js:true do

@@ -65,15 +65,6 @@ def handle_js_confirm(accept=true)
   page.evaluate_script "window.confirm = window.original_confirm_function"
 end
 
-def make_user
-  FactoryGirl.create(:approved_confirmed_user)
-end
-
-def make_user_and_login
-  user = make_user
-  sign_in_user(user)
-end
-
 def create_admin_and_login
   admin = FactoryGirl.create(:admin_user)
   sign_in_user admin
