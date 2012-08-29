@@ -1,8 +1,7 @@
 require 'integration_helper'
 
 def create_channel(user)
-  channel = FactoryGirl.create(:channel, created_by: user.graph_user)
-  channel
+  FactoryGirl.create(:channel, created_by: user.graph_user)
 end
 
 describe "channels", type: :request do
