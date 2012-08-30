@@ -16,7 +16,7 @@
     return d;
   }
 
-  Factlink.createFactFromSelection = function(opinion, callback, errorCallback){
+  Factlink.createFactFromSelection = function(errorCallback){
     var selInfo = Factlink.getSelectionInfo();
 
     var success = function() {
@@ -26,7 +26,8 @@
     };
 
     var error = function(e) {
-      console.error(e);
+      console.error("Error openening modal: ", e);
+      if ( errorCallback ) { errorCallback(); }
     };
 
     Factlink.remote.prepareNewFactlink( selInfo.text,
