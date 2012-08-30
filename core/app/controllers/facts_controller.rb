@@ -56,7 +56,14 @@ class FactsController < ApplicationController
   end
 
   def create
+    unless current_user
+      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
+      redirect_to user_session_path(layout: @layout)
+      return
+    end
+
     authorize! :create, Fact
+
     @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
     @site = @fact.site
 

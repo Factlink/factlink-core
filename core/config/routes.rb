@@ -44,7 +44,7 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :update] do
+  resources :facts, only: [:new, :update, :create] do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
