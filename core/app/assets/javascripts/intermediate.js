@@ -52,9 +52,9 @@ var // The iFrame
           $(document).bind("modalready", onLoadSuccess);
 
           showFrame.src = "/facts/new" +
-                                      "?fact="  + text +
-                                      "&url="   + siteUrl +
-                                      "&title=" + siteTitle +
+                                      "?fact="  + encodeURIComponent(text) +
+                                      "&url="   + encodeURIComponent(siteUrl) +
+                                      "&title=" + encodeURIComponent(siteTitle) +
                                       "&layout=client";
           // Show the overlay
           showFrame.className = "overlay";
