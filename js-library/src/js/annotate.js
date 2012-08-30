@@ -18,6 +18,12 @@ function rightClick(e) {
   return rightclick;
 }
 
+Factlink.textSelected = function (e) {
+  var selectionInfo = Factlink.getSelectionInfo();
+
+  return selectionInfo.text !== undefined && selectionInfo.text.length > 1;
+};
+
 Factlink.startAnnotating = function() {
   console.info( "Factlink:", "startAnnotating" );
   $('body').bind('mouseup.factlink', function(e) {
@@ -41,8 +47,7 @@ Factlink.startAnnotating = function() {
       pageY = e.pageY;
 
       // Check if the selected text is long enough to be added
-      if ((selectionInfo.text !== undefined && selectionInfo.text.length > 1) &&
-          (! $(e.target).is(':input') )){
+      if ( Factlink.textSelected() && ! $(e.target).is(':input') ){
         Factlink.prepare.show(pageY, pageX);
 
         Factlink.trigger('textSelected');
