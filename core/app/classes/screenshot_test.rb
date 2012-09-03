@@ -32,7 +32,7 @@ if ['test'].include? Rails.env
       end
 
       def size_changed?
-        (images.first.height != images.last.height) || (images.first.width != images.last.height)
+        (images.first.height != images.last.height) || (images.first.width != images.last.width)
       end
 
       def changed?
