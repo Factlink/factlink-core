@@ -28,7 +28,7 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="factlink-site">
-  <%= render 'home/feedback' unless defined? dont_render_feedback %>
+  <%= render 'feedback/button' unless defined? dont_render_feedback %>
   <%= render 'home/site_messages' %>
   <%= render 'home/topbar' %>
 
@@ -46,7 +46,6 @@
   <![endif]-->
 
   <%= render 'snippets/google_analytics' %>
-  <%= yield :feedback_javascript %>
   <%= yield :modal_javascript %>
 </body>
 
