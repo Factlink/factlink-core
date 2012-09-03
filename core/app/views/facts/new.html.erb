@@ -48,6 +48,7 @@
     }).render();
 
     $('#cancel').on('click', function (e) {
+      mp_track("Modal: Cancel");
       e.preventDefault();
       parent.remote.hide();
     });
