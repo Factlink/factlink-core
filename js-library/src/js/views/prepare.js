@@ -48,10 +48,13 @@ Factlink.Prepare = function() {
     el.fadeIn('fast');
   };
 
-  this.hide = function() {
-
+  this.hide = function(callback) {
     el.fadeOut('fast', function() {
       if (loading) { self.stopLoading(); }
+
+      if ( $.isFunction(callback) ) {
+        callback();
+      }
     });
   };
 
@@ -61,8 +64,9 @@ Factlink.Prepare = function() {
   };
   this.stopLoading = function() {
     loading = false;
-    el.removeClass('fl-loading');
-    this.hide();
+    this.hide( function() {
+      el.removeClass('fl-loading');
+    });
   };
 
   this.isVisible = function() {
