@@ -18,12 +18,7 @@
   border: 3px solid #fff;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
 
-  -webkit-border-bottom-right-radius: 8px;
-   -webkit-border-bottom-left-radius: 8px;
-      -moz-border-radius-bottomright: 8px;
-       -moz-border-radius-bottomleft: 8px;
-          border-bottom-right-radius: 8px;
-           border-bottom-left-radius: 8px;
+  .custom-radius(0, 8px, 8px, 0);
 
   a {
     display: block;
@@ -34,13 +29,4 @@
       text-decoration: none;
     }
   }
-}
-
-.box-rotate {
-  -webkit-transform: rotate(270deg);
-     -moz-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-       -o-transform: rotate(270deg);
-          transform: rotate(270deg);
-               zoom: 1;
 }
