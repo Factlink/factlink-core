@@ -91,7 +91,6 @@ class FactsController < ApplicationController
         end
 
         format.html do
-          flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
           redirect_to fact_path(@fact.id, just_added: true)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
