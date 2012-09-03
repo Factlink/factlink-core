@@ -20,6 +20,10 @@ if ['test'].include? Rails.env
         Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-diff.png"
       end
 
+      def get_pixel(image, x, y)
+        image.include_xy?(x,y) && image[x,y] || rgb(0,0,0)
+      end
+
       def changed?
         images = [
           ChunkyPNG::Image.from_file(old_file),
@@ -28,18 +32,26 @@ if ['test'].include? Rails.env
 
         changed = false
 
-        images.first.height.times do |y|
-          images.first.row(y).each_with_index do |pixel, x|
-            changed ||= images.last[x,y] != pixel
-            images.last[x,y] = rgb(
-              r(pixel) + r(images.last[x,y]) - 2 * [r(pixel), r(images.last[x,y])].min,
-              g(pixel) + g(images.last[x,y]) - 2 * [g(pixel), g(images.last[x,y])].min,
-              b(pixel) + b(images.last[x,y]) - 2 * [b(pixel), b(images.last[x,y])].min
+        height = images.map {|i| i.height}.max
+        width = images.map {|i| i.width}.max
+        diff_image = ChunkyPNG::Image.new(width, height)
+
+        height.times do |y|
+          width.times do |x|
+            pixel_old = get_pixel(images.first,x,y)
+            pixel_new = get_pixel(images.last,x,y)
+
+            changed ||= pixel_old != pixel_new
+
+            diff_image[x,y] = rgb(
+              r(pixel_old) + r(pixel_new) - 2 * [r(pixel_old), r(pixel_new)].min,
+              g(pixel_old) + g(pixel_new) - 2 * [g(pixel_old), g(pixel_new)].min,
+              b(pixel_old) + b(pixel_new) - 2 * [b(pixel_old), b(pixel_new)].min
             )
           end
         end
 
-        images.last.save(diff_file)
+        diff_image.save(diff_file)
         changed
       end
 
