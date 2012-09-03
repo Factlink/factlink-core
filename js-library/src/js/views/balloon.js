@@ -38,9 +38,9 @@ Factlink.Balloon = function() {
     el.fadeOut('fast', function() {
 
       if ( $.isFunction(callback) ) {
-        callback();
-      }
-    });
+          callback();
+        }
+     });
 
     if (factObj !== undefined) {
       factObj.stopHighlighting();
