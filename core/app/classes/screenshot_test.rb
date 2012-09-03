@@ -24,12 +24,18 @@ if ['test'].include? Rails.env
         image.include_xy?(x,y) && image[x,y] || rgb(0,0,0)
       end
 
-      def changed?
-        images = [
+      def images
+        @images ||= [
           ChunkyPNG::Image.from_file(old_file),
           ChunkyPNG::Image.from_file(new_file)
         ]
+      end
 
+      def size_changed?
+        (images.first.height != images.last.height) || (images.first.width != images.last.height)
+      end
+
+      def changed?
         changed = false
 
         height = images.map {|i| i.height}.max
@@ -41,7 +47,7 @@ if ['test'].include? Rails.env
             pixel_old = get_pixel(images.first,x,y)
             pixel_new = get_pixel(images.last,x,y)
 
-            changed ||= pixel_old != pixel_new
+            changed ||=  (pixel_old != pixel_new)
 
             diff_image[x,y] = rgb(
               r(pixel_old) + r(pixel_new) - 2 * [r(pixel_old), r(pixel_new)].min,
@@ -64,7 +70,11 @@ if ['test'].include? Rails.env
       shot = Screenshot.new page, title
       shot.take
       if shot.changed?
-        raise "Screenshot #{title} changed"
+        if shot.size_changed?
+          raise "Screenshot #{title} changed (also size)"
+        else
+          raise "Screenshot #{title} changed"
+        end
       end
     end
 
