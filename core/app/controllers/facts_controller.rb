@@ -53,6 +53,8 @@ class FactsController < ApplicationController
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: @layout)
     end
+
+    track "Modal: Open prepare"
   end
 
   def create
@@ -91,7 +93,7 @@ class FactsController < ApplicationController
         end
 
         format.html do
-          flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
+          track "Modal: Create"
           redirect_to fact_path(@fact.id, just_added: true)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
