@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+	<head>
+		<%= stylesheet_link_tag "frontend" %>
+		<%= javascript_include_tag "feedback" %>
+	</head>
+	<body class="feedback_form">
+		<h2>Provide us with feedback</h2>
+		
+		<p>
+			Got stuck somewhere or is something not working properly? Just send us a quick note and we'll be on it.
+		</p>
+		
+		<% if params[:state] %>
+			<% if params[:state] == "success" %>
+				<div class="alert alert-success">
+					<a class="close" href="#" data-dismiss="alert">x</a>
+					Your feedback has succesfully been submitted.
+				</div>
+			<% elsif params[:state] == "error" %>
+				<div class="alert alert-error">
+					<a class="close" href="#" data-dismiss="alert">x</a>
+					Something went wrong while submitting your feedback, did you fill in all the fields?
+				</div>
+			<% end %>
+		<% end %>
+		
+		<form action='https://factlink.sirportly.com/remote_form/91' method='POST'>
+			<% if current_user %>
+				<div class="hidden">
+					<input name='ticket[name]' value="<%= current_user.username %>">
+					<input name='ticket[email]' value="<%= current_user.email %>">
+				</div>
+			<% else %>
+				<input type="text" name='ticket[name]' placeholder='Full name'>
+				<input type="text" name='ticket[email]' placeholder='E-mail address'>
+			<% end %>
+
+			<input type="text" name="ticket[subject]" placeholder="Message subject">
+			<textarea name="ticket[message]" placeholder="How can we be of service to you?"></textarea>
+
+			<input type="button" class="btn cancel" value="Cancel">
+		  <input type='submit' name='send' value='Send feedback' class="submit btn-primary btn" />
+		</form>
+	</body>
+</html>

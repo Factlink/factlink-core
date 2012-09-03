@@ -51,6 +51,8 @@ FactlinkUI::Application.routes.draw do
     end
   end
 
+  resources :feedback
+
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
 

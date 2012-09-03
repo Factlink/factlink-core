@@ -2,3 +2,4 @@
 //= require twitter/bootstrap
 //= require bubble-landing
 //= require_tree ./landing
+//= require feedback/button
