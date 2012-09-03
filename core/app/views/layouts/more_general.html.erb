@@ -36,6 +36,11 @@
 
   <%= render 'home/footer' unless @step_in_signup_process %>
 
+  <div id="feedback_frame">
+    <div class="dimmer"></div>
+    <iframe src="<%= feedback_index_path(state: :success) %>"<%= " class='no-user'" unless current_user %>></iframe>
+  </div>
+
   <%= yield :specific_javascript%>
 
   <%# Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
