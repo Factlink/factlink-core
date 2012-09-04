@@ -100,6 +100,9 @@ FactlinkUI::Application.routes.draw do
         put "/password" => "users/registrations#update_password", as: "update_password"
       end
     end
+
+    get "/auth/:service/callback" => "identities#service_callback"
+    get "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
   scope "/:username" do
@@ -189,4 +192,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/x/:id" => "fake_facts#show"
   get "/x/set/:id/:name" => "fake_facts#set_name"
+
+
 end
