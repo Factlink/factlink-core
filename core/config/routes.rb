@@ -104,7 +104,7 @@ FactlinkUI::Application.routes.draw do
     end
 
     get "/auth/:service/callback" => "identities#service_callback"
-    get "/auth/:service/deauthorize" => "identities#service_deauthorize"
+    delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
   scope "/:username" do
