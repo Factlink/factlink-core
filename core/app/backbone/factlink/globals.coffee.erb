@@ -6,6 +6,7 @@ Backbone.Factlink.Global =
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
   use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
+  can_haz: {}
 
 <%
   [:channel, :channels, :add_to_channels, :my_channels].each do |translation|
@@ -19,3 +20,6 @@ Backbone.Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>
 <% if FactlinkUI::Application.config.chrome_extension_id %>
 Backbone.Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
 <% end %>
+
+Backbone.Factlink.allowFeatures = (list)->
+  Backbone.Factlink.Global.can_haz[feature] = true for feature in list

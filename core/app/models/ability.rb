@@ -115,12 +115,14 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details)
+  FEATURES = %w(pink_feedback_button authority_calculation_details notification_settings)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
+    @features ||= []
     list.each do |feature|
       can :"see_feature_#{feature}", FactlinkWebapp
+      @features << feature.to_s
     end
   end
 
@@ -131,6 +133,10 @@ class Ability
       enable_features user.features
       enable_features GLOBAL_ENABLED_FEATURES
     end
+  end
+
+  def feature_toggles
+    return @features
   end
 
 end

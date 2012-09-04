@@ -41,6 +41,8 @@
 
     <% use_backbone = current_user %>
 
+    Backbone.Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
+
     <% if use_backbone %>
       FactlinkApp.start();
     <% end %>
