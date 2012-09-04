@@ -32,16 +32,18 @@ class window.ProfileController
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         @main.contentRegion.show(options.mainRegion(user))
 
-  switchToPage: (username, user, options)->
+  switchToPage: (username, user, path, options)->
     @main.setTitle options.title
     @main.tabsRegion.currentView.activate(options.active_tab)
     @main.contentRegion.show(options.mainRegion(user))
+    Backbone.history.navigate path, false
 
   getUserTabs: (user, active_tab) ->
     usertabs = new UserTabsView(model: user, active_tab: active_tab)
     username = user.get('username')
-    usertabs.on 'showProfile',       => @switchToPage(username, user, @profile_options(username))
-    usertabs.on 'showNotifications', => @switchToPage(username, user, @notification_options(username))
+    userjson = user.toJSON()
+    usertabs.on 'showProfile',       => @switchToPage(username, user, userjson.link , @profile_options(username))
+    usertabs.on 'showNotifications', => @switchToPage(username, user,userjson.notifications_settings_path, @notification_options(username))
 
   getUser: (username, options) ->
     user = new User(username: username)
