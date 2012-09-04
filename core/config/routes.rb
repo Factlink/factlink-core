@@ -109,6 +109,8 @@ FactlinkUI::Application.routes.draw do
 
     get "/" => "users#show", :as => "user_profile"
 
+    get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
+
     scope "/activities" do
       get "/" => "users#activities", :as => "activities"
       post "/mark_as_read" => "users#mark_activities_as_read", :as => "mark_activities_as_read"
