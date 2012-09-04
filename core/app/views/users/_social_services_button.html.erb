@@ -1,0 +1,30 @@
+<% connected = (not current_user.id_for_service(service_name).nil?) %>
+<div class="control-group">
+  <%= f.label service_name, class: "control-label" %>
+  <div class="controls">
+
+	<% if connected %>
+    <span class="social-services-button">
+    <span class="connected">
+      <a class="btn btn-success" href="/auth/<%= service_name %>/deauthorize">
+        <img src="/assets/<%= service_name %>.png" style="margin: -2px 8px 0 -6px" />
+        Connected to <%= service_name.capitalize %>
+      </a>
+    </span>
+
+    <span class="disconnect">
+      <a class="btn btn-danger" href="/auth/<%= service_name %>/deauthorize">
+        <img src="/assets/<%= service_name %>.png" style="margin: -2px 8px 0 -6px" />
+        Disconnect from <%= service_name.capitalize %>
+      </a>
+    </span>
+    </span>
+
+	<% else %>
+		<a class="btn" href="/auth/<%= service_name %>">
+      <img src="/assets/<%= service_name %>.png" style="margin: -2px 8px 0 -6px" />Connect <%= service_name.capitalize %>
+  	</a>
+	<% end %>
+ 
+  </div>
+</div>

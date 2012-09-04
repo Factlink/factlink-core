@@ -1,0 +1,29 @@
+development:
+  omniauth:
+    facebook:
+      id: "283748838400237"
+      secret: "608b02f9697512a72bd2174abdf98395"
+
+test:
+  omniauth:
+    facebook:
+      id: "283748838400237"
+      secret: "608b02f9697512a72bd2174abdf98395"
+
+testserver:
+  omniauth:
+    facebook:
+      id: "283748838400237"
+      secret: "608b02f9697512a72bd2174abdf98395"
+
+staging:
+  omniauth:
+    facebook:
+      id: "385144638222636"
+      secret: "03a62f1b9bc84c9993fb09a3a1683b64"
+
+production:
+  omniauth:
+    facebook:
+      id: "385144638222636"
+      secret: "03a62f1b9bc84c9993fb09a3a1683b64"

@@ -17,10 +17,12 @@ class User
   index :username
   field :first_name
   field :last_name
+  field :identities, type: Hash, default: {}
 
   field :twitter
   field :location
   field :biography
+  
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false, null: false
@@ -47,7 +49,7 @@ class User
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
-                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
+                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink, :auth
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
@@ -205,6 +207,13 @@ class User
 
   def name
     "#{first_name} #{last_name}".strip
+  end
+
+  def id_for_service service_name
+    service_name = service_name.to_s
+    if self.identities and self.identities[service_name]
+      self.identities[service_name]['uid'].andand.first
+    end
   end
 
   def serializable_hash(options={})
