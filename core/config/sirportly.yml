@@ -2,6 +2,10 @@ development:
   sirportly:
     webform_id: 91
 
+test:
+  sirportly:
+    webform_id: 1
+  
 testserver:
   sirportly:
     webform_id: 93
