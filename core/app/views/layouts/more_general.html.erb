@@ -38,7 +38,7 @@
 
   <div id="feedback_frame">
     <div class="dimmer"></div>
-    <iframe src="<%= feedback_index_path(state: :success) %>"<%= " class='no-user'" unless current_user %>></iframe>
+    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %>></iframe>
   </div>
 
   <%= yield :specific_javascript%>
