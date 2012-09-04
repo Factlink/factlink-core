@@ -25,7 +25,7 @@
 			<% end %>
 		<% end %>
 		
-		<form action='https://factlink.sirportly.com/remote_form/91' method='POST'>
+		<form action='https://factlink.sirportly.com/remote_form/<%= FactlinkUI::Application.config.sirportly_webform_id %>' method='POST'>
 			<% if current_user %>
 				<div class="hidden">
 					<input name='ticket[name]' value="<%= current_user.username %>">
