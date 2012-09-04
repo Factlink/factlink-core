@@ -21,7 +21,7 @@ class window.ProfileController
     main = new TabbedMainRegionLayout();
     app.mainRegion.show(main)
 
-    main.titleRegion.show(new TextView(model: new Backbone.Model(text: 'About ' + user.get('username'))))
+    main.titleRegion.showTitle('About ' + user.get('username'))
     main.tabsRegion.show(new UserTabsView(model: user))
     main.contentRegion.show(new ProfileView(
       model: user,
