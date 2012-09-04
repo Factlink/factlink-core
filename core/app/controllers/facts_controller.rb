@@ -2,7 +2,7 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  before_filter :set_layout, :only => [:new]
+  before_filter :set_layout, :only => [:new, :create]
 
   respond_to :json, :html
 
@@ -53,10 +53,19 @@ class FactsController < ApplicationController
       session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: @layout)
     end
+
+    track "Modal: Open prepare"
   end
 
   def create
+    unless current_user
+      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
+      redirect_to user_session_path(layout: @layout)
+      return
+    end
+
     authorize! :create, Fact
+
     @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
     @site = @fact.site
 
@@ -84,7 +93,7 @@ class FactsController < ApplicationController
         end
 
         format.html do
-          flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
+          track "Modal: Create"
           redirect_to fact_path(@fact.id, just_added: true)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }

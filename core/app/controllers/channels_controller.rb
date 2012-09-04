@@ -34,6 +34,10 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def backbone_page
+    render inline:'', layout: 'channels'
+  end
+
   def show
     authorize! :show, @channel
     respond_to do |format|

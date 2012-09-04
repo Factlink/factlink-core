@@ -44,12 +44,14 @@ FactlinkUI::Application.routes.draw do
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :update] do
+  resources :facts, only: [:new, :update, :create] do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
     end
   end
+
+  resources :feedback
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
@@ -109,6 +111,8 @@ FactlinkUI::Application.routes.draw do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
 
     get "/" => "users#show", :as => "user_profile"
+
+    get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
 
     scope "/activities" do
       get "/" => "users#activities", :as => "activities"

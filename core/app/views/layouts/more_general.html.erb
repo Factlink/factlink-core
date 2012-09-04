@@ -28,13 +28,18 @@
   <%= csrf_meta_tag %>
 </head>
 <body class="factlink-site">
-  <%= render 'home/feedback' unless defined? dont_render_feedback %>
+  <%= render 'feedback/button' unless defined? dont_render_feedback %>
   <%= render 'home/site_messages' %>
   <%= render 'home/topbar' %>
 
   <%= yield :more_specific_page %>
 
   <%= render 'home/footer' unless @step_in_signup_process %>
+
+  <div id="feedback_frame">
+    <div class="dimmer"></div>
+    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %>></iframe>
+  </div>
 
   <%= yield :specific_javascript%>
 
@@ -46,7 +51,6 @@
   <![endif]-->
 
   <%= render 'snippets/google_analytics' %>
-  <%= yield :feedback_javascript %>
   <%= yield :modal_javascript %>
 </body>
 
