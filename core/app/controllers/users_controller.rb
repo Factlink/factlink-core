@@ -19,10 +19,19 @@ class UsersController < ApplicationController
   def update
     authorize! :update, @user
 
-    if @user.update_attributes(params[:user])
-      redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.'
+    # sometimes it is passed in user, sometimes it isn't :(
+    user_hash =  params[:user] || params
+
+    if @user.update_attributes user_hash
+      respond_to do |format|
+        format.html { redirect_to edit_user_url(@user.username), notice: 'Your account was successfully updated.' }
+        format.json { render json: {}}
+      end
     else
-      render :edit
+      respond_to do |format|
+        format.html { render :edit}
+        format.json { render json: { :status => :unprocessable_entity }}
+      end
     end
   end
 
