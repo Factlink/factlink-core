@@ -1,7 +1,5 @@
 module Users
   class User < Mustache::Railstache
-    @cache = {}
-
     def init
       self[:graph_user] = self[:user].graph_user
     end
