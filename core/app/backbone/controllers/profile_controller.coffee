@@ -12,7 +12,8 @@ class window.ProfileController
   notification_options: (username)->
     title: 'Notification Settings'
     active_tab: 'notification-settings'
-    mainRegion: (user) -> getTextView('Here be notification settings')
+    mainRegion: (user) ->
+      new NotificationSettingsView model: user
 
   # ACTIONS
   showProfile: (username) -> @showPage username, @profile_options(username)
