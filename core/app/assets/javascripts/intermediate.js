@@ -21,7 +21,7 @@ var // The iFrame
               successFn();
             }
 
-          }
+          };
           showFrame.onload = onLoadSuccess;
 
           // Somehow only lower case letters seem to work for those events --mark
@@ -62,7 +62,7 @@ var // The iFrame
 
           var onFactlinkCreated = function(e, id) {
             remote.highlightNewFactlink(text, id);
-          }
+          };
           $(document).bind("factlinkCreated", onFactlinkCreated);
 
         },
