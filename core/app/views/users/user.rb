@@ -63,6 +63,10 @@ module Users
       self[:user] == current_user
     end
 
+    def receives_mailed_notifications
+      self[:user].receives_mailed_notifications
+    end
+
     private
       def nil_if_empty x
         x.blank? ? nil : x
