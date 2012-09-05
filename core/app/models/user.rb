@@ -34,13 +34,15 @@ class User
   field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
+  field :receives_mailed_notifications,  type: Boolean, default: true
+
 
   field :last_read_activities_on, type: DateTime, default: 0
   field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :email, :approved, :admin, as: :admin
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :email, :approved, :admin, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
