@@ -1,4 +1,4 @@
-//= require_directory ./../regions
+#= require_directory ./../regions
 
 FactlinkApp.addRegions
   mainRegion:          '#main-wrapper'

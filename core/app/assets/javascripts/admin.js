@@ -35,8 +35,8 @@
     for (var i = 0; i < container.childNodes.length; i++) {
       var node = container.childNodes[i];
 
-      if (node.attributes && node.attributes['class']
-        && node.attributes['class'].value == 'highlighted') {
+      if (node.attributes && node.attributes['class'] &&
+        node.attributes['class'].value == 'highlighted') {
         node.parentNode.parentNode.replaceChild(
             document.createTextNode(
               node.parentNode.innerHTML.replace(/<[^>]+>/g, "")),
