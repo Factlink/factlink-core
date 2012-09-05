@@ -37,7 +37,7 @@
 
 
 <% content_for :top_facts do %>
-  <% cache :top_factlinks do%>
+  <% cache :top_factlinks, expires_in: 5.minutes do%>
     <h3>Top factlinks</h3>
     <ul id="top-factlinks">
     <% top_facts(3).each do |f| %>
@@ -63,22 +63,24 @@
 <% end %>
 
 <% content_for :javascript do %>
-  <script>
-    <% top_facts(3).each do |f| %>
-      new PassiveWheelView({
-        el: $('article[data-fact-id=<%= f.id %>]').find('.wheel'),
-        model: new Wheel(<%= Facts::FactWheel.for(fact: f, view: self).to_json.to_s.html_safe %>)
-      }).render();
-        $('article[data-fact-id=<%= f.id %>]').find('.body .text').trunk8({lines: 2});
-    <% end %>
+  <% cache :top_factlinks_js, expires_in: 5.minutes do%>
+    <script>
+      <% top_facts(3).each do |f| %>
+        new PassiveWheelView({
+          el: $('article[data-fact-id=<%= f.id %>]').find('.wheel'),
+          model: new Wheel(<%= Facts::FactWheel.for(fact: f, view: self).to_json.to_s.html_safe %>)
+        }).render();
+          $('article[data-fact-id=<%= f.id %>]').find('.body .text').trunk8({lines: 2});
+      <% end %>
 
-    var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
-    $('#watchVideoButton').click(function(){
-      iframe.clone().appendTo($('#videoModal > .modal-body'));
-    });
+      var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
+      $('#watchVideoButton').click(function(){
+        iframe.clone().appendTo($('#videoModal > .modal-body'));
+      });
 
-    $('#videoModal').on('hidden', function () {
-      $('#videoModal > .modal-body').empty();
-    });
-  </script>
+      $('#videoModal').on('hidden', function () {
+        $('#videoModal > .modal-body').empty();
+      });
+    </script>
+  <% end %>
 <% end %>
