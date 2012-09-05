@@ -7,9 +7,11 @@ window.TemplateMixin =
       partials[name] = HoganTemplates[template] for name, template of @partials
     Backbone.Marionette.Renderer.render(@template, data, partials)
 
+underscored = (template_location)-> template_location.replace(/^(.*)\/([^_\/][^\/]*)$/, '$1/_$2')
+
 getTemplate = (template)->
   if typeof(template) == "string"
-    HoganTemplates[template]
+    HoganTemplates[underscored(template)]
   else
     Hogan.compile(template.text)
 
