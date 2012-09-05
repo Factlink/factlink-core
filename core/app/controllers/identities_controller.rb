@@ -16,6 +16,10 @@ class IdentitiesController < ApplicationController
           raise "Facebook deauthorize failed: '#{response.body}'."
         end
       end
+    when 'twitter'
+      provider_deauthorize service do
+        flash[:notice] = 'To complete, please deauthorize Factlink at the Twitter website.'
+      end
     else
       raise "Wrong OAuth provider: #{omniauth[:provider]}"
     end
@@ -31,12 +35,17 @@ class IdentitiesController < ApplicationController
     authorize! :update, current_user
 
   	omniauth = request.env['omniauth.auth']
-
   	if provider_name != omniauth[:provider]
   		raise "Wrong OAuth provider: #{omniauth[:provider]}"
   	end
 
     if omniauth[:uid] and omniauth[:credentials] and omniauth[:credentials][:token]
+      if provider_name == 'twitter'
+        omniauth['extra']['oath_version'] = omniauth['extra']['access_token'].consumer.options[:oauth_version];
+        omniauth['extra']['signature_method'] = omniauth['extra']['access_token'].consumer.options[:signature_method]
+        omniauth['extra'].delete 'access_token'
+      end
+
       current_user.identities[provider_name] = omniauth
       current_user.save 
       flash[:notice] = "Succesfully connected."
@@ -59,7 +68,7 @@ class IdentitiesController < ApplicationController
         block.call uid, token
         current_user.identities.delete(provider_name)
         current_user.save
-        flash[:notice] = "Succesfully disconnected."
+        flash[:notice] ||= "Succesfully disconnected."
       rescue => e
         flash[:alert] = "Error disconnecting. #{e.message}"
       end
