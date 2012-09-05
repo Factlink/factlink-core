@@ -15,12 +15,12 @@ class window.ProfileController
     mainRegion: (user) -> getTextView('Here be notification settings')
 
   # ACTIONS
-  showProfile: (username) -> @showUserPage username, @profile_options(username)
-  showNotificationSettings: (username) -> @showUserPage username, @notification_options(username)
+  showProfile: (username) -> @showPage username, @profile_options(username)
+  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
 
   # HELPERS
 
-  showUserPage: (username, options) ->
+  showPage: (username, options) ->
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
     @getUser username,
