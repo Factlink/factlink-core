@@ -13,15 +13,14 @@ test:
 testserver:
   omniauth:
     facebook:
-      id: "283748838400237"
-      secret: "608b02f9697512a72bd2174abdf98395"
+      id: "394296183970720"
+      secret: "b55062c283d2d3e90cc00ef8cd884cf0"
 
 staging:
   omniauth:
     facebook:
-      id: "385144638222636"
-      secret: "03a62f1b9bc84c9993fb09a3a1683b64"
-
+      id: "435991923110591"
+      secret: "4c0fa30f8597e6458ea5dad174673f1e"
 production:
   omniauth:
     facebook:
