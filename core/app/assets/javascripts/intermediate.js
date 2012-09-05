@@ -75,22 +75,6 @@ var // The iFrame
               showFrame.contentWindow.position(top, left);
             };
           }
-        },
-        // easyXDM does not support passing functions wrapped in objects (such as options in this case)
-        // so therefore we need this workaround
-        ajax: function(path, options, successFn, errorFn) {
-          ajax(path, $.extend({
-            success: successFn,
-            error: errorFn
-          },options));
         }
       }
     });
-
-function ajax(path, options) {
-  $.ajax(path, $.extend({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  }, options));
-}
