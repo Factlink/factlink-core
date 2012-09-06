@@ -47,6 +47,7 @@ class HomeController < ApplicationController
 
   def index
     respond_to do |format|
+      @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
       format.html { render layout: "landing" }
     end
   end

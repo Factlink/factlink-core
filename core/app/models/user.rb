@@ -19,6 +19,8 @@ class User
   field :last_name
   field :identities, type: Hash, default: {}
 
+  field :registration_code
+
   field :twitter
   field :location
   field :biography
