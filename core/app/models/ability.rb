@@ -16,6 +16,10 @@ class Ability
     can :check, Blacklist
     can :new, Fact
 
+    can :show, String do |template|
+      ! /^home\/pages\/help/.match template
+    end
+
     # Registered user
     if user
 
@@ -28,6 +32,8 @@ class Ability
         define_user_abilities
         define_user_activities_abilities
         define_topic_abilities
+
+        can :show, String
       else
         cannot :manage, :all
         can :sign_tos, user
