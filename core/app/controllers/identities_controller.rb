@@ -26,7 +26,11 @@ class IdentitiesController < ApplicationController
   end
 
   def oauth_failure
-    flash[:alert] = "Authorization failed: #{params[:error_description]}"
+    if(params[:error_description].blank?)
+      params[:error_description] ||= "unspecified error"
+    end
+
+    flash[:alert] = "Authorization failed: #{params[:error_description]}."
     redirect_to edit_user_path(current_user)
   end
 
