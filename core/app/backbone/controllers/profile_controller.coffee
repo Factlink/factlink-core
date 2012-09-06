@@ -12,15 +12,16 @@ class window.ProfileController
   notification_options: (username)->
     title: 'Notification Settings'
     active_tab: 'notification-settings'
-    mainRegion: (user) -> getTextView('Here be notification settings')
+    mainRegion: (user) ->
+      new NotificationSettingsView model: user
 
   # ACTIONS
-  showProfile: (username) -> @showUserPage username, @profile_options(username)
-  showNotificationSettings: (username) -> @showUserPage username, @notification_options(username)
+  showProfile: (username) -> @showPage username, @profile_options(username)
+  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
 
   # HELPERS
 
-  showUserPage: (username, options) ->
+  showPage: (username, options) ->
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
     @getUser username,
@@ -32,16 +33,18 @@ class window.ProfileController
         @main.tabsRegion.show(@getUserTabs(user, options.active_tab))
         @main.contentRegion.show(options.mainRegion(user))
 
-  switchToPage: (username, user, options)->
+  switchToPage: (username, user, path, options)->
     @main.setTitle options.title
     @main.tabsRegion.currentView.activate(options.active_tab)
     @main.contentRegion.show(options.mainRegion(user))
+    Backbone.history.navigate path, false
 
   getUserTabs: (user, active_tab) ->
     usertabs = new UserTabsView(model: user, active_tab: active_tab)
     username = user.get('username')
-    usertabs.on 'showProfile',       => @switchToPage(username, user, @profile_options(username))
-    usertabs.on 'showNotifications', => @switchToPage(username, user, @notification_options(username))
+    userjson = user.toJSON()
+    usertabs.on 'showProfile',       => @switchToPage(username, user, userjson.link , @profile_options(username))
+    usertabs.on 'showNotifications', => @switchToPage(username, user,userjson.notifications_settings_path, @notification_options(username))
 
   getUser: (username, options) ->
     user = new User(username: username)

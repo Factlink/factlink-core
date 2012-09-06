@@ -3,28 +3,29 @@
   <%= f.label service_name, class: "control-label" %>
   <div class="controls">
 
-	<% if connected %>
-    <span class="social-services-button">
+  <span class="social-services-button">
+	<% if connected %> 
     <span class="connected">
       <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, :class => "btn disabled") do %>
-        <%= image_tag("#{service_name}.png", style:"margin: -2px 8px 0 -6px") %>
+        <%= image_tag("#{service_name}.png") %>
         Connected to <%= service_name.capitalize %>     
       <% end %>
     </span>
 
     <span class="disconnect">
       <%= link_to("/auth/#{service_name}/deauthorize", :method => :delete, :class => "btn btn-danger") do %>
-          <%= image_tag("#{service_name}.png", style:"margin: -2px 8px 0 -6px") %>
-        Disconnect from <%= service_name.capitalize %>
+        <%= image_tag("#{service_name}.png") %>
+          Disconnect from <%= service_name.capitalize %>
       <% end %>
     </span>
+   
+  	<% else %>
+  		<%= link_to("/auth/#{service_name}", :class => "btn") do %>
+        <%= image_tag("#{service_name}.png") %> 
+          Connect <%= service_name.capitalize %>
+        <% end %>
+  	<% end %>
     </span>
-
-	<% else %>
-		<a class="btn" href="/auth/<%= service_name %>">
-      <%= image_tag("#{service_name}.png", style:"margin: -2px 8px 0 -6px") %>Connect <%= service_name.capitalize %>
-  	</a>
-	<% end %>
  
   </div>
 </div>

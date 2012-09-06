@@ -21,7 +21,7 @@ var // The iFrame
               successFn();
             }
 
-          }
+          };
           showFrame.onload = onLoadSuccess;
 
           // Somehow only lower case letters seem to work for those events --mark
@@ -62,7 +62,7 @@ var // The iFrame
 
           var onFactlinkCreated = function(e, id) {
             remote.highlightNewFactlink(text, id);
-          }
+          };
           $(document).bind("factlinkCreated", onFactlinkCreated);
 
         },
@@ -75,22 +75,6 @@ var // The iFrame
               showFrame.contentWindow.position(top, left);
             };
           }
-        },
-        // easyXDM does not support passing functions wrapped in objects (such as options in this case)
-        // so therefore we need this workaround
-        ajax: function(path, options, successFn, errorFn) {
-          ajax(path, $.extend({
-            success: successFn,
-            error: errorFn
-          },options));
         }
       }
     });
-
-function ajax(path, options) {
-  $.ajax(path, $.extend({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  }, options));
-}

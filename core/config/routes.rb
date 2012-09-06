@@ -111,6 +111,7 @@ FactlinkUI::Application.routes.draw do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
 
     get "/" => "users#show", :as => "user_profile"
+    put "/" => "users#update"
 
     get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
 

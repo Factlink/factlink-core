@@ -1,7 +1,5 @@
 module Users
   class User < Mustache::Railstache
-    @cache = {}
-
     def init
       self[:graph_user] = self[:user].graph_user
     end
@@ -63,6 +61,10 @@ module Users
 
     def is_current_user
       self[:user] == current_user
+    end
+
+    def receives_mailed_notifications
+      self[:user].receives_mailed_notifications
     end
 
     private

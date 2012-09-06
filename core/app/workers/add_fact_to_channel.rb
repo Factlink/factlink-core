@@ -19,6 +19,7 @@ class AddFactToChannel
         channel.containing_channels.each do |ch|
           Resque.enqueue(AddFactToChannel, fact_id, ch.id, options)
         end
+        # DEPRECATED: we should tear out the old stream
         Resque.enqueue(AddFactToChannel, fact_id, channel.created_by.stream.id, options) unless channel.type == 'stream'
       end
     end

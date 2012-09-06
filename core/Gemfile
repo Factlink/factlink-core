@@ -74,6 +74,7 @@ gem 'possessive'
 
 # social connections
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 gem 'httparty'
 
