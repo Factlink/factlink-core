@@ -4,7 +4,7 @@ def create_factlink(user)
   FactoryGirl.create(:fact, created_by: user.graph_user)
 end
 
-def wait_until_scope_exists(scope, &blRzock)
+def wait_until_scope_exists(scope, &block)
   wait_until { page.has_css?(scope) }
   within scope, &block
 rescue Capybara::TimeoutError
@@ -18,7 +18,6 @@ describe "factlinks", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-
   it "should be able to add evidence", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
@@ -31,10 +30,9 @@ describe "factlinks", type: :request do
 
     wait_until_scope_exists '.add-evidence-container' do
       fill_in 'supporting_search', :with => search_string
+      wait_for_ajax
     end
-
-    wait_for_ajax
-      
+    
     page.should have_selector('.supporting li.add')
   
     page.execute_script('$(".supporting li.add").trigger("click")')
