@@ -1,0 +1,20 @@
+class AddFactToChannelInteractor
+  def initialize fact_id, channel_id, options={}
+    raise 'fact_id should be an integer.'    unless /\A\d+\Z/.match fact_id 
+    raise 'channel_id should be an integer.' unless /\A\d+\Z/.match channel_id  
+
+    @fact_id = fact_id
+    @channel_id = channel_id
+    @ability = options[:ability]
+  end
+
+  def execute
+    channel = Channel[@channel_id]
+
+    raise CanCan::AccessDenied unless @ability.can? :update, channel
+
+    fact = Fact[@fact_id]
+
+    channel.add_fact(fact)
+  end
+end
