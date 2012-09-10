@@ -99,7 +99,11 @@ def random_email
 end
 
 def wait_for_ajax
-  wait_until { page.evaluate_script('jQuery.active') > 0 }
+  begin
+    wait_until { page.evaluate_script('jQuery.active') > 0 }
+  rescue Capybara::TimeoutError
+    flunk 'No Ajax request was made, what are you waiting for?'
+  end
   wait_until { page.evaluate_script('jQuery.active') == 0 }
 rescue Capybara::TimeoutError
   flunk 'The Ajax request was not ready in time'
