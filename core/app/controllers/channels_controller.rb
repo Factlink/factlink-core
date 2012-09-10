@@ -148,6 +148,8 @@ class ChannelsController < ApplicationController
     end
   end
 
+  # DEPRECATE i think this can be thrown away now,
+  #           since the last user was (I think) the jslib -- mark
   def toggle_fact
     authorize! :update, @channel
 
