@@ -99,3 +99,9 @@ def random_email
 
   @email_sequence.next
 end
+
+def wait_for_ajax
+  wait_until  { page.evaluate_script('jQuery.isReady && jQuery.active === 0') }
+rescue Capybara::TimeoutError
+  flunk 'The Ajax request was not ready in time'
+end
