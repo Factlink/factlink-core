@@ -11,6 +11,9 @@ class HomeController < ApplicationController
     if ( /\A([-a-zA-Z_\/]+)\Z/.match(params[:name]))
       respond_to do |format|
         template = "home/pages/#{$1}"
+
+        authorize! :show, template
+
         format.html do
           begin
             render template, :layout => "general"
@@ -47,6 +50,7 @@ class HomeController < ApplicationController
 
   def index
     respond_to do |format|
+      @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
       format.html { render layout: "landing" }
     end
   end

@@ -12,6 +12,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # Assign field
     resource.email    = params[:user][:email]
+    if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:user][:registration_code]))
+      resource.registration_code    = params[:user][:registration_code]
+    end
     resource.password = generated_password
 
     if resource.save
