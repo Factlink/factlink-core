@@ -8,6 +8,9 @@
       <li><%= link_to "About #{current_user.username}", user_profile_path(current_user) %></li>
       <li class="account active"><%= link_to "Edit", edit_user_path(current_user) %></li>
       <li class="password"><%= link_to "Change password", user_password_edit_path(current_user) %></li>
+      <% if can_haz :notification_settings %>
+        <li class="tab-notification-settings"><%= link_to "Notification Settings", user_notification_settings_path(current_user) %></li>
+      <% end %>
     </ul>
   </div>
 </header>
@@ -51,6 +54,18 @@
             <%= f.text_area :biography, autocomplete: "off", tabindex: 5, rows: 4 %>
           </div>
         </div>
+
+        <% if can_haz :social_connect %>
+          <% FactlinkUI::Application.config.social_services.each do |service_name| %>
+            <%= render "social_services_button", service_name: service_name, f: f %>
+          <% end %>
+
+          <div class="control-group">
+            <div class="controls">
+              Note: We will not publish anything without your permission.
+            </div>
+          </div>
+        <% end %>
 
         <div class="control-group">
           <label class="control-label">Picture</label>

@@ -6,7 +6,7 @@ class AddLowercaseTitle < Mongoid::Migration
         ch.save
       end
     end
-    
+
   end
 
   def self.down

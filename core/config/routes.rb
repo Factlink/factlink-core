@@ -13,6 +13,15 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
 
+  resque_constraint = lambda do |request|
+    request.env['warden'].authenticate? and request.env['warden'].user.admin?
+  end
+
+  constraints resque_constraint do
+    mount Resque::Server, :at => "/a/resque"
+  end
+
+
   # Javascript Client calls
   # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
   get   "/site/blacklisted" => "sites#blacklisted"
@@ -25,19 +34,24 @@ FactlinkUI::Application.routes.draw do
   match "/factlink/intermediate" => "facts#intermediate"
 
   # Static js micro templates
-  get "/templates/:name" => "templates#show", constraints: { name: /[-a-zA-Z_]+/ }
+  get "/templates/:name" => "js_lib#show_template",
+      constraints: { name: /[-a-zA-Z_]+/ }
+
+  get "/jslib/:path" => "js_lib#redir",
+      constraints: { path: /[-a-zA-Z0-9_.\/]*/ }
 
   # Generate the images for the indicator used in the js-lib
   get "/system/wheel/:percentages" => "wheel#show"
 
   # Show Facts#new as unauthenticated user to show the correct login link
-  resources :facts, only: [:new, :update] do
+  resources :facts, only: [:new, :update, :create] do
     member do
-      get 'popup_show' => "facts#popup_show"
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
     end
   end
+
+  resources :feedback
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
@@ -88,10 +102,18 @@ FactlinkUI::Application.routes.draw do
         put "/password" => "users/registrations#update_password", as: "update_password"
       end
     end
+
+    get "/auth/:service/callback" => "identities#service_callback"
+    delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
   scope "/:username" do
+    put "/seen_messages" => "users#seen_message", as: 'see_message'
+
     get "/" => "users#show", :as => "user_profile"
+    put "/" => "users#update"
+
+    get 'notification-settings' => "channels#backbone_page", as: "user_notification_settings"
 
     scope "/activities" do
       get "/" => "users#activities", :as => "activities"
@@ -175,4 +197,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/x/:id" => "fake_facts#show"
   get "/x/set/:id/:name" => "fake_facts#set_name"
+
+
 end

@@ -5,12 +5,12 @@ describe ChannelsController do
 
   before { Resque.stub!(:enqueue,nil) }
 
-  let (:user) {FactoryGirl.create(:user)}
-  let (:nonnda_user) { FactoryGirl.create(:user, agrees_tos: false) }
+  let (:user) { create :user }
+  let (:nonnda_user) { create :user, agrees_tos: false }
 
-  let (:f1) {create(:fact)}
-  let (:f2) {create(:fact)}
-  let (:f3) {create(:fact)}
+  let (:f1) {create :fact}
+  let (:f2) {create :fact}
+  let (:f3) {create :fact}
 
   let (:ch1) do
     ch1 = create :channel, created_by: user.graph_user

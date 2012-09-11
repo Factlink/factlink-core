@@ -1,21 +1,24 @@
 <% if user_signed_in? %>
-  <%= form_tag facts_path, class: "fact-block", id:"new_fact_form" do %>
-    <div class="content">
+  <%= form_tag facts_path(layout: @layout), class: "fact-block", id:"new_fact_form" do %>
+    <article class="fact">
       <div class="wheel"></div>
 
-      <div class="factlink">
-        <%= text_field_tag :title, params[:title], class: "title", autocomplete: "off" %>
+      <header>
+        <% unless params[:title].blank? %>
+        <a class="title"><%= params[:title] %></a>
+        <%= hidden_field_tag :title, params[:title] %>
+        <% end %>
 
-        <div class="fact">
+       <span class="body">
           <%= text_area_tag :fact, params[:fact] %>
-          <p style='max-height: 100px; overflow: auto;'><%= params[:fact] %></p>
-        </div>
+          <p style='max-height: 100px; overflow-y: scroll;'><%= params[:fact] %></p>
 
-        <%= hidden_field_tag :url, params[:url] %>
-      </div>
-    </div>
+          <%= hidden_field_tag :url, params[:url] %>
+        </span>
+      </header>
+    </article>
 
-    <div id="add_to_container">
+    <div id="add-to-container">
       <h4><%= t('.add_to_channels').capitalize %>:</h4>
       <div id="add-to-channels"></div>
     </div>
@@ -26,31 +29,29 @@
 
     <div class="buttons">
       <button class="btn" name="cancel" id="cancel">Cancel</button>
-      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Adding...", id: "submit" %>
+      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Posting...", id: "submit" %>
     </div>
   <% end %>
 <% end %>
 
 <% content_for :javascript do %>
   <script>
-    <% if @just_signed_in %>
-      window.top.postMessage({message: "updateState"}, "*");
-    <% end %>
-
-    <% if current_user %>
-      window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
-
-      window.currentUser.setChannels(new OwnChannelCollection(<%= current_graph_user.channels.map{|ch| Channels::Channel.for(channel: ch,view: self) }.to_json.html_safe %>));
-    <% end %>
+    <%= render 'backbone/currentUser' %>
 
     var addToChannelView = new AutoCompletedAddToChannelView().render();
 
     $('#add-to-channels').replaceWith(addToChannelView.el);
 
-
     var persistentWheel = new PersistentWheelView({
       el: $('.wheel'),
       model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
+
+    $('#cancel').on('click', function (e) {
+      mp_track("Modal: Cancel");
+      e.preventDefault();
+      parent.remote.hide();
+    });
+
   </script>
 <% end %>

@@ -31,7 +31,7 @@ class RemoveFactFromChannel
   def perform
     should_delete = (explicitely_deleted? or not included_from_elsewhere?)
     should_propagate = (not already_deleted?)
-    
+
     if should_delete
       channel.sorted_cached_facts.delete(fact) unless already_deleted?
       fact.channels.delete(channel)
@@ -42,14 +42,14 @@ class RemoveFactFromChannel
       end
     end
   end
-  
+
   def initialize(fact_id, channel_id)
     @fact_id = fact_id
     @channel_id = channel_id
   end
-  
+
   def self.perform(fact_id, channel_id)
     new(fact_id, channel_id).perform
   end
-  
+
 end

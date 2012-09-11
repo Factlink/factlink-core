@@ -39,6 +39,8 @@ en:
   interesting_users: "interesting users"
 
   ago: "ago"
+  show: "show"
+  loading: "loading"
 
   fact_added_fact_to_channel_action: "added your Factlink to their channel"
 

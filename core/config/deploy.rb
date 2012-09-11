@@ -35,22 +35,7 @@ set :deploy_via, :remote_cache    # only fetch changes since since last
 ssh_options[:forward_agent] = true
 
 
-# If you are using Passenger mod_rails uncomment this:
-namespace :deploy do
-
-  task :all do
-    set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"
-  end
-
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-
-  task :check_installed_packages do
-    run "sh #{current_release}/bin/server/check_installed_packages.sh"
-  end
+namespace :action do
 
   task :start_recalculate do
     run "sh #{current_path}/bin/server/start_recalculate.sh #{deploy_env}"
@@ -68,6 +53,25 @@ namespace :deploy do
 
   task :reindex do
     run "cd #{current_path}; bundle exec rake sunspot:solr:reindex RAILS_ENV=#{deploy_env}"
+  end
+
+end
+
+# If you are using Passenger mod_rails uncomment this:
+namespace :deploy do
+
+  task :all do
+    set_conf_path="export CONFIG_PATH=#{deploy_to}/current; export NODE_ENV=#{deploy_env};"
+  end
+
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+
+  task :check_installed_packages do
+    run "sh #{current_release}/bin/server/check_installed_packages.sh"
   end
 
   task :curl_site do
@@ -91,6 +95,13 @@ namespace :deploy do
     end
   end
 
+
+  # https://gist.github.com/885637
+  desc "Copy resque-web assets into public folder"
+  task :copy_resque_assets do
+    target = File.join(release_path,'public','resque')
+    run "cp -r `cd #{release_path} && bundle show resque`/lib/resque/server/public #{target}"
+  end
 end
 
 namespace :mongoid do
@@ -101,19 +112,21 @@ end
 
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
-after 'deploy:all',       'deploy:reindex'
+after 'deploy:all',       'action:reindex'
 
-before 'deploy:migrate',  'deploy:stop_recalculate'
-before 'deploy:migrate',  'deploy:stop_resque'
+before 'deploy:migrate',  'action:stop_recalculate'
+before 'deploy:migrate',  'action:stop_resque'
 
 after 'deploy',           'deploy:migrate'
 
-after 'deploy:migrate',   'deploy:start_recalculate'
-after 'deploy:migrate',   'deploy:start_resque'
+after 'deploy:migrate',   'action:start_recalculate'
+after 'deploy:migrate',   'action:start_resque'
 
 after 'deploy:update', 'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy', 'deploy:curl_site'
+
+after "deploy:restart", "deploy:copy_resque_assets"
 
 require './config/boot'

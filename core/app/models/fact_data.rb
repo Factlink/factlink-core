@@ -10,18 +10,16 @@ class FactData
 
   attr_accessible []
 
-  searchable :auto_index => true do
-    text    :displaystring, :stored => true
+  searchable auto_index: true do
+    text    :displaystring, stored: true
     string  :fact_id
     text    :title
     time    :created_at
   end
 
-  field :title,           :type => String
-  field :displaystring,   :type => String
-  field :passage,         :type => String
-  field :content,         :type => String
-  field :fact_id,         :type => String
+  field :title,           type: String
+  field :displaystring,   type: String
+  field :fact_id,         type: String
 
   validates_format_of :displaystring, allow_nil: true, with: /\S/
 

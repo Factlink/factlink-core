@@ -5,7 +5,10 @@
 <% content_for :more_specific_page do %>
     <div id="body">
       <div class="container">
-      	<%= yield %>
+
+        <%= render 'home/notifications', notice: notice, alert: alert %>
+
+        <%= yield %>
       </div>
     </div>
 <% end %>
@@ -16,7 +19,9 @@
     <%= javascript_include_tag "frontend" %>
 
     <%= yield :javascript %>
-
+    <script>
+      FactlinkApp.start();
+    </script>
 <% end %>
 
 <%= render template: 'layouts/more_general' %>

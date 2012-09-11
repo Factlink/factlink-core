@@ -1,11 +1,11 @@
 module BaseViews
-	module FactBubbleBase
-		def user_signed_in?
+  module FactBubbleBase
+    def user_signed_in?
       self.view.user_signed_in?
     end
 
     def i_am_fact_owner
-    	(self[:fact].created_by == current_graph_user)
+      (self[:fact].created_by == current_graph_user)
     end
 
     def can_edit?
@@ -21,19 +21,7 @@ module BaseViews
     end
 
     def displaystring
-      if self[:limit_characters_to_display]
-        return truncate(self[:fact].data.displaystring, {length: self[:limit_characters_to_display]})
-      else
-        return truncate(self[:fact].data.displaystring, :omission => "", :length => 288)
-      end
-    end
-
-    def full_displaystring
       self[:fact].data.displaystring
-    end
-
-    def big_displaystring?
-      displaystring != full_displaystring
     end
 
     def fact_title
@@ -58,7 +46,9 @@ module BaseViews
 
     private
       def show_links
-        not (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]) and not self[:hide_links] and self[:fact].site and self[:fact].site.blank?
+        hide_links_on_this_site = self[:hide_links_for_site] # (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site])
+
+        self[:fact].site and not ( self[:hide_links] or hide_links_on_this_site)
       end
-	end
+  end
 end

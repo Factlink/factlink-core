@@ -83,4 +83,3 @@ window.FactRelationView = ViewWithPopover.extend({
     }});
   }
 });
-_.extend(FactRelationView.prototype, TemplateMixin);

@@ -3,7 +3,7 @@
 window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
   className: "facts",
-  containerSelector: ".facts",
+  itemViewContainer: ".facts",
   itemView: FactView,
   events: {
     "submit #create_fact_for_channel": "createFact",
@@ -28,9 +28,11 @@ window.FactsView = AutoloadingCompositeView.extend({
   },
 
   shownewposts: function(){
-    var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
-    this.$('.more_facts .unread_count').html(unread_count);
-    this.$('.more_facts').toggle(unread_count > 0);
+    if ( this.model.user().get('username') === currentUser.get('username') ) {
+      var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
+      this.$('.more_facts .unread_count').html(unread_count);
+      this.$('.more_facts').toggle(unread_count > 0);
+    }
   },
 
   emptyViewOn: function() {

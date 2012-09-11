@@ -5,8 +5,8 @@ describe 'Reserving a username', type: :request do
   it 'should get success note with valid username' do
     visit '/'
 
-    fill_in 'user_username', with: 'teh_user'
-    fill_in 'user_email',    with: 'teh_user@factlink.com'
+    fill_in 'user_username', with: random_username
+    fill_in 'user_email',    with: random_email
 
     click_button 'Reserve'
 
@@ -17,10 +17,52 @@ describe 'Reserving a username', type: :request do
     visit '/'
 
     fill_in 'user_username', with: 'teh_user_has_a_way_too_long_username'
-    fill_in 'user_email',    with: 'teh_user@factlink.com'
+    fill_in 'user_email',    with: random_email
 
     click_button 'Reserve'
 
     page.should have_content('Registration failed')
+  end
+
+  it 'should make the username appear in the reserved user list' do
+    username = random_username
+
+    visit '/'
+
+    fill_in 'user_username', with: username
+    fill_in 'user_email',    with: random_email
+
+    click_button 'Reserve'
+
+    create_admin_and_login
+
+    within(:css, 'a.dropdown-toggle') do
+      page.should have_content('Admin')
+    end
+
+    visit '/a/users/reserved'
+
+    within(find("#main-wrapper table tr>td", text: username).parent) do
+      page.should_not have_content('confirmed')
+    end
+  end
+
+  it 'user should receive a confirmation email and should be able to confirm its e-mail address' do
+    email = random_email
+
+    clear_emails
+
+    visit '/'
+
+    fill_in 'user_username', with: random_username
+    fill_in 'user_email',    with: email
+
+    click_button 'Reserve'
+
+    open_email email
+
+    current_email.click_link 'Confirm my email address'
+
+    page.should have_content "Email confirmed. Awaiting account approval."
   end
 end

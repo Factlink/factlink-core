@@ -2,6 +2,22 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
+  before_filter :check_preferred_browser
+  def check_preferred_browser
+    if current_user
+      message = :supported_browser_warning
+
+      supported_browser = (view_context.browser_supported? and (not view_context.browser_preferred?))
+      allowed_controller = (not ["tour", "tos"].include? controller_name)
+
+      if supported_browser and allowed_controller
+        if not current_user.seen_messages.include? message.to_s
+          @show_supported_browser_warning = true
+        end
+      end
+    end
+  end
+
   include UrlHelper
   before_filter :set_mailer_url_options
 
@@ -101,7 +117,7 @@ class ApplicationController < ActionController::Base
   def initialize_mixpanel
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
 
-    if action_name == "intermediate" and controller_name == "facts"
+    if action_is_intermediate?
       @mixpanel.append_api('disable', ['mp_page_view'])
     end
 
@@ -111,7 +127,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :set_last_interaction_for_user
+  def set_last_interaction_for_user
+    if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
+      @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
+      @mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
+      Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
+    end
+  end
+
+
+  def jslib_url_for(username)
+    FactlinkUI::Application.config.jslib_url_builder.url_for username
+  end
+  helper_method :jslib_url_for
+
   private
+    def action_is_intermediate?
+      action_name == "intermediate" and controller_name == "facts"
+    end
+
     def channels_for_user(user)
       @channels = user.graph_user.channels
       unless @user == current_user
@@ -127,7 +162,7 @@ class ApplicationController < ActionController::Base
     helper_method :can_haz
 
     def set_layout
-      allowed_layouts = ['popup']
+      allowed_layouts = ['popup', 'client']
       allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
     end
 

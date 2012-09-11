@@ -5,13 +5,47 @@ class window.UserActivitiesView extends Backbone.Marionette.CompositeView
   itemView: Backbone.View
   itemViewContainer: ".the-activities"
 
-  appendable: (new_model) ->
-    same_user                  = this.model.get('username') == new_model.get('username')
-    new_subject_is_channel     =  new_model.get('subject_class') == "Channel"
-    current_subject_is_channel = this.model.get('subject_class') == "Channel"
-    same_user && new_subject_is_channel && current_subject_is_channel
+  @new: (options)->
+    new (@classForModel(options.model))(options)
+
+  @classForModel: (model) ->
+    if model.get('subject_class') == "Channel"
+      UserChannelActivitiesView
+    else if model.get('action') in ["added_supporting_evidence", "added_weakening_evidence"]
+      EvidenceActivitiesView
+    else if model.get('action') in ["believes", "doubts", "disbelieves"]
+      OpinionActivitiesView
+    else
+      UserActivitiesView
+
+
+  appendable: (m) -> false
 
   buildItemView: (item, ItemView) ->
     #ignore ItemView
     newItemView = window.getActivityItemViewFor(item)
     Backbone.Marionette.CompositeView.prototype.buildItemView.call(this,item, newItemView)
+
+class UserChannelActivitiesView extends UserActivitiesView
+  appendable: (m) ->
+    return false unless @model.get('username') == m.get('username')
+
+    return m.get('subject_class') == "Channel"
+
+
+class EvidenceActivitiesView extends UserActivitiesView
+  appendable: (m) ->
+    return false unless @model.get('username') == m.get('username')
+
+    correct_action = m.get('action') in ["added_supporting_evidence", "added_weakening_evidence"]
+
+    same_fact = @model.get('activity')?.fact?.id == m.get('activity')?.fact?.id
+
+    correct_action and same_fact
+
+
+class OpinionActivitiesView extends UserActivitiesView
+  appendable: (m) ->
+    return false unless @model.get('username') == m.get('username')
+
+    return @model.get('activity')?.fact?.id == m.get('activity')?.fact?.id

@@ -2,14 +2,13 @@ class FactsController < ApplicationController
 
   layout "client"
 
-  before_filter :set_layout, :only => [:new]
+  before_filter :set_layout, :only => [:new, :create]
 
   respond_to :json, :html
 
   before_filter :load_fact,
     :only => [
       :show,
-      :popup_show,
       :extended_show,
       :destroy,
       :get_channel_listing,
@@ -27,6 +26,7 @@ class FactsController < ApplicationController
     @title = @fact.data.displaystring # The html <title>
     @modal = true
     @hide_links_for_site = @modal && @fact.site
+    @just_added = ( not params[:just_added].blank? )
 
     respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
   end
@@ -35,11 +35,6 @@ class FactsController < ApplicationController
     authorize! :show, @fact
 
     render layout: "frontend"
-  end
-
-  def popup_show
-    @fact.calculate_opinion(1)
-    render layout: 'popup'
   end
 
   def intermediate
@@ -54,21 +49,33 @@ class FactsController < ApplicationController
       @just_signed_in = true
     end
 
-    if current_user
-      render layout: @layout
-    else
+    unless current_user
+      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
       redirect_to user_session_path(layout: @layout)
     end
+
+    track "Modal: Open prepare"
   end
 
   def create
+    unless current_user
+      session[:return_to] = new_fact_path(layout: @layout, title: params[:title], fact: params[:fact], url: params[:url])
+      redirect_to user_session_path(layout: @layout)
+      return
+    end
+
     authorize! :create, Fact
+
     @fact = Fact.build_with_data(params[:url].to_s, params[:fact].to_s, params[:title].to_s, current_graph_user)
     @site = @fact.site
 
 
     respond_to do |format|
       if @fact.data.save and @fact.save
+
+        track "Factlink: Created"
+
+        #TODO switch the following two if blocks if possible
         if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
           @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
           @fact.calculate_opinion(1)
@@ -86,8 +93,8 @@ class FactsController < ApplicationController
         end
 
         format.html do
-          flash[:notice] = "Factlink successfully posted. <a href=\"#{friendly_fact_path(@fact)}\" target=\"_blank\">View on Factlink.com</a>".html_safe
-          redirect_to controller: 'facts', action: 'popup_show', id: @fact.id, only_path: true
+          track "Modal: Create"
+          redirect_to fact_path(@fact.id, just_added: true)
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else

@@ -6,6 +6,8 @@ class window.ExtendedFactView extends FactView
 
   template: "facts/_extended_fact"
 
+  showLines: 6;
+
   initialize: (opts) ->
     super(opts)
     @factWheelView = new InteractiveWheelView({
@@ -21,6 +23,7 @@ class window.ExtendedFactView extends FactView
     @renderAddToChannel()
     @factWheelView.render();
     @renderUserPassportViews();
+    @truncateText();
 
 
   renderUserPassportViews: ()->

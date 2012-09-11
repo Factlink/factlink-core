@@ -12,8 +12,6 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-
-
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
@@ -53,7 +51,7 @@ Devise.setup do |config|
 end
 
 def int_user
-  user = FactoryGirl.create(:user, email: "user@example.com")
+  user = FactoryGirl.create(:user)
   user.confirm!
   user
 end
@@ -65,26 +63,55 @@ def handle_js_confirm(accept=true)
   page.evaluate_script "window.confirm = window.original_confirm_function"
 end
 
-def make_user
-  FactoryGirl.create(:user, email: "user@example.com", approved: true)
-end
-
-def make_user_and_login
-  user = make_user
-  sign_in_user(user)
+def create_admin_and_login
+  admin = FactoryGirl.create(:admin_user)
+  sign_in_user admin
 end
 
 def make_non_tos_user_and_login
-  user = FactoryGirl.create(:user, email: "user@example.com", agrees_tos: false, approved: true)
+  user = FactoryGirl.create(:approved_confirmed_user, agrees_tos: false)
   sign_in_user(user)
 end
 
 def sign_in_user(user)
-  user.confirm!
   visit "/"
   fill_in "user_login", :with => user.email
   fill_in "user_login_password", :with => user.password
   click_button "Sign in"
 
   user
+end
+
+def random_username
+  @username_sequence ||= FactoryGirl::Sequence.new :username do |n|
+    "janedoe#{n}"
+  end
+
+  @username_sequence.next
+end
+
+def random_email
+  @email_sequence ||= FactoryGirl::Sequence.new :email do |n|
+    "janedoe#{n}@example.com"
+  end
+
+  @email_sequence.next
+end
+
+def wait_for_ajax
+  begin
+    wait_until { page.evaluate_script('jQuery.active') > 0 }
+  rescue Capybara::TimeoutError
+    puts 'No Ajax request was made, what are you waiting for?'
+  end
+  wait_until { page.evaluate_script('jQuery.active') == 0 }
+rescue Capybara::TimeoutError
+  flunk 'The Ajax request was not ready in time'
+end
+
+def wait_until_scope_exists(scope, &block)
+  wait_until { page.has_css?(scope) }
+  within scope, &block
+rescue Capybara::TimeoutError
+  flunk "Expected '#{scope}' to be present."
 end

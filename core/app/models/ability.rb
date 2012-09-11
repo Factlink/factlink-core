@@ -12,9 +12,13 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :read, Job, :show => true
+    can :read, Job, show: true
     can :check, Blacklist
     can :new, Fact
+
+    can :show, String do |template|
+      ! /^home\/pages\/help/.match template
+    end
 
     # Registered user
     if user
@@ -28,6 +32,8 @@ class Ability
         define_user_abilities
         define_user_activities_abilities
         define_topic_abilities
+
+        can :show, String
       else
         cannot :manage, :all
         can :sign_tos, user
@@ -115,12 +121,14 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details jordin_in_factlink_times)
+  FEATURES = %w(pink_feedback_button authority_calculation_details notification_settings social_connect)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
+    @features ||= []
     list.each do |feature|
       can :"see_feature_#{feature}", FactlinkWebapp
+      @features << feature.to_s
     end
   end
 
@@ -131,6 +139,10 @@ class Ability
       enable_features user.features
       enable_features GLOBAL_ENABLED_FEATURES
     end
+  end
+
+  def feature_toggles
+    return @features
   end
 
 end

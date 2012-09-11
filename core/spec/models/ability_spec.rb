@@ -10,9 +10,9 @@ describe Ability do
   let(:nonnda) { Ability.new nonnda_user}
 
   #users used as object
-  let(:user) {create :user, :approved}
-  let(:other_user) {create :user, :approved }
-  let(:admin_user) {create :user, admin: true}
+  let(:user) {create :approved_confirmed_user}
+  let(:other_user) {create :approved_confirmed_user }
+  let(:admin_user) {create :admin_user}
   let(:nonnda_user) {create :user, agrees_tos: false}
 
   describe "to manage a user" do
@@ -191,7 +191,7 @@ describe Ability do
       subject.should   be_able_to :check, Blacklist
     end
   end
-  
+
   describe "to invite users" do
     it "should not be possible when you have no invites" do
       anonymous.should_not be_able_to :invite, User

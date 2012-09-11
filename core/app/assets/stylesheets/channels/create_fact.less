@@ -6,6 +6,8 @@
     overflow: hidden;
     margin: 0;
     padding-bottom: 10px;
+    width: 100%;
+    .box-sizing();
 
     * {
       .transition(all .125s);
@@ -124,15 +126,14 @@
     }
 
     .input-box {
-      -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
-
+      .box-sizing();
       .box-shadow(inset 0 1px 1px rgba(0, 0, 0, .075));
       border: 1px solid #CCC;
       .border-radius(3px);
 
       input, textarea {
         background: transparent;
-        -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+        .box-sizing();
         border: none;
         .box-shadow(none);
         .border-radius(none);

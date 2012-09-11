@@ -9,20 +9,64 @@ var // The iFrame
         hide: {},
         show: {},
         highlightNewFactlink: {},
-        stopHighlightingFactlink: {}
+        stopHighlightingFactlink: {},
+        createdNewFactlink: {}
       },
       local: {
         showFactlink: function(id, successFn) {
-          showFrame.onload = function() {
-            showFrame.onload = undefined;
-            successFn();
-          };
+          var successCalled  = 0;
+          var onLoadSuccess = function(){
+            if (! successCalled ){
+              successCalled++;
+              successFn();
+            }
 
-          // Set the source of the iframe
-          showFrame.src = "/facts/" + id;
+          };
+          showFrame.onload = onLoadSuccess;
+
+          // Somehow only lower case letters seem to work for those events --mark
+          $(document).bind("modalready", onLoadSuccess);
+
+          showFrame.src = "/facts/" + id + "?layout=client";
+
           // Show the overlay
           showFrame.className = "overlay";
         },
+
+        prepareNewFactlink: function(text, siteUrl, siteTitle, successFn, errorFn) {
+
+          var successCalled = 0;
+          var onLoadSuccess = function() {
+            if (! successCalled ){
+              successCalled++;
+
+              if ( $.isFunction( successFn ) ) {
+                successFn();
+              }
+            }
+          };
+
+          showFrame.onload = onLoadSuccess;
+
+          // Somehow only lower case letters seem to work for those events --mark
+          $(document).bind("modalready", onLoadSuccess);
+
+          showFrame.src = "/facts/new" +
+                                      "?fact="  + encodeURIComponent(text) +
+                                      "&url="   + encodeURIComponent(siteUrl) +
+                                      "&title=" + encodeURIComponent(siteTitle) +
+                                      "&layout=client";
+          // Show the overlay
+          showFrame.className = "overlay";
+
+
+          var onFactlinkCreated = function(e, id) {
+            remote.highlightNewFactlink(text, id);
+          };
+          $(document).bind("factlinkCreated", onFactlinkCreated);
+
+        },
+
         position: function(top, left) {
           try {
             showFrame.contentWindow.position(top, left);
@@ -31,22 +75,6 @@ var // The iFrame
               showFrame.contentWindow.position(top, left);
             };
           }
-        },
-        // easyXDM does not support passing functions wrapped in objects (such as options in this case)
-        // so therefore we need this workaround
-        ajax: function(path, options, successFn, errorFn) {
-          ajax(path, $.extend({
-            success: successFn,
-            error: errorFn
-          },options));
         }
       }
     });
-
-function ajax(path, options) {
-  $.ajax(path, $.extend({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  }, options));
-}

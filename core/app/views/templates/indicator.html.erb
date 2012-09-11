@@ -1,30 +1,4 @@
-<div class="fl-popup" style="display:none">
-  <div class="fl-share">
-    <img class="fl-share-icon" src=<%= "#{FactlinkUI::Application.config.static_url}/lib/dist/images/bookmark.gif" %> alt="Share">
-
-    <ul class="fl-channels">
-      <li class="fl-loading"> <%= image_tag(image_url("ajax-loader.gif")) %><span>Loading</span></li>
-      <% if current_user%>
-        <li class="fl-form">
-          <form method="post" action='<%= channels_path(current_user) %>'>
-            <input type="text" name="channel_title" value="" placeholder="Add new">
-            <input type="submit" value="Add" class="btn btn-mini">
-          </form>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="fl-label">
-    <span>Show</span>
-
-    <div class="fl-indication">
-      <span class="fl-authority">{%= opinions.authority %}</span>
-      <div class="fl-indicator-icon">
-        <%= image_tag(image_url("/system/wheel/{%= opinions.believe.percentage %}-{%= opinions.doubt.percentage %}-{%= opinions.disbelieve.percentage %}.png".html_safe)) %>
-      </div>
-    </div>
-  </div>
-
-  <div class="fl-arrow fl-arrow-bottom"></div>
+<div class="fl-popup fl-blue" style="display:none">
+  <span class="fl-default-message"><%= t(:show).humanize %> Factlink</span>
+  <span class="fl-loading-message"><%= t(:loading).humanize %>...</span>
 </div>

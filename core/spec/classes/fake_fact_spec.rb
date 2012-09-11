@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe FakeFact do
-  it "should be possible to create one" do
+  it "is possible to create one" do
     f = FakeFact.new([100, 3, 50], [], "banna")
     f.interactions.below(10).should == []
   end
 
-  it "should be possible to create one" do
+  it "is possible to create one" do
     f = FakeFact.new([100, 3, 50], [['remon','http://foo']], "banna")
     f.interactions.below(10).length.should == 1
 

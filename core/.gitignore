@@ -27,3 +27,4 @@ dump.rdb
 .rvmrc
 spec/javascripts/templates/mustache-templates.html
 config/config
+.vegas

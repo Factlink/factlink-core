@@ -5,6 +5,10 @@ window.Notifications = Backbone.Collection.extend({
     return "/" + currentUser.get("username") + "/activities";
   },
 
+  unreadCount: function() {
+    return _.reject(this.pluck('unread'), function(item){return !item;}).length
+  },
+
   markAsRead: function(opts) {
     if ( !opts ) { opts = {} };
 

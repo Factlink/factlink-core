@@ -2,31 +2,32 @@
 
 class GenericActivityItemView extends Backbone.Marionette.ItemView
   tagName: "div"
-  template: "activities/_generic_activity"
+  template: "activities/generic_activity"
 
 class CreatedChannelView extends GenericActivityItemView
-  template: "activities/_created_channel"
+  template: "activities/created_channel"
 
 class AddedSubchannelView extends GenericActivityItemView
-  template: "activities/_added_subchannel"
+  template: "activities/added_subchannel"
 
 class GenericActivityFactItemView extends Backbone.Marionette.CompositeView
   itemView: FactView
   initialize: (opts) ->
-    fact = new Fact(@model.get("activity")["fact"])
-    @collection = new Backbone.Collection([ fact ])
+    if @model.get('render_fact')
+      fact = new Fact(@model.get("activity")["fact"])
+      @collection = new Backbone.Collection([ fact ])
 
 class AddedEvidenceView extends GenericActivityFactItemView
-  template: "activities/_added_evidence"
+  template: "activities/added_evidence"
 
 class AddedOpinionView extends GenericActivityFactItemView
-  template: "activities/_added_opinion"
+  template: "activities/added_opinion"
 
 class AddedFactToChannelView extends GenericActivityFactItemView
-  template: "activities/_added_fact_to_channel"
+  template: "activities/added_fact_to_channel"
 
 class AddedFirstFactlinkView extends GenericActivityFactItemView
-  template: "activities/_added_first_factlink"
+  template: "activities/added_first_factlink"
 
 window.getActivityItemViewFor = (model) ->
   switch model.get("action")

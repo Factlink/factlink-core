@@ -4,12 +4,12 @@
 
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
+
+@import "bubble/variables";
 @import "bubble/wheel";
 @import "bubble/title";
+@import "bubble/form";
 @import "users/passport";
-
-@transition: opacity 0.2s ease;
-@max-z-index : 2147483647;
 
 .tooltip {
   z-index: @max-z-index;
@@ -18,23 +18,50 @@
 /** Fact block */
 div.modal {
   overflow: visible !important;
+  padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+
+  min-height: 80px;
+  border: 1px solid #ccc;
+  .drop-shadow(0px, 0px, 4px, .20);
+
   span.proxyWindow {
     display: inline !important;
   }
 
+  .drag-handler {
+    cursor: all-scroll;
+    position:absolute;
+    z-index: 100;
+
+    &.top    { height: @drag-handler-padding; width: 100%; top: 0;    left: 0; }
+    &.bottom { height: @drag-handler-padding-bottom; width: 100%; bottom: 0; left: 0; }
+    &.left   { width:  @drag-handler-padding; height:100%; left: 0;   top: 0; }
+    &.right  { width:  @drag-handler-padding; height:100%; right:0;   top: 0; }
+  }
+
   div.fact-block {
+    margin: 0 -@popup-padding;
+
     .close {
-      .opacity(0.45);
+      .opacity(0.10);
       position: relative;
-      right: 5px;
-      top: 4px;
+      right: 2px;
+      top: 3px;
+      z-index: @max-z-index;
     }
+
+    &:hover {
+      .close { .opacity(0.35); }
+    }
+
 
     .top-right-arrow, .relation-top-right-arrow {
       position: absolute;
-      top: 5px;
       right: 25px;
     }
+
+    .top-right-arrow { top: 4px; }
+    .relation-top-right-arrow { top: -14px; }
   }
 }
 
@@ -193,5 +220,11 @@ div.modal {
         }
       }
     }
+  }
+}
+
+.fact-relation {
+  article {
+    margin-top: @popup-padding;
   }
 }

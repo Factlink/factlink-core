@@ -1,19 +1,43 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.help-text-container > div {
-  display: none;
-  position: absolute;
-  width: 198px;
-  h4 { padding-bottom: 6px; }
+
+
+.help-text-container  {
+  position: fixed;
+  top: 70px;
+
+  > div {
+    display: none;
+    position: absolute;
+    width: 198px;
+    z-index: @max-z-index;
+    h4 { padding-bottom: 6px; }
+  }
 }
 
 #container {
+
+  #background {
+    background: image-url("chrome.png");
+    position: absolute;
+
+    top: -35px;
+    left: -56px;
+
+    z-index:100;
+    height: 720px;
+    width: 800px;
+  }
 
   #create-your-first-factlink {
     & > * { #font > .serif(); }
     padding: 32px 72px;
     text-align: center;
+    margin-top: 70px;
+
+    z-index: 101;
+    position: relative;
 
     h1 {
       font-size: 36px;

@@ -1,6 +1,6 @@
 class RemoveChannelFromChannel
   @queue = :channel_operations
-  
+
   def self.perform(subchannel_id, channel_id)
     subchannel = Channel[subchannel_id]
     channel = Channel[channel_id]

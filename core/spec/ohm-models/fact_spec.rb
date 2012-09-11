@@ -174,7 +174,7 @@ describe Fact do
 
 
   describe "Mongoid properties: " do
-    [:displaystring, :title, :passage, :content].each do |attr|
+    [:displaystring, :title].each do |attr|
       context "#{attr} should be changeable" do
         before do
           subject.data.send "#{attr}=" , "quux"

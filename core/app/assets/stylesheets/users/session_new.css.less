@@ -1,0 +1,52 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.factlink-site #new_session img { display: none; }
+
+#new_session {
+  position: relative;
+  margin: 24px 0;
+
+  margin-left: 78px;
+  width: 400px;
+
+  img {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    height: 16px;
+  }
+
+  form {
+    fieldset {
+      color: #555;
+      font-size: 13px;
+      padding: 5px 0 12px;
+      display: block;
+    }
+
+    input[type=password], input[type=text] {
+      width: 98%;
+    }
+
+    .split {
+      div {
+        float: left;
+        width: 50%;
+
+        label {
+          display: inline-block;
+        }
+
+        &.second {
+          text-align: right;
+        }
+      }
+    }
+
+    div.inputs {
+      text-align: right;
+      #cancel { float: left; }
+    }
+  }
+}

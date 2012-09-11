@@ -1,16 +1,8 @@
-<div class="fl-popup fl-create">
-  <div class="fl-label">
-    <span class="fl-create"><a href="#"><%= t(:add_fact).humanize %>
-        <img src=<%= "#{FactlinkUI::Application.config.static_url}/lib/dist/images/arrow.png" %> alt="">
-    </a></span>
+<div class="fl-add-new fl-popup fl-blue">
+  <span class="fl-default-message">
+    <span class="fl-new"><a href="#"><%= t(:add_fact).humanize %></a></span>
     <span class="fl-created"><%= t(:added_fact).humanize %></span>
-  </div>
+  </span>
 
-  <ul class="fl-add-options">
-    <li><a href="#" id="beliefs"><%= t(:fact_believe_action).humanize %></a></li>
-    <li><a href="#" id="doubts"><%= t(:fact_doubt_action).humanize %></a></li>
-    <li><a href="#" id="disbeliefs"><%= t(:fact_disbelieve_action).humanize %></a></li>
-  </ul>
-
-  <div class="fl-arrow fl-arrow-bottom"></div>
+  <span class="fl-loading-message"><%= t(:loading).humanize %>...</span>
 </div>

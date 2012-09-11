@@ -1,3 +1,6 @@
+// KEEP AS JS
+// the js2coffee compiler does not get this code, so conversion might be possible, but not automated
+
 //= require ./composite_view
 
 function extendWithAutoloading(superclass) {

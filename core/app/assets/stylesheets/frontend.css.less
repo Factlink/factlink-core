@@ -10,6 +10,7 @@
  *= require search
  *= require tour
  *= require activity
+ *= require site_messages
  */
 
 @import "bootstrap/variables";
@@ -531,18 +532,20 @@ body.factlink-site .fact-block {
       padding: @margin 4px @margin 0;
       width: 145px;
       display: block;
+      .transition();
       #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
       color: @linkColor;
       text-shadow: 0px 1px 0px @white;
       padding-left: 24px;
       &:hover {
         text-decoration: none;
+        color: @linkColorHover;
       }
       &.stream {
-        background: image-url("homeIcon.png") 4px @margin no-repeat transparent;
+        background: image-url("glyphicons/home.png") 7px 8px no-repeat;
       }
       &.created {
-        background: image-url("userIcon.png") 5px @margin no-repeat transparent;
+        background: image-url("glyphicons/user.png") 7px 9px no-repeat;
       }
 
       .new {
@@ -564,7 +567,8 @@ body.factlink-site .fact-block {
     }
     li.active {
       a {
-        color: @black;
+        color: #333;
+        font-weight: bold;
       }
       background: image-url("menuBackground.png") left ((@margin / 2) - 2) no-repeat transparent;
     }
@@ -670,7 +674,7 @@ body.factlink-site .fact-block {
       display: none;
     }
   }
-  .empty_stream { width: 500px; margin: 0 auto; margin-top: 32px; }
+  .empty_stream { width: 500px; margin: 0 auto;  }
 }
 
 /* fix positioning of X in alert message */

@@ -17,10 +17,14 @@ class User
   index :username
   field :first_name
   field :last_name
+  field :identities, type: Hash, default: {}
+
+  field :registration_code
 
   field :twitter
   field :location
   field :biography
+  
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false, null: false
@@ -32,12 +36,15 @@ class User
   field :agreed_tos_on,   type: DateTime
 
   field :seen_the_tour,  type: Boolean, default: false
+  field :receives_mailed_notifications,  type: Boolean, default: true
+
 
   field :last_read_activities_on, type: DateTime, default: 0
+  field :last_interaction_at,     type: DateTime, default: 0
 
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications
   field :invitation_message, type: String, default: ""
-  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :email, :approved, :admin, as: :admin
+  attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :email, :approved, :admin, as: :admin
   attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
@@ -46,7 +53,7 @@ class User
                           :message => "at least 2 characters needed"
   validates_format_of     :username,
                           :with => Regexp.new('^' + ([
-                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink
+                            :users,:facts,:site, :templates, :search, :system, :tos, :pages, :privacy, :admin, :factlink, :auth
                           ].map { |x| '(?!'+x.to_s+'$)'}.join '') + '.*'),
                           :message => "this username is reserved"
   validates_format_of     :username,
@@ -206,6 +213,13 @@ class User
     "#{first_name} #{last_name}".strip
   end
 
+  def id_for_service service_name
+    service_name = service_name.to_s
+    if self.identities and self.identities[service_name]
+      self.identities[service_name]['uid'].andand.first
+    end
+  end
+
   def serializable_hash(options={})
     options ||= {}
     options[:except] ||= Array.new
@@ -250,6 +264,8 @@ class User
       features << val
     end
   end
+
+  set :seen_messages
 
   # don't send reset password instructions when the account is not approved yet
   def self.send_reset_password_instructions(attributes={})

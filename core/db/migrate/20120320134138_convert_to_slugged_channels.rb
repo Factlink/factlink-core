@@ -22,7 +22,7 @@ class ConvertToSluggedChannels < Mongoid::Migration
           end
         end
       end
-    end    
+    end
   end
 
   def self.down

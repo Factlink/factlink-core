@@ -60,6 +60,7 @@ describe FactsController do
 
   describe :intermediate do
     it "should have the correct assignments" do
+      subject.stub(:current_user) {user}
       post :intermediate, :the_action => "prepare"
       response.code.should eq("200")
     end
@@ -70,7 +71,7 @@ describe FactsController do
       authenticate_user!(user)
       should_check_can :create, anything
       post 'create', :url => "http://example.org/",  :fact => "Facity Fact", :title => "Title"
-      response.should redirect_to(popup_show_fact_path(Fact.all.all[-1].id))
+      response.should redirect_to(fact_path(Fact.all.all[-1].id, just_added: true))
     end
 
     it "should work with json" do

@@ -1,0 +1,44 @@
+development:
+  omniauth:
+    facebook:
+      id: "283748838400237"
+      secret: "608b02f9697512a72bd2174abdf98395"
+    twitter:
+      id: "dF7ogQ6a5sAkxCtyBSU9IQ"
+      secret: "MlZFuT5fkHidHiMG41sTL4pUKR97Yu9XZl8cMmwUqk"
+
+test:
+  omniauth:
+    facebook:
+      id: "283748838400237"
+      secret: "608b02f9697512a72bd2174abdf98395"
+    twitter:
+      id: "dF7ogQ6a5sAkxCtyBSU9IQ"
+      secret: "MlZFuT5fkHidHiMG41sTL4pUKR97Yu9XZl8cMmwUqk"
+      
+testserver:
+  omniauth:
+    facebook:
+      id: "394296183970720"
+      secret: "b55062c283d2d3e90cc00ef8cd884cf0"
+    twitter:  
+      id: "IeKrZsf2YqPalGJsIwIA"
+      secret: "B06JwUyyaOE9rAs5sLEm0CcZ6XLTAcaX4FlSlJu3s"
+
+staging:
+  omniauth:
+    facebook:
+      id: "435991923110591"
+      secret: "4c0fa30f8597e6458ea5dad174673f1e"
+    twitter:  
+      id: "dF7ogQ6a5sAkxCtyBSU9IQ"
+      secret: "MlZFuT5fkHidHiMG41sTL4pUKR97Yu9XZl8cMmwUqk"
+          
+production:
+  omniauth:
+    facebook:
+      id: "385144638222636"
+      secret: "03a62f1b9bc84c9993fb09a3a1683b64"
+    twitter:  
+      id: "52vhr4njGduVUVdCRubIQ"
+      secret: "JhX53aeJF7AFiqAfN2cVMGN8BUT8PajlDMMH0gwe7OI"

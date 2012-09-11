@@ -1,46 +1,66 @@
+//= require_tree ./feedback
+
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-#feedback {
-  position: fixed;
-  top: 188px;
-  background: #6589a6;
+@feedback_frame_width: 430px;
+@feedback_frame_height: 330px;
+@feedback_frame_height_no_user: 405px;
 
-  width: 78px;
-  height: 30px;
-  left: -34px;
+#feedback_frame {
+	display: none;
 
-  #font > .sans-serif(normal, @baseFontSize, 36px);
-  text-align: center;
+	iframe {
+		position: fixed;
+		overflow: hidden;
+		top: 50%;
+		left: 50%;
+		margin: -@feedback_frame_height/2 0 0 -@feedback_frame_width/2;
+		width: @feedback_frame_width;
+		height: @feedback_frame_height;
+		z-index: 1200;
+		border: #ccc;
+		.drop-shadow(0, 0, 4px, 0.35);
+		.border-radius(5px);
 
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0);
+		&.no-user {
+			height: @feedback_frame_height_no_user;
+			margin-top: -@feedback_frame_height_no_user/2;
+		}
+	}
 
-  border: 3px solid #fff;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.18);
-
-  -webkit-border-bottom-right-radius: 8px;
-   -webkit-border-bottom-left-radius: 8px;
-      -moz-border-radius-bottomright: 8px;
-       -moz-border-radius-bottomleft: 8px;
-          border-bottom-right-radius: 8px;
-           border-bottom-left-radius: 8px;
-
-  a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    &:hover {
-      text-decoration: none;
-    }
-  }
+	.dimmer {
+		z-index: 1100;
+		position: fixed;
+		background: rgba(255,255,255,0.85);
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
 }
 
-.box-rotate {
-  -webkit-transform: rotate(270deg);
-     -moz-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-       -o-transform: rotate(270deg);
-          transform: rotate(270deg);
-               zoom: 1;
+body.feedback_form {
+	background: #fff;
+	padding: 7px 11px;
+
+	div.hidden {
+		display: none;
+	}
+
+	form {
+		margin: 0;
+		input[type=text], textarea {
+			display: block;
+			width: @feedback_frame_width - 31px;
+		}
+
+		textarea {
+			height: 145px;
+		}
+
+		.submit {
+			float: right;
+		}
+	}
 }

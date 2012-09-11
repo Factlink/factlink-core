@@ -13,10 +13,25 @@ FactoryGirl.define do
     password '123hoi'
     password_confirmation '123hoi'
     agrees_tos true
+
     trait :approved do
-      confirmed_at DateTime.now
       approved true
     end
+
+    trait :confirmed do
+      confirmed_at DateTime.now
+    end
+
+    trait :admin do
+      approved
+      confirmed
+      admin true
+    end
+
+    factory :approved_user, traits: [:approved]
+    factory :confirmed_user, traits: [:confirmed]
+    factory :approved_confirmed_user, traits: [:approved, :confirmed]
+    factory :admin_user, traits: [:admin]
   end
 
   sequence :displaystring do |n|
