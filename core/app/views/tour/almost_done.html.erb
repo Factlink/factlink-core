@@ -55,9 +55,19 @@
     <p class="support-text">You can drag this Bookmarklet to your bookmarks bar.</p>
   </div>
 
-  <div class="bottom">
-    <a id="skip-step" href="<%= create_your_first_factlink_path(ref: 'extension_skip') %>">Skip this step</a>
-    <a id="next-step" href="<%= create_your_first_factlink_path(ref: 'extension_next') %>" class="next btn btn-primary btn-large">Next step</a>
+  <div class="visible-when-chrome bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_next') %>">Next step</a>
+  </div>
+
+  <div class="visible-when-mozilla bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
+  </div>
+
+  <div class="visible-when-unsupported-browser bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_next') %>">Next step</a>
   </div>
 </div>
 
@@ -73,16 +83,30 @@
 
       var notClicked = true;
 
-      $('#chrome-extension-button, #bookmarklet-button').mousedown(function() {
+      function showNextButtonForClient(identifier) {
         setTimeout(function (){
           if (notClicked) {
-            $('#skip-step').fadeOut(600, function() {
-              $('#next-step').fadeIn(600);
+            $('.visible-when-' + identifier +' .skip-step').fadeOut(600, function() {
+              $('.visible-when-' + identifier + ' .next-step').fadeIn(600);
             });
             notClicked = false;
           }
         }, 1800);
+      }
+
+      $('#chrome-extension-button').mousedown(function() {
+        showNextButtonForClient('chrome');
       });
+
+      $('#firefox-extension-button').mousedown(function() {
+        showNextButtonForClient('mozilla');
+      });
+
+      $('#bookmarklet-button').mousedown(function() {
+        mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
+        showNextButtonForClient('unsupported-browser');
+      });
+
 
       <% if use_chrome_webstore %>
 
@@ -103,10 +127,6 @@
           FactlinkApp.NotificationCenter.error("Something went wrong installing the Factlink extension: " + e + ". Please try again.");
         }
       <% end %>
-
-      $('#bookmarklet-button').mousedown(function() {
-        mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
-      });
     });
   </script>
  <% end %>
