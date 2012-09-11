@@ -57,8 +57,6 @@ describe "factlink", type: :request do
 
     old_agreed_path_opacity.should_not eq wheel_path_opactity agreed_path_position
     old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
-
-    screen_shot_and_open_image
   end
 
   it "can be neutraled", js:true do 
@@ -90,17 +88,17 @@ describe "factlink", type: :request do
 
     page.should have_content(@factlink.data.title)
 
-    disagree_path_position = 2
+    disagreed_path_position = 2
 
-    old_neutral_path_opacity = wheel_path_opactity disagree_path_position
-    old_neutral_path_shape = wheel_path_d disagree_path_position
+    old_disagreed_path_opacity = wheel_path_opactity disagreed_path_position
+    old_disagreed_path_shape = wheel_path_d disagreed_path_position
 
-    click_wheel_part disagree_path_position
- 
+    click_wheel_part disagreed_path_position
+    
     wait_for_ajax
 
-    old_neutral_path_opacity.should_not eq wheel_path_opactity disagree_path_position
-    old_neutral_path_shape.should_not eq wheel_path_d disagree_path_position
+    old_disagreed_path_opacity.should_not eq wheel_path_opactity disagreed_path_position
+    old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
   end
 
   def wheel_path_d position

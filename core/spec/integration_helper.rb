@@ -102,7 +102,7 @@ def wait_for_ajax
   begin
     wait_until { page.evaluate_script('jQuery.active') > 0 }
   rescue Capybara::TimeoutError
-    flunk 'No Ajax request was made, what are you waiting for?'
+    puts 'No Ajax request was made, what are you waiting for?'
   end
   wait_until { page.evaluate_script('jQuery.active') == 0 }
 rescue Capybara::TimeoutError
