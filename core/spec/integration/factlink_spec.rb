@@ -11,7 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  pending "evidence can be added", js:true do
+  it "evidence can be added", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -25,9 +25,9 @@ describe "factlink", type: :request do
       fill_in 'supporting_search', :with => search_string
       wait_for_ajax
     end
-    
+
     page.should have_selector('.supporting li.add')
-  
+
     page.execute_script('$(".supporting li.add").trigger("click")')
 
     wait_for_ajax
@@ -38,49 +38,49 @@ describe "factlink", type: :request do
     end
   end
 
-  it "can be agreed", js:true do 
+  it "can be agreed", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
 
     page.should have_content(@factlink.data.title)
-    
+
     agreed_path_position = 0
 
     old_agreed_path_opacity = wheel_path_opactity agreed_path_position
     old_agreed_path_shape = wheel_path_d agreed_path_position
 
     click_wheel_part agreed_path_position
-    
+
     wait_for_ajax
 
     old_agreed_path_opacity.should_not eq wheel_path_opactity agreed_path_position
     old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
   end
 
-  it "can be neutraled", js:true do 
+  it "can be neutraled", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
 
     page.should have_content(@factlink.data.title)
-    
+
     neutral_path_position = 1
 
     old_neutral_path_opacity = wheel_path_opactity neutral_path_position
     old_neutral_path_shape = wheel_path_d neutral_path_position
 
     click_wheel_part neutral_path_position
-    
+
     wait_for_ajax
 
     old_neutral_path_opacity.should_not eq wheel_path_opactity neutral_path_position
     old_neutral_path_shape.should eq wheel_path_d neutral_path_position
   end
 
-  it "can be disagreed", js:true do 
+  it "can be disagreed", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -94,7 +94,7 @@ describe "factlink", type: :request do
     old_disagreed_path_shape = wheel_path_d disagreed_path_position
 
     click_wheel_part disagreed_path_position
-    
+
     wait_for_ajax
 
     old_disagreed_path_opacity.should_not eq wheel_path_opactity disagreed_path_position
