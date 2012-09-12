@@ -11,25 +11,36 @@
 <p>This brief screencast will give you an overview on how to use Factlink:</p>
 <%= render "home/pages/help/screencast" %>
 
+<h4>On Factlink.com</h4>
 <p>The <strong>easiest</strong> way to create a Factlink is by adding on directly to one of you channels. Select the channel you wish to add the Factlink to from the left column on the site. The input field at the top of the channel allows you to type in and post a new Factlink to this channel.</p>
-<p>The <strong>coolest</strong> way to create a Factlink is by using our Chrome Extension or the Factlink Bookmarklet. These will enable the Factlink annotation mode on any website that you will visit. When enabled, creating a Factlink is as easy as selecting the text you want to Factlink and select your opinion.</p>
+
+<h4>Everywhere on the web</h4>
+<p>The <strong>coolest</strong> way to create a Factlink is by using our browser extension or the Factlink Bookmarklet. These will enable the Factlink annotation mode on any website that you will visit. When enabled, creating a Factlink is as easy as selecting the text you want to Factlink and select your opinion.</p>
 
 <ul style="list-style: disc;">
-  <li>The Chrome Extension is enabled by default. Select your text and click the extension to Factlink.</li>
+  <li>The extension is enabled by default. Select your text and click the extension to Factlink.</li>
   <li>Enable the bookmarklet by clicking on it when you are on the page you want to Factlink</li>
 </ul>
 
-<p>You can find the Chrome Extension and Bookmarklet in the <b class="caret" style="margin: 7px 0 0;"></b> menu at the top right of this page.</p>
+<p>You can find the extension and Bookmarklet in the <b class="caret" style="margin: 7px 0 0;"></b> menu at the top right of this page.</p>
 
 <%= image_tag('support/chrome-extension-demo.png') %>
-<span style="margin: 0 0 0 48px; padding: 0 0 24px; color: #777; display: block; width: 100%; text-align: center;"><super>The Chrome Extension is available at the top right of your browser.</super></span>
+<span style="margin: 0 0 0 48px; padding: 0 0 24px; color: #777; display: block; width: 100%; text-align: center;"><super>The extension is available at the top right of your browser.</super></span>
 
 <%= image_tag('support/bookmarklet-demo.png') %>
 <span style="margin: 0 0 0 48px; padding: 0 0 24px; color: #777; display: block; width: 100%; text-align: center;"><super>Drag the Bookmarklet to your bookmarks bar.</super></span>
 
 <h2>How do I install Factlink in my browser?</h2>
 
-<p>When you are a Google Chrome user you can install our <%= link_to("Chrome Extension", pages_path("help/chrome-extension")) %>. Once installed, simply select the text you want and click the extension. We have created also a <%= link_to("video", pages_path("help/chrome-extension")) %> so you can watch how easy it is to create a Factlink.</p>
+<p></p>
+
+<p>When you are a Google Chrome user you can install our <%= link_to("Chrome Extension", pages_path("help/chrome-extension")) %>. Once installed, simply select the text you want and click the extension. A short <%= link_to("video", pages_path("help/chrome-extension")) %> shows how easy it is to create a Factlink.</p>
+
+<% if can_haz :firefox_extension %>
+<p>Firefox users can install the <%= link_to("Firefox extension", pages_path("help/firefox-extension") ) %>.</p>
+<% end %>
+
+
 <p>For everyone else we made a special bookmarklet wich you can easily drag to your bookmarks bar. Simply click on it and select the text you want. The Factlink menu appears and you can give your opinion about the statement.</p>
 
 <h2>How do I follow someone?</h2>

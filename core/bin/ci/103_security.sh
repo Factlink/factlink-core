@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Running security check"
 
-bundle exec brakeman -o /tmp/brakeman.tabs || exit 1
+bundle exec brakeman -q -o /tmp/brakeman.tabs || exit 1
 
 cat /tmp/brakeman.tabs
 

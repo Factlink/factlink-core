@@ -61,7 +61,12 @@ if ['test'].include? Rails.env
         changed
       end
 
+      def force_scroll_bars
+        ['y'].each { |dir| @page.execute_script "$('body').css('overflow-#{dir}','scroll');" }
+      end
+
       def take
+        force_scroll_bars
         @page.driver.render new_file
       end
     end
@@ -77,8 +82,5 @@ if ['test'].include? Rails.env
         end
       end
     end
-
-
-
   end
 end

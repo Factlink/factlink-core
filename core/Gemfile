@@ -124,7 +124,7 @@ group :assets do
   gem 'therubyracer'
 
   # jQuery
-  gem 'jquery-rails', '= 1.0.19'
+  gem 'jquery-rails', '= 2.1.2'
   gem 'less-rails-bootstrap', '>= 2.0.6'
   gem 'modernizr-rails', "~> 2.0.6"
 

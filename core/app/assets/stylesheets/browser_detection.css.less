@@ -1,0 +1,9 @@
+.visible-when-chrome,
+.visible-when-mozilla,
+.visible-when-unsupported-browser { display: none; }
+
+html {
+  &.chrome              { .visible-when-chrome              { display: block; } }
+  &.mozilla             { .visible-when-mozilla             { display: block; } }
+  &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
+}

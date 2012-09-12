@@ -320,7 +320,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
     }
   },
 
-  autoComplete: _.throttle(function () {
+  autoComplete: _.debounce(function () {
     var searchValue = this.$el.find('input.typeahead').val();
 
     this.updateText();
