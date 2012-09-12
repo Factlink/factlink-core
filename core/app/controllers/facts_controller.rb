@@ -162,10 +162,31 @@ class FactsController < ApplicationController
     render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
   end
 
+  # TODO: This search is way to simple now, we need to make sure already
+  # evidenced Factlinks are not shown in search results and therefore we need
+  # to move this search to the evidence_controller, to make sure it's
+  # type-specific
   def evidence_search
     authorize! :index, Fact
-    facts = FactSearch.evidence_for(@fact, params[:s])
-    render json: facts.map { |f| Facts::FactBubble.for(fact: f, view: view_context) }
+    search_for = params[:s]
+    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
+    if search_for.length > 0
+      solr_result = Sunspot.search FactData do
+        fulltext search_for do
+          highlight :displaystring
+        end
+      end
+
+      results = solr_result.results.delete_if {|fd| FactData.invalid(fd)}
+      facts = results.
+        reject {|result| result.fact.id == @fact.id}.
+        map do |result|
+          Facts::FactBubble.for(fact: result.fact, view: view_context)
+        end
+    else
+      facts = []
+    end
+    render json: facts
   end
 
   private
