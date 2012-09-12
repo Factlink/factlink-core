@@ -62,7 +62,7 @@ if ['test'].include? Rails.env
       end
 
       def force_scroll_bars
-        ['x','y'].each { |dir| @page.evaluate_script "$('body').css('overflow-#{dir}','scroll');" }
+        ['x','y'].each { |dir| @page.execute_script "$('body').css('overflow-#{dir}','scroll');" }
       end
 
       def take
