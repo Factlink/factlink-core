@@ -36,5 +36,4 @@ class FactData
     !fd || !fd.fact_id || !fd.fact
   end
 
-
 end
