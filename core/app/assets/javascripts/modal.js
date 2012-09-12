@@ -1,4 +1,4 @@
 //= require application
-//= require jquery-ui-1.8.16-draggable.js
+//= require jquery-ui
 //= require bubble
 //= require factlink.backbone
