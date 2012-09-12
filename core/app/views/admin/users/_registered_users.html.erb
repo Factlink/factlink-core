@@ -21,27 +21,11 @@
         <td><%= user.username %></td>
         <td><%= user.email %></td>
         <td>
-          <% @class = case user.sign_in_count
-          when nil
-            "important"
-          when 0
-            "important"
-          when 1
-            "warning"
-          else
-            "success"
-          end %>
-          <span class="label label-<%= @class %>"><%= user.sign_in_count || 0 %></span>
+          <span class="label label-<%= sign_in_count_class_for user %>"><%= user.sign_in_count || 0 %></span>
         </td>
 
         <td>
-          <% @class = case user.features.count
-          when 0
-            "error"
-          else
-            "important"
-          end %>
-          <span class="label label-<%= @class %>"><%= user.features.count %></span>
+          <span class="label label-<%= features_count_class_for user %>"><%= user.features.count %></span>
         </td>
 
         <td>

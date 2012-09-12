@@ -1,7 +1,7 @@
 <%= render "header", title: "#{@users.count} activated users", active: "activated" %>
 
 <div>
-  <%= render "users" %>
+  <%= render "registered_users" %>
 </div>
 
 <%= link_to 'New User', new_admin_user_path, class: 'btn', style: "float: right;" %>
