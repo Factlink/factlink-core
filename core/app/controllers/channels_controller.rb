@@ -13,7 +13,6 @@ class ChannelsController < ApplicationController
       :activities,
       :remove_fact,
       :toggle_fact,
-      :add_fact,
       :remove_fact,
       :follow,
       :last_fact_activity
@@ -148,6 +147,8 @@ class ChannelsController < ApplicationController
     end
   end
 
+  # DEPRECATE i think this can be thrown away now,
+  #           since the last user was (I think) the jslib -- mark
   def toggle_fact
     authorize! :update, @channel
 
@@ -162,13 +163,10 @@ class ChannelsController < ApplicationController
   end
 
   def add_fact
-    authorize! :update, @channel
-
-    @fact = Fact[params[:fact_id]]
-
-    @channel.add_fact(@fact)
-
-    respond_with(@channel)
+    i = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
+    i.execute
+    
+    render nothing: true, :status => :no_content
   end
 
   def create_fact

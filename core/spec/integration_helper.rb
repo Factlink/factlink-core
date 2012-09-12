@@ -12,8 +12,6 @@ require 'database_cleaner'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-
-
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
 
@@ -98,4 +96,22 @@ def random_email
   end
 
   @email_sequence.next
+end
+
+def wait_for_ajax
+  begin
+    wait_until { page.evaluate_script('jQuery.active') > 0 }
+  rescue Capybara::TimeoutError
+    puts 'No Ajax request was made, what are you waiting for?'
+  end
+  wait_until { page.evaluate_script('jQuery.active') == 0 }
+rescue Capybara::TimeoutError
+  flunk 'The Ajax request was not ready in time'
+end
+
+def wait_until_scope_exists(scope, &block)
+  wait_until { page.has_css?(scope) }
+  within scope, &block
+rescue Capybara::TimeoutError
+  flunk "Expected '#{scope}' to be present."
 end
