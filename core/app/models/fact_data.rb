@@ -4,7 +4,6 @@ class FactData
 
   include Sunspot::Mongoid
 
-
   attr_accessible []
 
   searchable auto_index: true do
