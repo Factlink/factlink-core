@@ -11,7 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "evidence can be added", js:true do
+  pending "evidence can be added", js:true do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
