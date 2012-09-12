@@ -81,7 +81,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
     this.truncateSearchContainer();
 
     _.forEach(searchResults, function(searchResult) {
-      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id))){
+      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id,10))){
         console.info('adding because i cannot find', searchResult);
         var view = new FactRelationSearchResultView({
           model: new FactRelationSearchResult(searchResult),
@@ -90,7 +90,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
           parentView: self
         });
 
-        view.render()
+        view.render();
         searchResultsContainer.find('li.loading').after( view.el );
 
         self._searchResultViews.push(view);
