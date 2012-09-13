@@ -10,7 +10,7 @@
   </div>
 
   <div class="visible-when-unsupported-browser">
-    <p>This browser is not fully supported. We've build browser extensions that add a layer to the web. To use this extension you need to install Google Chrome or Firefox.</p>
+    <p>This browser is not fully supported. We've build browser extensions that add a layer to the web. To use this extension you need to install Google Chrome<% if can_haz :firefox_extension %> or Firefox<% end %>.</p>
     <a class="btn download-browser" href="https://google.com/chrome" target="_blank"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
     <% if can_haz :firefox_extension %>
     <a class="btn download-browser" href="http://www.mozilla.org/firefox" target="_blank"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0 8px 0 0") %>Install Firefox</a>
