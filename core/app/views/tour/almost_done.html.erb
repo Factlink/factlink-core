@@ -75,6 +75,11 @@
     </span>
     <p class="support-text">You can drag this Bookmarklet to your bookmarks bar.</p>
   </div>
+
+  <div class="visible-when-mozilla bottom">
+    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
+    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_next') %>">Next step</a>
+  </div>
   <%#
     end of duplicated code
   %>
