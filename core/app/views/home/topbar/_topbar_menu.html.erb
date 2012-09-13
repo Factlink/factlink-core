@@ -12,7 +12,7 @@
 
     <% if can_haz :firefox_extension %>
     <li class="should-install-firefox-extension">
-      <a href="#"><%= image_tag("browser-icons/firefox-dark-16x16.png", style: "padding-right: 4px") %>Firefox extension <span class="label label-warning should-install-chrome-extension">Install</span></a>
+      <a href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>"><%= image_tag("browser-icons/firefox-dark-16x16.png", style: "padding-right: 4px") %>Firefox extension <span class="label label-warning should-install-chrome-extension">Install</span></a>
     </li>
     <% end %>
 
