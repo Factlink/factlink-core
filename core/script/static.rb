@@ -14,7 +14,8 @@ serverport = static_conf['port']
 paths = [
   {:path => '/lib/dist',   :filepath => File.join(coredir, '../js-library/dist')},
   {:path => '/proxy', :filepath => File.join(coredir, '../web-proxy/static')},
-  {:path => '/chrome', :filepath => File.join(coredir, '../chrome-extension/build')}
+  {:path => '/chrome', :filepath => File.join(coredir, '../chrome-extension/build')},
+  {:path => '/extension/firefox', :filepath => File.join(coredir, '../firefox-extension/build')}
 ]
 
 
