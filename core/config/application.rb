@@ -4,8 +4,8 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
 
-Mime::Type.register "image/png", :png
-Mime::Type.register "image/gif", :gif
+Mime::Type.register "image/png", :png unless Mime::Type.lookup_by_extension(:png)
+Mime::Type.register "image/gif", :gif unless Mime::Type.lookup_by_extension(:gif)
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
