@@ -96,13 +96,13 @@ class ApplicationController < ActionController::Base
 
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
-    Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env)
+    Resque.enqueue(Mixpanel::TrackEventJob, event, new_opts, req_env)
   end
 
   def track_people_event(opts={})
     if current_user
       req_env = MixpanelRequestPresenter.new(request).to_hash
-      Resque.enqueue(MixpanelTrackEventJob, current_user.id, opts, req_env)
+      Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
     end
   end
 
