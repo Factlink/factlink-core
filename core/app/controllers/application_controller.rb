@@ -96,10 +96,7 @@ class ApplicationController < ActionController::Base
 
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
-    username = current_user ? current_user.username : nil
-    user_id  = current_user ? current_user.id : nil
-
-    Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
+    Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env)
   end
 
   before_filter :track_click
