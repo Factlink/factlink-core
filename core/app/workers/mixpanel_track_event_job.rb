@@ -1,7 +1,7 @@
 class MixpanelTrackEventJob
   @queue = :slow
 
-  def self.perform(event, params, req_env, user_id, username)
+  def self.perform(event, params, req_env)
     @mixpanel = FactlinkUI::Application.config.mixpanel.new(req_env, true)
 
     @mixpanel.track_event(event, params)
