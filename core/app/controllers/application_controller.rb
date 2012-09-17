@@ -134,8 +134,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
     if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
-      @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
-      @mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
+      track_people_event last_interaction_at: DateTime.now
       Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
     end
   end
