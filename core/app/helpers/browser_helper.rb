@@ -5,11 +5,19 @@ module BrowserHelper
   def browser_supported?
     return true if browser_preferred?
 
-    browser.firefox? or browser.safari?
+    if can_haz :firefox_extension
+      browser.safari?
+    else
+      browser.firefox? or browser.safari?
+    end
   end
 
   def browser_preferred?
-    browser.chrome?
+    if can_haz :firefox_extension
+      browser.chrome? or browser.firefox?
+    else
+      browser.chrome?
+    end
   end
 
 end
