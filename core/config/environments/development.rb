@@ -35,6 +35,12 @@ FactlinkUI::Application.configure do
   config.force_ssl = false
 
   config.action_controller.perform_caching = true
+
+  $stdout.sync = true
+end
+
+FactlinkUI::Application.configure do
+  config.lograge.enabled = true
 end
 
 silence_warnings do

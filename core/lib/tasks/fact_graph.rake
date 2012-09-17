@@ -12,8 +12,10 @@ namespace :fact_graph do
 
   task :recalculate => :environment do
 
-    `echo "#{Process.pid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.pid`
-    `echo "#{Process.ppid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.ppid`
+    if Rails.env != 'development'
+      `echo "#{Process.pid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.pid`
+      `echo "#{Process.ppid}" > /var/lock/monit/fact_graph/fact_graph_recalculate.ppid`
+    end
 
     exception_notify do
       STDOUT.flush
