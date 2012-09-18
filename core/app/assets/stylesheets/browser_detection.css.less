@@ -26,5 +26,9 @@ html.chrome {
 
 
 html.firefox {
-  .should-install-firefox-extension { display: none; }
+  .should-install-firefox-extension { display: inline; }
+
+  &.firefox_extension_installed {
+    .should-install-firefox-extension { display: none; }
+  }
 }
