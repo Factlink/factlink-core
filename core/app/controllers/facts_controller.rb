@@ -169,23 +169,15 @@ class FactsController < ApplicationController
   def evidence_search
     authorize! :index, Fact
     search_for = params[:s]
-    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
-    if search_for.length > 0
-      solr_result = Sunspot.search FactData do
-        fulltext search_for do
-          highlight :displaystring
-        end
+
+    interactor = SearchEvidenceInteractor.new search_for, @fact.id, ability: current_ability
+    results = interactor.execute
+
+    facts = results.
+      map do |result|
+        Facts::FactBubble.for(fact: result.fact, view: view_context)
       end
 
-      results = solr_result.results.delete_if {|fd| FactData.invalid(fd)}
-      facts = results.
-        reject {|result| result.fact.id == @fact.id}.
-        map do |result|
-          Facts::FactBubble.for(fact: result.fact, view: view_context)
-        end
-    else
-      facts = []
-    end
     render json: facts
   end
 
