@@ -7,3 +7,24 @@ html {
   &.mozilla             { .visible-when-mozilla             { display: block; } }
   &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
 }
+
+
+html.chrome {
+  .should-install-chrome-extension { display: none; }
+
+  &.chrome_extension_installed {
+    .chrome-extension-installed {
+      display: inline;
+    }
+  }
+  &.chrome_extension_not_installed {
+    .should-install-chrome-extension {
+      display: inline;
+    }
+  }
+}
+
+
+html.mozilla {
+  .should-install-firefox-extension { display: none; }
+}

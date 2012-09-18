@@ -126,30 +126,6 @@
   content: ' Bookmarklet';
 }
 
-
-// Show / Hide Chrome Extension links and information
-html.chrome_extension_not_installed{
-  .chrome_install{
-    display: inline;
-  }
-}
-
-.chrome-extension-installed,
-.should-install-chrome-extension { display: none; }
-
-html.chrome {
-  &.chrome_extension_installed {
-    .chrome-extension-installed {
-      display: inline;
-    }
-  }
-  &.chrome_extension_not_installed {
-    .should-install-chrome-extension {
-      display: inline;
-    }
-  }
-}
-
 .should-install-chrome-extension span.should-install-chrome-extension {
   vertical-align: baseline;
 }
