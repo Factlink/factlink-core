@@ -163,9 +163,9 @@ class ChannelsController < ApplicationController
   end
 
   def add_fact
-    i = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
-    i.execute
-    
+    interactor = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
+    interactor.execute
+
     render nothing: true, :status => :no_content
   end
 

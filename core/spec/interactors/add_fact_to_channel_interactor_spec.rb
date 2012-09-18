@@ -22,15 +22,15 @@ describe AddFactToChannelInteractor do
   end
 
   it 'raises when initialized with a fact id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.to raise_error
   end
 
   it 'raises when initialized with a channel id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.to raise_error
   end
- 
+
   it 'raises when initialized with a channel that is nil' do
-    expect { interactor = AddFactToChannelInteractor.new '1', nil}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new '1', nil}.to raise_error
   end
 
   it 'raises when executed without any permission' do
@@ -49,7 +49,7 @@ describe AddFactToChannelInteractor do
         fact_id = '13'
         f =  mock()
         Fact.should_receive(:[]).with(fact_id).and_return(f)
-        
+
         channel_id = '37'
         channel = mock()
         channel.should_receive(:add_fact).with(f)
@@ -60,4 +60,4 @@ describe AddFactToChannelInteractor do
       end
     end
   end
-end 
+end
