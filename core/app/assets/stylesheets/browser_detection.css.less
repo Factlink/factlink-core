@@ -1,10 +1,10 @@
 .visible-when-chrome,
-.visible-when-mozilla,
+.visible-when-firefox,
 .visible-when-unsupported-browser { display: none; }
 
 html {
   &.chrome              { .visible-when-chrome              { display: block; } }
-  &.mozilla             { .visible-when-mozilla             { display: block; } }
+  &.firefox             { .visible-when-firefox             { display: block; } }
   &.unsupported-browser { .visible-when-unsupported-browser { display: block; } }
 }
 
@@ -25,6 +25,6 @@ html.chrome {
 }
 
 
-html.mozilla {
+html.firefox {
   .should-install-firefox-extension { display: none; }
 }

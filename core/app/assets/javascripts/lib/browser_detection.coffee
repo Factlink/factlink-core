@@ -22,7 +22,7 @@ window.detectBrowser = ->
 
 browser = switch detectBrowser().browser
   when "chrome"  then "chrome"
-  when "mozilla" then "mozilla"
+  when "mozilla" then "firefox"
   else "unsupported-browser"
 
 
