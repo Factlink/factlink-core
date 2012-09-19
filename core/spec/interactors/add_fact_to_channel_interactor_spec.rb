@@ -22,15 +22,18 @@ describe AddFactToChannelInteractor do
   end
 
   it 'raises when initialized with a fact id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.to raise_error
+    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.
+      to raise_error(RuntimeError, 'Fact_id should be an integer.')
   end
 
   it 'raises when initialized with a channel id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.to raise_error
+    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.
+      to raise_error(RuntimeError, 'Channel_id should be an integer.')
   end
 
   it 'raises when initialized with a channel that is nil' do
-    expect { interactor = AddFactToChannelInteractor.new '1', nil}.to raise_error
+    expect { interactor = AddFactToChannelInteractor.new '1', nil}.
+      to raise_error(RuntimeError, 'Channel_id should be an integer.')
   end
 
   it 'raises when executed without any permission' do

@@ -25,15 +25,18 @@ describe "SearchChannelInteractor" do
   end
 
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = SearchChannelInteractor.new nil, @user }.to raise_error
+    expect { interactor = SearchChannelInteractor.new nil, @user }.
+      to raise_error(RuntimeError, 'Keywords should be a string.')
   end
 
   it 'raises when initialized with an empty keywords string' do
-    expect { interactor = SearchChannelInteractor.new '', @user }.to raise_error
+    expect { interactor = SearchChannelInteractor.new '', @user }.
+      to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
   it 'raises when initialized with a user that is not a User.' do
-    expect { interactor = SearchChannelInteractor.new 'keywords', nil }.to raise_error
+    expect { interactor = SearchChannelInteractor.new 'keywords', nil }.
+      to raise_error(RuntimeError, 'User should be of User type.')
   end
 
   describe :execute do
@@ -56,6 +59,5 @@ describe "SearchChannelInteractor" do
 
       interactor.execute.should equal internal_result
     end
-
   end
 end

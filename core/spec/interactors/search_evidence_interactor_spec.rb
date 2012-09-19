@@ -23,15 +23,18 @@ describe SearchEvidenceInteractor do
   end
 
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = SearchEvidenceInteractor.new nil, '1' }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new nil, '1' }.
+      to raise_error(RuntimeError,'Keywords should be an string.')
   end
 
   it 'raises when initialized with an empty keywords string' do
-    expect { interactor = SearchEvidenceInteractor.new '', '1' }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new '', '1' }.
+      to raise_error(RuntimeError, 'Keywords must not be empty')
   end
 
   it 'raises when initialized with a fact_id that is not a string' do
-    expect { interactor = SearchEvidenceInteractor.new 'key words', nil }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new 'key words', nil }.
+      to raise_error(RuntimeError, 'Fact_id should be an integer.')
   end
 
   describe :filter_keywords do
@@ -45,7 +48,7 @@ describe SearchEvidenceInteractor do
   describe :execute do
     it 'raises when executed without any permission' do
       ability = mock()
-      ability.should_receive(:can?).and_return(false)
+      ability.stub can?: false
       interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
 
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
