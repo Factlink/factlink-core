@@ -1,5 +1,7 @@
 class SitesController < ApplicationController
   before_filter :retrieve_facts_for_url, except: :blacklisted
+  before_filter :register_client_version_numbers, only: :facts_count_for_url
+
   prepend_before_filter :check_blacklist
 
   def facts_count_for_url
@@ -29,5 +31,12 @@ class SitesController < ApplicationController
       if Blacklist.default.matches? params[:url]
         render :json => { :blacklisted => true }, :callback => params[:callback], :content_type => "application/javascript"
       end
+    end
+
+    def register_client_version_numbers
+      extension_version = request.headers["extensionVersion"]
+      user_agent        = request.headers["userAgent"]
+
+      track_people_event user_agent: user_agent, extension_version: extension_version
     end
 end

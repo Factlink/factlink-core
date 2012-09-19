@@ -96,10 +96,14 @@ class ApplicationController < ActionController::Base
 
     req_env = MixpanelRequestPresenter.new(request).to_hash
 
-    username = current_user ? current_user.username : nil
-    user_id  = current_user ? current_user.id : nil
+    Resque.enqueue(Mixpanel::TrackEventJob, event, new_opts, req_env)
+  end
 
-    Resque.enqueue(MixpanelTrackEventJob, event, new_opts, req_env, user_id, username)
+  def track_people_event(opts={})
+    if current_user
+      req_env = MixpanelRequestPresenter.new(request).to_hash
+      Resque.enqueue(Mixpanel::TrackPeopleEventJob, current_user.id, opts, req_env)
+    end
   end
 
   before_filter :track_click
@@ -130,8 +134,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_last_interaction_for_user
   def set_last_interaction_for_user
     if user_signed_in? and not action_is_intermediate? and request.format == "text/html"
-      @mixpanel = FactlinkUI::Application.config.mixpanel.new(request.env, true)
-      @mixpanel.set_person_event current_user.id.to_s, last_interaction_at: DateTime.now
+      track_people_event last_interaction_at: DateTime.now
       Resque.enqueue(SetLastInteractionForUser, current_user.id, DateTime.now.to_i)
     end
   end

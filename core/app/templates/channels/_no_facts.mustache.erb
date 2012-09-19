@@ -34,7 +34,7 @@
 
     {{#global.can_haz.firefox_extension}}
     <!-- Firefox extension -->
-    <div class="span5 empty-channel-action should-install-firefox-extension visible-when-mozilla">
+    <div class="span5 empty-channel-action should-install-firefox-extension visible-when-firefox">
       <h2>Use the extension</h2>
       <p>Use the extension to enable Factlink on all the pages you visit.</p>
       <a id="firefox-extension-button" class="btn" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0px 8px 0 0") %>Install Firefox Extension</a>
