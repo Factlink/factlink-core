@@ -14,7 +14,7 @@ describe SearchEvidenceInteractor do
     stub_const 'Fact', fake_class
     stub_const 'Sunspot', fake_class
     stub_const 'FactData', fake_class
-    stub_const("CanCan::AccessDenied", Class.new(Exception))
+    stub_const('CanCan::AccessDenied', Class.new(Exception))
   end
 
   it 'initializes' do
@@ -23,15 +23,15 @@ describe SearchEvidenceInteractor do
   end
 
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = SearchEvidenceInteractor.new 1, '1' }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new nil, '1' }.to raise_error
   end
 
   it 'raises when initialized with an empty keywords string' do
-    expect { interactor = SearchEvidenceInteractor.new 1, '1' }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new '', '1' }.to raise_error
   end
 
   it 'raises when initialized with a fact_id that is not a string' do
-    expect { interactor = SearchEvidenceInteractor.new 1, nil }.to raise_error
+    expect { interactor = SearchEvidenceInteractor.new 'key words', nil }.to raise_error
   end
 
   describe :filter_keywords do
