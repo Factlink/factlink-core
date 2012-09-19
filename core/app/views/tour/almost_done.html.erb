@@ -5,7 +5,7 @@
 <div id="almost-done-wrapper">
   <h1>You're almost set!</h1>
 
-  <div class="visible-when-chrome <% if can_haz :firefox_extension %>visible-when-firefox<% end %>">
+  <div class="visible-when-chrome <% if can_haz :firefox_extension %>visible-when-firefox<% end %> should-install-firefox-extension">
     <p>To use Factlink on all of your websites you should install our extension.</p>
   </div>
 
@@ -38,13 +38,21 @@
 
   <% if can_haz :firefox_extension %>
   <!-- Firefox Extension download -->
-  <div class="visible-when-firefox button-wrapper">
+  <div class="visible-when-firefox button-wrapper should-install-firefox-extension">
     <span class="transparent-border">
       <a id="firefox-extension-button" class="btn" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0px 8px 0 0") %>Install Firefox Extension</a>
     </span>
     <p class="extension-explanation support-text">What is an extension?</p>
   </div>
+
+  <div class="visible-when-firefox">
+    <p class="firefox-extension-installed">Great, the extension is installed!</p>
+  </div>
   <% end %>
+
+  <!-- <div class="visible-when-chrome chrome-extension-installed">
+    <p>Great, the extension is installed!</p>
+  </div> -->
 
 
   <!-- Unsupported browsers -->
