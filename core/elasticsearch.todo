@@ -1,0 +1,7 @@
+elasticsearch:
+ ☐ uitzoeken of creeeren en updaten van een document verschillend is.
+ ☐ twee commands schrijven (user/factdata)
+ ☐ observers hangen aan de update/create en delete commands
+ ☐ migratie schrijven voor mongo => elasticsearch met resque (!)
+ ☐ feature toggle maken
+ ☐ feature toggle implementeren in queries (!)
