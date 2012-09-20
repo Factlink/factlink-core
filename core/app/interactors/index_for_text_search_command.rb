@@ -1,4 +1,5 @@
 class IndexForTextSearchCommand
+
   def initialize object
     @missing_fields = []
     @document = {}
