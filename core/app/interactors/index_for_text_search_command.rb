@@ -1,21 +1,25 @@
+require 'logger'
+
 class IndexForTextSearchCommand
 
-  def initialize object
+  def initialize object, options={}
     @missing_fields = []
     @document = {}
     @object = object
 
+    @logger = options[:logger] || Logger.new(STDERR)
+
     define_index
 
-    raise 'Index_type is not set.' unless @index_type
+    raise 'Type_name is not set.' unless @type_name
 
     @missing_fields << :id unless field_exists :id
 
-    raise "#{@index_type} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
+    raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
   end
 
-  def type index_type
-    @index_type = index_type
+  def type type_name
+    @type_name = type_name
   end
 
   def field_exists name
@@ -33,6 +37,8 @@ class IndexForTextSearchCommand
   def execute
     options = { body: @document.to_json }
 
-    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@index_type}/#{@object.id}", options
+    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}", options
+
+    @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
   end
 end
