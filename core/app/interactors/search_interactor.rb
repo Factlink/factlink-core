@@ -9,7 +9,7 @@ class SearchInteractor
     @ability = options[:ability]
     @page = options[:page] || 1
     @row_count = options[:row_count] || 20
-    @log = Logger.new STDERR
+    @log = options[:logger] || Logger.new(STDERR)
   end
 
   def authorized?
@@ -26,9 +26,9 @@ class SearchInteractor
     end
 
     results = Sunspot.search FactData, User, Topic do
-        keywords local_keywords_copy
+      keywords local_keywords_copy
 
-        paginate :page => @page || 1, :per_page => @row_count
+      paginate :page => @page || 1, :per_page => @row_count
     end
 
     # TODO: This message gets lost easily in history, what are the options?
