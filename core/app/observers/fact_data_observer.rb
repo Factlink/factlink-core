@@ -5,7 +5,7 @@ class FactDataObserver < Mongoid::Observer
   end
 
   def after_update fact_data
-    if fact_data.changed? and (fact_data.changed & ['title', 'displaystring']).not_empty?
+    if fact_data.changed? and not (fact_data.changed & ['title', 'displaystring']).empty?
       IndexFactDataForTextSearch.new(fact_data).execute
     end
   end

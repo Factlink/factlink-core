@@ -7,7 +7,7 @@ class UserObserver < Mongoid::Observer
   def after_update user
     UserObserverTask.send_welcome_instructions user
 
-    if user.changed? and (user.changed & ['username']).not_empty?
+    if user.changed? and not (user.changed & ['username']).empty?
       IndexUserForTextSearch.new(user).execute
     end
   end

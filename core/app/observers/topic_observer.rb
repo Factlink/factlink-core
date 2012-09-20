@@ -5,7 +5,7 @@ class TopicObserver < Mongoid::Observer
   end
 
   def after_update topic
-    if topic.changed? and (topic.changed & ['title', 'slug_title']).not_empty?
+    if topic.changed? and not (topic.changed & ['title', 'slug_title']).empty?
       IndexTopicForTextSearch.new(topic).execute
     end
   end
