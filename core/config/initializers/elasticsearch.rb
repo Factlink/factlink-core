@@ -6,4 +6,4 @@ connection_hash = {
   cluster: elasticsearch_conf['cluster']
 }
 
-FactlinkUI::Application.config.elasticsearch_url = "#{connection_hash[:hostname]}:#{connection_hash[:port]}/#{connection_hash[:cluster]}"
+FactlinkUI::Application.config.elasticsearch_url = "#{connection_hash[:hostname]}:#{connection_hash[:port]}/#{Rails.env}"
