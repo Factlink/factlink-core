@@ -17,7 +17,7 @@ class Blacklist
       /^http(s)?:\/\/(?!blog\.factlink\.com)([^\/]+\.)?factlink\.com\/?/,
       domain('fct.li'),
       /^http:\/\/localhost[:\/]/,
-    ] + privacy + flash + frames + weird_bugs
+    ] + privacy + flash + frames + weird_bugs + browserpages
   end
 
   def self.privacy
@@ -52,6 +52,12 @@ class Blacklist
     [
       #show factlink button not full width
       domain('smashingmagazine.com'),
+    ]
+  end
+
+  def self.browserpages
+    [
+    /\Aabout:.*/
     ]
   end
 
