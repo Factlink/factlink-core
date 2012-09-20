@@ -37,11 +37,12 @@ FactlinkUI::Application.configure do
   config.action_controller.perform_caching = true
 
   $stdout.sync = true
+
+  config.lograge.enabled = true
+
+  config.dev_tweaks.log_autoload_notice = false
 end
 
-FactlinkUI::Application.configure do
-  config.lograge.enabled = true
-end
 
 silence_warnings do
   begin
