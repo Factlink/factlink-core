@@ -13,6 +13,7 @@ class UserObserver < Mongoid::Observer
   end
 
   def after_destroy user
+    DeleteUserForTextSearch.new(user).execute
   end
 
 end

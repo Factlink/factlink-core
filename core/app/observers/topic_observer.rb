@@ -11,6 +11,7 @@ class TopicObserver < Mongoid::Observer
   end
 
   def after_destroy topic
+    DeleteTopicForTextSearch.new(topic).execute
   end
 
 end
