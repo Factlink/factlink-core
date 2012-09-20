@@ -47,6 +47,10 @@
       model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
 
+    persistentWheel.on('opinionSet', function () {
+      parent.remote.trigger('opinionSet');
+    });
+
     $('#cancel').on('click', function (e) {
       mp_track("Modal: Cancel");
       e.preventDefault();
