@@ -1,8 +1,9 @@
 elasticsearch:
- ☐ uitzoeken of creeeren en updaten van een document verschillend is.
- ☐ twee commands schrijven (user/factdata)
+ ✔ uitzoeken of creeeren en updaten van een document verschillend is. @done (12-09-20 13:29)
+ ✔ twee commands schrijven (user/factdata) @done (12-09-20 13:29)
  ☐ delete commands schrijven
- ☐ observers hangen aan de update/create en delete commands
+ ✔ observers hangen aan de update/create commands @done (12-09-20 13:40)
+ ☐ obervers hangen aan delete command
  ☐ migratie schrijven voor mongo => elasticsearch met resque (!)
  ☐ feature toggle maken
  ☐ feature toggle implementeren in queries (!)
