@@ -58,6 +58,9 @@
       $('span.factlink[data-factid=' + id + ']').each(function(i, val) {
         $(val).contents().unwrap();
       });
+    },
+    trigger: function (e) {
+      Factlink.trigger(e);
     }
   };
 })(window.Factlink, Factlink.$, Factlink._, Factlink.easyXDM, Factlink.global);

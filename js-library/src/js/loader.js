@@ -61,7 +61,6 @@
     proxy('on');
     proxy('off');
     proxy('hideDimmer');
-    proxy('opinionSet');
     proxy('triggerClick');
 
     if ( window.jQuery ) {

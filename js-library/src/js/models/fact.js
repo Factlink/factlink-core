@@ -1,9 +1,5 @@
 (function(Factlink, $, _, easyXDM, window, undefined) {
 
-Factlink.opinionSet = function() {
-  Factlink.trigger('opinionSet');
-};
-
 Factlink.Fact = function() {
   var elements;
   // This is to scare Mark:
@@ -112,6 +108,7 @@ Factlink.Fact = function() {
         // Need to call a direct .hide() here to make sure not two popups are
         // open at a time
         Factlink.el.find('div.fl-popup').hide();
+
         balloon.show($(e.target).offset().top, e.pageX, e.show_fast);
       }
     });
