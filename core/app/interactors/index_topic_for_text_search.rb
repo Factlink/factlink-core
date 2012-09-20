@@ -1,16 +1,9 @@
-require 'json'
+require_relative 'index_for_text_search_command.rb'
 
-class IndexTopicForTextSearch
-  def initialize topic
-    raise 'Topic should be of class Topic.' unless topic.kind_of? Topic
-
-    @topic = topic
-  end
-
-  def execute
-    document = { :title => @topic.title, :slug_title => @topic.slug_title }.to_json
-    options = { :body => document}
-
-    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/topic/#{@topic.id}", options
+class IndexTopicForTextSearch < IndexForTextSearchCommand
+  def define_index
+    name 'topic'
+    field :title
+    field :slug_title
   end
 end

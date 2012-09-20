@@ -108,18 +108,20 @@ describe 'SearchInteractor' do
     end
 
     # TODO: need a way to inject the logger so you can check the error.
-    pending 'index out of sync' do
+    it 'index out of sync' do
       keywords = "searching for this channel"
-      interactor = SearchInteractor.new keywords, ability: relaxed_ability
+      mock_logger = mock()
+      mock_logger.should_receive(:error)
+      interactor = SearchInteractor.new keywords, ability: relaxed_ability, logger: mock_logger
       internal_result = mock()
       results = ['a','b','c']
-      internal_result.stub hits: results + ['d']
+      internal_result.stub hits: ['a','b','c','d']
       internal_result.stub results: results
       Sunspot.should_receive(:search).
         with(FactData, User, Topic).
         and_return(internal_result)
 
-      interactor.execute.should eq internal_result
+      interactor.execute.should eq results
     end
   end
 end
