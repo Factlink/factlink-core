@@ -6,15 +6,15 @@ class IndexForTextSearchCommand
 
     define_index
 
-    raise 'Index_name is not set.' unless @index_name
+    raise 'Index_type is not set.' unless @index_type
 
     @missing_fields << :id unless field_exists :id
 
-    raise "#{@index_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
+    raise "#{@index_type} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
   end
 
-  def name index_name
-    @index_name = index_name
+  def type index_type
+    @index_type = index_type
   end
 
   def field_exists name
@@ -32,6 +32,6 @@ class IndexForTextSearchCommand
   def execute
     options = { body: @document.to_json }
 
-    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@index_name}/#{@object.id}", options
+    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@index_type}/#{@object.id}", options
   end
 end
