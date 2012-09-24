@@ -19,7 +19,7 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       this.model.trigger('activate', this.model);
 
       this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
-    },this))
+    },this));
   },
 
   initSubChannels: function() {
