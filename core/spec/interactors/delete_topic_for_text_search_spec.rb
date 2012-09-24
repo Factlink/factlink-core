@@ -1,8 +1,9 @@
 require File.expand_path('../../../app/interactors/delete_topic_for_text_search.rb', __FILE__)
 
 describe 'DeleteTopicForTextSearch' do
-
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   let(:topic) do
     topic = stub()

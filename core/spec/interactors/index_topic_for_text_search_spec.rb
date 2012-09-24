@@ -2,7 +2,9 @@ require File.expand_path('../../../app/interactors/index_topic_for_text_search.r
 require 'json'
 
 describe 'IndexTopicForTextSearch' do
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   let(:topic) do
     topic = stub()
@@ -33,7 +35,7 @@ describe 'IndexTopicForTextSearch' do
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
-     
+
       HTTParty.should_receive(:put).with("http://#{url}/topic/#{topic.id}",
         { body: { title: topic.title, slug_title: topic.slug_title}.to_json})
       interactor = IndexTopicForTextSearch.new topic

@@ -1,8 +1,9 @@
 require File.expand_path('../../../app/interactors/delete_user_for_text_search.rb', __FILE__)
 
 describe 'DeleteUserForTextSearch' do
-
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   let(:user) do
     user = stub()

@@ -1,14 +1,15 @@
 require File.expand_path('../../../app/interactors/search_evidence_interactor.rb', __FILE__)
 
 describe SearchEvidenceInteractor do
-
   let(:relaxed_ability) do
     ability = mock()
     ability.stub can?: true
     ability
   end
 
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'Fact', fake_class

@@ -1,7 +1,6 @@
 require File.expand_path('../../../app/interactors/search_interactor.rb', __FILE__)
 
 describe 'SearchInteractor' do
-
   let(:relaxed_ability) do
     ability = mock()
     ability.stub can?: true
@@ -131,7 +130,6 @@ describe 'SearchInteractor' do
 
       query.should_receive(:execute).
         and_return(results)
-      FactData.stub invalid: true
 
       interactor.execute.should eq []
     end

@@ -1,8 +1,9 @@
 require File.expand_path('../../../app/interactors/delete_fact_data_for_text_search.rb', __FILE__)
 
 describe 'DeleteFactDataForTextSearch' do
-
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   let(:fact_data) do
     fact_data = stub()

@@ -1,7 +1,9 @@
 require File.expand_path('../../../app/interactors/index_user_for_text_search.rb', __FILE__)
 
 describe 'IndexUserForTextSearch' do
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   let(:user) do
     user = stub()
