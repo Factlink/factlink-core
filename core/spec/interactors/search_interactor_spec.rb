@@ -8,15 +8,18 @@ describe 'SearchInteractor' do
     ability
   end
 
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Fact', fake_class
-    stub_const 'Sunspot', fake_class
+    stub_const 'SolrSearchAllQuery', fake_class
+    stub_const 'ElasticSearchAllQuery', fake_class
     stub_const 'FactData', fake_class
     stub_const 'User', fake_class
-    stub_const 'Topic', fake_class
+    stub_const 'Ability::FactlinkWebapp', fake_class
   end
 
   it 'initializes' do
@@ -51,8 +54,8 @@ describe 'SearchInteractor' do
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
     end
 
-    it 'returns an empty list on keyword with less than two words.' do
-      Sunspot.should_not_receive(:search)
+    it 'returns an empty list on keyword with less than two letters.' do
+      ElasticSearchAllQuery.should_not_receive(:execute)
       interactor = SearchInteractor.new 'ke', ability: relaxed_ability
 
       result = interactor.execute
@@ -63,13 +66,37 @@ describe 'SearchInteractor' do
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
-      internal_result = mock()
       results = ['a','b','c']
-      internal_result.stub hits: results
-      internal_result.stub results: results
-      Sunspot.should_receive(:search).
-        with(FactData, User, Topic).
-        and_return(internal_result)
+
+      query = mock()
+      ElasticSearchAllQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+      query.should_receive(:execute).
+        and_return(results)
+
+      interactor.execute.should eq results
+    end
+
+    it 'correctly with solr' do
+      keywords = "searching for this channel"
+      ability = mock()
+      ability.
+        should_receive(:can?).
+        with(:index, Fact).
+        and_return(true)
+      ability.
+        should_receive(:can?).
+        with(:see_feature_elastic_search, Ability::FactlinkWebapp).
+        and_return(false)
+      interactor = SearchInteractor.new keywords, ability: ability
+      results = ['a','b','c']
+      query = mock()
+      SolrSearchAllQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+      query.should_receive(:execute).
+        and_return(results)
 
       interactor.execute.should eq results
     end
@@ -78,13 +105,13 @@ describe 'SearchInteractor' do
       keywords = "searching for this channel"
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
       fact_data = FactData.new
-      internal_result = mock()
-      internal_result.stub hits: [fact_data]
-      internal_result.stub results: [fact_data]
-      Sunspot.should_receive(:search).
-        with(FactData, User, Topic).
-        and_return(internal_result)
-
+      results =  [fact_data]
+      query = mock()
+      ElasticSearchAllQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+      query.should_receive(:execute).
+        and_return(results)
       FactData.stub invalid: true
 
       interactor.execute.should eq []
@@ -95,33 +122,18 @@ describe 'SearchInteractor' do
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
       user = User.new
       user.stub hidden: true
-      internal_result = mock()
-      internal_result.stub hits: [user]
-      internal_result.stub results: [user]
-      Sunspot.should_receive(:search).
-        with(FactData, User, Topic).
-        and_return(internal_result)
+      results = [user]
 
+      query = mock()
+      ElasticSearchAllQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+
+      query.should_receive(:execute).
+        and_return(results)
       FactData.stub invalid: true
 
       interactor.execute.should eq []
-    end
-
-    # TODO: need a way to inject the logger so you can check the error.
-    it 'index out of sync' do
-      keywords = "searching for this channel"
-      mock_logger = mock()
-      mock_logger.should_receive(:error)
-      interactor = SearchInteractor.new keywords, ability: relaxed_ability, logger: mock_logger
-      internal_result = mock()
-      results = ['a','b','c']
-      internal_result.stub hits: ['a','b','c','d']
-      internal_result.stub results: results
-      Sunspot.should_receive(:search).
-        with(FactData, User, Topic).
-        and_return(internal_result)
-
-      interactor.execute.should eq results
     end
   end
 end
