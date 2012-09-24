@@ -3,8 +3,8 @@ require 'spec_helper'
 describe FactsController, type: :controller do
   render_views
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:fact) { FactoryGirl.create(:fact) }
+  let(:user) { create(:user) }
+  let(:fact) { create(:fact) }
 
   describe :new do
     it "should work" do
