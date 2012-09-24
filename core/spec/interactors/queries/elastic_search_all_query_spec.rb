@@ -20,9 +20,7 @@ describe 'ElasticSearchAllQuery' do
     query.should_not be_nil
   end
 
-
   ['user', 'topic', 'factdata'].each do |type|
-
     it "executes correctly with return value of #{type} class" do
       config = mock()
       base_url = "1.0.0.0:4000/index"
@@ -62,6 +60,5 @@ describe 'ElasticSearchAllQuery' do
 
       interactor.execute.should eq [return_object]
     end
-
   end
 end
