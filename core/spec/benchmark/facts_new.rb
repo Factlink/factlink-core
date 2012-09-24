@@ -25,7 +25,10 @@ describe FactsController, type: :controller do
         bm.report do
           # this number is chosen so that it takes about 10 seconds on marks mac (total)
           # initially it was with 20 channels 42 runs -> ~10 seconds total
-          45.times do |i|
+          #
+          # after not prefetching channels:
+          # 20 channels, 225 runs -> ~10 seconds total
+          225.times do |i|
             post 'new', :url => "http://example.org/#{i}",  :displaystring => "Facity Fact (#{i})", :title => "Title nr. #{i}"
           end
         end
