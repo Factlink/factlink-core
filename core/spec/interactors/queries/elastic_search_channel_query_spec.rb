@@ -12,7 +12,7 @@ describe 'ElasticSearchChannelQuery' do
   end
 
   it 'initializes' do
-    query = ElasticSearchChannelQuery.new 'interesting search terms'
+    query = ElasticSearchChannelQuery.new 'interesting search terms', 1, 20
     query.should_not be_nil
   end
 
@@ -23,14 +23,14 @@ describe 'ElasticSearchChannelQuery' do
     FactlinkUI::Application.stub config: config
     keywords = "searching for this channel"
     wildcard_keywords = "*searching* *for* *this* *channel*"
-    query = ElasticSearchChannelQuery.new keywords
+    query = ElasticSearchChannelQuery.new keywords, 1, 20
     hit = mock()
     hit.should_receive(:[]).with('_id').and_return(1)
     results = mock()
     results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
     url = 'test'
     HTTParty.should_receive(:get).
-      with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}").
+      with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20").
       and_return(results)
     return_object = mock()
     Topic.should_receive(:find).

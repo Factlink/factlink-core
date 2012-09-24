@@ -1,13 +1,14 @@
 class ElasticSearchChannelQuery
-  def initialize keywords
+  def initialize keywords, page, row_count
     @keywords = keywords
+    @page = page
+    @row_count = row_count
   end
 
   def execute
-    keywords_local_copy = @keywords
+    from = (@page - 1) * @row_count
 
-    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/topic/_search?q=#{wildcardify_keywords}"
-    puts url
+    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/topic/_search?q=#{wildcardify_keywords}&from=#{from}&size=#{@row_count}"
     results = HTTParty.get url
     hits = results.parsed_response['hits']['hits']
 

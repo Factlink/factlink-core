@@ -11,13 +11,13 @@ describe 'SolrSearchChannelQuery' do
   end
 
   it 'initializes' do
-    query = SolrSearchChannelQuery.new 'interesting search terms'
+    query = SolrSearchChannelQuery.new 'interesting search terms', 1, 20
     query.should_not be_nil
   end
 
   it 'executes correctly' do
     keywords = "searching for this channel"
-    query = SolrSearchChannelQuery.new keywords
+    query = SolrSearchChannelQuery.new keywords, 1, 20
     internal_result = mock()
     results = mock()
     internal_result.stub results: results

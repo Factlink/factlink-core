@@ -43,6 +43,14 @@ describe "SearchChannelInteractor" do
       to raise_error(RuntimeError, 'User should be of User type.')
   end
 
+  describe :filter_keywords do
+    it 'removes words whose length is smaller then 3 characters' do
+      interactor = SearchChannelInteractor.new 'z hh interessante d blijven', @user, ability: relaxed_ability
+
+      interactor.filter_keywords.should eq "interessante blijven"
+    end
+  end
+
   describe :execute do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
@@ -61,7 +69,7 @@ describe "SearchChannelInteractor" do
       query.should_receive(:execute).
         and_return([topic])
       ElasticSearchChannelQuery.should_receive(:new).
-        with(keywords).
+        with(keywords, 1, 20).
         and_return(query)
 
       interactor.execute.should eq [topic]
@@ -88,7 +96,7 @@ describe "SearchChannelInteractor" do
       query.should_receive(:execute).
         and_return([topic])
       SolrSearchChannelQuery.should_receive(:new).
-        with(keywords).
+        with(keywords, 1, 20).
         and_return(query)
 
       interactor.execute.should eq [topic]

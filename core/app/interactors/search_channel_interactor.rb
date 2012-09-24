@@ -7,6 +7,8 @@ class SearchChannelInteractor
     @user = user
     @keywords = keywords
     @ability = options[:ability]
+    @page = options[:page] || 1
+    @row_count = options[:row_count] || 20
   end
 
   def authorized?
@@ -16,14 +18,23 @@ class SearchChannelInteractor
 
   def execute
     raise CanCan::AccessDenied unless authorized?
+
+    if filter_keywords.length == 0
+      return []
+    end
+
     if use_elastic_search?
-      query = ElasticSearchChannelQuery.new @keywords
+      query = ElasticSearchChannelQuery.new filter_keywords, @page, @row_count
     else
-      query = SolrSearchChannelQuery.new @keywords
+      query = SolrSearchChannelQuery.new filter_keywords, @page, @row_count
     end
     results = query.execute
 
     results
+  end
+
+  def filter_keywords
+    @keywords.split(/\s+/).select{|x|x.length > 1}.join(" ")
   end
 
   private
