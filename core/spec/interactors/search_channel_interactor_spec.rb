@@ -8,15 +8,16 @@ describe "SearchChannelInteractor" do
     ability
   end
 
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     class User; end
     @user = User.new
     stub_const 'Topic', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
-    stub_const 'Sunspot', fake_class
-    stub_const 'Fact', fake_class
+    stub_const 'SolrSearchChannelQuery', fake_class
   end
 
   it 'initializes' do
@@ -52,12 +53,15 @@ describe "SearchChannelInteractor" do
     it 'executes correctly' do
       keywords = "searching for this channel"
       interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
-      internal_result = mock()
-      Sunspot.should_receive(:search).
-        with(Fact).
-        and_return(internal_result)
+      topic = mock()
+      query = mock()
+      query.should_receive(:execute).
+        and_return([topic])
+      SolrSearchChannelQuery.should_receive(:new).
+        with(keywords).
+        and_return(query)
 
-      interactor.execute.should equal internal_result
+      interactor.execute.should eq [topic]
     end
   end
 end

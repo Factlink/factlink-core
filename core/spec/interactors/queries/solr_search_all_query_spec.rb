@@ -1,7 +1,9 @@
 require File.expand_path('../../../../app/interactors/queries/solr_search_all_query.rb', __FILE__)
 
 describe 'SolrSearchAllQuerySpec' do
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'Sunspot', fake_class

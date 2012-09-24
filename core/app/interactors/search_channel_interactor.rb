@@ -17,10 +17,7 @@ class SearchChannelInteractor
   def execute
     raise CanCan::AccessDenied unless authorized?
 
-    keywords_local_copy = @keywords
-
-    solr_result = Sunspot.search Topic do
-      keywords keywords_local_copy
-    end
+    query = SolrSearchChannelQuery.new @keywords
+    results = query.execute
   end
 end

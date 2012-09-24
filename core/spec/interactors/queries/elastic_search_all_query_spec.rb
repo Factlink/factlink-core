@@ -1,7 +1,9 @@
 require File.expand_path('../../../../app/interactors/queries/elastic_search_all_query.rb', __FILE__)
 
 describe 'ElasticSearchAllQuery' do
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'HTTParty', fake_class
@@ -27,6 +29,7 @@ describe 'ElasticSearchAllQuery' do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = "searching for this channel"
+      wildcard_keywords = "*searching* *for* *this* *channel*"
       interactor = ElasticSearchAllQuery.new keywords, 1, 20
 
       hit = mock()
@@ -37,7 +40,7 @@ describe 'ElasticSearchAllQuery' do
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/_search?q=#{keywords}&from=0&size=20").
+        with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20").
         and_return(results)
 
       return_object = mock()
@@ -52,7 +55,7 @@ describe 'ElasticSearchAllQuery' do
           with(1).
           and_return(return_object)
       when 'factdata'
-        User.should_receive(:find).
+        FactData.should_receive(:find).
           with(1).
           and_return(return_object)
       end

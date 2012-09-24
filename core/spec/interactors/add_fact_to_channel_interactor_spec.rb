@@ -7,7 +7,9 @@ describe AddFactToChannelInteractor do
     ability
   end
 
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'Fact', fake_class
