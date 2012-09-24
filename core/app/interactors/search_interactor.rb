@@ -27,9 +27,9 @@ class SearchInteractor
     end
 
     if use_elastic_search?
-      query = ElasticSearchAllQuery.new filter_keywords, @page, @row_count
+      query = ElasticSearchAllQuery.new(filter_keywords, @page, @row_count)
     else
-      query = SolrSearchAllQuery.new filter_keywords, @page, @row_count
+      query = SolrSearchAllQuery.new(filter_keywords, @page, @row_count)
     end
     results = query.execute
 
