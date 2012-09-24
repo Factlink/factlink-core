@@ -14,7 +14,7 @@ class DeleteForTextSearchCommand
 
     @missing_fields << :id unless field_exists :id
 
-    raise "#{@index_type} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
+    raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
   end
 
   def type type_name
