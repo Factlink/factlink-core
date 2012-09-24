@@ -16,8 +16,18 @@ class SearchChannelInteractor
 
   def execute
     raise CanCan::AccessDenied unless authorized?
-
-    query = SolrSearchChannelQuery.new @keywords
+    if use_elastic_search?
+      query = ElasticSearchChannelQuery.new @keywords
+    else
+      query = SolrSearchChannelQuery.new @keywords
+    end
     results = query.execute
+
+    results
+  end
+
+  private
+  def use_elastic_search?
+    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
   end
 end

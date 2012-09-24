@@ -9,6 +9,6 @@ class SolrSearchChannelQuery
       keywords keywords_local_copy
     end
 
-    solr_result
+    solr_result.results
   end
 end

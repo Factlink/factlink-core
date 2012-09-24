@@ -19,10 +19,12 @@ describe 'SolrSearchChannelQuery' do
     keywords = "searching for this channel"
     query = SolrSearchChannelQuery.new keywords
     internal_result = mock()
+    results = mock()
+    internal_result.stub results: results
     Sunspot.should_receive(:search).
       with(Topic).
       and_return(internal_result)
 
-    query.execute.should equal internal_result
+    query.execute.should equal results
   end
 end

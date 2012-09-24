@@ -18,6 +18,9 @@ describe "SearchChannelInteractor" do
     stub_const 'Topic', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'SolrSearchChannelQuery', fake_class
+    stub_const 'ElasticSearchChannelQuery', fake_class
+    stub_const 'Fact', fake_class
+    stub_const 'Ability::FactlinkWebapp', fake_class
   end
 
   it 'initializes' do
@@ -53,6 +56,33 @@ describe "SearchChannelInteractor" do
     it 'executes correctly' do
       keywords = "searching for this channel"
       interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+      topic = mock()
+      query = mock()
+      query.should_receive(:execute).
+        and_return([topic])
+      ElasticSearchChannelQuery.should_receive(:new).
+        with(keywords).
+        and_return(query)
+
+      interactor.execute.should eq [topic]
+    end
+
+    it 'executes correctly with solr' do
+      ability = mock()
+      ability.
+        should_receive(:can?).
+        with(:index, Topic).
+        and_return(true)
+      ability.
+        should_receive(:can?).
+        with(:show, @user).
+        and_return(true)
+      ability.
+        should_receive(:can?).
+        with(:see_feature_elastic_search, Ability::FactlinkWebapp).
+        and_return(false)
+      keywords = "searching for this channel"
+      interactor = SearchChannelInteractor.new keywords, @user, ability: ability
       topic = mock()
       query = mock()
       query.should_receive(:execute).

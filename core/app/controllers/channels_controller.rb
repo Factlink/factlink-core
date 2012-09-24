@@ -62,7 +62,7 @@ class ChannelsController < ApplicationController
     interactor = SearchChannelInteractor.new params[:s].to_s, @user, ability: current_ability
     results = interactor.execute
 
-    results = results.results.map do |topic|
+    results = results.map do |topic|
       Channels::AutoCompletedChannel.for(topic: topic, view: view_context)
     end
 
