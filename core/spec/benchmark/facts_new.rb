@@ -11,7 +11,9 @@ describe FactsController, type: :controller do
       authenticate_user!(user)
       Benchmark.bmbm do |bm|
         bm.report do
-          100.times do
+          # this number is chosen so that it takes about 10 seconds on marks mac (total)
+          # initially it was 200 -> ~10 total
+          200.times do
             post 'new', :url => "http://example.org/",  :displaystring => "Facity Fact", :title => "Title"
           end
         end
