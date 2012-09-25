@@ -35,7 +35,9 @@ describe IndexUserForTextSearch do
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
-      HTTParty.should_receive(:put).with("http://#{url}/user/#{user.id}",
+      url = "http://#{url}/user/#{user.id}"
+      puts url
+      HTTParty.should_receive(:put).with(url,
         { body: { username: user.username }.to_json})
       interactor = IndexUserForTextSearch.new user
 

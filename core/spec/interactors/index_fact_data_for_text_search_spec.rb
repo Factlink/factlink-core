@@ -36,7 +36,9 @@ describe IndexFactDataForTextSearch do
       config = mock()
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
-      HTTParty.should_receive(:put).with("http://#{url}/factdata/#{fact_data.id}",
+      url = "http://#{url}/factdata/#{fact_data.id}"
+      puts url
+      HTTParty.should_receive(:put).with(url,
         { body: { displaystring: fact_data.displaystring, title: fact_data.title }.to_json})
       interactor = IndexFactDataForTextSearch.new fact_data
 
