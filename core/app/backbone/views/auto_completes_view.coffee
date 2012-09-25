@@ -1,4 +1,6 @@
-class window.AutoCompletesView extends Backbone.View
+class window.AutoCompletesView extends Backbone.Factlink.PlainView
+  template: "channels/_auto_completes"
+
   initialize: ->
     this.list = [];
     @search_collection = new TopicSearchResults()

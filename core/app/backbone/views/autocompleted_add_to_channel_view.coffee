@@ -40,6 +40,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
 
     @_added_channels_view.render()
     @$("div.added_channels_container").html @_added_channels_view.el
+
+    @_auto_completes_view.render()
+    @$("div.auto_complete_container").html @_auto_completes_view.el
+
     updateWindowHeight()
 
   parseKeyDown: (e) ->
