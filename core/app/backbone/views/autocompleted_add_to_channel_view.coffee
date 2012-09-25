@@ -10,8 +10,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     "keyup input.typeahead": "autoComplete"
     "focus input.typeahead": "onFocusInput"
     "click div.fake-input": "focusInput"
-    "click div.auto_complete": "parseReturn"
-    "click div.fake-input a": "parseReturn"
+    "click div.auto_complete": "addCurrentlySelectedChannel"
+    "click div.fake-input a": "addCurrentlySelectedChannel"
     "blur input.typeahead": "blurInput"
     "click .show-input-button": "showInput"
     "mouseenter .auto_complete>div": "selectAddNew"
@@ -45,7 +45,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   parseKeyDown: (e) ->
     @_proceed = false
     switch e.keyCode
-      when 13 then @parseReturn e
+      when 13 then @addCurrentlySelectedChannel e
       when 40 then @_auto_completes_view.moveSelectionDown e
       when 38 then @_auto_completes_view.moveSelectionUp e
       when 27 then @hideAutoComplete()
@@ -81,7 +81,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     activeview.trigger "deactivate"  if activeview isnt `undefined`
     @setActiveChannelKey `undefined`
 
-  parseReturn: (e) ->
+  addCurrentlySelectedChannel: (e) ->
     e.preventDefault()
     e.stopPropagation()
     @disable()
