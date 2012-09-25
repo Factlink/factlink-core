@@ -39,8 +39,8 @@ describe HomeController do
 
   describe "Search" do
     it "should render succesful" do
-      should_check_can :index, Fact
-      get :search
+      authenticate_user!(user)
+      get :search, s: "Baron"
       response.should be_success
     end
   end

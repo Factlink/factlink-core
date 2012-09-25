@@ -1,0 +1,29 @@
+development:
+  elasticsearch:
+    hostname: localhost
+    port: 9200
+    cluster: factlink_development
+
+test:
+  elasticsearch:
+    hostname: localhost
+    port: 9200
+    cluster: factlink_test
+
+testserver:
+  elasticsearch:
+    hostname: localhost
+    port: 9200
+    cluster: factlink_testserver
+
+staging:
+  elasticsearch:
+    hostname: localhost
+    port: 9200
+    cluster: factlink_staging
+
+production:
+  elasticsearch:
+    hostname: localhost
+    port: 9200
+    cluster: factlink_production

@@ -1,6 +1,15 @@
-class window.AutoCompletesView extends Backbone.View
+class window.AutoCompletesView extends Backbone.Factlink.PlainView
+  template: "channels/_auto_completes"
+
   initialize: ->
     this.list = [];
+    @search_collection = new TopicSearchResults()
+    @collection = collectionDifference(TopicSearchResults,
+      'slug_title', @search_collection, @options.alreadyAdded)
+
+    @collection.on 'add', (ch) => @addAutoComplete(ch)
+    @collection.on 'reset', =>
+        @collection.forEach (ch) => @addAutoComplete(ch)
 
   closeList: ->
     view.close() for view in @list
@@ -8,11 +17,9 @@ class window.AutoCompletesView extends Backbone.View
 
   onClose: -> @closeList()
 
-  activeChannelKey: ->
-    return this.options.mainView._activeChannelKey
-
+  activeChannelKey: -> @options.mainView._activeChannelKey
   setActiveChannelKey: (value)->
-    this.options.mainView._activeChannelKey = value
+    @options.mainView._activeChannelKey = value
 
   deActivateCurrent: () ->
     if ( @list[@activeChannelKey()] )
@@ -34,7 +41,7 @@ class window.AutoCompletesView extends Backbone.View
     this.options.mainView.deActivateCurrent()
     key = this.fixKeyModulo(key)
 
-    if (key < @list.length && key >= 0)
+    if 0 <= key < @list.length
       @list[key].trigger('activate');
 
       if ( typeof scroll == "boolean")
@@ -50,48 +57,37 @@ class window.AutoCompletesView extends Backbone.View
 
   moveSelectionUp: (e)->
     prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
-
     this.setActiveAutoComplete(prevKey, false)
-
     e.preventDefault()
 
   moveSelectionDown: (e)->
-
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
-
     this.setActiveAutoComplete(nextKey, false)
-
-
     e.preventDefault()
 
   addAutoComplete: (channel)->
-    # WATCH IT!
-    self = this.options.mainView
+    # TODO: make sure somewhere again that it is not possible to call this
+    #       function with an already added channel
+    view = new AutoCompletedChannelView({
+      model: channel,
+      query: @options.mainView._lastKnownSearchValue,
+      parent: @options.mainView
+    });
+    view.render();
 
-    if ! self.alreadyAdded(channel)
-      self._autoCompletes.add(channel);
+    @options.mainView.$('.auto_complete>ul').append(view.el);
+    @options.mainView.$('.auto_complete').removeClass('empty');
 
-      view = new AutoCompletedChannelView({
-        model: channel,
-        query: self._lastKnownSearchValue,
-        parent: self
-      });
-      view.render();
+    this.list.push(view);
 
-      self.$('.auto_complete>ul').append(view.el);
+    @options.mainView.showAutoComplete();
 
-      self.$('.auto_complete').removeClass('empty');
-
-      this.list.push(view);
-
-      self.showAutoComplete();
-
-      this.hideAddNewIfNotNeeded(channel);
+    @hideAddNewIfNotNeeded(channel);
 
 
   hideAddNewIfNotNeeded: (channel)->
     if ( channel.get('user_channel') )
       lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
-      lowerCaseSearch = options.mainView._lastKnownSearchValue.toLowerCase();
+      lowerCaseSearch = @options.mainView._lastKnownSearchValue.toLowerCase();
 
-      options.mainView.hideAddNew() if lowerCaseSearch == lowerCaseTitle
+      @options.mainView.hideAddNew() if lowerCaseSearch == lowerCaseTitle
