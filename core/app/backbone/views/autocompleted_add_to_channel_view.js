@@ -1,5 +1,6 @@
 window.AutoCompletesView = Backbone.View.extend({
   initialize: function(){
+    this.list = [];
   }
 });
 
@@ -23,7 +24,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   template: "channels/_auto_completed_add_to_channel",
 
   initialize: function () {
-    this._autoCompleteViews = [];
     this.vent = new Backbone.Marionette.EventAggregator();
 
     this.collection = new OwnChannelCollection();
@@ -135,8 +135,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   deActivateCurrent: function(){
-    if ( this._autoCompleteViews[this._activeChannelKey] ) {
-      this._autoCompleteViews[this._activeChannelKey].trigger('deactivate');
+    if ( this._auto_completes_view.list[this._activeChannelKey] ) {
+      this._auto_completes_view.list[this._activeChannelKey].trigger('deactivate');
     }
     this.deActivateAddNew();
   },
@@ -144,9 +144,9 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   fixKeyModulo: function(key){
     var maxval;
     if (this.isAddNewVisible()){
-      maxval = this._autoCompleteViews.length;
+      maxval = this._auto_completes_view.list.length;
     } else {
-      maxval = this._autoCompleteViews.length - 1;
+      maxval = this._auto_completes_view.list.length - 1;
     }
     if (key > maxval) {key = 0;}
     if (key < 0) {key = maxval;}
@@ -158,12 +158,12 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.deActivateCurrent();
     key = this.fixKeyModulo(key);
 
-    if (key < this._autoCompleteViews.length && key >= 0) {
-      this._autoCompleteViews[key].trigger('activate');
+    if (key < this._auto_completes_view.list.length && key >= 0) {
+      this._auto_completes_view.list[key].trigger('activate');
       if ( typeof scroll === "boolean") {
         var list = this.$el.find("div.auto_complete ul")[0];
         if (list.scrollHeight > list.clientHeight) {
-          this._autoCompleteViews[key].el.scrollIntoView(scroll);
+          this._auto_completes_view.list[key].el.scrollIntoView(scroll);
         }
       }
     } else {
@@ -197,11 +197,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   activateAutoCompleteView: function (view) {
-    this.setActiveAutoComplete(this._autoCompleteViews.indexOf(view));
+    this.setActiveAutoComplete(this._auto_completes_view.list.indexOf(view));
   },
 
   deActivateAutoCompleteView: function () {
-    var activeview = this._autoCompleteViews[this._activeChannelKey];
+    var activeview = this._auto_completes_view.list[this._activeChannelKey];
     if (activeview !== undefined) {
       activeview.trigger('deactivate');
     }
@@ -214,8 +214,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.disable();
 
-    if ( this._activeChannelKey >= 0 && this._activeChannelKey < this._autoCompleteViews.length ) {
-      var selected = this._autoCompleteViews[this._activeChannelKey].model;
+    if ( this._activeChannelKey >= 0 && this._activeChannelKey < this._auto_completes_view.list.length ) {
+      var selected = this._auto_completes_view.list[this._activeChannelKey].model;
 
       this.$el.find('input.typeahead').val( selected.get('title') );
 
@@ -393,11 +393,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   closeAutoCompleteViews: function() {
-    _.each( this._autoCompleteViews, function (view) {
+    _.each( this._auto_completes_view.list, function (view) {
       view.close();
     });
 
-    this._autoCompleteViews = [];
+    this._auto_completes_view.list = [];
   },
 
   clearAutoComplete: function () {
@@ -438,7 +438,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
       this.$('.auto_complete').removeClass('empty');
 
-      this._autoCompleteViews.push(view);
+      this._auto_completes_view.list.push(view);
 
       this.showAutoComplete();
 
