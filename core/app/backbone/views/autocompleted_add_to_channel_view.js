@@ -8,7 +8,35 @@ var updateWindowHeight = function(){
 window.AutoCompletesView = Backbone.View.extend({
   initialize: function(){
     this.list = [];
+  },
+
+  closeList: function() {
+    _.each( this.list, function (view) {
+      view.close();
+    });
+
+    this.list = [];
+  },
+
+  onClose: function(){
+    this.closeList();
+  },
+
+  activeChannelKey: function(){
+    return this.options.mainView._activeChannelKey;
+  },
+
+  setActiveChannelKey: function(value){
+    this.options.mainView._activeChannelKey = value;
+  },
+
+  deActivateCurrent: function(){
+    if ( this.list[this.activeChannelKey()] ) {
+      this.list[this.activeChannelKey()].trigger('deactivate');
+    }
+
   }
+
 });
 
 window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
@@ -26,6 +54,14 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     "click .show-input-button"      : "showInput",
     "mouseenter .auto_complete>div" : "selectAddNew",
     "mouseleave .auto_complete>div" : "deActivateAddNew"
+  },
+
+  activeChannelKey: function(){
+    return this._activeChannelKey;
+  },
+
+  setActiveChannelKey: function(value){
+    this._activeChannelKey = value;
   },
 
   template: "channels/_auto_completed_add_to_channel",
@@ -109,8 +145,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   moveSelectionUp: function (e) {
     var prevKey;
 
-    if ( this._activeChannelKey !== undefined ) {
-      prevKey = this._activeChannelKey - 1;
+    if ( this.activeChannelKey() !== undefined ) {
+      prevKey = this.activeChannelKey() - 1;
     } else {
       prevKey = -1;
     }
@@ -123,8 +159,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   moveSelectionDown: function (e) {
     var nextKey;
 
-    if ( this._activeChannelKey !== undefined ) {
-      nextKey = this._activeChannelKey + 1;
+    if ( this.activeChannelKey() !== undefined ) {
+      nextKey = this.activeChannelKey() + 1;
     } else {
       nextKey = 0;
     }
@@ -136,9 +172,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   deActivateCurrent: function(){
-    if ( this._auto_completes_view.list[this._activeChannelKey] ) {
-      this._auto_completes_view.list[this._activeChannelKey].trigger('deactivate');
-    }
+    this._auto_completes_view.deActivateCurrent();
     this.deActivateAddNew();
   },
 
@@ -170,7 +204,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     } else {
       this.activateAddNew();
     }
-    this._activeChannelKey = key;
+    this.setActiveChannelKey(key);
   },
 
   selectAddNew: function () {
@@ -178,7 +212,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       return false;
     }
 
-    if ( typeof this._activeChannelKey === "number" ) {
+    if ( typeof this.activeChannelKey() === "number" ) {
       this.deActivateAutoCompleteView();
     }
 
@@ -202,11 +236,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   deActivateAutoCompleteView: function () {
-    var activeview = this._auto_completes_view.list[this._activeChannelKey];
+    var activeview = this._auto_completes_view.list[this.activeChannelKey()];
     if (activeview !== undefined) {
       activeview.trigger('deactivate');
     }
-    this._activeChannelKey = undefined;
+    this.setActiveChannelKey(undefined);
   },
 
   parseReturn: function (e) {
@@ -215,8 +249,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.disable();
 
-    if ( this._activeChannelKey >= 0 && this._activeChannelKey < this._auto_completes_view.list.length ) {
-      var selected = this._auto_completes_view.list[this._activeChannelKey].model;
+    if ( this.activeChannelKey() >= 0 && this.activeChannelKey() < this._auto_completes_view.list.length ) {
+      var selected = this._auto_completes_view.list[this.activeChannelKey()].model;
 
       this.$el.find('input.typeahead').val( selected.get('title') );
 
@@ -333,7 +367,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     }
 
     this._lastKnownSearchValue = searchValue;
-    this._activeChannelKey = undefined;
+    this.setActiveChannelKey(undefined);
 
     if (searchValue.length < 1) {
       this.hideAutoComplete();
@@ -391,16 +425,9 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.$('.auto_complete').show();
   },
 
-  closeAutoCompleteViews: function() {
-    _.each( this._auto_completes_view.list, function (view) {
-      view.close();
-    });
-
-    this._auto_completes_view.list = [];
-  },
 
   clearAutoComplete: function () {
-    this.closeAutoCompleteViews();
+    this._auto_completes_view.closeList();
 
     this._autoCompletes = new Backbone.Collection();
 
@@ -414,7 +441,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   onClose: function(){
-    this.closeAutoCompleteViews();
+    this._auto_completes_view.close();
   },
 
   alreadyAdded: function(channel) {
