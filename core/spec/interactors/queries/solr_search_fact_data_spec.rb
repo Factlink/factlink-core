@@ -31,6 +31,6 @@ describe 'SolrSearchFactData' do
       with(FactData).
       and_return(internal_result)
 
-    interactor.execute.should eq internal_result
+    interactor.execute.should eq results
   end
 end

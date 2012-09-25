@@ -17,6 +17,6 @@ class SolrSearchFactDataQuery
       end
     end
 
-   results
+   results.results
   end
 end
