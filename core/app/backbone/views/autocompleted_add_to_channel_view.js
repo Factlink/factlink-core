@@ -22,7 +22,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.vent = new Backbone.Marionette.EventAggregator();
 
     this.collection = new OwnChannelCollection();
-    this._added_channel_view = new AutoCompletedAddedChannelsView({
+    this._added_channels_view = new AutoCompletedAddedChannelsView({
       collection: this.collection,
       mainView: this
     });
@@ -61,8 +61,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.reset();
 
-    this._added_channel_view.render();
-    this.$el.find('div.added_channels_container').html(this._added_channel_view.el);
+    this._added_channels_view.render();
+    this.$el.find('div.added_channels_container').html(this._added_channels_view.el);
 
     this.updateHeight();
   },
