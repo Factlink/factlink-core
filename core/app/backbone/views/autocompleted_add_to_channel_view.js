@@ -1,3 +1,9 @@
+var updateWindowHeight = function(){
+  if (window.updateHeight) {
+    window.updateHeight();
+  }
+};
+
 window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   tagName: "div",
   className: "add-to-channel",
@@ -15,20 +21,30 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     "mouseleave .auto_complete>div" : "deActivateAddNew"
   },
 
+  activeChannelKey: function(){
+    return this._activeChannelKey;
+  },
+
+  setActiveChannelKey: function(value){
+    this._activeChannelKey = value;
+  },
+
   template: "channels/_auto_completed_add_to_channel",
 
   initialize: function () {
-    this._autoCompleteViews = [];
     this.vent = new Backbone.Marionette.EventAggregator();
 
     this.collection = new OwnChannelCollection();
-    this._added_channel_view = new AutoCompletedAddedChannelsView({
+    this._added_channels_view = new AutoCompletedAddedChannelsView({
       collection: this.collection,
       mainView: this
     });
 
-    var self = this;
+    this._auto_completes_view = new AutoCompletesView({
+      mainView: this
+    });
 
+    var self = this;
     this.collection.on('remove', function(ch){
       self.onRemoveChannel(ch);
     });
@@ -47,24 +63,16 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
   onAddChannel: function(ch) {
     this.$el.addClass('hide-input');
-    this.updateHeight();
-  },
-
-  updateHeight: function(){
-    if (window.updateHeight) {
-      window.updateHeight();
-    }
+    updateWindowHeight();
   },
 
   onRender: function () {
     this.$el.find('.auto_complete ul').preventScrollPropagation();
 
-    this.reset();
+    this._added_channels_view.render();
+    this.$el.find('div.added_channels_container').html(this._added_channels_view.el);
 
-    this._added_channel_view.render();
-    this.$el.find('div.added_channels_container').html(this._added_channel_view.el);
-
-    this.updateHeight();
+    updateWindowHeight();
   },
 
   parseKeyDown: function (e) {
@@ -75,10 +83,10 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
         this.parseReturn(e);
         break;
       case 40:
-        this.moveSelectionDown(e);
+        this._auto_completes_view.moveSelectionDown(e);
         break;
       case 38:
-        this.moveSelectionUp(e);
+        this._auto_completes_view.moveSelectionUp(e);
         break;
       case 27:
         this.hideAutoComplete();
@@ -95,87 +103,17 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .find('.fake-input input').focus();
   },
 
-  closeAutoCompletedAddToChannelViews: function(){
-    _.each(this._channelViews, function (view) {
-      view.close();
-    });
-    this._channelViews = {};
-  },
-
-  reset: function () {
-    this.closeAutoCompletedAddToChannelViews();
-  },
-
-
   focusInput: function() {this.$('input.typeahead').focus(); },
   onFocusInput: function () { this.$el.addClass('focus'); },
   blurInput: function () { this.$el.removeClass('focus'); },
 
-  moveSelectionUp: function (e) {
-    var prevKey;
-
-    if ( this._activeChannelKey !== undefined ) {
-      prevKey = this._activeChannelKey - 1;
-    } else {
-      prevKey = -1;
-    }
-
-    this.setActiveAutoComplete(prevKey, false);
-
-    e.preventDefault();
-  },
-
-  moveSelectionDown: function (e) {
-    var nextKey;
-
-    if ( this._activeChannelKey !== undefined ) {
-      nextKey = this._activeChannelKey + 1;
-    } else {
-      nextKey = 0;
-    }
-
-    this.setActiveAutoComplete(nextKey, false);
-
-
-    e.preventDefault();
-  },
-
   deActivateCurrent: function(){
-    if ( this._autoCompleteViews[this._activeChannelKey] ) {
-      this._autoCompleteViews[this._activeChannelKey].trigger('deactivate');
-    }
+    this._auto_completes_view.deActivateCurrent();
     this.deActivateAddNew();
   },
 
-  fixKeyModulo: function(key){
-    var maxval;
-    if (this.isAddNewVisible()){
-      maxval = this._autoCompleteViews.length;
-    } else {
-      maxval = this._autoCompleteViews.length - 1;
-    }
-    if (key > maxval) {key = 0;}
-    if (key < 0) {key = maxval;}
-    return key;
-  },
-
-
   setActiveAutoComplete: function (key, scroll) {
-    this.deActivateCurrent();
-    key = this.fixKeyModulo(key);
-
-    if (key < this._autoCompleteViews.length && key >= 0) {
-      this._autoCompleteViews[key].trigger('activate');
-      if ( typeof scroll === "boolean") {
-        var list = this.$el.find("div.auto_complete ul")[0];
-        if (list.scrollHeight > list.clientHeight) {
-          this._autoCompleteViews[key].el.scrollIntoView(scroll);
-        }
-      }
-    } else {
-      this.activateAddNew();
-    }
-    this._activeChannelKey = key;
+    this._auto_completes_view.setActiveAutoComplete(key,scroll);
   },
 
   selectAddNew: function () {
@@ -183,7 +121,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       return false;
     }
 
-    if ( typeof this._activeChannelKey === "number" ) {
+    if ( typeof this.activeChannelKey() === "number" ) {
       this.deActivateAutoCompleteView();
     }
 
@@ -203,15 +141,15 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   activateAutoCompleteView: function (view) {
-    this.setActiveAutoComplete(this._autoCompleteViews.indexOf(view));
+    this.setActiveAutoComplete(this._auto_completes_view.list.indexOf(view));
   },
 
   deActivateAutoCompleteView: function () {
-    var activeview = this._autoCompleteViews[this._activeChannelKey];
+    var activeview = this._auto_completes_view.list[this.activeChannelKey()];
     if (activeview !== undefined) {
       activeview.trigger('deactivate');
     }
-    this._activeChannelKey = undefined;
+    this.setActiveChannelKey(undefined);
   },
 
   parseReturn: function (e) {
@@ -220,8 +158,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.disable();
 
-    if ( this._activeChannelKey >= 0 && this._activeChannelKey < this._autoCompleteViews.length ) {
-      var selected = this._autoCompleteViews[this._activeChannelKey].model;
+    if ( this.activeChannelKey() >= 0 && this.activeChannelKey() < this._auto_completes_view.list.length ) {
+      var selected = this._auto_completes_view.list[this.activeChannelKey()].model;
 
       this.$el.find('input.typeahead').val( selected.get('title') );
 
@@ -286,7 +224,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   clearInput: function () {
-    this.$el.find('input.typeahead').val('');
+    this.$('input.typeahead').val('');
 
     if ( this.collection.length ) {
       this.$el.addClass('hide-input');
@@ -298,7 +236,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .addClass('disabled')
       .find('input.typeahead').prop('disabled', true);
 
-    this.$el.find('.btn').addClass('disabled');
+    this.$('.btn').addClass('disabled');
   },
 
   enable: function () {
@@ -306,15 +244,15 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .removeClass('disabled')
       .find('input.typeahead').prop('disabled', false);
 
-    this.$el.find('.btn').removeClass('disabled');
+    this.$('.btn').removeClass('disabled');
   },
 
   showLoading: function () {
-    this.$el.find('.loading').show();
+    this.$('.loading').show();
   },
 
   hideLoading: function () {
-    this.$el.find('.loading').hide();
+    this.$('.loading').hide();
   },
 
   updateText: function () {
@@ -322,7 +260,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     if ( value.length ) {
       this.$el.addClass('has-text');
 
-      this.$el.find(".search").text( value );
+      this.$(".search").text( value );
     } else {
       this.$el.removeClass('has-text');
     }
@@ -338,7 +276,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     }
 
     this._lastKnownSearchValue = searchValue;
-    this._activeChannelKey = undefined;
+    this.setActiveChannelKey(undefined);
 
     if (searchValue.length < 1) {
       this.hideAutoComplete();
@@ -373,9 +311,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.showAutoComplete();
     this.setActiveAutoComplete(0, false);
 
-    if ( window.updateHeight ) {
-      window.updateHeight();
-    }
+    updateWindowHeight();
+  },
+
+  addAutoComplete: function(channel){
+    this._auto_completes_view.addAutoComplete(channel);
   },
 
   hideAddNew: function () {
@@ -391,23 +331,16 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   hideAutoComplete: function () {
-    this.$el.find('.auto_complete').hide();
+    this.$('.auto_complete').hide();
   },
 
   showAutoComplete: function () {
-    this.$el.find('.auto_complete').show();
+    this.$('.auto_complete').show();
   },
 
-  closeAutoCompleteViews: function() {
-    _.each( this._autoCompleteViews, function (view) {
-      view.close();
-    });
-
-    this._autoCompleteViews = [];
-  },
 
   clearAutoComplete: function () {
-    this.closeAutoCompleteViews();
+    this._auto_completes_view.closeList();
 
     this._autoCompletes = new Backbone.Collection();
 
@@ -421,50 +354,12 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   onClose: function(){
-    this.closeAutoCompletedAddToChannelViews();
-    this.closeAutoCompleteViews();
+    this._auto_completes_view.close();
   },
 
   alreadyAdded: function(channel) {
     return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id );
-  },
-
-  addAutoComplete: function (channel) {
-    var self = this;
-    if ( ! this.alreadyAdded(channel) ) {
-      this._autoCompletes.add(channel);
-
-      var view = new AutoCompletedChannelView({
-        model: channel,
-        query: this._lastKnownSearchValue,
-        parent: this
-      });
-      view.on('mouseEnter', function () {
-         self.activateAutoCompleteView(this);
-      }).on('mouseLeave', function(){
-        self.deActivateAutoCompleteView();
-      });
-      view.render();
-
-      this.$el.find('.auto_complete>ul').append(view.el);
-
-      this.$el.find('.auto_complete').removeClass('empty');
-
-      this._autoCompleteViews.push(view);
-
-      this.showAutoComplete();
-
-      if ( channel.get('user_channel') ) {
-        var lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
-        var lowerCaseSearch = this._lastKnownSearchValue.toLowerCase();
-
-        if ( lowerCaseSearch === lowerCaseTitle ) {
-          this.hideAddNew();
-        }
-      }
-    }
   }
 
-});
 
-_.extend(AutoCompletedAddToChannelView.prototype, TemplateMixin);
+});

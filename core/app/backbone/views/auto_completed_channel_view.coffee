@@ -9,8 +9,11 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @queryRegex = new RegExp(@options.query, "gi")
-    this.on 'activate', -> @$el.addClass 'active'
-    this.on 'deactivate', -> @$el.removeClass 'active'
+    @on 'activate', -> @$el.addClass 'active'
+    @on 'deactivate', -> @$el.removeClass 'active'
+
+    @on 'mouseEnter', -> @options.parent.activateAutoCompleteView(this);
+    @on 'mouseLeave', -> @options.parent.deActivateAutoCompleteView()
 
   templateHelpers: ->
     view = this
