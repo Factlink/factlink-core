@@ -1,7 +1,9 @@
 class window.AutoCompletesView extends Backbone.View
   initialize: ->
     this.list = [];
-    @collection = new TopicSearchResults();
+    @search_collection = new TopicSearchResults()
+    @collection = collectionDifference(TopicSearchResults,
+      'slug_title', @search_collection, @options.alreadyAdded)
 
     @collection.on 'add', (ch) => @addAutoComplete(ch)
     @collection.on 'reset', =>

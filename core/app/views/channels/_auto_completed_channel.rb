@@ -4,6 +4,10 @@ module Channels
       self[:topic].title
     end
 
+    def slug_title
+      self[:topic].slug_title
+    end
+
     def user_channel
       ch = ::Channel.find(created_by_id: current_graph_user.id, slug_title: title.to_url).first
 

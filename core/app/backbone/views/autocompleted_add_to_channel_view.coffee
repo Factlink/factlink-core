@@ -28,7 +28,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
       collection: @collection
       mainView: this
     )
-    @_auto_completes_view = new AutoCompletesView(mainView: this)
 
     @collection.on "remove", (ch) => @onRemoveChannel ch
     @collection.on "add", (ch) => @onAddChannel ch
@@ -42,6 +41,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   onAddChannel: (ch) ->
     @$el.addClass "hide-input"
     updateWindowHeight()
+    @_auto_completes_view = new AutoCompletesView(
+      mainView: this
+      alreadyAdded: @collection
+    )
 
   onRender: ->
     @$el.find(".auto_complete ul").preventScrollPropagation()
@@ -176,8 +179,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
 
     @showLoading()
     @clearAutoComplete()
-    @_auto_completes_view.collection.setSearch searchValue
-    @_auto_completes_view.collection.fetch success: =>
+    @_auto_completes_view.search_collection.setSearch searchValue
+    @_auto_completes_view.search_collection.fetch success: =>
       @showAutoComplete()
       @setActiveAutoComplete 0, false
       updateWindowHeight()
@@ -192,7 +195,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
 
   clearAutoComplete: ->
     @_auto_completes_view.closeList()
-    @_auto_completes_view.collection.reset []
+    @_auto_completes_view.search_collection.reset []
     @$(".auto_complete").addClass "empty"
     @hideAutoComplete()
     @deActivateAddNew()
