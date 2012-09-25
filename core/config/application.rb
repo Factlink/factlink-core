@@ -170,7 +170,7 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
       'admin.js',
-      'base.css',
+      'new/base.css',
     ]
 
     config.assets.paths << Rails.root.join("app", "backbone")
