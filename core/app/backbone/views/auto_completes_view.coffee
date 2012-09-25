@@ -65,28 +65,24 @@ class window.AutoCompletesView extends Backbone.View
     e.preventDefault()
 
   addAutoComplete: (channel)->
-    # WATCH IT!
-    self = this.options.mainView
+    # TODO: make sure somewhere again that it is not possible to call this
+    #       function with an already added channel
+    view = new AutoCompletedChannelView({
+      model: channel,
+      query: @options.mainView._lastKnownSearchValue,
+      parent: @options.mainView
+    });
+    view.render();
 
-    if ! self.alreadyAdded(channel)
-      self._autoCompletes.add(channel);
+    @options.mainView.$('.auto_complete>ul').append(view.el);
 
-      view = new AutoCompletedChannelView({
-        model: channel,
-        query: self._lastKnownSearchValue,
-        parent: self
-      });
-      view.render();
+    @options.mainView.$('.auto_complete').removeClass('empty');
 
-      self.$('.auto_complete>ul').append(view.el);
+    this.list.push(view);
 
-      self.$('.auto_complete').removeClass('empty');
+    @options.mainView.showAutoComplete();
 
-      this.list.push(view);
-
-      self.showAutoComplete();
-
-      this.hideAddNewIfNotNeeded(channel);
+    this.hideAddNewIfNotNeeded(channel);
 
 
   hideAddNewIfNotNeeded: (channel)->

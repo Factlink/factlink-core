@@ -355,11 +355,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
   onClose: function(){
     this._auto_completes_view.close();
-  },
-
-  alreadyAdded: function(channel) {
-    return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id );
   }
-
 
 });
