@@ -59,8 +59,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   onRender: function () {
     this.$el.find('.auto_complete ul').preventScrollPropagation();
 
-    this.reset();
-
     this._added_channels_view.render();
     this.$el.find('div.added_channels_container').html(this._added_channels_view.el);
 
@@ -94,18 +92,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .removeClass('hide-input')
       .find('.fake-input input').focus();
   },
-
-  closeAutoCompletedAddToChannelViews: function(){
-    _.each(this._channelViews, function (view) {
-      view.close();
-    });
-    this._channelViews = {};
-  },
-
-  reset: function () {
-    this.closeAutoCompletedAddToChannelViews();
-  },
-
 
   focusInput: function() {this.$('input.typeahead').focus(); },
   onFocusInput: function () { this.$el.addClass('focus'); },
@@ -421,7 +407,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   onClose: function(){
-    this.closeAutoCompletedAddToChannelViews();
     this.closeAutoCompleteViews();
   },
 
