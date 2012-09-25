@@ -88,6 +88,6 @@ class window.AutoCompletesView extends Backbone.View
   hideAddNewIfNotNeeded: (channel)->
     if ( channel.get('user_channel') )
       lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
-      lowerCaseSearch = options.mainView._lastKnownSearchValue.toLowerCase();
+      lowerCaseSearch = @options.mainView._lastKnownSearchValue.toLowerCase();
 
-      options.mainView.hideAddNew() if lowerCaseSearch == lowerCaseTitle
+      @options.mainView.hideAddNew() if lowerCaseSearch == lowerCaseTitle
