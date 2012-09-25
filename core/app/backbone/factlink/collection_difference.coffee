@@ -1,4 +1,4 @@
-window.collectionDifference = (type, onField,collection1, collections...) ->
+window.collectionDifference = (type, onField, collection1, collections...) ->
    result = new type()
    reset = () ->
      forbidden_fields = _.union(( for col in collections
