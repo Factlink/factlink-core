@@ -40,6 +40,8 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       mainView: this
     });
 
+    this._autoCompletes = new TopicSearchResults();
+
     this._auto_completes_view = new AutoCompletesView({
       mainView: this
     });
@@ -51,6 +53,16 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.collection.on('add', function(ch){
       self.onAddChannel(ch);
     });
+
+    this._autoCompletes.on('add', function(ch){
+      self.addAutoComplete(ch);
+    });
+    this._autoCompletes.on('reset', function(){
+      self._autoCompletes.forEach(function(ch){
+        self.addAutoComplete(ch);
+      });
+    });
+
   },
 
   onRemoveChannel: function(ch) {
@@ -285,34 +297,18 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.showLoading();
 
-    $.ajax({
-      type: "GET",
-      url: "/" + currentUser.get('username') + "/channels/find",
-      data: {
-        s: searchValue
-      }
-    }).done( _.bind( function (data) {
-      var channels = _.map(data, function (channel) {
-        return new AutoCompletedChannel(channel);
-      });
-
-      this.updateAutoComplete(channels);
-
-      this.hideLoading();
-    }, this ) );
-  }, 300),
-
-  updateAutoComplete: function (channels) {
     this.clearAutoComplete();
 
-    _.each(channels, this.addAutoComplete, this);
+    this._autoCompletes.setSearch(searchValue);
 
+    var self = this;
+    this._autoCompletes.fetch({success:function(){
+      self.showAutoComplete();
+      self.setActiveAutoComplete(0, false);
+      updateWindowHeight();
+    }});
 
-    this.showAutoComplete();
-    this.setActiveAutoComplete(0, false);
-
-    updateWindowHeight();
-  },
+  }, 300),
 
   addAutoComplete: function(channel){
     this._auto_completes_view.addAutoComplete(channel);
@@ -342,7 +338,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   clearAutoComplete: function () {
     this._auto_completes_view.closeList();
 
-    this._autoCompletes = new Backbone.Collection();
+    this._autoCompletes.reset([]);
 
     this.$el.find('.auto_complete').addClass('empty');
 
