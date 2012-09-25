@@ -34,7 +34,7 @@ class window.AutoCompletesView extends Backbone.View
     this.options.mainView.deActivateCurrent()
     key = this.fixKeyModulo(key)
 
-    if (key < @list.length && key >= 0)
+    if 0 <= key < @list.length
       @list[key].trigger('activate');
 
       if ( typeof scroll == "boolean")
