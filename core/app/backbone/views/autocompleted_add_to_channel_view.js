@@ -1,3 +1,8 @@
+window.AutoCompletesView = Backbone.View.extend({
+  initialize: function(){
+  }
+});
+
 window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   tagName: "div",
   className: "add-to-channel",
@@ -27,8 +32,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       mainView: this
     });
 
-    var self = this;
+    this._auto_completes_view = new AutoCompletesView({
+      mainView: this
+    });
 
+    var self = this;
     this.collection.on('remove', function(ch){
       self.onRemoveChannel(ch);
     });
