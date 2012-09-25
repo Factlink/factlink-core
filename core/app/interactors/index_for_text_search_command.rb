@@ -21,7 +21,10 @@ class IndexForTextSearchCommand
   def execute
     options = { body: @document.to_json }
 
+    puts `curl -XPUT http://localhost:9200/test/user/5061d79b86fdac73bf000046 -d '{name:"bla"}'`
+
     url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
+
     puts url
     HTTParty.put url, options
 
