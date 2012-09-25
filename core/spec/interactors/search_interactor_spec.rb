@@ -91,6 +91,7 @@ describe 'SearchInteractor' do
       interactor = SearchInteractor.new keywords, ability: ability
       results = ['a','b','c']
       query = mock()
+
       SolrSearchAllQuery.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)

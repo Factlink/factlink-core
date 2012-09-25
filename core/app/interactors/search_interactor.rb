@@ -1,5 +1,3 @@
-require 'logger'
-
 class SearchInteractor
   def initialize keywords, options={}
     raise 'Keywords should be an string.' unless keywords.kind_of? String
