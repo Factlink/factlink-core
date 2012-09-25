@@ -439,11 +439,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
         query: this._lastKnownSearchValue,
         parent: this
       });
-      view.on('mouseEnter', function () {
-         self.activateAutoCompleteView(this);
-      }).on('mouseLeave', function(){
-        self.deActivateAutoCompleteView();
-      });
       view.render();
 
       this.$el.find('.auto_complete>ul').append(view.el);
