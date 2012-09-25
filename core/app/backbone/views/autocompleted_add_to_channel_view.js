@@ -40,7 +40,6 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       mainView: this
     });
 
-    this._autoCompletes = new TopicSearchResults();
 
     this._auto_completes_view = new AutoCompletesView({
       mainView: this
@@ -54,14 +53,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       self.onAddChannel(ch);
     });
 
-    this._autoCompletes.on('add', function(ch){
-      self.addAutoComplete(ch);
-    });
-    this._autoCompletes.on('reset', function(){
-      self._autoCompletes.forEach(function(ch){
-        self.addAutoComplete(ch);
-      });
-    });
+
 
   },
 
@@ -207,7 +199,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       return;
     }
 
-    var to_create_user_channels = this._autoCompletes.filter( function(item) {
+    var to_create_user_channels = this._auto_completes_view.collection.filter( function(item) {
       return item.get('title') == title && item.get('user_channel');
     });
 
@@ -299,10 +291,10 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this.clearAutoComplete();
 
-    this._autoCompletes.setSearch(searchValue);
+    this._auto_completes_view.collection.setSearch(searchValue);
 
     var self = this;
-    this._autoCompletes.fetch({success:function(){
+    this._auto_completes_view.collection.fetch({success:function(){
       self.showAutoComplete();
       self.setActiveAutoComplete(0, false);
       updateWindowHeight();
@@ -338,7 +330,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   clearAutoComplete: function () {
     this._auto_completes_view.closeList();
 
-    this._autoCompletes.reset([]);
+    this._auto_completes_view.collection.reset([]);
 
     this.$('.auto_complete').addClass('empty');
 
