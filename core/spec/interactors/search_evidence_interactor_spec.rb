@@ -15,7 +15,10 @@ describe SearchEvidenceInteractor do
     stub_const 'Fact', fake_class
     stub_const 'Sunspot', fake_class
     stub_const 'FactData', fake_class
-    stub_const('CanCan::AccessDenied', Class.new(Exception))
+    stub_const 'CanCan::AccessDenied', Class.new(Exception)
+    stub_const 'Ability::FactlinkWebapp', fake_class
+    stub_const 'SolrSearchFactDataQuery', fake_class
+    stub_const 'ElasticSearchFactDataQuery', fake_class
   end
 
   it 'initializes' do
@@ -35,7 +38,7 @@ describe SearchEvidenceInteractor do
 
   it 'raises when initialized with a fact_id that is not a string' do
     expect { interactor = SearchEvidenceInteractor.new 'key words', nil }.
-      to raise_error(RuntimeError, 'Fact_id should be an integer.')
+      to raise_error(RuntimeError, 'Fact_id should be an number.')
   end
 
   describe :filter_keywords do
@@ -55,41 +58,71 @@ describe SearchEvidenceInteractor do
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
     end
 
-    it 'executes correctly' do
-      interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: relaxed_ability
+    it 'executes correctly with solr' do
+      ability = mock()
+      ability.
+        should_receive(:can?).
+        with(:index, Fact).
+        and_return(true)
+      ability.
+        should_receive(:can?).
+        with(:see_feature_elastic_search, Ability::FactlinkWebapp).
+        and_return(false)
+
+      keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new keywords, '1', ability: ability
 
       fact_data = get_fact_data '2'
-      internal_result = mock()
-      internal_result.stub :results => [fact_data]
-      Sunspot.should_receive(:search).
-        with(FactData).
-        and_return(internal_result)
+      result = [fact_data]
+      query = mock()
+
+      query.should_receive(:execute).
+        and_return(result)
+
+      SolrSearchFactDataQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+
       FactData.stub :valid => true
 
-      interactor.execute.should eq [fact_data]
+      interactor.execute.should eq result
     end
 
     it 'shouldn\'t return itself' do
-      interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '2', ability: relaxed_ability
-      internal_result = mock()
-      internal_result.stub :results => [get_fact_data('2')]
-      Sunspot.should_receive(:search).
-        with(FactData).
-        and_return(internal_result)
+      keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new keywords, '2', ability: relaxed_ability
+
+      result = [get_fact_data('2')]
+      query = mock()
+
+      ElasticSearchFactDataQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+
+      query.should_receive(:execute).
+        and_return(result)
+
       FactData.stub :valid => true
 
       interactor.execute.should eq []
     end
 
     it 'shouldn\'t return invalid results' do
-      interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: relaxed_ability
+      keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
       fact_data = get_fact_data '2'
       fact_data2 = get_fact_data '3'
-      internal_result = mock()
-      internal_result.stub :results => [fact_data, fact_data2]
-      Sunspot.should_receive(:search).
-        with(FactData).
-        and_return(internal_result)
+
+      result = [fact_data, fact_data2]
+      query = mock()
+
+      ElasticSearchFactDataQuery.should_receive(:new).
+        with('zoeken interessante dingen', 1, 20).
+        and_return(query)
+
+      query.should_receive(:execute).
+        and_return(result)
+
       FactData.should_receive(:valid).with(fact_data).and_return(false)
       FactData.should_receive(:valid).with(fact_data2).and_return(true)
 
