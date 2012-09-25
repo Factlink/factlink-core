@@ -37,7 +37,6 @@ describe 'IndexTopicForTextSearch' do
       config.stub elasticsearch_url: url
       FactlinkUI::Application.stub config: config
       url = "http://#{url}/topic/#{topic.id}"
-      puts url
       HTTParty.should_receive(:put).with(url,
         { body: { title: topic.title, slug_title: topic.slug_title}.to_json})
       interactor = IndexTopicForTextSearch.new topic
