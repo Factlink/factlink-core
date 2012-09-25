@@ -61,9 +61,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
 
   focusInput: -> @$("input.typeahead").focus()
-
   onFocusInput: -> @$el.addClass "focus"
-
   blurInput: -> @$el.removeClass "focus"
 
   deActivateCurrent: ->
@@ -79,9 +77,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     @activateAddNew()
 
   activateAddNew: -> @$(".auto_complete>div").addClass "active"
-
   deActivateAddNew: -> @$(".auto_complete>div").removeClass "active"
-
   isAddNewActive: -> @$(".auto_complete>div").hasClass "active"
 
   activateAutoCompleteView: (view) ->
@@ -155,7 +151,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     @$(".btn").removeClass "disabled"
 
   showLoading: -> @$(".loading").show()
-
   hideLoading: -> @$(".loading").hide()
 
   updateText: ->
@@ -189,13 +184,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   , 300)
 
   hideAddNew: -> @$el.addClass "hide-add-new"
-
   showAddNew: -> @$el.removeClass "hide-add-new"
-
   isAddNewVisible: -> not @$el.hasClass("hide-add-new")
 
   hideAutoComplete: -> @$(".auto_complete").hide()
-
   showAutoComplete: -> @$(".auto_complete").show()
 
   clearAutoComplete: ->
