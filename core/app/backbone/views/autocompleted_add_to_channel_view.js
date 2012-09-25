@@ -35,7 +35,104 @@ window.AutoCompletesView = Backbone.View.extend({
       this.list[this.activeChannelKey()].trigger('deactivate');
     }
 
+  },
+
+  fixKeyModulo: function(key){
+    var maxval;
+    if (this.options.mainView.isAddNewVisible()){
+      maxval = this.list.length;
+    } else {
+      maxval = this.list.length - 1;
+    }
+    if (key > maxval) {key = 0;}
+    if (key < 0) {key = maxval;}
+    return key;
+  },
+
+  setActiveAutoComplete: function (key, scroll) {
+    this.options.mainView.deActivateCurrent();
+    key = this.fixKeyModulo(key);
+
+    if (key < this.list.length && key >= 0) {
+      this.list[key].trigger('activate');
+      if ( typeof scroll === "boolean") {
+        var list = this.options.mainView.$el.find("div.auto_complete ul")[0];
+        if (list.scrollHeight > list.clientHeight) {
+          this.list[key].el.scrollIntoView(scroll);
+        }
+      }
+    } else {
+      this.options.mainView.activateAddNew();
+    }
+    this.setActiveChannelKey(key);
+  },
+
+  moveSelectionUp: function (e) {
+    var prevKey;
+
+    if ( this.activeChannelKey() !== undefined ) {
+      prevKey = this.activeChannelKey() - 1;
+    } else {
+      prevKey = -1;
+    }
+
+    this.setActiveAutoComplete(prevKey, false);
+
+    e.preventDefault();
+  },
+
+  moveSelectionDown: function (e) {
+    var nextKey;
+
+    if ( this.activeChannelKey() !== undefined ) {
+      nextKey = this.activeChannelKey() + 1;
+    } else {
+      nextKey = 0;
+    }
+
+    this.setActiveAutoComplete(nextKey, false);
+
+
+    e.preventDefault();
+  },
+
+  addAutoComplete: function (channel) {
+    // WATCH IT!
+    var self = this.options.mainView;
+
+    if ( ! self.alreadyAdded(channel) ) {
+      self._autoCompletes.add(channel);
+
+      var view = new AutoCompletedChannelView({
+        model: channel,
+        query: self._lastKnownSearchValue,
+        parent: self
+      });
+      view.render();
+
+      self.$('.auto_complete>ul').append(view.el);
+
+      self.$('.auto_complete').removeClass('empty');
+
+      this.list.push(view);
+
+      self.showAutoComplete();
+
+      this.hideAddNewIfNotNeeded(channel);
+    }
+  },
+
+  hideAddNewIfNotNeeded: function(channel){
+    if ( channel.get('user_channel') ) {
+      var lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
+      var lowerCaseSearch = options.mainView._lastKnownSearchValue.toLowerCase();
+
+      if ( lowerCaseSearch === lowerCaseTitle ) {
+        options.mainView.hideAddNew();
+      }
+    }
   }
+
 
 });
 
@@ -118,10 +215,10 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
         this.parseReturn(e);
         break;
       case 40:
-        this.moveSelectionDown(e);
+        this._auto_completes_view.moveSelectionDown(e);
         break;
       case 38:
-        this.moveSelectionUp(e);
+        this._auto_completes_view.moveSelectionUp(e);
         break;
       case 27:
         this.hideAutoComplete();
@@ -142,69 +239,13 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   onFocusInput: function () { this.$el.addClass('focus'); },
   blurInput: function () { this.$el.removeClass('focus'); },
 
-  moveSelectionUp: function (e) {
-    var prevKey;
-
-    if ( this.activeChannelKey() !== undefined ) {
-      prevKey = this.activeChannelKey() - 1;
-    } else {
-      prevKey = -1;
-    }
-
-    this.setActiveAutoComplete(prevKey, false);
-
-    e.preventDefault();
-  },
-
-  moveSelectionDown: function (e) {
-    var nextKey;
-
-    if ( this.activeChannelKey() !== undefined ) {
-      nextKey = this.activeChannelKey() + 1;
-    } else {
-      nextKey = 0;
-    }
-
-    this.setActiveAutoComplete(nextKey, false);
-
-
-    e.preventDefault();
-  },
-
   deActivateCurrent: function(){
     this._auto_completes_view.deActivateCurrent();
     this.deActivateAddNew();
   },
 
-  fixKeyModulo: function(key){
-    var maxval;
-    if (this.isAddNewVisible()){
-      maxval = this._auto_completes_view.list.length;
-    } else {
-      maxval = this._auto_completes_view.list.length - 1;
-    }
-    if (key > maxval) {key = 0;}
-    if (key < 0) {key = maxval;}
-    return key;
-  },
-
-
   setActiveAutoComplete: function (key, scroll) {
-    this.deActivateCurrent();
-    key = this.fixKeyModulo(key);
-
-    if (key < this._auto_completes_view.list.length && key >= 0) {
-      this._auto_completes_view.list[key].trigger('activate');
-      if ( typeof scroll === "boolean") {
-        var list = this.$el.find("div.auto_complete ul")[0];
-        if (list.scrollHeight > list.clientHeight) {
-          this._auto_completes_view.list[key].el.scrollIntoView(scroll);
-        }
-      }
-    } else {
-      this.activateAddNew();
-    }
-    this.setActiveChannelKey(key);
+    this._auto_completes_view.setActiveAutoComplete(key,scroll);
   },
 
   selectAddNew: function () {
@@ -405,6 +446,10 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     updateWindowHeight();
   },
 
+  addAutoComplete: function(channel){
+    this._auto_completes_view.addAutoComplete(channel);
+  },
+
   hideAddNew: function () {
     this.$el.addClass('hide-add-new');
   },
@@ -446,37 +491,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
   alreadyAdded: function(channel) {
     return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id );
-  },
-
-  addAutoComplete: function (channel) {
-    var self = this;
-    if ( ! this.alreadyAdded(channel) ) {
-      this._autoCompletes.add(channel);
-
-      var view = new AutoCompletedChannelView({
-        model: channel,
-        query: this._lastKnownSearchValue,
-        parent: this
-      });
-      view.render();
-
-      this.$('.auto_complete>ul').append(view.el);
-
-      this.$('.auto_complete').removeClass('empty');
-
-      this._auto_completes_view.list.push(view);
-
-      this.showAutoComplete();
-
-      if ( channel.get('user_channel') ) {
-        var lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
-        var lowerCaseSearch = this._lastKnownSearchValue.toLowerCase();
-
-        if ( lowerCaseSearch === lowerCaseTitle ) {
-          this.hideAddNew();
-        }
-      }
-    }
   }
+
 
 });
