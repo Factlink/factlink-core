@@ -10,7 +10,6 @@ describe 'ElasticSearchAllQuery' do
     stub_const 'FactData', fake_class
     stub_const 'User', fake_class
     stub_const 'Topic', fake_class
-    stub_const 'FactData', fake_class
     stub_const 'FactlinkUI::Application', fake_class
   end
 
