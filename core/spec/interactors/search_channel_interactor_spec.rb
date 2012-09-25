@@ -44,10 +44,10 @@ describe "SearchChannelInteractor" do
   end
 
   describe :filter_keywords do
-    it 'removes words whose length is smaller then 3 characters' do
+    it 'removes words whose length is smaller then 2 characters' do
       interactor = SearchChannelInteractor.new 'z hh interessante d blijven', @user, ability: relaxed_ability
 
-      interactor.filter_keywords.should eq "interessante blijven"
+      interactor.filter_keywords.should eq "hh interessante blijven"
     end
   end
 
