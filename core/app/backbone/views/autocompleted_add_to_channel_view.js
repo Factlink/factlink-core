@@ -356,7 +356,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   clearInput: function () {
-    this.$el.find('input.typeahead').val('');
+    this.$('input.typeahead').val('');
 
     if ( this.collection.length ) {
       this.$el.addClass('hide-input');
@@ -368,7 +368,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .addClass('disabled')
       .find('input.typeahead').prop('disabled', true);
 
-    this.$el.find('.btn').addClass('disabled');
+    this.$('.btn').addClass('disabled');
   },
 
   enable: function () {
@@ -376,15 +376,15 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       .removeClass('disabled')
       .find('input.typeahead').prop('disabled', false);
 
-    this.$el.find('.btn').removeClass('disabled');
+    this.$('.btn').removeClass('disabled');
   },
 
   showLoading: function () {
-    this.$el.find('.loading').show();
+    this.$('.loading').show();
   },
 
   hideLoading: function () {
-    this.$el.find('.loading').hide();
+    this.$('.loading').hide();
   },
 
   updateText: function () {
@@ -392,7 +392,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     if ( value.length ) {
       this.$el.addClass('has-text');
 
-      this.$el.find(".search").text( value );
+      this.$(".search").text( value );
     } else {
       this.$el.removeClass('has-text');
     }
