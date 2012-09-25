@@ -1,6 +1,7 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/search_channel_interactor.rb', __FILE__)
 
-describe "SearchChannelInteractor" do
+describe SearchChannelInteractor do
 
   let(:relaxed_ability) do
     ability = mock()
@@ -43,15 +44,7 @@ describe "SearchChannelInteractor" do
       to raise_error(RuntimeError, 'User should be of User type.')
   end
 
-  describe :filter_keywords do
-    it 'removes words whose length is smaller then 2 characters' do
-      interactor = SearchChannelInteractor.new 'z hh interessante d blijven', @user, ability: relaxed_ability
-
-      interactor.filter_keywords.should eq "hh interessante blijven"
-    end
-  end
-
-  describe :execute do
+  describe '.execute' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
       ability = mock()
@@ -61,8 +54,8 @@ describe "SearchChannelInteractor" do
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
     end
 
-    it 'executes correctly' do
-      keywords = "searching for this channel"
+    it 'correctly' do
+      keywords = 'searching for this channel'
       interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
       topic = mock()
       query = mock()
@@ -75,7 +68,31 @@ describe "SearchChannelInteractor" do
       interactor.execute.should eq [topic]
     end
 
-    it 'executes correctly with solr' do
+    it 'filters keywords with length < 2' do
+      keywords = 'searching f this channel'
+      filtered_keywords = 'searching this channel'
+      interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+      topic = mock()
+      query = mock()
+      query.should_receive(:execute).
+        and_return([topic])
+      ElasticSearchChannelQuery.should_receive(:new).
+        with(filtered_keywords, 1, 20).
+        and_return(query)
+
+      interactor.execute.should eq [topic]
+    end
+
+    it 'filters keywords with length < 2 and don''t query because search is empty' do
+      keywords = 'f'
+      interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+
+      ElasticSearchChannelQuery.should_not_receive(:new)
+
+      interactor.execute.should eq []
+    end
+
+    it 'correctly with solr' do
       ability = mock()
       ability.
         should_receive(:can?).
@@ -89,7 +106,7 @@ describe "SearchChannelInteractor" do
         should_receive(:can?).
         with(:see_feature_elastic_search, Ability::FactlinkWebapp).
         and_return(false)
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       interactor = SearchChannelInteractor.new keywords, @user, ability: ability
       topic = mock()
       query = mock()

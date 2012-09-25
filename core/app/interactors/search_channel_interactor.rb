@@ -11,11 +11,6 @@ class SearchChannelInteractor
     @row_count = options[:row_count] || 20
   end
 
-  def authorized?
-    @ability.can? :index, Topic
-    @ability.can? :show, @user
-  end
-
   def execute
     raise CanCan::AccessDenied unless authorized?
 
@@ -33,12 +28,17 @@ class SearchChannelInteractor
     results
   end
 
+  private
   def filter_keywords
     @keywords.split(/\s+/).select{|x|x.length > 1}.join(" ")
   end
 
-  private
   def use_elastic_search?
     @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
+  end
+
+  def authorized?
+    @ability.can? :index, Topic
+    @ability.can? :show, @user
   end
 end

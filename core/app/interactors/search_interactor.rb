@@ -9,14 +9,6 @@ class SearchInteractor
     @row_count = options[:row_count] || 20
   end
 
-  def authorized?
-    @ability.can? :index, Fact
-  end
-
-  def use_elastic_search?
-    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
-  end
-
   def execute
     raise CanCan::AccessDenied unless authorized?
 
@@ -39,7 +31,16 @@ class SearchInteractor
     results
   end
 
+  private
   def filter_keywords
     @keywords.split(/\s+/).select{|x|x.length > 2}.join(" ")
+  end
+
+  def authorized?
+    @ability.can? :index, Fact
+  end
+
+  def use_elastic_search?
+    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
   end
 end

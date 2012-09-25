@@ -1,3 +1,4 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/add_fact_to_channel_interactor.rb', __FILE__)
 
 describe AddFactToChannelInteractor do
@@ -15,7 +16,7 @@ describe AddFactToChannelInteractor do
     stub_const 'Fact', fake_class
     stub_const 'Channel', fake_class
 
-    stub_const("CanCan::AccessDenied", Class.new(Exception))
+    stub_const('CanCan::AccessDenied', Class.new(Exception))
   end
 
   it 'initializes' do
@@ -48,7 +49,7 @@ describe AddFactToChannelInteractor do
     expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
   end
 
-  describe :execute do
+  describe '.execute' do
     context 'when properly initialized' do
       it 'executes correctly' do
         fact_id = '13'

@@ -1,6 +1,7 @@
+require_relative '../interactor_spec_helper'
 require File.expand_path('../../../../app/interactors/queries/elastic_search_all_query.rb', __FILE__)
 
-describe 'ElasticSearchAllQuery' do
+describe ElasticSearchAllQuery do
   def fake_class
     Class.new
   end
@@ -14,21 +15,20 @@ describe 'ElasticSearchAllQuery' do
   end
 
   it 'intializes correctly' do
-    query = ElasticSearchAllQuery.new "interesting search keywords", 1, 20
+    query = ElasticSearchAllQuery.new 'interesting search keywords', 1, 20
 
     query.should_not be_nil
   end
 
-  describe 'execute' do
-
+  describe '.execute' do
     ['user', 'topic', 'factdata'].each do |type|
       it "correctly with return value of #{type} class" do
         config = mock()
-        base_url = "1.0.0.0:4000/index"
+        base_url = '1.0.0.0:4000/index'
         config.stub elasticsearch_url: base_url
         FactlinkUI::Application.stub config: config
-        keywords = "searching for this channel"
-        wildcard_keywords = "*searching* *for* *this* *channel*"
+        keywords = 'searching for this channel'
+        wildcard_keywords = '*searching*+*for*+*this*+*channel*'
         interactor = ElasticSearchAllQuery.new keywords, 1, 20
 
         hit = mock()
@@ -66,10 +66,10 @@ describe 'ElasticSearchAllQuery' do
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
       config = mock()
-      base_url = "1.0.0.0:4000/index"
+      base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       results = mock()
       error_response = 'error has happened server side'
       results.stub response: error_response
@@ -82,6 +82,26 @@ describe 'ElasticSearchAllQuery' do
       query = ElasticSearchAllQuery.new keywords, 1, 20, logger: logger
 
       expect { query.execute }.to raise_error(RuntimeError, error_message)
+    end
+
+    it 'url encodes correctly' do
+      config = mock()
+      base_url = '1.0.0.0:4000/index'
+      config.stub elasticsearch_url: base_url
+      FactlinkUI::Application.stub config: config
+      keywords = '$+,:; @=?&=/'
+      wildcard_keywords = '*%24%2B%2C%3A%3B*+*%40%3D%3F%26%3D%2F*'
+      interactor = ElasticSearchAllQuery.new keywords, 1, 20
+
+      results = mock()
+      results.stub code: 200
+      results.stub parsed_response: { 'hits' => { 'hits' => [ ] } }
+
+      HTTParty.should_receive(:get).
+        with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20").
+        and_return(results)
+
+      interactor.execute.should eq []
     end
   end
 end

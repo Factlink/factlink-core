@@ -1,3 +1,4 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/index_topic_for_text_search.rb', __FILE__)
 require 'json'
 
@@ -29,7 +30,7 @@ describe 'IndexTopicForTextSearch' do
       to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
   end
 
-  describe 'execute' do
+  describe '.execute' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()

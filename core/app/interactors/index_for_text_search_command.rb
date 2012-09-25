@@ -18,6 +18,15 @@ class IndexForTextSearchCommand
     raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
   end
 
+  def execute
+    options = { body: @document.to_json }
+
+    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}", options
+
+    @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
+  end
+
+  private
   def type type_name
     @type_name = type_name
   end
@@ -32,13 +41,5 @@ class IndexForTextSearchCommand
     else
       @missing_fields << name
     end
-  end
-
-  def execute
-    options = { body: @document.to_json }
-
-    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}", options
-
-    @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
   end
 end

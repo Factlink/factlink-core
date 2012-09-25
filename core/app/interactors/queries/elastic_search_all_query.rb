@@ -12,7 +12,7 @@ class ElasticSearchAllQuery < ElasticSearch
   def execute
     from = (@page - 1) * @row_count
 
-    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/_search?q=#{wildcardify_keywords}&from=#{from}&size=#{@row_count}"
+    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/_search?q=#{process_keywords}&from=#{from}&size=#{@row_count}"
     results = HTTParty.get url
     handle_httparty_error results
 
@@ -31,11 +31,9 @@ class ElasticSearchAllQuery < ElasticSearch
   def get_object id, type
     if(type == 'factdata')
       return FactData.find(id)
-    end
-    if (type == 'topic')
+    elsif (type == 'topic')
       return Topic.find(id)
-    end
-    if (type == 'user')
+    elsif (type == 'user')
       return User.find(id)
     end
     raise 'Object type unknown.'

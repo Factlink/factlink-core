@@ -1,6 +1,7 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/search_interactor.rb', __FILE__)
 
-describe 'SearchInteractor' do
+describe SearchInteractor do
   let(:relaxed_ability) do
     ability = mock()
     ability.stub can?: true
@@ -36,15 +37,7 @@ describe 'SearchInteractor' do
       to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe :filter_keywords do
-    it 'removes words whose length is smaller then 3 characters' do
-      interactor = SearchInteractor.new 'z hh interessante d blijven', ability: relaxed_ability
-
-      interactor.filter_keywords.should eq "interessante blijven"
-    end
-  end
-
-  describe :execute do
+  describe '.execute' do
     it 'raises when executed without any permission' do
       ability = mock()
       ability.stub can?: false
@@ -77,8 +70,32 @@ describe 'SearchInteractor' do
       interactor.execute.should eq results
     end
 
+    it 'filters keywords with length < 3' do
+      keywords = "searching fo this channel"
+      filtered_keywords = "searching this channel"
+      interactor = SearchInteractor.new keywords, ability: relaxed_ability
+      results = ['a','b','c']
+
+      query = mock()
+      ElasticSearchAllQuery.should_receive(:new).
+        with(filtered_keywords, 1, 20).
+        and_return(query)
+      query.should_receive(:execute).
+        and_return(results)
+
+      interactor.execute.should eq results
+    end
+
+    it 'filters keywords with length < 3 and don''t query because search is empty' do
+      keywords = "fo"
+      interactor = SearchInteractor.new keywords, ability: relaxed_ability
+      ElasticSearchAllQuery.should_not_receive(:new)
+
+      interactor.execute.should eq []
+    end
+
     it 'correctly with solr' do
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       ability = mock()
       ability.
         should_receive(:can?).
@@ -102,7 +119,7 @@ describe 'SearchInteractor' do
     end
 
     it 'invalid Factdata is filtered' do
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
       fact_data = FactData.new
       results =  [fact_data]
@@ -118,7 +135,7 @@ describe 'SearchInteractor' do
     end
 
     it 'hidden User is filtered' do
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
       user = User.new
       user.stub hidden: true

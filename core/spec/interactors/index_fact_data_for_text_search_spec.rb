@@ -1,6 +1,7 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/index_fact_data_for_text_search.rb', __FILE__)
 
-describe 'IndexFactDataForTextSearch' do
+describe IndexFactDataForTextSearch do
   def fake_class
     Class.new
   end
@@ -29,7 +30,7 @@ describe 'IndexFactDataForTextSearch' do
       to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
   end
 
-  describe 'execute' do
+  describe '.execute' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()

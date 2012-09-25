@@ -1,3 +1,4 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/search_evidence_interactor.rb', __FILE__)
 
 describe SearchEvidenceInteractor do
@@ -40,15 +41,7 @@ describe SearchEvidenceInteractor do
       to raise_error(RuntimeError, 'Fact_id should be an number.')
   end
 
-  describe :filter_keywords do
-    it 'removes words whose length is smaller then 3 characters' do
-      interactor = SearchEvidenceInteractor.new 'z hh interessante d blijven', '1', ability: relaxed_ability
-
-      interactor.filter_keywords.should eq "interessante blijven"
-    end
-  end
-
-  describe :execute do
+  describe '.execute' do
     it 'raises when executed without any permission' do
       ability = mock()
       ability.stub can?: false
@@ -57,7 +50,7 @@ describe SearchEvidenceInteractor do
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
     end
 
-    it 'executes correctly with solr' do
+    it 'correctly with solr' do
       ability = mock()
       ability.
         should_receive(:can?).
@@ -87,7 +80,7 @@ describe SearchEvidenceInteractor do
       interactor.execute.should eq result
     end
 
-    it 'shouldn\'t return itself' do
+    it 'shouldn''t return itself' do
       keywords = 'zoeken interessante dingen'
       interactor = SearchEvidenceInteractor.new keywords, '2', ability: relaxed_ability
 
@@ -106,7 +99,54 @@ describe SearchEvidenceInteractor do
       interactor.execute.should eq []
     end
 
-    it 'shouldn\'t return invalid results' do
+    it 'correctly' do
+      keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
+
+      result = [get_fact_data('2')]
+      query = mock()
+
+      ElasticSearchFactDataQuery.should_receive(:new).
+        with(keywords, 1, 20).
+        and_return(query)
+
+      query.should_receive(:execute).
+        and_return(result)
+
+      FactData.stub :valid => true
+
+      interactor.execute.should eq result
+    end
+
+    it 'filters keywords with length < 3' do
+      keywords = 'zoeken fo interessante dingen'
+      filtered_keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
+
+      result = [get_fact_data('2')]
+      query = mock()
+
+      ElasticSearchFactDataQuery.should_receive(:new).
+        with(filtered_keywords, 1, 20).
+        and_return(query)
+
+      query.should_receive(:execute).
+        and_return(result)
+
+      FactData.stub :valid => true
+
+      interactor.execute.should eq result
+    end
+
+    it 'filters keywords with length < 3 and don''t query because search is empty' do
+      keywords = 'fo'
+      interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
+      ElasticSearchFactDataQuery.should_not_receive(:new)
+
+      interactor.execute.should eq []
+    end
+
+    it 'shouldn''t return invalid results' do
       keywords = 'zoeken interessante dingen'
       interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
       fact_data = get_fact_data '2'

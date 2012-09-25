@@ -1,6 +1,7 @@
+require_relative '../interactor_spec_helper'
 require File.expand_path('../../../../app/interactors/queries/elastic_search_channel_query.rb', __FILE__)
 
-describe 'ElasticSearchChannelQuery' do
+describe ElasticSearchChannelQuery do
   def fake_class
     Class.new
   end
@@ -16,14 +17,14 @@ describe 'ElasticSearchChannelQuery' do
     query.should_not be_nil
   end
 
-  describe 'execute' do
-    it 'executes correctly' do
+  describe '.execute' do
+    it 'correctly' do
       config = mock()
       base_url = "1.0.0.0:4000/index"
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = "searching for this channel"
-      wildcard_keywords = "*searching* *for* *this* *channel*"
+      keywords = 'searching for this channel'
+      wildcard_keywords = '*searching*+*for*+*this*+*channel*'
       query = ElasticSearchChannelQuery.new keywords, 1, 20
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
@@ -44,10 +45,10 @@ describe 'ElasticSearchChannelQuery' do
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
       config = mock()
-      base_url = "1.0.0.0:4000/index"
+      base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = "searching for this channel"
+      keywords = 'searching for this channel'
       results = mock()
       error_response = 'error has happened server side'
       results.stub response: error_response
@@ -60,6 +61,31 @@ describe 'ElasticSearchChannelQuery' do
       query = ElasticSearchChannelQuery.new keywords, 1, 20, logger: logger
 
       expect { query.execute }.to raise_error(RuntimeError, error_message)
+    end
+
+    it 'url encodes correctly' do
+      config = mock()
+      base_url = '1.0.0.0:4000/index'
+      config.stub elasticsearch_url: base_url
+      FactlinkUI::Application.stub config: config
+      keywords = '$+,:; @=?&=/'
+      wildcard_keywords = '*%24%2B%2C%3A%3B*+*%40%3D%3F%26%3D%2F*'
+      query = ElasticSearchChannelQuery.new keywords, 1, 20
+      hit = mock()
+      hit.should_receive(:[]).with('_id').and_return(1)
+      results = mock()
+      results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
+      results.stub code: 200
+      url = 'test'
+      HTTParty.should_receive(:get).
+        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20").
+        and_return(results)
+      return_object = mock()
+      Topic.should_receive(:find).
+        with(1).
+        and_return(return_object)
+
+      query.execute.should eq [return_object]
     end
   end
 end

@@ -1,6 +1,7 @@
+require_relative '../interactor_spec_helper'
 require File.expand_path('../../../../app/interactors/queries/solr_search_channel_query.rb', __FILE__)
 
-describe 'SolrSearchChannelQuery' do
+describe SolrSearchChannelQuery do
   def fake_class
     Class.new
   end
@@ -15,8 +16,8 @@ describe 'SolrSearchChannelQuery' do
     query.should_not be_nil
   end
 
-  it 'executes correctly' do
-    keywords = "searching for this channel"
+  it '.execute correctly' do
+    keywords = 'searching for this channel'
     query = SolrSearchChannelQuery.new keywords, 1, 20
     internal_result = mock()
     results = mock()

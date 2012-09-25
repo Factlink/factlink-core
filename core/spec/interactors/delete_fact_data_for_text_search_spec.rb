@@ -1,6 +1,7 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/delete_fact_data_for_text_search.rb', __FILE__)
 
-describe 'DeleteFactDataForTextSearch' do
+describe DeleteFactDataForTextSearch do
   def fake_class
     Class.new
   end
@@ -27,7 +28,7 @@ describe 'DeleteFactDataForTextSearch' do
       to raise_error(RuntimeError, 'factdata missing fields ([:id]).')
   end
 
-  describe 'execute' do
+  describe '.execute' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()

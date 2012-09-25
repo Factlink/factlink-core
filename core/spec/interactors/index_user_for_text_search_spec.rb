@@ -1,6 +1,7 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/index_user_for_text_search.rb', __FILE__)
 
-describe 'IndexUserForTextSearch' do
+describe IndexUserForTextSearch do
   def fake_class
     Class.new
   end
@@ -28,7 +29,7 @@ describe 'IndexUserForTextSearch' do
       to raise_error(RuntimeError, 'user missing fields ([:username, :id]).')
   end
 
-  describe 'execute' do
+  describe '.execute' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
