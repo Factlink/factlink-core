@@ -461,5 +461,3 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   }
 
 });
-
-_.extend(AutoCompletedAddToChannelView.prototype, TemplateMixin);
