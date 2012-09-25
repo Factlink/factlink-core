@@ -3,10 +3,9 @@ class window.AutoCompletesView extends Backbone.View
     this.list = [];
     @collection = new TopicSearchResults();
 
-    @collection.on 'add', (ch) =>
-      @options.mainView.addAutoComplete(ch)
+    @collection.on 'add', (ch) => @addAutoComplete(ch)
     @collection.on 'reset', =>
-        @collection.forEach (ch) => @options.mainView.addAutoComplete(ch)
+        @collection.forEach (ch) => @addAutoComplete(ch)
 
   closeList: ->
     view.close() for view in @list
