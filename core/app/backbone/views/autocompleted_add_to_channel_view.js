@@ -1,3 +1,10 @@
+var updateWindowHeight = function(){
+  if (window.updateHeight) {
+    window.updateHeight();
+  }
+};
+
+
 window.AutoCompletesView = Backbone.View.extend({
   initialize: function(){
     this.list = [];
@@ -55,13 +62,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
   onAddChannel: function(ch) {
     this.$el.addClass('hide-input');
-    this.updateHeight();
-  },
-
-  updateHeight: function(){
-    if (window.updateHeight) {
-      window.updateHeight();
-    }
+    updateWindowHeight();
   },
 
   onRender: function () {
@@ -70,7 +71,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this._added_channels_view.render();
     this.$el.find('div.added_channels_container').html(this._added_channels_view.el);
 
-    this.updateHeight();
+    updateWindowHeight();
   },
 
   parseKeyDown: function (e) {
@@ -367,9 +368,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     this.showAutoComplete();
     this.setActiveAutoComplete(0, false);
 
-    if ( window.updateHeight ) {
-      window.updateHeight();
-    }
+    updateWindowHeight();
   },
 
   hideAddNew: function () {
