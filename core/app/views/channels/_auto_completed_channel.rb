@@ -8,7 +8,7 @@ module Channels
       ch = ::Channel.find(created_by_id: current_graph_user.id, slug_title: title.to_url).first
 
       if ch
-        Channel.for(:channel => ch, view: self).to_hash
+        Channel.for(channel: ch, view: self).to_hash
       else
         false
       end
