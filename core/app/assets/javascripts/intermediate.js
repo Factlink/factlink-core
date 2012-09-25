@@ -10,7 +10,8 @@ var // The iFrame
         show: {},
         highlightNewFactlink: {},
         stopHighlightingFactlink: {},
-        createdNewFactlink: {}
+        createdNewFactlink: {},
+        trigger: {}
       },
       local: {
         showFactlink: function(id, successFn) {

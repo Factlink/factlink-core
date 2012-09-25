@@ -164,7 +164,7 @@ window.BaseFactWheelView = Backbone.View.extend({
           ['A', radius, radius, 0, (largeAngle ? 1 : 0), 0, endX, endY]
         ]
       };
-    }
+    };
   },
 
   mouseoverOpinionType: function (path, opinionType) {
@@ -201,8 +201,8 @@ window.BaseFactWheelView = Backbone.View.extend({
     $('div.tooltip',this.$el).remove();
 
     this.$el.find('.authority').tooltip({
-      title: "This number represents the amount of thinking "
-           + "spent by people on this Factlink"
+      title: "This number represents the amount of thinking " +
+             "spent by people on this Factlink"
     });
 
     // Create tooltips for each opinionType (believe, disbelieve etc)

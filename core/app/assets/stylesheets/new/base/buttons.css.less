@@ -1,0 +1,28 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.home {
+  .btn-primary,
+  .btn-primary:hover {
+      text-shadow: 0 1px 0 #feed7b;
+      color: #7e582f;
+      font-size: 14px;
+      line-height: 22px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+  .btn-primary {
+    #gradient > .vertical(#F8D36D, #FDBA39);
+    background-color: #FDBA39;
+    border-color: #FDBA39 #FDBA39 #DC941F;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  }
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.active,
+  .btn-primary.disabled,
+  .btn-primary[disabled] {
+    background-color: #FDBA39;
+  }
+}

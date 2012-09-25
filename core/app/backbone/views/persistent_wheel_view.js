@@ -1,9 +1,7 @@
 (function() {
 window.PersistentWheelView = BaseFactWheelView.extend({
   clickOpinionType: function (opinionType, e) {
-    if ( parent.parent && parent.parent.FACTLINK )  {
-      parent.parent.FACTLINK.opinionSet();
-    }
+    this.trigger('opinionSet');
 
     this.updateTo("1.0", {
       believe: getHash(opinionType.get('type'), "believe"),
