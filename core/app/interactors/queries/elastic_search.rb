@@ -2,7 +2,7 @@ require 'cgi'
 
 class ElasticSearch
   private
-  def process_keywords
+  def processed_keywords
     @keywords.split(/\s+/).map{|x| "*#{CGI::escape(x)}*"}.join("+")
   end
 
