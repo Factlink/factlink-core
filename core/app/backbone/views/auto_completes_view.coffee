@@ -15,11 +15,9 @@ class window.AutoCompletesView extends Backbone.View
 
   onClose: -> @closeList()
 
-  activeChannelKey: ->
-    return this.options.mainView._activeChannelKey
-
+  activeChannelKey: -> @options.mainView._activeChannelKey
   setActiveChannelKey: (value)->
-    this.options.mainView._activeChannelKey = value
+    @options.mainView._activeChannelKey = value
 
   deActivateCurrent: () ->
     if ( @list[@activeChannelKey()] )
@@ -57,18 +55,12 @@ class window.AutoCompletesView extends Backbone.View
 
   moveSelectionUp: (e)->
     prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
-
     this.setActiveAutoComplete(prevKey, false)
-
     e.preventDefault()
 
   moveSelectionDown: (e)->
-
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
-
     this.setActiveAutoComplete(nextKey, false)
-
-
     e.preventDefault()
 
   addAutoComplete: (channel)->
@@ -82,14 +74,13 @@ class window.AutoCompletesView extends Backbone.View
     view.render();
 
     @options.mainView.$('.auto_complete>ul').append(view.el);
-
     @options.mainView.$('.auto_complete').removeClass('empty');
 
     this.list.push(view);
 
     @options.mainView.showAutoComplete();
 
-    this.hideAddNewIfNotNeeded(channel);
+    @hideAddNewIfNotNeeded(channel);
 
 
   hideAddNewIfNotNeeded: (channel)->
