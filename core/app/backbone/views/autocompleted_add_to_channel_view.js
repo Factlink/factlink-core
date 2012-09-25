@@ -1,4 +1,4 @@
-window.AutoCompletedAddToChannelView = Backbone.View.extend({
+window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   tagName: "div",
   className: "add-to-channel",
 
@@ -18,21 +18,53 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   template: "channels/_auto_completed_add_to_channel",
 
   initialize: function () {
-    this._channelViews = {};
     this._autoCompleteViews = [];
     this.vent = new Backbone.Marionette.EventAggregator();
 
     this.collection = new OwnChannelCollection();
-    this.collection.bind('add', this.addChannel, this);
+    this._added_channel_view = new AutoCompletedAddedChannelsView({
+      collection: this.collection,
+      mainView: this
+    });
+
+    var self = this;
+
+    this.collection.on('remove', function(ch){
+      self.onRemoveChannel(ch);
+    });
+    this.collection.on('add', function(ch){
+      self.onAddChannel(ch);
+    });
   },
 
-  render: function () {
-    this.$el.html( this.templateRender(this.model) );
+  onRemoveChannel: function(ch) {
+    if (this.collection.length) {
+      this.$el.addClass('hide-input');
+    } else {
+      this.$el.removeClass('hide-input');
+    }
+  },
 
+  onAddChannel: function(ch) {
+    this.$el.addClass('hide-input');
+    this.updateHeight();
+  },
+
+  updateHeight: function(){
+    if (window.updateHeight) {
+      window.updateHeight();
+    }
+  },
+
+  onRender: function () {
     this.$el.find('.auto_complete ul').preventScrollPropagation();
 
     this.reset();
-    return this;
+
+    this._added_channel_view.render();
+    this.$el.find('div.added_channels_container').html(this._added_channel_view.el);
+
+    this.updateHeight();
   },
 
   parseKeyDown: function (e) {
@@ -63,26 +95,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
       .find('.fake-input input').focus();
   },
 
-  addChannel: function (channel) {
-    var self = this;
-    var view = new AutoCompletedAddedChannelView({model: channel});
-    view.on('remove',function() {
-      self.removeAddedChannel(this.model);
-    });
-
-    view.render();
-
-    this.$el.addClass('hide-input');
-
-    this.$el.find('.added_channels').append( view.el );
-
-    this._channelViews[channel.id] = view;
-
-    if ( window.updateHeight ) {
-      window.updateHeight();
-    }
-  },
-
   closeAutoCompletedAddToChannelViews: function(){
     _.each(this._channelViews, function (view) {
       view.close();
@@ -92,10 +104,6 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   reset: function () {
     this.closeAutoCompletedAddToChannelViews();
-
-    this.collection.each(function(channel) {
-      this.addChannel(channel);
-    }, this);
   },
 
 
@@ -154,12 +162,12 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
 
   setActiveAutoComplete: function (key, scroll) {
     this.deActivateCurrent();
-    key = this.fixKeyModulo(key)
+    key = this.fixKeyModulo(key);
 
     if (key < this._autoCompleteViews.length && key >= 0) {
       this._autoCompleteViews[key].trigger('activate');
       if ( typeof scroll === "boolean") {
-        var list = this.$el.find("div.auto_complete ul")[0]
+        var list = this.$el.find("div.auto_complete ul")[0];
         if (list.scrollHeight > list.clientHeight) {
           this._autoCompleteViews[key].el.scrollIntoView(scroll);
         }
@@ -228,7 +236,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   isDupe: function(title){
-    return this.collection.where({title: title}).length > 0
+    return this.collection.where({title: title}).length > 0;
   },
 
   completelyDisappear: function (){
@@ -418,7 +426,7 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
   },
 
   alreadyAdded: function(channel) {
-    return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id )
+    return channel.get('user_channel') && this.collection.get( channel.get('user_channel').id );
   },
 
   addAutoComplete: function (channel) {
@@ -455,25 +463,8 @@ window.AutoCompletedAddToChannelView = Backbone.View.extend({
         }
       }
     }
-  },
-
-  removeAddedChannel: function (channel) {
-    var id = channel.id;
-    this._channelViews[id].close();
-
-    delete this._channelViews[id];
-
-    this.vent.trigger("removeChannel", channel);
-
-
-    this.collection.remove(id);
-
-    if ( this.collection.length ) {
-      this.$el.addClass("hide-input");
-    } else {
-      this.$el.removeClass("hide-input");
-    }
   }
+
 });
 
 _.extend(AutoCompletedAddToChannelView.prototype, TemplateMixin);
