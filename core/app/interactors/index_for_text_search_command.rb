@@ -21,7 +21,9 @@ class IndexForTextSearchCommand
   def execute
     options = { body: @document.to_json }
 
-    HTTParty.put "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}", options
+    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
+    puts url
+    HTTParty.put url, options
 
     @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
   end
