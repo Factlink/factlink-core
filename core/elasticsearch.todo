@@ -8,7 +8,7 @@ elasticsearch:
  ✔ feature toggle maken @done (12-09-24 18:03)
  ✔ feature toggle implementeren in all @done (12-09-24 18:08)
  ✔ feature toggle implementeren in channel @done (12-09-24 18:08)
- ☐ feature toggle implementeren in evidence
- ☐ logging toevoegen als elastic search kapot is
- ☐ wildcardify, filter_keywords (minimale lengte zoektermen) en elastic search refactoren
+ ✔ feature toggle implementeren in evidence @done (12-09-25 10:15)
+ ✔ logging toevoegen als elastic search kapot is @done (12-09-25 10:32)
+ ✔ wildcardify, filter_keywords (minimale lengte zoektermen) en elastic search refactoren @done (12-09-25 10:32)
  ☐ fake class moet dat niet gewoon mock zijn, waarom wel/niet?
