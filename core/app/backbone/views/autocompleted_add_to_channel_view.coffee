@@ -1,3 +1,5 @@
+#TODO: check if this hide-input class thingy has some importance
+
 updateWindowHeight = ->  window.updateHeight() if window.updateHeight
 
 class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
@@ -28,19 +30,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
       collection: @collection
       mainView: this
     )
-
-    @collection.on "remove", (ch) => @onRemoveChannel ch
-    @collection.on "add", (ch) => @onAddChannel ch
-
-  onRemoveChannel: (ch) ->
-    if @collection.length
-      @$el.addClass "hide-input"
-    else
-      @$el.removeClass "hide-input"
-
-  onAddChannel: (ch) ->
-    @$el.addClass "hide-input"
-    updateWindowHeight()
     @_auto_completes_view = new AutoCompletesView(
       mainView: this
       alreadyAdded: @collection
