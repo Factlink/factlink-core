@@ -92,7 +92,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     e.preventDefault()
     e.stopPropagation()
     @disable()
-    if @activeChannelKey() >= 0 and @activeChannelKey() < @_auto_completes_view.list.length
+    if 0 <= @activeChannelKey() < @_auto_completes_view.list.length
       selected = @_auto_completes_view.list[@activeChannelKey()].model
       @$("input.typeahead").val selected.get("title")
       if selected.get("user_channel")
