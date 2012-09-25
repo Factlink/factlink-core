@@ -141,15 +141,15 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   activateAddNew: function () {
-    this.$el.find('.auto_complete>div').addClass('active');
+    this.$('.auto_complete>div').addClass('active');
   },
 
   deActivateAddNew: function () {
-    this.$el.find('.auto_complete>div').removeClass('active');
+    this.$('.auto_complete>div').removeClass('active');
   },
 
   isAddNewActive: function () {
-    return this.$el.find('.auto_complete>div').hasClass('active');
+    return this.$('.auto_complete>div').hasClass('active');
   },
 
   activateAutoCompleteView: function (view) {
@@ -173,7 +173,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
     if ( this.activeChannelKey() >= 0 && this.activeChannelKey() < this._auto_completes_view.list.length ) {
       var selected = this._auto_completes_view.list[this.activeChannelKey()].model;
 
-      this.$el.find('input.typeahead').val( selected.get('title') );
+      this.$('input.typeahead').val( selected.get('title') );
 
       if ( selected.get('user_channel') ) {
         this.addNewChannel( selected.get('user_channel') );
@@ -197,7 +197,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   createNewChannel: function (e) {
-    var title = this.$el.find('input.typeahead').val();
+    var title = this.$('input.typeahead').val();
     title = $.trim(title);
     var dupe = false;
 
@@ -279,7 +279,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   autoComplete: _.debounce(function () {
-    var searchValue = this.$el.find('input.typeahead').val();
+    var searchValue = this.$('input.typeahead').val();
 
     this.updateText();
 
@@ -340,7 +340,7 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
 
     this._autoCompletes.reset([]);
 
-    this.$el.find('.auto_complete').addClass('empty');
+    this.$('.auto_complete').addClass('empty');
 
     this.hideAutoComplete();
 
