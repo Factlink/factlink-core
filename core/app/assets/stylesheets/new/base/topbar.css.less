@@ -1,0 +1,21 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.navbar-inner {
+  .border-radius(0px);
+  background: image-url('new/topbar/background.png') repeat-x;
+  min-height: 42px;
+  .inner-shadow(0, 0, 0, 0);
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: @siteWidth;
+
+    span.pull-right {
+      display: inline-block;
+      height: 100%;
+      line-height: 42px;
+    }
+  }
+}

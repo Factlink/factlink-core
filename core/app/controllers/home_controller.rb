@@ -12,14 +12,16 @@ class HomeController < ApplicationController
       respond_to do |format|
         template = "home/pages/#{$1}"
 
+        layout = ["general", "base"].include?(params[:layout]) ? params[:layout] : "general"
+
         authorize! :show, template
 
         format.html do
           begin
-            render template, :layout => "general"
+            render template, :layout => layout
           rescue ActionView::MissingTemplate
             begin
-              render "#{template}/index", :layout => "general"
+              render "#{template}/index", :layout => layout
             rescue ActionView::MissingTemplate
               raise_404
             end
