@@ -391,11 +391,11 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
   },
 
   hideAutoComplete: function () {
-    this.$el.find('.auto_complete').hide();
+    this.$('.auto_complete').hide();
   },
 
   showAutoComplete: function () {
-    this.$el.find('.auto_complete').show();
+    this.$('.auto_complete').show();
   },
 
   closeAutoCompleteViews: function() {
@@ -441,9 +441,9 @@ window.AutoCompletedAddToChannelView = Backbone.Factlink.PlainView.extend({
       });
       view.render();
 
-      this.$el.find('.auto_complete>ul').append(view.el);
+      this.$('.auto_complete>ul').append(view.el);
 
-      this.$el.find('.auto_complete').removeClass('empty');
+      this.$('.auto_complete').removeClass('empty');
 
       this._autoCompleteViews.push(view);
 
