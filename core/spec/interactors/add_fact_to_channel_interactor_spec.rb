@@ -1,3 +1,4 @@
+require_relative 'interactor_spec_helper'
 require File.expand_path('../../../app/interactors/add_fact_to_channel_interactor.rb', __FILE__)
 
 describe AddFactToChannelInteractor do
@@ -7,13 +8,15 @@ describe AddFactToChannelInteractor do
     ability
   end
 
-  let(:fake_class) { Class.new }
+  def fake_class
+    Class.new
+  end
 
   before do
     stub_const 'Fact', fake_class
     stub_const 'Channel', fake_class
 
-    stub_const("CanCan::AccessDenied", Class.new(Exception))
+    stub_const('CanCan::AccessDenied', Class.new(Exception))
   end
 
   it 'initializes' do
@@ -22,15 +25,18 @@ describe AddFactToChannelInteractor do
   end
 
   it 'raises when initialized with a fact id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new 'not an id', '1'}.
+      to raise_error(RuntimeError, 'Fact_id should be an integer.')
   end
 
   it 'raises when initialized with a channel id that is a string' do
-    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new '1','not an id'}.
+      to raise_error(RuntimeError, 'Channel_id should be an integer.')
   end
- 
+
   it 'raises when initialized with a channel that is nil' do
-    expect { interactor = AddFactToChannelInteractor.new '1', nil}.to raise_error 
+    expect { interactor = AddFactToChannelInteractor.new '1', nil}.
+      to raise_error(RuntimeError, 'Channel_id should be an integer.')
   end
 
   it 'raises when executed without any permission' do
@@ -43,13 +49,13 @@ describe AddFactToChannelInteractor do
     expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
   end
 
-  describe :execute do
+  describe '.execute' do
     context 'when properly initialized' do
       it 'executes correctly' do
         fact_id = '13'
         f =  mock()
         Fact.should_receive(:[]).with(fact_id).and_return(f)
-        
+
         channel_id = '37'
         channel = mock()
         channel.should_receive(:add_fact).with(f)
@@ -60,4 +66,4 @@ describe AddFactToChannelInteractor do
       end
     end
   end
-end 
+end

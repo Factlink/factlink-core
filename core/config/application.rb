@@ -61,11 +61,12 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/views"
     config.autoload_paths << "#{config.root}/app/workers"
     config.autoload_paths << "#{config.root}/app/observers"
-    config.autoload_paths << "#{config.root}/app/search"
+    config.autoload_paths << "#{config.root}/app/interactors"
+    config.autoload_paths << "#{config.root}/app/interactors/queries"
 
     config.mongoid.logger = nil
 
-    config.mongoid.observers = :user_observer
+    config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer
 
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"

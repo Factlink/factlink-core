@@ -1,1 +1,1 @@
-elasticsearch: env elasticsearch -f -D es.config=serverconfig/elasticsearch.yml  -Des.cluster.name="$USER"_elasticsearch
+sunspotsolr: bundle exec rake sunspot:solr:run
