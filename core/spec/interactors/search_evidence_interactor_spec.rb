@@ -13,7 +13,6 @@ describe SearchEvidenceInteractor do
 
   before do
     stub_const 'Fact', fake_class
-    stub_const 'Sunspot', fake_class
     stub_const 'FactData', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Ability::FactlinkWebapp', fake_class

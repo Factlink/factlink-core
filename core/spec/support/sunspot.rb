@@ -30,7 +30,6 @@ RSpec.configure do |config|
   config.before(:each) do
     if example.metadata[:solr]    # it "...", solr: true do ... to have real SOLR
       sunspot_server ||= start_server[60] || raise("SOLR connection timeout")
-
     else
       original_session = Sunspot.session
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new(original_session)
@@ -38,12 +37,14 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    if example.metadata[:solr]
-      Sunspot.remove_all!
+    if Sunspot.class != Class
+      if example.metadata[:solr]
+        Sunspot.remove_all!
 
-    else
-      Sunspot.session = original_session
+      else
+        Sunspot.session = original_session
+      end
+      original_session = nil
     end
-    original_session = nil
   end
 end
