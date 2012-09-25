@@ -29,12 +29,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
       mainView: this
     )
     @_auto_completes_view = new AutoCompletesView(mainView: this)
-    self = this
-    @collection.on "remove", (ch) ->
-      self.onRemoveChannel ch
 
-    @collection.on "add", (ch) ->
-      self.onAddChannel ch
+    @collection.on "remove", (ch) => @onRemoveChannel ch
+    @collection.on "add", (ch) => @onAddChannel ch
 
   onRemoveChannel: (ch) ->
     if @collection.length
