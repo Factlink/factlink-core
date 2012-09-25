@@ -1,6 +1,7 @@
 require 'logger'
+require_relative "elastic_search.rb"
 
-class ElasticSearchAllQuery
+class ElasticSearchAllQuery < ElasticSearch
   def initialize keywords, page, row_count, options = {}
     @keywords = keywords
     @page = page
@@ -10,10 +11,10 @@ class ElasticSearchAllQuery
 
   def execute
     from = (@page - 1) * @row_count
-    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/_search?q=#{wildcardify_keywords}&from=#{from}&size=#{@row_count}"
 
+    url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/_search?q=#{wildcardify_keywords}&from=#{from}&size=#{@row_count}"
     results = HTTParty.get url
-    handle_httparty_error(results)
+    handle_httparty_error results
 
     hits = results.parsed_response['hits']['hits']
 
@@ -26,6 +27,7 @@ class ElasticSearchAllQuery
   end
 
   private
+  # TODO: Refactor to Queries
   def get_object id, type
     if(type == 'factdata')
       return FactData.find(id)
@@ -39,24 +41,4 @@ class ElasticSearchAllQuery
     raise 'Object type unknown.'
   end
 
-  def wildcardify_keywords
-    @keywords.split(/\s+/).map{|x| "*#{x}*"}.join(" ")
-  end
-
-  def handle_httparty_error results
-    case results.code
-      when 200..299
-      when 400..499
-        error = "Client error, status code: #{results.code}, response: '#{results.response}'."
-      when 500..599
-        error = "Server error, status code: #{results.code}, response: '#{results.response}'."
-      else
-        error = "Unexpected status code: #{results.code}, response: '#{results.response}'."
-    end
-
-    if error
-      @logger.error(error)
-      raise error
-    end
-  end
 end
