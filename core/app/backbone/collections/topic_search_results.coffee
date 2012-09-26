@@ -7,11 +7,16 @@ class window.TopicSearchResults extends Backbone.Collection
 
   url: -> "/" + currentUser.get('username') + "/channels/find.json?s=#{@query}"
 
+  makeEmpty: ->
+    @query = ''
+    @reset []
+
   addNewItem: ->
     title = @query
     current_items = _.map @pluck('title'), (item)-> item.toLowerCase()
 
-    unless @query.toLowerCase() in current_items
+    unless @query.toLowerCase() in current_items or
+           @query == ''
       model = new AutoCompletedChannel
                     'title':title,
                     'slug_title': title.toLowerCase()

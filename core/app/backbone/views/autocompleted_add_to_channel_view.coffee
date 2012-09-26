@@ -8,11 +8,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   events:
     "keydown input.typeahead": "parseKeyDown"
     "keyup input.typeahead": "autoComplete"
-    "focus input.typeahead": "onFocusInput"
     "click div.fake-input": "focusInput"
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
-    "blur input.typeahead": "blurInput"
     "click .show-input-button": "showInput"
     "mouseenter .auto_complete>div": "selectAddNew"
     "mouseleave .auto_complete>div": "deActivateAddNew"
@@ -64,8 +62,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
 
   focusInput: -> @$("input.typeahead").focus()
-  onFocusInput: -> @$el.addClass "focus"
-  blurInput: -> @$el.removeClass "focus"
 
   deActivateCurrent: ->
     @_auto_completes_view.deActivateCurrent()
@@ -75,7 +71,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_auto_completes_view.setActiveAutoComplete key, scroll
 
   selectAddNew: ->
-    return false  unless @isAddNewVisible()
     @deActivateAutoCompleteView()  if typeof @activeChannelKey() is "number"
     @activateAddNew()
 
@@ -102,10 +97,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @createNewChannel()
 
   isDupe: (title) -> @collection.where(title: title).length > 0
-
-  completelyDisappear: ->
-    @enable()
-    @clearInput()
 
   createNewChannel: ->
     title = @$("input.typeahead").val()
@@ -134,10 +125,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @vent.trigger "addChannel", channel
     @collection.add channel
     @completelyDisappear()
-
-  clearInput: ->
-    @$("input.typeahead").val ""
-    @$el.addClass "hide-input"  if @collection.length
 
   disable: ->
     @$el.addClass("disabled").find("input.typeahead").prop "disabled", true
@@ -177,13 +164,13 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       updateWindowHeight()
   , 300)
 
-  hideAddNew: -> @$el.addClass "hide-add-new"
-  showAddNew: -> @$el.removeClass "hide-add-new"
-  isAddNewVisible: -> not @$el.hasClass("hide-add-new")
+  #cleaning/closing functions:
 
   clearAutoComplete: ->
-    @_auto_completes_view.closeList()
-    @_auto_completes_view.search_collection.reset []
+    @_auto_completes_view.search_collection.makeEmpty()
     @$(".auto_complete").addClass "empty"
-    @deActivateAddNew()
-    @showAddNew()
+
+  completelyDisappear: ->
+    @enable()
+    @$("input.typeahead").val ""
+    @$el.addClass "hide-input" if @collection.length
