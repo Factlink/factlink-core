@@ -50,9 +50,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   parseKeyDown: (e) ->
     @_proceed = false
     switch e.keyCode
-      when 13 then @addCurrentlySelectedChannel
-      when 40 then @_auto_completes_view.moveSelectionDown
-      when 38 then @_auto_completes_view.moveSelectionUp
+      when 13 then @addCurrentlySelectedChannel()
+      when 40 then @_auto_completes_view.moveSelectionDown()
+      when 38 then @_auto_completes_view.moveSelectionUp()
       when 27 then @completelyDisappear()
       else @_proceed = true
 
