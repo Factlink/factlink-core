@@ -2,7 +2,7 @@
 
 updateWindowHeight = ->  window.updateHeight() if window.updateHeight
 
-class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
+class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
   events:
@@ -16,6 +16,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     "click .show-input-button": "showInput"
     "mouseenter .auto_complete>div": "selectAddNew"
     "mouseleave .auto_complete>div": "deActivateAddNew"
+
+  regions:
+    'added_channels': 'div.added_channels_container'
+    'auto_completes': 'div.auto_complete_container'
 
   activeChannelKey: -> @_activeChannelKey
 
@@ -38,11 +42,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   onRender: ->
     @$(".auto_complete ul").preventScrollPropagation()
 
-    @_added_channels_view.render()
-    @$("div.added_channels_container").html @_added_channels_view.el
-
-    @_auto_completes_view.render()
-    @$("div.auto_complete_container").html @_auto_completes_view.el
+    @added_channels.show(@_added_channels_view)
+    @auto_completes.show(@_auto_completes_view)
 
     updateWindowHeight()
 
@@ -178,12 +179,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   showAddNew: -> @$el.removeClass "hide-add-new"
   isAddNewVisible: -> not @$el.hasClass("hide-add-new")
 
-
   clearAutoComplete: ->
     @_auto_completes_view.closeList()
     @_auto_completes_view.search_collection.reset []
     @$(".auto_complete").addClass "empty"
     @deActivateAddNew()
     @showAddNew()
-
-  onClose: -> @_auto_completes_view.close()
