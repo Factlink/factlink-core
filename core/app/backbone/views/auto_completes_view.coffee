@@ -20,23 +20,15 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
     return key
 
-  setActiveAutoComplete:  (key, scroll=true)->
+  setActiveAutoComplete:  (key)->
     this.options.mainView.deActivateCurrent()
     key = this.fixKeyModulo(key)
 
-    console.info "SETTING ACTIVE TO", key, @list.length
+    @list[key].trigger('activate');
 
-    if 0 <= key < @list.length
-      @list[key].trigger('activate');
-
-      if (  scroll == true)
-        list = @$("ul")[0];
-        if (list.scrollHeight > list.clientHeight)
-          @list[key].el.scrollIntoView(scroll)
-
-
-    else
-      @options.mainView.activateAddNew()
+    list = @list[key].$el.closest("ul")[0]
+    if (list.scrollHeight > list.clientHeight)
+      @list[key].el.scrollIntoView()
 
     @setActiveChannelKey(key)
 
