@@ -36,7 +36,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     )
 
   onRender: ->
-    @$el.find(".auto_complete ul").preventScrollPropagation()
+    @$(".auto_complete ul").preventScrollPropagation()
 
     @_added_channels_view.render()
     @$("div.added_channels_container").html @_added_channels_view.el
