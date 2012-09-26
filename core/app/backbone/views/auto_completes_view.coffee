@@ -1,7 +1,5 @@
 class SteppableView extends Backbone.Marionette.CompositeView
-  initialize: ->
-    this.list = [];
-
+  initialize: -> @list = [];
   closeList: -> @list = [];
 
   onClose: -> @closeList()
@@ -22,7 +20,7 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
     return key
 
-  setActiveAutoComplete:  (key, scroll)->
+  setActiveAutoComplete:  (key, scroll=true)->
     this.options.mainView.deActivateCurrent()
     key = this.fixKeyModulo(key)
 
@@ -31,7 +29,7 @@ class SteppableView extends Backbone.Marionette.CompositeView
     if 0 <= key < @list.length
       @list[key].trigger('activate');
 
-      if ( typeof scroll == "boolean")
+      if (  scroll == true)
         list = @$("ul")[0];
         if (list.scrollHeight > list.clientHeight)
           @list[key].el.scrollIntoView(scroll)
@@ -44,11 +42,11 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
   moveSelectionUp: ->
     prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
-    this.setActiveAutoComplete(prevKey, false)
+    this.setActiveAutoComplete(prevKey, true)
 
   moveSelectionDown: ->
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
-    this.setActiveAutoComplete(nextKey, false)
+    this.setActiveAutoComplete(nextKey, true)
 
   onItemAdded: (view)->
     view.on 'close', =>
