@@ -21,10 +21,6 @@
   }
 
   &.hide-add-new {
-    .auto_complete > div {
-      display: none;
-    }
-
     .fake-input a.btn {
       display: none !important;
     }
@@ -134,7 +130,7 @@
     .drop-shadow(0, 1px, 4px, 0.17);
     width: 300px;
 
-    ul {
+    ul.existing-container {
       max-height: 190px;
       overflow-y: scroll;
       list-style: none;
@@ -187,7 +183,7 @@
       }
     }
 
-    > div {
+    .add-new-block {
       background: #f7f7f7;
       border-top: 1px solid #e0dcdc;
       padding: 5px 10px;
@@ -206,8 +202,9 @@
         word-wrap: break-word;
         text-shadow: none;
       }
+    }
 
-      &.active {
+    .active .add-new-block {
         background: @activeColor;
         color: #fff;
         border-top: 1px solid @activeColor;
@@ -215,7 +212,7 @@
         a {
           border: 1px solid @activeColor;
         }
-      }
+
     }
   }
 }

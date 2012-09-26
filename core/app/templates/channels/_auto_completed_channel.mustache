@@ -1,1 +1,9 @@
-{{{ highlightedTitle }}}
+{{#new}}
+  <div class="add-new-block">
+    <a class="btn btn-mini"><i class="icon-plus"></i></a>
+    <span>Add <strong>&ldquo;<span class="search">{{title}}</span>&rdquo;</strong> as a new channel</span>
+  </div>
+{{/new}}
+{{^new}}
+  {{{ highlightedTitle }}}
+{{/new}}
