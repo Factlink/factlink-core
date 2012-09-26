@@ -1,23 +1,6 @@
-class window.AutoCompletesView extends Backbone.Marionette.CompositeView
-  template: "channels/_auto_completes"
-
-  itemViewContainer: 'ul'
-  itemView: AutoCompletedChannelView
-
-  className: 'auto_complete'
-
-  itemViewOptions: =>
-    return {
-      query: @options.mainView._lastKnownSearchValue,
-      parent: @options.mainView
-    }
-
-
+class SteppableView extends Backbone.Marionette.CompositeView
   initialize: ->
     this.list = [];
-    @search_collection = new TopicSearchResults()
-    @collection = collectionDifference(TopicSearchResults,
-      'slug_title', @search_collection, @options.alreadyAdded)
 
   closeList: ->
     view.close() for view in @list
@@ -63,23 +46,51 @@ class window.AutoCompletesView extends Backbone.Marionette.CompositeView
 
     @setActiveChannelKey(key)
 
-  moveSelectionUp: (e)->
+  moveSelectionUp: ->
     prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
     this.setActiveAutoComplete(prevKey, false)
-    e.preventDefault()
 
-  moveSelectionDown: (e)->
+  moveSelectionDown: ->
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
     this.setActiveAutoComplete(nextKey, false)
     e.preventDefault()
 
   onItemAdded: (view)->
-    @options.mainView.$('.auto_complete').removeClass('empty')
     @list.push(view)
+
+
+
+
+
+class window.AutoCompletesView extends SteppableView
+  template: "channels/_auto_completes"
+
+  itemViewContainer: 'ul'
+  itemView: AutoCompletedChannelView
+
+  className: 'auto_complete'
+
+  itemViewOptions: =>
+    return {
+      query: @options.mainView._lastKnownSearchValue,
+      parent: @options.mainView
+    }
+
+  initialize: ->
+    super()
+    @search_collection = new TopicSearchResults()
+    @collection = collectionDifference(TopicSearchResults,
+      'slug_title', @search_collection, @options.alreadyAdded)
+
+
+  onClose: -> super()
+
+  onItemAdded: (view)->
+    super(view)
+    @options.mainView.$('.auto_complete').removeClass('empty')
     @hideAddNewIfNotNeeded(view.model)
 
   showEmptyView: -> @$el.hide()
-
   closeEmptyView: -> @$el.show()
 
   hideAddNewIfNotNeeded: (channel)->

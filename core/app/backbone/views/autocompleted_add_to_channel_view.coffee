@@ -51,9 +51,13 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_proceed = false
     switch e.keyCode
       when 13 then @addCurrentlySelectedChannel e
-      when 40 then @_auto_completes_view.moveSelectionDown e
-      when 38 then @_auto_completes_view.moveSelectionUp e
-      when 27 then @hideAutoComplete()
+      when 40
+        @_auto_completes_view.moveSelectionDown e
+        e.preventDefault()
+      when 38
+        @_auto_completes_view.moveSelectionUp
+        e.preventDefault()
+      when 27 then @completelyDisappear()
       else @_proceed = true
 
   showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
