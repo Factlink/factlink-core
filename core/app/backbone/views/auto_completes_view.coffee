@@ -26,10 +26,6 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
     @list[key].trigger('activate');
 
-    list = @list[key].$el.closest("ul")[0]
-    if (list.scrollHeight > list.clientHeight)
-      @list[key].el.scrollIntoView()
-
     @setActiveChannelKey(key)
 
   moveSelectionUp: ->
@@ -45,8 +41,13 @@ class SteppableView extends Backbone.Marionette.CompositeView
       i = @list.indexOf(view)
       @list.splice(i,1)
 
-    @list.push(view)
+    view.on 'requestActivate', =>
+      i = @list.indexOf(view)
+      @setActiveAutoComplete(i)
 
+    view.on 'requestDeActivate', => @deActivateCurrent()
+
+    @list.push(view)
 
 
 
