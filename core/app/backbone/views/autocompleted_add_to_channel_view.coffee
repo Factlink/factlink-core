@@ -143,7 +143,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     else
       @$el.removeClass "has-text"
 
-  autoComplete: _.debounce(->
+  autoComplete: ->
     searchValue = @$("input.typeahead").val()
     @updateText()
 
@@ -162,7 +162,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_auto_completes_view.search_collection.fetch success: =>
       @setActiveAutoComplete 0, true
       updateWindowHeight()
-  , 300)
 
   #cleaning/closing functions:
 
