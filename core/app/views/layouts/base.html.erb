@@ -27,6 +27,26 @@
     <%= csrf_meta_tag %>
   </head>
   <body class="factlink-site home">
+    <div class="sign_in_bar">
+      <div class="container">
+        <form action="">
+          <h2>Sign in to Factlink</h2>
+          <input type="text" placeholder="Username" name="username" class="text">
+          <input type="password" placeholder="Password" name="password" class="text">
+          <input type="submit" value="Sign in" name="submit" class="btn">
+          <div class="toolbar">
+            <span><a href="javascript:void();">Forgot password?</a></span>
+            <label>Remember me <input type="checkbox" name="remember_me"></label>
+          </div>
+        </form>
+        <div class="separator">or</div>
+        <div class="social">
+          <a href="javascript:void();" class="btn twitter"><i></i>Sign in with Twitter</a>
+          <a href="javascript:void();" class="btn facebook"><i></i>Sign in with Facebook</a>
+        </div>
+      </div>
+    </div>
+
     <div class="navbar">
       <div class="navbar-inner">
         <div class="background"></div>
