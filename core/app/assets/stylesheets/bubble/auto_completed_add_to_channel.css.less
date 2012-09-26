@@ -13,20 +13,7 @@
   }
 }
 
-.add-to-channel {
-  ul {
-    list-style: none;
-    margin: 0;
-  }
-
-  &.disabled {
-    .fake-input {
-      background-color: #eee;
-      border-color: #ddd;
-      cursor: not-allowed;
-    }
-  }
-
+.add-to-channel-container {
   &.has-text {
     .fake-input a.btn {
       display: inline-block !important;
@@ -40,6 +27,21 @@
 
     .fake-input a.btn {
       display: none !important;
+    }
+  }
+}
+
+.add-to-channel {
+  ul {
+    list-style: none;
+    margin: 0;
+  }
+
+  &.disabled {
+    .fake-input {
+      background-color: #eee;
+      border-color: #ddd;
+      cursor: not-allowed;
     }
   }
 
