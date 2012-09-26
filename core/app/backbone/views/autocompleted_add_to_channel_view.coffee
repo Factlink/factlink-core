@@ -50,15 +50,16 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   parseKeyDown: (e) ->
     @_proceed = false
     switch e.keyCode
-      when 13 then @addCurrentlySelectedChannel e
-      when 40
-        @_auto_completes_view.moveSelectionDown e
-        e.preventDefault()
-      when 38
-        @_auto_completes_view.moveSelectionUp
-        e.preventDefault()
+      when 13 then @addCurrentlySelectedChannel
+      when 40 then @_auto_completes_view.moveSelectionDown
+      when 38 then @_auto_completes_view.moveSelectionUp
       when 27 then @completelyDisappear()
       else @_proceed = true
+
+    unless @_proceed
+      e.preventDefault()
+      e.stopPropagation()
+
 
   showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
 
@@ -90,9 +91,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     activeview.trigger "deactivate"  if activeview isnt `undefined`
     @setActiveChannelKey `undefined`
 
-  addCurrentlySelectedChannel: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
+  addCurrentlySelectedChannel: ->
     @disable()
     if 0 <= @activeChannelKey() < @_auto_completes_view.list.length
       selected = @_auto_completes_view.list[@activeChannelKey()].model
@@ -100,7 +99,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       if selected.get("user_channel")
         @addNewChannel selected.get("user_channel")
         return
-    @createNewChannel e
+    @createNewChannel()
 
   isDupe: (title) -> @collection.where(title: title).length > 0
 
@@ -108,7 +107,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @enable()
     @clearInput()
 
-  createNewChannel: (e) ->
+  createNewChannel: ->
     title = @$("input.typeahead").val()
     title = $.trim(title)
     dupe = false
@@ -128,7 +127,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
       type: "POST"
     ).done _.bind(@addNewChannel, this)
-    e.preventDefault()
 
   addNewChannel: (channel) ->
     channel = new Channel(channel)
