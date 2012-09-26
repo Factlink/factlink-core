@@ -1,5 +1,17 @@
-class window.AutoCompletesView extends Backbone.Factlink.PlainView
+class window.AutoCompletesView extends Backbone.Marionette.CompositeView
   template: "channels/_auto_completes"
+
+  itemViewContainer: 'ul'
+  itemView: AutoCompletedChannelView
+
+  className: 'auto_complete'
+
+  itemViewOptions: =>
+    return {
+      query: @options.mainView._lastKnownSearchValue,
+      parent: @options.mainView
+    }
+
 
   initialize: ->
     this.list = [];
@@ -7,9 +19,8 @@ class window.AutoCompletesView extends Backbone.Factlink.PlainView
     @collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @options.alreadyAdded)
 
-    @collection.on 'add', (ch) => @addAutoComplete(ch)
-    @collection.on 'reset', =>
-        @collection.forEach (ch) => @addAutoComplete(ch)
+    @on 'composite:item:rendered', => @onAutoCompleteRendered()
+    @collection.on 'add', (ch)=> @hideAddNewIfNotNeeded(channel)
 
   closeList: ->
     view.close() for view in @list
@@ -45,7 +56,7 @@ class window.AutoCompletesView extends Backbone.Factlink.PlainView
       @list[key].trigger('activate');
 
       if ( typeof scroll == "boolean")
-        list = @options.mainView.$("div.auto_complete ul")[0];
+        list = @$("ul")[0];
         if (list.scrollHeight > list.clientHeight)
           @list[key].el.scrollIntoView(scroll)
 
@@ -65,29 +76,20 @@ class window.AutoCompletesView extends Backbone.Factlink.PlainView
     this.setActiveAutoComplete(nextKey, false)
     e.preventDefault()
 
-  addAutoComplete: (channel)->
-    # TODO: make sure somewhere again that it is not possible to call this
-    #       function with an already added channel
-    view = new AutoCompletedChannelView({
-      model: channel,
-      query: @options.mainView._lastKnownSearchValue,
-      parent: @options.mainView
-    });
-    view.render();
-
-    @options.mainView.$('.auto_complete>ul').append(view.el);
+  onAutoCompleteRendered: ()->
     @options.mainView.$('.auto_complete').removeClass('empty');
-
-    this.list.push(view);
-
     @options.mainView.showAutoComplete();
 
-    @hideAddNewIfNotNeeded(channel);
-
+  appendHtml: (collectionView, itemView, index)->
+    @list.push(itemView)
+    collectionView.$(@itemViewContainer).append(itemView.el)
+    @hideAddNewIfNotNeeded(itemView.model);
 
   hideAddNewIfNotNeeded: (channel)->
     if ( channel.get('user_channel') )
       lowerCaseTitle = channel.get('user_channel').title.toLowerCase();
       lowerCaseSearch = @options.mainView._lastKnownSearchValue.toLowerCase();
+
+      console.info("("+lowerCaseTitle+","+lowerCaseSearch+")", lowerCaseSearch == lowerCaseTitle);
 
       @options.mainView.hideAddNew() if lowerCaseSearch == lowerCaseTitle
