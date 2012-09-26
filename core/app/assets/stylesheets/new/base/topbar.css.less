@@ -1,21 +1,76 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.navbar-inner {
-  .border-radius(0px);
-  background: image-url('new/topbar/background.png') repeat-x;
-  min-height: 42px;
-  .inner-shadow(0, 0, 0, 0);
+.navbar {
+  position: relative;
 
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-    width: @siteWidth;
+  .navbar-inner {
+    .border-radius(0px);
+    background: transparent;
+    min-height: 42px;
+    .inner-shadow(0, 0, 0, 0);
+    position: relative;
 
-    span.pull-right {
-      display: inline-block;
-      height: 100%;
-      line-height: 42px;
+    .background {
+      background: image-url('new/topbar/background.png') repeat-x;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+    }
+
+    .container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 940px;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 2;
+
+      a.brand {
+        display: block;
+        text-indent: -999999px;
+        width: 135px;
+        height: 20px;
+        background: image-url('new/topbar/logo.png') no-repeat;
+        background-position: 0 0;
+      }
+
+      span.pull-right {
+        display: inline-block;
+        height: 100%;
+        line-height: 42px;
+      }
+    }
+
+    &.dimmed {
+      display: none;
+
+      .background {
+        .opacity(0.4);
+      }
+
+      .container {
+        a.brand {
+          background-position: 0 -40px;
+        }
+
+        span.pull-right {
+          color: #cecece;
+          margin-right: -18px;
+
+          a {
+            color: #fff;
+
+            > i {
+              display: inline-block;
+              background: image-url('new/topbar/logo.png') no-repeat -175px 0;
+              width: 9px;
+              height: 6px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
     }
   }
 }
