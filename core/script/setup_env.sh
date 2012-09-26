@@ -6,11 +6,11 @@ git clone git@github.com:Factlink/js-library.git -b master
 git clone git@github.com:Factlink/web-proxy.git -b master
 git clone git@github.com:Factlink/server-management -b master
 
-
 ln -s core/config config
 gem install bundler
 sudo npm install jslint -g
 sudo npm install supervisor -g
+bin/bootstrap || exit 1
 
 cd core
 	git checkout develop
@@ -25,7 +25,6 @@ cd core
 		touch testserver.log
 	cd ..
 cd ..
-
 
 cd web-proxy
 	git checkout develop
@@ -51,3 +50,7 @@ cd js-library
 	git submodule update
 	make modules
 cd ..
+
+echo -e "Start by entering:"
+echo -e "foreman start -f ProcfileServers"
+echo -e "foreman start"

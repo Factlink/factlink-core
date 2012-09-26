@@ -121,7 +121,7 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details notification_settings social_connect firefox_extension)
+  FEATURES = %w(pink_feedback_button authority_calculation_details notification_settings social_connect firefox_extension elastic_search)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list

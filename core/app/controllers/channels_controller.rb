@@ -59,14 +59,10 @@ class ChannelsController < ApplicationController
   end
 
   def search
-    authorize! :index, Topic
-    authorize! :show, @user
+    interactor = SearchChannelInteractor.new params[:s].to_s, @user, ability: current_ability
+    results = interactor.execute
 
-    solr_result = Sunspot.search Topic do
-      keywords params[:s].to_s
-    end
-
-    results = solr_result.results.map do |topic|
+    results = results.map do |topic|
       Channels::AutoCompletedChannel.for(topic: topic, view: view_context)
     end
 
@@ -163,9 +159,9 @@ class ChannelsController < ApplicationController
   end
 
   def add_fact
-    i = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
-    i.execute
-    
+    interactor = AddFactToChannelInteractor.new params[:fact_id], params[:id], ability: current_ability
+    interactor.execute
+
     render nothing: true, :status => :no_content
   end
 

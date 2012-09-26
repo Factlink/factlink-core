@@ -70,43 +70,28 @@ class HomeController < ApplicationController
   # Not using the same search for the client popup, since we probably want\
   # to use a more advanced search on the Factlink website.
   def search
-    authorize! :index, Fact
     if params[:s]
       raise HackAttempt unless params[:s].is_a? String
     end
+
     @row_count = 20
     row_count = @row_count
+    page = params[:page] || 1;
 
     search_for = params[:s] || ""
-    search_for = search_for.split(/\s+/).select{|x|x.length > 2}.join(" ")
 
-    if search_for.length > 0
-      solr_result = Sunspot.search FactData, User, Topic do
-        keywords search_for
+    interactor = SearchInteractor.new search_for,
+      ability: current_ability, page: page, row_count: row_count
 
-        paginate :page => params[:page] || 1, :per_page => row_count
-      end
+    @results = interactor.execute
 
-      # TODO: This message gets lost easily in history, what are the options?
-      if solr_result.hits.count > solr_result.results.count || true
-        logger.warn "[WARNING] SOLR Search index is out of sync, please run 'rake sunspot:index'"
-      end
-
-      @results = solr_result.results.delete_if do |res|
-        (res.class == FactData and FactData.invalid(res)) or
-          (res.class == User and (res.nil? or res.hidden))
-      end
-      @results = @results.map do |result|
-        SearchResults::SearchResultItem.for(obj: result, view: view_context)
-      end.delete_if {|x| x.the_object.nil?}
-    else
-      @results = []
-    end
+    @results = @results.map do |result|
+      SearchResults::SearchResultItem.for(obj: result, view: view_context)
+    end.delete_if {|x| x.the_object.nil?}
 
     respond_to do |format|
       format.html
       format.json {render json: @results}
     end
   end
-
 end

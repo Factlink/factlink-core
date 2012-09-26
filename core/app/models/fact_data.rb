@@ -33,7 +33,11 @@ class FactData
   #returns whether a given factdata should be considered
   #unsuitable for usage/viewing
   def self.invalid(fd)
-    !fd || !fd.fact_id || !fd.fact
+    not valid(fd)
+  end
+
+  def self.valid(fd)
+    fd and fd.fact_id and fd.fact
   end
 
 end
