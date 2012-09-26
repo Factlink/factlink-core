@@ -19,9 +19,6 @@ class window.AutoCompletesView extends Backbone.Marionette.CompositeView
     @collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @options.alreadyAdded)
 
-    @on 'composite:item:rendered', => @onAutoCompleteRendered()
-    @collection.on 'add', (ch)=> @hideAddNewIfNotNeeded(channel)
-
   closeList: ->
     view.close() for view in @list
     @list = [];
@@ -76,14 +73,11 @@ class window.AutoCompletesView extends Backbone.Marionette.CompositeView
     this.setActiveAutoComplete(nextKey, false)
     e.preventDefault()
 
-  onAutoCompleteRendered: ()->
-    @options.mainView.$('.auto_complete').removeClass('empty');
-    @options.mainView.showAutoComplete();
-
-  appendHtml: (collectionView, itemView, index)->
-    @list.push(itemView)
-    collectionView.$(@itemViewContainer).append(itemView.el)
-    @hideAddNewIfNotNeeded(itemView.model);
+  onItemAdded: (view)->
+    @options.mainView.$('.auto_complete').removeClass('empty')
+    @options.mainView.showAutoComplete()
+    @list.push(view)
+    @hideAddNewIfNotNeeded(view.model)
 
   hideAddNewIfNotNeeded: (channel)->
     if ( channel.get('user_channel') )
