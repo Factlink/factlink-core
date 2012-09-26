@@ -53,7 +53,6 @@ class SteppableView extends Backbone.Marionette.CompositeView
   moveSelectionDown: ->
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
     this.setActiveAutoComplete(nextKey, false)
-    e.preventDefault()
 
   onItemAdded: (view)->
     @list.push(view)
