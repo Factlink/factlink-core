@@ -33,7 +33,7 @@ describe ElasticSearchChannelQuery do
       results.stub code: 200
       url = 'test'
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20").
+        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
         and_return(results)
       return_object = mock()
       Topic.should_receive(:find).
@@ -78,7 +78,7 @@ describe ElasticSearchChannelQuery do
       results.stub code: 200
       url = 'test'
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20").
+        with("http://#{base_url}/topic/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
         and_return(results)
       return_object = mock()
       Topic.should_receive(:find).

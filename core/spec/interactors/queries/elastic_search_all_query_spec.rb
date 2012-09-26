@@ -40,7 +40,7 @@ describe ElasticSearchAllQuery do
         results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
 
         HTTParty.should_receive(:get).
-          with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20").
+          with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
           and_return(results)
 
         return_object = mock()
@@ -98,7 +98,7 @@ describe ElasticSearchAllQuery do
       results.stub parsed_response: { 'hits' => { 'hits' => [ ] } }
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20").
+        with("http://#{base_url}/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
         and_return(results)
 
       interactor.execute.should eq []

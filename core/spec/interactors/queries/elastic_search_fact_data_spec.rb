@@ -36,7 +36,7 @@ describe ElasticSearchFactDataQuery do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20").
+        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
         and_return(results)
 
       return_object = mock()
@@ -83,7 +83,7 @@ describe ElasticSearchFactDataQuery do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20").
+        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
         and_return(results)
 
       return_object = mock()
