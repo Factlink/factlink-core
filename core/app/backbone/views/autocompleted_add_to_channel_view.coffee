@@ -100,16 +100,13 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   isDupe: (title) -> @collection.where(title: title).length > 0
 
   completelyDisappear: ->
-    @hideAutoComplete()
     @enable()
-    @hideLoading()
     @clearInput()
 
   createNewChannel: (e) ->
     title = @$("input.typeahead").val()
     title = $.trim(title)
     dupe = false
-    @showLoading()
     if (title.length < 1) or (@isDupe(title))
       @completelyDisappear()
       return
@@ -147,8 +144,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
     @$(".btn").removeClass "disabled"
 
-  showLoading: -> @$(".loading").show()
-  hideLoading: -> @$(".loading").hide()
 
   updateText: ->
     value = @$el.find("input.typeahead").val()
@@ -167,15 +162,14 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
     @_lastKnownSearchValue = searchValue
     @setActiveChannelKey `undefined`
 
-    if searchValue.length < 1
-      @hideAutoComplete()
-      return
 
-    @showLoading()
     @clearAutoComplete()
+
+    return if searchValue.length < 1
+
+
     @_auto_completes_view.search_collection.setSearch searchValue
     @_auto_completes_view.search_collection.fetch success: =>
-      @showAutoComplete()
       @setActiveAutoComplete 0, false
       updateWindowHeight()
   , 300)
@@ -184,14 +178,11 @@ class window.AutoCompletedAddToChannelView extends Backbone.Factlink.PlainView
   showAddNew: -> @$el.removeClass "hide-add-new"
   isAddNewVisible: -> not @$el.hasClass("hide-add-new")
 
-  hideAutoComplete: -> @$(".auto_complete").hide()
-  showAutoComplete: -> @$(".auto_complete").show()
 
   clearAutoComplete: ->
     @_auto_completes_view.closeList()
     @_auto_completes_view.search_collection.reset []
     @$(".auto_complete").addClass "empty"
-    @hideAutoComplete()
     @deActivateAddNew()
     @showAddNew()
 

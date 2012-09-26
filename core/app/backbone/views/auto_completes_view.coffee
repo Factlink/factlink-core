@@ -75,9 +75,12 @@ class window.AutoCompletesView extends Backbone.Marionette.CompositeView
 
   onItemAdded: (view)->
     @options.mainView.$('.auto_complete').removeClass('empty')
-    @options.mainView.showAutoComplete()
     @list.push(view)
     @hideAddNewIfNotNeeded(view.model)
+
+  showEmptyView: -> @$el.hide()
+
+  closeEmptyView: -> @$el.show()
 
   hideAddNewIfNotNeeded: (channel)->
     if ( channel.get('user_channel') )
