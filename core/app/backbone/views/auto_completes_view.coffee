@@ -51,9 +51,7 @@ class SteppableView extends Backbone.Marionette.CompositeView
   onItemAdded: (view)->
     view.on 'close', =>
       i = @list.indexOf(view)
-
       @list.splice(i,1)
-
 
     @list.push(view)
 
