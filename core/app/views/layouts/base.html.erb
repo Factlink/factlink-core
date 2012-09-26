@@ -29,11 +29,23 @@
   <body class="factlink-site home">
     <div class="navbar">
       <div class="navbar-inner">
+        <div class="background"></div>
         <div class="container">
-          <%= image_tag('factlink-logo-beta.png', width: 133, height: 20, class: "brand" ) %>
+          <%= link_to "Home", click_path(:logo), class: 'brand' %>
 
           <span class="pull-right">
-            Have an account? <a href="javascript:void();">Sign in</a>
+            Have an account? <a href="javascript:void();">Sign in <i></i></a>
+          </span>
+        </div>
+      </div>
+
+      <div class="navbar-inner dimmed">
+        <div class="background"></div>
+        <div class="container">
+          <%= link_to "Home", click_path(:logo), class: 'brand' %>
+
+          <span class="pull-right">
+            Have an account? <a href="javascript:void();">Sign in <i></i></a>
           </span>
         </div>
       </div>
