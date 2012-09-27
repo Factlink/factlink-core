@@ -1,0 +1,13 @@
+<%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id }) do |f| %>
+
+  <%= f.text_field :username, placeholder: "Desired username", id: "#{form_id}_user_username" %>
+  <%= f.email_field :email, placeholder: "Email",              id: "#{form_id}_user_email" %>
+  <%= f.hidden_field :registration_code,                       id: "#{form_id}_user_registration_code", value: @code %>
+
+  <% if @code and @code != '' %>
+    <p>You will be placed on the priority waiting list, offered to you by <%= @code %></p>
+  <% end %>
+
+  <%= f.submit "Reserve", class: "btn btn-success", 'data-disable-with' => "Reserving..." %>
+
+<% end %>

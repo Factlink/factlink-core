@@ -1,0 +1,16 @@
+<%= render "users/registrations/form2", form_id: form_id %>
+
+<% content_for :javascript do %>
+  <script>
+
+  (function() {
+    bindForm( "<%= form_id %>" );
+  }());
+
+  </script>
+<% end %>
+
+
+<style>
+.popover-title { display: none;}
+</style>

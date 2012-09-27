@@ -4,6 +4,7 @@
 <% content_for :specific_stylesheet_tag do %>
   <%= stylesheet_link_tag "landing" %>
 <% end %>
+
 <% content_for :more_specific_page do %>
   <div id="body">
     <div class="container">
@@ -34,6 +35,10 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <%= yield :new_sign_up %>
   </div>
 
 <% end %>
