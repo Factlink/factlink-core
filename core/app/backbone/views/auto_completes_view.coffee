@@ -84,9 +84,7 @@ class window.AutoCompletesView extends SteppableView
 
   onClose: -> super()
 
-  onItemAdded: (view)->
-    super(view)
-    @options.mainView.$('.auto_complete').removeClass('empty')
+  onItemAdded: (view)-> super(view)
 
   showEmptyView: -> @$el.hide()
   closeEmptyView: -> @$el.show()
