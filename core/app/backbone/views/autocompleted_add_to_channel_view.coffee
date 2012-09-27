@@ -19,9 +19,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     'added_channels': 'div.added_channels_container'
     'auto_completes': 'div.auto_complete_container'
 
-  activeChannelKey: -> @_auto_completes_view._activeChannelKey
+  activeChannelKey: -> @_auto_completes_view.activeChannelKey()
 
-  setActiveChannelKey: (value) -> @_auto_completes_view._activeChannelKey = value
+  setActiveChannelKey: (value) -> @_auto_completes_view.setActiveChannelKey(value)
 
   template: "channels/_auto_completed_add_to_channel"
 
