@@ -1,5 +1,7 @@
 class SitesController < ApplicationController
   before_filter :retrieve_facts_for_url, except: :blacklisted
+
+  #TODO: make sure this is executed whenever possible
   before_filter :register_client_version_numbers, only: :facts_count_for_url
 
   prepend_before_filter :check_blacklist
