@@ -1,8 +1,19 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+body.show_sign_in {
+  .navbar .navbar-inner {
+    display: none;
+
+    &.dimmed {
+      display: block;
+    }
+  }
+}
+
 .navbar {
   position: relative;
+  height: 42px;
 
   .navbar-inner {
     .border-radius(0px);
@@ -10,6 +21,7 @@
     min-height: 42px;
     .inner-shadow(0, 0, 0, 0);
     position: relative;
+    z-index: 2;
 
     .background {
       background: image-url('new/topbar/background.png') repeat-x;
@@ -43,7 +55,9 @@
     }
 
     &.dimmed {
-      display: none;
+      z-index: 1;
+      position: absolute;
+      top: 0; right: 0; left: 0;
 
       .background {
         .opacity(0.4);
