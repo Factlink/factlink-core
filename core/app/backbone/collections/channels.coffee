@@ -59,8 +59,8 @@ class window.ChannelList extends window.GenericChannelList
           error: _.bind(args.callee, self)
       ), 7000
 
-  getByTitle: (title)->
-    results = @filter (ch)-> ch.get('title').toLowerCase() == title.toLowerCase()
+  getBySlugTitle: (slug_title)->
+    results = @filter (ch)-> ch.get('slug_title') == slug_title
     if results.length == 1 then results[0] else `undefined`
 
   orderedByAuthority: ->

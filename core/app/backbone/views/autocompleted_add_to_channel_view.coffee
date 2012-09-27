@@ -8,7 +8,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   className: "add-to-channel"
   events:
     "keydown input.typeahead": "parseKeyDown"
-    "keyup input.typeahead": "autoComplete"
+    "keyup input.typeahead": "autoCompleteCurrentValue"
     "click div.fake-input": "focusInput"
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
@@ -64,33 +64,36 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   focusInput: -> @$("input.typeahead").focus()
 
-  userChannelForTopic: (title)-> currentUser.channels.getByTitle(title)
-
   #TODO: readd enable/disable in some way
 
   addCurrentlySelectedChannel: ->
-    if activeTopic = @_auto_completes_view.currentActiveModel()
-      @$("input.typeahead").val activeTopic.get("title")
+    @disable()
+    afterAdd = =>
+      @$("input.typeahead").val('')
+      @enable()
+      @autoCompleteCurrentValue()
 
-    title = $.trim @$("input.typeahead").val()
+    activeTopic = @_auto_completes_view.currentActiveModel()
 
-    if ch = @userChannelForTopic(title)
-      @addNewChannel ch
+    if not activeTopic
+      alert "oops, something went wrong, did you select a suggestion?"
+      afterAdd()
       return
 
-    $.ajax(
-      url: "/" + currentUser.get("username") + "/channels"
-      data:
-        title: title
+    @$("input.typeahead").val activeTopic.get("title")
 
-      type: "POST"
-    ).done (data)=>
-      channel = new Channel(data)
-      currentUser.channels.add channel
-      @addNewChannel(channel)
+    activeTopic.withCurrentOrCreatedChannelFor currentUser,
+      success: (ch)=>
+        @addNewChannel ch
+        afterAdd()
+      error: =>
+        alert "something went wrong while adding, sorry"
+        afterAdd()
 
   addNewChannel: (channel) ->
     @vent.trigger "addChannel", channel
+    # create new object if the current channel is already in a collection
+    channel = new Channel(channel.toJSON()) if channel.collection?
     @collection.add channel
 
   disable: ->
@@ -101,7 +104,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
     @$(".btn").removeClass "disabled"
 
-
-  autoComplete: ->
+  autoCompleteCurrentValue: ->
     searchValue = @$("input.typeahead").val()
     @_auto_completes_view.search_collection.searchFor searchValue
