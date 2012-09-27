@@ -60,13 +60,8 @@ class ChannelsController < ApplicationController
 
   def search
     interactor = SearchChannelInteractor.new params[:s].to_s, @user, ability: current_ability
-    results = interactor.execute
-
-    results = results.map do |topic|
-      Channels::AutoCompletedChannel.for(topic: topic, view: view_context)
-    end
-
-    render json: results
+    @topics = interactor.execute
+    render 'topics/index'
   end
 
   def create
