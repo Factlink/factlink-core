@@ -122,17 +122,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @$(".btn").removeClass "disabled"
 
 
-  updateText: ->
-    value = @$el.find("input.typeahead").val()
-    if value.length
-      @$el.addClass "has-text"
-      @$(".search").text value
-    else
-      @$el.removeClass "has-text"
-
   autoComplete: ->
     searchValue = @$("input.typeahead").val()
-    @updateText()
 
     return  if @_lastKnownSearchValue is searchValue or not @_proceed
 
