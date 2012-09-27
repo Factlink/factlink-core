@@ -4,37 +4,33 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
   onClose: -> @closeList()
 
-  activeChannelKey: -> @_activeChannelKey
-  setActiveChannelKey: (value)-> @_activeChannelKey = value
+  activeChannelKey: -> @activeViewKey
+  setActiveChannelKey: (value)-> @activeViewKey = value
 
   deActivateCurrent: () ->
-    if ( @list[@activeChannelKey()] )
-      @list[@activeChannelKey()].trigger('deactivate');
+    @currentActiveView()?.trigger('deactivate');
+    @activeViewKey = `undefined`
 
   fixKeyModulo: (key)->
-    maxval = @list.length - 1;
+    if key >= @list.length then 0
+    else if key < 0 then @list.length -1
+    else key
 
-
-    key = 0 if (key > maxval)
-    key = maxval if (key < 0)
-
-    return key
-
-  setActiveAutoComplete:  (key)->
+  setActiveView:  (key)->
     @deActivateCurrent()
-    key = this.fixKeyModulo(key)
-
-    @list[key].trigger('activate');
-
-    @setActiveChannelKey(key)
+    key = @fixKeyModulo(key)
+    view = @list[key]
+    if view
+      view.trigger('activate');
+      @setActiveChannelKey(key)
 
   moveSelectionUp: ->
     prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
-    this.setActiveAutoComplete(prevKey, true)
+    this.setActiveView(prevKey, true)
 
   moveSelectionDown: ->
     nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
-    this.setActiveAutoComplete(nextKey, true)
+    this.setActiveView(nextKey, true)
 
   onItemAdded: (view)->
     view.on 'close', =>
@@ -45,16 +41,18 @@ class SteppableView extends Backbone.Marionette.CompositeView
       unless @alreadyHandlingAnActivate
         @alreadyHandlingAnActivate = true
         i = @list.indexOf(view)
-        @setActiveAutoComplete(i)
+        @setActiveView(i)
         @alreadyHandlingAnActivate = false
 
     view.on 'requestDeActivate', => @deActivateCurrent()
 
     @list.push(view)
 
-  currentActiveModel: ->
-    if 0 <= @activeChannelKey() < @list.length
-      @list[@activeChannelKey()].model
+  currentActiveModel: -> @currentActiveView()?.model
+
+  currentActiveView: ->
+    if 0 <= @activeViewKey < @list.length
+      @list[@activeViewKey]
     else
      `undefined`
 
@@ -78,9 +76,7 @@ class window.AutoCompletesView extends SteppableView
     @collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @options.alreadyAdded)
 
-    @search_collection.on 'reset', =>
-      @setActiveChannelKey `undefined`
-      @setActiveAutoComplete 0
+    @search_collection.on 'reset', => @setActiveView 0
 
   onClose: -> super()
 
