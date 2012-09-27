@@ -29,8 +29,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
 
   onRender: ->
-    @added_channels.show(@_added_channels_view)
-    @auto_completes.show(@_auto_completes_view)
+    @added_channels.show @_added_channels_view
+    @auto_completes.show @_auto_completes_view
 
   parseKeyDown: (e) ->
     @_proceed = false
@@ -60,7 +60,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     activeTopic = @_auto_completes_view.currentActiveModel()
 
     if not activeTopic
-      alert "oops, something went wrong, did you select a suggestion?"
+      alert "Something went wrong, did you select a suggestion?"
       afterAdd()
       return
 
@@ -71,7 +71,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "something went wrong while adding, sorry"
+        alert "Something went wrong while adding the fact to this channel, sorry"
         afterAdd()
 
   addNewChannel: (channel) ->

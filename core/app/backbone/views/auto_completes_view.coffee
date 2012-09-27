@@ -6,11 +6,10 @@ class window.AutoCompletesView extends Backbone.Factlink.SteppableView
 
   className: 'auto_complete'
 
-  itemViewOptions: =>
-    return {
+  itemViewOptions: => {
       query: @search_collection.query
       parent: @options.mainView
-    }
+  }
 
   initialize: ->
     super()
