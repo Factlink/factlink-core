@@ -11,6 +11,7 @@ class window.UserChannelSuggestionView extends Backbone.Marionette.ItemView
     activity = undefined
     channel = undefined
 
+    #TODO use _.after
     na_beide = =>
       aantal_callbacks++
       activityCollection = @options.addToActivities
