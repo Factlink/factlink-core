@@ -59,6 +59,10 @@ class window.ChannelList extends window.GenericChannelList
           error: _.bind(args.callee, self)
       ), 7000
 
+  getByTitle: (title)->
+    results = @filter (ch)-> ch.get('title').toLowerCase() == title.toLowerCase()
+    if results.length == 1 then results[0] else `undefined`
+
   orderedByAuthority: ->
     topchannels = new ChannelList()
     _.each @models, (channel) ->
