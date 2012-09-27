@@ -1,0 +1,14 @@
+<%= form_for(User.new, :as => :user, :url => registration_path(:user), validate: true) do |f| %>
+
+  <%= f.text_field :username, placeholder: "Desired username", required: "required" %>
+  <div id="user_email_wrapper">
+    <%= f.email_field :email, placeholder: "Email", required: "required" %>
+  </div>
+  <%= f.hidden_field :registration_code, value: @code %>
+  <% if @code and @code != '' %>
+    <p style="text-align:left; font-weight:bold">Priority waiting list,<br/> offered to you by <%= @code %></p>
+  <% end %>
+
+  <%= f.submit "Reserve", class: "btn btn-success", 'data-disable-with' => "Reserving..." %>
+
+<% end %>
