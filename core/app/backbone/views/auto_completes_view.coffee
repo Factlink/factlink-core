@@ -75,7 +75,11 @@ class window.AutoCompletesView extends SteppableView
     @collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @options.alreadyAdded)
 
-    @search_collection.on 'reset', -> @addNewItem()
+    @search_collection.on 'reset', =>
+      @setActiveChannelKey `undefined`
+      @setActiveAutoComplete 0
+      @trigger 'heightChanged'
+
 
 
   onClose: -> super()

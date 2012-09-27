@@ -1,7 +1,7 @@
 #TODO: check if this hide-input class thingy has some importance
 
 # TODO: remove this, use triggers instead
-window.updateWindowHeight = ->  window.updateHeight() if window.updateHeight
+updateWindowHeight = ->  window.updateHeight() if window.updateHeight
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
@@ -36,6 +36,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       mainView: this
       alreadyAdded: @collection
     )
+    @_auto_completes_view.on 'heightChanged', -> updateWindowHeight()
+
 
   onRender: ->
     @$(".auto_complete ul").preventScrollPropagation()
@@ -122,22 +124,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   autoComplete: ->
     searchValue = @$("input.typeahead").val()
-
-    return  if @_lastKnownSearchValue is searchValue or not @_proceed
-
-    @_lastKnownSearchValue = searchValue
-    @setActiveChannelKey `undefined`
-
-
-    @clearAutoComplete()
-
-    return if searchValue.length < 1
-
-
-    @_auto_completes_view.search_collection.setSearch searchValue
-    @_auto_completes_view.search_collection.fetch success: =>
-      @_auto_completes_view.setActiveAutoComplete 0
-      updateWindowHeight()
+    @_auto_completes_view.search_collection.searchFor searchValue
 
   #cleaning/closing functions:
 

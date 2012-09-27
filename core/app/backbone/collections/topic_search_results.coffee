@@ -1,9 +1,9 @@
 class window.TopicSearchResults extends Backbone.Collection
   model: TopicSearchResult
 
-  initialize: -> @setSearch ''
-
-  setSearch: (query) -> @query = query
+  initialize: ->
+    @on 'reset', => @addNewItem()
+    @searchFor ''
 
   url: -> "/" + currentUser.get('username') + "/channels/find.json?s=#{@query}"
 
@@ -12,13 +12,25 @@ class window.TopicSearchResults extends Backbone.Collection
     @reset []
 
   addNewItem: ->
-    title = @query
-    current_items = _.map @pluck('title'), (item)-> item.toLowerCase()
+    if (@shouldShowNewItem())
+      @add(@getNewItem)
 
-    unless @query.toLowerCase() in current_items or
-           @query == ''
-      model = new AutoCompletedChannel
-                    'title':title,
-                    'slug_title': title.toLowerCase()
-                    'new': true
-      @add(model)
+  shouldShowNewItem: ->
+    return false if @query == ''
+
+    current_items = _.map @pluck('title'), (item)-> item.toLowerCase()
+    return @query.toLowerCase() in current_items
+
+  getNewItem: -> new AutoCompletedChannel(
+      'title':@query,
+      'slug_title': @query.toLowerCase()
+      'new': true)
+
+  searchFor: (query) ->
+    return if query == @query
+
+    if query == ''
+      @makeEmpty()
+    else
+      @query = query
+      @fetch()
