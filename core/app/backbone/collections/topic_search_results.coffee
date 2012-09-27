@@ -20,7 +20,7 @@ class window.TopicSearchResults extends Backbone.Collection
 
   currentLowercaseTitles: -> _.map @pluck('title'), (item)-> item.toLowerCase()
 
-  getNewItem: -> new AutoCompletedChannel(
+  getNewItem: -> new Topic(
       'title':@query,
       'slug_title': @query.toLowerCase()
       'new': true)
