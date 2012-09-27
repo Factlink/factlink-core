@@ -21,7 +21,7 @@ class SteppableView extends Backbone.Marionette.CompositeView
     return key
 
   setActiveAutoComplete:  (key)->
-    this.options.mainView.deActivateCurrent()
+    @deActivateCurrent()
     key = this.fixKeyModulo(key)
 
     @list[key].trigger('activate');
