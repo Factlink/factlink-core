@@ -64,9 +64,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   focusInput: -> @$("input.typeahead").focus()
 
 
-  setActiveAutoComplete: (key, scroll) ->
-    @_auto_completes_view.setActiveAutoComplete key, scroll
-
   selectDefaultItem: -> console.info 'we could do something here'
 
   activateAutoCompleteView: (view) -> view.trigger 'requestActivate'
@@ -150,7 +147,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
     @_auto_completes_view.search_collection.setSearch searchValue
     @_auto_completes_view.search_collection.fetch success: =>
-      @setActiveAutoComplete 0, true
+      @_auto_completes_view.setActiveAutoComplete 0
       updateWindowHeight()
 
   #cleaning/closing functions:
