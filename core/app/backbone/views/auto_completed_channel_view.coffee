@@ -27,26 +27,4 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
     @$el.addClass 'active'
     @scrollIntoView()
 
-  scrollIntoView: ->
-    container = @$el.closest("ul")[0]
-    unless @isScrolledIntoView(@el) and @isInsideContainerBoundaries(@el, container)
-      if (container.scrollHeight > container.clientHeight)
-        @el.scrollIntoView(false)
-
-  isScrolledIntoView: (elem)->
-    docViewTop = $(window).scrollTop();
-    docViewBottom = docViewTop + $(window).height();
-
-    elemTop = $(elem).offset().top;
-    elemBottom = elemTop + $(elem).height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-
-  isInsideContainerBoundaries: (elem, container) ->
-    docViewTop = $(container).offset().top;
-    docViewBottom = docViewTop + $(container).height();
-
-    elemTop = $(elem).offset().top;
-    elemBottom = elemTop + $(elem).height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  scrollIntoView: -> scrollIntoViewWithinContainer(@el, @$el)
