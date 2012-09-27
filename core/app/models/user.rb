@@ -65,7 +65,7 @@ class User
   validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_length_of     :location, maximum: 127
-  validates_length_of     :location, maximum: 1023
+  validates_length_of     :biography, maximum: 1023
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
