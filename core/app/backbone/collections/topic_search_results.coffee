@@ -1,5 +1,5 @@
 class window.TopicSearchResults extends Backbone.Collection
-  model: TopicSearchResult
+  model: Topic
 
   initialize: ->
     @on 'reset', => @addNewItem()
