@@ -1,6 +1,7 @@
 #TODO: check if this hide-input class thingy has some importance
 
-updateWindowHeight = ->  window.updateHeight() if window.updateHeight
+# TODO: remove this, use triggers instead
+window.updateWindowHeight = ->  window.updateHeight() if window.updateHeight
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
