@@ -1,8 +1,5 @@
 #TODO: check if this hide-input class thingy has some importance
 
-# TODO: remove this, use triggers instead
-updateWindowHeight = ->  window.updateHeight() if window.updateHeight
-
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
@@ -31,7 +28,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       mainView: this
       alreadyAdded: @collection
     )
-    @_auto_completes_view.on 'heightChanged', -> updateWindowHeight()
 
 
   onRender: ->
@@ -39,8 +35,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
     @added_channels.show(@_added_channels_view)
     @auto_completes.show(@_auto_completes_view)
-
-    updateWindowHeight()
 
   parseKeyDown: (e) ->
     @_proceed = false

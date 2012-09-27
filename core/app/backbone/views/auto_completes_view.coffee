@@ -81,9 +81,6 @@ class window.AutoCompletesView extends SteppableView
     @search_collection.on 'reset', =>
       @setActiveChannelKey `undefined`
       @setActiveAutoComplete 0
-      @trigger 'heightChanged'
-
-
 
   onClose: -> super()
 
