@@ -62,7 +62,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   focusInput: -> @$("input.typeahead").focus()
 
-  deActivateCurrent: -> @_auto_completes_view.deActivateCurrent()
 
   setActiveAutoComplete: (key, scroll) ->
     @_auto_completes_view.setActiveAutoComplete key, scroll
