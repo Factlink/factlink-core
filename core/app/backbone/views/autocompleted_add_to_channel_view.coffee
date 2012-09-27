@@ -83,15 +83,13 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
         return
     @createNewChannel()
 
-  isDupe: (title) -> @collection.where(title: title).length > 0
-
   createNewChannel: ->
-    title = @$("input.typeahead").val()
-    title = $.trim(title)
-    dupe = false
-    if (title.length < 1) or (@isDupe(title))
+    title = $.trim @$("input.typeahead").val()
+
+    if (title.length < 1)
       @completelyDisappear()
       return
+
     to_create_user_channels = @_auto_completes_view.collection.filter((item) ->
       item.get("title") is title and item.get("user_channel")
     )
