@@ -42,8 +42,11 @@ class SteppableView extends Backbone.Marionette.CompositeView
       @list.splice(i,1)
 
     view.on 'requestActivate', =>
-      i = @list.indexOf(view)
-      @setActiveAutoComplete(i)
+      unless @alreadyHandlingAnActivate
+        @alreadyHandlingAnActivate = true
+        i = @list.indexOf(view)
+        @setActiveAutoComplete(i)
+        @alreadyHandlingAnActivate = false
 
     view.on 'requestDeActivate', => @deActivateCurrent()
 
