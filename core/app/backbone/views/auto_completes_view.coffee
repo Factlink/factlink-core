@@ -52,8 +52,11 @@ class SteppableView extends Backbone.Marionette.CompositeView
 
     @list.push(view)
 
-
-
+  currentActiveModel: ->
+    if 0 <= @activeChannelKey() < @list.length
+      @list[@activeChannelKey()].model
+    else
+     `undefined`
 
 class window.AutoCompletesView extends SteppableView
   template: "channels/_auto_completes"

@@ -64,45 +64,34 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   focusInput: -> @$("input.typeahead").focus()
 
+  userChannelForTopic: (title)-> currentUser.channels.getByTitle(title)
 
+  #TODO: readd enable/disable in some way
 
   addCurrentlySelectedChannel: ->
-    @disable()
-    if 0 <= @activeChannelKey() < @_auto_completes_view.list.length
-      selected = @_auto_completes_view.list[@activeChannelKey()].model
-      @$("input.typeahead").val selected.get("title")
-      if selected.get("user_channel")
-        @addNewChannel selected.get("user_channel")
-        return
-    @createNewChannel()
+    if activeTopic = @_auto_completes_view.currentActiveModel()
+      @$("input.typeahead").val activeTopic.get("title")
 
-  createNewChannel: ->
     title = $.trim @$("input.typeahead").val()
 
-    if (title.length < 1)
-      @completelyDisappear()
+    if ch = @userChannelForTopic(title)
+      @addNewChannel ch
       return
 
-    to_create_user_channels = @_auto_completes_view.collection.filter((item) ->
-      item.get("title") is title and item.get("user_channel")
-    )
-    if to_create_user_channels.length > 0
-      @addNewChannel to_create_user_channels[0].get("user_channel")
-      return
     $.ajax(
       url: "/" + currentUser.get("username") + "/channels"
       data:
         title: title
 
       type: "POST"
-    ).done _.bind(@addNewChannel, this)
+    ).done (data)=>
+      channel = new Channel(data)
+      currentUser.channels.add channel
+      @addNewChannel(channel)
 
   addNewChannel: (channel) ->
-    channel = new Channel(channel)
-    currentUser.channels.add channel
     @vent.trigger "addChannel", channel
     @collection.add channel
-    @completelyDisappear()
 
   disable: ->
     @$el.addClass("disabled").find("input.typeahead").prop "disabled", true
@@ -116,8 +105,3 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   autoComplete: ->
     searchValue = @$("input.typeahead").val()
     @_auto_completes_view.search_collection.searchFor searchValue
-
-  completelyDisappear: ->
-    @enable()
-    @$("input.typeahead").val ""
-    @$el.addClass "hide-input" if @collection.length
