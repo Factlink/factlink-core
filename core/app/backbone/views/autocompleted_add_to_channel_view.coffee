@@ -59,7 +59,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     activeTopic = @_auto_completes_view.currentActiveModel()
 
     if not activeTopic
-      alert "Something went wrong, did you select a suggestion?"
       afterAdd()
       return
 
