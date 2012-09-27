@@ -12,8 +12,8 @@ class window.TopicSearchResults extends Backbone.Collection
     @reset []
 
   addNewItem: ->
-    if (@shouldShowNewItem())
-      @add(@getNewItem())
+    if @shouldShowNewItem()
+      @add @getNewItem()
 
   shouldShowNewItem: ->
     @query != '' and not (@query.toLowerCase() in @currentLowercaseTitles())
