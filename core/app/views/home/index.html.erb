@@ -1,86 +1,49 @@
-<% content_for :payoff do %>
-  <h2>Building a collectively reviewed perspective on the world's information</h2>
-  <p> Because the web needs what you know!</p>
-<% end %>
-
-<% content_for :sign_up do %>
-
-  <% if notice %>
-    <div class="alert alert-info">
-      <%= notice %>
+<% content_for :header do %>
+  <h1>A layer over the web to add and view credibility</h1>
+  <div class="row">
+    <div class="span4 sign_up_form">
+      <h2>Sign up for the beta now:</h2>
+      <form action="">
+        <input type="text" placeholder="Choose a username" name="username" class="text">
+        <input type="text" placeholder="Email address" name="email" class="text">
+        <input type="submit" value="Reserve my username" name="submit" class="btn btn-primary">
+      </form>
+      <span class="reserved light">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
     </div>
-  <% end %>
-
-  <% if alert %>
-    <div class="alert alert-error">
-      <%= alert %>
+    <div class="span4 video">
+      <a>Play video</a>
     </div>
-  <% end %>
-
-  <h3>Reserve your username</h3>
-  <p>We'll get you account access as we're opening up for more users.</p>
-  <%= render template: "users/registrations/new" %>
-  &nbsp;
-
-<% end %>
-
-
-<% content_for :selling_points do %>
-  <h3>Why use Factlink</h3>
-  <ul>
-    <li class="image-chart">Build authority on any topic, discover expertise</li>
-    <li class="image-people">Share what you know, contribute to people's perspective</li>
-    <li class="image-globe">Check the credibility of the information you are reading</li>
-    <li class="image-money">Free information access. Period</li>
-  </ul>
-<% end %>
-
-
-<% content_for :top_facts do %>
-  <% cache :top_factlinks, expires_in: 5.minutes do%>
-    <h3>Top factlinks</h3>
-    <ul id="top-factlinks">
-    <% top_facts(3).each do |f| %>
-      <li>
-        <%= render_mustache 'facts/fact_bubble',  fact: f, hide_links: true %>
-      </li>
-    <% end %>
-    </ul>
-  <% end %>
-<% end %>
-
-<% content_for :movie do %>
-    <a data-toggle="modal" href="#videoModal" id="watchVideoButton"></a>
-    <div class="modal fade" id="videoModal">
-
-      <div class="modal-header">
-        <a class="close" data-dismiss="modal"><i class="icon-remove"></i></a><br>
-      </div>
-
-      <div class="modal-body">
-      </div>
+    <div class="span4 statement">
+      <h3>&#x2713; With Factlink you can select any statement on the web, review it's credibility, and add what you know.</h3>
     </div>
+  </div>
 <% end %>
 
-<% content_for :javascript do %>
-  <% cache :top_factlinks_js, expires_in: 5.minutes do%>
-    <script>
-      <% top_facts(3).each do |f| %>
-        new PassiveWheelView({
-          el: $('article[data-fact-id=<%= f.id %>]').find('.wheel'),
-          model: new Wheel(<%= Facts::FactWheel.for(fact: f, view: self).to_json.to_s.html_safe %>)
-        }).render();
-          $('article[data-fact-id=<%= f.id %>]').find('.body .text').trunk8({lines: 2});
-      <% end %>
+<% content_for :content do %>
+  <div class="row">
+    <div class="span6 authority">
+      <i></i>
+      <h2>Authority &amp; peer recognition</h2>
+      <p>Factlink helps uncovering what people know by measuring their authority on any specific subject. It enables you to reach out to peers and get recognition.</p>
+    </div>
+    <div class="span6 social">
+      <i></i>
+      <h2>A social network for knowledge</h2>
+      <p>Discover relevant knowledge and connect to curated expertise. Get immediate updates as new information comes in and new facts come to light. Have impact on what people learn.</p>
+    </div>
+  </div>
 
-      var iframe = $('<iframe src="https://player.vimeo.com/video/39821677?autoplay=1" width="740" height="416" style="border: 0px;"></iframe>');
-      $('#watchVideoButton').click(function(){
-        iframe.clone().appendTo($('#videoModal > .modal-body'));
-      });
+  <div class="row">
+    <div class="span6 curation">
+      <i></i>
+      <h2>Collective curation</h2>
+      <p>The platform can combine the expertise of billions of people and provide a collectively curated perspective on the worlds information. Anybody can annotate any statement on the web and share and discuss it with others.</p>
+    </div>
 
-      $('#videoModal').on('hidden', function () {
-        $('#videoModal > .modal-body').empty();
-      });
-    </script>
-  <% end %>
+    <div class="span6 web">
+      <i></i>
+      <h2>A layer over the web</h2>
+      <p>As an app for your browser, Factlinks works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
+    </div>
+  </div>
 <% end %>

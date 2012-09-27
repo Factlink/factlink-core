@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <%= stylesheet_link_tag "new/base" %>
+    <%= stylesheet_link_tag "base" %>
 
     <% if can_haz :pink_feedback_button %>
       <!-- Speciaal voor jou Joel! -->
@@ -60,79 +60,7 @@
       </div>
     </div>
 
-    <div class="header">
-      <div class="background">
-        <%= image_tag "new/header/background.jpg", class: "stars" %>
-        <%= image_tag "new/header/earth.png", class: "earth" %>
-      </div>
-      <div class="container">
-        <h1>A layer over the web to add and view credibility</h1>
-        <div class="row">
-          <div class="span4 sign_up_form">
-            <h2>Sign up for the beta now:</h2>
-            <form action="">
-              <input type="text" placeholder="Choose a username" name="username" class="text">
-              <input type="text" placeholder="Email address" name="email" class="text">
-              <input type="submit" value="Reserve my username" name="submit" class="btn btn-primary">
-            </form>
-            <span class="reserved light">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
-          </div>
-          <div class="span4 video">
-            <a>Play video</a>
-          </div>
-          <div class="span4 statement">
-            <h3>&#x2713; With Factlink you can select any statement on the web, review it's credibility, and add what you know.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          <div class="span6 authority">
-            <i></i>
-            <h2>Authority &amp; peer recognition</h2>
-            <p>Factlink helps uncovering what people know by measuring their authority on any specific subject. It enables you to reach out to peers and get recognition.</p>
-          </div>
-          <div class="span6 social">
-            <i></i>
-            <h2>A social network for knowledge</h2>
-            <p>Discover relevant knowledge and connect to curated expertise. Get immediate updates as new information comes in and new facts come to light. Have impact on what people learn.</p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="span6 curation">
-            <i></i>
-            <h2>Collective curation</h2>
-            <p>The platform can combine the expertise of billions of people and provide a collectively curated perspective on the worlds information. Anybody can annotate any statement on the web and share and discuss it with others.</p>
-          </div>
-
-          <div class="span6 web">
-            <i></i>
-            <h2>A layer over the web</h2>
-            <p>As an app for your browser, Factlinks works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sign_up clearfix">
-      <div class="arrow"></div>
-
-      <div class="container sign_up_form">
-        <h2>Sign up for the beta now</h2>
-
-        <form action="">
-          <input type="text" name="username" placeholder="Choose a username" class="text">
-          <input type="text" name="email" placeholder="Email address" class="text">
-          <input type="submit" name="submit" value="Reserve my username" class="btn btn-primary">
-        </form>
-
-        <span class="reserved">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
-      </div>
-    </div>
+    <%= yield :main %>
 
     <div class="footer">
       <div class="container">
@@ -140,31 +68,31 @@
 
         <ul>
           <li>
-            <a href="">Home</a>
+            <%= link_to "Home", root_path %>
           </li>
           <li>
-            <a href="">About</a>
+            <%= link_to "About", pages_path("about") %>
           </li>
           <li>
-            <a href="">Team</a>
+            <%= link_to "Team", pages_path("team") %>
           </li>
           <li>
-            <a href="">Jobs</a>
+            <%= link_to "Jobs", pages_path("jobs") %>
           </li>
           <li>
-            <a href="">Blog</a>
+            <%= link_to "Blog", "http://blog.factlink.com" %>
           </li>
           <li class="last">
-            <a href="">Contact</a>
+            <%= link_to "Contact", pages_path("contact") %>
           </li>
         </ul>
 
         <ul class="pull-right clearfix">
           <li>
-            <a href="">Privacy</a>
+            <%= link_to "Privacy Policy", pages_path("privacy") %>
           </li>
           <li>
-            <a href="">Terms of Service</a>
+            <%= link_to "Terms of Service", pages_path("tos") %>
           </li>
           <li class="last copy">
             &copy; 2012 Factlink. All rights reserved.
@@ -172,9 +100,8 @@
         </ul>
       </div>
     </div>
-    <%= yield %>
 
-    <%= javascript_include_tag "new/base" %>
+    <%= javascript_include_tag "base" %>
     <%= render 'snippets/google_analytics' %>
   </body>
 </html>
