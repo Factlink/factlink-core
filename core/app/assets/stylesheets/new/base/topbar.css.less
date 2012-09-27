@@ -1,6 +1,16 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+body.show_sign_in {
+  .navbar .navbar-inner {
+    display: none;
+
+    &.dimmed {
+      display: block;
+    }
+  }
+}
+
 .navbar {
   position: relative;
   height: 42px;
