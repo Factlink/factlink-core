@@ -13,13 +13,12 @@ class window.TopicSearchResults extends Backbone.Collection
 
   addNewItem: ->
     if (@shouldShowNewItem())
-      @add(@getNewItem)
+      @add(@getNewItem())
 
   shouldShowNewItem: ->
-    return false if @query == ''
+    @query != '' and not (@query.toLowerCase() in @currentLowercaseTitles())
 
-    current_items = _.map @pluck('title'), (item)-> item.toLowerCase()
-    return @query.toLowerCase() in current_items
+  currentLowercaseTitles: -> _.map @pluck('title'), (item)-> item.toLowerCase()
 
   getNewItem: -> new AutoCompletedChannel(
       'title':@query,
