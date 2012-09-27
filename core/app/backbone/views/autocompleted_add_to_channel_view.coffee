@@ -126,12 +126,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     searchValue = @$("input.typeahead").val()
     @_auto_completes_view.search_collection.searchFor searchValue
 
-  #cleaning/closing functions:
-
-  clearAutoComplete: ->
-    @_auto_completes_view.search_collection.makeEmpty()
-    @$(".auto_complete").addClass "empty"
-
   completelyDisappear: ->
     @enable()
     @$("input.typeahead").val ""
