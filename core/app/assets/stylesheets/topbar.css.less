@@ -6,7 +6,7 @@
 @import "bootstrap/variables";
 
 // Our navbar is white :)
-.navbar-inner {
+.navbar-fixed-top .navbar-inner {
   background: @navbarBackground;
   border-bottom: 1px solid @baseBorderColor;
   .box-shadow(none);
@@ -20,7 +20,8 @@
   .transition();
   #font > .sans-serif(bold, @baseFontSize, 20px);
   cursor: pointer;
-  line-height: 22px;
+  // line-height: 22px;
+  line-height: @baseLineHeight;
 
   &:hover {
     color: @linkColorHover;
@@ -41,6 +42,7 @@
     }
   }
 }
+
 
 // Overwrite caret color
 .navbar .nav li.dropdown .dropdown-toggle .caret,
