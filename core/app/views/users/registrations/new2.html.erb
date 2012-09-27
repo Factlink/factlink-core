@@ -1,0 +1,10 @@
+<%= render "users/registrations/form2", form_id: form_id %>
+
+<% content_for :javascript do %>
+  <script>
+  $('form.user_new input#user_username').focus(function(){$('label[for=user_username]').hide()})
+  $('form.user_new input#user_username').blur(function(){$('label[for=user_username]').show()})
+  $('form.user_new input#user_email').focus(function(){$('label[for=user_email]').hide()})
+  $('form.user_new input#user_email').blur(function(){$('label[for=user_email]').show()})
+  </script>
+<% end %>
