@@ -13,7 +13,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
     "click .show-input-button": "showInput"
-    "mouseenter .auto_complete>div": "selectDefaultItem"
 
   regions:
     'added_channels': 'div.added_channels_container'
@@ -66,14 +65,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   focusInput: -> @$("input.typeahead").focus()
 
 
-  selectDefaultItem: -> console.info 'we could do something here'
-
-  activateAutoCompleteView: (view) -> view.trigger 'requestActivate'
-
-  deActivateAutoCompleteView: ->
-    activeview = @_auto_completes_view.list[@activeChannelKey()]
-    activeview.trigger "deactivate"  if activeview isnt `undefined`
-    @setActiveChannelKey `undefined`
 
   addCurrentlySelectedChannel: ->
     @disable()
