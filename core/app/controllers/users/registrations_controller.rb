@@ -27,17 +27,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
         location = after_inactive_sign_up_path_for(resource)
       end
 
-      respond_with resource, location: location
+      if request.format.js?
+        render status: 200, json: { status: :ok, username: resource.username }
+        return
+      else
+        respond_with resource, location: location
+      end
     else
       clean_up_passwords resource
 
       the_errors = "Registration failed:<br>"
+      error_hash = {}
       resource.errors.each do |key, value|
         the_errors << "#{value.to_s}<br>"
+        error_hash[key] = value
       end
 
-      if request.xhr?
-        render status: 400, json: the_errors
+      if request.format.js?
+        render json: error_hash, :status => :unprocessable_entity
         return
       else
         redirect_to root_path, alert: the_errors.html_safe
