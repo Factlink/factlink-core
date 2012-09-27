@@ -18,7 +18,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   template: "channels/_auto_completed_add_to_channel"
 
   initialize: ->
-    @vent = new Backbone.Marionette.EventAggregator()
     @collection = new OwnChannelCollection()
     @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
@@ -75,7 +74,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
         afterAdd()
 
   addNewChannel: (channel) ->
-    @vent.trigger "addChannel", channel
+    @trigger "addChannel", channel
     # create new object if the current channel is already in a collection
     channel = new Channel(channel.toJSON()) if channel.collection?
     @collection.add channel
