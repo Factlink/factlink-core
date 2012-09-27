@@ -60,8 +60,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   focusInput: -> @$("input.typeahead").focus()
 
-  #TODO: readd enable/disable in some way
-
   addCurrentlySelectedChannel: ->
     @disable()
     afterAdd = =>
