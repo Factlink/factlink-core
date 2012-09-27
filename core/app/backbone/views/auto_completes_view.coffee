@@ -68,7 +68,7 @@ class window.AutoCompletesView extends SteppableView
 
   itemViewOptions: =>
     return {
-      query: @options.mainView._lastKnownSearchValue,
+      query: @search_collection.query
       parent: @options.mainView
     }
 
