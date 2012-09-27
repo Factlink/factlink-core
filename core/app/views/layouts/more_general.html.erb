@@ -41,7 +41,7 @@
     <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
   </div>
 
-  <%= yield :specific_javascript%>
+  <%= yield :specific_javascript %>
 
   <%= render 'snippets/google_analytics' %>
   <%= yield :modal_javascript %>
