@@ -177,8 +177,8 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
       'admin.js',
-      'new/base.js',
-      'new/base.css',
+      'base.js',
+      'base.css',
     ]
 
     # we only cache very little, so memory_store is fine for now
