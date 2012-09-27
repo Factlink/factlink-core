@@ -140,7 +140,13 @@ module FactlinkUI
     config.filter_parameters += [:password, :password_confirmation]
 
     # Add /app/templates to asset path
-    config.assets.paths << "#{Rails.root}/app/templates"
+    config.assets.paths << Rails.root.join("app", "templates")
+
+    # Add /app/assets/fonts to asset path
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+    # Add /app/backbone to asset path
+    config.assets.paths << Rails.root.join("app", "backbone")
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -173,8 +179,6 @@ module FactlinkUI
       'admin.js',
       'new/base.css',
     ]
-
-    config.assets.paths << Rails.root.join("app", "backbone")
 
     # we only cache very little, so memory_store is fine for now
     config.cache_store = :memory_store
