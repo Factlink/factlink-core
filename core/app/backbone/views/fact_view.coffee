@@ -97,10 +97,10 @@ class window.FactView extends ViewWithPopover
       _.each @model.getOwnContainingChannels(), (ch) ->
         addToChannelView.collection.add ch  if ch.get("type") is "channel"
 
-      addToChannelView.vent.bindTo "addChannel", (channel) ->
+      addToChannelView.on "addChannel", (channel) ->
         self.model.addToChannel channel, {}
 
-      addToChannelView.vent.bindTo "removeChannel", (channel) ->
+      addToChannelView.on "removeChannel", (channel) ->
         self.model.removeFromChannel channel, {}
         self.model.collection.remove self.model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 

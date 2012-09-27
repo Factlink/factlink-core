@@ -1,8 +1,5 @@
 #TODO: check if this hide-input class thingy has some importance
 
-# TODO: remove this, use triggers instead
-updateWindowHeight = ->  window.updateHeight() if window.updateHeight
-
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
@@ -18,33 +15,21 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     'added_channels': 'div.added_channels_container'
     'auto_completes': 'div.auto_complete_container'
 
-  activeChannelKey: -> @_auto_completes_view.activeChannelKey()
-
-  setActiveChannelKey: (value) -> @_auto_completes_view.setActiveChannelKey(value)
-
   template: "channels/_auto_completed_add_to_channel"
 
   initialize: ->
-    @vent = new Backbone.Marionette.EventAggregator()
     @collection = new OwnChannelCollection()
-    @_added_channels_view = new AutoCompletedAddedChannelsView(
+    @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
       mainView: this
-    )
-    @_auto_completes_view = new AutoCompletesView(
+    @_auto_completes_view = new AutoCompletesView
       mainView: this
       alreadyAdded: @collection
-    )
-    @_auto_completes_view.on 'heightChanged', -> updateWindowHeight()
 
 
   onRender: ->
-    @$(".auto_complete ul").preventScrollPropagation()
-
-    @added_channels.show(@_added_channels_view)
-    @auto_completes.show(@_auto_completes_view)
-
-    updateWindowHeight()
+    @added_channels.show @_added_channels_view
+    @auto_completes.show @_auto_completes_view
 
   parseKeyDown: (e) ->
     @_proceed = false
@@ -64,8 +49,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   focusInput: -> @$("input.typeahead").focus()
 
-  #TODO: readd enable/disable in some way
-
   addCurrentlySelectedChannel: ->
     @disable()
     afterAdd = =>
@@ -76,7 +59,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     activeTopic = @_auto_completes_view.currentActiveModel()
 
     if not activeTopic
-      alert "oops, something went wrong, did you select a suggestion?"
       afterAdd()
       return
 
@@ -87,22 +69,20 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "something went wrong while adding, sorry"
+        alert "Something went wrong while adding the fact to this channel, sorry"
         afterAdd()
 
   addNewChannel: (channel) ->
-    @vent.trigger "addChannel", channel
+    @trigger "addChannel", channel
     # create new object if the current channel is already in a collection
     channel = new Channel(channel.toJSON()) if channel.collection?
     @collection.add channel
 
   disable: ->
     @$el.addClass("disabled").find("input.typeahead").prop "disabled", true
-    @$(".btn").addClass "disabled"
 
   enable: ->
     @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
-    @$(".btn").removeClass "disabled"
 
   autoCompleteCurrentValue: ->
     searchValue = @$("input.typeahead").val()

@@ -32,4 +32,5 @@ class window.TopicSearchResults extends Backbone.Collection
       @makeEmpty()
     else
       @query = query
+      @reset []
       @fetch()

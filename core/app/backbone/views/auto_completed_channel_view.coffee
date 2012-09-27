@@ -13,7 +13,6 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
     @on 'activate', => @activate()
     @on 'deactivate', => @deactivate()
 
-
   templateHelpers: ->
     view = this
     return { highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")}
