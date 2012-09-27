@@ -69,8 +69,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   selectDefaultItem: -> console.info 'we could do something here'
 
-  activateAutoCompleteView: (view) ->
-    @setActiveAutoComplete @_auto_completes_view.list.indexOf(view)
+  activateAutoCompleteView: (view) -> view.trigger 'requestActivate'
 
   deActivateAutoCompleteView: ->
     activeview = @_auto_completes_view.list[@activeChannelKey()]
