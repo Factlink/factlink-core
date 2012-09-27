@@ -20,19 +20,15 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   initialize: ->
     @vent = new Backbone.Marionette.EventAggregator()
     @collection = new OwnChannelCollection()
-    @_added_channels_view = new AutoCompletedAddedChannelsView(
+    @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
       mainView: this
-    )
-    @_auto_completes_view = new AutoCompletesView(
+    @_auto_completes_view = new AutoCompletesView
       mainView: this
       alreadyAdded: @collection
-    )
 
 
   onRender: ->
-    @$(".auto_complete ul").preventScrollPropagation()
-
     @added_channels.show(@_added_channels_view)
     @auto_completes.show(@_auto_completes_view)
 
@@ -86,11 +82,9 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   disable: ->
     @$el.addClass("disabled").find("input.typeahead").prop "disabled", true
-    @$(".btn").addClass "disabled"
 
   enable: ->
     @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
-    @$(".btn").removeClass "disabled"
 
   autoCompleteCurrentValue: ->
     searchValue = @$("input.typeahead").val()

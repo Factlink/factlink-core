@@ -84,6 +84,8 @@ class window.AutoCompletesView extends SteppableView
 
   onClose: -> super()
 
+  onRender: -> @$(@itemViewContainer).preventScrollPropagation()
+
   onItemAdded: (view)-> super(view)
 
   showEmptyView: -> @$el.hide()
