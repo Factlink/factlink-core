@@ -18,7 +18,7 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
     return { highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")}
 
   onRender: ->
-    if @model.get('user_channel' )
+    if @model.existingChannelFor(currentUser)
       @$el.addClass('user-channel')
 
   deactivate: -> @$el.removeClass 'active'
