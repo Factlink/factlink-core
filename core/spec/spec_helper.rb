@@ -34,13 +34,13 @@ RSpec.configure do |config|
   config.before(:each) do
     Ohm.flush
     DatabaseCleaner.clean
-    #TODO FLUSH ELASTICSEARCH
+    ElasticSearchCleaner.clean
   end
 
   config.after(:suite) do
     Ohm.flush
     DatabaseCleaner.clean
-    #TODO FLUSH ELASTICSEARCH
+    ElasticSearchCleaner.clean
   end
 end
 
