@@ -39,9 +39,9 @@ class window.FactView extends ViewWithPopover
 
   onRender: ->
     sometimeWhen(
-      => this.$el.is ":visible"
+      => @$el.is ":visible"
       ,
-      => this.truncateText()
+      => @truncateText()
     )
 
     @$(".authority").tooltip()
