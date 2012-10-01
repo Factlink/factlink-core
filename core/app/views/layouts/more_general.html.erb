@@ -30,7 +30,7 @@
 <body class="factlink-site">
   <%= render 'feedback/button' unless defined? dont_render_feedback %>
   <%= render 'home/site_messages' %>
-  <%= render 'base/topbar', fixed: true %>
+  <%= render 'base/topbar', fixed_topbar: true %>
 
   <%= yield :more_specific_page %>
 
