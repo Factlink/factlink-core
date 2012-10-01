@@ -1,2 +1,1 @@
-sunspotsolr: bundle exec rake sunspot:solr:run
 elasticsearch: elasticsearch -f

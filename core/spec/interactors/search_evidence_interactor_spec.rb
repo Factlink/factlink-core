@@ -17,7 +17,6 @@ describe SearchEvidenceInteractor do
     stub_const 'FactData', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Ability::FactlinkWebapp', fake_class
-    stub_const 'SolrSearchFactDataQuery', fake_class
     stub_const 'ElasticSearchFactDataQuery', fake_class
   end
 
@@ -48,36 +47,6 @@ describe SearchEvidenceInteractor do
       interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
 
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
-    end
-
-    it 'correctly with solr' do
-      ability = mock()
-      ability.
-        should_receive(:can?).
-        with(:index, Fact).
-        and_return(true)
-      ability.
-        should_receive(:can?).
-        with(:see_feature_elastic_search, Ability::FactlinkWebapp).
-        and_return(false)
-
-      keywords = 'zoeken interessante dingen'
-      interactor = SearchEvidenceInteractor.new keywords, '1', ability: ability
-
-      fact_data = get_fact_data '2'
-      result = [fact_data]
-      query = mock()
-
-      query.should_receive(:execute).
-        and_return(result)
-
-      SolrSearchFactDataQuery.should_receive(:new).
-        with(keywords, 1, 20).
-        and_return(query)
-
-      FactData.stub :valid => true
-
-      interactor.execute.should eq result
     end
 
     it 'shouldn''t return itself' do

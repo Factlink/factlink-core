@@ -16,11 +16,8 @@ class SearchInteractor
       return []
     end
 
-    if use_elastic_search?
-      query = ElasticSearchAllQuery.new(filter_keywords, @page, @row_count)
-    else
-      query = SolrSearchAllQuery.new(filter_keywords, @page, @row_count)
-    end
+    query = ElasticSearchAllQuery.new(filter_keywords, @page, @row_count)
+
     results = query.execute
 
     results = results.delete_if do |res|
@@ -38,9 +35,5 @@ class SearchInteractor
 
   def authorized?
     @ability.can? :index, Fact
-  end
-
-  def use_elastic_search?
-    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
   end
 end

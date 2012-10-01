@@ -2,15 +2,7 @@ class FactData
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  include Sunspot::Mongoid
   attr_accessible []
-
-  searchable auto_index: true do
-    text    :displaystring, stored: true
-    string  :fact_id
-    text    :title
-    time    :created_at
-  end
 
   field :title,           type: String
   field :displaystring,   type: String

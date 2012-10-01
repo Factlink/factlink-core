@@ -5,7 +5,6 @@ require 'redis/objects'
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Sunspot::Mongoid
   include Redis::Objects
   include Gravatar
 
@@ -24,7 +23,7 @@ class User
   field :twitter
   field :location
   field :biography
-  
+
   field :graph_user_id
 
   field :approved,    type: Boolean, default: false, null: false
@@ -144,11 +143,6 @@ class User
     self.save
 
     Activity.create user: invited_by.graph_user, action: :invites, subject: graph_user
-  end
-
-  searchable :auto_index => true do
-    text    :username, :twitter
-    string  :username, :twitter
   end
 
   def hidden
