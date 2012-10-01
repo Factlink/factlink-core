@@ -1,1 +1,14 @@
-layout2.todo
+ ✔ Make a render template with a argument, that renders the new form. @done (12-09-27 12:58)
+ ☐ Create javascript that posts it to the controller with ajax. Fallback to refresh.
+ ☐ Show error messages (in context of correct form)
+ ☐ improve server side errors
+ ☐ Add client side errors
+ ☐ Refactor the javascript to it's own file
+
+$('#top_registration_form')
+$('#top_registration_form > input').remove();
+$('#top_registration_form > div').remove();
+$('#top_registration_form').css('height','35px').css('background-color','green').css('border-radius','3px').css('opacity',0.7).css('filter','alpha(opacity=70)');
+$('#top_registration_form').append('<p style=\'left: 0;position:absolute;text-align:center;width: 100%;font-size:16px;color: white\'>Great, you\’re almost finished! Please click the confirmation link in the email we’ve sent you.</p>');
+$('#top_registration_form > p:first').css('line-height','' + ($('#top_registration_form').height()) + 'px')
+
