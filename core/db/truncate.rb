@@ -22,10 +22,6 @@ def self.truncate(opts)
       end
     end
 
-    Sunspot.remove_all!(FactData) # Remove the indices of all Facts in Solr.
-
-    # Commit the indices to Solr
-    Sunspot.commit
   else
     puts "I only truncate in development!!"
   end

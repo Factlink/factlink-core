@@ -32,16 +32,15 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-
-    Sunspot.stub!(:index!)
-
     Ohm.flush
     DatabaseCleaner.clean
+    ElasticSearchCleaner.clean
   end
 
   config.after(:suite) do
     Ohm.flush
     DatabaseCleaner.clean
+    ElasticSearchCleaner.clean
   end
 end
 

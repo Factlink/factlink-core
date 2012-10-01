@@ -6,12 +6,12 @@
 .help-text-container  {
   position: fixed;
   top: 70px;
+  z-index: @max-z-index;
 
   > div {
     display: none;
     position: absolute;
     width: 198px;
-    z-index: @max-z-index;
     h4 { padding-bottom: 6px; }
   }
 }

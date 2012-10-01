@@ -51,10 +51,6 @@ namespace :action do
     run "sudo /usr/sbin/monit stop resque"
   end
 
-  task :reindex do
-    run "cd #{current_path}; bundle exec rake sunspot:solr:reindex RAILS_ENV=#{deploy_env}"
-  end
-
 end
 
 # If you are using Passenger mod_rails uncomment this:
@@ -112,7 +108,6 @@ end
 
 before 'deploy:all',      'deploy'
 after 'deploy:all',       'deploy:restart'
-after 'deploy:all',       'action:reindex'
 
 before 'deploy:migrate',  'action:stop_recalculate'
 before 'deploy:migrate',  'action:stop_resque'

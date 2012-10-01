@@ -15,7 +15,6 @@ describe SearchInteractor do
   before do
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Fact', fake_class
-    stub_const 'SolrSearchAllQuery', fake_class
     stub_const 'ElasticSearchAllQuery', fake_class
     stub_const 'FactData', fake_class
     stub_const 'User', fake_class
@@ -92,30 +91,6 @@ describe SearchInteractor do
       ElasticSearchAllQuery.should_not_receive(:new)
 
       interactor.execute.should eq []
-    end
-
-    it 'correctly with solr' do
-      keywords = 'searching for this channel'
-      ability = mock()
-      ability.
-        should_receive(:can?).
-        with(:index, Fact).
-        and_return(true)
-      ability.
-        should_receive(:can?).
-        with(:see_feature_elastic_search, Ability::FactlinkWebapp).
-        and_return(false)
-      interactor = SearchInteractor.new keywords, ability: ability
-      results = ['a','b','c']
-      query = mock()
-
-      SolrSearchAllQuery.should_receive(:new).
-        with(keywords, 1, 20).
-        and_return(query)
-      query.should_receive(:execute).
-        and_return(results)
-
-      interactor.execute.should eq results
     end
 
     it 'invalid Factdata is filtered' do

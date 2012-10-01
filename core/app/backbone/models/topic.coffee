@@ -6,7 +6,7 @@ class window.Topic extends Backbone.Model
       username: user.get 'username'
 
   withCurrentOrCreatedChannelFor: (user, options)->
-    if ch = user.channels.getBySlugTitle(@get 'slug_title')
+    if ch = @existingChannelFor(user)
       options.success?(ch)
     else
       ch = @newChannelForUser(user)
@@ -16,3 +16,6 @@ class window.Topic extends Backbone.Model
         success: (m,r)-> options.success?(m,r)
         error:   (m,r)-> options.error?(m,r)
       )
+
+  existingChannelFor: (user)->
+    user.channels.getBySlugTitle(@get 'slug_title')
