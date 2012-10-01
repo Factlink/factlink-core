@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       respond_to do |format|
         template = "home/pages/#{$1}"
 
-        layout = ["general", "base"].include?(params[:layout]) ? params[:layout] : "general"
+        layout = ["general", "static_pages", "base"].include?(params[:layout]) ? params[:layout] : "general"
 
         authorize! :show, template
 
