@@ -1,3 +1,5 @@
+//= require_tree ./topbar
+
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
@@ -17,6 +19,10 @@ body.show_sign_in {
   margin-bottom: 18px;
   font-size: 13px;
 
+  &.navbar-fixed-top {
+    position: fixed;
+  }
+
   .navbar-inner {
     .border-radius(0px);
     border: none;
@@ -25,9 +31,11 @@ body.show_sign_in {
     .inner-shadow(0, 0, 0, 0);
     position: relative;
     z-index: 2;
+    border-bottom: 1px solid #ddd;
+    .drop-shadow(0, 1px, 2px, .05);
 
     .background {
-      background: image-url('base/topbar/background.png') repeat-x;
+      background: white;
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 1;
@@ -38,7 +46,7 @@ body.show_sign_in {
       margin-right: auto;
       width: 940px;
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0; right: 0; bottom: 0; left: 0;
       z-index: 2;
 
       a.brand {
@@ -48,6 +56,51 @@ body.show_sign_in {
         height: 20px;
         background: image-url('base/topbar/logo.png') no-repeat;
         background-position: 0 0;
+      }
+
+      ul.nav > li {
+        > a {
+          color: #3d75a3;
+          #font > .sans-serif(bold, 13px, 20px);
+
+          &.profile {
+            padding-top: 6px;
+            padding-bottom: 6px;
+
+            img {
+              .border-radius(2px);
+            }
+          }
+
+          &:hover {
+            color: #555;
+          }
+        }
+
+        &.dropdown {
+          &.open .dropdown-toggle {
+            background: none;
+            color: #3d75a3;
+          }
+
+          .dropdown-menu li > a {
+            color: #333;
+            font-weight: normal;
+
+            &:hover, &:focus {
+              color: white;
+            }
+          }
+        }
+
+        &.divider-vertical {
+          margin: 0;
+          border: none;
+          background: image-url('base/topbar/divider.png') repeat-y center;
+          display: block;
+          width: 3px;
+          height: 42px;
+        }
       }
 
       span.pull-right {
@@ -63,6 +116,7 @@ body.show_sign_in {
       z-index: 1;
       position: absolute;
       top: 0; right: 0; left: 0;
+      border-bottom: none;
 
       .background {
         .opacity(0.4);
