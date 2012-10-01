@@ -21,8 +21,9 @@ class SearchInteractor
     results = query.execute
 
     results = results.delete_if do |res|
+      res.nil? or
       (res.class == FactData and FactData.invalid(res)) or
-      (res.class == User and (res.nil? or res.hidden))
+      (res.class == User and res.hidden)
     end
 
     results
