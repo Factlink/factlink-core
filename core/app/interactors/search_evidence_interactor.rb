@@ -18,11 +18,7 @@ class SearchEvidenceInteractor
       return []
     end
 
-    if use_elastic_search?
-      query = ElasticSearchFactDataQuery.new(filter_keywords, @page, @row_count)
-    else
-      query = SolrSearchFactDataQuery.new(filter_keywords, @page, @row_count)
-    end
+    query = ElasticSearchFactDataQuery.new(filter_keywords, @page, @row_count)
 
     results = query.execute
 
@@ -41,9 +37,5 @@ class SearchEvidenceInteractor
 
   def authorized?
     @ability.can? :index, Fact
-  end
-
-  def use_elastic_search?
-    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
   end
 end

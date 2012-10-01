@@ -2,7 +2,6 @@ require 'stringex'
 
 class Topic
   include Mongoid::Document
-  include Sunspot::Mongoid
   include Redis::Aid::Ns(:new_topic)
 
   field :title
@@ -13,11 +12,6 @@ class Topic
 
   validates_uniqueness_of :title
   validates_uniqueness_of :slug_title
-
-  searchable auto_index: true do
-    text    :title, :slug_title
-  end
-
 
   alias :old_set_title :title= unless method_defined?(:old_set_title)
   def title=(new_title)

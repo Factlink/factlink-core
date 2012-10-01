@@ -18,11 +18,8 @@ class SearchChannelInteractor
       return []
     end
 
-    if use_elastic_search?
-      query = ElasticSearchChannelQuery.new filter_keywords, @page, @row_count
-    else
-      query = SolrSearchChannelQuery.new filter_keywords, @page, @row_count
-    end
+    query = ElasticSearchChannelQuery.new filter_keywords, @page, @row_count
+
     results = query.execute
 
     results
@@ -31,10 +28,6 @@ class SearchChannelInteractor
   private
   def filter_keywords
     @keywords.split(/\s+/).select{|x|x.length > 1}.join(" ")
-  end
-
-  def use_elastic_search?
-    @ability.can? :see_feature_elastic_search, Ability::FactlinkWebapp
   end
 
   def authorized?
