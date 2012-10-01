@@ -1,0 +1,29 @@
+<div class="span3 search">
+  <% if can? :index, Fact %>
+    <%= render "facts/fact_search" %>
+  <% end %>
+</div>
+
+<div class="span6 pull-right">
+  <ul class="nav secondary-nav pull-right navbar-options">
+    <li>
+      <%= link_to "Home", click_path(:home) %>
+    </li>
+
+    <li class="divider-vertical"></li>
+
+    <% if can? :access, Ability::AdminArea %>
+      <%= render "base/topbar/admin_menu" %>
+      <li class="divider-vertical"></li>
+    <% end %>
+
+    <%= render "base/topbar/notifications" %>
+
+    <% if can? :access, Ability::FactlinkWebapp %>
+      <li class="divider-vertical"></li>
+      <%= render "base/topbar/user_profile" %>
+      <li class="divider-vertical"></li>
+      <%= render "base/topbar/topbar_menu" %>
+    <% end %>
+  </ul>
+</div>

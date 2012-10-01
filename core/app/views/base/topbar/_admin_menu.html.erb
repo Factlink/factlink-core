@@ -1,0 +1,11 @@
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    Admin
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li><%= link_to("Users", admin_users_path) %></li>
+    <li><%= link_to("Jobs", admin_jobs_path) %></li>
+    <li><%= link_to("Resque", '/a/resque') %></li>
+  </ul>
+</li>

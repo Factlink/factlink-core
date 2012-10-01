@@ -2,11 +2,19 @@
   <div class="navbar-inner">
     <div class="background"></div>
     <div class="container">
-      <%= link_to "Home", click_path(:logo), class: 'brand' %>
+      <div class="row">
+        <div class="span3">
+          <%= link_to "Home", click_path(:logo), class: 'brand' %>
+        </div>
 
-      <span class="pull-right">
-        Have an account? <a href="javascript:void(0);" class="sign_in">Sign in <i></i></a>
-      </span>
+        <% if @step_in_signup_process %>
+          <%= render "base/topbar/sign_up_steps" %>
+        <% elsif current_user %>
+          <%= render "base/topbar/signed_in" %>
+        <% else %>
+          <%= render "base/topbar/not_signed_in" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

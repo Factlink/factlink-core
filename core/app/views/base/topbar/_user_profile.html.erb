@@ -1,0 +1,3 @@
+<li>
+  <%= link_to("#{image_tag(current_user.avatar_url(size:20), width: 20, height: 20)} #{current_user.username}".html_safe, user_profile_path(current_user), class: 'potential-backbone') %>
+</li>
