@@ -1,0 +1,39 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.navbar {
+  .navbar-search {
+    .search-query {
+      margin-top: 1px;
+      margin-bottom: 0;
+      background: image-url("base/topbar/search_icon.png") 8px center no-repeat #fff;
+      color: @gray;
+      border: 1px solid #ccc;
+      padding: 5px 9px 4px 28px;
+      .border-radius(4px);
+      .transition(all 0.2s ease);
+
+      // Placeholder text gets special styles; can't be bundled together though for some reason
+      &:-moz-placeholder {
+        color: @grayLight;
+      }
+      &::-webkit-input-placeholder {
+        color: @grayLight;
+      }
+      // Focus states (we use .focused since IE8 and down doesn't support :focus)
+      &:focus,
+      &.focused {
+        padding-left: 28px;
+        outline: 0;
+        background-color: @white;
+        color: @gray;
+        text-shadow: 0 1px 0 @white;
+        border: 1px solid @linkColor;
+      }
+    }
+  }
+
+  .navbar-search .search-query:focus,.navbar-search .search-query.focused {
+    padding: 5px 9px 4px 28px;
+  }
+}
