@@ -26,8 +26,13 @@ window.bindForm = (formId) ->
   form = $('#' + formId)
 
   form.on("ajax:success", (event, data, status, response) ->
-    clearPreviousErrorsForForm( $('form') )
+    clearPreviousErrorsForForm(form)
 
+    $('#bottom_registration_form > input').remove();
+    $('#bottom_registration_form > div').remove();
+    $('#bottom_registration_form').css('height','35px').css('background-color','green').css('border-radius','3px').css('opacity',0.7).css('filter','alpha(opacity=70)');
+    $('#bottom_registration_form').append('<p style=\'left: 0;position:absolute;text-align:center;width: 100%;font-size:16px;color: white\'>Great, you\’re almost finished! Please click the confirmation link in the email we’ve sent you.</p>');
+    $('#bottom_registration_form > p:first').css('line-height','' + ($('#top_registration_form').height()) + 'px')
 
     console.info data
   ).on "ajax:error", (event, response, error) ->
@@ -42,4 +47,5 @@ window.bindForm = (formId) ->
       $(el).css border: "1px solid #ccc"
       $(el).popover "destroy"
 
-
+bindForm "top_registration_form"
+bindForm "bottom_registration_form"

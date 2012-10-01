@@ -22,11 +22,7 @@
     <div class="container sign_up_form">
       <h2>Sign up for the beta now</h2>
 
-      <form action="">
-        <input type="text" name="username" placeholder="Choose a username" class="text">
-        <input type="text" name="email" placeholder="Email address" class="text">
-        <input type="submit" name="submit" value="Reserve my username" class="btn btn-primary">
-      </form>
+      <%= render template: "users/registrations/new2", locals: { form_id: "bottom_registration_form" } %>
 
       <span class="reserved">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
     </div>
