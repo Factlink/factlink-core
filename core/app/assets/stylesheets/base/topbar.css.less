@@ -19,6 +19,10 @@ body.show_sign_in {
   margin-bottom: 18px;
   font-size: 13px;
 
+  &.navbar-fixed-top {
+    position: fixed;
+  }
+
   .navbar-inner {
     .border-radius(0px);
     border: none;
@@ -27,9 +31,11 @@ body.show_sign_in {
     .inner-shadow(0, 0, 0, 0);
     position: relative;
     z-index: 2;
+    border-bottom: 1px solid #ddd;
+    .drop-shadow(0, 1px, 2px, .05);
 
     .background {
-      background: image-url('base/topbar/background.png') repeat-x;
+      background: white;
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
       z-index: 1;
@@ -65,6 +71,7 @@ body.show_sign_in {
       z-index: 1;
       position: absolute;
       top: 0; right: 0; left: 0;
+      border-bottom: none;
 
       .background {
         .opacity(0.4);
