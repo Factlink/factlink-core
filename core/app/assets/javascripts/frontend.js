@@ -8,3 +8,4 @@
 //= require tour
 //= require twipsy
 //= require browser_extensions
+//= require base
