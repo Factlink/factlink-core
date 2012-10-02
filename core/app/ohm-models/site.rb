@@ -18,8 +18,12 @@ class Site < OurOhm
   end
 
   def self.normalize_url(opts)
-    opts[:url] = UrlNormalizer.normalize(opts[:url]) if opts[:url]
+    url_normalizer_class = opts[:url_normalizer_class] || UrlNormalizer
+    opts[:url] = url_normalizer_class.normalize(opts[:url]) if opts[:url]
     opts
   end
 
+  def validate
+    assert_unique :url
+  end
 end
