@@ -1,15 +1,24 @@
 <div class="sign_in_bar">
   <div class="container">
-    <form action="">
+
+    <%= form_for("user", :url => user_session_path) do |f| %>
       <h2>Sign in to Factlink</h2>
-      <input type="text" placeholder="Username" name="username" class="text">
-      <input type="password" placeholder="Password" name="password" class="text">
-      <input type="submit" value="Sign in" name="submit" class="btn">
+
+      <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
+      <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
+      <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '3' %>
+
       <div class="toolbar">
-        <span><a href="javascript:void();">Forgot password?</a></span>
-        <label>Remember me <input type="checkbox" name="remember_me"></label>
+        <span>
+          <%= link_to "Forgot password?", new_password_path('user'), id: :cannot_access_account, tabindex: '4' %>
+        </span>
+
+        <%= f.label :remember_me do %>
+          Remember me <%= f.check_box :remember_me %>
+        <% end %>
       </div>
-    </form>
+    <% end %>
+
     <% if can_haz :social_sign_in %>
     <div class="separator">or</div>
     <div class="social">
