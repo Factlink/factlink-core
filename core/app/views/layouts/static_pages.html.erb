@@ -11,7 +11,18 @@
 
   <div class="content">
     <div class="container">
-       <%= yield :content %>
+      <% if content_for?(:left_column) %>
+        <div class="row">
+          <div class="span3">
+            <%= yield :left_column %>
+          </div>
+          <div class="span9">
+            <%= yield :content %>
+          </div>
+        </div>
+      <% else %>
+        <%= yield :content %>
+      <% end %>
     </div>
   </div>
 
