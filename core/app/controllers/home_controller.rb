@@ -18,11 +18,14 @@ class HomeController < ApplicationController
 
         format.html do
           begin
+            session[:redirect_after_failed_login_path] = pages_path $1, layout: layout, show_sign_in: 1
             render template, :layout => layout
           rescue ActionView::MissingTemplate
             begin
+              session[:redirect_after_failed_login_path] = pages_path "index", layout: layout, show_sign_in: 1
               render "#{template}/index", :layout => layout
             rescue ActionView::MissingTemplate
+              session[:redirect_after_failed_login_path] = nil
               raise_404
             end
           end
@@ -51,6 +54,7 @@ class HomeController < ApplicationController
   end
 
   def index
+    session[:redirect_after_failed_login_path] = root_path(show_sign_in: 1)
     respond_to do |format|
       @code = params[:code] if ( /\A([-a-zA-Z0-9_]+)\Z/.match(params[:code]))
       format.html { render "home/pages/index", layout: "static_pages" }
