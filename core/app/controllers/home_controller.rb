@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       respond_to do |format|
         template = "home/pages/#{$1}"
 
-        layout = ["general", "static_pages", "base"].include?(params[:layout]) ? params[:layout] : "general"
+        layout = choose_page_layout $1
 
         authorize! :show, template
 
@@ -98,4 +98,17 @@ class HomeController < ApplicationController
       format.json {render json: @results}
     end
   end
+
+  private
+    def choose_page_layout page
+      transformed_pages = %w(index about)
+
+      if transformed_pages.include?(page)
+        layout = "static_pages"
+      else
+        layout = "general"
+      end
+
+      layout
+    end
 end
