@@ -30,12 +30,28 @@ class UrlNormalizer
     url.sub(/\?$/,'')
   end
 
+  def forbidden_uri_params
+    [:utm_source, :utm_content, :utm_medium, :utm_campaign]
+  end
+
+  def whitelisted_uri_params
+    nil
+  end
+
   def clean_query query
     return unless query
-    forbidden_uri_params = [:utm_source, :utm_content, :utm_medium, :utm_campaign, ].map {|k| k.to_s }
 
     uri_params = CGI.parse(query)
-    uri_params = uri_params.delete_if {|k,v| forbidden_uri_params.include? k}
+
+    forbidden_params = forbidden_uri_params.map {|k| k.to_s }
+    if forbidden_params
+      uri_params = uri_params.delete_if {|k,v| forbidden_params.include? k}
+    end
+
+    allowed_params = whitelisted_uri_params.andand.map {|k| k.to_s }
+    if allowed_params
+      uri_params = uri_params.keep_if {|k,v| allowed_params.include? k}
+    end
 
     build_query(uri_params)
   end
@@ -60,3 +76,4 @@ class UrlNormalizer
 end
 
 require_relative 'url_normalizer/proxy'
+require_relative 'url_normalizer/new_york_times'
