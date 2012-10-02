@@ -29,6 +29,13 @@
   <body class="factlink-site home<%= params[:show_sign_in] ? " show_sign_in" : "" %>">
     <%= yield :modal %>
 
+    <% if flash[:alert] %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <%= render "base/sign_in_bar" %>
 
     <%= render "base/topbar", fixed_topbar: fixed_topbar %>
