@@ -30,7 +30,7 @@ div.sign_up {
 
     form {
       width: 765px;
-      height: 80px;
+      height: 30px;
       margin: 0 auto;
       background: #f4f4f4;
       border: 1px solid #cbcbcb;
@@ -69,28 +69,43 @@ div.sign_up {
 
 .sign_up_form {
   form {
-    p.success {
-      display : none;
+    position: relative;
+
+    div.success {
+      display: none;
+      z-index: 2;
+      height: 100%;
+      width: 100%;
+      font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+      font-weight: 100;
+      text-align: center;
+      font-size: 15px;
+      color: white;
+
+      div {
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+      }
     }
 
     &.success {
-      &> input {
-        display:none !important;
-      }
-
-      p.success {
-        display: inline !important;
-        text-align : center !important;
-        width: 100%  !important;
-        font-size:16px !important;
-        color: white !important;
-      }
-
-      background: green !important;
-      border-radius: 4px !important;
-      opacity: 0.7 !important;
-      filter: alpha(opacity=70) !important;
+      background: #48af46 !important;
+      border-radius: 4px;
+      .opacity(0.9);
       padding: 5px;
+
+      > input {
+        display: none;
+      }
+
+      div.success {
+        display: table;
+      }
     }
   }
+}
+
+.popover-title {
+  display: none;
 }
