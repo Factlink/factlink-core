@@ -92,10 +92,6 @@ class OurOhm < Ohm::Model
   #needed for some rails compatibility
   alias :new_record? :new?
 
-  def self.find_or_create_by(opts)
-    self.find(opts).first || self.create(opts)
-  end
-
   protected
   def parse_ohm_datetime(str)
     DateTime.strptime str, '%Y-%m-%d %H:%M:%S %Z'
