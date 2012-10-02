@@ -12,7 +12,7 @@
         <% elsif current_user %>
           <%= render "base/topbar/signed_in" %>
         <% else %>
-          <%= render "base/topbar/not_signed_in" %>
+          <%= render "base/topbar/not_signed_in", slide_down: ! fixed_topbar %>
         <% end %>
       </div>
     </div>

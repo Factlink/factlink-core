@@ -1,5 +1,10 @@
 <div class="span9">
   <span class="pull-right">
-    Have an account? <a href="javascript:void(0);" class="sign_in">Sign in <i></i></a>
+    Have an account?
+    <% if slide_down or true %>
+      <%= link_to "Sign in", new_user_session_path %>
+    <% else %>
+      <a href="javascript:void(0);" class="sign_in">Sign in <i></i></a>
+    <% end %>
   </span>
 </div>
