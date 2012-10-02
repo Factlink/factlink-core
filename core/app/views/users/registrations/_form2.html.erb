@@ -1,4 +1,4 @@
-<%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id }) do |f| %>
+<%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id, novalidate: "novalidate" }) do |f| %>
 
   <%= f.text_field :username, placeholder: "Choose a username",
     class:"text", id: "#{form_id}_user_username" %>
@@ -12,5 +12,7 @@
   <% end %>
 
   <%= f.submit "Reserve my username", class: "btn btn-primary", 'data-disable-with' => "Reserving..." %>
+
+<p class='success'>Great, you’re almost finished! Please click the confirmation link in the email we’ve sent you.</p>
 
 <% end %>
