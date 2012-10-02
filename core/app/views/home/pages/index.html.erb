@@ -9,12 +9,23 @@
       <span class="reserved light">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
     </div>
     <div class="span4 video">
-      <a>Play video</a>
+      <a href="#factlink_video" role="button" data-toggle="modal" id="watch_factlink_video">Play video</a>
     </div>
     <div class="span4 statement">
       <h3>&#x2713; With Factlink you can select any statement on the web, review it's credibility, and add what you know.</h3>
     </div>
   </div>
+<% end %>
+
+<% content_for :modal do %>
+<div class="modal hide fade" id="factlink_video" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal_label">An introduction to Factlink</h3>
+  </div>
+  <div class="modal-body">
+  </div>
+</div>
 <% end %>
 
 <% content_for :content do %>
