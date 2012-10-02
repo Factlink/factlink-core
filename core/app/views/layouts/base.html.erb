@@ -27,6 +27,8 @@
     <%= csrf_meta_tag %>
   </head>
   <body class="factlink-site home<%= params[:show_sign_in] ? " show_sign_in" : "" %>">
+    <%= render 'feedback/button' unless defined? dont_render_feedback %>
+
     <%= yield :modal %>
 
     <% if flash[:alert] %>
@@ -43,6 +45,11 @@
     <%= yield :main %>
 
     <%= render "base/footer" %>
+
+    <div id="feedback_frame">
+      <div class="dimmer"></div>
+      <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
+    </div>
 
     <%= javascript_include_tag "base" %>
     <%= render 'snippets/google_analytics' %>
