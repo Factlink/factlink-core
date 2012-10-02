@@ -29,7 +29,7 @@ class FactRelation < Basefact
   end
 
   def FactRelation.get_id(from,type,to)
-    id = key['gcby'][from.id][type][to.id].get()
+    key['gcby'][from.id][type][to.id].get()
   end
 
   def FactRelation.create_new(from,type,to,user)
