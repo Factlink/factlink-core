@@ -11,10 +11,6 @@ $(function () {
     setTimeout(updateHeight, 10);
   });
 
-  $('.cancel').on('click', function () {
-    console.info( "TEST" );
-  });
-
   $('.cancel').on('click', window.parent.closeFeedbackFrame);
 
 });
