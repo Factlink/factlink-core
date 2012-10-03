@@ -1,5 +1,5 @@
 //= require jquery
-//= require rails
+//= require jquery_ujs
 //= require twitter/bootstrap
 
 $(function () {

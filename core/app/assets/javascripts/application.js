@@ -1,5 +1,5 @@
 //= require jquery
-//= require rails
+//= require jquery_ujs
 //= require rails.validations
 //= require mustache
 //= require underscore
