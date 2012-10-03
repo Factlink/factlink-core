@@ -6,14 +6,14 @@ describe 'Password recovery', type: :request do
     @user = FactoryGirl.create :approved_confirmed_user
   end
 
-  it 'should inform the user the email has been send' do
+  it 'informs the user the email has been send', js: true do
     clear_emails
 
     @user.username = "Barones"
 
-    visit '/'
-    click_link "Can't access?"
-    page.should have_content('Forgot your password?')
+    visit "/"
+    click_link "Sign in"
+    click_link "Forgot password?"
 
     fill_in 'user_email', with: @user.email
     click_button "Send me reset password instructions"
@@ -31,7 +31,5 @@ describe 'Password recovery', type: :request do
     click_button "Change my password"
 
     page.should have_content("Your password was changed successfully. You are now signed in.")
-
   end
-
 end

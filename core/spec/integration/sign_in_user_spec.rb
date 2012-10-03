@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-describe 'When a user signs in', type: :request do
+describe 'When a user signs in', type: :request, js: true do
   it 'and has not yet confirmed his email address it should fail' do
     user = FactoryGirl.create :user
 
@@ -20,15 +20,20 @@ describe 'When a user signs in', type: :request do
 
     visit '/'
 
-    find "#sign-in-form"
+    click_link 'Sign in'
+
+    find "div.sign_in_bar"
   end
 
   it 'he should not be able to sign in with false credentials' do
     user = FactoryGirl.create :approved_confirmed_user
 
     visit "/"
+
+    click_link 'Sign in'
+
     fill_in "user_login", :with => user.email
-    fill_in "user_login_password", :with => user.password + "1"
+    fill_in "user_password", :with => user.password + "1"
     click_button "Sign in"
 
     page.should have_content "Your login credentials were incorrect. Please check and try again"
