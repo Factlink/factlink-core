@@ -6,7 +6,7 @@ describe 'Password recovery', type: :request do
     @user = FactoryGirl.create :approved_confirmed_user
   end
 
-  it 'informs the user the email has been send', js: true do
+  it 'informs the user the email has been send' do
     clear_emails
 
     @user.username = "Barones"

@@ -10,7 +10,7 @@ describe "channels", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "can be created", js: true do
+  it "can be created" do
     channel_title = "Teh hot channel"
     click_link "Add new"
     fill_in "channel_title", with: channel_title
@@ -40,7 +40,7 @@ describe "channels", type: :request do
     end
   end
 
-  it "can be visited", js: true do
+  it "can be visited" do
     @channel = create_channel(@user)
 
     visit channel_path(@user, @channel)

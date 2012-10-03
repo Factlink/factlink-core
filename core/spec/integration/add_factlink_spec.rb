@@ -9,7 +9,7 @@ describe "creating a Factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "should add a factlink", js:true do
+  it "should add a factlink" do
     fact_name = "baronnenbillen"
 
     visit new_fact_path
@@ -22,7 +22,7 @@ describe "creating a Factlink", type: :request do
     page.should have_content fact_name
   end
 
-  it "should be able to delete a factlink", js:true do
+  it "should be able to delete a factlink" do
     fact_name = "raar"
 
     # create fact:

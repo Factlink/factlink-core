@@ -1,6 +1,6 @@
 require 'integration_helper'
 
-describe "Feedback modal", type: :request, js: true do
+describe "Feedback modal", type: :request do
 
   context "as a logged out user" do
 
