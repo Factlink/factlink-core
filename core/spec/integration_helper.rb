@@ -77,8 +77,9 @@ end
 
 def sign_in_user(user)
   visit "/"
+  click_link "Sign in"
   fill_in "user_login", :with => user.email
-  fill_in "user_login_password", :with => user.password
+  fill_in "user_password", :with => user.password
   click_button "Sign in"
 
   user

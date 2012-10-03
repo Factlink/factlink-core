@@ -1,17 +1,15 @@
 require 'integration_helper'
 
-describe "When visiting the home page", type: :request do
+describe "When visiting the Factlink website", type: :request do
 
   before do
     visit "/"
   end
 
-  context "as a logged out user" do
-    it "should be able to view the Home page" do
-      click_link "Home"
-
-      within(:css, "h2") do
-        page.should have_content("Building a collectively reviewed perspective on the world's information")
+  context "when not logged in" do
+    it "the Home page" do
+      within(:css, "h1") do
+        page.should have_content("A layer over the web to add and view credibility")
       end
     end
 
@@ -19,7 +17,7 @@ describe "When visiting the home page", type: :request do
       click_link "About"
 
       within(:css, "h1") do
-        page.should have_content("Because the web needs what you know")
+        page.should have_content("About Factlink")
       end
     end
 
@@ -52,21 +50,17 @@ describe "When visiting the home page", type: :request do
     end
 
     it "should be able to view the Privacy Policy page" do
-      click_link "Privacy Policy"
+      click_link "Privacy"
       within(:css, "h1") do
         page.should have_content("Privacy Policy")
       end
     end
-
 
     it "should be able to view the Privacy Policy page" do
-      click_link "Privacy Policy"
+      click_link "Privacy"
       within(:css, "h1") do
         page.should have_content("Privacy Policy")
       end
     end
-
-
   end
-
 end
