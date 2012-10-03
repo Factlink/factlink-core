@@ -55,7 +55,7 @@
     <h4>Your first Factlink is a fact!</h4>
     <p>You can now close the Factlink by clicking 'X' and click continue.</p>
 
-    <%= link_to( 'Continue', choose_channels_path, class: "btn btn-primary btn-mini", disable_with: "Loading..." ) %>
+    <%= link_to( 'Continue', choose_channels_path, :class => "btn btn-primary btn-mini", 'data-disable-with' => "Loading..." ) %>
   </div>
 
 </div>

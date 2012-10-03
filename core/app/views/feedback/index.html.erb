@@ -38,7 +38,7 @@
 			<textarea  id="ticket_message" name="ticket[message]" placeholder="How can we be of service to you?"></textarea>
 
 			<input type="button" class="btn cancel" value="Cancel">
-			<%= submit_tag "Send feedback", disable_with: "Sending feedback...", class: "submit btn btn-primary", name: "send" %>
+			<%= submit_tag "Send feedback", "data-disable-with" => "Sending feedback...", :class => "submit btn btn-primary", :name => "send" %>
 		</form>
 	</body>
 </html>

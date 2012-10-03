@@ -43,7 +43,7 @@
       <% if @layout == "client" %>
       <button class="btn" name="cancel" id="cancel" style="float: left;">Cancel</button>
       <% end %>
-      <%= f.submit "Log in", disable_with: "Logging in...", class: "btn btn-primary" %>
+      <%= f.submit "Log in", 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
     </div>
   <% end %>
 
