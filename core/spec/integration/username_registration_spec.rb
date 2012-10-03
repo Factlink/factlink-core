@@ -11,7 +11,7 @@ describe 'Reserving a username', type: :request do
 
     click_button 'Reserve my username'
 
-    page.should have_content("Great, you’re almost finished! Please click the confirmation link in the email we’ve sent you.")
+    page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you.")
   end
 
   it 'should get failure note with invalid username' do
