@@ -124,3 +124,7 @@ def wait_until_scope_exists(scope, &block)
 rescue Capybara::TimeoutError
   flunk "Expected '#{scope}' to be present."
 end
+
+def disable_html5_validations(page)
+  page.execute_script "$('form').attr('novalidate','novalidate')"
+end

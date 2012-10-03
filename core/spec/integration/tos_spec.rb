@@ -18,7 +18,9 @@ describe "Check the ToS", type: :request do
     page.should have_css("input#user_email[readonly]")
   end
 
-  it "should show errors when not agreeing the ToS" do
+  it "should show errors when not agreeing the ToS nor filling in name" do
+    disable_html5_validations(page)
+
     click_button "Next"
 
     page.should have_selector("div.alert")
