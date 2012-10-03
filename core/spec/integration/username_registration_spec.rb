@@ -1,29 +1,35 @@
 require 'integration_helper'
 
-describe 'Reserving a username', type: :request do
+describe 'Reserving a username', type: :request, js: true do
 
   it 'should get success note with valid username' do
     visit '/'
     disable_html5_validations(page)
 
-    fill_in 'top_registration_form_user_username', with: random_username
-    fill_in 'top_registration_form_user_email',    with: random_email
+    fill_in 'user[username]', with: random_username
+    fill_in 'user[email]',    with: random_email
+
+    find('div.success').visible?.should be_false
 
     click_button 'Reserve my username'
 
-    page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you.")
+    sleep 2
+
+    find('div.success').visible?.should be_true
+
+    #page.should have_content('You have successfully reserved your username!')
   end
 
   it 'should get failure note with invalid username' do
     visit '/'
     disable_html5_validations(page)
 
-    fill_in 'top_registration_form_user_username', with: 'teh_user_has_a_way_too_long_username'
-    fill_in 'top_registration_form_user_email',    with: random_email
+    fill_in 'user[username]', with: 'teh_user_has_a_way_too_long_username'
+    fill_in 'user[email]',    with: random_email
 
     click_button 'Reserve my username'
 
-    page.should have_content('Registration failed')
+    page.should have_content('username invalid. A maximum of 16 characters is allowed')
   end
 
   it 'should make the username appear in the reserved user list' do
@@ -32,8 +38,8 @@ describe 'Reserving a username', type: :request do
     visit '/'
     disable_html5_validations(page)
 
-    fill_in 'top_registration_form_user_username', with: username
-    fill_in 'top_registration_form_user_email',    with: random_email
+    fill_in 'user[username]', with: username
+    fill_in 'user[email]',    with: random_email
 
     click_button 'Reserve my username'
 
@@ -50,18 +56,21 @@ describe 'Reserving a username', type: :request do
     end
   end
 
-  it 'user should receive a confirmation email and should be able to confirm its e-mail address' do
+  pending 'user should receive a confirmation email and should be able to confirm its e-mail address' do
+    email = random_email
+
     clear_emails
 
     visit '/'
     disable_html5_validations(page)
 
-    fill_in 'top_registration_form_user_username', with: random_username
-    fill_in 'top_registration_form_user_email',    with: email
+    fill_in 'user[username]', with: random_username
+    fill_in 'user[email]',    with: email
 
     click_button 'Reserve my username'
 
-    email = random_email
+    sleep 2
+
     open_email email
 
     current_email.click_link 'Confirm my email address'
