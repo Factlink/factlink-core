@@ -46,10 +46,7 @@
 
     <%= render "base/footer" %>
 
-    <div id="feedback_frame">
-      <div class="dimmer"></div>
-      <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
-    </div>
+    <%= render "feedback/frame" %>
 
     <%= javascript_include_tag "base" %>
     <%= render 'snippets/google_analytics' %>

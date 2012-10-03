@@ -4,4 +4,3 @@
 //= require registration_forms
 //= require rails
 //= require underscore
-//= require feedback/button

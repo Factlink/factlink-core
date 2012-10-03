@@ -36,10 +36,7 @@
 
   <%= render 'home/footer' unless @step_in_signup_process %>
 
-  <div id="feedback_frame">
-    <div class="dimmer"></div>
-    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
-  </div>
+  <%= render "feedback/frame" %>
 
   <%= yield :specific_javascript %>
 

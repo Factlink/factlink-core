@@ -20,11 +20,15 @@ $(function () {
 });
 
 function updateHeight() {
-  var $iframe = window.parent.$('#feedback_frame>iframe');
+  var $feedback_frame = window.parent.$('#feedback_frame');
+  var $iframe = $feedback_frame.find('iframe');
 
   $iframe.css({
-    height: $('body').outerHeight() + "px",
-    marginTop: - $('body').outerHeight()/2 + "px"
+    height: $('body').outerHeight()
+  });
+
+  $feedback_frame.css({
+    marginTop: - $feedback_frame.outerHeight()/2 + "px"
   });
 }
 
