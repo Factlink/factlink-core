@@ -32,6 +32,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    stub_const("Logger", Class.new)
+    stub_const("Logger::ERROR", 1)
+    stub_const("Logger::INFO", 2)
+    stub_const("Logger::LOG", 3)
+    Logger.stub(new: nil.andand)
+
     Ohm.flush
     DatabaseCleaner.clean
     ElasticSearchCleaner.clean

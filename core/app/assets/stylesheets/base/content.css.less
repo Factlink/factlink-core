@@ -1,0 +1,59 @@
+div.content {
+  background: white;
+
+  div.container {
+    padding-top: 25px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    color: #555;
+    font-size: 14px;
+    line-height: 22px;
+    padding-bottom: 50px;
+
+    h1 {
+      font-size: 24px;
+      color: #555;
+    }
+
+    div.span6 {
+      text-align: center;
+      height: 300px;
+
+      h2 {
+        font-size: 20px;
+        color: #333;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        margin: 0;
+        line-height: 36px;
+        height: 36px;
+      }
+
+      p {
+        padding: 0 20px;
+      }
+
+      i {
+        display: block;
+        background: image-url('landing/content/key_points.png') no-repeat;
+        margin: 0 auto;
+        width: 157px;
+        height: 145px;
+      }
+
+      &.social i {
+        background-position: 0 0;
+      }
+
+      &.curation i {
+        background-position: 0 -145px;
+      }
+
+      &.authority i {
+        background-position: -157px 0;
+      }
+
+      &.web i {
+        background-position: -157px -145px;
+      }
+    }
+  }
+}

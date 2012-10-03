@@ -1,0 +1,111 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+div.sign_up {
+  background: image-url('landing/sign_up/background.png') repeat-x top #f9f9f9;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+
+  div.arrow {
+    margin: 0 auto;
+    background: image-url('landing/sign_up/arrow.png') no-repeat top center;
+    width: 294px;
+    height: 51px;
+    position: relative;
+    top: -1px;
+  }
+
+  div.container {
+    margin-top: 45px;
+    margin-bottom: 45px;
+    text-align: center;
+
+    h2 {
+      font-weight: bold;
+      margin: 0 0 15px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 36px;
+      height: 36px;
+      font-size: 24px;
+    }
+
+    form {
+      width: 765px;
+      height: 30px;
+      margin: 0 auto;
+      background: #f4f4f4;
+      border: 1px solid #cbcbcb;
+      .border-radius(4px);
+      padding: 24px 0;
+
+      input.text {
+        height: 22px;
+        width: 226px;
+        margin: 0 10px 0 0;
+      }
+    }
+  }
+}
+
+.sign_up_form > form#top_registration_form {
+  height: 110px;
+}
+
+.sign_up_form .reserved {
+  display: inline-block;
+  color: #777;
+  line-height: 18px;
+  background: image-url('landing/sign_up/vip.png') no-repeat left center;
+  padding: 0 0 0 35px;
+  margin: 15px 0 0;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 1);
+
+  &.light {
+    color: #c9dcfb;
+    background: image-url('landing/sign_up/vip-light.png') no-repeat left center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 1);
+  }
+}
+
+.sign_up_form {
+  form {
+    position: relative;
+
+    div.success {
+      display: none;
+      z-index: 2;
+      height: 100%;
+      width: 100%;
+      font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+      font-weight: 100;
+      text-align: center;
+      font-size: 15px;
+      color: white;
+
+      div {
+        display: table-cell;
+        width: 100%;
+        vertical-align: middle;
+      }
+    }
+
+    &.success {
+      background: #48af46 !important;
+      border-radius: 4px;
+      .opacity(0.9);
+      padding: 5px;
+
+      > input {
+        display: none;
+      }
+
+      div.success {
+        display: table;
+      }
+    }
+  }
+}
+
+.popover-title {
+  display: none;
+}

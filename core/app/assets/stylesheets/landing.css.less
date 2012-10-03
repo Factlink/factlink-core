@@ -1,9 +1,9 @@
 /*
  *= require bootstrap
  *= require_self
- *= require feedback
+ *= require base/feedback
  *= require footer
- *= require topbar
+ *= require base/topbar
 */
 
 @import "bootstrap/variables";
@@ -17,6 +17,10 @@ body { background: @white; }
   a { color: @linkColor; }
   .dropdown a { color: #333; }
   #body {
+    padding: 63px 0 20px 0;
+    background-color: #f4f4f4;
+    text-shadow: 0 1px 1px #fff;
+    border: solid 1px rgba(0, 0, 0, 0.06);
     #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     .container { min-height: 480px; }
 
@@ -31,13 +35,7 @@ body { background: @white; }
     #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
     color: #505050;
   }
-  #body {
-    padding: 63px 0 20px 0;
-    .inner-shadow(0, 0px, 9px, 0.1);
-    background-color: #f4f4f4;
-    text-shadow: 0 1px 1px #fff;
-    border: solid 1px rgba(0, 0, 0, 0.06);
-  }
+
   #payoff {
   margin-bottom: 80px;
     h2 {

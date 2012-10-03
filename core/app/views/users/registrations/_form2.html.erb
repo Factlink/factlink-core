@@ -1,0 +1,22 @@
+<%= form_for(User.new, :as => :user, :url => registration_path(:user), remote: true, html: { id: form_id, novalidate: "novalidate" }) do |f| %>
+
+  <%= f.text_field :username, placeholder: "Choose a username",
+    class:"text", id: "#{form_id}_user_username" %>
+  <%= f.email_field :email, placeholder: "Email address",
+    class:"text", id: "#{form_id}_user_email" %>
+  <%= f.hidden_field :registration_code,
+    id: "#{form_id}_user_registration_code", value: @code %>
+
+  <% if @code and @code != '' %>
+    <p>You will be placed on the priority waiting list, offered to you by <%= @code %></p>
+  <% end %>
+
+  <%= f.submit "Reserve my username", class: "btn btn-primary", 'data-disable-with' => "Reserving..." %>
+
+<div class='success'>
+  <div>
+    Great, you’re almost finished! Please click the confirmation link in the email we’ve sent you.
+  </div>
+</div>
+
+<% end %>

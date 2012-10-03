@@ -48,6 +48,12 @@ module ApplicationHelper
     end
   end
 
+  def show_active_step step
+    if @step_in_signup_proces == step
+      " class='active'"
+    end
+  end
+
   def click_path(action)
     if user_signed_in?
       channel_activities_path(current_user.username,current_graph_user.stream_id) + "?ref=#{action}"

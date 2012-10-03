@@ -1,0 +1,58 @@
+//= require_tree ./feedback
+
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+@feedback_frame_width: 430px;
+@feedback_frame_height: 290px;
+@feedback_frame_height_no_user: 368px;
+
+#feedback_frame {
+	width: 435px;
+	margin-left: -217.5px;
+	padding: 0;
+
+	.modal-body {
+		padding: 0;
+
+		iframe {
+			width: @feedback_frame_width;
+			height: @feedback_frame_height;
+			border: none;
+
+			&.no-user {
+				height: @feedback_frame_height_no_user;
+			}
+		}
+	}
+}
+
+body.feedback_form {
+	background: #fff;
+	padding: 7px 11px;
+
+	div.hidden {
+		display: none;
+	}
+
+	form {
+		margin: 0;
+		input[type=text], textarea {
+			display: block;
+			width: @feedback_frame_width - 31px;
+		}
+
+		textarea {
+			height: 145px;
+		}
+
+		.submit {
+			float: right;
+		}
+	}
+}
+
+.modal-backdrop {
+  background: white;
+  .opacity(0.85);
+}

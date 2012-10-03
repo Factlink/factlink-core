@@ -1,0 +1,9 @@
+<div id="feedback_frame" class="modal hide fade" role="dialog" aria-labelledby="feedback_modal_title" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="feedback_modal_title">Provide us with feedback</h3>
+  </div>
+  <div class="modal-body">
+    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
+  </div>
+</div>

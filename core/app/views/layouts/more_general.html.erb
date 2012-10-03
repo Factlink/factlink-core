@@ -30,18 +30,15 @@
 <body class="factlink-site">
   <%= render 'feedback/button' unless defined? dont_render_feedback %>
   <%= render 'home/site_messages' %>
-  <%= render 'home/topbar' %>
+  <%= render 'base/topbar', fixed_topbar: true %>
 
   <%= yield :more_specific_page %>
 
   <%= render 'home/footer' unless @step_in_signup_process %>
 
-  <div id="feedback_frame">
-    <div class="dimmer"></div>
-    <iframe src="<%= feedback_index_path %>"<%= " class='no-user'" unless current_user %> scrolling="no"></iframe>
-  </div>
+  <%= render "feedback/frame" %>
 
-  <%= yield :specific_javascript%>
+  <%= yield :specific_javascript %>
 
   <%= render 'snippets/google_analytics' %>
   <%= yield :modal_javascript %>

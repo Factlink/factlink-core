@@ -1,0 +1,20 @@
+<div class="navbar<%= fixed_topbar ? " navbar-fixed-top" : "" %>">
+  <div class="navbar-inner">
+    <div class="background"></div>
+    <div class="container">
+      <div class="row">
+        <div class="span3">
+          <%= link_to "Home", click_path(:logo), class: 'brand' %>
+        </div>
+
+        <% if @step_in_signup_process %>
+          <%= render "base/topbar/sign_up_steps" %>
+        <% elsif current_user %>
+          <%= render "base/topbar/signed_in" %>
+        <% else %>
+          <%= render "base/topbar/not_signed_in", slide_down: ! fixed_topbar %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

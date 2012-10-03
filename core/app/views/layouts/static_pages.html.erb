@@ -1,0 +1,42 @@
+<% content_for :main do %>
+  <div class="header">
+    <div class="background">
+      <%= image_tag "base/header/background.jpg", class: "stars" %>
+    </div>
+
+    <div class="container">
+      <%= yield :header %>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container">
+      <% if content_for?(:left_column) %>
+        <div class="row">
+          <div class="span3">
+            <%= yield :left_column %>
+          </div>
+          <div class="span9">
+            <%= yield :content %>
+          </div>
+        </div>
+      <% else %>
+        <%= yield :content %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="sign_up clearfix">
+    <div class="arrow"></div>
+
+    <div class="container sign_up_form">
+      <h2>Sign up for the beta now</h2>
+
+      <%= render template: "users/registrations/new2", locals: { form_id: "bottom_registration_form" } %>
+
+      <span class="reserved">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/base", locals: { fixed_topbar: false } %>

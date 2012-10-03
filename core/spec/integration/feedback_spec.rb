@@ -6,13 +6,18 @@ describe "Feedback modal", type: :request, js: true do
 
     before do
       visit "/"
+      puts 'before'
       page.should have_selector "#feedback_button"
+      puts 'after before'
     end
 
     it "the form shows after clicking Feedback" do
       find('#feedback_frame').visible?.should be_false
 
-      find('#feedback_button').click
+      click_link 'Feedback'
+
+      # Wait for feedback slide in modal animation
+      sleep(1)
 
       find('#feedback_frame').visible?.should be_true
     end
@@ -43,7 +48,9 @@ describe "Feedback modal", type: :request, js: true do
     it "the form shows after clicking Feedback" do
       find('#feedback_frame').visible?.should be_false
 
-      find('#feedback_button').click
+      click_link 'Feedback'
+
+      sleep(1)
 
       find('#feedback_frame').visible?.should be_true
     end

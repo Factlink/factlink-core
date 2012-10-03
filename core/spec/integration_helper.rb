@@ -35,6 +35,12 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    stub_const("Logger", Class.new)
+    stub_const("Logger::ERROR", 1)
+    stub_const("Logger::INFO", 2)
+    stub_const("Logger::LOG", 3)
+    Logger.stub(new: nil.andand)
+
     Ohm.flush
     DatabaseCleaner.clean
     ElasticSearchCleaner.clean
@@ -77,8 +83,9 @@ end
 
 def sign_in_user(user)
   visit "/"
+  click_link "Sign in"
   fill_in "user_login", :with => user.email
-  fill_in "user_login_password", :with => user.password
+  fill_in "user_password", :with => user.password
   click_button "Sign in"
 
   user

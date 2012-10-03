@@ -6,7 +6,7 @@
 
   <% if @edit %>
     <h1>Edit your <%= t(:channel) %></h1>
-    <div style="float: right; margin-top: -42px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), disable_with: "Deleting...", :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn btn-danger") %></div>
+    <div style="float: right; margin-top: -42px;"><%= link_to("Delete", channel_path(current_user.username, channel.id), 'data-disable-with' => "Deleting...", :confirm => "Are you sure you want to delete your channel \"#{channel}?\"", :method => :delete, :class => "btn btn-danger") %></div>
   <% else %>
     <h1>Create a new <%= t(:channel) %></h1>
   <% end %>

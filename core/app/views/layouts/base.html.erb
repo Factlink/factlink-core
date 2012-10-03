@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <%= stylesheet_link_tag "new/base" %>
+    <%= stylesheet_link_tag "base" %>
 
     <% if can_haz :pink_feedback_button %>
       <!-- Speciaal voor jou Joel! -->
@@ -26,155 +26,29 @@
     <%= javascript_include_tag "modernizr-loader" %>
     <%= csrf_meta_tag %>
   </head>
-  <body class="factlink-site home">
-    <div class="sign_in_bar">
-      <div class="container">
-        <form action="">
-          <h2>Sign in to Factlink</h2>
-          <input type="text" placeholder="Username" name="username" class="text">
-          <input type="password" placeholder="Password" name="password" class="text">
-          <input type="submit" value="Sign in" name="submit" class="btn">
-          <div class="toolbar">
-            <span><a href="javascript:void();">Forgot password?</a></span>
-            <label>Remember me <input type="checkbox" name="remember_me"></label>
-          </div>
-        </form>
-        <div class="separator">or</div>
-        <div class="social">
-          <a href="javascript:void();" class="btn twitter"><i></i>Sign in with Twitter</a>
-          <a href="javascript:void();" class="btn facebook"><i></i>Sign in with Facebook</a>
-        </div>
+  <body class="factlink-site home<%= params[:show_sign_in] ? " show_sign_in" : "" %>">
+    <%= render 'feedback/button' unless defined? dont_render_feedback %>
+
+    <%= yield :modal %>
+
+    <% if flash[:alert] %>
+      <div class="alert alert-error">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <%= flash[:alert] %>
       </div>
-    </div>
+    <% end %>
 
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="background"></div>
-        <div class="container">
-          <%= link_to "Home", click_path(:logo), class: 'brand' %>
+    <%= render "base/sign_in_bar" %>
 
-          <span class="pull-right">
-            Have an account? <a href="javascript:void(0);" class="sign_in">Sign in <i></i></a>
-          </span>
-        </div>
-      </div>
-    </div>
+    <%= render "base/topbar", fixed_topbar: fixed_topbar %>
 
-    <div class="header">
-      <div class="background">
-        <%= image_tag "new/header/background.jpg", class: "stars" %>
-        <%= image_tag "new/header/earth.png", class: "earth" %>
-      </div>
-      <div class="container">
-        <h1>A layer over the web to add and view credibility</h1>
-        <div class="row">
-          <div class="span4 sign_up_form">
-            <h2>Sign up for the beta now:</h2>
-            <form action="">
-              <input type="text" placeholder="Choose a username" name="username" class="text">
-              <input type="text" placeholder="Email address" name="email" class="text">
-              <input type="submit" value="Reserve my username" name="submit" class="btn btn-primary">
-            </form>
-            <span class="reserved light">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
-          </div>
-          <div class="span4 video">
-            <a>Play video</a>
-          </div>
-          <div class="span4 statement">
-            <h3>&#x2713; With Factlink you can select any statement on the web, review it's credibility, and add what you know.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= yield :main %>
 
-    <div class="content">
-      <div class="container">
-        <div class="row">
-          <div class="span6 authority">
-            <i></i>
-            <h2>Authority &amp; peer recognition</h2>
-            <p>Factlink helps uncovering what people know by measuring their authority on any specific subject. It enables you to reach out to peers and get recognition.</p>
-          </div>
-          <div class="span6 social">
-            <i></i>
-            <h2>A social network for knowledge</h2>
-            <p>Discover relevant knowledge and connect to curated expertise. Get immediate updates as new information comes in and new facts come to light. Have impact on what people learn.</p>
-          </div>
-        </div>
+    <%= render "base/footer" %>
 
-        <div class="row">
-          <div class="span6 curation">
-            <i></i>
-            <h2>Collective curation</h2>
-            <p>The platform can combine the expertise of billions of people and provide a collectively curated perspective on the worlds information. Anybody can annotate any statement on the web and share and discuss it with others.</p>
-          </div>
+    <%= render "feedback/frame" %>
 
-          <div class="span6 web">
-            <i></i>
-            <h2>A layer over the web</h2>
-            <p>As an app for your browser, Factlinks works as a layer over the web, and, for any web page or article, enables you to add what you know and see what others have added.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sign_up clearfix">
-      <div class="arrow"></div>
-
-      <div class="container sign_up_form">
-        <h2>Sign up for the beta now</h2>
-
-        <form action="">
-          <input type="text" name="username" placeholder="Choose a username" class="text">
-          <input type="text" name="email" placeholder="Email address" class="text">
-          <input type="submit" name="submit" value="Reserve my username" class="btn btn-primary">
-        </form>
-
-        <span class="reserved">You will be placed on the priority waiting list, offered to you by Frankwatching.</span>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-        <hr>
-
-        <ul>
-          <li>
-            <a href="">Home</a>
-          </li>
-          <li>
-            <a href="">About</a>
-          </li>
-          <li>
-            <a href="">Team</a>
-          </li>
-          <li>
-            <a href="">Jobs</a>
-          </li>
-          <li>
-            <a href="">Blog</a>
-          </li>
-          <li class="last">
-            <a href="">Contact</a>
-          </li>
-        </ul>
-
-        <ul class="pull-right clearfix">
-          <li>
-            <a href="">Privacy</a>
-          </li>
-          <li>
-            <a href="">Terms of Service</a>
-          </li>
-          <li class="last copy">
-            &copy; 2012 Factlink. All rights reserved.
-          </li>
-        </ul>
-      </div>
-    </div>
-    <%= yield %>
-
-    <%= javascript_include_tag "new/base" %>
+    <%= javascript_include_tag "base" %>
     <%= render 'snippets/google_analytics' %>
   </body>
 </html>

@@ -59,12 +59,14 @@ class User
                           :with => /\A[A-Za-z0-9_]*\Z/i,
                           :message => "only letters, digits and _ are allowed"
 
-  validates_presence_of   :username, :message => "is required", :allow_blank => true
+
   validates_uniqueness_of :username, :message => "already in use", :case_sensitive => false
-  validates_length_of     :username, :within => 1..16, :message => "maximum of 16 characters allowed"
+
+  validates_length_of     :username, :within => 1..16, :message => "invalid. A maximum of 16 characters is allowed"
+  validates_presence_of   :username, :message => "is required", :allow_blank => false
   validates_length_of     :email, minimum: 1 # this gets precedence over email already taken (for nil email)
   validates_length_of     :location, maximum: 127
-  validates_length_of     :location, maximum: 1023
+  validates_length_of     :biography, maximum: 1023
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :lockable, :timeoutable and :omniauthable,
