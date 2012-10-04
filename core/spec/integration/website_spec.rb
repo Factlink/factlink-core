@@ -17,7 +17,7 @@ describe "When visiting the Factlink website", type: :request do
       click_link "About"
 
       within(:css, "h1") do
-        page.should have_content("About Factlink")
+        page.should have_content("Because the web needs what you know")
       end
     end
 
