@@ -1,39 +1,25 @@
-<% content_for :header do %>
-  <h1>About Factlink</h1>
-  <p>
-    We’re making the web more open and credible. Working at Factlink means to have freedom in your work and collaborating with the brightest people.
-  </p>
-<% end %>
-
 <% content_for :title do %>
   Factlink &mdash; Because the web needs what you know
 <% end %>
 
-<% content_for :left_column do %>
-  <%= render "home/static_pages_menu", active: :about %>
+<% content_for :menu_items do %>
+  <li class="selected_menu_item"><%= link_to "About", pages_path("about") %></li>
+  <li><%= link_to "Team", pages_path("team") %></li>
 <% end %>
 
-<% content_for :content do %>
+<% content_for :body_text do %>
   <h1>Because the web needs what you know</h1>
 
   <ul class="thumbnails">
-    <li class="span8">
-      <a href="#" class="thumbnail">
-        <iframe src="https://player.vimeo.com/video/39821677" width="610" height="343" style="border: 0px;"></iframe>
-      </a>
-    </li>
-  </ul>
+	<li class="span8">
+    	<a href="#" class="thumbnail">
+    	  <iframe src="https://player.vimeo.com/video/39821677" width="610" height="343" style="border: 0px;"></iframe>
+	    </a>
+  	</li>
+	</ul>
 
-  <p>
-    The new web inspires us to bring together the content of billions of users in one simple and elegant perspective that shows what people know.
-  </p>
-
-  <p>
-    Factlink works on helping people understand how credible the information is that they’re reading. The service is built on the belief that information should be openly shared, accessible, and transparent.
-  </p>
-
-  <p>
-    Factlink is located in both the San Francisco Bay Area and the Netherlands.
-  </p>
+  <p>The new web inspires us to bring together the content of billions of users in one simple and elegant perspective that shows what people know.</p>
+  <p>Factlink works on helping people understand how credible the information is that they’re reading. The service is built on the belief that information should be openly shared, accessible, and transparent.</p>
+  <p>Factlink is located in both the San Francisco Bay Area and the Netherlands.</p>
 
 <% end %>
