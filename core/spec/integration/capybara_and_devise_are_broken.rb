@@ -5,12 +5,10 @@ require 'capybara/rspec'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'headless'
+require 'integration_helper'
 
 describe 'capybara and devise are broken', type: :request do
   it 'action_mailer default url should change when visiting a page' do
-    FactlinkUI::Application.config.action_mailer.default_url_options.class.send(:define_method,:[]) do |a|
-      raise :hell
-    end
     initialValue = FactlinkUI::Application.config.action_mailer.default_url_options[:host]
 
 		visit "/"

@@ -57,7 +57,7 @@ describe 'Reserving a username', type: :request, js: true do
   end
 
   pending 'user should receive a confirmation email and should be able to confirm its e-mail address' do
-    email = random_email
+    email_address = random_email
 
     clear_emails
 
@@ -65,13 +65,13 @@ describe 'Reserving a username', type: :request, js: true do
     disable_html5_validations(page)
 
     fill_in 'user[username]', with: random_username
-    fill_in 'user[email]',    with: email
+    fill_in 'user[email]',    with: email_address
 
     click_button 'Reserve my username'
 
     sleep 2
 
-    open_email email
+    open_email email_address
 
     current_email.click_link 'Confirm my email address'
 
