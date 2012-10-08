@@ -18,4 +18,6 @@ function check_command_in_path {
 
 check_command_in_path 'elasticsearch' "Please run brew install elasticsearch"
 
+check_command_in_path 'redis-server' "Please run brew install redis"
+
 exit $rv
