@@ -101,7 +101,7 @@ class HomeController < ApplicationController
 
   private
     def choose_page_layout page
-      transformed_pages = %w(index about contact team privacy)
+      transformed_pages = %w(index about contact team jobs)
 
       if transformed_pages.include?(page)
         layout = "static_pages"

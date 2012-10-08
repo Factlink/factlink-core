@@ -191,7 +191,6 @@ FactlinkUI::Application.routes.draw do
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
-    resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
   end
 
