@@ -1,15 +1,21 @@
+<% content_for :header do %>
+  <h1>Get in touch</h1>
+  <p>
+    We love to talk to people!
+  </p>
+<% end %>
+
 <% content_for :title do %>
   Factlink &mdash; Contact us
 <% end %>
 
-<% content_for :menu_items do %>
-  <li class="selected_menu_item"><%= link_to "Contact us", pages_path("contact") %></li>
+<% content_for :left_column do %>
+  <%= render "home/static_pages_menu", active: :contact %>
 <% end %>
 
-<% content_for :body_text do %>
-  <h1>Contact us</h1>
-  <p>We love to talk to people!</p>
-  <div class="span-7 enquiries">
+<% content_for :content do %>
+<div class="row">
+  <div class="span3">
     <h5>General enquiries</h5>
     <a href="mailto:info@factlink.com">info@factlink.com</a>
     <br/>
@@ -21,18 +27,19 @@
     <h5>Feedback (thank you)</h5>
     <a href="mailto:feedback@factlink.com">feedback@factlink.com</a>
   </div>
-  <div class="span-5">
+  <div class="span3">
     <h5>US: Alameda</h5>
     <p class="address">Factlink Inc. <br/>
       1309 Santa Clara Ave #4<br/>
       CA 94501 Alameda<br/>
       +1 650 646 3697</p>
   </div>
-  <div class="span-5 last">
+  <div class="span3">
     <h5>NL: Groningen</h5>
     <p class="address">Factlink B.V.<br/>
       Prinsenstraat 9B<br/>
       9711 CL Groningen<br/>
       +31 50 8512915</p>
   </div>
+</div>
 <% end %>
