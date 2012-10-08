@@ -90,8 +90,6 @@ FactlinkUI::Application.routes.draw do
           put :approve
         end
       end
-
-      resources :jobs
     end
 
     # Seems to me we want to lose the scope "/:username" later and place all
