@@ -38,14 +38,16 @@ module ApplicationHelper
   end
 
   def team_photo_tag photo, name, linkedin=nil
-    image = image_tag "team/#{photo}.png", alt: name, class: "tooltips", rel: "tooltip", title: name, width: 82, height: 82
+    html = image_tag "team/#{photo}.png", alt: name, class: "img-polaroid", rel: "tooltip", title: name, width: 120, height: 120
+
     if linkedin
       linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
-      link_to image, linkedin_url, target: "_blank"
-
-    else
-      image
+      html = link_to html, linkedin_url, target: "_blank"
     end
+
+    html = content_tag "div", html, class: "span3"
+
+    html
   end
 
   def show_active_step step

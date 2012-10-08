@@ -1,53 +1,76 @@
-<% content_for :title do %>
-Factlink &mdash; The people behind Factlink
-<% end %>
-
-<% content_for :menu_items do %>
-  <li><%= link_to "About", pages_path("about") %></li>
-  <li class="selected_menu_item"><%= link_to "Team", pages_path("team") %></li>
-<% end %>
-
-<% content_for :body_text do %>
+<% content_for :header do %>
   <h1>The people behind Factlink</h1>
   <p>The Factlink team is a group of world-class people who have been involved with building many pioneering products. Our expertise is in building web-wide scale products. Our focus is on solving hard problems and delighting users. We care deeply about helping people to excel and explore their full talents.</p>
+<% end %>
 
+<% content_for :title do %>
+  Factlink &mdash; The people behind Factlink
+<% end %>
 
+<% content_for :left_column do %>
+  <%= render "home/static_pages_menu", active: :team %>
+<% end %>
+
+<% content_for :content do %>
   <h2>Team</h2>
-  <div class="team_photos">
+
+  <div class="row-fluid">
     <%= team_photo_tag "floris",  "Floris Venneman", "florisvenneman" %>
     <%= team_photo_tag "jens",  "Jens Kanis", "jenskanis" %>
     <%= team_photo_tag "deelstra",  "Jan Deelstra", "jandeelstra" %>
     <%= team_photo_tag "jan",  "Jan Salvador van der Ven", "salvadorven" %>
+  </div>
+
+  <br>
+
+  <div class="row-fluid">
     <%= team_photo_tag "jobert",  "Jobert Abma", "jobertabma" %>
     <%= team_photo_tag "jordin",  "Jordin van Zwol", "vanzwoljj" %>
     <%= team_photo_tag "knud",  "Knud Balslev", "knudbalslev" %>
     <%= team_photo_tag "mark",  "Mark IJbema", "markijbema" %>
+  </div>
+
+  <br>
+
+  <div class="row-fluid">
     <%= team_photo_tag "martijn",  "Martijn Russchen", "mrusschen" %>
     <%= team_photo_tag "merijn",  "Merijn Terheggen", "merijnterheggen" %>
     <%= team_photo_tag "michiel",  "Michiel Prins", "michielprins1" %>
     <%= team_photo_tag "remon",  "Remon Oldenbeuving", "remonoldenbeuving" %>
+  </div>
+
+  <br>
+
+  <div class="row-fluid">
     <%= team_photo_tag "tom",  "Tom de Vries", "tomdev" %>
   </div>
 
   <h2>Advisors and Collaborators</h2>
-  <div class="team_photos">
+
+  <div class="row-fluid">
     <%= team_photo_tag "anne", "Anne Vrolyk", "http://www.linkedin.com/pub/anne-vrolyk/0/915/524" %>
     <%= team_photo_tag "colin", "Colin Crawford", "colincrawford" %>
     <%= team_photo_tag "gordon",  "Gordon Rios", "gordonrios" %>
     <%= team_photo_tag "michael", "Michael Lopez", "michaelflopez" %>
+  </div>
+
+  <br>
+
+  <div class="row-fluid">
     <%= team_photo_tag "michel", "Michel Mol", "michelmol" %>
     <%= team_photo_tag "richard", "Richard Borsboom", "richardborsboom" %>
     <%= team_photo_tag "roger", "Roger Magoulas", "rmagoulas" %>
     <%= team_photo_tag "scott", "Scott Waterman", "waterman" %>
+  </div>
+
+  <br>
+
+  <div class="row-fluid">
     <%= team_photo_tag "tonie", "Tonie Broekhuijsen", "toniebroekhuijsen" %>
   </div>
 
   <h2>Get in touch!</h2>
-  <p>Do you care about building something amazing? We love talking to talented people. <a href="mailto:info@factlink.com">Drop us a note!</a></p>
-<% end %>
-
-<% content_for :javascript do %>
-  <script>
-  $('.tooltips').tooltip();
-  </script>
+  <p>
+    Do you care about building something amazing? We love talking to talented people. <a href="mailto:info@factlink.com">Drop us a note!</a>
+  </p>
 <% end %>
