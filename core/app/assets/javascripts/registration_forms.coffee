@@ -7,20 +7,39 @@ setErrorsOnFields = (formId, fieldErrors) ->
     showErrorPopover el, "#{field} #{errorMessage}", formId
 
 showErrorPopover = (element, errorMessage, formId) ->
-  placementForForm = (formId) ->
-    if formId == "bottom_registration_form"
-      placement = "top"
-    else
-      placement = "right"
+  if formId == "bottom_registration_form"
+    placement = "top"
+  else
+    placement = "right"
 
   options =
     title: ""
     content: errorMessage
     trigger: "manual"
-    placement: placementForForm(formId)
+    placement: placement
 
   element.popover options
   element.popover "show"
+
+  reposition_elements_popover(element, placement)
+
+reposition_elements_popover = (element, placement)->
+  position = element.position()
+  popover = element.data('popover').$tip
+  popover.css(color: 'black')
+  if placement == 'right'
+    popover.css(
+      'top':0 + position.top - 5,
+      'left':element.width() + position.left + 10,
+      )
+  else if placement == 'top'
+    popover.css(
+      'top': position.top-popover.height()-12,
+      'left': position.left,
+    )
+  else
+    console.error 'placement not supported'
+  element.after(popover)
 
 window.bindForm = (formId) ->
   form = $('#' + formId)

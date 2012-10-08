@@ -13,7 +13,9 @@ require 'database_cleaner'
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :webkit
+  Capybara.default_driver = :webkit
 
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
@@ -123,4 +125,8 @@ def wait_until_scope_exists(scope, &block)
   within scope, &block
 rescue Capybara::TimeoutError
   flunk "Expected '#{scope}' to be present."
+end
+
+def disable_html5_validations(page)
+  page.execute_script "$('form').attr('novalidate','novalidate')"
 end

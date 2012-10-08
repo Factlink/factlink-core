@@ -11,7 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "evidence can be added", js:true do
+  it "evidence can be added" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -38,7 +38,7 @@ describe "factlink", type: :request do
     end
   end
 
-  it "can be agreed", js:true do
+  it "can be agreed" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -59,7 +59,7 @@ describe "factlink", type: :request do
     old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
   end
 
-  it "can be neutraled", js:true do
+  it "can be neutraled" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -80,7 +80,7 @@ describe "factlink", type: :request do
     old_neutral_path_shape.should eq wheel_path_d neutral_path_position
   end
 
-  it "can be disagreed", js:true do
+  it "can be disagreed" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 

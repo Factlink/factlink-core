@@ -11,14 +11,14 @@ describe "searching", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "cannot find a something that does not exist", js:true do
+  it "cannot find a something that does not exist" do
     search_text = "searching for nothing and results for free"
     fill_in "factlink_search", with: search_text
     page.execute_script("$('#factlink_search').parent().submit()")
     page.should have_content("Sorry, your search didn't return any results.")
   end
 
-  it "should find a just created factlink", js:true do
+  it "should find a just created factlink" do
     # create factlink:
     visit new_fact_path
     fact_title = "fact to be found"
