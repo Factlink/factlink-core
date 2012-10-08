@@ -1,3 +1,3 @@
 class PrivacyController < ApplicationController
-  layout "frontend"
+  layout "static_pages"
 end
