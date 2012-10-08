@@ -10,9 +10,11 @@ ln -s core/config config
 gem install bundler
 sudo npm install jslint -g
 sudo npm install supervisor -g
-bin/bootstrap || exit 1
 
 cd core
+	# Bootstrap script should be run with path in core
+	bin/bootstrap || exit 1
+
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
 	gem install bundler
