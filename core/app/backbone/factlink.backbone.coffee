@@ -18,6 +18,6 @@
 #= require_tree ./views/facts/
 #= require_tree ./controllers/
 #= require_tree ./routers/
-#= require ./initializers.js
+#= require_tree ./initializers
 
 this.HoganTemplates || (this.HoganTemplates = {});
