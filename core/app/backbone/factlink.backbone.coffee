@@ -8,7 +8,7 @@
 #= require twipsy
 
 #= require hogan
-#= require_tree ../../templates
+#= require_tree ../templates
 
 this.HoganTemplates || (this.HoganTemplates = {});
 
