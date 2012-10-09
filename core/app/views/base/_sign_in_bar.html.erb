@@ -1,30 +1,32 @@
 <div class="sign_in_bar">
   <div class="container">
 
-    <%= form_for("user", :url => user_session_path) do |f| %>
-      <h2>Sign in to Factlink</h2>
+    <% unless current_user %>
+      <%= form_for("user", :url => user_session_path) do |f| %>
+        <h2>Sign in to Factlink</h2>
 
-      <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
-      <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
-      <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '3' %>
+        <%= f.text_field     :login,    class: "text",    placeholder: "Username or email",    tabindex: '1' %>
+        <%= f.password_field :password, class: "text", placeholder: "Password", tabindex: '2' %>
+        <%= f.submit 'Sign in', 'data-disable-with' => 'Signing in...', class: 'btn', tabindex: '3' %>
 
-      <div class="toolbar">
-        <span>
-          <%= link_to "Forgot password?", new_password_path('user'), id: :cannot_access_account, tabindex: '4' %>
-        </span>
+        <div class="toolbar">
+          <span>
+            <%= link_to "Forgot password?", new_password_path('user'), id: :cannot_access_account, tabindex: '4' %>
+          </span>
 
-        <%= f.label :remember_me do %>
-          Remember me <%= f.check_box :remember_me %>
-        <% end %>
+          <%= f.label :remember_me do %>
+            Remember me <%= f.check_box :remember_me %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if can_haz :social_sign_in %>
+      <div class="separator">or</div>
+      <div class="social">
+        <a href="javascript:void();" class="btn twitter"><i></i>Sign in with Twitter</a>
+        <a href="javascript:void();" class="btn facebook"><i></i>Sign in with Facebook</a>
       </div>
-    <% end %>
-
-    <% if can_haz :social_sign_in %>
-    <div class="separator">or</div>
-    <div class="social">
-      <a href="javascript:void();" class="btn twitter"><i></i>Sign in with Twitter</a>
-      <a href="javascript:void();" class="btn facebook"><i></i>Sign in with Facebook</a>
-    </div>
+      <% end %>
     <% end %>
   </div>
 </div>
