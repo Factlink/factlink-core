@@ -1,5 +1,5 @@
 <% content_for :sign_in_bar do %>
-  <%= render "base/sign_in_bar" unless current_user %>
+  <%= render "base/sign_in_bar" %>
 <% end %>
 
 <% content_for :main do %>
@@ -30,15 +30,17 @@
     </div>
   </div>
 
-  <div class="sign_up clearfix">
-    <div class="large_arrow"></div>
+  <% unless current_user %>
+    <div class="sign_up clearfix">
+      <div class="large_arrow"></div>
 
-    <div class="container sign_up_form">
-      <h2>Sign up for the beta now</h2>
+      <div class="container sign_up_form">
+        <h2>Sign up for the beta now</h2>
 
-      <%= render template: "users/registrations/new2", locals: { form_id: "bottom_registration_form" } %>
+        <%= render template: "users/registrations/new2", locals: { form_id: "bottom_registration_form" } %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <%= render template: "layouts/base", locals: { fixed_topbar: false } %>
