@@ -1,5 +1,4 @@
 //= require_self
-//= require twitter/bootstrap
 //= require raphael-min
 //= require ./bubble/jquery.infiniScroll
 //= require jquery.scrollTo
