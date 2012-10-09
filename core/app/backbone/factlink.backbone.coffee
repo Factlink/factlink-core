@@ -1,16 +1,8 @@
-#= require jquery
-#= require underscore
-#= require trunk8
-
 #= require backbone
 #= require backbone.marionette
 
-#= require twipsy
-
-#= require hogan
 #= require_tree ../templates
-
-this.HoganTemplates || (this.HoganTemplates = {});
+#= require_self
 
 #= require_tree ./contrib
 #= require_tree ./factlink
@@ -26,3 +18,5 @@ this.HoganTemplates || (this.HoganTemplates = {});
 #= require_tree ./controllers/
 #= require_tree ./routers/
 #= require ./initializers.js
+
+this.HoganTemplates || (this.HoganTemplates = {});

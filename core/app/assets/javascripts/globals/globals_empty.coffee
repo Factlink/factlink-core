@@ -1,0 +1,2 @@
+window.Factlink ||= {}
+Factlink.Global ||= {}

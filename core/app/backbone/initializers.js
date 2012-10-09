@@ -37,6 +37,6 @@ FactlinkApp.addInitializer(function(options){
     });
 
     alert("You have been signed out, please sign in.");
-    window.location = Backbone.Factlink.Global.path.sign_in;
+    window.location = Factlink.Global.path.sign_in;
   });
 });

@@ -1,5 +1,5 @@
 #= require ./globals_empty
-Backbone.Factlink.Global =
+Factlink.Global =
   path:
     sign_in: '/users/sign_in'
   brain_icon: '<%= image_tag image_path("brain.png") %>'
@@ -12,14 +12,14 @@ Backbone.Factlink.Global =
   [:channel, :channels, :add_to_channels, :my_channels].each do |translation|
 %>
 
-Backbone.Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
+Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"
 
 <% end %>
 
 
 <% if FactlinkUI::Application.config.chrome_extension_id %>
-Backbone.Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
+Factlink.Global.chrome_extension_id = "<%= FactlinkUI::Application.config.chrome_extension_id %>"
 <% end %>
 
-Backbone.Factlink.allowFeatures = (list)->
-  Backbone.Factlink.Global.can_haz[feature] = true for feature in list
+Factlink.allowFeatures = (list)->
+  Factlink.Global.can_haz[feature] = true for feature in list
