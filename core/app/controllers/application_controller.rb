@@ -80,6 +80,10 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 500
   end
 
+  def render_backbone_page
+    render inline:'', layout: 'channels'
+  end
+
   def lazy *args, &block
     Lazy.new *args, &block
   end
