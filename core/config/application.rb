@@ -168,6 +168,7 @@ module FactlinkUI
       'search.css',
       'tos.css',
       'tour.css',
+      'application.js',
       'feedback.js',
       'frontend.js',
       'modal.js',
