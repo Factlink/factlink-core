@@ -5,6 +5,7 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
     "click .tab-control .supporting": "tabClick"
     "click .tab-control .weakening": "tabClick"
     "click .tab-control .add-to-channel": "tabClick"
+    "click .tab-control .send-message": "tabClick"
 
   initialize: ->
     @_currentTab = `undefined`

@@ -23,9 +23,12 @@
     </li>
   {{/friendly_time}}
 
-  {{#signed_in?}}
-    <li class="add-to-channel"><a href="#">My Channels</a></li>
-  {{/signed_in?}}
+
+  {{#global.can_haz.messaging}}
+    <li class="send-message"><a href="#">Send message</a></li>
+  {{/global.can_haz.messaging}}
+
+  <li class="add-to-channel"><a href="#">My Channels</a></li>
 </ul>
 
 <div class="clearfix"></div>
@@ -39,6 +42,16 @@
   <div class="weakening" style="display: none;">
     <div class="dropdown-container"></div>
   </div>
+
+  {{#global.can_haz.messaging}}
+
+    <div class="send-message" style="display:none">
+      <div class="dropdown-container">
+        <p>Very soon you can send a message here dude!</p>
+      </div>
+    </div>
+
+  {{/global.can_haz.messaging}}
 
   <div class="add-to-channel" style="display: none;">
     <div class="dropdown-container">
