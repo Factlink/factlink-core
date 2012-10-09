@@ -7,7 +7,7 @@
 <% end %>
 
 
-<% content_for :more_specific_page do %>
+<% content_for :main do %>
   <div id="body">
     <div id="container" class="container">
 
@@ -62,4 +62,4 @@
 
 <% end %>
 
-<%= render template: 'layouts/more_general' %>
+<%= render template: 'layouts/base', locals: { fixed_topbar: true } %>
