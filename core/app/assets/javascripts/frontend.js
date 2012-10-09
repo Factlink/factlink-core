@@ -6,4 +6,3 @@
 //= require_tree ./frontend
 //= require tour
 //= require twipsy
-//= require base

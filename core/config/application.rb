@@ -175,7 +175,6 @@ module FactlinkUI
       'intermediate.js',
       'modernizr-loader.js',
       'admin.js',
-      'base.js',
       'base.css',
     ]
 
