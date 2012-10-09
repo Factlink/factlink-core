@@ -11,19 +11,18 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
     @initFactRelationsViews()
 
   renderAddToChannel: ->
-    self = this
     add_el = ".tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container"
     if @$(add_el).length > 0 and typeof currentUser isnt "undefined" and ("addToChannelView" not of this)
       addToChannelView = new AutoCompletedAddToChannelView(el: @$(add_el)[0])
       _.each @model.getOwnContainingChannels(), (ch) ->
         addToChannelView.collection.add ch  if ch.get("type") is "channel"
 
-      addToChannelView.on "addChannel", (channel) ->
-        self.model.addToChannel channel, {}
+      addToChannelView.on "addChannel", (channel) =>
+        @model.addToChannel channel, {}
 
-      addToChannelView.on "removeChannel", (channel) ->
-        self.model.removeFromChannel channel, {}
-        self.model.collection.remove self.model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
+      addToChannelView.on "removeChannel", (channel) =>
+        @model.removeFromChannel channel, {}
+        @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 
       addToChannelView.render()
       @addToChannelView = addToChannelView
