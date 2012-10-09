@@ -22,7 +22,7 @@
             $('#ieWarningModal').on('hide', function(){
              $.ajax({
               type: 'PUT',
-              url: '<%= see_message_path current_user.username %>',
+              url: '<%= see_message_path %>',
               data: {
                 message: "unsupported_browser_warning"
               }

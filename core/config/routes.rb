@@ -106,8 +106,6 @@ FactlinkUI::Application.routes.draw do
   end
 
   scope "/:username" do
-    put "/seen_messages" => "users#seen_message", as: 'see_message'
-
     get "/" => "users#show", :as => "user_profile"
     put "/" => "users#update"
 
@@ -190,6 +188,13 @@ FactlinkUI::Application.routes.draw do
 
   scope "/p" do
     get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
+  end
+
+
+  # Scope for user specific actions
+  # I made this scope so we don't always have to know the current users username in de frontend
+  scope "/u" do
+    put "/seen_messages" => "users#seen_message", as: 'see_message'
   end
 
   get "/x/:id" => "fake_facts#show"
