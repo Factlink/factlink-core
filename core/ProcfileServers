@@ -1,3 +1,4 @@
-elasticsearch: elasticsearch -f
+elasticsearch: elasticsearch -f -D es.config=config/developmentservers/elasticsearch.yml
 redis: redis-server config/developmentservers/redis.conf
 resqueredis: redis-server config/developmentservers/redis-resque.conf
+mongo: mongod --config config/developmentservers/mongo.conf
