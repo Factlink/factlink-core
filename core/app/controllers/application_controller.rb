@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
   end
 
   def lazy *args, &block
-    Lazy.new *args, &block
+    Lazy.new(*args, &block)
   end
 
   def track(event, opts={})
