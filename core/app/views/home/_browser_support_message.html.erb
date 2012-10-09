@@ -1,0 +1,36 @@
+<% if current_user %>
+  <% if not browser_supported? %>
+    <%= show_message :unsupported_browser_warning do %>
+      <div class="modal hide" id="ieWarningModal">
+        <div class="modal-body warning-sign">
+          <%= image_tag image_path("warning-sign.png"), class: "warning-sign" %>
+          <h2>Your browser is not supported</h2>
+          <p>Factlink is not working with your browser. To use Factlink, we recommend using the latest version of Google Chrome.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="proceed" data-dismiss="modal">Proceed anyway</a>
+          <a id="chrome-download-button" class="btn download-chrome" href="https://google.com/chrome" target="_blank"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
+        </div>
+      </div>
+      <% content_for :modal_javascript  do %>
+        <script>
+          $(function(){
+            $('#ieWarningModal').modal({
+              keyboard: false,
+              backdrop: "static"
+            })
+            $('#ieWarningModal').on('hide', function(){
+             $.ajax({
+              type: 'PUT',
+              url: '<%= see_message_path %>',
+              data: {
+                message: "unsupported_browser_warning"
+              }
+             });
+            });
+          });
+        </script>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -12,6 +12,8 @@
 
     <%= stylesheet_link_tag "base" %>
 
+    <%= yield :specific_stylesheet_tag %>
+    <%= yield :stylesheets %>
     <% if can_haz :pink_feedback_button %>
       <!-- Speciaal voor jou Joel! -->
       <style>
@@ -29,6 +31,7 @@
   <body class="factlink-site <%= controller.controller_name -%> <%= controller.action_name -%><%= params[:show_sign_in] ? " show_sign_in" : "" %>">
     <%= render 'feedback/button' unless defined? dont_render_feedback %>
 
+    <%= render 'home/browser_support_message' %>
     <%= yield :modal %>
 
     <% if flash[:alert] %>
@@ -49,6 +52,7 @@
     <%= render "feedback/frame" %>
 
     <%= javascript_include_tag "base" %>
+    <%= yield :specific_javascript %>
     <%= render 'snippets/google_analytics' %>
   </body>
 </html>
