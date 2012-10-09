@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag "admin" %>
 <% end %>
 
-<% content_for :more_specific_page do %>
+<% content_for :main do %>
   <div id="body">
     <div id="container" class="container">
       <%= render 'home/notifications', notice: notice, alert: alert %>
@@ -24,4 +24,4 @@
   <%= yield :javascript %>
 <% end %>
 
-<%= render template: 'layouts/more_general' %>
+<%= render template: 'layouts/base', locals: { fixed_topbar: true } %>
