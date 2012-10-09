@@ -2,11 +2,15 @@
 #= require underscore
 #= require trunk8
 
-#= require mustache
 #= require backbone
 #= require backbone.marionette
 
 #= require twipsy
+
+#= require hogan
+#= require_tree ../../templates
+
+this.HoganTemplates || (this.HoganTemplates = {});
 
 #= require_tree ./contrib
 #= require_tree ./factlink
