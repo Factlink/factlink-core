@@ -1,6 +1,6 @@
+// All the default libraries/files needed for all pages on Factlink
 //= require jquery
-//= require_tree ./base
-//= require twitter/bootstrap
-//= require registration_forms
 //= require jquery_ujs
 //= require underscore
+//= require twitter/bootstrap
+//= require_tree ./base
