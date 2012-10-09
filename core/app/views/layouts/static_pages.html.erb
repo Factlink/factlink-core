@@ -1,3 +1,7 @@
+<% content_for :sign_in_bar do %>
+  <%= render "base/sign_in_bar" unless current_user %>
+<% end %>
+
 <% content_for :main do %>
   <div class="header">
     <div class="background">
