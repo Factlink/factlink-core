@@ -5,7 +5,7 @@ $earth = $('.header > .background > .earth');
 $top_bar.on 'click', 'a.sign_in', ->
   $('body').animate marginTop: 0, 'slow'
   $top_bar.fadeOut "slow"
-  $earth.animate marginTop: 115, 'slow'
+  $earth.animate marginTop: 104, 'slow'
 
 $dimmed_top_bar.on 'click', 'a.sign_in', ->
   $('body').animate marginTop: -160, 'slow'
