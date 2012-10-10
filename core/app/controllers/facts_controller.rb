@@ -33,8 +33,7 @@ class FactsController < ApplicationController
 
   def extended_show
     authorize! :show, @fact
-
-    render layout: "frontend"
+    render_backbone_page
   end
 
   def intermediate
