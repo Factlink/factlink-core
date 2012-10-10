@@ -110,6 +110,9 @@ class User
     field :invited_by_id, type: Integer
     field :invited_by_type, type: String
 
+  has_many :conversations
+  has_and_belongs_to_many :sent_messages, class_name: 'Message'
+
   class << self
     def active
       where :approved => true
