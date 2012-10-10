@@ -28,14 +28,20 @@ div.header {
       position: relative;
       z-index: 2;
       left: 0;
-      top: 190px;
+      top: 190px; // corresponds to JS
       margin: 0 auto;
       width: 960px;
       // we want an image that is not smaller than 960 in width, otherwise we have to use the height property to ensure
       // the image is kept in the centred when resizing the page, but this leads to deformation and thus lower quality
     }
   }
+}
 
+.show_sign_in div.header div.background img.earth {
+  margin-top: 104px; // corresponds to JS
+}
+
+div.header {
   div.container {
     color: white;
     padding-bottom: 30px;
