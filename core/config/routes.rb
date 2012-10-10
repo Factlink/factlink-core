@@ -105,7 +105,7 @@ FactlinkUI::Application.routes.draw do
     delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
-  resources :messages, only: [:show], path: 'm'
+  resources :conversations, only: [:show], path: 'm'
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
