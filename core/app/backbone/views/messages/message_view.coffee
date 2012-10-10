@@ -1,9 +1,16 @@
-class window.MessageView extends Backbone.Marionette.ItemView
+class OneMessageView extends Backbone.Marionette.ItemView
+  tagName: 'li'
   template:
     text: """
-          <h1>Gerard stuurde je deze factlink</h1>
-          <p><b>Sommige dingen zijn waar</b></p>
-          <p>Wat vind jij daarvan?</p>
-          <textarea></textarea><br>
-          <input type="submit" value="Verstuur">
+      <b>{{sender}}</b> {{content}}
+    """
+
+class window.MessageView extends Backbone.Marionette.CompositeView
+  itemView: OneMessageView
+  itemViewContainer: 'ul'
+
+  template:
+    text: """
+          <h1>Discussie over factlink factlink {{subject.id}}</h1>
+          <ul></ul>
     """
