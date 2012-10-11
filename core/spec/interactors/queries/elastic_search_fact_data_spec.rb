@@ -18,6 +18,11 @@ describe ElasticSearchFactDataQuery do
     query.should_not be_nil
   end
 
+  it 'raises when initialized with an empty keywords string' do
+    expect { interactor = ElasticSearchFactDataQuery.new '', 1, 20 }.
+      to raise_error(RuntimeError, 'Keywords must not be empty')
+  end
+
   describe '.execute' do
     it 'executes correctly with return value of FactData class' do
       config = mock()
