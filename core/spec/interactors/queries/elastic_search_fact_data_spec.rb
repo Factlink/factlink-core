@@ -25,7 +25,7 @@ describe ElasticSearchFactDataQuery do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for evidence'
-      wildcard_keywords = '*searching*+*for*+*evidence*'
+      wildcard_keywords = '*searching*+for+*evidence*'
       interactor = ElasticSearchFactDataQuery.new keywords, 1, 20
 
       hit = mock()

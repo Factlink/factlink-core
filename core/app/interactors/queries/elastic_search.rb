@@ -6,7 +6,7 @@ class ElasticSearch
     @keywords.split(/\s+/).
       map{ |x| CGI::escape(x) }.
       map{ |x| x.length<=3?x:"*#{x}*"}.
-      join("%20")
+      join("+")
   end
 
   def handle_httparty_error results
