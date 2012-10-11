@@ -46,4 +46,4 @@ en:
 
   facts:
       new:
-        add_to_channels: "add to channel"
+        add_to_channels: "add one or more channel names"

@@ -47,4 +47,4 @@ nl:
 
   facts:
     new:
-      add_to_channels: "voeg toe aan kanaal"
+      add_to_channels: "voeg een of meerder kanaalnamen toe"
