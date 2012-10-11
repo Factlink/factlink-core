@@ -101,6 +101,28 @@ describe "factlink", type: :request do
     old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
   end
 
+  it "should find a factlink when searching on a exact phrase containing small words" do
+    displaystring = 'feathers is not a four letter groom betters'
+
+    @factlink = create_factlink @user
+
+    @factlink_evidence = create_factlink @user
+    @factlink_evidence.data.displaystring = "Fact: " + displaystring
+    @factlink_evidence.data.save
+
+    visit friendly_fact_path(@factlink)
+    page.should have_content(@factlink.data.title)
+
+    click_on "Supporting"
+
+    wait_until_scope_exists '.add-evidence-container' do
+      fill_in 'supporting_search', :with => displaystring
+      wait_for_ajax
+    end
+
+    page.should have_content @factlink_evidence.data.displaystring
+  end
+
   def wheel_path_d position
     page.evaluate_script("$('.wheel path')[#{position}].getAttribute('d');");
   end
