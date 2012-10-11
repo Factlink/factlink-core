@@ -24,7 +24,7 @@ describe ElasticSearchChannelQuery do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for this channel'
-      wildcard_keywords = '*searching*+*for*+*this*+*channel*'
+      wildcard_keywords = '*searching*+for+*this*+*channel*'
       query = ElasticSearchChannelQuery.new keywords, 1, 20
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)

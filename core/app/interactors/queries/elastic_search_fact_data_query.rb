@@ -3,6 +3,8 @@ require_relative "elastic_search.rb"
 
 class ElasticSearchFactDataQuery < ElasticSearch
   def initialize keywords, page, row_count, options = {}
+    raise 'Keywords must not be empty' unless keywords.length > 0
+
     @keywords = keywords
     @page = page
     @row_count = row_count

@@ -1,7 +1,6 @@
 class SearchEvidenceInteractor
   def initialize keywords, fact_id, options={}
     raise 'Keywords should be an string.' unless keywords.kind_of? String
-    raise 'Keywords must not be empty'    unless keywords.length > 0
     raise 'Fact_id should be an number.' unless /\A\d+\Z/.match fact_id
 
     @keywords = keywords

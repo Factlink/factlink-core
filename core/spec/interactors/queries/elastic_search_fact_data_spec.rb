@@ -18,6 +18,11 @@ describe ElasticSearchFactDataQuery do
     query.should_not be_nil
   end
 
+  it 'raises when initialized with an empty keywords string' do
+    expect { interactor = ElasticSearchFactDataQuery.new '', 1, 20 }.
+      to raise_error(RuntimeError, 'Keywords must not be empty')
+  end
+
   describe '.execute' do
     it 'executes correctly with return value of FactData class' do
       config = mock()
@@ -25,7 +30,7 @@ describe ElasticSearchFactDataQuery do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for evidence'
-      wildcard_keywords = '*searching*+*for*+*evidence*'
+      wildcard_keywords = '*searching*+for+*evidence*'
       interactor = ElasticSearchFactDataQuery.new keywords, 1, 20
 
       hit = mock()
