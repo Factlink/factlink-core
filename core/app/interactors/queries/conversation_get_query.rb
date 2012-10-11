@@ -1,13 +1,18 @@
+require_relative 'query.rb'
+require 'hashie'
+
 class ConversationGetQuery
   include Query
   def initialize(id)
     @id = id
   end
+
   def execute
-    Hashie::Mash.new({
-      id: 14,
-      subject_type: :fact,
-      subject_id: 414
+    conversation = Conversation.find(@id)
+    conversation and Hashie::Mash.new({
+      id: conversation.id,
+      subject_type: conversation.subject.class,
+      subject_id: conversation.subject.id
     })
   end
 end
