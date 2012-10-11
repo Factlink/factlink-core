@@ -28,7 +28,7 @@ describe ElasticSearchAllQuery do
         config.stub elasticsearch_url: base_url
         FactlinkUI::Application.stub config: config
         keywords = 'searching for this channel'
-        wildcard_keywords = '*searching*+*for*+*this*+*channel*'
+        wildcard_keywords = '*searching*+for+*this*+*channel*'
         interactor = ElasticSearchAllQuery.new keywords, 1, 20
 
         hit = mock()

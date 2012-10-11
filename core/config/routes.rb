@@ -90,8 +90,6 @@ FactlinkUI::Application.routes.draw do
           put :approve
         end
       end
-
-      resources :jobs
     end
 
     # Seems to me we want to lose the scope "/:username" later and place all
@@ -108,8 +106,6 @@ FactlinkUI::Application.routes.draw do
   end
 
   scope "/:username" do
-    put "/seen_messages" => "users#seen_message", as: 'see_message'
-
     get "/" => "users#show", :as => "user_profile"
     put "/" => "users#update"
 
@@ -191,8 +187,14 @@ FactlinkUI::Application.routes.draw do
   get  "/p/privacy" => "privacy#privacy", as: "privacy"
 
   scope "/p" do
-    resources :jobs, :only => [:show, :index]
     get ":name" => "home#pages", :as => "pages",  :constraints => {:name => /([-a-zA-Z_\/]+)/}
+  end
+
+
+  # Scope for user specific actions
+  # I made this scope so we don't always have to know the current users username in de frontend
+  scope "/u" do
+    put "/seen_messages" => "users#seen_message", as: 'see_message'
   end
 
   get "/x/:id" => "fake_facts#show"

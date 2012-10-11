@@ -1,14 +1,15 @@
+// All the default libraries/files needed for all pages on Factlink
 //= require jquery
 //= require jquery_ujs
 //= require rails.validations
-//= require mustache
 //= require underscore
-//= require andlog
-
-
-//= require_tree ./lib
-
 //= require hogan
-//= require_tree ../../templates
+//= require andlog
+//= require trunk8
+//= require twipsy
+//= require twitter/bootstrap
 
-this.HoganTemplates || (this.HoganTemplates = {});
+//= require globals/globals
+
+//= require_tree ./base
+//= require_tree ./lib

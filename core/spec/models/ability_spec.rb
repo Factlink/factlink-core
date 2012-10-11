@@ -115,20 +115,6 @@ describe Ability do
 
   end
 
-  describe "managing jobs" do
-    describe "as anonymous" do
-      it {anonymous.should      be_able_to :read, Job}
-      it {anonymous.should_not  be_able_to :manage, Job}
-    end
-    describe "as a user" do
-      it {subject.should        be_able_to :read, Job}
-      it {subject.should_not    be_able_to :manage, Job}
-    end
-    describe "as an admin" do
-      it {admin.should          be_able_to :manage, Job}
-    end
-  end
-
   describe "accessing the admin area" do
     it "should only be allowed as admin" do
       admin.should         be_able_to :access, Ability::AdminArea
@@ -143,26 +129,6 @@ describe Ability do
       subject.should         be_able_to :access, Ability::FactlinkWebapp
       anonymous.should_not   be_able_to :access, Ability::FactlinkWebapp
       nonnda.should_not      be_able_to :access, Ability::FactlinkWebapp
-    end
-  end
-
-  describe "listing jobs" do
-    before do
-      @j1 = FactoryGirl.create :job, show: true
-      @j2 = FactoryGirl.create :job, show: false
-      @j3 = FactoryGirl.create :job, show: true
-    end
-
-    it "should list all jobs for admin" do
-      Job.accessible_by(admin).to_a.should =~ [@j1, @j2, @j3]
-    end
-
-    it "should list two jobs for non-admin user" do
-      Job.accessible_by(subject).to_a.should =~ [@j1, @j3]
-    end
-
-    it "should list two jobs for anonymous user" do
-      Job.accessible_by(anonymous).to_a.should =~ [@j1, @j3]
     end
   end
 

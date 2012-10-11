@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe "beliefs should work as described in the google doc" do
+describe "opinion should work as described in the google doc" do
   include BeliefExpressions
 
   let(:u1) {create(:graph_user)}

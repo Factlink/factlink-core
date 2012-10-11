@@ -12,7 +12,6 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :read, Job, show: true
     can :check, Blacklist
     can :new, Fact
 
@@ -94,7 +93,6 @@ class Ability
         can :access, AdminArea
         can :manage, User
         can :approve, User
-        can :manage, Job
         cannot :sign_tos, User
       end
       if user.has_invitations_left?

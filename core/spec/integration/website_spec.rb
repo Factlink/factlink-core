@@ -17,7 +17,7 @@ describe "When visiting the Factlink website", type: :request do
       click_link "About"
 
       within(:css, "h1") do
-        page.should have_content("Because the web needs what you know")
+        page.should have_content("About Factlink")
       end
     end
 
@@ -38,7 +38,7 @@ describe "When visiting the Factlink website", type: :request do
     it "should be able to view the Contact page" do
       click_link "Contact"
       within(:css, "h1") do
-        page.should have_content("Contact us")
+        page.should have_content("Get in touch")
       end
     end
 

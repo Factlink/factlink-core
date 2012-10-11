@@ -16,8 +16,8 @@ class window.EmptyFactsView extends Backbone.Marionette.ItemView
   onClose: -> @relatedChannelsView?.close()
 
   downloadChromeExtension: ->
-    use_chrome_webstore = Backbone.Factlink.Global.use_chrome_webstore
+    use_chrome_webstore = Factlink.Global.use_chrome_webstore
     if use_chrome_webstore
       chrome.webstore.install()
     else
-      document.location = Backbone.Factlink.Global.chrome_extension_url
+      document.location = Factlink.Global.chrome_extension_url

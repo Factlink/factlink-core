@@ -30,11 +30,6 @@ describe SearchEvidenceInteractor do
       to raise_error(RuntimeError,'Keywords should be an string.')
   end
 
-  it 'raises when initialized with an empty keywords string' do
-    expect { interactor = SearchEvidenceInteractor.new '', '1' }.
-      to raise_error(RuntimeError, 'Keywords must not be empty')
-  end
-
   it 'raises when initialized with a fact_id that is not a string' do
     expect { interactor = SearchEvidenceInteractor.new 'key words', nil }.
       to raise_error(RuntimeError, 'Fact_id should be an number.')
@@ -47,6 +42,13 @@ describe SearchEvidenceInteractor do
       interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
 
       expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
+    end
+
+    it 'returns a empty array when the keyword string is empty' do
+      keywords = 'zoeken interessante dingen'
+      interactor = SearchEvidenceInteractor.new '', '1', ability: relaxed_ability
+
+      interactor.execute.should eq []
     end
 
     it 'shouldn''t return itself' do

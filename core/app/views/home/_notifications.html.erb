@@ -18,7 +18,7 @@
       function disablePreferredBrowserMessage() {
         $.ajax({
           type: 'PUT',
-          url: '<%= see_message_path current_user.username %>',
+          url: '<%= see_message_path %>',
           data: {
             message: "supported_browser_warning"
           }

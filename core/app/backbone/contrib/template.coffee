@@ -18,6 +18,6 @@ getTemplate = (template)->
 Backbone.Marionette.Renderer.render = (template, data, partials) ->
 
   if data?
-    new_data =  _.extend(data,{global: Backbone.Factlink.Global})
+    new_data =  _.extend(data,{global: Factlink.Global})
 
   getTemplate(template).render(new_data, partials)
