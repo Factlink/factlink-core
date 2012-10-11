@@ -88,4 +88,15 @@ FactoryGirl.define do
 
   factory :activity do
   end
+
+  sequence :content do |n|
+    "Content #{n}"
+  end
+
+  factory :message do
+    content
+  end
+
+  factory :conversation do
+  end
 end
