@@ -111,7 +111,7 @@ class User
     field :invited_by_type, type: String
 
   has_and_belongs_to_many :conversations, inverse_of: :recipients
-  has_and_belongs_to_many :sent_messages, class_name: 'Message'
+  has_many :sent_messages, class_name: 'Message', inverse_of: :sender
 
   class << self
     def active

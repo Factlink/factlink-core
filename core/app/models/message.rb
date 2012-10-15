@@ -7,5 +7,5 @@ class Message
   belongs_to :conversation
 
   field :content,           type: String
-  belongs_to :sender, class_name: 'User'
+  belongs_to :sender, class_name: 'User', inverse_of: :sent_messages
 end
