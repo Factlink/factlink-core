@@ -11,6 +11,14 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
+  it "the layout of the single fact page is correct" do
+    @factlink = create_factlink @user
+    search_string = 'Test search'
+
+    visit friendly_fact_path(@factlink)
+    assume_unchanged_screenshot "single_fact_page"
+  end
+
   it "evidence can be added" do
     @factlink = create_factlink @user
     search_string = 'Test search'
