@@ -135,11 +135,9 @@ describe Activity do
     it 'is true when the subject is valid'
     it 'is true when the subject has no validity test'
 
-    it "is false when the object is invalid" do
+    it "is false when the object is invalid"
     it 'is false when the object is valid'
     it 'is false when the object has no validity test'
-
-    end
   end
 
   describe :to_hash_without_time do
