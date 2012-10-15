@@ -1,6 +1,18 @@
 require 'spec_helper'
 
-class Blob < OurOhm ;end
+class Blob < OurOhm ;
+  def set_invalid
+    @invalid = true
+  end
+
+  def valid_for_activity
+    if @invalid == true
+      false
+    else
+      true
+    end
+  end
+end
 class Foo < OurOhm ;end
 
 describe Activity do
@@ -114,6 +126,20 @@ describe Activity do
       @a.should be_still_valid
     end
 
+    pending "is false when the subject is invalid" do
+      b = new Blob
+      b.set_invalid
+      @a.object = b
+      @a.should_not be_still_valid
+    end
+    it 'is true when the subject is valid'
+    it 'is true when the subject has no validity test'
+
+    it "is false when the object is invalid" do
+    it 'is false when the object is valid'
+    it 'is false when the object has no validity test'
+
+    end
   end
 
   describe :to_hash_without_time do
