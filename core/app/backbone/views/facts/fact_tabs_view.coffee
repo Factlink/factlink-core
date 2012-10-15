@@ -28,6 +28,12 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
       addToChannelView.render()
       @addToChannelView = addToChannelView
 
+  renderSendMessage: ->
+    @sendMessageView = new SendMessageView
+    @sendMessageView.render()
+    $('.send-message .dropdown-container').html(@sendMessageView.el)
+
+
   onClose: ->
     @addToChannelView.close() if @addToChannelView
 
@@ -41,6 +47,9 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
         @switchToRelationDropdown tab
       when "add-to-channel"
         @renderAddToChannel()
+      when "send-message"
+        @renderSendMessage()
+
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
