@@ -1,6 +1,6 @@
 <ul class="tab-control">
-  <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}}"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
-  <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}}"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
+  <li class="supporting {{#nr_of_supporting_facts}}alwaysshow{{/nr_of_supporting_facts}} is-tab"><a href="#">Supporting{{#nr_of_supporting_facts}} ({{nr_of_supporting_facts}}){{/nr_of_supporting_facts}}</a></li>
+  <li class="weakening {{#nr_of_weakening_facts}}alwaysshow{{/nr_of_weakening_facts}} is-tab"><a href="#">Weakening{{#nr_of_weakening_facts}} ({{nr_of_weakening_facts}}){{/nr_of_weakening_facts}}</a></li>
 
   <li class="permalink">
     {{#modal?}}
@@ -25,10 +25,10 @@
 
 
   {{#global.can_haz.messaging}}
-    <li class="send-message"><a href="#">Send message</a></li>
+    <li class="send-message is-tab"><a href="#">Send message</a></li>
   {{/global.can_haz.messaging}}
 
-  <li class="add-to-channel"><a href="#">My Channels</a></li>
+  <li class="add-to-channel is-tab"><a href="#">My Channels</a></li>
 </ul>
 
 <div class="clearfix"></div>

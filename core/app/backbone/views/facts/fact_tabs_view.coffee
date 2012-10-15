@@ -2,10 +2,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
   template: "facts/fact_tabs"
 
   events:
-    "click .tab-control .supporting": "tabClick"
-    "click .tab-control .weakening": "tabClick"
-    "click .tab-control .add-to-channel": "tabClick"
-    "click .tab-control .send-message": "tabClick"
+    "click .tab-control .is-tab": "tabClick"
 
   regions:
     sendMessageRegion: '.send-message .dropdown-container'
