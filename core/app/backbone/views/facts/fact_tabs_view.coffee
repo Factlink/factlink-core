@@ -33,31 +33,34 @@ class window.FactTabsView extends Backbone.Marionette.Layout
   onClose: -> addToChannelView.close() if @addToChannelView
 
   hideTabs: ->
+    $tabButtons = @$el.find(".tab-control li")
+    $tabButtons.removeClass "active"
+
     @$(".tab-content > div").hide()
     @$(".tab-control > li").removeClass "tabOpened"
+    @_currentTab = `undefined`
+
+  showTab: (tab, $tabHandle)->
+    @hideTabs()
+    @_currentTab = tab
+    $tabHandle.addClass "active"
+    @$(".tab-content > ." + tab).show()
+    @$(".tab-control > li").addClass "tabOpened"
+    @handleTabActions tab
 
   handleTabActions: (tab) ->
+    mp_track "Factlink: Open tab",
+      factlink_id: @model.id
+      type: tab
+
     switch tab
-      when "supporting", "weakening" then @switchToRelationDropdown tab
+      when "supporting", "weakening" then @showFactRelations tab
       when "add-to-channel" then @renderAddToChannel()
       when "send-message" then @renderSendMessage()
-
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
     @weakeningFactRelations = new WeakeningFactRelations([],fact: @model)
-
-  switchToRelationDropdown: (type) ->
-    mp_track "Factlink: Open tab",
-      factlink_id: @model.id
-      type: type
-
-    if type is "supporting"
-      @hideFactRelations "weakening"
-      @showFactRelations "supporting"
-    else
-      @hideFactRelations "supporting"
-      @showFactRelations "weakening"
 
   showFactRelations: (type) ->
     unless type + "FactRelationsView" of this
@@ -66,23 +69,12 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     @$("." + type + " .dropdown-container").show()
     this[type + "FactRelationsView"].fetch()
 
-  hideFactRelations: (type) ->
-    @$("." + type + " .dropdown-container").hide()
-
   tabClick: (e) ->
     e.preventDefault()
     e.stopPropagation()
     $target = $(e.target).closest("li")
     tab = $target.attr("class").split(" ")[0]
-    $tabButtons = @$el.find(".tab-control li")
-    $tabButtons.removeClass "active"
-    if tab isnt @_currentTab
-      @_currentTab = tab
+    if tab is @_currentTab
       @hideTabs()
-      $target.addClass "active"
-      @$(".tab-content > ." + tab).show()
-      @$(".tab-control > li").addClass "tabOpened"
-      @handleTabActions tab
     else
-      @hideTabs()
-      @_currentTab = `undefined`
+      @showTab(tab, $target)
