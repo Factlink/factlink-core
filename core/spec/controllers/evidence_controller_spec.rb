@@ -3,11 +3,11 @@ require 'spec_helper'
 describe SupportingEvidenceController do
   render_views
 
-  let (:user) {FactoryGirl.create(:user)}
+  let(:user) {create(:user)}
 
-  let (:f1) {FactoryGirl.create(:fact)}
-  let (:f2) {FactoryGirl.create(:fact)}
-  let (:f3) {FactoryGirl.create(:fact)}
+  let(:f1) {create(:fact)}
+  let(:f2) {create(:fact)}
+  let(:f3) {create(:fact)}
 
   before do
     @fr = f1.add_evidence(:supporting, f2, user)
