@@ -1,4 +1,4 @@
-class window.FactTabsView extends Backbone.Marionette.ItemView
+class window.FactTabsView extends Backbone.Marionette.Layout
   template: "facts/fact_tabs"
 
   events:
@@ -6,6 +6,9 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
     "click .tab-control .weakening": "tabClick"
     "click .tab-control .add-to-channel": "tabClick"
     "click .tab-control .send-message": "tabClick"
+
+  regions:
+    sendMessageRegion: '.send-message .dropdown-container'
 
   initialize: ->
     @_currentTab = `undefined`
@@ -28,11 +31,7 @@ class window.FactTabsView extends Backbone.Marionette.ItemView
       addToChannelView.render()
       @addToChannelView = addToChannelView
 
-  renderSendMessage: ->
-    @sendMessageView = new SendMessageView
-    @sendMessageView.render()
-    $('.send-message .dropdown-container').html(@sendMessageView.el)
-
+  renderSendMessage: -> @sendMessageRegion.show new SendMessageView
 
   onClose: ->
     @addToChannelView.close() if @addToChannelView
