@@ -1,7 +1,7 @@
 require_relative '../interactor_spec_helper'
-require File.expand_path('../../../../app/interactors/commands/delete_topic_for_text_search.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/commands/elastic_search_delete_topic_for_text_search.rb', __FILE__)
 
-describe DeleteTopicForTextSearch do
+describe ElasticSearchDeleteTopicForTextSearch do
   def fake_class
     Class.new
   end
@@ -18,13 +18,13 @@ describe DeleteTopicForTextSearch do
   end
 
   it 'intitializes' do
-    interactor = DeleteTopicForTextSearch.new topic
+    interactor = ElasticSearchDeleteTopicForTextSearch.new topic
 
     interactor.should_not be_nil
   end
 
   it 'raises when topic is not a Topic' do
-    expect { interactor = DeleteTopicForTextSearch.new 'Topic' }.
+    expect { interactor = ElasticSearchDeleteTopicForTextSearch.new 'Topic' }.
       to raise_error(RuntimeError, 'topic missing fields ([:id]).')
   end
 
@@ -36,7 +36,7 @@ describe DeleteTopicForTextSearch do
       FactlinkUI::Application.stub config: config
 
       HTTParty.should_receive(:delete).with("http://#{url}/topic/#{topic.id}")
-      interactor = DeleteTopicForTextSearch.new topic
+      interactor = ElasticSearchDeleteTopicForTextSearch.new topic
 
       interactor.execute
     end

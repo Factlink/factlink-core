@@ -1,8 +1,8 @@
 require_relative '../interactor_spec_helper'
-require File.expand_path('../../../../app/interactors/commands/index_topic_for_text_search.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/commands/elastic_search_index_topic_for_text_search.rb', __FILE__)
 require 'json'
 
-describe 'IndexTopicForTextSearch' do
+describe ElasticSearchIndexTopicForTextSearch do
   def fake_class
     Class.new
   end
@@ -14,19 +14,20 @@ describe 'IndexTopicForTextSearch' do
                slug_title: 'slug title'
     topic
   end
+
   before do
     stub_const('HTTParty', fake_class)
     stub_const('FactlinkUI::Application', fake_class)
   end
 
   it 'intitializes' do
-    interactor = IndexTopicForTextSearch.new topic
+    interactor = ElasticSearchIndexTopicForTextSearch.new topic
 
     interactor.should_not be_nil
   end
 
   it 'raises when topic is not a Topic' do
-    expect { interactor = IndexTopicForTextSearch.new 'Topic' }.
+    expect { interactor = ElasticSearchIndexTopicForTextSearch.new 'Topic' }.
       to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
   end
 
@@ -39,7 +40,7 @@ describe 'IndexTopicForTextSearch' do
       url = "http://#{url}/topic/#{topic.id}"
       HTTParty.should_receive(:put).with(url,
         { body: { title: topic.title, slug_title: topic.slug_title}.to_json})
-      interactor = IndexTopicForTextSearch.new topic
+      interactor = ElasticSearchIndexTopicForTextSearch.new topic
 
       interactor.execute
     end

@@ -1,7 +1,7 @@
 require_relative '../interactor_spec_helper'
-require File.expand_path('../../../../app/interactors/commands/index_user_for_text_search.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/commands/elastic_search_index_user_for_text_search.rb', __FILE__)
 
-describe IndexUserForTextSearch do
+describe ElasticSearchIndexUserForTextSearch do
   def fake_class
     Class.new
   end
@@ -19,13 +19,13 @@ describe IndexUserForTextSearch do
   end
 
   it 'intitializes' do
-    interactor = IndexUserForTextSearch.new user
+    interactor = ElasticSearchIndexUserForTextSearch.new user
 
     interactor.should_not be_nil
   end
 
   it 'raises when user is not a User' do
-    expect { interactor = IndexUserForTextSearch.new 'User' }.
+    expect { interactor = ElasticSearchIndexUserForTextSearch.new 'User' }.
       to raise_error(RuntimeError, 'user missing fields ([:username, :id]).')
   end
 
@@ -38,7 +38,7 @@ describe IndexUserForTextSearch do
       url = "http://#{url}/user/#{user.id}"
       HTTParty.should_receive(:put).with(url,
         { body: { username: user.username }.to_json})
-      interactor = IndexUserForTextSearch.new user
+      interactor = ElasticSearchIndexUserForTextSearch.new user
 
       interactor.execute
     end
