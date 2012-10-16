@@ -1,5 +1,5 @@
-require_relative 'interactor_spec_helper'
-require File.expand_path('../../../app/interactors/index_fact_data_for_text_search.rb', __FILE__)
+require_relative '../interactor_spec_helper'
+require File.expand_path('../../../../app/interactors/commands/index_fact_data_for_text_search.rb', __FILE__)
 
 describe IndexFactDataForTextSearch do
   def fake_class

@@ -1,5 +1,5 @@
-require_relative 'interactor_spec_helper'
-require File.expand_path('../../../app/interactors/index_topic_for_text_search.rb', __FILE__)
+require_relative '../interactor_spec_helper'
+require File.expand_path('../../../../app/interactors/commands/index_topic_for_text_search.rb', __FILE__)
 require 'json'
 
 describe 'IndexTopicForTextSearch' do
