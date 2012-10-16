@@ -95,8 +95,29 @@ FactoryGirl.define do
 
   factory :message do
     content
+    association :sender, factory: :user
   end
 
   factory :conversation do
+    after(:create) do |conversation, evaluator|
+      fact = create(:fact)
+      conversation.fact_data = fact.data
+    end
+
+    factory :conversation_with_messages do
+      ignore do
+        message_count 5
+        user_count 5
+      end
+
+      after(:create) do |conversation, evaluator|
+        conversation.recipients = create_list(:user, evaluator.user_count)
+        (1..evaluator.message_count).each do |i|
+          # just use users #1, #2, #3, #1, #2, etc.
+          sender = conversation.recipients[i%evaluator.user_count]
+          create(:message, conversation: conversation, sender: sender)
+        end
+      end
+    end
   end
 end
