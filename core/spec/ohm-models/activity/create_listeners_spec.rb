@@ -188,10 +188,7 @@ describe 'activity queries' do
 
       CreateConversationWithMessageInteractor.perform [u1.username, u2.username], u1.username, 'this is a message'
 
-      u1.graph_user.notifications.map(&:to_hash_without_time).should == [
-        {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
-      ]
-
+      u1.graph_user.notifications.map(&:to_hash_without_time).should == []
       u2.graph_user.notifications.map(&:to_hash_without_time).should == [
         {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
       ]

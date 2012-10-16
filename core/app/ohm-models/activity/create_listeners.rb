@@ -33,7 +33,7 @@ def create_activity_listeners
 
       activity subject_class: "Conversation",
                action: :created_conversation,
-               write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id } }
+               write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id }.keep_if { |id| id != a.user_id } }
 
     end
 
