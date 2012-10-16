@@ -31,7 +31,6 @@ class SearchChannelInteractor
   end
 
   def authorized?
-    @ability.can? :index, Topic
-    @ability.can? :show, @user
+    (@ability.can? :index, Topic) and (@ability.can? :show, @user)
   end
 end

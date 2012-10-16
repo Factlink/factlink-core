@@ -1,7 +1,7 @@
-require_relative 'interactor_spec_helper'
-require File.expand_path('../../../app/interactors/delete_user_for_text_search.rb', __FILE__)
+require_relative '../interactor_spec_helper'
+require File.expand_path('../../../../app/interactors/commands/elastic_search_delete_user_for_text_search.rb', __FILE__)
 
-describe DeleteUserForTextSearch do
+describe ElasticSearchDeleteUserForTextSearch do
   def fake_class
     Class.new
   end
@@ -18,13 +18,13 @@ describe DeleteUserForTextSearch do
   end
 
   it 'intitializes' do
-    interactor = DeleteUserForTextSearch.new user
+    interactor = ElasticSearchDeleteUserForTextSearch.new user
 
     interactor.should_not be_nil
   end
 
   it 'raises when user is not a User' do
-    expect { interactor = DeleteUserForTextSearch.new 'User' }.
+    expect { interactor = ElasticSearchDeleteUserForTextSearch.new 'User' }.
       to raise_error(RuntimeError, 'user missing fields ([:id]).')
   end
 
@@ -36,7 +36,7 @@ describe DeleteUserForTextSearch do
       FactlinkUI::Application.stub config: config
 
       HTTParty.should_receive(:delete).with("http://#{url}/user/#{user.id}")
-      interactor = DeleteUserForTextSearch.new user
+      interactor = ElasticSearchDeleteUserForTextSearch.new user
 
       interactor.execute
     end

@@ -5,9 +5,12 @@ class ConversationGetQuery
 
   def execute
     conversation = Conversation.find(@id)
-    conversation and Hashie::Mash.new({
-      id: conversation.id,
-      fact_data_id: conversation.fact_data_id
-    })
+    if conversation
+      fact_data_id = conversation.fact_data.id if conversation.fact_data
+      Hashie::Mash.new({
+        id: conversation.id,
+        fact_data_id: fact_data_id
+      })
+    end
   end
 end
