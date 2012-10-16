@@ -17,10 +17,7 @@ class CreateConversationWithMessageInteractor
     m.conversation = c
     m.save
 
-    # TODO: create activity :created_conversation,
-    #       and add it to notifications of (receivers-[sender]) via
-    #       create_listeners.rb
-    activity user_for(@sender).graph_user, :created_conversation, c
+    activity user_for(@sender_username).graph_user, :created_conversation, c
   end
 
   def created_message
