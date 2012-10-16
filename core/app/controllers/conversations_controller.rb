@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
 
     respond_to do |format|
       format.html { render_backbone_page }
-      format.json do 
+      format.json do
         if @conversation and @messages.length > 0
           render 'conversations/show'
         else
