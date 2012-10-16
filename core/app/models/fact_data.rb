@@ -8,7 +8,7 @@ class FactData
   field :displaystring,   type: String
   field :fact_id,         type: String
 
-  has_many :conversations, as: :subject
+  has_many :conversations
 
   validates_format_of :displaystring, allow_nil: true, with: /\S/
 
