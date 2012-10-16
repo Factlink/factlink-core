@@ -102,6 +102,7 @@ FactoryGirl.define do
     after(:create) do |conversation, evaluator|
       fact = create(:fact)
       conversation.fact_data = fact.data
+      conversation.save
     end
 
     factory :conversation_with_messages do
