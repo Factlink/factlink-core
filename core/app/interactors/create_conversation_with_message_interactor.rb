@@ -9,6 +9,6 @@ class CreateConversationWithMessageInteractor
     c = command :create_conversation, @recipient_usernames
     command :create_message, @sender_username, @content, c.id
 
-    activity user_for(@sender_username).graph_user, :created_conversation, c
+    activity User.where(username: @sender_username).first.graph_user, :created_conversation, c
   end
 end
