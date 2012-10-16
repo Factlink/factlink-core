@@ -103,6 +103,8 @@ json.activity do |json|
 
 
   when "created_conversation"
+    json.target_url conversation_path(subject)
+
     json.conversation do |conversation|
       conversation.url conversation_path(subject)
     end

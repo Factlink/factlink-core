@@ -2,7 +2,16 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
   template: "notifications/_generic_activity"
-  onRender: ->  @$el.addClass "unread"  if @model.get("unread") is true
+  events:
+    'click': 'wholeElementClick'
+
+  wholeElementClick: (e) ->
+    if url = @model.get('activity').target_url
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      Backbone.history.navigate url, true
+
+  onRender: -> @$el.addClass "unread"  if @model.get("unread") is true
 
   markAsRead: -> @$el.removeClass "unread"
 
@@ -15,7 +24,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/_invited_activity"
 
-class NotificationCreatedConversation extends GenericNotificationView
+class NotificationCreatedConversationView extends GenericNotificationView
   template: "notifications/_created_conversation"
 
 window.NotificationView = (opts) ->
@@ -27,6 +36,6 @@ window.NotificationView = (opts) ->
     when "invites"
       new NotificationInvitedView(opts)
     when "created_conversation"
-      new NotificationCreatedConversation(opts)
+      new NotificationCreatedConversationView(opts)
     else
       new GenericNotificationView(opts)
