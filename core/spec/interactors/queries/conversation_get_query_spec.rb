@@ -12,17 +12,16 @@ describe ConversationGetQuery do
 
   it "returns the dead representation of the conversation if found" do
     id = 10
-    subject = Fact.new
-    subject.stub(id: 124)
+    fact_data = FactData.new
+    fact_data.stub(id: 124)
     mock_conversation = mock()
-    mock_conversation.stub id: id, subject: subject
+    mock_conversation.stub id: id, fact_data: fact_data
 
     Conversation.should_receive(:find).with(id).and_return(mock_conversation)
     res = ConversationGetQuery.execute(id)
 
     expect(res.id).to eq(id)
-    expect(res.subject_type).to eq(subject.class)
-    expect(res.subject_id).to eq(subject.id)
+    expect(res.fact_data_id).to eq(fact_data.id)
   end
 
   it "returns nil if no matching conversation is found" do

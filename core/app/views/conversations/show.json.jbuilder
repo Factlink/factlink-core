@@ -1,7 +1,3 @@
 json.id @conversation.id
-json.subject do |json|
-  json.type @conversation.subject_type
-  json.id   @conversation.subject_id
-end
-
+json.fact_data_id @conversation.fact_data_id
 json.messages @messages, :sender, :content
