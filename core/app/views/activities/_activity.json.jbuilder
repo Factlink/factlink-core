@@ -19,7 +19,7 @@ json.translated_action t("fact_#{action.to_sym}_action".to_sym)
 
 json.subject subject.to_s
 
-json.time_ago time_ago_in_words(Time.at(created_at.to_time))
+json.time_ago "#{time_ago_in_words(Time.at(created_at.to_time))} #{t(:ago)}"
 
 json.id activity.id
 
