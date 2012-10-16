@@ -1,8 +1,6 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-@activeColor: #558da5;
-
 #add-to-container {
   margin: 0 0 0 77px;
 
@@ -17,6 +15,7 @@
   ul {
     list-style: none;
     margin: 0;
+    font-size: 13px;
   }
 
   &.disabled {
@@ -135,13 +134,13 @@
         white-space: nowrap;
 
         em {
-          color: @activeColor;
+          color: @linkColor;
           font-style: normal;
           font-weight: bold;
         }
 
         &.active {
-          background: @activeColor;
+          background: @linkColor;
           color: #fff;
           text-shadow: none;
 
@@ -192,12 +191,12 @@
     }
 
     .active .add-new-block {
-        background: @activeColor;
+        background: @linkColor;
         color: #fff;
-        border-top: 1px solid @activeColor;
+        border-top: 1px solid @linkColor;
 
         a {
-          border: 1px solid @activeColor;
+          border: 1px solid @linkColor;
         }
 
     }

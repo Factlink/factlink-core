@@ -102,12 +102,13 @@ FactoryGirl.define do
     after(:create) do |conversation, evaluator|
       fact = create(:fact)
       conversation.fact_data = fact.data
+      conversation.save
     end
 
     factory :conversation_with_messages do
       ignore do
-        message_count 5
-        user_count 5
+        message_count 3
+        user_count 3
       end
 
       after(:create) do |conversation, evaluator|
