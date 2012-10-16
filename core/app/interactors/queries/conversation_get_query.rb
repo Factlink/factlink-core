@@ -1,6 +1,5 @@
 class ConversationGetQuery
   include Pavlov::Query
-  include Pavlov::SmartInit
 
   arguments :id
 
