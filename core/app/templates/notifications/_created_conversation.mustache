@@ -3,10 +3,10 @@
 </div>
 <div class="info">
   <span>
-    <a href="{{ activity.conversation.url }}" rel="backbone">{{ username }} has sent you a message:</a>
+    {{ username }} has sent you a message:
   </span>
 
-  <a href="{{ activity.conversation.url }}" rel="backbone">{{ activity.message.content }}</a>
+  <p>{{ activity.message.content }}</p>
 
   <div class="time_ago">
     <img src="/assets/time_ago.gif">
