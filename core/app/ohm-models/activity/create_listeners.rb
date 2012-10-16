@@ -31,6 +31,10 @@ def create_activity_listeners
                action: :invites,
                write_ids: lambda { |a| [a.subject_id] }
 
+      activity subject_class: "Conversation",
+               action: :created_conversation,
+               write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id } }
+
     end
 
     register do

@@ -1,4 +1,5 @@
 class CreateConversationWithMessageInteractor
+  include Activity::Subject
   include Pavlov::Interactor
   include Pavlov::SmartInit
 
@@ -7,8 +8,7 @@ class CreateConversationWithMessageInteractor
   def execute
     c = command :create_conversation, @recipient_usernames
     command :create_message, @sender_username, @content, c.id
-    # TODO: create activity :created_conversation,
-    #       and add it to notifications of (receivers-[sender]) via
-    #       create_listeners.rb
+
+    activity User.where(username: @sender_username).first.graph_user, :created_conversation, c
   end
 end
