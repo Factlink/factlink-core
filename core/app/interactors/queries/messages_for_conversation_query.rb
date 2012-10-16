@@ -1,11 +1,11 @@
-require_relative 'query.rb'
 require 'hashie'
 
 class MessagesForConversationQuery
-  include Query
-  def initialize(conversation)
-    @conversation = conversation
-  end
+  include Pavlov::Query
+  include Pavlov::SmartInit
+
+  arguments :conversation
+
   def execute
     Message.where(conversation_id: @conversation.id).map do |message|
       Hashie::Mash.new({

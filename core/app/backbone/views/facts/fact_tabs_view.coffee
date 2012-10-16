@@ -28,8 +28,6 @@ class window.FactTabsView extends Backbone.Marionette.Layout
       addToChannelView.render()
       @addToChannelView = addToChannelView
 
-  renderSendMessage: -> @sendMessageRegion.show new SendMessageView
-
   onClose: -> addToChannelView.close() if @addToChannelView
 
   hideTabs: ->
@@ -56,7 +54,8 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     switch tab
       when "supporting", "weakening" then @showFactRelations tab
       when "add-to-channel" then @renderAddToChannel()
-      when "send-message" then @renderSendMessage()
+      when "send-message"
+        @sendMessageRegion.show new SendMessageView
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)

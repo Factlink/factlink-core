@@ -14,4 +14,9 @@ class ConversationsController < ApplicationController
       end
     end
   end
+
+  def create
+    CreateConversationWithMessageInteractor.perform(params[:recipients], params[:sender], params[:content])
+    render json: {}
+  end
 end

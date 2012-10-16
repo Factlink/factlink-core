@@ -1,11 +1,8 @@
-require_relative 'query.rb'
-require 'hashie'
-
 class ConversationGetQuery
-  include Query
-  def initialize(id)
-    @id = id
-  end
+  include Pavlov::Query
+  include Pavlov::SmartInit
+
+  arguments :id
 
   def execute
     conversation = Conversation.find(@id)
