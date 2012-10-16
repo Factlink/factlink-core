@@ -62,7 +62,7 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/workers"
     config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
-    config.autoload_paths << "#{config.root}/app/interactors/queries"
+    config.autoload_paths << "#{config.root}/app/interactors"
 
     config.mongoid.logger = nil
 

@@ -4,6 +4,7 @@ require 'rspec/rails'
 require 'rubygems'
 require 'database_cleaner'
 
+require 'timeout'
 begin
   require 'simplecov'
   SimpleCov.start
@@ -47,6 +48,17 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
     ElasticSearchCleaner.clean
+  end
+
+  config.before(:each) do
+    @zzz_starting_time = (Time.now.to_f*1000).to_i
+  end
+  config.after(:each) do
+    zzz_stop_time = (Time.now.to_f*1000).to_i
+    allowed_milli_seconds = 3000
+    time_elapsed = zzz_stop_time - @zzz_starting_time
+
+    time_elapsed.should <= allowed_milli_seconds
   end
 end
 
