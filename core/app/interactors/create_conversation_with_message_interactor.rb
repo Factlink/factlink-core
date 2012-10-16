@@ -10,8 +10,10 @@ class CreateConversationWithMessageInteractor
     @recipient_usernames.each do |name|
       c.recipients << user_for(name)
     end
-    c.messages << created_message
     c.save
+    m = created_message
+    m.conversation = c
+    m.save
     # TODO: create activity :created_conversation,
     #       and add it to notifications of (receivers-[sender]) via
     #       create_listeners.rb
