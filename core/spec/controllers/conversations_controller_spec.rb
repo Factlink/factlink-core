@@ -1,23 +1,19 @@
 require 'spec_helper'
 
 describe ConversationsController do
-  let(:f) {create(:fact)}
-  let(:u1) {create(:user)}
-  let(:u2) {create(:user)}
-  let(:u3) {create(:user)}
-  let(:m1) {create(:message, sender: u1)}
-  let(:m2) {create(:message, sender: u2)}
-  let(:m3) {create(:message, sender: u3)}
-  let(:m4) {create(:message, sender: u2)}
+  render_views
 
-  let(:conv) do
-    create(:conversation, subject: f.data, recipients: [u1, u2, u3], messages: [m1, m2, m3, m4])
-  end
+  let(:conv) {create(:conversation_with_messages, message_count: 10, user_count: 3)}
 
   describe :show do
-    it "should show" do
+    it "should show" do 
       get :show, id: conv.id.to_s, format: 'json'
-      # puts response
+      # require 'debugger'; debugger
+      # puts 'bla'
+      # puts 'bla'
+      # puts 'bla'
+      # puts 'bla'
+      # puts response.inspect
     end
   end
 end
