@@ -158,9 +158,6 @@ group :test do
   gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
   gem 'jasmine-headless-webkit', :git => "git://github.com/johnbintz/jasmine-headless-webkit.git"
   gem 'therubyracer'
-
-  # in-line debugger
-  gem 'debugger'
 end
 
 group :development do
@@ -168,9 +165,6 @@ group :development do
   gem 'quiet_assets'
   # Profiling
   gem 'ruby-prof'
-
-  # in-line debugger
-  gem 'debugger'
 end
 
 group :metrics do
