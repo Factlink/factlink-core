@@ -7,7 +7,7 @@ describe ConversationGetQuery do
 
   before do
     stub_const 'Conversation', fake_class
-    stub_const 'Fact', fake_class
+    stub_const 'FactData', fake_class
   end
 
   it "returns the dead representation of the conversation if found" do
