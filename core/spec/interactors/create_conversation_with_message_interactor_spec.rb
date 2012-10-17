@@ -5,7 +5,7 @@ describe CreateConversationWithMessageInteractor do
     jan = create :user, username: 'jan'
     frank = create :user, username: 'frank'
 
-    CreateConversationWithMessageInteractor.perform [jan.username, frank.username], jan.username, 'geert'
+    CreateConversationWithMessageInteractor.perform [jan.username, frank.username], jan.username, 'geert', current_user: jan
     expect(Conversation.all.length.should).to eq(1)
 
     conversation = Conversation.all.first

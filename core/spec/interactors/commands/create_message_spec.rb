@@ -1,15 +1,10 @@
 require File.expand_path('../../../../app/interactors/commands/create_message.rb', __FILE__)
-require 'andand'
 
 describe Commands::CreateMessage do
 
-  def fake_class
-    Class.new
-  end
-
   before do
-    stub_const('Message', fake_class)
-    stub_const('User', fake_class)
+    stub_const('Message', Class.new)
+    stub_const('User', Class.new)
   end
 
   it 'initializes correctly' do

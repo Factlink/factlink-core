@@ -13,7 +13,7 @@ module Pavlov
 
     def command command_name, *args
       klass = get_class_by_string("Commands::"+command_name.to_s.camelize)
-      klass.new(*args).execute
+      klass.new(*args, @options).execute
     end
 
     module ClassMethods
