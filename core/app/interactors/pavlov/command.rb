@@ -1,6 +1,8 @@
+require 'active_support/concern'
+
 module Pavlov
   module Command
     extend ActiveSupport::Concern
-    include SmartInit
+    include Pavlov::Operation
   end
 end

@@ -1,6 +1,9 @@
+require 'active_support/concern'
+
 module Pavlov
   module Interactor
     extend ActiveSupport::Concern
+    include Pavlov::Operation
 
     # this method is also available as constantize in Rails,
     # but we want to be able to write classes and/or tests without Rails
