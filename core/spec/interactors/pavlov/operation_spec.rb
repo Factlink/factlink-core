@@ -1,7 +1,8 @@
 require_relative '../../../app/interactors/pavlov.rb'
 
 describe Pavlov::Operation do
-  let :dummy_class do
+  before do
+    stub_const 'CanCan::AccessDenied', Class.new(Exception)
   end
 
   describe '#arguments' do
@@ -9,17 +10,19 @@ describe Pavlov::Operation do
       it "saves arguments passed to instance variables" do
         dummy_class = Class.new do
           include Pavlov::Operation
-          arguments :geert
+          arguments :first_argument
+          def authorized?; true; end
         end
 
         x = dummy_class.new 'argument'
-        expect(x.send(:instance_variable_get,'@geert')).to eq('argument')
+        expect(x.send(:instance_variable_get,'@first_argument')).to eq('argument')
       end
 
       it "saves arguments passed to instance variables in order" do
         dummy_class = Class.new do
           include Pavlov::Operation
           arguments :var1, :var2
+          def authorized?; true; end
         end
 
         x = dummy_class.new 'VAR1', 'VAR2'
@@ -37,10 +40,12 @@ describe Pavlov::Operation do
           def validate_was_called
             @x_val
           end
+          def authorized?; true; end
         end
         x = dummy_class.new
         expect(x.validate_was_called).to eq(:validate_was_called)
       end
+
       it "calls check_authority" do
         dummy_class = Class.new do
           include Pavlov::Operation
@@ -51,10 +56,40 @@ describe Pavlov::Operation do
           def check_authority_was_called
             @x_val
           end
+          def authorized?; true; end
         end
         x = dummy_class.new
         expect(x.check_authority_was_called).to eq(:check_authority_was_called)
       end
+    end
+  end
+
+  describe '.check_authority' do
+    it "raises an error when .authorized? does not exist" do
+      dummy_class = Class.new do
+        include Pavlov::Operation
+      end
+      expect {dummy_class.new}.to raise_error(CanCan::AccessDenied)
+    end
+
+    it "raises no error when .authorized? returns true" do
+      dummy_class = Class.new do
+        include Pavlov::Operation
+        def authorized?
+          true
+        end
+      end
+      expect {dummy_class.new}.not_to raise_error(CanCan::AccessDenied)
+    end
+
+    it "raises an error when .authorized? returns false" do
+      dummy_class = Class.new do
+        include Pavlov::Operation
+        def authorized?
+          false
+        end
+      end
+      expect {dummy_class.new}.to raise_error(CanCan::AccessDenied)
     end
   end
 end

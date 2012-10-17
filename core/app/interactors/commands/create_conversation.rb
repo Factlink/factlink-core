@@ -10,5 +10,8 @@ module Commands
       c.save
       c
     end
+    def authorized?
+      true # TODO this should be improved, but currently we have no rules for this
+    end
   end
 end
