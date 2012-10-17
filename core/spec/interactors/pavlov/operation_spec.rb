@@ -25,5 +25,20 @@ describe Pavlov::Operation do
       expect(x.send(:instance_variable_get,'@var1')).to eq('VAR1')
       expect(x.send(:instance_variable_get,'@var2')).to eq('VAR2')
     end
+
+    it "should create an initializer which calls validate if it exists" do
+      dummy_class = Class.new do
+        include Pavlov::Operation
+        arguments
+        def validate
+          @x_val = :validate_was_called
+        end
+        def validate_was_called
+          @x_val
+        end
+      end
+      x = dummy_class.new
+      expect(x.validate_was_called).to eq(:validate_was_called)
+    end
   end
 end
