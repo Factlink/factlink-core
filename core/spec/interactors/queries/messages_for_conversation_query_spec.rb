@@ -11,18 +11,20 @@ describe MessagesForConversationQuery do
     stub_const 'Message', fake_class
   end
 
-  it "retrieves dead representations of the messages belonging to the conversation" do
-    conversation = mock()
-    conversation.stub(id: 10)
-    conversation.stub(message_ids: [1,2,3])
-    m1 = mock()
-    m2 = mock()
-    m3 = mock()
-    Message.should_receive(:where).with(conversation_id: 10).and_return([m1, m2, m3])
+  describe '.execute' do
+    it "retrieves dead representations of the messages belonging to the conversation" do
+      conversation = mock()
+      conversation.stub(id: 10)
+      conversation.stub(message_ids: [1,2,3])
+      m1 = mock()
+      m2 = mock()
+      m3 = mock()
+      Message.should_receive(:where).with(conversation_id: 10).and_return([m1, m2, m3])
 
-    messages = MessagesForConversationQuery.execute(conversation)
+      messages = MessagesForConversationQuery.execute(conversation)
 
-    messages.should =~ [m1,m2,m3]
+      messages.should =~ [m1,m2,m3]
+    end
   end
 
 end
