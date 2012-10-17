@@ -7,7 +7,7 @@ class ConversationGetQuery
   arguments :id
 
   def validate
-    raise 'id should be an integer.' unless /\A\d+\Z/.match @id
+    raise 'id should be an integer.' unless /\A\d+\Z/.match @id.to_s
   end
 
   def execute

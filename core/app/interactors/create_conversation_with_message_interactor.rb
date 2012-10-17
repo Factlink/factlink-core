@@ -1,7 +1,6 @@
 class CreateConversationWithMessageInteractor
   include Activity::Subject
   include Pavlov::Interactor
-  include Pavlov::SmartInit
 
   arguments :recipient_usernames, :sender_username, :content
 

@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module Pavlov
-  module SmartInit
+  module Operation
     extend ActiveSupport::Concern
     module ClassMethods
       # arguments :foo, :bar
@@ -18,8 +18,8 @@ module Pavlov
             name = "@" + pair[0].to_s
             value = pair[1]
             instance_variable_set(name, value)
-           # validate if respond_to? :validate
           end
+          validate if respond_to? :validate
         end
       end
     end
