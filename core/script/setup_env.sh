@@ -48,9 +48,9 @@ cd ..
 cd js-library
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	git submodule init
-	git submodule update
-	make modules
+	npm install -g grunt
+	npm install
+	grunt
 cd ..
 
 echo -e "Start by entering:"
