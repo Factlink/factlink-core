@@ -18,7 +18,7 @@ describe MessagesForConversationQuery do
       conversation.stub(id: 10)
       conversation.stub(message_ids: message_ids)
 
-      message_hashes = [0, 1, 2, 3, 4].map do |i|
+      message_hashes = message_ids.map do |i|
         {id: i, created_at: i*1000, updated_at: i*2000, content: "message-#{i}", sender_id: i*500}
       end
 
