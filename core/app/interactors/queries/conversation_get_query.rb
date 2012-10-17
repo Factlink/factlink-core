@@ -1,4 +1,5 @@
 require_relative '../pavlov'
+require 'hashie'
 
 class ConversationGetQuery
   include Pavlov::Query
