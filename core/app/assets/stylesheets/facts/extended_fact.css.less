@@ -2,10 +2,20 @@
 @import "bootstrap/mixins";
 @import "users/passport";
 
+#container #main-wrapper > div > header {
+  padding: 0 16px 0 19px !important;
+}
+
+#container #main-wrapper > div > header > h1 {
+  height: auto !important;
+  margin: 0 !important;
+}
+
 #container #main-wrapper header#single-factlink-header {
   padding-top: 0;  padding-bottom: 0;
   white-space: nowrap;
   height: 45px;
+  font-size: @baseFontSize;
 
   .tabs {
     margin-top: -27px;
