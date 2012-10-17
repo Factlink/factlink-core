@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module Pavlov
-  module SmartInit
+  module Operation
     extend ActiveSupport::Concern
     module ClassMethods
       # arguments :foo, :bar
