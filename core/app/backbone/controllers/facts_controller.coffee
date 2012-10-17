@@ -6,13 +6,15 @@ class window.FactsController
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
-    @main.showTitle "Fact #{fact_id}"
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) => @withFact(model)
 
   withFact: (fact)->
-    @main.setTitle "#{fact.get('displaystring')}"
     window.efv = new ExtendedFactView(model: fact)
     @main.contentRegion.show(efv)
+
+    window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
+    @main.titleRegion.show( extended_fact_title_view )
+
     window.main = @main

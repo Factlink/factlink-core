@@ -2,7 +2,7 @@
 
 class window.ExtendedFactView extends FactView
   tagName: "section"
-  id: "main-wrapper"
+  className: ""
 
   template: "facts/_extended_fact"
 
