@@ -16,7 +16,7 @@ class SearchInteractor
       return []
     end
 
-    query = ElasticSearchAllQuery.new(filter_keywords, @page, @row_count)
+    query = Queries::ElasticSearchAll.new(filter_keywords, @page, @row_count)
 
     results = query.execute
 

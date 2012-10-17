@@ -17,7 +17,7 @@ class SearchEvidenceInteractor
       return []
     end
 
-    query = ElasticSearchFactDataQuery.new(filter_keywords, @page, @row_count)
+    query = Queries::ElasticSearchFactData.new(filter_keywords, @page, @row_count)
 
     results = query.execute
 

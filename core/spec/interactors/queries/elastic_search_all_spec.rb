@@ -1,7 +1,7 @@
 require_relative '../interactor_spec_helper'
-require File.expand_path('../../../../app/interactors/queries/elastic_search_all_query.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/queries/elastic_search_all.rb', __FILE__)
 
-describe ElasticSearchAllQuery do
+describe Queries::ElasticSearchAll do
   def fake_class
     Class.new
   end
@@ -15,7 +15,7 @@ describe ElasticSearchAllQuery do
   end
 
   it 'intializes correctly' do
-    query = ElasticSearchAllQuery.new 'interesting search keywords', 1, 20
+    query = Queries::ElasticSearchAll.new 'interesting search keywords', 1, 20
 
     query.should_not be_nil
   end
@@ -29,7 +29,7 @@ describe ElasticSearchAllQuery do
         FactlinkUI::Application.stub config: config
         keywords = 'searching for this channel'
         wildcard_keywords = '*searching*+for+*this*+*channel*'
-        interactor = ElasticSearchAllQuery.new keywords, 1, 20
+        interactor = Queries::ElasticSearchAll.new keywords, 1, 20
 
         hit = mock()
         hit.should_receive(:[]).with('_id').and_return(1)
@@ -79,7 +79,7 @@ describe ElasticSearchAllQuery do
       logger = mock()
       error_message = "Server error, status code: 501, response: '#{error_response}'."
       logger.should_receive(:error).with(error_message)
-      query = ElasticSearchAllQuery.new keywords, 1, 20, logger: logger
+      query = Queries::ElasticSearchAll.new keywords, 1, 20, logger: logger
 
       expect { query.execute }.to raise_error(RuntimeError, error_message)
     end
@@ -91,7 +91,7 @@ describe ElasticSearchAllQuery do
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
       wildcard_keywords = '*%24%2B%2C%3A%3B*+*%40%3D%3F%26%3D%2F*'
-      interactor = ElasticSearchAllQuery.new keywords, 1, 20
+      interactor = Queries::ElasticSearchAll.new keywords, 1, 20
 
       results = mock()
       results.stub code: 200
