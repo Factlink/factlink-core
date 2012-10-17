@@ -17,7 +17,7 @@ describe SearchEvidenceInteractor do
     stub_const 'FactData', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Ability::FactlinkWebapp', fake_class
-    stub_const 'ElasticSearchFactDataQuery', fake_class
+    stub_const 'Queries::ElasticSearchFactData', fake_class
   end
 
   it 'initializes' do
@@ -58,7 +58,7 @@ describe SearchEvidenceInteractor do
       result = [get_fact_data('2')]
       query = mock()
 
-      ElasticSearchFactDataQuery.should_receive(:new).
+      Queries::ElasticSearchFactData.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 
@@ -77,7 +77,7 @@ describe SearchEvidenceInteractor do
       result = [get_fact_data('2')]
       query = mock()
 
-      ElasticSearchFactDataQuery.should_receive(:new).
+      Queries::ElasticSearchFactData.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 
@@ -97,7 +97,7 @@ describe SearchEvidenceInteractor do
       result = [get_fact_data('2')]
       query = mock()
 
-      ElasticSearchFactDataQuery.should_receive(:new).
+      Queries::ElasticSearchFactData.should_receive(:new).
         with(filtered_keywords, 1, 20).
         and_return(query)
 
@@ -112,7 +112,7 @@ describe SearchEvidenceInteractor do
     it 'filters keywords with length < 3 and don''t query because search is empty' do
       keywords = 'fo'
       interactor = SearchEvidenceInteractor.new keywords, '1', ability: relaxed_ability
-      ElasticSearchFactDataQuery.should_not_receive(:new)
+      Queries::ElasticSearchFactData.should_not_receive(:new)
 
       interactor.execute.should eq []
     end
@@ -126,7 +126,7 @@ describe SearchEvidenceInteractor do
       result = [fact_data, fact_data2]
       query = mock()
 
-      ElasticSearchFactDataQuery.should_receive(:new).
+      Queries::ElasticSearchFactData.should_receive(:new).
         with('zoeken interessante dingen', 1, 20).
         and_return(query)
 

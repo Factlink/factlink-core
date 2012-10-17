@@ -18,7 +18,7 @@ describe SearchChannelInteractor do
     @user = User.new
     stub_const 'Topic', fake_class
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
-    stub_const 'ElasticSearchChannelQuery', fake_class
+    stub_const 'Queries::ElasticSearchChannel', fake_class
     stub_const 'Fact', fake_class
     stub_const 'Ability::FactlinkWebapp', fake_class
   end
@@ -60,7 +60,7 @@ describe SearchChannelInteractor do
       query = mock()
       query.should_receive(:execute).
         and_return([topic])
-      ElasticSearchChannelQuery.should_receive(:new).
+      Queries::ElasticSearchChannel.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 
@@ -75,7 +75,7 @@ describe SearchChannelInteractor do
       query = mock()
       query.should_receive(:execute).
         and_return([topic])
-      ElasticSearchChannelQuery.should_receive(:new).
+      Queries::ElasticSearchChannel.should_receive(:new).
         with(filtered_keywords, 1, 20).
         and_return(query)
 
@@ -86,7 +86,7 @@ describe SearchChannelInteractor do
       keywords = 'f'
       interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
 
-      ElasticSearchChannelQuery.should_not_receive(:new)
+      Queries::ElasticSearchChannel.should_not_receive(:new)
 
       interactor.execute.should eq []
     end

@@ -24,7 +24,7 @@ describe ElasticSearchDeleteTopicForTextSearch do
   end
 
   it 'raises when topic is not a Topic' do
-    expect { interactor = ElasticSearchDeleteTopicForTextSearch.new 'Topic' }.
+    expect { ElasticSearchDeleteTopicForTextSearch.new 'Topic' }.
       to raise_error(RuntimeError, 'topic missing fields ([:id]).')
   end
 

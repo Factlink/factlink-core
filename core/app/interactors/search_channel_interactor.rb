@@ -18,7 +18,7 @@ class SearchChannelInteractor
       return []
     end
 
-    query = ElasticSearchChannelQuery.new filter_keywords, @page, @row_count
+    query = Queries::ElasticSearchChannel.new filter_keywords, @page, @row_count
 
     results = query.execute
 

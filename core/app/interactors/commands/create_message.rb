@@ -1,3 +1,5 @@
+require_relative '../pavlov'
+
 module Commands
   class CreateMessage
     include Pavlov::Command
@@ -5,13 +7,19 @@ module Commands
     # TODO: switch to using sender_id
     arguments :sender_username, :content, :conversation
 
+    def validate
+      raise 'Message cannot be empty.' unless @content.length > 0
+      raise 'Message cannot be longer than 5000 characters.' unless @content.length <= 5000
+      raise 'conversation_id should be an hexadecimal string.' unless /\A[\da-fA-F]+\Z/.match @conversation_id.to_s
+    end
+
     def execute
-      m = Message.create
-      m.sender = User.where(username: @sender_username).first
-      m.content = @content
-      m.conversation_id = @conversation.id
-      m.save
-      m
+      message = Message.create
+      message.sender = User.where(username: @sender_username).first
+      message.content = @content
+      message.conversation_id = @conversation.id
+      message.save
+      message
     end
 
     def authorized?                    # TODO convert this check to check on ids
