@@ -206,7 +206,7 @@ module.exports = function(grunt){
 
   // Default task.
   grunt.registerTask('default', 'lint qunit less concat min copy');
-  grunt.registerTask('server', 'concat min copy');
+  grunt.registerTask('server', 'concat min less copy');
 
   grunt.registerMultiTask('copy', 'copy files', function () {
     grunt.file.copy(this.data,this.target);
