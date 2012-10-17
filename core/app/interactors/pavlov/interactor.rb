@@ -1,3 +1,5 @@
+require 'active_support/concern'
+
 module Pavlov
   module Interactor
     extend ActiveSupport::Concern

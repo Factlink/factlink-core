@@ -1,7 +1,13 @@
+require_relative '../pavlov'
+
 class ConversationGetQuery
   include Pavlov::Query
 
   arguments :id
+
+  def validate
+    raise 'id should be an integer.' unless /\A\d+\Z/.match @id
+  end
 
   def execute
     conversation = Conversation.find(@id)
