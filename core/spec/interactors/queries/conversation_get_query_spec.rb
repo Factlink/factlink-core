@@ -1,6 +1,6 @@
-require File.expand_path('../../../../app/interactors/queries/conversation_get_query.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/queries/conversation_get.rb', __FILE__)
 
-describe ConversationGetQuery do
+describe Queries::ConversationGetQuery do
   def fake_class
     Class.new
   end
@@ -11,18 +11,18 @@ describe ConversationGetQuery do
   end
 
   it 'it initializes correctly' do
-    query = ConversationGetQuery.new 1
+    query = Queries::ConversationGetQuery.new 1
     query.should_not be_nil
   end
 
   it 'it throws when initialized without a argument' do
-    expect { ConversationGetQuery.new }.
-      to raise_error(RuntimeError, 'id should be an integer.')
+    expect { Queries::ConversationGetQuery.new }.
+      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
   end
 
-  it 'it throws when initialized with a argument that is not a integer' do
-    expect { ConversationGetQuery.new 'string'}.
-      to raise_error(RuntimeError, 'id should be an integer.')
+  it 'it throws when initialized with a argument that is not a hexadecimal string' do
+    expect { Queries::ConversationGetQuery.new 'g6'}.
+      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
   end
 
   describe '.execute' do
@@ -34,7 +34,7 @@ describe ConversationGetQuery do
       mock_conversation.stub id: id, fact_data: fact_data
 
       Conversation.should_receive(:find).with(id).and_return(mock_conversation)
-      res = ConversationGetQuery.execute(id)
+      res = Queries::ConversationGetQuery.execute(id)
 
       expect(res.id).to eq(id)
       expect(res.fact_data_id).to eq(fact_data.id)
@@ -43,7 +43,7 @@ describe ConversationGetQuery do
     it "returns nil if no matching conversation is found" do
       Conversation.should_receive(:find).and_return(nil)
 
-      res = ConversationGetQuery.execute(1245)
+      res = Queries::ConversationGetQuery.execute(1245)
 
       expect(res).to be_nil
     end
