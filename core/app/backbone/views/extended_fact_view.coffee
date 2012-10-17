@@ -2,6 +2,7 @@
 
 class window.ExtendedFactView extends FactView
   tagName: "section"
+  className: ""
 
   template: "facts/_extended_fact"
 
