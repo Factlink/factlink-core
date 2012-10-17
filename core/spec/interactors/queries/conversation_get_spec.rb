@@ -1,6 +1,6 @@
 require File.expand_path('../../../../app/interactors/queries/conversation_get.rb', __FILE__)
 
-describe Queries::ConversationGetQuery do
+describe Queries::ConversationGet do
   def fake_class
     Class.new
   end
@@ -11,17 +11,17 @@ describe Queries::ConversationGetQuery do
   end
 
   it 'it initializes correctly' do
-    query = Queries::ConversationGetQuery.new 1
+    query = Queries::ConversationGet.new 1
     query.should_not be_nil
   end
 
   it 'it throws when initialized without a argument' do
-    expect { Queries::ConversationGetQuery.new }.
+    expect { Queries::ConversationGet.new }.
       to raise_error(RuntimeError, 'id should be an hexadecimal string.')
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    expect { Queries::ConversationGetQuery.new 'g6'}.
+    expect { Queries::ConversationGet.new 'g6'}.
       to raise_error(RuntimeError, 'id should be an hexadecimal string.')
   end
 
@@ -34,7 +34,7 @@ describe Queries::ConversationGetQuery do
       mock_conversation.stub id: id, fact_data: fact_data
 
       Conversation.should_receive(:find).with(id).and_return(mock_conversation)
-      res = Queries::ConversationGetQuery.execute(id)
+      res = Queries::ConversationGet.execute(id)
 
       expect(res.id).to eq(id)
       expect(res.fact_data_id).to eq(fact_data.id)
@@ -43,7 +43,7 @@ describe Queries::ConversationGetQuery do
     it "returns nil if no matching conversation is found" do
       Conversation.should_receive(:find).and_return(nil)
 
-      res = Queries::ConversationGetQuery.execute(1245)
+      res = Queries::ConversationGet.execute(1245)
 
       expect(res).to be_nil
     end

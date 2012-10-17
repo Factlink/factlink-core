@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
       format.html { render_backbone_page }
       format.json do
         @conversation = Queries::ConversationGet.execute(params[:id])
-        @messages     = MessagesForConversationQuery.execute(@conversation) if @conversation
+        @messages     = Queries::MessagesForConversation.execute(@conversation.id) if @conversation
         if @conversation and @messages.length > 0
           render 'conversations/show'
         else
