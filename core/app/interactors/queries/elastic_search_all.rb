@@ -15,8 +15,6 @@ module Queries
 
       url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
 
-puts "\n\n\n#{url}\n\n\n"
-
       results = HTTParty.get url
       handle_httparty_error results
 
