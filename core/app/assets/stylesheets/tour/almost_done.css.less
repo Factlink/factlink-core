@@ -1,10 +1,14 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+body{
+  background-color: #f9f9f9;
+}
+
 #almost-done-wrapper {
   text-align: center;
   h1 {
-    margin: 52px 0 8px;
+    margin: 80px 0 8px;
     text-shadow: 0px 1px 0px #fff;
   }
 
@@ -12,14 +16,14 @@
     .btn.download-browser {
       color: #333;
       font-weight: bold;
-      margin-top: 10px;
+      margin-top: 40px;
     }
     &.or-divider {
       border-top: 1px solid #ccc;
       width: 100%;
-      margin-top: 30px;
+      margin-top: 60px;
       span {
-        background: #f4f4f4;
+        background: #f9f9f9;
         padding: 0 20px;
         position: relative;
         top: -11px;
@@ -32,7 +36,7 @@
 
   .button-wrapper {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 40px;
     a {
       color: #333;
       font-weight: bold;
@@ -57,8 +61,15 @@
   }
 
   .bottom {
-    margin-top: 72px;
+    margin: 72px 0 50px 0;
     .next-step { color: #f4f4f4; display: none; }
   }
+}
 
+.skip-step{
+  font-size: 13px;
+}
+
+.modal-backdrop{
+  background: white;
 }
