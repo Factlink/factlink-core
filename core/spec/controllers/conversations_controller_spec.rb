@@ -7,7 +7,7 @@ describe ConversationsController do
 
   describe :show do
     describe "json" do
-      it "should contain conversation fields" do 
+      it "should contain conversation fields" do
         get :show, id: conv.id.to_s, format: 'json'
         expect(response).to be_success
         json = JSON.parse(response.body)
@@ -25,7 +25,7 @@ describe ConversationsController do
         expect(json["messages"][2]["content"]).to eq(conv.messages[2].content)
       end
     end
-    
+
     describe "html" do
       it "should be successful" do
         get :show, id: 0
