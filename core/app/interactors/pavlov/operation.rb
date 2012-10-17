@@ -3,6 +3,10 @@ require 'active_support/concern'
 module Pavlov
   module Operation
     extend ActiveSupport::Concern
+
+    def check_authority
+    end
+
     module ClassMethods
       # arguments :foo, :bar
       #
@@ -20,6 +24,7 @@ module Pavlov
             instance_variable_set(name, value)
           end
           validate if respond_to? :validate
+          check_authority
         end
       end
     end

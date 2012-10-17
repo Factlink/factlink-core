@@ -40,5 +40,19 @@ describe Pavlov::Operation do
       x = dummy_class.new
       expect(x.validate_was_called).to eq(:validate_was_called)
     end
+    it "should create an initializer which call check_authority" do
+      dummy_class = Class.new do
+        include Pavlov::Operation
+        arguments
+        def check_authority
+          @x_val = :check_authority_was_called
+        end
+        def check_authority_was_called
+          @x_val
+        end
+      end
+      x = dummy_class.new
+      expect(x.check_authority_was_called).to eq(:check_authority_was_called)
+    end
   end
 end
