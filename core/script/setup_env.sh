@@ -34,9 +34,10 @@ cd web-proxy
 cd ..
 
 cd chrome-extension
+	npm install yaml
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	./release_repo.sh
+	bin/release_repo
 cd ..
 
 cd firefox-extension
