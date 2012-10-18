@@ -28,6 +28,7 @@ describe Queries::ElasticSearchChannel do
       query = Queries::ElasticSearchChannel.new keywords, 1, 20
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
+      hit.should_receive(:[]).with('_type').and_return('topic')
       results = mock()
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
@@ -73,6 +74,7 @@ describe Queries::ElasticSearchChannel do
       query = Queries::ElasticSearchChannel.new keywords, 1, 20
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
+      hit.should_receive(:[]).with('_type').and_return('topic')
       results = mock()
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
       results.stub code: 200
