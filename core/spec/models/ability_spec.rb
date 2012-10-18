@@ -44,6 +44,13 @@ describe Ability do
     end
   end
 
+  describe "to get the fact count of a site" do
+    context "as any user" do
+      it {subject.should   be_able_to :get_fact_count, Site}
+      it {anonymous.should be_able_to :get_fact_count, Site}
+    end
+  end
+
   describe "to manage channels" do
 
     let(:ch1) { FactoryGirl.create :channel, created_by: user.graph_user }
@@ -148,13 +155,6 @@ describe Ability do
     let(:topic) { create :topic }
     it "should be able to view a topic" do
       subject.should be_able_to :show, topic
-    end
-  end
-
-  describe "checking the blacklist" do
-    it "should be possible for everyone to check the blacklist" do
-      anonymous.should be_able_to :check, Blacklist
-      subject.should   be_able_to :check, Blacklist
     end
   end
 

@@ -1,38 +1,46 @@
 class SitesController < ApplicationController
-  before_filter :retrieve_facts_for_url, except: :blacklisted
-
   #TODO: make sure this is executed whenever possible
   before_filter :register_client_version_numbers, only: :facts_count_for_url
 
-  prepend_before_filter :check_blacklist
-
   def facts_count_for_url
-    response = {count: @facts.count}
+    authorize! :get_fact_count, Site
+    url = params[:url]
+    if is_blacklisted
+      response = { blacklisted: 'This site is not supported' }
+    else
+      site = Site.find(:url => url).first
+      @facts_count = site ? site.facts.count : 0
+      response = { count: @facts_count }
+    end
     response[:jslib_url] = jslib_url_for(current_user.username).to_s if user_signed_in?
-    render :json => response, :callback => params[:callback], :content_type => "application/javascript"
+
+    render_json response
   end
 
   def facts_for_url
-    render :json => @facts , :callback => params[:callback], :content_type => "application/javascript"
+    url = params[:url]
+    if is_blacklisted
+      render_json blacklisted: 'This site is not supported'
+    else
+      authorize! :index, Fact
+      site = Site.find(:url => url).first
+      @facts = site ? site.facts.to_a : []
+
+      render_json @facts
+    end
   end
 
   def blacklisted
-    render json: {}
+    render_json is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
   end
 
   private
-    def retrieve_facts_for_url
-      authorize! :index, Fact
-      url = params[:url]
-      site = Site.find(:url => url).first
-      @facts = site ? site.facts.to_a : []
+    def render_json json_able
+      render :json => json_able , :callback => params[:callback], :content_type => "application/javascript"
     end
 
-    def check_blacklist
-      authorize! :check, Blacklist
-      if Blacklist.default.matches? params[:url]
-        render :json => { :blacklisted => true }, :callback => params[:callback], :content_type => "application/javascript"
-      end
+    def is_blacklisted
+      Blacklist.default.matches? params[:url]
     end
 
     def register_client_version_numbers
