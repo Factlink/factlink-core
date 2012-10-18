@@ -11,7 +11,7 @@ module Commands
     end
 
     def authorized?
-      @options[:current_user].id == @graph_user.id
+      @options[:current_user].id == @graph_user.user_id
     end
   end
 end
