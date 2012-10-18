@@ -24,11 +24,11 @@
   {{/friendly_time}}
 
 
-  {{#global.can_haz.messaging}}
-    <li class="send-message is-tab"><a href="#">Send message</a></li>
-  {{/global.can_haz.messaging}}
-
   <li class="add-to-channel is-tab"><a href="#">My Channels</a></li>
+
+  {{#global.can_haz.messaging}}
+    <li class="start-conversation is-tab"><a href="#">Send message</a></li>
+  {{/global.can_haz.messaging}}
 </ul>
 
 <div class="clearfix"></div>
@@ -43,15 +43,6 @@
     <div class="dropdown-container"></div>
   </div>
 
-  {{#global.can_haz.messaging}}
-
-    <div class="send-message" style="display:none">
-      <div class="dropdown-container">
-      </div>
-    </div>
-
-  {{/global.can_haz.messaging}}
-
   <div class="add-to-channel" style="display: none;">
     <div class="dropdown-container">
       <span class="title">The Factlink above is in my following channels:</span>
@@ -60,5 +51,12 @@
       </div>
     </div>
   </div>
+
+  {{#global.can_haz.messaging}}
+    <div class="start-conversation" style="display:none">
+      <div class="dropdown-container">
+      </div>
+    </div>
+  {{/global.can_haz.messaging}}
 
 </div>

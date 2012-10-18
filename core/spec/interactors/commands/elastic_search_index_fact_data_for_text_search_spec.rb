@@ -1,7 +1,7 @@
 require_relative '../interactor_spec_helper'
 require File.expand_path('../../../../app/interactors/commands/elastic_search_index_fact_data_for_text_search.rb', __FILE__)
 
-describe ElasticSearchIndexFactDataForTextSearch do
+describe Commands::ElasticSearchIndexFactDataForTextSearch do
   def fake_class
     Class.new
   end
@@ -20,13 +20,13 @@ describe ElasticSearchIndexFactDataForTextSearch do
   end
 
   it 'intitializes' do
-    interactor = ElasticSearchIndexFactDataForTextSearch.new fact_data
+    interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new fact_data
 
     interactor.should_not be_nil
   end
 
   it 'raises when fact_data is not a FactData' do
-    expect { interactor = ElasticSearchIndexFactDataForTextSearch.new 'FactData' }.
+    expect { interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new 'FactData' }.
       to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
   end
 
@@ -39,7 +39,7 @@ describe ElasticSearchIndexFactDataForTextSearch do
       url = "http://#{url}/factdata/#{fact_data.id}"
       HTTParty.should_receive(:put).with(url,
         { body: { displaystring: fact_data.displaystring, title: fact_data.title }.to_json})
-      interactor = ElasticSearchIndexFactDataForTextSearch.new fact_data
+      interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new fact_data
 
       interactor.execute
     end

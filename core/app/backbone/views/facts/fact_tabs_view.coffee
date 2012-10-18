@@ -5,7 +5,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     "click .tab-control .is-tab": "tabClick"
 
   regions:
-    sendMessageRegion: '.send-message .dropdown-container'
+    startConversationRegion: '.start-conversation .dropdown-container'
 
   initialize: ->
     @_currentTab = `undefined`
@@ -54,8 +54,8 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     switch tab
       when "supporting", "weakening" then @showFactRelations tab
       when "add-to-channel" then @renderAddToChannel()
-      when "send-message"
-        @sendMessageRegion.show new SendMessageView
+      when "start-conversation"
+        @startConversationRegion.show new StartConversationView(model: @model)
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)

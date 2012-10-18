@@ -389,13 +389,18 @@ body.factlink-site .fact-block {
       margin: -15px -15px -1px -15px;
       padding: 10px 16px 6px 19px;
       border-bottom: 1px solid #d8d8d8;
+      position: relative;
+
+      min-height: 40px;
+      .titleRegion {
+        padding: 8px 0 6px 0 ;
+      }
       h1 {
         .ellipsis();
         font-weight: normal;
         display: inline-block;
         font-size: 16px;
-        padding: 0 10px 0 0;
-        margin: 6px 0 0px;
+        margin: 6px 6px 6px 0px;
         max-width: 380px;
         height: 26px;
         line-height: 21px;
@@ -434,8 +439,11 @@ body.factlink-site .fact-block {
           }
         }
 
-        margin: -21px 0 0 0;
+        // margin: -23px 0 0 0;
         padding: 0px;
+        bottom: -1px;
+        right: 10px;
+        position: absolute;
       }
       p {
         margin: 0 0 6px 0;
