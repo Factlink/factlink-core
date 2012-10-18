@@ -39,16 +39,15 @@ describe Commands::CreateMessage do
   describe '.execute' do
 
     it 'creates and saves a message' do
-      sender = 'bla'
       content = 'bla'
 
       conversation = stub(id: '1', recipient_ids: [14])
 
-      sender = stub(username: 'string', id: 14)
+      sender = stub(username: 'bla', id: 14)
 
       User.should_receive(:where).any_number_of_times.with(username: 'bla').and_return([sender])
 
-      command = Commands::CreateMessage.new sender, content, conversation, current_user: sender
+      command = Commands::CreateMessage.new sender.username, content, conversation, current_user: sender
       message = double("message", {:sender= => nil,:content= => nil,:conversation_id= => nil})
       Message.should_receive(:create).and_return(message)
       message.should_receive(:save)
