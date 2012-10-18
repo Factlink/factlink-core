@@ -14,11 +14,13 @@
     <%= stylesheet_link_tag "base" %>
 
     <%= yield :specific_stylesheet_tag %>
+
     <%= yield :stylesheets %>
+
     <% if can_haz :pink_feedback_button %>
       <!-- Speciaal voor jou Joel! -->
       <style>
-        #feedback {background: #e6007e;}
+        #feedback_button {background: #e6007e;}
         #notifications span.unread.active {background: #e6007e; text-shadow: rgba(0,0,0,0.25);}
       </style>
     <% end %>

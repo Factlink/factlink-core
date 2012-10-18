@@ -35,6 +35,7 @@ module Pavlov
 
       validate if respond_to? :validate
       check_authority
+      finish_initialize if respond_to? :finish_initialize
     end
 
     module ClassMethods

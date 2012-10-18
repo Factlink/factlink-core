@@ -28,3 +28,4 @@ dump.rdb
 spec/javascripts/templates/mustache-templates.html
 config/config
 .vegas
+*.sassc
