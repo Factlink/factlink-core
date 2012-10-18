@@ -1,26 +1,27 @@
 <% content_for :title do %>Factlink &mdash; Authority<% end %>
-<% content_for :menu_items do %><%= render 'home/pages/help/menu' %><% end %>
+<% content_for :header do %><%= render 'home/pages/help/header' %><% end %>
+<% content_for :left_column do %><%= render 'home/pages/help/menu' %><% end %>
 
 <h1>Authority</h1>
 
 <p>
 Authority means how knowledgeable people are on a single topic. We use authority to calculate the credibility score of a Factlink.
 </p>
-<h2>Authority calculation</h2>
+<h4>Authority calculation</h4>
 
 <p>We use several ways to calculate authority, and we are still experimenting to find the best way. Generally speaking we mostly look how much other people valuate your actions. So if you create Factlinks which other people find useful, and add as evidence, your authority will go up. If you create factlinks which incite a lot of discussion, your authority will go up. And if you create channels which are followed by a lot of people, this will also result in more authority on the subject of your channel.</p>
 
 <p>You gain authority on a specific topic. This means that you can for instance know a lot about Programming, but little about French Literature. This means we won't weigh your opinion on the Count of Monte Christo as much as your opinion on Object Oriented design in Java.</p>
 
 <% if can_haz :authority_calculation_details %>
-  <h2>Details</h2>
+  <h4>Details</h4>
 
   <p>A warning up front. We are changing this very regular, so what you read here might be outdated tomorrow.</p>
 
   <p>We use several factors to gauge how knowledgeable you are on a certain subject. Currently we use two categories of activities for this: Factlink classification and Factlink creation. You also get one authority point for free (since no-one knows nothing).</p>
 
 
-  <h2>Factlink classification</h2>
+  <h4>Factlink classification</h4>
 
   <p>
   When you put a Factlink in a channel you are classifying a Factlink. Since we think this is important we reward classification with authority on the subject. We do this in two (direct) ways:
@@ -31,23 +32,23 @@ Authority means how knowledgeable people are on a single topic. We use authority
     <li>When someone follows your channel, you get 1 authority for the topic that channel is about.</li>
   </ol>
 
-  <h2>Fact creation</h2>
+  <h4>Fact creation</h4>
 
   <p>
   You can receive authority by creating Factlinks if people find your Factlinks useful. This results in authority on the topic your Factlink is about. This is a two-step process: we first calculate how much authority this Factlink should earn you, and then decide how to spread this over the different topics the Factlink is about according to you and other users.
   <p>
-  <h2>How much a Factlink earns you</h2>
+  <h4>How much a Factlink earns you</h4>
   <p>There are two things that determine how much authority a Factlink earns you:</p>
   <ol>
     <li>How often it is used as evidence. Every time it is used, you gain 1 authority point. At the end, we then take the (2-based) logarithm.</li>
     <li>How many people give their opinion. We do not care about the opinion itself, just how much interaction your Factlink provokes. You get 1 authority point for every 100 interactions</li>
   </ol>
-  <h2>Assigning this authority to topics</h2>
+  <h4>Assigning this authority to topics</h4>
   <p>
     After we calculate how much authority you gain from your Factlink we spread this over the topics it belongs to, according to our users. So for instance, let's say you created a Factlink about Michael Jackson and it gains you 4 authority. If this Fact is in 10 Michael Jackson channels, 20 Music channels and 10 Eighties channels, you will gain 1 authority on Michael Jackson, 2 on Music, and 1 on Eigthies.
     </p>
 
-  <h2>Calculating how much you know about a fact</h2>
+  <h4>Calculating how much you know about a fact</h4>
   <p>
     Finally, to calculate how much you know about a certain fact we take the weigthed average of your authority on the topics this fact is about. So if a fact is in 10 Ruby channels, 20 Programming channels and 10 Rails channels, and your authority on Ruby is 10, on Programming 5 and on Rails 20, your authority on this fact is (10*10+5*20+10*20)/40 = 10.
   </p>
