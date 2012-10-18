@@ -5,15 +5,8 @@ module Pavlov
     extend ActiveSupport::Concern
     include Pavlov::Operation
 
-    # this method is also available as constantize in Rails,
-    # but we want to be able to write classes and/or tests without Rails
-    def get_class_by_string classname
-      classname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
-    end
-
     def command command_name, *args
-      klass = get_class_by_string("Commands::"+command_name.to_s.camelize)
-      klass.new(*args, @options).execute
+      Pavlov.command command_name, *args, @options
     end
 
     module ClassMethods
