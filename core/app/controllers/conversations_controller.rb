@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  before_filter :authenticate_user!
   def show
     respond_to do |format|
       format.html { render_backbone_page }

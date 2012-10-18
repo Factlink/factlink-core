@@ -3,9 +3,9 @@ require 'spec_helper'
 describe ConversationsController do
   render_views
 
+  let(:user) { create :user}
 
   describe :show do
-    let(:user) { User.create }
     let(:conv) do
       c = create(:conversation_with_messages, message_count: 4, user_count: 3)
       c.recipients << user
@@ -39,9 +39,21 @@ describe ConversationsController do
 
     describe "html" do
       it "should be successful" do
+        authenticate_user! user
         get :show, id: 0
         expect(response).to be_success
       end
+    end
+  end
+
+  describe :create do
+    it "calls the correct interactor" do
+      authenticate_user! user
+
+      CreateConversationWithMessageInteractor.should_receive(:perform).
+         with(['geert','klaas'], 'klaas', 'verhaal', {current_user: user})
+
+      get :create, recipients: ['geert', 'klaas'], sender: 'klaas', content: 'verhaal'
     end
   end
 end
