@@ -40,10 +40,11 @@
 
 
     <div class="inputs">
+      <%= f.submit "Log in", tabindex: 0, 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
+
       <% if @layout == "client" %>
       <button class="btn" name="cancel" id="cancel" style="float: left;">Cancel</button>
       <% end %>
-      <%= f.submit "Log in", 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
     </div>
   <% end %>
 
