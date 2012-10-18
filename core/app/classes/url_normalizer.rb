@@ -77,3 +77,4 @@ end
 
 require_relative 'url_normalizer/proxy'
 require_relative 'url_normalizer/new_york_times'
+require_relative 'url_normalizer/think_progress'
