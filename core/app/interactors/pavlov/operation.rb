@@ -3,6 +3,10 @@ require 'active_support/concern'
 module Pavlov
   module Operation
     extend ActiveSupport::Concern
+    include Pavlov::Helpers
+    def pavlov_options
+      @options
+    end
 
     def raise_unauthorized
       raise CanCan::AccessDenied

@@ -50,10 +50,16 @@ describe ConversationsController do
     it "calls the correct interactor" do
       authenticate_user! user
 
-      CreateConversationWithMessageInteractor.should_receive(:perform).
-         with(['geert','klaas'], 'klaas', 'verhaal', {current_user: user})
+      other_guy = create :user
 
-      get :create, recipients: ['geert', 'klaas'], sender: 'klaas', content: 'verhaal'
+      interactor = mock()
+      interactor.should_receive(:execute)
+
+      CreateConversationWithMessageInteractor.should_receive(:new).
+         with(['henk','frits'], 'gerard' , 'verhaal', {current_user: user}).
+         and_return(interactor)
+
+      get :create, recipients: ['henk','frits'], sender: 'gerard', content: 'verhaal'
     end
   end
 end

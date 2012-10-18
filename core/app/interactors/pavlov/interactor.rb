@@ -5,10 +5,6 @@ module Pavlov
     extend ActiveSupport::Concern
     include Pavlov::Operation
 
-    def command command_name, *args
-      Pavlov.command command_name, *args, @options
-    end
-
     module ClassMethods
       # make our interactors behave as Resque jobs
       def perform(*args)

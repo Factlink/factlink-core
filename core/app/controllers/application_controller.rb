@@ -2,6 +2,11 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
+  include Pavlov::Helpers
+  def pavlov_options
+    {current_user: current_user}
+  end
+
   before_filter :check_preferred_browser
   def check_preferred_browser
     if current_user

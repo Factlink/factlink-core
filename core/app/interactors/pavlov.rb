@@ -9,8 +9,21 @@ module Pavlov
       klass = get_class_by_string("Commands::"+command_name.to_s.camelize)
       klass.new(*args).execute
     end
+
+    def self.interactor command_name, *args
+      klass = get_class_by_string(command_name.to_s.camelize + "Interactor")
+      klass.new(*args).execute
+    end
+
+    def self.query command_name, *args
+      klass = get_class_by_string("Queries::"+command_name.to_s.camelize)
+      klass.new(*args).execute
+    end
+
+
 end
 
+require_relative 'pavlov/helpers.rb'
 require_relative 'pavlov/operation.rb'
 require_relative 'pavlov/command.rb'
 require_relative 'pavlov/query.rb'

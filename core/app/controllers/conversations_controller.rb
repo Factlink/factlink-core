@@ -1,12 +1,17 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
+
+  def pavlov_options
+    {current_user: current_user}
+  end
+
   def show
     respond_to do |format|
       format.html { render_backbone_page }
       format.json do
-        @conversation = Queries::ConversationGet.execute(params[:id], current_user: current_user)
+        @conversation = query :conversation_get, params[:id]
         if @conversation
-          @messages = Queries::MessagesForConversation.execute(@conversation, current_user: current_user)
+          @messages = query :messages_for_conversation, @conversation
         end
         if @conversation and @messages.length > 0
           render 'conversations/show'
@@ -18,7 +23,7 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    CreateConversationWithMessageInteractor.perform(params[:recipients], params[:sender], params[:content], current_user: current_user)
+    interactor :create_conversation_with_message, params[:recipients], params[:sender], params[:content]
     render json: {}
   end
 end
