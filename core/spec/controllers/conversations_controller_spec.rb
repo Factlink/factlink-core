@@ -3,11 +3,20 @@ require 'spec_helper'
 describe ConversationsController do
   render_views
 
-  let(:conv) {create(:conversation_with_messages, message_count: 4, user_count: 3)}
 
   describe :show do
+    let(:user) { User.create }
+    let(:conv) do
+      c = create(:conversation_with_messages, message_count: 4, user_count: 3)
+      c.recipients << user
+      c.save
+      c
+    end
+
     describe "json" do
       it "should contain conversation fields" do
+        authenticate_user!(user)
+
         get :show, id: conv.id.to_s, format: 'json'
         expect(response).to be_success
         json = JSON.parse(response.body)
@@ -17,6 +26,8 @@ describe ConversationsController do
       end
 
       it "should contain messages" do
+        authenticate_user!(user)
+
         get :show, id: conv.id.to_s, format: 'json'
         expect(response).to be_success
         json = JSON.parse(response.body)

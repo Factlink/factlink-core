@@ -186,7 +186,7 @@ describe 'activity queries' do
       u1 = create(:user)
       u2 = create(:user)
 
-      CreateConversationWithMessageInteractor.perform [u1.username, u2.username], u1.username, 'this is a message'
+      CreateConversationWithMessageInteractor.perform [u1.username, u2.username], u1.username, 'this is a message', current_user: u1
 
       u1.graph_user.notifications.map(&:to_hash_without_time).should == []
       u2.graph_user.notifications.map(&:to_hash_without_time).should == [

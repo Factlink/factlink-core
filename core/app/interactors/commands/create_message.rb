@@ -10,7 +10,7 @@ module Commands
     def validate
       raise 'Message cannot be empty.' unless @content.length > 0
       raise 'Message cannot be longer than 5000 characters.' unless @content.length <= 5000
-      raise 'conversation_id should be an hexadecimal string.' unless /\A[\da-fA-F]+\Z/.match @conversation_id.to_s
+      raise 'conversation_id should be an hexadecimal string.' unless /\A[\da-fA-F]+\Z/.match @conversation.id.to_s
     end
 
     def execute
