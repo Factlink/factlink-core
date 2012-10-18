@@ -1,3 +1,5 @@
+require_relative 'pavlov'
+
 class NormalizeSiteUrlInteractor
   include Pavlov::Interactor
 

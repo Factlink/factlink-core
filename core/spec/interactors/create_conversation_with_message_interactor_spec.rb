@@ -1,4 +1,5 @@
 require File.expand_path('../../../app/interactors/create_conversation_with_message_interactor.rb', __FILE__)
+require_relative 'interactor_spec_helper'
 
 describe CreateConversationWithMessageInteractor do
 
@@ -24,11 +25,5 @@ describe CreateConversationWithMessageInteractor do
 
       CreateConversationWithMessageInteractor.perform usernames, sender.username, content, current_user:sender
     end
-  end
-
-  def should_receive_new_with_and_receive_execute(klass, *arguments)
-    klass_instance = mock()
-    klass.should_receive(:new).with(*arguments).and_return(klass_instance)
-    klass_instance.should_receive(:execute)
   end
 end
