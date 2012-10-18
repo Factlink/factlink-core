@@ -37,6 +37,8 @@
       if( $(e.target).is('body') )
         parent.remote.hide();
     });
+
+    Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
   </script>
 
 </body>
