@@ -1,38 +1,59 @@
+<% show_sign_up = !current_user %>
+
 <div class="footer">
+
+  <div class="divider <%= 'large_arrow' if show_sign_up %>"></div>
+
+  <% if show_sign_up %>
+    <div class="sign_up clearfix">
+
+      <div class="container sign_up_form">
+        <h2>Sign up for the beta now</h2>
+
+        <%= render template: "users/registrations/new2", locals: { form_id: "bottom_registration_form" } %>
+      </div>
+    </div>
+  <% end %>
+
+
   <div class="container">
-    <hr>
+    <% if show_sign_up %>
+      <hr>
+    <% end %>
 
-    <ul>
-      <li>
-        <%= link_to "Home", root_path %>
-      </li>
-      <li>
-        <%= link_to "About", pages_path("about") %>
-      </li>
-      <li>
-        <%= link_to "Team", pages_path("team") %>
-      </li>
-      <li>
-        <%= link_to "Jobs", pages_path("jobs") %>
-      </li>
-      <li>
-        <%= link_to "Blog", "http://blog.factlink.com" %>
-      </li>
-      <li class="last">
-        <%= link_to "Contact", pages_path("contact") %>
-      </li>
-    </ul>
+    <div class="bottom_links clearfix">
+      <ul>
+        <li>
+          <%= link_to "Home", root_path %>
+        </li>
+        <li>
+          <%= link_to "About", pages_path("about") %>
+        </li>
+        <li>
+          <%= link_to "Team", pages_path("team") %>
+        </li>
+        <li>
+          <%= link_to "Jobs", pages_path("jobs") %>
+        </li>
+        <li>
+          <%= link_to "Blog", "http://blog.factlink.com" %>
+        </li>
+        <li class="last">
+          <%= link_to "Contact", pages_path("contact") %>
+        </li>
+      </ul>
 
-    <ul class="pull-right clearfix">
-      <li>
-        <%= link_to "Privacy", pages_path("privacy") %>
-      </li>
-      <li>
-        <%= link_to "Terms of Service", pages_path("tos") %>
-      </li>
-      <li class="last copy">
-        &copy; 2012 Factlink. All rights reserved.
-      </li>
-    </ul>
+      <ul class="pull-right clearfix">
+        <li>
+          <%= link_to "Privacy", pages_path("privacy") %>
+        </li>
+        <li>
+          <%= link_to "Terms of Service", pages_path("tos") %>
+        </li>
+        <li class="last copy">
+          &copy; 2012 Factlink. All rights reserved.
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
