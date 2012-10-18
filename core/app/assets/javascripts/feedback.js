@@ -12,7 +12,9 @@ $(function () {
     setTimeout(updateHeight, 10);
   });
 
-  $('.cancel').on('click', window.parent.closeFeedbackFrame);
+  $('.cancel').on('click', function () {
+    window.parent.$('#feedback_frame').modal('hide');
+  });
 
 });
 

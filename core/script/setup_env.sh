@@ -17,7 +17,6 @@ cd core
 
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	gem install bundler
 	bundle install
 	rake db:migrate
 	mkdir -p log
@@ -35,9 +34,10 @@ cd web-proxy
 cd ..
 
 cd chrome-extension
+	npm install yaml
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	./release_repo.sh
+	bin/release_repo
 cd ..
 
 cd firefox-extension
@@ -48,9 +48,9 @@ cd ..
 cd js-library
 	git checkout develop
 	echo -e "master\ndevelop\n\n\n\n\n\n" | git flow init
-	git submodule init
-	git submodule update
-	make modules
+	npm install -g grunt
+	npm install
+	grunt
 cd ..
 
 echo -e "Start by entering:"

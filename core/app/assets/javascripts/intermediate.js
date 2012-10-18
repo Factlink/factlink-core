@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery.prevent_scroll_propagation
 
 var // The iFrame
     showFrame = document.getElementById("frame"),
@@ -79,3 +80,5 @@ var // The iFrame
         }
       }
     });
+
+$('iframe').preventScrollPropagation();

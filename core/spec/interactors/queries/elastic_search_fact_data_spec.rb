@@ -35,6 +35,7 @@ describe Queries::ElasticSearchFactData do
 
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
+      hit.should_receive(:[]).with('_type').and_return('factdata')
 
       results = mock()
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
@@ -82,6 +83,7 @@ describe Queries::ElasticSearchFactData do
 
       hit = mock()
       hit.should_receive(:[]).with('_id').and_return(1)
+      hit.should_receive(:[]).with('_type').and_return('factdata')
 
       results = mock()
       results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }

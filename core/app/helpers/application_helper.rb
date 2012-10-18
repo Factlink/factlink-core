@@ -50,8 +50,8 @@ module ApplicationHelper
     html
   end
 
-  def show_active_step step
-    if @step_in_signup_proces == step
+  def show_active_step step_in_signup_proces, step
+    if step_in_signup_proces == step
       " class='active'"
     end
   end

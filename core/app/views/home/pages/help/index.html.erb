@@ -1,13 +1,16 @@
 <% content_for :title do %>Factlink &mdash; Frequently Asked Questions<% end %>
-<% content_for :menu_items do %><%= render 'home/pages/help/menu' %><% end %>
+<% content_for :header do %><%= render 'home/pages/help/header' %><% end %>
+<% content_for :left_column do %>
+  <%= render 'home/pages/help/menu' %>
+<% end %>
 
 <h1>Frequently Asked Questions</h1>
 
-<h2>What is Factlink?</h2>
+<h4>What is Factlink?</h4>
 <p>Factlink helps people understand how credible the information is that they’re reading. We’ve built a platform that lets you share what you know by creating Factlinks. By selecting any statement on the web and ‘attaching’ review information like supporting or weakening facts, you can share your knowledge.</p>
 <p>Factlink is built on the belief that information should be openly shared, accessible, and transparent.</p>
 
-<h2>How do I create a Factlink?</h2>
+<h4>How do I create a Factlink?</h4>
 <p>This brief screencast will give you an overview on how to use Factlink:</p>
 <%= render "home/pages/help/screencast" %>
 
@@ -30,9 +33,7 @@
 <%= image_tag('support/bookmarklet-demo.png') %>
 <span style="margin: 0 0 0 48px; padding: 0 0 24px; color: #777; display: block; width: 100%; text-align: center;"><super>Drag the Bookmarklet to your bookmarks bar.</super></span>
 
-<h2>How do I install Factlink in my browser?</h2>
-
-<p></p>
+<h4>How do I install Factlink in my browser?</h4>
 
 <p>When you are a Google Chrome user you can install our <%= link_to("Chrome Extension", pages_path("help/chrome-extension")) %>. Once installed, simply select the text you want and click the extension. A short <%= link_to("video", pages_path("help/chrome-extension")) %> shows how easy it is to create a Factlink.</p>
 
@@ -43,13 +44,13 @@
 
 <p>For everyone else we made a special bookmarklet wich you can easily drag to your bookmarks bar. Simply click on it and select the text you want. The Factlink menu appears and you can give your opinion about the statement.</p>
 
-<h2>How do I follow someone?</h2>
+<h4>How do I follow someone?</h4>
 <p>
 We think it’s better to follow specific topics from persons instead of following persons. That is the reason why you can’t follow a person. You can follow a channel from someone by adding their channel to your own channel list.
 </p>
 
 
-<h2>How do I get authority?</h2>
+<h4>How do I get authority?</h4>
 <p>
 Authority is gained by creating relevant and interesting Factlinks. When people interact more with your Factlinks you gain more authority.
 </p>

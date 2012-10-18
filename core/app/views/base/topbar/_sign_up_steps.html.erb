@@ -1,14 +1,14 @@
 <div class="span9">
   <ul class="steps">
-    <li<%= show_active_step :account %>>
+    <li<%= show_active_step @step_in_signup_process, :account %>>
       <span>1</span>Account
     </li>
 
-    <li<%= show_active_step :create_factlink %>>
+    <li<%= show_active_step @step_in_signup_process, :create_factlink %>>
       <span>2</span>Create Factlink
     </li>
 
-    <li<%= show_active_step :almost_done %>>
+    <li<%= show_active_step @step_in_signup_process, :almost_done %>>
       <span>3</span>Stream
     </li>
   </ul>

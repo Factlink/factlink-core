@@ -55,7 +55,7 @@ RSpec.configure do |config|
   end
   config.after(:each) do
     zzz_stop_time = (Time.now.to_f*1000).to_i
-    allowed_milli_seconds = 5000
+    allowed_milli_seconds = 10000
     time_elapsed = zzz_stop_time - @zzz_starting_time
 
     if time_elapsed > allowed_milli_seconds
