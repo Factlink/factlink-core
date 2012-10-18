@@ -2,7 +2,7 @@
 
 class window.ExtendedFactView extends FactView
   tagName: "section"
-  className: ""
+  className: "" # clear the inherited className, not needed here
 
   template: "facts/_extended_fact"
 
