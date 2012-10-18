@@ -16,7 +16,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
     @setupNotificationsFetch()
     @_unreadCount = 0
     @views = {}
-    @on "itemview:wholeClick", ->
+    @on "itemview:activityActivated", ->
       @hideDropdown()
 
   onRender: ->

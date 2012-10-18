@@ -9,7 +9,7 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
     if url = @model.get('activity').target_url
       e.preventDefault()
       e.stopImmediatePropagation()
-      @trigger 'wholeClick'
+      @trigger 'activityActivated'
       Backbone.history.navigate url, true
 
   onRender: -> @$el.addClass "unread"  if @model.get("unread") is true
