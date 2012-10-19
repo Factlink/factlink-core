@@ -83,6 +83,7 @@ class Ability
   end
 
   def define_user_abilities
+    can :index, User
     if user
       can :update, user
       can :read, User do

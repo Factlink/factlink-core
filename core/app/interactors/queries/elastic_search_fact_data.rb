@@ -5,6 +5,7 @@ module Queries
   class ElasticSearchFactData < ElasticSearch
     def define_query
       type :factdata
+      @keywordsArray = @keywordsArray.map{ |x| x.length<=3?x:"*#{x}*"}
     end
 
     def validate

@@ -4,6 +4,7 @@ class SearchUserInteractor
     raise 'Keywords must not be empty.'  unless keywords.length > 0
     raise 'User should be of User type.' unless user.kind_of? User
 
+    # Already pass in a user, to later implement ranking of results based on followed channels
     @user = user
     @keywords = keywords
     @ability = options[:ability]
@@ -31,6 +32,6 @@ class SearchUserInteractor
   end
 
   def authorized?
-    (@ability.can? :index, Topic) and (@ability.can? :show, @user)
+    (@ability.can? :index, User) and (@ability.can? :show, @user)
   end
 end

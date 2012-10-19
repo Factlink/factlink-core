@@ -10,13 +10,16 @@ module Queries
     def finish_initialize
       @types = []
       @logger = @options[:logger] || Logger.new(STDERR)
+
+      @keywordsArray = @keywords.split(/\s+/).map{ |x| CGI::escape(x) }
       define_query
     end
 
     def execute
       from = (@page - 1) * @row_count
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
+      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{@keywordsArray.join('+')}&from=#{from}&size=#{@row_count}&default_operator=AND"
+      puts url
 
       results = HTTParty.get url
       handle_httparty_error results
@@ -40,13 +43,6 @@ module Queries
     end
 
     private
-    def processed_keywords
-      @keywords.split(/\s+/).
-        map{ |x| CGI::escape(x) }.
-        map{ |x| x.length<=3?x:"*#{x}*"}.
-        join("+")
-    end
-
     def handle_httparty_error results
       case results.code
         when 200..299
