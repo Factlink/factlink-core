@@ -7,6 +7,22 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
   initialize: ->
     @conversation = new Conversation
 
+  onShow: ->
+    @$('.recipients').ajaxChosen(
+        minTermLength: 1
+        afterTypeDelay: 500
+        jsonTermKey: 's'
+        type: 'GET'
+        url: '/u/search.json'
+      ,
+      (data) ->
+        usernames = {}
+        _.each data, (obj) ->
+          usernames[obj.username] = obj.username
+        console.log usernames
+        usernames
+    )
+
   submit: ->
     @conversation.set 'recipients', [@$('.recipients').val(), currentUser.get('username')]
     @conversation.set 'sender', currentUser.get('username')

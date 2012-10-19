@@ -86,8 +86,7 @@ end
 gem 'airbrake'
 
 # Multi-select input fields with Ajax
-# gem "chosen-rails", "~> 0.9.8.3"
-# gem "ajax-chosen-rails", "~> 0.2.1"
+gem "chosen-rails", "~> 0.9.8"
 
 #browser detection
 gem 'browser'
