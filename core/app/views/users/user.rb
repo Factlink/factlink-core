@@ -34,6 +34,10 @@ module Users
       nil_if_empty(self[:user].biography)
     end
 
+    def gravatar_hash
+      Gravatar.hash(self[:user].email)
+    end
+
     def avatar(size=32)
       image_tag(self[:user].avatar_url(size: size), :width => size, :height => size, :alt => self[:user].username)
     end
