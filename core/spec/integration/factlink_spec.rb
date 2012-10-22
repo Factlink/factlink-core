@@ -46,6 +46,38 @@ describe "factlink", type: :request do
     end
   end
 
+  pending "message can be send" do
+    @factlink = create_factlink @user
+    search_string = 'Test search'
+
+    visit friendly_fact_path(@factlink)
+
+    page.should have_content(@factlink.data.title)
+
+    click_on "Send message"
+
+    wait_until_scope_exists '.start-conversation' do
+      user2 = FactoryGirl.create :approved_confirmed_user
+      message = 'content'
+      fill_in find(:css, '.recipients'), :with => user2
+      fill_in find(:css, '.text'), :with => message
+
+      click_button 'Send'
+      screen_shot_and_open_image
+    end
+
+    page.should have_selector('.supporting li.add')
+
+    page.execute_script('$(".supporting li.add").trigger("click")')
+
+    wait_for_ajax
+
+    page.should have_selector('li.fact-relation')
+    within(:css, 'li.fact-relation') do
+      page.should have_content search_string
+    end
+  end
+
   it "can be agreed" do
     @factlink = create_factlink @user
     search_string = 'Test search'

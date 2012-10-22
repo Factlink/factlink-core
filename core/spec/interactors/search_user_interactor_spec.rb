@@ -1,5 +1,5 @@
 require_relative 'interactor_spec_helper'
-require File.expand_path('../../../app/interactors/search_User_interactor.rb', __FILE__)
+require File.expand_path('../../../app/interactors/search_user_interactor.rb', __FILE__)
 
 describe SearchUserInteractor do
 

@@ -13,29 +13,19 @@ describe Queries::ElasticSearchUser do
   end
 
   it 'initializes' do
-    query = Queries::ElasticSearchUser.new 'someuser', 1, 20
+    query = Queries::ElasticSearchUser.new 'interesting search keywords', 1, 20
 
     query.should_not be_nil
   end
 
   describe '.execute' do
-    it 'raises when initialized with an empty keywords string' do
-      expect { interactor = Queries::ElasticSearchUser.new '', 1, 20 }.
-        to raise_error(RuntimeError, 'Keywords must not be empty')
-    end
-
-    it 'raises when initialized with multiple keywords' do
-      expect { interactor = Queries::ElasticSearchUser.new 'some multiple keywords', 1, 20 }.
-        to raise_error(RuntimeError, 'Only one keyword allowed')
-    end
-
     it 'executes correctly with return value of User class' do
       config = mock()
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = 'us'
-      wildcard_keywords = 'us*'
+      keywords = 'searching for users'
+      wildcard_keywords = '*searching*+for+*users*'
       interactor = Queries::ElasticSearchUser.new keywords, 1, 20
 
       hit = mock()
@@ -62,7 +52,7 @@ describe Queries::ElasticSearchUser do
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = 'someuser'
+      keywords = 'searching for this channel'
       results = mock()
       error_response = 'error has happened server side'
       results.stub response: error_response
@@ -82,8 +72,8 @@ describe Queries::ElasticSearchUser do
       base_url = '1.0.0.0:4000/index'
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
-      keywords = '$+,:;@=?&=/'
-      wildcard_keywords = '%24%2B%2C%3A%3B%40%3D%3F%26%3D%2F*'
+      keywords = '$+,:; @=?&=/'
+      wildcard_keywords = '*%24%2B%2C%3A%3B*+*%40%3D%3F%26%3D%2F*'
       interactor = Queries::ElasticSearchUser.new keywords, 1, 20
 
       hit = mock()

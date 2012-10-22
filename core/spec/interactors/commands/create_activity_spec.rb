@@ -1,36 +1,35 @@
 require File.expand_path('../../../../app/interactors/commands/create_activity.rb', __FILE__)
 
 describe Commands::CreateActivity do
+  let(:current_user) { mock('current_user', id: 2) }
+  let(:graph_user)   { mock('user',id: 1, user_id: current_user.id) }
+  let(:other_graph_user)   { mock('user',id: 1, user_id: current_user.id + 1)  }
+
   before do
     stub_const('CanCan::AccessDenied', Class.new(StandardError))
     stub_const('Activity', Class.new)
   end
 
   it 'initializes correctly' do
-    user = mock('user',{:id => 1})
     action = :test
-    subject = mock()
-    command = Commands::CreateActivity.new user, action, subject, :current_user => user
-
+    activity_subject = mock()
+    command = Commands::CreateActivity.new graph_user, action, activity_subject, current_user: current_user
     command.should_not be_nil
   end
 
   it 'gives a not authorized exception, when the current_user is not equal to the user' do
-    user = mock('user', :id => 1)
-    current_user = mock('current_user', :id => 2)
     action = :test
-    subject = mock()
-    expect{ Commands::CreateActivity.new user, action, subject, :current_user => current_user }.
+    activity_subject = mock()
+    expect{ Commands::CreateActivity.new other_graph_user, action, activity_subject, :current_user => current_user }.
       to raise_error(CanCan::AccessDenied, 'Unauthorized')
   end
 
   describe '.execute' do
     it 'correctly' do
-      user = mock('user',{:id => 1})
       action = :test
-      subject = mock()
-      command = Commands::CreateActivity.new user, action, subject, :current_user => user
-      Activity.should_receive(:create).with(user: user, action: action, subject: subject, :object => nil )
+      activity_subject = mock()
+      command = Commands::CreateActivity.new graph_user, action, activity_subject, :current_user => current_user
+      Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, :object => nil )
 
       command.execute
     end

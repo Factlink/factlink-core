@@ -147,9 +147,6 @@ module FactlinkUI
     # Add /app/backbone to asset path
     config.assets.paths << Rails.root.join("app", "backbone")
 
-    # Add /vendor/assets/stylesheets to asset path
-    config.assets.paths << Rails.root.join("vendor", "assets", "stylesheets")
-
     # Enable the asset pipeline
     config.assets.enabled = true
 

@@ -1,7 +1,5 @@
 //= require_self
 //= require raphael-min
-//= require chosen-jquery
-//= require jquery.ajax-chosen
 //= require ./bubble/jquery.infiniScroll
 //= require jquery.scrollTo
 //= require jquery.hoverIntent
