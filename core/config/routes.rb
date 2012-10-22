@@ -200,8 +200,4 @@ FactlinkUI::Application.routes.draw do
     get "/search" => "users/search#search", as: 'search_users'
   end
 
-  get "/x/:id" => "fake_facts#show"
-  get "/x/set/:id/:name" => "fake_facts#set_name"
-
-
 end
