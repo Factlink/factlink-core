@@ -62,7 +62,6 @@ module FactlinkUI
     config.autoload_paths << "#{config.root}/app/workers"
     config.autoload_paths << "#{config.root}/app/observers"
     config.autoload_paths << "#{config.root}/app/interactors"
-    config.autoload_paths << "#{config.root}/app/interactors/queries"
 
     config.mongoid.logger = nil
 
@@ -147,6 +146,9 @@ module FactlinkUI
 
     # Add /app/backbone to asset path
     config.assets.paths << Rails.root.join("app", "backbone")
+
+    # Add /vendor/assets/stylesheets to asset path
+    config.assets.paths << Rails.root.join("vendor", "assets", "stylesheets")
 
     # Enable the asset pipeline
     config.assets.enabled = true

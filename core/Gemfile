@@ -85,6 +85,8 @@ group :testserver, :staging, :production do
 end
 gem 'airbrake'
 
+# Multi-select input fields with Ajax
+gem "chosen-rails", "~> 0.9.8"
 
 #browser detection
 gem 'browser'

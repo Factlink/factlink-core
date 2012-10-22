@@ -8,11 +8,9 @@ class FactData
   field :displaystring,   type: String
   field :fact_id,         type: String
 
-  validates_format_of :displaystring, allow_nil: true, with: /\S/
+  has_many :conversations
 
-  def self.column_names
-    self.fields.collect { |field| field[0] }
-  end
+  validates_format_of :displaystring, allow_nil: true, with: /\S/
 
   def to_s
     self.displaystring || ""

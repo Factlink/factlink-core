@@ -18,7 +18,7 @@ class SearchChannelInteractor
       return []
     end
 
-    query = ElasticSearchChannelQuery.new filter_keywords, @page, @row_count
+    query = Queries::ElasticSearchChannel.new filter_keywords, @page, @row_count
 
     results = query.execute
 
@@ -31,7 +31,6 @@ class SearchChannelInteractor
   end
 
   def authorized?
-    @ability.can? :index, Topic
-    @ability.can? :show, @user
+    (@ability.can? :index, Topic) and (@ability.can? :show, @user)
   end
 end

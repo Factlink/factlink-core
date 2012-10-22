@@ -105,6 +105,8 @@ FactlinkUI::Application.routes.draw do
     delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
+  resources :conversations, only: [:show, :create], path: 'm'
+
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
     put "/" => "users#update"
@@ -195,6 +197,7 @@ FactlinkUI::Application.routes.draw do
   # I made this scope so we don't always have to know the current users username in de frontend
   scope "/u" do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
+    get "/search" => "users/search#search", as: 'search_users'
   end
 
   get "/x/:id" => "fake_facts#show"

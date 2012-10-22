@@ -1,5 +1,7 @@
+require_relative 'pavlov'
+
 class NormalizeSiteUrlInteractor
-  include Interactor
+  include Pavlov::Interactor
 
   def initialize site_id, normalizer_class_name
     @site = Site[site_id]

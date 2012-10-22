@@ -7,7 +7,7 @@ class window.Fact extends Backbone.Model
 
     ret
 
-  url: -> "/facts/" + @get("id")
+  urlRoot: "/facts/"
 
   removeFromChannel: (channel, opts) ->
     opts.url = channel.url() + "/" + "remove" + "/" + @get("id") + ".json"

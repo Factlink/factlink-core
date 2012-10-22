@@ -34,7 +34,7 @@ class ChannelsController < ApplicationController
   end
 
   def backbone_page
-    render inline:'', layout: 'channels'
+    render_backbone_page
   end
 
   def show

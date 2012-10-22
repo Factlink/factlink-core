@@ -15,7 +15,7 @@ describe SearchInteractor do
   before do
     stub_const 'CanCan::AccessDenied', Class.new(Exception)
     stub_const 'Fact', fake_class
-    stub_const 'ElasticSearchAllQuery', fake_class
+    stub_const 'Queries::ElasticSearchAll', fake_class
     stub_const 'FactData', fake_class
     stub_const 'User', fake_class
     stub_const 'Ability::FactlinkWebapp', fake_class
@@ -46,7 +46,7 @@ describe SearchInteractor do
     end
 
     it 'returns an empty list on keyword with less than two letters.' do
-      ElasticSearchAllQuery.should_not_receive(:execute)
+      Queries::ElasticSearchAll.should_not_receive(:execute)
       interactor = SearchInteractor.new 'ke', ability: relaxed_ability
 
       result = interactor.execute
@@ -60,7 +60,7 @@ describe SearchInteractor do
       results = ['a','b','c']
 
       query = mock()
-      ElasticSearchAllQuery.should_receive(:new).
+      Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
       query.should_receive(:execute).
@@ -76,7 +76,7 @@ describe SearchInteractor do
       results = ['a','b','c']
 
       query = mock()
-      ElasticSearchAllQuery.should_receive(:new).
+      Queries::ElasticSearchAll.should_receive(:new).
         with(filtered_keywords, 1, 20).
         and_return(query)
       query.should_receive(:execute).
@@ -88,7 +88,7 @@ describe SearchInteractor do
     it 'filters keywords with length < 3 and don''t query because search is empty' do
       keywords = "fo"
       interactor = SearchInteractor.new keywords, ability: relaxed_ability
-      ElasticSearchAllQuery.should_not_receive(:new)
+      Queries::ElasticSearchAll.should_not_receive(:new)
 
       interactor.execute.should eq []
     end
@@ -99,7 +99,7 @@ describe SearchInteractor do
       fact_data = FactData.new
       results =  [fact_data]
       query = mock()
-      ElasticSearchAllQuery.should_receive(:new).
+      Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
       query.should_receive(:execute).
@@ -117,7 +117,7 @@ describe SearchInteractor do
       results = [user]
 
       query = mock()
-      ElasticSearchAllQuery.should_receive(:new).
+      Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
 

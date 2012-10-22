@@ -1,0 +1,1 @@
+class window.Message extends Backbone.Model

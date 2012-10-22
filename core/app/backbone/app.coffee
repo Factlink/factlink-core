@@ -1,0 +1,1 @@
+window.FactlinkApp = new Backbone.Marionette.Application
