@@ -12,6 +12,11 @@
 
     <li class="divider-vertical"></li>
 
+    <% if can_haz :messaging %>
+      <li><%= link_to "Inbox", conversations_path, rel: 'backbone' %></li>
+      <li class="divider-vertical"></li>
+    <% end %>
+
     <% if can? :access, Ability::AdminArea %>
       <%= render "base/topbar/admin_menu" %>
       <li class="divider-vertical"></li>

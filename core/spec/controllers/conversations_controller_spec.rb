@@ -51,15 +51,16 @@ describe ConversationsController do
       authenticate_user! user
 
       other_guy = create :user
+      fact_id = 10
 
       interactor = mock()
       interactor.should_receive(:execute)
 
       CreateConversationWithMessageInteractor.should_receive(:new).
-         with(['henk','frits'], 'gerard' , 'verhaal', {current_user: user}).
+         with(fact_id.to_s, ['henk','frits'], 'gerard' , 'verhaal', {current_user: user}).
          and_return(interactor)
 
-      get :create, recipients: ['henk','frits'], sender: 'gerard', content: 'verhaal'
+      get :create, fact_id: fact_id, recipients: ['henk','frits'], sender: 'gerard', content: 'verhaal'
     end
   end
 end

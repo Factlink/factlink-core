@@ -3,10 +3,10 @@ require_relative 'pavlov'
 class CreateConversationWithMessageInteractor
   include Pavlov::Interactor
 
-  arguments :recipient_usernames, :sender_username, :content
+  arguments :fact_id, :recipient_usernames, :sender_username, :content
 
   def execute
-    c = command :create_conversation, @recipient_usernames
+    c = command :create_conversation, @fact_id, @recipient_usernames
     command :create_message, @sender_username, @content, c
 
     command :create_activity, User.where(username: @sender_username).first.graph_user, :created_conversation, c

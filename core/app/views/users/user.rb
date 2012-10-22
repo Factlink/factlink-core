@@ -34,6 +34,10 @@ module Users
       nil_if_empty(self[:user].biography)
     end
 
+    def gravatar_hash
+      Gravatar.hash(self[:user].email)
+    end
+
     def avatar(size=32)
       image_tag(self[:user].avatar_url(size: size), :width => size, :height => size, :alt => self[:user].username)
     end
@@ -42,17 +46,8 @@ module Users
       avatar(20)
     end
 
-    def avatar_200
-      avatar(200)
-    end
-
     def profile_path
       view.user_profile_path(self[:user].username)
-    end
-
-    #DEPRECATED
-    def authority
-      "?"
     end
 
     def all_channel_id

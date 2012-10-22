@@ -6,7 +6,6 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Redis::Objects
-  include Gravatar
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -239,7 +238,7 @@ class User
   def avatar_url(options={})
     options[:default] ||= :retro
     options[:rating] ||= :PG
-    gravatar_url(email,options)
+    Gravatar.gravatar_url(email,options)
   end
 
   # Require activated accounts to work with
