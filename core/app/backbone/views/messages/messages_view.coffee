@@ -1,16 +1,10 @@
 class OneMessageView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  template:
-    text: """
-      <b>{{sender}}</b> {{content}}
-    """
+  template: 'messages/message'
 
 class window.MessagesView extends Backbone.Marionette.CompositeView
   itemView: OneMessageView
   itemViewContainer: 'ul'
+  className: 'conversation'
 
-  template:
-    text: """
-          <h1>Discussie over factlink factlink {{subject.id}}</h1>
-          <ul></ul>
-    """
+  template: 'conversations/conversation'
