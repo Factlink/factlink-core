@@ -12,7 +12,10 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
       @trigger 'activityActivated'
       Backbone.history.navigate url, true
 
-  onRender: -> @$el.addClass "unread"  if @model.get("unread") is true
+  onRender: ->
+    @$el.addClass "unread"  if @model.get("unread") is true
+    @$el.addClass "has-target-url" if @model.get('activity').target_url
+
 
   markAsRead: -> @$el.removeClass "unread"
 
