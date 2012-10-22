@@ -1,5 +1,5 @@
 json.id             @user.id
-json.name           @user.name.blank? ? @user.username : @user.name
+json.name           @user.name
 json.username       @user.username
 json.location       @user.location
 json.biography      @user.biography
