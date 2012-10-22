@@ -43,7 +43,7 @@ module Queries
     def processed_keywords
       @keywords.split(/\s+/).
         map{ |x| CGI::escape(x) }.
-        map{ |x| x.length<=3?x:"*#{x}*"}.
+        map{ |x| x.length<3?x:"*#{x}*"}.
         join("+")
     end
 
