@@ -2,7 +2,7 @@ require_relative '../pavlov'
 require 'hashie'
 
 module Queries
-  class UsersForConversations
+  class LastMessageForConversations
     include Pavlov::Query
 
     arguments :conversations
@@ -14,13 +14,9 @@ module Queries
     end
 
     def execute
-      recipient_ids = @conversations.map {|conversation| conversation.recipient_ids}.flatten.uniq
-
-      # Find all corresponding users and index them by id
-      users = Hash[User.any_in(_id: recipient_ids).map {|user| [user.id.to_s, user_hash(user)]}]
-
+      # TODO: improve performance by just doing one big request instead of a lot of small ones
       @conversations.each do |conversation|
-        conversation.recipients = conversation.recipient_ids.map {|id| users[id.to_s]}
+        conversation.last_message = message_hash(Message.where(conversation_id: conversation.id.to_s).last)
       end
     end
 
@@ -32,14 +28,13 @@ module Queries
     end
 
     private
-    def user_hash(user)
+    def message_hash(message)
       Hashie::Mash.new(
-        id: user.id,
-        name: user.name.blank? ? user.username : user.name,
-        username: user.username,
-        location: user.location,
-        biography: user.biography,
-        gravatar_hash: user.gravatar_hash
+        id: message.id,
+        created_at: message.created_at,
+        updated_at: message.updated_at,
+        content: message.content,
+        sender_id: message.sender_id
       )
     end
   end

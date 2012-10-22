@@ -3,4 +3,4 @@ json.name           @user.name
 json.username       @user.username
 json.location       @user.location
 json.biography      @user.biography
-json.gravatar_hash  Gravatar.hash(@user.email)
+json.gravatar_hash  @user.gravatar_hash
