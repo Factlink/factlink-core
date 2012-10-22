@@ -8,3 +8,7 @@ FactlinkApp.addRegions
   leftTopRegion:       '#left-column .user-block-container'
   leftBottomRegion:    '#left-column .related-channels'
   leftMiddleRegion:    '#left-column .channel-listing-container'
+
+FactlinkApp.closeAllContentRegions = ->
+  for region in ['leftTopCrossFadeRegion', 'leftTopRegion', 'leftBottomRegion', 'leftMiddleRegion', 'mainRegion']
+    FactlinkApp[region].close()

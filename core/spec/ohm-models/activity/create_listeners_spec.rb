@@ -178,4 +178,22 @@ describe 'activity queries' do
       ]
     end
   end
+
+  describe :messages do
+
+    it "creates a notification for the receiver" do
+      f  = create(:fact)
+      u1 = create(:user)
+      u2 = create(:user)
+
+      CreateConversationWithMessageInteractor.perform [u1.username, u2.username], u1.username, 'this is a message', current_user: u1
+
+      u1.graph_user.notifications.map(&:to_hash_without_time).should == []
+      u2.graph_user.notifications.map(&:to_hash_without_time).should == [
+        {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
+      ]
+    end
+
+  end
+
 end

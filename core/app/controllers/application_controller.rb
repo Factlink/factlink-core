@@ -2,6 +2,11 @@ require 'net/http'
 
 class ApplicationController < ActionController::Base
 
+  include Pavlov::Helpers
+  def pavlov_options
+    {current_user: current_user}
+  end
+
   before_filter :check_preferred_browser
   def check_preferred_browser
     if current_user
@@ -80,8 +85,12 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: 500
   end
 
+  def render_backbone_page
+    render inline:'', layout: 'channels'
+  end
+
   def lazy *args, &block
-    Lazy.new *args, &block
+    Lazy.new(*args, &block)
   end
 
   def track(event, opts={})

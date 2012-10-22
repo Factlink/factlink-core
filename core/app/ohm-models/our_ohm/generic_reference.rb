@@ -24,7 +24,11 @@ class OurOhm < Ohm::Model
         if klass == NilClass
           nil
         else
-          klass[id]
+          if klass.ancestors.include? Ohm::Model
+            klass[id]
+          else
+            klass.find(id) # Return the ActiveModel object
+          end
         end
       end
 

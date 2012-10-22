@@ -102,5 +102,14 @@ json.activity do |json|
     end
 
 
+  when "created_conversation"
+    json.target_url conversation_path(subject)
+
+    json.conversation do |conversation|
+      conversation.url conversation_path(subject)
+    end
+    json.message do |message|
+      message.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
+    end
   end
 end

@@ -27,7 +27,12 @@
 
   <%= yield :template %>
 
+
   <%= javascript_include_tag "modal" %>
+
+  <script type="text/javascript">
+    Factlink.allowFeatures(<%= current_ability.feature_toggles.to_s.html_safe %>);
+  </script>
 
   <%= yield :javascript %>
 
