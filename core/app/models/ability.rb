@@ -12,7 +12,7 @@ class Ability
     @user=user
 
     # Anonymous user
-    can :check, Blacklist
+    can :get_fact_count, Site
     can :new, Fact
 
     can :show, String do |template|
