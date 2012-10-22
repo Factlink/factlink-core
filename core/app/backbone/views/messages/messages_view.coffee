@@ -5,7 +5,7 @@ class OneMessageView extends Backbone.Marionette.ItemView
       <b>{{sender}}</b> {{content}}
     """
 
-class window.MessageView extends Backbone.Marionette.CompositeView
+class window.MessagesView extends Backbone.Marionette.CompositeView
   itemView: OneMessageView
   itemViewContainer: 'ul'
 
