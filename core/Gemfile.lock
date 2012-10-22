@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/Factlink/resque
-  revision: 4913f199f4ae21a53add0b7075e35c213c765b53
-  specs:
-    resque (1.21.0)
-      multi_json (~> 1.0)
-      redis-namespace (~> 1.0)
-      sinatra (>= 0.9.2)
-      vegas (~> 0.1.2)
-
-GIT
   remote: git://github.com/johnbintz/jasmine-headless-webkit.git
   revision: aa1d989a90c7ebc2d5ac372f2228fbbbcd335fb0
   specs:
@@ -392,6 +382,11 @@ GEM
       ruby2ruby (~> 1.2.5)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    resque (1.23.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
     resque_mailer (2.1.0)
       actionmailer (~> 3.0)
     ripper_ruby_parser (0.0.8)
@@ -551,7 +546,7 @@ DEPENDENCIES
   redis (= 2.2.1)
   redis-aid
   redis-objects
-  resque!
+  resque (= 1.23.0)
   resque_mailer
   resqued_devise_mailer!
   rmagick
