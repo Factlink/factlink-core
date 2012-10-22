@@ -34,3 +34,4 @@ class window.User extends Backbone.Model
       notifications_settings_path: '/' + @get('username') + '/notification-settings'
       link: '/' + @get('username')
       avatar_url_48: @avatar_url(48)
+      avatar_url_200: @avatar_url(200)

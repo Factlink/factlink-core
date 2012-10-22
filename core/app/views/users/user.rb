@@ -46,10 +46,6 @@ module Users
       avatar(20)
     end
 
-    def avatar_200
-      avatar(200)
-    end
-
     def profile_path
       view.user_profile_path(self[:user].username)
     end
