@@ -5,6 +5,20 @@ class ConversationsController < ApplicationController
     {current_user: current_user}
   end
 
+  def index
+    respond_to do |format|
+      format.html { render_backbone_page }
+      format.json do
+        @conversations = query :conversations_list
+        if @conversations
+          render 'conversations/index'
+        else
+          render json: [], status: :not_found
+        end
+      end
+    end
+  end
+
   def show
     respond_to do |format|
       format.html { render_backbone_page }

@@ -3,4 +3,6 @@ Airbrake.configure do |config|
    config.host        = 'factlink-errbit.herokuapp.com'
    config.port        = 80
    config.secure      = config.port == 443
+
+   config.rescue_rake_exceptions = true # report exceptions that happen inside a rake task
 end
