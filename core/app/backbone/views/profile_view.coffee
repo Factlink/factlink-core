@@ -9,14 +9,13 @@ class window.ProfileView extends Backbone.Marionette.CompositeView
     "click a.show-more": "showMoreOn"
     "click a.show-less": "showMoreOff"
 
-  initialize: -> window.freddie = this.collection
-
   showMoreOn:  -> @$el.addClass 'showMore'
   showMoreOff: -> @$el.removeClass 'showMore'
 
   showEmptyView: ->
       @$(".top-channels").hide()
       @$(".no-channels").show()
+
   closeEmptyView: ->
       @$(".no-channels").hide()
       @$(".top-channels").show()
