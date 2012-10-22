@@ -18,12 +18,17 @@ describe CreateConversationWithMessageInteractor do
       content = 'geert'
       usernames = [sender.username, receiver.username]
       conversation = mock()
-      should_receive_new_with_and_receive_execute(Commands::CreateConversation, usernames,current_user: sender).and_return(conversation)
-      should_receive_new_with_and_receive_execute(Commands::CreateMessage, sender.username, content, conversation, current_user: sender)
-      User.should_receive(:where).with(username: sender.username).and_return([sender])
-      should_receive_new_with_and_receive_execute(Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
+      fact_id = 10
 
-      CreateConversationWithMessageInteractor.perform usernames, sender.username, content, current_user:sender
+      should_receive_new_with_and_receive_execute(
+        Commands::CreateConversation, fact_id, usernames,current_user: sender).and_return(conversation)
+      should_receive_new_with_and_receive_execute(
+        Commands::CreateMessage, sender.username, content, conversation, current_user: sender)
+      User.should_receive(:where).with(username: sender.username).and_return([sender])
+      should_receive_new_with_and_receive_execute(
+        Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
+
+      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.username, content, current_user:sender
     end
   end
 end

@@ -4,7 +4,7 @@ module Commands
   class CreateConversation
     include Pavlov::Command
 
-    arguments :recipient_usernames
+    arguments :fact_id, :recipient_usernames
 
     def validate
       raise 'recipient_usernames should be a list'    unless @recipient_usernames.respond_to? :each
@@ -16,6 +16,9 @@ module Commands
       @recipient_usernames.each do |username|
         conversation.recipients << User.where(username: username).first
       end
+
+      fact = Fact[@fact_id]
+      conversation.fact_data_id = fact.data_id
       conversation.save
       conversation
     end
