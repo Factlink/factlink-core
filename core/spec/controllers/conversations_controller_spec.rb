@@ -33,7 +33,7 @@ describe ConversationsController do
         expect(response).to be_success
         json = JSON.parse(response.body)
         expect(json["messages"][0]["id"]).to eq(conv.messages[0].id.to_s)
-        expect(json["messages"][1]["sender_id"]).to eq(conv.messages[1].sender.id.to_s)
+        expect(json["messages"][1]["sender"]["id"]).to eq(conv.messages[1].sender.id.to_s)
         expect(json["messages"][2]["content"]).to eq(conv.messages[2].content)
       end
     end
