@@ -42,6 +42,10 @@
   position: relative;
   z-index: 1;
 }
+.arrow-button.back > span.button-label {
+  z-index: 3;
+}
+
 .arrow-button.back > span.pointer {
   z-index: 0;
 
@@ -50,19 +54,21 @@
   border-left: solid 1px #ccc;
   border-bottom: solid 1px #a3a3a3;
 
-  -webkit-border-top-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -webkit-border-bottom-left-radius: 4px;
+  .custom-radius( 0, 5px, 4px, 5px);
+
   height: 23.5px;
   width: 23.5px;
   display: inline-block;
-  -webkit-transform: rotate(45deg);
+
+  .rotate(45deg);
+
   -webkit-mask-image:
     -webkit-gradient(linear, left bottom, right top,
       from(#000000),
       color-stop(0.5,#000000),
       color-stop(0.5, transparent),
       to(transparent));
+
   position: absolute;
   left: -12px;
   top: 2.5px;
