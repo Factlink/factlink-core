@@ -7,13 +7,18 @@ module Queries
 
     def execute
       conversations = query :conversations_list
-      recipients_by_conversation_id = query :users_for_conversations, conversations
+      users_by_id = query :users_by_ids, all_recipient_ids(conversations)
 
       # TODO: clean this up by using a new dead object
+      # Also, query only once for all last_messages (difficult because we need to use a mongo groupby)
       conversations.each do |conversation|
-        conversation.recipients = recipients_by_conversation_id[conversation.id]
+        conversation.recipients = conversation.recipient_ids.map {|id| users_by_id[id]}
         conversation.last_message = query :last_message_for_conversation, conversation
       end
+    end
+
+    def all_recipient_ids conversations
+      conversations.flat_map {|c| c.recipient_ids}.uniq
     end
 
     def authorized?

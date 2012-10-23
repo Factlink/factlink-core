@@ -4,15 +4,15 @@ require_relative '../interactor_spec_helper'
 describe Queries::ConversationsWithUsersMessage do
   let(:user1)          {mock('user', id: 1)}
   let(:user2)          {mock('user', id: 2)}
-  let(:conversation10) {mock('conversation', id: 10, last_message: nil, recipients: nil)}
-  let(:conversation20) {mock('conversation', id: 20, last_message: nil, recipients: nil)}
+  let(:conversation10) {mock('conversation', id: 10, recipient_ids: [1])}
+  let(:conversation20) {mock('conversation', id: 20, recipient_ids: [1, 2])}
   let(:conversations)  {[conversation10, conversation20]}
   let(:message15)      {mock('message', id: 15)}
   let(:message25)      {mock('message', id: 25)}
 
   before do
     stub_const('Queries::ConversationsList', Class.new)
-    stub_const('Queries::UsersForConversations', Class.new)
+    stub_const('Queries::UsersByIds', Class.new)
     stub_const('Queries::LastMessageForConversation', Class.new)
   end
 
@@ -21,12 +21,20 @@ describe Queries::ConversationsWithUsersMessage do
     query.should_not be_nil
   end
 
+  describe ".all_recipient_ids" do
+    it "should work with overlapping ids" do
+      query = Queries::ConversationsWithUsersMessage.new(current_user: user1)
+      result = query.all_recipient_ids([conversation10, conversation20])
+      expect(result).to eq([1, 2])
+    end
+  end
+
   describe ".execute" do
     it "should call the three other queries" do
       should_receive_new_with_and_receive_execute(Queries::ConversationsList, current_user: user1).
         and_return(conversations)
-      should_receive_new_with_and_receive_execute(Queries::UsersForConversations, conversations, current_user: user1).
-        and_return(10 => [user1], 20 => [user1, user2])
+      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1, 2], current_user: user1).
+        and_return(1 => user1, 2 => user2)
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation10, current_user: user1).
         and_return(message15)
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation20, current_user: user1).
