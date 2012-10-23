@@ -1,9 +1,63 @@
-// @import "bootstrap/mixins";
-// @import "bootstrap/variables";
+/*
+ *= require_tree ./messages
+ */
 
-#main-wrapper .content .conversation {
-  border: 2px dashed #ccc;
-  margin: 0 -15px 0;
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
 
-  padding: 0 24px 24px;
+.full-width() {
+    margin: 0 -15px 0;
+}
+
+#container #main-wrapper .title #conversation {
+  color: @headerColor;
+  padding: 0;
+  white-space: nowrap;
+  font-size: @baseFontSize;
+
+  vertical-align: center;
+  height: 48px;
+
+  >div>h1 {
+    line-height: 28px;
+    padding: 0 0 0 10px;
+  }
+}
+
+#container #main-wrapper .content {
+  margin: 0px;
+
+  .conversation {
+    .full-width();
+    padding: 0 15px;
+
+    .fact-block {
+      border-bottom: 1px solid @baseBorderColor;
+      .drop-shadow(0, 2px, 2px, 0.1);
+    }
+
+    .message-list ul li {
+      .full-width();
+      padding: 15px;
+      border-bottom: 1px solid @baseBorderColor;
+
+      &:last-child { border-bottom: 1px solid transparent; }
+
+      .avatar {
+        float: left;
+
+        img { .border-radius(3px); }
+      }
+
+      .message {
+        padding: 0 0 0 58px;
+
+        a { font-weight: bold; }
+        .meta {
+          float: right;
+          color: #ccc;
+        }
+      }
+    }
+  }
 }

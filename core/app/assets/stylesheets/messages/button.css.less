@@ -1,0 +1,85 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+/* Bordered Button Styles: view-source:http://vxjs.org/CSS3/subpixel/buttons.html */
+.arrow-button {
+  vertical-align: middle;
+
+  border: solid 1px @baseBorderColor;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0px 10px;
+  font-size: 12px;
+  line-height: 30px;
+  height: 30px;
+  margin: 8px 0 0 10px;
+  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+  .custom-radius(4px, 4px, 0, 0);
+  text-shadow: 0 1px 0px #fff;
+  color: #555 !important;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+}
+
+.arrow-button:hover, .arrow-button.touched {
+
+  .buttonBackground(@btnBackground, darken(@btnBackgroundHighlight, 4%), @grayDark, 0 1px 1px rgba(255,255,255,.75));
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+
+  border: solid 1px darken(@baseBorderColor, 4%);
+  border-bottom: solid 1px darken(@baseBorderColor, 16%);
+}
+/* End Bordered Button Styles */
+
+/* Back Bordered Button Styles */
+.arrow-button.back {
+  padding: 0px 7px 0px 3px;
+  margin-left: 10px;
+  position: relative;
+}
+.arrow-button.back > span {
+  position: relative;
+  z-index: 1;
+}
+.arrow-button.back > span.button-label {
+  z-index: 3;
+}
+
+.arrow-button.back > span.pointer {
+  z-index: 0;
+
+  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+
+  border-left: solid 1px #ccc;
+  border-bottom: solid 1px #a3a3a3;
+
+  .custom-radius( 0, 5px, 4px, 5px);
+
+  height: 23.5px;
+  width: 23.5px;
+  display: inline-block;
+
+  .rotate(45deg);
+
+  -webkit-mask-image:
+    -webkit-gradient(linear, left bottom, right top,
+      from(#000000),
+      color-stop(0.5,#000000),
+      color-stop(0.5, transparent),
+      to(transparent));
+
+  position: absolute;
+  left: -12px;
+  top: 2.5px;
+  -webkit-background-clip: content;
+}
+.arrow-button.back:hover > span.pointer, .arrow-button.back.touched > span.pointer {
+  .buttonBackground(@btnBackground, darken(@btnBackgroundHighlight, 4%), @grayDark, 0 1px 1px rgba(255,255,255,.75));
+
+  border-left: solid 1px darken(#ccc, 4%);
+  border-bottom: solid 1px darken(#a3a3a3, 4%);
+}
+
+/* End Back Bordered Button Styles */
+

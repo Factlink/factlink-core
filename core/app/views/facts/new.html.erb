@@ -57,5 +57,13 @@
       parent.remote.hide();
     });
 
+    // Show an initial tooltip which asks the user to set an opinion
+    $('.wheel').tooltip({
+      title: "What's you opinion?",
+      trigger: "manual"
+    }).tooltip('show').on('click', function () {
+      $(this).tooltip('hide');
+    });
+
   </script>
 <% end %>
