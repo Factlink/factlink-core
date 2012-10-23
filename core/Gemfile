@@ -36,9 +36,6 @@ gem 'stringex'
 gem 'hashie'
 
 gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
-# Pagination & sorting
-gem 'will_paginate', '~> 3.0'
-
 
 # Mustache
 gem 'mustache'
