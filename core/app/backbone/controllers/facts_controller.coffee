@@ -16,5 +16,3 @@ class window.FactsController
 
     window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
     @main.titleRegion.show( extended_fact_title_view )
-
-    window.main = @main

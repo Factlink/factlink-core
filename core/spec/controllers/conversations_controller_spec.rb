@@ -23,6 +23,7 @@ describe ConversationsController do
 
         expect(json["id"]).to eq(conv.id.to_s)
         expect(json["fact_data_id"]).to eq(conv.fact_data.id.to_s)
+        expect(json["fact_id"]).to eq(conv.fact_data.fact_id.to_s)
       end
 
       it "should contain messages" do

@@ -30,7 +30,7 @@ describe Queries::ElasticSearchFactData do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for evidence'
-      wildcard_keywords = '*searching*+for+*evidence*'
+      wildcard_keywords = '(searching*%20OR%20searching)+(for*%20OR%20for)+(evidence*%20OR%20evidence)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
       hit = mock()
@@ -78,7 +78,7 @@ describe Queries::ElasticSearchFactData do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
-      wildcard_keywords = '*%24%2B%2C%3A%3B*+*%40%3D%3F%26%3D%2F*'
+      wildcard_keywords = '(%24%2B%2C%3A%3B*%20OR%20%24%2B%2C%3A%3B)+(%40%3D%3F%26%3D%2F*%20OR%20%40%3D%3F%26%3D%2F)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
       hit = mock()

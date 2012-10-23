@@ -61,9 +61,18 @@
         border: none;
       }
 
-      &.has-target-url:hover {
-        background: lighten( @linkColor , 49%);
-        cursor: pointer;
+      &.has-target-url {
+        &:hover {
+          background: lighten(@linkColor , 51%);
+          cursor: pointer;
+          text-shadow: 0 1px 0 #fff;
+          p {
+            color: @linkColorHover;
+          }
+        }
+        p {
+          color: #555;
+        }
       }
 
       &.unread {
@@ -101,7 +110,7 @@
 
           span {
             vertical-align: middle;
-            color: #888;
+            color: #999;
             font-size: 11px;
           }
         }
