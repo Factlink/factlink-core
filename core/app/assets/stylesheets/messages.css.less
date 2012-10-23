@@ -15,15 +15,29 @@
     vertical-align: center;
     height: 48px;
     line-height: 48px;
-
-
   }
 }
 
 #main-wrapper .content {
+  margin: 0px;
 
   .conversation {
     margin: 0 -15px 0;
     padding: 0 15px 15px;
+
+    .fact-block {
+      border-bottom: 1px solid @baseBorderColor;
+    }
+
+    .message-list ul li {
+      margin: 0 -15px 0;
+      padding: 15px;
+
+      border: 1px solid hotpink;
+
+      &:last-child {
+        border-bottom: 1px solid transparent;
+      }
+    }
   }
 }
