@@ -14,28 +14,31 @@ module Queries
     end
 
     def execute
-      recipient_ids = @conversations.map {|conversation| conversation.recipient_ids}.flatten.uniq
+      users = all_recipients_by_id
 
-      # Find all corresponding users and index them by id
-      users = Hash[User.any_in(_id: recipient_ids).map {|user| [user.id.to_s, user_hash(user)]}]
-
-      @conversations.each do |conversation|
-        conversation.recipients = conversation.recipient_ids.map {|id| users[id.to_s]}
+      @conversations.each_with_object({}) do |c, hash|
+        hash[c.id] = c.recipient_ids.map {|id| user_dead(users[id])}
       end
+    end
+
+    def all_recipients_by_id
+      recipient_ids = @conversations.flat_map {|c| c.recipient_ids}.uniq
+      recipients = User.any_in(_id: recipient_ids)
+      recipients.each_with_object({}) {|u, hash| hash[u.id] = u}
     end
 
     def authorized?
       @options[:current_user] and
-      @conversations.each do |conversation|
-        conversation.recipient_ids.include? @options[:current_user].id
-      end
+        @conversations.all? do |conversation|
+          conversation.recipient_ids.include? @options[:current_user].id
+        end
     end
 
     private
-    def user_hash(user)
+    def user_dead(user)
       Hashie::Mash.new(
         id: user.id,
-        name: user.name.blank? ? user.username : user.name,
+        name: user.name,
         username: user.username,
         location: user.location,
         biography: user.biography,

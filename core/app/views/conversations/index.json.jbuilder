@@ -1,7 +1,11 @@
 json.array!(@conversations) do |json, conversation|
   json.id            conversation.id
   json.fact_data_id  conversation.fact_data_id
-  json.recipients    conversation.recipients, :id, :name, :gravatar_hash
+
+  json.recipients conversation.recipients do |recipient|
+    json.partial! 'users/user_partial', user: recipient
+  end
+
   if conversation.last_message
     json.last_message do |json|
       json.id          conversation.last_message.id

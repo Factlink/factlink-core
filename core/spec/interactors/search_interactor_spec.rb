@@ -13,7 +13,7 @@ describe SearchInteractor do
   end
 
   before do
-    stub_const 'CanCan::AccessDenied', Class.new(Exception)
+    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
     stub_const 'Fact', fake_class
     stub_const 'Queries::ElasticSearchAll', fake_class
     stub_const 'FactData', fake_class
