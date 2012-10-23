@@ -64,16 +64,13 @@ gem 'omniauth-twitter'
 gem 'httparty'
 
 # Andand is a library to handle nil more easily
-# http://andand.rubyforge.org/
 gem 'andand', '~> 1.3.3'
-# newer version does not give creepy warning:
-#gem 'andand', :git => 'http://github.com/Factlink/andand.git'
 
 # Email on errors
 group :testserver, :staging, :production do
   #gem 'exception_notification', :require => 'exception_notifier'
+  gem 'airbrake'
 end
-gem 'airbrake'
 
 # Multi-select input fields with Ajax
 # gem "chosen-rails", "~> 0.9.8.3"
@@ -147,7 +144,9 @@ group :test do
   gem 'capybara-email'
   gem 'chunky_png'
   gem 'headless'
+end
 
+group :jstest do
   gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
   gem 'jasmine-headless-webkit', :git => "git://github.com/johnbintz/jasmine-headless-webkit.git"
   gem 'therubyracer'
