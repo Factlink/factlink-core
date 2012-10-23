@@ -9,20 +9,22 @@
     margin: 0 -15px 0;
 }
 
-#main-wrapper {
-  header#conversation {
-    color: @headerColor;
-    padding: 0;
-    white-space: nowrap;
-    font-size: @baseFontSize;
+#container #main-wrapper .title #conversation {
+  color: @headerColor;
+  padding: 0;
+  white-space: nowrap;
+  font-size: @baseFontSize;
 
-    vertical-align: center;
-    height: 48px;
-    line-height: 46px;
+  vertical-align: center;
+  height: 48px;
+
+  >div>h1 {
+    line-height: 28px;
+    padding: 0 0 0 10px;
   }
 }
 
-#main-wrapper .content {
+#container #main-wrapper .content {
   margin: 0px;
 
   .conversation {
