@@ -1,0 +1,31 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.full-width() {
+    margin: 0 -15px 0;
+}
+
+#container #main-wrapper .content .conversation {
+  .message-list ul li {
+    .full-width();
+    padding: 15px;
+    border-bottom: 1px solid @baseBorderColor;
+
+    &:last-child { border-bottom: 1px solid transparent; }
+
+    .avatar {
+      float: left;
+      img { .border-radius(3px); }
+    }
+
+    .message {
+      padding: 0 0 0 58px;
+
+      a { font-weight: bold; }
+      .meta {
+        float: right;
+        color: #ccc;
+      }
+    }
+  }
+}

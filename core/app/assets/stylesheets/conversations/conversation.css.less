@@ -1,0 +1,31 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.full-width() {
+    margin: 0 -15px 0;
+}
+
+#container #main-wrapper .title #conversation {
+  color: @headerColor;
+  padding: 0;
+  white-space: nowrap;
+  font-size: @baseFontSize;
+
+  vertical-align: center;
+  height: 48px;
+
+  >div>h1 {
+    line-height: 28px;
+    padding: 0 0 0 10px;
+  }
+}
+
+#container #main-wrapper .content .conversation {
+  .full-width();
+  padding: 0 15px;
+
+  .fact-block {
+    border-bottom: 1px solid @baseBorderColor;
+    .drop-shadow(0, 2px, 2px, 0.1);
+  }
+}
