@@ -1,4 +1,11 @@
-<div class="avatar"></div>
+<div class="avatar">
+  <a href="{{ sender.link }}">
+    <img class="foo" src="{{ sender.avatar_url_48 }}" rel="bar">
+  </a>
+</div>
 
-<span>sender: {{ sender_id }}</span>
-<p>content: {{ content }}</p>
+<div class="message">
+  <a href="{{ sender.link }}">{{ sender.username }}</a>
+  <span class="meta">{{ time_ago }} ago</span>
+  <p>{{ content }}</p>
+</div>

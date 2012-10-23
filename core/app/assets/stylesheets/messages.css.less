@@ -5,6 +5,10 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.full-width() {
+    margin: 0 -15px 0;
+}
+
 #main-wrapper {
   header#conversation {
     color: @headerColor;
@@ -14,7 +18,7 @@
 
     vertical-align: center;
     height: 48px;
-    line-height: 48px;
+    line-height: 46px;
   }
 }
 
@@ -22,21 +26,35 @@
   margin: 0px;
 
   .conversation {
-    margin: 0 -15px 0;
-    padding: 0 15px 15px;
+    .full-width();
+    padding: 0 15px;
 
     .fact-block {
       border-bottom: 1px solid @baseBorderColor;
+      .drop-shadow(0, 2px, 2px, 0.1);
     }
 
     .message-list ul li {
-      margin: 0 -15px 0;
+      .full-width();
       padding: 15px;
+      border-bottom: 1px solid @baseBorderColor;
 
-      border: 1px solid hotpink;
+      &:last-child { border-bottom: 1px solid transparent; }
 
-      &:last-child {
-        border-bottom: 1px solid transparent;
+      .avatar {
+        float: left;
+
+        img { .border-radius(3px); }
+      }
+
+      .message {
+        padding: 0 0 0 58px;
+
+        a { font-weight: bold; }
+        .meta {
+          float: right;
+          color: #ccc;
+        }
       }
     }
   }
