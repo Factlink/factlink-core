@@ -2,12 +2,28 @@
  *= require_tree ./messages
  */
 
-// @import "bootstrap/mixins";
-// @import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
 
-#main-wrapper .content .conversation {
-  border: 2px dashed #ccc;
-  margin: 0 -15px 0;
+#main-wrapper {
+  header#conversation {
+    color: @headerColor;
+    padding: 0;
+    white-space: nowrap;
+    font-size: @baseFontSize;
 
-  padding: 0 24px 24px;
+    vertical-align: center;
+    height: 48px;
+    line-height: 48px;
+
+
+  }
+}
+
+#main-wrapper .content {
+
+  .conversation {
+    margin: 0 -15px 0;
+    padding: 0 15px 15px;
+  }
 }
