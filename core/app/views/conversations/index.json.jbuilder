@@ -14,6 +14,9 @@ json.array!(@conversations) do |json, conversation|
       json.created_at  conversation.last_message.created_at
       json.updated_at  conversation.last_message.updated_at
       json.sender_id   conversation.last_message.sender_id.to_s
+      json.sender do |json|
+        json.partial! 'users/user_partial', user: conversation.recipients.find {|u| u.id == conversation.last_message.sender_id}
+      end
     end
   end
 end
