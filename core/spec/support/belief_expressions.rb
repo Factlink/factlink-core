@@ -33,15 +33,19 @@ module BeliefExpressions
 
   def possible_reset
     unless @nothing_happened
-      Fact.all.each do |f|
-        add_to_global_channel(f)
-      end
-      @random_fact ||= Fact.create(created_by: god_user)
-      add_to_global_channel @random_fact
-      FactGraph.reset_values
-      FactGraph.recalculate
-      @nothing_happened = true
+      reset
     end
+  end
+
+  def reset
+    Fact.all.each do |f|
+      add_to_global_channel(f)
+    end
+    @random_fact ||= Fact.create(created_by: god_user)
+    add_to_global_channel @random_fact
+    FactGraph.reset_values
+    FactGraph.recalculate
+    @nothing_happened = true
   end
 
   def something_happened
@@ -49,8 +53,7 @@ module BeliefExpressions
   end
 
   def a(user)
-    @nothing_happened = false
-    possible_reset
+    reset
     (Authority.on(@random_fact, for: GraphUser[user.graph_user.id]).to_f+1).should
   end
 
