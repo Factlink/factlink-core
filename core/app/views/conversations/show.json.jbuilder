@@ -1,6 +1,9 @@
 json.id           @conversation.id
 json.fact_data_id @conversation.fact_data_id
 json.fact_id      @conversation.fact_id
+
+json.recipients   @conversation.recipient_ids.map {|id| User.find(id).username }.delete_if { |username| username == current_user.username }.join(", ")
+
 json.messages @messages do |json,message|
   json.content message.content
   json.id message.id
