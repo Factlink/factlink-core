@@ -1,6 +1,16 @@
-class OneMessageView extends Backbone.Marionette.ItemView
+class MessageAvatarView extends Backbone.Marionette.ItemView
+  tagName: 'div'
+  template: 'messages/user_avatar'
+
+
+class OneMessageView extends Backbone.Marionette.Layout
   tagName: 'li'
   template: 'messages/message'
+
+  regions:
+    avatarRegion: '.avatar'
+
+  onRender: -> @avatarRegion.show new MessageAvatarView(model: @model.sender())
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
