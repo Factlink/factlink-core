@@ -26,6 +26,7 @@ class ConversationsController < ApplicationController
         @conversation = query :conversation_get, params[:id]
         if @conversation
           @messages = query :messages_for_conversation, @conversation
+          @recipients = (query :users_by_ids, @conversation.recipient_ids).values
         end
         if @conversation and @messages.length > 0
           render 'conversations/show'
