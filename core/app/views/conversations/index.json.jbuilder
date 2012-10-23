@@ -3,7 +3,7 @@ json.array!(@conversations) do |json, conversation|
   json.id conversation.id.to_s
   json.fact_data_id  conversation.fact_data_id.to_s
 
-  json.recipients conversation.recipients do |recipient|
+  json.recipients conversation.recipients do |json, recipient|
     json.partial! 'users/user_partial', user: recipient
   end
 

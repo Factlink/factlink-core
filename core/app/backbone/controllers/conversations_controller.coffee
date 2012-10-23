@@ -12,7 +12,6 @@ class window.ConversationsController
       success: (collection, response) => @renderConversations(collection)
 
   renderConversations: (conversations) ->
-    console.log(conversations)
     @main.contentRegion.show(
       new ConversationsView
         collection: conversations
