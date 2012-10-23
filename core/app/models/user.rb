@@ -241,6 +241,10 @@ class User
     Gravatar.gravatar_url(email,options)
   end
 
+  def gravatar_hash
+    Gravatar.hash(email)
+  end
+
   # Require activated accounts to work with
   # https://github.com/plataformatec/devise/wiki/How-To%3a-Require-admin-to-activate-account-before-sign_in
   def active_for_authentication?
