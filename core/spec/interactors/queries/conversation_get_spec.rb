@@ -27,7 +27,7 @@ describe Queries::ConversationGet do
     it "returns the dead representation of the conversation if found" do
       id = 10
       fact_data = FactData.new
-      fact_data.stub(id: 124)
+      fact_data.stub(id: 124, fact_id: 3445)
       mock_conversation = mock()
       mock_conversation.stub id: id, fact_data: fact_data, recipient_ids: [10,13]
 
@@ -39,6 +39,7 @@ describe Queries::ConversationGet do
 
       expect(res.id).to eq(id)
       expect(res.fact_data_id).to eq(fact_data.id)
+      expect(res.fact_id).to eq(fact_data.fact_id)
     end
 
     it "returns nil if no matching conversation is found" do

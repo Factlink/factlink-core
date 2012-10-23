@@ -1,5 +1,6 @@
 require_relative '../pavlov'
 require 'hashie'
+require 'andand'
 
 module Queries
   class ConversationGet
@@ -16,10 +17,12 @@ module Queries
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
-      fact_data_id = conversation.fact_data.id if conversation.fact_data
+      fact_data_id = conversation.fact_data.andand.id
+      fact_id = conversation.fact_data.andand.fact_id
       Hashie::Mash.new({
         id: conversation.id,
         fact_data_id: fact_data_id,
+        fact_id: fact_id,
         recipient_ids: conversation.recipient_ids
       })
     end
