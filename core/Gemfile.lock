@@ -152,7 +152,6 @@ GEM
       rake
       ruby_parser (~> 2.3)
       sexp_processor (~> 3.0)
-    client_side_validations (3.1.4)
     coderay (1.0.7)
     coffee-script (2.2.0)
       coffee-script-source
@@ -490,7 +489,6 @@ DEPENDENCIES
   capybara-screenshot
   capybara-webkit (= 0.10.1)
   chunky_png
-  client_side_validations
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
