@@ -46,9 +46,6 @@ gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
 gem 'json'
 gem 'jbuilder'
 
-# for easy json generation
-gem 'jbuilder'
-
 # Needed for migrations to be compatible when no sql backend is available
 gem 'mongoid_rails_migrations', '0.0.13'
 
@@ -59,8 +56,6 @@ gem 'cancan'
 
 gem 'resqued_devise_mailer', :git => 'https://github.com/Factlink/resqued_devise_mailer.git'
 
-
-gem 'possessive'
 
 # social connections
 gem 'omniauth-facebook'
