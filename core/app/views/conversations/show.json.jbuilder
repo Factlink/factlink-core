@@ -14,7 +14,8 @@ json.messages @messages do |json,message|
 
   json.time_ago time_ago_in_words(Time.at(message.created_at.to_time))
 
+  sender = User.find(message.sender_id)
   json.sender do |json|
-    json.partial! 'users/user_partial', user: @recipients.find {|u| u.id == message.sender_id}
+    json.partial! 'users/user_partial', user: sender
   end
 end
