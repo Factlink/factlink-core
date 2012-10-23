@@ -9,9 +9,7 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.html { render_backbone_page }
       format.json do
-        @conversations = query :conversations_list
-        @conversations = query :users_for_conversations, @conversations
-        @conversations = query :last_message_for_conversations, @conversations
+        @conversations = query :conversations_with_users_message
         if @conversations
           render 'conversations/index'
         else
