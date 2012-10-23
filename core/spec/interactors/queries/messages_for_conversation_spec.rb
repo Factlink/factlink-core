@@ -2,12 +2,8 @@ require File.expand_path('../../../../app/interactors/queries/messages_for_conve
 require 'hashie'
 
 describe Queries::MessagesForConversation do
-  def fake_class
-    Class.new
-  end
-
   before do
-    stub_const 'Message', fake_class
+    stub_const 'Message', Class.new
   end
 
   it 'it throws when initialized without a argument' do
