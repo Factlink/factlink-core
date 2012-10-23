@@ -1,3 +1,15 @@
 <a href="{{url}}" rel="backbone">
 id: <b>{{id}}</b> fact_data_id: {{fact_data_id}} recipient_ids: {{recipient_ids}}
 </a>
+
+<div class="avatar">
+  <a href="{{ sender.link }}">
+    <img class="foo" src="{{ sender.avatar_url_48 }}" rel="bar">
+  </a>
+</div>
+
+<div class="message">
+  <a href="{{ sender.link }}">{{ sender.username }}</a>
+  <span class="meta">{{ time_ago }} ago</span>
+  <p>{{ content }}</p>
+</div>
