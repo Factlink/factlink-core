@@ -17,7 +17,7 @@ describe SearchUserInteractor do
     class User; end
     @user = User.new
     stub_const 'Topic', fake_class
-    stub_const 'CanCan::AccessDenied', Class.new(Exception)
+    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
     stub_const 'Queries::ElasticSearchUser', fake_class
     stub_const 'Fact', fake_class
     stub_const 'Ability::FactlinkWebapp', fake_class

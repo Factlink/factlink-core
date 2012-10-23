@@ -15,7 +15,7 @@ describe SearchEvidenceInteractor do
   before do
     stub_const 'Fact', fake_class
     stub_const 'FactData', fake_class
-    stub_const 'CanCan::AccessDenied', Class.new(Exception)
+    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
     stub_const 'Ability::FactlinkWebapp', fake_class
     stub_const 'Queries::ElasticSearchFactData', fake_class
   end
