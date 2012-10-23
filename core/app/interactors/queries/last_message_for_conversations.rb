@@ -16,7 +16,8 @@ module Queries
     def execute
       # TODO: improve performance by just doing one big request instead of a lot of small ones
       @conversations.each do |conversation|
-        conversation.last_message = message_hash(Message.where(conversation_id: conversation.id.to_s).last)
+        message = Message.where(conversation_id: conversation.id.to_s).last
+        conversation.last_message = message and message_hash(message)
       end
     end
 
