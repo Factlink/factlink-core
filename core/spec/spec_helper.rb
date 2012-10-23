@@ -4,7 +4,6 @@ require 'rspec/rails'
 require 'rubygems'
 require 'database_cleaner'
 
-require 'timeout'
 begin
   require 'simplecov'
   SimpleCov.start
@@ -27,12 +26,18 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
 
+  config.before do
+    #Mongoid.observers.disable :all
+  end
+
   config.before(:suite) do
+    ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
   end
 
   config.before(:each) do
+    ElasticSearch.clean
     stub_const("Logger", Class.new)
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)
@@ -41,20 +46,18 @@ RSpec.configure do |config|
 
     Ohm.flush
     DatabaseCleaner.clean
-    ElasticSearchCleaner.clean
   end
 
   config.after(:suite) do
     Ohm.flush
     DatabaseCleaner.clean
-    ElasticSearchCleaner.clean
   end
 
   config.before(:each) do
-    @zzz_starting_time = (Time.now.to_f*1000).to_i
+    @zzz_starting_time = Time.now.to_f*1000
   end
   config.after(:each) do
-    zzz_stop_time = (Time.now.to_f*1000).to_i
+    zzz_stop_time = Time.now.to_f*1000
     allowed_milli_seconds = 10000
     time_elapsed = zzz_stop_time - @zzz_starting_time
 

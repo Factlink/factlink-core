@@ -45,13 +45,11 @@ RSpec.configure do |config|
 
     Ohm.flush
     DatabaseCleaner.clean
-    ElasticSearchCleaner.clean
   end
 
   config.after(:suite) do
     Ohm.flush
     DatabaseCleaner.clean
-    ElasticSearchCleaner.clean
   end
 end
 

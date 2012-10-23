@@ -172,10 +172,7 @@ class FactsController < ApplicationController
     interactor = SearchEvidenceInteractor.new search_for, @fact.id, ability: current_ability
     results = interactor.execute
 
-    facts = results.
-      map do |result|
-        Facts::FactBubble.for(fact: result.fact, view: view_context)
-      end
+    facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
 
     render json: facts
   end

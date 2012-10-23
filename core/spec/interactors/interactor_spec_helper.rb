@@ -1,8 +1,3 @@
-begin
-  require 'simplecov'
-  SimpleCov.start
-rescue
-end
 
 def should_receive_new_with_and_receive_execute(klass, *arguments)
   klass_instance = mock()
