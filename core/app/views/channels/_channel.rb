@@ -49,7 +49,7 @@ module Channels
 
     def long_title
       if is_all
-        is_mine ? 'My Stream' : self[:user].username.possessive+ ' Stream'
+        is_mine ? 'My Stream' : "Stream of #{self[:user].username}"
       else
         title
       end
