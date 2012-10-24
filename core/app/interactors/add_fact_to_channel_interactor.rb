@@ -1,7 +1,7 @@
 class AddFactToChannelInteractor
   def initialize fact_id, channel_id, options={}
-    raise 'Fact_id should be an integer.'    unless /\A\d+\Z/.match fact_id 
-    raise 'Channel_id should be an integer.' unless /\A\d+\Z/.match channel_id  
+    raise 'Fact_id should be an integer.'    unless /\A\d+\Z/.match fact_id
+    raise 'Channel_id should be an integer.' unless /\A\d+\Z/.match channel_id
 
     @fact_id = fact_id
     @channel_id = channel_id
@@ -11,7 +11,7 @@ class AddFactToChannelInteractor
   def execute
     channel = Channel[@channel_id]
 
-    raise CanCan::AccessDenied unless @ability.can? :update, channel
+    raise Pavlov::AccessDenied unless @ability.can? :update, channel
 
     fact = Fact[@fact_id]
 

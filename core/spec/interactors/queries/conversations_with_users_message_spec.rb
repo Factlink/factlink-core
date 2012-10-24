@@ -29,22 +29,58 @@ describe Queries::ConversationsWithUsersMessage do
     end
   end
 
+  describe :all_recipients_by_ids do
+    it "should return the recipients indexed by id's" do
+      current_user = mock()
+      mocklist = [
+        mock('foo', id: 1),
+        mock('bar', id: 2)
+      ]
+      querylist = mock()
+      query = Queries::ConversationsWithUsersMessage.new(current_user: current_user)
+
+      query.should_receive(:users_for_conversations).with(querylist).and_return(mocklist)
+
+      result = query.all_recipients_by_ids(querylist)
+      expect(result).to eq({
+        mocklist[0].id => mocklist[0],
+        mocklist[1].id => mocklist[1]
+      })
+    end
+  end
+  describe :users_for_conversations do
+    it 'retrieves users user UsersByIds' do
+      current_user = mock()
+      conversations = [mock('foo', recipient_ids: [1,2]),mock('foo', recipient_ids: [2,3,4])]
+      users = mock()
+      query = Queries::ConversationsWithUsersMessage.new(current_user: current_user)
+      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1,2,3,4], current_user: current_user).
+        and_return(users)
+
+      result = query.users_for_conversations(conversations)
+
+      expect(result).to eq(users)
+    end
+  end
+
   describe ".execute" do
     it "should call the three other queries" do
+      query = Queries::ConversationsWithUsersMessage.new(current_user: user1)
+
       should_receive_new_with_and_receive_execute(Queries::ConversationsList, current_user: user1).
         and_return(conversations)
-      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1, 2], current_user: user1).
-        and_return(1 => user1, 2 => user2)
+      query.should_receive(:all_recipients_by_ids).with([conversation10, conversation20]).and_return(1 => user1, 2 => user2)
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation10, current_user: user1).
         and_return(message15)
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation20, current_user: user1).
         and_return(message25)
+
       conversation10.should_receive(:recipients=).with([user1])
       conversation10.should_receive(:last_message=).with(message15)
       conversation20.should_receive(:recipients=).with([user1, user2])
       conversation20.should_receive(:last_message=).with(message25)
 
-      result = Queries::ConversationsWithUsersMessage.execute(current_user: user1)
+      result = query.execute
     end
   end
 end

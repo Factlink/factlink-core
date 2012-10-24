@@ -24,6 +24,7 @@ module Pavlov
 end
 
 require_relative 'pavlov/helpers.rb'
+require_relative 'pavlov/access_denied.rb'
 require_relative 'pavlov/validations.rb'
 require_relative 'pavlov/operation.rb'
 require_relative 'pavlov/command.rb'

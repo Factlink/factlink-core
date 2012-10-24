@@ -10,7 +10,6 @@ describe Queries::LastMessageForConversation do
 
   before do
     stub_const "Message", Class.new
-    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
@@ -26,7 +25,7 @@ describe Queries::LastMessageForConversation do
 
     it 'throws when the conversation does not contain the current user' do
       expect { Queries::LastMessageForConversation.new mock('conversation', id: 1, recipient_ids: [14]), current_user: user}.
-        to raise_error(CanCan::AccessDenied, 'Unauthorized')
+        to raise_error(Pavlov::AccessDenied, 'Unauthorized')
     end
   end
 

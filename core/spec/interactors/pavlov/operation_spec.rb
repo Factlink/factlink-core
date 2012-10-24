@@ -1,9 +1,6 @@
 require_relative '../../../app/interactors/pavlov.rb'
 
 describe Pavlov::Operation do
-  before do
-    stub_const 'CanCan::AccessDenied', Class.new(Exception)
-  end
 
   describe '#arguments' do
     describe "creates an initializer which" do
@@ -69,7 +66,7 @@ describe Pavlov::Operation do
       dummy_class = Class.new do
         include Pavlov::Operation
       end
-      expect {dummy_class.new}.to raise_error(CanCan::AccessDenied)
+      expect {dummy_class.new}.to raise_error(Pavlov::AccessDenied)
     end
 
     it "raises no error when .authorized? returns true" do
@@ -79,7 +76,7 @@ describe Pavlov::Operation do
           true
         end
       end
-      expect {dummy_class.new}.not_to raise_error(CanCan::AccessDenied)
+      expect {dummy_class.new}.not_to raise_error(Pavlov::AccessDenied)
     end
 
     it "raises an error when .authorized? returns false" do
@@ -89,7 +86,7 @@ describe Pavlov::Operation do
           false
         end
       end
-      expect {dummy_class.new}.to raise_error(CanCan::AccessDenied)
+      expect {dummy_class.new}.to raise_error(Pavlov::AccessDenied)
     end
   end
 end

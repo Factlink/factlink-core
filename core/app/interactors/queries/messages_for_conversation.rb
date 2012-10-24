@@ -12,15 +12,8 @@ module Queries
     end
 
     def execute
-      Message.where(conversation_id: @conversation.id).map do |message|
-        Hashie::Mash.new(
-          id: message.id,
-          created_at: message.created_at,
-          updated_at: message.updated_at,
-          content: message.content,
-          sender_id: message.sender_id
-        )
-      end
+      messages = Message.where(conversation_id: @conversation.id)
+      messages.map { |message| KillObject.message message }
     end
 
     def authorized?

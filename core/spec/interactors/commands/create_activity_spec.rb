@@ -6,7 +6,6 @@ describe Commands::CreateActivity do
   let(:other_graph_user)   { mock('user',id: 1, user_id: current_user.id + 1)  }
 
   before do
-    stub_const('CanCan::AccessDenied', Class.new(StandardError))
     stub_const('Activity', Class.new)
   end
 
@@ -21,7 +20,7 @@ describe Commands::CreateActivity do
     action = :test
     activity_subject = mock()
     expect{ Commands::CreateActivity.new other_graph_user, action, activity_subject, :current_user => current_user }.
-      to raise_error(CanCan::AccessDenied, 'Unauthorized')
+      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   describe '.execute' do

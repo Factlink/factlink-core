@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     require_dependency path
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
         format.html { redirect_to new_user_session_path }
@@ -88,6 +88,16 @@ class ApplicationController < ActionController::Base
   def render_backbone_page
     render inline:'', layout: 'channels'
   end
+
+  def backbone_responder &block
+    respond_to do |format|
+      format.html { render_backbone_page }
+      format.json do
+        yield
+      end
+    end
+  end
+
 
   def lazy *args, &block
     Lazy.new(*args, &block)
