@@ -26,10 +26,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
 
-  config.before do
-    #Mongoid.observers.disable :all
-  end
-
   config.before(:suite) do
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
