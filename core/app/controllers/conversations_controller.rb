@@ -25,10 +25,10 @@ class ConversationsController < ApplicationController
       format.json do
         @conversation = query :conversation_get, params[:id]
         if @conversation
-          @messages = query :messages_for_conversation, @conversation
-          @recipients = (query :users_by_ids, @conversation.recipient_ids).values
+          @conversation.messages = query :messages_for_conversation, @conversation
+          @conversation.recipients = (query :users_by_ids, @conversation.recipient_ids).values
         end
-        if @conversation and @messages.length > 0
+        if @conversation and @conversation.messages.length > 0
           render 'conversations/show'
         else
           render json: [], status: :not_found
