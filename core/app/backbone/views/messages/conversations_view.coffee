@@ -1,5 +1,6 @@
 class window.ConversationListView extends Backbone.Marionette.CollectionView
   itemView: ConversationItemView
+  className: 'conversations'
   tagName: 'ul'
 
 class window.ConversationsView extends Backbone.Marionette.Layout
