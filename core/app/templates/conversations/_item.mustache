@@ -5,10 +5,10 @@
 <div class="message">
   <span class="user-profile-link-dummy">{{ recipients_comma }}</span>
   <span class="meta">{{ last_message.time_ago }} ago</span>
-  <p>
-  {{#reply}}
-    this is a reply...
-  {{/reply}}
-  {{ last_message.content }}
-  </p>
+  <div class="text">
+    {{#reply}}
+      <i class="icon-share-alt"></i>
+    {{/reply}}
+    {{{ html_content }}}
+  </div>
 </div>

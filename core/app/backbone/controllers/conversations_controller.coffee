@@ -7,7 +7,7 @@ class window.ConversationsController
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
-    @main.showTitle "Inbox"
+    @main.showTitle "Conversations"
 
     @conversation = new Conversations()
     @conversation.fetch
@@ -21,7 +21,7 @@ class window.ConversationsController
 
   showMessages: (conversation_id)->
     app.closeAllContentRegions()
-    
+
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 

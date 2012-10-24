@@ -10,5 +10,5 @@ class window.ConversationsView extends Backbone.Marionette.Layout
   regions:
     conversationsRegion: ".message-list"
 
-  onRender: ->
+  onShow: ->
     @conversationsRegion.show new ConversationListView(collection: @collection)
