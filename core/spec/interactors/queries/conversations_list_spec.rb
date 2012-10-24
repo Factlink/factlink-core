@@ -36,7 +36,7 @@ describe Queries::ConversationsList do
       user.should_receive(:conversations).and_return(mock_conversations)
 
       result = Queries::ConversationsList.execute(current_user: user)
-      expect(result).to eq(dead_conversations)
+      expect(result).to eq(dead_conversations.reverse)
     end
 
     it "returns an empty list when the user has conversations" do
