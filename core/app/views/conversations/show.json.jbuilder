@@ -11,7 +11,6 @@ json.messages @messages do |json,message|
   json.id message.id
   json.created_at message.created_at
   json.updated_at message.updated_at
-
   json.time_ago time_ago_in_words(Time.at(message.created_at.to_time))
 
   sender = User.find(message.sender_id)
