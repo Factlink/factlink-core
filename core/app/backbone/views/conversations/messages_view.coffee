@@ -26,7 +26,7 @@ class window.MessagesView extends Backbone.Marionette.Layout
 
   regions:
     factRegion: '.fact'
-    messagesRegion: '.message-list'
+    messagesRegion: '.messages'
 
   onRender: ->
     fact = new Fact(id: @model.get('fact_id'))
