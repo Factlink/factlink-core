@@ -6,26 +6,38 @@
 }
 
 #container #main-wrapper .content .conversation {
-  .message-list ul li {
-    .full-width();
-    padding: 15px;
-    border-bottom: 1px solid @baseBorderColor;
+  .message-list ul {
+    margin-bottom: -15px;
+    
+    li {
+      .full-width();
+      padding: 15px;
+      border-bottom: 1px solid @baseBorderColor;
 
-    &:last-child { border-bottom: 1px solid transparent; }
+      &:last-child { border-bottom: 1px solid transparent; }
 
-    .avatar {
-      float: left;
-      img { .border-radius(3px); }
-    }
+      .avatar {
+        float: left;
+        img { .border-radius(3px); }
+      }
 
-    .message {
-      padding: 0 0 0 58px;
-      margin: -4px 0 0 0;
+      .message {
+        padding: 0 0 0 58px;
+        margin: -4px 0 0 0;
 
-      a { font-weight: bold; }
-      .meta {
-        float: right;
-        color: #ccc;
+        .user-profile-link {
+          font-weight: bold;
+        }
+
+        .user-profile-link-dummy {
+          font-weight: bold;
+          color: @linkColor;
+        }
+
+        .meta {
+          float: right;
+          color: #ccc;
+        }
       }
     }
   }

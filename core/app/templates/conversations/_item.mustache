@@ -1,24 +1,14 @@
-<!-- <div class="avatar">
-  <a href="{{ sender.link }}">
-    <img class="foo" src="{{ sender.avatar_url_48 }}" rel="bar">
-  </a>
-</div>
-
-<div class="message">
-  <a href="{{ sender.link }}">{{ sender.username }}</a>
-  <span class="meta">{{ time_ago }} ago</span>
-  <p>{{ content }}</p>
-</div>
- -->
-
 <div class="avatar">
-  <a href="{{ sender.link }}">
-    <img src="http://placekitten.com/48/48">
-  </a>
+  <img class="foo" src="{{ first_recipient.avatar_url_48 }}" rel="bar">
 </div>
 
 <div class="message">
-  <a href="/{{ last_message.sender.username }}" class="user-profile-link" rel="backbone">{{ last_message.sender.username }}</a>
+  <span class="user-profile-link-dummy">{{ recipients_comma }}</span>
   <span class="meta">{{ last_message.time_ago }} ago</span>
-  <p>{{ last_message.content }}</p>
+  <p>
+  {{#reply}}
+    this is a reply...
+  {{/reply}}
+  {{ last_message.content }}
+  </p>
 </div>
