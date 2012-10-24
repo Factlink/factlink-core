@@ -102,6 +102,10 @@ def random_email
   @email_sequence.next
 end
 
+def enable_features(user, *features)
+  user.features = features
+end
+
 def wait_for_ajax
   begin
     wait_until { page.evaluate_script('jQuery.active') > 0 }
