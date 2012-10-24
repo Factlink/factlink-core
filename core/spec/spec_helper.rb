@@ -44,11 +44,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.after(:suite) do
-    Ohm.flush
-    DatabaseCleaner.clean
-  end
-
   config.before(:each) do
     @zzz_starting_time = Time.now.to_f*1000
   end
