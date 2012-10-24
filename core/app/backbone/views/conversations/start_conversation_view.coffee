@@ -2,7 +2,7 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
   events:
     "click .submit": 'submit'
 
-  template: 'messages/start_conversation'
+  template: 'conversations/start_conversation'
 
   initialize: ->
     @conversation = new Conversation

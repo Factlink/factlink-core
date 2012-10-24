@@ -4,19 +4,17 @@ class window.ConversationItemView extends Backbone.Marionette.ItemView
   template: 'conversations/item'
   events:
     'click' : 'wholeElementClick'
-    'click .user-profile-link' : 'userProfileLinkClick'
+
+  initialize: =>
+    @otherRecipients = @model.otherRecipients()
 
   templateHelpers: =>
-    url: @model.url()
+    first_recipient: @otherRecipients[0].toJSON()
+    recipients_comma: @otherRecipients.map((user) -> user.get('name')).join(', ')
+    reply: @model.get('last_message').sender.id != currentUser.id
 
   wholeElementClick: (e) ->
     url = @model.url()
     e.preventDefault()
     e.stopImmediatePropagation()
     Backbone.history.navigate url, true
-
-  userProfileLinkClick: (e) ->
-    console.info ('click"')
-    e.preventDefault()
-    e.stopImmediatePropagation()
-    Backbone.history.navigate @model.get('last_message').sender.username, true

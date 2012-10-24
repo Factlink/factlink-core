@@ -2,10 +2,12 @@ app = FactlinkApp
 
 class window.ConversationsController
   showConversations: ->
+    app.closeAllContentRegions()
+
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
-    @main.showTitle "Conversations"
+    @main.showTitle "Inbox"
 
     @conversation = new Conversations()
     @conversation.fetch
@@ -18,6 +20,8 @@ class window.ConversationsController
     )
 
   showMessages: (conversation_id)->
+    app.closeAllContentRegions()
+    
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
