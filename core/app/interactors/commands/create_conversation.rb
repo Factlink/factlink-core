@@ -14,7 +14,9 @@ module Commands
     def execute
       conversation = Conversation.new
       @recipient_usernames.each do |username|
-        conversation.recipients << User.where(username: username).first
+        user = User.where(username: username).first
+        raise 'Username does not exist' if !user
+        conversation.recipients << user
       end
 
       fact = Fact[@fact_id]

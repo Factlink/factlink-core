@@ -26,7 +26,7 @@ describe Commands::CreateConversation do
   end
 
   describe '.execute' do
-    it 'correctly' do
+    it 'should execute correctly' do
       username = 'username'
       command = Commands::CreateConversation.new fact_id, [username]
       recipients = mock('recipients')
@@ -45,6 +45,15 @@ describe Commands::CreateConversation do
       conversation.should_receive(:save)
 
       command.execute
+    end
+
+    it 'should throw when an invalid username is given' do
+      username = 'username'
+      command = Commands::CreateConversation.new(fact_id, [username])
+      Conversation.should_receive(:new).and_return(mock('conversation'))
+      User.should_receive(:where).with(username: username).and_return([])
+
+      expect {command.execute}.to raise_error(RuntimeError, 'Username does not exist')
     end
   end
 end

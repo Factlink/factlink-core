@@ -9,7 +9,7 @@ module Queries
       User.find(@options[:current_user].id).conversations.map do |conversation|
         # TODO: eliminate implicit query in next line (retrieving fact_data)
         KillObject.conversation(conversation, fact_id: conversation.fact_data.andand.fact_id)
-      end
+      end.reverse
     end
 
     def authorized?
