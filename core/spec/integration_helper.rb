@@ -103,6 +103,8 @@ def random_email
 end
 
 def enable_features(user, *features)
+  raise "FeatureNonExistent" if features.none? { |f| Ability::FEATURES.include? f.to_s }
+
   user.features = features
 end
 
