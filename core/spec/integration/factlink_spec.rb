@@ -46,7 +46,7 @@ describe "factlink", type: :request do
     end
   end
 
-  pending "message can be send" do
+  pending "message can be sent" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 

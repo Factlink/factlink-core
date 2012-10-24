@@ -26,10 +26,6 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :view
   config.include Devise::TestHelpers, type: :controller
 
-  config.before do
-    #Mongoid.observers.disable :all
-  end
-
   config.before(:suite) do
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
@@ -44,11 +40,6 @@ RSpec.configure do |config|
     stub_const("Logger::LOG", 3)
     Logger.stub(new: nil.andand)
 
-    Ohm.flush
-    DatabaseCleaner.clean
-  end
-
-  config.after(:suite) do
     Ohm.flush
     DatabaseCleaner.clean
   end
