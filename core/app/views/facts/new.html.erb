@@ -57,13 +57,39 @@
       parent.remote.hide();
     });
 
-    // Show an initial tooltip which asks the user to set an opinion
-    $('.wheel').tooltip({
-      title: "What's you opinion?",
-      trigger: "manual"
-    }).tooltip('show').on('click', function () {
-      $(this).tooltip('hide');
-    });
+    createWhatsYourOpinionTooltip();
+
+    function createWhatsYourOpinionTooltip() {
+      $('.wheel').on('click', function () {
+        hideTooltip();
+      });
+
+      $(window).on('resize', function () {
+        destroyTooltip();
+        showTooltip();
+      });
+
+      var _shouldShowTooltip = true;
+
+      function showTooltip() {
+        if ( ! _shouldShowTooltip ) return;
+
+        $('.wheel').tooltip({
+          title: "What's you opinion?",
+          trigger: "manual"
+        }).tooltip('show');
+      }
+
+      function destroyTooltip() {
+        $('.wheel').tooltip('destroy');
+      }
+
+      function hideTooltip() {
+        _shouldShowTooltip = false;
+
+        destroyTooltip();
+      }
+    }
 
   </script>
 <% end %>
