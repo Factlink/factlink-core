@@ -13,7 +13,6 @@ describe SearchInteractor do
   end
 
   before do
-    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
     stub_const 'Fact', fake_class
     stub_const 'Queries::ElasticSearchAll', fake_class
     stub_const 'FactData', fake_class
@@ -42,7 +41,7 @@ describe SearchInteractor do
       ability.stub can?: false
       interactor = SearchInteractor.new 'keywords', ability: ability
 
-      expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
+      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'returns an empty list on keyword with less than two letters.' do

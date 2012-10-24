@@ -10,7 +10,7 @@ module Pavlov
     end
 
     def raise_unauthorized
-      raise CanCan::AccessDenied, 'Unauthorized'
+      raise Pavlov::AccessDenied, 'Unauthorized'
     end
 
     def check_authority

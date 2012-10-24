@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     require_dependency path
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied, Pavlov::AccessDenied do |exception|
     respond_to do |format|
       if not current_user
         format.html { redirect_to new_user_session_path }

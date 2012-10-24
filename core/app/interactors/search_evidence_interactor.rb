@@ -11,7 +11,7 @@ class SearchEvidenceInteractor
   end
 
   def execute
-    raise CanCan::AccessDenied unless authorized?
+    raise Pavlov::AccessDenied unless authorized?
 
     if filter_keywords.length == 0
       return []

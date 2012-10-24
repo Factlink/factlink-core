@@ -11,7 +11,7 @@ class AddFactToChannelInteractor
   def execute
     channel = Channel[@channel_id]
 
-    raise CanCan::AccessDenied unless @ability.can? :update, channel
+    raise Pavlov::AccessDenied unless @ability.can? :update, channel
 
     fact = Fact[@fact_id]
 

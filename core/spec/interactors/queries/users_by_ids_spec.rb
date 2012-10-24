@@ -13,7 +13,6 @@ describe Queries::UsersByIds do
 
   before do
     stub_const "User", Class.new
-    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do

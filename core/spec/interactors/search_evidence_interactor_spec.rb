@@ -15,7 +15,6 @@ describe SearchEvidenceInteractor do
   before do
     stub_const 'Fact', fake_class
     stub_const 'FactData', fake_class
-    stub_const 'CanCan::AccessDenied', Class.new(RuntimeError)
     stub_const 'Ability::FactlinkWebapp', fake_class
     stub_const 'Queries::ElasticSearchFactData', fake_class
   end
@@ -41,7 +40,7 @@ describe SearchEvidenceInteractor do
       ability.stub can?: false
       interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
 
-      expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
+      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
     end
 
     it 'returns a empty array when the keyword string is empty' do

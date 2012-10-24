@@ -15,8 +15,6 @@ describe AddFactToChannelInteractor do
   before do
     stub_const 'Fact', fake_class
     stub_const 'Channel', fake_class
-
-    stub_const('CanCan::AccessDenied', Class.new(Exception))
   end
 
   it 'initializes' do
@@ -46,7 +44,7 @@ describe AddFactToChannelInteractor do
     ability.should_receive(:can?).and_return(false)
 
     interactor = AddFactToChannelInteractor.new '1', '1', ability: ability
-    expect { interactor.execute }.to raise_error(CanCan::AccessDenied)
+    expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
   end
 
   describe '.execute' do
