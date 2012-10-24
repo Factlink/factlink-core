@@ -9,7 +9,7 @@ module Queries
     arguments :id
 
     def validate
-      raise 'id should be an hexadecimal string.' unless /\A[\da-fA-F]+\Z/.match @id.to_s
+      validate_hexadecimal_string :id, @id.to_s
     end
 
     def execute
