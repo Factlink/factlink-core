@@ -7,11 +7,8 @@ module Queries
 
     def execute
       User.find(@options[:current_user].id).conversations.map do |conversation|
-        Hashie::Mash.new({
-          id: conversation.id,
-          fact_data_id: conversation.fact_data_id,
-          recipient_ids: conversation.recipient_ids
-        })
+        # TODO: eliminate implicit query in next line (retrieving fact_data)
+        KillObject.conversation(conversation, fact_id: conversation.fact_data.andand.fact_id)
       end
     end
 
