@@ -11,7 +11,8 @@ class window.ConversationItemView extends Backbone.Marionette.ItemView
   templateHelpers: =>
     first_recipient: @otherRecipients[0].toJSON()
     recipients_comma: @otherRecipients.map((user) -> user.get('name')).join(', ')
-    reply: @model.get('last_message').sender.id != currentUser.id
+    reply: @model.get('last_message')? and
+           @model.get('last_message').sender.id != currentUser.id
 
   wholeElementClick: (e) ->
     url = @model.url()
