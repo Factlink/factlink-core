@@ -45,6 +45,7 @@ RSpec.configure do |config|
     ElasticSearch.clean
     Ohm.flush
     DatabaseCleaner.clean
+    FactoryGirl.reload
   end
 end
 
