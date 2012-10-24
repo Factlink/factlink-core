@@ -31,7 +31,7 @@ RSpec.configure do |config|
     # Use the headless gem to manage your Xvfb server
     # So not destroy X server in case
     Headless.new(destroy_on_exit: false).start
-
+    ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
   end
@@ -42,7 +42,7 @@ RSpec.configure do |config|
     stub_const("Logger::INFO", 2)
     stub_const("Logger::LOG", 3)
     Logger.stub(new: nil.andand)
-
+    ElasticSearch.clean
     Ohm.flush
     DatabaseCleaner.clean
   end

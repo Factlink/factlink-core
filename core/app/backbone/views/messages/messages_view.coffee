@@ -1,3 +1,5 @@
+nlToBr = (str)-> str.replace(/\n/g, '<br />');
+
 class OneMessageView extends Backbone.Marionette.Layout
   tagName: 'li'
   className: 'clearfix'
@@ -5,6 +7,7 @@ class OneMessageView extends Backbone.Marionette.Layout
 
   templateHelpers: =>
     sender: @model.sender().toJSON()
+    html_content: nlToBr(htmlEscape(@model.get('content')))
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'

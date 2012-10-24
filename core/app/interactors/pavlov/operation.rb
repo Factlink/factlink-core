@@ -4,6 +4,7 @@ module Pavlov
   module Operation
     extend ActiveSupport::Concern
     include Pavlov::Helpers
+    include Pavlov::Validations
     def pavlov_options
       @options
     end

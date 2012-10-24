@@ -9,7 +9,7 @@ module Queries
     arguments :id
 
     def validate
-      raise 'id should be an hexadecimal string.' unless /\A[\da-fA-F]+\Z/.match @id.to_s
+      validate_hexadecimal_string :id, @id.to_s
     end
 
     def execute
@@ -17,14 +17,9 @@ module Queries
       return nil unless conversation
       raise_unauthorized unless authorized_to_get(conversation)
 
-      fact_data_id = conversation.fact_data.andand.id
-      fact_id = conversation.fact_data.andand.fact_id
-      Hashie::Mash.new({
-        id: conversation.id,
-        fact_data_id: fact_data_id,
-        fact_id: fact_id,
-        recipient_ids: conversation.recipient_ids
-      })
+      KillObject.conversation(conversation,
+        fact_id: conversation.fact_data.andand.fact_id
+      )
     end
 
     def authorized?
