@@ -1,5 +1,5 @@
 require_relative '../pavlov'
-require 'hashie'
+require_relative '../kill_object'
 
 module Queries
   class UsersByIds
@@ -13,7 +13,7 @@ module Queries
 
     def execute
       recipients = User.any_in(_id: @ids)
-      recipients.each_with_object({}) {|u, hash| hash[u.id] = KillObject.user u}
+      recipients.map{|u| KillObject.user u}
     end
 
     def authorized?

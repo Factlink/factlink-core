@@ -24,13 +24,13 @@ describe Queries::UsersByIds do
     it "should work with an empty list of ids" do
       User.should_receive(:any_in).with(_id: []).and_return([])
       result = Queries::UsersByIds.execute([], current_user: mock_user1)
-      expect(result).to eq({})
+      expect(result).to eq([])
     end
 
     it "should work with multiple ids" do
       User.should_receive(:any_in).with(_id: [1, 2, 3]).and_return([mock_user1, mock_user2, mock_user3])
       result = Queries::UsersByIds.execute([1, 2, 3], current_user: mock_user1)
-      expect(result).to eq({1 => mash_user1, 2 => mash_user2, 3 => mash_user3})
+      expect(result).to eq([mash_user1, mash_user2, mash_user3])
     end
   end
 end

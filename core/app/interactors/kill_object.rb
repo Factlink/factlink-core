@@ -1,3 +1,5 @@
+require 'hashie'
+
 module KillObject
   def self.dead_object(name, fields)
     self.class.send(:define_method, name) do |*args|

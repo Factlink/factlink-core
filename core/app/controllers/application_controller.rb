@@ -89,6 +89,16 @@ class ApplicationController < ActionController::Base
     render inline:'', layout: 'channels'
   end
 
+  def backbone_responder &block
+    respond_to do |format|
+      format.html { render_backbone_page }
+      format.json do
+        yield
+      end
+    end
+  end
+
+
   def lazy *args, &block
     Lazy.new(*args, &block)
   end

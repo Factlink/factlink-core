@@ -6,34 +6,20 @@ class ConversationsController < ApplicationController
   end
 
   def index
-    respond_to do |format|
-      format.html { render_backbone_page }
-      format.json do
-        @conversations = query :conversations_with_users_message
-        if @conversations
-          render 'conversations/index'
-        else
-          render json: [], status: :not_found
-        end
-      end
+    backbone_responder do
+      @conversations = query :conversations_with_users_message
+      raise_404 if not @conversations
+
+      render 'conversations/index'
     end
   end
 
   def show
-    respond_to do |format|
-      format.html { render_backbone_page }
-      format.json do
-        @conversation = query :conversation_get, params[:id]
-        if @conversation
-          @conversation.messages = query :messages_for_conversation, @conversation
-          @conversation.recipients = (query :users_by_ids, @conversation.recipient_ids).values
-        end
-        if @conversation and @conversation.messages.length > 0
-          render 'conversations/show'
-        else
-          render json: [], status: :not_found
-        end
-      end
+    backbone_responder do
+      @conversation = query :conversation_with_recipients_and_messages, params[:id]
+      raise_404 if not @conversation
+
+      render 'conversations/show'
     end
   end
 
