@@ -18,7 +18,6 @@ module Queries
       raise_unauthorized unless authorized_to_get(conversation)
 
       KillObject.conversation(conversation,
-        fact_data_id: conversation.fact_data.andand.id,
         fact_id: conversation.fact_data.andand.fact_id
       )
     end
