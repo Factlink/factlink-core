@@ -46,11 +46,6 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
   end
-
-  config.after(:suite) do
-    Ohm.flush
-    DatabaseCleaner.clean
-  end
 end
 
 Devise.setup do |config|
