@@ -45,6 +45,7 @@ RSpec.configure do |config|
     ElasticSearch.clean
     Ohm.flush
     DatabaseCleaner.clean
+    FactoryGirl.reload
   end
 end
 
@@ -100,6 +101,12 @@ def random_email
   end
 
   @email_sequence.next
+end
+
+def enable_features(user, *features)
+  raise "FeatureNonExistent" if features.none? { |f| Ability::FEATURES.include? f.to_s }
+
+  user.features = features
 end
 
 def wait_for_ajax
