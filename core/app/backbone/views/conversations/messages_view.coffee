@@ -3,7 +3,7 @@ nlToBr = (str)-> str.replace(/\n/g, '<br />');
 class OneMessageView extends Backbone.Marionette.ItemView
   tagName: 'li'
   className: 'clearfix'
-  template: 'messages/message'
+  template: 'conversations/message'
 
   initialize: ->
     @sender = @model.sender()

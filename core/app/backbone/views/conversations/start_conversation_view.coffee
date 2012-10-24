@@ -1,8 +1,9 @@
 class window.StartConversationView extends Backbone.Marionette.ItemView
+  className: "start-conversation-form"
   events:
     "click .submit": 'submit'
 
-  template: 'messages/start_conversation'
+  template: 'conversations/start_conversation'
 
   initialize: ->
     @conversation = new Conversation
@@ -20,12 +21,16 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
         @conversation = new Conversation
         @showAlert 'success'
         @enableSubmit()
+        @clearForm()
+
       error: =>
         @showAlert 'error'
         @enableSubmit()
 
   enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
   disableSubmit: -> @$('.submit').prop('disabled',true ).val('Sending')
+  clearForm:     -> @$('.recipients, .message-textarea').val('')
+
   showAlert: (type) ->
     @$('.alert').addClass 'hide'
     @$('.alert-' + type).removeClass 'hide' if type?
