@@ -1,5 +1,5 @@
 <div class="avatar">
-  <a href="{{ sender.link }}">
+  <a href="{{ sender.link }}" rel="backbone">
     <img class="foo" src="{{ sender.avatar_url_48 }}" rel="bar">
   </a>
 </div>
@@ -7,5 +7,5 @@
 <div class="message">
   <a href="{{ sender.link }}" class="user-profile-link" rel="backbone">{{ sender.name }}</a>
   <span class="meta">{{ time_ago }} ago</span>
-  <p>{{{ html_content }}}</p>
+  <div class="text">{{{ html_content }}}</div>
 </div>
