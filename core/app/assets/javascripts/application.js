@@ -5,7 +5,6 @@
 //= require hogan
 //= require andlog
 //= require trunk8
-//= require twipsy
 //= require twitter/bootstrap
 
 //= require globals/globals
