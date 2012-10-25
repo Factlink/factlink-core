@@ -15,6 +15,7 @@ class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   itemView: OneMessageView
   itemViewContainer: 'ul'
+
   itemViewOptions: ->
     user_collection: @options.user_collection
 
