@@ -106,6 +106,7 @@ FactlinkUI::Application.routes.draw do
   end
 
   resources :conversations, only: [:index, :show, :create], path: 'c'
+  resources :messages, only: [:create], path: 'm'
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"
