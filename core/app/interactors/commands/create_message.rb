@@ -13,6 +13,7 @@ module Commands
     end
 
     def execute
+      @conversation.save
       message = Message.create
       message.sender = User.find(@sender_id)
       message.content = @content

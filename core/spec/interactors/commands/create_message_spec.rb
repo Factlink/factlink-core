@@ -45,6 +45,7 @@ describe Commands::CreateMessage do
       User.should_receive(:find).with(14).and_return([sender])
 
       command = Commands::CreateMessage.new sender.id, content, conversation, current_user: sender
+      conversation.should_receive(:save)
       message = double("message", {:sender= => nil, :content= => nil, :conversation_id= => nil})
       Message.should_receive(:create).and_return(message)
       message.should_receive(:save)

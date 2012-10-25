@@ -32,16 +32,21 @@ describe Queries::ConversationsList do
         Hashie::Mash.new(conversation2.merge(fact_id: fact_data2.fact_id))
       ]
 
+      criteria = mock(:criteria)
+
       User.should_receive(:find).with(user.id).and_return(user)
-      user.should_receive(:conversations).and_return(mock_conversations)
+      user.should_receive(:conversations).and_return(criteria)
+      criteria.should_receive(:desc).and_return(mock_conversations)
 
       result = Queries::ConversationsList.execute(current_user: user)
-      expect(result).to eq(dead_conversations.reverse)
+      expect(result).to eq(dead_conversations)
     end
 
     it "returns an empty list when the user has conversations" do
+      criteria = mock(:criteria)
       User.should_receive(:find).with(user.id).and_return(user)
-      user.should_receive(:conversations).and_return([])
+      user.should_receive(:conversations).and_return(criteria)
+      criteria.should_receive(:desc).and_return([])
 
       result = Queries::ConversationsList.execute(current_user: user)
       expect(result).to eq([])
