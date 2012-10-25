@@ -35,7 +35,7 @@ class window.ConversationsController
         title_view = new ConversationTitleView( model: model )
         title_view.on 'showConversations', =>
           @showConversations false
-          Backbone.history.navigate '/m', false
+          Backbone.history.navigate '/c', false
 
         @main.titleRegion.show( title_view )
 
