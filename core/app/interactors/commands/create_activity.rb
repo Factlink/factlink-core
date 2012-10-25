@@ -7,7 +7,7 @@ module Commands
     arguments :graph_user, :action, :subject
 
     def execute
-      Activity.create(user: @graph_user,action: @action, subject: @subject, object: nil)
+      Activity.create(user: @graph_user, action: @action, subject: @subject, object: nil)
     end
 
     def authorized?

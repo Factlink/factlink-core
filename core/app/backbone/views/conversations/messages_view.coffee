@@ -25,9 +25,11 @@ class window.MessagesView extends Backbone.Marionette.Layout
   regions:
     factRegion: '.fact'
     messagesRegion: '.messages'
+    replyRegion: '.reply'
 
-  onRender: ->
+  onShow: ->
     fact = new Fact(id: @model.get('fact_id'))
     fact.fetch
       success: => @factRegion.show new FactView(model: fact)
     @messagesRegion.show new MessageListView(collection: @collection, user_collection: @model.recipients())
+    @replyRegion.show new ConversationReplyView(model: @model)
