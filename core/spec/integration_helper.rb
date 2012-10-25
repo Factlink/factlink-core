@@ -87,6 +87,12 @@ def sign_in_user(user)
   user
 end
 
+def sign_out_user(user)
+  visit "/users/sign_out"
+
+  user
+end
+
 def random_username
   @username_sequence ||= FactoryGirl::Sequence.new :username do |n|
     "janedoe#{n}"
