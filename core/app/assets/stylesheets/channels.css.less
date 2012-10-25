@@ -5,36 +5,44 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-.empty_stream {
+#channel {
+	.button-wrap { margin-top: 4px; }
+	// .fact-block:first-child { border-top: 1px solid transparent; }
 
-	margin-top: 24px;
+	.empty_stream {
+		margin-top: 24px;
 
-	ul {
-		border: 1px solid #e1e1e1;
-		.border-radius(5px);
-		width: 300px;
-		margin: 0 auto 20px;
-		.box-shadow(0px 1px 2px rgba(0, 0, 0, 0.07));
+		ul {
+			border: 1px solid #e1e1e1;
+			.border-radius(5px);
+			width: 300px;
+			margin: 0 auto 20px;
+			.box-shadow(0px 1px 2px rgba(0, 0, 0, 0.07));
 
-		> li {
-			border-top: 1px solid #e1e1e1;
-			text-align: left;
-			position: relative;
-			padding: 7px 5px;
+			> li {
+				border-top: 1px solid #e1e1e1;
+				text-align: left;
+				position: relative;
+				padding: 7px 5px;
 
-			&:nth-child(1), &:nth-child(2) {
-				border-top: 1px solid transparent;
-			}
+				&:nth-child(1), &:nth-child(2) {
+					border-top: 1px solid transparent;
+				}
 
-			> h5 {
-				font-size: @baseFontSize;
-			}
+				> h5 {
+					font-size: @baseFontSize;
+				}
 
-			a {
-				position: absolute;
-				right: 5px;
-				top: 5px;
+				a {
+					position: absolute;
+					right: 5px;
+					top: 5px;
+				}
 			}
 		}
 	}
 }
+
+
+
+

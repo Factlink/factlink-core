@@ -33,12 +33,16 @@ class window.ConversationsController
         @renderMessages(model)
 
         title_view = new ConversationTitleView( model: model )
+        title_view.on 'showConversations', =>
+          @showConversations false
+          Backbone.history.navigate '/m', false
+
         @main.titleRegion.show( title_view )
 
   renderMessages: (conversation) ->
     messages = new Messages(conversation.get('messages'))
     conversationView =  new MessagesView
-        model: conversation
-        collection: messages
+      model: conversation
+      collection: messages
 
     @main.contentRegion.show conversationView

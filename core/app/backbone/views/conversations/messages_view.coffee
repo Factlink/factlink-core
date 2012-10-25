@@ -15,6 +15,7 @@ class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   itemView: OneMessageView
   itemViewContainer: 'ul'
+
   itemViewOptions: ->
     user_collection: @options.user_collection
 
@@ -23,7 +24,7 @@ class window.MessagesView extends Backbone.Marionette.Layout
   template: 'conversations/conversation'
 
   regions:
-    factRegion: '.fact'
+    factRegion: '.fact-wrapper'
     messagesRegion: '.messages'
     replyRegion: '.reply'
 

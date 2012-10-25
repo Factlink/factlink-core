@@ -389,14 +389,11 @@ body.factlink-site .fact-block {
 
       .border-radius(@borderRadius @borderRadius 0 0);
       margin: -15px -15px -1px -15px;
-      padding: 10px 16px 6px 19px;
+      padding-left: 20px;
       border-bottom: 1px solid #d8d8d8;
       position: relative;
 
       min-height: 40px;
-      .titleRegion {
-        padding: 8px 0 6px 0 ;
-      }
       h1 {
         .ellipsis();
         font-weight: normal;
@@ -419,6 +416,7 @@ body.factlink-site .fact-block {
 
       .tabs {
         float: right;
+        z-index: 10;
         ul {
           list-style: none;
           li {
@@ -467,7 +465,8 @@ body.factlink-site .fact-block {
         }
       }
       #contained-channels {
-        margin-bottom: 8px;
+
+        // margin-bottom: 8px;
         .overflow {
           display: none;
         }
