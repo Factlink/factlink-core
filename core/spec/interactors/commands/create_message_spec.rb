@@ -8,13 +8,12 @@ describe Commands::CreateMessage do
   end
 
   it 'initialize throws error on empty message' do
-    user = stub(id: '1fe')
-    results = stub(first: user)
-    User.stub(where: results)
+    user = stub(id: 14)
+    User.stub(find: user)
 
-    conversation = stub(repicient_ids: ['1fe'])
+    conversation = stub(repicient_ids: [14])
 
-    expect { Commands::CreateMessage.new conversation, '', '1fe' }.
+    expect { Commands::CreateMessage.new 14, '', conversation }.
       to raise_error(RuntimeError, 'Message cannot be empty.')
   end
 
@@ -26,29 +25,27 @@ describe Commands::CreateMessage do
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    user = stub(id: '1fe')
-    results = stub(first: user)
-    User.stub(where: results)
+    user = stub(id: 14)
+    User.stub(find: user)
 
-    conversation = stub(id: 'g6', repicient_ids: ['1fe'])
+    conversation = stub(id: 'g6', repicient_ids: [14])
 
-    expect { Commands::CreateMessage.new 'frans','bla',conversation}.
+    expect { Commands::CreateMessage.new 14,'bla',conversation}.
       to raise_error(RuntimeError, 'conversation_id should be an hexadecimal string.')
   end
 
   describe '.execute' do
-
     it 'creates and saves a message' do
       content = 'bla'
 
       conversation = stub(id: '1', recipient_ids: [14])
 
-      sender = stub(username: 'bla', id: 14)
+      sender = stub(id: 14)
 
-      User.should_receive(:where).any_number_of_times.with(username: 'bla').and_return([sender])
+      User.should_receive(:find).with(14).and_return([sender])
 
-      command = Commands::CreateMessage.new sender.username, content, conversation, current_user: sender
-      message = double("message", {:sender= => nil,:content= => nil,:conversation_id= => nil})
+      command = Commands::CreateMessage.new sender.id, content, conversation, current_user: sender
+      message = double("message", {:sender= => nil, :content= => nil, :conversation_id= => nil})
       Message.should_receive(:create).and_return(message)
       message.should_receive(:save)
 

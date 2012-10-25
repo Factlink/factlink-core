@@ -3,13 +3,18 @@ require_relative 'pavlov'
 class CreateConversationWithMessageInteractor
   include Pavlov::Interactor
 
+  # TODO: use sender_id instead of username
   arguments :fact_id, :recipient_usernames, :sender_username, :content
 
   def execute
-    c = command :create_conversation, @fact_id, @recipient_usernames
-    command :create_message, @sender_username, @content, c
+    sender = User.where(username: @sender_username).first
+    raise 'Username does not exist' if !sender
+    puts sender.inspect
 
-    command :create_activity, User.where(username: @sender_username).first.graph_user, :created_conversation, c
+    c = command :create_conversation, @fact_id, @recipient_usernames
+    command :create_message, sender.id, @content, c
+
+    command :create_activity, sender.graph_user, :created_conversation, c
   end
   def authorized?
     #relay authorization to commands, only require a user to check

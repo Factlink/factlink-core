@@ -11,24 +11,33 @@ describe CreateConversationWithMessageInteractor do
   end
 
   describe '.execute' do
+    it 'throws an error when an invalid sender username is given' do
+      username = 'sinterklaas'
+
+      User.should_receive(:where).with(username: username).and_return(nil)
+
+      expect {CreateConversationWithMessageInteractor.perform 10, [], username, 'verhaal', current_user: mock()}.
+        to raise_error(RuntimeError, 'Username does not exist')
+    end
+
     it 'correctly' do
-      graph_user = mock();
-      sender = mock( :user, username: 'jan', graph_user: graph_user)
-      receiver = mock( :user, username: 'frank')
-      content = 'geert'
-      usernames = [sender.username, receiver.username]
+      graph_user   = mock();
+      sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
+      receiver     = mock(:user, username: 'frank')
+      content      = 'verhaal'
+      usernames    = [sender.username, receiver.username]
       conversation = mock()
       fact_id = 10
 
-      should_receive_new_with_and_receive_execute(
-        Commands::CreateConversation, fact_id, usernames,current_user: sender).and_return(conversation)
-      should_receive_new_with_and_receive_execute(
-        Commands::CreateMessage, sender.username, content, conversation, current_user: sender)
       User.should_receive(:where).with(username: sender.username).and_return([sender])
+      should_receive_new_with_and_receive_execute(
+        Commands::CreateConversation, fact_id, usernames, current_user: sender).and_return(conversation)
+      should_receive_new_with_and_receive_execute(
+        Commands::CreateMessage, sender.id, content, conversation, current_user: sender)
       should_receive_new_with_and_receive_execute(
         Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
 
-      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.username, content, current_user:sender
+      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.username, content, current_user: sender
     end
   end
 end
