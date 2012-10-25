@@ -1,5 +1,3 @@
-nlToBr = (str)-> str.replace(/\n/g, '<br />');
-
 class window.ConversationItemView extends Backbone.Marionette.ItemView
   tagName: 'li'
   className: 'clearfix'
