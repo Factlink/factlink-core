@@ -14,7 +14,7 @@ describe CreateConversationWithMessageInteractor do
     it 'throws an error when an invalid sender username is given' do
       username = 'sinterklaas'
 
-      User.should_receive(:where).with(username: username).and_return(nil)
+      User.should_receive(:where).with(username: username).and_return([])
 
       expect {CreateConversationWithMessageInteractor.perform 10, [], username, 'verhaal', current_user: mock()}.
         to raise_error(RuntimeError, 'Username does not exist')
