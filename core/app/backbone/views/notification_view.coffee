@@ -10,7 +10,7 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopImmediatePropagation()
       @trigger 'activityActivated'
-      Backbone.history.navigate url, true
+      Backbone.history.navigate_with_fallback url, true
 
   onRender: ->
     @$el.addClass "unread"  if @model.get("unread") is true

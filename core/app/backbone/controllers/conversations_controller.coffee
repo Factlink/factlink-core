@@ -15,8 +15,7 @@ class window.ConversationsController
 
     @main.showTitle "Conversations"
     @main.contentRegion.show(
-      new ConversationsView
-        collection: @conversations
+      new ConversationsView collection: @conversations, loading: true
     )
 
     @conversations.fetch()
