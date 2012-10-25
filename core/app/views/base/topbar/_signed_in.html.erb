@@ -19,7 +19,7 @@
 
     <% if can_haz :messaging %>
       <li>
-        <%= link_to("#{image_tag('conversations/conversations.png')}".html_safe, conversations_path, class: 'potential-backbone', id: "conversations-link") %>
+        <%= link_to(image_tag('conversations.png'), conversations_path, class: 'potential-backbone', id: "conversations-link") %>
       </li>
 
       <li class="divider-vertical"></li>

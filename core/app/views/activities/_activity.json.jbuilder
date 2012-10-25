@@ -12,7 +12,7 @@ json.subject_class subject.class.to_s
 size = 24
 
 json.user_profile_url user_profile_path(user)
-json.avatar image_tag(user.avatar_url(size: size), width: size, height: size)
+json.avatar image_tag(user.avatar_url(size: size), width: size, height: size, alt:'')
 
 json.action action
 json.translated_action t("fact_#{action.to_sym}_action".to_sym)
