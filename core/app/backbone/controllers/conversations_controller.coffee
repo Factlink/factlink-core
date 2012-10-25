@@ -15,7 +15,7 @@ class window.ConversationsController
 
   renderConversations: (conversations) ->
     @main.contentRegion.show(
-      new ConversationsView
+      new ConversationListView
         collection: conversations
     )
 
