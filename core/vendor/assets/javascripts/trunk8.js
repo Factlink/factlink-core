@@ -1,3 +1,13 @@
+/**!
+ * trunk8 v1.3.1
+ * https://github.com/rviscomi/trunk8
+ * 
+ * Copyright 2012 Rick Viscomi
+ * Released under the MIT License.
+ * 
+ * Date: September 26, 2012
+ */
+
 (function ($) {
 	var methods,
 		utils,
@@ -11,27 +21,32 @@
 		},
 		WIDTH = {
 			auto: 'auto'
-		},
-		settings = {
-			fill: '&hellip;',
-			lines: 1,
-			side: SIDES.right,
-			tooltip: true,
-			width: WIDTH.auto
 		};
+	
+	function trunk8(element) {
+		this.$element = $(element);
+		this.original_text = this.$element.html();
+		this.settings = $.extend({}, $.fn.trunk8.defaults);
+	}
+	
+	trunk8.prototype.updateSettings = function (options) {
+		this.settings = $.extend(this.settings, options);
+	};
 
 	function truncate() {
-		var width = settings.width,
+		var data = this.data('trunk8'),
+			settings = data.settings,
+			width = settings.width,
 			side = settings.side,
 			fill = settings.fill,
-			line_height = parseInt(this.css('line-height')) * settings.lines,
-			str = this.attr('title') || this.text(),
+			line_height = utils.getLineHeight(this) * settings.lines,
+			str = data.original_text,
 			length = str.length,
-			i = 1,
 			max_bite = '',
+			lower, upper,
 			bite_size,
 			bite;
-
+		
 		/* Reset the field to the original string. */
 		this.html(str);
 
@@ -44,41 +59,45 @@
 
 			/* Binary search technique for finding the optimal trunkage. */
 			/* Find the maximum bite without overflowing. */
-			bite_size = length >> i; // Halve the length.
+			lower = 0;
+			upper = length - 1;
 
-			do {
-				bite = utils.eatStr(str, side, bite_size, fill);
-
+			while (lower <= upper) {
+				bite_size = lower + ((upper - lower) >> 1);
+				
+				bite = utils.eatStr(str, side, length - bite_size, fill);
+				
 				this.html(bite);
 
-				i++;
-
+				/* Check for overflow. */
 				if (this.height() > line_height) {
-					bite_size += length >> i; // Length divided by 2**i
+					upper = bite_size - 1;
 				}
 				else {
-					bite_size -= length >> i; // Length divided by 2**i
+					lower = bite_size + 1;
 
 					/* Save the bigger bite. */
 					max_bite = (max_bite.length > bite.length) ? max_bite : bite;
 				}
 			}
-			while (length >> i > 0);
 
+			/* Reset the content to eliminate possible existing scroll bars. */
+			this.html('');
+			
 			/* Display the biggest bite. */
 			this.html(max_bite);
-
+			
 			if (settings.tooltip) {
 				this.attr('title', str);
 			}
 		}
 		else if (!isNaN(width)) {
-			bite_size = width;
+			bite_size = length - width;
 
 			bite = utils.eatStr(str, side, bite_size, fill);
 
 			this.html(bite);
-
+			
 			if (settings.tooltip) {
 				this.attr('title', str);
 			}
@@ -90,29 +109,48 @@
 
 	methods = {
 		init: function (options) {
-			settings = $.extend(settings, options);
-
 			return this.each(function () {
-				truncate.call($(this));
+				var $this = $(this),
+					data = $this.data('trunk8');
+				
+				if (!data) {
+					$this.data('trunk8', (data = new trunk8(this)));
+				}
+				
+				data.updateSettings(options);
+				
+				truncate.call($this);
 			});
 		},
 
 		/** Updates the text value of the elements while maintaining truncation. */
-		update: function (text) {
+		update: function (new_string) {
 			return this.each(function () {
+				var $this = $(this);
+				
 				/* Update text. */
-				if (text) {
-					this.text(text);
+				if (new_string) {
+					$this.data('trunk8').original_text = new_string;
 				}
 
 				/* Truncate accordingly. */
-				truncate.call($(this));
+				truncate.call($this);
+			});
+		},
+		
+		revert: function () {
+			return this.each(function () {
+				/* Get original text. */
+				var text = $(this).data('trunk8').original_text;
+				
+				/* Revert element to original text. */
+				$(this).html(text);
 			});
 		},
 
 		/** Returns this instance's settings object. NOT CHAINABLE. */
 		getSettings: function () {
-			return settings;
+			return this.get(0).data('trunk8').settings;
 		}
 	};
 
@@ -128,7 +166,7 @@
 	        if (utils.eatStr.cache[key]) {
 				return utils.eatStr.cache[key];
 	        }
-
+	        
 			/* Common error handling. */
 		    if ((typeof str !== 'string') || (length === 0)) {
 		    	$.error('Invalid source string "' + str + '".');
@@ -150,12 +188,12 @@
 			        /* str... */
 		            return utils.eatStr.cache[key] =
 			            	$.trim(str.substr(0, length - bite_size)) + fill;
-
+		            
 		        case SIDES.left:
 			        /* ...str */
 		            return utils.eatStr.cache[key] =
 			            	fill + $.trim(str.substr(bite_size));
-
+		            
 		        case SIDES.center:
 			        /* Bit-shift to the right by one === Math.floor(x / 2) */
 		            half_length = length >> 1; // halve the length
@@ -166,18 +204,44 @@
 			            	$.trim(utils.eatStr(str.substr(0, length - half_length), SIDES.right, bite_size - half_bite_size, '')) +
 		            		fill +
 		            		$.trim(utils.eatStr(str.substr(length - half_length), SIDES.left, half_bite_size, ''));
-
+		            
 		        default:
 		        	$.error('Invalid side "' + side + '".');
 		    }
-		}
+		},
+		
+		getLineHeight: function (elem) {
+	            var float = $(elem).css('float');
+	            if (float !== 'none') {
+	                $(elem).css('float', 'none');
+	            }
+	            var pos = $(elem).css('position');
+	            if (pos === 'absolute') {
+	                $(elem).css('position', 'static');
+	            }
+	
+	            var html = $(elem).html(),
+		        wrapper_id = 'line-height-test',
+		        line_height;
+	
+	            /* Set the content to a small single character and wrap. */
+	            $(elem).html('i').wrap('<div id="' + wrapper_id + '" />');
+	
+	            /* Calculate the line height by measuring the wrapper.*/
+	            line_height = $('#' + wrapper_id).innerHeight();
+	
+	            /* Remove the wrapper and reset the content. */
+	            $(elem).html(html).css({ 'float': float, 'position': pos }).unwrap();
+	
+	            return line_height;
+	        }
 	};
 
 	utils.eatStr.cache = {};
 	utils.eatStr.generateKey = function () {
 		return Array.prototype.join.call(arguments, '');
 	};
-
+	
 	$.fn.trunk8 = function (method) {
 		if (methods[method]) {
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -188,5 +252,14 @@
 		else {
 			$.error('Method ' + method + ' does not exist on jQuery.trunk8');
 		}
+	};
+	
+	/* Default trunk8 settings. */
+	$.fn.trunk8.defaults = {
+		fill: '&hellip;',
+		lines: 1,
+		side: SIDES.right,
+		tooltip: true,
+		width: WIDTH.auto
 	};
 })(jQuery);

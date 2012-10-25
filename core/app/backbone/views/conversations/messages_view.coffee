@@ -1,5 +1,3 @@
-nlToBr = (str)-> str.replace(/\n/g, '<br />');
-
 class OneMessageView extends Backbone.Marionette.ItemView
   tagName: 'li'
   className: 'clearfix'
