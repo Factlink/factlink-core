@@ -12,8 +12,7 @@ class window.ConversationItemView extends Backbone.Marionette.ItemView
 
     first_recipient: @otherRecipients[0].toJSON()
     recipients_comma: @otherRecipients.map((user) -> user.get('name')).join(', ')
-    reply: last_message and @model.get('last_message').sender.id != currentUser.id
-    html_content: last_message and nlToBr(htmlEscape(last_message.content))
+    reply: last_message and last_message.sender.id == currentUser.id
 
   onShow: ->
     @$('.text').trunk8 lines: 2
