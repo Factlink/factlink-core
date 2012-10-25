@@ -1,5 +1,5 @@
 class window.Conversation extends Backbone.Model
-  urlRoot: '/m'
+  urlRoot: '/c'
   recipients: => new Users(@get('recipients'))
   otherRecipients: =>
     recipients = @recipients()
