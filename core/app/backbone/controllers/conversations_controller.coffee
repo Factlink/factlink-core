@@ -15,7 +15,7 @@ class window.ConversationsController
 
     @main.showTitle "Conversations"
     @main.contentRegion.show(
-      new ConversationListView
+      new ConversationsView
         collection: @conversations
     )
 
