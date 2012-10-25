@@ -19,6 +19,9 @@ class MessageListView extends Backbone.Marionette.CollectionView
   itemViewOptions: ->
     user_collection: @options.user_collection
 
+class NoFactView extends Backbone.Marionette.ItemView
+  template: "conversations/no_fact"
+
 class window.MessagesView extends Backbone.Marionette.Layout
   className: 'conversation'
   template: 'conversations/conversation'
@@ -34,14 +37,21 @@ class window.MessagesView extends Backbone.Marionette.Layout
     @replyView = new ConversationReplyView(model: @model)
     @replyView.on('submit', => @reloadMessages())
 
-  onShow: ->
-    fact = new Fact(id: @model.get('fact_id'))
-    fact.fetch
-      success: => @factRegion.show new FactView(model: fact)
-    @messagesRegion.show new MessageListView(collection: @collection, user_collection: @model.recipients())
-    @replyRegion.show @replyView
-
   reloadMessages: ->
     @model.fetch
       success: (model, response) =>
         @collection.reset(@model.get('messages'))
+
+  onRender: ->
+    @showFact()
+    @messagesRegion.show new MessageListView(collection: @collection, user_collection: @model.recipients())
+    @replyRegion.show @replyView
+
+  showFact: ->
+    error = => @factRegion.show new NoFactView
+    success = => @factRegion.show new FactView(model: fact)
+    if fact_id = @model.get('fact_id')
+      fact = new Fact(id: fact_id)
+      fact.fetch success: success, error: error
+    else
+      error()
