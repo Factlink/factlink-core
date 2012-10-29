@@ -471,4 +471,16 @@ describe Channel do
 
   end
 
+  describe "valid_for_activity" do
+    it "is false for a channel without facts" do
+      ch = create :channel
+      expect(ch.valid_for_activity?).to be_false
+    end
+    it "is false for a channel without facts" do
+      ch = create :channel
+      ch.add_fact(create :fact)
+      expect(ch.valid_for_activity?).to be_true
+    end
+  end
+
 end
