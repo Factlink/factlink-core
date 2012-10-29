@@ -36,6 +36,20 @@ describe "conversation", type: :request do
     within(:css, "div.messages li:last-child") do
       page.should have_content reply_str
     end
+
+    sign_out_user @recipient
+
+    sign_in_user @user
+
+    view_message reply_str
+
+    within(:css, "div.messages ul") do
+      page.should have_content message_str
+
+      within(:css, "li:last-child") do
+        page.should have_content reply_str
+      end
+    end
   end
 end
 
@@ -57,21 +71,25 @@ def send_message_and_view_as_recipient(message, factlink, recipient)
 
   sign_in_user @recipient
 
-  click_link "conversations-link"
+  view_message message
 
-  wait_until_scope_exists '.conversations li' do
-    page.should have_content(message)
-  end
-
-  find(:css, "div.text", text: message).click
-
-  wait_until_scope_exists '.conversation .fact' do
-    page.should have_content @factlink.data.displaystring
-  end
+  page.should have_content @factlink.data.displaystring
 
   wait_until_scope_exists '.conversation .messages' do
     page.should have_content message
     page.should have_content @user.username
     page.should_not have_content @recipient.username
   end
+end
+
+def view_message(message_str)
+  click_link "conversations-link"
+
+  wait_until_scope_exists '.conversations li' do
+    page.should have_content(message_str)
+  end
+
+  find(:css, "div.text", text: message_str).click
+
+  wait_until_scope_exists '.conversation .fact'
 end
