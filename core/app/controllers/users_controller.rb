@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
   private
   def load_user
-    username = params[:username] or params[:id]
+    username = params[:username] || params[:id]
     @user = query :user_by_username, username
     @user or raise_404
   end
