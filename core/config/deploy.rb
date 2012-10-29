@@ -90,14 +90,6 @@ namespace :deploy do
       end
     end
   end
-
-
-  # https://gist.github.com/885637
-  desc "Copy resque-web assets into public folder"
-  task :copy_resque_assets do
-    target = File.join(release_path,'public','resque')
-    run "cp -r `cd #{release_path} && bundle show resque`/lib/resque/server/public #{target}"
-  end
 end
 
 namespace :mongoid do
@@ -121,7 +113,5 @@ after 'deploy:update', 'deploy:check_installed_packages'
 after 'deploy:check_installed_packages', 'deploy:cleanup'
 
 after 'deploy', 'deploy:curl_site'
-
-after "deploy:restart", "deploy:copy_resque_assets"
 
 require './config/boot'
