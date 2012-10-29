@@ -180,18 +180,34 @@ describe 'activity queries' do
   end
 
   describe :messages do
+    context "creating a conversation" do
+      it "creates a notification for the receiver" do
+        f  = create(:fact)
+        u1 = create(:user)
+        u2 = create(:user)
 
-    it "creates a notification for the receiver" do
-      f  = create(:fact)
-      u1 = create(:user)
-      u2 = create(:user)
+        CreateConversationWithMessageInteractor.perform f.id, [u1.username, u2.username], u1.username, 'this is a message', current_user: u1
 
-      CreateConversationWithMessageInteractor.perform f.id, [u1.username, u2.username], u1.username, 'this is a message', current_user: u1
+        u1.graph_user.notifications.map(&:to_hash_without_time).should == []
+        u2.graph_user.notifications.map(&:to_hash_without_time).should == [
+          {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
+        ]
+      end
+    end
 
-      u1.graph_user.notifications.map(&:to_hash_without_time).should == []
-      u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-        {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
-      ]
+    context "replying to a conversation" do
+      it "creates a notification for the receiver" do
+        c = create(:conversation_with_messages)
+        u1 = c.recipients[0]
+        u2 = c.recipients[1]
+
+        ReplyToConversationInteractor.perform c.id, u1.id.to_s, 'this is a message', current_user: u1
+
+        u1.graph_user.notifications.map(&:to_hash_without_time).should == []
+        u2.graph_user.notifications.map(&:to_hash_without_time).should == [
+          {user: u1.graph_user, action: :replied_conversation, subject: c }
+        ]
+      end
     end
 
   end

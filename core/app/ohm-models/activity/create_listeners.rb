@@ -31,11 +31,10 @@ def create_activity_listeners
                action: :invites,
                write_ids: lambda { |a| [a.subject_id] }
 
-      # someone send you a conversation
+      # someone sent you a conversation or a reply
       activity subject_class: "Conversation",
-               action: :created_conversation,
+               action: [:created_conversation, :replied_conversation],
                write_ids: lambda { |a| a.subject.recipients.map { |r| r.graph_user.id }.delete_if { |id| id == a.user_id } }
-
     end
 
     register do

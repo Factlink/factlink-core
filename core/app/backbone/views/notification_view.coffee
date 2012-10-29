@@ -31,6 +31,9 @@ class NotificationInvitedView extends GenericNotificationView
 class NotificationCreatedConversationView extends GenericNotificationView
   template: "notifications/_created_conversation"
 
+class NotificationRepliedConversationView extends GenericNotificationView
+  template: "notifications/_replied_conversation"
+
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
     when "added_supporting_evidence", "added_weakening_evidence"
@@ -41,5 +44,7 @@ window.NotificationView = (opts) ->
       new NotificationInvitedView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
+    when "replied_conversation"
+      new NotificationRepliedConversationView(opts)
     else
       new GenericNotificationView(opts)
