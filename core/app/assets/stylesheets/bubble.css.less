@@ -42,16 +42,17 @@ div.modal {
   div.fact-block {
     margin: 0 -@popup-padding;
 
-    .close {
+    #close {
       .opacity(0.10);
       position: relative;
       right: 2px;
       top: 3px;
       z-index: @max-z-index;
+      float: right;
     }
 
     &:hover {
-      .close { .opacity(0.35); }
+      #close { .opacity(0.35); }
     }
 
 
