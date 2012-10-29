@@ -9,7 +9,6 @@ class CreateConversationWithMessageInteractor
   def execute
     sender = User.where(username: @sender_username).first
     raise 'Username does not exist' if !sender
-    puts sender.inspect
 
     c = command :create_conversation, @fact_id, @recipient_usernames
     command :create_message, sender.id, @content, c
