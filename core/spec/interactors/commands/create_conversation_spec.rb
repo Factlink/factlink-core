@@ -5,9 +5,7 @@ describe Commands::CreateConversation do
   let(:fact_id) {10}
 
   before do
-    stub_const('Conversation', Class.new)
-    stub_const('User', Class.new)
-    stub_const('Fact', Class.new)
+    stub_classes 'Conversation', 'Queries::UserByUsername', 'Fact'
   end
 
   it 'initializes correctly' do
@@ -33,7 +31,11 @@ describe Commands::CreateConversation do
       conversation = mock('conversation', :recipients => recipients)
       Conversation.should_receive(:new).and_return(conversation)
       user = mock()
-      User.should_receive(:where).with(username: username).and_return([user])
+
+      should_receive_new_with_and_receive_execute(
+        Queries::UserByUsername, username, {}).
+        and_return(user)
+
 
       fact_data_id = 'abc'
       fact = mock('fact', data_id: fact_data_id)
@@ -51,7 +53,9 @@ describe Commands::CreateConversation do
       username = 'username'
       command = Commands::CreateConversation.new(fact_id, [username])
       Conversation.should_receive(:new).and_return(mock('conversation'))
-      User.should_receive(:where).with(username: username).and_return([])
+      should_receive_new_with_and_receive_execute(
+        Queries::UserByUsername, username, {}).
+        and_return(nil)
 
       expect {command.execute}.to raise_error(RuntimeError, 'Username does not exist')
     end
