@@ -13,6 +13,9 @@ class window.SubchannelItemView extends Backbone.Marionette.ItemView
     e.stopPropagation()
     false
 
+  onRender: ->
+    @$('i.close').hide() unless currentChannel.user().get('id') == currentUser.get('id')
+
   clickHandler: (e) ->
     return  if e.metaKey or e.ctrlKey or e.altKey
     mp_track "Channel: Click on subchannel",

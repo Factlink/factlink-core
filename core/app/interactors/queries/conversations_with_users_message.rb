@@ -1,5 +1,5 @@
 require_relative '../pavlov'
-require 'hashie'
+require_relative '../kill_object'
 
 module Queries
   class ConversationsWithUsersMessage
@@ -8,11 +8,12 @@ module Queries
     def execute
       conversations = query :conversations_list
       users_by_id = all_recipients_by_ids(conversations)
-      # TODO: clean this up by using a new dead object
-      # Also, query only once for all last_messages (difficult because we need to use a mongo groupby)
-      conversations.each do |conversation|
-        conversation.recipients = conversation.recipient_ids.map {|id| users_by_id[id]}
-        conversation.last_message = query :last_message_for_conversation, conversation
+
+      conversations.map do |conversation|
+        KillObject.conversation(conversation,
+          recipients: conversation.recipient_ids.map {|id| users_by_id[id]},
+          last_message: (query :last_message_for_conversation, conversation)
+        )
       end
     end
 

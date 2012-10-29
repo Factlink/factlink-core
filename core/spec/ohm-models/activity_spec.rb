@@ -1,18 +1,6 @@
 require 'spec_helper'
 
-class Blob < OurOhm ;
-  def set_invalid
-    @invalid = true
-  end
-
-  def valid_for_activity
-    if @invalid == true
-      false
-    else
-      true
-    end
-  end
-end
+class Blob < OurOhm ;end
 class Foo < OurOhm ;end
 
 describe Activity do
@@ -125,19 +113,42 @@ describe Activity do
       @a.object = nil
       @a.should be_still_valid
     end
+  end
 
-    pending "is false when the subject is invalid" do
-      b = new Blob
-      b.set_invalid
-      @a.object = b
-      @a.should_not be_still_valid
+  describe '.valid' do
+    before do
+      @a = Activity.create user: gu, action: :foo, subject: Blob.create, object: Blob.create
     end
-    it 'is true when the subject is valid'
-    it 'is true when the subject has no validity test'
 
-    it "is false when the object is invalid"
-    it 'is false when the object is valid'
-    it 'is false when the object has no validity test'
+    it 'is false when still_valid is false' do
+      @a.stub(:still_valid?, 'false')
+      @a.should_not be_valid_for_show
+    end
+
+    it "is false when the subject is invalid" do
+      @a.subject.stub(valid_for_activity?: false)
+      @a.should_not be_valid_for_show
+    end
+    it 'is true when the subject is valid' do
+      @a.subject.stub(valid_for_activity?: true)
+      @a.should be_valid_for_show
+    end
+    it 'is true when the subject has no validity test' do
+      @a.should be_valid_for_show
+    end
+
+    it "is false when the object is invalid" do
+      @a.object.stub(valid_for_activity?: false)
+      @a.should_not be_valid_for_show
+    end
+    it 'is true when the object is valid' do
+      @a.object.stub(valid_for_activity?: true)
+      @a.should be_valid_for_show
+    end
+    it 'is true when the object has no validity test' do
+      @a.should be_valid_for_show
+    end
+
   end
 
   describe :to_hash_without_time do

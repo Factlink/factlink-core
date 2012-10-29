@@ -22,6 +22,7 @@ class window.ProfileController
   # HELPERS
 
   showPage: (username, options) ->
+    app.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
     @getUser username,

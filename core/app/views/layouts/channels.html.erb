@@ -11,8 +11,8 @@
       Backbone.history.start({pushState:Modernizr.history, silent:true});
 
       <% if @user %>
-        Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
         Channels.setUsername("<%= current_user.username %>");
+        Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
       <% end %>
 
       <% if @channel && !@channel.new? %>

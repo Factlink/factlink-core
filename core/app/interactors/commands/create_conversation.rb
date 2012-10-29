@@ -14,7 +14,7 @@ module Commands
     def execute
       conversation = Conversation.new
       @recipient_usernames.each do |username|
-        user = User.where(username: username).first
+        user = query :user_by_username, username
         raise 'Username does not exist' if !user
         conversation.recipients << user
       end
