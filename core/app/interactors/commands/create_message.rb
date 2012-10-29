@@ -14,7 +14,7 @@ module Commands
 
     def execute
       @conversation.save
-      message = Message.create
+      message = Message.new
       message.sender = User.find(@sender_id)
       message.content = @content
       message.conversation_id = @conversation.id
