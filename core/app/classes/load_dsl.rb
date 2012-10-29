@@ -55,6 +55,7 @@ class LoadDsl
         :site => load_site(url),
         :created_by => state_graph_user
       )
+      f.require_saved_data
       f.data.displaystring = fact_string
       f.data.title = opts[:title] if opts[:title]
       f.data.save
@@ -90,7 +91,6 @@ class LoadDsl
   def load_user(username,email=nil, password=nil, twitter=nil)
     u = User.where(:username => username).first
     if not u
-
       if email and password
         u = User.new(
           :username => username,
@@ -101,8 +101,9 @@ class LoadDsl
         u.email = email
         u.confirmed_at = DateTime.now
         u.save
+        u.send(:create_graph_user) {}
         if u.new?
-          err_msg = "User #{username} could not be created, maybe the email address wasn't unique?"
+          err_msg = "User #{username} could not be created."
           u.errors.each { |e, v| err_msg += "\n#{e.to_s} #{v}" }
           raise err_msg if u.new?
         end
