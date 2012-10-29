@@ -36,8 +36,6 @@ describe "conversation", type: :request do
     within(:css, "div.messages li:last-child") do
       page.should have_content reply_str
     end
-
-    screen_shot_and_open_image
   end
 end
 
