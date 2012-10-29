@@ -45,7 +45,7 @@ describe 'Reserving a username', type: :request, js: true do
 
     create_admin_and_login
 
-    within(:css, 'a.dropdown-toggle') do
+    within(:css, 'li.dropdown-submenu a') do
       page.should have_content('Admin')
     end
 
