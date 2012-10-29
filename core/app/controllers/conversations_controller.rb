@@ -24,7 +24,7 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    interactor :create_conversation_with_message, params[:fact_id], params[:recipients], params[:sender], params[:content]
+    interactor :create_conversation_with_message, params[:fact_id], params[:recipients], current_user.id.to_s, params[:content]
     render json: {}
   end
 end

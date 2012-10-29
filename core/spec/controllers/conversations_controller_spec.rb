@@ -75,10 +75,10 @@ describe ConversationsController do
       interactor.should_receive(:execute)
 
       CreateConversationWithMessageInteractor.should_receive(:new).
-         with(fact_id.to_s, ['henk','frits'], 'gerard', 'verhaal', current_user: user).
+         with(fact_id.to_s, ['henk','frits'], user.id.to_s, 'verhaal', current_user: user).
          and_return(interactor)
 
-      get :create, fact_id: fact_id, recipients: ['henk','frits'], sender: 'gerard', content: 'verhaal'
+      get :create, fact_id: fact_id, recipients: ['henk','frits'], content: 'verhaal'
     end
   end
 end

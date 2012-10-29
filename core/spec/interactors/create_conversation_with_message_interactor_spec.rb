@@ -11,16 +11,7 @@ describe CreateConversationWithMessageInteractor do
   end
 
   describe '.execute' do
-    it 'throws an error when an invalid sender username is given' do
-      username = 'sinterklaas'
-
-      User.should_receive(:where).with(username: username).and_return([])
-
-      expect {CreateConversationWithMessageInteractor.perform 10, [], username, 'verhaal', current_user: mock()}.
-        to raise_error(RuntimeError, 'Username does not exist')
-    end
-
-    it 'correctly' do
+    it 'should work correctly' do
       graph_user   = mock();
       sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
       receiver     = mock(:user, username: 'frank')
@@ -29,7 +20,7 @@ describe CreateConversationWithMessageInteractor do
       conversation = mock()
       fact_id = 10
 
-      User.should_receive(:where).with(username: sender.username).and_return([sender])
+      User.should_receive(:find).with(sender.id.to_s).and_return(sender)
       should_receive_new_with_and_receive_execute(
         Commands::CreateConversation, fact_id, usernames, current_user: sender).and_return(conversation)
       should_receive_new_with_and_receive_execute(
@@ -37,7 +28,7 @@ describe CreateConversationWithMessageInteractor do
       should_receive_new_with_and_receive_execute(
         Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
 
-      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.username, content, current_user: sender
+      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.id.to_s, content, current_user: sender
     end
   end
 end
