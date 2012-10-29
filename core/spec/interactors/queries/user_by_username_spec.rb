@@ -8,11 +8,12 @@ describe Queries::MessagesForConversation do
 
   describe '.execute' do
     it 'retrieves a user' do
-      search_username = mock()
+      search_username = "GERARD"
+
       user = mock()
       user.stub(id:11)
 
-      User.should_receive(:first).with(conditions: { username: search_username}).
+      User.should_receive(:first).with(conditions: { username: /^#{search_username.downcase}$/i}).
            and_return(user)
 
       query = Queries::UserByUsername.new(search_username)
