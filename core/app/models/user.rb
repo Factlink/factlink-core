@@ -119,6 +119,10 @@ class User
       where :agrees_tos => true
     end
 
+    def approved
+      where :approved => true
+    end
+
     def not_agreed_with_tos
       where :approved => true
       where :confirmed_at.ne => nil
