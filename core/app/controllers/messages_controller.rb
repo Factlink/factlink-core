@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    interactor :reply_to_conversation, params[:conversation_id], params[:sender_id], params[:content]
+    interactor :reply_to_conversation, params[:conversation_id], current_user.id.to_s, params[:content]
     render json: {}
   end
 end

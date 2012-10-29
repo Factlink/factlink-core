@@ -39,9 +39,8 @@ class window.ConversationsController
         @main.titleRegion.show( title_view )
 
   renderMessages: (conversation) ->
-    messages = new Messages(conversation.get('messages'))
-    conversationView =  new MessagesView
+    conversationView = new MessagesView
       model: conversation
-      collection: messages
+      collection: conversation.messages()
 
     @main.contentRegion.show conversationView

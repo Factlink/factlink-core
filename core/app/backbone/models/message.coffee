@@ -1,3 +1,5 @@
 class window.Message extends Backbone.Model
-  urlRoot: '/m'
-  sender: => new User(@get('sender'))
+  defaults:
+    time_ago: 'just now'
+
+  sender: -> @_sender ?= new User(@get('sender'))

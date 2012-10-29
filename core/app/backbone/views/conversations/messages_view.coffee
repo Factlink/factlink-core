@@ -33,19 +33,10 @@ class window.MessagesView extends Backbone.Marionette.Layout
 
   initialEvents: -> # Remove this line when updating Marionette
 
-  initialize: ->
-    @replyView = new ConversationReplyView(model: @model)
-    @replyView.on('submit', => @reloadMessages())
-
-  reloadMessages: ->
-    @model.fetch
-      success: (model, response) =>
-        @collection.reset(@model.get('messages'))
-
   onRender: ->
     @showFact()
     @messagesRegion.show new MessageListView(collection: @collection, user_collection: @model.recipients())
-    @replyRegion.show @replyView
+    @replyRegion.show new ConversationReplyView(model: @model)
 
   showFact: ->
     error = => @factRegion.show new NoFactView
