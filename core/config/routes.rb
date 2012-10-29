@@ -13,14 +13,6 @@ FactlinkUI::Application.routes.draw do
   # Web Front-end
   root :to => "home#index"
 
-  resque_constraint = lambda do |request|
-    request.env['warden'].authenticate? and request.env['warden'].user.admin?
-  end
-
-  constraints resque_constraint do
-    mount Resque::Server, :at => "/a/resque"
-  end
-
 
   # Javascript Client calls
   # TODO: replace /site/ gets with scoped '/sites/', and make it a resource (even if it only has show)
