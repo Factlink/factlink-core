@@ -1,11 +1,28 @@
 require 'spec_helper'
 
 describe ConversationsController do
-  render_views
-
   let(:user) { create :user}
 
+  describe :index do
+    it "calls the correct query" do
+      authenticate_user! user
+      
+      query = mock()
+      conversation = mock(:conversation, )
+      query.should_receive(:execute).and_return([conversation])
+
+      Queries::ConversationsWithUsersMessage.should_receive(:new).
+         with(user.id.to_s, {current_user: user}).
+         and_return(query)
+
+      get :index, format: 'json'
+      response.should render_template('conversations/index')
+    end
+  end
+
   describe :show do
+    render_views
+    
     let(:conv) do
       c = create(:conversation_with_messages, message_count: 4, user_count: 3)
       c.recipients << user
@@ -58,7 +75,7 @@ describe ConversationsController do
       interactor.should_receive(:execute)
 
       CreateConversationWithMessageInteractor.should_receive(:new).
-         with(fact_id.to_s, ['henk','frits'], 'gerard' , 'verhaal', {current_user: user}).
+         with(fact_id.to_s, ['henk','frits'], 'gerard', 'verhaal', current_user: user).
          and_return(interactor)
 
       get :create, fact_id: fact_id, recipients: ['henk','frits'], sender: 'gerard', content: 'verhaal'
