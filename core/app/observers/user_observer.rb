@@ -59,6 +59,8 @@ class UserObserverTask
                       .slice( *User.mixpaneled_fields.keys )
                       .inject({}){|memo,(k,v)| memo[User.mixpaneled_fields[k].to_sym] = v; memo}
 
+    new_attributes[:approved_at] = DateTime.now
+
     mixpanel.set_person_event user.id.to_s, new_attributes
   end
 
