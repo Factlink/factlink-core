@@ -18,7 +18,7 @@ describe MessagesController do
          with(conversation_id.to_s, user.id.to_s, 'verhaal', {current_user: user}).
          and_return(interactor)
 
-      get :create, conversation_id: conversation_id, sender_id: user.id, content: 'verhaal'
+      get :create, conversation_id: conversation_id, content: 'verhaal'
     end
   end
 end

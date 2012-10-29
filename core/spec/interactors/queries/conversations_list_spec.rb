@@ -8,7 +8,7 @@ describe Queries::ConversationsList do
   end
 
   it 'it initializes correctly' do
-    query = Queries::ConversationsList.new current_user: mock()
+    query = Queries::ConversationsList.new "13", current_user: mock()
     query.should_not be_nil
   end
 
@@ -34,21 +34,21 @@ describe Queries::ConversationsList do
 
       criteria = mock(:criteria)
 
-      User.should_receive(:find).with(user.id).and_return(user)
+      User.should_receive(:find).with(user.id.to_s).and_return(user)
       user.should_receive(:conversations).and_return(criteria)
       criteria.should_receive(:desc).and_return(mock_conversations)
 
-      result = Queries::ConversationsList.execute(current_user: user)
+      result = Queries::ConversationsList.execute(user.id.to_s, current_user: user)
       expect(result).to eq(dead_conversations)
     end
 
     it "returns an empty list when the user has conversations" do
       criteria = mock(:criteria)
-      User.should_receive(:find).with(user.id).and_return(user)
+      User.should_receive(:find).with(user.id.to_s).and_return(user)
       user.should_receive(:conversations).and_return(criteria)
       criteria.should_receive(:desc).and_return([])
 
-      result = Queries::ConversationsList.execute(current_user: user)
+      result = Queries::ConversationsList.execute(user.id.to_s, current_user: user)
       expect(result).to eq([])
     end
   end

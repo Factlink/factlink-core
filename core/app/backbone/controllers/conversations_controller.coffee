@@ -3,16 +3,13 @@ app = FactlinkApp
 class window.ConversationsController
   startAction: ->
     app.closeAllContentRegions()
-    @main = new TabbedMainRegionLayout();
+    @main ?= new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
-
-    return if @alreadyLoaded
-    @conversations = new Conversations()
-    @alreadyLoaded = true
 
   showConversations: (with_startup=true)->
     @startAction() if with_startup
 
+    @conversations ?= new Conversations()
     @main.showTitle "Conversations"
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
@@ -39,9 +36,8 @@ class window.ConversationsController
         @main.titleRegion.show( title_view )
 
   renderMessages: (conversation) ->
-    messages = new Messages(conversation.get('messages'))
-    conversationView =  new MessagesView
+    conversationView = new MessagesView
       model: conversation
-      collection: messages
+      collection: conversation.messages()
 
     @main.contentRegion.show conversationView
