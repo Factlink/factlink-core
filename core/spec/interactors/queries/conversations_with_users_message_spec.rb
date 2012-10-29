@@ -75,12 +75,21 @@ describe Queries::ConversationsWithUsersMessage do
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation20, current_user: user1).
         and_return(message25)
 
-      conversation10.should_receive(:recipients=).with([user1])
-      conversation10.should_receive(:last_message=).with(message15)
-      conversation20.should_receive(:recipients=).with([user1, user2])
-      conversation20.should_receive(:last_message=).with(message25)
 
       result = query.execute
+      expect(result.length.should).to eq(2)
+
+      conversation1 = result[0]
+      conversation2 = result[1]
+
+      expect(conversation1.id).to eq(conversation10.id)
+      expect(conversation2.id).to eq(conversation20.id)
+
+      expect(conversation1.recipients).to eq([user1])
+      expect(conversation1.last_message).to eq(message15)
+      expect(conversation2.recipients).to eq([user1, user2])
+      expect(conversation2.last_message).to eq(message25)
+
     end
   end
 end
