@@ -47,6 +47,12 @@ class Activity < OurOhm
       (object or not object_id)
   end
 
+  def valid_for_show?
+    still_valid? and
+    ((not object.respond_to?(:valid_for_activity?))  or object.valid_for_activity?) and
+    ((not subject.respond_to?(:valid_for_activity?)) or subject.valid_for_activity?)
+  end
+
   def timestamp
     Ohm::Model::TimestampedSet.current_time(DateTime.parse(created_at))
   end

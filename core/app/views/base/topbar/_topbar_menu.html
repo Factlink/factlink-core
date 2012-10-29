@@ -55,5 +55,11 @@
       <li class="divider"></li>
       <li><a>Version <%= FactlinkUI::Application.config.version_number %></a></li>
     <% end %>
+
+    <% if can? :access, Ability::AdminArea %>
+      <li class="divider"></li>
+      <%= render "base/topbar/admin_menu" %>
+    <% end %>
+
   </ul>
 </li>
