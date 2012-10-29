@@ -42,7 +42,6 @@ class UserObserverTask
   private
   def self.update_mixpanel_for user
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
-    changed = false
 
     fields = user.changes
               .slice( *User.mixpaneled_fields.keys )
