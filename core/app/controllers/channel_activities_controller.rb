@@ -46,7 +46,7 @@ class ChannelActivitiesController < ApplicationController
       retrieved_activities = block.call(activities)
       resulting_activities = []
       retrieved_activities.each do |a|
-        if a.andand[:item].andand.still_valid?
+        if a.andand[:item].andand.valid_for_show?
           resulting_activities << a
         end
       end

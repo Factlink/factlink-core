@@ -22,27 +22,9 @@ namespace :db do
     truncate(:users => :keep)
   end
 
-  namespace :init do
-
-    Dir.entries(File.expand_path('../../../db/init/', __FILE__)).each do |file|
-      if file =~ /\.rb$/
-        file.gsub! /\.rb/, ''
-        task file.to_sym => [:environment,:migrate] do
-          require File.expand_path('../../../db/init/'+file+'.rb', __FILE__)
-          puts "Imported #{file} succesfully"
-        end
-      end
-    end
-
-    task :list do
-      puts "You can load the following initial datasets (with db:init:<dataset>):"
-      Dir.entries(File.expand_path('../../../db/init/', __FILE__)).each do |file|
-        if file =~ /\.rb$/
-          file.gsub! /\.rb$/, ''
-          puts file
-        end
-      end
-    end
+  task :init => [:environment,:migrate] do
+    require File.expand_path('../../../db/init.rb', __FILE__)
+    puts "Imported #{file} succesfully"
   end
 
   task :export => :environment do

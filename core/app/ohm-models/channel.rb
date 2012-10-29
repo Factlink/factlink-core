@@ -216,6 +216,10 @@ class Channel < OurOhm
     Topic.for_channel self
   end
 
+  def valid_for_activity?
+    sorted_cached_facts.size > 0
+  end
+
   def self.active_channels_for(user)
     Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
   end
