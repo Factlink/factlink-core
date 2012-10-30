@@ -114,8 +114,8 @@ describe Activity::Listener do
         named :bar
       end
       Activity::Listener.all.length.should == 1
-      Activity::Listener.all.first.activity_for.should == "Foo"
-      Activity::Listener.all.first.listname.should == :bar
+      Activity::Listener.all.first[1].activity_for.should == "Foo"
+      Activity::Listener.all.first[1].listname.should == :bar
     end
   end
 

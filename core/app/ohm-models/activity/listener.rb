@@ -5,7 +5,7 @@ class Activity < OurOhm
 
     def self.all
       @all ||= {}
-      @all.values
+      @all
     end
 
     attr_accessor :activity_for, :listname, :queries
