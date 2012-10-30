@@ -12,84 +12,91 @@ describe "conversation", type: :request do
   end
 
   it "message can be sent and viewed" do
-    @factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
-    message_str = 'content'
+    factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
+    message_content = 'content'
 
-    send_message_and_view_as_recipient(message_str, @factlink, @recipient)
+    send_message(message_content,factlink, @recipient)
+
+    switch_to_user @recipient
+
+    open_message_with_content message_content
+    page_should_have_factlink_and_message(message_content, factlink, @recipient)
   end
 
   it "a user should be able to reply to a message" do
-    @factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
-    message_str = 'content'
+    factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
+    message_content = 'content'
     reply_str = "Bazenbeer"
 
-    send_message_and_view_as_recipient(message_str, @factlink, @recipient)
+    send_message(message_content,factlink, @recipient)
 
+    switch_to_user @recipient
+
+    open_message_with_content message_content
+    page_should_have_factlink_and_message(message_content, factlink, @recipient)
+
+    send_reply(reply_str)
+
+    last_message_should_have_content(reply_str)
+
+    switch_to_user @user
+
+    open_message_with_content reply_str
+
+    page_should_have_factlink_and_message(message_content, factlink, nil)
+
+    last_message_should_have_content(reply_str)
+  end
+
+  def send_reply(reply_str)
     within(:css, "div.reply") do
       fill_in "reply", with: reply_str
 
       click_on "Send message"
     end
-
     wait_for_ajax
+  end
 
+  def last_message_should_have_content(reply_str)
     within(:css, "div.messages li:last-child") do
       page.should have_content reply_str
     end
+  end
 
-    sign_out_user @recipient
+  def send_message(message, factlink, recipient)
+    visit friendly_fact_path(factlink)
 
-    sign_in_user @user
+    click_on "Send message"
 
-    view_message reply_str
+    wait_until_scope_exists '.start-conversation-form' do
+      find(:css, '.recipients').set(recipient.username)
+      find(:css, '.text').set(message)
 
-    within(:css, "div.messages ul") do
-      page.should have_content message_str
+      click_button 'Send'
 
-      within(:css, "li:last-child") do
-        page.should have_content reply_str
-      end
+      wait_for_ajax
     end
   end
-end
 
-def send_message_and_view_as_recipient(message, factlink, recipient)
-  visit friendly_fact_path(factlink)
+  def page_should_have_factlink_and_message(message, factlink, recipient)
+    page.should have_content factlink.data.displaystring
 
-  click_on "Send message"
-
-  wait_until_scope_exists '.start-conversation-form' do
-    find(:css, '.recipients').set(recipient.username)
-    find(:css, '.text').set(message)
-
-    click_button 'Send'
-
-    wait_for_ajax
+    wait_until_scope_exists '.conversation .messages' do
+      page.should have_content message
+      page.should have_content @user.username
+      page.should_not have_content @recipient.username if @recipient
+    end
   end
 
-  sign_out_user @user
+  def open_message_with_content(message_str)
+    click_link "conversations-link"
 
-  sign_in_user @recipient
+    wait_until_scope_exists '.conversations li' do
+      page.should have_content(message_str)
+    end
 
-  view_message message
+    find(:css, "div.text", text: message_str).click
 
-  page.should have_content @factlink.data.displaystring
-
-  wait_until_scope_exists '.conversation .messages' do
-    page.should have_content message
-    page.should have_content @user.username
-    page.should_not have_content @recipient.username
+    wait_until_scope_exists '.conversation .fact'
   end
-end
-
-def view_message(message_str)
-  click_link "conversations-link"
-
-  wait_until_scope_exists '.conversations li' do
-    page.should have_content(message_str)
-  end
-
-  find(:css, "div.text", text: message_str).click
-
-  wait_until_scope_exists '.conversation .fact'
 end
