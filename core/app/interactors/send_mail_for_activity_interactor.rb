@@ -6,10 +6,10 @@ class SendMailForActivityInteractor
   arguments :activity
 
   def execute
-    graph_users = query :users_by_ids, filter.add_to(@activity)
+    users = query :users_by_graph_user_ids, filter.add_to(@activity)
 
-    graph_users.each do |graph_user|
-     command :send_activity_mail_to_user, @activity, graph_user
+    users.each do |user|
+     command :send_activity_mail_to_user, @activity, user
     end
   end
 
@@ -18,6 +18,6 @@ class SendMailForActivityInteractor
   end
 
   def authorized?
-    true
+    @options[:current_user]
   end
 end

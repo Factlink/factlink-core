@@ -4,8 +4,7 @@ require_relative 'interactor_spec_helper'
 describe SendMailForActivityInteractor do
 
   before do
-    stub_classes 'Activity::Listener'
-    stub_const 'Commands::SendActivityMailToUser', Class.new
+    stub_classes 'Activity::Listener', 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser'
   end
 
   describe '.filter' do
@@ -17,6 +16,8 @@ describe SendMailForActivityInteractor do
       listener_hash.should_receive(:[]).and_return(listener)
       Activity::Listener.stub(all: listener_hash)
 
+      SendMailForActivityInteractor.any_instance.stub(authorized?: true)
+
       interactor = SendMailForActivityInteractor.new activity
 
       interactor.filter
@@ -25,17 +26,23 @@ describe SendMailForActivityInteractor do
 
   describe '.execute' do
     it 'correctly' do
-      gu_ids = [10,14]
+      users = [mock(), mock()]
+      graph_user_ids = [mock(),mock()]
 
       activity = mock()
       listener = mock()
 
-      listener.should_receive(:add_to).with(activity).and_return(gu_ids)
+      listener.should_receive(:add_to).with(activity).and_return(graph_user_ids)
 
-      gu_ids.each do |graph_user_id|
+      graph_user_ids.each_with_index do |graph_user_id, index|
         should_receive_new_with_and_receive_execute(
-          Commands::SendActivityMailToUser, activity, graph_user_id, {})
+          Commands::SendActivityMailToUser, activity, users[index], {})
       end
+
+      should_receive_new_with_and_receive_execute(
+        Queries::UsersByGraphUserIds, graph_user_ids, {}).and_return(users)
+
+      SendMailForActivityInteractor.any_instance.stub(authorized?: true)
 
       interactor = SendMailForActivityInteractor.new activity
       interactor.stub(filter:listener)
