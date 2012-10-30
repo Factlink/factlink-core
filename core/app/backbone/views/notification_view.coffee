@@ -2,6 +2,12 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
   template: "notifications/_generic_activity"
+  events:
+    'click a': 'click'
+
+  click: (e) ->
+    @trigger 'activityActivated'
+    return Backbone.View.prototype.defaultClickHandler(e)
 
   onRender: ->
     @$el.addClass "unread" if @model.get("unread") is true
