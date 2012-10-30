@@ -186,7 +186,9 @@ describe 'activity queries' do
         u1 = create(:user)
         u2 = create(:user)
 
-        CreateConversationWithMessageInteractor.perform f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
+        interactor = CreateConversationWithMessageInteractor.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
+        interactor.stub(track_mixpanel: nil)
+        interactor.execute
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
@@ -201,7 +203,9 @@ describe 'activity queries' do
         u1 = c.recipients[0]
         u2 = c.recipients[1]
 
-        ReplyToConversationInteractor.perform c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
+        interactor = ReplyToConversationInteractor.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
+        interactor.stub(track_mixpanel: nil)
+        interactor.execute
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [

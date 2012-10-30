@@ -14,8 +14,11 @@ describe MessagesController do
       interactor = mock()
       interactor.should_receive(:execute)
 
+      pavlov_options = mock()
+      controller.should_receive(:pavlov_options).and_return(pavlov_options)
+
       ReplyToConversationInteractor.should_receive(:new).
-         with(conversation_id.to_s, user.id.to_s, 'verhaal', {current_user: user}).
+         with(conversation_id.to_s, user.id.to_s, 'verhaal', pavlov_options).
          and_return(interactor)
 
       get :create, conversation_id: conversation_id, content: 'verhaal'
