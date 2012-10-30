@@ -15,7 +15,7 @@ module Commands
     def execute
       @conversation.save # update the updated_at attribute
       message = Message.new
-      message.sender = User.find(@sender_id)
+      message.sender_id = @sender_id
       message.content = @content
       message.conversation_id = @conversation.id
       message.save
