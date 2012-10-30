@@ -19,7 +19,7 @@ module Admin::UsersHelper
   end
 
   def features_count_class_for(user)
-    case user.features.count
+    case user.features_count
     when 0
       "error"
     else
