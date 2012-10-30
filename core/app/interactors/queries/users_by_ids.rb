@@ -5,15 +5,15 @@ module Queries
   class UsersByIds
     include Pavlov::Query
 
-    arguments :ids
+    arguments :user_ids
 
     def validate
-      @ids.each { |id| validate_hexadecimal_string :id, id.to_s }
+      @user_ids.each { |id| validate_hexadecimal_string :id, id.to_s }
     end
 
     def execute
-      recipients = User.any_in(_id: @ids)
-      recipients.map{|u| KillObject.user u}
+      users = User.any_in(_id: @user_ids)
+      users.map{|u| KillObject.user u}
     end
 
     def authorized?
