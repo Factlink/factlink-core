@@ -18,6 +18,7 @@ describe Commands::CreateMessage do
   end
 
   let(:long_message_string) { (0...5001).map{65.+(rand(26)).chr}.join }
+  let(:content) {'bla'}
 
   it 'initialize throws error on too long message' do
     expect { Commands::CreateMessage.new 'bla', long_message_string , '1' }.
@@ -36,16 +37,14 @@ describe Commands::CreateMessage do
 
   describe '.execute' do
     it 'creates and saves a message' do
-      content = 'bla'
-
-      conversation = stub(id: '1', recipient_ids: [14])
+      conversation = stub(id: 1, recipient_ids: [14])
 
       sender = stub(id: 14)
 
-      command = Commands::CreateMessage.new sender.id, content, conversation, current_user: sender
+      command = Commands::CreateMessage.new sender.id.to_s, content, conversation, current_user: sender
       conversation.should_receive(:save)
       message = mock()
-      message.should_receive("sender_id=").with(sender.id)
+      message.should_receive("sender_id=").with(sender.id.to_s)
       message.should_receive('content=').with(content)
       message.should_receive('conversation_id=').with(conversation.id)
 
@@ -53,6 +52,33 @@ describe Commands::CreateMessage do
       message.should_receive(:save)
 
       expect(command.execute).to eq(nil)
+    end
+  end
+
+  describe '.authorized?' do
+    it 'checks current_user' do
+      conversation = stub(id: 1, recipient_ids: [14])
+      sender = stub(id: 14)
+      other_user = stub(id: 15)
+
+      expect { Commands::CreateMessage.new sender.id.to_s, content, conversation, current_user: other_user }.
+        to raise_error(Pavlov::AccessDenied)
+    end
+
+    it 'checks recipients' do
+      conversation = stub(id: 1, recipient_ids: [15])
+      sender = stub(id: 14)
+
+      expect { Commands::CreateMessage.new sender.id.to_s, content, conversation, current_user: sender }.
+        to raise_error(Pavlov::AccessDenied)
+    end
+
+    it 'authorizes if there are no problems' do
+      conversation = stub(id: 1, recipient_ids: [14])
+      sender = stub(id: 14)
+      command = Commands::CreateMessage.new sender.id.to_s, content, conversation, current_user: sender
+
+      expect(command.authorized?).to eq(true)
     end
   end
 end
