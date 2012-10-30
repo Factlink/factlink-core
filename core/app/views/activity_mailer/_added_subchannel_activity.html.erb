@@ -1,0 +1,1 @@
+<%= link_to @user.username, user_profile_path(@user) %> added your <%= @activity.subject.title %> <%= t :channel %> to their own <%= link_to @activity.object.title, channel_path(@activity.object.created_by.user, @activity.object.id), only_path: true %> <%= t :channel %>

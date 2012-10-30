@@ -1,0 +1,9 @@
+<% content_for :email_body do %>
+  <h1>You received a new notification on Factlink:</h1>
+
+  <% if @activity.action.to_s == "added_subchannel" %>
+    <%= render "added_subchannel_activity" %>
+  <% else %>
+    <%= @activity.action %>
+  <% end %>
+<% end %>
