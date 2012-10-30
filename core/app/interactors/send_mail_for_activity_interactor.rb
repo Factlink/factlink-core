@@ -9,7 +9,7 @@ class SendMailForActivityInteractor
     users = query :users_by_graph_user_ids, filter.add_to(@activity)
 
     users.each do |user|
-     command :send_activity_mail_to_user, @activity, user
+     command :send_activity_mail_to_user, user, @activity
     end
   end
 
