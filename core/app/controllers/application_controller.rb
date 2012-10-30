@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
   def pavlov_options
-    {current_user: current_user}
+    {
+      current_user: current_user,
+      mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
+    }
   end
 
   before_filter :check_preferred_browser
@@ -92,9 +95,7 @@ class ApplicationController < ActionController::Base
   def backbone_responder &block
     respond_to do |format|
       format.html { render_backbone_page }
-      format.json do
-        yield
-      end
+      format.json { yield } if block_given?
     end
   end
 

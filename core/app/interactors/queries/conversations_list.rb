@@ -5,11 +5,13 @@ module Queries
   class ConversationsList
     include Pavlov::Query
 
+    arguments :user_id
+
     def execute
-      User.find(@options[:current_user].id).conversations.map do |conversation|
+      User.find(@user_id).conversations.desc(:updated_at).map do |conversation|
         # TODO: eliminate implicit query in next line (retrieving fact_data)
         KillObject.conversation(conversation, fact_id: conversation.fact_data.andand.fact_id)
-      end.reverse
+      end
     end
 
     def authorized?

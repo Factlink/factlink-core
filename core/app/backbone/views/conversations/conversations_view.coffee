@@ -5,7 +5,7 @@ class ConversationItemView extends Backbone.Marionette.ItemView
   events:
     'click' : 'wholeElementClick'
 
-  initialize: -> @otherRecipients = @model.otherRecipients()
+  initialize: -> @otherRecipients = @model.otherRecipients(currentUser)
 
   templateHelpers: =>
     last_message = @model.get('last_message')
