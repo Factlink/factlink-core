@@ -1,16 +1,18 @@
-<div class="avatar">
-  {{{avatar}}}
-</div>
-<div class="info">
-  <span>
-    {{ username }} has replied to a conversation:
-  </span>
-
-  <p>{{ activity.message.content }}</p>
-
-  <div class="time_ago">
-    <img src="/assets/time_ago.gif">
-    <span>{{time_ago}} ago</span>
+<a rel="backbone" href="{{ activity.target_url }}">
+  <div class="avatar">
+    {{{avatar}}}
   </div>
-</div>
-<div class="clear"></div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ username }}</span>
+      has replied to a conversation:
+      <span class="highlight">{{ activity.message.content }}</span>
+    </div>
+
+    <div class="time_ago">
+      <img src="/assets/time_ago.gif">
+      <span>{{time_ago}} ago</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+</a>

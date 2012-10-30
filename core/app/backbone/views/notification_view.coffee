@@ -2,20 +2,9 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
   template: "notifications/_generic_activity"
-  events:
-    'click': 'wholeElementClick'
-
-  wholeElementClick: (e) ->
-    if url = @model.get('activity').target_url
-      e.preventDefault()
-      e.stopImmediatePropagation()
-      @trigger 'activityActivated'
-      Backbone.history.navigate_with_fallback url, true
 
   onRender: ->
-    @$el.addClass "unread"  if @model.get("unread") is true
-    @$el.addClass "has-target-url" if @model.get('activity').target_url
-
+    @$el.addClass "unread" if @model.get("unread") is true
 
   markAsRead: -> @$el.removeClass "unread"
 

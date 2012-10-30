@@ -1,13 +1,21 @@
-<div class="avatar">
-  {{{avatar}}}
-</div>
-<div class="info">
-  <span>
-    <a href="{{ user_profile_url }}">{{ username }}</a> added your {{ activity.channel_title }} {{ global.t.channel }} to their own <a href="{{activity.to_channel_url}}">{{activity.to_channel_title}}</a> {{ global.t.channel}}
-  </span>
-  <div class="time_ago">
-    <img src="/assets/time_ago.gif">
-    <span>{{time_ago}} ago</span>
+<a rel="backbone" href="{{ activity.target_url }}">
+  <div class="avatar">
+    {{{avatar}}}
   </div>
-</div>
-<div class="clear"></div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ username }}</span>
+      added your
+      <span class="highlight">{{ activity.channel_title }}</span>
+      {{ global.t.channel }} to their own
+      <span class="highlight">{{activity.to_channel_title}}</span>
+      {{ global.t.channel}}
+    </div>
+
+    <div class="time_ago">
+      <img src="/assets/time_ago.gif">
+      <span>{{time_ago}} ago</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+</a>
