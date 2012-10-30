@@ -10,7 +10,7 @@ module KillObject
 
   dead_object :conversation, [:id, :fact_data_id, :fact_id, :recipient_ids]
   dead_object :message, [:id, :created_at, :updated_at, :content, :sender_id]
-  dead_object :user, [:id, :name, :username, :location, :biography, :gravatar_hash]
+  dead_object :user, [:id, :name, :username, :location, :biography, :gravatar_hash, :email]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
