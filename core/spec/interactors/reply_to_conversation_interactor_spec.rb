@@ -4,10 +4,8 @@ require_relative 'interactor_spec_helper'
 describe ReplyToConversationInteractor do
 
   before do
-    stub_const('Commands::CreateMessage', Class.new)
-    stub_const('Commands::CreateActivity', Class.new)
-    stub_const('User', Class.new)
-    stub_const('Conversation', Class.new)
+    stub_classes 'Commands::CreateMessage', 'Commands::CreateActivity',
+                 'User', 'Conversation'
   end
 
   describe '.execute' do
