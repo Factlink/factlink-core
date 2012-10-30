@@ -19,7 +19,7 @@ describe CreateConversationWithMessageInteractor do
       fact_id = 10
 
       mixpanel = mock()
-      options = {foo: 'bar', current_user: sender, mixpanel: mixpanel}
+      options = {current_user: sender, mixpanel: mixpanel}
 
       mixpanel.should_receive(:track_event).with(:conversation_created)
 
