@@ -1,4 +1,7 @@
 require 'yaml'
+require 'resque/failure/redis'
+require 'resque/failure/multiple'
+
 rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/../..'
 rails_env = ENV['RAILS_ENV'] || 'development'
 
@@ -15,5 +18,9 @@ if defined?(Airbrake)
     config.api_key = '15ac8a10c7b9e8939aa5608e186d3fd8'
     config.secure = false # only set this to true if you are on a paid Airbrake plan
   end
-  Resque::Failure.backend = Resque::Failure::Airbrake
+  Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Airbrake]
+else
+  Resque::Failure::Multiple.classes = [Resque::Failure::Redis]
 end
+
+Resque::Failure.backend = Resque::Failure::Multiple
