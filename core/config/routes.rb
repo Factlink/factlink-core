@@ -70,7 +70,7 @@ FactlinkUI::Application.routes.draw do
     end
 
     # Search and infinite scrolling
-    match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
+    match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
 
     namespace :admin, path: 'a' do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
