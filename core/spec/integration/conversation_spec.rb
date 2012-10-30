@@ -84,7 +84,7 @@ describe "conversation", type: :request do
     wait_until_scope_exists '.conversation .messages' do
       page.should have_content message
       page.should have_content @user.username
-      page.should_not have_content @recipient.username if @recipient
+      page.should_not have_content recipient.username if recipient
     end
   end
 
