@@ -38,8 +38,7 @@ class window.ConversationsController
           Backbone.history.navigate '/c', false
 
         @main.titleRegion.show(title_view)
-        model.messages().get(message_id)?.trigger('highlight') if message_id?
-        console.log( model.messages().get(message_id) ) if message_id?
+        model.messages().get(message_id)?.trigger('scroll') if message_id?
 
   renderMessages: (conversation) ->
     conversationView = new MessagesView
