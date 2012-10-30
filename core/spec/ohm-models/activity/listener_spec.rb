@@ -17,6 +17,10 @@ describe Activity::Listener do
     create_activity_listeners
   end
 
+  before do
+    Activity.any_instance.stub(:after_create)
+  end
+
   describe :new do
     it "should call its dsl with the block if there is a block" do
       block = proc { puts "hoi" }
