@@ -109,7 +109,7 @@ json.activity do |json|
     end
 
   when "replied_message"
-    json.target_url conversation_path(subject.conversation)
+    json.target_url conversation_message_path(subject.conversation, subject)
 
     json.message do |message|
       message.content truncate("#{subject.content}", length: 85, separator: ' ')

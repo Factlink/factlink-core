@@ -6,10 +6,20 @@ class OneMessageView extends Backbone.Marionette.ItemView
   initialize: ->
     @sender = @model.sender()
     @sender.set(@options.user_collection.get(@sender.id))
+    @bindTo(@model, "highlight", @highlight); # Remove this line when upgrading Marionette, as the new version uses @modelEvents
 
   templateHelpers: =>
     sender: @sender.toJSON()
     html_content: nlToBr(htmlEscape(@model.get('content')))
+
+  modelEvents: ->
+    'highlight': 'highlight'
+
+  highlight: ->
+    #$.scrollTo @el
+    # Attempted to scroll here, but $.scrollTo doesn't seem to work on our site
+    # $('body').scrollTo also fails.
+    # Let's leave this function here for when we enable jumping to / highlighting a message in the future
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'

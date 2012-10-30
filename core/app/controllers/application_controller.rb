@@ -92,9 +92,7 @@ class ApplicationController < ActionController::Base
   def backbone_responder &block
     respond_to do |format|
       format.html { render_backbone_page }
-      format.json do
-        yield
-      end
+      format.json { yield } if block_given?
     end
   end
 
