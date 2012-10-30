@@ -1,5 +1,5 @@
 class ActivityMailer < ActionMailer::Base
-  include Resque::Mailer
+  include Resque::Mailer unless Rails.env == "development"
 
   layout "email"
 
