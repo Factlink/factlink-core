@@ -20,7 +20,7 @@ describe CreateConversationWithMessageInteractor do
       conversation = mock()
       fact_id = 10
 
-      User.should_receive(:find).with(sender.id.to_s).and_return(sender)
+      User.should_receive(:find).with(sender.id).and_return(sender)
       should_receive_new_with_and_receive_execute(
         Commands::CreateConversation, fact_id, usernames, current_user: sender).and_return(conversation)
       should_receive_new_with_and_receive_execute(
@@ -28,7 +28,7 @@ describe CreateConversationWithMessageInteractor do
       should_receive_new_with_and_receive_execute(
         Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
 
-      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.id.to_s, content, current_user: sender
+      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.id, content, current_user: sender
     end
   end
 end
