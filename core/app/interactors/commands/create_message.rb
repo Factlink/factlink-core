@@ -24,8 +24,8 @@ module Commands
     end
 
     def authorized?
-      @conversation.recipient_ids.include? @sender_id and
-      @sender_id == @options[:current_user].id
+      @conversation.recipient_ids.map(&:to_s).include? @sender_id and
+      @sender_id == @options[:current_user].id.to_s
     end
   end
 end
