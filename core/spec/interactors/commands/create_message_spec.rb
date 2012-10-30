@@ -52,7 +52,7 @@ describe Commands::CreateMessage do
       Message.should_receive(:new).and_return(message)
       message.should_receive(:save)
 
-      command.execute
+      expect(command.execute).to eq(nil)
     end
   end
 end
