@@ -13,8 +13,14 @@ class CreateConversationWithMessageInteractor
     sender = User.find(@sender_id)
     command :create_activity, sender.graph_user, :created_conversation, c, nil
 
-    track_event :conversation_created
+    track_mixpanel
   end
+
+  def track_mixpanel
+    track_event :conversation_created
+    increment_person_event :conversations_created
+  end
+
   def authorized?
     #relay authorization to commands, only require a user to check
     @options[:current_user]

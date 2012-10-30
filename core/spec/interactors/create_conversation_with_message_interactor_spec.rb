@@ -21,7 +21,9 @@ describe CreateConversationWithMessageInteractor do
       mixpanel = mock()
       options = {current_user: sender, mixpanel: mixpanel}
 
-      mixpanel.should_receive(:track_event).with(:conversation_created)
+      interactor = CreateConversationWithMessageInteractor.new fact_id, usernames, sender.id, content, options
+
+      interactor.should_receive(:track_mixpanel)
 
       User.should_receive(:find).with(sender.id).and_return(sender)
       should_receive_new_with_and_receive_execute(
@@ -31,7 +33,22 @@ describe CreateConversationWithMessageInteractor do
       should_receive_new_with_and_receive_execute(
         Commands::CreateActivity, graph_user, :created_conversation, conversation, nil, options)
 
-      CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.id, content, options
+      interactor.execute
+    end
+  end
+
+  describe '.track_mixpanel' do
+    it "should track an event" do
+      current_user = mock(id: mock(to_s: mock))
+      mixpanel = mock()
+      options = {current_user: current_user, mixpanel: mixpanel}
+
+      interactor = CreateConversationWithMessageInteractor.new mock(), mock(), mock(), mock(), options
+
+      mixpanel.should_receive(:track_event).with(:conversation_created)
+      mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, conversations_created: 1)
+
+      interactor.track_mixpanel
     end
   end
 end
