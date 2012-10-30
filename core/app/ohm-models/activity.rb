@@ -80,8 +80,12 @@ class Activity < OurOhm
     self.key[:containing_sorted_sets].del
   end
 
+  def pavlov_options
+    {current_user: user}
+  end
+
   def after_create
-    interactor :send_mail_for_activity, self, current_user: user
+    interactor :send_mail_for_activity, self
   end
 
 end
