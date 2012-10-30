@@ -81,7 +81,7 @@ class Activity < OurOhm
   end
 
   def after_create
-    interactor :send_mail_for_activity, self
+    interactor :send_mail_for_activity, self, current_user: user
   end
 
 end
