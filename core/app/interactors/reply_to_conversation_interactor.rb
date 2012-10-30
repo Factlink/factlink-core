@@ -2,6 +2,7 @@ require_relative 'pavlov'
 
 class ReplyToConversationInteractor
   include Pavlov::Interactor
+  include Pavlov::Mixpanel
 
   arguments :conversation_id, :sender_id, :content
 
@@ -11,7 +12,15 @@ class ReplyToConversationInteractor
 
     sender = User.find(@sender_id)
     command :create_activity, sender.graph_user, :replied_message, message, nil
+
+    track_mixpanel
   end
+
+  def track_mixpanel
+    increment_person_event :replies_created
+    track_event :reply_created
+  end
+
   def authorized?
     #relay authorization to commands, only require a user to check
     @options[:current_user]
