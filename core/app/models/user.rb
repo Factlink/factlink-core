@@ -271,6 +271,10 @@ class User
     end
   end
 
+  def features_count
+     @count ||= features.to_a.keep_if { |f| Ability::FEATURES.include? f }.count
+  end
+
   set :seen_messages
 
   # don't send reset password instructions when the account is not approved yet
