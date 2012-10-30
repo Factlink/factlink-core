@@ -186,7 +186,7 @@ describe 'activity queries' do
         u1 = create(:user)
         u2 = create(:user)
 
-        CreateConversationWithMessageInteractor.perform f.id, [u1.username, u2.username], u1.id, 'this is a message', current_user: u1
+        CreateConversationWithMessageInteractor.perform f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
@@ -201,11 +201,11 @@ describe 'activity queries' do
         u1 = c.recipients[0]
         u2 = c.recipients[1]
 
-        ReplyToConversationInteractor.perform c.id, u1.id.to_s, 'this is a message', current_user: u1
+        ReplyToConversationInteractor.perform c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :replied_conversation, subject: c }
+          {user: u1.graph_user, action: :replied_message, subject: Message.last }
         ]
       end
     end

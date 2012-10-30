@@ -14,15 +14,17 @@ describe ReplyToConversationInteractor do
       sender       = mock(:user, id: 13, graph_user: graph_user)
       content      = 'geert'
       conversation = mock(:conversation, id: 20)
+      message      = mock()
 
-      User.should_receive(:find).with(sender.id).and_return(sender)
-      Conversation.should_receive(:find).with(conversation.id).and_return(conversation)
+      Conversation.should_receive(:find).with(conversation.id.to_s).and_return(conversation)
       should_receive_new_with_and_receive_execute(
-        Commands::CreateMessage, sender.id, content, conversation, current_user: sender)
+        Commands::CreateMessage, sender.id.to_s, content, conversation, current_user: sender).and_return(message)
+      
+      User.should_receive(:find).with(sender.id.to_s).and_return(sender)
       should_receive_new_with_and_receive_execute(
-        Commands::CreateActivity, graph_user, :replied_conversation, conversation, current_user: sender)
+        Commands::CreateActivity, graph_user, :replied_message, message, nil, current_user: sender)
 
-      ReplyToConversationInteractor.perform conversation.id, sender.id, content, current_user: sender
+      ReplyToConversationInteractor.perform conversation.id.to_s, sender.id.to_s, content, current_user: sender
     end
   end
 end

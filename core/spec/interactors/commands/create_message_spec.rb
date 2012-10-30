@@ -51,7 +51,7 @@ describe Commands::CreateMessage do
       Message.should_receive(:new).and_return(message)
       message.should_receive(:save)
 
-      expect(command.execute).to eq(nil)
+      expect(command.execute).to eq(message)
     end
   end
 

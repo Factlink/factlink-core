@@ -6,11 +6,11 @@ class ReplyToConversationInteractor
   arguments :conversation_id, :sender_id, :content
 
   def execute
-    sender = User.find(@sender_id)
     conversation = Conversation.find(@conversation_id)
+    message = command :create_message, @sender_id, @content, conversation
 
-    command :create_message, sender.id, @content, conversation
-    command :create_activity, sender.graph_user, :replied_conversation, conversation
+    sender = User.find(@sender_id)
+    command :create_activity, sender.graph_user, :replied_message, message, nil
   end
   def authorized?
     #relay authorization to commands, only require a user to check

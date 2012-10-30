@@ -19,8 +19,7 @@ module Commands
       message.content = @content
       message.conversation_id = @conversation.id
       message.save
-
-      nil
+      message
     end
 
     def authorized?

@@ -26,7 +26,7 @@ describe CreateConversationWithMessageInteractor do
       should_receive_new_with_and_receive_execute(
         Commands::CreateMessage, sender.id, content, conversation, current_user: sender)
       should_receive_new_with_and_receive_execute(
-        Commands::CreateActivity, graph_user, :created_conversation, conversation, current_user: sender)
+        Commands::CreateActivity, graph_user, :created_conversation, conversation, nil, current_user: sender)
 
       CreateConversationWithMessageInteractor.perform fact_id, usernames, sender.id, content, current_user: sender
     end

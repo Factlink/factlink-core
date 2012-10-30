@@ -101,11 +101,18 @@ json.activity do |json|
       json.fact Facts::Fact.for(fact: subject, view: self).to_hash
     end
 
-  when "created_conversation", "replied_conversation"
+  when "created_conversation"
     json.target_url conversation_path(subject)
 
     json.message do |message|
-      message.content truncate("#{subject.messages.last.content}", length: 85, separator: ' ')
+      message.content truncate("#{subject.messages.first.content}", length: 85, separator: ' ')
+    end
+
+  when "replied_message"
+    json.target_url conversation_path(subject.conversation)
+
+    json.message do |message|
+      message.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
   end
 end
