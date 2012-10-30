@@ -5,14 +5,10 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
     "click .submit": 'submit'
 
   submit: ->
-    @message = new Message
-      content: @$('.text').val()
-      sender: currentUser
-    @model.messages().add @message
-
     @displayError false
     @disableSubmit()
-    @message.save [],
+
+    @model.messages().createNew @$('.text').val(), currentUser,
       success: =>
         @clearForm()
         @enableSubmit()
