@@ -8,6 +8,8 @@
 
   <p><%= link_to 'Click here to start using Factlink', edit_password_url(@user, :reset_password_token => @user.reset_password_token, msg: 'welcome') %></p>
 
+  <p style="float: right;"><em>&mdash; The Factlink team</em></p>
+
 <% end %>
 
 <%= render template: "layouts/email" %>
