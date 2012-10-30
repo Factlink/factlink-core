@@ -65,7 +65,7 @@ module FactlinkUI
 
     config.mongoid.logger = nil
 
-    config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer, :conversation_observer, :message_observer
+    config.mongoid.observers = :user_observer, :topic_observer, :fact_data_observer,  :message_observer
 
     require_dependency "#{config.root}/app/classes/map_reduce.rb"
     require_dependency "#{config.root}/app/ohm-models/our_ohm.rb"

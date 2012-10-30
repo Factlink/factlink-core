@@ -4,7 +4,10 @@ class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
   def pavlov_options
-    {current_user: current_user}
+    {
+      current_user: current_user,
+      mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
+    }
   end
 
   before_filter :check_preferred_browser

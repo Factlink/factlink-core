@@ -2,6 +2,7 @@ require_relative 'pavlov'
 
 class CreateConversationWithMessageInteractor
   include Pavlov::Interactor
+  include Pavlov::Mixpanel
 
   arguments :fact_id, :recipient_usernames, :sender_id, :content
 
@@ -11,6 +12,8 @@ class CreateConversationWithMessageInteractor
 
     sender = User.find(@sender_id)
     command :create_activity, sender.graph_user, :created_conversation, c, nil
+
+    track_event :conversation_created
   end
   def authorized?
     #relay authorization to commands, only require a user to check
