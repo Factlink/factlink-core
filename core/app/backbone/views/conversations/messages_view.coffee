@@ -32,6 +32,12 @@ class window.MessagesView extends Backbone.Marionette.Layout
     replyRegion: '.reply'
 
   initialEvents: -> # Remove this line when updating Marionette
+    # Right now removing this line does not break anything, but in the future it might
+    # (If Marionette is not updated.)
+    # In our version of Marionette a Layout re-renders when its @collection gets a 'reset' event
+    # At the moment it only receives "add" and "change" events, but if we choose to update the
+    # conversations using @collection.fetch, this entire view (including fact, etc.) would re-render
+    # See: https://github.com/chancancode/marionette-rails/blob/9647f1bfe217c05b1ebb69cba889ae0abf4ea980/vendor/assets/javascripts/backbone.marionette.js#L234
 
   onRender: ->
     @showFact()
