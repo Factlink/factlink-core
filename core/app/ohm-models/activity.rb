@@ -3,10 +3,14 @@ require 'ohm/contrib'
 require_relative 'activity/subject'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'
+require_relative '../interactors/pavlov'
+require_relative '../interactors/send_mail_for_activity_interactor'
 
 class Activity < OurOhm
   include Ohm::Timestamping
   reference :user, GraphUser
+
+  include Pavlov::Helpers
 
   alias :old_set_user :user= unless method_defined?(:old_set_user)
   def user=(new_user)
@@ -74,6 +78,10 @@ class Activity < OurOhm
       Nest.new(list).zrem self.id
     end
     self.key[:containing_sorted_sets].del
+  end
+
+  def after_create
+    interactor :send_mail_for_activity, self
   end
 
 end
