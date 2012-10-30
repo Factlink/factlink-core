@@ -30,6 +30,7 @@ json.activity do |json|
     json.action       :added
     json.evidence     subject.to_s
     json.evidence_url friendly_fact_path(subject)
+    json.target_url   friendly_fact_path(subject)
 
     if showing_notifications
       json.fact truncate("#{object}", length: 85, separator: " ")
@@ -62,9 +63,11 @@ json.activity do |json|
 
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
+    json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"
     json.channel_title             subject.title
     json.channel_url               channel_path(subject.created_by.user, subject.id)
+    json.target_url                channel_path(subject.created_by.user, subject.id)
 
     json.created_channel_definition t(:created_channel)
   when "added_fact_to_channel"
@@ -114,5 +117,7 @@ json.activity do |json|
     json.message do |message|
       message.content truncate("#{subject.content}", length: 85, separator: ' ')
     end
+  when "invites"
+    json.target_url user_profile_path(user)
   end
 end

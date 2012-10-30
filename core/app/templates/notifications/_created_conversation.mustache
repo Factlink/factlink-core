@@ -1,16 +1,18 @@
-<div class="avatar">
-  {{{avatar}}}
-</div>
-<div class="info">
-  <span>
-    {{ username }} has sent you a message:
-  </span>
-
-  <p>{{ activity.message.content }}</p>
-
-  <div class="time_ago">
-    <img src="/assets/time_ago.gif">
-    <span>{{time_ago}} ago</span>
+<a href="{{ activity.target_url }}">
+  <div class="avatar">
+    {{{avatar}}}
   </div>
-</div>
-<div class="clear"></div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ username }}</span>
+      has sent you a message:
+      <span class="highlight">{{ activity.message.content }}</span>
+    </div>
+
+    <div class="time_ago">
+      <img src="/assets/time_ago.gif">
+      <span>{{time_ago}} ago</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+</a>
