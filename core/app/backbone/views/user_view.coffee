@@ -4,7 +4,7 @@ class window.UserView extends Backbone.Marionette.ItemView
   events:
     "click div.avatar-container": "clickHandler"
 
-  template: "users/_user"
+  template: "users/user"
   templateHelpers:
     channel_listing_header: Factlink.Global.t.my_channels.capitalize()
 
