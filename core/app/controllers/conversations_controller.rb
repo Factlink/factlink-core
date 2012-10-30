@@ -1,10 +1,6 @@
 class ConversationsController < ApplicationController
   before_filter :authenticate_user!
 
-  def pavlov_options
-    {current_user: current_user}
-  end
-
   def index
     backbone_responder do
       @conversations = query :conversations_with_users_message, current_user.id.to_s
