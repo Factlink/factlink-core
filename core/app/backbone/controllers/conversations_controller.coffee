@@ -3,16 +3,19 @@ app = FactlinkApp
 class window.ConversationsController
   startAction: ->
     app.closeAllContentRegions()
-    @main = new TabbedMainRegionLayout();
+    @main ?= new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
-    return if @alreadyLoaded
-    @conversations = new Conversations()
-    @alreadyLoaded = true
+  navigateConversations: ->
+    @startAction()
+    @showConversations()
 
-  showConversations: (with_startup=true)->
-    @startAction() if with_startup
+  navigateMessages: (args...) ->
+    @startAction()
+    @showMessages(args...)
 
+  showConversations: ->
+    @conversations ?= new Conversations()
     @main.showTitle "Conversations"
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
@@ -20,9 +23,7 @@ class window.ConversationsController
 
     @conversations.fetch()
 
-  showMessages: (conversation_id, with_startup=true)->
-    @startAction() if with_startup
-
+  showMessages: (conversation_id, message_id=null)->
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
@@ -33,15 +34,15 @@ class window.ConversationsController
 
         title_view = new ConversationTitleView( model: model )
         title_view.on 'showConversations', =>
-          @showConversations false
-          Backbone.history.navigate '/m', false
+          @showConversations()
+          Backbone.history.navigate '/c', false
 
-        @main.titleRegion.show( title_view )
+        @main.titleRegion.show(title_view)
+        model.messages().get(message_id)?.trigger('scroll') if message_id?
 
   renderMessages: (conversation) ->
-    messages = new Messages(conversation.get('messages'))
-    conversationView =  new MessagesView
+    conversationView = new MessagesView
       model: conversation
-      collection: messages
+      collection: conversation.messages()
 
     @main.contentRegion.show conversationView

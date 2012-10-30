@@ -9,18 +9,18 @@
 
   .conversations,
   .messages ul {
-    margin-bottom: -15px;
-
     li {
       .full-width();
       padding: 15px;
       border-bottom: 1px solid @baseBorderColor;
 
-      &:last-child { border-bottom: 1px solid transparent; }
-
       .avatar {
         float: left;
-        img { .border-radius(3px); }
+        img {
+          width: 48px;
+          height: 48px;
+          .border-radius(3px);
+        }
       }
 
       .message {
@@ -50,5 +50,24 @@
         }
       }
     }
+  }
+
+  .conversation {
+    .reply {
+      padding-top: 15px;
+      
+      textarea {
+        width: 654px;
+      }
+
+      .submit {
+        float: right;
+      }
+    }
+  }
+
+  .conversations {
+    margin-bottom: -15px;
+    li:last-child { border-bottom: 1px solid transparent; }
   }
 }
