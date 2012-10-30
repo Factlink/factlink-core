@@ -42,12 +42,14 @@ describe Commands::CreateMessage do
 
       sender = stub(id: 14)
 
-      User.should_receive(:find).with(14).and_return([sender])
-
       command = Commands::CreateMessage.new sender.id, content, conversation, current_user: sender
       conversation.should_receive(:save)
-      message = double("message", {:sender= => nil, :content= => nil, :conversation_id= => nil})
-      Message.should_receive(:create).and_return(message)
+      message = mock()
+      message.should_receive("sender_id=").with(sender.id)
+      message.should_receive('content=').with(content)
+      message.should_receive('conversation_id=').with(conversation.id)
+
+      Message.should_receive(:new).and_return(message)
       message.should_receive(:save)
 
       command.execute
