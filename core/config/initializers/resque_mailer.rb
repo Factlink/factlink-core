@@ -1,5 +1,5 @@
 # config/initializers/resque_mailer.rb
-Resque::Mailer.excluded_environments = [:test, :develop]
+Resque::Mailer.excluded_environments = [:test, :development]
 
 module Devise
   module Mailers
