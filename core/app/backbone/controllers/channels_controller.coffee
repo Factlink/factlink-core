@@ -33,7 +33,9 @@ class window.ChannelsController
 
     user = channel.user()
     if user.is_current_user()
-      FactlinkApp.leftTopRegion.close()
+      header = new ChannelHeaderView(model: user)
+      FactlinkApp.leftTopRegion.show header
+      header.trigger 'activate' if channel.get('is_all')
     else
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)

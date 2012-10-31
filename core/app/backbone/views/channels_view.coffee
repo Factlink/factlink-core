@@ -16,6 +16,11 @@ class ChannelItemView extends Backbone.Marionette.ItemView
 
 _.extend ChannelItemView.prototype, ToggleMixin
 
+class window.ChannelHeaderView extends Backbone.Marionette.ItemView
+  template: 'channels/list_header'
+
+  initialize: =>
+    @on 'activate', => @$('h1.stream').addClass('active')
 
 class window.ChannelsView extends Backbone.Marionette.CompositeView
   template: 'channels/channel_list'

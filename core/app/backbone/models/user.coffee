@@ -35,3 +35,4 @@ class window.User extends Backbone.Model
       link: '/' + @get('username')
       avatar_url_48: @avatar_url(48)
       avatar_url_200: @avatar_url(200)
+      stream_path: "/#{@get('username')}/channels/#{@get('all_channel_id')}/activities"
