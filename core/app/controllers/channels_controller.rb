@@ -204,8 +204,7 @@ class ChannelsController < ApplicationController
     end
 
     def channels_for_user(user)
-      @channels = user.graph_user.channels
-      @channels = @channels.keep_if { |ch| ch.type == 'channel' }
+      @channels = user.graph_user.real_channels
       unless @user == current_user
         @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
       end
