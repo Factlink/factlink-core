@@ -26,6 +26,11 @@ class window.ChannelList extends window.GenericChannelList
       activeChannel = @get(@activeChannelId)
       activeChannel.trigger "activate", activeChannel  if activeChannel
 
+  setUsernameAndRefresh: (username)->
+    @setUsername(user.get 'username');
+    @setupReloading(true)
+
+
   getUsername: -> if @_username then @_username else
 
   setUsername: (name) ->
