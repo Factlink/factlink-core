@@ -20,3 +20,4 @@ _.extend ChannelItemView.prototype, ToggleMixin
 class window.ChannelsView extends Backbone.Marionette.CompositeView
   template: 'channels/channel_list'
   itemView: ChannelItemView
+  itemViewContainer: "#channel-listing"
