@@ -15,7 +15,7 @@
       <% end %>
 
       <% if @channel && !@channel.new? %>
-        window.currentChannel = new Channel
+        window.currentChannel = new Channel({id: <%= @channel.id %>});
       <% end %>
 
       // this should be moved to an initializer
