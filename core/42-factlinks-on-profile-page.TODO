@@ -2,11 +2,11 @@
  ☐ Add "My Factlinks" to the profile page
    ☐ infiny load
    ☐ should be placed under the profile as it is now (create region for it)
+   ☐ Keep "Create by <user>" on someone else's profile
 
  ✔ channels.json should only return channels @done (12-10-31 08:27)
 
  ☐ Keep a link to "My Stream" (maybe give it a different name), keep divider
- ☐ Keep "Create by <user>" on someone else's profile
  ☐ Remove "My Channels" and 'add new' button from the sidebar
 
  keep in mind:
