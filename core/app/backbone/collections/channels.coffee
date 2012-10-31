@@ -50,16 +50,15 @@ class window.ChannelList extends window.GenericChannelList
   startReloading: ->
     if @shouldReload()
       args = arguments
-      self = this
-      setTimeout (->
-        self.fetch
+      setTimeout (=>
+        @fetch
           success: (collection, response) ->
             if typeof window.currentChannel isnt "undefined"
               newCurrentChannel = collection.get(currentChannel.id)
               currentChannel.set newCurrentChannel.attributes
-            _.bind(args.callee, self)()
+            _.bind(args.callee, this)()
 
-          error: _.bind(args.callee, self)
+          error: _.bind(args.callee, this)
       ), 7000
 
   getBySlugTitle: (slug_title)->
