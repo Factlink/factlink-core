@@ -1,6 +1,8 @@
 class ActivityMailer < ActionMailer::Base
   include Resque::Mailer
 
+  helper :activity_mailer, :fact
+
   layout "email"
 
   default from: "Factlink <support@factlink.com>"

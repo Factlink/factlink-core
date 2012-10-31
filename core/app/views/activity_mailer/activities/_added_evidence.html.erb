@@ -1,0 +1,5 @@
+<%= link_to_dead_user @activity.user.user %>
+ added
+<%= @activity.action == "added_supporting_evidence" ? "supporting" : "weakening" %>
+ evidence to
+<%= link_to "<em>#{@activity.object}</em>".html_safe, friendly_fact_path(@activity.object) %>

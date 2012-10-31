@@ -29,10 +29,6 @@
   <h2>You've received a new notification on Factlink:</h2>
 
   <p>
-    <% if @activity.action.to_s == "added_subchannel" %>
-      <%= render "added_subchannel_activity" %>
-    <% else %>
-      <%= @activity.action %>
-    <% end %>
+    <%= render_mail_template_for_action @activity.action %>
   </p>
 <% end %>
