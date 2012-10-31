@@ -11,6 +11,8 @@
   }
 
   li a {
+    .box-sizing();
+
     padding: @margin 4px @margin 0;
     width: 145px;
     display: block;
@@ -34,9 +36,14 @@
     }
 
     .new {
-      color: @black;
+      color: white;
       margin-left: -20px;
       float: right;
+      padding: 0 5px;
+      .border-radius(16px);
+      font-size: 0.9em;
+      font-weight: 100;
+      .unread();
     }
     .title {
       .ellipsis();
@@ -44,12 +51,11 @@
       display: inline-block;
     }
   }
+
   li a.created {
     border-bottom: 1px solid @baseBorderColor;
   }
-  li.active a {
-    border-top: none;
-  }
+
   li.active {
     a {
       color: #333;
@@ -57,13 +63,11 @@
       margin-left: 4px;
       border: 1px solid #ddd;
 
-      .box-sizing();
       span {
+        .box-sizing();
         position: relative;
         left: -5px;
-        .box-sizing();
       }
     }
-    // background: image-url("menuBackground.png") left ((@margin / 2) - 2) no-repeat transparent;
   }
 }
