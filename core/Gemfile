@@ -86,6 +86,8 @@ gem 'browser'
   gem 'rvm-capistrano', require: false
 #end
 
+gem 'roadie'
+
 # imagemagick
 gem 'rmagick', require: false
 
