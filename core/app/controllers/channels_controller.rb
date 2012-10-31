@@ -43,7 +43,7 @@ class ChannelsController < ApplicationController
       format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
       format.js
       format.html do
-        render inline:'', layout: "channels"
+        render_backbone_page
         mark_channel_as_read
       end
     end
