@@ -1,7 +1,13 @@
-<strong>I want Factlink to send me an email me when:</strong>
-<label>
-  <input type='checkbox' class='send_mail'
-    {{#receives_mailed_notifications}}checked=checked{{/receives_mailed_notifications}}
-  >
-  I received new notifications and I'm inactive for 5 days
-</label>
+<div class="row" id="edit_user">
+  <div class="span8">
+    <fieldset>
+      <legend></legend>
+      <label class="checkbox">
+        <input type="checkbox" class="send_mail"
+          {{#receives_mailed_notifications}}checked=checked{{/receives_mailed_notifications}}
+        >
+        Send me an email when I receive a notification
+      </label>
+    </fieldset>
+  </div>
+</div>
