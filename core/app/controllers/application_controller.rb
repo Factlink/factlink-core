@@ -170,15 +170,6 @@ class ApplicationController < ActionController::Base
       action_name == "intermediate" and controller_name == "facts"
     end
 
-    def channels_for_user(user)
-      @channels = user.graph_user.channels
-      unless @user == current_user
-        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 || ch.type != 'channel'}
-      end
-      @channels
-    end
-    helper_method :channels_for_user
-
     def can_haz feature
       can? :"see_feature_#{feature}", Ability::FactlinkWebapp
     end

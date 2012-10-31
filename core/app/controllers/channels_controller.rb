@@ -203,4 +203,12 @@ class ChannelsController < ApplicationController
       @channel.mark_as_read if @channel.created_by == current_graph_user
     end
 
+    def channels_for_user(user)
+      @channels = user.graph_user.channels
+      @channels = @channels.keep_if { |ch| ch.type == 'channel' }
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
+      end
+      @channels
+    end
 end

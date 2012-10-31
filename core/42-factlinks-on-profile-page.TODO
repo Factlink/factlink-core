@@ -3,14 +3,14 @@
    ☐ infiny load
    ☐ should be placed under the profile as it is now (create region for it)
 
- ☐ channels.json should only return channels
+ ✔ channels.json should only return channels @done (12-10-31 08:27)
 
  ☐ Keep a link to "My Stream" (maybe give it a different name), keep divider
  ☐ Keep "Create by <user>" on someone else's profile
  ☐ Remove "My Channels" and 'add new' button from the sidebar
 
  keep in mind:
- ☐ the add-to-channel functionality should still work
- ☐ the top-channels functionality in the profile page should still work
- ☐ the auto-completed-add-to-channel should still work
+ ✔ the add-to-channel functionality should still work @done (12-10-31 08:27)
+ ✔ the top-channels functionality in the profile page should still work @done (12-10-31 08:28)
+ ✔ the auto-completed-add-to-channel should still work @done (12-10-31 08:30)
 
