@@ -67,7 +67,8 @@ class window.ChannelList extends window.GenericChannelList
       success: (collection, response) =>
         if typeof window.currentChannel isnt "undefined"
           newCurrentChannel = collection.get(currentChannel.id)
-          currentChannel.set newCurrentChannel.attributes
+          if newCurrentChannel?
+            currentChannel.set newCurrentChannel.attributes
         callMyselfSoon()
 
       error: callMyselfSoon()
