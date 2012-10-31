@@ -131,6 +131,7 @@ describe 'activity queries' do
           {user: gu1, action: :"added_#{type}_evidence", subject: f2, object: f1}
         ]
       end
+
       it "should return activity when a users adds #{type} evidence to a fact that you believed" do
         f1 = create :fact
         f1.add_opinion(:believes, gu1)
@@ -141,6 +142,16 @@ describe 'activity queries' do
         ]
       end
 
+      it "should return activity when a users adds #{type} evidence to a fact that you supported" do
+        f1 = create :fact
+        f2 = create :fact
+        f3 = create :fact
+        f1.add_evidence :supporting, f2, gu1
+        f1.add_evidence type, f3, gu2
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          {user: gu2, action: :"added_#{type}_evidence", subject: f3, object: f1}
+        ]
+      end
     end
     [:believes, :doubts, :disbelieves].each do |opinion|
       it "should return activity when a user opinionates a fact of the user" do
