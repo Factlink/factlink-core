@@ -4,10 +4,13 @@
 #container .channel-listing {
 
   .stream {
-    a {
-      padding-left: 6px;
+    margin-bottom: 4px;
 
-      font-size: 1.1em;
+    &.active a { padding-left: 0px; }
+
+    a {
+      padding-left: 4px;
+      font-size: @baseFontSize;
       font-weight: bold;
       &:hover { text-decoration: none; }
 
@@ -19,7 +22,7 @@
     margin: 0 0 0 7px;
     h1 {
       background: @backgroundGray;
-      font-size: 1.1em;
+      font-size: @baseFontSize;
       color: #6684a9;
       line-height: 20px;
 
