@@ -1,10 +1,10 @@
 #= require './top_channel_view'
 
 class window.ProfileInformationView extends Backbone.Marionette.ItemView
-  template: "users/profiles/information"
+  template: "users/profile/information"
 
 class window.ProfileView extends Backbone.Marionette.Layout
-  template:  'users/new_profile'
+  template:  'users/profile/index'
   className: 'profile'
 
   regions:
