@@ -11,4 +11,4 @@ class window.UserView extends Backbone.Marionette.ItemView
   clickHandler: (e) -> Backbone.history.navigate @model.url(), true
 
 class window.UserLargeView extends window.UserView
-  template: "users/_user_large"
+  template: "users/user_large"
