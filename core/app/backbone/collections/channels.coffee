@@ -33,6 +33,9 @@ class window.ChannelList extends window.GenericChannelList
     if not @_username? or @_username != name
       @reset([])
       @_username = name
+      return true
+    else
+      return false
 
   shouldReload: ->
     not (typeof localStorage is "object" and localStorage isnt null and localStorage["reload"] is "false")
