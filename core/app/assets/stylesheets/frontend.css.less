@@ -534,52 +534,6 @@ body.factlink-site .fact-block {
       }
     }
   }
-
-  #channel-listing {
-    @margin: 6px;
-    margin: 0.5em 0 1em 0;
-    li a {
-      padding: @margin 4px @margin 0;
-      width: 145px;
-      display: block;
-      .transition();
-      #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
-      color: @linkColor;
-      text-shadow: 0px 1px 0px @white;
-      padding-left: 24px;
-      &:hover {
-        text-decoration: none;
-        color: @linkColorHover;
-      }
-      &.stream {
-        background: image-url("glyphicons/home.png") 7px 8px no-repeat;
-      }
-
-      .new {
-        color: @black;
-        margin-left: -20px;
-        float: right;
-      }
-      .title {
-        .ellipsis();
-        width: 130px;
-        display: inline-block;
-      }
-    }
-    li a.created {
-      border-bottom: 1px solid @baseBorderColor;
-    }
-    li.active a {
-      border-top: none;
-    }
-    li.active {
-      a {
-        color: #333;
-        font-weight: bold;
-      }
-      background: image-url("menuBackground.png") left ((@margin / 2) - 2) no-repeat transparent;
-    }
-  }
   .no_facts, .empty_stream {
     margin-top: 15px;
     margin-bottom: 15px;
