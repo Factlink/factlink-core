@@ -17,13 +17,13 @@ describe Queries::ConversationsWithUsersMessage do
   end
 
   it 'should initialize' do
-    query = Queries::ConversationsWithUsersMessage.new(current_user: user1)
+    query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
     query.should_not be_nil
   end
 
   describe ".all_recipient_ids" do
     it "should work with overlapping ids" do
-      query = Queries::ConversationsWithUsersMessage.new(current_user: user1)
+      query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
       result = query.all_recipient_ids([conversation10, conversation20])
       expect(result).to eq([1, 2])
     end
@@ -31,13 +31,12 @@ describe Queries::ConversationsWithUsersMessage do
 
   describe :all_recipients_by_ids do
     it "should return the recipients indexed by id's" do
-      current_user = mock()
       mocklist = [
         mock('foo', id: 1),
         mock('bar', id: 2)
       ]
       querylist = mock()
-      query = Queries::ConversationsWithUsersMessage.new(current_user: current_user)
+      query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
 
       query.should_receive(:users_for_conversations).with(querylist).and_return(mocklist)
 
@@ -50,11 +49,10 @@ describe Queries::ConversationsWithUsersMessage do
   end
   describe :users_for_conversations do
     it 'retrieves users user UsersByIds' do
-      current_user = mock()
       conversations = [mock('foo', recipient_ids: [1,2]),mock('foo', recipient_ids: [2,3,4])]
       users = mock()
-      query = Queries::ConversationsWithUsersMessage.new(current_user: current_user)
-      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1,2,3,4], current_user: current_user).
+      query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
+      should_receive_new_with_and_receive_execute(Queries::UsersByIds, [1,2,3,4], current_user: user1).
         and_return(users)
 
       result = query.users_for_conversations(conversations)
@@ -65,9 +63,9 @@ describe Queries::ConversationsWithUsersMessage do
 
   describe ".execute" do
     it "should call the three other queries" do
-      query = Queries::ConversationsWithUsersMessage.new(current_user: user1)
+      query = Queries::ConversationsWithUsersMessage.new(user1.id.to_s, current_user: user1)
 
-      should_receive_new_with_and_receive_execute(Queries::ConversationsList, current_user: user1).
+      should_receive_new_with_and_receive_execute(Queries::ConversationsList, user1.id.to_s, current_user: user1).
         and_return(conversations)
       query.should_receive(:all_recipients_by_ids).with([conversation10, conversation20]).and_return(1 => user1, 2 => user2)
       should_receive_new_with_and_receive_execute(Queries::LastMessageForConversation, conversation10, current_user: user1).

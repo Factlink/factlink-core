@@ -48,76 +48,72 @@
     overflow-x: hidden;
 
     li {
-      border-bottom: 1px solid #e4e4e4;
-      margin: 0;
-      padding: 7px 10px 10px 10px;
-      white-space: normal;
-
       a {
+        display: block;
+        border-bottom: 1px solid #e4e4e4;
+        margin: 0;
+        padding: 5px 10px;
         white-space: normal;
-      }
+        color: #999;
 
-      &.no-notifications{
-        border: none;
-      }
-
-      &.has-target-url {
         &:hover {
           background: @itemHoverColor;
           cursor: pointer;
           text-shadow: 0 1px 0 #fff;
-          p {
-            color: @linkColorHover;
-          }
-        }
-        p {
-          color: #555;
-        }
-      }
-
-      &.unread {
-        background-color: @lightYellow;
-      }
-
-      div.avatar {
-        width: 30px;
-        float: left;
-
-        img {
-          .border-radius(2px);
-          display: inline-block;
-        }
-      }
-
-      div.info {
-        width: 230px;
-        float: left;
-        margin: 0 0 7px;
-
-        a {
-          display: inline;
-          padding: 0;
         }
 
-        span {
-          font-size: 12px;
-        }
+        div.avatar {
+          float: left;
+          margin-top: 5px;
+          width: 30px;
 
-        div.time_ago {
           img {
-            vertical-align: middle;
+            .border-radius(2px);
+            display: inline-block;
+          }
+        }
+
+        div.info {
+          float: left;
+          width: 230px;
+          font-size: 12px;
+
+          .text {
+            color: #999;
+            .highlight {
+              color: #333;
+            }
           }
 
-          span {
-            vertical-align: middle;
-            color: #999;
-            font-size: 11px;
+          div.time_ago {
+            margin-top: 3px;
+
+            img {
+              vertical-align: middle;
+            }
+
+            span {
+              vertical-align: middle;
+              color: #999;
+              font-size: 11px;
+            }
           }
+        }
+
+        div.clear {
+          clear: both;
         }
       }
 
-      div.clear {
-        clear: both;
+      &.no-notifications {
+        padding: 5px 10px;
+      }
+
+      &.unread a {
+        background-color: @lightYellow;
+        &:hover {
+          background-color: @itemHoverColor;
+        }
       }
     }
   }

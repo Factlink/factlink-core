@@ -70,7 +70,7 @@ FactlinkUI::Application.routes.draw do
     end
 
     # Search and infinite scrolling
-    match "/search(/page/:page)(/:sort/:direction)" => "home#search", :as => "factlink_overview"
+    match "/search(/page/:page)(/:sort/:direction)" => "search#search", :as => "factlink_overview"
 
     namespace :admin, path: 'a' do
       resources :users, :only => [:show, :new, :create, :edit, :update, :index] do
@@ -97,7 +97,9 @@ FactlinkUI::Application.routes.draw do
     delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
 
-  resources :conversations, only: [:index, :show, :create], path: 'm'
+  resources :conversations, only: [:index, :show, :create], path: 'c' do
+    resources :messages, only: [:create, :show]
+  end
 
   scope "/:username" do
     get "/" => "users#show", :as => "user_profile"

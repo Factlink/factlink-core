@@ -1,35 +1,33 @@
 class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
-  template: "notifications/_generic_activity"
+  template: "notifications/generic"
   events:
-    'click': 'wholeElementClick'
+    'click a': 'click'
 
-  wholeElementClick: (e) ->
-    if url = @model.get('activity').target_url
-      e.preventDefault()
-      e.stopImmediatePropagation()
-      @trigger 'activityActivated'
-      Backbone.history.navigate_with_fallback url, true
+  click: (e) ->
+    @trigger 'activityActivated'
+    return Backbone.View.prototype.defaultClickHandler(e)
 
   onRender: ->
-    @$el.addClass "unread"  if @model.get("unread") is true
-    @$el.addClass "has-target-url" if @model.get('activity').target_url
-
+    @$el.addClass "unread" if @model.get("unread") is true
 
   markAsRead: -> @$el.removeClass "unread"
 
 class NotificationAddedEvidenceView extends GenericNotificationView
-  template: "notifications/_added_evidence_activity"
+  template: "notifications/added_evidence"
 
 class NotificationAddedSubchannelView extends GenericNotificationView
-  template: "notifications/_added_subchannel_activity"
+  template: "notifications/added_subchannel"
 
 class NotificationInvitedView extends GenericNotificationView
-  template: "notifications/_invited_activity"
+  template: "notifications/invited"
 
 class NotificationCreatedConversationView extends GenericNotificationView
-  template: "notifications/_created_conversation"
+  template: "notifications/created_conversation"
+
+class NotificationRepliedMessageView extends GenericNotificationView
+  template: "notifications/replied_message"
 
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
@@ -41,5 +39,7 @@ window.NotificationView = (opts) ->
       new NotificationInvitedView(opts)
     when "created_conversation"
       new NotificationCreatedConversationView(opts)
+    when "replied_message"
+      new NotificationRepliedMessageView(opts)
     else
       new GenericNotificationView(opts)

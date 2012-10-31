@@ -1,0 +1,18 @@
+<a href="{{ activity.target_url }}">
+  <div class="avatar">
+    {{{avatar}}}
+  </div>
+  <div class="info">
+    <div class="text">
+      <span class="highlight">{{ username }}</span>
+      {{ activity.action }}
+      <span class="highlight">{{ activity.subject }}</span>
+    </div>
+
+    <div class="time_ago">
+      <img src="/assets/time_ago.gif">
+      <span>{{time_ago}} ago</span>
+    </div>
+  </div>
+  <div class="clear"></div>
+</a>

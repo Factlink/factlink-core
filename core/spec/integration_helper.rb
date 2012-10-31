@@ -87,10 +87,13 @@ def sign_in_user(user)
   user
 end
 
-def sign_out_user(user)
-  visit "/users/sign_out"
+def switch_to_user(user)
+  sign_out_user
+  sign_in_user(user)
+end
 
-  user
+def sign_out_user
+  visit "/users/sign_out"
 end
 
 def random_username
@@ -128,7 +131,7 @@ end
 
 def wait_until_scope_exists(scope, &block)
   wait_until { page.has_css?(scope) }
-  within scope, &block
+  within(scope, &block) if block_given?
 rescue Capybara::TimeoutError
   flunk "Expected '#{scope}' to be present."
 end
