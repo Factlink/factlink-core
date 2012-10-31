@@ -1,72 +1,89 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-#channel-listing {
+#container .channel-listing {
+
+  .stream {
+    a {
+      padding-left: 6px;
+
+      font-size: 1.1em;
+      font-weight: bold;
+      &:hover { text-decoration: none; }
+
+      i { margin-right: 2px; }
+    }
+  }
+
+  .my-channels {
+    margin: 0 0 0 7px;
+    h1 {
+      background: @backgroundGray;
+      font-size: 1.1em;
+      color: #6684a9;
+      line-height: 20px;
+
+      padding: 0;
+      margin: 0;
+    }
+  }
+
   @margin: 6px;
-  margin: 0.5em 0 1em 0;
+  margin: 0.5em 0 0 0;
 
   li {
     background: #6684a9;
     .box-sizing();
-  }
 
-  li a {
-    .box-sizing();
-
-    padding: @margin 4px @margin 0;
-    width: 145px;
-    display: block;
-    .transition();
-    #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
-    color: @linkColor;
-    text-shadow: 0px 1px 0px @white;
-    padding-left: 24px;
-
-
-    background: #f9f9f9;
-    border: 1px solid transparent;
-    width: 100%;
-
-    &:hover {
-      text-decoration: none;
-      color: @linkColorHover;
-    }
-    &.stream {
-      background: image-url("glyphicons/home.png") 7px 8px no-repeat;
-    }
-
-    .new {
-      color: white;
-      margin-left: -20px;
-      float: right;
-      padding: 0 5px;
-      .border-radius(16px);
-      font-size: 0.9em;
-      font-weight: 100;
-      .unread();
-    }
-    .title {
-      .ellipsis();
-      width: 130px;
-      display: inline-block;
-    }
-  }
-
-  li a.created {
-    border-bottom: 1px solid @baseBorderColor;
-  }
-
-  li.active {
     a {
-      color: #333;
-      font-weight: bold;
-      margin-left: 4px;
-      border: 1px solid #ddd;
+      width: 100%;
+      display: block;
+      padding: @margin 4px @margin 24px;
 
-      span {
-        .box-sizing();
-        position: relative;
-        left: -5px;
+      background: @backgroundGray;
+      border: 1px solid transparent;
+
+      color: #333;
+      text-shadow: 0px 1px 0px @white;
+      #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+
+      .box-sizing();
+      .transition();
+
+      &:hover { color: #6684a9; }
+      &.stream { background: image-url("glyphicons/home.png") 7px 8px no-repeat; }
+
+      .new {
+        float: right;
+        padding: 0 5px;
+        margin-left: -20px;
+
+        color: white;
+        font-size: 0.9em;
+        font-weight: 100;
+
+        .border-radius(16px);
+        .unread();
+      }
+      .title {
+        width: 130px;
+        display: inline-block;
+        .ellipsis();
+      }
+    }
+
+    &.active {
+      a {
+        color: #6684a9;
+        // font-weight: bold;
+        margin-left: 4px;
+        border: 1px solid #ddd;
+
+        span {
+          .box-sizing();
+          position: relative;
+          left: -4px;
+        }
       }
     }
   }
