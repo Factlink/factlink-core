@@ -12,11 +12,10 @@
 
       <% if @user %>
         Channels.setUsername("<%= current_user.username %>");
-        Channels.reset(<%= channels_for_user(@user).map{|ch| Channels::Channel.for(channel: ch,view: self,channel_user: @user) }.to_json.html_safe %>);
       <% end %>
 
       <% if @channel && !@channel.new? %>
-        window.currentChannel = Channels.get(<%= @channel.id %>);
+        window.currentChannel = new Channel({id: <%= @channel.id %>});
       <% end %>
 
       // this should be moved to an initializer

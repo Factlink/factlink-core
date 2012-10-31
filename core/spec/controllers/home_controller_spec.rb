@@ -37,14 +37,6 @@ describe HomeController do
 
   end
 
-  describe "Search" do
-    it "should render succesful" do
-      authenticate_user!(user)
-      get :search, s: "Baron"
-      response.should be_success
-    end
-  end
-
   describe "Routed to general pages should work" do
     it "should be routed to for valid templates" do
       {get: "/p/about"}.should route_to controller: 'home', action: 'pages', name: 'about'

@@ -6,15 +6,14 @@ class SendMailForActivityInteractor
   arguments :activity
 
   def execute
-    users = query :users_by_graph_user_ids, filter.add_to(@activity)
+    graph_user_ids = query :object_ids_by_activity, @activity, "GraphUser", :notifications
+    users = query :users_by_graph_user_ids, graph_user_ids
 
     users.each do |user|
-     command :send_activity_mail_to_user, user, @activity
+      if user.receives_mailed_notifications then
+        command :send_activity_mail_to_user, user, @activity
+      end
     end
-  end
-
-  def filter
-    Activity::Listener.all[{class:"GraphUser", list: :notifications}]
   end
 
   def authorized?

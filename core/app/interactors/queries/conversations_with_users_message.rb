@@ -5,8 +5,10 @@ module Queries
   class ConversationsWithUsersMessage
     include Pavlov::Query
 
+    arguments :user_id
+
     def execute
-      conversations = query :conversations_list
+      conversations = query :conversations_list, @user_id
       users_by_id = all_recipients_by_ids(conversations)
 
       conversations.map do |conversation|

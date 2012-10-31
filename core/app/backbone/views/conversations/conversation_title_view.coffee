@@ -7,4 +7,4 @@ class window.ConversationTitleView extends Backbone.Marionette.ItemView
     'click #back-to-conversations-button' : 'showConversations'
 
   templateHelpers: =>
-    recipients_comma: @model.otherRecipients().map((user) -> user.get('name')).join(', ')
+    recipients_comma: @model.otherRecipients(currentUser).map((user) -> user.get('name')).join(', ')
