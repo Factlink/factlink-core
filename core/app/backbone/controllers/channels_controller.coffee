@@ -16,9 +16,10 @@ class window.ChannelsController
       channel.fetch
         success: (model, response) -> withChannel(model)
 
-  setChannels: (channels) ->
+  setChannels: (channels, channel) ->
     channelCollectionView = new ChannelsView(collection: channels)
     channels.setupReloading();
+    channels.setActiveChannel(channel)
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
 
@@ -35,11 +36,11 @@ class window.ChannelsController
     FactlinkApp.leftTopRegion.show(userView)
 
     if window.Channels.getUsername() == user.get('username')
-      @setChannels(window.Channels)
+      @setChannels(window.Channels, channel)
     else
       Channels.setUsername(user.get 'username');
       window.Channels.fetch
-        success: (channels) => @setChannels(channels)
+        success: (channels) => @setChannels(channels, channel)
 
 
 

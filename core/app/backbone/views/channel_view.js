@@ -16,8 +16,6 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       this.renderSubChannels();
       this.initSubChannelMenu();
       this.initAddToChannel();
-      this.model.trigger('activate', this.model);
-
       this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
     },this));
   },
