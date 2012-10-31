@@ -1,7 +1,7 @@
 class GenericNotificationView extends Backbone.Marionette.ItemView
   tagName: "li"
   className: "activity"
-  template: "notifications/_generic"
+  template: "notifications/generic"
   events:
     'click a': 'click'
 
@@ -15,19 +15,19 @@ class GenericNotificationView extends Backbone.Marionette.ItemView
   markAsRead: -> @$el.removeClass "unread"
 
 class NotificationAddedEvidenceView extends GenericNotificationView
-  template: "notifications/_added_evidence"
+  template: "notifications/added_evidence"
 
 class NotificationAddedSubchannelView extends GenericNotificationView
-  template: "notifications/_added_subchannel"
+  template: "notifications/added_subchannel"
 
 class NotificationInvitedView extends GenericNotificationView
-  template: "notifications/_invited"
+  template: "notifications/invited"
 
 class NotificationCreatedConversationView extends GenericNotificationView
-  template: "notifications/_created_conversation"
+  template: "notifications/created_conversation"
 
 class NotificationRepliedMessageView extends GenericNotificationView
-  template: "notifications/_replied_message"
+  template: "notifications/replied_message"
 
 window.NotificationView = (opts) ->
   switch opts.model.get("action")
