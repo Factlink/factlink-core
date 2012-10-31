@@ -8,7 +8,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
   itemViewContainer: "ul.dropdown-menu"
   emptyView: NotificationsEmptyView
   events:
-    click: "clickHandler"
+    "click .unread": "clickHandler"
 
   template: "notifications/_notifications"
   initialize: ->
