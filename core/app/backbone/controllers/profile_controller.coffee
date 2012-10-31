@@ -20,7 +20,6 @@ class window.ProfileController
   showNotificationSettings: (username) -> @showPage username, @notification_options(username)
 
   # HELPERS
-
   showPage: (username, options) ->
     app.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
