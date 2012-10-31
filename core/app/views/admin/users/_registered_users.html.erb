@@ -18,7 +18,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.username %></td>
+        <td><%= link_to user.username, user_profile_path(user) %></td>
         <td><%= user.email %></td>
         <td>
           <span class="label label-<%= sign_in_count_class_for user %>"><%= user.sign_in_count || 0 %></span>
