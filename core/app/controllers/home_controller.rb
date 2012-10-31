@@ -70,32 +70,4 @@ class HomeController < ApplicationController
     render layout: nil
   end
 
-  # Search
-  # Not using the same search for the client popup, since we probably want\
-  # to use a more advanced search on the Factlink website.
-  def search
-    if params[:s]
-      raise HackAttempt unless params[:s].is_a? String
-    end
-
-    @row_count = 20
-    row_count = @row_count
-    page = params[:page] || 1;
-
-    search_for = params[:s] || ""
-
-    interactor = SearchInteractor.new search_for,
-      ability: current_ability, page: page, row_count: row_count
-
-    @results = interactor.execute
-
-    @results = @results.map do |result|
-      SearchResults::SearchResultItem.for(obj: result, view: view_context)
-    end.delete_if {|x| x.the_object.nil?}
-
-    respond_to do |format|
-      format.html
-      format.json {render json: @results}
-    end
-  end
 end

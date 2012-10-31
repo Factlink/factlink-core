@@ -4,8 +4,7 @@ module Commands
   class CreateMessage
     include Pavlov::Command
 
-    # TODO: switch to using sender_id
-    arguments :sender_username, :content, :conversation
+    arguments :sender_id, :content, :conversation
 
     def validate
       raise 'Message cannot be empty.' unless @content.length > 0
@@ -14,20 +13,18 @@ module Commands
     end
 
     def execute
-      message = Message.create
-      message.sender = User.where(username: @sender_username).first
+      @conversation.save # update the updated_at attribute
+      message = Message.new
+      message.sender_id = @sender_id
       message.content = @content
       message.conversation_id = @conversation.id
       message.save
       message
     end
 
-    def authorized?                    # TODO convert this check to check on ids
-      sender_id = User.where(username: @sender_username).first.id
-
-      @conversation.recipient_ids.include? sender_id and
-      sender_id == @options[:current_user].id
-
+    def authorized?
+      @conversation.recipient_ids.map(&:to_s).include? @sender_id and
+      @sender_id == @options[:current_user].id.to_s
     end
   end
 end

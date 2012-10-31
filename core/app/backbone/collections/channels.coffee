@@ -33,34 +33,44 @@ class window.ChannelList extends window.GenericChannelList
     if not @_username? or @_username != name
       @reset([])
       @_username = name
+      return true
+    else
+      return false
 
   shouldReload: ->
     not (typeof localStorage is "object" and localStorage isnt null and localStorage["reload"] is "false")
 
-  setupReloading: (force_reload_now)->
-    if @shouldReload() and (not @reloadingEnabled is true)
-      @reloadingEnabled = true
-      @startReloading()
+  setupReloading: (force_reload_now=false)->
+    if @shouldReload()
+      if @reloadingEnabled isnt true
+        @reloadingEnabled = true
+        @_startReloading()
+      else if force_reload_now
+        @_startReloading()
+
 
   unreadCount: ->
     @reduce ((memo, channel) ->
       memo + channel.get("unread_count")
     ), 0
 
-  startReloading: ->
-    if @shouldReload()
-      args = arguments
-      self = this
-      setTimeout (->
-        self.fetch
-          success: (collection, response) ->
-            if typeof window.currentChannel isnt "undefined"
-              newCurrentChannel = collection.get(currentChannel.id)
-              currentChannel.set newCurrentChannel.attributes
-            _.bind(args.callee, self)()
+  _startReloading: ->
+    args = arguments
 
-          error: _.bind(args.callee, self)
-      ), 7000
+    clearTimeout @_currentTimeout if @_currentTimeout?
+    delete @_currentTimeout
+    callMyselfSoon = =>
+      @_currentTimeout = setTimeout _.bind(args.callee, this), 7000
+
+
+    @fetch
+      success: (collection, response) =>
+        if typeof window.currentChannel isnt "undefined"
+          newCurrentChannel = collection.get(currentChannel.id)
+          currentChannel.set newCurrentChannel.attributes
+        callMyselfSoon()
+
+      error: callMyselfSoon()
 
   getBySlugTitle: (slug_title)->
     results = @filter (ch)-> ch.get('slug_title') == slug_title

@@ -5,8 +5,8 @@
   <div class="info">
     <div class="text">
       <span class="highlight">{{ username }}</span>
-      has sent you a message:
-      <span class="highlight">{{ activity.message.content }}</span>
+      {{ activity.action }}
+      <span class="highlight">{{ activity.subject }}</span>
     </div>
 
     <div class="time_ago">
