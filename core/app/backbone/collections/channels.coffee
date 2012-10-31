@@ -7,9 +7,7 @@ class window.TopChannelList extends window.GenericChannelList
 class window.ChannelList extends window.GenericChannelList
   model: Channel
   reloadingEnabled: false
-  initialize: ->
-    @on "activate", @setActiveChannel
-    @on "reset", @checkActiveChannel
+  initialize: -> @on "reset", @checkActiveChannel
 
   url: ->
     "/" + @getUsername() + "/channels"
@@ -21,6 +19,7 @@ class window.ChannelList extends window.GenericChannelList
   setActiveChannel: (channel) ->
     @unsetActiveChannel()  if @activeChannelId and @activeChannelId isnt channel.id
     @activeChannelId = channel.id
+    @checkActiveChannel()
 
   checkActiveChannel: ->
     if @activeChannelId

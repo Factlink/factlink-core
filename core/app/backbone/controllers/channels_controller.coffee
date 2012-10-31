@@ -16,9 +16,10 @@ class window.ChannelsController
       channel.fetch
         success: (model, response) -> withChannel(model)
 
-  setChannels: (channels) ->
+  setChannels: (channels, channel) ->
     channelCollectionView = new ChannelsView(collection: channels)
-    channels.setupReloading();
+    channels.setActiveChannel(channel)
+    channels.setupReloading(true)
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
 
@@ -31,15 +32,18 @@ class window.ChannelsController
       FactlinkApp.leftBottomRegion.close()
 
     user = channel.user()
-    userView = new UserView(model: user)
-    FactlinkApp.leftTopRegion.show(userView)
-
-    if window.Channels.getUsername() == user.get('username')
-      @setChannels(window.Channels)
+    if user.is_current_user()
+      header = new ChannelHeaderView(model: user)
+      FactlinkApp.leftTopRegion.show header
+      header.trigger 'activate' if channel.get('is_all')
     else
-      Channels.setUsername(user.get 'username');
-      window.Channels.fetch
-        success: (channels) => @setChannels(channels)
+      userView = new UserView(model: user)
+      FactlinkApp.leftTopRegion.show(userView)
+
+
+    if window.Channels.getUsername() isnt user.get('username')
+      window.Channels.setUsername(user.get 'username');
+    @setChannels(window.Channels, channel)
 
 
 
