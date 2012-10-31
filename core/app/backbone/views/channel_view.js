@@ -100,8 +100,8 @@ window.ChannelView = ChannelViewLayout.extend({
   },
 
   onRender: function() {
-    this.factList.show(this.getFactsView())
-    this.activateTab(".factlinks")
+    this.factList.show(this.getFactsView());
+    this.activateTab(".factlinks");
   }
 });
 
