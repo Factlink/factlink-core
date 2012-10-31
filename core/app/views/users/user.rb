@@ -54,6 +54,10 @@ module Users
       self[:graph_user].stream_id
     end
 
+    def created_facts_channel_id
+      self[:graph_user].created_facts_channel_id
+    end
+
     def is_current_user
       self[:user] == current_user
     end
