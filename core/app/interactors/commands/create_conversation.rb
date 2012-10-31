@@ -15,7 +15,7 @@ module Commands
       conversation = Conversation.new
       @recipient_usernames.each do |username|
         user = query :user_by_username, username
-        raise 'Username does not exist' if !user
+        raise Pavlov::ValidationError, :user_not_found if !user
         conversation.recipients << user
       end
 
