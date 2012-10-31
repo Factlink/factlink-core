@@ -22,7 +22,8 @@ FactlinkUI::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  # These options don't belong here since they are overwritten in the url_helper
+  # config.action_mailer.default_url_options = { :host => '', :port => '' }
 
   # Do not compress assets
   config.assets.compress = false
