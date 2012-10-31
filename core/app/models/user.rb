@@ -300,8 +300,4 @@ class User
     self.any_of({ :username =>  /^#{Regexp.escape(login)}$/i }, { :email =>  /^#{Regexp.escape(login)}$/i }).first
   end
 
-  def not_active_since_days(days)
-    last_read_activities_on < days.days.ago
-  end
-  
 end

@@ -22,8 +22,6 @@ describe SendMailForActivityInteractor do
       should_receive_new_with_and_receive_execute(
         Queries::UsersByGraphUserIds, graph_user_ids, {}).and_return([user1, user2])
 
-      user2.should_receive(:not_active_since_days).with(5).and_return(true)
-
       should_receive_new_with_and_receive_execute(
         Commands::SendActivityMailToUser, user2, activity, {})
 

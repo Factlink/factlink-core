@@ -10,7 +10,7 @@ class SendMailForActivityInteractor
     users = query :users_by_graph_user_ids, graph_user_ids
 
     users.each do |user|
-      if user.receives_mailed_notifications and user.not_active_since_days(5) then
+      if user.receives_mailed_notifications then
         command :send_activity_mail_to_user, user, @activity
       end
     end
