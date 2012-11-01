@@ -44,12 +44,26 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     list:   '.channel-listing-container'
     header: '.channel-listing-header'
 
+  initialize: ->
+    @model = if @model? then @model.clone() else new User
+    @setUserFromChannels()
+    @collection.on 'reset', @setUserFromChannels, this
+
+  setUserFromChannels: ->
+    channel = window.Channels.first()
+    if channel
+      @model.set(channel.user().attributes)
+      console.info 'user is now', @model.toJSON()
+
   initialEvents: -> false # stop layout from refreshing after model/collection update
                     # no longer needed in marionette 1.0
 
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
-    @header.show new ChannelHeaderView(model: @model)
+    @renderHeader()
+
+  renderHeader: ->
+    @header.show new ChannelHeaderView(model: @model, collection: @collection)
 
   setActiveChannel: (channel)->
     if channel is `undefined`
