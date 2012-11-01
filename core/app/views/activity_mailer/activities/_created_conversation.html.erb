@@ -1,2 +1,2 @@
 <%= link_to_possibly_dead_user @activity.user.user %>
- has sent you a message, <%= link_to "click here to view", conversation_path(@activity.subject) %>.
+ has sent you a message, <%= link_to "click here to view", conversation_url(@activity.subject) %>.

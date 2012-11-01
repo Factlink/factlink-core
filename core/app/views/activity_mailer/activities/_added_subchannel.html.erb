@@ -3,4 +3,4 @@
 <%= @activity.subject.title %>
 <%= t :channel %>
  to their own
-<%= link_to @activity.object.title, channel_path(@activity.object.created_by.user, @activity.object.id) %> <%= t :channel %>
+<%= link_to @activity.object.title, channel_url(@activity.object.created_by.user, @activity.object.id) %> <%= t :channel %>
