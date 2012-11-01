@@ -78,8 +78,9 @@ class Activity < OurOhm
     self.key[:containing_sorted_sets].del
   end
 
+  #Hack to make sure the mail interactor gets executed with authorization errors.
   def pavlov_options
-    {current_user: user}
+    {current_user: true}
   end
 
   def after_create
