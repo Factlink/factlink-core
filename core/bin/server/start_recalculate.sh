@@ -1,21 +1,14 @@
 #!/bin/bash
 
-# Check if a env is given
-if [ -z $1 ]
-then
-  echo "Please supply the environment for starting the recalculate."
-  echo "Usage:"
-  echo "start_recalculate.sh [env]"
-  exit 1
+count=`ps x | grep -v grep | grep -c 'rake fact_graph:recalculate'`
+
+if [ "$count" -lt "1" ]; then
+    . /home/deploy/.bash_profile
+
+    cd /applications/core/current
+
+    export PIDFILE=/home/deploy/recalculate.pid
+
+    nohup bundle exec rake environment fact_graph:recalculate PIDFILE=$PIDFILE > /applications/core/current/log/fact_graph.log 2>&1
 fi
-
-
-RAILS_ENV=$1
-
-# Fact Graph
-fact_graph_count=`ps aux | grep -v grep | grep -c 'rake fact_graph:recalculate'`
-
-if [ "$fact_graph_count" -lt "1" ]; then
-   cd /applications/core/current/
-   bundle exec rake fact_graph:recalculate RAILS_ENV=$RAILS_ENV > /applications/core/current/log/fact_graph.log 2>&1 &
-fi
+exit 0
