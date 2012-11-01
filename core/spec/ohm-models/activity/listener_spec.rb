@@ -18,7 +18,13 @@ describe Activity::Listener do
   end
 
   before do
-    Activity.any_instance.stub(:after_create)
+    stub_const('SendMailForActivityInteractor', mock())
+  end
+
+  def one_call_to_interactor
+    interactor = mock()
+    SendMailForActivityInteractor.should_receive(:new).and_return(interactor)
+    interactor.should_receive(:execute)
   end
 
   describe :new do
@@ -38,6 +44,8 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
+      one_call_to_interactor
+
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
     it "should return no result when no queries are defined" do
@@ -54,6 +62,8 @@ describe Activity::Listener do
     before do
       subject.activity_for = Blob
       subject.listname = 'foo'
+
+      one_call_to_interactor
 
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
@@ -87,6 +97,9 @@ describe Activity::Listener do
   end
 
   describe :process do
+    before do
+      one_call_to_interactor
+    end
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
       subject.listname = :activities
