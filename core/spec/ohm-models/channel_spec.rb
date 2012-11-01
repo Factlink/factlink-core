@@ -12,9 +12,9 @@ describe Channel do
   let(:u2_ch2) {Channel.create(:created_by => u2, :title => "Diddly")}
 
 
-  let(:u1) { GraphUser.create }
-  let(:u2) { GraphUser.create }
-  let(:u3) { GraphUser.create }
+  let(:u1) { create :graph_user }
+  let(:u2) { create :graph_user }
+  let(:u3) { create :graph_user }
 
   let (:f1) { FactoryGirl.create :fact }
   let (:f2) { FactoryGirl.create :fact }

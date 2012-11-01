@@ -56,15 +56,15 @@ describe GraphUser do
     end
     context "After adding 2 users" do
       before do
-        @u1 = create :graph_user
-        @u2 = create :graph_user
+        @u1 = GraphUser.create
+        @u2 = GraphUser.create
       end
-      it { GraphUser.top(10).should == [@u2, @u1]}
+      it { GraphUser.top(10).map(&:id).should == [@u2.id,@u1.id]}
       context "After one user creates a channel" do
         before do
           @c1 = create :channel, :created_by => @u1
         end
-        it { GraphUser.top(10).should == [@u1, @u2]}
+        it { GraphUser.top(10).map(&:id).should == [@u1.id, @u2.id]}
       end
     end
   end

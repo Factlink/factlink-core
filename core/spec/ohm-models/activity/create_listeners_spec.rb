@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe 'activity queries' do
   include RedisSupport
-  let(:gu1) { GraphUser.create }
-  let(:gu2) { GraphUser.create }
+  let(:gu1) { create :graph_user }
+  let(:gu2) { create :graph_user }
 
   describe ".fact" do
     it "should return creation activity" do
