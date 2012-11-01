@@ -16,32 +16,31 @@ class window.ChannelsController
       channel.fetch
         success: (model, response) -> withChannel(model)
 
-  setChannels: (channels) ->
-    channelCollectionView = new ChannelsView(collection: channels)
-    channels.setupReloading();
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-
-
   commonChannelViews: (channel) ->
     window.currentChannel = channel
 
+    @showRelatedChannels channel
+    @showUserProfile channel.user()
+    @showChannelSideBar window.Channels, channel, channel.user()
+
+  showRelatedChannels: (channel)->
     if channel.get('is_normal')
       FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
       FactlinkApp.leftBottomRegion.close()
 
-    user = channel.user()
-    userView = new UserView(model: user)
-    FactlinkApp.leftTopRegion.show(userView)
+  showChannelSideBar: (channels, currentChannel, user)->
+    window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: channels, model: user)
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActiveChannel(currentChannel)
 
-    if window.Channels.getUsername() == user.get('username')
-      @setChannels(window.Channels)
+  showUserProfile: (user)->
+    unless user.is_current_user()
+      userView = new UserView(model: user)
+      FactlinkApp.leftTopRegion.show(userView)
     else
-      Channels.setUsername(user.get 'username');
-      window.Channels.fetch
-        success: (channels) => @setChannels(channels)
-
-
+      FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>

@@ -1,0 +1,21 @@
+<h1>Information</h1>
+
+{{#location}}
+<div class="row">
+  <span class="field-label">Location:</span>
+  <span class="field">{{location}}</span>
+</div>
+{{/location}}
+
+{{#biography}}
+<div class="row">
+  <span class="field-label">Biography:</span>
+  <span class="field">{{biography}}</span>
+</div>
+{{/biography}}
+
+{{^location}}
+{{^biography}}
+  <p>{{username}} has no profile information available.</p>
+{{/biography}}
+{{/location}}

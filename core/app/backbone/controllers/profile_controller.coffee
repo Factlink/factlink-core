@@ -20,7 +20,6 @@ class window.ProfileController
   showNotificationSettings: (username) -> @showPage username, @notification_options(username)
 
   # HELPERS
-
   showPage: (username, options) ->
     app.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
@@ -59,8 +58,7 @@ class window.ProfileController
     app.leftTopRegion.show(userLargeView);
 
   setChannelListing: (username) ->
+    changed = window.Channels.setUsernameAndRefresh(username)
     channelCollectionView = new ChannelsView(collection: window.Channels)
-    changed = window.Channels.setUsername(username)
-    window.Channels.setupReloading(changed)
-    window.Channels.unsetActiveChannel()
     app.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActive('profile')

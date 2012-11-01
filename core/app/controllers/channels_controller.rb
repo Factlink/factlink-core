@@ -43,7 +43,7 @@ class ChannelsController < ApplicationController
       format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
       format.js
       format.html do
-        render inline:'', layout: "channels"
+        render_backbone_page
         mark_channel_as_read
       end
     end
@@ -203,4 +203,11 @@ class ChannelsController < ApplicationController
       @channel.mark_as_read if @channel.created_by == current_graph_user
     end
 
+    def channels_for_user(user)
+      @channels = user.graph_user.real_channels
+      unless @user == current_user
+        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
+      end
+      @channels
+    end
 end

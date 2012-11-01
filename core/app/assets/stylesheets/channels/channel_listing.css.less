@@ -1,0 +1,98 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+#container .channel-listing-container-container .channel-listing {
+
+  .menu-item {
+    margin-bottom: 4px;
+
+    &.active {
+      a { padding-left: 5px; }
+    }
+
+    a {
+      padding-left: 9px;
+      font-size: @baseFontSize;
+      font-weight: bold;
+      &:hover { text-decoration: none; }
+
+      i { margin-right: 4px; }
+    }
+  }
+
+  .my-channels {
+    margin: 0 0 0 10px;
+    h1 {
+      background: @backgroundGray;
+      font-size: @baseFontSize;
+      color: @baseFontColor;
+      line-height: 20px;
+
+      padding: 0;
+      margin: 0;
+
+      i { margin-right: 4px; }
+    }
+  }
+
+  @margin: 3px;
+  margin: 0 0 0 0;
+
+  li {
+    background: @linkColor;
+    .box-sizing();
+
+    a {
+      width: 100%;
+      display: block;
+      padding: @margin 4px @margin 30px;
+
+      background: @backgroundGray;
+      border: 1px solid transparent;
+
+      color: @linkColor;
+      text-shadow: 0px 1px 0px @white;
+      #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+
+      .box-sizing();
+      .transition();
+
+      &:hover { color: @linkColorHover; }
+      &.stream { background: image-url("glyphicons/home.png") 7px 8px no-repeat; }
+
+      .new {
+        float: right;
+        padding: 0 6px;
+        margin-left: -20px;
+
+        color: white;
+        font-size: 0.9em;
+        font-weight: 100;
+
+        .border-radius(16px);
+        .unread();
+      }
+      .title {
+        width: 130px;
+        display: inline-block;
+        .ellipsis();
+      }
+    }
+
+    &.active {
+      a {
+        color: @baseFontColor;
+        font-weight: bold;
+        margin-left: 4px;
+        border: 1px solid #ddd;
+        border-left: 1px solid transparent;
+
+        span {
+          .box-sizing();
+          position: relative;
+          left: -4px;
+        }
+      }
+    }
+  }
+}

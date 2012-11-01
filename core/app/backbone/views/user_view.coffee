@@ -4,11 +4,9 @@ class window.UserView extends Backbone.Marionette.ItemView
   events:
     "click div.avatar-container": "clickHandler"
 
-  template: "users/_user"
-  templateHelpers:
-    channel_listing_header: Factlink.Global.t.my_channels.capitalize()
+  template: "users/user"
 
   clickHandler: (e) -> Backbone.history.navigate @model.url(), true
 
 class window.UserLargeView extends window.UserView
-  template: "users/_user_large"
+  template: "users/user_large"

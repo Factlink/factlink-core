@@ -20,7 +20,7 @@ class window.ConversationsController
     @main.contentRegion.show(
       new ConversationsView collection: @conversations, loading: true
     )
-
+    @showChannelListing()
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
@@ -28,6 +28,7 @@ class window.ConversationsController
     app.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
+    @showChannelListing()
     @conversation.fetch
       success: (model, response) =>
         @renderMessages(model)
@@ -46,3 +47,10 @@ class window.ConversationsController
       collection: conversation.messages()
 
     @main.contentRegion.show conversationView
+
+  showChannelListing: ->
+    username = currentUser.get('username')
+    changed = window.Channels.setUsernameAndRefresh(username)
+    channelCollectionView = new ChannelsView(collection: window.Channels)
+    app.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActive('conversations')

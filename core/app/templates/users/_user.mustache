@@ -1,18 +1,9 @@
-{{^is_current_user}}
 <div class="avatar-container">
   <div class="user-avatar">
-  	{{{ avatar }}}
+    {{{ avatar }}}
   </div>
 
   <div class="wrapper">
-  	<h3>{{ username }}</h3>
-  	<a class="btn btn-micro" href="/{{ username }}" rel="backbone">View profile</a>
+    <h3>{{ username }}</h3>
   </div>
 </div>
-{{/is_current_user}}
-
-{{#is_current_user}}
-<h2>{{ channel_listing_header }}</h2>
-{{{new_channel_button}}}
-<a href="/{{ username }}/channels/new" class="btn btn-micro add-channel">Add new</a>
-{{/is_current_user}}

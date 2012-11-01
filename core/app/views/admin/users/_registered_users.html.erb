@@ -9,7 +9,7 @@
     <th><%= sortable "email", "Email" %></th>
     <th><%= sortable "sign_in_count", "#sign ins" %></th>
     <th><%= sortable "features", "#features" %></th>
-    <th>status</th>
+    <th><%= sortable "Name", "Name" %></th>
     <th><%= sortable "last_sign_in_at", "last seen" %></th>
     <th></th>
   </tr>
@@ -29,13 +29,7 @@
         </td>
 
         <td>
-          <% if user.confirmed_at %>
-          <span class="label label-info">confirmed</span>
-          <% end %>
-
-          <% if user.approved? %>
-          <span class="label label-success">approved</span>
-          <% end %>
+          <%= user.first_name %> <%= user.last_name %>
         </td>
 
         <td><%= user.current_sign_in_at %></td>

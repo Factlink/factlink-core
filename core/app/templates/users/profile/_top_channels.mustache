@@ -1,0 +1,22 @@
+<h1>Top channels</h1>
+
+<div class="no-channels" style="display:none">
+{{#is_current_user}}
+<p>You don't have any channels yet.</p>
+<p>Channels  are there to keep your facts categorized and can be interesting for other users to follow.</p>
+<a href="{{ username }}/channels/new" class="btn">Add channel</a>
+{{/is_current_user}}
+
+{{^is_current_user}}
+{{username}} doesn't have any channels yet.
+{{/is_current_user}}
+</div>
+
+<div class="top-channels">
+
+  <ol>
+  </ol>
+
+  <a class="show-more">Show more...</a>
+  <a class="show-less">Show less...</a>
+</div>

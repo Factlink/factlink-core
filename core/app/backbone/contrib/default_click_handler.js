@@ -2,7 +2,10 @@
    Add a default clickhandler so we can use hrefs
  */
 Backbone.View.prototype.defaultClickHandler = function( e ) {
-  if ( e.metaKey || e.ctrlKey || e.altKey ) return;
+  // Return if a modifier key is pressed or when Backbone has not properly been initialized
+  // Make sure we return "true" so other functions can determine what happened
+  // Note that the capitalization in Backbone.[H]istory is intentional
+  if ( e.metaKey || e.ctrlKey || e.altKey || !Backbone.History.started ) return true;
 
   var routeTo = $(e.target).closest('a').attr('href');
   console.log("Navigating to "+ routeTo, 'from /'+ Backbone.history.fragment);

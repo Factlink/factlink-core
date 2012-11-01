@@ -1,24 +1,29 @@
 #= require './top_channel_view'
 
-class window.ProfileView extends Backbone.Marionette.CompositeView
-  template: "users/profile"
-  className: "profile"
-  itemView: TopChannelView
-  itemViewContainer: ".top-channels ol"
-  events:
-    "click a.show-more": "showMoreOn"
-    "click a.show-less": "showMoreOff"
+class window.ProfileInformationView extends Backbone.Marionette.ItemView
+  template: "users/profile/information"
 
-  showMoreOn:  -> @$el.addClass 'showMore'
-  showMoreOff: -> @$el.removeClass 'showMore'
+class window.ProfileView extends Backbone.Marionette.Layout
+  template:  'users/profile/index'
+  className: 'profile'
 
-  showEmptyView: ->
-      @$(".top-channels").hide()
-      @$(".no-channels").show()
-
-  closeEmptyView: ->
-      @$(".no-channels").hide()
-      @$(".top-channels").show()
+  regions:
+    topChannelsRegion:        '.top-channels-region'
+    profileInformationRegion: '.profile-information'
+    factRegion:               '.fact-region'
 
   onRender: ->
-    @$(".top-channels .show-more").hide() if @collection.length < 6
+    @topChannelsRegion.show         new TopChannelView(collection: @collection)
+    @profileInformationRegion.show  new ProfileInformationView(model: @model)
+    @factRegion.show                @getFactsView( @getChannel() )
+
+  getChannel: ->
+    new Channel(id: @model.get('created_facts_channel_id'), created_by: { username: @model.get('username') } )
+
+  getFactsView: (channel) ->
+    return new FactsView(
+      collection: new ChannelFacts([],
+        channel: channel
+      ),
+      model: channel
+    )

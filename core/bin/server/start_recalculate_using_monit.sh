@@ -1,14 +1,14 @@
 #!/bin/bash
 
 ##
-# This script starts Resque using Monit.
+# This script starts fact_graph:recalculate using Monit.
 
 for i in {1..3}
 do
 
-  echo "Starting Resque, try #$i:"
+  echo "Starting fact_graph:recalculate, try #$i:"
 
-  sudo /usr/sbin/monit start resque
+  sudo /usr/sbin/monit start recalculate
 
   # Check the exit status
   if [ "$?" -eq "0" ]; then

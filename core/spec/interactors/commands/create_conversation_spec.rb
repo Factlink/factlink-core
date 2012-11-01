@@ -6,6 +6,7 @@ describe Commands::CreateConversation do
 
   before do
     stub_classes 'Conversation', 'Queries::UserByUsername', 'Fact'
+    stub_const 'Pavlov::ValidationError', RuntimeError
   end
 
   it 'initializes correctly' do
@@ -57,7 +58,7 @@ describe Commands::CreateConversation do
         Queries::UserByUsername, username, {}).
         and_return(nil)
 
-      expect {command.execute}.to raise_error(RuntimeError, 'Username does not exist')
+      expect {command.execute}.to raise_error(Pavlov::ValidationError, 'user_not_found')
     end
   end
 end

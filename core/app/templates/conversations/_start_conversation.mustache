@@ -1,11 +1,15 @@
 <div class="title">Start a conversation about this Factlink:</div>
 <div class="wrapper clearfix">
-  <div class="alert alert-success hide">
+  <div class="alert alert-success alert-type-success hide">
     Your message has been sent!
     <a class="close" href="#" data-dismiss="alert">x</a>
   </div>
-  <div class="alert alert-error hide">
+  <div class="alert alert-error alert-type-error hide">
     Your message could not be sent, please try again.
+    <a class="close" href="#" data-dismiss="alert">x</a>
+  </div>
+  <div class="alert alert-error alert-type-user_not_found hide">
+    The user could not be found, please check if the username is correct.
     <a class="close" href="#" data-dismiss="alert">x</a>
   </div>
   <input type="text" class="recipients" placeholder="Type a username">

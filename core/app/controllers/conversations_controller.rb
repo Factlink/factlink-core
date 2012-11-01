@@ -22,5 +22,7 @@ class ConversationsController < ApplicationController
   def create
     interactor :create_conversation_with_message, params[:fact_id], params[:recipients], current_user.id.to_s, params[:content]
     render json: {}
+  rescue Pavlov::ValidationError => e
+    render text: e.message, :status => 404
   end
 end
