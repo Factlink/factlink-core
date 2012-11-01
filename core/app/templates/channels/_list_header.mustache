@@ -1,12 +1,14 @@
+{{#is_current_user}}
 <li class="stream">
   <a href="{{stream_path}}" rel="backbone">
     <i class="icon-list"></i> My Stream
   </a>
 </li>
+{{/is_current_user}}
 
 <li class="my-channels">
   <h1>
       <i class="icon-user"></i>
-      My Channels
+      {{ channel_listing_header }}
   </h1>
 </li>
