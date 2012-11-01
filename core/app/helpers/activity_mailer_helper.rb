@@ -1,6 +1,5 @@
 module ActivityMailerHelper
   def render_mail_template_for_action(action)
-    puts "Action: #{action}"
     case action.to_s
     when "added_subchannel"
       render_activity "added_subchannel"
