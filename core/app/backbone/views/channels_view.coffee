@@ -47,7 +47,7 @@ class window.ChannelsView extends Backbone.Marionette.Layout
   initialize: ->
     @model = if @model? then @model.clone() else new User
     @setUserFromChannels()
-    @collection.on 'reset', @setUserFromChannels, this
+    @bindTo @collection, 'reset', @setUserFromChannels, this
 
   setUserFromChannels: ->
     channel = window.Channels.first()
