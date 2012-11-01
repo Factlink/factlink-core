@@ -1,4 +1,5 @@
 class FactsController < ApplicationController
+  include FactHelper
 
   layout "client"
 
@@ -19,7 +20,6 @@ class FactsController < ApplicationController
 
   around_filter :allowed_type,
     :only => [:set_opinion ]
-
 
   def show
     authorize! :show, @fact
@@ -193,10 +193,5 @@ class FactsController < ApplicationController
         render :json => {"error" => "type not allowed"}, :status => 500
         false
       end
-    end
-
-    def friendly_fact_path(fact)
-      slug = fact.to_s.blank? ? fact.id : fact.to_s.parameterize
-      frurl_fact_path(slug, fact.id)
     end
 end
