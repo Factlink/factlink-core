@@ -7,32 +7,34 @@ describe Commands::CreateMessage do
     stub_const('User', Class.new)
   end
 
-  it 'initialize throws error on empty message' do
-    user = stub(id: 14)
-    User.stub(find: user)
-
-    conversation = stub(repicient_ids: [14])
-
-    expect { Commands::CreateMessage.new 14, '', conversation }.
-      to raise_error(RuntimeError, 'Message cannot be empty.')
-  end
-
   let(:long_message_string) { (0...5001).map{65.+(rand(26)).chr}.join }
   let(:content) {'bla'}
 
-  it 'initialize throws error on too long message' do
-    expect { Commands::CreateMessage.new 'bla', long_message_string , '1' }.
-      to raise_error(RuntimeError, 'Message cannot be longer than 5000 characters.')
-  end
+  describe '.validate' do
+    it 'throws error on empty message' do
+      user = stub(id: 14)
+      User.stub(find: user)
 
-  it 'it throws when initialized with a argument that is not a hexadecimal string' do
-    user = stub(id: 14)
-    User.stub(find: user)
+      conversation = stub(repicient_ids: [14])
 
-    conversation = stub(id: 'g6', repicient_ids: [14])
+      expect { Commands::CreateMessage.new 14, '', conversation }.
+        to raise_error(RuntimeError, 'Message cannot be empty.')
+    end
 
-    expect { Commands::CreateMessage.new 14,'bla',conversation}.
-      to raise_error(RuntimeError, 'conversation_id should be an hexadecimal string.')
+    it 'throws error on too long message' do
+      expect { Commands::CreateMessage.new 'bla', long_message_string , '1' }.
+        to raise_error(RuntimeError, 'Message cannot be longer than 5000 characters.')
+    end
+
+    it 'it throws when initialized with a argument that is not a hexadecimal string' do
+      user = stub(id: 14)
+      User.stub(find: user)
+
+      conversation = stub(id: 'g6', repicient_ids: [14])
+
+      expect { Commands::CreateMessage.new 14,'bla',conversation}.
+        to raise_error(RuntimeError, 'conversation_id should be an hexadecimal string.')
+    end
   end
 
   describe '.execute' do
