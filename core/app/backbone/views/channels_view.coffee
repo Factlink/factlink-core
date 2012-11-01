@@ -25,7 +25,25 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   initialize: =>
     @on 'activate', => @$('li.stream').addClass('active')
 
-class window.ChannelsView extends Backbone.Marionette.CompositeView
-  template: 'channels/channel_list'
+class window.ChannelListView extends Backbone.Marionette.CollectionView
   itemView: ChannelItemView
-  itemViewContainer: "#channel-listing"
+  tagName: 'ul'
+  id: 'channel-listing'
+  className: 'channel-listing'
+
+class window.ChannelsView extends Backbone.Marionette.Layout
+  template: 'channels/channel_list'
+
+  regions:
+    list:   '.channel-listing-container'
+    header: '.channel-listing-header'
+
+  initialEvents: -> false # stop layout from refreshing after model/collection update
+                    # no longer needed in marionette 1.0
+
+  onRender: ->
+    @list.show new ChannelListView(collection: @collection)
+    @header.show getTextView('moi')
+
+  setActiveChannel: (channel)->
+    @collection.setActiveChannel(channel)

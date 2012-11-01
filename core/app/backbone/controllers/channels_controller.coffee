@@ -37,7 +37,7 @@ class window.ChannelsController
 
 
     channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
-    window.Channels.setActiveChannel(channel)
+    channelCollectionView.setActiveChannel(channel)
     FactlinkApp.leftMiddleRegion.show(channelCollectionView)
 
 
