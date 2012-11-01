@@ -33,10 +33,7 @@ class window.ChannelsController
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
 
-
-    if window.Channels.getUsername() isnt user.get('username')
-      window.Channels.setUsername(user.get 'username');
-    window.Channels.setupReloading(true)
+    window.Channels.setUsernameAndRefresh(user.get('username'))
 
 
     channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
