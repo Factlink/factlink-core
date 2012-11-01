@@ -7,11 +7,17 @@ class CreateConversationWithMessageInteractor
   arguments :fact_id, :recipient_usernames, :sender_id, :content
 
   def execute
-    c = command :create_conversation, @fact_id, @recipient_usernames
-    command :create_message, @sender_id, @content, c
+    conversation = command :create_conversation, @fact_id, @recipient_usernames
+
+    begin
+      command :create_message, @sender_id, @content, conversation
+    rescue
+      conversation.delete
+      raise
+    end
 
     sender = User.find(@sender_id)
-    command :create_activity, sender.graph_user, :created_conversation, c, nil
+    command :create_activity, sender.graph_user, :created_conversation, conversation, nil
 
     track_mixpanel
   end

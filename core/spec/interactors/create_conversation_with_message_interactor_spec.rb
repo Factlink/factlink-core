@@ -9,7 +9,7 @@ describe CreateConversationWithMessageInteractor do
   end
 
   describe '.execute' do
-    it 'should work correctly' do
+    it 'should call the right commands' do
       graph_user   = mock();
       sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
       receiver     = mock(:user, username: 'frank')
@@ -34,6 +34,19 @@ describe CreateConversationWithMessageInteractor do
         Commands::CreateActivity, graph_user, :created_conversation, conversation, nil, options)
 
       interactor.execute
+    end
+
+    it 'should delete the conversation when the message raises an exception' do
+      conversation = mock()
+      options = {current_user: mock(), mixpanel: mock()}
+
+      interactor = CreateConversationWithMessageInteractor.new mock(), mock(), mock(), mock(), options
+
+      should_receive_new_and_execute(Commands::CreateConversation).and_return(conversation)
+      should_receive_new_and_execute(Commands::CreateMessage).and_raise('some_error')
+      conversation.should_receive(:delete)
+
+      expect{interactor.execute}.to raise_error('some_error')
     end
   end
 

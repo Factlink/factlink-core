@@ -29,7 +29,19 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
       Factlink.Global.t[heading].capitalize()
 
   initialize: =>
-    @on 'activate', => @$('li.stream').addClass('active')
+    @on 'activate', (type)=> @activate(type)
+
+
+  onRender: -> @renderActive()
+
+  activate: (type) ->
+    console.info 'activating', type
+    @_active = type
+    @renderActive()
+
+  renderActive: ->
+    console.info 'active', @_active
+    @$("li.#{@_active}").addClass('active') if @_active?
 
 class window.ChannelListView extends Backbone.Marionette.CollectionView
   itemView: ChannelItemView
@@ -51,9 +63,8 @@ class window.ChannelsView extends Backbone.Marionette.Layout
 
   setUserFromChannels: ->
     channel = window.Channels.first()
-    if channel
-      @model.set(channel.user().attributes)
-      console.info 'user is now', @model.toJSON()
+    @model.set(channel.user().attributes) if channel
+
 
   initialEvents: -> false # stop layout from refreshing after model/collection update
                     # no longer needed in marionette 1.0
@@ -66,10 +77,12 @@ class window.ChannelsView extends Backbone.Marionette.Layout
     @header.show new ChannelHeaderView(model: @model, collection: @collection)
 
   setActiveChannel: (channel)->
-    if channel is `undefined`
-      @collection.unsetActiveChannel(channel)
-    else if channel.get('is_all')
-      @collection.unsetActiveChannel(channel)
-      @header.currentView.trigger 'activate'
+    if channel.get('is_all')
+      @setActive('stream')
     else
       @collection.setActiveChannel(channel)
+
+  setActive: (type) ->
+    @collection.unsetActiveChannel()
+    @header.currentView.trigger 'activate', type
+
