@@ -1,7 +1,7 @@
 class window.TourController
 
   chooseChannels:  ->
-    stream = window.Channels.models[0]
+    stream = currentUser.stream()
 
     visibleAddedChannels = collectionDifference(ChannelList, 'is_normal', window.Channels,
      [{is_normal: false}])
