@@ -21,7 +21,7 @@ describe Activity do
   end
 
   context "after creating one activity" do
-    before do
+    before :each do
       a = Activity.create(
              :user => gu,
              :action => :foo,
@@ -44,7 +44,7 @@ describe Activity do
   end
 
   context "when dealing with activities on graphusers" do
-    before do
+    before :each do
       a = Activity.create(
              :user => gu,
              :action => :foo,
@@ -67,13 +67,14 @@ describe Activity do
   end
 
   describe "still_valid?" do
-    before do
+    before :each do
       @a = Activity.create(
              :user => gu,
              :action => :foo,
              :subject => gu2,
              :object => gu3
            )
+      @a=Activity[@a.id]
     end
 
     it "should be valid for valid activity" do
@@ -99,7 +100,7 @@ describe Activity do
       @a = Activity.create(
              :action => :foo,
              :subject => gu2,
-             :object => gu3
+             :object => gu3,
            )
       @a.should be_still_valid
     end
@@ -116,7 +117,7 @@ describe Activity do
   end
 
   describe '.valid' do
-    before do
+    before :each do
       @a = Activity.create user: gu, action: :foo, subject: Blob.create, object: Blob.create
     end
 
