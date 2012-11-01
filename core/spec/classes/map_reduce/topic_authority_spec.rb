@@ -4,6 +4,11 @@ describe MapReduce::TopicAuthority do
   let(:gu1) {create(:user).graph_user}
   let(:gu2) {create(:user).graph_user}
 
+  before do
+    stub_const('SendMailForActivityInteractor', mock())
+    SendMailForActivityInteractor.stub(new: nil.andand)
+  end
+
   describe :wrapped_map do
      it do
        ch1 = Channel.create(title: "Ruby", created_by: gu1)
