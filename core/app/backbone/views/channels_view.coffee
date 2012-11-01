@@ -43,7 +43,18 @@ class window.ChannelsView extends Backbone.Marionette.Layout
 
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
-    @header.show getTextView('moi')
+
+    user = @model
+    if user.is_current_user()
+      header = new ChannelHeaderView(model: user)
+      @header.show header
+
 
   setActiveChannel: (channel)->
-    @collection.setActiveChannel(channel)
+    if channel is `undefined`
+      @collection.unsetActiveChannel(channel)
+    else if channel.get('is_all')
+      @collection.unsetActiveChannel(channel)
+      @header.currentView.trigger 'activate'
+    else
+      @collection.setActiveChannel(channel)
