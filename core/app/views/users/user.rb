@@ -46,10 +46,6 @@ module Users
       avatar(20)
     end
 
-    def profile_path
-      view.user_profile_path(self[:user].username)
-    end
-
     def all_channel_id
       self[:graph_user].stream_id
     end
