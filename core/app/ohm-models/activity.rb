@@ -46,9 +46,7 @@ class Activity < OurOhm
   end
 
   def still_valid?
-    (user or not user_id) and
-      (subject or not subject_id) and
-      (object or not object_id)
+    user_valid? and subject_valid? and object_valid?
   end
 
   def valid_for_show?
@@ -86,6 +84,19 @@ class Activity < OurOhm
 
   def after_create
     interactor :send_mail_for_activity, self
+  end
+
+  private
+  def user_valid?
+    !! (user or not user_id)
+  end
+
+  def subject_valid?
+    !! (subject or not subject_id)
+  end
+
+  def object_valid?
+    !! (object or not object_id)
   end
 
 end
