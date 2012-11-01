@@ -6,4 +6,9 @@ module FactHelper
     slug = fact.to_s.blank? ? fact.id : fact.to_s.parameterize.slice(0,max_slug_length)
     frurl_fact_path(slug, fact.id)
   end
+
+  def friendly_fact_url(fact, max_slug_length = 1024)
+    slug = fact.to_s.blank? ? fact.id : fact.to_s.parameterize.slice(0,max_slug_length)
+    frurl_fact_url(slug, fact.id)
+  end
 end
