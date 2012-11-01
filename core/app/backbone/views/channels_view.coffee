@@ -22,6 +22,12 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
 
   template: 'channels/list_header'
 
+  templateHelpers: ->
+
+    channel_listing_header: ->
+      heading = if @is_current_user then 'my_channels' else 'channels'
+      Factlink.Global.t[heading].capitalize()
+
   initialize: =>
     @on 'activate', => @$('li.stream').addClass('active')
 
@@ -43,7 +49,13 @@ class window.ChannelsView extends Backbone.Marionette.Layout
 
   onRender: ->
     @list.show new ChannelListView(collection: @collection)
-    @header.show getTextView('moi')
+    @header.show new ChannelHeaderView(model: @model)
 
   setActiveChannel: (channel)->
-    @collection.setActiveChannel(channel)
+    if channel is `undefined`
+      @collection.unsetActiveChannel(channel)
+    else if channel.get('is_all')
+      @collection.unsetActiveChannel(channel)
+      @header.currentView.trigger 'activate'
+    else
+      @collection.setActiveChannel(channel)
