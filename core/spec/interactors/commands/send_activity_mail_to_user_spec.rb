@@ -11,13 +11,14 @@ describe Commands::SendActivityMailToUser do
       user = mock()
       activity = mock()
 
-      mailer = mock(deliver: true)
+      mailer = mock()
 
       Commands::SendActivityMailToUser.any_instance.stub(authorized?: true)
 
       command = Commands::SendActivityMailToUser.new user, activity
 
       ActivityMailer.should_receive(:new_activity).with(user, activity).and_return mailer
+      mailer.should_receive(:deliver)
 
       command.execute
     end
