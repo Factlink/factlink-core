@@ -5,7 +5,7 @@ def create_activity_listeners
     forGraphUser_evidence_was_added = {
       subject_class: "Fact",
       action: [:added_supporting_evidence, :added_weakening_evidence],
-      write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids).uniq.delete_if {|id| id == a.user_id}}
+      write_ids: lambda {|a| ([a.object.created_by_id]+a.object.opinionated_users.ids + a.object.fact_relations.map { |e| e.created_by.id  }).uniq.delete_if {|id| id == a.user_id}}
     }
 
     # someone followed your channel

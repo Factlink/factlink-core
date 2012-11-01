@@ -23,8 +23,11 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
         @enableSubmit()
         @clearForm()
 
-      error: =>
-        @showAlert 'error'
+      error: (model, response) =>
+        if response.responseText in ['user_not_found']
+          @showAlert response.responseText
+        else
+          @showAlert 'error'
         @enableSubmit()
 
   enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
@@ -33,4 +36,4 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
 
   showAlert: (type) ->
     @$('.alert').addClass 'hide'
-    @$('.alert-' + type).removeClass 'hide' if type?
+    @$('.alert-type-' + type).removeClass 'hide' if type?
