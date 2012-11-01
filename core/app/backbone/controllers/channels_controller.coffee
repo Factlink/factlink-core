@@ -19,28 +19,26 @@ class window.ChannelsController
   commonChannelViews: (channel) ->
     window.currentChannel = channel
 
+    @showRelatedChannels channel
+    @showUserProfile channel.user()
+    @showChannelSideBar window.Channels, channel, channel.user()
+
+  showRelatedChannels: (channel)->
     if channel.get('is_normal')
       FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
       FactlinkApp.leftBottomRegion.close()
 
-    user = channel.user()
-    if user.is_current_user()
-      header = new ChannelHeaderView(model: user)
-      FactlinkApp.leftTopRegion.show header
-      header.trigger 'activate' if channel.get('is_all')
-    else
+  showChannelSideBar: (channels, currentChannel, user)->
+    window.Channels.setUsernameAndRefresh(user.get('username'))
+    channelCollectionView = new ChannelsView(collection: channels, model: user)
+    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActiveChannel(currentChannel)
+
+  showUserProfile: (user)->
+    unless user.is_current_user()
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
-
-    window.Channels.setUsernameAndRefresh(user.get('username'))
-
-
-    channelCollectionView = new ChannelsView(collection: window.Channels, model: user)
-    channelCollectionView.setActiveChannel(channel)
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
-
-
 
   getChannelFacts: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>
