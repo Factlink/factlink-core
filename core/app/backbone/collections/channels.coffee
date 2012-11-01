@@ -15,6 +15,7 @@ class window.ChannelList extends window.GenericChannelList
   unsetActiveChannel: ->
     activeChannel = @get(@activeChannelId)
     activeChannel.trigger "deactivate"  if activeChannel
+    delete @activeChannelId
 
   setActiveChannel: (channel) ->
     @unsetActiveChannel()  if @activeChannelId and @activeChannelId isnt channel.id
