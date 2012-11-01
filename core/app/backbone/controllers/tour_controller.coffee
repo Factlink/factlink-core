@@ -7,6 +7,8 @@ class window.TourController
      [{is_normal: false}])
 
     channelCollectionView = new EditableChannelsView(collection: visibleAddedChannels)
+    window.Channels.fetch()
+
     activities = new ChannelActivities([],{ channel: stream })
 
     activities_view = new ChannelActivitiesView
