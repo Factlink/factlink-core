@@ -39,6 +39,8 @@ class window.ChannelsController
     unless user.is_current_user()
       userView = new UserView(model: user)
       FactlinkApp.leftTopRegion.show(userView)
+    else
+      FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
     this.loadChannel username, channel_id, (channel) =>
