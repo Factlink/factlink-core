@@ -58,8 +58,7 @@ class window.ProfileController
     app.leftTopRegion.show(userLargeView);
 
   setChannelListing: (username) ->
+    changed = window.Channels.setUsernameAndRefresh(username)
     channelCollectionView = new ChannelsView(collection: window.Channels)
-    changed = window.Channels.setUsername(username)
-    window.Channels.setupReloading(changed)
-    window.Channels.unsetActiveChannel()
+    channelCollectionView.setActiveChannel(`undefined`)
     app.leftMiddleRegion.show(channelCollectionView)
