@@ -17,9 +17,6 @@ module Queries
         GraphUser[graph_user_id].user_id
       end
 
-# todo this fixes the unit tests, but why are we getting nils here?
-      ids = ids.select {|id| !id.nil?}
-
       query :users_by_ids, ids
     end
 

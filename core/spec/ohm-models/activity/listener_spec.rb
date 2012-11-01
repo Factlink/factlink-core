@@ -21,7 +21,7 @@ describe Activity::Listener do
     stub_const('SendMailForActivityInteractor', mock())
   end
 
-  def one_call_to_interactor
+  def send_mail_for_activity_should_be_invoked
     interactor = mock()
     SendMailForActivityInteractor.should_receive(:new).and_return(interactor)
     interactor.should_receive(:execute)
@@ -44,7 +44,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      one_call_to_interactor
+      send_mail_for_activity_should_be_invoked
 
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
@@ -63,7 +63,7 @@ describe Activity::Listener do
       subject.activity_for = Blob
       subject.listname = 'foo'
 
-      one_call_to_interactor
+      send_mail_for_activity_should_be_invoked
 
       @a = Activity.create subject: b1, object: f1, action: :foobar
     end
@@ -98,7 +98,7 @@ describe Activity::Listener do
 
   describe :process do
     before do
-      one_call_to_interactor
+      send_mail_for_activity_should_be_invoked
     end
     it "should add the activities to a timestamped set on the object" do
       subject.activity_for = 'Foo'
