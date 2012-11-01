@@ -21,7 +21,7 @@ module ActivityMailerHelper
     render "activity_mailer/activities/#{activity.to_s}"
   end
 
-  def link_to_dead_user(dead_user)
+  def link_to_possibly_dead_user(dead_user)
     link_to dead_user.username, user_profile_path(dead_user.username)
   end
 end
