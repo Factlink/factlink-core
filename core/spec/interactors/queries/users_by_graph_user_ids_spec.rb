@@ -13,8 +13,6 @@ describe Queries::UsersByGraphUserIds do
 
   describe ".execute" do
     it "should work with an empty list of ids" do
-      fake_user = mock()
-
       should_receive_new_with_and_receive_execute(
           Queries::UsersByIds, [], {}).and_return([])
 
