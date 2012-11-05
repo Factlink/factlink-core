@@ -1,7 +1,9 @@
-require_relative '../interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/commands/elastic_search_delete_fact_data_for_text_search.rb', __FILE__)
 
 describe Commands::ElasticSearchDeleteFactDataForTextSearch do
+  include PavlovSupport
+  
   let(:fact_data) do
     fact_data = stub()
     fact_data.stub id: 1

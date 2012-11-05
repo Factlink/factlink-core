@@ -1,7 +1,9 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/conversation_with_recipients_and_messages.rb', __FILE__)
-require_relative '../interactor_spec_helper'
 
 describe Queries::ConversationWithRecipientsAndMessages do
+  include PavlovSupport
+  
   before do
     stub_classes 'Queries::ConversationGet', 'Queries::MessagesForConversation', 'Queries::UsersByIds'
   end

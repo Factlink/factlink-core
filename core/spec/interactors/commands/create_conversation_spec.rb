@@ -1,7 +1,9 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/commands/create_conversation.rb', __FILE__)
 
 describe Commands::CreateConversation do
-
+  include PavlovSupport
+  
   let(:fact_id) {10}
 
   before do

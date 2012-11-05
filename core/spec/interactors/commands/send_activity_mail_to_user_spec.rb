@@ -1,7 +1,9 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/commands/send_activity_mail_to_user.rb', __FILE__)
-require_relative '../interactor_spec_helper'
 
 describe Commands::SendActivityMailToUser do
+  include PavlovSupport
+  
   before do
     stub_classes 'ActivityMailer'
   end

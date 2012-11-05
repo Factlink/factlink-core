@@ -17,6 +17,12 @@ describe "authority should work as described in the google doc" do
   let(:f6) {FactoryGirl.create(:fact)}
   let(:f7) {FactoryGirl.create(:fact)}
 
+  before do
+    # TODO: remove this once activities are not created in the models any more, but in interactors
+    stub_const 'Activity::Subject', Class.new
+    Activity::Subject.should_receive(:activity).any_number_of_times
+  end
+
   # Scenario A (a user without any history in Factlink):
   # a(U1) = 1
   it "for a user without history in Factlink the authority should be 1.0" do
