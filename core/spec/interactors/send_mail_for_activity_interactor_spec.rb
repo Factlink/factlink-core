@@ -1,7 +1,8 @@
+require 'pavlov_helper'
 require File.expand_path('../../../app/interactors/send_mail_for_activity_interactor.rb', __FILE__)
-require_relative 'interactor_spec_helper'
 
 describe SendMailForActivityInteractor do
+  include PavlovSupport
 
   before do
     stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity'

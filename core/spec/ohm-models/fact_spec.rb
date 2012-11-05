@@ -20,6 +20,12 @@ describe Fact do
   let(:gu1) {FactoryGirl.create(:graph_user)}
   let(:gu2) {FactoryGirl.create(:graph_user)}
 
+  before do
+    # TODO: remove this once activities are not created in the models any more, but in interactors
+    stub_const 'Activity::Subject', Class.new
+    Activity::Subject.should_receive(:activity).any_number_of_times
+  end
+
   context "initially" do
     it "should be findable" do
       subject.should be_a(Fact)

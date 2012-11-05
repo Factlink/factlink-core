@@ -16,7 +16,7 @@ class OneMessageView extends Backbone.Marionette.ItemView
     'scroll': 'scroll'
 
   scroll: ->
-    $.scrollTo @el, 800
+    $.scrollTo $(@el).offset().top - 72 , 800
 
 class MessageListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'

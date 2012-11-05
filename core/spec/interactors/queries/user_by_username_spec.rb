@@ -1,10 +1,12 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/user_by_username.rb', __FILE__)
 
-describe Queries::MessagesForConversation do
+describe Queries::UserByUsername do
+  include PavlovSupport
+
   before do
     stub_classes 'User'
   end
-
 
   describe '.execute' do
     it 'retrieves a user' do

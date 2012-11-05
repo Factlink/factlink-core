@@ -1,7 +1,9 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/conversations_with_users_message.rb', __FILE__)
-require_relative '../interactor_spec_helper'
 
 describe Queries::ConversationsWithUsersMessage do
+  include PavlovSupport
+  
   let(:user1)          {mock('user', id: 1)}
   let(:user2)          {mock('user', id: 2)}
   let(:conversation10) {mock('conversation', id: 10, recipient_ids: [1])}

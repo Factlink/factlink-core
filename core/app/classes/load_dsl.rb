@@ -98,6 +98,8 @@ class LoadDsl
           :password_confirmation => password,
           :twitter => twitter)
         u.approved = true
+        u.agrees_tos = true
+        u.agreed_tos_on = DateTime.now
         u.email = email
         u.confirmed_at = DateTime.now
         u.save

@@ -18,6 +18,12 @@ describe "opinion should work as described in the google doc" do
   # f1 !-> f2
   let(:f23) { f2.add_evidence(:weakening,f1,u1) }
 
+  before do
+    # TODO: remove this once activities are not created in the models any more, but in interactors
+    stub_const 'Activity::Subject', Class.new
+    Activity::Subject.should_receive(:activity).any_number_of_times
+  end
+
   it "scenario 0" do
     opinion?(f1) == _(0.0,0.0,1.0,0.0)
   end

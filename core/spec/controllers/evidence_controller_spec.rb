@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'pavlov_helper'
 
 describe SupportingEvidenceController do
+  include PavlovSupport
   render_views
 
   let(:user) {create(:user)}
@@ -10,6 +12,10 @@ describe SupportingEvidenceController do
   let(:f3) {create(:fact)}
 
   before do
+    # TODO: remove this once activities are not created in the models any more, but in interactors
+    stub_const 'Activity::Subject', Class.new
+    Activity::Subject.should_receive(:activity).any_number_of_times
+    
     @fr = f1.add_evidence(:supporting, f2, user)
   end
 
