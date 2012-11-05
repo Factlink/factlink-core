@@ -16,7 +16,7 @@ describe "Check the tour", type: :request do
     assume_unchanged_screenshot 'extension'
   end
 
-  it 'Let''s create your first factlink page should be the same' do
+  pending 'Let''s create your first factlink page should be the same' do
     click_link "Skip this step"
 
     sleep 1
