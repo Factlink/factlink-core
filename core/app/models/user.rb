@@ -17,6 +17,9 @@ class User
   field :last_name
   field :identities, type: Hash, default: {}
 
+  index "identities.facebook.uid", sparse: true, unique: true
+  index "identities.twitter.uid", sparse: true, unique: true
+
   field :registration_code
 
   field :twitter
