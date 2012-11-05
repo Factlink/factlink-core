@@ -33,12 +33,10 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   onRender: -> @renderActive()
 
   activate: (type) ->
-    console.info 'activating', type
     @_active = type
     @renderActive()
 
   renderActive: ->
-    console.info 'active', @_active
     @$("li.#{@_active}").addClass('active') if @_active?
 
 class window.ChannelListView extends Backbone.Marionette.CollectionView
