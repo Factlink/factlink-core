@@ -1,8 +1,14 @@
 #TODO: check if this hide-input class thingy has some importance
 
 class TextInputView extends Backbone.Marionette.ItemView
+  events:
+    'click': 'focusInput'
+
   template:
     text: '<input type="text" class="typeahead">'
+
+  focusInput: -> @$("input.typeahead").focus()
+
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
@@ -10,7 +16,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   events:
     "keydown input.typeahead": "parseKeyDown"
     "keyup input.typeahead": "autoCompleteCurrentValue"
-    "click div.fake-input": "focusInput"
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
 
@@ -53,7 +58,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
 
-  focusInput: -> @$("input.typeahead").focus()
 
   addCurrentlySelectedChannel: ->
     @disable()
