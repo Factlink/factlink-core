@@ -13,7 +13,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     "click div.fake-input": "focusInput"
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
-    "click .show-input-button": "showInput"
 
   regions:
     'added_channels': 'div.added_channels_container'
