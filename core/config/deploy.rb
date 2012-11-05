@@ -41,7 +41,7 @@ namespace :action do
     run "sh #{current_path}/bin/server/start_recalculate_using_monit.sh"
   end
   task :stop_recalculate do
-    run "sh #{current_path}/bin/server/stop_recalculate.sh"
+    run "sudo /usr/sbin/monit stop recalculate"
   end
 
   task :start_resque do
