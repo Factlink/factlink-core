@@ -10,3 +10,7 @@ class window.EditableChannelsView extends Backbone.Marionette.CompositeView
 
   showEmptyView: => @$el.hide()
   closeEmptyView: => @$el.show()
+
+  appendHtml: (collectionView, itemView, index) ->
+    collectionView.$(@itemViewContainer).append(itemView.el);
+
