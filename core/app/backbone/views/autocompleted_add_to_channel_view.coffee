@@ -3,18 +3,31 @@
 class TextInputView extends Backbone.Marionette.ItemView
   events:
     'click': 'focusInput'
+    "keydown input.typeahead": "parseKeyDown"
 
   template:
     text: '<input type="text" class="typeahead">'
 
   focusInput: -> @$("input.typeahead").focus()
 
+  parseKeyDown: (e) ->
+    eventHandled = false
+    switch e.keyCode
+      when 13 then @trigger 'return'
+      when 40 then @trigger 'down'
+      when 38 then @trigger 'up'
+      when 27 then @trigger 'escape'
+      else eventHandled = true
+
+    unless eventHandled
+      e.preventDefault()
+      e.stopPropagation()
+
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
   events:
-    "keydown input.typeahead": "parseKeyDown"
     "keyup input.typeahead": "autoCompleteCurrentValue"
     "click div.auto_complete": "addCurrentlySelectedChannel"
     "click div.fake-input a": "addCurrentlySelectedChannel"
@@ -36,24 +49,14 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       alreadyAdded: @collection
     @_text_input_view = new TextInputView()
 
+    @_text_input_view.on 'return', => @addCurrentlySelectedChannel()
+    @_text_input_view.on 'down', => @_auto_completes_view.moveSelectionDown()
+    @_text_input_view.on 'up', => @_auto_completes_view.moveSelectionUp()
 
   onRender: ->
     @added_channels.show @_added_channels_view
     @auto_completes.show @_auto_completes_view
     @input.show @_text_input_view
-
-  parseKeyDown: (e) ->
-    @_proceed = false
-    switch e.keyCode
-      when 13 then @addCurrentlySelectedChannel()
-      when 40 then @_auto_completes_view.moveSelectionDown()
-      when 38 then @_auto_completes_view.moveSelectionUp()
-      when 27 then @completelyDisappear()
-      else @_proceed = true
-
-    unless @_proceed
-      e.preventDefault()
-      e.stopPropagation()
 
   addCurrentlySelectedChannel: ->
     @disable()
