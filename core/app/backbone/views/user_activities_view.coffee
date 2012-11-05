@@ -49,3 +49,11 @@ class OpinionActivitiesView extends UserActivitiesView
     return false unless @model.get('username') == m.get('username')
 
     return @model.get('activity')?.fact?.id == m.get('activity')?.fact?.id
+
+  appendHtml: (collectionView, itemView, index)->
+    # hackey hackey:
+    is_first_view = itemView.model.get('render_fact')
+
+    if is_first_view
+      collectionView.$(@itemViewContainer).append(itemView.el)
+    # else: we do not care for old opinions
