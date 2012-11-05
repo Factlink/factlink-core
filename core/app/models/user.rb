@@ -11,6 +11,8 @@ class User
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
+  attr_accessor :tos_first_name, :tos_last_name
+
   field :username
   index :username
   field :first_name
@@ -43,7 +45,7 @@ class User
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications
   field :invitation_message, type: String, default: ""
   attr_accessible :username, :first_name, :last_name, :twitter, :location, :biography, :password, :password_confirmation, :receives_mailed_notifications, :email, :approved, :admin, as: :admin
-  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, as: :from_tos
+  attr_accessible :agrees_tos_name, :agrees_tos, :agreed_tos_on, :first_name, :last_name, as: :from_tos
 
   # Only allow letters, digits and underscore in a username
   validates_format_of     :username,
@@ -182,18 +184,32 @@ class User
     attr.to_sym == :non_field_error ? '' : super
   end
 
-  def sign_tos(agrees_tos, agrees_tos_name)
+  def sign_tos(agrees_tos, first_name, last_name)
     valid = true
+
     unless agrees_tos
       valid = false
       self.errors.add(:non_field_error, "You have to accept the Terms of Service to continue.")
     end
-    if agrees_tos_name.blank?
+
+    if first_name.blank?
       valid = false
-      self.errors.add(:non_field_error, "Please fill in your name to accept the Terms of Service.")
+      self.errors.add(:non_field_error, "Please fill in your first name to accept the Terms of Service.")
     end
 
-    if valid and self.assign_attributes({agrees_tos: agrees_tos, agrees_tos_name: agrees_tos_name, agreed_tos_on: DateTime.now}, as: :from_tos) and save
+    if last_name.blank?
+      valid = false
+      self.errors.add(:non_field_error, "Please fill in your last name to accept the Terms of Service.")
+    end
+
+    full_name = [first_name, last_name].join(" ")
+
+    if valid and self.assign_attributes({ agrees_tos: agrees_tos,
+                                          agrees_tos_name: full_name,
+                                          agreed_tos_on: DateTime.now,
+                                          first_name: first_name,
+                                          last_name: last_name},
+                                          as: :from_tos) and save
       true
     else
       false
