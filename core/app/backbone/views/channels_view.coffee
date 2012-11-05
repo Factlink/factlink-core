@@ -24,9 +24,7 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
 
   templateHelpers: ->
 
-    channel_listing_header: ->
-      heading = 'channels'
-      Factlink.Global.t[heading].capitalize()
+    channel_listing_header: -> Factlink.Global.t.channels.capitalize()
 
   initialize: =>
     @on 'activate', (type)=> @activate(type)
