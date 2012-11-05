@@ -18,7 +18,7 @@ describe "creating a Factlink", type: :request do
 
     visit created_channel_path(@user)
 
-    page.should have_content "My Stream"
+    page.should have_content "Stream"
     page.should have_content fact_name
   end
 

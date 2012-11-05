@@ -25,7 +25,7 @@ class window.ChannelHeaderView extends Backbone.Marionette.ItemView
   templateHelpers: ->
 
     channel_listing_header: ->
-      heading = if @is_current_user then 'my_channels' else 'channels'
+      heading = 'channels'
       Factlink.Global.t[heading].capitalize()
 
   initialize: =>
