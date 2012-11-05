@@ -7,7 +7,7 @@ class SendMailForActivityInteractor
 
   def execute
     recipients.each do |user|
-      command :send_activity_mail_to_user, user, @activity
+      command :send_activity_mail_to_user, user.id, @activity.id
     end
   end
 
