@@ -64,7 +64,7 @@ class window.ChannelList extends window.GenericChannelList
     clearTimeout @_currentTimeout if @_currentTimeout?
     delete @_currentTimeout
     callMyselfSoon = =>
-      @_currentTimeout = setTimeout _.bind(args.callee, this), 7000*1000
+      @_currentTimeout = setTimeout _.bind(args.callee, this), 7000
 
 
     @fetch
