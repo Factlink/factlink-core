@@ -1,5 +1,9 @@
 #TODO: check if this hide-input class thingy has some importance
 
+class TextInputView extends Backbone.Marionette.ItemView
+  template:
+    text: '<input type="text" class="typeahead">'
+
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
@@ -14,6 +18,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   regions:
     'added_channels': 'div.added_channels_container'
     'auto_completes': 'div.auto_complete_container'
+    'input': 'div.fake-input'
 
   template: "channels/_auto_completed_add_to_channel"
 
@@ -25,11 +30,13 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_auto_completes_view = new AutoCompletesView
       mainView: this
       alreadyAdded: @collection
+    @_text_input_view = new TextInputView()
 
 
   onRender: ->
     @added_channels.show @_added_channels_view
     @auto_completes.show @_auto_completes_view
+    @input.show @_text_input_view
 
   parseKeyDown: (e) ->
     @_proceed = false
