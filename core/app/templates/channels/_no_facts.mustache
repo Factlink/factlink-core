@@ -4,13 +4,13 @@
     <div class="empty-channel-action">
       <h2>Add a Factlink with Extension</h2>
       <a class="download-chrome-extension">
-        <img src="<%= image_path("screenshots/addfactlink.png") %>">
+        <img src="{{global.screenshot_addfactlink_image}}">
       </a>
     </div>
     <div class="empty-channel-action">
       <h2>Create a {{global.t.channel}}</h2>
       <a href="{{add_channel_url}}">
-        <img src="<%= image_path("screenshots/createchannel.png") %>">
+        <img src="{{global.screenshot_createchannel_image}}">
       </a>
     </div>
     <div class="empty-channel-action-end"></div>
@@ -19,7 +19,7 @@
     <p>You have not created any Factlinks yet. You can create Factlinks anywhere on the web.</p>
     <h3>Add a Factlink with Extension</h3>
     <a href="{{global.chrome_extension_url}}">
-      <img src="<%= image_path("screenshots/addfactlink.png") %>">
+      <img src="{{global.screenshot_addfactlink_image}}">
     </a>
   {{/is_created}}
   {{#is_normal}}
@@ -29,7 +29,7 @@
     <!-- Chrome extension -->
     <div class="span5 empty-channel-action should-install-chrome-extension visible-when-chrome">
       <h2>Download the Chrome extension</h2>
-      <a class="btn download-chrome-extension"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -2px 8px 0 0") %>Install Chrome Extension</a>
+      <a class="btn download-chrome-extension"><img src="{{global.browser_icons_chrome_16x16}}" style="margin: -2px 8px 0 0">Install Chrome Extension</a>
     </div>
 
     {{#global.can_haz.firefox_extension}}
@@ -37,7 +37,7 @@
     <div class="span5 empty-channel-action should-install-firefox-extension visible-when-firefox">
       <h2>Use the extension</h2>
       <p>Use the extension to enable Factlink on all the pages you visit.</p>
-      <a id="firefox-extension-button" class="btn" href="<%= "#{FactlinkUI::Application.config.static_url}/extension/firefox/factlink-latest.xpi" %>"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0px 8px 0 0") %>Install Firefox Extension</a>
+      <a id="firefox-extension-button" class="btn" href="{{firefox_extension_url}}"><img src="{{global.browser_icons_firefox_16x16}}" style="margin: 0px 8px 0 0">Install Firefox Extension</a>
     </div>
     {{/global.can_haz.firefox_extension}}
 
