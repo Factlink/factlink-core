@@ -55,10 +55,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       e.preventDefault()
       e.stopPropagation()
 
-
-  showInput: -> @$el.removeClass("hide-input").find(".fake-input input").focus()
-
-
   addCurrentlySelectedChannel: ->
     @disable()
     afterAdd = =>
