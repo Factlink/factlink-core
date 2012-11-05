@@ -1,8 +1,10 @@
-require_relative '../interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/commands/elastic_search_index_topic_for_text_search.rb', __FILE__)
 require 'json'
 
 describe Commands::ElasticSearchIndexTopicForTextSearch do
+  include PavlovSupport
+  
   def fake_class
     Class.new
   end

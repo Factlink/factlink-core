@@ -1,7 +1,8 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/object_ids_by_activity.rb', __FILE__)
-require_relative '../interactor_spec_helper'
 
 describe Queries::ObjectIdsByActivity do
+  include PavlovSupport
 
   before do
     stub_classes 'Activity::Listener'

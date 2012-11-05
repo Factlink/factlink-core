@@ -1,7 +1,8 @@
+require 'pavlov_helper'
 require File.expand_path('../../../app/interactors/reply_to_conversation_interactor.rb', __FILE__)
-require_relative 'interactor_spec_helper'
 
 describe ReplyToConversationInteractor do
+  include PavlovSupport
 
   before do
     stub_classes 'Commands::CreateMessage', 'Commands::CreateActivity',

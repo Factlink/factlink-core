@@ -5,6 +5,14 @@ describe 'activity queries' do
   let(:gu1) { create :graph_user }
   let(:gu2) { create :graph_user }
 
+  before do
+    # TODO: remove this once creating an activity does not cause an email to be sent
+    interactor = mock()
+    interactor.should_receive(:execute).any_number_of_times
+    stub_const 'SendMailForActivityInteractor', Class.new
+    SendMailForActivityInteractor.should_receive(:new).any_number_of_times.and_return(interactor)
+  end
+
   describe ".fact" do
     it "should return creation activity" do
       f1 = create :fact, created_by: gu1

@@ -1,7 +1,9 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/users_by_graph_user_ids.rb', __FILE__)
-require_relative '../interactor_spec_helper'
 
 describe Queries::UsersByGraphUserIds do
+  include PavlovSupport
+  
   before do
     stub_classes "GraphUser", "User"
   end

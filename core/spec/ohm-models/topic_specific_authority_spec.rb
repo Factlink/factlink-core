@@ -65,6 +65,10 @@ describe "topic specific authority"  do
 
 
     it "should not give authority on a topic with a fact in it with only one supporting fact" do
+      # TODO: remove this once activities are not created in the models any more, but in interactors
+      stub_const 'Activity::Subject', Class.new
+      Activity::Subject.should_receive(:activity).any_number_of_times
+
       f = create :fact, created_by: u1
       f2 = create :fact, created_by: u1
       f.add_evidence(:supporting,f2,u2)

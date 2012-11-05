@@ -1,7 +1,9 @@
-require_relative 'interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../app/interactors/search_evidence_interactor.rb', __FILE__)
 
 describe SearchEvidenceInteractor do
+  include PavlovSupport
+  
   let(:relaxed_ability) do
     ability = mock()
     ability.stub can?: true

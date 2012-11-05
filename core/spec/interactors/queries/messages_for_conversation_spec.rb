@@ -1,9 +1,12 @@
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/messages_for_conversation.rb', __FILE__)
 require 'hashie'
 
 describe Queries::MessagesForConversation do
+  include PavlovSupport
+
   before do
-    stub_const 'Message', Class.new
+    stub_classes 'Message'
   end
 
   it 'it throws when initialized without a argument' do

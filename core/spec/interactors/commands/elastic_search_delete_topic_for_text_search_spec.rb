@@ -1,7 +1,9 @@
-require_relative '../interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/commands/elastic_search_delete_topic_for_text_search.rb', __FILE__)
 
 describe Commands::ElasticSearchDeleteTopicForTextSearch do
+  include PavlovSupport
+  
   let(:topic) do
     topic = stub()
     topic.stub id: 1

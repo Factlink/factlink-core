@@ -1,7 +1,9 @@
-require_relative '../interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../../app/interactors/queries/elastic_search_user.rb', __FILE__)
 
 describe Queries::ElasticSearchUser do
+  include PavlovSupport
+  
   def fake_class
     Class.new
   end

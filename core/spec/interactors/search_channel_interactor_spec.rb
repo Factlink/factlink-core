@@ -1,7 +1,8 @@
-require_relative 'interactor_spec_helper'
+require 'pavlov_helper'
 require File.expand_path('../../../app/interactors/search_channel_interactor.rb', __FILE__)
 
 describe SearchChannelInteractor do
+  include PavlovSupport
 
   let(:relaxed_ability) do
     ability = mock()
