@@ -1,7 +1,7 @@
 class window.EditableChannelItemView extends Backbone.Marionette.ItemView
   tagName: "li"
 
-  template: "channels/_single_editable_menu_item"
+  template: "channels/single_editable_menu_item"
 
   events:
     'click .delete': 'delete'

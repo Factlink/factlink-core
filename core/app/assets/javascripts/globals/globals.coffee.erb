@@ -2,16 +2,26 @@
 Factlink.Global =
   path:
     sign_in: '/users/sign_in'
-  brain_icon: '<%= image_tag image_path("brain.png") %>'
+  brain_image: '<%= image_path("brain.png") %>'
+  trash_image: '<%= image_path("trash.png") %>'
+  trash_hover_image: '<%= image_path("trash-hover.png") %>'
+  time_ago_image: '<%= image_path("time_ago.gif") %>'
+  ajax_loader_image: '<%= image_path("ajax-loader.gif") %>'
+  screenshot_addfactlink_image: '<%= image_path("screenshots/addfactlink.png") %>'
+  screenshot_createchannel_image: '<%= image_path("screenshots/createchannel.png") %>'
+  conversations_bigger_image: '<%= image_path("conversations/conversations-bigger.png") %>'
   empty_factlink_image: '<%= image_path("conversations/factlink-empty-state.png") %>'
+  browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
+  browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
 
+  firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
   use_chrome_webstore: <%= FactlinkUI::Application.config.use_chrome_webstore %>
   t: {}
   can_haz: {}
 
 <%
-  [:channel, :channels, :add_to_channels, :my_channels].each do |translation|
+  [:channel, :channels, :add_to_channels].each do |translation|
 %>
 
 Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"

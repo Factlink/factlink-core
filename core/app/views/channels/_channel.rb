@@ -39,7 +39,7 @@ module Channels
 
     def title
       if is_all
-        is_mine ? 'My Stream' : 'Stream'
+        'Stream'
       elsif is_created
         is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username
       else
@@ -49,7 +49,7 @@ module Channels
 
     def long_title
       if is_all
-        is_mine ? 'My Stream' : "Stream of #{self[:user].username}"
+        is_mine ? 'Stream' : "Stream of #{self[:user].username}"
       else
         title
       end

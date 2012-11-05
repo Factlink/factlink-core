@@ -7,10 +7,10 @@ class ActivityMailer < ActionMailer::Base
 
   default from: "Factlink <support@factlink.com>"
 
-  def new_activity(user, activity)
-    @user = user
-    @activity = activity
+  def new_activity(user_id, activity_id)
+    @user = User.find(user_id)
+    @activity = Activity[activity_id]
 
-    mail to: user.email, subject: 'New notification!'
+    mail to: @user.email, subject: 'New notification!'
   end
 end

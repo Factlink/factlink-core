@@ -280,23 +280,25 @@ body.factlink-site .fact-block {
     .related-channels ul.not_my_channel a.follow {
       display: none;
     }
+
     .tourChannels {
-      #channel-listing {
-        padding: 10px;
-        .my-channels {
-          i {
-            .opacity(0.6);
-            margin-top: 1px;
-          }
-          font-weight: bold;
-          font-size: (@baseFontSize + 1);
-        }
+      padding: 10px;
+
+      ul { margin: 0; }
+
+      .my-channels {
+        padding: 0;
+        padding-left: 0px;
+        font-weight: bold;
+        font-size: (@baseFontSize + 1);
+        i { .opacity(0.6); margin-top: 1px; }
+      }
+
+      .channel-listing {
+
         li {
           width: auto;
           padding: 5px 0 0 19px;
-          &:first-child {
-            padding: 0;
-          }
           .delete {
             .icon-remove {
               .opacity(0.6);
@@ -316,6 +318,9 @@ body.factlink-site .fact-block {
         }
       }
     }
+
+
+
     .tour-block {
       position: relative;
       width: 198px;

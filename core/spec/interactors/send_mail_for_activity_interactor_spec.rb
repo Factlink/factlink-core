@@ -9,9 +9,9 @@ describe SendMailForActivityInteractor do
 
   describe '.execute' do
     it 'correctly' do
-      user = mock()
+      user = mock(id: 1)
 
-      activity = mock()
+      activity = mock(id: 2)
 
       SendMailForActivityInteractor.any_instance.stub(authorized?: true)
       interactor = SendMailForActivityInteractor.new activity
@@ -19,7 +19,7 @@ describe SendMailForActivityInteractor do
       interactor.should_receive(:recipients).and_return([user])
 
       should_receive_new_with_and_receive_execute(
-        Commands::SendActivityMailToUser, user, activity, {})
+        Commands::SendActivityMailToUser,  user.id, activity.id, {})
 
       interactor.execute
     end
