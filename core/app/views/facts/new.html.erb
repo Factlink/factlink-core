@@ -38,7 +38,7 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var addToChannelView = new AutoCompletedAddToChannelView().render();
+    var addToChannelView = new AutoCompletedAddToChannelView({collection: new OwnChannelCollection()}).render();
 
     $('#add-to-channels').replaceWith(addToChannelView.el);
 

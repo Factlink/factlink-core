@@ -20,7 +20,6 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   template: "channels/_auto_completed_add_to_channel"
 
   initialize: ->
-    @collection = new OwnChannelCollection()
     @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
       mainView: this

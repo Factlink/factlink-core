@@ -14,7 +14,9 @@ class window.FactTabsView extends Backbone.Marionette.Layout
   renderAddToChannel: ->
     add_el = ".tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container"
     if @$(add_el).length > 0 and typeof currentUser isnt "undefined" and ("addToChannelView" not of this)
-      addToChannelView = new AutoCompletedAddToChannelView(el: @$(add_el)[0])
+      addToChannelView = new AutoCompletedAddToChannelView
+                               el: @$(add_el)[0]
+                               collection: new OwnChannelCollection()
       _.each @model.getOwnContainingChannels(), (ch) ->
         addToChannelView.collection.add ch  if ch.get("type") is "channel"
 
