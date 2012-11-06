@@ -6,24 +6,18 @@ class window.AutoCompletesView extends Backbone.Factlink.SteppableView
 
   className: 'auto_complete'
 
-  itemViewOptions: => {
-      query: @search_collection.query
-      parent: @options.mainView
-  }
+  itemViewOptions: =>
+    query: @search_collection.query
+    parent: @options.mainView
 
   initialize: ->
-    super()
     @search_collection = new TopicSearchResults()
     @collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @options.alreadyAdded)
 
     @search_collection.on 'reset', => @setActiveView 0
 
-  onClose: -> super()
-
   onRender: -> @$(@itemViewContainer).preventScrollPropagation()
-
-  onItemAdded: (view)-> super(view)
 
   showEmptyView: -> @$el.hide()
   closeEmptyView: -> @$el.show()

@@ -1,9 +1,15 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
-  initialize: -> @list = [];
-  closeList: -> @list = [];
+  constructor: (args...)->
+    super(args...)
+    @on 'item:added', @onItemAddedDoSteppableInitialization, this
+    @list = []
 
-  onClose: -> @closeList()
+  closeList: -> @list = []
+
+  close: (args...)->
+    super(args...)
+    @closeList()
 
   deActivateCurrent: () ->
     @currentActiveView()?.trigger('deactivate');
@@ -30,7 +36,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     nextKey = if @activeViewKey? then @activeViewKey + 1 else 0
     @setActiveView nextKey
 
-  onItemAdded: (view)->
+  onItemAddedDoSteppableInitialization: (view)->
     view.on 'close', =>
       i = @list.indexOf(view)
       @list.splice(i,1)
