@@ -6,7 +6,7 @@ describe IdentitiesController do
     @subject = IdentitiesController.new
   end
 
-  describe 'provider_callback' do
+  describe 'service_callback' do
     it 'calls connect_provider when a user is signed in' do
       provider_name = mock()
       omniauth_obj = mock()
@@ -14,8 +14,9 @@ describe IdentitiesController do
       @subject.should_receive(:user_signed_in?).and_return(true)
       @subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
       @subject.should_receive(:connect_provider).with(provider_name, omniauth_obj).and_return()
+      @subject.stub(:params => {:service => provider_name})
 
-      @subject.send(:provider_callback, provider_name)
+      @subject.service_callback()
     end
 
     it 'calls sign_in_through_provider when a user is not logged in' do
@@ -25,8 +26,9 @@ describe IdentitiesController do
       @subject.should_receive(:user_signed_in?).and_return(false)
       @subject.stub(:parse_omniauth_env).and_return(omniauth_obj)
       @subject.should_receive(:sign_in_through_provider).with(provider_name, omniauth_obj).and_return()
+      @subject.stub(:params => {:service => provider_name})
 
-      @subject.send(:provider_callback, provider_name)
+      @subject.service_callback()
     end
   end
 

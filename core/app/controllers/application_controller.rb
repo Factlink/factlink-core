@@ -1,8 +1,13 @@
 require 'net/http'
+require 'action_controller/railtie'
+require 'cancan'
+
+require_relative '../interactors/pavlov'
 
 class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
+
   def pavlov_options
     {
       current_user: current_user,
@@ -54,7 +59,6 @@ class ApplicationController < ActionController::Base
 
   after_filter :set_access_control
 
-
   def after_sign_in_path_for(user)
     return_to = session[:return_to]
     session[:return_to] = nil
@@ -79,6 +83,7 @@ class ApplicationController < ActionController::Base
 
   class HackAttempt < StandardError
   end
+
   rescue_from HackAttempt, with: :rescue_hacker
 
   def rescue_hacker
@@ -95,7 +100,6 @@ class ApplicationController < ActionController::Base
       format.json { yield } if block_given?
     end
   end
-
 
   def lazy *args, &block
     Lazy.new(*args, &block)
@@ -156,7 +160,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def jslib_url_for(username)
     FactlinkUI::Application.config.jslib_url_builder.url_for username
   end
@@ -176,7 +179,4 @@ class ApplicationController < ActionController::Base
       allowed_layouts = ['popup', 'client']
       allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
     end
-
-
-
 end
