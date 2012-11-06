@@ -41,6 +41,13 @@
     </div>
 
     <div class="row">
+      <%= f.label :tos_name %>
+      <div class="field">
+        <p><%= user.agrees_tos_name %></p>
+      </div>
+    </div>
+
+    <div class="row">
       <%= f.label :location %>
       <div class="field">
         <%= f.text_field :location %>
