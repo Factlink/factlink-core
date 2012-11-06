@@ -151,6 +151,7 @@ end
 group :jstest do
   gem 'jasmine'
   gem 'jasmine-headless-webkit', git: 'https://github.com/johnbintz/jasmine-headless-webkit.git'
+  gem "jasmine-spec-extras", "~> 0.0.2"
 end
 
 group :development do
