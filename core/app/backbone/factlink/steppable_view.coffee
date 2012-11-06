@@ -5,9 +5,6 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
 
   onClose: -> @closeList()
 
-  activeChannelKey: -> @activeViewKey
-  setActiveChannelKey: (value)-> @activeViewKey = value
-
   deActivateCurrent: () ->
     @currentActiveView()?.trigger('deactivate');
     @activeViewKey = `undefined`
@@ -23,15 +20,15 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     view = @list[key]
     if view
       view.trigger('activate');
-      @setActiveChannelKey(key)
+      @activeViewKey = key
 
   moveSelectionUp: ->
-    prevKey = if @activeChannelKey()? then @activeChannelKey() - 1 else -1
-    this.setActiveView(prevKey, true)
+    prevKey = if @activeViewKey? then @activeViewKey - 1 else -1
+    @setActiveView prevKey
 
   moveSelectionDown: ->
-    nextKey = if @activeChannelKey()? then this.activeChannelKey() + 1 else 0
-    this.setActiveView(nextKey, true)
+    nextKey = if @activeViewKey? then @activeViewKey + 1 else 0
+    @setActiveView nextKey
 
   onItemAdded: (view)->
     view.on 'close', =>
