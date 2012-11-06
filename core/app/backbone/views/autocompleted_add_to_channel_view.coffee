@@ -1,16 +1,26 @@
 #= require ./generic/text_input_view
-searchCollection = (type)->
-  model = new Backbone.Model text: ''
-  collection = new type()
-  model.on 'change', -> collection.searchFor model.get('text')
 
-  [model, collection]
+class AutocompleteSearchView extends Backbone.Marionette.Layout
+  searchCollection: (type)->
+    model = new Backbone.Model text: ''
+    collection = new type()
+    model.on 'change', -> collection.searchFor model.get('text')
 
-class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
+    [model, collection]
+
+  bindTextViewToSteppableViewAndSelf: (text_view, steppable_view)->
+    @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()
+    @bindTo text_view, 'up',    -> steppable_view.moveSelectionUp()
+    @bindTo text_view, 'return', @addCurrent, this
+
+  addCurrent: ->
+    console.error "the function to add current selection was not implemented"
+
+class window.AutoCompletedAddToChannelView extends AutocompleteSearchView
   tagName: "div"
   className: "add-to-channel"
   events:
-    "click div.auto_complete": "addCurrentlySelectedChannel"
+    "click div.auto_complete": "addCurrent"
 
   regions:
     'added_channels': 'div.added_channels_container'
@@ -22,9 +32,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   initialize: ->
     @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
-      mainView: this
 
-    [@model, @search_collection] = searchCollection(TopicSearchResults)
+    [@model, @search_collection] = @searchCollection(TopicSearchResults)
 
     @_text_input_view = new TextInputView model: @model
 
@@ -32,21 +41,17 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       'slug_title', @search_collection, @collection)
 
     @_auto_completes_view = new AutoCompletesView
-      mainView: this
-      alreadyAdded: @collection
       model: @model
       collection: @filtered_search_collection
 
-    @_text_input_view.on 'return', => @addCurrentlySelectedChannel()
-    @_text_input_view.on 'down', => @_auto_completes_view.moveSelectionDown()
-    @_text_input_view.on 'up', => @_auto_completes_view.moveSelectionUp()
+    @bindTextViewToSteppableViewAndSelf(@_text_input_view, @_auto_completes_view)
 
   onRender: ->
     @added_channels.show @_added_channels_view
     @auto_completes.show @_auto_completes_view
     @input.show @_text_input_view
 
-  addCurrentlySelectedChannel: ->
+  addCurrent: ->
     @disable()
     afterAdd = =>
       @model.set text:''
