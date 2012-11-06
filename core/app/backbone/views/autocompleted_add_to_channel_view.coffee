@@ -15,7 +15,7 @@ class window.AutoCompletedAddToChannelView extends AutoCompleteSearchView
 
   auto_complete_search_view_options:
     filter_on: 'slug_title'
-    result_view: AutoCompletedAddedChannelsView
+    results_view: AutoCompletedAddedChannelsView
     search_collection: TopicSearchResults
     auto_completes_view: AutoCompletesView
 

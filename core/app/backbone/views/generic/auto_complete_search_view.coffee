@@ -1,6 +1,6 @@
 class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initialize_child_views: (opts)->
-    @_results_view = new opts.result_view
+    @_results_view = new opts.results_view
       collection: @collection
 
     [@model, @search_collection] = @searchCollection(opts.search_collection)

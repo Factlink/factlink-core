@@ -1,4 +1,4 @@
-class AutoCompletedChannelView extends Backbone.Marionette.ItemView
+class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   triggers:
