@@ -36,12 +36,45 @@ class IdentitiesController < ApplicationController
 
   private
   def provider_callback provider_name
+    omniauth_obj = parse_omniauth_env provider_name
+
+    if user_signed_in?
+      connect_provider provider_name, omniauth_obj
+    else
+      sign_in_through_provider provider_name, omniauth_obj
+    end
+  end
+
+  def connect_provider provider_name, omniauth_obj
     authorize! :update, current_user
 
-  	omniauth = request.env['omniauth.auth']
-  	if provider_name != omniauth[:provider]
-  		raise "Wrong OAuth provider: #{omniauth[:provider]}"
-  	end
+    if omniauth_obj
+      current_user.identities[provider_name] = omniauth_obj
+      current_user.save
+      flash[:notice] = "Succesfully connected."
+    else
+      flash[:alert] = "Error connecting."
+    end
+
+  	redirect_to edit_user_path(current_user)
+  end
+
+  def sign_in_through_provider provider_name, omniauth_obj
+    @user = User.find_for_oauth(provider_name, omniauth_obj.uid)
+
+    if @user
+      sign_in_and_redirect @user
+    else
+      flash[:alert] = "No connected #{provider_name.capitalize} account found. Please sign in with your credentials and connect your #{provider_name.capitalize} account."
+      redirect_to session[:redirect_after_failed_login_path]
+    end
+  end
+
+  def parse_omniauth_env provider_name
+    omniauth = request.env['omniauth.auth']
+    if provider_name != omniauth[:provider]
+      raise "Wrong OAuth provider: #{omniauth[:provider]}"
+    end
 
     if omniauth[:uid] and omniauth[:credentials] and omniauth[:credentials][:token]
       if provider_name == 'twitter'
@@ -50,14 +83,10 @@ class IdentitiesController < ApplicationController
         omniauth['extra'].delete 'access_token'
       end
 
-      current_user.identities[provider_name] = omniauth
-      current_user.save 
-      flash[:notice] = "Succesfully connected."
+      omniauth
     else
-      flash[:alert] = "Error connecting."
+      false
     end
-
-  	redirect_to edit_user_path(current_user)
   end
 
   def provider_deauthorize provider_name, &block
@@ -79,7 +108,7 @@ class IdentitiesController < ApplicationController
     else
       flash[:alert] = "Already disconnected."
     end
-    
+
     redirect_to edit_user_path(current_user)
   end
 end

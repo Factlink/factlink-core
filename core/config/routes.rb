@@ -92,10 +92,10 @@ FactlinkUI::Application.routes.draw do
         put "/password" => "users/registrations#update_password", as: "update_password"
       end
     end
-
-    get "/auth/:service/callback" => "identities#service_callback"
-    delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
   end
+
+  get "/auth/:service/callback" => "identities#service_callback", as: "social_auth"
+  delete "/auth/:service/deauthorize" => "identities#service_deauthorize"
 
   resources :conversations, only: [:index, :show, :create], path: 'c' do
     resources :messages, only: [:create, :show]

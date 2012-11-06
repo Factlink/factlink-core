@@ -134,6 +134,10 @@ class User
       where :agrees_tos => false
     end
 
+    def find_for_oauth(provider_name, uid)
+      User.where(:"identities.#{provider_name}.uid" => uid).first
+    end
+
     # List of fields that are stored in Mixpanel.
     # The key   represents how the field is stored in our Model
     # The value represents how it is stored in Mixpanel
