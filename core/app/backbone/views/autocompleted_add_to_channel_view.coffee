@@ -5,7 +5,10 @@ class TextInputView extends Backbone.Marionette.ItemView
     "keyup input.typeahead": "autoCompleteCurrentValue"
 
   template:
-    text: '<input type="text" class="typeahead">'
+    text: '<input type="text" value="{{text}}" class="typeahead">'
+
+  initialize: ->
+    @model.on 'change', @updateValue, this
 
   focusInput: -> @$("input.typeahead").focus()
 
@@ -22,10 +25,18 @@ class TextInputView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopPropagation()
 
+  updateValue: ->
+    @$("input.typeahead").val(@model.get('text'))
+
   autoCompleteCurrentValue: ->
     searchValue = @$("input.typeahead").val()
     @model.set(text: searchValue)
 
+  enable: ->
+    @$("input.typeahead").prop "disabled", false
+
+  disable: ->
+    @$("input.typeahead").prop "disabled", true
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
@@ -65,9 +76,8 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   addCurrentlySelectedChannel: ->
     @disable()
     afterAdd = =>
-      @$("input.typeahead").val('')
+      @model.set text:''
       @enable()
-      @autoCompleteCurrentValue()
 
     activeTopic = @_auto_completes_view.currentActiveModel()
 
@@ -75,7 +85,7 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       afterAdd()
       return
 
-    @$("input.typeahead").val activeTopic.get("title")
+    @model.set text: activeTopic.get("title")
 
     activeTopic.withCurrentOrCreatedChannelFor currentUser,
       success: (ch)=>
@@ -92,10 +102,12 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @collection.add channel
 
   disable: ->
-    @$el.addClass("disabled").find("input.typeahead").prop "disabled", true
+    @$el.addClass("disabled")
+    @_text_input_view.disable()
 
   enable: ->
-    @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
+    @$el.removeClass("disabled")
+    @_text_input_view.enable()
 
   autoCompleteCurrentValue: ->
     searchValue = @model.get('text')
