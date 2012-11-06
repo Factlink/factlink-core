@@ -1,19 +1,12 @@
-class window.TopicSearchResults extends Backbone.Collection
+class window.TopicSearchResults extends SearchCollection
   model: Topic
 
   initialize: ->
     @on 'reset', => @addNewItem()
-    @searchFor ''
 
   url: -> "/" + currentUser.get('username') + "/channels/find.json?s=#{@query}"
 
-  makeEmpty: ->
-    @query = ''
-    @reset []
-
-  addNewItem: ->
-    if @shouldShowNewItem()
-      @add @getNewItem()
+  addNewItem: -> @add @getNewItem() if @shouldShowNewItem()
 
   shouldShowNewItem: ->
     @query != '' and not (@query.toLowerCase() in @currentLowercaseTitles())
@@ -24,13 +17,3 @@ class window.TopicSearchResults extends Backbone.Collection
       'title':@query,
       'slug_title': @query.toLowerCase()
       'new': true)
-
-  searchFor: (query) ->
-    return if query == @query
-
-    if query == ''
-      @makeEmpty()
-    else
-      @query = query
-      @reset []
-      @fetch()
