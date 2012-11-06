@@ -1,3 +1,33 @@
+class AutoCompletedChannelView extends Backbone.Marionette.ItemView
+  tagName: "li"
+
+  triggers:
+    "mouseenter": "requestActivate",
+    "mouseleave": "requestDeActivate"
+
+  template: "channels/auto_completed_channel"
+
+  initialize: ->
+    @queryRegex = new RegExp(@options.query, "gi")
+
+    @on 'activate', @activate, this
+    @on 'deactivate', @deactivate, this
+
+  templateHelpers: ->
+    view = this
+
+    highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")
+
+  onRender: ->
+    @$el.addClass('user-channel') if @model.existingChannelFor(currentUser)
+
+  deactivate: -> @$el.removeClass 'active'
+  activate: ->
+    @$el.addClass 'active'
+    @scrollIntoView()
+
+  scrollIntoView: -> scrollIntoViewWithinContainer(@el, @$el)
+
 class window.AutoCompletesView extends Backbone.Factlink.SteppableView
   template: "channels/auto_completes"
 
