@@ -20,12 +20,12 @@
         </div>
       <% end %>
 
-      <% if can_haz :social_sign_in %>
-      <div class="separator">or</div>
-      <div class="social">
-        <a href="javascript:void();" class="btn twitter"><i></i>Sign in with Twitter</a>
-        <a href="javascript:void();" class="btn facebook"><i></i>Sign in with Facebook</a>
-      </div>
+      <% if can_haz :social_connect %>
+        <div class="separator">or</div>
+        <div class="social">
+          <a href="/auth/twitter" class="btn twitter" data-disable-with="<i></i>Signing in..."><i></i>Sign in with Twitter</a>
+          <a href="/auth/facebook" class="btn facebook" data-disable-with="<i></i>Signing in..."><i></i>Sign in with Facebook</a>
+        </div>
       <% end %>
     <% end %>
   </div>
