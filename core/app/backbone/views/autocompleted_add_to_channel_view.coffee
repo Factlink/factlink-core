@@ -17,13 +17,20 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
       mainView: this
-    @_auto_completes_view = new AutoCompletesView
-      mainView: this
-      alreadyAdded: @collection
 
     @model = new Backbone.Model text: ''
     @model.on 'change', => @autoCompleteCurrentValue()
     @_text_input_view = new TextInputView model: @model
+
+    @search_collection = new TopicSearchResults()
+    @filtered_search_collection = collectionDifference(TopicSearchResults,
+      'slug_title', @search_collection, @collection)
+
+    @_auto_completes_view = new AutoCompletesView
+      mainView: this
+      alreadyAdded: @collection
+      model: @model
+      collection: @filtered_search_collection
 
     @_text_input_view.on 'return', => @addCurrentlySelectedChannel()
     @_text_input_view.on 'down', => @_auto_completes_view.moveSelectionDown()
@@ -72,4 +79,4 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
 
   autoCompleteCurrentValue: ->
     searchValue = @model.get('text')
-    @_auto_completes_view.search_collection.searchFor searchValue
+    @search_collection.searchFor searchValue
