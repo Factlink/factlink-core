@@ -1,5 +1,3 @@
-#TODO: check if this hide-input class thingy has some importance
-
 class TextInputView extends Backbone.Marionette.ItemView
   events:
     'click': 'focusInput'
