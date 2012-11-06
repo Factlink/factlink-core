@@ -11,7 +11,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
 
   fixKeyModulo: (key)->
     if key >= @list.length then 0
-    else if key < 0 then @list.length -1
+    else if key < 0 then @list.length - 1
     else key
 
   setActiveView:  (key)->
