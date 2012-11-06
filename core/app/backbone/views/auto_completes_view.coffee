@@ -8,7 +8,6 @@ class window.AutoCompletesView extends Backbone.Factlink.SteppableView
 
   itemViewOptions: =>
     query: @model.get('text')
-    parent: @options.mainView
 
   initialize: -> @on 'composite:collection:rendered', => @setActiveView 0
 
