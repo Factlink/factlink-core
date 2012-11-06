@@ -12,6 +12,4 @@ class window.AutoCompletedAddedChannelsView extends Backbone.Marionette.Collecti
   className: 'added_channels'
 
   initialize: ->
-    @on "itemview:remove", (childView, msg) =>
-      @options.mainView.trigger 'removeChannel', childView.model
-      @collection.remove childView.model
+    @on "itemview:remove", (childView, msg) => @collection.remove childView.model

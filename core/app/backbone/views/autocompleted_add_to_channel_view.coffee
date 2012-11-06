@@ -33,6 +33,9 @@ class window.AutoCompletedAddToChannelView extends AutocompleteSearchView
     @_added_channels_view = new AutoCompletedAddedChannelsView
       collection: @collection
 
+    @_added_channels_view.on "itemview:remove",  (childView, msg) =>
+      @trigger 'removeChannel', childView.model
+
     [@model, @search_collection] = @searchCollection(TopicSearchResults)
 
     @_text_input_view = new TextInputView model: @model
