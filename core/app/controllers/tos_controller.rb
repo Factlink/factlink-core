@@ -13,9 +13,11 @@ class TosController < ApplicationController
     authorize! :sign_tos, current_user
 
     agrees_tos      = (params[:user][:agrees_tos].to_i == 1) ? true : false
-    agrees_tos_name = params[:user][:agrees_tos_name]
 
-    if current_user.sign_tos(agrees_tos, agrees_tos_name)
+    first_name = params[:user][:tos_first_name]
+    last_name  = params[:user][:tos_last_name]
+
+    if current_user.sign_tos(agrees_tos, first_name, last_name)
       redirect_to almost_done_path
     else
       render :show

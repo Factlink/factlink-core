@@ -81,8 +81,8 @@ describe User do
   context "when agreeing the tos" do
     describe "when trying to agree without signing, without a name" do
       it "should not be allowed" do
-        nonnda_subject.sign_tos(false, '').should == false
-        nonnda_subject.errors.full_messages.length.should == 2
+        nonnda_subject.sign_tos(false, '', '').should == false
+        nonnda_subject.errors.full_messages.length.should == 3
         nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
       end
@@ -90,7 +90,7 @@ describe User do
 
     describe "when trying to agree without signing" do
       it "should not be allowed" do
-        nonnda_subject.sign_tos(false, 'Sjaak').should == false
+        nonnda_subject.sign_tos(false, 'Sjaak', 'van den Hoevenlaken').should == false
         nonnda_subject.errors.keys.length.should == 1
         nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
@@ -98,20 +98,47 @@ describe User do
     end
     describe "when trying to agree without a name" do
       it "should not be allowed" do
-        nonnda_subject.sign_tos(true, '').should == false
+        nonnda_subject.sign_tos(true, '', '').should == false
         nonnda_subject.errors.keys.length.should == 1
         nonnda_subject.agrees_tos_name.should == ''
         nonnda_subject.agrees_tos.should == false
       end
     end
+    describe "when trying to agree without a first name" do
+      it "should not be allowed" do
+        nonnda_subject.sign_tos(true, '', 'van den Hoevenlaken').should == false
+        nonnda_subject.errors.keys.length.should == 1
+        nonnda_subject.agrees_tos_name.should == ''
+        nonnda_subject.agrees_tos.should == false
+      end
+    end
+
+    describe "when trying to agree without a last name" do
+      it "should not be allowed" do
+        nonnda_subject.sign_tos(true, 'Sjaak', '').should == false
+        nonnda_subject.errors.keys.length.should == 1
+        nonnda_subject.agrees_tos_name.should == ''
+        nonnda_subject.agrees_tos.should == false
+      end
+    end
+
     describe "when agreeing with a name" do
       it "should be allowed" do
         t = DateTime.now
         DateTime.stub!(:now).and_return(t)
-        nonnda_subject.sign_tos(true, 'Sjaak').should == true
-        nonnda_subject.agrees_tos_name.should == 'Sjaak'
+        nonnda_subject.sign_tos(true, 'Sjaak', 'van den Hoevenlaken').should == true
+        nonnda_subject.agrees_tos_name.should == 'Sjaak van den Hoevenlaken'
         nonnda_subject.agrees_tos.should == true
         nonnda_subject.agreed_tos_on.to_i.should == t.to_i
+        nonnda_subject.errors.keys.length.should == 0
+      end
+
+      it "sets the first_name and last_name" do
+        t = DateTime.now
+        DateTime.stub!(:now).and_return(t)
+        nonnda_subject.sign_tos(true, 'Sjaak', 'van den Hoevenlaken').should == true
+        nonnda_subject.first_name.should == 'Sjaak'
+        nonnda_subject.last_name.should == 'van den Hoevenlaken'
         nonnda_subject.errors.keys.length.should == 0
       end
     end
@@ -119,13 +146,66 @@ describe User do
     describe "user signing the ToS" do
       it "correctly should persist to the database" do
         agrees_tos      = true
-        agrees_tos_name = "Tom"
 
-        nonnda_subject.sign_tos(agrees_tos, agrees_tos_name)
+        first_name = "Tom"
+        last_name  = "de Vries"
+
+        full_tos_name = [first_name, last_name].join(" ")
+
+        nonnda_subject.sign_tos(agrees_tos, first_name, last_name)
 
         user = User.find(nonnda_subject.id)
         user.agrees_tos.should      == agrees_tos
-        user.agrees_tos_name.should == agrees_tos_name
+        user.agrees_tos_name.should == full_tos_name
+
+
+        user.first_name.should == first_name
+        user.last_name.should  == last_name
+      end
+
+      it "should persist the full name" do
+        agrees_tos      = true
+        first_name = "Tom"
+        last_name  = "de Vries"
+
+        nonnda_subject.sign_tos(agrees_tos, first_name, last_name)
+
+        user = User.find(nonnda_subject.id)
+        user.agrees_tos.should      == agrees_tos
+        user.agrees_tos_name.should ==[first_name, last_name].join(" ")
+
+        user.first_name.should == first_name
+        user.last_name.should  == last_name
+      end
+
+      it "should not be valid without last name" do
+        agrees_tos      = true
+
+        first_name = "Tom"
+        last_name  = ""
+
+        full_tos_name = [first_name, last_name].join(" ")
+
+        nonnda_subject.sign_tos(agrees_tos, first_name, last_name)
+
+        user = User.find(nonnda_subject.id)
+        user.agrees_tos.should be_false
+        user.agrees_tos_name.should == ""
+      end
+
+      it "should not be valid when not agreeing ToS" do
+        agrees_tos      = false
+
+        first_name = "Tom"
+        last_name  = "de Vries"
+
+        full_tos_name = [first_name, last_name].join(" ")
+
+        nonnda_subject.sign_tos(agrees_tos, first_name, last_name)
+
+        user = User.find(nonnda_subject.id)
+        user.agrees_tos.should be_false
+        user.agrees_tos_name.should == ""
       end
     end
   end
