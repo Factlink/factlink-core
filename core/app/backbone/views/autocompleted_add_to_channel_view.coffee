@@ -4,6 +4,7 @@ class TextInputView extends Backbone.Marionette.ItemView
   events:
     'click': 'focusInput'
     "keydown input.typeahead": "parseKeyDown"
+    "keyup input.typeahead": "autoCompleteCurrentValue"
 
   template:
     text: '<input type="text" class="typeahead">'
@@ -23,12 +24,15 @@ class TextInputView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopPropagation()
 
+  autoCompleteCurrentValue: ->
+    searchValue = @$("input.typeahead").val()
+    @model.set(text: searchValue)
+
 
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
   events:
-    "keyup input.typeahead": "autoCompleteCurrentValue"
     "click div.auto_complete": "addCurrentlySelectedChannel"
 
   regions:
@@ -46,7 +50,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @_auto_completes_view = new AutoCompletesView
       mainView: this
       alreadyAdded: @collection
-    @_text_input_view = new TextInputView()
+
+    @model = new Backbone.Model text: ''
+    @model.on 'change', => @autoCompleteCurrentValue()
+    @_text_input_view = new TextInputView model: @model
 
     @_text_input_view.on 'return', => @addCurrentlySelectedChannel()
     @_text_input_view.on 'down', => @_auto_completes_view.moveSelectionDown()
@@ -93,5 +100,5 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
     @$el.removeClass("disabled").find("input.typeahead").prop "disabled", false
 
   autoCompleteCurrentValue: ->
-    searchValue = @$("input.typeahead").val()
+    searchValue = @model.get('text')
     @_auto_completes_view.search_collection.searchFor searchValue
