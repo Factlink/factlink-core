@@ -9,7 +9,6 @@ describe 'window.collectionDifference', ->
     collection1 = new type(models[1..4])
     collections = [new type(models[2..3]), new type(models[5..6])]
     result = collectionDifference(type, 'someField', collection1, collections...)
-    console.log(result)
 
   it 'deletes the elements from "collections" that match "someField"', ->
     expect(result.pluck('someField')).toEqual([1, 4])

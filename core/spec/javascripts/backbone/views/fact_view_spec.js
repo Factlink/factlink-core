@@ -8,12 +8,11 @@ describe('FactView', function () {
     spyOn(window, 'Wheel').andReturn({set: function() {}});
     spyOn(window, 'InteractiveWheelView').andReturn({render: function() {}});
     spyOn(window, 'FactTabsView').andReturn({render: function() {}});
+    render = spyOn(Backbone.Marionette.Renderer, 'render');
 
     var view = new FactView({
       model: model
     });
-
-    render = spyOn(Backbone.Marionette.Renderer, 'render');
     
     view.render();
 
