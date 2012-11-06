@@ -1,3 +1,11 @@
+class window.AutoCompletedAddedChannelView extends Backbone.Marionette.ItemView
+  tagName: "li"
+
+  triggers:
+    "click a.icon-remove": "remove"
+
+  template: "channels/auto_completed_added"
+
 class window.AutoCompletedAddedChannelsView extends Backbone.Marionette.CollectionView
   itemView: AutoCompletedAddedChannelView
   tagName: 'ul'
