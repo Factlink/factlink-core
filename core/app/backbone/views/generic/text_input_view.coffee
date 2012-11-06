@@ -2,13 +2,13 @@ class window.TextInputView extends Backbone.Marionette.ItemView
   events:
     'click': 'focusInput'
     "keydown input.typeahead": "parseKeyDown"
-    "keyup input.typeahead": "autoCompleteCurrentValue"
+    "keyup input.typeahead": "updateModel"
 
   template:
     text: '<input type="text" value="{{text}}" class="typeahead">'
 
   initialize: ->
-    @model.on 'change', @updateValue, this
+    @bindTo @model, 'change', @updateHtml, this
 
   focusInput: -> @$("input.typeahead").focus()
 
@@ -25,8 +25,8 @@ class window.TextInputView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopPropagation()
 
-  updateValue: -> @$("input.typeahead").val(@model.get('text'))
-  autoCompleteCurrentValue: -> @model.set text: @$("input.typeahead").val()
+  updateHtml:  -> @$("input.typeahead").val(@model.get('text'))
+  updateModel: -> @model.set text: @$("input.typeahead").val()
 
   enable: -> @$("input.typeahead").prop "disabled", false
   disable: ->@$("input.typeahead").prop "disabled", true
