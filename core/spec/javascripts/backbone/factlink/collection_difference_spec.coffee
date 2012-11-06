@@ -69,5 +69,5 @@ describe 'window.collectionDifference', ->
     collections[0].reset(models[2..4])
     collections[0].remove(models[4])
     collections[1].remove(models[1])
-    collections[1].remove(models[4])
+    # collections[1].remove(models[4])
     expect(result.pluck('someField')).toEqual([1, 4])
