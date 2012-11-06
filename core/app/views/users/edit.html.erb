@@ -55,17 +55,15 @@
           </div>
         </div>
 
-        <% if can_haz :social_connect %>
-          <% FactlinkUI::Application.config.social_services.each do |service_name| %>
-            <%= render "social_services_button", service_name: service_name, f: f %>
-          <% end %>
-
-          <div class="control-group">
-            <div class="controls">
-              Note: We will not publish anything without your permission.
-            </div>
-          </div>
+        <% FactlinkUI::Application.config.social_services.each do |service_name| %>
+          <%= render "social_services_button", service_name: service_name, f: f %>
         <% end %>
+
+        <div class="control-group">
+          <div class="controls">
+            Note: We will not publish anything without your permission.
+          </div>
+        </div>
 
         <div class="control-group">
           <label class="control-label">Picture</label>

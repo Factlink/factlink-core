@@ -119,8 +119,8 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details social_connect firefox_extension messaging)
-  GLOBAL_ENABLED_FEATURES = [:firefox_extension, :messaging, :notification_settings, :social_connect]
+  FEATURES = %w(pink_feedback_button authority_calculation_details firefox_extension messaging)
+  GLOBAL_ENABLED_FEATURES = [:firefox_extension, :messaging, :notification_settings]
 
   def enable_features list
     @features ||= []

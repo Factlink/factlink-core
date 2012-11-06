@@ -1,8 +1,18 @@
+require_relative 'application_controller'
+
 class IdentitiesController < ApplicationController
   # Got some inspiration from: http://www.communityguides.eu/articles/16
 
   def service_callback
-    provider_callback params[:service]
+    provider_name = params[:service]
+
+    omniauth_obj = parse_omniauth_env provider_name
+
+    if user_signed_in?
+      connect_provider provider_name, omniauth_obj
+    else
+      sign_in_through_provider provider_name, omniauth_obj
+    end
   end
 
   def service_deauthorize
@@ -35,16 +45,6 @@ class IdentitiesController < ApplicationController
   end
 
   private
-  def provider_callback provider_name
-    omniauth_obj = parse_omniauth_env provider_name
-
-    if user_signed_in?
-      connect_provider provider_name, omniauth_obj
-    else
-      sign_in_through_provider provider_name, omniauth_obj
-    end
-  end
-
   def connect_provider provider_name, omniauth_obj
     authorize! :update, current_user
 

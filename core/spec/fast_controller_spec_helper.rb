@@ -4,16 +4,6 @@ else
   APP_ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
   $: << File.join(APP_ROOT, "app", "controllers")
 
-  module ActionController
-    class Base
-      def self.protect_from_forgery; end
-      def params; {}; end
-    end
-  end
-
-  class ApplicationController
-  end
-
   def stub_params(options = {})
     controller.class.send(:define_method, :params) do
       options
