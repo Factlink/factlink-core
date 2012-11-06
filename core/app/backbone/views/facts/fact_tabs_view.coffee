@@ -28,7 +28,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
       addToChannelView.render()
       @addToChannelView = addToChannelView
 
-  onClose: -> addToChannelView.close() if @addToChannelView
+  onClose: -> @addToChannelView?.close()
 
   hideTabs: ->
     $tabButtons = @$el.find(".tab-control li")
