@@ -1,4 +1,11 @@
 #= require ./generic/text_input_view
+searchCollection = (type)->
+  model = new Backbone.Model text: ''
+  collection = new type()
+  model.on 'change', -> collection.searchFor model.get('text')
+
+  [model, collection]
+
 class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   tagName: "div"
   className: "add-to-channel"
@@ -18,11 +25,10 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
       collection: @collection
       mainView: this
 
-    @model = new Backbone.Model text: ''
-    @model.on 'change', => @autoCompleteCurrentValue()
+    [@model, @search_collection] = searchCollection(TopicSearchResults)
+
     @_text_input_view = new TextInputView model: @model
 
-    @search_collection = new TopicSearchResults()
     @filtered_search_collection = collectionDifference(TopicSearchResults,
       'slug_title', @search_collection, @collection)
 
@@ -76,7 +82,3 @@ class window.AutoCompletedAddToChannelView extends Backbone.Marionette.Layout
   enable: ->
     @$el.removeClass("disabled")
     @_text_input_view.enable()
-
-  autoCompleteCurrentValue: ->
-    searchValue = @model.get('text')
-    @search_collection.searchFor searchValue
