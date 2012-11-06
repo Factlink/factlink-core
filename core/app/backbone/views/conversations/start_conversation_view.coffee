@@ -6,19 +6,19 @@ class window.StartConversationView extends Backbone.Marionette.ItemView
   template: 'conversations/start_conversation'
 
   initialize: ->
-    @conversation = new Conversation
 
   submit: ->
-    @conversation.set 'recipients', [@$('.recipients').val(), currentUser.get('username')]
-    @conversation.set 'sender', currentUser.get('username')
-    @conversation.set 'content', @$('.text').val()
-    @conversation.set 'fact_id', @model.id
+    conversation = new Conversation(
+      recipients: [@$('.recipients').val(), currentUser.get('username')]
+      sender: currentUser.get('username')
+      content: @$('.text').val()
+      fact_id: @model.id
+    )
 
     @showAlert null
     @disableSubmit()
-    @conversation.save [],
+    conversation.save [],
       success: =>
-        @conversation = new Conversation
         @showAlert 'success'
         @enableSubmit()
         @clearForm()
