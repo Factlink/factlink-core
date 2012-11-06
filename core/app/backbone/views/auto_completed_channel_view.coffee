@@ -5,7 +5,7 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
     "mouseenter": "requestActivate",
     "mouseleave": "requestDeActivate"
 
-  template: "channels/_auto_completed_channel"
+  template: "channels/auto_completed_channel"
 
   initialize: ->
     @queryRegex = new RegExp(@options.query, "gi")
@@ -18,8 +18,8 @@ class window.AutoCompletedChannelView extends Backbone.Marionette.ItemView
     return { highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")}
 
   onRender: ->
-    if @model.existingChannelFor(currentUser)
-      @$el.addClass('user-channel')
+    @$el.addClass('user-channel') if @model.existingChannelFor(currentUser)
+
 
   deactivate: -> @$el.removeClass 'active'
   activate: ->

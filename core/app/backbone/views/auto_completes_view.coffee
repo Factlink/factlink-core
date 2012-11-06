@@ -1,13 +1,12 @@
 class window.AutoCompletesView extends Backbone.Factlink.SteppableView
-  template: "channels/_auto_completes"
+  template: "channels/auto_completes"
 
   itemViewContainer: 'ul.existing-container'
   itemView: AutoCompletedChannelView
 
   className: 'auto_complete'
 
-  itemViewOptions: =>
-    query: @model.get('text')
+  itemViewOptions: => query: @model.get('text')
 
   initialize: -> @on 'composite:collection:rendered', => @setActiveView 0
 
