@@ -149,9 +149,8 @@ group :test do
 end
 
 group :jstest do
-  gem 'jasmine', :git => "git://github.com/pivotal/jasmine-gem.git"
-  gem 'jasmine-headless-webkit', :git => "git://github.com/johnbintz/jasmine-headless-webkit.git"
-  gem 'therubyracer'
+  gem 'jasmine'
+  gem 'jasmine-headless-webkit', git: 'https://github.com/johnbintz/jasmine-headless-webkit.git'
 end
 
 group :development do

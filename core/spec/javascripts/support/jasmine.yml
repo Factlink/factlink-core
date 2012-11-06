@@ -1,22 +1,17 @@
 src_files:
+  - "application.js"
   - "frontend.js"
 
 stylesheets:
   - stylesheets/**/*.css
 
 helpers:
-  - helpers/**/*.js
+  - helpers/**/*
 
 spec_files:
-  - '**/*[sS]pec.js'
+  - '**/*[sS]pec.*'
 
 src_dir:
-  - app/backbone
-  - app/assets/javascripts
-  - vendor/assets/javascripts
-  - app/templates
-
-asset_paths:
   - app/backbone
   - app/assets/javascripts
   - vendor/assets/javascripts
