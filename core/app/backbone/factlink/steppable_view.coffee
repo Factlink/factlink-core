@@ -37,18 +37,18 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     @setActiveView nextKey
 
   onItemAddedDoSteppableInitialization: (view)->
-    view.on 'close', =>
+    @bindTo view, 'close', =>
       i = @list.indexOf(view)
       @list.splice(i,1)
 
-    view.on 'requestActivate', =>
+    @bindTo view, 'requestActivate', =>
       unless @alreadyHandlingAnActivate
         @alreadyHandlingAnActivate = true
         i = @list.indexOf(view)
         @setActiveView(i)
         @alreadyHandlingAnActivate = false
 
-    view.on 'requestDeActivate', => @deActivateCurrent()
+    @bindTo view, 'requestDeActivate', => @deActivateCurrent()
 
     @list.push(view)
 
