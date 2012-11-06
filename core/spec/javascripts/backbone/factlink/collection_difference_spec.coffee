@@ -51,3 +51,23 @@ describe 'window.collectionDifference', ->
     collection1.reset([new Backbone.Model(someField: 1, otherField: 10), new Backbone.Model(someField: 2, otherField: 3)])
     collections[0].reset([new Backbone.Model(someField: 2, otherField: 10), new Backbone.Model(someField: 3, otherField: 2)])
     expect(result.pluck('otherField')).toEqual([10])
+
+  it 'should work with arrays and objects instead of collections and models', ->
+    result = collectionDifference(type, 'someField', collection1, [{someField: 2}, {someField: 3}], collections[1])
+    expect(result.pluck('someField')).toEqual([1, 4])
+
+  it 'should work with subsequent add, removes, and resets', ->
+    collection1.add(models[6])
+    collection1.add(models[7])
+    collection1.reset(models[1..7])
+    collection1.remove(models[7])
+    collection1.remove(models[6])
+    collections[0].add(models[1])
+    collections[1].add(models[1])
+    collections[1].add(models[4])
+    collections[0].add(models[1])
+    collections[0].reset(models[2..4])
+    collections[0].remove(models[4])
+    collections[1].remove(models[1])
+    collections[1].remove(models[4])
+    expect(result.pluck('someField')).toEqual([1, 4])
