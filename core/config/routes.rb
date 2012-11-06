@@ -189,9 +189,11 @@ FactlinkUI::Application.routes.draw do
 
   # Scope for user specific actions
   # I made this scope so we don't always have to know the current users username in de frontend
+  # I'm abusing it for the search now as well, as this place looks like the best
+  # since we cannot nest it in another user
   scope "/u" do
     put "/seen_messages" => "users#seen_message", as: 'see_message'
-    get "/search" => "users/search#search", as: 'search_users'
+    get "/search" => "users#search", as: 'search_users'
   end
 
 end

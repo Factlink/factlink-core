@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "frontend"
 
-  before_filter :load_user
+  before_filter :load_user, except: :search
 
   def show
     authorize! :show, @user
@@ -44,6 +44,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render 'channels/activities' }
     end
+  end
+
+  def search
+    authorize! :index, User
+    render json: [
+      {id: 10, username: 'mark'},
+      {id: 14, username: 'gerard'},
+    ]
   end
 
   def mark_activities_as_read
