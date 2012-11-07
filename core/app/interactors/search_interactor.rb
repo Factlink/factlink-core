@@ -1,35 +1,37 @@
 class SearchInteractor
+  include Pavlov::CanCan
+  include Pavlov::SearchHelper
+
   def initialize keywords, options={}
     raise 'Keywords should be an string.' unless keywords.kind_of? String
     raise 'Keywords must not be empty.'   unless keywords.length > 0
 
     @keywords = keywords
-    @ability = options[:ability]
+    @options = options
     @page = options[:page] || 1
     @row_count = options[:row_count] || 20
   end
 
   def execute
-    raise Pavlov::AccessDenied unless authorized?
-    return [] if filter_keywords.length == 0
-
-    query = Queries::ElasticSearchAll.new filter_keywords, @page, @row_count
-
-    query.execute.delete_if { |res| invalid_result(res)}
+    return search_with(:elastic_search_all)
   end
 
   private
-  def invalid_result(res)
+  def valid_result?(res)
+    not invalid_result?(res)
+  end
+
+  def invalid_result?(res)
       res.nil? or
       (res.class == FactData and FactData.invalid(res)) or
       (res.class == User and res.hidden)
   end
 
-  def filter_keywords
-    @keywords.split(/\s+/).select{|x|x.length > 2}.join(" ")
+  def keyword_min_length
+    2
   end
 
   def authorized?
-    @ability.can? :index, Fact
+    can? :index, Fact
   end
 end

@@ -1,4 +1,7 @@
 class SearchEvidenceInteractor
+  include Pavlov::CanCan
+  include Pavlov::SearchHelper
+
   def initialize keywords, fact_id, options={}
     raise 'Keywords should be an string.' unless keywords.kind_of? String
     raise 'Fact_id should be an number.' unless /\A\d+\Z/.match fact_id
@@ -7,34 +10,23 @@ class SearchEvidenceInteractor
     @fact_id = fact_id
     @page = options[:page] || 1
     @row_count = options[:row_count] || 20
-    @ability = options[:ability]
+    @options = options
   end
 
   def execute
-    raise Pavlov::AccessDenied unless authorized?
-
-    if filter_keywords.length == 0
-      return []
-    end
-
-    query = Queries::ElasticSearchFactData.new(filter_keywords, @page, @row_count)
-
-    results = query.execute
-
-    filter_results results
+    search_with(:elastic_search_fact_data)
   end
 
   private
-  def filter_keywords
-    @keywords.split(/\s+/).select{|x|x.length > 2}.join(" ")
+  def keyword_min_length
+    2
   end
 
-  def filter_results results
-    results.
-      select {|result| FactData.valid(result) and result.fact.id != @fact_id}
+  def valid_result? result
+    FactData.valid(result) and result.fact.id != @fact_id
   end
 
   def authorized?
-    @ability.can? :index, Fact
+    can? :index, Fact
   end
 end
