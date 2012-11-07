@@ -11,9 +11,3 @@ class window.AutoCompleteSearchListView extends Backbone.Factlink.SteppableView
 
   showEmptyView: -> @$el.hide()
   closeEmptyView: -> @$el.show()
-
-  # appendHtml: (collectionView, itemView, index)->
-  #    if itemView.model.get('new')
-  #      @$('.new-container').append(itemView.el)
-  #    else
-  #      super collectionView, itemView, index
