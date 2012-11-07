@@ -3,7 +3,7 @@ require File.expand_path('../../../app/interactors/search_evidence_interactor.rb
 
 describe SearchEvidenceInteractor do
   include PavlovSupport
-  
+
   let(:relaxed_ability) do
     ability = mock()
     ability.stub can?: true
@@ -22,7 +22,7 @@ describe SearchEvidenceInteractor do
   end
 
   it 'initializes' do
-    interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1'
+    interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
@@ -36,15 +36,17 @@ describe SearchEvidenceInteractor do
       to raise_error(RuntimeError, 'Fact_id should be an number.')
   end
 
-  describe '.execute' do
+  describe '.initialize' do
     it 'raises when executed without any permission' do
       ability = mock()
       ability.stub can?: false
-      interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
+      expect do
+        SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
     end
+  end
 
+  describe '.execute' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = SearchEvidenceInteractor.new '', '1', ability: relaxed_ability

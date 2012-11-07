@@ -16,7 +16,7 @@ describe SearchChannelInteractor do
   end
 
   it 'initializes' do
-    interactor = SearchChannelInteractor.new 'keywords'
+    interactor = SearchChannelInteractor.new 'keywords', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
@@ -30,16 +30,18 @@ describe SearchChannelInteractor do
       to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '.execute' do
+  describe '.initialize' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
       ability = mock()
       ability.stub can?: false
-      interactor = SearchChannelInteractor.new keywords, ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
+      expect do
+        SearchChannelInteractor.new keywords, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
     end
+  end
 
+  describe '.execute' do
     it 'correctly' do
       keywords = 'searching for this channel'
       interactor = SearchChannelInteractor.new keywords, ability: relaxed_ability

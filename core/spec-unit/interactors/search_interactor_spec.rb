@@ -12,7 +12,7 @@ describe SearchInteractor do
   end
 
   it 'initializes' do
-    interactor = SearchInteractor.new 'keywords'
+    interactor = SearchInteractor.new 'keywords', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
@@ -30,11 +30,12 @@ describe SearchInteractor do
     it 'raises when executed without any permission' do
       ability = mock()
       ability.stub can?: false
-      interactor = SearchInteractor.new 'keywords', ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
+      expect do
+        SearchInteractor.new 'keywords', ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
     end
-
+  end
+  describe '.execute' do
     it 'returns an empty list on keyword with less than two letters.' do
       Queries::ElasticSearchAll.should_not_receive(:execute)
       interactor = SearchInteractor.new 'ke', ability: relaxed_ability

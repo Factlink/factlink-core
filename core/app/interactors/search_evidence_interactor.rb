@@ -1,21 +1,19 @@
 class SearchEvidenceInteractor
+  include Pavlov::Interactor
   include Pavlov::CanCan
   include Pavlov::SearchHelper
 
-  def initialize keywords, fact_id, options={}
-    raise 'Keywords should be an string.' unless keywords.kind_of? String
-    raise 'Fact_id should be an number.' unless /\A\d+\Z/.match fact_id
+  arguments :keywords, :fact_id
 
-    @keywords = keywords
-    @fact_id = fact_id
-    @options = options
+  def validate
+    raise 'Keywords should be an string.' unless @keywords.kind_of? String
+    raise 'Fact_id should be an number.' unless /\A\d+\Z/.match @fact_id
   end
 
   def use_query
     :elastic_search_fact_data
   end
 
-  private
   def keyword_min_length
     2
   end

@@ -1,20 +1,19 @@
 class SearchChannelInteractor
+  include Pavlov::Interactor
   include Pavlov::CanCan
   include Pavlov::SearchHelper
 
-  def initialize keywords, options={}
-    raise 'Keywords should be a string.' unless keywords.kind_of? String
-    raise 'Keywords must not be empty.'  unless keywords.length > 0
+  arguments :keywords
 
-    @keywords = keywords
-    @options = options
+  def validate
+    raise 'Keywords should be a string.' unless @keywords.kind_of? String
+    raise 'Keywords must not be empty.'  unless @keywords.length > 0
   end
 
   def use_query
     :elastic_search_channel
   end
 
-  private
   def keyword_min_length
     1
   end
