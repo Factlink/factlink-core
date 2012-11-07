@@ -9,8 +9,6 @@ class SearchUserInteractor
 
     @user = user
     @keywords = keywords
-    @page = options[:page] || 1
-    @row_count = options[:row_count] || 20
     @options = options
   end
 

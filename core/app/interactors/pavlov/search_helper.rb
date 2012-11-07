@@ -7,7 +7,10 @@ module Pavlov
       raise Pavlov::AccessDenied unless authorized?
       return [] if filtered_keywords.length == 0
 
-      results = Pavlov.query query_name, filtered_keywords, @page, @row_count
+      page = @options[:page] || 1
+      row_count = @options[:row_count] || 20
+
+      results = Pavlov.query query_name, filtered_keywords, page, row_count
       results.keep_if { |result| valid_result? result}
     end
     def filtered_keywords

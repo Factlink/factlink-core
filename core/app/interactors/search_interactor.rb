@@ -8,8 +8,6 @@ class SearchInteractor
 
     @keywords = keywords
     @options = options
-    @page = options[:page] || 1
-    @row_count = options[:row_count] || 20
   end
 
   def execute
