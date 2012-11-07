@@ -24,7 +24,7 @@
   {{/friendly_time}}
 
 
-  <li class="add-to-channel is-tab"><a href="#">My Channels</a></li>
+  <li class="add-to-channel is-popup"><a href="#">My Channels</a></li>
 
   {{#global.can_haz.messaging}}
     <li class="start-conversation is-popup"><a href="#">Send message</a></li>
@@ -43,14 +43,6 @@
     <div class="dropdown-container"></div>
   </div>
 
-  <div class="add-to-channel" style="display: none;">
-    <div class="dropdown-container">
-      <span class="title">The Factlink above is in my following channels:</span>
-      <div class="wrapper">
-        <div class="add-to-channel-container"></div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="popup-content">
@@ -58,6 +50,12 @@
     <div class="start-conversation-container" style="display:none">
     </div>
   {{/global.can_haz.messaging}}
+  <div class="add-to-channel-container modal" style="display: none;">
+    <span class="title">The Factlink above is in my following channels:</span>
+    <div class="wrapper">
+      <div class="add-to-channel-container"></div>
+    </div>
+  </div>
 </div>
 
 <div class="transparent-layer"></div>

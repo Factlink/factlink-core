@@ -9,29 +9,29 @@ class window.FactTabsView extends Backbone.Marionette.Layout
 
   regions:
     startConversationRegion: '.start-conversation-container'
+    addToChannelRegion: ".popup-content .add-to-channel-container"
 
   initialize: ->
     @_currentTab = `undefined`
     @initFactRelationsViews()
 
   renderAddToChannel: ->
-    add_el = ".tab-content .add-to-channel .dropdown-container .wrapper .add-to-channel-container"
-    if @$(add_el).length > 0 and typeof currentUser isnt "undefined" and ("addToChannelView" not of this)
-      addToChannelView = new AutoCompletedAddToChannelView
-                               el: @$(add_el)[0]
+    if @addToChannelView == `undefined`
+      @addToChannelView = new AutoCompletedAddToChannelView
                                collection: new OwnChannelCollection()
-      _.each @model.getOwnContainingChannels(), (ch) ->
-        addToChannelView.collection.add ch  if ch.get("type") is "channel"
+      _.each @model.getOwnContainingChannels(), (ch) =>
+        @addToChannelView.collection.add ch  if ch.get("type") is "channel"
 
-      addToChannelView.on "addChannel", (channel) =>
+      @addToChannelView.on "addChannel", (channel) =>
         @model.addToChannel channel, {}
 
-      addToChannelView.on "removeChannel", (channel) =>
+      @addToChannelView.on "removeChannel", (channel) =>
         @model.removeFromChannel channel, {}
         @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 
-      addToChannelView.render()
-      @addToChannelView = addToChannelView
+      @addToChannelRegion.show @addToChannelView
+
+
 
   onClose: -> @addToChannelView?.close()
 
@@ -58,7 +58,6 @@ class window.FactTabsView extends Backbone.Marionette.Layout
 
     switch tab
       when "supporting", "weakening" then @showFactRelations tab
-      when "add-to-channel" then @renderAddToChannel()
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
@@ -97,6 +96,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     switch popup
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
+      when "add-to-channel" then @renderAddToChannel()
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()
