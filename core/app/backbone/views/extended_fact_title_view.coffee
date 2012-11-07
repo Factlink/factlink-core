@@ -8,7 +8,7 @@ class window.ExtendedFactTitleView extends Backbone.Marionette.Layout
     "click .back-to-profile": "navigateToProfile"
 
   regions:
-    creatorProfileRegion: ".created_by_info"
+    creatorProfileRegion: ".created_by_region"
 
   onRender: ->
     @creatorProfileRegion.show new UserWithAuthorityBox(model: @model)
