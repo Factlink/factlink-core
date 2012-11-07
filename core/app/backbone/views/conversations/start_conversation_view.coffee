@@ -47,7 +47,10 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
   enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
   disableSubmit: -> @$('.submit').prop('disabled',true ).val('Sending')
-  clearForm:     -> @$('.recipients, .message-textarea').val('')
+
+  clearForm: ->
+    @recipients.reset []
+    @$('.message-textarea').val('')
 
   showAlert: (type) ->
     @$('.alert').addClass 'hide'

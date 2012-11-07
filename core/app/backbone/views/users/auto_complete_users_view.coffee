@@ -25,3 +25,6 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
     user = @_search_list_view.currentActiveModel()
     @collection.add user if user
     @model.set text: ''
+
+  initialEvents: -> # Remove this line when updating Marionette
+    # In our version of Marionette a Layout re-renders when its @collection gets a 'reset' event
