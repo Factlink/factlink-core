@@ -28,8 +28,7 @@ describe SearchInteractor do
 
   describe '.execute' do
     it 'raises when executed without any permission' do
-      ability = mock()
-      ability.stub can?: false
+      ability = stub(:ability, can?: false)
       expect do
         SearchInteractor.new 'keywords', ability: ability
       end.to raise_error(Pavlov::AccessDenied)

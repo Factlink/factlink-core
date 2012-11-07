@@ -4,11 +4,7 @@ require File.expand_path('../../../app/interactors/search_user_interactor.rb', _
 describe SearchUserInteractor do
   include PavlovSupport
 
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
     stub_classes 'Topic', 'Queries::ElasticSearchUser',

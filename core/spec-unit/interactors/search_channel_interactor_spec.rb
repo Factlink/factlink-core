@@ -4,11 +4,7 @@ require File.expand_path('../../../app/interactors/search_channel_interactor.rb'
 describe SearchChannelInteractor do
   include PavlovSupport
 
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
     stub_classes 'Topic','Queries::ElasticSearchChannel',
@@ -33,8 +29,7 @@ describe SearchChannelInteractor do
   describe '.initialize' do
     it 'raises when executed without any permission' do
       keywords = "searching for this channel"
-      ability = mock()
-      ability.stub can?: false
+      ability = stub(:ability, can?: false)
       expect do
         SearchChannelInteractor.new keywords, ability: ability
       end.to raise_error(Pavlov::AccessDenied)
