@@ -16,7 +16,7 @@ describe Queries::MessagesForConversation do
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
     expect { Queries::MessagesForConversation.new stub(id: 'g6')}.
-      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
+      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   describe '.execute' do

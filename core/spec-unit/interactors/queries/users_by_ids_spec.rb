@@ -13,11 +13,12 @@ describe Queries::UsersByIds do
 
   before do
     stub_const "User", Class.new
+    stub_const "Pavlov::ValidationError", Class.new(StandardError)
   end
 
   it 'throws when initialized with a argument that is not a hexadecimal string' do
     expect { Queries::UsersByIds.new ['g6'], current_user: mock()}.
-      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
+      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   describe ".execute" do

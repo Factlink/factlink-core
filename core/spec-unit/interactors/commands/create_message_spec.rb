@@ -5,6 +5,7 @@ describe Commands::CreateMessage do
   before do
     stub_const('Message', Class.new)
     stub_const('User', Class.new)
+    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
   let(:long_message_string) { (0...5001).map{65.+(rand(26)).chr}.join }
@@ -33,7 +34,7 @@ describe Commands::CreateMessage do
       conversation = stub(id: 'g6', repicient_ids: [14])
 
       expect { Commands::CreateMessage.new 14,'bla',conversation}.
-        to raise_error(RuntimeError, 'conversation_id should be an hexadecimal string.')
+        to raise_error(Pavlov::ValidationError, 'conversation_id should be an hexadecimal string.')
     end
   end
 

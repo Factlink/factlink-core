@@ -78,5 +78,7 @@ class UsersController < ApplicationController
     username = params[:username] || params[:id]
     @user = query :user_by_username, username
     @user or raise_404
+  rescue Pavlov::ValidationError
+    raise_404
   end
 end
