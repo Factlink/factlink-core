@@ -11,25 +11,20 @@ class SearchInteractor
 
   def execute
     raise Pavlov::AccessDenied unless authorized?
+    return [] if filter_keywords.length == 0
 
-    if filter_keywords.length == 0
-      return []
-    end
+    query = Queries::ElasticSearchAll.new filter_keywords, @page, @row_count
 
-    query = Queries::ElasticSearchAll.new(filter_keywords, @page, @row_count)
-
-    results = query.execute
-
-    results = results.delete_if do |res|
-      res.nil? or
-      (res.class == FactData and FactData.invalid(res)) or
-      (res.class == User and res.hidden)
-    end
-
-    results
+    query.execute.delete_if { |res| invalid_result(res)}
   end
 
   private
+  def invalid_result(res)
+      res.nil? or
+      (res.class == FactData and FactData.invalid(res)) or
+      (res.class == User and res.hidden)
+  end
+
   def filter_keywords
     @keywords.split(/\s+/).select{|x|x.length > 2}.join(" ")
   end
