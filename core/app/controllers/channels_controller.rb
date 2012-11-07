@@ -60,7 +60,7 @@ class ChannelsController < ApplicationController
 
   #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
-    @topics = interactor(:search_channel, params[:s].to_s)
+    @topics = interactor :search_channel, params[:s]
     render 'topics/index'
   end
 

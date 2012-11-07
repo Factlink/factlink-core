@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def search
     authorize! :index, User
-    @users = interactor :search_user, params[:query]
+    @users = interactor :search_user, params[:s]
     render :index
   end
 
