@@ -2,10 +2,13 @@ class window.FactTabsView extends Backbone.Marionette.Layout
   template: "facts/fact_tabs"
 
   events:
-    "click .tab-control .is-tab": "tabClick"
+    "click .tab-control .is-tab": "tabClick",
+    "click .tab-control .is-popup": "popupClick",
+    "click .transparent-layer": "closePopup",
+    "click .popup-content .close": "closePopup"
 
   regions:
-    startConversationRegion: '.start-conversation .dropdown-container'
+    startConversationRegion: '.start-conversation-container'
 
   initialize: ->
     @_currentTab = `undefined`
@@ -56,8 +59,6 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     switch tab
       when "supporting", "weakening" then @showFactRelations tab
       when "add-to-channel" then @renderAddToChannel()
-      when "start-conversation"
-        @startConversationRegion.show new StartConversationView(model: @model)
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
@@ -79,3 +80,24 @@ class window.FactTabsView extends Backbone.Marionette.Layout
       @hideTabs()
     else
       @showTab(tab, $target)
+
+  popupClick: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    $target = $(e.target).closest("li")
+    popup = $target.attr("class").split(" ")[0]
+
+    @showPopup(popup)
+
+  showPopup: (popup) ->
+    @$('.popup-content .' + popup + '-container').show()
+
+    @$('.transparent-layer').show()
+
+    switch popup
+      when "start-conversation"
+        @startConversationRegion.show new StartConversationView(model: @model)
+
+  closePopup: (e) ->
+    @$('.popup-content > div').hide()
+    @$('.transparent-layer').hide()

@@ -1,11 +1,9 @@
 class window.StartConversationView extends Backbone.Marionette.ItemView
-  className: "start-conversation-form"
+  className: "start-conversation-form modal"
   events:
     "click .submit": 'submit'
 
   template: 'conversations/start_conversation'
-
-  initialize: ->
 
   submit: ->
     conversation = new Conversation(
