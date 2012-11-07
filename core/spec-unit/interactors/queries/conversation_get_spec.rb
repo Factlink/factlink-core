@@ -6,6 +6,7 @@ describe Queries::ConversationGet do
     stub_const 'Conversation', Class.new
     stub_const 'Fact', Class.new
     stub_const 'FactData', Class.new
+    stub_const 'Pavlov::ValidationError', Class.new(StandardError)
   end
 
   it 'it initializes correctly' do
@@ -15,12 +16,12 @@ describe Queries::ConversationGet do
 
   it 'it throws when initialized without a argument' do
     expect { Queries::ConversationGet.new '', current_user: mock() }.
-      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
+      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   it 'it throws when initialized with a argument that is not a hexadecimal string' do
     expect { Queries::ConversationGet.new 'g6', current_user:mock()}.
-      to raise_error(RuntimeError, 'id should be an hexadecimal string.')
+      to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
   describe '.execute' do

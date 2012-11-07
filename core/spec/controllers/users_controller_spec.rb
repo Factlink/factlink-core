@@ -5,6 +5,16 @@ describe UsersController do
 
   let(:user) { FactoryGirl.create(:user) }
 
+  describe :show do
+    it "should render a 404 when an invalid username is given" do
+      invalid_username = 'henk2!^geert'
+      authenticate_user!(user)
+      expect do
+        get :show, username: invalid_username
+      end.to raise_error(ActionController::RoutingError)
+    end
+  end
+
   describe :activities do
     it "should render succesful" do
       authenticate_user!(user)
