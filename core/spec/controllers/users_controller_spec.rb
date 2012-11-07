@@ -21,7 +21,7 @@ describe UsersController do
 
       should_check_can :see_activities, user
 
-      get :activities, :username => user.username, :format => :json
+      get :activities, username: user.username, format: :json
 
       response.should be_success
     end
@@ -37,7 +37,7 @@ describe UsersController do
 
       DateTime.stub!(:now).and_return datetime
 
-      post :mark_activities_as_read, :username => user.username, :format => :json
+      post :mark_activities_as_read, username: user.username, format: :json
 
       response.should be_success
 
@@ -53,7 +53,7 @@ describe UsersController do
     end
 
     it "should redirect to the correct path after changing a username" do
-      put :update, :id => user.username, :user => {'username' => 'nice_username'}
+      put :update, id: user.username, user: {'username' => 'nice_username'}
 
       response.should redirect_to edit_user_path('nice_username')
     end
@@ -64,7 +64,7 @@ describe UsersController do
       encrypted_password = old_user.encrypted_password
       old_username = old_user.username
 
-      put :update, :id => user.username, :user => {'encrypted_password' => "blaat_password", "username" => "new_username"}
+      put :update, id: user.username, user: {'encrypted_password' => "blaat_password", "username" => "new_username"}
 
       new_user = User.find(user.id)
 
