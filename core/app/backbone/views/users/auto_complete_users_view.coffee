@@ -13,9 +13,8 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
 
   template: "auto_complete/box_with_results"
 
-
   initialize: ->
-    @initialize_child_views
+    @initializeChildViews
       filter_on: 'username'
       results_view: AutoCompleteResultsUsersView
       search_collection: UserSearchResults
@@ -24,4 +23,4 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
   addCurrent: ->
     user = @_search_list_view.currentActiveModel()
     @collection.add user
-
+    @model.set text: ''

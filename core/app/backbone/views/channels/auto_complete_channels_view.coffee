@@ -14,7 +14,7 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   template: "auto_complete/box_with_results"
 
   initialize: ->
-    @initialize_child_views
+    @initializeChildViews
       filter_on: 'slug_title'
       results_view: AutoCompleteResultsChannelsView
       search_collection: TopicSearchResults
@@ -26,7 +26,7 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   addCurrent: ->
     @disable()
     afterAdd = =>
-      @model.set text:''
+      @model.set text: ''
       @enable()
 
     activeTopic = @_search_list_view.currentActiveModel()

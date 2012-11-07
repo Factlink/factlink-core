@@ -154,6 +154,7 @@
       margin: 0;
       .box-shadow(none);
       font-size: 13px;
+      width: 280px;
     }
 
     .loading {
@@ -179,5 +180,20 @@
 
   &.hide-input .auto-complete-input-container {
     display: none;
+  }
+}
+
+.auto-complete-channels {
+  .auto-complete-search-list {
+    .user-channel {
+      background-image: image-url("glyphicons/user.png");
+      background-position: 264px 8px;
+      background-repeat: no-repeat;
+      padding-right: 30px;
+
+      &.active {
+        background-image: image-url("glyphicons/user--white.png")
+      }
+    }
   }
 }
