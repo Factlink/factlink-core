@@ -35,8 +35,6 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
       afterAdd()
       return
 
-    @model.set text: activeTopic.get("title")
-
     activeTopic.withCurrentOrCreatedChannelFor currentUser,
       success: (ch)=>
         @addNewChannel ch

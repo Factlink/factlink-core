@@ -22,5 +22,5 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
 
   addCurrent: ->
     user = @_search_list_view.currentActiveModel()
-    @collection.add user
+    @collection.add user if user
     @model.set text: ''
