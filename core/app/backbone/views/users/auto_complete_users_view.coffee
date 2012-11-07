@@ -19,6 +19,7 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
       results_view: AutoCompleteResultsUsersView
       search_collection: UserSearchResults
       search_list_view: AutoCompleteSearchUsersView
+      placeholder: 'Type a username'
 
   addCurrent: ->
     user = @_search_list_view.currentActiveModel()

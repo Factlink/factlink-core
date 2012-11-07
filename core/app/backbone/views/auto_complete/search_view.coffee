@@ -2,7 +2,9 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initializeChildViews: (opts)->
     [@model, @search_collection] = @searchCollection(opts.search_collection)
 
-    @_text_input_view = new Backbone.Factlink.TextInputView model: @model
+    @_text_input_view = new Backbone.Factlink.TextInputView
+      model: @model
+      placeholder: opts.placeholder || ''
 
     if opts.results_view
       @_results_view = new opts.results_view(collection: @collection)

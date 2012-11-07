@@ -39,68 +39,55 @@
   }
 
   .auto-complete-search-list-container {
+    position: relative;
+
     .auto-complete-search-list {
       border: 1px solid #b5b5b5;
       .box-sizing();
       .custom-radius(5px, 5px, 5px, 5px);
+
       display: none;
       .drop-shadow(0, 1px, 4px, 0.17);
       width: 300px;
 
-      ul.existing-container {
+      ul {
         max-height: 190px;
         overflow-y: scroll;
         list-style: none;
         margin: 0;
 
         li {
+          background: #f7f7f7;
           cursor: pointer;
           font-weight: 200;
-          height: 30px;
-          line-height: 30px;
-          margin: 4px 0 0;
-          overflow: hidden;
-          padding: 0 10px;
-          text-overflow: ellipsis;
-          white-space: nowrap;
 
-          em {
-            color: @linkColor;
-            font-style: normal;
-            font-weight: bold;
-          }
-
-          &.active {
-            background: @linkColor;
-            color: #fff;
-            text-shadow: none;
+          .text {
+            margin-top: 4px;
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            padding: 0 10px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
             em {
-              color: #fff;
-            }
-
-            &.user-channel {
-              background-image: image-url("glyphicons/user--white.png")
+              color: @linkColor;
+              font-style: normal;
+              font-weight: bold;
             }
           }
 
-          &.user-channel {
+          &.user-logo {
             background-image: image-url("glyphicons/user.png");
             background-position: 264px 8px;
             background-repeat: no-repeat;
             padding-right: 30px;
           }
-        }
-      }
 
-      ul.new-container {
-        li {
           .add-new-block {
-            background: #f7f7f7;
             border-top: 1px solid #e0dcdc;
             padding: 5px 10px;
             color: #555;
-            .custom-radius(0, 3px, 3px, 0);
             cursor: pointer;
 
             a {
@@ -120,13 +107,40 @@
             }
           }
 
-          &.active .add-new-block {
-            background: @linkColor;
-            color: #fff;
-            border-top: 1px solid @linkColor;
+          &:first-child, &:first-child .add-new-block {
+            .custom-radius-top-left(3px);
+            .custom-radius-top-right(3px);
 
-            a {
-              border: 1px solid @linkColor;
+            .text {
+              margin-top: 0;
+            }
+          }
+
+          &:last-child, &:last-child .add-new-block {
+            .custom-radius-bottom-left(3px);
+            .custom-radius-bottom-right(3px);
+          }
+
+          &.active {
+            background-color: @linkColor;
+            color: #fff;
+            text-shadow: none;
+
+            em {
+              color: #fff;
+            }
+
+            &.user-logo {
+              background-image: image-url("glyphicons/user--white.png")
+            }
+
+            .add-new-block {
+              border-top: 1px solid @linkColor;
+              color: #fff;
+
+              a {
+                border: 1px solid @linkColor;
+              }
             }
           }
         }
@@ -183,17 +197,8 @@
   }
 }
 
-.auto-complete-channels {
-  .auto-complete-search-list {
-    .user-channel {
-      background-image: image-url("glyphicons/user.png");
-      background-position: 264px 8px;
-      background-repeat: no-repeat;
-      padding-right: 30px;
-
-      &.active {
-        background-image: image-url("glyphicons/user--white.png")
-      }
-    }
-  }
+.auto-complete-floating-list .auto-complete-search-list {
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }

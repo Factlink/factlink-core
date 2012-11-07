@@ -5,8 +5,11 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
     "keydown input.typeahead": "parseKeyDown"
     "keyup input.typeahead": "updateModel"
 
+  templateHelpers: =>
+    placeholder: @options.placeholder
+
   template:
-    text: '<input type="text" value="{{text}}" class="typeahead">'
+    text: '<input type="text" value="{{text}}" class="typeahead" placeholder="{{placeholder}}">'
 
   initialize: ->
     @bindTo @model, 'change', @updateHtml, this

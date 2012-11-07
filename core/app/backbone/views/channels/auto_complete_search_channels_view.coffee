@@ -11,10 +11,11 @@ class AutoCompleteSearchChannelView extends Backbone.Factlink.StepView
   templateHelpers: ->
     view = this
 
-    highlightedTitle: -> htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")
+    highlightedTitle: ->
+      htmlEscape(@title).replace(view.queryRegex, "<em>$&</em>")
 
   onRender: ->
-    @$el.addClass('user-channel') if @model.existingChannelFor(currentUser)
+    @$el.addClass('user-logo') if @model.existingChannelFor(currentUser)
 
 class window.AutoCompleteSearchChannelsView extends AutoCompleteSearchListView
   itemView: AutoCompleteSearchChannelView
