@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
   def index
     backbone_responder do
       @conversations = query :conversations_with_users_message, current_user.id.to_s
-      raise_404 if not @conversations
+      raise_404 unless @conversations
 
       render 'conversations/index'
     end
@@ -13,7 +13,7 @@ class ConversationsController < ApplicationController
   def show
     backbone_responder do
       @conversation = query :conversation_with_recipients_and_messages, params[:id]
-      raise_404 if not @conversation
+      raise_404 unless @conversation
 
       render 'conversations/show'
     end
