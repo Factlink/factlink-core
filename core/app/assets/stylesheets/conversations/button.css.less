@@ -1,85 +1,71 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-/* Bordered Button Styles: view-source:http://vxjs.org/CSS3/subpixel/buttons.html */
-.arrow-button {
-  vertical-align: middle;
 
-  border: solid 1px @baseBorderColor;
-  display: inline-block;
-  cursor: pointer;
-  padding: 0px 10px;
-  font-size: 12px;
-  line-height: 24px;
-  height: 24px;
+.button-background(@start, @stop, @angle: top) {
+    background: @start;
+    background: -moz-linear-gradient(@angle, @stop 0%, @start 100%);
+    background: -o-linear-gradient(@angle, @stop 0%, @start 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @stop), color-stop(100%, @start));
+    background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
+    background: linear-gradient(@angle, @stop 0%, @start 100%);
+
+}
+
+header .btn-back {
   margin: 8px 0 0 10px;
-  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
-  .custom-radius(4px, 4px, 0, 0);
+}
+// CSS3 iOS like back button, inspired by: http://jsfiddle.net/stowball/XvFFX/
+.btn-back {
+    .button-background(#eee, white);
+
+    border: solid #d8d8d8;
+    border-width: 1px 1px 1px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    -webkit-border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px 0 8px;
+    position: relative;
+    text-decoration: none;
+
+    vertical-align: middle;
+}
+
+.btn-back:before {
+    .button-background(#eee, #fff, -45deg);
+
+    border: solid #d8d8d8;
+    border-width: 0 0 1px 1px;
+    border-radius: 2px 0 2px 2px;
+    content: '';
+    display: block;
+    height: 18px;
+    width: 18px;
+    left: -9px;
+    position: absolute;
+    top: 3px;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.btn-back:hover, .btn-back:focus {
+    border-color: #ccc;
+    .button-background(#ddd, #fff);
+    text-decoration: none;
+}
+
+.btn-back:hover:before, .btn-back:focus:before {
+    border-color: #ccc;
+    .button-background(#ddd, #fff, -45deg);
+}
+
+.btn-back span {
+  position: relative;
   text-shadow: 0 1px 0px #fff;
-  color: #555 !important;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
+  color: #555;
 }
-
-.arrow-button:hover, .arrow-button.touched {
-
-  .buttonBackground(@btnBackground, darken(@btnBackgroundHighlight, 4%), @grayDark, 0 1px 1px rgba(255,255,255,.75));
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-
-  border: solid 1px darken(@baseBorderColor, 4%);
-  border-bottom: solid 1px darken(@baseBorderColor, 16%);
-}
-/* End Bordered Button Styles */
-
-/* Back Bordered Button Styles */
-.arrow-button.back {
-  padding: 0px 7px 0px 3px;
-  margin-left: 10px;
-  position: relative;
-}
-.arrow-button.back > span {
-  position: relative;
-  z-index: 1;
-}
-.arrow-button.back > span.button-label {
-  z-index: 3;
-}
-
-.arrow-button.back > span.pointer {
-  z-index: 0;
-
-  .buttonBackground(@btnBackground, @btnBackgroundHighlight, @grayDark, 0 1px 1px rgba(255,255,255,.75));
-
-  border-left: solid 1px #ccc;
-  border-bottom: solid 1px #a3a3a3;
-
-  .custom-radius( 0, 5px, 4px, 5px);
-
-  height: 19px;
-  width: 19px;
-  display: inline-block;
-
-  .rotate(45deg);
-
-  -webkit-mask-image:
-    -webkit-gradient(linear, left bottom, right top,
-      from(#000000),
-      color-stop(0.5,#000000),
-      color-stop(0.5, transparent),
-      to(transparent));
-
-  position: absolute;
-  left: -10px;
-  top: 2px;
-  -webkit-background-clip: content;
-}
-.arrow-button.back:hover > span.pointer, .arrow-button.back.touched > span.pointer {
-  .buttonBackground(@btnBackground, darken(@btnBackgroundHighlight, 4%), @grayDark, 0 1px 1px rgba(255,255,255,.75));
-
-  border-left: solid 1px darken(#ccc, 4%);
-  border-bottom: solid 1px darken(#a3a3a3, 4%);
-}
-
-/* End Back Bordered Button Styles */
-
