@@ -8,8 +8,8 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     "click .popup-content .close": "closePopup"
 
   regions:
-    startConversationRegion: '.start-conversation-container'
-    addToChannelRegion: ".popup-content .add-to-channel-container"
+    startConversationRegion: '.popup-content .start-conversation-container'
+    addToChannelRegion: ".popup-content .add-to-channel-form"
 
   initialize: ->
     @_currentTab = `undefined`
