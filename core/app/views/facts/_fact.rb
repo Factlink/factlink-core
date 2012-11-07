@@ -81,15 +81,18 @@ module Facts
 
     # imported from extended fact:
     def created_by
-      self[:fact].created_by.user.username
+      user = self[:fact].created_by.user
+
+      json = Jbuilder.new
+      json.username user.username
+      json.avatar image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
+      json.authority_for_subject authority: (Authority.on(self[:fact], for: user.graph_user).to_s.to_f + 1.0).to_s, id: self[:fact].id
+      json.url user_profile_path(user)
+
+      json.attributes!
     end
     def factlink_path
       link_to "Factlink", friendly_fact_path(self[:fact])
-    end
-
-
-    def created_by_url
-      user_profile_path(self[:fact].created_by.user)
     end
 
     def created_by_ago
