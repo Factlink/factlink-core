@@ -9,7 +9,6 @@
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @stop), color-stop(100%, @start));
     background: -webkit-linear-gradient(@angle, @stop 0%, @start 100%);
     background: linear-gradient(@angle, @stop 0%, @start 100%);
-
 }
 
 header .btn-back {
@@ -35,7 +34,9 @@ header .btn-back {
 }
 
 .btn-back:before {
+
     .button-background(#eee, #fff, -45deg);
+    background: -moz-linear-gradient(135deg, #eee 0%, #fff 100%); // mozilla rotates the wrong way?
 
     border: solid #d8d8d8;
     border-width: 0 0 1px 1px;
@@ -62,6 +63,7 @@ header .btn-back {
 .btn-back:hover:before, .btn-back:focus:before {
     border-color: #ccc;
     .button-background(#ddd, #fff, -45deg);
+    background: -moz-linear-gradient(135deg, #ddd 0%, #fff 100%); // mozilla rotates the wrong way?
 }
 
 .btn-back span {
