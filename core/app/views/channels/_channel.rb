@@ -83,12 +83,12 @@ module Channels
     end
 
     def created_by
-      {
-        id: self[:user].id,
-        username: self[:user].username,
-        avatar: image_tag(self[:user].avatar_url(size: 32), title: self[:user].username, alt: self[:user].username, width: 32),
-        all_channel_id: self[:user].graph_user.stream_id
-      }
+      json = Jbuilder.new
+      json.id self[:user].id
+      json.username self[:user].username
+      json.avatar image_tag(self[:user].avatar_url(size: 32), title: self[:user].username, alt: self[:user].username, width: 32)
+      json.all_channel_id self[:user].graph_user.stream_id
+      json.attributes!
     end
 
     def new_facts
