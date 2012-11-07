@@ -3,23 +3,12 @@ require File.expand_path('../../../app/interactors/search_interactor.rb', __FILE
 
 describe SearchInteractor do
   include PavlovSupport
-  
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
 
-  def fake_class
-    Class.new
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
-    stub_const 'Fact', fake_class
-    stub_const 'Queries::ElasticSearchAll', fake_class
-    stub_const 'FactData', fake_class
-    stub_const 'User', fake_class
-    stub_const 'Ability::FactlinkWebapp', fake_class
+    stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
+                 'User', 'Ability::FactlinkWebapp'
   end
 
   it 'initializes' do
