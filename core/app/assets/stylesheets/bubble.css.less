@@ -17,15 +17,21 @@
 }
 
 /** Fact block */
-div.modal {
-  overflow: visible !important;
+div.factlink-modal {
+  overflow: visible;
   padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
 
   min-height: 80px;
+  width: 560px;
+
   border: 1px solid #ccc;
+  .border-radius(6px);
+  .background-clip(padding-box);
+
   position: relative;
   top: 50%;
   left: 0;
+
   margin: -40px auto 150px;
 
   .drop-shadow(0px, 0px, 5px, .15);

@@ -22,4 +22,4 @@ Backbone.View.prototype.defaultClickHandler = function( e ) {
 };
 
 /* HACK: this is needed because internal events did not seem to work*/
-$(":not(div.modal) a[rel=backbone]").live("click",Backbone.View.prototype.defaultClickHandler);
+$(":not(div.factlink-modal) a[rel=backbone]").live("click",Backbone.View.prototype.defaultClickHandler);

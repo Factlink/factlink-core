@@ -2,12 +2,14 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var Fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
-    var View = new FactView({
-      model: Fact
-    })
-    View.render();
-    $('div.modal').append(View.el);
+    var fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
+    var view = new FactView({
+      model: fact
+    });
+
+    view.render();
+
+    $('div.factlink-modal').append(view.el);
 
     parent.$(parent.document).trigger("modalready");
 
