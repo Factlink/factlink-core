@@ -8,13 +8,11 @@ class SearchEvidenceInteractor
 
     @keywords = keywords
     @fact_id = fact_id
-    @page = options[:page] || 1
-    @row_count = options[:row_count] || 20
     @options = options
   end
 
-  def execute
-    search_with(:elastic_search_fact_data)
+  def use_query
+    :elastic_search_fact_data
   end
 
   private

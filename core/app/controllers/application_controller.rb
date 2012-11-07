@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   def pavlov_options
     {
       current_user: current_user,
+      ability: current_ability,
       mixpanel: FactlinkUI::Application.config.mixpanel.new({}, true)
     }
   end

@@ -8,12 +8,10 @@ class SearchInteractor
 
     @keywords = keywords
     @options = options
-    @page = options[:page] || 1
-    @row_count = options[:row_count] || 20
   end
 
-  def execute
-    return search_with(:elastic_search_all)
+  def use_query
+    :elastic_search_all
   end
 
   private
