@@ -5,7 +5,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     "click .tab-control .is-tab": "tabClick",
     "click .tab-control .is-popup": "popupClick",
     "click .transparent-layer": "closePopup",
-    "click .popup-content .close": "closePopup"
+    "click .popup-content .close-popup": "closePopup"
 
   regions:
     startConversationRegion: '.popup-content .start-conversation-container'
