@@ -1,35 +1,33 @@
-class AutoCompletedUserView extends AutoCompletedChannelView
+class AutoCompleteAddedUserView extends Backbone.Marionette.ItemView
   tagName: "li"
 
   triggers:
-    "mouseenter": "requestActivate",
-    "mouseleave": "requestDeActivate"
+    "click a.icon-remove": "remove"
 
-  template: "channels/auto_completed_channel"
+  template: "channels/_auto_complete_added_user"
+
+class window.AutoCompleteAddedUsersView extends Backbone.Marionette.CollectionView
+  itemView: AutoCompleteAddedUserView
+  tagName: 'ul'
+  className: 'added_channels'
 
   initialize: ->
-    @queryRegex = new RegExp(@options.query, "gi")
+    @on "itemview:remove", (childView, msg) => @collection.remove childView.model
 
-    @on 'activate', @activate, this
-    @on 'deactivate', @deactivate, this
 
+class AutoCompleteUserView extends AutoCompletedChannelView
   templateHelpers: ->
     view = this
 
     highlightedTitle: -> htmlEscape(@username).replace(view.queryRegex, "<em>$&</em>")
 
-  deactivate: -> @$el.removeClass 'active'
-  activate: ->
-    @$el.addClass 'active'
-    @scrollIntoView()
-
-  scrollIntoView: -> scrollIntoViewWithinContainer(@el, @$el)
+  onRender: ->
 
 class window.AutoCompletesUserView extends Backbone.Factlink.SteppableView
   template: "channels/auto_completes"
 
   itemViewContainer: 'ul.existing-container'
-  itemView: AutoCompletedUserView
+  itemView: AutoCompleteUserView
 
   className: 'auto_complete'
 
@@ -42,9 +40,9 @@ class window.AutoCompletesUserView extends Backbone.Factlink.SteppableView
   showEmptyView: -> @$el.hide()
   closeEmptyView: -> @$el.show()
 
-class window.AutoCompletedUsersView extends AutoCompleteSearchView
+class window.AutoCompleteUsersView extends AutoCompleteSearchView
   tagName: "div"
-  className: "auto-completed-users"
+  className: "auto-complete-users"
   events:
     "click div.auto_complete": "addCurrent"
 
@@ -53,7 +51,7 @@ class window.AutoCompletedUsersView extends AutoCompleteSearchView
     'auto_completes': 'div.auto_complete_container'
     'input': 'div.fake-input'
 
-  template: "channels/auto_completed_add_to_channel"
+  template: "users/autocomplete/_auto_complete"
 
   auto_complete_search_view_options:
     filter_on: 'username'
@@ -95,8 +93,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   template: 'conversations/start_conversation'
 
   initialize: ->
-    @recipients = new UserSearchResults
-    @auto_complete_view = new AutoCompletedUsersView(collection: @recipients)
+    @recipients = new Users
+    @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)
 
   onRender: ->
     @recipients_container.show @auto_complete_view
