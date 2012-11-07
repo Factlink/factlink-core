@@ -13,6 +13,4 @@ class Backbone.Factlink.StepView extends Backbone.Marionette.CompositeView
   deactivate: -> @$el.removeClass 'active'
   activate: ->
     @$el.addClass 'active'
-    @scrollIntoView()
-
-  scrollIntoView: -> scrollIntoViewWithinContainer(@el, @$el)
+    scrollIntoViewWithinContainer(@el, @$el)
