@@ -59,8 +59,7 @@ class ChannelsController < ApplicationController
   end
 
   def search
-    interactor = SearchChannelInteractor.new params[:s].to_s, @user, ability: current_ability
-    @topics = interactor.execute
+    @topics = interactor(:search_channel, params[:s].to_s)
     render 'topics/index'
   end
 
