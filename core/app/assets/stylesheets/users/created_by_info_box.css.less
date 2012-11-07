@@ -1,0 +1,35 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+#container #main-wrapper header.title div.created_by_info {
+
+  > div > div {
+    float: left;
+
+    &.img {
+      width: 35px;
+      padding: 6px 5px 0 0;
+
+      img {
+        .border-radius(3px);
+      }
+    }
+
+    &.user-info {
+      padding: 5px 0 0;
+      a {
+        color: @linkColor;
+        font-weight: bold;
+        display: block;
+        min-width: 100px;
+      }
+
+      span.authority_for_subject {
+        display: block;
+        font-size: 11px;
+        line-height: 11px;
+        color: #333;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<div class="img">
+  {{{ created_by.avatar }}}
+</div>
+
+<div class="user-info">
+  <a href="{{{ created_by.url }}}" class="username">{{ created_by.username }}</a>
+
+  <span class="authority_for_subject">
+    <img src="{{global.brain_image}}">
+    {{#created_by.authority_for_subject}}
+      {{authority}}
+    {{/created_by.authority_for_subject}}
+  </span>
+</div>
