@@ -1,94 +1,10 @@
-class AutoCompleteAddedUserView extends Backbone.Marionette.ItemView
-  tagName: "li"
-
-  triggers:
-    "click a.icon-remove": "remove"
-
-  template: "channels/_auto_complete_added_user"
-
-class window.AutoCompleteAddedUsersView extends Backbone.Marionette.CollectionView
-  itemView: AutoCompleteAddedUserView
-  tagName: 'ul'
-  className: 'added_channels'
-
-  initialize: ->
-    @on "itemview:remove", (childView, msg) => @collection.remove childView.model
-
-
-class AutoCompleteUserView extends AutoCompletedChannelView
-  templateHelpers: ->
-    view = this
-
-    highlightedTitle: -> htmlEscape(@username).replace(view.queryRegex, "<em>$&</em>")
-
-  onRender: ->
-
-class window.AutoCompletesUserView extends Backbone.Factlink.SteppableView
-  template: "channels/auto_completes"
-
-  itemViewContainer: 'ul.existing-container'
-  itemView: AutoCompleteUserView
-
-  className: 'auto_complete'
-
-  itemViewOptions: => query: @model.get('text')
-
-  initialize: -> @on 'composite:collection:rendered', => @setActiveView 0
-
-  onRender: -> @$(@itemViewContainer).preventScrollPropagation()
-
-  showEmptyView: -> @$el.hide()
-  closeEmptyView: -> @$el.show()
-
-class window.AutoCompleteUsersView extends AutoCompleteSearchView
-  tagName: "div"
-  className: "auto-complete-users"
-  events:
-    "click div.auto_complete": "addCurrent"
-
-  regions:
-    'added_channels': 'div.added_channels_container'
-    'auto_completes': 'div.auto_complete_container'
-    'input': 'div.fake-input'
-
-  template: "users/autocomplete/_auto_complete"
-
-  auto_complete_search_view_options:
-    filter_on: 'username'
-    results_view: AutoCompletedAddedChannelsView
-    search_collection: UserSearchResults
-    auto_completes_view: AutoCompletesUserView
-
-  initialize: ->
-    @initialize_child_views @auto_complete_search_view_options
-    @_results_view.on "itemview:remove",  (childView, msg) =>
-      @trigger 'removeChannel', childView.model
-
-  onRender: ->
-    @added_channels.show @_results_view
-    @auto_completes.show @_auto_completes_view
-    @input.show @_text_input_view
-
-  addCurrent: ->
-    user = @_auto_completes_view.currentActiveModel()
-    @collection.add user
-
-  disable: ->
-    @$el.addClass("disabled")
-    @_text_input_view.disable()
-
-  enable: ->
-    @$el.removeClass("disabled")
-    @_text_input_view.enable()
-
-
 class window.StartConversationView extends Backbone.Marionette.Layout
   className: "start-conversation-form"
   events:
     "click .submit": 'submit'
 
   regions:
-    'recipients_container': 'div.recipients-container'
+    'recipients_container': 'div.recipients'
 
   template: 'conversations/start_conversation'
 
@@ -100,8 +16,12 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @recipients_container.show @auto_complete_view
 
   submit: ->
-    recipients = _union(@recipients.pluck('username'), [currentUser.get('username')])
-    console.log(recipients)
+    # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
+    if @recipients.length <= 0
+      @showAlert 'error'
+      return
+
+    recipients = _.union(@recipients.pluck('username'), [currentUser.get('username')])
 
     conversation = new Conversation(
       recipients: recipients

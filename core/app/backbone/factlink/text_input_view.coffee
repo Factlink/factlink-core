@@ -1,4 +1,5 @@
-class window.TextInputView extends Backbone.Marionette.ItemView
+Backbone.Factlink ||= {}
+class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
   events:
     'click': 'focusInput'
     "keydown input.typeahead": "parseKeyDown"

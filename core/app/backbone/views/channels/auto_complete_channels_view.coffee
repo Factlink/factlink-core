@@ -1,33 +1,27 @@
-#= require_tree ./generic
+#= require ../auto_complete/search_view
 
-class window.AutoCompletedAddToChannelView extends AutoCompleteSearchView
-  tagName: "div"
-  className: "add-to-channel"
+class window.AutoCompleteChannelsView extends AutoCompleteSearchView
+  className: "auto-complete auto-complete-channels"
+
   events:
-    "click div.auto_complete": "addCurrent"
+    "click div.auto-complete-search-list": "addCurrent"
 
   regions:
-    'added_channels': 'div.added_channels_container'
-    'auto_completes': 'div.auto_complete_container'
-    'input': 'div.fake-input'
+    'results': 'div.auto-complete-results-container'
+    'search_list': 'div.auto-complete-search-list-container'
+    'text_input': 'div.auto-complete-input-container'
 
-  template: "channels/auto_completed_add_to_channel"
-
-  auto_complete_search_view_options:
-    filter_on: 'slug_title'
-    results_view: AutoCompletedAddedChannelsView
-    search_collection: TopicSearchResults
-    auto_completes_view: AutoCompletesView
+  template: "auto_complete/box_with_results"
 
   initialize: ->
-    @initialize_child_views @auto_complete_search_view_options
+    @initialize_child_views
+      filter_on: 'slug_title'
+      results_view: AutoCompleteResultsChannelsView
+      search_collection: TopicSearchResults
+      search_list_view: AutoCompleteSearchChannelsView
+
     @_results_view.on "itemview:remove",  (childView, msg) =>
       @trigger 'removeChannel', childView.model
-
-  onRender: ->
-    @added_channels.show @_results_view
-    @auto_completes.show @_auto_completes_view
-    @input.show @_text_input_view
 
   addCurrent: ->
     @disable()
@@ -35,7 +29,7 @@ class window.AutoCompletedAddToChannelView extends AutoCompleteSearchView
       @model.set text:''
       @enable()
 
-    activeTopic = @_auto_completes_view.currentActiveModel()
+    activeTopic = @_search_list_view.currentActiveModel()
 
     if not activeTopic
       afterAdd()

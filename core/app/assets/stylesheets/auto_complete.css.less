@@ -1,0 +1,183 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.auto-complete {
+  ul {
+    list-style: none;
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .auto-complete-results-container {
+    li {
+      background: #f0f0f0;
+      .box-sizing();
+      color: #777;
+      margin: 0 0 5px;
+      padding: 8px 10px 7px 9px;
+      width: 300px;
+      .custom-radius(4px, 4px, 4px, 4px);
+      border-bottom: 1px solid #e4e4e4;
+
+      a { font-size: 13px; }
+
+      a.icon-remove {
+        cursor: pointer;
+        float: right;
+        .opacity(0.4);
+        position: relative;
+        top: 2px;
+        &:hover {
+          .opacity(1.0);
+        }
+      }
+
+      input {
+        display: none;
+      }
+    }
+  }
+
+  .auto-complete-search-list-container {
+    .auto-complete-search-list {
+      border: 1px solid #b5b5b5;
+      .box-sizing();
+      .custom-radius(5px, 5px, 5px, 5px);
+      display: none;
+      .drop-shadow(0, 1px, 4px, 0.17);
+      width: 300px;
+
+      ul.existing-container {
+        max-height: 190px;
+        overflow-y: scroll;
+        list-style: none;
+        margin: 0;
+
+        li {
+          cursor: pointer;
+          font-weight: 200;
+          height: 30px;
+          line-height: 30px;
+          margin: 4px 0 0;
+          overflow: hidden;
+          padding: 0 10px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          em {
+            color: @linkColor;
+            font-style: normal;
+            font-weight: bold;
+          }
+
+          &.active {
+            background: @linkColor;
+            color: #fff;
+            text-shadow: none;
+
+            em {
+              color: #fff;
+            }
+
+            &.user-channel {
+              background-image: image-url("glyphicons/user--white.png")
+            }
+          }
+
+          &.user-channel {
+            background-image: image-url("glyphicons/user.png");
+            background-position: 264px 8px;
+            background-repeat: no-repeat;
+            padding-right: 30px;
+          }
+        }
+      }
+
+      ul.new-container {
+        li {
+          .add-new-block {
+            background: #f7f7f7;
+            border-top: 1px solid #e0dcdc;
+            padding: 5px 10px;
+            color: #555;
+            .custom-radius(0, 3px, 3px, 0);
+            cursor: pointer;
+
+            a {
+              margin: 0 10px 0 0;
+            }
+
+            > span {
+              vertical-align: middle;
+              display: inline-block;
+              width: 190px;
+              word-wrap: break-word;
+              text-shadow: none;
+            }
+
+            .btn-mini {
+              padding: 4px 4px 5px 5px;
+            }
+          }
+
+          &.active .add-new-block {
+            background: @linkColor;
+            color: #fff;
+            border-top: 1px solid @linkColor;
+
+            a {
+              border: 1px solid @linkColor;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .auto-complete-input-container {
+    background: transparent;
+    border: 1px solid #ccc;
+    .box-sizing();
+    color: #555;
+    display: inline-block;
+    line-height: 18px;
+    margin-bottom: 2px;
+    padding: 3px;
+    position: relative;
+    width: 300px;
+    .custom-radius(4px, 4px, 4px, 4px);
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 3px, 0.10));
+
+    .typeahead {
+      background: transparent;
+      border: none;
+      margin: 0;
+      .box-shadow(none);
+      font-size: 13px;
+    }
+
+    .loading {
+      position: absolute;
+      top: 8px;
+      right: 35px;
+      display: none;
+    }
+
+    a.btn {
+      display: none;
+      float: right;
+    }
+  }
+
+  &.disabled {
+    .auto-complete-input-container {
+      background-color: #eee;
+      border-color: #ddd;
+      cursor: not-allowed;
+    }
+  }
+
+  &.hide-input .auto-complete-input-container {
+    display: none;
+  }
+}
