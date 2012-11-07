@@ -7,6 +7,7 @@ class window.FactsController
     app.mainRegion.show(@main)
 
     fact = new Fact(id: fact_id)
+
     fact.fetch
       success: (model, response) => @withFact(model)
 
@@ -16,3 +17,11 @@ class window.FactsController
 
     window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
     @main.titleRegion.show( extended_fact_title_view )
+
+    @showChannelListing(fact.get('created_by').username)
+
+  showChannelListing: (username)->
+    changed = window.Channels.setUsernameAndRefresh(username)
+    channelCollectionView = new ChannelsView(collection: window.Channels)
+    app.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActive('profile')
