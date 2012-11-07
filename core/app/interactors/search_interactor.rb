@@ -10,8 +10,8 @@ class SearchInteractor
     @options = options
   end
 
-  def execute
-    return search_with(:elastic_search_all)
+  def use_query
+    :elastic_search_all
   end
 
   private

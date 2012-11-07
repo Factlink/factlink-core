@@ -10,8 +10,8 @@ class SearchChannelInteractor
     @options = options
   end
 
-  def execute
-    search_with(:elastic_search_channel)
+  def use_query
+    :elastic_search_channel
   end
 
   private

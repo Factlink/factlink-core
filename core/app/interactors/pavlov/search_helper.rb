@@ -16,5 +16,8 @@ module Pavlov
     def filtered_keywords
       keywords_longer_than_chars @keywords, keyword_min_length
     end
+    def execute
+      search_with(use_query)
+    end
   end
 end

@@ -11,8 +11,8 @@ class SearchEvidenceInteractor
     @options = options
   end
 
-  def execute
-    search_with(:elastic_search_fact_data)
+  def use_query
+    :elastic_search_fact_data
   end
 
   private

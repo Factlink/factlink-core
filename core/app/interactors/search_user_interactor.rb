@@ -12,11 +12,11 @@ class SearchUserInteractor
     @options = options
   end
 
-  def execute
-    return search_with(:elastic_search_user)
+  private
+  def use_query
+    :elastic_search_user
   end
 
-  private
   def valid_result? result
     true
   end
