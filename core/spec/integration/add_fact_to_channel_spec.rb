@@ -64,7 +64,7 @@ feature "adding a fact to a channel" do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  scenario "adding a fact to a new channel from the factbubble" do
+  pending "adding a fact to a new channel from the factbubble" do
     @factlink = create_fact_in_backend
 
     go_to_discussion_page_of @factlink
