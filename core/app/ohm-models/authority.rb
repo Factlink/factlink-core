@@ -8,6 +8,11 @@ class Authority < OurOhm
   attribute :authority
 
   class << self
+    def debug x
+      puts "#{Time.now} #{x}"
+      $stdout.flush
+    end
+
     def related(label, subject, opts={})
       AuthorityObject.by_reference self.key+"NEW", label, subject.class.to_s, subject.id.to_s, opts[:for].andand.id
     end
@@ -39,6 +44,7 @@ class Authority < OurOhm
 
     def run_calculation
       @map_reducers.andand.each do |mr|
+        debug "Running #{mr.class}"
         mr.process_all
       end
     end
