@@ -78,7 +78,7 @@ class ChannelsController < ApplicationController
     end
 
     unless @channel
-      @channel = Channel.new(title)
+      @channel = Channel.new(title_hash)
       @channel.created_by = current_user.graph_user
     end
 
