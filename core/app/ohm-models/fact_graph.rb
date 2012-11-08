@@ -25,9 +25,6 @@ class FactGraph
       Fact.cut_off_top
   end
 
-  def reset_values
-  end
-
   def calculate_authority
     Authority.run_calculation
   end
