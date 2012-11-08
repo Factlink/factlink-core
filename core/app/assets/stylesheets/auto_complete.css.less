@@ -55,9 +55,10 @@
         overflow-y: scroll;
         list-style: none;
         margin: 0;
+        background: white;
 
         li {
-          background: #f7f7f7;
+          background: white;
           cursor: pointer;
           font-weight: 200;
 
@@ -89,6 +90,7 @@
             padding: 5px 10px;
             color: #555;
             cursor: pointer;
+            background: @whiteDarker;
 
             a {
               margin: 0 10px 0 0;
@@ -125,6 +127,10 @@
             background-color: @linkColor;
             color: #fff;
             text-shadow: none;
+
+            .add-new-block {
+              background: @linkColor;
+            }
 
             em {
               color: #fff;
