@@ -1,17 +1,17 @@
 testserver:
   sentry:
-    public: "ed7f90eb59104887bcd04633309dd039"
-    secret: "729bb74c0ee947f3b732a4724011e182"
+    public: "8b33a77da81a46a6bf47a5ff43e28399"
+    secret: "d2f56197577143ebbddbf680f0546996"
     project_id: "testserver-core"
 
 staging:
   sentry:
-    public: "902850bd8575082e3b459afad9a56b8a"
-    secret: "af60baa914bb4b1aa80a70d824d411dc"
+    public: "d62e9f3c38bf46e48ceef90cf6808a0d"
+    secret: "486b830dbdd74f50b26d6c72941dd467"
     project_id: "staging-core"
 
 production:
   sentry:
-    public: "13827a536fd32450913ccefe24b728d3"
-    secret: "729bb74c0ee947f3b732a4724011e18"
+    public: "50fae5e9be574d17bb5c323de10ef519"
+    secret: "70b96b577d5d490fa71bd0311dfa6ac6"
     project_id: "production-core"
