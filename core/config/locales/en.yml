@@ -28,6 +28,7 @@ en:
 
   channel: "channel"
   channels: "channels"
+  channel_name: "channel name"
   add_to_channels: "add to channels"
   created_channel: "created a channel"
 
