@@ -1,4 +1,4 @@
-development:
+testserver:
   sentry:
     public: "ed7f90eb59104887bcd04633309dd039"
     secret: "729bb74c0ee947f3b732a4724011e182"
