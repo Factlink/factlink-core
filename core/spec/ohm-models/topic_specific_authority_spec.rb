@@ -89,7 +89,7 @@ describe "topic specific authority"  do
     end
   end
 
-  context "on facts" do
+  pending "on facts" do
     it "should give a user authority on a fact in a topic it knows something about" do
       foo_ch = create :channel, title: "foo"
       foo_ch.add_fact(fact_of_u1_which_supports_two)
