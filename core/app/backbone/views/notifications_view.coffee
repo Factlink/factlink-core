@@ -54,7 +54,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
       if always or doReloading()
         setTimeout (->
           args.callee.apply self, args
-        ), 7000
+        ), 59*1000
     args = arguments
     self = this
     unless @_visible
