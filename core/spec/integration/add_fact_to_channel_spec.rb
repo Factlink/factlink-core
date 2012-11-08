@@ -23,16 +23,16 @@ module AddToChannelIntegrationTestHelper
     visit path
   end
 
-  def open_tab tab_title, &block
+  def open_modal tab_title, &block
     tablink = page.find_link(tab_title)
     tab_li = tablink.find(:xpath, '..')
 
-    tab_class = tab_li['class'].split(/\s+/).first
+    tab_class = tab_li['class'].split(/\s+/).first + '-container'
 
     puts "Tab class: '#{tab_class}'"
 
     click_link(tab_title)
-    within(:css, ".#{tab_class} .dropdown-container") do
+    within(:css, ".#{tab_class} .modal-body") do
       yield
     end
   end
@@ -50,7 +50,7 @@ module AddToChannelIntegrationTestHelper
   end
 
   def added_channels_should_contain name
-    within(:css, "ul.added_channels") do
+    within(:css, ".auto-complete-results-container") do
       page.should have_content name
     end
   end
@@ -69,8 +69,8 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of @factlink
 
-    open_tab 'My Channels' do
-      page.should have_content('The Factlink above is in my following channels')
+    open_modal 'My Channels' do
+      page.should have_content('Repost this to one or more channels:')
 
       add_as_new_channel 'Gerrit'
       added_channels_should_contain 'Gerrit'
@@ -83,7 +83,7 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of @factlink
 
-    open_tab 'My Channels' do
+    open_modal 'My Channels' do
       add_to_channel @channel.title
       added_channels_should_contain @channel.title
     end
