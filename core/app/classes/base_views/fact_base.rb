@@ -21,7 +21,11 @@ module BaseViews
     end
 
     def interacting_users
-      Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: interacting_user_count).to_hash
+      if self[:show_interacting_users]
+        Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: interacting_user_count).to_hash
+      else
+        {activity: []}
+      end
     end
 
     def signed_in?
