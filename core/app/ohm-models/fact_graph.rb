@@ -9,12 +9,12 @@ class FactGraph
       debug "Calculating Authority"
       calculate_authority
 
-      puts "Calculating user opinions on basefacts"
+      debug "Calculating user opinions on basefacts"
       Basefact.all.to_a.each {|f| f.calculate_user_opinion }
       5.times do |i|
-        puts "Calculating fact relation influencing opinions (#{i})"
+        debug "Calculating fact relation influencing opinions (#{i})"
         FactRelation.all.to_a.each {|f| f.calculate_influencing_opinion}
-        puts "Calculating fact opinions (#{i})"
+        debug "Calculating fact opinions (#{i})"
         Fact.all.to_a.each do |f|
           f.calculate_opinion
           f.reposition_in_top
