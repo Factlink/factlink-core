@@ -48,17 +48,14 @@
   margin: 24px 0 12px;
 
   .fact-block {
-    margin-left: 20px;
     border: none;
 
-    .controls li {
-      .opacity(1);
-    }
+    .controls li { .opacity(1); }
+    .fact-tab-container { margin-top: 24px;}
+
     .tab-control li {
       .opacity(1);
-      &.permalink {
-        display:none;
-      }
+      &.permalink { display:none; }
     }
   }
 
@@ -97,7 +94,8 @@
   }
 
   article.fact > ul {
-    margin: 0 0 0 75px;
+    margin: 0 0 0 70px;
+    width: 600px;
     border-top: 1px solid @baseBorderColor;
 
     > li {
