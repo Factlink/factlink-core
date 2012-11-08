@@ -1,0 +1,17 @@
+development:
+  sentry:
+    public: "ed7f90eb59104887bcd04633309dd039"
+    secret: "729bb74c0ee947f3b732a4724011e182"
+    project_id: "testserver-core"
+
+staging:
+  sentry:
+    public: "902850bd8575082e3b459afad9a56b8a"
+    secret: "af60baa914bb4b1aa80a70d824d411dc"
+    project_id: "staging-core"
+
+production:
+  sentry:
+    public: "13827a536fd32450913ccefe24b728d3"
+    secret: "729bb74c0ee947f3b732a4724011e18"
+    project_id: "production-core"

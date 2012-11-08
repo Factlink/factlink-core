@@ -41,6 +41,7 @@ gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
 gem 'mustache'
 gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
 
+gem "sentry-raven"
 
 # Everyone loves JSON
 gem 'json'
