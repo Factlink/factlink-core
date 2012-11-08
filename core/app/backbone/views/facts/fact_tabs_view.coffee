@@ -17,7 +17,7 @@ class window.FactTabsView extends Backbone.Marionette.Layout
 
   renderAddToChannel: ->
     if @addToChannelView == `undefined`
-      @addToChannelView = new AutoCompletedAddToChannelView
+      @addToChannelView = new AutoCompleteChannelsView
                                collection: new OwnChannelCollection()
       _.each @model.getOwnContainingChannels(), (ch) =>
         @addToChannelView.collection.add ch  if ch.get("type") is "channel"
@@ -30,8 +30,6 @@ class window.FactTabsView extends Backbone.Marionette.Layout
         @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 
       @addToChannelRegion.show @addToChannelView
-
-
 
   onClose: -> @addToChannelView?.close()
 

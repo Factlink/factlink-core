@@ -3,26 +3,16 @@ require File.expand_path('../../../app/interactors/search_evidence_interactor.rb
 
 describe SearchEvidenceInteractor do
   include PavlovSupport
-  
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
 
-  def fake_class
-    Class.new
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
-    stub_const 'Fact', fake_class
-    stub_const 'FactData', fake_class
-    stub_const 'Ability::FactlinkWebapp', fake_class
-    stub_const 'Queries::ElasticSearchFactData', fake_class
+    stub_classes 'Fact', 'FactData', 'Ability::FactlinkWebapp',
+                 'Queries::ElasticSearchFactData'
   end
 
   it 'initializes' do
-    interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1'
+    interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
@@ -36,15 +26,16 @@ describe SearchEvidenceInteractor do
       to raise_error(RuntimeError, 'Fact_id should be an number.')
   end
 
-  describe '.execute' do
+  describe '.initialize' do
     it 'raises when executed without any permission' do
-      ability = mock()
-      ability.stub can?: false
-      interactor = SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
+      ability = stub(:ability, can?: false)
+      expect do
+        SearchEvidenceInteractor.new 'zoeken interessante dingen', '1', ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
     end
+  end
 
+  describe '.execute' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = SearchEvidenceInteractor.new '', '1', ability: relaxed_ability

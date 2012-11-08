@@ -13,9 +13,6 @@
 #= require_tree ./collections/
 #= require_tree ./layouts/
 #= require_tree ./views/
-#= require_tree ./views/channels/
-#= require_tree ./views/users/
-#= require_tree ./views/facts/
 #= require_tree ./controllers/
 #= require_tree ./routers/
 #= require_tree ./initializers

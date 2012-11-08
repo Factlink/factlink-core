@@ -38,9 +38,9 @@
   <script>
     <%= render 'backbone/currentUser' %>
 
-    var addToChannelView = new AutoCompletedAddToChannelView({collection: new OwnChannelCollection()}).render();
+    var addToChannelView = new AutoCompleteChannelsView({collection: new OwnChannelCollection()}).render();
 
-    $('#add-to-channels').replaceWith(addToChannelView.el);
+    $('#add-to-channels').html(addToChannelView.el);
 
     var persistentWheel = new PersistentWheelView({
       el: $('.wheel'),

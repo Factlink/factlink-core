@@ -1,11 +1,11 @@
 #= require jasmine-jquery
 
-describe "window.TextInputView", ->
+describe "Backbone.Factlink.TextInputView", ->
   model = view = null
 
   beforeEach ->
     model = new Backbone.Model({text: 'hi'})
-    view = new TextInputView(model: model)
+    view = new Backbone.Factlink.TextInputView(model: model)
     view.render()
 
   it "should show the text", ->
