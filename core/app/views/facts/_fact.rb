@@ -1,47 +1,50 @@
 module Facts
   class Fact < Mustache::Railstache
-    include BaseViews::FactBase
     include BaseViews::FactBubbleBase
 
     def init
       self[:timestamp] ||= 0
     end
 
-    def delete_from_channel_link
-      remove_from_channel_path
+    def displaystring
+      self[:fact].data.displaystring
+    end
+
+    def id
+      self[:fact].id
+    end
+
+    def nr_of_supporting_facts
+      self[:fact].supporting_facts.size
+    end
+
+    def nr_of_weakening_facts
+      self[:fact].weakening_facts.size
+    end
+
+    def interacting_users
+      if self[:show_interacting_users]
+        Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 3).to_hash
+      else
+        {activity: []}
+      end
+    end
+
+    def signed_in?
+      user_signed_in?
+    end
+
+    def containing_channel_ids
+      return [] unless current_graph_user
+      current_graph_user.containing_channel_ids(self[:fact])
     end
 
     def deletable_from_channel?
       user_signed_in? and self[:channel] and self[:channel].editable? and self[:channel].created_by == current_graph_user
     end
 
-    def remove_from_channel_path
-      if self[:channel] and current_user
-        fast_remove_fact_from_channel_path(current_user.username, self[:channel].id, self[:fact].id)
-      end
-    end
-
     def i_am_owner
       (self[:fact].created_by == current_graph_user)
-    end
-
-    def my_authority
-      auth = Authority.on(self[:fact], for: current_graph_user)
-      return false if auth.to_f == 0.0
-
-      (auth.to_s.to_f + 1.0).to_s
-    end
-
-    def ajax_loader_image
-      image_tag("ajax-loader.gif")
-    end
-
-    def evidence_search_path
-      evidence_search_fact_path(self[:fact].id)
-    end
-
-    def prefilled_search_value
-      params[:s] ? 'value="#{params[:s]}"' : ""
     end
 
     def modal?
@@ -91,9 +94,6 @@ module Facts
 
       json.attributes!
     end
-    def factlink_path
-      link_to "Factlink", friendly_fact_path(self[:fact])
-    end
 
     def created_by_ago
       "#{time_ago_in_words(self[:fact].data.created_at)} ago"
@@ -111,16 +111,6 @@ module Facts
     end
     def doubters_count
       self[:fact].opiniated(:doubts).count
-    end
-
-    def believers_text
-      t(:fact_believe_opinion).titleize
-    end
-    def doubters_text
-      t(:fact_doubt_opinion).titleize
-    end
-    def disbelievers_text
-      t(:fact_disbelieve_opinion).titleize
     end
   end
 end
