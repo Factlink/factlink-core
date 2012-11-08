@@ -19,7 +19,7 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
       results_view: AutoCompleteResultsChannelsView
       search_collection: TopicSearchResults
       search_list_view: AutoCompleteSearchChannelsView
-      placeholder: 'Channel name'
+      placeholder: -> Factlink.Global.t.channel_name.capitalize()
 
     @_results_view.on "itemview:remove",  (childView, msg) =>
       @trigger 'removeChannel', childView.model

@@ -29,6 +29,7 @@ nl:
 
   channel: "kanaal"
   channels: "kanalen"
+  channel_name: "naam van kanaal"
   add_to_channels: "toevoegen aan kanalen"
   created_channel: "heeft een kanaal aangemaakt"
 
