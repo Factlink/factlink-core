@@ -67,8 +67,20 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    @channel = Channel.new(params[:channel].andand.slice(:title) || params.slice(:title))
-    @channel.created_by = current_user.graph_user
+    # Late night drunk hacking going on
+    # Blame it on the a-a-a-a-a-alcohol
+    title_hash = params[:channel].andand.slice(:title) || params.slice(:title)
+    title = title_hash[:title]
+
+    @channels = Channel.find(created_by_id: current_user.graph_user_id)
+    @channels.each do |channel|
+      @channel = channel if channel.lowercase_title == title.downcase
+    end
+
+    unless @channel
+      @channel = Channel.new(title)
+      @channel.created_by = current_user.graph_user
+    end
 
     # Check if object valid, then execute:
     if @channel.valid?

@@ -21,7 +21,13 @@ Factlink.Global =
   can_haz: {}
 
 <%
-  [:channel, :channels, :channel_name, :add_to_channels].each do |translation|
+  [
+    :channel, :channels, :channel_name,
+    :add_to_channels,
+    :fact_believe_opinion,
+    :fact_doubt_opinion,
+    :fact_disbelieve_opinion
+  ].each do |translation|
 %>
 
 Factlink.Global.t.<%= translation.to_s %> = "<%= I18n.t(translation) %>"

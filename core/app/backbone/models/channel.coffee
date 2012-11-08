@@ -39,6 +39,8 @@ class window.Channel extends Backbone.Model
     new ChannelFacts [],
       channel: this
 
+  topicUrl: -> "/t/#{@get('slug_title')}"
+
   getOwnContainingChannels: ->
     containingChannels = @get("containing_channel_ids")
     ret = []
