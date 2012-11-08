@@ -1,5 +1,5 @@
 class window.AutoCompleteSearchListView extends Backbone.Factlink.SteppableView
-  template: "auto_complete/_search_list"
+  template: "auto_complete/search_list"
 
   itemViewContainer: 'ul'
 
