@@ -3,27 +3,16 @@ require File.expand_path('../../../app/interactors/search_interactor.rb', __FILE
 
 describe SearchInteractor do
   include PavlovSupport
-  
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
 
-  def fake_class
-    Class.new
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
-    stub_const 'Fact', fake_class
-    stub_const 'Queries::ElasticSearchAll', fake_class
-    stub_const 'FactData', fake_class
-    stub_const 'User', fake_class
-    stub_const 'Ability::FactlinkWebapp', fake_class
+    stub_classes 'Fact', 'Queries::ElasticSearchAll', 'FactData',
+                 'User', 'Ability::FactlinkWebapp'
   end
 
   it 'initializes' do
-    interactor = SearchInteractor.new 'keywords'
+    interactor = SearchInteractor.new 'keywords', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
@@ -39,13 +28,13 @@ describe SearchInteractor do
 
   describe '.execute' do
     it 'raises when executed without any permission' do
-      ability = mock()
-      ability.stub can?: false
-      interactor = SearchInteractor.new 'keywords', ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
+      ability = stub(:ability, can?: false)
+      expect do
+        SearchInteractor.new 'keywords', ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
     end
-
+  end
+  describe '.execute' do
     it 'returns an empty list on keyword with less than two letters.' do
       Queries::ElasticSearchAll.should_not_receive(:execute)
       interactor = SearchInteractor.new 'ke', ability: relaxed_ability

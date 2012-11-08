@@ -4,58 +4,42 @@ require File.expand_path('../../../app/interactors/search_channel_interactor.rb'
 describe SearchChannelInteractor do
   include PavlovSupport
 
-  let(:relaxed_ability) do
-    ability = mock()
-    ability.stub can?: true
-    ability
-  end
-
-  def fake_class
-    Class.new
-  end
+  let(:relaxed_ability) { stub(:ability, can?: true)}
 
   before do
-    class User; end
-    @user = User.new
-    stub_const 'Topic', fake_class
-    stub_const 'Queries::ElasticSearchChannel', fake_class
-    stub_const 'Fact', fake_class
-    stub_const 'Ability::FactlinkWebapp', fake_class
+    stub_classes 'Topic','Queries::ElasticSearchChannel',
+                 'Fact','Ability::FactlinkWebapp'
   end
 
   it 'initializes' do
-    interactor = SearchChannelInteractor.new 'keywords', @user
+    interactor = SearchChannelInteractor.new 'keywords', ability: relaxed_ability
     interactor.should_not be_nil
   end
 
   it 'raises when initialized with keywords that is not a string' do
-    expect { interactor = SearchChannelInteractor.new nil, @user }.
+    expect { interactor = SearchChannelInteractor.new nil }.
       to raise_error(RuntimeError, 'Keywords should be a string.')
   end
 
   it 'raises when initialized with an empty keywords string' do
-    expect { interactor = SearchChannelInteractor.new '', @user }.
+    expect { interactor = SearchChannelInteractor.new '' }.
       to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  it 'raises when initialized with a user that is not a User.' do
-    expect { interactor = SearchChannelInteractor.new 'keywords', nil }.
-      to raise_error(RuntimeError, 'User should be of User type.')
+  describe '.initialize' do
+    it 'raises when executed without any permission' do
+      keywords = "searching for this channel"
+      ability = stub(:ability, can?: false)
+      expect do
+        SearchChannelInteractor.new keywords, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
   end
 
   describe '.execute' do
-    it 'raises when executed without any permission' do
-      keywords = "searching for this channel"
-      ability = mock()
-      ability.stub can?: false
-      interactor = SearchChannelInteractor.new keywords, @user, ability: ability
-
-      expect { interactor.execute }.to raise_error(Pavlov::AccessDenied)
-    end
-
     it 'correctly' do
       keywords = 'searching for this channel'
-      interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+      interactor = SearchChannelInteractor.new keywords, ability: relaxed_ability
       topic = mock()
       query = mock()
       query.should_receive(:execute).
@@ -70,7 +54,7 @@ describe SearchChannelInteractor do
     it 'filters keywords with length < 2' do
       keywords = 'searching f this channel'
       filtered_keywords = 'searching this channel'
-      interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+      interactor = SearchChannelInteractor.new keywords, ability: relaxed_ability
       topic = mock()
       query = mock()
       query.should_receive(:execute).
@@ -84,7 +68,7 @@ describe SearchChannelInteractor do
 
     it 'filters keywords with length < 2 and don''t query because search is empty' do
       keywords = 'f'
-      interactor = SearchChannelInteractor.new keywords, @user, ability: relaxed_ability
+      interactor = SearchChannelInteractor.new keywords, ability: relaxed_ability
 
       Queries::ElasticSearchChannel.should_not_receive(:new)
 

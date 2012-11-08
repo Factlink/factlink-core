@@ -58,9 +58,9 @@ class ChannelsController < ApplicationController
     authorize! :edit, @channel
   end
 
+  #TODO Move to topicscontroller, this searches for topics, not for channels
   def search
-    interactor = SearchChannelInteractor.new params[:s].to_s, @user, ability: current_ability
-    @topics = interactor.execute
+    @topics = interactor :search_channel, params[:s]
     render 'topics/index'
   end
 

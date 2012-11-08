@@ -48,10 +48,8 @@ class UsersController < ApplicationController
 
   def search
     authorize! :index, User
-    render json: [
-      {id: 10, username: 'mark'},
-      {id: 14, username: 'gerard'},
-    ]
+    @users = interactor :search_user, params[:s]
+    render :index
   end
 
   def mark_activities_as_read

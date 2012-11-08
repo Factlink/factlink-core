@@ -5,47 +5,46 @@ describe "conversation", type: :request do
 
   before :each do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
-    @recipient = FactoryGirl.create :approved_confirmed_user
+    @recipients = [FactoryGirl.create(:approved_confirmed_user), FactoryGirl.create(:approved_confirmed_user)]
 
     enable_features @user, :messaging
-    enable_features @recipient, :messaging
+    @recipients.each {|r| enable_features r, :messaging}
   end
 
   it "message can be sent and viewed" do
     factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
     message_content = 'content'
 
-    send_message(message_content,factlink, @recipient)
+    send_message(message_content, factlink, @recipients)
 
-    switch_to_user @recipient
-
-    open_message_with_content message_content
-    page_should_have_factlink_and_message(message_content, factlink, @recipient)
+    @recipients.each do |recipient|
+      switch_to_user recipient
+      open_message_with_content message_content
+      page_should_have_factlink_and_message(message_content, factlink, recipient)
+    end
   end
 
   it "a user should be able to reply to a message" do
     factlink = FactoryGirl.create(:fact, created_by: @user.graph_user)
     message_content = 'content'
-    reply_str = "Bazenbeer"
 
-    send_message(message_content,factlink, @recipient)
+    send_message(message_content, factlink, @recipients)
 
-    switch_to_user @recipient
+    @recipients.each do |recipient|
+      switch_to_user recipient
+      open_message_with_content message_content
+      page_should_have_factlink_and_message(message_content, factlink, nil)
+      
+      message_content = FactoryGirl.generate(:content)
 
-    open_message_with_content message_content
-    page_should_have_factlink_and_message(message_content, factlink, @recipient)
-
-    send_reply(reply_str)
-
-    last_message_should_have_content(reply_str)
-
-    switch_to_user @user
-
-    open_message_with_content reply_str
-
-    page_should_have_factlink_and_message(message_content, factlink, nil)
-
-    last_message_should_have_content(reply_str)
+      send_reply(message_content)
+      last_message_should_have_content(message_content)
+    
+      switch_to_user @user
+      open_message_with_content message_content
+      page_should_have_factlink_and_message(message_content, factlink, nil)
+      last_message_should_have_content(message_content)
+    end
   end
 
   def send_reply(reply_str)
@@ -63,19 +62,25 @@ describe "conversation", type: :request do
     end
   end
 
-  def send_message(message, factlink, recipient)
+  def send_message(message, factlink, recipients)
     visit friendly_fact_path(factlink)
 
     click_on "Send message"
 
     wait_until_scope_exists '.start-conversation-form' do
-      find(:css, '.recipients').set(recipient.username)
+      recipients.each {|r| add_recipient r.username}
       find(:css, '.text').set(message)
 
       click_button 'Send'
 
       wait_for_ajax
     end
+  end
+
+  def add_recipient name
+    page.find(:css, 'input').set(name)
+    wait_for_ajax
+    page.find('li', text: name).click
   end
 
   def page_should_have_factlink_and_message(message, factlink, recipient)
