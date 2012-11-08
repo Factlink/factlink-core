@@ -21,20 +21,12 @@ module Channels
       topic and (Authority.from(topic , for: self[:channel].created_by ).to_s.to_f + 1.0).to_s
     end
 
-    def topic_url
-      topic and "/t/#{topic.slug_title}"
-    end
-
     def add_channel_url
       '/' + self[:user].username + '/channels/new'
     end
 
     def has_authority?
       self[:channel].has_authority?
-    end
-
-    def activities_link
-      link + "/activities"
     end
 
     def title

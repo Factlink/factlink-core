@@ -3,11 +3,17 @@
 window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
   tagName: "div",
 
-  template: 'channels/_channel',
+  template: 'channels/channel',
 
   regions: {
     factList: '#facts_for_channel',
     activityList: '#activity_for_channel'
+  },
+
+  templateHelpers: function(){
+    return {
+      activities_link: function(){ return this.link + "/activities";}
+    };
   },
 
   initialize: function(opts) {
