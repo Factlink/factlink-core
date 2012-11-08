@@ -2,4 +2,4 @@
 class window.ExtendedFact extends Fact
   urlRoot: '/facts/'
 
-  getFactWheel: () -> @get('fact_wheel')
+  getFactWheel: -> @get('fact_wheel')
