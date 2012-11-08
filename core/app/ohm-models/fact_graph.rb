@@ -1,11 +1,13 @@
 class FactGraph
-
-  def self.debug x
+  def self.recalculate
+    new.recalculate
+  end
+  def debug x
     puts "#{Time.now} #{x}"
     $stdout.flush
   end
 
-  def self.recalculate
+  def recalculate
       debug "Calculating Authority"
       calculate_authority
 
@@ -23,10 +25,10 @@ class FactGraph
       Fact.cut_off_top
   end
 
-  def self.reset_values
+  def reset_values
   end
 
-  def self.calculate_authority
+  def calculate_authority
     Authority.run_calculation
   end
 

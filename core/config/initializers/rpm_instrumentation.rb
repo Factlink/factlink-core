@@ -8,4 +8,9 @@ if defined?(NewRelic)
     add_method_tracer :cannot?
   end
 
+  FactGraph.class_eval do
+    include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
+    add_transaction_tracer :recalculate, category: :task, name: 'recalculate'
+  end
+
 end
