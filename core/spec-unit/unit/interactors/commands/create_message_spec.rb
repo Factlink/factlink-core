@@ -18,7 +18,7 @@ describe Commands::CreateMessage do
 
       conversation = stub(repicient_ids: [14])
 
-      expect { Commands::CreateMessage.new 14, '', conversation }.
+      expect { Commands::CreateMessage.new 14, ' ', conversation }.
         to raise_error(RuntimeError, 'Message cannot be empty.')
     end
 
