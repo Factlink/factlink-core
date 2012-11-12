@@ -51,4 +51,25 @@ class window.ChannelsController
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
       activities = new ChannelActivities([],{ channel: channel })
+
       FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
+
+  getChannelFact: (username, channel_id, fact_id) ->
+    FactlinkApp.closeAllContentRegions()
+    @main = new TabbedMainRegionLayout();
+    FactlinkApp.mainRegion.show(@main)
+
+    @loadChannel username, channel_id, ( channel ) =>
+      @commonChannelViews( channel )
+
+      fact = new Fact(id: fact_id)
+      fact.fetch
+        success: (model, response) =>
+          window.efv = new ExtendedFactView(model: model)
+          @main.contentRegion.show(efv)
+
+          title_view = new ExtendedFactTitleView(
+                                          model: fact,
+                                          return_to_url: channel.url(),
+                                          return_to_text: channel.get('title') )
+          @main.titleRegion.show( title_view )
