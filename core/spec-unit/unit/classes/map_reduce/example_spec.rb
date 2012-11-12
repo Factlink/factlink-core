@@ -1,5 +1,5 @@
-require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-require File.expand_path('../../../../app/classes/map_reduce/example.rb', __FILE__)
+require File.expand_path('../../../../../app/classes/map_reduce.rb', __FILE__)
+require File.expand_path('../../../../../app/classes/map_reduce/example.rb', __FILE__)
 
 describe MapReduce::Example do
   subject do
