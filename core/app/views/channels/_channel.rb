@@ -5,68 +5,55 @@ module Channels
       self[:user]||= self[:channel].created_by.user
     end
 
-    def add_channel_url
-      '/' + self[:user].username + '/channels/new'
-    end
-
-    def has_authority?
-      self[:channel].has_authority?
-    end
-
-    def title
-      if is_all
-        'Stream'
-      elsif is_created
-        is_mine ? 'My Factlinks' : 'Created by ' + self[:user].username
-      else
-        self[:channel].title
-      end
-    end
-
-    def long_title
-      if is_all
-        is_mine ? 'Stream' : "Stream of #{self[:user].username}"
-      else
-        title
-      end
-    end
-
-    def type
-      self[:channel].type
-    end
-
-    def is_created
-      type == 'created'
-    end
-
-    def is_all
-      type == 'stream'
-    end
-
-    def is_normal
-      !is_all && !is_created
-    end
-
-
-    #DEPRECATED, CALCULATE THIS IN FRONTEND
-    #SEE related_users_view.coffee
-    def is_mine
-      self[:user] == current_user
-    end
-
-
-
-    def id
-      self[:channel].id
-    end
-
-
-
     def to_hash
       channel = self[:channel]
       user = self[:user]
 
       json = Jbuilder.new
+
+
+      type = channel.type
+      json.type type
+
+
+      is_created = (type == 'created')
+      json.is_created is_created
+      is_all = (type == 'stream')
+      json.is_all is_all
+
+
+      #DEPRECATED, CALCULATE THIS IN FRONTEND
+      #SEE related_users_view.coffee
+      is_mine =       user == current_user
+      json.is_mine is_mine
+
+
+      json.id channel.id
+
+      json.has_authority? channel.has_authority?
+
+      json.add_channel_url '/' + user.username + '/channels/new'
+
+
+      title = if is_all
+                'Stream'
+              elsif is_created
+                is_mine ? 'My Factlinks' : 'Created by ' + user.username
+              else
+                channel.title
+              end
+      json.title title
+
+      long_title = if is_all
+                     is_mine ? 'Stream' : "Stream of #{user.username}"
+                   else
+                     title
+                   end
+      json.long_title = long_title
+
+
+      is_normal = !is_all && !is_created
+      json.is_normal is_normal
 
       if is_normal
         topic = channel.topic
@@ -74,10 +61,10 @@ module Channels
       end
 
       json.created_by do |j|
-        j.id self[:user].id
-        j.username self[:user].username
-        j.avatar image_tag(self[:user].avatar_url(size: 32), title: self[:user].username, alt: self[:user].username, width: 32)
-        j.all_channel_id self[:user].graph_user.stream_id
+        j.id user.id
+        j.username user.username
+        j.avatar image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
+        j.all_channel_id user.graph_user.stream_id
       end
 
       json.slug_title channel.slug_title
@@ -86,9 +73,9 @@ module Channels
       json.discover_stream? is_discover_stream
 
       link = if is_discover_stream
-              "/#{user.username}/channels/#{id}/activities"
+              "/#{user.username}/channels/#{channel.id}/activities"
              else
-              "/#{user.username}/channels/#{id}"
+              "/#{user.username}/channels/#{channel.id}"
              end
       json.link link
       json.edit_link link + "/edit"
