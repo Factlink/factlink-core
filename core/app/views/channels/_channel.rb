@@ -1,13 +1,37 @@
 module Channels
-  class Channel < Mustache::Railstache
+  class Channel
 
-    def init
-      self[:user]||= self[:channel].created_by.user
+    def self.for(*args)
+      new(*args)
+    end
+
+    def initialize options={}
+      @channel = options[:channel]
+      @view = options[:view]
+      @user = options[:channel_user] ||= @channel.created_by.user
+    end
+
+    def channel
+      @channel
+    end
+
+    def user
+      @user
+    end
+
+    def current_user
+      @view.current_user
+    end
+
+    def current_graph_user
+      @view.current_user
+    end
+
+    def image_tag *args
+      @view.image_tag(*args)
     end
 
     def to_hash
-      channel = self[:channel]
-      user = self[:user]
 
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
