@@ -9,31 +9,18 @@ module Channels
       channel = self[:channel]
       user = self[:user]
 
-      json = Jbuilder.new
+      is_created = (channel.type == 'created')
+      is_all = (channel.type == 'stream')
+      is_normal = !is_all && !is_created
+      is_discover_stream = is_all && is_mine
 
-
-      type = channel.type
-      json.type type
-
-
-      is_created = (type == 'created')
-      json.is_created is_created
-      is_all = (type == 'stream')
-      json.is_all is_all
-
+      if is_normal
+        topic = channel.topic
+      end
 
       #DEPRECATED, CALCULATE THIS IN FRONTEND
       #SEE related_users_view.coffee
       is_mine = (user == current_user)
-      json.is_mine is_mine
-
-
-      json.id channel.id
-
-      json.has_authority? channel.has_authority?
-
-      json.add_channel_url '/' + user.username + '/channels/new'
-
 
       title = if is_all
                 'Stream'
@@ -42,21 +29,36 @@ module Channels
               else
                 channel.title
               end
-      json.title title
 
       long_title = if is_all
                      is_mine ? 'Stream' : "Stream of #{user.username}"
                    else
                      title
                    end
+
+      unread_count = is_normal ? channel.unread_count : 0
+
+      containing_channel_ids = channel.containing_channels_for(current_graph_user).ids
+
+      json = Jbuilder.new
+
+      json.type channel.type
+      json.is_created is_created
+      json.is_all is_all
+
+      json.is_mine is_mine
+      json.id channel.id
+      json.has_authority? channel.has_authority?
+
+      json.add_channel_url '/' + user.username + '/channels/new'
+
+      json.title title
       json.long_title = long_title
+      json.slug_title channel.slug_title
 
-
-      is_normal = !is_all && !is_created
       json.is_normal is_normal
 
-      if is_normal
-        topic = channel.topic
+      if topic
         json.created_by_authority(Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0).to_s
       end
 
@@ -67,9 +69,6 @@ module Channels
         j.all_channel_id user.graph_user.stream_id
       end
 
-      json.slug_title channel.slug_title
-
-      is_discover_stream = is_all && is_mine
       json.discover_stream? is_discover_stream
 
       link = if is_discover_stream
@@ -85,17 +84,15 @@ module Channels
       json.created_by_id created_by_id
 
       json.inspectable? channel.inspectable?
-      json.followable?  current_graph_user.id != created_by_id && is_normal
-      json.editable?    current_graph_user.id == created_by_id && channel.editable?
+      json.followable?  is_mine && is_normal
+      json.editable?    is_mine && channel.editable?
 
-      unread_count = is_normal ? channel.unread_count : 0
       json.unread_count unread_count
-      json.new_facts( (unread_count != 0) && user == current_user )
+      json.new_facts( (unread_count != 0) && is_mine )
 
-      json.containing_channel_ids channel.containing_channels_for(current_graph_user).ids
+      json.containing_channel_ids containing_channel_ids
 
-      super.merge json.attributes!
+      json.attributes!
     end
-
   end
 end
