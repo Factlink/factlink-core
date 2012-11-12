@@ -24,7 +24,7 @@ module Channels
 
       #DEPRECATED, CALCULATE THIS IN FRONTEND
       #SEE related_users_view.coffee
-      is_mine =       user == current_user
+      is_mine = (user == current_user)
       json.is_mine is_mine
 
 
