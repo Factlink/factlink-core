@@ -12,7 +12,7 @@ class CreateConversationWithMessageInteractor
     begin
       command :create_message, @sender_id, @content, conversation
     rescue
-      conversation.delete
+      conversation.delete # TODO replace this with a rollback of the create command
       raise
     end
 
