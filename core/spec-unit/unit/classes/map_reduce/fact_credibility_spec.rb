@@ -12,17 +12,6 @@ describe MapReduce::FactCredibility do
     end
   end
 
-  describe :authorities_from_channel do
-    it do
-      authorities = mock(:authorities)
-      channel = mock(:channel, id: 10, topic: mock())
-
-      subject.should_receive(:authorities_from_topic).with(channel.topic).and_return(authorities)
-      expect(subject.authorities_from_channel(channel)).to eq(authorities)
-      expect(subject.authorities_from_channel(channel)).to eq(authorities)
-    end
-  end
-
   describe :wrapped_map do
     it do
       ch1 = mock()

@@ -3,6 +3,7 @@ class MapReduce
   require_relative 'map_reduce/channel_authority.rb'
   require_relative 'map_reduce/fact_authority.rb'
   require_relative 'map_reduce/fact_credibility.rb'
+  require_relative 'map_reduce/fact_relation_credibility.rb'
   require_relative 'map_reduce/topic_authority.rb'
 
   def wrapped_map iterator

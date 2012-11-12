@@ -13,14 +13,10 @@ class MapReduce
       @topic_authorities[topic.id] ||= Authority.all_from(topic)
     end
 
-    def authorities_from_channel(channel)
-      @channel_authorities[channel.id] ||= authorities_from_topic(channel.topic)
-    end
-
     def map iterator
       iterator.each do |ch|
         ids = ch.sorted_cached_facts.ids
-        authorities_from_channel(ch).each do |a|
+        authorities_from_topic(ch.topic).each do |a|
           ids.each do |fact_id|
             yield({fact_id: fact_id, user_id: a.user_id}, a.to_f)
           end

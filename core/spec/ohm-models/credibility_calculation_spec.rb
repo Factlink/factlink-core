@@ -26,7 +26,7 @@ describe "credibility calculation of facts*users" do
       MapReduce::FactCredibility.new.process_all
       MapReduce::FactRelationCredibility.new.process_all
     end
-    puts "Commands: #{nr}"
+    # puts "Number of redis commands: #{nr}"
   end
 
   it "should average authority on topics" do
