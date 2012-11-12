@@ -8,7 +8,8 @@ module Channels
     def initialize options={}
       @channel = options[:channel]
       @view = options[:view]
-      @user = options[:channel_user] ||= @channel.created_by.user
+      @user = options[:channel_user] || @channel.created_by.user
+      @topic = options[:topic] || channel.topic
     end
 
     def channel
@@ -31,6 +32,10 @@ module Channels
       @view.image_tag(*args)
     end
 
+    def topic
+      @topic
+    end
+
     def to_hash
 
       is_created = (channel.type == 'created')
@@ -38,9 +43,6 @@ module Channels
       is_normal = !is_all && !is_created
       is_discover_stream = is_all && is_mine
 
-      if is_normal
-        topic = channel.topic
-      end
 
       #DEPRECATED, CALCULATE THIS IN FRONTEND
       #SEE related_users_view.coffee
