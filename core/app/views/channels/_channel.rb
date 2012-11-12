@@ -53,7 +53,7 @@ module Channels
       json.add_channel_url '/' + user.username + '/channels/new'
 
       json.title title
-      json.long_title = long_title
+      json.long_title long_title
       json.slug_title channel.slug_title
 
       json.is_normal is_normal
