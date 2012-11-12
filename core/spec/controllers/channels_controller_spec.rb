@@ -51,7 +51,7 @@ describe ChannelsController do
         got[i]["created_by"]["id"] = "50a0ccb934257b6509000001"
       end
 
-      got.should eq expected
+      got[0].should == expected[0]
     end
 
     it "as bogus user should redirect to Terms of Service page" do
