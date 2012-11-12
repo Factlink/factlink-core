@@ -29,10 +29,21 @@ describe ChannelsController do
 
   describe "#index" do
     it "as json should be successful" do
+      ch1
       authenticate_user!(user)
       should_check_can :index, Channel
       get :index, username: user.username, format: 'json'
       response.should be_success
+    end
+
+    it "should render the same json as previously (regression check)" do
+      ch1
+      authenticate_user!(user)
+      should_check_can :index, Channel
+      get :index, username: user.username, format: 'json'
+      response.should be_success
+
+      response.body.should match '\[\{"link":"/johndoe1/channels/3","edit_link":"/johndoe1/channels/3/edit","created_by_authority":"1\.0","add_channel_url":"/johndoe1/channels/new","has_authority\?":true,"title":"Title 1","long_title":"Title 1","type":"channel","is_created":false,"is_all":false,"is_normal":true,"is_mine":true,"discover_stream\?":false,"created_by":\{"id":"[a-f0-9]{24}","username":"johndoe1","avatar":".*","all_channel_id":"1"\},"new_facts":false,"id":"3","slug_title":"title-1","containing_channel_ids":\[\],"created_by_id":"1","editable\?":true,"followable\?":false,"inspectable\?":true,"unread_count":0\}\]'
     end
 
     it "as bogus user should redirect to Terms of Service page" do
@@ -50,7 +61,6 @@ describe ChannelsController do
       response.should be_success
     end
   end
-
 
   describe "#show" do
     it "a channel should be succesful" do
@@ -80,6 +90,4 @@ describe ChannelsController do
       response.body.should_not match(/<xss>/)
     end
   end
-
-
 end
