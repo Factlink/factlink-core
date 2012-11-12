@@ -1,16 +1,16 @@
 class window.ChannelsController
 
   loadChannel: (username, channel_id, callback) ->
-    channel = Channels.get(channel_id);
+    channel = Channels.get(channel_id)
 
     mp_track("mp_page_view", {mp_page: window.location.href})
 
     withChannel = (channel) ->
       channel.set(new_facts: false)
-      callback(channel);
+      callback(channel)
 
     if (channel)
-      withChannel(channel);
+      withChannel(channel)
     else
       channel = new Channel({created_by:{username: username}, id: channel_id})
       channel.fetch
