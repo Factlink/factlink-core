@@ -47,7 +47,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
-
   authenticated :user do
 
     resources :facts, :except => [:edit, :index, :update] do
@@ -118,6 +117,8 @@ FactlinkUI::Application.routes.draw do
         post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
         get "find" => "channels#search", :as => "find"
       end
+
+      get "/facts/:fact_id" => "facts#extended_show", as: "fact"
 
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
