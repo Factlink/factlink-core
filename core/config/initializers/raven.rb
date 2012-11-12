@@ -6,6 +6,7 @@ if sentry_conf
   Raven.configure do |config|
     config.dsn = "http://#{sentry_conf["public"]}:#{sentry_conf["secret"]}@sentry.factlink.com/#{sentry_conf["project_id"]}"
     config.environments = %w[ testserver staging production ]
+    config.excluded_exceptions = ['ActionController::RoutingError']
     config.processors = [Raven::Processor::SanitizeData]
   end
 end
