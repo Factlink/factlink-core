@@ -43,12 +43,12 @@ class window.ChannelsController
       FactlinkApp.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
-    this.loadChannel username, channel_id, (channel) =>
-      this.commonChannelViews(channel)
+    @loadChannel username, channel_id, (channel) =>
+      @commonChannelViews(channel)
       FactlinkApp.mainRegion.show(new ChannelView(model: channel))
 
   getChannelActivities: (username, channel_id) ->
-    this.loadChannel username, channel_id, (channel) =>
-      this.commonChannelViews(channel);
+    @loadChannel username, channel_id, (channel) =>
+      @commonChannelViews(channel)
       activities = new ChannelActivities([],{ channel: channel })
       FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
