@@ -69,7 +69,7 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of @factlink
 
-    open_modal 'My Channels' do
+    open_modal 'Repost' do
       page.should have_content('Repost this to one or more channels:')
 
       add_as_new_channel 'Gerrit'
@@ -83,7 +83,7 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of @factlink
 
-    open_modal 'My Channels' do
+    open_modal 'Repost' do
       add_to_channel @channel.title
       added_channels_should_contain @channel.title
     end

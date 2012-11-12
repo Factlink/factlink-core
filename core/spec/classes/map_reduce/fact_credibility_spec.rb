@@ -1,8 +1,4 @@
 require 'spec_helper'
-#require File.expand_path('../../../../app/classes/map_reduce.rb', __FILE__)
-#require File.expand_path('../../../../app/classes/map_reduce/fact_credibility.rb', __FILE__)
-#require_relative '../../../app/ohm-models/authority.rb'
-#require_relative '../../../app/ohm-models/topic.rb'
 
 describe MapReduce::FactCredibility do
   let(:gu1) {GraphUser.create}
@@ -32,9 +28,9 @@ describe MapReduce::FactCredibility do
       ruby_t.save
       fact = Fact.create created_by: gu1
       ch1.stub!(:facts).and_return([fact])
-      
+
       Authority.from(ruby_t, for: gu1) << 57
-      
+
       result = subject.wrapped_map([ch1]).should == {
         {user_id: gu1.id, fact_id: fact.id } => [57.0]
       }
