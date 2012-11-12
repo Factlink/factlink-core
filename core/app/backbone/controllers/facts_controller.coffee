@@ -15,8 +15,14 @@ class window.FactsController
     window.efv = new ExtendedFactView(model: fact)
     @main.contentRegion.show(efv)
 
-    window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
-    @main.titleRegion.show( extended_fact_title_view )
+    username = fact.get('created_by').username
+
+    title_view = new ExtendedFactTitleView(
+                        model: fact,
+                        return_to_url: username,
+                        return_to_text: username.capitalize() )
+
+    @main.titleRegion.show( title_view )
 
     @showChannelListing(fact.get('created_by').username)
 
