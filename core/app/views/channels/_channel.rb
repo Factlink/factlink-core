@@ -59,7 +59,8 @@ module Channels
       json.is_normal is_normal
 
       if topic
-        json.created_by_authority(Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0).to_s
+        authority = Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
+        json.created_by_authority authority.to_s
       end
 
       json.created_by do |j|
@@ -84,7 +85,7 @@ module Channels
       json.created_by_id created_by_id
 
       json.inspectable? channel.inspectable?
-      json.followable?  is_mine && is_normal
+      json.followable?  !is_mine && is_normal
       json.editable?    is_mine && channel.editable?
 
       json.unread_count unread_count
