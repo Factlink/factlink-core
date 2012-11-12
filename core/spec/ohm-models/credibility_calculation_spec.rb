@@ -111,6 +111,7 @@ describe "credibility calculation of facts*users" do
     expect(Authority.on(fr, for: u1).to_f).to eq(15.0)
   end
 
+  # Left for reference, a nice test if you want to improve performance
   # it "should be fast" do
   #   channels = (0..10).map {|i| create(:channel, created_by: u1)}
   #   facts = (0..100).map {|i| create(:fact)}
@@ -131,18 +132,3 @@ describe "credibility calculation of facts*users" do
   #   recalculate_credibility
   # end
 end
-
-# old situation: 24072
-# remember authorities for each channel: 22972 (-4.6% cf "old situation")
-# without fact relations: 5198 (-77% cf "remember authorities for each channel")
-
-# without saving authorities: 4996 (cf "without fact relations")
-# without getting basefacts: 4794
-# without getting graphusers (but with basefacts): 4895
-
-# using fact ids: 1865 (-64% cf "without fact relations")
-
-# with list of fact relations: 32970 (cf "remember authorities for each channel")
-# memoizing authorities: 20298 (cf "with list of fact relations")
-
-# in fact relations use credibility of to_fact: 6762 (cf "memoizing authorities")
