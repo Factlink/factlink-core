@@ -35,10 +35,9 @@ def load_topic_specific_authority
   Authority.calculation = [
     MapReduce::FactAuthority.new,
     MapReduce::ChannelAuthority.new,
-    MapReduce::TopicAuthority.new #,
-    # TODO reenable:
-    # temporarily disabled because it is very slow
-    # MapReduce::FactCredibility.new
+    MapReduce::TopicAuthority.new,
+    MapReduce::FactCredibility.new,
+    MapReduce::FactRelationCredibility.new
   ]
 end
 load_topic_specific_authority

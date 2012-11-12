@@ -1,18 +1,28 @@
 class MapReduce
   class FactCredibility < MapReduce
+    def initialize
+      @channel_authorities = {}
+      @topic_authorities = {}
+    end
+
     def all_set
       Channel.all.find_all { |ch| ch.type == "channel" }
     end
 
+    def authorities_from_topic(topic)
+      @topic_authorities[topic.id] ||= Authority.all_from(topic)
+    end
+
+    def authorities_from_channel(channel)
+      @channel_authorities[channel.id] ||= authorities_from_topic(channel.topic)
+    end
+
     def map iterator
       iterator.each do |ch|
-        t = ch.topic
-        ch.facts.each do |f|
-          Authority.all_from(t).each do |a|
-            yield({fact_id: f.id, user_id: a.user_id}, a.to_f)
-            f.fact_relations.each do |fr|
-              yield({fact_id: fr.id, user_id: a.user_id}, a.to_f)
-            end
+        ids = ch.sorted_cached_facts.ids
+        authorities_from_channel(ch).each do |a|
+          ids.each do |fact_id|
+            yield({fact_id: fact_id, user_id: a.user_id}, a.to_f)
           end
         end
       end
