@@ -96,13 +96,23 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
 window.ChannelView = ChannelViewLayout.extend({
 
   getFactsView: function() {
-    return new FactsView({
+    var facts_view = new FactsView({
       collection: new ChannelFacts([],{
         channel: this.model
       }),
       model: this.model
     });
 
+    facts_view.on('itemview:permalink_clicked', function(itemview, e, fact_id) {
+
+      var navigate_to = this.model.url() + "/facts/" + fact_id;
+      Backbone.history.navigate(navigate_to, { trigger: true });
+
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    return facts_view;
   },
 
   onRender: function() {

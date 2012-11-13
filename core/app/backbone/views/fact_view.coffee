@@ -9,6 +9,7 @@ class window.FactView extends ViewWithPopover
     "click li.delete": "destroyFact"
     "click a.more": "showCompleteDisplaystring"
     "click a.less": "hideCompleteDisplaystring"
+    "click .permalink" : "triggerPermalinkClick"
 
   template: "facts/_fact"
 
@@ -104,3 +105,6 @@ class window.FactView extends ViewWithPopover
   hideCompleteDisplaystring: (e) ->
     @$(".body .text").trunk8 lines: @showLines
     @$(".body .less").hide()
+
+  triggerPermalinkClick: (e) ->
+    @trigger 'permalink_clicked', e, @model.id
