@@ -1,3 +1,5 @@
+app = FactlinkApp
+
 class window.ChannelsController
 
   loadChannel: (username, channel_id, callback) ->
@@ -25,42 +27,42 @@ class window.ChannelsController
 
   showRelatedChannels: (channel)->
     if channel.get('is_normal')
-      FactlinkApp.leftBottomRegion.show(new RelatedChannelsView(model: channel))
+      app.leftBottomRegion.show(new RelatedChannelsView(model: channel))
     else
-      FactlinkApp.leftBottomRegion.close()
+      app.leftBottomRegion.close()
 
   showChannelSideBar: (channels, currentChannel, user)->
     window.Channels.setUsernameAndRefresh(user.get('username'))
     channelCollectionView = new ChannelsView(collection: channels, model: user)
-    FactlinkApp.leftMiddleRegion.show(channelCollectionView)
+    app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActiveChannel(currentChannel)
 
   showUserProfile: (user)->
     unless user.is_current_user()
       userView = new UserView(model: user)
-      FactlinkApp.leftTopRegion.show(userView)
+      app.leftTopRegion.show(userView)
     else
-      FactlinkApp.leftTopRegion.close()
+      app.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
-      FactlinkApp.mainRegion.show(new ChannelView(model: channel))
+      app.mainRegion.show(new ChannelView(model: channel))
 
   getChannelActivities: (username, channel_id) ->
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
       activities = new ChannelActivities([],{ channel: channel })
 
-      FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
+      app.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
     @getChannelFact(username, channel_id, fact_id, true)
 
   getChannelFact: (username, channel_id, fact_id, for_stream=false) ->
-    FactlinkApp.closeAllContentRegions()
+    app.closeAllContentRegions()
     @main = new TabbedMainRegionLayout();
-    FactlinkApp.mainRegion.show(@main)
+    app.mainRegion.show(@main)
 
     @loadChannel username, channel_id, ( channel ) =>
       @commonChannelViews( channel )
