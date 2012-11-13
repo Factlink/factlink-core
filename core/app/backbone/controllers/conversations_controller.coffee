@@ -3,7 +3,7 @@ app = FactlinkApp
 class window.ConversationsController
   startAction: ->
     app.closeAllContentRegions()
-    @main ?= new TabbedMainRegionLayout();
+    @main ?= new TabbedMainRegionLayout()
     app.mainRegion.show(@main)
 
   navigateConversations: ->
@@ -24,7 +24,7 @@ class window.ConversationsController
     @conversations.fetch()
 
   showMessages: (conversation_id, message_id=null)->
-    @main = new TabbedMainRegionLayout();
+    @main = new TabbedMainRegionLayout()
     app.mainRegion.show(@main)
 
     @conversation = new Conversation(id: conversation_id)
