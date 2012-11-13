@@ -1,0 +1,31 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+div.fact-wheel {
+  .box-sizing();
+  float: left;
+  margin: 0 10px 0 0;
+  position: relative;
+
+  input {
+    display: none;
+  }
+
+  .authority {
+    position: absolute;
+    padding: 0 !important;
+    width: 22px;
+    height: 16px;
+    left: 11px;
+    top: 13px;
+    #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+    color: #999;
+    text-align: center;
+  }
+
+  svg {
+    path:hover {
+      cursor: pointer;
+    }
+  }
+}

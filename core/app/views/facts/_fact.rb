@@ -55,7 +55,7 @@ module Facts
       end
     end
 
-    def fact_bubble
+    def fact_base
       Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 

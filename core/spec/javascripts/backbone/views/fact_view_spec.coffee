@@ -14,6 +14,6 @@ describe "FactView", ->
     expect(Backbone.Marionette.Renderer.render).toHaveBeenCalledWith "facts/_fact",
       displaystring: "test"
     ,
-      fact_bubble: `undefined`
+      fact_base: `undefined`
       fact_wheel: `undefined`
       interacting_users: `undefined`

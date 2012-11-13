@@ -1,0 +1,52 @@
+<ul class="actions">
+  <li>
+    {{#modal?}}
+      <a href="{{url}}" target="new">Discussion</a>
+    {{/modal?}}
+
+    {{^modal?}}
+      <a href="{{url}}" rel="backbone" target="_top">Discussion</a>
+    {{/modal?}}
+  </li>
+
+  <li>
+    <a class="add-to-channel is-popup">Repost</a>
+  </li>
+
+  <li>
+    <a class="start-conversation is-popup">Share</a>
+  </li>
+</ul>
+
+<span class="fact-info">
+  {{#friendly_time}}
+    {{post_action}} {{ friendly_time }} ago
+  {{/friendly_time}}
+
+  {{#scroll_to_link}}
+    from
+
+    {{{scroll_to_link}}}
+  {{/scroll_to_link}}
+</span>
+
+<div class="popup-content">
+  {{#global.can_haz.messaging}}
+    <div class="start-conversation-container modal" style="display:none">
+    </div>
+  {{/global.can_haz.messaging}}
+  <div class="add-to-channel-container modal" style="display: none;">
+    <div class="modal-header">
+      <button type="button" class="close close-popup">&times;</button>
+      <h3>Repost Factlink</h3>
+    </div>
+    <div class="modal-body">
+      <strong>Repost this to one or more channels:</strong>
+      <div class="add-to-channel-form">
+      </div>
+      <input type="submit" class="btn btn-primary close-popup" value="Done">
+    </div>
+  </div>
+</div>
+
+<div class="transparent-layer"></div>

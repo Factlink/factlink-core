@@ -13,10 +13,12 @@ module BaseViews
     end
 
     def scroll_to_link
-      if show_links
-        link_to(pretty_url, proxy_scroll_url, :target => "_blank")
+      if show_links and fact_title
+        link_to(fact_title, proxy_scroll_url, :target => "_blank")
+      elsif not fact_title.blank?
+        fact_title
       else
-        (not pretty_url.blank?) ? pretty_url : nil
+        nil
       end
     end
 
@@ -30,12 +32,6 @@ module BaseViews
 
     def fact_wheel
       Facts::FactWheel.for(fact: self[:fact], view: self.view, channel: self[:channel],modal: self[:modal]).to_hash
-    end
-
-    def pretty_url
-      self[:fact].site.url.gsub(/http(s?):\/\//,'').split('/')[0]
-    rescue
-      ""
     end
 
     def proxy_scroll_url
