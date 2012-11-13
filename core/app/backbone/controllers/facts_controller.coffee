@@ -12,8 +12,8 @@ class window.FactsController
       success: (model, response) => @withFact(model)
 
   withFact: (fact)->
-    window.efv = new ExtendedFactView(model: fact)
-    @main.contentRegion.show(efv)
+    window.dv = new DiscussionView(model: fact)
+    @main.contentRegion.show(dv)
 
     window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
     @main.titleRegion.show( extended_fact_title_view )
