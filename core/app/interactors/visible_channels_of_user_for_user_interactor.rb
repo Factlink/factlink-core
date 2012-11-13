@@ -9,7 +9,7 @@ class VisibleChannelsOfUserForUserInteractor
   def execute
     channels = @user.graph_user.real_channels
     unless @user == @current_user
-      channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
+      channels = channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
     end
     channels.map { |ch| KillObject.channel ch }
   end
