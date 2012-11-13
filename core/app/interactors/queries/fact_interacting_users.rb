@@ -11,9 +11,9 @@ module Queries
 
     def validate
       validate_integer :fact_id, @fact_id
-      validate_integer :skip, @skip
-      validate_integer :take, @take
-      validate_in_set :opinion, @opinion, ['believes','disbelieves','doubts']
+      validate_integer :skip,    @skip
+      validate_integer :take,    @take
+      validate_in_set  :opinion, @opinion, ['believes','disbelieves','doubts']
     end
 
     def execute
