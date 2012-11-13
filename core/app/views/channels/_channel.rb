@@ -9,16 +9,16 @@ module Channels
       @channel = options[:channel]
       @view = options[:view]
       @user = options[:channel_user] || @channel.created_by.user
-      @topic = options[:topic] || channel.topic
-      if @topic
-        @topic_authority = options[:topic_authority] || query_topic_authority
+      @topic_authority = options[:topic_authority]
+      if @channel.topic
+         @topic_authority ||= query_topic_authority(@channel.topic)
       end
       @user_stream_id = options[:user_stream_id] || query_user_stream_id
       @containing_channel_ids = options[:containing_channel_ids] || query_containing_channel_ids
     end
 
     #explicit implicit queries, should never be called
-    def query_topic_authority
+    def query_topic_authority(topic)
       Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
     end
 
@@ -48,12 +48,9 @@ module Channels
       @view.image_tag(*args)
     end
 
-    def topic
-      @topic
-    end
 
     def topic_authority
-      @topic_authority.to_s
+      @topic_authority.andand.to_s
     end
 
     def user_stream_id

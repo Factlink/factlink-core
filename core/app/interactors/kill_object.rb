@@ -18,7 +18,7 @@ module KillObject
   dead_object :channel,
     [:type, :title, :unread_count, :id, :has_authority?,
      :slug_title, :created_by_id, :inspectable?,
-     :editable?, :topic]
+     :editable?]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
