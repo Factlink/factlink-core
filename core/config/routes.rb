@@ -67,6 +67,8 @@ FactlinkUI::Application.routes.draw do
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/channels"         => "facts#get_channel_listing"
         get     "/believers"        => "facts#believers"
+        get     "/disbelievers"     => "facts#disbelievers"
+        get     "/doubters"     => "facts#doubters"
       end
     end
 
