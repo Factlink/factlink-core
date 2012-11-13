@@ -16,14 +16,18 @@ class SearchController < ApplicationController
 
     search_for = params[:s] || ""
 
-    interactor = SearchInteractor.new search_for,
-      ability: current_ability, page: page, row_count: row_count
+    @results = []
 
-    @results = interactor.execute
+    if search_for.size > 0
+      interactor = SearchInteractor.new search_for,
+        ability: current_ability, page: page, row_count: row_count
 
-    @results = @results.map do |result|
-      SearchResults::SearchResultItem.for(obj: result, view: view_context)
-    end.delete_if {|x| x.the_object.nil?}
+      @results = interactor.execute
+
+      @results = @results.map do |result|
+        SearchResults::SearchResultItem.for(obj: result, view: view_context)
+      end.delete_if {|x| x.the_object.nil?}
+    end
 
     respond_to do |format|
       format.html
