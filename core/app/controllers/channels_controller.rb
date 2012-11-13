@@ -35,6 +35,8 @@ class ChannelsController < ApplicationController
           dirty_channel = Channel[ch.id]
           topic = dirty_channel.topic
           topic_authority = Authority.from(topic , for: dirty_channel.created_by).to_s.to_f
+
+          containing_channel_ids = query :containing_channel_ids_for_channel_and_user, ch.id, current_graph_user.id
           user_stream_id = @user.graph_user.stream_id
           Channels::Channel.for(
             channel: ch,
