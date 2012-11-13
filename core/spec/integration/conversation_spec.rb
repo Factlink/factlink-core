@@ -17,7 +17,10 @@ describe "conversation", type: :request do
 
     send_message(message_content, factlink, @recipients)
 
+    recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
+
     @recipients.each do |recipient|
+      expect(recipient_ids.find {|id| id == recipient.id}).to eq(recipient.id)
       switch_to_user recipient
       open_message_with_content message_content
       page_should_have_factlink_and_message(message_content, factlink, recipient)
@@ -30,19 +33,18 @@ describe "conversation", type: :request do
 
     send_message(message_content, factlink, @recipients)
 
-    @recipients.each do |recipient|
-      switch_to_user recipient
-      open_message_with_content message_content
-      page_should_have_factlink_and_message(message_content, factlink, nil)
-      
-      message_content = FactoryGirl.generate(:content)
+    recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
 
-      send_reply(message_content)
-      last_message_should_have_content(message_content)
-    
+    @recipients.each do |recipient|
+      expect(recipient_ids.find {|id| id == recipient.id}).to eq(recipient.id)
+
       switch_to_user @user
       open_message_with_content message_content
       page_should_have_factlink_and_message(message_content, factlink, nil)
+      last_message_should_have_content(message_content)
+
+      message_content = FactoryGirl.generate(:content)
+      send_reply(message_content)
       last_message_should_have_content(message_content)
     end
   end
@@ -72,8 +74,8 @@ describe "conversation", type: :request do
       find(:css, '.text').set(message)
 
       click_button 'Send'
-
       wait_for_ajax
+      sleep 2
     end
   end
 
@@ -95,6 +97,8 @@ describe "conversation", type: :request do
 
   def open_message_with_content(message_str)
     click_link "conversations-link"
+
+    sleep 2
 
     wait_until_scope_exists '.conversations li' do
       page.should have_content(message_str)
