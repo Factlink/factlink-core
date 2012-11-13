@@ -46,7 +46,7 @@ window.FactRelationView = ViewWithPopover.extend({
     this.$el.html(this.templateRender(this.model.toJSON()));
 
     this.wheelView = new InteractiveWheelView({
-      el: this.$el.find('.wheel'),
+      el: this.$el.find('.fact-wheel'),
       fact: this.model.get("fact_base"),
       model: new Wheel(this.model.get('fact_base')['fact_wheel'])
     }).render();
