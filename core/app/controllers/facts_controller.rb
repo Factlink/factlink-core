@@ -36,6 +36,22 @@ class FactsController < ApplicationController
     render_backbone_page
   end
 
+  def believers
+    params[:skip] ||= '0'
+    skip = params[:skip].to_i
+
+    params[:take] ||= '3'
+    take = params[:take].to_i
+
+    fact_id = params[:id].to_i
+    data = interactor :fact_believers, fact_id, skip, take
+
+    @users = data[:users]
+    @total = data[:total]
+
+    render 'facts/interactions', format: 'json'
+  end
+
   def intermediate
     render layout: nil
   end

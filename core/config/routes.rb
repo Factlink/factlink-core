@@ -66,6 +66,7 @@ FactlinkUI::Application.routes.draw do
         delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/channels"         => "facts#get_channel_listing"
+        get     "/believers"        => "facts#believers"
       end
     end
 
