@@ -5,7 +5,6 @@ class VisibleChannelsOfUserForUserInteractor
   def initialize(user, current_user, options={})
     @user = user
     @current_user = current_user
-    #options[:current_user] = current_user
   end
 
   def pavlov_options
@@ -13,7 +12,7 @@ class VisibleChannelsOfUserForUserInteractor
   end
 
   def execute
-    channels = visible_channels(@user, @current_user)
+    channels = query :visible_channels_of_user, @user
     killed_user = kill_user(@user)
 
     topics_by_slug_title = all_topics_by_slug_title(channels)
@@ -38,21 +37,11 @@ class VisibleChannelsOfUserForUserInteractor
   end
 
   def all_topics_by_slug_title(channels)
-    wrap_with_slug_titles(topics_for_channels(channels))
-  end
-
-  #QUERY
-  def topics_for_channels(channels)
-    query :topics_for_channels, channels
+    topics = query :topics_for_channels, channels
+    wrap_with_slug_titles(topics)
   end
 
   def wrap_with_slug_titles(array)
     array.each_with_object({}) {|u, hash| hash[u.slug_title] = u}
   end
-
-  #QUERY
-  def visible_channels user, current_user
-    query :visible_channels_of_user, user
-  end
-
 end
