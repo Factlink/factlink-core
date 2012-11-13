@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z "$DEPLOY_SERVER" ]]; then
+if [[ ! -z $DEPLOY_SERVER ]]; then
   echo "Deploying..."
 
   echo "deploying to $DEPLOY_SERVER"
