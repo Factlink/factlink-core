@@ -20,7 +20,7 @@ describe "conversation", type: :request do
     recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
 
     @recipients.each do |recipient|
-      expect(recipient_ids.find {|id| id == recipient.id}).to eq(recipient.id)
+      expect(recipient_ids.include? recipient.id).to eq true
       switch_to_user recipient
       open_message_with_content message_content
       page_should_have_factlink_and_message(message_content, factlink, recipient)
@@ -36,7 +36,7 @@ describe "conversation", type: :request do
     recipient_ids = Message.last.conversation.recipients.map {|r| r.id}
 
     @recipients.each do |recipient|
-      expect(recipient_ids.find {|id| id == recipient.id}).to eq(recipient.id)
+      expect(recipient_ids.include? recipient.id).to eq true
 
       switch_to_user @user
       open_message_with_content message_content
