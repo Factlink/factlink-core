@@ -34,7 +34,7 @@ class ChannelsController < ApplicationController
         json_channels = channels.map do|ch|
           topic = ch.topic
           topic_authority = Authority.from(topic , for: ch.created_by ).to_s.to_f + 1.0
-          containing_channel_ids = ch.containing_channels_for(current_graph_user).ids
+          containing_channel_ids = (Channel.active_channels_for(current_graph_user) & Channel[ch.id].containing_channels).ids
           user_stream_id = @user.graph_user.stream_id
           Channels::Channel.for(
             channel: ch,
