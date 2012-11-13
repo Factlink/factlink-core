@@ -107,4 +107,4 @@ class window.FactView extends ViewWithPopover
     @$(".body .less").hide()
 
   triggerPermalinkClick: (e) ->
-    @trigger 'permalink_clicked', e, @model.id
+    FactlinkApp.vent.trigger 'permalink_clicked', e, @model.id

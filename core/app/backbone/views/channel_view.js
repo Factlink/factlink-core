@@ -118,7 +118,24 @@ window.ChannelView = ChannelViewLayout.extend({
   onRender: function() {
     this.factList.show(this.getFactsView());
     this.activateTab(".factlinks");
+  },
+
+  onShow: function() {
+    var that = this;
+
+    FactlinkApp.vent.on('permalink_clicked', function(e, fact_id) {
+      var navigate_to = that.model.url() + "/facts/" + fact_id;
+      Backbone.history.navigate(navigate_to, { trigger: true });
+
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  },
+
+  onClose: function() {
+    FactlinkApp.vent.off('permalink_clicked');
   }
+
 });
 
 
@@ -131,6 +148,22 @@ window.ChannelActivitiesView = ChannelViewLayout.extend({
   onRender: function() {
     this.activityList.show(this.getActivitiesView());
     this.activateTab('.activity');
+  },
+
+  onShow: function() {
+    var that = this;
+
+    FactlinkApp.vent.on('permalink_clicked', function(e, fact_id) {
+      var navigate_to = that.collection.url() + "/facts/" + fact_id;
+      Backbone.history.navigate(navigate_to, { trigger: true });
+
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  },
+
+  onClose: function() {
+    FactlinkApp.vent.off('permalink_clicked');
   }
 
 });
