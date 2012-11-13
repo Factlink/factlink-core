@@ -8,18 +8,38 @@ module Channels
     def initialize options={}
       @channel = options[:channel]
       @view = options[:view]
-      @user = options[:channel_user] || @channel.created_by.user
-      @topic_authority = options[:topic_authority]
+
+      if @channel.respond_to? :created_by_user
+        @user = @channel.created_by_user
+      else
+        @user = @channel.created_by.user
+      end
+
+      if @channel.respond_to? :owner_authority
+        @topic_authority = @channel.owner_authority
+      end
+
       if @channel.topic
          @topic_authority ||= query_topic_authority(@channel.topic)
       end
-      @user_stream_id = options[:user_stream_id] || query_user_stream_id
+
+      @user_stream_id = if @user.respond_to? :stream_id
+          @user.stream_id
+        else
+          query_user_stream_id
+        end
+
       if user.respond_to? :avatar_url_32
         @user_avatar_url = user.avatar_url_32
       else
         @user_avatar_url = calclulate_user_avatar_url
       end
-      @containing_channel_ids = options[:containing_channel_ids] || query_containing_channel_ids
+
+      @containing_channel_ids = if @channel.respond_to? :containing_channel_ids
+          @channel.containing_channel_ids
+        else
+          query_containing_channel_ids
+        end
     end
 
     #explicit implicit queries, should never be called

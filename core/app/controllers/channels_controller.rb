@@ -32,29 +32,7 @@ class ChannelsController < ApplicationController
       format.json do
         channels = interactor :visible_channels_of_user_for_user, @user, current_user
         json_channels = channels.map do|ch|
-
-          topic_authority = query :authority_on_topic_for, ch.slug_title, @user
-          containing_channel_ids = query :containing_channel_ids_for_channel_and_user, ch.id, current_graph_user.id
-
-          user_stream_id = @user.graph_user.stream_id
-
-          user = KillObject.user @user,
-            stream_id: user_stream_id,
-            avatar_url_32: @user.avatar_url(size: 32)
-
-          ch = KillObject.channel ch,
-            user: user,
-            owner_authority: topic_authority,
-            containing_channel_ids: containing_channel_ids
-
-          Channels::Channel.for(
-            channel: ch,
-            view: view_context,
-            channel_user: ch.user,
-            topic_authority: ch.owner_authority,
-            containing_channel_ids: ch.containing_channel_ids,
-            user_stream_id: ch.user.stream_id
-          )
+          Channels::Channel.for(channel: ch,view: view_context)
         end
         render :json => json_channels
       end
@@ -68,7 +46,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       format.js
       format.html do
         render_backbone_page
