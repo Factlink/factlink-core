@@ -38,19 +38,22 @@ class ChannelsController < ApplicationController
 
           user_stream_id = @user.graph_user.stream_id
 
-          user = Hashie::Mash.new({
-            username: @user.username,
-            avatar_url_32: @user.avatar_url(size: 32),
-            id: @user.id,
-          })
+          user = KillObject.user @user,
+            stream_id: user_stream_id,
+            avatar_url_32: @user.avatar_url(size: 32)
+
+          ch = KillObject.channel ch,
+            user: user,
+            owner_authority: topic_authority,
+            containing_channel_ids: containing_channel_ids
 
           Channels::Channel.for(
             channel: ch,
             view: view_context,
-            channel_user: user,
-            topic_authority: topic_authority,
-            containing_channel_ids: containing_channel_ids,
-            user_stream_id: user_stream_id
+            channel_user: ch.user,
+            topic_authority: ch.owner_authority,
+            containing_channel_ids: ch.containing_channel_ids,
+            user_stream_id: ch.user.stream_id
           )
         end
         render :json => json_channels
