@@ -29,7 +29,30 @@ class ChannelsController < ApplicationController
     authorize! :index, Channel
 
     respond_to do |format|
-      format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
+      format.json do
+        channels = @user.graph_user.real_channels
+        unless @user == current_user
+          channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
+        end
+
+
+        json_channels = channels.map do|ch|
+          topic = ch.topic
+          topic_authority = Authority.from(topic , for: ch.created_by ).to_s.to_f + 1.0
+          containing_channel_ids = ch.containing_channels_for(current_graph_user).ids
+          user_stream_id = @user.graph_user.stream_id
+          Channels::Channel.for(
+            channel: ch,
+            view: view_context,
+            channel_user: @user,
+            topic: ch.topic,
+            topic_authority: topic_authority,
+            containing_channel_ids: containing_channel_ids,
+            user_stream_id: user_stream_id
+          )
+        end
+        render :json => json_channels
+      end
     end
   end
 

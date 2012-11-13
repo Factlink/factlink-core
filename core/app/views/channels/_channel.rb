@@ -10,8 +10,28 @@ module Channels
       @view = options[:view]
       @user = options[:channel_user] || @channel.created_by.user
       @topic = options[:topic] || channel.topic
+      if @topic
+        @topic_authority = options[:topic_authority] || query_topic_authority
+      end
+      @user_stream_id = options[:user_stream_id] || query_user_stream_id
+      @containing_channel_ids = options[:containing_channel_ids] || query_containing_channel_ids
     end
 
+    #explicit implicit queries, should never be called
+    def query_topic_authority
+      Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
+    end
+
+    def query_user_stream_id
+      @user.graph_user.stream_id
+    end
+
+    def query_containing_channel_ids
+      current_graph_user = @view.current_user.graph_user
+      @channel.containing_channels_for(current_graph_user).ids
+    end
+
+    #accessors
     def channel
       @channel
     end
@@ -24,10 +44,6 @@ module Channels
       @view.current_user
     end
 
-    def current_graph_user
-      @view.current_user
-    end
-
     def image_tag *args
       @view.image_tag(*args)
     end
@@ -36,13 +52,23 @@ module Channels
       @topic
     end
 
-    def to_hash
+    def topic_authority
+      @topic_authority.to_s
+    end
 
+    def user_stream_id
+      @user_stream_id
+    end
+
+    def containing_channel_ids
+      @containing_channel_ids
+    end
+
+    def to_hash
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
       is_normal = !is_all && !is_created
       is_discover_stream = is_all && is_mine
-
 
       #DEPRECATED, CALCULATE THIS IN FRONTEND
       #SEE related_users_view.coffee
@@ -64,8 +90,7 @@ module Channels
 
       unread_count = is_normal ? channel.unread_count : 0
 
-      containing_channel_ids = channel.containing_channels_for(current_graph_user).ids
-
+      # no queries from here
       json = Jbuilder.new
 
       json.type channel.type
@@ -84,16 +109,15 @@ module Channels
 
       json.is_normal is_normal
 
-      if topic
-        authority = Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
-        json.created_by_authority authority.to_s
-      end
+
+      json.created_by_authority topic_authority if topic_authority
+
 
       json.created_by do |j|
         j.id user.id
         j.username user.username
         j.avatar image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
-        j.all_channel_id user.graph_user.stream_id
+        j.all_channel_id user_stream_id
       end
 
       json.discover_stream? is_discover_stream
@@ -105,7 +129,6 @@ module Channels
              end
       json.link link
       json.edit_link link + "/edit"
-
 
       created_by_id = channel.created_by_id
       json.created_by_id created_by_id
