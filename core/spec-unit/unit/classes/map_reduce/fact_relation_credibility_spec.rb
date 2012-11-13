@@ -20,14 +20,14 @@ describe MapReduce::FactRelationCredibility do
       subject.should_receive(:authorities_on_fact_id).with(20).and_return([authority])
 
       result = subject.wrapped_map([fact_relation]).should == {
-        {user_id: 13, fact_id: 30 } => [57.0]
+        {fact_relation: fact_relation, user_id: 13} => [57.0]
       }
     end
   end
 
   describe :reduce do
     it do
-      subject.reduce(:foo, [1,2,3]).should == 2.0
+      subject.reduce(:foo, [2.0]).should == 2.0
     end
   end
 end

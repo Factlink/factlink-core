@@ -1,14 +1,11 @@
 class MapReduce
   class FactRelationCredibility < MapReduce
-    def initialize
-      @fact_authorities = {}
-    end
-
     def all_set
       FactRelation.all
     end
 
     def authorities_on_fact_id(fact_id)
+      @fact_authorities ||= {}
       @fact_authorities[fact_id] ||= Authority.all_on(Basefact[fact_id])
     end
 
@@ -30,7 +27,7 @@ class MapReduce
     def write_output bucket, value
       gu = GraphUser[bucket[:user_id]]
       if gu
-        Authority.on(fact_relation, for: gu) << value
+        Authority.on(bucket[:fact_relation], for: gu) << value
       end
     end
   end

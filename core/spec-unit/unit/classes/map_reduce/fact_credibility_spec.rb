@@ -15,10 +15,10 @@ describe MapReduce::FactCredibility do
   describe :wrapped_map do
     it do
       facts = mock(:facts, ids: [20])
-      ch1 = mock(sorted_cached_facts: facts)
+      ch1 = mock(:channel, sorted_cached_facts: facts, topic: mock())
 
       authority = mock(:authority, user_id: 13, to_f: 57.0)
-      subject.should_receive(:authorities_from_channel).with(ch1).and_return([authority])
+      subject.should_receive(:authorities_from_topic).with(ch1.topic).and_return([authority])
 
       result = subject.wrapped_map([ch1]).should == {
         {user_id: 13, fact_id: 20 } => [57.0]

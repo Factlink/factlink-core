@@ -22,11 +22,8 @@ describe "credibility calculation of facts*users" do
   end
   
   def recalculate_credibility
-    nr = number_of_commands_on Ohm.redis do
-      MapReduce::FactCredibility.new.process_all
-      MapReduce::FactRelationCredibility.new.process_all
-    end
-    # puts "Number of redis commands: #{nr}"
+    MapReduce::FactCredibility.new.process_all
+    MapReduce::FactRelationCredibility.new.process_all
   end
 
   it "should average authority on topics" do
@@ -110,25 +107,4 @@ describe "credibility calculation of facts*users" do
     recalculate_credibility
     expect(Authority.on(fr, for: u1).to_f).to eq(15.0)
   end
-
-  # Left for reference, a nice test if you want to improve performance
-  # it "should be fast" do
-  #   channels = (0..10).map {|i| create(:channel, created_by: u1)}
-  #   facts = (0..100).map {|i| create(:fact)}
-
-  #   channels.each do |channel|
-  #     Authority.from(channel.topic, for: u1) << 10.0
-  #     facts.each do |fact|
-  #       channel.add_fact(fact)
-  #     end
-  #   end
-
-  #   (0..95).each do |i|
-  #     (0..5).each do |j|
-  #       facts[i].add_evidence(:supporting, facts[i+j], u1)
-  #     end
-  #   end
-
-  #   recalculate_credibility
-  # end
 end
