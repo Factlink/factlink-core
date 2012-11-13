@@ -30,12 +30,7 @@ class ChannelsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        channels = @user.graph_user.real_channels
-        unless @user == current_user
-          channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
-        end
-
-
+        channels = interactor :visible_channels_of_user_for_user, @user, current_user
         json_channels = channels.map do|ch|
           topic = ch.topic
           topic_authority = Authority.from(topic , for: ch.created_by ).to_s.to_f + 1.0
