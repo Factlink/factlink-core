@@ -54,7 +54,10 @@ class window.ChannelsController
 
       FactlinkApp.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
 
-  getChannelFact: (username, channel_id, fact_id) ->
+  getChannelFactForActivity: (username, channel_id, fact_id) ->
+    @getChannelFact(username, channel_id, fact_id, true)
+
+  getChannelFact: (username, channel_id, fact_id, for_stream=false) ->
     FactlinkApp.closeAllContentRegions()
     @main = new TabbedMainRegionLayout();
     FactlinkApp.mainRegion.show(@main)
@@ -68,8 +71,11 @@ class window.ChannelsController
           window.efv = new ExtendedFactView(model: model)
           @main.contentRegion.show(efv)
 
+          return_to_url = channel.url()
+          return_to_url = return_to_url + "/activities" if for_stream
+
           title_view = new ExtendedFactTitleView(
                                           model: fact,
-                                          return_to_url: channel.url(),
+                                          return_to_url: return_to_url,
                                           return_to_text: channel.get('title') )
           @main.titleRegion.show( title_view )

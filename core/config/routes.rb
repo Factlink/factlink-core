@@ -131,6 +131,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "last_fact"
+          get "facts/:fact_id" => "facts#extended_show", as: "fact"
         end
       end
 
