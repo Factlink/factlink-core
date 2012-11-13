@@ -32,11 +32,10 @@ class ChannelsController < ApplicationController
       format.json do
         channels = interactor :visible_channels_of_user_for_user, @user, current_user
         json_channels = channels.map do|ch|
-          dirty_channel = Channel[ch.id]
-          topic = dirty_channel.topic
-          topic_authority = Authority.from(topic , for: dirty_channel.created_by).to_s.to_f + 1.0
 
+          topic_authority = query :authority_on_topic_for, ch.slug_title, @user
           containing_channel_ids = query :containing_channel_ids_for_channel_and_user, ch.id, current_graph_user.id
+
           user_stream_id = @user.graph_user.stream_id
           Channels::Channel.for(
             channel: ch,
