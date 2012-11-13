@@ -1,4 +1,4 @@
-require File.expand_path('../../../../app/interactors/fact_believers.rb', __FILE__)
+require File.expand_path('../../../../app/interactors/fact_believers_interactor.rb', __FILE__)
 
 describe FactBelieversInteractor do
   it 'initializes correctly' do
