@@ -37,10 +37,17 @@ class ChannelsController < ApplicationController
           containing_channel_ids = query :containing_channel_ids_for_channel_and_user, ch.id, current_graph_user.id
 
           user_stream_id = @user.graph_user.stream_id
+
+          user = Hashie::Mash.new({
+            username: @user.username,
+            avatar_url_32: @user.avatar_url(size: 32),
+            id: @user.id,
+          })
+
           Channels::Channel.for(
             channel: ch,
             view: view_context,
-            channel_user: @user,
+            channel_user: user,
             topic_authority: topic_authority,
             containing_channel_ids: containing_channel_ids,
             user_stream_id: user_stream_id

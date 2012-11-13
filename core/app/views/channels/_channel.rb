@@ -14,6 +14,11 @@ module Channels
          @topic_authority ||= query_topic_authority(@channel.topic)
       end
       @user_stream_id = options[:user_stream_id] || query_user_stream_id
+      if user.respond_to? :avatar_url_32
+        @user_avatar_url = user.avatar_url_32
+      else
+        @user_avatar_url = calclulate_user_avatar_url
+      end
       @containing_channel_ids = options[:containing_channel_ids] || query_containing_channel_ids
     end
 
@@ -29,6 +34,10 @@ module Channels
     def query_containing_channel_ids
       current_graph_user = @view.current_user.graph_user
       @channel.containing_channels_for(current_graph_user).ids
+    end
+
+    def calclulate_user_avatar_url
+       user.avatar_url(size: 32)
     end
 
     #accessors
@@ -57,19 +66,24 @@ module Channels
       @user_stream_id
     end
 
+    def user_avatar_url
+      @user_avatar_url
+    end
+
     def containing_channel_ids
       @containing_channel_ids
     end
 
     def to_hash
+      #DEPRECATED, CALCULATE THIS IN FRONTEND
+      #SEE related_users_view.coffee
+      is_mine = (user.id == current_user.id)
+
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
       is_normal = !is_all && !is_created
       is_discover_stream = is_all && is_mine
 
-      #DEPRECATED, CALCULATE THIS IN FRONTEND
-      #SEE related_users_view.coffee
-      is_mine = (user == current_user)
 
       title = if is_all
                 'Stream'
@@ -113,7 +127,7 @@ module Channels
       json.created_by do |j|
         j.id user.id
         j.username user.username
-        j.avatar image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
+        j.avatar image_tag(user_avatar_url, title: user.username, alt: user.username, width: 32)
         j.all_channel_id user_stream_id
       end
 
