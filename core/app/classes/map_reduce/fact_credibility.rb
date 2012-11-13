@@ -11,9 +11,9 @@ class MapReduce
 
     def map iterator
       iterator.each do |ch|
-        ids = ch.sorted_cached_facts.ids
+        fact_ids = ch.sorted_cached_facts.ids
         authorities_from_topic(ch.topic).each do |a|
-          ids.each do |fact_id|
+          fact_ids.each do |fact_id|
             yield({fact_id: fact_id, user_id: a.user_id}, a.to_f)
           end
         end
