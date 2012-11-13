@@ -4,7 +4,10 @@ class window.DiscussionView extends Backbone.Marionette.Layout
   template: "facts/discussion"
 
   regions:
-    factView: ".fact-region",
+    factView: ".fact-region"
+    factRelationTabsView: ".fact-relations-region"
 
   onRender: ->
     @factView.show new FactView(model: @model)
+
+    @factRelationTabsView.show new FactRelationTabsView(model: @model)

@@ -1,0 +1,56 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+// These variables are defined in parent filed as well. Should be removed from here
+@transition: opacity 0.2s ease;
+@max-z-index : 2147483647;
+
+.relation-tabs-view {
+  margin: 15px 0 -15px 0;
+  .custom-radius(0, 5px, 5px, 0);
+
+  .tab-control {
+    list-style: none;
+    font-size: 13px;
+    position: relative;
+    top: 1px;
+
+    > li {
+      display: inline-block;
+      border: 1px solid transparent;
+      .custom-radius(5px, 0, 0, 5px);
+
+      &.active {
+        background: #f4f4f4;
+        border: 1px solid @baseBorderColor;
+        border-bottom: 1px solid #f4f4f4;
+
+        > a {
+          color: black;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+
+      > a {
+        padding: 0 15px;
+        line-height: 25px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .tab-content {
+    margin: 0 -15px;
+
+    > .interacting-users {
+      background: #f7f7f7;
+      border-top: 1px solid @baseBorderColor;
+      border-bottom: 1px solid @baseBorderColor;
+
+      padding: 10px 30px;
+    }
+  }
+}

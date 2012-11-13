@@ -7,10 +7,10 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
 
 class window.FactRelationsView extends Backbone.Marionette.CompositeView
   tagName: "div"
-  className: "page evidence-list fact-relations-container"
+  className: "tab-content"
   template: "fact_relations/fact_relations"
 
-  itemViewContainer: "ul.evidence-listing"
+  itemViewContainer: "ul.fact-relation-listing"
 
   itemView: FactRelationView
   itemViewOptions: => type: @type
@@ -38,7 +38,9 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
     @highlightFactRelation(item) if options.highlight
     return res
 
-  onRender: -> @$el.prepend @factRelationSearchView.render().el
+  onRender: ->
+    @$el.addClass(@type)
+    @$('.fact-relation-search').append @factRelationSearchView.render().el
 
   fetch: ->
     unless @_fetched
