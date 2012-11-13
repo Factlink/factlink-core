@@ -1,15 +1,11 @@
 class MapReduce
   class FactCredibility < MapReduce
-    def initialize
-      @channel_authorities = {}
-      @topic_authorities = {}
-    end
-
     def all_set
       Channel.all.find_all { |ch| ch.type == "channel" }
     end
 
     def authorities_from_topic(topic)
+      @topic_authorities ||= {}
       @topic_authorities[topic.id] ||= Authority.all_from(topic)
     end
 

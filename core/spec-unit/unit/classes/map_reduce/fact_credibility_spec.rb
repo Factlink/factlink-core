@@ -14,9 +14,8 @@ describe MapReduce::FactCredibility do
 
   describe :wrapped_map do
     it do
-      ch1 = mock()
       facts = mock(:facts, ids: [20])
-      ch1.should_receive(:sorted_cached_facts).and_return(facts)
+      ch1 = mock(sorted_cached_facts: facts)
 
       authority = mock(:authority, user_id: 13, to_f: 57.0)
       subject.should_receive(:authorities_from_channel).with(ch1).and_return([authority])
