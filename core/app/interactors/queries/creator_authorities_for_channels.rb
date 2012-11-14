@@ -7,7 +7,7 @@ module Queries
     end
 
     def authority_for(channel)
-      query :authority_on_topic_for, topic_for(channel)
+      query :authority_on_topic_for, topic_for(channel), channel.created_by
     end
 
     def topics

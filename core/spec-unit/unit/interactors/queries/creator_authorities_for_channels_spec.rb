@@ -20,7 +20,8 @@ describe Queries::CreatorAuthoritiesForChannels do
   end
   describe '.authority_for' do
     it "should retrieve the topic, and retrieve the authority for the topic" do
-      channel = mock
+      channel_creator = mock(:some_graph_user)
+      channel = mock('channel', created_by: channel_creator)
       topic = mock
       topic_authority = mock
       query = Queries::CreatorAuthoritiesForChannels.new mock
@@ -29,7 +30,7 @@ describe Queries::CreatorAuthoritiesForChannels do
             and_return(topic)
 
       query.should_receive(:query).
-            with(:authority_on_topic_for,topic).
+            with(:authority_on_topic_for,topic, channel_creator).
             and_return(topic_authority)
 
       result = query.authority_for(channel)
