@@ -4,6 +4,12 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
 
+  onShow: ->
+    @channel_views = new Backbone.Factlink.DetachedViewCache
+
+  onClose: ->
+    @channel_views.cleanup()
+
   onAction: ->
     @unbindFrom @permalink_event if @permalink_event?
 
@@ -50,17 +56,30 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       app.leftTopRegion.close()
 
   getChannelFacts: (username, channel_id) ->
+    app.mainRegion.show(@channel_views)
+
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
-      app.mainRegion.show(new ChannelView(model: channel))
       @makePermalinkEvent(channel.url())
 
+      if not @channel_views.switchCacheView(channel_id)?
+        @channel_views.clear()
+        channel_view = new ChannelView(model: channel)
+        @channel_views.renderCacheView(channel_id, channel_view)
+
+
   getChannelActivities: (username, channel_id) ->
+    app.mainRegion.show(@channel_views)
+
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
-      activities = new ChannelActivities([],{ channel: channel })
-      app.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
       @makePermalinkEvent(channel.url() + '/activities')
+
+      if not @channel_views.switchCacheView(channel_id)?
+        @channel_views.clear()
+        activities = new ChannelActivities([],{ channel: channel })
+        channel_activities_view = new ChannelActivitiesView(model: channel, collection: activities)
+        @channel_views.renderCacheView(channel_id, channel_activities_view)
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
     @getChannelFact(username, channel_id, fact_id, true)
