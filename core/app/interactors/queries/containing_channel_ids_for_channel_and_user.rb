@@ -1,10 +1,8 @@
 # TODO convert to pavlov
 module Queries
   class ContainingChannelIdsForChannelAndUser
-    def initialize(channel_id, graph_user_id, options={})
-      @channel_id = channel_id
-      @graph_user_id = graph_user_id
-    end
+    include Pavlov::Query
+    arguments :channel_id, :graph_user_id
 
     def execute
       current_graph_user  = GraphUser[@graph_user_id]
