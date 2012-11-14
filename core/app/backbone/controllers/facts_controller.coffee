@@ -12,7 +12,7 @@ class window.FactsController
       success: (model, response) => @withFact(model)
 
   withFact: (fact)->
-    window.dv = new DiscussionView(model: fact)
+    dv = new DiscussionView(model: fact)
     @main.contentRegion.show(dv)
 
     window.extended_fact_title_view = new ExtendedFactTitleView( model: fact )
