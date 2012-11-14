@@ -37,6 +37,7 @@ describe ChannelsController do
     end
 
     it "should render the same json as previously (regression check)" do
+      FactoryGirl.reload # hack because of fixture in check
       ch1
       authenticate_user!(user)
       ability.should_receive(:can?).with(:index, Channel).and_return(true)
