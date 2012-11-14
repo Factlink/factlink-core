@@ -11,12 +11,18 @@ class InteractorsView extends Backbone.Marionette.CompositeView
   emptyView: InteractorEmptyView
   itemView: InteractorView
   itemViewContainer: "span"
+  events:
+    'click a' : 'showAll'
 
   initialize: (options) ->
     @type = @collection.type
     @model = new Backbone.Model
+    @fetch()
+
+  fetch: ->
     @collection.fetch(success: =>
       @model.set numberNotDisplayed: @collection.totalRecords - @collection.length
+      @render()
     )
 
   templateHelpers: =>
@@ -25,6 +31,12 @@ class InteractorsView extends Backbone.Marionette.CompositeView
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
         when 'doubting' then 'doubted'
+
+  showAll: (e) ->
+    e.stopPropagation()
+    e.preventDefault()
+    @collection.howManyPer(100000)
+    @fetch()
 
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"

@@ -9,6 +9,8 @@ class window.BaseFactInteractorsPage extends Backbone.Paginator.requestPager
 
   paginator_ui:
     perPage: 3
+    firstPage: 1
+    currentPage: 1
 
   parse: (response) ->
     @totalRecords = response.total
