@@ -1,14 +1,11 @@
 module Queries
   class AuthorityOnTopicFor
-    def initialize(topic, user, options={})
-      @topic = topic
-      @user = user
-    end
+    include Pavlov::Query
+
+    arguments :topic, :graph_user
 
     def execute
-
-
-      Authority.from(@topic , for: @user.graph_user).to_s.to_f + 1.0
+      Authority.from(@topic , for: @graph_user).to_s.to_f + 1.0
     end
   end
 end
