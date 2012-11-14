@@ -11,13 +11,14 @@ class InteractorsView extends Backbone.Marionette.CompositeView
   itemView: InteractorView
   itemViewContainer: "span"
 
-  initialize: (options) =>
+  initialize: (options) ->
     @type = @collection.type
-    @collection.fetch()
-    @numberNotDisplayed = @collection.total - @collection.length
-    console.log(@numberNotDisplayed)
-    console.log(@collection.total)
-    console.log(@collection.length)
+    @model = new Backbone.Model
+    @collection.fetch(success: =>
+      @model.set numberNotDisplayed: @collection.totalRecords - @collection.length
+      console.log(@collection.totalRecords)
+      console.log(@collection.length)
+    )
 
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
