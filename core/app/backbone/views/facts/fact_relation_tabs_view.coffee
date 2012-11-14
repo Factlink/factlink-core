@@ -17,7 +17,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     $tabButtons = @$(".tab-control li")
     $tabButtons.removeClass "active"
 
-    @$(".tab-content > div").hide()
+    @$(".tab-content").hide()
     @$(".tab-control > li").removeClass "tabOpened"
     @_currentTab = `undefined`
 
