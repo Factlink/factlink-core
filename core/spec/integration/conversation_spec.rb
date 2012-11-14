@@ -53,7 +53,7 @@ describe "conversation", type: :request do
     within(:css, "div.reply") do
       fill_in "reply", with: reply_str
 
-      click_on "Send message"
+      click_on "Share"
     end
     wait_for_ajax
   end
@@ -67,7 +67,7 @@ describe "conversation", type: :request do
   def send_message(message, factlink, recipients)
     visit friendly_fact_path(factlink)
 
-    click_on "Send message"
+    click_on "Share"
 
     wait_until_scope_exists '.start-conversation-form' do
       recipients.each {|r| add_recipient r.username}
