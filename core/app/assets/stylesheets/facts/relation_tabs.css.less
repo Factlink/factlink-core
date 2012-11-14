@@ -6,14 +6,18 @@
 @max-z-index : 2147483647;
 
 .relation-tabs-view {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
   margin: 15px 0 -15px 0;
   .custom-radius(0, 5px, 5px, 0);
 
   .tab-control {
+    cursor: pointer;
     list-style: none;
     font-size: 13px;
     position: relative;
     top: 1px;
+    margin: 0;
+    padding: 0;
 
     > li {
       display: inline-block;
@@ -54,6 +58,10 @@
     }
 
     ul.fact-relation-listing {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
       li.no-evidence-listing {
         padding: 15px 25px;
       }
