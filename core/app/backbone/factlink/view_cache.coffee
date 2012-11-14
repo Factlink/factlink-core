@@ -4,6 +4,9 @@ class Backbone.Factlink.DetachedViewContainer extends Backbone.View
     @_view = null
     @_transition = options?.transition
 
+  currentView: ->
+    @_view
+
   switchView: (new_view) ->
     return if new_view == @_view
 

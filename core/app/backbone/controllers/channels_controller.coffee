@@ -62,11 +62,10 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @commonChannelViews(channel)
       @makePermalinkEvent(channel.url())
 
-      if not @channel_views.switchCacheView(channel_id)?
-        @channel_views.clear()
-        channel_view = new ChannelView(model: channel)
-        @channel_views.renderCacheView(channel_id, channel_view)
+      @restoreChannelView channel_id, =>
+        new ChannelView(model: channel)
 
+      @channel_views.clear()
 
   getChannelActivities: (username, channel_id) ->
     app.mainRegion.show(@channel_views)
@@ -75,11 +74,11 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @commonChannelViews(channel)
       @makePermalinkEvent(channel.url() + '/activities')
 
-      if not @channel_views.switchCacheView(channel_id)?
-        @channel_views.clear()
+      @restoreChannelView channel_id, =>
         activities = new ChannelActivities([],{ channel: channel })
-        channel_activities_view = new ChannelActivitiesView(model: channel, collection: activities)
-        @channel_views.renderCacheView(channel_id, channel_activities_view)
+        new ChannelActivitiesView(model: channel, collection: activities)
+
+      @channel_views.clear()
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
     @getChannelFact(username, channel_id, fact_id, true)
@@ -116,8 +115,18 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         @main.contentRegion.show(efv)
         callback_with_both()
 
+  restoreChannelView: (channel_id, new_callback) ->
+    view = @channel_views.switchCacheView(channel_id)
+    $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
+    delete @lastChannelStatus
+    @channel_views.renderCacheView(channel_id, new_callback()) if not view?
+
   makePermalinkEvent: (baseUrl) ->
     @permalink_event = @bindTo FactlinkApp.vent, 'permalink_clicked', (e, fact_id) =>
+      @lastChannelStatus =
+        view: @channel_views.currentView()
+        scrollTop: $('body').scrollTop()
+
       navigate_to = baseUrl + "/facts/" + fact_id
       Backbone.history.navigate navigate_to, true
 
