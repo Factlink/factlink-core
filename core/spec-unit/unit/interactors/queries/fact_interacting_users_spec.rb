@@ -2,11 +2,7 @@ require File.expand_path('../../../../../app/interactors/queries/fact_interactin
 
 describe Queries::FactInteractingUsers do
 
-  before do
-    stub_const 'Fact', Class.new
-  end
-
-   it 'it initializes correctly' do
+  it 'it initializes correctly' do
     query = Queries::FactInteractingUsers.new 1, 0, 3, 'believes'
     query.should_not be_nil
   end
@@ -32,6 +28,11 @@ describe Queries::FactInteractingUsers do
   end
 
   describe '.execute' do
+
+    before do
+      stub_const 'Fact', Class.new
+    end
+
     it "returns a user who believes the fact" do
       fact = mock(id: 1)
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
@@ -45,10 +46,10 @@ describe Queries::FactInteractingUsers do
         mock(action: 'believes', user: mock(user: user))]
       interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
 
-      res = Queries::FactInteractingUsers.execute(1, 0, 3, 'believes')
+      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'believes')
 
-      expect(res[:total]).to eq 1
-      expect(res[:users].first).to eq user
+      expect(result[:total]).to eq 1
+      expect(result[:users].first).to eq user
     end
 
     it "returns a user who disbelieves the fact" do
@@ -64,10 +65,10 @@ describe Queries::FactInteractingUsers do
         mock(action: 'disbelieves', user: mock(user: user))]
       interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
 
-      res = Queries::FactInteractingUsers.execute(1, 0, 3, 'disbelieves')
+      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'disbelieves')
 
-      expect(res[:total]).to eq 1
-      expect(res[:users].first).to eq user
+      expect(result[:total]).to eq 1
+      expect(result[:users].first).to eq user
     end
 
     it "returns a user who doubts the fact" do
@@ -83,10 +84,10 @@ describe Queries::FactInteractingUsers do
         mock(action: 'doubts', user: mock(user: user))]
       interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
 
-      res = Queries::FactInteractingUsers.execute(1, 0, 3, 'doubts')
+      result = Queries::FactInteractingUsers.execute(1, 0, 3, 'doubts')
 
-      expect(res[:total]).to eq 1
-      expect(res[:users].first).to eq user
+      expect(result[:total]).to eq 1
+      expect(result[:users].first).to eq user
     end
 
     it "correctly skips and takes" do
@@ -104,11 +105,11 @@ describe Queries::FactInteractingUsers do
         mock(action: 'believes', user: mock(user: user3))]
       interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
 
-      res = Queries::FactInteractingUsers.execute(1, 1, 1, 'believes')
+      result = Queries::FactInteractingUsers.execute(1, 1, 1, 'believes')
 
-      expect(res[:total]).to eq 3
-      expect(res[:users].size).to eq 1
-      expect(res[:users].first).to eq user2
+      expect(result[:total]).to eq 3
+      expect(result[:users].size).to eq 1
+      expect(result[:users].first).to eq user2
     end
   end
 end
