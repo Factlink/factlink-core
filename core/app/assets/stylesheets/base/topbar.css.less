@@ -31,7 +31,7 @@ body.show_sign_in {
     .inner-shadow(0, 0, 0, 0);
     position: relative;
     z-index: 2;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid @baseBorderColor;
     .drop-shadow(0, 1px, 2px, .05);
 
     .background {
@@ -75,7 +75,7 @@ body.show_sign_in {
           }
 
           &:hover {
-            color: #555;
+            color: @baseFontColor;
           }
           &.dropdown-toggle:hover .caret {
             border-top-color: @linkColor;

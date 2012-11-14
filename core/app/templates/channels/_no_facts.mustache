@@ -32,14 +32,12 @@
       <a class="btn download-chrome-extension"><img src="{{global.browser_icons_chrome_16x16}}" style="margin: -2px 8px 0 0">Install Chrome Extension</a>
     </div>
 
-    {{#global.can_haz.firefox_extension}}
     <!-- Firefox extension -->
     <div class="span5 empty-channel-action should-install-firefox-extension visible-when-firefox">
       <h2>Use the extension</h2>
       <p>Use the extension to enable Factlink on all the pages you visit.</p>
       <a id="firefox-extension-button" class="btn" href="{{firefox_extension_url}}"><img src="{{global.browser_icons_firefox_16x16}}" style="margin: 0px 8px 0 0">Install Firefox Extension</a>
     </div>
-    {{/global.can_haz.firefox_extension}}
 
     <div class="empty-channel-action-end"></div>
   {{/is_normal}}

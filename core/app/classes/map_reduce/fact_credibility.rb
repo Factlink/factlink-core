@@ -4,15 +4,17 @@ class MapReduce
       Channel.all.find_all { |ch| ch.type == "channel" }
     end
 
+    def authorities_from_topic(topic)
+      @topic_authorities ||= {}
+      @topic_authorities[topic.id] ||= Authority.all_from(topic)
+    end
+
     def map iterator
       iterator.each do |ch|
-        t = ch.topic
-        ch.facts.each do |f|
-          Authority.all_from(t).each do |a|
-            yield({fact_id: f.id, user_id: a.user_id}, a.to_f)
-            f.fact_relations.each do |fr|
-              yield({fact_id: fr.id, user_id: a.user_id}, a.to_f)
-            end
+        fact_ids = ch.sorted_cached_facts.ids
+        authorities_from_topic(ch.topic).each do |a|
+          fact_ids.each do |fact_id|
+            yield({fact_id: fact_id, user_id: a.user_id}, a.to_f)
           end
         end
       end
