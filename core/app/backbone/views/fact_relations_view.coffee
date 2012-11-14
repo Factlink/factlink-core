@@ -1,5 +1,6 @@
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
+  className: "no-evidence-listing"
   tagName: 'li'
   templateHelpers: =>
     past_action: if (@options.type == 'weakening') then 'weakened' else 'supported'
