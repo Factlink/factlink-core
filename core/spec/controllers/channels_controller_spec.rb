@@ -31,7 +31,7 @@ describe ChannelsController do
     it "as json should be successful" do
       ch1
       authenticate_user!(user)
-      should_check_can :index, Channel
+      ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
       response.should be_success
     end

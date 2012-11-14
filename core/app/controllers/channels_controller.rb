@@ -26,17 +26,11 @@ class ChannelsController < ApplicationController
 
 
   def index
-    authorize! :index, Channel
-
-    respond_to do |format|
-      format.json do
-        channels = interactor :visible_channels_of_user_for_user, @user
-        json_channels = channels.map do|ch|
-          Channels::Channel.for(channel: ch,view: view_context)
-        end
-        render :json => json_channels
-      end
+    channels = interactor :visible_channels_of_user_for_user, @user
+    json_channels = channels.map do|ch|
+      Channels::Channel.for(channel: ch,view: view_context)
     end
+    render :json => json_channels
   end
 
   def backbone_page
