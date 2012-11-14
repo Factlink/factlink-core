@@ -1,12 +1,20 @@
 <ul class="actions">
   <li>
     {{#modal?}}
-      <a href="{{url}}" target="new">Discussion</a>
+    <a href="{{url}}" target="new">
     {{/modal?}}
 
     {{^modal?}}
-      <a href="{{url}}" rel="backbone" target="_top">Discussion</a>
+    <a href="{{url}}" rel="backbone" target="_top">
     {{/modal?}}
+
+      Discussion
+    </a>
+
+    <span class="opinion_indicators">
+      <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
+      <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
+    </span>
   </li>
 
   <li>

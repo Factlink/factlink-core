@@ -19,6 +19,29 @@ div.fact-bottom {
         content: "·";
         margin: 0 7px;
       }
+
+      .opinion_indicators {
+        font-size: 12px;
+
+        span.opinion_indicator {
+          display: inline-block;
+          color: #777;
+          height: 7px;
+          width: 7px;
+          margin: 0 5px 0 5px;
+          background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+          position: relative;
+          top: -1px;
+
+          &.agreeing {
+            background-position: 0 0;
+          }
+
+          &.disagreeing {
+            background-position: -8px -0;
+          }
+        }
+      }
     }
   }
 
