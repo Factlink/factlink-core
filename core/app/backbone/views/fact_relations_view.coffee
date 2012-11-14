@@ -3,11 +3,12 @@ class InteractorView extends Backbone.Marionette.ItemView
   template: "fact_relations/interactor"
 
 class InteractorEmptyView extends Backbone.Marionette.ItemView
+  tagName: 'span'
   template: "fact_relations/interactor_empty"
 
 class InteractorsView extends Backbone.Marionette.CompositeView
   template: "fact_relations/interactors"
-  emptyView : InteractorEmptyView
+  emptyView: InteractorEmptyView
   itemView: InteractorView
   itemViewContainer: "span"
 
@@ -16,16 +17,26 @@ class InteractorsView extends Backbone.Marionette.CompositeView
     @model = new Backbone.Model
     @collection.fetch(success: =>
       @model.set numberNotDisplayed: @collection.totalRecords - @collection.length
-      console.log(@collection.totalRecords)
-      console.log(@collection.length)
     )
+
+  templateHelpers: =>
+    past_action:
+      switch @options.type
+        when 'weakening' then 'weakened'
+        when 'supporting' then 'supported'
+        when 'doubting' then 'doubted'
 
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
   className: "no-evidence-listing"
   tagName: 'li'
+
   templateHelpers: =>
-    past_action: if (@options.type == 'weakening') then 'weakened' else 'supported'
+    past_action:
+      switch @options.type
+        when 'weakening' then 'weakened'
+        when 'supporting' then 'supported'
+        when 'doubting' then 'doubted'
 
 class window.FactRelationsView extends Backbone.Marionette.CompositeView
   tagName: "div"
@@ -57,14 +68,15 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
         interactorsCollection = new FactBelieversPage
           fact: @model
       when 'weakening'
-        interactorsCollection = new FactDoubtersPage
+        interactorsCollection = new FactDisbelieversPage
           fact: @model
       when 'doubting'
-        interactorsCollection = new FactDisbelieversPage
+        interactorsCollection = new FactDoubtersPage
           fact: @model
 
     @interactorsView = new InteractorsView
       collection: interactorsCollection
+      type: @type
 
   highlightFactRelation: (model) ->
     view = @children[model.cid]
