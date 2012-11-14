@@ -1,6 +1,11 @@
-require 'spec_helper'
+require 'pavlov_helper'
+require File.expand_path('../../../../app/interactors/visible_channels_of_user_for_user_interactor.rb', __FILE__)
 
 describe VisibleChannelsOfUserForUserInteractor do
+  include PavlovSupport
+  before do
+    stub_classes 'Channel'
+  end
   describe '.execute' do
     it do
       user = mock
@@ -13,8 +18,7 @@ describe VisibleChannelsOfUserForUserInteractor do
       query = VisibleChannelsOfUserForUserInteractor.new user
 
       query.stub(
-        topic_authority_for: topic_authority,
-        visible_channels: [ch1, ch2],
+        channels_with_authorities: [[ch1, topic_authority], [ch2, topic_authority]],
         containing_channel_ids: containing_channels
       )
 
@@ -24,26 +28,36 @@ describe VisibleChannelsOfUserForUserInteractor do
     end
   end
 
-  pending do
-    it do
-      Query::VisibleChannelsOfUser.should_receive_new_and_execute.
-        with(user).and_return([ch1, ch2])
+  describe ".channels_with_authorities" do
+    it "combines the list of channels with the list of authorities" do
+      visible_channels = [mock(:ch1), mock(:ch2)]
+      authorities = [mock(:a1), mock(:a2)]
 
-      t1   = mock(:topic, slug_title: 'a')
-      t2   = mock(:topic, slug_title: 'b')
-      Query::TopicsForChannels.should_receive_new_and_execute.
-        with([ch1, ch2]).and_return([t1, t2])
+      VisibleChannelsOfUserForUserInteractor.any_instance.stub(authorized?: true)
+      interactor = VisibleChannelsOfUserForUserInteractor.new mock
+      interactor.stub(visible_channels: visible_channels)
 
-      query.should_receive(:kill_user).with(user).and_return(user)
+      interactor.should_receive(:query).
+                 with(:creator_authorities_for_channels, visible_channels).
+                 and_return(authorities)
 
-      Query::AuthorityOnTopicFor.should_receive_new_and_execute.
-        with(t1).and_return(10.0)
+      result = interactor.channels_with_authorities
 
-      Query::AuthorityOnTopicFor.should_receive_new_and_execute.
-        with(t2).and_return(20.0)
+      expect(result).to eq [
+        [visible_channels[0],authorities[0]],
+        [visible_channels[1],authorities[1]]
+      ]
+    end
+  end
 
-      Query::ContainingChannelIdsForChannelAndUser.should_receive_new_and_execute.
-        with()
+  describe ".authorized?" do
+    it "initiating raises when the currently ability doesn't enable indexing channels" do
+      ability = mock
+      ability.should_receive(:can?).with(:index, Channel).and_return(:false)
+      expect do
+        interactor = VisibleChannelsOfUserForUserInteractor.new mock, ability: ability
+      end.not_to raise_error
+
     end
   end
 end

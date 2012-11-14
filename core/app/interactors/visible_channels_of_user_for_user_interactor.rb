@@ -1,27 +1,24 @@
 # TODO: use pavlov
 class VisibleChannelsOfUserForUserInteractor
   include Pavlov::Interactor
+  include Pavlov::CanCan
 
   arguments :user
 
   def execute
-    visible_channels.map do |ch|
-      kill_channel(ch, topic_authority_for(ch),
+    channels_with_authorities.map do |ch, authority|
+      kill_channel(ch, authority,
                    containing_channel_ids(ch), @user)
     end
   end
 
+  def channels_with_authorities
+    authorities = query :creator_authorities_for_channels, visible_channels
+    visible_channels.zip authorities
+  end
+
   def visible_channels
     @visible_channels ||= query :visible_channels_of_user, @user
-  end
-
-  def topic_authority_for(ch)
-    topic = topics_by_slug_title[ch.slug_title]
-    query :authority_on_topic_for, topic, @user
-  end
-
-  def topics_by_slug_title
-     @topics_by_slug_title ||= all_topics_by_slug_title(visible_channels)
   end
 
   def containing_channel_ids(channel)
@@ -41,16 +38,8 @@ class VisibleChannelsOfUserForUserInteractor
       avatar_url_32: user.avatar_url(size: 32)
   end
 
-  def all_topics_by_slug_title(channels)
-    topics = query :topics_for_channels, channels
-    wrap_with_slug_titles(topics)
-  end
-
-  def wrap_with_slug_titles(array)
-    array.each_with_object({}) {|u, hash| hash[u.slug_title] = u}
-  end
-
   def authorized?
+    can? :index, Channel
     true
   end
 end
