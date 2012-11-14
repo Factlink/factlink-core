@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe MapReduce::FactCredibility do
   describe :authorities_from_topic do
     it do

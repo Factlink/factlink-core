@@ -1,6 +1,9 @@
-require 'spec_helper'
 
 describe MapReduce::FactRelationCredibility do
+  before do
+    stub_const 'Basefact', Class.new
+    stub_const 'Authority', Class.new
+  end
   describe :authorities_on_fact_id do
     it do
       authorities = mock(:authorities)
