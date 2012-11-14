@@ -4,7 +4,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
   className: "relation-tabs-view"
 
   events:
-    "click .tab": "tabClick"
+    "click .tab:not(.active)": "tabClick"
 
   initialize: ->
     @_currentTab = `undefined`
