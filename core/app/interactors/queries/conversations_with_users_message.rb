@@ -36,7 +36,7 @@ module Queries
     end
 
     def authorized?
-      @options[:current_user]
+      true
     end
   end
 end

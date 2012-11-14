@@ -15,8 +15,7 @@ module Queries
     end
 
     def authorized?
-      # Check if the current user exists
-      @options[:current_user]
+      true
     end
   end
 end
