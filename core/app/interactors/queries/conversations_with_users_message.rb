@@ -34,9 +34,5 @@ module Queries
     def all_recipient_ids conversations
       conversations.flat_map {|c| c.recipient_ids}.uniq
     end
-
-    def authorized?
-      true
-    end
   end
 end

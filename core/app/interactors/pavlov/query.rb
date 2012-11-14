@@ -11,5 +11,8 @@ module Pavlov
         new(*args).execute
       end
     end
+    def authorized?
+      true
+    end
   end
 end

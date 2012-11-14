@@ -11,9 +11,5 @@ module Queries
     def slug_titles
       @channels.map {|ch| ch.slug_title}
     end
-
-    def authorized?
-      true
-    end
   end
 end

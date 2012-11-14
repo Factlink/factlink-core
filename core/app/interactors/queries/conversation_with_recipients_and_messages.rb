@@ -15,9 +15,5 @@ module Queries
 
       KillObject.conversation conversation, messages: messages, recipients: recipients
     end
-
-    def authorized?
-      true
-    end
   end
 end

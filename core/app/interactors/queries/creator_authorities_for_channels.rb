@@ -31,10 +31,5 @@ module Queries
     def topic_for(channel)
       topics_by_slug[channel.slug_title]
     end
-
-    def authorized?
-
-      true
-    end
   end
 end

@@ -27,9 +27,5 @@ module Queries
       graph_user.internal_channels.
         sort_by(:lowercase_title, order: 'ALPHA ASC').to_a
     end
-
-    def authorized?
-      true
-    end
   end
 end

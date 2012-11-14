@@ -13,9 +13,5 @@ module Queries
         KillObject.conversation(conversation, fact_id: conversation.fact_data.andand.fact_id)
       end
     end
-
-    def authorized?
-      true
-    end
   end
 end
