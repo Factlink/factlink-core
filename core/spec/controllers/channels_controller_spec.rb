@@ -39,7 +39,7 @@ describe ChannelsController do
     it "should render the same json as previously (regression check)" do
       ch1
       authenticate_user!(user)
-      should_check_can :index, Channel
+      ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
       response.should be_success
 

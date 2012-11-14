@@ -40,6 +40,5 @@ class VisibleChannelsOfUserForUserInteractor
 
   def authorized?
     can? :index, Channel
-    true
   end
 end

@@ -53,11 +53,18 @@ describe VisibleChannelsOfUserForUserInteractor do
   describe ".authorized?" do
     it "initiating raises when the currently ability doesn't enable indexing channels" do
       ability = mock
-      ability.should_receive(:can?).with(:index, Channel).and_return(:false)
+      ability.should_receive(:can?).with(:index, Channel).and_return(false)
+      expect do
+        interactor = VisibleChannelsOfUserForUserInteractor.new mock, ability: ability
+      end.to raise_error(Pavlov::AccessDenied)
+    end
+
+    it "does not raise when initiating when the ability is enabled" do
+      ability = mock
+      ability.should_receive(:can?).with(:index, Channel).and_return(true)
       expect do
         interactor = VisibleChannelsOfUserForUserInteractor.new mock, ability: ability
       end.not_to raise_error
-
     end
   end
 end
