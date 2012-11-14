@@ -1,11 +1,11 @@
 <div id="new_session">
 
-  <h2>Sign in</h2>
+  <h2>Log in</h2>
 
   <%= image_tag "factlink-logo.png" %>
 
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <fieldset>You have to be signed in to use Factlink.</fieldset>
+    <fieldset>You have to be logged in to use Factlink.</fieldset>
 
     <% if @layout == "client" %>
       <%= render 'home/notifications', notice: notice, alert: alert %>
@@ -40,7 +40,7 @@
 
 
     <div class="inputs">
-      <%= f.submit "Sign in", tabindex: 0, 'data-disable-with' => "Signing in...", :class => "btn btn-primary" %>
+      <%= f.submit "Log in", tabindex: 0, 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
 
       <% if @layout == "client" %>
       <button class="btn" name="cancel" id="cancel" style="float: left;">Cancel</button>
