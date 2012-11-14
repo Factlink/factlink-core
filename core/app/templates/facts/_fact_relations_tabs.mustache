@@ -1,11 +1,14 @@
 <ul class="tab-control">
   <li class="supporting tab">
     <a href="javscript:void();">Agreeing</a>
+    <span class="opinion_indicator agreeing" />{{ fact_base.believe_percentage }}%
   </li>
   <li class="weakening tab">
     <a href="javscript:void();">Disagreeing</a>
+    <span class="opinion_indicator disagreeing" />{{ fact_base.disbelieve_percentage }}%
   </li>
   <li class="doubting tab">
     <a href="javscript:void();">Unsure</a>
+    <span class="opinion_indicator unsuring" />{{ fact_base.doubt_percentage }}%
   </li>
 </ul>

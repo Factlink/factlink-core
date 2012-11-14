@@ -34,6 +34,18 @@ module BaseViews
       Facts::FactWheel.for(fact: self[:fact], view: self.view, channel: self[:channel],modal: self[:modal]).to_hash
     end
 
+    def believe_percentage
+      self[:fact].get_opinion.as_percentages[:believe][:percentage]
+    end
+
+    def disbelieve_percentage
+      self[:fact].get_opinion.as_percentages[:disbelieve][:percentage]
+    end
+
+    def doubt_percentage
+      self[:fact].get_opinion.as_percentages[:doubt][:percentage]
+    end
+
     def proxy_scroll_url
       FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
     rescue
