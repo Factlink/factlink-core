@@ -1,6 +1,8 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.BaseController
   constructor: (args...)->
+    eventBinder = new Backbone.Marionette.EventBinder()
+    _.extend(@, eventBinder)
     @initializeRoutes(@routes)
     @initialize(args...) if @initialize?
 
@@ -11,15 +13,19 @@ class Backbone.Factlink.BaseController
 
   getRouteFunction: (name) ->
     (args...) ->
-      @startController()
+      @showController()
       @[name](args...)
 
-  startController: ->
+  showController: ->
     return if @started
-    FactlinkApp.vent.trigger 'switched_controller'
-    FactlinkApp.vent.on 'switched_controller', =>
-      FactlinkApp.vent.off 'switched_controller'
-      @started = false
-      @onClose() if @onClose?
+    FactlinkApp.vent.trigger 'controller:switch'
+    @bindTo FactlinkApp.vent, 'controller:switch', @closeController, this
     @started = true
     @onShow() if @onShow?
+
+  closeController: ->
+    @unbindAll()
+    @started = false
+    @onClose() if @onClose?
+
+Backbone.Factlink.BaseController.extend = Backbone.View.extend
