@@ -106,6 +106,6 @@ describe "conversation", type: :request do
 
     find(:css, "div.text", text: message_str).click
 
-    wait_until_scope_exists '.conversation .fact'
+    wait_until_scope_exists '.conversation .fact-view'
   end
 end
