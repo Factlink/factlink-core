@@ -75,7 +75,6 @@ describe "conversation", type: :request do
 
       click_button 'Send'
       wait_for_ajax
-      sleep 2
     end
   end
 
@@ -83,6 +82,7 @@ describe "conversation", type: :request do
     page.find(:css, 'input').set(name)
     wait_for_ajax
     page.find('li', text: name).click
+    page.find('.auto-complete-results-container li', text: name)
   end
 
   def page_should_have_factlink_and_message(message, factlink, recipient)
