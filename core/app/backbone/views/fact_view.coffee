@@ -43,7 +43,7 @@ class window.FactView extends ViewWithPopover
     @$(".authority").tooltip()
     if @factWheelView
       @wheel.set @model.getFactWheel()
-      @$(".wheel").replaceWith @factWheelView.reRender().el
+      @$(".fact-wheel").replaceWith @factWheelView.reRender().el
     else
       @factWheelView = new InteractiveWheelView(
         model: @wheel
