@@ -1,4 +1,6 @@
-class window.TourController
+class window.TourController extends Backbone.Factlink.BaseController
+
+  routes: ['chooseChannels']
 
   chooseChannels:  ->
     stream = currentUser.stream()

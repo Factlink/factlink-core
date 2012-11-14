@@ -1,6 +1,9 @@
 app = FactlinkApp
 
-class window.FactsController
+class window.FactsController extends Backbone.Factlink.BaseController
+
+  routes: ['showFact']
+
   showFact: (slug, fact_id)->
     app.closeAllContentRegions()
     @main = new TabbedMainRegionLayout();
