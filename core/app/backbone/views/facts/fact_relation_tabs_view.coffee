@@ -44,6 +44,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
   showFactRelations: (type) ->
     unless "#{type}FactRelationsView" of this
       this["#{type}FactRelationsView"] = new FactRelationsView(
+        model: @model
         collection: this["#{type}FactRelations"]
       )
       @$el.append this["#{type}FactRelationsView"].render().el

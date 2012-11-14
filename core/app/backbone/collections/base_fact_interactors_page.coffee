@@ -10,6 +10,10 @@ class window.BaseFactInteractorsPage extends Backbone.Paginator.requestPager
   paginator_ui:
     perPage: 3
 
+  get_total: @total
+
   parse: (response) ->
+    @total = response.total
+    console.log('total' : response.total)
     @totalPages = Math.floor(response.total / @perPage)
     response.users
