@@ -2,7 +2,7 @@
 
 window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
-  className: "facts",
+  className: "facts-view",
   itemViewContainer: ".facts",
   itemView: FactView,
   events: {
@@ -24,7 +24,7 @@ window.FactsView = AutoloadingCompositeView.extend({
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
 
-    this.model.on('change', this.shownewposts, this)
+    this.model.on('change', this.shownewposts, this);
   },
 
   shownewposts: function(){

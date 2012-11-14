@@ -27,7 +27,6 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   },
 
   doSearchOrSubmit: function(e) {
-
     if (e.keyCode === 13) {
       var searchVal = $('input:visible', this.el).val();
       if (searchVal.trim().length > 0 ) {

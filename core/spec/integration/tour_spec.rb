@@ -12,7 +12,7 @@ describe "Check the tour", type: :request do
     click_button "Next"
   end
 
-  it 'You''re almost set page should be the same' do
+  it 'You\'re almost set page should be the same' do
 
     assume_unchanged_screenshot 'extension'
   end

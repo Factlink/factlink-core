@@ -1,0 +1,105 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+// These variables are defined in parent filed as well. Should be removed from here
+@transition: opacity 0.2s ease;
+@max-z-index : 2147483647;
+
+.relation-tabs-view {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  margin: 15px 0 -15px 0;
+  .custom-radius(0, 5px, 5px, 0);
+
+  .tab-control {
+    cursor: pointer;
+    list-style: none;
+    font-size: 13px;
+    position: relative;
+    top: 1px;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+      border: 1px solid transparent;
+      .custom-radius(5px, 0, 0, 5px);
+      cursor: pointer;
+      padding: 0 10px;
+      color: #777;
+
+      &:hover {
+        > a {
+          text-decoration: underline;
+          color: @linkColorHover;
+        }
+      }
+
+      &.active {
+        cursor: default;
+        background: #f4f4f4;
+        border: 1px solid @baseBorderColor;
+        border-bottom: 1px solid #f4f4f4;
+
+        &:hover {
+          > a {
+            text-decoration: none;
+            color: #333;
+          }
+        }
+
+        > a {
+          cursor: default;
+          color: #333;
+        }
+      }
+
+      > a {
+        padding: 0 7px 0 0;
+        line-height: 25px;
+        font-weight: bold;
+      }
+
+      span.opinion_indicator {
+        display: inline-block;
+        height: 10px;
+        width: 8px;
+        margin: 0 5px 0 0;
+        background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+
+        &.agreeing {
+          background-position: 0 -7px;
+        }
+
+        &.disagreeing {
+          background-position: -9px -7px;
+        }
+
+        &.unsuring {
+          background-position: -18px -7px;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    margin: 0 -15px;
+
+    > .interacting-users {
+      background: #f7f7f7;
+      border-top: 1px solid @baseBorderColor;
+      border-bottom: 1px solid @baseBorderColor;
+
+      padding: 10px 30px;
+    }
+
+    ul.fact-relation-listing {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li.no-evidence-listing {
+        padding: 15px 25px;
+      }
+    }
+  }
+}

@@ -55,7 +55,7 @@ module Facts
       end
     end
 
-    def fact_bubble
+    def fact_base
       Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 
@@ -75,9 +75,13 @@ module Facts
 
     def friendly_time
       if self[:channel]
-        time_ago = [Time.at(self[:timestamp]/1000), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
-        time_ago_in_words(time_ago)
+        timestamp_in_seconds = self[:timestamp] / 1000
+      else
+        timestamp_in_seconds = self[:fact].data.created_at.to_i
       end
+
+      time_ago = [Time.at(timestamp_in_seconds), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
+      time_ago_in_words(time_ago)
     end
 
     expose_to_hash :timestamp

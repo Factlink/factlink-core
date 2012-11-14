@@ -1,18 +1,15 @@
-/*
- *= require_tree ./facts
- */
-
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 @import "channels/create_fact";
 
-div#facts_for_channel > div.facts {
+div.facts-view {
   .header {
     margin: 0 -15px;
+    padding: 0 15px;
+    border-bottom: 1px solid @baseBorderColor;
 
     > div, > form {
-      margin: 0 -15px;
-      padding: 0 15px;
+      padding: 0;
 
       &:first-child {
         padding-top: 15px;
@@ -50,5 +47,11 @@ div#facts_for_channel > div.facts {
         line-height: 40px;
       }
     }
+  }
+
+  div.fact-view:last-child {
+    margin-bottom: -30px;
+    .custom-radius(0, 5px, 5px, 0);
+    border-bottom: none;
   }
 }

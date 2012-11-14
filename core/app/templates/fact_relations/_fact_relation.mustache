@@ -1,39 +1,27 @@
-<div class="relation">
-  {{#can_destroy?}}
-  <div class="relation-top-right-arrow">
-    <i><b class="caret"></b></i>
-    <ul class="relation-top-right" style="display: none;">
-        <li class="delete">
-          <a>
-            <img src="{{global.trash_image}}" alt="Trash" class="normal">
-            <img src="{{global.trash_hover_image}}" alt="Trash" class="hover">
-            Remove this Factlink as evidence
-          </a>
-        </li>
-    </ul>
-  </div>
-  {{/can_destroy?}}
+{{#can_destroy?}}
+<div class="relation-top-right-arrow">
+  <i><b class="caret"></b></i>
+  <ul class="relation-top-right" style="display: none;">
+      <li class="delete">
+        <a>
+          <img src="{{global.trash_image}}" alt="Trash" class="normal">
+          <img src="{{global.trash_hover_image}}" alt="Trash" class="hover">
+          Remove this Factlink as evidence
+        </a>
+      </li>
+  </ul>
+</div>
+{{/can_destroy?}}
 
-  {{#signed_in?}}
-  <div class="relation-actions">
-    <a class="supporting {{ positive_active }}"> &nbsp; </a>
-    <a class="weakening {{ negative_active }}"> &nbsp; </a>
-  </div>
-  {{/signed_in?}}
+{{#signed_in?}}
+<div class="fact-relation-actions">
+  <a class="supporting {{ positive_active }}"> &nbsp; </a>
+  <a class="weakening {{ negative_active }}"> &nbsp; </a>
+</div>
+{{/signed_in?}}
 
-  {{#fact_bubble}}
-    {{>fact_bubble}}
-  {{/fact_bubble}}
-
-
-  <div class="evidence-options">
-    &nbsp;
-    <div class="evidence-actions">
-      <a class="permalink" href="{{url}}"></a>
-    </div>
-
-    <div class="weight-container">
-      <div class="weight {{ fact_relation_type }}" style="width: {{weight}}%"></div>
-    </div>
-  </div>
+<div class="fact-relation-body">
+  {{#fact_base}}
+    {{>fact_base}}
+  {{/fact_base}}
 </div>

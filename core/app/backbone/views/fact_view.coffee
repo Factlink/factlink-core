@@ -2,7 +2,7 @@ ViewWithPopover = extendWithPopover(Backbone.Factlink.PlainView)
 
 class window.FactView extends ViewWithPopover
   tagName: "div"
-  className: "fact-block"
+  className: "fact-view"
 
   events:
     "click .hide-from-channel": "removeFactFromChannel"
@@ -13,11 +13,8 @@ class window.FactView extends ViewWithPopover
   template: "facts/_fact"
 
   partials:
-    fact_bubble: "facts/_fact_bubble"
+    fact_base: "facts/_fact_base"
     fact_wheel: "facts/_fact_wheel"
-    interacting_users: "facts/_interacting_users"
-
-  interactingUserViews: []
 
   popover: [
     selector: ".top-right-arrow"
@@ -31,9 +28,7 @@ class window.FactView extends ViewWithPopover
     @model.bind "destroy", @close, this
     @model.bind "change", @render, this
     @wheel = new Wheel(@model.getFactWheel())
-    @factTabsView = new FactTabsView(
-      model: @model
-    )
+    @bottomView = new FactBottomView(model: @model)
 
   onRender: ->
     sometimeWhen(
@@ -42,19 +37,19 @@ class window.FactView extends ViewWithPopover
       => @truncateText()
     )
 
+    @bottomView.render()
+    @$el.append(@bottomView.el)
+
     @$(".authority").tooltip()
     if @factWheelView
       @wheel.set @model.getFactWheel()
-      @$(".wheel").replaceWith @factWheelView.reRender().el
+      @$(".fact-wheel").replaceWith @factWheelView.reRender().el
     else
       @factWheelView = new InteractiveWheelView(
         model: @wheel
         fact: @model
-        el: @$(".wheel")
+        el: @$(".fact-wheel")
       ).render()
-
-    @factTabsView.render()
-    @$('.fact-tab-container').html(@factTabsView.el)
 
   truncateText: ->
     @$(".body .text").trunk8
@@ -63,8 +58,6 @@ class window.FactView extends ViewWithPopover
 
   remove: ->
     @$el.fadeOut "fast", -> $(this).remove()
-
-    @factTabsView.close()
 
     _.each @interactingUserViews, (view)-> view.close()
 

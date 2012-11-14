@@ -1,20 +1,20 @@
 /*
  *= require bootstrap
  *= require browser_detection
- *= require base/feedback
- *= require bubble
- *= require base/topbar
  *= require users
- *= require facts
- *= require footer
  *= require channels
  *= require search
  *= require tour
  *= require activity
  *= require site_messages
- *= require_tree ./conversations
+
+ *= require base/feedback
+ *= require base/topbar
  *= require base/iconic_stroke
  *= require base/bootstrap_modal
+
+ *= require_tree ./facts
+ *= require_tree ./conversations
  */
 
 @import "bootstrap/variables";
@@ -48,41 +48,6 @@ ul {
 }
 img {
   vertical-align: middle;
-}
-body.factlink-site .fact-block {
-  border-bottom: 1px solid @baseBorderColor;
-  margin: 0px -15px;
-  .transition(all 0.2s ease);
-
-  &.active {
-    margin: 15px 0 15px 0;
-  }
-
-  &:first-child {
-    border-top: 1px solid @baseBorderColor;
-    margin: 0px -15px;
-  }
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .dropdown-container {
-    margin-left: 70px;
-    margin-right: 15px;
-    border-left: 1px solid @baseBorderColor;
-    border-right: 1px solid @baseBorderColor;
-    border-bottom: 1px solid @baseBorderColor;
-    margin-bottom: 15px;
-    -webkit-border-radius: 3px;
-    -webkit-border-top-left-radius: 0;
-    -moz-border-radius: 3px;
-    -moz-border-radius-topleft: 0;
-    border-radius: 3px;
-    border-top-left-radius: 0;
-  }
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  -moz-border-radius: 0;
 }
 
 .search-results .results .user-block {

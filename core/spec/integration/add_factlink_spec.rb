@@ -36,7 +36,10 @@ describe "creating a Factlink", type: :request do
 
     # and delete it:
     page.evaluate_script('window.confirm = function() { return true; }')
-    page.execute_script("$($('article.fact')[0]).parent().find('li.delete').click()")
+
+    page.find(:css, ".top-right-arrow").click
+
+    page.find(:css, "li.delete").click
 
     page.should_not have_content fact_name
   end

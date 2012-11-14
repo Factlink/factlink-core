@@ -17,7 +17,7 @@ module Queries
     end
 
     def execute
-      data = Fact[@fact_id].interactions.below('inf', reversed: true).select {|i| i.action == @opinion}
+      data = Fact[@fact_id].interactions.below('inf', reversed: true).select {|i| i.action == @opinion}.uniq{|i| i.user}
       users = data.drop(@skip).take(@take).map {|i| i.user.user}
       total = data.size
 

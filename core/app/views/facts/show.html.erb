@@ -3,7 +3,7 @@
     <%= render 'backbone/currentUser' %>
 
     var fact = new Fact(<%= Facts::Fact.for(fact: @fact, view: self, modal: @modal).to_json.html_safe %>);
-    var view = new FactView({
+    var view = new DiscussionView({
       model: fact
     });
 

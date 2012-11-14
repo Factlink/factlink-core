@@ -67,7 +67,7 @@ describe "conversation", type: :request do
   def send_message(message, factlink, recipients)
     visit friendly_fact_path(factlink)
 
-    click_on "Send message"
+    click_on "Share"
 
     wait_until_scope_exists '.start-conversation-form' do
       recipients.each {|r| add_recipient r.username}
@@ -106,6 +106,6 @@ describe "conversation", type: :request do
 
     find(:css, "div.text", text: message_str).click
 
-    wait_until_scope_exists '.conversation .fact'
+    wait_until_scope_exists '.conversation .fact-view'
   end
 end

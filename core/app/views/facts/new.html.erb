@@ -43,7 +43,7 @@
     $('#add-to-channels').html(addToChannelView.el);
 
     var persistentWheel = new PersistentWheelView({
-      el: $('.wheel'),
+      el: $('.fact-wheel'),
       model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
 
@@ -60,7 +60,7 @@
     createWhatsYourOpinionTooltip();
 
     function createWhatsYourOpinionTooltip() {
-      $('.wheel').on('click', function () {
+      $('.fact-wheel').on('click', function () {
         hideTooltip();
       });
 
@@ -74,14 +74,14 @@
       function showTooltip() {
         if ( ! _shouldShowTooltip ) return;
 
-        $('.wheel').tooltip({
+        $('.fact-wheel').tooltip({
           title: "What's your opinion?",
           trigger: "manual"
         }).tooltip('show');
       }
 
       function destroyTooltip() {
-        $('.wheel').tooltip('destroy');
+        $('.fact-wheel').tooltip('destroy');
       }
 
       function hideTooltip() {

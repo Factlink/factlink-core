@@ -1,0 +1,62 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+div.fact-bottom {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  clear: both;
+  margin: 15px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+
+  ul.actions {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+
+    > li {
+      display: inline-block;
+
+      &:after {
+        content: "·";
+        margin: 0 7px;
+      }
+
+      .opinion_indicators {
+        font-size: 12px;
+
+        span.opinion_indicator {
+          display: inline-block;
+          color: #777;
+          height: 7px;
+          width: 7px;
+          margin: 0 5px 0 5px;
+          background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+          position: relative;
+          top: -1px;
+
+          &.agreeing {
+            background-position: 0 0;
+          }
+
+          &.disagreeing {
+            background-position: -8px -0;
+          }
+        }
+      }
+    }
+  }
+
+  a {
+    font-weight: bold;
+  }
+
+  .transparent-layer {
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1040;
+    display: none;
+  }
+}
