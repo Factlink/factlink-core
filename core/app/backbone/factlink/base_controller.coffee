@@ -14,6 +14,7 @@ class Backbone.Factlink.BaseController
   getRouteFunction: (name) ->
     (args...) ->
       @showController()
+      @onAction() if @onAction?
       @[name](args...)
 
   showController: ->

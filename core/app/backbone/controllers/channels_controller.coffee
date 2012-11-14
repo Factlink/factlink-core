@@ -4,6 +4,9 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
 
+  onAction: ->
+    @unbindFrom @permalink_event if @permalink_event?
+
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
 
@@ -50,13 +53,14 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
       app.mainRegion.show(new ChannelView(model: channel))
+      @makePermalinkEvent(channel.url())
 
   getChannelActivities: (username, channel_id) ->
     @loadChannel username, channel_id, (channel) =>
       @commonChannelViews(channel)
       activities = new ChannelActivities([],{ channel: channel })
-
       app.mainRegion.show(new ChannelActivitiesView(model: channel, collection: activities))
+      @makePermalinkEvent(channel.url() + '/activities')
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
     @getChannelFact(username, channel_id, fact_id, true)
@@ -92,3 +96,11 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         window.efv = new ExtendedFactView(model: model)
         @main.contentRegion.show(efv)
         callback_with_both()
+
+  makePermalinkEvent: (baseUrl) ->
+    @permalink_event = @bindTo FactlinkApp.vent, 'permalink_clicked', (e, fact_id) =>
+      navigate_to = baseUrl + "/facts/" + fact_id
+      Backbone.history.navigate navigate_to, true
+
+      e.preventDefault()
+      e.stopPropagation()
