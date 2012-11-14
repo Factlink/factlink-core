@@ -31,7 +31,7 @@ window.FactRelationView = ViewWithPopover.extend({
 
   remove: function() {
     this.$el.fadeOut('fast', function() {
-      this.$el.remove();
+      $(this).remove();
     });
   },
 

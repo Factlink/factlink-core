@@ -8,11 +8,30 @@
   .custom-radius(0, 5px, 5px, 0);
 
   ul.search-results {
-    display: none;
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 350px;
+    border: 1px solid @baseBorderColor;
+    background: white;
+    margin-top: -16px;
+    .custom-radius(0, 4px, 4px, 0);
+    cursor: pointer;
 
     > li {
+      padding: 10px;
+      border-bottom: 1px solid @baseBorderColor;
+
       &.loading, &.add {
         display: none;
+      }
+
+      &:hover {
+        background: #f7f7f7;
+      }
+
+      span.word {
+        font-weight: bold;
       }
     }
   }
