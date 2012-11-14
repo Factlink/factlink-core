@@ -39,12 +39,14 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     @weakeningFactRelations = new WeakeningFactRelations([],fact: @model)
 
   showFactRelations: (type) ->
-    unless type + "FactRelationsView" of this
-      this[type + "FactRelationsView"] = new FactRelationsView(collection: this[type + "FactRelations"])
-      @$el.append this[type + "FactRelationsView"].render().el
+    unless "#{type}FactRelationsView" of this
+      this["#{type}FactRelationsView"] = new FactRelationsView(
+        collection: this["#{type}FactRelations"]
+      )
+      @$el.append this["#{type}FactRelationsView"].render().el
 
-    @$(".tab-content." + type).show()
-    this[type + "FactRelationsView"].fetch()
+    @$(".tab-content.#{type}").show()
+    this["#{type}FactRelationsView"].fetch()
 
   tabClick: (e) ->
     e.preventDefault()
