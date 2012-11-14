@@ -29,16 +29,13 @@ class FactRelation
   alias :calculate_opinion :calculate_user_opinion
 end
 
-
-
 def load_topic_specific_authority
   Authority.calculation = [
-    MapReduce::FactAuthority.new,
-    MapReduce::ChannelAuthority.new,
-    MapReduce::TopicAuthority.new #,
-    # TODO reenable:
-    # temporarily disabled because it is very slow
-    # MapReduce::FactCredibility.new
+    MapReduce::FactAuthority,
+    MapReduce::ChannelAuthority,
+    MapReduce::TopicAuthority,
+    MapReduce::FactCredibility,
+    MapReduce::FactRelationCredibility
   ]
 end
 load_topic_specific_authority
