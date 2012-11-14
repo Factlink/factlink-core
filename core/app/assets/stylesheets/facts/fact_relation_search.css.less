@@ -8,15 +8,21 @@
   .custom-radius(0, 5px, 5px, 0);
 
   ul.search-results {
+    list-style: none;
+    background: white;
+    cursor: pointer;
+
+    margin: -16px 0 0 0;
+    padding: 0;
+
     display: block;
+
     position: absolute;
     top: 100%;
     width: 350px;
+
     border: 1px solid @baseBorderColor;
-    background: white;
-    margin-top: -16px;
     .custom-radius(0, 4px, 4px, 0);
-    cursor: pointer;
 
     > li {
       padding: 10px;
