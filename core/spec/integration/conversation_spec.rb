@@ -53,7 +53,7 @@ describe "conversation", type: :request do
     within(:css, "div.reply") do
       fill_in "reply", with: reply_str
 
-      click_on "Share"
+      click_on "Send message"
     end
     wait_for_ajax
   end
