@@ -51,38 +51,4 @@ div.factlink-modal {
     &.left   { width:  @drag-handler-padding; height:100%; left: 0;   top: 0; }
     &.right  { width:  @drag-handler-padding; height:100%; right:0;   top: 0; }
   }
-
-  div.fact-block {
-    margin: 0 -@popup-padding;
-
-    #close {
-      .opacity(0.10);
-      position: relative;
-      right: 2px;
-      top: 3px;
-      z-index: @max-z-index;
-      float: right;
-    }
-
-    &:hover {
-      #close { .opacity(0.35); }
-    }
-
-
-    .top-right-arrow, .relation-top-right-arrow {
-      position: absolute;
-      right: 25px;
-    }
-
-    .top-right-arrow { top: 4px; }
-    .relation-top-right-arrow { top: -14px; }
-  }
-}
-
-@rightIndent: 10px;
-
-.fact-relation {
-  article {
-    margin-top: @popup-padding;
-  }
 }
