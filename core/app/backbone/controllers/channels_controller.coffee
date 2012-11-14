@@ -1,6 +1,8 @@
 app = FactlinkApp
 
-class window.ChannelsController
+class window.ChannelsController extends Backbone.Factlink.BaseController
+
+  routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
