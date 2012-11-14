@@ -10,6 +10,9 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
     @_currentTab = `undefined`
     @initFactRelationsViews()
 
+  onRender: ->
+    @showTab("supporting", @$('.tab-control>.supporting'))
+
   hideTabs: ->
     $tabButtons = @$(".tab-control li")
     $tabButtons.removeClass "active"
