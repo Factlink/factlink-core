@@ -24,7 +24,7 @@ module Queries
     end
 
     def wrap_with_ids(array)
-      array.each_with_object({}) {|u, hash| hash[u.id] = u}
+      hash_with_index(:id, array)
     end
 
     def users_for_conversations(conversations)
