@@ -160,6 +160,7 @@ module FactlinkUI
       'bubble.css',
       'fake_facts.css',
       'frontend.css',
+      'general.css',
       'client.css',
       'popup.css',
       'privacy.css',
