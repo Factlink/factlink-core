@@ -2,7 +2,7 @@
 
 # TODO: the idea is to make a number of helpers for acceptance tests,
 # but this helper was made originally for add_fact_to_channel_spec.
-# Refactor this into different helpers.
+# Refactor this into different helpers, and without using instance variables.
 
 module Acceptance
   module ChannelHelper
