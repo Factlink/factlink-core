@@ -17,7 +17,7 @@ module Queries
     end
 
     def union_ids channels1, channels2
-      (graph_user_channels & containing_channels).ids
+      (channels1 & channels2).ids
     end
   end
 
