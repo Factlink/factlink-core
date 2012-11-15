@@ -90,7 +90,7 @@ module Facts
     end
 
     def created_by_ago
-      "#{time_ago_in_words(self[:fact].data.created_at)} ago"
+      "Created #{time_ago_in_words(self[:fact].data.created_at)} ago"
     end
 
     def believers_count

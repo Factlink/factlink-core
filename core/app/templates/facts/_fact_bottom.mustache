@@ -31,6 +31,10 @@
     {{post_action}} {{ friendly_time }} ago
   {{/friendly_time}}
 
+  {{^friendly_time}}
+    {{created_by_ago}}
+  {{/friendly_time}}
+
   {{#scroll_to_link}}
     from
 
