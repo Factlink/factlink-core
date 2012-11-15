@@ -3,4 +3,3 @@ FactlinkApp.addInitializer (options)->
   new ChannelsRouter controller: new ChannelsController
   new ConversationsRouter controller: new ConversationsController
   new TourRouter controller: new TourController
-  new FactsRouter controller: new FactsController

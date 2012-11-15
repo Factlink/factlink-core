@@ -52,11 +52,7 @@ module Facts
     end
 
     def url
-      if self[:channel]
-        channel_fact_path( self[:channel].created_by.user.username, self[:channel].id, self[:fact].id )
-      else
-        friendly_fact_path(self[:fact])
-      end
+      friendly_fact_path(self[:fact])
     end
 
     def post_action

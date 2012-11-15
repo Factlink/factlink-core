@@ -6,6 +6,10 @@ describe "conversation", type: :request do
   before :each do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
     @recipients = [FactoryGirl.create(:approved_confirmed_user), FactoryGirl.create(:approved_confirmed_user)]
+    sleep 3 # allow elasticsearch to index the users
+
+    enable_features @user, :messaging
+    @recipients.each {|r| enable_features r, :messaging}
   end
 
   it "message can be sent and viewed" do
