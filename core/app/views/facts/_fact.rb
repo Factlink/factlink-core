@@ -70,8 +70,8 @@ module Facts
 
       timestamp_in_seconds = self[:timestamp] / 1000
 
-      time_ago = [Time.at(timestamp_in_seconds), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
-      time_ago_in_words(time_ago)
+
+      time_ago_in_words(shortened_time_ago timestamp_in_seconds)
     end
 
     expose_to_hash :timestamp
@@ -90,7 +90,7 @@ module Facts
     end
 
     def created_by_ago
-      "Created #{time_ago_in_words(self[:fact].data.created_at)} ago"
+      "Created #{time_ago_in_words(shortened_time_ago self[:fact].data.created_at)} ago"
     end
 
     def believers_count
@@ -101,6 +101,11 @@ module Facts
     end
     def doubters_count
       self[:fact].opiniated(:doubts).count
+    end
+
+    private
+    def shortened_time_ago time_ago
+      [Time.at(time_ago), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
     end
   end
 end
