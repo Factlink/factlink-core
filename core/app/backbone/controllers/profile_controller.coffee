@@ -4,6 +4,20 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
+  # ACTIONS
+  showProfile: (username) -> @showPage username, @profile_options(username)
+  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
+
+  showFact: (slug, fact_id)->
+    app.closeAllContentRegions()
+    @main = new TabbedMainRegionLayout();
+    app.mainRegion.show(@main)
+
+    fact = new Fact(id: fact_id)
+    fact.fetch
+      success: (model, response) => @withFact(model)
+
+  # HELPERS
   profile_options: (username) ->
     title: 'About ' + username
     active_tab: 'show'
@@ -21,21 +35,6 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     mainRegion: (user) ->
       new NotificationSettingsView model: user
 
-  # ACTIONS
-  showProfile: (username) -> @showPage username, @profile_options(username)
-  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
-
-  showFact: (slug, fact_id)->
-    app.closeAllContentRegions()
-    @main = new TabbedMainRegionLayout();
-    app.mainRegion.show(@main)
-
-    fact = new Fact(id: fact_id)
-    fact.fetch
-      success: (model, response) => @withFact(model)
-
-
-  # HELPERS
   showPage: (username, options) ->
     app.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
@@ -70,12 +69,10 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       forProfile: true
 
   getFactsView: (channel) ->
-    facts_view = new FactsView(
-        collection: new ChannelFacts([],
-          channel: channel
-        ),
+    collection = new ChannelFacts [], channel: channel
+    facts_view = new FactsView
+        collection: collection,
         model: channel
-      )
 
   withFact: (fact)->
     window.efv = new ExtendedFactView(model: fact)
@@ -108,7 +105,6 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView = new ChannelsView(collection: window.Channels)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
-
 
   makePermalinkEvent: (baseUrl) ->
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
