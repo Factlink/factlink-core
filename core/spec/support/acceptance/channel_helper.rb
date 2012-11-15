@@ -28,11 +28,8 @@ module Acceptance
 
     def open_modal tab_title, &block
       tablink = page.find_link(tab_title)
-      tab_li = tablink.find(:xpath, '..')
 
-      tab_class = tab_li['class'].split(/\s+/).first + '-container'
-
-      puts "Tab class: '#{tab_class}'"
+      tab_class = tablink['class'].split(/\s+/).first + '-container'
 
       click_link(tab_title)
       within(:css, ".#{tab_class} .modal-body") do
