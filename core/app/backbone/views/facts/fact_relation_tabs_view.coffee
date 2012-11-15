@@ -35,7 +35,7 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
       type: tab
 
     switch tab
-      when "supporting", "weakening" then @showFactRelations tab
+      when "doubting", "supporting", "weakening" then @showFactRelations tab
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
@@ -43,14 +43,23 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
 
   showFactRelations: (type) ->
     unless "#{type}FactRelationsView" of this
-      this["#{type}FactRelationsView"] = new FactRelationsView(
-        model: @model
-        collection: this["#{type}FactRelations"]
-      )
+      if type == "doubting"
+        relations_view = new DoubtingRelationsView(
+          model: @model
+          type: type
+        )
+      else
+        relations_view = new FactRelationsView(
+          model: @model
+          collection: this["#{type}FactRelations"]
+        )
+
+      this["#{type}FactRelationsView"] = relations_view
+
       @$el.append this["#{type}FactRelationsView"].render().el
 
     @$(".tab-content.#{type}").show()
-    this["#{type}FactRelationsView"].fetch()
+    this["#{type}FactRelationsView"].fetch() unless type == "doubting"
 
   tabClick: (e) ->
     e.preventDefault()

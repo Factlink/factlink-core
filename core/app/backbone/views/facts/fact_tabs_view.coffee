@@ -50,12 +50,13 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     @handleTabActions tab
 
   handleTabActions: (tab) ->
+    console.info('bla')
     mp_track "Factlink: Open tab",
       factlink_id: @model.id
       type: tab
 
     switch tab
-      when "supporting", "weakening" then @showFactRelations tab
+      when "doubting", "supporting", "weakening" then @showFactRelations tab
 
   initFactRelationsViews: ->
     @supportingFactRelations = new SupportingFactRelations([],fact: @model)
@@ -63,7 +64,11 @@ class window.FactTabsView extends Backbone.Marionette.Layout
 
   showFactRelations: (type) ->
     unless type + "FactRelationsView" of this
-      this[type + "FactRelationsView"] = new FactRelationsView(collection: this[type + "FactRelations"])
+      if type == "doubting"
+        this[type + "FactRelationsView"] = new DoubtingRelationsView()
+      else
+        this[type + "FactRelationsView"] = new FactRelationsView(collection: this[type + "FactRelations"])
+
       @$("." + type + " .dropdown-container").append this[type + "FactRelationsView"].render().el
     @$("." + type + " .dropdown-container").show()
     this[type + "FactRelationsView"].fetch()

@@ -1,42 +1,4 @@
-class InteractorView extends Backbone.Marionette.ItemView
-  tagName: 'span'
-  template: "fact_relations/interactor"
-
-class InteractorEmptyView extends Backbone.Marionette.ItemView
-  tagName: 'span'
-  template: "fact_relations/interactor_empty"
-
-class InteractorsView extends Backbone.Marionette.CompositeView
-  template: "fact_relations/interactors"
-  emptyView: InteractorEmptyView
-  itemView: InteractorView
-  itemViewContainer: "span"
-  events:
-    'click a' : 'showAll'
-
-  initialize: (options) ->
-    @type = @collection.type
-    @model = new Backbone.Model
-    @fetch()
-
-  fetch: ->
-    @collection.fetch(success: =>
-      @model.set numberNotDisplayed: @collection.totalRecords - @collection.length
-      @render()
-    )
-
-  templateHelpers: =>
-    past_action:
-      switch @options.type
-        when 'weakening' then 'weakened'
-        when 'supporting' then 'supported'
-        when 'doubting' then 'doubted'
-
-  showAll: (e) ->
-    e.stopPropagation()
-    e.preventDefault()
-    @collection.howManyPer(100000)
-    @fetch()
+#= require ./interactors_view
 
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
@@ -86,7 +48,7 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
         interactorsCollection = new FactDoubtersPage
           fact: @model
 
-    @interactorsView = new InteractorsView
+    @interactorsView = new window.InteractorsView
       collection: interactorsCollection
       type: @type
 
@@ -110,3 +72,33 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
       @_fetched = true
       @collection.reset()
       @collection.fetch()
+
+class window.DoubtingRelationsView extends Backbone.Marionette.Layout
+  tagName: "div"
+  className: "tab-content"
+  template: "fact_relations/doubting_fact_relations"
+
+  initialize: (options) ->
+    console.info('call')
+    @type = options.type
+    @initializeInteractors()
+
+  initializeInteractors: ->
+    switch @type
+      when 'supporting'
+        interactorsCollection = new FactBelieversPage
+          fact: @model
+      when 'weakening'
+        interactorsCollection = new FactDisbelieversPage
+          fact: @model
+      when 'doubting'
+        interactorsCollection = new FactDoubtersPage
+          fact: @model
+
+    @interactorsView = new InteractorsView
+      collection: interactorsCollection
+      type: @type
+
+  onRender: ->
+    @$el.addClass(@type)
+    @$('.interacting-users').append @interactorsView.render().el
