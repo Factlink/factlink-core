@@ -11,14 +11,14 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  pending "the layout of the single fact page is correct" do
+  it "the layout of the discussion page is correct" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
     sleep 2
     wait_for_ajax
-    assume_unchanged_screenshot "single_fact_page"
+    assume_unchanged_screenshot "discussion_page"
   end
 
   it "evidence can be added" do
