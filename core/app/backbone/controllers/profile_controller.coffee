@@ -78,12 +78,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView.setActive('profile')
 
 
-
-
-
-
   makePermalinkEvent: (baseUrl) ->
-    console.info "profile_controller: make permalink event"
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
       navigate_to = fact.get('url')
       Backbone.history.navigate navigate_to, true
