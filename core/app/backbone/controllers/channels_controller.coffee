@@ -4,14 +4,9 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
   routes: ['getChannelFacts', 'getChannelFact', 'getChannelActivities', 'getChannelFactForActivity']
 
-  onShow: ->
-    @channel_views = new Backbone.Factlink.DetachedViewCache
-
-  onClose: ->
-    @channel_views.cleanup()
-
-  onAction: ->
-    @unbindFrom @permalink_event if @permalink_event?
+  onShow:   -> @channel_views = new Backbone.Factlink.DetachedViewCache
+  onClose:  -> @channel_views.cleanup()
+  onAction: -> @unbindFrom @permalink_event if @permalink_event?
 
   loadChannel: (username, channel_id, callback) ->
     channel = Channels.get(channel_id)
