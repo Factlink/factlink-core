@@ -119,8 +119,8 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details messaging)
-  GLOBAL_ENABLED_FEATURES = [:messaging, :notification_settings]
+  FEATURES = %w(pink_feedback_button authority_calculation_details)
+  GLOBAL_ENABLED_FEATURES = [:notification_settings]
 
   def enable_features list
     @features ||= []
