@@ -109,8 +109,8 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     fact = new Fact(id: fact_id)
     fact.fetch
       success: (model, response) =>
-        window.efv = new ExtendedFactView(model: model)
-        @main.contentRegion.show(efv)
+        dv = new DiscussionView(model: model)
+        @main.contentRegion.show(dv)
         callback_with_both()
 
   restoreChannelView: (channel_id, new_callback) ->
