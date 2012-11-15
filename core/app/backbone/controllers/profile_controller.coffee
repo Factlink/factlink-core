@@ -2,7 +2,7 @@ app = FactlinkApp
 
 class window.ProfileController extends Backbone.Factlink.BaseController
 
-  routes: ['showProfile', 'showNotificationSettings']
+  routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
   profile_options: (username) ->
     title: 'About ' + username
@@ -24,6 +24,16 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   # ACTIONS
   showProfile: (username) -> @showPage username, @profile_options(username)
   showNotificationSettings: (username) -> @showPage username, @notification_options(username)
+
+  showFact: (slug, fact_id)->
+    app.closeAllContentRegions()
+    @main = new TabbedMainRegionLayout();
+    app.mainRegion.show(@main)
+
+    fact = new Fact(id: fact_id)
+    fact.fetch
+      success: (model, response) => @withFact(model)
+
 
   # HELPERS
   showPage: (username, options) ->
@@ -66,6 +76,28 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         ),
         model: channel
       )
+
+  withFact: (fact)->
+    window.efv = new ExtendedFactView(model: fact)
+    @main.contentRegion.show(efv)
+
+    username = fact.get('created_by').username
+
+    title_view = new ExtendedFactTitleView(
+                        model: fact,
+                        return_to_url: username,
+                        return_to_text: username.capitalize() )
+
+    @main.titleRegion.show( title_view )
+
+    @showChannelListing(fact.get('created_by').username)
+
+  showChannelListing: (username)->
+    changed = window.Channels.setUsernameAndRefresh(username)
+    channelCollectionView = new ChannelsView(collection: window.Channels)
+    app.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActive('profile')
+
 
   showUserLarge: (user) ->
     userLargeView = new UserLargeView(model: user);
