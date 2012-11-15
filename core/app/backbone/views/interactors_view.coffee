@@ -21,7 +21,10 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
 
   fetch: ->
     @collection.fetch(success: =>
-      @model.set numberNotDisplayed: @collection.totalRecords - @collection.length
+      @model.set
+        numberNotDisplayed: @collection.totalRecords - @collection.length
+        multipleNotDisplayed: (@collection.totalRecords - @collection.length)>1
+
       @render() #TODO: fix this better :this render is needed
       #because the layout of the composite view doesn''t render
     )
