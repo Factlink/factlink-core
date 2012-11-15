@@ -43,7 +43,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
         @clearForm()
 
       error: (model, response) =>
-        if response.responseText in ['user_not_found']
+        if response.responseText in ['user_not_found', 'message_empty']
           @showAlert response.responseText
         else
           @showAlert 'error'
