@@ -61,6 +61,10 @@ class window.FactRelationsView extends Backbone.Marionette.CompositeView
     @$('.interacting-users').append @interactorsView.render().el
     @$('.fact-relation-search').append @factRelationSearchView.render().el
 
+  onClose: ->
+    delete @interactorsView
+    delete @factRelationSearchView
+
 class window.DoubtingRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
   template: "fact_relations/doubting_fact_relations"
