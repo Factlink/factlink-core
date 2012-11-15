@@ -79,11 +79,12 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @main.contentRegion.show(efv)
 
     username = fact.get('created_by').username
+    return_to_text = "#{ username.capitalize() }'s profile"
 
     title_view = new ExtendedFactTitleView(
                         model: fact,
                         return_to_url: username,
-                        return_to_text: username.capitalize() )
+                        return_to_text: return_to_text )
 
     @main.titleRegion.show( title_view )
 
