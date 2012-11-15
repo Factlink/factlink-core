@@ -1,4 +1,3 @@
-# TODO convert to pavlov
 module Queries
   class ContainingChannelIdsForChannelAndUser
     include Pavlov::Query
