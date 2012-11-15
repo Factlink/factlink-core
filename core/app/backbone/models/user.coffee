@@ -17,21 +17,23 @@ class window.User extends Backbone.Model
 
     Backbone.sync(method, model, options);
 
-  is_current_user: ()->
+  is_current_user: ->
     window.currentUser != undefined && currentUser.get('id') == this.get('id')
 
   avatar_url: (size)->
     md5d_email = @get('gravatar_hash')
     "https://secure.gravatar.com/avatar/#{md5d_email}?size=#{size}&rating=PG&default=retro"
 
-  stream: ->
+  stream:        -> @channel_with_id 'all_channel_id'
+  created_facts: -> @channel_with_id 'created_facts_channel_id'
+
+  channel_with_id: (id) ->
     new Channel
-      id: @get('all_channel_id')
+      id: @get(id)
       created_by:
         username: @get('username')
 
-
-  toJSON: () ->
+  toJSON: ->
     json = Backbone.Model.prototype.toJSON.apply(this);
     _.extend json,
       is_current_user: @is_current_user(),

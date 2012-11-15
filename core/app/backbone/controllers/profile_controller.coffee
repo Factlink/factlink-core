@@ -2,15 +2,32 @@ app = FactlinkApp
 
 class window.ProfileController extends Backbone.Factlink.BaseController
 
-  routes: ['showProfile', 'showNotificationSettings']
+  routes: ['showProfile', 'showNotificationSettings', 'showFact']
 
+  # ACTIONS
+  showProfile: (username) -> @showPage username, @profile_options(username)
+  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
+
+  showFact: (slug, fact_id)->
+    app.closeAllContentRegions()
+    @main = new TabbedMainRegionLayout();
+    app.mainRegion.show(@main)
+
+    fact = new Fact(id: fact_id)
+    fact.fetch
+      success: (model, response) => @withFact(model)
+
+  # HELPERS
   profile_options: (username) ->
     title: 'About ' + username
     active_tab: 'show'
-    mainRegion: (user) ->
+    mainRegion: (user) =>
+      @makePermalinkEvent( user.get('username') )
+
       new ProfileView
         model: user
         collection: window.Channels.orderedByAuthority()
+        created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -18,11 +35,6 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     mainRegion: (user) ->
       new NotificationSettingsView model: user
 
-  # ACTIONS
-  showProfile: (username) -> @showPage username, @profile_options(username)
-  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
-
-  # HELPERS
   showPage: (username, options) ->
     app.leftBottomRegion.close()
     @main = new TabbedMainRegionLayout();
@@ -56,6 +68,34 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       success: -> options.onFetch(user)
       forProfile: true
 
+  getFactsView: (channel) ->
+    collection = new ChannelFacts [], channel: channel
+    facts_view = new FactsView
+        collection: collection,
+        model: channel
+
+  withFact: (fact)->
+    window.efv = new ExtendedFactView(model: fact)
+    @main.contentRegion.show(efv)
+
+    username = fact.get('created_by').username
+
+    title_view = new ExtendedFactTitleView(
+                        model: fact,
+                        return_to_url: username,
+                        return_to_text: username.capitalize() )
+
+    @main.titleRegion.show( title_view )
+
+    @showChannelListing(fact.get('created_by').username)
+
+  showChannelListing: (username)->
+    changed = window.Channels.setUsernameAndRefresh(username)
+    channelCollectionView = new ChannelsView(collection: window.Channels)
+    app.leftMiddleRegion.show(channelCollectionView)
+    channelCollectionView.setActive('profile')
+
+
   showUserLarge: (user) ->
     userLargeView = new UserLargeView(model: user);
     app.leftTopRegion.show(userLargeView);
@@ -65,3 +105,12 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView = new ChannelsView(collection: window.Channels)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
+
+  makePermalinkEvent: (baseUrl) ->
+    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
+      navigate_to = fact.get('url')
+      Backbone.history.navigate navigate_to, true
+      $('body').scrollTo(0)
+
+      e.preventDefault()
+      e.stopPropagation()

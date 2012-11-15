@@ -1,64 +1,9 @@
-# coding: utf-8
-
 require 'integration_helper'
 
-module AddToChannelIntegrationTestHelper
-  include FactHelper
-  def add_as_new_channel name
-      type_into_search_box name
-      page.should have_content "Add “#{name}” as a new channel"
-      page.find('li', text: "Add “#{name}” as a new channel").click
-      wait_for_ajax
-  end
-
-  def add_to_channel name
-      type_into_search_box name
-      page.should_not have_content "Add “#{name}” as a new channel"
-      page.find('li', text: name).click
-      wait_for_ajax
-  end
-
-  def go_to_discussion_page_of factlink
-    path = friendly_fact_path factlink
-    visit path
-  end
-
-  def open_modal tab_title, &block
-    tablink = page.find_link(tab_title)
-    tab_li = tablink.find(:xpath, '..')
-
-    tab_class = tab_li['class'].split(/\s+/).first + '-container'
-
-    puts "Tab class: '#{tab_class}'"
-
-    click_link(tab_title)
-    within(:css, ".#{tab_class} .modal-body") do
-      yield
-    end
-  end
-
-  def create_fact_in_backend
-    create :fact, created_by: @user.graph_user
-  end
-
-  def create_channel_in_backend
-    create :channel, created_by: @user.graph_user
-  end
-
-  def type_into_search_box value
-    page.find(:css,'input').set(value)
-  end
-
-  def added_channels_should_contain name
-    within(:css, ".auto-complete-results-container") do
-      page.should have_content name
-    end
-  end
-end
-
-
 feature "adding a fact to a channel" do
-  include AddToChannelIntegrationTestHelper
+  include Acceptance::NavigationHelper
+  include Acceptance::ChannelHelper
+  include Acceptance::FactHelper
 
   background do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
