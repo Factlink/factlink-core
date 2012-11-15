@@ -25,7 +25,6 @@ class window.FactView extends ViewWithPopover
   showLines: 3
 
   initialize: (opts) ->
-    @interactingUserViews = []
     @model.bind "destroy", @close, this
     @model.bind "change", @render, this
     @wheel = new Wheel(@model.getFactWheel())
@@ -59,8 +58,6 @@ class window.FactView extends ViewWithPopover
 
   remove: ->
     @$el.fadeOut "fast", -> $(this).remove()
-
-    _.each @interactingUserViews, (view)-> view.close()
 
     if parent.remote
       parent.remote.hide()
