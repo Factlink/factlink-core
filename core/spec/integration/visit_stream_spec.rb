@@ -28,6 +28,7 @@ feature "visiting a channel" do
 
       open_modal 'Repost' do
         add_to_channel @channel.title
+
         added_channels_should_contain @channel.title
       end
 
@@ -35,7 +36,7 @@ feature "visiting a channel" do
 
       page.should have_content(@factlink.to_s)
 
-      find('.text', text: @factlink.to_s)
+      find('.fact-body', text: @factlink.to_s)
     end
   end
 
