@@ -130,6 +130,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
       navigate_to = fact.get('url')
       Backbone.history.navigate navigate_to, true
+      $('body').scrollTo(0)
 
       e.preventDefault()
       e.stopPropagation()

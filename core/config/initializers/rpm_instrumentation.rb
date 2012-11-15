@@ -39,4 +39,15 @@ if defined?(NewRelic)
     end
   end
 
+  Queries::ContainingChannelIdsForChannelAndUser.class_eval do
+    add_method_tracer :graph_user_channels
+    add_method_tracer :containing_channels
+    add_method_tracer :union_ids
+  end
+
+  Roadie::Inliner.class_eval do
+    include NewRelic::Agent::MethodTracer
+    add_method_tracer :execute
+  end
+
 end

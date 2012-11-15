@@ -119,6 +119,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
       navigate_to = baseUrl + "/facts/" + fact.id
       Backbone.history.navigate navigate_to, true
+      $('body').scrollTo(0)
 
       e.preventDefault()
       e.stopPropagation()
