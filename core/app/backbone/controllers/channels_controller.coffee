@@ -62,8 +62,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @commonChannelViews(channel)
       @makePermalinkEvent(channel.url())
 
-      @restoreChannelView channel_id, =>
-        new ChannelView(model: channel)
+      @restoreChannelView channel_id, => new ChannelView(model: channel)
 
       @channel_views.clear()
 
@@ -84,7 +83,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @getChannelFact(username, channel_id, fact_id, true)
 
   getChannelFact: (username, channel_id, fact_id, for_stream=false) ->
-    app.closeAllContentRegions()
     @main = new TabbedMainRegionLayout();
     app.mainRegion.show(@main)
 
