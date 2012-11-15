@@ -31,9 +31,12 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
   templateHelpers: =>
     past_action:
       switch @collection.type
-        when 'weakening' then 'weakened'
-        when 'supporting' then 'supported'
-        when 'doubting' then 'doubted'
+        when 'weakening'
+          Factlink.Global.t.fact_disbelieve_past_action
+        when 'supporting'
+          Factlink.Global.t.fact_believe_past_action
+        when 'doubting'
+          Factlink.Global.t.fact_doubt_past_action
 
   showAll: (e) ->
     e.stopPropagation()

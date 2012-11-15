@@ -26,6 +26,10 @@ en:
   fact_remove_opinion_past_action: "removed opinion"
   fact_add_evidence_past_action: "added evidence"
 
+  fact_believe_collection_name: "agreeing"
+  fact_disbelieve_collection_name: "disagreeing"
+  fact_doubt_collection_name: "unsure"
+
   channel: "channel"
   channels: "channels"
   channel_name: "channel name"

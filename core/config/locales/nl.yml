@@ -27,6 +27,10 @@ nl:
   fact_remove_opinion_past_action: "trok zijn mening terug"
   fact_add_evidence_past_action: "voegde bewijs toe"
 
+  fact_believe_collection_name: "eens"
+  fact_disbelieve_collection_name: "oneens"
+  fact_doubt_collection_name: "onzeker"
+
   channel: "kanaal"
   channels: "kanalen"
   channel_name: "naam van kanaal"
