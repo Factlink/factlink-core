@@ -110,6 +110,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
       navigate_to = fact.get('url')
       Backbone.history.navigate navigate_to, true
+      $('body').scrollTo(0)
 
       e.preventDefault()
       e.stopPropagation()
