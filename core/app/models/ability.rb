@@ -120,7 +120,7 @@ class Ability
   end
 
   FEATURES = %w(pink_feedback_button authority_calculation_details)
-  GLOBAL_ENABLED_FEATURES = [:notification_settings]
+  GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
     @features ||= []
