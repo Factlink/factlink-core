@@ -8,7 +8,7 @@ do
 
   echo "Starting fact_graph:recalculate, try #$i:"
 
-  sudo /usr/sbin/monit start recalculate
+  sudo nice -n 10 /usr/sbin/monit start recalculate
 
   # Check the exit status
   if [ "$?" -eq "0" ]; then

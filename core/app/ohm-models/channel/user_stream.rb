@@ -20,6 +20,10 @@ class Channel < OurOhm
       return channels
     end
 
+    def topic
+      nil
+    end
+
     def inspect
       "UserStream of #{created_by}"
     end

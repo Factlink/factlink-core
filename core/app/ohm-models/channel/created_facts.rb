@@ -9,6 +9,10 @@ class Channel < OurOhm
     end
     before :validate, :add_fields
 
+    def topic
+      nil
+    end
+
     def contained_channels
       []
     end

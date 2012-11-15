@@ -3,7 +3,7 @@
 
 .factlink, .factlink-site {
   footer {
-    color: #777;
+    color: @metaFontColor;
     border: none;
     #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
     a {
@@ -22,7 +22,7 @@
         display: inline;
         &:not(:last-child):after {
           content: " | ";
-          color: #777;
+          color: @metaFontColor;
         }
       }
     }

@@ -31,10 +31,6 @@ module Queries
       result_objects
     end
 
-    def authorized?
-      true
-    end
-
     def type type_name
       @types << type_name
     end

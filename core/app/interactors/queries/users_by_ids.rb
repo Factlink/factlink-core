@@ -15,9 +15,5 @@ module Queries
       users = User.any_in(_id: @user_ids)
       users.map{|u| KillObject.user u}
     end
-
-    def authorized?
-      @options[:current_user]
-    end
   end
 end

@@ -26,11 +26,11 @@ class ChannelsController < ApplicationController
 
 
   def index
-    authorize! :index, Channel
-
-    respond_to do |format|
-      format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
+    channels = interactor :visible_channels_of_user_for_user, @user
+    json_channels = channels.map do|ch|
+      Channels::Channel.for(channel: ch,view: view_context)
     end
+    render :json => json_channels
   end
 
   def backbone_page
@@ -40,7 +40,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       format.js
       format.html do
         render_backbone_page
@@ -219,13 +219,5 @@ class ChannelsController < ApplicationController
 
     def mark_channel_as_read
       @channel.mark_as_read if @channel.created_by == current_graph_user
-    end
-
-    def channels_for_user(user)
-      @channels = user.graph_user.real_channels
-      unless @user == current_user
-        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
-      end
-      @channels
     end
 end

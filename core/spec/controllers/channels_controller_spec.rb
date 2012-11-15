@@ -31,15 +31,16 @@ describe ChannelsController do
     it "as json should be successful" do
       ch1
       authenticate_user!(user)
-      should_check_can :index, Channel
+      ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
       response.should be_success
     end
 
     it "should render the same json as previously (regression check)" do
+      FactoryGirl.reload # hack because of fixture in check
       ch1
       authenticate_user!(user)
-      should_check_can :index, Channel
+      ability.should_receive(:can?).with(:index, Channel).and_return(true)
       get :index, username: user.username, format: 'json'
       response.should be_success
 
@@ -51,7 +52,7 @@ describe ChannelsController do
         got[i]["created_by"]["id"] = "50a0ccb934257b6509000001"
       end
 
-      got.should eq expected
+      got[0].should == expected[0]
     end
 
     it "as bogus user should redirect to Terms of Service page" do

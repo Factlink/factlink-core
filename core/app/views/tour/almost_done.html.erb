@@ -5,16 +5,14 @@
 <div id="almost-done-wrapper">
   <h1>You're almost set!</h1>
 
-  <div class="visible-when-chrome <% if can_haz :firefox_extension %>visible-when-firefox<% end %> should-install-firefox-extension">
+  <div class="visible-when-chrome visible-when-firefox should-install-firefox-extension">
     <p>To use Factlink on all of your websites you should install our extension.</p>
   </div>
 
   <div class="visible-when-unsupported-browser">
-    <p>This browser is not fully supported. We've build browser extensions that add a layer to the web. To use this extension you need to install Google Chrome<% if can_haz :firefox_extension %> or Firefox<% end %>.</p>
+    <p>This browser is not fully supported. We've build browser extensions that add a layer to the web. To use this extension you need to install Google Chrome or Firefox.</p>
     <a class="btn download-browser" href="https://google.com/chrome" target="_blank"><%= image_tag("browser-icons/chrome-16x16.png", style: "margin: -4px 8px 0 0") %>Install Google Chrome</a>
-    <% if can_haz :firefox_extension %>
     <a class="btn download-browser" href="http://www.mozilla.org/firefox" target="_blank"><%= image_tag("browser-icons/firefox-16x16.png", style: "margin: 0 8px 0 0") %>Install Firefox</a>
-    <% end %>
   </div>
 
   <div class="visible-when-unsupported-browser or-divider">
@@ -36,7 +34,6 @@
   </div>
 
 
-  <% if can_haz :firefox_extension %>
   <!-- Firefox Extension download -->
   <div class="visible-when-firefox button-wrapper should-install-firefox-extension">
     <span class="transparent-border">
@@ -48,7 +45,6 @@
   <div class="visible-when-firefox">
     <p class="firefox-extension-installed">Great, the extension is installed!</p>
   </div>
-  <% end %>
 
   <!-- <div class="visible-when-chrome chrome-extension-installed">
     <p>Great, the extension is installed!</p>
@@ -67,45 +63,15 @@
     <p class="support-text">You can drag this Bookmarklet to your bookmarks bar.</p>
   </div>
 
-
-  <% unless can_haz :firefox_extension %>
-  <%#
-    Duplicated this piece of code. Needs to be shown when firefox is used, but user is not allowed to use the extension.
-  %>
-  <!-- Unsupported browsers -->
-  <div class="visible-when-firefox button-wrapper">
-    <p>You can use Factlink with this browser by using the bookmarklet, but keep in mind that this won't give you the full Factlink experience.</p>
-
-    <span class="dashed-border">
-      <a id="bookmarklet-button" class="bookmarklet btn" onclick="return false"
-           <%# here we need singlequotes kthxbye: %>
-           href='javascript:<%= minify_js(ensure_no_single_quotes(render(:partial => 'home/bookmarklet', :formats => [:js]))) %>'><i class='icon-bookmark'></i><span style="display: none">Factlink</span></a>
-    </span>
-    <p class="support-text">You can drag this Bookmarklet to your bookmarks bar.</p>
-  </div>
-
-  <div class="visible-when-firefox bottom">
-    <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
-    <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_next') %>">Next step</a>
-  </div>
-  <%#
-    end of duplicated code
-  %>
-  <% end %>
-
-
-
   <div class="visible-when-chrome bottom">
     <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_skip') %>">Skip this step</a>
     <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'chrome_extension_next') %>">Next step</a>
   </div>
 
-  <% if can_haz :firefox_extension %>
   <div class="visible-when-firefox bottom">
     <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_skip') %>">Skip this step</a>
     <a class="next-step btn btn-primary btn-large" href="<%= create_your_first_factlink_path(ref: 'firefox_extension_next') %>">Next step</a>
   </div>
-  <% end %>
 
   <div class="visible-when-unsupported-browser bottom">
     <a class="skip-step" href="<%= create_your_first_factlink_path(ref: 'bookmarklet_skip') %>">Skip this step</a>
@@ -140,11 +106,9 @@
         showNextButtonForClient('chrome');
       });
 
-      <% if can_haz :firefox_extension %>
       $('#firefox-extension-button').mousedown(function() {
         showNextButtonForClient('firefox');
       });
-      <% end %>
 
       $('#bookmarklet-button').mousedown(function() {
         mp_track("Bookmarklet: Clicked the Bookmarklet #almost-ready");
