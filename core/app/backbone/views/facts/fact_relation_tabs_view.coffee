@@ -6,64 +6,46 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
   events:
     "click .tab:not(.active)": "tabClick"
 
-  initialize: ->
-    @_currentTab = `undefined`
-    @initFactRelationsViews()
+  regions:
+    tabRegion: '.tab-content-container'
 
-  onRender: ->
-    @showTab("supporting", @$('.tab-control>.supporting'))
+  onRender: -> @showTab("supporting")
 
   hideTabs: ->
     $tabButtons = @$(".tab-control li")
     $tabButtons.removeClass "active"
 
-    @$(".tab-content").hide()
-    @$(".tab-control > li").removeClass "tabOpened"
-    @_currentTab = `undefined`
-
-  showTab: (tab, $tabHandle)->
-    @hideTabs()
-    @_currentTab = tab
-    $tabHandle.addClass "active"
-    @$(".tab-content > .#{tab}").show()
-    @$(".tab-control > li").addClass "tabOpened"
-    @handleTabActions tab
-
-  handleTabActions: (tab) ->
+  showTab: (tab)->
     mp_track "Factlink: Open tab",
       factlink_id: @model.id
       type: tab
 
-    switch tab
-      when "doubting", "supporting", "weakening" then @showFactRelations tab
+    @hideTabs()
+    $tabHandle = @$(".tab-control>.#{tab}")
+    $tabHandle.addClass "active"
 
-  initFactRelationsViews: ->
-    @supportingFactRelations = new SupportingFactRelations([],fact: @model)
-    @weakeningFactRelations = new WeakeningFactRelations([],fact: @model)
+    @showFactRelations tab
+
+  onClose: -> delete @discussion
+
+  cachedDiscussion: (type) ->
+    @discussion ?= {}
+    @discussion[type] ?= new Discussion
+      fact: @model
+      type: type
 
   showFactRelations: (type) ->
-    unless "#{type}FactRelationsView" of this
-      discussion = new Discussion
-        fact: @model
-        relations: this["#{type}FactRelations"]
-        type: type
-      if type == "doubting"
-        relations_view = new DoubtingRelationsView model: discussion
-      else
-        relations_view = new FactRelationsView model: discussion
 
-      this["#{type}FactRelationsView"] = relations_view
+    if type == "doubting"
+      relations_view = new DoubtingRelationsView model: @cachedDiscussion(type)
+    else
+      relations_view = new FactRelationsView model: @cachedDiscussion(type)
 
-      @$el.append this["#{type}FactRelationsView"].render().el
-
-    @$(".tab-content.#{type}").show()
+    @tabRegion.show relations_view
 
   tabClick: (e) ->
     e.preventDefault()
     e.stopPropagation()
     $target = $(e.target).closest("li")
     tab = $target.attr("class").split(" ")[0]
-    if tab is @_currentTab
-      @hideTabs()
-    else
-      @showTab(tab, $target)
+    @showTab(tab)

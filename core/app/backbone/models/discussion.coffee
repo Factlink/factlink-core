@@ -4,6 +4,14 @@ class window.Discussion extends Backbone.Model
     @_relations = opts.relations
     @_type = opts.type
 
-  relations: -> @_relations
+  relations: -> @_relations ?= @getFactRelations()
   fact: -> @_fact
   type: -> @_type
+
+  getFactRelations: ->
+    switch @type()
+      when 'supporting'
+        new SupportingFactRelations([],fact: @fact())
+      when 'weakening'
+        new WeakeningFactRelations([],fact: @fact())
+      else `undefined`
