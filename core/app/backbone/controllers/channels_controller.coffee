@@ -120,7 +120,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     @channel_views.renderCacheView(channel_id, new_callback()) if not view?
 
   makePermalinkEvent: (baseUrl) ->
-    @permalink_event = @bindTo FactlinkApp.vent, 'permalink_clicked', (e, fact_id) =>
+    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact_id) =>
       @lastChannelStatus =
         view: @channel_views.currentView()
         scrollTop: $('body').scrollTop()
