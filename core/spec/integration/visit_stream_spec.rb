@@ -17,10 +17,10 @@ feature "visiting a channel" do
 
     page.should have_content(@channel.title)
   end
-  
+
   scenario "shows facts" do
     @channel = create_channel_in_backend
-    
+
     2.times.each do
       @factlink = create_fact_in_backend
 
@@ -41,20 +41,19 @@ feature "visiting a channel" do
 
   scenario "revisiting channel after visiting a factlink page" do
     @channel = create_channel_in_backend
-    
+
     10.times.each do
       @factlink = create_fact_in_backend
       add_fact_to_channel_in_backend @factlink, @channel
     end
 
     go_to_channel_page_of @channel
-    save_and_open_page
 
     set_scroll_top_to 100
 
     go_to_first_fact
     go_back_using_button
-    
+
     expect(get_scroll_top).to eq(100)
   end
 end
