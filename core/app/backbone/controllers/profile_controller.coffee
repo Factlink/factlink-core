@@ -1,6 +1,9 @@
 app = FactlinkApp
 
-class window.ProfileController
+class window.ProfileController extends Backbone.Factlink.BaseController
+
+  routes: ['showProfile', 'showNotificationSettings']
+
   profile_options: (username) ->
     title: 'About ' + username
     active_tab: 'show'

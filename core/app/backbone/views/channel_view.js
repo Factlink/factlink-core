@@ -102,7 +102,6 @@ window.ChannelView = ChannelViewLayout.extend({
       }),
       model: this.model
     });
-
   },
 
   onRender: function() {

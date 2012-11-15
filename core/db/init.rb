@@ -3,7 +3,7 @@
 LoadDsl.load do
 
   user "merijn", "merijn@gmail.com", "123hoi", "merijn481"
-  user "tomdev", "tom@codigy.nl", "123hoi", "tomdev"
+  user "tomdev", "tom@factlink.com", "123hoi", "tomdev"
   user "jordin", "jordin@factlink.com", "123hoi", "vanzwoljj"
   user "remon", "remon@factlink.com", "123hoi", "R51"
   user "salvador", "salvador@factlink.com", "123hoi", "salvadorven"

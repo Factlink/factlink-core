@@ -12,7 +12,7 @@ class window.Messages extends Backbone.Collection
       sender: sender
     @add message
     message.save [],
-      success: => options.success?()
-      error: =>
+      success: (args...) => options.success?(args...)
+      error: (args...) =>
         @remove message
-        options.error?()
+        options.error?(args...)

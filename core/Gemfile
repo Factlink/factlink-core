@@ -106,7 +106,7 @@ group :assets do
   gem 'modernizr-rails', "~> 2.0.6"
 
   gem "rails-backbone", '= 0.7.2'
-  gem "marionette-rails", '= 0.9.6.1'
+  gem "marionette-rails", '= 0.9.6.1' # When updating, check source for 'updating Marionette'
 end
 
 group :development do

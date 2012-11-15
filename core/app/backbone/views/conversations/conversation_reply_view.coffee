@@ -5,7 +5,7 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
     "click .submit": 'submit'
 
   submit: ->
-    @displayError false
+    @showAlert null
     @disableSubmit()
 
     @model.messages().createNew @$('.text').val(), currentUser,
@@ -13,11 +13,18 @@ class window.ConversationReplyView extends Backbone.Marionette.ItemView
         @clearForm()
         @enableSubmit()
 
-      error: =>
-        @displayError true
+      error: (model, response) =>
+        if response.responseText in ['message_empty']
+          @showAlert response.responseText
+        else
+          @showAlert 'error'
         @enableSubmit()
 
   enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send message')
   disableSubmit: -> @$('.submit').prop('disabled',true ).val('Sending')
   clearForm:     -> @$('.recipients, .message-textarea').val('')
   displayError: (value) -> @$('.alert-error').toggle(value)
+
+  showAlert: (type) ->
+    @$('.alert').addClass 'hide'
+    @$('.alert-type-' + type).removeClass 'hide' if type?
