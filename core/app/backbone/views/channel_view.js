@@ -96,7 +96,7 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
 window.ChannelView = ChannelViewLayout.extend({
 
   getFactsView: function() {
-    return facts_view = new FactsView({
+    return new FactsView({
       collection: new ChannelFacts([],{
         channel: this.model
       }),
