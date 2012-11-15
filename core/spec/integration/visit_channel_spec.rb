@@ -48,7 +48,6 @@ feature "visiting a channel" do
     end
 
     go_to_channel_page_of @channel
-    save_and_open_page
 
     set_scroll_top_to 100
 
