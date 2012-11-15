@@ -10,9 +10,9 @@ feature "visiting a channel" do
   scenario "going to the channel page" do
     @channel = create_channel_in_backend
 
-    visit channel_path(@user, channel)
+    visit channel_path(@user, @channel)
 
-    page.should have_content(channel.title)
+    page.should have_content(@channel.title)
   end
   
   scenario "shows facts" do
