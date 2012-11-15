@@ -66,11 +66,9 @@ module Facts
     end
 
     def friendly_time
-      if self[:channel]
-        timestamp_in_seconds = self[:timestamp] / 1000
-      else
-        timestamp_in_seconds = self[:fact].data.created_at.to_i
-      end
+      return nil unless self[:channel]
+
+      timestamp_in_seconds = self[:timestamp] / 1000
 
       time_ago = [Time.at(timestamp_in_seconds), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
       time_ago_in_words(time_ago)
