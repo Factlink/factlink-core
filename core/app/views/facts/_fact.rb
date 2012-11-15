@@ -22,14 +22,6 @@ module Facts
       self[:fact].weakening_facts.size
     end
 
-    def interacting_users
-      if self[:show_interacting_users]
-        Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 3).to_hash
-      else
-        {activity: []}
-      end
-    end
-
     def signed_in?
       user_signed_in?
     end
