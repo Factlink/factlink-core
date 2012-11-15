@@ -13,7 +13,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   },
 
   onRender: function() {
-    if ( this.options.type === "supporting" ) {
+    if ( this.options.factRelations.type === "supporting" ) {
       this.$('.add-evidence.supporting' ).show();
     } else {
       this.$('.add-evidence.weakening' ).show();
@@ -66,7 +66,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
           .closest('li')
           .show();
 
-        mp_track("Evidence: Search", {type: self.options.type});
+        mp_track("Evidence: Search", {type: self.options.factRelations.type});
 
         self.stopLoading();
       }
@@ -122,7 +122,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
       success: function(newFactRelation) {
         mp_track("Evidence: Create", {
           factlink_id: self.options.factRelations.fact.id,
-          type: self.options.type
+          type: self.options.factRelations.type
         });
 
         factRelations.add(new factRelations.model(newFactRelation), {

@@ -15,7 +15,6 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
     'click a' : 'showAll'
 
   initialize: (options) ->
-    @type = @collection.type
     @model = new Backbone.Model
     @fetch()
 
@@ -31,7 +30,7 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
 
   templateHelpers: =>
     past_action:
-      switch @options.type
+      switch @collection.type
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
         when 'doubting' then 'doubted'

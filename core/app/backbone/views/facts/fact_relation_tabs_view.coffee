@@ -43,23 +43,20 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
 
   showFactRelations: (type) ->
     unless "#{type}FactRelationsView" of this
+      discussion = new Discussion
+        fact: @model
+        relations: this["#{type}FactRelations"]
+        type: type
       if type == "doubting"
-        relations_view = new DoubtingRelationsView(
-          model: @model
-          type: type
-        )
+        relations_view = new DoubtingRelationsView model: discussion
       else
-        relations_view = new FactRelationsView(
-          model: @model
-          collection: this["#{type}FactRelations"]
-        )
+        relations_view = new FactRelationsView model: discussion
 
       this["#{type}FactRelationsView"] = relations_view
 
       @$el.append this["#{type}FactRelationsView"].render().el
 
     @$(".tab-content.#{type}").show()
-    this["#{type}FactRelationsView"].fetch() unless type == "doubting"
 
   tabClick: (e) ->
     e.preventDefault()
