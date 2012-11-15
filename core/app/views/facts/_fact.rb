@@ -93,10 +93,6 @@ module Facts
       "#{time_ago_in_words(self[:fact].data.created_at)} ago"
     end
 
-    def users_authority
-      Authority.on(self[:fact], for: current_graph_user).to_s.to_f + 1.0
-    end
-
     def believers_count
       self[:fact].opiniated(:believes).count
     end
