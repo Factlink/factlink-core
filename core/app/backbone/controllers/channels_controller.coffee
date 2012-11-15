@@ -59,8 +59,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
 
       @restoreChannelView channel_id, => new ChannelView(model: channel)
 
-      @channel_views.clear()
-
   getChannelActivities: (username, channel_id) ->
     app.mainRegion.show(@channel_views)
 
@@ -71,8 +69,6 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
       @restoreChannelView channel_id, =>
         activities = new ChannelActivities([],{ channel: channel })
         new ChannelActivitiesView(model: channel, collection: activities)
-
-      @channel_views.clear()
 
   getChannelFactForActivity: (username, channel_id, fact_id) ->
     @getChannelFact(username, channel_id, fact_id, true)
@@ -113,6 +109,7 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
     $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
     delete @lastChannelStatus
     @channel_views.renderCacheView(channel_id, new_callback()) if not view?
+    @channel_views.clear()
 
   makePermalinkEvent: (baseUrl) ->
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
