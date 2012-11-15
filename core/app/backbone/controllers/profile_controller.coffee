@@ -75,7 +75,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         model: channel
 
   withFact: (fact)->
-    window.efv = new ExtendedFactView(model: fact)
+    window.efv = new DiscussionView(model: fact)
     @main.contentRegion.show(efv)
 
     username = fact.get('created_by').username
