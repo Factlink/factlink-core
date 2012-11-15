@@ -47,14 +47,16 @@ class Backbone.Factlink.DetachedViewCache extends Backbone.Factlink.DetachedView
     @switchView(@current)
 
   closeCacheView: (key) ->
-    @views[key].close()
-    @views[key] = undefined
+    @cache[key].close() if @cache[key].close?
+    @cache[key].remove()
+    delete @cache[key]
 
   clear: ->
-    for key, view of @views
-      @closeView(key)
-      view.remove()
+    for key, view of @cache
+      if view != @_view
+        @closeCacheView(key)
 
   cleanup: ->
+    @_view = null
     @clear()
     super()
