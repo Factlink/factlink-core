@@ -1,4 +1,4 @@
-class Backbone.Factlink.DetachedViewContainer extends Backbone.View
+class Backbone.Factlink.DetachedViewPort extends Backbone.View
   constructor: (options) ->
     super(options)
     @_view = null
@@ -34,7 +34,7 @@ class Backbone.Factlink.DetachedViewContainer extends Backbone.View
   cleanup: ->
     @remove()
 
-class Backbone.Factlink.DetachedViewCache extends Backbone.Factlink.DetachedViewContainer
+class Backbone.Factlink.DetachedViewCache extends Backbone.Factlink.DetachedViewPort
   initialize: ->
     @cache = {}
     @current = null
