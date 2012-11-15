@@ -27,17 +27,20 @@ div.top-right-arrow, div.relation-top-right-arrow {
   &:hover {
     border: 1px solid @linkColor;
   }
+
   &.active {
     display: block;
+    .border-bottom-radius(0);
+
+    &:hover {
+      border: 1px solid @baseBorderColor;
+    }
+
     i {
       z-index: 101;
       position: absolute;
       border-bottom: 1px solid #fff;
-      .border-top-radius(2px);
-    }
-    &:hover {
-      border: 1px solid @baseBorderColor;
-      border-bottom: 1px solid #fff;
+      .border-bottom-radius(0);
     }
   }
 
@@ -45,7 +48,7 @@ div.top-right-arrow, div.relation-top-right-arrow {
     display: none;
     position: absolute;
     border: 1px solid @baseBorderColor;
-    .border-radius(0 3px 3px 3px);
+    .border-radius(3px 0 3px 3px);
     top: 100%;
     right: -1px;
     margin: 0;
@@ -56,7 +59,7 @@ div.top-right-arrow, div.relation-top-right-arrow {
     li {
       list-style: none;
       font-size: @baseFontSize;
-      color: #333;
+      color: @baseFontColor;
       white-space: nowrap;
 
       &.delete {
@@ -70,7 +73,7 @@ div.top-right-arrow, div.relation-top-right-arrow {
       a {
         cursor: pointer;
         padding: 7px 15px;
-        color: #333;
+        color: @baseFontColor;
         display: block;
         text-shadow: none;
 

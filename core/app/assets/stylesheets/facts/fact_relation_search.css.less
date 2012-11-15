@@ -2,7 +2,7 @@
 @import "bootstrap/variables";
 
 .fact-relation-search {
-  background: #f7f7f7;
+  background: @whiteDarker;
   border-top: 1px solid @baseBorderColor;
   padding: 15px;
   .border-bottom-radius(5px);
@@ -15,7 +15,7 @@
     margin: -16px 0 0 0;
     padding: 0;
 
-    display: block;
+    display: none;
 
     position: absolute;
     top: 100%;
@@ -33,13 +33,21 @@
       }
 
       &:hover {
-        background: #f7f7f7;
+        background: @whiteDarker;
       }
 
       span.word {
         font-weight: bold;
       }
+
+      &:last-child {
+        border-bottom: none;
+      }
     }
+  }
+
+  .results_found .add-evidence input[type="text"] {
+    .border-radius(3px 3px 0 3px);
   }
 
   .add-evidence {
@@ -51,7 +59,7 @@
       border: 1px solid #ccc;
       font-size: 12px;
       padding: 8px 9px;
-      .border-radius(4px);
+      .border-radius(3px);
       #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
       height: 32px;
       width: 100%;

@@ -26,7 +26,7 @@
       .border-top-radius(5px);
       cursor: pointer;
       padding: 0 10px;
-      color: #777;
+      color: @baseFontColor;
 
       &:hover {
         > a {
@@ -37,20 +37,20 @@
 
       &.active {
         cursor: default;
-        background: #f4f4f4;
+        background: @whiteDarker;
         border: 1px solid @baseBorderColor;
-        border-bottom: 1px solid #f4f4f4;
+        border-bottom: 1px solid @whiteDarker;
 
         &:hover {
           > a {
             text-decoration: none;
-            color: #333;
+            color: @baseFontColor;
           }
         }
 
         > a {
           cursor: default;
-          color: #333;
+          color: @baseFontColor;
         }
       }
 
@@ -86,7 +86,7 @@
     margin: 0 -15px;
 
     > .interacting-users {
-      background: #f7f7f7;
+      background: @whiteDarker;
       border-top: 1px solid @baseBorderColor;
       border-bottom: 1px solid @baseBorderColor;
 

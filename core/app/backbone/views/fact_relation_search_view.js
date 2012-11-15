@@ -75,13 +75,13 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
 
   parseSearchResults: function(searchResults) {
     var self = this;
-    var searchResultsContainer = this.$el.find('.search-results');
+    var searchResultsContainer = this.$el.find('.search-results').hide();
+    this.$el.removeClass('results_found');
 
     this.truncateSearchContainer();
 
     _.forEach(searchResults, function(searchResult) {
-      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id,10))){
-        console.info('adding because i cannot find', searchResult);
+      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id,10))) {
         var view = new FactRelationSearchResultView({
           model: new FactRelationSearchResult(searchResult),
           // Give the search result a reference to the FactRelation collection
@@ -90,11 +90,13 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
         });
 
         view.render();
-        searchResultsContainer.find('li.loading').after( view.el );
+
+        this.$el.addClass('results_found');
+        searchResultsContainer.show().find('li.loading').after(view.el);
 
         self._searchResultViews.push(view);
       }
-    });
+    }, this);
   },
 
   addNewFactRelation: function() {
