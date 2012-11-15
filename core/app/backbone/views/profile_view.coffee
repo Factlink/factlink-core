@@ -15,15 +15,4 @@ class window.ProfileView extends Backbone.Marionette.Layout
   onRender: ->
     @topChannelsRegion.show         new TopChannelView(collection: @collection)
     @profileInformationRegion.show  new ProfileInformationView(model: @model)
-    @factRegion.show                @getFactsView( @getChannel() )
-
-  getChannel: ->
-    new Channel(id: @model.get('created_facts_channel_id'), created_by: { username: @model.get('username') } )
-
-  getFactsView: (channel) ->
-    return new FactsView(
-      collection: new ChannelFacts([],
-        channel: channel
-      ),
-      model: channel
-    )
+    @factRegion.show                @options.created_facts_view

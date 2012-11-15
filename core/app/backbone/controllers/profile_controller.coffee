@@ -7,10 +7,13 @@ class window.ProfileController extends Backbone.Factlink.BaseController
   profile_options: (username) ->
     title: 'About ' + username
     active_tab: 'show'
-    mainRegion: (user) ->
+    mainRegion: (user) =>
+      @makePermalinkEvent( user.get('username') )
+
       new ProfileView
         model: user
         collection: window.Channels.orderedByAuthority()
+        created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -56,6 +59,14 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       success: -> options.onFetch(user)
       forProfile: true
 
+  getFactsView: (channel) ->
+    facts_view = new FactsView(
+        collection: new ChannelFacts([],
+          channel: channel
+        ),
+        model: channel
+      )
+
   showUserLarge: (user) ->
     userLargeView = new UserLargeView(model: user);
     app.leftTopRegion.show(userLargeView);
@@ -65,3 +76,17 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     channelCollectionView = new ChannelsView(collection: window.Channels)
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
+
+
+
+
+
+
+  makePermalinkEvent: (baseUrl) ->
+    console.info "profile_controller: make permalink event"
+    @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
+      navigate_to = fact.get('url')
+      Backbone.history.navigate navigate_to, true
+
+      e.preventDefault()
+      e.stopPropagation()
