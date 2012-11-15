@@ -1,8 +1,11 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.BaseController
+
   constructor: (args...)->
+    # Change the way we exxtend EventBinder when updating Marionette
     eventBinder = new Backbone.Marionette.EventBinder()
     _.extend(@, eventBinder)
+
     @initializeRoutes(@routes)
     @initialize(args...) if @initialize?
 
@@ -13,11 +16,11 @@ class Backbone.Factlink.BaseController
 
   getRouteFunction: (name) ->
     (args...) ->
-      @showController()
+      @openController()
       @onAction() if @onAction?
       @[name](args...)
 
-  showController: ->
+  openController: ->
     return if @started
     FactlinkApp.vent.trigger 'controller:switch'
     @bindTo FactlinkApp.vent, 'controller:switch', @closeController, this
