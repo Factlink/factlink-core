@@ -7,7 +7,7 @@ module Commands
     arguments :sender_id, :content, :conversation
 
     def validate
-      raise 'Message cannot be empty.' unless @content.length > 0
+      raise Pavlov::ValidationError, 'message_empty' unless @content.strip.length > 0
       raise 'Message cannot be longer than 5000 characters.' unless @content.length <= 5000
       validate_hexadecimal_string :conversation_id, @conversation.id.to_s
     end

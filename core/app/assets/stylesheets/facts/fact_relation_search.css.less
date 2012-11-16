@@ -1,0 +1,75 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.fact-relation-search {
+  background: @whiteDarker;
+  border-top: 1px solid @baseBorderColor;
+  padding: 15px;
+  .border-bottom-radius(5px);
+
+  ul.search-results {
+    list-style: none;
+    background: white;
+    cursor: pointer;
+
+    margin: -16px 0 0 0;
+    padding: 0;
+
+    display: none;
+
+    position: absolute;
+    top: 100%;
+    width: 350px;
+
+    border: 1px solid @baseBorderColor;
+    .border-bottom-radius(4px);
+
+    > li {
+      padding: 10px;
+      border-bottom: 1px solid @baseBorderColor;
+
+      &.loading, &.add {
+        display: none;
+      }
+
+      &:hover {
+        background: @whiteDarker;
+      }
+
+      span.word {
+        font-weight: bold;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .results_found .add-evidence input[type="text"] {
+    .border-radius(3px 3px 0 3px);
+  }
+
+  .add-evidence {
+    display: none;
+
+    input[type="text"] {
+      @shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.1);
+      .box-shadow(@shadow);
+      border: 1px solid #ccc;
+      font-size: 12px;
+      padding: 8px 9px;
+      .border-radius(3px);
+      #font > .sans-serif(normal, @tabItemFontSize, @baseLineHeight);
+      height: 32px;
+      width: 100%;
+      margin: 0;
+      .box-sizing();
+
+      &:focus {
+        outline: 0;
+        border: 1px solid @linkColor;
+      }
+    }
+  }
+}

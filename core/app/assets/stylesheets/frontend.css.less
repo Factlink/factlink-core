@@ -1,20 +1,21 @@
 /*
  *= require bootstrap
  *= require browser_detection
- *= require base/feedback
- *= require bubble
- *= require base/topbar
  *= require users
- *= require facts
- *= require footer
  *= require channels
  *= require search
  *= require tour
  *= require activity
  *= require site_messages
- *= require_tree ./conversations
+ *= require auto_complete
+
+ *= require base/feedback
+ *= require base/topbar
  *= require base/iconic_stroke
  *= require base/bootstrap_modal
+
+ *= require_tree ./facts
+ *= require_tree ./conversations
  */
 
 @import "bootstrap/variables";
@@ -26,7 +27,7 @@ Author: Factlink
 ========================================================================== */
 #body {
   background-color: #f9f9f9;
-  text-shadow: 0 1px 1px #fff;
+  text-shadow: 0;
 }
 body {
   background: @white;
@@ -48,41 +49,6 @@ ul {
 }
 img {
   vertical-align: middle;
-}
-body.factlink-site .fact-block {
-  border-bottom: 1px solid @baseBorderColor;
-  margin: 0px -15px;
-  .transition(all 0.2s ease);
-
-  &.active {
-    margin: 15px 0 15px 0;
-  }
-
-  &:first-child {
-    border-top: 1px solid @baseBorderColor;
-    margin: 0px -15px;
-  }
-  &:last-child {
-    border-bottom: none;
-  }
-
-  .dropdown-container {
-    margin-left: 70px;
-    margin-right: 15px;
-    border-left: 1px solid @baseBorderColor;
-    border-right: 1px solid @baseBorderColor;
-    border-bottom: 1px solid @baseBorderColor;
-    margin-bottom: 15px;
-    -webkit-border-radius: 3px;
-    -webkit-border-top-left-radius: 0;
-    -moz-border-radius: 3px;
-    -moz-border-radius-topleft: 0;
-    border-radius: 3px;
-    border-top-left-radius: 0;
-  }
-  -webkit-border-radius: 0;
-  border-radius: 0;
-  -moz-border-radius: 0;
 }
 
 .search-results .results .user-block {
@@ -131,7 +97,7 @@ body.factlink-site .fact-block {
 
     span {
       vertical-align: middle;
-      color: #333;
+      color: @headingFontColor;
       font-size: 10px;
     }
   }
@@ -142,7 +108,7 @@ body.factlink-site .fact-block {
   form {
     .row {
       padding: 10px 0px;
-      color: #777;
+      color: @metaFontColor;
       text-shadow: 0px 1px 0px #fff;
       label {
         display: block;
@@ -176,7 +142,7 @@ body.factlink-site .fact-block {
   }
 
   sub {
-    color: #333;
+    color: @headingFontColor;
     #font > .sans-serif(normal, x-small, @baseLineHeight);
     bottom: 0.45em;
   }
@@ -230,7 +196,7 @@ body.factlink-site .fact-block {
           }
 
           > div {
-            color: #777;
+            color: @metaFontColor;
           }
         }
 
@@ -250,7 +216,7 @@ body.factlink-site .fact-block {
       }
 
       .related-user {
-        color: #777;
+        color: @metaFontColor;
         font-size: 12px;
       }
       // User block for related users
@@ -313,7 +279,7 @@ body.factlink-site .fact-block {
             overflow: hidden;
             text-overflow: ellipsis;
             width: 160px;
-            color: #555;
+            color: @baseFontColor;
           }
         }
       }
@@ -326,9 +292,9 @@ body.factlink-site .fact-block {
       width: 198px;
 
       padding: 10px;
-      color: #555;
+      color: @baseFontColor;
       h4 {
-        color: #333;
+        color: @headingFontColor;
         padding-bottom: 4px;
       }
       margin-bottom: 30px;
@@ -364,7 +330,7 @@ body.factlink-site .fact-block {
           .channel-user {
             font-size: @metaFontSize;
             line-height: 15px;
-            color: #777;
+            color: @metaFontColor;
             width: 120px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -388,14 +354,14 @@ body.factlink-site .fact-block {
     position: relative;
 
     header.title {
-      color: #777;
+      color: @headingFontColor;
       background-color: #f8f8f8;
       text-shadow: 0px 1px 0px @white;
 
       .border-radius(@borderRadius @borderRadius 0 0);
       margin: -15px -15px -1px -15px;
       padding-left: 20px;
-      border-bottom: 1px solid #d8d8d8;
+      border-bottom: 1px solid @baseBorderColor;
       position: relative;
 
       min-height: 40px;
@@ -432,9 +398,9 @@ body.factlink-site .fact-block {
               background-color: @white;
               border: solid 1px #D8D8D8;
               border-bottom: solid 1px #fff;
-              .custom-radius(3px, 0, 0, 3px);
+              .border-top-radius(3px);
               a {
-                color: #555;
+                color: @baseFontColor;
               }
             }
 
@@ -515,7 +481,7 @@ body.factlink-site .fact-block {
             }
             &:hover {
               text-decoration: none;
-              color: #333;
+              color: @headingFontColor;
             }
           }
           &:hover {
@@ -589,7 +555,7 @@ body.factlink-site .fact-block {
           }
 
           > div {
-            color: #777;
+            color: @metaFontColor;
           }
         }
 
@@ -609,7 +575,7 @@ body.factlink-site .fact-block {
       }
 
       .related-user {
-        color: #777;
+        color: @metaFontColor;
         font-size: 12px;
       }
       // User block for related users

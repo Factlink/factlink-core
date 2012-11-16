@@ -27,41 +27,6 @@
 	box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
 }
 
-.custom-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
-  .custom-radius-top-right(@topright);
-  .custom-radius-bottom-right(@bottomright);
-  .custom-radius-bottom-left(@bottomleft);
-  .custom-radius-top-left(@topleft);
-}
-
-.custom-radius-top-right(@topright) {
-  -webkit-border-top-right-radius: @topright;
-  -moz-border-top-right-radius: @topright;
-  border-top-right-radius: @topright;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-}
-
-.custom-radius-bottom-right(@bottomright) {
-  -webkit-border-bottom-right-radius: @bottomright;
-  -moz-border-bottom-right-radius: @bottomright;
-  border-bottom-right-radius: @bottomright;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-}
-
-.custom-radius-bottom-left(@bottomleft) {
-  -webkit-border-bottom-left-radius: @bottomleft;
-  -moz-border-bottom-left-radius: @bottomleft;
-  border-bottom-left-radius: @bottomleft;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-}
-
-.custom-radius-top-left(@topleft) {
-  -webkit-border-top-left-radius: @topleft;
-  -moz-border-top-left-radius: @topleft;
-  border-top-left-radius: @topleft;
-  -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
-}
-
 .transition(@type: color,@time: .15s) {
   transition: @type @time ease-in-out;
   -moz-transition: @type @time ease-in-out;

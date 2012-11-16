@@ -15,7 +15,7 @@ describe SupportingEvidenceController do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
     Activity::Subject.should_receive(:activity).any_number_of_times
-    
+
     @fr = f1.add_evidence(:supporting, f2, user)
   end
 
@@ -32,7 +32,7 @@ describe SupportingEvidenceController do
 
       get 'index', :fact_id => f1.id, :format => 'json'
       parsed_content = JSON.parse(response.body)
-      parsed_content[0]["fact_bubble"]["id"].should == f2.id
+      parsed_content[0]["fact_base"]["id"].should == f2.id
     end
   end
 
@@ -53,7 +53,7 @@ describe SupportingEvidenceController do
         response.should be_success
 
         parsed_content = JSON.parse(response.body)
-        parsed_content["fact_bubble"]["displaystring"].should == displaystring
+        parsed_content["fact_base"]["displaystring"].should == displaystring
 
         FactRelation[parsed_content["id"].to_i].fact.id.should == f1.id
       end
@@ -66,7 +66,7 @@ describe SupportingEvidenceController do
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
 
         parsed_content = JSON.parse(response.body)
-        parsed_content["fact_bubble"]["fact_id"].should == f2.id
+        parsed_content["fact_base"]["fact_id"].should == f2.id
 
         response.should be_success
       end
@@ -80,7 +80,7 @@ describe SupportingEvidenceController do
 
         parsed_content = JSON.parse(response.body)
 
-        opinions = parsed_content["fact_bubble"]["fact_wheel"]["opinion_types"]
+        opinions = parsed_content["fact_base"]["fact_wheel"]["opinion_types"]
 
         opinions[0]["type"].should == "believe"
         opinions[0]["percentage"].should == 0
@@ -107,7 +107,7 @@ describe SupportingEvidenceController do
       response.should be_success
 
       parsed_content = JSON.parse(response.body)
-      parsed_content.first.should have_key("fact_bubble")
+      parsed_content.first.should have_key("fact_base")
     end
   end
 end

@@ -15,9 +15,5 @@ module Queries
 
       KillObject.conversation conversation, messages: messages, recipients: recipients
     end
-
-    def authorized?
-      @options[:current_user]
-    end
   end
 end

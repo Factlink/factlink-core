@@ -49,15 +49,6 @@ class GraphUser < OurOhm
     channels
   end
 
-  define_memoized_method :real_channels do
-    channels = self.internal_channels.sort_by(:lowercase_title, order: 'ALPHA ASC').to_a
-
-    channels.delete(self.created_facts_channel)
-    channels.delete(self.stream)
-
-    channels
-  end
-
   reference :stream, Channel::UserStream
   def create_stream
     self.stream = Channel::UserStream.create(:created_by => self)

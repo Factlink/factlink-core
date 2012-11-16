@@ -1,35 +1,35 @@
 <% if user_signed_in? %>
   <%= form_tag facts_path(layout: @layout), class: "fact-block", id:"new_fact_form" do %>
-    <article class="fact">
-      <div class="wheel"></div>
+    <div class="fact-view">
+      <%= text_area_tag :fact, params[:fact] %>
+      <%= hidden_field_tag :url, params[:url] %>
+      <%= hidden_field_tag :title, params[:title] %>
+      <% if @layout %>
+        <%= hidden_field_tag :layout, value: @layout %>
+      <% end %>
 
-      <header>
-        <% unless params[:title].blank? %>
+      <div class="fact-wheel"></div>
+
+      <% unless params[:title].blank? %>
         <a class="title"><%= params[:title] %></a>
-        <%= hidden_field_tag :title, params[:title] %>
-        <% end %>
+      <% end %>
 
-       <span class="body">
-          <%= text_area_tag :fact, params[:fact] %>
-          <p style='max-height: 100px; overflow-y: scroll;'><%= params[:fact] %></p>
-
-          <%= hidden_field_tag :url, params[:url] %>
-        </span>
-      </header>
-    </article>
+      <div class="fact-body">
+        <%= params[:fact] %>
+      </div>
+    </div>
 
     <div id="add-to-container">
       <h4><%= t('.add_to_channels').capitalize %>:</h4>
       <div id="add-to-channels"></div>
     </div>
 
-    <% if @layout %>
-      <%= hidden_field_tag :layout, value: @layout %>
-    <% end %>
-
     <div class="buttons">
       <button class="btn" name="cancel" id="cancel">Cancel</button>
-      <%= submit_tag "Post to Factlink", class: "btn btn-primary", "data-disable-with" => "Posting...", id: "submit" %>
+      <%= submit_tag "Post to Factlink",
+                     class: "btn btn-primary",
+                     "data-disable-with" => "Posting...",
+                     id: "submit" %>
     </div>
   <% end %>
 <% end %>
@@ -43,7 +43,7 @@
     $('#add-to-channels').html(addToChannelView.el);
 
     var persistentWheel = new PersistentWheelView({
-      el: $('.wheel'),
+      el: $('.fact-wheel'),
       model: new Wheel(<%= Facts::FactWheel.for(view: self).mock.to_json.html_safe %>)
     }).render();
 
@@ -60,7 +60,7 @@
     createWhatsYourOpinionTooltip();
 
     function createWhatsYourOpinionTooltip() {
-      $('.wheel').on('click', function () {
+      $('.fact-wheel').on('click', function () {
         hideTooltip();
       });
 
@@ -74,14 +74,14 @@
       function showTooltip() {
         if ( ! _shouldShowTooltip ) return;
 
-        $('.wheel').tooltip({
+        $('.fact-wheel').tooltip({
           title: "What's your opinion?",
           trigger: "manual"
         }).tooltip('show');
       }
 
       function destroyTooltip() {
-        $('.wheel').tooltip('destroy');
+        $('.fact-wheel').tooltip('destroy');
       }
 
       function hideTooltip() {

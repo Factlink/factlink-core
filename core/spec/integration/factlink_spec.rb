@@ -11,14 +11,14 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  it "the layout of the single fact page is correct" do
+  it "the layout of the discussion page is correct" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
     visit friendly_fact_path(@factlink)
     sleep 2
     wait_for_ajax
-    assume_unchanged_screenshot "single_fact_page"
+    assume_unchanged_screenshot "discussion_page"
   end
 
   it "evidence can be added" do
@@ -28,8 +28,6 @@ describe "factlink", type: :request do
     visit friendly_fact_path(@factlink)
 
     page.should have_content(@factlink.data.title)
-
-    click_on "Supporting"
 
     wait_until_scope_exists '.add-evidence-container' do
       fill_in 'supporting_search', :with => search_string
@@ -123,7 +121,7 @@ describe "factlink", type: :request do
     visit friendly_fact_path(@factlink)
     page.should have_content(@factlink.data.title)
 
-    click_on "Supporting"
+    click_on "Agreeing"
 
     wait_until_scope_exists '.add-evidence-container' do
       fill_in 'supporting_search', :with => displaystring
@@ -134,15 +132,15 @@ describe "factlink", type: :request do
   end
 
   def wheel_path_d position
-    page.evaluate_script("$('.wheel path')[#{position}].getAttribute('d');");
+    page.evaluate_script("$('.fact-wheel path')[#{position}].getAttribute('d');");
   end
 
   def wheel_path_opactity position
-    page.evaluate_script("$('.wheel path')[#{position}].style.opacity;");
+    page.evaluate_script("$('.fact-wheel path')[#{position}].style.opacity;");
   end
 
   def click_wheel_part position
     #fire click event on svg element
-    page.execute_script("var path = $('.wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
+    page.execute_script("var path = $('.fact-wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
   end
 end

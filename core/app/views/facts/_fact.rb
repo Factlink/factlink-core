@@ -22,14 +22,6 @@ module Facts
       self[:fact].weakening_facts.size
     end
 
-    def interacting_users
-      if self[:show_interacting_users]
-        Facts::InteractingUsers.for(fact: self[:fact], view: self.view, user_count: 3).to_hash
-      else
-        {activity: []}
-      end
-    end
-
     def signed_in?
       user_signed_in?
     end
@@ -55,7 +47,7 @@ module Facts
       end
     end
 
-    def fact_bubble
+    def fact_base
       Facts::FactBubble.for(fact: self[:fact], view: self.view).to_hash
     end
 
@@ -74,10 +66,12 @@ module Facts
     end
 
     def friendly_time
-      if self[:channel]
-        time_ago = [Time.at(self[:timestamp]/1000), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
-        time_ago_in_words(time_ago)
-      end
+      return nil unless self[:channel]
+
+      timestamp_in_seconds = self[:timestamp] / 1000
+
+
+      time_ago_in_words(shortened_time_ago timestamp_in_seconds)
     end
 
     expose_to_hash :timestamp
@@ -96,11 +90,7 @@ module Facts
     end
 
     def created_by_ago
-      "#{time_ago_in_words(self[:fact].data.created_at)} ago"
-    end
-
-    def users_authority
-      Authority.on(self[:fact], for: current_graph_user).to_s.to_f + 1.0
+      "Created #{time_ago_in_words(shortened_time_ago self[:fact].data.created_at)} ago"
     end
 
     def believers_count
@@ -111,6 +101,11 @@ module Facts
     end
     def doubters_count
       self[:fact].opiniated(:doubts).count
+    end
+
+    private
+    def shortened_time_ago time_ago
+      [Time.at(time_ago), Time.now-60].min # Compare with Time.now-60 to prevent showing 'less than a minute ago'
     end
   end
 end

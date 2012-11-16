@@ -1,0 +1,107 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.relation-tabs-view {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  margin: 15px 0 -15px 0;
+  .border-bottom-radius(5px);
+
+  .tab-control {
+    cursor: pointer;
+    list-style: none;
+    font-size: 13px;
+    position: relative;
+    top: 1px;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+      border: 1px solid transparent;
+      .border-top-radius(5px);
+      padding: 0 10px;
+      color: @baseFontColor;
+
+      &:hover {
+        > a {
+          text-decoration: underline;
+          color: @linkColorHover;
+        }
+      }
+
+      &.active {
+        cursor: default;
+        background: @whiteDarker;
+        border: 1px solid @baseBorderColor;
+        border-bottom: 1px solid @whiteDarker;
+
+        &:hover {
+          > a {
+            text-decoration: none;
+            color: @baseFontColor;
+          }
+        }
+
+        > a {
+          cursor: default;
+          color: @baseFontColor;
+        }
+      }
+
+      > a {
+        padding: 0 7px 0 0;
+        line-height: 25px;
+        font-weight: bold;
+      }
+
+      span.opinion_indicator {
+        display: inline-block;
+        height: 10px;
+        width: 8px;
+        margin: 0 5px 0 0;
+        background: image-url('discussions/opinion_type_indicators.png') 0 0 no-repeat;
+
+        &.agreeing {
+          background-position: 0 -7px;
+        }
+
+        &.disagreeing {
+          background-position: -9px -7px;
+        }
+
+        &.unsuring {
+          background-position: -18px -7px;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    .box-shadow(0 -1px 1px rgba(0, 0, 0, .04));
+    margin: 0 -15px;
+
+    > .interacting-users {
+      background: @whiteDarker;
+      border-top: 1px solid @baseBorderColor;
+      border-bottom: 1px solid @baseBorderColor;
+
+      padding: 10px 26px;
+    }
+
+    &.doubting > .interacting-users {
+      .border-bottom-radius(0);
+      border-bottom: none;
+    }
+
+    ul.fact-relation-listing {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li.no-evidence-listing {
+        padding: 15px 25px;
+      }
+    }
+  }
+}

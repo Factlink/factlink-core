@@ -49,6 +49,19 @@ describe Queries::ConversationsWithUsersMessage do
       })
     end
   end
+
+  describe :wrap_with_ids do
+    it "wraps its input in a hash, with as index the id of the objects in the array" do
+      mocklist = mock
+      wrapped_mock_list = mock
+
+      query = Queries::ConversationsWithUsersMessage.new(mock, current_user: mock)
+      query.should_receive(:hash_with_index).with(:id, mocklist).and_return(wrapped_mock_list)
+
+      expect(query.wrap_with_ids(mocklist)).to eq wrapped_mock_list
+    end
+  end
+
   describe :users_for_conversations do
     it 'retrieves users user UsersByIds' do
       conversations = [mock('foo', recipient_ids: [1,2]),mock('foo', recipient_ids: [2,3,4])]

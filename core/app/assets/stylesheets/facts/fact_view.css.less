@@ -1,0 +1,29 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+div.fact-view {
+  color: @baseFontColor;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 19px;
+
+  padding: 20px 20px 10px;
+  margin: 0 -15px;
+
+  position: relative;
+  .clearfix();
+
+  border-bottom: 1px solid @baseBorderColor;
+
+  a {
+    cursor: pointer;
+  }
+
+  #close {
+    z-index: 2147483647;
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    .opacity(.5);
+  }
+}

@@ -7,6 +7,9 @@ class FactsController < ApplicationController
 
   respond_to :json, :html
 
+  before_filter :parse_pagination_parameters,
+    only: [:believers, :disbelievers, :doubters]
+
   before_filter :load_fact,
     :only => [
       :show,
@@ -34,6 +37,27 @@ class FactsController < ApplicationController
   def extended_show
     authorize! :show, @fact
     render_backbone_page
+  end
+
+  def believers
+    fact_id = params[:id].to_i
+    data = interactor :fact_believers, fact_id, @skip, @take
+
+    render_interactions data
+  end
+
+  def disbelievers
+    fact_id = params[:id].to_i
+    data = interactor :fact_disbelievers, fact_id, @skip, @take
+
+    render_interactions data
+  end
+
+  def doubters
+    fact_id = params[:id].to_i
+    data = interactor :fact_doubters, fact_id, @skip, @take
+
+    render_interactions data
   end
 
   def intermediate
@@ -193,5 +217,20 @@ class FactsController < ApplicationController
         render :json => {"error" => "type not allowed"}, :status => 500
         false
       end
+    end
+
+    def parse_pagination_parameters
+      params[:skip] ||= '0'
+      @skip = params[:skip].to_i
+
+      params[:take] ||= '3'
+      @take = params[:take].to_i
+    end
+
+    def render_interactions data
+      @users = data[:users]
+      @total = data[:total]
+
+      render 'facts/interactions', format: 'json'
     end
 end

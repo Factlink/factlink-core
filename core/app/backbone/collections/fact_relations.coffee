@@ -5,6 +5,6 @@ class window.FactRelations extends Backbone.Collection
 
   containsFactWithId: (id) ->
     for relation in @models
-      fact_id =  relation.get('fact_bubble').fact_id
+      fact_id =  relation.get('fact_base').fact_id
       return true if parseInt(fact_id) is parseInt(id)
     return false

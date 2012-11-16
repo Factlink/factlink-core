@@ -14,6 +14,10 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
   onRender: ->
     @recipients_container.show @auto_complete_view
+    @recipients.on 'add', @newRecipient
+
+  newRecipient: =>
+    @$('.message-textarea').focus() if @recipients.length == 1
 
   submit: ->
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
@@ -39,7 +43,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
         @clearForm()
 
       error: (model, response) =>
-        if response.responseText in ['user_not_found']
+        if response.responseText in ['user_not_found', 'message_empty']
           @showAlert response.responseText
         else
           @showAlert 'error'

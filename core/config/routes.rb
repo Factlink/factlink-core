@@ -47,7 +47,6 @@ FactlinkUI::Application.routes.draw do
 
   get "/:fact_slug/f/:id" => "facts#extended_show", as: "frurl_fact"
 
-
   authenticated :user do
 
     resources :facts, :except => [:edit, :index, :update] do
@@ -66,6 +65,9 @@ FactlinkUI::Application.routes.draw do
         delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
         match   "/evidence_search"  => "facts#evidence_search"
         get     "/channels"         => "facts#get_channel_listing"
+        get     "/believers"        => "facts#believers"
+        get     "/disbelievers"     => "facts#disbelievers"
+        get     "/doubters"     => "facts#doubters"
       end
     end
 
@@ -119,6 +121,8 @@ FactlinkUI::Application.routes.draw do
         get "find" => "channels#search", :as => "find"
       end
 
+      get "/facts/:fact_id" => "facts#extended_show", as: "fact"
+
       resources :subchannels, only: [:index, :destroy, :create, :update] do
         collection do
           post "add/:id/",     :as => "add",     :action => "create"
@@ -130,6 +134,7 @@ FactlinkUI::Application.routes.draw do
                 controller: 'channel_activities' do |variable|
         collection do
           get "last_fact"
+          get "facts/:fact_id" => "facts#extended_show", as: "fact"
         end
       end
 

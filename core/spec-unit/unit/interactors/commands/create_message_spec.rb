@@ -19,7 +19,17 @@ describe Commands::CreateMessage do
       conversation = stub(repicient_ids: [14])
 
       expect { Commands::CreateMessage.new 14, '', conversation }.
-        to raise_error(RuntimeError, 'Message cannot be empty.')
+        to raise_error(Pavlov::ValidationError, 'message_empty')
+    end
+
+    it 'throws error on message with just whitespace' do
+      user = stub(id: 14)
+      User.stub(find: user)
+
+      conversation = stub(repicient_ids: [14])
+
+      expect { Commands::CreateMessage.new 14, " \t\n", conversation }.
+        to raise_error(Pavlov::ValidationError, 'message_empty')
     end
 
     it 'throws error on too long message' do

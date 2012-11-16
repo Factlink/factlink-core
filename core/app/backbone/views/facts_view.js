@@ -2,7 +2,7 @@
 
 window.FactsView = AutoloadingCompositeView.extend({
   tagName: "div",
-  className: "facts",
+  className: "facts-view",
   itemViewContainer: ".facts",
   itemView: FactView,
   events: {
@@ -24,10 +24,10 @@ window.FactsView = AutoloadingCompositeView.extend({
     this.collection.on('startLoading', this.loadingIndicatorOn, this);
     this.collection.on('stopLoading', this.loadingIndicatorOff, this);
 
-    this.model.on('change', this.shownewposts, this)
+    this.bindTo(this.model, 'change', this.showNewPosts, this);
   },
 
-  shownewposts: function(){
+  showNewPosts: function(){
     if ( this.model.user().get('username') === currentUser.get('username') ) {
       var unread_count = parseInt(this.model.get('unread_count') || 0 ,10);
       this.$('.more_facts .unread_count').html(unread_count);

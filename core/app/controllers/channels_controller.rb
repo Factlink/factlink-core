@@ -26,11 +26,15 @@ class ChannelsController < ApplicationController
 
 
   def index
-    authorize! :index, Channel
-
-    respond_to do |format|
-      format.json { render :json => channels_for_user(@user).map {|ch| Channels::Channel.for(channel: ch,view: view_context,channel_user: @user)} }
+    channels = interactor :visible_channels_of_user_for_user, @user
+    json_channels = channels.map do |ch|
+      Channels::Channel.for(channel: ch,view: view_context)
     end
+    render_channels(json_channels)
+  end
+
+  def render_channels json_channels
+    render :json => json_channels
   end
 
   def backbone_page
@@ -40,7 +44,7 @@ class ChannelsController < ApplicationController
   def show
     authorize! :show, @channel
     respond_to do |format|
-      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context,channel_user: @user)}
+      format.json { render :json => Channels::Channel.for(channel: @channel,view: view_context)}
       format.js
       format.html do
         render_backbone_page
@@ -67,12 +71,18 @@ class ChannelsController < ApplicationController
   def create
     authorize! :update, @user
 
-    # Late night drunk hacking going on
-    # Blame it on the a-a-a-a-a-alcohol
+    # HACK to ensure the code also acts like it created a channel when the
+    # channel already existed. This is needed because sometimes the add_to_channel
+    # code in the frontend did not have the list of current channels yet, and tries
+    # to create a new channel, while we already have a channel. Since this isn't properly
+    # handled in the frontend, the fastest way around it was to act like we created a new
+    # channel, but actually return an existing channel.
     title_hash = params[:channel].andand.slice(:title) || params.slice(:title)
     title = title_hash[:title]
 
     @channels = Channel.find(created_by_id: current_user.graph_user_id)
+
+    # TODO even if we don't fix conceptualla, at least search on the index slug_title here
     @channels.each do |channel|
       @channel = channel if channel.lowercase_title == title.downcase
     end
@@ -213,13 +223,5 @@ class ChannelsController < ApplicationController
 
     def mark_channel_as_read
       @channel.mark_as_read if @channel.created_by == current_graph_user
-    end
-
-    def channels_for_user(user)
-      @channels = user.graph_user.real_channels
-      unless @user == current_user
-        @channels = @channels.keep_if {|ch| ch.sorted_cached_facts.count > 0 }
-      end
-      @channels
     end
 end

@@ -13,9 +13,5 @@ module Queries
     def execute
       User.first(:conditions => { username: /^#{@username.downcase}$/i })
     end
-
-    def authorized?
-      true
-    end
   end
 end

@@ -13,7 +13,7 @@ window.FactRelationView = ViewWithPopover.extend({
   template: 'fact_relations/fact_relation',
 
   partials: {
-    fact_bubble: "facts/_fact_bubble",
+    fact_base: "facts/_fact_base",
     fact_wheel: "facts/_fact_wheel"
   },
 
@@ -30,8 +30,10 @@ window.FactRelationView = ViewWithPopover.extend({
   },
 
   remove: function() {
-    this.$el.fadeOut('fast', function() {
-      this.$el.remove();
+    var $el = this.$el;
+
+    $el.fadeOut('fast', function() {
+      $el.remove();
     });
   },
 
@@ -46,9 +48,9 @@ window.FactRelationView = ViewWithPopover.extend({
     this.$el.html(this.templateRender(this.model.toJSON()));
 
     this.wheelView = new InteractiveWheelView({
-      el: this.$el.find('.wheel'),
-      fact: this.model.get("fact_bubble"),
-      model: new Wheel(this.model.get('fact_bubble')['fact_wheel'])
+      el: this.$el.find('.fact-wheel'),
+      fact: this.model.get("fact_base"),
+      model: new Wheel(this.model.get('fact_base')['fact_wheel'])
     }).render();
 
     $('a.supporting',this.$el).tooltip({'title':"This is relevant"});

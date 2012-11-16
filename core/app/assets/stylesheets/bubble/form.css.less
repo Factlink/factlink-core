@@ -1,0 +1,26 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+@import "bubble/variables";
+
+form.fact-block {
+  margin: 0 0 -15px;
+
+  article.fact {
+    padding-bottom: 12px;
+    border-bottom: 1px solid @baseBorderColor;
+  }
+
+  textarea {
+    display: none;
+  }
+
+  h4 { margin: 10px; }
+
+  .buttons {
+    .clearfix();
+    margin: @popup-padding 0;
+    #cancel { float: left; }
+    #submit { float: right; }
+  }
+}

@@ -11,8 +11,11 @@
     background: linear-gradient(@angle, @stop 0%, @start 100%);
 }
 
+header .btn-back-region {
+    float: left;
+}
 header .btn-back {
-  margin: 8px 0 0 10px;
+    margin: 9px 0 0 10px;
 }
 // CSS3 iOS like back button, inspired by: http://jsfiddle.net/stowball/XvFFX/
 .btn-back {
@@ -67,5 +70,5 @@ header .btn-back {
 .btn-back span {
   position: relative;
   text-shadow: 0 1px 0px #fff;
-  color: #555;
+  color: @baseFontColor;
 }

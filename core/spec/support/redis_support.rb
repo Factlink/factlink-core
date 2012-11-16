@@ -5,6 +5,6 @@ module RedisSupport
     after =  redis.info["total_commands_processed"].to_i
 
     # subtract one more, because the info command itself is counted as well
-    after - before -1
+    after - before - 1
   end
 end

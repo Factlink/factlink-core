@@ -11,7 +11,7 @@ module FactRelations
       end
     end
 
-    def fact_bubble
+    def fact_base
       Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
     end
 

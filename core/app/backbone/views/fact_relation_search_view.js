@@ -13,7 +13,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   },
 
   onRender: function() {
-    if ( this.options.type === "supporting" ) {
+    if ( this.options.factRelations.type === "supporting" ) {
       this.$('.add-evidence.supporting' ).show();
     } else {
       this.$('.add-evidence.weakening' ).show();
@@ -27,7 +27,6 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   },
 
   doSearchOrSubmit: function(e) {
-
     if (e.keyCode === 13) {
       var searchVal = $('input:visible', this.el).val();
       if (searchVal.trim().length > 0 ) {
@@ -67,7 +66,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
           .closest('li')
           .show();
 
-        mp_track("Evidence: Search", {type: self.options.type});
+        mp_track("Evidence: Search", {type: self.options.factRelations.type});
 
         self.stopLoading();
       }
@@ -75,27 +74,29 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
   }, 300),
 
   parseSearchResults: function(searchResults) {
-    var self = this;
-    var searchResultsContainer = this.$el.find('.search-results');
+    var $results = this.$('.search-results');
 
+    $results.hide();
+    this.$el.removeClass('results_found');
     this.truncateSearchContainer();
 
     _.forEach(searchResults, function(searchResult) {
-      if (! self.options.factRelations.containsFactWithId(parseInt(searchResult.id,10))){
-        console.info('adding because i cannot find', searchResult);
+      if (! this.options.factRelations.containsFactWithId(parseInt(searchResult.id,10))) {
         var view = new FactRelationSearchResultView({
           model: new FactRelationSearchResult(searchResult),
           // Give the search result a reference to the FactRelation collection
-          factRelations: self.options.factRelations,
-          parentView: self
+          factRelations: this.options.factRelations,
+          parentView: this
         });
 
         view.render();
-        searchResultsContainer.find('li.loading').after( view.el );
 
-        self._searchResultViews.push(view);
+        this.$el.addClass('results_found');
+        $results.show().find('li.loading').after(view.el);
+
+        this._searchResultViews.push(view);
       }
-    });
+    }, this);
   },
 
   addNewFactRelation: function() {
@@ -121,7 +122,7 @@ var FactRelationSearchView =  Backbone.Factlink.PlainView.extend({
       success: function(newFactRelation) {
         mp_track("Evidence: Create", {
           factlink_id: self.options.factRelations.fact.id,
-          type: self.options.type
+          type: self.options.factRelations.type
         });
 
         factRelations.add(new factRelations.model(newFactRelation), {

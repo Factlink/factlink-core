@@ -25,7 +25,7 @@
     h1 {
       background: @backgroundGray;
       font-size: @baseFontSize;
-      color: @baseFontColor;
+      color: @headingFontColor;
       line-height: 20px;
 
       padding: 0;
@@ -81,10 +81,10 @@
 
     &.active {
       a {
-        color: @baseFontColor;
+        color: @headingFontColor;
         font-weight: bold;
         margin-left: 4px;
-        border: 1px solid #ddd;
+        border: 1px solid @baseBorderColor;
         border-left: 1px solid transparent;
 
         span {

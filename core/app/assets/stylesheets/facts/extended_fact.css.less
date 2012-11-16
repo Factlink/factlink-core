@@ -2,7 +2,6 @@
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-@import "users/passport";
 
 #container #main-wrapper {
   > div > header {
@@ -12,155 +11,9 @@
       margin: 0 !important;
     }
   }
+
   header#single-factlink-header {
-    padding-top: 0;  padding-bottom: 0;
-    white-space: nowrap;
     height: 45px;
     font-size: @baseFontSize;
-
-    .tabs {
-      margin-top: -27px;
-    }
-
-    span.header-wrap {
-      .ellipsis();
-      width: 585px;
-      display: inline-block;
-      overflow: hidden;
-
-      a.site {
-        color: @linkColor;
-        font-weight: bold;
-        background: image-url("header-separator.png") no-repeat right;
-        display: inline-block;
-        line-height: 45px;
-        padding-right: 20px;
-      }
-
-      span.title {
-        line-height: 45px;
-      }
-    }
-  }
-}
-
-#extended_factlink {
-  margin: 24px 0 12px;
-
-  .fact-block {
-    border: none;
-
-    .controls li { .opacity(1); }
-    .fact-tab-container { margin-top: 24px;}
-
-    .tab-control li {
-      .opacity(1);
-      &.permalink { display:none; }
-    }
-  }
-
-  .fact-body {
-    div {
-      padding: 0 0 10px;
-
-      h2 {
-        display: inline;
-        font-size: 18px;
-        color: #555;
-        line-height: 26px;
-        font-weight: normal;
-        word-wrap: break-word;
-
-        &.full {
-          display: none;
-        }
-      }
-
-      .scroll-to-container {
-        white-space: nowrap;
-      }
-    }
-
-    sub {
-      color: #888;
-      font-weight: normal;
-      font-size: 11px;
-    }
-  }
-
-  article.fact > ul {
-    margin: 0 0 0 70px;
-    width: 600px;
-    border-top: 1px solid @baseBorderColor;
-
-    > li {
-      margin: 10px 0 0 0;
-      display: inline-block;
-      border-right: 1px solid @baseBorderColor;
-
-      h6 {
-        color: #555555;
-        font-size: 13px;
-        text-transform: none;
-        padding: 0 12px;
-        margin: 0;
-      }
-
-      div {
-        text-align: center;
-        font-size: 18px;
-      }
-
-      &.agree div { color: #91ad45; }
-      &.disagree div { color: #d6663c; }
-      &.unsure div { color: #2099e6; }
-      &.interacting div {
-        > ul {
-          float: none;
-          margin: 0;
-
-          > li {
-            text-align: left;
-            display: inline-block;
-            position: relative;
-
-            img {
-              .border-radius(2px);
-            }
-
-            > div {
-              #user > .passport();
-            }
-
-            div {
-              font-size: 12px;
-              text-align: left;
-            }
-          }
-        }
-      }
-      &.authority {
-        padding: 0;
-
-        div {
-          span { font-size: 11px; }
-
-          color: #333;
-          vertical-align: middle;
-
-          img {
-            vertical-align: middle;
-          }
-
-          span {
-            vertical-align: middle;
-          }
-        }
-      }
-
-      &.last {
-        border: none;
-      }
-    }
   }
 }

@@ -13,9 +13,5 @@ module Queries
     def listener
       Activity::Listener.all[{class: @class_name, list: @list}]
     end
-
-    def authorized?
-      true
-    end
   end
 end

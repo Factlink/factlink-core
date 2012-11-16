@@ -13,10 +13,5 @@ module Queries
         KillObject.conversation(conversation, fact_id: conversation.fact_data.andand.fact_id)
       end
     end
-
-    def authorized?
-      # Check if the current user exists
-      @options[:current_user]
-    end
   end
 end
