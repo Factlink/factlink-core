@@ -43,7 +43,7 @@ describe Queries::LastMessageForConversation do
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(criteria)
 
       results = Queries::LastMessageForConversation.execute(conversation, current_user: user)
-      expect(results).to eq(Hashie::Mash.new(message))
+      expect(results).to eq(OpenStruct.new(message))
     end
   end
 end

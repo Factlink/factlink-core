@@ -32,9 +32,6 @@ gem 'resque_mailer'
 
 gem 'stringex'
 
-# Fake Fact Page
-gem 'hashie'
-
 gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
 
 # Mustache

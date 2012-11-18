@@ -28,8 +28,8 @@ describe Queries::ConversationsList do
       mock_conversations[0].should respond_to(:recipient_ids)
 
       dead_conversations = [
-        Hashie::Mash.new(conversation1.merge(fact_id: fact_data1.fact_id)),
-        Hashie::Mash.new(conversation2.merge(fact_id: fact_data2.fact_id))
+        OpenStruct.new(conversation1.merge(fact_id: fact_data1.fact_id)),
+        OpenStruct.new(conversation2.merge(fact_id: fact_data2.fact_id))
       ]
 
       criteria = mock(:criteria)

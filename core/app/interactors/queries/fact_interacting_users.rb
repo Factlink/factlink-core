@@ -1,6 +1,5 @@
 require_relative '../pavlov'
 require_relative '../kill_object'
-require 'hashie'
 require 'andand'
 
 module Queries

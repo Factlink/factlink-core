@@ -1,6 +1,5 @@
 require 'pavlov_helper'
 require File.expand_path('../../../../../app/interactors/queries/messages_for_conversation.rb', __FILE__)
-require 'hashie'
 
 describe Queries::MessagesForConversation do
   include PavlovSupport
@@ -38,7 +37,7 @@ describe Queries::MessagesForConversation do
 
       messages = Queries::MessagesForConversation.execute(conversation, current_user: user)
 
-      messages.should =~ message_hashes.map{|hash| Hashie::Mash.new(hash)}
+      messages.should =~ message_hashes.map{|hash| OpenStruct.new(hash)}
     end
   end
 

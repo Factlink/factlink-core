@@ -7,9 +7,9 @@ describe Queries::UsersByIds do
   let(:mock_user1)     {mock('user', user1)}
   let(:mock_user2)     {mock('user', user2)}
   let(:mock_user3)     {mock('user', user3)}
-  let(:mash_user1)     {Hashie::Mash.new(user1)}
-  let(:mash_user2)     {Hashie::Mash.new(user2)}
-  let(:mash_user3)     {Hashie::Mash.new(user3)}
+  let(:mash_user1)     {OpenStruct.new(user1)}
+  let(:mash_user2)     {OpenStruct.new(user2)}
+  let(:mash_user3)     {OpenStruct.new(user3)}
 
   before do
     stub_const "User", Class.new

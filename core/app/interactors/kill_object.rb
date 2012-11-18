@@ -1,4 +1,4 @@
-require 'hashie'
+require 'ostruct'
 
 module KillObject
   def self.dead_object(name, fields)
@@ -25,6 +25,6 @@ module KillObject
     take_fields.each do |key|
       hash[key] = alive_object.send(key) if alive_object.respond_to? key
     end
-    Hashie::Mash.new(hash.merge extra_fields)
+    OpenStruct.new(hash.merge extra_fields)
   end
 end

@@ -1,5 +1,4 @@
 require_relative '../pavlov'
-require 'hashie'
 
 module Queries
   class ConversationsList

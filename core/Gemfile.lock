@@ -502,7 +502,6 @@ DEPENDENCIES
   factory_girl_rails (~> 3.5)
   fattr
   fivemat
-  hashie
   headless
   hogan_assets (= 1.0.3)
   httparty

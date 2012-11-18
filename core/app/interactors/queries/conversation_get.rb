@@ -1,5 +1,4 @@
 require_relative '../pavlov'
-require 'hashie'
 require 'andand'
 
 module Queries
