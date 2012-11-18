@@ -9,7 +9,8 @@ class Authority < OurOhm
 
   class << self
     def debug x
-      puts "#{Time.now} #{x}"
+      @logger ||= Logger.new(STDERR)
+      @logger.info "#{Time.now} #{x}"
       $stdout.flush
     end
 
