@@ -10,7 +10,8 @@ class EvidenceController < FactsController
 
     authorize! :get_evidence, @fact
 
-    respond_with(@evidence.map {|fr| FactRelations::FactRelation.new(fr,view_context)})
+    @fact_relations = @evidence
+    render 'fact_relations/index'
   end
 
   def create
