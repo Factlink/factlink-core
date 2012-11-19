@@ -1,27 +1,4 @@
 class window.Fact extends Backbone.Model
-  defaults:
-    fact_wheel:
-      authority: "0.0"
-      opinion_types: [
-        type: "believe"
-        groupname: "Eens"
-        percentage: 33
-        is_user_opinion: false
-        color: "#98d100"
-      ,
-        type: "doubt"
-        groupname: "Neutraal"
-        percentage: 33
-        is_user_opinion: false
-        color: "#36a9e1"
-      ,
-        type: "disbelieve"
-        groupname: "Oneens"
-        percentage: 33
-        is_user_opinion: false
-        color: "#e94e1b"
-      ]
-
   getOwnContainingChannels: ->
     containingChannels = @get("containing_channel_ids")
     ret = []
