@@ -40,5 +40,15 @@ module FactRelations
     def url
       friendly_fact_path(self[:fact_relation].from_fact)
     end
+
+    def created_by
+      # TODO: Theez should be dynamicczz
+      {
+        id: self[:fact_relation].created_by_id,
+        username: self[:fact_relation].created_by.user.username,
+        authority: 131.5,
+        avatar_url: "<img src='http://placekitten.com/40/40'>"
+      }
+    end
   end
 end
