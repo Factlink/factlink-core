@@ -10,7 +10,7 @@ class EvidenceController < FactsController
 
     authorize! :get_evidence, @fact
 
-    respond_with(@evidence.map {|fr| FactRelations::FactRelation.for(fact_relation: fr, view: view_context)})
+    respond_with(@evidence.map {|fr| FactRelations::FactRelation.new(fr,view_context)})
   end
 
   def create
@@ -34,7 +34,7 @@ class EvidenceController < FactsController
         fact.calculate_opinion(2)
 
         format.json do
-          render json: FactRelations::FactRelation.for(fact_relation: @fact_relation, view: view_context)
+          render json: FactRelations::FactRelation.new(@fact_relation, view_context)
         end
       else
         format.json { render json: [], status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class EvidenceController < FactsController
     fact_relation.add_opinion(type, current_user.graph_user)
     fact_relation.calculate_opinion(2)
 
-    render json: [FactRelations::FactRelation.for(fact_relation: fact_relation, view: view_context)]
+    render json: [FactRelations::FactRelation.new(fact_relation, view_context)]
   end
 
   def remove_opinions
@@ -63,7 +63,7 @@ class EvidenceController < FactsController
     evidence.remove_opinions(current_user.graph_user)
     evidence.calculate_opinion(2)
 
-    render json: [FactRelations::FactRelation.for(fact_relation: evidence, view: view_context)]
+    render json: [FactRelations::FactRelation.new(evidence, view_context)]
   end
 
   def destroy

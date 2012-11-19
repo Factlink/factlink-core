@@ -5,8 +5,8 @@ window.FactRelationView = ViewWithPopover.extend({
   className: "fact-relation",
 
   events: {
-    "click .relation-actions>.weakening": "disbelieveFactRelation",
-    "click .relation-actions>.supporting": "believeFactRelation",
+    "click .fact-relation-actions>.weakening": "disbelieveFactRelation",
+    "click .fact-relation-actions>.supporting": "believeFactRelation",
     "click li.delete": "destroyFactRelation"
   },
 
