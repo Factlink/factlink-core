@@ -42,10 +42,15 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
     @fetch()
 
   insertItemSeperator: (itemView, index) ->
-    if index == 1 and @collection.totalRecords == @collection.length
+    if @is_penultimate(index) and @we_see_all_interactors()
       itemView.$el.append ' and '
-    else if index != 0
+    else if @isnt_last(index)
       itemView.$('a').after ','
+
+  is_penultimate: (index)-> index is last_index - 1
+  we_see_all_interactors: (index)-> @collection.totalRecords is @collection.length
+  isnt_last: (index)-> index is last_index
+  last_index: -> @collection.length - 1
 
   appendHtml: (collectionView, itemView, index) =>
     @insertItemSeperator itemView, index
