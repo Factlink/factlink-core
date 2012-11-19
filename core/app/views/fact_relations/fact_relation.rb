@@ -18,12 +18,19 @@ module FactRelations
       current_user.andand.graph_user.andand.opinion_on(@fact_relation)
     end
 
+    def creator_authority
+      Authority.on(fact_relation, for: fact_relation.created_by).to_f + 1.0
+    end
+
+    def fact_relation
+      @fact_relation
+    end
+
     def to_hash
-      fact_relation = @fact_relation
 
       fact_base = Facts::FactBubble.for(fact: @fact_relation.from_fact, view: @view)
 
-      json = Jbuilder.new
+      json = JbuilderTemplate.new(@view)
 
       json.url @view.friendly_fact_path(fact_relation.from_fact)
       json.signed_in? @view.user_signed_in?
@@ -34,6 +41,14 @@ module FactRelations
       json.negative_active negative_active
       json.positive_active positive_active
       json.fact_base fact_base.to_hash
+
+      json.created_by do |json|
+        json.partial! 'users/user_partial', user: fact_relation.created_by.user
+        json.authority creator_authority
+      end
+
+
+
 
       json.attributes!
     end
