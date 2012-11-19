@@ -37,15 +37,20 @@ module ApplicationHelper
     s
   end
 
-  def team_photo_tag photo, name, linkedin=nil
+  def team_photo_tag photo, name, linkedin=nil, twitter=nil
     html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 135, height: 135
 
     if linkedin
       linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
-      html = link_to html, linkedin_url, target: "_blank"
+      html += link_to '<i>Linkedin</i>'.html_safe, linkedin_url, class: "ico linkedin", target: "_blank"
     end
 
-    html = content_tag "div", html, class: "span3"
+    if twitter
+      twitter_url = twitter.match(/^http/) ? twitter : "http://www.twitter.com/#{twitter}"
+      html += link_to '<i>Twitter</i>'.html_safe, twitter_url, class: "ico twitter", target: "_blank"
+    end
+
+    html = content_tag "div", html, class: "span3 team-member"
 
     html
   end
