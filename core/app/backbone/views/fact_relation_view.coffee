@@ -4,23 +4,68 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
   template: "fact_relations/fact_relations_layout"
 
   regions:
-    factRelationRegion: ".factRelationRegion"
+    factRelationRegion: ".fact_relation_region"
+    voteRegion: '.vote_region'
+    userRegion: 'henk'
+    popoverRegion: '.popover_region'
 
   onRender: ->
-    fact_relation_view = new FactRelationView(model: @model)
-    @factRelationRegion.show fact_relation_view
+    @factRelationRegion.show new FactRelationView model: @model
+    @voteRegion.show new VoteUpDownView model: @model
+
+    if @model.get('can_destroy?')
+      @popoverRegion.show new FactRelationPopoverView model: @model
 
 
-ViewWithPopover = extendWithPopover(Backbone.Factlink.PlainView)
-
-class window.FactRelationView extends ViewWithPopover
-  tagName: "div"
-  className: "aaaaap-fact-relation"
+class VoteUpDownView extends Backbone.Marionette.ItemView
+  className: 'fact-relation-actions'
+  template: 'fact_relations/vote_up_down'
 
   events:
-    "click .fact-relation-actions>.weakening": "disbelieveFactRelation"
-    "click .fact-relation-actions>.supporting": "believeFactRelation"
-    "click li.delete": "destroyFactRelation"
+    "click .weakening": "disbelieve"
+    "click .supporting": "believe"
+
+  initialize: ->
+    @model.on "change", @render, @
+
+  hideTooltips: ->
+    @$(".weakening").tooltip "hide"
+    @$(".supporting").tooltip "hide"
+
+  onRender: ->
+    @$(".supporting").tooltip title: "This is relevant"
+    @$(".weakening").tooltip
+      title: "This is not relevant"
+      placement: "bottom"
+
+  disbelieve: ->
+    @hideTooltips()
+    @model.disbelieve()
+
+  believe: ->
+    @hideTooltips()
+    @model.believe()
+
+
+ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
+
+class FactRelationPopoverView extends ViewWithPopover
+  template: "fact_relations/fact_relation_popover"
+
+  events:
+    "click li.delete": "destroy"
+
+  popover: [
+    selector: ".relation-top-right-arrow"
+    popoverSelector: "ul.relation-top-right"
+  ]
+
+  destroy: -> @model.destroy()
+
+
+class window.FactRelationView extends Backbone.Factlink.PlainView
+  tagName: "div"
+  className: "fact-relation-body"
 
   template: "fact_relations/fact_relation"
 
@@ -28,55 +73,21 @@ class window.FactRelationView extends ViewWithPopover
     fact_base: "facts/_fact_base"
     fact_wheel: "facts/_fact_wheel"
 
-  popover: [
-    selector: ".relation-top-right-arrow"
-    popoverSelector: "ul.relation-top-right"
-  ]
+  templateHelpers: =>
+    user = new User( @model.get('created_by') )
 
-  initialize: ->
-    @model.on "destroy", @remove, @
-    @model.on "change",  @render, @
+    creator: user.toJSON()
 
-  remove: ->
-    $el = @$el
-    $el.fadeOut "fast", ->
-      $el.remove()
+  serializeData: -> _.extend super(), @templateHelpers()
 
-  destroyFactRelation: ->
-    @model.destroy()
-
-  render: ->
-    $("a.weakening", @$el).tooltip "hide"
-    $("a.supporting", @$el).tooltip "hide"
-    @$el.html @templateRender(@model.toJSON())
+  onRender: ->
     @wheelView = new InteractiveWheelView(
-      el: @$el.find(".fact-wheel")
+      el: @$(".fact-wheel")
       fact: @model.get("fact_base")
       model: new Wheel(@model.get("fact_base")["fact_wheel"])
     ).render()
-    $("a.supporting", @$el).tooltip title: "This is relevant"
-    $("a.weakening", @$el).tooltip
-      title: "This is not relevant"
-      placement: "bottom"
-
-    weight = @model.get("weight")
-    weightTooltipText = "This fact influences the top fact a lot"
-    if weight < 33
-      weightTooltipText = "This fact doesn't influence the top fact that much"
-    else weightTooltipText = "This fact influences the top fact a little bit"  if weight < 66
-    @$el.find(".weight-container").tooltip title: weightTooltipText
     @
 
-  disbelieveFactRelation: -> @model.disbelieve()
-  believeFactRelation:    -> @model.believe()
+  onClose: -> @wheelView.close()
 
-  highlight: ->
-    @$el.animate
-      "background-color": "#ffffe1"
-    ,
-      duration: 2000
-      complete: ->
-        $(this).animate
-          "background-color": "#ffffff"
-        , 2000
-
+_.extend(FactRelationView.prototype, TemplateMixin)

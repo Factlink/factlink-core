@@ -1,8 +1,10 @@
 Backbone.Factlink ||= {}
 class Backbone.Factlink.PlainView extends Backbone.View
 
+  serializeData: -> this.model?.toJSON()
+
   render: ->
-    @$el.html(this.templateRender(this.model?.toJSON()))
+    @$el.html(this.templateRender(@serializeData()))
 
     if (@onRender)
       @onRender();

@@ -1,41 +1,12 @@
-{{#can_destroy?}}
-<div class="relation-top-right-arrow">
-  <i><b class="caret"></b></i>
-  <ul class="relation-top-right" style="display: none;">
-      <li class="delete">
-        <a>
-          <img src="{{global.trash_image}}" alt="Trash" class="normal">
-          <img src="{{global.trash_hover_image}}" alt="Trash" class="hover">
-          Remove this Factlink as evidence
-        </a>
-      </li>
-  </ul>
+<img src="{{ creator.avatar_url_40 }}">
+
+<div class="fact-relation-added-by">
+  <strong>
+    <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
+  </strong>
+  ( <img src="{{global.brain_image}}"> {{ creator.authority }} ) added:
 </div>
-{{/can_destroy?}}
 
-{{#signed_in?}}
-<div class="fact-relation-actions">
-  <a class="supporting {{ positive_active }}"> &nbsp; </a>
-  <a class="weakening {{ negative_active }}"> &nbsp; </a>
-</div>
-{{/signed_in?}}
-
-<div class="fact-relation-body">
-
-  <!-- this one: -->
-  <img src="https://secure.gravatar.com/avatar/{{ created_by.gravatar_hash }}?size=40&rating=PG&default=retro">
-
-  <!-- this one: -->
-  <div class="fact-relation-added-by">
-    <strong>
-      <a href="/{{ created_by.username }}" rel="backbone">{{ created_by.username }}</a>
-    </strong>
-    ( <img src="{{global.brain_image}}"> {{ created_by.authority }} ) added:
-  </div>
-
-
-  <!-- not this one: -->
-  {{#fact_base}}
-    {{>fact_base}}
-  {{/fact_base}}
-</div>
+{{#fact_base}}
+  {{>fact_base}}
+{{/fact_base}}
