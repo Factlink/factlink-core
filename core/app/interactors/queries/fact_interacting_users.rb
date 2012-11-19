@@ -16,17 +16,21 @@ module Queries
     end
 
     def execute
-      data = Fact[@fact_id].interactions.below('inf', reversed: true).select {|i| i.action == @opinion}.uniq{|i| i.user}
-      users = data.drop(@skip).take(@take).map {|i| i.user.user}
-      total = data.size
+      graph_users= users_who(@opinion)
+      paginated_users = paginate(graph_users).map {|gu| gu.user}
 
-      users.map{|u| KillObject.user u}
-
-      {users: users, total: total}
+      {
+        users: paginated_users.map{|u| KillObject.user u},
+        total: graph_users.size
+      }
     end
 
-    def authorized?
-      true
+    def paginate(data)
+      data.drop(@skip).take(@take)
+    end
+
+    def users_who(opinion)
+      Fact[@fact_id].send("people_#{opinion}").to_a
     end
   end
 end
