@@ -85,7 +85,7 @@ class window.ActivitiesView extends AutoloadingView
       @suggestedTopics.fetch()
       @emptyView = new SuggestedTopicsView
         model: new Backbone.Model({current_url: @collection.link()})
-        collection: collectionDifference(SuggestedTopics,'slug_title',@suggestedTopics, window.Channels);
+        collection: collectionDifference(new SuggestedTopics, 'slug_title', @suggestedTopics, window.Channels);
     else
       @emptyView = getTextView('Currently there are no activities related to this channel')
 

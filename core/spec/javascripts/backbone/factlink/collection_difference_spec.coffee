@@ -8,7 +8,7 @@ describe 'window.collectionDifference', ->
   beforeEach ->
     collection1 = new type(models[1..4])
     collections = [new type(models[2..3]), new type(models[5..6])]
-    result = collectionDifference(type, 'someField', collection1, collections...)
+    result = collectionDifference(new type, 'someField', collection1, collections...)
 
   it 'deletes the elements from "collections" that match "someField"', ->
     expect(result.pluck('someField')).toEqual([1, 4])
@@ -53,7 +53,7 @@ describe 'window.collectionDifference', ->
     expect(result.pluck('otherField')).toEqual([10])
 
   it 'should work with arrays and objects instead of collections and models', ->
-    result = collectionDifference(type, 'someField', collection1, [{someField: 2}, {someField: 3}], collections[1])
+    result = collectionDifference(new type, 'someField', collection1, [{someField: 2}, {someField: 3}], collections[1])
     expect(result.pluck('someField')).toEqual([1, 4])
 
   it 'should work with subsequent add, removes, and resets', ->

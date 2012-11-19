@@ -16,10 +16,11 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
   initialize: ->
     @initializeChildViews
       filter_on: 'username'
-      results_view: AutoCompleteResultsUsersView
-      search_collection: UserSearchResults
-      search_list_view: AutoCompleteSearchUsersView
+      search_list_view: (options) -> new AutoCompleteSearchUsersView(options)
+      search_collection: -> new UserSearchResults
       placeholder: 'Type a username'
+
+    @_results_view = new AutoCompleteResultsUsersView(collection: @collection)
 
   addCurrent: ->
     user = @_search_list_view.currentActiveModel()

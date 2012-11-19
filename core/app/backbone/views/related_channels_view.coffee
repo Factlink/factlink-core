@@ -12,7 +12,7 @@ class window.RelatedChannelsView extends Backbone.Marionette.CompositeView
 
   initialize: (options) ->
     @addToCollection = this.model.subchannels()
-    @collection =  collectionDifference(ChannelList,'id', this.model.relatedChannels(), this.addToCollection, [@model]);
+    @collection =  collectionDifference(new ChannelList, 'id', this.model.relatedChannels(), this.addToCollection, [@model]);
 
   showEmptyView: => this.$el.hide()
   closeEmptyView: => this.$el.show()
