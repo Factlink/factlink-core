@@ -1,54 +1,55 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+
 li.fact-relation {
-  padding: 15px;
+  padding: 20px 15px 24px;
   border-bottom: 1px solid @baseBorderColor;
   .clearfix();
   position: relative;
 
+  &:last-child { padding-bottom: 8px; }
+
   .fact-relation-actions {
     float: left;
-    margin: 7px 0 0;
+    margin: 5px 18px 0 2px;
 
-    span {
-      height: 1px;
-      display: block;
-    }
-
-    a.supporting, a.weakening {
+    .supporting, .weakening {
       display: block;
       width: 9px;
       height: 15px;
       cursor: pointer;
 
-      &:hover {
-        text-decoration: none;
-      }
+      &:hover { text-decoration: none; }
     }
 
-    a.supporting {
+    .supporting {
       background: image-url("relation_actions.png") no-repeat top left transparent;
-
       &.active {
         background: image-url("relation_actions.png") no-repeat top right transparent;
       }
     }
 
-    a.weakening {
+    .weakening {
       background: image-url("relation_actions.png") no-repeat bottom left transparent;
-
       &.active {
         background: image-url("relation_actions.png") no-repeat bottom right transparent;
       }
     }
   }
 
-  &:last-child {
-    border-bottom: none;
-  }
-
+  &:last-child { border-bottom: none; }
   .fact-relation-body {
     margin: 0 0 0 20px;
+    > img {
+      float: left;
+      margin: 4px 10px 0 0;
+      .border-radius(3px);
+    }
+  }
+
+  .fact-relation-added-by {
+    margin-bottom: 6px;
+    color: #bbb;
   }
 }

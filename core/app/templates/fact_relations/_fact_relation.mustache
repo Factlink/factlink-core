@@ -21,6 +21,16 @@
 {{/signed_in?}}
 
 <div class="fact-relation-body">
+
+  {{{ created_by.avatar_url }}}
+
+  <div class="fact-relation-added-by">
+    <strong>
+      <a href="/{{ created_by.username }}" rel="backbone">{{ created_by.username }}</a>
+    </strong>
+    ( <img src="{{global.brain_image}}"> {{ created_by.authority }} ) added:
+  </div>
+
   {{#fact_base}}
     {{>fact_base}}
   {{/fact_base}}
