@@ -11,7 +11,7 @@ feature "visiting a channel" do
   end
 
   scenario "going to the channel page" do
-    @channel = create_channel_in_backend
+    @channel = backend_create_channel
 
     visit channel_path(@user, @channel)
 
@@ -19,10 +19,10 @@ feature "visiting a channel" do
   end
 
   scenario "shows facts" do
-    @channel = create_channel_in_backend
+    @channel = backend_create_channel
 
     2.times.each do
-      @factlink = create_fact_in_backend
+      @factlink = backend_create_fact
 
       go_to_discussion_page_of @factlink
 
@@ -31,20 +31,19 @@ feature "visiting a channel" do
         added_channels_should_contain @channel.title
       end
 
-      visit channel_path(@user, @channel)
+      go_to_channel_page_of @channel
 
       page.should have_content(@factlink.to_s)
 
-      find('.fact-body', text: @factlink.to_s)
+      # find('.fact-body', text: @factlink.to_s)
     end
   end
 
   scenario "revisiting channel after visiting a factlink page" do
-    @channel = create_channel_in_backend
-
+    @channel = backend_create_channel
     10.times.each do
-      @factlink = create_fact_in_backend
-      add_fact_to_channel_in_backend @factlink, @channel
+      @factlink = backend_create_fact
+      backend_add_fact_to_channel @factlink, @channel
     end
 
     go_to_channel_page_of @channel
@@ -54,6 +53,9 @@ feature "visiting a channel" do
     go_to_first_fact
     go_back_using_button
 
+    sleep 1
+
     expect(get_scroll_top).to eq(100)
+    page.should have_content(@factlink.to_s)
   end
 end

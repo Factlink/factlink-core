@@ -1,59 +1,48 @@
 require 'integration_helper'
 
-feature "visiting a channel" do
+feature "visiting the stream" do
   include Acceptance::NavigationHelper
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper
   include Acceptance::ScrollHelper
 
   background do
-    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
+    @user = FactoryGirl.create :approved_confirmed_user
   end
 
-  scenario "going to the channel page" do
-    @channel = create_channel_in_backend
+  scenario "adding first fact" do
+    @channel = backend_create_channel
+    @factlink = backend_create_fact
+    backend_add_fact_to_channel @factlink, @channel
 
-    visit channel_path(@user, @channel)
-
-    page.should have_content(@channel.title)
+    sign_in_user @user
+    go_to_stream
+ 
+    page.should have_content('just added their first Factlink')
+    page.should have_content(@factlink.to_s)
   end
 
-  scenario "shows facts" do
-    @channel = create_channel_in_backend
+  scenario "revisiting stream after visiting a factlink page" do
+    @channel = backend_create_channel
 
-    2.times.each do
-      @factlink = create_fact_in_backend
-
-      go_to_discussion_page_of @factlink
-
-      open_modal 'Repost' do
-        add_to_channel @channel.title
-
-        added_channels_should_contain @channel.title
-      end
-
-      visit channel_path(@user, @channel)
-
-      page.should have_content(@factlink.to_s)
-
-      find('.fact-body', text: @factlink.to_s)
-    end
-  end
-
-  scenario "revisiting channel after visiting a factlink page" do
-    @channel = create_channel_in_backend
+    @other_user = FactoryGirl.create :approved_confirmed_user
+    @other_channel = backend_create_channel_of_user @other_user
+    backend_channel_add_subchannel @channel, @other_channel
 
     10.times.each do
-      @factlink = create_fact_in_backend
-      add_fact_to_channel_in_backend @factlink, @channel
+      @factlink = backend_create_fact_of_user @other_user
+      backend_add_fact_to_channel @factlink, @other_channel
     end
 
-    go_to_channel_page_of @channel
+    sign_in_user @user
+    go_to_stream
 
     set_scroll_top_to 100
 
     go_to_first_fact
     go_back_using_button
+
+    sleep 1
 
     expect(get_scroll_top).to eq(100)
   end

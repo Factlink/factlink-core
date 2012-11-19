@@ -2,6 +2,8 @@
 
 module Acceptance
   module FactHelper
+    include ::FactHelper
+
     # <IN REPOST MODAL>
     def add_to_channel name
       type_into_search_box name
@@ -28,8 +30,17 @@ module Acceptance
     end
     # </IN REPOST MODAL>
 
-    def create_fact_in_backend
-      create :fact, created_by: @user.graph_user
+    def go_to_discussion_page_of factlink
+      path = friendly_fact_path factlink
+      visit path
+    end
+
+    def backend_create_fact
+      backend_create_fact_of_user @user
+    end
+
+    def backend_create_fact_of_user user
+      create :fact, created_by: user.graph_user
     end
   end
 end
