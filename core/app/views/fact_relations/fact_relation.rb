@@ -11,35 +11,22 @@ module FactRelations
       end
     end
 
-    def fact_base
-      Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
-    end
-
-    expose_to_hash :negative_active, :positive_active
-
-    def fact_relation_type
-      self[:fact_relation].type
-    end
-
-    def id
-      self[:fact_relation].id
-    end
-
-    def weight
-      self[:fact_relation].percentage
-    end
-
-    def can_destroy?
-      can? :destroy, self[:fact_relation]
-    end
-
-    def signed_in?
-      user_signed_in?
-    end
-
     def to_hash
+      fact_base = Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
+
+      fact_relation = self[:fact_relation]
+
       json = Jbuilder.new
-      json.url friendly_fact_path(self[:fact_relation].from_fact)
+      json.url friendly_fact_path(fact_relation.from_fact)
+      json.signed_in? user_signed_in?
+      json.can_destroy? can? :destroy, fact_relation
+      json.weight fact_relation.percentage
+      json.id fact_relation.id
+      json.fact_relation_type fact_relation.type
+      json.negative_active self[:negative_active]
+      json.positive_active self[:positive_active]
+      json.fact_base fact_base.to_hash
+
       json.attributes!.merge super
     end
   end
