@@ -10,8 +10,8 @@ describe 'AutoCompleteSearchView', ->
       spyOn(view, 'bindTextViewToSteppableViewAndSelf')
 
       view.initializeChildViews(
-        search_collection: SearchCollection
-        search_list_view: AutoCompleteSearchListView
+        search_collection: -> new SearchCollection
+        search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
       )
 
@@ -33,8 +33,8 @@ describe 'AutoCompleteSearchView', ->
       spyOn(window, 'AutoCompleteSearchListView').andReturn({})
 
       view.initializeChildViews(
-        search_collection: SearchCollection
-        search_list_view: AutoCompleteSearchListView
+        search_collection: -> new SearchCollection
+        search_list_view: (options) -> new AutoCompleteSearchListView(options)
         placeholder: 'placeholder'
         filter_on: 'bla'
       )
@@ -50,28 +50,13 @@ describe 'AutoCompleteSearchView', ->
       collection.add new Backbone.Model(bla: 1)
       expect(view.filtered_search_collection.length).toEqual(1)
 
-    it 'should create a results view if results_view is given', ->
-      collection = {}
-      view = new AutoCompleteSearchView
-        collection: collection
-
-      ResultsView = jasmine.createSpy('ResultsView')
-
-      view.initializeChildViews(
-        search_collection: SearchCollection
-        search_list_view: AutoCompleteSearchListView
-        placeholder: 'placeholder'
-        results_view: ResultsView
-      )
-
-      expect(ResultsView).toHaveBeenCalledWith(collection: collection)
-
   describe 'searchCollection', ->
-    it 'should return a linked model and collection', ->
+    it 'should return a linked model', ->
       view = new AutoCompleteSearchView
-      [model, collection] = view.searchCollection(SearchCollection)
-      spyOn(collection, 'searchFor')
+      view.search_collection = new SearchCollection
+      model = view.initSearchModel()
+      spyOn(view.search_collection, 'searchFor')
 
       model.set('text', 'test')
 
-      expect(collection.searchFor).toHaveBeenCalledWith('test')
+      expect(view.search_collection.searchFor).toHaveBeenCalledWith('test')

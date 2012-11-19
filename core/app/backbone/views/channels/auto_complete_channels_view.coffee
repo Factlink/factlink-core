@@ -16,11 +16,11 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   initialize: ->
     @initializeChildViews
       filter_on: 'slug_title'
-      results_view: AutoCompleteResultsChannelsView
-      search_collection: TopicSearchResults
-      search_list_view: AutoCompleteSearchChannelsView
+      search_list_view: (options) -> new AutoCompleteSearchChannelsView(options)
+      search_collection: -> new TopicSearchResults
       placeholder: -> Factlink.Global.t.channel_name.capitalize()
 
+    @_results_view = new AutoCompleteResultsChannelsView(collection: @collection)
     @_results_view.on "itemview:remove",  (childView, msg) =>
       @trigger 'removeChannel', childView.model
 
