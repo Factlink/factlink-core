@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def team_photo_tag photo, name, linkedin=nil
-    html = image_tag "team/#{photo}.png", alt: name, class: "img-polaroid", rel: "tooltip", title: name, width: 120, height: 120
+    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 135, height: 135
 
     if linkedin
       linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
@@ -46,6 +46,19 @@ module ApplicationHelper
     end
 
     html = content_tag "div", html, class: "span3"
+
+    html
+  end
+
+  def advisor_photo_tag photo, name, linkedin=nil
+    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
+
+    if linkedin
+      linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
+      html = link_to html, linkedin_url, target: "_blank"
+    end
+
+    html = content_tag "div", html, class: "span2"
 
     html
   end
