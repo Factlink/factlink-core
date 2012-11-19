@@ -1,33 +1,45 @@
 module FactRelations
-  class FactRelation < Mustache::Railstache
-    def init
-      self[:negative_active] = ''
-      self[:positive_active] = ''
+  class FactRelation
+    def self.for(options)
+      new(options[:fact_relation], options[:view])
+    end
 
-      if current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :believes
-        self[:positive_active] = ' active'
-      elsif current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :disbelieves
-        self[:negative_active] = ' active'
-      end
+    def initialize(fact_relation, view)
+      @fact_relation = fact_relation
+      @view = view
+    end
+
+    def negative_active
+      (current_user_opinion == :disbelieves) ? ' active' : ''
+    end
+
+    def positive_active
+      (current_user_opinion == :believes) ? ' active' : ''
+    end
+
+    def current_user_opinion
+      current_user = @view.current_user
+      current_user.andand.graph_user.andand.opinion_on(@fact_relation)
     end
 
     def to_hash
-      fact_base = Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
+      fact_relation = @fact_relation
 
-      fact_relation = self[:fact_relation]
+      fact_base = Facts::FactBubble.for(fact: @fact_relation.from_fact, view: @view)
 
       json = Jbuilder.new
-      json.url friendly_fact_path(fact_relation.from_fact)
-      json.signed_in? user_signed_in?
-      json.can_destroy? can? :destroy, fact_relation
+
+      json.url @view.friendly_fact_path(fact_relation.from_fact)
+      json.signed_in? @view.user_signed_in?
+      json.can_destroy? @view.can? :destroy, fact_relation
       json.weight fact_relation.percentage
       json.id fact_relation.id
       json.fact_relation_type fact_relation.type
-      json.negative_active self[:negative_active]
-      json.positive_active self[:positive_active]
+      json.negative_active negative_active
+      json.positive_active positive_active
       json.fact_base fact_base.to_hash
 
-      json.attributes!.merge super
+      json.attributes!
     end
   end
 end
