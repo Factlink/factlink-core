@@ -47,9 +47,9 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
     else if @isnt_last(index)
       itemView.$('a').after ','
 
-  is_penultimate: (index)-> index is last_index - 1
+  is_penultimate: (index)-> index is @last_index - 1
   we_see_all_interactors: (index)-> @collection.totalRecords is @collection.length
-  isnt_last: (index)-> index is last_index
+  isnt_last: (index)-> index is @last_index
   last_index: -> @collection.length - 1
 
   appendHtml: (collectionView, itemView, index) =>
