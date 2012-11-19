@@ -36,80 +36,58 @@ describe Queries::FactInteractingUsers do
     it "returns a user who believes the fact" do
       fact = mock(id: 1)
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
-      interactions_reference = mock()
-      fact.should_receive(:interactions).and_return(interactions_reference)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
-      disbelieve_user = mock()
-      doubt_user = mock()
-      interactions = [mock(action: 'disbelieves', user: mock(user: disbelieve_user)),
-        mock(action: 'doubts', user: mock(user: doubt_user)),
-        mock(action: 'believes', user: mock(user: user))]
-      interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
+      graph_user = mock(user: user)
+      fact.should_receive(:people_believes).and_return([graph_user])
 
       result = Queries::FactInteractingUsers.execute(1, 0, 3, 'believes')
 
       expect(result[:total]).to eq 1
-      expect(result[:users].first).to eq user
+      expect(result[:users].first.id).to eq user.id
     end
 
     it "returns a user who disbelieves the fact" do
       fact = mock(id: 1)
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
-      interactions_reference = mock()
-      fact.should_receive(:interactions).and_return(interactions_reference)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
-      believe_user = mock()
-      doubt_user = mock()
-      interactions = [mock(action: 'believes', user: mock(user: believe_user)),
-        mock(action: 'doubts', user: mock(user: doubt_user)),
-        mock(action: 'disbelieves', user: mock(user: user))]
-      interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
+      graph_user = mock(user: user)
+      fact.should_receive(:people_disbelieves).and_return([graph_user])
 
       result = Queries::FactInteractingUsers.execute(1, 0, 3, 'disbelieves')
 
       expect(result[:total]).to eq 1
-      expect(result[:users].first).to eq user
+      expect(result[:users].first.id).to eq user.id
     end
 
     it "returns a user who doubts the fact" do
       fact = mock(id: 1)
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
-      interactions_reference = mock()
-      fact.should_receive(:interactions).and_return(interactions_reference)
       user = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
-      disbelieve_user = mock()
-      believe_user = mock()
-      interactions = [mock(action: 'believes', user: mock(user: believe_user)),
-        mock(action: 'disbelieves', user: mock(user: disbelieve_user)),
-        mock(action: 'doubts', user: mock(user: user))]
-      interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
+      graph_user = mock(user: user)
+      fact.should_receive(:people_doubts).and_return([graph_user])
 
       result = Queries::FactInteractingUsers.execute(1, 0, 3, 'doubts')
 
       expect(result[:total]).to eq 1
-      expect(result[:users].first).to eq user
+      expect(result[:users].first.id).to eq user.id
     end
 
     it "correctly skips and takes" do
       fact = mock(id: 1)
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
-      interactions_reference = mock()
-      fact.should_receive(:interactions).and_return(interactions_reference)
       user1 = mock(id: 2, username: 'mijn username', name: 'Joop Bouwhuis' )
       user2 = mock(id: 3, username: 'mijn username', name: 'Joop Bouwhuis' )
       user3 = mock(id: 4, username: 'mijn username', name: 'Joop Bouwhuis' )
-      disbelieve_user = mock()
-      interactions = [mock(action: 'disbelieves', user: mock(user: disbelieve_user)),
-        mock(action: 'believes', user: mock(user: user1)),
-        mock(action: 'believes', user: mock(user: user2)),
-        mock(action: 'believes', user: mock(user: user3))]
-      interactions_reference.should_receive(:below).with('inf',reversed: true).and_return(interactions)
+      graph_user1 = mock(user: user1)
+      graph_user2 = mock(user: user2)
+      graph_user3 = mock(user: user3)
+      fact.should_receive(:people_believes).and_return([graph_user1, graph_user2, graph_user3])
 
       result = Queries::FactInteractingUsers.execute(1, 1, 1, 'believes')
 
       expect(result[:total]).to eq 3
       expect(result[:users].size).to eq 1
-      expect(result[:users].first).to eq user2
+      expect(result[:users].first.id).to eq user2.id
     end
   end
 end
