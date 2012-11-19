@@ -10,7 +10,7 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
     popoverRegion: '.popover_region'
 
   highlight: ->
-    console.info("this should highlight the evidence")
+    @$el.css background: '#ffffe1'
 
   onRender: ->
     @factRelationRegion.show new FactRelationView model: @model
