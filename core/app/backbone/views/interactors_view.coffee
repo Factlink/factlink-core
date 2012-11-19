@@ -12,21 +12,18 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
   itemView: InteractorView
   itemViewContainer: "span"
   events:
-    'click a' : 'showAll'
+    'click a.showAll' : 'showAll'
 
   initialize: (options) ->
     @model = new Backbone.Model
     @fetch()
 
   fetch: ->
-    @collection.fetch(success: =>
+    @collection.fetch success: =>
       @model.set
         numberNotDisplayed: @collection.totalRecords - @collection.length
         multipleNotDisplayed: (@collection.totalRecords - @collection.length)>1
-
-      @render() #TODO: fix this better :this render is needed
-      #because the layout of the composite view doesn''t render
-    )
+      @render()
 
   templateHelpers: =>
     past_action:
@@ -52,5 +49,4 @@ class window.InteractorsView extends Backbone.Marionette.CompositeView
 
   appendHtml: (collectionView, itemView, index) =>
     @insertItemSeperator itemView, index
-
-    collectionView.$el.prepend itemView.el
+    super(collectionView, itemView, index)
