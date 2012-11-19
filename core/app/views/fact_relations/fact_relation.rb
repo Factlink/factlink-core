@@ -37,8 +37,10 @@ module FactRelations
       user_signed_in?
     end
 
-    def url
-      friendly_fact_path(self[:fact_relation].from_fact)
+    def to_hash
+      json = Jbuilder.new
+      json.url friendly_fact_path(self[:fact_relation].from_fact)
+      json.attributes!.merge super
     end
   end
 end
