@@ -37,35 +37,32 @@ module ApplicationHelper
     s
   end
 
+  def linkedin_icon_for_team_member handle, team_member
+    if handle
+      url = handle.match(/^http/) ? handle : "http://www.linkedin.com/in/#{handle}"
+      return link_to content_tag(:i, "Linkedin"), url, class: "ico linkedin", target: "_blank", title: "#{team_member}'s LinkedIn"
+    end
+  end
+
+  def twitter_icon_for_team_member handle, team_member
+    if handle
+      twitter_url = handle.match(/^http/) ? handle : "http://www.twitter.com/#{handle}"
+      return link_to content_tag(:i, "Twitter"), twitter_url, class: "ico twitter", target: "_blank", title: "#{team_member}'s Twitter"
+    end
+  end
+
   def team_photo_tag photo, name, linkedin=nil, twitter=nil
     html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 135, height: 135
-
-    if linkedin
-      linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
-      html += link_to '<i>Linkedin</i>'.html_safe, linkedin_url, class: "ico linkedin", target: "_blank"
-    end
-
-    if twitter
-      twitter_url = twitter.match(/^http/) ? twitter : "http://www.twitter.com/#{twitter}"
-      html += link_to '<i>Twitter</i>'.html_safe, twitter_url, class: "ico twitter", target: "_blank"
-    end
-
+    html += linkedin_icon_for_team_member linkedin, name
+    html += twitter_icon_for_team_member twitter, name
     html = content_tag "div", html, class: "span3 team-member"
-
-    html
+    return html
   end
 
   def advisor_photo_tag photo, name, linkedin=nil
     html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
-
-    if linkedin
-      linkedin_url = linkedin.match(/^http/) ? linkedin : "http://www.linkedin.com/in/#{linkedin}"
-      html = link_to html, linkedin_url, target: "_blank"
-    end
-
     html = content_tag "div", html, class: "span2"
-
-    html
+    return html
   end
 
   def show_active_step step_in_signup_proces, step
