@@ -14,6 +14,14 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     startConversationRegion: '.popup-content .start-conversation-container'
     addToChannelRegion: ".popup-content .add-to-channel-form"
 
+  templateHelpers: ->
+    fact_url_host: ->
+      if @fact_url?
+        url = document.createElement('a')
+        url.href = @fact_url
+
+        url.host
+
   renderAddToChannel: ->
     if @addToChannelView == `undefined`
       @addToChannelView = new AutoCompleteChannelsView

@@ -166,6 +166,7 @@ module FactlinkUI
       'search.css',
       'tos.css',
       'tour.css',
+      'pages.css',
       'base.css',
 
       'application.js',
