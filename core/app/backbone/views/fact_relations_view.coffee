@@ -10,75 +10,49 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
       switch @options.type
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
-        when 'doubting' then 'doubted'
 
-class window.FactRelationsView extends Backbone.Marionette.CompositeView
-  className: "tab-content"
-  template: "fact_relations/fact_relations"
-
-  itemViewContainer: ".fact-relation-listing"
+class FactRelationsListView extends Backbone.Marionette.CollectionView
+  tagName: 'ul'
+  className: 'fact-relation-listing'
 
   itemView: FactRelationView
-  itemViewOptions: => type: @model.type()
-
+  itemViewOptions: => type: @collection.type
   emptyView: EmptyFactRelationsView
 
-  initialize: (options) ->
-    @bindTo @model.relations(), 'add',
-           this.potentialHighlight, this
-
-    @model.relations().fetch()
-    @collection = @model.relations()
-    @initializeSearchView()
-    @initializeInteractors()
-
-  initializeSearchView: ->
-    @factRelationSearchView = new FactRelationSearchView
-      factRelations: @model.relations()
-
-  initializeInteractors: ->
-    interactorsCollection = switch @model.type()
-      when 'supporting'
-        new FactBelieversPage fact: @model.fact()
-      when 'weakening'
-        new FactDisbelieversPage fact: @model.fact()
-
-    @interactorsView = new window.InteractorsView
-      collection: interactorsCollection
+  addChildView: (item, collection, options) ->
+    result = super(item, collection, options)
+    @highlightFactRelation(item) if options.highlight
+    result
 
   highlightFactRelation: (model) ->
     view = @children[model.cid]
-    @$(this.itemViewContainer).scrollTo view.el, 800
+    @$el.scrollTo view.el, 800
     view.highlight()
 
-  addChildView: (item, collection, options) ->
-    res = super(item, collection, options)
-    @highlightFactRelation(item) if options.highlight
-    res
-
-  onRender: ->
-    @$el.addClass @model.type()
-    @$('.interacting-users').append @interactorsView.render().el
-    @$('.fact-relation-search').append @factRelationSearchView.render().el
-
-  onClose: ->
-    delete @interactorsView
-    delete @factRelationSearchView
-
-class window.DoubtingRelationsView extends Backbone.Marionette.Layout
+class window.FactRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
-  template: "fact_relations/doubting_fact_relations"
+  template: "fact_relations/fact_relations"
 
-  initialize: (options) ->
-    @initializeInteractors()
+  regions:
+    interactingUserRegion: '.interacting-users'
+    factRelationsRegion: '.fact-relation-listing-container'
+    factRelationSearchRegion: '.fact-relation-search'
 
-  initializeInteractors: ->
-    interactorsCollection = new FactDoubtersPage
-      fact: @model.fact()
-
-    @interactorsView = new InteractorsView
-      collection: interactorsCollection
+  initialize: -> @model.relations()?.fetch()
 
   onRender: ->
     @$el.addClass @model.type()
-    @$('.interacting-users').append @interactorsView.render().el
+
+    @interactingUserRegion.show new InteractorsView
+      collection: @model.getInteractors()
+
+    if @model.relations()
+      @factRelationSearchRegion.show new FactRelationSearchView
+        factRelations: @model.relations()
+      @factRelationsRegion.show new FactRelationsListView
+        collection: @model.relations()
+    else
+      @hideRegion @factRelationSearchRegion
+      @hideRegion @factRelationsRegion
+
+  hideRegion: (region)-> @$(region.el).hide()

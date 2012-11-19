@@ -15,3 +15,10 @@ class window.Discussion extends Backbone.Model
       when 'weakening'
         new WeakeningFactRelations([],fact: @fact())
       else `undefined`
+
+  getInteractors: ->
+    collectionType = switch @type()
+      when 'supporting' then FactBelieversPage
+      when 'weakening' then FactDisbelieversPage
+      when 'doubting' then FactDoubtersPage
+    new collectionType fact: @fact()
