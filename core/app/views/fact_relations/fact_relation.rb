@@ -1,9 +1,5 @@
 module FactRelations
   class FactRelation
-    def self.for(options)
-      new(options[:fact_relation], options[:view])
-    end
-
     def initialize(fact_relation, view)
       @fact_relation = fact_relation
       @view = view
