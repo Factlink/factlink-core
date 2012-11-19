@@ -1,44 +1,56 @@
 module FactRelations
-  class FactRelation < Mustache::Railstache
-    def init
-      self[:negative_active] = ''
-      self[:positive_active] = ''
+  class FactRelation
+    def initialize(fact_relation, view)
+      @fact_relation = fact_relation
+      @view = view
+    end
 
-      if current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :believes
-        self[:positive_active] = ' active'
-      elsif current_user.andand.graph_user.andand.opinion_on(self[:fact_relation]) == :disbelieves
-        self[:negative_active] = ' active'
+    def negative_active
+      (current_user_opinion == :disbelieves) ? ' active' : ''
+    end
+
+    def positive_active
+      (current_user_opinion == :believes) ? ' active' : ''
+    end
+
+    def current_user_opinion
+      current_user = @view.current_user
+      current_user.andand.graph_user.andand.opinion_on(@fact_relation)
+    end
+
+    def creator_authority
+      Authority.on(fact_relation, for: fact_relation.created_by).to_f + 1.0
+    end
+
+    def fact_relation
+      @fact_relation
+    end
+
+    def to_hash
+
+      fact_base = Facts::FactBubble.for(fact: @fact_relation.from_fact, view: @view)
+
+      json = JbuilderTemplate.new(@view)
+
+      json.url @view.friendly_fact_path(fact_relation.from_fact)
+      json.signed_in? @view.user_signed_in?
+      json.can_destroy? @view.can? :destroy, fact_relation
+      json.weight fact_relation.percentage
+      json.id fact_relation.id
+      json.fact_relation_type fact_relation.type
+      json.negative_active negative_active
+      json.positive_active positive_active
+      json.fact_base fact_base.to_hash
+
+      json.created_by do |json|
+        json.partial! 'users/user_partial', user: fact_relation.created_by.user
+        json.authority creator_authority
       end
-    end
 
-    def fact_base
-      Facts::FactBubble.for(fact: self[:fact_relation].from_fact, view: self.view)
-    end
 
-    expose_to_hash :negative_active, :positive_active
 
-    def fact_relation_type
-      self[:fact_relation].type
-    end
 
-    def id
-      self[:fact_relation].id
-    end
-
-    def weight
-      self[:fact_relation].percentage
-    end
-
-    def can_destroy?
-      can? :destroy, self[:fact_relation]
-    end
-
-    def signed_in?
-      user_signed_in?
-    end
-
-    def url
-      friendly_fact_path(self[:fact_relation].from_fact)
+      json.attributes!
     end
   end
 end
