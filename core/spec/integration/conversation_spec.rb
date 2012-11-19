@@ -6,7 +6,7 @@ describe "conversation", type: :request do
   before :each do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
     @recipients = [FactoryGirl.create(:approved_confirmed_user), FactoryGirl.create(:approved_confirmed_user)]
-    sleep 3 # allow elasticsearch to index the users
+    sleep 5 # allow elasticsearch to index the users
   end
 
   it "message can be sent and viewed" do
@@ -80,7 +80,8 @@ describe "conversation", type: :request do
     page.find(:css, 'input').set(name)
     wait_for_ajax
     page.find('li', text: name).click
-    page.find('.auto-complete-results-container li', text: name)
+    sleep 1
+    page.find('.auto-complete-results-container a', text: name)
   end
 
   def page_should_have_factlink_and_message(message, factlink, recipient)
