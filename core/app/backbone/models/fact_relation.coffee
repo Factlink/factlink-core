@@ -16,5 +16,7 @@ class window.FactRelation extends Backbone.Model
 
   url: ->
     evidence_type = "weakening_evidence"
-    evidence_type = "supporting_evidence"  if @get("fact_relation_type") is "believing"
-    @collection.fact.url() + "/" + evidence_type + "/" + @get("id")
+    evidence_type = "supporting_evidence" if @get("fact_relation_type") is "supporting"
+    url = @collection.fact.url() + "/" + evidence_type
+    url += "/" + @id if @id?
+    url
