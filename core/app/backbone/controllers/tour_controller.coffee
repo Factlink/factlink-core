@@ -5,7 +5,7 @@ class window.TourController extends Backbone.Factlink.BaseController
   chooseChannels:  ->
     stream = currentUser.stream()
 
-    visibleAddedChannels = collectionDifference(ChannelList, 'is_normal', window.Channels,
+    visibleAddedChannels = collectionDifference(new ChannelList, 'is_normal', window.Channels,
      [{is_normal: false}])
 
     channelCollectionView = new EditableChannelsView(collection: visibleAddedChannels)

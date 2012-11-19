@@ -1,34 +1,36 @@
 class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initializeChildViews: (opts)->
-    [@model, @search_collection] = @searchCollection(opts.search_collection)
-
-    @_text_input_view = new Backbone.Factlink.TextInputView
-      model: @model
-      placeholder: opts.placeholder || ''
-
-    if opts.results_view
-      @_results_view = new opts.results_view(collection: @collection)
-
-    if opts.filter_on
-      @filtered_search_collection = collectionDifference(opts.search_collection,
-        opts.filter_on, @search_collection, @collection)
-    else 
-      @filtered_search_collection = @search_collection
-
-    @_search_list_view = new opts.search_list_view
-      model: @model
-      collection: @filtered_search_collection
+    @search_collection = opts.search_collection()
+    
+    @initSearchModel()
+    @initTextInputView opts.placeholder
+    @initFilteredSearchCollection opts.search_collection, opts.filter_on
+    @initSearchListView opts.search_list_view
 
     @bindTextViewToSteppableViewAndSelf(@_text_input_view, @_search_list_view)
 
     @on('render', @renderChildViews)
 
-  searchCollection: (type)->
-    model = new Backbone.Model text: ''
-    collection = new type()
-    model.on 'change', -> collection.searchFor model.get('text')
+  initSearchModel: ->
+    @model = new Backbone.Model text: ''
+    @model.on 'change', => @search_collection.searchFor @model.get('text')
 
-    [model, collection]
+  initTextInputView: (placeholder) ->
+    @_text_input_view = new Backbone.Factlink.TextInputView
+      model: @model
+      placeholder: placeholder ? ''
+
+  initFilteredSearchCollection: (search_collection, filter_on) ->
+    if search_collection? and filter_on?
+      @filtered_search_collection = collectionDifference(search_collection(),
+        filter_on, @search_collection, @collection)
+    else 
+      @filtered_search_collection = @search_collection
+
+  initSearchListView: (search_list_view) ->
+    @_search_list_view = search_list_view
+      model: @model
+      collection: @filtered_search_collection
 
   bindTextViewToSteppableViewAndSelf: (text_view, steppable_view)->
     @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()
