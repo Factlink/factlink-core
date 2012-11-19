@@ -10,7 +10,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
-    @factlink = create_fact_in_backend
+    @factlink = backend_create_fact
 
     go_to_discussion_page_of @factlink
 
@@ -23,8 +23,8 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding a fact to an existing channel from the factbubble" do
-    @factlink = create_fact_in_backend
-    @channel = create_channel_in_backend
+    @factlink = backend_create_fact
+    @channel = backend_create_channel
 
     go_to_discussion_page_of @factlink
 
