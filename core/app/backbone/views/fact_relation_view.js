@@ -1,8 +1,26 @@
+window.FactRelationLayout = Backbone.Marionette.Layout.extend({
+
+  tagName:   'li',
+  className: 'fact-relation',
+  template:  'fact_relations/fact_relations_layout',
+
+  regions: {
+    factRelationRegion: '.factRelationRegion'
+  },
+
+  onRender: function() {
+    var fact_relation_view = new FactRelationView({ model: this.model });
+    this.factRelationRegion.show( fact_relation_view );
+  }
+
+});
+
+
 var ViewWithPopover = extendWithPopover( Backbone.Factlink.PlainView );
 
 window.FactRelationView = ViewWithPopover.extend({
-  tagName: "li",
-  className: "fact-relation",
+  tagName: "div",
+  className: "aaaaap-fact-relation",
 
   events: {
     "click .fact-relation-actions>.weakening": "disbelieveFactRelation",

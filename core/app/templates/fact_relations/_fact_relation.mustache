@@ -22,8 +22,10 @@
 
 <div class="fact-relation-body">
 
-  {{{ created_by.avatar_url }}}
+  <!-- this one: -->
+  <img src="https://secure.gravatar.com/avatar/{{ created_by.gravatar_hash }}?size=40&rating=PG&default=retro">
 
+  <!-- this one: -->
   <div class="fact-relation-added-by">
     <strong>
       <a href="/{{ created_by.username }}" rel="backbone">{{ created_by.username }}</a>
@@ -31,6 +33,8 @@
     ( <img src="{{global.brain_image}}"> {{ created_by.authority }} ) added:
   </div>
 
+
+  <!-- not this one: -->
   {{#fact_base}}
     {{>fact_base}}
   {{/fact_base}}
