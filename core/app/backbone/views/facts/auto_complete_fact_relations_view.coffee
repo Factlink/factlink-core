@@ -34,8 +34,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         displaystring: selected_result.get('displaystring')
         fact_base: new Fact(displaystring: selected_result.get('displaystring')).toJSON()
         fact_relation_type: @collection.type
+        created_by: currentUser.toJSON()
     else
       @collection.create
         evidence_id: selected_result.id
         fact_base: selected_result
         fact_relation_type: @collection.type
+        created_by: currentUser.toJSON()
