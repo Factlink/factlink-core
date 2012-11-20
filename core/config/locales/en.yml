@@ -20,7 +20,7 @@ en:
   fact_removed_opinions_past_action: "withdrew opinion"
 
   fact_believe_past_action: "agreed"
-  fact_doubt_past_action: "is unsure about"
+  fact_doubt_past_action: "was unsure about"
   fact_disbelieve_past_action: "disagreed"
   fact_create_past_action: "created"
   fact_remove_opinion_past_action: "removed opinion"

@@ -21,7 +21,7 @@ nl:
   fact_removed_opinions_past_action: "trok mening in"
 
   fact_believe_past_action: "stemde in met"
-  fact_doubt_past_action: "is onzeker over"
+  fact_doubt_past_action: "was onzeker over"
   fact_disbelieve_past_action: "ontkende"
   fact_create_past_action: "maakte aan"
   fact_remove_opinion_past_action: "trok zijn mening terug"
