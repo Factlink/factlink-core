@@ -15,10 +15,11 @@ Backend:
  ☐ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening
 
  Backbone / Frontend:
- ☐ create Comment Backbone model
- ☐ collection for Comments in discussion model (with static data at first)
- ☐ create Mustache template for Comment
- ☐ create Backbone view for Comment
+ ✔ create Comment Backbone model @done (12-11-20 14:08)
+ ✔ collection for Comments in discussion model (with static data at first) @done (12-11-20 16:07)
+ ✔ create basic Mustache template for Comment @done (12-11-20 16:07)
+ ✔ create basic Backbone view for Comment @done (12-11-20 16:07)
+ ☐ update _comment.mustache to have more content
  ☐ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:"
  ☐ comment should be deletable: add delete button in PopoverView
  ☐ integrate with backend (BACKEND TASK SHOULD BE DONE)
