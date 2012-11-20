@@ -27,42 +27,14 @@ module ApplicationHelper
 
   def minify_js(s)
     res = s
-    res = res.gsub /^\s*\/\/[^\n]*\n/, ''
-    res = res.gsub /\s+/, ' '
+    res = res.gsub(/^\s*\/\/[^\n]*\n/, '')
+    res = res.gsub(/\s+/, ' ')
     res.html_safe
   end
 
   def ensure_no_single_quotes(s)
-    raise "Please do not use single quotes here" if s.match /'/
+    raise "Please do not use single quotes here" if s.match(/'/)
     s
-  end
-
-  def linkedin_icon_for_team_member handle, team_member
-    if handle
-      url = handle.match(/^http/) ? handle : "http://www.linkedin.com/in/#{handle}"
-      return link_to content_tag(:i, "Linkedin"), url, class: "ico linkedin", target: "_blank", title: "#{team_member}'s LinkedIn"
-    end
-  end
-
-  def twitter_icon_for_team_member handle, team_member
-    if handle
-      twitter_url = handle.match(/^http/) ? handle : "http://www.twitter.com/#{handle}"
-      return link_to content_tag(:i, "Twitter"), twitter_url, class: "ico twitter", target: "_blank", title: "#{team_member}'s Twitter"
-    end
-  end
-
-  def team_photo_tag photo, name, linkedin=nil, twitter=nil
-    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 135, height: 135
-    html += linkedin_icon_for_team_member linkedin, name
-    html += twitter_icon_for_team_member twitter, name
-    html = content_tag "div", html, class: "span3 team-member"
-    return html
-  end
-
-  def advisor_photo_tag photo, name, linkedin=nil
-    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
-    html = content_tag "div", html, class: "span2 team-member"
-    return html
   end
 
   def show_active_step step_in_signup_proces, step

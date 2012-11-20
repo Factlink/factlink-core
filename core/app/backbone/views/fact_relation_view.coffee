@@ -36,7 +36,7 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
     "click .supporting": "believe"
 
   initialize: ->
-    @model.on "change", @render, @
+    @bindTo @model, "change", @render, @
 
   hideTooltips: ->
     @$(".weakening").tooltip "hide"
@@ -96,7 +96,6 @@ class window.FactRelationView extends Backbone.Factlink.PlainView
       fact: @model.get("fact_base")
       model: new Wheel(@model.get("fact_base")["fact_wheel"])
     ).render()
-    @
 
   onClose: -> @wheelView.close()
 
