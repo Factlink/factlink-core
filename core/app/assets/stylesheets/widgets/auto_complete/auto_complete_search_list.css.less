@@ -1,17 +1,21 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
+@border-radius: 5px;
+
 .auto-complete-search-list-container {
   position: relative;
 
   .auto-complete-search-list {
     border: 1px solid #b5b5b5;
     .box-sizing();
-    .border-radius(5px);
+    .border-radius(@border-radius);
 
     display: none;
     .drop-shadow(0, 1px, 4px, 0, 0.17);
     width: 300px;
+
+    padding: 5px 0;
 
     ul {
       max-height: 190px;
@@ -21,12 +25,10 @@
       background: white;
 
       li {
-        background: white;
         cursor: pointer;
         font-weight: 200;
 
         .text {
-          margin-top: 4px;
           height: 30px;
           line-height: 30px;
           overflow: hidden;
@@ -70,18 +72,6 @@
           .btn-mini {
             padding: 4px 4px 5px 5px;
           }
-        }
-
-        &:first-child, &:first-child .add-new-block {
-          .border-top-radius(3px);
-
-          .text {
-            margin-top: 0;
-          }
-        }
-
-        &:last-child, &:last-child .add-new-block {
-          .border-bottom-radius(3px);
         }
 
         &.active {
