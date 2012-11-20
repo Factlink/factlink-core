@@ -10,8 +10,5 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
 
     highlightedTitle: -> highlightTextInTextAsHtml(query, @displaystring)
 
-  onRender: ->
-    # @$el.addClass('user-logo') if @model.id == currentUser.id
-
 class window.AutoCompleteSearchFactRelationsView extends AutoCompleteSearchListView
   itemView: AutoCompleteSearchFactRelationView
