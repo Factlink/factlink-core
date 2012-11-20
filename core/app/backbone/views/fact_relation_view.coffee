@@ -6,7 +6,6 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
   regions:
     factRelationRegion: ".fact_relation_region"
     voteRegion: '.vote_region'
-    userRegion: 'henk'
     popoverRegion: '.popover_region'
 
   highlight: ->
@@ -72,7 +71,7 @@ class FactRelationPopoverView extends ViewWithPopover
 
   destroy: -> @model.destroy()
 
-
+# Cannot use Marionette.ItemView because of the way we implement BaseWheelView
 class window.FactRelationView extends Backbone.Factlink.PlainView
   tagName: "div"
   className: "fact-relation-body"
@@ -83,6 +82,9 @@ class window.FactRelationView extends Backbone.Factlink.PlainView
     fact_base: "facts/_fact_base"
     fact_wheel: "facts/_fact_wheel"
 
+  initialize: ->
+    @model.on 'change', @render, @
+
   templateHelpers: =>
     user = new User( @model.get('created_by') )
 
@@ -91,6 +93,7 @@ class window.FactRelationView extends Backbone.Factlink.PlainView
   serializeData: -> _.extend super(), @templateHelpers()
 
   onRender: ->
+    @wheelView?.close()
     @wheelView = new InteractiveWheelView(
       el: @$(".fact-wheel")
       fact: @model.get("fact_base")

@@ -1,2 +1,2 @@
 window.Factlink ||= {}
-Factlink.Global ||= {}
+Factlink.Global ||= {t: {}}
