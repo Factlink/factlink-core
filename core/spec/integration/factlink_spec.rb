@@ -29,14 +29,11 @@ describe "factlink", type: :request do
 
     page.should have_content(@factlink.data.title)
 
-    wait_until_scope_exists '.add-evidence-container' do
-      fill_in 'supporting_search', :with => search_string
+    wait_until_scope_exists '.auto-complete-fact-relations' do
+      page.find(:css, 'input').set(search_string)
       wait_for_ajax
+      page.find('.add-new-block').click
     end
-
-    page.should have_selector('.supporting li.add')
-
-    page.execute_script('$(".supporting li.add").trigger("click")')
 
     wait_for_ajax
 
