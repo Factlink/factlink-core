@@ -3,6 +3,8 @@ def self.truncate(opts)
   if Rails.env.development?
     Ohm.flush
 
+    ElasticSearch.clean
+
     env = 'development'
     mongoid_conf = YAML::load_file(Rails.root.join('config/mongoid.yml'))[env]
 

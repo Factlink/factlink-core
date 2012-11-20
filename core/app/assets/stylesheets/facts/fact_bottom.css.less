@@ -2,7 +2,7 @@
 @import "bootstrap/variables";
 
 div.fact-bottom {
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-family: @baseFontFamily;
   font-size: 12px;
   clear: both;
   margin: 15px 0 0;
@@ -68,5 +68,26 @@ div.fact-bottom {
     width: 100%;
     z-index: 1040;
     display: none;
+  }
+}
+
+div.facts-view {
+  div.fact-view {
+    .fact-bottom > span.fact-info,
+    .fact-bottom > ul.actions {
+      .opacity(.6);
+      .transition(opacity, .15s);
+    }
+    .top-right-arrow {
+      .opacity(0);
+      .transition(opacity, .15s);
+    }
+    &:hover {
+      .fact-bottom > span.fact-info,
+      .fact-bottom > ul.actions,
+      .top-right-arrow {
+        .opacity(1);
+      }
+    }
   }
 }
