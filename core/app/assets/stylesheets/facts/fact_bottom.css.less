@@ -70,3 +70,24 @@ div.fact-bottom {
     display: none;
   }
 }
+
+div.facts-view {
+  div.fact-view {
+    .fact-bottom > span.fact-info,
+    .fact-bottom > ul.actions {
+      .opacity(.6);
+      .transition(opacity, .15s);
+    }
+    .top-right-arrow {
+      .opacity(0);
+      .transition(opacity, .15s);
+    }
+    &:hover {
+      .fact-bottom > span.fact-info,
+      .fact-bottom > ul.actions,
+      .top-right-arrow {
+        .opacity(1);
+      }
+    }
+  }
+}
