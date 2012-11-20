@@ -29,16 +29,23 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     selected_result = @_search_list_view.currentActiveModel()
 
     if selected_result.get('new')?
-      @collection.create
+      attributes =
         displaystring: selected_result.get('displaystring')
         fact_base: new Fact(displaystring: selected_result.get('displaystring')).toJSON()
         fact_relation_type: @collection.type
         created_by: currentUser.toJSON()
         fact_relation_authority: '1.0'
     else
-      @collection.create
+      attributes =
         evidence_id: selected_result.id
         fact_base: selected_result.toJSON()
         fact_relation_type: @collection.type
         created_by: currentUser.toJSON()
         fact_relation_authority: '1.0'
+        
+    model = @collection.create attributes,
+      error: =>
+        alert "Something went wrong while adding the evidence, sorry"
+        @collection.remove model
+
+    @model.set text: ''

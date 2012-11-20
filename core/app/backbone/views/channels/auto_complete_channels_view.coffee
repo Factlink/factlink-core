@@ -41,7 +41,7 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "Something went wrong while adding the fact to this channel, sorry"
+        alert "Something went wrong while adding the Factlink to this channel, sorry"
         afterAdd()
 
   addNewChannel: (channel) ->
