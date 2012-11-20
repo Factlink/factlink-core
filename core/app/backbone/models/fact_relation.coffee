@@ -7,7 +7,7 @@ class window.FactRelation extends Backbone.Model
           type: type
           evidence_id: @id
 
-        @set data[0]
+        @set data
 
       type: "post"
 
