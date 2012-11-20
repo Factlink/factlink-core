@@ -72,14 +72,7 @@ class FactRelationPopoverView extends ViewWithPopover
   destroy: -> @model.destroy()
 
 class FactRelationActivityView extends Backbone.Marionette.ItemView
-  template:
-    text: """
-    <strong>
-    <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
-  </strong>
-  ( <img src="{{global.brain_image}}"> {{ creator.authority }} ) added:
-    """
-
+  template: 'fact_relations/activity'
   className: "fact-relation-added-by"
 
   initialize: ->
@@ -89,12 +82,7 @@ class FactRelationActivityView extends Backbone.Marionette.ItemView
     creator: @model.creator().toJSON()
 
 class FactBaseView extends Backbone.Marionette.ItemView
-  template:
-    text: """
-      {{fact_base.displaystring}}
-      <a class="less" style="display:none">(less)</a>
-    """
-
+  template: 'fact_relations/fact_base'
   className: "fact-body"
 
   initialize: ->
