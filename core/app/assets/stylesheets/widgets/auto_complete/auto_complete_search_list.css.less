@@ -2,11 +2,13 @@
 @import "bootstrap/mixins";
 
 @border-radius: 5px;
+@inner-border-radius: 4px;
 
 .auto-complete-search-list-container {
   position: relative;
 
   .auto-complete-search-list {
+    background: white;
     border: 1px solid #b5b5b5;
     .box-sizing();
     .border-radius(@border-radius);
@@ -14,14 +16,11 @@
     display: none;
     .drop-shadow(0, 1px, 4px, 0, 0.17);
 
-    padding: 5px 0;
-
     ul {
       max-height: 190px;
       overflow-y: scroll;
       list-style: none;
       margin: 0;
-      background: white;
 
       li {
         cursor: pointer;
@@ -67,6 +66,22 @@
 
           .btn-mini {
             padding: 4px 4px 5px 5px;
+          }
+        }
+
+        &:first-child {
+          .border-top-radius(@inner-border-radius);
+
+          .text, div.add-new-block {
+            .border-top-radius(@inner-border-radius);
+          }
+        }
+
+        &:last-child {
+          .border-bottom-radius(@inner-border-radius);
+
+          .text, div.add-new-block {
+            .border-bottom-radius(@inner-border-radius);
           }
         }
 
