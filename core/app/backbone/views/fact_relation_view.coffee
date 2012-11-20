@@ -89,7 +89,6 @@ class window.FactRelationView extends Backbone.Factlink.PlainView
       fact: @model.get("fact_base")
       model: new Wheel(@model.get("fact_base")["fact_wheel"])
     ).render()
-    @
 
   onClose: -> @wheelView.close()
 
