@@ -9,8 +9,7 @@ class window.ChannelList extends window.GenericChannelList
   reloadingEnabled: false
   initialize: -> @on "reset", @checkActiveChannel
 
-  url: ->
-    "/" + @getUsername() + "/channels"
+  url: -> "/#{@getUsername()}/channels"
 
   unsetActiveChannel: ->
     activeChannel = @get(@activeChannelId)
