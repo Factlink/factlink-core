@@ -18,7 +18,7 @@ json.can_destroy? can? :destroy, fact_relation
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
-json.fact_relation_authority 422 #fact_relation.authority
+json.fact_relation_authority fact_relation.user_opinion.friendly_authority
 json.negative_active negative_active
 json.positive_active positive_active
 json.fact_base fact_base.to_hash
