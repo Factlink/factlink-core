@@ -31,7 +31,9 @@ module BaseViews
     end
 
     def fact_wheel
-      Facts::FactWheel.for(fact: self[:fact], view: self.view, channel: self[:channel],modal: self[:modal]).to_hash
+      json = JbuilderTemplate.new(@view)
+      json.partial! 'facts/fact_wheel', fact: self[:fact]
+      json.attributes!
     end
 
     def believe_percentage
