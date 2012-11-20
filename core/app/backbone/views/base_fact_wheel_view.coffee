@@ -16,6 +16,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     userOpinionStroke:
       opacity: 1.0
 
+
   template: "facts/_fact_wheel"
   initialize: (options) ->
     @options = $.extend({}, @defaults, options)
@@ -27,9 +28,9 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @canvas = Raphael(@el, @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
     @calculateDisplayablePercentages()
-    @model.opinionTypes.each (opinionType) =>
+    _.each @model.getOpinionTypes(), (opinionType) =>
       @createOrAnimateArc opinionType, offset
-      offset += opinionType.get("displayPercentage")
+      offset += opinionType.displayPercentage
 
     @bindTooltips()
 
@@ -37,18 +38,18 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     offset = 0
     @$el.find(".html_container").html @templateRender(@model.toJSON())
     @calculateDisplayablePercentages()
-    @model.opinionTypes.each (opinionType) =>
+    _.each @model.getOpinionTypes(), (opinionType) =>
       @createOrAnimateArc opinionType, offset
-      offset += opinionType.get("displayPercentage")
+      offset += opinionType.displayPercentage
 
     @bindTooltips()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
-    opacity = (if opinionType.get("is_user_opinion") then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
+    opacity = (if opinionType.is_user_opinion then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
     
     # Our custom Raphael arc attribute
-    arc = [opinionType.get("displayPercentage"), percentageOffset, @options.radius]
-    if @opinionTypeRaphaels[opinionType.get("type")]
+    arc = [opinionType.displayPercentage, percentageOffset, @options.radius]
+    if @opinionTypeRaphaels[opinionType.type]
       @animateExistingArc opinionType, arc, opacity
     else
       @createArc opinionType, arc, opacity
@@ -58,7 +59,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     path = @canvas.path().attr
       # Our custom arc attribute
       arc: arc
-      stroke: opinionType.get("color")
+      stroke: opinionType.color
       "stroke-width": @options.defaultStroke.width
       opacity: opacity
     
@@ -66,11 +67,11 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
     path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
     path.click _.bind(@clickOpinionType, this, opinionType)
-    @opinionTypeRaphaels[opinionType.get("type")] = path
+    @opinionTypeRaphaels[opinionType.type] = path
 
   animateExistingArc: (opinionType, arc, opacity) ->
     # Retrieve the existing Raphael path belonging to this opinionType
-    @opinionTypeRaphaels[opinionType.get("type")].animate(
+    @opinionTypeRaphaels[opinionType.type].animate(
       # Our custom arc attribute
       arc: arc
       opacity: opacity
@@ -81,18 +82,18 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     too_much = 0
     large_ones = 0
 
-    @model.opinionTypes.each (opinionType) =>
-      percentage = opinionType.get("percentage")
+    _.each @model.getOpinionTypes(), (opinionType) =>
+      percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         too_much += @options.minimalVisiblePercentage - percentage
       else large_ones += percentage  if percentage > 40
 
-    @model.opinionTypes.each (opinionType) =>
-      percentage = opinionType.get("percentage")
+    _.each @model.getOpinionTypes(), (opinionType) =>
+      percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         percentage = @options.minimalVisiblePercentage
       else percentage = percentage - ((percentage / large_ones) * too_much)  if percentage > 40
-      opinionType.set "displayPercentage", percentage
+      opinionType.displayPercentage = percentage
 
   bindCustomRaphaelAttributes: ->
     @canvas.customAttributes.arc = (percentage, percentageOffset, radius) =>
@@ -109,7 +110,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
 
   mouseoverOpinionType: (path, opinionType) ->
     destinationOpacity = @options.hoverStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.get("is_user_opinion")
+    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @options.hoverStroke.width
       opacity: destinationOpacity
@@ -117,7 +118,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
 
   mouseoutOpinionType: (path, opinionType) ->
     destinationOpacity = @options.defaultStroke.opacity
-    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.get("is_user_opinion")
+    destinationOpacity = @options.userOpinionStroke.opacity  if opinionType.is_user_opinion
     path.animate(
       "stroke-width": @options.defaultStroke.width
       opacity: destinationOpacity
@@ -130,10 +131,10 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
     
     # Create tooltips for each opinionType (believe, disbelieve etc)
-    @model.opinionTypes.each (opinionType) =>
-      raphaelObject = @opinionTypeRaphaels[opinionType.get("type")]
+    _.each @model.getOpinionTypes(), (opinionType) =>
+      raphaelObject = @opinionTypeRaphaels[opinionType.type]
       $(raphaelObject.node).tooltip
-        title: opinionType.get("groupname") + ": " + opinionType.get("percentage") + "%"
+        title: opinionType.groupname + ": " + opinionType.percentage + "%"
         placement: "left"
 
   updateTo: (authority, opinionTypes) ->
@@ -144,21 +145,21 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
         tempObject[opinionType.type] = opinionType
 
       opinionTypes = tempObject
-    @model.opinionTypes.each (opinionType) ->
-      newOpinionType = opinionTypes[opinionType.get("type")]
-      opinionType.set "percentage", newOpinionType.percentage
-      opinionType.set "is_user_opinion", newOpinionType.is_user_opinion
+    _.each @model.getOpinionTypes(), (opinionType) ->
+      newOpinionType = opinionTypes[opinionType.type]
+      opinionType.percentage = newOpinionType.percentage
+      opinionType.is_user_opinion = newOpinionType.is_user_opinion
 
     @reRender()
 
   toggleActiveOpinionType: (opinionType) ->
     oldAuthority = @model.get("authority")
     updateObj = {}
-    @model.opinionTypes.each (oldOpinionType) ->
-      updateObj[oldOpinionType.get("type")] = oldOpinionType.toJSON()
-      unless opinionType.get("is_user_opinion")
-        updateObj[oldOpinionType.get("type")].is_user_opinion = false
+    _.each @model.getOpinionTypes(), (oldOpinionType) ->
+      updateObj[oldOpinionType.type] = _.clone(oldOpinionType)
+      unless opinionType.is_user_opinion
+        updateObj[oldOpinionType.type].is_user_opinion = false
       if oldOpinionType == opinionType
-        updateObj[oldOpinionType.get("type")].is_user_opinion = !opinionType.get("is_user_opinion")
+        updateObj[oldOpinionType.type].is_user_opinion = !opinionType.is_user_opinion
 
     @updateTo oldAuthority, updateObj

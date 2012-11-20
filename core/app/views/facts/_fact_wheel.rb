@@ -47,27 +47,27 @@ module Facts
       end
 
       def opinions_for_hash(hash)
-        [
-          {
+        {
+          :believe => {
             :type => 'believe',
             :groupname => t(:fact_believe_opinion).titleize,
             :percentage => hash[:believe][:percentage],
             :is_user_opinion => hash[:believe][:is_user_opinion],
             :color => "#98d100",
-          }, {
+          }, :doubt => {
             :type => 'doubt',
             :groupname => t(:fact_doubt_opinion).titleize,
             :percentage => hash[:doubt][:percentage],
             :is_user_opinion => hash[:doubt][:is_user_opinion],
             :color => "#36a9e1",
-          }, {
+          }, :disbelieve => {
             :type => 'disbelieve',
             :groupname => t(:fact_disbelieve_opinion).titleize,
             :percentage => hash[:disbelieve][:percentage],
             :is_user_opinion => hash[:disbelieve][:is_user_opinion],
             :color => "#e94e1b",
           }
-        ]
+        }
       end
   end
 end
