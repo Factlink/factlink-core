@@ -21,8 +21,15 @@ li.fact-relation {
       &:hover { text-decoration: none; }
     }
 
+    span {
+      color: @metaFontColor;
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+      margin: 5px 0 5px -6px;
+    }
+
     .supporting {
-      margin-bottom: 10px;
       background: image-url("relation_actions.png") no-repeat top right transparent;
       &.active {
         background: image-url("relation_actions.png") no-repeat top left transparent;
