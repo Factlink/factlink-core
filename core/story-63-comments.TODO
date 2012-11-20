@@ -1,0 +1,13 @@
+Backbone / Frontend:
+ ☐ create Comment Backbone model
+ ☐ collection for Comments in discussion model (with static data at first)
+ ☐ create Mustache template for Comment
+ ☐ create Backbone view for Comment
+ ☐ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:"
+ ☐ comment should be deletable: add delete button in PopoverView
+ ☐ integrate with backend (BACKEND TASK SHOULD BE DONE)
+ ☐ toggle (checkbox) between posting Factlink or Comment
+ ☐ save comment
+ ☐ notification on successful posting (see design: singlefact-comment-success.png)
+ ☐ notification on error
+ ☐ store typed comment in localStorage and show when reopening the page
