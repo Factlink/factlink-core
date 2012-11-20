@@ -31,7 +31,7 @@ class FactsController < ApplicationController
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )
 
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context, show_interacting_users: true)})
+    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
   end
 
   def extended_show

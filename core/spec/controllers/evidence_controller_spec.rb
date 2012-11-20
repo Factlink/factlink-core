@@ -82,14 +82,9 @@ describe SupportingEvidenceController do
 
         opinions = parsed_content["fact_base"]["fact_wheel"]["opinion_types"]
 
-        opinions[0]["type"].should == "believe"
-        opinions[0]["percentage"].should == 0
-
-        opinions[1]["type"].should == "doubt"
-        opinions[1]["percentage"].should == 0
-
-        opinions[2]["type"].should == "disbelieve"
-        opinions[2]["percentage"].should == 100
+        opinions["believe"]["percentage"].should == 0
+        opinions["doubt"]["percentage"].should == 0
+        opinions["disbelieve"]["percentage"].should == 100
       end
     end
 
