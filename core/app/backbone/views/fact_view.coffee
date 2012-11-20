@@ -40,16 +40,16 @@ class window.FactView extends ViewWithPopover
     @bottomView.render()
     @$el.append(@bottomView.el)
 
-    @$(".authority").tooltip()
-    if @factWheelView
-      @wheel.set @model.getFactWheel()
-      @$(".fact-wheel").replaceWith @factWheelView.reRender().el
-    else
+    @wheel.set @model.getFactWheel()
+
+    unless @factWheelView?
       @factWheelView = new InteractiveWheelView(
         model: @wheel
         fact: @model
-        el: @$(".fact-wheel")
-      ).render()
+      )
+      @$(".fact-wheel").html(@factWheelView.$el)
+      @$(".authority").tooltip()
+    @factWheelView.render()
 
   truncateText: ->
     @$(".body .text").trunk8
