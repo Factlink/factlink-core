@@ -15,8 +15,7 @@ module Facts
           disbelieve: {
             percentage: 33,
             is_user_opinion: false
-          },
-          user_signed_in?: false
+          }
         })
       }
     end
@@ -43,8 +42,7 @@ module Facts
           disbelieve: {
             percentage: fact.get_opinion.as_percentages[:disbelieve][:percentage],
             is_user_opinion: user_signed_in? && current_graph_user.has_opinion?(:disbelieves, fact)
-          },
-          user_signed_in?: user_signed_in?
+          }
         })
       end
 
@@ -56,21 +54,18 @@ module Facts
             :percentage => hash[:believe][:percentage],
             :is_user_opinion => hash[:believe][:is_user_opinion],
             :color => "#98d100",
-            :user_signed_in? => hash[:user_signed_in?],
           }, {
             :type => 'doubt',
             :groupname => t(:fact_doubt_opinion).titleize,
             :percentage => hash[:doubt][:percentage],
             :is_user_opinion => hash[:doubt][:is_user_opinion],
             :color => "#36a9e1",
-            :user_signed_in? => hash[:user_signed_in?],
           }, {
             :type => 'disbelieve',
             :groupname => t(:fact_disbelieve_opinion).titleize,
             :percentage => hash[:disbelieve][:percentage],
             :is_user_opinion => hash[:disbelieve][:is_user_opinion],
             :color => "#e94e1b",
-            :user_signed_in? => hash[:user_signed_in?],
           }
         ]
       end
