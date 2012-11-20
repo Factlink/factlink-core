@@ -18,8 +18,8 @@ module TeamHelper
   end
 
   def advisor_photo_tag photo, name, linkedin=nil
-    html = image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
-
-    content_tag "div", html, class: "span2 team-member"
+    content_tag "div", class: "span2 team-member" do
+      image_tag "team/#{photo}.jpg", alt: name, class: "img-circle team-photo", rel: "tooltip", title: name, width: 80, height: 80
+    end
   end
 end
