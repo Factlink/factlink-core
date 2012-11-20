@@ -16,17 +16,18 @@ li.fact-relation {
 
     .supporting, .weakening {
       display: block;
-      width: 9px;
-      height: 15px;
+      width: 11px;
+      height: 6px;
       cursor: pointer;
 
       &:hover { text-decoration: none; }
     }
 
     .supporting {
-      background: image-url("relation_actions.png") no-repeat top left transparent;
+      margin-bottom: 10px;
+      background: image-url("relation_actions.png") no-repeat top right transparent;
       &.active {
-        background: image-url("relation_actions.png") no-repeat top right transparent;
+        background: image-url("relation_actions.png") no-repeat top left transparent;
       }
     }
 
