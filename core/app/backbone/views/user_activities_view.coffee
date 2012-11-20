@@ -24,7 +24,7 @@ class window.UserActivitiesView extends Backbone.Marionette.CompositeView
   buildItemView: (item, ItemView) ->
     #ignore ItemView
     newItemView = window.getActivityItemViewFor(item)
-    Backbone.Marionette.CompositeView.prototype.buildItemView.call(this,item, newItemView)
+    super(item, newItemView)
 
 class UserChannelActivitiesView extends UserActivitiesView
   appendable: (m) ->
