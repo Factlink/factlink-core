@@ -16,6 +16,17 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     userOpinionStroke:
       opacity: 1.0
 
+    opinionStyles:      
+      believe:
+        groupname: Factlink.Global.t.fact_believe_opinion.titleize()
+        color: "#98d100"
+      doubt:
+        groupname: Factlink.Global.t.fact_doubt_opinion.titleize()
+        color: "#36a9e1"
+      disbelieve:
+        groupname: Factlink.Global.t.fact_disbelieve_opinion.titleize()
+        color: "#e94e1b"
+
 
   template: "facts/_fact_wheel"
   initialize: (options) ->
@@ -28,7 +39,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @canvas = Raphael(@el, @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
     @calculateDisplayablePercentages()
-    _.each @model.getOpinionTypes(), (opinionType) =>
+    for key, opinionType of @model.getOpinionTypes()
       @createOrAnimateArc opinionType, offset
       offset += opinionType.displayPercentage
 
@@ -38,7 +49,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     offset = 0
     @$el.find(".html_container").html @templateRender(@model.toJSON())
     @calculateDisplayablePercentages()
-    _.each @model.getOpinionTypes(), (opinionType) =>
+    for key, opinionType of @model.getOpinionTypes()
       @createOrAnimateArc opinionType, offset
       offset += opinionType.displayPercentage
 
@@ -59,7 +70,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     path = @canvas.path().attr
       # Our custom arc attribute
       arc: arc
-      stroke: opinionType.color
+      stroke: @options.opinionStyles[opinionType.type].color
       "stroke-width": @options.defaultStroke.width
       opacity: opacity
     
@@ -82,13 +93,13 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     too_much = 0
     large_ones = 0
 
-    _.each @model.getOpinionTypes(), (opinionType) =>
+    for key, opinionType of @model.getOpinionTypes()
       percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         too_much += @options.minimalVisiblePercentage - percentage
       else large_ones += percentage  if percentage > 40
 
-    _.each @model.getOpinionTypes(), (opinionType) =>
+    for key, opinionType of @model.getOpinionTypes()
       percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         percentage = @options.minimalVisiblePercentage
@@ -131,10 +142,10 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
     
     # Create tooltips for each opinionType (believe, disbelieve etc)
-    _.each @model.getOpinionTypes(), (opinionType) =>
+    for key, opinionType of @model.getOpinionTypes()
       raphaelObject = @opinionTypeRaphaels[opinionType.type]
       $(raphaelObject.node).tooltip
-        title: opinionType.groupname + ": " + opinionType.percentage + "%"
+        title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
         placement: "left"
 
   updateTo: (authority, opinionTypes) ->
@@ -145,7 +156,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
         tempObject[opinionType.type] = opinionType
 
       opinionTypes = tempObject
-    _.each @model.getOpinionTypes(), (opinionType) ->
+    for key, opinionType of @model.getOpinionTypes()
       newOpinionType = opinionTypes[opinionType.type]
       opinionType.percentage = newOpinionType.percentage
       opinionType.is_user_opinion = newOpinionType.is_user_opinion

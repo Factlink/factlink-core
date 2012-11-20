@@ -44,7 +44,7 @@
 
     var persistentWheel = new PersistentWheelView({
       el: $('.fact-wheel'),
-      model: new Wheel
+      model: new Wheel()
     }).render();
 
     persistentWheel.on('opinionSet', function () {
