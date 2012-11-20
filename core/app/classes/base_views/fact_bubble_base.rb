@@ -32,7 +32,7 @@ module BaseViews
 
     def fact_wheel
       json = JbuilderTemplate.new(self.view)
-      json.partial! 'facts/fact_wheel.json', fact: self[:fact]
+      json.partial! 'facts/fact_wheel', formats: [:json], fact: self[:fact]
       json.attributes!
     end
 
