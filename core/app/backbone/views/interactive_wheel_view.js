@@ -1,11 +1,19 @@
 window.InteractiveWheelView = window.BaseFactWheelView.extend({
-	clickOpinionType: function (opinionType, e) {
+	getFactId: function() {
+    if (this.model.get('fact_id')) {
+      return this.model.get('fact_id');
+    } else {
+      return this.options.fact.id;
+    }
+  },
+
+  clickOpinionType: function (opinionType, e) {
     var self = this;
 		this.toggleActiveOpinionType(opinionType);
 
 		if ( opinionType.is_user_opinion ) {
       $.ajax({
-        url: "/facts/" + self.options.fact.id + "/opinion/" + opinionType.type + "s.json",
+        url: "/facts/" + self.getFactId() + "/opinion/" + opinionType.type + "s.json",
         type: "POST",
         success: function(data) {
           self.updateTo(data.authority, data.opinion_types);
@@ -24,7 +32,7 @@ window.InteractiveWheelView = window.BaseFactWheelView.extend({
 		} else {
       $.ajax({
         type: "DELETE",
-        url: "/facts/" + this.options.fact.id + "/opinion.json",
+        url: "/facts/" + self.getFactId() + "/opinion.json",
         success: function(data) {
           self.updateTo(data.authority, data.opinion_types);
 

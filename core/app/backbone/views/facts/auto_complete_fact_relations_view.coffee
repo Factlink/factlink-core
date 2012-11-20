@@ -27,8 +27,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   addCurrent: ->
     selected_result = @_search_list_view.currentActiveModel()
-    console.log 'de collection: ', @collection
-    console.log 'selected_result', selected_result
 
     if selected_result.get('new')?
       @collection.create

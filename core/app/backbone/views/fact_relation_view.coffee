@@ -71,35 +71,61 @@ class FactRelationPopoverView extends ViewWithPopover
 
   destroy: -> @model.destroy()
 
-# Cannot use Marionette.ItemView because of the way we implement BaseWheelView
-class window.FactRelationView extends Backbone.Factlink.PlainView
-  tagName: "div"
+class FactRelationActivityView extends Backbone.Marionette.ItemView
+  template:
+    text: """
+    <strong>
+    <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
+  </strong>
+  ( <img src="{{global.brain_image}}"> {{ creator.authority }} ) added:
+    """
+
+  className: "fact-relation-added-by"
+
+  initialize: ->
+    @bindTo @model, 'change', @render, @
+
+  templateHelpers: =>
+    creator: @model.creator().toJSON()
+
+class FactBaseView extends Backbone.Marionette.ItemView
+  template:
+    text: """
+      {{fact_base.displaystring}}
+      <a class="less" style="display:none">(less)</a>
+    """
+
+  className: "fact-body"
+
+  initialize: ->
+    @bindTo @model, 'change', @render, @
+
+class window.FactRelationView extends Backbone.Marionette.Layout
   className: "fact-relation-body"
 
   template: "fact_relations/fact_relation"
 
-  partials:
-    fact_base: "facts/_fact_base"
-    fact_wheel: "facts/_fact_wheel"
-
-  initialize: ->
-    @model.on 'change', @render, @
+  regions:
+    factRelationActivityView: '.fact-relation-added-by-region'
+    factBaseView:             '.fact-base-region'
+    factWheelRegion:          '.fact-wheel'
 
   templateHelpers: =>
-    user = new User( @model.get('created_by') )
-
-    creator: user.toJSON()
-
-  serializeData: -> _.extend super(), @templateHelpers()
+    creator: @model.creator().toJSON()
 
   onRender: ->
-    @wheelView?.close()
-    @wheelView = new InteractiveWheelView(
-      el: @$(".fact-wheel")
+    @factWheelRegion.show @wheelView()
+    @factBaseView.show new FactBaseView(model: @model)
+    @factRelationActivityView.show new FactRelationActivityView(model: @model)
+
+  wheelView: ->
+    wheel = new Wheel(@model.get("fact_base")["fact_wheel"])
+    @_wheelView = new InteractiveWheelView
       fact: @model.get("fact_base")
-      model: new Wheel(@model.get("fact_base")["fact_wheel"])
-    ).render()
+      model: wheel
 
-  onClose: -> @wheelView.close()
+    @bindTo @model, 'change', =>
+      wheel.set @model.get("fact_base")["fact_wheel"]
+      @_wheelView.render()
 
-_.extend(FactRelationView.prototype, TemplateMixin)
+    @_wheelView

@@ -20,3 +20,5 @@ class window.FactRelation extends Backbone.Model
     url = @collection.fact.url() + "/" + evidence_type
     url += "/" + @id if @id?
     url
+
+  creator: -> new User(@get('created_by'))
