@@ -59,7 +59,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @bindTooltips()
 
   reRender: ->
-    @$('.authority').val(@model.get('authority'))    
+    @$('.authority').text(@model.get('authority'))    
     @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
