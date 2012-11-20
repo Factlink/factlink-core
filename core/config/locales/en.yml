@@ -10,17 +10,17 @@ en:
   fact_disbelieve_action: "disagree"
 
   fact_believes_action: "agrees with"
-  fact_doubts_action: "doubts"
+  fact_doubts_action: "is unsure about"
   fact_disbelieves_action: "disagrees with"
 
   fact_believe_opinion: "agree"
-  fact_doubt_opinion: "neutral"
   fact_disbelieve_opinion: "disagree"
+  fact_doubt_opinion: "unsure"
 
   fact_removed_opinions_past_action: "withdrew opinion"
 
   fact_believe_past_action: "agreed"
-  fact_doubt_past_action: "neutraled"
+  fact_doubt_past_action: "is unsure about"
   fact_disbelieve_past_action: "disagreed"
   fact_create_past_action: "created"
   fact_remove_opinion_past_action: "removed opinion"

@@ -11,17 +11,17 @@ nl:
   fact_disbelieve_action: "ontken"
 
   fact_believes_action: "stemt in met"
-  fact_doubts_action: "stemt neutraal op"
+  fact_doubts_action: "is onzeker over"
   fact_disbelieves_action: "ontkent"
 
   fact_believe_opinion: "eens"
-  fact_doubt_opinion: "neutraal"
   fact_disbelieve_opinion: "oneens"
+  fact_doubt_opinion: "onzeker"
 
   fact_removed_opinions_past_action: "trok mening in"
 
   fact_believe_past_action: "stemde in met"
-  fact_doubt_past_action: "stemde neutraal op"
+  fact_doubt_past_action: "is onzeker over"
   fact_disbelieve_past_action: "ontkende"
   fact_create_past_action: "maakte aan"
   fact_remove_opinion_past_action: "trok zijn mening terug"
