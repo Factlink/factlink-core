@@ -28,6 +28,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   addCurrent: ->
     selected_result = @_search_list_view.currentActiveModel()
     console.log 'de collection: ', @collection
+    console.log 'selected_result', selected_result
 
     if selected_result.get('new')?
       @collection.create
@@ -35,9 +36,11 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         fact_base: new Fact(displaystring: selected_result.get('displaystring')).toJSON()
         fact_relation_type: @collection.type
         created_by: currentUser.toJSON()
+        fact_relation_authority: '1.0'
     else
       @collection.create
         evidence_id: selected_result.id
-        fact_base: selected_result
+        fact_base: selected_result.toJSON()
         fact_relation_type: @collection.type
         created_by: currentUser.toJSON()
+        fact_relation_authority: '1.0'
