@@ -29,7 +29,7 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
     "click .supporting": "believe"
 
   initialize: ->
-    @model.on "change", @render, @
+    @bindTo @model, "change", @render, @
 
   hideTooltips: ->
     @$(".weakening").tooltip "hide"
