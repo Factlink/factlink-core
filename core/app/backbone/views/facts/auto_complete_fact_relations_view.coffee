@@ -13,16 +13,17 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   template: "auto_complete/box_without_results"
 
   initialize: ->
-    if @collection.type == "supporting"
-      placeholder = "The Factlink above is true because:"
-    else
-      placeholder = "The Factlink above is false because:"
-
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
       search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
-      placeholder: placeholder
+      placeholder: @placeholder()
+
+  placeholder: ->
+    if @collection.type == "supporting"
+      "The Factlink above is true because:"
+    else
+      "The Factlink above is false because:"
 
   addCurrent: ->
     selected_result = @_search_list_view.currentActiveModel()
