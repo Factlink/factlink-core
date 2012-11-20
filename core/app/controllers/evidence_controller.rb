@@ -35,7 +35,7 @@ class EvidenceController < FactsController
         fact.calculate_opinion(2)
 
         format.json do
-          render json: FactRelations::FactRelation.new(@fact_relation, view_context)
+          render 'fact_relations/show'
         end
       else
         format.json { render json: [], status: :unprocessable_entity }
@@ -46,25 +46,25 @@ class EvidenceController < FactsController
   def set_opinion
     type = params[:type].to_sym
 
-    fact_relation = FactRelation[params[:id]]
+    @fact_relation = FactRelation[params[:id]]
 
-    authorize! :opinionate, fact_relation
+    authorize! :opinionate, @fact_relation
 
-    fact_relation.add_opinion(type, current_user.graph_user)
-    fact_relation.calculate_opinion(2)
+    @fact_relation.add_opinion(type, current_user.graph_user)
+    @fact_relation.calculate_opinion(2)
 
-    render json: [FactRelations::FactRelation.new(fact_relation, view_context)]
+    render 'fact_relations/show'
   end
 
   def remove_opinions
-    evidence = Basefact[params[:id]]
+    @fact_relation = Basefact[params[:id]]
 
-    authorize! :opinionate, evidence
+    authorize! :opinionate, @fact_relation
 
-    evidence.remove_opinions(current_user.graph_user)
-    evidence.calculate_opinion(2)
+    @fact_relation.remove_opinions(current_user.graph_user)
+    @fact_relation.calculate_opinion(2)
 
-    render json: [FactRelations::FactRelation.new(evidence, view_context)]
+    render 'fact_relations/show'
   end
 
   def destroy

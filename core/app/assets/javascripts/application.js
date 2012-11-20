@@ -6,6 +6,7 @@
 //= require andlog
 //= require trunk8
 //= require twitter/bootstrap
+//= require jquery.color
 
 //= require globals/globals
 

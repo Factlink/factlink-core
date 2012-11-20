@@ -9,6 +9,16 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
     userRegion: 'henk'
     popoverRegion: '.popover_region'
 
+  highlight: ->
+    @$el.animate
+      "background-color": "#ffffe1"
+    ,
+      duration: 500
+      complete: ->
+        $(this).animate
+          "background-color": "#ffffff"
+        , 2500
+
   onRender: ->
     @factRelationRegion.show new FactRelationView model: @model
     @voteRegion.show new VoteUpDownView model: @model
@@ -26,7 +36,7 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
     "click .supporting": "believe"
 
   initialize: ->
-    @model.on "change", @render, @
+    @bindTo @model, "change", @render, @
 
   hideTooltips: ->
     @$(".weakening").tooltip "hide"
@@ -86,7 +96,6 @@ class window.FactRelationView extends Backbone.Factlink.PlainView
       fact: @model.get("fact_base")
       model: new Wheel(@model.get("fact_base")["fact_wheel"])
     ).render()
-    @
 
   onClose: -> @wheelView.close()
 
