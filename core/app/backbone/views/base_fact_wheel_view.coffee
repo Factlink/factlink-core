@@ -34,28 +34,33 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @opinionTypeRaphaels = {}
 
   onRender: ->
-    offset = 0
-    @$el.html("<div class=\"html_container\"></div>").
-         find(".html_container").
-         html @templateRender(@model.toJSON())
-    @canvas = Raphael(@el, @options.dimension * 2 + 12, @options.dimension * 2 + 12)
+    @renderRaphael()
+    @randomActions()
+
+  render: ->
+    if @already_rendered
+      @reRender()
+    else
+      super()
+      @already_rendered = true
+  
+  renderRaphael: ->
+    @$canvasEl = $('<div></div>')
+    @$('.raphael_container').html(@$canvasEl)
+    @canvas = Raphael(@$canvasEl[0], @options.dimension * 2 + 12, @options.dimension * 2 + 12)
     @bindCustomRaphaelAttributes()
+
+  randomActions: ->
+    offset = 0
     @calculateDisplayablePercentages()
     for key, opinionType of @model.getOpinionTypes()
       @createOrAnimateArc opinionType, offset
       offset += opinionType.displayPercentage
-
     @bindTooltips()
 
   reRender: ->
-    offset = 0
-    @$el.find(".html_container").html @templateRender(@model.toJSON())
-    @calculateDisplayablePercentages()
-    for key, opinionType of @model.getOpinionTypes()
-      @createOrAnimateArc opinionType, offset
-      offset += opinionType.displayPercentage
-
-    @bindTooltips()
+    @$('.authority').text(@model.get('authority'))    
+    @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
     opacity = (if opinionType.is_user_opinion then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
