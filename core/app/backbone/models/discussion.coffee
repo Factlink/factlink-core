@@ -8,6 +8,15 @@ class window.Discussion extends Backbone.Model
   fact: -> @_fact
   type: -> @_type
 
+  comments: -> @_comments ?= @getComments()
+
+  getComments: ->
+    # TODO: this should be dynamicz
+    comment1 = new Comment id: 1, content: "Hoi doei Henk"
+    comment2 = new Comment id: 2, content: "Richie Hawtin - Live @ Amsterdam Dance Event"
+
+    new Backbone.Collection [comment1, comment2]
+
   getFactRelations: ->
     switch @type()
       when 'supporting'
