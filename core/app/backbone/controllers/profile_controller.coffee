@@ -17,8 +17,10 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     @profile_views.renderCacheView( username, new_callback() ) if not view?
 
   # ACTIONS
-  showProfile: (username) -> @showPage username, @profile_options(username)
-  showNotificationSettings: (username) -> @showPage username, @notification_options(username)
+  showProfile: (username) ->
+    @showPage username, @profile_options(username)
+  showNotificationSettings: (username) ->
+    @showPage username, @notification_options(username)
 
   showFact: (slug, fact_id)->
     @main = new TabbedMainRegionLayout();
