@@ -18,13 +18,13 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
 
     opinionStyles:      
       believe:
-        groupname: Factlink.Global.t.fact_believe_opinion.titleize()
+        groupname: Factlink.Global.t.fact_believe_opinion?.titleize()
         color: "#98d100"
       doubt:
-        groupname: Factlink.Global.t.fact_doubt_opinion.titleize()
+        groupname: Factlink.Global.t.fact_doubt_opinion?.titleize()
         color: "#36a9e1"
       disbelieve:
-        groupname: Factlink.Global.t.fact_disbelieve_opinion.titleize()
+        groupname: Factlink.Global.t.fact_disbelieve_opinion?.titleize()
         color: "#e94e1b"
 
   template: "facts/fact_wheel"
