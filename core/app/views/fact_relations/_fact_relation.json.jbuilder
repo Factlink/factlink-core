@@ -8,7 +8,7 @@ positive_active =
   (current_user_opinion == :believes) ? ' active' : ''
 
 creator_authority =
-  Authority.on(fact_relation, for: fact_relation.created_by).to_f + 1.0
+  Authority.on(fact_relation, for: fact_relation.created_by).to_s.to_f + 1.0
 
 fact_base = Facts::FactBubble.for(fact: fact_relation.from_fact, view: self)
 
