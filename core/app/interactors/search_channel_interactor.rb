@@ -19,7 +19,7 @@ class SearchChannelInteractor
   end
 
   def valid_result? result
-    true
+    not result.nil?
   end
 
   def authorized?

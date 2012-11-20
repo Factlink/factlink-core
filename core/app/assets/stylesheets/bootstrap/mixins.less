@@ -1,4 +1,5 @@
 @import "twitter/bootstrap/mixins";
+@import "bootstrap/variables";
 
 .inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
   -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
@@ -47,7 +48,7 @@
     line-height: @lineHeight;
   }
   .sans-serif(@weight: normal, @size: 14px, @lineHeight: 20px) {
-    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-family: @baseFontFamily;
     font-size: @size;
     font-weight: @weight;
     line-height: @lineHeight;
