@@ -1,0 +1,123 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+@border-radius: 5px;
+@inner-border-radius: 4px;
+
+.auto-complete-search-list-container {
+  position: relative;
+
+  .auto-complete-search-list {
+    background: white;
+    border: 1px solid #b5b5b5;
+    .box-sizing();
+    .border-radius(@border-radius);
+
+    display: none;
+    .drop-shadow(0, 1px, 4px, 0, 0.17);
+
+    ul {
+      max-height: 190px;
+      overflow-y: scroll;
+      list-style: none;
+      margin: 0;
+
+      li {
+        cursor: pointer;
+        font-weight: 200;
+
+        .text {
+          overflow: hidden;
+          padding: 8px 10px;
+          text-overflow: ellipsis;
+
+          em {
+            color: @linkColor;
+            font-style: normal;
+            font-weight: bold;
+          }
+        }
+
+        &.user-logo {
+          background-image: image-url("glyphicons/user.png");
+          background-position: 264px 8px;
+          background-repeat: no-repeat;
+          padding-right: 30px;
+        }
+
+        .add-new-block {
+          border-top: 1px solid #e0dcdc;
+          padding: 5px 10px;
+          color: @baseFontColor;
+          cursor: pointer;
+          background: @whiteDarker;
+
+          a {
+            margin: 0 10px 0 0;
+          }
+
+          > span {
+            vertical-align: middle;
+            display: inline-block;
+            width: 190px;
+            word-wrap: break-word;
+            text-shadow: none;
+          }
+
+          .btn-mini {
+            padding: 4px 4px 5px 5px;
+          }
+        }
+
+        &:first-child {
+          .border-top-radius(@inner-border-radius);
+
+          .text, div.add-new-block {
+            .border-top-radius(@inner-border-radius);
+          }
+        }
+
+        &:last-child {
+          .border-bottom-radius(@inner-border-radius);
+
+          .text, div.add-new-block {
+            .border-bottom-radius(@inner-border-radius);
+          }
+        }
+
+        &.active {
+          background-color: @linkColor;
+          color: #fff;
+          text-shadow: none;
+
+          .add-new-block {
+            background: @linkColor;
+          }
+
+          em {
+            color: #fff;
+          }
+
+          &.user-logo {
+            background-image: image-url("glyphicons/user--white.png")
+          }
+
+          .add-new-block {
+            border-top: 1px solid @linkColor;
+            color: #fff;
+
+            a {
+              border: 1px solid @linkColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.auto-complete-floating-list .auto-complete-search-list {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}

@@ -1,4 +1,7 @@
-<div class="authority">{{authority}}</div>
-{{#opinion_types}}
-<input type="radio" name="opinion" value="{{type}}s"{{#is_current_opinion}} selected="selected"{{/is_current_opinion}}>
-{{/opinion_types}}
+<div class="raphael_container"></div>
+<div class="html_container">
+  <div class="authority">{{authority}}</div>
+  {{#opinion_types}}
+  <input type="radio" name="opinion" value="{{type}}s"{{#is_current_opinion}} selected="selected"{{/is_current_opinion}}>
+  {{/opinion_types}}
+</div>
