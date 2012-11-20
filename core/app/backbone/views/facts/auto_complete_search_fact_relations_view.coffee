@@ -5,14 +5,10 @@ class AutoCompleteSearchFactRelationView extends Backbone.Factlink.StepView
 
   template: "facts/auto_complete_search_fact"
 
-  initialize: ->
-    @queryRegex = new RegExp(@options.query, "gi")
-
   templateHelpers: ->
-    view = this
+    query = @options.query
 
-    highlightedTitle: ->
-      htmlEscape(@displaystring).replace(view.queryRegex, "<em>$&</em>")
+    highlightedTitle: -> highlightTextInTextAsHtml(query, @displaystring)
 
   onRender: ->
     # @$el.addClass('user-logo') if @model.id == currentUser.id
