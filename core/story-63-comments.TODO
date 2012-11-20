@@ -1,4 +1,20 @@
-Backbone / Frontend:
+Tasks for commenting story:
+
+ Keep a state when a user is typing his comment/evidence:
+ ☐ Figure out what the best way to use local storage is (key is url like??) (gems/libraries)
+
+Backend:
+ ☐ comment object (Mongo)
+ ☐ include Mongoid::Timestamps
+ ☐ created_by (user)
+ ☐ comment field
+ ☐ parent_id (with index)
+ ☐ supporting / weakening (combined index with parent_id)
+ ☐ create
+ ☐ delete
+ ☐ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening
+
+ Backbone / Frontend:
  ☐ create Comment Backbone model
  ☐ collection for Comments in discussion model (with static data at first)
  ☐ create Mustache template for Comment
@@ -11,3 +27,7 @@ Backbone / Frontend:
  ☐ notification on successful posting (see design: singlefact-comment-success.png)
  ☐ notification on error
  ☐ store typed comment in localStorage and show when reopening the page
+
+ Add activity (after backend is done):
+  ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
+  ☐ Create templates and backbone views
