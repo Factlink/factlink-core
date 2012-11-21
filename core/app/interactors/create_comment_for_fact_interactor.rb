@@ -1,12 +1,12 @@
 require_relative 'pavlov'
 
-class CreateCommentForFact
+class CreateCommentForFactInteractor
   include Pavlov::Interactor
 
   arguments :fact_id, :opinion, :content
 
   def execute
-    command :create_comment, @fact_id, @opinion, @content, @options[:current_user].id
+    command :create_comment, @fact_id, @opinion, @content, @options[:current_user].id.to_s
   end
 
   def authorized?

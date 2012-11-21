@@ -1,12 +1,12 @@
 require_relative 'pavlov'
 
-class GetCommentsForFact
+class GetCommentsForFactInteractor
   include Pavlov::Interactor
 
   arguments :fact_id, :opinion
 
   def validate
-    validate_hexadecimal_string :fact_id, @fact_id
+    validate_integer :fact_id, @fact_id
     validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
   end
 
@@ -17,5 +17,4 @@ class GetCommentsForFact
   def execute
     query :get_comments, @fact_id, @opinion
   end
-
 end

@@ -13,6 +13,8 @@ module Commands
       comment.opinion = @opinion
       comment.content = @content
       comment.save
+
+      KillObject.comment comment
     end
 
     def fact_data
@@ -25,11 +27,11 @@ module Commands
     end
 
     def validate
-      validate_integer :user_id, @user_id
-      validate_regex   :content, @content, /\A.+\Z/,
+      validate_hexadecimal_string :user_id, @user_id
+      validate_regex              :content, @content, /\A.+\Z/,
         "should not be empty."
-      validate_integer :fact_id, @fact_id
-      validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+      validate_integer            :fact_id, @fact_id
+      validate_in_set             :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
     end
   end
 end

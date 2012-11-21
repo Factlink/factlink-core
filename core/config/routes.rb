@@ -41,6 +41,7 @@ FactlinkUI::Application.routes.draw do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
     end
+    resources :comments, only: [:create,:destroy,:index]
   end
 
   resources :feedback

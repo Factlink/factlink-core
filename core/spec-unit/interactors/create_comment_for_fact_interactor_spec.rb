@@ -1,32 +1,32 @@
 require 'pavlov_helper'
-require_relative '../../app/interactors/create_comment_for_fact.rb'
+require_relative '../../app/interactors/create_comment_for_fact_interactor.rb'
 
-describe CreateCommentForFact do
+describe CreateCommentForFactInteractor do
   include PavlovSupport
 
   it 'initializes correctly' do
     user = mock()
-    interactor = CreateCommentForFact.new 1, 'believes', 'Hoi!', current_user: user
+    interactor = CreateCommentForFactInteractor.new 1, 'believes', 'Hoi!', current_user: user
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { CreateCommentForFact.new 1, 'believes', 'Hoi!' }.
+    expect { CreateCommentForFactInteractor.new 1, 'believes', 'Hoi!' }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'without content doesn''t validate' do
-    expect { CreateCommentForFact.new 1, 'believes', '' }.
+    expect { CreateCommentForFactInteractor.new 1, 'believes', '' }.
       to raise_error(Pavlov::ValidationError, 'content should not be empty.')
   end
 
   it 'with a invalid fact_id doesn''t validate' do
-    expect { CreateCommentForFact.new 'a', 'believes', 'Hoi!' }.
-      to raise_error(Pavlov::ValidationError, 'fact_id should be a integer.')
+    expect { CreateCommentForFactInteractor.new 'a', 'believes', 'Hoi!' }.
+      to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
   it 'with a invalid opinion doesn''t validate' do
-    expect { CreateCommentForFact.new 1, 'dunno', 'Hoi!' }.
+    expect { CreateCommentForFactInteractor.new 1, 'dunno', 'Hoi!' }.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -39,8 +39,8 @@ describe CreateCommentForFact do
       fact_id = 1
       opinion = 'believes'
       content = 'content'
-      user = mock(id: 1)
-      interactor = CreateCommentForFact.new fact_id, opinion, content, {current_user: user}
+      user = mock(id: '1a')
+      interactor = CreateCommentForFactInteractor.new fact_id, opinion, content, {current_user: user}
       interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id)
 
       interactor.execute

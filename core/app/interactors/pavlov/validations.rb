@@ -9,7 +9,7 @@ module Pavlov
     end
 
     def validate_integer param_name, param
-      raise Pavlov::ValidationError, "#{param_name.to_s} should be a integer." unless param.is_a? Integer
+      raise Pavlov::ValidationError, "#{param_name.to_s} should be an integer." unless param.is_a? Integer
     end
 
     def validate_in_set param_name, param, set

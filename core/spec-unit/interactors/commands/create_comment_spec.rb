@@ -8,7 +8,8 @@ describe Commands::CreateComment do
   end
 
   it 'should initialize correctly' do
-    command = Commands::CreateComment.new 1, 'believes', 'hoi', 2
+    command = Commands::CreateComment.new 1, 'believes', 'hoi', '2a'
+
     command.should_not be_nil
   end
 
@@ -16,21 +17,21 @@ describe Commands::CreateComment do
     let(:subject_class) { Commands::CreateComment }
     it 'without user_id doesn''t validate' do
       expect_validating(1, 'believes', 'Hoi!', '').
-        to fail_validation('user_id should be a integer.')
+        to fail_validation('user_id should be an hexadecimal string.')
     end
 
     it 'without content doesn''t validate' do
-      expect_validating(1, 'believes', '', 2).
+      expect_validating(1, 'believes', '', '2a').
         to fail_validation('content should not be empty.')
     end
 
     it 'with a invalid fact_data_id doesn''t validate' do
-      expect_validating('x', 'believes', 'Hoi!', 2).
-        to fail_validation('fact_id should be a integer.')
+      expect_validating('x', 'believes', 'Hoi!', '2a').
+        to fail_validation('fact_id should be an integer.')
     end
 
     it 'with a invalid opinion doesn''t validate' do
-      expect_validating(1, 'dunno', 'Hoi!', 2).
+      expect_validating(1, 'dunno', 'Hoi!', '2a').
         to fail_validation('opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
@@ -40,13 +41,13 @@ describe Commands::CreateComment do
       fact_id = 1
       opinion = 'believes'
       content = 'message'
-      user_id = 1
+      user_id = '1a'
       command = Commands::CreateComment.new fact_id, opinion, content, user_id
       comment = mock
       fact_data = mock
       user = mock
-
       command.stub fact_data: fact_data
+
       comment.should_receive(:fact_data=).with(fact_data)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
@@ -66,14 +67,16 @@ describe Commands::CreateComment do
       fact = mock(:fact, data_id: fact_data_id)
       opinion = 'believes'
       content = 'message'
-      user_id = 1
+      user_id = '1a'
       command = Commands::CreateComment.new fact_id, opinion, content, user_id
       fact_data = mock
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
-
       FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
-      expect(command.fact_data).to eq(fact_data)
+
+      result = command.fact_data
+
+      expect(result).to eq(fact_data)
     end
   end
 end

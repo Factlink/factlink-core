@@ -1,12 +1,12 @@
 require_relative 'pavlov'
 
-class DeleteComment
+class DeleteCommentInteractor
   include Pavlov::Interactor
 
   arguments :comment_id
 
   def execute
-    command :delete_command, @comment_id, @options[:current_user].id
+    command :delete_comment, @comment_id, @options[:current_user].id.to_s
   end
 
   def validate

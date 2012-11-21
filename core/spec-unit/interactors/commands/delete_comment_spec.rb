@@ -3,7 +3,7 @@ require_relative '../../../app/interactors/commands/delete_comment.rb'
 
 describe Commands::DeleteComment do
   it 'should initialize correctly' do
-    command = Commands::DeleteComment.new '1a', 2
+    command = Commands::DeleteComment.new '1a', '2a'
     command.should_not be_nil
   end
 
@@ -13,8 +13,8 @@ describe Commands::DeleteComment do
   end
 
   it 'when supplied with a invalid user id should not validate' do
-    expect { Commands::DeleteComment.new '1a', 'bla'}.
-      to raise_error(Pavlov::ValidationError, 'user_id should be a integer.')
+    expect { Commands::DeleteComment.new '1a', 'g6'}.
+      to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
   describe '.execute' do
@@ -25,7 +25,7 @@ describe Commands::DeleteComment do
 
     it 'correctly' do
       comment_id = '1a'
-      user_id = 9
+      user_id = '9a'
       user = stub(:user, id: user_id)
       comment = stub(created_by_id: user_id)
       interactor = Commands::DeleteComment.new comment_id, user_id
