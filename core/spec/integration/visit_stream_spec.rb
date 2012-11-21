@@ -17,7 +17,7 @@ feature "visiting the stream" do
 
     sign_in_user @user
     go_to_stream
- 
+
     page.should have_content('just added their first Factlink')
     page.should have_content(@factlink.to_s)
   end
@@ -42,7 +42,7 @@ feature "visiting the stream" do
     go_to_first_fact
     go_back_using_button
 
-    sleep 1
+    sleep 3
 
     expect(get_scroll_top).to eq(100)
   end
