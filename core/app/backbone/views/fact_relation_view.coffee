@@ -6,10 +6,17 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
   regions:
     factRelationRegion: ".fact_relation_region"
     voteRegion: '.vote_region'
-    userRegion: 'henk'
     popoverRegion: '.popover_region'
 
-  highlight: -> @$el.css background: '#ffffe1'
+  highlight: ->
+    @$el.animate
+      "background-color": "#ffffe1"
+    ,
+      duration: 500
+      complete: ->
+        $(this).animate
+          "background-color": "#ffffff"
+        , 2500
 
   onRender: ->
     @factRelationRegion.show new FactRelationView model: @model
@@ -64,31 +71,49 @@ class FactRelationPopoverView extends ViewWithPopover
 
   destroy: -> @model.destroy()
 
+class FactRelationActivityView extends Backbone.Marionette.ItemView
+  template: 'fact_relations/activity'
+  className: "fact-relation-added-by"
 
-class window.FactRelationView extends Backbone.Factlink.PlainView
-  tagName: "div"
+  initialize: ->
+    @bindTo @model, 'change', @render, @
+
+  templateHelpers: =>
+    creator: @model.creator().toJSON()
+
+class FactBaseView extends Backbone.Marionette.ItemView
+  template: 'fact_relations/fact_base'
+  className: "fact-body"
+
+  initialize: ->
+    @bindTo @model, 'change', @render, @
+
+class window.FactRelationView extends Backbone.Marionette.Layout
   className: "fact-relation-body"
 
   template: "fact_relations/fact_relation"
 
-  partials:
-    fact_base: "facts/_fact_base"
-    fact_wheel: "facts/_fact_wheel"
+  regions:
+    factRelationActivityView: '.fact-relation-added-by-region'
+    factBaseView:             '.fact-base-region'
+    factWheelRegion:          '.fact-wheel'
 
   templateHelpers: =>
-    user = new User( @model.get('created_by') )
-
-    creator: user.toJSON()
-
-  serializeData: -> _.extend super(), @templateHelpers()
+    creator: @model.creator().toJSON()
 
   onRender: ->
-    @wheelView = new InteractiveWheelView(
-      el: @$(".fact-wheel")
+    @factWheelRegion.show @wheelView()
+    @factBaseView.show new FactBaseView(model: @model)
+    @factRelationActivityView.show new FactRelationActivityView(model: @model)
+
+  wheelView: ->
+    wheel = new Wheel(@model.get("fact_base")["fact_wheel"])
+    @_wheelView = new InteractiveWheelView
       fact: @model.get("fact_base")
-      model: new Wheel(@model.get("fact_base")["fact_wheel"])
-    ).render()
+      model: wheel
 
-  onClose: -> @wheelView.close()
+    @bindTo @model, 'change', =>
+      wheel.set @model.get("fact_base")["fact_wheel"]
+      @_wheelView.render()
 
-_.extend(FactRelationView.prototype, TemplateMixin)
+    @_wheelView

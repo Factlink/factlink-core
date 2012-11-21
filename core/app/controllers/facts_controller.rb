@@ -31,7 +31,7 @@ class FactsController < ApplicationController
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )
 
-    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context, show_interacting_users: true)})
+    respond_with(lazy {Facts::Fact.for(fact: @fact, view: view_context)})
   end
 
   def extended_show
@@ -171,7 +171,7 @@ class FactsController < ApplicationController
     @basefact.add_opinion(type, current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
+    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
   end
 
   def remove_opinions
@@ -182,7 +182,7 @@ class FactsController < ApplicationController
     @basefact.remove_opinions(current_user.graph_user)
     @basefact.calculate_opinion(2)
 
-    render json: Facts::FactWheel.for(fact: @basefact, view: view_context)
+    render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
   end
 
   # TODO: This search is way to simple now, we need to make sure already

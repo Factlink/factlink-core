@@ -5,14 +5,10 @@ class AutoCompleteSearchUserView extends Backbone.Factlink.StepView
 
   template: "auto_complete/search_item"
 
-  initialize: ->
-    @queryRegex = new RegExp(@options.query, "gi")
-
   templateHelpers: ->
-    view = this
+    query = @options.query
 
-    highlightedTitle: ->
-      htmlEscape(@username).replace(view.queryRegex, "<em>$&</em>")
+    highlightedTitle: -> highlightTextInTextAsHtml(query, @username)
 
   onRender: ->
     @$el.addClass('user-logo') if @model.id == currentUser.id

@@ -1,0 +1,51 @@
+#= require ../auto_complete/search_view
+
+class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
+  className: "auto-complete auto-complete-fact-relations"
+
+  events:
+    "click div.auto-complete-search-list": "addCurrent"
+
+  regions:
+    'search_list': 'div.auto-complete-search-list-container'
+    'text_input': 'div.auto-complete-input-container'
+
+  template: "auto_complete/box_without_results"
+
+  initialize: ->
+    @initializeChildViews
+      filter_on: 'id'
+      search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
+      search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
+      placeholder: @placeholder()
+
+  placeholder: ->
+    if @collection.type == "supporting"
+      "The Factlink above is true because:"
+    else
+      "The Factlink above is false because:"
+
+  addCurrent: ->
+    selected_result = @_search_list_view.currentActiveModel()
+
+    if selected_result.get('new')?
+      attributes =
+        displaystring: selected_result.get('displaystring')
+        fact_base: new Fact(displaystring: selected_result.get('displaystring')).toJSON()
+        fact_relation_type: @collection.type
+        created_by: currentUser.toJSON()
+        fact_relation_authority: '1.0'
+    else
+      attributes =
+        evidence_id: selected_result.id
+        fact_base: selected_result.toJSON()
+        fact_relation_type: @collection.type
+        created_by: currentUser.toJSON()
+        fact_relation_authority: '1.0'
+        
+    model = @collection.create attributes,
+      error: =>
+        alert "Something went wrong while adding the evidence, sorry"
+        @collection.remove model
+
+    @model.set text: ''

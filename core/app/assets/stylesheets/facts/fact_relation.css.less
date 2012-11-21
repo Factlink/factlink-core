@@ -3,30 +3,36 @@
 
 
 li.fact-relation {
-  padding: 20px 15px 24px;
+  padding: 14px 15px 4px;
   border-bottom: 1px solid @baseBorderColor;
   .clearfix();
   position: relative;
 
-  &:last-child { padding-bottom: 8px; }
-
   .fact-relation-actions {
     float: left;
-    margin: 5px 18px 0 2px;
+    margin: 0 14px 0 2px;
 
     .supporting, .weakening {
       display: block;
-      width: 9px;
-      height: 15px;
+      width: 17px;
+      height: 12px;
       cursor: pointer;
 
       &:hover { text-decoration: none; }
     }
 
+    span {
+      color: @metaFontColor;
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+      margin: 5px 0 5px -6px;
+    }
+
     .supporting {
-      background: image-url("relation_actions.png") no-repeat top left transparent;
+      background: image-url("relation_actions.png") no-repeat top right transparent;
       &.active {
-        background: image-url("relation_actions.png") no-repeat top right transparent;
+        background: image-url("relation_actions.png") no-repeat top left transparent;
       }
     }
 
