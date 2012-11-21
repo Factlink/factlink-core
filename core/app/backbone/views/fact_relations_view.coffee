@@ -56,6 +56,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     if @model.relations()
       @factRelationSearchRegion.show new AddEvidenceView
         collection: @model.relations()
+        model: @model
       @factRelationsRegion.show new FactRelationsListView
         collection: @model.relations()
     else
