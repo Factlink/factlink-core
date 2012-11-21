@@ -56,48 +56,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_authority: '1.0'
 
 
-class Henk extends Backbone.Marionette.Region
-  initialize: ->
-    @cacheViews = {}
-    @cacheViewRendered = {}
-    @viewConstructors = {}
-    @on 'close', @onClose, @
 
-  defineViews: (viewConstructors) ->
-    @viewConstructors = viewConstructors
-
-  _createView: (name) -> 
-    view = @viewConstructors[name]()
-    @bindTo view, 'render', => @cacheViewRendered[name] = true
-    view
-
-  getView: (name) -> @cacheViews[name] ?= @_createView(name)
-
-  attach: (view) ->
-    @currentView = view
-    @$el.html(@currentView.$el)
-
-  detach: ->
-    @currentView?.$el.detach()
-    delete @currentView
-
-  isRendered: (name) -> @cacheViewRendered[name]?
-
-  switchTo: (name) ->
-    @detach()
-    
-    view = @getView(name)
-
-    if @isRendered(name)
-      @attach view
-    else
-      @show view
-
-  onClose: ->
-    for name, view of @cacheViews
-      view.close()
-    delete @cacheViews
-    delete @viewConstructors
 
 class PreviewView extends Backbone.Marionette.Layout
   template:
@@ -131,7 +90,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   regions:
     inputRegion:
       selector: '.input-region'
-      regionType: Henk
+      regionType: Factlink.DetachableViewsRegion
 
   # TODO remove on updating marionette
   initialEvents: -> # don't rerender on collection change
