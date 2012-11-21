@@ -43,6 +43,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     previewView
 
   createFactRelation: (fact_relation)->
+    @hideError()
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
     @inputRegion.getView('search_view').setQuery ''
@@ -50,4 +51,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       error: =>
         @collection.remove fact_relation
         @inputRegion.getView('search_view').setQuery fact_relation.get('fact_base').displaystring
-        alert('Something went wrong')
+        @showError()
+
+  showError: -> @$('.js-error').show()
+  hideError: -> @$('.js-error').hide()

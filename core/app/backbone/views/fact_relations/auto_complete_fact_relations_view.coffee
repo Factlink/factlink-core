@@ -5,7 +5,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   events:
     "click div.auto-complete-search-list": "addCurrent"
-    "click .fact-relation-post": "addNew"
+    "click .js-post": "addNew"
 
   regions:
     'search_list': 'div.auto-complete-search-list-container'
