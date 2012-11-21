@@ -17,6 +17,7 @@ module Queries
       comments = Comment.where({fact_data_id: fact_data_id, opinion: @opinion}).to_a
 
       comments.map do |comment|
+        comment.can_destroy = (@options[:current_user].id == comment.created_by.id)
         KillObject.comment comment
       end
     end
