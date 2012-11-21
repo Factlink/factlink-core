@@ -12,7 +12,7 @@ class Backbone.Factlink.DetachedViewPort extends Backbone.View
 
     @$el.append(new_view.$el)
 
-    @_view.$el.detach()
+    @_view.$el.detach() if @_view?
 
     @_view = new_view
 

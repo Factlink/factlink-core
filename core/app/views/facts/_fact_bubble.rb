@@ -16,10 +16,5 @@ module Facts
     end
 
     alias id fact_id
-
-    private
-      def bubble_is_on_facts_site
-        self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site]
-      end
   end
 end
