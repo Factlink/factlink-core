@@ -146,7 +146,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   onRender: ->
     @inputRegion.switchTo 'search_view'
-    @inputRegion.switchTo 'add_comment_view'
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
