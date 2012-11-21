@@ -37,8 +37,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     interactingUserRegion: '.interacting-users'
     factRelationsRegion: '.fact-relation-listing-container'
     factRelationSearchRegion: '.fact-relation-search'
-
-    commentsRegion: '.comments-listing-container'
+    commentsRegion: '.comments-listing-region'
 
   initialize: -> @model.relations()?.fetch()
 
