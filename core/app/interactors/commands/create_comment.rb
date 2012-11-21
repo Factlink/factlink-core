@@ -14,6 +14,7 @@ module Commands
       comment.content = @content
       comment.save
 
+      comment.can_destroy = true
       KillObject.comment comment
     end
 

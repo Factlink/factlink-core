@@ -20,7 +20,7 @@ module KillObject
      :slug_title, :created_by_id, :inspectable?,
      :editable?]
   dead_object :comment,
-    [:id, :created_by, :created_at, :content, :opinion, :fact_data]
+    [:id, :created_by, :created_at, :content, :opinion, :fact_data, :can_destroy]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}

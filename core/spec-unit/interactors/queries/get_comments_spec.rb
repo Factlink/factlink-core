@@ -29,16 +29,18 @@ describe Queries::GetComments do
     it 'correctly' do
       fact = mock(id: 3)
       opinion = 'believes'
-      query = Queries::GetComments.new fact.id, opinion
+      user = mock(id:'1a')
+      query = Queries::GetComments.new fact.id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
-      comment = mock(content: content, id: comment_id, opinion: opinion, fact_data: stub())
+      comment = mock(created_by: user, content: content, id: comment_id, opinion: opinion, fact_data: stub())
       fact_data_id = '3b'
 
       Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
       Comment.should_receive(:where).
         with(fact_data_id: fact_data_id, opinion: opinion).
         and_return([comment])
+      comment.should_receive(:can_destroy=).with(true)
 
       results = query.execute
 

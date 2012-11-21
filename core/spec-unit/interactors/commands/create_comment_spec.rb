@@ -54,6 +54,7 @@ describe Commands::CreateComment do
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:opinion=).with(opinion)
       comment.should_receive(:content=).with(content)
+      comment.should_receive(:can_destroy=).with(true)
       comment.should_receive(:save)
 
       command.execute
