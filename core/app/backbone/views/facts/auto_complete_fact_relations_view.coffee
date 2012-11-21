@@ -55,8 +55,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
 
-
-
+  setQuery: (text) -> @model.set text: text
 
 class PreviewView extends Backbone.Marionette.Layout
   template:
@@ -131,9 +130,10 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   createFactRelation: (fact_relation)->
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
-    @inputRegion.getView('search_view').model.set text: ''
+    @inputRegion.getView('search_view').setQuery ''
     fact_relation.save {},
       error: =>
-        @inputRegion.getView('search_view').model.set( text: fact_relation.get('fact_base').displaystring )
+        @collection.remove fact_relation
+        @inputRegion.getView('search_view').setQuery fact_relation.get('fact_base').displaystring
         alert('Something went wrong')
 
