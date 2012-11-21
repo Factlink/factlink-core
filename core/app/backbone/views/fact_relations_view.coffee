@@ -39,7 +39,9 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     factRelationSearchRegion: '.fact-relation-search'
     commentsRegion: '.comments-listing-region'
 
-  initialize: -> @model.relations()?.fetch()
+  initialize: ->
+    @model.relations()?.fetch()
+    @model.comments()?.fetch()
 
   onRender: ->
     @$el.addClass @model.type()
