@@ -12,9 +12,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 
   initialize: ->
     @bindTo @model, 'change', =>
-      @factWheelRegion.currentView?.render()
       @factBodyRegion.currentView?.render()
-    , @
 
   wheelView: ->
     wheel = new Wheel(@model.get("fact_base")["fact_wheel"])
