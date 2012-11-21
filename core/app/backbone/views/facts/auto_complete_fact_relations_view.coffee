@@ -134,10 +134,10 @@ class AddCommentView extends Backbone.Marionette.ItemView
 
   submit: ->
     content = @$('.content').val()
+    comment = new Comment(content: content, created_by: currentUser)
 
-    comment = new Comment( content: content )
-    @comments.add comment
-    comment.save()
+    @comments.add(comment)
+    comment.save
 
 
 
