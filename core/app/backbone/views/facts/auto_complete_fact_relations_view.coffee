@@ -34,7 +34,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   addNew: ->
     text = @model.get('text')
 
-    @createFactRelation
+    @trigger 'createFactRelation', new FactRelation
       displaystring: text
       fact_base: new Fact(displaystring: text).toJSON()
       fact_relation_type: @collection.type
@@ -42,49 +42,55 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_authority: '1.0'
 
   addCurrent: ->
-    selected_result = @_search_list_view.currentActiveModel()
+    selected_fact_base = @_search_list_view.currentActiveModel()
 
-    @createFactRelation
-      evidence_id: selected_result.id
-      fact_base: selected_result.toJSON()
+    if not selected_fact_base?
+      @addNew()
+      return
+
+    @trigger 'selected', new FactRelation
+      evidence_id: selected_fact_base.id
+      fact_base: selected_fact_base.toJSON()
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
 
-  createFactRelation: (attributes) ->
-    prevText = @model.get 'text'
-    @model.set text: ''
-    model = @collection.create attributes,
-      error: =>
-        @collection.remove model
-        @model.set text: prevText
-        alert "Something went wrong while adding the evidence, sorry"
-
-    @trigger 'click'
-
 class Henk extends Backbone.Marionette.Region
   initialize: ->
     @cacheViews = {}
+    @cacheViewRendered = {}
     @viewConstructors = {}
     @on 'close', @onClose, @
 
   defineViews: (viewConstructors) ->
     @viewConstructors = viewConstructors
 
-  createView: (name) ->
-    @viewConstructors[name]()
+  _createView: (name) ->
+    view = @viewConstructors[name]()
+    @bindTo view, 'render', => @cacheViewRendered[name] = true
+    view
 
-  getView: (name) ->
-    @cacheViews[name] ?= @createView(name)
+  getView: (name) -> @cacheViews[name] ?= @_createView(name)
+
+  attach: (view) ->
+    @currentView = view
+    @$el.html(@currentView.$el)
 
   detach: ->
     @currentView?.$el.detach()
     delete @currentView
 
+  isRendered: (name) -> @cacheViewRendered[name]?
+
   switchTo: (name) ->
     @detach()
+
     view = @getView(name)
-    @show(view)
+
+    if @isRendered(name)
+      @attach view
+    else
+      @show view
 
   onClose: ->
     for name, view of @cacheViews
@@ -92,16 +98,28 @@ class Henk extends Backbone.Marionette.Region
     delete @cacheViews
     delete @viewConstructors
 
-class PreviewView extends Backbone.Marionette.ItemView
+class PreviewView extends Backbone.Marionette.Layout
   template:
     text: """
-      hoi
+      <div class="fact-base-region"></div>
+      <button class="btn btn-primary fact-relation-post js-post">Post Factlink</button>
+      <a class="js-cancel" style="float: right; margin: 15px 16px 0 0; ">Cancel</a>
     """
-  events:
-    'click': 'onClick'
 
-  onClick: ->
-    @trigger 'click'
+  regions:
+    factBaseRegion: '.fact-base-region'
+
+  events:
+    'click .js-cancel': 'onCancel'
+    'click .js-post': 'onPost'
+
+  onRender: ->
+    @factBaseRegion.show new FactBaseView
+      model: @model
+
+  onCancel: -> @trigger 'cancel'
+
+  onPost: -> @trigger 'createFactRelation', @model
 
 
 
@@ -148,19 +166,30 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
       collection: @collection
-    # @bindTo searchView, 'click', =>
-      # @inputRegion.switchTo 'preview_view'
+    @bindTo searchView, 'selected', (fact_relation) =>
+      @inputRegion.getView('preview_view').model.set(fact_relation.attributes)
+      @inputRegion.switchTo 'preview_view'
+    @bindTo searchView, 'createFactRelation', (fact_relation) =>
+      @createFactRelation(fact_relation)
     searchView
 
   previewView: ->
     previewView = new PreviewView
-    @bindTo previewView, 'click', =>
+      model: new FactRelation
+    @bindTo previewView, 'cancel', =>
       @inputRegion.switchTo 'search_view'
+    @bindTo previewView, 'createFactRelation', (fact_relation) =>
+      @createFactRelation(fact_relation)
     previewView
 
   addCommentView: ->
     new AddCommentView model: @collection.fact
 
-  onClose: ->
-    @_searchView?.close()
-    @_previewView?.close()
+  createFactRelation: (fact_relation)->
+    @collection.add fact_relation
+    @inputRegion.switchTo('search_view')
+    @inputRegion.getView('search_view').model.set text: ''
+    fact_relation.save {},
+      error: =>
+        @inputRegion.getView('search_view').model.set( text: fact_relation.get('fact_base').displaystring )
+        alert('Something went wrong')
