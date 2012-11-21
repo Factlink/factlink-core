@@ -13,7 +13,7 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
 
 class FactRelationsListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
-  className: 'fact-relation-listing'
+  className: 'fact-relations-listing'
 
   itemView: FactRelationEvidenceView
   itemViewOptions: => type: @collection.type
