@@ -10,6 +10,8 @@ class window.SearchCollection extends Backbone.Collection
   searchFor: (query) ->
     return if query == @query
 
+    query = encodeURIComponent query
+
     if query == ''
       @makeEmpty()
     else
