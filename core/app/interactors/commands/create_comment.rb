@@ -4,7 +4,7 @@ module Commands
   class CreateComment
     include Pavlov::Command
 
-    arguments :fact_data_id, :opinion, :content, :user_id
+    arguments :fact_id, :opinion, :content, :user_id
 
     def execute
       comment = Comment.new
@@ -16,7 +16,8 @@ module Commands
     end
 
     def fact_data
-      FactData.find(@fact_data_id)
+      fact = Fact[@fact_id]
+      FactData.find(fact.data_id)
     end
 
     def creator
@@ -27,7 +28,7 @@ module Commands
       validate_integer :user_id, @user_id
       validate_regex   :content, @content, /\A.+\Z/,
         "should not be empty."
-      validate_hexadecimal_string :fact_data_id, @fact_data_id
+      validate_integer :fact_id, @fact_id
       validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
     end
   end
