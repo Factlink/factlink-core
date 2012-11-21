@@ -72,7 +72,7 @@ describe CommentsController do
 
   describe '.get_comment_id_param' do
     it 'returns comment_id param' do
-      comment_id = 1
+      comment_id = '1'
       controller.stub(params: {id: comment_id.to_s})
 
       id = controller.send(:get_comment_id_param)
