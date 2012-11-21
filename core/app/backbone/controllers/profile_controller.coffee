@@ -92,8 +92,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         model: channel
 
   withFact: (fact)->
-    window.efv = new DiscussionView(model: fact)
-    @main.contentRegion.show(efv)
+    @main.contentRegion.show new DiscussionView(model: fact)
 
     username = fact.get('created_by').username
     return_to_text = "#{ username.capitalize() }'s profile"
