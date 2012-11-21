@@ -3,27 +3,27 @@ require_relative '../../../app/interactors/commands/create_comment.rb'
 
 describe Commands::CreateComment do
   it 'should initialize correctly' do
-    command = Commands::CreateComment.new 1, 'believes', 'hoi', 2
+    command = Commands::CreateComment.new 'a1', 'believes', 'hoi', 2
     command.should_not be_nil
   end
 
   it 'without user_id doesn''t validate' do
-    expect { Commands::CreateComment.new 1, 'believes', 'Hoi!', '' }.
+    expect { Commands::CreateComment.new 'a1', 'believes', 'Hoi!', '' }.
       to raise_error(Pavlov::ValidationError, 'user_id should be a integer.')
   end
 
   it 'without content doesn''t validate' do
-    expect { Commands::CreateComment.new 1, 'believes', '', 2 }.
+    expect { Commands::CreateComment.new 'a1', 'believes', '', 2 }.
       to raise_error(Pavlov::ValidationError, 'content should not be empty.')
   end
 
-  it 'with a invalid fact_id doesn''t validate' do
-    expect { Commands::CreateComment.new 'a', 'believes', 'Hoi!', 2 }.
-      to raise_error(Pavlov::ValidationError, 'fact_id should be a integer.')
+  it 'with a invalid fact_data_id doesn''t validate' do
+    expect { Commands::CreateComment.new 'g6', 'believes', 'Hoi!', 2 }.
+      to raise_error(Pavlov::ValidationError, 'fact_data_id should be an hexadecimal string.')
   end
 
   it 'with a invalid opinion doesn''t validate' do
-    expect { Commands::CreateComment.new 1, 'dunno', 'Hoi!', 2 }.
+    expect { Commands::CreateComment.new 'a1', 'dunno', 'Hoi!', 2 }.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -35,15 +35,15 @@ describe Commands::CreateComment do
     end
 
     it 'correctly' do
-      fact_id = 1
+      fact_data_id = 'a1'
       opinion = 'believes'
       content = 'message'
       user_id = 1
-      command = Commands::CreateComment.new fact_id, opinion, content, user_id
+      command = Commands::CreateComment.new fact_data_id, opinion, content, user_id
       comment = mock()
       Comment.should_receive(:new).and_return(comment)
       fact_data = mock()
-      FactData.should_receive(:find).with(fact_id).and_return(fact_data)
+      FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
       comment.should_receive(:fact_data=).with(fact_data)
       user = mock()
       User.should_receive(:find).with(user_id).and_return(user)
