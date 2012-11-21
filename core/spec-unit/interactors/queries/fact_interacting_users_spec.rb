@@ -9,17 +9,17 @@ describe Queries::FactInteractingUsers do
 
   it 'it throws when initialized without a correct fact_id' do
     expect { Queries::FactInteractingUsers.new 'a', 0, 3, 'disbelieves'}.
-      to raise_error(Pavlov::ValidationError, 'fact_id should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
-  it 'it throws when initialized with a skip argument that is not a integer.' do
+  it 'it throws when initialized with a skip argument that is not an integer.' do
     expect { Queries::FactInteractingUsers.new 1, 'a', 3, 'doubts'}.
-      to raise_error(Pavlov::ValidationError, 'skip should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'skip should be an integer.')
   end
 
-  it 'it throws when initialized with a take argument that is not a integer.' do
+  it 'it throws when initialized with a take argument that is not an integer.' do
     expect { Queries::FactInteractingUsers.new 1, 0, 'b', 'doubts'}.
-      to raise_error(Pavlov::ValidationError, 'take should be a integer.')
+      to raise_error(Pavlov::ValidationError, 'take should be an integer.')
   end
 
   it 'it throws when initialized with a unknown opinion' do
