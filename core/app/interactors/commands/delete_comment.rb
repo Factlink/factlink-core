@@ -13,10 +13,6 @@ module Commands
       comment.delete
     end
 
-    def authorized?
-      true
-    end
-
     def validate
       validate_hexadecimal_string :comment_id, @comment_id
       validate_integer :user_id, @user_id

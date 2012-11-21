@@ -22,9 +22,5 @@ module Commands
       validate_integer :fact_id, @fact_id
       validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
     end
-
-    def authorized?
-      true
-    end
   end
 end
