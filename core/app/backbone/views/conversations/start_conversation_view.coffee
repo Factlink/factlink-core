@@ -19,7 +19,9 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   newRecipient: =>
     @$('.message-textarea').focus() if @recipients.length == 1
 
-  submit: ->
+  submit: (e) ->
+    e.preventDefault()
+
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
     if @recipients.length <= 0
       @showAlert 'error'
