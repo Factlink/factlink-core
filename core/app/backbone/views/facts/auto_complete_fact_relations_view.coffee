@@ -50,8 +50,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
-  
-  createFactRelation: (attributes) -> 
+
+  createFactRelation: (attributes) ->
     prevText = @model.get 'text'
     @model.set text: ''
     model = @collection.create attributes,
@@ -59,6 +59,24 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         alert "Something went wrong while adding the evidence, sorry"
         @collection.remove model
         @model.set text: prevText
+
+
+class AddCommentView extends Backbone.Marionette.ItemView
+  events:
+    "click .submit": 'submit'
+
+  template:
+    text: """
+      Here you should input a comment for "{{ displaystring }}":
+      <input type="text">
+      <input type="submit" class="submit btn btn-primary" value="Add comment">
+    """
+  submit: ->
+    # @disableSubmit()
+    alert("adding new comment")
+
+  templateHelpers: =>
+    displaystring: @model.get('displaystring')
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
@@ -80,4 +98,5 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @inputRegion.show new AutoCompleteFactRelationsView
       collection: @collection
 
-
+    # Render new view in inputRegion - prevent merge conflict
+    @inputRegion.show new AddCommentView model: @collection.fact
