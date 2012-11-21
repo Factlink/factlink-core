@@ -1,4 +1,6 @@
-ViewWithPopover = extendWithPopover(Backbone.Factlink.PlainView)
+#= require ./facts/fact_base_view
+
+ViewWithPopover = extendWithPopover(Backbone.Marionette.Layout)
 
 class window.FactView extends ViewWithPopover
   tagName: "div"
@@ -7,54 +9,28 @@ class window.FactView extends ViewWithPopover
   events:
     "click .hide-from-channel": "removeFactFromChannel"
     "click li.delete": "destroyFact"
-    "click a.more": "showCompleteDisplaystring"
-    "click a.less": "hideCompleteDisplaystring"
     "click a.discussion_link" : "triggerDiscussionClick"
 
   template: "facts/_fact"
 
-  partials:
-    fact_base: "facts/_fact_base"
-    fact_wheel: "facts/_fact_wheel"
+  regions:
+    factBaseView: '.fact-base-region'
+    factBottomView: '.fact-bottom'
 
   popover: [
     selector: ".top-right-arrow"
     popoverSelector: "ul.top-right"
   ]
 
-  showLines: 3
-
   initialize: (opts) ->
-    @model.bind "destroy", @close, this
-    @model.bind "change", @render, this
-    @wheel = new Wheel(@model.getFactWheel())
-    @bottomView = new FactBottomView(model: @model)
+    @bindTo @model, "destroy", @close, @
+    @bindTo @model, "change", @render, @
 
   onRender: ->
-    sometimeWhen(
-      => @$el.is ":visible"
-      ,
-      => @truncateText()
-    )
+    @factBaseView.show new FactBaseView(model: @model)
+    @factBottomView.show new FactBottomView(model: @model)
 
-    @bottomView.render()
-    @$el.append(@bottomView.el)
-
-    @wheel.set @model.getFactWheel()
-
-    unless @factWheelView?
-      @factWheelView = new InteractiveWheelView(
-        model: @wheel
-        fact: @model
-      )
-      @$(".fact-wheel").html(@factWheelView.$el)
-      @$(".authority").tooltip()
-    @factWheelView.render()
-
-  truncateText: ->
-    @$(".body .text").trunk8
-      fill: " <a class=\"more\">(more)</a>"
-      lines: @showLines
+    @$(".authority").tooltip()
 
   remove: ->
     @$el.fadeOut "fast", -> $(this).remove()
@@ -87,14 +63,6 @@ class window.FactView extends ViewWithPopover
     ,
       duration: 2000
       complete: -> $(this).animate "background-color": "#ffffff", 2000
-
-  showCompleteDisplaystring: (e) ->
-    @$(".body .text").trunk8 lines: 199
-    @$(".body .less").show()
-
-  hideCompleteDisplaystring: (e) ->
-    @$(".body .text").trunk8 lines: @showLines
-    @$(".body .less").hide()
 
   triggerDiscussionClick: (e) ->
     FactlinkApp.vent.trigger 'factlink_permalink_clicked', e, @model
