@@ -16,4 +16,12 @@ module PavlovSupport
       stub_const classname, Class.new
     end
   end
+
+  def expect_validating *args
+    expect {subject_class.new(*args)}
+  end
+
+  def fail_validation message
+    raise_error(Pavlov::ValidationError, message)
+  end
 end
