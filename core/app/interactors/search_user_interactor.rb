@@ -14,7 +14,7 @@ class SearchUserInteractor
   end
 
   def valid_result? result
-    true
+    not result.nil?
   end
 
   def keyword_min_length

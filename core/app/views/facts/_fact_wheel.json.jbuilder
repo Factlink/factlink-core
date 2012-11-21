@@ -12,3 +12,6 @@ json.opinion_types do |json|
   json.doubt      opinion_type(fact, :doubt)
   json.disbelieve opinion_type(fact, :disbelieve)
 end
+
+# HACK: needed for InteractiveWheelView
+json.fact_id fact.id

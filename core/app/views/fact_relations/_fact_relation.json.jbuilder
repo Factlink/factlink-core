@@ -8,7 +8,9 @@ positive_active =
   (current_user_opinion == :believes) ? ' active' : ''
 
 creator_authority =
-  Authority.on(fact_relation, for: fact_relation.created_by).to_s.to_f + 1.0
+  # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
+  # is possible because in the current calculation these authorities are the same
+  Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s.to_f + 1.0
 
 fact_base = Facts::FactBubble.for(fact: fact_relation.from_fact, view: self)
 
@@ -18,7 +20,7 @@ json.can_destroy? can? :destroy, fact_relation
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
-json.fact_relation_authority fact_relation.get_user_opinion.friendly_authority
+json.fact_relation_authority fact_relation.get_user_opinion(2).friendly_authority
 json.negative_active negative_active
 json.positive_active positive_active
 json.fact_base fact_base.to_hash

@@ -53,8 +53,8 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       collection: @model.comments()
 
     if @model.relations()
-      @factRelationSearchRegion.show new FactRelationSearchView
-        factRelations: @model.relations()
+      @factRelationSearchRegion.show new AutoCompleteFactRelationsView
+        collection: @model.relations()
       @factRelationsRegion.show new FactRelationsListView
         collection: @model.relations()
     else

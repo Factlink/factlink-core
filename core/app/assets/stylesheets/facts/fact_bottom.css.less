@@ -7,7 +7,19 @@ div.fact-bottom {
   clear: both;
   margin: 15px 0 0;
   white-space: nowrap;
+  position: relative;
   overflow: hidden;
+
+  > .title-overflow {
+    z-index: 100;
+    background: image-url('discussions/title_fade.png') right repeat-y;
+    display: block;
+    height: 100%;
+    width: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 
   ul.actions {
     margin: 0;
