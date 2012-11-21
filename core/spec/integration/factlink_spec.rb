@@ -11,6 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
+  # TODO: Enable this test
   pending "the layout of the discussion page is correct" do
     @factlink = create_factlink @user
     search_string = 'Test search'
