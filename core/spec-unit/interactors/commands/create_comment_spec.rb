@@ -2,10 +2,9 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/create_comment.rb'
 
 describe Commands::CreateComment do
+  include PavlovSupport
   before do
-    stub_const('Comment' ,Class.new)
-    stub_const('FactData' ,Class.new)
-    stub_const('User' ,Class.new)
+    stub_classes 'Comment', 'FactData', 'User'
   end
 
   it 'should initialize correctly' do
@@ -34,16 +33,15 @@ describe Commands::CreateComment do
   end
 
   describe '.execute' do
-
     it 'correctly' do
       fact_data_id = 'a1'
       opinion = 'believes'
       content = 'message'
       user_id = 1
       command = Commands::CreateComment.new fact_data_id, opinion, content, user_id
-      comment = mock()
-      fact_data = mock()
-      user = mock()
+      comment = mock
+      fact_data = mock
+      user = mock
 
       comment.should_receive(:fact_data=).with(fact_data)
       Comment.should_receive(:new).and_return(comment)
@@ -65,7 +63,7 @@ describe Commands::CreateComment do
       content = 'message'
       user_id = 1
       command = Commands::CreateComment.new fact_data_id, opinion, content, user_id
-      fact_data = mock()
+      fact_data = mock
 
       FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
       expect(command.fact_data).to eq(fact_data)
