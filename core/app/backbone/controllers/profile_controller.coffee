@@ -36,7 +36,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     title: 'About ' + username
     active_tab: 'show'
     render: (main_region, user) =>
-      @makePermalinkEvent( username )
+      @makePermalinkEvent()
 
       main_region.show(@profile_views)
 
@@ -123,7 +123,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
-  makePermalinkEvent: (baseUrl) ->
+  makePermalinkEvent: ->
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
       @last_profile_status =
         view: @profile_views.currentView()
