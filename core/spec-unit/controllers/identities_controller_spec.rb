@@ -1,5 +1,3 @@
-# this test isn't in unit-spec because the identitiescontroller actually
-# requires the applicationcontroller, making this test kind-of slow
 require_relative '../../app/controllers/identities_controller.rb'
 
 describe IdentitiesController do
