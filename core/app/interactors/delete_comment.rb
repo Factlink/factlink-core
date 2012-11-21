@@ -1,6 +1,6 @@
 require_relative 'pavlov'
 
-class DeleteCommentForFact
+class DeleteComment
   include Pavlov::Interactor
 
   arguments :comment_id
