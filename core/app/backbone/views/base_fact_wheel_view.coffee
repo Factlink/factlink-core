@@ -1,4 +1,4 @@
-class window.BaseFactWheelView extends Backbone.Factlink.PlainView
+class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   tagName: "div"
   className: "wheel"
   defaults:
@@ -16,7 +16,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     userOpinionStroke:
       opacity: 1.0
 
-    opinionStyles:      
+    opinionStyles:
       believe:
         groupname: Factlink.Global.t.fact_believe_opinion?.titleize()
         color: "#98d100"
@@ -44,7 +44,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
       super()
       @already_rendered = true
     @
-  
+
   renderRaphael: ->
     @$canvasEl = $('<div></div>')
     @$('.raphael_container').html(@$canvasEl)
@@ -60,12 +60,12 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     @bindTooltips()
 
   reRender: ->
-    @$('.authority').text(@model.get('authority'))    
+    @$('.authority').text(@model.get('authority'))
     @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
     opacity = (if opinionType.is_user_opinion then @options.userOpinionStroke.opacity else @options.defaultStroke.opacity)
-    
+
     # Our custom Raphael arc attribute
     arc = [opinionType.displayPercentage, percentageOffset, @options.radius]
     if @opinionTypeRaphaels[opinionType.type]
@@ -81,7 +81,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
       stroke: @options.opinionStyles[opinionType.type].color
       "stroke-width": @options.defaultStroke.width
       opacity: opacity
-    
+
     # Bind Mouse Events on the path
     path.mouseover _.bind(@mouseoverOpinionType, this, path, opinionType)
     path.mouseout _.bind(@mouseoutOpinionType, this, path, opinionType)
@@ -95,7 +95,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
       arc: arc
       opacity: opacity
     , 200, "<>")
-  
+
   # This method also commits the calculated percentages to the model, maybe return instead?
   calculateDisplayablePercentages: ->
     too_much = 0
@@ -148,7 +148,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
   bindTooltips: ->
     $("div.tooltip", @$el).remove()
     @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
-    
+
     # Create tooltips for each opinionType (believe, disbelieve etc)
     for key, opinionType of @model.getOpinionTypes()
       raphaelObject = @opinionTypeRaphaels[opinionType.type]
