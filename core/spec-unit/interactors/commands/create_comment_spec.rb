@@ -2,6 +2,12 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/create_comment.rb'
 
 describe Commands::CreateComment do
+  before do
+    stub_const('Comment' ,Class.new)
+    stub_const('FactData' ,Class.new)
+    stub_const('User' ,Class.new)
+  end
+
   it 'should initialize correctly' do
     command = Commands::CreateComment.new 'a1', 'believes', 'hoi', 2
     command.should_not be_nil
@@ -28,11 +34,6 @@ describe Commands::CreateComment do
   end
 
   describe '.execute' do
-    before do
-      stub_const('Comment' ,Class.new)
-      stub_const('FactData' ,Class.new)
-      stub_const('User' ,Class.new)
-    end
 
     it 'correctly' do
       fact_data_id = 'a1'
@@ -54,6 +55,20 @@ describe Commands::CreateComment do
       comment.should_receive(:save)
 
       command.execute
+    end
+  end
+
+  describe '.fact_data' do
+    it 'should return the fact_data defined by the fact_data_id' do
+      fact_data_id = 'a1'
+      opinion = 'believes'
+      content = 'message'
+      user_id = 1
+      command = Commands::CreateComment.new fact_data_id, opinion, content, user_id
+      fact_data = mock()
+
+      FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
+      expect(command.fact_data).to eq(fact_data)
     end
   end
 end
