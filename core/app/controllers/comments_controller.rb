@@ -3,10 +3,9 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
-    comment = interactor :create_comment_for_fact, fact_id, params[:opinion], params[:content]
+    @comment = interactor :create_comment_for_fact, fact_id, params[:opinion], params[:content]
 
-    #todo make jbuilder template
-    render json: comment
+    render 'comments/_comment'
   end
 
   def destroy
@@ -22,7 +21,6 @@ class CommentsController < ApplicationController
 
     @comments = interactor :get_comments_for_fact, fact_id, opinion
 
-    #todo make jbuilder template
     render 'comments/index'
   end
 
