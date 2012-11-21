@@ -2,7 +2,6 @@ class Backbone.Factlink.DetachedViewPort extends Backbone.View
   constructor: (options) ->
     super(options)
     @_view = null
-    @_transition = options?.transition
 
   currentView: -> @_view
   cleanup: -> @remove()
@@ -13,22 +12,13 @@ class Backbone.Factlink.DetachedViewPort extends Backbone.View
 
     @$el.append(new_view.$el)
 
-    if @_view?
-      @transitionView(new_view, @_view)
+    @_view.$el.detach()
 
     @_view = new_view
-
-  transitionView: (new_view, old_view) ->
-    if @_transition?
-      @_transition.run old_view.$el, new_view.$el, ->
-        old_view.$el.detach()
-    else
-      old_view.$el.detach()
 
   removeView: ->
       @_view.$el.detach()
       @_view = null
-
 
 
 class Backbone.Factlink.DetachedViewCache extends Backbone.Factlink.DetachedViewPort
