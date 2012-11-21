@@ -13,8 +13,9 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     view = @profile_views.switchCacheView( username )
     $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
     delete @last_profile_status
-    @profile_views.clear()
-    @profile_views.renderCacheView( username, new_callback() ) if not view?
+    @profile_views.clearUnshowedViews()
+    
+    @profile_views.renderCacheView( username, new_callback() ) unless view?
 
   # ACTIONS
   showProfile: (username) ->
@@ -35,17 +36,15 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     title: 'About ' + username
     active_tab: 'show'
     render: (main_region, user) =>
-      @makePermalinkEvent( username )
+      @makePermalinkEvent()
 
-      main_region.show(@profile_views)
+      main_region.show @profile_views
 
       @restoreProfileView username, =>
         new ProfileView
           model: user
           collection: window.Channels.orderedByAuthority()
           created_facts_view: @getFactsView user.created_facts()
-
-      @profile_views.clear()
 
   notification_options: (username)->
     title: 'Notification Settings'
@@ -93,8 +92,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
         model: channel
 
   withFact: (fact)->
-    window.efv = new DiscussionView(model: fact)
-    @main.contentRegion.show(efv)
+    @main.contentRegion.show new DiscussionView(model: fact)
 
     username = fact.get('created_by').username
     return_to_text = "#{ username.capitalize() }'s profile"
@@ -124,7 +122,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     app.leftMiddleRegion.show(channelCollectionView)
     channelCollectionView.setActive('profile')
 
-  makePermalinkEvent: (baseUrl) ->
+  makePermalinkEvent: ->
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>
       @last_profile_status =
         view: @profile_views.currentView()

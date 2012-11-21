@@ -1,3 +1,5 @@
+#= require ./facts/fact_base_view
+
 class VoteUpDownView extends Backbone.Marionette.ItemView
   className: 'fact-relation-actions'
   template:  'fact_relations/vote_up_down'
@@ -14,10 +16,16 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
     @$(".supporting").tooltip "hide"
 
   onRender: ->
-    @$(".supporting").tooltip title: "This is relevant"
+    @$(".supporting").tooltip
+      title: "This is relevant"
+
     @$(".weakening").tooltip
       title: "This is not relevant"
       placement: "bottom"
+
+  onBeforeClose: ->
+    @$(".weakening").tooltip "destroy"
+    @$(".supporting").tooltip "destroy"
 
   disbelieve: ->
     @hideTooltips()
@@ -31,15 +39,6 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
 
 class FactRelationPopoverView extends EvidencePopoverView
   delete_message: 'Remove this Factlink as evidence'
-
-
-
-class FactBaseView extends Backbone.Marionette.ItemView
-  className: 'fact-body'
-  template:  'fact_relations/fact_base'
-
-  initialize: ->
-    @bindTo @model, 'change', @render, @
 
 
 
@@ -66,30 +65,15 @@ class window.FactRelationEvidenceView extends EvidenceBaseView
 
 
 
-
 class window.FactRelationView extends Backbone.Marionette.Layout
   className: 'fact-relation-body'
   template: 'fact_relations/fact_relation'
 
   regions:
     factBaseView:             '.fact-base-region'
-    factWheelRegion:          '.fact-wheel'
 
   templateHelpers: =>
     creator: @model.creator().toJSON()
 
   onRender: ->
-    @factWheelRegion.show @wheelView()
     @factBaseView.show new FactBaseView(model: @model)
-
-  wheelView: ->
-    wheel = new Wheel(@model.get('fact_base')['fact_wheel'])
-    @_wheelView = new InteractiveWheelView
-      fact: @model.get('fact_base')
-      model: wheel
-
-    @bindTo @model, 'change', =>
-      wheel.set @model.get('fact_base')['fact_wheel']
-      @_wheelView.render()
-
-    @_wheelView

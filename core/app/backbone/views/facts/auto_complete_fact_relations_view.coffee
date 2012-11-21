@@ -59,3 +59,25 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
         alert "Something went wrong while adding the evidence, sorry"
         @collection.remove model
         @model.set text: prevText
+
+
+class window.AddEvidenceView extends Backbone.Marionette.Layout
+  template:
+    text: """
+      <div class='input-region'></div>
+    """
+
+  regions:
+    inputRegion: '.input-region'
+
+  # TODO remove on updating marionette
+  initialEvents: -> # don't rerender on collection change
+
+  initialize: ->
+    @viewCache = null
+
+  onRender: ->
+    @inputRegion.show new AutoCompleteFactRelationsView
+      collection: @collection
+
+
