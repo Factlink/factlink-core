@@ -9,9 +9,5 @@ module Commands
     def execute
       ActivityMailer.new_activity(@user, @activity).deliver
     end
-
-    def authorized?
-      @options[:current_user]
-    end
   end
 end

@@ -43,6 +43,7 @@ class window.BaseFactWheelView extends Backbone.Factlink.PlainView
     else
       super()
       @already_rendered = true
+    @
   
   renderRaphael: ->
     @$canvasEl = $('<div></div>')
