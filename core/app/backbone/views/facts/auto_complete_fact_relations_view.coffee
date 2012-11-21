@@ -110,11 +110,9 @@ class AddCommentView extends Backbone.Marionette.ItemView
     'click .submit': 'submit'
 
   template: 'comments/add_comment'
-  submit: ->
-    # @disableSubmit()
 
-  templateHelpers: =>
-    displaystring: @model.get('displaystring')
+  submit: ->
+    content = @$('.content').val()
 
 
 
