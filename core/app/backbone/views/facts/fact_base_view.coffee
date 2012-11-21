@@ -45,14 +45,14 @@ class FactBodyView extends Backbone.Marionette.ItemView
     )
 
   truncateText: ->
-    @$el.trunk8
+    @$('.js-displaystring').trunk8
       fill: " <a class=\"more\">(more)</a>"
       lines: @showLines
 
   showCompleteDisplaystring: (e) ->
-    @$el.trunk8 lines: 199
+    @$('.js-displaystring').trunk8 lines: 199
     @$('.less').show()
 
   hideCompleteDisplaystring: (e) ->
-    @$el.trunk8 lines: @showLines
+    @$('.js-displaystring').trunk8 lines: @showLines
     @$('.less').hide()
