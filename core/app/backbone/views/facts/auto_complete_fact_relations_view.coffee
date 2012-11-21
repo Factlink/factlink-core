@@ -129,6 +129,8 @@ class AddCommentView extends Backbone.Marionette.ItemView
 
   template: 'comments/add_comment'
 
+  initialize: (opts) ->
+    @comments = opts.comments
   submit: ->
     content = @$('.content').val()
 
