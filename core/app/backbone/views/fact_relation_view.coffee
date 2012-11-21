@@ -29,20 +29,8 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
 
 
 
-ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
-
-class FactRelationPopoverView extends ViewWithPopover
-  template: 'fact_relations/fact_relation_popover'
-
-  events:
-    'click li.delete': 'destroy'
-
-  popover: [
-    selector: '.relation-top-right-arrow'
-    popoverSelector: 'ul.relation-top-right'
-  ]
-
-  destroy: -> @model.destroy()
+class FactRelationPopoverView extends EvidencePopoverView
+  delete_message: 'Remove this Factlink as evidence'
 
 
 

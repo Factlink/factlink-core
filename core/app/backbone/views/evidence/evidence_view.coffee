@@ -25,3 +25,23 @@ class window.EvidenceActivityView extends Backbone.Marionette.ItemView
   template:  'evidence/activity'
 
   templateHelpers: => creator: @model.creator().toJSON()
+
+
+
+ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
+
+class window.EvidencePopoverView extends ViewWithPopover
+  template: 'evidence/popover'
+
+  templateHelpers: =>
+    delete_message: @delete_message
+
+  events:
+    'click li.delete': 'destroy'
+
+  popover: [
+    selector: '.evidence-popover-arrow'
+    popoverSelector: '.evidence-popover'
+  ]
+
+  destroy: -> @model.destroy()
