@@ -24,8 +24,14 @@ class window.FactRelationLayout extends Backbone.Marionette.Layout
     @factRelationRegion.show new FactRelationView model: @model
     @voteRegion.show new VoteUpDownView model: @model
 
+    @setPopOverRegion()
+    @bindTo @model, 'change', @setPopOverRegion, @
+
+  setPopOverRegion: ->
     if @model.get('can_destroy?')
       @popoverRegion.show new FactRelationPopoverView model: @model
+    else
+      @popoverRegion.close()
 
 
 class VoteUpDownView extends Backbone.Marionette.ItemView
