@@ -30,7 +30,9 @@ describe Queries::GetComments do
       fact = mock(id: 3)
       opinion = 'believes'
       query = Queries::GetComments.new fact.id, opinion
-      comment = mock(content: 'bla', id: 1, opinion: opinion, fact_data: stub())
+      content = 'bla'
+      comment_id = '1a'
+      comment = mock(content: content, id: comment_id, opinion: opinion, fact_data: stub())
       fact_data_id = '3b'
 
       Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
@@ -40,8 +42,9 @@ describe Queries::GetComments do
 
       results = query.execute
 
-      results.should eq [comment]
-
+      results.first.opinion.should eq opinion
+      results.first.content.should eq content
+      results.first.id.should eq comment_id
     end
   end
 end

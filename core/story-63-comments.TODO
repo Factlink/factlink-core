@@ -4,15 +4,20 @@ Tasks for commenting story:
  ☐ Figure out what the best way to use local storage is (key is url like??) (gems/libraries)
 
 Backend:
- ☐ comment object (Mongo)
- ☐ include Mongoid::Timestamps
- ☐ created_by (user)
- ☐ comment field
- ☐ parent_id (with index)
- ☐ supporting / weakening (combined index with parent_id)
- ☐ create
- ☐ delete
- ☐ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening
+ ✔ comment object (Mongo) @done (12-11-21 15:42)
+ ✔ include Mongoid::Timestamps @done (12-11-21 15:42)
+ ✔ created_by (user) @done (12-11-21 15:42)
+ ✔ comment field @done (12-11-21 15:42)
+ ✔ parent_id (with index) @done (12-11-21 15:42)
+ ✔ supporting / weakening (combined index with parent_id) @done (12-11-21 15:42)
+ ✔ create @done (12-11-21 15:42)
+ ✔ delete @done (12-11-21 15:42)
+ ✔ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening @done (12-11-21 15:42)
+ ✔ add controller @done (12-11-21 15:42)
+ ✔ add routes @done (12-11-21 15:42)
+ ☐ create test for openstruct to_json in killobject
+ ☐ add integration test
+ ☐ create jbuilder templates
 
  Backbone / Frontend:
  ✔ create Comment Backbone model @done (12-11-20 14:08)

@@ -1,4 +1,5 @@
 require_relative '../pavlov'
+require_relative '../kill_object'
 
 module Queries
   class GetComments
