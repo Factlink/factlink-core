@@ -9,7 +9,7 @@ module Commands
     def execute
       comment = Comment.find(@comment_id)
       user = User.find(@user_id)
-      raise Pavlov::AccessDenied.new 'Unauthorized' unless comment.created_by == user
+      raise_unauthorized unless comment.created_by_id == @user_id
       comment.delete
     end
 

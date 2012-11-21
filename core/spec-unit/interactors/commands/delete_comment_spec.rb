@@ -19,16 +19,17 @@ describe Commands::DeleteComment do
 
   describe '.execute' do
     before do
-      stub_const('Comment', Class.new)
-      stub_const('User', Class.new)
+      stub_const 'Comment', Class.new
+      stub_const 'User', Class.new
     end
 
     it 'correctly' do
-      comment_id = 'a1'
+      comment_id = '1a'
       user_id = 9
+      user = stub(:user, id: user_id)
+      comment = stub(created_by_id: user_id)
       interactor = Commands::DeleteComment.new comment_id, user_id
-      user = mock()
-      comment = mock(created_by: user)
+
       Comment.should_receive(:find).with(comment_id).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
       comment.should_receive(:delete)
