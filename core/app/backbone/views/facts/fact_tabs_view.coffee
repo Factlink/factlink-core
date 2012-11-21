@@ -50,7 +50,6 @@ class window.FactTabsView extends Backbone.Marionette.Layout
     @handleTabActions tab
 
   handleTabActions: (tab) ->
-    console.info('bla')
     mp_track "Factlink: Open tab",
       factlink_id: @model.id
       type: tab
