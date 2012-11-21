@@ -3,6 +3,7 @@ json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
   json.partial! 'users/user_partial', user: comment.created_by
+  json.authority 'UNDEFINED PLEASE DEFINE ME'
 end
 json.opinion      comment.opinion
 json.content      comment.content
