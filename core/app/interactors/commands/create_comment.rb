@@ -8,11 +8,19 @@ module Commands
 
     def execute
       comment = Comment.new
-      comment.fact_data = FactData.find(@fact_data_id)
-      comment.created_by = User.find(@user_id)
+      comment.fact_data = fact_data
+      comment.created_by = creator
       comment.opinion = @opinion
       comment.content = @content
       comment.save
+    end
+
+    def fact_data
+      FactData.find(@fact_data_id)
+    end
+
+    def creator
+      User.find(@user_id)
     end
 
     def validate
