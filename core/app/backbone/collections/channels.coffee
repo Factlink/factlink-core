@@ -81,9 +81,9 @@ class window.ChannelList extends window.GenericChannelList
     if results.length == 1 then results[0] else `undefined`
 
   orderByAuthority: ->
-    topchannels.comparator = (channel) ->
+    @comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
-    topchannels.sort()
+    @sort()
 
 
   orderedByAuthority: ->

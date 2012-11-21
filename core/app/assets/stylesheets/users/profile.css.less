@@ -5,16 +5,19 @@
   margin: 24px 0 0;
 
   .top-channels {
-    ol {
+    > ol {
       .border-radius(3px);
       border: 1px solid #e7e7e7;
       list-style-position: inside;
       margin: 8px 32px 15px 0;
       padding: 0;
-      li {
+      > li {
         border-bottom: 1px solid #e7e7e7;
         display: none;
         padding: 8px 0px 8px 10px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:nth-child(-n+5) {
           display: list-item;
@@ -23,14 +26,14 @@
           border-bottom: solid 1px transparent;
         }
         &:hover {
-          span {
+          > a > span {
             text-decoration: none;
           }
         }
-        a {
+        > a {
           padding: 0 0 0 6px;
 
-          span {
+          > span {
             color: @headingFontColor;
             float: right;
             padding: 0 10px 0 0;

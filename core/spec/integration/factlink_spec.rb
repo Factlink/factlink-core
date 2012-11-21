@@ -32,9 +32,9 @@ describe "factlink", type: :request do
     wait_until_scope_exists '.auto-complete-fact-relations' do
       page.find(:css, 'input').set(search_string)
       wait_for_ajax
-      page.find('.add-new-block').click
     end
 
+    page.find('.fact-relation-post').click
     wait_for_ajax
 
     page.should have_selector('li.fact-relation')
