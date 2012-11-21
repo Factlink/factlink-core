@@ -131,8 +131,13 @@ class AddCommentView extends Backbone.Marionette.ItemView
 
   initialize: (opts) ->
     @comments = opts.comments
+
   submit: ->
     content = @$('.content').val()
+
+    comment = new Comment( content: content )
+    @comments.add comment
+    comment.save()
 
 
 
@@ -164,6 +169,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   onRender: ->
     @inputRegion.switchTo 'search_view'
+    # TODO: For development:
+    @inputRegion.switchTo 'add_comment_view'
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
