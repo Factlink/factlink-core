@@ -42,11 +42,14 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_authority: '1.0'
 
   addCurrent: ->
-    selected_result = @_search_list_view.currentActiveModel()
+    selected_fact_base = @_search_list_view.currentActiveModel()
 
+    if not selected_fact_base?
+      @addNew()
+      return
     @createFactRelation
-      evidence_id: selected_result.id
-      fact_base: selected_result.toJSON()
+      evidence_id: selected_fact_base.id
+      fact_base: selected_fact_base.toJSON()
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
