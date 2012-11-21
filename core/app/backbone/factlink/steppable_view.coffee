@@ -32,10 +32,12 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
   moveSelectionUp: ->
     prevKey = if @activeViewKey? then @activeViewKey - 1 else -1
     @setActiveView prevKey
+    @scrollToCurrent()
 
   moveSelectionDown: ->
     nextKey = if @activeViewKey? then @activeViewKey + 1 else 0
     @setActiveView nextKey
+    @scrollToCurrent()
 
   onItemAddedDoSteppableInitialization: (view)->
     @bindTo view, 'close', =>
@@ -59,4 +61,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     if 0 <= @activeViewKey < @list.length
       @list[@activeViewKey]
     else
-     `undefined`
+     null
+
+  scrollToCurrent: ->
+    @currentActiveView()?.scrollIntoView?()
