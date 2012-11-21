@@ -38,7 +38,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
     render: (main_region, user) =>
       @makePermalinkEvent()
 
-      main_region.show(@profile_views)
+      main_region.show @profile_views
 
       @restoreProfileView username, =>
         new ProfileView
