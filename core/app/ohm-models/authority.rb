@@ -61,8 +61,8 @@ class Authority < OurOhm
     (authority||0).to_f
   end
 
-  def to_s
-    sprintf('%.1f', to_f)
+  def to_s(offset=0)
+    sprintf('%.1f', to_f+offset)
   end
 end
 
@@ -88,8 +88,8 @@ class AuthorityObject
     @key.get.to_f
   end
 
-  def to_s
-    sprintf('%.1f', to_f)
+  def to_s(offset=0)
+    sprintf('%.1f', to_f+offset)
   end
 
   def << auth

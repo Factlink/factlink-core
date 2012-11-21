@@ -10,7 +10,7 @@ positive_active =
 creator_authority =
   # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
   # is possible because in the current calculation these authorities are the same
-  Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s.to_f + 1.0
+  Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s(1.0)
 
 fact_base = Facts::FactBubble.for(fact: fact_relation.from_fact, view: self)
 
