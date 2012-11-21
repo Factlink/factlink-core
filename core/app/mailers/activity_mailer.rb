@@ -11,6 +11,29 @@ class ActivityMailer < ActionMailer::Base
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
-    mail to: @user.email, subject: 'New notification!'
+    mail to: @user.email, subject: get_mail_subject_for_activity(@activity)
   end
+
+  private
+    def get_mail_subject_for_activity activity
+      case activity.action
+      when 'added_subchannel'
+        "#{activity.user.user} added your #{activity.subject.title} #{I18n.t :channel} to their own #{activity.object.title} #{I18n.t :channel}"
+      when 'added_supporting_evidence', 'added_weakening_evidence'
+        if activity.action == 'added_supporting_evidence'
+          type = "supporting"
+        else
+          type = "weakening"
+        end
+
+        "#{activity.user.user} added #{type} evidence to a Factlink"
+      when 'created_conversation'
+        "#{activity.user.user} has sent you a message"
+      when 'replied_message'
+        "#{activity.user.user} has replied to a conversation"
+      else
+        puts "ACTION: #{activity.action}"
+        'New notification!'
+      end
+    end
 end
