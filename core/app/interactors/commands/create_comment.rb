@@ -26,7 +26,7 @@ module Commands
     def validate
       validate_integer :user_id, @user_id
       validate_regex   :content, @content, /\A.+\Z/,
-      "should not be empty."
+        "should not be empty."
       validate_hexadecimal_string :fact_data_id, @fact_data_id
       validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
     end
