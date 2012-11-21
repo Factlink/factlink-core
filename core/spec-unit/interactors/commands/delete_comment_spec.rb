@@ -37,6 +37,6 @@ describe Commands::DeleteComment do
       interactor.execute
     end
 
-    it "fails when the user is not the owner"
+    pending "fails when the user is not the owner"
   end
 end
