@@ -48,8 +48,8 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       collection: @model.getInteractors()
 
     # Todo: add to initialize?
-    # @commentsRegion.show new CommentsListView
-    #   collection: @model.comments()
+    @commentsRegion.show new CommentsListView
+      collection: @model.comments()
 
     if @model.relations()
       @factRelationSearchRegion.show new AddEvidenceView
