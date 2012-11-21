@@ -51,6 +51,10 @@ class VoteUpDownView extends Backbone.Marionette.ItemView
       title: "This is not relevant"
       placement: "bottom"
 
+  onBeforeClose: ->
+    @$(".weakening").tooltip "destroy"
+    @$(".supporting").tooltip "destroy"
+
   disbelieve: ->
     @hideTooltips()
     @model.disbelieve()
