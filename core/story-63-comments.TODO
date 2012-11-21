@@ -19,15 +19,22 @@ Backend:
  ✔ collection for Comments in discussion model (with static data at first) @done (12-11-20 16:07)
  ✔ create basic Mustache template for Comment @done (12-11-20 16:07)
  ✔ create basic Backbone view for Comment @done (12-11-20 16:07)
- ☐ update _comment.mustache to have more content
- ☐ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:"
- ☐ comment should be deletable: add delete button in PopoverView
+ ✔ update _comment.mustache to have more content @done (12-11-21 10:31)
+ ✔ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:" @done (12-11-21 10:32)
+ ✔ comment should be deletable: add delete button in PopoverView @done (12-11-21 11:40)
+
+  Display:
  ☐ integrate with backend (BACKEND TASK SHOULD BE DONE)
- ☐ toggle (checkbox) between posting Factlink or Comment
- ☐ save comment
+    ☐ fetch comments
+    ☐ Comment should have creator method returning the User object
  ☐ notification on successful posting (see design: singlefact-comment-success.png)
  ☐ notification on error
- ☐ store typed comment in localStorage and show when reopening the page
+
+  Functionality:
+ ☐ toggle (checkbox) between posting Factlink or Comment
+     ☐ Keep state of the input field (typed Factlink / Comment)
+ ☐ save comment
+ ☐ delete comment
 
  Add activity (after backend is done):
   ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
