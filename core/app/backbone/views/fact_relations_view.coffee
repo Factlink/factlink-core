@@ -47,7 +47,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
       collection: @model.getInteractors()
 
     if @model.relations()
-      @factRelationSearchRegion.show new AutoCompleteFactRelationsView
+      @factRelationSearchRegion.show new AddEvidenceView
         collection: @model.relations()
       @factRelationsRegion.show new FactRelationsListView
         collection: @model.relations()
