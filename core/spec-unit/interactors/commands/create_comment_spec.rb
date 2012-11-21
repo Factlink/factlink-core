@@ -41,11 +41,12 @@ describe Commands::CreateComment do
       user_id = 1
       command = Commands::CreateComment.new fact_data_id, opinion, content, user_id
       comment = mock()
-      Comment.should_receive(:new).and_return(comment)
       fact_data = mock()
-      FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
-      comment.should_receive(:fact_data=).with(fact_data)
       user = mock()
+
+      comment.should_receive(:fact_data=).with(fact_data)
+      Comment.should_receive(:new).and_return(comment)
+      FactData.should_receive(:find).with(fact_data_id).and_return(fact_data)
       User.should_receive(:find).with(user_id).and_return(user)
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:opinion=).with(opinion)
