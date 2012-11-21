@@ -39,3 +39,6 @@ Backend:
  Add activity (after backend is done):
   ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
   ☐ Create templates and backbone views
+
+Random notes:
+ ☐ when adding evidence the popover is not shown directly. It is shown after reload.
