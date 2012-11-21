@@ -56,27 +56,66 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @model.set text: ''
     model = @collection.create attributes,
       error: =>
-        alert "Something went wrong while adding the evidence, sorry"
         @collection.remove model
         @model.set text: prevText
+        alert "Something went wrong while adding the evidence, sorry"
+
+    @trigger 'click'
+
+class Henk extends Backbone.Marionette.Region
+  initialize: ->
+    @cacheViews = {}
+    @viewConstructors = {}
+    @on 'close', @onClose, @
+
+  defineViews: (viewConstructors) ->
+    @viewConstructors = viewConstructors
+
+  createView: (name) ->
+    @viewConstructors[name]()
+
+  getView: (name) ->
+    @cacheViews[name] ?= @createView(name)
+
+  detach: ->
+    @currentView?.$el.detach()
+    delete @currentView
+
+  switchTo: (name) ->
+    @detach()
+    view = @getView(name)
+    @show(view)
+
+  onClose: ->
+    for name, view of @cacheViews
+      view.close()
+    delete @cacheViews
+    delete @viewConstructors
+
+class PreviewView extends Backbone.Marionette.ItemView
+  template:
+    text: """
+      hoi
+    """
+  events:
+    'click': 'onClick'
+
+  onClick: ->
+    @trigger 'click'
+
 
 
 class AddCommentView extends Backbone.Marionette.ItemView
   events:
-    "click .submit": 'submit'
+    'click .submit': 'submit'
 
-  template:
-    text: """
-      Here you should input a comment for "{{ displaystring }}":
-      <input type="text">
-      <input type="submit" class="submit btn btn-primary" value="Add comment">
-    """
+  template: 'comments/add_comment'
   submit: ->
     # @disableSubmit()
-    alert("adding new comment")
 
   templateHelpers: =>
     displaystring: @model.get('displaystring')
+
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
@@ -86,17 +125,45 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     """
 
   regions:
-    inputRegion: '.input-region'
+    inputRegion:
+      selector: '.input-region'
+      regionType: Henk
 
   # TODO remove on updating marionette
   initialEvents: -> # don't rerender on collection change
 
+  # TODO: remove this when updating Marionette
+  # In the current version the order is the other way around
+  constructor: ->
+    this.initializeRegions()
+    Backbone.Marionette.ItemView.apply(this, arguments)
+
   initialize: ->
-    @viewCache = null
+    @inputRegion.defineViews
+      search_view: => @searchView()
+      preview_view: => @previewView()
+      add_comment_view: => @addCommentView()
 
   onRender: ->
-    @inputRegion.show new AutoCompleteFactRelationsView
-      collection: @collection
+    @inputRegion.switchTo 'search_view'
+    @inputRegion.switchTo 'add_comment_view'
 
-    # Render new view in inputRegion - prevent merge conflict
-    @inputRegion.show new AddCommentView model: @collection.fact
+  searchView: ->
+    searchView = new AutoCompleteFactRelationsView
+      collection: @collection
+    # @bindTo searchView, 'click', =>
+      # @inputRegion.switchTo 'preview_view'
+    searchView
+
+  previewView: ->
+    previewView = new PreviewView
+    @bindTo previewView, 'click', =>
+      @inputRegion.switchTo 'search_view'
+    previewView
+
+  addCommentView: ->
+    new AddCommentView model: @collection.fact
+
+  onClose: ->
+    @_searchView?.close()
+    @_previewView?.close()
