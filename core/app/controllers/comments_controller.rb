@@ -20,10 +20,10 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     opinion = params[:opinion].to_s
 
-    comments = interactor :get_comments_for_fact, fact_id, opinion
+    @comments = interactor :get_comments_for_fact, fact_id, opinion
 
     #todo make jbuilder template
-    render json: comments
+    render 'comments/index'
   end
 
   private
@@ -43,7 +43,6 @@ class CommentsController < ApplicationController
 
     def get_comment_id_param
       id_string = params[:id]
-      puts params[:id]
       if id_string == nil
         raise 'No Comment id is supplied.'
       end

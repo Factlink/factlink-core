@@ -46,9 +46,11 @@ describe CommentsController do
       comment2 = mock
 
       controller.should_receive(:interactor).with(:get_comments_for_fact, fact_id, opinion).and_return([comment1, comment2])
-      controller.should_receive(:render).with(json: [comment1, comment2])
+      controller.should_receive(:render).with('comments/index')
 
       controller.index
+
+      controller.instance_variable_get(:@comments).should eq [comment1, comment2]
     end
   end
 
