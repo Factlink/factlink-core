@@ -14,7 +14,7 @@ class window.CommentEvidenceView extends EvidenceBaseView
 
 
 class window.CommentView extends Backbone.Marionette.ItemView
-
+  className: 'evidence-content'
   template:  'comments/comment'
 
   templateHelpers: =>
