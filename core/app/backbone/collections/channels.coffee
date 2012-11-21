@@ -80,13 +80,14 @@ class window.ChannelList extends window.GenericChannelList
     results = @filter (ch)-> ch.get('slug_title') == slug_title
     if results.length == 1 then results[0] else `undefined`
 
-  orderedByAuthority: ->
-    topchannels = new ChannelList()
-    _.each @models, (channel) ->
-      topchannels.add channel  if channel.get("type") is "channel"
-
+  orderByAuthority: ->
     topchannels.comparator = (channel) ->
       -parseFloat(channel.get("created_by_authority"))
-
     topchannels.sort()
+
+
+  orderedByAuthority: ->
+    topchannels = new ChannelList(@models)
+    topchannels.orderByAuthority()
+
     topchannels
