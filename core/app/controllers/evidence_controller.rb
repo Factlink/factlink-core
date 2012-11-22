@@ -14,33 +14,39 @@ class EvidenceController < FactsController
     render 'fact_relations/index'
   end
 
+  class EvidenceNotFoundException < StandardError
+  end
+
+  def create_new_evidence(displaystring, opinion)
+    evidence = Fact.build_with_data(nil, displaystring.to_s, nil, current_graph_user)
+    
+    (evidence.data.save and evidence.save) or raise EvidenceNotFoundException
+    evidence.add_opinion(opinion, current_graph_user) if opinion
+    
+    evidence
+  end
+
+  def retrieve_evidence(evidence_id)
+    Fact[evidence_id] or raise EvidenceNotFoundException
+  end
+
   def create
     fact = Fact[params[:fact_id]]
 
     authorize! :add_evidence, fact
 
     if params[:displaystring] != nil
-      @evidence = Fact.build_with_data(nil, params[:displaystring].to_s, nil, current_graph_user)
-      @evidence_saved = @evidence.data.save and @evidence.save
-      @evidence.add_opinion(:believes, current_graph_user) if @evidence_saved
+      @evidence = create_new_evidence params[:displaystring], params[:fact_base].andand[:opinion]
     else
-      @evidence = Fact[params[:evidence_id]]
-      @evidence_saved = true
+      @evidence = retrieve_evidence params[:evidence_id]
     end
 
+    @fact_relation = create_believed_factrelation(@evidence, relation, fact)
+    fact.calculate_opinion(2)
 
-    respond_to do |format|
-      if @evidence_saved
-        @fact_relation = create_believed_factrelation(@evidence, relation, fact)
-        fact.calculate_opinion(2)
-
-        format.json do
-          render 'fact_relations/show'
-        end
-      else
-        format.json { render json: [], status: :unprocessable_entity }
-      end
-    end
+    render 'fact_relations/show'
+  rescue EvidenceNotFoundException
+    render json: [], status: :unprocessable_entity
   end
 
   def set_opinion

@@ -20,6 +20,17 @@ class window.Wheel extends Backbone.Model
   initialize: ->
     @set 'opinion_types', @mergedOpinionTypes()
 
+  setRecursive: (attributes) ->
+    @_updateAttributes @attributes, attributes
+
+  _updateAttributes: (oldAttributes, newAttributes) ->
+    for key, value of newAttributes
+      if typeof value is 'object'
+        oldAttributes[key] ?= {}
+        @_updateAttributes oldAttributes[key], value
+      else
+        oldAttributes[key] = value
+
   mergedOpinionTypes: ->
     opinion_types = {}
     for type, opinion_type of @default_opinion_types
@@ -27,6 +38,16 @@ class window.Wheel extends Backbone.Model
     opinion_types
 
   opinionTypesArray: -> _.values @get('opinion_types')
+
+  reset: ->
+    @clear()
+    @setRecursive(new Wheel().attributes)
+
+  userOpinion: ->
+    @_userOpinions()[0]
+
+  _userOpinions: ->
+    "#{type}s" for type, opinionType of @get('opinion_types') when opinionType.is_user_opinion
 
   toJSON: ->
     _.extend {}, super(),

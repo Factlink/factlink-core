@@ -21,7 +21,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
       model: wheel
 
     @bindTo @model, 'change', =>
-      wheel.set @model.get("fact_base")["fact_wheel"]
+      wheel.setRecursive @model.get("fact_base")["fact_wheel"]
       wheelView.render()
 
     wheelView

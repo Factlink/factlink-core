@@ -32,17 +32,25 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       "The Factlink above is false because:"
 
   onRender: ->
-    @wheel_region.show new PersistentWheelView(model: new Wheel())
+    @wheel = new Wheel()
+    @wheel_region.show new PersistentWheelView(model: @wheel)
 
   addNew: ->
     text = @model.get('text')
 
+    fact = new Fact
+      displaystring: text
+      opinion: @wheel.userOpinion()
+      fact_wheel: @wheel.toJSON()
+
     @trigger 'createFactRelation', new FactRelation
       displaystring: text
-      fact_base: new Fact(displaystring: text).toJSON()
+      fact_base: fact.toJSON()
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
+
+    @resetWheel()
 
   addCurrent: ->
     selected_fact_base = @_search_list_view.currentActiveModel()
@@ -78,3 +86,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   deActivate: ->
     @$el.removeClass 'active'
+
+  resetWheel: ->
+    @wheel.reset()
+    @wheel_region.currentView.render()
