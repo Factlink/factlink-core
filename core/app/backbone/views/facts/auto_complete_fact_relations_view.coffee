@@ -143,11 +143,9 @@ class AddCommentView extends Backbone.Marionette.ItemView
     else
       'Disagreeing'
 
-  clearForm: ->
-    @$('.content').val('')
+  clearForm: -> @$('.content').val('')
 
-  showErrorMessage: ->
-    @$('.js-comment-error-message').show()
+  showErrorMessage: -> @$('.js-comment-error-message').show()
 
   submit: ->
     content = @$('.content').val()
