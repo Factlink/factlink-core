@@ -48,8 +48,8 @@ integrate with backend (BACKEND TASK SHOULD BE DONE):
 ☐ hitting <Enter> should submit the form
 ✔ clear form after submit @done (12-11-22 11:45)
 
-☐ Add checkbox and toggle between AddFactRelationView and AddCommentView
-☐ Keep state of the input field (typed Factlink / Comment)
+✔ Add checkbox and toggle between AddFactRelationView and AddCommentView @done (12-11-22 14:06)
+✔ Keep state of the input field (typed Factlink / Comment) @done (12-11-22 14:06)
 
 ☐ Remove double border at bottom of comment listing / top search field
 
