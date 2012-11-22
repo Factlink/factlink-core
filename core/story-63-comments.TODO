@@ -41,7 +41,7 @@ integrate with backend (BACKEND TASK SHOULD BE DONE):
 ✔ get or create user in Comment.coffee, in stead of creating new object all the time @done (12-11-22 10:31)
 ✔ move can_destroy? to frontend @done (12-11-22 11:00)
       ☐ check if current Authority in backend is correct. fact should be the actual fact. Lijkt goed!
-☐ authority on create?
+✔ authority on create? @done (12-11-22 15:16)
 ☐ default one empty comment in list. Why?
 
 ☐ Fix design of input field
