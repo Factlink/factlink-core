@@ -5,16 +5,26 @@ class ActivityMailer < ActionMailer::Base
 
   layout "email"
 
-  default from: "Factlink <support@factlink.com>"
-
   def new_activity(user_id, activity_id)
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
-    mail to: @user.email, subject: get_mail_subject_for_activity(@activity)
+    mail to: @user.email,
+         subject: get_mail_subject_for_activity(@activity),
+         from: from
   end
 
   private
+    def from
+      env_str = ""
+
+      if ['development', 'testserver', 'staging'].include? Rails.env
+        env_str = " #{Rails.env}"
+      end
+
+      "\"Factlink#{env_str}\" <support@factlink.com>"
+    end
+
     def get_mail_subject_for_activity activity
       case activity.action
       when 'added_subchannel'
@@ -32,7 +42,6 @@ class ActivityMailer < ActionMailer::Base
       when 'replied_message'
         "#{activity.user.user} has replied to a conversation"
       else
-        puts "ACTION: #{activity.action}"
         'New notification!'
       end
     end
