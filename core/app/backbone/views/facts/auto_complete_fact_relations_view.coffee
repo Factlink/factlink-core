@@ -135,6 +135,12 @@ class AddCommentView extends Backbone.Marionette.ItemView
   clearForm: ->
     @$('.content').val('')
 
+  showSuccessMessage: ->
+    @$('.js-comment-success-message').show()
+
+  showErrorMessage: ->
+    @$('.js-comment-error-message').show()
+
   submit: ->
     content = @$('.content').val()
     comment = new Comment(content: content, created_by: currentUser)
@@ -143,10 +149,10 @@ class AddCommentView extends Backbone.Marionette.ItemView
     comment.save {},
       success: =>
         @clearForm()
+        @showSuccessMessage()
       error: =>
         @comments.remove comment
-        alert 'Something went wrong while adding your comment.'
-
+        @showErrorMessage()
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
@@ -177,6 +183,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
 
   onRender: ->
     @inputRegion.switchTo 'search_view'
+    # TODO: Remove switchTo 'comment_view', only used for development
+    @inputRegion.switchTo 'add_comment_view'
 
   searchView: ->
     searchView = new AutoCompleteFactRelationsView
