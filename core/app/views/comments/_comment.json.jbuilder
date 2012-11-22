@@ -1,9 +1,16 @@
+# hack to both be able to use this as partial and show
+comment ||= @comment
+
+
+# FIXME: this is probably not actually a Fact object, so
+# authority will always be one
+fact = comment.fact_data.fact
+
 creator_authority =
   # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
   # is possible because in the current calculation these authorities are the same
-  Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s(1.0)
+  Authority.on(fact, for: comment.created_by).to_s(1.0)
 
-comment = comment || @comment
 json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
