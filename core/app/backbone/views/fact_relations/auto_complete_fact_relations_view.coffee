@@ -17,14 +17,14 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       filter_on: 'id'
       search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
       search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
-      placeholder: @placeholder()
+      placeholder: @placeholder(options.type)
 
     @bindTo @_text_input_view, 'focus', @focus, @
     @bindTo @_text_input_view, 'blur', @blur, @
     @bindTo @model, 'change', @toggleActivateOnContentOrFocus, @
 
-  placeholder: ->
-    if @collection.type == "supporting"
+  placeholder: (type) ->
+    if type == "supporting"
       "The Factlink above is true because:"
     else
       "The Factlink above is false because:"
