@@ -24,11 +24,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @inputRegion.switchTo 'search_view'
 
   searchView: ->
-    fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) -> 
+    fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) ->
       new Fact model.get('fact_base')
     searchView = new AutoCompleteFactRelationsView
       collection: fact_relations_masquerading_as_facts
       fact_id: @collection.fact.id
+      type: @collection.type
     @bindTo searchView, 'selected', (fact_relation) =>
       @inputRegion.getView('preview_view').model.set(fact_relation.attributes)
       @inputRegion.switchTo 'preview_view'
