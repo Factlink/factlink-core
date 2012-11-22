@@ -22,4 +22,3 @@ json.content      comment.content
 json.fact_data do |json|
   json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data
 end
-json.can_destroy? comment.can_destroy

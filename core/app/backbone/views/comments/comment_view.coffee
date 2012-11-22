@@ -11,7 +11,7 @@ class window.CommentEvidenceView extends EvidenceBaseView
 
     @mainRegion.show new CommentView model: @model
 
-    if @model.get('can_destroy?')
+    if @model.can_destroy()
       @popoverRegion.show new CommentPopoverView model: @model
 
 
