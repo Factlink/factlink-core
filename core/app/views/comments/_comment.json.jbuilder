@@ -1,9 +1,14 @@
+creator_authority =
+  # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
+  # is possible because in the current calculation these authorities are the same
+  Authority.on(fact_relation.fact, for: fact_relation.created_by).to_s(1.0)
+
 comment = comment || @comment
 json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
   json.partial! 'users/user_partial', user: comment.created_by
-  json.authority 'UNDEFINED PLEASE DEFINE ME'
+  json.authority creator_authority
 end
 json.opinion      comment.opinion
 json.content      comment.content
