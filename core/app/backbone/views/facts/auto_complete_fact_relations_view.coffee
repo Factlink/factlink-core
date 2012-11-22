@@ -136,7 +136,7 @@ class AddCommentView extends Backbone.Marionette.ItemView
     content = @$('.content').val()
     comment = new Comment(content: content, created_by: currentUser)
 
-    @comments.add(comment)
+    @comments.add comment
     comment.save {},
       error: =>
         @comments.remove comment
