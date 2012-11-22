@@ -214,7 +214,10 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     previewView
 
   addCommentView: ->
-    new AddCommentView(model: @collection.fact, comments: @model.comments(), type: @model.type() )
+    add_comment_view = new AddCommentView(model: @collection.fact, comments: @model.comments(), type: @model.type() )
+    @bindTo add_comment_view, 'switch_view', =>
+      @inputRegion.switchTo 'search_view'
+    add_comment_view
 
   createFactRelation: (fact_relation)->
     @collection.add fact_relation
