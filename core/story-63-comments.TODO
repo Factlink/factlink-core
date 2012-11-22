@@ -55,8 +55,8 @@ integrate with backend (BACKEND TASK SHOULD BE DONE):
 
  ☐ error message, create close function (don't delete element)
  Add activity (after backend is done):
-  ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
-  ☐ Create templates and backbone views
+  ✔ Add to create_listener as activity_for "GraphUser" (to create notification) @done (12-11-22 14:45)
+  ✔ Create templates and backbone views @done (12-11-22 14:45)
 
 Random notes:
  ✔ when adding evidence the popover is not shown directly. It is shown after reload. @done (12-11-21 19:02)
