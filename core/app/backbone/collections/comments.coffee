@@ -5,4 +5,4 @@ class window.Comments extends Backbone.Collection
     @type = opts.type
     @fact = opts.fact
 
-  url: -> "/facts/#{@fact.id}/comments.json?opinion=#{@type}"
+  url: -> "/facts/#{@fact.id}/comments/#{@type}"

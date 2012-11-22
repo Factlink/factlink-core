@@ -41,7 +41,14 @@ FactlinkUI::Application.routes.draw do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
     end
-    resources :comments, only: [:create,:destroy,:index]
+    namespace :comments do
+      # create
+      post "/:opinion" => 'comments#create'
+      # destroy
+      delete "/:opinion/:id" => 'comments#destroy'
+      # index
+      get "/:opinion" => 'comments#index'
+    end
   end
 
   resources :feedback
