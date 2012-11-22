@@ -1,5 +1,3 @@
-#= require ../auto_complete/search_view
-
 class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 

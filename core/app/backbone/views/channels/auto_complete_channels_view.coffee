@@ -1,5 +1,3 @@
-#= require ../auto_complete/search_view
-
 class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-channels"
 
