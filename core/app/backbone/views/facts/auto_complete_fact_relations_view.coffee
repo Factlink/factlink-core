@@ -132,12 +132,17 @@ class AddCommentView extends Backbone.Marionette.ItemView
   initialize: (opts) ->
     @comments = opts.comments
 
+  clearForm: ->
+    @$('.content').val('')
+
   submit: ->
     content = @$('.content').val()
     comment = new Comment(content: content, created_by: currentUser)
 
     @comments.add comment
     comment.save {},
+      success: =>
+        @clearForm()
       error: =>
         @comments.remove comment
         alert 'Something went wrong while adding your comment.'
