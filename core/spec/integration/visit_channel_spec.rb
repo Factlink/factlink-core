@@ -18,7 +18,7 @@ feature "visiting a channel" do
     page.should have_content(@channel.title)
   end
 
-  scenario "shows facts" do
+  pending "shows facts" do
     @channel = backend_create_channel
 
     2.times.each do
