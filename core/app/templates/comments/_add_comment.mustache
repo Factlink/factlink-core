@@ -1,12 +1,14 @@
-<div class="js-comment-success-message alert alert-success hide">
-  <strong>Great!</strong> Your comment has been successfully posted.
-  <a class="close" href="#" data-dismiss="alert">x</a>
-</div>
-
 <div class="js-comment-error-message alert alert-error hide">
   Your comment could not be posted, please try again.
   <a class="close" href="#" data-dismiss="alert">x</a>
 </div>
 
+
 <input type="text" class="content" placeholder="{{ type_of_action_text }} because:">
-<input type="submit" class="submit btn btn-primary" value="Add comment">
+
+<label class="pull-right">
+  <input type="checkbox" class="js-switch">
+  Post as Factlink
+</label>
+
+<input type="submit" class="submit pull-right btn btn-primary" value="Add comment">
