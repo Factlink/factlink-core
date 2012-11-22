@@ -21,4 +21,6 @@ class window.FactRelation extends Backbone.Model
     url += "/" + @id if @id?
     url
 
-  creator: -> new User(@get('created_by'))
+  creator: -> @user ?= new User(@get('created_by'))
+
+  can_destroy: -> @creator().get('id') == currentUser.get('id')

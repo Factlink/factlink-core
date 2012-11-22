@@ -16,7 +16,6 @@ fact_base = Facts::FactBubble.for(fact: fact_relation.from_fact, view: self)
 
 json.url friendly_fact_path(fact_relation.from_fact)
 json.signed_in? user_signed_in?
-json.can_destroy? can? :destroy, fact_relation
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
