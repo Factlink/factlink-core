@@ -139,8 +139,8 @@ class AddCommentView extends Backbone.Marionette.ItemView
     @comments.add(comment)
     comment.save {},
       error: =>
-        @comments.remove(comment)
-        alert('something went wrong while adding your model')
+        @comments.remove comment
+        alert 'Something went wrong while adding your comment.'
 
 
 
