@@ -46,7 +46,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_authority: '1.0'
 
   switchCheckboxClicked: (e) ->
-    @trigger 'switch_to_comment_view'
+    @trigger 'switch_to_comment_view', @model.get('text')
     e.preventDefault()
     e.stopPropagation()
 

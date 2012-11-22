@@ -21,6 +21,8 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   clearForm: -> @$('.content').val('')
 
+  setFormContent: (content) -> @$('.content').val(content)
+
   showErrorMessage: -> @$('.js-comment-error-message').show()
 
   submit: ->
@@ -36,6 +38,6 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
         @showErrorMessage()
 
   switchCheckboxClicked: (e)->
-    @trigger 'switch_to_fact_relation_view'
+    @trigger 'switch_to_fact_relation_view', @$('.content').val()
     e.preventDefault()
     e.stopPropagation()
