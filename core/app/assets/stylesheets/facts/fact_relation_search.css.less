@@ -9,10 +9,17 @@
 
   .auto-complete-fact-relations {
     overflow: hidden;
+
+    &.active {
+      .fact-relation-post {
+        display: inline-block;
+      }
+    }
   }
 
   .fact-relation-post {
     float: right;
     margin-top: 10px;
+    display: none;
   }
 }

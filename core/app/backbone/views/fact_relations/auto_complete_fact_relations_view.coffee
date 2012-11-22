@@ -20,6 +20,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
       placeholder: @placeholder()
 
+    @bindTo @_text_input_view, 'focus', @activate, @
+    @bindTo @_text_input_view, 'blur', @deActivate, @
+
   placeholder: ->
     if @collection.type == "supporting"
       "The Factlink above is true because:"
@@ -50,3 +53,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       @addNew()
 
   setQuery: (text) -> @model.set text: text
+
+  activate: ->
+    @$el.addClass 'active'
+
+  deActivate: ->
+    @$el.removeClass 'active'
