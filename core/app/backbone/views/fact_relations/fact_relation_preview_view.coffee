@@ -1,4 +1,5 @@
 class window.FactRelationPreviewView extends Backbone.Marionette.Layout
+  className: 'fact-relation-preview-view'
   template: 'fact_relations/preview'
 
   regions:
