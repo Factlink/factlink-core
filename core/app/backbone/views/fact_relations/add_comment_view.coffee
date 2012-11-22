@@ -2,7 +2,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   className: 'add-comment'
   events:
     'click .submit': 'submit'
-    'click .js-switch': 'switchView'
+    'click .js-switch': 'switchCheckboxClicked'
 
   template: 'comments/add_comment'
 
@@ -35,4 +35,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
         @comments.remove comment
         @showErrorMessage()
 
-  switchView: -> @trigger 'switch_to_fact_relation_view'
+  switchCheckboxClicked: (e)->
+    @trigger 'switch_to_fact_relation_view'
+    e.preventDefault()
+    e.stopPropagation()
