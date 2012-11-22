@@ -6,29 +6,33 @@
     font-weight: bold;
     font-size: 18px;
   }
-
-  p {
-    color: #555;
-    font-size: 17px;
-    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
-    line-height: 22px;
-    background: #f4f4f4;
-    padding: 15px;
-    border: 1px solid #eee;
-    text-shadow: 0 1px 0 #fff;
-  }
-
+  p { margin: 0; }
   a {
     color: #3D75A3;
+    font-weight: bold;
     text-decoration: none;
+  }
+  .body {
+    color: #555;
+    font-size: 13px;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  }
+  .activity-title {
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 0.25em;
+  }
+  .activity-body {
+    font-size: 13px;
+  }
+  .activity-action {
+    margin-top: 2em;
   }
 </style>
 <% end %>
 
 <% content_for :email_body do %>
-  <h2>You've received a new notification on Factlink:</h2>
-
-  <p>
+  <div class="body">
     <%= render_mail_template_for_action @activity.action %>
-  </p>
+  </div>
 <% end %>
