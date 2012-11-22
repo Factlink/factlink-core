@@ -21,8 +21,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
       placeholder: @placeholder()
 
-    @bindTo @_text_input_view, 'focus', @activate, @
-    @bindTo @_text_input_view, 'blur', @deActivate, @
+    @bindTo @_text_input_view, 'focus', @focus, @
+    @bindTo @_text_input_view, 'blur', @blur, @
+    @bindTo @model, 'change', @toggleActivateOnContentOrFocus, @
 
   placeholder: ->
     if @collection.type == "supporting"
@@ -57,6 +58,20 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       @addNew()
 
   setQuery: (text) -> @model.set text: text
+
+  focus: ->
+    @_hasFocus = true
+    @toggleActivateOnContentOrFocus()
+
+  blur: ->
+    @_hasFocus = false
+    @toggleActivateOnContentOrFocus()
+
+  toggleActivateOnContentOrFocus: ->
+    if @_hasFocus or @model.get('text').length
+      @activate()
+    else
+      @deActivate()
 
   activate: ->
     @$el.addClass 'active'
