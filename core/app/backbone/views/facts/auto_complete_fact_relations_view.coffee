@@ -146,9 +146,6 @@ class AddCommentView extends Backbone.Marionette.ItemView
   clearForm: ->
     @$('.content').val('')
 
-  showSuccessMessage: ->
-    @$('.js-comment-success-message').show()
-
   showErrorMessage: ->
     @$('.js-comment-error-message').show()
 
@@ -160,7 +157,6 @@ class AddCommentView extends Backbone.Marionette.ItemView
     comment.save {},
       success: =>
         @clearForm()
-        @showSuccessMessage()
       error: =>
         @comments.remove comment
         @showErrorMessage()
