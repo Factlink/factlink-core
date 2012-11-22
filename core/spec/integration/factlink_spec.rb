@@ -31,12 +31,14 @@ describe "factlink", type: :request do
     page.should have_content(@factlink.data.title)
 
     wait_until_scope_exists '.auto-complete-fact-relations' do
-      page.find(:css, 'input').set(search_string)
+      input = page.find(:css, 'input')
+      input.set(search_string)
+      input.trigger('focus')
+
       wait_for_ajax
     end
 
     page.find('.fact-relation-post').click
-    wait_for_ajax
 
     page.should have_selector('li.evidence-item')
     within(:css, 'li.evidence-item') do

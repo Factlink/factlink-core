@@ -17,17 +17,17 @@ class window.Wheel extends Backbone.Model
       is_user_opinion: false
       percentage: 33
 
-  getOpinionTypes: ->
-    @opinion_types ?= @mergeOpinionTypes()
+  initialize: ->
+    @set 'opinion_types', @mergedOpinionTypes()
 
-  mergeOpinionTypes: ->
+  mergedOpinionTypes: ->
     opinion_types = {}
     for type, opinion_type of @default_opinion_types
-      opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)    
+      opinion_types[type] = _.defaults(@get('opinion_types')[type] ? {}, opinion_type)
     opinion_types
 
+  opinionTypesArray: -> _.values @get('opinion_types')
+
   toJSON: ->
-    originalAttributes = super()
-    _.extend({}, originalAttributes,
-      opinion_types: @getOpinionTypes()
-    )
+    _.extend {}, super(),
+      opinion_types_array: @opinionTypesArray()

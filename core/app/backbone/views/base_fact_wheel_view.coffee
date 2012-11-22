@@ -54,13 +54,17 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   randomActions: ->
     offset = 0
     @calculateDisplayablePercentages()
-    for key, opinionType of @model.getOpinionTypes()
+    for key, opinionType of @model.get('opinion_types')
       @createOrAnimateArc opinionType, offset
       offset += opinionType.displayPercentage
     @bindTooltips()
 
   reRender: ->
     @$('.authority').text(@model.get('authority'))
+    for type, opinionType of @model.get('opinion_types')
+      chosen = opinionType.is_user_opinion
+      @$(".js-opinion-#{type}").attr
+        checked:  if chosen then 'checked' else false
     @randomActions()
 
   createOrAnimateArc: (opinionType, percentageOffset) ->
@@ -101,13 +105,13 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     too_much = 0
     large_ones = 0
 
-    for key, opinionType of @model.getOpinionTypes()
+    for key, opinionType of @model.get('opinion_types')
       percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         too_much += @options.minimalVisiblePercentage - percentage
       else large_ones += percentage  if percentage > 40
 
-    for key, opinionType of @model.getOpinionTypes()
+    for key, opinionType of @model.get('opinion_types')
       percentage = opinionType.percentage
       if percentage < @options.minimalVisiblePercentage
         percentage = @options.minimalVisiblePercentage
@@ -150,7 +154,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
     @$el.find(".authority").tooltip title: "This number represents the amount of thinking " + "spent by people on this Factlink"
 
     # Create tooltips for each opinionType (believe, disbelieve etc)
-    for key, opinionType of @model.getOpinionTypes()
+    for key, opinionType of @model.get('opinion_types')
       raphaelObject = @opinionTypeRaphaels[opinionType.type]
       $(raphaelObject.node).tooltip
         title: @options.opinionStyles[opinionType.type].groupname + ": " + opinionType.percentage + "%"
@@ -164,7 +168,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
         tempObject[opinionType.type] = opinionType
 
       opinionTypes = tempObject
-    for key, opinionType of @model.getOpinionTypes()
+    for key, opinionType of @model.get('opinion_types')
       newOpinionType = opinionTypes[opinionType.type]
       opinionType.percentage = newOpinionType.percentage
       opinionType.is_user_opinion = newOpinionType.is_user_opinion
@@ -174,7 +178,7 @@ class window.BaseFactWheelView extends Backbone.Marionette.ItemView
   toggleActiveOpinionType: (opinionType) ->
     oldAuthority = @model.get("authority")
     updateObj = {}
-    _.each @model.getOpinionTypes(), (oldOpinionType) ->
+    _.each @model.get('opinion_types'), (oldOpinionType) ->
       updateObj[oldOpinionType.type] = _.clone(oldOpinionType)
       unless opinionType.is_user_opinion
         updateObj[oldOpinionType.type].is_user_opinion = false
