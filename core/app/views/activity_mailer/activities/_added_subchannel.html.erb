@@ -3,7 +3,7 @@
 	added your <%= @activity.subject.title %> 
 	<%= t :channel %> 
 	to their own 
-	<%= link_to @activity.object.title, channel_url(@activity.object.created_by.user, @activity.object.id) %>.
+	<%= link_to @activity.object.title, channel_url(@activity.object.created_by.user, @activity.object.id) %>
 </h2>
 <p class="activity-action">
 	Too see their <%= @activity.object.title %> channel, visit:<br>
