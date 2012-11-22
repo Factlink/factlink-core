@@ -124,6 +124,7 @@ class PreviewView extends Backbone.Marionette.Layout
 
 
 class AddCommentView extends Backbone.Marionette.ItemView
+  className: 'add-comment'
   events:
     'click .submit': 'submit'
 
@@ -131,6 +132,16 @@ class AddCommentView extends Backbone.Marionette.ItemView
 
   initialize: (opts) ->
     @comments = opts.comments
+    @type = opts.type
+
+  templateHelpers: =>
+    type_of_action_text: @type_of_action_text()
+
+  type_of_action_text: ->
+    if @type == 'supporting'
+      'Agreeing'
+    else
+      'Disagreeing'
 
   clearForm: ->
     @$('.content').val('')
@@ -206,7 +217,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     previewView
 
   addCommentView: ->
-    new AddCommentView(model: @collection.fact, comments: @model.comments() )
+    new AddCommentView(model: @collection.fact, comments: @model.comments(), type: @model.type() )
 
   createFactRelation: (fact_relation)->
     @collection.add fact_relation
