@@ -28,22 +28,34 @@ Backend:
  ✔ show Authority of User on TopFact, same as FactRelation "<username> <authority> added:" @done (12-11-21 10:32)
  ✔ comment should be deletable: add delete button in PopoverView @done (12-11-21 11:40)
 
-  Display:
- ☐ integrate with backend (BACKEND TASK SHOULD BE DONE)
-    ☐ fetch comments
-    ☐ Comment should have creator method returning the User object
- ☐ notification on successful posting (see design: singlefact-comment-success.png)
- ☐ notification on error
+integrate with backend (BACKEND TASK SHOULD BE DONE):
+    ✔ fetch comments @done (12-11-21 16:24)
+    ✔ Comment should have creator method returning the User object @done (12-11-22 08:47)
+☐ notification on successful posting (see design: singlefact-comment-success.png)
+☐ notification on error
+
+☐ rails routes to comments/:opinion
+☐ fix url
+☐ save comment
+☐ delete comment
+☐ get or create user in Comment.coffee, in stead of creating new object all the time
+☐ move can_destroy? to frontend
+☐ check if current Authority in backend is correct. fact should be the actual fact
+☐ authority on create?
+☐ default one empty comment in list. Why?
+
+☐ Fix design of input field
+☐ hitting <Enter> should submit the form
+☐ clear form after submit
 
   Functionality:
  ☐ toggle (checkbox) between posting Factlink or Comment
      ☐ Keep state of the input field (typed Factlink / Comment)
- ☐ save comment
- ☐ delete comment
+
 
  Add activity (after backend is done):
   ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
   ☐ Create templates and backbone views
 
 Random notes:
- ☐ when adding evidence the popover is not shown directly. It is shown after reload.
+ ✔ when adding evidence the popover is not shown directly. It is shown after reload. @done (12-11-21 19:02)
