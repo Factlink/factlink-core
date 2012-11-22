@@ -1,5 +1,9 @@
-window.collectionMap = (collection, map) ->
-  mapped_collection = collection
-  for model in collection.models
-    mapped_collection.add(model)
-  mapped_collection
+window.collectionMap = (resultCollection, collection, mapFunction) ->
+  reset = ->
+    resultCollection.reset()
+    for model in collection.models
+      resultCollection.add mapFunction(model)
+  
+  collection.on 'add remove reset', reset  
+  reset()
+  resultCollection

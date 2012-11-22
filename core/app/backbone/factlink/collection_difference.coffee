@@ -13,4 +13,4 @@ window.collectionDifference = (resultCollection, onField, collection1, collectio
    for other_collection in collections
       other_collection.on('add reset remove', reset) if other_collection.on
    reset()
-   return resultCollection
+   resultCollection   

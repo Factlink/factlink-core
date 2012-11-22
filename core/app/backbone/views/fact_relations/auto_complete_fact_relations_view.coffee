@@ -12,11 +12,11 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   template: 'fact_relations/auto_complete'
 
-  initialize: ->
+  initialize: (options) ->
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
-      search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
+      search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
       placeholder: @placeholder()
 
     @bindTo @_text_input_view, 'focus', @focus, @
