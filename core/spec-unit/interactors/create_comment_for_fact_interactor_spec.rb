@@ -41,9 +41,37 @@ describe CreateCommentForFactInteractor do
       content = 'content'
       user = mock(id: '1a')
       interactor = CreateCommentForFactInteractor.new fact_id, opinion, content, {current_user: user}
-      interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id)
+      comment = mock()
 
-      interactor.execute
+      interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
+      interactor.should_receive(:create_activity).with(comment)
+
+      interactor.execute.should eq comment
+    end
+  end
+
+  describe '.create_activity' do
+    before do
+      stub_const('Comment', Class.new)
+    end
+
+    it 'correctly' do
+      fact_id = 1
+      opinion = 'believes'
+      content = 'content'
+      graph_user = mock()
+      user = mock(id: '1a', graph_user: graph_user)
+      interactor = CreateCommentForFactInteractor.new fact_id, opinion, content, {current_user: user}
+      returned_comment = mock(id: 1)
+      mongoid_comment = mock()
+      fact = stub()
+      fact_data = stub(fact: fact)
+      returned_comment.stub(fact_data: fact_data)
+
+      Comment.should_receive(:find).with(returned_comment.id).and_return(mongoid_comment)
+      interactor.should_receive(:command).with(:create_activity,graph_user, :created_comment, mongoid_comment, fact)
+
+      interactor.create_activity returned_comment
     end
   end
 end

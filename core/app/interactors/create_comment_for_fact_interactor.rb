@@ -6,7 +6,19 @@ class CreateCommentForFactInteractor
   arguments :fact_id, :opinion, :content
 
   def execute
-    command :create_comment, @fact_id, @opinion, @content, @options[:current_user].id.to_s
+    comment = command :create_comment,@fact_id, @opinion,
+      @content, @options[:current_user].id.to_s
+
+    create_activity comment
+
+    comment
+  end
+
+  def create_activity comment
+    # TODO fix this ugly data access shit, need to think about where to kill objects, etc
+    command :create_activity,
+      @options[:current_user].graph_user, :created_comment,
+      Comment.find(comment.id), comment.fact_data.fact
   end
 
   def authorized?
