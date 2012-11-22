@@ -5,6 +5,10 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
     "keydown input.typeahead": "parseKeyDown"
     "keyup input.typeahead": "updateModel"
 
+  triggers:
+    "focus input.typeahead": "focus"
+    "blur input.typeahead": "blur"
+
   templateHelpers: =>
     placeholder: @options.placeholder
 

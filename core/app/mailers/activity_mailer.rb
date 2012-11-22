@@ -5,16 +5,25 @@ class ActivityMailer < ActionMailer::Base
 
   layout "email"
 
-  default from: "Factlink <support@factlink.com>"
-
   def new_activity(user_id, activity_id)
     @user = User.find(user_id)
     @activity = Activity[activity_id]
 
-    mail to: @user.email, subject: get_mail_subject_for_activity(@activity)
+    mail to: @user.email,
+         subject: get_mail_subject_for_activity(@activity),
+         from: get_from
   end
 
   private
+    def get_from
+      env_str = ""
+
+      if ['development', 'testserver', 'staging'].include? Rails.env
+        env_str = " (#{Rails.env})"
+      end
+
+      "Factlink#{env_str} <support@factlink.com>"
+    end
     def get_mail_subject_for_activity activity
       case activity.action
       when 'added_subchannel'
