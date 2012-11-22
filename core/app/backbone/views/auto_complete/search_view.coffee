@@ -1,7 +1,7 @@
 class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initializeChildViews: (opts)->
     @search_collection = opts.search_collection()
-    
+
     @initSearchModel()
     @initTextInputView opts.placeholder
     @initFilteredSearchCollection opts.search_collection, opts.filter_on
@@ -24,7 +24,7 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
     if search_collection? and filter_on?
       @filtered_search_collection = collectionDifference(search_collection(),
         filter_on, @search_collection, @collection)
-    else 
+    else
       @filtered_search_collection = @search_collection
 
   initSearchListView: (search_list_view) ->
