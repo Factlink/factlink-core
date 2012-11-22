@@ -11,7 +11,6 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     popoverRegion:    '.evidence-popover-region'
 
 
-
 class window.EvidenceUserAvatarView extends Backbone.Marionette.ItemView
   className: 'evidence-user-avatar'
   template:  'evidence/user_avatar'
@@ -19,13 +18,13 @@ class window.EvidenceUserAvatarView extends Backbone.Marionette.ItemView
   templateHelpers: => creator: @model.creator().toJSON()
 
 
-
 class window.EvidenceActivityView extends Backbone.Marionette.ItemView
   className: 'evidence-activity'
   template:  'evidence/activity'
 
-  templateHelpers: => creator: @model.creator().toJSON()
+  initialize: -> @bindTo @model, 'change', @render, @
 
+  templateHelpers: => creator: @model.creator().toJSON()
 
 
 ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
