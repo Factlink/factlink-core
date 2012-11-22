@@ -8,6 +8,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     "click .js-post": "addNew"
 
   regions:
+    'wheel_region': '.fact-wheel'
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.auto-complete-input-container'
 
@@ -28,6 +29,9 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       "The Factlink above is true because:"
     else
       "The Factlink above is false because:"
+
+  onRender: ->
+    @wheel_region.show new PersistentWheelView(model: new Wheel())
 
   addNew: ->
     text = @model.get('text')

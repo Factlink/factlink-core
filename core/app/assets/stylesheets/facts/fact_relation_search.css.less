@@ -9,11 +9,23 @@
 
   .auto-complete-fact-relations {
     overflow: hidden;
+    position: relative;
 
     &.active {
       .fact-relation-post {
         display: inline-block;
       }
+    }
+    
+    .fact-wheel {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+
+    .fact-relations-input-container {
+      margin-left: 60px;
+      margin-top: 3px;
     }
   }
 
