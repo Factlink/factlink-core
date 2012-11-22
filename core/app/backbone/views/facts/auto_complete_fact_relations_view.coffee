@@ -137,7 +137,7 @@ class AddCommentView extends Backbone.Marionette.ItemView
     comment = new Comment(content: content, created_by: currentUser)
 
     @comments.add(comment)
-    comment.save
+    comment.save()
 
 
 
