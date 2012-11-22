@@ -14,14 +14,6 @@ module Facts
       self[:fact].id
     end
 
-    def nr_of_supporting_facts
-      self[:fact].supporting_facts.size
-    end
-
-    def nr_of_weakening_facts
-      self[:fact].weakening_facts.size
-    end
-
     def signed_in?
       user_signed_in?
     end
