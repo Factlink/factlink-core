@@ -127,6 +127,7 @@ class AddCommentView extends Backbone.Marionette.ItemView
   className: 'add-comment'
   events:
     'click .submit': 'submit'
+    'click .js-switch': 'switchView'
 
   template: 'comments/add_comment'
 
@@ -158,6 +159,8 @@ class AddCommentView extends Backbone.Marionette.ItemView
       error: =>
         @comments.remove comment
         @showErrorMessage()
+
+  switchView: -> @trigger 'switch_view'
 
 
 class window.AddEvidenceView extends Backbone.Marionette.Layout
