@@ -6,6 +6,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   events:
     "click div.auto-complete-search-list": "addCurrent"
     "click .js-post": "addNew"
+    'click .js-switch': 'switchView'
 
   regions:
     'wheel_region': '.fact-wheel'
@@ -43,6 +44,8 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
+
+  switchView: -> @trigger 'switch_to_comment_view'
 
   addCurrent: ->
     selected_fact_base = @_search_list_view.currentActiveModel()

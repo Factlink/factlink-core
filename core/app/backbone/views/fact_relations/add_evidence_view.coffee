@@ -19,6 +19,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @inputRegion.defineViews
       search_view: => @searchView()
       preview_view: => @previewView()
+      add_comment_view: => @addCommentView()
 
   onRender: ->
     @inputRegion.switchTo 'search_view'
@@ -31,6 +32,10 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       @inputRegion.switchTo 'preview_view'
     @bindTo searchView, 'createFactRelation', (fact_relation) =>
       @createFactRelation(fact_relation)
+
+    @bindTo searchView, 'switch_to_comment_view', =>
+      @inputRegion.switchTo 'add_comment_view'
+
     searchView
 
   previewView: ->
@@ -41,6 +46,12 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @bindTo previewView, 'createFactRelation', (fact_relation) =>
       @createFactRelation(fact_relation)
     previewView
+
+  addCommentView: ->
+    addCommentView = new AddCommentView(model: @collection.fact, comments: @model.comments(), type: @model.type() )
+    @bindTo addCommentView, 'switch_to_fact_relation_view', =>
+      @inputRegion.switchTo 'search_view'
+    addCommentView
 
   createFactRelation: (fact_relation)->
     @hideError()
