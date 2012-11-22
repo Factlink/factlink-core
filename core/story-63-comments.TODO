@@ -31,28 +31,29 @@ Backend:
 integrate with backend (BACKEND TASK SHOULD BE DONE):
     ✔ fetch comments @done (12-11-21 16:24)
     ✔ Comment should have creator method returning the User object @done (12-11-22 08:47)
-☐ notification on successful posting (see design: singlefact-comment-success.png)
-☐ notification on error
+✔ notification on successful posting (see design: singlefact-comment-success.png) @done (12-11-22 13:10)
+✔ notification on error @done (12-11-22 13:10)
 
-☐ rails routes to comments/:opinion
-☐ fix url
-☐ save comment
-☐ delete comment
-☐ get or create user in Comment.coffee, in stead of creating new object all the time
-☐ move can_destroy? to frontend
-☐ check if current Authority in backend is correct. fact should be the actual fact
+✔ rails routes to comments/:opinion @done (12-11-22 10:22)
+✔ fix url @done (12-11-22 10:30)
+✔ save comment @done (12-11-22 10:30)
+✔ delete comment @done (12-11-22 10:30)
+✔ get or create user in Comment.coffee, in stead of creating new object all the time @done (12-11-22 10:31)
+✔ move can_destroy? to frontend @done (12-11-22 11:00)
+      ☐ check if current Authority in backend is correct. fact should be the actual fact. Lijkt goed!
 ☐ authority on create?
 ☐ default one empty comment in list. Why?
 
 ☐ Fix design of input field
 ☐ hitting <Enter> should submit the form
-☐ clear form after submit
+✔ clear form after submit @done (12-11-22 11:45)
 
-  Functionality:
- ☐ toggle (checkbox) between posting Factlink or Comment
-     ☐ Keep state of the input field (typed Factlink / Comment)
+☐ Add checkbox and toggle between AddFactRelationView and AddCommentView
+☐ Keep state of the input field (typed Factlink / Comment)
 
+☐ Remove double border at bottom of comment listing / top search field
 
+ ☐ error message, create close function (don't delete element)
  Add activity (after backend is done):
   ☐ Add to create_listener as activity_for "GraphUser" (to create notification)
   ☐ Create templates and backbone views
