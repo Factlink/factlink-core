@@ -83,7 +83,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   activate:   -> @$el.addClass 'active'
   deActivate: -> @$el.removeClass 'active'
 
-  resetWheel: ->
+  reset: ->
     @setQuery ''
     @wheel.reset()
     @wheel_region.currentView.render()
