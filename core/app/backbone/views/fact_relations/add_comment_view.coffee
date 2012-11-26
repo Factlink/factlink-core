@@ -10,7 +10,6 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @initializeModel()
-    @bindTo @model, 'change', @render, @
 
   parseKeyUp: (e) ->
     code = e.keyCode || e.which
@@ -19,6 +18,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)
+    @bindTo @model, 'change', @render, @
 
   templateHelpers: =>
     type_of_action_text: @type_of_action_text()
@@ -33,15 +33,12 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     content = @$('.content').val()
     @model.set {content: content}, silent: true
 
-  clearForm: -> @setFormContent ''
-
   setFormContent: (content) -> @model.set content: content
 
   showErrorMessage: -> @$('.js-comment-error-message').show()
 
   addModelSuccess: (model) ->
     @initializeModel()
-    @clearForm()
     model.trigger 'change'
 
   addModelError: -> @showErrorMessage()
