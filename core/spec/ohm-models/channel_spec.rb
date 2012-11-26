@@ -403,7 +403,6 @@ describe Channel do
         @f1.delete
         @ch1.facts.should =~ [@f2]
         @ch1.sorted_cached_facts.count.should eq 1
-
       end
     end
 
@@ -417,13 +416,11 @@ describe Channel do
       before do
         u1_ch1.add_fact f1
         u2_ch1.add_fact f2
-        u1_ch1.add_fact f3
-        u2_ch1.add_fact f4
         u1_ch1.add_channel u2_ch1
         u2_ch1.delete
       end
       it "should not remove the facts from the channels which follow this channel" do
-        u1_ch1.facts.should =~ [f1,f2,f3,f4]
+        u1_ch1.facts.should =~ [f1,f2]
       end
       it "should not exist anymore" do
         Channel[u2_ch1.id].should be_nil
