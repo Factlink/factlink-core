@@ -33,14 +33,14 @@ class window.FactRelationTabsView extends Backbone.Marionette.Layout
 
   onClose: -> delete @discussion
 
+  factRelationView: (type) ->
+    new FactRelationsView model: @cachedDiscussion(type)
+
   cachedDiscussion: (type) ->
     @discussion ?= {}
     @discussion[type] ?= new Discussion
       fact: @model
       type: type
-
-  factRelationView: (type) ->
-    new FactRelationsView model: @cachedDiscussion(type)
 
   tabClick: (e) ->
     e.preventDefault()
