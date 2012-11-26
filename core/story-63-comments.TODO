@@ -15,9 +15,8 @@ Backend:
  ✔ retrieve, sorteren op created_at :asc, key :(parent_id (Fact) and opinion type (supporting, weakening @done (12-11-21 15:42)
  ✔ add controller @done (12-11-21 15:42)
  ✔ add routes @done (12-11-21 15:42)
- ☐ create test for openstruct to_json in killobject
- ☐ add integration test
- ☐ create jbuilder templates
+ ✔ create test for openstruct to_json in killobject @done (12-11-26 11:45)
+ ✔ create jbuilder templates @done (12-11-26 11:45)
 
  Backbone / Frontend:
  ✔ create Comment Backbone model @done (12-11-20 14:08)
@@ -40,20 +39,25 @@ integrate with backend (BACKEND TASK SHOULD BE DONE):
 ✔ delete comment @done (12-11-22 10:30)
 ✔ get or create user in Comment.coffee, in stead of creating new object all the time @done (12-11-22 10:31)
 ✔ move can_destroy? to frontend @done (12-11-22 11:00)
-      ☐ check if current Authority in backend is correct. fact should be the actual fact. Lijkt goed!
+      ✔ check if current Authority in backend is correct. fact should be the actual fact. Lijkt goed! @done (12-11-26 11:44)
 ✔ authority on create? @done (12-11-22 15:16)
-☐ default one empty comment in list. Why?
+
+✔ default one empty comment in list. Why? @done (12-11-26 13:43)
+
+☐ add integration test
 
 ☐ Fix design of input field
-☐ hitting <Enter> should submit the form
-✔ clear form after submit @done (12-11-22 11:45)
 
+✔ hitting <Enter> should submit the form @done (12-11-26 14:08)
+
+
+✔ clear form after submit @done (12-11-22 11:45)
 ✔ Add checkbox and toggle between AddFactRelationView and AddCommentView @done (12-11-22 14:06)
 ✔ Keep state of the input field (typed Factlink / Comment) @done (12-11-22 14:06)
 
-☐ Remove double border at bottom of comment listing / top search field
 
- ☐ error message, create close function (don't delete element)
+ ✔ error message, create close function (don't delete element) @done (12-11-26 11:44)
+
  Add activity (after backend is done):
   ✔ Add to create_listener as activity_for "GraphUser" (to create notification) @done (12-11-22 14:45)
   ✔ Create templates and backbone views @done (12-11-22 14:45)
