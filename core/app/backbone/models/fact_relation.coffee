@@ -14,11 +14,4 @@ class window.FactRelation extends Backbone.Model
   believe: -> @setOpinion "believes"
   disbelieve: -> @setOpinion "disbelieves"
 
-  url: ->
-    evidence_type = "weakening_evidence"
-    evidence_type = "supporting_evidence" if @get("fact_relation_type") is "supporting"
-    url = @collection.fact.url() + "/" + evidence_type
-    url += "/" + @id if @id?
-    url
-
   creator: -> new User(@get('created_by'))
