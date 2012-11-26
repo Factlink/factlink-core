@@ -10,23 +10,17 @@ li.fact-relation {
 
   .fact-relation-actions {
     float: left;
-    margin: 0 14px 0 2px;
+    margin: 0 14px 0 -5px;
+    width: 20px;
 
     .supporting, .weakening {
       display: block;
       width: 17px;
       height: 12px;
       cursor: pointer;
+      margin: 0 0 0 1px;
 
       &:hover { text-decoration: none; }
-    }
-
-    span {
-      color: @metaFontColor;
-      display: inline-block;
-      width: 30px;
-      text-align: center;
-      margin: 5px 0 5px -6px;
     }
 
     .supporting {
@@ -40,6 +34,33 @@ li.fact-relation {
       background: image-url("relation_actions.png") no-repeat bottom left transparent;
       &.active {
         background: image-url("relation_actions.png") no-repeat bottom right transparent;
+      }
+    }
+
+    .authorities-fact-relation {
+      width: 20px;
+      margin: 5px 0;
+
+      > span {
+        color: #555;
+        text-align: center;
+        font-size: 13px;
+      }
+
+      > .belief-authority-fact-relation,
+      > .disbelief-authority-fact-relation {
+        color: #999;
+        font-size: 9px;
+        line-height: 9px;
+        margin-top: 7px;
+        margin-bottom: 0;
+        margin-left: -7px;
+        display: block;
+      }
+
+      > .disbelief-authority-fact-relation {
+        margin-top: 0;
+        margin-bottom: 7px;
       }
     }
   }
