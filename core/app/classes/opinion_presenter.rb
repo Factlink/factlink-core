@@ -24,7 +24,8 @@ class OpinionPresenter
   def to_hash
     {
       belief_authority: belief_authority,
-      disbelief_authority: disbelief_authority
+      disbelief_authority: disbelief_authority,
+      relevance: relevance
     }
   end
 end
