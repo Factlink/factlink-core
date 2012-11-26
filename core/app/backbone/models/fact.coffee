@@ -30,3 +30,6 @@ class window.Fact extends Backbone.Model
     $.ajax _.extend(type: "post", opts)
 
   getFactWheel: ->  @get("fact_base").fact_wheel
+
+  friendlyUrl: ->
+    @get("url")
