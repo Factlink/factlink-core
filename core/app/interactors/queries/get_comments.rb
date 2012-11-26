@@ -18,6 +18,7 @@ module Queries
 
       comments.map do |comment|
         comment.can_destroy = (@options[:current_user].id == comment.created_by.id)
+        comment.authority = Authority.on(comment.fact_data.fact, for: comment.created_by).to_s(1.0)
         KillObject.comment comment
       end
     end

@@ -2,7 +2,7 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :can_destroy
+  attr_accessor :can_destroy, :authority
 
   belongs_to :fact_data, class_name: 'FactData'
 

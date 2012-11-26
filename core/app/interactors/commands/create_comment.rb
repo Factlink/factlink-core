@@ -9,9 +9,13 @@ module Commands
     def execute
       comment = Comment.new
       comment.fact_data = fact_data
+      creator = get_creator
       comment.created_by = creator
       comment.opinion = @opinion
       comment.content = @content
+      # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
+      # is possible because in the current calculation these authorities are the same
+      comment.authority = Authority.on(fact_data.fact, for: creator).to_s(1.0)
       comment.save
 
       comment.can_destroy = true
@@ -23,7 +27,7 @@ module Commands
       FactData.find(fact.data_id)
     end
 
-    def creator
+    def get_creator
       User.find(@user_id)
     end
 
