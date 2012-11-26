@@ -1,4 +1,4 @@
-#= require ./interactors_view
+#= require ../interactors_view
 
 class EmptyFactRelationsView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"

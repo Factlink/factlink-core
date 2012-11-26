@@ -1,3 +1,5 @@
+# DEPRECATED (already), use DetachableViewsRegion
+
 class Backbone.Factlink.DetachedViewPort extends Backbone.View
   constructor: (options) ->
     super(options)
@@ -10,13 +12,14 @@ class Backbone.Factlink.DetachedViewPort extends Backbone.View
   switchView: (new_view) ->
     return if new_view == @_view
 
-    @$el.append(new_view.$el)
+    @$el.append(new_view.$el) if new_view?
 
     @_view.$el.detach() if @_view?
 
     @_view = new_view
 
   removeView: ->
+    if @_view?
       @_view.$el.detach()
       @_view = null
 

@@ -184,6 +184,14 @@ GEM
     flog (2.5.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
+    guard (1.5.4)
+      listen (>= 0.4.2)
+      lumberjack (>= 1.0.2)
+      pry (>= 0.9.10)
+      thor (>= 0.14.6)
+    guard-rspec (2.2.0)
+      guard (>= 1.1)
+      rspec (~> 2.11)
     haml (3.1.7)
     hashie (1.2.0)
     headless (0.3.1)
@@ -231,9 +239,11 @@ GEM
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
+    listen (0.6.0)
     lograge (0.0.6)
       actionpack
       activesupport
+    lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -357,6 +367,7 @@ GEM
       thor (>= 0.14.6, < 2.0)
     rainbow (1.1.4)
     rake (0.9.2.2)
+    rb-fsevent (0.9.2)
     rcov (0.9.11)
     rdoc (3.12)
       json (~> 1.4)
@@ -502,6 +513,8 @@ DEPENDENCIES
   factory_girl_rails (~> 3.5)
   fattr
   fivemat
+  guard
+  guard-rspec
   headless
   hogan_assets (= 1.0.3)
   httparty
@@ -542,6 +555,7 @@ DEPENDENCIES
   rails-backbone (= 0.7.2)
   rails-dev-tweaks (~> 0.6.1)
   rake (~> 0.9.2)
+  rb-fsevent (~> 0.9.1)
   rcov (= 0.9.11)
   redis (= 2.2.1)
   redis-aid

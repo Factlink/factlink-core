@@ -25,10 +25,15 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @inputRegion.switchTo 'search_view'
 
   searchView: ->
+    fact_relations_masquerading_as_facts = collectionMap new Backbone.Collection, @collection, (model) ->
+      new Fact model.get('fact_base')
     searchView = new AutoCompleteFactRelationsView
-      collection: @collection
+      collection: fact_relations_masquerading_as_facts
+      fact_id: @collection.fact.id
+      type: @collection.type
     @bindTo searchView, 'selected', (fact_relation) =>
-      @inputRegion.getView('preview_view').model.set(fact_relation.attributes)
+      @inputRegion.getView('preview_view').model = fact_relation
+      @inputRegion.getView('preview_view').render()
       @inputRegion.switchTo 'preview_view'
     @bindTo searchView, 'createFactRelation', (fact_relation) =>
       @createFactRelation(fact_relation)
@@ -57,7 +62,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @hideError()
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
-    @inputRegion.getView('search_view').setQuery ''
+    @inputRegion.getView('search_view').reset()
     fact_relation.save {},
       error: =>
         @collection.remove fact_relation

@@ -16,7 +16,7 @@ class Ohm::Model::SortedSet < Ohm::Model::Collection
   def -(other)
     result_key = key + "*DIFF*" + other.key
     result = apply(result_key,:zunionstore,[key],{:aggregate => :max})
-    other.each do |item| # do this efficienter later
+    other.each do |item| # do this more efficient later
       result.delete(item)
     end
     result

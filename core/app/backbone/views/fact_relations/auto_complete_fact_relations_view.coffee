@@ -13,19 +13,19 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   template: 'fact_relations/auto_complete'
 
-  initialize: ->
+  initialize: (options) ->
     @initializeChildViews
       filter_on: 'id'
       search_list_view: (options)-> new AutoCompleteSearchFactRelationsView(options)
-      search_collection: => new FactRelationSearchResults([], fact_id: @collection.fact.id)
-      placeholder: @placeholder()
+      search_collection: => new FactRelationSearchResults([], fact_id: options.fact_id)
+      placeholder: @placeholder(options.type)
 
     @bindTo @_text_input_view, 'focus', @focus, @
     @bindTo @_text_input_view, 'blur', @blur, @
     @bindTo @model, 'change', @toggleActivateOnContentOrFocus, @
 
-  placeholder: ->
-    if @collection.type == "supporting"
+  placeholder: (type) ->
+    if type == "supporting"
       "The Factlink above is true because:"
     else
       "The Factlink above is false because:"
@@ -33,6 +33,14 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   onRender: ->
     @wheel = new Wheel()
     @wheel_region.show new PersistentWheelView(model: @wheel)
+
+  addCurrent: ->
+    selected_fact_base = @_search_list_view.currentActiveModel()
+
+    if selected_fact_base?
+      @addSelected(selected_fact_base)
+    else
+      @addNew()
 
   addNew: ->
     text = @model.get('text')
@@ -56,18 +64,13 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     e.preventDefault()
     e.stopPropagation()
 
-  addCurrent: ->
-    selected_fact_base = @_search_list_view.currentActiveModel()
-
-    if selected_fact_base?
-      @trigger 'selected', new FactRelation
-        evidence_id: selected_fact_base.id
-        fact_base: selected_fact_base.toJSON()
-        fact_relation_type: @collection.type
-        created_by: currentUser.toJSON()
-        fact_relation_authority: '1.0'
-    else
-      @addNew()
+  addSelected: (selected_fact_base)->
+    @trigger 'selected', new FactRelation
+      evidence_id: selected_fact_base.id
+      fact_base: selected_fact_base.toJSON()
+      fact_relation_type: @collection.type
+      created_by: currentUser.toJSON()
+      fact_relation_authority: '1.0'
 
   setQuery: (text) -> @model.set text: text
 
@@ -85,12 +88,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     else
       @deActivate()
 
-  activate: ->
-    @$el.addClass 'active'
+  activate:   -> @$el.addClass 'active'
+  deActivate: -> @$el.removeClass 'active'
 
-  deActivate: ->
-    @$el.removeClass 'active'
-
-  resetWheel: ->
+  reset: ->
+    @setQuery ''
     @wheel.reset()
     @wheel_region.currentView.render()
