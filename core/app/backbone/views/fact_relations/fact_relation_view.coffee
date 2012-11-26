@@ -77,7 +77,6 @@ class window.FactRelationView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factBaseView.show @_factBaseView()
-    @factRelationActivityView.show new FactRelationActivityView(model: @model)
 
   _factBaseView: ->
     fbv = new FactBaseView(model: @model)

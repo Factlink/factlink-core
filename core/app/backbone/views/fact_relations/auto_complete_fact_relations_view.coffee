@@ -57,8 +57,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
 
-    @resetWheel()
-
   switchCheckboxClicked: (e) ->
     @trigger 'switch_to_comment_view', @model.get('text')
     e.preventDefault()
