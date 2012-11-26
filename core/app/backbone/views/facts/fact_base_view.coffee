@@ -59,10 +59,12 @@ class FactBodyView extends Backbone.Marionette.ItemView
   showCompleteDisplaystring: (e) ->
     @$('.js-displaystring').trunk8 lines: 199
     @$('.less').show()
+    e.stopPropagation()
 
   hideCompleteDisplaystring: (e) ->
     @$('.js-displaystring').trunk8 lines: @showLines
     @$('.less').hide()
+    e.stopPropagation()
 
   triggerViewClick: ->
     @trigger 'click:body'
