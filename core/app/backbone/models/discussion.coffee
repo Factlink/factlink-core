@@ -12,9 +12,9 @@ class window.Discussion extends Backbone.Model
   _getComments: ->
     switch @type()
       when 'supporting'
-        new Comments( collection: [], type: 'believes', fact: @fact() )
+        new Comments [], type: 'believes', fact: @fact()
       when 'weakening'
-        new Comments( collection: [],  type: 'disbelieves', fact: @fact() )
+        new Comments [],  type: 'disbelieves', fact: @fact()
       else
         `undefined`
 
