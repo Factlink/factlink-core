@@ -22,7 +22,7 @@ describe Queries::GetComments do
 
   describe '.execute' do
     before do
-      stub_classes('Comment','Fact')
+      stub_classes('Comment','Fact','Authority')
     end
 
     it 'correctly' do
