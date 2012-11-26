@@ -8,7 +8,7 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 
   onRender: ->
     @factWheelRegion.show @wheelView()
-    @factBodyRegion.show new FactBodyView(model:@model)
+    @factBodyRegion.show @bodyView()
 
   initialize: ->
     @bindTo @model, 'change', =>
@@ -26,6 +26,14 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 
     wheelView
 
+  bodyView: ->
+    bodyView = new FactBodyView(model:@model)
+
+    @bindTo bodyView, 'click:body', =>
+      @trigger 'click:body'
+
+    bodyView
+
 class FactBodyView extends Backbone.Marionette.ItemView
   template: "facts/fact_body"
 
@@ -34,6 +42,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
   events:
     "click a.more": "showCompleteDisplaystring"
     "click a.less": "hideCompleteDisplaystring"
+    "click span.js-displaystring": "triggerViewClick"
 
   onRender: ->
     sometimeWhen(
@@ -54,3 +63,6 @@ class FactBodyView extends Backbone.Marionette.ItemView
   hideCompleteDisplaystring: (e) ->
     @$('.js-displaystring').trunk8 lines: @showLines
     @$('.less').hide()
+
+  triggerViewClick: ->
+    @trigger 'click:body'

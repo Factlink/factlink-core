@@ -9,8 +9,8 @@ window.collectionDifference = (resultCollection, onField, collection1, collectio
      diffmodels = collection1.reject (model) => model.get(onField) in forbidden_fields
      resultCollection.reset diffmodels
 
-   collection1.on('add reset remove', reset)
+   collection1.on('add reset remove change', reset)
    for other_collection in collections
-      other_collection.on('add reset remove', reset) if other_collection.on
+      other_collection.on('add reset remove change', reset) if other_collection.on
    reset()
    resultCollection   

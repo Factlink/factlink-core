@@ -11,6 +11,9 @@ class window.FactRelation extends Backbone.Model
 
       type: "post"
 
+  getFact: ->
+    new Fact(@get('fact_base'))
+
   believe: -> @setOpinion "believes"
   disbelieve: -> @setOpinion "disbelieves"
 

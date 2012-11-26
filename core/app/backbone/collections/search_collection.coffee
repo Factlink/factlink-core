@@ -10,14 +10,14 @@ class window.SearchCollection extends Backbone.Collection
   searchFor: (query) ->
     return if query == @query
 
-    query = encodeURIComponent query
-
     if query == ''
       @makeEmpty()
     else
       @query = query
       @reset []
       @fetch()
+
+  encodedQuery: -> encodeURIComponent @query
 
   addNewItem: (compare_field) -> @add @getNewItem() if @shouldShowNewItem(compare_field)
 

@@ -94,3 +94,16 @@ describe 'window.mapCollection', ->
     expect(resultingCollection.length).toEqual 2
     expect(resultingCollection.first().get('mappedField')).toEqual(firstValue)
     expect(resultingCollection.last().get('mappedField')).toEqual(lastValue)
+
+  it 'maps when setting a model attribute', ->
+    value = 'value'
+    otherValue = 'other value'
+    model = new Backbone.Model(field: value)
+    originalCollection = new Backbone.Collection [model]
+    
+    resultingCollection = collectionMap new Backbone.Collection, originalCollection, mapFunction
+
+    expect(resultingCollection.length).toEqual 1
+    expect(resultingCollection.first().get('mappedField')).toEqual(value)
+    model.set('field', otherValue)
+    expect(resultingCollection.first().get('mappedField')).toEqual(otherValue)

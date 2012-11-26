@@ -16,7 +16,6 @@ class window.Fact extends Backbone.Model
       indexOf = @get("containing_channel_ids").indexOf(channel.id)
       @get("containing_channel_ids").splice indexOf, 1  if indexOf
       if oldSuccess isnt `undefined`
-        console.info "hoi2"
         oldSuccess()
 
     $.ajax _.extend(type: "post", opts)
@@ -31,3 +30,6 @@ class window.Fact extends Backbone.Model
     $.ajax _.extend(type: "post", opts)
 
   getFactWheel: ->  @get("fact_base").fact_wheel
+
+  friendlyUrl: ->
+    @get("url")
