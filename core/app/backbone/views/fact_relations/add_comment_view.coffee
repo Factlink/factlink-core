@@ -3,13 +3,19 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   events:
     'click .submit': 'addModel'
     'click .js-switch': 'switchCheckboxClicked'
-    'blur .content': 'updateModel'
+    'blur  .content': 'updateModel'
+    'keyup input.content': 'parseKeyUp'
 
   template: 'comments/add_comment'
 
   initialize: ->
     @initializeModel()
     @bindTo @model, 'change', @render, @
+
+  parseKeyUp: (e) ->
+    code = e.keyCode || e.which
+    switch e.keyCode
+      when 13 then @addModel()
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)
