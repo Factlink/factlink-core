@@ -46,7 +46,7 @@ integrate with backend (BACKEND TASK SHOULD BE DONE):
 
 ☐ add integration test
 
-☐ Fix design of input field
+✔ Fix design of input field @done (12-11-26 15:03)
 
 ✔ hitting <Enter> should submit the form @done (12-11-26 14:08)
 
