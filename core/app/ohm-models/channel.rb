@@ -136,6 +136,7 @@ class Channel < OurOhm
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
     super
     assert_present :title
+    assert_present :slug_title
     assert_present :created_by
     assert_unique([:slug_title,:created_by_id])
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
