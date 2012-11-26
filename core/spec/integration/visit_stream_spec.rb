@@ -39,6 +39,8 @@ feature "visiting the stream" do
     sign_in_user @user
     go_to_stream
 
+    sleep 1
+
     set_scroll_top_to 100
 
     go_to_first_fact
@@ -46,6 +48,6 @@ feature "visiting the stream" do
 
     sleep 3
 
-    expect(get_scroll_top).to eq(100)
+    scroll_top_should_eq 100
   end
 end
