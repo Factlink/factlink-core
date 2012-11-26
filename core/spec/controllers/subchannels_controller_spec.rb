@@ -4,18 +4,18 @@ describe SubchannelsController do
   render_views
 
 
-  let (:user) {FactoryGirl.create(:user)}
-  let (:otheruser) {FactoryGirl.create(:user)}
+  let(:user) {create(:user)}
+  let(:otheruser) {create(:user)}
 
-  let (:ch1) {FactoryGirl.create(:channel)}
-  let (:subch1) {FactoryGirl.create(:channel)}
-  let (:subch2) {FactoryGirl.create(:channel)}
-  let (:subch3) {FactoryGirl.create(:channel)}
+  let(:ch1) {create(:channel)}
+  let(:subch1) {create(:channel)}
+  let(:subch2) {create(:channel)}
+  let(:subch3) {create(:channel)}
 
-  let (:otherch1) {FactoryGirl.create(:channel)}
-  let (:othersubch1) {FactoryGirl.create(:channel)}
-  let (:othersubch2) {FactoryGirl.create(:channel)}
-  let (:othersubch3) {FactoryGirl.create(:channel)}
+  let(:otherch1) {create(:channel)}
+  let(:othersubch1) {create(:channel)}
+  let(:othersubch2) {create(:channel)}
+  let(:othersubch3) {create(:channel)}
 
   before do
     [ch1,subch1,subch2,subch3].each do |ch|

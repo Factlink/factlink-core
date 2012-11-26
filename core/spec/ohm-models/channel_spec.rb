@@ -16,10 +16,10 @@ describe Channel do
   let(:u2) { create :graph_user }
   let(:u3) { create :graph_user }
 
-  let(:f1) { FactoryGirl.create :fact }
-  let(:f2) { FactoryGirl.create :fact }
-  let(:f3) { FactoryGirl.create :fact }
-  let(:f4) { FactoryGirl.create :fact }
+  let(:f1) { create :fact }
+  let(:f2) { create :fact }
+  let(:f3) { create :fact }
+  let(:f4) { create :fact }
 
   context "activity on a channel" do
     before do
@@ -365,7 +365,7 @@ describe Channel do
 
     describe 'slugs' do
       it "should not be possible to save two channels with a similar name" do
-        @ch1 = FactoryGirl.create :channel, title: 'hoi', created_by: u1
+        @ch1 = create :channel, title: 'hoi', created_by: u1
         @ch2 = FactoryGirl.build  :channel, title: 'Hoi', created_by: u1
         @ch2.save
         @ch2.should be_new
@@ -432,8 +432,8 @@ describe Channel do
     end
 
     describe "new unread count functionality" do
-      let(:u1_f1) { FactoryGirl.create :fact, created_by: u1 }
-      let(:u2_f1) { FactoryGirl.create :fact, created_by: u2 }
+      let(:u1_f1) { create :fact, created_by: u1 }
+      let(:u2_f1) { create :fact, created_by: u2 }
 
       it "should be zero initially" do
         u1_ch1.unread_count.should eq 0
