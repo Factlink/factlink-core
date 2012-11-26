@@ -6,4 +6,4 @@ class window.FactRelationSearchResults extends SearchCollection
   initialize: (model, options) ->
     @fact_id = options.fact_id;
 
-  url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@query}"
+  url: -> "/facts/#{@fact_id}/evidence_search.json?s=#{@encodedQuery()}"
