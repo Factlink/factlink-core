@@ -43,6 +43,18 @@ describe 'window.collectionDifference', ->
     collections[1].reset(models[2..3])
     expect(result.pluck('someField')).toEqual([4])
 
+  it 'should work when setting an attribute of a model in "collection1"', ->
+    model = new Backbone.Model(someField: 100)
+    collection1.add(model)
+    model.set('someField', 20)
+    expect(result.pluck('someField')).toEqual([1, 4, 20])
+
+  it 'should work when setting an attribute of a model in "collections"', ->
+    model = new Backbone.Model(someField: 100)
+    collections[0].add(model)
+    model.set('someField', 4)
+    expect(result.pluck('someField')).toEqual([1])
+
   it 'should work when using different models with the same fields', ->
     collections[0].reset([new Backbone.Model(someField: 2), new Backbone.Model(someField: 3)])
     expect(result.pluck('someField')).toEqual([1, 4])

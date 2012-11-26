@@ -4,6 +4,6 @@ window.collectionMap = (resultCollection, collection, mapFunction) ->
     for model in collection.models
       resultCollection.add mapFunction(model)
   
-  collection.on 'add remove reset', reset  
+  collection.on 'add remove reset change', reset  
   reset()
   resultCollection
