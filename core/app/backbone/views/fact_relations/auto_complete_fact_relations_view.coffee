@@ -33,6 +33,14 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     @wheel = new Wheel()
     @wheel_region.show new PersistentWheelView(model: @wheel)
 
+  addCurrent: ->
+    selected_fact_base = @_search_list_view.currentActiveModel()
+
+    if selected_fact_base?
+      @addSelected(selected_fact_base)
+    else
+      @addNew()
+
   addNew: ->
     text = @model.get('text')
 
@@ -48,20 +56,13 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       created_by: currentUser.toJSON()
       fact_relation_authority: '1.0'
 
-    @resetWheel()
-
-  addCurrent: ->
-    selected_fact_base = @_search_list_view.currentActiveModel()
-
-    if selected_fact_base?
-      @trigger 'selected', new FactRelation
-        evidence_id: selected_fact_base.id
-        fact_base: selected_fact_base.toJSON()
-        fact_relation_type: @collection.type
-        created_by: currentUser.toJSON()
-        fact_relation_authority: '1.0'
-    else
-      @addNew()
+  addSelected: (selected_fact_base)->
+    @trigger 'selected', new FactRelation
+      evidence_id: selected_fact_base.id
+      fact_base: selected_fact_base.toJSON()
+      fact_relation_type: @collection.type
+      created_by: currentUser.toJSON()
+      fact_relation_authority: '1.0'
 
   setQuery: (text) -> @model.set text: text
 
@@ -79,12 +80,10 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
     else
       @deActivate()
 
-  activate: ->
-    @$el.addClass 'active'
-
-  deActivate: ->
-    @$el.removeClass 'active'
+  activate:   -> @$el.addClass 'active'
+  deActivate: -> @$el.removeClass 'active'
 
   resetWheel: ->
+    @setQuery ''
     @wheel.reset()
     @wheel_region.currentView.render()

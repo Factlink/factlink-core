@@ -50,7 +50,7 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
     @hideError()
     @collection.add fact_relation
     @inputRegion.switchTo('search_view')
-    @inputRegion.getView('search_view').setQuery ''
+    @inputRegion.getView('search_view').reset()
     fact_relation.save {},
       error: =>
         @collection.remove fact_relation
