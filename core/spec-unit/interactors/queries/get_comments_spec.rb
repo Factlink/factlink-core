@@ -22,13 +22,13 @@ describe Queries::GetComments do
 
   describe '.execute' do
     before do
-      stub_classes('Comment','Fact')
+      stub_classes('Comment','Fact','Authority')
     end
 
     it 'correctly' do
       fact = mock(id: 3)
       opinion = 'believes'
-      user = mock(id:'1a')
+      user = mock()
       query = Queries::GetComments.new fact.id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
@@ -43,7 +43,6 @@ describe Queries::GetComments do
         and_return([comment])
       Authority.should_receive(:on).with(fact, for: user).and_return(authority)
       authority.should_receive(:to_s).with(1.0).and_return(authority_string)
-      comment.should_receive(:can_destroy=).with(true)
       comment.should_receive(:authority=).with(authority_string)
 
       results = query.execute
