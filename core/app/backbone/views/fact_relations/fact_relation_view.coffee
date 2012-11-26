@@ -1,4 +1,4 @@
-#= require ./facts/fact_base_view
+#= require ../facts/fact_base_view
 
 class window.FactRelationLayout extends Backbone.Marionette.Layout
   tagName: "li"
