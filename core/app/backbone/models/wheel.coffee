@@ -40,7 +40,8 @@ class window.Wheel extends Backbone.Model
   opinionTypesArray: -> _.values @get('opinion_types')
 
   reset: ->
-    @clear()
+    # DO NOT RUN CLEAR HERE, since then the objects 'believe', 'doubt', and 'disbelieve' are lost,
+    # which are required by the BaseFactWheelView!
     @setRecursive(new Wheel().attributes)
 
   userOpinion: ->
