@@ -105,11 +105,14 @@ class window.ChannelsController extends Backbone.Factlink.BaseController
         callback_with_both()
 
   restoreChannelView: (channel_id, new_callback) ->
-    view = @channel_views.switchCacheView(channel_id)
-    $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
-    delete @lastChannelStatus
-    @channel_views.renderCacheView(channel_id, new_callback()) if not view?
+    if @lastChannelStatus?
+      view = @channel_views.switchCacheView(channel_id)
+      $('body').scrollTo(@lastChannelStatus.scrollTop) if view == @lastChannelStatus?.view
+      delete @lastChannelStatus
+    
     @channel_views.clearUnshowedViews()
+
+    @channel_views.renderCacheView(channel_id, new_callback()) if not view?
 
   makePermalinkEvent: (baseUrl) ->
     @permalink_event = @bindTo FactlinkApp.vent, 'factlink_permalink_clicked', (e, fact) =>

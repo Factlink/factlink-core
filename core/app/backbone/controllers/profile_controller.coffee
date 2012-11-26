@@ -10,9 +10,10 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   # CACHE HELPERS
   restoreProfileView: (username, new_callback) ->
-    view = @profile_views.switchCacheView( username )
-    $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
-    delete @last_profile_status
+    if @last_profile_status?
+      view = @profile_views.switchCacheView( username )
+      $('body').scrollTo(@last_profile_status.scrollTop) if view == @last_profile_status?.view
+      delete @last_profile_status
     @profile_views.clearUnshowedViews()
     
     @profile_views.renderCacheView( username, new_callback() ) unless view?
