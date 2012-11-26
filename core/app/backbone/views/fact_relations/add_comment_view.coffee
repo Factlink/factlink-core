@@ -1,7 +1,7 @@
 class window.AddCommentView extends Backbone.Marionette.ItemView
   className: 'add-comment'
   events:
-    'click .submit': 'addModel'
+    'click .js-post': 'addModel'
     'click .js-switch': 'switchCheckboxClicked'
     'blur .content': 'updateModel'
 
