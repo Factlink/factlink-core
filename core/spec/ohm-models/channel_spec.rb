@@ -16,10 +16,10 @@ describe Channel do
   let(:u2) { create :graph_user }
   let(:u3) { create :graph_user }
 
-  let (:f1) { FactoryGirl.create :fact }
-  let (:f2) { FactoryGirl.create :fact }
-  let (:f3) { FactoryGirl.create :fact }
-  let (:f4) { FactoryGirl.create :fact }
+  let(:f1) { FactoryGirl.create :fact }
+  let(:f2) { FactoryGirl.create :fact }
+  let(:f3) { FactoryGirl.create :fact }
+  let(:f4) { FactoryGirl.create :fact }
 
   context "activity on a channel" do
     before do
@@ -34,7 +34,7 @@ describe Channel do
       before do
         subject.add_channel(ch1)
       end
-      it { Activity.for(subject).to_a.last.action.should == "added_subchannel" }
+      it { Activity.for(subject).to_a.last.action.should eq "added_subchannel" }
     end
   end
 
@@ -58,7 +58,6 @@ describe Channel do
       it { subject.facts.to_a.should =~ []}
     end
 
-
     describe "after adding one fact" do
       before do
         subject.add_fact(f1)
@@ -74,8 +73,6 @@ describe Channel do
         end
         it { subject.facts.to_a.should =~ []}
       end
-
-
 
       describe "after forking" do
         before do
@@ -112,22 +109,22 @@ describe Channel do
           before do
              subject.add_fact(f2)
           end
-          it {subject.facts.to_a.should == [f2,f1]}
-          it {@fork.facts.to_a.should == [f2,f1]}
+          it {subject.facts.to_a.should eq [f2,f1]}
+          it {@fork.facts.to_a.should eq [f2,f1]}
         end
         describe "after adding another fact to the fork" do
           before do
              @fork.add_fact(f2)
           end
-          it {subject.facts.to_a.should == [f1]}
-          it {@fork.facts.to_a.should == [f2,f1]}
+          it {subject.facts.to_a.should eq [f1]}
+          it {@fork.facts.to_a.should eq [f2,f1]}
 
           describe "after removing the original channel from the fork" do
             before do
               @fork.remove_channel(subject)
             end
             it {@fork.containing_channels.to_a.should =~ []}
-            it {@fork.facts.to_a.should == [f2]}
+            it {@fork.facts.to_a.should eq [f2]}
           end
 
         end
@@ -136,7 +133,7 @@ describe Channel do
             @fork.remove_channel(subject)
           end
           it {@fork.containing_channels.to_a.should =~ []}
-          it {@fork.facts.to_a.should == []}
+          it {@fork.facts.to_a.should eq []}
         end
       end
     end
@@ -256,20 +253,20 @@ describe Channel do
           subject.facts.to_a.should =~ [f1,f2]
         end
         it "should contain the facts in order" do
-          subject.facts.to_a.should == [f2,f1]
+          subject.facts.to_a.should eq [f2,f1]
         end
         it "should return with timestamps when asked" do
           res = subject.facts(withscores:true)
-          res[0][:item].should == f2
-          res[1][:item].should == f1
+          res[0][:item].should eq f2
+          res[1][:item].should eq f1
           res[0][:score].should be_a(Float)
           res[1][:score].should be_a(Float)
         end
         it "should not return more than ask" do
-          subject.facts(withscores:true,count:0).length.should == 0
-          subject.facts(withscores:true,count:1).length.should == 1
-          subject.facts(withscores:false,count:0).length.should == 0
-          subject.facts(withscores:false,count:1).length.should == 1
+          subject.facts(withscores:true,count:0).length.should eq 0
+          subject.facts(withscores:true,count:1).length.should eq 1
+          subject.facts(withscores:false,count:0).length.should eq 0
+          subject.facts(withscores:false,count:1).length.should eq 1
         end
       end
     end
@@ -324,7 +321,7 @@ describe Channel do
         fakech1 = Channel[ch1.id]
         ch1.add_fact f1
         ch1.real_delete
-        Activity.for(fakech1).all.should == []
+        Activity.for(fakech1).all.should eq []
       end
       it "should be removed from the graph_users active channels for" do
         subject
@@ -378,19 +375,19 @@ describe Channel do
     describe :topic do
       it "should get the topic" do
         @ch1 = create :channel, title: 'hoi'
-        @ch1.topic.title.should == 'hoi'
+        @ch1.topic.title.should eq 'hoi'
         @ch1.topic.should_not be_new
       end
       it "should get the topic if the topic existed before the channel" do
         @t = create :topic, title: "HoI"
         @ch1 = create :channel, title: 'hoi'
-        @ch1.topic.should == @t
+        @ch1.topic.should eq @t
       end
       it "should get the topic even if I removed the topic" do
         @t = create :topic, title: "HoI"
         @ch1 = create :channel, title: 'hoi'
         @t.delete
-        @ch1.topic.slug_title.should == 'hoi'
+        @ch1.topic.slug_title.should eq 'hoi'
       end
     end
 
@@ -402,10 +399,10 @@ describe Channel do
         @ch1.add_fact @f1
         @ch1.add_fact @f2
         @ch1.facts.should =~ [@f1,@f2]
-        @ch1.sorted_cached_facts.count.should == 2
+        @ch1.sorted_cached_facts.count.should eq 2
         @f1.delete
         @ch1.facts.should =~ [@f2]
-        @ch1.sorted_cached_facts.count.should == 1
+        @ch1.sorted_cached_facts.count.should eq 1
 
       end
     end
@@ -435,15 +432,15 @@ describe Channel do
     end
 
     describe "new unread count functionality" do
-      let (:u1_f1) { FactoryGirl.create :fact, created_by: u1 }
-      let (:u2_f1) { FactoryGirl.create :fact, created_by: u2 }
+      let(:u1_f1) { FactoryGirl.create :fact, created_by: u1 }
+      let(:u2_f1) { FactoryGirl.create :fact, created_by: u2 }
 
       it "should be zero initially" do
-        u1_ch1.unread_count.should == 0
+        u1_ch1.unread_count.should eq 0
       end
       it "should be zero after adding fact myself" do
         u1_ch1.add_fact u2_f1
-        u1_ch1.unread_count.should == 0
+        u1_ch1.unread_count.should eq 0
       end
       context "after a fact was added in a channel I followed" do
         before do
@@ -452,11 +449,11 @@ describe Channel do
           u2_ch1.add_fact u2_f1
         end
         it "should be one" do
-          @ch.unread_count.should == 1
+          @ch.unread_count.should eq 1
         end
         it "after reading, it should be zero" do
           @ch.mark_as_read
-          @ch.unread_count.should == 0
+          @ch.unread_count.should eq 0
         end
       end
       context "after my own fact was added in a channel I followed" do
@@ -469,7 +466,7 @@ describe Channel do
           @ch2.add_fact u2_f1
         end
         it "should be zero" do
-          @ch.unread_count.should == 0
+          @ch.unread_count.should eq 0
         end
       end
       context "when someone is adding my factlink to a channel I follow" do
@@ -479,7 +476,7 @@ describe Channel do
           u2_ch1.add_fact u1_f1
         end
         it "should be zero" do
-          @ch.unread_count.should == 0
+          @ch.unread_count.should eq 0
         end
       end
 

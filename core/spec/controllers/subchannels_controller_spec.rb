@@ -35,7 +35,8 @@ describe SubchannelsController do
       response.should be_success
     end
   end
-  describe "#add" do
+
+  describe "#create" do
     it "as json should be successful on own channel" do
       authenticate_user!(user)
       should_check_can :update, ch1
