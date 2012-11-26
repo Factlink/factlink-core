@@ -1,5 +1,5 @@
 class AddChannelToChannel
-  NUM_FACTS = 1
+  NUMBER_OF_INITIAL_FACTS = 1
 
   @queue = :channel_operations
 
@@ -7,7 +7,7 @@ class AddChannelToChannel
     subchannel = Channel[subchannel_id]
     channel = Channel[channel_id]
 
-    latest_facts = subchannel.sorted_cached_facts.below('inf', count: NUM_FACTS)
+    latest_facts = subchannel.sorted_cached_facts.below('inf', count: NUMBER_OF_INITIAL_FACTS)
     latest_facts.each do |fact|
       Resque.enqueue(AddFactToChannel, fact.id, channel.id)
     end

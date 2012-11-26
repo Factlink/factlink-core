@@ -15,18 +15,18 @@ describe AddChannelToChannel do
       AddChannelToChannel.perform @sub_ch.id, @ch.id
     end
 
-    it "should only add NUM_FACTS facts to the super channel" do
+    it "should only add NUMBER_OF_INITIAL_FACTS facts to the super channel" do
       oldest_fact = create :fact
       @sub_ch.sorted_cached_facts << oldest_fact
 
       facts = []
 
-      for i in 1..AddChannelToChannel::NUM_FACTS
+      for i in 1..AddChannelToChannel::NUMBER_OF_INITIAL_FACTS
         facts[i] = create :fact
         @sub_ch.sorted_cached_facts << facts[i]
       end
 
-      for i in 1..AddChannelToChannel::NUM_FACTS
+      for i in 1..AddChannelToChannel::NUMBER_OF_INITIAL_FACTS
         Resque.should_receive(:enqueue).with(AddFactToChannel, facts[i].id, @ch.id)
       end
 
