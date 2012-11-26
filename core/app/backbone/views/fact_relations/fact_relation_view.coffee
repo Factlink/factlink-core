@@ -108,5 +108,13 @@ class window.FactRelationView extends Backbone.Marionette.Layout
     creator: @model.creator().toJSON()
 
   onRender: ->
-    @factBaseView.show new FactBaseView(model: @model)
+    @factBaseView.show @_factBaseView()
     @factRelationActivityView.show new FactRelationActivityView(model: @model)
+
+  _factBaseView: ->
+    fbv = new FactBaseView(model: @model)
+
+    @bindTo fbv, 'click:body', =>
+      Backbone.history.navigate @model.getFact().friendlyUrl(), true
+
+    fbv
