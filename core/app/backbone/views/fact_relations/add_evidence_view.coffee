@@ -31,7 +31,8 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       fact_id: @collection.fact.id
       type: @collection.type
     @bindTo searchView, 'selected', (fact_relation) =>
-      @inputRegion.getView('preview_view').model.set(fact_relation.attributes)
+      @inputRegion.getView('preview_view').model = fact_relation
+      @inputRegion.getView('preview_view').render()
       @inputRegion.switchTo 'preview_view'
     @bindTo searchView, 'createFactRelation', (fact_relation) =>
       @createFactRelation(fact_relation)
