@@ -18,7 +18,6 @@ module Commands
       comment.authority = Authority.on(fact_data.fact, for: creator).to_s(1.0)
       comment.save
 
-      comment.can_destroy = true
       KillObject.comment comment
     end
 
