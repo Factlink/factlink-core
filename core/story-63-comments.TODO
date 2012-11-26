@@ -1,7 +1,7 @@
 Tasks for commenting story:
 
  Keep a state when a user is typing his comment/evidence:
- ☐ Figure out what the best way to use local storage is (key is url like??) (gems/libraries)
+ ✔ Figure out what the best way to use local storage is (key is url like??) (gems/libraries) @done (12-11-26 15:27)
 
 Backend:
  ✔ comment object (Mongo) @done (12-11-21 15:42)
