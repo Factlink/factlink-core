@@ -1,3 +1,13 @@
 <a class="supporting {{ positive_active }}"> &nbsp; </a>
-<span>{{ fact_relation_authority }}</span>
+<div class="authorities-fact-relation">
+  <span class="belief-authority-fact-relation">
+    +{{ opinion_presenter.belief_authority }}
+  </span>
+  <span class="total-authority-fact-relation">
+    {{ fact_relation_authority }}
+  </span>
+  <span class="disbelief-authority-fact-relation">
+    -{{ opinion_presenter.disbelief_authority }}
+  </span>
+</div>
 <a class="weakening {{ negative_active }}"> &nbsp; </a>

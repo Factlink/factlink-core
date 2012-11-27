@@ -34,8 +34,6 @@ feature "visiting a channel" do
       go_to_channel_page_of @channel
 
       page.should have_content(@factlink.to_s)
-
-      # find('.fact-body', text: @factlink.to_s)
     end
   end
 
@@ -55,7 +53,7 @@ feature "visiting a channel" do
 
     sleep 1
 
-    expect(get_scroll_top).to eq(100)
+    scroll_top_should_eq 100
     page.should have_content(@factlink.to_s)
   end
 end

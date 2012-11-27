@@ -40,7 +40,17 @@ module Acceptance
     end
 
     def backend_create_fact_of_user user
-      create :fact, created_by: user.graph_user
+      fact = create :fact, created_by: user.graph_user
+      sleep 5 # let ElasticSearch index it
+      fact
+    end
+
+    def add_evidence evidence_factlink
+      text = evidence_factlink.to_s
+      page.find("input").set(text)
+      page.find("li", text: text).click
+      page.find("input", visible: false)
+      page.find_button("Post Factlink").click
     end
   end
 end

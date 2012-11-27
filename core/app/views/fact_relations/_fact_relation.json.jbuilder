@@ -25,7 +25,7 @@ json.negative_active negative_active
 json.positive_active positive_active
 json.fact_base fact_base.to_hash
 
-json.opinion_presenter = OpinionPresenter.new fact_relation.get_user_opinion
+json.opinion_presenter OpinionPresenter.new fact_relation.get_user_opinion
 
 json.created_by do |json|
   json.partial! 'users/user_partial', user: fact_relation.created_by.user
