@@ -18,8 +18,8 @@ describe NumberFormatter do
         expect(NumberFormatter.new(number).as_authority).to eq "3.3"
       end
 
-      it 'should round digits above 1000 to 1k' do
-        number = 1001
+      it 'should round digits above 999 to 1k' do
+        number = 1000
         expect(NumberFormatter.new(number).as_authority).to eq "1k"
       end
 
@@ -40,8 +40,8 @@ describe NumberFormatter do
         expect(NumberFormatter.new(number).as_authority).to eq "-3.3"
       end
 
-      it "should round digits below -1000 to -1k" do
-        number = -1001
+      it "should round digits below -999 to -1k" do
+        number = -1000
         expect(NumberFormatter.new(number).as_authority).to eq "-1k"
       end
 
