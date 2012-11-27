@@ -70,22 +70,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   setQuery: (text) -> @model.set text: text
 
-  focus: ->
-    @_hasFocus = true
-    @toggleActivateOnContentOrFocus()
-
-  blur: ->
-    @_hasFocus = false
-    @toggleActivateOnContentOrFocus()
-
-  toggleActivateOnContentOrFocus: ->
-    if @_hasFocus or @model.get('text').length
-      @activate()
-    else
-      @deActivate()
-
-  activate:   -> @$el.addClass 'active'
-  deActivate: -> @$el.removeClass 'active'
+  focus: -> @$el.addClass 'active'
 
   reset: ->
     @setQuery ''
