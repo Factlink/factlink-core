@@ -6,7 +6,7 @@ class OpinionPresenter
   end
 
   def belief_authority
-    authority :beliefs
+    authority :believes
   end
 
   def formatted_belief_authority
@@ -14,7 +14,7 @@ class OpinionPresenter
   end
 
   def disbelief_authority
-   authority :disbeliefs
+   authority :disbelieves
   end
 
   def formatted_disbelief_authority
