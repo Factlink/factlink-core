@@ -1,4 +1,3 @@
-require 'logger'
 require_relative "elastic_search.rb"
 
 module Queries
