@@ -1,7 +1,6 @@
 require "integration_helper"
 
 feature "adding evidence to a fact", type: :request do
-  include Acceptance
   include Acceptance::FactHelper
 
   background do
