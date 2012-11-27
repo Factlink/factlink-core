@@ -133,4 +133,22 @@ describe OpinionPresenter do
       expect(op.format number).to eq as_authority
     end
   end
+
+  describe '.authority' do
+    it 'Multiplies the value of opinion.type with the authority' do
+      opinion = mock
+      type_sym = :symbol
+      type_val = mock
+      result = mock
+      authority = mock
+
+      op = OpinionPresenter.new opinion
+
+      opinion.should_receive(type_sym).and_return(type_val)
+      opinion.should_receive(:a).and_return(authority)
+      type_val.should_receive(:*).with(authority).and_return(result)
+
+      expect(op.authority(type_sym)).to eq result
+    end
+  end
 end
