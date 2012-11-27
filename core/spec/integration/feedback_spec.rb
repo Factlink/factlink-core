@@ -6,9 +6,7 @@ describe "Feedback modal", type: :request do
 
     before do
       visit "/"
-      puts 'before'
       page.should have_selector "#feedback_button"
-      puts 'after before'
     end
 
     it "the form shows after clicking Feedback" do

@@ -13,6 +13,7 @@ if defined?(Bundler)
   # If you want your assets lazily compiled in production, use this line
   Bundler.require(:default, :assets, Rails.env)
 end
+require 'coffee_script'
 
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
