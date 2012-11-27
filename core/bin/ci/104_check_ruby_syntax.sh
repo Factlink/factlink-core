@@ -1,6 +1,6 @@
 #!/bin/bash
 
-find app/classes | grep -E '\.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK' | wc -l
+find app/classes | grep -E '\.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK'
 
 
 TODO=`find app/classes | grep -E '\.rb$' | xargs -n1 ruby -wc 2>&1 | grep -v 'Syntax OK' | wc -l`
