@@ -59,7 +59,7 @@ describe CommentsController do
   describe '.get_fact_id_param' do
     it 'returns fact_id param' do
       fact_id = 1
-      controller.stub(params: {fact_id: fact_id.to_s})
+      controller.stub(params: {id: fact_id.to_s})
 
       id = controller.send(:get_fact_id_param)
 

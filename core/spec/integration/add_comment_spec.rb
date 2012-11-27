@@ -18,7 +18,6 @@ feature "adding comments to a fact", type: :request do
     add_comment text
 
     screenshot_and_open_image
-
   end
 
   scenario "adding multiple comments" do
@@ -27,13 +26,6 @@ feature "adding comments to a fact", type: :request do
   scenario "deleting a comment" do
   end
 
-end
-
-def billen
-  puts page.evaluate_script(' window.henk.get("content") ')
-  puts page.evaluate_script(' window.henk.url() ')
-  puts page.evaluate_script(' window.henk.collection.url() ')
-  puts page.evaluate_script(' window.document.location.href ')
 end
 
 def add_comment comment
@@ -45,20 +37,5 @@ def add_comment comment
 
   page.find('.js-switch').set(true)
 
-  puts "Page current path/url:"
-  puts current_path
-  puts current_url
-
-  comment_input = page.find_field('add_comment')
-  comment_input.set "Mooie billen"
-  comment_input.trigger 'blur'
-
-  billen
-
-  screenshot_and_open_image
-
   click_button 'Post comment'
-  wait_for_ajax
-  # Sing lullaby
-  billen
 end
