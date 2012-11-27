@@ -146,13 +146,13 @@ class LoadDsl
     l.map {|graph_user| "\"#{quote_string(graph_user.user.username)}\""}.join(',')
   end
   def self.export_believers(l)
-    rv = "believers " + export_userlist(l) + "\n"
+    "believers " + export_userlist(l) + "\n"
   end
   def self.export_disbelievers(l)
-    rv = "disbelievers " + export_userlist(l) + "\n"
+    "disbelievers " + export_userlist(l) + "\n"
   end
   def self.export_doubters(l)
-    rv = "doubters " + export_userlist(l) + "\n"
+    "doubters " + export_userlist(l) + "\n"
   end
 
   def set_opinion(opinion_type,*users)
@@ -225,7 +225,7 @@ class LoadDsl
   end
 
   def run(&block)
-    instance_eval &block
+    instance_eval(&block)
   end
 
 end

@@ -18,7 +18,7 @@ class MapReduce
       f = Fact[fact_id]
       return nil unless f
 
-      res = authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
+      authority_from_used_as_evidence(f.created_by_id, created_by_ids) +
             authority_from_opiniated_users(f)
     end
 
@@ -27,7 +27,7 @@ class MapReduce
       used_by_user_ids.each do |supporter_id|
         result += 1 unless supporter_id == fact_creator_id
       end
-      res = [0, Math.log2(result)].max
+      [0, Math.log2(result)].max
     end
 
     def authority_from_opiniated_users fact
