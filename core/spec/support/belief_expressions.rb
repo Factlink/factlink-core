@@ -18,6 +18,10 @@ module BeliefExpressions
     Opinion.new(b:b,d:d,u:u,a:a)
   end
 
+  alias :believes :b
+  alias :disbelieves :d
+  alias :doubts :u
+
   def god_user
     @god_user ||= GraphUser.create
   end
