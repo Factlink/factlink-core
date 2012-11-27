@@ -10,7 +10,6 @@ feature "adding comments to a fact", type: :request do
   let(:factlink) { create :fact, created_by: @user.graph_user }
 
   scenario "after adding a comment it should show up and persist" do
-
     go_to_discussion_page_of factlink
 
     comment = 'Geert is een buffel'
@@ -28,8 +27,8 @@ feature "adding comments to a fact", type: :request do
     within '.comments-listing' do
       page.should have_content comment
     end
-
   end
+
 
   scenario "after adding multiple comments they should show up and persist" do
     go_to_discussion_page_of factlink
@@ -53,6 +52,7 @@ feature "adding comments to a fact", type: :request do
     end
   end
 
+
   scenario "after adding it can be removed" do
     go_to_discussion_page_of factlink
 
@@ -72,8 +72,8 @@ feature "adding comments to a fact", type: :request do
 
     page.should_not have_content comment
   end
-
 end
+
 
 def add_comment_with_toggle comment
   evidence_input = page.find_field 'add_factrelation'
