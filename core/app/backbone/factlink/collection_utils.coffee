@@ -24,9 +24,10 @@ class window.CollectionUtils
      diffmodels = collection1.reject (model) => model.get(onField) in forbidden_fields
      resultCollection.reset diffmodels
 
-    collection1.on('add reset remove change', reset)
+    @bindTo collection1, 'add reset remove change', reset
     for other_collection in collections
-      other_collection.on('add reset remove change', reset) if other_collection.on
+      if other_collection.on
+        @bindTo other_collection, 'add reset remove change', reset
     reset()
     resultCollection
 
@@ -36,7 +37,7 @@ class window.CollectionUtils
       for model in collection.models
         resultCollection.add mapFunction(model)
 
-    collection.on 'add remove reset change', reset
+    @bindTo collection, 'add remove reset change', reset
     reset()
     resultCollection
 
