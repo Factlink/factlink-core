@@ -96,6 +96,7 @@ module ScreenshotTest
       def difference_between_files old_image, new_image
         changed = false
         pixels_changed = 0
+        changed_amount = 0
 
         height = [old_image.height, new_image.height].max
         width = [old_image.width, new_image.width].max
@@ -109,18 +110,20 @@ module ScreenshotTest
             if pixel_old != pixel_new
               changed = true
               pixels_changed += 1
+
+              changed_amount += [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
+              changed_amount += [g(pixel_old), g(pixel_new)].max - [g(pixel_old), g(pixel_new)].min
+              changed_amount += [b(pixel_old), b(pixel_new)].max - [b(pixel_old), b(pixel_new)].min
+
+              diff_image[x,y] = rgb(254,254,254)
+            else
+              diff_image[x,y] = rgb(0,0,0)
             end
-
-            diff_image[x,y] = rgb(254,254,254)
-            #  r(pixel_old) + r(pixel_new) - 2 * [r(pixel_old), r(pixel_new)].min,
-            #  g(pixel_old) + g(pixel_new) - 2 * [g(pixel_old), g(pixel_new)].min,
-            #  b(pixel_old) + b(pixel_new) - 2 * [b(pixel_old), b(pixel_new)].min
-            #)
-
           end
         end
 
         if changed
+          puts "Total color changed: #{changed_amount}"
           puts "Pixels changed #{pixels_changed}"
           return diff_image
         end
