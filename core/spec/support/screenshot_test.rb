@@ -43,9 +43,9 @@ module ScreenshotTest
     end
 
     def changed_osx?
-      if not File.exists? previous_osx_image_path
+      #if not File.exists? previous_osx_image_path
         update_previous_osx_screenshot
-      end
+      #end
       previous_osx_image = ChunkyPNG::Image.from_file(previous_osx_image_path)
       current_osx_image = ChunkyPNG::Image.from_file(current_osx_image_path)
 
