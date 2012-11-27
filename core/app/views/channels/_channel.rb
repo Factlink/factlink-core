@@ -143,7 +143,7 @@ module Channels
 
       if topic_authority
         json.created_by_authority NumberFormatter.new(topic_authority).as_authority
-
+      end
 
       json.created_by do |j|
         j.id user.id
