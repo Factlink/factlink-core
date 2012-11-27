@@ -6,26 +6,42 @@ class OpinionPresenter
   end
 
   def belief_authority
-    NumberFormatter.new(authority :b).as_authority
+    authority :believes
+  end
+
+  def formatted_belief_authority
+    format belief_authority
   end
 
   def disbelief_authority
-   NumberFormatter.new(authority :d).as_authority
+   authority :disbelieves
+  end
+
+  def formatted_disbelief_authority
+    format disbelief_authority
   end
 
   def relevance
-    NumberFormatter.new(authority(:b) - authority(:d)).as_authority
+    belief_authority - disbelief_authority
+  end
+
+  def formatted_relevance
+    format relevance
   end
 
   def authority(type)
-    @opinion.send(type) * @opinion.a
+    @opinion.send(type) * @opinion.authority
+  end
+
+  def format number
+    NumberFormatter.new(number).as_authority
   end
 
   def to_hash
     {
-      belief_authority: belief_authority,
-      disbelief_authority: disbelief_authority,
-      relevance: relevance
+      formatted_belief_authority: formatted_belief_authority,
+      formatted_disbelief_authority: formatted_disbelief_authority,
+      formatted_relevance: formatted_relevance,
     }
   end
 end

@@ -85,4 +85,3 @@ module Acceptance
     page.execute_script "$('form').attr('novalidate','novalidate')"
   end
 end
-require_relative 'acceptance/discussion_page'
