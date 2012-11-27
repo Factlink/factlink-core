@@ -76,4 +76,46 @@ describe OpinionPresenter do
       expect(op.relevance).to eq 0
     end
   end
+
+  describe '.formatted_belief_authority' do
+    it 'calls format with belief_authority and returns that result' do
+      belief_authority = mock
+      format = mock
+
+      op = OpinionPresenter.new mock
+
+      op.should_receive(:belief_authority).and_return(belief_authority)
+      op.should_receive(:format).with(belief_authority).and_return(format)
+
+      expect(op.formatted_belief_authority).to eq format
+    end
+  end
+
+  describe '.formatted_disbelief_authority' do
+    it 'calls format with disbelief_authority and returns that result' do
+      disbelief_authority = mock
+      format = mock
+
+      op = OpinionPresenter.new mock
+
+      op.should_receive(:disbelief_authority).and_return(disbelief_authority)
+      op.should_receive(:format).with(disbelief_authority).and_return(format)
+
+      expect(op.formatted_disbelief_authority).to eq format
+    end
+  end
+
+  describe '.formatted_relevance' do
+    it 'calls format with relevance and returns that result' do
+      relevance = mock
+      format = mock
+
+      op = OpinionPresenter.new mock
+
+      op.should_receive(:relevance).and_return(relevance)
+      op.should_receive(:format).with(relevance).and_return(format)
+
+      expect(op.formatted_relevance).to eq format
+    end
+  end
 end
