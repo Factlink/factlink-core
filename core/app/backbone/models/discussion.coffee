@@ -3,16 +3,26 @@ class window.Discussion extends Backbone.Model
     @_fact = opts.fact
     @_type = opts.type
 
-  relations: -> @_relations ?= @getFactRelations()
+  relations: -> @_relations ?= @_getFactRelations()
+  comments:  -> @_comments ?= @_getComments()
   fact: -> @_fact
   type: -> @_type
 
-  getFactRelations: ->
+  _getComments: ->
     switch @type()
       when 'supporting'
-        new SupportingFactRelations([],fact: @fact())
+        new Comments [], type: 'believes', fact: @fact()
       when 'weakening'
-        new WeakeningFactRelations([],fact: @fact())
+        new Comments [],  type: 'disbelieves', fact: @fact()
+      else
+        `undefined`
+
+  _getFactRelations: ->
+    switch @type()
+      when 'supporting'
+        new SupportingFactRelations([], fact: @fact())
+      when 'weakening'
+        new WeakeningFactRelations([], fact: @fact())
       else `undefined`
 
   getInteractors: ->

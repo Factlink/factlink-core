@@ -1,12 +1,15 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+li.evidence-item {
 
-li.fact-relation {
-  padding: 14px 15px 4px;
-  border-bottom: 1px solid @baseBorderColor;
-  .clearfix();
-  position: relative;
+  .evidence-user-avatar {
+    float: left;
+    > img {
+      margin: 4px 10px 0 0;
+      .border-radius(3px);
+    }
+  }
 
   .fact-relation-actions {
     float: left;

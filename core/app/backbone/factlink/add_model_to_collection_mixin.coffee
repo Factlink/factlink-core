@@ -7,10 +7,9 @@ Backbone.Factlink.AddModelToCollectionMixin =
     else
       model = @model
     @options.addToCollection.add(model)
-    model.save({},{
+    model.save {},
       success: =>
         @addModelSuccess(model) if @addModelSuccess
       error: =>
         @options.addToCollection.remove(model)
         @addModelError(model) if @addModelError
-    })

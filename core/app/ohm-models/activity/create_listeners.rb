@@ -39,6 +39,10 @@ def create_activity_listeners
       activity subject_class: "Message",
                action: [:replied_message],
                write_ids: lambda { |a| a.subject.conversation.recipients.map { |r| r.graph_user.id }.delete_if { |id| id == a.user_id } }
+
+      activity subject_class: "Comment",
+               action: :created_comment,
+               write_ids: lambda { |a| a.object.opinionated_users.map { |u| u.id }.delete_if { |id| id == a.user_id } }
     end
 
     register do

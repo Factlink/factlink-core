@@ -19,12 +19,20 @@ module KillObject
     [:type, :title, :unread_count, :id, :has_authority?,
      :slug_title, :created_by_id, :inspectable?,
      :editable?]
+  dead_object :comment,
+    [:id, :created_by, :created_at, :content, :opinion, :fact_data, :can_destroy]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
     take_fields.each do |key|
       hash[key] = alive_object.send(key) if alive_object.respond_to? key
     end
-    OpenStruct.new(hash.merge extra_fields)
+    open_struct = OpenStruct.new(hash.merge extra_fields)
+
+    open_struct.send(:define_singleton_method, :to_json) do |*args|
+      table.to_json(*args)
+    end
+
+    open_struct
   end
 end

@@ -13,9 +13,9 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
 
 class FactRelationsListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
-  className: 'fact-relation-listing'
+  className: 'fact-relations-listing'
 
-  itemView: FactRelationLayout
+  itemView: FactRelationEvidenceView
   itemViewOptions: => type: @collection.type
   emptyView: EmptyFactRelationsView
 
@@ -37,8 +37,11 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     interactingUserRegion: '.interacting-users'
     factRelationsRegion: '.fact-relation-listing-container'
     factRelationSearchRegion: '.fact-relation-search'
+    commentsRegion: '.comments-listing-region'
 
-  initialize: -> @model.relations()?.fetch()
+  initialize: ->
+    @model.relations()?.fetch()
+    @model.comments()?.fetch()
 
   onRender: ->
     @$el.addClass @model.type()
@@ -46,9 +49,14 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
+    # Todo: add to initialize?
+    @commentsRegion.show new CommentsListView
+      collection: @model.comments()
+
     if @model.relations()
       @factRelationSearchRegion.show new AddEvidenceView
         collection: @model.relations()
+        model: @model
       @factRelationsRegion.show new FactRelationsListView
         collection: @model.relations()
     else

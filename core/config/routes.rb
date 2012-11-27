@@ -40,6 +40,14 @@ FactlinkUI::Application.routes.draw do
     member do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
+      scope '/comments' do
+        # create
+        post "/:opinion" => 'comments#create'
+        # destroy
+        delete "/:opinion/:id" => 'comments#destroy'
+        # index
+        get "/:opinion" => 'comments#index'
+      end
     end
   end
 

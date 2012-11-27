@@ -13,7 +13,7 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
     placeholder: @options.placeholder
 
   template:
-    text: '<input type="text" value="{{text}}" class="typeahead" placeholder="{{placeholder}}">'
+    text: '<input name="add_factrelation" type="text" value="{{text}}" class="typeahead" placeholder="{{placeholder}}">'
 
   initialize: ->
     @bindTo @model, 'change', @updateHtml, this
