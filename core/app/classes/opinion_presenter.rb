@@ -6,7 +6,7 @@ class OpinionPresenter
   end
 
   def belief_authority
-    authority :b
+    authority :beliefs
   end
 
   def formatted_belief_authority
@@ -14,7 +14,7 @@ class OpinionPresenter
   end
 
   def disbelief_authority
-   authority :d
+   authority :disbeliefs
   end
 
   def formatted_disbelief_authority
@@ -30,7 +30,7 @@ class OpinionPresenter
   end
 
   def authority(type)
-    @opinion.send(type) * @opinion.a
+    @opinion.send(type) * @opinion.authority
   end
 
   def format number

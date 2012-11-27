@@ -3,21 +3,21 @@ require_relative '../../app/classes/opinion_presenter'
 describe OpinionPresenter do
   describe '.belief_authority' do
     it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock a: 0, b: 0
+      opinion = mock authority: 0, beliefs: 0
 
       op = OpinionPresenter.new opinion
       expect(op.belief_authority).to eq 0
     end
 
     it 'is 1 when every user believes and the sum of every users authority is 1' do
-      opinion = stub :opinion, a: 1, b: 1
+      opinion = stub :opinion, authority: 1, beliefs: 1
 
       op = OpinionPresenter.new opinion
       expect(op.belief_authority).to eq 1
     end
 
     it 'is 0 when no user believes' do
-      opinion = stub :opinion, a: 1, b: 0, d: 1
+      opinion = stub :opinion, authority: 1, beliefs: 0, disbeliefs: 1
 
       op = OpinionPresenter.new opinion
       expect(op.belief_authority).to eq 0
@@ -26,21 +26,21 @@ describe OpinionPresenter do
 
   describe '.disbelief_authority' do
     it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock a: 0, d: 0
+      opinion = mock authority: 0, disbeliefs: 0
 
       op = OpinionPresenter.new opinion
       expect(op.disbelief_authority).to eq 0
     end
 
     it 'is 1 when every user disbelieves and the sum of every users authority is 1' do
-      opinion = stub :opinion, a: 1, d: 1
+      opinion = stub :opinion, authority: 1, disbeliefs: 1
 
       op = OpinionPresenter.new opinion
       expect(op.disbelief_authority).to eq 1
     end
 
     it 'is 0 when no user disbelieves' do
-      opinion = stub :opinion, a: 1, b: 1, d: 0
+      opinion = stub :opinion, authority: 1, beliefs: 1, disbeliefs: 0
 
       op = OpinionPresenter.new opinion
       expect(op.disbelief_authority).to eq 0
@@ -49,28 +49,28 @@ describe OpinionPresenter do
 
   describe '.relevance' do
     it 'is 0 when the authority of the opinion is 0' do
-      opinion = mock a: 0, d: 0, b: 0
+      opinion = mock authority: 0, disbeliefs: 0, beliefs: 0
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 0
     end
 
     it 'is 1 when every user believes and the sum of every users authority is 1' do
-      opinion = stub :opinion, a: 1, b: 1, d: 0
+      opinion = stub :opinion, authority: 1, beliefs: 1, disbeliefs: 0
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 1
     end
 
     it 'is -1 when every user disbelieves and the sum of every users authority is 1' do
-      opinion = stub :opinion, a: 1, b: 0, d: 1
+      opinion = stub :opinion, authority: 1, beliefs: 0, disbeliefs: 1
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq(-1)
     end
 
     it 'is 0 when one user believes and one disbeliefs and the sum of every users authority is 1' do
-      opinion = stub :opinion, a: 1, b: 1, d: 1
+      opinion = stub :opinion, authority: 1, beliefs: 1, disbeliefs: 1
 
       op = OpinionPresenter.new opinion
       expect(op.relevance).to eq 0
@@ -145,7 +145,7 @@ describe OpinionPresenter do
       op = OpinionPresenter.new opinion
 
       opinion.should_receive(type_sym).and_return(type_val)
-      opinion.should_receive(:a).and_return(authority)
+      opinion.should_receive(:authority).and_return(authority)
       type_val.should_receive(:*).with(authority).and_return(result)
 
       expect(op.authority(type_sym)).to eq result
