@@ -44,7 +44,7 @@ module Channels
 
     #explicit implicit queries, should never be called
     def query_topic_authority(topic)
-      Authority.from(topic , for: channel.created_by ).to_s.to_f + 1.0
+      Authority.from(topic , for: channel.created_by ).to_f + 1.0
     end
 
     def query_user_stream_id
@@ -141,7 +141,8 @@ module Channels
       json.is_normal is_normal
 
 
-      json.created_by_authority topic_authority if topic_authority
+      if topic_authority
+        json.created_by_authority NumberFormatter.new(topic_authority).as_authority
 
 
       json.created_by do |j|
