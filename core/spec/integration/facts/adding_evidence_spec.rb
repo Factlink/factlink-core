@@ -49,7 +49,7 @@ feature "adding evidence to a fact", type: :request do
     within(".relation-tabs-view") do
       add_evidence supporting_factlink
 
-      within("li.fact-relation") do
+      within("li.evidence-item") do
         page.should have_content supporting_factlink.to_s
       end
     end
