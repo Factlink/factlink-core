@@ -7,8 +7,7 @@ class VisibleChannelsOfUserForUserInteractor
 
   def execute
     channels_with_authorities.map do |ch, authority|
-      kill_channel(ch, authority,
-                   containing_channel_ids(ch), @user)
+      kill_channel(ch, authority, containing_channel_ids(ch), @user)
     end
   end
 
