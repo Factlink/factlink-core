@@ -25,9 +25,9 @@ class VisibleChannelsOfUserForUserInteractor
     query :containing_channel_ids_for_channel_and_user, channel.id, @options[:current_user].graph_user_id
   end
 
-  def kill_channel(ch, topic_authority, containing_channel_ids, user)
+  def kill_channel(ch, owner_authority, containing_channel_ids, user)
     KillObject.channel ch,
-      owner_authority: topic_authority,
+      owner_authority: owner_authority,
       containing_channel_ids: containing_channel_ids,
       created_by_user: kill_user(user)
   end
