@@ -1,7 +1,9 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-li.evidence-item {
+.fact-relations-listing .evidence-item {
+
+  &:first-child { border-top: none; }
 
   .evidence-user-avatar {
     float: left;
@@ -70,7 +72,6 @@ li.evidence-item {
     }
   }
 
-  &:last-child { border-bottom: none; }
   .fact-relation-body {
     margin: 0 0 0 20px;
     > img {
