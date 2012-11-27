@@ -54,7 +54,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_base: fact.toJSON()
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
-      fact_relation_authority: '1.0'
 
   addSelected: (selected_fact_base)->
     @trigger 'selected', new FactRelation
@@ -62,7 +61,6 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_base: selected_fact_base.toJSON()
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
-      fact_relation_authority: '1.0'
 
   setQuery: (text) -> @model.set text: text
 
