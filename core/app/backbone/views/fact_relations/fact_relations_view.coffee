@@ -49,7 +49,6 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    # Todo: add to initialize?
     @commentsRegion.show new CommentsListView
       collection: @model.comments()
 
