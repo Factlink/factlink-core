@@ -12,6 +12,19 @@ class window.ProfileView extends Backbone.Marionette.Layout
     profileInformationRegion: '.profile-information'
     factRegion:               '.fact-region'
 
+  initialize: ->
+    @collection = @ordered(@collection)
+
+  ordered: (collection)->
+    ordered_channels = new ChannelList()
+
+    utils = new CollectionUtils(this)
+    utils.difference(ordered_channels, 'id', @collection)
+
+    ordered_channels.orderByAuthority()
+    ordered_channels
+
+
   onRender: ->
     @topChannelsRegion.show         new TopChannelView(collection: @collection)
     @profileInformationRegion.show  new ProfileInformationView(model: @model)

@@ -44,7 +44,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
       @restoreProfileView username, =>
         new ProfileView
           model: user
-          collection: window.Channels.orderedByAuthority()
+          collection: window.Channels
           created_facts_view: @getFactsView user.created_facts()
 
   notification_options: (username)->
