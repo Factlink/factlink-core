@@ -24,8 +24,8 @@ describe NumberFormatter do
       end
 
       it 'should not show decimals when the number is > 10' do
-        number = 15
-        expect(NumberFormatter.new(number).as_authority).to eq "15"
+        number = 10
+        expect(NumberFormatter.new(number).as_authority).to eq "10"
       end
     end
 
@@ -46,8 +46,8 @@ describe NumberFormatter do
       end
 
       it "should not show decimals when the number is < -10" do
-        number = -15
-        expect(NumberFormatter.new(number).as_authority).to eq "-15"
+        number = -10
+        expect(NumberFormatter.new(number).as_authority).to eq "-10"
       end
     end
   end

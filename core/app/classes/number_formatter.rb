@@ -12,7 +12,7 @@ class NumberFormatter
       prefix = ""
     end
 
-    if absolute_number < 15
+    if absolute_number < 10
       sprintf("#{prefix}%.1f", absolute_number)
     elsif absolute_number >= 1000
       sprintf("#{prefix}%.0fk", absolute_number.div(1000))
