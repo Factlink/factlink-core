@@ -17,6 +17,7 @@ module ScreenshotTest
 
     def take
       force_scroll_bars
+      sleep 1
       @page.driver.render current_image_path
     end
 
