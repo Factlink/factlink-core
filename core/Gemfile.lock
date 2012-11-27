@@ -302,6 +302,8 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    oily_png (1.0.2)
+      chunky_png (~> 1.2.1)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -507,7 +509,6 @@ DEPENDENCIES
   capybara-email
   capybara-screenshot
   capybara-webkit (= 0.10.1)
-  chunky_png
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
@@ -545,6 +546,7 @@ DEPENDENCIES
   newrelic_rpm
   ohm!
   ohm-contrib!
+  oily_png
   omniauth-facebook
   omniauth-twitter
   pry
