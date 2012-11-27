@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
 
   private
     def get_fact_id_param
-      id_string = params[:fact_id]
+      id_string = params[:id]
       if id_string == nil
         raise 'No Fact id is supplied.'
       end
