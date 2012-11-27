@@ -133,7 +133,7 @@ group :test do
   gem 'capybara-webkit', '= 0.10.1', require: false
   gem 'capybara-screenshot'
   gem 'capybara-email'
-  gem 'oily_png'
+  gem 'chunky_png'
   gem 'headless'
 
   gem 'rb-fsevent', '~> 0.9.1'
