@@ -133,13 +133,7 @@ class Opinion < OurOhm
   end
 
   def friendly_authority
-    if a < 10
-      sprintf('%.1f', a)
-    elsif a >= 1000
-      sprintf('%.0fk', a.div(1000))
-    else
-      sprintf('%.0f', a)
-    end
+    NumberFormatter.new(a).as_authority
   end
 
   def self.types
