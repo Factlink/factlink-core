@@ -79,7 +79,7 @@ module Channels
 
 
     def topic_authority
-      @topic_authority.andand.to_s
+      @topic_authority.andand
     end
 
     def user_stream_id
