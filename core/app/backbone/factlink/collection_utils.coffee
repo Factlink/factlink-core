@@ -31,6 +31,9 @@ class window.CollectionUtils
     reset()
     resultCollection
 
+  updatedClone: (resultCollection, collection)->
+    @difference(resultCollection, null, collection)
+
   map: (resultCollection, collection, mapFunction) =>
     reset = ->
       resultCollection.reset()

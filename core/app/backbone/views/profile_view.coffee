@@ -17,11 +17,11 @@ class window.ProfileView extends Backbone.Marionette.Layout
 
   ordered: (collection)->
     ordered_channels = new ChannelList()
+    ordered_channels.orderByAuthority()
 
     utils = new CollectionUtils(this)
-    utils.difference(ordered_channels, 'id', @collection)
+    utils.updatedClone(ordered_channels, @collection)
 
-    ordered_channels.orderByAuthority()
     ordered_channels
 
 
