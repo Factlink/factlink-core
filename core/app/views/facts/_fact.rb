@@ -70,8 +70,8 @@ module Facts
 
     # imported from extended fact:
     def created_by
-      authority = Authority.on(self[:fact], for: user.graph_user).to_f + 1.0
       user = self[:fact].created_by.user
+      authority = Authority.on(self[:fact], for: user.graph_user).to_f + 1.0
 
       json = Jbuilder.new
       json.username user.username
