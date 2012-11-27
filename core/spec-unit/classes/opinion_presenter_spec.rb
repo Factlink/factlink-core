@@ -118,4 +118,19 @@ describe OpinionPresenter do
       expect(op.formatted_relevance).to eq format
     end
   end
+
+  describe '.format' do
+    it 'uses NumberFormatter.as_authority and returns that value' do
+      number_formatter = mock
+      number = mock
+      as_authority = mock
+
+      op = OpinionPresenter.new mock
+
+      NumberFormatter.should_receive(:new).and_return(number_formatter)
+      number_formatter.should_receive(:as_authority).and_return(as_authority)
+
+      expect(op.format number).to eq as_authority
+    end
+  end
 end
