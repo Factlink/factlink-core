@@ -31,8 +31,8 @@ module BeliefExpressions
     @ch ||= Channel.create title: 'global', created_by: god_user
   end
 
-  def add_to_global_channel(f)
-    global_channel.add_fact f
+  def add_to_global_channel(factlink)
+    global_channel.add_fact factlink
   end
 
   def possible_reset
