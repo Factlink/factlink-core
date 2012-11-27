@@ -13,7 +13,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   parseKeyUp: (e) ->
     code = e.keyCode || e.which
-    switch e.keyCode
+    switch code
       when 13 then @addModel.call @
 
   initializeModel: ->
