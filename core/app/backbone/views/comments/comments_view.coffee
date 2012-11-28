@@ -8,9 +8,33 @@ class CommentView extends Backbone.Marionette.ItemView
   className: 'evidence-content'
   template:  'comments/comment'
 
-  templateHelpers: =>
-    creator: @model.creator().toJSON()
+  showLines: 5
 
+  events:
+    "click a.more": "showCompleteDisplaystring"
+    "click a.less": "hideCompleteDisplaystring"
+
+  onRender: ->
+    sometimeWhen(
+      => @$el.is ":visible"
+      ,
+      => @truncateText()
+    )
+
+  truncateText: ->
+    @$('.js-content').trunk8
+      fill: " <a class=\"more\">(more)</a>"
+      lines: @showLines
+
+  showCompleteDisplaystring: (e) ->
+    @$('.js-content').trunk8 lines: 199
+    @$('.less').show()
+    e.stopPropagation()
+
+  hideCompleteDisplaystring: (e) ->
+    @$('.js-content').trunk8 lines: @showLines
+    @$('.less').hide()
+    e.stopPropagation()
 
 class window.CommentEvidenceView extends EvidenceBaseView
 
