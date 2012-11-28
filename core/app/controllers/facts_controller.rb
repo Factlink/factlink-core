@@ -180,6 +180,7 @@ class FactsController < ApplicationController
     authorize! :opinionate, @basefact
 
     @basefact.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@basefact)
     @basefact.calculate_opinion(2)
 
     render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}

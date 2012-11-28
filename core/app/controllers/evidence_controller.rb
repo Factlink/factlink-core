@@ -19,10 +19,10 @@ class EvidenceController < FactsController
 
   def create_new_evidence(displaystring, opinion)
     evidence = Fact.build_with_data(nil, displaystring.to_s, nil, current_graph_user)
-    
+
     (evidence.data.save and evidence.save) or raise EvidenceNotFoundException
     evidence.add_opinion(opinion, current_graph_user) if opinion
-    
+
     evidence
   end
 
@@ -68,6 +68,8 @@ class EvidenceController < FactsController
     authorize! :opinionate, @fact_relation
 
     @fact_relation.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
+
     @fact_relation.calculate_opinion(2)
 
     render 'fact_relations/show'

@@ -20,7 +20,7 @@ class Basefact < OurOhm
   end
 
   def add_opinion(type, user)
-    _remove_opinions(user)
+    remove_opinions(user)
 
     add_opiniated(type,user)
     user.update_opinion(type, self)
@@ -28,12 +28,6 @@ class Basefact < OurOhm
   end
 
   def remove_opinions(user)
-    _remove_opinions(user)
-    activity(user,:removed_opinions,self)
-  end
-
-  private
-  def _remove_opinions(user)
     user.remove_opinions(self)
     remove_opinionateds(user)
   end
