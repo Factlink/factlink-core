@@ -111,6 +111,10 @@ module ScreenshotTest
               changed = true
               pixels_changed += 1
 
+              changed_amount += [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
+              changed_amount += [g(pixel_old), g(pixel_new)].max - [g(pixel_old), g(pixel_new)].min
+              changed_amount += [b(pixel_old), b(pixel_new)].max - [b(pixel_old), b(pixel_new)].min
+
               diff_image[x,y] = rgb(254,254,254)
             else
               diff_image[x,y] = rgb(0,0,0)
