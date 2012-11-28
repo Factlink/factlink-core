@@ -29,7 +29,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
       'Disagreeing'
 
   updateModel: ->
-    content = @$('.content').val()
+    content = @$('.js-content').val()
     @model.set {content: content}, silent: true
 
   setFormContent: (content) -> @model.set content: content
