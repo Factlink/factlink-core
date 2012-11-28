@@ -109,9 +109,11 @@ module ScreenshotTest
             if pixel_old != pixel_new
               changed = true
               pixels_changed += 1
+              diff_image[x,y] = rgb(254,254,254)
+            else
+              diff_image[x,y] = rgb(0,0,0)
             end
 
-            diff_image[x,y] = rgb(254,254,254)
             #  r(pixel_old) + r(pixel_new) - 2 * [r(pixel_old), r(pixel_new)].min,
             #  g(pixel_old) + g(pixel_new) - 2 * [g(pixel_old), g(pixel_new)].min,
             #  b(pixel_old) + b(pixel_new) - 2 * [b(pixel_old), b(pixel_new)].min
