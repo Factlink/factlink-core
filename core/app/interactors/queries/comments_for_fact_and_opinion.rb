@@ -14,15 +14,19 @@ module Queries
 
     def execute
       comments.map do |comment|
-        comment.authority = query :authority_of_created_user_for_comment, comment.id.to_s
+        comment.authority = query :authority_on_fact_for, fact, comment.created_by.graph_user
 
         KillObject.comment comment
       end
     end
 
     def comments
-      fact_data_id = Fact[@fact_id].data_id
+      fact_data_id = fact.data_id
       Comment.where({fact_data_id: fact_data_id, opinion: @opinion}).to_a
+    end
+
+    def fact
+      Fact[@fact_id]
     end
   end
 end

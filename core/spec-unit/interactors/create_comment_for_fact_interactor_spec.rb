@@ -35,7 +35,7 @@ describe CreateCommentForFactInteractor do
       stub_const('Commands::CreateCommentCommand', Class.new)
     end
 
-    it 'correctly' do
+    it 'should work correctly' do
       fact_id = 1
       opinion = 'believes'
       content = 'content'
@@ -47,12 +47,50 @@ describe CreateCommentForFactInteractor do
 
       interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
 
-      interactor.should_receive(:query).with(:authority_of_created_user_for_comment, comment.id).and_return(authority_string)
-      comment.should_receive(:authority=).with(authority_string)
-
+      interactor.should_receive(:add_authority_to).with(comment)
       interactor.should_receive(:create_activity).with(comment)
 
       interactor.execute.should eq comment
+    end
+  end
+
+
+  describe '.add_authority_to' do
+    it 'should retrieve the authority and add it to the comment' do
+      fact = mock(id: 3)
+      opinion = 'believes'
+      content = 'content'
+      comment = mock(:comment, created_by: mock(:user, graph_user: mock()))
+      user = mock()
+      authority = '2.0'
+
+      interactor = CreateCommentForFactInteractor.new fact.id, opinion, content, current_user: user
+
+      interactor.should_receive(:fact).and_return(fact)
+      interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
+      comment.should_receive(:authority=).with(authority)
+
+      interactor.add_authority_to comment
+    end
+  end
+
+  describe '.fact' do
+    before do
+      stub_classes 'Fact'
+    end
+
+    it 'should return the fact' do
+      fact = mock(id: 3)
+      opinion = 'believes'
+      content = 'content'
+      comment = mock()
+      user = mock()
+
+      interactor = CreateCommentForFactInteractor.new fact.id, opinion, content, current_user: user
+
+      Fact.should_receive(:[]).with(fact.id).and_return(fact)
+
+      interactor.fact.should eq fact
     end
   end
 
@@ -61,7 +99,7 @@ describe CreateCommentForFactInteractor do
       stub_const('Comment', Class.new)
     end
 
-    it 'correctly' do
+    it 'should create activity' do
       fact_id = 1
       opinion = 'believes'
       content = 'content'
