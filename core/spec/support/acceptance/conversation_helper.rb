@@ -36,8 +36,10 @@ module Acceptance
       page.find(:css, 'input').set(name)
 
       within('.auto-complete-search-list') do
-        sleep 1
-        page.find('li .text em', text: name).click
+        el = page.find('li .text em', text: name)
+        el.trigger 'mouseover'
+        el.trigger 'click'
+
         sleep 1
       end
 
