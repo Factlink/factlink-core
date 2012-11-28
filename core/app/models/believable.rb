@@ -3,6 +3,8 @@ class Believable
     @key = key
   end
 
+  # the following three functions should be considered
+  # private
   def people_believes
     graph_user_set 'people_believes'
   end
@@ -14,9 +16,10 @@ class Believable
   def people_doubts
     graph_user_set 'people_doubts'
   end
+  # /private
 
-  def opinionated_users
-    people_believes | people_doubts | people_disbelieves
+  def opinionated_users_ids
+    (people_believes | people_doubts | people_disbelieves).ids
   end
 
   def opinionated_users_count
