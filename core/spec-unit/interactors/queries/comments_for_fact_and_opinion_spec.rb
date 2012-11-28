@@ -1,22 +1,22 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/queries/get_comments.rb'
+require_relative '../../../app/interactors/queries/comments_for_fact_and_opinion.rb'
 
-describe Queries::GetComments do
+describe Queries::CommentsForFactAndOpinion do
   include PavlovSupport
 
   it 'initializes correctly' do
-    query = Queries::GetComments.new 1, 'believes'
+    query = Queries::CommentsForFactAndOpinion.new 1, 'believes'
 
     query.should_not be_nil
   end
 
   it 'should raise a validation error with an invalid fact_id' do
-    expect { Queries::GetComments.new 'a', 'believes'}.
+    expect { Queries::CommentsForFactAndOpinion.new 'a', 'believes'}.
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
   it 'should raise a validation error with an invalid opinion' do
-    expect { Queries::GetComments.new 1, 'mwah'}.
+    expect { Queries::CommentsForFactAndOpinion.new 1, 'mwah'}.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -30,7 +30,7 @@ describe Queries::GetComments do
       opinion = 'believes'
       graph_user = mock()
       user = mock(:user)
-      query = Queries::GetComments.new fact_id, opinion, current_user: user
+      query = Queries::CommentsForFactAndOpinion.new fact_id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
       authority_string = '1.0'
@@ -61,7 +61,7 @@ describe Queries::GetComments do
       comment = mock()
       user = mock()
 
-      query = Queries::GetComments.new fact.id, opinion, current_user: user
+      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
 
       Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
       Comment.should_receive(:where).

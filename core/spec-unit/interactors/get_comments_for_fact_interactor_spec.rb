@@ -31,7 +31,7 @@ describe GetCommentsForFactInteractor do
       user = mock()
       interactor = GetCommentsForFactInteractor.new fact_id, opinion, current_user: user
       comment = mock(id: 1, content: 'text')
-      interactor.should_receive(:query).with(:get_comments, fact_id, opinion).and_return([comment])
+      interactor.should_receive(:query).with(:comments_for_fact_and_opinion, fact_id, opinion).and_return([comment])
 
       result = interactor.execute
 
