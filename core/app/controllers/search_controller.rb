@@ -10,6 +10,8 @@ class SearchController < ApplicationController
       raise HackAttempt unless params[:s].is_a? String
     end
 
+    track "Search: Top bar search"
+
     @row_count = 20
     row_count = @row_count
     page = params[:page] || 1;
