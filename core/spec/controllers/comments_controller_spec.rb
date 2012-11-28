@@ -15,7 +15,7 @@ describe CommentsController do
       comment = stub(opinion: opinion, content: content)
 
       controller.should_receive(:interactor).with(:create_comment_for_fact, fact_id, opinion, content).and_return(comment)
-      controller.should_receive(:render).with('comments/_comment')
+      controller.should_receive(:render).with('comments/create')
 
       controller.create
 

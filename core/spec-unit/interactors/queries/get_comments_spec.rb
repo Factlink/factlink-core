@@ -10,12 +10,12 @@ describe Queries::GetComments do
     query.should_not be_nil
   end
 
-  it 'with an invalid fact_id should raise a validation error' do
+  it 'should raise a validation error with an invalid fact_id' do
     expect { Queries::GetComments.new 'a', 'believes'}.
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
-  it 'with an invalid opinion should raise a validation error' do
+  it 'should raise a validation error with an invalid opinion' do
     expect { Queries::GetComments.new 1, 'mwah'}.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
@@ -26,20 +26,18 @@ describe Queries::GetComments do
     end
 
     it 'should return dead comments with authorities' do
-      fact = mock(id: 3)
+      fact_id = 3
       opinion = 'believes'
       graph_user = mock()
-      user = mock(:user, graph_user: graph_user)
-      query = Queries::GetComments.new fact.id, opinion, current_user: user
+      user = mock(:user)
+      query = Queries::GetComments.new fact_id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
-      comment = mock(created_by: user, content: content, id: comment_id, opinion: opinion, fact_data: mock(fact: fact))
-      authority = mock
       authority_string = '1.0'
+      comment = mock(content: content, id: comment_id, opinion: opinion, authority: authority_string)
 
       query.should_receive(:comments).and_return([comment])
-      Authority.should_receive(:on).with(fact, for: graph_user).and_return(authority)
-      authority.should_receive(:to_s).with(1.0).and_return(authority_string)
+      query.should_receive(:query).with(:authority_of_created_user_for_comment, comment.id).and_return(authority_string)
       comment.should_receive(:authority=).with(authority_string)
 
       results = query.execute
@@ -47,6 +45,7 @@ describe Queries::GetComments do
       results.first.opinion.should eq opinion
       results.first.content.should eq content
       results.first.id.should eq comment_id
+      results.first.authority.should eq authority_string
     end
   end
 

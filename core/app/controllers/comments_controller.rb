@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     @comment = interactor :create_comment_for_fact, fact_id, params[:opinion], params[:content]
 
-    render 'comments/_comment'
+    render 'comments/create'
   end
 
   def destroy

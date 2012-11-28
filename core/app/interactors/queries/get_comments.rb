@@ -14,10 +14,7 @@ module Queries
 
     def execute
       comments.map do |comment|
-        # HACK: This shortcut of using `comment.fact_data.fact` instead of `comment` itself
-        # is possible because in the current calculation these authorities are the same
-        authority = Authority.on(comment.fact_data.fact, for: comment.created_by.graph_user)
-        comment.authority = authority.to_s(1.0)
+        comment.authority = query :authority_of_created_user_for_comment, comment.id.to_s
 
         KillObject.comment comment
       end

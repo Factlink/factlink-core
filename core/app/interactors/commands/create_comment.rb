@@ -13,9 +13,6 @@ module Commands
       comment.created_by = creator
       comment.opinion = @opinion
       comment.content = @content
-      # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
-      # is possible because in the current calculation these authorities are the same
-      comment.authority = Authority.on(fact_data.fact, for: creator).to_s(1.0)
       comment.save
 
       KillObject.comment comment

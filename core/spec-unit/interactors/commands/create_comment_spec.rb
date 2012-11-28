@@ -43,23 +43,19 @@ describe Commands::CreateComment do
       content = 'message'
       user_id = '1a'
       command = Commands::CreateComment.new fact_id, opinion, content, user_id
-      comment = mock
+      comment = mock(:comment, id: 10)
       fact = mock
       fact_data = mock fact: fact
       user = mock
       command.stub fact_data: fact_data
-      authority = mock
-      authority_string = '1.0'
 
       comment.should_receive(:fact_data=).with(fact_data)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
-      Authority.should_receive(:on).with(fact, for: user).and_return(authority)
-      authority.should_receive(:to_s).with(1.0).and_return(authority_string)
+      
       comment.should_receive(:created_by=).with(user)
       comment.should_receive(:opinion=).with(opinion)
       comment.should_receive(:content=).with(content)
-      comment.should_receive(:authority=).with(authority_string)
       comment.should_receive(:save)
 
       command.execute

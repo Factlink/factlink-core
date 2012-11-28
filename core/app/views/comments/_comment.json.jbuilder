@@ -1,6 +1,3 @@
-# hack to both be able to use this as partial and show
-comment ||= @comment
-
 json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
