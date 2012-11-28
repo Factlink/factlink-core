@@ -1,4 +1,5 @@
 class FactRelation < Basefact
+  include Opinion::Subject::FactRelation
   include Ohm::ExtraValidations
 
   reference :from_fact, Fact

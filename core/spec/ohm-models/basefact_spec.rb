@@ -6,11 +6,9 @@ def others(opinion)
   others
 end
 
-
 def expect_opinion(subject,opinion)
   subject.class[subject.id].get_user_opinion.should == opinion
 end
-
 
 def user_fact_opinion(user, opinion, fact)
   authority = Authority.on(fact, for: user).to_f + 1
@@ -19,6 +17,11 @@ end
 
 describe Basefact do
 
+
+  subject {create(:basefact)}
+
+  let(:fact2) {create(:basefact)}
+
   let(:user)  {create(:graph_user)}
   let(:user2) {create(:graph_user)}
   let(:user3) {create(:graph_user)}
@@ -26,8 +29,6 @@ describe Basefact do
   let(:user5) {create(:graph_user)}
   let(:user6) {create(:graph_user)}
 
-  subject {create(:basefact)}
-  let(:fact2) {create(:basefact)}
 
   context "initially" do
     [:believes, :doubts, :disbelieves].each do |opinion|

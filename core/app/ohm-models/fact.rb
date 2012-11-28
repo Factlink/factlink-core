@@ -1,4 +1,6 @@
 class Fact < Basefact
+  include Opinion::Subject::Fact
+
   after :create, :set_activity!
   after :create, :add_to_created_facts
   after :create, :increment_mixpanel_count
