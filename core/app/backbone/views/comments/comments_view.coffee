@@ -20,8 +20,7 @@ class window.CommentEvidenceView extends EvidenceBaseView
 
     @mainRegion.show new CommentView model: @model
 
-    if @model.can_destroy()
-      @popoverRegion.show new CommentPopoverView model: @model
+    @setPopover CommentPopoverView
 
 
 class window.CommentsListView extends Backbone.Marionette.CollectionView
