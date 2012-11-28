@@ -32,7 +32,6 @@ feature "adding evidence to a fact", type: :request do
   end
 
   scenario "we can click on evidence to go to the page of that factlink" do
-    pending "Only breaks on the CI"
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact
@@ -44,6 +43,8 @@ feature "adding evidence to a fact", type: :request do
         page.find('span', text: supporting_factlink.to_s).click
       end
     end
+
+    sleep 2
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
