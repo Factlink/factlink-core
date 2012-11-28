@@ -38,7 +38,7 @@ class window.User extends Backbone.Model
     username = @get('username')
     _.extend json,
       is_current_user: @is_current_user(),
-      edit_path: "/#username/edit",
+      edit_path: "/#{username}/edit",
       change_password_path: "/#{username}/password/edit"
       notifications_settings_path: "/#{username}/notification-settings"
       link: "/#{username}"
