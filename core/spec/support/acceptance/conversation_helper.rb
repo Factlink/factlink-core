@@ -8,7 +8,8 @@ module Acceptance
 
         click_on "Send message"
       end
-      wait_for_ajax
+
+      page.find('.messages .message:last-child .text').should have_content reply_str
     end
 
     def last_message_should_have_content(reply_str)
