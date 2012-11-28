@@ -28,7 +28,7 @@ module Acceptance
         find(:css, '.text').set(message)
 
         click_button 'Send'
-        wait_for_ajax
+        page.should have_selector(".alert-type-success", visible: true)
       end
     end
 
