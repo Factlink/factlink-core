@@ -15,6 +15,8 @@ module ActivityMailerHelper
       "invited"
     when "replied_message"
       "replied_message"
+    when "created_comment"
+      "created_comment"
     else
       "generic"
     end

@@ -1,12 +1,9 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.fact-relation-listing .evidence-item {
 
-li.fact-relation {
-  padding: 14px 15px 4px;
-  border-bottom: 1px solid @baseBorderColor;
-  .clearfix();
-  position: relative;
+  &:first-child { border-top: none; }
 
   .fact-relation-actions {
     float: left;
@@ -67,7 +64,6 @@ li.fact-relation {
     }
   }
 
-  &:last-child { border-bottom: none; }
   .fact-relation-body {
     margin: 0 0 0 20px;
     > img {
@@ -77,17 +73,6 @@ li.fact-relation {
     }
     .fact-base-region {
       margin: 0 0 0 52px;
-    }
-  }
-
-  .fact-relation-added-by {
-    margin-bottom: 6px;
-    color: @mutedFontColor;
-    .authority {
-      display: inline;
-      padding: 0 !important;
-      font-size: 11px;
-      color: @baseFontColor;
     }
   }
 }

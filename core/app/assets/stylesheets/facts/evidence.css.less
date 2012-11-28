@@ -1,0 +1,31 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+li.evidence-item {
+  list-style-type: none;
+  margin: 0;
+
+  padding: 14px 15px;
+  border-top: 1px solid @baseBorderColor;
+  .clearfix();
+  position: relative;
+
+  .evidence-user-avatar {
+    float: left;
+    > img {
+      margin: 4px 10px 0 0;
+      .border-radius(3px);
+    }
+  }
+
+  .evidence-activity {
+    margin-bottom: 6px;
+    color: @mutedFontColor;
+    .authority {
+      display: inline;
+      padding: 0 !important;
+      font-size: 11px;
+      color: @baseFontColor;
+    }
+  }
+}

@@ -1,7 +1,6 @@
 require "integration_helper"
 
 feature "adding evidence to a fact", type: :request do
-  include Acceptance
   include Acceptance::FactHelper
 
   background do
@@ -26,7 +25,7 @@ feature "adding evidence to a fact", type: :request do
     within(".relation-tabs-view") do
       add_evidence supporting_factlink
 
-      within("li.fact-relation") do
+      within("li.evidence-item") do
         page.should have_content supporting_factlink.to_s
       end
     end
@@ -40,7 +39,7 @@ feature "adding evidence to a fact", type: :request do
     within(".relation-tabs-view") do
       add_evidence supporting_factlink
 
-      within("li.fact-relation") do
+      within("li.evidence-item") do
         page.find('span', text: supporting_factlink.to_s).click
       end
     end

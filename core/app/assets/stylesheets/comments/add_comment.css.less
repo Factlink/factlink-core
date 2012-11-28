@@ -1,0 +1,24 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+.fact-relation-search .add-comment {
+
+  .add-comment-content {
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    .box-sizing();
+    line-height: 18px;
+    margin-bottom: 9px;
+    height: auto; // weird copy-paste bug if we remove this!
+    // can't set a color here, since Firefox will also use it for the placeholder
+    padding: 7px 9px;
+    position: relative;
+    .border-radius(4px);
+    .box-shadow(inset 0 1px 1px rgba(0, 0, 3px, 0.10));
+  }
+
+  .alert {
+    margin-bottom: 15px;
+  }
+}
