@@ -1,5 +1,3 @@
 <%= link_to_possibly_dead_user @activity.user.user %>
- added a
-<%= @activity.subject.opinion == "believes" ? "supporting" : "weakening" %>
- comment to
+ commented on
 <%= link_to "<em>#{@activity.object}</em>".html_safe, friendly_fact_url(@activity.object) %>
