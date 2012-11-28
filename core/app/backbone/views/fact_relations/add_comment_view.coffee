@@ -3,18 +3,17 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   events:
     'click .js-post': 'addModel'
     'click .js-switch': 'switchCheckboxClicked'
-    'blur  .content': 'updateModel'
-    'keyup input.content': 'parseKeyUp'
+    'blur  .js-content': 'updateModel'
+    'keydown .js-content': 'parseKeyDown'
 
   template: 'comments/add_comment'
 
   initialize: ->
     @initializeModel()
 
-  parseKeyUp: (e) =>
+  parseKeyDown: (e) =>
     code = e.keyCode || e.which
-    switch code
-      when 13 then @addModel
+    @addModel if code is 13
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)
@@ -44,7 +43,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
   addModelError: -> @showErrorMessage()
 
   switchCheckboxClicked: (e)->
-    @trigger 'switch_to_fact_relation_view', @$('.content').val()
+    @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
     e.preventDefault()
     e.stopPropagation()
 

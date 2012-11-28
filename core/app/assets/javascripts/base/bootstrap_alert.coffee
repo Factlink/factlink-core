@@ -1,4 +1,4 @@
-$('[data-dismiss="alert"]').on 'click', (e) ->
+$('body').on 'click', '[data-dismiss="alert"]', (e) ->
   $this = $ @
   selector = $this.attr 'data-target'
 
