@@ -24,7 +24,6 @@ class Basefact < OurOhm
 
     add_opiniated(type,user)
     user.update_opinion(type, self)
-    activity(user,Opinion.real_for(type),self)
   end
 
   def remove_opinions(user)

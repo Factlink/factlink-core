@@ -101,6 +101,8 @@ class FactsController < ApplicationController
         #TODO switch the following two if blocks if possible
         if @fact and (params[:opinion] and [:beliefs, :believes, :doubts, :disbeliefs, :disbelieves].include?(params[:opinion].to_sym))
           @fact.add_opinion(params[:opinion].to_sym, current_user.graph_user)
+          Activity::Subject.activity(current_user.graph_user, Opinion.real_for(params[:opinion]), @fact)
+
           @fact.calculate_opinion(1)
         end
 
@@ -169,6 +171,8 @@ class FactsController < ApplicationController
     authorize! :opinionate, @basefact
 
     @basefact.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type), @basefact)
+
     @basefact.calculate_opinion(2)
 
     render 'facts/_fact_wheel', format: :json, locals: {fact: @basefact}
