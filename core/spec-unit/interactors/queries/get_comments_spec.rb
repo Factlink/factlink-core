@@ -22,26 +22,23 @@ describe Queries::GetComments do
 
   describe '.execute' do
     before do
-      stub_classes('Comment','Fact','Authority')
+      stub_classes 'Authority'
     end
 
-    it 'correctly' do
+    it 'should return dead comments with authorities' do
       fact = mock(id: 3)
       opinion = 'believes'
-      user = mock()
+      graph_user = mock()
+      user = mock(:user, graph_user: graph_user)
       query = Queries::GetComments.new fact.id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
       comment = mock(created_by: user, content: content, id: comment_id, opinion: opinion, fact_data: mock(fact: fact))
-      fact_data_id = '3b'
       authority = mock
       authority_string = '1.0'
 
-      Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
-      Comment.should_receive(:where).
-        with(fact_data_id: fact_data_id, opinion: opinion).
-        and_return([comment])
-      Authority.should_receive(:on).with(fact, for: user).and_return(authority)
+      query.should_receive(:comments).and_return([comment])
+      Authority.should_receive(:on).with(fact, for: graph_user).and_return(authority)
       authority.should_receive(:to_s).with(1.0).and_return(authority_string)
       comment.should_receive(:authority=).with(authority_string)
 
@@ -50,6 +47,29 @@ describe Queries::GetComments do
       results.first.opinion.should eq opinion
       results.first.content.should eq content
       results.first.id.should eq comment_id
+    end
+  end
+
+  describe '.comments' do
+    before do
+      stub_classes 'Comment', 'Fact'
+    end
+
+    it 'should return a comment' do
+      fact = mock(id: 3)
+      opinion = 'believes'
+      fact_data_id = '3b'
+      comment = mock()
+      user = mock()
+
+      query = Queries::GetComments.new fact.id, opinion, current_user: user
+
+      Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
+      Comment.should_receive(:where).
+        with(fact_data_id: fact_data_id, opinion: opinion).
+        and_return([comment])
+
+      query.comments.should eq [comment]
     end
   end
 end
