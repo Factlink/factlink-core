@@ -2,7 +2,7 @@ require_relative '../pavlov'
 require_relative '../kill_object'
 
 module Queries
-  class GetComments
+  class CommentsForFactAndOpinion
     include Pavlov::Query
 
     arguments :fact_id, :opinion
@@ -13,13 +13,16 @@ module Queries
     end
 
     def execute
-      fact_data_id = Fact[@fact_id].data_id
-      comments = Comment.where({fact_data_id: fact_data_id, opinion: @opinion}).to_a
-
       comments.map do |comment|
-        comment.authority = Authority.on(comment.fact_data.fact, for: comment.created_by).to_s(1.0)
+        comment.authority = query :authority_of_created_user_for_comment, comment.id.to_s
+
         KillObject.comment comment
       end
+    end
+
+    def comments
+      fact_data_id = Fact[@fact_id].data_id
+      Comment.where({fact_data_id: fact_data_id, opinion: @opinion}).to_a
     end
   end
 end

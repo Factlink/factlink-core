@@ -9,6 +9,8 @@ class CreateCommentForFactInteractor
     comment = command :create_comment,@fact_id, @opinion,
       @content, @options[:current_user].id.to_s
 
+    comment.authority = query :authority_of_created_user_for_comment, comment.id.to_s
+
     create_activity comment
 
     comment

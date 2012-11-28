@@ -15,6 +15,6 @@ class GetCommentsForFactInteractor
   end
 
   def execute
-    query :get_comments, @fact_id, @opinion
+    query :comments_for_fact_and_opinion, @fact_id, @opinion
   end
 end
