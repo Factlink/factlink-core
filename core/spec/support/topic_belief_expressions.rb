@@ -1,6 +1,6 @@
 module TopicBeliefExpressions
   def reset
-    Authority.run_calculation
+    FactGraph.new.calculate_authority
   end
 
   def authority opts={}

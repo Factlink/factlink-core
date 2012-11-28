@@ -19,16 +19,6 @@ describe Authority do
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
 
-  before do
-    Authority.calculation = nil
-  end
-  after :all do
-    begin
-      load_topic_specific_authority
-    rescue
-    end
-  end
-
   describe :to_f do
     it "should return a float" do
       Authority.new.to_f.should be_a(Float)
