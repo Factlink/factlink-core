@@ -1,39 +1,8 @@
 #= require ../facts/fact_base_view
 
-class VoteUpDownView extends Backbone.Marionette.ItemView
+class FactRelationVoteUpDownView extends VoteUpDownView
   className: 'fact-relation-actions'
   template:  'fact_relations/vote_up_down'
-
-  events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
-
-  initialize: ->
-    @bindTo @model, "change", @render, @
-
-  hideTooltips: ->
-    @$(".weakening").tooltip "hide"
-    @$(".supporting").tooltip "hide"
-
-  onRender: ->
-    @$(".supporting").tooltip
-      title: "This is relevant"
-
-    @$(".weakening").tooltip
-      title: "This is not relevant"
-      placement: "bottom"
-
-  onBeforeClose: ->
-    @$(".weakening").tooltip "destroy"
-    @$(".supporting").tooltip "destroy"
-
-  disbelieve: ->
-    @hideTooltips()
-    @model.disbelieve()
-
-  believe: ->
-    @hideTooltips()
-    @model.believe()
 
 
 
@@ -47,7 +16,7 @@ class window.FactRelationEvidenceView extends EvidenceBaseView
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model
 
-    @voteRegion.show new VoteUpDownView model: @model
+    @voteRegion.show new FactRelationVoteUpDownView model: @model
     @mainRegion.show new FactRelationView model: @model
 
     if @model.get('can_destroy?')

@@ -3,6 +3,37 @@
 
 .comments-listing .evidence-item {
 
-  .evidence-user-avatar { margin: 0 0 0 30px; }
   .evidence-content { margin: 0 0 0 82px; }
+
+  .comment-actions {
+    // This can be made more generic (now same as .fact-relation-actions)
+    float: left;
+    margin: 0 5px 0 -5px;
+    width: 30px;
+
+    .supporting, .weakening {
+      display: block;
+      width: 17px;
+      height: 12px;
+      cursor: pointer;
+      margin: 0 0 0 6px;
+
+      &:hover { text-decoration: none; }
+    }
+
+    .supporting {
+      background: image-url("relation_actions.png") no-repeat top right transparent;
+      &.active {
+        background: image-url("relation_actions.png") no-repeat top left transparent;
+      }
+    }
+
+    .weakening {
+      background: image-url("relation_actions.png") no-repeat bottom left transparent;
+      &.active {
+        background: image-url("relation_actions.png") no-repeat bottom right transparent;
+      }
+    }
+    // End of generic stuff
+  }
 }

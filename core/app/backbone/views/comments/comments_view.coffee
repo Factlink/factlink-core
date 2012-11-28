@@ -12,13 +12,19 @@ class CommentView extends Backbone.Marionette.ItemView
     creator: @model.creator().toJSON()
 
 
-class window.CommentEvidenceView extends EvidenceBaseView
+class CommentVoteUpDownView extends VoteUpDownView
+  className: 'comment-actions'
+  template:  'comments/vote_up_down'
 
+
+class window.CommentEvidenceView extends EvidenceBaseView
   onRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model
 
     @mainRegion.show new CommentView model: @model
+
+    @voteRegion.show new CommentVoteUpDownView model: @model
 
     if @model.can_destroy()
       @popoverRegion.show new CommentPopoverView model: @model

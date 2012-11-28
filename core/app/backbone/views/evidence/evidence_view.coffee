@@ -27,6 +27,39 @@ class window.EvidenceActivityView extends Backbone.Marionette.ItemView
   templateHelpers: => creator: @model.creator().toJSON()
 
 
+class window.VoteUpDownView extends Backbone.Marionette.ItemView
+  events:
+    "click .weakening": "disbelieve"
+    "click .supporting": "believe"
+
+  initialize: ->
+    @bindTo @model, "change", @render, @
+
+  hideTooltips: ->
+    @$(".weakening").tooltip "hide"
+    @$(".supporting").tooltip "hide"
+
+  onRender: ->
+    @$(".supporting").tooltip
+      title: "This is relevant"
+
+    @$(".weakening").tooltip
+      title: "This is not relevant"
+      placement: "bottom"
+
+  onBeforeClose: ->
+    @$(".weakening").tooltip "destroy"
+    @$(".supporting").tooltip "destroy"
+
+  disbelieve: ->
+    @hideTooltips()
+    @model.disbelieve()
+
+  believe: ->
+    @hideTooltips()
+    @model.believe()
+
+
 ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
 
 class window.EvidencePopoverView extends ViewWithPopover
