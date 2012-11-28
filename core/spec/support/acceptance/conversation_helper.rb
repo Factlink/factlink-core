@@ -34,9 +34,13 @@ module Acceptance
 
     def add_recipient name
       page.find(:css, 'input').set(name)
-      wait_for_ajax
-      page.find('li', text: name).click
-      sleep 1
+
+      within('.auto-complete-search-list') do
+        sleep 1
+        page.find('li .text em', text: name).click
+        sleep 1
+      end
+
       page.find('.auto-complete-results-container a', text: name)
     end
 
