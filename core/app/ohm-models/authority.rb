@@ -43,8 +43,8 @@ class Authority < OurOhm
       @map_reducers = map_reducers
     end
 
-    def run_calculation
-      @map_reducers.andand.each do |mr|
+    def run_calculation(map_reducers=@map_reducers)
+      map_reducers.andand.each do |mr|
         obj = mr.new
         debug "Running #{obj.class}"
         obj.process_all

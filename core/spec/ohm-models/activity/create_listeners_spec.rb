@@ -257,6 +257,18 @@ describe 'activity queries' do
           {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
         ]
       end
+      it "creates a stream activity for the interacting users" do
+        fact = create(:fact)
+        fact.add_opinion(:believes, gu1)
+        user = create(:user)
+
+        interactor = CreateCommentForFactInteractor.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor.execute
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
+        ]
+      end
     end
 
   end

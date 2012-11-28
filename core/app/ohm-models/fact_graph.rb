@@ -27,7 +27,17 @@ class FactGraph
   end
 
   def calculate_authority
-    Authority.run_calculation
+    Authority.run_calculation(authority_calculators)
+  end
+
+  def authority_calculators
+    [
+      MapReduce::FactAuthority,
+      MapReduce::ChannelAuthority,
+      MapReduce::TopicAuthority,
+      MapReduce::FactCredibility,
+      MapReduce::FactRelationCredibility
+    ]
   end
 
   def self.export_opiniated(writer,fact,prefix="")

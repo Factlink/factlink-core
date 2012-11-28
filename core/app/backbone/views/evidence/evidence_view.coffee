@@ -10,6 +10,14 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     mainRegion:       '.evidence-main-region'
     popoverRegion:    '.evidence-popover-region'
 
+  setPopover: (popoverClass) ->
+    updatePopover = =>
+      if @model.can_destroy()
+        @popoverRegion.show new popoverClass model: @model
+
+    updatePopover()
+    @bindTo @model, 'change', updatePopover
+
 
 class window.EvidenceUserAvatarView extends Backbone.Marionette.ItemView
   className: 'evidence-user-avatar'

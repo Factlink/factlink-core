@@ -6,7 +6,7 @@
 	<%= link_to @activity.object.title, channel_url(@activity.object.created_by.user, @activity.object.id) %>
 </h2>
 <p class="activity-action">
-	Too see their <%= @activity.object.title %> channel, visit:<br>
+	To view their <%= @activity.object.title %> channel, visit:<br>
 	<%= link_to channel_url(@activity.object.created_by.user, @activity.object.id), channel_url(@activity.object.created_by.user, @activity.object.id) %>
 </p>
 

@@ -5,7 +5,9 @@ module Acceptance
     end
 
     def backend_create_channel_of_user user
-      create :channel, created_by: user.graph_user
+      channel = create :channel, created_by: user.graph_user
+      sleep 5 # allow elasticsearch to index the channel
+      channel
     end
 
     def backend_add_fact_to_channel fact, channel

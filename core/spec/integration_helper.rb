@@ -16,6 +16,7 @@ RSpec.configure do |config|
   # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :webkit
   Capybara.default_driver = :webkit
+  Capybara.default_wait_time = 5
 
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec

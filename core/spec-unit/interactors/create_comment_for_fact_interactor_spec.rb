@@ -40,10 +40,16 @@ describe CreateCommentForFactInteractor do
       opinion = 'believes'
       content = 'content'
       user = mock(id: '1a')
+      authority_string = '1.0'
+
       interactor = CreateCommentForFactInteractor.new fact_id, opinion, content, {current_user: user}
-      comment = mock()
+      comment = mock(:comment, id: '10a')
 
       interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
+
+      interactor.should_receive(:query).with(:authority_of_created_user_for_comment, comment.id).and_return(authority_string)
+      comment.should_receive(:authority=).with(authority_string)
+
       interactor.should_receive(:create_activity).with(comment)
 
       interactor.execute.should eq comment

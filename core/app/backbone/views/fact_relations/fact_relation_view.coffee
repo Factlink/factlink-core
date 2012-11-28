@@ -19,8 +19,7 @@ class window.FactRelationEvidenceView extends EvidenceBaseView
     @voteRegion.show new FactRelationVoteUpDownView model: @model
     @mainRegion.show new FactRelationView model: @model
 
-    if @model.get('can_destroy?')
-      @popoverRegion.show new FactRelationPopoverView model: @model
+    @setPopover FactRelationPopoverView
 
   highlight: ->
     @$el.animate
