@@ -18,6 +18,9 @@ feature "adding a fact to a channel" do
       page.should have_content('Repost this to one or more channels:')
 
       add_as_new_channel 'Gerrit'
+
+      sleep 1
+
       added_channels_should_contain 'Gerrit'
     end
   end
