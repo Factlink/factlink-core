@@ -31,6 +31,7 @@ class Believable
   end
 
   def add_opiniated(type, user)
+    remove_opinionateds user
     opiniated(type).add(user)
   end
 

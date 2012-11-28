@@ -81,12 +81,13 @@ class GraphUser < OurOhm
   end
 
   # user.facts_he(:believes)
+  # DEPRECATED: Doesn't work anymore:
   def facts_he(type)
     send(:"#{Opinion.real_for(type)}_facts")
   end
 
   def has_opinion?(type, fact)
-    facts_he(type).include?(fact)
+    fact.opiniated(type).include? self
   end
 
   def opinion_on(fact)
@@ -96,25 +97,13 @@ class GraphUser < OurOhm
     return nil
   end
 
-  def facts
-    facts_he(:believes) | facts_he(:doubts) | facts_he(:disbelieves)
-  end
-
   def real_created_facts
     created_facts.find_all { |fact| fact.class == Fact }
   end
   alias :really_realy_created_facts :real_created_facts
 
   def update_opinion(type, fact)
-    remove_opinions(fact)
     facts_he(type) << fact
   end
-
-  def remove_opinions(fact)
-    Opinion.types.each do |type|
-      facts_he(type).delete(fact)
-    end
-  end
-
 
 end
