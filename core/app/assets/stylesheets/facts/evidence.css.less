@@ -1,16 +1,18 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
-li.evidence-item {
-
+.evidence-item {
   padding: 14px 15px;
-  border-bottom: 1px solid @baseBorderColor;
+  border-top: 1px solid @baseBorderColor;
   .clearfix();
   position: relative;
 
   .evidence-user-avatar {
     float: left;
-    > img { .border-radius(3px); }
+    > img {
+      margin: 4px 10px 0 0;
+      .border-radius(3px);
+    }
   }
 
   .evidence-activity {

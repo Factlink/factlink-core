@@ -71,7 +71,7 @@ class UsersController < ApplicationController
     authorize! :update, @user
     raise HackAttempt unless params[:message] =~ /\A[a-zA-Z_0-9]+\Z/
     @user.seen_messages << params[:message]
-    render json: {ok: 'chill'}
+    render json: {}, status: :ok
   end
 
   private

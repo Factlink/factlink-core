@@ -13,7 +13,7 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
 
 class FactRelationsListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
-  className: 'fact-relations-listing'
+  className: 'fact-relation-listing'
 
   itemView: FactRelationEvidenceView
   itemViewOptions: => type: @collection.type
@@ -49,7 +49,6 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    # Todo: add to initialize?
     @commentsRegion.show new CommentsListView
       collection: @model.comments()
 

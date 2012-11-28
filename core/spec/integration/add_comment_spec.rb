@@ -9,27 +9,74 @@ feature "adding comments to a fact", type: :request do
 
   let(:factlink) { create :fact, created_by: @user.graph_user }
 
-  scenario "adding a comment" do
+  scenario "after adding a comment it should show up and persist" do
+    go_to_discussion_page_of factlink
+
+    comment = 'Geert is een buffel'
+    add_comment_with_toggle comment
+
+    # Input should be empty
+    find_field('add_comment').value.blank?.should be_true
+
+    within '.comments-listing' do
+      page.should have_content comment
+    end
+
+    go_to_discussion_page_of factlink # Reload the page
+
+    within '.comments-listing' do
+      page.should have_content comment
+    end
+  end
+
+
+  scenario "after adding multiple comments they should show up and persist" do
+    go_to_discussion_page_of factlink
+
+    comment1 = 'Vroeger was Gerard een hengst'
+    comment2 = 'Henk is nog steeds een buffel'
+
+    add_comment_with_toggle comment1
+    add_comment comment2
+
+    within '.comments-listing' do
+      page.should have_content comment1
+      page.should have_content comment2
+    end
+
+    go_to_discussion_page_of factlink # Reload the page
+
+    within '.comments-listing' do
+      page.should have_content comment1
+      page.should have_content comment2
+    end
+  end
+
+
+  scenario "after adding it can be removed" do
+    go_to_discussion_page_of factlink
+
+    comment = 'Vroeger had Gerard een hele stoere fiets'
+
+    add_comment_with_toggle comment
+
+    within '.comments-listing' do
+      find('.evidence-popover-arrow').click
+      find('.delete').click
+      wait_for_ajax
+    end
+
+    page.should_not have_content comment
 
     go_to_discussion_page_of factlink
 
-    text = 'Geert is een buffel'
-
-    add_comment text
-
-    screenshot_and_open_image
+    page.should_not have_content comment
   end
-
-  scenario "adding multiple comments" do
-  end
-
-  scenario "deleting a comment" do
-  end
-
 end
 
-def add_comment comment
-  evidence_input = page.find_field('add_factrelation')
+
+def add_comment_with_toggle comment
+  evidence_input = page.find_field 'add_factrelation'
 
   evidence_input.trigger 'focus'
   evidence_input.set comment
@@ -38,4 +85,17 @@ def add_comment comment
   page.find('.js-switch').set(true)
 
   click_button 'Post comment'
+  wait_for_ajax
+end
+
+
+def add_comment comment
+  comment_input = page.find_field 'add_comment'
+
+  comment_input.trigger 'focus'
+  comment_input.set comment
+  comment_input.trigger 'blur'
+
+  click_button 'Post comment'
+  wait_for_ajax
 end
