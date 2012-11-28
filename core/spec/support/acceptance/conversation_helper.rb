@@ -28,15 +28,21 @@ module Acceptance
         find(:css, '.text').set(message)
 
         click_button 'Send'
-        wait_for_ajax
+        page.should have_selector(".alert-type-success", visible: true)
       end
     end
 
     def add_recipient name
       page.find(:css, 'input').set(name)
-      wait_for_ajax
-      page.find('li', text: name).click
-      sleep 1
+
+      within('.auto-complete-search-list') do
+        el = page.find('li .text em', text: name)
+        el.trigger 'mouseover'
+        el.trigger 'click'
+
+        sleep 1
+      end
+
       page.find('.auto-complete-results-container a', text: name)
     end
 
