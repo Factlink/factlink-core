@@ -34,7 +34,7 @@ class window.ProfileController extends Backbone.Factlink.BaseController
 
   # HELPERS
   profile_options: (username) ->
-    title: 'About ' + username
+    title: 'Profile'
     active_tab: 'show'
     render: (main_region, user) =>
       @makePermalinkEvent()
