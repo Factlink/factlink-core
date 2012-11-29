@@ -25,7 +25,7 @@ describe Interactors::Comments::Index do
   end
 
   describe '.execute' do
-    it 'correctly' do
+    it 'returns comments with the opinion object set' do
       fact = mock(id: 1)
       opinion = 'believes'
       user = mock()
