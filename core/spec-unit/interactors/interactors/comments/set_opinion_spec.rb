@@ -39,7 +39,7 @@ describe Interactors::Comments::SetOpinion do
 
       interactor = Interactors::Comments::SetOpinion.new comment.id, opinion, current_user: user
 
-      interactor.should_receive(:command).with('comment/set_opinion', comment.id, opinion)
+      interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion)
 
       interactor.execute
     end
