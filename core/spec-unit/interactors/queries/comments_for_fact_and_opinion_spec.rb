@@ -26,6 +26,7 @@ describe Queries::CommentsForFactAndOpinion do
     end
 
     it 'should return dead comments with authorities' do
+      pending
       fact = mock(:fact, id: 3)
       opinion = 'believes'
       graph_user = mock()

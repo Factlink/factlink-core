@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     @comment = interactor :"comments/create", fact_id, params[:opinion], params[:content]
 
-    render 'comments/create'
+    render 'comments/show'
   end
 
   def destroy
@@ -25,8 +25,9 @@ class CommentsController < ApplicationController
   end
 
   def update
-    interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
-    render json: {}, status: :ok
+    @comment = interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
+    
+    render 'comments/show'
   end
 
   private
