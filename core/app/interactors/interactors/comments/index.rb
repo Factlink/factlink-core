@@ -17,7 +17,15 @@ module Interactors
       end
 
       def execute
-        query :comments_for_fact_and_opinion, @fact_id, @opinion
+        comments = query :comments_for_fact_and_opinion, @fact_id, @opinion
+        comments.each do |comment|
+          comment.opinion = query :opinion_for_comment, comment, fact
+        end
+        comments
+      end
+
+      def fact
+        @fact ||= Fact[@fact_id]
       end
     end
   end
