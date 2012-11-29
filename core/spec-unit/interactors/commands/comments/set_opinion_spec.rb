@@ -10,12 +10,12 @@ describe Commands::Comments::SetOpinion do
 
   describe '.execute' do
     it "sets the opinion on the believable belonging to this comment" do
-      opinion = mock
+      opinion = 'believes'
 
       believable = mock
       graph_user = mock
 
-      command = Commands::Comments::SetOpinion.new mock, opinion, mock
+      command = Commands::Comments::SetOpinion.new 'a1', opinion, mock
       command.stub believable: believable,
                    graph_user: graph_user
 
@@ -28,9 +28,9 @@ describe Commands::Comments::SetOpinion do
 
   describe '.believable' do
     it "returns the Believable::Comment for this comment" do
-      id = mock
+      id = 'a1'
       believable = mock
-      command = Commands::Comments::SetOpinion.new id, mock, mock
+      command = Commands::Comments::SetOpinion.new id, 'believes', mock
 
       Believable::Comment.should_receive(:new)
                        .with(id)
@@ -43,7 +43,7 @@ describe Commands::Comments::SetOpinion do
   describe '.graph_user' do
     it "returns the graph_user passed in" do
       graph_user = mock
-      command = Commands::Comments::SetOpinion.new mock, mock, graph_user
+      command = Commands::Comments::SetOpinion.new 'a1', 'believes', graph_user
       expect(command.graph_user).to eq graph_user
     end
   end
