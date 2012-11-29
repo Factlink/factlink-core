@@ -8,7 +8,7 @@ module Interactors
       arguments :comment_id, :opinion
 
       def execute
-        command 'comments/set_opinion', @comment_id, @opinion
+        command 'comments/set_opinion', @comment_id, @opinion, @options[:current_user].graph_user
       end
 
       def validate

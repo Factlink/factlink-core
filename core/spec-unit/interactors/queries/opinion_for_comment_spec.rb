@@ -6,14 +6,8 @@ describe Queries::OpinionForComment do
   include PavlovSupport
 
   it 'initializes correctly' do
-    user = mock()
-    interactor = Queries::OpinionForComment.new '1', mock(), current_user: user
+    interactor = Queries::OpinionForComment.new '1', mock()
     interactor.should_not be_nil
-  end
-
-  it 'without current user gives an unauthorized exception' do
-    expect { Queries::OpinionForComment.new '1', mock()}.
-      to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'with a invalid comment_id doesn''t validate' do

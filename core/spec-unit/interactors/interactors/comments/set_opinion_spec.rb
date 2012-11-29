@@ -33,13 +33,13 @@ describe Interactors::Comments::SetOpinion do
 
     it 'does stuff' do
       opinion = 'believes'
-      user = mock()
+      user = mock( graph_user: mock() )
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
 
       interactor = Interactors::Comments::SetOpinion.new comment.id, opinion, current_user: user
 
-      interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion)
+      interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
 
       interactor.execute
     end
