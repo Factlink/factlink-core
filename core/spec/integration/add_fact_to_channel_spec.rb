@@ -38,4 +38,8 @@ feature "adding a fact to a channel" do
     end
   end
 
+  scenario "adding an invalid channel shows an alert" do
+    pending
+  end
+
 end
