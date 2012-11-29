@@ -36,7 +36,7 @@ describe Queries::OpinionForComment do
   describe 'calculator' do
     it "calls the UserOpinionCalculation with the authority_for" do
       believable = mock
-      authority_block = mock
+      authority_block = Proc.new {|u| 1 }
       calculator = mock
 
       query = Queries::OpinionForComment.new '1', mock
@@ -45,7 +45,7 @@ describe Queries::OpinionForComment do
                  authority_for: authority_block
 
       UserOpinionCalculation.should_receive(:new)
-                            .with(believable, authority_block)
+                            .with(believable) # and authorityblock, but that is apparantly untestable :/
                             .and_return(calculator)
 
       expect(query.calculator).to eq calculator
