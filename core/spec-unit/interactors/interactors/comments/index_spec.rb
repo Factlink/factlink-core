@@ -30,8 +30,8 @@ describe Interactors::Comments::Index do
       opinion = 'believes'
       user = mock()
       interactor = Interactors::Comments::Index.new fact.id, opinion, current_user: user
-      comment1 = mock(id: 1, content: 'text')
-      comment2 = mock(id: 2, content: 'text')
+      comment1 = mock(id: '1a', content: 'text')
+      comment2 = mock(id: '2a', content: 'text')
       opinion1 = mock()
       opinion2 = mock()
 
@@ -39,11 +39,11 @@ describe Interactors::Comments::Index do
 
       interactor.should_receive(:query).with(:comments_for_fact_and_opinion, fact.id, opinion).and_return([comment1, comment2])
 
-      interactor.should_receive(:query).with(:opinion_for_comment, comment1, fact).and_return(opinion1)
-      interactor.should_receive(:query).with(:opinion_for_comment, comment2, fact).and_return(opinion2)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment1.id, fact).and_return(opinion1)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment2.id, fact).and_return(opinion2)
 
-      comment1.should_receive(:opinion=).with(opinion1)
-      comment2.should_receive(:opinion=).with(opinion2)
+      comment1.should_receive(:opinion_object=).with(opinion1)
+      comment2.should_receive(:opinion_object=).with(opinion2)
 
       result = interactor.execute
 
