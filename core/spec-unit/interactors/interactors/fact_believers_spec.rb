@@ -1,4 +1,4 @@
-require_relative '../../app/interactors/interactors/fact_believers.rb'
+require_relative '../../../app/interactors/interactors/fact_believers.rb'
 
 describe Interactors::FactBelievers do
   it 'initializes correctly' do

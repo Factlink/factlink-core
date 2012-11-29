@@ -1,13 +1,13 @@
-require_relative '../../app/interactors/interactors/fact_believers.rb'
+require_relative '../../../app/interactors/interactors/fact_disbelievers.rb'
 
-describe Interactors::FactBelievers do
+describe Interactors::FactDisbelievers do
   it 'initializes correctly' do
-    interactor = Interactors::FactBelievers.new 1, 0, 3, current_user: mock
+    interactor = Interactors::FactDisbelievers.new 1, 0, 3, current_user: mock
     interactor.should_not be_nil
   end
 
   it 'gives an authorized error when there isn''t a logged in user' do
-    expect { Interactors::FactBelievers.new 1, 0, 3 }.
+    expect { Interactors::FactDisbelievers.new 1, 0, 3 }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
@@ -24,10 +24,10 @@ describe Interactors::FactBelievers do
       user = mock()
       query = mock()
       u1 = mock()
-      Queries::FactInteractingUsers.should_receive(:new).with(fact_id, skip, take, 'believes', current_user: user).and_return(query)
+      Queries::FactInteractingUsers.should_receive(:new).with(fact_id, skip, take, 'disbelieves', current_user: user).and_return(query)
       query.should_receive(:execute).and_return({users: [u1], total: 1})
 
-      results = Interactors::FactBelievers.perform fact_id, skip, take, current_user: user
+      results = Interactors::FactDisbelievers.perform fact_id, skip, take, current_user: user
 
       results[:total].should eq 1
       results[:users].should eq [u1]

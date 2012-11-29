@@ -5,18 +5,25 @@ module Pavlov
     classname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
   end
 
+  def self.string_to_classname string
+    string.to_s.camelize
+  end
+
   def self.command command_name, *args
-    klass = get_class_by_string("Commands::"+command_name.to_s.camelize)
+    class_name = "Commands::"+string_to_classname(command_name)
+    klass = get_class_by_string(class_name)
     klass.new(*args).execute
   end
 
   def self.interactor command_name, *args
-    klass = get_class_by_string(command_name.to_s.camelize + "Interactor")
+    class_name = "Interactors::"+string_to_classname(command_name) + "Interactor"
+    klass = get_class_by_string class_name
     klass.new(*args).execute
   end
 
   def self.query command_name, *args
-    klass = get_class_by_string("Queries::"+command_name.to_s.camelize)
+    class_name = "Queries::"+string_to_classname(command_name)
+    klass = get_class_by_string class_name
     klass.new(*args).execute
   end
 end
