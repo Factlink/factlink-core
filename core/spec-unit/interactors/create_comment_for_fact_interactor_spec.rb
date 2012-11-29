@@ -35,7 +35,7 @@ describe CreateCommentForFactInteractor do
       stub_const('Commands::CreateCommentCommand', Class.new)
     end
 
-    it 'should work correctly' do
+    it 'works' do
       fact_id = 1
       opinion = 'believes'
       content = 'content'
@@ -47,16 +47,17 @@ describe CreateCommentForFactInteractor do
 
       interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
 
-      interactor.should_receive(:add_authority_to).with(comment)
-      interactor.should_receive(:create_activity).with(comment)
+      interactor.should_receive(:authority_of).with(comment).and_return(authority_string)
+      comment.should_receive(:authority=).with(authority_string)
 
+      interactor.should_receive(:create_activity).with(comment)
       interactor.execute.should eq comment
     end
   end
 
 
-  describe '.add_authority_to' do
-    it 'should retrieve the authority and add it to the comment' do
+  describe '.authority_of' do
+    it 'retrieves the authority' do
       fact = mock(id: 3)
       opinion = 'believes'
       content = 'content'
@@ -68,9 +69,8 @@ describe CreateCommentForFactInteractor do
 
       interactor.should_receive(:fact).and_return(fact)
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
-      comment.should_receive(:authority=).with(authority)
 
-      interactor.add_authority_to comment
+      interactor.authority_of(comment).should eq authority
     end
   end
 
@@ -79,7 +79,7 @@ describe CreateCommentForFactInteractor do
       stub_classes 'Fact'
     end
 
-    it 'should return the fact' do
+    it 'returns the fact' do
       fact = mock(id: 3)
       opinion = 'believes'
       content = 'content'
@@ -99,7 +99,7 @@ describe CreateCommentForFactInteractor do
       stub_const('Comment', Class.new)
     end
 
-    it 'should create activity' do
+    it 'creates an activity' do
       fact_id = 1
       opinion = 'believes'
       content = 'content'
