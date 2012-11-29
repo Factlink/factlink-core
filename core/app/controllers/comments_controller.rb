@@ -25,9 +25,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    # TODO: actually implement this using param[:opinion]
-    @comment = Comment.find(get_comment_id_param)
-    render 'comments/create'
+    interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
+    render json: {}, status: :ok
   end
 
   private
