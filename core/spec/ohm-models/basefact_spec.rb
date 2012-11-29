@@ -6,6 +6,8 @@ def others(opinion)
   others
 end
 
+# TODO : all tests using this function should be tests
+#        of UserOpinionCalculation
 def expect_opinion(subject,opinion)
   FactGraph.recalculate
   subject.class[subject.id].get_user_opinion.should == opinion
