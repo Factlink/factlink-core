@@ -41,7 +41,7 @@ class FactBodyView extends Backbone.Marionette.ItemView
     "click span.js-displaystring": "triggerViewClick"
 
   initialize: ->
-    @trunk8Init 3
+    @trunk8Init 3, '.js-displaystring', '.less'
 
   triggerViewClick: ->
     @trigger 'click:body'

@@ -9,7 +9,7 @@ class CommentView extends Backbone.Marionette.ItemView
   template:  'comments/comment'
 
   initialize: ->
-    @trunk8Init 5
+    @trunk8Init 5, '.js-content', '.less'
 
 _.extend(CommentView.prototype, Backbone.Factlink.Trunk8MoreLessMixin)
 
