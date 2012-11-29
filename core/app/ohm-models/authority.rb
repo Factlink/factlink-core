@@ -122,11 +122,7 @@ class AuthorityObject
 
   def user_id
     id = @key.split('+')[-1]
-    if id == 'nil'
-      nil
-    else
-      id
-    end
+    id == 'nil' ? nil : id
   end
 
   def user
