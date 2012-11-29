@@ -56,6 +56,9 @@ describe CommentsController do
     end
   end
 
+  describe '.update' do
+  end
+
   describe '.get_fact_id_param' do
     it 'returns fact_id param' do
       fact_id = 1

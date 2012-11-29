@@ -24,6 +24,12 @@ class CommentsController < ApplicationController
     render 'comments/index'
   end
 
+  def update
+    # TODO: actually implement this using param[:opinion]
+    @comment = Comment.find(get_comment_id_param)
+    render 'comments/create'
+  end
+
   private
     def get_fact_id_param
       id_string = params[:id]
