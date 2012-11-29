@@ -14,9 +14,5 @@ module Queries
       validate_hexadecimal_string :comment_id, @comment_id
     end
 
-    def authorized?
-      @options[:current_user]
-    end
-
   end
 end
