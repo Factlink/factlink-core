@@ -16,7 +16,7 @@ module Pavlov
   end
 
   def self.interactor command_name, *args
-    class_name = "Interactors::"+string_to_classname(command_name) + "Interactor"
+    class_name = "Interactors::"+string_to_classname(command_name)
     klass = get_class_by_string class_name
     klass.new(*args).execute
   end
