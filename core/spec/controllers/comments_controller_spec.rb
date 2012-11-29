@@ -15,7 +15,7 @@ describe CommentsController do
       comment = stub(opinion: opinion, content: content)
 
       controller.should_receive(:interactor).with(:"comments/create", fact_id, opinion, content).and_return(comment)
-      controller.should_receive(:render).with('comments/create')
+      controller.should_receive(:render).with('comments/show')
 
       controller.create
 
@@ -64,7 +64,7 @@ describe CommentsController do
       controller.stub(params: {opinion: opinion})
 
       controller.should_receive(:interactor).with('comments/set_opinion', comment_id, opinion)
-      controller.should_receive(:render).with(json: {}, status: :ok)
+      controller.should_receive(:render).with('comments/show')
 
       controller.update
     end
