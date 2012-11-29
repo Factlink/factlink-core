@@ -3,14 +3,14 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
-    @comment = interactor :create_comment_for_fact, fact_id, params[:opinion], params[:content]
+    @comment = interactor :"comments/create", fact_id, params[:opinion], params[:content]
 
     render 'comments/create'
   end
 
   def destroy
     comment_id = get_comment_id_param
-    interactor :delete_comment, comment_id
+    interactor :"comments/delete", comment_id
 
     render :json => {}, :status => :ok
   end
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     opinion = params[:opinion].to_s
 
-    @comments = interactor :get_comments_for_fact, fact_id, opinion
+    @comments = interactor :"comments/index", fact_id, opinion
 
     render 'comments/index'
   end

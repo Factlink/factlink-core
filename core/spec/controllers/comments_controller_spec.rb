@@ -14,7 +14,7 @@ describe CommentsController do
       controller.stub(get_fact_id_param: fact_id)
       comment = stub(opinion: opinion, content: content)
 
-      controller.should_receive(:interactor).with(:create_comment_for_fact, fact_id, opinion, content).and_return(comment)
+      controller.should_receive(:interactor).with(:"comments/create", fact_id, opinion, content).and_return(comment)
       controller.should_receive(:render).with('comments/create')
 
       controller.create
@@ -31,7 +31,7 @@ describe CommentsController do
       comment_id = 1
       controller.stub(get_comment_id_param: comment_id)
 
-      controller.should_receive(:interactor).with(:delete_comment, comment_id)
+      controller.should_receive(:interactor).with(:"comments/delete", comment_id)
       controller.should_receive(:render).with(json: {}, status: :ok)
 
       controller.destroy
@@ -47,7 +47,7 @@ describe CommentsController do
       comment1 = mock
       comment2 = mock
 
-      controller.should_receive(:interactor).with(:get_comments_for_fact, fact_id, opinion).and_return([comment1, comment2])
+      controller.should_receive(:interactor).with(:"comments/index", fact_id, opinion).and_return([comment1, comment2])
       controller.should_receive(:render).with('comments/index')
 
       controller.index

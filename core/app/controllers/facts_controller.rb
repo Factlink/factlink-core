@@ -198,7 +198,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    interactor = SearchEvidenceInteractor.new search_for, @fact.id, ability: current_ability
+    interactor = Interactors::SearchEvidence.new search_for, @fact.id, ability: current_ability
     results = interactor.execute
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }

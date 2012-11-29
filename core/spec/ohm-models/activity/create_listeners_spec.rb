@@ -9,8 +9,8 @@ describe 'activity queries' do
     # TODO: remove this once creating an activity does not cause an email to be sent
     interactor = mock()
     interactor.should_receive(:execute).any_number_of_times
-    stub_const 'SendMailForActivityInteractor', Class.new
-    SendMailForActivityInteractor.should_receive(:new).any_number_of_times.and_return(interactor)
+    stub_const 'Interactors::SendMailForActivity', Class.new
+    Interactors::SendMailForActivity.should_receive(:new).any_number_of_times.and_return(interactor)
   end
 
   describe ".fact" do
@@ -211,7 +211,7 @@ describe 'activity queries' do
         u1 = create(:user)
         u2 = create(:user)
 
-        interactor = CreateConversationWithMessageInteractor.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::CreateConversationWithMessage.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
         interactor.execute
 
@@ -228,7 +228,7 @@ describe 'activity queries' do
         u1 = c.recipients[0]
         u2 = c.recipients[1]
 
-        interactor = ReplyToConversationInteractor.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::ReplyToConversation.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
         interactor.execute
 
@@ -250,7 +250,7 @@ describe 'activity queries' do
 
         user = create(:user)
 
-        interactor = CreateCommentForFactInteractor.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
         interactor.execute
 
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -262,7 +262,7 @@ describe 'activity queries' do
         fact.add_opinion(:believes, gu1)
         user = create(:user)
 
-        interactor = CreateCommentForFactInteractor.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
         interactor.execute
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
