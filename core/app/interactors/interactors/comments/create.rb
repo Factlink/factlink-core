@@ -12,8 +12,10 @@ module Interactors
           @content, @options[:current_user].id.to_s
 
         comment.authority = authority_of comment
+        comment.opinion_object = query :opinion_for_comment, comment.id.to_s, fact
 
         create_activity comment
+
 
         comment
       end

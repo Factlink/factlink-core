@@ -37,10 +37,12 @@ describe Interactors::Comments::Create do
 
     it 'works' do
       fact_id = 1
+      fact = mock( fact_id: fact_id )
       opinion = 'believes'
       content = 'content'
       user = mock(id: '1a')
       authority_string = '1.0'
+      opinion_object = mock()
 
       interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
       comment = mock(:comment, id: '10a')
@@ -51,6 +53,11 @@ describe Interactors::Comments::Create do
       comment.should_receive(:authority=).with(authority_string)
 
       interactor.should_receive(:create_activity).with(comment)
+
+      interactor.should_receive(:fact).and_return(fact)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion_object)
+      comment.should_receive(:opinion_object=).with(opinion_object)
+
       interactor.execute.should eq comment
     end
   end
