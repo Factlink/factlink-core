@@ -1,22 +1,14 @@
 #= require ../facts/fact_base_view
 
-class FactRelationVoteUpDownView extends VoteUpDownView
-  className: 'fact-relation-actions'
-  template:  'fact_relations/vote_up_down'
-
-
-
 class FactRelationPopoverView extends EvidencePopoverView
   delete_message: 'Remove this Factlink as evidence'
-
-
 
 class window.FactRelationEvidenceView extends EvidenceBaseView
   onRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model
 
-    @voteRegion.show new FactRelationVoteUpDownView model: @model
+    @voteRegion.show new VoteUpDownView model: @model
     @mainRegion.show new FactRelationView model: @model
 
     @setPopover FactRelationPopoverView
@@ -30,8 +22,6 @@ class window.FactRelationEvidenceView extends EvidenceBaseView
         $(this).animate
           'background-color': '#ffffff'
         , 2500
-
-
 
 class window.FactRelationView extends Backbone.Marionette.Layout
   className: 'fact-relation-body'

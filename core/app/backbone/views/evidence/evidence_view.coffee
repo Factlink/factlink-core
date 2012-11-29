@@ -36,6 +36,10 @@ class window.EvidenceActivityView extends Backbone.Marionette.ItemView
 
 
 class window.VoteUpDownView extends Backbone.Marionette.ItemView
+  className: "evidence-actions"
+
+  template: "evidence/vote_up_down"
+
   events:
     "click .weakening": "disbelieve"
     "click .supporting": "believe"

@@ -36,11 +36,6 @@ class CommentView extends Backbone.Marionette.ItemView
     @$('.less').hide()
     e.stopPropagation()
 
-class CommentVoteUpDownView extends VoteUpDownView
-  className: 'comment-actions'
-  template:  'comments/vote_up_down'
-
-
 class window.CommentEvidenceView extends EvidenceBaseView
   onRender: ->
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
@@ -48,7 +43,7 @@ class window.CommentEvidenceView extends EvidenceBaseView
 
     @mainRegion.show new CommentView model: @model
 
-    @voteRegion.show new CommentVoteUpDownView model: @model
+    @voteRegion.show new VoteUpDownView model: @model
     @setPopover CommentPopoverView
 
 
