@@ -8,7 +8,7 @@ module Interactors
       arguments :comment_id, :opinion
 
       def execute
-
+        command :set_opinion, @comment_id, @opinion
       end
 
       def validate

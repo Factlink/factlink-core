@@ -23,4 +23,7 @@ describe Interactors::Comments::SetOpinion do
     expect { Interactors::Comments::SetOpinion.new '1', 'dunno'}.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
+
+  describe '.execute' do
+  end
 end
