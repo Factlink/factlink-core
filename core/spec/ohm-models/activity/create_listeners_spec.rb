@@ -242,7 +242,7 @@ describe 'activity queries' do
         fact.add_opinion(:believes, gu1)
         user = create(:user)
 
-        interactor = Interactors::CreateCommentForFact.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor = Interactors::Comments::Index.new fact.id.to_i, 'believes', 'tex message', current_user: user
         interactor.execute
 
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -254,7 +254,7 @@ describe 'activity queries' do
         fact.add_opinion(:believes, gu1)
         user = create(:user)
 
-        interactor = Interactors::CreateCommentForFact.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor = Interactors::Comments::Index.new fact.id.to_i, 'believes', 'tex message', current_user: user
         interactor.execute
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
