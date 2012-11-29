@@ -10,7 +10,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
-    poending "Fails on CI"
+    pending "Fails on CI"
     @factlink = backend_create_fact
 
     go_to_discussion_page_of @factlink
