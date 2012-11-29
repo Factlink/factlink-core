@@ -19,16 +19,6 @@ describe Authority do
   let(:gu1) { GraphUser.create }
   let(:gu2) { GraphUser.create }
 
-  before do
-    Authority.calculation = nil
-  end
-  after :all do
-    begin
-      load_topic_specific_authority
-    rescue
-    end
-  end
-
   describe :to_f do
     it "should return a float" do
       Authority.new.to_f.should be_a(Float)
@@ -147,14 +137,8 @@ describe Authority do
   describe ".run_calculation" do
     context "when no mapreducers are provided"do
       it "should do nothing" do
-        Authority.calculation = []
         i1.number = 2
-        Authority.run_calculation
-        Authority.from(i1).to_f.should == 0.0
-      end
-      it "should do nothing" do
-        i1.number = 2
-        Authority.run_calculation
+        Authority.run_calculation []
         Authority.from(i1).to_f.should == 0.0
       end
     end
@@ -163,8 +147,7 @@ describe Authority do
       calculator.should_receive(:process_all).once
       some_class = mock(:SomeClass)
       some_class.should_receive(:new).and_return(calculator)
-      Authority.calculation = [some_class]
-      Authority.run_calculation
+      Authority.run_calculation [some_class]
     end
   end
 end

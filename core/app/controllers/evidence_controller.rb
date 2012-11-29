@@ -19,10 +19,13 @@ class EvidenceController < FactsController
 
   def create_new_evidence(displaystring, opinion)
     evidence = Fact.build_with_data(nil, displaystring.to_s, nil, current_graph_user)
-    
+
     (evidence.data.save and evidence.save) or raise EvidenceNotFoundException
-    evidence.add_opinion(opinion, current_graph_user) if opinion
-    
+    if opinion
+      evidence.add_opinion(opinion, current_graph_user)
+      Activity::Subject.activity(current_graph_user, Opinion.real_for(opinion),evidence)
+    end
+
     evidence
   end
 
@@ -57,6 +60,8 @@ class EvidenceController < FactsController
     authorize! :opinionate, @fact_relation
 
     @fact_relation.add_opinion(type, current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type),@fact_relation)
+
     @fact_relation.calculate_opinion(2)
 
     render 'fact_relations/show'
@@ -68,6 +73,8 @@ class EvidenceController < FactsController
     authorize! :opinionate, @fact_relation
 
     @fact_relation.remove_opinions(current_user.graph_user)
+    Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
+
     @fact_relation.calculate_opinion(2)
 
     render 'fact_relations/show'
@@ -96,7 +103,7 @@ class EvidenceController < FactsController
       # Create FactRelation
       fact_relation = fact.add_evidence(type, evidence, current_user)
       fact_relation.add_opinion(:believes, current_graph_user)
-
+      Activity::Subject.activity(current_graph_user, Opinion.real_for(:believes),fact_relation)
 
       fact_relation
     end

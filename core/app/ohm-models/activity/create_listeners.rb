@@ -3,7 +3,7 @@ def create_activity_listeners
 
     people_who_follow_a_fact = lambda { |a|
       ([a.object.created_by_id] +
-       a.object.opinionated_users.ids +
+       a.object.opinionated_users_ids +
        a.object.fact_relations.map { |fr| fr.created_by.id  }).
         uniq.delete_if {|id| id == a.user_id}
     }

@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+def others(opinion)
+  others = [:believes, :doubts, :disbelieves]
+  others.delete(opinion)
+  others
+end
+
 describe GraphUser do
 
   subject {FactoryGirl.create :graph_user }
@@ -10,7 +16,6 @@ describe GraphUser do
   end
 
   context "Initially" do
-    it { subject.facts.to_a.should == [] }
     it { subject.facts_he(:believes).should be_empty }
     it { subject.facts_he(:doubts).should be_empty }
     it { subject.facts_he(:disbelieves).should be_empty }
@@ -35,13 +40,19 @@ describe GraphUser do
     end
   end
 
-  [:believes,:doubts,:disbelieves].each do |type|
+  [:believes, :doubts, :disbelieves].each do |type|
     context "after adding #{type} to a fact" do
       before do
         fact.add_opinion(type,subject)
       end
-      it {subject.facts_he(type).all.should =~ [fact]}
-      it {subject.has_opinion?(type,fact) == true}
+
+      it { expect(subject.has_opinion?(type,fact)).to be_true}
+
+      others(type).each do |other_type|
+        it { expect(subject.has_opinion?(other_type,fact)).to be_false}
+      end
+
+
       it do
         subject.channels.each do |ch|
           ch.should be_a Channel

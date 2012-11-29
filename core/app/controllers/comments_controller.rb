@@ -24,6 +24,11 @@ class CommentsController < ApplicationController
     render 'comments/index'
   end
 
+  def update
+    interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
+    render json: {}, status: :ok
+  end
+
   private
     def get_fact_id_param
       id_string = params[:id]

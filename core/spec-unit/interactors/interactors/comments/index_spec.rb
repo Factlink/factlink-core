@@ -25,17 +25,48 @@ describe Interactors::Comments::Index do
   end
 
   describe '.execute' do
-    it 'correctly' do
-      fact_id = 1
+    it 'returns comments with the opinion object set' do
+      fact = mock(id: 1)
       opinion = 'believes'
       user = mock()
-      interactor = Interactors::Comments::Index.new fact_id, opinion, current_user: user
-      comment = mock(id: 1, content: 'text')
-      interactor.should_receive(:query).with(:comments_for_fact_and_opinion, fact_id, opinion).and_return([comment])
+      interactor = Interactors::Comments::Index.new fact.id, opinion, current_user: user
+      comment1 = mock(id: '1a', content: 'text')
+      comment2 = mock(id: '2a', content: 'text')
+      opinion1 = mock()
+      opinion2 = mock()
+
+      interactor.should_receive(:fact).any_number_of_times.and_return(fact)
+
+      interactor.should_receive(:query).with(:comments_for_fact_and_opinion, fact.id, opinion).and_return([comment1, comment2])
+
+      interactor.should_receive(:query).with(:opinion_for_comment, comment1.id, fact).and_return(opinion1)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment2.id, fact).and_return(opinion2)
+
+      comment1.should_receive(:opinion_object=).with(opinion1)
+      comment2.should_receive(:opinion_object=).with(opinion2)
 
       result = interactor.execute
 
-      result.should eq [comment]
+      result.should eq [comment1, comment2]
+    end
+  end
+
+  describe '.fact' do
+    before do
+      stub_classes 'Fact'
+    end
+
+    it 'returns the fact' do
+      fact = mock(id: 3)
+      opinion = 'believes'
+      comment = mock()
+      user = mock()
+
+      interactor = Interactors::Comments::Index.new fact.id, opinion, current_user: user
+
+      Fact.should_receive(:[]).with(fact.id).and_return(fact)
+
+      interactor.fact.should eq fact
     end
   end
 end

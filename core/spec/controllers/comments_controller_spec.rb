@@ -56,6 +56,20 @@ describe CommentsController do
     end
   end
 
+  describe '.update' do
+    it 'calls the interactor with the correct parameters' do
+      comment_id = '123abc'
+      opinion = 'believes'
+      controller.stub(get_comment_id_param: comment_id)
+      controller.stub(params: {opinion: opinion})
+
+      controller.should_receive(:interactor).with('comments/set_opinion', comment_id, opinion)
+      controller.should_receive(:render).with(json: {}, status: :ok)
+
+      controller.update
+    end
+  end
+
   describe '.get_fact_id_param' do
     it 'returns fact_id param' do
       fact_id = 1

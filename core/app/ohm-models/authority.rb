@@ -38,13 +38,8 @@ class Authority < OurOhm
       all_related(:on, subject)
     end
 
-    #new system with mapreduce:
-    def calculation=(map_reducers)
-      @map_reducers = map_reducers
-    end
-
-    def run_calculation
-      @map_reducers.andand.each do |mr|
+    def run_calculation(map_reducers=[])
+      map_reducers.each do |mr|
         obj = mr.new
         debug "Running #{obj.class}"
         obj.process_all
@@ -127,11 +122,7 @@ class AuthorityObject
 
   def user_id
     id = @key.split('+')[-1]
-    if id == 'nil'
-      nil
-    else
-      id
-    end
+    id == 'nil' ? nil : id
   end
 
   def user

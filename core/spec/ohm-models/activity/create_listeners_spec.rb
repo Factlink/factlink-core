@@ -103,7 +103,10 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
+      Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
       f1.add_opinion(:disbelieves, f1.created_by)
+      Activity::Subject.activity(f1.created_by, Opinion.real_for(:disbelieves), f1)
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
@@ -143,6 +146,8 @@ describe 'activity queries' do
       it "should return activity when a users adds #{type} evidence to a fact that you believed" do
         f1 = create :fact
         f1.add_opinion(:believes, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
         f2 = create :fact
         f1.add_evidence type, f2, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -167,6 +172,7 @@ describe 'activity queries' do
         f1.created_by.stream_activities.key.del # delete other activities
 
         f1.add_opinion(opinion, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(opinion), f1)
 
         f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
             {user: gu1, action: opinion, subject: f1}
@@ -240,6 +246,8 @@ describe 'activity queries' do
       it "creates a notification for the interacting users" do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(:believes), fact)
+
         user = create(:user)
 
         interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user

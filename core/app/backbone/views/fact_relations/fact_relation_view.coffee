@@ -1,46 +1,7 @@
 #= require ../facts/fact_base_view
 
-class VoteUpDownView extends Backbone.Marionette.ItemView
-  className: 'fact-relation-actions'
-  template:  'fact_relations/vote_up_down'
-
-  events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
-
-  initialize: ->
-    @bindTo @model, "change", @render, @
-
-  hideTooltips: ->
-    @$(".weakening").tooltip "hide"
-    @$(".supporting").tooltip "hide"
-
-  onRender: ->
-    @$(".supporting").tooltip
-      title: "This is relevant"
-
-    @$(".weakening").tooltip
-      title: "This is not relevant"
-      placement: "bottom"
-
-  onBeforeClose: ->
-    @$(".weakening").tooltip "destroy"
-    @$(".supporting").tooltip "destroy"
-
-  disbelieve: ->
-    @hideTooltips()
-    @model.disbelieve()
-
-  believe: ->
-    @hideTooltips()
-    @model.believe()
-
-
-
 class FactRelationPopoverView extends EvidencePopoverView
   delete_message: 'Remove this Factlink as evidence'
-
-
 
 class window.FactRelationEvidenceView extends EvidenceBaseView
   onRender: ->
@@ -61,8 +22,6 @@ class window.FactRelationEvidenceView extends EvidenceBaseView
         $(this).animate
           'background-color': '#ffffff'
         , 2500
-
-
 
 class window.FactRelationView extends Backbone.Marionette.Layout
   className: 'fact-relation-body'
