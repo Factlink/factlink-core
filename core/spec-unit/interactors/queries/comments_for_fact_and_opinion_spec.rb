@@ -26,18 +26,19 @@ describe Queries::CommentsForFactAndOpinion do
     end
 
     it 'should return dead comments with authorities' do
-      fact_id = 3
+      fact = mock(:fact, id: 3)
       opinion = 'believes'
       graph_user = mock()
-      user = mock(:user)
-      query = Queries::CommentsForFactAndOpinion.new fact_id, opinion, current_user: user
+      user = mock(:user, graph_user: graph_user)
+      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
       content = 'bla'
       comment_id = '1a'
       authority_string = '1.0'
-      comment = mock(content: content, id: comment_id, opinion: opinion, authority: authority_string)
+      comment = mock(created_by: user, content: content, id: comment_id, opinion: opinion, authority: authority_string)
 
       query.should_receive(:comments).and_return([comment])
-      query.should_receive(:query).with(:authority_of_created_user_for_comment, comment.id).and_return(authority_string)
+      query.should_receive(:fact).and_return(fact)
+      query.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).and_return(authority_string)
       comment.should_receive(:authority=).with(authority_string)
 
       results = query.execute
@@ -51,10 +52,10 @@ describe Queries::CommentsForFactAndOpinion do
 
   describe '.comments' do
     before do
-      stub_classes 'Comment', 'Fact'
+      stub_classes 'Comment'
     end
 
-    it 'should return a comment' do
+    it 'should return the comments' do
       fact = mock(id: 3)
       opinion = 'believes'
       fact_data_id = '3b'
@@ -63,12 +64,31 @@ describe Queries::CommentsForFactAndOpinion do
 
       query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
 
-      Fact.should_receive(:[]).with(fact.id).and_return(stub(data_id: fact_data_id))
+      query.should_receive(:fact).and_return(stub(data_id: fact_data_id))
       Comment.should_receive(:where).
         with(fact_data_id: fact_data_id, opinion: opinion).
         and_return([comment])
 
       query.comments.should eq [comment]
+    end
+  end
+
+  describe '.fact' do
+    before do
+      stub_classes 'Fact'
+    end
+
+    it 'should return the fact' do
+      fact = mock(id: 3)
+      opinion = 'believes'
+      comment = mock()
+      user = mock()
+
+      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
+
+      Fact.should_receive(:[]).with(fact.id).and_return(fact)
+
+      query.fact.should eq fact
     end
   end
 end

@@ -32,7 +32,9 @@ class window.EvidenceActivityView extends Backbone.Marionette.ItemView
 
   initialize: -> @bindTo @model, 'change', @render, @
 
-  templateHelpers: => creator: @model.creator().toJSON()
+  templateHelpers: =>
+    creator: @model.creator().toJSON()
+    verb: @options.verb
 
 
 class window.VoteUpDownView extends Backbone.Marionette.ItemView
