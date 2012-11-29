@@ -94,4 +94,11 @@ describe Believable do
     end
 
   end
+  describe '.key' do
+    it "should be the only value passed to the constructor" do
+      key = mock
+      believable = Believable.new(key)
+      expect(believable.key).to eq key
+    end
+  end
 end

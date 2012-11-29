@@ -3,10 +3,23 @@ module Commands
     class SetOpinion
       include Pavlov::Command
 
-      arguments :comment_id, :opinion_type, :graph_user
+      arguments :comment_id, :opinion, :graph_user
+
+      def validate
+        validate_hexadecimal_string :comment_id, @comment_id
+        validate_in_set             :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+      end
 
       def execute
-        puts "I could set an opinion, if I were implemented"
+        believable.add_opiniated @opinion, graph_user
+      end
+
+      def believable
+        Believable::Comment.new(@comment_id)
+      end
+
+      def graph_user
+       @graph_user
       end
     end
   end
