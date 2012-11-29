@@ -15,7 +15,7 @@ module Queries
     end
 
     def calculator
-      UserOpinionCalculation.new believable, authority_for
+      UserOpinionCalculation.new believable, &authority_for
     end
 
     def authority_for
