@@ -1,7 +1,8 @@
-require_relative '../pavlov'
+require_relative '../../pavlov'
 
 module Interactors
-class DeleteComment
+module Comments
+class Delete
   include Pavlov::Interactor
 
   arguments :comment_id
@@ -17,5 +18,6 @@ class DeleteComment
   def authorized?
     @options[:current_user]
   end
+end
 end
 end

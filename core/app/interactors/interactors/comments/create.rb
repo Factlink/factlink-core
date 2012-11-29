@@ -1,7 +1,8 @@
-require_relative '../pavlov'
+require_relative '../../pavlov'
 
 module Interactors
-class CreateCommentForFact
+module Comments
+class Create
   include Pavlov::Interactor
 
   arguments :fact_id, :opinion, :content
@@ -42,5 +43,6 @@ class CreateCommentForFact
     validate_integer :fact_id, @fact_id
     validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
   end
+end
 end
 end

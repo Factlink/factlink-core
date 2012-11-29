@@ -1,32 +1,32 @@
 require 'pavlov_helper'
-require_relative '../../../app/interactors/interactors/create_comment_for_fact.rb'
+require_relative '../../../../app/interactors/interactors/comments/create.rb'
 
-describe Interactors::CreateCommentForFact do
+describe Interactors::Comments::Create do
   include PavlovSupport
 
   it 'initializes correctly' do
     user = mock()
-    interactor = Interactors::CreateCommentForFact.new 1, 'believes', 'Hoi!', current_user: user
+    interactor = Interactors::Comments::Create.new 1, 'believes', 'Hoi!', current_user: user
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { Interactors::CreateCommentForFact.new 1, 'believes', 'Hoi!' }.
+    expect { Interactors::Comments::Create.new 1, 'believes', 'Hoi!' }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'without content doesn''t validate' do
-    expect { Interactors::CreateCommentForFact.new 1, 'believes', '' }.
+    expect { Interactors::Comments::Create.new 1, 'believes', '' }.
       to raise_error(Pavlov::ValidationError, 'content should not be empty.')
   end
 
   it 'with a invalid fact_id doesn''t validate' do
-    expect { Interactors::CreateCommentForFact.new 'a', 'believes', 'Hoi!' }.
+    expect { Interactors::Comments::Create.new 'a', 'believes', 'Hoi!' }.
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
   it 'with a invalid opinion doesn''t validate' do
-    expect { Interactors::CreateCommentForFact.new 1, 'dunno', 'Hoi!' }.
+    expect { Interactors::Comments::Create.new 1, 'dunno', 'Hoi!' }.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -42,7 +42,7 @@ describe Interactors::CreateCommentForFact do
       user = mock(id: '1a')
       authority_string = '1.0'
 
-      interactor = Interactors::CreateCommentForFact.new fact_id, opinion, content, {current_user: user}
+      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
       comment = mock(:comment, id: '10a')
 
       interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
@@ -65,7 +65,7 @@ describe Interactors::CreateCommentForFact do
       user = mock()
       authority = '2.0'
 
-      interactor = Interactors::CreateCommentForFact.new fact.id, opinion, content, current_user: user
+      interactor = Interactors::Comments::Create.new fact.id, opinion, content, current_user: user
 
       interactor.should_receive(:fact).and_return(fact)
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
@@ -86,7 +86,7 @@ describe Interactors::CreateCommentForFact do
       comment = mock()
       user = mock()
 
-      interactor = Interactors::CreateCommentForFact.new fact.id, opinion, content, current_user: user
+      interactor = Interactors::Comments::Create.new fact.id, opinion, content, current_user: user
 
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
 
@@ -105,7 +105,7 @@ describe Interactors::CreateCommentForFact do
       content = 'content'
       graph_user = mock()
       user = mock(id: '1a', graph_user: graph_user)
-      interactor = Interactors::CreateCommentForFact.new fact_id, opinion, content, {current_user: user}
+      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
       returned_comment = mock(id: 1)
       mongoid_comment = mock()
       fact = stub()

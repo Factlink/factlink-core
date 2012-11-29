@@ -1,7 +1,8 @@
-require_relative '../pavlov'
+require_relative '../../pavlov'
 
 module Interactors
-class GetCommentsForFact
+module Comments
+class Index
   include Pavlov::Interactor
 
   arguments :fact_id, :opinion
@@ -18,5 +19,6 @@ class GetCommentsForFact
   def execute
     query :comments_for_fact_and_opinion, @fact_id, @opinion
   end
+end
 end
 end
