@@ -21,7 +21,7 @@ class SearchController < ApplicationController
     @results = []
 
     if search_for.size > 0
-      interactor = SearchInteractor.new search_for,
+      interactor = Interactors::Search.new search_for,
         ability: current_ability, page: page, row_count: row_count
 
       @results = interactor.execute
