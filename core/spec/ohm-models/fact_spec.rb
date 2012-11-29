@@ -1,24 +1,20 @@
 require 'spec_helper'
 
 def other_one(this)
-  if this == :supporting
-    :weakening
-  else
-    :supporting
-  end
+  (this == :supporting) ? :weakening : :supporting
 end
 
 describe Fact do
 
-  subject {FactoryGirl.create :fact}
+  subject {create :fact}
 
-  let(:parent) {FactoryGirl.create :fact}
+  let(:parent) {create :fact}
 
-  let(:factlink) {FactoryGirl.create :fact}
-  let(:factlink2) {FactoryGirl.create :fact}
+  let(:factlink) {create :fact}
+  let(:factlink2) {create :fact}
 
-  let(:gu1) {FactoryGirl.create(:graph_user)}
-  let(:gu2) {FactoryGirl.create(:graph_user)}
+  let(:gu1) {create(:graph_user)}
+  let(:gu2) {create(:graph_user)}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
@@ -147,8 +143,8 @@ describe Fact do
 
       context "with two #{relation} fact" do
         before do
-          @fr = subject.add_evidence(relation,factlink,gu1)
-          @fr2 = subject.add_evidence(relation,factlink2,gu1)
+          subject.add_evidence(relation,factlink,gu1)
+          subject.add_evidence(relation,factlink2,gu1)
         end
 
         it "should have two #{relation} facts" do
@@ -161,8 +157,8 @@ describe Fact do
 
       context "with one #{relation} fact and one #{other_one(relation)} fact" do
         before do
-          @fr = subject.add_evidence(relation,factlink,gu1)
-          @fr2 = subject.add_evidence(other_one(relation),factlink2,gu1)
+          subject.add_evidence(relation,factlink,gu1)
+          subject.add_evidence(other_one(relation),factlink2,gu1)
         end
 
         it "should have one #{relation} fact" do
