@@ -6,11 +6,11 @@ module Interactors
       include Pavlov::Interactor
 
       # TODO-0312 rename opinion to type
-      arguments :fact_id, :opinion
+      arguments :fact_id, :type
 
       def validate
         validate_integer :fact_id, @fact_id
-        validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+        validate_in_set  :type,    @type, ['believes', 'disbelieves', 'doubts']
       end
 
       def authorized?
@@ -18,7 +18,7 @@ module Interactors
       end
 
       def execute
-        query :comments_for_fact_and_type, @fact_id, @opinion
+        query :comments_for_fact_and_type, @fact_id, @type
       end
 
       def fact
@@ -27,3 +27,4 @@ module Interactors
     end
   end
 end
+
