@@ -35,7 +35,7 @@ describe Interactors::Comments::Index do
 
       interactor.should_receive(:fact).any_number_of_times.and_return(fact)
 
-      interactor.should_receive(:query).with(:comments_for_fact_and_opinion, fact.id, opinion).and_return([comment1, comment2])
+      interactor.should_receive(:query).with(:comments_for_fact_and_type, fact.id, opinion).and_return([comment1, comment2])
 
       result = interactor.execute
 

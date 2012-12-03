@@ -11,29 +11,27 @@ feature "visiting the stream" do
   end
 
   scenario "adding first fact" do
-    @channel = backend_create_channel
-    @factlink = backend_create_fact
-    backend_add_fact_to_channel @factlink, @channel
+    channel = backend_create_channel
+    factlink = backend_create_fact
+    backend_add_fact_to_channel factlink, channel
 
     sign_in_user @user
     go_to_stream
 
     page.should have_content('just added their first Factlink')
-    page.should have_content(@factlink.to_s)
+    page.should have_content(factlink.to_s)
   end
 
   scenario "revisiting stream after visiting a factlink page" do
-    pending "seems to work when testing by hand..."
+    channel = backend_create_channel
 
-    @channel = backend_create_channel
-
-    @other_user = FactoryGirl.create :approved_confirmed_user
-    @other_channel = backend_create_channel_of_user @other_user
-    backend_channel_add_subchannel @channel, @other_channel
+    other_user = FactoryGirl.create :approved_confirmed_user
+    other_channel = backend_create_channel_of_user other_user
+    backend_channel_add_subchannel channel, other_channel
 
     10.times.each do
-      @factlink = backend_create_fact_of_user @other_user
-      backend_add_fact_to_channel @factlink, @other_channel
+      factlink = backend_create_fact_of_user other_user
+      backend_add_fact_to_channel factlink, other_channel
     end
 
     sign_in_user @user

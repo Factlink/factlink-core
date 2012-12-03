@@ -1,7 +1,7 @@
 require 'integration_helper'
 
 describe 'When a User gets approved', type: :request do
-  pending 'the User should get notified through email' do
+  it 'the User should get notified through email' do
     clear_emails
 
     user = FactoryGirl.create :user, agrees_tos: false
