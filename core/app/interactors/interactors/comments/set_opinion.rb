@@ -15,6 +15,7 @@ module Interactors
       end
 
       def comment
+        # TODO-0312 extract to query
         comment = Comment.find(@comment_id)
         extended_comment comment, comment.fact_data.fact
       end
