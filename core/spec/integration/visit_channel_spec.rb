@@ -44,7 +44,7 @@ feature "visiting a channel" do
       backend_add_fact_to_channel factlink, channel
     end
 
-    go_to_channel_page_of @channel
+    go_to_channel_page_of channel
 
     set_scroll_top_to 100
 
