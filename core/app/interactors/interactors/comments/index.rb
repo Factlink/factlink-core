@@ -5,6 +5,7 @@ module Interactors
     class Index
       include Pavlov::Interactor
 
+      # TODO-0312 rename opinion to type
       arguments :fact_id, :opinion
 
       def validate
