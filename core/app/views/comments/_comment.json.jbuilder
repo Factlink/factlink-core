@@ -17,13 +17,6 @@ end
 # HACK! Refactor this...
 current_user_opinion = opinion_on comment
 
-negative_active =
-  (current_user_opinion == :disbelieves) ? ' active' : ''
-
-positive_active =
-  (current_user_opinion == :believes) ? ' active' : ''
-
-
 json.id           comment.id
 json.created_at   comment.created_at
 json.created_by do |json|
@@ -38,5 +31,4 @@ end
 
 json.opinions OpinionPresenter.new comment.opinion_object
 
-json.negative_active negative_active
-json.positive_active positive_active
+json.current_user_opinion current_user_opinion
