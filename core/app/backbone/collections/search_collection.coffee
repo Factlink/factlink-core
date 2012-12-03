@@ -9,13 +9,14 @@ class window.SearchCollection extends Backbone.Collection
 
   searchFor: (query) ->
     return if query == @query
+    @jqxhr?.abort()
 
     if query == ''
       @makeEmpty()
     else
       @query = query
       @reset []
-      @fetch()
+      @jqxhr = @fetch()
 
   encodedQuery: -> encodeURIComponent @query
 
