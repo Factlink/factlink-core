@@ -2,7 +2,7 @@
 @import "bootstrap/variables";
 
 div.fact-wheel {
-  .box-sizing();
+  .box-sizing(border-box);
   float: left;
   margin: 0 10px 10px 0;
   position: relative;
@@ -18,7 +18,9 @@ div.fact-wheel {
     height: 16px;
     left: 11px;
     top: 13px;
-    #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+    font-family: @baseFontFamily;
+    font-size: @metaFontSize;
+    line-height: @baseLineHeight;
     color: #999;
     text-align: center;
   }
