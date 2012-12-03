@@ -3,7 +3,7 @@ require_relative '../kill_object'
 require_relative 'comments/common_functionality'
 
 module Queries
-  class CommentsForFactAndOpinion
+  class CommentsForFactAndType
     include Pavlov::Query
     include Comments::CommonFunctionality
 
