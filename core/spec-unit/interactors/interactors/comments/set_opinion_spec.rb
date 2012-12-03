@@ -32,6 +32,7 @@ describe Interactors::Comments::SetOpinion do
     end
 
     it 'does stuff' do
+      pending
       opinion = 'believes'
       user = mock( graph_user: mock() )
       comment = mock(id: '123abc456def')

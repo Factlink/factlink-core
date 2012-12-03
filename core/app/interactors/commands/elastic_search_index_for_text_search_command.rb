@@ -1,4 +1,5 @@
 require 'logger'
+require_relative '../../classes/elastic_search'
 
 module Commands
   class ElasticSearchIndexForTextSearchCommand
@@ -20,11 +21,8 @@ module Commands
     end
 
     def execute
-      options = { body: @document.to_json }
-
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
-      HTTParty.put url, options
-
+      index = ElasticSearch::Index.new @type_name
+      index.add @object.id, @document.to_json
       @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
     end
 

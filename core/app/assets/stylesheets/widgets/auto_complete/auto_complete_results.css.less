@@ -12,10 +12,17 @@
       .box-sizing();
       color: @metaFontColor;
       margin: 0 0 5px;
-      padding: 8px 10px 7px 9px;
-      .border-radius(4px);
-      border-bottom: 1px solid #e4e4e4;
-      font-size: 13px;
+      padding: 7px 10px 7px 9px;
+      .border-radius(3px);
+      border: 1px solid @baseBorderColor;
+      font-size: @baseFontSize;
+      -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
+      -moz-box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
+
+      > a {
+        font-weight: normal;
+      }
 
       > a.icon-remove {
         cursor: pointer;
