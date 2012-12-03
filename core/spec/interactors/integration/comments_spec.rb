@@ -20,7 +20,9 @@ describe 'comments' do
   describe 'initially' do
     it 'a fact has no comments' do
       f = create :fact
+
       comments = interactor :'comments/index', f.id.to_i, 'believes'
+
       expect(comments).to eq []
     end
   end
@@ -33,7 +35,6 @@ describe 'comments' do
       interactor :'comments/create', f.id.to_i, 'believes', 'Handige Harrie'
 
       comments = interactor :'comments/index', f.id.to_i, 'believes'
-      expect(comments.length).to eq 2
 
       expect(comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
     end
