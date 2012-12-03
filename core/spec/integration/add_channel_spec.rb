@@ -11,10 +11,10 @@ describe "channels", type: :request do
   end
 
   it "can be visited" do
-    @channel = create_channel(@user)
+    channel = create_channel(@user)
 
-    visit channel_path(@user, @channel)
+    visit channel_path(@user, channel)
 
-    page.should have_content(@channel.title)
+    page.should have_content(channel.title)
   end
 end
