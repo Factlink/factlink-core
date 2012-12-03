@@ -47,6 +47,8 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
     FactoryGirl.reload
+
+    ElasticSearch.stub synchronous: true
   end
 end
 
