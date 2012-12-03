@@ -41,9 +41,9 @@ FactlinkUI::Application.routes.draw do
       post    "/opinion/:type"    => "facts#set_opinion",     :as => "set_opinion"
       delete  "/opinion"          => "facts#remove_opinions", :as => "delete_opinion"
       scope '/comments' do
-        post "/:opinion" => 'comments#create'
-        delete "/:opinion/:id" => 'comments#destroy'
-        get "/:opinion" => 'comments#index'
+        post "/:type" => 'comments#create'
+        delete "/:type/:id" => 'comments#destroy'
+        get "/:type" => 'comments#index'
         put "/:type/:id" => 'comments#update'
       end
     end
