@@ -6,7 +6,7 @@ end
 
 describe Fact do
 
-  subject {create :fact}
+  subject(:fact) {create :fact}
 
   let(:parent) {create :fact}
 
@@ -24,19 +24,19 @@ describe Fact do
 
   context "initially" do
     it "should be findable" do
-      subject.should be_a(Fact)
+      fact.should be_a(Fact)
     end
     it "should have an authority of 1" do
-      Authority.from(subject).to_f.should == 0.0
+      Authority.from(fact).to_f.should == 0.0
     end
     it "should be persisted" do
-      Fact[subject.id].should == subject
+      Fact[fact.id].should == fact
     end
     describe ".delete" do
       it " should work" do
-        old_id = subject.id
-        data_id = subject.data.id
-        subject.delete
+        old_id = fact.id
+        data_id = fact.data.id
+        fact.delete
         Fact[old_id].should be_nil
         FactData.find(data_id).should be_nil
       end
@@ -53,12 +53,12 @@ describe Fact do
   end
 
   it "should have a creator" do
-    subject.created_by.class.should == GraphUser
+    fact.created_by.class.should == GraphUser
   end
 
   it "should be in the created_facts set of the creator" do
-    @gu = subject.created_by
-    @gu.created_facts.to_a.should =~ [subject]
+    @gu = fact.created_by
+    @gu.created_facts.to_a.should =~ [fact]
   end
 
 
@@ -67,12 +67,12 @@ describe Fact do
 
       [:supporting, :weakening].each do |relation|
         it "should have no evidence for a type " do
-          subject.evidence(relation).count.should == 0
+          fact.evidence(relation).count.should == 0
         end
       end
 
       it "should have no evidence for :both type " do
-        subject.evidence(:both).count.should == 0
+        fact.evidence(:both).count.should == 0
       end
     end
   end
@@ -82,7 +82,7 @@ describe Fact do
     describe ".evidence" do
       [:supporting, :weakening, :both].each do |relation|
         it "should initially be empty" do
-          subject.evidence(relation).count.should == 0
+          fact.evidence(relation).count.should == 0
         end
       end
     end
@@ -91,29 +91,29 @@ describe Fact do
 
       context "with one #{relation} fact" do
         before do
-          @fr = subject.add_evidence(relation,factlink,gu1)
+          @fr = fact.add_evidence(relation,factlink,gu1)
         end
 
         its(:get_opinion) {should be_a(Opinion)}
 
         describe "should have one evidence" do
           it "for the relation #{relation}" do
-            subject.evidence(relation).count.should == 1
+            fact.evidence(relation).count.should == 1
           end
           it "for :both" do
-            subject.evidence(:both).count.should == 1
+            fact.evidence(:both).count.should == 1
           end
         end
 
         describe ".delete the fact, which has a #{relation} fact" do
           before do
-            @subject_id = subject.id
-            @data_id = subject.data.id
+            @fact_id = fact.id
+            @data_id = fact.data.id
             @relation_id = @fr.id
-            subject.delete
+            fact.delete
           end
           it "should remove the fact" do
-            Fact[@subject_id].should be_nil
+            Fact[@fact_id].should be_nil
           end
           it "should remove the associated factdata" do
             FactData.find(@data_id).should be_nil
@@ -143,32 +143,32 @@ describe Fact do
 
       context "with two #{relation} fact" do
         before do
-          subject.add_evidence(relation,factlink,gu1)
-          subject.add_evidence(relation,factlink2,gu1)
+          fact.add_evidence(relation,factlink,gu1)
+          fact.add_evidence(relation,factlink2,gu1)
         end
 
         it "should have two #{relation} facts" do
-          subject.evidence(relation).count.should == 2
+          fact.evidence(relation).count.should == 2
         end
         it "should have two facts for :both" do
-          subject.evidence(:both).count.should == 2
+          fact.evidence(:both).count.should == 2
         end
       end
 
       context "with one #{relation} fact and one #{other_one(relation)} fact" do
         before do
-          subject.add_evidence(relation,factlink,gu1)
-          subject.add_evidence(other_one(relation),factlink2,gu1)
+          fact.add_evidence(relation,factlink,gu1)
+          fact.add_evidence(other_one(relation),factlink2,gu1)
         end
 
         it "should have one #{relation} fact" do
-          subject.evidence(relation).count.should == 1
+          fact.evidence(relation).count.should == 1
         end
         it "should have one #{other_one(relation)} fact" do
-          subject.evidence(other_one(relation)).count.should == 1
+          fact.evidence(other_one(relation)).count.should == 1
         end
         it "should have two facts for :both" do
-          subject.evidence(:both).count.should == 2
+          fact.evidence(:both).count.should == 2
         end
       end
     end
@@ -179,21 +179,21 @@ describe Fact do
     [:displaystring, :title].each do |attr|
       context "#{attr} should be changeable" do
         before do
-          subject.data.send "#{attr}=" , "quux"
+          fact.data.send "#{attr}=" , "quux"
         end
-        it {subject.data.send("#{attr}").should == "quux"}
+        it {fact.data.send("#{attr}").should == "quux"}
       end
       context "#{attr} should persist" do
         before do
-          subject.data.send "#{attr}=" , "xuuq"
-          subject.data.save
+          fact.data.send "#{attr}=" , "xuuq"
+          fact.data.save
         end
-        it {Fact[subject.id].data.send("#{attr}").should == "xuuq"}
+        it {Fact[fact.id].data.send("#{attr}").should == "xuuq"}
       end
     end
     context "after setting a displaystring to 'hiephoi'" do
       before do
-        subject.data.displaystring = "hiephoi"
+        fact.data.displaystring = "hiephoi"
       end
       its(:to_s){should == "hiephoi"}
     end
@@ -209,8 +209,8 @@ describe Fact do
       f2.data.displaystring.should == "This is a fact"
     end
     it "should not be possible to save a fact with a string consisting out of only spaces" do
-      subject.data.displaystring = '     '
-      subject.data.save.should be_false
+      fact.data.displaystring = '     '
+      fact.data.save.should be_false
     end
 
     it "should not be possible to save a fact with a string consisting out of only spaces" do
