@@ -5,9 +5,8 @@ describe "conversation", type: :request do
   include Acceptance::FactHelper
 
   before :each do
-    @user = sign_in_user FactoryGirl.create :approved_confirmed_user
-    @recipients = [FactoryGirl.create(:approved_confirmed_user), FactoryGirl.create(:approved_confirmed_user)]
-    sleep 5 # allow elasticsearch to index the users
+    @user = sign_in_user(create :approved_confirmed_user)
+    @recipients = create_list :approved_confirmed_user , 2
   end
 
   it "message can be sent and viewed" do
