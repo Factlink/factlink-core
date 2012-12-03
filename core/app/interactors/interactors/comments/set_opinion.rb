@@ -5,19 +5,12 @@ module Interactors
   module Comments
     class SetOpinion
       include Pavlov::Interactor
-      include Queries::Comments::CommonFunctionality
 
       arguments :comment_id, :opinion
 
       def execute
         command 'comments/set_opinion', @comment_id, @opinion, @options[:current_user].graph_user
-        comment
-      end
-
-      def comment
-        # TODO-0312 extract to query
-        comment = Comment.find(@comment_id)
-        extended_comment comment, comment.fact_data.fact
+        query :'comments/get', @comment_id
       end
 
       def validate

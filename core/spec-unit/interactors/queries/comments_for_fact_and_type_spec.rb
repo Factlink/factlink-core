@@ -26,7 +26,6 @@ describe Queries::CommentsForFactAndType do
     end
 
     it 'should return dead comments with authorities' do
-      pending
       fact = mock(:fact, id: 3)
       type = 'believes'
       graph_user = mock()
@@ -35,20 +34,24 @@ describe Queries::CommentsForFactAndType do
       content = 'bla'
       comment_id = '1a'
       authority_string = '1.0'
+      extended_comment = stub
       comment = mock(created_by: user, content: content, id: comment_id, type: type, authority: authority_string)
 
       query.should_receive(:comments).and_return([comment])
       query.should_receive(:fact).and_return(fact)
-      query.should_receive(:query).with(:authority_on_fact_for, fact, graph_user).and_return(authority_string)
-      comment.should_receive(:authority=).with(authority_string)
+
+
+      query.should_receive(:extended_comment).and_return(extended_comment)
 
       results = query.execute
 
-      results.first.type.should eq type
-      results.first.content.should eq content
-      results.first.id.should eq comment_id
-      results.first.authority.should eq authority_string
+      expect(results.length).to eq 1
+      expect(results.first).to eq extended_comment
     end
+  end
+
+  describe '.extended_comment' do
+    it "should be tested in the test for the module"
   end
 
   describe '.comments' do
