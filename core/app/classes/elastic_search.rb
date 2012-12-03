@@ -1,5 +1,7 @@
 require 'httparty'
 
+require_relative 'elastic_search/index'
+
 class ElasticSearch
   def self.clean
     time = Benchmark.realtime do
