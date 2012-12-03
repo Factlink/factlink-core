@@ -41,17 +41,12 @@ describe Queries::CommentsForFactAndType do
       query.should_receive(:fact).and_return(fact)
 
 
-      query.should_receive(:extended_comment).and_return(extended_comment)
+      query.should_receive(:query).with(:'comments/add_authority_and_opinion', comment, fact).and_return(extended_comment)
 
       results = query.execute
 
-      expect(results.length).to eq 1
-      expect(results.first).to eq extended_comment
+      expect(results).to eq [extended_comment]
     end
-  end
-
-  describe '.extended_comment' do
-    it "should be tested in the test for the module"
   end
 
   describe '.comments' do

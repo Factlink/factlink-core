@@ -1,5 +1,4 @@
 require_relative '../../pavlov'
-require_relative '../../queries/comments/common_functionality.rb'
 
 module Interactors
   module Comments

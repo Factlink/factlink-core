@@ -1,8 +1,8 @@
 module Queries
   module Comments
     class Get
-      include Queries::Comments::CommonFunctionality
-      arguments comment_id
+      include Pavlov::Query
+      arguments :comment_id
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id
@@ -10,7 +10,8 @@ module Queries
 
       def execute
         comment = Comment.find(@comment_id)
-        extended_comment comment, comment.fact_data.fact
+        fact = comment.fact_data.fact
+        query :'comments/add_authority_and_opinion', comment, fact
       end
     end
   end
