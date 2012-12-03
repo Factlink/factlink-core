@@ -18,6 +18,8 @@ module Queries
       # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
       # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
       # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
+
+      # extract to query, and then it should be ok-ish
       def current_user_opinion
         Opinion.types.each do |opinion|
           return opinion if has_opinion?(opinion)
