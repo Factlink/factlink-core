@@ -11,8 +11,7 @@ describe "factlink", type: :request do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end
 
-  # TODO: Enable this test
-  pending "the layout of the discussion page is correct" do
+  it "the layout of the discussion page is correct" do
     @factlink = create_factlink @user
     search_string = 'Test search'
 
@@ -109,7 +108,8 @@ describe "factlink", type: :request do
     old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
   end
 
-  pending "should find a factlink when searching on a exact phrase containing small words" do
+  it "should find a factlink when searching on a exact phrase containing small words" do
+    pending "because there's an open asap point to fix elasticsearchrelated bugs"
     displaystring = 'feathers is not a four letter groom betters'
 
     @factlink = create_factlink @user
