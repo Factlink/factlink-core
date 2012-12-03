@@ -33,8 +33,9 @@ Author: Factlink
 body {
   background: @white;
   overflow-y: scroll;
-
-  #font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+  font-family: @baseFontFamily;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
 }
 a:hover{
   cursor: pointer;

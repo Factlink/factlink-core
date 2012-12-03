@@ -12,16 +12,19 @@ module Interactors
           @content, @options[:current_user].id.to_s
 
         comment.authority = authority_of comment
-        comment.opinion_object = query :opinion_for_comment, comment.id.to_s, fact
+        comment.opinion_object = opinion_of comment
 
         create_activity comment
-
 
         comment
       end
 
       def authority_of comment
         query :authority_on_fact_for, fact, comment.created_by.graph_user
+      end
+
+      def opinion_of comment
+        query :opinion_for_comment, comment.id.to_s, fact
       end
 
       def fact

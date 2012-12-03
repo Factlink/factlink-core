@@ -52,16 +52,16 @@ describe Interactors::Comments::Create do
       interactor.should_receive(:authority_of).with(comment).and_return(authority_string)
       comment.should_receive(:authority=).with(authority_string)
 
+      interactor.should_receive(:opinion_of).with(comment).and_return(opinion_object)
+      comment.should_receive(:opinion_object=).with(opinion_object)
+
       interactor.should_receive(:create_activity).with(comment)
 
-      interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion_object)
-      comment.should_receive(:opinion_object=).with(opinion_object)
+      
 
       interactor.execute.should eq comment
     end
   end
-
 
   describe '.authority_of' do
     it 'retrieves the authority' do
@@ -78,6 +78,25 @@ describe Interactors::Comments::Create do
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
 
       interactor.authority_of(comment).should eq authority
+    end
+  end
+
+  describe '.opinion_of' do
+    it 'returns the opinion object of a comment' do
+      fact_id = 1
+      fact = mock( fact_id: fact_id )
+      opinion = 'believes'
+      content = 'content'
+      opinion_object = mock()
+      comment = mock(:comment, id: '10a')
+      user = mock
+
+      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
+
+      interactor.should_receive(:fact).and_return(fact)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion_object)
+
+      interactor.opinion_of comment
     end
   end
 

@@ -24,6 +24,8 @@ json.negative_active negative_active
 json.positive_active positive_active
 json.fact_base fact_base.to_hash
 
+json.current_user_opinion current_user_opinion
+
 json.opinions OpinionPresenter.new fact_relation.get_user_opinion
 
 json.created_by do |json|

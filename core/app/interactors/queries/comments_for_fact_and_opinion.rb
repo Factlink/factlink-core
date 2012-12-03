@@ -1,9 +1,11 @@
 require_relative '../pavlov'
 require_relative '../kill_object'
+require_relative 'comments/common_functionality'
 
 module Queries
   class CommentsForFactAndOpinion
     include Pavlov::Query
+    include Comments::CommonFunctionality
 
     arguments :fact_id, :opinion
 
@@ -13,11 +15,7 @@ module Queries
     end
 
     def execute
-      comments.map do |comment|
-        comment.authority = query :authority_on_fact_for, fact, comment.created_by.graph_user
-
-        KillObject.comment comment
-      end
+      comments.map {|comment| extended_comment comment, fact}
     end
 
     def comments
