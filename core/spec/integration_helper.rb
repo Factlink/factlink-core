@@ -6,7 +6,6 @@ require 'capybara/rspec'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
-require 'headless'
 require 'database_cleaner'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -17,8 +16,6 @@ RSpec.configure do |config|
   # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :webkit
   Capybara.default_driver = :webkit
-  Capybara.default_wait_time = 5
-  Capybara.automatic_reload = false
 
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
@@ -28,9 +25,6 @@ RSpec.configure do |config|
   config.include ScreenshotTest
 
   config.before(:suite) do
-    # Use the headless gem to manage your Xvfb server
-    # So not destroy X server in case
-    Headless.new(destroy_on_exit: false).start
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
