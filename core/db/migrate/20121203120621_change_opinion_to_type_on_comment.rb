@@ -1,12 +1,10 @@
 class ChangeOpinionToTypeOnComment < Mongoid::Migration
   def self.up
-
     Comment.all.each do |comment|
       comment.type = comment.opinion
-      # comment.unset :opinion
+      comment.unset :opinion
       comment.save
     end
-
   end
 
   def self.down
