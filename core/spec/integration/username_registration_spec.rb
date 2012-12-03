@@ -57,6 +57,7 @@ describe 'Reserving a username', type: :request, js: true do
   end
 
   pending 'user should receive a confirmation email and should be able to confirm its e-mail address' do
+    # pending: user receives email, but click_link 'Confirm my email address' does not send the confirmation_token as a parameter
     email_address = random_email
 
     clear_emails
