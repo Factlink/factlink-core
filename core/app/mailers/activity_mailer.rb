@@ -26,10 +26,10 @@ class ActivityMailer < ActionMailer::Base
     end
 
     def get_mail_subject_for_activity activity
-      case activity.action
-      when 'added_subchannel'
+      case activity.action.to_sym
+      when :added_subchannel
         "#{activity.user.user} added your #{activity.subject.title} #{I18n.t :channel} to their own #{activity.object.title} #{I18n.t :channel}"
-      when 'added_supporting_evidence', 'added_weakening_evidence'
+      when :added_supporting_evidence, :added_weakening_evidence
         if activity.action == 'added_supporting_evidence'
           type = "supporting"
         else
@@ -37,10 +37,12 @@ class ActivityMailer < ActionMailer::Base
         end
 
         "#{activity.user.user} added #{type} evidence to a Factlink"
-      when 'created_conversation'
+      when :created_conversation
         "#{activity.user.user} has sent you a message"
-      when 'replied_message'
+      when :replied_message
         "#{activity.user.user} has replied to a conversation"
+      when :created_comment
+        "#{activity.user.user} has commented on a Factlink"
       else
         'New notification!'
       end

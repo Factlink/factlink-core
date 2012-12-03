@@ -6,7 +6,7 @@ guard :rspec, {
   bundler: false,
   all_after_pass: false,
   all_on_start: false,
-  cli: ["--color"]
+  cli: ["--color", "--profile"]
 } do
   watch(%r{^spec-unit/(.+)\.rb$})
   watch(%r{^spec/(.+)\.rb$})

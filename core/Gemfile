@@ -118,6 +118,9 @@ group :development do
   gem 'letter_opener'
 
   gem 'lograge'
+  gem 'sextant'
+
+  gem 'rb-readline' # needed for Guard
 end
 
 group :test do

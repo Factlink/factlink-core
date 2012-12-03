@@ -10,8 +10,8 @@ module Pavlov
       @options
     end
 
-    def raise_unauthorized
-      raise Pavlov::AccessDenied, 'Unauthorized'
+    def raise_unauthorized(message='Unauthorized')
+      raise Pavlov::AccessDenied, message
     end
 
     def check_authority

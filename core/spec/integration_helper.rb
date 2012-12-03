@@ -5,6 +5,7 @@ require 'rubygems'
 require 'capybara/rspec'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
+require 'capybara-screenshot/rspec'
 require 'headless'
 require 'database_cleaner'
 
@@ -16,6 +17,8 @@ RSpec.configure do |config|
   # webkit always has js enabled, so always use this:
   Capybara.javascript_driver = :webkit
   Capybara.default_driver = :webkit
+  Capybara.default_wait_time = 5
+  Capybara.automatic_reload = false
 
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
@@ -44,6 +47,8 @@ RSpec.configure do |config|
     Ohm.flush
     DatabaseCleaner.clean
     FactoryGirl.reload
+
+    ElasticSearch.stub synchronous: true
   end
 end
 

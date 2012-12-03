@@ -4,6 +4,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   events:
     "click div.auto-complete-search-list": "addCurrent"
     "click .js-post": "addNew"
+    'click .js-switch': 'switchCheckboxClicked'
 
   regions:
     'wheel_region': '.fact-wheel'
@@ -55,6 +56,11 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
       fact_relation_type: @collection.type
       created_by: currentUser.toJSON()
 
+  switchCheckboxClicked: (e) ->
+    @trigger 'switch_to_comment_view', @model.get('text')
+    e.preventDefault()
+    e.stopPropagation()
+
   addSelected: (selected_fact_base)->
     @trigger 'selected', new FactRelation
       evidence_id: selected_fact_base.id
@@ -64,22 +70,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
 
   setQuery: (text) -> @model.set text: text
 
-  focus: ->
-    @_hasFocus = true
-    @toggleActivateOnContentOrFocus()
-
-  blur: ->
-    @_hasFocus = false
-    @toggleActivateOnContentOrFocus()
-
-  toggleActivateOnContentOrFocus: ->
-    if @_hasFocus or @model.get('text').length
-      @activate()
-    else
-      @deActivate()
-
-  activate:   -> @$el.addClass 'active'
-  deActivate: -> @$el.removeClass 'active'
+  focus: -> @$el.addClass 'active'
 
   reset: ->
     @setQuery ''

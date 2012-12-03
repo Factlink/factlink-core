@@ -9,8 +9,8 @@ describe 'activity queries' do
     # TODO: remove this once creating an activity does not cause an email to be sent
     interactor = mock()
     interactor.should_receive(:execute).any_number_of_times
-    stub_const 'SendMailForActivityInteractor', Class.new
-    SendMailForActivityInteractor.should_receive(:new).any_number_of_times.and_return(interactor)
+    stub_const 'Interactors::SendMailForActivity', Class.new
+    Interactors::SendMailForActivity.should_receive(:new).any_number_of_times.and_return(interactor)
   end
 
   describe ".fact" do
@@ -103,7 +103,10 @@ describe 'activity queries' do
       f1.created_by.stream_activities.key.del # delete other activities
 
       f1.add_opinion(:believes, gu1)
+      Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
       f1.add_opinion(:disbelieves, f1.created_by)
+      Activity::Subject.activity(f1.created_by, Opinion.real_for(:disbelieves), f1)
 
       f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu1, action: :believes, subject: f1},
@@ -143,6 +146,8 @@ describe 'activity queries' do
       it "should return activity when a users adds #{type} evidence to a fact that you believed" do
         f1 = create :fact
         f1.add_opinion(:believes, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(:believes), f1)
+
         f2 = create :fact
         f1.add_evidence type, f2, gu2
         gu1.notifications.map(&:to_hash_without_time).should == [
@@ -167,6 +172,7 @@ describe 'activity queries' do
         f1.created_by.stream_activities.key.del # delete other activities
 
         f1.add_opinion(opinion, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(opinion), f1)
 
         f1.created_by.stream_activities.map(&:to_hash_without_time).should == [
             {user: gu1, action: opinion, subject: f1}
@@ -205,7 +211,7 @@ describe 'activity queries' do
         u1 = create(:user)
         u2 = create(:user)
 
-        interactor = CreateConversationWithMessageInteractor.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::CreateConversationWithMessage.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
         interactor.execute
 
@@ -222,13 +228,45 @@ describe 'activity queries' do
         u1 = c.recipients[0]
         u2 = c.recipients[1]
 
-        interactor = ReplyToConversationInteractor.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
+        interactor = Interactors::ReplyToConversation.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
         interactor.execute
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
           {user: u1.graph_user, action: :replied_message, subject: Message.last }
+        ]
+      end
+    end
+
+  end
+
+  describe :comments do
+    context "creating a comment" do
+      it "creates a notification for the interacting users" do
+        fact = create(:fact)
+        fact.add_opinion(:believes, gu1)
+        Activity::Subject.activity(gu1, Opinion.real_for(:believes), fact)
+
+        user = create(:user)
+
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor.execute
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
+        ]
+      end
+      it "creates a stream activity for the interacting users" do
+        fact = create(:fact)
+        fact.add_opinion(:believes, gu1)
+        user = create(:user)
+
+        interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
+        interactor.execute
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
         ]
       end
     end

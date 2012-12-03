@@ -1,73 +1,10 @@
 @import "bootstrap/mixins";
 @import "bootstrap/variables";
 
+.fact-relation-listing .evidence-item {
 
-li.fact-relation {
-  padding: 14px 15px 4px;
-  border-bottom: 1px solid @baseBorderColor;
-  .clearfix();
-  position: relative;
+  &:first-child { border-top: none; }
 
-  .fact-relation-actions {
-    float: left;
-    margin: 0 5px 0 -5px;
-    width: 30px;
-
-    .supporting, .weakening {
-      display: block;
-      width: 17px;
-      height: 12px;
-      cursor: pointer;
-      margin: 0 0 0 6px;
-
-      &:hover { text-decoration: none; }
-    }
-
-    .supporting {
-      background: image-url("relation_actions.png") no-repeat top right transparent;
-      &.active {
-        background: image-url("relation_actions.png") no-repeat top left transparent;
-      }
-    }
-
-    .weakening {
-      background: image-url("relation_actions.png") no-repeat bottom left transparent;
-      &.active {
-        background: image-url("relation_actions.png") no-repeat bottom right transparent;
-      }
-    }
-
-    .authorities-fact-relation {
-      display: inline-block;
-      text-align: center;
-      line-height: normal;
-
-      > span {
-        color: #555;
-        text-align: center;
-        font-size: 13px;
-        line-height: normal;
-      }
-
-      > .belief-authority-fact-relation,
-      > .disbelief-authority-fact-relation {
-        color: #ababab;
-        font-size: 8px;
-        line-height: 9px;
-        margin-top: 7px;
-        margin-bottom: 0;
-        display: inline-block;
-        text-align: center;
-      }
-
-      > .disbelief-authority-fact-relation {
-        margin-top: 0;
-        margin-bottom: 7px;
-      }
-    }
-  }
-
-  &:last-child { border-bottom: none; }
   .fact-relation-body {
     margin: 0 0 0 20px;
     > img {
@@ -75,16 +12,8 @@ li.fact-relation {
       margin: 4px 10px 0 0;
       .border-radius(3px);
     }
-  }
-
-  .fact-relation-added-by {
-    margin-bottom: 6px;
-    color: @mutedFontColor;
-    .authority {
-      display: inline;
-      padding: 0 !important;
-      font-size: 11px;
-      color: @baseFontColor;
+    .fact-base-region {
+      margin: 0 0 0 52px;
     }
   }
 }

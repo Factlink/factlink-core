@@ -37,34 +37,13 @@ class window.FactBaseView extends Backbone.Marionette.Layout
 class FactBodyView extends Backbone.Marionette.ItemView
   template: "facts/fact_body"
 
-  showLines: 3
-
   events:
-    "click a.more": "showCompleteDisplaystring"
-    "click a.less": "hideCompleteDisplaystring"
     "click span.js-displaystring": "triggerViewClick"
 
-  onRender: ->
-    sometimeWhen(
-      => @$el.is ":visible"
-      ,
-      => @truncateText()
-    )
-
-  truncateText: ->
-    @$('.js-displaystring').trunk8
-      fill: " <a class=\"more\">(more)</a>"
-      lines: @showLines
-
-  showCompleteDisplaystring: (e) ->
-    @$('.js-displaystring').trunk8 lines: 199
-    @$('.less').show()
-    e.stopPropagation()
-
-  hideCompleteDisplaystring: (e) ->
-    @$('.js-displaystring').trunk8 lines: @showLines
-    @$('.less').hide()
-    e.stopPropagation()
+  initialize: ->
+    @trunk8Init 3, '.js-displaystring', '.less'
 
   triggerViewClick: ->
     @trigger 'click:body'
+
+_.extend(FactBodyView.prototype, Backbone.Factlink.Trunk8MoreLessMixin)

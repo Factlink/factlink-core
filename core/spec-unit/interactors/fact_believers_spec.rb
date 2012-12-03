@@ -1,13 +1,13 @@
-require_relative '../../app/interactors/fact_believers_interactor.rb'
+require_relative '../../app/interactors/interactors/fact_believers.rb'
 
-describe FactBelieversInteractor do
+describe Interactors::FactBelievers do
   it 'initializes correctly' do
-    interactor = FactBelieversInteractor.new 1, 0, 3, current_user: mock
+    interactor = Interactors::FactBelievers.new 1, 0, 3, current_user: mock
     interactor.should_not be_nil
   end
 
   it 'gives an authorized error when there isn''t a logged in user' do
-    expect { FactBelieversInteractor.new 1, 0, 3 }.
+    expect { Interactors::FactBelievers.new 1, 0, 3 }.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
@@ -27,7 +27,7 @@ describe FactBelieversInteractor do
       Queries::FactInteractingUsers.should_receive(:new).with(fact_id, skip, take, 'believes', current_user: user).and_return(query)
       query.should_receive(:execute).and_return({users: [u1], total: 1})
 
-      results = FactBelieversInteractor.perform fact_id, skip, take, current_user: user
+      results = Interactors::FactBelievers.perform fact_id, skip, take, current_user: user
 
       results[:total].should eq 1
       results[:users].should eq [u1]

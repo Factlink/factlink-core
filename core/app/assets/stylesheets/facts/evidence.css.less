@@ -1,0 +1,90 @@
+@import "bootstrap/mixins";
+@import "bootstrap/variables";
+
+li.evidence-item {
+  list-style-type: none;
+  margin: 0;
+
+  padding: 14px 15px;
+  border-top: 1px solid @baseBorderColor;
+  .clearfix();
+  position: relative;
+
+  .evidence-user-avatar {
+    float: left;
+    > img {
+      margin: 4px 10px 0 0;
+      .border-radius(3px);
+    }
+  }
+
+  .evidence-activity {
+    margin-bottom: 6px;
+    color: @mutedFontColor;
+    .authority {
+      display: inline;
+      padding: 0 !important;
+      font-size: 11px;
+      color: @baseFontColor;
+    }
+  }
+
+  .evidence-actions {
+    float: left;
+    margin: 0 5px 0 -5px;
+    width: 30px;
+
+    .supporting, .weakening {
+      display: block;
+      width: 17px;
+      height: 12px;
+      cursor: pointer;
+      margin: 0 0 0 6px;
+
+      &:hover { text-decoration: none; }
+    }
+
+    .supporting {
+      background: image-url("relation_actions.png") no-repeat top right transparent;
+      &.active {
+        background: image-url("relation_actions.png") no-repeat top left transparent;
+      }
+    }
+
+    .weakening {
+      background: image-url("relation_actions.png") no-repeat bottom left transparent;
+      &.active {
+        background: image-url("relation_actions.png") no-repeat bottom right transparent;
+      }
+    }
+
+    .authorities-evidence {
+      display: inline-block;
+      text-align: center;
+      line-height: normal;
+
+      > span {
+        color: #555;
+        text-align: center;
+        font-size: 13px;
+        line-height: normal;
+      }
+
+      > .belief-authority-evidence,
+      > .disbelief-authority-evidence {
+        color: #ababab;
+        font-size: 8px;
+        line-height: 9px;
+        margin-top: 7px;
+        margin-bottom: 0;
+        display: inline-block;
+        text-align: center;
+      }
+
+      > .disbelief-authority-evidence {
+        margin-top: 0;
+        margin-bottom: 7px;
+      }
+    }
+  }
+}

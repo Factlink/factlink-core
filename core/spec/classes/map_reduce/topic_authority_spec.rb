@@ -5,8 +5,8 @@ describe MapReduce::TopicAuthority do
   let(:gu2) {create(:user).graph_user}
 
   before do
-    stub_const('SendMailForActivityInteractor', mock())
-    SendMailForActivityInteractor.stub(new: nil.andand)
+    stub_const('Interactors::SendMailForActivity', mock())
+    Interactors::SendMailForActivity.stub(new: nil.andand)
   end
 
   describe :wrapped_map do

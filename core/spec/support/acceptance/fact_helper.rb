@@ -7,16 +7,16 @@ module Acceptance
     # <IN REPOST MODAL>
     def add_to_channel name
       type_into_search_box name
-      page.should_not have_content "Add “#{name}” as a new channel"
+      page.should have_no_content "Add “#{name}” as a new channel"
       page.find('li', text: name).click
-      wait_for_ajax
+      page.find('.auto-complete-results-container').find("li a", text: "#{name}")
     end
 
     def add_as_new_channel name
       type_into_search_box name
       page.should have_content "Add “#{name}” as a new channel"
       page.find('li', text: "Add “#{name}” as a new channel").click
-      wait_for_ajax
+      page.find('.auto-complete-results-container').find("li a", text: "#{name}")
     end
 
     def type_into_search_box value
@@ -40,9 +40,7 @@ module Acceptance
     end
 
     def backend_create_fact_of_user user
-      fact = create :fact, created_by: user.graph_user
-      sleep 5 # let ElasticSearch index it
-      fact
+      create :fact, created_by: user.graph_user
     end
 
     def add_evidence evidence_factlink

@@ -25,7 +25,7 @@ if defined?(NewRelic)
   end
 
   [
-    VisibleChannelsOfUserForUserInteractor,
+    Interactors::VisibleChannelsOfUserForUser,
     Queries::CreatorAuthoritiesForChannels,
     Queries::AuthorityOnTopicFor,
     Queries::VisibleChannelsOfUser,
