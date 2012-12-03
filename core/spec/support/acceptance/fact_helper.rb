@@ -44,9 +44,7 @@ module Acceptance
     end
 
     def backend_create_fact_of_user user
-      fact = create :fact, created_by: user.graph_user
-      sleep 5 # let ElasticSearch index it
-      fact
+      create :fact, created_by: user.graph_user
     end
 
     def add_evidence evidence_factlink
