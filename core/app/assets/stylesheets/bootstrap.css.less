@@ -15,13 +15,22 @@ a:hover {
 }
 
 input, textarea, .navbar-search .search-query, p {
-	#font > .sans-serif(normal, @baseFontSize, @baseLineHeight);
+  line-height: @baseLineHeight;
+  font-size: 13px;
+  font-family: @baseFontFamily;
+  font-weight: normal;
 }
 .btn {
-	#font > .sans-serif(normal, 12px, @baseLineHeight);
+	line-height: @baseLineHeight;
+  font-size: @baseFontSize;
+  font-family: @baseFontFamily;
+  font-weight: normal;
 }
 .tooltip {
-	#font > .sans-serif(normal, 11px, @baseLineHeight);
+  line-height: @baseLineHeight;
+  font-size: @metaFontSize;
+  font-weight: normal;
+  font-family: @baseFontFamily;
 }
 
 // FORM FIELD FEEDBACK STATES
