@@ -10,6 +10,7 @@ feature "adding comments to a fact", type: :request do
   let(:factlink) { create :fact, created_by: @user.graph_user }
 
   scenario "after adding a comment it should show up and persist" do
+
     go_to_discussion_page_of factlink
 
     comment = 'Geert is een buffel'
@@ -26,6 +27,29 @@ feature "adding comments to a fact", type: :request do
 
     within '.comments-listing' do
       page.should have_content comment
+    end
+
+  end
+
+
+  scenario 'after voting a comment it should have brain cycles' do
+
+    user_authority_on_fact = 17
+    Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
+
+    go_to_discussion_page_of factlink
+
+    comment = 'Buffels zijn niet klein te krijgen joh'
+    add_comment_with_toggle comment
+
+    within '.comments-listing' do
+      find('.supporting').click
+    end
+
+    go_to_discussion_page_of factlink
+
+    within '.comments-listing' do
+      find('.total-authority-evidence').should have_content 17
     end
   end
 
