@@ -5,11 +5,11 @@ module Queries
   class CommentsForFactAndOpinion
     include Pavlov::Query
 
-    arguments :fact_id, :opinion
+    arguments :fact_id, :type
 
     def validate
       validate_integer :fact_id, @fact_id
-      validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+      validate_in_set  :type, @type, ['believes', 'disbelieves', 'doubts']
     end
 
     def execute
@@ -22,7 +22,7 @@ module Queries
 
     def comments
       fact_data_id = fact.data_id
-      Comment.where({fact_data_id: fact_data_id, opinion: @opinion}).to_a
+      Comment.where({fact_data_id: fact_data_id, type: @type}).to_a
     end
 
     def fact

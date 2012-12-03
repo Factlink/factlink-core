@@ -3,7 +3,7 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
-    @comment = interactor :"comments/create", fact_id, params[:opinion], params[:content]
+    @comment = interactor :"comments/create", fact_id, params[:type], params[:content]
 
     render 'comments/create'
   end
@@ -17,9 +17,9 @@ class CommentsController < ApplicationController
 
   def index
     fact_id = get_fact_id_param
-    opinion = params[:opinion].to_s
+    type    = params[:type].to_s
 
-    @comments = interactor :"comments/index", fact_id, opinion
+    @comments = interactor :"comments/index", fact_id, type
 
     render 'comments/index'
   end

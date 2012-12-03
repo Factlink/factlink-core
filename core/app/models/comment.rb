@@ -7,6 +7,7 @@ class Comment
   belongs_to :fact_data, class_name: 'FactData'
 
   field :opinion,           type: String
+  field :type,              type: String
   field :content,           type: String
   belongs_to :created_by, class_name: 'User', inverse_of: :comments
 

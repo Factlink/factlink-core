@@ -15,9 +15,9 @@ describe Queries::CommentsForFactAndOpinion do
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
-  it 'should raise a validation error with an invalid opinion' do
+  it 'should raise a validation error with an invalid type' do
     expect { Queries::CommentsForFactAndOpinion.new 1, 'mwah'}.
-      to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
+      to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
   describe '.execute' do
@@ -27,14 +27,14 @@ describe Queries::CommentsForFactAndOpinion do
 
     it 'should return dead comments with authorities' do
       fact = mock(:fact, id: 3)
-      opinion = 'believes'
+      type = 'believes'
       graph_user = mock()
       user = mock(:user, graph_user: graph_user)
-      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
+      query = Queries::CommentsForFactAndOpinion.new fact.id, type, current_user: user
       content = 'bla'
       comment_id = '1a'
       authority_string = '1.0'
-      comment = mock(created_by: user, content: content, id: comment_id, opinion: opinion, authority: authority_string)
+      comment = mock(created_by: user, content: content, id: comment_id, type: type, authority: authority_string)
 
       query.should_receive(:comments).and_return([comment])
       query.should_receive(:fact).and_return(fact)
@@ -43,7 +43,7 @@ describe Queries::CommentsForFactAndOpinion do
 
       results = query.execute
 
-      results.first.opinion.should eq opinion
+      results.first.type.should eq type
       results.first.content.should eq content
       results.first.id.should eq comment_id
       results.first.authority.should eq authority_string
@@ -57,16 +57,16 @@ describe Queries::CommentsForFactAndOpinion do
 
     it 'should return the comments' do
       fact = mock(id: 3)
-      opinion = 'believes'
+      type = 'believes'
       fact_data_id = '3b'
       comment = mock()
       user = mock()
 
-      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
+      query = Queries::CommentsForFactAndOpinion.new fact.id, type, current_user: user
 
       query.should_receive(:fact).and_return(stub(data_id: fact_data_id))
       Comment.should_receive(:where).
-        with(fact_data_id: fact_data_id, opinion: opinion).
+        with(fact_data_id: fact_data_id, type: type).
         and_return([comment])
 
       query.comments.should eq [comment]
@@ -80,11 +80,11 @@ describe Queries::CommentsForFactAndOpinion do
 
     it 'should return the fact' do
       fact = mock(id: 3)
-      opinion = 'believes'
+      type = 'believes'
       comment = mock()
       user = mock()
 
-      query = Queries::CommentsForFactAndOpinion.new fact.id, opinion, current_user: user
+      query = Queries::CommentsForFactAndOpinion.new fact.id, type, current_user: user
 
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
 
