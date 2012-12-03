@@ -17,7 +17,7 @@ module Interactors
       end
 
       def execute
-        query :comments_for_fact_and_opinion, @fact_id, @opinion
+        query :comments_for_fact_and_type, @fact_id, @opinion
       end
 
       def fact

@@ -4,14 +4,14 @@ module Commands
   class CreateComment
     include Pavlov::Command
 
-    arguments :fact_id, :opinion, :content, :user_id
+    arguments :fact_id, :type, :content, :user_id
 
     def execute
       comment = Comment.new
       comment.fact_data = fact_data
       creator = get_creator
       comment.created_by = creator
-      comment.opinion = @opinion
+      comment.type = @type
       comment.content = @content
       comment.save
 
@@ -32,7 +32,7 @@ module Commands
       validate_regex              :content, @content, /\A.+\Z/,
         "should not be empty."
       validate_integer            :fact_id, @fact_id
-      validate_in_set             :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+      validate_in_set             :type,    @type, ['believes', 'disbelieves', 'doubts']
     end
   end
 end

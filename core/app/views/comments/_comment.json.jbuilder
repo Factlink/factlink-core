@@ -25,7 +25,7 @@ json.created_by do |json|
   json.partial! 'users/user_partial', user: comment.created_by
   json.authority comment.authority
 end
-json.opinion      comment.opinion #rename: "type"
+json.type         comment.type #rename: "type"
 json.content      comment.content
 json.fact_data do |json|
   json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data

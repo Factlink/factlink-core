@@ -30,19 +30,19 @@ describe Commands::CreateComment do
         to fail_validation('fact_id should be an integer.')
     end
 
-    it 'with a invalid opinion doesn''t validate' do
+    it 'with a invalid type doesn''t validate' do
       expect_validating(1, 'dunno', 'Hoi!', '2a').
-        to fail_validation('opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
+        to fail_validation('type should be on of these values: ["believes", "disbelieves", "doubts"].')
     end
   end
 
   describe '.execute' do
     it 'correctly' do
       fact_id = 1
-      opinion = 'believes'
+      type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, opinion, content, user_id
+      command = Commands::CreateComment.new fact_id, type, content, user_id
       comment = mock(:comment, id: 10)
       fact = mock
       fact_data = mock fact: fact
@@ -52,9 +52,9 @@ describe Commands::CreateComment do
       comment.should_receive(:fact_data=).with(fact_data)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
-      
+
       comment.should_receive(:created_by=).with(user)
-      comment.should_receive(:opinion=).with(opinion)
+      comment.should_receive(:type=).with(type)
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save)
 
@@ -67,10 +67,10 @@ describe Commands::CreateComment do
       fact_id = 10
       fact_data_id = 'a1'
       fact = mock(:fact, data_id: fact_data_id)
-      opinion = 'believes'
+      type = 'believes'
       content = 'message'
       user_id = '1a'
-      command = Commands::CreateComment.new fact_id, opinion, content, user_id
+      command = Commands::CreateComment.new fact_id, type, content, user_id
       fact_data = mock
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
