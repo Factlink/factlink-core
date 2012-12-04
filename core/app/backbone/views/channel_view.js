@@ -7,7 +7,8 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
 
   regions: {
     factList: '#facts_for_channel',
-    activityList: '#activity_for_channel'
+    activityList: '#activity_for_channel',
+    addToChannelRegion: '.add-to-channel-region'
   },
 
   templateHelpers: function(){
@@ -15,12 +16,16 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       activities_link: function(){ return this.link + "/activities";}
     };
   },
-
   initialize: function(opts) {
     this.initSubChannels();
     this.on('render', _.bind(function(){
       this.renderSubChannels();
       this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
+      if( this.model.get("followable?") ) {
+        this.addToChannelRegion.show(new AddToChannelView({
+          model: this.model
+        }));
+      }
     },this));
   },
 
@@ -54,7 +59,6 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
     tabs.find('li').removeClass('active');
     tabs.find(selector).addClass('active');
   }
-
 });
 
 window.ChannelView = ChannelViewLayout.extend({
