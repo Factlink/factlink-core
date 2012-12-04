@@ -16,6 +16,18 @@
   opacity: @opacity;
 }
 
+.base-text(@font-size: @baseFontSize, @line-height: @baseLineHeight) {
+  font-family: @baseFontFamily;
+  font-size: @font-size;
+  line-height: @line-height;
+}
+
+.heading-text(@font-size: @headingFontSize, @line-height: @baseLineHeight) {
+  font-family: @baseFontFamily;
+  font-size: @font-size;
+  line-height: @line-height;
+}
+
 // sorry WebKit only
 .visible-scroll() {
   ::-webkit-scrollbar { background:transparent;overflow:visible; width:15px;}

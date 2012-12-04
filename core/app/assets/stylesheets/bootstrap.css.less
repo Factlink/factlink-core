@@ -15,21 +15,13 @@ a:hover {
 }
 
 input, textarea, .navbar-search .search-query, p {
-  line-height: @baseLineHeight;
-  font-size: 13px;
-  font-family: @baseFontFamily;
-  font-weight: normal;
+  .base-text(13px);
 }
 .btn {
-	line-height: @baseLineHeight;
-  font-size: @baseFontSize;
-  font-family: @baseFontFamily;
+  .base-text();
   font-weight: normal;
 }
 .tooltip {
-  line-height: @baseLineHeight;
-  font-size: @metaFontSize;
-  font-weight: normal;
   font-family: @baseFontFamily;
 }
 
