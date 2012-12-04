@@ -3,7 +3,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
-require 'capybara/webkit'
+require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
