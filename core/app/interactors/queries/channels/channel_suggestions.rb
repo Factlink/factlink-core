@@ -16,6 +16,10 @@ module Queries
       def current_graph_user
         @options[:current_user].graph_user
       end
+
+      def authorized?
+        @options[:current_user]
+      end
     end
   end
 end

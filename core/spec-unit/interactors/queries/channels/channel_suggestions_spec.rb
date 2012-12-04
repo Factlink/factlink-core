@@ -10,6 +10,8 @@ describe Queries::Channels::ChannelSuggestions do
       channels = mock
       suggestion_count = mock
 
+      Queries::Channels::ChannelSuggestions.any_instance.stub(authorized?: true)
+
       query = Queries::Channels::ChannelSuggestions.new
 
       current_graph_user.should_receive(:editable_channels_by_authority)
@@ -18,7 +20,6 @@ describe Queries::Channels::ChannelSuggestions do
 
       query.should_receive(:suggestion_count).and_return suggestion_count
       query.should_receive(:current_graph_user).and_return current_graph_user
-
 
       expect(query.execute).to eq channels
     end
