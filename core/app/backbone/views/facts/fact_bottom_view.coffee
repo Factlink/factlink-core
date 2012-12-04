@@ -12,7 +12,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
   regions:
     startConversationRegion: '.popup-content .start-conversation-container'
-    addToChannelRegion: ".popup-content .add-to-channel-form"
+    addToChannelRegion: ".popup-content .add-to-channel-container"
 
   templateHelpers: ->
     fact_url_host: ->
@@ -21,22 +21,6 @@ class window.FactBottomView extends Backbone.Marionette.Layout
         url.href = @fact_url
 
         url.host
-
-  renderAddToChannel: ->
-    if @addToChannelView == `undefined`
-      @addToChannelView = new AutoCompleteChannelsView
-                               collection: new OwnChannelCollection()
-      _.each @model.getOwnContainingChannels(), (ch) =>
-        @addToChannelView.collection.add ch  if ch.get("type") is "channel"
-
-      @addToChannelView.on "addChannel", (channel) =>
-        @model.addToChannel channel, {}
-
-      @addToChannelView.on "removeChannel", (channel) =>
-        @model.removeFromChannel channel, {}
-        @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
-
-      @addToChannelRegion.show @addToChannelView
 
   onClose: -> @addToChannelView?.close()
 
@@ -55,7 +39,8 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     switch popup
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
-      when "add-to-channel" then @renderAddToChannel()
+      when "add-to-channel"
+        @addToChannelRegion.show new AddToChannelModalView(model: @model)
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()
