@@ -6,7 +6,6 @@ require 'capybara/rspec'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
-require 'headless'
 require 'database_cleaner'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
