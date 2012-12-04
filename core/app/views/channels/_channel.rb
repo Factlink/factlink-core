@@ -95,10 +95,7 @@ module Channels
     end
 
     def to_hash
-      #DEPRECATED, CALCULATE THIS IN FRONTEND
-      #SEE related_users_view.coffee
-      is_mine = (user.id == current_user.id)
-
+      is_mine = (user.id == current_user.id) #DEPRECATED, CALCULATE THIS IN FRONTEND SEE related_users_view.coffee
       is_created = (channel.type == 'created')
       is_all = (channel.type == 'stream')
       is_normal = !is_all && !is_created
