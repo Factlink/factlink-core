@@ -40,14 +40,9 @@ feature "adding evidence to a fact", type: :request do
       add_evidence supporting_factlink
 
       within("li.evidence-item") do
-        puts "Current url: #{page.current_url}"
         page.find('span', text: supporting_factlink.to_s).click
-        puts "Clicked span, url: #{page.current_url}"
       end
     end
-    # TODO 0312: remove comments. Sleep appears to be needed on CI?
-    sleep 6
-    puts "Slept for 6 seconds, url: #{page.current_url}"
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
