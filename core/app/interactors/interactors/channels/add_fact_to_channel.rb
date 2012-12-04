@@ -8,7 +8,7 @@ module Interactors
       def execute
         command :"channels/add_fact_to_channel", @fact, @channel
 
-        command :"create_activity", current_graph_user, :added_fact_to_channel, @fact, @channel
+        command :create_activity, current_graph_user, :added_fact_to_channel, @fact, @channel
       end
 
       def current_graph_user
