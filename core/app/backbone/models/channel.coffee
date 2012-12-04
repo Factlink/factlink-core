@@ -50,8 +50,6 @@ class window.Channel extends Backbone.Model
 
     new OwnChannelCollection ret
 
-  urlRoot: "/facts/"
-
   url: ->
     if @collection
       Backbone.Model::url.apply this, arguments
