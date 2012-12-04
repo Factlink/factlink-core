@@ -1,71 +1,62 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <!-- If you delete this tag, the sky will fall on your head -->
-    <meta name="viewport" content="width=device-width" />
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Factlink</title>
-    <style type="text/css">
-      * { 
-        margin:0;
-        padding:0;
-      }
-
-      img { 
-        max-width: 100%; 
-      }
-
-      body {
-        -webkit-font-smoothing:antialiased; 
-        -webkit-text-size-adjust:none; 
-        width: 100%!important; 
-        height: 100%;
-      }
-
-      table.body-wrap { width: 100%;}
-
-      .container {
-        display:block!important;
-        max-width:600px!important;
-        margin:0 auto!important; /* makes it centered */
-        clear:both!important;
-      }
-
-      .content {
-        padding:15px;
-        max-width:600px;
-        margin:0 auto;
-        display:block; 
-      }
-
-      .content table { width: 100%; }
-
-      .clear { display: block; clear: both; }
-    </style>
     <%= yield :styles %>
   </head>
- 
-  <body bgcolor="#EEEEEE">
-    <!-- BODY -->
-    <table class="body-wrap">
-      <tr>
-        <td></td>
-        <td class="container" bgcolor="#FFFFFF">
-          <div class="content">
-            <table>
+  <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="padding:0; width:100%; -webkit-text-size-adjust:none; margin:0; background-color:#EEEEEE" width="100%" bgcolor="#EEEEEE">
+    <center>
+      <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="padding:0; width:100%; margin:0; background-color:#EEEEEE; height:100%" bgcolor="#EEEEEE">
+        <tr>
+          <td align="center" valign="top" style="border-collapse:collapse">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateContainer">
               <tr>
-                <td>
-                  <p><img src="http://cdn.factlink.com/1/emailheader.png" /></p>
-                  <%= yield :email_body %>       
+                <td align="center" valign="top" style="border-collapse:collapse">
+                  <table border="0" cellpadding="40" cellspacing="0" width="100%" id="templateBody" style="border-top:0; background-color:#EEEEEE; border-bottom:0" bgcolor="#EEEEEE">
+                    <tr>
+                      <td align="center" valign="top" style="border-collapse:collapse">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600">
+                          <tr>
+                            <td align="center" valign="bottom" style="border-collapse:collapse">
+                              <table border="0" cellpadding="40" cellspacing="0" width="600" id="bodyContentBlock" style="border-top:1px solid #DDDDDD; background-color:#FFFFFF; border-bottom:0" bgcolor="#FFFFFF">
+                                <tr>
+                                  <td align="left" valign="top" style="border-collapse:collapse; padding-top:40px">
+
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                        <td style="font-size:20px; font-weight:bold; vertical-align:top; color:#505050; border-collapse:collapse; font-family:Helvetica; line-height:100%; text-align:left" align="left">
+                                          <img src="http://cdn.factlink.com/1/emailheader.png" alt="factlink-logo" style="outline:none; height:auto; width:520px; height:78px; text-decoration:none; border:0; line-height:100%" id="campaign-icon" />
+                                        </td>
+                                      </tr>
+                                    </table>
+
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                      <tr>
+                                        <td valign="top" style="font-size:15px; color:#505050; border-collapse:collapse; padding-top:20px; font-family:Helvetica; line-height:150%; text-align:left" mc:edit="body_content00" align="left">
+                                          <%= yield :email_body %>
+                                        </td>
+                                      </tr>
+                                    </table>
+
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
+              </tr> 
+              
+              <tr>
+                <td align="center" valign="top" style="border-collapse:collapse"></td>
               </tr>
             </table>
-          </div>                            
-        </td>
-        <td></td>
-      </tr>
-    </table>
-    <!-- /BODY -->
+          </td>
+        </tr>
+      </table>
+    </center>
   </body>
 </html>
