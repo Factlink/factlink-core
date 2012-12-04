@@ -3,7 +3,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
-require 'capybara-webkit'
+require 'capybara/poltergeist'
+require 'capybara/webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
 require 'database_cleaner'
@@ -25,6 +26,13 @@ RSpec.configure do |config|
   config.include ScreenshotTest
 
   config.before(:suite) do
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app, {
+        :phantomjs => '/usr/local/Cellar/phantomjs/1.7.0/bin/phantomjs',
+        :debug => true,
+        :js_errors => false})
+    end
+
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
