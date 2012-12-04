@@ -10,6 +10,6 @@ json.fact_data do |json|
   json.partial! 'facts/fact_data_partial', fact_data: comment.fact_data
 end
 
-json.opinions OpinionPresenter.new comment.opinion_object
+json.opinions OpinionPresenter.new comment.opinion
 
 json.current_user_opinion comment.current_user_opinion
