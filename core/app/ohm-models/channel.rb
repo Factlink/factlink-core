@@ -146,7 +146,7 @@ class Channel < OurOhm
     add_created_channel_activity
     self.sorted_delete_facts.delete(fact)
     self.sorted_internal_facts.add(fact)
-    Resque.enqueue(AddFactToChannel, fact.id, self.id, initiated_by_id: created_by_id)
+    Resque.enqueue(AddFactToChannelJob, fact.id, self.id, initiated_by_id: created_by_id)
 
     activity(self.created_by,:added_fact_to_channel,fact,:to,self)
   end

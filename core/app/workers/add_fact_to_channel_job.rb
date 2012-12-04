@@ -1,4 +1,4 @@
-class AddFactToChannel
+class AddFactToChannelJob
   @queue = :channel_operations
 
   def self.perform(fact_id, channel_id, options={})
@@ -17,10 +17,10 @@ class AddFactToChannel
 
         fact.channels.add(channel) if channel.type == 'channel'
         channel.containing_channels.each do |ch|
-          Resque.enqueue(AddFactToChannel, fact_id, ch.id, options)
+          Resque.enqueue(AddFactToChannelJob, fact_id, ch.id, options)
         end
         # DEPRECATED: we should tear out the old stream
-        Resque.enqueue(AddFactToChannel, fact_id, channel.created_by.stream.id, options) unless channel.type == 'stream'
+        Resque.enqueue(AddFactToChannelJob, fact_id, channel.created_by.stream.id, options) unless channel.type == 'stream'
       end
     end
   end
