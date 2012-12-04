@@ -43,6 +43,9 @@ class window.FactBottomView extends Backbone.Marionette.Layout
   renderSuggestedChannels: ->
     suggested_channels = new SuggestedChannels()
     suggested_channels.fetch()
+    # TODO 0412
+    # Only suggest channelx that can be added, something like:
+    # collectionDifference suggested_channels, channels_that_fact_is_in
     suggestions = new SuggestedChannelsView
                         collection: suggested_channels
     @suggestedChannelsRegion.show suggestions
