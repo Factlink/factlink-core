@@ -27,10 +27,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, {
-        :phantomjs => '/usr/local/Cellar/phantomjs/1.7.0/bin/phantomjs',
-        :debug => true,
-        :js_errors => false})
+      Capybara::Poltergeist::Driver.new(app, {:js_errors => false})
     end
 
     ElasticSearch.create
