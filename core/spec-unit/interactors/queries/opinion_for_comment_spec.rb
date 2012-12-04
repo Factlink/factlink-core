@@ -56,7 +56,7 @@ describe Queries::OpinionForComment do
     it "returns a block which calculates authority for the user" do
       fact = mock
       graph_user = mock
-      authority = mock
+      authority = 1515
 
       query = Queries::OpinionForComment.new '1', fact
       auth = query.authority_for
@@ -65,7 +65,7 @@ describe Queries::OpinionForComment do
                .with(fact, for: graph_user)
                .and_return(authority)
 
-      expect(auth.call(graph_user)).to eq authority
+      expect(auth.call(graph_user)).to eq authority + 1
     end
   end
 
