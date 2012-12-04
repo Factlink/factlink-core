@@ -1,11 +1,10 @@
-module OS
-  def OS.osx?
-    #TODO This doesn't work if we switch to JRuby
-    (/darwin/ =~ RUBY_PLATFORM) != nil
-  end
-end
-
 module ScreenshotTest
+  module OS
+    def OS.osx?
+      #TODO This doesn't work if we switch to JRuby
+      (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+  end
 
   class Screenshot
     include ChunkyPNG::Color
