@@ -1,0 +1,7 @@
+ ☐ remove unused css for old add to channel
+   possibl cross use between channel-listing classes with channel bar left
+ ☐ checken of the /add /remove routes of subchannel can be removed
+ ☐ make modal appearh
+ ☐ get repost in modal
+ ☐ get repost to work with channels
+ ☐ write integration test
