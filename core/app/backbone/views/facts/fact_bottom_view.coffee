@@ -40,7 +40,15 @@ class window.FactBottomView extends Backbone.Marionette.Layout
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
       when "add-to-channel"
-        @addToChannelRegion.show new AddToChannelModalView(model: @model)
+        collection = @model.getOwnContainingChannels()
+        collection.on "add", (channel) =>
+          @model.addToChannel channel, {}
+
+        collection.on "remove", (channel) =>
+          @model.removeFromChannel channel, {}
+          @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
+
+        @addToChannelRegion.show new AddToChannelModalView(collection: collection)
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()
