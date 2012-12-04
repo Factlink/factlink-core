@@ -1,3 +1,5 @@
+require_relative '../../pavlov'
+
 module Queries
   module Comments
     class AddAuthorityAndOpinion
@@ -12,27 +14,9 @@ module Queries
           current_user_opinion: current_user_opinion
       end
 
-      # TODO-0312 fix this shit
-
-      # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
-      # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
-      # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
-      # HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK# HACK
-
-      # extract to query, and then it should be ok-ish
       def current_user_opinion
-        Opinion.types.each do |opinion|
-          return opinion if has_opinion?(opinion)
-        end
-        return nil
-      end
-
-      def believable
-        @believable ||= Believable::Commentje.new(@comment.id.to_s)
-      end
-
-      def has_opinion?(type)
-        believable.opiniated(type).include? current_graph_user
+        query :'comments/graph_user_opinion',
+              @comment.id.to_s, current_graph_user
       end
 
       def current_graph_user
