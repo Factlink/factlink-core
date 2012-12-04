@@ -27,6 +27,9 @@ RSpec.configure do |config|
   config.include ScreenshotTest
 
   config.before(:suite) do
+    # Use the headless gem to manage your Xvfb server
+    # So not destroy X server in case
+    Headless.new(destroy_on_exit: false).start
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"

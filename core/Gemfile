@@ -137,6 +137,8 @@ group :test do
 
   gem 'oily_png'
 
+  gem 'headless'
+
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard'
   gem 'guard-rspec'
