@@ -1,0 +1,40 @@
+.action-list (@actionListBackgroundColor: #f0f0f0,
+              @actionListFontColor: @metaFontColor,
+              @actionListBorderColor: @baseBorderColor ) {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  > li {
+    background: @actionListBackgroundColor;
+    .box-sizing(border-box);
+    color: @actionListFontColor;
+    margin: 0 0 5px;
+    padding: 7px 10px 7px 9px;
+    .border-radius(3px);
+    border: 1px solid @actionListBorderColor;
+    font-size: @baseFontSize;
+    font-weight: normal;
+    .box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
+
+    > a {
+      font-weight: normal;
+    }
+
+    > a.add-to-channel-action-icon {
+      cursor: pointer;
+      float: right;
+      .opacity(.40);
+      position: relative;
+      top: 2px;
+
+      &:hover {
+        .opacity(1);
+      }
+    }
+
+    > input {
+      display: none;
+    }
+  }
+}
