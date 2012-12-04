@@ -21,7 +21,7 @@ module KillObject
      :editable?]
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
-     :fact_data, :can_destroy, :authority]
+     :fact_data]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
