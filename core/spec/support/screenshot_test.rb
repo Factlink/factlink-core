@@ -6,169 +6,111 @@ module OS
 end
 
 module ScreenshotTest
+
   class Screenshot
     include ChunkyPNG::Color
-    include FileUtils
-
     def initialize page, title
       @title = title
       @page = page
     end
 
-    def take
-      force_scroll_bars
-      sleep 1
-      @page.driver.render current_image_path
+    def old_file
+      Rails.root.join('spec','integration','screenshots',"#{@title}.png")
+    end
+
+    def new_file
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-new.png"
+    end
+
+    def diff_file
+      Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{@title}-diff.png"
+    end
+
+    def get_pixel(image, x, y)
+      image.get_pixel(x,y) || rgb(0,0,0)
+    end
+
+    def images
+      @images ||= [
+        ChunkyPNG::Image.from_file(old_file),
+        ChunkyPNG::Image.from_file(new_file)
+      ]
+    end
+
+    def size_changed?
+      (images.first.height != images.last.height) || (images.first.width != images.last.width)
     end
 
     def changed?
-      if not File.exists? previous_image_path
-        update_old_file
-        raise 'There is no previous screenshot on this non osx machine, run again if this is the first time your building this branch.'
-      end
-      previous_image = load_image(previous_image_path)
-      current_image = load_image(current_image_path)
+      changed = false
+      pixels_changed = 0
 
-      diff_image = difference_between_files previous_image, current_image
+      height = images.map {|i| i.height}.max
+      width = images.map {|i| i.width}.max
+      diff_image = ChunkyPNG::Image.new(width, height)
 
-      if diff_image
-        diff_image.save(diff_file)
-      end
+      height.times do |y|
+        width.times do |x|
+          pixel_old = get_pixel(images.first,x,y)
+          pixel_new = get_pixel(images.last,x,y)
 
-      diff_image
-    end
+          changed ||=  (pixel_old != pixel_new)
 
-    def update_old_file
-      copy_file(current_image_path, previous_image_path)
-    end
+          if changed
+            pixels_changed += 1
 
-    def changed_osx?
-      if not File.exists? previous_osx_image_path
-        update_previous_osx_screenshot
-      end
-      previous_osx_image = ChunkyPNG::Image.from_file(previous_osx_image_path)
-      current_osx_image = ChunkyPNG::Image.from_file(current_osx_image_path)
+            red_delta = [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
+            green_delta = [g(pixel_old), g(pixel_new)].max - [g(pixel_old), g(pixel_new)].min
+            blue_delta = [b(pixel_old), b(pixel_new)].max - [b(pixel_old), b(pixel_new)].min
 
-      difference_between_files previous_osx_image, current_osx_image
-    end
+            changed_amount += red_delta + green_delta + blue_delta
 
-    def update_previous_osx_screenshot
-      copy_file(current_osx_image_path, previous_osx_image_path)
-    end
+            # give changed pixel a red color with a value of red between 125 and 254
+            # indication how much has changed
+            delta = ((red_delta + green_delta + blue_delta)/6) + 124
+            diff_image[x,y] = rgb(delta,0,0)
+          else
+            # fading out the pixel by reducing the distance to white by two thirds
+            grey_scale = 255-((255 - ((b(pixel_old)+g(pixel_old)+b(pixel_old))/3))/3)
 
-    private
-      def creating_workspace_image_path name
-        Rails.root.join "#{Capybara.save_and_open_page_path}" "screenshot-#{name}.png"
-      end
-
-      def previous_osx_image_path
-        creating_workspace_image_path "#{@title}-previous-osx"
-      end
-
-      def current_image_path
-        creating_workspace_image_path "#{@title}-new"
-      end
-
-      def diff_file
-        creating_workspace_image_path "#{@title}-diff"
-      end
-
-      def current_osx_image_path
-        Rails.root.join('spec', 'integration', 'screenshots', "#{@title}.png")
-      end
-
-      def previous_image_path
-        if OS.osx?
-          current_osx_image_path
-        else
-          creating_workspace_image_path "#{@title}-old"
-        end
-      end
-
-      def load_image path
-        ChunkyPNG::Image.from_file path
-      end
-
-      def get_pixel(image, x, y)
-        image.get_pixel(x,y) || rgb(0,0,0)
-      end
-
-      def difference_between_files old_image, new_image
-        changed = false
-        pixels_changed = 0
-        changed_amount = 0
-
-        height = [old_image.height, new_image.height].max
-        width = [old_image.width, new_image.width].max
-        diff_image = ChunkyPNG::Image.new(width, height)
-
-        height.times do |y|
-          width.times do |x|
-            pixel_old = get_pixel(old_image, x, y)
-            pixel_new = get_pixel(new_image, x, y)
-            if pixel_old != pixel_new
-              changed = true
-              pixels_changed += 1
-
-              red_delta = [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
-              green_delta = [g(pixel_old), g(pixel_new)].max - [g(pixel_old), g(pixel_new)].min
-              blue_delta = [b(pixel_old), b(pixel_new)].max - [b(pixel_old), b(pixel_new)].min
-
-              changed_amount += red_delta + green_delta + blue_delta
-
-              # give changed pixel a red color with a value of red between 125 and 254
-              # indication how much has changed
-              delta = ((red_delta + green_delta + blue_delta)/6) + 124
-              diff_image[x,y] = rgb(delta,0,0)
-            else
-              # fading out the pixel by reducing the distance to white by two thirds
-              grey_scale = 255-((255 - ((b(pixel_old)+g(pixel_old)+b(pixel_old))/3))/3)
-
-              diff_image[x,y] = rgb(grey_scale, grey_scale, grey_scale)
-            end
+            diff_image[x,y] = rgb(grey_scale, grey_scale, grey_scale)
           end
         end
-
-        if changed
-          puts "Total color changed: #{changed_amount}"
-          puts "Pixels changed #{pixels_changed}"
-        end
-
-        #if changed and changed_amount < 150000 and pixels_changed < 1000
-        #  changed = false
-        #end
-
-        if changed
-          return diff_image
-        end
-
-        false
       end
 
-      def force_scroll_bars
-        ['y'].each { |dir| @page.execute_script "$('body').css('overflow-#{dir}','scroll');" }
+      if changed
+        diff_image.save(diff_file)
+        puts "Pixels changed #{pixels_changed}."
       end
+
+      changed
+    end
+
+    def force_scroll_bars
+      ['y'].each { |dir| @page.execute_script "$('body').css('overflow-#{dir}','scroll');" }
+    end
+
+    def take
+      force_scroll_bars
+      # Need this to let the animations settle.
+      sleep 1
+      @page.driver.render new_file
+    end
   end
 
   def assume_unchanged_screenshot title
-    shot = Screenshot.new page, title
-    shot.take
-    if shot.changed?
-      if not OS.osx? and shot.changed_osx?
-        # Update the local screenshot, because the osx screenshot has changed.
-        shot.update_old_file
-      else
-        raise "Screenshot #{title} changed"
+    if OS.osx?
+      pending "Screenshots don't work locally."
+    else
+      shot = Screenshot.new page, title
+      shot.take
+      if shot.changed?
+        if shot.size_changed?
+          raise "Screenshot #{title} changed (also size)"
+        else
+          raise "Screenshot #{title} changed"
+        end
       end
-      if not Os.osx?
-        shot.update_previous_osx_screenshot
-      end
-    # Removed this check, we could reenable this when this test is stable
-    # and we need this.
-    #else
-    #  if shot.changed_osx?
-    #    raise "Screenshot in Git changed but the local screenshot hasn't."
-    #  end
     end
   end
 end
