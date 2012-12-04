@@ -131,7 +131,7 @@ group :test do
 
   gem 'capybara', require: false
   # capybara-webkit 0.11 breaks with the QT on the CI. Use 0.10.1 for now
-  gem 'capybara-webkit','= 0.10.1', require: false
+  gem 'capybara-webkit', '= 0.10.1', require: false
   gem 'capybara-screenshot'
   gem 'capybara-email'
   gem 'oily_png'
