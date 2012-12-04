@@ -13,6 +13,8 @@ class window.FactBottomView extends Backbone.Marionette.Layout
   regions:
     startConversationRegion: '.popup-content .start-conversation-container'
     addToChannelRegion: ".popup-content .add-to-channel-form"
+    # Move this to own
+    suggestedChannelsRegion: ".popup-content .add-to-channel-suggested-channels-region"
 
   templateHelpers: ->
     fact_url_host: ->
@@ -38,6 +40,13 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
       @addToChannelRegion.show @addToChannelView
 
+  renderSuggestedChannels: ->
+    suggested_channels = new SuggestedChannels()
+    # suggested_channels.fetch()
+    suggestions = new SuggestedChannelsView
+                        collection: suggested_channels
+    @suggestedChannelsRegion.show suggestions
+
   onClose: -> @addToChannelView?.close()
 
   popupClick: (e) ->
@@ -55,7 +64,9 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     switch popup
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
-      when "add-to-channel" then @renderAddToChannel()
+      when "add-to-channel"
+        @renderAddToChannel()
+        @renderSuggestedChannels()
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()
