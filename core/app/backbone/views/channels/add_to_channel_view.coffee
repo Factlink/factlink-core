@@ -18,7 +18,7 @@ class window.AddToChannelView extends Backbone.Marionette.Layout
       @model.removeFromChannel channel, {}
       @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 
-    @modalRegion.show new AddToChannelModalView collection: collection
+    @modalRegion.show new AddToChannelModalView(collection: collection)
     @$('.add-to-channel-modal-region').show()
     @$('.transparent-layer').show()
 

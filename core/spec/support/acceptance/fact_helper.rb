@@ -22,11 +22,7 @@ module Acceptance
     end
 
     def type_into_search_box value
-      input = page.find(:css,'input')
-      puts input.inspect
-
-      input.set(value)
-      create_screenshot_and_open
+      page.find(:css,'input').set(value)
     end
 
     def added_channels_should_contain name
