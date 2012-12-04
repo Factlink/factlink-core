@@ -9,16 +9,14 @@
 
     > li {
       background: #f0f0f0;
-      .box-sizing();
+      .box-sizing(border-box);
       color: @metaFontColor;
       margin: 0 0 5px;
       padding: 7px 10px 7px 9px;
       .border-radius(3px);
       border: 1px solid @baseBorderColor;
       font-size: @baseFontSize;
-      -webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
-      -moz-box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, .5);
+      .box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
 
       > a {
         font-weight: normal;
@@ -27,12 +25,12 @@
       > a.icon-remove {
         cursor: pointer;
         float: right;
-        .opacity(0.4);
+        .opacity(.40);
         position: relative;
         top: 2px;
 
         &:hover {
-          .opacity(1.0);
+          .opacity(1);
         }
       }
 

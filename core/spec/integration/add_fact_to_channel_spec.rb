@@ -38,7 +38,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding an invalid channel shows an alert" do
-    pending
+    pending "to be implemented"
   end
 
 end

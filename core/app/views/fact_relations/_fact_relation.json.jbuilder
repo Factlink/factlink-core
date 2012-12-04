@@ -1,11 +1,6 @@
 current_user_opinion =
   current_user.andand.graph_user.andand.opinion_on(fact_relation)
 
-negative_active =
-  (current_user_opinion == :disbelieves) ? ' active' : ''
-
-positive_active =
-  (current_user_opinion == :believes) ? ' active' : ''
 
 creator_authority =
   # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
@@ -20,8 +15,6 @@ json.can_destroy? can? :destroy, fact_relation
 json.weight fact_relation.percentage
 json.id fact_relation.id
 json.fact_relation_type fact_relation.type
-json.negative_active negative_active
-json.positive_active positive_active
 json.fact_base fact_base.to_hash
 
 json.current_user_opinion current_user_opinion
