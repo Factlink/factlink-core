@@ -11,7 +11,7 @@ describe AddChannelToChannel do
       fact = create :fact
       @sub_ch.sorted_cached_facts << fact
 
-      Resque.should_receive(:enqueue).with(AddFactToChannel, fact.id, @ch.id)
+      Resque.should_receive(:enqueue).with(AddFactToChannelJob, fact.id, @ch.id)
       AddChannelToChannel.perform @sub_ch.id, @ch.id
     end
 
@@ -27,7 +27,7 @@ describe AddChannelToChannel do
       end
 
       for i in 1..AddChannelToChannel::NUMBER_OF_INITIAL_FACTS
-        Resque.should_receive(:enqueue).with(AddFactToChannel, facts[i].id, @ch.id)
+        Resque.should_receive(:enqueue).with(AddFactToChannelJob, facts[i].id, @ch.id)
       end
 
       AddChannelToChannel.perform @sub_ch.id, @ch.id

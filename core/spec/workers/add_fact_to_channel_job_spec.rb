@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AddFactToChannel do
+describe AddFactToChannelJob do
   describe ".perform" do
     before do
       @ch = create :channel
@@ -8,20 +8,20 @@ describe AddFactToChannel do
     end
 
     it "should add the fact to the cached facts" do
-      AddFactToChannel.perform @f.id, @ch.id
+      AddFactToChannelJob.perform @f.id, @ch.id
       @ch.sorted_cached_facts.should include(@f)
       @f.channels.all.should =~ [@ch]
     end
 
     it "should add the fact to the all stream of the owner" do
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id, {})
+      Resque.should_receive(:enqueue).with(AddFactToChannelJob, @f.id, @ch.created_by.stream.id, {})
 
-      AddFactToChannel.perform @f.id, @ch.id
+      AddFactToChannelJob.perform @f.id, @ch.id
     end
     it "should add not add the fact to the all stream of the owner if it is the all stream" do
       Resque.should_not_receive(:enqueue)
 
-      AddFactToChannel.perform @f.id, @ch.created_by.stream.id
+      AddFactToChannelJob.perform @f.id, @ch.created_by.stream.id
     end
 
 
@@ -30,10 +30,10 @@ describe AddFactToChannel do
       sup_ch = create :channel
       @ch.containing_channels << sup_ch
 
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, sup_ch.id, {})
-      Resque.should_receive(:enqueue).with(AddFactToChannel, @f.id, @ch.created_by.stream.id, {})
+      Resque.should_receive(:enqueue).with(AddFactToChannelJob, @f.id, sup_ch.id, {})
+      Resque.should_receive(:enqueue).with(AddFactToChannelJob, @f.id, @ch.created_by.stream.id, {})
 
-      AddFactToChannel.perform @f.id, @ch.id
+      AddFactToChannelJob.perform @f.id, @ch.id
     end
 
     context "when the channel explicitely deletes the fact" do
@@ -42,7 +42,7 @@ describe AddFactToChannel do
       end
 
       it "should not add the fact" do
-        AddFactToChannel.perform @f.id, @ch.id
+        AddFactToChannelJob.perform @f.id, @ch.id
         @ch.sorted_cached_facts.should_not include(@f)
         @f.channels.should_not include(@ch)
       end
@@ -54,7 +54,7 @@ describe AddFactToChannel do
 
         Resque.should_not_receive(:enqueue)
 
-        AddFactToChannel.perform @f.id, @ch.id
+        AddFactToChannelJob.perform @f.id, @ch.id
       end
     end
 
@@ -70,7 +70,7 @@ describe AddFactToChannel do
 
         Resque.should_not_receive(:enqueue)
 
-        AddFactToChannel.perform @f.id, @ch.id
+        AddFactToChannelJob.perform @f.id, @ch.id
       end
     end
 
