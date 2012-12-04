@@ -25,39 +25,36 @@ describe Interactors::Comments::Create do
       to raise_error(Pavlov::ValidationError, 'fact_id should be an integer.')
   end
 
-  it 'with a invalid opinion doesn''t validate' do
+  it 'with a invalid type doesn''t validate' do
     expect { Interactors::Comments::Create.new 1, 'dunno', 'Hoi!' }.
-      to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
+      to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
   describe '.execute' do
     before do
       stub_const('Commands::CreateCommentCommand', Class.new)
+      stub_const 'Fact', Class.new
     end
 
     it 'works' do
       fact_id = 1
       fact = mock( fact_id: fact_id )
-      opinion = 'believes'
+      type = 'believes'
       content = 'content'
       user = mock(id: '1a')
       authority_string = '1.0'
-      opinion_object = mock()
+      opinion = mock()
 
-      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
+      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
       comment = mock(:comment, id: '10a')
 
-      interactor.should_receive(:command).with(:create_comment,fact_id, opinion, content, user.id).and_return(comment)
+      interactor.should_receive(:command).with(:create_comment,fact_id, type, content, user.id).and_return(comment)
 
-      interactor.should_receive(:authority_of).with(comment).and_return(authority_string)
-      comment.should_receive(:authority=).with(authority_string)
-
-      interactor.should_receive(:opinion_of).with(comment).and_return(opinion_object)
-      comment.should_receive(:opinion_object=).with(opinion_object)
+      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion", comment, fact).and_return(comment)
 
       interactor.should_receive(:create_activity).with(comment)
 
-      
+      Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
       interactor.execute.should eq comment
     end
@@ -66,13 +63,13 @@ describe Interactors::Comments::Create do
   describe '.authority_of' do
     it 'retrieves the authority' do
       fact = mock(id: 3)
-      opinion = 'believes'
+      type = 'believes'
       content = 'content'
       comment = mock(:comment, created_by: mock(:user, graph_user: mock()))
       user = mock()
       authority = '2.0'
 
-      interactor = Interactors::Comments::Create.new fact.id, opinion, content, current_user: user
+      interactor = Interactors::Comments::Create.new fact.id, type, content, current_user: user
 
       interactor.should_receive(:fact).and_return(fact)
       interactor.should_receive(:query).with(:authority_on_fact_for, fact, comment.created_by.graph_user).and_return(authority)
@@ -85,16 +82,16 @@ describe Interactors::Comments::Create do
     it 'returns the opinion object of a comment' do
       fact_id = 1
       fact = mock( fact_id: fact_id )
-      opinion = 'believes'
+      type = 'believes'
       content = 'content'
-      opinion_object = mock()
+      opinion = mock()
       comment = mock(:comment, id: '10a')
       user = mock
 
-      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
+      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
 
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion_object)
+      interactor.should_receive(:query).with(:opinion_for_comment, comment.id, fact).and_return(opinion)
 
       interactor.opinion_of comment
     end
@@ -107,12 +104,12 @@ describe Interactors::Comments::Create do
 
     it 'returns the fact' do
       fact = mock(id: 3)
-      opinion = 'believes'
+      type = 'believes'
       content = 'content'
       comment = mock()
       user = mock()
 
-      interactor = Interactors::Comments::Create.new fact.id, opinion, content, current_user: user
+      interactor = Interactors::Comments::Create.new fact.id, type, content, current_user: user
 
       Fact.should_receive(:[]).with(fact.id).and_return(fact)
 
@@ -127,11 +124,11 @@ describe Interactors::Comments::Create do
 
     it 'creates an activity' do
       fact_id = 1
-      opinion = 'believes'
+      type = 'believes'
       content = 'content'
       graph_user = mock()
       user = mock(id: '1a', graph_user: graph_user)
-      interactor = Interactors::Comments::Create.new fact_id, opinion, content, {current_user: user}
+      interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
       returned_comment = mock(id: 1)
       mongoid_comment = mock()
       fact = stub()

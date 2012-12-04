@@ -5,18 +5,15 @@ module Interactors
     class Create
       include Pavlov::Interactor
 
-      arguments :fact_id, :opinion, :content
+      arguments :fact_id, :type, :content
 
       def execute
-        comment = command :create_comment, @fact_id, @opinion,
+        comment = command :create_comment, @fact_id, @type,
           @content, @options[:current_user].id.to_s
-
-        comment.authority = authority_of comment
-        comment.opinion_object = opinion_of comment
 
         create_activity comment
 
-        comment
+        query :'comments/add_authority_and_opinion', comment, fact
       end
 
       def authority_of comment
@@ -46,7 +43,7 @@ module Interactors
         validate_regex   :content, @content, /\A.+\Z/,
           "should not be empty."
         validate_integer :fact_id, @fact_id
-        validate_in_set  :opinion, @opinion, ['believes', 'disbelieves', 'doubts']
+        validate_in_set  :type, @type, ['believes', 'disbelieves', 'doubts']
       end
     end
   end

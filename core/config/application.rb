@@ -159,7 +159,6 @@ module FactlinkUI
       'admin.css',
       'fake_facts.css',
       'frontend.css',
-      'general.css',
       'client.css',
       'popup.css',
       'privacy.css',
@@ -168,7 +167,6 @@ module FactlinkUI
       'tour.css',
       'pages.css',
       'base.css',
-
       'application.js',
       'feedback.js',
       'frontend.js',

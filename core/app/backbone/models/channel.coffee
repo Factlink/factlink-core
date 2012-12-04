@@ -45,9 +45,10 @@ class window.Channel extends Backbone.Model
     containingChannels = @get("containing_channel_ids")
     ret = []
     currentUser.channels.each (ch) ->
-      ret.push ch  if _.indexOf(containingChannels, ch.id) isnt -1
+      if _.indexOf(containingChannels, ch.id) isnt -1
+        ret.push ch.clone()
 
-    ret
+    new OwnChannelCollection ret
 
   url: ->
     if @collection

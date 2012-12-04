@@ -1,14 +1,6 @@
 <ul class="nav nav-tabs nav-stacked">
-  <li<%= active == :about ? " class='active'" : "" %>>
-    <%= link_to "About us", pages_path("about") %>
-  </li>
-  <li<%= active == :team ? " class='active'" : "" %>>
-    <%= link_to "Team", pages_path("team") %>
-  </li>
-  <li<%= active == :jobs ? " class='active'" : "" %>>
-    <%= link_to "Jobs", pages_path("jobs") %>
-  </li>
-  <li<%= active == :contact ? " class='active'" : "" %>>
-    <%= link_to "Contact", pages_path("contact") %>
-  </li>
+  <%= menu_item "about", "About us" %>
+  <%= menu_item "team", "Team" %>
+  <%= menu_item "jobs", "Jobs" %>
+  <%= menu_item "contact", "Contact" %>
 </ul>
