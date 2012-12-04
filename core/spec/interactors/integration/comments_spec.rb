@@ -3,11 +3,7 @@ require 'spec_helper'
 describe 'comments' do
   include Pavlov::Helpers
 
-  let(:current_user) {
-    user = create :user
-    puts user.graph_user.id
-    user
-  }
+  let(:current_user) { create :user }
 
   def pavlov_options
     {current_user: current_user}
