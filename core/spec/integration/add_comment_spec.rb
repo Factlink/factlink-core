@@ -50,7 +50,7 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     within '.comments-listing' do
-      find('.total-authority-evidence').should have_content 17
+      find('.total-authority-evidence').should have_content user_authority_on_fact + 1
     end
   end
 

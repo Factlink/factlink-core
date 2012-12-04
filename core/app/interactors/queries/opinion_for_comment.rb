@@ -20,7 +20,7 @@ module Queries
 
     def authority_for
       Proc.new do |graph_user|
-        Authority.on(@fact, for: graph_user) + 1
+        Authority.on(@fact, for: graph_user).to_f + 1
       end
     end
 
