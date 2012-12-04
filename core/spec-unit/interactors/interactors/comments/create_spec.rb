@@ -33,6 +33,7 @@ describe Interactors::Comments::Create do
   describe '.execute' do
     before do
       stub_const('Commands::CreateCommentCommand', Class.new)
+      stub_const 'Fact', Class.new
     end
 
     it 'works' do
@@ -49,13 +50,11 @@ describe Interactors::Comments::Create do
 
       interactor.should_receive(:command).with(:create_comment,fact_id, type, content, user.id).and_return(comment)
 
-      interactor.should_receive(:authority_of).with(comment).and_return(authority_string)
-      comment.should_receive(:authority=).with(authority_string)
-
-      interactor.should_receive(:opinion_of).with(comment).and_return(opinion)
-      comment.should_receive(:opinion=).with(opinion)
+      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion", comment, fact).and_return(comment)
 
       interactor.should_receive(:create_activity).with(comment)
+
+      Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
       interactor.execute.should eq comment
     end
