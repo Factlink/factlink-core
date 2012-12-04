@@ -23,4 +23,17 @@ describe Queries::Channels::ChannelSuggestions do
       expect(query.execute).to eq channels
     end
   end
+
+  describe '.current_graph_user' do
+    it 'returns the .graph_user value of the passed current_user' do
+      current_user = mock
+      current_graph_user = mock
+
+      query = Queries::Channels::ChannelSuggestions.new current_user: current_user
+
+      current_user.should_receive(:graph_user).and_return current_graph_user
+
+      expect(query.current_graph_user).to eq current_graph_user
+    end
+  end
 end
