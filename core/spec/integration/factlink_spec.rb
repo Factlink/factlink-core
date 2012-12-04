@@ -60,11 +60,6 @@ describe "factlink", type: :request do
 
     click_wheel_part agreed_path_position
 
-    wait_for_ajax
-
-    #wait for animation
-    sleep 0.2
-
     old_agreed_path_opacity.should_not eq wheel_path_opactity agreed_path_position
     old_agreed_path_shape.should_not eq wheel_path_d agreed_path_position
   end
@@ -84,11 +79,6 @@ describe "factlink", type: :request do
 
     click_wheel_part neutral_path_position
 
-    wait_for_ajax
-
-    #wait for animation
-    sleep 0.2
-
     old_neutral_path_opacity.should_not eq wheel_path_opactity neutral_path_position
     old_neutral_path_shape.should eq wheel_path_d neutral_path_position
   end
@@ -107,11 +97,6 @@ describe "factlink", type: :request do
     old_disagreed_path_shape = wheel_path_d disagreed_path_position
 
     click_wheel_part disagreed_path_position
-
-    wait_for_ajax
-
-    #wait for animation
-    sleep 0.2
 
     old_disagreed_path_opacity.should_not eq wheel_path_opactity disagreed_path_position
     old_disagreed_path_shape.should_not eq wheel_path_d disagreed_path_position
@@ -151,5 +136,10 @@ describe "factlink", type: :request do
   def click_wheel_part position
     #fire click event on svg element
     page.execute_script("var path = $('.fact-wheel path')[#{position}];var event = document.createEvent('MouseEvents'); event.initMouseEvent('click');path.dispatchEvent(event);")
+
+    wait_for_ajax
+
+    #wait for animation
+    sleep 0.2
   end
 end
