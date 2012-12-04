@@ -32,17 +32,19 @@ describe Interactors::Comments::SetOpinion do
     end
 
     it 'does stuff' do
-      pending
       opinion = 'believes'
       user = mock( graph_user: mock() )
       comment = mock(id: '123abc456def')
       authority_string = '1.0'
 
+      mock_comment = mock
+
       interactor = Interactors::Comments::SetOpinion.new comment.id, opinion, current_user: user
 
       interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
+      interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
 
-      interactor.execute
+      expect(interactor.execute).to eq mock_comment
     end
   end
 end

@@ -7,14 +7,14 @@
     border-bottom: solid 1px @baseBorderColor;
     margin: 0 -15px;
     padding: 10px 15px;
-    .box-sizing();
+    .box-sizing(border-box);
     .clearfix();
 
     &:last-child {
       border-bottom: solid 1px transparent;
     }
 
-    a { .transition(); }
+    a { .transition(color .15s ease-in-out); }
     a:hover { text-decoration: none; }
 
     .the-user {
@@ -30,14 +30,15 @@
     .the-link {
       float: left;
       padding: 0 3px 0 0;
-
-      #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+      font-size: @metaFontSize;
+      line-height: @baseLineHeight;
     }
 
     .the-activities {
-      .box-sizing();
+      .box-sizing(border-box);
       padding: 0 0 0 32px;
-      #font > .sans-serif(normal, @metaFontSize, @baseLineHeight);
+      line-height: @baseLineHeight;
+      font-size: @metaFontSize;
 
       div {
         .activity-description {

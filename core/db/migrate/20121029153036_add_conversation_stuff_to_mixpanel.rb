@@ -3,7 +3,9 @@ class AddConversationStuffToMixpanel < Mongoid::Migration
     @mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
 
     Message.all.each do |m|
-      @mixpanel.increment_person_event m.sender.id.to_s, messages_created: 1
+      if m.sender
+        @mixpanel.increment_person_event m.sender.id.to_s, messages_created: 1
+      end
     end
   end
 

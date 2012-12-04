@@ -9,6 +9,7 @@ module Acceptance
       type_into_search_box name
       page.should have_no_content "Add “#{name}” as a new channel"
       page.find('li', text: name).click
+      sleep 3
       page.find('.auto-complete-results-container').find("li a", text: "#{name}")
     end
 
@@ -16,6 +17,7 @@ module Acceptance
       type_into_search_box name
       page.should have_content "Add “#{name}” as a new channel"
       page.find('li', text: "Add “#{name}” as a new channel").click
+      sleep 3
       page.find('.auto-complete-results-container').find("li a", text: "#{name}")
     end
 

@@ -44,8 +44,6 @@ feature "adding evidence to a fact", type: :request do
       end
     end
 
-    sleep 2
-
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
 
