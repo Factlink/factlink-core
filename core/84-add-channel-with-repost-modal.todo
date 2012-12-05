@@ -7,7 +7,7 @@
 Backend:
  ✔ "Channel: created" tracking probably doesn't work @done (12-12-05 12:55)
  ✔ remove for_channel when creating new channel @done (12-12-05 12:55)
- ☐ write integration test
+ ✔ write integration test @done (12-12-05 14:08)
 
 Frontend:
  ✔ make sure the repost modal css works for the new modal @done (12-12-05 13:13)
