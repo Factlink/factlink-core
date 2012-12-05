@@ -3,8 +3,11 @@ require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
 
+require_relative '../interactors/pavlov'
+
 class Channel < OurOhm
   include Activity::Subject
+  include Pavlov::Helpers
 
   def type; "channel" end
 
@@ -143,12 +146,11 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
-    add_created_channel_activity
-    self.sorted_delete_facts.delete(fact)
-    self.sorted_internal_facts.add(fact)
-    Resque.enqueue(AddFactToChannelJob, fact.id, self.id, initiated_by_id: created_by_id)
+    interactor :"channels/add_fact_to_channel", fact, self
+  end
 
-    activity(self.created_by,:added_fact_to_channel,fact,:to,self)
+  def pavlov_options
+    { current_user: self.created_by }
   end
 
   def remove_fact(fact)
