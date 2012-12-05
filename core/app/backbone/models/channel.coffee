@@ -76,7 +76,7 @@ class window.Channel extends Backbone.Model
       type: 'post'
       error: -> options.error?()
       success: =>
-        mp_track "Channel: #{action} subchanel",
+        mp_track "Channel: #{action} subchannel",
           channel_id: @id
           subchannel_id: sub_channel.id
 
