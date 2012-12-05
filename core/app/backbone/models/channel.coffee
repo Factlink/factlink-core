@@ -76,9 +76,8 @@ class window.Channel extends Backbone.Model
       type: 'post'
       error: -> options.error?()
       success: =>
-        mp_track "Channel: content changed",
+        mp_track "Channel: #{action} subchanel",
           channel_id: @id
           subchannel_id: sub_channel.id
-          added: action == 'add'
 
         options.success?()
