@@ -1,7 +1,9 @@
 class RemoveChannelsWithEmptySlug < Mongoid::Migration
   def self.up
     Channel.find(slug_title: '').each do |channel|
-      channel.real_delete
+      if channel.type == 'channel' # please don't remove streams
+        channel.real_delete
+      end
     end
   end
 

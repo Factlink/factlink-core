@@ -12,9 +12,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
   regions:
     startConversationRegion: '.popup-content .start-conversation-container'
-    addToChannelRegion: ".popup-content .add-to-channel-form"
-    # Move this to own
-    suggestedChannelsRegion: ".popup-content .add-to-channel-suggested-channels-region"
+    addToChannelRegion: ".popup-content .add-to-channel-container"
 
   templateHelpers: ->
     fact_url_host: ->
@@ -23,32 +21,6 @@ class window.FactBottomView extends Backbone.Marionette.Layout
         url.href = @fact_url
 
         url.host
-
-  renderAddToChannel: ->
-    if @addToChannelView == `undefined`
-      @addToChannelView = new AutoCompleteChannelsView
-                               collection: new OwnChannelCollection()
-      _.each @model.getOwnContainingChannels(), (ch) =>
-        @addToChannelView.collection.add ch  if ch.get("type") is "channel"
-
-      @addToChannelView.on "addChannel", (channel) =>
-        @model.addToChannel channel, {}
-
-      @addToChannelView.on "removeChannel", (channel) =>
-        @model.removeFromChannel channel, {}
-        @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
-
-      @addToChannelRegion.show @addToChannelView
-
-  renderSuggestedChannels: ->
-    suggested_channels = new SuggestedChannels()
-    suggested_channels.fetch()
-    # TODO 0412
-    # Only suggest channelx that can be added, something like:
-    # collectionDifference suggested_channels, channels_that_fact_is_in
-    suggestions = new SuggestedChannelsView
-                        collection: suggested_channels
-    @suggestedChannelsRegion.show suggestions
 
   onClose: -> @addToChannelView?.close()
 
@@ -68,8 +40,15 @@ class window.FactBottomView extends Backbone.Marionette.Layout
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
       when "add-to-channel"
-        @renderAddToChannel()
-        @renderSuggestedChannels()
+        collection = @model.getOwnContainingChannels()
+        collection.on "add", (channel) =>
+          @model.addToChannel channel, {}
+
+        collection.on "remove", (channel) =>
+          @model.removeFromChannel channel, {}
+          @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
+
+        @addToChannelRegion.show new AddToChannelModalView(collection: collection)
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()

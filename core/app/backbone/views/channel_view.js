@@ -7,7 +7,8 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
 
   regions: {
     factList: '#facts_for_channel',
-    activityList: '#activity_for_channel'
+    activityList: '#activity_for_channel',
+    addToChannelRegion: '.add-to-channel-region'
   },
 
   templateHelpers: function(){
@@ -15,14 +16,16 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       activities_link: function(){ return this.link + "/activities";}
     };
   },
-
   initialize: function(opts) {
     this.initSubChannels();
     this.on('render', _.bind(function(){
       this.renderSubChannels();
-      this.initSubChannelMenu();
-      this.initAddToChannel();
       this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
+      if( this.model.get("followable?") ) {
+        this.addToChannelRegion.show(new AddToChannelView({
+          model: this.model
+        }));
+      }
     },this));
   },
 
@@ -42,40 +45,6 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
     }
   },
 
-  initSubChannelMenu: function() {
-    if( this.model.get("followable?") ) {
-      var addToChannelButton = this.$("#add-to-channel");
-      var followChannelMenu =this.$("#follow-channel");
-
-      followChannelMenu.css({"left": addToChannelButton.position().left});
-
-      addToChannelButton.hoverIntent(
-        function() { followChannelMenu.fadeIn("fast"); },
-        function() { followChannelMenu.delay(600).fadeOut("fast"); }
-      );
-
-      followChannelMenu.on("mouseover", function() {
-        followChannelMenu.stop(true, true).show();
-      });
-
-      followChannelMenu.on("mouseout", function() {
-       if (!followChannelMenu.find("input#channel_title").is(":focus")) {
-          followChannelMenu.delay(500).fadeOut("fast");
-        }
-      });
-    }
-  },
-
-  initAddToChannel: function() {
-    if ( this.$('#add-to-channel') && typeof currentUser !== "undefined" && typeof currentChannel !== "undefined" ) {
-      this.addToChannelView = new AddToChannelView({
-        collection: currentUser.channels,
-        el: this.$('#follow-channel'),
-        model: currentChannel,
-        containingChannels: currentChannel.getOwnContainingChannels()
-      }).render();
-    }
-  },
   onClose: function() {
     if ( this.addToChannelView ) {
       this.addToChannelView.close();
@@ -90,7 +59,6 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
     tabs.find('li').removeClass('active');
     tabs.find(selector).addClass('active');
   }
-
 });
 
 window.ChannelView = ChannelViewLayout.extend({
