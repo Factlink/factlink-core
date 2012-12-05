@@ -96,11 +96,6 @@ class ChannelsController < ApplicationController
     if @channel.valid?
       @channel.save
 
-      unless params[:for_fact].nil?
-        @fact = Fact[params[:for_fact]]
-        @channel.add_fact(@fact)
-      end
-
       unless params[:for_channel].nil?
         @subchannel = Channel[params[:for_channel]]
         @channel.add_channel(@subchannel)
