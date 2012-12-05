@@ -36,9 +36,9 @@ describe Interactors::ReplyToConversation do
   describe ".track_mixpanel" do
     it "calls the right mixpanel methods" do
       mixpanel = mock()
-      current_user = mock(id: mock(to_s: mock()))
+      current_user = mock(id: 1)
       options = {current_user: current_user, mixpanel: mixpanel}
-      interactor = Interactors::ReplyToConversation.new mock(), mock(), mock(), options
+      interactor = Interactors::ReplyToConversation.new mock(), current_user.id.to_s, mock(), options
 
       mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, replies_created: 1)
       mixpanel.should_receive(:track_event).with(:reply_created)
