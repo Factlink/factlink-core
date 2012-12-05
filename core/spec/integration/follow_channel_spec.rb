@@ -18,7 +18,10 @@ describe "channels", type: :request do
       page.find(:css,'input').set(own_channel.title)
 
       page.find('li', text: own_channel.title).click
-      page.find('.auto-complete-results-container').find("li a", text: "#{own_channel.title}")
+
+      within(:css, '.auto-complete-results-container') do
+        find("li a", text: "#{own_channel.title}")
+      end
     end
 
     visit channel_path(user, own_channel)
