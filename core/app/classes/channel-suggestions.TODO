@@ -1,0 +1,21 @@
+channel-suggestions
+
+FrontEnd:
+ ✔ SuggestedChannelsView (CollectionView) @done (12-12-04 14:37)
+ ✔ SuggestedChannelView (ItemView) @done (12-12-04 14:37)
+
+ ✔ SuggestedChannels (Backbone.Collection) @done (12-12-04 14:37)
+
+ ✔ render view in Repost modal @done (12-12-05 10:10)
+ ✔ styling of suggested channels (see design) Factlink Blue @done (12-12-05 10:10)
+
+ ✔ Filter out channels that the Fact already is in @done (12-12-05 11:24)
+
+ Add action on suggested channel to add in collection and remove from suggested collection:
+ ☐ make Suggested Channel clickable
+ ☐ onclick, remove channel from suggested channel collection
+ ☐ onclick, add channel to the regular collection
+
+ ☐ make suggestions only show in Fact repost modal, not Channel modal
+
+ ✔ add emptyview @done (12-12-05 11:29)
