@@ -10,11 +10,7 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :create_fact,
-      :activities,
       :remove_fact,
-      :remove_fact,
-      :follow,
-      :last_fact_activity
     ]
 
   before_filter :get_user
