@@ -24,6 +24,7 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
                                                   @collection)
 
     suggestions = new SuggestedChannelsView
-                        collection: filtered_channels
+                        collection:      filtered_channels
+                        addToCollection: @collection
 
     @suggestedChannelsRegion.show suggestions
