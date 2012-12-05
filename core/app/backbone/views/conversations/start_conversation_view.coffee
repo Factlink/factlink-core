@@ -9,6 +9,8 @@ class window.StartConversationView extends Backbone.Marionette.Layout
   template: 'conversations/start_conversation'
 
   initialize: ->
+    @alertErrorInit ['user_not_found', 'message_empty']
+
     @recipients = new Users
     @auto_complete_view = new AutoCompleteUsersView(collection: @recipients)
 
@@ -24,7 +26,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
 
     # Check for the length of `@recipients`, not `recipients`, to allow sending message to oneself
     if @recipients.length <= 0
-      @showAlert 'error'
+      @alertShow 'error'
       return
 
     recipients = _.union(@recipients.pluck('username'), [currentUser.get('username')])
@@ -36,19 +38,16 @@ class window.StartConversationView extends Backbone.Marionette.Layout
       fact_id: @model.id
     )
 
-    @showAlert null
+    @alertHide()
     @disableSubmit()
     conversation.save [],
       success: =>
-        @showAlert 'success'
+        @alertShow 'success'
         @enableSubmit()
         @clearForm()
 
       error: (model, response) =>
-        if response.responseText in ['user_not_found', 'message_empty']
-          @showAlert response.responseText
-        else
-          @showAlert 'error'
+        @alertError response.responseText
         @enableSubmit()
 
   enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
@@ -58,6 +57,4 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @recipients.reset []
     @$('.message-textarea').val('')
 
-  showAlert: (type) ->
-    @$('.alert').addClass 'hide'
-    @$('.alert-type-' + type).removeClass 'hide' if type?
+_.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)

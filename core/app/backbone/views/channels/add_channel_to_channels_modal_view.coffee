@@ -5,20 +5,22 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
     addToChannelRegion: ".add-to-channel-form"
 
   initialize: ->
+    @alertErrorInit ['create_channel', 'add_channel', 'remove_channel']
+
     @collection = @model.getOwnContainingChannels()
 
     @collection.on "add", (channel) =>
-      @hideError()
+      @alertHide()
       channel.addToChannel @model,
         error: =>
-          @showError 'add_channel'
+          @alertError 'add_channel'
           @collection.remove channel, silent: true
 
     @collection.on "remove", (channel) =>
-      @hideError()
+      @alertHide()
       channel.removeFromChannel @model,
         error: =>
-          @showError 'remove_channel'
+          @alertError 'remove_channel'
           @collection.add channel, silent: true
 
   onRender: ->
@@ -26,10 +28,6 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
 
-      @bindTo @addToChannelView, 'error', => @showError 'create_channel'
+      @alertBindErrorEvent @addToChannelView
 
-  showError: (type) ->
-    @$('.js-error').addClass 'hide'
-    @$('.js-error-type-' + type).removeClass 'hide' if type?
-
-  hideError: -> @showError null
+_.extend(AddChannelToChannelsModalView.prototype, Backbone.Factlink.AlertMixin)
