@@ -21,7 +21,6 @@
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-@import "channels/add_channel_to_channel";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -387,6 +386,10 @@ img {
         position: absolute;
         line-height: 30px;
         display: inline-block;
+
+        > div {
+          display: inline-block;
+        }
       }
 
       .tabs {
@@ -448,10 +451,6 @@ img {
       }
       #contained-channel-list.not_my_channel span.close {
         display:none;
-      }
-
-      .channel-listing {
-        #channel > .channel-listing();
       }
 
       #contained-channel-list {

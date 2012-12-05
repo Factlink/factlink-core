@@ -19,8 +19,6 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
       placeholder: -> Factlink.Global.t.channel_name.capitalize()
 
     @_results_view = new AutoCompleteResultsChannelsView(collection: @collection)
-    @_results_view.on "itemview:remove",  (childView, msg) =>
-      @trigger 'removeChannel', childView.model
 
   addCurrent: ->
     @disable()
@@ -39,13 +37,12 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "Something went wrong while adding the Factlink to this channel, sorry"
+        @trigger 'error', 'create_channel'
         afterAdd()
 
   addNewChannel: (channel) ->
-    @trigger "addChannel", channel
     # create new object if the current channel is already in a collection
-    channel = new Channel(channel.toJSON()) if channel.collection?
+    channel = channel.clone() if channel.collection?
     @collection.add channel
 
   disable: ->
