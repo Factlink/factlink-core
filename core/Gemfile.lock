@@ -177,7 +177,6 @@ GEM
     fastercsv (1.5.5)
     fattr (2.2.1)
     ffi (1.2.0)
-    fivemat (1.1.0)
     flay (1.4.3)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
@@ -302,6 +301,8 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    oily_png (1.0.2)
+      chunky_png (~> 1.2.1)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -511,13 +512,11 @@ DEPENDENCIES
   capybara-email
   capybara-screenshot
   capybara-webkit (= 0.10.1)
-  chunky_png
   database_cleaner
   devise (~> 2.0.0)
   devise_invitable (~> 1.0.0)
   factory_girl_rails (~> 3.5)
   fattr
-  fivemat
   guard
   guard-rspec
   headless
@@ -549,6 +548,7 @@ DEPENDENCIES
   newrelic_rpm
   ohm!
   ohm-contrib!
+  oily_png
   omniauth-facebook
   omniauth-twitter
   pry

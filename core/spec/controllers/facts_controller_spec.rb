@@ -104,16 +104,4 @@ describe FactsController do
     end
   end
 
-  describe "adding evidence" do
-    before do
-      @fact = FactoryGirl.create(:fact)
-      @fact.created_by.user = FactoryGirl.create :user
-      @fact.created_by.save
-
-      @evidence = FactoryGirl.create :fact
-      @evidence.created_by.user = FactoryGirl.create :user
-      @evidence.created_by.save
-    end
-  end
-
 end
