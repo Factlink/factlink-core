@@ -12,13 +12,10 @@ class ChannelsController < ApplicationController
       :create_fact,
       :remove_fact,
     ]
-
   before_filter :get_user
-
-  respond_to :json, :html
-
   before_filter :authenticate_user!
 
+  respond_to :json, :html
 
   def index
     channels = interactor :visible_channels_of_user_for_user, @user
