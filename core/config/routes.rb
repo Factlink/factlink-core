@@ -123,7 +123,6 @@ FactlinkUI::Application.routes.draw do
 
     resources :channels do
       collection do
-        post "toggle/fact" => "channels#toggle_fact",  :as => "toggle_fact"
         get "find" => "channels#search", :as => "find"
       end
 

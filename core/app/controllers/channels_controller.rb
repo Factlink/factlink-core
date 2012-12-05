@@ -12,7 +12,6 @@ class ChannelsController < ApplicationController
       :create_fact,
       :activities,
       :remove_fact,
-      :toggle_fact,
       :remove_fact,
       :follow,
       :last_fact_activity
@@ -153,21 +152,6 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.json { render json: @facts.map {|fact| Facts::Fact.for(fact: fact[:item],view: view_context,channel: @channel,timestamp: fact[:score])} }
     end
-  end
-
-  # DEPRECATE i think this can be thrown away now,
-  #           since the last user was (I think) the jslib -- mark
-  def toggle_fact
-    authorize! :update, @channel
-
-    @fact = Fact[params[:fact_id]]
-
-    if @channel.facts.include?(@fact)
-      @channel.remove_fact(@fact)
-    else
-      interactor :"channels/add_fact_to_channel", @fact, @channel
-    end
-    render nothing: true
   end
 
   def add_fact
