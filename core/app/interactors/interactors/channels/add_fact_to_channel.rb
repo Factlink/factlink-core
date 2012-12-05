@@ -12,7 +12,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        @options[:no_current_user] == true or @options[:current_user]
       end
     end
   end
