@@ -25,10 +25,6 @@ class ChannelsController < ApplicationController
     render_channels(json_channels)
   end
 
-  def render_channels json_channels
-    render :json => json_channels
-  end
-
   def backbone_page
     render_backbone_page
   end
@@ -183,6 +179,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+    def render_channels json_channels
+      render :json => json_channels
+    end
+
     def get_user
       if @channel
         @user ||= @channel.created_by.user
