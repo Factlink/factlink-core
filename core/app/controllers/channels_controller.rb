@@ -161,7 +161,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       track "Factlink: Created"
 
-      @channel.add_fact(@fact)
+      interactor :"channels/add_fact_to_channel", @fact, @channel
       render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
     else
       render json: @fact.errors, status: :unprocessable_entity
