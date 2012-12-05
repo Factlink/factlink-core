@@ -11,15 +11,15 @@ describe Interactors::CreateConversationWithMessage do
 
   describe '.execute' do
     it 'should call the right commands' do
-      graph_user   = mock();
+      graph_user   = mock;
       sender       = mock(:user, id: 13, username: 'jan',  graph_user: graph_user)
       receiver     = mock(:user, username: 'frank')
       content      = 'verhaal'
       usernames    = [sender.username, receiver.username]
-      conversation = mock()
+      conversation = mock
       fact_id = 10
 
-      mixpanel = mock()
+      mixpanel = mock
       options = {current_user: sender, mixpanel: mixpanel}
 
       interactor = Interactors::CreateConversationWithMessage.new fact_id, usernames, sender.id, content, options
@@ -38,10 +38,11 @@ describe Interactors::CreateConversationWithMessage do
     end
 
     it 'should delete the conversation when the message raises an exception' do
-      conversation = mock()
-      options = {current_user: mock(), mixpanel: mock()}
+      conversation = mock
 
-      interactor = Interactors::CreateConversationWithMessage.new mock(), mock(), mock(), mock(), options
+      Interactors::CreateConversationWithMessage.any_instance.should_receive(:authorized?).and_return true
+
+      interactor = Interactors::CreateConversationWithMessage.new mock, mock, mock, mock
 
       should_receive_new_and_execute(Commands::CreateConversation).and_return(conversation)
       should_receive_new_and_execute(Commands::CreateMessage).and_raise('some_error')
@@ -53,16 +54,42 @@ describe Interactors::CreateConversationWithMessage do
 
   describe '.track_mixpanel' do
     it "should track an event" do
+      mixpanel = mock
       current_user = mock(id: mock(to_s: mock))
-      mixpanel = mock()
-      options = {current_user: current_user, mixpanel: mixpanel}
+      options = {mixpanel: mixpanel, current_user: current_user}
 
-      interactor = Interactors::CreateConversationWithMessage.new mock(), mock(), mock(), mock(), options
+      Interactors::CreateConversationWithMessage.any_instance.should_receive(:authorized?).and_return true
+
+      interactor = Interactors::CreateConversationWithMessage.new mock, mock, mock, mock, options
 
       mixpanel.should_receive(:track_event).with(:conversation_created)
       mixpanel.should_receive(:increment_person_event).with(current_user.id.to_s, conversations_created: 1)
 
       interactor.track_mixpanel
+    end
+  end
+
+  describe '.authorized?' do
+    it "returns true when the sender has the same user_id as the current_user" do
+      current_user = mock(id:mock(to_s: mock))
+      options = {current_user: current_user}
+
+      interactor = Interactors::CreateConversationWithMessage.new mock, mock, current_user.id, mock, options
+
+      expect(interactor.authorized?).to eq true
+    end
+
+    it "returns false when the sender has a different user_id as the current_user" do
+      user_a = mock(id: mock(to_s: mock))
+      user_b = mock(id: mock(to_s: mock))
+
+      options = {current_user: user_a}
+
+      initialization = lambda do
+        Interactors::CreateConversationWithMessage.new mock, mock, user_b.id, mock, options
+      end
+
+      expect(initialization).to raise_error(Pavlov::AccessDenied)
     end
   end
 end
