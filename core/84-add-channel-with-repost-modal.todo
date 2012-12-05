@@ -11,10 +11,11 @@ Backend:
 
 Frontend:
  ☐ make sure the repost modal css works for the new modal
- ☐Fix layout of authority on a channel
+ ☐ Fix layout of authority on a channel
  ☐ Nicer error message in the channels autocomplete
  ☐ remove unused css for old add to channel
    possibl cross use between channel-listing classes with channel bar left
 
 Later:
  ☐ make urls more restful
+ ☐ centralize some popup things (JP)
