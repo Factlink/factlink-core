@@ -37,7 +37,7 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
         @addNewChannel ch
         afterAdd()
       error: =>
-        alert "Something went wrong while creating a new channel, sorry"
+        @trigger 'error', 'create_channel'
         afterAdd()
 
   addNewChannel: (channel) ->

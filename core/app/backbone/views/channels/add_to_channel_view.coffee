@@ -10,15 +10,7 @@ class window.AddToChannelView extends Backbone.Marionette.Layout
     modalRegion: '.add-to-channel-modal-region'
 
   openAddToChannelModal: ->
-    collection = @model.getOwnContainingChannels()
-    collection.on "add", (channel) =>
-      channel.addToChannel @model
-
-    collection.on "remove", (channel) =>
-      channel.removeFromChannel @model
-      # @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
-
-    @modalRegion.show new AddChannelToChannelsModalView(collection: collection)
+    @modalRegion.show new AddChannelToChannelsModalView(model: @model)
     @$('.add-to-channel-modal-region').show()
     @$('.transparent-layer').show()
 

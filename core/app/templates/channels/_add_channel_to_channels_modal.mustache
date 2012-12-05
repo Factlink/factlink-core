@@ -3,6 +3,19 @@
   <h3>Add to Channels</h3>
 </div>
 <div class="modal-body">
+  <div class="alert alert-error js-error js-error-type-create_channel hide">
+    The new channel could not be created, please try again.
+    <a class="close" href="#" data-dismiss="alert">x</a>
+  </div>
+  <div class="alert alert-error js-error js-error-type-add_channel hide">
+    The channel could not be added, please try again.
+    <a class="close" href="#" data-dismiss="alert">x</a>
+  </div>
+  <div class="alert alert-error js-error js-error-type-remove_channel hide">
+    The channel could not be removed, please try again.
+    <a class="close" href="#" data-dismiss="alert">x</a>
+  </div>
+
   <strong>Add this channel to one or more channels:</strong>
   <div class="add-to-channel-form"></div>
   <input type="submit" class="btn btn-primary pull-right close-popup" value="Done">
