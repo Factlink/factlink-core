@@ -1,8 +1,6 @@
 class window.FactBottomView extends Backbone.Marionette.Layout
   tagName: "div"
 
-  className: "fact-bottom"
-
   template: "facts/fact_bottom"
 
   events:
