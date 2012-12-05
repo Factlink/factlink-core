@@ -57,7 +57,7 @@ class window.Channel extends Backbone.Model
       @normal_url()
 
   normal_url: ->
-    "/" + @getUsername() + "/channels/" + @get("id") #TODO: @id (?)
+    "/" + @getUsername() + "/channels/" + @id
 
   getUsername: ->
     @get("created_by")?.username ? @get("username")
