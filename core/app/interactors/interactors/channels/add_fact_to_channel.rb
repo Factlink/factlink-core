@@ -8,15 +8,11 @@ module Interactors
       def execute
         command :"channels/add_fact_to_channel", @fact, @channel
 
-        command :create_activity, current_graph_user, :added_fact_to_channel, @fact, @channel
-      end
-
-      def current_graph_user
-        @options[:current_user].graph_user
+        command :create_activity, @channel.created_by, :added_fact_to_channel, @fact, @channel
       end
 
       def authorized?
-        @options[:current_user]
+        @options[:no_current_user] == true or @options[:current_user]
       end
     end
   end

@@ -53,6 +53,7 @@ FactoryGirl.define do
   end
 
   factory :graph_user do
+    association :user, :factory => :user
   end
 
   sequence :url do |n|

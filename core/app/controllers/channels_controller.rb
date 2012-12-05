@@ -10,20 +10,12 @@ class ChannelsController < ApplicationController
       :update,
       :facts,
       :create_fact,
-      :activities,
       :remove_fact,
-      :toggle_fact,
-      :remove_fact,
-      :follow,
-      :last_fact_activity
     ]
-
   before_filter :get_user
-
-  respond_to :json, :html
-
   before_filter :authenticate_user!
 
+  respond_to :json, :html
 
   def index
     channels = interactor :visible_channels_of_user_for_user, @user
@@ -31,10 +23,6 @@ class ChannelsController < ApplicationController
       Channels::Channel.for(channel: ch,view: view_context)
     end
     render_channels(json_channels)
-  end
-
-  def render_channels json_channels
-    render :json => json_channels
   end
 
   def backbone_page
@@ -155,21 +143,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  # DEPRECATE i think this can be thrown away now,
-  #           since the last user was (I think) the jslib -- mark
-  def toggle_fact
-    authorize! :update, @channel
-
-    @fact = Fact[params[:fact_id]]
-
-    if @channel.facts.include?(@fact)
-      @channel.remove_fact(@fact)
-    else
-      interactor :"channels/add_fact_to_channel", @fact, @channel
-    end
-    render nothing: true
-  end
-
   def add_fact
     fact = Fact[params[:fact_id]]
     channel = Channel[params[:channel_id]]
@@ -188,7 +161,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       track "Factlink: Created"
 
-      @channel.add_fact(@fact)
+      interactor :"channels/add_fact_to_channel", @fact, @channel
       render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
     else
       render json: @fact.errors, status: :unprocessable_entity
@@ -206,6 +179,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+    def render_channels json_channels
+      render :json => json_channels
+    end
+
     def get_user
       if @channel
         @user ||= @channel.created_by.user

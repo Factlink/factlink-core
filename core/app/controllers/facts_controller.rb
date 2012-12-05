@@ -110,9 +110,7 @@ class FactsController < ApplicationController
           params[:channels].each do |channel_id|
             channel = Channel[channel_id]
             if channel # in case the channel got deleted between opening the add-fact dialog, and submitting
-              authorize! :update, channel
-
-              channel.add_fact(@fact)
+              interactor :"channels/add_fact_to_channel", @fact, channel
             end
           end
         end

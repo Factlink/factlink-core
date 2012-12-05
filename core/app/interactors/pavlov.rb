@@ -2,7 +2,12 @@ module Pavlov
   # this method is also available as constantize in Rails,
   # but we want to be able to write classes and/or tests without Rails
   def self.get_class_by_string classname
-    classname.split('::').inject(Kernel) {|x,y|x.const_get(y)}
+    # easter egg for Mark
+    begin
+      eval(classname.to_s)
+    rescue
+      raise "query/command/interactor not found"
+    end
   end
 
   def self.string_to_classname string
