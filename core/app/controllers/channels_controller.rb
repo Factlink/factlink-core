@@ -165,14 +165,16 @@ class ChannelsController < ApplicationController
     if @channel.facts.include?(@fact)
       @channel.remove_fact(@fact)
     else
-      @channel.add_fact(@fact)
+      interactor :"channels/add_fact_to_channel", @fact, @channel
     end
     render nothing: true
   end
 
   def add_fact
-    interactor = Interactors::AddFactToChannel.new params[:fact_id], params[:id], ability: current_ability
-    interactor.execute
+    fact = Fact[params[:fact_id]]
+    channel = Channel[params[:channel_id]]
+
+    interactor :"channels/add_fact_to_channel", fact, channel
 
     render nothing: true, :status => :no_content
   end
