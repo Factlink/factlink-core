@@ -1,9 +1,14 @@
  ☐ remove unused css for old add to channel
    possibl cross use between channel-listing classes with channel bar left
- ☐ checken of the /add /remove routes of subchannel can be removed
- ☐ make modal appearh
- ☐ get repost in modal
- ☐ get repost to work with channels
+ ✔ checken of the /add /remove routes of subchannel can be removed @done (12-12-05 10:22)
+ ✔ make modal appearh @done (12-12-05 10:22)
+ ✔ get repost in modal @done (12-12-05 10:22)
+ ✔ get repost to work with channels @done (12-12-05 10:54)
  ☐ add transparant layer back
  ☐ make sure the repost modal css works for the new modal
  ☐ write integration test
+ ☐ make urls more restful
+ ☐ remove for_channel when creating new channel
+ ☐ "Channel: created" tracking probably doesn't work
+ ☐ Nicer error message in the channels autocomplete
+

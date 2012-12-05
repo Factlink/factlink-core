@@ -57,7 +57,28 @@ class window.Channel extends Backbone.Model
       @normal_url()
 
   normal_url: ->
-    "/" + @getUsername() + "/channels/" + @get("id")
+    "/" + @getUsername() + "/channels/" + @get("id") #TODO: @id (?)
 
   getUsername: ->
     @get("created_by")?.username ? @get("username")
+
+  addToChannel: (sub_channel, options={}) ->
+    @_changeFollowingChannel('add', sub_channel, options)
+
+  removeFromChannel: (sub_channel, options={}) ->
+    @_changeFollowingChannel('remove', sub_channel, options)
+
+  _changeFollowingChannel: (action, sub_channel, options) ->
+    changeUrl = "#{@normal_url()}/subchannels/#{action}/#{sub_channel.id}"
+
+    $.ajax
+      url: changeUrl
+      type: 'post'
+      error: -> options.error?()
+      success: =>
+        mp_track "Channel: content changed",
+          channel_id: @id
+          subchannel_id: sub_channel.id
+          added: action == 'add'
+
+        options.success?()
