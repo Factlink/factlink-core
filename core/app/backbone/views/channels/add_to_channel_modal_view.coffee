@@ -14,12 +14,8 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
-
       @alertBindErrorEvent @addToChannelView
-
       @renderSuggestedChannels()
-
-_.extend(AddToChannelModalView.prototype, Backbone.Factlink.AlertMixin)
 
   renderSuggestedChannels: ->
     suggested_channels = new SuggestedChannels()
@@ -36,3 +32,4 @@ _.extend(AddToChannelModalView.prototype, Backbone.Factlink.AlertMixin)
 
     @suggestedChannelsRegion.show suggestions
 
+_.extend(AddToChannelModalView.prototype, Backbone.Factlink.AlertMixin)
