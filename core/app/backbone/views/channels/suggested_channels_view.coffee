@@ -7,16 +7,20 @@ class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
   template: "channels/suggested_channel"
 
   events:
-    'click' : 'addModel'
+    'click' : 'clickAdd'
+
+  clickAdd: ->
+    @model.withCurrentOrCreatedChannelFor currentUser,
+      success: (channel) =>
+        @addModel channel
+      error: =>
+        console.info 'Adding the suggested topic failed'
 
   addModelSuccess: (model)->
     console.info "Model succesfully added"
 
   addModelError: (model) ->
     console.info "suggested_channels_view - error while adding"
-
-  wrapNewModel: (model) ->
-    model.clone()
 
 _.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 
