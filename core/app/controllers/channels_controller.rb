@@ -11,6 +11,7 @@ class ChannelsController < ApplicationController
       :facts,
       :create_fact,
       :remove_fact,
+      :add_fact
     ]
   before_filter :get_user
   before_filter :authenticate_user!
@@ -145,9 +146,8 @@ class ChannelsController < ApplicationController
 
   def add_fact
     fact = Fact[params[:fact_id]]
-    channel = Channel[params[:channel_id]]
 
-    interactor :"channels/add_fact_to_channel", fact, channel
+    interactor :"channels/add_fact_to_channel", fact, @channel
 
     render nothing: true, :status => :no_content
   end
