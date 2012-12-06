@@ -1,6 +1,5 @@
 class Fact < Basefact
   include Opinion::Subject::Fact
-  include Pavlov::Helpers
 
   after :create, :set_activity!
   after :create, :add_to_created_facts
@@ -30,11 +29,9 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    interactor :"channels/add_fact_to_channel", self, channel
-  end
-  # Hack, needs to be removed together with the decoupling of the add_to_created_facts
-  def pavlov_options
-    {current_user: self.created_by.user}
+    interactor = Interactors::Channels::AddFactToChannel.new self, channel, no_current_user: true
+
+    interactor.execute
   end
 
   def has_site?
