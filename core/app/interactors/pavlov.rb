@@ -6,7 +6,7 @@ module Pavlov
     begin
       eval(classname.to_s)
     rescue
-      raise "query/command/interactor not found"
+      raise "#{classname} query/command/interactor not found"
     end
   end
 
