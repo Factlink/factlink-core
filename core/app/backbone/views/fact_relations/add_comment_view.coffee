@@ -13,7 +13,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
-    @addDefaultModel if code is 13
+    @addDefaultModel() if code is 13
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)
