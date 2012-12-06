@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def add_fact_to_channel fact, channel
+  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+end
+
 describe Channel do
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
@@ -51,7 +55,7 @@ describe Channel do
 
     describe "after adding one fact and deleting a fact (not from the Channel but the fact itself) without recalculate" do
       before do
-        subject.add_fact(f1)
+        add_fact_to_channel f1, subject
         f1.delete
         Fact.should_receive(:invalid).with(nil).at_least(:once).and_return(true)
       end
@@ -60,7 +64,7 @@ describe Channel do
 
     describe "after adding one fact" do
       before do
-        subject.add_fact(f1)
+        add_fact_to_channel f1, subject
         Fact.should_receive(:invalid).any_number_of_times.and_return(false)
       end
       it do
@@ -107,14 +111,14 @@ describe Channel do
         end
         describe "after adding another fact to the original" do
           before do
-             subject.add_fact(f2)
+            add_fact_to_channel f2, subject
           end
           it {subject.facts.to_a.should eq [f2,f1]}
           it {@fork.facts.to_a.should eq [f2,f1]}
         end
         describe "after adding another fact to the fork" do
           before do
-             @fork.add_fact(f2)
+            add_fact_to_channel f2, @fork
           end
           it {subject.facts.to_a.should eq [f1]}
           it {@fork.facts.to_a.should eq [f2,f1]}
@@ -245,9 +249,9 @@ describe Channel do
       end
       context "after adding some facts" do
         before do
-          subject.add_fact f1
+          add_fact_to_channel f1, subject
           sleep(0.01)
-          subject.add_fact f2
+          add_fact_to_channel f2, subject
         end
         it "should contain the facts" do
           subject.facts.to_a.should =~ [f1,f2]
@@ -319,7 +323,7 @@ describe Channel do
       it "should remove activities" do
         ch1.add_channel u1_ch1
         fakech1 = Channel[ch1.id]
-        ch1.add_fact f1
+        add_fact_to_channel f1, ch1
         ch1.real_delete
         Activity.for(fakech1).all.should eq []
       end
@@ -346,9 +350,9 @@ describe Channel do
       it "should give all channels which contain a certain fact" do
         ch1
         ch2
-        ch1.add_fact f1
-        ch1.add_fact f2
-        ch2.add_fact f2
+        add_fact_to_channel f1, ch1
+        add_fact_to_channel f2, ch1
+        add_fact_to_channel f2, ch2
 
         Channel.for_fact(f1).should =~ [ch1]
         Channel.for_fact(f2).should =~ [ch1,ch2]
@@ -396,8 +400,8 @@ describe Channel do
         @ch1 = create :channel, title: 'hoi'
         @f1 = create :fact
         @f2 = create :fact
-        @ch1.add_fact @f1
-        @ch1.add_fact @f2
+        add_fact_to_channel @f1, @ch1
+        add_fact_to_channel @f2, @ch1
         @ch1.facts.should =~ [@f1,@f2]
         @ch1.sorted_cached_facts.count.should eq 2
         @f1.delete
@@ -414,8 +418,8 @@ describe Channel do
 
     describe :delete do
       before do
-        u1_ch1.add_fact f1
-        u2_ch1.add_fact f2
+        add_fact_to_channel f1, u1_ch1
+        add_fact_to_channel f2, u2_ch1
         u1_ch1.add_channel u2_ch1
         u2_ch1.delete
       end
@@ -436,14 +440,14 @@ describe Channel do
         u1_ch1.unread_count.should eq 0
       end
       it "should be zero after adding fact myself" do
-        u1_ch1.add_fact u2_f1
+        add_fact_to_channel u2_f1, u1_ch1
         u1_ch1.unread_count.should eq 0
       end
       context "after a fact was added in a channel I followed" do
         before do
           @ch = u1_ch1
           @ch.add_channel u2_ch1
-          u2_ch1.add_fact u2_f1
+          add_fact_to_channel u2_f1, u2_ch1
         end
         it "should be one" do
           @ch.unread_count.should eq 1
@@ -460,7 +464,7 @@ describe Channel do
 
           @ch.add_channel u2_ch1
           u2_ch1.add_channel @ch2
-          @ch2.add_fact u2_f1
+          add_fact_to_channel u2_f1, @ch2
         end
         it "should be zero" do
           @ch.unread_count.should eq 0
@@ -470,7 +474,7 @@ describe Channel do
         before do
           @ch = u1_ch1
           @ch.add_channel u2_ch1
-          u2_ch1.add_fact u1_f1
+          add_fact_to_channel u1_f1, u2_ch1
         end
         it "should be zero" do
           @ch.unread_count.should eq 0
@@ -486,7 +490,7 @@ describe Channel do
       end
       it "is false for a channel without facts" do
         ch = create :channel
-        ch.add_fact(create :fact)
+        add_fact_to_channel create(:fact), ch
         expect(ch.valid_for_activity?).to be_true
       end
     end
