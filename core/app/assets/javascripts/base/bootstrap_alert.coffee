@@ -3,6 +3,7 @@ $('body').on 'click', '[data-dismiss="alert"]', (e) ->
   selector = $this.attr 'data-target'
 
   e.stopImmediatePropagation()
+  e.preventDefault()
 
   if not selector
     selector = $this.attr('href')
