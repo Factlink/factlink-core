@@ -21,7 +21,7 @@ def create_channel(opts={})
 end
 
 def add_fact_to_channel(fact, channel)
-  interactor = Interactors::Channels::AddFactToChannel.new fact, channel, no_current_user: true
+  interactor = Interactors::Channels::AddFact.new fact, channel, no_current_user: true
   interactor.execute
 end
 

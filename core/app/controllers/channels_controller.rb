@@ -142,7 +142,7 @@ class ChannelsController < ApplicationController
   def add_fact
     fact = Fact[params[:fact_id]]
 
-    interactor :"channels/add_fact_to_channel", fact, @channel
+    interactor :"channels/add_fact", fact, @channel
 
     render nothing: true, :status => :no_content
   end
@@ -156,7 +156,7 @@ class ChannelsController < ApplicationController
     if @fact.data.save and @fact.save
       track "Factlink: Created"
 
-      interactor :"channels/add_fact_to_channel", @fact, @channel
+      interactor :"channels/add_fact", @fact, @channel
       render json: Facts::Fact.for(fact: @fact, channel: @channel, timestamp: Ohm::Model::TimestampedSet.current_time, view: view_context)
     else
       render json: @fact.errors, status: :unprocessable_entity
