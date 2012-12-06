@@ -1,6 +1,6 @@
 module Commands
   module Channels
-    class AddFactToChannel
+    class AddFact
       include Pavlov::Command
 
       arguments :fact, :channel

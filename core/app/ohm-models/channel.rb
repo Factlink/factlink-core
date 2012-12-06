@@ -146,7 +146,7 @@ class Channel < OurOhm
   end
 
   def add_fact(fact)
-    interactor :"channels/add_fact_to_channel", fact, self
+    interactor :"channels/add_fact", fact, self
   end
 
   def pavlov_options

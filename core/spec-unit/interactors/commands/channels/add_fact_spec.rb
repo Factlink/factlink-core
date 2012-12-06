@@ -1,7 +1,7 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/commands/channels/add_fact_to_channel'
+require_relative '../../../../app/interactors/commands/channels/add_fact'
 
-describe Commands::Channels::AddFactToChannel do
+describe Commands::Channels::AddFact do
   describe '.execute' do
     before do
       stub_const('Resque', Class.new)
@@ -17,7 +17,7 @@ describe Commands::Channels::AddFactToChannel do
       sorted_delete_facts = mock
       sorted_internal_facts = mock
 
-      command = Commands::Channels::AddFactToChannel.new fact, channel
+      command = Commands::Channels::AddFact.new fact, channel
 
       fact.should_receive(:id).and_return fact_id
 
