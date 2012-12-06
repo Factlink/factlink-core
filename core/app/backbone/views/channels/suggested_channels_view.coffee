@@ -1,8 +1,8 @@
-class SuggestedChannelsEmptyView extends Backbone.Marionette.ItemView
+class SuggestedTopicsEmptyView extends Backbone.Marionette.ItemView
   template:
     text: "No suggestions available."
 
-class SuggestedChannelView extends Backbone.Marionette.ItemView
+class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
   tagName: 'li'
   template: "channels/suggested_channel"
 
@@ -18,15 +18,15 @@ class SuggestedChannelView extends Backbone.Marionette.ItemView
   wrapNewModel: (model) ->
     model.clone()
 
-_.extend(SuggestedChannelView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
+_.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 
 
-class window.SuggestedChannelsView extends Backbone.Marionette.CollectionView
+class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
-  itemView: SuggestedChannelView
+  itemView: SuggestedSiteTopicView
   className: 'add-to-channel-suggested-channels'
 
-  emptyView: SuggestedChannelsEmptyView
+  emptyView: SuggestedTopicsEmptyView
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
