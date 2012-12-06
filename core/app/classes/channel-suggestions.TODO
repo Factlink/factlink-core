@@ -23,8 +23,10 @@ Channel Suggestions:
 
 site suggestions:
 
- ☐ Site has sorted set with 'top channels' (ids)
- ☐ create command to add channel_id to site#top_channels
- ☐ create query to retrieve site#top_channels
+ ✔ Site has sorted set with 'top channels' (ids) @done (12-12-06 11:17)
+ ✔ create command to add channel_id to site#top_channels @done (12-12-06 11:17)
+ ✔ create query to retrieve site#top_channels @done (12-12-06 11:54)
+ ✔ key: redis[:site][site.id][:top_channels] @done (12-12-06 11:17)
 
- ☐ key: redis[:site][site.id][:top_channels]
+ ☐ make frontend compatible with Topic in stead of Channels
+ ☐ display Topics owned by user with an icon-user
