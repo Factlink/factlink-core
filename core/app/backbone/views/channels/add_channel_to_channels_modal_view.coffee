@@ -30,9 +30,9 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
           @collection.add channel, silent: true
       @updateButton()
 
+  onRender: ->
     @updateButton()
 
-  onRender: ->
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
