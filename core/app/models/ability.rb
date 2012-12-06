@@ -119,7 +119,7 @@ class Ability
     can :show, Topic
   end
 
-  FEATURES = %w(pink_feedback_button authority_calculation_details)
+  FEATURES = %w(pink_feedback_button authority_calculation_details channel_suggestions)
   GLOBAL_ENABLED_FEATURES = []
 
   def enable_features list
