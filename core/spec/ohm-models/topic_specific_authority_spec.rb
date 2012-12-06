@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+def add_fact_to_channel fact, channel
+  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+end
 
 describe "topic specific authority"  do
   include TopicBeliefExpressions
@@ -39,7 +42,7 @@ describe "topic specific authority"  do
       authority from: ch1, for: u1, should_be: 0.0
     end
     it "should forward the authority from the facts it contains" do
-      ch1.add_fact(fact_of_u1_which_supports_two)
+      add_fact_to_channel fact_of_u1_which_supports_two, ch1
 
       authority from: ch1, for: u1, should_be: 1.0
       authority from: ch1, for: u4, should_be: 0.0
@@ -56,7 +59,7 @@ describe "topic specific authority"  do
       f = create :fact, created_by: u1
 
       c = create :channel, title: "foo"
-      c.add_fact f
+      add_fact_to_channel f, c
 
       foo_t = Topic.by_title("foo")
 
@@ -74,7 +77,7 @@ describe "topic specific authority"  do
       f.add_evidence(:supporting,f2,u2)
 
       c = create :channel, title: "foo"
-      c.add_fact(f)
+      add_fact_to_channel f, c
 
       foo_t = Topic.by_title "foo"
 
@@ -83,7 +86,7 @@ describe "topic specific authority"  do
 
     it "should give authority on a topic when a fact with authority is in it" do
       foo_ch = create :channel, title: "foo"
-      foo_ch.add_fact(fact_of_u1_which_supports_two)
+      add_fact_to_channel fact_of_u1_which_supports_two, foo_ch
       foo_t = Topic.by_title "foo"
       authority for:u1, from: foo_t, should_be: 1.0
     end
@@ -92,10 +95,10 @@ describe "topic specific authority"  do
   pending "on facts" do
     it "should give a user authority on a fact in a topic it knows something about" do
       foo_ch = create :channel, title: "foo"
-      foo_ch.add_fact(fact_of_u1_which_supports_two)
+      add_fact_to_channel fact_of_u1_which_supports_two, foo_ch
 
       fact2 = create :fact
-      foo_ch.add_fact fact2
+      add_fact_to_channel fact2, foo_ch
 
       authority for:u1, on: fact2, should_be: 1.0
     end

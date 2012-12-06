@@ -1,5 +1,9 @@
 require "spec_helper"
 
+def add_fact_to_channel fact, channel
+  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true)
+end
+
 describe 'activity queries' do
   include RedisSupport
   let(:gu1) { create :graph_user }
@@ -51,7 +55,7 @@ describe 'activity queries' do
 
       # Channel should not be empty
       f1 = create :fact
-      ch3.add_fact f1
+      add_fact_to_channel f1, ch3
 
       gu1.stream_activities.map(&:to_hash_without_time).should == [
         {user: gu2, action: :created_channel, subject: ch3}
@@ -63,7 +67,7 @@ describe 'activity queries' do
         ch1 = create :channel
         f1 = create :fact
         f2 = create :fact
-        ch1.add_fact f1
+        add_fact_to_channel f1, ch1
         f1.add_evidence type, f2, gu1
 
         @nr = number_of_commands_on Ohm.redis do
@@ -118,7 +122,7 @@ describe 'activity queries' do
       f.created_by.stream_activities.key.del # delete other activities
 
       ch = create :channel, created_by: gu2
-      ch.add_fact(f)
+      add_fact_to_channel f, ch
 
       notification = gu1.stream_activities.map(&:to_hash_without_time).should == [
         {:user => gu2, :action => :added_fact_to_channel, :subject => f, :object => ch}
@@ -197,7 +201,7 @@ describe 'activity queries' do
     it 'should contain the last added fact' do
       ch = create :channel
       f = create :fact
-      ch.add_fact f
+      add_fact_to_channel f, ch
       ch.added_facts.map(&:to_hash_without_time).should == [
         {user: ch.created_by, action: :added_fact_to_channel, subject: f, object: ch}
       ]

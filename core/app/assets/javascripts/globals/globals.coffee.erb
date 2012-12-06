@@ -13,6 +13,7 @@ Factlink.Global =
   empty_factlink_image: '<%= image_path("conversations/factlink-empty-state.png") %>'
   browser_icons_chrome_16x16: '<%= image_path("browser-icons/chrome-16x16.png") %>'
   browser_icons_firefox_16x16: '<%= image_path("browser-icons/firefox-16x16.png") %>'
+  checkmark: '<%= image_path("checkmark.png") %>'
 
   firefox_extension_url: "<%= FactlinkUI::Application.config.static_url + '/extension/firefox/factlink-latest.xpi' %>"
   chrome_extension_url: "<%= FactlinkUI::Application.config.static_url + '/chrome/factlink-latest.crx' %>"
@@ -24,6 +25,7 @@ Factlink.Global =
   [
     :channel, :channels, :channel_name,
     :add_to_channels,
+    :added_to_channels,
     :fact_believe_opinion,
     :fact_doubt_opinion,
     :fact_disbelieve_opinion,

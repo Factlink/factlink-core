@@ -3,11 +3,8 @@ require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
 
-require_relative '../interactors/pavlov'
-
 class Channel < OurOhm
   include Activity::Subject
-  include Pavlov::Helpers
 
   def type; "channel" end
 
@@ -16,7 +13,6 @@ class Channel < OurOhm
 
   timestamped_set :activities, Activity
   timestamped_set :added_facts, Activity
-
 
   attribute :lowercase_title
 
@@ -143,14 +139,6 @@ class Channel < OurOhm
     assert_present :created_by
     assert_unique([:slug_title,:created_by_id])
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
-  end
-
-  def add_fact(fact)
-    interactor :"channels/add_fact", fact, self
-  end
-
-  def pavlov_options
-    { current_user: self.created_by }
   end
 
   def remove_fact(fact)

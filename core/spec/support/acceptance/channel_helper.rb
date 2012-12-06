@@ -11,7 +11,7 @@ module Acceptance
     end
 
     def backend_add_fact_to_channel fact, channel
-      channel.add_fact fact
+      Interactors::Channels::AddFact.new(fact, channel, no_current_user:true).execute
     end
 
     def backend_channel_add_subchannel channel, subchannel
