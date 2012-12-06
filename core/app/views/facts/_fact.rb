@@ -14,6 +14,10 @@ module Facts
       self[:fact].id
     end
 
+    def site_id
+      self[:fact].site_id
+    end
+
     def signed_in?
       user_signed_in?
     end

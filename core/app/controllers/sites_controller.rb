@@ -34,6 +34,11 @@ class SitesController < ApplicationController
     render_json is_blacklisted ? { blacklisted: 'This site is not supported' } : {}
   end
 
+  def top_topics
+    @topics = query :'site/top_topics', params[:id].to_i
+    render 'topics/index'
+  end
+
   private
     def render_json json_able
       render :json => json_able , :callback => params[:callback], :content_type => "application/javascript"
