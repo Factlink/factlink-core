@@ -8,6 +8,9 @@ module Interactors
       def execute
         command :"channels/add_fact_to_channel", @fact, @channel
 
+        # TODO 0612
+        # command :'site/add_top_topics', @fact.site.id, @topic.id
+
         command :create_activity, @channel.created_by, :added_fact_to_channel, @fact, @channel
       end
 

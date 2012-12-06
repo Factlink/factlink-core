@@ -23,8 +23,8 @@ Channel Suggestions:
 
 site suggestions:
 
- ☐ Site has sorted set with 'top channels'
- ☐ create command to add channel to site#top_channels
+ ☐ Site has sorted set with 'top channels' (ids)
+ ☐ create command to add channel_id to site#top_channels
  ☐ create query to retrieve site#top_channels
 
  ☐ key: redis[:site][site.id][:top_channels]
