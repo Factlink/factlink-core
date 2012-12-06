@@ -7,12 +7,19 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
     addToChannelRegion: ".add-to-channel-form"
     suggestedChannelsRegion: ".add-to-channel-suggested-channels-region"
 
+  initialize: ->
+    @alertErrorInit ['create_channel']
+
   onRender: ->
-    unless @addToChannelView
+    unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
 
-    @renderSuggestedChannels()
+      @alertBindErrorEvent @addToChannelView
+
+      @renderSuggestedChannels()
+
+_.extend(AddToChannelModalView.prototype, Backbone.Factlink.AlertMixin)
 
   renderSuggestedChannels: ->
     suggested_channels = new SuggestedChannels()
@@ -28,3 +35,4 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
                         addToCollection: @collection
 
     @suggestedChannelsRegion.show suggestions
+

@@ -15,7 +15,7 @@ class window.FactView extends ViewWithPopover
 
   regions:
     factBaseView: '.fact-base-region'
-    factBottomView: '.fact-bottom'
+    factBottomView: '.fact-bottom-region'
 
   popover: [
     selector: ".top-right-arrow"

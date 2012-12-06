@@ -1,9 +1,26 @@
- ☐ remove unused css for old add to channel
-   possibl cross use between channel-listing classes with channel bar left
- ☐ checken of the /add /remove routes of subchannel can be removed
- ☐ make modal appearh
- ☐ get repost in modal
- ☐ get repost to work with channels
- ☐ add transparant layer back
- ☐ make sure the repost modal css works for the new modal
- ☐ write integration test
+ ✔ checken of the /add /remove routes of subchannel can be removed @done (12-12-05 10:22)
+ ✔ make modal appearh @done (12-12-05 10:22)
+ ✔ get repost in modal @done (12-12-05 10:22)
+ ✔ get repost to work with channels @done (12-12-05 10:54)
+ ✔ add transparant layer back @done (12-12-05 11:11)
+
+Backend:
+ ✔ "Channel: created" tracking probably doesn't work @done (12-12-05 12:55)
+ ✔ remove for_channel when creating new channel @done (12-12-05 12:55)
+ ✔ write integration test @done (12-12-05 14:08)
+
+Frontend:
+ ✔ make sure the repost modal css works for the new modal @done (12-12-05 13:13)
+ ✔ Fix layout of authority on a channel @done (12-12-05 13:13)
+ ✔ Nicer error message in the channels autocomplete @done (12-12-05 14:26)
+ ✔ remove unused css for old add to channel @done (12-12-05 13:31)
+   possible cross use between channel-listing classes with channel bar left (according to Remon this is not the case, and deeper investigation seems to confirm this)
+ ✔ Remove add_to_channel specific styles from popups.css.less @done (12-12-05 13:13)
+ ✔ Move AddChannelToChannelsModalView to own file @done (12-12-05 14:30)
+
+Later:
+ ☐ Rename AddToChannelModalView and corresponding template to AddFactToChannelsModalView and move to facts directory
+ ☐ make urls more restful
+ ☐ Make a generic PopupView or ModalView
+ ☐ Make showError/hideError mixin
+ ☐ Popups inside the fact bottom should not be affected by styles on .fact-bottom, such as whitespace: nowrap, which currently affects error messages

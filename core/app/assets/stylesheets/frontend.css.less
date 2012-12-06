@@ -21,7 +21,6 @@
 
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
-@import "channels/add_channel_to_channel";
 
 /* ==|== primary styles =====================================================
 Author: Factlink
@@ -379,14 +378,15 @@ img {
         height: 26px;
         line-height: 21px;
       }
-      a {
-        color: @black;
-      }
 
       div.button-wrap {
         position: absolute;
         line-height: 30px;
         display: inline-block;
+
+        > div {
+          display: inline-block;
+        }
       }
 
       .tabs {
@@ -450,10 +450,6 @@ img {
         display:none;
       }
 
-      .channel-listing {
-        #channel > .channel-listing();
-      }
-
       #contained-channel-list {
         display: block;
         li {
@@ -469,6 +465,7 @@ img {
             height: 100%;
             width: 100%;
             text-decoration: none;
+            color: black;
             img {
               width: 24px;
               vertical-align: -30%;
