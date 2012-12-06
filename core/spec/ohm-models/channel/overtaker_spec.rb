@@ -20,6 +20,11 @@ def create_channel(opts={})
   ch
 end
 
+def add_fact_to_channel(fact, channel)
+  interactor = Interactors::Channels::AddFactToChannel.new fact, channel, no_current_user: true
+  interactor.execute
+end
+
 describe Channel::Overtaker do
 
   let(:ch1) {create_channel :created_by => u1, :title => "Something" }
@@ -39,16 +44,16 @@ describe Channel::Overtaker do
     Fact.stub(:invalid,false)
   end
 
-  
+
   describe :take_over do
     it "should move all internal facts" do
-      ch1.add_fact f1
-      ch2.add_fact f2
+      add_fact_to_channel f1, ch1
+      add_fact_to_channel f2, ch2
       ch1.take_over(ch2)
       ch1.facts.should =~ [f1,f2]
     end
     it "should move all deleted facts" do
-      ch1.add_fact f1
+      add_fact_to_channel f1, ch1
       ch2.remove_fact f1
       ch1.take_over(ch2)
       ch1.facts.should =~ []

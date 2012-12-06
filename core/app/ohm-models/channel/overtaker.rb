@@ -2,7 +2,8 @@ class Channel < OurOhm
   module Overtaker
     def take_over(ch)
       ch.sorted_internal_facts.each do |f|
-        self.add_fact f
+        interactor = new Interactors::Channels::AddFactToChannel.new f, self, no_current_user: true
+        interactor.execute
       end
       ch.sorted_delete_facts.each do |f|
         self.remove_fact f
