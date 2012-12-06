@@ -14,7 +14,7 @@ describe "credibility calculation of facts*users" do
     end
     puts "Number of redis commands: #{nr}"
   end
-  
+
   it "should be fast" do
     channels = (0..10).map {|i| create(:channel, created_by: u1)}
     facts = (0..100).map {|i| create(:fact)}
@@ -22,7 +22,8 @@ describe "credibility calculation of facts*users" do
     channels.each do |channel|
       Authority.from(channel.topic, for: u1) << 10.0
       facts.each do |fact|
-        channel.add_fact(fact)
+        interactor = Interactors::Channels::AddFact.new fact, channel, no_current_user: true
+        interactor.execute
       end
     end
 

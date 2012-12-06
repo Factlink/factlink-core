@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def add_fact_to_channel fact, channel
+  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+end
+
 describe MapReduce::TopicAuthority do
   let(:gu1) {create(:user).graph_user}
   let(:gu2) {create(:user).graph_user}
@@ -32,11 +36,11 @@ describe MapReduce::TopicAuthority do
        ch1 = Channel.create(title: "Ruby", created_by: gu1)
        channels = [ch1]
 
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
-       ch1.add_fact create(:fact)
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
+       add_fact_to_channel create(:fact), ch1
 
        result = subject.wrapped_map(channels)
 

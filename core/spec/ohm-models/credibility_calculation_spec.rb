@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+def add_fact_to_channel fact, channel
+  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+end
+
 describe "credibility calculation of facts*users" do
   include RedisSupport
   let(:u1) {FactoryGirl.create(:graph_user)}
@@ -20,7 +24,7 @@ describe "credibility calculation of facts*users" do
     stub_const 'Activity::Subject', Class.new
     Activity::Subject.should_receive(:activity).any_number_of_times
   end
-  
+
   def recalculate_credibility
     MapReduce::FactCredibility.new.process_all
     MapReduce::FactRelationCredibility.new.process_all
@@ -31,9 +35,9 @@ describe "credibility calculation of facts*users" do
     ch2 = create(:channel, created_by: u1)
     Authority.from(ch1.topic, for: u1) << 10.0
     Authority.from(ch2.topic, for: u1) << 20.0
-    ch1.add_fact(f1)
-    ch2.add_fact(f1)
-    
+    add_fact_to_channel f1, ch1
+    add_fact_to_channel f1, ch2
+
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)
   end
@@ -43,18 +47,18 @@ describe "credibility calculation of facts*users" do
     ch2 = create(:channel, created_by: u1)
     Authority.from(ch1.topic, for: u1) << 10.0
     Authority.from(ch2.topic, for: u1) << 20.0
-    ch1.add_fact(f1)
-    ch2.add_fact(f1)
+    add_fact_to_channel f1, ch1
+    add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
     Authority.from(ch1.topic, for: u2) << 100.0
     Authority.from(ch2.topic, for: u2) << 100.0
     Authority.from(f1, for: u2) << 100.0
     Authority.from(f1) << 100.0
-    ch2.add_fact(f2)
-    ch2.add_fact(f3)
+    add_fact_to_channel f2, ch2
+    add_fact_to_channel f3, ch2
     ch3 = create(:channel, created_by: u2)
-    ch3.add_fact(f3)
+    add_fact_to_channel f3, ch3
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(15.0)
@@ -65,8 +69,8 @@ describe "credibility calculation of facts*users" do
     ch2 = create(:channel, created_by: u1)
     Authority.from(ch1.topic, for: u1) << 10.0
     Authority.from(ch2.topic, for: u1) << 20.0
-    ch1.add_fact(f1)
-    ch2.add_fact(f1)
+    add_fact_to_channel f1, ch1
+    add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
     ch1.add_channel(ch2)
@@ -81,9 +85,9 @@ describe "credibility calculation of facts*users" do
     ch3 = create(:channel, created_by: u2, title: 'b')
     Authority.from(ch1.topic, for: u1) << 10.0 # will be counted twice
     Authority.from(ch3.topic, for: u1) << 40.0
-    ch1.add_fact(f1)
-    ch2.add_fact(f1)
-    ch3.add_fact(f1)
+    add_fact_to_channel f1, ch1
+    add_fact_to_channel f1, ch2
+    add_fact_to_channel f1, ch3
 
     recalculate_credibility
     expect(Authority.on(f1, for: u1).to_f).to eq(20.0)
@@ -96,12 +100,12 @@ describe "credibility calculation of facts*users" do
     Authority.from(ch2.topic, for: u1) << 20.0
 
     fr = f1.add_evidence(:supporting, f2, u1)
-    ch1.add_fact(f1)
-    ch2.add_fact(f1)
+    add_fact_to_channel f1, ch1
+    add_fact_to_channel f1, ch2
 
     # some data that shouldn't influence the outcome
     ch3 = create(:channel, created_by: u1)
-    ch3.add_fact(f2)
+    add_fact_to_channel f2, ch3
     Authority.from(ch3.topic, for: u1) << 100.0
 
     recalculate_credibility
