@@ -18,8 +18,11 @@ FrontEnd:
  ✔ make suggestions only show in Fact repost modal, not Channel modal @done (12-12-06 08:35)
  ✔ add emptyview @done (12-12-05 11:29)
 
+Channel Suggestions:
+ ✔ Add behind feature toggle @done (12-12-06 10:12)
 
 site suggestions:
+
  ☐ Site has sorted set with 'top channels'
  ☐ create command to add channel to site#top_channels
  ☐ create query to retrieve site#top_channels
