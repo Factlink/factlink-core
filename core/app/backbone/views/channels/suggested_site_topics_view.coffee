@@ -20,7 +20,7 @@ class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
     console.info "Model succesfully added"
 
   addModelError: (model) ->
-    console.info "suggested_channels_view - error while adding"
+    console.info "SuggestedSiteTopicView - error while adding"
 
 _.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 

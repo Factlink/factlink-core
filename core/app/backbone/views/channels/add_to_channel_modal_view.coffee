@@ -1,4 +1,4 @@
-#= require ./suggested_channels_view
+#= require ./suggested_site_topics_view
 
 class window.AddToChannelModalView extends Backbone.Marionette.Layout
   template: 'channels/add_to_channel_modal'
