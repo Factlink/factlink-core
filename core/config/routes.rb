@@ -19,6 +19,7 @@ FactlinkUI::Application.routes.draw do
   get   "/site/blacklisted" => "sites#blacklisted"
   get   "/site/count" => "sites#facts_count_for_url"
   get   "/site" => "sites#facts_for_url"
+  get   "/site/:id/top_topics" => "sites#top_topics"
 
   # Prepare a new Fact
   # If you change this route, don't forget to change it in application.rb

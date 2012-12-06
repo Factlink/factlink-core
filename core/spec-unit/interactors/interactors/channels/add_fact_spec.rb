@@ -5,8 +5,8 @@ require_relative '../../../../app/interactors/interactors/channels/add_fact'
 describe Interactors::Channels::AddFact do
   describe '.execute' do
     it 'correctly' do
-      fact = mock
-      channel = mock
+      fact = mock(site: mock(id: 10))
+      channel = mock(topic: mock(id: "1a"))
       user = mock
 
       Interactors::Channels::AddFact.any_instance.should_receive(:authorized?).and_return true
@@ -16,6 +16,7 @@ describe Interactors::Channels::AddFact do
       channel.should_receive(:created_by).and_return(user)
 
       interactor.should_receive(:command).with(:"channels/add_fact", fact, channel)
+      interactor.should_receive(:command).with(:"site/add_top_topic", fact.site.id, channel.topic.id)
       interactor.should_receive(:command).with(:"create_activity", user, :added_fact_to_channel, fact, channel)
 
       interactor.execute

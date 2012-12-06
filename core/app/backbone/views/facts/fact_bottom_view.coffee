@@ -46,7 +46,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
           @model.removeFromChannel channel, {}
           @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
 
-        @addToChannelRegion.show new AddToChannelModalView(collection: collection)
+        @addToChannelRegion.show new AddToChannelModalView(collection: collection, model: @model)
 
   closePopup: (e) ->
     @$('.popup-content > div').hide()

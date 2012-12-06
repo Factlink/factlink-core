@@ -1,7 +1,7 @@
 class window.AddCommentView extends Backbone.Marionette.ItemView
   className: 'add-comment'
   events:
-    'click .js-post': 'addModel'
+    'click .js-post': 'addDefaultModel'
     'click .js-switch': 'switchCheckboxClicked'
     'blur  .js-content': 'updateModel'
     'keydown .js-content': 'parseKeyDown'
@@ -13,7 +13,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
-    @addModel if code is 13
+    @addDefaultModel() if code is 13
 
   initializeModel: ->
     @model = new Comment(content: '', created_by: currentUser)

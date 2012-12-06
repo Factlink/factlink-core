@@ -22,15 +22,15 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
       @renderSuggestedChannels() if window.Factlink.Global.can_haz.channel_suggestions
 
   renderSuggestedChannels: ->
-    suggested_channels = new SuggestedChannels()
-    suggested_channels.fetch()
+    suggested_topics = new SuggestedSiteTopics([], { site_id: @model.get('site_id') } )
+    suggested_topics.fetch()
 
-    filtered_channels = collectionDifference(new SuggestedChannels(),
+    filtered_channels = collectionDifference(new Backbone.Collection(),
                                                   'slug_title',
-                                                  suggested_channels,
+                                                  suggested_topics,
                                                   @collection)
 
-    suggestions = new SuggestedChannelsView
+    suggestions = new SuggestedSiteTopicsView
                         collection:      filtered_channels
                         addToCollection: @collection
 

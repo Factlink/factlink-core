@@ -29,7 +29,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    interactor = Interactors::Channels::AddFact.new self, channel, no_current_user: true
+    interactor = Commands::Channels::AddFact.new self, channel
 
     interactor.execute
   end

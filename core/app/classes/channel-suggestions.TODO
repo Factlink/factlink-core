@@ -18,10 +18,15 @@ FrontEnd:
  ✔ make suggestions only show in Fact repost modal, not Channel modal @done (12-12-06 08:35)
  ✔ add emptyview @done (12-12-05 11:29)
 
+Channel Suggestions:
+ ✔ Add behind feature toggle @done (12-12-06 10:12)
 
 site suggestions:
- ☐ Site has sorted set with 'top channels'
- ☐ create command to add channel to site#top_channels
- ☐ create query to retrieve site#top_channels
 
- ☐ key: redis[:site][site.id][:top_channels]
+ ✔ Site has sorted set with 'top channels' (ids) @done (12-12-06 11:17)
+ ✔ create command to add channel_id to site#top_channels @done (12-12-06 11:17)
+ ✔ create query to retrieve site#top_channels @done (12-12-06 11:54)
+ ✔ key: redis[:site][site.id][:top_channels] @done (12-12-06 11:17)
+
+ ☐ make frontend compatible with Topic in stead of Channels
+ ☐ display Topics owned by user with an icon-user
