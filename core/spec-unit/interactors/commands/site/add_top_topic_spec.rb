@@ -26,7 +26,6 @@ describe Commands::Site::AddTopTopic do
 
   describe '.execute' do
 
-
     it '.key returns the correct redis key' do
       site_id = 6
       topic_id = '12ab34cd'
