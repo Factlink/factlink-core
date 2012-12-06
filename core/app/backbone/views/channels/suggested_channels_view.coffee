@@ -34,3 +34,13 @@ class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
+
+class window.FilteredSuggestedSiteTopicsView extends SuggestedSiteTopicsView
+  initialize: (options) ->
+    suggested_topics = new SuggestedSiteTopics([], { site_id: @options.site_id } )
+    suggested_topics.fetch()
+
+    @collection = collectionDifference(new Backbone.Collection(),
+                                                  'slug_title',
+                                                  suggested_topics,
+                                                  @options.addToCollection)
