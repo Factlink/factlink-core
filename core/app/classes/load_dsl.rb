@@ -195,8 +195,11 @@ class LoadDsl
   end
 
   def add_fact(fact_string)
-    f = self.load_fact(fact_string)
-    self.state_channel.add_fact(f)
+    fact = self.load_fact(fact_string)
+
+    interactor = Interactors::Channels::AddFactToChannel.new fact, self.state_channel, no_current_user: true
+
+    interactor.execute
   end
 
   def self.export_add_fact(fact)
