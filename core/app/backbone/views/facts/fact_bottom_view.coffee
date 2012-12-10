@@ -10,7 +10,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
   regions:
     startConversationRegion: '.popup-content .start-conversation-container'
-    addToChannelRegion: ".popup-content .add-to-channel-container"
+    addToChannelRegion: ".popup-content .add-fact-to-channel-container"
 
   templateHelpers: ->
     fact_url_host: ->
@@ -37,7 +37,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     switch popup
       when "start-conversation"
         @startConversationRegion.show new StartConversationView(model: @model)
-      when "add-to-channel"
+      when "add-fact-to-channel"
         collection = @model.getOwnContainingChannels()
         collection.on "add", (channel) =>
           @model.addToChannel channel, {}
