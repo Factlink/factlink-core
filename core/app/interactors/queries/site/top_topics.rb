@@ -17,8 +17,11 @@ module Queries
       end
 
       def execute
-        topic_ids = key.zrevrange(0, 2)
-        topic_ids.map { |id| Topic.find(id) }
+        topic_ids.map { |id| KillObject.topic Topic.find(id) }
+      end
+
+      def topic_ids
+        key.zrevrange(0, 2)
       end
     end
   end
