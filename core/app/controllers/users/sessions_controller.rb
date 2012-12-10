@@ -1,5 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 
+  DEFAULT_LAYOUT = "one_column"
+
   layout :set_layout
 
   after_filter  :track_sign_in, only: :create

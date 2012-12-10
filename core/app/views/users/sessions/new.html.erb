@@ -1,5 +1,4 @@
-<div id="new_session">
-
+<div class="span9" id="new_session">
   <h2>Log in</h2>
 
   <%= image_tag "factlink-logo.png" %>
@@ -38,7 +37,6 @@
       <%= hidden_field_tag :layout, @layout %>
     <% end %>
 
-
     <div class="inputs">
       <%= f.submit "Log in", tabindex: 0, 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
 
@@ -47,10 +45,7 @@
       <% end %>
     </div>
   <% end %>
-
-
 </div>
-
 <% content_for :javascript do %>
 <script>
 $('#cancel').on('click', function (e) {

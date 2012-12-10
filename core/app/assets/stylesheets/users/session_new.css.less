@@ -2,15 +2,19 @@
 @import "bootstrap/mixins";
 
 .factlink-site #new_session {
+  border: 1px solid @baseBorderColor;
+  .border-radius(5px);
+  padding: 15px;
+  background: white;
+  margin-bottom: 150px;
+
   > img { display: none; }
 }
 
 #new_session {
   position: relative;
-  margin: 24px 0;
-
-  margin-left: 78px;
-  width: 400px;
+  margin: 0 auto;
+  float: none;
 
   > img {
     position: absolute;
