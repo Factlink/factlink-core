@@ -5,7 +5,6 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
     "click div.auto-complete-search-list": "addCurrent"
 
   regions:
-    'suggestionRegion': '.suggestion-region'
     'results': 'div.auto-complete-results-container'
     'search_list': 'div.auto-complete-search-list-container'
     'text_input': 'div.auto-complete-input-container'
@@ -13,8 +12,6 @@ class window.AutoCompleteChannelsView extends AutoCompleteSearchView
   template: "auto_complete/box_with_results"
 
   initialize: (options) ->
-    @site_id = options.site_id
-
     @initializeChildViews
       filter_on: 'slug_title'
       search_list_view: (options) -> new AutoCompleteSearchChannelsView(options)
