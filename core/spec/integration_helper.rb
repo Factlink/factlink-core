@@ -1,3 +1,5 @@
+unless defined?(I_AM_SPEC_HELPER)
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -55,3 +57,5 @@ Devise.setup do |config|
   # https://github.com/plataformatec/devise/wiki/Speed-up-your-unit-tests
   config.stretches = 1    # should be low to improve performance. But should not be 0
 end
+
+end # don't load if spec_helper is loaded
