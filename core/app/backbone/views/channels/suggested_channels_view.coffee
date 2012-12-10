@@ -40,7 +40,8 @@ class window.FilteredSuggestedSiteTopicsView extends SuggestedSiteTopicsView
     suggested_topics = new SuggestedSiteTopics([], { site_id: @options.site_id } )
     suggested_topics.fetch()
 
-    @collection = collectionDifference(new Backbone.Collection(),
+    utils = new CollectionUtils(this)
+    @collection = utils.difference(new Backbone.Collection(),
                                                   'slug_title',
                                                   suggested_topics,
                                                   @options.addToCollection)
