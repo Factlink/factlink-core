@@ -1,4 +1,4 @@
-class SuggestedTopicsEmptyView extends Backbone.Marionette.ItemView
+class SuggestedSiteTopicsEmptyView extends Backbone.Marionette.ItemView
   template:
     text: "No suggestions available."
 
@@ -30,7 +30,7 @@ class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
   itemView: SuggestedSiteTopicView
   className: 'add-to-channel-suggested-site-topics'
 
-  emptyView: SuggestedTopicsEmptyView
+  emptyView: SuggestedSiteTopicsEmptyView
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
