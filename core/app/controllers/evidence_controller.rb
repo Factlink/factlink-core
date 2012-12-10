@@ -10,7 +10,12 @@ class EvidenceController < FactsController
 
     authorize! :get_evidence, @fact
 
-    @fact_relations = @evidence
+    @fact_relations = @evidence.to_a.sort do |a,b|
+      opinionA = a.get_user_opinion
+      opinionB = b.get_user_opinion
+      (opinionB.beliefs - opinionB.disbeliefs) <=> (opinionA.beliefs - opinionA.disbeliefs)
+    end
+
     render 'fact_relations/index'
   end
 
