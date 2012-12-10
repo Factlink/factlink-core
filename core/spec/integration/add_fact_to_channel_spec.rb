@@ -10,18 +10,20 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
-    @factlink = backend_create_fact
+    factlink = backend_create_fact
+    new_channel_name = 'Gerrit'
+    go_to_discussion_page_of factlink
 
-    go_to_discussion_page_of @factlink
+    click_link('Repost')
 
-    open_modal 'Repost' do
+    within(:css, ".modal-body") do
       page.should have_content('Repost this to one or more channels:')
 
-      add_as_new_channel 'Gerrit'
+      page.find(:css,'input').set(new_channel_name)
 
-      sleep 1
+      page.find('li', text: new_channel_name).click
 
-      added_channels_should_contain 'Gerrit'
+      added_channels_should_contain new_channel_name
     end
   end
 
@@ -37,8 +39,34 @@ feature "adding a fact to a channel" do
     end
   end
 
+  scenario "the user can add a channel suggestion" do
+    site = FactoryGirl.create :site
+    factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+    new_channel_name = 'Gerrit'
+    go_to_discussion_page_of factlink
+
+    click_link('Repost')
+
+    within(:css, ".modal-body") do
+      page.should have_content('Repost this to one or more channels:')
+
+      page.find(:css,'input').set(new_channel_name)
+
+      page.find('li', text: new_channel_name).click
+
+      added_channels_should_contain new_channel_name
+    end
+
+    factlink2 = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
+
+    go_to_discussion_page_of factlink2
+
+    click_link('Repost')
+
+    screenshot_and_open_image
+  end
+
   scenario "adding an invalid channel shows an alert" do
     pending "to be implemented"
   end
-
 end
