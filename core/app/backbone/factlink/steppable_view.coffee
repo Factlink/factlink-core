@@ -21,7 +21,7 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
     else if key < 0 then @list.length - 1
     else key
 
-  setActiveView: (key)->
+  setActiveView:  (key)->
     @deActivateCurrent()
     key = @fixKeyModulo(key)
     view = @list[key]
@@ -44,13 +44,14 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
       i = @list.indexOf(view)
       @list.splice(i,1)
 
-    @bindTo view, 'requestActivate', => @requestActivate view
+    @bindTo view, 'requestActivate', =>
+      unless @alreadyHandlingAnActivate
+        @alreadyHandlingAnActivate = true
+        i = @list.indexOf(view)
+        @setActiveView(i)
+        @alreadyHandlingAnActivate = false
 
     @bindTo view, 'requestDeActivate', => @deActivateCurrent()
-
-    @bindTo view, 'requestClick', =>
-      @requestActivate view
-      @trigger 'click'
 
     @list.push(view)
 
@@ -64,10 +65,3 @@ class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
 
   scrollToCurrent: ->
     @currentActiveView()?.scrollIntoView?()
-
-  requestActivate: (view) ->
-    unless @alreadyHandlingAnActivate
-      @alreadyHandlingAnActivate = true
-      i = @list.indexOf(view)
-      @setActiveView(i)
-      @alreadyHandlingAnActivate = false

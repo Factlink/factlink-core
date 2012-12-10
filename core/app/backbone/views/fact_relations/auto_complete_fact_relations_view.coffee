@@ -2,6 +2,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-fact-relations"
 
   events:
+    "click div.auto-complete-search-list": "addCurrent"
     "click .js-post": "addNew"
     'click .js-switch': 'switchCheckboxClicked'
 

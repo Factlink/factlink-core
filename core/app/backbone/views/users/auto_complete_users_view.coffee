@@ -1,6 +1,9 @@
 class window.AutoCompleteUsersView extends AutoCompleteSearchView
   className: "auto-complete auto-complete-users"
 
+  events:
+    "click div.auto-complete-search-list": "addCurrent"
+
   regions:
     'results': 'div.auto-complete-results-container'
     'search_list': 'div.auto-complete-search-list-container'
