@@ -47,7 +47,9 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
       @$('.add-to-channel-button-label').hide()
       @$('.added-to-channel-button-label').show()
 
-  openAddToChannelModal: ->
+  openAddToChannelModal: (e) ->
+    e.stopImmediatePropagation()
+    e.preventDefault()
     @$('.add-to-channel-modal-region').show()
     @$('.transparent-layer').show()
 

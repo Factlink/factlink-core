@@ -1,4 +1,4 @@
-class GenericNotificationView extends Backbone.Marionette.ItemView
+class GenericNotificationView extends Backbone.Marionette.Layout
   tagName: "li"
   className: "activity"
   template: "notifications/generic"
@@ -19,6 +19,23 @@ class NotificationAddedEvidenceView extends GenericNotificationView
 
 class NotificationAddedSubchannelView extends GenericNotificationView
   template: "notifications/added_subchannel"
+
+  regions:
+    followBackRegion: ".follow-back-channel"
+
+  initialize: (opts) ->
+    @other_channel_url = opts.model.get('activity')?.target_url
+
+  onRender: ->
+    window.ChannelWithSpecificUrl = window.Channel.extend
+      url: =>
+        @other_channel_url
+
+    other_channel = new ChannelWithSpecificUrl()
+    console.log(other_channel.url())
+    other_channel.fetch()
+
+    @followBackRegion.show new AddChannelToChannelsModalView model: other_channel
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"
