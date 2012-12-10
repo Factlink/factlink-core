@@ -166,7 +166,9 @@ module Channels
       json.followable?  !is_mine && is_normal
       json.editable?    is_mine && channel.editable?
 
-      json.unread_count unread_count
+      # QUICK FIX only show unread count on own channel
+      json.unread_count unread_count if is_mine
+
       json.new_facts( (unread_count != 0) && is_mine )
 
       json.containing_channel_ids containing_channel_ids
