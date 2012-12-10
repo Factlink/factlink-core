@@ -1,10 +1,7 @@
 require "spec_helper"
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true)
-end
-
 describe 'activity queries' do
+  include AddFactToChannelSupport
   include RedisSupport
   let(:gu1) { create :graph_user }
   let(:gu2) { create :graph_user }

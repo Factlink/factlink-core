@@ -1,10 +1,7 @@
 require 'spec_helper'
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
-end
-
 describe Channel::UserStream do
+  include AddFactToChannelSupport
   subject { u1.stream }
 
   let(:u1) { FactoryGirl.create(:user).graph_user }

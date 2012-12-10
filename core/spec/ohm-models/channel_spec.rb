@@ -1,10 +1,7 @@
 require 'spec_helper'
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
-end
-
 describe Channel do
+  include AddFactToChannelSupport
   subject {Channel.create(:created_by => u1, :title => "Subject")}
 
   let(:ch1) {Channel.create(:created_by => u2, :title => "Something")}
