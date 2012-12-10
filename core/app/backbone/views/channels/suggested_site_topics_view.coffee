@@ -1,4 +1,5 @@
 class SuggestedSiteTopicsEmptyView extends Backbone.Marionette.ItemView
+  tagName: 'p'
   template:
     text: "No suggestions available."
 
