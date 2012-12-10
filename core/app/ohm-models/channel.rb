@@ -96,8 +96,17 @@ class Channel < OurOhm
 
   def add_created_channel_activity
     if self.sorted_cached_facts.count == 0
-      activity(self.created_by, :created_channel, self)
+      unless has_created_activity_already
+        activity(self.created_by, :created_channel, self)
+      end
     end
+  end
+
+  def has_created_activity_already
+    activities = Activity.find subject_id: self.id,
+                               subject_class: self.class.to_s,
+                               action: :created_channel
+    activities.size > 0
   end
 
   def unread_count
