@@ -40,6 +40,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "the user can add a channel suggestion" do
+    pending 'to be finished'
     site = FactoryGirl.create :site
     factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
     new_channel_name = 'Gerrit'
