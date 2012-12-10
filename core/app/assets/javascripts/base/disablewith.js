@@ -3,7 +3,7 @@
     .live('click', setLoadingText);
 
   function setLoadingText() {
-    $(this).text( $(this).attr('data-disable-with') )
+    $(this).html( $(this).attr('data-disable-with') )
       .addClass('disabled');
   }
 }());
