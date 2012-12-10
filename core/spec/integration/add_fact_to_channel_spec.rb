@@ -60,7 +60,7 @@ feature "adding a fact to a channel" do
     go_to_discussion_page_of factlink2
 
     open_modal 'Repost' do
-      page.find("li", text: new_channel_name)
+      suggested_channels_should_contain new_channel_name
     end
   end
 
