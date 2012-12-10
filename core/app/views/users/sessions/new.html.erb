@@ -1,56 +1,47 @@
-<div class="span9" id="new_session">
-  <h2>Log in</h2>
-
-  <%= image_tag "factlink-logo.png" %>
+<div class="new-session">
+  <h3>Sign in to Factlink</h3>
 
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <fieldset>You have to be logged in to use Factlink.</fieldset>
-
     <% if @layout == "client" %>
       <%= render 'home/notifications', notice: notice, alert: alert %>
     <% end %>
-
-    <div>
-      <%= f.text_field :login, placeholder: "Username or email" %>
-    </div>
-    <div>
-      <%= f.password_field :password, placeholder: "Password" %>
-    </div>
-
-    <div class="split">
-      <div>
-        <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
-          <%= link_to "Forgot your password?",
-                new_password_path(resource_name),
-                ( { target: "new" } if @layout == "client" ) %>
-        <% end -%>
-      </div>
-      <div class="second">
-        <% if devise_mapping.rememberable? -%>
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
-        <% end -%>
-      </div>
-    </div>
 
     <% if @layout %>
       <%= hidden_field_tag :layout, @layout %>
     <% end %>
 
-    <div class="inputs">
-      <%= f.submit "Log in", tabindex: 0, 'data-disable-with' => "Logging in...", :class => "btn btn-primary" %>
+    <div class="with-credentials">
+      <div class="form-box">
+        <%= f.text_field :login, placeholder: "Username or email" %>
+        <%= f.password_field :password, placeholder: "Password" %>
+        <% if devise_mapping.rememberable? -%>
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        <% end -%>
 
-      <% if @layout == "client" %>
-      <button class="btn" name="cancel" id="cancel" style="float: left;">Cancel</button>
-      <% end %>
+        <%= f.submit "Sign in", 'data-disable-with' => "Signing in...", :class => "btn" %>
+      </div>
     </div>
+
+    <div class="with-social">
+      <a href="/auth/twitter" class="btn twitter" data-disable-with="<i></i>Signing in...">
+        <i></i>Sign in with Twitter
+      </a>
+      <a href="/auth/facebook" class="btn facebook" data-disable-with="<i></i>Signing in...">
+        <i></i>Sign in with Facebook
+      </a>
+    </div>
+
+    <div class="separator">
+      <span>or</span>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <%= link_to "Forgot your password?",
+            new_password_path(resource_name),
+            ( { target: "new" } if @layout == "client" ) %>
+    <% end -%>
   <% end %>
 </div>
-<% content_for :javascript do %>
-<script>
-$('#cancel').on('click', function (e) {
-  e.preventDefault();
-  parent.remote.hide();
-});
-</script>
-<% end %>
