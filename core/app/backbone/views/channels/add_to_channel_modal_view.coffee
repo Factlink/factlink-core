@@ -5,7 +5,7 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
-    suggestedChannelsRegion: ".add-to-channel-suggested-channels-region"
+    suggestedChannelsRegion: ".add-to-channel-suggested-site-topics-region"
 
   initialize: ->
     @alertErrorInit ['create_channel']

@@ -28,7 +28,7 @@ _.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectio
 class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   itemView: SuggestedSiteTopicView
-  className: 'add-to-channel-suggested-channels'
+  className: 'add-to-channel-suggested-site-topics'
 
   emptyView: SuggestedTopicsEmptyView
 
