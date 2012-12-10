@@ -29,6 +29,10 @@ module Acceptance
     def added_channels_should_contain name
       within(:css, ".auto-complete-results-container") do
         page.should have_content name
+
+    def suggested_channels_should_contain name
+      within(:css, ".add-to-channel-suggested-site-topics") do
+        page.find("li", text: name)
       end
     end
     # </IN REPOST MODAL>
