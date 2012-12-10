@@ -36,6 +36,15 @@ describe Queries::Site::ForUrl do
       stub_classes 'KillObject'
     end
 
+    it 'returns nil if site is nil' do
+      url = 'http://jsdares.com'
+      query = Queries::Site::ForUrl.new url
+
+      query.should_receive(:site).and_return(nil)
+
+      expect(query.execute).to eq nil
+    end
+
     it 'returns a dead site' do
       url = 'http://jsdares.com'
       query = Queries::Site::ForUrl.new url
@@ -43,7 +52,7 @@ describe Queries::Site::ForUrl do
       site = mock
       dead_site = mock
 
-      query.should_receive(:site).and_return(site)
+      query.should_receive(:site).any_number_of_times.and_return(site)
       KillObject.should_receive(:site).with(site).and_return(dead_site)
 
       expect(query.execute).to eq dead_site

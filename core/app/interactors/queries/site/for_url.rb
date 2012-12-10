@@ -10,11 +10,11 @@ module Queries
       end
 
       def execute
-        KillObject.site site
+        KillObject.site site if site
       end
 
       def site
-        ::Site.find(url: @url).first
+        @site ||= ::Site.find(url: @url).first
       end
     end
   end
