@@ -1,11 +1,6 @@
-class SuggestedSiteTopicsEmptyView extends Backbone.Marionette.ItemView
-  tagName: 'p'
-  template:
-    text: "No suggestions available."
-
 class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  template: "channels/suggested_site_topic"
+  template: 'channels/suggested_site_topic'
 
   events:
     'click' : 'clickAdd'
@@ -18,28 +13,34 @@ class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
         console.info 'Adding the suggested topic failed'
 
   addModelSuccess: (model)->
-    console.info "Model succesfully added"
+    console.info 'Model succesfully added'
 
   addModelError: (model) ->
-    console.info "SuggestedSiteTopicView - error while adding"
+    console.info "SuggestedSiteTopicView - error while adding #{@name}"
 
 _.extend(SuggestedSiteTopicView.prototype, Backbone.Factlink.AddModelToCollectionMixin)
 
 
-class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
+class SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   itemView: SuggestedSiteTopicView
   className: 'add-to-channel-suggested-site-topics'
-
-  emptyView: SuggestedSiteTopicsEmptyView
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
 
 
-class window.FilteredSuggestedSiteTopicsView extends SuggestedSiteTopicsView
+class window.FilteredSuggestedSiteTopicsView extends Backbone.Marionette.Layout
+  template: 'channels/filtered_suggested_site_topics'
+
+  regions:
+    suggestedSiteTopicsRegion: '.js-suggested-site-topics-region'
+
+  # TODO remove on updating marionette
+  initialEvents: -> # don't rerender on collection change
+
   initialize: (options) ->
-    suggested_topics = new SuggestedSiteTopics([], { site_id: @options.site_id } )
+    suggested_topics = new SuggestedSiteTopics([], site_id: @options.site_id)
     suggested_topics.fetch()
 
     utils = new CollectionUtils(this)
@@ -47,3 +48,15 @@ class window.FilteredSuggestedSiteTopicsView extends SuggestedSiteTopicsView
                                                   'slug_title',
                                                   suggested_topics,
                                                   @options.addToCollection)
+
+    @bindTo @collection, 'add remove reset change', @updateTitle, @
+
+  onRender: ->
+    @suggestedSiteTopicsRegion.show new SuggestedSiteTopicsView
+      collection: @collection
+      addToCollection: @options.addToCollection
+
+    @updateTitle()
+
+  updateTitle: ->
+    @$('.js-suggestions-title').toggle @collection.length > 0
