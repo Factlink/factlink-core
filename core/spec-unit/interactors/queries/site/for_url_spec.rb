@@ -13,7 +13,7 @@ describe Queries::Site::ForUrl do
     end
   end
 
-  describe '.execute' do
+  describe '.site' do
 
     before do
       stub_classes 'Site'
@@ -26,8 +26,29 @@ describe Queries::Site::ForUrl do
       site = mock
       Site.should_receive(:find).with(url: url).and_return([site])
 
-      expect(query.execute).to eq site
+      expect(query.site).to eq site
+    end
+  end
+
+  describe '.execute' do
+
+    before do
+      stub_classes 'KillObject'
     end
 
+    it 'returns a dead site' do
+      url = 'http://jsdares.com'
+      query = Queries::Site::ForUrl.new url
+
+      site = mock
+      dead_site = mock
+
+      query.should_receive(:site).and_return(site)
+      KillObject.should_receive(:site).with(site).and_return(dead_site)
+
+      expect(query.execute).to eq dead_site
+    end
   end
+
 end
+

@@ -10,9 +10,12 @@ module Queries
       end
 
       def execute
-        ::Site.find(url: @url).first
+        KillObject.site site
       end
 
+      def site
+        ::Site.find(url: @url).first
+      end
     end
   end
 end

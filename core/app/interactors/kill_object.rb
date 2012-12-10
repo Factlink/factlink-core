@@ -22,6 +22,8 @@ module KillObject
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
      :fact_data]
+  dead_object :site,
+    [:id, :url]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
