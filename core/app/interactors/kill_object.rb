@@ -25,7 +25,7 @@ module KillObject
   dead_object :site,
     [:id, :url]
   dead_object :topic,
-    [:id, :title, :slug_title]
+    [:title, :slug_title]
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
