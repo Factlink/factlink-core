@@ -4,7 +4,7 @@ class SuggestedTopicsEmptyView extends Backbone.Marionette.ItemView
 
 class SuggestedSiteTopicView extends Backbone.Marionette.ItemView
   tagName: 'li'
-  template: "channels/suggested_channel"
+  template: "channels/suggested_site_topic"
 
   events:
     'click' : 'clickAdd'
@@ -34,6 +34,7 @@ class window.SuggestedSiteTopicsView extends Backbone.Marionette.CollectionView
 
   itemViewOptions: =>
     addToCollection: @options.addToCollection
+
 
 class window.FilteredSuggestedSiteTopicsView extends SuggestedSiteTopicsView
   initialize: (options) ->
