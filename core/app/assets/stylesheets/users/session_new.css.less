@@ -1,7 +1,9 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.factlink-site #new_session img { display: none; }
+.factlink-site #new_session {
+  > img { display: none; }
+}
 
 #new_session {
   position: relative;
@@ -10,7 +12,7 @@
   margin-left: 78px;
   width: 400px;
 
-  img {
+  > img {
     position: absolute;
     top: 10px;
     right: 0px;
