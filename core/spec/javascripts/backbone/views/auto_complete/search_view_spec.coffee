@@ -31,6 +31,7 @@ describe 'AutoCompleteSearchView', ->
         collection: collection
 
       spyOn(window, 'AutoCompleteSearchListView').andReturn({})
+      spyOn(view, 'bindTextViewToSteppableViewAndSelf')
 
       view.initializeChildViews(
         search_collection: -> new SearchCollection
