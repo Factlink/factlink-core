@@ -29,6 +29,8 @@ module Acceptance
     def added_channels_should_contain name
       within(:css, ".auto-complete-results-container") do
         page.should have_content name
+      end
+    end
 
     def suggested_channels_should_contain name
       within(:css, ".add-to-channel-suggested-site-topics") do
