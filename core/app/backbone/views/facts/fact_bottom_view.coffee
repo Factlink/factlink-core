@@ -9,7 +9,6 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     "click .close-popup": "closePopup"
 
   regions:
-    startConversationRegion: '.popup-content .start-conversation-container'
     addToChannelRegion: ".popup-content .add-to-channel-container"
 
   templateHelpers: ->
