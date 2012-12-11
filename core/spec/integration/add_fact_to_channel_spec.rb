@@ -39,7 +39,7 @@ feature "adding a fact to a channel" do
     end
   end
 
-  scenario "the user can add a channel suggestion" do)
+  scenario "the user can add a channel suggestion" do
     site = FactoryGirl.create :site
     factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
 
@@ -58,9 +58,5 @@ feature "adding a fact to a channel" do
     open_modal 'Repost' do
       suggested_channels_should_contain new_channel_name
     end
-  end
-
-  scenario "adding an invalid channel shows an alert" do
-    pending "to be implemented"
   end
 end
