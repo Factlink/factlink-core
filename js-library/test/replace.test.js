@@ -46,3 +46,15 @@ test("the first element in a factlink that is matched "
   equal($('.first  span.factlink:first').is('.fl-first'), true);
   equal($('.second span.factlink:first').is('.fl-first'), true);
 });
+
+test("multiple Factlinks within the same element should be highlighted", function() {
+  var factIdA = 2;
+  var factIdB = 3;
+
+  Factlink.selectRanges(Factlink.search("xxx"), factIdA, {});
+
+  var els = $('.multi-match>.factlink');
+
+  equal(els.eq(0).data('factid'), factIdA);
+  equal(els.eq(1).data('factid'), factIdA);
+});

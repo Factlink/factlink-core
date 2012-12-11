@@ -49,11 +49,11 @@
       matches = findRangesStartingInContainer(ranges, i, ranges[i].startContainer);
 
       //process all matches starting in ranges[i].startContainer
-      for (var k = 0; k < matches.length; k++) {
-        this.parseFactNodes(matches[k], results, i);
+      // Walk backwards over the matches to make sure the node references will stay intact
+      for (var k = matches.length - 1; k >= 0; k--) {
+        this.parseFactNodes(matches[k], results, k);
       }
     }
-
     // This is where the actual parsing takes place
     // this.results holds all the textNodes containing the facts
     var len,
