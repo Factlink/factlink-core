@@ -4,5 +4,5 @@ FactlinkApp.addInitializer (options)->
 
   window.Global = {}
 
-  window.Global.TitleView = new TitleView(model: window.TitleManager, collection: window.Channels, el: 'title')
+  window.Global.TitleView = new TitleView(model: window.TitleManager, el: 'title')
   window.Global.TitleView.render()

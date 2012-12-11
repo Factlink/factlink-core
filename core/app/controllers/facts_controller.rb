@@ -77,6 +77,8 @@ class FactsController < ApplicationController
       redirect_to user_session_path(layout: @layout)
     end
 
+    @site = query :'site/for_url', params[:url] if params[:url]
+
     track "Modal: Open prepare"
   end
 

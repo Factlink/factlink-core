@@ -41,21 +41,16 @@ feature "adding a fact to a channel" do
   end
 
   scenario "the user can add a channel suggestion" do
-    pending 'to be finished'
+    pending 'Randomly fails'
+
     site = FactoryGirl.create :site
     factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
-    new_channel_name = 'Gerrit'
+
     go_to_discussion_page_of factlink
+    new_channel_name = 'Gerrit'
 
-    click_link('Repost')
-
-    within(:css, ".modal-body") do
-      page.should have_content('Repost this to one or more channels:')
-
-      page.find(:css,'input').set(new_channel_name)
-
-      page.find('li', text: new_channel_name).click
-
+    open_modal 'Repost' do
+      add_as_new_channel new_channel_name
       added_channels_should_contain new_channel_name
     end
 
@@ -63,9 +58,9 @@ feature "adding a fact to a channel" do
 
     go_to_discussion_page_of factlink2
 
-    click_link('Repost')
-
-    screenshot_and_open_image
+    open_modal 'Repost' do
+      suggested_channels_should_contain new_channel_name
+    end
   end
 
   scenario "adding an invalid channel shows an alert" do

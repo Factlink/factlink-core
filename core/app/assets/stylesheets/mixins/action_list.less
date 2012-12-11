@@ -6,16 +6,19 @@
   margin: 0;
 
   > li {
+    position: relative;
     background: @actionListBackgroundColor;
     .box-sizing(border-box);
     color: @actionListFontColor;
     margin: 0 0 5px;
-    padding: 7px 10px 7px 9px;
+    padding: 7px 30px 7px 9px;
     .border-radius(3px);
     border: 1px solid @actionListBorderColor;
     font-size: @baseFontSize;
     font-weight: normal;
     .box-shadow(inset 0 1px 1px rgba(255, 255, 255, .5));
+
+    text-shadow: 0 1px 0px #fff;
 
     > a {
       font-weight: normal;
@@ -23,10 +26,10 @@
 
     > a.add-to-channel-action-icon {
       cursor: pointer;
-      float: right;
       .opacity(.40);
-      position: relative;
-      top: 2px;
+      position: absolute;
+      top: 9px;
+      right: 10px;
 
       &:hover {
         .opacity(1);

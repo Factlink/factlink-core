@@ -36,6 +36,7 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
     @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()
     @bindTo text_view, 'up',   -> steppable_view.moveSelectionUp()
     @bindTo text_view, 'return', @addCurrent, this
+    @bindTo steppable_view, 'click', @addCurrent, this
 
   renderChildViews: ->
     @results.show @_results_view if @_results_view
