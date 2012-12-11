@@ -2,7 +2,8 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.StepView extends Backbone.Marionette.CompositeView
   triggers:
     "mouseenter": "requestActivate",
-    "mouseleave": "requestDeActivate"
+    "mouseleave": "requestDeActivate",
+    "click"     : "requestClick"
 
   constructor: (args...)->
     super(args...)

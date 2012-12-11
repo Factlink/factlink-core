@@ -116,7 +116,6 @@ module Channels
                      title
                    end
 
-      unread_count = is_normal ? channel.unread_count : 0
 
       # no queries from here
       json = Jbuilder.new
@@ -167,9 +166,12 @@ module Channels
       json.editable?    is_mine && channel.editable?
 
       # QUICK FIX only show unread count on own channel
-      json.unread_count unread_count if is_mine
+      if is_mine then
+        unread_count = is_normal ? channel.unread_count : 0
 
-      json.new_facts( (unread_count != 0) && is_mine )
+        json.unread_count unread_count
+        json.new_facts unread_count != 0
+      end
 
       json.containing_channel_ids containing_channel_ids
 

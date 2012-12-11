@@ -16,7 +16,7 @@ module KillObject
     [:id, :name, :username, :location, :biography,
      :gravatar_hash, :email, :receives_mailed_notifications]
   dead_object :channel,
-    [:type, :title, :unread_count, :id, :has_authority?,
+    [:type, :title, :id, :has_authority?,
      :slug_title, :created_by_id, :inspectable?,
      :editable?]
   dead_object :comment,
