@@ -2,12 +2,8 @@ class window.FactBottomView extends Backbone.Marionette.Layout
   template: "facts/fact_bottom"
 
   events:
-    "click .is-popup": "popupClick",
-    "click .transparent-layer": "closePopup",
-    "click .close-popup": "closePopup"
-
-  regions:
-    addToChannelRegion: ".popup-content .add-fact-to-channel-container"
+    "click .js-add-to-channel": "showAddToChannel",
+    "click .js-start-conversation": "showStartConversation"
 
   templateHelpers: ->
     fact_url_host: ->
@@ -26,25 +22,20 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
     @showPopup(popup)
 
-  showPopup: (popup) ->
-    switch popup
-      when "start-conversation"
-        FactlinkApp.Modal.show 'Send a message',
-          new StartConversationView(model: @model)
-      when "add-fact-to-channel"
-        @$('.popup-content .' + popup + '-container').show()
-        @$('.transparent-layer').show()
+  showAddToChannel: ->
+    collection = @model.getOwnContainingChannels()
+    collection.on "add", (channel) =>
+      @model.addToChannel channel, {}
 
-        collection = @model.getOwnContainingChannels()
-        collection.on "add", (channel) =>
-          @model.addToChannel channel, {}
+    collection.on "remove", (channel) =>
+      @model.removeFromChannel channel, {}
+      if window.currentChannel and currentChannel.get("id") is channel.get("id")
+        @model.collection.remove @model
+        FactlinkApp.Modal.close()
 
-        collection.on "remove", (channel) =>
-          @model.removeFromChannel channel, {}
-          @model.collection.remove @model  if window.currentChannel and currentChannel.get("id") is channel.get("id")
+    FactlinkApp.Modal.show 'Repost Factlink',
+      new AddToChannelModalView(collection: collection, model: @model)
 
-        @addToChannelRegion.show new AddToChannelModalView(collection: collection, model: @model)
-
-  closePopup: (e) ->
-    @$('.popup-content > div').hide()
-    @$('.transparent-layer').hide()
+  showStartConversation: ->
+    FactlinkApp.Modal.show 'Send a message',
+      new StartConversationView(model: @model)
