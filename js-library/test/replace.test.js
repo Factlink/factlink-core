@@ -4,10 +4,6 @@ Factlink.templates.getTemplate = function (str, callback) {
   callback(Factlink._.template(""));
 };
 
-test("Simple search/replace", function(){
-
-});
-
 test("Search/replace should work with newlines", function () {
   equal($('p.newline')[0].childNodes.length, 1);
 
