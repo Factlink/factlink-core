@@ -10,7 +10,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
           </div>
           <div class="modal-body">
           </div>
-
         </div>
         <div class="transparent-layer"></div>
       """
