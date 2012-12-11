@@ -25,7 +25,7 @@ module Acceptance
 
       wait_until_scope_exists '.start-conversation-form' do
         recipients.each {|r| add_recipient r.username}
-        find(:css, '.text').set(message)
+        find(:css, 'textarea').set(message)
 
         click_button 'Send'
         page.should have_selector(".js-alert-success", visible: true)
@@ -43,7 +43,7 @@ module Acceptance
         sleep 1
       end
 
-      page.find('.auto-complete-results-container a', text: name)
+      page.find('.auto-complete-results-container', text: name)
     end
 
     def page_should_have_factlink_and_message(message, factlink, recipient)

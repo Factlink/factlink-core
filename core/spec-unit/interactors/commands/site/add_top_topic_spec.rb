@@ -14,8 +14,8 @@ describe Commands::Site::AddTopTopic do
   describe 'validations' do
     let(:subject_class) { Commands::Site::AddTopTopic }
     it 'requires arguments' do
-      expect_validating(1, '').
-        to fail_validation('topic_id should be an hexadecimal string.')
+      expect_validating(1, 1).
+        to fail_validation('topic_slug should be a string.')
     end
 
     it 'requires arguments' do
@@ -28,10 +28,10 @@ describe Commands::Site::AddTopTopic do
 
     it '.key returns the correct redis key' do
       site_id = 6
-      topic_id = '12ab34cd'
+      topic_slug = '12ab34cd'
       redis_helper = mock
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_id
+      command = Commands::Site::AddTopTopic.new site_id, topic_slug
       command.should_receive(:redis).and_return( redis_helper )
 
       key = mock
@@ -45,12 +45,12 @@ describe Commands::Site::AddTopTopic do
 
     it 'adds the topic to the top topics of the site' do
       site_id = 6
-      topic_id = '12ab34cd'
+      topic_slug = '12ab34cd'
 
-      command = Commands::Site::AddTopTopic.new site_id, topic_id
+      command = Commands::Site::AddTopTopic.new site_id, topic_slug
 
       key_mock = mock()
-      key_mock.should_receive(:zincrby).with(1, topic_id)
+      key_mock.should_receive(:zincrby).with(1, topic_slug)
       command.stub key: key_mock
 
       command.execute

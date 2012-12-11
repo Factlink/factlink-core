@@ -1,11 +1,8 @@
 require 'spec_helper'
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
-end
-
 describe "topic specific authority"  do
   include TopicBeliefExpressions
+  include AddFactToChannelSupport
 
   let(:u1) { create :graph_user }
   let(:u2) { create :graph_user }

@@ -20,12 +20,8 @@ def create_channel(opts={})
   ch
 end
 
-def add_fact_to_channel(fact, channel)
-  interactor = Interactors::Channels::AddFact.new fact, channel, no_current_user: true
-  interactor.execute
-end
-
 describe Channel::Overtaker do
+  include AddFactToChannelSupport
 
   let(:ch1) {create_channel :created_by => u1, :title => "Something" }
   let(:ch2) {create_channel :created_by => u1, :title => "Diddly"}

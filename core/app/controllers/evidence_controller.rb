@@ -10,7 +10,10 @@ class EvidenceController < FactsController
 
     authorize! :get_evidence, @fact
 
-    @fact_relations = @evidence
+    @fact_relations = @evidence.to_a.sort do |a,b|
+      OpinionPresenter.new(b.get_user_opinion).relevance <=> OpinionPresenter.new(a.get_user_opinion).relevance
+    end
+
     render 'fact_relations/index'
   end
 

@@ -1,10 +1,7 @@
 require 'spec_helper'
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
-end
-
 describe MapReduce::TopicAuthority do
+  include AddFactToChannelSupport
   let(:gu1) {create(:user).graph_user}
   let(:gu2) {create(:user).graph_user}
 

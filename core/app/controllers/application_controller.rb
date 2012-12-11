@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   include Pavlov::Helpers
 
+  DEFAULT_LAYOUT = 'frontend'
+
   def pavlov_options
     {
       current_user: current_user,
@@ -178,6 +180,6 @@ class ApplicationController < ActionController::Base
 
     def set_layout
       allowed_layouts = ['popup', 'client']
-      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = 'frontend'
+      allowed_layouts.include?(params[:layout]) ? @layout = params[:layout] : @layout = self.class::DEFAULT_LAYOUT
     end
 end

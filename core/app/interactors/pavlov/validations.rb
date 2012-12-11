@@ -15,5 +15,9 @@ module Pavlov
     def validate_in_set param_name, param, set
       raise Pavlov::ValidationError, "#{param_name.to_s} should be on of these values: #{set.inspect}." unless set.include? param
     end
+
+    def validate_string param_name, param
+      raise Pavlov::ValidationError, "#{param_name.to_s} should be a string." unless param.is_a? String
+    end
   end
 end

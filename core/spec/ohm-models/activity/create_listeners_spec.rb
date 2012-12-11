@@ -1,10 +1,7 @@
 require "spec_helper"
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true)
-end
-
 describe 'activity queries' do
+  include AddFactToChannelSupport
   include RedisSupport
   let(:gu1) { create :graph_user }
   let(:gu2) { create :graph_user }
@@ -58,6 +55,24 @@ describe 'activity queries' do
       add_fact_to_channel f1, ch3
 
       gu1.stream_activities.map(&:to_hash_without_time).should == [
+        {user: gu2, action: :created_channel, subject: ch3}
+      ]
+    end
+
+    it "should return only one created activity when adding subchannels" do
+      ch1 = create :channel, created_by: gu1
+      ch2 = create :channel, created_by: gu2
+
+      ch1.add_channel(ch2)
+      ch3 = create :channel, created_by: gu2
+
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+      ch3.add_channel (create :channel)
+
+      stream_activities = gu1.stream_activities.map(&:to_hash_without_time)
+      expect(stream_activities).to eq [
         {user: gu2, action: :created_channel, subject: ch3}
       ]
     end

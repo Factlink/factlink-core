@@ -121,6 +121,11 @@ group :development do
   gem 'sextant'
 
   gem 'rb-readline' # needed for Guard
+
+  # SHUT THE FUCK UP
+  gem 'quiet_assets'
+  # Profiling
+  gem 'ruby-prof'
 end
 
 group :test do
@@ -148,13 +153,6 @@ group :jstest do
   gem 'jasmine'
   gem 'jasmine-headless-webkit', git: 'https://github.com/johnbintz/jasmine-headless-webkit.git'
   gem "jasmine-spec-extras", "~> 0.0.2"
-end
-
-group :development do
-  # SHUT THE FUCK UP
-  gem 'quiet_assets'
-  # Profiling
-  gem 'ruby-prof'
 end
 
 group :metrics do

@@ -8,10 +8,6 @@ describe Opinion do
     @o3 = Opinion.tuple(29,31,37,41)
   end
 
-  after(:each) do
-    #@o1.a.should == 3
-  end
-
   describe ".new" do
     subject {Opinion.tuple(1.3,1.4,1.5,1.6)}
     its(:b) {should == 1.3}
