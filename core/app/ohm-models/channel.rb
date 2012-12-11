@@ -2,6 +2,8 @@ require_relative 'channel/generated_channel'
 require_relative 'channel/created_facts'
 require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
+require_relative 'channel/activities'
+
 
 class Channel < OurOhm
   include Activity::Subject
@@ -95,9 +97,7 @@ class Channel < OurOhm
   end
 
   def add_created_channel_activity
-    if self.sorted_cached_facts.count == 0
-      activity(self.created_by, :created_channel, self)
-    end
+    Activities.new(self).add_created
   end
 
   def unread_count

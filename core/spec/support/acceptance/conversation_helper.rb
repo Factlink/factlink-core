@@ -43,7 +43,7 @@ module Acceptance
         sleep 1
       end
 
-      page.find('.auto-complete-results-container a', text: name)
+      page.find('.auto-complete-results-container', text: name)
     end
 
     def page_should_have_factlink_and_message(message, factlink, recipient)
