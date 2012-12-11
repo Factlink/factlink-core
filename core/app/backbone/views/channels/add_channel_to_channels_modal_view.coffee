@@ -1,18 +1,29 @@
-class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
-  template: 'channels/add_channel_to_channels_modal'
+class ActualModalView extends Backbone.Marionette.Layout
+  template:
+    text: """
+      <div class="alert alert-error js-alert js-alert-error-create_channel hide">
+        The new channel could not be created, please try again.
+        <a class="close" href="#" data-dismiss="alert">x</a>
+      </div>
+      <div class="alert alert-error js-alert js-alert-error-add_channel hide">
+        The channel could not be added, please try again.
+        <a class="close" href="#" data-dismiss="alert">x</a>
+      </div>
+      <div class="alert alert-error js-alert js-alert-error-remove_channel hide">
+        The channel could not be removed, please try again.
+        <a class="close" href="#" data-dismiss="alert">x</a>
+      </div>
+
+      <strong>Add this channel to one or more channels:</strong>
+      <div class="add-to-channel-form"></div>
+      <input type="submit" class="btn btn-primary pull-right close-popup" value="Done">
+        """
 
   regions:
     addToChannelRegion: ".add-to-channel-form"
 
-  events:
-    "click #add-to-channel": "openAddToChannelModal"
-    "click .transparent-layer": "closePopup",
-    "click .close-popup": "closePopup"
-
   initialize: ->
     @alertErrorInit ['create_channel', 'add_channel', 'remove_channel']
-
-    @collection = @model.getOwnContainingChannels()
 
     @collection.on "add", (channel) =>
       @alertHide()
@@ -20,7 +31,6 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
         error: =>
           @alertError 'add_channel'
           @collection.remove channel, silent: true
-      @updateButton()
 
     @collection.on "remove", (channel) =>
       @alertHide()
@@ -28,16 +38,28 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
         error: =>
           @alertError 'remove_channel'
           @collection.add channel, silent: true
-      @updateButton()
 
   onRender: ->
-    @updateButton()
-
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
 
       @alertBindErrorEvent @addToChannelView
+
+_.extend(ActualModalView.prototype, Backbone.Factlink.AlertMixin)
+
+class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
+  template: 'channels/add_channel_to_channels_modal'
+
+  events:
+    "click #add-to-channel": "openAddToChannelModal"
+
+  initialize: ->
+    @collection = @model.getOwnContainingChannels()
+    @collection.on "add remove", (channel) => @updateButton()
+
+  onRender: ->
+    @updateButton()
 
   updateButton: =>
     if(@collection.length == 0)
@@ -48,11 +70,5 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
       @$('.added-to-channel-button-label').show()
 
   openAddToChannelModal: ->
-    @$('.add-to-channel-modal-region').show()
-    @$('.transparent-layer').show()
-
-  closePopup: (e) ->
-    $('.add-to-channel-modal-region').hide()
-    @$('.transparent-layer').hide()
-
-_.extend(AddChannelToChannelsModalView.prototype, Backbone.Factlink.AlertMixin)
+    FactlinkApp.Modal.show 'Add to Channels',
+      new ActualModalView model: @model, collection: @collection
