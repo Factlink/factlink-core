@@ -3,6 +3,7 @@ Factlink.templates = {};
 Factlink.templates.getTemplate = function (str, callback) {
   callback(Factlink._.template(""));
 };
+Factlink.set_position_of_element = function() {};
 
 test("Search/replace should work with newlines", function () {
   equal($('p.newline')[0].childNodes.length, 1);
@@ -57,4 +58,28 @@ test("multiple Factlinks within the same element should be highlighted", functio
 
   equal(els.eq(0).data('factid'), factIdA);
   equal(els.eq(1).data('factid'), factIdA);
+});
+
+test("Hovering highlights all the elements of the match, and no others", function () {
+  var factA = {
+    id: 1,
+    str: "zzz"
+  };
+
+  var facts = Factlink.selectRanges(Factlink.search(factA.str), factA.id, {});
+
+  facts[0].stopHighlighting(0);
+  facts[1].stopHighlighting(0);
+  facts[2].stopHighlighting(0);
+  facts[3].stopHighlighting(0);
+
+  facts[1].focus({
+    target: facts[1].getElements()[0],
+    pageX: 0,
+    show_fast: true});
+
+  equal($(facts[0].getElements()[0]).hasClass('fl-active'), false);
+  equal($(facts[1].getElements()[0]).hasClass('fl-active'), true);
+  equal($(facts[2].getElements()[0]).hasClass('fl-active'), false);
+  equal($(facts[3].getElements()[0]).hasClass('fl-active'), false);
 });
