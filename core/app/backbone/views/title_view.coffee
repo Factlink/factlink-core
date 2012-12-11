@@ -1,16 +1,16 @@
 class window.TitleView extends Backbone.View
   initialize: (opts) ->
-    @model.on "change", @render, this
+    @model.on 'change', @render, @
 
   render: ->
-    document.title = (@countString() + @factlinkTitle())
+    document.title = @countString() + @factlinkTitle()
 
   factlinkTitle: ->
-    "Factlink — Because the web needs what you know"
+    'Factlink — Because the web needs what you know'
 
   countString: ->
     count = @model.totalUnreadCount()
     if count > 0
-      "(" + count + ") "
+      "(#{count}) "
     else
       ""
