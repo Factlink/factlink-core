@@ -1,10 +1,10 @@
 class window.StartConversationView extends Backbone.Marionette.Layout
   className: "start-conversation-form"
   events:
-    "click .submit": 'submit'
+    "click .js-submit": 'submit'
 
   regions:
-    'recipients_container': 'div.recipients'
+    'recipients_container': '.js-region-recipients'
 
   template: 'conversations/start_conversation'
 
@@ -19,7 +19,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     @recipients.on 'add', @newRecipient
 
   newRecipient: =>
-    @$('.message-textarea').focus() if @recipients.length == 1
+    @$('.js-message-textarea').focus() if @recipients.length == 1
 
   submit: (e) ->
     e.preventDefault()
@@ -34,7 +34,7 @@ class window.StartConversationView extends Backbone.Marionette.Layout
     conversation = new Conversation(
       recipients: recipients
       sender: currentUser.get('username')
-      content: @$('.text').val()
+      content: @$('.js-message-textarea').val()
       fact_id: @model.id
     )
 
@@ -50,11 +50,11 @@ class window.StartConversationView extends Backbone.Marionette.Layout
         @alertError response.responseText
         @enableSubmit()
 
-  enableSubmit:  -> @$('.submit').prop('disabled',false).val('Send')
-  disableSubmit: -> @$('.submit').prop('disabled',true ).val('Sending')
+  enableSubmit:  -> @$('.js-submit').prop('disabled',false).val('Send')
+  disableSubmit: -> @$('.js-submit').prop('disabled',true ).val('Sending')
 
   clearForm: ->
     @recipients.reset []
-    @$('.message-textarea').val('')
+    @$('.js-message-textarea').val('')
 
 _.extend(StartConversationView.prototype, Backbone.Factlink.AlertMixin)
