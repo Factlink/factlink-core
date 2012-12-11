@@ -24,7 +24,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       title: @options.title
 
     onRender: ->
-
       @modalRegion.show @options.content_view
       @$('.modal').show()
       @$('.transparent-layer').show()
