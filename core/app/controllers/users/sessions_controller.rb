@@ -1,5 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 
+  DEFAULT_LAYOUT = "one_column"
+
   layout :set_layout
 
   after_filter  :track_sign_in, only: :create
@@ -11,15 +13,20 @@ class Users::SessionsController < Devise::SessionsController
   before_filter :set_layout, only: :new
 
   before_filter :set_redir, only: :create
+  before_filter :set_redir_after_fail, only: :new
 
   private
   def set_redir
     if params[:layout] == 'client'
-      session[:redirect_after_failed_login_path] = new_user_session_path(layout:"client")
       session[:just_signed_in] = true
+      session[:redirect_after_failed_login_path] = new_user_session_path(layout:"client")
     else
       session[:return_to] = nil
       session[:just_signed_in] = nil
     end
+  end
+
+  def set_redir_after_fail
+    session[:redirect_after_failed_login_path] = new_user_session_path
   end
 end

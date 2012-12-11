@@ -10,16 +10,13 @@ class window.AddToChannelModalView extends Backbone.Marionette.Layout
   initialize: ->
     @alertErrorInit ['create_channel']
 
-  templateHelpers: =>
-    can_haz_channel_suggestions: window.Factlink.Global.can_haz.channel_suggestions
-
   onRender: ->
     unless @addToChannelView?
       @addToChannelView = new AutoCompleteChannelsView collection: @collection
       @addToChannelRegion.show @addToChannelView
       @alertBindErrorEvent @addToChannelView
 
-      @renderSuggestedChannels() if window.Factlink.Global.can_haz.channel_suggestions
+      @renderSuggestedChannels()
 
   renderSuggestedChannels: ->
     suggestions = new FilteredSuggestedSiteTopicsView

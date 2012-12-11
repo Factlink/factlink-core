@@ -39,10 +39,7 @@ feature "adding a fact to a channel" do
     end
   end
 
-  scenario "the user can add a channel suggestion" do
-    # TODO: remove this when the channel_suggestions feature toggle is removed
-    enable_features(@user, :channel_suggestions)
-
+  scenario "the user can add a channel suggestion" do)
     site = FactoryGirl.create :site
     factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
 
