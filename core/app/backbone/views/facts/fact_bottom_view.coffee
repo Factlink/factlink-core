@@ -36,8 +36,6 @@ class window.FactBottomView extends Backbone.Marionette.Layout
         @$('.popup-content .' + popup + '-container').show()
         @$('.transparent-layer').show()
 
-        @startConversationRegion.show new StartConversationView(model: @model)
-
         collection = @model.getOwnContainingChannels()
         collection.on "add", (channel) =>
           @model.addToChannel channel, {}
