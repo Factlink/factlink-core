@@ -1,7 +1,7 @@
 require_relative "elastic_search.rb"
 
 module Queries
-  class ElasticSearchFactData < ElasticSearch
+  class ElasticSearchFactData < Queries::ElasticSearch
     def define_query
       type :factdata
     end
