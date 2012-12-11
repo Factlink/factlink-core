@@ -41,6 +41,7 @@ module ScreenshotTest
     end
 
     def changed?
+      changed = false
       pixels_changed = 0
       changed_amount = 0
 
