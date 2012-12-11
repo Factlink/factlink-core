@@ -22,7 +22,7 @@ window.ChannelViewLayout = Backbone.Marionette.Layout.extend({
       this.renderSubChannels();
       this.$('header .authority').tooltip({title: 'Authority of ' + this.model.attributes.created_by.username + ' on "' + this.model.attributes.title + '"'});
       if( this.model.get("followable?") ) {
-        this.addToChannelRegion.show(new AddChannelToChannelsModalView({
+        this.addToChannelRegion.show(new AddChannelToChannelsButtonView({
           model: this.model
         }));
       }
