@@ -15,14 +15,10 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
   onClose: -> @addToChannelView?.close()
 
-  popupClick: (e) ->
+  showAddToChannel: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    popup = $(e.target).attr("class").split(" ")[0]
 
-    @showPopup(popup)
-
-  showAddToChannel: ->
     collection = @model.getOwnContainingChannels()
     collection.on "add", (channel) =>
       @model.addToChannel channel, {}
@@ -36,6 +32,9 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     FactlinkApp.Modal.show 'Repost Factlink',
       new AddToChannelModalView(collection: collection, model: @model)
 
-  showStartConversation: ->
+  showStartConversation: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+
     FactlinkApp.Modal.show 'Send a message',
       new StartConversationView(model: @model)
