@@ -12,7 +12,6 @@ describe "factlink", type: :request do
   end
 
   it "the layout of the discussion page is correct" do
-    pending "because we are depending on external services. Only enable this test when we are not depending on gravatar anymore"
     @factlink = create_factlink @user
     search_string = 'Test search'
 
