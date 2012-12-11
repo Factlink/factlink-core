@@ -13,8 +13,6 @@ class window.FactBottomView extends Backbone.Marionette.Layout
 
         url.host
 
-  onClose: -> @addToChannelView?.close()
-
   showAddToChannel: (e) ->
     e.preventDefault()
     e.stopPropagation()
