@@ -18,8 +18,7 @@ Factlink.Fact = function() {
   var _events = ["focus", "blur", "click", "update"];
 
   function initialize(id, elems, opinions) {
-    console.info( elems[0] );
-    elements = _.clone(elems);
+    elements = elems;
 
     _obj = {
       "id": id,
@@ -60,7 +59,6 @@ Factlink.Fact = function() {
           if ( $.isFunction( args[1] ) ) {
             bind.apply(this, args);
           } else {
-            console.info( "should call trigger" );
             trigger.apply(this, args);
           }
         };
@@ -73,7 +71,6 @@ Factlink.Fact = function() {
   }
 
   function trigger(type) {
-    console.info( arguments );
     var args = Array.prototype.slice.call(arguments);
 
     args.shift();
