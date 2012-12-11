@@ -5,6 +5,9 @@ class GenericNotificationView extends Backbone.Marionette.Layout
   events:
     'click a': 'click'
 
+  initialEvents: -> false # stop layout from refreshing after model/collection update
+                  # no longer needed in marionette 1.0
+
   click: (e) ->
     @trigger 'activityActivated'
     return Backbone.View.prototype.defaultClickHandler(e)
@@ -21,7 +24,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   template: "notifications/added_subchannel"
 
   regions:
-    followBackRegion: ".follow-back-channel"
+    followBackRegion: ".js-region-follow-back"
 
   initialize: (opts) ->
     @other_channel_url = opts.model.get('activity')?.target_url
@@ -34,7 +37,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
     other_channel = new ChannelWithSpecificUrl()
     other_channel.fetch()
 
-    @followBackRegion.show new AddChannelToChannelsModalView model: other_channel
+    @followBackRegion.show new AddChannelToChannelsButtonView model: other_channel
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"

@@ -14,14 +14,12 @@ class window.AddChannelToChannelsButtonView extends Backbone.Marionette.Layout
     @updateButton()
 
   updateButton: =>
-    if(@collection.length == 0)
-      @$('.added-to-channel-button-label').hide()
-      @$('.add-to-channel-button-label').show()
-    else
-      @$('.add-to-channel-button-label').hide()
-      @$('.added-to-channel-button-label').show()
+    added = @collection.length > 0
 
-  openAddToChannelModal: ->
+    @$('.added-to-channel-button-label').toggle added
+    @$('.add-to-channel-button-label').toggle not added
+
+  openAddToChannelModal: (e) ->
     e.stopImmediatePropagation()
     e.preventDefault()
 
