@@ -41,7 +41,6 @@ module ScreenshotTest
     end
 
     def changed?
-      changed = false
       pixels_changed = 0
       changed_amount = 0
 
@@ -54,9 +53,11 @@ module ScreenshotTest
           pixel_old = get_pixel(images.first,x,y)
           pixel_new = get_pixel(images.last,x,y)
 
-          changed ||=  (pixel_old != pixel_new)
+          changed_pixel = (pixel_old != pixel_new)
 
-          if changed
+          changed ||= changed_pixel
+
+          if changed_pixel
             pixels_changed += 1
 
             red_delta = [r(pixel_old), r(pixel_new)].max - [r(pixel_old), r(pixel_new)].min
