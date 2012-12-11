@@ -60,8 +60,7 @@ describe Queries::Site::TopTopics do
 
 
     it 'kills all the retrieved topics' do
-      stub_classes 'queryspec'
-      KillObject = Queries::Site::TopTopics.new 1, 3
+      query = Queries::Site::TopTopics.new 1, 3
 
       topic1 = stub(id: '1e')
       topic2 = stub(id: '2f')
