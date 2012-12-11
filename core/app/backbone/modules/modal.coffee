@@ -25,7 +25,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       title: @options.title
 
     onRender: ->
-
       @modalRegion.show @options.content_view
       @$('.modal').show()
       @$('.transparent-layer').show()
@@ -37,7 +36,6 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
     Modal.close()
 
   Modal.show = (title, content_view)->
-    console.info 'showing modal'
     wrapped_view = new FactlinkApp.Modal.WrapperView
       title: title
       content_view: content_view
