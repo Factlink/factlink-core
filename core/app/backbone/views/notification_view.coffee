@@ -32,7 +32,6 @@ class NotificationAddedSubchannelView extends GenericNotificationView
         @other_channel_url
 
     other_channel = new ChannelWithSpecificUrl()
-    console.log(other_channel.url())
     other_channel.fetch()
 
     @followBackRegion.show new AddChannelToChannelsModalView model: other_channel
