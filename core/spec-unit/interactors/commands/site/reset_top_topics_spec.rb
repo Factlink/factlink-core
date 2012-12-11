@@ -124,6 +124,7 @@ describe Commands::Site::ResetTopTopics do
       channels = [
         mock(slug_title: 'gerard'),
         mock(slug_title: 'henk'),
+        mock(slug_title: nil),
         mock(slug_title: 'frans'),
       ]
       fact = stub channels: channels
