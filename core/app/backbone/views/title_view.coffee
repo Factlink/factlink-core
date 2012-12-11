@@ -1,7 +1,6 @@
 class window.TitleView extends Backbone.View
   initialize: (opts) ->
     @model.on "change", @render, this
-    @collection.on "reset change", @setChannelUnread, this
 
   render: ->
     document.title = (@countString() + @factlinkTitle())
@@ -15,6 +14,3 @@ class window.TitleView extends Backbone.View
       "(" + count + ") "
     else
       ""
-
-  setChannelUnread: ->
-    @model.set "channelUnreadCount", @collection.unreadCount()

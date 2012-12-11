@@ -1,3 +1,2 @@
 class window.WindowTitle extends Backbone.Model
-  totalUnreadCount: () ->
-    (@get('notificationsCount') || 0) + (@get('channelUnreadCount') || 0)
+  totalUnreadCount: () -> @get('notificationsCount') || 0
