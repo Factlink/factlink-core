@@ -77,9 +77,9 @@
         res.first));
     }
 
-    for ( var el in elements ) {
-      if ( elements.hasOwnProperty(el) ) {
-        ret.push( new Factlink.Fact(id, elements[el], opinions) );
+    for ( var matchId in elements ) {
+      if ( elements.hasOwnProperty(matchId) ) {
+        ret.push( new Factlink.Fact(id, elements[matchId], opinions) );
       }
     }
 
