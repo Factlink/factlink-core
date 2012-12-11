@@ -33,10 +33,10 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
   FactlinkApp.addRegions
     modalRegion: "#modal_region"
 
-  Modal.show = (content_view)->
+  Modal.show = (title, content_view)->
     console.info 'showing modal'
     wrapped_view = new FactlinkApp.Modal.WrapperView
-      title: 'Send a message'
+      title: title
       content_view: content_view
 
     FactlinkApp.modalRegion.show wrapped_view

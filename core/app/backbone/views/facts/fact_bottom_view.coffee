@@ -31,7 +31,8 @@ class window.FactBottomView extends Backbone.Marionette.Layout
   showPopup: (popup) ->
     switch popup
       when "start-conversation"
-        FactlinkApp.Modal.show new StartConversationView(model: @model)
+        FactlinkApp.Modal.show 'Send a message',
+          new StartConversationView(model: @model)
       when "add-fact-to-channel"
         @$('.popup-content .' + popup + '-container').show()
         @$('.transparent-layer').show()
