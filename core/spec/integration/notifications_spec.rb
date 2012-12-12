@@ -22,6 +22,6 @@ feature "notifications", type: :request do
     assert_number_of_unread_notifications 1
     open_notifications
     click_on_nth_notification 1
-    assert_on_channel_page @channel_other_user.title
+    assert_on_channel_page other_users_channel.title
   end
 end
