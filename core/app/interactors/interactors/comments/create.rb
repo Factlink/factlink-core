@@ -11,6 +11,8 @@ module Interactors
         comment = command :create_comment, @fact_id, @type,
           @content, @options[:current_user].id.to_s
 
+        command :'comments/set_opinion', comment.id.to_s, 'believes', @options[:current_user].graph_user
+
         create_activity comment
 
         query :'comments/add_authority_and_opinion', comment, fact
