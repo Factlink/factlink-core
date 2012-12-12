@@ -3,6 +3,8 @@ require 'integration_helper'
 feature "notifications", type: :request do
   include Acceptance::ChannelHelper
   include Acceptance::NotificationHelper
+  include Acceptance::NavigationHelper
+  include Acceptance::AddToChannelModalHelper
 
   scenario %q{When another user follows my channel,
             I get a notification, and can click on it,
