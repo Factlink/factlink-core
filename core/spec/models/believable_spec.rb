@@ -1,21 +1,20 @@
 require 'spec_helper'
 
-def others(opinion)
-  others = [:believes, :doubts, :disbelieves]
-  others.delete(opinion)
-  others
-end
-
-def user_fact_opinion(user, opinion, fact)
-  authority = Authority.on(fact, for: user).to_f + 1
-  Opinion.for_type(opinion,authority)
-end
-
-def opinions
-  [:believes, :doubts, :disbelieves]
-end
-
 describe Believable do
+  def self.others(opinion)
+    others = [:believes, :doubts, :disbelieves]
+    others.delete(opinion)
+    others
+  end
+
+  def user_fact_opinion(user, opinion, fact)
+    authority = Authority.on(fact, for: user).to_f + 1
+    Opinion.for_type(opinion,authority)
+  end
+
+  def self.opinions
+    [:believes, :doubts, :disbelieves]
+  end
 
   subject(:believable) { Believable.new Nest.new('gerrit') }
 

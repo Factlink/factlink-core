@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-def add_channel usser, name
-  channel = Channel.new title: name
-  channel.created_by =  user.graph_user
-  channel.save
-end
-
 describe "credibility calculation of facts*users" do
   def recalculate_credibility
     nr = number_of_commands_on Ohm.redis do

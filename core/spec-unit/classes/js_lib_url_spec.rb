@@ -8,19 +8,21 @@ RSpec::Matchers.define :be_a_valid_url do
   end
 end
 
+module JsLibUrlSpecHelpers
+  def builder opts={}
+    JsLibUrl::Builder.new({
+      salt: opts[:salt] || 'zoutje' ,
+      base_url: opts[:base_url] || 'http://baasje.example.org/'
+    })
+  end
 
-def builder opts={}
-  JsLibUrl::Builder.new({
-    salt: opts[:salt] || 'zoutje' ,
-    base_url: opts[:base_url] || 'http://baasje.example.org/'
-  })
-end
-
-def url_for(username, opts={})
-  builder(opts).url_for username
+  def url_for(username, opts={})
+    builder(opts).url_for username
+  end
 end
 
 describe :JsLibUrl do
+  include JsLibUrlSpecHelpers
 
   describe :username do
     it "gives the username" do
