@@ -5,10 +5,6 @@ require 'json'
 describe Commands::ElasticSearchIndexTopicForTextSearch do
   include PavlovSupport
 
-  def fake_class
-    Class.new
-  end
-
   let(:topic) do
     topic = stub()
     topic.stub id: 1,
@@ -18,8 +14,7 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
   end
 
   before do
-    stub_const('HTTParty', fake_class)
-    stub_const('FactlinkUI::Application', fake_class)
+    stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
   it 'intitializes' do
