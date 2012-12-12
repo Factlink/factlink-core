@@ -5,6 +5,7 @@ feature "visiting a channel" do
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper
   include Acceptance::ScrollHelper
+  include Acceptance::AddToChannelModalHelper
 
   background do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user

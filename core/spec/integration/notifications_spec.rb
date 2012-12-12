@@ -1,30 +1,73 @@
 require 'integration_helper'
-# require 'launchy'
 
 feature "notifications", type: :request do
   include Acceptance::ChannelHelper
+  include Acceptance::NotificationHelper
+  include Acceptance::NavigationHelper
+  include Acceptance::AddToChannelModalHelper
 
-  scenario "can be clicked and will navigate to other page" do
-    user1 = create :approved_confirmed_user
-    user2 = create :approved_confirmed_user
+  scenario %q{When another user follows my channel,
+            I get a notification, and can click on it,
+            to go to the following channel} do
+    current_user = create :approved_confirmed_user
+    other_user = create :approved_confirmed_user
 
-    channel_user1 = create :channel, created_by: user1.graph_user
-    channel_user2 = create :channel, created_by: user2.graph_user
+    other_users_channel =
+      backend_create_viewable_channel_for other_user
+    my_channel =
+      backend_create_viewable_channel_for current_user
 
-    factlink_user1 = create :fact, created_by: user1.graph_user
-    factlink_user2 = create :fact, created_by: user2.graph_user
+    backend_channel_add_subchannel other_users_channel, my_channel
 
-    backend_add_fact_to_channel factlink_user1, channel_user1
-    backend_add_fact_to_channel factlink_user2, channel_user2
+    sign_in_user current_user
 
-    channel_user1.add_channel(channel_user2)
+    assert_number_of_unread_notifications 1
+    open_notifications
+    click_on_nth_notification 1
+    assert_on_channel_page other_users_channel.title
+  end
 
-    sign_in_user user2
 
-    find('#notifications .unread', text: "1").click
+  scenario %q{When another user follows my channel,
+            I get a notification, and directly follow
+            back their channel from the notification} do
+    current_user = create :approved_confirmed_user
+    other_user = create :approved_confirmed_user
 
-    find('#notifications .dropdown-menu .unread a').click
+    other_users_channel =
+      backend_create_viewable_channel_for other_user
+    my_channel =
+      backend_create_viewable_channel_for current_user
 
-    find('#channel > header > h1', text: channel_user1.title)
+    backend_channel_add_subchannel other_users_channel, my_channel
+
+    sign_in_user current_user
+
+    assert_number_of_unread_notifications 1
+    open_notifications
+
+    within_nth_notification 1 do
+      click_button "add"
+    end
+
+    within_modal do
+      add_to_channel my_channel.title
+      added_channels_should_contain my_channel.title
+    end
+
+    close_modal
+
+    within_nth_notification 1 do
+      find('button', text: 'added')
+    end
+
+    sleep 2 # give ajax requests some time to finish
+
+    visit page.current_url
+
+    open_notifications
+    within_nth_notification 1 do
+      find('button', text: 'added')
+    end
   end
 end

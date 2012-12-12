@@ -16,6 +16,7 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
 
     events:
       "click .close-popup": "close"
+      "click": "stopPropagation"
 
     regions:
       modalRegion: '.modal-body'
@@ -27,6 +28,9 @@ FactlinkApp.module "Modal", (Modal, MyApp, Backbone, Marionette, $, _) ->
       @modalRegion.show @options.content_view
       @$('.modal').show()
       @$('.transparent-layer').show()
+
+    stopPropagation: (e) ->
+      e.stopPropagation()
 
   FactlinkApp.addRegions
     modalRegion: "#modal_region"

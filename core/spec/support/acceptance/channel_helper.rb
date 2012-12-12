@@ -5,8 +5,13 @@ module Acceptance
     end
 
     def backend_create_channel_of_user user
-      channel = create :channel, created_by: user.graph_user
-      sleep 5 # allow elasticsearch to index the channel
+      create :channel, created_by: user.graph_user
+    end
+
+    def backend_create_viewable_channel_for user
+      channel = backend_create_channel_of_user user
+      fact = create :fact, created_by: user.graph_user
+      backend_add_fact_to_channel fact, channel
       channel
     end
 
@@ -29,6 +34,10 @@ module Acceptance
 
     def go_to_first_fact
       find('a.discussion_link').click
+    end
+
+    def assert_on_channel_page channel_title
+      find('#channel > header > h1', text: channel_title)
     end
   end
 end

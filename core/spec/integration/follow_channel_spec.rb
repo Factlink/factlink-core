@@ -1,8 +1,11 @@
 require 'integration_helper'
 
 describe "channels", type: :request do
+  include Acceptance::NavigationHelper
+
   it "can follow somebody else channel" do
     pending "The ci can't handle the truth (on the ci, this doesn't work)"
+
     user = FactoryGirl.create :approved_confirmed_user
     channel_to_follow = FactoryGirl.create(:channel, created_by: user.graph_user)
 
@@ -14,14 +17,15 @@ describe "channels", type: :request do
     page.should have_content(channel_to_follow.title)
 
     within(:css, '.add-to-channel-region') do
-      find('#add-to-channel').click
-
+      find('button').click
+    end
+    within_modal do
       page.find(:css,'input').set(own_channel.title)
 
       page.find('li', text: own_channel.title).click
 
       within(:css, '.auto-complete-results-container') do
-        find("li a", text: "#{own_channel.title}")
+        find("li", text: "#{own_channel.title}")
       end
     end
 
