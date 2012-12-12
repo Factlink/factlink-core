@@ -16,7 +16,7 @@ describe 'Reserving a username', type: :request do
 
     find('div.success').visible?.should be_true
 
-    page.should have_content('You have successfully reserved your username!')
+    page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
   end
 
   it 'should get failure note with invalid username' do
