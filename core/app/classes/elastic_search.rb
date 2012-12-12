@@ -8,7 +8,7 @@ class ElasticSearch
   end
 
   def self.synchronous
-    true
+    false
   end
 
   def self.clean

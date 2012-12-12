@@ -36,6 +36,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     ElasticSearch.clean
+    ElasticSearch.stub synchronous: true
     stub_const("Logger", Class.new)
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)
@@ -45,11 +46,10 @@ RSpec.configure do |config|
 
     Ohm.flush
     DatabaseCleaner.clean
-  end
 
-  config.before(:each) do
     @zzz_starting_time = Time.now.to_f*1000
   end
+
   config.after(:each) do
     zzz_stop_time = Time.now.to_f*1000
     allowed_milli_seconds = 10000
