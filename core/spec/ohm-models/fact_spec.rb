@@ -1,10 +1,14 @@
 require 'spec_helper'
 
-def other_one(this)
-  (this == :supporting) ? :weakening : :supporting
-end
 
 describe Fact do
+  def self.other_one(this)
+    (this == :supporting) ? :weakening : :supporting
+  end
+
+  def other_one(this)
+    self.class.other_one(this)
+  end
 
   subject(:fact) {create :fact}
 

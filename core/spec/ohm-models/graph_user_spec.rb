@@ -1,12 +1,11 @@
 require 'spec_helper'
 
-def others(opinion)
-  others = [:believes, :doubts, :disbelieves]
-  others.delete(opinion)
-  others
-end
-
 describe GraphUser do
+  def self.others(opinion)
+    others = [:believes, :doubts, :disbelieves]
+    others.delete(opinion)
+    others
+  end
 
   subject {FactoryGirl.create :graph_user }
   let(:fact) {FactoryGirl.create(:fact,:created_by => subject)}
