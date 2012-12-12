@@ -14,8 +14,11 @@ class window.InteractiveTour
     if ( @lastStep != @currentStep ) and ( @lastStep < @currentStep )
       @showHelpText(id)
 
+  hide: (callback) ->
+    $('.help-text-container > div').fadeOut 'slow', callback
+
   showHelpText: ->
-    $('.help-text-container > div').fadeOut 'slow', =>
+    @hide =>
       setTimeout =>
         $("#step#{@currentStep}").fadeIn 'slow'
       , @helpTextDelay
