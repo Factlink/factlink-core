@@ -33,6 +33,7 @@
     Factlink.remote.prepareNewFactlink( selInfo.text,
                                     Factlink.siteUrl(),
                                     selInfo.title,
+                                    !!FactlinkConfig.guided,
                                     success,
                                     error);
   };
