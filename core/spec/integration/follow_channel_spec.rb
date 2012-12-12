@@ -14,7 +14,7 @@ describe "channels", type: :request do
     page.should have_content(channel_to_follow.title)
 
     within(:css, '.add-to-channel-region') do
-      find('#add-to-channel').click
+      find('button').click
 
       page.find(:css,'input').set(own_channel.title)
 
