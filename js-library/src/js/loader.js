@@ -62,6 +62,7 @@
     proxy('off');
     proxy('hideDimmer');
     proxy('triggerClick');
+    proxy('stopAnnotating');
 
     if ( window.jQuery ) {
       jQuery(window).trigger('factlink.libraryLoaded');
