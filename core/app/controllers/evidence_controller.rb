@@ -49,7 +49,7 @@ class EvidenceController < FactsController
 
     @fact_relation = create_believed_factrelation(@evidence, relation, fact)
 
-    @fact_relation.calculate_opinion(2)
+    @fact_relation.calculate_opinion
 
     render 'fact_relations/show'
   rescue EvidenceNotFoundException
@@ -66,7 +66,7 @@ class EvidenceController < FactsController
     @fact_relation.add_opinion(type, current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user, Opinion.real_for(type),@fact_relation)
 
-    @fact_relation.calculate_opinion(2)
+    @fact_relation.calculate_opinion
 
     render 'fact_relations/show'
   end
@@ -79,7 +79,7 @@ class EvidenceController < FactsController
     @fact_relation.remove_opinions(current_user.graph_user)
     Activity::Subject.activity(current_user.graph_user,:removed_opinions,@fact_relation)
 
-    @fact_relation.calculate_opinion(2)
+    @fact_relation.calculate_opinion
 
     render 'fact_relations/show'
   end
