@@ -2,7 +2,7 @@ module Acceptance
   module CommentHelper
 
       def add_comment_with_toggle comment
-        evidence_input = page.find_field 'add_factrelation'
+        evidence_input = page.find_field 'text_input_view'
 
         evidence_input.trigger 'focus'
         evidence_input.set comment
