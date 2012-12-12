@@ -115,14 +115,11 @@ describe "factlink", type: :request do
     visit friendly_fact_path(@factlink)
     page.should have_content(@factlink.data.title)
 
-    click_on "Agreeing"
+    fill_in 'add_factrelation', :with => displaystring
 
-    wait_until_scope_exists '.add-evidence-container' do
-      fill_in 'supporting_search', :with => displaystring
-      wait_for_ajax
+    within '.auto-complete-search-list' do
+      page.should have_content @factlink_evidence.data.displaystring
     end
-
-    page.should have_content @factlink_evidence.data.displaystring
   end
 
   def wheel_path_d position
