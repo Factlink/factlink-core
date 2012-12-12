@@ -4,6 +4,9 @@ class window.AddChannelToChannelsModalView extends Backbone.Marionette.Layout
   regions:
     addToChannelRegion: ".add-to-channel-form"
 
+  initialEvents: -> false # stop layout from refreshing after model/collection update
+                  # no longer needed in marionette 1.0
+
   initialize: ->
     @alertErrorInit ['create_channel', 'add_channel', 'remove_channel']
 

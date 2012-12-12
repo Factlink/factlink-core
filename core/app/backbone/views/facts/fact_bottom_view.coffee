@@ -17,7 +17,7 @@ class window.FactBottomView extends Backbone.Marionette.Layout
     e.preventDefault()
     e.stopPropagation()
 
-    collection = @model.getOwnContainingChannels()
+    collection = @model.getOwnContainingChannels(this)
     collection.on "add", (channel) =>
       @model.addToChannel channel, {}
 

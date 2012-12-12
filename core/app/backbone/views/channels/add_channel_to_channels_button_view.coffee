@@ -7,7 +7,7 @@ class window.AddChannelToChannelsButtonView extends Backbone.Marionette.Layout
     "click .js-add-to-channel-button": "openAddToChannelModal"
 
   initialize: ->
-    @collection = @model.getOwnContainingChannels()
+    @collection = @model.getOwnContainingChannels(this)
     @bindTo @collection, "add remove", (channel) => @updateButton()
 
   onRender: ->
