@@ -40,6 +40,8 @@
     hide: function() {
       unbindClick();
       iFrame.fadeOut('fast');
+
+      Factlink.trigger('modalClosed');
     },
     show: function() {
       bindClick();
