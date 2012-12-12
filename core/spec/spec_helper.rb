@@ -36,7 +36,6 @@ RSpec.configure do |config|
 
   config.before(:each) do
     ElasticSearch.clean
-    ElasticSearch.stub synchronous: true
     stub_const("Logger", Class.new)
     stub_const("Logger::ERROR", 1)
     stub_const("Logger::INFO", 2)

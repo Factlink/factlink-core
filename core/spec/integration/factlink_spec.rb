@@ -104,7 +104,6 @@ describe "factlink", type: :request do
   end
 
   it "should find a factlink when searching on a exact phrase containing small words" do
-    pending "because there's an open asap point to fix elasticsearchrelated bugs"
     displaystring = 'feathers is not a four letter groom betters'
 
     @factlink = create_factlink @user

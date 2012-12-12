@@ -16,10 +16,9 @@ module Queries
     def execute
       from = (@page - 1) * @row_count
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search"
-      query = "?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
-      results = HTTParty.get url, query: query
+      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
 
+      results = HTTParty.get url, { debug_output: $stderr}
       handle_httparty_error results
 
       hits = results.parsed_response['hits']['hits']
@@ -39,7 +38,11 @@ module Queries
     private
     def escape_lucene_special_characters keywords
       # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
+      # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
+      keywords.gsub 'NOT', '''NOT'''
+      keywords.gsub 'AND', '''AND'''
       # escaping && and || gives errors, use case is not so important, so removing.
+      keywords.gsub 'OR', '''OR'''
       keywords.gsub '&&', ''
       keywords.gsub '||', ''
       keywords.gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
@@ -50,9 +53,9 @@ module Queries
     def processed_keywords
       @keywords.split(/\s+/).
         map{ |keyword| escape_lucene_special_characters keyword}.
-        map{ |keyword| "('#{keyword}*'+OR+'#{keyword}')"}.
         map{ |keyword| URI.escape(keyword) }.
-        join("+")
+        map{ |keyword| "(#{keyword}*+OR+#{keyword})"}.
+        join("+AND+")
     end
 
     def handle_httparty_error results
@@ -65,7 +68,6 @@ module Queries
         else
           error = "Unexpected status code: #{results.code}, response: '#{results.response.body}'."
       end
-      puts error
 
       if error
         @logger.error(error)
