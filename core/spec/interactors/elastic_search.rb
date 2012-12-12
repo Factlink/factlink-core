@@ -27,7 +27,7 @@ describe 'elastic search' do
     query = 'not'
     object = TestClass.new
     object.test_field = 'this is not making sense'
-    object.id = 1
+    object.id = '1'
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute
@@ -40,7 +40,7 @@ describe 'elastic search' do
     query = 'the'
     object = TestClass.new
     object.test_field = 'this is the document body'
-    object.id = 1
+    object.id = '1'
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute
@@ -49,17 +49,14 @@ describe 'elastic search' do
     results[0].id.should eq object.id
   end
 
-  it 'searches for sequences that need to be escaped' do
-    query = '-||!(){}[]^"~*\\'
+  it 'searches for sequences that need to be escaped doesn''t throw an error' do
+    query = '+ - && || ! ( ) { } [ ] ^ " ~ * ? : \\'
     object = TestClass.new
     object.test_field = 'this is the document body'
     object.id = 1
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute
-
-    results.length.should eq 1
-    results[0].id.should eq object.id
   end
 
   it 'searches for one letter' do

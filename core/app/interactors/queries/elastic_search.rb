@@ -36,10 +36,17 @@ module Queries
     end
 
     private
+    def escape_lucene_special_characters keywords
+      keywords.gsub(/\+|\-|\&\&|\|\||\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
+       '\\' + x
+     end
+    end
+
     def processed_keywords
       @keywords.split(/\s+/).
-        map{ |x| CGI::escape(x) }.
-        map{ |x| "(\"#{x}*\%20OR%20\#{x}\)"}.
+        map{ |keyword| escape_lucene_special_characters keyword}.
+        map{ |keyword| "('#{keyword}*'+OR+'#{keyword}')"}.
+        map{ |keyword| CGI::escape(keyword) }.
         join("+")
     end
 
@@ -47,12 +54,13 @@ module Queries
       case results.code
         when 200..299
         when 400..499
-          error = "Client error, status code: #{results.code}, response: '#{results.response}'."
+          error = "Client error, status code: #{results.code}, response: '#{results.response.body}'."
         when 500..599
-          error = "Server error, status code: #{results.code}, response: '#{results.response}'."
+          error = "Server error, status code: #{results.code}, response: '#{results.response.body}'."
         else
-          error = "Unexpected status code: #{results.code}, response: '#{results.response}'."
+          error = "Unexpected status code: #{results.code}, response: '#{results.response.body}'."
       end
+      puts error
 
       if error
         @logger.error(error)
