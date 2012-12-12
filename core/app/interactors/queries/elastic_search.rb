@@ -39,7 +39,7 @@ module Queries
     def processed_keywords
       @keywords.split(/\s+/).
         map{ |x| CGI::escape(x) }.
-        map{ |x| "(\"#{x}*\%20OR%20\#{x}\)"}.
+        map{ |x| "(%22#{x}*%22%20OR%20%22#{x}%22)"}.
         join("+")
     end
 
