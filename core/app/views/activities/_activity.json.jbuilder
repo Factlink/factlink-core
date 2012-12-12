@@ -71,7 +71,7 @@ json.activity do |json|
     json.channel_title             subject.title
     json.channel_url               channel_path(subject_creator_user, subject.id)
 
-
+    json.to_channel_id             object.id
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
     json.target_url                channel_path(object.created_by.user, object.id)
