@@ -2,7 +2,6 @@ require 'integration_helper'
 
 describe 'When a User gets approved', type: :request do
   it 'the User should get notified through email' do
-    pending "Mail doesn't get parsed correctly, strange characters added"
     clear_emails
 
     user = FactoryGirl.create :user, agrees_tos: false
@@ -15,7 +14,9 @@ describe 'When a User gets approved', type: :request do
 
     open_email(user.email)
 
-    current_email.click_link 'Click here to start using Factlink'
+    link = current_email.find_link 'Click here to start using Factlink'
+
+    visit link[:href]
 
     # From here it's basically a "First step of sign up process (set passwords) should work"
     page.should have_content 'Set up your Factlink account'
