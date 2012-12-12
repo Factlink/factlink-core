@@ -21,6 +21,8 @@ class NotificationAddedEvidenceView extends GenericNotificationView
   template: "notifications/added_evidence"
 
 class NotificationAddedSubchannelView extends GenericNotificationView
+  className: "activity activity-subchannel"
+
   template: "notifications/added_subchannel"
 
   regions:
@@ -32,7 +34,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
     other_channel = new Channel
       id: activity.to_channel_id
       containing_channel_ids: activity.to_channel_containing_channel_ids
-    
+
     @followBackRegion.show new AddChannelToChannelsButtonView model: other_channel
 
 class NotificationInvitedView extends GenericNotificationView
