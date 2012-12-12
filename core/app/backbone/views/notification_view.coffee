@@ -26,9 +26,6 @@ class NotificationAddedSubchannelView extends GenericNotificationView
   regions:
     followBackRegion: ".js-region-follow-back"
 
-  initialize: (opts) ->
-    @other_channel_url = opts.model.get('activity')?.target_url
-
   onRender: ->
     activity = @model.get('activity')
 
