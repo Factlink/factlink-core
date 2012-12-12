@@ -18,7 +18,7 @@ module Queries
 
       url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
 
-      results = HTTParty.get url, { debug_output: $stderr}
+      results = HTTParty.get url
       handle_httparty_error results
 
       hits = results.parsed_response['hits']['hits']
@@ -62,11 +62,11 @@ module Queries
       case results.code
         when 200..299
         when 400..499
-          error = "Client error, status code: #{results.code}, response: '#{results.response.body}'."
+          error = "Client error, status code: #{results.code}, response: '#{results.response}'."
         when 500..599
-          error = "Server error, status code: #{results.code}, response: '#{results.response.body}'."
+          error = "Server error, status code: #{results.code}, response: '#{results.response}'."
         else
-          error = "Unexpected status code: #{results.code}, response: '#{results.response.body}'."
+          error = "Unexpected status code: #{results.code}, response: '#{results.response}'."
       end
 
       if error

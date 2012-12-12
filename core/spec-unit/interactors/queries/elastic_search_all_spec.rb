@@ -42,7 +42,7 @@ describe Queries::ElasticSearchAll do
         results.stub parsed_response: { 'hits' => { 'hits' => [ hit ] } }
 
         HTTParty.should_receive(:get).
-          with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+          with("http://#{base_url}/factdata,topic,user/_search?q=(searching*+OR+searching)+AND+(for*+OR+for)+AND+(this*+OR+this)+AND+(channel*+OR+channel)&from=0&size=20&analyze_wildcard=true").
           and_return(results)
 
         return_object = mock()
@@ -92,7 +92,7 @@ describe Queries::ElasticSearchAll do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
-      wildcard_keywords = '(%24%2B%2C%3A%3B*%20OR%20%24%2B%2C%3A%3B)+(%40%3D%3F%26%3D%2F*%20OR%20%40%3D%3F%26%3D%2F)'
+      wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       interactor = Queries::ElasticSearchAll.new keywords, 1, 20
 
       results = mock()
@@ -100,7 +100,7 @@ describe Queries::ElasticSearchAll do
       results.stub parsed_response: { 'hits' => { 'hits' => [ ] } }
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/factdata,topic,user/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       interactor.execute.should eq []

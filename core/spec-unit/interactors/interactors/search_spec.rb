@@ -35,15 +35,6 @@ describe Interactors::Search do
     end
   end
   describe '.execute' do
-    it 'returns an empty list on keyword with less than two letters.' do
-      Queries::ElasticSearchAll.should_not_receive(:execute)
-      interactor = Interactors::Search.new 'ke', ability: relaxed_ability
-
-      result = interactor.execute
-
-      result.should eq []
-    end
-
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = Interactors::Search.new keywords, ability: relaxed_ability
@@ -57,30 +48,6 @@ describe Interactors::Search do
         and_return(results)
 
       interactor.execute.should eq results
-    end
-
-    it 'filters keywords with length < 3' do
-      keywords = "searching fo this channel"
-      filtered_keywords = "searching this channel"
-      interactor = Interactors::Search.new keywords, ability: relaxed_ability
-      results = ['a','b','c']
-
-      query = mock()
-      Queries::ElasticSearchAll.should_receive(:new).
-        with(filtered_keywords, 1, 20).
-        and_return(query)
-      query.should_receive(:execute).
-        and_return(results)
-
-      interactor.execute.should eq results
-    end
-
-    it 'filters keywords with length < 3 and don''t query because search is empty' do
-      keywords = "fo"
-      interactor = Interactors::Search.new keywords, ability: relaxed_ability
-      Queries::ElasticSearchAll.should_not_receive(:new)
-
-      interactor.execute.should eq []
     end
 
     it 'invalid Factdata is filtered' do
