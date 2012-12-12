@@ -64,7 +64,7 @@ describe Interactors::FullTextSearch::Reindex do
 
     it '.seed_channels' do
       stub_classes 'Topic'
-      stub_classes 'CreateSearchIndexForTopic'
+      stub_classes 'CreateSearchIndexForTopics'
 
       topic1 = stub(id: '33cc')
       topic2 = stub(id: '44dd')
@@ -73,7 +73,7 @@ describe Interactors::FullTextSearch::Reindex do
       Topic.should_receive(:all).and_return(topics)
 
       topics.each do |topic|
-        Resque.should_receive(:enqueue).with(CreateSearchIndexForTopic, topic.id)
+        Resque.should_receive(:enqueue).with(CreateSearchIndexForTopics, topic.id)
       end
 
       interactor = Interactors::FullTextSearch::Reindex.new

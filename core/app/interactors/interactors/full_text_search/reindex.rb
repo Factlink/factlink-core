@@ -30,7 +30,7 @@ module Interactors
 
       def seed_topics
         Topic.all.each do |topic|
-          Resque.enqueue(CreateSearchIndexForTopic, topic.id)
+          Resque.enqueue(CreateSearchIndexForTopics, topic.id)
         end
       end
 
