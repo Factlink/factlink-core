@@ -1,11 +1,7 @@
 require 'spec_helper'
 
 class TestClass
-  def id
-    1
-  end
-
-  attr_accessor :test_field
+  attr_accessor :test_field, :id
 end
 
 class TestIndexCommand < Commands::ElasticSearchIndexForTextSearchCommand
@@ -28,22 +24,54 @@ end
 #This is an elasticsearch integration test
 describe 'elastic search' do
   it 'searches for operators' do
-    query = 'bla'
+    query = 'not'
     object = TestClass.new
-    object.test_field = 'bla bla bla'
+    object.test_field = 'this is not making sense'
+    object.id = 1
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute
-    puts "WHAT: #{results}"
+
+    results.length.should eq 1
+    results[0].id.should eq object.id
   end
 
-  pending 'searches for stop words' do
+  it 'searches for stop words' do
     query = 'the'
+    object = TestClass.new
+    object.test_field = 'this is the document body'
+    object.id = 1
+    (TestIndexCommand.new object).execute
 
+    results = (TestQuery.new query, 1, 10).execute
+
+    results.length.should eq 1
+    results[0].id.should eq object.id
   end
 
-  pending 'searches for sequences that need to be escaped' do
+  it 'searches for sequences that need to be escaped' do
+    query = '-||!(){}[]^"~*\\'
+    object = TestClass.new
+    object.test_field = 'this is the document body'
+    object.id = 1
+    (TestIndexCommand.new object).execute
 
+    results = (TestQuery.new query, 1, 10).execute
+
+    results.length.should eq 1
+    results[0].id.should eq object.id
   end
 
+  it 'searches for one letter' do
+    query = 'm'
+    object = TestClass.new
+    object.test_field = 'merry christmas'
+    object.id = "1"
+    (TestIndexCommand.new object).execute
+
+    results = (TestQuery.new query, 1, 10).execute
+
+    results.length.should eq 1
+    results[0].id.should eq object.id
+  end
 end

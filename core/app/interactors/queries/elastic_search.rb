@@ -39,7 +39,7 @@ module Queries
     def processed_keywords
       @keywords.split(/\s+/).
         map{ |x| CGI::escape(x) }.
-        map{ |x| "(#{x}*%20OR%20#{x})"}.
+        map{ |x| "(\"#{x}*\%20OR%20\#{x}\)"}.
         join("+")
     end
 
@@ -67,6 +67,10 @@ module Queries
         return Topic.find(id)
       elsif (type == 'user')
         return User.find(id)
+      elsif (type == 'test_class')
+        obj = TestClass.new
+        obj.id=id
+        return obj
       end
       raise 'Object type unknown.'
     end
