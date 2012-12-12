@@ -22,7 +22,27 @@ class ElasticSearch
     HTTParty.delete url
 
     create_index_response = HTTParty.post url,
-       { body: 'index:\n  number_of_shards:1\n  number_of_replicas:1\n  store:  \n    type:memory' }
+      { body:
+        <<-PAYLOAD
+        {
+          "index": {
+            "number_of_shards": 1,
+            "number_of_replicas": 1,
+            "analysis": {
+              "analyzer": {
+                "default": {
+                  "type": "standard",
+                  "stopwords": [""]
+                  }
+                }
+              }
+            }
+          }
+        }
+        PAYLOAD
+      }
+
+    puts create_index_response
     if create_index_response.code != 404 and create_index_response.code != 200
       raise 'failed (re)-creating elasticsearch index'
     end
