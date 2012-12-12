@@ -9,10 +9,8 @@ class ElasticSearch
     end
 
     def add id, json
-      url = base_url + "/#{id}"
-      HTTParty.put url,
+      HTTParty.put base_url + "/#{id}",
                    { body: json }
-
       refresh if ElasticSearch.synchronous
     end
 
