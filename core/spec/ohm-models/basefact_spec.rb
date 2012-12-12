@@ -1,28 +1,29 @@
 require 'spec_helper'
 
-def others(opinion)
-  others = [:believes, :doubts, :disbelieves]
-  others.delete(opinion)
-  others
-end
-
-# TODO : all tests using this function should be tests
-#        of UserOpinionCalculation
-def expect_opinion(subject,opinion)
-  FactGraph.recalculate
-  subject.class[subject.id].get_user_opinion.should == opinion
-end
-
-def user_fact_opinion(user, opinion, fact)
-  authority = Authority.on(fact, for: user).to_f + 1
-  Opinion.for_type(opinion,authority)
-end
-
-def opinions
-  [:believes, :doubts, :disbelieves]
-end
-
 describe Basefact do
+
+  def self.others(opinion)
+    others = [:believes, :doubts, :disbelieves]
+    others.delete(opinion)
+    others
+  end
+
+  # TODO : all tests using this function should be tests
+  #        of UserOpinionCalculation
+  def expect_opinion(subject,opinion)
+    FactGraph.recalculate
+    subject.class[subject.id].get_user_opinion.should == opinion
+  end
+
+  def user_fact_opinion(user, opinion, fact)
+    authority = Authority.on(fact, for: user).to_f + 1
+    Opinion.for_type(opinion,authority)
+  end
+
+  def self.opinions
+    [:believes, :doubts, :disbelieves]
+  end
+
 
   subject {create(:basefact)}
 

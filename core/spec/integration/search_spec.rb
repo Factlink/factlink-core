@@ -1,11 +1,11 @@
 require 'integration_helper'
 
-def create_channel(user)
-  channel = FactoryGirl.create(:channel, created_by: user.graph_user)
-  channel
-end
-
 describe "searching", type: :request do
+
+  def create_channel(user)
+    channel = FactoryGirl.create(:channel, created_by: user.graph_user)
+    channel
+  end
 
   before :each do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user

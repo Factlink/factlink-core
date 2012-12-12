@@ -1,17 +1,16 @@
 require 'spec_helper'
 
-def add_channel usser, name
-  channel = Channel.new title: name
-  channel.created_by =  user.graph_user
-  channel.save
-end
-
 describe FactsController, type: :controller do
   render_views
 
+  def add_channel user, name
+    channel = Channel.new title: name
+    channel.created_by =  user.graph_user
+    channel.save
+  end
+
   let(:user) { create(:user) }
   let(:fact) { create(:fact) }
-
 
   describe :new do
     it "should work" do

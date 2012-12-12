@@ -8,20 +8,20 @@ class Basefact < OurOhm;end
 class Fact < Basefact;end
 class GraphUser < OurOhm;end
 
-def create_fact
-  FactoryGirl.create :fact
-rescue
-  Fact.create
-end
-
-def create_channel(opts={})
-  ch = Channel.create(opts)
-  ch.singleton_class.send :include, Channel::Overtaker
-  ch
-end
-
 describe Channel::Overtaker do
   include AddFactToChannelSupport
+
+  def create_fact
+    FactoryGirl.create :fact
+  rescue
+    Fact.create
+  end
+
+  def create_channel(opts={})
+    ch = Channel.create(opts)
+    ch.singleton_class.send :include, Channel::Overtaker
+    ch
+  end
 
   let(:ch1) {create_channel :created_by => u1, :title => "Something" }
   let(:ch2) {create_channel :created_by => u1, :title => "Diddly"}
