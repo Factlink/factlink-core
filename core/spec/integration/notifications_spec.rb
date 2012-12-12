@@ -60,5 +60,14 @@ feature "notifications", type: :request do
     within_nth_notification 1 do
       find('button', text: 'added')
     end
+
+    sleep 2 # give ajax requests some time to finish
+
+    visit page.current_url
+
+    open_notifications
+    within_nth_notification 1 do
+      find('button', text: 'added')
+    end
   end
 end
