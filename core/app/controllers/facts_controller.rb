@@ -119,7 +119,7 @@ class FactsController < ApplicationController
 
         format.html do
           track "Modal: Create"
-          redirect_to fact_path(@fact.id, just_added: true)
+          redirect_to fact_path(@fact.id, just_added: true, guided: params[:guided])
         end
         format.json { render json: @fact, status: :created, location: @fact.id }
       else
