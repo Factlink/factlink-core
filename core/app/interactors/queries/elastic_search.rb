@@ -39,6 +39,7 @@ module Queries
     private
     def escape_lucene_special_characters keywords
       # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
+      # escaping && and || gives errors, use case is not so important, so removing.
       keywords.gsub '&&', ''
       keywords.gsub '||', ''
       keywords.gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
