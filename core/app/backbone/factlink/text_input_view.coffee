@@ -33,7 +33,9 @@ class Backbone.Factlink.TextInputView extends Backbone.Marionette.ItemView
       e.preventDefault()
       e.stopPropagation()
 
-  updateHtml:  -> @$("input.typeahead").val(@model.get('text'))
+  updateHtml:  ->
+    if @model.get('text') != @$("input.typeahead").val()
+      @$("input.typeahead").val(@model.get('text'))
   updateModel: -> @model.set text: @$("input.typeahead").val()
 
   enable: -> @$("input.typeahead").prop "disabled", false
