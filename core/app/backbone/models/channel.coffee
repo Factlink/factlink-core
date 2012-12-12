@@ -42,11 +42,12 @@ class window.Channel extends Backbone.Model
   topicUrl: -> "/t/#{@get('slug_title')}"
 
   getOwnContainingChannels: ->
-    containingChannels = @get("containing_channel_ids")
     ret = []
-    currentUser.channels.each (ch) ->
-      if _.indexOf(containingChannels, ch.id) isnt -1
-        ret.push ch.clone()
+    containingChannels = @get("containing_channel_ids")
+    if containingChannels?
+      currentUser.channels.each (ch) ->
+        if ch.id in containingChannels
+          ret.push ch.clone()
 
     new OwnChannelCollection ret
 
