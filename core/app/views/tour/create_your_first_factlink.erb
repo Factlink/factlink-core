@@ -20,32 +20,10 @@
     </div>
 
     <h4>Good job!</h4>
-    <p>Now click the '<%= t :add_fact %>' button.</p>
+    <p>Now click the '<%= t :add_fact %>' button to start creating your Factlink.</p>
   </div>
 
   <div id="step3" class="white-well tour-block">
-
-    <!-- modalOpened -->
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
-    </div>
-
-    <h4>What's your opinion?</h4>
-    <p>Add your opinion by clicking on the colored wheel.</p>
-  </div>
-
-  <div id="step4" class="white-well tour-block">
-
-    <!-- factlinkAdded -->
-    <div class="arrow-right">
-      <div class="arrow-right-white"></div>
-    </div>
-
-    <h4>Great!</h4>
-    <p>Now finish by clicking "Post to Factlink".</p>
-  </div>
-
-  <div id="step5" class="white-well tour-block">
 
     <!-- factlinkAdded -->
     <div class="arrow-right">
@@ -53,7 +31,6 @@
     </div>
 
     <h4>Your first Factlink is a fact!</h4>
-    <p>You can now close the Factlink by clicking 'X' and click continue.</p>
 
     <%= link_to( 'Continue', choose_channels_path, :class => "btn btn-primary btn-mini", 'data-disable-with' => "Loading..." ) %>
   </div>
@@ -91,7 +68,8 @@
       api: "<%= FactlinkUI::Application.config.api_url %>",
       lib: "<%= lib_url %>",
       srcPath: "/factlink.core<%= min %>.js",
-      url: ""
+      url: "",
+      guided: true
     };
   </script>
   <script src="<%= lib_url %>/factlink<%= min %>.js"></script>
@@ -107,19 +85,18 @@
     });
 
     FACTLINK.on('modalOpened', function () {
-      tour.showStep(3);
+      tour.hide();
     });
 
-    FACTLINK.on('opinionSet', function () {
-      tour.showStep(4)
-    });
+    // FACTLINK.on('opinionSet', function () {
+    //   tour.showStep(4)
+    // });
 
     FACTLINK.on('factlinkAdded', function () {
-      tour.showStep(5);
-
-      (function(Factlink){
-        Factlink.stopAnnotating();
-      })(document.getElementById("factlink-iframe").contentWindow.Factlink);
+      FACTLINK.on('modalClosed', function () {
+        tour.showStep(3);
+        FACTLINK.stopAnnotating();
+      });
     });
   });
 

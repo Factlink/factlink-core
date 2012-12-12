@@ -11,6 +11,12 @@
 
     $('div.factlink-modal').append(view.el);
 
+    <% if params[:guided] == "true" %>
+    view.$('#close').tooltip({
+      trigger: 'manual'
+    }).tooltip('show');
+    <% end %>
+
     parent.$(parent.document).trigger("modalready");
 
     window.fact_id = "<%= @fact.id %>";
