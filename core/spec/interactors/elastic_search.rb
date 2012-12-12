@@ -21,54 +21,51 @@ class TestQuery < Queries::ElasticSearch
   end
 end
 
-#This is an elasticsearch integration test
 describe 'elastic search' do
-  it 'searches for operators' do
-    query = 'not'
-    object = TestClass.new
-    object.test_field = 'this is not making sense'
-    object.id = '1'
-    (TestIndexCommand.new object).execute
+  before do
+    ElasticSearch.stub synchronous: true
+  end
 
-    results = (TestQuery.new query, 1, 10).execute
+  it 'searches for operators' do
+    results = insert_and_query 'this is not making sense', 'not'
 
     results.length.should eq 1
-    results[0].id.should eq object.id
   end
 
   it 'searches for stop words' do
-    query = 'the'
-    object = TestClass.new
-    object.test_field = 'this is the document body'
-    object.id = '1'
-    (TestIndexCommand.new object).execute
-
-    results = (TestQuery.new query, 1, 10).execute
+    results = insert_and_query 'this is the document body', 'the'
 
     results.length.should eq 1
-    results[0].id.should eq object.id
   end
 
   it 'searches for sequences that need to be escaped doesn''t throw an error' do
-    query = '!(){}[]^"~*?:\\'
-    object = TestClass.new
-    object.test_field = 'this is the document body'
-    object.id = '1'
-    (TestIndexCommand.new object).execute
+    insert_and_query 'document body', '!(){}[]^"~*?:\\'
+  end
 
-    results = (TestQuery.new query, 1, 10).execute
+  it 'searches for wildcards correctly' do
+    results = insert_and_query 'merry christmas', 'mer*'
+
+    results.length.should eq 1
+  end
+
+  it 'searches for operator for a wildcard match' do
+    results = insert_and_query 'noting', 'not'
+
+    results.length.should eq 1
   end
 
   it 'searches for one letter' do
-    query = 'm'
+    results = insert_and_query 'merry christmas', 'm'
+
+    results.length.should eq 1
+  end
+
+  def insert_and_query text, query
     object = TestClass.new
-    object.test_field = 'merry christmas'
+    object.test_field = text
     object.id = '1'
     (TestIndexCommand.new object).execute
 
-    results = (TestQuery.new query, 1, 10).execute
-
-    results.length.should eq 1
-    results[0].id.should eq object.id
+    (TestQuery.new query, 1, 10).execute
   end
 end
