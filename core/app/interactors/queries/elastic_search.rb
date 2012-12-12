@@ -65,7 +65,6 @@ module Queries
         else
           error = "Unexpected status code: #{results.code}, response: '#{results.response.body}'."
       end
-      puts error
 
       if error
         @logger.error(error)
