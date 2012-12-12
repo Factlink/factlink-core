@@ -30,13 +30,13 @@ class NotificationAddedSubchannelView extends GenericNotificationView
     @other_channel_url = opts.model.get('activity')?.target_url
 
   onRender: ->
-    other_channel = new Channel
-      id: @model.get('activity').to_channel_id
-      username: @model.get('username')
+    activity = @model.get('activity')
 
-    other_channel.fetch
-      success: =>
-        @followBackRegion.show new AddChannelToChannelsButtonView model: other_channel
+    other_channel = new Channel
+      id: activity.to_channel_id
+      containing_channel_ids: activity.to_channel_containing_channel_ids
+    
+    @followBackRegion.show new AddChannelToChannelsButtonView model: other_channel
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"
