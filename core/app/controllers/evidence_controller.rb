@@ -48,7 +48,8 @@ class EvidenceController < FactsController
     end
 
     @fact_relation = create_believed_factrelation(@evidence, relation, fact)
-    fact.calculate_opinion(2)
+
+    @fact_relation.calculate_opinion(2)
 
     render 'fact_relations/show'
   rescue EvidenceNotFoundException
