@@ -50,10 +50,10 @@ describe 'elastic search' do
   end
 
   it 'searches for sequences that need to be escaped doesn''t throw an error' do
-    query = '+ - && || ! ( ) { } [ ] ^ " ~ * ? : \\'
+    query = '!(){}[]^"~*?:\\'
     object = TestClass.new
     object.test_field = 'this is the document body'
-    object.id = 1
+    object.id = '1'
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute
@@ -63,7 +63,7 @@ describe 'elastic search' do
     query = 'm'
     object = TestClass.new
     object.test_field = 'merry christmas'
-    object.id = "1"
+    object.id = '1'
     (TestIndexCommand.new object).execute
 
     results = (TestQuery.new query, 1, 10).execute

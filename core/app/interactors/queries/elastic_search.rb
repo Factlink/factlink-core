@@ -1,5 +1,5 @@
 require_relative '../pavlov'
-require 'cgi'
+require 'uri'
 
 module Queries
   class ElasticSearch
@@ -16,9 +16,10 @@ module Queries
     def execute
       from = (@page - 1) * @row_count
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
-      puts url
-      results = HTTParty.get url
+      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search"
+      query = "?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
+      results = HTTParty.get url, query: query
+
       handle_httparty_error results
 
       hits = results.parsed_response['hits']['hits']
@@ -37,7 +38,10 @@ module Queries
 
     private
     def escape_lucene_special_characters keywords
-      keywords.gsub(/\+|\-|\&\&|\|\||\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
+      # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
+      keywords.gsub '&&', ''
+      keywords.gsub '||', ''
+      keywords.gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
        '\\' + x
      end
     end
@@ -46,7 +50,7 @@ module Queries
       @keywords.split(/\s+/).
         map{ |keyword| escape_lucene_special_characters keyword}.
         map{ |keyword| "('#{keyword}*'+OR+'#{keyword}')"}.
-        map{ |keyword| CGI::escape(keyword) }.
+        map{ |keyword| URI.escape(keyword) }.
         join("+")
     end
 
