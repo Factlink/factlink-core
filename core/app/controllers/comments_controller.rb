@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
 
     def sort_by_relevance comments
       comments.sort do |a,b|
-        OpinionPresenter.new(a.opinion).relevance <=> OpinionPresenter.new(b.opinion).relevance
+        OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
       end
     end
 end
