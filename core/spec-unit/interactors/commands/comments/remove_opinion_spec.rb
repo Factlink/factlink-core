@@ -5,7 +5,7 @@ describe Commands::Comments::RemoveOpinion do
   include PavlovSupport
 
   before do
-    stub_classes 'Believable::Comment'
+    stub_classes 'Believable::Commentje'
   end
 
   describe '.execute' do
@@ -24,12 +24,12 @@ describe Commands::Comments::RemoveOpinion do
   end
 
   describe '.believable' do
-    it "returns the Believable::Comment for this comment" do
+    it "returns the Believable::Commentje for this comment" do
       id = 'a1'
       believable = mock
       command = Commands::Comments::RemoveOpinion.new id, mock
 
-      Believable::Comment.should_receive(:new)
+      Believable::Commentje.should_receive(:new)
                        .with(id)
                        .and_return(believable)
 
