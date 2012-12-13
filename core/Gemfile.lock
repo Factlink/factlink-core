@@ -11,13 +11,6 @@ GIT
     ohm-contrib (0.0.31)
 
 GIT
-  remote: https://github.com/Factlink/marionette-rails
-  revision: 9332563e6f3b928be90279f7f64ea256d9adc7e9
-  specs:
-    marionette-rails (1.0.0.rc.2)
-      rails (>= 3.1.0)
-
-GIT
   remote: https://github.com/Factlink/mixpanel.git
   revision: 51ba36f9df4ac911923b8cb15ee1ae487ae0c2b7
   specs:
@@ -44,6 +37,13 @@ GIT
   revision: fbe17263a1d38e811b9edb61ed51326c0bac9a8e
   specs:
     resqued_devise_mailer (0.0.1)
+
+GIT
+  remote: https://github.com/janpaul123/marionette-rails
+  revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
+  specs:
+    marionette-rails (1.0.0.rc.2)
+      rails (>= 3.1.0)
 
 GIT
   remote: https://github.com/johnbintz/jasmine-headless-webkit.git
