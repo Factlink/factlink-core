@@ -28,6 +28,7 @@ if defined?(NewRelic)
     Interactors::VisibleChannelsOfUserForUser,
     Queries::CreatorAuthoritiesForChannels,
     Queries::AuthorityOnTopicFor,
+    Queries::TopicsForChannels,
     Queries::VisibleChannelsOfUser,
     Queries::ContainingChannelIdsForChannelAndUser,
 
