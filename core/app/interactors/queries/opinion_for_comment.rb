@@ -25,7 +25,7 @@ module Queries
     end
 
     def believable
-      Believable::Commentje.new(@comment_id)
+      Believable::Comment.new(@comment_id)
     end
 
   end

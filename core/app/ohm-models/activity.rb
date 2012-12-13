@@ -1,5 +1,7 @@
 require 'ohm/contrib'
 
+class GraphUser < OurOhm;end # needed because of removed const_missing from ohm
+
 require_relative 'activity/subject'
 require_relative 'activity/listener'
 require_relative 'activity/create_listeners'

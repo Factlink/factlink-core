@@ -1,16 +1,19 @@
 require_relative '../ohm_helper.rb'
 require_relative '../../app/ohm-models/authority.rb'
 
-class Item < OurOhm
-  attribute :number
-  collection :items, SubItem
-end
 
 class GraphUser < OurOhm; end
+
+class Item < OurOhm; end # needed because of removed const_missing from ohm
 
 class SubItem < OurOhm
   attribute :number
   reference :item, Item
+end
+
+class Item < OurOhm
+  attribute :number
+  collection :items, SubItem
 end
 
 describe Authority do

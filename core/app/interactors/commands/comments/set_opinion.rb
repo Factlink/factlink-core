@@ -15,7 +15,7 @@ module Commands
       end
 
       def believable
-        Believable::Commentje.new(@comment_id)
+        Believable::Comment.new(@comment_id)
       end
 
       def graph_user
