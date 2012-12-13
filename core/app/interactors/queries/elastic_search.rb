@@ -36,23 +36,30 @@ module Queries
     end
 
     private
-    def escape_lucene_special_characters keywords
+    def lucene_special_characters_escaped keywords
+      # escaping && and || gives errors, use case is not so important, so removing.
+      keywords.gsub('&&', ' ')
+              .gsub('||', ' ')
+              .gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
+       '\\' + x
+      end
+    end
+
+    def quoted_if_some_lucene_operators keyword
       # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
       # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
-      keywords.gsub 'NOT', '''NOT'''
-      keywords.gsub 'AND', '''AND'''
-      keywords.gsub 'OR', '''OR'''
-      # escaping && and || gives errors, use case is not so important, so removing.
-      keywords.gsub '&&', ''
-      keywords.gsub '||', ''
-      keywords.gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
-       '\\' + x
-     end
+      if ['NOT', 'AND', 'OR'].include? keyword
+        return "'#{keyword}'"
+      else
+        keyword
+      end
     end
 
     def processed_keywords
-      @keywords.split(/\s+/).
-        map{ |keyword| escape_lucene_special_characters keyword}.
+      keywords = lucene_special_characters_escaped(@keywords)
+      keywords.
+        split(/\s+/).
+        map{ |keyword| quoted_if_some_lucene_operators keyword}.
         map{ |keyword| URI.escape(keyword) }.
         map{ |keyword| "(#{keyword}*+OR+#{keyword})"}.
         join("+AND+")

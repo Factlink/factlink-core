@@ -42,6 +42,14 @@ describe 'elastic search' do
     insert_and_query 'document body', '!(){}[]^"~*?:\\'
   end
 
+  it 'searches for sequences that need to be escaped doesn''t throw an error' do
+    insert_and_query 'document body', 'AND OR NOT'
+  end
+
+  it 'searches for sequences that need to be escaped doesn''t throw an error' do
+    insert_and_query 'document body', 'harrie && klaas || henk'
+  end
+
   it 'searches for wildcards correctly' do
     results = insert_and_query 'merry christmas', 'mer*'
 
