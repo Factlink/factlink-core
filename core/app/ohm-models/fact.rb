@@ -1,3 +1,7 @@
+class Channel < OurOhm;end # needed because of removed const_missing from ohm
+class Site < OurOhm; end # needed because of removed const_missing from ohm
+class FactRelation < Basefact;end # needed because of removed const_missing from ohm
+
 class Fact < Basefact
   include Opinion::Subject::Fact
 

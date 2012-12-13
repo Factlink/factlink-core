@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/queries/comments/graph_user_opinio
 describe Queries::Comments::GraphUserOpinion do
   include PavlovSupport
   before do
-    stub_classes 'Opinion', 'Believable::Commentje'
+    stub_classes 'Opinion', 'Believable::Comment'
   end
 
   describe '.execute' do
@@ -79,7 +79,7 @@ describe Queries::Comments::GraphUserOpinion do
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
       believable = mock
 
-      Believable::Commentje.should_receive(:new).once
+      Believable::Comment.should_receive(:new).once
          .with(id).and_return(believable)
 
       expect(query.believable).to eq believable

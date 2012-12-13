@@ -5,7 +5,7 @@ describe Commands::Comments::SetOpinion do
   include PavlovSupport
 
   before do
-    stub_classes 'Believable::Commentje'
+    stub_classes 'Believable::Comment'
   end
 
   describe '.execute' do
@@ -27,12 +27,12 @@ describe Commands::Comments::SetOpinion do
   end
 
   describe '.believable' do
-    it "returns the Believable::Commentje for this comment" do
+    it "returns the Believable::Comment for this comment" do
       id = 'a1'
       believable = mock
       command = Commands::Comments::SetOpinion.new id, 'believes', mock
 
-      Believable::Commentje.should_receive(:new)
+      Believable::Comment.should_receive(:new)
                        .with(id)
                        .and_return(believable)
 

@@ -30,7 +30,7 @@ module Queries
       end
 
       def believable
-        @believable ||= Believable::Commentje.new @comment_id
+        @believable ||= Believable::Comment.new @comment_id
       end
     end
   end

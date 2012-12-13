@@ -1,5 +1,4 @@
 require_relative '../../pavlov'
-require_relative '../../queries/channels'
 
 module Interactors
   module Channels
