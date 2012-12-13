@@ -17,6 +17,8 @@ class TimeFormatter
     #
     #   TimeFormatter.formatable_time(10.minutes.ago) == 10.minutes.ago
     #   # => true
+    #
+    # Returns a Time object that can be processed by time_ago_in_words
     def formatable_time time
       [Time.at(time), Time.now-60].min
     end
