@@ -163,23 +163,13 @@ class Channel < OurOhm
     self.sorted_cached_facts.include?(obj)
   end
 
-  def editable?
+  def is_real_channel?
     true
   end
-
-  def inspectable?
-    true
-  end
-
-  def has_authority?
-    true
-  end
-
-  # This function is not really used, can be removed
-  def can_be_added_as_subchannel?
-    true
-  end
-
+  def editable?; is_real_channel?; end
+  def inspectable?; is_real_channel?; end
+  def has_authority?; is_real_channel?; end
+  def can_be_added_as_subchannel?; is_real_channel?; end
 
   def to_hash
     return {:id => id,
