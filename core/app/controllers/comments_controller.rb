@@ -23,9 +23,7 @@ class CommentsController < ApplicationController
 
     comments = interactor :"comments/index", fact_id, type
 
-    @comments = comments.sort do |a,b|
-      OpinionPresenter.new(a.opinion).relevance <=> OpinionPresenter.new(b.opinion).relevance
-    end
+    @comments = sort_by_relevance comments
 
     render 'comments/index'
   end
@@ -58,5 +56,11 @@ class CommentsController < ApplicationController
       end
 
       id_string
+    end
+
+    def sort_by_relevance comments
+      comments.sort do |a,b|
+        OpinionPresenter.new(a.opinion).relevance <=> OpinionPresenter.new(b.opinion).relevance
+      end
     end
 end
