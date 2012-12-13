@@ -45,8 +45,10 @@ function extendWithAutoloading(superclass) {
 
     bindScroll: function() {
       this.unbindScroll();
-      $(window).on('scroll.' + this.cid, _.bind(function MCBiggah() {
-        this.afterLoad();
+      $(window).on('scroll.' + this.cid, _.bind(function() {
+        if (this.$el.is(':visible')) {
+          this.afterLoad();
+        }
       }, this));
     },
 
