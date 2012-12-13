@@ -1,28 +1,28 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/interactors/comments/set_opinion.rb'
+require_relative '../../../../app/interactors/interactors/comments/update_opinion.rb'
 
 
-describe Interactors::Comments::SetOpinion do
+describe Interactors::Comments::UpdateOpinion do
   include PavlovSupport
 
   it 'initializes correctly' do
     user = mock()
-    interactor = Interactors::Comments::SetOpinion.new '1', 'believes', current_user: user
+    interactor = Interactors::Comments::UpdateOpinion.new '1', 'believes', current_user: user
     interactor.should_not be_nil
   end
 
   it 'without current user gives an unauthorized exception' do
-    expect { Interactors::Comments::SetOpinion.new '1', 'believes'}.
+    expect { Interactors::Comments::UpdateOpinion.new '1', 'believes'}.
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
   it 'with a invalid comment_id doesn''t validate' do
-    expect { Interactors::Comments::SetOpinion.new 'g', 'believes'}.
+    expect { Interactors::Comments::UpdateOpinion.new 'g', 'believes'}.
       to raise_error(Pavlov::ValidationError, 'comment_id should be an hexadecimal string.')
   end
 
   it 'with a invalid opinion doesn''t validate' do
-    expect { Interactors::Comments::SetOpinion.new '1', 'dunno'}.
+    expect { Interactors::Comments::UpdateOpinion.new '1', 'dunno'}.
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
@@ -39,7 +39,7 @@ describe Interactors::Comments::SetOpinion do
 
       mock_comment = mock
 
-      interactor = Interactors::Comments::SetOpinion.new comment.id, opinion, current_user: user
+      interactor = Interactors::Comments::UpdateOpinion.new comment.id, opinion, current_user: user
 
       interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
       interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)

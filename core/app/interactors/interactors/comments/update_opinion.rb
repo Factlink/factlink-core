@@ -2,7 +2,7 @@ require_relative '../../pavlov'
 
 module Interactors
   module Comments
-    class SetOpinion
+    class UpdateOpinion
       include Pavlov::Interactor
 
       arguments :comment_id, :opinion
