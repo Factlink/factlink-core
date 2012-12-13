@@ -69,7 +69,7 @@
 
         div.info {
           float: left;
-          width: 230px;
+          width: 245px;
           font-size: 12px;
 
           .text {
@@ -80,6 +80,7 @@
           }
 
           div.time_ago {
+            float: left;
             margin-top: 3px;
 
             img {
@@ -92,16 +93,15 @@
               font-size: 11px;
             }
           }
+
+          .add-back {
+            float: right;
+            margin: -4px 0 5px;
+          }
         }
 
         div.clear {
           clear: both;
-        }
-
-        .follow-back {
-          position: absolute;
-          bottom: 10px;
-          right: 10px;
         }
       }
 
@@ -114,10 +114,6 @@
         &:hover {
           background-color: @itemHoverColor;
         }
-      }
-
-      &.activity-subchannel .info {
-        margin-bottom: 5px;
       }
     }
   }
