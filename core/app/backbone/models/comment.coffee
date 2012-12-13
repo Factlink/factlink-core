@@ -13,5 +13,4 @@ class window.Comment extends Backbone.Model
   isBelieving: -> @get('current_user_opinion') == 'believes'
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
 
-  removeOpinion: ->
-    console.info("Removing of comment opinion not yet supported")
+  removeOpinion: -> @unset('opinion'); @save()
