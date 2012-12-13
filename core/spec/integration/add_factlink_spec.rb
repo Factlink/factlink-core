@@ -1,10 +1,10 @@
 require 'integration_helper'
 
-def created_channel_path(user)
-  channel_path(user.username, user.graph_user.created_facts_channel.id)
-end
-
 describe "creating a Factlink", type: :request do
+  def created_channel_path(user)
+    channel_path(user.username, user.graph_user.created_facts_channel.id)
+  end
+
   before :each do
     @user = sign_in_user FactoryGirl.create :approved_confirmed_user
   end

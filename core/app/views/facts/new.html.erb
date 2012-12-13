@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <%= form_tag facts_path(layout: @layout), class: "fact-block", id:"new_fact_form" do %>
+  <%= form_tag facts_path(layout: @layout, guided: params[:guided]), class: "fact-block", id:"new_fact_form" do %>
     <div class="fact-view">
       <%= text_area_tag :fact, params[:fact] %>
       <%= hidden_field_tag :url, params[:url] %>
@@ -67,6 +67,13 @@
     function createWhatsYourOpinionTooltip() {
       $('.fact-wheel').on('click', function () {
         hideTooltip();
+
+        <% if params[:guided] == "true" %>
+        $('#submit').tooltip({
+          title: "Great! Click here to finish",
+          trigger: "manual"
+        }).tooltip("show");
+        <% end %>
       });
 
       $(window).on('resize', function () {

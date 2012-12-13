@@ -41,14 +41,18 @@ describe Interactors::Comments::Create do
       fact = mock( fact_id: fact_id )
       type = 'believes'
       content = 'content'
-      user = mock(id: '1a')
+      user = mock(id: '1a', graph_user: mock)
       authority_string = '1.0'
       opinion = mock()
 
       interactor = Interactors::Comments::Create.new fact_id, type, content, {current_user: user}
-      comment = mock(:comment, id: '10a')
+      comment = mock(:comment, id: mock(to_s: '10a'))
 
-      interactor.should_receive(:command).with(:create_comment,fact_id, type, content, user.id).and_return(comment)
+      interactor.should_receive(:command)
+        .with(:create_comment,fact_id, type, content, user.id)
+        .and_return(comment)
+      interactor.should_receive(:command)
+        .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user)
 
       interactor.should_receive(:query).with(:"comments/add_authority_and_opinion", comment, fact).and_return(comment)
 

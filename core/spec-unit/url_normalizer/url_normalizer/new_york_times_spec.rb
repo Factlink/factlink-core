@@ -8,9 +8,7 @@ describe UrlNormalizer do
       UrlNormalizer.normalize(url)
     end
 
-    def base
-      'http://www.nytimes.com/2011/10/30/opinion/mona-simpsons-eulogy-for-steve-jobs.html'
-    end
+    let(:base){'http://www.nytimes.com/2011/10/30/opinion/mona-simpsons-eulogy-for-steve-jobs.html'}
 
     it { normalized(base + '?_r=1').should == base }
     it { normalized(base + '?_r=1&utm_source=frank').should == base }

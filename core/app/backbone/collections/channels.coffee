@@ -91,3 +91,10 @@ class window.ChannelList extends window.GenericChannelList
     topchannels.orderByAuthority()
 
     topchannels
+
+  channelArrayForIds: (ids) ->
+    array = []
+    @each (ch) ->
+      if ch.id in ids
+        array.push ch.clone()
+    array

@@ -1,11 +1,13 @@
 require 'spec_helper'
 
-def add_fact_to_channel fact, channel
-  Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
-end
 
 describe "credibility calculation of facts*users" do
   include RedisSupport
+
+  def add_fact_to_channel fact, channel
+    Interactors::Channels::AddFact.new(fact, channel, no_current_user: true).execute
+  end
+
   let(:u1) {FactoryGirl.create(:graph_user)}
   let(:u2) {FactoryGirl.create(:graph_user)}
   let(:u3) {FactoryGirl.create(:graph_user)}

@@ -35,7 +35,7 @@ var // The iFrame
           showFrame.className = "overlay";
         },
 
-        prepareNewFactlink: function(text, siteUrl, siteTitle, successFn, errorFn) {
+        prepareNewFactlink: function(text, siteUrl, siteTitle, guided, successFn, errorFn) {
 
           var successCalled = 0;
           var onLoadSuccess = function() {
@@ -57,6 +57,7 @@ var // The iFrame
                                       "?fact="  + encodeURIComponent(text) +
                                       "&url="   + encodeURIComponent(siteUrl) +
                                       "&title=" + encodeURIComponent(siteTitle) +
+                                      "&guided=" + encodeURIComponent(guided) +
                                       "&layout=client";
           // Show the overlay
           showFrame.className = "overlay";

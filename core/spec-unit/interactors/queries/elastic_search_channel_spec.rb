@@ -4,14 +4,8 @@ require_relative '../../../app/interactors/queries/elastic_search_channel.rb'
 describe Queries::ElasticSearchChannel do
   include PavlovSupport
 
-  def fake_class
-    Class.new
-  end
-
   before do
-    stub_const 'Topic', fake_class
-    stub_const 'HTTParty', fake_class
-    stub_const 'FactlinkUI::Application', fake_class
+    stub_classes 'Topic', 'HTTParty', 'FactlinkUI::Application'
   end
 
   it 'initializes' do

@@ -25,7 +25,7 @@ module Acceptance
 
       wait_until_scope_exists '.start-conversation-form' do
         recipients.each {|r| add_recipient r.username}
-        find(:css, '.text').set(message)
+        find(:css, 'textarea').set(message)
 
         click_button 'Send'
         page.should have_selector(".js-alert-success", visible: true)

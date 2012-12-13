@@ -4,10 +4,6 @@ require_relative '../../../app/interactors/commands/elastic_search_index_user_fo
 describe Commands::ElasticSearchIndexUserForTextSearch do
   include PavlovSupport
 
-  def fake_class
-    Class.new
-  end
-
   let(:user) do
     user = stub()
     user.stub id: 1,
@@ -16,8 +12,7 @@ describe Commands::ElasticSearchIndexUserForTextSearch do
   end
 
   before do
-    stub_const('HTTParty', fake_class)
-    stub_const('FactlinkUI::Application', fake_class)
+    stub_classes 'HTTParty', 'FactlinkUI::Application'
   end
 
   it 'intitializes' do

@@ -1,7 +1,6 @@
 require 'integration_helper'
 
-describe 'Reserving a username', type: :request, js: true do
-
+describe 'Reserving a username', type: :request do
   it 'should get success note with valid username' do
     visit '/'
     disable_html5_validations(page)
@@ -17,7 +16,7 @@ describe 'Reserving a username', type: :request, js: true do
 
     find('div.success').visible?.should be_true
 
-    #page.should have_content('You have successfully reserved your username!')
+    page.should have_content("Great, you're almost finished! Please click the confirmation link in the email we've sent you")
   end
 
   it 'should get failure note with invalid username' do
@@ -57,7 +56,6 @@ describe 'Reserving a username', type: :request, js: true do
   end
 
   it 'user should receive a confirmation email and should be able to confirm its e-mail address' do
-    pending 'user receives email, but click_link "Confirm my email address" does not send the confirmation_token as a parameter'
     email_address = random_email
 
     clear_emails
@@ -74,8 +72,9 @@ describe 'Reserving a username', type: :request, js: true do
 
     open_email email_address
 
-    current_email.click_link 'Confirm my email address'
+    visit current_email.find('a')[:href]
 
     page.should have_content "Email confirmed. Awaiting account approval."
   end
+
 end

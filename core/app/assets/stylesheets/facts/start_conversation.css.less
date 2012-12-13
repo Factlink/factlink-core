@@ -1,12 +1,12 @@
 @import "bootstrap/variables";
 @import "bootstrap/mixins";
 
-.start-conversation-container {
-  .recipients {
+.start-conversation-form {
+  .conversation-recipients {
     margin-bottom: 4px;
   }
 
-  .text { // don't call this content, clash with #main > #main-wrapper > .content
+  .conversation-message-text {
     display: block;
     width: 100%;
     .box-sizing(border-box);
@@ -14,6 +14,6 @@
     font-size: 13px;
   }
 
-  .submit { float: right; }
+
   .alert  { margin-bottom: 10px; }
 }

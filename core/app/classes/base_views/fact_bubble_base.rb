@@ -36,14 +36,17 @@ module BaseViews
       json.attributes!
     end
 
+    # DEPRECATED, use fact_wheel (or not, but choose one)
     def believe_percentage
       self[:fact].get_opinion.as_percentages[:believe][:percentage]
     end
 
+    # DEPRECATED, use fact_wheel (or not, but choose one)
     def disbelieve_percentage
       self[:fact].get_opinion.as_percentages[:disbelieve][:percentage]
     end
 
+    # DEPRECATED, use fact_wheel (or not, but choose one)
     def doubt_percentage
       self[:fact].get_opinion.as_percentages[:doubt][:percentage]
     end
