@@ -167,6 +167,7 @@ module FactlinkUI
       'tour.css',
       'pages.css',
       'base.css',
+      'email.css',
       'application.js',
       'feedback.js',
       'frontend.js',
