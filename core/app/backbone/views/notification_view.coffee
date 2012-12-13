@@ -21,12 +21,10 @@ class NotificationAddedEvidenceView extends GenericNotificationView
   template: "notifications/added_evidence"
 
 class NotificationAddedSubchannelView extends GenericNotificationView
-  className: "activity activity-subchannel"
-
   template: "notifications/added_subchannel"
 
   regions:
-    followBackRegion: ".js-region-follow-back"
+    addBackRegion: ".js-region-add-back"
 
   onRender: ->
     activity = @model.get('activity')
@@ -35,7 +33,7 @@ class NotificationAddedSubchannelView extends GenericNotificationView
       id: activity.to_channel_id
       containing_channel_ids: activity.to_channel_containing_channel_ids
 
-    @followBackRegion.show new AddChannelToChannelsButtonView model: other_channel
+    @addBackRegion.show new AddChannelToChannelsButtonView model: other_channel
 
 class NotificationInvitedView extends GenericNotificationView
   template: "notifications/invited"
