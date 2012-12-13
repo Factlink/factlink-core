@@ -6,6 +6,8 @@ class CommentsController < ApplicationController
     @comment = interactor :"comments/create", fact_id, params[:type], params[:content]
 
     render 'comments/show'
+  rescue Pavlov::ValidationError => e
+    render text: e.message, :status => 400
   end
 
   def destroy
