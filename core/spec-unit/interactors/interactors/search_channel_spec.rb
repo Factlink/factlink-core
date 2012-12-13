@@ -50,29 +50,5 @@ describe Interactors::SearchChannel do
 
       interactor.execute.should eq [topic]
     end
-
-    it 'filters keywords with length < 2' do
-      keywords = 'searching f this channel'
-      filtered_keywords = 'searching this channel'
-      interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability
-      topic = mock()
-      query = mock()
-      query.should_receive(:execute).
-        and_return([topic])
-      Queries::ElasticSearchChannel.should_receive(:new).
-        with(filtered_keywords, 1, 20).
-        and_return(query)
-
-      interactor.execute.should eq [topic]
-    end
-
-    it 'filters keywords with length < 2 and don''t query because search is empty' do
-      keywords = 'f'
-      interactor = Interactors::SearchChannel.new keywords, ability: relaxed_ability
-
-      Queries::ElasticSearchChannel.should_not_receive(:new)
-
-      interactor.execute.should eq []
-    end
   end
 end

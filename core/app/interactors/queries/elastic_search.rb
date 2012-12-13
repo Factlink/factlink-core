@@ -1,5 +1,5 @@
 require_relative '../pavlov'
-require 'cgi'
+require 'uri'
 
 module Queries
   class ElasticSearch
@@ -16,7 +16,7 @@ module Queries
     def execute
       from = (@page - 1) * @row_count
 
-      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&default_operator=AND"
+      url = "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@types.join(',')}/_search?q=#{processed_keywords}&from=#{from}&size=#{@row_count}&analyze_wildcard=true"
 
       results = HTTParty.get url
       handle_httparty_error results
@@ -36,11 +36,33 @@ module Queries
     end
 
     private
+    def lucene_special_characters_escaped keywords
+      # escaping && and || gives errors, use case is not so important, so removing.
+      keywords.gsub('&&', ' ')
+              .gsub('||', ' ')
+              .gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
+       '\\' + x
+      end
+    end
+
+    def quoted_if_some_lucene_operators keyword
+      # http://lucene.apache.org/core/old_versioned_docs/versions/3_5_0/queryparsersyntax.html#Escaping%20Special%20Characters
+      # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
+      if ['NOT', 'AND', 'OR'].include? keyword
+        return "'#{keyword}'"
+      else
+        keyword
+      end
+    end
+
     def processed_keywords
-      @keywords.split(/\s+/).
-        map{ |x| CGI::escape(x) }.
-        map{ |x| "(#{x}*%20OR%20#{x})"}.
-        join("+")
+      keywords = lucene_special_characters_escaped(@keywords)
+      keywords.
+        split(/\s+/).
+        map{ |keyword| quoted_if_some_lucene_operators keyword}.
+        map{ |keyword| URI.escape(keyword) }.
+        map{ |keyword| "(#{keyword}*+OR+#{keyword})"}.
+        join("+AND+")
     end
 
     def handle_httparty_error results
@@ -67,6 +89,10 @@ module Queries
         return Topic.find(id)
       elsif (type == 'user')
         return User.find(id)
+      elsif (type == 'test_class')
+        obj = TestClass.new
+        obj.id=id
+        return obj
       end
       raise 'Object type unknown.'
     end

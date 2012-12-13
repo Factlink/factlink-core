@@ -22,9 +22,47 @@ class ElasticSearch
     HTTParty.delete url
 
     create_index_response = HTTParty.post url,
-       { body: 'index:\n  number_of_shards:1\n  number_of_replicas:1\n  store:  \n    type:memory' }
+      { body: payload }
+
     if create_index_response.code != 404 and create_index_response.code != 200
       raise 'failed (re)-creating elasticsearch index'
+    end
+  end
+
+  def self.payload
+    if Rails.env == "test"
+      '{
+        "index": {
+          "number_of_shards": 1,
+          "number_of_replicas": 1,
+          "store": {
+            "type": "memory"
+          },
+          "analysis": {
+            "analyzer": {
+              "default": {
+                "type": "standard",
+                "stopwords": [""]
+                }
+              }
+            }
+          }
+        }
+      }'
+    else
+      '{
+        "index": {
+          "analysis": {
+            "analyzer": {
+              "default": {
+                "type": "standard",
+                "stopwords": [""]
+                }
+              }
+            }
+          }
+        }
+      }'
     end
   end
 end
