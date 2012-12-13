@@ -3,6 +3,7 @@ require 'integration_helper'
 feature "adding comments to a fact", type: :request do
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
+  include Acceptance::AddToChannelModalHelper
 
   background do
     @user = sign_in_user create :approved_confirmed_user

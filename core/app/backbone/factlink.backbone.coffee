@@ -8,7 +8,7 @@
 #= require_tree ./factlink
 
 #= require app.js
-#= require ./notification_center/app
+#= require_tree ./modules
 #= require_tree ./models/
 #= require_tree ./collections/
 #= require_tree ./layouts/

@@ -1,39 +1,16 @@
-<a class="btn btn-mini" id="add-to-channel">
-  <span class="add-to-channel-button-label">
-    <i class="icon-plus"></i>
-    {{global.t.add_to_channels}}
-  </span>
-  <span class="added-to-channel-button-label" style="display:none">
-    <image src="{{global.checkmark}}"></image>
-    {{global.t.added_to_channels}}
-  </span>
-</a>
-
-<div class="popup-content">
-  <div class="add-to-channel-modal-region modal" style="display:none">
-    <div class="modal-header">
-      <button type="button" class="close close-popup">&times;</button>
-      <h3>Add to Channels</h3>
-    </div>
-    <div class="modal-body">
-      <div class="alert alert-error js-alert js-alert-error-create_channel hide">
-        The new channel could not be created, please try again.
-        <a class="close" href="#" data-dismiss="alert">x</a>
-      </div>
-      <div class="alert alert-error js-alert js-alert-error-add_channel hide">
-        The channel could not be added, please try again.
-        <a class="close" href="#" data-dismiss="alert">x</a>
-      </div>
-      <div class="alert alert-error js-alert js-alert-error-remove_channel hide">
-        The channel could not be removed, please try again.
-        <a class="close" href="#" data-dismiss="alert">x</a>
-      </div>
-
-      <strong>Add this channel to one or more channels:</strong>
-      <div class="add-to-channel-form"></div>
-      <input type="submit" class="btn btn-primary pull-right close-popup" value="Done">
-    </div>
-  </div>
+<div class="alert alert-error js-alert js-alert-error-create_channel hide">
+  The new channel could not be created, please try again.
+  <a class="close" href="#" data-dismiss="alert">x</a>
+</div>
+<div class="alert alert-error js-alert js-alert-error-add_channel hide">
+  The channel could not be added, please try again.
+  <a class="close" href="#" data-dismiss="alert">x</a>
+</div>
+<div class="alert alert-error js-alert js-alert-error-remove_channel hide">
+  The channel could not be removed, please try again.
+  <a class="close" href="#" data-dismiss="alert">x</a>
 </div>
 
-<div class="transparent-layer"></div>
+<strong>Add this channel to one or more channels:</strong>
+<div class="add-to-channel-form"></div>
+<input type="submit" class="btn btn-primary pull-right close-popup" value="Done">

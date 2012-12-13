@@ -1,0 +1,47 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.suggested-users {
+  li {
+    padding: 7px 10px;
+    border-top: 1px solid @baseBorderColor;
+    &:first-child {
+      border: none
+    }
+    .channel-avatar {
+      img {
+        width: 25px;
+        height: 25px;
+      }
+      width: 30px;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .channel-info {
+      display: inline-block;
+      width: 125px;
+      vertical-align: top;
+      h5 {
+        font-size: @baseFontSize;
+        margin: 0;
+        line-height: 16px;
+        width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .channel-user {
+        font-size: @metaFontSize;
+        line-height: 15px;
+        color: @metaFontColor;
+        width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .btn {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 4px;
+    }
+  }
+}

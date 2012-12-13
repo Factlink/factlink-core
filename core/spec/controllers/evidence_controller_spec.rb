@@ -74,8 +74,8 @@ describe SupportingEvidenceController do
       it "should set the user's opinion on the added new fact"
 
       it "should not set the user's opinion on the evidence to believe" do
-
         f2.add_opinion(:disbelieves, user.graph_user)
+        f2.calculate_opinion 2
 
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
         response.should be_success

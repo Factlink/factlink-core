@@ -1,0 +1,82 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.related-channels-for-channel {
+  padding-top: 32px;
+
+  ul {
+    margin-top: 10px;
+  }
+
+  ul.not_my_channel a.follow {
+    display: none;
+  }
+
+  li {
+    padding-bottom: @baseLineHeight / 2;
+    overflow: auto;
+    width: 100%;
+
+    div.user-avatar {
+      float: left;
+      margin-right: 5px;
+    }
+
+    div.wrapper {
+      float: left;
+
+      a {
+        .ellipsis();
+        width: 146px;
+        display: inline-block;
+      }
+
+      > div {
+        color: @metaFontColor;
+      }
+    }
+
+    a.follow {
+      float: left;
+      margin:0 0 0 4px;
+    }
+    &:hover {
+      div.wrapper h3 {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      div.user-avatar {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .related-user {
+    color: @metaFontColor;
+    font-size: 12px;
+  }
+
+  // User block for related users
+  .user-block {
+    height: 32px;
+    padding: 0;
+    background-color: transparent;
+    &:hover {
+      cursor: pointer;
+      h1 {
+        color: @linkColor;
+      }
+    }
+    .wrapper {
+      margin-left: 48px;
+      h3 {
+        color: @linkColor;
+        font-size: @baseFontSize;
+        font-weight: bold;
+        &:hover {
+          color: @linkColorHover;
+        }
+      }
+    }
+  }
+}

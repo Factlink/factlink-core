@@ -1,12 +1,13 @@
 class window.Fact extends Backbone.Model
-  getOwnContainingChannels: ->
-    containingChannels = @get("containing_channel_ids")
-    ret = []
-    currentUser.channels.each (ch) ->
-      if _.indexOf(containingChannels, ch.id) isnt -1
-        ret.push ch.clone()
+  getOwnContainingChannels: (eventbinder) ->
+    containing_channel_ids = @get("containing_channel_ids") ? []
 
-    new OwnChannelCollection ret
+    col = new OwnChannelCollection currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    eventbinder.bindTo currentUser.channels, 'reset', ->
+      col.reset currentUser.channels.channelArrayForIds(containing_channel_ids)
+
+    col
 
   urlRoot: "/facts/"
 

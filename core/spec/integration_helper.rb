@@ -20,6 +20,7 @@ RSpec.configure do |config|
   Capybara.default_driver = :webkit
   Capybara.default_wait_time = 5
   Capybara.automatic_reload = false
+  Capybara.server_port = 3005
 
   config.pattern = "**/*_spec.rb"
   config.mock_with :rspec
@@ -43,6 +44,7 @@ RSpec.configure do |config|
     stub_const("Logger::INFO", 2)
     stub_const("Logger::LOG", 3)
     stub_const("Logger::DEBUG", 4)
+
     Logger.stub(new: nil.andand)
     ElasticSearch.clean
     Ohm.flush
