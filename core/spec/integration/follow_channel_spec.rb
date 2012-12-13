@@ -1,36 +1,37 @@
 require 'integration_helper'
 
-describe "channels", type: :request do
+feature "channels", type: :request do
   include Acceptance::NavigationHelper
+  include Acceptance::ChannelHelper
+  include Acceptance::AddToChannelModalHelper
 
-  it "can follow somebody else channel" do
-    pending "The ci can't handle the truth (on the ci, this doesn't work)"
+  scenario "I navigate to somebody else's channel and follow it" do
+    @user = create :approved_confirmed_user
+    other_user = create :approved_confirmed_user
 
-    user = FactoryGirl.create :approved_confirmed_user
-    channel_to_follow = FactoryGirl.create(:channel, created_by: user.graph_user)
+    other_users_channel =
+      backend_create_viewable_channel_for other_user
+    my_channel =
+      backend_create_viewable_channel_for @user
 
-    user2 = sign_in_user FactoryGirl.create :approved_confirmed_user
-    own_channel = FactoryGirl.create(:channel, created_by: user2.graph_user)
+    sign_in_user @user
 
-    visit channel_path(user, channel_to_follow)
+    go_to_channel_page_of other_users_channel
+    assert_on_channel_page other_users_channel.title
 
-    page.should have_content(channel_to_follow.title)
-
-    within(:css, '.add-to-channel-region') do
-      find('button').click
+    within_channel_header do
+      find('button', text: 'add').click
     end
+
     within_modal do
-      page.find(:css,'input').set(own_channel.title)
-
-      page.find('li', text: own_channel.title).click
-
-      within(:css, '.auto-complete-results-container') do
-        find("li", text: "#{own_channel.title}")
-      end
+      add_to_channel my_channel.title
+      added_channels_should_contain my_channel.title
     end
 
-    visit channel_path(user, own_channel)
+    go_to_channel_page_of my_channel
 
-    page.should have_content(channel_to_follow.title)
+    within_channel_header do
+      find('a', text: other_users_channel.title)
+    end
   end
 end

@@ -37,7 +37,15 @@ module Acceptance
     end
 
     def assert_on_channel_page channel_title
-      find('#channel > header > h1', text: channel_title)
+      within_channel_header do
+        find('h1', text: channel_title)
+      end
+    end
+
+    def within_channel_header &block
+      within(:css, "#channel > header") do
+        yield
+      end
     end
   end
 end
