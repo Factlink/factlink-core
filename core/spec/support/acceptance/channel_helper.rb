@@ -37,9 +37,8 @@ module Acceptance
     end
 
     def assert_on_channel_page channel_title
-      within_channel_header do
-        find('h1', text: channel_title)
-      end
+      # wait until the new header with the new title appears
+      find('#channel > header h1', text: channel_title)
     end
 
     def within_channel_header &block

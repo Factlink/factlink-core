@@ -65,4 +65,49 @@ describe 'suggested_topics' do
     end
   end
 
+  describe 'are returned' do
+    it 'in the correct order' do
+      site = create :site
+
+      fact1 = create :fact
+      fact2 = create :fact
+
+      top_suggestion   = create(:channel, title: 'top-suggestion')
+      loser_suggestion = create(:channel, title: 'loser-suggestion')
+
+      fact1.channels << top_suggestion
+      fact1.channels << loser_suggestion
+
+      fact2.channels << top_suggestion
+
+      site.facts << fact1
+      site.facts << fact2
+
+      command :'site/reset_top_topics', site.id.to_i
+      topics = query :'site/top_topics', site.id.to_i, 2
+
+      expect(topics[0].slug_title).to eq top_suggestion.slug_title
+      expect(topics[1].slug_title).to eq loser_suggestion.slug_title
+
+
+      fact3 = create :fact
+      fact4 = create :fact
+      fact5 = create :fact
+
+      fact3.channels << loser_suggestion
+      fact4.channels << loser_suggestion
+      fact5.channels << loser_suggestion
+
+      site.facts << fact3
+      site.facts << fact4
+      site.facts << fact5
+
+      command :'site/reset_top_topics', site.id.to_i
+      topics = query :'site/top_topics', site.id.to_i, 2
+
+      expect(topics[0].slug_title).to eq loser_suggestion.slug_title
+      expect(topics[1].slug_title).to eq top_suggestion.slug_title
+    end
+  end
+
 end

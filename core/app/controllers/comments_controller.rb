@@ -25,8 +25,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
-    
+    @comment = interactor 'comments/update_opinion', get_comment_id_param, params[:opinion]
+
     render 'comments/show'
   end
 

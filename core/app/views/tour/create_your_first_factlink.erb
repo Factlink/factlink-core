@@ -86,11 +86,9 @@
 
     FACTLINK.on('modalOpened', function () {
       tour.hide();
-    });
 
-    // FACTLINK.on('opinionSet', function () {
-    //   tour.showStep(4)
-    // });
+      FACTLINK.off('modalOpened');
+    });
 
     FACTLINK.on('factlinkAdded', function () {
       FACTLINK.on('modalClosed', function () {
