@@ -2,7 +2,11 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.BaseController
 
   constructor: (args...)->
-    Marionette.addEventBinder(this);
+    eventBinder = new Backbone.Marionette.EventBinder()
+    _.extend(@, eventBinder)
+    # When updating Marionette:
+    # Use this instead of the above as soon as @janpaul123's pull request is merged into a new version
+    # Backbone.Marionette.addEventBinder @
 
     @initializeRoutes(@routes)
     @initialize(args...) if @initialize?
