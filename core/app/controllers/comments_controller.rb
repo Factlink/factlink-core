@@ -21,7 +21,11 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     type    = params[:type].to_s
 
-    @comments = interactor :"comments/index", fact_id, type
+    comments = interactor :"comments/index", fact_id, type
+
+    @comments = comments.sort do |a,b|
+      OpinionPresenter.new(a.opinion).relevance <=> OpinionPresenter.new(b.opinion).relevance
+    end
 
     render 'comments/index'
   end
