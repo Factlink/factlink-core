@@ -12,8 +12,8 @@ describe "creating a Factlink", type: :request do
   it "should add a factlink" do
     fact_name = "baronnenbillen"
 
-    visit new_fact_path
-    fill_in "fact", with: fact_name
+    visit new_fact_path(fact: fact_name)
+
     click_button "submit"
 
     visit created_channel_path(@user)
@@ -26,8 +26,8 @@ describe "creating a Factlink", type: :request do
     fact_name = "raar"
 
     # create fact:
-    visit new_fact_path
-    fill_in "fact", with: fact_name
+    visit new_fact_path(fact: fact_name)
+
     click_button "submit"
 
     visit created_channel_path(@user)

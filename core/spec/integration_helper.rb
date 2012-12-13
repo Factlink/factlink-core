@@ -17,8 +17,8 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
   # webkit always has js enabled, so always use this:
-  Capybara.javascript_driver = :webkit
-  Capybara.default_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
+  Capybara.default_driver = :poltergeist
   Capybara.default_wait_time = 5
   Capybara.automatic_reload = false
   Capybara.server_port = 3005
