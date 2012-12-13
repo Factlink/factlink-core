@@ -34,8 +34,7 @@ feature "adding comments to a fact", type: :request do
   end
 
 
-  scenario 'after voting a comment it should have brain cycles' do
-
+  scenario 'after adding a comment it should have brain cycles' do
     user_authority_on_fact = 17
     Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
 
@@ -44,17 +43,12 @@ feature "adding comments to a fact", type: :request do
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment_with_toggle comment
 
-    within '.comments-listing' do
-      find('.supporting').click
-    end
-
     go_to_discussion_page_of factlink
 
     within '.comments-listing' do
       find('.total-authority-evidence').should have_content user_authority_on_fact + 1
     end
   end
-
 
   scenario "after adding multiple comments they should show up and persist" do
     go_to_discussion_page_of factlink
