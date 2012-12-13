@@ -65,6 +65,10 @@ class GraphUser < OurOhm
 
   attribute :interestingness
 
+
+  # TODO REMOVE AND MIGRATE AWAY
+  # Those were the suggested users (before suggested channels)
+  # They aren't used anymore
   after :create, :reposition_in_top_users
   def reposition_in_top_users
     self.interestingness = self.internal_channels.size
