@@ -4,6 +4,15 @@ require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
 require_relative 'channel/activities'
 
+class ChannelList
+  def initialize graph_user
+    @user = user
+  end
+
+  def channels
+    Channel.find(:created_by_id => @user.id)
+  end
+end
 
 class Channel < OurOhm
   include Activity::Subject
@@ -210,7 +219,7 @@ class Channel < OurOhm
   end
 
   def self.active_channels_for(user)
-    Channel.find(:created_by_id => user.id)
+    ChannelList.new(user).channels
   end
 
   def self.for_fact(f)
