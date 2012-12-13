@@ -38,8 +38,16 @@ class window.VoteUpDownView extends Backbone.Marionette.ItemView
 
   disbelieve: ->
     @hideTooltips()
-    @model.disbelieve()
+
+    if @model.isDisBelieving()
+      @model.removeOpinion()
+    else
+      @model.disbelieve()
 
   believe: ->
     @hideTooltips()
-    @model.believe()
+
+    if @model.isBelieving()
+      @model.removeOpinion()
+    else
+      @model.believe()
