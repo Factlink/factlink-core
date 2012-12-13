@@ -104,7 +104,6 @@ group :assets do
 
   gem "rails-backbone", '= 0.7.2'
 
-  # When updating, check source for 'updating Marionette'
   gem "marionette-rails", '= 1.0.0.rc.2', git: 'https://github.com/Factlink/marionette-rails'
 end
 

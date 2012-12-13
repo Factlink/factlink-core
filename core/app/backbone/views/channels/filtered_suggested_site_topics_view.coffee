@@ -36,9 +36,6 @@ class window.FilteredSuggestedSiteTopicsView extends Backbone.Marionette.Layout
   regions:
     suggestedSiteTopicsRegion: '.js-suggested-site-topics-region'
 
-  # TODO remove on updating marionette
-  initialEvents: -> # don't rerender on collection change
-
   initialize: (options) ->
     suggested_topics = new SuggestedSiteTopics([], site_id: @options.site_id)
     suggested_topics.fetch()
