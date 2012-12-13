@@ -14,7 +14,7 @@ module Pavlov
       results.keep_if { |result| valid_result? result}
     end
     def filtered_keywords
-      keywords_longer_than_chars @keywords, keyword_min_length
+      keywords_longer_than_chars @keywords, (keyword_min_length-1)
     end
     def execute
       search_with(use_query)

@@ -103,7 +103,6 @@ describe "factlink", type: :request do
   end
 
   it "should find a factlink when searching on a exact phrase containing small words" do
-    pending "because there's an open asap point to fix elasticsearchrelated bugs"
     displaystring = 'feathers is not a four letter groom betters'
 
     @factlink = create_factlink @user
@@ -115,14 +114,13 @@ describe "factlink", type: :request do
     visit friendly_fact_path(@factlink)
     page.should have_content(@factlink.data.title)
 
-    click_on "Agreeing"
-
-    wait_until_scope_exists '.add-evidence-container' do
-      fill_in 'supporting_search', :with => displaystring
-      wait_for_ajax
+    within '.fact-relation-search' do
+      fill_in 'text_input_view', with: displaystring
     end
 
-    page.should have_content @factlink_evidence.data.displaystring
+    within '.auto-complete-search-list' do
+      page.should have_content @factlink_evidence.data.displaystring
+    end
   end
 
   def wheel_path_d position

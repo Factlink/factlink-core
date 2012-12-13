@@ -6,7 +6,7 @@ class CreateSearchIndexForUser
     user = User.find(user_id)
 
     if user
-      IndexUserForTextSearch.new(user).execute
+      Commands::ElasticSearchIndexUserForTextSearch.new(user).execute
     else
       raise "Failed adding index for user with user_id: #{user_id}"
     end

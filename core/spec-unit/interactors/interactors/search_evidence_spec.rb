@@ -81,34 +81,6 @@ describe Interactors::SearchEvidence do
       interactor.execute.should eq result
     end
 
-    it 'filters keywords with length < 3' do
-      keywords = 'zoeken fo interessante dingen'
-      filtered_keywords = 'zoeken interessante dingen'
-      interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability
-
-      result = [get_fact_data('2')]
-      query = mock()
-
-      Queries::ElasticSearchFactData.should_receive(:new).
-        with(filtered_keywords, 1, 20).
-        and_return(query)
-
-      query.should_receive(:execute).
-        and_return(result)
-
-      FactData.stub :valid => true
-
-      interactor.execute.should eq result
-    end
-
-    it 'filters keywords with length < 3 and don''t query because search is empty' do
-      keywords = 'fo'
-      interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability
-      Queries::ElasticSearchFactData.should_not_receive(:new)
-
-      interactor.execute.should eq []
-    end
-
     it 'shouldn''t return invalid results' do
       keywords = 'zoeken interessante dingen'
       interactor = Interactors::SearchEvidence.new keywords, '1', ability: relaxed_ability

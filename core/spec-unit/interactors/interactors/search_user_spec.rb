@@ -51,29 +51,5 @@ describe Interactors::SearchUser do
 
       interactor.execute.should eq [topic]
     end
-
-    it 'filters keywords with length < 2' do
-      keywords = 'searching f this user'
-      filtered_keywords = 'searching this user'
-      interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
-      topic = mock()
-      query = mock()
-      query.should_receive(:execute).
-        and_return([topic])
-      Queries::ElasticSearchUser.should_receive(:new).
-        with(filtered_keywords, 1, 20).
-        and_return(query)
-
-      interactor.execute.should eq [topic]
-    end
-
-    it 'filters keywords with length < 2 and don''t query because search is empty' do
-      keywords = 'f'
-      interactor = Interactors::SearchUser.new keywords, ability: relaxed_ability
-
-      Queries::ElasticSearchUser.should_not_receive(:new)
-
-      interactor.execute.should eq []
-    end
   end
 end

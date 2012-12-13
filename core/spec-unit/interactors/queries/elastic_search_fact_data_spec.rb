@@ -26,7 +26,7 @@ describe Queries::ElasticSearchFactData do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = 'searching for evidence'
-      wildcard_keywords = '(searching*%20OR%20searching)+(for*%20OR%20for)+(evidence*%20OR%20evidence)'
+      wildcard_keywords = '(searching*+OR+searching)+AND+(for*+OR+for)+AND+(evidence*+OR+evidence)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
       hit = mock()
@@ -38,7 +38,7 @@ describe Queries::ElasticSearchFactData do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       return_object = mock()
@@ -74,7 +74,7 @@ describe Queries::ElasticSearchFactData do
       config.stub elasticsearch_url: base_url
       FactlinkUI::Application.stub config: config
       keywords = '$+,:; @=?&=/'
-      wildcard_keywords = '(%24%2B%2C%3A%3B*%20OR%20%24%2B%2C%3A%3B)+(%40%3D%3F%26%3D%2F*%20OR%20%40%3D%3F%26%3D%2F)'
+      wildcard_keywords = '($%5C+,%5C:;*+OR+$%5C+,%5C:;)+AND+(@=%5C?&=/*+OR+@=%5C?&=/)'
       interactor = Queries::ElasticSearchFactData.new keywords, 1, 20
 
       hit = mock()
@@ -86,7 +86,7 @@ describe Queries::ElasticSearchFactData do
       results.stub code: 200
 
       HTTParty.should_receive(:get).
-        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&default_operator=AND").
+        with("http://#{base_url}/factdata/_search?q=#{wildcard_keywords}&from=0&size=20&analyze_wildcard=true").
         and_return(results)
 
       return_object = mock()
