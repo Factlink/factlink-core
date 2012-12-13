@@ -41,8 +41,8 @@ module Queries
       # NOT and AND and OR could be interpreted as operators, maybe wildcard search for them doesn't work
       keywords.gsub 'NOT', '''NOT'''
       keywords.gsub 'AND', '''AND'''
-      # escaping && and || gives errors, use case is not so important, so removing.
       keywords.gsub 'OR', '''OR'''
+      # escaping && and || gives errors, use case is not so important, so removing.
       keywords.gsub '&&', ''
       keywords.gsub '||', ''
       keywords.gsub(/\+|\-|\!|\(|\)|\{|\}|\[|\]|\^|\~|\*|\?|\:|\\/) do |x|
