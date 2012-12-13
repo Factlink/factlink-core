@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rubygems'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require 'capybara-webkit'
 require 'capybara/email/rspec'
 require 'capybara-screenshot/rspec'
@@ -36,6 +37,10 @@ RSpec.configure do |config|
     ElasticSearch.create
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.orm = "mongoid"
+    Capybara.register_driver :poltergeist do |app|
+      Capybara::Poltergeist::Driver.new(app, {:js_errors => false})
+    end
+
   end
 
   config.before(:each) do

@@ -139,6 +139,7 @@ group :test do
   gem 'capybara-webkit', '= 0.10.1', require: false
   gem 'capybara-screenshot'
   gem 'capybara-email'
+  gem 'poltergeist', require: false
 
   gem 'oily_png'
 
