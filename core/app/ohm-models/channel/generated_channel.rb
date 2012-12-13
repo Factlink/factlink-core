@@ -4,10 +4,6 @@ class Channel < OurOhm
       0
     end
 
-    def discontinued
-      false
-    end
-
     def editable?
       false
     end

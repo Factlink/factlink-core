@@ -8,7 +8,6 @@ describe Channel::UserStream do
 
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
-    its(:discontinued) {should == false}
     its(:editable?) {should == false}
     its(:inspectable?) {should == false}
     its(:title) {should == "All" }

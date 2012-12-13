@@ -179,7 +179,6 @@ class LoadDsl
 
   def self.export_channel(channel)
     rv = "channel \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 
@@ -190,7 +189,6 @@ class LoadDsl
 
   def self.export_sub_channel(channel)
     rv = "sub_channel \"#{quote_string(channel.created_by.user.username)}\", \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 

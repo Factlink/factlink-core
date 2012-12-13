@@ -70,8 +70,6 @@ class Channel < OurOhm
     unread_facts.make_empty
   end
 
-  attribute :discontinued
-  index :discontinued
   alias :old_real_delete :delete unless method_defined?(:old_real_delete)
   def real_delete
     contained_channels.each do |subch|
@@ -176,8 +174,7 @@ class Channel < OurOhm
   def to_hash
     return {:id => id,
             :title => title,
-            :created_by => created_by,
-            :discontinued => discontinued}
+            :created_by => created_by}
   end
 
   def add_channel(channel)
@@ -212,7 +209,7 @@ class Channel < OurOhm
   end
 
   def self.active_channels_for(user)
-    Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
+    Channel.find(:created_by_id => user.id)
   end
 
   def self.for_fact(f)
