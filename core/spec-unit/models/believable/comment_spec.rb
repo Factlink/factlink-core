@@ -1,5 +1,5 @@
 require_relative '../../../app/models/believable.rb'
-require_relative '../../../app/models/believable/commentje.rb'
+require_relative '../../../app/models/believable/comment.rb'
 require 'pavlov_helper'
 
 describe Believable::Comment do
