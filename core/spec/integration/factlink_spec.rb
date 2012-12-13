@@ -115,7 +115,9 @@ describe "factlink", type: :request do
     visit friendly_fact_path(@factlink)
     page.should have_content(@factlink.data.title)
 
-    fill_in 'add_factrelation', :with => displaystring
+    within '.fact-relation-search' do
+      fill_in 'text_input_view', with: displaystring
+    end
 
     within '.auto-complete-search-list' do
       page.should have_content @factlink_evidence.data.displaystring
