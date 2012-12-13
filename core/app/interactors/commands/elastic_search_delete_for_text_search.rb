@@ -29,7 +29,7 @@ module Commands
     def execute
       HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
 
-      @logger.info "Removing #{@type_name} from ElasticSearch index."
+      # @logger.info "Removing #{@type_name} from ElasticSearch index."
     end
 
   end

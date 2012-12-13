@@ -23,7 +23,7 @@ module Commands
     def execute
       index = ElasticSearch::Index.new @type_name
       index.add @object.id, @document.to_json
-      @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
+      # @logger.info "Adding/updating #{@type_name} to ElasticSearch index."
     end
 
     private

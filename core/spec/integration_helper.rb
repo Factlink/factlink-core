@@ -20,7 +20,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :poltergeist
   Capybara.default_driver = :poltergeist
   Capybara.default_wait_time = 5
-  Capybara.automatic_reload = false
   Capybara.server_port = 3005
 
   config.pattern = "**/*_spec.rb"

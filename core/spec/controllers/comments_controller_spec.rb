@@ -63,7 +63,7 @@ describe CommentsController do
       controller.stub(get_comment_id_param: comment_id)
       controller.stub(params: {opinion: opinion})
 
-      controller.should_receive(:interactor).with('comments/set_opinion', comment_id, opinion)
+      controller.should_receive(:interactor).with('comments/update_opinion', comment_id, opinion)
       controller.should_receive(:render).with('comments/show')
 
       controller.update
