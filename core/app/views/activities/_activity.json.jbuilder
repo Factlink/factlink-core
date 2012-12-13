@@ -19,7 +19,7 @@ json.translated_action t("fact_#{action.to_sym}_action".to_sym)
 
 json.subject subject.to_s
 
-json.time_ago time_ago_in_words(Time.at(created_at.to_time))
+json.time_ago TimeFormatter.as_time_ago(created_at.to_time)
 
 json.id activity.id
 
@@ -74,7 +74,7 @@ json.activity do |json|
     json.to_channel_id             object.id
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
-    
+
     json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).execute
 
     json.target_url                channel_path(object.created_by.user, object.id)

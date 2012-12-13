@@ -22,7 +22,7 @@ module Queries
       end
 
       def topics
-        Topic.any_in(slug_title: topic_slugs)
+        topic_slugs.map { |slug_title| Topic.where(slug_title: slug_title).first }
       end
 
       def topic_slugs

@@ -1,7 +1,7 @@
 class ConvertSitesToNewNormalization < Mongoid::Migration
   def self.up
     Site.all.ids.each do |id|
-      Resque.enqueue NormalizeSiteUrlInteractor, id, :UrlNormalizer
+      Resque.enqueue Interactors::NormalizeSiteUrl, id, :UrlNormalizer
     end
   end
 

@@ -89,7 +89,9 @@ describe Queries::Site::TopTopics do
 
       topic_slugs = topics.map(&:slug_title)
 
-      Topic.should_receive(:any_in).with(slug_title: topic_slugs).and_return(topics)
+      topics.each do |topic|
+        Topic.should_receive(:where).with(slug_title: topic.slug_title).and_return([topic])
+      end
 
       query.should_receive(:topic_slugs).and_return(topic_slugs)
 
