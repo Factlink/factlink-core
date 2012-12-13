@@ -166,6 +166,7 @@ class Channel < OurOhm
     true
   end
 
+  # This function is not really used, can be removed
   def can_be_added_as_subchannel?
     true
   end
