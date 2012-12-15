@@ -6,13 +6,17 @@ module Acceptance
     end
 
     def within_modal &block
-      within(:css, "#modal_region .modal-body") do
+      # When fixing modals, reinstate this
+      # within(:css, "#modal_region .modal-body") do
+      within(:css, ".modal-body") do
         yield
       end
     end
 
     def close_modal
-      find("#modal_region .modal-header .close").click
+      # When fixing modals, reinstate this
+      # find("#modal_region .modal-header .close").click
+      find(".modal-header .close").click
     end
 
     def go_back_using_button
