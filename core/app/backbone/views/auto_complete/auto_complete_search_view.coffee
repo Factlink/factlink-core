@@ -45,6 +45,3 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
 
   addCurrent: ->
     console.error "the function to add current selection was not implemented"
-
-  initialEvents: -> # Remove this line when updating Marionette
-    # In our version of Marionette a Layout re-renders when its @collection gets a 'reset' event

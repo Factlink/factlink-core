@@ -2,7 +2,7 @@ Backbone.Factlink ||= {}
 class Backbone.Factlink.SteppableView extends Backbone.Marionette.CompositeView
   constructor: (args...)->
     super(args...)
-    @on 'item:added', @onItemAddedDoSteppableInitialization, this
+    @on 'after:item:added', @onItemAddedDoSteppableInitialization, this
     @on 'composite:collection:rendered', => @setActiveView 0
     @list = []
 
