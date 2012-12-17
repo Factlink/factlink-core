@@ -21,10 +21,7 @@ class SearchController < ApplicationController
     @results = []
 
     if search_for.size > 0
-      interactor = Interactors::Search.new search_for,
-        ability: current_ability, page: page, row_count: row_count
-
-      @results = interactor.call
+      @results = interactor :search, search_for, page, row_count
 
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
