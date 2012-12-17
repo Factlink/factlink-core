@@ -14,7 +14,7 @@ describe Queries::ElasticSearchUser do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'executes correctly with return value of User class' do
       config = mock()
       base_url = '1.0.0.0:4000/index'
@@ -40,7 +40,7 @@ describe Queries::ElasticSearchUser do
 
       User.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -60,7 +60,7 @@ describe Queries::ElasticSearchUser do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchUser.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes keywords' do
@@ -88,7 +88,7 @@ describe Queries::ElasticSearchUser do
 
       User.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
   end
 end

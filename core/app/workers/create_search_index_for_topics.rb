@@ -6,7 +6,7 @@ class CreateSearchIndexForTopics
     topic = Topic.find(topic_id)
 
     if topic
-      Commands::ElasticSearchIndexTopicForTextSearch.new(topic).execute
+      Commands::ElasticSearchIndexTopicForTextSearch.new(topic).call
     else
       raise "Failed adding index for topic with topic_id: #{topic_id}"
     end

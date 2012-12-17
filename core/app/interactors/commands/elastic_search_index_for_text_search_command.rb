@@ -20,7 +20,7 @@ module Commands
       raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
     end
 
-    def execute
+    def call
       index = ElasticSearch::Index.new @type_name
       index.add @object.id, @document.to_json
       # @logger.info "Adding/updating #{@type_name} to ElasticSearch index."

@@ -27,7 +27,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
       to raise_error(RuntimeError, 'factdata missing fields ([:displaystring, :title, :id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -38,7 +38,7 @@ describe Commands::ElasticSearchIndexFactDataForTextSearch do
         { body: { displaystring: fact_data.displaystring, title: fact_data.title }.to_json})
       interactor = Commands::ElasticSearchIndexFactDataForTextSearch.new fact_data
 
-      interactor.execute
+      interactor.call
     end
   end
 end

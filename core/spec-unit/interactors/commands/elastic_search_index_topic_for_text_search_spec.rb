@@ -28,7 +28,7 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
       to raise_error(RuntimeError, 'topic missing fields ([:title, :slug_title, :id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -39,7 +39,7 @@ describe Commands::ElasticSearchIndexTopicForTextSearch do
         { body: { title: topic.title, slug_title: topic.slug_title}.to_json})
       interactor = Commands::ElasticSearchIndexTopicForTextSearch.new topic
 
-      interactor.execute
+      interactor.call
     end
   end
 end

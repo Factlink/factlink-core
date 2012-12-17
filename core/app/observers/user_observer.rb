@@ -1,19 +1,19 @@
 class UserObserver < Mongoid::Observer
 
   def after_create user
-    Commands::ElasticSearchIndexUserForTextSearch.new(user).execute
+    Commands::ElasticSearchIndexUserForTextSearch.new(user).call
   end
 
   def after_update user
     UserObserverTask.send_welcome_instructions user
 
     if user.changed? and not (user.changed & ['username']).empty?
-      Commands::ElasticSearchIndexUserForTextSearch.new(user).execute
+      Commands::ElasticSearchIndexUserForTextSearch.new(user).call
     end
   end
 
   def after_destroy user
-    Commands::ElasticSearchDeleteUserForTextSearch.new(user).execute
+    Commands::ElasticSearchDeleteUserForTextSearch.new(user).call
   end
 
 end

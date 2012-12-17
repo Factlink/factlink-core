@@ -26,7 +26,7 @@ module Commands
       @object.respond_to? name
     end
 
-    def execute
+    def call
       HTTParty.delete "http://#{FactlinkUI::Application.config.elasticsearch_url}/#{@type_name}/#{@object.id}"
 
       # @logger.info "Removing #{@type_name} from ElasticSearch index."
