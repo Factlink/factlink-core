@@ -39,7 +39,7 @@ GIT
     resqued_devise_mailer (0.0.1)
 
 GIT
-  remote: https://github.com/janpaul123/marionette-rails
+  remote: https://github.com/janpaul123/marionette-rails.git
   revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
   specs:
     marionette-rails (1.0.0.rc.2)
