@@ -5,8 +5,8 @@
  ☐ move evidence#index to the comments/index interactor, and rename accordingly
  ☐ add type to json
  Frontend:
- ☐ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView
- ☐ add getEvidenceView kind of functionality to this EvidenceListView
+ ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
+ ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
  ☐ collection should contain containing fact id (needed for url in models)
  ☐ add url to factrelation model
  ☐ add url to comment model
