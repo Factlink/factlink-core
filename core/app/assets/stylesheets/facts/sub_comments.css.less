@@ -2,9 +2,84 @@
 @import "bootstrap/mixins";
 
 .evidence-sub-comments {
+  margin: 5px 0 0 84px;
+  clear: both;
+
+  .evidence-sub-comments-link {
+    font-weight: bold;
+  }
+
   .evidence-sub-comments-list {
-    .evidence-sub-comments {
-      
+    position: relative;
+    margin: 6px 0 0 -54px;
+    border: 1px solid @baseBorderColor;
+    background-color: @whiteDarker;
+    .box-shadow(0 1px 3px rgba(0,0,0, 0.07));
+    .border-radius(3px);
+
+    img.evidence-sub-comments-avatar {
+      float: left;
+      .border-radius(3px);
+    }
+
+    .evidence-sub-comment {
+      padding: 10px;
+      border-bottom: 1px solid @baseBorderColor;
+      .box-shadow(0 1px 0 rgba(255,255,255,0.5));
+      font-size: @baseFontSize;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+
+      img.evidence-sub-comments-avatar {
+        margin-top: 4px;
+      }
+
+      .evidence-sub-comment-author {
+        margin-left: 44px;
+        margin-bottom: 3px;
+        color: @mutedFontColor;
+
+        .evidence-sub-comment-authority {
+          color: @baseFontColor;
+          font-size: @metaFontSize;
+        }
+      }
+
+      .evidence-sub-comment-content {
+        margin-left: 44px;
+      }
+    }
+
+    .evidence-sub-comments-arrow {
+      position: absolute;
+      left: 77px;
+      top: -8px;
+      width: 18px;
+      height: 8px;
+      background: url(/assets/discussions/comment_arrow.png) no-repeat;
+    }
+
+    .evidence-sub-comments-form {
+      padding: 10px;
+      overflow: hidden;
+
+      .evidence-sub-comments-textarea {
+        width: 555px;
+        padding-top: 6px;
+        margin-left: 12px;
+        height: 20px;
+        resize: none;
+        .transition(height 0.15s ease-in-out);
+      }
+
+      .evidence-sub-comments-button {
+        margin-right: 3px;
+      }
+
+      &.evidence-sub-comments-form-active {
+        .evidence-sub-comments-textarea {
+          height: 36px;
+        }
+      }
     }
   }
 }
