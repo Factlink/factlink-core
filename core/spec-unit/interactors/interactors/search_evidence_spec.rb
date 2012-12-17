@@ -35,12 +35,12 @@ describe Interactors::SearchEvidence do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'returns a empty array when the keyword string is empty' do
       keywords = 'zoeken interessante dingen'
       interactor = Interactors::SearchEvidence.new '', '1', ability: relaxed_ability
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
 
     it 'shouldn''t return itself' do
@@ -54,12 +54,12 @@ describe Interactors::SearchEvidence do
         with(keywords, 1, 20).
         and_return(query)
 
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(result)
 
       FactData.stub :valid => true
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
 
     it 'correctly' do
@@ -73,12 +73,12 @@ describe Interactors::SearchEvidence do
         with(keywords, 1, 20).
         and_return(query)
 
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(result)
 
       FactData.stub :valid => true
 
-      interactor.execute.should eq result
+      interactor.call.should eq result
     end
 
     it 'shouldn''t return invalid results' do
@@ -94,13 +94,13 @@ describe Interactors::SearchEvidence do
         with('zoeken interessante dingen', 1, 20).
         and_return(query)
 
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(result)
 
       FactData.should_receive(:valid).with(fact_data).and_return(false)
       FactData.should_receive(:valid).with(fact_data2).and_return(true)
 
-      interactor.execute.should eq [fact_data2]
+      interactor.call.should eq [fact_data2]
     end
   end
 

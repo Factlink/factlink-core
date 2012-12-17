@@ -26,15 +26,15 @@ describe Interactors::Search do
       to raise_error(RuntimeError, 'Keywords must not be empty.')
   end
 
-  describe '.execute' do
-    it 'raises when executed without any permission' do
+  describe '.call' do
+    it 'raises when called without any permission' do
       ability = stub(:ability, can?: false)
       expect do
         Interactors::Search.new 'keywords', ability: ability
       end.to raise_error(Pavlov::AccessDenied)
     end
   end
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       keywords = "searching for this channel"
       interactor = Interactors::Search.new keywords, ability: relaxed_ability
@@ -44,10 +44,10 @@ describe Interactors::Search do
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(results)
 
-      interactor.execute.should eq results
+      interactor.call.should eq results
     end
 
     it 'invalid Factdata is filtered' do
@@ -59,11 +59,11 @@ describe Interactors::Search do
       Queries::ElasticSearchAll.should_receive(:new).
         with(keywords, 1, 20).
         and_return(query)
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(results)
       FactData.stub invalid: true
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
 
     it 'hidden User is filtered' do
@@ -78,10 +78,10 @@ describe Interactors::Search do
         with(keywords, 1, 20).
         and_return(query)
 
-      query.should_receive(:execute).
+      query.should_receive(:call).
         and_return(results)
 
-      interactor.execute.should eq []
+      interactor.call.should eq []
     end
   end
 end

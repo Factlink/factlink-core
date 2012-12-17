@@ -199,7 +199,7 @@ class LoadDsl
 
     interactor = Interactors::Channels::AddFact.new fact, self.state_channel, no_current_user: true
 
-    interactor.execute
+    interactor.call
   end
 
   def self.export_add_fact(fact)

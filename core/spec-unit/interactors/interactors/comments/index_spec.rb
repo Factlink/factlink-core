@@ -24,7 +24,7 @@ describe Interactors::Comments::Index do
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'returns comments with the type object set' do
       fact = mock(id: 1)
       type = 'believes'
@@ -37,7 +37,7 @@ describe Interactors::Comments::Index do
 
       interactor.should_receive(:query).with(:comments_for_fact_and_type, fact.id, type).and_return([comment1, comment2])
 
-      result = interactor.execute
+      result = interactor.call
 
       result.should eq [comment1, comment2]
     end

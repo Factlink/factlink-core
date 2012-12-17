@@ -2,7 +2,7 @@ require "pavlov_helper"
 require_relative "../../../../app/interactors/interactors/channels/channel_suggestions.rb"
 
 describe Interactors::Channels::ChannelSuggestions do
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const('Queries', Class.new)
       stub_const('Queries::Channels', Class.new)
@@ -19,9 +19,9 @@ describe Interactors::Channels::ChannelSuggestions do
       interactor = Interactors::Channels::ChannelSuggestions.new current_user: current_user
 
       Queries::Channels::ChannelSuggestions.should_receive(:new).and_return(query)
-      query.should_receive(:execute).and_return result
+      query.should_receive(:call).and_return result
 
-      expect(interactor.execute).to eq result
+      expect(interactor.call).to eq result
     end
   end
 

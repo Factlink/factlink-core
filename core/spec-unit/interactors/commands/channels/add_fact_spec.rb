@@ -2,7 +2,7 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/commands/channels/add_fact'
 
 describe Commands::Channels::AddFact do
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const('Resque', Class.new)
       stub_const('AddFactToChannelJob', Class.new)
@@ -33,7 +33,7 @@ describe Commands::Channels::AddFact do
 
       Resque.should_receive(:enqueue).with(AddFactToChannelJob, fact_id, channel_id, initiated_by_id: channel_created_by_id)
 
-      command.execute
+      command.call
     end
   end
 end

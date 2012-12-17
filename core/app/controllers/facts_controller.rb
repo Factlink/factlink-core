@@ -199,7 +199,7 @@ class FactsController < ApplicationController
     search_for = params[:s]
 
     interactor = Interactors::SearchEvidence.new search_for, @fact.id, ability: current_ability
-    results = interactor.execute
+    results = interactor.call
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
 

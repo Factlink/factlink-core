@@ -35,7 +35,7 @@ class Fact < Basefact
 
     interactor = Commands::Channels::AddFact.new self, channel
 
-    interactor.execute
+    interactor.call
   end
 
   def has_site?

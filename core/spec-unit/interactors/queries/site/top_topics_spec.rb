@@ -51,7 +51,7 @@ describe Queries::Site::TopTopics do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
 
     before do
       stub_classes 'Topic'
@@ -73,7 +73,7 @@ describe Queries::Site::TopTopics do
       KillObject.should_receive(:topic).with(topic1).and_return(dead_topic1)
       KillObject.should_receive(:topic).with(topic2).and_return(dead_topic2)
 
-      expect(query.execute).to eq [dead_topic1, dead_topic2]
+      expect(query.call).to eq [dead_topic1, dead_topic2]
     end
   end
 

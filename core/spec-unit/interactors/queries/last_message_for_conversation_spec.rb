@@ -30,11 +30,11 @@ describe Queries::LastMessageForConversation do
     end
   end
 
-  describe ".execute" do
+  describe ".call" do
     it "works with a conversation that does not contain messages" do
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(empty_mongo_criteria)
 
-      results = Queries::LastMessageForConversation.execute(conversation, current_user: user)
+      results = Queries::LastMessageForConversation.new(conversation, current_user: user).call
       expect(results).to eq(nil)
     end
 
@@ -42,7 +42,7 @@ describe Queries::LastMessageForConversation do
       criteria = mock('criteria', last: mock('message', message))
       Message.should_receive(:where).with(conversation_id: conversation.id.to_s).and_return(criteria)
 
-      results = Queries::LastMessageForConversation.execute(conversation, current_user: user)
+      results = Queries::LastMessageForConversation.new(conversation, current_user: user).call
       expect(results).to eq(OpenStruct.new(message))
     end
   end

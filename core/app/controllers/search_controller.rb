@@ -24,7 +24,7 @@ class SearchController < ApplicationController
       interactor = Interactors::Search.new search_for,
         ability: current_ability, page: page, row_count: row_count
 
-      @results = interactor.execute
+      @results = interactor.call
 
       @results = @results.map do |result|
         SearchResults::SearchResultItem.for(obj: result, view: view_context)
