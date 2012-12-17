@@ -41,7 +41,7 @@ class window.ChannelList extends window.GenericChannelList
     return true
 
   shouldReload: ->
-    getLocalStorage("reload") is "false"
+    not (typeof localStorage is "object" and localStorage isnt null and localStorage["reload"] is "false")
 
   setupReloading: (force_reload_now=false)->
     if @shouldReload()
