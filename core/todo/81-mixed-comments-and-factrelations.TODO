@@ -1,0 +1,19 @@
+
+ Backend:
+ ☐ mix the evidence#index and comments#index and save as evidence#index
+ ☐ extract query to retrieve factrelations
+ ☐ move evidence#index to the comments/index interactor, and rename accordingly
+ ☐ add type to json
+ Frontend:
+ ☐ Simplify window.FactRelationsView to not contain two collections but only one (strip out layout level), name: EvidenceListView
+ ☐ add getEvidenceView kind of functionality to this EvidenceListView
+ ☐ collection should contain containing fact id (needed for url in models)
+ ☐ add url to factrelation model
+ ☐ add url to comment model
+ Integration tests:
+ ☐ fix old tests
+ ☐ test new interleaving
+
+
+
+
