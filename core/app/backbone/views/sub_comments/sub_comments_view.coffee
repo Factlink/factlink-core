@@ -22,7 +22,7 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
 
   onRender: ->
     @updateLink()
-    # bind to model change event here
+    # Bind to model change event here when returning a comment count
 
   toggleList: ->
     if @listOpen then @closeList()
@@ -38,4 +38,4 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @listOpen = false
 
   updateLink: ->
-    @$(".js-sub-comments-link").text "Comments (0)"
+    @$(".js-sub-comments-link").text "Comments" # Add comment count here
