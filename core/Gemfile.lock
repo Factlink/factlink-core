@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: https://github.com/Factlink/ohm.git
-  revision: 6c5c82ea42e30230362e509b6adcbd648614a804
+  revision: bc6339a9d8119db59fd4cc379369b6a2ad1aa2ac
   specs:
     ohm (0.2.0)
       nest (~> 1.0)
@@ -288,7 +288,7 @@ GEM
     multi_xml (0.5.1)
     multipart-post (1.1.5)
     mustache (0.99.4)
-    nest (1.1.1)
+    nest (1.1.2)
       redis
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)

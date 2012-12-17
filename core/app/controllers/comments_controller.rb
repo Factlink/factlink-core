@@ -6,6 +6,8 @@ class CommentsController < ApplicationController
     @comment = interactor :"comments/create", fact_id, params[:type], params[:content]
 
     render 'comments/show'
+  rescue Pavlov::ValidationError => e
+    render text: e.message, :status => 400
   end
 
   def destroy
@@ -19,14 +21,16 @@ class CommentsController < ApplicationController
     fact_id = get_fact_id_param
     type    = params[:type].to_s
 
-    @comments = interactor :"comments/index", fact_id, type
+    comments = interactor :"comments/index", fact_id, type
+
+    @comments = sort_by_relevance comments
 
     render 'comments/index'
   end
 
   def update
-    @comment = interactor 'comments/set_opinion', get_comment_id_param, params[:opinion]
-    
+    @comment = interactor 'comments/update_opinion', get_comment_id_param, params[:opinion]
+
     render 'comments/show'
   end
 
@@ -52,5 +56,11 @@ class CommentsController < ApplicationController
       end
 
       id_string
+    end
+
+    def sort_by_relevance comments
+      comments.sort do |a,b|
+        OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+      end
     end
 end

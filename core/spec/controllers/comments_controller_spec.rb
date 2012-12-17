@@ -47,7 +47,11 @@ describe CommentsController do
       comment1 = mock
       comment2 = mock
 
-      controller.should_receive(:interactor).with(:"comments/index", fact_id, type).and_return([comment1, comment2])
+      controller.should_receive(:interactor).with(:"comments/index", fact_id, type).and_return([comment2, comment1])
+
+      controller.should_receive(:sort_by_relevance)
+                .with([comment2, comment1])
+                .and_return([comment1, comment2])
       controller.should_receive(:render).with('comments/index')
 
       controller.index
@@ -63,7 +67,7 @@ describe CommentsController do
       controller.stub(get_comment_id_param: comment_id)
       controller.stub(params: {opinion: opinion})
 
-      controller.should_receive(:interactor).with('comments/set_opinion', comment_id, opinion)
+      controller.should_receive(:interactor).with('comments/update_opinion', comment_id, opinion)
       controller.should_receive(:render).with('comments/show')
 
       controller.update

@@ -26,7 +26,7 @@ module Interactors
     end
 
     def keyword_min_length
-      2
+      1
     end
 
     def authorized?
