@@ -1,0 +1,20 @@
+ Backend:
+ ☐ make a command/interactor/route to add a comment to a factrelation
+ ☐ make a command/interactor/route to add a comment to a comment
+ ☐ make a query to retrieve factrelations and comments and sort them
+ ☐ make a interactor + route to expose this
+   add a cannonical url to the json for delete/update actions
+ ☐ make a 'comment' activity for the users that have interacted with the top comment/factrelation
+
+Frontend:
+ ☐ make a sub comments composite view, that has the top (factrelation/comment) url as argument. (Composite becaust it contains a form + elements)
+ ☐ Add static models for testing to the collection
+ ☐ Add a sub comments composite view to the factrelation
+ ☐ Add a sub comments composite view to the top comment
+ ☐ Create a form for adding comments, that doesn't communicate with the backend
+ ☐ Make styling equal to design.
+
+Integration frontend:
+ ☐ Remove the static models and use the resource url.
+ ☐ Bind the form to the correct url.
+ ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
