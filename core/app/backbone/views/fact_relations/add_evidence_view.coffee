@@ -6,15 +6,6 @@ class window.AddEvidenceView extends Backbone.Marionette.Layout
       selector: '.input-region'
       regionType: Factlink.DetachableViewsRegion
 
-  # TODO remove on updating marionette
-  initialEvents: -> # don't rerender on collection change
-
-  # TODO: remove this when updating Marionette
-  # In the current version the order is the other way around
-  constructor: ->
-    this.initializeRegions()
-    Backbone.Marionette.ItemView.apply(this, arguments)
-
   initialize: ->
     @inputRegion.defineViews
       search_view: => @searchView()

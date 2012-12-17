@@ -5,6 +5,13 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
+  remote: git@github.com:janpaul123/marionette-rails.git
+  revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
+  specs:
+    marionette-rails (1.0.0.rc.2)
+      rails (>= 3.1.0)
+
+GIT
   remote: http://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -249,8 +256,6 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (6.2.0)
-    marionette-rails (0.9.6.1)
-      rails (>= 3.1.0)
     memoist (0.1.0)
     method_source (0.8)
     metric_fu (2.1.1)
@@ -533,7 +538,7 @@ DEPENDENCIES
   letter_opener
   lograge
   map
-  marionette-rails (= 0.9.6.1)
+  marionette-rails (= 1.0.0.rc.2)!
   memoist
   metric_fu (= 2.1.1)
   mixpanel!
