@@ -5,6 +5,7 @@ class FactRelationPopoverView extends EvidencePopoverView
 
 class window.FactRelationEvidenceView extends EvidenceBaseView
   onRender: ->
+    @showSubCommentsView()
     @userAvatarRegion.show new EvidenceUserAvatarView model: @model
     @activityRegion.show   new EvidenceActivityView model: @model, verb: 'added'
 

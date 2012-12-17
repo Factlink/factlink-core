@@ -4,11 +4,12 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   template:  'evidence/base'
 
   regions:
-    voteRegion:       '.evidence-vote-region'
-    userAvatarRegion: '.evidence-user-avatar-region'
-    activityRegion:   '.evidence-activity-region'
-    mainRegion:       '.evidence-main-region'
-    popoverRegion:    '.evidence-popover-region'
+    voteRegion:        '.evidence-vote-region'
+    userAvatarRegion:  '.evidence-user-avatar-region'
+    activityRegion:    '.evidence-activity-region'
+    mainRegion:        '.evidence-main-region'
+    popoverRegion:     '.evidence-popover-region'
+    subCommentsRegion: '.evidence-sub-comments-region'
 
   setPopover: (popoverClass) ->
     updatePopover = =>
@@ -18,6 +19,8 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
     updatePopover()
     @bindTo @model, 'change', updatePopover
 
+  showSubCommentsView: ->
+    @subCommentsRegion.show new SubCommentsView model: @model
 
 class window.EvidenceUserAvatarView extends Backbone.Marionette.ItemView
   className: 'evidence-user-avatar'
