@@ -1,6 +1,6 @@
 #= require ../interactors_view
 
-class EmptyFactRelationsView extends Backbone.Marionette.ItemView
+class EmptyEvidenceView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
   className: "no-evidence-listing"
   tagName: 'li'
@@ -11,13 +11,13 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
 
-class FactRelationsListView extends Backbone.Marionette.CollectionView
+class EvidenceListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   className: 'fact-relation-listing'
 
-  itemView: FactRelationEvidenceView
+  itemView: Backbone.View
   itemViewOptions: => type: @collection.type
-  emptyView: EmptyFactRelationsView
+  emptyView: EmptyEvidenceView
 
   addChildView: (item, collection, options) ->
     result = super(item, collection, options)
@@ -28,6 +28,21 @@ class FactRelationsListView extends Backbone.Marionette.CollectionView
     view = @children[model.cid]
     @$el.scrollTo view.el, 800
     view.highlight()
+
+  itemViewForModel: (model) ->
+    if model.get('fact_relation_type')?
+      FactRelationEvidenceView
+    else
+      CommentEvidenceView
+
+  itemViewFor: (item, itemView) ->
+    if itemView == @emptyView
+      itemView
+    else
+      @itemViewForModel(item)
+
+  buildItemView: (item, itemView) ->
+    super item, @itemViewFor(item, itemView)
 
 class window.FactRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
@@ -43,21 +58,23 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @model.relations()?.fetch()
     @model.comments()?.fetch()
 
+  joinedSortedCollection: ->
+    utils = new CollectionUtils(this)
+    @_joinedCollection ?= utils.union new EvidenceCollection, @model.relations(), @model.comments()
+
   onRender: ->
     @$el.addClass @model.type()
 
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    @commentsRegion.show new CommentsListView
-      collection: @model.comments()
-
     if @model.relations()
       @factRelationSearchRegion.show new AddEvidenceView
         collection: @model.relations()
         model: @model
-      @factRelationsRegion.show new FactRelationsListView
-        collection: @model.relations()
+      @factRelationsRegion.show new EvidenceListView
+        collection: @joinedSortedCollection()
+        item_type: 'fact_relation'
     else
       @hideRegion @factRelationSearchRegion
       @hideRegion @factRelationsRegion
