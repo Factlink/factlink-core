@@ -1,4 +1,6 @@
 class SubCommentView extends Backbone.Marionette.ItemView
+  className: 'evidence-sub-comment'
+
   template:
     text: """
       <img src="{{ creator.avatar_url_32 }}" height="32" width="32">
@@ -14,9 +16,12 @@ class SubCommentView extends Backbone.Marionette.ItemView
   templateHelpers: => creator: @model.creator().toJSON()
 
 class SubCommentsListView extends Backbone.Marionette.CollectionView
+  className: 'evidence-sub-comments-list'
   itemView: SubCommentView
 
 class window.SubCommentsView extends Backbone.Marionette.Layout
+  className: 'evidence-sub-comments'
+
   template:
     text: """
       <div><a class="js-sub-comments-link"></a></div>
