@@ -28,3 +28,4 @@ Integration frontend:
 Cleaning up:
  ☐ Returning dead users for sub comments
  ☐ Refactor code to remove duplication
+ ☐ Add mail template or NOT?

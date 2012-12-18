@@ -19,8 +19,17 @@ module Interactors
 
       def execute
         sub_comment = command :'sub_comments/create', @comment_id, 'Comment', @content, @options[:current_user]
+
+        create_activity sub_comment
+
         KillObject.sub_comment sub_comment,
           authority: authority_of_user_who_created(sub_comment)
+      end
+
+      def create_activity sub_comment
+        command :create_activity,
+          @options[:current_user].graph_user, :created_sub_comment,
+          sub_comment, top_fact
       end
 
       def top_fact

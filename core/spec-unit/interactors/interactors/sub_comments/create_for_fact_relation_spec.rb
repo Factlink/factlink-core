@@ -45,10 +45,9 @@ describe Interactors::SubComments::CreateForFactRelation do
 
       should_receive_new_with_and_receive_call(Commands::SubComments::Create, fact_relation_id, 'FactRelation', content, user, current_user: user).
         and_return(sub_comment)
-
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)
-
+      interactor.should_receive(:create_activity).with(sub_comment)
       KillObject.should_receive(:sub_comment).with(sub_comment, authority: authority).
         and_return(dead_sub_comment)
 
