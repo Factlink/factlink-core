@@ -23,3 +23,6 @@ Integration frontend:
  ✔ Bind the form to the correct url. @done (12-12-18 11:38)
  ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
  ☐ Create integration test
+
+Cleaning up:
+ ☐ Returning dead users for sub comments
