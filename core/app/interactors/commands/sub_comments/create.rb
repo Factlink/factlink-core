@@ -5,25 +5,21 @@ module Commands
     class Create
       include Pavlov::Command
 
-      arguments :parent_id, :parent_class, :content, :user_id
+      arguments :parent_id, :parent_class, :content, :user
 
       def execute
         sub_comment = SubComment.new
         sub_comment.parent_id = @parent_id.to_s
         sub_comment.parent_class = @parent_class
-        sub_comment.created_by = creator
+        sub_comment.created_by = @user
         sub_comment.content = @content
         sub_comment.save
 
         sub_comment
       end
 
-      def creator
-        User.find(@user_id)
-      end
-
       def validate
-        validate_hexadecimal_string :user_id, @user_id
+        validate_not_nil            :user, @user
         validate_regex              :content, @content, /\A.+\Z/,
           "should not be empty."
         validate_in_set             :parent_class, @parent_class,

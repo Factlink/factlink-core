@@ -19,5 +19,9 @@ module Pavlov
     def validate_string param_name, param
       raise Pavlov::ValidationError, "#{param_name.to_s} should be a string." unless param.is_a? String
     end
+
+    def validate_not_nil param_name, param
+      raise Pavlov::ValidationError, "#{param_name.to_s} should not be nil." if param.nil?
+    end
   end
 end
