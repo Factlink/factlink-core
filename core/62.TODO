@@ -4,9 +4,9 @@ Prework:
 
 Backend:
  ✔ make a query to retrieve subcomments on factrelations and comments and sort them @done (12-12-18 11:50)
- ☐ make a command/interactor/route to add a subcomment to a factrelation
- ☐ make a command/interactor/route to add a subcomment to a comment
- ☐ make a interactor + route to expose this
+ ✔ make a command/interactor/route to add a subcomment to a factrelation @done (12-12-18 17:08)
+ ✔ make a command/interactor/route to add a subcomment to a comment @done (12-12-18 16:41)
+ ✔ make a interactor + route to expose this @done (12-12-18 16:41)
    add a cannonical url to the json for delete/update actions
  ☐ make a 'comment' activity for the users that have interacted with the top comment/factrelation
 
@@ -23,6 +23,8 @@ Integration frontend:
  ✔ Bind the form to the correct url. @done (12-12-18 11:38)
  ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
  ☐ Create integration test
+ ☐ Fix authority bug
 
 Cleaning up:
  ☐ Returning dead users for sub comments
+ ☐ Refactor code to remove duplication

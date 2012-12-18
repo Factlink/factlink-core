@@ -69,7 +69,11 @@ FactlinkUI::Application.routes.draw do
           get     "opinion"       => "evidence#opinion"
           post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
           delete  "opinion/"      => "evidence#remove_opinions",  :as => "delete_opinion"
+
+          get     'sub_comments'  => 'evidence#sub_comments_index'
+          post    'sub_comments'  => 'evidence#sub_comments_create'
         end
+
       end
 
       member do
