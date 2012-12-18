@@ -4,7 +4,7 @@ class window.AutoCompleteUsersView extends AutoCompleteSearchView
   regions:
     'results': 'div.auto-complete-results-container'
     'search_list': 'div.auto-complete-search-list-container'
-    'text_input': 'div.auto-complete-input-container'
+    'text_input': 'div.js-auto-complete-input-view-container'
 
   template: "auto_complete/box_with_results"
 

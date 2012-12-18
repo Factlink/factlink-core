@@ -1,6 +1,6 @@
 class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initializeChildViews: (opts)->
-    @search_collection = opts.search_collection()
+    @initSearchCollection(opts.search_collection())
 
     @initSearchModel()
     @initTextInputView opts.placeholder
@@ -14,6 +14,11 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
   initSearchModel: ->
     @model = new Backbone.Model text: ''
     @model.on 'change', => @search_collection.searchFor @model.get('text')
+
+  initSearchCollection: (collection) ->
+    @search_collection = collection
+    @bindTo @search_collection, 'before:fetch', => @setLoading()
+    @bindTo @search_collection, 'reset', => @unsetLoading()
 
   initTextInputView: (placeholder) ->
     @_text_input_view = new Backbone.Factlink.TextInputView
@@ -31,6 +36,12 @@ class window.AutoCompleteSearchView extends Backbone.Marionette.Layout
     @_search_list_view = search_list_view
       model: @model
       collection: @filtered_search_collection
+
+  setLoading: ->
+    @$el.addClass 'loading'
+
+  unsetLoading: ->
+    @$el.removeClass 'loading'
 
   bindTextViewToSteppableViewAndSelf: (text_view, steppable_view)->
     @bindTo text_view, 'down', -> steppable_view.moveSelectionDown()
