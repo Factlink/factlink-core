@@ -2,17 +2,11 @@ module Acceptance
   module CommentHelper
 
       def toggle_to_comment
-        within('.fact-relation-search') do
-          evidence_input = page.find_field 'text_input_view'
-          evidence_input.trigger 'focus'
-          page.find('.js-switch').set true
-        end
+        toggle_between_factlink_and_comment true
       end
 
       def toggle_to_factlink
-        within('.fact-relation-search') do
-          page.find('.js-switch').set false
-        end
+        toggle_between_factlink_and_comment false
       end
 
       def toggle_between_factlink_and_comment(to_comment)
@@ -47,21 +41,18 @@ module Acceptance
 
       def add_existing_factlink evidence_factlink
         toggle_to_factlink unless posting_factlink?
-        within('.fact-relation-search') do
-          text = evidence_factlink.to_s
-          page.find("input").set(text)
-          page.find("li", text: text).click
-          page.find("input", visible: false)
-          page.find_button("Post Factlink").click
-        end
+        text = evidence_factlink.to_s
+        page.find("input").set(text)
+        page.find("li", text: text).click
+        page.find("input", visible: false)
+        page.find_button("Post Factlink").click
       end
 
       def add_new_factlink text
-        within('.fact-relation-search') do
-          toggle_to_factlink unless posting_factlink?
-          page.find("input").set(text)
-          page.find_button("Post Factlink").click
-        end
+        toggle_to_factlink unless posting_factlink?
+        text = evidence_factlink.to_s
+        page.find("input").set(text)
+        page.find_button("Post Factlink").click
       end
   end
 end
