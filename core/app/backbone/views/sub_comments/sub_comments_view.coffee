@@ -10,7 +10,7 @@ class SubCommentView extends Backbone.Marionette.ItemView
         </strong>
         ( <img src="{{global.brain_image}}"> <span class="evidence-sub-comment-authority">{{ creator.authority }}</span> )
       </div>
-      <div class="evidence-sub-comment-content">{{text}}</div>
+      <div class="evidence-sub-comment-content">{{content}}</div>
     """
 
   templateHelpers: => creator: @model.creator().toJSON()
@@ -64,7 +64,7 @@ class SubCommentsAddView extends Backbone.Marionette.Layout
 
   addModelError: -> @alertError()
   addModelSuccess: (model) ->
-    @textModel.set 'text', ''
+    @textModel().set 'text', ''
     @alertHide()
 
   text: -> @textModel().get('text')
