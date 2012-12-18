@@ -27,7 +27,12 @@ class SubCommentsListView extends Backbone.Marionette.CompositeView
       <div class="evidence-sub-comments-form">
         <img class="evidence-sub-comments-avatar" src="{{ current_user.avatar_url_32 }}" height="32" width="32">
         <textarea class="evidence-sub-comments-textarea js-input" placeholder="Comment.."></textarea>
-        <button class="evidence-sub-comments-button btn btn-primary pull-right js-post">Comment</button>
+
+        <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
+        didn't work on the comment when setting the form to active using Javascript.. -->
+        <div class="evidence-sub-comments-button-container">
+          <button class="evidence-sub-comments-button btn btn-primary pull-right js-post">Comment</button>
+        </div>
       </div>
     """
 

@@ -71,14 +71,19 @@
         .transition(height 0.15s ease-in-out);
       }
 
-      .evidence-sub-comments-button {
+      .evidence-sub-comments-button-container {
         margin-right: 3px;
+        display: none;
+      }
+    }
+
+    .evidence-sub-comments-form-active {
+      .evidence-sub-comments-textarea {
+        height: 36px;
       }
 
-      &.evidence-sub-comments-form-active {
-        .evidence-sub-comments-textarea {
-          height: 36px;
-        }
+      .evidence-sub-comments-button-container {
+        display: block;
       }
     }
   }
