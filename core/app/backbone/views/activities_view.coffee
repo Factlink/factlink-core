@@ -63,7 +63,7 @@ class window.ActivitiesView extends AutoloadingView
     childView.close() for childView in @childViews
     @childViews = []
 
-  beforeClose: -> @closeChildViews()
+  onBeforeClose: -> @closeChildViews()
 
 
   appendHtml: (collectionView, childView, index) ->

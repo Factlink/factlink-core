@@ -26,7 +26,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
       to raise_error(RuntimeError, 'factdata missing fields ([:id]).')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       url = 'localhost:9200'
       config = mock()
@@ -36,7 +36,7 @@ describe Commands::ElasticSearchDeleteFactDataForTextSearch do
       HTTParty.should_receive(:delete).with("http://#{url}/factdata/#{fact_data.id}")
       command = Commands::ElasticSearchDeleteFactDataForTextSearch.new fact_data
 
-      command.execute
+      command.call
     end
   end
 

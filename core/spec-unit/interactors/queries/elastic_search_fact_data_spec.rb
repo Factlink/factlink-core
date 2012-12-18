@@ -19,7 +19,7 @@ describe Queries::ElasticSearchFactData do
       to raise_error(RuntimeError, 'Keywords must not be empty')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'executes correctly with return value of FactData class' do
       config = mock()
       base_url = '1.0.0.0:4000/index'
@@ -45,7 +45,7 @@ describe Queries::ElasticSearchFactData do
 
       FactData.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -65,7 +65,7 @@ describe Queries::ElasticSearchFactData do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchFactData.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes keywords' do
@@ -93,7 +93,7 @@ describe Queries::ElasticSearchFactData do
 
       FactData.should_receive(:find).with(1).and_return(return_object)
 
-      interactor.execute.should eq [return_object]
+      interactor.call.should eq [return_object]
     end
   end
 end

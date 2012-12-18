@@ -11,7 +11,7 @@ describe Interactors::FactDoubters do
       to raise_error(Pavlov::AccessDenied, 'Unauthorized')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const('Queries', Class.new)
       stub_const('Queries::FactInteractingUsers', Class.new)
@@ -25,7 +25,7 @@ describe Interactors::FactDoubters do
       query = mock()
       u1 = mock()
       Queries::FactInteractingUsers.should_receive(:new).with(fact_id, skip, take, 'doubts', current_user: user).and_return(query)
-      query.should_receive(:execute).and_return({users: [u1], total: 1})
+      query.should_receive(:call).and_return({users: [u1], total: 1})
 
       results = Interactors::FactDoubters.perform fact_id, skip, take, current_user: user
 

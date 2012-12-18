@@ -7,7 +7,7 @@ describe Queries::Comments::GraphUserOpinion do
     stub_classes 'Opinion', 'Believable::Commentje'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "retrieves the current opinion for the graphuser" do
       id = 'a1'
       graph_user = mock
@@ -16,7 +16,7 @@ describe Queries::Comments::GraphUserOpinion do
       query = Queries::Comments::GraphUserOpinion.new id, graph_user
       query.stub possible_opinions: [op1, op2]
       query.stub!(:has_opinion?) {|type| type == op2}
-      expect(query.execute).to eq op2
+      expect(query.call).to eq op2
     end
   end
 

@@ -8,7 +8,7 @@ describe Queries::ObjectIdsByActivity do
     stub_classes 'Activity::Listener'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'retrieves the specified ids' do
       activity = mock()
       class_name = mock()
@@ -20,7 +20,7 @@ describe Queries::ObjectIdsByActivity do
       interactor.should_receive(:listener).and_return(listener)
       listener.should_receive(:add_to).with(activity).and_return(result)
 
-      expect(interactor.execute).to eq(result)
+      expect(interactor.call).to eq(result)
     end
   end
 

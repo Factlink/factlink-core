@@ -12,7 +12,7 @@ describe Queries::ConversationsList do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "returns a list when the user has conversations" do
       fact_data1 = mock('fact_data', id: 100, fact_id: 124)
       fact_data2 = mock('fact_data', id: 101, fact_id: 125)
@@ -38,7 +38,7 @@ describe Queries::ConversationsList do
       user.should_receive(:conversations).and_return(criteria)
       criteria.should_receive(:desc).and_return(mock_conversations)
 
-      result = Queries::ConversationsList.execute(user.id.to_s, current_user: user)
+      result = Queries::ConversationsList.new(user.id.to_s, current_user: user).call
       expect(result).to eq(dead_conversations)
     end
 
@@ -48,7 +48,7 @@ describe Queries::ConversationsList do
       user.should_receive(:conversations).and_return(criteria)
       criteria.should_receive(:desc).and_return([])
 
-      result = Queries::ConversationsList.execute(user.id.to_s, current_user: user)
+      result = Queries::ConversationsList.new(user.id.to_s, current_user: user).call
       expect(result).to eq([])
     end
   end

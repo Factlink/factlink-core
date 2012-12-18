@@ -13,7 +13,7 @@ describe Queries::ElasticSearchChannel do
     query.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       config = mock()
       base_url = "1.0.0.0:4000/index"
@@ -37,7 +37,7 @@ describe Queries::ElasticSearchChannel do
         with(1).
         and_return(return_object)
 
-      query.execute.should eq [return_object]
+      query.call.should eq [return_object]
     end
 
     it 'logs and raises an error when HTTParty returns a non 2xx status code.' do
@@ -57,7 +57,7 @@ describe Queries::ElasticSearchChannel do
       logger.should_receive(:error).with(error_message)
       query = Queries::ElasticSearchChannel.new keywords, 1, 20, logger: logger
 
-      expect { query.execute }.to raise_error(RuntimeError, error_message)
+      expect { query.call }.to raise_error(RuntimeError, error_message)
     end
 
     it 'url encodes correctly' do
@@ -83,7 +83,7 @@ describe Queries::ElasticSearchChannel do
         with(1).
         and_return(return_object)
 
-      query.execute.should eq [return_object]
+      query.call.should eq [return_object]
     end
   end
 end

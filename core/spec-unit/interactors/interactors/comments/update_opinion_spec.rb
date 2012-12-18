@@ -26,7 +26,7 @@ describe Interactors::Comments::UpdateOpinion do
       to raise_error(Pavlov::ValidationError, 'opinion should be on of these values: ["believes", "disbelieves", "doubts", nil].')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_classes 'Commands::Comments::SetOpinion'
     end
@@ -44,7 +44,7 @@ describe Interactors::Comments::UpdateOpinion do
       interactor.should_receive(:command).with('comments/set_opinion', comment.id, opinion, user.graph_user)
       interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
 
-      expect(interactor.execute).to eq mock_comment
+      expect(interactor.call).to eq mock_comment
     end
 
     it 'calls the remove_opinion command when no opinion is passed' do
@@ -59,7 +59,7 @@ describe Interactors::Comments::UpdateOpinion do
       interactor.should_receive(:command).with('comments/remove_opinion', comment.id, user.graph_user)
       interactor.should_receive(:query).with(:'comments/get', comment.id).and_return(mock_comment)
 
-      expect(interactor.execute).to eq mock_comment
+      expect(interactor.call).to eq mock_comment
     end
   end
 end

@@ -13,7 +13,7 @@ describe Commands::Site::ResetTopTopics do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
 
     it 'resets the score for all topics' do
       site_id = 91
@@ -26,7 +26,7 @@ describe Commands::Site::ResetTopTopics do
       score_hash.each do |key, value|
         command.should_receive(:increase_topic_by).with(key, value)
       end
-      command.execute
+      command.call
     end
   end
 

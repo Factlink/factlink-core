@@ -36,7 +36,7 @@ describe Commands::CreateComment do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       fact_id = 1
       type = 'believes'
@@ -58,7 +58,7 @@ describe Commands::CreateComment do
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save)
 
-      command.execute
+      command.call
     end
   end
 

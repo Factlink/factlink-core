@@ -20,7 +20,7 @@ describe Queries::CommentsForFactAndType do
       to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_classes 'Authority'
     end
@@ -43,7 +43,7 @@ describe Queries::CommentsForFactAndType do
 
       query.should_receive(:query).with(:'comments/add_authority_and_opinion', comment, fact).and_return(extended_comment)
 
-      results = query.execute
+      results = query.call
 
       expect(results).to eq [extended_comment]
     end

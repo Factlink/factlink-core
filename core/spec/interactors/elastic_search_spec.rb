@@ -72,8 +72,8 @@ describe 'elastic search' do
     object = TestClass.new
     object.test_field = text
     object.id = '1'
-    (TestIndexCommand.new object).execute
+    (TestIndexCommand.new object).call
 
-    (TestQuery.new query, 1, 10).execute
+    (TestQuery.new query, 1, 10).call
   end
 end

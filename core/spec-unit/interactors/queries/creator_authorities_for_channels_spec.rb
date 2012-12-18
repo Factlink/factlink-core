@@ -13,7 +13,7 @@ describe Queries::CreatorAuthoritiesForChannels do
               and_return(channel_authorities[i])
       end
 
-      result = query.execute
+      result = query.call
 
       expect(result).to eq channel_authorities
     end

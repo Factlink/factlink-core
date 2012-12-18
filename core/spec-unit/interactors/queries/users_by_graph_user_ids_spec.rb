@@ -13,14 +13,14 @@ describe Queries::UsersByGraphUserIds do
       to raise_error(RuntimeError, 'id should be a positive integer.')
   end
 
-  describe ".execute" do
+  describe ".call" do
     it "should work with an empty list of ids" do
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
           Queries::UsersByIds, [], {}).and_return([])
 
       Queries::UsersByGraphUserIds.any_instance.stub(authorized?: true)
 
-      result = Queries::UsersByGraphUserIds.execute([])
+      result = Queries::UsersByGraphUserIds.new([]).call
 
       expect(result).to eq([])
     end
@@ -35,14 +35,14 @@ describe Queries::UsersByGraphUserIds do
         GraphUser.should_receive(:[]).with(graph_user_id).and_return(graph_users[index])
       end
 
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
           Queries::UsersByIds, graph_users.map {|gu| gu.user_id }, {}).
           and_return(users)
 
 
       Queries::UsersByGraphUserIds.any_instance.stub(authorized?: true)
 
-      result = Queries::UsersByGraphUserIds.execute(gu_ids)
+      result = Queries::UsersByGraphUserIds.new(gu_ids).call
       expect(result).to eq(users)
     end
   end

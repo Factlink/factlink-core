@@ -8,7 +8,7 @@ describe Commands::SendActivityMailToUser do
     stub_classes 'ActivityMailer'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'creates a mailer' do
       user = mock()
       activity = mock()
@@ -22,7 +22,7 @@ describe Commands::SendActivityMailToUser do
       ActivityMailer.should_receive(:new_activity).with(user, activity).and_return mailer
       mailer.should_receive(:deliver)
 
-      command.execute
+      command.call
     end
   end
 end
