@@ -21,15 +21,11 @@ feature "adding comments to a fact", type: :request do
     # Input should be empty
     find_field('add_comment').value.blank?.should be_true
 
-    within comment_listing do
-      page.should have_content comment
-    end
+    comment_listing.should have_content comment
 
     go_to_discussion_page_of factlink # Reload the page
 
-    within comment_listing do
-      page.should have_content comment
-    end
+    comment_listing.should have_content comment
 
   end
 
@@ -80,17 +76,13 @@ feature "adding comments to a fact", type: :request do
     add_comment_with_toggle comment1
     add_comment comment2
 
-    within comment_listing do
-      page.should have_content comment1
-      page.should have_content comment2
-    end
+    comment_listing.should have_content comment1
+    comment_listing.should have_content comment2
 
     go_to_discussion_page_of factlink # Reload the page
 
-    within comment_listing do
-      page.should have_content comment1
-      page.should have_content comment2
-    end
+    comment_listing.should have_content comment1
+    comment_listing.should have_content comment2
   end
 
 
