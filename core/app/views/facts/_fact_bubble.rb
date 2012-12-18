@@ -1,20 +1,51 @@
 module Facts
-  class FactBubble < Mustache::Railstache
+  class FactBubble
     include BaseViews::FactBubbleBase
 
+    def self.for(*args)
+      new(*args)
+    end
+
+    def initialize options={}
+      @fact = options[:fact]
+      @view = options[:view]
+    end
+
     def link
-      displaystring = h self[:fact].data.displaystring
-      show_links ? link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
+      displaystring = @view.send(:h, @fact.data.displaystring)
+      show_links ? @view.link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
     end
 
     def fact_id
-      self[:fact].id
+      @fact.id
     end
 
     def url
-      friendly_fact_path(self[:fact])
+      @view.friendly_fact_path(@fact)
     end
 
-    alias id fact_id
+    def to_hash
+      json = Jbuilder.new
+
+      json.link link
+      json.fact_id fact_id
+      json.url url
+      json.id fact_id
+
+      json.user_signed_in? user_signed_in?
+      json.i_am_fact_owner i_am_fact_owner
+      json.can_edit? can_edit?
+      json.scroll_to_link scroll_to_link
+      json.displaystring displaystring
+      json.fact_title fact_title
+      json.fact_wheel fact_wheel
+      json.believe_percentage believe_percentage
+      json.disbelieve_percentage disbelieve_percentage
+      json.doubt_percentage doubt_percentage
+      json.fact_url fact_url
+      json.proxy_scroll_url proxy_scroll_url
+
+      json.attributes!
+    end
   end
 end

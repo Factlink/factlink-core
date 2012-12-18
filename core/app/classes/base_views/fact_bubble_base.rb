@@ -1,15 +1,15 @@
 module BaseViews
   module FactBubbleBase
     def user_signed_in?
-      self.view.user_signed_in?
+      @view.user_signed_in?
     end
 
     def i_am_fact_owner
-      (self[:fact].created_by == current_graph_user)
+      (@fact.created_by == @view.current_graph_user)
     end
 
     def can_edit?
-      user_signed_in? and i_am_fact_owner
+      @view.user_signed_in? and i_am_fact_owner
     end
 
     def scroll_to_link
@@ -23,53 +23,53 @@ module BaseViews
     end
 
     def displaystring
-      self[:fact].data.displaystring
+      @fact.data.displaystring
     end
 
     def fact_title
-      self[:fact].data.title
+      @fact.data.title
     end
 
     def fact_wheel
-      json = JbuilderTemplate.new(self.view)
-      json.partial! partial: 'facts/fact_wheel', formats: [:json], handlers: [:jbuilder], locals: { fact: self[:fact] }
+      json = JbuilderTemplate.new(@view)
+      json.partial! partial: 'facts/fact_wheel', formats: [:json], handlers: [:jbuilder], locals: { fact: @fact }
       json.attributes!
     end
 
     # DEPRECATED, use fact_wheel (or not, but choose one)
     def believe_percentage
-      self[:fact].get_opinion.as_percentages[:believe][:percentage]
+      @fact.get_opinion.as_percentages[:believe][:percentage]
     end
 
     # DEPRECATED, use fact_wheel (or not, but choose one)
     def disbelieve_percentage
-      self[:fact].get_opinion.as_percentages[:disbelieve][:percentage]
+      @fact.get_opinion.as_percentages[:disbelieve][:percentage]
     end
 
     # DEPRECATED, use fact_wheel (or not, but choose one)
     def doubt_percentage
-      self[:fact].get_opinion.as_percentages[:doubt][:percentage]
+      @fact.get_opinion.as_percentages[:doubt][:percentage]
     end
 
     def fact_url
-      if self[:fact].has_site?
-        self[:fact].site.url
+      if @fact.has_site?
+        @fact.site.url
       else
         nil
       end
     end
 
     def proxy_scroll_url
-      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(self[:fact].site.url) + "&scrollto=" + URI.escape(self[:fact].id)
+      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
     rescue
       ""
     end
 
     private
       def show_links
-        hide_links_on_this_site = self[:hide_links_for_site] # (self[:hide_links_for_site] and self[:fact].site == self[:hide_links_for_site])
-        should_hide_links = self[:hide_links] or hide_links_on_this_site
-        self[:fact].site and not should_hide_links
+        hide_links_on_this_site = @hide_links_for_site # (self[:hide_links_for_site] and @fact.site == self[:hide_links_for_site])
+        should_hide_links = @hide_links or hide_links_on_this_site
+        @fact.andand.site and not should_hide_links
       end
   end
 end
