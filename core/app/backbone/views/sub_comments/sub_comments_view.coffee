@@ -75,10 +75,11 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
 
   openList: ->
     @subCommentsList.show new SubCommentsListView
-      collection: new SubComments [
+      collection: new SubComments([
         new SubComment(text: 'hihihi', created_by: {username: 'joel', gravatar_hash: '781e915f298de5951e77813cc8f328a9', authority: '3.4'}),
         new SubComment(text: 'hahahaha', created_by: {username: 'tomdev', gravatar_hash: '88e950aeccc17b8d02be83ca18f8232b', authority: '24'})
-      ]
+      ], parentModel: @model)
+
     @listOpen = true
 
   closeList: ->
