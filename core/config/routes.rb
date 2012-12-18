@@ -46,6 +46,11 @@ FactlinkUI::Application.routes.draw do
         delete "/:type/:id" => 'comments#destroy'
         get "/:type" => 'comments#index'
         put "/:type/:id" => 'comments#update'
+
+        scope '/:type/:id' do
+          get 'sub_comments' => 'comments#sub_comments_index'
+          post 'sub_comments' => 'comments#sub_comments_create'
+        end
       end
     end
   end
