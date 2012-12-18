@@ -56,8 +56,8 @@ feature "adding comments to a fact", type: :request do
     add_comment_with_toggle comment
 
     within comment_listing do
-      find('.supporting').click
-      find('.total-authority-evidence', text: "0.0")
+      evidence_item(comment).find('.supporting').click
+      evidence_item(comment).find('.total-authority-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
@@ -104,6 +104,10 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     page.should_not have_content comment
+  end
+
+  def evidence_item text
+    find '.evidence-item', text: text
   end
 
   def comment_listing
