@@ -150,6 +150,7 @@ group :test do
   gem 'guard-rspec'
 
   gem 'approvals'
+  gem 'timecop'
 end
 
 group :jstest do

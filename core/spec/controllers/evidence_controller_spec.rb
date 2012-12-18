@@ -13,6 +13,7 @@ describe CommentsController do
       {current_user: current_user}
     end
     it "should keep doing the same" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
       FactoryGirl.reload # hack because of fixture in check
 
       fact = create :fact
