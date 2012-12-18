@@ -3,6 +3,7 @@ require_relative '../../classes/elastic_search'
 
 module Commands
   class ElasticSearchIndexForTextSearchCommand
+    # TODO: Rewrite this command to be fully compatible with Pavlov
 
     def initialize object, options={}
       @missing_fields = []
