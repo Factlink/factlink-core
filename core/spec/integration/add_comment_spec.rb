@@ -21,13 +21,13 @@ feature "adding comments to a fact", type: :request do
     # Input should be empty
     find_field('add_comment').value.blank?.should be_true
 
-    within '.comments-listing' do
+    within comment_listing do
       page.should have_content comment
     end
 
     go_to_discussion_page_of factlink # Reload the page
 
-    within '.comments-listing' do
+    within comment_listing do
       page.should have_content comment
     end
 
@@ -45,7 +45,7 @@ feature "adding comments to a fact", type: :request do
 
     go_to_discussion_page_of factlink
 
-    within '.comments-listing' do
+    within comment_listing do
       find('.total-authority-evidence').should have_content user_authority_on_fact + 1
     end
   end
@@ -59,14 +59,14 @@ feature "adding comments to a fact", type: :request do
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment_with_toggle comment
 
-    within '.comments-listing' do
+    within comment_listing do
       find('.supporting').click
       find('.total-authority-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
 
-    within '.comments-listing' do
+    within comment_listing do
       find('.total-authority-evidence', text: "0.0")
     end
   end
@@ -80,14 +80,14 @@ feature "adding comments to a fact", type: :request do
     add_comment_with_toggle comment1
     add_comment comment2
 
-    within '.comments-listing' do
+    within comment_listing do
       page.should have_content comment1
       page.should have_content comment2
     end
 
     go_to_discussion_page_of factlink # Reload the page
 
-    within '.comments-listing' do
+    within comment_listing do
       page.should have_content comment1
       page.should have_content comment2
     end
@@ -101,7 +101,7 @@ feature "adding comments to a fact", type: :request do
 
     add_comment_with_toggle comment
 
-    within '.comments-listing' do
+    within comment_listing do
       find('.evidence-popover-arrow').click
       find('.delete').click
       wait_for_ajax
@@ -112,5 +112,9 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     page.should_not have_content comment
+  end
+
+  def comment_listing
+    find '.comments-listing'
   end
 end
