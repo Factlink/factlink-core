@@ -87,6 +87,31 @@ feature "adding comments to a fact", type: :request do
     evidence_listing.should have_content comment2
   end
 
+  pending 'comments and facts should be sorted on relevance' do
+    user_authority_on_fact = 17
+    Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
+
+    go_to_discussion_page_of factlink
+
+    comment1 = 'Buffels zijn niet klein te krijgen joh'
+    comment2 = 'Henk ook niet'
+    comment3 = 'Geert is een baas'
+
+    add_comment comment1
+    add_new_factlink comment2
+    add_comment comment3
+
+    within evidence_listing do
+      evidence_item(comment1).find('.supporting').click
+      evidence_item(comment2).find('.weakening').click
+    end
+    sleep 1
+    #go_to_discussion_page_of factlink
+
+
+    screenshot_and_open_image
+  end
+
 
   scenario "after adding it can be removed" do
     go_to_discussion_page_of factlink
@@ -122,7 +147,7 @@ feature "adding comments to a fact", type: :request do
     supporting_factlink = backend_create_fact
 
     within(".relation-tabs-view") do
-      add_factlink supporting_factlink
+      add_existing_factlink supporting_factlink
 
       within("li.evidence-item") do
         page.should have_content supporting_factlink.to_s
@@ -137,7 +162,7 @@ feature "adding comments to a fact", type: :request do
     supporting_factlink = backend_create_fact
 
     within(".relation-tabs-view") do
-      add_factlink supporting_factlink
+      add_existing_factlink supporting_factlink
 
       within("li.evidence-item") do
         page.find('span', text: supporting_factlink.to_s).click

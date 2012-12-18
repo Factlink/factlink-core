@@ -39,12 +39,19 @@ module Acceptance
         end
       end
 
-      def add_factlink evidence_factlink
+      def add_existing_factlink evidence_factlink
         toggle_to_factlink unless posting_factlink?
         text = evidence_factlink.to_s
         page.find("input").set(text)
         page.find("li", text: text).click
         page.find("input", visible: false)
+        page.find_button("Post Factlink").click
+      end
+
+      def add_new_factlink text
+        toggle_to_factlink unless posting_factlink?
+        text = evidence_factlink.to_s
+        page.find("input").set(text)
         page.find_button("Post Factlink").click
       end
   end
