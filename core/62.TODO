@@ -8,7 +8,7 @@ Backend:
  ✔ make a command/interactor/route to add a subcomment to a comment @done (12-12-18 16:41)
  ✔ make a interactor + route to expose this @done (12-12-18 16:41)
    add a cannonical url to the json for delete/update actions
- ☐ make a 'comment' activity for the users that have interacted with the top comment/factrelation
+ ✔ make a 'comment' activity for the users that have interacted with the top comment/factrelation @done (12-12-18 18:15)
 
 Frontend:
  ✔ make a sub comments composite view, that has the top (factrelation/comment) subcomments collection as argument. (Composite becaust it contains a form + elements) @done (12-12-18 09:36)
@@ -24,6 +24,7 @@ Integration frontend:
  ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
  ☐ Create integration test
  ☐ Fix authority bug
+ ☐ Create apropriate activity stream and notification views
 
 Cleaning up:
  ☐ Returning dead users for sub comments
