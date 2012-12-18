@@ -19,7 +19,7 @@ class SubCommentsListView extends Backbone.Marionette.CollectionView
   className: 'evidence-sub-comments-list'
   itemView: SubCommentView
 
-class SubCommentsAddView extends Backbone.Marionette.ItemView
+class SubCommentsAddView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comments-form'
 
   template:
@@ -30,7 +30,7 @@ class SubCommentsAddView extends Backbone.Marionette.ItemView
         </div>
 
         <img class="evidence-sub-comments-avatar" src="{{ current_user.avatar_url_32 }}" height="32" width="32">
-        <textarea class="evidence-sub-comments-textarea js-input" placeholder="Comment.."></textarea>
+        <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
 
         <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
         didn't work on the comment when setting the form to active using Javascript.. -->
@@ -40,37 +40,44 @@ class SubCommentsAddView extends Backbone.Marionette.ItemView
     """
 
   events:
-    'click .js-input': 'inputClick'
-    'blur .js-input': 'inputBlur'
-    'keydown .js-input': 'parseKeyDown'
     'click .js-submit': 'submit'
+
+  regions:
+    textareaRegion: '.js-region-textarea'
 
   templateHelpers: => current_user: currentUser.toJSON()
 
-  onRender: -> @toggleForm false
+  onRender: ->
+    @textareaRegion.show @textAreaView()
+    @toggleForm false
 
-  inputClick: -> @toggleForm true
-  inputBlur: -> @toggleForm false if @$('.js-input').val().length <= 0
+  inputFocus: -> @toggleForm true
+  inputBlur: -> @toggleForm false if @text().length <= 0
 
   toggleForm: (active) ->
     @$el.toggleClass 'evidence-sub-comments-form-active', active
 
-  parseKeyDown: (e) =>
-    code = e.keyCode || e.which
-    if code is 13
-      @submit()
-      e.preventDefault()
-
   submit: ->
     @addModel new SubComment
-      content: @$('.js-input').val()
+      content: @text()
       created_by: currentUser
 
+  addModelError: -> @alertError()
   addModelSuccess: (model) ->
-    @initializeModel()
+    @textModel.set 'text', ''
     @alertHide()
 
-  addModelError: -> @alertError()
+  text: -> @textModel().get('text')
+  textModel: -> @_textModel ?= new Backbone.Model text: ''
+  textAreaView: ->
+    textAreaView = new Backbone.Factlink.TextAreaView
+      model: @textModel()
+      placeholder: 'Comment..'
+
+    @bindTo textAreaView, 'return', @submit, @
+    @bindTo textAreaView, 'focus', @inputFocus, @
+    @bindTo textAreaView, 'blur', @inputBlur, @
+    textAreaView
 
 _.extend SubCommentsAddView.prototype,
   Backbone.Factlink.AddModelToCollectionMixin, Backbone.Factlink.AlertMixin
@@ -99,21 +106,20 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @updateLink()
     # Bind to model change event here when returning a comment count
 
+    @subCommentsForm.show new SubCommentsAddView addToCollection: @subComments()
+
   toggleList: ->
     if @listOpen then @closeList()
     else @openList()
 
   openList: ->
     @listOpen = true
-    subComments = @subComments()
-
     @$('.js-sub-comments-list-container').removeClass('hide')
     @subCommentsList.close()
-    @subCommentsForm.show new SubCommentsAddView addToCollection: subComments
 
-    subComments.fetch
+    @subComments().fetch
       success: =>
-        @subCommentsList.show new SubCommentsListView collection: subComments
+        @subCommentsList.show new SubCommentsListView collection: @subComments()
 
   closeList: ->
     @listOpen = false
