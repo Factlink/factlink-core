@@ -4,7 +4,7 @@ require_relative '../../../../app/interactors/commands/sub_comments/create.rb'
 describe Commands::SubComments::Create do
   include PavlovSupport
   before do
-    stub_classes 'SubComment', 'User', 'KillObject'
+    stub_classes 'SubComment', 'User'
   end
 
   it 'should initialize correctly' do
@@ -51,7 +51,6 @@ describe Commands::SubComments::Create do
       command = Commands::SubComments::Create.new parent_id, parent_class, content, user_id
       comment = mock(:comment, id: 10)
       user = mock
-      dead_comment = mock
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)
       SubComment.should_receive(:new).and_return(comment)
@@ -60,11 +59,10 @@ describe Commands::SubComments::Create do
       comment.should_receive(:content=).with(content)
       comment.should_receive(:parent_class=).with(parent_class)
       comment.should_receive(:save)
-      KillObject.should_receive(:sub_comment).with(comment).and_return(dead_comment)
 
       result = command.execute
 
-      expect( result ).to eq dead_comment
+      expect( result ).to eq comment
     end
   end
 end

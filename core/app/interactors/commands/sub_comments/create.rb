@@ -15,7 +15,7 @@ module Commands
         sub_comment.content = @content
         sub_comment.save
 
-        KillObject.sub_comment sub_comment
+        sub_comment
       end
 
       def creator
