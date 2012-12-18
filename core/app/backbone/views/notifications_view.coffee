@@ -49,7 +49,7 @@ class window.NotificationsView extends Backbone.Factlink.CompositeView
 
   setupNotificationsFetch: ->
     doReloading = ->
-      not (typeof localStorage is "object" and localStorage isnt null and localStorage["reload"] is "false")
+      getSetting("reload") isnt "false"
     refreshAgain = (always) ->
       if always or doReloading()
         setTimeout (->

@@ -10,7 +10,6 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
 
   initialize: ->
     @initializeModel()
-    @alertErrorInit ['comment']
 
   parseKeyDown: (e) =>
     code = e.keyCode || e.which
@@ -41,7 +40,7 @@ class window.AddCommentView extends Backbone.Marionette.ItemView
     @alertHide()
     model.trigger 'change'
 
-  addModelError: -> @alertError 'comment'
+  addModelError: -> @alertError()
 
   switchCheckboxClicked: (e)->
     @trigger 'switch_to_fact_relation_view', @$('.js-content').val()
