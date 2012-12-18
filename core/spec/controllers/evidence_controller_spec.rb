@@ -27,6 +27,17 @@ describe SupportingEvidenceController do
       response.should be_success
     end
 
+    it "should keep doing the same" do
+      FactoryGirl.reload # hack because of fixture in check
+
+      should_check_can :get_evidence, f1
+      get 'index', fact_id: f1.id, format: 'json'
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'evidence_controller_response')
+    end
+
     it "should show the correct evidence" do
       should_check_can :get_evidence, f1
 
