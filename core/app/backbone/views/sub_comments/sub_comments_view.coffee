@@ -104,25 +104,24 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     else @openList()
 
   openList: ->
+    @listOpen = true
     subComments = @subComments()
-    # add subcomments fetch here
 
-    $('.js-sub-comments-list-container').removeClass('hide')
-    @subCommentsList.show new SubCommentsListView collection: subComments
+    @$('.js-sub-comments-list-container').removeClass('hide')
+    @subCommentsList.close()
     @subCommentsForm.show new SubCommentsAddView addToCollection: subComments
 
-    @listOpen = true
+    subComments.fetch
+      success: =>
+        @subCommentsList.show new SubCommentsListView collection: subComments
 
   closeList: ->
-    $('.js-sub-comments-list-container').addClass('hide')
-    @subCommentsList.close()
     @listOpen = false
+    @$('.js-sub-comments-list-container').addClass('hide')
+    @subCommentsList.close()
 
   subComments: ->
-    @_subComments ?= new SubComments([
-        new SubComment(text: 'hihihi', created_by: {username: 'joel', gravatar_hash: '781e915f298de5951e77813cc8f328a9', authority: '3.4'}),
-        new SubComment(text: 'hahahaha', created_by: {username: 'tomdev', gravatar_hash: '88e950aeccc17b8d02be83ca18f8232b', authority: '24'})
-      ], parentModel: @model)
+    @_subComments ?= new SubComments([], parentModel: @model)
 
   updateLink: ->
     @$(".js-sub-comments-link").text "Comments" # Add comment count here
