@@ -1,0 +1,58 @@
+[
+  {
+    "url": "/fact-4/f/2",
+    "signed_in?": false,
+    "can_destroy?": false,
+    "weight": 0,
+    "id": "<STRIPPED>",
+    "fact_relation_type": "supporting",
+    "fact_base": {
+      "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F4.html&amp;scrollto=2\" target=\"_blank\">Fact 4</a>",
+      "fact_id": "2",
+      "url": "/fact-4/f/2",
+      "id": "<STRIPPED>",
+      "user_signed_in?": false,
+      "i_am_fact_owner": false,
+      "can_edit?": false,
+      "scroll_to_link": null,
+      "displaystring": "Fact 4",
+      "fact_title": null,
+      "fact_wheel": {
+        "authority": "0.0",
+        "opinion_types": {
+          "believe": {
+            "percentage": 0,
+            "is_user_opinion": false
+          },
+          "doubt": {
+            "percentage": 100,
+            "is_user_opinion": false
+          },
+          "disbelieve": {
+            "percentage": 0,
+            "is_user_opinion": false
+          }
+        },
+        "fact_id": "2"
+      },
+      "believe_percentage": 0,
+      "disbelieve_percentage": 0,
+      "doubt_percentage": 100,
+      "fact_url": "http://example.org/4.html",
+      "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F4.html&scrollto=2"
+    },
+    "current_user_opinion": null,
+    "opinions": {
+      "formatted_belief_authority": "0.0",
+      "formatted_disbelief_authority": "0.0",
+      "formatted_relevance": "0.0"
+    },
+    "created_by": {
+      "id": "<STRIPPED>",
+      "name": "johndoe6",
+      "username": "johndoe6",
+      "gravatar_hash": "9e1148767a56cb9971bb65c4a36b72e9",
+      "authority": "1.0"
+    }
+  }
+]
