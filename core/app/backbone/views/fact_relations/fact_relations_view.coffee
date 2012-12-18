@@ -16,7 +16,7 @@ class EvidenceListView extends Backbone.Marionette.CollectionView
   className: 'fact-relation-listing'
 
   itemView: Backbone.View
-  itemViewOptions: => type: @collection.type
+  itemViewOptions: => type: @options.type
   emptyView: EmptyEvidenceView
 
   addChildView: (item, collection, options) ->
@@ -74,6 +74,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
         model: @model
       @factRelationsRegion.show new EvidenceListView
         collection: @joinedSortedCollection()
+        type: @model.relations().type
         item_type: 'fact_relation'
     else
       @hideRegion @factRelationSearchRegion
