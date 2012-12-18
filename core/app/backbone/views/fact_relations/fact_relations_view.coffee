@@ -41,8 +41,8 @@ class EvidenceListView extends Backbone.Marionette.CollectionView
     else
       @itemViewForModel(item)
 
-  buildItemView: (item, itemView) ->
-    super item, @itemViewFor(item, itemView)
+  buildItemView: (item, itemView, options) ->
+    super item, @itemViewFor(item, itemView), options
 
 class window.FactRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
