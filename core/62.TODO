@@ -3,9 +3,9 @@ Prework:
  ✔ Decide which urls to use. @done (12-12-17 14:01)
 
 Backend:
+ ✔ make a query to retrieve subcomments on factrelations and comments and sort them @done (12-12-18 11:50)
  ☐ make a command/interactor/route to add a subcomment to a factrelation
  ☐ make a command/interactor/route to add a subcomment to a comment
- ☐ make a query to retrieve subcomments on factrelations and comments and sort them
  ☐ make a interactor + route to expose this
    add a cannonical url to the json for delete/update actions
  ☐ make a 'comment' activity for the users that have interacted with the top comment/factrelation

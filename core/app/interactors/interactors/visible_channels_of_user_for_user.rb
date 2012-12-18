@@ -30,7 +30,7 @@ module Interactors
         containing_channel_ids: containing_channel_ids,
         created_by_user: kill_user(user)
       }
-      
+
       extra_fields[:unread_count] = ch.unread_count if user == @options[:current_user]
 
       KillObject.channel ch, extra_fields
