@@ -148,7 +148,7 @@ feature "adding comments to a fact", type: :request do
 
     within(".relation-tabs-view") do
       add_existing_factlink supporting_factlink
-
+      sleep 2
       within("li.evidence-item") do
         page.should have_content supporting_factlink.to_s
       end
