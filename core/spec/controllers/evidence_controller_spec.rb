@@ -1,6 +1,36 @@
 require 'spec_helper'
 require 'pavlov_helper'
 
+describe CommentsController do
+  render_views
+
+
+  # described here since about to be merged
+  describe :index do
+    include Pavlov::Helpers
+    let(:current_user){create :user}
+    def pavlov_options
+      {current_user: current_user}
+    end
+    it "should keep doing the same" do
+      FactoryGirl.reload # hack because of fixture in check
+
+      fact = create :fact
+      interactor :'comments/create', fact.id.to_i, 'believes', 'Gerard'
+      interactor :'comments/create', fact.id.to_i, 'believes', 'Henk'
+
+      authenticate_user!(current_user)
+
+      get 'index', type:'believes', id: fact.id, format: 'json'
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'comments#index should keep the same content')
+    end
+  end
+end
+
 describe SupportingEvidenceController do
   include PavlovSupport
   render_views
@@ -9,17 +39,19 @@ describe SupportingEvidenceController do
 
   let(:f1) {create(:fact)}
   let(:f2) {create(:fact)}
-  let(:f3) {create(:fact)}
 
   before do
     # TODO: remove this once activities are not created in the models any more, but in interactors
     stub_const 'Activity::Subject', Class.new
     Activity::Subject.should_receive(:activity).any_number_of_times
-
-    @fr = f1.add_evidence(:supporting, f2, user)
   end
 
   describe :index do
+    before do
+      FactoryGirl.reload # hack because of fixture in check
+      @fr = f1.add_evidence(:supporting, f2, user)
+    end
+
     it "should show" do
       should_check_can :get_evidence, f1
 
@@ -28,7 +60,6 @@ describe SupportingEvidenceController do
     end
 
     it "should keep doing the same" do
-      FactoryGirl.reload # hack because of fixture in check
 
       should_check_can :get_evidence, f1
       get 'index', fact_id: f1.id, format: 'json'
@@ -46,6 +77,7 @@ describe SupportingEvidenceController do
       parsed_content[0]["fact_base"]["id"].should == f2.id
     end
   end
+
 
   describe :create do
 
