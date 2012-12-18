@@ -34,7 +34,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    command :'channels/add_fact', channel
+    command :'channels/add_fact', self, channel
   end
 
   def has_site?
