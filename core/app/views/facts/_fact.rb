@@ -72,7 +72,6 @@ module Facts
 
     expose_to_hash :timestamp
 
-    # imported from extended fact:
     def created_by
       user = self[:fact].created_by.user
 
