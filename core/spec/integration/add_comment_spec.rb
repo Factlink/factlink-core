@@ -122,7 +122,7 @@ feature "adding comments to a fact", type: :request do
     supporting_factlink = backend_create_fact
 
     within(".relation-tabs-view") do
-      add_evidence supporting_factlink
+      add_factlink supporting_factlink
 
       within("li.evidence-item") do
         page.should have_content supporting_factlink.to_s
@@ -137,7 +137,7 @@ feature "adding comments to a fact", type: :request do
     supporting_factlink = backend_create_fact
 
     within(".relation-tabs-view") do
-      add_evidence supporting_factlink
+      add_factlink supporting_factlink
 
       within("li.evidence-item") do
         page.find('span', text: supporting_factlink.to_s).click
