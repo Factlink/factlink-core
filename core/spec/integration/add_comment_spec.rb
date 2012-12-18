@@ -115,6 +115,6 @@ feature "adding comments to a fact", type: :request do
   end
 
   def comment_listing
-    find '.comments-listing'
+    find '.fact-relation-listing'
   end
 end
