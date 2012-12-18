@@ -14,7 +14,7 @@ module BaseViews
 
     def scroll_to_link
       if show_links and fact_title
-        link_to(fact_title, proxy_scroll_url, :target => "_blank")
+        @view.link_to(fact_title, proxy_scroll_url, :target => "_blank")
       elsif not fact_title.blank?
         fact_title
       else
