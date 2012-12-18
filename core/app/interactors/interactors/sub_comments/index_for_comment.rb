@@ -25,7 +25,7 @@ module Interactors
       end
 
       def top_fact
-        @top_fact ||= Comment[@comment_id].fact_data.fact
+        @top_fact ||= Comment.find(@comment_id).fact_data.fact
       end
 
       def authority_of_user_who_created sub_comment

@@ -18,13 +18,13 @@ module Interactors
       end
 
       def execute
-        sub_comment = command :'sub_comments/create', @comment_id, 'Comment', @content
+        sub_comment = command :'sub_comments/create', @comment_id, 'Comment', @content, @options[:current_user]
         KillObject.sub_comment sub_comment,
           authority: authority_of_user_who_created(sub_comment)
       end
 
       def top_fact
-        @top_fact ||= Comment[@comment_id].fact_data.fact
+        @top_fact ||= Comment.find(@comment_id).fact_data.fact
       end
 
       def authority_of_user_who_created sub_comment

@@ -43,7 +43,7 @@ describe Interactors::SubComments::CreateForComment do
       content = 'hoi'
       interactor = Interactors::SubComments::CreateForComment.new comment_id, content, current_user: user
 
-      should_receive_new_with_and_receive_call(Commands::SubComments::Create, comment_id, 'Comment', content, current_user: user).
+      should_receive_new_with_and_receive_call(Commands::SubComments::Create, comment_id, 'Comment', content, user, current_user: user).
         and_return(sub_comment)
 
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
@@ -67,7 +67,7 @@ describe Interactors::SubComments::CreateForComment do
       comment_id = '2a'
       fact = mock
       comment = mock(fact_data: mock(fact:fact))
-      Comment.should_receive(:[]).with(comment_id).and_return(comment)
+      Comment.should_receive(:find).with(comment_id).and_return(comment)
 
       interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: mock
 
@@ -80,7 +80,7 @@ describe Interactors::SubComments::CreateForComment do
       comment_id = '2a'
       fact = mock
       comment = mock(fact_data: mock(fact:fact))
-      Comment.should_receive(:[]).with(comment_id).and_return(comment)
+      Comment.should_receive(:find).with(comment_id).and_return(comment)
 
       interactor = Interactors::SubComments::CreateForComment.new comment_id, 'hoi', current_user: mock
 

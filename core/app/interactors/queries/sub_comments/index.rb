@@ -5,7 +5,8 @@ module Queries
       arguments :parent_id, :parent_class
 
       def execute
-        result = SubComment.find(parent_id: @parent_id.to_s, parent_class: @parent_class).asc(:created_at)
+        result = SubComment.where(parent_id: @parent_id.to_s, parent_class: @parent_class).
+          asc(:created_at)
         result.map {|sub_comment| KillObject.sub_comment sub_comment }
       end
 

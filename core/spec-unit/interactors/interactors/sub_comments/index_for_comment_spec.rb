@@ -68,7 +68,7 @@ describe Interactors::SubComments::IndexForComment do
       comment_id = '2a'
       fact = mock
       comment = mock(fact_data: mock(fact:fact))
-      Comment.should_receive(:[]).with(comment_id).and_return(comment)
+      Comment.should_receive(:find).with(comment_id).and_return(comment)
 
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: mock
 
@@ -81,7 +81,7 @@ describe Interactors::SubComments::IndexForComment do
       comment_id = '2a'
       fact = mock
       comment = mock(fact_data: mock(fact:fact))
-      Comment.should_receive(:[]).with(comment_id).and_return(comment)
+      Comment.should_receive(:find).with(comment_id).and_return(comment)
 
       interactor = Interactors::SubComments::IndexForComment.new comment_id, current_user: mock
 
