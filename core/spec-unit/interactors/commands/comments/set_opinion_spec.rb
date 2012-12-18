@@ -8,7 +8,7 @@ describe Commands::Comments::SetOpinion do
     stub_classes 'Believable::Commentje'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "sets the opinion on the believable belonging to this comment" do
       opinion = 'believes'
 
@@ -22,7 +22,7 @@ describe Commands::Comments::SetOpinion do
 
       believable.should_receive(:add_opiniated)
                 .with(opinion, graph_user)
-      command.execute
+      command.call
     end
   end
 

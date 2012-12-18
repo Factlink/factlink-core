@@ -3,7 +3,7 @@ require 'pavlov_helper'
 require_relative '../../../../app/interactors/interactors/channels/add_fact'
 
 describe Interactors::Channels::AddFact do
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       fact = mock(site: mock(id: 10))
       channel = mock(topic: mock(slug_title: mock))
@@ -19,7 +19,7 @@ describe Interactors::Channels::AddFact do
       interactor.should_receive(:command).with(:"site/add_top_topic", fact.site.id, channel.topic.slug_title)
       interactor.should_receive(:command).with(:"create_activity", user, :added_fact_to_channel, fact, channel)
 
-      interactor.execute
+      interactor.call
     end
   end
 

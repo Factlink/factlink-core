@@ -30,7 +30,7 @@ describe Interactors::Comments::Create do
       to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const('Commands::CreateCommentCommand', Class.new)
       stub_const 'Fact', Class.new
@@ -60,7 +60,7 @@ describe Interactors::Comments::Create do
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
-      interactor.execute.should eq comment
+      interactor.call.should eq comment
     end
   end
 

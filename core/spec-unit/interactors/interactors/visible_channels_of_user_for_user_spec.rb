@@ -6,7 +6,7 @@ describe Interactors::VisibleChannelsOfUserForUser do
   before do
     stub_classes 'Channel'
   end
-  describe '.execute' do
+  describe '.call' do
     it do
       user = mock
       ch1 = mock
@@ -24,7 +24,7 @@ describe Interactors::VisibleChannelsOfUserForUser do
 
       query.should_receive(:kill_channel).with(ch1, topic_authority, containing_channels, user)
       query.should_receive(:kill_channel).with(ch2, topic_authority, containing_channels, user)
-      query.execute
+      query.call
     end
   end
 

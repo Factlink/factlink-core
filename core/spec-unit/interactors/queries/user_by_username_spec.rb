@@ -8,7 +8,7 @@ describe Queries::UserByUsername do
     stub_classes 'User'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'retrieves a user' do
       search_username = "GERARD"
 
@@ -19,7 +19,7 @@ describe Queries::UserByUsername do
            and_return(user)
 
       query = Queries::UserByUsername.new(search_username)
-      result = query.execute
+      result = query.call
 
       expect(result.id).to eq(user.id)
     end

@@ -8,7 +8,7 @@ describe Interactors::SendMailForActivity do
     stub_classes 'Queries::UsersByGraphUserIds', 'Commands::SendActivityMailToUser', 'Queries::ObjectIdsByActivity'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       user = mock(id: 1)
 
@@ -19,10 +19,10 @@ describe Interactors::SendMailForActivity do
 
       interactor.should_receive(:recipients).and_return([user])
 
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Commands::SendActivityMailToUser,  user.id, activity.id, {})
 
-      interactor.execute
+      interactor.call
     end
   end
 
@@ -51,10 +51,10 @@ describe Interactors::SendMailForActivity do
       Interactors::SendMailForActivity.any_instance.stub(authorized?: true)
       interactor = Interactors::SendMailForActivity.new activity
 
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Queries::ObjectIdsByActivity, activity, "GraphUser", :notifications, {}).and_return(graph_user_ids)
 
-      should_receive_new_with_and_receive_execute(
+      should_receive_new_with_and_receive_call(
         Queries::UsersByGraphUserIds, graph_user_ids, {}).and_return([user2, user1])
 
       expect(interactor.users_by_graph_user_ids).to eq([user2, user1])

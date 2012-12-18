@@ -15,7 +15,7 @@ describe ChannelsController do
   let (:ch1) do
     ch1 = create :channel, created_by: user.graph_user
     [f1,f2,f3].each do |f|
-      Interactors::Channels::AddFact.new(f, ch1, no_current_user: true).execute
+      Interactors::Channels::AddFact.new(f, ch1, no_current_user: true).call
     end
     ch1
   end

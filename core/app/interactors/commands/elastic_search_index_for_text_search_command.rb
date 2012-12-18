@@ -3,6 +3,7 @@ require_relative '../../classes/elastic_search'
 
 module Commands
   class ElasticSearchIndexForTextSearchCommand
+    # TODO: Rewrite this command to be fully compatible with Pavlov
 
     def initialize object, options={}
       @missing_fields = []
@@ -20,7 +21,7 @@ module Commands
       raise "#{@type_name} missing fields (#{@missing_fields})." unless @missing_fields.count == 0
     end
 
-    def execute
+    def call
       index = ElasticSearch::Index.new @type_name
       index.add @object.id, @document.to_json
       # @logger.info "Adding/updating #{@type_name} to ElasticSearch index."

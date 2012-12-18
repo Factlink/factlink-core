@@ -9,7 +9,7 @@ module Pavlov
     module ClassMethods
       # make our interactors behave as Resque jobs
       def perform(*args)
-        new(*args).execute
+        new(*args).call
       end
 
       def queue

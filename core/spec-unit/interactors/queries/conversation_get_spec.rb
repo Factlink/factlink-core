@@ -24,7 +24,7 @@ describe Queries::ConversationGet do
       to raise_error(Pavlov::ValidationError, 'id should be an hexadecimal string.')
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "returns the dead representation of the conversation if found" do
       id = 10
       fact_data = FactData.new
@@ -37,7 +37,7 @@ describe Queries::ConversationGet do
       user.stub(id: 13)
 
       Conversation.should_receive(:find).with(id).and_return(mock_conversation)
-      res = Queries::ConversationGet.execute(id, current_user: user)
+      res = Queries::ConversationGet.new(id, current_user: user).call
 
       expect(res.id).to eq(id)
       expect(res.fact_data_id).to eq(fact_data.id)
@@ -48,7 +48,7 @@ describe Queries::ConversationGet do
     it "returns nil if no matching conversation is found" do
       Conversation.should_receive(:find).and_return(nil)
 
-      res = Queries::ConversationGet.execute(1245, current_user: mock())
+      res = Queries::ConversationGet.new(1245, current_user: mock()).call
 
       expect(res).to be_nil
     end

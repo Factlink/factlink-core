@@ -17,7 +17,7 @@ describe Commands::DeleteComment do
       to raise_error(Pavlov::ValidationError, 'user_id should be an hexadecimal string.')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const 'Comment', Class.new
       stub_const 'User', Class.new
@@ -34,7 +34,7 @@ describe Commands::DeleteComment do
       User.should_receive(:find).with(user_id).and_return(user)
       comment.should_receive(:delete)
 
-      interactor.execute
+      interactor.call
     end
 
     pending "fails when the user is not the owner"
