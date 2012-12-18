@@ -21,10 +21,10 @@ class window.UserActivitiesView extends Backbone.Marionette.CompositeView
 
   appendable: (m) -> false
 
-  buildItemView: (item, ItemView) ->
+  buildItemView: (item, ItemView, options) ->
     #ignore ItemView
     newItemView = window.getActivityItemViewFor(item)
-    super(item, newItemView)
+    super(item, newItemView, options)
 
 class UserChannelActivitiesView extends UserActivitiesView
   appendable: (m) ->

@@ -4,8 +4,7 @@ class window.SearchResultView extends Backbone.Marionette.CompositeView
   template: "search_results/_search_results"
   itemViewContainer: ".results"
 
-  buildItemView: (item, itemView) ->
-    itemViewOptions = _.result(this, "itemViewOptions")
+  buildItemView: (item, itemView, itemViewOptions) ->
     options = _.extend( { model: item}, itemViewOptions)
     getSearchResultItemView(options)
 
