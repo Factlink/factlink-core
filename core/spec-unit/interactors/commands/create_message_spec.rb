@@ -48,7 +48,7 @@ describe Commands::CreateMessage do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'creates and saves a message' do
       conversation = stub(id: 1, recipient_ids: [14])
 
@@ -64,7 +64,7 @@ describe Commands::CreateMessage do
       Message.should_receive(:new).and_return(message)
       message.should_receive(:save)
 
-      expect(command.execute).to eq(message)
+      expect(command.call).to eq(message)
     end
   end
 

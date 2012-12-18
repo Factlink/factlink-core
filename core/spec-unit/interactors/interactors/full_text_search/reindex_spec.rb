@@ -8,13 +8,13 @@ describe Interactors::FullTextSearch::Reindex do
     stub_classes 'ElasticSearch'
   end
 
-  it '.execute' do
+  it '.call' do
     interactor = Interactors::FullTextSearch::Reindex.new
 
     interactor.should_receive(:reset_mapping)
     interactor.should_receive(:reindex)
 
-    interactor.execute
+    interactor.call
   end
 
   it '.reset_mapping' do

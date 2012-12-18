@@ -32,7 +32,7 @@ module BeliefExpressions
   end
 
   def add_to_global_channel(factlink)
-    Interactors::Channels::AddFact.new(factlink, global_channel, no_current_user:true).execute
+    Interactors::Channels::AddFact.new(factlink, global_channel, no_current_user:true).call
   end
 
   def possible_reset

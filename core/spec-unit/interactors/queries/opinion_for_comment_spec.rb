@@ -22,14 +22,14 @@ describe Queries::OpinionForComment do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "returns the opinion the calculator calculates" do
       opinion = mock
       calculator = mock(:calculator, opinion: opinion)
       query = Queries::OpinionForComment.new 'a1', mock
       query.stub calculator: calculator
 
-      expect(query.execute).to eq opinion
+      expect(query.call).to eq opinion
     end
   end
 

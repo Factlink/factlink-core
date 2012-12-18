@@ -16,7 +16,7 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     comment = 'Geert is een buffel'
-    add_comment_with_toggle comment
+    add_comment comment
 
     # Input should be empty
     find_field('add_comment').value.blank?.should be_true
@@ -37,7 +37,7 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment_with_toggle comment
+    add_comment comment
 
     go_to_discussion_page_of factlink
 
@@ -53,7 +53,7 @@ feature "adding comments to a fact", type: :request do
     go_to_discussion_page_of factlink
 
     comment = 'Buffels zijn niet klein te krijgen joh'
-    add_comment_with_toggle comment
+    add_comment comment
 
     within evidence_listing do
       evidence_item(comment).find('.supporting').click
@@ -73,7 +73,7 @@ feature "adding comments to a fact", type: :request do
     comment1 = 'Vroeger was Gerard een hengst'
     comment2 = 'Henk is nog steeds een buffel'
 
-    add_comment_with_toggle comment1
+    add_comment comment1
     add_comment comment2
 
     evidence_listing.should have_content comment1
@@ -91,7 +91,7 @@ feature "adding comments to a fact", type: :request do
 
     comment = 'Vroeger had Gerard een hele stoere fiets'
 
-    add_comment_with_toggle comment
+    add_comment comment
 
     within evidence_listing do
       find('.evidence-popover-arrow').click

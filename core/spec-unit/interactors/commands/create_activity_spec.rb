@@ -17,7 +17,7 @@ describe Commands::CreateActivity do
     command.should_not be_nil
   end
 
-  describe '.execute' do
+  describe '.call' do
     it 'correctly' do
       action = :test
       activity_subject = mock()
@@ -25,7 +25,7 @@ describe Commands::CreateActivity do
       command = Commands::CreateActivity.new graph_user, action, activity_subject, activity_object
       Activity.should_receive(:create).with(user: graph_user, action: action, subject: activity_subject, object: activity_object )
 
-      command.execute
+      command.call
     end
   end
 end

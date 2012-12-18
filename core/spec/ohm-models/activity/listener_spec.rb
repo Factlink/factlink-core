@@ -24,7 +24,7 @@ describe Activity::Listener do
   def send_mail_for_activity_should_be_invoked
     interactor = mock()
     Interactors::SendMailForActivity.should_receive(:new).and_return(interactor)
-    interactor.should_receive(:execute)
+    interactor.should_receive(:call)
   end
 
   describe :new do
