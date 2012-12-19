@@ -23,6 +23,11 @@ describe FactsController do
       should_check_can :show, @fact
       get :show, id: @fact.id, format: :json
       response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'facts#show should keep the same content')
     end
   end
 
