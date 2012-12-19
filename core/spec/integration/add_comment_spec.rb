@@ -87,7 +87,7 @@ feature "adding comments to a fact", type: :request do
     evidence_listing.should have_content comment2
   end
 
-  pending 'comments and facts should be sorted on relevance' do
+  it 'comments and facts should be sorted on relevance' do
     user_authority_on_fact = 17
     Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
 
@@ -100,6 +100,8 @@ feature "adding comments to a fact", type: :request do
     add_comment comment1
     add_new_factlink comment2
     add_comment comment3
+
+    sleep 2
 
     within evidence_listing do
       evidence_item(comment1).find('.supporting').click
