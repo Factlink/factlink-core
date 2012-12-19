@@ -14,7 +14,7 @@ feature "sub_comments", type: :request do
   def add_sub_comment(comment)
     fill_in 'text_area_view', with: comment
     find('.evidence-sub-comments-button', text: 'Comment').click
-    find('.evidence-sub-comment-content', text: comment)
+    find('.evidence-sub-comment-content').should have_content comment
   end
 
   def switch_to_user(user)
@@ -38,7 +38,7 @@ feature "sub_comments", type: :request do
     go_to_discussion_page_of @factlink_user_a
 
     find('.js-sub-comments-link', text: 'Comments').click
-    find('.evidence-sub-comment-content', text: sub_comment_text)
+    find('.evidence-sub-comment-content').should have_content sub_comment_text
   end
 
   scenario "A user can comment on a fact relation" do
@@ -57,6 +57,6 @@ feature "sub_comments", type: :request do
     go_to_discussion_page_of @factlink_user_a
 
     find('.js-sub-comments-link', text: 'Comments').click
-    find('.evidence-sub-comment-content', text: sub_comment_text)
+    find('.evidence-sub-comment-content').should have_content sub_comment_text
   end
 end
