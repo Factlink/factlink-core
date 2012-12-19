@@ -62,10 +62,6 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @model.comments()?.fetch()
     @model.evidence()?.fetch()
 
-  joinedSortedCollection: ->
-    utils = new CollectionUtils(this)
-    @_joinedCollection ?= @model.relations()
-
   onRender: ->
     @$el.addClass @model.type()
 
