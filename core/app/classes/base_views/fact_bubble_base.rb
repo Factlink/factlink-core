@@ -1,8 +1,38 @@
 module BaseViews
-  module FactBubbleBase
+  class FactBubbleBase
+    def initialize fact, view
+      @fact = fact
+      @view = view
+    end
+
+    def add_to_json json
+      json.user_signed_in? user_signed_in?
+      json.i_am_fact_owner i_am_fact_owner
+      json.can_edit? can_edit?
+      json.scroll_to_link scroll_to_link
+      json.displaystring displaystring
+      json.fact_title fact_title
+      json.fact_wheel do |j|
+        fact_wheel j
+      end
+      json.believe_percentage believe_percentage
+      json.disbelieve_percentage disbelieve_percentage
+      json.doubt_percentage doubt_percentage
+      json.fact_url fact_url
+      json.proxy_scroll_url proxy_scroll_url
+    end
+
     def user_signed_in?
       @view.user_signed_in?
     end
+
+    def proxy_scroll_url
+      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+    rescue
+      ""
+    end
+
+    private
 
     def i_am_fact_owner
       (@fact.created_by == @view.current_graph_user)
@@ -57,11 +87,6 @@ module BaseViews
       end
     end
 
-    def proxy_scroll_url
-      FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
-    rescue
-      ""
-    end
 
   end
 end

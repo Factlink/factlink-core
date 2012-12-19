@@ -1,7 +1,5 @@
 module Facts
   class Fact
-    include BaseViews::FactBubbleBase
-
     def self.for(*args)
       new(*args)
     end
@@ -28,7 +26,7 @@ module Facts
     end
 
     def signed_in?
-      user_signed_in?
+      base.user_signed_in?
     end
 
     def containing_channel_ids
@@ -37,7 +35,7 @@ module Facts
     end
 
     def deletable_from_channel?
-      user_signed_in? and @channel and @channel.editable? and @channel.created_by == @view.current_graph_user
+      base.user_signed_in? and @channel and @channel.editable? and @channel.created_by == @view.current_graph_user
     end
 
     def i_am_owner
@@ -107,6 +105,10 @@ module Facts
       @fact.opiniated(:doubts).count
     end
 
+    def base
+      BaseViews::FactBubbleBase.new @fact, @view
+    end
+
     def to_hash
       json = JbuilderTemplate.new(@view)
 
@@ -128,20 +130,7 @@ module Facts
       json.disbelievers_count disbelievers_count
       json.doubters_count doubters_count
 
-      json.user_signed_in? user_signed_in?
-      json.i_am_fact_owner i_am_fact_owner
-      json.can_edit? can_edit?
-      json.scroll_to_link scroll_to_link
-      json.displaystring displaystring
-      json.fact_title fact_title
-      json.fact_wheel do |j|
-        fact_wheel j
-      end
-      json.believe_percentage believe_percentage
-      json.disbelieve_percentage disbelieve_percentage
-      json.doubt_percentage doubt_percentage
-      json.fact_url fact_url
-      json.proxy_scroll_url proxy_scroll_url
+      base.add_to_json json
 
       json.timestamp @timestamp
 

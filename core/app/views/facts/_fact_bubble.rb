@@ -1,7 +1,5 @@
 module Facts
   class FactBubble
-    include BaseViews::FactBubbleBase
-
     def self.for(*args)
       new(*args)
     end
@@ -14,7 +12,7 @@ module Facts
     def link
       displaystring = @view.send(:h, @fact.data.displaystring)
 
-      @view.link_to(displaystring, proxy_scroll_url, :target => "_blank")
+      @view.link_to(displaystring, base.proxy_scroll_url, :target => "_blank")
     end
 
     def fact_id
@@ -25,6 +23,10 @@ module Facts
       @view.friendly_fact_path(@fact)
     end
 
+    def base
+      BaseViews::FactBubbleBase.new @fact, @view
+    end
+
     def to_hash
       json = JbuilderTemplate.new(@view)
 
@@ -33,20 +35,7 @@ module Facts
       json.url url
       json.id fact_id
 
-      json.user_signed_in? user_signed_in?
-      json.i_am_fact_owner i_am_fact_owner
-      json.can_edit? can_edit?
-      json.scroll_to_link scroll_to_link
-      json.displaystring displaystring
-      json.fact_title fact_title
-      json.fact_wheel do |j|
-        fact_wheel j
-      end
-      json.believe_percentage believe_percentage
-      json.disbelieve_percentage disbelieve_percentage
-      json.doubt_percentage doubt_percentage
-      json.fact_url fact_url
-      json.proxy_scroll_url proxy_scroll_url
+      base.add_to_json json
 
       json.attributes!
     end
