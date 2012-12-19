@@ -63,7 +63,13 @@ class FactRelation < Basefact
   end
 
   def deletable?
-    people_believes.count <= 1 && ((people_believes.ids == []) or (people_believes.ids.map {|i| i.to_i} == [created_by_id.to_i]))
+    has_no_believers = people_believes.ids == []
+    creator_is_only_believer = people_believes.ids.map {|i| i.to_i} == [created_by_id.to_i]
+
+    sub_comment_count = Queries::SubComments::Count.new(id.to_i, 'FactRelation').execute
+    has_no_sub_comments = sub_comment_count == 0
+
+    (has_no_believers or creator_is_only_believer) and has_no_sub_comments
   end
 
   def delete_key
