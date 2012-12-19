@@ -6,21 +6,29 @@ module BaseViews
     end
 
     def add_to_json json
+      i_am_fact_owner = (@fact.created_by == @view.current_graph_user)
+      can_edit = (@view.user_signed_in? and i_am_fact_owner)
+
       json.user_signed_in? user_signed_in?
       json.i_am_fact_owner i_am_fact_owner
-      json.can_edit? can_edit?
+      json.can_edit? can_edit
       json.scroll_to_link scroll_to_link
-      json.displaystring displaystring
+      json.displaystring @fact.data.displaystring
       json.fact_title fact_title
       json.fact_wheel do |j|
-        fact_wheel j
+        j.partial! partial: 'facts/fact_wheel',
+                      formats: [:json], handlers: [:jbuilder],
+                      locals: { fact: @fact }
       end
-      json.believe_percentage believe_percentage
-      json.disbelieve_percentage disbelieve_percentage
-      json.doubt_percentage doubt_percentage
-      json.fact_url fact_url
+      # DEPRECATED, use fact_wheel (or not, but choose one)
+      json.believe_percentage @fact.get_opinion.as_percentages[:believe][:percentage]
+      json.disbelieve_percentage @fact.get_opinion.as_percentages[:disbelieve][:percentage]
+      json.doubt_percentage @fact.get_opinion.as_percentages[:doubt][:percentage]
+      # / DEPRECATED
+      json.fact_url(@fact.has_site? ? @fact.site.url : nil)
       json.proxy_scroll_url proxy_scroll_url
     end
+
 
     def user_signed_in?
       @view.user_signed_in?
@@ -34,14 +42,6 @@ module BaseViews
 
     private
 
-    def i_am_fact_owner
-      (@fact.created_by == @view.current_graph_user)
-    end
-
-    def can_edit?
-      @view.user_signed_in? and i_am_fact_owner
-    end
-
     def scroll_to_link
       if fact_title
         @view.link_to(fact_title, proxy_scroll_url, :target => "_blank")
@@ -52,41 +52,9 @@ module BaseViews
       end
     end
 
-    def displaystring
-      @fact.data.displaystring
-    end
-
     def fact_title
       @fact.data.title
     end
-
-    def fact_wheel json
-      json.partial! partial: 'facts/fact_wheel', formats: [:json], handlers: [:jbuilder], locals: { fact: @fact }
-    end
-
-    # DEPRECATED, use fact_wheel (or not, but choose one)
-    def believe_percentage
-      @fact.get_opinion.as_percentages[:believe][:percentage]
-    end
-
-    # DEPRECATED, use fact_wheel (or not, but choose one)
-    def disbelieve_percentage
-      @fact.get_opinion.as_percentages[:disbelieve][:percentage]
-    end
-
-    # DEPRECATED, use fact_wheel (or not, but choose one)
-    def doubt_percentage
-      @fact.get_opinion.as_percentages[:doubt][:percentage]
-    end
-
-    def fact_url
-      if @fact.has_site?
-        @fact.site.url
-      else
-        nil
-      end
-    end
-
 
   end
 end

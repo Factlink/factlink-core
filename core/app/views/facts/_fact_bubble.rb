@@ -9,31 +9,20 @@ module Facts
       @view = options[:view]
     end
 
-    def link
-      displaystring = @view.send(:h, @fact.data.displaystring)
-
-      @view.link_to(displaystring, base.proxy_scroll_url, :target => "_blank")
-    end
-
-    def fact_id
-      @fact.id
-    end
-
-    def url
-      @view.friendly_fact_path(@fact)
-    end
-
     def base
       BaseViews::FactBubbleBase.new @fact, @view
     end
 
     def to_hash
+      displaystring = @view.send(:h, @fact.data.displaystring)
+      link = @view.link_to(displaystring, base.proxy_scroll_url, :target => "_blank")
+
       json = JbuilderTemplate.new(@view)
 
       json.link link
-      json.fact_id fact_id
-      json.url url
-      json.id fact_id
+      json.fact_id @fact.id
+      json.url @view.friendly_fact_path(@fact)
+      json.id @fact.id
 
       base.add_to_json json
 
