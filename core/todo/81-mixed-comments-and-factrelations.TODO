@@ -4,7 +4,7 @@
  ✔ move evidence#index to the comments/index interactor, and rename accordingly @done (12-12-19 17:49)
  ✔ add type to json (factrelation/comment) @done (12-12-19 17:49)
  ☐ Fix bug where candestroy isn't set properly on the factrelations (it's inversed, @mark)
- ☐ Fix unit tests
+ ☐ Fix unit tests for query
  Frontend:
  ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
