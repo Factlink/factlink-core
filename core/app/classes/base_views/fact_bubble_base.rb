@@ -13,7 +13,7 @@ module BaseViews
     end
 
     def scroll_to_link
-      if show_links and fact_title
+      if fact_title
         @view.link_to(fact_title, proxy_scroll_url, :target => "_blank")
       elsif not fact_title.blank?
         fact_title
@@ -65,11 +65,5 @@ module BaseViews
       ""
     end
 
-    private
-      def show_links
-        hide_links_on_this_site = @hide_links_for_site # (self[:hide_links_for_site] and @fact.site == self[:hide_links_for_site])
-        should_hide_links = @hide_links or hide_links_on_this_site
-        @fact.andand.site and not should_hide_links
-      end
   end
 end

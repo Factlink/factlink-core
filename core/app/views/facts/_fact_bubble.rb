@@ -13,7 +13,8 @@ module Facts
 
     def link
       displaystring = @view.send(:h, @fact.data.displaystring)
-      show_links ? @view.link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
+
+      @view.link_to(displaystring, proxy_scroll_url, :target => "_blank")
     end
 
     def fact_id
