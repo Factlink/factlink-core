@@ -38,6 +38,16 @@ class EvidenceController < FactsController
     evidence
   end
 
+  def sub_comments_index
+    @sub_comments = interactor :'sub_comments/index_for_fact_relation', params[:id].to_i
+    render 'sub_comments/index'
+  end
+
+  def sub_comments_create
+    @sub_comment = interactor :'sub_comments/create_for_fact_relation', params[:id].to_i, params[:content]
+    render 'sub_comments/show'
+  end
+
   def retrieve_evidence(evidence_id)
     Fact[evidence_id] or raise EvidenceNotFoundException
   end

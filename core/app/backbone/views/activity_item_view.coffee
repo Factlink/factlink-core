@@ -36,7 +36,7 @@ window.getActivityItemViewFor = (model) ->
   switch model.get("action")
     when "added_supporting_evidence", "added_weakening_evidence"
       AddedEvidenceView
-    when "created_comment"
+    when "created_comment", "created_sub_comment"
       CreatedCommentView
     when "created_channel"
       CreatedChannelView

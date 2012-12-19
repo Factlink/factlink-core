@@ -22,6 +22,8 @@ module KillObject
   dead_object :comment,
     [:id, :created_by, :created_at, :content, :type,
      :fact_data]
+  dead_object :sub_comment,
+    [:id, :created_by, :created_at, :content, :parent_id]
   dead_object :site,
     [:id, :url]
   dead_object :topic,

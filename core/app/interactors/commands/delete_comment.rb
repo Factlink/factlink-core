@@ -2,15 +2,22 @@ require_relative '../pavlov'
 
 module Commands
   class DeleteComment
+    class NotPossibleError < StandardError
+    end
+
     include Pavlov::Command
 
     arguments :comment_id, :user_id
 
     def execute
-      comment = Comment.find(@comment_id)
-      user = User.find(@user_id)
       raise_unauthorized unless comment.created_by_id.to_s == @user_id
+      raise NotPossibleError unless comment.deletable?
+
       comment.delete
+    end
+
+    def comment
+      @comment ||= Comment.find(@comment_id)
     end
 
     def validate

@@ -43,6 +43,8 @@ class ActivityMailer < ActionMailer::Base
         "#{activity.user.user} has replied to a conversation"
       when :created_comment
         "#{activity.user.user} has commented on a Factlink"
+      when :created_sub_comment
+        "#{activity.user.user} has commented on a Factlink"
       else
         'New notification!'
       end
