@@ -4,19 +4,10 @@ class window.Discussion extends Backbone.Model
     @_type = opts.type
 
   relations: -> @_relations ?= @_getFactRelations()
-  comments:  -> @_comments ?= @_getComments()
   evidence:  -> @_evidence ?= @_getEvidence()
+
   fact: -> @_fact
   type: -> @_type
-
-  _getComments: ->
-    switch @type()
-      when 'supporting'
-        new Comments [], type: 'believes', fact: @fact()
-      when 'weakening'
-        new Comments [],  type: 'disbelieves', fact: @fact()
-      else
-        `undefined`
 
   _getFactRelations: ->
     switch @type()

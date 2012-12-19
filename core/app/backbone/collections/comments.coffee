@@ -1,8 +1,10 @@
-class window.Comments extends Backbone.Collection
-  model: Comment
+# TODO: remove this file
 
-  initialize: (models, opts) ->
-    @type = opts.type
-    @fact = opts.fact
+# class window.Comments extends Backbone.Collection
+#   model: Comment
 
-  url: -> "/facts/#{@fact.id}/comments/#{@type}"
+#   initialize: (models, opts) ->
+#     @type = opts.type
+#     @fact = opts.fact
+
+#   url: -> "/facts/#{@fact.id}/comments/#{@type}"
