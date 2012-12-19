@@ -148,6 +148,9 @@ group :test do
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'guard'
   gem 'guard-rspec'
+
+  gem 'approvals'
+  gem 'timecop'
 end
 
 group :jstest do
