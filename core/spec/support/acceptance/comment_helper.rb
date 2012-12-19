@@ -15,14 +15,6 @@ module Acceptance
         end
       end
 
-      def toggle_between_factlink_and_comment(to_comment)
-        within('.fact-relation-search') do
-          evidence_input = page.find_field 'text_input_view'
-          evidence_input.trigger 'focus'
-          page.find('.js-switch').set to_comment
-        end
-      end
-
       def posting_factlink?
         find('button').has_content? 'Post Factlink'
       end
