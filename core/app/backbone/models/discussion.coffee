@@ -18,13 +18,8 @@ class window.Discussion extends Backbone.Model
       else `undefined`
 
   _getEvidence: ->
-    # TODO this could be refactored, since we are returning EvidenceCollection with @type()
-    switch @type()
-      when 'supporting'
-        new EvidenceCollection [],  type: @type(), fact: @fact()
-      when 'weakening'
-        new EvidenceCollection [],  type: @type(), fact: @fact()
-      else `undefined`
+    if @type() == 'supporting' or @type == 'weakening'
+      new EvidenceCollection [], type: @type(), fact: @fact()
 
   getInteractors: ->
     collectionType = switch @type()
