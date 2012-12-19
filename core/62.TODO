@@ -21,12 +21,13 @@ Frontend:
 Integration frontend:
  ✔ Remove the static models and use the resource url. @done (12-12-18 11:48)
  ✔ Bind the form to the correct url. @done (12-12-18 11:38)
- ☐ make test in create listeners for activity
- ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
+ ✔ make test in create listeners for activity @done (12-12-19 14:51)
+ ✔ Make sure when removing a factrelation with sub comments this isn't allowed to delete @done (12-12-19 14:04)
+ ☐ Make sure when removing a comment with sub comments this isn't allowed to delete
  ☐ Create integration test
  ✔ Fix authority bug @done (12-12-19 11:25)
  ☐ Create apropriate activity stream and notification views
- ☐ Add mail template
+ ✔ Add mail template @done (12-12-19 14:51)
 
 Cleaning up:
  ☐ Returning dead users for sub comments
