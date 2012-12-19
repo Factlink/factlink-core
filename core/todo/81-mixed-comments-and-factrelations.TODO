@@ -3,15 +3,20 @@
  ☐ mix the evidence#index and comments#index and save as evidence#index
  ☐ extract query to retrieve factrelations
  ☐ move evidence#index to the comments/index interactor, and rename accordingly
- ☐ add type to json
+ ☐ add type to json (factrelation/comment)
  Frontend:
  ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
- ☐ collection should contain containing fact id (needed for url in models)
- ☐ add url to factrelation model
- ☐ add url to comment model
+ ☐ integrate with backend:
+   ☐ remove sorting in frontend
+   ☐ only retrieve one list (instead of 2)
+   ☐ clean up classes/css
+   ☐ creating comments/factrelations should keep working after removing one of the collections (create custom url stuff for models)
+   ☐ create mixed collection of comments and factrelations
+
  Integration tests:
- ☐ fix old tests
+ ✔ fix old tests @done (12-12-19 10:25)
+ ✔ make fixture tests for controller actions @done (12-12-19 10:33)
  ☐ test new interleaving
 
 
