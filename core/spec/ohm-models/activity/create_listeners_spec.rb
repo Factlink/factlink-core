@@ -292,4 +292,74 @@ describe 'activity queries' do
 
   end
 
+  describe :sub_comments do
+    include Pavlov::Helpers
+
+    let(:current_user) {create :user}
+
+    def pavlov_options
+      {current_user: current_user}
+    end
+
+    context "creating a sub comment on a comment" do
+      it "creates a stream activity" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+        fact.add_opinion :believes, gu1
+
+        interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+        ]
+      end
+
+      it "creates a notification" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
+
+        fact.add_opinion :believes, gu1
+
+        interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+        ]
+      end
+    end
+
+    context "creating a sub comment on a fact relation" do
+      it "creates a stream activity" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+        fact.add_opinion :believes, gu1
+
+        interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+        gu1.stream_activities.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+        ]
+      end
+
+      it "creates a notification" do
+        fact = create :fact, created_by: current_user.graph_user
+
+        fact_relation = fact.add_evidence :supporting, create(:fact), current_user
+
+        fact.add_opinion :believes, gu1
+
+        interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+
+        gu1.notifications.map(&:to_hash_without_time).should == [
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+        ]
+      end
+    end
+  end
+
 end
