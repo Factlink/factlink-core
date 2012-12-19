@@ -45,7 +45,13 @@ module SearchResults
       elsif klass == Topic
         json = JbuilderTemplate.new(@view)
         json.partial! partial: "topics/topic", formats: [:json], handlers: [:jbuilder], locals: { topic: @obj }
-        json.attributes!
+
+        attrs = json.attributes!
+        if attrs[:title]
+          attrs
+        else
+          nil
+        end
       else
         raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
       end

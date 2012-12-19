@@ -17,5 +17,7 @@ end.map do |hash|
   }
 end
 
-json.title topic.title
-json.channels channels
+if channels.length > 0
+  json.title topic.title
+  json.channels channels
+end
