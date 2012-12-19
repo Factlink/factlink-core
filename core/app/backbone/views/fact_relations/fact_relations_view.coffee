@@ -30,10 +30,12 @@ class EvidenceListView extends Backbone.Marionette.CollectionView
     view.highlight()
 
   itemViewForModel: (model) ->
-    if model.get('fact_relation_type')?
+    if model.get('evidence_type') == 'FactRelation'
       FactRelationEvidenceView
-    else
+    else if model.get('evidence_type') == 'Comment'
       CommentEvidenceView
+    else
+      console.info "This evidence type is not supported: #{model.get('evidence_type')}"
 
   itemViewFor: (item, itemView) ->
     if itemView == @emptyView
@@ -43,6 +45,7 @@ class EvidenceListView extends Backbone.Marionette.CollectionView
 
   buildItemView: (item, itemView, options) ->
     super item, @itemViewFor(item, itemView), options
+
 
 class window.FactRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
@@ -57,10 +60,11 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
   initialize: ->
     @model.relations()?.fetch()
     @model.comments()?.fetch()
+    @model.evidence()?.fetch()
 
   joinedSortedCollection: ->
     utils = new CollectionUtils(this)
-    @_joinedCollection ?= utils.union new EvidenceCollection, @model.relations(), @model.comments()
+    @_joinedCollection ?= @model.relations()
 
   onRender: ->
     @$el.addClass @model.type()
@@ -73,8 +77,8 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
         collection: @model.relations()
         model: @model
       @factRelationsRegion.show new EvidenceListView
-        collection: @joinedSortedCollection()
-        type: @model.relations().type
+        collection: @model.evidence()
+        type: @model.evidence().type
         item_type: 'fact_relation'
     else
       @hideRegion @factRelationSearchRegion
