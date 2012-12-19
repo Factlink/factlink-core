@@ -26,7 +26,7 @@ module Facts
     end
 
     def signed_in?
-      base.user_signed_in?
+      @view.user_signed_in?
     end
 
     def containing_channel_ids
@@ -35,7 +35,7 @@ module Facts
     end
 
     def deletable_from_channel?
-      base.user_signed_in? and @channel and @channel.editable? and @channel.created_by == @view.current_graph_user
+      signed_in? and @channel and @channel.editable? and @channel.created_by == @view.current_graph_user
     end
 
     def i_am_owner
@@ -105,10 +105,6 @@ module Facts
       @fact.opiniated(:doubts).count
     end
 
-    def base
-      BaseViews::FactBubbleBase.new @fact, @view
-    end
-
     def to_hash
       json = JbuilderTemplate.new(@view)
 
@@ -130,6 +126,7 @@ module Facts
       json.disbelievers_count disbelievers_count
       json.doubters_count doubters_count
 
+      base = BaseViews::FactBubbleBase.new @fact, @view
       base.add_to_json json
 
       json.timestamp @timestamp

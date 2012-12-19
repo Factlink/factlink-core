@@ -6,10 +6,29 @@ module BaseViews
     end
 
     def add_to_json json
-      i_am_fact_owner = (@fact.created_by == @view.current_graph_user)
-      can_edit = (@view.user_signed_in? and i_am_fact_owner)
+      proxy_scroll_url = ""
+      begin
+        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+      rescue
+        ""
+      end
 
-      json.user_signed_in? user_signed_in?
+      user_signed_in = @view.user_signed_in?
+
+      fact_title =  @fact.data.title
+      scroll_to_link = if fact_title
+                         @view.link_to(fact_title, proxy_scroll_url, :target => "_blank")
+                       elsif not fact_title.blank?
+                         fact_title
+                       else
+                         nil
+                       end
+
+
+      i_am_fact_owner = (@fact.created_by == @view.current_graph_user)
+      can_edit = (user_signed_in and i_am_fact_owner)
+
+      json.user_signed_in? user_signed_in
       json.i_am_fact_owner i_am_fact_owner
       json.can_edit? can_edit
       json.scroll_to_link scroll_to_link
@@ -30,30 +49,11 @@ module BaseViews
     end
 
 
-    def user_signed_in?
-      @view.user_signed_in?
-    end
 
     def proxy_scroll_url
       FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
     rescue
       ""
-    end
-
-    private
-
-    def scroll_to_link
-      if fact_title
-        @view.link_to(fact_title, proxy_scroll_url, :target => "_blank")
-      elsif not fact_title.blank?
-        fact_title
-      else
-        nil
-      end
-    end
-
-    def fact_title
-      @fact.data.title
     end
 
   end

@@ -9,13 +9,18 @@ module Facts
       @view = options[:view]
     end
 
-    def base
-      BaseViews::FactBubbleBase.new @fact, @view
-    end
-
     def to_hash
+      # DEPRECATED: PLEASE REMOVE ASAP
+      proxy_scroll_url = ""
+      begin
+        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+      rescue
+        ""
+      end
+
       displaystring = @view.send(:h, @fact.data.displaystring)
-      link = @view.link_to(displaystring, base.proxy_scroll_url, :target => "_blank")
+      link = @view.link_to(displaystring, proxy_scroll_url, :target => "_blank")
+      # / DEPRECATED
 
       json = JbuilderTemplate.new(@view)
 
@@ -24,6 +29,7 @@ module Facts
       json.url @view.friendly_fact_path(@fact)
       json.id @fact.id
 
+      base = BaseViews::FactBubbleBase.new @fact, @view
       base.add_to_json json
 
       json.attributes!
