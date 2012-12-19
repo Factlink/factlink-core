@@ -17,6 +17,8 @@ module ActivityMailerHelper
       "replied_message"
     when "created_comment"
       "created_comment"
+    when "created_sub_comment"
+      "created_sub_comment"
     else
       "generic"
     end
