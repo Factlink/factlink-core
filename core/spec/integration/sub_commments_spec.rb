@@ -17,11 +17,6 @@ feature "sub_comments", type: :request do
     find('.evidence-sub-comment-content').should have_content comment
   end
 
-  def switch_to_user(user)
-    sign_out_user
-    sign_in_user @user_b
-  end
-
   scenario "A user can comment on a comment" do
     @comment_user_b = command :create_comment, @factlink_user_a.id.to_i, "believes", "test", @user_b.id.to_s
 
