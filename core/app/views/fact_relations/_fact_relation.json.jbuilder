@@ -1,5 +1,5 @@
 current_user_opinion =
-  current_user.andand.graph_user.andand.opinion_on(fact_relation)
+  fact_relation.current_user_opinion || current_user.andand.graph_user.andand.opinion_on(fact_relation)
 
 
 creator_authority =

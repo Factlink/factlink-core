@@ -79,6 +79,17 @@ describe SupportingEvidenceController do
     end
   end
 
+  describe :combined_index do
+    let(:current_user){create :user}
+
+    it 'response with success' do
+      authenticate_user!(current_user)
+
+      get :combined_index, fact_id: 17, format: :json
+      response.should be_success
+    end
+  end
+
 
   describe :create do
 

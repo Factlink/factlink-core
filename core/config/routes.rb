@@ -59,6 +59,18 @@ FactlinkUI::Application.routes.draw do
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 
+      resources :supporting_evidence do
+        collection do
+          get     "combined"      => "supporting_evidence#combined_index"
+        end
+      end
+
+      resources :weakening_evidence do
+        collection do
+          get     "combined"      => "weakening_evidence#combined_index"
+        end
+      end
+
       resources :supporting_evidence, :weakening_evidence do
         member do
           get     "opinion"       => "evidence#opinion"
@@ -74,7 +86,7 @@ FactlinkUI::Application.routes.draw do
         get     "/channels"         => "facts#get_channel_listing"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
-        get     "/doubters"     => "facts#doubters"
+        get     "/doubters"         => "facts#doubters"
       end
     end
 
