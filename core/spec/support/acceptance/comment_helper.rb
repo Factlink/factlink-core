@@ -59,5 +59,14 @@ module Acceptance
       def add_evidence_form
         find('.fact-relation-search')
       end
+
+      def evidence_item text
+        find '.evidence-item', text: text
+      end
+
+      def evidence_listing
+        find '.fact-relation-listing'
+      end
+
   end
 end

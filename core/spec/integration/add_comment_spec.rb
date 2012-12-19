@@ -174,12 +174,4 @@ feature "adding comments to a fact", type: :request do
 
     page.find('.fact-view .fact-body .js-displaystring', text: supporting_factlink.to_s)
   end
-
-  def evidence_item text
-    find '.evidence-item', text: text
-  end
-
-  def evidence_listing
-    find '.fact-relation-listing'
-  end
 end
