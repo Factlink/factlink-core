@@ -39,7 +39,9 @@ module SearchResults
         return Facts::Fact.for(fact: @obj.fact, view: @view)
 
       elsif klass == User
-        return Users::User.for(user: @obj, view: @view)
+        json = JbuilderTemplate.new(@view)
+        json.partial! partial: "users/user", formats: [:json], handlers: [:jbuilder], locals: { user: @obj }
+        json.attributes!
       elsif klass == Topic
         return Topics::Topic.for(topic: @obj, view: @view)
       else
