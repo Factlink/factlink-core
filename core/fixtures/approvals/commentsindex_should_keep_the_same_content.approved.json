@@ -20,7 +20,8 @@
       "formatted_disbelief_authority": "0.0",
       "formatted_relevance": "1.0"
     },
-    "current_user_opinion": "believes"
+    "current_user_opinion": "believes",
+    "can_destroy?": true
   },
   {
     "id": "<STRIPPED>",
@@ -43,6 +44,7 @@
       "formatted_disbelief_authority": "0.0",
       "formatted_relevance": "1.0"
     },
-    "current_user_opinion": "believes"
+    "current_user_opinion": "believes",
+    "can_destroy?": true
   }
 ]
