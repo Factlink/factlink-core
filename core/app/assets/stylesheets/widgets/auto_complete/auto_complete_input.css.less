@@ -22,13 +22,6 @@
     width: 100%;
   }
 
-  .loading {
-    position: absolute;
-    top: 8px;
-    right: 35px;
-    display: none;
-  }
-
   a.btn {
     display: none;
     float: right;
@@ -36,8 +29,21 @@
 }
 
 .auto-complete {
+  .auto-complete-loading-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: none;
+  }
+
+  &.loading .auto-complete-loading-indicator {
+    display: inline-block;
+  }
+}
+
+.auto-complete {
   margin-bottom: 10px;
-  
+
   &.disabled {
     .auto-complete-input-container {
       background-color: #eee;
