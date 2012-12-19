@@ -1,6 +1,8 @@
-current_user_opinion =
-  fact_relation.current_user_opinion || current_user.andand.graph_user.andand.opinion_on(fact_relation)
-
+if fact_relation.respond_to? :current_user_opinion
+  current_user_opinion = fact_relation.current_user_opinion
+else
+  current_user_opinion = current_user.andand.graph_user.andand.opinion_on(fact_relation)
+end
 
 creator_authority =
   # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
