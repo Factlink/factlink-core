@@ -265,7 +265,6 @@ describe 'activity queries' do
       it "creates a notification for the interacting users" do
         fact = create(:fact)
         fact.add_opinion(:believes, gu1)
-        Activity::Subject.activity(gu1, Opinion.real_for(:believes), fact)
 
         user = create(:user)
 
