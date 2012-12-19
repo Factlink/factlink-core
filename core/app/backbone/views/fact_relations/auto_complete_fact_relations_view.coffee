@@ -8,7 +8,7 @@ class window.AutoCompleteFactRelationsView extends AutoCompleteSearchView
   regions:
     'wheel_region': '.fact-wheel'
     'search_list': 'div.auto-complete-search-list-container'
-    'text_input': 'div.auto-complete-input-container'
+    'text_input': 'div.js-auto-complete-input-view-container'
 
   template: 'fact_relations/auto_complete'
 
