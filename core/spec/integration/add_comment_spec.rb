@@ -1,7 +1,6 @@
 require 'integration_helper'
 
 # TODO rename to add_evidence_spec
-
 feature "adding comments to a fact", type: :request do
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
@@ -23,14 +22,12 @@ feature "adding comments to a fact", type: :request do
     # Input should be empty
     find_field('add_comment').value.blank?.should be_true
 
-    evidence_listing.should have_content comment
+    find(evidence_listing_css_selector).should have_content comment
 
     go_to_discussion_page_of factlink # Reload the page
 
-    evidence_listing.should have_content comment
-
+    find(evidence_listing_css_selector).should have_content comment
   end
-
 
   scenario 'after adding a comment it should have brain cycles' do
     user_authority_on_fact = 17
@@ -43,7 +40,7 @@ feature "adding comments to a fact", type: :request do
 
     go_to_discussion_page_of factlink
 
-    within evidence_listing do
+    within evidence_listing_css_selector do
       find('.total-authority-evidence').should have_content user_authority_on_fact + 1
     end
   end
@@ -57,14 +54,14 @@ feature "adding comments to a fact", type: :request do
     comment = 'Buffels zijn niet klein te krijgen joh'
     add_comment comment
 
-    within evidence_listing do
-      evidence_item(comment).find('.supporting').click
-      evidence_item(comment).find('.total-authority-evidence', text: "0.0")
+    within evidence_listing_css_selector do
+      find(evidence_item_css_selector, text: comment).find('.supporting').click
+      find(evidence_item_css_selector, text: comment).find('.total-authority-evidence', text: "0.0")
     end
 
     go_to_discussion_page_of factlink
 
-    within evidence_listing do
+    within evidence_listing_css_selector do
       find('.total-authority-evidence', text: "0.0")
     end
   end
@@ -78,43 +75,48 @@ feature "adding comments to a fact", type: :request do
     add_comment comment1
     add_comment comment2
 
-    evidence_listing.should have_content comment1
-    evidence_listing.should have_content comment2
+    find(evidence_listing_css_selector).should have_content comment1
+    find(evidence_listing_css_selector).should have_content comment2
 
     go_to_discussion_page_of factlink # Reload the page
 
-    evidence_listing.should have_content comment1
-    evidence_listing.should have_content comment2
+    find(evidence_listing_css_selector).should have_content comment1
+    find(evidence_listing_css_selector).should have_content comment2
   end
 
   scenario 'comments and facts should be sorted on relevance' do
-    pending "Does not work yet"
     user_authority_on_fact = 17
     Authority.on( factlink, for: @user.graph_user ) << user_authority_on_fact
 
     go_to_discussion_page_of factlink
 
     comment1 = 'Buffels zijn niet klein te krijgen joh'
-    comment2 = 'Henk ook niet'
+    factlink2 = 'Henk ook niet'
     comment3 = 'Geert is een baas'
 
     add_comment comment1
-    add_new_factlink comment2
+    add_new_factlink factlink2
     add_comment comment3
 
-    sleep 2
-
-    within evidence_listing do
-      evidence_item(comment1).find('.supporting').click
-      evidence_item(comment2).find('.weakening').click
-    end
+    # make sure sorting is done:
     sleep 1
-    #go_to_discussion_page_of factlink
 
+    within('.fact-relation-listing .evidence-item', text: comment1) do
+      find('.weakening').click
+    end
+    within('.fact-relation-listing .evidence-item', text: comment3) do
+      find('.supporting').click
+    end
 
-    screenshot_and_open_image
+    go_to_discussion_page_of factlink
+
+    within evidence_listing_css_selector do
+      items = all evidence_item_css_selector
+      expect(items[0].text).to match (Regexp.new factlink2)
+      expect(items[1].text).to match (Regexp.new comment3)
+      expect(items[2].text).to match (Regexp.new comment1)
+    end
   end
-
 
   scenario "after adding it can be removed" do
     go_to_discussion_page_of factlink
@@ -123,7 +125,7 @@ feature "adding comments to a fact", type: :request do
 
     add_comment comment
 
-    within evidence_listing do
+    within evidence_listing_css_selector do
       find('.evidence-popover-arrow').click
       find('.delete').click
       wait_for_ajax
@@ -139,7 +141,7 @@ feature "adding comments to a fact", type: :request do
   scenario "initially the evidence list should be empty" do
     go_to_discussion_page_of factlink
 
-    within(:css, ".relation-tabs-view") do
+    within :css, ".relation-tabs-view" do
       page.should have_content "This Factlink is not supported by other Factlinks."
     end
   end
@@ -149,10 +151,10 @@ feature "adding comments to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within(".relation-tabs-view") do
+    within ".relation-tabs-view" do
       add_existing_factlink supporting_factlink
       sleep 2
-      within("li.evidence-item") do
+      within "li.evidence-item" do
         page.should have_content supporting_factlink.to_s
       end
     end
@@ -164,10 +166,10 @@ feature "adding comments to a fact", type: :request do
 
     supporting_factlink = backend_create_fact
 
-    within(".relation-tabs-view") do
+    within ".relation-tabs-view" do
       add_existing_factlink supporting_factlink
 
-      within("li.evidence-item") do
+      within "li.evidence-item" do
         page.find('span', text: supporting_factlink.to_s).click
       end
     end
