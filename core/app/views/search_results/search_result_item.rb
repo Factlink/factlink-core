@@ -25,8 +25,8 @@ module SearchResults
     def to_hash
       json = Jbuilder.new
 
-      json.the_object the_object
       json.the_class the_class
+      json.the_object the_object
 
       json.attributes!
     end

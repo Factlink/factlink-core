@@ -127,7 +127,6 @@ module Facts
       json.believers_count believers_count
       json.disbelievers_count disbelievers_count
       json.doubters_count doubters_count
-      json.timestamp = @timestamp
 
       json.user_signed_in? user_signed_in?
       json.i_am_fact_owner i_am_fact_owner
@@ -141,6 +140,8 @@ module Facts
       json.doubt_percentage doubt_percentage
       json.fact_url fact_url
       json.proxy_scroll_url proxy_scroll_url
+
+      json.timestamp @timestamp
 
       json.attributes!
     end

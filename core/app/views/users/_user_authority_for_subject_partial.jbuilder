@@ -4,9 +4,7 @@ authority_for_subject = {
   id: subject.id
 }
 
-json.id                     user.id.to_s
-json.name                   user.name.to_s.empty? ? user.username : user.name
 json.username               user.username
 json.avatar                 image_tag(user.avatar_url(size: 32), title: user.username, alt: user.username, width: 32)
-json.url                    user_profile_path(user)
 json.authority_for_subject  authority_for_subject
+json.url                    user_profile_path(user)
