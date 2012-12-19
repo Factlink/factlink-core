@@ -30,10 +30,8 @@ module BaseViews
       @fact.data.title
     end
 
-    def fact_wheel
-      json = JbuilderTemplate.new(@view)
+    def fact_wheel json
       json.partial! partial: 'facts/fact_wheel', formats: [:json], handlers: [:jbuilder], locals: { fact: @fact }
-      json.attributes!
     end
 
     # DEPRECATED, use fact_wheel (or not, but choose one)

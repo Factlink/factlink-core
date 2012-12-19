@@ -108,7 +108,7 @@ module Facts
     end
 
     def to_hash
-      json = Jbuilder.new
+      json = JbuilderTemplate.new(@view)
 
       json.displaystring displaystring
       json.id id
@@ -134,7 +134,9 @@ module Facts
       json.scroll_to_link scroll_to_link
       json.displaystring displaystring
       json.fact_title fact_title
-      json.fact_wheel fact_wheel
+      json.fact_wheel do |j|
+        fact_wheel j
+      end
       json.believe_percentage believe_percentage
       json.disbelieve_percentage disbelieve_percentage
       json.doubt_percentage doubt_percentage
