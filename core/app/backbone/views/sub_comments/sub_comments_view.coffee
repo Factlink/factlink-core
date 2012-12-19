@@ -15,6 +15,8 @@ class SubCommentView extends Backbone.Marionette.ItemView
 
   templateHelpers: => creator: @model.creator().toJSON()
 
+  initialize: -> @bindTo @model, 'change', @render, @
+
 class SubCommentsListView extends Backbone.Marionette.CollectionView
   className: 'evidence-sub-comments-list'
   itemView: SubCommentView

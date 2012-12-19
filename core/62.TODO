@@ -24,7 +24,7 @@ Integration frontend:
  ☐ make test in create listeners for activity
  ☐ Make sure when removing a factrelation/comment with sub comments this isn't allowed to delete
  ☐ Create integration test
- ☐ Fix authority bug
+ ✔ Fix authority bug @done (12-12-19 11:25)
  ☐ Create apropriate activity stream and notification views
  ☐ Add mail template
 
