@@ -4,14 +4,12 @@ require_relative '../../../../app/interactors/queries/sub_comments/index'
 describe Queries::SubComments::Index do
   include PavlovSupport
 
-  describe 'initialize' do
-    it 'correctly' do
-      expect { Queries::SubComments::Index.new 1, 'FactRelation' }.should_not be_nil
-    end
-  end
-
   describe '.validate' do
     let(:subject_class) { Queries::SubComments::Index }
+
+    it 'validates with correct values' do
+      expect_validating(1, 'FactRelation').to_not raise_error
+    end
 
     it 'without valid parent_class doesn''t validate' do
       expect_validating(1, 'bla').
