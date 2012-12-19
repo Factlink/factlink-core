@@ -1,7 +1,5 @@
 module Facts
   class FactBubble
-    include BaseViews::FactBubbleBase
-
     def self.for(*args)
       new(*args)
     end
@@ -11,39 +9,28 @@ module Facts
       @view = options[:view]
     end
 
-    def link
-      displaystring = @view.send(:h, @fact.data.displaystring)
-      show_links ? @view.link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
-    end
-
-    def fact_id
-      @fact.id
-    end
-
-    def url
-      @view.friendly_fact_path(@fact)
-    end
-
     def to_hash
-      json = Jbuilder.new
+      # DEPRECATED: PLEASE REMOVE ASAP
+      proxy_scroll_url = ""
+      begin
+        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+      rescue
+        ""
+      end
+
+      displaystring = @view.send(:h, @fact.data.displaystring)
+      link = @view.link_to(displaystring, proxy_scroll_url, :target => "_blank")
+      # / DEPRECATED
+
+      json = JbuilderTemplate.new(@view)
 
       json.link link
-      json.fact_id fact_id
-      json.url url
-      json.id fact_id
+      json.fact_id @fact.id
+      json.url @view.friendly_fact_path(@fact)
+      json.id @fact.id
 
-      json.user_signed_in? user_signed_in?
-      json.i_am_fact_owner i_am_fact_owner
-      json.can_edit? can_edit?
-      json.scroll_to_link scroll_to_link
-      json.displaystring displaystring
-      json.fact_title fact_title
-      json.fact_wheel fact_wheel
-      json.believe_percentage believe_percentage
-      json.disbelieve_percentage disbelieve_percentage
-      json.doubt_percentage doubt_percentage
-      json.fact_url fact_url
-      json.proxy_scroll_url proxy_scroll_url
+      base = BaseViews::FactBubbleBase.new @fact, @view
+      base.add_to_json json
 
       json.attributes!
     end
