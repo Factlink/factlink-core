@@ -18,7 +18,7 @@ module Interactors
       end
 
       def execute
-        sub_comment = command :'sub_comments/create', @comment_id, 'Comment', @content, @options[:current_user]
+        sub_comment = command :'sub_comments/create_xxx', @comment_id, 'Comment', @content, @options[:current_user]
 
         create_activity sub_comment
 

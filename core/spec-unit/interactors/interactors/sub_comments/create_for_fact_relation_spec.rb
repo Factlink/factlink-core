@@ -31,7 +31,7 @@ describe Interactors::SubComments::CreateForFactRelation do
 
   describe '.execute' do
     before do
-      stub_classes 'KillObject', 'Commands::SubComments::Create'
+      stub_classes 'KillObject', 'Commands::SubComments::CreateXxx'
     end
 
     it 'calls the corresponding command' do
@@ -43,7 +43,7 @@ describe Interactors::SubComments::CreateForFactRelation do
       content = 'hoi'
       interactor = Interactors::SubComments::CreateForFactRelation.new fact_relation_id, content, current_user: user
 
-      should_receive_new_with_and_receive_call(Commands::SubComments::Create, fact_relation_id, 'FactRelation', content, user, current_user: user).
+      should_receive_new_with_and_receive_call(Commands::SubComments::CreateXxx, fact_relation_id, 'FactRelation', content, user, current_user: user).
         and_return(sub_comment)
       interactor.should_receive(:authority_of_user_who_created).with(sub_comment).
         and_return(authority)

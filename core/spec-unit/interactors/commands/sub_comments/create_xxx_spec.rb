@@ -1,20 +1,20 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/commands/sub_comments/create.rb'
+require_relative '../../../../app/interactors/commands/sub_comments/create_xxx.rb'
 
-describe Commands::SubComments::Create do
+describe Commands::SubComments::CreateXxx do
   include PavlovSupport
   before do
     stub_classes 'SubComment', 'User'
   end
 
   it 'should initialize correctly' do
-    command = Commands::SubComments::Create.new 1, 'FactRelation','content', mock
+    command = Commands::SubComments::CreateXxx.new 1, 'FactRelation','content', mock
 
     command.should_not be_nil
   end
 
   describe "validation" do
-    let(:subject_class) { Commands::SubComments::Create }
+    let(:subject_class) { Commands::SubComments::CreateXxx }
     it 'without user doesn''t validate' do
       expect_validating('1', 'Comment' ,'Hoi!', nil).
         to fail_validation('user should not be nil.')
@@ -48,7 +48,7 @@ describe Commands::SubComments::Create do
       user = mock
       parent_class = 'FactRelation'
 
-      command = Commands::SubComments::Create.new parent_id, parent_class, content, user, current_user: user
+      command = Commands::SubComments::CreateXxx.new parent_id, parent_class, content, user, current_user: user
       comment = mock(:comment, id: 10)
 
       comment.should_receive(:parent_id=).with(parent_id.to_s)

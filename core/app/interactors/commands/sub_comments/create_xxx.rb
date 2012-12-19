@@ -2,7 +2,7 @@ require_relative '../../pavlov'
 
 module Commands
   module SubComments
-    class Create
+    class CreateXxx
       include Pavlov::Command
 
       arguments :parent_id, :parent_class, :content, :user
