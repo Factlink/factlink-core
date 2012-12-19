@@ -1,5 +1,5 @@
 {
-  "displaystring": "Fact 2",
+  "displaystring": "Fact 1",
   "id": "<STRIPPED>",
   "site_id": "1",
   "signed_in?": false,
@@ -10,15 +10,15 @@
   "i_am_owner": false,
   "modal?": false,
   "fact_base": {
-    "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&amp;scrollto=1\" target=\"_blank\">Fact 2</a>",
+    "link": "<a href=\"http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&amp;scrollto=1\" target=\"_blank\">Fact 1</a>",
     "fact_id": "1",
-    "url": "/fact-2/f/1",
+    "url": "/fact-1/f/1",
     "id": "<STRIPPED>",
     "user_signed_in?": false,
     "i_am_fact_owner": false,
     "can_edit?": false,
     "scroll_to_link": null,
-    "displaystring": "Fact 2",
+    "displaystring": "Fact 1",
     "fact_title": null,
     "fact_wheel": {
       "authority": "0.0",
@@ -41,20 +41,20 @@
     "believe_percentage": 0,
     "disbelieve_percentage": 0,
     "doubt_percentage": 100,
-    "fact_url": "http://example.org/2.html",
-    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=1"
+    "fact_url": "http://example.org/1.html",
+    "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1"
   },
-  "url": "/fact-2/f/1",
+  "url": "/fact-1/f/1",
   "post_action": null,
   "friendly_time": null,
   "created_by": {
-    "username": "johndoe4",
-    "avatar": "<img alt=\"johndoe4\" src=\"https://secure.gravatar.com/avatar/4a44954117cfc0852a0cbd709a634789?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe4\" width=\"32\" />",
+    "username": "johndoe2",
+    "avatar": "<img alt=\"johndoe2\" src=\"https://secure.gravatar.com/avatar/9ebe4ca61cfc3e9d3fc15b3e56710734?rating=PG&amp;size=32&amp;default=retro\" title=\"johndoe2\" width=\"32\" />",
     "authority_for_subject": {
       "authority": "1.0",
       "id": "<STRIPPED>"
     },
-    "url": "/johndoe4"
+    "url": "/johndoe2"
   },
   "created_by_ago": "Created 1 minute ago",
   "believers_count": 0,
@@ -86,7 +86,7 @@
   "believe_percentage": 0,
   "disbelieve_percentage": 0,
   "doubt_percentage": 100,
-  "fact_url": "http://example.org/2.html",
-  "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F2.html&scrollto=1",
+  "fact_url": "http://example.org/1.html",
+  "proxy_scroll_url": "http://localhost:8080/?url=http%3A%2F%2Fexample.org%2F1.html&scrollto=1",
   "timestamp": 0
 }

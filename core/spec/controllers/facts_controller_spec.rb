@@ -17,6 +17,9 @@ describe FactsController do
     end
 
     it "should render json successful" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
       @fact = FactoryGirl.create(:fact)
       @fact.created_by.user = FactoryGirl.create :user
       @fact.created_by.save
