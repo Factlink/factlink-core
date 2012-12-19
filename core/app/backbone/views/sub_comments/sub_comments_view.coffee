@@ -98,8 +98,8 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     """
 
   regions:
-    subCommentsList: '.js-region-sub-comments-list'
-    subCommentsForm: '.js-region-sub-comments-form'
+    subCommentsListRegion: '.js-region-sub-comments-list'
+    subCommentsFormRegion: '.js-region-sub-comments-form'
 
   events:
     'click .js-sub-comments-link': 'toggleList'
@@ -108,28 +108,23 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @updateLink()
     # Bind to model change event here when returning a comment count
 
-    @subCommentsForm.show new SubCommentsAddView addToCollection: @subComments()
-
-  toggleList: ->
-    if @listOpen then @closeList()
-    else @openList()
+  toggleList: -> if @listOpen then @closeList() else @openList()
 
   openList: ->
     @listOpen = true
     @$('.js-sub-comments-list-container').removeClass('hide')
-    @subCommentsList.close()
 
-    @subComments().fetch
-      success: =>
-        @subCommentsList.show new SubCommentsListView collection: @subComments()
+    subComments = new SubComments([], parentModel: @model)
+    subComments.fetch()
+
+    @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
+    @subCommentsListRegion.show new SubCommentsListView collection: subComments
 
   closeList: ->
     @listOpen = false
     @$('.js-sub-comments-list-container').addClass('hide')
-    @subCommentsList.close()
-
-  subComments: ->
-    @_subComments ?= new SubComments([], parentModel: @model)
+    @subCommentsFormRegion.close()
+    @subCommentsListRegion.close()
 
   updateLink: ->
     @$(".js-sub-comments-link").text "Comments" # Add comment count here
