@@ -24,7 +24,7 @@ feature "sub_comments", type: :request do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comments').click
+    find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
 
@@ -44,7 +44,7 @@ feature "sub_comments", type: :request do
 
     go_to_discussion_page_of @factlink_user_a
 
-    find('.js-sub-comments-link', text: 'Comments').click
+    find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
 
