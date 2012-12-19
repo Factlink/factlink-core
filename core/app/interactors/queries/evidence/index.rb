@@ -13,40 +13,55 @@ module Queries
       end
 
       def execute
-     #add mock data:
-        comment1 = Comment.first
-        c1 = KillObject.comment comment1,
-              opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>178),
-              current_user_opinion: 192,
-              authority: 144,
-              evidence_class: 'Comment'
+        result = dead_fact_relations + dead_comments
 
-        comment2 = Comment.last
-        c2 = KillObject.comment comment2,
-              opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>4),
-              current_user_opinion: 27,
-              authority: 12,
-              evidence_class: 'Comment'
-
-        fact_relation = FactRelation.all.first
-        f1 = KillObject.fact_relation fact_relation,
-              current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
-              evidence_class: 'FactRelation',
-              get_user_opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>34)
-
-        [c1, c2, f1]
+        sort result
       end
-    # comments = interactor :"comments/index", fact_id, relation
 
-    # #todo add to authenticate of interactor
-    # @fact = Fact[params[:fact_id]] || raise_404("Fact not found")
+      def fact_relations
+        fact.evidence(@type)
+      end
 
-    # # todo add to query:
-    # @evidence = @fact.evidence(relation)
+      def dead_fact_relations
+        fact_relations.map do |fact_relation|
+          KillObject.fact_relation(fact_relation,
+            current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
+            get_user_opinion: fact_relation.get_user_opinion,
+            opinion: fact_relation.get_opinion(),
+            evidence_class: 'FactRelation')
+        end
+      end
 
-    # @fact_relations = @evidence.to_a.sort do |a,b|
-    #   OpinionPresenter.new(b.get_user_opinion).relevance <=> OpinionPresenter.new(a.get_user_opinion).relevance
-    # end
+      def sort result
+        result.sort do |a,b|
+          OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+        end
+      end
+
+      def comments
+        if @type == :weakening
+          type = 'disbelieves'
+        elsif @type == :supporting
+          type = 'believes'
+        else
+          raise 'Unsupported believe type.'
+        end
+        fact_data_id = fact.data_id
+        Comment.where({fact_data_id: fact_data_id, type: type}).to_a
+      end
+
+      def dead_comments
+        comments.each do |comment|
+          comment = query :'comments/add_authority_and_opinion', comment, fact
+          comment.evidence_class = 'Comment'
+
+          result << comment
+        end
+      end
+
+      def fact
+        @fact ||= Fact[@fact_id]
+      end
     end
   end
 end

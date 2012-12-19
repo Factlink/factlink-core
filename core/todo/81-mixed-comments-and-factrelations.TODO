@@ -1,9 +1,10 @@
-
  Backend:
- ☐ mix the evidence#index and comments#index and save as evidence#index
- ☐ extract query to retrieve factrelations
- ☐ move evidence#index to the comments/index interactor, and rename accordingly
- ☐ add type to json (factrelation/comment)
+ ✔ mix the evidence#index and comments#index and save as evidence#index @done (12-12-19 17:49)
+ ✔ extract query to retrieve factrelations @done (12-12-19 17:49)
+ ✔ move evidence#index to the comments/index interactor, and rename accordingly @done (12-12-19 17:49)
+ ✔ add type to json (factrelation/comment) @done (12-12-19 17:49)
+ ☐ Fix bug where candestroy isn't set properly on the factrelations (it's inversed, @mark)
+ ☐ Fix unit tests
  Frontend:
  ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
