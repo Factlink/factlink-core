@@ -15,7 +15,7 @@ module Interactors
 
         create_activity comment
 
-        query :'comments/add_authority_and_opinion', comment, fact
+        query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
       end
 
       def authority_of comment

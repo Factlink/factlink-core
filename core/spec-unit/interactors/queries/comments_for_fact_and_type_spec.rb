@@ -41,7 +41,7 @@ describe Queries::CommentsForFactAndType do
       query.should_receive(:fact).and_return(fact)
 
 
-      query.should_receive(:query).with(:'comments/add_authority_and_opinion', comment, fact).and_return(extended_comment)
+      query.should_receive(:query).with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact).and_return(extended_comment)
 
       results = query.call
 

@@ -54,7 +54,8 @@ describe Interactors::Comments::Create do
       interactor.should_receive(:command)
         .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user)
 
-      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion", comment, fact).and_return(comment)
+      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact).
+        and_return(comment)
 
       interactor.should_receive(:create_activity).with(comment)
 

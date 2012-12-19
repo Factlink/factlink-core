@@ -13,7 +13,7 @@ module Queries
     end
 
     def execute
-      comments.map {|comment| query :'comments/add_authority_and_opinion', comment, fact}
+      comments.map {|comment| query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact}
     end
 
     def comments

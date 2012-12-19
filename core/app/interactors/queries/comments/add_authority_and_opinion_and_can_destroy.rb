@@ -2,14 +2,15 @@ require_relative '../../pavlov'
 
 module Queries
   module Comments
-    class AddAuthorityAndOpinion
+    class AddAuthorityAndOpinionAndCanDestroy
       include Pavlov::Query
       arguments :comment, :fact
       def execute
         KillObject.comment @comment,
           opinion: opinion,
           current_user_opinion: current_user_opinion,
-          authority: authority
+          authority: authority,
+          can_destroy?: can_destroy
       end
 
       def authority
@@ -27,6 +28,14 @@ module Queries
 
       def current_graph_user
         @options[:current_user].graph_user
+      end
+
+      def can_destroy
+        created_by_current_user && @comment.deletable?
+      end
+
+      def created_by_current_user
+        @comment.created_by_id == @options[:current_user].id
       end
     end
   end
