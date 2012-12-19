@@ -25,8 +25,8 @@ Integration frontend:
  ☐ Create integration test
  ☐ Fix authority bug
  ☐ Create apropriate activity stream and notification views
+ ☐ Add mail template
 
 Cleaning up:
  ☐ Returning dead users for sub comments
  ☐ Refactor code to remove duplication
- ☐ Add mail template or NOT?
