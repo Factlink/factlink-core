@@ -3,6 +3,7 @@ require 'integration_helper'
 feature "sub_comments", type: :request do
   include Acceptance::FactHelper
   include Pavlov::Helpers
+  include Acceptance::CommentHelper
 
   background do
     @user_a = sign_in_user create :approved_confirmed_user
@@ -53,5 +54,32 @@ feature "sub_comments", type: :request do
 
     find('.js-sub-comments-link', text: 'Comments').click
     find('.evidence-sub-comment-content').should have_content sub_comment_text
+  end
+
+  scenario "After adding a subcomment the evidence can not be removed any more" do
+    @fact_relation_user_b = create :fact, created_by: @user_b.graph_user
+    @factlink_user_a.add_evidence("supporting", @fact_relation_user_b, @user_b)
+
+    sub_comment_text = "Sub Comment 1"
+
+    go_to_discussion_page_of @factlink_user_a
+
+    find('a', text: 'Comments').click
+
+    add_sub_comment(sub_comment_text)
+
+    within comment_listing do
+      page.should have_no_selector('.delete')
+    end
+
+    go_to_discussion_page_of @factlink_user_a
+
+    within comment_listing do
+      page.should have_no_selector('.delete')
+    end
+  end
+
+  def comment_listing
+    find '.comments-listing'
   end
 end
