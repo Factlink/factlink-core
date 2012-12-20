@@ -69,13 +69,13 @@ feature "sub_comments", type: :request do
     add_sub_comment(sub_comment_text)
 
     within evidence_listing do
-      page.should have_no_selector('.delete')
+      page.should have_no_selector('.evidence-main-region .delete')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
     within evidence_listing do
-      page.should have_no_selector('.delete')
+      page.should have_no_selector('.evidence-main-region .delete')
     end
   end
 
