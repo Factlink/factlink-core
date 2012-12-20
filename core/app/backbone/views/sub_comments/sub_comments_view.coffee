@@ -17,7 +17,7 @@ class SubCommentPopoverView extends ViewWithPopover
     popoverSelector: '.sub-comments-popover'
   ]
 
-  destroy: -> @model.destroy()
+  destroy: -> @model.destroy wait: true
 
 class SubCommentView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comment'
