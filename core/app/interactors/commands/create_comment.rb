@@ -13,6 +13,7 @@ module Commands
       comment.created_by = creator
       comment.type = @type
       comment.content = @content
+      comment.sub_comments_count = 0
       comment.save
 
       KillObject.comment comment

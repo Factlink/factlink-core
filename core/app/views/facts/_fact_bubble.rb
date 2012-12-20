@@ -1,20 +1,38 @@
 module Facts
-  class FactBubble < Mustache::Railstache
-    include BaseViews::FactBubbleBase
-
-    def link
-      displaystring = h self[:fact].data.displaystring
-      show_links ? link_to(displaystring, proxy_scroll_url, :target => "_blank") : displaystring
+  class FactBubble
+    def self.for(*args)
+      new(*args)
     end
 
-    def fact_id
-      self[:fact].id
+    def initialize options={}
+      @fact = options[:fact]
+      @view = options[:view]
     end
 
-    def url
-      friendly_fact_path(self[:fact])
-    end
+    def to_hash
+      # DEPRECATED: PLEASE REMOVE ASAP
+      proxy_scroll_url = ""
+      begin
+        proxy_scroll_url = FactlinkUI::Application.config.proxy_url + "/?url=" + CGI.escape(@fact.site.url) + "&scrollto=" + URI.escape(@fact.id)
+      rescue
+        ""
+      end
 
-    alias id fact_id
+      displaystring = @view.send(:h, @fact.data.displaystring)
+      link = @view.link_to(displaystring, proxy_scroll_url, :target => "_blank")
+      # / DEPRECATED
+
+      json = JbuilderTemplate.new(@view)
+
+      json.link link
+      json.fact_id @fact.id
+      json.url @view.friendly_fact_path(@fact)
+      json.id @fact.id
+
+      base = BaseViews::FactBubbleBase.new @fact, @view
+      base.add_to_json json
+
+      json.attributes!
+    end
   end
 end

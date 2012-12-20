@@ -49,7 +49,7 @@ class Ability
       can :index, Channel
       can :read, Channel
       can :manage, Channel do |ch|
-        ch.created_by == user.graph_user
+        ch.created_by_id == user.graph_user_id
       end
     end
   end
@@ -68,7 +68,7 @@ class Ability
       can :opinionate, Fact
       can :add_evidence, Fact
       can :manage, Fact do |f|
-        f.created_by == user.graph_user
+        f.created_by_id == user.graph_user_id
       end
     end
   end
@@ -76,8 +76,8 @@ class Ability
   def define_fact_relation_abilities
     if user
       can :opinionate, FactRelation
-      can :destroy, FactRelation do |f|
-        f.created_by == user.graph_user && f.deletable?
+      can :destroy, FactRelation do |fr|
+        fr.created_by_id == user.graph_user_id && fr.deletable?
       end
     end
   end

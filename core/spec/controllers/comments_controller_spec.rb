@@ -74,6 +74,40 @@ describe CommentsController do
     end
   end
 
+  describe '.sub_comments_index' do
+    it 'calls the interactor with the correct parameters' do
+      comment_id = '123abc'
+      sub_comments = mock
+      controller.stub(get_comment_id_param: comment_id)
+
+      controller.should_receive(:interactor).with(:'sub_comments/index_for_comment', comment_id).
+        and_return(sub_comments)
+      controller.should_receive(:render).with('sub_comments/index')
+
+      controller.sub_comments_index
+
+      controller.instance_variable_get(:@sub_comments).should eq sub_comments
+    end
+  end
+
+  describe '.sub_comments_create' do
+    it 'calls the interactor with the correct parameters' do
+      comment_id = '123abc'
+      content = 'hoi'
+      sub_comment = mock
+      controller.stub(get_comment_id_param: comment_id)
+      controller.stub(params: {content: content})
+
+      controller.should_receive(:interactor).with(:'sub_comments/create_for_comment', comment_id, content).
+        and_return(sub_comment)
+      controller.should_receive(:render).with('sub_comments/show')
+
+      controller.sub_comments_create
+
+      controller.instance_variable_get(:@sub_comment).should eq sub_comment
+    end
+  end
+
   describe '.get_fact_id_param' do
     it 'returns fact_id param' do
       fact_id = 1

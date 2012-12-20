@@ -33,6 +33,22 @@ describe UsersController do
         get :show, username: invalid_username
       end.to raise_error(ActionController::RoutingError)
     end
+
+    it "should render json successful" do
+      Timecop.freeze Time.local(1995, 4, 30, 15, 35, 45)
+      FactoryGirl.reload # hack because of fixture in check
+
+      @user = FactoryGirl.create(:user)
+
+      should_check_can :show, @user
+      get :show, username: @user.username, format: :json
+      response.should be_success
+
+      response_body = response.body.to_s
+      # strip mongo id, since otherwise comparison will always fail
+      response_body.gsub!(/"id":\s*"[^"]*"/, '"id": "<STRIPPED>"')
+      Approvals.verify(response_body, format: :json, name: 'users#show should keep the same content')
+    end
   end
 
   describe :activities do

@@ -26,4 +26,3 @@ module Interactors
     end
   end
 end
-
