@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'comments' do
+describe 'evidence' do
   include Pavlov::Helpers
 
   let(:current_user) { create :user }
@@ -14,12 +14,12 @@ describe 'comments' do
   end
 
   describe 'initially' do
-    it 'a fact has no comments' do
+    it 'a fact has no evidence' do
       f = create :fact
 
-      comments = interactor :'comments/index', f.id.to_i, 'believes'
+      evidence = interactor :'evidence/for_fact_id', f.id.to_s, :supporting
 
-      expect(comments).to eq []
+      expect(evidence).to eq []
     end
   end
 
@@ -30,9 +30,9 @@ describe 'comments' do
       interactor :'comments/create', f.id.to_i, 'believes', 'Gekke Gerrit'
       interactor :'comments/create', f.id.to_i, 'believes', 'Handige Harrie'
 
-      comments = interactor :'comments/index', f.id.to_i, 'believes'
+      evidence = interactor :'evidence/for_fact_id', f.id.to_s, :supporting
 
-      expect(comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
+      expect(evidence.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
     end
   end
 end
