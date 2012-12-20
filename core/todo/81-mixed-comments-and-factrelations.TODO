@@ -10,7 +10,6 @@
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
  ☐ integrate with backend:
    ✔ remove sorting in frontend @done (12-12-19 16:45)
-     ☐ sorting not removed, might come in handy for adding new items? (remove comparator in evidence_collection if not needed)
    ✔ only retrieve one list (instead of 2) @done (12-12-19 16:44)
      ☐ relations are still retrieved seperately, used in AddEvidenceView
    ☐ clean up classes/css
