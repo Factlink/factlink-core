@@ -34,10 +34,6 @@ gem 'stringex'
 
 gem 'mixpanel', git: 'https://github.com/Factlink/mixpanel.git'
 
-# Mustache
-gem 'mustache'
-gem 'mustache_rails3', :git => 'https://github.com/Factlink/mustache_rails3.git'
-
 gem "sentry-raven"
 gem "resque-sentry"
 
