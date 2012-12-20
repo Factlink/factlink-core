@@ -12,7 +12,7 @@ module Interactors
       end
 
       def authorized?
-        @options[:current_user]
+        current_user
       end
 
       def execute
