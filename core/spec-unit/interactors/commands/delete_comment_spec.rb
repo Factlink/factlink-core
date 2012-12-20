@@ -24,19 +24,37 @@ describe Commands::DeleteComment do
     end
 
     it 'correctly' do
-      comment_id = '1a'
-      user_id = '9a'
-      user = stub(:user, id: user_id)
-      comment = stub(created_by_id: user_id)
-      interactor = Commands::DeleteComment.new comment_id, user_id
+      user = stub(:user, id: '9a')
+      comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
+      interactor = Commands::DeleteComment.new comment.id, user.id
 
-      Comment.should_receive(:find).with(comment_id).and_return(comment)
-      User.should_receive(:find).with(user_id).and_return(user)
+      Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
 
       interactor.call
     end
 
-    pending "fails when the user is not the owner"
+    it "fails when the user is not the owner" do
+      user = stub(id: '9a')
+      comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
+      other_user = stub(id: '100a')
+
+      interactor = Commands::DeleteComment.new comment.id, other_user.id
+
+      Comment.should_receive(:find).with(comment.id).and_return(comment)
+
+      expect{interactor.call}.to raise_error Pavlov::AccessDenied
+    end
+
+    it "fails when the comment cannot be deleted" do
+      user = stub(id: '9a')
+      comment = stub(id: '1a', created_by_id: user.id, deletable?: false)
+
+      interactor = Commands::DeleteComment.new comment.id, user.id
+
+      Comment.should_receive(:find).with(comment.id).and_return(comment)
+
+      expect{interactor.call}.to raise_error Commands::DeleteComment::NotPossibleError
+    end
   end
 end

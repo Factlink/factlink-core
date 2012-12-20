@@ -63,7 +63,7 @@ class FactRelation < Basefact
   end
 
   def deletable?
-    people_believes.count <= 1 && ((people_believes.ids == []) or (people_believes.ids.map {|i| i.to_i} == [created_by_id.to_i]))
+    EvidenceDeletable.new(self, believable, created_by_id).deletable?
   end
 
   def delete_key

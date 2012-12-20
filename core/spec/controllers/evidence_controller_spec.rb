@@ -4,7 +4,6 @@ require 'pavlov_helper'
 describe CommentsController do
   render_views
 
-
   # described here since about to be merged
   describe :index do
     include Pavlov::Helpers
@@ -83,21 +82,23 @@ describe SupportingEvidenceController do
     let(:current_user){create :user}
 
     it 'response with success' do
+      fact_id = 1
       authenticate_user!(current_user)
+      controller.should_receive(:interactor).
+        with(:"evidence/index", fact_id.to_s, :supporting).
+        and_return []
 
-      get :combined_index, fact_id: 17, format: :json
+      get :combined_index, fact_id: fact_id, format: :json
+
       response.should be_success
     end
   end
 
-
   describe :create do
-
     before do
       authenticate_user!(user)
       should_check_can :add_evidence, f1
     end
-
 
     context "adding new evidence to a fact" do
 
@@ -116,7 +117,6 @@ describe SupportingEvidenceController do
     end
 
     context "adding a new fact as evidence to a fact" do
-
       it "should return the existing fact as new evidence" do
         post 'create', fact_id: f1.id, evidence_id: f2.id, format: :json
 
@@ -144,9 +144,7 @@ describe SupportingEvidenceController do
         opinions["disbelieve"]["percentage"].should == 100
       end
     end
-
   end
-
 
   describe :set_opinion do
     it "should be able to set an opinion" do
@@ -162,4 +160,38 @@ describe SupportingEvidenceController do
       parsed_content.first.should have_key("fact_base")
     end
   end
+
+  describe '.sub_comments_index' do
+    it 'calls the interactor with the correct parameters' do
+      fact_relation_id = 123
+      sub_comments = mock
+      controller.stub(params: {id: fact_relation_id.to_s})
+
+      controller.should_receive(:interactor).with(:'sub_comments/index_for_fact_relation', fact_relation_id).
+        and_return(sub_comments)
+      controller.should_receive(:render).with('sub_comments/index')
+
+      controller.sub_comments_index
+
+      controller.instance_variable_get(:@sub_comments).should eq sub_comments
+    end
+  end
+
+  describe '.sub_comments_create' do
+    it 'calls the interactor with the correct parameters' do
+      fact_relation_id = 123
+      content = 'hoi'
+      sub_comment = mock
+      controller.stub(params: {content: content, id: fact_relation_id.to_s})
+
+      controller.should_receive(:interactor).with(:'sub_comments/create_for_fact_relation', fact_relation_id, content).
+        and_return(sub_comment)
+      controller.should_receive(:render).with('sub_comments/show')
+
+      controller.sub_comments_create
+
+      controller.instance_variable_get(:@sub_comment).should eq sub_comment
+    end
+  end
+
 end

@@ -18,47 +18,10 @@ class EvidenceController < FactsController
   end
 
   def combined_index
-
-    # comments = interactor :"comments/index", fact_id, relation
-
-    # #todo add to authenticate of interactor
-    # @fact = Fact[params[:fact_id]] || raise_404("Fact not found")
-
-    # authorize! :get_evidence, @fact
-
-    # # todo add to query:
-    # @evidence = @fact.evidence(relation)
-
-    # @fact_relations = @evidence.to_a.sort do |a,b|
-    #   OpinionPresenter.new(b.get_user_opinion).relevance <=> OpinionPresenter.new(a.get_user_opinion).relevance
-    # end
-
-    #add mock data:
-    comment1 = Comment.first
-    c1 = KillObject.comment comment1,
-          opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>178),
-          current_user_opinion: 192,
-          authority: 144,
-          evidence_class: 'Comment'
-
-    comment2 = Comment.last
-    c2 = KillObject.comment comment2,
-          opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>4),
-          current_user_opinion: 27,
-          authority: 12,
-          evidence_class: 'Comment'
-
-    fact_relation = FactRelation.all.first
-    f1 = KillObject.fact_relation fact_relation,
-          current_user_opinion: current_user.graph_user.opinion_on(fact_relation),
-          evidence_class: 'FactRelation',
-          get_user_opinion: Opinion.new(:b=>1,:d=>0,:u=>0,:a=>34)
-
-    @evidence = [c1, c2, f1]
+    @evidence = interactor :"evidence/index", params[:fact_id], relation
 
     render 'evidence/index'
   end
-
 
   class EvidenceNotFoundException < StandardError
   end
@@ -73,6 +36,16 @@ class EvidenceController < FactsController
     end
 
     evidence
+  end
+
+  def sub_comments_index
+    @sub_comments = interactor :'sub_comments/index_for_fact_relation', params[:id].to_i
+    render 'sub_comments/index'
+  end
+
+  def sub_comments_create
+    @sub_comment = interactor :'sub_comments/create_for_fact_relation', params[:id].to_i, params[:content]
+    render 'sub_comments/show'
   end
 
   def retrieve_evidence(evidence_id)

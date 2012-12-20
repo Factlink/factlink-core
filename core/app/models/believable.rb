@@ -31,15 +31,15 @@ class Believable
     send(:"people_#{Opinion.real_for(type)}")
   end
 
-  def add_opiniated(type, user)
-    remove_opinionateds user
-    opiniated(type).add(user)
+  def add_opiniated(type, graph_user)
+    remove_opinionateds graph_user
+    opiniated(type).add(graph_user)
   end
 
 
-  def remove_opinionateds(user)
+  def remove_opinionateds(graph_user)
     Opinion.types.each do |type|
-      opiniated(type).delete(user)
+      opiniated(type).delete(graph_user)
     end
   end
 
