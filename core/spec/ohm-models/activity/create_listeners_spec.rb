@@ -315,7 +315,7 @@ describe 'activity queries' do
         ]
       end
 
-      it "creates a notification" do
+      it "does not create a notification" do
         fact = create :fact, created_by: current_user.graph_user
 
         comment = interactor :'comments/create', fact.id.to_i, 'disbelieves', 'content'
@@ -325,7 +325,7 @@ describe 'activity queries' do
         interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
 
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
         ]
       end
     end
@@ -345,7 +345,7 @@ describe 'activity queries' do
         ]
       end
 
-      it "creates a notification" do
+      it "does not create a notification" do
         fact = create :fact, created_by: current_user.graph_user
 
         fact_relation = fact.add_evidence :supporting, create(:fact), current_user
@@ -355,7 +355,7 @@ describe 'activity queries' do
         interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
 
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          #{user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
         ]
       end
     end
