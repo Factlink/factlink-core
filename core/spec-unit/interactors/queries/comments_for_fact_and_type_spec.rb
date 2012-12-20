@@ -36,12 +36,15 @@ describe Queries::CommentsForFactAndType do
       authority_string = '1.0'
       extended_comment = stub
       comment = mock(created_by: user, content: content, id: comment_id, type: type, authority: authority_string)
+      sub_comments_count = mock
 
       query.should_receive(:comments).and_return([comment])
       query.should_receive(:fact).and_return(fact)
 
+      query.should_receive(:query).with(:'sub_comments/count', comment.id.to_s, comment.class.to_s).and_return(sub_comments_count)
+      query.should_receive(:query).with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact).and_return(extended_comment)
 
-      query.should_receive(:query).with(:'comments/add_authority_and_opinion', comment, fact).and_return(extended_comment)
+      comment.should_receive(:"sub_comments_count=").with(sub_comments_count)
 
       results = query.call
 

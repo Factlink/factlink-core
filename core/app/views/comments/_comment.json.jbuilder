@@ -13,3 +13,7 @@ end
 json.opinions OpinionPresenter.new comment.opinion
 
 json.current_user_opinion comment.current_user_opinion
+
+json.can_destroy? comment.can_destroy?
+
+json.sub_comments_count comment.sub_comments_count

@@ -1,5 +1,5 @@
 <% if current_user %>
-  window.currentUser = new User(<%= Users::User.for(user: current_user, view: self).to_json.html_safe %>);
+  window.currentUser = new User(<%= render(current_user).html_safe %>);
   chans = new OwnChannelCollection([]);
   window.currentUser.setChannels(chans);
   chans.fetch();

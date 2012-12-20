@@ -60,9 +60,10 @@ class SubCommentsAddView extends Backbone.Marionette.Layout
     @$el.toggleClass 'evidence-sub-comments-form-active', active
 
   submit: ->
-    @addModel new SubComment
-      content: @text()
-      created_by: currentUser
+    if @text().length > 0
+      @addModel new SubComment
+        content: @text()
+        created_by: currentUser
 
   addModelError: -> @alertError()
   addModelSuccess: (model) ->
@@ -104,9 +105,12 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
   events:
     'click .js-sub-comments-link': 'toggleList'
 
+  initialize: ->
+    @count = @model.get('sub_comments_count')
+
   onRender: ->
+    @bindTo @model, 'change:sub_comments_count', @updateLink, @
     @updateLink()
-    # Bind to model change event here when returning a comment count
 
   toggleList: -> if @listOpen then @closeList() else @openList()
 
@@ -115,7 +119,11 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @$('.js-sub-comments-list-container').removeClass('hide')
 
     subComments = new SubComments([], parentModel: @model)
-    subComments.fetch()
+    subComments.fetch update: true # only fires 'add' and 'remove' events
+
+    @bindTo subComments, 'add', => @model.set 'can_destroy?', false
+    @bindTo subComments, 'remove', => @model.fetch if subComments.length <= 0
+    @bindTo subComments, 'add remove reset', => @model.set 'sub_comments_count', subComments.length
 
     @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
     @subCommentsListRegion.show new SubCommentsListView collection: subComments
@@ -127,4 +135,9 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @subCommentsListRegion.close()
 
   updateLink: ->
-    @$(".js-sub-comments-link").text "Comments" # Add comment count here
+    count_str = ""
+
+    if @count
+      count_str = " (#{@count})"
+
+    @$(".js-sub-comments-link").text "Comments#{count_str}"

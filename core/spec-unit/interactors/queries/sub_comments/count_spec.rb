@@ -28,16 +28,20 @@ describe Queries::SubComments::Count do
   end
 
   describe '.execute' do
+    before do
+      stub_classes('SubComment')
+    end
+
     it 'calls the index query and counts the results' do
       parent_id = 1
       parent_class = 'FactRelation'
-      sub_comments = [mock, mock, mock]
+      count = mock
 
       query = Queries::SubComments::Count.new parent_id.to_s, parent_class
-      query.should_receive(:query).with(:'sub_comments/index', parent_id, parent_class).
-        and_return(sub_comments)
 
-      expect(query.execute).to eq sub_comments.length
+      SubComment.should_receive(:where).with(parent_id: parent_id.to_s, parent_class: parent_class).and_return(mock(count:count))
+
+      expect(query.execute).to eq count
     end
   end
 

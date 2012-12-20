@@ -63,7 +63,7 @@ class FactRelation < Basefact
   end
 
   def deletable?
-    EvidenceDeletable.new(self, believable, created_by_id).deletable?
+    EvidenceDeletable.new(self, self.class.to_s, believable, created_by_id).deletable?
   end
 
   def delete_key

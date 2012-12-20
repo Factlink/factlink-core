@@ -1,8 +1,9 @@
 class EvidenceDeletable
   attr_reader :evidence, :believable, :creator_id
 
-  def initialize evidence, believable, creator_id
+  def initialize evidence, type, believable, creator_id
     @evidence = evidence
+    @type = type
     @believable = believable
     @creator_id = creator_id
   end
@@ -25,7 +26,7 @@ class EvidenceDeletable
   end
 
   def sub_comment_count
-    Queries::SubComments::Count.new(evidence.id.to_s, evidence.class.to_s).execute
+    Queries::SubComments::Count.new(evidence.id.to_s, @type).execute
   end
 
   def has_no_sub_comments

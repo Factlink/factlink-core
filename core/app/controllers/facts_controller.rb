@@ -27,6 +27,7 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
     @title = @fact.data.displaystring # The html <title>
+
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )

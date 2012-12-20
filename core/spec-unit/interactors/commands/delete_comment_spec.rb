@@ -2,6 +2,8 @@ require 'pavlov_helper'
 require_relative '../../../app/interactors/commands/delete_comment.rb'
 
 describe Commands::DeleteComment do
+  include PavlovSupport
+
   it 'should initialize correctly' do
     command = Commands::DeleteComment.new '1a', '2a'
     command.should_not be_nil
@@ -28,33 +30,27 @@ describe Commands::DeleteComment do
       comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = Commands::DeleteComment.new comment.id, user.id
 
+      interactor.should_receive(:authorized_in_execute)
+
       Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
 
       interactor.call
     end
+  end
 
-    it "fails when the user is not the owner" do
-      user = stub(id: '9a')
-      comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
-      other_user = stub(id: '100a')
+  describe 'authorized?' do
+    it "calls the can_destroy query" do
+      stub_classes 'Queries::Comments::CanDestroy'
 
-      interactor = Commands::DeleteComment.new comment.id, other_user.id
+      comment_id = '10a'
+      user_id = '20a'
 
-      Comment.should_receive(:find).with(comment.id).and_return(comment)
+      should_receive_new_with_and_receive_call(Queries::Comments::CanDestroy, comment_id, user_id, {}).
+        and_return(true)
 
-      expect{interactor.call}.to raise_error Pavlov::AccessDenied
-    end
-
-    it "fails when the comment cannot be deleted" do
-      user = stub(id: '9a')
-      comment = stub(id: '1a', created_by_id: user.id, deletable?: false)
-
-      interactor = Commands::DeleteComment.new comment.id, user.id
-
-      Comment.should_receive(:find).with(comment.id).and_return(comment)
-
-      expect{interactor.call}.to raise_error Commands::DeleteComment::NotPossibleError
+      command = Commands::DeleteComment.new comment_id, user_id
+      command.authorized_in_execute
     end
   end
 end
