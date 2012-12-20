@@ -14,3 +14,5 @@ class window.Comment extends Backbone.Model
   isDisBelieving: -> @get('current_user_opinion') == 'disbelieves'
 
   removeOpinion: -> @unset('opinion'); @save()
+
+  urlRoot: -> @collection.commentsUrl()
