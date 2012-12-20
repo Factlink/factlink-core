@@ -58,7 +58,6 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     factRelationSearchRegion: '.fact-relation-search'
 
   initialize: ->
-    @model.relations()?.fetch()
     @model.evidence()?.fetch()
 
   onRender: ->
