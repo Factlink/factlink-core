@@ -23,6 +23,7 @@
     }
 
     .evidence-sub-comment {
+      position: relative;
       padding: 10px;
       border-bottom: 1px solid @baseBorderColor;
       .box-shadow(0 1px 0 rgba(255,255,255,0.5));
@@ -48,6 +49,17 @@
 
       .evidence-sub-comment-content {
         margin-left: 44px;
+      }
+
+      .sub-comments-popover-arrow {
+        .opacity(0);
+        .transition(opacity .15s ease-in-out);
+      }
+
+      &:hover {
+        .sub-comments-popover-arrow {
+          .opacity(1);
+        }
       }
     }
 
