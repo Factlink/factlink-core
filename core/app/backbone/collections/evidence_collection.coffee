@@ -16,4 +16,8 @@ class window.EvidenceCollection extends Backbone.Collection
           console.info "Evidence type not supported: #{item.evidence_type}"
     results
 
-  url: -> "/facts/#{@fact.id}/#{@type}_evidence/combined"
+  url:     -> "#{@baseUrl()}/combined"
+  baseUrl: -> "/facts/#{@fact.id}/#{@type}_evidence"
+
+  commentsUrl: -> "#{@fact.url()}/comments/#{@type}"
+  factRelationsUrl: -> @baseUrl()
