@@ -105,8 +105,8 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     'click .js-sub-comments-link': 'toggleList'
 
   onRender: ->
+    @bindTo @model, 'change:sub_comments_count', @updateLink, @
     @updateLink()
-    # Bind to model change event here when returning a comment count
 
   toggleList: -> if @listOpen then @closeList() else @openList()
 
@@ -119,6 +119,7 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
 
     @bindTo subComments, 'add', => @model.set 'can_destroy?', false
     @bindTo subComments, 'remove', => @model.fetch if subComments.length <= 0
+    @bindTo subComments, 'add remove reset', => @model.set 'sub_comments_count', subComments.length
 
     @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
     @subCommentsListRegion.show new SubCommentsListView collection: subComments
