@@ -77,7 +77,7 @@ describe Queries::Evidence::Index do
 
       interactor.should_receive(:comments).and_return([comment])
       interactor.should_receive(:fact).and_return(fact)
-      interactor.should_receive(:query).with(:'comments/add_authority_and_opinion', comment, fact).
+      interactor.should_receive(:query).with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact).
         and_return(dead_comment)
 
       dead_comment.should_receive(:evidence_class=).with('Comment')

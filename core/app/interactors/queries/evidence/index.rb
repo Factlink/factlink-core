@@ -54,7 +54,7 @@ module Queries
 
       def dead_comments_with_opinion
         comments.map do |comment|
-          comment = query :'comments/add_authority_and_opinion', comment, fact
+          comment = query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
 
           # TODO: don't depend on the fact that comment is an openstruct
           comment.evidence_class = 'Comment'
