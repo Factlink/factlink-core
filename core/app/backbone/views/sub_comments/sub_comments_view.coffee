@@ -115,9 +115,10 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @$('.js-sub-comments-list-container').removeClass('hide')
 
     subComments = new SubComments([], parentModel: @model)
-    subComments.fetch()
+    subComments.fetch update: true # only fires 'add' and 'remove' events
 
     @bindTo subComments, 'add', => @model.set 'can_destroy?', false
+    @bindTo subComments, 'remove', => @model.fetch if subComments.length <= 0
 
     @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
     @subCommentsListRegion.show new SubCommentsListView collection: subComments
