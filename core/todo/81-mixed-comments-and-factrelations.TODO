@@ -8,8 +8,10 @@
  ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
  ☐ integrate with backend:
-   ☐ remove sorting in frontend
-   ☐ only retrieve one list (instead of 2)
+   ✔ remove sorting in frontend @done (12-12-19 16:45)
+     ☐ sorting not removed, might come in handy for adding new items? (remove comparator in evidence_collection if not needed)
+   ✔ only retrieve one list (instead of 2) @done (12-12-19 16:44)
+     ☐ relations are still retrieved seperately, used in AddEvidenceView
    ☐ clean up classes/css
    ☐ creating comments/factrelations should keep working after removing one of the collections (create custom url stuff for models)
    ☐ create mixed collection of comments and factrelations
