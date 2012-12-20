@@ -67,21 +67,15 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    # Show evidence search
-    if @model.relations()
-      @factRelationSearchRegion.show new AddEvidenceView
-        collection: @model.relations()
-        model: @model
-    else
-      @hideRegion @factRelationSearchRegion
-
-    # Show evidence
     if @model.evidence()
       @factRelationsRegion.show new EvidenceListView
         collection: @model.evidence()
         type: @model.evidence().type
-        item_type: 'fact_relation'
+      @factRelationSearchRegion.show new AddEvidenceView
+        collection: @model.evidence()
+        model: @model
     else
+      @hideRegion @factRelationSearchRegion
       @hideRegion @factRelationsRegion
 
   hideRegion: (region)-> @$(region.el).hide()
