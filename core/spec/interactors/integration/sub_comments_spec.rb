@@ -24,7 +24,7 @@ describe 'subcomments' do
       end
 
       it 'can be deleted' do
-        comments = interactor :'comments/index', @fact.id.to_i, 'believes'
+        comments = interactor :'evidence/for_fact_id', @fact.id.to_s, :supporting
 
         expect(comments.map(&:can_destroy?)).to eq [true]
       end
@@ -43,7 +43,7 @@ describe 'subcomments' do
       end
 
       it 'cannot be deleted any more' do
-        comments = interactor :'comments/index', @fact.id.to_i, 'believes'
+        comments = interactor :'evidence/for_fact_id', @fact.id.to_s, :supporting
 
         expect(comments.map(&:can_destroy?)).to eq [false]
       end
