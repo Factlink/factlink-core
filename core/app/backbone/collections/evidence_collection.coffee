@@ -5,16 +5,14 @@ class window.EvidenceCollection extends Backbone.Collection
     @fact = opts.fact
 
   parse: (data) ->
-    results = []
-    _.each data, (item) =>
+    _.map data, (item) ->
       switch item.evidence_type
         when 'FactRelation'
-          results.push new FactRelation(item)
+          new FactRelation(item)
         when 'Comment'
-          results.push new Comment(item)
+          new Comment(item)
         else
           console.error "Evidence type not supported: #{item.evidence_type}"
-    results
 
   url:     -> "#{@baseUrl()}/combined"
   baseUrl: -> "/facts/#{@fact.id}/#{@type}_evidence"
