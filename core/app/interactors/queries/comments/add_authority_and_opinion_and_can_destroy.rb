@@ -10,7 +10,8 @@ module Queries
           opinion: opinion,
           current_user_opinion: current_user_opinion,
           authority: authority,
-          can_destroy?: can_destroy
+          can_destroy?: can_destroy,
+          sub_comments_count: @comment.sub_comments_count
       end
 
       def authority

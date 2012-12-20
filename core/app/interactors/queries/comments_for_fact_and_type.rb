@@ -13,7 +13,11 @@ module Queries
     end
 
     def execute
-      comments.map {|comment| query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact}
+      comments.map do |comment|
+        comment.sub_comments_count = query :'sub_comments/count', comment.id.to_s, comment.class.to_s
+
+        query :'comments/add_authority_and_opinion_and_can_destroy', comment, fact
+      end
     end
 
     def comments
