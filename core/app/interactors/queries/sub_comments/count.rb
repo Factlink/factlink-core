@@ -5,8 +5,7 @@ module Queries
       arguments :parent_id, :parent_class
 
       def execute
-        sub_comments = query :'sub_comments/index', normalized_parent_id, @parent_class
-        sub_comments.length
+        SubComment.where(parent_id: normalized_parent_id.to_s, parent_class: @parent_class).count
       end
 
       def normalized_parent_id
