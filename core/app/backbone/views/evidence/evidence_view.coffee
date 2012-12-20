@@ -16,7 +16,7 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
 
   setPopover: ->
     updatePopover = =>
-      if @model.can_destroy()
+      if @model.get 'can_destroy?'
         popoverView = new EvidencePopoverView
                             model: @model,
                             delete_message: @delete_message
