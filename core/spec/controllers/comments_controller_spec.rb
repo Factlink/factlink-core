@@ -38,28 +38,6 @@ describe CommentsController do
     end
   end
 
-  describe '.index' do
-    it 'calls the interactor with the correct parameters' do
-      fact_id = 1
-      type = 'believes'
-      controller.stub(get_fact_id_param: fact_id)
-      controller.stub(params: {type: type})
-      comment1 = mock
-      comment2 = mock
-
-      controller.should_receive(:interactor).with(:"comments/index", fact_id, type).and_return([comment2, comment1])
-
-      controller.should_receive(:sort_by_relevance)
-                .with([comment2, comment1])
-                .and_return([comment1, comment2])
-      controller.should_receive(:render).with('comments/index')
-
-      controller.index
-
-      controller.instance_variable_get(:@comments).should eq [comment1, comment2]
-    end
-  end
-
   describe '.update' do
     it 'calls the interactor with the correct parameters' do
       comment_id = '123abc'

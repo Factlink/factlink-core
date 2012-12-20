@@ -62,7 +62,7 @@ describe Queries::Evidence::Index do
       fact_relation.should_receive(:get_user_opinion).and_return(opinion)
       interactor.should_receive(:fact_relations).and_return([fact_relation])
       KillObject.should_receive(:fact_relation).with(fact_relation,
-        {current_user_opinion:opinion_on,get_user_opinion:opinion,opinion:opinion,evidence_class: 'FactRelation'})
+        {current_user_opinion:opinion_on,opinion:opinion,evidence_class: 'FactRelation'})
 
       interactor.dead_fact_relations_with_opinion
     end
