@@ -30,3 +30,5 @@ class window.FactRelation extends Backbone.Model
   creator: -> new User(@get('created_by'))
 
   can_destroy: -> @get 'can_destroy?'
+
+  urlRoot: -> @collection.factRelationsUrl()
