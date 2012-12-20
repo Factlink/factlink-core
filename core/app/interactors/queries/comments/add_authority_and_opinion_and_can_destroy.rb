@@ -31,11 +31,11 @@ module Queries
       end
 
       def can_destroy
-        created_by_current_user && @comment.deletable?
+        query :'comments/can_destroy', @comment.id.to_s, current_user_id
       end
 
-      def created_by_current_user
-        @comment.created_by_id == @options[:current_user].id
+      def current_user_id
+        @options[:current_user].id.to_s
       end
     end
   end
