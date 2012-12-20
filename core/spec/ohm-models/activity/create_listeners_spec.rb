@@ -30,7 +30,6 @@ describe 'activity queries' do
         {user: gu1, action: :created, subject: f1}
       ]
     end
-
   end
 
   describe ".channel" do
@@ -232,11 +231,11 @@ describe 'activity queries' do
 
         interactor = Interactors::CreateConversationWithMessage.new f.id.to_s, [u1.username, u2.username], u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
-        interactor.call
+        conversation = interactor.call
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :created_conversation, subject: Conversation.last }
+          {user: u1.graph_user, action: :created_conversation, subject: Conversation.find(conversation.id) }
         ]
       end
     end
@@ -249,11 +248,11 @@ describe 'activity queries' do
 
         interactor = Interactors::ReplyToConversation.new c.id.to_s, u1.id.to_s, 'this is a message', current_user: u1
         interactor.stub(track_mixpanel: nil)
-        interactor.call
+        message = interactor.call
 
         u1.graph_user.notifications.map(&:to_hash_without_time).should == []
         u2.graph_user.notifications.map(&:to_hash_without_time).should == [
-          {user: u1.graph_user, action: :replied_message, subject: Message.last }
+          {user: u1.graph_user, action: :replied_message, subject: Message.find(message.id) }
         ]
       end
     end
@@ -269,10 +268,10 @@ describe 'activity queries' do
         user = create(:user)
 
         interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
-        interactor.call
+        comment = interactor.call
 
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
+          {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
         ]
       end
       it "creates a stream activity for the interacting users" do
@@ -281,10 +280,10 @@ describe 'activity queries' do
         user = create(:user)
 
         interactor = Interactors::Comments::Create.new fact.id.to_i, 'believes', 'tex message', current_user: user
-        interactor.call
+        comment = interactor.call
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: user.graph_user, action: :created_comment, subject: Comment.last, object: fact }
+          {user: user.graph_user, action: :created_comment, subject: Comment.find(comment.id), object: fact }
         ]
       end
     end
@@ -308,10 +307,10 @@ describe 'activity queries' do
 
         fact.add_opinion :believes, gu1
 
-        interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
         ]
       end
 
@@ -322,10 +321,10 @@ describe 'activity queries' do
 
         fact.add_opinion :believes, gu1
 
-        interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
+        sub_comment = interactor :'sub_comments/create_for_comment', comment.id.to_s, 'content'
 
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
         ]
       end
     end
@@ -338,10 +337,10 @@ describe 'activity queries' do
 
         fact.add_opinion :believes, gu1
 
-        interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
 
         gu1.stream_activities.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
         ]
       end
 
@@ -352,10 +351,10 @@ describe 'activity queries' do
 
         fact.add_opinion :believes, gu1
 
-        interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
+        sub_comment = interactor :'sub_comments/create_for_fact_relation', fact_relation.id.to_i, 'content'
 
         gu1.notifications.map(&:to_hash_without_time).should == [
-          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.last, object: fact }
+          {user: current_user.graph_user, action: :created_sub_comment, subject: SubComment.find(sub_comment.id), object: fact }
         ]
       end
     end
