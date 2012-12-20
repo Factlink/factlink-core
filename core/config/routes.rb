@@ -50,6 +50,7 @@ FactlinkUI::Application.routes.draw do
         scope '/:type/:id' do
           get 'sub_comments' => 'comments#sub_comments_index'
           post 'sub_comments' => 'comments#sub_comments_create'
+          delete 'sub_comments' => 'comments#sub_comments_destroy'
         end
       end
     end
@@ -72,6 +73,7 @@ FactlinkUI::Application.routes.draw do
 
           get     'sub_comments'  => 'evidence#sub_comments_index'
           post    'sub_comments'  => 'evidence#sub_comments_create'
+          delete 'sub_comments'   => 'evidence#sub_comments_destroy'
         end
 
       end

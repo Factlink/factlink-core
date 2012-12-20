@@ -42,6 +42,11 @@ class EvidenceController < FactsController
     render 'sub_comments/show'
   end
 
+  def sub_comments_destroy
+    @sub_comment = interactor :'sub_comments/destroy', params[:id]
+    render json: {}, status: :ok
+  end
+
   def retrieve_evidence(evidence_id)
     Fact[evidence_id] or raise EvidenceNotFoundException
   end
