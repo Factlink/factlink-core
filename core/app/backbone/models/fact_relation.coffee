@@ -1,4 +1,8 @@
 class window.FactRelation extends Backbone.Model
+
+  defaults:
+    evidence_type: 'FactRelation'
+
   setOpinion: (type) ->
     $.ajax
       url: @url() + "/opinion/" + type
