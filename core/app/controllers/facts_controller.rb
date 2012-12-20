@@ -27,6 +27,7 @@ class FactsController < ApplicationController
   def show
     authorize! :show, @fact
     @title = @fact.data.displaystring # The html <title>
+
     @modal = true
     @hide_links_for_site = @modal && @fact.site
     @just_added = ( not params[:just_added].blank? )
@@ -198,8 +199,7 @@ class FactsController < ApplicationController
     authorize! :index, Fact
     search_for = params[:s]
 
-    interactor = Interactors::SearchEvidence.new search_for, @fact.id, ability: current_ability
-    results = interactor.execute
+    results = interactor :search_evidence, search_for, @fact.id
 
     facts = results.map { |result| Facts::FactBubble.for(fact: result.fact, view: view_context) }
 

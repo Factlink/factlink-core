@@ -29,6 +29,12 @@ def create_activity_listeners
       write_ids: people_who_follow_a_fact
     }
 
+    forGraphUser_sub_comment_was_added = {
+      subject_class: "SubComment",
+      action: :created_sub_comment,
+      write_ids: people_who_follow_a_fact
+    }
+
     register do
       activity_for "GraphUser"
       named :notifications
@@ -55,6 +61,9 @@ def create_activity_listeners
 
       # someone added a comment
       activity forGraphUser_comment_was_added
+
+      # someone added a sub comment
+      activity forGraphUser_sub_comment_was_added
     end
 
     register do
@@ -74,6 +83,8 @@ def create_activity_listeners
       # someone added a comment
       activity forGraphUser_comment_was_added
 
+      # someone added a sub comment
+      activity forGraphUser_sub_comment_was_added
 
       # someone believed/disbelieved/doubted your fact
       activity subject_class: "Fact",

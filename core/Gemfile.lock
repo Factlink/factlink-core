@@ -5,6 +5,13 @@ GIT
     rack-xframe-options (0.1.2)
 
 GIT
+  remote: git@github.com:janpaul123/marionette-rails.git
+  revision: 4d30805fdaef8a73a97a7df4332ba52a267ba93d
+  specs:
+    marionette-rails (1.0.0.rc.2)
+      rails (>= 3.1.0)
+
+GIT
   remote: http://github.com/Factlink/ohm-contrib.git
   revision: cc6dd8f087f4ce2e3ae8aa75df0d95d21bf5a052
   specs:
@@ -18,12 +25,6 @@ GIT
       escape
       json
       rack
-
-GIT
-  remote: https://github.com/Factlink/mustache_rails3.git
-  revision: 5a1a7a33c7a42f0225835e006af8233146c47e21
-  specs:
-    mustache_rails3 (0.1.2.4)
 
 GIT
   remote: https://github.com/Factlink/ohm.git
@@ -83,6 +84,9 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.2)
     andand (1.3.3)
+    approvals (0.0.6)
+      nokogiri
+      thor
     arel (3.0.2)
     arrayfields (4.7.4)
     awesome_print (1.0.2)
@@ -249,8 +253,6 @@ GEM
       treetop (~> 1.4.8)
     main (4.7.1)
     map (6.2.0)
-    marionette-rails (0.9.6.1)
-      rails (>= 3.1.0)
     memoist (0.1.0)
     method_source (0.8)
     metric_fu (2.1.1)
@@ -282,7 +284,6 @@ GEM
     multi_json (1.3.7)
     multi_xml (0.5.1)
     multipart-post (1.1.5)
-    mustache (0.99.4)
     nest (1.1.2)
       redis
     net-scp (1.0.4)
@@ -463,8 +464,6 @@ GEM
     sprockets-vendor_gems (0.1.3)
       sprockets
     sqlite3 (1.3.6)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
     stringex (1.4.0)
     syntax (1.0.0)
     terminal-table (1.4.5)
@@ -476,6 +475,7 @@ GEM
       rack (>= 1.0.0)
     thor (0.16.0)
     tilt (1.3.3)
+    timecop (0.5.4)
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
@@ -499,6 +499,7 @@ DEPENDENCIES
   activerecord (= 3.2.7)
   addressable
   andand (~> 1.3.3)
+  approvals
   arrayfields
   bcrypt-ruby (~> 3.0.1)
   brakeman
@@ -533,7 +534,7 @@ DEPENDENCIES
   letter_opener
   lograge
   map
-  marionette-rails (= 0.9.6.1)
+  marionette-rails (= 1.0.0.rc.2)!
   memoist
   metric_fu (= 2.1.1)
   mixpanel!
@@ -543,8 +544,6 @@ DEPENDENCIES
   mongoid (~> 2.4.4)
   mongoid_rails_migrations (= 0.0.13)
   multi_json (>= 1.2.0)
-  mustache
-  mustache_rails3!
   newrelic_rpm
   ohm!
   ohm-contrib!
@@ -580,8 +579,9 @@ DEPENDENCIES
   sextant
   simplecov
   simplecov-rcov-text
-  sqlite3-ruby
+  sqlite3
   stringex
   therubyracer
   thin
+  timecop
   uglifier (>= 1.0.3)

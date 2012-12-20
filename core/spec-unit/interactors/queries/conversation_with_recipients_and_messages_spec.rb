@@ -18,20 +18,20 @@ describe Queries::ConversationWithRecipientsAndMessages do
     recipient_list = mock('list of recipients')
 
 
-    should_receive_new_with_and_receive_execute(
+    should_receive_new_with_and_receive_call(
       Queries::ConversationGet, conversation.id, options).and_return(conversation)
 
-    should_receive_new_with_and_receive_execute(
+    should_receive_new_with_and_receive_call(
       Queries::MessagesForConversation, conversation, options).and_return(message_list)
 
-    should_receive_new_with_and_receive_execute(
+    should_receive_new_with_and_receive_call(
       Queries::UsersByIds, recipient_ids, options).and_return(recipient_list)
 
 
     new_conversation = mock()
     KillObject.should_receive(:conversation).with(conversation, messages: message_list, recipients: recipient_list).
                and_return(new_conversation)
-    result = query.execute
+    result = query.call
 
     expect(result).to eq(new_conversation)
   end
@@ -41,10 +41,10 @@ describe Queries::ConversationWithRecipientsAndMessages do
     nonexistingid = mock()
     query = Queries::ConversationWithRecipientsAndMessages.new(nonexistingid, options)
 
-    should_receive_new_with_and_receive_execute(
+    should_receive_new_with_and_receive_call(
       Queries::ConversationGet, nonexistingid, options).and_return(nil)
 
-    result = query.execute
+    result = query.call
 
     expect(result).to be_nil
 

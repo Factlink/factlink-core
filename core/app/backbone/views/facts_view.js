@@ -68,7 +68,7 @@ window.FactsView = AutoloadingCompositeView.extend({
 
         // HACK this is how backbone marionette stores childviews:
         // dependent on their implementation though
-        self.children[fact.cid].highlight();
+        self.children.findByModel(fact).highlight();
         self.setCreateFactFormToInitialState();
       },
       error: function(data) {

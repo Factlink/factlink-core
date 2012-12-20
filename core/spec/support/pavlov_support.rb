@@ -1,14 +1,14 @@
 module PavlovSupport
-  def should_receive_new_and_execute(klass)
+  def should_receive_new_and_call(klass)
     klass_instance = mock()
     klass.should_receive(:new).and_return(klass_instance)
-    klass_instance.should_receive(:execute)
+    klass_instance.should_receive(:call)
   end
 
-  def should_receive_new_with_and_receive_execute(klass, *arguments)
+  def should_receive_new_with_and_receive_call(klass, *arguments)
     klass_instance = mock()
     klass.should_receive(:new).with(*arguments).and_return(klass_instance)
-    klass_instance.should_receive(:execute)
+    klass_instance.should_receive(:call)
   end
 
   def stub_classes *classnames

@@ -2,7 +2,7 @@ class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  attr_accessor :authority
+  attr_accessor :authority, :sub_comments_count
 
   belongs_to :fact_data, class_name: 'FactData'
 

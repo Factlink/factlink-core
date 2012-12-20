@@ -36,7 +36,10 @@
   </div>
 
   <div class="form-actions">
-    <%= link_to("Cancel", root_path, class: :btn, tabindex: 3) %>
+    <%= link_to("Cancel",
+          @edit ? channel_path(current_user.username, channel.id) : root_path,
+          class: :btn,
+          tabindex: 3) %>
     <%= button_tag( @edit ? "Apply" : "Create", 'data-disable-with' => (@edit ? "Applying..." : "Creating..."), :class => "btn btn-primary", tabindex: 2) %>
   </div>
 

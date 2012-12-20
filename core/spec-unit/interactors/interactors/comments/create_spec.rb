@@ -30,7 +30,7 @@ describe Interactors::Comments::Create do
       to raise_error(Pavlov::ValidationError, 'type should be on of these values: ["believes", "disbelieves", "doubts"].')
   end
 
-  describe '.execute' do
+  describe '.call' do
     before do
       stub_const('Commands::CreateCommentCommand', Class.new)
       stub_const 'Fact', Class.new
@@ -54,13 +54,14 @@ describe Interactors::Comments::Create do
       interactor.should_receive(:command)
         .with(:'comments/set_opinion',comment.id.to_s, 'believes', user.graph_user)
 
-      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion", comment, fact).and_return(comment)
+      interactor.should_receive(:query).with(:"comments/add_authority_and_opinion_and_can_destroy", comment, fact).
+        and_return(comment)
 
       interactor.should_receive(:create_activity).with(comment)
 
       Fact.should_receive(:[]).with(fact_id).and_return(fact)
 
-      interactor.execute.should eq comment
+      interactor.call.should eq comment
     end
   end
 

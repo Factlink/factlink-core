@@ -1,6 +1,6 @@
 #= require ../interactors_view
 
-class EmptyFactRelationsView extends Backbone.Marionette.ItemView
+class EmptyEvidenceView extends Backbone.Marionette.ItemView
   template: "fact_relations/_fact_relations_empty"
   className: "no-evidence-listing"
   tagName: 'li'
@@ -11,13 +11,13 @@ class EmptyFactRelationsView extends Backbone.Marionette.ItemView
         when 'weakening' then 'weakened'
         when 'supporting' then 'supported'
 
-class FactRelationsListView extends Backbone.Marionette.CollectionView
+class EvidenceListView extends Backbone.Marionette.CollectionView
   tagName: 'ul'
   className: 'fact-relation-listing'
 
-  itemView: FactRelationEvidenceView
-  itemViewOptions: => type: @collection.type
-  emptyView: EmptyFactRelationsView
+  itemView: Backbone.View
+  itemViewOptions: => type: @options.type
+  emptyView: EmptyEvidenceView
 
   addChildView: (item, collection, options) ->
     result = super(item, collection, options)
@@ -25,9 +25,28 @@ class FactRelationsListView extends Backbone.Marionette.CollectionView
     result
 
   highlightFactRelation: (model) ->
-    view = @children[model.cid]
+    view = @children.findByModel(model)
     @$el.scrollTo view.el, 800
     view.highlight()
+
+  itemViewForModel: (model) ->
+    if model.get('evidence_type') == 'FactRelation'
+      FactRelationEvidenceView
+    else if model.get('evidence_type') == 'Comment'
+      CommentEvidenceView
+    else
+      console.error "This evidence type is not supported: #{model.get('evidence_type')}"
+      Backbone.View
+
+  itemViewFor: (item, itemView) ->
+    if itemView == @emptyView
+      itemView
+    else
+      @itemViewForModel(item)
+
+  buildItemView: (item, itemView, options) ->
+    super item, @itemViewFor(item, itemView), options
+
 
 class window.FactRelationsView extends Backbone.Marionette.Layout
   className: "tab-content"
@@ -37,11 +56,8 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     interactingUserRegion: '.interacting-users'
     factRelationsRegion: '.fact-relation-listing-container'
     factRelationSearchRegion: '.fact-relation-search'
-    commentsRegion: '.comments-listing-region'
 
-  initialize: ->
-    @model.relations()?.fetch()
-    @model.comments()?.fetch()
+  initialize: -> @model.evidence()?.fetch()
 
   onRender: ->
     @$el.addClass @model.type()
@@ -49,15 +65,13 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    @commentsRegion.show new CommentsListView
-      collection: @model.comments()
-
-    if @model.relations()
+    if @model.type() == 'supporting' or @model.type() == 'weakening'
+      @factRelationsRegion.show new EvidenceListView
+        collection: @model.evidence()
+        type: @model.evidence().type
       @factRelationSearchRegion.show new AddEvidenceView
-        collection: @model.relations()
+        collection: @model.evidence()
         model: @model
-      @factRelationsRegion.show new FactRelationsListView
-        collection: @model.relations()
     else
       @hideRegion @factRelationSearchRegion
       @hideRegion @factRelationsRegion

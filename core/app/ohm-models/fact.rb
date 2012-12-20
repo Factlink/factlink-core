@@ -4,6 +4,7 @@ class FactRelation < Basefact;end # needed because of removed const_missing from
 
 class Fact < Basefact
   include Opinion::Subject::Fact
+  include Pavlov::Helpers
 
   after :create, :set_activity!
   after :create, :add_to_created_facts
@@ -33,9 +34,7 @@ class Fact < Basefact
   def add_to_created_facts
     channel = self.created_by.created_facts_channel
 
-    interactor = Commands::Channels::AddFact.new self, channel
-
-    interactor.execute
+    command :'channels/add_fact', self, channel
   end
 
   def has_site?

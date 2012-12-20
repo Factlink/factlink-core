@@ -1,3 +1,5 @@
+require_relative '../interactors/interactors/channels'
+
 class UsersController < ApplicationController
   layout "frontend"
 
@@ -7,8 +9,7 @@ class UsersController < ApplicationController
     authorize! :show, @user
     respond_to do |format|
       format.html { render layout: 'channels'}
-      format.json { render json: Users::User.for(user: @user, view: view_context) }
-
+      format.json { render @user }
     end
   end
 

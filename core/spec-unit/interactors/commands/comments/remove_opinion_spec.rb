@@ -8,7 +8,7 @@ describe Commands::Comments::RemoveOpinion do
     stub_classes 'Believable::Commentje'
   end
 
-  describe '.execute' do
+  describe '.call' do
     it "removes the opinion on the believable belonging to this commment" do
       believable = mock
       graph_user = mock
@@ -19,7 +19,7 @@ describe Commands::Comments::RemoveOpinion do
 
       believable.should_receive(:remove_opinionateds)
                 .with(graph_user)
-      command.execute
+      command.call
     end
   end
 

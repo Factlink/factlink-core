@@ -57,6 +57,17 @@ json.activity do |json|
     end
     json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
 
+  when "created_sub_comment"
+    json.action       :created_sub_comment
+    json.target_url   friendly_fact_path(object)
+
+    if showing_notifications
+      json.fact truncate("#{object}", length: 85, separator: " ")
+    else
+      json.fact         Facts::Fact.for(fact: object, view: self).to_hash
+    end
+    json.fact_displaystring truncate(object.data.displaystring.to_s, length: 48)
+
   when "added_subchannel"
     subject_creator_graph_user = subject.created_by
     subject_creator_user = subject_creator_graph_user.user
@@ -75,7 +86,7 @@ json.activity do |json|
     json.to_channel_title          object.title
     json.to_channel_url            channel_path(object.created_by.user, object.id)
 
-    json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).execute
+    json.to_channel_containing_channel_ids Queries::ContainingChannelIdsForChannelAndUser.new(object.id, current_user.graph_user.id).call
 
     json.target_url                channel_path(object.created_by.user, object.id)
   when "created_channel"

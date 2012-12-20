@@ -9,7 +9,7 @@ describe ConversationsController do
 
       query = mock()
       conversation = mock(:conversation, )
-      query.should_receive(:execute).and_return([conversation])
+      query.should_receive(:call).and_return([conversation])
 
       pavlov_options = mock()
       controller.should_receive(:pavlov_options).and_return(pavlov_options)
@@ -75,7 +75,7 @@ describe ConversationsController do
       fact_id = 10
 
       interactor = mock()
-      interactor.should_receive(:execute)
+      interactor.should_receive(:call)
 
       pavlov_options = mock()
       controller.should_receive(:pavlov_options).and_return(pavlov_options)

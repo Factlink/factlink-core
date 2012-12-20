@@ -4,17 +4,10 @@ class EvidenceController < FactsController
 
   respond_to :json
 
-  def index
-    @fact = Fact[params[:fact_id]] || raise_404("Fact not found")
-    @evidence = @fact.evidence(relation)
+  def combined_index
+    @evidence = interactor :"evidence/for_fact_id", params[:fact_id], relation
 
-    authorize! :get_evidence, @fact
-
-    @fact_relations = @evidence.to_a.sort do |a,b|
-      OpinionPresenter.new(b.get_user_opinion).relevance <=> OpinionPresenter.new(a.get_user_opinion).relevance
-    end
-
-    render 'fact_relations/index'
+    render 'evidence/index'
   end
 
   class EvidenceNotFoundException < StandardError
@@ -32,10 +25,21 @@ class EvidenceController < FactsController
     evidence
   end
 
+  def sub_comments_index
+    @sub_comments = interactor :'sub_comments/index_for_fact_relation', params[:id].to_i
+    render 'sub_comments/index'
+  end
+
+  def sub_comments_create
+    @sub_comment = interactor :'sub_comments/create_for_fact_relation', params[:id].to_i, params[:content]
+    render 'sub_comments/show'
+  end
+
   def retrieve_evidence(evidence_id)
     Fact[evidence_id] or raise EvidenceNotFoundException
   end
 
+  #TODO move to a fact_relation resource
   def create
     fact = Fact[params[:fact_id]]
 
@@ -84,6 +88,7 @@ class EvidenceController < FactsController
     render 'fact_relations/show'
   end
 
+  #TODO move to a fact_relation resource
   def destroy
     fact_relation = FactRelation[params[:id]]
 

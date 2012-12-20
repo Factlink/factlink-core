@@ -4,29 +4,57 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
   template:  'evidence/base'
 
   regions:
-    voteRegion:       '.evidence-vote-region'
-    userAvatarRegion: '.evidence-user-avatar-region'
-    activityRegion:   '.evidence-activity-region'
-    mainRegion:       '.evidence-main-region'
-    popoverRegion:    '.evidence-popover-region'
+    voteRegion:        '.evidence-vote-region'
+    userAvatarRegion:  '.evidence-user-avatar-region'
+    activityRegion:    '.evidence-activity-region'
+    mainRegion:        '.evidence-main-region'
+    popoverRegion:     '.evidence-popover-region'
+    subCommentsRegion: '.evidence-sub-comments-region'
 
-  setPopover: (popoverClass) ->
+  initialize: ->
+    @on 'render', @evidenceBaseOnRender, @
+
+  setPopover: ->
     updatePopover = =>
       if @model.can_destroy()
-        @popoverRegion.show new popoverClass model: @model
+        popoverView = new EvidencePopoverView
+                            model: @model,
+                            delete_message: @delete_message
+        @popoverRegion.show popoverView
+      else
+        @popoverRegion.close()
 
     updatePopover()
     @bindTo @model, 'change', updatePopover
 
+  evidenceBaseOnRender: ->
+    @userAvatarRegion.show new EvidenceUserAvatarView model: @model
+    @activityRegion.show   new EvidenceActivityView model: @model, verb: @activityVerb
+    @voteRegion.show new VoteUpDownView model: @model
+    @subCommentsRegion.show new SubCommentsView model: @model
 
-class window.EvidenceUserAvatarView extends Backbone.Marionette.ItemView
+    @mainRegion.show new @mainView model: @model
+    @setPopover()
+
+  highlight: ->
+    @$el.animate
+      'background-color': '#ffffe1'
+    ,
+      duration: 500
+      complete: ->
+        $(this).animate
+          'background-color': '#ffffff'
+        , 2500
+
+
+class EvidenceUserAvatarView extends Backbone.Marionette.ItemView
   className: 'evidence-user-avatar'
   template:  'evidence/user_avatar'
 
   templateHelpers: => creator: @model.creator().toJSON()
 
 
-class window.EvidenceActivityView extends Backbone.Marionette.ItemView
+class EvidenceActivityView extends Backbone.Marionette.ItemView
   className: 'evidence-activity'
   template:  'evidence/activity'
 
@@ -37,47 +65,13 @@ class window.EvidenceActivityView extends Backbone.Marionette.ItemView
     verb: @options.verb
 
 
-class window.VoteUpDownView extends Backbone.Marionette.ItemView
-  className: "evidence-actions"
-
-  template: "evidence/vote_up_down"
-
-  events:
-    "click .weakening": "disbelieve"
-    "click .supporting": "believe"
-
-  initialize: ->
-    @bindTo @model, "change", @render, @
-
-  hideTooltips: ->
-    @$(".weakening").tooltip "hide"
-    @$(".supporting").tooltip "hide"
-
-  onRender: ->
-    @$(".supporting").tooltip
-      title: "This is relevant"
-
-    @$(".weakening").tooltip
-      title: "This is not relevant"
-      placement: "bottom"
-
-  onBeforeClose: ->
-    @$(".weakening").tooltip "destroy"
-    @$(".supporting").tooltip "destroy"
-
-  disbelieve: ->
-    @hideTooltips()
-    @model.disbelieve()
-
-  believe: ->
-    @hideTooltips()
-    @model.believe()
-
-
 ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
 
-class window.EvidencePopoverView extends ViewWithPopover
+class EvidencePopoverView extends ViewWithPopover
   template: 'evidence/popover'
+
+  initialize: (options)->
+    @delete_message = options.delete_message
 
   templateHelpers: =>
     delete_message: @delete_message

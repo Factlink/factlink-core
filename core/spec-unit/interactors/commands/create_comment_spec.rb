@@ -36,7 +36,11 @@ describe Commands::CreateComment do
     end
   end
 
-  describe '.execute' do
+  describe '.call' do
+    before do
+      stub_classes('KillObject')
+    end
+
     it 'correctly' do
       fact_id = 1
       type = 'believes'
@@ -50,6 +54,7 @@ describe Commands::CreateComment do
       command.stub fact_data: fact_data
 
       comment.should_receive(:fact_data=).with(fact_data)
+      comment.should_receive(:sub_comments_count=).with(0)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
 
@@ -58,7 +63,9 @@ describe Commands::CreateComment do
       comment.should_receive(:content=).with(content)
       comment.should_receive(:save)
 
-      command.execute
+      KillObject.should_receive(:comment).with(comment)
+
+      command.call
     end
   end
 
