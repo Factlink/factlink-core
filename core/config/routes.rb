@@ -44,7 +44,6 @@ FactlinkUI::Application.routes.draw do
       scope '/comments' do
         post "/:type" => 'comments#create'
         delete "/:type/:id" => 'comments#destroy'
-        get "/:type" => 'comments#index'
         put "/:type/:id" => 'comments#update'
 
         scope '/:type/:id' do
@@ -65,7 +64,19 @@ FactlinkUI::Application.routes.draw do
     resources :facts, :except => [:edit, :index, :update] do
       resources :evidence
 
-      resources :supporting_evidence, :weakening_evidence do
+      resources :supporting_evidence do
+        collection do
+          get     "combined"      => "supporting_evidence#combined_index"
+        end
+      end
+
+      resources :weakening_evidence do
+        collection do
+          get     "combined"      => "weakening_evidence#combined_index"
+        end
+      end
+
+      resources :supporting_evidence, :weakening_evidence, :except => [:index] do
         member do
           get     "opinion"       => "evidence#opinion"
           post    "opinion/:type" => "evidence#set_opinion",      :as => "set_opinion"
@@ -75,7 +86,6 @@ FactlinkUI::Application.routes.draw do
           post    'sub_comments'     => 'evidence#sub_comments_create'
           delete  'sub_comments/:id' => 'evidence#sub_comments_destroy'
         end
-
       end
 
       member do
@@ -85,7 +95,7 @@ FactlinkUI::Application.routes.draw do
         get     "/channels"         => "facts#get_channel_listing"
         get     "/believers"        => "facts#believers"
         get     "/disbelievers"     => "facts#disbelievers"
-        get     "/doubters"     => "facts#doubters"
+        get     "/doubters"         => "facts#doubters"
       end
     end
 

@@ -3,7 +3,7 @@ require_relative 'application_controller'
 class CommentsController < ApplicationController
   def create
     fact_id = get_fact_id_param
-    @comment = interactor :"comments/create", fact_id, params[:type], params[:content]
+    @comment = interactor :"comments/create", fact_id, type, params[:content]
 
     render 'comments/show'
   rescue Pavlov::ValidationError => e
@@ -15,17 +15,6 @@ class CommentsController < ApplicationController
     interactor :"comments/delete", comment_id
 
     render :json => {}, :status => :ok
-  end
-
-  def index
-    fact_id = get_fact_id_param
-    type    = params[:type].to_s
-
-    comments = interactor :"comments/index", fact_id, type
-
-    @comments = sort_by_relevance comments
-
-    render 'comments/index'
   end
 
   def update
@@ -76,6 +65,14 @@ class CommentsController < ApplicationController
     def sort_by_relevance comments
       comments.sort do |a,b|
         OpinionPresenter.new(b.opinion).relevance <=> OpinionPresenter.new(a.opinion).relevance
+      end
+    end
+
+    def type
+      case params[:type]
+      when 'supporting' then 'believes'
+      when 'weakening' then 'disbelieves'
+      else params[:type]
       end
     end
 end

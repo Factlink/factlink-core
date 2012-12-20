@@ -13,7 +13,7 @@ wrap_success_and_error = (options) ->
 
   return if sync_delay < 1
 
-  console.warn "Delaying Backbone.sync with #{sync_delay} seconds"
+  console.warn "Delaying Backbone.sync with #{sync_delay} milliseconds"
 
   old_success = options.success
   old_error = options.error

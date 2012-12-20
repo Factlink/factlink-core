@@ -31,6 +31,17 @@ class window.CollectionUtils
     reset()
     resultCollection
 
+  union: (resultCollection, collections...)->
+    reset = ->
+      resultCollection.reset(_.union (col.models for col in collections)...)
+
+    for collection in collections
+      if collection.on
+        @bindTo collection, 'add reset remove change', reset
+
+    reset()
+    resultCollection
+
   updatedClone: (resultCollection, collection)->
     @difference(resultCollection, null, collection)
 

@@ -2,7 +2,7 @@
 @import "bootstrap/mixins";
 
 .evidence-sub-comments {
-  margin: 5px 0 0 84px;
+  margin: 5px 0 0 92px;
   clear: both;
 
   .evidence-sub-comments-link {
@@ -49,6 +49,7 @@
 
       .evidence-sub-comment-content {
         margin-left: 44px;
+        min-height: 10px;
       }
 
       .sub-comments-popover-arrow {
@@ -69,31 +70,36 @@
       top: -8px;
       width: 18px;
       height: 8px;
-      background: url(/assets/discussions/comment_arrow.png) no-repeat;
+      background: image-url('discussions/comment_arrow.png') no-repeat;
     }
 
     .evidence-sub-comments-form {
       padding: 10px;
       overflow: hidden;
 
-      .evidence-sub-comments-textarea-container .typeahead {
-        width: 555px;
-        padding-top: 6px;
-        margin: 0 0 0 12px;
-        height: 20px;
-        resize: none;
-        .transition(height 0.15s ease-in-out);
+      .evidence-sub-comments-textarea-container {
+        .box-sizing(border-box);
+        margin-left: 45px;
+
+        .typeahead {
+          .box-sizing(border-box);
+          width: 100%;
+          padding-top: 6px;
+          margin-bottom: 0px;
+          height: 32px;
+          resize: none;
+          .transition(height 0.15s ease-in-out);
+        }
       }
 
       .evidence-sub-comments-button-container {
-        margin-right: 3px;
         display: none;
       }
     }
 
     .evidence-sub-comments-form-active {
       .evidence-sub-comments-textarea-container .typeahead {
-        height: 36px;
+        height: 52px;
         margin-bottom: 9px;
       }
 

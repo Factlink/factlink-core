@@ -1,6 +1,17 @@
-current_user_opinion =
-  current_user.andand.graph_user.andand.opinion_on(fact_relation)
+#todo clean up this template
+#moving to current_user_opinion
+if fact_relation.respond_to? :current_user_opinion
+  current_user_opinion = fact_relation.current_user_opinion
+else
+  current_user_opinion = current_user.andand.graph_user.andand.opinion_on(fact_relation)
+end
 
+# moving to opinion
+if fact_relation.respond_to? :get_user_opinion
+  opinion = fact_relation.get_user_opinion
+else
+  opinion = fact_relation.opinion
+end
 
 creator_authority =
   # HACK: This shortcut of using `fact_relation.fact` instead of `fact_relation`
@@ -19,13 +30,9 @@ json.fact_base fact_base.to_hash
 
 json.current_user_opinion current_user_opinion
 
-json.opinions OpinionPresenter.new fact_relation.get_user_opinion
+json.opinions OpinionPresenter.new opinion
 
 json.created_by do |json|
   json.partial! 'users/user_partial', user: fact_relation.created_by.user
   json.authority creator_authority
 end
-
-
-
-

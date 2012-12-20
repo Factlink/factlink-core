@@ -28,6 +28,9 @@ module KillObject
     [:id, :url]
   dead_object :topic,
     [:title, :slug_title]
+  dead_object :fact_relation,
+    [:id, :type, :fact, :from_fact, :created_by, :percentage, :opinion]
+
 
   def self.kill alive_object, take_fields, extra_fields={}
     hash = {}
