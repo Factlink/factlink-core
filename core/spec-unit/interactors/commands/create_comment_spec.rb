@@ -54,7 +54,7 @@ describe Commands::CreateComment do
       command.stub fact_data: fact_data
 
       comment.should_receive(:fact_data=).with(fact_data)
-      comment.should_receive(:sub_comment_count=).with(0)
+      comment.should_receive(:sub_comments_count=).with(0)
       Comment.should_receive(:new).and_return(comment)
       User.should_receive(:find).with(user_id).and_return(user)
 
