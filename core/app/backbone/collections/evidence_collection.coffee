@@ -13,7 +13,7 @@ class window.EvidenceCollection extends Backbone.Collection
         when 'Comment'
           results.push new Comment(item)
         else
-          console.info "Evidence type not supported: #{item.evidence_type}"
+          console.error "Evidence type not supported: #{item.evidence_type}"
     results
 
   url:     -> "#{@baseUrl()}/combined"

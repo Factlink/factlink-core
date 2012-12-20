@@ -35,7 +35,8 @@ class EvidenceListView extends Backbone.Marionette.CollectionView
     else if model.get('evidence_type') == 'Comment'
       CommentEvidenceView
     else
-      console.info "This evidence type is not supported: #{model.get('evidence_type')}"
+      console.error "This evidence type is not supported: #{model.get('evidence_type')}"
+      Backbone.View
 
   itemViewFor: (item, itemView) ->
     if itemView == @emptyView
