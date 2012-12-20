@@ -84,4 +84,4 @@ class EvidencePopoverView extends ViewWithPopover
     popoverSelector: '.evidence-popover'
   ]
 
-  destroy: -> @model.destroy()
+  destroy: -> @model.destroy wait: true

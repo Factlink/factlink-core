@@ -54,6 +54,7 @@ class window.FactView extends ViewWithPopover
   destroyFact: (e) ->
     e.preventDefault()
     @model.destroy
+      wait: true
       error: -> alert "Error while removing the Factlink"
       success: -> mp_track "Factlink: Destroy"
 
