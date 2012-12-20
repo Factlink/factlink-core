@@ -9,7 +9,7 @@ class window.Discussion extends Backbone.Model
   type: -> @_type
 
   _getEvidence: ->
-    if @type() == 'supporting' or @type == 'weakening'
+    if @type() == 'supporting' or @type() == 'weakening'
       new EvidenceCollection [], type: @type(), fact: @fact()
 
   getInteractors: ->
