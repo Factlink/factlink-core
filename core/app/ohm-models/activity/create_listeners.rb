@@ -63,7 +63,7 @@ def create_activity_listeners
       activity forGraphUser_comment_was_added
 
       # someone added a sub comment
-      activity forGraphUser_sub_comment_was_added
+      # activity forGraphUser_sub_comment_was_added
     end
 
     register do
