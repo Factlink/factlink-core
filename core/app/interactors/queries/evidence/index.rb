@@ -51,11 +51,11 @@ module Queries
       end
 
       def dead_comments
-        comments.each do |comment|
+        comments.map do |comment|
           comment = query :'comments/add_authority_and_opinion', comment, fact
           comment.evidence_class = 'Comment'
 
-          result << comment
+          comment
         end
       end
 
