@@ -27,7 +27,3 @@ json.created_by do |json|
   json.partial! 'users/user_partial', user: fact_relation.created_by.user
   json.authority creator_authority
 end
-
-
-
-

@@ -13,7 +13,7 @@ module Queries
       end
 
       def execute
-        result = dead_fact_relations + dead_comments
+        result = dead_fact_relations_with_opinion + dead_comments_with_opinion
 
         sort result
       end
@@ -22,12 +22,11 @@ module Queries
         fact.evidence(@type)
       end
 
-      def dead_fact_relations
+      def dead_fact_relations_with_opinion
         fact_relations.map do |fact_relation|
           KillObject.fact_relation(fact_relation,
             current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
             get_user_opinion: fact_relation.get_user_opinion,
-            opinion: fact_relation.get_opinion(),
             evidence_class: 'FactRelation')
         end
       end
@@ -50,7 +49,7 @@ module Queries
         Comment.where({fact_data_id: fact_data_id, type: type}).to_a
       end
 
-      def dead_comments
+      def dead_comments_with_opinion
         comments.map do |comment|
           comment = query :'comments/add_authority_and_opinion', comment, fact
           comment.evidence_class = 'Comment'
