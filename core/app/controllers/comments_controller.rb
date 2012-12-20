@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
   end
 
   def sub_comments_destroy
-    @sub_comment = interactor :'sub_comments/destroy', get_comment_id_param
+    @sub_comment = interactor :'sub_comments/destroy', params[:sub_comment_id]
     render json: {}, status: :ok
   end
 
