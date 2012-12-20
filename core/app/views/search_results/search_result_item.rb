@@ -47,7 +47,7 @@ module SearchResults
         json.partial! partial: "topics/topic", formats: [:json], handlers: [:jbuilder], locals: { topic: @obj }
 
         attrs = json.attributes!
-        if attrs[:title]
+        if valid_topic? attrs
           attrs
         else
           nil
@@ -55,6 +55,10 @@ module SearchResults
       else
         raise "Error: SearchResults::SearchResultItem#the_object: No match on class."
       end
+    end
+
+    def valid_topic? attributes
+      attributes[:title]
     end
   end
 end
