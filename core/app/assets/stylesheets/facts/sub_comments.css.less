@@ -62,25 +62,29 @@
       padding: 10px;
       overflow: hidden;
 
-      .evidence-sub-comments-textarea-container .typeahead {
-        width: 555px;
-        padding-top: 6px;
-        margin-left: 12px;
-        margin-bottom: 0px;
-        height: 20px;
-        resize: none;
-        .transition(height 0.15s ease-in-out);
+      .evidence-sub-comments-textarea-container {
+        .box-sizing(border-box);
+        margin-left: 45px;
+
+        .typeahead {
+          .box-sizing(border-box);
+          width: 100%;
+          padding-top: 6px;
+          margin-bottom: 0px;
+          height: 32px;
+          resize: none;
+          .transition(height 0.15s ease-in-out);
+        }
       }
 
       .evidence-sub-comments-button-container {
-        margin-right: 3px;
         display: none;
       }
     }
 
     .evidence-sub-comments-form-active {
       .evidence-sub-comments-textarea-container .typeahead {
-        height: 36px;
+        height: 52px;
         margin-bottom: 9px;
       }
 
