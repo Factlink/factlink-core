@@ -25,7 +25,7 @@ class FactRelationsListView extends Backbone.Marionette.CollectionView
     result
 
   highlightFactRelation: (model) ->
-    view = @children[model.cid]
+    view = @children.findByModel(model)
     @$el.scrollTo view.el, 800
     view.highlight()
 
