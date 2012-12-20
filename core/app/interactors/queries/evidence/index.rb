@@ -24,9 +24,11 @@ module Queries
 
       def dead_fact_relations_with_opinion
         fact_relations.map do |fact_relation|
+          opinion = fact_relation.get_user_opinion
           KillObject.fact_relation(fact_relation,
             current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
-            get_user_opinion: fact_relation.get_user_opinion,
+            get_user_opinion: opinion,
+            opinion: opinion,
             evidence_class: 'FactRelation')
         end
       end
@@ -38,20 +40,24 @@ module Queries
       end
 
       def comments
-        if @type == :weakening
-          type = 'disbelieves'
-        elsif @type == :supporting
-          type = 'believes'
-        else
-          raise 'Unsupported believe type.'
-        end
+        type = map_supporting_to_believes @type
         fact_data_id = fact.data_id
         Comment.where({fact_data_id: fact_data_id, type: type}).to_a
+      end
+
+      def map_supporting_to_believes type
+        if type == :weakening
+          'disbelieves'
+        elsif type == :supporting
+          'believes'
+        end
       end
 
       def dead_comments_with_opinion
         comments.map do |comment|
           comment = query :'comments/add_authority_and_opinion', comment, fact
+
+          # TODO: don't depend on the fact that comment is an openstruct
           comment.evidence_class = 'Comment'
 
           comment
