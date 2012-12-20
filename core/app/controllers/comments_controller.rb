@@ -17,17 +17,6 @@ class CommentsController < ApplicationController
     render :json => {}, :status => :ok
   end
 
-  def index
-    fact_id = get_fact_id_param
-    type    = type.to_s
-
-    comments = interactor :"comments/index", fact_id, type
-
-    @comments = sort_by_relevance comments
-
-    render 'comments/index'
-  end
-
   def update
     @comment = interactor 'comments/update_opinion', get_comment_id_param, params[:opinion]
 

@@ -27,7 +27,6 @@ module Queries
           opinion = fact_relation.get_user_opinion
           KillObject.fact_relation(fact_relation,
             current_user_opinion: @options[:current_user].graph_user.opinion_on(fact_relation),
-            get_user_opinion: opinion,
             opinion: opinion,
             evidence_class: 'FactRelation')
         end
