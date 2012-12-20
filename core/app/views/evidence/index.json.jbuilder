@@ -9,5 +9,4 @@ json.array!(@evidence) do |json, evidence|
   else
     raise "Evidence type not supported: #{evidence.class.to_s}"
   end
-
 end

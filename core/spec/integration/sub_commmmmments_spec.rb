@@ -68,18 +68,18 @@ feature "sub_comments", type: :request do
 
     add_sub_comment(sub_comment_text)
 
-    within comment_listing do
+    within evidence_listing do
       page.should have_no_selector('.delete')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
-    within comment_listing do
+    within evidence_listing do
       page.should have_no_selector('.delete')
     end
   end
 
-  def comment_listing
-    find '.comments-listing'
+  def evidence_listing
+    find '.fact-relation-listing'
   end
 end

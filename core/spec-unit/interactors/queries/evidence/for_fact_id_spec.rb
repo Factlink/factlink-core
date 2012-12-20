@@ -51,30 +51,44 @@ describe Queries::Evidence::ForFactId do
     end
 
     it 'correctly' do
-      fact_relation = mock
+      fact_relation = mock(id: '1', class: 'FactRelation')
       graph_user = mock
       opinion_on = mock
       user = mock(graph_user: graph_user)
       opinion = mock
+
+      dead_fact_relation = mock
+      sub_comments_count = 2
       interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: user
 
+      interactor.should_receive(:query).with(:'sub_comments/count',fact_relation.id, fact_relation.class).
+        and_return(sub_comments_count)
+      fact_relation.should_receive(:sub_comments_count=).with(sub_comments_count)
       graph_user.should_receive(:opinion_on).with(fact_relation).and_return(opinion_on)
       fact_relation.should_receive(:get_user_opinion).and_return(opinion)
       interactor.should_receive(:fact_relations).and_return([fact_relation])
       KillObject.should_receive(:fact_relation).with(fact_relation,
-        {current_user_opinion:opinion_on,opinion:opinion,evidence_class: 'FactRelation'})
+        {current_user_opinion:opinion_on,opinion:opinion,evidence_class: 'FactRelation'}).
+        and_return(dead_fact_relation)
 
-      interactor.dead_fact_relations_with_opinion
+      result = interactor.dead_fact_relations_with_opinion
+
+      expect(result).to eq [dead_fact_relation]
     end
   end
 
   describe '.dead_comments_with_opinion' do
     it 'correctly' do
-      comment = mock
+      comment = mock(id: '2a', class: 'Comment')
       fact = mock
       dead_comment = mock
+
+      sub_comments_count = 2
       interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: mock
 
+      interactor.should_receive(:query).with(:'sub_comments/count',comment.id, comment.class).
+        and_return(sub_comments_count)
+      comment.should_receive(:sub_comments_count=).with(sub_comments_count)
       interactor.should_receive(:comments).and_return([comment])
       interactor.should_receive(:fact).and_return(fact)
       interactor.should_receive(:query).with(:'comments/add_authority_and_opinion_and_can_destroy', comment, fact).
