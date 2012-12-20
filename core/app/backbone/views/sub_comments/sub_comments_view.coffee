@@ -1,8 +1,30 @@
-class SubCommentView extends Backbone.Marionette.ItemView
+ViewWithPopover = extendWithPopover(Backbone.Marionette.ItemView)
+
+class SubCommentPopoverView extends ViewWithPopover
+  template: 'sub_comments/popover'
+
+  initialize: (options)->
+    @delete_message = options.delete_message
+
+  templateHelpers: =>
+    delete_message: @delete_message
+
+  events:
+    'click li.delete': 'destroy'
+
+  popover: [
+    selector: '.sub-comments-popover-arrow'
+    popoverSelector: '.sub-comments-popover'
+  ]
+
+  destroy: -> @model.destroy()
+
+class SubCommentView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comment'
 
   template:
     text: """
+      <div class="js-region-evidence-sub-comment-popover"></div>
       <img class="evidence-sub-comments-avatar" src="{{ creator.avatar_url_32 }}" height="32" width="32">
       <div class="evidence-sub-comment-author">
         <strong>
@@ -13,9 +35,21 @@ class SubCommentView extends Backbone.Marionette.ItemView
       <div class="evidence-sub-comment-content">{{content}}</div>
     """
 
+  regions:
+    popoverRegion: '.js-region-evidence-sub-comment-popover'
+
   templateHelpers: => creator: @model.creator().toJSON()
 
   initialize: -> @bindTo @model, 'change', @render, @
+
+  onRender: -> @setPopover()
+
+  setPopover: ->
+    if @model.can_destroy()
+      popoverView = new SubCommentPopoverView
+                          model: @model,
+                          delete_message: 'Remove this comment'
+      @popoverRegion.show popoverView
 
 class SubCommentsListView extends Backbone.Marionette.CollectionView
   className: 'evidence-sub-comments-list'
