@@ -2,6 +2,8 @@ class FactRelation < Basefact
   include Opinion::Subject::FactRelation
   include Ohm::ExtraValidations
 
+  attr_accessor :sub_comments_count
+
   reference :from_fact, Fact
   reference :fact, Fact
 
