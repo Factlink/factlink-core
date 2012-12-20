@@ -1,16 +1,16 @@
 require 'pavlov_helper'
-require_relative '../../../../app/interactors/queries/evidence/index.rb'
+require_relative '../../../../app/interactors/queries/evidence/for_fact_id.rb'
 
-describe Queries::Evidence::Index do
+describe Queries::Evidence::ForFactId do
   include PavlovSupport
 
   it '.new' do
-    interactor = Queries::Evidence::Index.new '1', :weakening, current_user: mock
+    interactor = Queries::Evidence::ForFactId.new '1', :weakening, current_user: mock
     interactor.should_not be_nil
   end
 
   describe '.validate' do
-    let(:subject_class) { Queries::Evidence::Index }
+    let(:subject_class) { Queries::Evidence::ForFactId }
 
     it 'requires fact_id to be an integer' do
       expect_validating('a', :weakening).
@@ -33,7 +33,7 @@ describe Queries::Evidence::Index do
       dead_fact_relations_with_opinion = [mock,mock]
       dead_comments_with_opinion = [mock,mock]
       sorted_result = mock
-      interactor = Queries::Evidence::Index.new '1', :weakening, current_user: mock
+      interactor = Queries::Evidence::ForFactId.new '1', :weakening, current_user: mock
 
       interactor.should_receive(:dead_fact_relations_with_opinion).and_return(dead_fact_relations_with_opinion)
       interactor.should_receive(:dead_comments_with_opinion).and_return(dead_comments_with_opinion)
@@ -56,7 +56,7 @@ describe Queries::Evidence::Index do
       opinion_on = mock
       user = mock(graph_user: graph_user)
       opinion = mock
-      interactor = Queries::Evidence::Index.new '1', :supporting, current_user: user
+      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: user
 
       graph_user.should_receive(:opinion_on).with(fact_relation).and_return(opinion_on)
       fact_relation.should_receive(:get_user_opinion).and_return(opinion)
@@ -73,7 +73,7 @@ describe Queries::Evidence::Index do
       comment = mock
       fact = mock
       dead_comment = mock
-      interactor = Queries::Evidence::Index.new '1', :supporting, current_user: mock
+      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: mock
 
       interactor.should_receive(:comments).and_return([comment])
       interactor.should_receive(:fact).and_return(fact)
@@ -97,7 +97,7 @@ describe Queries::Evidence::Index do
       fact = mock(data_id: '10')
       comments = [mock]
 
-      interactor = Queries::Evidence::Index.new '1', :supporting, current_user: mock
+      interactor = Queries::Evidence::ForFactId.new '1', :supporting, current_user: mock
 
       interactor.should_receive(:fact).and_return(fact)
       Comment.should_receive(:where).with(fact_data_id: fact.data_id, type: 'believes').
@@ -115,7 +115,7 @@ describe Queries::Evidence::Index do
       fact = mock
       type = :supporting
 
-      interactor = Queries::Evidence::Index.new '1', type, current_user: mock
+      interactor = Queries::Evidence::ForFactId.new '1', type, current_user: mock
 
       interactor.should_receive(:fact).and_return(fact)
       fact.should_receive(:evidence).with(type).and_return(fact_relations)

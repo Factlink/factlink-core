@@ -2,7 +2,7 @@ require_relative '../../pavlov'
 
 module Queries
   module Evidence
-    class Index
+    class ForFactId
       include Pavlov::Query
 
       arguments :fact_id, :type

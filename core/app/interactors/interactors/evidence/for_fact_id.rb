@@ -2,7 +2,7 @@ require_relative '../../pavlov'
 
 module Interactors
   module Evidence
-    class Index
+    class ForFactId
       include Pavlov::Interactor
 
       arguments :fact_id, :type
@@ -17,7 +17,7 @@ module Interactors
       end
 
       def execute
-        query :'evidence/index', @fact_id, @type
+        query :'evidence/for_fact_id', @fact_id, @type
       end
     end
   end
