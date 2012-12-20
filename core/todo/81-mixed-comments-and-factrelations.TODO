@@ -14,7 +14,9 @@
      ☐ relations are still retrieved seperately, used in AddEvidenceView
    ☐ clean up classes/css
    ☐ creating comments/factrelations should keep working after removing one of the collections (create custom url stuff for models)
-   ☐ create mixed collection of comments and factrelations
+   ✔ create mixed collection of comments and factrelations @done (12-12-20 09:53)
+
+ ☐ remove discussion.relations() - now still used in AddEvidenceView
 
  Integration tests:
  ✔ fix old tests @done (12-12-19 10:25)
