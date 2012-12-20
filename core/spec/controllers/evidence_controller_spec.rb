@@ -23,7 +23,7 @@ describe SupportingEvidenceController do
       fact_id = 1
       authenticate_user!(current_user)
       controller.should_receive(:interactor).
-        with(:"evidence/index", fact_id.to_s, :supporting).
+        with(:"evidence/for_fact_id", fact_id.to_s, :supporting).
         and_return []
 
       get :combined_index, fact_id: fact_id, format: :json

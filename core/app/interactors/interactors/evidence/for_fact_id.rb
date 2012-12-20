@@ -2,7 +2,7 @@ require_relative '../../pavlov'
 
 module Interactors
   module Evidence
-    class Index
+    class ForFactId
       include Pavlov::Interactor
 
       arguments :fact_id, :type
