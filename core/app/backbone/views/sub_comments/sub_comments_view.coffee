@@ -105,6 +105,9 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
   events:
     'click .js-sub-comments-link': 'toggleList'
 
+  initialize: ->
+    @count = @model.get('sub_comments_count')
+
   onRender: ->
     @bindTo @model, 'change:sub_comments_count', @updateLink, @
     @updateLink()
@@ -132,10 +135,9 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @subCommentsListRegion.close()
 
   updateLink: ->
-    count = @model.get('sub_comments_count')
     count_str = ""
 
-    if count
-      count_str = " (#{count})"
+    if @count
+      count_str = " (#{@count})"
 
     @$(".js-sub-comments-link").text "Comments#{count_str}"
