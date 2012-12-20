@@ -130,4 +130,10 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     @subCommentsListRegion.close()
 
   updateLink: ->
-    @$(".js-sub-comments-link").text "Comments" # Add comment count here
+    count = @model.get('sub_comments_count')
+    count_str = ""
+
+    if count
+      count_str = " (#{count})"
+
+    @$(".js-sub-comments-link").text "Comments#{count_str}"
