@@ -3,22 +3,23 @@
  ✔ extract query to retrieve factrelations @done (12-12-19 17:49)
  ✔ move evidence#index to the comments/index interactor, and rename accordingly @done (12-12-19 17:49)
  ✔ add type to json (factrelation/comment) @done (12-12-19 17:49)
- ☐ Fix bug where candestroy isn't set properly on the factrelations (it's inversed, @mark)
- ☐ Fix unit tests for query
+ ✔ Fix unit tests for query @done (12-12-20 12:03)
  Frontend:
  ✔ Simplify window.FactRelationsView to not contain two collections but only one (layout level stays intact since it also contains other stuff), name: EvidenceListView @done (12-12-17 16:20)
  ✔ add getEvidenceView kind of functionality to this EvidenceListView @done (12-12-17 16:20)
  ✔ integrate with backend: @done (12-12-20 11:58)
    ✔ remove sorting in frontend @done (12-12-19 16:45)
    ✔ only retrieve one list (instead of 2) @done (12-12-19 16:44)
-     ☐ relations are still retrieved seperately, used in AddEvidenceView
+   ✔ relations are still retrieved seperately, used in AddEvidenceView @done (12-12-20 12:05)
    ✔ clean up classes/css @done (12-12-20 11:58)
    ✔ creating comments/factrelations should keep working after removing one of the collections (create custom url stuff for models) @done (12-12-20 11:58)
    ✔ create mixed collection of comments and factrelations @done (12-12-20 09:53)
-
- ☐ remove discussion.relations() - now still used in AddEvidenceView
 
  Integration tests:
  ✔ fix old tests @done (12-12-19 10:25)
  ✔ make fixture tests for controller actions @done (12-12-19 10:33)
  ✔ test new interleaving @done (12-12-19 17:57)
+
+After merge:
+ ☐ Is this really so: fix bug where candestroy isn't set properly on the factrelations (it's inversed, @mark)
+ ☐ remove discussion.relations() - now still used in AddEvidenceView
