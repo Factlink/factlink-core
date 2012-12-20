@@ -22,18 +22,7 @@ class SubCommentPopoverView extends ViewWithPopover
 class SubCommentView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comment'
 
-  template:
-    text: """
-      <div class="js-region-evidence-sub-comment-popover"></div>
-      <img class="evidence-sub-comments-avatar" src="{{ creator.avatar_url_32 }}" height="32" width="32">
-      <div class="evidence-sub-comment-author">
-        <strong>
-          <a href="/{{ creator.username }}" rel="backbone">{{ creator.username }}</a>
-        </strong>
-        ( <img src="{{global.brain_image}}"> <span class="evidence-sub-comment-authority">{{ creator.authority }}</span> )
-      </div>
-      <div class="evidence-sub-comment-content">{{content}}</div>
-    """
+  template: 'sub_comments/sub_comment'
 
   regions:
     popoverRegion: '.js-region-evidence-sub-comment-popover'
@@ -58,22 +47,7 @@ class SubCommentsListView extends Backbone.Marionette.CollectionView
 class SubCommentsAddView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comments-form'
 
-  template:
-    text: """
-        <div class="js-alert js-alert-error alert alert-error hide">
-          Your comment could not be posted, please try again.
-          <a class="close" href="#" data-dismiss="alert">x</a>
-        </div>
-
-        <img class="evidence-sub-comments-avatar" src="{{ current_user.avatar_url_32 }}" height="32" width="32">
-        <div class="js-region-textarea evidence-sub-comments-textarea-container"></div>
-
-        <!-- I don't like this container either, but it was necessary after a weird bug where display: inline-block;
-        didn't work on the comment when setting the form to active using Javascript.. -->
-        <div class="evidence-sub-comments-button-container">
-          <button class="evidence-sub-comments-button btn btn-primary pull-right js-submit">Comment</button>
-        </div>
-    """
+  template: 'sub_comments/add_view'
 
   events:
     'click .js-submit': 'submit'
@@ -122,15 +96,7 @@ _.extend SubCommentsAddView.prototype,
 class window.SubCommentsView extends Backbone.Marionette.Layout
   className: 'evidence-sub-comments'
 
-  template:
-    text: """
-      <div class="evidence-sub-comments-link"><a class="js-sub-comments-link"></a></div>
-      <div class="js-sub-comments-list-container evidence-sub-comments-list-container hide">
-        <div class="evidence-sub-comments-arrow"></div>
-        <div class="js-region-sub-comments-list"></div>
-        <div class="js-region-sub-comments-form"></div>
-      </div>
-    """
+  template: 'sub_comments/sub_comments'
 
   regions:
     subCommentsListRegion: '.js-region-sub-comments-list'
