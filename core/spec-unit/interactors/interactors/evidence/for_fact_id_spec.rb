@@ -40,7 +40,7 @@ describe Interactors::Evidence::ForFactId do
       result = mock
       interactor = Interactors::Evidence::ForFactId.new '1', type, current_user: mock
 
-      interactor.should_receive(:query).with(:'evidence/index', fact_id, type).and_return(mock)
+      interactor.should_receive(:query).with(:'evidence/for_fact_id', fact_id, type).and_return(mock)
 
       result = interactor.execute
 
