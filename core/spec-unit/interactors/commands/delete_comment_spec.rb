@@ -4,12 +4,6 @@ require_relative '../../../app/interactors/commands/delete_comment.rb'
 describe Commands::DeleteComment do
   include PavlovSupport
 
-  before do
-    stub_classes 'Queries::Comments::CanDestroy'
-    klass = stub(call: true)
-    Queries::Comments::CanDestroy.stub new: klass
-  end
-
   it 'should initialize correctly' do
     command = Commands::DeleteComment.new '1a', '2a'
     command.should_not be_nil
@@ -36,6 +30,8 @@ describe Commands::DeleteComment do
       comment = stub(id: '1a', created_by_id: user.id, deletable?: true)
       interactor = Commands::DeleteComment.new comment.id, user.id
 
+      interactor.should_receive(:authorized_in_execute)
+
       Comment.should_receive(:find).with(comment.id).and_return(comment)
       comment.should_receive(:delete)
 
@@ -45,13 +41,16 @@ describe Commands::DeleteComment do
 
   describe 'authorized?' do
     it "calls the can_destroy query" do
+      stub_classes 'Queries::Comments::CanDestroy'
+
       comment_id = '10a'
       user_id = '20a'
 
       should_receive_new_with_and_receive_call(Queries::Comments::CanDestroy, comment_id, user_id, {}).
         and_return(true)
 
-      Commands::DeleteComment.new comment_id, user_id
+      command = Commands::DeleteComment.new comment_id, user_id
+      command.authorized_in_execute
     end
   end
 end
