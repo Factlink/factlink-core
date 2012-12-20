@@ -117,6 +117,8 @@ class window.SubCommentsView extends Backbone.Marionette.Layout
     subComments = new SubComments([], parentModel: @model)
     subComments.fetch()
 
+    @bindTo subComments, 'add', => @model.set 'can_destroy?', false
+
     @subCommentsFormRegion.show new SubCommentsAddView addToCollection: subComments
     @subCommentsListRegion.show new SubCommentsListView collection: subComments
 

@@ -21,6 +21,8 @@ class window.EvidenceBaseView extends Backbone.Marionette.Layout
                             model: @model,
                             delete_message: @delete_message
         @popoverRegion.show popoverView
+      else
+        @popoverRegion.close()
 
     updatePopover()
     @bindTo @model, 'change', updatePopover
