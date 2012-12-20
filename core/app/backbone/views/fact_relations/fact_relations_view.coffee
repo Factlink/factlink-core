@@ -57,9 +57,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     factRelationsRegion: '.fact-relation-listing-container'
     factRelationSearchRegion: '.fact-relation-search'
 
-  initialize: ->
-    @model.relations()?.fetch()
-    @model.evidence()?.fetch()
+  initialize: -> @model.evidence()?.fetch()
 
   onRender: ->
     @$el.addClass @model.type()
@@ -67,7 +65,7 @@ class window.FactRelationsView extends Backbone.Marionette.Layout
     @interactingUserRegion.show new InteractorsView
       collection: @model.getInteractors()
 
-    if @model.evidence()
+    if @model.type() == 'supporting' or @model.type() == 'weakening'
       @factRelationsRegion.show new EvidenceListView
         collection: @model.evidence()
         type: @model.evidence().type
