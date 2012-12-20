@@ -23,7 +23,7 @@ module KillObject
     [:id, :created_by, :created_at, :content, :type,
      :fact_data, :sub_comment_count]
   dead_object :sub_comment,
-    [:id, :created_by, :created_at, :content, :parent_id]
+    [:id, :created_by, :created_by_id, :created_at, :content, :parent_id]
   dead_object :site,
     [:id, :url]
   dead_object :topic,
