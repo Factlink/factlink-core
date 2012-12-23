@@ -27,6 +27,11 @@ describe Interactors::SubComments::CreateForComment do
       expect_validating('2a', '', current_user: mock).
         to fail_validation('content should not be empty.')
     end
+
+    it 'without content doesn''t validate' do
+      expect_validating('2a', '  ', current_user: mock).
+        to fail_validation('content should not be empty.')
+    end
   end
 
   describe '.execute' do

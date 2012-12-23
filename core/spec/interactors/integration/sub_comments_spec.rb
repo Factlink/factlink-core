@@ -24,7 +24,7 @@ describe 'subcomments' do
       end
 
       it 'can be deleted' do
-        comments = interactor :'comments/index', @fact.id.to_i, 'believes'
+        comments = interactor :'evidence/for_fact_id', @fact.id.to_s, :supporting
 
         expect(comments.map(&:can_destroy?)).to eq [true]
       end
@@ -32,8 +32,8 @@ describe 'subcomments' do
 
     describe 'after adding a few subcomments' do
       before do
-        interactor :'sub_comments/create_for_comment', @comment.id.to_s, 'Gekke Gerrit'
-        interactor :'sub_comments/create_for_comment', @comment.id.to_s, 'Handige Harrie'
+        @sub_comment1 = interactor :'sub_comments/create_for_comment', @comment.id.to_s, 'Gekke Gerrit'
+        @sub_comment2 = interactor :'sub_comments/create_for_comment', @comment.id.to_s, 'Handige Harrie'
       end
 
       it 'should have the subcomments we added' do
@@ -42,8 +42,17 @@ describe 'subcomments' do
         expect(sub_comments.map(&:content)).to eq ['Gekke Gerrit', 'Handige Harrie']
       end
 
-      it 'cannot be deleted any more' do
-        comments = interactor :'comments/index', @fact.id.to_i, 'believes'
+      describe "after removing on subcomment again" do
+        it "should only contain the other comment" do
+          interactor :'sub_comments/destroy', @sub_comment1.id.to_s
+
+          sub_comments = interactor :'sub_comments/index_for_comment', @comment.id.to_s
+          expect(sub_comments.map(&:content)).to eq ['Handige Harrie']
+        end
+      end
+
+      it 's parent cannot be deleted any more' do
+        comments = interactor :'evidence/for_fact_id', @fact.id.to_s, :supporting
 
         expect(comments.map(&:can_destroy?)).to eq [false]
       end

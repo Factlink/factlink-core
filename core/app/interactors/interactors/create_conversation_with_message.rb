@@ -21,6 +21,8 @@ module Interactors
       command :create_activity, sender.graph_user, :created_conversation, conversation, nil
 
       track_mixpanel
+
+      conversation
     end
 
     def track_mixpanel

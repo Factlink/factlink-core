@@ -27,6 +27,11 @@ describe Interactors::SubComments::CreateForFactRelation do
       expect_validating(1, '', current_user: mock).
         to fail_validation('content should not be empty.')
     end
+
+    it 'without content doesn''t validate' do
+      expect_validating(1, '  ', current_user: mock).
+        to fail_validation('content should not be empty.')
+    end
   end
 
   describe '.execute' do
