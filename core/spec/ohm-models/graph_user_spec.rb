@@ -15,10 +15,6 @@ describe GraphUser do
   end
 
   context "Initially" do
-    it { subject.facts_he(:believes).should be_empty }
-    it { subject.facts_he(:doubts).should be_empty }
-    it { subject.facts_he(:disbelieves).should be_empty }
-
     context "the subjects channels" do
       it { subject.created_facts_channel.title.should == "Created" }
       it { subject.stream.title.should == "All" }

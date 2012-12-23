@@ -10,10 +10,12 @@ class GraphUser < OurOhm
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
 
+  # DEPRECATED -- migrate away
   set :believes_facts, Basefact
   set :doubts_facts, Basefact
   set :disbelieves_facts, Basefact
   private :believes_facts, :doubts_facts, :disbelieves_facts
+  # / DEPRECATED
 
   collection :created_facts, Basefact, :created_by
 
@@ -56,11 +58,6 @@ class GraphUser < OurOhm
   end
   after :create, :create_created_facts_channel
 
-  # user.facts_he(:believes)
-  # DEPRECATED: Doesn't work anymore:
-  def facts_he(type)
-    send(:"#{Opinion.real_for(type)}_facts")
-  end
 
   def has_opinion?(type, fact)
     fact.opiniated(type).include? self
@@ -71,10 +68,6 @@ class GraphUser < OurOhm
       return opinion if has_opinion?(opinion,fact)
     end
     return nil
-  end
-
-  def update_opinion(type, fact)
-    facts_he(type) << fact
   end
 
 end
