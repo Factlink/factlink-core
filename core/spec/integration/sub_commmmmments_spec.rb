@@ -58,28 +58,28 @@ feature "sub_comments", type: :request do
 
   scenario "After adding a subcomment the evidence can not be removed any more" do
     @fact_relation_user_b = create :fact, created_by: @user_b.graph_user
-    @factlink_user_a.add_evidence("supporting", @fact_relation_user_b, @user_b)
+    @factlink_user_a.add_evidence("supporting", @fact_relation_user_b, @user_a)
 
     sub_comment_text = "Sub Comment 1"
 
     go_to_discussion_page_of @factlink_user_a
 
+    within evidence_listing_css_selector do
+      page.should have_selector('.delete', text: 'Remove this Factlink as evidence')
+    end
+
     find('a', text: 'Comments').click
 
     add_sub_comment(sub_comment_text)
 
-    within evidence_listing do
-      page.should have_no_selector('.delete')
+    within evidence_listing_css_selector do
+      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
 
     go_to_discussion_page_of @factlink_user_a
 
-    within evidence_listing do
-      page.should have_no_selector('.delete')
+    within evidence_listing_css_selector do
+      page.should have_no_selector('.delete', text: 'Remove this Factlink as evidence')
     end
-  end
-
-  def evidence_listing
-    find '.fact-relation-listing'
   end
 end
