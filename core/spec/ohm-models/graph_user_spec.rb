@@ -11,7 +11,7 @@ describe GraphUser do
   let(:fact) {FactoryGirl.create(:fact,:created_by => subject)}
 
   describe "delegates" do
-    it { should respond_to(:editable_channels) }
+    it { should respond_to(:editable_channels_for) }
   end
 
   context "Initially" do

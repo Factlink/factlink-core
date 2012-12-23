@@ -9,6 +9,10 @@ class ChannelList
     Channel.find(:created_by_id => graph_user.id)
   end
 
+  def real_channels_as_array
+    filter_unreal channels.to_a
+  end
+
   def sorted_channels
     channels.sort_by(:lowercase_title, order: 'ALPHA ASC')
   end
