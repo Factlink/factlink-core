@@ -56,27 +56,6 @@ class GraphUser < OurOhm
   end
   after :create, :create_created_facts_channel
 
-  attribute :interestingness
-
-
-  # TODO REMOVE AND MIGRATE AWAY
-  # Those were the suggested users (before suggested channels)
-  # They aren't used anymore
-  after :create, :reposition_in_top_users
-  def reposition_in_top_users
-    self.interestingness = ChannelList.new(self).channels.size
-    GraphUser.key[:top_users].zadd(self.interestingness, id)
-  end
-
-  def remove_from_top_users
-    GraphUser.key[:top_users].zrem(id)
-  end
-  after :delete, :remove_from_top_users
-
-  def self.top(nr = 10)
-    GraphUser.key[:top_users].zrevrange(0,nr-1).map(&GraphUser)
-  end
-
   # user.facts_he(:believes)
   # DEPRECATED: Doesn't work anymore:
   def facts_he(type)

@@ -63,8 +63,6 @@ class Channel < OurOhm
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
-  after :create, :update_top_users
-
   def mark_as_read
     unread_facts.make_empty
   end
@@ -82,15 +80,10 @@ class Channel < OurOhm
     end
     created_by.channels_by_authority.delete(self)
     old_real_delete
-    update_top_users
   end
 
   def delete
     real_delete
-  end
-
-  def update_top_users
-    self.created_by.andand.reposition_in_top_users
   end
 
   def add_created_channel_activity

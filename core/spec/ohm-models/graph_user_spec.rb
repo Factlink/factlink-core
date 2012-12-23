@@ -23,7 +23,6 @@ describe GraphUser do
       it { subject.created_facts_channel.title.should == "Created" }
       it { subject.stream.title.should == "All" }
     end
-    it { GraphUser.top(10).to_a =~ []}
   end
 
   describe "removing a channel" do
@@ -58,22 +57,4 @@ describe GraphUser do
     end
   end
 
-  describe "Recalculate top users" do
-    context "Initially" do
-      it { GraphUser.top(10).should == [] }
-    end
-    context "After adding 2 users" do
-      before do
-        @u1 = GraphUser.create
-        @u2 = GraphUser.create
-      end
-      it { GraphUser.top(10).map(&:id).should == [@u2.id,@u1.id]}
-      context "After one user creates a channel" do
-        before do
-          @c1 = create :channel, :created_by => @u1
-        end
-        it { GraphUser.top(10).map(&:id).should == [@u1.id, @u2.id]}
-      end
-    end
-  end
 end
