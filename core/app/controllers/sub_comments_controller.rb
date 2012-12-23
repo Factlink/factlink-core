@@ -27,6 +27,6 @@ class SubCommentsController < ApplicationController
   end
 
   def parent_id
-    params[:comment_id] || params[:supporting_evidence_id] || params[:weakening_evidence_id]
+    params[:comment_id] || params[:id]
   end
 end
