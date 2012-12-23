@@ -4,10 +4,6 @@ graph_user = user.graph_user
 json.id user.id
 json.graph_id graph_user.id
 
-# TODO should render User view or similar, but will infinitely recurse if
-# also containing a Users:User view
-json.channels graph_user.editable_channels_by_authority(4)
-
 json.name user.name.blank? ? user.username : user.name
 json.username user.username
 json.location nil_if_empty user.location

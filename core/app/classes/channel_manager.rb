@@ -10,11 +10,6 @@ class ChannelManager
     limit ? @channels[0..limit] : @channels
   end
 
-  def editable_channels_by_authority(limit=nil)
-    channels = @gu.channels_by_authority
-    return channels.below('inf',count: limit, reversed: true)
-  end
-
   def editable_channels_for(fact)
     channels = editable_channels
     @username = @gu.user.username
