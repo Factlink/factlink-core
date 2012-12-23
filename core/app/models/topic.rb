@@ -20,7 +20,7 @@ class Topic
   end
 
   def channel_for_user(user)
-    user.graph_user.internal_channels.find(slug_title: self.slug_title).first
+    ChannelList.new(user.graph_user).get_by_slug_title slug_title
   end
 
   def self.by_title(title)

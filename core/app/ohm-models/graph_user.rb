@@ -25,10 +25,6 @@ class GraphUser < OurOhm
     end
   end
 
-  define_memoized_method :internal_channels do
-    ChannelList.new(self).channels
-  end
-
   def channel_manager
     @channel_manager || ChannelManager.new(self)
   end
@@ -38,12 +34,9 @@ class GraphUser < OurOhm
 
 
   define_memoized_method :channels do
-    channels = self.internal_channels.sort_by(:lowercase_title, order: 'ALPHA ASC').to_a
+    channels = ChannelList.new(self).sorted_real_channels_as_array
 
-    channels.delete(self.created_facts_channel)
     channels.unshift(self.created_facts_channel)
-
-    channels.delete(self.stream)
     channels.unshift(self.stream )
 
     channels
@@ -71,7 +64,7 @@ class GraphUser < OurOhm
   # They aren't used anymore
   after :create, :reposition_in_top_users
   def reposition_in_top_users
-    self.interestingness = self.internal_channels.size
+    self.interestingness = ChannelList.new(self).channels.size
     GraphUser.key[:top_users].zadd(self.interestingness, id)
   end
 

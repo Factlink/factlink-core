@@ -166,7 +166,7 @@ class LoadDsl
   end
 
   def load_channel(graph_user, title, opts={})
-    ch = graph_user.internal_channels.find(:title => title).first
+    ch = ChannelList.new(graph_user).channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
     end
