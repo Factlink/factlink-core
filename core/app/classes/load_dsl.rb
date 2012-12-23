@@ -169,7 +169,6 @@ class LoadDsl
     ch = graph_user.internal_channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
-      ch.delete if opts[:discontinued]
     end
     ch
   end
