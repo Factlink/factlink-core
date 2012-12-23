@@ -3,12 +3,16 @@ class AddCreatedFactlinksCountToMixpanel < Mongoid::Migration
     mixpanel = FactlinkUI::Application.config.mixpanel.new({}, true)
 
     User.active.each do |user|
-      gu = user.graph_user
+      facts = facts_for(user.graph_user)
 
-      facts = gu.real_created_facts.to_a.keep_if { |f| f.has_site? }
-
-      mixpanel.set_person_event user.id.to_s, factlinks_created_with_url: facts.length
+      mixpanel.set_person_event user.id.to_s,
+                 factlinks_created_with_url: facts.length
     end
+  end
+
+  def self.facts_for gu
+    gu.created_facts.find_all { |fact| fact.class == Fact }
+      .to_a.keep_if { |f| f.has_site? }
   end
 
   def self.down
