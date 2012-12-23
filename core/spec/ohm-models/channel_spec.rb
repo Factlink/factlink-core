@@ -196,44 +196,6 @@ describe Channel do
       end
     end
 
-    describe "#active_channels_for" do
-      before do
-        @expected_channels = []
-        begin
-          @expected_channels << u1.stream
-          @expected_channels << u1.created_facts_channel
-        rescue
-        end
-      end
-      describe "initially" do
-        it {Channel.active_channels_for(u1).to_a.should =~ []+@expected_channels}
-      end
-      describe "after creating a channel" do
-        before do
-          @ch1 = Channel.create created_by: u1, title: 'foo'
-        end
-        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
-        describe "after creating another channel" do
-          before do
-            @ch2 = Channel.create created_by: u1, title: 'foo2'
-          end
-          it {Channel.active_channels_for(u1).to_a.should =~ [@ch1,@ch2]+@expected_channels}
-          describe "after deleting a channel" do
-            before do
-              @ch1.delete
-            end
-            it {Channel.active_channels_for(u1).to_a.should =~ [@ch2]+@expected_channels}
-          end
-        end
-        describe "after someone else creating another channel" do
-          before do
-            @ch2 = Channel.create created_by: u2, title: 'foo2'
-          end
-          it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
-        end
-      end
-    end
-
     describe "#facts" do
       before do
         Fact.should_receive(:invalid).any_number_of_times.and_return(false)
@@ -326,9 +288,9 @@ describe Channel do
       end
       it "should be removed from the graph_users active channels for" do
         subject
-        Channel.active_channels_for(u1).should include(subject)
+        ChannelList.new(u1).channels.should include(subject)
         subject.real_delete
-        Channel.active_channels_for(u1).should_not include(subject)
+        ChannelList.new(u1).channels.should_not include(subject)
       end
     end
 

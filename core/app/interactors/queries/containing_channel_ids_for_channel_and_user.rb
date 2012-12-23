@@ -18,7 +18,7 @@ module Queries
 
     def graph_user_channels
       graph_user = GraphUser[@graph_user_id]
-      Channel.active_channels_for(graph_user)
+      ChannelList.new(graph_user).channels
     end
 
     def containing_channels

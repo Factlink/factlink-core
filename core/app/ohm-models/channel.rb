@@ -4,16 +4,6 @@ require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
 require_relative 'channel/activities'
 
-class ChannelList
-  def initialize graph_user
-    @graph_user = graph_user
-  end
-
-  def channels
-    Channel.find(:created_by_id => @graph_user.id)
-  end
-end
-
 class Channel < OurOhm
   include Activity::Subject
 
@@ -197,7 +187,7 @@ class Channel < OurOhm
   end
 
   def containing_channels_for(user)
-    Channel.active_channels_for(user) & containing_channels
+    ChannelList.new(user).channels & containing_channels
   end
 
   def topic
@@ -206,10 +196,6 @@ class Channel < OurOhm
 
   def valid_for_activity?
     sorted_cached_facts.size > 0
-  end
-
-  def self.active_channels_for(user)
-    ChannelList.new(user).channels
   end
 
   def self.for_fact(f)

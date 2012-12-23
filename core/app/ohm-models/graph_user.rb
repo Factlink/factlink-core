@@ -26,7 +26,7 @@ class GraphUser < OurOhm
   end
 
   define_memoized_method :internal_channels do
-    Channel.active_channels_for(self)
+    ChannelList.new(self).channels
   end
 
   def channel_manager
