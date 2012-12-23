@@ -156,10 +156,12 @@ class Channel < OurOhm
   def is_real_channel?
     true
   end
+  # DEPRECATED -- use is_real_channel?
   def editable?; is_real_channel?; end
   def inspectable?; is_real_channel?; end
   def has_authority?; is_real_channel?; end
   def can_be_added_as_subchannel?; is_real_channel?; end
+  # /DEPRECATED
 
   def to_hash
     return {:id => id,
