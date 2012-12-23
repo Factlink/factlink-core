@@ -40,7 +40,7 @@ module SearchResults
 
       elsif klass == User
         json = JbuilderTemplate.new(@view)
-        json.partial! partial: "users/user", formats: [:json], handlers: [:jbuilder], locals: { user: @obj }
+        json.partial! partial: "users/user_partial", formats: [:json], handlers: [:jbuilder], locals: { user: @obj }
         json.attributes!
       elsif klass == Topic
         json = JbuilderTemplate.new(@view)

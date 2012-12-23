@@ -1,3 +1,10 @@
+# This file is still being used by (at least):
+#
+# * users#show
+# * the setting of currentUser in _currentUser.html.erb
+#
+#      -- mark (noted down because I thought initially it wasn't used)
+
 user ||= @user
 graph_user = user.graph_user
 
