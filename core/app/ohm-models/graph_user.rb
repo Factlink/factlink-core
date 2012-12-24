@@ -31,9 +31,7 @@ class GraphUser < OurOhm
     @channel_manager || ChannelManager.new(self)
   end
 
-  delegate :editable_channels_for, :containing_channel_ids,
-         :to => :channel_manager
-
+  delegate :containing_channel_ids, :to => :channel_manager
 
   define_memoized_method :channels do
     channels = ChannelList.new(self).sorted_real_channels_as_array
