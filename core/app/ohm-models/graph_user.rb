@@ -10,13 +10,6 @@ class GraphUser < OurOhm
   timestamped_set :notifications, Activity
   timestamped_set :stream_activities, Activity
 
-  # DEPRECATED -- migrate away
-  set :believes_facts, Basefact
-  set :doubts_facts, Basefact
-  set :disbelieves_facts, Basefact
-  private :believes_facts, :doubts_facts, :disbelieves_facts
-  # / DEPRECATED
-
   collection :created_facts, Basefact, :created_by
 
   # TODO move to channellist
