@@ -166,10 +166,9 @@ class LoadDsl
   end
 
   def load_channel(graph_user, title, opts={})
-    ch = graph_user.internal_channels.find(:title => title).first
+    ch = ChannelList.new(graph_user).channels.find(:title => title).first
     unless ch
       ch = Channel.create(:created_by => graph_user, :title => title)
-      ch.delete if opts[:discontinued]
     end
     ch
   end
@@ -181,7 +180,6 @@ class LoadDsl
 
   def self.export_channel(channel)
     rv = "channel \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 
@@ -192,7 +190,6 @@ class LoadDsl
 
   def self.export_sub_channel(channel)
     rv = "sub_channel \"#{quote_string(channel.created_by.user.username)}\", \"#{quote_string(channel.title)}\""
-    rv += ", :discontinued => true" if channel.discontinued
     rv += "\n"
   end
 

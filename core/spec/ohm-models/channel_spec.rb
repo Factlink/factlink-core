@@ -177,59 +177,21 @@ describe Channel do
       end
     end
 
-    describe "#containing_channels_for" do
+    describe "#containing_channels_for_ids" do
       describe "initially" do
-        it {subject.containing_channels_for(u1).to_a.should =~ []}
+        it {subject.containing_channels_for_ids(u1).to_a.should =~ []}
       end
       describe "after adding to a own channel" do
         before do
           u1_ch1.add_channel subject
         end
-        it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+        it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
         describe "after adding to someone else's channel" do
           before do
             u1_ch1.add_channel subject
             u2_ch1.add_channel subject
           end
-          it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
-        end
-      end
-    end
-
-    describe "#active_channels_for" do
-      before do
-        @expected_channels = []
-        begin
-          @expected_channels << u1.stream
-          @expected_channels << u1.created_facts_channel
-        rescue
-        end
-      end
-      describe "initially" do
-        it {Channel.active_channels_for(u1).to_a.should =~ []+@expected_channels}
-      end
-      describe "after creating a channel" do
-        before do
-          @ch1 = Channel.create created_by: u1, title: 'foo'
-        end
-        it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
-        describe "after creating another channel" do
-          before do
-            @ch2 = Channel.create created_by: u1, title: 'foo2'
-          end
-          it {Channel.active_channels_for(u1).to_a.should =~ [@ch1,@ch2]+@expected_channels}
-          describe "after deleting a channel" do
-            before do
-              @ch1.delete
-            end
-            it {Channel.active_channels_for(u1).to_a.should =~ [@ch2]+@expected_channels}
-          end
-        end
-        describe "after someone else creating another channel" do
-          before do
-            @ch2 = Channel.create created_by: u2, title: 'foo2'
-          end
-          it {Channel.active_channels_for(u1).to_a.should =~ [@ch1]+@expected_channels}
+          it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
         end
       end
     end
@@ -299,14 +261,14 @@ describe Channel do
       it "should be possible" do
         id = ch1.id
         Channel[id].should_not be_nil
-        ch1.real_delete
+        ch1.delete
         Channel[id].should be_nil
       end
       it "should remove itself from other channels' containing_channels" do
         id = ch1.id
         ch1.add_channel u1_ch1
         u1_ch1.containing_channels.ids.should =~ [id]
-        ch1.real_delete
+        ch1.delete
         u1_ch1.containing_channels.ids.should =~ []
       end
       it "should be removed from the contained_channels when deleted" do
@@ -314,21 +276,21 @@ describe Channel do
         ch1.add_channel u1_ch1
         ch1.contained_channels.ids.should =~ [u1_ch1.id]
 
-        u1_ch1.real_delete
+        u1_ch1.delete
         ch1.contained_channels.ids.should =~ []
       end
       it "should remove activities" do
         ch1.add_channel u1_ch1
         fakech1 = Channel[ch1.id]
         add_fact_to_channel f1, ch1
-        ch1.real_delete
+        ch1.delete
         Activity.for(fakech1).all.should eq []
       end
       it "should be removed from the graph_users active channels for" do
         subject
-        Channel.active_channels_for(u1).should include(subject)
-        subject.real_delete
-        Channel.active_channels_for(u1).should_not include(subject)
+        ChannelList.new(u1).channels.should include(subject)
+        subject.delete
+        ChannelList.new(u1).channels.should_not include(subject)
       end
     end
 
@@ -340,19 +302,6 @@ describe Channel do
       it "should set the lowercase title" do
         subject.title = "HasfudUrbar"
         subject.lowercase_title.should  == "hasfudurbar"
-      end
-    end
-
-    describe ".for_fact" do
-      it "should give all channels which contain a certain fact" do
-        ch1
-        ch2
-        add_fact_to_channel f1, ch1
-        add_fact_to_channel f2, ch1
-        add_fact_to_channel f2, ch2
-
-        Channel.for_fact(f1).should =~ [ch1]
-        Channel.for_fact(f2).should =~ [ch1,ch2]
       end
     end
 
@@ -407,10 +356,8 @@ describe Channel do
       end
     end
 
-    describe :can_be_added_as_subchannel? do
-      it "should be true" do
-        subject.can_be_added_as_subchannel?.should be_true
-      end
+    describe :is_real_channel? do
+      its(:is_real_channel?) { should be_true }
     end
 
     describe :delete do

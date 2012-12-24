@@ -1,7 +1,14 @@
+def is_user_opinion(fact, type)
+  return false unless user_signed_in?
+
+  opinion_havers = fact.opiniated("#{type}s".to_sym)
+  opinion_havers.include? current_graph_user
+end
+
 def opinion_type(fact, type)
   {
     percentage: fact.get_opinion.as_percentages[type][:percentage],
-    is_user_opinion: user_signed_in? && current_graph_user.has_opinion?("#{type}s".to_sym, fact)
+    is_user_opinion: is_user_opinion(fact, type)
   }
 end
 

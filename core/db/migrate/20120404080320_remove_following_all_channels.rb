@@ -3,7 +3,7 @@ class RemoveFollowingAllChannels < Mongoid::Migration
     say_with_time "Removing follow all channels" do
       Channel.all.each do |channel|
         channel.contained_channels.each do |contained|
-          if !contained.can_be_added_as_subchannel?
+          if !contained.is_real_channel?
             channel.remove_channel(contained)
           end
         end

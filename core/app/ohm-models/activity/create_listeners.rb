@@ -72,7 +72,7 @@ def create_activity_listeners
 
       # someone of whom you follow a channel created a new channel
       activity subject_class: "Channel", action: :created_channel,
-               write_ids: lambda { |a| a.subject.created_by.channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
+               write_ids: lambda { |a| ChannelList.new(a.subject.created_by).channels.map { |channel| channel.containing_channels.map { |cont_channel| cont_channel.created_by_id }}.flatten.uniq.delete_if { |id| id == a.user_id } }
 
       # someone followed your channel
       activity forGraphUser_channel_was_followed

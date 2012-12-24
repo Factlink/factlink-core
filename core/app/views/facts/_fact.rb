@@ -31,11 +31,13 @@ module Facts
 
     def containing_channel_ids
       return [] unless @view.current_graph_user
-      @view.current_graph_user.containing_channel_ids(@fact)
+
+      channel_list = ChannelList.new(@view.current_graph_user)
+      channel_list.containing_channel_ids_for_fact @fact
     end
 
     def deletable_from_channel?
-      signed_in? and @channel and @channel.editable? and @channel.created_by == @view.current_graph_user
+      signed_in? and @channel and @channel.is_real_channel? and @channel.created_by == @view.current_graph_user
     end
 
     def i_am_owner

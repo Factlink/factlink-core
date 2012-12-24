@@ -5,7 +5,7 @@ class AddCreatedChannelCountToMixpanel < Mongoid::Migration
     User.active.each do |user|
       gu = user.graph_user
 
-      mixpanel.set_person_event user.id.to_s, channels_created: gu.channels.length
+      mixpanel.set_person_event user.id.to_s, channels_created: ChannelList.new(gu).channels.size
     end
   end
 

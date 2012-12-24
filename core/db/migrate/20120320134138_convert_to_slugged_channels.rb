@@ -15,7 +15,7 @@ class ConvertToSluggedChannels < Mongoid::Migration
             puts "Combining #{fixed[ch.title.to_url]} and #{ch.id}"
             fixed[ch.title.to_url].take_over(ch)
             puts "Deleting #{ch.id}"
-            ch.real_delete
+            ch.delete
           else
             fixed[ch.title.to_url] = ch
             ch.save

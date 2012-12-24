@@ -130,14 +130,25 @@ class FactsController < ApplicationController
     end
   end
 
+  # DEPRECATED
+  # I think this can be removed, as far as I can see this was only ever used in
+  # the javascript library (in the balloon)
+  # when removing this, also remove the ChannelForFact
+  # and maybe the channel_listing.css can be removed? check!
   def get_channel_listing
     authorize! :index, Channel
-    @channels = current_user.graph_user.editable_channels_for(@fact)
+
+    channels = ChannelList(current_user.graph_user).real_channels_as_array
+    username = current_user.username
+
+    @channels = channels.map {|ch| ChannelForFact.new(ch,@fact,username)}
+
     respond_to do |format|
       format.json { render :json => @channels, :callback => params[:callback], :content_type => "text/javascript" }
       format.html { render 'channel_listing', layout: nil }
     end
   end
+  #/DEPRECATED
 
   def destroy
     authorize! :destroy, @fact

@@ -4,7 +4,6 @@ require_relative 'channel/user_stream'
 require_relative 'channel/overtaker'
 require_relative 'channel/activities'
 
-
 class Channel < OurOhm
   include Activity::Subject
 
@@ -47,7 +46,6 @@ class Channel < OurOhm
     if type == 'channel'
       t = Topic.for_channel(self)
       t.reposition_in_top
-      self.created_by.channels_by_authority.add(self)
     end
   end
 
@@ -64,16 +62,9 @@ class Channel < OurOhm
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
-  after :create, :update_top_users
 
-  def mark_as_read
-    unread_facts.make_empty
-  end
-
-  attribute :discontinued
-  index :discontinued
   alias :old_real_delete :delete unless method_defined?(:old_real_delete)
-  def real_delete
+  def delete
     contained_channels.each do |subch|
       subch.containing_channels.delete self
     end
@@ -83,53 +74,15 @@ class Channel < OurOhm
     Activity.for(self).each do |a|
       a.delete
     end
-    created_by.channels_by_authority.delete(self)
     old_real_delete
-    update_top_users
   end
 
-  def delete
-    real_delete
+  def channel_facts
+    ChannelFacts.new(self)
   end
-
-  def update_top_users
-    self.created_by.andand.reposition_in_top_users
-  end
-
-  def add_created_channel_activity
-    Activities.new(self).add_created
-  end
-
-  def unread_count
-    unread_facts.size
-  end
-
-  def facts(opts={})
-    return [] if new?
-
-    facts_opts = {reversed:true}
-    facts_opts[:withscores] = opts[:withscores] ? true : false
-    facts_opts[:count] = opts[:count].to_i if opts[:count]
-
-    limit = opts[:from] || 'inf'
-
-    res = sorted_cached_facts.below(limit,facts_opts)
-
-    fixchan = false
-
-    res.delete_if do |item|
-      check_item = facts_opts[:withscores] ? item[:item] : item
-      invalid = Fact.invalid(check_item)
-      fixchan |= invalid
-      invalid
-    end
-
-    if fixchan
-      Resque.enqueue(CleanChannel, self.id)
-    end
-
-    res
-  end
+  private :channel_facts
+  delegate :unread_count, :mark_as_read, :facts, :remove_fact, :include?,
+           :to => :channel_facts
 
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
@@ -141,48 +94,21 @@ class Channel < OurOhm
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
-  def remove_fact(fact)
-    self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
-    self.sorted_delete_facts.add(fact)
-    Resque.enqueue(RemoveFactFromChannel, fact.id, self.id)
-    activity(self.created_by,:removed,fact,:from,self)
-  end
-
   def to_s
     self.title
   end
 
-  def include?(obj)
-    self.sorted_cached_facts.include?(obj)
-  end
-
-  def editable?
+  def is_real_channel?
     true
   end
-
-  def inspectable?
-    true
-  end
-
-  def has_authority?
-    true
-  end
-
-  def can_be_added_as_subchannel?
-    true
-  end
-
 
   def to_hash
-    return {:id => id,
-            :title => title,
-            :created_by => created_by,
-            :discontinued => discontinued}
+    {id: id, title: title, created_by: created_by}
   end
 
   def add_channel(channel)
-    if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
-      add_created_channel_activity
+    if (! contained_channels.include?(channel)) && channel.is_real_channel?
+      Channel::Activities.new(self).add_created
       contained_channels << channel
       channel.containing_channels << self
       Resque.enqueue(AddChannelToChannel, channel.id, self.id)
@@ -199,8 +125,8 @@ class Channel < OurOhm
     end
   end
 
-  def containing_channels_for(user)
-    Channel.active_channels_for(user) & containing_channels
+  def containing_channels_for_ids(user)
+    ChannelList.new(user).containing_channel_ids_for_channel self
   end
 
   def topic
@@ -209,13 +135,5 @@ class Channel < OurOhm
 
   def valid_for_activity?
     sorted_cached_facts.size > 0
-  end
-
-  def self.active_channels_for(user)
-    Channel.find(:created_by_id => user.id).except(:discontinued => 'true')
-  end
-
-  def self.for_fact(f)
-    f.channels.all
   end
 end
