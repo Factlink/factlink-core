@@ -19,6 +19,7 @@ class GraphUser < OurOhm
 
   collection :created_facts, Basefact, :created_by
 
+  # TODO move to channellist
   sorted_set :channels_by_authority, Channel do |ch|
     if ch.topic # TODO: why is this ever nil? check this!
       Authority.from(ch.topic, for: ch.created_by)
@@ -26,14 +27,23 @@ class GraphUser < OurOhm
       0.0
     end
   end
+  # / TODO
 
+  # DEPRECATED
+  # let call sites use channellist directly instead
   def channel_list
     @channel_list || ChannelList.new(self)
   end
   private :channel_list
 
   delegate :containing_channel_ids, :to => :channel_list
+  # / DEPRECATED
 
+
+  # TODO
+  # check if memoization is really needed, if so, memoize locally
+  # then remove memoization
+  # then move to channellist
   define_memoized_method :channels do
     channels = ChannelList.new(self).sorted_real_channels_as_array
 
@@ -42,6 +52,7 @@ class GraphUser < OurOhm
 
     channels
   end
+  # / TODO
 
   reference :stream, Channel::UserStream
   def create_stream
