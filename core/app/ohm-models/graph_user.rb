@@ -12,14 +12,6 @@ class GraphUser < OurOhm
 
   collection :created_facts, Basefact, :created_by
 
-  sorted_set :channels_by_authority, Channel do |ch|
-    if ch.topic # TODO: why is this ever nil? check this!
-      Authority.from(ch.topic, for: ch.created_by)
-    else
-      0.0
-    end
-  end
-
   # TODO
   # check if memoization is really needed, if so, memoize locally
   # then remove memoization
