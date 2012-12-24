@@ -74,4 +74,30 @@ describe ChannelList do
     end
   end
 
+  describe '.containing_channel_ids' do
+    include Pavlov::Helpers
+    let(:current_user) {create :graph_user}
+    def pavlov_options
+      {current_user: current_user}
+    end
+    it "returns the channels of the graphuser which contain the fact" do
+      gu1 = current_user.graph_user
+
+      ch1 = create :channel, created_by: gu1, title: 'a'
+      ch2 = create :channel, created_by: gu1, title: 'b'
+      ch3 = create :channel, created_by: gu1, title: 'c'
+
+      f = create :fact
+
+      interactor :"channels/add_fact", f, ch1
+      interactor :"channels/add_fact", f, ch3
+
+      list = ChannelList.new(gu1)
+
+      expect(list.containing_channel_ids(f)).
+        to eq [gu1.stream_id, ch1.id, ch3.id]
+
+    end
+  end
+
 end
