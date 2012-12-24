@@ -52,6 +52,7 @@ class GraphUser < OurOhm
   def has_opinion?(type, fact)
     fact.opiniated(type).include? self
   end
+  private :has_opinion?
 
   def opinion_on(fact)
     Opinion.types.each do |opinion|
