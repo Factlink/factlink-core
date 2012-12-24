@@ -1,6 +1,4 @@
 class GraphUser < OurOhm
-  include Activity::Subject
-
   def graph_user
     return self
   end
