@@ -27,11 +27,12 @@ class GraphUser < OurOhm
     end
   end
 
-  def channel_manager
-    @channel_manager || ChannelManager.new(self)
+  def channel_list
+    @channel_list || ChannelList.new(self)
   end
+  private :channel_list
 
-  delegate :containing_channel_ids, :to => :channel_manager
+  delegate :containing_channel_ids, :to => :channel_list
 
   define_memoized_method :channels do
     channels = ChannelList.new(self).sorted_real_channels_as_array

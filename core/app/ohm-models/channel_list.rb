@@ -25,6 +25,12 @@ class ChannelList
     channels.find(slug_title: slug_title).first
   end
 
+  def containing_channel_ids(fact)
+    channels = @graph_user.channels.to_a
+    channels.select { |ch| ch.include? fact }
+            .map{ |ch| ch.id }
+  end
+
   private
   def filter_unreal channels
     forbidden_ids = [
