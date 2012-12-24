@@ -5,7 +5,7 @@ describe Interactors::SubComments::CreateForFactRelation do
   include PavlovSupport
 
   it 'initializes correctly' do
-    interactor = Interactors::SubComments::CreateForFactRelation.new 1, 'hoi', current_user: mock
+    interactor = Interactors::SubComments::CreateForFactRelation.new 1, ' hoi ', current_user: mock
 
     expect( interactor ).to_not be_nil
   end
