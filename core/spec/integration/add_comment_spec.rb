@@ -2,6 +2,7 @@ require 'integration_helper'
 
 # TODO rename to add_evidence_spec
 feature "adding comments to a fact", type: :request do
+  include Acceptance
   include Acceptance::FactHelper
   include Acceptance::CommentHelper
   include Acceptance::AddToChannelModalHelper
@@ -161,7 +162,7 @@ feature "adding comments to a fact", type: :request do
   end
 
   scenario "we can click on evidence to go to the page of that factlink" do
-    pending "Fuck those random failures"
+    pending_for_ci "Fuck those random failures"
     go_to_discussion_page_of factlink
 
     supporting_factlink = backend_create_fact

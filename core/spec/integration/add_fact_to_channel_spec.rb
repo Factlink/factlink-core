@@ -1,6 +1,7 @@
 require 'integration_helper'
 
 feature "adding a fact to a channel" do
+  include Acceptance
   include Acceptance::NavigationHelper
   include Acceptance::ChannelHelper
   include Acceptance::FactHelper
@@ -11,7 +12,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "adding a fact to a new channel from the factbubble" do
-    pending 'Randomly fails'
+    pending_for_ci 'Randomly fails'
     factlink = backend_create_fact
     new_channel_name = 'Gerrit'
     go_to_discussion_page_of factlink
@@ -42,7 +43,7 @@ feature "adding a fact to a channel" do
   end
 
   scenario "the user can add a channel suggestion" do
-    pending 'Randomly fails'
+    pending_for_ci 'Randomly fails'
 
     site = FactoryGirl.create :site
     factlink = FactoryGirl.create :fact, created_by: @user.graph_user, site: site
