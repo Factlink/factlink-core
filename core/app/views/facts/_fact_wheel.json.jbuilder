@@ -1,7 +1,7 @@
 def is_user_opinion(fact, type)
   return false unless user_signed_in?
 
-  opinion_havers = facts.opiniated("#{type}s".to_sym)
+  opinion_havers = fact.opiniated("#{type}s".to_sym)
   opinion_havers.include? current_graph_user
 end
 
