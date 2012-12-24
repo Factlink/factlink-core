@@ -31,7 +31,9 @@ module Facts
 
     def containing_channel_ids
       return [] unless @view.current_graph_user
-      @view.current_graph_user.containing_channel_ids(@fact)
+
+      channel_list = ChannelList.new(@view.current_graph_user)
+      channel_list.containing_channel_ids_for_fact @fact
     end
 
     def deletable_from_channel?

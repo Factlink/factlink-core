@@ -10,10 +10,6 @@ describe GraphUser do
   subject {FactoryGirl.create :graph_user }
   let(:fact) {FactoryGirl.create(:fact,:created_by => subject)}
 
-  describe "delegates" do
-    it { should respond_to(:containing_channel_ids) }
-  end
-
   context "Initially" do
     context "the subjects channels" do
       it { subject.created_facts_channel.title.should == "Created" }

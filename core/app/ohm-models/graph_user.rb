@@ -29,17 +29,6 @@ class GraphUser < OurOhm
   end
   # / TODO
 
-  # DEPRECATED
-  # let call sites use channellist directly instead
-  def channel_list
-    @channel_list || ChannelList.new(self)
-  end
-  private :channel_list
-
-  delegate :containing_channel_ids, :to => :channel_list
-  # / DEPRECATED
-
-
   # TODO
   # check if memoization is really needed, if so, memoize locally
   # then remove memoization

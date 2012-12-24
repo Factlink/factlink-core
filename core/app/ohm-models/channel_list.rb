@@ -30,9 +30,6 @@ class ChannelList
     channels.select { |ch| ch.include? fact }
             .map{ |ch| ch.id }
   end
-  # DEPRECATED
-  alias :containing_channel_ids :containing_channel_ids_for_fact
-  # /DEPRECATED
 
   private
   def filter_unreal channels
