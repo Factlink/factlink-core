@@ -1,7 +1,11 @@
+def is_user_opinion(fact, type)
+  user_signed_in? && current_graph_user.has_opinion?("#{type}s".to_sym, fact)
+end
+
 def opinion_type(fact, type)
   {
     percentage: fact.get_opinion.as_percentages[type][:percentage],
-    is_user_opinion: user_signed_in? && current_graph_user.has_opinion?("#{type}s".to_sym, fact)
+    is_user_opinion: is_user_opinion(fact, type)
   }
 end
 
