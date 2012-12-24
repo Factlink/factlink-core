@@ -77,10 +77,6 @@ class Channel < OurOhm
     old_real_delete
   end
 
-  def add_created_channel_activity
-    Activities.new(self).add_created
-  end
-
   def channel_facts
     ChannelFacts.new(self)
   end
@@ -112,7 +108,7 @@ class Channel < OurOhm
 
   def add_channel(channel)
     if (! contained_channels.include?(channel)) && channel.is_real_channel?
-      add_created_channel_activity
+      Channel::Activities.new(self).add_created
       contained_channels << channel
       channel.containing_channels << self
       Resque.enqueue(AddChannelToChannel, channel.id, self.id)
