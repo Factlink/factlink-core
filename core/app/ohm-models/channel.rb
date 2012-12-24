@@ -149,9 +149,7 @@ class Channel < OurOhm
   end
 
   def to_hash
-    return {:id => id,
-            :title => title,
-            :created_by => created_by}
+    {id: id, title: title, created_by: created_by}
   end
 
   def add_channel(channel)
