@@ -305,19 +305,6 @@ describe Channel do
       end
     end
 
-    describe ".for_fact" do
-      it "should give all channels which contain a certain fact" do
-        ch1
-        ch2
-        add_fact_to_channel f1, ch1
-        add_fact_to_channel f2, ch1
-        add_fact_to_channel f2, ch2
-
-        Channel.for_fact(f1).should =~ [ch1]
-        Channel.for_fact(f2).should =~ [ch1,ch2]
-      end
-    end
-
     describe "save" do
       it "should ensure the topic exists" do
         @ch = FactoryGirl.build :channel

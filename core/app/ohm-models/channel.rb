@@ -178,8 +178,4 @@ class Channel < OurOhm
   def valid_for_activity?
     sorted_cached_facts.size > 0
   end
-
-  def self.for_fact(f)
-    f.channels.all
-  end
 end
