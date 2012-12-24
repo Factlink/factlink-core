@@ -62,9 +62,6 @@ class Channel < OurOhm
   timestamped_set :sorted_delete_facts, Fact
   timestamped_set :sorted_cached_facts, Fact
 
-  def mark_as_read
-    unread_facts.make_empty
-  end
 
   alias :old_real_delete :delete unless method_defined?(:old_real_delete)
   def delete
@@ -84,36 +81,12 @@ class Channel < OurOhm
     Activities.new(self).add_created
   end
 
-  def unread_count
-    unread_facts.size
+  def channel_facts
+    ChannelFacts.new(self)
   end
-
-  def facts(opts={})
-    return [] if new?
-
-    facts_opts = {reversed:true}
-    facts_opts[:withscores] = opts[:withscores] ? true : false
-    facts_opts[:count] = opts[:count].to_i if opts[:count]
-
-    limit = opts[:from] || 'inf'
-
-    res = sorted_cached_facts.below(limit,facts_opts)
-
-    fixchan = false
-
-    res.delete_if do |item|
-      check_item = facts_opts[:withscores] ? item[:item] : item
-      invalid = Fact.invalid(check_item)
-      fixchan |= invalid
-      invalid
-    end
-
-    if fixchan
-      Resque.enqueue(CleanChannel, self.id)
-    end
-
-    res
-  end
+  private :channel_facts
+  delegate :unread_count, :mark_as_read, :facts, :remove_fact, :include?,
+           :to => :channel_facts
 
   def validate
     execute_callback(:before, :validate) # needed because of ugly ohm contrib callbacks
@@ -125,19 +98,8 @@ class Channel < OurOhm
     execute_callback(:after, :validate) # needed because of ugly ohm contrib callbacks
   end
 
-  def remove_fact(fact)
-    self.sorted_internal_facts.delete(fact) if self.sorted_internal_facts.include?(fact)
-    self.sorted_delete_facts.add(fact)
-    Resque.enqueue(RemoveFactFromChannel, fact.id, self.id)
-    activity(self.created_by,:removed,fact,:from,self)
-  end
-
   def to_s
     self.title
-  end
-
-  def include?(obj)
-    self.sorted_cached_facts.include?(obj)
   end
 
   def is_real_channel?
