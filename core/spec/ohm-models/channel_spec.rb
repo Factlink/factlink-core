@@ -177,21 +177,21 @@ describe Channel do
       end
     end
 
-    describe "#containing_channels_for" do
+    describe "#containing_channels_for_ids" do
       describe "initially" do
-        it {subject.containing_channels_for(u1).to_a.should =~ []}
+        it {subject.containing_channels_for_ids(u1).to_a.should =~ []}
       end
       describe "after adding to a own channel" do
         before do
           u1_ch1.add_channel subject
         end
-        it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+        it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
         describe "after adding to someone else's channel" do
           before do
             u1_ch1.add_channel subject
             u2_ch1.add_channel subject
           end
-          it {subject.containing_channels_for(u1).to_a.should =~ [u1_ch1]}
+          it {subject.containing_channels_for_ids(u1).to_a.should =~ [u1_ch1.id]}
         end
       end
     end

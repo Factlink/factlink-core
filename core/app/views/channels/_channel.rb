@@ -53,7 +53,7 @@ module Channels
 
     def query_containing_channel_ids
       current_graph_user = @view.current_user.graph_user
-      @channel.containing_channels_for(current_graph_user).ids
+      @channel.containing_channels_for_ids(current_graph_user)
     end
 
     def calclulate_user_avatar_url

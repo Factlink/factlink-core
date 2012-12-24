@@ -30,6 +30,10 @@ class ChannelList
             .map{ |ch| ch.id }
   end
 
+  def containing_channel_ids_for_channel(channel)
+    (channels & channel.containing_channels).ids
+  end
+
   private
   def filter_unreal channels
     forbidden_ids = [
