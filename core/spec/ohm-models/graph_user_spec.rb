@@ -17,17 +17,6 @@ describe GraphUser do
     end
   end
 
-  describe "removing a channel" do
-    it "should be removed from the graph_users channels" do
-      u1 = create :graph_user
-      ch1 = create :channel, created_by: u1
-      u1.channels.should include(ch1)
-      ch1.real_delete
-      u1 = GraphUser[u1.id]
-      u1.channels.should_not include(ch1)
-    end
-  end
-
   [:believes, :doubts, :disbelieves].each do |type|
     context "after adding #{type} to a fact" do
       before do
@@ -38,13 +27,6 @@ describe GraphUser do
 
       others(type).each do |other_type|
         it { expect(subject.has_opinion?(other_type,fact)).to be_false}
-      end
-
-
-      it do
-        subject.channels.each do |ch|
-          ch.should be_a Channel
-        end
       end
     end
   end
