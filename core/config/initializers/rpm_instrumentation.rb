@@ -26,8 +26,8 @@ if defined?(NewRelic)
 
   Pavlov::Operation.class_eval do
     include NewRelic::Agent::MethodTracer
-    add_method_tracer :initialize
-    add_method_tracer :call
+    add_method_tracer :initialize, 'Pavlov/#{self.class.name}/initialize'
+    add_method_tracer :call, 'Pavlov/#{self.class.name}/call'
   end
 
   Queries::ContainingChannelIdsForChannelAndUser.class_eval do
