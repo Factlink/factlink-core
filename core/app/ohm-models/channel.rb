@@ -67,7 +67,7 @@ class Channel < OurOhm
   end
 
   alias :old_real_delete :delete unless method_defined?(:old_real_delete)
-  def real_delete
+  def delete
     contained_channels.each do |subch|
       subch.containing_channels.delete self
     end
@@ -78,10 +78,6 @@ class Channel < OurOhm
       a.delete
     end
     old_real_delete
-  end
-
-  def delete
-    real_delete
   end
 
   def add_created_channel_activity

@@ -10,7 +10,7 @@ class CombineChannelsWithSameName < Mongoid::Migration
             puts "Combining #{fixed[ch.title]} and #{ch.id}"
             fixed[ch.title].take_over(ch)
             puts "Deleting #{ch.id}"
-            ch.real_delete
+            ch.delete
           else
             fixed[ch.title] = ch
           end

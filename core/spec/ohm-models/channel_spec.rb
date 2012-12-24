@@ -261,14 +261,14 @@ describe Channel do
       it "should be possible" do
         id = ch1.id
         Channel[id].should_not be_nil
-        ch1.real_delete
+        ch1.delete
         Channel[id].should be_nil
       end
       it "should remove itself from other channels' containing_channels" do
         id = ch1.id
         ch1.add_channel u1_ch1
         u1_ch1.containing_channels.ids.should =~ [id]
-        ch1.real_delete
+        ch1.delete
         u1_ch1.containing_channels.ids.should =~ []
       end
       it "should be removed from the contained_channels when deleted" do
@@ -276,20 +276,20 @@ describe Channel do
         ch1.add_channel u1_ch1
         ch1.contained_channels.ids.should =~ [u1_ch1.id]
 
-        u1_ch1.real_delete
+        u1_ch1.delete
         ch1.contained_channels.ids.should =~ []
       end
       it "should remove activities" do
         ch1.add_channel u1_ch1
         fakech1 = Channel[ch1.id]
         add_fact_to_channel f1, ch1
-        ch1.real_delete
+        ch1.delete
         Activity.for(fakech1).all.should eq []
       end
       it "should be removed from the graph_users active channels for" do
         subject
         ChannelList.new(u1).channels.should include(subject)
-        subject.real_delete
+        subject.delete
         ChannelList.new(u1).channels.should_not include(subject)
       end
     end
