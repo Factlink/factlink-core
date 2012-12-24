@@ -26,17 +26,7 @@ class GraphUser < OurOhm
   end
   after :create, :create_created_facts_channel
 
-  # opinion logic
-  def has_opinion?(type, fact)
-    fact.opiniated(type).include? self
-  end
-  private :has_opinion?
-
   def opinion_on(fact)
-    Opinion.types.each do |opinion|
-      return opinion if has_opinion?(opinion,fact)
-    end
-    return nil
+    UserOpinion.new(self).on(fact)
   end
-
 end
