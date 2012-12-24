@@ -369,10 +369,8 @@ describe Channel do
       end
     end
 
-    describe :can_be_added_as_subchannel? do
-      it "should be true" do
-        subject.can_be_added_as_subchannel?.should be_true
-      end
+    describe :is_real_channel? do
+      its(:is_real_channel?) { should be_true }
     end
 
     describe :delete do

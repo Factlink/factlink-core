@@ -147,12 +147,6 @@ class Channel < OurOhm
   def is_real_channel?
     true
   end
-  # DEPRECATED -- use is_real_channel?
-  def editable?; is_real_channel?; end
-  def inspectable?; is_real_channel?; end
-  def has_authority?; is_real_channel?; end
-  def can_be_added_as_subchannel?; is_real_channel?; end
-  # /DEPRECATED
 
   def to_hash
     return {:id => id,
@@ -161,7 +155,7 @@ class Channel < OurOhm
   end
 
   def add_channel(channel)
-    if (! contained_channels.include?(channel)) && channel.can_be_added_as_subchannel?
+    if (! contained_channels.include?(channel)) && channel.is_real_channel?
       add_created_channel_activity
       contained_channels << channel
       channel.containing_channels << self

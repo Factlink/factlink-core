@@ -8,8 +8,7 @@ describe Channel::UserStream do
 
   describe "initially" do
     it { subject.facts.to_a.should =~ []}
-    its(:editable?) {should == false}
-    its(:inspectable?) {should == false}
+    its(:is_real_channel?) { should == false }
     its(:title) {should == "All" }
     its(:unread_count) {should == 0 }
     its(:contained_channels) {should == [u1.created_facts_channel]}
@@ -77,11 +76,4 @@ describe Channel::UserStream do
       subject.topic.should be_nil
     end
   end
-
-  describe :can_be_added_as_subchannel? do
-    it "should be false" do
-      subject.can_be_added_as_subchannel?.should be_false
-    end
-  end
-
 end
