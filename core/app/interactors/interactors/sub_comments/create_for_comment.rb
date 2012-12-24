@@ -9,7 +9,7 @@ module Interactors
 
       def validate
         validate_hexadecimal_string :comment_id, @comment_id
-        validate_regex   :content, @content, /\A(?=\S).+\Z/,
+        validate_regex   :content, @content, /\A(?=.*\S).+\Z/,
           "should not be empty."
       end
 

@@ -9,7 +9,7 @@ module Interactors
 
       def validate
         validate_integer :fact_relation_id, @fact_relation_id
-        validate_regex   :content, @content, /\A(?=\S).+\Z/,
+        validate_regex   :content, @content, /\A(?=.*\S).+\Z/,
           "should not be empty."
       end
 

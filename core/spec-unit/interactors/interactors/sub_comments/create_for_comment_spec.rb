@@ -5,7 +5,7 @@ describe Interactors::SubComments::CreateForComment do
   include PavlovSupport
 
   it 'initializes correctly' do
-    interactor = Interactors::SubComments::CreateForComment.new '2a', 'hoi', current_user: mock
+    interactor = Interactors::SubComments::CreateForComment.new '2a', ' hoi ', current_user: mock
 
     expect( interactor ).to_not be_nil
   end
