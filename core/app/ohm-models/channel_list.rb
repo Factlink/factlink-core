@@ -26,8 +26,7 @@ class ChannelList
   end
 
   def containing_channel_ids_for_fact(fact)
-    channels = @graph_user.channels.to_a
-    channels.select { |ch| ch.include? fact }
+    channels.to_a.select { |ch| ch.include? fact }
             .map{ |ch| ch.id }
   end
 
