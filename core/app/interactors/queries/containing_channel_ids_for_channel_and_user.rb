@@ -14,7 +14,6 @@ module Queries
       return [] if channel.created_by_id == @graph_user_id
 
       channel_list.containing_channel_ids_for_channel channel
-      intersect_ids graph_user_channels, containing_channels
     end
 
     def channel_list
